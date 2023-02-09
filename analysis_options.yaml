@@ -1,0 +1,18 @@
+# https://dart.dev/guides/language/analysis-options
+include: package:dart_flutter_team_lints/analysis_options.yaml
+
+analyzer:
+  language:
+    strict-casts: true
+    strict-inference: true
+    # one failure with a List typedef
+    #strict-raw-types: true
+
+  errors:
+    # Ideally we'd fix all of these - or ignore them at the line-level where
+    # necessary
+    camel_case_extensions: ignore
+    camel_case_types: ignore
+    library_private_types_in_public_api: ignore
+    non_constant_identifier_names: ignore
+    unused_element: ignore

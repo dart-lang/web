@@ -1,0 +1,13 @@
+name: web
+version: 0.0.1-dev
+
+repository: https://github.com/dart-lang/web
+
+environment:
+  sdk: ">=2.13.0 <3.0.0"
+
+dependencies:
+  js: ^0.6.4
+
+dev_dependencies:
+  test: ^1.22.2

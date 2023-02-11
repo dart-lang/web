@@ -2,8 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// TODO(joshualitt): Import js types properly.
-import 'dart:typed_data';
+import 'dart:js_interop';
 import 'package:js/js.dart';
 
 typedef GLuint64EXT = JSNumber;
@@ -140,10 +139,7 @@ typedef FormDataEntryValue = JSAny;
 typedef PressureUpdateCallback = JSFunction;
 typedef AnimatorInstanceConstructor = JSFunction;
 typedef UpdateCallback = JSFunction;
-typedef EventListener = JSFunction;
 typedef MutationCallback = JSFunction;
-typedef NodeFilter = JSFunction;
-typedef XPathNSResolver = JSFunction;
 typedef ErrorCallback = JSFunction;
 typedef FileSystemEntryCallback = JSFunction;
 typedef FileSystemEntriesCallback = JSFunction;
@@ -202,6 +198,9 @@ typedef ValidateAssertionCallback = JSFunction;
 typedef RTCPeerConnectionErrorCallback = JSFunction;
 typedef RTCSessionDescriptionCallback = JSFunction;
 typedef XRFrameRequestCallback = JSFunction;
+typedef EventListener = JSFunction;
+typedef NodeFilter = JSFunction;
+typedef XPathNSResolver = JSFunction;
 typedef SecurityPolicyViolationEventDisposition = JSString;
 typedef EndingType = JSString;
 typedef IDBRequestReadyState = JSString;
@@ -4565,15 +4564,15 @@ extension PressureObserverOptionsExtension on PressureObserverOptions {
 }
 
 @JS()
-external _console get console;
+external _Console get console;
 
 @JS('console')
 @staticInterop
-class _console {
-  external factory _console();
+class _Console {
+  external factory _Console();
 }
 
-extension _consoleExtension on _console {
+extension _ConsoleExtension on _Console {
   @JS('assert')
   external JSUndefined assert0();
   @JS('assert')
@@ -30640,28 +30639,3 @@ extension ProgressEventInitExtension on ProgressEventInit {
   // TODO
   // TODO
 }
-
-// TODO(joshualitt): Import JS types.
-typedef JSAny = Object;
-typedef JSObject = Object;
-typedef JSFunction = Function;
-typedef JSExportedDartFunction = Function;
-typedef JSArray = List;
-typedef JSExportedDartObject = Object;
-typedef JSArrayBuffer = ByteBuffer;
-typedef JSDataView = ByteData;
-typedef JSTypedArray = TypedData;
-typedef JSInt8Array = Int8List;
-typedef JSUint8Array = Uint8List;
-typedef JSUint8ClampedArray = Uint8ClampedList;
-typedef JSInt16Array = Int16List;
-typedef JSUint16Array = Uint16List;
-typedef JSInt32Array = Int32List;
-typedef JSUint32Array = Uint32List;
-typedef JSFloat32Array = Float32List;
-typedef JSFloat64Array = Float64List;
-typedef JSNumber = double;
-typedef JSBoolean = bool;
-typedef JSString = String;
-typedef JSUndefined = void;
-typedef JSPromise = Object;

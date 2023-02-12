@@ -311,6 +311,8 @@ external $dartName get $getterName;''';
     final memberName = _getMemberName(operationName);
     final jsOverride = memberName.jsOverride;
     final name = memberName.name;
+    // TODO(joshualitt): Let's replace `JSUndefined` when used as a return type
+    // with `JSVoid`.
     final returns = _getType(operation.idlType);
     final staticString = operation.special.toDart == 'static' ? 'static ' : '';
     final baseString = '${jsOverride}external $staticString$returns $name';

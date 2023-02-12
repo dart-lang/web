@@ -15,15 +15,15 @@ import 'util.dart';
 //     should fix this.
 //  * We need to have a more specific type for JSPromise.
 // TODO(joshualitt): Find a way to generate bindings for JS builtins. This will
-// involve parsing the actual
-// TODO before landing audit null checks to make sure I'm using the extension
-// methods.
+// probably involve parsing the TC39 spec.
 
 void runDartFormat(String dir) {
   childProcess.exec(
       'dart format $dir',
       (JSAny? error, JSString stdout, JSString stderr) {
-        if (error.isDefinedAndNotNull) {
+        // TODO(joshualitt): Replace null check of JS type with helper from js
+        // types.
+        if (error != null) {
           print('error: $error');
         } else {
           print('stdout: ${stdout.toDart}');

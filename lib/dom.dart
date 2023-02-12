@@ -5,6 +5,10 @@
 import 'dart:js_interop';
 import 'package:js/js.dart';
 
+// TODO(joshualitt): These belong in JS types
+typedef JSPromise = JSObject;
+typedef JSUndefined = void;
+
 typedef GLuint64EXT = JSNumber;
 typedef BlobPart = JSAny;
 typedef AlgorithmIdentifier = JSAny;

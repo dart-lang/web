@@ -14,7 +14,12 @@ String generateHeader() {
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:js_interop';
-import 'package:js/js.dart';''';
+import 'package:js/js.dart';
+
+// TODO(joshualitt): These belong in JS types
+typedef JSPromise = JSObject;
+typedef JSUndefined = void;
+''';
 }
 
 Future<String> translateIDLs() async {
@@ -24,7 +29,9 @@ Future<String> translateIDLs() async {
   int length = array.length;
   for (var i = 0; i < length; i++) {
     JSArray entry = array[i] as JSArray;
-    translator.collect(entry[0], entry[1]);
+    String shortname = (entry[0] as JSString).toDart;
+    JSArray ast = entry[1] as JSArray;
+    translator.collect(shortname, ast);
   }
   return translator.translate();
 }

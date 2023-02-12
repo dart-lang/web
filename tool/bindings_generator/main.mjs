@@ -6,9 +6,6 @@ import * as fs from 'fs';
 import * as childProcess from 'child_process';
 import { createRequire } from 'module';
 import * as idl from '@webref/idl';
-import * as assumedTypesModule from './assumedTypes.mjs';
-import * as translatorModule from './translator.mjs';
-import * as util from './util.mjs';
 
 const require = createRequire(import.meta.url);
 

@@ -19,13 +19,14 @@ class JSMkdirOptions {
 @staticInterop
 class FileSystem {}
 
+// TODO(joshualitt): Replace `void` with `JSVoid`
 extension FileSystemExtension on FileSystem {
   external JSBoolean existsSync(JSString path);
   @JS('mkdirSync')
-  external JSVoid mkdirSyncOneArg(JSString path);
+  external void mkdirSyncOneArg(JSString path);
   @JS('mkdirSync')
-  external JSVoid mkdirSyncTwoArg(JSString path, JSMkdirOptions options);
-  JSVoid mkdirSync(JSString path, [JSMkdirOptions? options]) {
+  external void mkdirSyncTwoArg(JSString path, JSMkdirOptions options);
+  void mkdirSync(JSString path, [JSMkdirOptions? options]) {
     if (options == null) {
       return mkdirSyncOneArg(path);
     } else {
@@ -33,5 +34,5 @@ extension FileSystemExtension on FileSystem {
     }
   }
 
-  external JSVoid writeFileSync(JSString path, JSString contents);
+  external void writeFileSync(JSString path, JSString contents);
 }

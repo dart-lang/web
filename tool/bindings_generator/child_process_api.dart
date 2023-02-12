@@ -12,6 +12,7 @@ external ChildProcess get childProcess;
 @staticInterop
 class ChildProcess {}
 
+// TODO(joshualitt): Replace `void` with `JSVoid`.
 extension ChildProcessExtension on ChildProcess {
-  external JSVoid exec(JSString cmd, JSFunction callback);
+  external void exec(JSString cmd, JSFunction callback);
 }

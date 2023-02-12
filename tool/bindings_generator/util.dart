@@ -11,7 +11,9 @@ import 'filesystem_api.dart';
 external JSArray objectEntries(JSObject o);
 
 extension JSStringHelpers on JSString? {
-  String? get toDartString => this.isUndefinedOrNull ? null : this!.toDart;
+  // TODO(joshualitt): Clean this up after updating JS types.
+  // String? get toDartString => this.isUndefinedOrNull ? null : this!.toDart;
+  String? get toDartString => this == null ? null : this!.toDart;
 }
 
 void ensureDirectoryExists(String dir) {

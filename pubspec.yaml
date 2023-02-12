@@ -4,7 +4,7 @@ version: 0.0.1-dev
 repository: https://github.com/dart-lang/web
 
 environment:
-  sdk: ">=2.19.0 <3.0.0"
+  sdk: ">=3.0.0-231.0.dev <3.1.0"
 
 dependencies:
   js: ^0.6.7

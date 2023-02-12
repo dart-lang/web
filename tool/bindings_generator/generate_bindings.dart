@@ -24,13 +24,12 @@ typedef JSUndefined = void;
 
 Future<String> translateIDLs() async {
   final translator = Translator();
-  JSArray array =
+  final array =
       objectEntries(await promiseToFuture<JSObject>(idl.parseAll()));
-  int length = array.length;
-  for (var i = 0; i < length; i++) {
-    JSArray entry = array[i] as JSArray;
-    String shortname = (entry[0] as JSString).toDart;
-    JSArray ast = entry[1] as JSArray;
+  for (var i = 0; i < array.length; i++) {
+    final entry = array[i] as JSArray;
+    final shortname = (entry[0] as JSString).toDart;
+    final ast = entry[1] as JSArray;
     translator.collect(shortname, ast);
   }
   return translator.translate();

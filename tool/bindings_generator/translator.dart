@@ -41,11 +41,11 @@ class _PartialInterfacelike {
   void _processMembers(JSArray nodeMembers) {
     for (var i = 0; i < nodeMembers.length; i++) {
       final member = nodeMembers[i] as Member;
-      String type = member.type.toDart;
+      final type = member.type.toDart;
       switch (type) {
         case 'constructor':
           final constructor = member as Constructor;
-          if (constructor.arguments.length == 0) {
+          if (constructor.arguments.isEmpty) {
             hasNoArgumentsConstructor = true;
           }
           constructors.add(constructor);
@@ -60,7 +60,8 @@ class _PartialInterfacelike {
         case 'operation':
           final operation = member as Operation;
           if (operation.name.toDart.isEmpty) {
-            // TODO(joshualitt): We may be able to handle some unnamed operations.
+            // TODO(joshualitt): We may be able to handle some unnamed
+            // operations.
             continue;
           }
           _processMember(operation, operation.special.toDart);
@@ -88,7 +89,7 @@ class _PartialInterfacelike {
 
   void include(_PartialInterfacelike mixin) {
     assert(type == 'interface' && mixin.type == 'interface mixin');
-    includes.add(mixin.name.toDart);
+    includes.add(mixin.name);
   }
 }
 
@@ -122,7 +123,7 @@ class Translator {
   final Map<String, int> namesSeen = {};
 
   void _setOrUpdate(Interfacelike interfacelike) {
-    String name = interfacelike.name.toDart;
+    final name = interfacelike.name.toDart;
     if (interfacelikes.containsKey(name)) {
       interfacelikes[name]!.update(interfacelike);
     } else {
@@ -258,7 +259,7 @@ external $dartName get $getterName;''';
       emittedCount++;
     }
 
-    for (int i = 0; i < arguments.length; i++) {
+    for (var i = 0; i < arguments.length; i++) {
       final argument = arguments[i] as Argument;
       if (argument.optional.toDart) {
         emit(i);
@@ -341,7 +342,7 @@ external $dartName get $getterName;''';
   }
 
   String _translateMember(Member member) {
-    String type = member.type.toDart;
+    final type = member.type.toDart;
     switch (type) {
       case 'operation':
         return _translateOperation(member as Operation);

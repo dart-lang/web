@@ -22,4 +22,4 @@ void ensureDirectoryExists(String dir) {
   }
 }
 
-late final int year = DateTime.now().year;
+final int year = DateTime.now().year;

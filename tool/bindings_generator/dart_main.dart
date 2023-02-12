@@ -34,7 +34,7 @@ void runDartFormat(String dir) {
 
 Future<void> generateAndWriteBindings(String dir) async {
   ensureDirectoryExists(dir);
-  JSString bindings = (await generateBindings()).toJS;
+  final bindings = (await generateBindings()).toJS;
   fs.writeFileSync('$dir/dom.dart'.toJS, bindings);
   runDartFormat(dir);
 }

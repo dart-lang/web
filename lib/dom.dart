@@ -3,7 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:js_interop';
-import 'package:js/js.dart';
+import 'package:js/js.dart' hide JS;
 
 // TODO(joshualitt): These belong in JS types
 typedef JSPromise = JSObject;

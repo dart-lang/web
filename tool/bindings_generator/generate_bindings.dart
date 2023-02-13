@@ -24,8 +24,7 @@ typedef JSUndefined = void;
 
 Future<String> translateIDLs() async {
   final translator = Translator();
-  final array =
-      objectEntries(await promiseToFuture<JSObject>(idl.parseAll()));
+  final array = objectEntries(await promiseToFuture<JSObject>(idl.parseAll()));
   for (var i = 0; i < array.length; i++) {
     final entry = array[i] as JSArray;
     final shortname = (entry[0] as JSString).toDart;

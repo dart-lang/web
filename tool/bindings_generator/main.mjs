@@ -14,6 +14,7 @@ globalThis.self = globalThis;
 globalThis.childProcess = childProcess;
 globalThis.idl = idl;
 globalThis.fs = fs;
+globalThis.location = { href: `file://${process.cwd()}/`}
 
 globalThis.dartMainRunner = async function(main, args) {
   const dir = process.argv[2];

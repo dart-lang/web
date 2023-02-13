@@ -9,6 +9,66 @@ import 'type_aliases.dart';
 import 'util.dart';
 import 'webidl_api.dart';
 
+class _Library {
+  final Translator translator;
+  final String name;
+  final List<Interfacelike> interfacelikes = [];
+  final List<Typedef> typedefs = [];
+  final List<Enum> enums = [];
+  final List<Callback> callbacks = [];
+  final List<Interfacelike> callbackInterfaces = [];
+
+  _Library(this.translator, this.name);
+
+  @override
+  bool operator ==(Object that) => that is _Library && that.name == name;
+
+  @override
+  int get hashCode => name.hashCode;
+
+  void add(Node node) {
+    final type = node.type.toDart;
+    switch (type) {
+      case 'interface mixin':
+      case 'interface':
+      case 'namespace':
+      case 'dictionary':
+        // If we have a not partial interfacelike, then we will emit it in this
+        // library. However, in order to collect any possible cross-library
+        // partial interfaces, we track interfacelikes on the translator as
+        // well.
+        final interfacelike = node as Interfacelike;
+        if (!node.partial.toDart) {
+          final name = node.name.toDart;
+          assert(!translator.nodeToLibrary.containsKey(name));
+          translator.nodeToLibrary[name] = this;
+          interfacelikes.add(interfacelike);
+        }
+        translator.setOrUpdateInterfacelike(interfacelike);
+        break;
+      case 'typedef':
+        typedefs.add(node as Typedef);
+        break;
+      case 'includes':
+        translator.includes.add(node as Includes);
+        break;
+      case 'enum':
+        enums.add(node as Enum);
+        break;
+      case 'callback interface':
+        callbackInterfaces.add(node as Interfacelike);
+        break;
+      case 'callback':
+        callbacks.add(node as Callback);
+        break;
+      case 'eof':
+        break;
+      default:
+        throw Exception('Unexpected node type $type');
+    }
+  }
+}
+
 class _PartialInterfacelike {
   final String name;
   final String type;
@@ -114,15 +174,16 @@ class _MemberName {
 }
 
 class Translator {
+  final Map<String, _Library> libraries = {};
+  final Map<String, _Library> nodeToLibrary = {};
   final Map<String, _PartialInterfacelike> interfacelikes = {};
-  final List<Typedef> typedefs = [];
   final List<Includes> includes = [];
-  final List<Enum> enums = [];
-  final List<Callback> callbacks = [];
-  final List<Interfacelike> callbackInterfaces = [];
   final Map<String, int> namesSeen = {};
+  final String packageRoot;
 
-  void _setOrUpdate(Interfacelike interfacelike) {
+  Translator(this.packageRoot);
+
+  void setOrUpdateInterfacelike(Interfacelike interfacelike) {
     final name = interfacelike.name.toDart;
     if (interfacelikes.containsKey(name)) {
       interfacelikes[name]!.update(interfacelike);
@@ -132,36 +193,11 @@ class Translator {
   }
 
   void collect(JSString name, JSArray ast) {
+    assert(!libraries.containsKey(name));
+    final library = _Library(this, name);
+    libraries[name] = library;
     for (var i = 0; i < ast.length; i++) {
-      final node = ast[i] as Node;
-      final type = node.type.toDart;
-      switch (type) {
-        case 'interface mixin':
-        case 'interface':
-        case 'namespace':
-        case 'dictionary':
-          _setOrUpdate(node as Interfacelike);
-          break;
-        case 'typedef':
-          typedefs.add(node as Typedef);
-          break;
-        case 'includes':
-          includes.add(node as Includes);
-          break;
-        case 'enum':
-          enums.add(node as Enum);
-          break;
-        case 'callback interface':
-          callbackInterfaces.add(node as Interfacelike);
-          break;
-        case 'callback':
-          callbacks.add(node as Callback);
-          break;
-        case 'eof':
-          break;
-        default:
-          throw Exception('Unexpected node type $type');
-      }
+      library.add(ast[i] as Node);
     }
   }
 
@@ -410,21 +446,15 @@ class $dartClassName $extendsString$implementsString{
 $membersString''';
   }
 
-  String translate() {
-    // Wire up includes.
-    for (final include in includes) {
-      final target = interfacelikes[include.target.toDart]!;
-      target.include(interfacelikes[include.includes.toDart]!);
-    }
-
+  String _translateLibrary(_Library library) {
     // Translate typedefs.
     final fragments = <String>[];
-    for (final typedef in typedefs) {
+    for (final typedef in library.typedefs) {
       fragments.add(_translateTypedef(typedef));
     }
 
     // Translate callbacks.
-    for (final callback in callbacks) {
+    for (final callback in library.callbacks) {
       /// TODO(joshualitt): Maybe handle this case a bit more elegantly?
       if (callback.name == 'Function') {
         continue;
@@ -433,22 +463,41 @@ $membersString''';
     }
 
     // Translate callback interfaces.
-    for (final callbackInterface in callbackInterfaces) {
+    for (final callbackInterface in library.callbackInterfaces) {
       fragments.add(_translateCallbackInterface(callbackInterface));
     }
 
     // Translate enums.
-    for (final enum_ in enums) {
+    for (final enum_ in library.enums) {
       fragments.add(_translateEnum(enum_));
     }
 
     // Translate interfacelikes.
-    for (final interfacelike in interfacelikes.values) {
+    for (final interfacelike in library.interfacelikes) {
       // Each [interfacelike] acts as a namespace, so we clear the
       // [namesSeen] map each time through the loop.
       namesSeen.clear();
-      fragments.add(_translateInterfacelike(interfacelike));
+      final name = interfacelike.name.toDart;
+      fragments.add(_translateInterfacelike(interfacelikes[name]!));
     }
     return fragments.join('\n');
+  }
+
+  Map<String, String> translate() {
+    // Wire up includes. This step must come before we start translating
+    // libraries because interfaces and namespaces may include across library
+    // boundaries.
+    for (final include in includes) {
+      final target = interfacelikes[include.target.toDart]!;
+      final includes = interfacelikes[include.includes.toDart]!;
+      target.include(includes);
+    }
+
+    // Translate each IDL library into a Dart library.
+    final dartLibraries = <String, String>{};
+    for (final library in libraries.values) {
+      dartLibraries[library.name] = _translateLibrary(library);
+    }
+    return dartLibraries;
   }
 }

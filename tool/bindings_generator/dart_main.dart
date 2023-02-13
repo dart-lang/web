@@ -13,10 +13,31 @@ import 'util.dart';
 // TODO(joshualitt): Find a way to generate bindings for JS builtins. This will
 // probably involve parsing the TC39 spec.
 
+String generateRootImport(String librarySubDir, Iterable<String> files) {
+  final sortedImports = files.map(kebabToSnake).toList();
+  sortedImports.sort();
+  final exportBlob = sortedImports
+      .map((name) => "export 'package:web/$librarySubDir/$name.dart';")
+      .join('\n');
+  return '''$licenseHeader
+
+$exportBlob''';
+}
+
+String runDartFormat(String input) => DartFormatter().format(input);
+
 Future<void> generateAndWriteBindings(String dir) async {
-  ensureDirectoryExists(dir);
-  final bindings = DartFormatter().format((await generateBindings()).toJS);
-  fs.writeFileSync('$dir/dom.dart'.toJS, bindings);
+  final librarySubDir = 'src/dom';
+  ensureDirectoryExists('$dir/$librarySubDir');
+  final bindings = await generateBindings(librarySubDir);
+  final rootContents = generateRootImport(librarySubDir, bindings.keys);
+  fs.writeFileSync('$dir/dom.dart'.toJS, runDartFormat(rootContents).toJS);
+  bindings.forEach((name, contents) {
+    final formattedContents = runDartFormat(contents).toJS;
+    final snakeName = kebabToSnake(name);
+    fs.writeFileSync(
+        '$dir/$librarySubDir/$snakeName.dart'.toJS, formattedContents);
+  });
 }
 
 void main(List<String> args) async {

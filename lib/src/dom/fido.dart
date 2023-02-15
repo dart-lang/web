@@ -3,10 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
 
 @JS('HMACGetSecretInput')
 @staticInterop
@@ -14,10 +14,7 @@ class HMACGetSecretInput {
   external factory HMACGetSecretInput();
 }
 
-extension HMACGetSecretInputExtension on HMACGetSecretInput {
-  // TODO
-  // TODO
-}
+extension HMACGetSecretInputExtension on HMACGetSecretInput {}
 
 @JS('HMACGetSecretOutput')
 @staticInterop
@@ -25,7 +22,4 @@ class HMACGetSecretOutput {
   external factory HMACGetSecretOutput();
 }
 
-extension HMACGetSecretOutputExtension on HMACGetSecretOutput {
-  // TODO
-  // TODO
-}
+extension HMACGetSecretOutputExtension on HMACGetSecretOutput {}

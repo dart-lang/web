@@ -3,10 +3,14 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/fileapi.dart';
+import 'package:web/src/dom/hr_time.dart';
+import 'package:web/src/dom/permissions.dart';
+import 'package:web/src/dom/service_workers.dart';
 
 typedef PushMessageDataInit = JSAny;
 typedef PushEncryptionKeyName = JSString;
@@ -17,23 +21,22 @@ class PushPermissionDescriptor extends PermissionDescriptor {
   external factory PushPermissionDescriptor();
 }
 
-extension PushPermissionDescriptorExtension on PushPermissionDescriptor {
-  // TODO
-}
+extension PushPermissionDescriptorExtension on PushPermissionDescriptor {}
 
 @JS('PushManager')
 @staticInterop
 class PushManager {
   external factory PushManager();
+
   external static JSArray get supportedContentEncodings;
 }
 
 extension PushManagerExtension on PushManager {
   external JSPromise subscribe();
-  external JSPromise subscribe_1(PushSubscriptionOptionsInit options);
+  external JSPromise subscribe1(PushSubscriptionOptionsInit options);
   external JSPromise getSubscription();
   external JSPromise permissionState();
-  external JSPromise permissionState_1(PushSubscriptionOptionsInit options);
+  external JSPromise permissionState1(PushSubscriptionOptionsInit options);
 }
 
 @JS('PushSubscriptionOptions')
@@ -53,10 +56,7 @@ class PushSubscriptionOptionsInit {
   external factory PushSubscriptionOptionsInit();
 }
 
-extension PushSubscriptionOptionsInitExtension on PushSubscriptionOptionsInit {
-  // TODO
-  // TODO
-}
+extension PushSubscriptionOptionsInitExtension on PushSubscriptionOptionsInit {}
 
 @JS('PushSubscription')
 @staticInterop
@@ -79,11 +79,7 @@ class PushSubscriptionJSON {
   external factory PushSubscriptionJSON();
 }
 
-extension PushSubscriptionJSONExtension on PushSubscriptionJSON {
-  // TODO
-  // TODO
-  // TODO
-}
+extension PushSubscriptionJSONExtension on PushSubscriptionJSON {}
 
 @JS('PushMessageData')
 @staticInterop
@@ -102,8 +98,13 @@ extension PushMessageDataExtension on PushMessageData {
 @staticInterop
 class PushEvent extends ExtendableEvent {
   external factory PushEvent();
+
   external factory PushEvent.a1(JSString type);
-  external factory PushEvent.a1_1(JSString type, PushEventInit eventInitDict);
+
+  external factory PushEvent.a2(
+    JSString type,
+    PushEventInit eventInitDict,
+  );
 }
 
 extension PushEventExtension on PushEvent {
@@ -116,17 +117,19 @@ class PushEventInit extends ExtendableEventInit {
   external factory PushEventInit();
 }
 
-extension PushEventInitExtension on PushEventInit {
-  // TODO
-}
+extension PushEventInitExtension on PushEventInit {}
 
 @JS('PushSubscriptionChangeEvent')
 @staticInterop
 class PushSubscriptionChangeEvent extends ExtendableEvent {
   external factory PushSubscriptionChangeEvent();
+
   external factory PushSubscriptionChangeEvent.a1(JSString type);
-  external factory PushSubscriptionChangeEvent.a1_1(
-      JSString type, PushSubscriptionChangeEventInit eventInitDict);
+
+  external factory PushSubscriptionChangeEvent.a2(
+    JSString type,
+    PushSubscriptionChangeEventInit eventInitDict,
+  );
 }
 
 extension PushSubscriptionChangeEventExtension on PushSubscriptionChangeEvent {
@@ -141,7 +144,4 @@ class PushSubscriptionChangeEventInit extends ExtendableEventInit {
 }
 
 extension PushSubscriptionChangeEventInitExtension
-    on PushSubscriptionChangeEventInit {
-  // TODO
-  // TODO
-}
+    on PushSubscriptionChangeEventInit {}

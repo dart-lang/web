@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/webgpu.dart';
 
 typedef MLNamedArrayBufferViews = JSAny;
 typedef MLGPUResource = JSAny;
@@ -43,10 +44,7 @@ class MLContextOptions {
   external factory MLContextOptions();
 }
 
-extension MLContextOptionsExtension on MLContextOptions {
-  // TODO
-  // TODO
-}
+extension MLContextOptionsExtension on MLContextOptions {}
 
 @JS('ML')
 @staticInterop
@@ -56,13 +54,13 @@ class ML {
 
 extension MLExtension on ML {
   external JSPromise createContext();
-  external JSPromise createContext_1(MLContextOptions options);
+  external JSPromise createContext1(MLContextOptions options);
   @JS('createContext')
-  external JSPromise createContext1(GPUDevice gpuDevice);
+  external JSPromise createContext_1_(GPUDevice gpuDevice);
   external MLContext createContextSync();
-  external MLContext createContextSync_1(MLContextOptions options);
+  external MLContext createContextSync1(MLContextOptions options);
   @JS('createContextSync')
-  external MLContext createContextSync1(GPUDevice gpuDevice);
+  external MLContext createContextSync_1_(GPUDevice gpuDevice);
 }
 
 @JS('MLGraph')
@@ -77,10 +75,7 @@ class MLOperandDescriptor {
   external factory MLOperandDescriptor();
 }
 
-extension MLOperandDescriptorExtension on MLOperandDescriptor {
-  // TODO
-  // TODO
-}
+extension MLOperandDescriptorExtension on MLOperandDescriptor {}
 
 @JS('MLOperand')
 @staticInterop
@@ -101,10 +96,16 @@ class MLContext {
 }
 
 extension MLContextExtension on MLContext {
-  external JSUndefined computeSync(MLGraph graph,
-      MLNamedArrayBufferViews inputs, MLNamedArrayBufferViews outputs);
-  external JSPromise compute(MLGraph graph, MLNamedArrayBufferViews inputs,
-      MLNamedArrayBufferViews outputs);
+  external JSVoid computeSync(
+    MLGraph graph,
+    MLNamedArrayBufferViews inputs,
+    MLNamedArrayBufferViews outputs,
+  );
+  external JSPromise compute(
+    MLGraph graph,
+    MLNamedArrayBufferViews inputs,
+    MLNamedArrayBufferViews outputs,
+  );
   external MLCommandEncoder createCommandEncoder();
 }
 
@@ -114,10 +115,7 @@ class MLComputeResult {
   external factory MLComputeResult();
 }
 
-extension MLComputeResultExtension on MLComputeResult {
-  // TODO
-  // TODO
-}
+extension MLComputeResultExtension on MLComputeResult {}
 
 @JS('MLCommandEncoder')
 @staticInterop
@@ -126,11 +124,14 @@ class MLCommandEncoder {
 }
 
 extension MLCommandEncoderExtension on MLCommandEncoder {
-  external JSUndefined initializeGraph(MLGraph graph);
-  external JSUndefined dispatch(
-      MLGraph graph, MLNamedGPUResources inputs, MLNamedGPUResources outputs);
+  external JSVoid initializeGraph(MLGraph graph);
+  external JSVoid dispatch(
+    MLGraph graph,
+    MLNamedGPUResources inputs,
+    MLNamedGPUResources outputs,
+  );
   external GPUCommandBuffer finish();
-  external GPUCommandBuffer finish_1(GPUCommandBufferDescriptor descriptor);
+  external GPUCommandBuffer finish1(GPUCommandBufferDescriptor descriptor);
 }
 
 @JS('MLBufferResourceView')
@@ -139,53 +140,104 @@ class MLBufferResourceView {
   external factory MLBufferResourceView();
 }
 
-extension MLBufferResourceViewExtension on MLBufferResourceView {
-  // TODO
-  // TODO
-  // TODO
-}
+extension MLBufferResourceViewExtension on MLBufferResourceView {}
 
 @JS('MLGraphBuilder')
 @staticInterop
 class MLGraphBuilder {
   external factory MLGraphBuilder();
+
   external factory MLGraphBuilder.a1(MLContext context);
 }
 
 extension MLGraphBuilderExtension on MLGraphBuilder {
-  external MLOperand input(JSString name, MLOperandDescriptor desc);
+  external MLOperand input(
+    JSString name,
+    MLOperandDescriptor desc,
+  );
   external MLOperand constant(
-      MLOperandDescriptor desc, MLBufferView bufferView);
+    MLOperandDescriptor desc,
+    MLBufferView bufferView,
+  );
   @JS('constant')
-  external MLOperand constant1(JSNumber value);
+  external MLOperand constant_1_(JSNumber value);
   @JS('constant')
-  external MLOperand constant1_1(JSNumber value, MLOperandType type);
+  external MLOperand constant_1_1(
+    JSNumber value,
+    MLOperandType type,
+  );
   external JSPromise build(MLNamedOperands outputs);
   external MLGraph buildSync(MLNamedOperands outputs);
   external MLOperand batchNormalization(
-      MLOperand input, MLOperand mean, MLOperand variance);
-  external MLOperand batchNormalization_1(MLOperand input, MLOperand mean,
-      MLOperand variance, MLBatchNormalizationOptions options);
+    MLOperand input,
+    MLOperand mean,
+    MLOperand variance,
+  );
+  external MLOperand batchNormalization1(
+    MLOperand input,
+    MLOperand mean,
+    MLOperand variance,
+    MLBatchNormalizationOptions options,
+  );
   external MLOperand clamp(MLOperand x);
-  external MLOperand clamp_1(MLOperand x, MLClampOptions options);
+  external MLOperand clamp1(
+    MLOperand x,
+    MLClampOptions options,
+  );
   @JS('clamp')
-  external MLActivation clamp1();
+  external MLActivation clamp_1_();
   @JS('clamp')
-  external MLActivation clamp1_1(MLClampOptions options);
-  external MLOperand concat(JSArray inputs, JSNumber axis);
-  external MLOperand conv2d(MLOperand input, MLOperand filter);
-  external MLOperand conv2d_1(
-      MLOperand input, MLOperand filter, MLConv2dOptions options);
-  external MLOperand convTranspose2d(MLOperand input, MLOperand filter);
-  external MLOperand convTranspose2d_1(
-      MLOperand input, MLOperand filter, MLConvTranspose2dOptions options);
-  external MLOperand add(MLOperand a, MLOperand b);
-  external MLOperand sub(MLOperand a, MLOperand b);
-  external MLOperand mul(MLOperand a, MLOperand b);
-  external MLOperand div(MLOperand a, MLOperand b);
-  external MLOperand max(MLOperand a, MLOperand b);
-  external MLOperand min(MLOperand a, MLOperand b);
-  external MLOperand pow(MLOperand a, MLOperand b);
+  external MLActivation clamp_1_1(MLClampOptions options);
+  external MLOperand concat(
+    JSArray inputs,
+    JSNumber axis,
+  );
+  external MLOperand conv2d(
+    MLOperand input,
+    MLOperand filter,
+  );
+  external MLOperand conv2d1(
+    MLOperand input,
+    MLOperand filter,
+    MLConv2dOptions options,
+  );
+  external MLOperand convTranspose2d(
+    MLOperand input,
+    MLOperand filter,
+  );
+  external MLOperand convTranspose2d1(
+    MLOperand input,
+    MLOperand filter,
+    MLConvTranspose2dOptions options,
+  );
+  external MLOperand add(
+    MLOperand a,
+    MLOperand b,
+  );
+  external MLOperand sub(
+    MLOperand a,
+    MLOperand b,
+  );
+  external MLOperand mul(
+    MLOperand a,
+    MLOperand b,
+  );
+  external MLOperand div(
+    MLOperand a,
+    MLOperand b,
+  );
+  external MLOperand max(
+    MLOperand a,
+    MLOperand b,
+  );
+  external MLOperand min(
+    MLOperand a,
+    MLOperand b,
+  );
+  external MLOperand pow(
+    MLOperand a,
+    MLOperand b,
+  );
   external MLOperand abs(MLOperand x);
   external MLOperand ceil(MLOperand x);
   external MLOperand cos(MLOperand x);
@@ -196,145 +248,261 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
   external MLOperand sin(MLOperand x);
   external MLOperand tan(MLOperand x);
   external MLOperand elu(MLOperand x);
-  external MLOperand elu_1(MLOperand x, MLEluOptions options);
+  external MLOperand elu1(
+    MLOperand x,
+    MLEluOptions options,
+  );
   @JS('elu')
-  external MLActivation elu1();
+  external MLActivation elu_1_();
   @JS('elu')
-  external MLActivation elu1_1(MLEluOptions options);
-  external MLOperand gemm(MLOperand a, MLOperand b);
-  external MLOperand gemm_1(MLOperand a, MLOperand b, MLGemmOptions options);
-  external JSArray gru(MLOperand input, MLOperand weight,
-      MLOperand recurrentWeight, JSNumber steps, JSNumber hiddenSize);
-  external JSArray gru_1(
-      MLOperand input,
-      MLOperand weight,
-      MLOperand recurrentWeight,
-      JSNumber steps,
-      JSNumber hiddenSize,
-      MLGruOptions options);
-  external MLOperand gruCell(MLOperand input, MLOperand weight,
-      MLOperand recurrentWeight, MLOperand hiddenState, JSNumber hiddenSize);
-  external MLOperand gruCell_1(
-      MLOperand input,
-      MLOperand weight,
-      MLOperand recurrentWeight,
-      MLOperand hiddenState,
-      JSNumber hiddenSize,
-      MLGruCellOptions options);
+  external MLActivation elu_1_1(MLEluOptions options);
+  external MLOperand gemm(
+    MLOperand a,
+    MLOperand b,
+  );
+  external MLOperand gemm1(
+    MLOperand a,
+    MLOperand b,
+    MLGemmOptions options,
+  );
+  external JSArray gru(
+    MLOperand input,
+    MLOperand weight,
+    MLOperand recurrentWeight,
+    JSNumber steps,
+    JSNumber hiddenSize,
+  );
+  external JSArray gru1(
+    MLOperand input,
+    MLOperand weight,
+    MLOperand recurrentWeight,
+    JSNumber steps,
+    JSNumber hiddenSize,
+    MLGruOptions options,
+  );
+  external MLOperand gruCell(
+    MLOperand input,
+    MLOperand weight,
+    MLOperand recurrentWeight,
+    MLOperand hiddenState,
+    JSNumber hiddenSize,
+  );
+  external MLOperand gruCell1(
+    MLOperand input,
+    MLOperand weight,
+    MLOperand recurrentWeight,
+    MLOperand hiddenState,
+    JSNumber hiddenSize,
+    MLGruCellOptions options,
+  );
   external MLOperand hardSigmoid(MLOperand x);
-  external MLOperand hardSigmoid_1(MLOperand x, MLHardSigmoidOptions options);
+  external MLOperand hardSigmoid1(
+    MLOperand x,
+    MLHardSigmoidOptions options,
+  );
   @JS('hardSigmoid')
-  external MLActivation hardSigmoid1();
+  external MLActivation hardSigmoid_1_();
   @JS('hardSigmoid')
-  external MLActivation hardSigmoid1_1(MLHardSigmoidOptions options);
+  external MLActivation hardSigmoid_1_1(MLHardSigmoidOptions options);
   external MLOperand hardSwish(MLOperand x);
   @JS('hardSwish')
-  external MLActivation hardSwish1();
+  external MLActivation hardSwish_1_();
   external MLOperand instanceNormalization(MLOperand input);
-  external MLOperand instanceNormalization_1(
-      MLOperand input, MLInstanceNormalizationOptions options);
+  external MLOperand instanceNormalization1(
+    MLOperand input,
+    MLInstanceNormalizationOptions options,
+  );
   external MLOperand leakyRelu(MLOperand x);
-  external MLOperand leakyRelu_1(MLOperand x, MLLeakyReluOptions options);
+  external MLOperand leakyRelu1(
+    MLOperand x,
+    MLLeakyReluOptions options,
+  );
   @JS('leakyRelu')
-  external MLActivation leakyRelu1();
+  external MLActivation leakyRelu_1_();
   @JS('leakyRelu')
-  external MLActivation leakyRelu1_1(MLLeakyReluOptions options);
+  external MLActivation leakyRelu_1_1(MLLeakyReluOptions options);
   external MLOperand linear(MLOperand x);
-  external MLOperand linear_1(MLOperand x, MLLinearOptions options);
+  external MLOperand linear1(
+    MLOperand x,
+    MLLinearOptions options,
+  );
   @JS('linear')
-  external MLActivation linear1();
+  external MLActivation linear_1_();
   @JS('linear')
-  external MLActivation linear1_1(MLLinearOptions options);
-  external JSArray lstm(MLOperand input, MLOperand weight,
-      MLOperand recurrentWeight, JSNumber steps, JSNumber hiddenSize);
-  external JSArray lstm_1(
-      MLOperand input,
-      MLOperand weight,
-      MLOperand recurrentWeight,
-      JSNumber steps,
-      JSNumber hiddenSize,
-      MLLstmOptions options);
+  external MLActivation linear_1_1(MLLinearOptions options);
+  external JSArray lstm(
+    MLOperand input,
+    MLOperand weight,
+    MLOperand recurrentWeight,
+    JSNumber steps,
+    JSNumber hiddenSize,
+  );
+  external JSArray lstm1(
+    MLOperand input,
+    MLOperand weight,
+    MLOperand recurrentWeight,
+    JSNumber steps,
+    JSNumber hiddenSize,
+    MLLstmOptions options,
+  );
   external JSArray lstmCell(
-      MLOperand input,
-      MLOperand weight,
-      MLOperand recurrentWeight,
-      MLOperand hiddenState,
-      MLOperand cellState,
-      JSNumber hiddenSize);
-  external JSArray lstmCell_1(
-      MLOperand input,
-      MLOperand weight,
-      MLOperand recurrentWeight,
-      MLOperand hiddenState,
-      MLOperand cellState,
-      JSNumber hiddenSize,
-      MLLstmCellOptions options);
-  external MLOperand matmul(MLOperand a, MLOperand b);
-  external MLOperand pad(MLOperand input, MLOperand padding);
-  external MLOperand pad_1(
-      MLOperand input, MLOperand padding, MLPadOptions options);
+    MLOperand input,
+    MLOperand weight,
+    MLOperand recurrentWeight,
+    MLOperand hiddenState,
+    MLOperand cellState,
+    JSNumber hiddenSize,
+  );
+  external JSArray lstmCell1(
+    MLOperand input,
+    MLOperand weight,
+    MLOperand recurrentWeight,
+    MLOperand hiddenState,
+    MLOperand cellState,
+    JSNumber hiddenSize,
+    MLLstmCellOptions options,
+  );
+  external MLOperand matmul(
+    MLOperand a,
+    MLOperand b,
+  );
+  external MLOperand pad(
+    MLOperand input,
+    MLOperand padding,
+  );
+  external MLOperand pad1(
+    MLOperand input,
+    MLOperand padding,
+    MLPadOptions options,
+  );
   external MLOperand averagePool2d(MLOperand input);
-  external MLOperand averagePool2d_1(MLOperand input, MLPool2dOptions options);
+  external MLOperand averagePool2d1(
+    MLOperand input,
+    MLPool2dOptions options,
+  );
   external MLOperand l2Pool2d(MLOperand input);
-  external MLOperand l2Pool2d_1(MLOperand input, MLPool2dOptions options);
+  external MLOperand l2Pool2d1(
+    MLOperand input,
+    MLPool2dOptions options,
+  );
   external MLOperand maxPool2d(MLOperand input);
-  external MLOperand maxPool2d_1(MLOperand input, MLPool2dOptions options);
+  external MLOperand maxPool2d1(
+    MLOperand input,
+    MLPool2dOptions options,
+  );
   external MLOperand reduceL1(MLOperand input);
-  external MLOperand reduceL1_1(MLOperand input, MLReduceOptions options);
+  external MLOperand reduceL11(
+    MLOperand input,
+    MLReduceOptions options,
+  );
   external MLOperand reduceL2(MLOperand input);
-  external MLOperand reduceL2_1(MLOperand input, MLReduceOptions options);
+  external MLOperand reduceL21(
+    MLOperand input,
+    MLReduceOptions options,
+  );
   external MLOperand reduceLogSum(MLOperand input);
-  external MLOperand reduceLogSum_1(MLOperand input, MLReduceOptions options);
+  external MLOperand reduceLogSum1(
+    MLOperand input,
+    MLReduceOptions options,
+  );
   external MLOperand reduceLogSumExp(MLOperand input);
-  external MLOperand reduceLogSumExp_1(
-      MLOperand input, MLReduceOptions options);
+  external MLOperand reduceLogSumExp1(
+    MLOperand input,
+    MLReduceOptions options,
+  );
   external MLOperand reduceMax(MLOperand input);
-  external MLOperand reduceMax_1(MLOperand input, MLReduceOptions options);
+  external MLOperand reduceMax1(
+    MLOperand input,
+    MLReduceOptions options,
+  );
   external MLOperand reduceMean(MLOperand input);
-  external MLOperand reduceMean_1(MLOperand input, MLReduceOptions options);
+  external MLOperand reduceMean1(
+    MLOperand input,
+    MLReduceOptions options,
+  );
   external MLOperand reduceMin(MLOperand input);
-  external MLOperand reduceMin_1(MLOperand input, MLReduceOptions options);
+  external MLOperand reduceMin1(
+    MLOperand input,
+    MLReduceOptions options,
+  );
   external MLOperand reduceProduct(MLOperand input);
-  external MLOperand reduceProduct_1(MLOperand input, MLReduceOptions options);
+  external MLOperand reduceProduct1(
+    MLOperand input,
+    MLReduceOptions options,
+  );
   external MLOperand reduceSum(MLOperand input);
-  external MLOperand reduceSum_1(MLOperand input, MLReduceOptions options);
+  external MLOperand reduceSum1(
+    MLOperand input,
+    MLReduceOptions options,
+  );
   external MLOperand reduceSumSquare(MLOperand input);
-  external MLOperand reduceSumSquare_1(
-      MLOperand input, MLReduceOptions options);
+  external MLOperand reduceSumSquare1(
+    MLOperand input,
+    MLReduceOptions options,
+  );
   external MLOperand relu(MLOperand x);
   @JS('relu')
-  external MLActivation relu1();
+  external MLActivation relu_1_();
   external MLOperand resample2d(MLOperand input);
-  external MLOperand resample2d_1(MLOperand input, MLResample2dOptions options);
-  external MLOperand reshape(MLOperand input, JSArray newShape);
+  external MLOperand resample2d1(
+    MLOperand input,
+    MLResample2dOptions options,
+  );
+  external MLOperand reshape(
+    MLOperand input,
+    JSArray newShape,
+  );
   external MLOperand sigmoid(MLOperand x);
   @JS('sigmoid')
-  external MLActivation sigmoid1();
-  external MLOperand slice(MLOperand input, JSArray starts, JSArray sizes);
-  external MLOperand slice_1(
-      MLOperand input, JSArray starts, JSArray sizes, MLSliceOptions options);
+  external MLActivation sigmoid_1_();
+  external MLOperand slice(
+    MLOperand input,
+    JSArray starts,
+    JSArray sizes,
+  );
+  external MLOperand slice1(
+    MLOperand input,
+    JSArray starts,
+    JSArray sizes,
+    MLSliceOptions options,
+  );
   external MLOperand softmax(MLOperand x);
   @JS('softmax')
-  external MLActivation softmax1();
+  external MLActivation softmax_1_();
   external MLOperand softplus(MLOperand x);
-  external MLOperand softplus_1(MLOperand x, MLSoftplusOptions options);
+  external MLOperand softplus1(
+    MLOperand x,
+    MLSoftplusOptions options,
+  );
   @JS('softplus')
-  external MLActivation softplus1();
+  external MLActivation softplus_1_();
   @JS('softplus')
-  external MLActivation softplus1_1(MLSoftplusOptions options);
+  external MLActivation softplus_1_1(MLSoftplusOptions options);
   external MLOperand softsign(MLOperand x);
   @JS('softsign')
-  external MLActivation softsign1();
-  external JSArray split(MLOperand input, JSAny splits);
-  external JSArray split_1(
-      MLOperand input, JSAny splits, MLSplitOptions options);
+  external MLActivation softsign_1_();
+  external JSArray split(
+    MLOperand input,
+    JSAny splits,
+  );
+  external JSArray split1(
+    MLOperand input,
+    JSAny splits,
+    MLSplitOptions options,
+  );
   external MLOperand squeeze(MLOperand input);
-  external MLOperand squeeze_1(MLOperand input, MLSqueezeOptions options);
+  external MLOperand squeeze1(
+    MLOperand input,
+    MLSqueezeOptions options,
+  );
   external MLOperand tanh(MLOperand x);
   @JS('tanh')
-  external MLActivation tanh1();
+  external MLActivation tanh_1_();
   external MLOperand transpose(MLOperand input);
-  external MLOperand transpose_1(MLOperand input, MLTransposeOptions options);
+  external MLOperand transpose1(
+    MLOperand input,
+    MLTransposeOptions options,
+  );
 }
 
 @JS('MLBatchNormalizationOptions')
@@ -343,13 +511,7 @@ class MLBatchNormalizationOptions {
   external factory MLBatchNormalizationOptions();
 }
 
-extension MLBatchNormalizationOptionsExtension on MLBatchNormalizationOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension MLBatchNormalizationOptionsExtension on MLBatchNormalizationOptions {}
 
 @JS('MLClampOptions')
 @staticInterop
@@ -357,10 +519,7 @@ class MLClampOptions {
   external factory MLClampOptions();
 }
 
-extension MLClampOptionsExtension on MLClampOptions {
-  // TODO
-  // TODO
-}
+extension MLClampOptionsExtension on MLClampOptions {}
 
 @JS('MLConv2dOptions')
 @staticInterop
@@ -368,17 +527,7 @@ class MLConv2dOptions {
   external factory MLConv2dOptions();
 }
 
-extension MLConv2dOptionsExtension on MLConv2dOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension MLConv2dOptionsExtension on MLConv2dOptions {}
 
 @JS('MLConvTranspose2dOptions')
 @staticInterop
@@ -386,19 +535,7 @@ class MLConvTranspose2dOptions {
   external factory MLConvTranspose2dOptions();
 }
 
-extension MLConvTranspose2dOptionsExtension on MLConvTranspose2dOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension MLConvTranspose2dOptionsExtension on MLConvTranspose2dOptions {}
 
 @JS('MLEluOptions')
 @staticInterop
@@ -406,9 +543,7 @@ class MLEluOptions {
   external factory MLEluOptions();
 }
 
-extension MLEluOptionsExtension on MLEluOptions {
-  // TODO
-}
+extension MLEluOptionsExtension on MLEluOptions {}
 
 @JS('MLGemmOptions')
 @staticInterop
@@ -416,13 +551,7 @@ class MLGemmOptions {
   external factory MLGemmOptions();
 }
 
-extension MLGemmOptionsExtension on MLGemmOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension MLGemmOptionsExtension on MLGemmOptions {}
 
 @JS('MLGruOptions')
 @staticInterop
@@ -430,16 +559,7 @@ class MLGruOptions {
   external factory MLGruOptions();
 }
 
-extension MLGruOptionsExtension on MLGruOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension MLGruOptionsExtension on MLGruOptions {}
 
 @JS('MLGruCellOptions')
 @staticInterop
@@ -447,13 +567,7 @@ class MLGruCellOptions {
   external factory MLGruCellOptions();
 }
 
-extension MLGruCellOptionsExtension on MLGruCellOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension MLGruCellOptionsExtension on MLGruCellOptions {}
 
 @JS('MLHardSigmoidOptions')
 @staticInterop
@@ -461,10 +575,7 @@ class MLHardSigmoidOptions {
   external factory MLHardSigmoidOptions();
 }
 
-extension MLHardSigmoidOptionsExtension on MLHardSigmoidOptions {
-  // TODO
-  // TODO
-}
+extension MLHardSigmoidOptionsExtension on MLHardSigmoidOptions {}
 
 @JS('MLInstanceNormalizationOptions')
 @staticInterop
@@ -473,12 +584,7 @@ class MLInstanceNormalizationOptions {
 }
 
 extension MLInstanceNormalizationOptionsExtension
-    on MLInstanceNormalizationOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+    on MLInstanceNormalizationOptions {}
 
 @JS('MLLeakyReluOptions')
 @staticInterop
@@ -486,9 +592,7 @@ class MLLeakyReluOptions {
   external factory MLLeakyReluOptions();
 }
 
-extension MLLeakyReluOptionsExtension on MLLeakyReluOptions {
-  // TODO
-}
+extension MLLeakyReluOptionsExtension on MLLeakyReluOptions {}
 
 @JS('MLLinearOptions')
 @staticInterop
@@ -496,10 +600,7 @@ class MLLinearOptions {
   external factory MLLinearOptions();
 }
 
-extension MLLinearOptionsExtension on MLLinearOptions {
-  // TODO
-  // TODO
-}
+extension MLLinearOptionsExtension on MLLinearOptions {}
 
 @JS('MLLstmOptions')
 @staticInterop
@@ -507,17 +608,7 @@ class MLLstmOptions {
   external factory MLLstmOptions();
 }
 
-extension MLLstmOptionsExtension on MLLstmOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension MLLstmOptionsExtension on MLLstmOptions {}
 
 @JS('MLLstmCellOptions')
 @staticInterop
@@ -525,13 +616,7 @@ class MLLstmCellOptions {
   external factory MLLstmCellOptions();
 }
 
-extension MLLstmCellOptionsExtension on MLLstmCellOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension MLLstmCellOptionsExtension on MLLstmCellOptions {}
 
 @JS('MLPadOptions')
 @staticInterop
@@ -539,10 +624,7 @@ class MLPadOptions {
   external factory MLPadOptions();
 }
 
-extension MLPadOptionsExtension on MLPadOptions {
-  // TODO
-  // TODO
-}
+extension MLPadOptionsExtension on MLPadOptions {}
 
 @JS('MLPool2dOptions')
 @staticInterop
@@ -550,16 +632,7 @@ class MLPool2dOptions {
   external factory MLPool2dOptions();
 }
 
-extension MLPool2dOptionsExtension on MLPool2dOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension MLPool2dOptionsExtension on MLPool2dOptions {}
 
 @JS('MLReduceOptions')
 @staticInterop
@@ -567,10 +640,7 @@ class MLReduceOptions {
   external factory MLReduceOptions();
 }
 
-extension MLReduceOptionsExtension on MLReduceOptions {
-  // TODO
-  // TODO
-}
+extension MLReduceOptionsExtension on MLReduceOptions {}
 
 @JS('MLResample2dOptions')
 @staticInterop
@@ -578,12 +648,7 @@ class MLResample2dOptions {
   external factory MLResample2dOptions();
 }
 
-extension MLResample2dOptionsExtension on MLResample2dOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension MLResample2dOptionsExtension on MLResample2dOptions {}
 
 @JS('MLSliceOptions')
 @staticInterop
@@ -591,9 +656,7 @@ class MLSliceOptions {
   external factory MLSliceOptions();
 }
 
-extension MLSliceOptionsExtension on MLSliceOptions {
-  // TODO
-}
+extension MLSliceOptionsExtension on MLSliceOptions {}
 
 @JS('MLSoftplusOptions')
 @staticInterop
@@ -601,9 +664,7 @@ class MLSoftplusOptions {
   external factory MLSoftplusOptions();
 }
 
-extension MLSoftplusOptionsExtension on MLSoftplusOptions {
-  // TODO
-}
+extension MLSoftplusOptionsExtension on MLSoftplusOptions {}
 
 @JS('MLSplitOptions')
 @staticInterop
@@ -611,9 +672,7 @@ class MLSplitOptions {
   external factory MLSplitOptions();
 }
 
-extension MLSplitOptionsExtension on MLSplitOptions {
-  // TODO
-}
+extension MLSplitOptionsExtension on MLSplitOptions {}
 
 @JS('MLSqueezeOptions')
 @staticInterop
@@ -621,9 +680,7 @@ class MLSqueezeOptions {
   external factory MLSqueezeOptions();
 }
 
-extension MLSqueezeOptionsExtension on MLSqueezeOptions {
-  // TODO
-}
+extension MLSqueezeOptionsExtension on MLSqueezeOptions {}
 
 @JS('MLTransposeOptions')
 @staticInterop
@@ -631,6 +688,4 @@ class MLTransposeOptions {
   external factory MLTransposeOptions();
 }
 
-extension MLTransposeOptionsExtension on MLTransposeOptions {
-  // TODO
-}
+extension MLTransposeOptionsExtension on MLTransposeOptions {}

@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/service_workers.dart';
 
 typedef PaymentDelegation = JSString;
 typedef PaymentShippingType = JSString;
@@ -18,8 +19,8 @@ class PaymentManager {
 }
 
 extension PaymentManagerExtension on PaymentManager {
-  external JSString get userHint;
   external set userHint(JSString value);
+  external JSString get userHint;
   external JSPromise enableDelegations(JSArray delegations);
 }
 
@@ -27,11 +28,12 @@ extension PaymentManagerExtension on PaymentManager {
 @staticInterop
 class CanMakePaymentEvent extends ExtendableEvent {
   external factory CanMakePaymentEvent();
+
   external factory CanMakePaymentEvent.a1(JSString type);
 }
 
 extension CanMakePaymentEventExtension on CanMakePaymentEvent {
-  external JSUndefined respondWith(JSPromise canMakePaymentResponse);
+  external JSVoid respondWith(JSPromise canMakePaymentResponse);
 }
 
 @JS('PaymentRequestDetailsUpdate')
@@ -40,22 +42,19 @@ class PaymentRequestDetailsUpdate {
   external factory PaymentRequestDetailsUpdate();
 }
 
-extension PaymentRequestDetailsUpdateExtension on PaymentRequestDetailsUpdate {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension PaymentRequestDetailsUpdateExtension on PaymentRequestDetailsUpdate {}
 
 @JS('PaymentRequestEvent')
 @staticInterop
 class PaymentRequestEvent extends ExtendableEvent {
   external factory PaymentRequestEvent();
+
   external factory PaymentRequestEvent.a1(JSString type);
-  external factory PaymentRequestEvent.a1_1(
-      JSString type, PaymentRequestEventInit eventInitDict);
+
+  external factory PaymentRequestEvent.a2(
+    JSString type,
+    PaymentRequestEventInit eventInitDict,
+  );
 }
 
 extension PaymentRequestEventExtension on PaymentRequestEvent {
@@ -69,12 +68,14 @@ extension PaymentRequestEventExtension on PaymentRequestEvent {
   external JSArray? get shippingOptions;
   external JSPromise openWindow(JSString url);
   external JSPromise changePaymentMethod(JSString methodName);
-  external JSPromise changePaymentMethod_1(
-      JSString methodName, JSObject? methodDetails);
+  external JSPromise changePaymentMethod1(
+    JSString methodName,
+    JSObject? methodDetails,
+  );
   external JSPromise changeShippingAddress();
-  external JSPromise changeShippingAddress_1(AddressInit shippingAddress);
+  external JSPromise changeShippingAddress1(AddressInit shippingAddress);
   external JSPromise changeShippingOption(JSString shippingOption);
-  external JSUndefined respondWith(JSPromise handlerResponsePromise);
+  external JSVoid respondWith(JSPromise handlerResponsePromise);
 }
 
 @JS('PaymentRequestEventInit')
@@ -83,16 +84,7 @@ class PaymentRequestEventInit extends ExtendableEventInit {
   external factory PaymentRequestEventInit();
 }
 
-extension PaymentRequestEventInitExtension on PaymentRequestEventInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension PaymentRequestEventInitExtension on PaymentRequestEventInit {}
 
 @JS('PaymentHandlerResponse')
 @staticInterop
@@ -100,15 +92,7 @@ class PaymentHandlerResponse {
   external factory PaymentHandlerResponse();
 }
 
-extension PaymentHandlerResponseExtension on PaymentHandlerResponse {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension PaymentHandlerResponseExtension on PaymentHandlerResponse {}
 
 @JS('AddressInit')
 @staticInterop
@@ -116,18 +100,7 @@ class AddressInit {
   external factory AddressInit();
 }
 
-extension AddressInitExtension on AddressInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension AddressInitExtension on AddressInit {}
 
 @JS('PaymentOptions')
 @staticInterop
@@ -135,14 +108,7 @@ class PaymentOptions {
   external factory PaymentOptions();
 }
 
-extension PaymentOptionsExtension on PaymentOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension PaymentOptionsExtension on PaymentOptions {}
 
 @JS('PaymentShippingOption')
 @staticInterop
@@ -150,12 +116,7 @@ class PaymentShippingOption {
   external factory PaymentShippingOption();
 }
 
-extension PaymentShippingOptionExtension on PaymentShippingOption {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension PaymentShippingOptionExtension on PaymentShippingOption {}
 
 @JS('AddressErrors')
 @staticInterop
@@ -163,15 +124,4 @@ class AddressErrors {
   external factory AddressErrors();
 }
 
-extension AddressErrorsExtension on AddressErrors {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension AddressErrorsExtension on AddressErrors {}

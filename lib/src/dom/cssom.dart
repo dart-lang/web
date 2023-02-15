@@ -3,10 +3,15 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/css_highlight_api.dart';
+import 'package:web/src/dom/css_parser_api.dart';
+import 'package:web/src/dom/css_properties_values_api.dart';
+import 'package:web/src/dom/css_typed_om.dart';
+import 'package:web/src/dom/html.dart';
 
 @JS('MediaList')
 @staticInterop
@@ -15,12 +20,12 @@ class MediaList {
 }
 
 extension MediaListExtension on MediaList {
-  external JSString get mediaText;
   external set mediaText(JSString value);
+  external JSString get mediaText;
   external JSNumber get length;
   external JSString? item(JSNumber index);
-  external JSUndefined appendMedium(JSString medium);
-  external JSUndefined deleteMedium(JSString medium);
+  external JSVoid appendMedium(JSString medium);
+  external JSVoid deleteMedium(JSString medium);
 }
 
 @JS('StyleSheet')
@@ -36,34 +41,45 @@ extension StyleSheetExtension on StyleSheet {
   external CSSStyleSheet? get parentStyleSheet;
   external JSString? get title;
   external MediaList get media;
-  external JSBoolean get disabled;
   external set disabled(JSBoolean value);
+  external JSBoolean get disabled;
 }
 
 @JS('CSSStyleSheet')
 @staticInterop
 class CSSStyleSheet extends StyleSheet {
   external factory CSSStyleSheet();
+
   external factory CSSStyleSheet.a1();
-  external factory CSSStyleSheet.a1_1(CSSStyleSheetInit options);
+
+  external factory CSSStyleSheet.a2(CSSStyleSheetInit options);
 }
 
 extension CSSStyleSheetExtension on CSSStyleSheet {
   external CSSRule? get ownerRule;
   external CSSRuleList get cssRules;
   external JSNumber insertRule(JSString rule);
-  external JSNumber insertRule_1(JSString rule, JSNumber index);
-  external JSUndefined deleteRule(JSNumber index);
+  external JSNumber insertRule1(
+    JSString rule,
+    JSNumber index,
+  );
+  external JSVoid deleteRule(JSNumber index);
   external JSPromise replace(JSString text);
-  external JSUndefined replaceSync(JSString text);
+  external JSVoid replaceSync(JSString text);
   external CSSRuleList get rules;
   external JSNumber addRule();
-  external JSNumber addRule_1(JSString selector);
-  external JSNumber addRule_2(JSString selector, JSString style);
-  external JSNumber addRule_3(
-      JSString selector, JSString style, JSNumber index);
-  external JSUndefined removeRule();
-  external JSUndefined removeRule_1(JSNumber index);
+  external JSNumber addRule1(JSString selector);
+  external JSNumber addRule2(
+    JSString selector,
+    JSString style,
+  );
+  external JSNumber addRule3(
+    JSString selector,
+    JSString style,
+    JSNumber index,
+  );
+  external JSVoid removeRule();
+  external JSVoid removeRule1(JSNumber index);
 }
 
 @JS('CSSStyleSheetInit')
@@ -72,11 +88,7 @@ class CSSStyleSheetInit {
   external factory CSSStyleSheetInit();
 }
 
-extension CSSStyleSheetInitExtension on CSSStyleSheetInit {
-  // TODO
-  // TODO
-  // TODO
-}
+extension CSSStyleSheetInitExtension on CSSStyleSheetInit {}
 
 @JS('StyleSheetList')
 @staticInterop
@@ -114,6 +126,7 @@ extension CSSRuleListExtension on CSSRuleList {
 @staticInterop
 class CSSRule {
   external factory CSSRule();
+
   external static JSNumber get KEYFRAMES_RULE;
   external static JSNumber get KEYFRAME_RULE;
   external static JSNumber get SUPPORTS_RULE;
@@ -130,8 +143,8 @@ class CSSRule {
 }
 
 extension CSSRuleExtension on CSSRule {
-  external JSString get cssText;
   external set cssText(JSString value);
+  external JSString get cssText;
   external CSSRule? get parentRule;
   external CSSStyleSheet? get parentStyleSheet;
   external JSNumber get type;
@@ -146,11 +159,14 @@ class CSSStyleRule extends CSSRule {
 extension CSSStyleRuleExtension on CSSStyleRule {
   external CSSRuleList get cssRules;
   external JSNumber insertRule(JSString rule);
-  external JSNumber insertRule_1(JSString rule, JSNumber index);
-  external JSUndefined deleteRule(JSNumber index);
+  external JSNumber insertRule1(
+    JSString rule,
+    JSNumber index,
+  );
+  external JSVoid deleteRule(JSNumber index);
   external StylePropertyMap get styleMap;
-  external JSString get selectorText;
   external set selectorText(JSString value);
+  external JSString get selectorText;
   external CSSStyleDeclaration get style;
 }
 
@@ -176,8 +192,11 @@ class CSSGroupingRule extends CSSRule {
 extension CSSGroupingRuleExtension on CSSGroupingRule {
   external CSSRuleList get cssRules;
   external JSNumber insertRule(JSString rule);
-  external JSNumber insertRule_1(JSString rule, JSNumber index);
-  external JSUndefined deleteRule(JSNumber index);
+  external JSNumber insertRule1(
+    JSString rule,
+    JSNumber index,
+  );
+  external JSVoid deleteRule(JSNumber index);
 }
 
 @JS('CSSPageRule')
@@ -187,8 +206,8 @@ class CSSPageRule extends CSSGroupingRule {
 }
 
 extension CSSPageRuleExtension on CSSPageRule {
-  external JSString get selectorText;
   external set selectorText(JSString value);
+  external JSString get selectorText;
   external CSSStyleDeclaration get style;
 }
 
@@ -221,19 +240,25 @@ class CSSStyleDeclaration {
 }
 
 extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
-  external JSString get cssText;
   external set cssText(JSString value);
+  external JSString get cssText;
   external JSNumber get length;
   external JSString item(JSNumber index);
   external JSString getPropertyValue(JSString property);
   external JSString getPropertyPriority(JSString property);
-  external JSUndefined setProperty(JSString property, JSString value);
-  external JSUndefined setProperty_1(
-      JSString property, JSString value, JSString priority);
+  external JSVoid setProperty(
+    JSString property,
+    JSString value,
+  );
+  external JSVoid setProperty1(
+    JSString property,
+    JSString value,
+    JSString priority,
+  );
   external JSString removeProperty(JSString property);
   external CSSRule? get parentRule;
-  external JSString get cssFloat;
   external set cssFloat(JSString value);
+  external JSString get cssFloat;
 }
 
 @JS('ElementCSSInlineStyle')
@@ -258,31 +283,45 @@ class _CSS {
 
 extension _CSSExtension on _CSS {
   external Worklet get animationWorklet;
-  external JSBoolean supports(JSString property, JSString value);
+  external JSBoolean supports(
+    JSString property,
+    JSString value,
+  );
   @JS('supports')
-  external JSBoolean supports1(JSString conditionText);
+  external JSBoolean supports_1_(JSString conditionText);
   external HighlightRegistry get highlights;
   external JSAny get elementSources;
   external Worklet get layoutWorklet;
   external Worklet get paintWorklet;
   external JSPromise parseStylesheet(CSSStringSource css);
-  external JSPromise parseStylesheet_1(
-      CSSStringSource css, CSSParserOptions options);
+  external JSPromise parseStylesheet1(
+    CSSStringSource css,
+    CSSParserOptions options,
+  );
   external JSPromise parseRuleList(CSSStringSource css);
-  external JSPromise parseRuleList_1(
-      CSSStringSource css, CSSParserOptions options);
+  external JSPromise parseRuleList1(
+    CSSStringSource css,
+    CSSParserOptions options,
+  );
   external JSPromise parseRule(CSSStringSource css);
-  external JSPromise parseRule_1(CSSStringSource css, CSSParserOptions options);
+  external JSPromise parseRule1(
+    CSSStringSource css,
+    CSSParserOptions options,
+  );
   external JSPromise parseDeclarationList(CSSStringSource css);
-  external JSPromise parseDeclarationList_1(
-      CSSStringSource css, CSSParserOptions options);
+  external JSPromise parseDeclarationList1(
+    CSSStringSource css,
+    CSSParserOptions options,
+  );
   external CSSParserDeclaration parseDeclaration(JSString css);
-  external CSSParserDeclaration parseDeclaration_1(
-      JSString css, CSSParserOptions options);
+  external CSSParserDeclaration parseDeclaration1(
+    JSString css,
+    CSSParserOptions options,
+  );
   external CSSToken parseValue(JSString css);
   external JSArray parseValueList(JSString css);
   external JSArray parseCommaValueList(JSString css);
-  external JSUndefined registerProperty(PropertyDefinition definition);
+  external JSVoid registerProperty(PropertyDefinition definition);
   external CSSUnitValue number(JSNumber value);
   external CSSUnitValue percent(JSNumber value);
   external CSSUnitValue em(JSNumber value);
@@ -326,7 +365,7 @@ extension _CSSExtension on _CSS {
   external CSSUnitValue mm(JSNumber value);
   external CSSUnitValue Q(JSNumber value);
   @JS('in')
-  external CSSUnitValue in0(JSNumber value);
+  external CSSUnitValue in_0_(JSNumber value);
   external CSSUnitValue pt(JSNumber value);
   external CSSUnitValue pc(JSNumber value);
   external CSSUnitValue px(JSNumber value);

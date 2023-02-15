@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/service_workers.dart';
 
 typedef ContentCategory = JSString;
 
@@ -16,14 +17,7 @@ class ContentDescription {
   external factory ContentDescription();
 }
 
-extension ContentDescriptionExtension on ContentDescription {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension ContentDescriptionExtension on ContentDescription {}
 
 @JS('ContentIndex')
 @staticInterop
@@ -43,16 +37,17 @@ class ContentIndexEventInit extends ExtendableEventInit {
   external factory ContentIndexEventInit();
 }
 
-extension ContentIndexEventInitExtension on ContentIndexEventInit {
-  // TODO
-}
+extension ContentIndexEventInitExtension on ContentIndexEventInit {}
 
 @JS('ContentIndexEvent')
 @staticInterop
 class ContentIndexEvent extends ExtendableEvent {
   external factory ContentIndexEvent();
+
   external factory ContentIndexEvent.a1(
-      JSString type, ContentIndexEventInit init);
+    JSString type,
+    ContentIndexEventInit init,
+  );
 }
 
 extension ContentIndexEventExtension on ContentIndexEvent {

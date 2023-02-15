@@ -3,10 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
 
 typedef GamepadHand = JSString;
 typedef GamepadHapticsResult = JSString;
@@ -23,9 +23,14 @@ extension GamepadHapticActuatorExtension on GamepadHapticActuator {
   external GamepadHapticActuatorType get type;
   external JSBoolean canPlayEffectType(GamepadHapticEffectType type);
   external JSPromise playEffect(GamepadHapticEffectType type);
-  external JSPromise playEffect_1(
-      GamepadHapticEffectType type, GamepadEffectParameters params);
-  external JSPromise pulse(JSNumber value, JSNumber duration);
+  external JSPromise playEffect1(
+    GamepadHapticEffectType type,
+    GamepadEffectParameters params,
+  );
+  external JSPromise pulse(
+    JSNumber value,
+    JSNumber duration,
+  );
   external JSPromise reset();
 }
 
@@ -35,12 +40,7 @@ class GamepadEffectParameters {
   external factory GamepadEffectParameters();
 }
 
-extension GamepadEffectParametersExtension on GamepadEffectParameters {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension GamepadEffectParametersExtension on GamepadEffectParameters {}
 
 @JS('GamepadPose')
 @staticInterop

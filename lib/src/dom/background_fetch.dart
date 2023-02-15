@@ -3,10 +3,14 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/fetch.dart';
+import 'package:web/src/dom/html.dart';
+import 'package:web/src/dom/service_workers.dart';
 
 typedef BackgroundFetchResult = JSString;
 typedef BackgroundFetchFailureReason = JSString;
@@ -18,9 +22,15 @@ class BackgroundFetchManager {
 }
 
 extension BackgroundFetchManagerExtension on BackgroundFetchManager {
-  external JSPromise fetch(JSString id, JSAny requests);
-  external JSPromise fetch_1(
-      JSString id, JSAny requests, BackgroundFetchOptions options);
+  external JSPromise fetch(
+    JSString id,
+    JSAny requests,
+  );
+  external JSPromise fetch1(
+    JSString id,
+    JSAny requests,
+    BackgroundFetchOptions options,
+  );
   external JSPromise get(JSString id);
   external JSPromise getIds();
 }
@@ -31,10 +41,7 @@ class BackgroundFetchUIOptions {
   external factory BackgroundFetchUIOptions();
 }
 
-extension BackgroundFetchUIOptionsExtension on BackgroundFetchUIOptions {
-  // TODO
-  // TODO
-}
+extension BackgroundFetchUIOptionsExtension on BackgroundFetchUIOptions {}
 
 @JS('BackgroundFetchOptions')
 @staticInterop
@@ -42,9 +49,7 @@ class BackgroundFetchOptions extends BackgroundFetchUIOptions {
   external factory BackgroundFetchOptions();
 }
 
-extension BackgroundFetchOptionsExtension on BackgroundFetchOptions {
-  // TODO
-}
+extension BackgroundFetchOptionsExtension on BackgroundFetchOptions {}
 
 @JS('BackgroundFetchRegistration')
 @staticInterop
@@ -61,14 +66,20 @@ extension BackgroundFetchRegistrationExtension on BackgroundFetchRegistration {
   external BackgroundFetchResult get result;
   external BackgroundFetchFailureReason get failureReason;
   external JSBoolean get recordsAvailable;
-  external EventHandler get onprogress;
   external set onprogress(EventHandler value);
+  external EventHandler get onprogress;
   external JSPromise abort();
   external JSPromise match(RequestInfo request);
-  external JSPromise match_1(RequestInfo request, CacheQueryOptions options);
+  external JSPromise match1(
+    RequestInfo request,
+    CacheQueryOptions options,
+  );
   external JSPromise matchAll();
-  external JSPromise matchAll_1(RequestInfo request);
-  external JSPromise matchAll_2(RequestInfo request, CacheQueryOptions options);
+  external JSPromise matchAll1(RequestInfo request);
+  external JSPromise matchAll2(
+    RequestInfo request,
+    CacheQueryOptions options,
+  );
 }
 
 @JS('BackgroundFetchRecord')
@@ -86,8 +97,11 @@ extension BackgroundFetchRecordExtension on BackgroundFetchRecord {
 @staticInterop
 class BackgroundFetchEvent extends ExtendableEvent {
   external factory BackgroundFetchEvent();
+
   external factory BackgroundFetchEvent.a1(
-      JSString type, BackgroundFetchEventInit init);
+    JSString type,
+    BackgroundFetchEventInit init,
+  );
 }
 
 extension BackgroundFetchEventExtension on BackgroundFetchEvent {
@@ -100,20 +114,21 @@ class BackgroundFetchEventInit extends ExtendableEventInit {
   external factory BackgroundFetchEventInit();
 }
 
-extension BackgroundFetchEventInitExtension on BackgroundFetchEventInit {
-  // TODO
-}
+extension BackgroundFetchEventInitExtension on BackgroundFetchEventInit {}
 
 @JS('BackgroundFetchUpdateUIEvent')
 @staticInterop
 class BackgroundFetchUpdateUIEvent extends BackgroundFetchEvent {
   external factory BackgroundFetchUpdateUIEvent();
+
   external factory BackgroundFetchUpdateUIEvent.a1(
-      JSString type, BackgroundFetchEventInit init);
+    JSString type,
+    BackgroundFetchEventInit init,
+  );
 }
 
 extension BackgroundFetchUpdateUIEventExtension
     on BackgroundFetchUpdateUIEvent {
   external JSPromise updateUI();
-  external JSPromise updateUI_1(BackgroundFetchUIOptions options);
+  external JSPromise updateUI1(BackgroundFetchUIOptions options);
 }

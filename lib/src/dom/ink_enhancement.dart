@@ -3,10 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/pointerevents.dart';
 
 @JS('Ink')
 @staticInterop
@@ -16,7 +18,7 @@ class Ink {
 
 extension InkExtension on Ink {
   external JSPromise requestPresenter();
-  external JSPromise requestPresenter_1(InkPresenterParam param);
+  external JSPromise requestPresenter1(InkPresenterParam param);
 }
 
 @JS('InkPresenterParam')
@@ -25,9 +27,7 @@ class InkPresenterParam {
   external factory InkPresenterParam();
 }
 
-extension InkPresenterParamExtension on InkPresenterParam {
-  // TODO
-}
+extension InkPresenterParamExtension on InkPresenterParam {}
 
 @JS('InkPresenter')
 @staticInterop
@@ -38,8 +38,10 @@ class InkPresenter {
 extension InkPresenterExtension on InkPresenter {
   external Element? get presentationArea;
   external JSNumber get expectedImprovement;
-  external JSUndefined updateInkTrailStartPoint(
-      PointerEvent event, InkTrailStyle style);
+  external JSVoid updateInkTrailStartPoint(
+    PointerEvent event,
+    InkTrailStyle style,
+  );
 }
 
 @JS('InkTrailStyle')
@@ -48,7 +50,4 @@ class InkTrailStyle {
   external factory InkTrailStyle();
 }
 
-extension InkTrailStyleExtension on InkTrailStyle {
-  // TODO
-  // TODO
-}
+extension InkTrailStyleExtension on InkTrailStyle {}

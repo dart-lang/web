@@ -3,10 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/html.dart';
 
 typedef NDEFMessageSource = JSAny;
 
@@ -14,6 +16,7 @@ typedef NDEFMessageSource = JSAny;
 @staticInterop
 class NDEFMessage {
   external factory NDEFMessage();
+
   external factory NDEFMessage.a1(NDEFMessageInit messageInit);
 }
 
@@ -27,14 +30,13 @@ class NDEFMessageInit {
   external factory NDEFMessageInit();
 }
 
-extension NDEFMessageInitExtension on NDEFMessageInit {
-  // TODO
-}
+extension NDEFMessageInitExtension on NDEFMessageInit {}
 
 @JS('NDEFRecord')
 @staticInterop
 class NDEFRecord {
   external factory NDEFRecord();
+
   external factory NDEFRecord.a1(NDEFRecordInit recordInit);
 }
 
@@ -54,41 +56,39 @@ class NDEFRecordInit {
   external factory NDEFRecordInit();
 }
 
-extension NDEFRecordInitExtension on NDEFRecordInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension NDEFRecordInitExtension on NDEFRecordInit {}
 
 @JS('NDEFReader')
 @staticInterop
 class NDEFReader extends EventTarget {
-  external factory NDEFReader();
+  external factory NDEFReader.a0();
 }
 
 extension NDEFReaderExtension on NDEFReader {
-  external EventHandler get onreading;
   external set onreading(EventHandler value);
-  external EventHandler get onreadingerror;
+  external EventHandler get onreading;
   external set onreadingerror(EventHandler value);
+  external EventHandler get onreadingerror;
   external JSPromise scan();
-  external JSPromise scan_1(NDEFScanOptions options);
+  external JSPromise scan1(NDEFScanOptions options);
   external JSPromise write(NDEFMessageSource message);
-  external JSPromise write_1(
-      NDEFMessageSource message, NDEFWriteOptions options);
+  external JSPromise write1(
+    NDEFMessageSource message,
+    NDEFWriteOptions options,
+  );
   external JSPromise makeReadOnly();
-  external JSPromise makeReadOnly_1(NDEFMakeReadOnlyOptions options);
+  external JSPromise makeReadOnly1(NDEFMakeReadOnlyOptions options);
 }
 
 @JS('NDEFReadingEvent')
 @staticInterop
 class NDEFReadingEvent extends Event {
   external factory NDEFReadingEvent();
+
   external factory NDEFReadingEvent.a1(
-      JSString type, NDEFReadingEventInit readingEventInitDict);
+    JSString type,
+    NDEFReadingEventInit readingEventInitDict,
+  );
 }
 
 extension NDEFReadingEventExtension on NDEFReadingEvent {
@@ -102,10 +102,7 @@ class NDEFReadingEventInit extends EventInit {
   external factory NDEFReadingEventInit();
 }
 
-extension NDEFReadingEventInitExtension on NDEFReadingEventInit {
-  // TODO
-  // TODO
-}
+extension NDEFReadingEventInitExtension on NDEFReadingEventInit {}
 
 @JS('NDEFWriteOptions')
 @staticInterop
@@ -113,10 +110,7 @@ class NDEFWriteOptions {
   external factory NDEFWriteOptions();
 }
 
-extension NDEFWriteOptionsExtension on NDEFWriteOptions {
-  // TODO
-  // TODO
-}
+extension NDEFWriteOptionsExtension on NDEFWriteOptions {}
 
 @JS('NDEFMakeReadOnlyOptions')
 @staticInterop
@@ -124,9 +118,7 @@ class NDEFMakeReadOnlyOptions {
   external factory NDEFMakeReadOnlyOptions();
 }
 
-extension NDEFMakeReadOnlyOptionsExtension on NDEFMakeReadOnlyOptions {
-  // TODO
-}
+extension NDEFMakeReadOnlyOptionsExtension on NDEFMakeReadOnlyOptions {}
 
 @JS('NDEFScanOptions')
 @staticInterop
@@ -134,6 +126,4 @@ class NDEFScanOptions {
   external factory NDEFScanOptions();
 }
 
-extension NDEFScanOptionsExtension on NDEFScanOptions {
-  // TODO
-}
+extension NDEFScanOptionsExtension on NDEFScanOptions {}

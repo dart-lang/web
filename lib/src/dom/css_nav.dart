@@ -3,10 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/uievents.dart';
 
 typedef SpatialNavigationDirection = JSString;
 typedef FocusableAreaSearchMode = JSString;
@@ -17,9 +19,7 @@ class FocusableAreasOption {
   external factory FocusableAreasOption();
 }
 
-extension FocusableAreasOptionExtension on FocusableAreasOption {
-  // TODO
-}
+extension FocusableAreasOptionExtension on FocusableAreasOption {}
 
 @JS('SpatialNavigationSearchOptions')
 @staticInterop
@@ -28,18 +28,19 @@ class SpatialNavigationSearchOptions {
 }
 
 extension SpatialNavigationSearchOptionsExtension
-    on SpatialNavigationSearchOptions {
-  // TODO
-  // TODO
-}
+    on SpatialNavigationSearchOptions {}
 
 @JS('NavigationEvent')
 @staticInterop
 class NavigationEvent extends UIEvent {
   external factory NavigationEvent();
+
   external factory NavigationEvent.a1(JSString type);
-  external factory NavigationEvent.a1_1(
-      JSString type, NavigationEventInit eventInitDict);
+
+  external factory NavigationEvent.a2(
+    JSString type,
+    NavigationEventInit eventInitDict,
+  );
 }
 
 extension NavigationEventExtension on NavigationEvent {
@@ -53,7 +54,4 @@ class NavigationEventInit extends UIEventInit {
   external factory NavigationEventInit();
 }
 
-extension NavigationEventInitExtension on NavigationEventInit {
-  // TODO
-  // TODO
-}
+extension NavigationEventInitExtension on NavigationEventInit {}

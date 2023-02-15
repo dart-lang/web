@@ -3,10 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
 
 @JS('IsInputPendingOptions')
 @staticInterop
@@ -14,9 +14,7 @@ class IsInputPendingOptions {
   external factory IsInputPendingOptions();
 }
 
-extension IsInputPendingOptionsExtension on IsInputPendingOptions {
-  // TODO
-}
+extension IsInputPendingOptionsExtension on IsInputPendingOptions {}
 
 @JS('Scheduling')
 @staticInterop
@@ -26,6 +24,6 @@ class Scheduling {
 
 extension SchedulingExtension on Scheduling {
   external JSBoolean isInputPending();
-  external JSBoolean isInputPending_1(
+  external JSBoolean isInputPending1(
       IsInputPendingOptions isInputPendingOptions);
 }

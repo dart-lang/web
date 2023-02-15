@@ -3,10 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/html.dart';
 
 typedef WakeLockType = JSString;
 
@@ -18,7 +20,7 @@ class WakeLock {
 
 extension WakeLockExtension on WakeLock {
   external JSPromise request();
-  external JSPromise request_1(WakeLockType type);
+  external JSPromise request1(WakeLockType type);
 }
 
 @JS('WakeLockSentinel')
@@ -31,6 +33,6 @@ extension WakeLockSentinelExtension on WakeLockSentinel {
   external JSBoolean get released;
   external WakeLockType get type;
   external JSPromise release();
-  external EventHandler get onrelease;
   external set onrelease(EventHandler value);
+  external EventHandler get onrelease;
 }

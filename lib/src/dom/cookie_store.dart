@@ -3,10 +3,13 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/html.dart';
+import 'package:web/src/dom/service_workers.dart';
 
 typedef CookieList = JSArray;
 typedef CookieSameSite = JSString;
@@ -20,22 +23,25 @@ class CookieStore extends EventTarget {
 extension CookieStoreExtension on CookieStore {
   external JSPromise get(JSString name);
   @JS('get')
-  external JSPromise get1();
+  external JSPromise get_1_();
   @JS('get')
-  external JSPromise get1_1(CookieStoreGetOptions options);
+  external JSPromise get_1_1(CookieStoreGetOptions options);
   external JSPromise getAll(JSString name);
   @JS('getAll')
-  external JSPromise getAll1();
+  external JSPromise getAll_1_();
   @JS('getAll')
-  external JSPromise getAll1_1(CookieStoreGetOptions options);
-  external JSPromise set(JSString name, JSString value);
+  external JSPromise getAll_1_1(CookieStoreGetOptions options);
+  external JSPromise set(
+    JSString name,
+    JSString value,
+  );
   @JS('set')
-  external JSPromise set1(CookieInit options);
+  external JSPromise set_1_(CookieInit options);
   external JSPromise delete(JSString name);
   @JS('delete')
-  external JSPromise delete1(CookieStoreDeleteOptions options);
-  external EventHandler get onchange;
+  external JSPromise delete_1_(CookieStoreDeleteOptions options);
   external set onchange(EventHandler value);
+  external EventHandler get onchange;
 }
 
 @JS('CookieStoreGetOptions')
@@ -44,10 +50,7 @@ class CookieStoreGetOptions {
   external factory CookieStoreGetOptions();
 }
 
-extension CookieStoreGetOptionsExtension on CookieStoreGetOptions {
-  // TODO
-  // TODO
-}
+extension CookieStoreGetOptionsExtension on CookieStoreGetOptions {}
 
 @JS('CookieInit')
 @staticInterop
@@ -55,14 +58,7 @@ class CookieInit {
   external factory CookieInit();
 }
 
-extension CookieInitExtension on CookieInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension CookieInitExtension on CookieInit {}
 
 @JS('CookieStoreDeleteOptions')
 @staticInterop
@@ -70,11 +66,7 @@ class CookieStoreDeleteOptions {
   external factory CookieStoreDeleteOptions();
 }
 
-extension CookieStoreDeleteOptionsExtension on CookieStoreDeleteOptions {
-  // TODO
-  // TODO
-  // TODO
-}
+extension CookieStoreDeleteOptionsExtension on CookieStoreDeleteOptions {}
 
 @JS('CookieListItem')
 @staticInterop
@@ -82,15 +74,7 @@ class CookieListItem {
   external factory CookieListItem();
 }
 
-extension CookieListItemExtension on CookieListItem {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension CookieListItemExtension on CookieListItem {}
 
 @JS('CookieStoreManager')
 @staticInterop
@@ -108,9 +92,13 @@ extension CookieStoreManagerExtension on CookieStoreManager {
 @staticInterop
 class CookieChangeEvent extends Event {
   external factory CookieChangeEvent();
+
   external factory CookieChangeEvent.a1(JSString type);
-  external factory CookieChangeEvent.a1_1(
-      JSString type, CookieChangeEventInit eventInitDict);
+
+  external factory CookieChangeEvent.a2(
+    JSString type,
+    CookieChangeEventInit eventInitDict,
+  );
 }
 
 extension CookieChangeEventExtension on CookieChangeEvent {
@@ -124,18 +112,19 @@ class CookieChangeEventInit extends EventInit {
   external factory CookieChangeEventInit();
 }
 
-extension CookieChangeEventInitExtension on CookieChangeEventInit {
-  // TODO
-  // TODO
-}
+extension CookieChangeEventInitExtension on CookieChangeEventInit {}
 
 @JS('ExtendableCookieChangeEvent')
 @staticInterop
 class ExtendableCookieChangeEvent extends ExtendableEvent {
   external factory ExtendableCookieChangeEvent();
+
   external factory ExtendableCookieChangeEvent.a1(JSString type);
-  external factory ExtendableCookieChangeEvent.a1_1(
-      JSString type, ExtendableCookieChangeEventInit eventInitDict);
+
+  external factory ExtendableCookieChangeEvent.a2(
+    JSString type,
+    ExtendableCookieChangeEventInit eventInitDict,
+  );
 }
 
 extension ExtendableCookieChangeEventExtension on ExtendableCookieChangeEvent {
@@ -150,7 +139,4 @@ class ExtendableCookieChangeEventInit extends ExtendableEventInit {
 }
 
 extension ExtendableCookieChangeEventInitExtension
-    on ExtendableCookieChangeEventInit {
-  // TODO
-  // TODO
-}
+    on ExtendableCookieChangeEventInit {}

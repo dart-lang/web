@@ -3,10 +3,14 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/html.dart';
+import 'package:web/src/dom/streams.dart';
+import 'package:web/src/dom/webidl.dart';
 
 typedef BlobPart = JSAny;
 typedef EndingType = JSString;
@@ -15,18 +19,31 @@ typedef EndingType = JSString;
 @staticInterop
 class Blob {
   external factory Blob();
+
   external factory Blob.a1();
-  external factory Blob.a1_1(JSArray blobParts);
-  external factory Blob.a1_2(JSArray blobParts, BlobPropertyBag options);
+
+  external factory Blob.a2(JSArray blobParts);
+
+  external factory Blob.a3(
+    JSArray blobParts,
+    BlobPropertyBag options,
+  );
 }
 
 extension BlobExtension on Blob {
   external JSNumber get size;
   external JSString get type;
   external Blob slice();
-  external Blob slice_1(JSNumber start);
-  external Blob slice_2(JSNumber start, JSNumber end);
-  external Blob slice_3(JSNumber start, JSNumber end, JSString contentType);
+  external Blob slice1(JSNumber start);
+  external Blob slice2(
+    JSNumber start,
+    JSNumber end,
+  );
+  external Blob slice3(
+    JSNumber start,
+    JSNumber end,
+    JSString contentType,
+  );
   external ReadableStream stream();
   external JSPromise text();
   external JSPromise arrayBuffer();
@@ -38,18 +55,23 @@ class BlobPropertyBag {
   external factory BlobPropertyBag();
 }
 
-extension BlobPropertyBagExtension on BlobPropertyBag {
-  // TODO
-  // TODO
-}
+extension BlobPropertyBagExtension on BlobPropertyBag {}
 
 @JS('File')
 @staticInterop
 class File extends Blob {
   external factory File();
-  external factory File.a1(JSArray fileBits, JSString fileName);
-  external factory File.a1_1(
-      JSArray fileBits, JSString fileName, FilePropertyBag options);
+
+  external factory File.a1(
+    JSArray fileBits,
+    JSString fileName,
+  );
+
+  external factory File.a2(
+    JSArray fileBits,
+    JSString fileName,
+    FilePropertyBag options,
+  );
 }
 
 extension FileExtension on File {
@@ -64,9 +86,7 @@ class FilePropertyBag extends BlobPropertyBag {
   external factory FilePropertyBag();
 }
 
-extension FilePropertyBagExtension on FilePropertyBag {
-  // TODO
-}
+extension FilePropertyBagExtension on FilePropertyBag {}
 
 @JS('FileList')
 @staticInterop
@@ -82,46 +102,53 @@ extension FileListExtension on FileList {
 @JS('FileReader')
 @staticInterop
 class FileReader extends EventTarget {
-  external factory FileReader();
+  external factory FileReader.a0();
+
   external static JSNumber get EMPTY;
   external static JSNumber get LOADING;
   external static JSNumber get DONE;
 }
 
 extension FileReaderExtension on FileReader {
-  external JSUndefined readAsArrayBuffer(Blob blob);
-  external JSUndefined readAsBinaryString(Blob blob);
-  external JSUndefined readAsText(Blob blob);
-  external JSUndefined readAsText_1(Blob blob, JSString encoding);
-  external JSUndefined readAsDataURL(Blob blob);
-  external JSUndefined abort();
+  external JSVoid readAsArrayBuffer(Blob blob);
+  external JSVoid readAsBinaryString(Blob blob);
+  external JSVoid readAsText(Blob blob);
+  external JSVoid readAsText1(
+    Blob blob,
+    JSString encoding,
+  );
+  external JSVoid readAsDataURL(Blob blob);
+  external JSVoid abort();
   external JSNumber get readyState;
   external JSAny? get result;
   external DOMException? get error;
-  external EventHandler get onloadstart;
   external set onloadstart(EventHandler value);
-  external EventHandler get onprogress;
+  external EventHandler get onloadstart;
   external set onprogress(EventHandler value);
-  external EventHandler get onload;
+  external EventHandler get onprogress;
   external set onload(EventHandler value);
-  external EventHandler get onabort;
+  external EventHandler get onload;
   external set onabort(EventHandler value);
-  external EventHandler get onerror;
+  external EventHandler get onabort;
   external set onerror(EventHandler value);
-  external EventHandler get onloadend;
+  external EventHandler get onerror;
   external set onloadend(EventHandler value);
+  external EventHandler get onloadend;
 }
 
 @JS('FileReaderSync')
 @staticInterop
 class FileReaderSync {
-  external factory FileReaderSync();
+  external factory FileReaderSync.a0();
 }
 
 extension FileReaderSyncExtension on FileReaderSync {
   external JSArrayBuffer readAsArrayBuffer(Blob blob);
   external JSString readAsBinaryString(Blob blob);
   external JSString readAsText(Blob blob);
-  external JSString readAsText_1(Blob blob, JSString encoding);
+  external JSString readAsText1(
+    Blob blob,
+    JSString encoding,
+  );
   external JSString readAsDataURL(Blob blob);
 }

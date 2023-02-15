@@ -3,10 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/html.dart';
+import 'package:web/src/dom/webidl.dart';
 
 @JS('PaintWorkletGlobalScope')
 @staticInterop
@@ -15,7 +17,10 @@ class PaintWorkletGlobalScope extends WorkletGlobalScope {
 }
 
 extension PaintWorkletGlobalScopeExtension on PaintWorkletGlobalScope {
-  external JSUndefined registerPaint(JSString name, VoidFunction paintCtor);
+  external JSVoid registerPaint(
+    JSString name,
+    VoidFunction paintCtor,
+  );
   external JSNumber get devicePixelRatio;
 }
 
@@ -26,9 +31,7 @@ class PaintRenderingContext2DSettings {
 }
 
 extension PaintRenderingContext2DSettingsExtension
-    on PaintRenderingContext2DSettings {
-  // TODO
-}
+    on PaintRenderingContext2DSettings {}
 
 @JS('PaintRenderingContext2D')
 @staticInterop

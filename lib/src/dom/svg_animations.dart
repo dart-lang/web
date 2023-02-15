@@ -3,10 +3,13 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/html.dart';
+import 'package:web/src/dom/svg.dart';
 
 @JS('TimeEvent')
 @staticInterop
@@ -17,8 +20,11 @@ class TimeEvent extends Event {
 extension TimeEventExtension on TimeEvent {
   external Window? get view;
   external JSNumber get detail;
-  external JSUndefined initTimeEvent(
-      JSString typeArg, Window? viewArg, JSNumber detailArg);
+  external JSVoid initTimeEvent(
+    JSString typeArg,
+    Window? viewArg,
+    JSNumber detailArg,
+  );
 }
 
 @JS('SVGAnimationElement')
@@ -29,19 +35,19 @@ class SVGAnimationElement extends SVGElement implements SVGTests {
 
 extension SVGAnimationElementExtension on SVGAnimationElement {
   external SVGElement? get targetElement;
-  external EventHandler get onbegin;
   external set onbegin(EventHandler value);
-  external EventHandler get onend;
+  external EventHandler get onbegin;
   external set onend(EventHandler value);
-  external EventHandler get onrepeat;
+  external EventHandler get onend;
   external set onrepeat(EventHandler value);
+  external EventHandler get onrepeat;
   external JSNumber getStartTime();
   external JSNumber getCurrentTime();
   external JSNumber getSimpleDuration();
-  external JSUndefined beginElement();
-  external JSUndefined beginElementAt(JSNumber offset);
-  external JSUndefined endElement();
-  external JSUndefined endElementAt(JSNumber offset);
+  external JSVoid beginElement();
+  external JSVoid beginElementAt(JSNumber offset);
+  external JSVoid endElement();
+  external JSVoid endElementAt(JSNumber offset);
 }
 
 @JS('SVGAnimateElement')

@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
 
 typedef HighlightType = JSString;
 
@@ -14,15 +15,15 @@ typedef HighlightType = JSString;
 @staticInterop
 class Highlight {
   external factory Highlight();
+
   external factory Highlight.a1(AbstractRange initialRanges);
 }
 
 extension HighlightExtension on Highlight {
-  // TODO
-  external JSNumber get priority;
   external set priority(JSNumber value);
-  external HighlightType get type;
+  external JSNumber get priority;
   external set type(HighlightType value);
+  external HighlightType get type;
 }
 
 @JS('HighlightRegistry')
@@ -31,6 +32,4 @@ class HighlightRegistry {
   external factory HighlightRegistry();
 }
 
-extension HighlightRegistryExtension on HighlightRegistry {
-  // TODO
-}
+extension HighlightRegistryExtension on HighlightRegistry {}

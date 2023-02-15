@@ -3,10 +3,14 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/html.dart';
+import 'package:web/src/dom/streams.dart';
+import 'package:web/src/dom/webcryptoapi.dart';
 
 typedef RTCRtpTransform = JSAny;
 typedef SmallCryptoKeyID = JSNumber;
@@ -21,31 +25,37 @@ class SFrameTransformOptions {
   external factory SFrameTransformOptions();
 }
 
-extension SFrameTransformOptionsExtension on SFrameTransformOptions {
-  // TODO
-}
+extension SFrameTransformOptionsExtension on SFrameTransformOptions {}
 
 @JS('SFrameTransform')
 @staticInterop
 class SFrameTransform implements GenericTransformStream {
   external factory SFrameTransform();
+
   external factory SFrameTransform.a1();
-  external factory SFrameTransform.a1_1(SFrameTransformOptions options);
+
+  external factory SFrameTransform.a2(SFrameTransformOptions options);
 }
 
 extension SFrameTransformExtension on SFrameTransform {
   external JSPromise setEncryptionKey(CryptoKey key);
-  external JSPromise setEncryptionKey_1(CryptoKey key, CryptoKeyID keyID);
-  external EventHandler get onerror;
+  external JSPromise setEncryptionKey1(
+    CryptoKey key,
+    CryptoKeyID keyID,
+  );
   external set onerror(EventHandler value);
+  external EventHandler get onerror;
 }
 
 @JS('SFrameTransformErrorEvent')
 @staticInterop
 class SFrameTransformErrorEvent extends Event {
   external factory SFrameTransformErrorEvent();
+
   external factory SFrameTransformErrorEvent.a1(
-      JSString type, SFrameTransformErrorEventInit eventInitDict);
+    JSString type,
+    SFrameTransformErrorEventInit eventInitDict,
+  );
 }
 
 extension SFrameTransformErrorEventExtension on SFrameTransformErrorEvent {
@@ -61,11 +71,7 @@ class SFrameTransformErrorEventInit extends EventInit {
 }
 
 extension SFrameTransformErrorEventInitExtension
-    on SFrameTransformErrorEventInit {
-  // TODO
-  // TODO
-  // TODO
-}
+    on SFrameTransformErrorEventInit {}
 
 @JS('RTCEncodedVideoFrameMetadata')
 @staticInterop
@@ -74,17 +80,7 @@ class RTCEncodedVideoFrameMetadata {
 }
 
 extension RTCEncodedVideoFrameMetadataExtension
-    on RTCEncodedVideoFrameMetadata {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+    on RTCEncodedVideoFrameMetadata {}
 
 @JS('RTCEncodedVideoFrame')
 @staticInterop
@@ -95,8 +91,8 @@ class RTCEncodedVideoFrame {
 extension RTCEncodedVideoFrameExtension on RTCEncodedVideoFrame {
   external RTCEncodedVideoFrameType get type;
   external JSNumber get timestamp;
-  external JSArrayBuffer get data;
   external set data(JSArrayBuffer value);
+  external JSArrayBuffer get data;
   external RTCEncodedVideoFrameMetadata getMetadata();
 }
 
@@ -107,12 +103,7 @@ class RTCEncodedAudioFrameMetadata {
 }
 
 extension RTCEncodedAudioFrameMetadataExtension
-    on RTCEncodedAudioFrameMetadata {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+    on RTCEncodedAudioFrameMetadata {}
 
 @JS('RTCEncodedAudioFrame')
 @staticInterop
@@ -122,8 +113,8 @@ class RTCEncodedAudioFrame {
 
 extension RTCEncodedAudioFrameExtension on RTCEncodedAudioFrame {
   external JSNumber get timestamp;
-  external JSArrayBuffer get data;
   external set data(JSArrayBuffer value);
+  external JSArrayBuffer get data;
   external RTCEncodedAudioFrameMetadata getMetadata();
 }
 
@@ -148,7 +139,7 @@ extension RTCRtpScriptTransformerExtension on RTCRtpScriptTransformer {
   external WritableStream get writable;
   external JSAny get options;
   external JSPromise generateKeyFrame();
-  external JSPromise generateKeyFrame_1(JSString rid);
+  external JSPromise generateKeyFrame1(JSString rid);
   external JSPromise sendKeyFrameRequest();
 }
 
@@ -156,8 +147,17 @@ extension RTCRtpScriptTransformerExtension on RTCRtpScriptTransformer {
 @staticInterop
 class RTCRtpScriptTransform {
   external factory RTCRtpScriptTransform();
+
   external factory RTCRtpScriptTransform.a1(Worker worker);
-  external factory RTCRtpScriptTransform.a1_1(Worker worker, JSAny options);
-  external factory RTCRtpScriptTransform.a1_2(
-      Worker worker, JSAny options, JSArray transfer);
+
+  external factory RTCRtpScriptTransform.a2(
+    Worker worker,
+    JSAny options,
+  );
+
+  external factory RTCRtpScriptTransform.a3(
+    Worker worker,
+    JSAny options,
+    JSArray transfer,
+  );
 }

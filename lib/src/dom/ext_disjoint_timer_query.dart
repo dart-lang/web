@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/webgl1.dart';
 
 typedef GLuint64EXT = JSNumber;
 
@@ -20,6 +21,7 @@ class WebGLTimerQueryEXT extends WebGLObject {
 @staticInterop
 class EXT_disjoint_timer_query {
   external factory EXT_disjoint_timer_query();
+
   external static GLenum get QUERY_COUNTER_BITS_EXT;
   external static GLenum get CURRENT_QUERY_EXT;
   external static GLenum get QUERY_RESULT_EXT;
@@ -31,11 +33,23 @@ class EXT_disjoint_timer_query {
 
 extension EXT_disjoint_timer_queryExtension on EXT_disjoint_timer_query {
   external WebGLTimerQueryEXT? createQueryEXT();
-  external JSUndefined deleteQueryEXT(WebGLTimerQueryEXT? query);
+  external JSVoid deleteQueryEXT(WebGLTimerQueryEXT? query);
   external JSBoolean isQueryEXT(WebGLTimerQueryEXT? query);
-  external JSUndefined beginQueryEXT(GLenum target, WebGLTimerQueryEXT query);
-  external JSUndefined endQueryEXT(GLenum target);
-  external JSUndefined queryCounterEXT(WebGLTimerQueryEXT query, GLenum target);
-  external JSAny getQueryEXT(GLenum target, GLenum pname);
-  external JSAny getQueryObjectEXT(WebGLTimerQueryEXT query, GLenum pname);
+  external JSVoid beginQueryEXT(
+    GLenum target,
+    WebGLTimerQueryEXT query,
+  );
+  external JSVoid endQueryEXT(GLenum target);
+  external JSVoid queryCounterEXT(
+    WebGLTimerQueryEXT query,
+    GLenum target,
+  );
+  external JSAny getQueryEXT(
+    GLenum target,
+    GLenum pname,
+  );
+  external JSAny getQueryObjectEXT(
+    WebGLTimerQueryEXT query,
+    GLenum pname,
+  );
 }

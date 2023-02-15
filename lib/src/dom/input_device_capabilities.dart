@@ -3,17 +3,19 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
 
 @JS('InputDeviceCapabilities')
 @staticInterop
 class InputDeviceCapabilities {
   external factory InputDeviceCapabilities();
+
   external factory InputDeviceCapabilities.a1();
-  external factory InputDeviceCapabilities.a1_1(
+
+  external factory InputDeviceCapabilities.a2(
       InputDeviceCapabilitiesInit deviceInitDict);
 }
 
@@ -28,7 +30,4 @@ class InputDeviceCapabilitiesInit {
   external factory InputDeviceCapabilitiesInit();
 }
 
-extension InputDeviceCapabilitiesInitExtension on InputDeviceCapabilitiesInit {
-  // TODO
-  // TODO
-}
+extension InputDeviceCapabilitiesInitExtension on InputDeviceCapabilitiesInit {}

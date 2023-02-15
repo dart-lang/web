@@ -3,10 +3,13 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/css_typed_om.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/web_animations.dart';
 
 typedef EffectCallback = JSFunction;
 typedef IterationCompositeOperation = JSString;
@@ -15,8 +18,13 @@ typedef IterationCompositeOperation = JSString;
 @staticInterop
 class GroupEffect {
   external factory GroupEffect();
+
   external factory GroupEffect.a1(JSArray? children);
-  external factory GroupEffect.a1_1(JSArray? children, JSAny timing);
+
+  external factory GroupEffect.a2(
+    JSArray? children,
+    JSAny timing,
+  );
 }
 
 extension GroupEffectExtension on GroupEffect {
@@ -24,8 +32,8 @@ extension GroupEffectExtension on GroupEffect {
   external AnimationEffect? get firstChild;
   external AnimationEffect? get lastChild;
   external GroupEffect clone();
-  external JSUndefined prepend(AnimationEffect effects);
-  external JSUndefined append(AnimationEffect effects);
+  external JSVoid prepend(AnimationEffect effects);
+  external JSVoid append(AnimationEffect effects);
 }
 
 @JS('AnimationNodeList')
@@ -43,8 +51,13 @@ extension AnimationNodeListExtension on AnimationNodeList {
 @staticInterop
 class SequenceEffect extends GroupEffect {
   external factory SequenceEffect();
+
   external factory SequenceEffect.a1(JSArray? children);
-  external factory SequenceEffect.a1_1(JSArray? children, JSAny timing);
+
+  external factory SequenceEffect.a2(
+    JSArray? children,
+    JSAny timing,
+  );
 }
 
 extension SequenceEffectExtension on SequenceEffect {
@@ -55,9 +68,13 @@ extension SequenceEffectExtension on SequenceEffect {
 @staticInterop
 class AnimationPlaybackEvent extends Event {
   external factory AnimationPlaybackEvent();
+
   external factory AnimationPlaybackEvent.a1(JSString type);
-  external factory AnimationPlaybackEvent.a1_1(
-      JSString type, AnimationPlaybackEventInit eventInitDict);
+
+  external factory AnimationPlaybackEvent.a2(
+    JSString type,
+    AnimationPlaybackEventInit eventInitDict,
+  );
 }
 
 extension AnimationPlaybackEventExtension on AnimationPlaybackEvent {
@@ -71,7 +88,4 @@ class AnimationPlaybackEventInit extends EventInit {
   external factory AnimationPlaybackEventInit();
 }
 
-extension AnimationPlaybackEventInitExtension on AnimationPlaybackEventInit {
-  // TODO
-  // TODO
-}
+extension AnimationPlaybackEventInitExtension on AnimationPlaybackEventInit {}

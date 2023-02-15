@@ -3,10 +3,16 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/event_timing.dart';
+import 'package:web/src/dom/html.dart';
+import 'package:web/src/dom/navigation_timing.dart';
+import 'package:web/src/dom/performance_timeline.dart';
+import 'package:web/src/dom/user_timing.dart';
 
 typedef DOMHighResTimeStamp = JSNumber;
 typedef EpochTimeStamp = JSNumber;
@@ -29,22 +35,31 @@ extension PerformanceExtension on Performance {
   external PerformanceEntryList getEntries();
   external PerformanceEntryList getEntriesByType(JSString type);
   external PerformanceEntryList getEntriesByName(JSString name);
-  external PerformanceEntryList getEntriesByName_1(
-      JSString name, JSString type);
-  external JSUndefined clearResourceTimings();
-  external JSUndefined setResourceTimingBufferSize(JSNumber maxSize);
-  external EventHandler get onresourcetimingbufferfull;
+  external PerformanceEntryList getEntriesByName1(
+    JSString name,
+    JSString type,
+  );
+  external JSVoid clearResourceTimings();
+  external JSVoid setResourceTimingBufferSize(JSNumber maxSize);
   external set onresourcetimingbufferfull(EventHandler value);
+  external EventHandler get onresourcetimingbufferfull;
   external PerformanceMark mark(JSString markName);
-  external PerformanceMark mark_1(
-      JSString markName, PerformanceMarkOptions markOptions);
-  external JSUndefined clearMarks();
-  external JSUndefined clearMarks_1(JSString markName);
+  external PerformanceMark mark1(
+    JSString markName,
+    PerformanceMarkOptions markOptions,
+  );
+  external JSVoid clearMarks();
+  external JSVoid clearMarks1(JSString markName);
   external PerformanceMeasure measure(JSString measureName);
-  external PerformanceMeasure measure_1(
-      JSString measureName, JSAny startOrMeasureOptions);
-  external PerformanceMeasure measure_2(
-      JSString measureName, JSAny startOrMeasureOptions, JSString endMark);
-  external JSUndefined clearMeasures();
-  external JSUndefined clearMeasures_1(JSString measureName);
+  external PerformanceMeasure measure1(
+    JSString measureName,
+    JSAny startOrMeasureOptions,
+  );
+  external PerformanceMeasure measure2(
+    JSString measureName,
+    JSAny startOrMeasureOptions,
+    JSString endMark,
+  );
+  external JSVoid clearMeasures();
+  external JSVoid clearMeasures1(JSString measureName);
 }

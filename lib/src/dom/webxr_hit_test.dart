@@ -3,10 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/geometry.dart';
+import 'package:web/src/dom/webxr.dart';
 
 typedef XRHitTestTrackableType = JSString;
 
@@ -16,11 +18,7 @@ class XRHitTestOptionsInit {
   external factory XRHitTestOptionsInit();
 }
 
-extension XRHitTestOptionsInitExtension on XRHitTestOptionsInit {
-  // TODO
-  // TODO
-  // TODO
-}
+extension XRHitTestOptionsInitExtension on XRHitTestOptionsInit {}
 
 @JS('XRTransientInputHitTestOptionsInit')
 @staticInterop
@@ -29,11 +27,7 @@ class XRTransientInputHitTestOptionsInit {
 }
 
 extension XRTransientInputHitTestOptionsInitExtension
-    on XRTransientInputHitTestOptionsInit {
-  // TODO
-  // TODO
-  // TODO
-}
+    on XRTransientInputHitTestOptionsInit {}
 
 @JS('XRHitTestSource')
 @staticInterop
@@ -42,7 +36,7 @@ class XRHitTestSource {
 }
 
 extension XRHitTestSourceExtension on XRHitTestSource {
-  external JSUndefined cancel();
+  external JSVoid cancel();
 }
 
 @JS('XRTransientInputHitTestSource')
@@ -53,7 +47,7 @@ class XRTransientInputHitTestSource {
 
 extension XRTransientInputHitTestSourceExtension
     on XRTransientInputHitTestSource {
-  external JSUndefined cancel();
+  external JSVoid cancel();
 }
 
 @JS('XRHitTestResult')
@@ -85,22 +79,23 @@ class XRRayDirectionInit {
   external factory XRRayDirectionInit();
 }
 
-extension XRRayDirectionInitExtension on XRRayDirectionInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension XRRayDirectionInitExtension on XRRayDirectionInit {}
 
 @JS('XRRay')
 @staticInterop
 class XRRay {
   external factory XRRay();
+
   external factory XRRay.a1();
-  external factory XRRay.a1_1(DOMPointInit origin);
-  external factory XRRay.a1_2(
-      DOMPointInit origin, XRRayDirectionInit direction);
-  external factory XRRay.a2(XRRigidTransform transform);
+
+  external factory XRRay.a2(DOMPointInit origin);
+
+  external factory XRRay.a3(
+    DOMPointInit origin,
+    XRRayDirectionInit direction,
+  );
+
+  external factory XRRay.a4(XRRigidTransform transform);
 }
 
 extension XRRayExtension on XRRay {

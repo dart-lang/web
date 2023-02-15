@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/cssom.dart';
 
 @JS('CSSFontFaceRule')
 @staticInterop
@@ -25,8 +26,8 @@ class CSSFontFeatureValuesRule extends CSSRule {
 }
 
 extension CSSFontFeatureValuesRuleExtension on CSSFontFeatureValuesRule {
-  external JSString get fontFamily;
   external set fontFamily(JSString value);
+  external JSString get fontFamily;
   external CSSFontFeatureValuesMap get annotation;
   external CSSFontFeatureValuesMap get ornaments;
   external CSSFontFeatureValuesMap get stylistic;
@@ -42,8 +43,10 @@ class CSSFontFeatureValuesMap {
 }
 
 extension CSSFontFeatureValuesMapExtension on CSSFontFeatureValuesMap {
-  // TODO
-  external JSUndefined set(JSString featureValueName, JSAny values);
+  external JSVoid set(
+    JSString featureValueName,
+    JSAny values,
+  );
 }
 
 @JS('CSSFontPaletteValuesRule')

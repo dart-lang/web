@@ -3,10 +3,22 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/fileapi.dart';
+import 'package:web/src/dom/hr_time.dart';
+import 'package:web/src/dom/html.dart';
+import 'package:web/src/dom/mediacapture_streams.dart';
+import 'package:web/src/dom/webcryptoapi.dart';
+import 'package:web/src/dom/webidl.dart';
+import 'package:web/src/dom/webrtc_encoded_transform.dart';
+import 'package:web/src/dom/webrtc_ice.dart';
+import 'package:web/src/dom/webrtc_identity.dart';
+import 'package:web/src/dom/webrtc_priority.dart';
+import 'package:web/src/dom/websockets.dart';
 
 typedef RTCPeerConnectionErrorCallback = JSFunction;
 typedef RTCSessionDescriptionCallback = JSFunction;
@@ -38,15 +50,7 @@ class RTCConfiguration {
   external factory RTCConfiguration();
 }
 
-extension RTCConfigurationExtension on RTCConfiguration {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension RTCConfigurationExtension on RTCConfiguration {}
 
 @JS('RTCIceServer')
 @staticInterop
@@ -54,11 +58,7 @@ class RTCIceServer {
   external factory RTCIceServer();
 }
 
-extension RTCIceServerExtension on RTCIceServer {
-  // TODO
-  // TODO
-  // TODO
-}
+extension RTCIceServerExtension on RTCIceServer {}
 
 @JS('RTCOfferAnswerOptions')
 @staticInterop
@@ -72,11 +72,7 @@ class RTCOfferOptions extends RTCOfferAnswerOptions {
   external factory RTCOfferOptions();
 }
 
-extension RTCOfferOptionsExtension on RTCOfferOptions {
-  // TODO
-  // TODO
-  // TODO
-}
+extension RTCOfferOptionsExtension on RTCOfferOptions {}
 
 @JS('RTCAnswerOptions')
 @staticInterop
@@ -88,26 +84,31 @@ class RTCAnswerOptions extends RTCOfferAnswerOptions {
 @staticInterop
 class RTCPeerConnection extends EventTarget {
   external factory RTCPeerConnection();
+
   external factory RTCPeerConnection.a1();
-  external factory RTCPeerConnection.a1_1(RTCConfiguration configuration);
+
+  external factory RTCPeerConnection.a2(RTCConfiguration configuration);
+
   external static JSPromise generateCertificate(
       AlgorithmIdentifier keygenAlgorithm);
 }
 
 extension RTCPeerConnectionExtension on RTCPeerConnection {
-  external JSUndefined setIdentityProvider(JSString provider);
-  external JSUndefined setIdentityProvider_1(
-      JSString provider, RTCIdentityProviderOptions options);
+  external JSVoid setIdentityProvider(JSString provider);
+  external JSVoid setIdentityProvider1(
+    JSString provider,
+    RTCIdentityProviderOptions options,
+  );
   external JSPromise getIdentityAssertion();
   external JSPromise get peerIdentity;
   external JSString? get idpLoginUrl;
   external JSString? get idpErrorInfo;
   external JSPromise createOffer();
-  external JSPromise createOffer_1(RTCOfferOptions options);
+  external JSPromise createOffer1(RTCOfferOptions options);
   external JSPromise createAnswer();
-  external JSPromise createAnswer_1(RTCAnswerOptions options);
+  external JSPromise createAnswer1(RTCAnswerOptions options);
   external JSPromise setLocalDescription();
-  external JSPromise setLocalDescription_1(
+  external JSPromise setLocalDescription1(
       RTCLocalSessionDescriptionInit description);
   external RTCSessionDescription? get localDescription;
   external RTCSessionDescription? get currentLocalDescription;
@@ -118,82 +119,97 @@ extension RTCPeerConnectionExtension on RTCPeerConnection {
   external RTCSessionDescription? get currentRemoteDescription;
   external RTCSessionDescription? get pendingRemoteDescription;
   external JSPromise addIceCandidate();
-  external JSPromise addIceCandidate_1(RTCIceCandidateInit candidate);
+  external JSPromise addIceCandidate1(RTCIceCandidateInit candidate);
   external RTCSignalingState get signalingState;
   external RTCIceGatheringState get iceGatheringState;
   external RTCIceConnectionState get iceConnectionState;
   external RTCPeerConnectionState get connectionState;
   external JSBoolean? get canTrickleIceCandidates;
-  external JSUndefined restartIce();
+  external JSVoid restartIce();
   external RTCConfiguration getConfiguration();
-  external JSUndefined setConfiguration();
-  external JSUndefined setConfiguration_1(RTCConfiguration configuration);
-  external JSUndefined close();
-  external EventHandler get onnegotiationneeded;
+  external JSVoid setConfiguration();
+  external JSVoid setConfiguration1(RTCConfiguration configuration);
+  external JSVoid close();
   external set onnegotiationneeded(EventHandler value);
-  external EventHandler get onicecandidate;
+  external EventHandler get onnegotiationneeded;
   external set onicecandidate(EventHandler value);
-  external EventHandler get onicecandidateerror;
+  external EventHandler get onicecandidate;
   external set onicecandidateerror(EventHandler value);
-  external EventHandler get onsignalingstatechange;
+  external EventHandler get onicecandidateerror;
   external set onsignalingstatechange(EventHandler value);
-  external EventHandler get oniceconnectionstatechange;
+  external EventHandler get onsignalingstatechange;
   external set oniceconnectionstatechange(EventHandler value);
-  external EventHandler get onicegatheringstatechange;
+  external EventHandler get oniceconnectionstatechange;
   external set onicegatheringstatechange(EventHandler value);
-  external EventHandler get onconnectionstatechange;
+  external EventHandler get onicegatheringstatechange;
   external set onconnectionstatechange(EventHandler value);
+  external EventHandler get onconnectionstatechange;
   @JS('createOffer')
-  external JSPromise createOffer1(RTCSessionDescriptionCallback successCallback,
-      RTCPeerConnectionErrorCallback failureCallback);
+  external JSPromise createOffer_1_(
+    RTCSessionDescriptionCallback successCallback,
+    RTCPeerConnectionErrorCallback failureCallback,
+  );
   @JS('createOffer')
-  external JSPromise createOffer1_1(
-      RTCSessionDescriptionCallback successCallback,
-      RTCPeerConnectionErrorCallback failureCallback,
-      RTCOfferOptions options);
+  external JSPromise createOffer_1_1(
+    RTCSessionDescriptionCallback successCallback,
+    RTCPeerConnectionErrorCallback failureCallback,
+    RTCOfferOptions options,
+  );
   @JS('setLocalDescription')
-  external JSPromise setLocalDescription1(
-      RTCLocalSessionDescriptionInit description,
-      VoidFunction successCallback,
-      RTCPeerConnectionErrorCallback failureCallback);
+  external JSPromise setLocalDescription_1_(
+    RTCLocalSessionDescriptionInit description,
+    VoidFunction successCallback,
+    RTCPeerConnectionErrorCallback failureCallback,
+  );
   @JS('createAnswer')
-  external JSPromise createAnswer1(
-      RTCSessionDescriptionCallback successCallback,
-      RTCPeerConnectionErrorCallback failureCallback);
+  external JSPromise createAnswer_1_(
+    RTCSessionDescriptionCallback successCallback,
+    RTCPeerConnectionErrorCallback failureCallback,
+  );
   @JS('setRemoteDescription')
-  external JSPromise setRemoteDescription1(
-      RTCSessionDescriptionInit description,
-      VoidFunction successCallback,
-      RTCPeerConnectionErrorCallback failureCallback);
+  external JSPromise setRemoteDescription_1_(
+    RTCSessionDescriptionInit description,
+    VoidFunction successCallback,
+    RTCPeerConnectionErrorCallback failureCallback,
+  );
   @JS('addIceCandidate')
-  external JSPromise addIceCandidate1(
-      RTCIceCandidateInit candidate,
-      VoidFunction successCallback,
-      RTCPeerConnectionErrorCallback failureCallback);
+  external JSPromise addIceCandidate_1_(
+    RTCIceCandidateInit candidate,
+    VoidFunction successCallback,
+    RTCPeerConnectionErrorCallback failureCallback,
+  );
   external JSArray getSenders();
   external JSArray getReceivers();
   external JSArray getTransceivers();
-  external RTCRtpSender addTrack(MediaStreamTrack track, MediaStream streams);
-  external JSUndefined removeTrack(RTCRtpSender sender);
+  external RTCRtpSender addTrack(
+    MediaStreamTrack track,
+    MediaStream streams,
+  );
+  external JSVoid removeTrack(RTCRtpSender sender);
   external RTCRtpTransceiver addTransceiver(JSAny trackOrKind);
-  external RTCRtpTransceiver addTransceiver_1(
-      JSAny trackOrKind, RTCRtpTransceiverInit init);
-  external EventHandler get ontrack;
+  external RTCRtpTransceiver addTransceiver1(
+    JSAny trackOrKind,
+    RTCRtpTransceiverInit init,
+  );
   external set ontrack(EventHandler value);
+  external EventHandler get ontrack;
   external RTCSctpTransport? get sctp;
   external RTCDataChannel createDataChannel(JSString label);
-  external RTCDataChannel createDataChannel_1(
-      JSString label, RTCDataChannelInit dataChannelDict);
-  external EventHandler get ondatachannel;
+  external RTCDataChannel createDataChannel1(
+    JSString label,
+    RTCDataChannelInit dataChannelDict,
+  );
   external set ondatachannel(EventHandler value);
+  external EventHandler get ondatachannel;
   external JSPromise getStats();
-  external JSPromise getStats_1(MediaStreamTrack? selector);
+  external JSPromise getStats1(MediaStreamTrack? selector);
 }
 
 @JS('RTCSessionDescription')
 @staticInterop
 class RTCSessionDescription {
   external factory RTCSessionDescription();
+
   external factory RTCSessionDescription.a1(
       RTCSessionDescriptionInit descriptionInitDict);
 }
@@ -210,10 +226,7 @@ class RTCSessionDescriptionInit {
   external factory RTCSessionDescriptionInit();
 }
 
-extension RTCSessionDescriptionInitExtension on RTCSessionDescriptionInit {
-  // TODO
-  // TODO
-}
+extension RTCSessionDescriptionInitExtension on RTCSessionDescriptionInit {}
 
 @JS('RTCLocalSessionDescriptionInit')
 @staticInterop
@@ -222,17 +235,16 @@ class RTCLocalSessionDescriptionInit {
 }
 
 extension RTCLocalSessionDescriptionInitExtension
-    on RTCLocalSessionDescriptionInit {
-  // TODO
-  // TODO
-}
+    on RTCLocalSessionDescriptionInit {}
 
 @JS('RTCIceCandidate')
 @staticInterop
 class RTCIceCandidate {
   external factory RTCIceCandidate();
+
   external factory RTCIceCandidate.a1();
-  external factory RTCIceCandidate.a1_1(RTCIceCandidateInit candidateInitDict);
+
+  external factory RTCIceCandidate.a2(RTCIceCandidateInit candidateInitDict);
 }
 
 extension RTCIceCandidateExtension on RTCIceCandidate {
@@ -261,20 +273,19 @@ class RTCIceCandidateInit {
   external factory RTCIceCandidateInit();
 }
 
-extension RTCIceCandidateInitExtension on RTCIceCandidateInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension RTCIceCandidateInitExtension on RTCIceCandidateInit {}
 
 @JS('RTCPeerConnectionIceEvent')
 @staticInterop
 class RTCPeerConnectionIceEvent extends Event {
   external factory RTCPeerConnectionIceEvent();
+
   external factory RTCPeerConnectionIceEvent.a1(JSString type);
-  external factory RTCPeerConnectionIceEvent.a1_1(
-      JSString type, RTCPeerConnectionIceEventInit eventInitDict);
+
+  external factory RTCPeerConnectionIceEvent.a2(
+    JSString type,
+    RTCPeerConnectionIceEventInit eventInitDict,
+  );
 }
 
 extension RTCPeerConnectionIceEventExtension on RTCPeerConnectionIceEvent {
@@ -289,17 +300,17 @@ class RTCPeerConnectionIceEventInit extends EventInit {
 }
 
 extension RTCPeerConnectionIceEventInitExtension
-    on RTCPeerConnectionIceEventInit {
-  // TODO
-  // TODO
-}
+    on RTCPeerConnectionIceEventInit {}
 
 @JS('RTCPeerConnectionIceErrorEvent')
 @staticInterop
 class RTCPeerConnectionIceErrorEvent extends Event {
   external factory RTCPeerConnectionIceErrorEvent();
+
   external factory RTCPeerConnectionIceErrorEvent.a1(
-      JSString type, RTCPeerConnectionIceErrorEventInit eventInitDict);
+    JSString type,
+    RTCPeerConnectionIceErrorEventInit eventInitDict,
+  );
 }
 
 extension RTCPeerConnectionIceErrorEventExtension
@@ -318,13 +329,7 @@ class RTCPeerConnectionIceErrorEventInit extends EventInit {
 }
 
 extension RTCPeerConnectionIceErrorEventInitExtension
-    on RTCPeerConnectionIceErrorEventInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+    on RTCPeerConnectionIceErrorEventInit {}
 
 @JS('RTCCertificateExpiration')
 @staticInterop
@@ -332,9 +337,7 @@ class RTCCertificateExpiration {
   external factory RTCCertificateExpiration();
 }
 
-extension RTCCertificateExpirationExtension on RTCCertificateExpiration {
-  // TODO
-}
+extension RTCCertificateExpirationExtension on RTCCertificateExpiration {}
 
 @JS('RTCCertificate')
 @staticInterop
@@ -353,30 +356,27 @@ class RTCRtpTransceiverInit {
   external factory RTCRtpTransceiverInit();
 }
 
-extension RTCRtpTransceiverInitExtension on RTCRtpTransceiverInit {
-  // TODO
-  // TODO
-  // TODO
-}
+extension RTCRtpTransceiverInitExtension on RTCRtpTransceiverInit {}
 
 @JS('RTCRtpSender')
 @staticInterop
 class RTCRtpSender {
   external factory RTCRtpSender();
+
   external static RTCRtpCapabilities? getCapabilities(JSString kind);
 }
 
 extension RTCRtpSenderExtension on RTCRtpSender {
-  external RTCRtpTransform? get transform;
   external set transform(RTCRtpTransform? value);
+  external RTCRtpTransform? get transform;
   external JSPromise generateKeyFrame();
-  external JSPromise generateKeyFrame_1(JSArray rids);
+  external JSPromise generateKeyFrame1(JSArray rids);
   external MediaStreamTrack? get track;
   external RTCDtlsTransport? get transport;
   external JSPromise setParameters(RTCRtpSendParameters parameters);
   external RTCRtpSendParameters getParameters();
   external JSPromise replaceTrack(MediaStreamTrack? withTrack);
-  external JSUndefined setStreams(MediaStream streams);
+  external JSVoid setStreams(MediaStream streams);
   external JSPromise getStats();
   external RTCDTMFSender? get dtmf;
 }
@@ -387,11 +387,7 @@ class RTCRtpParameters {
   external factory RTCRtpParameters();
 }
 
-extension RTCRtpParametersExtension on RTCRtpParameters {
-  // TODO
-  // TODO
-  // TODO
-}
+extension RTCRtpParametersExtension on RTCRtpParameters {}
 
 @JS('RTCRtpSendParameters')
 @staticInterop
@@ -399,11 +395,7 @@ class RTCRtpSendParameters extends RTCRtpParameters {
   external factory RTCRtpSendParameters();
 }
 
-extension RTCRtpSendParametersExtension on RTCRtpSendParameters {
-  // TODO
-  // TODO
-  // TODO
-}
+extension RTCRtpSendParametersExtension on RTCRtpSendParameters {}
 
 @JS('RTCRtpReceiveParameters')
 @staticInterop
@@ -417,9 +409,7 @@ class RTCRtpCodingParameters {
   external factory RTCRtpCodingParameters();
 }
 
-extension RTCRtpCodingParametersExtension on RTCRtpCodingParameters {
-  // TODO
-}
+extension RTCRtpCodingParametersExtension on RTCRtpCodingParameters {}
 
 @JS('RTCRtpEncodingParameters')
 @staticInterop
@@ -427,15 +417,7 @@ class RTCRtpEncodingParameters extends RTCRtpCodingParameters {
   external factory RTCRtpEncodingParameters();
 }
 
-extension RTCRtpEncodingParametersExtension on RTCRtpEncodingParameters {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension RTCRtpEncodingParametersExtension on RTCRtpEncodingParameters {}
 
 @JS('RTCRtcpParameters')
 @staticInterop
@@ -443,10 +425,7 @@ class RTCRtcpParameters {
   external factory RTCRtcpParameters();
 }
 
-extension RTCRtcpParametersExtension on RTCRtcpParameters {
-  // TODO
-  // TODO
-}
+extension RTCRtcpParametersExtension on RTCRtcpParameters {}
 
 @JS('RTCRtpHeaderExtensionParameters')
 @staticInterop
@@ -455,11 +434,7 @@ class RTCRtpHeaderExtensionParameters {
 }
 
 extension RTCRtpHeaderExtensionParametersExtension
-    on RTCRtpHeaderExtensionParameters {
-  // TODO
-  // TODO
-  // TODO
-}
+    on RTCRtpHeaderExtensionParameters {}
 
 @JS('RTCRtpCodecParameters')
 @staticInterop
@@ -467,13 +442,7 @@ class RTCRtpCodecParameters {
   external factory RTCRtpCodecParameters();
 }
 
-extension RTCRtpCodecParametersExtension on RTCRtpCodecParameters {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension RTCRtpCodecParametersExtension on RTCRtpCodecParameters {}
 
 @JS('RTCRtpCapabilities')
 @staticInterop
@@ -481,10 +450,7 @@ class RTCRtpCapabilities {
   external factory RTCRtpCapabilities();
 }
 
-extension RTCRtpCapabilitiesExtension on RTCRtpCapabilities {
-  // TODO
-  // TODO
-}
+extension RTCRtpCapabilitiesExtension on RTCRtpCapabilities {}
 
 @JS('RTCRtpCodecCapability')
 @staticInterop
@@ -492,12 +458,7 @@ class RTCRtpCodecCapability {
   external factory RTCRtpCodecCapability();
 }
 
-extension RTCRtpCodecCapabilityExtension on RTCRtpCodecCapability {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension RTCRtpCodecCapabilityExtension on RTCRtpCodecCapability {}
 
 @JS('RTCRtpHeaderExtensionCapability')
 @staticInterop
@@ -506,20 +467,19 @@ class RTCRtpHeaderExtensionCapability {
 }
 
 extension RTCRtpHeaderExtensionCapabilityExtension
-    on RTCRtpHeaderExtensionCapability {
-  // TODO
-}
+    on RTCRtpHeaderExtensionCapability {}
 
 @JS('RTCRtpReceiver')
 @staticInterop
 class RTCRtpReceiver {
   external factory RTCRtpReceiver();
+
   external static RTCRtpCapabilities? getCapabilities(JSString kind);
 }
 
 extension RTCRtpReceiverExtension on RTCRtpReceiver {
-  external RTCRtpTransform? get transform;
   external set transform(RTCRtpTransform? value);
+  external RTCRtpTransform? get transform;
   external MediaStreamTrack get track;
   external RTCDtlsTransport? get transport;
   external RTCRtpReceiveParameters getParameters();
@@ -534,12 +494,7 @@ class RTCRtpContributingSource {
   external factory RTCRtpContributingSource();
 }
 
-extension RTCRtpContributingSourceExtension on RTCRtpContributingSource {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension RTCRtpContributingSourceExtension on RTCRtpContributingSource {}
 
 @JS('RTCRtpSynchronizationSource')
 @staticInterop
@@ -557,11 +512,11 @@ extension RTCRtpTransceiverExtension on RTCRtpTransceiver {
   external JSString? get mid;
   external RTCRtpSender get sender;
   external RTCRtpReceiver get receiver;
-  external RTCRtpTransceiverDirection get direction;
   external set direction(RTCRtpTransceiverDirection value);
+  external RTCRtpTransceiverDirection get direction;
   external RTCRtpTransceiverDirection? get currentDirection;
-  external JSUndefined stop();
-  external JSUndefined setCodecPreferences(JSArray codecs);
+  external JSVoid stop();
+  external JSVoid setCodecPreferences(JSArray codecs);
 }
 
 @JS('RTCDtlsTransport')
@@ -574,10 +529,10 @@ extension RTCDtlsTransportExtension on RTCDtlsTransport {
   external RTCIceTransport get iceTransport;
   external RTCDtlsTransportState get state;
   external JSArray getRemoteCertificates();
-  external EventHandler get onstatechange;
   external set onstatechange(EventHandler value);
-  external EventHandler get onerror;
+  external EventHandler get onstatechange;
   external set onerror(EventHandler value);
+  external EventHandler get onerror;
 }
 
 @JS('RTCDtlsFingerprint')
@@ -586,32 +541,30 @@ class RTCDtlsFingerprint {
   external factory RTCDtlsFingerprint();
 }
 
-extension RTCDtlsFingerprintExtension on RTCDtlsFingerprint {
-  // TODO
-  // TODO
-}
+extension RTCDtlsFingerprintExtension on RTCDtlsFingerprint {}
 
 @JS('RTCIceTransport')
 @staticInterop
 class RTCIceTransport extends EventTarget {
-  external factory RTCIceTransport();
+  external factory RTCIceTransport.a0();
 }
 
 extension RTCIceTransportExtension on RTCIceTransport {
-  external JSUndefined gather();
-  external JSUndefined gather_1(RTCIceGatherOptions options);
-  external JSUndefined start();
-  external JSUndefined start_1(RTCIceParameters remoteParameters);
-  external JSUndefined start_2(
-      RTCIceParameters remoteParameters, RTCIceRole role);
-  external JSUndefined stop();
-  external JSUndefined addRemoteCandidate();
-  external JSUndefined addRemoteCandidate_1(
-      RTCIceCandidateInit remoteCandidate);
-  external EventHandler get onerror;
+  external JSVoid gather();
+  external JSVoid gather1(RTCIceGatherOptions options);
+  external JSVoid start();
+  external JSVoid start1(RTCIceParameters remoteParameters);
+  external JSVoid start2(
+    RTCIceParameters remoteParameters,
+    RTCIceRole role,
+  );
+  external JSVoid stop();
+  external JSVoid addRemoteCandidate();
+  external JSVoid addRemoteCandidate1(RTCIceCandidateInit remoteCandidate);
   external set onerror(EventHandler value);
-  external EventHandler get onicecandidate;
+  external EventHandler get onerror;
   external set onicecandidate(EventHandler value);
+  external EventHandler get onicecandidate;
   external RTCIceRole get role;
   external RTCIceComponent get component;
   external RTCIceTransportState get state;
@@ -621,12 +574,12 @@ extension RTCIceTransportExtension on RTCIceTransport {
   external RTCIceCandidatePair? getSelectedCandidatePair();
   external RTCIceParameters? getLocalParameters();
   external RTCIceParameters? getRemoteParameters();
-  external EventHandler get onstatechange;
   external set onstatechange(EventHandler value);
-  external EventHandler get ongatheringstatechange;
+  external EventHandler get onstatechange;
   external set ongatheringstatechange(EventHandler value);
-  external EventHandler get onselectedcandidatepairchange;
+  external EventHandler get ongatheringstatechange;
   external set onselectedcandidatepairchange(EventHandler value);
+  external EventHandler get onselectedcandidatepairchange;
 }
 
 @JS('RTCIceParameters')
@@ -635,11 +588,7 @@ class RTCIceParameters {
   external factory RTCIceParameters();
 }
 
-extension RTCIceParametersExtension on RTCIceParameters {
-  // TODO
-  // TODO
-  // TODO
-}
+extension RTCIceParametersExtension on RTCIceParameters {}
 
 @JS('RTCIceCandidatePair')
 @staticInterop
@@ -647,17 +596,17 @@ class RTCIceCandidatePair {
   external factory RTCIceCandidatePair();
 }
 
-extension RTCIceCandidatePairExtension on RTCIceCandidatePair {
-  // TODO
-  // TODO
-}
+extension RTCIceCandidatePairExtension on RTCIceCandidatePair {}
 
 @JS('RTCTrackEvent')
 @staticInterop
 class RTCTrackEvent extends Event {
   external factory RTCTrackEvent();
+
   external factory RTCTrackEvent.a1(
-      JSString type, RTCTrackEventInit eventInitDict);
+    JSString type,
+    RTCTrackEventInit eventInitDict,
+  );
 }
 
 extension RTCTrackEventExtension on RTCTrackEvent {
@@ -673,12 +622,7 @@ class RTCTrackEventInit extends EventInit {
   external factory RTCTrackEventInit();
 }
 
-extension RTCTrackEventInitExtension on RTCTrackEventInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension RTCTrackEventInitExtension on RTCTrackEventInit {}
 
 @JS('RTCSctpTransport')
 @staticInterop
@@ -691,8 +635,8 @@ extension RTCSctpTransportExtension on RTCSctpTransport {
   external RTCSctpTransportState get state;
   external JSNumber get maxMessageSize;
   external JSNumber? get maxChannels;
-  external EventHandler get onstatechange;
   external set onstatechange(EventHandler value);
+  external EventHandler get onstatechange;
 }
 
 @JS('RTCDataChannel')
@@ -712,30 +656,30 @@ extension RTCDataChannelExtension on RTCDataChannel {
   external JSNumber? get id;
   external RTCDataChannelState get readyState;
   external JSNumber get bufferedAmount;
-  external JSNumber get bufferedAmountLowThreshold;
   external set bufferedAmountLowThreshold(JSNumber value);
-  external EventHandler get onopen;
+  external JSNumber get bufferedAmountLowThreshold;
   external set onopen(EventHandler value);
-  external EventHandler get onbufferedamountlow;
+  external EventHandler get onopen;
   external set onbufferedamountlow(EventHandler value);
-  external EventHandler get onerror;
+  external EventHandler get onbufferedamountlow;
   external set onerror(EventHandler value);
-  external EventHandler get onclosing;
+  external EventHandler get onerror;
   external set onclosing(EventHandler value);
-  external EventHandler get onclose;
+  external EventHandler get onclosing;
   external set onclose(EventHandler value);
-  external JSUndefined close();
-  external EventHandler get onmessage;
+  external EventHandler get onclose;
+  external JSVoid close();
   external set onmessage(EventHandler value);
-  external BinaryType get binaryType;
+  external EventHandler get onmessage;
   external set binaryType(BinaryType value);
-  external JSUndefined send(JSString data);
+  external BinaryType get binaryType;
+  external JSVoid send(JSString data);
   @JS('send')
-  external JSUndefined send1(Blob data);
+  external JSVoid send_1_(Blob data);
   @JS('send')
-  external JSUndefined send2(JSArrayBuffer data);
+  external JSVoid send_2_(JSArrayBuffer data);
   @JS('send')
-  external JSUndefined send3(ArrayBufferView data);
+  external JSVoid send_3_(ArrayBufferView data);
 }
 
 @JS('RTCDataChannelInit')
@@ -744,22 +688,17 @@ class RTCDataChannelInit {
   external factory RTCDataChannelInit();
 }
 
-extension RTCDataChannelInitExtension on RTCDataChannelInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension RTCDataChannelInitExtension on RTCDataChannelInit {}
 
 @JS('RTCDataChannelEvent')
 @staticInterop
 class RTCDataChannelEvent extends Event {
   external factory RTCDataChannelEvent();
+
   external factory RTCDataChannelEvent.a1(
-      JSString type, RTCDataChannelEventInit eventInitDict);
+    JSString type,
+    RTCDataChannelEventInit eventInitDict,
+  );
 }
 
 extension RTCDataChannelEventExtension on RTCDataChannelEvent {
@@ -772,9 +711,7 @@ class RTCDataChannelEventInit extends EventInit {
   external factory RTCDataChannelEventInit();
 }
 
-extension RTCDataChannelEventInitExtension on RTCDataChannelEventInit {
-  // TODO
-}
+extension RTCDataChannelEventInitExtension on RTCDataChannelEventInit {}
 
 @JS('RTCDTMFSender')
 @staticInterop
@@ -783,12 +720,18 @@ class RTCDTMFSender extends EventTarget {
 }
 
 extension RTCDTMFSenderExtension on RTCDTMFSender {
-  external JSUndefined insertDTMF(JSString tones);
-  external JSUndefined insertDTMF_1(JSString tones, JSNumber duration);
-  external JSUndefined insertDTMF_2(
-      JSString tones, JSNumber duration, JSNumber interToneGap);
-  external EventHandler get ontonechange;
+  external JSVoid insertDTMF(JSString tones);
+  external JSVoid insertDTMF1(
+    JSString tones,
+    JSNumber duration,
+  );
+  external JSVoid insertDTMF2(
+    JSString tones,
+    JSNumber duration,
+    JSNumber interToneGap,
+  );
   external set ontonechange(EventHandler value);
+  external EventHandler get ontonechange;
   external JSBoolean get canInsertDTMF;
   external JSString get toneBuffer;
 }
@@ -797,9 +740,13 @@ extension RTCDTMFSenderExtension on RTCDTMFSender {
 @staticInterop
 class RTCDTMFToneChangeEvent extends Event {
   external factory RTCDTMFToneChangeEvent();
+
   external factory RTCDTMFToneChangeEvent.a1(JSString type);
-  external factory RTCDTMFToneChangeEvent.a1_1(
-      JSString type, RTCDTMFToneChangeEventInit eventInitDict);
+
+  external factory RTCDTMFToneChangeEvent.a2(
+    JSString type,
+    RTCDTMFToneChangeEventInit eventInitDict,
+  );
 }
 
 extension RTCDTMFToneChangeEventExtension on RTCDTMFToneChangeEvent {
@@ -812,9 +759,7 @@ class RTCDTMFToneChangeEventInit extends EventInit {
   external factory RTCDTMFToneChangeEventInit();
 }
 
-extension RTCDTMFToneChangeEventInitExtension on RTCDTMFToneChangeEventInit {
-  // TODO
-}
+extension RTCDTMFToneChangeEventInitExtension on RTCDTMFToneChangeEventInit {}
 
 @JS('RTCStatsReport')
 @staticInterop
@@ -822,9 +767,7 @@ class RTCStatsReport {
   external factory RTCStatsReport();
 }
 
-extension RTCStatsReportExtension on RTCStatsReport {
-  // TODO
-}
+extension RTCStatsReportExtension on RTCStatsReport {}
 
 @JS('RTCStats')
 @staticInterop
@@ -832,18 +775,19 @@ class RTCStats {
   external factory RTCStats();
 }
 
-extension RTCStatsExtension on RTCStats {
-  // TODO
-  // TODO
-  // TODO
-}
+extension RTCStatsExtension on RTCStats {}
 
 @JS('RTCError')
 @staticInterop
 class RTCError extends DOMException {
   external factory RTCError();
+
   external factory RTCError.a1(RTCErrorInit init);
-  external factory RTCError.a1_1(RTCErrorInit init, JSString message);
+
+  external factory RTCError.a2(
+    RTCErrorInit init,
+    JSString message,
+  );
 }
 
 extension RTCErrorExtension on RTCError {
@@ -861,21 +805,17 @@ class RTCErrorInit {
   external factory RTCErrorInit();
 }
 
-extension RTCErrorInitExtension on RTCErrorInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension RTCErrorInitExtension on RTCErrorInit {}
 
 @JS('RTCErrorEvent')
 @staticInterop
 class RTCErrorEvent extends Event {
   external factory RTCErrorEvent();
+
   external factory RTCErrorEvent.a1(
-      JSString type, RTCErrorEventInit eventInitDict);
+    JSString type,
+    RTCErrorEventInit eventInitDict,
+  );
 }
 
 extension RTCErrorEventExtension on RTCErrorEvent {
@@ -888,6 +828,4 @@ class RTCErrorEventInit extends EventInit {
   external factory RTCErrorEventInit();
 }
 
-extension RTCErrorEventInitExtension on RTCErrorEventInit {
-  // TODO
-}
+extension RTCErrorEventInitExtension on RTCErrorEventInit {}

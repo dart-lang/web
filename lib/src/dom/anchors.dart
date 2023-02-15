@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/webxr.dart';
 
 @JS('XRAnchor')
 @staticInterop
@@ -17,7 +18,7 @@ class XRAnchor {
 extension XRAnchorExtension on XRAnchor {
   external XRSpace get anchorSpace;
   external JSPromise requestPersistentHandle();
-  external JSUndefined delete();
+  external JSVoid delete();
 }
 
 @JS('XRAnchorSet')
@@ -26,6 +27,4 @@ class XRAnchorSet {
   external factory XRAnchorSet();
 }
 
-extension XRAnchorSetExtension on XRAnchorSet {
-  // TODO
-}
+extension XRAnchorSetExtension on XRAnchorSet {}

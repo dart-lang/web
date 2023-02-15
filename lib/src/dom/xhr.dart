@@ -3,10 +3,13 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/fileapi.dart';
+import 'package:web/src/dom/html.dart';
 
 typedef FormDataEntryValue = JSAny;
 typedef XMLHttpRequestResponseType = JSString;
@@ -18,20 +21,20 @@ class XMLHttpRequestEventTarget extends EventTarget {
 }
 
 extension XMLHttpRequestEventTargetExtension on XMLHttpRequestEventTarget {
-  external EventHandler get onloadstart;
   external set onloadstart(EventHandler value);
-  external EventHandler get onprogress;
+  external EventHandler get onloadstart;
   external set onprogress(EventHandler value);
-  external EventHandler get onabort;
+  external EventHandler get onprogress;
   external set onabort(EventHandler value);
-  external EventHandler get onerror;
+  external EventHandler get onabort;
   external set onerror(EventHandler value);
-  external EventHandler get onload;
+  external EventHandler get onerror;
   external set onload(EventHandler value);
-  external EventHandler get ontimeout;
+  external EventHandler get onload;
   external set ontimeout(EventHandler value);
-  external EventHandler get onloadend;
+  external EventHandler get ontimeout;
   external set onloadend(EventHandler value);
+  external EventHandler get onloadend;
 }
 
 @JS('XMLHttpRequestUpload')
@@ -43,7 +46,8 @@ class XMLHttpRequestUpload extends XMLHttpRequestEventTarget {
 @JS('XMLHttpRequest')
 @staticInterop
 class XMLHttpRequest extends XMLHttpRequestEventTarget {
-  external factory XMLHttpRequest();
+  external factory XMLHttpRequest.a0();
+
   external static JSNumber get UNSENT;
   external static JSNumber get OPENED;
   external static JSNumber get HEADERS_RECEIVED;
@@ -52,35 +56,54 @@ class XMLHttpRequest extends XMLHttpRequestEventTarget {
 }
 
 extension XMLHttpRequestExtension on XMLHttpRequest {
-  external EventHandler get onreadystatechange;
   external set onreadystatechange(EventHandler value);
+  external EventHandler get onreadystatechange;
   external JSNumber get readyState;
-  external JSUndefined open(JSString method, JSString url);
+  external JSVoid open(
+    JSString method,
+    JSString url,
+  );
   @JS('open')
-  external JSUndefined open1(JSString method, JSString url, JSBoolean async);
+  external JSVoid open_1_(
+    JSString method,
+    JSString url,
+    JSBoolean async,
+  );
   @JS('open')
-  external JSUndefined open1_1(
-      JSString method, JSString url, JSBoolean async, JSString? username);
+  external JSVoid open_1_1(
+    JSString method,
+    JSString url,
+    JSBoolean async,
+    JSString? username,
+  );
   @JS('open')
-  external JSUndefined open1_2(JSString method, JSString url, JSBoolean async,
-      JSString? username, JSString? password);
-  external JSUndefined setRequestHeader(JSString name, JSString value);
-  external JSNumber get timeout;
+  external JSVoid open_1_2(
+    JSString method,
+    JSString url,
+    JSBoolean async,
+    JSString? username,
+    JSString? password,
+  );
+  external JSVoid setRequestHeader(
+    JSString name,
+    JSString value,
+  );
   external set timeout(JSNumber value);
-  external JSBoolean get withCredentials;
+  external JSNumber get timeout;
   external set withCredentials(JSBoolean value);
+  external JSBoolean get withCredentials;
   external XMLHttpRequestUpload get upload;
-  external JSUndefined send();
-  external JSUndefined send_1(JSAny? body);
-  external JSUndefined abort();
+  external JSVoid send();
+  external JSVoid send1(JSAny? body);
+  external JSVoid abort();
   external JSString get responseURL;
   external JSNumber get status;
   external JSString get statusText;
   external JSString? getResponseHeader(JSString name);
   external JSString getAllResponseHeaders();
-  external JSUndefined overrideMimeType(JSString mime);
-  external XMLHttpRequestResponseType get responseType;
+  external JSVoid overrideMimeType(JSString mime);
   external set responseType(XMLHttpRequestResponseType value);
+  external XMLHttpRequestResponseType get responseType;
   external JSAny get response;
   external JSString get responseText;
   external Document? get responseXML;
@@ -90,37 +113,65 @@ extension XMLHttpRequestExtension on XMLHttpRequest {
 @staticInterop
 class FormData {
   external factory FormData();
+
   external factory FormData.a1();
-  external factory FormData.a1_1(HTMLFormElement form);
-  external factory FormData.a1_2(HTMLFormElement form, HTMLElement? submitter);
+
+  external factory FormData.a2(HTMLFormElement form);
+
+  external factory FormData.a3(
+    HTMLFormElement form,
+    HTMLElement? submitter,
+  );
 }
 
 extension FormDataExtension on FormData {
-  external JSUndefined append(JSString name, JSString value);
+  external JSVoid append(
+    JSString name,
+    JSString value,
+  );
   @JS('append')
-  external JSUndefined append1(JSString name, Blob blobValue);
+  external JSVoid append_1_(
+    JSString name,
+    Blob blobValue,
+  );
   @JS('append')
-  external JSUndefined append1_1(
-      JSString name, Blob blobValue, JSString filename);
-  external JSUndefined delete(JSString name);
+  external JSVoid append_1_1(
+    JSString name,
+    Blob blobValue,
+    JSString filename,
+  );
+  external JSVoid delete(JSString name);
   external FormDataEntryValue? get(JSString name);
   external JSArray getAll(JSString name);
   external JSBoolean has(JSString name);
-  external JSUndefined set(JSString name, JSString value);
+  external JSVoid set(
+    JSString name,
+    JSString value,
+  );
   @JS('set')
-  external JSUndefined set1(JSString name, Blob blobValue);
+  external JSVoid set_1_(
+    JSString name,
+    Blob blobValue,
+  );
   @JS('set')
-  external JSUndefined set1_1(JSString name, Blob blobValue, JSString filename);
-  // TODO
+  external JSVoid set_1_1(
+    JSString name,
+    Blob blobValue,
+    JSString filename,
+  );
 }
 
 @JS('ProgressEvent')
 @staticInterop
 class ProgressEvent extends Event {
   external factory ProgressEvent();
+
   external factory ProgressEvent.a1(JSString type);
-  external factory ProgressEvent.a1_1(
-      JSString type, ProgressEventInit eventInitDict);
+
+  external factory ProgressEvent.a2(
+    JSString type,
+    ProgressEventInit eventInitDict,
+  );
 }
 
 extension ProgressEventExtension on ProgressEvent {
@@ -135,8 +186,4 @@ class ProgressEventInit extends EventInit {
   external factory ProgressEventInit();
 }
 
-extension ProgressEventInitExtension on ProgressEventInit {
-  // TODO
-  // TODO
-  // TODO
-}
+extension ProgressEventInitExtension on ProgressEventInit {}

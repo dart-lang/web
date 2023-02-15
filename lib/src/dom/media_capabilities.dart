@@ -3,10 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
 
 typedef MediaDecodingType = JSString;
 typedef MediaEncodingType = JSString;
@@ -20,10 +20,7 @@ class MediaConfiguration {
   external factory MediaConfiguration();
 }
 
-extension MediaConfigurationExtension on MediaConfiguration {
-  // TODO
-  // TODO
-}
+extension MediaConfigurationExtension on MediaConfiguration {}
 
 @JS('MediaDecodingConfiguration')
 @staticInterop
@@ -31,10 +28,7 @@ class MediaDecodingConfiguration extends MediaConfiguration {
   external factory MediaDecodingConfiguration();
 }
 
-extension MediaDecodingConfigurationExtension on MediaDecodingConfiguration {
-  // TODO
-  // TODO
-}
+extension MediaDecodingConfigurationExtension on MediaDecodingConfiguration {}
 
 @JS('MediaEncodingConfiguration')
 @staticInterop
@@ -42,9 +36,7 @@ class MediaEncodingConfiguration extends MediaConfiguration {
   external factory MediaEncodingConfiguration();
 }
 
-extension MediaEncodingConfigurationExtension on MediaEncodingConfiguration {
-  // TODO
-}
+extension MediaEncodingConfigurationExtension on MediaEncodingConfiguration {}
 
 @JS('VideoConfiguration')
 @staticInterop
@@ -52,19 +44,7 @@ class VideoConfiguration {
   external factory VideoConfiguration();
 }
 
-extension VideoConfigurationExtension on VideoConfiguration {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension VideoConfigurationExtension on VideoConfiguration {}
 
 @JS('AudioConfiguration')
 @staticInterop
@@ -72,13 +52,7 @@ class AudioConfiguration {
   external factory AudioConfiguration();
 }
 
-extension AudioConfigurationExtension on AudioConfiguration {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension AudioConfigurationExtension on AudioConfiguration {}
 
 @JS('MediaCapabilitiesKeySystemConfiguration')
 @staticInterop
@@ -87,15 +61,7 @@ class MediaCapabilitiesKeySystemConfiguration {
 }
 
 extension MediaCapabilitiesKeySystemConfigurationExtension
-    on MediaCapabilitiesKeySystemConfiguration {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+    on MediaCapabilitiesKeySystemConfiguration {}
 
 @JS('KeySystemTrackConfiguration')
 @staticInterop
@@ -103,10 +69,7 @@ class KeySystemTrackConfiguration {
   external factory KeySystemTrackConfiguration();
 }
 
-extension KeySystemTrackConfigurationExtension on KeySystemTrackConfiguration {
-  // TODO
-  // TODO
-}
+extension KeySystemTrackConfigurationExtension on KeySystemTrackConfiguration {}
 
 @JS('MediaCapabilitiesInfo')
 @staticInterop
@@ -114,11 +77,7 @@ class MediaCapabilitiesInfo {
   external factory MediaCapabilitiesInfo();
 }
 
-extension MediaCapabilitiesInfoExtension on MediaCapabilitiesInfo {
-  // TODO
-  // TODO
-  // TODO
-}
+extension MediaCapabilitiesInfoExtension on MediaCapabilitiesInfo {}
 
 @JS('MediaCapabilitiesDecodingInfo')
 @staticInterop
@@ -127,10 +86,7 @@ class MediaCapabilitiesDecodingInfo extends MediaCapabilitiesInfo {
 }
 
 extension MediaCapabilitiesDecodingInfoExtension
-    on MediaCapabilitiesDecodingInfo {
-  // TODO
-  // TODO
-}
+    on MediaCapabilitiesDecodingInfo {}
 
 @JS('MediaCapabilitiesEncodingInfo')
 @staticInterop
@@ -139,9 +95,7 @@ class MediaCapabilitiesEncodingInfo extends MediaCapabilitiesInfo {
 }
 
 extension MediaCapabilitiesEncodingInfoExtension
-    on MediaCapabilitiesEncodingInfo {
-  // TODO
-}
+    on MediaCapabilitiesEncodingInfo {}
 
 @JS('MediaCapabilities')
 @staticInterop

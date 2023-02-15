@@ -3,10 +3,13 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/geometry.dart';
+import 'package:web/src/dom/hr_time.dart';
 
 typedef IntersectionObserverCallback = JSFunction;
 
@@ -14,19 +17,23 @@ typedef IntersectionObserverCallback = JSFunction;
 @staticInterop
 class IntersectionObserver {
   external factory IntersectionObserver();
+
   external factory IntersectionObserver.a1(
       IntersectionObserverCallback callback);
-  external factory IntersectionObserver.a1_1(
-      IntersectionObserverCallback callback, IntersectionObserverInit options);
+
+  external factory IntersectionObserver.a2(
+    IntersectionObserverCallback callback,
+    IntersectionObserverInit options,
+  );
 }
 
 extension IntersectionObserverExtension on IntersectionObserver {
   external JSAny? get root;
   external JSString get rootMargin;
   external JSArray get thresholds;
-  external JSUndefined observe(Element target);
-  external JSUndefined unobserve(Element target);
-  external JSUndefined disconnect();
+  external JSVoid observe(Element target);
+  external JSVoid unobserve(Element target);
+  external JSVoid disconnect();
   external JSArray takeRecords();
 }
 
@@ -34,6 +41,7 @@ extension IntersectionObserverExtension on IntersectionObserver {
 @staticInterop
 class IntersectionObserverEntry {
   external factory IntersectionObserverEntry();
+
   external factory IntersectionObserverEntry.a1(
       IntersectionObserverEntryInit intersectionObserverEntryInit);
 }
@@ -55,15 +63,7 @@ class IntersectionObserverEntryInit {
 }
 
 extension IntersectionObserverEntryInitExtension
-    on IntersectionObserverEntryInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+    on IntersectionObserverEntryInit {}
 
 @JS('IntersectionObserverInit')
 @staticInterop
@@ -71,8 +71,4 @@ class IntersectionObserverInit {
   external factory IntersectionObserverInit();
 }
 
-extension IntersectionObserverInitExtension on IntersectionObserverInit {
-  // TODO
-  // TODO
-  // TODO
-}
+extension IntersectionObserverInitExtension on IntersectionObserverInit {}

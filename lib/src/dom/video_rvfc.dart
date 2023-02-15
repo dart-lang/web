@@ -3,10 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
 
 typedef VideoFrameRequestCallback = JSFunction;
 
@@ -16,15 +16,4 @@ class VideoFrameCallbackMetadata {
   external factory VideoFrameCallbackMetadata();
 }
 
-extension VideoFrameCallbackMetadataExtension on VideoFrameCallbackMetadata {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension VideoFrameCallbackMetadataExtension on VideoFrameCallbackMetadata {}

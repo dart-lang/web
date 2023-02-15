@@ -3,10 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
 
 typedef LockGrantedCallback = JSFunction;
 typedef LockMode = JSString;
@@ -28,10 +28,16 @@ class LockManager {
 }
 
 extension LockManagerExtension on LockManager {
-  external JSPromise request(JSString name, LockGrantedCallback callback);
+  external JSPromise request(
+    JSString name,
+    LockGrantedCallback callback,
+  );
   @JS('request')
-  external JSPromise request1(
-      JSString name, LockOptions options, LockGrantedCallback callback);
+  external JSPromise request_1_(
+    JSString name,
+    LockOptions options,
+    LockGrantedCallback callback,
+  );
   external JSPromise query();
 }
 
@@ -41,12 +47,7 @@ class LockOptions {
   external factory LockOptions();
 }
 
-extension LockOptionsExtension on LockOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension LockOptionsExtension on LockOptions {}
 
 @JS('LockManagerSnapshot')
 @staticInterop
@@ -54,10 +55,7 @@ class LockManagerSnapshot {
   external factory LockManagerSnapshot();
 }
 
-extension LockManagerSnapshotExtension on LockManagerSnapshot {
-  // TODO
-  // TODO
-}
+extension LockManagerSnapshotExtension on LockManagerSnapshot {}
 
 @JS('LockInfo')
 @staticInterop
@@ -65,11 +63,7 @@ class LockInfo {
   external factory LockInfo();
 }
 
-extension LockInfoExtension on LockInfo {
-  // TODO
-  // TODO
-  // TODO
-}
+extension LockInfoExtension on LockInfo {}
 
 @JS('Lock')
 @staticInterop

@@ -3,15 +3,16 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
 
 @JS('XMLSerializer')
 @staticInterop
 class XMLSerializer {
-  external factory XMLSerializer();
+  external factory XMLSerializer.a0();
 }
 
 extension XMLSerializerExtension on XMLSerializer {
@@ -25,6 +26,6 @@ class InnerHTML {
 }
 
 extension InnerHTMLExtension on InnerHTML {
-  external JSString get innerHTML;
   external set innerHTML(JSString value);
+  external JSString get innerHTML;
 }

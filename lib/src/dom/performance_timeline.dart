@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/hr_time.dart';
 
 typedef PerformanceEntryList = JSArray;
 typedef PerformanceObserverCallback = JSFunction;
@@ -29,14 +30,16 @@ extension PerformanceEntryExtension on PerformanceEntry {
 @staticInterop
 class PerformanceObserver {
   external factory PerformanceObserver();
+
   external factory PerformanceObserver.a1(PerformanceObserverCallback callback);
+
   external static JSArray get supportedEntryTypes;
 }
 
 extension PerformanceObserverExtension on PerformanceObserver {
-  external JSUndefined observe();
-  external JSUndefined observe_1(PerformanceObserverInit options);
-  external JSUndefined disconnect();
+  external JSVoid observe();
+  external JSVoid observe1(PerformanceObserverInit options);
+  external JSVoid disconnect();
   external PerformanceEntryList takeRecords();
 }
 
@@ -47,9 +50,7 @@ class PerformanceObserverCallbackOptions {
 }
 
 extension PerformanceObserverCallbackOptionsExtension
-    on PerformanceObserverCallbackOptions {
-  // TODO
-}
+    on PerformanceObserverCallbackOptions {}
 
 @JS('PerformanceObserverInit')
 @staticInterop
@@ -57,12 +58,7 @@ class PerformanceObserverInit {
   external factory PerformanceObserverInit();
 }
 
-extension PerformanceObserverInitExtension on PerformanceObserverInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension PerformanceObserverInitExtension on PerformanceObserverInit {}
 
 @JS('PerformanceObserverEntryList')
 @staticInterop
@@ -75,6 +71,8 @@ extension PerformanceObserverEntryListExtension
   external PerformanceEntryList getEntries();
   external PerformanceEntryList getEntriesByType(JSString type);
   external PerformanceEntryList getEntriesByName(JSString name);
-  external PerformanceEntryList getEntriesByName_1(
-      JSString name, JSString type);
+  external PerformanceEntryList getEntriesByName1(
+    JSString name,
+    JSString type,
+  );
 }

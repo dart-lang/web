@@ -3,15 +3,18 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/webgl1.dart';
+import 'package:web/src/dom/webgl2.dart';
 
 @JS('EXT_disjoint_timer_query_webgl2')
 @staticInterop
 class EXT_disjoint_timer_query_webgl2 {
   external factory EXT_disjoint_timer_query_webgl2();
+
   external static GLenum get QUERY_COUNTER_BITS_EXT;
   external static GLenum get TIME_ELAPSED_EXT;
   external static GLenum get TIMESTAMP_EXT;
@@ -20,5 +23,8 @@ class EXT_disjoint_timer_query_webgl2 {
 
 extension EXT_disjoint_timer_query_webgl2Extension
     on EXT_disjoint_timer_query_webgl2 {
-  external JSUndefined queryCounterEXT(WebGLQuery query, GLenum target);
+  external JSVoid queryCounterEXT(
+    WebGLQuery query,
+    GLenum target,
+  );
 }

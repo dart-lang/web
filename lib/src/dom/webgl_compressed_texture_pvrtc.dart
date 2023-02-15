@@ -3,15 +3,17 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/webgl1.dart';
 
 @JS('WEBGL_compressed_texture_pvrtc')
 @staticInterop
 class WEBGL_compressed_texture_pvrtc {
   external factory WEBGL_compressed_texture_pvrtc();
+
   external static GLenum get COMPRESSED_RGB_PVRTC_4BPPV1_IMG;
   external static GLenum get COMPRESSED_RGB_PVRTC_2BPPV1_IMG;
   external static GLenum get COMPRESSED_RGBA_PVRTC_4BPPV1_IMG;

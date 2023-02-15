@@ -3,15 +3,17 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/webgl1.dart';
 
 @JS('WEBGL_draw_buffers')
 @staticInterop
 class WEBGL_draw_buffers {
   external factory WEBGL_draw_buffers();
+
   external static GLenum get COLOR_ATTACHMENT0_WEBGL;
   external static GLenum get COLOR_ATTACHMENT1_WEBGL;
   external static GLenum get COLOR_ATTACHMENT2_WEBGL;
@@ -49,5 +51,5 @@ class WEBGL_draw_buffers {
 }
 
 extension WEBGL_draw_buffersExtension on WEBGL_draw_buffers {
-  external JSUndefined drawBuffersWEBGL(JSArray buffers);
+  external JSVoid drawBuffersWEBGL(JSArray buffers);
 }

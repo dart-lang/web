@@ -3,20 +3,22 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/webgl1.dart';
 
 @JS('WEBGL_provoking_vertex')
 @staticInterop
 class WEBGL_provoking_vertex {
   external factory WEBGL_provoking_vertex();
+
   external static GLenum get FIRST_VERTEX_CONVENTION_WEBGL;
   external static GLenum get LAST_VERTEX_CONVENTION_WEBGL;
   external static GLenum get PROVOKING_VERTEX_WEBGL;
 }
 
 extension WEBGL_provoking_vertexExtension on WEBGL_provoking_vertex {
-  external JSUndefined provokingVertexWEBGL(GLenum provokeMode);
+  external JSVoid provokingVertexWEBGL(GLenum provokeMode);
 }

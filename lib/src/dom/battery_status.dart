@@ -3,10 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/html.dart';
 
 @JS('BatteryManager')
 @staticInterop
@@ -19,12 +21,12 @@ extension BatteryManagerExtension on BatteryManager {
   external JSNumber get chargingTime;
   external JSNumber get dischargingTime;
   external JSNumber get level;
-  external EventHandler get onchargingchange;
   external set onchargingchange(EventHandler value);
-  external EventHandler get onchargingtimechange;
+  external EventHandler get onchargingchange;
   external set onchargingtimechange(EventHandler value);
-  external EventHandler get ondischargingtimechange;
+  external EventHandler get onchargingtimechange;
   external set ondischargingtimechange(EventHandler value);
-  external EventHandler get onlevelchange;
+  external EventHandler get ondischargingtimechange;
   external set onlevelchange(EventHandler value);
+  external EventHandler get onlevelchange;
 }

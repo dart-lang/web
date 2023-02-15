@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/generic_sensor.dart';
 
 typedef AccelerometerLocalCoordinateSystem = JSString;
 
@@ -14,8 +15,10 @@ typedef AccelerometerLocalCoordinateSystem = JSString;
 @staticInterop
 class Accelerometer extends Sensor {
   external factory Accelerometer();
+
   external factory Accelerometer.a1();
-  external factory Accelerometer.a1_1(AccelerometerSensorOptions options);
+
+  external factory Accelerometer.a2(AccelerometerSensorOptions options);
 }
 
 extension AccelerometerExtension on Accelerometer {
@@ -30,16 +33,16 @@ class AccelerometerSensorOptions extends SensorOptions {
   external factory AccelerometerSensorOptions();
 }
 
-extension AccelerometerSensorOptionsExtension on AccelerometerSensorOptions {
-  // TODO
-}
+extension AccelerometerSensorOptionsExtension on AccelerometerSensorOptions {}
 
 @JS('LinearAccelerationSensor')
 @staticInterop
 class LinearAccelerationSensor extends Accelerometer {
   external factory LinearAccelerationSensor();
+
   external factory LinearAccelerationSensor.a1();
-  external factory LinearAccelerationSensor.a1_1(
+
+  external factory LinearAccelerationSensor.a2(
       AccelerometerSensorOptions options);
 }
 
@@ -47,8 +50,10 @@ class LinearAccelerationSensor extends Accelerometer {
 @staticInterop
 class GravitySensor extends Accelerometer {
   external factory GravitySensor();
+
   external factory GravitySensor.a1();
-  external factory GravitySensor.a1_1(AccelerometerSensorOptions options);
+
+  external factory GravitySensor.a2(AccelerometerSensorOptions options);
 }
 
 @JS('AccelerometerReadingValues')
@@ -57,11 +62,7 @@ class AccelerometerReadingValues {
   external factory AccelerometerReadingValues();
 }
 
-extension AccelerometerReadingValuesExtension on AccelerometerReadingValues {
-  // TODO
-  // TODO
-  // TODO
-}
+extension AccelerometerReadingValuesExtension on AccelerometerReadingValues {}
 
 @JS('LinearAccelerationReadingValues')
 @staticInterop

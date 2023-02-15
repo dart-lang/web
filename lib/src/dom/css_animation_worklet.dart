@@ -3,10 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/html.dart';
+import 'package:web/src/dom/web_animations.dart';
 
 typedef AnimatorInstanceConstructor = JSFunction;
 
@@ -17,8 +19,10 @@ class AnimationWorkletGlobalScope extends WorkletGlobalScope {
 }
 
 extension AnimationWorkletGlobalScopeExtension on AnimationWorkletGlobalScope {
-  external JSUndefined registerAnimator(
-      JSString name, AnimatorInstanceConstructor animatorCtor);
+  external JSVoid registerAnimator(
+    JSString name,
+    AnimatorInstanceConstructor animatorCtor,
+  );
 }
 
 @JS('WorkletAnimationEffect')
@@ -30,20 +34,34 @@ class WorkletAnimationEffect {
 extension WorkletAnimationEffectExtension on WorkletAnimationEffect {
   external EffectTiming getTiming();
   external ComputedEffectTiming getComputedTiming();
-  external JSNumber? get localTime;
   external set localTime(JSNumber? value);
+  external JSNumber? get localTime;
 }
 
 @JS('WorkletAnimation')
 @staticInterop
 class WorkletAnimation extends Animation {
   external factory WorkletAnimation();
+
   external factory WorkletAnimation.a1(JSString animatorName);
-  external factory WorkletAnimation.a1_1(JSString animatorName, JSAny? effects);
-  external factory WorkletAnimation.a1_2(
-      JSString animatorName, JSAny? effects, AnimationTimeline? timeline);
-  external factory WorkletAnimation.a1_3(JSString animatorName, JSAny? effects,
-      AnimationTimeline? timeline, JSAny options);
+
+  external factory WorkletAnimation.a2(
+    JSString animatorName,
+    JSAny? effects,
+  );
+
+  external factory WorkletAnimation.a3(
+    JSString animatorName,
+    JSAny? effects,
+    AnimationTimeline? timeline,
+  );
+
+  external factory WorkletAnimation.a4(
+    JSString animatorName,
+    JSAny? effects,
+    AnimationTimeline? timeline,
+    JSAny options,
+  );
 }
 
 extension WorkletAnimationExtension on WorkletAnimation {

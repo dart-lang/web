@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/generic_sensor.dart';
 
 typedef GyroscopeLocalCoordinateSystem = JSString;
 
@@ -14,8 +15,10 @@ typedef GyroscopeLocalCoordinateSystem = JSString;
 @staticInterop
 class Gyroscope extends Sensor {
   external factory Gyroscope();
+
   external factory Gyroscope.a1();
-  external factory Gyroscope.a1_1(GyroscopeSensorOptions sensorOptions);
+
+  external factory Gyroscope.a2(GyroscopeSensorOptions sensorOptions);
 }
 
 extension GyroscopeExtension on Gyroscope {
@@ -30,9 +33,7 @@ class GyroscopeSensorOptions extends SensorOptions {
   external factory GyroscopeSensorOptions();
 }
 
-extension GyroscopeSensorOptionsExtension on GyroscopeSensorOptions {
-  // TODO
-}
+extension GyroscopeSensorOptionsExtension on GyroscopeSensorOptions {}
 
 @JS('GyroscopeReadingValues')
 @staticInterop
@@ -40,8 +41,4 @@ class GyroscopeReadingValues {
   external factory GyroscopeReadingValues();
 }
 
-extension GyroscopeReadingValuesExtension on GyroscopeReadingValues {
-  // TODO
-  // TODO
-  // TODO
-}
+extension GyroscopeReadingValuesExtension on GyroscopeReadingValues {}

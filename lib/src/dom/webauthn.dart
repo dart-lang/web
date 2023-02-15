@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/credential_management.dart';
 
 typedef Base64URLString = JSString;
 typedef PublicKeyCredentialJSON = JSAny;
@@ -26,6 +27,7 @@ typedef LargeBlobSupport = JSString;
 @staticInterop
 class PublicKeyCredential extends Credential {
   external factory PublicKeyCredential();
+
   external static JSPromise isConditionalMediationAvailable();
   external static JSPromise isUserVerifyingPlatformAuthenticatorAvailable();
   external static PublicKeyCredentialCreationOptions
@@ -49,14 +51,7 @@ class RegistrationResponseJSON {
   external factory RegistrationResponseJSON();
 }
 
-extension RegistrationResponseJSONExtension on RegistrationResponseJSON {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension RegistrationResponseJSONExtension on RegistrationResponseJSON {}
 
 @JS('AuthenticatorAttestationResponseJSON')
 @staticInterop
@@ -65,11 +60,7 @@ class AuthenticatorAttestationResponseJSON {
 }
 
 extension AuthenticatorAttestationResponseJSONExtension
-    on AuthenticatorAttestationResponseJSON {
-  // TODO
-  // TODO
-  // TODO
-}
+    on AuthenticatorAttestationResponseJSON {}
 
 @JS('AuthenticationResponseJSON')
 @staticInterop
@@ -77,14 +68,7 @@ class AuthenticationResponseJSON {
   external factory AuthenticationResponseJSON();
 }
 
-extension AuthenticationResponseJSONExtension on AuthenticationResponseJSON {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension AuthenticationResponseJSONExtension on AuthenticationResponseJSON {}
 
 @JS('AuthenticatorAssertionResponseJSON')
 @staticInterop
@@ -93,12 +77,7 @@ class AuthenticatorAssertionResponseJSON {
 }
 
 extension AuthenticatorAssertionResponseJSONExtension
-    on AuthenticatorAssertionResponseJSON {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+    on AuthenticatorAssertionResponseJSON {}
 
 @JS('AuthenticationExtensionsClientOutputsJSON')
 @staticInterop
@@ -113,17 +92,7 @@ class PublicKeyCredentialCreationOptionsJSON {
 }
 
 extension PublicKeyCredentialCreationOptionsJSONExtension
-    on PublicKeyCredentialCreationOptionsJSON {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+    on PublicKeyCredentialCreationOptionsJSON {}
 
 @JS('PublicKeyCredentialUserEntityJSON')
 @staticInterop
@@ -132,11 +101,7 @@ class PublicKeyCredentialUserEntityJSON {
 }
 
 extension PublicKeyCredentialUserEntityJSONExtension
-    on PublicKeyCredentialUserEntityJSON {
-  // TODO
-  // TODO
-  // TODO
-}
+    on PublicKeyCredentialUserEntityJSON {}
 
 @JS('PublicKeyCredentialDescriptorJSON')
 @staticInterop
@@ -145,11 +110,7 @@ class PublicKeyCredentialDescriptorJSON {
 }
 
 extension PublicKeyCredentialDescriptorJSONExtension
-    on PublicKeyCredentialDescriptorJSON {
-  // TODO
-  // TODO
-  // TODO
-}
+    on PublicKeyCredentialDescriptorJSON {}
 
 @JS('AuthenticationExtensionsClientInputsJSON')
 @staticInterop
@@ -164,14 +125,7 @@ class PublicKeyCredentialRequestOptionsJSON {
 }
 
 extension PublicKeyCredentialRequestOptionsJSONExtension
-    on PublicKeyCredentialRequestOptionsJSON {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+    on PublicKeyCredentialRequestOptionsJSON {}
 
 @JS('AuthenticatorResponse')
 @staticInterop
@@ -219,10 +173,7 @@ class PublicKeyCredentialParameters {
 }
 
 extension PublicKeyCredentialParametersExtension
-    on PublicKeyCredentialParameters {
-  // TODO
-  // TODO
-}
+    on PublicKeyCredentialParameters {}
 
 @JS('PublicKeyCredentialCreationOptions')
 @staticInterop
@@ -231,18 +182,7 @@ class PublicKeyCredentialCreationOptions {
 }
 
 extension PublicKeyCredentialCreationOptionsExtension
-    on PublicKeyCredentialCreationOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+    on PublicKeyCredentialCreationOptions {}
 
 @JS('PublicKeyCredentialEntity')
 @staticInterop
@@ -250,9 +190,7 @@ class PublicKeyCredentialEntity {
   external factory PublicKeyCredentialEntity();
 }
 
-extension PublicKeyCredentialEntityExtension on PublicKeyCredentialEntity {
-  // TODO
-}
+extension PublicKeyCredentialEntityExtension on PublicKeyCredentialEntity {}
 
 @JS('PublicKeyCredentialRpEntity')
 @staticInterop
@@ -260,9 +198,7 @@ class PublicKeyCredentialRpEntity extends PublicKeyCredentialEntity {
   external factory PublicKeyCredentialRpEntity();
 }
 
-extension PublicKeyCredentialRpEntityExtension on PublicKeyCredentialRpEntity {
-  // TODO
-}
+extension PublicKeyCredentialRpEntityExtension on PublicKeyCredentialRpEntity {}
 
 @JS('PublicKeyCredentialUserEntity')
 @staticInterop
@@ -271,10 +207,7 @@ class PublicKeyCredentialUserEntity extends PublicKeyCredentialEntity {
 }
 
 extension PublicKeyCredentialUserEntityExtension
-    on PublicKeyCredentialUserEntity {
-  // TODO
-  // TODO
-}
+    on PublicKeyCredentialUserEntity {}
 
 @JS('AuthenticatorSelectionCriteria')
 @staticInterop
@@ -283,12 +216,7 @@ class AuthenticatorSelectionCriteria {
 }
 
 extension AuthenticatorSelectionCriteriaExtension
-    on AuthenticatorSelectionCriteria {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+    on AuthenticatorSelectionCriteria {}
 
 @JS('PublicKeyCredentialRequestOptions')
 @staticInterop
@@ -297,16 +225,7 @@ class PublicKeyCredentialRequestOptions {
 }
 
 extension PublicKeyCredentialRequestOptionsExtension
-    on PublicKeyCredentialRequestOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+    on PublicKeyCredentialRequestOptions {}
 
 @JS('AuthenticationExtensionsClientInputs')
 @staticInterop
@@ -315,23 +234,7 @@ class AuthenticationExtensionsClientInputs {
 }
 
 extension AuthenticationExtensionsClientInputsExtension
-    on AuthenticationExtensionsClientInputs {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+    on AuthenticationExtensionsClientInputs {}
 
 @JS('AuthenticationExtensionsClientOutputs')
 @staticInterop
@@ -340,17 +243,7 @@ class AuthenticationExtensionsClientOutputs {
 }
 
 extension AuthenticationExtensionsClientOutputsExtension
-    on AuthenticationExtensionsClientOutputs {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+    on AuthenticationExtensionsClientOutputs {}
 
 @JS('CollectedClientData')
 @staticInterop
@@ -358,12 +251,7 @@ class CollectedClientData {
   external factory CollectedClientData();
 }
 
-extension CollectedClientDataExtension on CollectedClientData {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension CollectedClientDataExtension on CollectedClientData {}
 
 @JS('TokenBinding')
 @staticInterop
@@ -371,10 +259,7 @@ class TokenBinding {
   external factory TokenBinding();
 }
 
-extension TokenBindingExtension on TokenBinding {
-  // TODO
-  // TODO
-}
+extension TokenBindingExtension on TokenBinding {}
 
 @JS('PublicKeyCredentialDescriptor')
 @staticInterop
@@ -383,11 +268,7 @@ class PublicKeyCredentialDescriptor {
 }
 
 extension PublicKeyCredentialDescriptorExtension
-    on PublicKeyCredentialDescriptor {
-  // TODO
-  // TODO
-  // TODO
-}
+    on PublicKeyCredentialDescriptor {}
 
 @JS('CredentialPropertiesOutput')
 @staticInterop
@@ -395,9 +276,7 @@ class CredentialPropertiesOutput {
   external factory CredentialPropertiesOutput();
 }
 
-extension CredentialPropertiesOutputExtension on CredentialPropertiesOutput {
-  // TODO
-}
+extension CredentialPropertiesOutputExtension on CredentialPropertiesOutput {}
 
 @JS('AuthenticationExtensionsPRFValues')
 @staticInterop
@@ -406,10 +285,7 @@ class AuthenticationExtensionsPRFValues {
 }
 
 extension AuthenticationExtensionsPRFValuesExtension
-    on AuthenticationExtensionsPRFValues {
-  // TODO
-  // TODO
-}
+    on AuthenticationExtensionsPRFValues {}
 
 @JS('AuthenticationExtensionsPRFInputs')
 @staticInterop
@@ -418,10 +294,7 @@ class AuthenticationExtensionsPRFInputs {
 }
 
 extension AuthenticationExtensionsPRFInputsExtension
-    on AuthenticationExtensionsPRFInputs {
-  // TODO
-  // TODO
-}
+    on AuthenticationExtensionsPRFInputs {}
 
 @JS('AuthenticationExtensionsPRFOutputs')
 @staticInterop
@@ -430,10 +303,7 @@ class AuthenticationExtensionsPRFOutputs {
 }
 
 extension AuthenticationExtensionsPRFOutputsExtension
-    on AuthenticationExtensionsPRFOutputs {
-  // TODO
-  // TODO
-}
+    on AuthenticationExtensionsPRFOutputs {}
 
 @JS('AuthenticationExtensionsLargeBlobInputs')
 @staticInterop
@@ -442,11 +312,7 @@ class AuthenticationExtensionsLargeBlobInputs {
 }
 
 extension AuthenticationExtensionsLargeBlobInputsExtension
-    on AuthenticationExtensionsLargeBlobInputs {
-  // TODO
-  // TODO
-  // TODO
-}
+    on AuthenticationExtensionsLargeBlobInputs {}
 
 @JS('AuthenticationExtensionsLargeBlobOutputs')
 @staticInterop
@@ -455,11 +321,7 @@ class AuthenticationExtensionsLargeBlobOutputs {
 }
 
 extension AuthenticationExtensionsLargeBlobOutputsExtension
-    on AuthenticationExtensionsLargeBlobOutputs {
-  // TODO
-  // TODO
-  // TODO
-}
+    on AuthenticationExtensionsLargeBlobOutputs {}
 
 @JS('AuthenticationExtensionsDevicePublicKeyInputs')
 @staticInterop
@@ -468,10 +330,7 @@ class AuthenticationExtensionsDevicePublicKeyInputs {
 }
 
 extension AuthenticationExtensionsDevicePublicKeyInputsExtension
-    on AuthenticationExtensionsDevicePublicKeyInputs {
-  // TODO
-  // TODO
-}
+    on AuthenticationExtensionsDevicePublicKeyInputs {}
 
 @JS('AuthenticationExtensionsDevicePublicKeyOutputs')
 @staticInterop
@@ -480,7 +339,4 @@ class AuthenticationExtensionsDevicePublicKeyOutputs {
 }
 
 extension AuthenticationExtensionsDevicePublicKeyOutputsExtension
-    on AuthenticationExtensionsDevicePublicKeyOutputs {
-  // TODO
-  // TODO
-}
+    on AuthenticationExtensionsDevicePublicKeyOutputs {}

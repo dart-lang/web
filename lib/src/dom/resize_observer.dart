@@ -3,10 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/geometry.dart';
 
 typedef ResizeObserverCallback = JSFunction;
 typedef ResizeObserverBoxOptions = JSString;
@@ -17,22 +19,24 @@ class ResizeObserverOptions {
   external factory ResizeObserverOptions();
 }
 
-extension ResizeObserverOptionsExtension on ResizeObserverOptions {
-  // TODO
-}
+extension ResizeObserverOptionsExtension on ResizeObserverOptions {}
 
 @JS('ResizeObserver')
 @staticInterop
 class ResizeObserver {
   external factory ResizeObserver();
+
   external factory ResizeObserver.a1(ResizeObserverCallback callback);
 }
 
 extension ResizeObserverExtension on ResizeObserver {
-  external JSUndefined observe(Element target);
-  external JSUndefined observe_1(Element target, ResizeObserverOptions options);
-  external JSUndefined unobserve(Element target);
-  external JSUndefined disconnect();
+  external JSVoid observe(Element target);
+  external JSVoid observe1(
+    Element target,
+    ResizeObserverOptions options,
+  );
+  external JSVoid unobserve(Element target);
+  external JSVoid disconnect();
 }
 
 @JS('ResizeObserverEntry')

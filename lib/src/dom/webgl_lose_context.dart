@@ -3,10 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
 
 @JS('WEBGL_lose_context')
 @staticInterop
@@ -15,6 +15,6 @@ class WEBGL_lose_context {
 }
 
 extension WEBGL_lose_contextExtension on WEBGL_lose_context {
-  external JSUndefined loseContext();
-  external JSUndefined restoreContext();
+  external JSVoid loseContext();
+  external JSVoid restoreContext();
 }

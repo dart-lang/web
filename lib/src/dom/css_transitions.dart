@@ -3,18 +3,23 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
 
 @JS('TransitionEvent')
 @staticInterop
 class TransitionEvent extends Event {
   external factory TransitionEvent();
+
   external factory TransitionEvent.a1(JSString type);
-  external factory TransitionEvent.a1_1(
-      JSString type, TransitionEventInit transitionEventInitDict);
+
+  external factory TransitionEvent.a2(
+    JSString type,
+    TransitionEventInit transitionEventInitDict,
+  );
 }
 
 extension TransitionEventExtension on TransitionEvent {
@@ -29,8 +34,4 @@ class TransitionEventInit extends EventInit {
   external factory TransitionEventInit();
 }
 
-extension TransitionEventInitExtension on TransitionEventInit {
-  // TODO
-  // TODO
-  // TODO
-}
+extension TransitionEventInitExtension on TransitionEventInit {}

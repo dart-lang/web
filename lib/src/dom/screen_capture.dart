@@ -3,10 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
 
 typedef CaptureStartFocusBehavior = JSString;
 typedef SelfCapturePreferenceEnum = JSString;
@@ -18,12 +18,11 @@ typedef CursorCaptureConstraint = JSString;
 @JS('CaptureController')
 @staticInterop
 class CaptureController {
-  external factory CaptureController();
+  external factory CaptureController.a0();
 }
 
 extension CaptureControllerExtension on CaptureController {
-  external JSUndefined setFocusBehavior(
-      CaptureStartFocusBehavior focusBehavior);
+  external JSVoid setFocusBehavior(CaptureStartFocusBehavior focusBehavior);
 }
 
 @JS('DisplayMediaStreamOptions')
@@ -32,11 +31,4 @@ class DisplayMediaStreamOptions {
   external factory DisplayMediaStreamOptions();
 }
 
-extension DisplayMediaStreamOptionsExtension on DisplayMediaStreamOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension DisplayMediaStreamOptionsExtension on DisplayMediaStreamOptions {}

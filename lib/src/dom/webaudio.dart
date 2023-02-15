@@ -3,10 +3,13 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/html.dart';
+import 'package:web/src/dom/mediacapture_streams.dart';
 
 typedef DecodeErrorCallback = JSFunction;
 typedef DecodeSuccessCallback = JSFunction;
@@ -37,53 +40,74 @@ extension BaseAudioContextExtension on BaseAudioContext {
   external AudioListener get listener;
   external AudioContextState get state;
   external AudioWorklet get audioWorklet;
-  external EventHandler get onstatechange;
   external set onstatechange(EventHandler value);
+  external EventHandler get onstatechange;
   external AnalyserNode createAnalyser();
   external BiquadFilterNode createBiquadFilter();
   external AudioBuffer createBuffer(
-      JSNumber numberOfChannels, JSNumber length, JSNumber sampleRate);
+    JSNumber numberOfChannels,
+    JSNumber length,
+    JSNumber sampleRate,
+  );
   external AudioBufferSourceNode createBufferSource();
   external ChannelMergerNode createChannelMerger();
-  external ChannelMergerNode createChannelMerger_1(JSNumber numberOfInputs);
+  external ChannelMergerNode createChannelMerger1(JSNumber numberOfInputs);
   external ChannelSplitterNode createChannelSplitter();
-  external ChannelSplitterNode createChannelSplitter_1(
-      JSNumber numberOfOutputs);
+  external ChannelSplitterNode createChannelSplitter1(JSNumber numberOfOutputs);
   external ConstantSourceNode createConstantSource();
   external ConvolverNode createConvolver();
   external DelayNode createDelay();
-  external DelayNode createDelay_1(JSNumber maxDelayTime);
+  external DelayNode createDelay1(JSNumber maxDelayTime);
   external DynamicsCompressorNode createDynamicsCompressor();
   external GainNode createGain();
-  external IIRFilterNode createIIRFilter(JSArray feedforward, JSArray feedback);
+  external IIRFilterNode createIIRFilter(
+    JSArray feedforward,
+    JSArray feedback,
+  );
   external OscillatorNode createOscillator();
   external PannerNode createPanner();
-  external PeriodicWave createPeriodicWave(JSArray real, JSArray imag);
-  external PeriodicWave createPeriodicWave_1(
-      JSArray real, JSArray imag, PeriodicWaveConstraints constraints);
+  external PeriodicWave createPeriodicWave(
+    JSArray real,
+    JSArray imag,
+  );
+  external PeriodicWave createPeriodicWave1(
+    JSArray real,
+    JSArray imag,
+    PeriodicWaveConstraints constraints,
+  );
   external ScriptProcessorNode createScriptProcessor();
-  external ScriptProcessorNode createScriptProcessor_1(JSNumber bufferSize);
-  external ScriptProcessorNode createScriptProcessor_2(
-      JSNumber bufferSize, JSNumber numberOfInputChannels);
-  external ScriptProcessorNode createScriptProcessor_3(JSNumber bufferSize,
-      JSNumber numberOfInputChannels, JSNumber numberOfOutputChannels);
+  external ScriptProcessorNode createScriptProcessor1(JSNumber bufferSize);
+  external ScriptProcessorNode createScriptProcessor2(
+    JSNumber bufferSize,
+    JSNumber numberOfInputChannels,
+  );
+  external ScriptProcessorNode createScriptProcessor3(
+    JSNumber bufferSize,
+    JSNumber numberOfInputChannels,
+    JSNumber numberOfOutputChannels,
+  );
   external StereoPannerNode createStereoPanner();
   external WaveShaperNode createWaveShaper();
   external JSPromise decodeAudioData(JSArrayBuffer audioData);
-  external JSPromise decodeAudioData_1(
-      JSArrayBuffer audioData, DecodeSuccessCallback? successCallback);
-  external JSPromise decodeAudioData_2(
-      JSArrayBuffer audioData,
-      DecodeSuccessCallback? successCallback,
-      DecodeErrorCallback? errorCallback);
+  external JSPromise decodeAudioData1(
+    JSArrayBuffer audioData,
+    DecodeSuccessCallback? successCallback,
+  );
+  external JSPromise decodeAudioData2(
+    JSArrayBuffer audioData,
+    DecodeSuccessCallback? successCallback,
+    DecodeErrorCallback? errorCallback,
+  );
 }
 
 @JS('AudioContext')
 @staticInterop
 class AudioContext extends BaseAudioContext {
   external factory AudioContext();
+
   external factory AudioContext.a1();
-  external factory AudioContext.a1_1(AudioContextOptions contextOptions);
+
+  external factory AudioContext.a2(AudioContextOptions contextOptions);
 }
 
 extension AudioContextExtension on AudioContext {
@@ -91,8 +115,8 @@ extension AudioContextExtension on AudioContext {
   external JSNumber get outputLatency;
   external JSAny get sinkId;
   external AudioRenderCapacity get renderCapacity;
-  external EventHandler get onsinkchange;
   external set onsinkchange(EventHandler value);
+  external EventHandler get onsinkchange;
   external AudioTimestamp getOutputTimestamp();
   external JSPromise resume();
   external JSPromise suspend();
@@ -113,11 +137,7 @@ class AudioContextOptions {
   external factory AudioContextOptions();
 }
 
-extension AudioContextOptionsExtension on AudioContextOptions {
-  // TODO
-  // TODO
-  // TODO
-}
+extension AudioContextOptionsExtension on AudioContextOptions {}
 
 @JS('AudioSinkOptions')
 @staticInterop
@@ -125,9 +145,7 @@ class AudioSinkOptions {
   external factory AudioSinkOptions();
 }
 
-extension AudioSinkOptionsExtension on AudioSinkOptions {
-  // TODO
-}
+extension AudioSinkOptionsExtension on AudioSinkOptions {}
 
 @JS('AudioSinkInfo')
 @staticInterop
@@ -145,10 +163,7 @@ class AudioTimestamp {
   external factory AudioTimestamp();
 }
 
-extension AudioTimestampExtension on AudioTimestamp {
-  // TODO
-  // TODO
-}
+extension AudioTimestampExtension on AudioTimestamp {}
 
 @JS('AudioRenderCapacity')
 @staticInterop
@@ -157,11 +172,11 @@ class AudioRenderCapacity extends EventTarget {
 }
 
 extension AudioRenderCapacityExtension on AudioRenderCapacity {
-  external JSUndefined start();
-  external JSUndefined start_1(AudioRenderCapacityOptions options);
-  external JSUndefined stop();
-  external EventHandler get onupdate;
+  external JSVoid start();
+  external JSVoid start1(AudioRenderCapacityOptions options);
+  external JSVoid stop();
   external set onupdate(EventHandler value);
+  external EventHandler get onupdate;
 }
 
 @JS('AudioRenderCapacityOptions')
@@ -170,17 +185,19 @@ class AudioRenderCapacityOptions {
   external factory AudioRenderCapacityOptions();
 }
 
-extension AudioRenderCapacityOptionsExtension on AudioRenderCapacityOptions {
-  // TODO
-}
+extension AudioRenderCapacityOptionsExtension on AudioRenderCapacityOptions {}
 
 @JS('AudioRenderCapacityEvent')
 @staticInterop
 class AudioRenderCapacityEvent extends Event {
   external factory AudioRenderCapacityEvent();
+
   external factory AudioRenderCapacityEvent.a1(JSString type);
-  external factory AudioRenderCapacityEvent.a1_1(
-      JSString type, AudioRenderCapacityEventInit eventInitDict);
+
+  external factory AudioRenderCapacityEvent.a2(
+    JSString type,
+    AudioRenderCapacityEventInit eventInitDict,
+  );
 }
 
 extension AudioRenderCapacityEventExtension on AudioRenderCapacityEvent {
@@ -197,21 +214,21 @@ class AudioRenderCapacityEventInit extends EventInit {
 }
 
 extension AudioRenderCapacityEventInitExtension
-    on AudioRenderCapacityEventInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+    on AudioRenderCapacityEventInit {}
 
 @JS('OfflineAudioContext')
 @staticInterop
 class OfflineAudioContext extends BaseAudioContext {
   external factory OfflineAudioContext();
+
   external factory OfflineAudioContext.a1(
       OfflineAudioContextOptions contextOptions);
+
   external factory OfflineAudioContext.a2(
-      JSNumber numberOfChannels, JSNumber length, JSNumber sampleRate);
+    JSNumber numberOfChannels,
+    JSNumber length,
+    JSNumber sampleRate,
+  );
 }
 
 extension OfflineAudioContextExtension on OfflineAudioContext {
@@ -219,8 +236,8 @@ extension OfflineAudioContextExtension on OfflineAudioContext {
   external JSPromise resume();
   external JSPromise suspend(JSNumber suspendTime);
   external JSNumber get length;
-  external EventHandler get oncomplete;
   external set oncomplete(EventHandler value);
+  external EventHandler get oncomplete;
 }
 
 @JS('OfflineAudioContextOptions')
@@ -229,18 +246,17 @@ class OfflineAudioContextOptions {
   external factory OfflineAudioContextOptions();
 }
 
-extension OfflineAudioContextOptionsExtension on OfflineAudioContextOptions {
-  // TODO
-  // TODO
-  // TODO
-}
+extension OfflineAudioContextOptionsExtension on OfflineAudioContextOptions {}
 
 @JS('OfflineAudioCompletionEvent')
 @staticInterop
 class OfflineAudioCompletionEvent extends Event {
   external factory OfflineAudioCompletionEvent();
+
   external factory OfflineAudioCompletionEvent.a1(
-      JSString type, OfflineAudioCompletionEventInit eventInitDict);
+    JSString type,
+    OfflineAudioCompletionEventInit eventInitDict,
+  );
 }
 
 extension OfflineAudioCompletionEventExtension on OfflineAudioCompletionEvent {
@@ -254,14 +270,13 @@ class OfflineAudioCompletionEventInit extends EventInit {
 }
 
 extension OfflineAudioCompletionEventInitExtension
-    on OfflineAudioCompletionEventInit {
-  // TODO
-}
+    on OfflineAudioCompletionEventInit {}
 
 @JS('AudioBuffer')
 @staticInterop
 class AudioBuffer {
   external factory AudioBuffer();
+
   external factory AudioBuffer.a1(AudioBufferOptions options);
 }
 
@@ -271,14 +286,24 @@ extension AudioBufferExtension on AudioBuffer {
   external JSNumber get duration;
   external JSNumber get numberOfChannels;
   external JSFloat32Array getChannelData(JSNumber channel);
-  external JSUndefined copyFromChannel(
-      JSFloat32Array destination, JSNumber channelNumber);
-  external JSUndefined copyFromChannel_1(JSFloat32Array destination,
-      JSNumber channelNumber, JSNumber bufferOffset);
-  external JSUndefined copyToChannel(
-      JSFloat32Array source, JSNumber channelNumber);
-  external JSUndefined copyToChannel_1(
-      JSFloat32Array source, JSNumber channelNumber, JSNumber bufferOffset);
+  external JSVoid copyFromChannel(
+    JSFloat32Array destination,
+    JSNumber channelNumber,
+  );
+  external JSVoid copyFromChannel1(
+    JSFloat32Array destination,
+    JSNumber channelNumber,
+    JSNumber bufferOffset,
+  );
+  external JSVoid copyToChannel(
+    JSFloat32Array source,
+    JSNumber channelNumber,
+  );
+  external JSVoid copyToChannel1(
+    JSFloat32Array source,
+    JSNumber channelNumber,
+    JSNumber bufferOffset,
+  );
 }
 
 @JS('AudioBufferOptions')
@@ -287,11 +312,7 @@ class AudioBufferOptions {
   external factory AudioBufferOptions();
 }
 
-extension AudioBufferOptionsExtension on AudioBufferOptions {
-  // TODO
-  // TODO
-  // TODO
-}
+extension AudioBufferOptionsExtension on AudioBufferOptions {}
 
 @JS('AudioNode')
 @staticInterop
@@ -301,37 +322,54 @@ class AudioNode extends EventTarget {
 
 extension AudioNodeExtension on AudioNode {
   external AudioNode connect(AudioNode destinationNode);
-  external AudioNode connect_1(AudioNode destinationNode, JSNumber output);
-  external AudioNode connect_2(
-      AudioNode destinationNode, JSNumber output, JSNumber input);
+  external AudioNode connect1(
+    AudioNode destinationNode,
+    JSNumber output,
+  );
+  external AudioNode connect2(
+    AudioNode destinationNode,
+    JSNumber output,
+    JSNumber input,
+  );
   @JS('connect')
-  external JSUndefined connect1(AudioParam destinationParam);
+  external JSVoid connect_1_(AudioParam destinationParam);
   @JS('connect')
-  external JSUndefined connect1_1(AudioParam destinationParam, JSNumber output);
-  external JSUndefined disconnect();
+  external JSVoid connect_1_1(
+    AudioParam destinationParam,
+    JSNumber output,
+  );
+  external JSVoid disconnect();
   @JS('disconnect')
-  external JSUndefined disconnect1(JSNumber output);
+  external JSVoid disconnect_1_(JSNumber output);
   @JS('disconnect')
-  external JSUndefined disconnect2(AudioNode destinationNode);
+  external JSVoid disconnect_2_(AudioNode destinationNode);
   @JS('disconnect')
-  external JSUndefined disconnect3(AudioNode destinationNode, JSNumber output);
+  external JSVoid disconnect_3_(
+    AudioNode destinationNode,
+    JSNumber output,
+  );
   @JS('disconnect')
-  external JSUndefined disconnect4(
-      AudioNode destinationNode, JSNumber output, JSNumber input);
+  external JSVoid disconnect_4_(
+    AudioNode destinationNode,
+    JSNumber output,
+    JSNumber input,
+  );
   @JS('disconnect')
-  external JSUndefined disconnect5(AudioParam destinationParam);
+  external JSVoid disconnect_5_(AudioParam destinationParam);
   @JS('disconnect')
-  external JSUndefined disconnect6(
-      AudioParam destinationParam, JSNumber output);
+  external JSVoid disconnect_6_(
+    AudioParam destinationParam,
+    JSNumber output,
+  );
   external BaseAudioContext get context;
   external JSNumber get numberOfInputs;
   external JSNumber get numberOfOutputs;
-  external JSNumber get channelCount;
   external set channelCount(JSNumber value);
-  external ChannelCountMode get channelCountMode;
+  external JSNumber get channelCount;
   external set channelCountMode(ChannelCountMode value);
-  external ChannelInterpretation get channelInterpretation;
+  external ChannelCountMode get channelCountMode;
   external set channelInterpretation(ChannelInterpretation value);
+  external ChannelInterpretation get channelInterpretation;
 }
 
 @JS('AudioNodeOptions')
@@ -340,11 +378,7 @@ class AudioNodeOptions {
   external factory AudioNodeOptions();
 }
 
-extension AudioNodeOptionsExtension on AudioNodeOptions {
-  // TODO
-  // TODO
-  // TODO
-}
+extension AudioNodeOptionsExtension on AudioNodeOptions {}
 
 @JS('AudioParam')
 @staticInterop
@@ -353,21 +387,35 @@ class AudioParam {
 }
 
 extension AudioParamExtension on AudioParam {
-  external JSNumber get value;
   external set value(JSNumber value);
-  external AutomationRate get automationRate;
+  external JSNumber get value;
   external set automationRate(AutomationRate value);
+  external AutomationRate get automationRate;
   external JSNumber get defaultValue;
   external JSNumber get minValue;
   external JSNumber get maxValue;
-  external AudioParam setValueAtTime(JSNumber value, JSNumber startTime);
-  external AudioParam linearRampToValueAtTime(JSNumber value, JSNumber endTime);
+  external AudioParam setValueAtTime(
+    JSNumber value,
+    JSNumber startTime,
+  );
+  external AudioParam linearRampToValueAtTime(
+    JSNumber value,
+    JSNumber endTime,
+  );
   external AudioParam exponentialRampToValueAtTime(
-      JSNumber value, JSNumber endTime);
+    JSNumber value,
+    JSNumber endTime,
+  );
   external AudioParam setTargetAtTime(
-      JSNumber target, JSNumber startTime, JSNumber timeConstant);
+    JSNumber target,
+    JSNumber startTime,
+    JSNumber timeConstant,
+  );
   external AudioParam setValueCurveAtTime(
-      JSArray values, JSNumber startTime, JSNumber duration);
+    JSArray values,
+    JSNumber startTime,
+    JSNumber duration,
+  );
   external AudioParam cancelScheduledValues(JSNumber cancelTime);
   external AudioParam cancelAndHoldAtTime(JSNumber cancelTime);
 }
@@ -379,37 +427,41 @@ class AudioScheduledSourceNode extends AudioNode {
 }
 
 extension AudioScheduledSourceNodeExtension on AudioScheduledSourceNode {
-  external EventHandler get onended;
   external set onended(EventHandler value);
-  external JSUndefined start();
-  external JSUndefined start_1(JSNumber when);
-  external JSUndefined stop();
-  external JSUndefined stop_1(JSNumber when);
+  external EventHandler get onended;
+  external JSVoid start();
+  external JSVoid start1(JSNumber when);
+  external JSVoid stop();
+  external JSVoid stop1(JSNumber when);
 }
 
 @JS('AnalyserNode')
 @staticInterop
 class AnalyserNode extends AudioNode {
   external factory AnalyserNode();
+
   external factory AnalyserNode.a1(BaseAudioContext context);
-  external factory AnalyserNode.a1_1(
-      BaseAudioContext context, AnalyserOptions options);
+
+  external factory AnalyserNode.a2(
+    BaseAudioContext context,
+    AnalyserOptions options,
+  );
 }
 
 extension AnalyserNodeExtension on AnalyserNode {
-  external JSUndefined getFloatFrequencyData(JSFloat32Array array);
-  external JSUndefined getByteFrequencyData(JSUint8Array array);
-  external JSUndefined getFloatTimeDomainData(JSFloat32Array array);
-  external JSUndefined getByteTimeDomainData(JSUint8Array array);
-  external JSNumber get fftSize;
+  external JSVoid getFloatFrequencyData(JSFloat32Array array);
+  external JSVoid getByteFrequencyData(JSUint8Array array);
+  external JSVoid getFloatTimeDomainData(JSFloat32Array array);
+  external JSVoid getByteTimeDomainData(JSUint8Array array);
   external set fftSize(JSNumber value);
+  external JSNumber get fftSize;
   external JSNumber get frequencyBinCount;
-  external JSNumber get minDecibels;
   external set minDecibels(JSNumber value);
-  external JSNumber get maxDecibels;
+  external JSNumber get minDecibels;
   external set maxDecibels(JSNumber value);
-  external JSNumber get smoothingTimeConstant;
+  external JSNumber get maxDecibels;
   external set smoothingTimeConstant(JSNumber value);
+  external JSNumber get smoothingTimeConstant;
 }
 
 @JS('AnalyserOptions')
@@ -418,38 +470,43 @@ class AnalyserOptions extends AudioNodeOptions {
   external factory AnalyserOptions();
 }
 
-extension AnalyserOptionsExtension on AnalyserOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension AnalyserOptionsExtension on AnalyserOptions {}
 
 @JS('AudioBufferSourceNode')
 @staticInterop
 class AudioBufferSourceNode extends AudioScheduledSourceNode {
   external factory AudioBufferSourceNode();
+
   external factory AudioBufferSourceNode.a1(BaseAudioContext context);
-  external factory AudioBufferSourceNode.a1_1(
-      BaseAudioContext context, AudioBufferSourceOptions options);
+
+  external factory AudioBufferSourceNode.a2(
+    BaseAudioContext context,
+    AudioBufferSourceOptions options,
+  );
 }
 
 extension AudioBufferSourceNodeExtension on AudioBufferSourceNode {
-  external AudioBuffer? get buffer;
   external set buffer(AudioBuffer? value);
+  external AudioBuffer? get buffer;
   external AudioParam get playbackRate;
   external AudioParam get detune;
-  external JSBoolean get loop;
   external set loop(JSBoolean value);
-  external JSNumber get loopStart;
+  external JSBoolean get loop;
   external set loopStart(JSNumber value);
-  external JSNumber get loopEnd;
+  external JSNumber get loopStart;
   external set loopEnd(JSNumber value);
-  external JSUndefined start();
-  external JSUndefined start_1(JSNumber when);
-  external JSUndefined start_2(JSNumber when, JSNumber offset);
-  external JSUndefined start_3(
-      JSNumber when, JSNumber offset, JSNumber duration);
+  external JSNumber get loopEnd;
+  external JSVoid start();
+  external JSVoid start1(JSNumber when);
+  external JSVoid start2(
+    JSNumber when,
+    JSNumber offset,
+  );
+  external JSVoid start3(
+    JSNumber when,
+    JSNumber offset,
+    JSNumber duration,
+  );
 }
 
 @JS('AudioBufferSourceOptions')
@@ -458,14 +515,7 @@ class AudioBufferSourceOptions {
   external factory AudioBufferSourceOptions();
 }
 
-extension AudioBufferSourceOptionsExtension on AudioBufferSourceOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension AudioBufferSourceOptionsExtension on AudioBufferSourceOptions {}
 
 @JS('AudioDestinationNode')
 @staticInterop
@@ -493,17 +543,30 @@ extension AudioListenerExtension on AudioListener {
   external AudioParam get upX;
   external AudioParam get upY;
   external AudioParam get upZ;
-  external JSUndefined setPosition(JSNumber x, JSNumber y, JSNumber z);
-  external JSUndefined setOrientation(JSNumber x, JSNumber y, JSNumber z,
-      JSNumber xUp, JSNumber yUp, JSNumber zUp);
+  external JSVoid setPosition(
+    JSNumber x,
+    JSNumber y,
+    JSNumber z,
+  );
+  external JSVoid setOrientation(
+    JSNumber x,
+    JSNumber y,
+    JSNumber z,
+    JSNumber xUp,
+    JSNumber yUp,
+    JSNumber zUp,
+  );
 }
 
 @JS('AudioProcessingEvent')
 @staticInterop
 class AudioProcessingEvent extends Event {
   external factory AudioProcessingEvent();
+
   external factory AudioProcessingEvent.a1(
-      JSString type, AudioProcessingEventInit eventInitDict);
+    JSString type,
+    AudioProcessingEventInit eventInitDict,
+  );
 }
 
 extension AudioProcessingEventExtension on AudioProcessingEvent {
@@ -518,30 +581,33 @@ class AudioProcessingEventInit extends EventInit {
   external factory AudioProcessingEventInit();
 }
 
-extension AudioProcessingEventInitExtension on AudioProcessingEventInit {
-  // TODO
-  // TODO
-  // TODO
-}
+extension AudioProcessingEventInitExtension on AudioProcessingEventInit {}
 
 @JS('BiquadFilterNode')
 @staticInterop
 class BiquadFilterNode extends AudioNode {
   external factory BiquadFilterNode();
+
   external factory BiquadFilterNode.a1(BaseAudioContext context);
-  external factory BiquadFilterNode.a1_1(
-      BaseAudioContext context, BiquadFilterOptions options);
+
+  external factory BiquadFilterNode.a2(
+    BaseAudioContext context,
+    BiquadFilterOptions options,
+  );
 }
 
 extension BiquadFilterNodeExtension on BiquadFilterNode {
-  external BiquadFilterType get type;
   external set type(BiquadFilterType value);
+  external BiquadFilterType get type;
   external AudioParam get frequency;
   external AudioParam get detune;
   external AudioParam get Q;
   external AudioParam get gain;
-  external JSUndefined getFrequencyResponse(JSFloat32Array frequencyHz,
-      JSFloat32Array magResponse, JSFloat32Array phaseResponse);
+  external JSVoid getFrequencyResponse(
+    JSFloat32Array frequencyHz,
+    JSFloat32Array magResponse,
+    JSFloat32Array phaseResponse,
+  );
 }
 
 @JS('BiquadFilterOptions')
@@ -550,21 +616,19 @@ class BiquadFilterOptions extends AudioNodeOptions {
   external factory BiquadFilterOptions();
 }
 
-extension BiquadFilterOptionsExtension on BiquadFilterOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension BiquadFilterOptionsExtension on BiquadFilterOptions {}
 
 @JS('ChannelMergerNode')
 @staticInterop
 class ChannelMergerNode extends AudioNode {
   external factory ChannelMergerNode();
+
   external factory ChannelMergerNode.a1(BaseAudioContext context);
-  external factory ChannelMergerNode.a1_1(
-      BaseAudioContext context, ChannelMergerOptions options);
+
+  external factory ChannelMergerNode.a2(
+    BaseAudioContext context,
+    ChannelMergerOptions options,
+  );
 }
 
 @JS('ChannelMergerOptions')
@@ -573,17 +637,19 @@ class ChannelMergerOptions extends AudioNodeOptions {
   external factory ChannelMergerOptions();
 }
 
-extension ChannelMergerOptionsExtension on ChannelMergerOptions {
-  // TODO
-}
+extension ChannelMergerOptionsExtension on ChannelMergerOptions {}
 
 @JS('ChannelSplitterNode')
 @staticInterop
 class ChannelSplitterNode extends AudioNode {
   external factory ChannelSplitterNode();
+
   external factory ChannelSplitterNode.a1(BaseAudioContext context);
-  external factory ChannelSplitterNode.a1_1(
-      BaseAudioContext context, ChannelSplitterOptions options);
+
+  external factory ChannelSplitterNode.a2(
+    BaseAudioContext context,
+    ChannelSplitterOptions options,
+  );
 }
 
 @JS('ChannelSplitterOptions')
@@ -592,17 +658,19 @@ class ChannelSplitterOptions extends AudioNodeOptions {
   external factory ChannelSplitterOptions();
 }
 
-extension ChannelSplitterOptionsExtension on ChannelSplitterOptions {
-  // TODO
-}
+extension ChannelSplitterOptionsExtension on ChannelSplitterOptions {}
 
 @JS('ConstantSourceNode')
 @staticInterop
 class ConstantSourceNode extends AudioScheduledSourceNode {
   external factory ConstantSourceNode();
+
   external factory ConstantSourceNode.a1(BaseAudioContext context);
-  external factory ConstantSourceNode.a1_1(
-      BaseAudioContext context, ConstantSourceOptions options);
+
+  external factory ConstantSourceNode.a2(
+    BaseAudioContext context,
+    ConstantSourceOptions options,
+  );
 }
 
 extension ConstantSourceNodeExtension on ConstantSourceNode {
@@ -615,24 +683,26 @@ class ConstantSourceOptions {
   external factory ConstantSourceOptions();
 }
 
-extension ConstantSourceOptionsExtension on ConstantSourceOptions {
-  // TODO
-}
+extension ConstantSourceOptionsExtension on ConstantSourceOptions {}
 
 @JS('ConvolverNode')
 @staticInterop
 class ConvolverNode extends AudioNode {
   external factory ConvolverNode();
+
   external factory ConvolverNode.a1(BaseAudioContext context);
-  external factory ConvolverNode.a1_1(
-      BaseAudioContext context, ConvolverOptions options);
+
+  external factory ConvolverNode.a2(
+    BaseAudioContext context,
+    ConvolverOptions options,
+  );
 }
 
 extension ConvolverNodeExtension on ConvolverNode {
-  external AudioBuffer? get buffer;
   external set buffer(AudioBuffer? value);
-  external JSBoolean get normalize;
+  external AudioBuffer? get buffer;
   external set normalize(JSBoolean value);
+  external JSBoolean get normalize;
 }
 
 @JS('ConvolverOptions')
@@ -641,18 +711,19 @@ class ConvolverOptions extends AudioNodeOptions {
   external factory ConvolverOptions();
 }
 
-extension ConvolverOptionsExtension on ConvolverOptions {
-  // TODO
-  // TODO
-}
+extension ConvolverOptionsExtension on ConvolverOptions {}
 
 @JS('DelayNode')
 @staticInterop
 class DelayNode extends AudioNode {
   external factory DelayNode();
+
   external factory DelayNode.a1(BaseAudioContext context);
-  external factory DelayNode.a1_1(
-      BaseAudioContext context, DelayOptions options);
+
+  external factory DelayNode.a2(
+    BaseAudioContext context,
+    DelayOptions options,
+  );
 }
 
 extension DelayNodeExtension on DelayNode {
@@ -665,18 +736,19 @@ class DelayOptions extends AudioNodeOptions {
   external factory DelayOptions();
 }
 
-extension DelayOptionsExtension on DelayOptions {
-  // TODO
-  // TODO
-}
+extension DelayOptionsExtension on DelayOptions {}
 
 @JS('DynamicsCompressorNode')
 @staticInterop
 class DynamicsCompressorNode extends AudioNode {
   external factory DynamicsCompressorNode();
+
   external factory DynamicsCompressorNode.a1(BaseAudioContext context);
-  external factory DynamicsCompressorNode.a1_1(
-      BaseAudioContext context, DynamicsCompressorOptions options);
+
+  external factory DynamicsCompressorNode.a2(
+    BaseAudioContext context,
+    DynamicsCompressorOptions options,
+  );
 }
 
 extension DynamicsCompressorNodeExtension on DynamicsCompressorNode {
@@ -694,20 +766,19 @@ class DynamicsCompressorOptions extends AudioNodeOptions {
   external factory DynamicsCompressorOptions();
 }
 
-extension DynamicsCompressorOptionsExtension on DynamicsCompressorOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension DynamicsCompressorOptionsExtension on DynamicsCompressorOptions {}
 
 @JS('GainNode')
 @staticInterop
 class GainNode extends AudioNode {
   external factory GainNode();
+
   external factory GainNode.a1(BaseAudioContext context);
-  external factory GainNode.a1_1(BaseAudioContext context, GainOptions options);
+
+  external factory GainNode.a2(
+    BaseAudioContext context,
+    GainOptions options,
+  );
 }
 
 extension GainNodeExtension on GainNode {
@@ -720,21 +791,25 @@ class GainOptions extends AudioNodeOptions {
   external factory GainOptions();
 }
 
-extension GainOptionsExtension on GainOptions {
-  // TODO
-}
+extension GainOptionsExtension on GainOptions {}
 
 @JS('IIRFilterNode')
 @staticInterop
 class IIRFilterNode extends AudioNode {
   external factory IIRFilterNode();
+
   external factory IIRFilterNode.a1(
-      BaseAudioContext context, IIRFilterOptions options);
+    BaseAudioContext context,
+    IIRFilterOptions options,
+  );
 }
 
 extension IIRFilterNodeExtension on IIRFilterNode {
-  external JSUndefined getFrequencyResponse(JSFloat32Array frequencyHz,
-      JSFloat32Array magResponse, JSFloat32Array phaseResponse);
+  external JSVoid getFrequencyResponse(
+    JSFloat32Array frequencyHz,
+    JSFloat32Array magResponse,
+    JSFloat32Array phaseResponse,
+  );
 }
 
 @JS('IIRFilterOptions')
@@ -743,17 +818,17 @@ class IIRFilterOptions extends AudioNodeOptions {
   external factory IIRFilterOptions();
 }
 
-extension IIRFilterOptionsExtension on IIRFilterOptions {
-  // TODO
-  // TODO
-}
+extension IIRFilterOptionsExtension on IIRFilterOptions {}
 
 @JS('MediaElementAudioSourceNode')
 @staticInterop
 class MediaElementAudioSourceNode extends AudioNode {
   external factory MediaElementAudioSourceNode();
+
   external factory MediaElementAudioSourceNode.a1(
-      AudioContext context, MediaElementAudioSourceOptions options);
+    AudioContext context,
+    MediaElementAudioSourceOptions options,
+  );
 }
 
 extension MediaElementAudioSourceNodeExtension on MediaElementAudioSourceNode {
@@ -767,17 +842,19 @@ class MediaElementAudioSourceOptions {
 }
 
 extension MediaElementAudioSourceOptionsExtension
-    on MediaElementAudioSourceOptions {
-  // TODO
-}
+    on MediaElementAudioSourceOptions {}
 
 @JS('MediaStreamAudioDestinationNode')
 @staticInterop
 class MediaStreamAudioDestinationNode extends AudioNode {
   external factory MediaStreamAudioDestinationNode();
+
   external factory MediaStreamAudioDestinationNode.a1(AudioContext context);
-  external factory MediaStreamAudioDestinationNode.a1_1(
-      AudioContext context, AudioNodeOptions options);
+
+  external factory MediaStreamAudioDestinationNode.a2(
+    AudioContext context,
+    AudioNodeOptions options,
+  );
 }
 
 extension MediaStreamAudioDestinationNodeExtension
@@ -789,8 +866,11 @@ extension MediaStreamAudioDestinationNodeExtension
 @staticInterop
 class MediaStreamAudioSourceNode extends AudioNode {
   external factory MediaStreamAudioSourceNode();
+
   external factory MediaStreamAudioSourceNode.a1(
-      AudioContext context, MediaStreamAudioSourceOptions options);
+    AudioContext context,
+    MediaStreamAudioSourceOptions options,
+  );
 }
 
 extension MediaStreamAudioSourceNodeExtension on MediaStreamAudioSourceNode {
@@ -804,16 +884,17 @@ class MediaStreamAudioSourceOptions {
 }
 
 extension MediaStreamAudioSourceOptionsExtension
-    on MediaStreamAudioSourceOptions {
-  // TODO
-}
+    on MediaStreamAudioSourceOptions {}
 
 @JS('MediaStreamTrackAudioSourceNode')
 @staticInterop
 class MediaStreamTrackAudioSourceNode extends AudioNode {
   external factory MediaStreamTrackAudioSourceNode();
+
   external factory MediaStreamTrackAudioSourceNode.a1(
-      AudioContext context, MediaStreamTrackAudioSourceOptions options);
+    AudioContext context,
+    MediaStreamTrackAudioSourceOptions options,
+  );
 }
 
 @JS('MediaStreamTrackAudioSourceOptions')
@@ -823,25 +904,27 @@ class MediaStreamTrackAudioSourceOptions {
 }
 
 extension MediaStreamTrackAudioSourceOptionsExtension
-    on MediaStreamTrackAudioSourceOptions {
-  // TODO
-}
+    on MediaStreamTrackAudioSourceOptions {}
 
 @JS('OscillatorNode')
 @staticInterop
 class OscillatorNode extends AudioScheduledSourceNode {
   external factory OscillatorNode();
+
   external factory OscillatorNode.a1(BaseAudioContext context);
-  external factory OscillatorNode.a1_1(
-      BaseAudioContext context, OscillatorOptions options);
+
+  external factory OscillatorNode.a2(
+    BaseAudioContext context,
+    OscillatorOptions options,
+  );
 }
 
 extension OscillatorNodeExtension on OscillatorNode {
-  external OscillatorType get type;
   external set type(OscillatorType value);
+  external OscillatorType get type;
   external AudioParam get frequency;
   external AudioParam get detune;
-  external JSUndefined setPeriodicWave(PeriodicWave periodicWave);
+  external JSVoid setPeriodicWave(PeriodicWave periodicWave);
 }
 
 @JS('OscillatorOptions')
@@ -850,47 +933,54 @@ class OscillatorOptions extends AudioNodeOptions {
   external factory OscillatorOptions();
 }
 
-extension OscillatorOptionsExtension on OscillatorOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension OscillatorOptionsExtension on OscillatorOptions {}
 
 @JS('PannerNode')
 @staticInterop
 class PannerNode extends AudioNode {
   external factory PannerNode();
+
   external factory PannerNode.a1(BaseAudioContext context);
-  external factory PannerNode.a1_1(
-      BaseAudioContext context, PannerOptions options);
+
+  external factory PannerNode.a2(
+    BaseAudioContext context,
+    PannerOptions options,
+  );
 }
 
 extension PannerNodeExtension on PannerNode {
-  external PanningModelType get panningModel;
   external set panningModel(PanningModelType value);
+  external PanningModelType get panningModel;
   external AudioParam get positionX;
   external AudioParam get positionY;
   external AudioParam get positionZ;
   external AudioParam get orientationX;
   external AudioParam get orientationY;
   external AudioParam get orientationZ;
-  external DistanceModelType get distanceModel;
   external set distanceModel(DistanceModelType value);
-  external JSNumber get refDistance;
+  external DistanceModelType get distanceModel;
   external set refDistance(JSNumber value);
-  external JSNumber get maxDistance;
+  external JSNumber get refDistance;
   external set maxDistance(JSNumber value);
-  external JSNumber get rolloffFactor;
+  external JSNumber get maxDistance;
   external set rolloffFactor(JSNumber value);
-  external JSNumber get coneInnerAngle;
+  external JSNumber get rolloffFactor;
   external set coneInnerAngle(JSNumber value);
-  external JSNumber get coneOuterAngle;
+  external JSNumber get coneInnerAngle;
   external set coneOuterAngle(JSNumber value);
-  external JSNumber get coneOuterGain;
+  external JSNumber get coneOuterAngle;
   external set coneOuterGain(JSNumber value);
-  external JSUndefined setPosition(JSNumber x, JSNumber y, JSNumber z);
-  external JSUndefined setOrientation(JSNumber x, JSNumber y, JSNumber z);
+  external JSNumber get coneOuterGain;
+  external JSVoid setPosition(
+    JSNumber x,
+    JSNumber y,
+    JSNumber z,
+  );
+  external JSVoid setOrientation(
+    JSNumber x,
+    JSNumber y,
+    JSNumber z,
+  );
 }
 
 @JS('PannerOptions')
@@ -899,30 +989,19 @@ class PannerOptions extends AudioNodeOptions {
   external factory PannerOptions();
 }
 
-extension PannerOptionsExtension on PannerOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension PannerOptionsExtension on PannerOptions {}
 
 @JS('PeriodicWave')
 @staticInterop
 class PeriodicWave {
   external factory PeriodicWave();
+
   external factory PeriodicWave.a1(BaseAudioContext context);
-  external factory PeriodicWave.a1_1(
-      BaseAudioContext context, PeriodicWaveOptions options);
+
+  external factory PeriodicWave.a2(
+    BaseAudioContext context,
+    PeriodicWaveOptions options,
+  );
 }
 
 @JS('PeriodicWaveConstraints')
@@ -931,9 +1010,7 @@ class PeriodicWaveConstraints {
   external factory PeriodicWaveConstraints();
 }
 
-extension PeriodicWaveConstraintsExtension on PeriodicWaveConstraints {
-  // TODO
-}
+extension PeriodicWaveConstraintsExtension on PeriodicWaveConstraints {}
 
 @JS('PeriodicWaveOptions')
 @staticInterop
@@ -941,10 +1018,7 @@ class PeriodicWaveOptions extends PeriodicWaveConstraints {
   external factory PeriodicWaveOptions();
 }
 
-extension PeriodicWaveOptionsExtension on PeriodicWaveOptions {
-  // TODO
-  // TODO
-}
+extension PeriodicWaveOptionsExtension on PeriodicWaveOptions {}
 
 @JS('ScriptProcessorNode')
 @staticInterop
@@ -953,8 +1027,8 @@ class ScriptProcessorNode extends AudioNode {
 }
 
 extension ScriptProcessorNodeExtension on ScriptProcessorNode {
-  external EventHandler get onaudioprocess;
   external set onaudioprocess(EventHandler value);
+  external EventHandler get onaudioprocess;
   external JSNumber get bufferSize;
 }
 
@@ -962,9 +1036,13 @@ extension ScriptProcessorNodeExtension on ScriptProcessorNode {
 @staticInterop
 class StereoPannerNode extends AudioNode {
   external factory StereoPannerNode();
+
   external factory StereoPannerNode.a1(BaseAudioContext context);
-  external factory StereoPannerNode.a1_1(
-      BaseAudioContext context, StereoPannerOptions options);
+
+  external factory StereoPannerNode.a2(
+    BaseAudioContext context,
+    StereoPannerOptions options,
+  );
 }
 
 extension StereoPannerNodeExtension on StereoPannerNode {
@@ -977,24 +1055,26 @@ class StereoPannerOptions extends AudioNodeOptions {
   external factory StereoPannerOptions();
 }
 
-extension StereoPannerOptionsExtension on StereoPannerOptions {
-  // TODO
-}
+extension StereoPannerOptionsExtension on StereoPannerOptions {}
 
 @JS('WaveShaperNode')
 @staticInterop
 class WaveShaperNode extends AudioNode {
   external factory WaveShaperNode();
+
   external factory WaveShaperNode.a1(BaseAudioContext context);
-  external factory WaveShaperNode.a1_1(
-      BaseAudioContext context, WaveShaperOptions options);
+
+  external factory WaveShaperNode.a2(
+    BaseAudioContext context,
+    WaveShaperOptions options,
+  );
 }
 
 extension WaveShaperNodeExtension on WaveShaperNode {
-  external JSFloat32Array? get curve;
   external set curve(JSFloat32Array? value);
-  external OverSampleType get oversample;
+  external JSFloat32Array? get curve;
   external set oversample(OverSampleType value);
+  external OverSampleType get oversample;
 }
 
 @JS('WaveShaperOptions')
@@ -1003,10 +1083,7 @@ class WaveShaperOptions extends AudioNodeOptions {
   external factory WaveShaperOptions();
 }
 
-extension WaveShaperOptionsExtension on WaveShaperOptions {
-  // TODO
-  // TODO
-}
+extension WaveShaperOptionsExtension on WaveShaperOptions {}
 
 @JS('AudioWorklet')
 @staticInterop
@@ -1025,8 +1102,10 @@ class AudioWorkletGlobalScope extends WorkletGlobalScope {
 }
 
 extension AudioWorkletGlobalScopeExtension on AudioWorkletGlobalScope {
-  external JSUndefined registerProcessor(
-      JSString name, AudioWorkletProcessorConstructor processorCtor);
+  external JSVoid registerProcessor(
+    JSString name,
+    AudioWorkletProcessorConstructor processorCtor,
+  );
   external JSNumber get currentFrame;
   external JSNumber get currentTime;
   external JSNumber get sampleRate;
@@ -1039,24 +1118,30 @@ class AudioParamMap {
   external factory AudioParamMap();
 }
 
-extension AudioParamMapExtension on AudioParamMap {
-  // TODO
-}
+extension AudioParamMapExtension on AudioParamMap {}
 
 @JS('AudioWorkletNode')
 @staticInterop
 class AudioWorkletNode extends AudioNode {
   external factory AudioWorkletNode();
-  external factory AudioWorkletNode.a1(BaseAudioContext context, JSString name);
-  external factory AudioWorkletNode.a1_1(
-      BaseAudioContext context, JSString name, AudioWorkletNodeOptions options);
+
+  external factory AudioWorkletNode.a1(
+    BaseAudioContext context,
+    JSString name,
+  );
+
+  external factory AudioWorkletNode.a2(
+    BaseAudioContext context,
+    JSString name,
+    AudioWorkletNodeOptions options,
+  );
 }
 
 extension AudioWorkletNodeExtension on AudioWorkletNode {
   external AudioParamMap get parameters;
   external MessagePort get port;
-  external EventHandler get onprocessorerror;
   external set onprocessorerror(EventHandler value);
+  external EventHandler get onprocessorerror;
 }
 
 @JS('AudioWorkletNodeOptions')
@@ -1065,18 +1150,12 @@ class AudioWorkletNodeOptions extends AudioNodeOptions {
   external factory AudioWorkletNodeOptions();
 }
 
-extension AudioWorkletNodeOptionsExtension on AudioWorkletNodeOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension AudioWorkletNodeOptionsExtension on AudioWorkletNodeOptions {}
 
 @JS('AudioWorkletProcessor')
 @staticInterop
 class AudioWorkletProcessor {
-  external factory AudioWorkletProcessor();
+  external factory AudioWorkletProcessor.a0();
 }
 
 extension AudioWorkletProcessorExtension on AudioWorkletProcessor {
@@ -1089,10 +1168,4 @@ class AudioParamDescriptor {
   external factory AudioParamDescriptor();
 }
 
-extension AudioParamDescriptorExtension on AudioParamDescriptor {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension AudioParamDescriptorExtension on AudioParamDescriptor {}

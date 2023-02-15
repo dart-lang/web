@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/svg.dart';
 
 @JS('SVGFilterElement')
 @staticInterop
@@ -43,6 +44,7 @@ extension SVGFilterPrimitiveStandardAttributesExtension
 class SVGFEBlendElement extends SVGElement
     implements SVGFilterPrimitiveStandardAttributes {
   external factory SVGFEBlendElement();
+
   external static JSNumber get SVG_FEBLEND_MODE_UNKNOWN;
   external static JSNumber get SVG_FEBLEND_MODE_NORMAL;
   external static JSNumber get SVG_FEBLEND_MODE_MULTIPLY;
@@ -73,6 +75,7 @@ extension SVGFEBlendElementExtension on SVGFEBlendElement {
 class SVGFEColorMatrixElement extends SVGElement
     implements SVGFilterPrimitiveStandardAttributes {
   external factory SVGFEColorMatrixElement();
+
   external static JSNumber get SVG_FECOLORMATRIX_TYPE_UNKNOWN;
   external static JSNumber get SVG_FECOLORMATRIX_TYPE_MATRIX;
   external static JSNumber get SVG_FECOLORMATRIX_TYPE_SATURATE;
@@ -102,6 +105,7 @@ extension SVGFEComponentTransferElementExtension
 @staticInterop
 class SVGComponentTransferFunctionElement extends SVGElement {
   external factory SVGComponentTransferFunctionElement();
+
   external static JSNumber get SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN;
   external static JSNumber get SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY;
   external static JSNumber get SVG_FECOMPONENTTRANSFER_TYPE_TABLE;
@@ -150,6 +154,7 @@ class SVGFEFuncAElement extends SVGComponentTransferFunctionElement {
 class SVGFECompositeElement extends SVGElement
     implements SVGFilterPrimitiveStandardAttributes {
   external factory SVGFECompositeElement();
+
   external static JSNumber get SVG_FECOMPOSITE_OPERATOR_UNKNOWN;
   external static JSNumber get SVG_FECOMPOSITE_OPERATOR_OVER;
   external static JSNumber get SVG_FECOMPOSITE_OPERATOR_IN;
@@ -174,6 +179,7 @@ extension SVGFECompositeElementExtension on SVGFECompositeElement {
 class SVGFEConvolveMatrixElement extends SVGElement
     implements SVGFilterPrimitiveStandardAttributes {
   external factory SVGFEConvolveMatrixElement();
+
   external static JSNumber get SVG_EDGEMODE_UNKNOWN;
   external static JSNumber get SVG_EDGEMODE_DUPLICATE;
   external static JSNumber get SVG_EDGEMODE_WRAP;
@@ -255,6 +261,7 @@ extension SVGFESpotLightElementExtension on SVGFESpotLightElement {
 class SVGFEDisplacementMapElement extends SVGElement
     implements SVGFilterPrimitiveStandardAttributes {
   external factory SVGFEDisplacementMapElement();
+
   external static JSNumber get SVG_CHANNEL_UNKNOWN;
   external static JSNumber get SVG_CHANNEL_R;
   external static JSNumber get SVG_CHANNEL_G;
@@ -283,8 +290,10 @@ extension SVGFEDropShadowElementExtension on SVGFEDropShadowElement {
   external SVGAnimatedNumber get dy;
   external SVGAnimatedNumber get stdDeviationX;
   external SVGAnimatedNumber get stdDeviationY;
-  external JSUndefined setStdDeviation(
-      JSNumber stdDeviationX, JSNumber stdDeviationY);
+  external JSVoid setStdDeviation(
+    JSNumber stdDeviationX,
+    JSNumber stdDeviationY,
+  );
 }
 
 @JS('SVGFEFloodElement')
@@ -299,6 +308,7 @@ class SVGFEFloodElement extends SVGElement
 class SVGFEGaussianBlurElement extends SVGElement
     implements SVGFilterPrimitiveStandardAttributes {
   external factory SVGFEGaussianBlurElement();
+
   external static JSNumber get SVG_EDGEMODE_UNKNOWN;
   external static JSNumber get SVG_EDGEMODE_DUPLICATE;
   external static JSNumber get SVG_EDGEMODE_WRAP;
@@ -310,8 +320,10 @@ extension SVGFEGaussianBlurElementExtension on SVGFEGaussianBlurElement {
   external SVGAnimatedNumber get stdDeviationX;
   external SVGAnimatedNumber get stdDeviationY;
   external SVGAnimatedEnumeration get edgeMode;
-  external JSUndefined setStdDeviation(
-      JSNumber stdDeviationX, JSNumber stdDeviationY);
+  external JSVoid setStdDeviation(
+    JSNumber stdDeviationX,
+    JSNumber stdDeviationY,
+  );
 }
 
 @JS('SVGFEImageElement')
@@ -348,6 +360,7 @@ extension SVGFEMergeNodeElementExtension on SVGFEMergeNodeElement {
 class SVGFEMorphologyElement extends SVGElement
     implements SVGFilterPrimitiveStandardAttributes {
   external factory SVGFEMorphologyElement();
+
   external static JSNumber get SVG_MORPHOLOGY_OPERATOR_UNKNOWN;
   external static JSNumber get SVG_MORPHOLOGY_OPERATOR_ERODE;
   external static JSNumber get SVG_MORPHOLOGY_OPERATOR_DILATE;
@@ -406,6 +419,7 @@ extension SVGFETileElementExtension on SVGFETileElement {
 class SVGFETurbulenceElement extends SVGElement
     implements SVGFilterPrimitiveStandardAttributes {
   external factory SVGFETurbulenceElement();
+
   external static JSNumber get SVG_TURBULENCE_TYPE_UNKNOWN;
   external static JSNumber get SVG_TURBULENCE_TYPE_FRACTALNOISE;
   external static JSNumber get SVG_TURBULENCE_TYPE_TURBULENCE;

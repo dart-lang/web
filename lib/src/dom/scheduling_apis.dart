@@ -3,10 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/html.dart';
 
 typedef SchedulerPostTaskCallback = JSFunction;
 typedef TaskPriority = JSString;
@@ -17,11 +19,7 @@ class SchedulerPostTaskOptions {
   external factory SchedulerPostTaskOptions();
 }
 
-extension SchedulerPostTaskOptionsExtension on SchedulerPostTaskOptions {
-  // TODO
-  // TODO
-  // TODO
-}
+extension SchedulerPostTaskOptionsExtension on SchedulerPostTaskOptions {}
 
 @JS('Scheduler')
 @staticInterop
@@ -31,16 +29,21 @@ class Scheduler {
 
 extension SchedulerExtension on Scheduler {
   external JSPromise postTask(SchedulerPostTaskCallback callback);
-  external JSPromise postTask_1(
-      SchedulerPostTaskCallback callback, SchedulerPostTaskOptions options);
+  external JSPromise postTask1(
+    SchedulerPostTaskCallback callback,
+    SchedulerPostTaskOptions options,
+  );
 }
 
 @JS('TaskPriorityChangeEvent')
 @staticInterop
 class TaskPriorityChangeEvent extends Event {
   external factory TaskPriorityChangeEvent();
+
   external factory TaskPriorityChangeEvent.a1(
-      JSString type, TaskPriorityChangeEventInit priorityChangeEventInitDict);
+    JSString type,
+    TaskPriorityChangeEventInit priorityChangeEventInitDict,
+  );
 }
 
 extension TaskPriorityChangeEventExtension on TaskPriorityChangeEvent {
@@ -53,9 +56,7 @@ class TaskPriorityChangeEventInit extends EventInit {
   external factory TaskPriorityChangeEventInit();
 }
 
-extension TaskPriorityChangeEventInitExtension on TaskPriorityChangeEventInit {
-  // TODO
-}
+extension TaskPriorityChangeEventInitExtension on TaskPriorityChangeEventInit {}
 
 @JS('TaskControllerInit')
 @staticInterop
@@ -63,20 +64,20 @@ class TaskControllerInit {
   external factory TaskControllerInit();
 }
 
-extension TaskControllerInitExtension on TaskControllerInit {
-  // TODO
-}
+extension TaskControllerInitExtension on TaskControllerInit {}
 
 @JS('TaskController')
 @staticInterop
 class TaskController extends AbortController {
   external factory TaskController();
+
   external factory TaskController.a1();
-  external factory TaskController.a1_1(TaskControllerInit init);
+
+  external factory TaskController.a2(TaskControllerInit init);
 }
 
 extension TaskControllerExtension on TaskController {
-  external JSUndefined setPriority(TaskPriority priority);
+  external JSVoid setPriority(TaskPriority priority);
 }
 
 @JS('TaskSignal')
@@ -87,6 +88,6 @@ class TaskSignal extends AbortSignal {
 
 extension TaskSignalExtension on TaskSignal {
   external TaskPriority get priority;
-  external EventHandler get onprioritychange;
   external set onprioritychange(EventHandler value);
+  external EventHandler get onprioritychange;
 }

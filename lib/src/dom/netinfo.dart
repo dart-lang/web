@@ -3,10 +3,13 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/html.dart';
+import 'package:web/src/dom/savedata.dart';
 
 typedef Megabit = JSNumber;
 typedef Millisecond = JSNumber;
@@ -36,6 +39,6 @@ extension NetworkInformationExtension on NetworkInformation {
   external Megabit get downlinkMax;
   external Megabit get downlink;
   external Millisecond get rtt;
-  external EventHandler get onchange;
   external set onchange(EventHandler value);
+  external EventHandler get onchange;
 }

@@ -3,10 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/streams.dart';
+import 'package:web/src/dom/webidl.dart';
 
 typedef WebTransportReliabilityMode = JSString;
 typedef WebTransportCongestionControl = JSString;
@@ -23,22 +25,27 @@ extension WebTransportDatagramDuplexStreamExtension
   external ReadableStream get readable;
   external WritableStream get writable;
   external JSNumber get maxDatagramSize;
-  external JSNumber? get incomingMaxAge;
   external set incomingMaxAge(JSNumber? value);
-  external JSNumber? get outgoingMaxAge;
+  external JSNumber? get incomingMaxAge;
   external set outgoingMaxAge(JSNumber? value);
-  external JSNumber get incomingHighWaterMark;
+  external JSNumber? get outgoingMaxAge;
   external set incomingHighWaterMark(JSNumber value);
-  external JSNumber get outgoingHighWaterMark;
+  external JSNumber get incomingHighWaterMark;
   external set outgoingHighWaterMark(JSNumber value);
+  external JSNumber get outgoingHighWaterMark;
 }
 
 @JS('WebTransport')
 @staticInterop
 class WebTransport {
   external factory WebTransport();
+
   external factory WebTransport.a1(JSString url);
-  external factory WebTransport.a1_1(JSString url, WebTransportOptions options);
+
+  external factory WebTransport.a2(
+    JSString url,
+    WebTransportOptions options,
+  );
 }
 
 extension WebTransportExtension on WebTransport {
@@ -47,15 +54,15 @@ extension WebTransportExtension on WebTransport {
   external WebTransportReliabilityMode get reliability;
   external WebTransportCongestionControl get congestionControl;
   external JSPromise get closed;
-  external JSUndefined close();
-  external JSUndefined close_1(WebTransportCloseInfo closeInfo);
+  external JSVoid close();
+  external JSVoid close1(WebTransportCloseInfo closeInfo);
   external WebTransportDatagramDuplexStream get datagrams;
   external JSPromise createBidirectionalStream();
-  external JSPromise createBidirectionalStream_1(
+  external JSPromise createBidirectionalStream1(
       WebTransportSendStreamOptions options);
   external ReadableStream get incomingBidirectionalStreams;
   external JSPromise createUnidirectionalStream();
-  external JSPromise createUnidirectionalStream_1(
+  external JSPromise createUnidirectionalStream1(
       WebTransportSendStreamOptions options);
   external ReadableStream get incomingUnidirectionalStreams;
 }
@@ -66,10 +73,7 @@ class WebTransportHash {
   external factory WebTransportHash();
 }
 
-extension WebTransportHashExtension on WebTransportHash {
-  // TODO
-  // TODO
-}
+extension WebTransportHashExtension on WebTransportHash {}
 
 @JS('WebTransportOptions')
 @staticInterop
@@ -77,12 +81,7 @@ class WebTransportOptions {
   external factory WebTransportOptions();
 }
 
-extension WebTransportOptionsExtension on WebTransportOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension WebTransportOptionsExtension on WebTransportOptions {}
 
 @JS('WebTransportCloseInfo')
 @staticInterop
@@ -90,10 +89,7 @@ class WebTransportCloseInfo {
   external factory WebTransportCloseInfo();
 }
 
-extension WebTransportCloseInfoExtension on WebTransportCloseInfo {
-  // TODO
-  // TODO
-}
+extension WebTransportCloseInfoExtension on WebTransportCloseInfo {}
 
 @JS('WebTransportSendStreamOptions')
 @staticInterop
@@ -102,9 +98,7 @@ class WebTransportSendStreamOptions {
 }
 
 extension WebTransportSendStreamOptionsExtension
-    on WebTransportSendStreamOptions {
-  // TODO
-}
+    on WebTransportSendStreamOptions {}
 
 @JS('WebTransportStats')
 @staticInterop
@@ -112,20 +106,7 @@ class WebTransportStats {
   external factory WebTransportStats();
 }
 
-extension WebTransportStatsExtension on WebTransportStats {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension WebTransportStatsExtension on WebTransportStats {}
 
 @JS('WebTransportDatagramStats')
 @staticInterop
@@ -133,12 +114,7 @@ class WebTransportDatagramStats {
   external factory WebTransportDatagramStats();
 }
 
-extension WebTransportDatagramStatsExtension on WebTransportDatagramStats {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension WebTransportDatagramStatsExtension on WebTransportDatagramStats {}
 
 @JS('WebTransportSendStream')
 @staticInterop
@@ -156,12 +132,7 @@ class WebTransportSendStreamStats {
   external factory WebTransportSendStreamStats();
 }
 
-extension WebTransportSendStreamStatsExtension on WebTransportSendStreamStats {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension WebTransportSendStreamStatsExtension on WebTransportSendStreamStats {}
 
 @JS('WebTransportReceiveStream')
 @staticInterop
@@ -180,11 +151,7 @@ class WebTransportReceiveStreamStats {
 }
 
 extension WebTransportReceiveStreamStatsExtension
-    on WebTransportReceiveStreamStats {
-  // TODO
-  // TODO
-  // TODO
-}
+    on WebTransportReceiveStreamStats {}
 
 @JS('WebTransportBidirectionalStream')
 @staticInterop
@@ -202,8 +169,10 @@ extension WebTransportBidirectionalStreamExtension
 @staticInterop
 class WebTransportError extends DOMException {
   external factory WebTransportError();
+
   external factory WebTransportError.a1();
-  external factory WebTransportError.a1_1(WebTransportErrorInit init);
+
+  external factory WebTransportError.a2(WebTransportErrorInit init);
 }
 
 extension WebTransportErrorExtension on WebTransportError {
@@ -217,7 +186,4 @@ class WebTransportErrorInit {
   external factory WebTransportErrorInit();
 }
 
-extension WebTransportErrorInitExtension on WebTransportErrorInit {
-  // TODO
-  // TODO
-}
+extension WebTransportErrorInitExtension on WebTransportErrorInit {}

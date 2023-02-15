@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/generic_sensor.dart';
 
 typedef RotationMatrixType = JSAny;
 typedef OrientationSensorLocalCoordinateSystem = JSString;
@@ -19,7 +20,7 @@ class OrientationSensor extends Sensor {
 
 extension OrientationSensorExtension on OrientationSensor {
   external JSArray? get quaternion;
-  external JSUndefined populateMatrix(RotationMatrixType targetMatrix);
+  external JSVoid populateMatrix(RotationMatrixType targetMatrix);
 }
 
 @JS('OrientationSensorOptions')
@@ -28,16 +29,16 @@ class OrientationSensorOptions extends SensorOptions {
   external factory OrientationSensorOptions();
 }
 
-extension OrientationSensorOptionsExtension on OrientationSensorOptions {
-  // TODO
-}
+extension OrientationSensorOptionsExtension on OrientationSensorOptions {}
 
 @JS('AbsoluteOrientationSensor')
 @staticInterop
 class AbsoluteOrientationSensor extends OrientationSensor {
   external factory AbsoluteOrientationSensor();
+
   external factory AbsoluteOrientationSensor.a1();
-  external factory AbsoluteOrientationSensor.a1_1(
+
+  external factory AbsoluteOrientationSensor.a2(
       OrientationSensorOptions sensorOptions);
 }
 
@@ -45,8 +46,10 @@ class AbsoluteOrientationSensor extends OrientationSensor {
 @staticInterop
 class RelativeOrientationSensor extends OrientationSensor {
   external factory RelativeOrientationSensor();
+
   external factory RelativeOrientationSensor.a1();
-  external factory RelativeOrientationSensor.a1_1(
+
+  external factory RelativeOrientationSensor.a2(
       OrientationSensorOptions sensorOptions);
 }
 
@@ -57,9 +60,7 @@ class AbsoluteOrientationReadingValues {
 }
 
 extension AbsoluteOrientationReadingValuesExtension
-    on AbsoluteOrientationReadingValues {
-  // TODO
-}
+    on AbsoluteOrientationReadingValues {}
 
 @JS('RelativeOrientationReadingValues')
 @staticInterop

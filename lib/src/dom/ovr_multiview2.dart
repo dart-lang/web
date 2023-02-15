@@ -3,15 +3,17 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/webgl1.dart';
 
 @JS('OVR_multiview2')
 @staticInterop
 class OVR_multiview2 {
   external factory OVR_multiview2();
+
   external static GLenum get FRAMEBUFFER_ATTACHMENT_TEXTURE_NUM_VIEWS_OVR;
   external static GLenum get FRAMEBUFFER_ATTACHMENT_TEXTURE_BASE_VIEW_INDEX_OVR;
   external static GLenum get MAX_VIEWS_OVR;
@@ -19,11 +21,12 @@ class OVR_multiview2 {
 }
 
 extension OVR_multiview2Extension on OVR_multiview2 {
-  external JSUndefined framebufferTextureMultiviewOVR(
-      GLenum target,
-      GLenum attachment,
-      WebGLTexture? texture,
-      GLint level,
-      GLint baseViewIndex,
-      GLsizei numViews);
+  external JSVoid framebufferTextureMultiviewOVR(
+    GLenum target,
+    GLenum attachment,
+    WebGLTexture? texture,
+    GLint level,
+    GLint baseViewIndex,
+    GLsizei numViews,
+  );
 }

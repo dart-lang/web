@@ -3,10 +3,13 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/html.dart';
+import 'package:web/src/dom/webidl.dart';
 
 typedef MediaKeysRequirement = JSString;
 typedef MediaKeySessionType = JSString;
@@ -20,15 +23,7 @@ class MediaKeySystemConfiguration {
   external factory MediaKeySystemConfiguration();
 }
 
-extension MediaKeySystemConfigurationExtension on MediaKeySystemConfiguration {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension MediaKeySystemConfigurationExtension on MediaKeySystemConfiguration {}
 
 @JS('MediaKeySystemMediaCapability')
 @staticInterop
@@ -37,11 +32,7 @@ class MediaKeySystemMediaCapability {
 }
 
 extension MediaKeySystemMediaCapabilityExtension
-    on MediaKeySystemMediaCapability {
-  // TODO
-  // TODO
-  // TODO
-}
+    on MediaKeySystemMediaCapability {}
 
 @JS('MediaKeySystemAccess')
 @staticInterop
@@ -63,7 +54,7 @@ class MediaKeys {
 
 extension MediaKeysExtension on MediaKeys {
   external MediaKeySession createSession();
-  external MediaKeySession createSession_1(MediaKeySessionType sessionType);
+  external MediaKeySession createSession1(MediaKeySessionType sessionType);
   external JSPromise setServerCertificate(BufferSource serverCertificate);
 }
 
@@ -78,12 +69,14 @@ extension MediaKeySessionExtension on MediaKeySession {
   external JSNumber get expiration;
   external JSPromise get closed;
   external MediaKeyStatusMap get keyStatuses;
-  external EventHandler get onkeystatuseschange;
   external set onkeystatuseschange(EventHandler value);
-  external EventHandler get onmessage;
+  external EventHandler get onkeystatuseschange;
   external set onmessage(EventHandler value);
+  external EventHandler get onmessage;
   external JSPromise generateRequest(
-      JSString initDataType, BufferSource initData);
+    JSString initDataType,
+    BufferSource initData,
+  );
   external JSPromise load(JSString sessionId);
   external JSPromise update(BufferSource response);
   external JSPromise close();
@@ -97,7 +90,6 @@ class MediaKeyStatusMap {
 }
 
 extension MediaKeyStatusMapExtension on MediaKeyStatusMap {
-  // TODO
   external JSNumber get size;
   external JSBoolean has(BufferSource keyId);
   external JSAny get(BufferSource keyId);
@@ -107,8 +99,11 @@ extension MediaKeyStatusMapExtension on MediaKeyStatusMap {
 @staticInterop
 class MediaKeyMessageEvent extends Event {
   external factory MediaKeyMessageEvent();
+
   external factory MediaKeyMessageEvent.a1(
-      JSString type, MediaKeyMessageEventInit eventInitDict);
+    JSString type,
+    MediaKeyMessageEventInit eventInitDict,
+  );
 }
 
 extension MediaKeyMessageEventExtension on MediaKeyMessageEvent {
@@ -122,18 +117,19 @@ class MediaKeyMessageEventInit extends EventInit {
   external factory MediaKeyMessageEventInit();
 }
 
-extension MediaKeyMessageEventInitExtension on MediaKeyMessageEventInit {
-  // TODO
-  // TODO
-}
+extension MediaKeyMessageEventInitExtension on MediaKeyMessageEventInit {}
 
 @JS('MediaEncryptedEvent')
 @staticInterop
 class MediaEncryptedEvent extends Event {
   external factory MediaEncryptedEvent();
+
   external factory MediaEncryptedEvent.a1(JSString type);
-  external factory MediaEncryptedEvent.a1_1(
-      JSString type, MediaEncryptedEventInit eventInitDict);
+
+  external factory MediaEncryptedEvent.a2(
+    JSString type,
+    MediaEncryptedEventInit eventInitDict,
+  );
 }
 
 extension MediaEncryptedEventExtension on MediaEncryptedEvent {
@@ -147,7 +143,4 @@ class MediaEncryptedEventInit extends EventInit {
   external factory MediaEncryptedEventInit();
 }
 
-extension MediaEncryptedEventInitExtension on MediaEncryptedEventInit {
-  // TODO
-  // TODO
-}
+extension MediaEncryptedEventInitExtension on MediaEncryptedEventInit {}

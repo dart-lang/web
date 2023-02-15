@@ -3,10 +3,13 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/css_typed_om.dart';
+import 'package:web/src/dom/html.dart';
+import 'package:web/src/dom/webidl.dart';
 
 typedef ChildDisplayType = JSString;
 typedef LayoutSizingMode = JSString;
@@ -20,7 +23,10 @@ class LayoutWorkletGlobalScope extends WorkletGlobalScope {
 }
 
 extension LayoutWorkletGlobalScopeExtension on LayoutWorkletGlobalScope {
-  external JSUndefined registerLayout(JSString name, VoidFunction layoutCtor);
+  external JSVoid registerLayout(
+    JSString name,
+    VoidFunction layoutCtor,
+  );
 }
 
 @JS('LayoutOptions')
@@ -29,10 +35,7 @@ class LayoutOptions {
   external factory LayoutOptions();
 }
 
-extension LayoutOptionsExtension on LayoutOptions {
-  // TODO
-  // TODO
-}
+extension LayoutOptionsExtension on LayoutOptions {}
 
 @JS('LayoutChild')
 @staticInterop
@@ -44,7 +47,9 @@ extension LayoutChildExtension on LayoutChild {
   external StylePropertyMapReadOnly get styleMap;
   external JSPromise intrinsicSizes();
   external JSPromise layoutNextFragment(
-      LayoutConstraintsOptions constraints, ChildBreakToken breakToken);
+    LayoutConstraintsOptions constraints,
+    ChildBreakToken breakToken,
+  );
 }
 
 @JS('LayoutFragment')
@@ -56,10 +61,10 @@ class LayoutFragment {
 extension LayoutFragmentExtension on LayoutFragment {
   external JSNumber get inlineSize;
   external JSNumber get blockSize;
-  external JSNumber get inlineOffset;
   external set inlineOffset(JSNumber value);
-  external JSNumber get blockOffset;
+  external JSNumber get inlineOffset;
   external set blockOffset(JSNumber value);
+  external JSNumber get blockOffset;
   external JSAny get data;
   external ChildBreakToken? get breakToken;
 }
@@ -99,17 +104,7 @@ class LayoutConstraintsOptions {
   external factory LayoutConstraintsOptions();
 }
 
-extension LayoutConstraintsOptionsExtension on LayoutConstraintsOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension LayoutConstraintsOptionsExtension on LayoutConstraintsOptions {}
 
 @JS('ChildBreakToken')
 @staticInterop
@@ -139,10 +134,7 @@ class BreakTokenOptions {
   external factory BreakTokenOptions();
 }
 
-extension BreakTokenOptionsExtension on BreakTokenOptions {
-  // TODO
-  // TODO
-}
+extension BreakTokenOptionsExtension on BreakTokenOptions {}
 
 @JS('LayoutEdges')
 @staticInterop
@@ -165,21 +157,16 @@ class FragmentResultOptions {
   external factory FragmentResultOptions();
 }
 
-extension FragmentResultOptionsExtension on FragmentResultOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension FragmentResultOptionsExtension on FragmentResultOptions {}
 
 @JS('FragmentResult')
 @staticInterop
 class FragmentResult {
   external factory FragmentResult();
+
   external factory FragmentResult.a1();
-  external factory FragmentResult.a1_1(FragmentResultOptions options);
+
+  external factory FragmentResult.a2(FragmentResultOptions options);
 }
 
 extension FragmentResultExtension on FragmentResult {
@@ -193,7 +180,4 @@ class IntrinsicSizesResultOptions {
   external factory IntrinsicSizesResultOptions();
 }
 
-extension IntrinsicSizesResultOptionsExtension on IntrinsicSizesResultOptions {
-  // TODO
-  // TODO
-}
+extension IntrinsicSizesResultOptionsExtension on IntrinsicSizesResultOptions {}

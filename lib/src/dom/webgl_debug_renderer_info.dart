@@ -3,15 +3,17 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/webgl1.dart';
 
 @JS('WEBGL_debug_renderer_info')
 @staticInterop
 class WEBGL_debug_renderer_info {
   external factory WEBGL_debug_renderer_info();
+
   external static GLenum get UNMASKED_VENDOR_WEBGL;
   external static GLenum get UNMASKED_RENDERER_WEBGL;
 }

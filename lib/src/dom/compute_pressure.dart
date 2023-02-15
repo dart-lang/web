@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/hr_time.dart';
 
 typedef PressureUpdateCallback = JSFunction;
 typedef PressureState = JSString;
@@ -17,16 +18,21 @@ typedef PressureSource = JSString;
 @staticInterop
 class PressureObserver {
   external factory PressureObserver();
+
   external factory PressureObserver.a1(PressureUpdateCallback callback);
-  external factory PressureObserver.a1_1(
-      PressureUpdateCallback callback, PressureObserverOptions options);
+
+  external factory PressureObserver.a2(
+    PressureUpdateCallback callback,
+    PressureObserverOptions options,
+  );
+
   external static JSArray get supportedSources;
 }
 
 extension PressureObserverExtension on PressureObserver {
   external JSPromise observe(PressureSource source);
-  external JSUndefined unobserve(PressureSource source);
-  external JSUndefined disconnect();
+  external JSVoid unobserve(PressureSource source);
+  external JSVoid disconnect();
   external JSArray takeRecords();
 }
 
@@ -50,6 +56,4 @@ class PressureObserverOptions {
   external factory PressureObserverOptions();
 }
 
-extension PressureObserverOptionsExtension on PressureObserverOptions {
-  // TODO
-}
+extension PressureObserverOptionsExtension on PressureObserverOptions {}

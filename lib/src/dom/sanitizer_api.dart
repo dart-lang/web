@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
 
 typedef AttributeMatchList = JSAny;
 
@@ -14,14 +15,20 @@ typedef AttributeMatchList = JSAny;
 @staticInterop
 class Sanitizer {
   external factory Sanitizer();
+
   external factory Sanitizer.a1();
-  external factory Sanitizer.a1_1(SanitizerConfig config);
+
+  external factory Sanitizer.a2(SanitizerConfig config);
+
   external static SanitizerConfig getDefaultConfiguration();
 }
 
 extension SanitizerExtension on Sanitizer {
   external DocumentFragment sanitize(JSAny input);
-  external Element? sanitizeFor(JSString element, JSString input);
+  external Element? sanitizeFor(
+    JSString element,
+    JSString input,
+  );
   external SanitizerConfig getConfiguration();
 }
 
@@ -31,9 +38,7 @@ class SetHTMLOptions {
   external factory SetHTMLOptions();
 }
 
-extension SetHTMLOptionsExtension on SetHTMLOptions {
-  // TODO
-}
+extension SetHTMLOptionsExtension on SetHTMLOptions {}
 
 @JS('SanitizerConfig')
 @staticInterop
@@ -41,13 +46,4 @@ class SanitizerConfig {
   external factory SanitizerConfig();
 }
 
-extension SanitizerConfigExtension on SanitizerConfig {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension SanitizerConfigExtension on SanitizerConfig {}

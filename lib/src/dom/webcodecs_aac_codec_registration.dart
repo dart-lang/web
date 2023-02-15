@@ -3,10 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
 
 typedef AacBitstreamFormat = JSString;
 
@@ -16,6 +16,4 @@ class AacEncoderConfig {
   external factory AacEncoderConfig();
 }
 
-extension AacEncoderConfigExtension on AacEncoderConfig {
-  // TODO
-}
+extension AacEncoderConfigExtension on AacEncoderConfig {}

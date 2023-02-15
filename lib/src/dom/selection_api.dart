@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
 
 @JS('Selection')
 @staticInterop
@@ -23,29 +24,50 @@ extension SelectionExtension on Selection {
   external JSNumber get rangeCount;
   external JSString get type;
   external Range getRangeAt(JSNumber index);
-  external JSUndefined addRange(Range range);
-  external JSUndefined removeRange(Range range);
-  external JSUndefined removeAllRanges();
-  external JSUndefined empty();
+  external JSVoid addRange(Range range);
+  external JSVoid removeRange(Range range);
+  external JSVoid removeAllRanges();
+  external JSVoid empty();
   external StaticRange getComposedRange(ShadowRoot shadowRoots);
-  external JSUndefined collapse(Node? node);
-  external JSUndefined collapse_1(Node? node, JSNumber offset);
-  external JSUndefined setPosition(Node? node);
-  external JSUndefined setPosition_1(Node? node, JSNumber offset);
-  external JSUndefined collapseToStart();
-  external JSUndefined collapseToEnd();
-  external JSUndefined extend(Node node);
-  external JSUndefined extend_1(Node node, JSNumber offset);
-  external JSUndefined setBaseAndExtent(Node anchorNode, JSNumber anchorOffset,
-      Node focusNode, JSNumber focusOffset);
-  external JSUndefined selectAllChildren(Node node);
-  external JSUndefined modify();
-  external JSUndefined modify_1(JSString alter);
-  external JSUndefined modify_2(JSString alter, JSString direction);
-  external JSUndefined modify_3(
-      JSString alter, JSString direction, JSString granularity);
-  external JSUndefined deleteFromDocument();
+  external JSVoid collapse(Node? node);
+  external JSVoid collapse1(
+    Node? node,
+    JSNumber offset,
+  );
+  external JSVoid setPosition(Node? node);
+  external JSVoid setPosition1(
+    Node? node,
+    JSNumber offset,
+  );
+  external JSVoid collapseToStart();
+  external JSVoid collapseToEnd();
+  external JSVoid extend(Node node);
+  external JSVoid extend1(
+    Node node,
+    JSNumber offset,
+  );
+  external JSVoid setBaseAndExtent(
+    Node anchorNode,
+    JSNumber anchorOffset,
+    Node focusNode,
+    JSNumber focusOffset,
+  );
+  external JSVoid selectAllChildren(Node node);
+  external JSVoid modify();
+  external JSVoid modify1(JSString alter);
+  external JSVoid modify2(
+    JSString alter,
+    JSString direction,
+  );
+  external JSVoid modify3(
+    JSString alter,
+    JSString direction,
+    JSString granularity,
+  );
+  external JSVoid deleteFromDocument();
   external JSBoolean containsNode(Node node);
-  external JSBoolean containsNode_1(
-      Node node, JSBoolean allowPartialContainment);
+  external JSBoolean containsNode1(
+    Node node,
+    JSBoolean allowPartialContainment,
+  );
 }

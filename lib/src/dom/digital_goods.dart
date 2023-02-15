@@ -3,10 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
 
 typedef ItemType = JSString;
 
@@ -29,19 +29,7 @@ class ItemDetails {
   external factory ItemDetails();
 }
 
-extension ItemDetailsExtension on ItemDetails {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension ItemDetailsExtension on ItemDetails {}
 
 @JS('PurchaseDetails')
 @staticInterop
@@ -49,7 +37,4 @@ class PurchaseDetails {
   external factory PurchaseDetails();
 }
 
-extension PurchaseDetailsExtension on PurchaseDetails {
-  // TODO
-  // TODO
-}
+extension PurchaseDetailsExtension on PurchaseDetails {}

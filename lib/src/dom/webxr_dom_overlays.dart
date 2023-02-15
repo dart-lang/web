@@ -3,10 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
 
 typedef XRDOMOverlayType = JSString;
 
@@ -16,9 +16,7 @@ class XRDOMOverlayInit {
   external factory XRDOMOverlayInit();
 }
 
-extension XRDOMOverlayInitExtension on XRDOMOverlayInit {
-  // TODO
-}
+extension XRDOMOverlayInitExtension on XRDOMOverlayInit {}
 
 @JS('XRDOMOverlayState')
 @staticInterop
@@ -26,6 +24,4 @@ class XRDOMOverlayState {
   external factory XRDOMOverlayState();
 }
 
-extension XRDOMOverlayStateExtension on XRDOMOverlayState {
-  // TODO
-}
+extension XRDOMOverlayStateExtension on XRDOMOverlayState {}

@@ -3,22 +3,25 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/mediacapture_streams.dart';
+import 'package:web/src/dom/streams.dart';
 
 @JS('MediaStreamTrackProcessor')
 @staticInterop
 class MediaStreamTrackProcessor {
   external factory MediaStreamTrackProcessor();
+
   external factory MediaStreamTrackProcessor.a1(
       MediaStreamTrackProcessorInit init);
 }
 
 extension MediaStreamTrackProcessorExtension on MediaStreamTrackProcessor {
-  external ReadableStream get readable;
   external set readable(ReadableStream value);
+  external ReadableStream get readable;
 }
 
 @JS('MediaStreamTrackProcessorInit')
@@ -28,20 +31,17 @@ class MediaStreamTrackProcessorInit {
 }
 
 extension MediaStreamTrackProcessorInitExtension
-    on MediaStreamTrackProcessorInit {
-  // TODO
-  // TODO
-}
+    on MediaStreamTrackProcessorInit {}
 
 @JS('VideoTrackGenerator')
 @staticInterop
 class VideoTrackGenerator {
-  external factory VideoTrackGenerator();
+  external factory VideoTrackGenerator.a0();
 }
 
 extension VideoTrackGeneratorExtension on VideoTrackGenerator {
   external WritableStream get writable;
-  external JSBoolean get muted;
   external set muted(JSBoolean value);
+  external JSBoolean get muted;
   external MediaStreamTrack get track;
 }

@@ -3,10 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
 
 typedef ArrayBufferView = JSAny;
 typedef BufferSource = JSAny;
@@ -17,9 +17,16 @@ typedef VoidFunction = JSFunction;
 @staticInterop
 class DOMException {
   external factory DOMException();
+
   external factory DOMException.a1();
-  external factory DOMException.a1_1(JSString message);
-  external factory DOMException.a1_2(JSString message, JSString name);
+
+  external factory DOMException.a2(JSString message);
+
+  external factory DOMException.a3(
+    JSString message,
+    JSString name,
+  );
+
   external static JSNumber get INDEX_SIZE_ERR;
   external static JSNumber get DOMSTRING_SIZE_ERR;
   external static JSNumber get HIERARCHY_REQUEST_ERR;

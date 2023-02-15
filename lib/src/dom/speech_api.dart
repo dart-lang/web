@@ -3,10 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/html.dart';
 
 typedef SpeechRecognitionErrorCode = JSString;
 typedef SpeechSynthesisErrorCode = JSString;
@@ -14,53 +16,56 @@ typedef SpeechSynthesisErrorCode = JSString;
 @JS('SpeechRecognition')
 @staticInterop
 class SpeechRecognition extends EventTarget {
-  external factory SpeechRecognition();
+  external factory SpeechRecognition.a0();
 }
 
 extension SpeechRecognitionExtension on SpeechRecognition {
-  external SpeechGrammarList get grammars;
   external set grammars(SpeechGrammarList value);
-  external JSString get lang;
+  external SpeechGrammarList get grammars;
   external set lang(JSString value);
-  external JSBoolean get continuous;
+  external JSString get lang;
   external set continuous(JSBoolean value);
-  external JSBoolean get interimResults;
+  external JSBoolean get continuous;
   external set interimResults(JSBoolean value);
-  external JSNumber get maxAlternatives;
+  external JSBoolean get interimResults;
   external set maxAlternatives(JSNumber value);
-  external JSUndefined start();
-  external JSUndefined stop();
-  external JSUndefined abort();
-  external EventHandler get onaudiostart;
+  external JSNumber get maxAlternatives;
+  external JSVoid start();
+  external JSVoid stop();
+  external JSVoid abort();
   external set onaudiostart(EventHandler value);
-  external EventHandler get onsoundstart;
+  external EventHandler get onaudiostart;
   external set onsoundstart(EventHandler value);
-  external EventHandler get onspeechstart;
+  external EventHandler get onsoundstart;
   external set onspeechstart(EventHandler value);
-  external EventHandler get onspeechend;
+  external EventHandler get onspeechstart;
   external set onspeechend(EventHandler value);
-  external EventHandler get onsoundend;
+  external EventHandler get onspeechend;
   external set onsoundend(EventHandler value);
-  external EventHandler get onaudioend;
+  external EventHandler get onsoundend;
   external set onaudioend(EventHandler value);
-  external EventHandler get onresult;
+  external EventHandler get onaudioend;
   external set onresult(EventHandler value);
-  external EventHandler get onnomatch;
+  external EventHandler get onresult;
   external set onnomatch(EventHandler value);
-  external EventHandler get onerror;
+  external EventHandler get onnomatch;
   external set onerror(EventHandler value);
-  external EventHandler get onstart;
+  external EventHandler get onerror;
   external set onstart(EventHandler value);
-  external EventHandler get onend;
+  external EventHandler get onstart;
   external set onend(EventHandler value);
+  external EventHandler get onend;
 }
 
 @JS('SpeechRecognitionErrorEvent')
 @staticInterop
 class SpeechRecognitionErrorEvent extends Event {
   external factory SpeechRecognitionErrorEvent();
+
   external factory SpeechRecognitionErrorEvent.a1(
-      JSString type, SpeechRecognitionErrorEventInit eventInitDict);
+    JSString type,
+    SpeechRecognitionErrorEventInit eventInitDict,
+  );
 }
 
 extension SpeechRecognitionErrorEventExtension on SpeechRecognitionErrorEvent {
@@ -75,10 +80,7 @@ class SpeechRecognitionErrorEventInit extends EventInit {
 }
 
 extension SpeechRecognitionErrorEventInitExtension
-    on SpeechRecognitionErrorEventInit {
-  // TODO
-  // TODO
-}
+    on SpeechRecognitionErrorEventInit {}
 
 @JS('SpeechRecognitionAlternative')
 @staticInterop
@@ -119,8 +121,11 @@ extension SpeechRecognitionResultListExtension on SpeechRecognitionResultList {
 @staticInterop
 class SpeechRecognitionEvent extends Event {
   external factory SpeechRecognitionEvent();
+
   external factory SpeechRecognitionEvent.a1(
-      JSString type, SpeechRecognitionEventInit eventInitDict);
+    JSString type,
+    SpeechRecognitionEventInit eventInitDict,
+  );
 }
 
 extension SpeechRecognitionEventExtension on SpeechRecognitionEvent {
@@ -134,10 +139,7 @@ class SpeechRecognitionEventInit extends EventInit {
   external factory SpeechRecognitionEventInit();
 }
 
-extension SpeechRecognitionEventInitExtension on SpeechRecognitionEventInit {
-  // TODO
-  // TODO
-}
+extension SpeechRecognitionEventInitExtension on SpeechRecognitionEventInit {}
 
 @JS('SpeechGrammar')
 @staticInterop
@@ -146,25 +148,31 @@ class SpeechGrammar {
 }
 
 extension SpeechGrammarExtension on SpeechGrammar {
-  external JSString get src;
   external set src(JSString value);
-  external JSNumber get weight;
+  external JSString get src;
   external set weight(JSNumber value);
+  external JSNumber get weight;
 }
 
 @JS('SpeechGrammarList')
 @staticInterop
 class SpeechGrammarList {
-  external factory SpeechGrammarList();
+  external factory SpeechGrammarList.a0();
 }
 
 extension SpeechGrammarListExtension on SpeechGrammarList {
   external JSNumber get length;
   external SpeechGrammar item(JSNumber index);
-  external JSUndefined addFromURI(JSString src);
-  external JSUndefined addFromURI_1(JSString src, JSNumber weight);
-  external JSUndefined addFromString(JSString string);
-  external JSUndefined addFromString_1(JSString string, JSNumber weight);
+  external JSVoid addFromURI(JSString src);
+  external JSVoid addFromURI1(
+    JSString src,
+    JSNumber weight,
+  );
+  external JSVoid addFromString(JSString string);
+  external JSVoid addFromString1(
+    JSString string,
+    JSNumber weight,
+  );
 }
 
 @JS('SpeechSynthesis')
@@ -177,12 +185,12 @@ extension SpeechSynthesisExtension on SpeechSynthesis {
   external JSBoolean get pending;
   external JSBoolean get speaking;
   external JSBoolean get paused;
-  external EventHandler get onvoiceschanged;
   external set onvoiceschanged(EventHandler value);
-  external JSUndefined speak(SpeechSynthesisUtterance utterance);
-  external JSUndefined cancel();
-  external JSUndefined pause();
-  external JSUndefined resume();
+  external EventHandler get onvoiceschanged;
+  external JSVoid speak(SpeechSynthesisUtterance utterance);
+  external JSVoid cancel();
+  external JSVoid pause();
+  external JSVoid resume();
   external JSArray getVoices();
 }
 
@@ -190,45 +198,50 @@ extension SpeechSynthesisExtension on SpeechSynthesis {
 @staticInterop
 class SpeechSynthesisUtterance extends EventTarget {
   external factory SpeechSynthesisUtterance();
+
   external factory SpeechSynthesisUtterance.a1();
-  external factory SpeechSynthesisUtterance.a1_1(JSString text);
+
+  external factory SpeechSynthesisUtterance.a2(JSString text);
 }
 
 extension SpeechSynthesisUtteranceExtension on SpeechSynthesisUtterance {
-  external JSString get text;
   external set text(JSString value);
-  external JSString get lang;
+  external JSString get text;
   external set lang(JSString value);
-  external SpeechSynthesisVoice? get voice;
+  external JSString get lang;
   external set voice(SpeechSynthesisVoice? value);
-  external JSNumber get volume;
+  external SpeechSynthesisVoice? get voice;
   external set volume(JSNumber value);
-  external JSNumber get rate;
+  external JSNumber get volume;
   external set rate(JSNumber value);
-  external JSNumber get pitch;
+  external JSNumber get rate;
   external set pitch(JSNumber value);
-  external EventHandler get onstart;
+  external JSNumber get pitch;
   external set onstart(EventHandler value);
-  external EventHandler get onend;
+  external EventHandler get onstart;
   external set onend(EventHandler value);
-  external EventHandler get onerror;
+  external EventHandler get onend;
   external set onerror(EventHandler value);
-  external EventHandler get onpause;
+  external EventHandler get onerror;
   external set onpause(EventHandler value);
-  external EventHandler get onresume;
+  external EventHandler get onpause;
   external set onresume(EventHandler value);
-  external EventHandler get onmark;
+  external EventHandler get onresume;
   external set onmark(EventHandler value);
-  external EventHandler get onboundary;
+  external EventHandler get onmark;
   external set onboundary(EventHandler value);
+  external EventHandler get onboundary;
 }
 
 @JS('SpeechSynthesisEvent')
 @staticInterop
 class SpeechSynthesisEvent extends Event {
   external factory SpeechSynthesisEvent();
+
   external factory SpeechSynthesisEvent.a1(
-      JSString type, SpeechSynthesisEventInit eventInitDict);
+    JSString type,
+    SpeechSynthesisEventInit eventInitDict,
+  );
 }
 
 extension SpeechSynthesisEventExtension on SpeechSynthesisEvent {
@@ -245,20 +258,17 @@ class SpeechSynthesisEventInit extends EventInit {
   external factory SpeechSynthesisEventInit();
 }
 
-extension SpeechSynthesisEventInitExtension on SpeechSynthesisEventInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension SpeechSynthesisEventInitExtension on SpeechSynthesisEventInit {}
 
 @JS('SpeechSynthesisErrorEvent')
 @staticInterop
 class SpeechSynthesisErrorEvent extends SpeechSynthesisEvent {
   external factory SpeechSynthesisErrorEvent();
+
   external factory SpeechSynthesisErrorEvent.a1(
-      JSString type, SpeechSynthesisErrorEventInit eventInitDict);
+    JSString type,
+    SpeechSynthesisErrorEventInit eventInitDict,
+  );
 }
 
 extension SpeechSynthesisErrorEventExtension on SpeechSynthesisErrorEvent {
@@ -272,9 +282,7 @@ class SpeechSynthesisErrorEventInit extends SpeechSynthesisEventInit {
 }
 
 extension SpeechSynthesisErrorEventInitExtension
-    on SpeechSynthesisErrorEventInit {
-  // TODO
-}
+    on SpeechSynthesisErrorEventInit {}
 
 @JS('SpeechSynthesisVoice')
 @staticInterop
@@ -288,5 +296,5 @@ extension SpeechSynthesisVoiceExtension on SpeechSynthesisVoice {
   external JSString get lang;
   external JSBoolean get localService;
   @JS('default')
-  external JSBoolean get default0;
+  external JSBoolean get default_0_;
 }

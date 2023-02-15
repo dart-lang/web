@@ -27,6 +27,16 @@ extension NodeExtension on Node {
   external JSString get type;
 }
 
+/// The abstract node interface for named nodes in the IDL. Most root nodes have
+/// names, with the exception of `includes`.
+@JS()
+@staticInterop
+class Named extends Node {}
+
+extension NamedExtension on Named {
+  external JSString get name;
+}
+
 /// [Interfacelike] captures multiple IDL types:
 ///   * interface
 ///   * interface mixin
@@ -36,10 +46,9 @@ extension NodeExtension on Node {
 /// To disambiguate, use the `type` getter.
 @JS()
 @staticInterop
-class Interfacelike extends Node {}
+class Interfacelike extends Named {}
 
 extension InterfaceExtension on Interfacelike {
-  external JSString get name;
   external JSBoolean get partial;
   external JSArray get members;
   external JSString? get inheritance;
@@ -47,10 +56,9 @@ extension InterfaceExtension on Interfacelike {
 
 @JS()
 @staticInterop
-class Callback extends Node {}
+class Callback extends Named {}
 
 extension CallbackExtension on Callback {
-  external JSString get name;
   external IDLType get idlType;
   external JSArray get arguments;
 }
@@ -66,19 +74,14 @@ extension EnumValueExtension on EnumValue {
 
 @JS()
 @staticInterop
-class Enum extends Node {}
-
-extension EnumExtension on Enum {
-  external JSString get name;
-}
+class Enum extends Named {}
 
 @JS()
 @staticInterop
-class Typedef extends Node {}
+class Typedef extends Named {}
 
 extension TypedefExtension on Typedef {
   external IDLType get idlType;
-  external JSString get name;
 }
 
 @JS()

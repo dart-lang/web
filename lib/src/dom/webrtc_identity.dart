@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/html.dart';
 
 typedef GenerateAssertionCallback = JSFunction;
 typedef ValidateAssertionCallback = JSFunction;
@@ -31,7 +32,7 @@ class RTCIdentityProviderRegistrar {
 
 extension RTCIdentityProviderRegistrarExtension
     on RTCIdentityProviderRegistrar {
-  external JSUndefined register(RTCIdentityProvider idp);
+  external JSVoid register(RTCIdentityProvider idp);
 }
 
 @JS('RTCIdentityProvider')
@@ -40,10 +41,7 @@ class RTCIdentityProvider {
   external factory RTCIdentityProvider();
 }
 
-extension RTCIdentityProviderExtension on RTCIdentityProvider {
-  // TODO
-  // TODO
-}
+extension RTCIdentityProviderExtension on RTCIdentityProvider {}
 
 @JS('RTCIdentityAssertionResult')
 @staticInterop
@@ -51,10 +49,7 @@ class RTCIdentityAssertionResult {
   external factory RTCIdentityAssertionResult();
 }
 
-extension RTCIdentityAssertionResultExtension on RTCIdentityAssertionResult {
-  // TODO
-  // TODO
-}
+extension RTCIdentityAssertionResultExtension on RTCIdentityAssertionResult {}
 
 @JS('RTCIdentityProviderDetails')
 @staticInterop
@@ -62,10 +57,7 @@ class RTCIdentityProviderDetails {
   external factory RTCIdentityProviderDetails();
 }
 
-extension RTCIdentityProviderDetailsExtension on RTCIdentityProviderDetails {
-  // TODO
-  // TODO
-}
+extension RTCIdentityProviderDetailsExtension on RTCIdentityProviderDetails {}
 
 @JS('RTCIdentityValidationResult')
 @staticInterop
@@ -73,10 +65,7 @@ class RTCIdentityValidationResult {
   external factory RTCIdentityValidationResult();
 }
 
-extension RTCIdentityValidationResultExtension on RTCIdentityValidationResult {
-  // TODO
-  // TODO
-}
+extension RTCIdentityValidationResultExtension on RTCIdentityValidationResult {}
 
 @JS('RTCIdentityProviderOptions')
 @staticInterop
@@ -84,22 +73,22 @@ class RTCIdentityProviderOptions {
   external factory RTCIdentityProviderOptions();
 }
 
-extension RTCIdentityProviderOptionsExtension on RTCIdentityProviderOptions {
-  // TODO
-  // TODO
-  // TODO
-}
+extension RTCIdentityProviderOptionsExtension on RTCIdentityProviderOptions {}
 
 @JS('RTCIdentityAssertion')
 @staticInterop
 class RTCIdentityAssertion {
   external factory RTCIdentityAssertion();
-  external factory RTCIdentityAssertion.a1(JSString idp, JSString name);
+
+  external factory RTCIdentityAssertion.a1(
+    JSString idp,
+    JSString name,
+  );
 }
 
 extension RTCIdentityAssertionExtension on RTCIdentityAssertion {
-  external JSString get idp;
   external set idp(JSString value);
-  external JSString get name;
+  external JSString get idp;
   external set name(JSString value);
+  external JSString get name;
 }

@@ -3,15 +3,17 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/webgl1.dart';
 
 @JS('EXT_texture_norm16')
 @staticInterop
 class EXT_texture_norm16 {
   external factory EXT_texture_norm16();
+
   external static GLenum get R16_EXT;
   external static GLenum get RG16_EXT;
   external static GLenum get RGB16_EXT;

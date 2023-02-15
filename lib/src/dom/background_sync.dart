@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/service_workers.dart';
 
 @JS('SyncManager')
 @staticInterop
@@ -23,7 +24,11 @@ extension SyncManagerExtension on SyncManager {
 @staticInterop
 class SyncEvent extends ExtendableEvent {
   external factory SyncEvent();
-  external factory SyncEvent.a1(JSString type, SyncEventInit init);
+
+  external factory SyncEvent.a1(
+    JSString type,
+    SyncEventInit init,
+  );
 }
 
 extension SyncEventExtension on SyncEvent {
@@ -37,7 +42,4 @@ class SyncEventInit extends ExtendableEventInit {
   external factory SyncEventInit();
 }
 
-extension SyncEventInitExtension on SyncEventInit {
-  // TODO
-  // TODO
-}
+extension SyncEventInitExtension on SyncEventInit {}

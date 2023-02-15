@@ -3,10 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
 
 @JS()
 external _Console get console;
@@ -19,34 +19,46 @@ class _Console {
 
 extension _ConsoleExtension on _Console {
   @JS('assert')
-  external JSUndefined assert0();
+  external JSVoid assert_0_();
   @JS('assert')
-  external JSUndefined assert0_1(JSBoolean condition, JSAny data);
-  external JSUndefined clear();
-  external JSUndefined debug(JSAny data);
-  external JSUndefined error(JSAny data);
-  external JSUndefined info(JSAny data);
-  external JSUndefined log(JSAny data);
-  external JSUndefined table();
-  external JSUndefined table_1(JSAny tabularData);
-  external JSUndefined table_2(JSAny tabularData, JSArray properties);
-  external JSUndefined trace(JSAny data);
-  external JSUndefined warn(JSAny data);
-  external JSUndefined dir();
-  external JSUndefined dir_1(JSAny item);
-  external JSUndefined dir_2(JSAny item, JSObject? options);
-  external JSUndefined dirxml(JSAny data);
-  external JSUndefined count();
-  external JSUndefined count_1(JSString label);
-  external JSUndefined countReset();
-  external JSUndefined countReset_1(JSString label);
-  external JSUndefined group(JSAny data);
-  external JSUndefined groupCollapsed(JSAny data);
-  external JSUndefined groupEnd();
-  external JSUndefined time();
-  external JSUndefined time_1(JSString label);
-  external JSUndefined timeLog();
-  external JSUndefined timeLog_1(JSString label, JSAny data);
-  external JSUndefined timeEnd();
-  external JSUndefined timeEnd_1(JSString label);
+  external JSVoid assert_0_1(
+    JSBoolean condition,
+    JSAny data,
+  );
+  external JSVoid clear();
+  external JSVoid debug(JSAny data);
+  external JSVoid error(JSAny data);
+  external JSVoid info(JSAny data);
+  external JSVoid log(JSAny data);
+  external JSVoid table();
+  external JSVoid table1(JSAny tabularData);
+  external JSVoid table2(
+    JSAny tabularData,
+    JSArray properties,
+  );
+  external JSVoid trace(JSAny data);
+  external JSVoid warn(JSAny data);
+  external JSVoid dir();
+  external JSVoid dir1(JSAny item);
+  external JSVoid dir2(
+    JSAny item,
+    JSObject? options,
+  );
+  external JSVoid dirxml(JSAny data);
+  external JSVoid count();
+  external JSVoid count1(JSString label);
+  external JSVoid countReset();
+  external JSVoid countReset1(JSString label);
+  external JSVoid group(JSAny data);
+  external JSVoid groupCollapsed(JSAny data);
+  external JSVoid groupEnd();
+  external JSVoid time();
+  external JSVoid time1(JSString label);
+  external JSVoid timeLog();
+  external JSVoid timeLog1(
+    JSString label,
+    JSAny data,
+  );
+  external JSVoid timeEnd();
+  external JSVoid timeEnd1(JSString label);
 }

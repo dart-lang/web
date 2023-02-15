@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
 
 typedef CaptureAction = JSString;
 
@@ -14,8 +15,10 @@ typedef CaptureAction = JSString;
 @staticInterop
 class CaptureActionEvent extends Event {
   external factory CaptureActionEvent();
+
   external factory CaptureActionEvent.a1();
-  external factory CaptureActionEvent.a1_1(CaptureActionEventInit init);
+
+  external factory CaptureActionEvent.a2(CaptureActionEventInit init);
 }
 
 extension CaptureActionEventExtension on CaptureActionEvent {
@@ -28,6 +31,4 @@ class CaptureActionEventInit extends EventInit {
   external factory CaptureActionEventInit();
 }
 
-extension CaptureActionEventInitExtension on CaptureActionEventInit {
-  // TODO
-}
+extension CaptureActionEventInitExtension on CaptureActionEventInit {}

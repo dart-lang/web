@@ -3,10 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
 
 typedef MediaSessionActionHandler = JSFunction;
 typedef MediaSessionPlaybackState = JSString;
@@ -19,35 +19,39 @@ class MediaSession {
 }
 
 extension MediaSessionExtension on MediaSession {
-  external MediaMetadata? get metadata;
   external set metadata(MediaMetadata? value);
-  external MediaSessionPlaybackState get playbackState;
+  external MediaMetadata? get metadata;
   external set playbackState(MediaSessionPlaybackState value);
-  external JSUndefined setActionHandler(
-      MediaSessionAction action, MediaSessionActionHandler? handler);
-  external JSUndefined setPositionState();
-  external JSUndefined setPositionState_1(MediaPositionState state);
-  external JSUndefined setMicrophoneActive(JSBoolean active);
-  external JSUndefined setCameraActive(JSBoolean active);
+  external MediaSessionPlaybackState get playbackState;
+  external JSVoid setActionHandler(
+    MediaSessionAction action,
+    MediaSessionActionHandler? handler,
+  );
+  external JSVoid setPositionState();
+  external JSVoid setPositionState1(MediaPositionState state);
+  external JSVoid setMicrophoneActive(JSBoolean active);
+  external JSVoid setCameraActive(JSBoolean active);
 }
 
 @JS('MediaMetadata')
 @staticInterop
 class MediaMetadata {
   external factory MediaMetadata();
+
   external factory MediaMetadata.a1();
-  external factory MediaMetadata.a1_1(MediaMetadataInit init);
+
+  external factory MediaMetadata.a2(MediaMetadataInit init);
 }
 
 extension MediaMetadataExtension on MediaMetadata {
-  external JSString get title;
   external set title(JSString value);
-  external JSString get artist;
+  external JSString get title;
   external set artist(JSString value);
-  external JSString get album;
+  external JSString get artist;
   external set album(JSString value);
-  external JSArray get artwork;
+  external JSString get album;
   external set artwork(JSArray value);
+  external JSArray get artwork;
 }
 
 @JS('MediaMetadataInit')
@@ -56,12 +60,7 @@ class MediaMetadataInit {
   external factory MediaMetadataInit();
 }
 
-extension MediaMetadataInitExtension on MediaMetadataInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension MediaMetadataInitExtension on MediaMetadataInit {}
 
 @JS('MediaImage')
 @staticInterop
@@ -69,11 +68,7 @@ class MediaImage {
   external factory MediaImage();
 }
 
-extension MediaImageExtension on MediaImage {
-  // TODO
-  // TODO
-  // TODO
-}
+extension MediaImageExtension on MediaImage {}
 
 @JS('MediaPositionState')
 @staticInterop
@@ -81,11 +76,7 @@ class MediaPositionState {
   external factory MediaPositionState();
 }
 
-extension MediaPositionStateExtension on MediaPositionState {
-  // TODO
-  // TODO
-  // TODO
-}
+extension MediaPositionStateExtension on MediaPositionState {}
 
 @JS('MediaSessionActionDetails')
 @staticInterop
@@ -93,9 +84,4 @@ class MediaSessionActionDetails {
   external factory MediaSessionActionDetails();
 }
 
-extension MediaSessionActionDetailsExtension on MediaSessionActionDetails {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension MediaSessionActionDetailsExtension on MediaSessionActionDetails {}

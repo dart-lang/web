@@ -3,10 +3,14 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/hr_time.dart';
+import 'package:web/src/dom/html.dart';
+import 'package:web/src/dom/permissions.dart';
 
 typedef MIDIPortType = JSString;
 typedef MIDIPortDeviceState = JSString;
@@ -18,9 +22,7 @@ class MidiPermissionDescriptor extends PermissionDescriptor {
   external factory MidiPermissionDescriptor();
 }
 
-extension MidiPermissionDescriptorExtension on MidiPermissionDescriptor {
-  // TODO
-}
+extension MidiPermissionDescriptorExtension on MidiPermissionDescriptor {}
 
 @JS('MIDIOptions')
 @staticInterop
@@ -28,10 +30,7 @@ class MIDIOptions {
   external factory MIDIOptions();
 }
 
-extension MIDIOptionsExtension on MIDIOptions {
-  // TODO
-  // TODO
-}
+extension MIDIOptionsExtension on MIDIOptions {}
 
 @JS('MIDIInputMap')
 @staticInterop
@@ -39,9 +38,7 @@ class MIDIInputMap {
   external factory MIDIInputMap();
 }
 
-extension MIDIInputMapExtension on MIDIInputMap {
-  // TODO
-}
+extension MIDIInputMapExtension on MIDIInputMap {}
 
 @JS('MIDIOutputMap')
 @staticInterop
@@ -49,9 +46,7 @@ class MIDIOutputMap {
   external factory MIDIOutputMap();
 }
 
-extension MIDIOutputMapExtension on MIDIOutputMap {
-  // TODO
-}
+extension MIDIOutputMapExtension on MIDIOutputMap {}
 
 @JS('MIDIAccess')
 @staticInterop
@@ -62,8 +57,8 @@ class MIDIAccess extends EventTarget {
 extension MIDIAccessExtension on MIDIAccess {
   external MIDIInputMap get inputs;
   external MIDIOutputMap get outputs;
-  external EventHandler get onstatechange;
   external set onstatechange(EventHandler value);
+  external EventHandler get onstatechange;
   external JSBoolean get sysexEnabled;
 }
 
@@ -81,8 +76,8 @@ extension MIDIPortExtension on MIDIPort {
   external JSString? get version;
   external MIDIPortDeviceState get state;
   external MIDIPortConnectionState get connection;
-  external EventHandler get onstatechange;
   external set onstatechange(EventHandler value);
+  external EventHandler get onstatechange;
   external JSPromise open();
   external JSPromise close();
 }
@@ -94,8 +89,8 @@ class MIDIInput extends MIDIPort {
 }
 
 extension MIDIInputExtension on MIDIInput {
-  external EventHandler get onmidimessage;
   external set onmidimessage(EventHandler value);
+  external EventHandler get onmidimessage;
 }
 
 @JS('MIDIOutput')
@@ -105,18 +100,25 @@ class MIDIOutput extends MIDIPort {
 }
 
 extension MIDIOutputExtension on MIDIOutput {
-  external JSUndefined send(JSArray data);
-  external JSUndefined send_1(JSArray data, DOMHighResTimeStamp timestamp);
-  external JSUndefined clear();
+  external JSVoid send(JSArray data);
+  external JSVoid send1(
+    JSArray data,
+    DOMHighResTimeStamp timestamp,
+  );
+  external JSVoid clear();
 }
 
 @JS('MIDIMessageEvent')
 @staticInterop
 class MIDIMessageEvent extends Event {
   external factory MIDIMessageEvent();
+
   external factory MIDIMessageEvent.a1(JSString type);
-  external factory MIDIMessageEvent.a1_1(
-      JSString type, MIDIMessageEventInit eventInitDict);
+
+  external factory MIDIMessageEvent.a2(
+    JSString type,
+    MIDIMessageEventInit eventInitDict,
+  );
 }
 
 extension MIDIMessageEventExtension on MIDIMessageEvent {
@@ -129,17 +131,19 @@ class MIDIMessageEventInit extends EventInit {
   external factory MIDIMessageEventInit();
 }
 
-extension MIDIMessageEventInitExtension on MIDIMessageEventInit {
-  // TODO
-}
+extension MIDIMessageEventInitExtension on MIDIMessageEventInit {}
 
 @JS('MIDIConnectionEvent')
 @staticInterop
 class MIDIConnectionEvent extends Event {
   external factory MIDIConnectionEvent();
+
   external factory MIDIConnectionEvent.a1(JSString type);
-  external factory MIDIConnectionEvent.a1_1(
-      JSString type, MIDIConnectionEventInit eventInitDict);
+
+  external factory MIDIConnectionEvent.a2(
+    JSString type,
+    MIDIConnectionEventInit eventInitDict,
+  );
 }
 
 extension MIDIConnectionEventExtension on MIDIConnectionEvent {
@@ -152,6 +156,4 @@ class MIDIConnectionEventInit extends EventInit {
   external factory MIDIConnectionEventInit();
 }
 
-extension MIDIConnectionEventInitExtension on MIDIConnectionEventInit {
-  // TODO
-}
+extension MIDIConnectionEventInitExtension on MIDIConnectionEventInit {}

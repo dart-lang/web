@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/webgl1.dart';
 
 @JS('WEBGL_multi_draw_instanced_base_vertex_base_instance')
 @staticInterop
@@ -16,29 +17,31 @@ class WEBGL_multi_draw_instanced_base_vertex_base_instance {
 
 extension WEBGL_multi_draw_instanced_base_vertex_base_instanceExtension
     on WEBGL_multi_draw_instanced_base_vertex_base_instance {
-  external JSUndefined multiDrawArraysInstancedBaseInstanceWEBGL(
-      GLenum mode,
-      JSAny firstsList,
-      GLuint firstsOffset,
-      JSAny countsList,
-      GLuint countsOffset,
-      JSAny instanceCountsList,
-      GLuint instanceCountsOffset,
-      JSAny baseInstancesList,
-      GLuint baseInstancesOffset,
-      GLsizei drawcount);
-  external JSUndefined multiDrawElementsInstancedBaseVertexBaseInstanceWEBGL(
-      GLenum mode,
-      JSAny countsList,
-      GLuint countsOffset,
-      GLenum type,
-      JSAny offsetsList,
-      GLuint offsetsOffset,
-      JSAny instanceCountsList,
-      GLuint instanceCountsOffset,
-      JSAny baseVerticesList,
-      GLuint baseVerticesOffset,
-      JSAny baseInstancesList,
-      GLuint baseInstancesOffset,
-      GLsizei drawcount);
+  external JSVoid multiDrawArraysInstancedBaseInstanceWEBGL(
+    GLenum mode,
+    JSAny firstsList,
+    GLuint firstsOffset,
+    JSAny countsList,
+    GLuint countsOffset,
+    JSAny instanceCountsList,
+    GLuint instanceCountsOffset,
+    JSAny baseInstancesList,
+    GLuint baseInstancesOffset,
+    GLsizei drawcount,
+  );
+  external JSVoid multiDrawElementsInstancedBaseVertexBaseInstanceWEBGL(
+    GLenum mode,
+    JSAny countsList,
+    GLuint countsOffset,
+    GLenum type,
+    JSAny offsetsList,
+    GLuint offsetsOffset,
+    JSAny instanceCountsList,
+    GLuint instanceCountsOffset,
+    JSAny baseVerticesList,
+    GLuint baseVerticesOffset,
+    JSAny baseInstancesList,
+    GLuint baseInstancesOffset,
+    GLsizei drawcount,
+  );
 }

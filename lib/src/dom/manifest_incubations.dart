@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
 
 typedef AppBannerPromptOutcome = JSString;
 
@@ -14,9 +15,13 @@ typedef AppBannerPromptOutcome = JSString;
 @staticInterop
 class BeforeInstallPromptEvent extends Event {
   external factory BeforeInstallPromptEvent();
+
   external factory BeforeInstallPromptEvent.a1(JSString type);
-  external factory BeforeInstallPromptEvent.a1_1(
-      JSString type, EventInit eventInitDict);
+
+  external factory BeforeInstallPromptEvent.a2(
+    JSString type,
+    EventInit eventInitDict,
+  );
 }
 
 extension BeforeInstallPromptEventExtension on BeforeInstallPromptEvent {
@@ -29,6 +34,4 @@ class PromptResponseObject {
   external factory PromptResponseObject();
 }
 
-extension PromptResponseObjectExtension on PromptResponseObject {
-  // TODO
-}
+extension PromptResponseObjectExtension on PromptResponseObject {}

@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/webgl1.dart';
 
 @JS('OES_draw_buffers_indexed')
 @staticInterop
@@ -15,14 +16,40 @@ class OES_draw_buffers_indexed {
 }
 
 extension OES_draw_buffers_indexedExtension on OES_draw_buffers_indexed {
-  external JSUndefined enableiOES(GLenum target, GLuint index);
-  external JSUndefined disableiOES(GLenum target, GLuint index);
-  external JSUndefined blendEquationiOES(GLuint buf, GLenum mode);
-  external JSUndefined blendEquationSeparateiOES(
-      GLuint buf, GLenum modeRGB, GLenum modeAlpha);
-  external JSUndefined blendFunciOES(GLuint buf, GLenum src, GLenum dst);
-  external JSUndefined blendFuncSeparateiOES(GLuint buf, GLenum srcRGB,
-      GLenum dstRGB, GLenum srcAlpha, GLenum dstAlpha);
-  external JSUndefined colorMaskiOES(
-      GLuint buf, GLboolean r, GLboolean g, GLboolean b, GLboolean a);
+  external JSVoid enableiOES(
+    GLenum target,
+    GLuint index,
+  );
+  external JSVoid disableiOES(
+    GLenum target,
+    GLuint index,
+  );
+  external JSVoid blendEquationiOES(
+    GLuint buf,
+    GLenum mode,
+  );
+  external JSVoid blendEquationSeparateiOES(
+    GLuint buf,
+    GLenum modeRGB,
+    GLenum modeAlpha,
+  );
+  external JSVoid blendFunciOES(
+    GLuint buf,
+    GLenum src,
+    GLenum dst,
+  );
+  external JSVoid blendFuncSeparateiOES(
+    GLuint buf,
+    GLenum srcRGB,
+    GLenum dstRGB,
+    GLenum srcAlpha,
+    GLenum dstAlpha,
+  );
+  external JSVoid colorMaskiOES(
+    GLuint buf,
+    GLboolean r,
+    GLboolean g,
+    GLboolean b,
+    GLboolean a,
+  );
 }

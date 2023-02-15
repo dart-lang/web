@@ -3,10 +3,13 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/referrer_policy.dart';
+import 'package:web/src/dom/streams.dart';
 
 typedef HeadersInit = JSAny;
 typedef XMLHttpRequestBodyInit = JSAny;
@@ -25,17 +28,24 @@ typedef ResponseType = JSString;
 @staticInterop
 class Headers {
   external factory Headers();
+
   external factory Headers.a1();
-  external factory Headers.a1_1(HeadersInit init);
+
+  external factory Headers.a2(HeadersInit init);
 }
 
 extension HeadersExtension on Headers {
-  external JSUndefined append(JSString name, JSString value);
-  external JSUndefined delete(JSString name);
+  external JSVoid append(
+    JSString name,
+    JSString value,
+  );
+  external JSVoid delete(JSString name);
   external JSString? get(JSString name);
   external JSBoolean has(JSString name);
-  external JSUndefined set(JSString name, JSString value);
-  // TODO
+  external JSVoid set(
+    JSString name,
+    JSString value,
+  );
 }
 
 @JS('Body')
@@ -58,8 +68,13 @@ extension BodyExtension on Body {
 @staticInterop
 class Request implements Body {
   external factory Request();
+
   external factory Request.a1(RequestInfo input);
-  external factory Request.a1_1(RequestInfo input, RequestInit init);
+
+  external factory Request.a2(
+    RequestInfo input,
+    RequestInit init,
+  );
 }
 
 extension RequestExtension on Request {
@@ -88,36 +103,33 @@ class RequestInit {
   external factory RequestInit();
 }
 
-extension RequestInitExtension on RequestInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension RequestInitExtension on RequestInit {}
 
 @JS('Response')
 @staticInterop
 class Response implements Body {
   external factory Response();
+
   external factory Response.a1();
-  external factory Response.a1_1(BodyInit? body);
-  external factory Response.a1_2(BodyInit? body, ResponseInit init);
+
+  external factory Response.a2(BodyInit? body);
+
+  external factory Response.a3(
+    BodyInit? body,
+    ResponseInit init,
+  );
+
   external static Response error();
   external static Response redirect(JSString url);
-  external static Response redirect_1(JSString url, JSNumber status);
+  external static Response redirect1(
+    JSString url,
+    JSNumber status,
+  );
   external static Response json(JSAny data);
-  external static Response json_1(JSAny data, ResponseInit init);
+  external static Response json1(
+    JSAny data,
+    ResponseInit init,
+  );
 }
 
 extension ResponseExtension on Response {
@@ -137,8 +149,4 @@ class ResponseInit {
   external factory ResponseInit();
 }
 
-extension ResponseInitExtension on ResponseInit {
-  // TODO
-  // TODO
-  // TODO
-}
+extension ResponseInitExtension on ResponseInit {}

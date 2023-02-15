@@ -3,10 +3,13 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/file_system_access.dart';
+import 'package:web/src/dom/streams.dart';
+import 'package:web/src/dom/webidl.dart';
 
 typedef FileSystemWriteChunkType = JSAny;
 typedef FileSystemHandleKind = JSString;
@@ -20,10 +23,10 @@ class FileSystemHandle {
 
 extension FileSystemHandleExtension on FileSystemHandle {
   external JSPromise queryPermission();
-  external JSPromise queryPermission_1(
+  external JSPromise queryPermission1(
       FileSystemHandlePermissionDescriptor descriptor);
   external JSPromise requestPermission();
-  external JSPromise requestPermission_1(
+  external JSPromise requestPermission1(
       FileSystemHandlePermissionDescriptor descriptor);
   external FileSystemHandleKind get kind;
   external JSString get name;
@@ -37,9 +40,7 @@ class FileSystemCreateWritableOptions {
 }
 
 extension FileSystemCreateWritableOptionsExtension
-    on FileSystemCreateWritableOptions {
-  // TODO
-}
+    on FileSystemCreateWritableOptions {}
 
 @JS('FileSystemFileHandle')
 @staticInterop
@@ -50,7 +51,7 @@ class FileSystemFileHandle extends FileSystemHandle {
 extension FileSystemFileHandleExtension on FileSystemFileHandle {
   external JSPromise getFile();
   external JSPromise createWritable();
-  external JSPromise createWritable_1(FileSystemCreateWritableOptions options);
+  external JSPromise createWritable1(FileSystemCreateWritableOptions options);
   external JSPromise createSyncAccessHandle();
 }
 
@@ -60,9 +61,7 @@ class FileSystemGetFileOptions {
   external factory FileSystemGetFileOptions();
 }
 
-extension FileSystemGetFileOptionsExtension on FileSystemGetFileOptions {
-  // TODO
-}
+extension FileSystemGetFileOptionsExtension on FileSystemGetFileOptions {}
 
 @JS('FileSystemGetDirectoryOptions')
 @staticInterop
@@ -71,9 +70,7 @@ class FileSystemGetDirectoryOptions {
 }
 
 extension FileSystemGetDirectoryOptionsExtension
-    on FileSystemGetDirectoryOptions {
-  // TODO
-}
+    on FileSystemGetDirectoryOptions {}
 
 @JS('FileSystemRemoveOptions')
 @staticInterop
@@ -81,9 +78,7 @@ class FileSystemRemoveOptions {
   external factory FileSystemRemoveOptions();
 }
 
-extension FileSystemRemoveOptionsExtension on FileSystemRemoveOptions {
-  // TODO
-}
+extension FileSystemRemoveOptionsExtension on FileSystemRemoveOptions {}
 
 @JS('FileSystemDirectoryHandle')
 @staticInterop
@@ -92,16 +87,21 @@ class FileSystemDirectoryHandle extends FileSystemHandle {
 }
 
 extension FileSystemDirectoryHandleExtension on FileSystemDirectoryHandle {
-  // TODO
   external JSPromise getFileHandle(JSString name);
-  external JSPromise getFileHandle_1(
-      JSString name, FileSystemGetFileOptions options);
+  external JSPromise getFileHandle1(
+    JSString name,
+    FileSystemGetFileOptions options,
+  );
   external JSPromise getDirectoryHandle(JSString name);
-  external JSPromise getDirectoryHandle_1(
-      JSString name, FileSystemGetDirectoryOptions options);
+  external JSPromise getDirectoryHandle1(
+    JSString name,
+    FileSystemGetDirectoryOptions options,
+  );
   external JSPromise removeEntry(JSString name);
-  external JSPromise removeEntry_1(
-      JSString name, FileSystemRemoveOptions options);
+  external JSPromise removeEntry1(
+    JSString name,
+    FileSystemRemoveOptions options,
+  );
   external JSPromise resolve(FileSystemHandle possibleDescendant);
 }
 
@@ -111,12 +111,7 @@ class WriteParams {
   external factory WriteParams();
 }
 
-extension WriteParamsExtension on WriteParams {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension WriteParamsExtension on WriteParams {}
 
 @JS('FileSystemWritableFileStream')
 @staticInterop
@@ -137,9 +132,7 @@ class FileSystemReadWriteOptions {
   external factory FileSystemReadWriteOptions();
 }
 
-extension FileSystemReadWriteOptionsExtension on FileSystemReadWriteOptions {
-  // TODO
-}
+extension FileSystemReadWriteOptionsExtension on FileSystemReadWriteOptions {}
 
 @JS('FileSystemSyncAccessHandle')
 @staticInterop
@@ -149,13 +142,17 @@ class FileSystemSyncAccessHandle {
 
 extension FileSystemSyncAccessHandleExtension on FileSystemSyncAccessHandle {
   external JSNumber read(BufferSource buffer);
-  external JSNumber read_1(
-      BufferSource buffer, FileSystemReadWriteOptions options);
+  external JSNumber read1(
+    BufferSource buffer,
+    FileSystemReadWriteOptions options,
+  );
   external JSNumber write(BufferSource buffer);
-  external JSNumber write_1(
-      BufferSource buffer, FileSystemReadWriteOptions options);
-  external JSUndefined truncate(JSNumber newSize);
+  external JSNumber write1(
+    BufferSource buffer,
+    FileSystemReadWriteOptions options,
+  );
+  external JSVoid truncate(JSNumber newSize);
   external JSNumber getSize();
-  external JSUndefined flush();
-  external JSUndefined close();
+  external JSVoid flush();
+  external JSVoid close();
 }

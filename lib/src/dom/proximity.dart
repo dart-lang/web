@@ -3,17 +3,20 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/generic_sensor.dart';
 
 @JS('ProximitySensor')
 @staticInterop
 class ProximitySensor extends Sensor {
   external factory ProximitySensor();
+
   external factory ProximitySensor.a1();
-  external factory ProximitySensor.a1_1(SensorOptions sensorOptions);
+
+  external factory ProximitySensor.a2(SensorOptions sensorOptions);
 }
 
 extension ProximitySensorExtension on ProximitySensor {
@@ -28,8 +31,4 @@ class ProximityReadingValues {
   external factory ProximityReadingValues();
 }
 
-extension ProximityReadingValuesExtension on ProximityReadingValues {
-  // TODO
-  // TODO
-  // TODO
-}
+extension ProximityReadingValuesExtension on ProximityReadingValues {}

@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/permissions.dart';
 
 typedef StartInDirectory = JSAny;
 typedef FileSystemPermissionMode = JSString;
@@ -19,10 +20,7 @@ class FileSystemPermissionDescriptor extends PermissionDescriptor {
 }
 
 extension FileSystemPermissionDescriptorExtension
-    on FileSystemPermissionDescriptor {
-  // TODO
-  // TODO
-}
+    on FileSystemPermissionDescriptor {}
 
 @JS('FileSystemHandlePermissionDescriptor')
 @staticInterop
@@ -31,9 +29,7 @@ class FileSystemHandlePermissionDescriptor {
 }
 
 extension FileSystemHandlePermissionDescriptorExtension
-    on FileSystemHandlePermissionDescriptor {
-  // TODO
-}
+    on FileSystemHandlePermissionDescriptor {}
 
 @JS('FilePickerAcceptType')
 @staticInterop
@@ -41,10 +37,7 @@ class FilePickerAcceptType {
   external factory FilePickerAcceptType();
 }
 
-extension FilePickerAcceptTypeExtension on FilePickerAcceptType {
-  // TODO
-  // TODO
-}
+extension FilePickerAcceptTypeExtension on FilePickerAcceptType {}
 
 @JS('FilePickerOptions')
 @staticInterop
@@ -52,12 +45,7 @@ class FilePickerOptions {
   external factory FilePickerOptions();
 }
 
-extension FilePickerOptionsExtension on FilePickerOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension FilePickerOptionsExtension on FilePickerOptions {}
 
 @JS('OpenFilePickerOptions')
 @staticInterop
@@ -65,9 +53,7 @@ class OpenFilePickerOptions extends FilePickerOptions {
   external factory OpenFilePickerOptions();
 }
 
-extension OpenFilePickerOptionsExtension on OpenFilePickerOptions {
-  // TODO
-}
+extension OpenFilePickerOptionsExtension on OpenFilePickerOptions {}
 
 @JS('SaveFilePickerOptions')
 @staticInterop
@@ -75,9 +61,7 @@ class SaveFilePickerOptions extends FilePickerOptions {
   external factory SaveFilePickerOptions();
 }
 
-extension SaveFilePickerOptionsExtension on SaveFilePickerOptions {
-  // TODO
-}
+extension SaveFilePickerOptionsExtension on SaveFilePickerOptions {}
 
 @JS('DirectoryPickerOptions')
 @staticInterop
@@ -85,8 +69,4 @@ class DirectoryPickerOptions {
   external factory DirectoryPickerOptions();
 }
 
-extension DirectoryPickerOptionsExtension on DirectoryPickerOptions {
-  // TODO
-  // TODO
-  // TODO
-}
+extension DirectoryPickerOptionsExtension on DirectoryPickerOptions {}

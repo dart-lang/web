@@ -3,10 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/uievents.dart';
 
 typedef TouchType = JSString;
 
@@ -16,28 +18,13 @@ class TouchInit {
   external factory TouchInit();
 }
 
-extension TouchInitExtension on TouchInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension TouchInitExtension on TouchInit {}
 
 @JS('Touch')
 @staticInterop
 class Touch {
   external factory Touch();
+
   external factory Touch.a1(TouchInit touchInitDict);
 }
 
@@ -76,18 +63,19 @@ class TouchEventInit extends EventModifierInit {
   external factory TouchEventInit();
 }
 
-extension TouchEventInitExtension on TouchEventInit {
-  // TODO
-  // TODO
-  // TODO
-}
+extension TouchEventInitExtension on TouchEventInit {}
 
 @JS('TouchEvent')
 @staticInterop
 class TouchEvent extends UIEvent {
   external factory TouchEvent();
+
   external factory TouchEvent.a1(JSString type);
-  external factory TouchEvent.a1_1(JSString type, TouchEventInit eventInitDict);
+
+  external factory TouchEvent.a2(
+    JSString type,
+    TouchEventInit eventInitDict,
+  );
 }
 
 extension TouchEventExtension on TouchEvent {

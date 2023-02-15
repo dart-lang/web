@@ -3,14 +3,16 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/webgl1.dart';
 
 @JS('OES_texture_half_float')
 @staticInterop
 class OES_texture_half_float {
   external factory OES_texture_half_float();
+
   external static GLenum get HALF_FLOAT_OES;
 }

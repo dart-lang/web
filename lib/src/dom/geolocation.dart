@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/hr_time.dart';
 
 typedef PositionCallback = JSFunction;
 typedef PositionErrorCallback = JSFunction;
@@ -18,17 +19,27 @@ class Geolocation {
 }
 
 extension GeolocationExtension on Geolocation {
-  external JSUndefined getCurrentPosition(PositionCallback successCallback);
-  external JSUndefined getCurrentPosition_1(
-      PositionCallback successCallback, PositionErrorCallback? errorCallback);
-  external JSUndefined getCurrentPosition_2(PositionCallback successCallback,
-      PositionErrorCallback? errorCallback, PositionOptions options);
+  external JSVoid getCurrentPosition(PositionCallback successCallback);
+  external JSVoid getCurrentPosition1(
+    PositionCallback successCallback,
+    PositionErrorCallback? errorCallback,
+  );
+  external JSVoid getCurrentPosition2(
+    PositionCallback successCallback,
+    PositionErrorCallback? errorCallback,
+    PositionOptions options,
+  );
   external JSNumber watchPosition(PositionCallback successCallback);
-  external JSNumber watchPosition_1(
-      PositionCallback successCallback, PositionErrorCallback? errorCallback);
-  external JSNumber watchPosition_2(PositionCallback successCallback,
-      PositionErrorCallback? errorCallback, PositionOptions options);
-  external JSUndefined clearWatch(JSNumber watchId);
+  external JSNumber watchPosition1(
+    PositionCallback successCallback,
+    PositionErrorCallback? errorCallback,
+  );
+  external JSNumber watchPosition2(
+    PositionCallback successCallback,
+    PositionErrorCallback? errorCallback,
+    PositionOptions options,
+  );
+  external JSVoid clearWatch(JSNumber watchId);
 }
 
 @JS('PositionOptions')
@@ -37,11 +48,7 @@ class PositionOptions {
   external factory PositionOptions();
 }
 
-extension PositionOptionsExtension on PositionOptions {
-  // TODO
-  // TODO
-  // TODO
-}
+extension PositionOptionsExtension on PositionOptions {}
 
 @JS('GeolocationPosition')
 @staticInterop
@@ -74,6 +81,7 @@ extension GeolocationCoordinatesExtension on GeolocationCoordinates {
 @staticInterop
 class GeolocationPositionError {
   external factory GeolocationPositionError();
+
   external static JSNumber get PERMISSION_DENIED;
   external static JSNumber get POSITION_UNAVAILABLE;
   external static JSNumber get TIMEOUT;

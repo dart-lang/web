@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/performance_timeline.dart';
 
 @JS('PerformanceMarkOptions')
 @staticInterop
@@ -14,10 +15,7 @@ class PerformanceMarkOptions {
   external factory PerformanceMarkOptions();
 }
 
-extension PerformanceMarkOptionsExtension on PerformanceMarkOptions {
-  // TODO
-  // TODO
-}
+extension PerformanceMarkOptionsExtension on PerformanceMarkOptions {}
 
 @JS('PerformanceMeasureOptions')
 @staticInterop
@@ -25,20 +23,19 @@ class PerformanceMeasureOptions {
   external factory PerformanceMeasureOptions();
 }
 
-extension PerformanceMeasureOptionsExtension on PerformanceMeasureOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension PerformanceMeasureOptionsExtension on PerformanceMeasureOptions {}
 
 @JS('PerformanceMark')
 @staticInterop
 class PerformanceMark extends PerformanceEntry {
   external factory PerformanceMark();
+
   external factory PerformanceMark.a1(JSString markName);
-  external factory PerformanceMark.a1_1(
-      JSString markName, PerformanceMarkOptions markOptions);
+
+  external factory PerformanceMark.a2(
+    JSString markName,
+    PerformanceMarkOptions markOptions,
+  );
 }
 
 extension PerformanceMarkExtension on PerformanceMark {

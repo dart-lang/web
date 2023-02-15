@@ -3,31 +3,35 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/html.dart';
 
 @JS('HTMLPortalElement')
 @staticInterop
 class HTMLPortalElement extends HTMLElement {
-  external factory HTMLPortalElement();
+  external factory HTMLPortalElement.a0();
 }
 
 extension HTMLPortalElementExtension on HTMLPortalElement {
-  external JSString get src;
   external set src(JSString value);
-  external JSString get referrerPolicy;
+  external JSString get src;
   external set referrerPolicy(JSString value);
+  external JSString get referrerPolicy;
   external JSPromise activate();
-  external JSPromise activate_1(PortalActivateOptions options);
-  external JSUndefined postMessage(JSAny message);
-  external JSUndefined postMessage_1(
-      JSAny message, StructuredSerializeOptions options);
-  external EventHandler get onmessage;
+  external JSPromise activate1(PortalActivateOptions options);
+  external JSVoid postMessage(JSAny message);
+  external JSVoid postMessage1(
+    JSAny message,
+    StructuredSerializeOptions options,
+  );
   external set onmessage(EventHandler value);
-  external EventHandler get onmessageerror;
+  external EventHandler get onmessage;
   external set onmessageerror(EventHandler value);
+  external EventHandler get onmessageerror;
 }
 
 @JS('PortalActivateOptions')
@@ -36,9 +40,7 @@ class PortalActivateOptions extends StructuredSerializeOptions {
   external factory PortalActivateOptions();
 }
 
-extension PortalActivateOptionsExtension on PortalActivateOptions {
-  // TODO
-}
+extension PortalActivateOptionsExtension on PortalActivateOptions {}
 
 @JS('PortalHost')
 @staticInterop
@@ -47,22 +49,28 @@ class PortalHost extends EventTarget {
 }
 
 extension PortalHostExtension on PortalHost {
-  external JSUndefined postMessage(JSAny message);
-  external JSUndefined postMessage_1(
-      JSAny message, StructuredSerializeOptions options);
-  external EventHandler get onmessage;
+  external JSVoid postMessage(JSAny message);
+  external JSVoid postMessage1(
+    JSAny message,
+    StructuredSerializeOptions options,
+  );
   external set onmessage(EventHandler value);
-  external EventHandler get onmessageerror;
+  external EventHandler get onmessage;
   external set onmessageerror(EventHandler value);
+  external EventHandler get onmessageerror;
 }
 
 @JS('PortalActivateEvent')
 @staticInterop
 class PortalActivateEvent extends Event {
   external factory PortalActivateEvent();
+
   external factory PortalActivateEvent.a1(JSString type);
-  external factory PortalActivateEvent.a1_1(
-      JSString type, PortalActivateEventInit eventInitDict);
+
+  external factory PortalActivateEvent.a2(
+    JSString type,
+    PortalActivateEventInit eventInitDict,
+  );
 }
 
 extension PortalActivateEventExtension on PortalActivateEvent {
@@ -76,6 +84,4 @@ class PortalActivateEventInit extends EventInit {
   external factory PortalActivateEventInit();
 }
 
-extension PortalActivateEventInitExtension on PortalActivateEventInit {
-  // TODO
-}
+extension PortalActivateEventInitExtension on PortalActivateEventInit {}

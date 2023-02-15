@@ -3,10 +3,13 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/html.dart';
+import 'package:web/src/dom/permissions.dart';
 
 typedef ClipboardItemData = JSPromise;
 typedef ClipboardItems = JSArray;
@@ -18,17 +21,19 @@ class ClipboardEventInit extends EventInit {
   external factory ClipboardEventInit();
 }
 
-extension ClipboardEventInitExtension on ClipboardEventInit {
-  // TODO
-}
+extension ClipboardEventInitExtension on ClipboardEventInit {}
 
 @JS('ClipboardEvent')
 @staticInterop
 class ClipboardEvent extends Event {
   external factory ClipboardEvent();
+
   external factory ClipboardEvent.a1(JSString type);
-  external factory ClipboardEvent.a1_1(
-      JSString type, ClipboardEventInit eventInitDict);
+
+  external factory ClipboardEvent.a2(
+    JSString type,
+    ClipboardEventInit eventInitDict,
+  );
 }
 
 extension ClipboardEventExtension on ClipboardEvent {
@@ -39,9 +44,13 @@ extension ClipboardEventExtension on ClipboardEvent {
 @staticInterop
 class ClipboardItem {
   external factory ClipboardItem();
+
   external factory ClipboardItem.a1(JSAny items);
-  external factory ClipboardItem.a1_1(
-      JSAny items, ClipboardItemOptions options);
+
+  external factory ClipboardItem.a2(
+    JSAny items,
+    ClipboardItemOptions options,
+  );
 }
 
 extension ClipboardItemExtension on ClipboardItem {
@@ -56,9 +65,7 @@ class ClipboardItemOptions {
   external factory ClipboardItemOptions();
 }
 
-extension ClipboardItemOptionsExtension on ClipboardItemOptions {
-  // TODO
-}
+extension ClipboardItemOptionsExtension on ClipboardItemOptions {}
 
 @JS('Clipboard')
 @staticInterop
@@ -80,6 +87,4 @@ class ClipboardPermissionDescriptor extends PermissionDescriptor {
 }
 
 extension ClipboardPermissionDescriptorExtension
-    on ClipboardPermissionDescriptor {
-  // TODO
-}
+    on ClipboardPermissionDescriptor {}

@@ -3,31 +3,54 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/html.dart';
+import 'package:web/src/dom/input_device_capabilities.dart';
 
 @JS('UIEvent')
 @staticInterop
 class UIEvent extends Event {
   external factory UIEvent();
+
   external factory UIEvent.a1(JSString type);
-  external factory UIEvent.a1_1(JSString type, UIEventInit eventInitDict);
+
+  external factory UIEvent.a2(
+    JSString type,
+    UIEventInit eventInitDict,
+  );
 }
 
 extension UIEventExtension on UIEvent {
   external InputDeviceCapabilities? get sourceCapabilities;
   external Window? get view;
   external JSNumber get detail;
-  external JSUndefined initUIEvent(JSString typeArg);
-  external JSUndefined initUIEvent_1(JSString typeArg, JSBoolean bubblesArg);
-  external JSUndefined initUIEvent_2(
-      JSString typeArg, JSBoolean bubblesArg, JSBoolean cancelableArg);
-  external JSUndefined initUIEvent_3(JSString typeArg, JSBoolean bubblesArg,
-      JSBoolean cancelableArg, Window? viewArg);
-  external JSUndefined initUIEvent_4(JSString typeArg, JSBoolean bubblesArg,
-      JSBoolean cancelableArg, Window? viewArg, JSNumber detailArg);
+  external JSVoid initUIEvent(JSString typeArg);
+  external JSVoid initUIEvent1(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+  );
+  external JSVoid initUIEvent2(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+  );
+  external JSVoid initUIEvent3(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+  );
+  external JSVoid initUIEvent4(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+    JSNumber detailArg,
+  );
   external JSNumber get which;
 }
 
@@ -37,19 +60,19 @@ class UIEventInit extends EventInit {
   external factory UIEventInit();
 }
 
-extension UIEventInitExtension on UIEventInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension UIEventInitExtension on UIEventInit {}
 
 @JS('FocusEvent')
 @staticInterop
 class FocusEvent extends UIEvent {
   external factory FocusEvent();
+
   external factory FocusEvent.a1(JSString type);
-  external factory FocusEvent.a1_1(JSString type, FocusEventInit eventInitDict);
+
+  external factory FocusEvent.a2(
+    JSString type,
+    FocusEventInit eventInitDict,
+  );
 }
 
 extension FocusEventExtension on FocusEvent {
@@ -62,16 +85,19 @@ class FocusEventInit extends UIEventInit {
   external factory FocusEventInit();
 }
 
-extension FocusEventInitExtension on FocusEventInit {
-  // TODO
-}
+extension FocusEventInitExtension on FocusEventInit {}
 
 @JS('MouseEvent')
 @staticInterop
 class MouseEvent extends UIEvent {
   external factory MouseEvent();
+
   external factory MouseEvent.a1(JSString type);
-  external factory MouseEvent.a1_1(JSString type, MouseEventInit eventInitDict);
+
+  external factory MouseEvent.a2(
+    JSString type,
+    MouseEventInit eventInitDict,
+  );
 }
 
 extension MouseEventExtension on MouseEvent {
@@ -95,129 +121,154 @@ extension MouseEventExtension on MouseEvent {
   external JSNumber get buttons;
   external EventTarget? get relatedTarget;
   external JSBoolean getModifierState(JSString keyArg);
-  external JSUndefined initMouseEvent(JSString typeArg);
-  external JSUndefined initMouseEvent_1(JSString typeArg, JSBoolean bubblesArg);
-  external JSUndefined initMouseEvent_2(
-      JSString typeArg, JSBoolean bubblesArg, JSBoolean cancelableArg);
-  external JSUndefined initMouseEvent_3(JSString typeArg, JSBoolean bubblesArg,
-      JSBoolean cancelableArg, Window? viewArg);
-  external JSUndefined initMouseEvent_4(JSString typeArg, JSBoolean bubblesArg,
-      JSBoolean cancelableArg, Window? viewArg, JSNumber detailArg);
-  external JSUndefined initMouseEvent_5(
-      JSString typeArg,
-      JSBoolean bubblesArg,
-      JSBoolean cancelableArg,
-      Window? viewArg,
-      JSNumber detailArg,
-      JSNumber screenXArg);
-  external JSUndefined initMouseEvent_6(
-      JSString typeArg,
-      JSBoolean bubblesArg,
-      JSBoolean cancelableArg,
-      Window? viewArg,
-      JSNumber detailArg,
-      JSNumber screenXArg,
-      JSNumber screenYArg);
-  external JSUndefined initMouseEvent_7(
-      JSString typeArg,
-      JSBoolean bubblesArg,
-      JSBoolean cancelableArg,
-      Window? viewArg,
-      JSNumber detailArg,
-      JSNumber screenXArg,
-      JSNumber screenYArg,
-      JSNumber clientXArg);
-  external JSUndefined initMouseEvent_8(
-      JSString typeArg,
-      JSBoolean bubblesArg,
-      JSBoolean cancelableArg,
-      Window? viewArg,
-      JSNumber detailArg,
-      JSNumber screenXArg,
-      JSNumber screenYArg,
-      JSNumber clientXArg,
-      JSNumber clientYArg);
-  external JSUndefined initMouseEvent_9(
-      JSString typeArg,
-      JSBoolean bubblesArg,
-      JSBoolean cancelableArg,
-      Window? viewArg,
-      JSNumber detailArg,
-      JSNumber screenXArg,
-      JSNumber screenYArg,
-      JSNumber clientXArg,
-      JSNumber clientYArg,
-      JSBoolean ctrlKeyArg);
-  external JSUndefined initMouseEvent_10(
-      JSString typeArg,
-      JSBoolean bubblesArg,
-      JSBoolean cancelableArg,
-      Window? viewArg,
-      JSNumber detailArg,
-      JSNumber screenXArg,
-      JSNumber screenYArg,
-      JSNumber clientXArg,
-      JSNumber clientYArg,
-      JSBoolean ctrlKeyArg,
-      JSBoolean altKeyArg);
-  external JSUndefined initMouseEvent_11(
-      JSString typeArg,
-      JSBoolean bubblesArg,
-      JSBoolean cancelableArg,
-      Window? viewArg,
-      JSNumber detailArg,
-      JSNumber screenXArg,
-      JSNumber screenYArg,
-      JSNumber clientXArg,
-      JSNumber clientYArg,
-      JSBoolean ctrlKeyArg,
-      JSBoolean altKeyArg,
-      JSBoolean shiftKeyArg);
-  external JSUndefined initMouseEvent_12(
-      JSString typeArg,
-      JSBoolean bubblesArg,
-      JSBoolean cancelableArg,
-      Window? viewArg,
-      JSNumber detailArg,
-      JSNumber screenXArg,
-      JSNumber screenYArg,
-      JSNumber clientXArg,
-      JSNumber clientYArg,
-      JSBoolean ctrlKeyArg,
-      JSBoolean altKeyArg,
-      JSBoolean shiftKeyArg,
-      JSBoolean metaKeyArg);
-  external JSUndefined initMouseEvent_13(
-      JSString typeArg,
-      JSBoolean bubblesArg,
-      JSBoolean cancelableArg,
-      Window? viewArg,
-      JSNumber detailArg,
-      JSNumber screenXArg,
-      JSNumber screenYArg,
-      JSNumber clientXArg,
-      JSNumber clientYArg,
-      JSBoolean ctrlKeyArg,
-      JSBoolean altKeyArg,
-      JSBoolean shiftKeyArg,
-      JSBoolean metaKeyArg,
-      JSNumber buttonArg);
-  external JSUndefined initMouseEvent_14(
-      JSString typeArg,
-      JSBoolean bubblesArg,
-      JSBoolean cancelableArg,
-      Window? viewArg,
-      JSNumber detailArg,
-      JSNumber screenXArg,
-      JSNumber screenYArg,
-      JSNumber clientXArg,
-      JSNumber clientYArg,
-      JSBoolean ctrlKeyArg,
-      JSBoolean altKeyArg,
-      JSBoolean shiftKeyArg,
-      JSBoolean metaKeyArg,
-      JSNumber buttonArg,
-      EventTarget? relatedTargetArg);
+  external JSVoid initMouseEvent(JSString typeArg);
+  external JSVoid initMouseEvent1(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+  );
+  external JSVoid initMouseEvent2(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+  );
+  external JSVoid initMouseEvent3(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+  );
+  external JSVoid initMouseEvent4(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+    JSNumber detailArg,
+  );
+  external JSVoid initMouseEvent5(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+    JSNumber detailArg,
+    JSNumber screenXArg,
+  );
+  external JSVoid initMouseEvent6(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+    JSNumber detailArg,
+    JSNumber screenXArg,
+    JSNumber screenYArg,
+  );
+  external JSVoid initMouseEvent7(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+    JSNumber detailArg,
+    JSNumber screenXArg,
+    JSNumber screenYArg,
+    JSNumber clientXArg,
+  );
+  external JSVoid initMouseEvent8(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+    JSNumber detailArg,
+    JSNumber screenXArg,
+    JSNumber screenYArg,
+    JSNumber clientXArg,
+    JSNumber clientYArg,
+  );
+  external JSVoid initMouseEvent9(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+    JSNumber detailArg,
+    JSNumber screenXArg,
+    JSNumber screenYArg,
+    JSNumber clientXArg,
+    JSNumber clientYArg,
+    JSBoolean ctrlKeyArg,
+  );
+  external JSVoid initMouseEvent10(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+    JSNumber detailArg,
+    JSNumber screenXArg,
+    JSNumber screenYArg,
+    JSNumber clientXArg,
+    JSNumber clientYArg,
+    JSBoolean ctrlKeyArg,
+    JSBoolean altKeyArg,
+  );
+  external JSVoid initMouseEvent11(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+    JSNumber detailArg,
+    JSNumber screenXArg,
+    JSNumber screenYArg,
+    JSNumber clientXArg,
+    JSNumber clientYArg,
+    JSBoolean ctrlKeyArg,
+    JSBoolean altKeyArg,
+    JSBoolean shiftKeyArg,
+  );
+  external JSVoid initMouseEvent12(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+    JSNumber detailArg,
+    JSNumber screenXArg,
+    JSNumber screenYArg,
+    JSNumber clientXArg,
+    JSNumber clientYArg,
+    JSBoolean ctrlKeyArg,
+    JSBoolean altKeyArg,
+    JSBoolean shiftKeyArg,
+    JSBoolean metaKeyArg,
+  );
+  external JSVoid initMouseEvent13(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+    JSNumber detailArg,
+    JSNumber screenXArg,
+    JSNumber screenYArg,
+    JSNumber clientXArg,
+    JSNumber clientYArg,
+    JSBoolean ctrlKeyArg,
+    JSBoolean altKeyArg,
+    JSBoolean shiftKeyArg,
+    JSBoolean metaKeyArg,
+    JSNumber buttonArg,
+  );
+  external JSVoid initMouseEvent14(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+    JSNumber detailArg,
+    JSNumber screenXArg,
+    JSNumber screenYArg,
+    JSNumber clientXArg,
+    JSNumber clientYArg,
+    JSBoolean ctrlKeyArg,
+    JSBoolean altKeyArg,
+    JSBoolean shiftKeyArg,
+    JSBoolean metaKeyArg,
+    JSNumber buttonArg,
+    EventTarget? relatedTargetArg,
+  );
 }
 
 @JS('MouseEventInit')
@@ -226,17 +277,7 @@ class MouseEventInit extends EventModifierInit {
   external factory MouseEventInit();
 }
 
-extension MouseEventInitExtension on MouseEventInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension MouseEventInitExtension on MouseEventInit {}
 
 @JS('EventModifierInit')
 @staticInterop
@@ -244,29 +285,20 @@ class EventModifierInit extends UIEventInit {
   external factory EventModifierInit();
 }
 
-extension EventModifierInitExtension on EventModifierInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension EventModifierInitExtension on EventModifierInit {}
 
 @JS('WheelEvent')
 @staticInterop
 class WheelEvent extends MouseEvent {
   external factory WheelEvent();
+
   external factory WheelEvent.a1(JSString type);
-  external factory WheelEvent.a1_1(JSString type, WheelEventInit eventInitDict);
+
+  external factory WheelEvent.a2(
+    JSString type,
+    WheelEventInit eventInitDict,
+  );
+
   external static JSNumber get DOM_DELTA_PIXEL;
   external static JSNumber get DOM_DELTA_LINE;
   external static JSNumber get DOM_DELTA_PAGE;
@@ -285,19 +317,19 @@ class WheelEventInit extends MouseEventInit {
   external factory WheelEventInit();
 }
 
-extension WheelEventInitExtension on WheelEventInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension WheelEventInitExtension on WheelEventInit {}
 
 @JS('InputEvent')
 @staticInterop
 class InputEvent extends UIEvent {
   external factory InputEvent();
+
   external factory InputEvent.a1(JSString type);
-  external factory InputEvent.a1_1(JSString type, InputEventInit eventInitDict);
+
+  external factory InputEvent.a2(
+    JSString type,
+    InputEventInit eventInitDict,
+  );
 }
 
 extension InputEventExtension on InputEvent {
@@ -314,21 +346,20 @@ class InputEventInit extends UIEventInit {
   external factory InputEventInit();
 }
 
-extension InputEventInitExtension on InputEventInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension InputEventInitExtension on InputEventInit {}
 
 @JS('KeyboardEvent')
 @staticInterop
 class KeyboardEvent extends UIEvent {
   external factory KeyboardEvent();
+
   external factory KeyboardEvent.a1(JSString type);
-  external factory KeyboardEvent.a1_1(
-      JSString type, KeyboardEventInit eventInitDict);
+
+  external factory KeyboardEvent.a2(
+    JSString type,
+    KeyboardEventInit eventInitDict,
+  );
+
   external static JSNumber get DOM_KEY_LOCATION_STANDARD;
   external static JSNumber get DOM_KEY_LOCATION_LEFT;
   external static JSNumber get DOM_KEY_LOCATION_RIGHT;
@@ -346,64 +377,79 @@ extension KeyboardEventExtension on KeyboardEvent {
   external JSBoolean get repeat;
   external JSBoolean get isComposing;
   external JSBoolean getModifierState(JSString keyArg);
-  external JSUndefined initKeyboardEvent(JSString typeArg);
-  external JSUndefined initKeyboardEvent_1(
-      JSString typeArg, JSBoolean bubblesArg);
-  external JSUndefined initKeyboardEvent_2(
-      JSString typeArg, JSBoolean bubblesArg, JSBoolean cancelableArg);
-  external JSUndefined initKeyboardEvent_3(JSString typeArg,
-      JSBoolean bubblesArg, JSBoolean cancelableArg, Window? viewArg);
-  external JSUndefined initKeyboardEvent_4(
-      JSString typeArg,
-      JSBoolean bubblesArg,
-      JSBoolean cancelableArg,
-      Window? viewArg,
-      JSString keyArg);
-  external JSUndefined initKeyboardEvent_5(
-      JSString typeArg,
-      JSBoolean bubblesArg,
-      JSBoolean cancelableArg,
-      Window? viewArg,
-      JSString keyArg,
-      JSNumber locationArg);
-  external JSUndefined initKeyboardEvent_6(
-      JSString typeArg,
-      JSBoolean bubblesArg,
-      JSBoolean cancelableArg,
-      Window? viewArg,
-      JSString keyArg,
-      JSNumber locationArg,
-      JSBoolean ctrlKey);
-  external JSUndefined initKeyboardEvent_7(
-      JSString typeArg,
-      JSBoolean bubblesArg,
-      JSBoolean cancelableArg,
-      Window? viewArg,
-      JSString keyArg,
-      JSNumber locationArg,
-      JSBoolean ctrlKey,
-      JSBoolean altKey);
-  external JSUndefined initKeyboardEvent_8(
-      JSString typeArg,
-      JSBoolean bubblesArg,
-      JSBoolean cancelableArg,
-      Window? viewArg,
-      JSString keyArg,
-      JSNumber locationArg,
-      JSBoolean ctrlKey,
-      JSBoolean altKey,
-      JSBoolean shiftKey);
-  external JSUndefined initKeyboardEvent_9(
-      JSString typeArg,
-      JSBoolean bubblesArg,
-      JSBoolean cancelableArg,
-      Window? viewArg,
-      JSString keyArg,
-      JSNumber locationArg,
-      JSBoolean ctrlKey,
-      JSBoolean altKey,
-      JSBoolean shiftKey,
-      JSBoolean metaKey);
+  external JSVoid initKeyboardEvent(JSString typeArg);
+  external JSVoid initKeyboardEvent1(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+  );
+  external JSVoid initKeyboardEvent2(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+  );
+  external JSVoid initKeyboardEvent3(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+  );
+  external JSVoid initKeyboardEvent4(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+    JSString keyArg,
+  );
+  external JSVoid initKeyboardEvent5(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+    JSString keyArg,
+    JSNumber locationArg,
+  );
+  external JSVoid initKeyboardEvent6(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+    JSString keyArg,
+    JSNumber locationArg,
+    JSBoolean ctrlKey,
+  );
+  external JSVoid initKeyboardEvent7(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+    JSString keyArg,
+    JSNumber locationArg,
+    JSBoolean ctrlKey,
+    JSBoolean altKey,
+  );
+  external JSVoid initKeyboardEvent8(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+    JSString keyArg,
+    JSNumber locationArg,
+    JSBoolean ctrlKey,
+    JSBoolean altKey,
+    JSBoolean shiftKey,
+  );
+  external JSVoid initKeyboardEvent9(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+    JSString keyArg,
+    JSNumber locationArg,
+    JSBoolean ctrlKey,
+    JSBoolean altKey,
+    JSBoolean shiftKey,
+    JSBoolean metaKey,
+  );
   external JSNumber get charCode;
   external JSNumber get keyCode;
 }
@@ -414,40 +460,46 @@ class KeyboardEventInit extends EventModifierInit {
   external factory KeyboardEventInit();
 }
 
-extension KeyboardEventInitExtension on KeyboardEventInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension KeyboardEventInitExtension on KeyboardEventInit {}
 
 @JS('CompositionEvent')
 @staticInterop
 class CompositionEvent extends UIEvent {
   external factory CompositionEvent();
+
   external factory CompositionEvent.a1(JSString type);
-  external factory CompositionEvent.a1_1(
-      JSString type, CompositionEventInit eventInitDict);
+
+  external factory CompositionEvent.a2(
+    JSString type,
+    CompositionEventInit eventInitDict,
+  );
 }
 
 extension CompositionEventExtension on CompositionEvent {
   external JSString get data;
-  external JSUndefined initCompositionEvent(JSString typeArg);
-  external JSUndefined initCompositionEvent_1(
-      JSString typeArg, JSBoolean bubblesArg);
-  external JSUndefined initCompositionEvent_2(
-      JSString typeArg, JSBoolean bubblesArg, JSBoolean cancelableArg);
-  external JSUndefined initCompositionEvent_3(JSString typeArg,
-      JSBoolean bubblesArg, JSBoolean cancelableArg, Window? viewArg);
-  external JSUndefined initCompositionEvent_4(
-      JSString typeArg,
-      JSBoolean bubblesArg,
-      JSBoolean cancelableArg,
-      Window? viewArg,
-      JSString dataArg);
+  external JSVoid initCompositionEvent(JSString typeArg);
+  external JSVoid initCompositionEvent1(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+  );
+  external JSVoid initCompositionEvent2(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+  );
+  external JSVoid initCompositionEvent3(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+  );
+  external JSVoid initCompositionEvent4(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Window? viewArg,
+    JSString dataArg,
+  );
 }
 
 @JS('CompositionEventInit')
@@ -456,14 +508,13 @@ class CompositionEventInit extends UIEventInit {
   external factory CompositionEventInit();
 }
 
-extension CompositionEventInitExtension on CompositionEventInit {
-  // TODO
-}
+extension CompositionEventInitExtension on CompositionEventInit {}
 
 @JS('MutationEvent')
 @staticInterop
 class MutationEvent extends Event {
   external factory MutationEvent();
+
   external static JSNumber get MODIFICATION;
   external static JSNumber get ADDITION;
   external static JSNumber get REMOVAL;
@@ -475,41 +526,54 @@ extension MutationEventExtension on MutationEvent {
   external JSString get newValue;
   external JSString get attrName;
   external JSNumber get attrChange;
-  external JSUndefined initMutationEvent(JSString typeArg);
-  external JSUndefined initMutationEvent_1(
-      JSString typeArg, JSBoolean bubblesArg);
-  external JSUndefined initMutationEvent_2(
-      JSString typeArg, JSBoolean bubblesArg, JSBoolean cancelableArg);
-  external JSUndefined initMutationEvent_3(JSString typeArg,
-      JSBoolean bubblesArg, JSBoolean cancelableArg, Node? relatedNodeArg);
-  external JSUndefined initMutationEvent_4(
-      JSString typeArg,
-      JSBoolean bubblesArg,
-      JSBoolean cancelableArg,
-      Node? relatedNodeArg,
-      JSString prevValueArg);
-  external JSUndefined initMutationEvent_5(
-      JSString typeArg,
-      JSBoolean bubblesArg,
-      JSBoolean cancelableArg,
-      Node? relatedNodeArg,
-      JSString prevValueArg,
-      JSString newValueArg);
-  external JSUndefined initMutationEvent_6(
-      JSString typeArg,
-      JSBoolean bubblesArg,
-      JSBoolean cancelableArg,
-      Node? relatedNodeArg,
-      JSString prevValueArg,
-      JSString newValueArg,
-      JSString attrNameArg);
-  external JSUndefined initMutationEvent_7(
-      JSString typeArg,
-      JSBoolean bubblesArg,
-      JSBoolean cancelableArg,
-      Node? relatedNodeArg,
-      JSString prevValueArg,
-      JSString newValueArg,
-      JSString attrNameArg,
-      JSNumber attrChangeArg);
+  external JSVoid initMutationEvent(JSString typeArg);
+  external JSVoid initMutationEvent1(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+  );
+  external JSVoid initMutationEvent2(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+  );
+  external JSVoid initMutationEvent3(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Node? relatedNodeArg,
+  );
+  external JSVoid initMutationEvent4(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Node? relatedNodeArg,
+    JSString prevValueArg,
+  );
+  external JSVoid initMutationEvent5(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Node? relatedNodeArg,
+    JSString prevValueArg,
+    JSString newValueArg,
+  );
+  external JSVoid initMutationEvent6(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Node? relatedNodeArg,
+    JSString prevValueArg,
+    JSString newValueArg,
+    JSString attrNameArg,
+  );
+  external JSVoid initMutationEvent7(
+    JSString typeArg,
+    JSBoolean bubblesArg,
+    JSBoolean cancelableArg,
+    Node? relatedNodeArg,
+    JSString prevValueArg,
+    JSString newValueArg,
+    JSString attrNameArg,
+    JSNumber attrChangeArg,
+  );
 }

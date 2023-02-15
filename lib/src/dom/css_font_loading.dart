@@ -3,10 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/html.dart';
 
 typedef BinaryData = JSAny;
 typedef FontFaceLoadStatus = JSString;
@@ -18,54 +20,50 @@ class FontFaceDescriptors {
   external factory FontFaceDescriptors();
 }
 
-extension FontFaceDescriptorsExtension on FontFaceDescriptors {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension FontFaceDescriptorsExtension on FontFaceDescriptors {}
 
 @JS('FontFace')
 @staticInterop
 class FontFace {
   external factory FontFace();
-  external factory FontFace.a1(JSString family, JSAny source);
-  external factory FontFace.a1_1(
-      JSString family, JSAny source, FontFaceDescriptors descriptors);
+
+  external factory FontFace.a1(
+    JSString family,
+    JSAny source,
+  );
+
+  external factory FontFace.a2(
+    JSString family,
+    JSAny source,
+    FontFaceDescriptors descriptors,
+  );
 }
 
 extension FontFaceExtension on FontFace {
-  external JSString get family;
   external set family(JSString value);
-  external JSString get style;
+  external JSString get family;
   external set style(JSString value);
-  external JSString get weight;
+  external JSString get style;
   external set weight(JSString value);
-  external JSString get stretch;
+  external JSString get weight;
   external set stretch(JSString value);
-  external JSString get unicodeRange;
+  external JSString get stretch;
   external set unicodeRange(JSString value);
-  external JSString get variant;
+  external JSString get unicodeRange;
   external set variant(JSString value);
-  external JSString get featureSettings;
+  external JSString get variant;
   external set featureSettings(JSString value);
-  external JSString get variationSettings;
+  external JSString get featureSettings;
   external set variationSettings(JSString value);
-  external JSString get display;
+  external JSString get variationSettings;
   external set display(JSString value);
-  external JSString get ascentOverride;
+  external JSString get display;
   external set ascentOverride(JSString value);
-  external JSString get descentOverride;
+  external JSString get ascentOverride;
   external set descentOverride(JSString value);
-  external JSString get lineGapOverride;
+  external JSString get descentOverride;
   external set lineGapOverride(JSString value);
+  external JSString get lineGapOverride;
   external FontFaceLoadStatus get status;
   external JSPromise load();
   external JSPromise get loaded;
@@ -100,9 +98,7 @@ class FontFaceVariations {
   external factory FontFaceVariations();
 }
 
-extension FontFaceVariationsExtension on FontFaceVariations {
-  // TODO
-}
+extension FontFaceVariationsExtension on FontFaceVariations {}
 
 @JS('FontFacePalette')
 @staticInterop
@@ -111,7 +107,6 @@ class FontFacePalette {
 }
 
 extension FontFacePaletteExtension on FontFacePalette {
-  // TODO
   external JSNumber get length;
   external JSBoolean get usableWithLightBackground;
   external JSBoolean get usableWithDarkBackground;
@@ -124,7 +119,6 @@ class FontFacePalettes {
 }
 
 extension FontFacePalettesExtension on FontFacePalettes {
-  // TODO
   external JSNumber get length;
 }
 
@@ -134,17 +128,19 @@ class FontFaceSetLoadEventInit extends EventInit {
   external factory FontFaceSetLoadEventInit();
 }
 
-extension FontFaceSetLoadEventInitExtension on FontFaceSetLoadEventInit {
-  // TODO
-}
+extension FontFaceSetLoadEventInitExtension on FontFaceSetLoadEventInit {}
 
 @JS('FontFaceSetLoadEvent')
 @staticInterop
 class FontFaceSetLoadEvent extends Event {
   external factory FontFaceSetLoadEvent();
+
   external factory FontFaceSetLoadEvent.a1(JSString type);
-  external factory FontFaceSetLoadEvent.a1_1(
-      JSString type, FontFaceSetLoadEventInit eventInitDict);
+
+  external factory FontFaceSetLoadEvent.a2(
+    JSString type,
+    FontFaceSetLoadEventInit eventInitDict,
+  );
 }
 
 extension FontFaceSetLoadEventExtension on FontFaceSetLoadEvent {
@@ -155,24 +151,30 @@ extension FontFaceSetLoadEventExtension on FontFaceSetLoadEvent {
 @staticInterop
 class FontFaceSet extends EventTarget {
   external factory FontFaceSet();
+
   external factory FontFaceSet.a1(JSArray initialFaces);
 }
 
 extension FontFaceSetExtension on FontFaceSet {
-  // TODO
   external FontFaceSet add(FontFace font);
   external JSBoolean delete(FontFace font);
-  external JSUndefined clear();
-  external EventHandler get onloading;
+  external JSVoid clear();
   external set onloading(EventHandler value);
-  external EventHandler get onloadingdone;
+  external EventHandler get onloading;
   external set onloadingdone(EventHandler value);
-  external EventHandler get onloadingerror;
+  external EventHandler get onloadingdone;
   external set onloadingerror(EventHandler value);
+  external EventHandler get onloadingerror;
   external JSPromise load(JSString font);
-  external JSPromise load_1(JSString font, JSString text);
+  external JSPromise load1(
+    JSString font,
+    JSString text,
+  );
   external JSBoolean check(JSString font);
-  external JSBoolean check_1(JSString font, JSString text);
+  external JSBoolean check1(
+    JSString font,
+    JSString text,
+  );
   external JSPromise get ready;
   external FontFaceSetLoadStatus get status;
 }

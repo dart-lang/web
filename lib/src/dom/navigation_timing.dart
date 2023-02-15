@@ -3,10 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/hr_time.dart';
+import 'package:web/src/dom/resource_timing.dart';
 
 typedef NavigationTimingType = JSString;
 
@@ -66,6 +68,7 @@ extension PerformanceTimingExtension on PerformanceTiming {
 @staticInterop
 class PerformanceNavigation {
   external factory PerformanceNavigation();
+
   external static JSNumber get TYPE_NAVIGATE;
   external static JSNumber get TYPE_RELOAD;
   external static JSNumber get TYPE_BACK_FORWARD;

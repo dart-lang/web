@@ -3,10 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/reporting.dart';
 
 typedef SecurityPolicyViolationEventDisposition = JSString;
 
@@ -35,9 +37,13 @@ extension CSPViolationReportBodyExtension on CSPViolationReportBody {
 @staticInterop
 class SecurityPolicyViolationEvent extends Event {
   external factory SecurityPolicyViolationEvent();
+
   external factory SecurityPolicyViolationEvent.a1(JSString type);
-  external factory SecurityPolicyViolationEvent.a1_1(
-      JSString type, SecurityPolicyViolationEventInit eventInitDict);
+
+  external factory SecurityPolicyViolationEvent.a2(
+    JSString type,
+    SecurityPolicyViolationEventInit eventInitDict,
+  );
 }
 
 extension SecurityPolicyViolationEventExtension
@@ -63,17 +69,4 @@ class SecurityPolicyViolationEventInit extends EventInit {
 }
 
 extension SecurityPolicyViolationEventInitExtension
-    on SecurityPolicyViolationEventInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+    on SecurityPolicyViolationEventInit {}

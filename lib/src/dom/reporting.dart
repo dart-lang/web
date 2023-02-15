@@ -3,10 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
 
 typedef ReportList = JSArray;
 typedef ReportingObserverCallback = JSFunction;
@@ -38,14 +38,18 @@ extension ReportExtension on Report {
 @staticInterop
 class ReportingObserver {
   external factory ReportingObserver();
+
   external factory ReportingObserver.a1(ReportingObserverCallback callback);
-  external factory ReportingObserver.a1_1(
-      ReportingObserverCallback callback, ReportingObserverOptions options);
+
+  external factory ReportingObserver.a2(
+    ReportingObserverCallback callback,
+    ReportingObserverOptions options,
+  );
 }
 
 extension ReportingObserverExtension on ReportingObserver {
-  external JSUndefined observe();
-  external JSUndefined disconnect();
+  external JSVoid observe();
+  external JSVoid disconnect();
   external ReportList takeRecords();
 }
 
@@ -55,10 +59,7 @@ class ReportingObserverOptions {
   external factory ReportingObserverOptions();
 }
 
-extension ReportingObserverOptionsExtension on ReportingObserverOptions {
-  // TODO
-  // TODO
-}
+extension ReportingObserverOptionsExtension on ReportingObserverOptions {}
 
 @JS('GenerateTestReportParameters')
 @staticInterop
@@ -67,7 +68,4 @@ class GenerateTestReportParameters {
 }
 
 extension GenerateTestReportParametersExtension
-    on GenerateTestReportParameters {
-  // TODO
-  // TODO
-}
+    on GenerateTestReportParameters {}

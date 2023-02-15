@@ -3,10 +3,14 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/hr_time.dart';
+import 'package:web/src/dom/html.dart';
+import 'package:web/src/dom/service_workers.dart';
 
 typedef NotificationPermissionCallback = JSFunction;
 typedef NotificationPermission = JSString;
@@ -16,25 +20,30 @@ typedef NotificationDirection = JSString;
 @staticInterop
 class Notification extends EventTarget {
   external factory Notification();
+
   external factory Notification.a1(JSString title);
-  external factory Notification.a1_1(
-      JSString title, NotificationOptions options);
+
+  external factory Notification.a2(
+    JSString title,
+    NotificationOptions options,
+  );
+
   external static NotificationPermission get permission;
   external static JSPromise requestPermission();
-  external static JSPromise requestPermission_1(
+  external static JSPromise requestPermission1(
       NotificationPermissionCallback deprecatedCallback);
   external static JSNumber get maxActions;
 }
 
 extension NotificationExtension on Notification {
-  external EventHandler get onclick;
   external set onclick(EventHandler value);
-  external EventHandler get onshow;
+  external EventHandler get onclick;
   external set onshow(EventHandler value);
-  external EventHandler get onerror;
+  external EventHandler get onshow;
   external set onerror(EventHandler value);
-  external EventHandler get onclose;
+  external EventHandler get onerror;
   external set onclose(EventHandler value);
+  external EventHandler get onclose;
   external JSString get title;
   external NotificationDirection get dir;
   external JSString get lang;
@@ -50,7 +59,7 @@ extension NotificationExtension on Notification {
   external JSBoolean get requireInteraction;
   external JSAny get data;
   external JSArray get actions;
-  external JSUndefined close();
+  external JSVoid close();
 }
 
 @JS('NotificationOptions')
@@ -59,22 +68,7 @@ class NotificationOptions {
   external factory NotificationOptions();
 }
 
-extension NotificationOptionsExtension on NotificationOptions {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension NotificationOptionsExtension on NotificationOptions {}
 
 @JS('NotificationAction')
 @staticInterop
@@ -82,11 +76,7 @@ class NotificationAction {
   external factory NotificationAction();
 }
 
-extension NotificationActionExtension on NotificationAction {
-  // TODO
-  // TODO
-  // TODO
-}
+extension NotificationActionExtension on NotificationAction {}
 
 @JS('GetNotificationOptions')
 @staticInterop
@@ -94,16 +84,17 @@ class GetNotificationOptions {
   external factory GetNotificationOptions();
 }
 
-extension GetNotificationOptionsExtension on GetNotificationOptions {
-  // TODO
-}
+extension GetNotificationOptionsExtension on GetNotificationOptions {}
 
 @JS('NotificationEvent')
 @staticInterop
 class NotificationEvent extends ExtendableEvent {
   external factory NotificationEvent();
+
   external factory NotificationEvent.a1(
-      JSString type, NotificationEventInit eventInitDict);
+    JSString type,
+    NotificationEventInit eventInitDict,
+  );
 }
 
 extension NotificationEventExtension on NotificationEvent {
@@ -117,7 +108,4 @@ class NotificationEventInit extends ExtendableEventInit {
   external factory NotificationEventInit();
 }
 
-extension NotificationEventInitExtension on NotificationEventInit {
-  // TODO
-  // TODO
-}
+extension NotificationEventInitExtension on NotificationEventInit {}

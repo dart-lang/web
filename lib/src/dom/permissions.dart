@@ -3,10 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/html.dart';
 
 typedef PermissionState = JSString;
 
@@ -28,9 +30,7 @@ class PermissionDescriptor {
   external factory PermissionDescriptor();
 }
 
-extension PermissionDescriptorExtension on PermissionDescriptor {
-  // TODO
-}
+extension PermissionDescriptorExtension on PermissionDescriptor {}
 
 @JS('PermissionStatus')
 @staticInterop
@@ -41,8 +41,8 @@ class PermissionStatus extends EventTarget {
 extension PermissionStatusExtension on PermissionStatus {
   external PermissionState get state;
   external JSString get name;
-  external EventHandler get onchange;
   external set onchange(EventHandler value);
+  external EventHandler get onchange;
 }
 
 @JS('PermissionSetParameters')
@@ -51,7 +51,4 @@ class PermissionSetParameters {
   external factory PermissionSetParameters();
 }
 
-extension PermissionSetParametersExtension on PermissionSetParameters {
-  // TODO
-  // TODO
-}
+extension PermissionSetParametersExtension on PermissionSetParameters {}

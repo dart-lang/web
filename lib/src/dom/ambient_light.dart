@@ -3,17 +3,20 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/generic_sensor.dart';
 
 @JS('AmbientLightSensor')
 @staticInterop
 class AmbientLightSensor extends Sensor {
   external factory AmbientLightSensor();
+
   external factory AmbientLightSensor.a1();
-  external factory AmbientLightSensor.a1_1(SensorOptions sensorOptions);
+
+  external factory AmbientLightSensor.a2(SensorOptions sensorOptions);
 }
 
 extension AmbientLightSensorExtension on AmbientLightSensor {
@@ -26,6 +29,4 @@ class AmbientLightReadingValues {
   external factory AmbientLightReadingValues();
 }
 
-extension AmbientLightReadingValuesExtension on AmbientLightReadingValues {
-  // TODO
-}
+extension AmbientLightReadingValuesExtension on AmbientLightReadingValues {}

@@ -3,10 +3,13 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/html.dart';
+import 'package:web/src/dom/webidl.dart';
 
 typedef GLenum = JSNumber;
 typedef GLboolean = JSBoolean;
@@ -33,18 +36,7 @@ class WebGLContextAttributes {
   external factory WebGLContextAttributes();
 }
 
-extension WebGLContextAttributesExtension on WebGLContextAttributes {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension WebGLContextAttributesExtension on WebGLContextAttributes {}
 
 @JS('WebGLObject')
 @staticInterop
@@ -122,6 +114,7 @@ extension WebGLShaderPrecisionFormatExtension on WebGLShaderPrecisionFormat {
 @staticInterop
 class WebGLRenderingContextBase {
   external factory WebGLRenderingContextBase();
+
   external static GLenum get DEPTH_BUFFER_BIT;
   external static GLenum get STENCIL_BUFFER_BIT;
   external static GLenum get COLOR_BUFFER_BIT;
@@ -424,116 +417,220 @@ extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
   external JSAny get canvas;
   external GLsizei get drawingBufferWidth;
   external GLsizei get drawingBufferHeight;
-  external PredefinedColorSpace get drawingBufferColorSpace;
   external set drawingBufferColorSpace(PredefinedColorSpace value);
-  external PredefinedColorSpace get unpackColorSpace;
+  external PredefinedColorSpace get drawingBufferColorSpace;
   external set unpackColorSpace(PredefinedColorSpace value);
+  external PredefinedColorSpace get unpackColorSpace;
   external WebGLContextAttributes? getContextAttributes();
   external JSBoolean isContextLost();
   external JSArray? getSupportedExtensions();
   external JSObject? getExtension(JSString name);
-  external JSUndefined activeTexture(GLenum texture);
-  external JSUndefined attachShader(WebGLProgram program, WebGLShader shader);
-  external JSUndefined bindAttribLocation(
-      WebGLProgram program, GLuint index, JSString name);
-  external JSUndefined bindBuffer(GLenum target, WebGLBuffer? buffer);
-  external JSUndefined bindFramebuffer(
-      GLenum target, WebGLFramebuffer? framebuffer);
-  external JSUndefined bindRenderbuffer(
-      GLenum target, WebGLRenderbuffer? renderbuffer);
-  external JSUndefined bindTexture(GLenum target, WebGLTexture? texture);
-  external JSUndefined blendColor(
-      GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha);
-  external JSUndefined blendEquation(GLenum mode);
-  external JSUndefined blendEquationSeparate(GLenum modeRGB, GLenum modeAlpha);
-  external JSUndefined blendFunc(GLenum sfactor, GLenum dfactor);
-  external JSUndefined blendFuncSeparate(
-      GLenum srcRGB, GLenum dstRGB, GLenum srcAlpha, GLenum dstAlpha);
+  external JSVoid activeTexture(GLenum texture);
+  external JSVoid attachShader(
+    WebGLProgram program,
+    WebGLShader shader,
+  );
+  external JSVoid bindAttribLocation(
+    WebGLProgram program,
+    GLuint index,
+    JSString name,
+  );
+  external JSVoid bindBuffer(
+    GLenum target,
+    WebGLBuffer? buffer,
+  );
+  external JSVoid bindFramebuffer(
+    GLenum target,
+    WebGLFramebuffer? framebuffer,
+  );
+  external JSVoid bindRenderbuffer(
+    GLenum target,
+    WebGLRenderbuffer? renderbuffer,
+  );
+  external JSVoid bindTexture(
+    GLenum target,
+    WebGLTexture? texture,
+  );
+  external JSVoid blendColor(
+    GLclampf red,
+    GLclampf green,
+    GLclampf blue,
+    GLclampf alpha,
+  );
+  external JSVoid blendEquation(GLenum mode);
+  external JSVoid blendEquationSeparate(
+    GLenum modeRGB,
+    GLenum modeAlpha,
+  );
+  external JSVoid blendFunc(
+    GLenum sfactor,
+    GLenum dfactor,
+  );
+  external JSVoid blendFuncSeparate(
+    GLenum srcRGB,
+    GLenum dstRGB,
+    GLenum srcAlpha,
+    GLenum dstAlpha,
+  );
   external GLenum checkFramebufferStatus(GLenum target);
-  external JSUndefined clear(GLbitfield mask);
-  external JSUndefined clearColor(
-      GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha);
-  external JSUndefined clearDepth(GLclampf depth);
-  external JSUndefined clearStencil(GLint s);
-  external JSUndefined colorMask(
-      GLboolean red, GLboolean green, GLboolean blue, GLboolean alpha);
-  external JSUndefined compileShader(WebGLShader shader);
-  external JSUndefined copyTexImage2D(
-      GLenum target,
-      GLint level,
-      GLenum internalformat,
-      GLint x,
-      GLint y,
-      GLsizei width,
-      GLsizei height,
-      GLint border);
-  external JSUndefined copyTexSubImage2D(
-      GLenum target,
-      GLint level,
-      GLint xoffset,
-      GLint yoffset,
-      GLint x,
-      GLint y,
-      GLsizei width,
-      GLsizei height);
+  external JSVoid clear(GLbitfield mask);
+  external JSVoid clearColor(
+    GLclampf red,
+    GLclampf green,
+    GLclampf blue,
+    GLclampf alpha,
+  );
+  external JSVoid clearDepth(GLclampf depth);
+  external JSVoid clearStencil(GLint s);
+  external JSVoid colorMask(
+    GLboolean red,
+    GLboolean green,
+    GLboolean blue,
+    GLboolean alpha,
+  );
+  external JSVoid compileShader(WebGLShader shader);
+  external JSVoid copyTexImage2D(
+    GLenum target,
+    GLint level,
+    GLenum internalformat,
+    GLint x,
+    GLint y,
+    GLsizei width,
+    GLsizei height,
+    GLint border,
+  );
+  external JSVoid copyTexSubImage2D(
+    GLenum target,
+    GLint level,
+    GLint xoffset,
+    GLint yoffset,
+    GLint x,
+    GLint y,
+    GLsizei width,
+    GLsizei height,
+  );
   external WebGLBuffer? createBuffer();
   external WebGLFramebuffer? createFramebuffer();
   external WebGLProgram? createProgram();
   external WebGLRenderbuffer? createRenderbuffer();
   external WebGLShader? createShader(GLenum type);
   external WebGLTexture? createTexture();
-  external JSUndefined cullFace(GLenum mode);
-  external JSUndefined deleteBuffer(WebGLBuffer? buffer);
-  external JSUndefined deleteFramebuffer(WebGLFramebuffer? framebuffer);
-  external JSUndefined deleteProgram(WebGLProgram? program);
-  external JSUndefined deleteRenderbuffer(WebGLRenderbuffer? renderbuffer);
-  external JSUndefined deleteShader(WebGLShader? shader);
-  external JSUndefined deleteTexture(WebGLTexture? texture);
-  external JSUndefined depthFunc(GLenum func);
-  external JSUndefined depthMask(GLboolean flag);
-  external JSUndefined depthRange(GLclampf zNear, GLclampf zFar);
-  external JSUndefined detachShader(WebGLProgram program, WebGLShader shader);
-  external JSUndefined disable(GLenum cap);
-  external JSUndefined disableVertexAttribArray(GLuint index);
-  external JSUndefined drawArrays(GLenum mode, GLint first, GLsizei count);
-  external JSUndefined drawElements(
-      GLenum mode, GLsizei count, GLenum type, GLintptr offset);
-  external JSUndefined enable(GLenum cap);
-  external JSUndefined enableVertexAttribArray(GLuint index);
-  external JSUndefined finish();
-  external JSUndefined flush();
-  external JSUndefined framebufferRenderbuffer(GLenum target, GLenum attachment,
-      GLenum renderbuffertarget, WebGLRenderbuffer? renderbuffer);
-  external JSUndefined framebufferTexture2D(GLenum target, GLenum attachment,
-      GLenum textarget, WebGLTexture? texture, GLint level);
-  external JSUndefined frontFace(GLenum mode);
-  external JSUndefined generateMipmap(GLenum target);
-  external WebGLActiveInfo? getActiveAttrib(WebGLProgram program, GLuint index);
+  external JSVoid cullFace(GLenum mode);
+  external JSVoid deleteBuffer(WebGLBuffer? buffer);
+  external JSVoid deleteFramebuffer(WebGLFramebuffer? framebuffer);
+  external JSVoid deleteProgram(WebGLProgram? program);
+  external JSVoid deleteRenderbuffer(WebGLRenderbuffer? renderbuffer);
+  external JSVoid deleteShader(WebGLShader? shader);
+  external JSVoid deleteTexture(WebGLTexture? texture);
+  external JSVoid depthFunc(GLenum func);
+  external JSVoid depthMask(GLboolean flag);
+  external JSVoid depthRange(
+    GLclampf zNear,
+    GLclampf zFar,
+  );
+  external JSVoid detachShader(
+    WebGLProgram program,
+    WebGLShader shader,
+  );
+  external JSVoid disable(GLenum cap);
+  external JSVoid disableVertexAttribArray(GLuint index);
+  external JSVoid drawArrays(
+    GLenum mode,
+    GLint first,
+    GLsizei count,
+  );
+  external JSVoid drawElements(
+    GLenum mode,
+    GLsizei count,
+    GLenum type,
+    GLintptr offset,
+  );
+  external JSVoid enable(GLenum cap);
+  external JSVoid enableVertexAttribArray(GLuint index);
+  external JSVoid finish();
+  external JSVoid flush();
+  external JSVoid framebufferRenderbuffer(
+    GLenum target,
+    GLenum attachment,
+    GLenum renderbuffertarget,
+    WebGLRenderbuffer? renderbuffer,
+  );
+  external JSVoid framebufferTexture2D(
+    GLenum target,
+    GLenum attachment,
+    GLenum textarget,
+    WebGLTexture? texture,
+    GLint level,
+  );
+  external JSVoid frontFace(GLenum mode);
+  external JSVoid generateMipmap(GLenum target);
+  external WebGLActiveInfo? getActiveAttrib(
+    WebGLProgram program,
+    GLuint index,
+  );
   external WebGLActiveInfo? getActiveUniform(
-      WebGLProgram program, GLuint index);
+    WebGLProgram program,
+    GLuint index,
+  );
   external JSArray? getAttachedShaders(WebGLProgram program);
-  external GLint getAttribLocation(WebGLProgram program, JSString name);
-  external JSAny getBufferParameter(GLenum target, GLenum pname);
+  external GLint getAttribLocation(
+    WebGLProgram program,
+    JSString name,
+  );
+  external JSAny getBufferParameter(
+    GLenum target,
+    GLenum pname,
+  );
   external JSAny getParameter(GLenum pname);
   external GLenum getError();
   external JSAny getFramebufferAttachmentParameter(
-      GLenum target, GLenum attachment, GLenum pname);
-  external JSAny getProgramParameter(WebGLProgram program, GLenum pname);
+    GLenum target,
+    GLenum attachment,
+    GLenum pname,
+  );
+  external JSAny getProgramParameter(
+    WebGLProgram program,
+    GLenum pname,
+  );
   external JSString? getProgramInfoLog(WebGLProgram program);
-  external JSAny getRenderbufferParameter(GLenum target, GLenum pname);
-  external JSAny getShaderParameter(WebGLShader shader, GLenum pname);
+  external JSAny getRenderbufferParameter(
+    GLenum target,
+    GLenum pname,
+  );
+  external JSAny getShaderParameter(
+    WebGLShader shader,
+    GLenum pname,
+  );
   external WebGLShaderPrecisionFormat? getShaderPrecisionFormat(
-      GLenum shadertype, GLenum precisiontype);
+    GLenum shadertype,
+    GLenum precisiontype,
+  );
   external JSString? getShaderInfoLog(WebGLShader shader);
   external JSString? getShaderSource(WebGLShader shader);
-  external JSAny getTexParameter(GLenum target, GLenum pname);
+  external JSAny getTexParameter(
+    GLenum target,
+    GLenum pname,
+  );
   external JSAny getUniform(
-      WebGLProgram program, WebGLUniformLocation location);
+    WebGLProgram program,
+    WebGLUniformLocation location,
+  );
   external WebGLUniformLocation? getUniformLocation(
-      WebGLProgram program, JSString name);
-  external JSAny getVertexAttrib(GLuint index, GLenum pname);
-  external GLintptr getVertexAttribOffset(GLuint index, GLenum pname);
-  external JSUndefined hint(GLenum target, GLenum mode);
+    WebGLProgram program,
+    JSString name,
+  );
+  external JSAny getVertexAttrib(
+    GLuint index,
+    GLenum pname,
+  );
+  external GLintptr getVertexAttribOffset(
+    GLuint index,
+    GLenum pname,
+  );
+  external JSVoid hint(
+    GLenum target,
+    GLenum mode,
+  );
   external GLboolean isBuffer(WebGLBuffer? buffer);
   external GLboolean isEnabled(GLenum cap);
   external GLboolean isFramebuffer(WebGLFramebuffer? framebuffer);
@@ -541,56 +638,171 @@ extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
   external GLboolean isRenderbuffer(WebGLRenderbuffer? renderbuffer);
   external GLboolean isShader(WebGLShader? shader);
   external GLboolean isTexture(WebGLTexture? texture);
-  external JSUndefined lineWidth(GLfloat width);
-  external JSUndefined linkProgram(WebGLProgram program);
-  external JSUndefined pixelStorei(GLenum pname, GLint param);
-  external JSUndefined polygonOffset(GLfloat factor, GLfloat units);
-  external JSUndefined renderbufferStorage(
-      GLenum target, GLenum internalformat, GLsizei width, GLsizei height);
-  external JSUndefined sampleCoverage(GLclampf value, GLboolean invert);
-  external JSUndefined scissor(GLint x, GLint y, GLsizei width, GLsizei height);
-  external JSUndefined shaderSource(WebGLShader shader, JSString source);
-  external JSUndefined stencilFunc(GLenum func, GLint ref, GLuint mask);
-  external JSUndefined stencilFuncSeparate(
-      GLenum face, GLenum func, GLint ref, GLuint mask);
-  external JSUndefined stencilMask(GLuint mask);
-  external JSUndefined stencilMaskSeparate(GLenum face, GLuint mask);
-  external JSUndefined stencilOp(GLenum fail, GLenum zfail, GLenum zpass);
-  external JSUndefined stencilOpSeparate(
-      GLenum face, GLenum fail, GLenum zfail, GLenum zpass);
-  external JSUndefined texParameterf(
-      GLenum target, GLenum pname, GLfloat param);
-  external JSUndefined texParameteri(GLenum target, GLenum pname, GLint param);
-  external JSUndefined uniform1f(WebGLUniformLocation? location, GLfloat x);
-  external JSUndefined uniform2f(
-      WebGLUniformLocation? location, GLfloat x, GLfloat y);
-  external JSUndefined uniform3f(
-      WebGLUniformLocation? location, GLfloat x, GLfloat y, GLfloat z);
-  external JSUndefined uniform4f(WebGLUniformLocation? location, GLfloat x,
-      GLfloat y, GLfloat z, GLfloat w);
-  external JSUndefined uniform1i(WebGLUniformLocation? location, GLint x);
-  external JSUndefined uniform2i(
-      WebGLUniformLocation? location, GLint x, GLint y);
-  external JSUndefined uniform3i(
-      WebGLUniformLocation? location, GLint x, GLint y, GLint z);
-  external JSUndefined uniform4i(
-      WebGLUniformLocation? location, GLint x, GLint y, GLint z, GLint w);
-  external JSUndefined useProgram(WebGLProgram? program);
-  external JSUndefined validateProgram(WebGLProgram program);
-  external JSUndefined vertexAttrib1f(GLuint index, GLfloat x);
-  external JSUndefined vertexAttrib2f(GLuint index, GLfloat x, GLfloat y);
-  external JSUndefined vertexAttrib3f(
-      GLuint index, GLfloat x, GLfloat y, GLfloat z);
-  external JSUndefined vertexAttrib4f(
-      GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
-  external JSUndefined vertexAttrib1fv(GLuint index, Float32List values);
-  external JSUndefined vertexAttrib2fv(GLuint index, Float32List values);
-  external JSUndefined vertexAttrib3fv(GLuint index, Float32List values);
-  external JSUndefined vertexAttrib4fv(GLuint index, Float32List values);
-  external JSUndefined vertexAttribPointer(GLuint index, GLint size,
-      GLenum type, GLboolean normalized, GLsizei stride, GLintptr offset);
-  external JSUndefined viewport(
-      GLint x, GLint y, GLsizei width, GLsizei height);
+  external JSVoid lineWidth(GLfloat width);
+  external JSVoid linkProgram(WebGLProgram program);
+  external JSVoid pixelStorei(
+    GLenum pname,
+    GLint param,
+  );
+  external JSVoid polygonOffset(
+    GLfloat factor,
+    GLfloat units,
+  );
+  external JSVoid renderbufferStorage(
+    GLenum target,
+    GLenum internalformat,
+    GLsizei width,
+    GLsizei height,
+  );
+  external JSVoid sampleCoverage(
+    GLclampf value,
+    GLboolean invert,
+  );
+  external JSVoid scissor(
+    GLint x,
+    GLint y,
+    GLsizei width,
+    GLsizei height,
+  );
+  external JSVoid shaderSource(
+    WebGLShader shader,
+    JSString source,
+  );
+  external JSVoid stencilFunc(
+    GLenum func,
+    GLint ref,
+    GLuint mask,
+  );
+  external JSVoid stencilFuncSeparate(
+    GLenum face,
+    GLenum func,
+    GLint ref,
+    GLuint mask,
+  );
+  external JSVoid stencilMask(GLuint mask);
+  external JSVoid stencilMaskSeparate(
+    GLenum face,
+    GLuint mask,
+  );
+  external JSVoid stencilOp(
+    GLenum fail,
+    GLenum zfail,
+    GLenum zpass,
+  );
+  external JSVoid stencilOpSeparate(
+    GLenum face,
+    GLenum fail,
+    GLenum zfail,
+    GLenum zpass,
+  );
+  external JSVoid texParameterf(
+    GLenum target,
+    GLenum pname,
+    GLfloat param,
+  );
+  external JSVoid texParameteri(
+    GLenum target,
+    GLenum pname,
+    GLint param,
+  );
+  external JSVoid uniform1f(
+    WebGLUniformLocation? location,
+    GLfloat x,
+  );
+  external JSVoid uniform2f(
+    WebGLUniformLocation? location,
+    GLfloat x,
+    GLfloat y,
+  );
+  external JSVoid uniform3f(
+    WebGLUniformLocation? location,
+    GLfloat x,
+    GLfloat y,
+    GLfloat z,
+  );
+  external JSVoid uniform4f(
+    WebGLUniformLocation? location,
+    GLfloat x,
+    GLfloat y,
+    GLfloat z,
+    GLfloat w,
+  );
+  external JSVoid uniform1i(
+    WebGLUniformLocation? location,
+    GLint x,
+  );
+  external JSVoid uniform2i(
+    WebGLUniformLocation? location,
+    GLint x,
+    GLint y,
+  );
+  external JSVoid uniform3i(
+    WebGLUniformLocation? location,
+    GLint x,
+    GLint y,
+    GLint z,
+  );
+  external JSVoid uniform4i(
+    WebGLUniformLocation? location,
+    GLint x,
+    GLint y,
+    GLint z,
+    GLint w,
+  );
+  external JSVoid useProgram(WebGLProgram? program);
+  external JSVoid validateProgram(WebGLProgram program);
+  external JSVoid vertexAttrib1f(
+    GLuint index,
+    GLfloat x,
+  );
+  external JSVoid vertexAttrib2f(
+    GLuint index,
+    GLfloat x,
+    GLfloat y,
+  );
+  external JSVoid vertexAttrib3f(
+    GLuint index,
+    GLfloat x,
+    GLfloat y,
+    GLfloat z,
+  );
+  external JSVoid vertexAttrib4f(
+    GLuint index,
+    GLfloat x,
+    GLfloat y,
+    GLfloat z,
+    GLfloat w,
+  );
+  external JSVoid vertexAttrib1fv(
+    GLuint index,
+    Float32List values,
+  );
+  external JSVoid vertexAttrib2fv(
+    GLuint index,
+    Float32List values,
+  );
+  external JSVoid vertexAttrib3fv(
+    GLuint index,
+    Float32List values,
+  );
+  external JSVoid vertexAttrib4fv(
+    GLuint index,
+    Float32List values,
+  );
+  external JSVoid vertexAttribPointer(
+    GLuint index,
+    GLint size,
+    GLenum type,
+    GLboolean normalized,
+    GLsizei stride,
+    GLintptr offset,
+  );
+  external JSVoid viewport(
+    GLint x,
+    GLint y,
+    GLsizei width,
+    GLsizei height,
+  );
   external JSPromise makeXRCompatible();
 }
 
@@ -602,75 +814,138 @@ class WebGLRenderingContextOverloads {
 
 extension WebGLRenderingContextOverloadsExtension
     on WebGLRenderingContextOverloads {
-  external JSUndefined bufferData(GLenum target, GLsizeiptr size, GLenum usage);
+  external JSVoid bufferData(
+    GLenum target,
+    GLsizeiptr size,
+    GLenum usage,
+  );
   @JS('bufferData')
-  external JSUndefined bufferData1(
-      GLenum target, BufferSource? data, GLenum usage);
-  external JSUndefined bufferSubData(
-      GLenum target, GLintptr offset, BufferSource data);
-  external JSUndefined compressedTexImage2D(
-      GLenum target,
-      GLint level,
-      GLenum internalformat,
-      GLsizei width,
-      GLsizei height,
-      GLint border,
-      ArrayBufferView data);
-  external JSUndefined compressedTexSubImage2D(
-      GLenum target,
-      GLint level,
-      GLint xoffset,
-      GLint yoffset,
-      GLsizei width,
-      GLsizei height,
-      GLenum format,
-      ArrayBufferView data);
-  external JSUndefined readPixels(GLint x, GLint y, GLsizei width,
-      GLsizei height, GLenum format, GLenum type, ArrayBufferView? pixels);
-  external JSUndefined texImage2D(
-      GLenum target,
-      GLint level,
-      GLint internalformat,
-      GLsizei width,
-      GLsizei height,
-      GLint border,
-      GLenum format,
-      GLenum type,
-      ArrayBufferView? pixels);
+  external JSVoid bufferData_1_(
+    GLenum target,
+    BufferSource? data,
+    GLenum usage,
+  );
+  external JSVoid bufferSubData(
+    GLenum target,
+    GLintptr offset,
+    BufferSource data,
+  );
+  external JSVoid compressedTexImage2D(
+    GLenum target,
+    GLint level,
+    GLenum internalformat,
+    GLsizei width,
+    GLsizei height,
+    GLint border,
+    ArrayBufferView data,
+  );
+  external JSVoid compressedTexSubImage2D(
+    GLenum target,
+    GLint level,
+    GLint xoffset,
+    GLint yoffset,
+    GLsizei width,
+    GLsizei height,
+    GLenum format,
+    ArrayBufferView data,
+  );
+  external JSVoid readPixels(
+    GLint x,
+    GLint y,
+    GLsizei width,
+    GLsizei height,
+    GLenum format,
+    GLenum type,
+    ArrayBufferView? pixels,
+  );
+  external JSVoid texImage2D(
+    GLenum target,
+    GLint level,
+    GLint internalformat,
+    GLsizei width,
+    GLsizei height,
+    GLint border,
+    GLenum format,
+    GLenum type,
+    ArrayBufferView? pixels,
+  );
   @JS('texImage2D')
-  external JSUndefined texImage2D1(GLenum target, GLint level,
-      GLint internalformat, GLenum format, GLenum type, TexImageSource source);
-  external JSUndefined texSubImage2D(
-      GLenum target,
-      GLint level,
-      GLint xoffset,
-      GLint yoffset,
-      GLsizei width,
-      GLsizei height,
-      GLenum format,
-      GLenum type,
-      ArrayBufferView? pixels);
+  external JSVoid texImage2D_1_(
+    GLenum target,
+    GLint level,
+    GLint internalformat,
+    GLenum format,
+    GLenum type,
+    TexImageSource source,
+  );
+  external JSVoid texSubImage2D(
+    GLenum target,
+    GLint level,
+    GLint xoffset,
+    GLint yoffset,
+    GLsizei width,
+    GLsizei height,
+    GLenum format,
+    GLenum type,
+    ArrayBufferView? pixels,
+  );
   @JS('texSubImage2D')
-  external JSUndefined texSubImage2D1(GLenum target, GLint level, GLint xoffset,
-      GLint yoffset, GLenum format, GLenum type, TexImageSource source);
-  external JSUndefined uniform1fv(
-      WebGLUniformLocation? location, Float32List v);
-  external JSUndefined uniform2fv(
-      WebGLUniformLocation? location, Float32List v);
-  external JSUndefined uniform3fv(
-      WebGLUniformLocation? location, Float32List v);
-  external JSUndefined uniform4fv(
-      WebGLUniformLocation? location, Float32List v);
-  external JSUndefined uniform1iv(WebGLUniformLocation? location, Int32List v);
-  external JSUndefined uniform2iv(WebGLUniformLocation? location, Int32List v);
-  external JSUndefined uniform3iv(WebGLUniformLocation? location, Int32List v);
-  external JSUndefined uniform4iv(WebGLUniformLocation? location, Int32List v);
-  external JSUndefined uniformMatrix2fv(
-      WebGLUniformLocation? location, GLboolean transpose, Float32List value);
-  external JSUndefined uniformMatrix3fv(
-      WebGLUniformLocation? location, GLboolean transpose, Float32List value);
-  external JSUndefined uniformMatrix4fv(
-      WebGLUniformLocation? location, GLboolean transpose, Float32List value);
+  external JSVoid texSubImage2D_1_(
+    GLenum target,
+    GLint level,
+    GLint xoffset,
+    GLint yoffset,
+    GLenum format,
+    GLenum type,
+    TexImageSource source,
+  );
+  external JSVoid uniform1fv(
+    WebGLUniformLocation? location,
+    Float32List v,
+  );
+  external JSVoid uniform2fv(
+    WebGLUniformLocation? location,
+    Float32List v,
+  );
+  external JSVoid uniform3fv(
+    WebGLUniformLocation? location,
+    Float32List v,
+  );
+  external JSVoid uniform4fv(
+    WebGLUniformLocation? location,
+    Float32List v,
+  );
+  external JSVoid uniform1iv(
+    WebGLUniformLocation? location,
+    Int32List v,
+  );
+  external JSVoid uniform2iv(
+    WebGLUniformLocation? location,
+    Int32List v,
+  );
+  external JSVoid uniform3iv(
+    WebGLUniformLocation? location,
+    Int32List v,
+  );
+  external JSVoid uniform4iv(
+    WebGLUniformLocation? location,
+    Int32List v,
+  );
+  external JSVoid uniformMatrix2fv(
+    WebGLUniformLocation? location,
+    GLboolean transpose,
+    Float32List value,
+  );
+  external JSVoid uniformMatrix3fv(
+    WebGLUniformLocation? location,
+    GLboolean transpose,
+    Float32List value,
+  );
+  external JSVoid uniformMatrix4fv(
+    WebGLUniformLocation? location,
+    GLboolean transpose,
+    Float32List value,
+  );
 }
 
 @JS('WebGLRenderingContext')
@@ -684,9 +959,13 @@ class WebGLRenderingContext
 @staticInterop
 class WebGLContextEvent extends Event {
   external factory WebGLContextEvent();
+
   external factory WebGLContextEvent.a1(JSString type);
-  external factory WebGLContextEvent.a1_1(
-      JSString type, WebGLContextEventInit eventInit);
+
+  external factory WebGLContextEvent.a2(
+    JSString type,
+    WebGLContextEventInit eventInit,
+  );
 }
 
 extension WebGLContextEventExtension on WebGLContextEvent {
@@ -699,6 +978,4 @@ class WebGLContextEventInit extends EventInit {
   external factory WebGLContextEventInit();
 }
 
-extension WebGLContextEventInitExtension on WebGLContextEventInit {
-  // TODO
-}
+extension WebGLContextEventInitExtension on WebGLContextEventInit {}

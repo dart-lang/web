@@ -3,10 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
 
 @JS('NavigatorUABrandVersion')
 @staticInterop
@@ -14,10 +14,7 @@ class NavigatorUABrandVersion {
   external factory NavigatorUABrandVersion();
 }
 
-extension NavigatorUABrandVersionExtension on NavigatorUABrandVersion {
-  // TODO
-  // TODO
-}
+extension NavigatorUABrandVersionExtension on NavigatorUABrandVersion {}
 
 @JS('UADataValues')
 @staticInterop
@@ -25,18 +22,7 @@ class UADataValues {
   external factory UADataValues();
 }
 
-extension UADataValuesExtension on UADataValues {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension UADataValuesExtension on UADataValues {}
 
 @JS('UALowEntropyJSON')
 @staticInterop
@@ -44,11 +30,7 @@ class UALowEntropyJSON {
   external factory UALowEntropyJSON();
 }
 
-extension UALowEntropyJSONExtension on UALowEntropyJSON {
-  // TODO
-  // TODO
-  // TODO
-}
+extension UALowEntropyJSONExtension on UALowEntropyJSON {}
 
 @JS('NavigatorUAData')
 @staticInterop

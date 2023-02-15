@@ -3,10 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
 
 typedef HTMLString = JSString;
 typedef ScriptString = JSString;
@@ -20,6 +20,7 @@ typedef CreateScriptURLCallback = JSFunction;
 @staticInterop
 class TrustedHTML {
   external factory TrustedHTML();
+
   external static TrustedHTML fromLiteral(JSObject templateStringsArray);
 }
 
@@ -31,6 +32,7 @@ extension TrustedHTMLExtension on TrustedHTML {
 @staticInterop
 class TrustedScript {
   external factory TrustedScript();
+
   external static TrustedScript fromLiteral(JSObject templateStringsArray);
 }
 
@@ -42,6 +44,7 @@ extension TrustedScriptExtension on TrustedScript {
 @staticInterop
 class TrustedScriptURL {
   external factory TrustedScriptURL();
+
   external static TrustedScriptURL fromLiteral(JSObject templateStringsArray);
 }
 
@@ -57,21 +60,39 @@ class TrustedTypePolicyFactory {
 
 extension TrustedTypePolicyFactoryExtension on TrustedTypePolicyFactory {
   external TrustedTypePolicy createPolicy(JSString policyName);
-  external TrustedTypePolicy createPolicy_1(
-      JSString policyName, TrustedTypePolicyOptions policyOptions);
+  external TrustedTypePolicy createPolicy1(
+    JSString policyName,
+    TrustedTypePolicyOptions policyOptions,
+  );
   external JSBoolean isHTML(JSAny value);
   external JSBoolean isScript(JSAny value);
   external JSBoolean isScriptURL(JSAny value);
   external TrustedHTML get emptyHTML;
   external TrustedScript get emptyScript;
-  external JSString? getAttributeType(JSString tagName, JSString attribute);
-  external JSString? getAttributeType_1(
-      JSString tagName, JSString attribute, JSString elementNs);
-  external JSString? getAttributeType_2(JSString tagName, JSString attribute,
-      JSString elementNs, JSString attrNs);
-  external JSString? getPropertyType(JSString tagName, JSString property);
-  external JSString? getPropertyType_1(
-      JSString tagName, JSString property, JSString elementNs);
+  external JSString? getAttributeType(
+    JSString tagName,
+    JSString attribute,
+  );
+  external JSString? getAttributeType1(
+    JSString tagName,
+    JSString attribute,
+    JSString elementNs,
+  );
+  external JSString? getAttributeType2(
+    JSString tagName,
+    JSString attribute,
+    JSString elementNs,
+    JSString attrNs,
+  );
+  external JSString? getPropertyType(
+    JSString tagName,
+    JSString property,
+  );
+  external JSString? getPropertyType1(
+    JSString tagName,
+    JSString property,
+    JSString elementNs,
+  );
   external TrustedTypePolicy? get defaultPolicy;
 }
 
@@ -83,9 +104,18 @@ class TrustedTypePolicy {
 
 extension TrustedTypePolicyExtension on TrustedTypePolicy {
   external JSString get name;
-  external TrustedHTML createHTML(JSString input, JSAny arguments);
-  external TrustedScript createScript(JSString input, JSAny arguments);
-  external TrustedScriptURL createScriptURL(JSString input, JSAny arguments);
+  external TrustedHTML createHTML(
+    JSString input,
+    JSAny arguments,
+  );
+  external TrustedScript createScript(
+    JSString input,
+    JSAny arguments,
+  );
+  external TrustedScriptURL createScriptURL(
+    JSString input,
+    JSAny arguments,
+  );
 }
 
 @JS('TrustedTypePolicyOptions')
@@ -94,8 +124,4 @@ class TrustedTypePolicyOptions {
   external factory TrustedTypePolicyOptions();
 }
 
-extension TrustedTypePolicyOptionsExtension on TrustedTypePolicyOptions {
-  // TODO
-  // TODO
-  // TODO
-}
+extension TrustedTypePolicyOptionsExtension on TrustedTypePolicyOptions {}

@@ -3,18 +3,24 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/cssom.dart';
+import 'package:web/src/dom/dom.dart';
 
 @JS('AnimationEvent')
 @staticInterop
 class AnimationEvent extends Event {
   external factory AnimationEvent();
+
   external factory AnimationEvent.a1(JSString type);
-  external factory AnimationEvent.a1_1(
-      JSString type, AnimationEventInit animationEventInitDict);
+
+  external factory AnimationEvent.a2(
+    JSString type,
+    AnimationEventInit animationEventInitDict,
+  );
 }
 
 extension AnimationEventExtension on AnimationEvent {
@@ -29,11 +35,7 @@ class AnimationEventInit extends EventInit {
   external factory AnimationEventInit();
 }
 
-extension AnimationEventInitExtension on AnimationEventInit {
-  // TODO
-  // TODO
-  // TODO
-}
+extension AnimationEventInitExtension on AnimationEventInit {}
 
 @JS('CSSKeyframeRule')
 @staticInterop
@@ -42,8 +44,8 @@ class CSSKeyframeRule extends CSSRule {
 }
 
 extension CSSKeyframeRuleExtension on CSSKeyframeRule {
-  external JSString get keyText;
   external set keyText(JSString value);
+  external JSString get keyText;
   external CSSStyleDeclaration get style;
 }
 
@@ -54,11 +56,11 @@ class CSSKeyframesRule extends CSSRule {
 }
 
 extension CSSKeyframesRuleExtension on CSSKeyframesRule {
-  external JSString get name;
   external set name(JSString value);
+  external JSString get name;
   external CSSRuleList get cssRules;
   external JSNumber get length;
-  external JSUndefined appendRule(JSString rule);
-  external JSUndefined deleteRule(JSString select);
+  external JSVoid appendRule(JSString rule);
+  external JSVoid deleteRule(JSString select);
   external CSSKeyframeRule? findRule(JSString select);
 }

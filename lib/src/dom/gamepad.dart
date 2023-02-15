@@ -3,10 +3,13 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/gamepad_extensions.dart';
+import 'package:web/src/dom/hr_time.dart';
 
 typedef GamepadMappingType = JSString;
 
@@ -47,8 +50,11 @@ extension GamepadButtonExtension on GamepadButton {
 @staticInterop
 class GamepadEvent extends Event {
   external factory GamepadEvent();
+
   external factory GamepadEvent.a1(
-      JSString type, GamepadEventInit eventInitDict);
+    JSString type,
+    GamepadEventInit eventInitDict,
+  );
 }
 
 extension GamepadEventExtension on GamepadEvent {
@@ -61,6 +67,4 @@ class GamepadEventInit extends EventInit {
   external factory GamepadEventInit();
 }
 
-extension GamepadEventInitExtension on GamepadEventInit {
-  // TODO
-}
+extension GamepadEventInitExtension on GamepadEventInit {}

@@ -3,10 +3,14 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/geometry.dart';
+import 'package:web/src/dom/html.dart';
+import 'package:web/src/dom/screen_orientation.dart';
 
 typedef GeometryNode = JSAny;
 typedef ScrollBehavior = JSString;
@@ -19,9 +23,7 @@ class ScrollOptions {
   external factory ScrollOptions();
 }
 
-extension ScrollOptionsExtension on ScrollOptions {
-  // TODO
-}
+extension ScrollOptionsExtension on ScrollOptions {}
 
 @JS('ScrollToOptions')
 @staticInterop
@@ -29,10 +31,7 @@ class ScrollToOptions extends ScrollOptions {
   external factory ScrollToOptions();
 }
 
-extension ScrollToOptionsExtension on ScrollToOptions {
-  // TODO
-  // TODO
-}
+extension ScrollToOptionsExtension on ScrollToOptions {}
 
 @JS('MediaQueryList')
 @staticInterop
@@ -43,19 +42,23 @@ class MediaQueryList extends EventTarget {
 extension MediaQueryListExtension on MediaQueryList {
   external JSString get media;
   external JSBoolean get matches;
-  external JSUndefined addListener(EventListener? callback);
-  external JSUndefined removeListener(EventListener? callback);
-  external EventHandler get onchange;
+  external JSVoid addListener(EventListener? callback);
+  external JSVoid removeListener(EventListener? callback);
   external set onchange(EventHandler value);
+  external EventHandler get onchange;
 }
 
 @JS('MediaQueryListEvent')
 @staticInterop
 class MediaQueryListEvent extends Event {
   external factory MediaQueryListEvent();
+
   external factory MediaQueryListEvent.a1(JSString type);
-  external factory MediaQueryListEvent.a1_1(
-      JSString type, MediaQueryListEventInit eventInitDict);
+
+  external factory MediaQueryListEvent.a2(
+    JSString type,
+    MediaQueryListEventInit eventInitDict,
+  );
 }
 
 extension MediaQueryListEventExtension on MediaQueryListEvent {
@@ -69,10 +72,7 @@ class MediaQueryListEventInit extends EventInit {
   external factory MediaQueryListEventInit();
 }
 
-extension MediaQueryListEventInitExtension on MediaQueryListEventInit {
-  // TODO
-  // TODO
-}
+extension MediaQueryListEventInitExtension on MediaQueryListEventInit {}
 
 @JS('Screen')
 @staticInterop
@@ -89,8 +89,8 @@ extension ScreenExtension on Screen {
   external JSNumber get pixelDepth;
   external ScreenOrientation get orientation;
   external JSBoolean get isExtended;
-  external EventHandler get onchange;
   external set onchange(EventHandler value);
+  external EventHandler get onchange;
 }
 
 @JS('CaretPosition')
@@ -111,10 +111,7 @@ class ScrollIntoViewOptions extends ScrollOptions {
   external factory ScrollIntoViewOptions();
 }
 
-extension ScrollIntoViewOptionsExtension on ScrollIntoViewOptions {
-  // TODO
-  // TODO
-}
+extension ScrollIntoViewOptionsExtension on ScrollIntoViewOptions {}
 
 @JS('CheckVisibilityOptions')
 @staticInterop
@@ -122,10 +119,7 @@ class CheckVisibilityOptions {
   external factory CheckVisibilityOptions();
 }
 
-extension CheckVisibilityOptionsExtension on CheckVisibilityOptions {
-  // TODO
-  // TODO
-}
+extension CheckVisibilityOptionsExtension on CheckVisibilityOptions {}
 
 @JS('BoxQuadOptions')
 @staticInterop
@@ -133,10 +127,7 @@ class BoxQuadOptions {
   external factory BoxQuadOptions();
 }
 
-extension BoxQuadOptionsExtension on BoxQuadOptions {
-  // TODO
-  // TODO
-}
+extension BoxQuadOptionsExtension on BoxQuadOptions {}
 
 @JS('ConvertCoordinateOptions')
 @staticInterop
@@ -144,10 +135,7 @@ class ConvertCoordinateOptions {
   external factory ConvertCoordinateOptions();
 }
 
-extension ConvertCoordinateOptionsExtension on ConvertCoordinateOptions {
-  // TODO
-  // TODO
-}
+extension ConvertCoordinateOptionsExtension on ConvertCoordinateOptions {}
 
 @JS('GeometryUtils')
 @staticInterop
@@ -157,16 +145,34 @@ class GeometryUtils {
 
 extension GeometryUtilsExtension on GeometryUtils {
   external JSArray getBoxQuads();
-  external JSArray getBoxQuads_1(BoxQuadOptions options);
-  external DOMQuad convertQuadFromNode(DOMQuadInit quad, GeometryNode from);
-  external DOMQuad convertQuadFromNode_1(
-      DOMQuadInit quad, GeometryNode from, ConvertCoordinateOptions options);
-  external DOMQuad convertRectFromNode(DOMRectReadOnly rect, GeometryNode from);
-  external DOMQuad convertRectFromNode_1(DOMRectReadOnly rect,
-      GeometryNode from, ConvertCoordinateOptions options);
-  external DOMPoint convertPointFromNode(DOMPointInit point, GeometryNode from);
-  external DOMPoint convertPointFromNode_1(
-      DOMPointInit point, GeometryNode from, ConvertCoordinateOptions options);
+  external JSArray getBoxQuads1(BoxQuadOptions options);
+  external DOMQuad convertQuadFromNode(
+    DOMQuadInit quad,
+    GeometryNode from,
+  );
+  external DOMQuad convertQuadFromNode1(
+    DOMQuadInit quad,
+    GeometryNode from,
+    ConvertCoordinateOptions options,
+  );
+  external DOMQuad convertRectFromNode(
+    DOMRectReadOnly rect,
+    GeometryNode from,
+  );
+  external DOMQuad convertRectFromNode1(
+    DOMRectReadOnly rect,
+    GeometryNode from,
+    ConvertCoordinateOptions options,
+  );
+  external DOMPoint convertPointFromNode(
+    DOMPointInit point,
+    GeometryNode from,
+  );
+  external DOMPoint convertPointFromNode1(
+    DOMPointInit point,
+    GeometryNode from,
+    ConvertCoordinateOptions options,
+  );
 }
 
 @JS('VisualViewport')
@@ -183,10 +189,10 @@ extension VisualViewportExtension on VisualViewport {
   external JSNumber get width;
   external JSNumber get height;
   external JSNumber get scale;
-  external EventHandler get onresize;
   external set onresize(EventHandler value);
-  external EventHandler get onscroll;
+  external EventHandler get onresize;
   external set onscroll(EventHandler value);
-  external EventHandler get onscrollend;
+  external EventHandler get onscroll;
   external set onscrollend(EventHandler value);
+  external EventHandler get onscrollend;
 }

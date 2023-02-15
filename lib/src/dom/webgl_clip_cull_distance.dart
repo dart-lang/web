@@ -3,15 +3,17 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/webgl1.dart';
 
 @JS('WEBGL_clip_cull_distance')
 @staticInterop
 class WEBGL_clip_cull_distance {
   external factory WEBGL_clip_cull_distance();
+
   external static GLenum get MAX_CLIP_DISTANCES_WEBGL;
   external static GLenum get MAX_CULL_DISTANCES_WEBGL;
   external static GLenum get MAX_COMBINED_CLIP_AND_CULL_DISTANCES_WEBGL;

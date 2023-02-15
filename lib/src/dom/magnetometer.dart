@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/generic_sensor.dart';
 
 typedef MagnetometerLocalCoordinateSystem = JSString;
 
@@ -14,8 +15,10 @@ typedef MagnetometerLocalCoordinateSystem = JSString;
 @staticInterop
 class Magnetometer extends Sensor {
   external factory Magnetometer();
+
   external factory Magnetometer.a1();
-  external factory Magnetometer.a1_1(MagnetometerSensorOptions sensorOptions);
+
+  external factory Magnetometer.a2(MagnetometerSensorOptions sensorOptions);
 }
 
 extension MagnetometerExtension on Magnetometer {
@@ -30,16 +33,16 @@ class MagnetometerSensorOptions extends SensorOptions {
   external factory MagnetometerSensorOptions();
 }
 
-extension MagnetometerSensorOptionsExtension on MagnetometerSensorOptions {
-  // TODO
-}
+extension MagnetometerSensorOptionsExtension on MagnetometerSensorOptions {}
 
 @JS('UncalibratedMagnetometer')
 @staticInterop
 class UncalibratedMagnetometer extends Sensor {
   external factory UncalibratedMagnetometer();
+
   external factory UncalibratedMagnetometer.a1();
-  external factory UncalibratedMagnetometer.a1_1(
+
+  external factory UncalibratedMagnetometer.a2(
       MagnetometerSensorOptions sensorOptions);
 }
 
@@ -58,11 +61,7 @@ class MagnetometerReadingValues {
   external factory MagnetometerReadingValues();
 }
 
-extension MagnetometerReadingValuesExtension on MagnetometerReadingValues {
-  // TODO
-  // TODO
-  // TODO
-}
+extension MagnetometerReadingValuesExtension on MagnetometerReadingValues {}
 
 @JS('UncalibratedMagnetometerReadingValues')
 @staticInterop
@@ -71,11 +70,4 @@ class UncalibratedMagnetometerReadingValues {
 }
 
 extension UncalibratedMagnetometerReadingValuesExtension
-    on UncalibratedMagnetometerReadingValues {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+    on UncalibratedMagnetometerReadingValues {}

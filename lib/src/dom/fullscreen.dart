@@ -3,10 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
 
 typedef FullscreenNavigationUI = JSString;
 
@@ -16,7 +16,4 @@ class FullscreenOptions {
   external factory FullscreenOptions();
 }
 
-extension FullscreenOptionsExtension on FullscreenOptions {
-  // TODO
-  // TODO
-}
+extension FullscreenOptionsExtension on FullscreenOptions {}

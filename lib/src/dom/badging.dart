@@ -3,10 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
 
 @JS('NavigatorBadge')
 @staticInterop
@@ -16,6 +16,6 @@ class NavigatorBadge {
 
 extension NavigatorBadgeExtension on NavigatorBadge {
   external JSPromise setAppBadge();
-  external JSPromise setAppBadge_1(JSNumber contents);
+  external JSPromise setAppBadge1(JSNumber contents);
   external JSPromise clearAppBadge();
 }

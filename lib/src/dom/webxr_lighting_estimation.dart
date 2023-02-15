@@ -3,10 +3,14 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/geometry.dart';
+import 'package:web/src/dom/html.dart';
+import 'package:web/src/dom/webxr.dart';
 
 typedef XRReflectionFormat = JSString;
 
@@ -18,8 +22,8 @@ class XRLightProbe extends EventTarget {
 
 extension XRLightProbeExtension on XRLightProbe {
   external XRSpace get probeSpace;
-  external EventHandler get onreflectionchange;
   external set onreflectionchange(EventHandler value);
+  external EventHandler get onreflectionchange;
 }
 
 @JS('XRLightEstimate')
@@ -40,6 +44,4 @@ class XRLightProbeInit {
   external factory XRLightProbeInit();
 }
 
-extension XRLightProbeInitExtension on XRLightProbeInit {
-  // TODO
-}
+extension XRLightProbeInitExtension on XRLightProbeInit {}

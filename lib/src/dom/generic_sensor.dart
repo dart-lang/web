@@ -3,10 +3,14 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/hr_time.dart';
+import 'package:web/src/dom/html.dart';
+import 'package:web/src/dom/webidl.dart';
 
 typedef MockSensorType = JSString;
 
@@ -20,14 +24,14 @@ extension SensorExtension on Sensor {
   external JSBoolean get activated;
   external JSBoolean get hasReading;
   external DOMHighResTimeStamp? get timestamp;
-  external JSUndefined start();
-  external JSUndefined stop();
-  external EventHandler get onreading;
+  external JSVoid start();
+  external JSVoid stop();
   external set onreading(EventHandler value);
-  external EventHandler get onactivate;
+  external EventHandler get onreading;
   external set onactivate(EventHandler value);
-  external EventHandler get onerror;
+  external EventHandler get onactivate;
   external set onerror(EventHandler value);
+  external EventHandler get onerror;
 }
 
 @JS('SensorOptions')
@@ -36,16 +40,17 @@ class SensorOptions {
   external factory SensorOptions();
 }
 
-extension SensorOptionsExtension on SensorOptions {
-  // TODO
-}
+extension SensorOptionsExtension on SensorOptions {}
 
 @JS('SensorErrorEvent')
 @staticInterop
 class SensorErrorEvent extends Event {
   external factory SensorErrorEvent();
+
   external factory SensorErrorEvent.a1(
-      JSString type, SensorErrorEventInit errorEventInitDict);
+    JSString type,
+    SensorErrorEventInit errorEventInitDict,
+  );
 }
 
 extension SensorErrorEventExtension on SensorErrorEvent {
@@ -58,9 +63,7 @@ class SensorErrorEventInit extends EventInit {
   external factory SensorErrorEventInit();
 }
 
-extension SensorErrorEventInitExtension on SensorErrorEventInit {
-  // TODO
-}
+extension SensorErrorEventInitExtension on SensorErrorEventInit {}
 
 @JS('MockSensorConfiguration')
 @staticInterop
@@ -68,12 +71,7 @@ class MockSensorConfiguration {
   external factory MockSensorConfiguration();
 }
 
-extension MockSensorConfigurationExtension on MockSensorConfiguration {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension MockSensorConfigurationExtension on MockSensorConfiguration {}
 
 @JS('MockSensor')
 @staticInterop
@@ -81,11 +79,7 @@ class MockSensor {
   external factory MockSensor();
 }
 
-extension MockSensorExtension on MockSensor {
-  // TODO
-  // TODO
-  // TODO
-}
+extension MockSensorExtension on MockSensor {}
 
 @JS('MockSensorReadingValues')
 @staticInterop

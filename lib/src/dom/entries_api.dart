@@ -3,10 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
 
 typedef ErrorCallback = JSFunction;
 typedef FileSystemEntryCallback = JSFunction;
@@ -25,10 +25,12 @@ extension FileSystemEntryExtension on FileSystemEntry {
   external JSString get name;
   external JSString get fullPath;
   external FileSystem get filesystem;
-  external JSUndefined getParent();
-  external JSUndefined getParent_1(FileSystemEntryCallback successCallback);
-  external JSUndefined getParent_2(
-      FileSystemEntryCallback successCallback, ErrorCallback errorCallback);
+  external JSVoid getParent();
+  external JSVoid getParent1(FileSystemEntryCallback successCallback);
+  external JSVoid getParent2(
+    FileSystemEntryCallback successCallback,
+    ErrorCallback errorCallback,
+  );
 }
 
 @JS('FileSystemDirectoryEntry')
@@ -39,20 +41,40 @@ class FileSystemDirectoryEntry extends FileSystemEntry {
 
 extension FileSystemDirectoryEntryExtension on FileSystemDirectoryEntry {
   external FileSystemDirectoryReader createReader();
-  external JSUndefined getFile();
-  external JSUndefined getFile_1(JSString? path);
-  external JSUndefined getFile_2(JSString? path, FileSystemFlags options);
-  external JSUndefined getFile_3(JSString? path, FileSystemFlags options,
-      FileSystemEntryCallback successCallback);
-  external JSUndefined getFile_4(JSString? path, FileSystemFlags options,
-      FileSystemEntryCallback successCallback, ErrorCallback errorCallback);
-  external JSUndefined getDirectory();
-  external JSUndefined getDirectory_1(JSString? path);
-  external JSUndefined getDirectory_2(JSString? path, FileSystemFlags options);
-  external JSUndefined getDirectory_3(JSString? path, FileSystemFlags options,
-      FileSystemEntryCallback successCallback);
-  external JSUndefined getDirectory_4(JSString? path, FileSystemFlags options,
-      FileSystemEntryCallback successCallback, ErrorCallback errorCallback);
+  external JSVoid getFile();
+  external JSVoid getFile1(JSString? path);
+  external JSVoid getFile2(
+    JSString? path,
+    FileSystemFlags options,
+  );
+  external JSVoid getFile3(
+    JSString? path,
+    FileSystemFlags options,
+    FileSystemEntryCallback successCallback,
+  );
+  external JSVoid getFile4(
+    JSString? path,
+    FileSystemFlags options,
+    FileSystemEntryCallback successCallback,
+    ErrorCallback errorCallback,
+  );
+  external JSVoid getDirectory();
+  external JSVoid getDirectory1(JSString? path);
+  external JSVoid getDirectory2(
+    JSString? path,
+    FileSystemFlags options,
+  );
+  external JSVoid getDirectory3(
+    JSString? path,
+    FileSystemFlags options,
+    FileSystemEntryCallback successCallback,
+  );
+  external JSVoid getDirectory4(
+    JSString? path,
+    FileSystemFlags options,
+    FileSystemEntryCallback successCallback,
+    ErrorCallback errorCallback,
+  );
 }
 
 @JS('FileSystemFlags')
@@ -61,10 +83,7 @@ class FileSystemFlags {
   external factory FileSystemFlags();
 }
 
-extension FileSystemFlagsExtension on FileSystemFlags {
-  // TODO
-  // TODO
-}
+extension FileSystemFlagsExtension on FileSystemFlags {}
 
 @JS('FileSystemDirectoryReader')
 @staticInterop
@@ -73,9 +92,11 @@ class FileSystemDirectoryReader {
 }
 
 extension FileSystemDirectoryReaderExtension on FileSystemDirectoryReader {
-  external JSUndefined readEntries(FileSystemEntriesCallback successCallback);
-  external JSUndefined readEntries_1(
-      FileSystemEntriesCallback successCallback, ErrorCallback errorCallback);
+  external JSVoid readEntries(FileSystemEntriesCallback successCallback);
+  external JSVoid readEntries1(
+    FileSystemEntriesCallback successCallback,
+    ErrorCallback errorCallback,
+  );
 }
 
 @JS('FileSystemFileEntry')
@@ -85,9 +106,11 @@ class FileSystemFileEntry extends FileSystemEntry {
 }
 
 extension FileSystemFileEntryExtension on FileSystemFileEntry {
-  external JSUndefined file(FileCallback successCallback);
-  external JSUndefined file_1(
-      FileCallback successCallback, ErrorCallback errorCallback);
+  external JSVoid file(FileCallback successCallback);
+  external JSVoid file1(
+    FileCallback successCallback,
+    ErrorCallback errorCallback,
+  );
 }
 
 @JS('FileSystem')

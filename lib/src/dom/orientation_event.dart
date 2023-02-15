@@ -3,18 +3,24 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
 
 @JS('DeviceOrientationEvent')
 @staticInterop
 class DeviceOrientationEvent extends Event {
   external factory DeviceOrientationEvent();
+
   external factory DeviceOrientationEvent.a1(JSString type);
-  external factory DeviceOrientationEvent.a1_1(
-      JSString type, DeviceOrientationEventInit eventInitDict);
+
+  external factory DeviceOrientationEvent.a2(
+    JSString type,
+    DeviceOrientationEventInit eventInitDict,
+  );
+
   external static JSPromise requestPermission();
 }
 
@@ -31,12 +37,7 @@ class DeviceOrientationEventInit extends EventInit {
   external factory DeviceOrientationEventInit();
 }
 
-extension DeviceOrientationEventInitExtension on DeviceOrientationEventInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension DeviceOrientationEventInitExtension on DeviceOrientationEventInit {}
 
 @JS('DeviceMotionEventAcceleration')
 @staticInterop
@@ -68,9 +69,14 @@ extension DeviceMotionEventRotationRateExtension
 @staticInterop
 class DeviceMotionEvent extends Event {
   external factory DeviceMotionEvent();
+
   external factory DeviceMotionEvent.a1(JSString type);
-  external factory DeviceMotionEvent.a1_1(
-      JSString type, DeviceMotionEventInit eventInitDict);
+
+  external factory DeviceMotionEvent.a2(
+    JSString type,
+    DeviceMotionEventInit eventInitDict,
+  );
+
   external static JSPromise requestPermission();
 }
 
@@ -88,11 +94,7 @@ class DeviceMotionEventAccelerationInit {
 }
 
 extension DeviceMotionEventAccelerationInitExtension
-    on DeviceMotionEventAccelerationInit {
-  // TODO
-  // TODO
-  // TODO
-}
+    on DeviceMotionEventAccelerationInit {}
 
 @JS('DeviceMotionEventRotationRateInit')
 @staticInterop
@@ -101,11 +103,7 @@ class DeviceMotionEventRotationRateInit {
 }
 
 extension DeviceMotionEventRotationRateInitExtension
-    on DeviceMotionEventRotationRateInit {
-  // TODO
-  // TODO
-  // TODO
-}
+    on DeviceMotionEventRotationRateInit {}
 
 @JS('DeviceMotionEventInit')
 @staticInterop
@@ -113,9 +111,4 @@ class DeviceMotionEventInit extends EventInit {
   external factory DeviceMotionEventInit();
 }
 
-extension DeviceMotionEventInitExtension on DeviceMotionEventInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension DeviceMotionEventInitExtension on DeviceMotionEventInit {}

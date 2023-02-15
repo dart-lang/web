@@ -3,15 +3,18 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/mediacapture_streams.dart';
 
 @JS('CropTarget')
 @staticInterop
 class CropTarget {
   external factory CropTarget();
+
   external static JSPromise fromElement(Element element);
 }
 

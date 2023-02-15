@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/credential_management.dart';
 
 @JS('IdentityProviderWellKnown')
 @staticInterop
@@ -14,9 +15,7 @@ class IdentityProviderWellKnown {
   external factory IdentityProviderWellKnown();
 }
 
-extension IdentityProviderWellKnownExtension on IdentityProviderWellKnown {
-  // TODO
-}
+extension IdentityProviderWellKnownExtension on IdentityProviderWellKnown {}
 
 @JS('IdentityProviderIcon')
 @staticInterop
@@ -24,10 +23,7 @@ class IdentityProviderIcon {
   external factory IdentityProviderIcon();
 }
 
-extension IdentityProviderIconExtension on IdentityProviderIcon {
-  // TODO
-  // TODO
-}
+extension IdentityProviderIconExtension on IdentityProviderIcon {}
 
 @JS('IdentityProviderBranding')
 @staticInterop
@@ -35,11 +31,7 @@ class IdentityProviderBranding {
   external factory IdentityProviderBranding();
 }
 
-extension IdentityProviderBrandingExtension on IdentityProviderBranding {
-  // TODO
-  // TODO
-  // TODO
-}
+extension IdentityProviderBrandingExtension on IdentityProviderBranding {}
 
 @JS('IdentityProviderAPIConfig')
 @staticInterop
@@ -47,12 +39,7 @@ class IdentityProviderAPIConfig {
   external factory IdentityProviderAPIConfig();
 }
 
-extension IdentityProviderAPIConfigExtension on IdentityProviderAPIConfig {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension IdentityProviderAPIConfigExtension on IdentityProviderAPIConfig {}
 
 @JS('IdentityProviderAccount')
 @staticInterop
@@ -60,14 +47,7 @@ class IdentityProviderAccount {
   external factory IdentityProviderAccount();
 }
 
-extension IdentityProviderAccountExtension on IdentityProviderAccount {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension IdentityProviderAccountExtension on IdentityProviderAccount {}
 
 @JS('IdentityProviderAccountList')
 @staticInterop
@@ -75,9 +55,7 @@ class IdentityProviderAccountList {
   external factory IdentityProviderAccountList();
 }
 
-extension IdentityProviderAccountListExtension on IdentityProviderAccountList {
-  // TODO
-}
+extension IdentityProviderAccountListExtension on IdentityProviderAccountList {}
 
 @JS('IdentityProviderClientMetadata')
 @staticInterop
@@ -86,10 +64,7 @@ class IdentityProviderClientMetadata {
 }
 
 extension IdentityProviderClientMetadataExtension
-    on IdentityProviderClientMetadata {
-  // TODO
-  // TODO
-}
+    on IdentityProviderClientMetadata {}
 
 @JS('IdentityProviderToken')
 @staticInterop
@@ -97,14 +72,13 @@ class IdentityProviderToken {
   external factory IdentityProviderToken();
 }
 
-extension IdentityProviderTokenExtension on IdentityProviderToken {
-  // TODO
-}
+extension IdentityProviderTokenExtension on IdentityProviderToken {}
 
 @JS('IdentityCredential')
 @staticInterop
 class IdentityCredential extends Credential {
   external factory IdentityCredential();
+
   external static JSPromise logoutRPs(JSArray logoutRequests);
 }
 
@@ -119,9 +93,7 @@ class IdentityCredentialRequestOptions {
 }
 
 extension IdentityCredentialRequestOptionsExtension
-    on IdentityCredentialRequestOptions {
-  // TODO
-}
+    on IdentityCredentialRequestOptions {}
 
 @JS('IdentityProviderConfig')
 @staticInterop
@@ -129,11 +101,7 @@ class IdentityProviderConfig {
   external factory IdentityProviderConfig();
 }
 
-extension IdentityProviderConfigExtension on IdentityProviderConfig {
-  // TODO
-  // TODO
-  // TODO
-}
+extension IdentityProviderConfigExtension on IdentityProviderConfig {}
 
 @JS('IdentityCredentialLogoutRPsRequest')
 @staticInterop
@@ -142,15 +110,13 @@ class IdentityCredentialLogoutRPsRequest {
 }
 
 extension IdentityCredentialLogoutRPsRequestExtension
-    on IdentityCredentialLogoutRPsRequest {
-  // TODO
-  // TODO
-}
+    on IdentityCredentialLogoutRPsRequest {}
 
 @JS('IdentityProvider')
 @staticInterop
 class IdentityProvider {
   external factory IdentityProvider();
-  external static JSUndefined login();
-  external static JSUndefined logout();
+
+  external static JSVoid login();
+  external static JSVoid logout();
 }

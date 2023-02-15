@@ -3,10 +3,11 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/uievents.dart';
 
 @JS('PointerEventInit')
 @staticInterop
@@ -14,30 +15,19 @@ class PointerEventInit extends MouseEventInit {
   external factory PointerEventInit();
 }
 
-extension PointerEventInitExtension on PointerEventInit {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension PointerEventInitExtension on PointerEventInit {}
 
 @JS('PointerEvent')
 @staticInterop
 class PointerEvent extends MouseEvent {
   external factory PointerEvent();
+
   external factory PointerEvent.a1(JSString type);
-  external factory PointerEvent.a1_1(
-      JSString type, PointerEventInit eventInitDict);
+
+  external factory PointerEvent.a2(
+    JSString type,
+    PointerEventInit eventInitDict,
+  );
 }
 
 extension PointerEventExtension on PointerEvent {

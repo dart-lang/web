@@ -3,10 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
 
 typedef ContactProperty = JSString;
 
@@ -36,13 +36,7 @@ class ContactInfo {
   external factory ContactInfo();
 }
 
-extension ContactInfoExtension on ContactInfo {
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-  // TODO
-}
+extension ContactInfoExtension on ContactInfo {}
 
 @JS('ContactsSelectOptions')
 @staticInterop
@@ -50,9 +44,7 @@ class ContactsSelectOptions {
   external factory ContactsSelectOptions();
 }
 
-extension ContactsSelectOptionsExtension on ContactsSelectOptions {
-  // TODO
-}
+extension ContactsSelectOptionsExtension on ContactsSelectOptions {}
 
 @JS('ContactsManager')
 @staticInterop
@@ -63,6 +55,8 @@ class ContactsManager {
 extension ContactsManagerExtension on ContactsManager {
   external JSPromise getProperties();
   external JSPromise select(JSArray properties);
-  external JSPromise select_1(
-      JSArray properties, ContactsSelectOptions options);
+  external JSPromise select1(
+    JSArray properties,
+    ContactsSelectOptions options,
+  );
 }

@@ -3,10 +3,12 @@
 // BSD-style license that can be found in the LICENSE file.
 
 // ignore_for_file: unused_import
+
 import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
-import 'package:web/dom.dart';
-import 'package:web/js.dart';
+import 'package:web/src/dom/dom.dart';
+import 'package:web/src/dom/html.dart';
 
 typedef OrientationLockType = JSString;
 typedef OrientationType = JSString;
@@ -19,9 +21,9 @@ class ScreenOrientation extends EventTarget {
 
 extension ScreenOrientationExtension on ScreenOrientation {
   external JSPromise lock(OrientationLockType orientation);
-  external JSUndefined unlock();
+  external JSVoid unlock();
   external OrientationType get type;
   external JSNumber get angle;
-  external EventHandler get onchange;
   external set onchange(EventHandler value);
+  external EventHandler get onchange;
 }

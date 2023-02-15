@@ -7,18 +7,19 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/dom.dart';
-import 'package:web/src/dom/fileapi.dart';
-import 'package:web/src/dom/hr_time.dart';
-import 'package:web/src/dom/html.dart';
-import 'package:web/src/dom/mediacapture_streams.dart';
-import 'package:web/src/dom/webcryptoapi.dart';
-import 'package:web/src/dom/webidl.dart';
-import 'package:web/src/dom/webrtc_encoded_transform.dart';
-import 'package:web/src/dom/webrtc_ice.dart';
-import 'package:web/src/dom/webrtc_identity.dart';
-import 'package:web/src/dom/webrtc_priority.dart';
-import 'package:web/src/dom/websockets.dart';
+
+import 'dom.dart';
+import 'fileapi.dart';
+import 'hr_time.dart';
+import 'html.dart';
+import 'mediacapture_streams.dart';
+import 'webcryptoapi.dart';
+import 'webidl.dart';
+import 'webrtc_encoded_transform.dart';
+import 'webrtc_ice.dart';
+import 'webrtc_identity.dart';
+import 'webrtc_priority.dart';
+import 'websockets.dart';
 
 typedef RTCPeerConnectionErrorCallback = JSFunction;
 typedef RTCSessionDescriptionCallback = JSFunction;

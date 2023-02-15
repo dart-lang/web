@@ -7,7 +7,8 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/webidl.dart';
+
+import 'webidl.dart';
 
 typedef AlgorithmIdentifier = JSAny;
 typedef HashAlgorithmIdentifier = AlgorithmIdentifier;

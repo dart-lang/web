@@ -7,8 +7,9 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/webgl1.dart';
-import 'package:web/src/dom/webidl.dart';
+
+import 'webgl1.dart';
+import 'webidl.dart';
 
 typedef GLint64 = JSNumber;
 typedef GLuint64 = JSNumber;

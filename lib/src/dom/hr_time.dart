@@ -7,12 +7,13 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/dom.dart';
-import 'package:web/src/dom/event_timing.dart';
-import 'package:web/src/dom/html.dart';
-import 'package:web/src/dom/navigation_timing.dart';
-import 'package:web/src/dom/performance_timeline.dart';
-import 'package:web/src/dom/user_timing.dart';
+
+import 'dom.dart';
+import 'event_timing.dart';
+import 'html.dart';
+import 'navigation_timing.dart';
+import 'performance_timeline.dart';
+import 'user_timing.dart';
 
 typedef DOMHighResTimeStamp = JSNumber;
 typedef EpochTimeStamp = JSNumber;

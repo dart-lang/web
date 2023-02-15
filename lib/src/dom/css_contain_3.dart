@@ -7,7 +7,8 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/css_conditional.dart';
+
+import 'css_conditional.dart';
 
 @JS('CSSContainerRule')
 @staticInterop

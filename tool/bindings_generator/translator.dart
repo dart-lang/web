@@ -5,6 +5,7 @@
 import 'dart:js_interop';
 
 import 'package:code_builder/code_builder.dart' as code;
+import 'package:path/path.dart' as p;
 
 import 'banned_names.dart';
 import 'singletons.dart';
@@ -262,6 +263,8 @@ class Translator {
     String? url = _typeToLibrary[symbol]?.url ?? 'dart:js_interop';
     if (url == _currentlyTranslatingUrl) {
       url = null;
+    } else if (p.dirname(url) == p.dirname(_currentlyTranslatingUrl)) {
+      url = p.basename(url);
     }
     // Replace `JSUndefined` with `JSVoid` in return types.
     if (isReturn && symbol == 'JSUndefined') {

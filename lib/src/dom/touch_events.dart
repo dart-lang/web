@@ -7,8 +7,9 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/dom.dart';
-import 'package:web/src/dom/uievents.dart';
+
+import 'dom.dart';
+import 'uievents.dart';
 
 typedef TouchType = JSString;
 

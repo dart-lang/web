@@ -7,10 +7,11 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/css_typed_om.dart';
-import 'package:web/src/dom/dom.dart';
-import 'package:web/src/dom/html.dart';
-import 'package:web/src/dom/web_animations_2.dart';
+
+import 'css_typed_om.dart';
+import 'dom.dart';
+import 'html.dart';
+import 'web_animations_2.dart';
 
 typedef AnimationPlayState = JSString;
 typedef AnimationReplaceState = JSString;

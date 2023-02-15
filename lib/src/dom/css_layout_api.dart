@@ -7,9 +7,10 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/css_typed_om.dart';
-import 'package:web/src/dom/html.dart';
-import 'package:web/src/dom/webidl.dart';
+
+import 'css_typed_om.dart';
+import 'html.dart';
+import 'webidl.dart';
 
 typedef ChildDisplayType = JSString;
 typedef LayoutSizingMode = JSString;

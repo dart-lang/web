@@ -7,14 +7,15 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/dom.dart';
-import 'package:web/src/dom/geometry.dart';
-import 'package:web/src/dom/html.dart';
-import 'package:web/src/dom/raw_camera_access.dart';
-import 'package:web/src/dom/webgl1.dart';
-import 'package:web/src/dom/webxr.dart';
-import 'package:web/src/dom/webxr_depth_sensing.dart';
-import 'package:web/src/dom/webxr_lighting_estimation.dart';
+
+import 'dom.dart';
+import 'geometry.dart';
+import 'html.dart';
+import 'raw_camera_access.dart';
+import 'webgl1.dart';
+import 'webxr.dart';
+import 'webxr_depth_sensing.dart';
+import 'webxr_lighting_estimation.dart';
 
 typedef XRLayerLayout = JSString;
 typedef XRTextureType = JSString;

@@ -7,7 +7,8 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/permissions.dart';
+
+import 'permissions.dart';
 
 typedef StartInDirectory = JSAny;
 typedef FileSystemPermissionMode = JSString;

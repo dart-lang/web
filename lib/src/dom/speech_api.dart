@@ -7,8 +7,9 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/dom.dart';
-import 'package:web/src/dom/html.dart';
+
+import 'dom.dart';
+import 'html.dart';
 
 typedef SpeechRecognitionErrorCode = JSString;
 typedef SpeechSynthesisErrorCode = JSString;

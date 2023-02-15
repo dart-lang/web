@@ -7,8 +7,9 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/geometry.dart';
-import 'package:web/src/dom/webxr.dart';
+
+import 'geometry.dart';
+import 'webxr.dart';
 
 typedef XRHitTestTrackableType = JSString;
 

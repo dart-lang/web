@@ -7,9 +7,10 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/dom.dart';
-import 'package:web/src/dom/geometry.dart';
-import 'package:web/src/dom/hr_time.dart';
+
+import 'dom.dart';
+import 'geometry.dart';
+import 'hr_time.dart';
 
 typedef IntersectionObserverCallback = JSFunction;
 

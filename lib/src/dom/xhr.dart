@@ -7,9 +7,10 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/dom.dart';
-import 'package:web/src/dom/fileapi.dart';
-import 'package:web/src/dom/html.dart';
+
+import 'dom.dart';
+import 'fileapi.dart';
+import 'html.dart';
 
 typedef FormDataEntryValue = JSAny;
 typedef XMLHttpRequestResponseType = JSString;

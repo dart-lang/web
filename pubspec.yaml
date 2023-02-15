@@ -13,4 +13,5 @@ dev_dependencies:
   code_builder: ^4.4.0
   dart_flutter_team_lints: ^0.1.0
   dart_style: ^2.2.4
+  path: ^1.8.3
   test: ^1.22.2

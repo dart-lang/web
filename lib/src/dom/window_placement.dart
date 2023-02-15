@@ -7,9 +7,10 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/cssom_view.dart';
-import 'package:web/src/dom/dom.dart';
-import 'package:web/src/dom/html.dart';
+
+import 'cssom_view.dart';
+import 'dom.dart';
+import 'html.dart';
 
 @JS('ScreenDetails')
 @staticInterop

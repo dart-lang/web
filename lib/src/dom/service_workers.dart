@@ -7,18 +7,19 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/background_fetch.dart';
-import 'package:web/src/dom/background_sync.dart';
-import 'package:web/src/dom/content_index.dart';
-import 'package:web/src/dom/cookie_store.dart';
-import 'package:web/src/dom/dom.dart';
-import 'package:web/src/dom/fetch.dart';
-import 'package:web/src/dom/html.dart';
-import 'package:web/src/dom/notifications.dart';
-import 'package:web/src/dom/page_lifecycle.dart';
-import 'package:web/src/dom/payment_handler.dart';
-import 'package:web/src/dom/periodic_background_sync.dart';
-import 'package:web/src/dom/push_api.dart';
+
+import 'background_fetch.dart';
+import 'background_sync.dart';
+import 'content_index.dart';
+import 'cookie_store.dart';
+import 'dom.dart';
+import 'fetch.dart';
+import 'html.dart';
+import 'notifications.dart';
+import 'page_lifecycle.dart';
+import 'payment_handler.dart';
+import 'periodic_background_sync.dart';
+import 'push_api.dart';
 
 typedef ServiceWorkerState = JSString;
 typedef ServiceWorkerUpdateViaCache = JSString;

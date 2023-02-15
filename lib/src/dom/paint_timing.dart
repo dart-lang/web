@@ -7,7 +7,8 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/performance_timeline.dart';
+
+import 'performance_timeline.dart';
 
 @JS('PerformancePaintTiming')
 @staticInterop

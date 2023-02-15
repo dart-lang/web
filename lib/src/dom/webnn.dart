@@ -7,7 +7,8 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/webgpu.dart';
+
+import 'webgpu.dart';
 
 typedef MLNamedArrayBufferViews = JSAny;
 typedef MLGPUResource = JSAny;

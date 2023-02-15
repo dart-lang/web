@@ -7,8 +7,9 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/html.dart';
-import 'package:web/src/dom/webidl.dart';
+
+import 'html.dart';
+import 'webidl.dart';
 
 @JS('PaintWorkletGlobalScope')
 @staticInterop

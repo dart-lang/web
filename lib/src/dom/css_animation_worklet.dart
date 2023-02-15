@@ -7,8 +7,9 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/html.dart';
-import 'package:web/src/dom/web_animations.dart';
+
+import 'html.dart';
+import 'web_animations.dart';
 
 typedef AnimatorInstanceConstructor = JSFunction;
 

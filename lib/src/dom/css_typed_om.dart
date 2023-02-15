@@ -7,7 +7,8 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/geometry.dart';
+
+import 'geometry.dart';
 
 typedef CSSUnparsedSegment = JSAny;
 typedef CSSKeywordish = JSAny;

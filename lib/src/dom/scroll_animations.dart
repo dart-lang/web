@@ -7,9 +7,10 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/css_typed_om.dart';
-import 'package:web/src/dom/dom.dart';
-import 'package:web/src/dom/web_animations.dart';
+
+import 'css_typed_om.dart';
+import 'dom.dart';
+import 'web_animations.dart';
 
 typedef ScrollAxis = JSString;
 

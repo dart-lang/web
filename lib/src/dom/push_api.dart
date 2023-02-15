@@ -7,10 +7,11 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/fileapi.dart';
-import 'package:web/src/dom/hr_time.dart';
-import 'package:web/src/dom/permissions.dart';
-import 'package:web/src/dom/service_workers.dart';
+
+import 'fileapi.dart';
+import 'hr_time.dart';
+import 'permissions.dart';
+import 'service_workers.dart';
 
 typedef PushMessageDataInit = JSAny;
 typedef PushEncryptionKeyName = JSString;

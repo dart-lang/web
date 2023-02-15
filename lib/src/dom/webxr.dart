@@ -7,21 +7,22 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/anchors.dart';
-import 'package:web/src/dom/dom.dart';
-import 'package:web/src/dom/gamepad.dart';
-import 'package:web/src/dom/geometry.dart';
-import 'package:web/src/dom/hr_time.dart';
-import 'package:web/src/dom/html.dart';
-import 'package:web/src/dom/permissions.dart';
-import 'package:web/src/dom/raw_camera_access.dart';
-import 'package:web/src/dom/webgl1.dart';
-import 'package:web/src/dom/webxr_ar_module.dart';
-import 'package:web/src/dom/webxr_depth_sensing.dart';
-import 'package:web/src/dom/webxr_dom_overlays.dart';
-import 'package:web/src/dom/webxr_hand_input.dart';
-import 'package:web/src/dom/webxr_hit_test.dart';
-import 'package:web/src/dom/webxr_lighting_estimation.dart';
+
+import 'anchors.dart';
+import 'dom.dart';
+import 'gamepad.dart';
+import 'geometry.dart';
+import 'hr_time.dart';
+import 'html.dart';
+import 'permissions.dart';
+import 'raw_camera_access.dart';
+import 'webgl1.dart';
+import 'webxr_ar_module.dart';
+import 'webxr_depth_sensing.dart';
+import 'webxr_dom_overlays.dart';
+import 'webxr_hand_input.dart';
+import 'webxr_hit_test.dart';
+import 'webxr_lighting_estimation.dart';
 
 typedef XRWebGLRenderingContext = JSAny;
 typedef XRFrameRequestCallback = JSFunction;

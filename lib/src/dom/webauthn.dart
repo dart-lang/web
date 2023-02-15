@@ -7,7 +7,8 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/credential_management.dart';
+
+import 'credential_management.dart';
 
 typedef Base64URLString = JSString;
 typedef PublicKeyCredentialJSON = JSAny;

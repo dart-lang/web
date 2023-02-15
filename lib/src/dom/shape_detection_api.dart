@@ -7,7 +7,8 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/html.dart';
+
+import 'html.dart';
 
 typedef LandmarkType = JSString;
 typedef BarcodeFormat = JSString;

@@ -3,25 +3,93 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:js_interop';
+import 'package:code_builder/code_builder.dart' as code;
 import 'banned_names.dart';
 import 'singletons.dart';
 import 'type_aliases.dart';
 import 'util.dart';
-import 'webidl_api.dart';
+import 'webidl_api.dart' as idl;
+
+typedef TranslationResult = Map<String, code.Library>;
+
+class _Library {
+  final Translator translator;
+  final String url;
+  final List<idl.Interfacelike> interfacelikes = [];
+  final List<idl.Typedef> typedefs = [];
+  final List<idl.Enum> enums = [];
+  final List<idl.Callback> callbacks = [];
+  final List<idl.Interfacelike> callbackInterfaces = [];
+
+  _Library(this.translator, this.url);
+
+  void _addNamed<T extends idl.Named>(idl.Node node, List<T> list) {
+    final named = node as T;
+    final name = named.name.toDart;
+    assert(!translator.typeToLibrary.containsKey(name));
+    translator.typeToLibrary[named.name.toDart] = this;
+    list.add(named);
+  }
+
+  void add(idl.Node node) {
+    final type = node.type.toDart;
+    switch (type) {
+      case 'interface mixin':
+      case 'interface':
+      case 'namespace':
+      case 'dictionary':
+        // If we have a not partial interfacelike, then we will emit it in this
+        // library. However, in order to collect any possible cross-library
+        // partial interfaces, we track interfacelikes on the translator as
+        // well.
+        final interfacelike = node as idl.Interfacelike;
+        if (!node.partial.toDart) {
+          _addNamed<idl.Interfacelike>(node, interfacelikes);
+        }
+        translator.setOrUpdateInterfacelike(interfacelike);
+        break;
+      case 'typedef':
+        _addNamed<idl.Typedef>(node, typedefs);
+        break;
+      case 'includes':
+        translator.includes.add(node as idl.Includes);
+        break;
+      case 'enum':
+        _addNamed<idl.Enum>(node, enums);
+        break;
+      case 'callback interface':
+        _addNamed<idl.Interfacelike>(node, callbackInterfaces);
+        break;
+      case 'callback':
+        final callback = node as idl.Callback;
+
+        /// TODO(joshualitt): Maybe handle this case a bit more elegantly?
+        if (callback.name == 'Function') {
+          return;
+        }
+        _addNamed<idl.Callback>(callback, callbacks);
+        break;
+      case 'eof':
+        break;
+      default:
+        throw Exception('Unexpected node type $type');
+    }
+  }
+}
 
 class _PartialInterfacelike {
   final String name;
   final String type;
   String? inheritance;
-  final List<Member> members = [];
-  final List<Member> staticMembers = [];
-  final List<Constructor> constructors = [];
+  final List<idl.Member> members = [];
+  final List<idl.Member> staticMembers = [];
+  final List<idl.Constructor> constructors = [];
   final List<String> includes = [];
   bool hasNoArgumentsConstructor = false;
 
   _PartialInterfacelike._(this.name, this.type, this.inheritance);
 
-  factory _PartialInterfacelike(Interfacelike interfacelike) {
+  factory _PartialInterfacelike(idl.Interfacelike interfacelike) {
     final partialInterfacelike = _PartialInterfacelike._(
         interfacelike.name.toDart,
         interfacelike.type.toDart,
@@ -30,7 +98,7 @@ class _PartialInterfacelike {
     return partialInterfacelike;
   }
 
-  void _processMember(Member member, String special) {
+  void _processMember(idl.Member member, String special) {
     if (special == 'static') {
       staticMembers.add(member);
     } else {
@@ -40,11 +108,11 @@ class _PartialInterfacelike {
 
   void _processMembers(JSArray nodeMembers) {
     for (var i = 0; i < nodeMembers.length; i++) {
-      final member = nodeMembers[i] as Member;
+      final member = nodeMembers[i] as idl.Member;
       final type = member.type.toDart;
       switch (type) {
         case 'constructor':
-          final constructor = member as Constructor;
+          final constructor = member as idl.Constructor;
           if (constructor.arguments.isEmpty) {
             hasNoArgumentsConstructor = true;
           }
@@ -54,11 +122,11 @@ class _PartialInterfacelike {
           staticMembers.add(member);
           break;
         case 'attribute':
-          final attribute = member as Attribute;
+          final attribute = member as idl.Attribute;
           _processMember(attribute, attribute.special.toDart);
           break;
         case 'operation':
-          final operation = member as Operation;
+          final operation = member as idl.Operation;
           if (operation.name.toDart.isEmpty) {
             // TODO(joshualitt): We may be able to handle some unnamed
             // operations.
@@ -78,7 +146,7 @@ class _PartialInterfacelike {
     }
   }
 
-  void update(Interfacelike interfacelike) {
+  void update(idl.Interfacelike interfacelike) {
     assert(
         name == interfacelike.name.toDart && type == interfacelike.type.toDart);
     assert(interfacelike.inheritance == null || inheritance == null,
@@ -93,36 +161,26 @@ class _PartialInterfacelike {
   }
 }
 
-extension IDLTypeToTypeExtension on IDLType {
-  String get toType {
-    if (union.toDart) {
-      return 'union';
-    } else if (generic.toDart.isNotEmpty) {
-      return generic.toDart;
-    } else {
-      return (idlType as JSString).toDart;
-    }
-  }
-}
-
 // TODO(joshualitt): Replace with a record.
 class _MemberName {
   final String name;
-  final String jsOverride;
+  final String? jsOverride;
 
   _MemberName(this.name, this.jsOverride);
 }
 
 class Translator {
+  final Map<String, _Library> libraries = {};
+  final Map<String, _Library> typeToLibrary = {};
   final Map<String, _PartialInterfacelike> interfacelikes = {};
-  final List<Typedef> typedefs = [];
-  final List<Includes> includes = [];
-  final List<Enum> enums = [];
-  final List<Callback> callbacks = [];
-  final List<Interfacelike> callbackInterfaces = [];
+  final List<idl.Includes> includes = [];
   final Map<String, int> namesSeen = {};
+  final String librarySubDir;
+  String? currentlyTranslatingUrl;
 
-  void _setOrUpdate(Interfacelike interfacelike) {
+  Translator(this.librarySubDir);
+
+  void setOrUpdateInterfacelike(idl.Interfacelike interfacelike) {
     final name = interfacelike.name.toDart;
     if (interfacelikes.containsKey(name)) {
       interfacelikes[name]!.update(interfacelike);
@@ -131,42 +189,25 @@ class Translator {
     }
   }
 
-  void collect(JSString name, JSArray ast) {
+  void collect(String name, JSArray ast) {
+    final libraryPath = '$librarySubDir/$name.dart';
+    assert(!libraries.containsKey(libraryPath));
+    final library = _Library(this, '$packageRoot/$libraryPath');
+    libraries[libraryPath] = library;
     for (var i = 0; i < ast.length; i++) {
-      final node = ast[i] as Node;
-      final type = node.type.toDart;
-      switch (type) {
-        case 'interface mixin':
-        case 'interface':
-        case 'namespace':
-        case 'dictionary':
-          _setOrUpdate(node as Interfacelike);
-          break;
-        case 'typedef':
-          typedefs.add(node as Typedef);
-          break;
-        case 'includes':
-          includes.add(node as Includes);
-          break;
-        case 'enum':
-          enums.add(node as Enum);
-          break;
-        case 'callback interface':
-          callbackInterfaces.add(node as Interfacelike);
-          break;
-        case 'callback':
-          callbacks.add(node as Callback);
-          break;
-        case 'eof':
-          break;
-        default:
-          throw Exception('Unexpected node type $type');
-      }
+      library.add(ast[i] as idl.Node);
     }
   }
 
-  String _getTypeRaw(IDLType idlType) {
-    final type = idlType.toType;
+  String _typeRaw(idl.IDLType idlType) {
+    final String type;
+    if (idlType.union.toDart) {
+      type = 'union';
+    } else if (idlType.generic.toDart.isNotEmpty) {
+      type = idlType.generic.toDart;
+    } else {
+      type = (idlType.idlType as JSString).toDart;
+    }
     if (typeAliases.containsKey(type)) {
       return typeAliases[type]!;
     } else {
@@ -174,51 +215,36 @@ class Translator {
     }
   }
 
-  String _typedef(String name, String type) => 'typedef $name = $type;';
+  code.TypeDef _typedef(String name, String type) => code.TypeDef((b) => b
+    ..name = name
+    ..definition = _typeReference(type));
 
-  String _translateTypedef(Typedef typedef) =>
-      _typedef(typedef.name.toDart, _getTypeRaw(typedef.idlType));
+  code.TypeDef _translateTypedef(idl.Typedef typedef) =>
+      _typedef(typedef.name.toDart, _typeRaw(typedef.idlType));
 
   // TODO(joshualitt): We should lower callbacks and callback interfaces to a
   // Dart function that takes a typed Dart function, and returns an JSFunction.
-  String _translateCallback(Callback callback) =>
+  code.TypeDef _translateCallback(idl.Callback callback) =>
       _typedef(callback.name.toDart, 'JSFunction');
 
-  String _translateCallbackInterface(Interfacelike callbackInterface) =>
+  code.TypeDef _translateCallbackInterface(
+          idl.Interfacelike callbackInterface) =>
       _typedef(callbackInterface.name.toDart, 'JSFunction');
 
   // TODO(joshualitt): Enums in the WebIDL are just strings, but we could make
   // them easier to work with on the Dart side.
-  String _translateEnum(Enum enum_) => _typedef(enum_.name.toDart, 'JSString');
+  code.TypeDef _translateEnum(idl.Enum enum_) =>
+      _typedef(enum_.name.toDart, 'JSString');
 
-  String _dartClassName(String jsName, String type) {
-    if (type == 'namespace') {
-      // Namespaces have lowercase names. We translate them to private classes,
-      // and make their firt character uppercase in the process.
-      return '_${jsName[0].toUpperCase()}${jsName.substring(1)}';
-    } else {
-      return jsName;
-    }
-  }
+  code.Method _topLevelGetter(String dartName, String getterName) =>
+      code.Method((b) => b
+        ..annotations.addAll(_jsOverride(''))
+        ..external = true
+        ..returns = _typeReference(dartName)
+        ..name = getterName
+        ..type = code.MethodType.getter);
 
-  String _maybeMakeTopLevelGetter(String jsName, String type, String dartName) {
-    final String getterName;
-    if (type == 'namespace') {
-      getterName = jsName;
-    } else if (singletons.containsKey(jsName)) {
-      getterName = singletons[jsName]!;
-    } else {
-      getterName = '';
-    }
-    if (getterName == '') {
-      return '';
-    } else {
-      return '''@JS()
-external $dartName get $getterName;''';
-    }
-  }
-
-  String _getArgumentName(String name) {
+  String _argumentName(String name) {
     if (bannedNames.contains(name)) {
       return '${name}_';
     } else {
@@ -226,229 +252,278 @@ external $dartName get $getterName;''';
     }
   }
 
-  String _getType(IDLType idlType) {
-    final rawType = _getTypeRaw(idlType);
-    if (idlType.nullable.toDart) {
-      return '$rawType?';
-    } else {
-      return rawType;
+  code.TypeReference _typeReference(String symbol,
+      {bool isNullable = false, bool isReturn = false}) {
+    // Unfortunately, `code_builder` doesn't know the url of the library we are
+    // emitting, so we have to remove it here to avoid importing ourselves.
+    // TODO(joshualitt): Properly track JS type dependencies.
+    String? url = typeToLibrary[symbol]?.url ?? 'dart:js_interop';
+    if (url == currentlyTranslatingUrl) {
+      url = null;
     }
+    // Replace `JSUndefined` with `JSVoid` in return types.
+    if (isReturn && symbol == 'JSUndefined') {
+      symbol = 'JSVoid';
+    }
+    return code.TypeReference((b) => b
+      ..symbol = symbol
+      ..isNullable = isNullable
+      ..url = url);
   }
 
-  String _translateArgument(Argument argument) {
-    final name = _getArgumentName(argument.name.toDart);
-    return '${_getType(argument.idlType)} $name';
-  }
+  code.TypeReference _idlTypeToTypeReference(idl.IDLType idlType,
+          [bool isReturn = false]) =>
+      _typeReference(_typeRaw(idlType),
+          isNullable: idlType.nullable.toDart, isReturn: isReturn);
 
-  String _translateArguments(JSArray arguments, int stop) {
-    final argumentsStrings = <String>[];
+  List<code.Parameter> _parameters(JSArray arguments, int stop) {
+    final builtParameters = <code.Parameter>[];
     for (var i = 0; i < stop; i++) {
-      final argument = arguments[i] as Argument;
-      argumentsStrings.add(_translateArgument(argument));
+      final argument = arguments[i] as idl.Argument;
+      builtParameters.add(code.Parameter((b) => b
+        ..name = _argumentName(argument.name.toDart)
+        ..type = _idlTypeToTypeReference(argument.idlType)));
     }
-    return argumentsStrings.join(', ');
+    return builtParameters;
   }
 
-  String _translateMultiMember(String baseString, JSArray arguments) {
-    final memberStrings = <String>[];
-    var emittedCount = 0;
-    void emit(int i) {
-      final suffix = emittedCount == 0 ? '' : '_$emittedCount';
-      memberStrings
-          .add('$baseString$suffix(${_translateArguments(arguments, i)});');
-      emittedCount++;
-    }
-
+  // TODO(joshualitt): More elegant approach to renaming methods / factories.
+  List<T> _multiProcedure<T>(
+      JSArray arguments, T Function(List<code.Parameter> parameters) builder) {
+    final built = <T>[];
+    void emit(int stop) => built.add(builder(_parameters(arguments, stop)));
     for (var i = 0; i < arguments.length; i++) {
-      final argument = arguments[i] as Argument;
+      final argument = arguments[i] as idl.Argument;
       if (argument.optional.toDart) {
         emit(i);
       }
     }
     emit(arguments.length);
-    return memberStrings.join('\n');
+    return built;
   }
 
-  String _translateConstructor(
-      String dartClassName, Constructor constructor, int constructorCount) {
-    // TODO(joshualitt): More elegant approach to renaming factories.
-    final constructorSuffix =
-        constructorCount == 0 ? '' : '.a$constructorCount';
-    final baseString = 'external factory $dartClassName$constructorSuffix';
-    return _translateMultiMember(baseString, constructor.arguments);
-  }
-
-  String _translateConstructors(String dartClassName,
-      List<Constructor> constructors, bool needsNoArgumentsConstructor) {
-    var constructorCount = 0;
-    final constructorStrings = <String>[];
+  List<code.Constructor> _constructors(String dartClassName,
+      List<idl.Constructor> idlConstructors, bool needsNoArgumentsConstructor) {
+    var constructorCount = -1;
+    final builtConstructors = <code.Constructor>[];
     if (needsNoArgumentsConstructor) {
-      constructorStrings.add('external factory $dartClassName();');
+      builtConstructors.add(code.Constructor((b) => b
+        ..external = true
+        ..factory = true));
       constructorCount++;
     }
-    for (final constructor in constructors) {
-      constructorStrings.add(
-          _translateConstructor(dartClassName, constructor, constructorCount));
-      constructorCount++;
+    for (final constructor in idlConstructors) {
+      builtConstructors.addAll(_multiProcedure<code.Constructor>(
+          constructor.arguments,
+          (parameters) => code.Constructor((b) => b
+            ..external = true
+            ..factory = true
+            ..name = ++constructorCount == -1 ? null : 'a$constructorCount'
+            ..requiredParameters.addAll(parameters))));
     }
-    return constructorStrings.join('\n');
+    return builtConstructors;
   }
 
-  _MemberName _getMemberName(String name) {
+  _MemberName _memberName(String name) {
     // TODO(joshualitt): Name override members more elegantly.
     var memberName = name;
     var count = namesSeen[name] ?? 0;
-    var jsOverride = '';
+    String? jsOverride;
     if (bannedNames.contains(name) || namesSeen.containsKey(name)) {
-      jsOverride = "@JS('$name')\n";
-      memberName = '$name$count';
+      jsOverride = name;
+      memberName = '${name}_${count}_';
     }
     namesSeen[name] = count + 1;
     return _MemberName(memberName, jsOverride);
   }
 
-  String _translateOperation(Operation operation) {
-    final operationName = operation.name.toDart;
-    final memberName = _getMemberName(operationName);
-    final jsOverride = memberName.jsOverride;
+  List<code.Expression> _jsOverride(String? jsOverride,
+          [bool staticInterop = false]) =>
+      [
+        if (jsOverride != null)
+          code.refer('JS', 'dart:js_interop').call([
+            if (jsOverride.isNotEmpty) code.literalString(jsOverride),
+          ]),
+        if (staticInterop) code.refer('staticInterop'),
+      ];
+
+  List<code.Method> _operation(idl.Operation operation) {
+    final memberName = _memberName(operation.name.toDart);
     final name = memberName.name;
-    // TODO(joshualitt): Let's replace `JSUndefined` when used as a return type
-    // with `JSVoid`.
-    final returns = _getType(operation.idlType);
-    final staticString = operation.special.toDart == 'static' ? 'static ' : '';
-    final baseString = '${jsOverride}external $staticString$returns $name';
-    return _translateMultiMember(baseString, operation.arguments);
+    var count = -1;
+    return _multiProcedure<code.Method>(
+        operation.arguments,
+        (parameters) => code.Method((b) => b
+          ..annotations.addAll(_jsOverride(memberName.jsOverride))
+          ..external = true
+          ..static = operation.special.toDart == 'static'
+          ..returns = _idlTypeToTypeReference(operation.idlType, true)
+          ..name = ++count == 0 ? name : '$name$count'
+          ..requiredParameters.addAll(parameters)));
   }
 
-  String _translateAttribute(Attribute attribute) {
-    final memberName = _getMemberName(attribute.name.toDart);
+  List<code.Method> _attribute(idl.Attribute attribute) {
+    final memberName = _memberName(attribute.name.toDart);
     final name = memberName.name;
-    final jsOverride = memberName.jsOverride;
-    final type = _getType(attribute.idlType);
-    final staticString = attribute.special == 'static' ? 'static ' : '';
-    final getterString = '${jsOverride}external $staticString$type get $name;';
-    if (!attribute.readonly.toDart) {
-      return '''$getterString
-  ${jsOverride}external ${staticString}set $name($type value);''';
-    } else {
-      return getterString;
-    }
+    return [
+      if (!attribute.readonly.toDart)
+        code.Method((b) => b
+          ..annotations.addAll(_jsOverride(memberName.jsOverride))
+          ..external = true
+          ..static = attribute.special.toDart == 'static'
+          ..type = code.MethodType.setter
+          ..name = name
+          ..requiredParameters.add(code.Parameter((b) => b
+            ..type = _idlTypeToTypeReference(attribute.idlType)
+            ..name = 'value'))),
+      code.Method((b) => b
+        ..annotations.addAll(_jsOverride(memberName.jsOverride))
+        ..external = true
+        ..static = attribute.special.toDart == 'static'
+        ..returns = _idlTypeToTypeReference(attribute.idlType, true)
+        ..type = code.MethodType.getter
+        ..name = name)
+    ];
   }
 
-  String _translateConstant(Constant constant) {
-    final type = _getType(constant.idlType);
-    final name = constant.name.toDart;
-    return 'external static $type get $name;';
-  }
+  code.Method _constant(idl.Constant constant) => code.Method((b) => b
+    ..external = true
+    ..static = true
+    ..returns = _idlTypeToTypeReference(constant.idlType, true)
+    ..type = code.MethodType.getter
+    ..name = constant.name.toDart);
 
-  String _translateMember(Member member) {
+  List<code.Method> _member(idl.Member member) {
     final type = member.type.toDart;
     switch (type) {
       case 'operation':
-        return _translateOperation(member as Operation);
+        return _operation(member as idl.Operation);
       case 'attribute':
-        return _translateAttribute(member as Attribute);
+        return _attribute(member as idl.Attribute);
       case 'const':
-        return _translateConstant(member as Constant);
+        return [_constant(member as idl.Constant)];
       case 'field':
       case 'iterable':
       case 'maplike':
       case 'setlike':
         // TODO(joshualitt): Handle these cases.
-        return '// TODO';
+        return [];
       default:
         throw Exception('Unsupported member type $type');
     }
   }
 
-  String _translateMembers(List<Member> members) {
-    final memberStrings = <String>[];
-    for (final member in members) {
-      memberStrings.add(_translateMember(member));
-    }
-    return memberStrings.join('\n  ');
-  }
+  List<code.Method> _members(List<idl.Member> members) =>
+      [for (final member in members) ..._member(member)];
 
-  String _translateExtensionMembers(String name, List<Member> members) {
-    final memberStrings = _translateMembers(members);
-    return '''extension ${name}Extension on $name {
-  $memberStrings
-}''';
-  }
+  code.Extension _extension(String name, List<idl.Member> members) =>
+      code.Extension((b) => b
+        ..name = '${name}Extension'
+        ..on = _typeReference(name)
+        ..methods.addAll(_members(members)));
 
-  String _translateInterfacelike(_PartialInterfacelike interfacelike) {
+  code.Class _class(
+          String jsName,
+          String dartClassName,
+          String? inheritance,
+          List<String> includes,
+          List<idl.Constructor> constructors,
+          bool needsNoArgumentsConstructor,
+          List<idl.Member> staticMembers) =>
+      code.Class((b) => b
+        ..annotations.addAll(_jsOverride(jsName, true))
+        ..name = dartClassName
+        ..extend = inheritance == null ? null : _typeReference(inheritance)
+        ..implements.addAll(includes.map(_typeReference))
+        ..constructors.addAll(_constructors(
+            dartClassName, constructors, needsNoArgumentsConstructor))
+        ..methods.addAll(_members(staticMembers)));
+
+  List<code.Spec> _interfacelike(idl.Interfacelike idlInterfacelike) {
+    // Each [interfacelike] acts as a namespace, so we clear the
+    // [namesSeen] map each time through the loop.
+    namesSeen.clear();
+    final name = idlInterfacelike.name.toDart;
+    final interfacelike = interfacelikes[name]!;
     final jsName = interfacelike.name;
     final type = interfacelike.type;
-    final dartClassName = _dartClassName(jsName, type);
-    final topLevelGetter =
-        _maybeMakeTopLevelGetter(jsName, type, dartClassName);
-    final extendsName = interfacelike.inheritance;
-    final extendsString = extendsName == null ? '' : 'extends $extendsName ';
-    final includes = interfacelike.includes;
-    final implementsString =
-        includes.isEmpty ? '' : 'implements ${includes.join(',')} ';
-    final constructors = interfacelike.constructors;
-    // TODO(joshualitt): Only generate no arguments constructor when needed.
-    final needsNoArgumentsConstructor =
-        !interfacelike.hasNoArgumentsConstructor;
-    final constructorsString = _translateConstructors(
-        dartClassName, constructors, needsNoArgumentsConstructor);
-    final staticMembers = interfacelike.staticMembers;
-    final staticMembersString = _translateMembers(staticMembers);
-    final members = interfacelike.members;
-    final membersString = members.isEmpty
-        ? ''
-        : _translateExtensionMembers(dartClassName, members);
-    return '''$topLevelGetter
 
-@JS('$jsName')
-@staticInterop
-class $dartClassName $extendsString$implementsString{
-  $constructorsString
-  $staticMembersString
-}
-$membersString''';
+    // Namespaces have lowercase names. We also translate them to
+    // private classes, and make their first character uppercase in the process.
+    final dartClassName = type == 'namespace'
+        ? '_${jsName[0].toUpperCase()}${jsName.substring(1)}'
+        : jsName;
+
+    // We create a getter for namespaces with the expected name. We also create
+    // getters for a few pre-defined singleton classes.
+    final getterName = type == 'namespace' ? jsName : singletons[jsName];
+    final members = interfacelike.members;
+    return [
+      if (getterName != null) _topLevelGetter(dartClassName, getterName),
+      _class(
+          jsName,
+          dartClassName,
+          interfacelike.inheritance,
+          interfacelike.includes,
+          interfacelike.constructors,
+          !interfacelike.hasNoArgumentsConstructor,
+          interfacelike.staticMembers),
+      if (members.isNotEmpty) _extension(dartClassName, members)
+    ];
   }
 
-  String translate() {
-    // Wire up includes.
+  code.Library _library(_Library library) => code.Library((b) => b
+    ..comments.addAll(licenseHeader)
+    ..ignoreForFile.add('unused_import')
+    ..directives.addAll([
+      // TODO(joshualitt): Remove this and the `ignoreForFile` when we no longer
+      // need `staticInterop`.
+      code.Directive.import('package:js/js.dart', hide: ['JS']),
+    ])
+    ..body.addAll([
+      for (final typedef in library.typedefs)
+        _typedef(typedef.name.toDart, _typeRaw(typedef.idlType)),
+      // TODO(joshualitt): We should lower callbacks and callback interfaces to
+      // a Dart function that takes a typed Dart function, and returns an
+      // JSFunction.
+      for (final callback in library.callbacks)
+        _typedef(callback.name.toDart, 'JSFunction'),
+      for (final callbackInterface in library.callbackInterfaces)
+        _typedef(callbackInterface.name.toDart, 'JSFunction'),
+      // TODO(joshualitt): Enums in the WebIDL are just strings, but we could
+      // make them easier to work with on the Dart side.
+      for (final enum_ in library.enums)
+        _typedef(enum_.name.toDart, 'JSString'),
+      for (final interfacelike in library.interfacelikes)
+        ..._interfacelike(interfacelike),
+    ]));
+
+  code.Library generateRootImport(Iterable<String> files) =>
+      code.Library((b) => b
+        ..comments.addAll(licenseHeader)
+        ..directives.addAll(
+            files.map((path) => code.Directive.export('$packageRoot/$path'))));
+
+  TranslationResult translate() {
+    // Create a root import that exports all of the other libraries.
+    final dartLibraries = <String, code.Library>{};
+    dartLibraries['dom.dart'] = generateRootImport(libraries.keys);
+
+    // Wire up includes. This step must come before we start translating
+    // libraries because interfaces and namespaces may include across library
+    // boundaries.
     for (final include in includes) {
       final target = interfacelikes[include.target.toDart]!;
-      target.include(interfacelikes[include.includes.toDart]!);
+      final includes = interfacelikes[include.includes.toDart]!;
+      target.include(includes);
     }
 
-    // Translate typedefs.
-    final fragments = <String>[];
-    for (final typedef in typedefs) {
-      fragments.add(_translateTypedef(typedef));
-    }
+    // Translate each IDL library into a Dart library.
+    libraries.forEach((path, library) {
+      currentlyTranslatingUrl = library.url;
+      dartLibraries[path] = _library(library);
+    });
 
-    // Translate callbacks.
-    for (final callback in callbacks) {
-      /// TODO(joshualitt): Maybe handle this case a bit more elegantly?
-      if (callback.name == 'Function') {
-        continue;
-      }
-      fragments.add(_translateCallback(callback));
-    }
-
-    // Translate callback interfaces.
-    for (final callbackInterface in callbackInterfaces) {
-      fragments.add(_translateCallbackInterface(callbackInterface));
-    }
-
-    // Translate enums.
-    for (final enum_ in enums) {
-      fragments.add(_translateEnum(enum_));
-    }
-
-    // Translate interfacelikes.
-    for (final interfacelike in interfacelikes.values) {
-      // Each [interfacelike] acts as a namespace, so we clear the
-      // [namesSeen] map each time through the loop.
-      namesSeen.clear();
-      fragments.add(_translateInterfacelike(interfacelike));
-    }
-    return fragments.join('\n');
+    return dartLibraries;
   }
 }

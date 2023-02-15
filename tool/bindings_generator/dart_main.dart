@@ -16,19 +16,20 @@ import 'util.dart';
 // TODO(joshualitt): Find a way to generate bindings for JS builtins. This will
 // probably involve parsing the TC39 spec.
 
-String runDartFormat(code.Library library) => DartFormatter().format(
-    '''${library.accept(code.DartEmitter(allocator: code.Allocator(), orderDirectives: true, useNullSafetySyntax: true))}''');
+void main(List<String> args) async {
+  await _generateAndWriteBindings(args[0]);
+}
 
-Future<void> generateAndWriteBindings(String dir) async {
+Future<void> _generateAndWriteBindings(String dir) async {
   const librarySubDir = 'src/dom';
   ensureDirectoryExists('$dir/$librarySubDir');
   final bindings = await generateBindings(packageRoot, librarySubDir);
-  bindings.forEach((name, library) {
-    final formattedContents = runDartFormat(library).toJS;
-    fs.writeFileSync('$dir/$name'.toJS, formattedContents);
-  });
+  for (var entry in bindings.entries) {
+    final formattedContents = _runDartFormat(entry.value).toJS;
+    fs.writeFileSync('$dir/${entry.key}'.toJS, formattedContents);
+  }
 }
 
-void main(List<String> args) async {
-  await generateAndWriteBindings(args[0]);
-}
+String _runDartFormat(code.Library library) => DartFormatter().format(
+      '''${library.accept(code.DartEmitter(allocator: code.Allocator(), orderDirectives: true, useNullSafetySyntax: true))}''',
+    );

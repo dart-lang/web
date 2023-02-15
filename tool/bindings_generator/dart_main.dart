@@ -3,8 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:js_interop';
+
 import 'package:code_builder/code_builder.dart' as code;
 import 'package:dart_style/dart_style.dart';
+
 import 'filesystem_api.dart';
 import 'generate_bindings.dart';
 import 'util.dart';
@@ -18,7 +20,7 @@ String runDartFormat(code.Library library) => DartFormatter().format(
     '''${library.accept(code.DartEmitter(allocator: code.Allocator(), orderDirectives: true, useNullSafetySyntax: true))}''');
 
 Future<void> generateAndWriteBindings(String dir) async {
-  final librarySubDir = 'src/dom';
+  const librarySubDir = 'src/dom';
   ensureDirectoryExists('$dir/$librarySubDir');
   final bindings = await generateBindings(packageRoot, librarySubDir);
   bindings.forEach((name, library) {

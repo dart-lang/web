@@ -3,7 +3,9 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:js_interop';
+
 import 'package:code_builder/code_builder.dart' as code;
+
 import 'banned_names.dart';
 import 'singletons.dart';
 import 'type_aliases.dart';
@@ -327,7 +329,7 @@ class Translator {
   _MemberName _memberName(String name) {
     // TODO(joshualitt): Name override members more elegantly.
     var memberName = name;
-    var count = namesSeen[name] ?? 0;
+    final count = namesSeen[name] ?? 0;
     String? jsOverride;
     if (bannedNames.contains(name) || namesSeen.containsKey(name)) {
       jsOverride = name;

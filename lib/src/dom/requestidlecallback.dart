@@ -7,7 +7,8 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/hr_time.dart';
+
+import 'hr_time.dart';
 
 typedef IdleRequestCallback = JSFunction;
 

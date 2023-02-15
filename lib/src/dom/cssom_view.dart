@@ -7,10 +7,11 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/dom.dart';
-import 'package:web/src/dom/geometry.dart';
-import 'package:web/src/dom/html.dart';
-import 'package:web/src/dom/screen_orientation.dart';
+
+import 'dom.dart';
+import 'geometry.dart';
+import 'html.dart';
+import 'screen_orientation.dart';
 
 typedef GeometryNode = JSAny;
 typedef ScrollBehavior = JSString;

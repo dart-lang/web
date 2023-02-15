@@ -7,8 +7,9 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/dom.dart';
-import 'package:web/src/dom/webidl.dart';
+
+import 'dom.dart';
+import 'webidl.dart';
 
 typedef ReadableStreamReader = JSAny;
 typedef ReadableStreamController = JSAny;

@@ -7,9 +7,10 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/dom.dart';
-import 'package:web/src/dom/gamepad_extensions.dart';
-import 'package:web/src/dom/hr_time.dart';
+
+import 'dom.dart';
+import 'gamepad_extensions.dart';
+import 'hr_time.dart';
 
 typedef GamepadMappingType = JSString;
 

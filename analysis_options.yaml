@@ -5,8 +5,7 @@ analyzer:
   language:
     strict-casts: true
     strict-inference: true
-    # one failure with a List typedef
-    #strict-raw-types: true
+    strict-raw-types: true
 
   errors:
     # Ideally we'd fix all of these - or ignore them at the line-level where
@@ -16,3 +15,49 @@ analyzer:
     library_private_types_in_public_api: ignore
     non_constant_identifier_names: ignore
     unused_element: ignore
+
+linter:
+  rules:
+  - always_declare_return_types
+  - avoid_bool_literals_in_conditional_expressions
+  - avoid_classes_with_only_static_members
+  - avoid_dynamic_calls
+  - avoid_private_typedef_functions
+  - avoid_redundant_argument_values
+  - avoid_returning_null
+  - avoid_returning_null_for_future
+  - avoid_returning_this
+  - avoid_unused_constructor_parameters
+  - cancel_subscriptions
+  - collection_methods_unrelated_type
+  - combinators_ordering
+  - comment_references
+  - dangling_library_doc_comments
+  - directives_ordering
+  - implicit_call_tearoffs
+  - join_return_with_assignment
+  - library_annotations
+  - literal_only_boolean_expressions
+  - no_adjacent_strings_in_list
+  - no_runtimeType_toString
+  - omit_local_variable_types
+  - package_api_docs
+  - prefer_asserts_in_initializer_lists
+  - prefer_const_constructors
+  - prefer_const_declarations
+  - prefer_expression_function_bodies
+  - prefer_final_locals
+  - prefer_relative_imports
+  - prefer_single_quotes
+  - sort_pub_dependencies
+  - test_types_in_equals
+  - throw_in_finally
+  - unawaited_futures
+  - unnecessary_await_in_return
+  - unnecessary_lambdas
+  - unnecessary_library_directive
+  - unnecessary_parenthesis
+  - unnecessary_statements
+  - unreachable_from_main
+  - use_string_buffers
+  - use_string_in_part_of_directives

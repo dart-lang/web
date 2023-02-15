@@ -7,11 +7,12 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/cssom.dart';
-import 'package:web/src/dom/dom.dart';
-import 'package:web/src/dom/geometry.dart';
-import 'package:web/src/dom/html.dart';
-import 'package:web/src/dom/web_animations.dart';
+
+import 'cssom.dart';
+import 'dom.dart';
+import 'geometry.dart';
+import 'html.dart';
+import 'web_animations.dart';
 
 @JS('SVGElement')
 @staticInterop

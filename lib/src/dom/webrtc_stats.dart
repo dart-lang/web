@@ -7,7 +7,8 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/webrtc.dart';
+
+import 'webrtc.dart';
 
 typedef RTCStatsType = JSString;
 typedef RTCQualityLimitationReason = JSString;

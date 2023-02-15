@@ -7,8 +7,9 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/cssom_view.dart';
-import 'package:web/src/dom/dom.dart';
+
+import 'cssom_view.dart';
+import 'dom.dart';
 
 @JS('CSSPseudoElement')
 @staticInterop

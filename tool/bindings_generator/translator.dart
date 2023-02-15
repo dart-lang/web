@@ -3,7 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:js_interop';
+
 import 'package:code_builder/code_builder.dart' as code;
+import 'package:path/path.dart' as p;
+
 import 'banned_names.dart';
 import 'singletons.dart';
 import 'type_aliases.dart';
@@ -26,8 +29,8 @@ class _Library {
   void _addNamed<T extends idl.Named>(idl.Node node, List<T> list) {
     final named = node as T;
     final name = named.name.toDart;
-    assert(!translator.typeToLibrary.containsKey(name));
-    translator.typeToLibrary[named.name.toDart] = this;
+    assert(!translator._typeToLibrary.containsKey(name));
+    translator._typeToLibrary[named.name.toDart] = this;
     list.add(named);
   }
 
@@ -52,7 +55,7 @@ class _Library {
         _addNamed<idl.Typedef>(node, typedefs);
         break;
       case 'includes':
-        translator.includes.add(node as idl.Includes);
+        translator._includes.add(node as idl.Includes);
         break;
       case 'enum':
         _addNamed<idl.Enum>(node, enums);
@@ -170,30 +173,30 @@ class _MemberName {
 }
 
 class Translator {
-  final Map<String, _Library> libraries = {};
-  final Map<String, _Library> typeToLibrary = {};
-  final Map<String, _PartialInterfacelike> interfacelikes = {};
-  final List<idl.Includes> includes = [];
-  final Map<String, int> namesSeen = {};
-  final String librarySubDir;
-  String? currentlyTranslatingUrl;
+  final _libraries = <String, _Library>{};
+  final _typeToLibrary = <String, _Library>{};
+  final _interfacelikes = <String, _PartialInterfacelike>{};
+  final _includes = <idl.Includes>[];
+  final _namesSeen = <String, int>{};
+  final String _librarySubDir;
+  late String _currentlyTranslatingUrl;
 
-  Translator(this.librarySubDir);
+  Translator(this._librarySubDir);
 
   void setOrUpdateInterfacelike(idl.Interfacelike interfacelike) {
     final name = interfacelike.name.toDart;
-    if (interfacelikes.containsKey(name)) {
-      interfacelikes[name]!.update(interfacelike);
+    if (_interfacelikes.containsKey(name)) {
+      _interfacelikes[name]!.update(interfacelike);
     } else {
-      interfacelikes[name] = _PartialInterfacelike(interfacelike);
+      _interfacelikes[name] = _PartialInterfacelike(interfacelike);
     }
   }
 
   void collect(String name, JSArray ast) {
-    final libraryPath = '$librarySubDir/$name.dart';
-    assert(!libraries.containsKey(libraryPath));
+    final libraryPath = '$_librarySubDir/$name.dart';
+    assert(!_libraries.containsKey(libraryPath));
     final library = _Library(this, '$packageRoot/$libraryPath');
-    libraries[libraryPath] = library;
+    _libraries[libraryPath] = library;
     for (var i = 0; i < ast.length; i++) {
       library.add(ast[i] as idl.Node);
     }
@@ -257,9 +260,11 @@ class Translator {
     // Unfortunately, `code_builder` doesn't know the url of the library we are
     // emitting, so we have to remove it here to avoid importing ourselves.
     // TODO(joshualitt): Properly track JS type dependencies.
-    String? url = typeToLibrary[symbol]?.url ?? 'dart:js_interop';
-    if (url == currentlyTranslatingUrl) {
+    String? url = _typeToLibrary[symbol]?.url ?? 'dart:js_interop';
+    if (url == _currentlyTranslatingUrl) {
       url = null;
+    } else if (p.dirname(url) == p.dirname(_currentlyTranslatingUrl)) {
+      url = p.basename(url);
     }
     // Replace `JSUndefined` with `JSVoid` in return types.
     if (isReturn && symbol == 'JSUndefined') {
@@ -327,13 +332,13 @@ class Translator {
   _MemberName _memberName(String name) {
     // TODO(joshualitt): Name override members more elegantly.
     var memberName = name;
-    var count = namesSeen[name] ?? 0;
+    final count = _namesSeen[name] ?? 0;
     String? jsOverride;
-    if (bannedNames.contains(name) || namesSeen.containsKey(name)) {
+    if (bannedNames.contains(name) || _namesSeen.containsKey(name)) {
       jsOverride = name;
       memberName = '${name}_${count}_';
     }
-    namesSeen[name] = count + 1;
+    _namesSeen[name] = count + 1;
     return _MemberName(memberName, jsOverride);
   }
 
@@ -442,9 +447,9 @@ class Translator {
   List<code.Spec> _interfacelike(idl.Interfacelike idlInterfacelike) {
     // Each [interfacelike] acts as a namespace, so we clear the
     // [namesSeen] map each time through the loop.
-    namesSeen.clear();
+    _namesSeen.clear();
     final name = idlInterfacelike.name.toDart;
-    final interfacelike = interfacelikes[name]!;
+    final interfacelike = _interfacelikes[name]!;
     final jsName = interfacelike.name;
     final type = interfacelike.type;
 
@@ -501,28 +506,27 @@ class Translator {
   code.Library generateRootImport(Iterable<String> files) =>
       code.Library((b) => b
         ..comments.addAll(licenseHeader)
-        ..directives.addAll(
-            files.map((path) => code.Directive.export('$packageRoot/$path'))));
+        ..directives.addAll(files.map(code.Directive.export)));
 
   TranslationResult translate() {
     // Create a root import that exports all of the other libraries.
     final dartLibraries = <String, code.Library>{};
-    dartLibraries['dom.dart'] = generateRootImport(libraries.keys);
+    dartLibraries['dom.dart'] = generateRootImport(_libraries.keys);
 
     // Wire up includes. This step must come before we start translating
     // libraries because interfaces and namespaces may include across library
     // boundaries.
-    for (final include in includes) {
-      final target = interfacelikes[include.target.toDart]!;
-      final includes = interfacelikes[include.includes.toDart]!;
+    for (final include in _includes) {
+      final target = _interfacelikes[include.target.toDart]!;
+      final includes = _interfacelikes[include.includes.toDart]!;
       target.include(includes);
     }
 
     // Translate each IDL library into a Dart library.
-    libraries.forEach((path, library) {
-      currentlyTranslatingUrl = library.url;
-      dartLibraries[path] = _library(library);
-    });
+    for (var entry in _libraries.entries) {
+      _currentlyTranslatingUrl = entry.value.url;
+      dartLibraries[entry.key] = _library(entry.value);
+    }
 
     return dartLibraries;
   }

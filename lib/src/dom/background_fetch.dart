@@ -7,10 +7,11 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/dom.dart';
-import 'package:web/src/dom/fetch.dart';
-import 'package:web/src/dom/html.dart';
-import 'package:web/src/dom/service_workers.dart';
+
+import 'dom.dart';
+import 'fetch.dart';
+import 'html.dart';
+import 'service_workers.dart';
 
 typedef BackgroundFetchResult = JSString;
 typedef BackgroundFetchFailureReason = JSString;

@@ -7,7 +7,8 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/webgl1.dart';
+
+import 'webgl1.dart';
 
 @JS('WEBGL_compressed_texture_etc')
 @staticInterop

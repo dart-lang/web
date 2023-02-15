@@ -7,8 +7,9 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/streams.dart';
-import 'package:web/src/dom/webidl.dart';
+
+import 'streams.dart';
+import 'webidl.dart';
 
 typedef WebTransportReliabilityMode = JSString;
 typedef WebTransportCongestionControl = JSString;

@@ -7,7 +7,8 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/reporting.dart';
+
+import 'reporting.dart';
 
 typedef ScriptingPolicyViolationType = JSString;
 

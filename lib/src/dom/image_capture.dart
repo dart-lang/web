@@ -7,7 +7,8 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/mediacapture_streams.dart';
+
+import 'mediacapture_streams.dart';
 
 typedef ConstrainPoint2D = JSAny;
 typedef RedEyeReduction = JSString;

@@ -7,8 +7,9 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/mediacapture_streams.dart';
-import 'package:web/src/dom/streams.dart';
+
+import 'mediacapture_streams.dart';
+import 'streams.dart';
 
 @JS('MediaStreamTrackProcessor')
 @staticInterop

@@ -7,7 +7,8 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/uievents.dart';
+
+import 'uievents.dart';
 
 @JS('PointerEventInit')
 @staticInterop

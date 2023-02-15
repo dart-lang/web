@@ -7,7 +7,8 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/generic_sensor.dart';
+
+import 'generic_sensor.dart';
 
 @JS('ProximitySensor')
 @staticInterop

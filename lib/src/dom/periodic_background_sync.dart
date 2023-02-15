@@ -7,7 +7,8 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/service_workers.dart';
+
+import 'service_workers.dart';
 
 @JS('PeriodicSyncManager')
 @staticInterop

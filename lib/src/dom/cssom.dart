@@ -7,11 +7,12 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/css_highlight_api.dart';
-import 'package:web/src/dom/css_parser_api.dart';
-import 'package:web/src/dom/css_properties_values_api.dart';
-import 'package:web/src/dom/css_typed_om.dart';
-import 'package:web/src/dom/html.dart';
+
+import 'css_highlight_api.dart';
+import 'css_parser_api.dart';
+import 'css_properties_values_api.dart';
+import 'css_typed_om.dart';
+import 'html.dart';
 
 @JS('MediaList')
 @staticInterop

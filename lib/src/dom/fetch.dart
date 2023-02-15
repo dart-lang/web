@@ -7,9 +7,10 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/dom.dart';
-import 'package:web/src/dom/referrer_policy.dart';
-import 'package:web/src/dom/streams.dart';
+
+import 'dom.dart';
+import 'referrer_policy.dart';
+import 'streams.dart';
 
 typedef HeadersInit = JSAny;
 typedef XMLHttpRequestBodyInit = JSAny;

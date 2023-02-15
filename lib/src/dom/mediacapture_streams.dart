@@ -7,15 +7,16 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/audio_output.dart';
-import 'package:web/src/dom/capture_handle_identity.dart';
-import 'package:web/src/dom/dom.dart';
-import 'package:web/src/dom/html.dart';
-import 'package:web/src/dom/mediacapture_handle_actions.dart';
-import 'package:web/src/dom/mediacapture_viewport.dart';
-import 'package:web/src/dom/permissions.dart';
-import 'package:web/src/dom/screen_capture.dart';
-import 'package:web/src/dom/webidl.dart';
+
+import 'audio_output.dart';
+import 'capture_handle_identity.dart';
+import 'dom.dart';
+import 'html.dart';
+import 'mediacapture_handle_actions.dart';
+import 'mediacapture_viewport.dart';
+import 'permissions.dart';
+import 'screen_capture.dart';
+import 'webidl.dart';
 
 typedef ConstrainULong = JSAny;
 typedef ConstrainDouble = JSAny;

@@ -7,8 +7,9 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/webgl1.dart';
-import 'package:web/src/dom/webgl2.dart';
+
+import 'webgl1.dart';
+import 'webgl2.dart';
 
 @JS('EXT_disjoint_timer_query_webgl2')
 @staticInterop

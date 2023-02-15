@@ -7,7 +7,8 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/webcryptoapi.dart';
+
+import 'webcryptoapi.dart';
 
 @JS('Ed448Params')
 @staticInterop

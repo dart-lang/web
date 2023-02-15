@@ -7,9 +7,10 @@
 import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
-import 'package:web/src/dom/file_system_access.dart';
-import 'package:web/src/dom/streams.dart';
-import 'package:web/src/dom/webidl.dart';
+
+import 'file_system_access.dart';
+import 'streams.dart';
+import 'webidl.dart';
 
 typedef FileSystemWriteChunkType = JSAny;
 typedef FileSystemHandleKind = JSString;

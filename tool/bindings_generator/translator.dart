@@ -222,23 +222,6 @@ class Translator {
     ..name = name
     ..definition = _typeReference(type));
 
-  code.TypeDef _translateTypedef(idl.Typedef typedef) =>
-      _typedef(typedef.name.toDart, _typeRaw(typedef.idlType));
-
-  // TODO(joshualitt): We should lower callbacks and callback interfaces to a
-  // Dart function that takes a typed Dart function, and returns an JSFunction.
-  code.TypeDef _translateCallback(idl.Callback callback) =>
-      _typedef(callback.name.toDart, 'JSFunction');
-
-  code.TypeDef _translateCallbackInterface(
-          idl.Interfacelike callbackInterface) =>
-      _typedef(callbackInterface.name.toDart, 'JSFunction');
-
-  // TODO(joshualitt): Enums in the WebIDL are just strings, but we could make
-  // them easier to work with on the Dart side.
-  code.TypeDef _translateEnum(idl.Enum enum_) =>
-      _typedef(enum_.name.toDart, 'JSString');
-
   code.Method _topLevelGetter(String dartName, String getterName) =>
       code.Method((b) => b
         ..annotations.addAll(_jsOverride(''))
@@ -456,7 +439,7 @@ class Translator {
     // Namespaces have lowercase names. We also translate them to
     // private classes, and make their first character uppercase in the process.
     final dartClassName = type == 'namespace'
-        ? '_${jsName[0].toUpperCase()}${jsName.substring(1)}'
+        ? '${jsName[0].toUpperCase()}${jsName.substring(1)}_'
         : jsName;
 
     // We create a getter for namespaces with the expected name. We also create

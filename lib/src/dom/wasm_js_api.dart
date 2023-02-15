@@ -24,15 +24,15 @@ extension WebAssemblyInstantiatedSourceExtension
     on WebAssemblyInstantiatedSource {}
 
 @JS()
-external _WebAssembly get WebAssembly;
+external WebAssembly_ get WebAssembly;
 
 @JS('WebAssembly')
 @staticInterop
-class _WebAssembly {
-  external factory _WebAssembly();
+class WebAssembly_ {
+  external factory WebAssembly_();
 }
 
-extension _WebAssemblyExtension on _WebAssembly {
+extension WebAssembly_Extension on WebAssembly_ {
   external JSBoolean validate(BufferSource bytes);
   external JSPromise compile(BufferSource bytes);
   external JSPromise instantiate(BufferSource bytes);

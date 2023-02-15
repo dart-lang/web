@@ -1,3 +1,4 @@
-tool/bindings_generator/node_modules/
 .dart_tool
 pubspec.lock
+tool/bindings_generator/*.js*
+tool/bindings_generator/node_modules/

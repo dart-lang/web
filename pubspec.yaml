@@ -1,6 +1,9 @@
 name: web
 version: 0.0.1-dev
 
+# Remove when we're ready to publish
+publish_to: none
+
 repository: https://github.com/dart-lang/web
 
 environment:
@@ -10,8 +13,10 @@ dependencies:
   js: ^0.6.7
 
 dev_dependencies:
+  args: ^2.4.0
   code_builder: ^4.4.0
   dart_flutter_team_lints: ^0.1.0
   dart_style: ^2.2.4
+  io: ^1.0.4
   path: ^1.8.3
   test: ^1.22.2

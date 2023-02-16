@@ -23,7 +23,7 @@ ${_parser.usage}''');
 
   assert(p.fromUri(Platform.script).endsWith(_thisScript));
 
-  // npm install
+  // Run `npm install` or `npm upgrade` as needed.
   if (argResult['update'] as bool) {
     await _runProc('npm', ['update'], _bindingsGeneratorPath);
   } else if (!Directory(p.join(_bindingsGeneratorPath, 'node_modules'))
@@ -32,7 +32,7 @@ ${_parser.usage}''');
   }
 
   if (argResult['compile'] as bool) {
-    // compile
+    // Compile Dart to Javascript.
     await _runProc(
       Platform.executable,
       ['compile', 'js', 'dart_main.dart', '-o', 'dart_main.js'],
@@ -40,10 +40,10 @@ ${_parser.usage}''');
     );
   }
 
-  // node
+  // Run app with `node`.
   await _runProc('node', ['main.mjs', '../../lib'], _bindingsGeneratorPath);
 
-  // Update readme
+  // Update readme.
   final readmeFile = File(
     p.normalize(p.join(_bindingsGeneratorPath, '..', '..', 'README.md')),
   );

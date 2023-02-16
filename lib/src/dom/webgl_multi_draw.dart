@@ -16,7 +16,7 @@ class WEBGL_multi_draw {
   external factory WEBGL_multi_draw();
 }
 
-extension WEBGL_multi_drawExtension on WEBGL_multi_draw {
+extension WEBGLMultiDrawExtension on WEBGL_multi_draw {
   external JSVoid multiDrawArraysWEBGL(
     GLenum mode,
     JSAny firstsList,

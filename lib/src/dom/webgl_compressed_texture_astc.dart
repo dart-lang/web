@@ -45,7 +45,6 @@ class WEBGL_compressed_texture_astc {
   external static GLenum get COMPRESSED_SRGB8_ALPHA8_ASTC_12x12_KHR;
 }
 
-extension WEBGL_compressed_texture_astcExtension
-    on WEBGL_compressed_texture_astc {
+extension WEBGLCompressedTextureAstcExtension on WEBGL_compressed_texture_astc {
   external JSArray getSupportedProfiles();
 }

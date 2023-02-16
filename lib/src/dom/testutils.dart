@@ -9,14 +9,14 @@ import 'dart:js_interop';
 import 'package:js/js.dart' hide JS;
 
 @JS()
-external _TestUtils get TestUtils;
+external $TestUtils get TestUtils;
 
 @JS('TestUtils')
 @staticInterop
-class _TestUtils {
-  external factory _TestUtils();
+abstract class $TestUtils {
+  external factory $TestUtils();
 }
 
-extension _TestUtilsExtension on _TestUtils {
+extension $TestUtilsExtension on $TestUtils {
   external JSPromise gc();
 }

@@ -32,7 +32,7 @@ class EXT_disjoint_timer_query {
   external static GLenum get GPU_DISJOINT_EXT;
 }
 
-extension EXT_disjoint_timer_queryExtension on EXT_disjoint_timer_query {
+extension EXTDisjointTimerQueryExtension on EXT_disjoint_timer_query {
   external WebGLTimerQueryEXT? createQueryEXT();
   external JSVoid deleteQueryEXT(WebGLTimerQueryEXT? query);
   external JSBoolean isQueryEXT(WebGLTimerQueryEXT? query);

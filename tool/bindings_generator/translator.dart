@@ -222,23 +222,6 @@ class Translator {
     ..name = name
     ..definition = _typeReference(type));
 
-  code.TypeDef _translateTypedef(idl.Typedef typedef) =>
-      _typedef(typedef.name.toDart, _typeRaw(typedef.idlType));
-
-  // TODO(joshualitt): We should lower callbacks and callback interfaces to a
-  // Dart function that takes a typed Dart function, and returns an JSFunction.
-  code.TypeDef _translateCallback(idl.Callback callback) =>
-      _typedef(callback.name.toDart, 'JSFunction');
-
-  code.TypeDef _translateCallbackInterface(
-          idl.Interfacelike callbackInterface) =>
-      _typedef(callbackInterface.name.toDart, 'JSFunction');
-
-  // TODO(joshualitt): Enums in the WebIDL are just strings, but we could make
-  // them easier to work with on the Dart side.
-  code.TypeDef _translateEnum(idl.Enum enum_) =>
-      _typedef(enum_.name.toDart, 'JSString');
-
   code.Method _topLevelGetter(String dartName, String getterName) =>
       code.Method((b) => b
         ..annotations.addAll(_jsOverride(''))
@@ -423,26 +406,31 @@ class Translator {
 
   code.Extension _extension(String name, List<idl.Member> members) =>
       code.Extension((b) => b
-        ..name = '${name}Extension'
+        ..name = '${name.snakeToPascal}Extension'
         ..on = _typeReference(name)
         ..methods.addAll(_members(members)));
 
   code.Class _class(
-          String jsName,
-          String dartClassName,
-          String? inheritance,
-          List<String> includes,
-          List<idl.Constructor> constructors,
-          bool needsNoArgumentsConstructor,
-          List<idl.Member> staticMembers) =>
-      code.Class((b) => b
-        ..annotations.addAll(_jsOverride(jsName, true))
-        ..name = dartClassName
-        ..extend = inheritance == null ? null : _typeReference(inheritance)
-        ..implements.addAll(includes.map(_typeReference))
-        ..constructors.addAll(_constructors(
-            dartClassName, constructors, needsNoArgumentsConstructor))
-        ..methods.addAll(_members(staticMembers)));
+    String jsName,
+    String dartClassName,
+    String? inheritance,
+    List<String> includes,
+    List<idl.Constructor> constructors,
+    bool needsNoArgumentsConstructor,
+    List<idl.Member> staticMembers, {
+    required bool abstract,
+  }) =>
+      code.Class(
+        (b) => b
+          ..annotations.addAll(_jsOverride(jsName, true))
+          ..name = dartClassName
+          ..extend = inheritance == null ? null : _typeReference(inheritance)
+          ..implements.addAll(includes.map(_typeReference))
+          ..constructors.addAll(_constructors(
+              dartClassName, constructors, needsNoArgumentsConstructor))
+          ..methods.addAll(_members(staticMembers))
+          ..abstract = abstract,
+      );
 
   List<code.Spec> _interfacelike(idl.Interfacelike idlInterfacelike) {
     // Each [interfacelike] acts as a namespace, so we clear the
@@ -453,15 +441,17 @@ class Translator {
     final jsName = interfacelike.name;
     final type = interfacelike.type;
 
+    final isNamespace = type == 'namespace';
+
     // Namespaces have lowercase names. We also translate them to
     // private classes, and make their first character uppercase in the process.
-    final dartClassName = type == 'namespace'
-        ? '_${jsName[0].toUpperCase()}${jsName.substring(1)}'
+    final dartClassName = isNamespace
+        ? '\$${jsName[0].toUpperCase()}${jsName.substring(1)}'
         : jsName;
 
     // We create a getter for namespaces with the expected name. We also create
     // getters for a few pre-defined singleton classes.
-    final getterName = type == 'namespace' ? jsName : singletons[jsName];
+    final getterName = isNamespace ? jsName : singletons[jsName];
     final members = interfacelike.members;
     return [
       if (getterName != null) _topLevelGetter(dartClassName, getterName),
@@ -472,7 +462,8 @@ class Translator {
           interfacelike.includes,
           interfacelike.constructors,
           !interfacelike.hasNoArgumentsConstructor,
-          interfacelike.staticMembers),
+          interfacelike.staticMembers,
+          abstract: isNamespace),
       if (members.isNotEmpty) _extension(dartClassName, members)
     ];
   }

@@ -21,7 +21,7 @@ class OVR_multiview2 {
   external static GLenum get FRAMEBUFFER_INCOMPLETE_VIEW_TARGETS_OVR;
 }
 
-extension OVR_multiview2Extension on OVR_multiview2 {
+extension OVRMultiview2Extension on OVR_multiview2 {
   external JSVoid framebufferTextureMultiviewOVR(
     GLenum target,
     GLenum attachment,

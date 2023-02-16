@@ -3,7 +3,9 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:js_interop';
+
 import 'package:js/js.dart';
+
 import 'filesystem_api.dart';
 
 // TODO(joshualitt): Let's find a better place for these.
@@ -30,6 +32,15 @@ final List<String> licenseHeader = [
   'BSD-style license that can be found in the LICENSE file.',
 ];
 
-String kebabToSnake(String input) => input.toLowerCase().replaceAll('-', '_');
+extension StringExt on String {
+  String get kebabToSnake => toLowerCase().replaceAll('-', '_');
+
+  String get snakeToPascal => replaceAllMapped(
+        _snakeBit,
+        (match) => match[0]!.toUpperCase(),
+      ).replaceAll('_', '');
+}
+
+final _snakeBit = RegExp('_[a-zA-Z]');
 
 const packageRoot = 'package:web';

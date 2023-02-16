@@ -16,7 +16,7 @@ class OES_draw_buffers_indexed {
   external factory OES_draw_buffers_indexed();
 }
 
-extension OES_draw_buffers_indexedExtension on OES_draw_buffers_indexed {
+extension OESDrawBuffersIndexedExtension on OES_draw_buffers_indexed {
   external JSVoid enableiOES(
     GLenum target,
     GLuint index,

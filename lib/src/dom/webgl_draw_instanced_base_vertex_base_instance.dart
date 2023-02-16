@@ -16,7 +16,7 @@ class WEBGL_draw_instanced_base_vertex_base_instance {
   external factory WEBGL_draw_instanced_base_vertex_base_instance();
 }
 
-extension WEBGL_draw_instanced_base_vertex_base_instanceExtension
+extension WEBGLDrawInstancedBaseVertexBaseInstanceExtension
     on WEBGL_draw_instanced_base_vertex_base_instance {
   external JSVoid drawArraysInstancedBaseInstanceWEBGL(
     GLenum mode,

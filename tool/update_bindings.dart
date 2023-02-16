@@ -26,8 +26,7 @@ ${_parser.usage}''');
   // Run `npm install` or `npm upgrade` as needed.
   if (argResult['update'] as bool) {
     await _runProc('npm', ['update'], _bindingsGeneratorPath);
-  } else if (!Directory(p.join(_bindingsGeneratorPath, 'node_modules'))
-      .existsSync()) {
+  } else {
     await _runProc('npm', ['install'], _bindingsGeneratorPath);
   }
 

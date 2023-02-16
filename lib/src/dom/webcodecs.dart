@@ -8,7 +8,6 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
-import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
 import 'webidl.dart';
@@ -33,7 +32,7 @@ typedef VideoMatrixCoefficients = JSString;
 
 @JS('AudioDecoder')
 @staticInterop
-class AudioDecoder extends EventTarget {
+class AudioDecoder {
   external factory AudioDecoder();
 
   external factory AudioDecoder.a1(AudioDecoderInit init);
@@ -63,7 +62,7 @@ extension AudioDecoderInitExtension on AudioDecoderInit {}
 
 @JS('VideoDecoder')
 @staticInterop
-class VideoDecoder extends EventTarget {
+class VideoDecoder {
   external factory VideoDecoder();
 
   external factory VideoDecoder.a1(VideoDecoderInit init);
@@ -93,7 +92,7 @@ extension VideoDecoderInitExtension on VideoDecoderInit {}
 
 @JS('AudioEncoder')
 @staticInterop
-class AudioEncoder extends EventTarget {
+class AudioEncoder {
   external factory AudioEncoder();
 
   external factory AudioEncoder.a1(AudioEncoderInit init);
@@ -131,7 +130,7 @@ extension EncodedAudioChunkMetadataExtension on EncodedAudioChunkMetadata {}
 
 @JS('VideoEncoder')
 @staticInterop
-class VideoEncoder extends EventTarget {
+class VideoEncoder {
   external factory VideoEncoder();
 
   external factory VideoEncoder.a1(VideoEncoderInit init);

@@ -17,6 +17,6 @@ class TestUtils_ {
   external factory TestUtils_();
 }
 
-extension TestUtils_Extension on TestUtils_ {
+extension TestUtilsExtension on TestUtils_ {
   external JSPromise gc();
 }

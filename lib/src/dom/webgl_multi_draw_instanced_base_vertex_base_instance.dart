@@ -16,7 +16,7 @@ class WEBGL_multi_draw_instanced_base_vertex_base_instance {
   external factory WEBGL_multi_draw_instanced_base_vertex_base_instance();
 }
 
-extension WEBGL_multi_draw_instanced_base_vertex_base_instanceExtension
+extension WEBGLMultiDrawInstancedBaseVertexBaseInstanceExtension
     on WEBGL_multi_draw_instanced_base_vertex_base_instance {
   external JSVoid multiDrawArraysInstancedBaseInstanceWEBGL(
     GLenum mode,

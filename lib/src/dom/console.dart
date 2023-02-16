@@ -17,7 +17,7 @@ class Console_ {
   external factory Console_();
 }
 
-extension Console_Extension on Console_ {
+extension ConsoleExtension on Console_ {
   @JS('assert')
   external JSVoid assert_0_();
   @JS('assert')

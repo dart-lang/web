@@ -18,7 +18,7 @@ class ANGLE_instanced_arrays {
   external static GLenum get VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE;
 }
 
-extension ANGLE_instanced_arraysExtension on ANGLE_instanced_arrays {
+extension ANGLEInstancedArraysExtension on ANGLE_instanced_arrays {
   external JSVoid drawArraysInstancedANGLE(
     GLenum mode,
     GLint first,

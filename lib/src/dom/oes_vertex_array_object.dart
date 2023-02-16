@@ -24,7 +24,7 @@ class OES_vertex_array_object {
   external static GLenum get VERTEX_ARRAY_BINDING_OES;
 }
 
-extension OES_vertex_array_objectExtension on OES_vertex_array_object {
+extension OESVertexArrayObjectExtension on OES_vertex_array_object {
   external WebGLVertexArrayObjectOES? createVertexArrayOES();
   external JSVoid deleteVertexArrayOES(WebGLVertexArrayObjectOES? arrayObject);
   external GLboolean isVertexArrayOES(WebGLVertexArrayObjectOES? arrayObject);

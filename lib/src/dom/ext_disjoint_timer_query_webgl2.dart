@@ -22,7 +22,7 @@ class EXT_disjoint_timer_query_webgl2 {
   external static GLenum get GPU_DISJOINT_EXT;
 }
 
-extension EXT_disjoint_timer_query_webgl2Extension
+extension EXTDisjointTimerQueryWebgl2Extension
     on EXT_disjoint_timer_query_webgl2 {
   external JSVoid queryCounterEXT(
     WebGLQuery query,

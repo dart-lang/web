@@ -406,7 +406,7 @@ class Translator {
 
   code.Extension _extension(String name, List<idl.Member> members) =>
       code.Extension((b) => b
-        ..name = '${name}Extension'
+        ..name = '${name.snakeToPascal}Extension'
         ..on = _typeReference(name)
         ..methods.addAll(_members(members)));
 

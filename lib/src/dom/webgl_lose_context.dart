@@ -14,7 +14,7 @@ class WEBGL_lose_context {
   external factory WEBGL_lose_context();
 }
 
-extension WEBGL_lose_contextExtension on WEBGL_lose_context {
+extension WEBGLLoseContextExtension on WEBGL_lose_context {
   external JSVoid loseContext();
   external JSVoid restoreContext();
 }

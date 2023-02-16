@@ -32,7 +32,7 @@ class WebAssembly_ {
   external factory WebAssembly_();
 }
 
-extension WebAssembly_Extension on WebAssembly_ {
+extension WebAssemblyExtension on WebAssembly_ {
   external JSBoolean validate(BufferSource bytes);
   external JSPromise compile(BufferSource bytes);
   external JSPromise instantiate(BufferSource bytes);

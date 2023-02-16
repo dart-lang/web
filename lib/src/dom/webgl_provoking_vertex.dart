@@ -20,6 +20,6 @@ class WEBGL_provoking_vertex {
   external static GLenum get PROVOKING_VERTEX_WEBGL;
 }
 
-extension WEBGL_provoking_vertexExtension on WEBGL_provoking_vertex {
+extension WEBGLProvokingVertexExtension on WEBGL_provoking_vertex {
   external JSVoid provokingVertexWEBGL(GLenum provokeMode);
 }

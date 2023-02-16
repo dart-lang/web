@@ -51,6 +51,6 @@ class WEBGL_draw_buffers {
   external static GLenum get MAX_DRAW_BUFFERS_WEBGL;
 }
 
-extension WEBGL_draw_buffersExtension on WEBGL_draw_buffers {
+extension WEBGLDrawBuffersExtension on WEBGL_draw_buffers {
   external JSVoid drawBuffersWEBGL(JSArray buffers);
 }

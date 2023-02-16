@@ -16,6 +16,6 @@ class WEBGL_debug_shaders {
   external factory WEBGL_debug_shaders();
 }
 
-extension WEBGL_debug_shadersExtension on WEBGL_debug_shaders {
+extension WEBGLDebugShadersExtension on WEBGL_debug_shaders {
   external JSString getTranslatedShaderSource(WebGLShader shader);
 }

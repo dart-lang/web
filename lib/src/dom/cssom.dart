@@ -282,7 +282,7 @@ class CSS_ {
   external factory CSS_();
 }
 
-extension CSS_Extension on CSS_ {
+extension CSSExtension on CSS_ {
   external Worklet get animationWorklet;
   external JSBoolean supports(
     JSString property,

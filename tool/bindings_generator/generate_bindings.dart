@@ -4,6 +4,7 @@
 
 import 'dart:js_interop';
 import 'dart:js_util';
+
 import 'translator.dart';
 import 'util.dart';
 import 'webref_idl_api.dart';
@@ -14,7 +15,7 @@ Future<TranslationResult> generateBindings(
   final array = objectEntries(await promiseToFuture<JSObject>(idl.parseAll()));
   for (var i = 0; i < array.length; i++) {
     final entry = array[i] as JSArray;
-    final shortname = kebabToSnake((entry[0] as JSString).toDart);
+    final shortname = (entry[0] as JSString).toDart.kebabToSnake;
     final ast = entry[1] as JSArray;
     translator.collect(shortname, ast);
   }

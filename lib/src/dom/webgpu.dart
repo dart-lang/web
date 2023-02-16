@@ -289,12 +289,12 @@ class GPUBufferDescriptor extends GPUObjectDescriptorBase {
 extension GPUBufferDescriptorExtension on GPUBufferDescriptor {}
 
 @JS()
-external GPUBufferUsage_ get GPUBufferUsage;
+external $GPUBufferUsage get GPUBufferUsage;
 
 @JS('GPUBufferUsage')
 @staticInterop
-class GPUBufferUsage_ {
-  external factory GPUBufferUsage_();
+abstract class $GPUBufferUsage {
+  external factory $GPUBufferUsage();
 
   external static GPUFlagsConstant get MAP_READ;
   external static GPUFlagsConstant get MAP_WRITE;
@@ -309,12 +309,12 @@ class GPUBufferUsage_ {
 }
 
 @JS()
-external GPUMapMode_ get GPUMapMode;
+external $GPUMapMode get GPUMapMode;
 
 @JS('GPUMapMode')
 @staticInterop
-class GPUMapMode_ {
-  external factory GPUMapMode_();
+abstract class $GPUMapMode {
+  external factory $GPUMapMode();
 
   external static GPUFlagsConstant get READ;
   external static GPUFlagsConstant get WRITE;
@@ -349,12 +349,12 @@ class GPUTextureDescriptor extends GPUObjectDescriptorBase {
 extension GPUTextureDescriptorExtension on GPUTextureDescriptor {}
 
 @JS()
-external GPUTextureUsage_ get GPUTextureUsage;
+external $GPUTextureUsage get GPUTextureUsage;
 
 @JS('GPUTextureUsage')
 @staticInterop
-class GPUTextureUsage_ {
-  external factory GPUTextureUsage_();
+abstract class $GPUTextureUsage {
+  external factory $GPUTextureUsage();
 
   external static GPUFlagsConstant get COPY_SRC;
   external static GPUFlagsConstant get COPY_DST;
@@ -430,12 +430,12 @@ class GPUBindGroupLayoutEntry {
 extension GPUBindGroupLayoutEntryExtension on GPUBindGroupLayoutEntry {}
 
 @JS()
-external GPUShaderStage_ get GPUShaderStage;
+external $GPUShaderStage get GPUShaderStage;
 
 @JS('GPUShaderStage')
 @staticInterop
-class GPUShaderStage_ {
-  external factory GPUShaderStage_();
+abstract class $GPUShaderStage {
+  external factory $GPUShaderStage();
 
   external static GPUFlagsConstant get VERTEX;
   external static GPUFlagsConstant get FRAGMENT;
@@ -696,12 +696,12 @@ class GPUBlendState {
 extension GPUBlendStateExtension on GPUBlendState {}
 
 @JS()
-external GPUColorWrite_ get GPUColorWrite;
+external $GPUColorWrite get GPUColorWrite;
 
 @JS('GPUColorWrite')
 @staticInterop
-class GPUColorWrite_ {
-  external factory GPUColorWrite_();
+abstract class $GPUColorWrite {
+  external factory $GPUColorWrite();
 
   external static GPUFlagsConstant get RED;
   external static GPUFlagsConstant get GREEN;

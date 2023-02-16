@@ -411,21 +411,26 @@ class Translator {
         ..methods.addAll(_members(members)));
 
   code.Class _class(
-          String jsName,
-          String dartClassName,
-          String? inheritance,
-          List<String> includes,
-          List<idl.Constructor> constructors,
-          bool needsNoArgumentsConstructor,
-          List<idl.Member> staticMembers) =>
-      code.Class((b) => b
-        ..annotations.addAll(_jsOverride(jsName, true))
-        ..name = dartClassName
-        ..extend = inheritance == null ? null : _typeReference(inheritance)
-        ..implements.addAll(includes.map(_typeReference))
-        ..constructors.addAll(_constructors(
-            dartClassName, constructors, needsNoArgumentsConstructor))
-        ..methods.addAll(_members(staticMembers)));
+    String jsName,
+    String dartClassName,
+    String? inheritance,
+    List<String> includes,
+    List<idl.Constructor> constructors,
+    bool needsNoArgumentsConstructor,
+    List<idl.Member> staticMembers, {
+    required bool abstract,
+  }) =>
+      code.Class(
+        (b) => b
+          ..annotations.addAll(_jsOverride(jsName, true))
+          ..name = dartClassName
+          ..extend = inheritance == null ? null : _typeReference(inheritance)
+          ..implements.addAll(includes.map(_typeReference))
+          ..constructors.addAll(_constructors(
+              dartClassName, constructors, needsNoArgumentsConstructor))
+          ..methods.addAll(_members(staticMembers))
+          ..abstract = abstract,
+      );
 
   List<code.Spec> _interfacelike(idl.Interfacelike idlInterfacelike) {
     // Each [interfacelike] acts as a namespace, so we clear the
@@ -436,15 +441,17 @@ class Translator {
     final jsName = interfacelike.name;
     final type = interfacelike.type;
 
+    final isNamespace = type == 'namespace';
+
     // Namespaces have lowercase names. We also translate them to
     // private classes, and make their first character uppercase in the process.
-    final dartClassName = type == 'namespace'
-        ? '${jsName[0].toUpperCase()}${jsName.substring(1)}_'
+    final dartClassName = isNamespace
+        ? '\$${jsName[0].toUpperCase()}${jsName.substring(1)}'
         : jsName;
 
     // We create a getter for namespaces with the expected name. We also create
     // getters for a few pre-defined singleton classes.
-    final getterName = type == 'namespace' ? jsName : singletons[jsName];
+    final getterName = isNamespace ? jsName : singletons[jsName];
     final members = interfacelike.members;
     return [
       if (getterName != null) _topLevelGetter(dartClassName, getterName),
@@ -455,7 +462,8 @@ class Translator {
           interfacelike.includes,
           interfacelike.constructors,
           !interfacelike.hasNoArgumentsConstructor,
-          interfacelike.staticMembers),
+          interfacelike.staticMembers,
+          abstract: isNamespace),
       if (members.isNotEmpty) _extension(dartClassName, members)
     ];
   }

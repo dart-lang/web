@@ -274,15 +274,15 @@ extension ElementCSSInlineStyleExtension on ElementCSSInlineStyle {
 }
 
 @JS()
-external CSS_ get CSS;
+external $CSS get CSS;
 
 @JS('CSS')
 @staticInterop
-class CSS_ {
-  external factory CSS_();
+abstract class $CSS {
+  external factory $CSS();
 }
 
-extension CSSExtension on CSS_ {
+extension $CSSExtension on $CSS {
   external Worklet get animationWorklet;
   external JSBoolean supports(
     JSString property,

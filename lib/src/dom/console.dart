@@ -9,15 +9,15 @@ import 'dart:js_interop';
 import 'package:js/js.dart' hide JS;
 
 @JS()
-external Console_ get console;
+external $Console get console;
 
 @JS('console')
 @staticInterop
-class Console_ {
-  external factory Console_();
+abstract class $Console {
+  external factory $Console();
 }
 
-extension ConsoleExtension on Console_ {
+extension $ConsoleExtension on $Console {
   @JS('assert')
   external JSVoid assert_0_();
   @JS('assert')

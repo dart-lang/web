@@ -15,9 +15,13 @@ void main(List<String> arguments) async {
     print('''
 ${ansi.lightRed.wrap(e.message)}
 
-Usage:
-${_parser.usage}''');
+$_usage''');
     exitCode = ExitCode.usage.code;
+    return;
+  }
+
+  if (argResult['help'] as bool) {
+    print(_usage);
     return;
   }
 
@@ -117,6 +121,10 @@ Future<void> _runProc(
     throw ProcessException(executable, arguments, 'Process failed', procExit);
   }
 }
+
+final _usage = '''
+Usage:
+${_parser.usage}''';
 
 final _parser = ArgParser()
   ..addFlag('update', abbr: 'u', help: 'Update npm dependencies')

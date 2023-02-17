@@ -1,9 +1,6 @@
 name: web
 version: 0.0.1-dev
 
-# Remove when we're ready to publish
-publish_to: none
-
 repository: https://github.com/dart-lang/web
 
 environment:

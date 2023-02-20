@@ -74,14 +74,23 @@ extension SpeechRecognitionErrorEventExtension on SpeechRecognitionErrorEvent {
   external JSString get message;
 }
 
-@JS('SpeechRecognitionErrorEventInit')
+@JS()
 @staticInterop
+@anonymous
 class SpeechRecognitionErrorEventInit extends EventInit {
-  external factory SpeechRecognitionErrorEventInit();
+  external factory SpeechRecognitionErrorEventInit({
+    required SpeechRecognitionErrorCode error,
+    JSString message = '',
+  });
 }
 
 extension SpeechRecognitionErrorEventInitExtension
-    on SpeechRecognitionErrorEventInit {}
+    on SpeechRecognitionErrorEventInit {
+  external set error(SpeechRecognitionErrorCode value);
+  external SpeechRecognitionErrorCode get error;
+  external set message(JSString value);
+  external JSString get message;
+}
 
 @JS('SpeechRecognitionAlternative')
 @staticInterop
@@ -134,13 +143,22 @@ extension SpeechRecognitionEventExtension on SpeechRecognitionEvent {
   external SpeechRecognitionResultList get results;
 }
 
-@JS('SpeechRecognitionEventInit')
+@JS()
 @staticInterop
+@anonymous
 class SpeechRecognitionEventInit extends EventInit {
-  external factory SpeechRecognitionEventInit();
+  external factory SpeechRecognitionEventInit({
+    JSNumber resultIndex = 0,
+    required SpeechRecognitionResultList results,
+  });
 }
 
-extension SpeechRecognitionEventInitExtension on SpeechRecognitionEventInit {}
+extension SpeechRecognitionEventInitExtension on SpeechRecognitionEventInit {
+  external set resultIndex(JSNumber value);
+  external JSNumber get resultIndex;
+  external set results(SpeechRecognitionResultList value);
+  external SpeechRecognitionResultList get results;
+}
 
 @JS('SpeechGrammar')
 @staticInterop
@@ -253,13 +271,31 @@ extension SpeechSynthesisEventExtension on SpeechSynthesisEvent {
   external JSString get name;
 }
 
-@JS('SpeechSynthesisEventInit')
+@JS()
 @staticInterop
+@anonymous
 class SpeechSynthesisEventInit extends EventInit {
-  external factory SpeechSynthesisEventInit();
+  external factory SpeechSynthesisEventInit({
+    required SpeechSynthesisUtterance utterance,
+    JSNumber charIndex = 0,
+    JSNumber charLength = 0,
+    JSNumber elapsedTime = 0,
+    JSString name = '',
+  });
 }
 
-extension SpeechSynthesisEventInitExtension on SpeechSynthesisEventInit {}
+extension SpeechSynthesisEventInitExtension on SpeechSynthesisEventInit {
+  external set utterance(SpeechSynthesisUtterance value);
+  external SpeechSynthesisUtterance get utterance;
+  external set charIndex(JSNumber value);
+  external JSNumber get charIndex;
+  external set charLength(JSNumber value);
+  external JSNumber get charLength;
+  external set elapsedTime(JSNumber value);
+  external JSNumber get elapsedTime;
+  external set name(JSString value);
+  external JSString get name;
+}
 
 @JS('SpeechSynthesisErrorEvent')
 @staticInterop
@@ -276,14 +312,19 @@ extension SpeechSynthesisErrorEventExtension on SpeechSynthesisErrorEvent {
   external SpeechSynthesisErrorCode get error;
 }
 
-@JS('SpeechSynthesisErrorEventInit')
+@JS()
 @staticInterop
+@anonymous
 class SpeechSynthesisErrorEventInit extends SpeechSynthesisEventInit {
-  external factory SpeechSynthesisErrorEventInit();
+  external factory SpeechSynthesisErrorEventInit(
+      {required SpeechSynthesisErrorCode error});
 }
 
 extension SpeechSynthesisErrorEventInitExtension
-    on SpeechSynthesisErrorEventInit {}
+    on SpeechSynthesisErrorEventInit {
+  external set error(SpeechSynthesisErrorCode value);
+  external SpeechSynthesisErrorCode get error;
+}
 
 @JS('SpeechSynthesisVoice')
 @staticInterop

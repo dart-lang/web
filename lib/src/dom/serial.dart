@@ -31,21 +31,34 @@ extension SerialExtension on Serial {
   external JSPromise requestPort1(SerialPortRequestOptions options);
 }
 
-@JS('SerialPortRequestOptions')
+@JS()
 @staticInterop
+@anonymous
 class SerialPortRequestOptions {
-  external factory SerialPortRequestOptions();
+  external factory SerialPortRequestOptions({JSArray filters});
 }
 
-extension SerialPortRequestOptionsExtension on SerialPortRequestOptions {}
+extension SerialPortRequestOptionsExtension on SerialPortRequestOptions {
+  external set filters(JSArray value);
+  external JSArray get filters;
+}
 
-@JS('SerialPortFilter')
+@JS()
 @staticInterop
+@anonymous
 class SerialPortFilter {
-  external factory SerialPortFilter();
+  external factory SerialPortFilter({
+    JSNumber usbVendorId,
+    JSNumber usbProductId,
+  });
 }
 
-extension SerialPortFilterExtension on SerialPortFilter {}
+extension SerialPortFilterExtension on SerialPortFilter {
+  external set usbVendorId(JSNumber value);
+  external JSNumber get usbVendorId;
+  external set usbProductId(JSNumber value);
+  external JSNumber get usbProductId;
+}
 
 @JS('SerialPort')
 @staticInterop
@@ -69,34 +82,93 @@ extension SerialPortExtension on SerialPort {
   external JSPromise forget();
 }
 
-@JS('SerialPortInfo')
+@JS()
 @staticInterop
+@anonymous
 class SerialPortInfo {
-  external factory SerialPortInfo();
+  external factory SerialPortInfo({
+    JSNumber usbVendorId,
+    JSNumber usbProductId,
+  });
 }
 
-extension SerialPortInfoExtension on SerialPortInfo {}
+extension SerialPortInfoExtension on SerialPortInfo {
+  external set usbVendorId(JSNumber value);
+  external JSNumber get usbVendorId;
+  external set usbProductId(JSNumber value);
+  external JSNumber get usbProductId;
+}
 
-@JS('SerialOptions')
+@JS()
 @staticInterop
+@anonymous
 class SerialOptions {
-  external factory SerialOptions();
+  external factory SerialOptions({
+    required JSNumber baudRate,
+    JSNumber dataBits = 8,
+    JSNumber stopBits = 1,
+    ParityType parity = 'none',
+    JSNumber bufferSize = 255,
+    FlowControlType flowControl = 'none',
+  });
 }
 
-extension SerialOptionsExtension on SerialOptions {}
+extension SerialOptionsExtension on SerialOptions {
+  external set baudRate(JSNumber value);
+  external JSNumber get baudRate;
+  external set dataBits(JSNumber value);
+  external JSNumber get dataBits;
+  external set stopBits(JSNumber value);
+  external JSNumber get stopBits;
+  external set parity(ParityType value);
+  external ParityType get parity;
+  external set bufferSize(JSNumber value);
+  external JSNumber get bufferSize;
+  external set flowControl(FlowControlType value);
+  external FlowControlType get flowControl;
+}
 
-@JS('SerialOutputSignals')
+@JS()
 @staticInterop
+@anonymous
 class SerialOutputSignals {
-  external factory SerialOutputSignals();
+  external factory SerialOutputSignals({
+    JSBoolean dataTerminalReady,
+    JSBoolean requestToSend,
+    JSBoolean break_,
+  });
 }
 
-extension SerialOutputSignalsExtension on SerialOutputSignals {}
+extension SerialOutputSignalsExtension on SerialOutputSignals {
+  external set dataTerminalReady(JSBoolean value);
+  external JSBoolean get dataTerminalReady;
+  external set requestToSend(JSBoolean value);
+  external JSBoolean get requestToSend;
+  @JS('break')
+  external set break_0_(JSBoolean value);
+  @JS('break')
+  external JSBoolean get break_0_;
+}
 
-@JS('SerialInputSignals')
+@JS()
 @staticInterop
+@anonymous
 class SerialInputSignals {
-  external factory SerialInputSignals();
+  external factory SerialInputSignals({
+    required JSBoolean dataCarrierDetect,
+    required JSBoolean clearToSend,
+    required JSBoolean ringIndicator,
+    required JSBoolean dataSetReady,
+  });
 }
 
-extension SerialInputSignalsExtension on SerialInputSignals {}
+extension SerialInputSignalsExtension on SerialInputSignals {
+  external set dataCarrierDetect(JSBoolean value);
+  external JSBoolean get dataCarrierDetect;
+  external set clearToSend(JSBoolean value);
+  external JSBoolean get clearToSend;
+  external set ringIndicator(JSBoolean value);
+  external JSBoolean get ringIndicator;
+  external set dataSetReady(JSBoolean value);
+  external JSBoolean get dataSetReady;
+}

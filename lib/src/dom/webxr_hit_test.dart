@@ -13,22 +13,46 @@ import 'webxr.dart';
 
 typedef XRHitTestTrackableType = JSString;
 
-@JS('XRHitTestOptionsInit')
+@JS()
 @staticInterop
+@anonymous
 class XRHitTestOptionsInit {
-  external factory XRHitTestOptionsInit();
+  external factory XRHitTestOptionsInit({
+    required XRSpace space,
+    JSArray entityTypes,
+    XRRay offsetRay,
+  });
 }
 
-extension XRHitTestOptionsInitExtension on XRHitTestOptionsInit {}
+extension XRHitTestOptionsInitExtension on XRHitTestOptionsInit {
+  external set space(XRSpace value);
+  external XRSpace get space;
+  external set entityTypes(JSArray value);
+  external JSArray get entityTypes;
+  external set offsetRay(XRRay value);
+  external XRRay get offsetRay;
+}
 
-@JS('XRTransientInputHitTestOptionsInit')
+@JS()
 @staticInterop
+@anonymous
 class XRTransientInputHitTestOptionsInit {
-  external factory XRTransientInputHitTestOptionsInit();
+  external factory XRTransientInputHitTestOptionsInit({
+    required JSString profile,
+    JSArray entityTypes,
+    XRRay offsetRay,
+  });
 }
 
 extension XRTransientInputHitTestOptionsInitExtension
-    on XRTransientInputHitTestOptionsInit {}
+    on XRTransientInputHitTestOptionsInit {
+  external set profile(JSString value);
+  external JSString get profile;
+  external set entityTypes(JSArray value);
+  external JSArray get entityTypes;
+  external set offsetRay(XRRay value);
+  external XRRay get offsetRay;
+}
 
 @JS('XRHitTestSource')
 @staticInterop
@@ -74,13 +98,28 @@ extension XRTransientInputHitTestResultExtension
   external JSArray get results;
 }
 
-@JS('XRRayDirectionInit')
+@JS()
 @staticInterop
+@anonymous
 class XRRayDirectionInit {
-  external factory XRRayDirectionInit();
+  external factory XRRayDirectionInit({
+    JSNumber x = 0,
+    JSNumber y = 0,
+    JSNumber z = -1,
+    JSNumber w = 0,
+  });
 }
 
-extension XRRayDirectionInitExtension on XRRayDirectionInit {}
+extension XRRayDirectionInitExtension on XRRayDirectionInit {
+  external set x(JSNumber value);
+  external JSNumber get x;
+  external set y(JSNumber value);
+  external JSNumber get y;
+  external set z(JSNumber value);
+  external JSNumber get z;
+  external set w(JSNumber value);
+  external JSNumber get w;
+}
 
 @JS('XRRay')
 @staticInterop

@@ -10,6 +10,7 @@ import 'package:js/js.dart' hide JS;
 
 import 'css_typed_om.dart';
 import 'dom.dart';
+import 'hr_time.dart';
 import 'html.dart';
 import 'web_animations_2.dart';
 
@@ -35,13 +36,18 @@ extension AnimationTimelineExtension on AnimationTimeline {
   external Animation play1(AnimationEffect? effect);
 }
 
-@JS('DocumentTimelineOptions')
+@JS()
 @staticInterop
+@anonymous
 class DocumentTimelineOptions {
-  external factory DocumentTimelineOptions();
+  external factory DocumentTimelineOptions(
+      {DOMHighResTimeStamp originTime = 0});
 }
 
-extension DocumentTimelineOptionsExtension on DocumentTimelineOptions {}
+extension DocumentTimelineOptionsExtension on DocumentTimelineOptions {
+  external set originTime(DOMHighResTimeStamp value);
+  external DOMHighResTimeStamp get originTime;
+}
 
 @JS('DocumentTimeline')
 @staticInterop
@@ -122,29 +128,110 @@ extension AnimationEffectExtension on AnimationEffect {
   external JSVoid updateTiming1(OptionalEffectTiming timing);
 }
 
-@JS('EffectTiming')
+@JS()
 @staticInterop
+@anonymous
 class EffectTiming {
-  external factory EffectTiming();
+  external factory EffectTiming({
+    JSNumber delay,
+    JSNumber endDelay,
+    JSNumber playbackRate = 1.0,
+    JSAny duration = 'auto',
+    FillMode fill = 'auto',
+    JSNumber iterationStart = 0.0,
+    JSNumber iterations = 1.0,
+    PlaybackDirection direction = 'normal',
+    JSString easing = 'linear',
+  });
 }
 
-extension EffectTimingExtension on EffectTiming {}
+extension EffectTimingExtension on EffectTiming {
+  external set delay(JSNumber value);
+  external JSNumber get delay;
+  external set endDelay(JSNumber value);
+  external JSNumber get endDelay;
+  external set playbackRate(JSNumber value);
+  external JSNumber get playbackRate;
+  external set duration(JSAny value);
+  external JSAny get duration;
+  external set fill(FillMode value);
+  external FillMode get fill;
+  external set iterationStart(JSNumber value);
+  external JSNumber get iterationStart;
+  external set iterations(JSNumber value);
+  external JSNumber get iterations;
+  external set direction(PlaybackDirection value);
+  external PlaybackDirection get direction;
+  external set easing(JSString value);
+  external JSString get easing;
+}
 
-@JS('OptionalEffectTiming')
+@JS()
 @staticInterop
+@anonymous
 class OptionalEffectTiming {
-  external factory OptionalEffectTiming();
+  external factory OptionalEffectTiming({
+    JSNumber playbackRate,
+    JSNumber delay,
+    JSNumber endDelay,
+    FillMode fill,
+    JSNumber iterationStart,
+    JSNumber iterations,
+    JSAny duration,
+    PlaybackDirection direction,
+    JSString easing,
+  });
 }
 
-extension OptionalEffectTimingExtension on OptionalEffectTiming {}
+extension OptionalEffectTimingExtension on OptionalEffectTiming {
+  external set playbackRate(JSNumber value);
+  external JSNumber get playbackRate;
+  external set delay(JSNumber value);
+  external JSNumber get delay;
+  external set endDelay(JSNumber value);
+  external JSNumber get endDelay;
+  external set fill(FillMode value);
+  external FillMode get fill;
+  external set iterationStart(JSNumber value);
+  external JSNumber get iterationStart;
+  external set iterations(JSNumber value);
+  external JSNumber get iterations;
+  external set duration(JSAny value);
+  external JSAny get duration;
+  external set direction(PlaybackDirection value);
+  external PlaybackDirection get direction;
+  external set easing(JSString value);
+  external JSString get easing;
+}
 
-@JS('ComputedEffectTiming')
+@JS()
 @staticInterop
+@anonymous
 class ComputedEffectTiming extends EffectTiming {
-  external factory ComputedEffectTiming();
+  external factory ComputedEffectTiming({
+    CSSNumberish startTime,
+    CSSNumberish endTime,
+    CSSNumberish activeDuration,
+    CSSNumberish? localTime,
+    JSNumber? progress,
+    JSNumber? currentIteration,
+  });
 }
 
-extension ComputedEffectTimingExtension on ComputedEffectTiming {}
+extension ComputedEffectTimingExtension on ComputedEffectTiming {
+  external set startTime(CSSNumberish value);
+  external CSSNumberish get startTime;
+  external set endTime(CSSNumberish value);
+  external CSSNumberish get endTime;
+  external set activeDuration(CSSNumberish value);
+  external CSSNumberish get activeDuration;
+  external set localTime(CSSNumberish? value);
+  external CSSNumberish? get localTime;
+  external set progress(JSNumber? value);
+  external JSNumber? get progress;
+  external set currentIteration(JSNumber? value);
+  external JSNumber? get currentIteration;
+}
 
 @JS('KeyframeEffect')
 @staticInterop
@@ -178,37 +265,88 @@ extension KeyframeEffectExtension on KeyframeEffect {
   external JSVoid setKeyframes(JSObject? keyframes);
 }
 
-@JS('BaseComputedKeyframe')
+@JS()
 @staticInterop
+@anonymous
 class BaseComputedKeyframe {
-  external factory BaseComputedKeyframe();
+  external factory BaseComputedKeyframe({
+    JSNumber? offset,
+    JSNumber computedOffset,
+    JSString easing = 'linear',
+    CompositeOperationOrAuto composite = 'auto',
+  });
 }
 
-extension BaseComputedKeyframeExtension on BaseComputedKeyframe {}
+extension BaseComputedKeyframeExtension on BaseComputedKeyframe {
+  external set offset(JSNumber? value);
+  external JSNumber? get offset;
+  external set computedOffset(JSNumber value);
+  external JSNumber get computedOffset;
+  external set easing(JSString value);
+  external JSString get easing;
+  external set composite(CompositeOperationOrAuto value);
+  external CompositeOperationOrAuto get composite;
+}
 
-@JS('BasePropertyIndexedKeyframe')
+@JS()
 @staticInterop
+@anonymous
 class BasePropertyIndexedKeyframe {
-  external factory BasePropertyIndexedKeyframe();
+  external factory BasePropertyIndexedKeyframe({
+    JSAny offset = const [],
+    JSAny easing = const [],
+    JSAny composite = const [],
+  });
 }
 
-extension BasePropertyIndexedKeyframeExtension on BasePropertyIndexedKeyframe {}
+extension BasePropertyIndexedKeyframeExtension on BasePropertyIndexedKeyframe {
+  external set offset(JSAny value);
+  external JSAny get offset;
+  external set easing(JSAny value);
+  external JSAny get easing;
+  external set composite(JSAny value);
+  external JSAny get composite;
+}
 
-@JS('BaseKeyframe')
+@JS()
 @staticInterop
+@anonymous
 class BaseKeyframe {
-  external factory BaseKeyframe();
+  external factory BaseKeyframe({
+    JSNumber? offset,
+    JSString easing = 'linear',
+    CompositeOperationOrAuto composite = 'auto',
+  });
 }
 
-extension BaseKeyframeExtension on BaseKeyframe {}
+extension BaseKeyframeExtension on BaseKeyframe {
+  external set offset(JSNumber? value);
+  external JSNumber? get offset;
+  external set easing(JSString value);
+  external JSString get easing;
+  external set composite(CompositeOperationOrAuto value);
+  external CompositeOperationOrAuto get composite;
+}
 
-@JS('KeyframeEffectOptions')
+@JS()
 @staticInterop
+@anonymous
 class KeyframeEffectOptions extends EffectTiming {
-  external factory KeyframeEffectOptions();
+  external factory KeyframeEffectOptions({
+    IterationCompositeOperation iterationComposite = 'replace',
+    CompositeOperation composite = 'replace',
+    JSString? pseudoElement,
+  });
 }
 
-extension KeyframeEffectOptionsExtension on KeyframeEffectOptions {}
+extension KeyframeEffectOptionsExtension on KeyframeEffectOptions {
+  external set iterationComposite(IterationCompositeOperation value);
+  external IterationCompositeOperation get iterationComposite;
+  external set composite(CompositeOperation value);
+  external CompositeOperation get composite;
+  external set pseudoElement(JSString? value);
+  external JSString? get pseudoElement;
+}
 
 @JS('Animatable')
 @staticInterop
@@ -226,18 +364,31 @@ extension AnimatableExtension on Animatable {
   external JSArray getAnimations1(GetAnimationsOptions options);
 }
 
-@JS('KeyframeAnimationOptions')
+@JS()
 @staticInterop
+@anonymous
 class KeyframeAnimationOptions extends KeyframeEffectOptions {
-  external factory KeyframeAnimationOptions();
+  external factory KeyframeAnimationOptions({
+    JSString id = '',
+    AnimationTimeline? timeline,
+  });
 }
 
-extension KeyframeAnimationOptionsExtension on KeyframeAnimationOptions {}
+extension KeyframeAnimationOptionsExtension on KeyframeAnimationOptions {
+  external set id(JSString value);
+  external JSString get id;
+  external set timeline(AnimationTimeline? value);
+  external AnimationTimeline? get timeline;
+}
 
-@JS('GetAnimationsOptions')
+@JS()
 @staticInterop
+@anonymous
 class GetAnimationsOptions {
-  external factory GetAnimationsOptions();
+  external factory GetAnimationsOptions({JSBoolean subtree = false});
 }
 
-extension GetAnimationsOptionsExtension on GetAnimationsOptions {}
+extension GetAnimationsOptionsExtension on GetAnimationsOptions {
+  external set subtree(JSBoolean value);
+  external JSBoolean get subtree;
+}

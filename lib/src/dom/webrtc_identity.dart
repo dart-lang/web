@@ -36,45 +36,93 @@ extension RTCIdentityProviderRegistrarExtension
   external JSVoid register(RTCIdentityProvider idp);
 }
 
-@JS('RTCIdentityProvider')
+@JS()
 @staticInterop
+@anonymous
 class RTCIdentityProvider {
-  external factory RTCIdentityProvider();
+  external factory RTCIdentityProvider({
+    required GenerateAssertionCallback generateAssertion,
+    required ValidateAssertionCallback validateAssertion,
+  });
 }
 
-extension RTCIdentityProviderExtension on RTCIdentityProvider {}
+extension RTCIdentityProviderExtension on RTCIdentityProvider {
+  external set generateAssertion(GenerateAssertionCallback value);
+  external GenerateAssertionCallback get generateAssertion;
+  external set validateAssertion(ValidateAssertionCallback value);
+  external ValidateAssertionCallback get validateAssertion;
+}
 
-@JS('RTCIdentityAssertionResult')
+@JS()
 @staticInterop
+@anonymous
 class RTCIdentityAssertionResult {
-  external factory RTCIdentityAssertionResult();
+  external factory RTCIdentityAssertionResult({
+    required RTCIdentityProviderDetails idp,
+    required JSString assertion,
+  });
 }
 
-extension RTCIdentityAssertionResultExtension on RTCIdentityAssertionResult {}
+extension RTCIdentityAssertionResultExtension on RTCIdentityAssertionResult {
+  external set idp(RTCIdentityProviderDetails value);
+  external RTCIdentityProviderDetails get idp;
+  external set assertion(JSString value);
+  external JSString get assertion;
+}
 
-@JS('RTCIdentityProviderDetails')
+@JS()
 @staticInterop
+@anonymous
 class RTCIdentityProviderDetails {
-  external factory RTCIdentityProviderDetails();
+  external factory RTCIdentityProviderDetails({
+    required JSString domain,
+    JSString protocol = 'default',
+  });
 }
 
-extension RTCIdentityProviderDetailsExtension on RTCIdentityProviderDetails {}
+extension RTCIdentityProviderDetailsExtension on RTCIdentityProviderDetails {
+  external set domain(JSString value);
+  external JSString get domain;
+  external set protocol(JSString value);
+  external JSString get protocol;
+}
 
-@JS('RTCIdentityValidationResult')
+@JS()
 @staticInterop
+@anonymous
 class RTCIdentityValidationResult {
-  external factory RTCIdentityValidationResult();
+  external factory RTCIdentityValidationResult({
+    required JSString identity,
+    required JSString contents,
+  });
 }
 
-extension RTCIdentityValidationResultExtension on RTCIdentityValidationResult {}
+extension RTCIdentityValidationResultExtension on RTCIdentityValidationResult {
+  external set identity(JSString value);
+  external JSString get identity;
+  external set contents(JSString value);
+  external JSString get contents;
+}
 
-@JS('RTCIdentityProviderOptions')
+@JS()
 @staticInterop
+@anonymous
 class RTCIdentityProviderOptions {
-  external factory RTCIdentityProviderOptions();
+  external factory RTCIdentityProviderOptions({
+    JSString protocol = 'default',
+    JSString usernameHint,
+    JSString peerIdentity,
+  });
 }
 
-extension RTCIdentityProviderOptionsExtension on RTCIdentityProviderOptions {}
+extension RTCIdentityProviderOptionsExtension on RTCIdentityProviderOptions {
+  external set protocol(JSString value);
+  external JSString get protocol;
+  external set usernameHint(JSString value);
+  external JSString get usernameHint;
+  external set peerIdentity(JSString value);
+  external JSString get peerIdentity;
+}
 
 @JS('RTCIdentityAssertion')
 @staticInterop

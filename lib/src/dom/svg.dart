@@ -31,13 +31,28 @@ extension SVGElementExtension on SVGElement {
   external SVGElement? get viewportElement;
 }
 
-@JS('SVGBoundingBoxOptions')
+@JS()
 @staticInterop
+@anonymous
 class SVGBoundingBoxOptions {
-  external factory SVGBoundingBoxOptions();
+  external factory SVGBoundingBoxOptions({
+    JSBoolean fill = true,
+    JSBoolean stroke = false,
+    JSBoolean markers = false,
+    JSBoolean clipped = false,
+  });
 }
 
-extension SVGBoundingBoxOptionsExtension on SVGBoundingBoxOptions {}
+extension SVGBoundingBoxOptionsExtension on SVGBoundingBoxOptions {
+  external set fill(JSBoolean value);
+  external JSBoolean get fill;
+  external set stroke(JSBoolean value);
+  external JSBoolean get stroke;
+  external set markers(JSBoolean value);
+  external JSBoolean get markers;
+  external set clipped(JSBoolean value);
+  external JSBoolean get clipped;
+}
 
 @JS('SVGGraphicsElement')
 @staticInterop

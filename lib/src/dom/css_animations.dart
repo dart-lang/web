@@ -30,13 +30,25 @@ extension AnimationEventExtension on AnimationEvent {
   external JSString get pseudoElement;
 }
 
-@JS('AnimationEventInit')
+@JS()
 @staticInterop
+@anonymous
 class AnimationEventInit extends EventInit {
-  external factory AnimationEventInit();
+  external factory AnimationEventInit({
+    JSString animationName = '',
+    JSNumber elapsedTime = 0.0,
+    JSString pseudoElement = '',
+  });
 }
 
-extension AnimationEventInitExtension on AnimationEventInit {}
+extension AnimationEventInitExtension on AnimationEventInit {
+  external set animationName(JSString value);
+  external JSString get animationName;
+  external set elapsedTime(JSNumber value);
+  external JSNumber get elapsedTime;
+  external set pseudoElement(JSString value);
+  external JSString get pseudoElement;
+}
 
 @JS('CSSKeyframeRule')
 @staticInterop

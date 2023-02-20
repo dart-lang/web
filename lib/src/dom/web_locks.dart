@@ -8,6 +8,8 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
+import 'dom.dart';
+
 typedef LockGrantedCallback = JSFunction;
 typedef LockMode = JSString;
 
@@ -41,29 +43,65 @@ extension LockManagerExtension on LockManager {
   external JSPromise query();
 }
 
-@JS('LockOptions')
+@JS()
 @staticInterop
+@anonymous
 class LockOptions {
-  external factory LockOptions();
+  external factory LockOptions({
+    LockMode mode = 'exclusive',
+    JSBoolean ifAvailable = false,
+    JSBoolean steal = false,
+    AbortSignal signal,
+  });
 }
 
-extension LockOptionsExtension on LockOptions {}
+extension LockOptionsExtension on LockOptions {
+  external set mode(LockMode value);
+  external LockMode get mode;
+  external set ifAvailable(JSBoolean value);
+  external JSBoolean get ifAvailable;
+  external set steal(JSBoolean value);
+  external JSBoolean get steal;
+  external set signal(AbortSignal value);
+  external AbortSignal get signal;
+}
 
-@JS('LockManagerSnapshot')
+@JS()
 @staticInterop
+@anonymous
 class LockManagerSnapshot {
-  external factory LockManagerSnapshot();
+  external factory LockManagerSnapshot({
+    JSArray held,
+    JSArray pending,
+  });
 }
 
-extension LockManagerSnapshotExtension on LockManagerSnapshot {}
+extension LockManagerSnapshotExtension on LockManagerSnapshot {
+  external set held(JSArray value);
+  external JSArray get held;
+  external set pending(JSArray value);
+  external JSArray get pending;
+}
 
-@JS('LockInfo')
+@JS()
 @staticInterop
+@anonymous
 class LockInfo {
-  external factory LockInfo();
+  external factory LockInfo({
+    JSString name,
+    LockMode mode,
+    JSString clientId,
+  });
 }
 
-extension LockInfoExtension on LockInfo {}
+extension LockInfoExtension on LockInfo {
+  external set name(JSString value);
+  external JSString get name;
+  external set mode(LockMode value);
+  external LockMode get mode;
+  external set clientId(JSString value);
+  external JSString get clientId;
+}
 
 @JS('Lock')
 @staticInterop

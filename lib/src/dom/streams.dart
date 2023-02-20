@@ -62,47 +62,99 @@ extension ReadableStreamExtension on ReadableStream {
   external JSArray tee();
 }
 
-@JS('ReadableStreamGetReaderOptions')
+@JS()
 @staticInterop
+@anonymous
 class ReadableStreamGetReaderOptions {
-  external factory ReadableStreamGetReaderOptions();
+  external factory ReadableStreamGetReaderOptions(
+      {ReadableStreamReaderMode mode});
 }
 
 extension ReadableStreamGetReaderOptionsExtension
-    on ReadableStreamGetReaderOptions {}
+    on ReadableStreamGetReaderOptions {
+  external set mode(ReadableStreamReaderMode value);
+  external ReadableStreamReaderMode get mode;
+}
 
-@JS('ReadableStreamIteratorOptions')
+@JS()
 @staticInterop
+@anonymous
 class ReadableStreamIteratorOptions {
-  external factory ReadableStreamIteratorOptions();
+  external factory ReadableStreamIteratorOptions(
+      {JSBoolean preventCancel = false});
 }
 
 extension ReadableStreamIteratorOptionsExtension
-    on ReadableStreamIteratorOptions {}
+    on ReadableStreamIteratorOptions {
+  external set preventCancel(JSBoolean value);
+  external JSBoolean get preventCancel;
+}
 
-@JS('ReadableWritablePair')
+@JS()
 @staticInterop
+@anonymous
 class ReadableWritablePair {
-  external factory ReadableWritablePair();
+  external factory ReadableWritablePair({
+    required ReadableStream readable,
+    required WritableStream writable,
+  });
 }
 
-extension ReadableWritablePairExtension on ReadableWritablePair {}
+extension ReadableWritablePairExtension on ReadableWritablePair {
+  external set readable(ReadableStream value);
+  external ReadableStream get readable;
+  external set writable(WritableStream value);
+  external WritableStream get writable;
+}
 
-@JS('StreamPipeOptions')
+@JS()
 @staticInterop
+@anonymous
 class StreamPipeOptions {
-  external factory StreamPipeOptions();
+  external factory StreamPipeOptions({
+    JSBoolean preventClose = false,
+    JSBoolean preventAbort = false,
+    JSBoolean preventCancel = false,
+    AbortSignal signal,
+  });
 }
 
-extension StreamPipeOptionsExtension on StreamPipeOptions {}
+extension StreamPipeOptionsExtension on StreamPipeOptions {
+  external set preventClose(JSBoolean value);
+  external JSBoolean get preventClose;
+  external set preventAbort(JSBoolean value);
+  external JSBoolean get preventAbort;
+  external set preventCancel(JSBoolean value);
+  external JSBoolean get preventCancel;
+  external set signal(AbortSignal value);
+  external AbortSignal get signal;
+}
 
-@JS('UnderlyingSource')
+@JS()
 @staticInterop
+@anonymous
 class UnderlyingSource {
-  external factory UnderlyingSource();
+  external factory UnderlyingSource({
+    UnderlyingSourceStartCallback start,
+    UnderlyingSourcePullCallback pull,
+    UnderlyingSourceCancelCallback cancel,
+    ReadableStreamType type,
+    JSNumber autoAllocateChunkSize,
+  });
 }
 
-extension UnderlyingSourceExtension on UnderlyingSource {}
+extension UnderlyingSourceExtension on UnderlyingSource {
+  external set start(UnderlyingSourceStartCallback value);
+  external UnderlyingSourceStartCallback get start;
+  external set pull(UnderlyingSourcePullCallback value);
+  external UnderlyingSourcePullCallback get pull;
+  external set cancel(UnderlyingSourceCancelCallback value);
+  external UnderlyingSourceCancelCallback get cancel;
+  external set type(ReadableStreamType value);
+  external ReadableStreamType get type;
+  external set autoAllocateChunkSize(JSNumber value);
+  external JSNumber get autoAllocateChunkSize;
+}
 
 @JS('ReadableStreamGenericReader')
 @staticInterop
@@ -129,13 +181,22 @@ extension ReadableStreamDefaultReaderExtension on ReadableStreamDefaultReader {
   external JSVoid releaseLock();
 }
 
-@JS('ReadableStreamReadResult')
+@JS()
 @staticInterop
+@anonymous
 class ReadableStreamReadResult {
-  external factory ReadableStreamReadResult();
+  external factory ReadableStreamReadResult({
+    JSAny value,
+    JSBoolean done,
+  });
 }
 
-extension ReadableStreamReadResultExtension on ReadableStreamReadResult {}
+extension ReadableStreamReadResultExtension on ReadableStreamReadResult {
+  external set value(JSAny value);
+  external JSAny get value;
+  external set done(JSBoolean value);
+  external JSBoolean get done;
+}
 
 @JS('ReadableStreamBYOBReader')
 @staticInterop
@@ -217,13 +278,31 @@ extension WritableStreamExtension on WritableStream {
   external WritableStreamDefaultWriter getWriter();
 }
 
-@JS('UnderlyingSink')
+@JS()
 @staticInterop
+@anonymous
 class UnderlyingSink {
-  external factory UnderlyingSink();
+  external factory UnderlyingSink({
+    UnderlyingSinkStartCallback start,
+    UnderlyingSinkWriteCallback write,
+    UnderlyingSinkCloseCallback close,
+    UnderlyingSinkAbortCallback abort,
+    JSAny type,
+  });
 }
 
-extension UnderlyingSinkExtension on UnderlyingSink {}
+extension UnderlyingSinkExtension on UnderlyingSink {
+  external set start(UnderlyingSinkStartCallback value);
+  external UnderlyingSinkStartCallback get start;
+  external set write(UnderlyingSinkWriteCallback value);
+  external UnderlyingSinkWriteCallback get write;
+  external set close(UnderlyingSinkCloseCallback value);
+  external UnderlyingSinkCloseCallback get close;
+  external set abort(UnderlyingSinkAbortCallback value);
+  external UnderlyingSinkAbortCallback get abort;
+  external set type(JSAny value);
+  external JSAny get type;
+}
 
 @JS('WritableStreamDefaultWriter')
 @staticInterop
@@ -284,13 +363,31 @@ extension TransformStreamExtension on TransformStream {
   external WritableStream get writable;
 }
 
-@JS('Transformer')
+@JS()
 @staticInterop
+@anonymous
 class Transformer {
-  external factory Transformer();
+  external factory Transformer({
+    TransformerStartCallback start,
+    TransformerTransformCallback transform,
+    TransformerFlushCallback flush,
+    JSAny readableType,
+    JSAny writableType,
+  });
 }
 
-extension TransformerExtension on Transformer {}
+extension TransformerExtension on Transformer {
+  external set start(TransformerStartCallback value);
+  external TransformerStartCallback get start;
+  external set transform(TransformerTransformCallback value);
+  external TransformerTransformCallback get transform;
+  external set flush(TransformerFlushCallback value);
+  external TransformerFlushCallback get flush;
+  external set readableType(JSAny value);
+  external JSAny get readableType;
+  external set writableType(JSAny value);
+  external JSAny get writableType;
+}
 
 @JS('TransformStreamDefaultController')
 @staticInterop
@@ -308,21 +405,34 @@ extension TransformStreamDefaultControllerExtension
   external JSVoid terminate();
 }
 
-@JS('QueuingStrategy')
+@JS()
 @staticInterop
+@anonymous
 class QueuingStrategy {
-  external factory QueuingStrategy();
+  external factory QueuingStrategy({
+    JSNumber highWaterMark,
+    QueuingStrategySize size,
+  });
 }
 
-extension QueuingStrategyExtension on QueuingStrategy {}
+extension QueuingStrategyExtension on QueuingStrategy {
+  external set highWaterMark(JSNumber value);
+  external JSNumber get highWaterMark;
+  external set size(QueuingStrategySize value);
+  external QueuingStrategySize get size;
+}
 
-@JS('QueuingStrategyInit')
+@JS()
 @staticInterop
+@anonymous
 class QueuingStrategyInit {
-  external factory QueuingStrategyInit();
+  external factory QueuingStrategyInit({required JSNumber highWaterMark});
 }
 
-extension QueuingStrategyInitExtension on QueuingStrategyInit {}
+extension QueuingStrategyInitExtension on QueuingStrategyInit {
+  external set highWaterMark(JSNumber value);
+  external JSNumber get highWaterMark;
+}
 
 @JS('ByteLengthQueuingStrategy')
 @staticInterop

@@ -32,42 +32,102 @@ extension ImageCaptureExtension on ImageCapture {
   external MediaStreamTrack get track;
 }
 
-@JS('PhotoCapabilities')
+@JS()
 @staticInterop
+@anonymous
 class PhotoCapabilities {
-  external factory PhotoCapabilities();
+  external factory PhotoCapabilities({
+    RedEyeReduction redEyeReduction,
+    MediaSettingsRange imageHeight,
+    MediaSettingsRange imageWidth,
+    JSArray fillLightMode,
+  });
 }
 
-extension PhotoCapabilitiesExtension on PhotoCapabilities {}
+extension PhotoCapabilitiesExtension on PhotoCapabilities {
+  external set redEyeReduction(RedEyeReduction value);
+  external RedEyeReduction get redEyeReduction;
+  external set imageHeight(MediaSettingsRange value);
+  external MediaSettingsRange get imageHeight;
+  external set imageWidth(MediaSettingsRange value);
+  external MediaSettingsRange get imageWidth;
+  external set fillLightMode(JSArray value);
+  external JSArray get fillLightMode;
+}
 
-@JS('PhotoSettings')
+@JS()
 @staticInterop
+@anonymous
 class PhotoSettings {
-  external factory PhotoSettings();
+  external factory PhotoSettings({
+    FillLightMode fillLightMode,
+    JSNumber imageHeight,
+    JSNumber imageWidth,
+    JSBoolean redEyeReduction,
+  });
 }
 
-extension PhotoSettingsExtension on PhotoSettings {}
+extension PhotoSettingsExtension on PhotoSettings {
+  external set fillLightMode(FillLightMode value);
+  external FillLightMode get fillLightMode;
+  external set imageHeight(JSNumber value);
+  external JSNumber get imageHeight;
+  external set imageWidth(JSNumber value);
+  external JSNumber get imageWidth;
+  external set redEyeReduction(JSBoolean value);
+  external JSBoolean get redEyeReduction;
+}
 
-@JS('MediaSettingsRange')
+@JS()
 @staticInterop
+@anonymous
 class MediaSettingsRange {
-  external factory MediaSettingsRange();
+  external factory MediaSettingsRange({
+    JSNumber max,
+    JSNumber min,
+    JSNumber step,
+  });
 }
 
-extension MediaSettingsRangeExtension on MediaSettingsRange {}
+extension MediaSettingsRangeExtension on MediaSettingsRange {
+  external set max(JSNumber value);
+  external JSNumber get max;
+  external set min(JSNumber value);
+  external JSNumber get min;
+  external set step(JSNumber value);
+  external JSNumber get step;
+}
 
-@JS('ConstrainPoint2DParameters')
+@JS()
 @staticInterop
+@anonymous
 class ConstrainPoint2DParameters {
-  external factory ConstrainPoint2DParameters();
+  external factory ConstrainPoint2DParameters({
+    JSArray exact,
+    JSArray ideal,
+  });
 }
 
-extension ConstrainPoint2DParametersExtension on ConstrainPoint2DParameters {}
+extension ConstrainPoint2DParametersExtension on ConstrainPoint2DParameters {
+  external set exact(JSArray value);
+  external JSArray get exact;
+  external set ideal(JSArray value);
+  external JSArray get ideal;
+}
 
-@JS('Point2D')
+@JS()
 @staticInterop
+@anonymous
 class Point2D {
-  external factory Point2D();
+  external factory Point2D({
+    JSNumber x = 0.0,
+    JSNumber y = 0.0,
+  });
 }
 
-extension Point2DExtension on Point2D {}
+extension Point2DExtension on Point2D {
+  external set x(JSNumber value);
+  external JSNumber get x;
+  external set y(JSNumber value);
+  external JSNumber get y;
+}

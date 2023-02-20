@@ -15,13 +15,49 @@ typedef BinaryData = JSAny;
 typedef FontFaceLoadStatus = JSString;
 typedef FontFaceSetLoadStatus = JSString;
 
-@JS('FontFaceDescriptors')
+@JS()
 @staticInterop
+@anonymous
 class FontFaceDescriptors {
-  external factory FontFaceDescriptors();
+  external factory FontFaceDescriptors({
+    JSString style = 'normal',
+    JSString weight = 'normal',
+    JSString stretch = 'normal',
+    JSString unicodeRange = 'U+0-10FFFF',
+    JSString variant = 'normal',
+    JSString featureSettings = 'normal',
+    JSString variationSettings = 'normal',
+    JSString display = 'auto',
+    JSString ascentOverride = 'normal',
+    JSString descentOverride = 'normal',
+    JSString lineGapOverride = 'normal',
+  });
 }
 
-extension FontFaceDescriptorsExtension on FontFaceDescriptors {}
+extension FontFaceDescriptorsExtension on FontFaceDescriptors {
+  external set style(JSString value);
+  external JSString get style;
+  external set weight(JSString value);
+  external JSString get weight;
+  external set stretch(JSString value);
+  external JSString get stretch;
+  external set unicodeRange(JSString value);
+  external JSString get unicodeRange;
+  external set variant(JSString value);
+  external JSString get variant;
+  external set featureSettings(JSString value);
+  external JSString get featureSettings;
+  external set variationSettings(JSString value);
+  external JSString get variationSettings;
+  external set display(JSString value);
+  external JSString get display;
+  external set ascentOverride(JSString value);
+  external JSString get ascentOverride;
+  external set descentOverride(JSString value);
+  external JSString get descentOverride;
+  external set lineGapOverride(JSString value);
+  external JSString get lineGapOverride;
+}
 
 @JS('FontFace')
 @staticInterop
@@ -123,13 +159,17 @@ extension FontFacePalettesExtension on FontFacePalettes {
   external JSNumber get length;
 }
 
-@JS('FontFaceSetLoadEventInit')
+@JS()
 @staticInterop
+@anonymous
 class FontFaceSetLoadEventInit extends EventInit {
-  external factory FontFaceSetLoadEventInit();
+  external factory FontFaceSetLoadEventInit({JSArray fontfaces = const []});
 }
 
-extension FontFaceSetLoadEventInitExtension on FontFaceSetLoadEventInit {}
+extension FontFaceSetLoadEventInitExtension on FontFaceSetLoadEventInit {
+  external set fontfaces(JSArray value);
+  external JSArray get fontfaces;
+}
 
 @JS('FontFaceSetLoadEvent')
 @staticInterop

@@ -17,21 +17,34 @@ typedef MIDIPortType = JSString;
 typedef MIDIPortDeviceState = JSString;
 typedef MIDIPortConnectionState = JSString;
 
-@JS('MidiPermissionDescriptor')
+@JS()
 @staticInterop
+@anonymous
 class MidiPermissionDescriptor extends PermissionDescriptor {
-  external factory MidiPermissionDescriptor();
+  external factory MidiPermissionDescriptor({JSBoolean sysex = false});
 }
 
-extension MidiPermissionDescriptorExtension on MidiPermissionDescriptor {}
+extension MidiPermissionDescriptorExtension on MidiPermissionDescriptor {
+  external set sysex(JSBoolean value);
+  external JSBoolean get sysex;
+}
 
-@JS('MIDIOptions')
+@JS()
 @staticInterop
+@anonymous
 class MIDIOptions {
-  external factory MIDIOptions();
+  external factory MIDIOptions({
+    JSBoolean sysex,
+    JSBoolean software,
+  });
 }
 
-extension MIDIOptionsExtension on MIDIOptions {}
+extension MIDIOptionsExtension on MIDIOptions {
+  external set sysex(JSBoolean value);
+  external JSBoolean get sysex;
+  external set software(JSBoolean value);
+  external JSBoolean get software;
+}
 
 @JS('MIDIInputMap')
 @staticInterop
@@ -126,13 +139,17 @@ extension MIDIMessageEventExtension on MIDIMessageEvent {
   external JSUint8Array get data;
 }
 
-@JS('MIDIMessageEventInit')
+@JS()
 @staticInterop
+@anonymous
 class MIDIMessageEventInit extends EventInit {
-  external factory MIDIMessageEventInit();
+  external factory MIDIMessageEventInit({JSUint8Array data});
 }
 
-extension MIDIMessageEventInitExtension on MIDIMessageEventInit {}
+extension MIDIMessageEventInitExtension on MIDIMessageEventInit {
+  external set data(JSUint8Array value);
+  external JSUint8Array get data;
+}
 
 @JS('MIDIConnectionEvent')
 @staticInterop
@@ -151,10 +168,14 @@ extension MIDIConnectionEventExtension on MIDIConnectionEvent {
   external MIDIPort get port;
 }
 
-@JS('MIDIConnectionEventInit')
+@JS()
 @staticInterop
+@anonymous
 class MIDIConnectionEventInit extends EventInit {
-  external factory MIDIConnectionEventInit();
+  external factory MIDIConnectionEventInit({MIDIPort port});
 }
 
-extension MIDIConnectionEventInitExtension on MIDIConnectionEventInit {}
+extension MIDIConnectionEventInitExtension on MIDIConnectionEventInit {
+  external set port(MIDIPort value);
+  external MIDIPort get port;
+}

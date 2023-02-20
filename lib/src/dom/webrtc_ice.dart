@@ -8,10 +8,21 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
-@JS('RTCIceGatherOptions')
+import 'webrtc.dart';
+
+@JS()
 @staticInterop
+@anonymous
 class RTCIceGatherOptions {
-  external factory RTCIceGatherOptions();
+  external factory RTCIceGatherOptions({
+    RTCIceTransportPolicy gatherPolicy = 'all',
+    JSArray iceServers,
+  });
 }
 
-extension RTCIceGatherOptionsExtension on RTCIceGatherOptions {}
+extension RTCIceGatherOptionsExtension on RTCIceGatherOptions {
+  external set gatherPolicy(RTCIceTransportPolicy value);
+  external RTCIceTransportPolicy get gatherPolicy;
+  external set iceServers(JSArray value);
+  external JSArray get iceServers;
+}

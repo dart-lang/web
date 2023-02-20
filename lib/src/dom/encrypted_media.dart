@@ -18,22 +18,58 @@ typedef MediaKeySessionClosedReason = JSString;
 typedef MediaKeyStatus = JSString;
 typedef MediaKeyMessageType = JSString;
 
-@JS('MediaKeySystemConfiguration')
+@JS()
 @staticInterop
+@anonymous
 class MediaKeySystemConfiguration {
-  external factory MediaKeySystemConfiguration();
+  external factory MediaKeySystemConfiguration({
+    JSString label = '',
+    JSArray initDataTypes = const [],
+    JSArray audioCapabilities = const [],
+    JSArray videoCapabilities = const [],
+    MediaKeysRequirement distinctiveIdentifier = 'optional',
+    MediaKeysRequirement persistentState = 'optional',
+    JSArray sessionTypes,
+  });
 }
 
-extension MediaKeySystemConfigurationExtension on MediaKeySystemConfiguration {}
+extension MediaKeySystemConfigurationExtension on MediaKeySystemConfiguration {
+  external set label(JSString value);
+  external JSString get label;
+  external set initDataTypes(JSArray value);
+  external JSArray get initDataTypes;
+  external set audioCapabilities(JSArray value);
+  external JSArray get audioCapabilities;
+  external set videoCapabilities(JSArray value);
+  external JSArray get videoCapabilities;
+  external set distinctiveIdentifier(MediaKeysRequirement value);
+  external MediaKeysRequirement get distinctiveIdentifier;
+  external set persistentState(MediaKeysRequirement value);
+  external MediaKeysRequirement get persistentState;
+  external set sessionTypes(JSArray value);
+  external JSArray get sessionTypes;
+}
 
-@JS('MediaKeySystemMediaCapability')
+@JS()
 @staticInterop
+@anonymous
 class MediaKeySystemMediaCapability {
-  external factory MediaKeySystemMediaCapability();
+  external factory MediaKeySystemMediaCapability({
+    JSString contentType = '',
+    JSString? encryptionScheme,
+    JSString robustness = '',
+  });
 }
 
 extension MediaKeySystemMediaCapabilityExtension
-    on MediaKeySystemMediaCapability {}
+    on MediaKeySystemMediaCapability {
+  external set contentType(JSString value);
+  external JSString get contentType;
+  external set encryptionScheme(JSString? value);
+  external JSString? get encryptionScheme;
+  external set robustness(JSString value);
+  external JSString get robustness;
+}
 
 @JS('MediaKeySystemAccess')
 @staticInterop
@@ -112,13 +148,22 @@ extension MediaKeyMessageEventExtension on MediaKeyMessageEvent {
   external JSArrayBuffer get message;
 }
 
-@JS('MediaKeyMessageEventInit')
+@JS()
 @staticInterop
+@anonymous
 class MediaKeyMessageEventInit extends EventInit {
-  external factory MediaKeyMessageEventInit();
+  external factory MediaKeyMessageEventInit({
+    required MediaKeyMessageType messageType,
+    required JSArrayBuffer message,
+  });
 }
 
-extension MediaKeyMessageEventInitExtension on MediaKeyMessageEventInit {}
+extension MediaKeyMessageEventInitExtension on MediaKeyMessageEventInit {
+  external set messageType(MediaKeyMessageType value);
+  external MediaKeyMessageType get messageType;
+  external set message(JSArrayBuffer value);
+  external JSArrayBuffer get message;
+}
 
 @JS('MediaEncryptedEvent')
 @staticInterop
@@ -138,10 +183,19 @@ extension MediaEncryptedEventExtension on MediaEncryptedEvent {
   external JSArrayBuffer? get initData;
 }
 
-@JS('MediaEncryptedEventInit')
+@JS()
 @staticInterop
+@anonymous
 class MediaEncryptedEventInit extends EventInit {
-  external factory MediaEncryptedEventInit();
+  external factory MediaEncryptedEventInit({
+    JSString initDataType = '',
+    JSArrayBuffer? initData,
+  });
 }
 
-extension MediaEncryptedEventInitExtension on MediaEncryptedEventInit {}
+extension MediaEncryptedEventInitExtension on MediaEncryptedEventInit {
+  external set initDataType(JSString value);
+  external JSString get initDataType;
+  external set initData(JSArrayBuffer? value);
+  external JSArrayBuffer? get initData;
+}

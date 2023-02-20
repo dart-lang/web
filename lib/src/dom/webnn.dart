@@ -39,13 +39,22 @@ extension NavigatorMLExtension on NavigatorML {
   external ML get ml;
 }
 
-@JS('MLContextOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLContextOptions {
-  external factory MLContextOptions();
+  external factory MLContextOptions({
+    MLDeviceType deviceType = 'cpu',
+    MLPowerPreference powerPreference = 'default',
+  });
 }
 
-extension MLContextOptionsExtension on MLContextOptions {}
+extension MLContextOptionsExtension on MLContextOptions {
+  external set deviceType(MLDeviceType value);
+  external MLDeviceType get deviceType;
+  external set powerPreference(MLPowerPreference value);
+  external MLPowerPreference get powerPreference;
+}
 
 @JS('ML')
 @staticInterop
@@ -70,13 +79,22 @@ class MLGraph {
   external factory MLGraph();
 }
 
-@JS('MLOperandDescriptor')
+@JS()
 @staticInterop
+@anonymous
 class MLOperandDescriptor {
-  external factory MLOperandDescriptor();
+  external factory MLOperandDescriptor({
+    required MLOperandType type,
+    JSArray dimensions,
+  });
 }
 
-extension MLOperandDescriptorExtension on MLOperandDescriptor {}
+extension MLOperandDescriptorExtension on MLOperandDescriptor {
+  external set type(MLOperandType value);
+  external MLOperandType get type;
+  external set dimensions(JSArray value);
+  external JSArray get dimensions;
+}
 
 @JS('MLOperand')
 @staticInterop
@@ -110,13 +128,22 @@ extension MLContextExtension on MLContext {
   external MLCommandEncoder createCommandEncoder();
 }
 
-@JS('MLComputeResult')
+@JS()
 @staticInterop
+@anonymous
 class MLComputeResult {
-  external factory MLComputeResult();
+  external factory MLComputeResult({
+    MLNamedArrayBufferViews inputs,
+    MLNamedArrayBufferViews outputs,
+  });
 }
 
-extension MLComputeResultExtension on MLComputeResult {}
+extension MLComputeResultExtension on MLComputeResult {
+  external set inputs(MLNamedArrayBufferViews value);
+  external MLNamedArrayBufferViews get inputs;
+  external set outputs(MLNamedArrayBufferViews value);
+  external MLNamedArrayBufferViews get outputs;
+}
 
 @JS('MLCommandEncoder')
 @staticInterop
@@ -135,13 +162,25 @@ extension MLCommandEncoderExtension on MLCommandEncoder {
   external GPUCommandBuffer finish1(GPUCommandBufferDescriptor descriptor);
 }
 
-@JS('MLBufferResourceView')
+@JS()
 @staticInterop
+@anonymous
 class MLBufferResourceView {
-  external factory MLBufferResourceView();
+  external factory MLBufferResourceView({
+    required GPUBuffer resource,
+    JSNumber offset = 0,
+    JSNumber size,
+  });
 }
 
-extension MLBufferResourceViewExtension on MLBufferResourceView {}
+extension MLBufferResourceViewExtension on MLBufferResourceView {
+  external set resource(GPUBuffer value);
+  external GPUBuffer get resource;
+  external set offset(JSNumber value);
+  external JSNumber get offset;
+  external set size(JSNumber value);
+  external JSNumber get size;
+}
 
 @JS('MLGraphBuilder')
 @staticInterop
@@ -506,187 +545,512 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
   );
 }
 
-@JS('MLBatchNormalizationOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLBatchNormalizationOptions {
-  external factory MLBatchNormalizationOptions();
+  external factory MLBatchNormalizationOptions({
+    MLOperand scale,
+    MLOperand bias,
+    JSNumber axis = 1,
+    JSNumber epsilon = 1e-5,
+    MLActivation activation,
+  });
 }
 
-extension MLBatchNormalizationOptionsExtension on MLBatchNormalizationOptions {}
+extension MLBatchNormalizationOptionsExtension on MLBatchNormalizationOptions {
+  external set scale(MLOperand value);
+  external MLOperand get scale;
+  external set bias(MLOperand value);
+  external MLOperand get bias;
+  external set axis(JSNumber value);
+  external JSNumber get axis;
+  external set epsilon(JSNumber value);
+  external JSNumber get epsilon;
+  external set activation(MLActivation value);
+  external MLActivation get activation;
+}
 
-@JS('MLClampOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLClampOptions {
-  external factory MLClampOptions();
+  external factory MLClampOptions({
+    JSNumber minValue,
+    JSNumber maxValue,
+  });
 }
 
-extension MLClampOptionsExtension on MLClampOptions {}
+extension MLClampOptionsExtension on MLClampOptions {
+  external set minValue(JSNumber value);
+  external JSNumber get minValue;
+  external set maxValue(JSNumber value);
+  external JSNumber get maxValue;
+}
 
-@JS('MLConv2dOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLConv2dOptions {
-  external factory MLConv2dOptions();
+  external factory MLConv2dOptions({
+    JSArray padding,
+    JSArray strides,
+    JSArray dilations,
+    MLAutoPad autoPad = 'explicit',
+    JSNumber groups = 1,
+    MLInputOperandLayout inputLayout = 'nchw',
+    MLConv2dFilterOperandLayout filterLayout = 'oihw',
+    MLOperand bias,
+    MLActivation activation,
+  });
 }
 
-extension MLConv2dOptionsExtension on MLConv2dOptions {}
+extension MLConv2dOptionsExtension on MLConv2dOptions {
+  external set padding(JSArray value);
+  external JSArray get padding;
+  external set strides(JSArray value);
+  external JSArray get strides;
+  external set dilations(JSArray value);
+  external JSArray get dilations;
+  external set autoPad(MLAutoPad value);
+  external MLAutoPad get autoPad;
+  external set groups(JSNumber value);
+  external JSNumber get groups;
+  external set inputLayout(MLInputOperandLayout value);
+  external MLInputOperandLayout get inputLayout;
+  external set filterLayout(MLConv2dFilterOperandLayout value);
+  external MLConv2dFilterOperandLayout get filterLayout;
+  external set bias(MLOperand value);
+  external MLOperand get bias;
+  external set activation(MLActivation value);
+  external MLActivation get activation;
+}
 
-@JS('MLConvTranspose2dOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLConvTranspose2dOptions {
-  external factory MLConvTranspose2dOptions();
+  external factory MLConvTranspose2dOptions({
+    JSArray padding,
+    JSArray strides,
+    JSArray dilations,
+    JSArray outputPadding,
+    JSArray outputSizes,
+    MLAutoPad autoPad = 'explicit',
+    JSNumber groups = 1,
+    MLInputOperandLayout inputLayout = 'nchw',
+    MLConvTranspose2dFilterOperandLayout filterLayout = 'iohw',
+    MLOperand bias,
+    MLActivation activation,
+  });
 }
 
-extension MLConvTranspose2dOptionsExtension on MLConvTranspose2dOptions {}
+extension MLConvTranspose2dOptionsExtension on MLConvTranspose2dOptions {
+  external set padding(JSArray value);
+  external JSArray get padding;
+  external set strides(JSArray value);
+  external JSArray get strides;
+  external set dilations(JSArray value);
+  external JSArray get dilations;
+  external set outputPadding(JSArray value);
+  external JSArray get outputPadding;
+  external set outputSizes(JSArray value);
+  external JSArray get outputSizes;
+  external set autoPad(MLAutoPad value);
+  external MLAutoPad get autoPad;
+  external set groups(JSNumber value);
+  external JSNumber get groups;
+  external set inputLayout(MLInputOperandLayout value);
+  external MLInputOperandLayout get inputLayout;
+  external set filterLayout(MLConvTranspose2dFilterOperandLayout value);
+  external MLConvTranspose2dFilterOperandLayout get filterLayout;
+  external set bias(MLOperand value);
+  external MLOperand get bias;
+  external set activation(MLActivation value);
+  external MLActivation get activation;
+}
 
-@JS('MLEluOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLEluOptions {
-  external factory MLEluOptions();
+  external factory MLEluOptions({JSNumber alpha = 1});
 }
 
-extension MLEluOptionsExtension on MLEluOptions {}
+extension MLEluOptionsExtension on MLEluOptions {
+  external set alpha(JSNumber value);
+  external JSNumber get alpha;
+}
 
-@JS('MLGemmOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLGemmOptions {
-  external factory MLGemmOptions();
+  external factory MLGemmOptions({
+    MLOperand c,
+    JSNumber alpha = 1.0,
+    JSNumber beta = 1.0,
+    JSBoolean aTranspose = false,
+    JSBoolean bTranspose = false,
+  });
 }
 
-extension MLGemmOptionsExtension on MLGemmOptions {}
+extension MLGemmOptionsExtension on MLGemmOptions {
+  external set c(MLOperand value);
+  external MLOperand get c;
+  external set alpha(JSNumber value);
+  external JSNumber get alpha;
+  external set beta(JSNumber value);
+  external JSNumber get beta;
+  external set aTranspose(JSBoolean value);
+  external JSBoolean get aTranspose;
+  external set bTranspose(JSBoolean value);
+  external JSBoolean get bTranspose;
+}
 
-@JS('MLGruOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLGruOptions {
-  external factory MLGruOptions();
+  external factory MLGruOptions({
+    MLOperand bias,
+    MLOperand recurrentBias,
+    MLOperand initialHiddenState,
+    JSBoolean resetAfter = true,
+    JSBoolean returnSequence = false,
+    MLRecurrentNetworkDirection direction = 'forward',
+    MLGruWeightLayout layout = 'zrn',
+    JSArray activations,
+  });
 }
 
-extension MLGruOptionsExtension on MLGruOptions {}
+extension MLGruOptionsExtension on MLGruOptions {
+  external set bias(MLOperand value);
+  external MLOperand get bias;
+  external set recurrentBias(MLOperand value);
+  external MLOperand get recurrentBias;
+  external set initialHiddenState(MLOperand value);
+  external MLOperand get initialHiddenState;
+  external set resetAfter(JSBoolean value);
+  external JSBoolean get resetAfter;
+  external set returnSequence(JSBoolean value);
+  external JSBoolean get returnSequence;
+  external set direction(MLRecurrentNetworkDirection value);
+  external MLRecurrentNetworkDirection get direction;
+  external set layout(MLGruWeightLayout value);
+  external MLGruWeightLayout get layout;
+  external set activations(JSArray value);
+  external JSArray get activations;
+}
 
-@JS('MLGruCellOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLGruCellOptions {
-  external factory MLGruCellOptions();
+  external factory MLGruCellOptions({
+    MLOperand bias,
+    MLOperand recurrentBias,
+    JSBoolean resetAfter = true,
+    MLGruWeightLayout layout = 'zrn',
+    JSArray activations,
+  });
 }
 
-extension MLGruCellOptionsExtension on MLGruCellOptions {}
+extension MLGruCellOptionsExtension on MLGruCellOptions {
+  external set bias(MLOperand value);
+  external MLOperand get bias;
+  external set recurrentBias(MLOperand value);
+  external MLOperand get recurrentBias;
+  external set resetAfter(JSBoolean value);
+  external JSBoolean get resetAfter;
+  external set layout(MLGruWeightLayout value);
+  external MLGruWeightLayout get layout;
+  external set activations(JSArray value);
+  external JSArray get activations;
+}
 
-@JS('MLHardSigmoidOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLHardSigmoidOptions {
-  external factory MLHardSigmoidOptions();
+  external factory MLHardSigmoidOptions({
+    JSNumber alpha = 0.2,
+    JSNumber beta = 0.5,
+  });
 }
 
-extension MLHardSigmoidOptionsExtension on MLHardSigmoidOptions {}
+extension MLHardSigmoidOptionsExtension on MLHardSigmoidOptions {
+  external set alpha(JSNumber value);
+  external JSNumber get alpha;
+  external set beta(JSNumber value);
+  external JSNumber get beta;
+}
 
-@JS('MLInstanceNormalizationOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLInstanceNormalizationOptions {
-  external factory MLInstanceNormalizationOptions();
+  external factory MLInstanceNormalizationOptions({
+    MLOperand scale,
+    MLOperand bias,
+    JSNumber epsilon = 1e-5,
+    MLInputOperandLayout layout = 'nchw',
+  });
 }
 
 extension MLInstanceNormalizationOptionsExtension
-    on MLInstanceNormalizationOptions {}
+    on MLInstanceNormalizationOptions {
+  external set scale(MLOperand value);
+  external MLOperand get scale;
+  external set bias(MLOperand value);
+  external MLOperand get bias;
+  external set epsilon(JSNumber value);
+  external JSNumber get epsilon;
+  external set layout(MLInputOperandLayout value);
+  external MLInputOperandLayout get layout;
+}
 
-@JS('MLLeakyReluOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLLeakyReluOptions {
-  external factory MLLeakyReluOptions();
+  external factory MLLeakyReluOptions({JSNumber alpha = 0.01});
 }
 
-extension MLLeakyReluOptionsExtension on MLLeakyReluOptions {}
+extension MLLeakyReluOptionsExtension on MLLeakyReluOptions {
+  external set alpha(JSNumber value);
+  external JSNumber get alpha;
+}
 
-@JS('MLLinearOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLLinearOptions {
-  external factory MLLinearOptions();
+  external factory MLLinearOptions({
+    JSNumber alpha = 1,
+    JSNumber beta = 0,
+  });
 }
 
-extension MLLinearOptionsExtension on MLLinearOptions {}
+extension MLLinearOptionsExtension on MLLinearOptions {
+  external set alpha(JSNumber value);
+  external JSNumber get alpha;
+  external set beta(JSNumber value);
+  external JSNumber get beta;
+}
 
-@JS('MLLstmOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLLstmOptions {
-  external factory MLLstmOptions();
+  external factory MLLstmOptions({
+    MLOperand bias,
+    MLOperand recurrentBias,
+    MLOperand peepholeWeight,
+    MLOperand initialHiddenState,
+    MLOperand initialCellState,
+    JSBoolean returnSequence = false,
+    MLRecurrentNetworkDirection direction = 'forward',
+    MLLstmWeightLayout layout = 'iofg',
+    JSArray activations,
+  });
 }
 
-extension MLLstmOptionsExtension on MLLstmOptions {}
+extension MLLstmOptionsExtension on MLLstmOptions {
+  external set bias(MLOperand value);
+  external MLOperand get bias;
+  external set recurrentBias(MLOperand value);
+  external MLOperand get recurrentBias;
+  external set peepholeWeight(MLOperand value);
+  external MLOperand get peepholeWeight;
+  external set initialHiddenState(MLOperand value);
+  external MLOperand get initialHiddenState;
+  external set initialCellState(MLOperand value);
+  external MLOperand get initialCellState;
+  external set returnSequence(JSBoolean value);
+  external JSBoolean get returnSequence;
+  external set direction(MLRecurrentNetworkDirection value);
+  external MLRecurrentNetworkDirection get direction;
+  external set layout(MLLstmWeightLayout value);
+  external MLLstmWeightLayout get layout;
+  external set activations(JSArray value);
+  external JSArray get activations;
+}
 
-@JS('MLLstmCellOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLLstmCellOptions {
-  external factory MLLstmCellOptions();
+  external factory MLLstmCellOptions({
+    MLOperand bias,
+    MLOperand recurrentBias,
+    MLOperand peepholeWeight,
+    MLLstmWeightLayout layout = 'iofg',
+    JSArray activations,
+  });
 }
 
-extension MLLstmCellOptionsExtension on MLLstmCellOptions {}
+extension MLLstmCellOptionsExtension on MLLstmCellOptions {
+  external set bias(MLOperand value);
+  external MLOperand get bias;
+  external set recurrentBias(MLOperand value);
+  external MLOperand get recurrentBias;
+  external set peepholeWeight(MLOperand value);
+  external MLOperand get peepholeWeight;
+  external set layout(MLLstmWeightLayout value);
+  external MLLstmWeightLayout get layout;
+  external set activations(JSArray value);
+  external JSArray get activations;
+}
 
-@JS('MLPadOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLPadOptions {
-  external factory MLPadOptions();
+  external factory MLPadOptions({
+    MLPaddingMode mode = 'constant',
+    JSNumber value = 0,
+  });
 }
 
-extension MLPadOptionsExtension on MLPadOptions {}
+extension MLPadOptionsExtension on MLPadOptions {
+  external set mode(MLPaddingMode value);
+  external MLPaddingMode get mode;
+  external set value(JSNumber value);
+  external JSNumber get value;
+}
 
-@JS('MLPool2dOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLPool2dOptions {
-  external factory MLPool2dOptions();
+  external factory MLPool2dOptions({
+    JSArray windowDimensions,
+    JSArray padding,
+    JSArray strides,
+    JSArray dilations,
+    MLAutoPad autoPad = 'explicit',
+    MLInputOperandLayout layout = 'nchw',
+    MLRoundingType roundingType = 'floor',
+    JSArray outputSizes,
+  });
 }
 
-extension MLPool2dOptionsExtension on MLPool2dOptions {}
+extension MLPool2dOptionsExtension on MLPool2dOptions {
+  external set windowDimensions(JSArray value);
+  external JSArray get windowDimensions;
+  external set padding(JSArray value);
+  external JSArray get padding;
+  external set strides(JSArray value);
+  external JSArray get strides;
+  external set dilations(JSArray value);
+  external JSArray get dilations;
+  external set autoPad(MLAutoPad value);
+  external MLAutoPad get autoPad;
+  external set layout(MLInputOperandLayout value);
+  external MLInputOperandLayout get layout;
+  external set roundingType(MLRoundingType value);
+  external MLRoundingType get roundingType;
+  external set outputSizes(JSArray value);
+  external JSArray get outputSizes;
+}
 
-@JS('MLReduceOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLReduceOptions {
-  external factory MLReduceOptions();
+  external factory MLReduceOptions({
+    JSArray axes,
+    JSBoolean keepDimensions = false,
+  });
 }
 
-extension MLReduceOptionsExtension on MLReduceOptions {}
+extension MLReduceOptionsExtension on MLReduceOptions {
+  external set axes(JSArray value);
+  external JSArray get axes;
+  external set keepDimensions(JSBoolean value);
+  external JSBoolean get keepDimensions;
+}
 
-@JS('MLResample2dOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLResample2dOptions {
-  external factory MLResample2dOptions();
+  external factory MLResample2dOptions({
+    MLInterpolationMode mode = 'nearest-neighbor',
+    JSArray scales,
+    JSArray sizes,
+    JSArray axes,
+  });
 }
 
-extension MLResample2dOptionsExtension on MLResample2dOptions {}
+extension MLResample2dOptionsExtension on MLResample2dOptions {
+  external set mode(MLInterpolationMode value);
+  external MLInterpolationMode get mode;
+  external set scales(JSArray value);
+  external JSArray get scales;
+  external set sizes(JSArray value);
+  external JSArray get sizes;
+  external set axes(JSArray value);
+  external JSArray get axes;
+}
 
-@JS('MLSliceOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLSliceOptions {
-  external factory MLSliceOptions();
+  external factory MLSliceOptions({JSArray axes});
 }
 
-extension MLSliceOptionsExtension on MLSliceOptions {}
+extension MLSliceOptionsExtension on MLSliceOptions {
+  external set axes(JSArray value);
+  external JSArray get axes;
+}
 
-@JS('MLSoftplusOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLSoftplusOptions {
-  external factory MLSoftplusOptions();
+  external factory MLSoftplusOptions({JSNumber steepness = 1});
 }
 
-extension MLSoftplusOptionsExtension on MLSoftplusOptions {}
+extension MLSoftplusOptionsExtension on MLSoftplusOptions {
+  external set steepness(JSNumber value);
+  external JSNumber get steepness;
+}
 
-@JS('MLSplitOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLSplitOptions {
-  external factory MLSplitOptions();
+  external factory MLSplitOptions({JSNumber axis = 0});
 }
 
-extension MLSplitOptionsExtension on MLSplitOptions {}
+extension MLSplitOptionsExtension on MLSplitOptions {
+  external set axis(JSNumber value);
+  external JSNumber get axis;
+}
 
-@JS('MLSqueezeOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLSqueezeOptions {
-  external factory MLSqueezeOptions();
+  external factory MLSqueezeOptions({JSArray axes});
 }
 
-extension MLSqueezeOptionsExtension on MLSqueezeOptions {}
+extension MLSqueezeOptionsExtension on MLSqueezeOptions {
+  external set axes(JSArray value);
+  external JSArray get axes;
+}
 
-@JS('MLTransposeOptions')
+@JS()
 @staticInterop
+@anonymous
 class MLTransposeOptions {
-  external factory MLTransposeOptions();
+  external factory MLTransposeOptions({JSArray permutation});
 }
 
-extension MLTransposeOptionsExtension on MLTransposeOptions {}
+extension MLTransposeOptionsExtension on MLTransposeOptions {
+  external set permutation(JSArray value);
+  external JSArray get permutation;
+}

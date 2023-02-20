@@ -25,13 +25,17 @@ extension NDEFMessageExtension on NDEFMessage {
   external JSArray get records;
 }
 
-@JS('NDEFMessageInit')
+@JS()
 @staticInterop
+@anonymous
 class NDEFMessageInit {
-  external factory NDEFMessageInit();
+  external factory NDEFMessageInit({required JSArray records});
 }
 
-extension NDEFMessageInitExtension on NDEFMessageInit {}
+extension NDEFMessageInitExtension on NDEFMessageInit {
+  external set records(JSArray value);
+  external JSArray get records;
+}
 
 @JS('NDEFRecord')
 @staticInterop
@@ -51,13 +55,34 @@ extension NDEFRecordExtension on NDEFRecord {
   external JSArray? toRecords();
 }
 
-@JS('NDEFRecordInit')
+@JS()
 @staticInterop
+@anonymous
 class NDEFRecordInit {
-  external factory NDEFRecordInit();
+  external factory NDEFRecordInit({
+    required JSString recordType,
+    JSString mediaType,
+    JSString id,
+    JSString encoding,
+    JSString lang,
+    JSAny data,
+  });
 }
 
-extension NDEFRecordInitExtension on NDEFRecordInit {}
+extension NDEFRecordInitExtension on NDEFRecordInit {
+  external set recordType(JSString value);
+  external JSString get recordType;
+  external set mediaType(JSString value);
+  external JSString get mediaType;
+  external set id(JSString value);
+  external JSString get id;
+  external set encoding(JSString value);
+  external JSString get encoding;
+  external set lang(JSString value);
+  external JSString get lang;
+  external set data(JSAny value);
+  external JSAny get data;
+}
 
 @JS('NDEFReader')
 @staticInterop
@@ -97,34 +122,60 @@ extension NDEFReadingEventExtension on NDEFReadingEvent {
   external NDEFMessage get message;
 }
 
-@JS('NDEFReadingEventInit')
+@JS()
 @staticInterop
+@anonymous
 class NDEFReadingEventInit extends EventInit {
-  external factory NDEFReadingEventInit();
+  external factory NDEFReadingEventInit({
+    JSString? serialNumber = '',
+    required NDEFMessageInit message,
+  });
 }
 
-extension NDEFReadingEventInitExtension on NDEFReadingEventInit {}
+extension NDEFReadingEventInitExtension on NDEFReadingEventInit {
+  external set serialNumber(JSString? value);
+  external JSString? get serialNumber;
+  external set message(NDEFMessageInit value);
+  external NDEFMessageInit get message;
+}
 
-@JS('NDEFWriteOptions')
+@JS()
 @staticInterop
+@anonymous
 class NDEFWriteOptions {
-  external factory NDEFWriteOptions();
+  external factory NDEFWriteOptions({
+    JSBoolean overwrite = true,
+    AbortSignal? signal,
+  });
 }
 
-extension NDEFWriteOptionsExtension on NDEFWriteOptions {}
+extension NDEFWriteOptionsExtension on NDEFWriteOptions {
+  external set overwrite(JSBoolean value);
+  external JSBoolean get overwrite;
+  external set signal(AbortSignal? value);
+  external AbortSignal? get signal;
+}
 
-@JS('NDEFMakeReadOnlyOptions')
+@JS()
 @staticInterop
+@anonymous
 class NDEFMakeReadOnlyOptions {
-  external factory NDEFMakeReadOnlyOptions();
+  external factory NDEFMakeReadOnlyOptions({AbortSignal? signal});
 }
 
-extension NDEFMakeReadOnlyOptionsExtension on NDEFMakeReadOnlyOptions {}
+extension NDEFMakeReadOnlyOptionsExtension on NDEFMakeReadOnlyOptions {
+  external set signal(AbortSignal? value);
+  external AbortSignal? get signal;
+}
 
-@JS('NDEFScanOptions')
+@JS()
 @staticInterop
+@anonymous
 class NDEFScanOptions {
-  external factory NDEFScanOptions();
+  external factory NDEFScanOptions({AbortSignal signal});
 }
 
-extension NDEFScanOptionsExtension on NDEFScanOptions {}
+extension NDEFScanOptionsExtension on NDEFScanOptions {
+  external set signal(AbortSignal value);
+  external AbortSignal get signal;
+}

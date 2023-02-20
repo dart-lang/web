@@ -9,11 +9,16 @@ import 'dart:js_interop';
 import 'package:js/js.dart' hide JS;
 
 import 'webcryptoapi.dart';
+import 'webidl.dart';
 
-@JS('Ed448Params')
+@JS()
 @staticInterop
+@anonymous
 class Ed448Params extends Algorithm {
-  external factory Ed448Params();
+  external factory Ed448Params({BufferSource context});
 }
 
-extension Ed448ParamsExtension on Ed448Params {}
+extension Ed448ParamsExtension on Ed448Params {
+  external set context(BufferSource value);
+  external BufferSource get context;
+}

@@ -39,10 +39,15 @@ extension PictureInPictureEventExtension on PictureInPictureEvent {
   external PictureInPictureWindow get pictureInPictureWindow;
 }
 
-@JS('PictureInPictureEventInit')
+@JS()
 @staticInterop
+@anonymous
 class PictureInPictureEventInit extends EventInit {
-  external factory PictureInPictureEventInit();
+  external factory PictureInPictureEventInit(
+      {required PictureInPictureWindow pictureInPictureWindow});
 }
 
-extension PictureInPictureEventInitExtension on PictureInPictureEventInit {}
+extension PictureInPictureEventInitExtension on PictureInPictureEventInit {
+  external set pictureInPictureWindow(PictureInPictureWindow value);
+  external PictureInPictureWindow get pictureInPictureWindow;
+}

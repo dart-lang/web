@@ -34,69 +34,145 @@ extension PaymentRequestExtension on PaymentRequest {
   external EventHandler get onpaymentmethodchange;
 }
 
-@JS('PaymentMethodData')
+@JS()
 @staticInterop
+@anonymous
 class PaymentMethodData {
-  external factory PaymentMethodData();
+  external factory PaymentMethodData({
+    required JSString supportedMethods,
+    JSObject data,
+  });
 }
 
-extension PaymentMethodDataExtension on PaymentMethodData {}
+extension PaymentMethodDataExtension on PaymentMethodData {
+  external set supportedMethods(JSString value);
+  external JSString get supportedMethods;
+  external set data(JSObject value);
+  external JSObject get data;
+}
 
-@JS('PaymentCurrencyAmount')
+@JS()
 @staticInterop
+@anonymous
 class PaymentCurrencyAmount {
-  external factory PaymentCurrencyAmount();
+  external factory PaymentCurrencyAmount({
+    required JSString currency,
+    required JSString value,
+  });
 }
 
-extension PaymentCurrencyAmountExtension on PaymentCurrencyAmount {}
+extension PaymentCurrencyAmountExtension on PaymentCurrencyAmount {
+  external set currency(JSString value);
+  external JSString get currency;
+  external set value(JSString value);
+  external JSString get value;
+}
 
-@JS('PaymentDetailsBase')
+@JS()
 @staticInterop
+@anonymous
 class PaymentDetailsBase {
-  external factory PaymentDetailsBase();
+  external factory PaymentDetailsBase({
+    JSArray displayItems,
+    JSArray modifiers,
+  });
 }
 
-extension PaymentDetailsBaseExtension on PaymentDetailsBase {}
+extension PaymentDetailsBaseExtension on PaymentDetailsBase {
+  external set displayItems(JSArray value);
+  external JSArray get displayItems;
+  external set modifiers(JSArray value);
+  external JSArray get modifiers;
+}
 
-@JS('PaymentDetailsInit')
+@JS()
 @staticInterop
+@anonymous
 class PaymentDetailsInit extends PaymentDetailsBase {
-  external factory PaymentDetailsInit();
+  external factory PaymentDetailsInit({
+    JSString id,
+    required PaymentItem total,
+  });
 }
 
-extension PaymentDetailsInitExtension on PaymentDetailsInit {}
+extension PaymentDetailsInitExtension on PaymentDetailsInit {
+  external set id(JSString value);
+  external JSString get id;
+  external set total(PaymentItem value);
+  external PaymentItem get total;
+}
 
-@JS('PaymentDetailsUpdate')
+@JS()
 @staticInterop
+@anonymous
 class PaymentDetailsUpdate extends PaymentDetailsBase {
-  external factory PaymentDetailsUpdate();
+  external factory PaymentDetailsUpdate({
+    PaymentItem total,
+    JSObject paymentMethodErrors,
+  });
 }
 
-extension PaymentDetailsUpdateExtension on PaymentDetailsUpdate {}
+extension PaymentDetailsUpdateExtension on PaymentDetailsUpdate {
+  external set total(PaymentItem value);
+  external PaymentItem get total;
+  external set paymentMethodErrors(JSObject value);
+  external JSObject get paymentMethodErrors;
+}
 
-@JS('PaymentDetailsModifier')
+@JS()
 @staticInterop
+@anonymous
 class PaymentDetailsModifier {
-  external factory PaymentDetailsModifier();
+  external factory PaymentDetailsModifier({
+    required JSString supportedMethods,
+    PaymentItem total,
+    JSArray additionalDisplayItems,
+    JSObject data,
+  });
 }
 
-extension PaymentDetailsModifierExtension on PaymentDetailsModifier {}
+extension PaymentDetailsModifierExtension on PaymentDetailsModifier {
+  external set supportedMethods(JSString value);
+  external JSString get supportedMethods;
+  external set total(PaymentItem value);
+  external PaymentItem get total;
+  external set additionalDisplayItems(JSArray value);
+  external JSArray get additionalDisplayItems;
+  external set data(JSObject value);
+  external JSObject get data;
+}
 
-@JS('PaymentItem')
+@JS()
 @staticInterop
+@anonymous
 class PaymentItem {
-  external factory PaymentItem();
+  external factory PaymentItem({
+    required JSString label,
+    required PaymentCurrencyAmount amount,
+    JSBoolean pending = false,
+  });
 }
 
-extension PaymentItemExtension on PaymentItem {}
+extension PaymentItemExtension on PaymentItem {
+  external set label(JSString value);
+  external JSString get label;
+  external set amount(PaymentCurrencyAmount value);
+  external PaymentCurrencyAmount get amount;
+  external set pending(JSBoolean value);
+  external JSBoolean get pending;
+}
 
-@JS('PaymentCompleteDetails')
+@JS()
 @staticInterop
+@anonymous
 class PaymentCompleteDetails {
-  external factory PaymentCompleteDetails();
+  external factory PaymentCompleteDetails({JSObject? data});
 }
 
-extension PaymentCompleteDetailsExtension on PaymentCompleteDetails {}
+extension PaymentCompleteDetailsExtension on PaymentCompleteDetails {
+  external set data(JSObject? value);
+  external JSObject? get data;
+}
 
 @JS('PaymentResponse')
 @staticInterop
@@ -119,13 +195,22 @@ extension PaymentResponseExtension on PaymentResponse {
   external JSPromise retry1(PaymentValidationErrors errorFields);
 }
 
-@JS('PaymentValidationErrors')
+@JS()
 @staticInterop
+@anonymous
 class PaymentValidationErrors {
-  external factory PaymentValidationErrors();
+  external factory PaymentValidationErrors({
+    JSString error,
+    JSObject paymentMethod,
+  });
 }
 
-extension PaymentValidationErrorsExtension on PaymentValidationErrors {}
+extension PaymentValidationErrorsExtension on PaymentValidationErrors {
+  external set error(JSString value);
+  external JSString get error;
+  external set paymentMethod(JSObject value);
+  external JSObject get paymentMethod;
+}
 
 @JS('PaymentMethodChangeEvent')
 @staticInterop
@@ -145,14 +230,23 @@ extension PaymentMethodChangeEventExtension on PaymentMethodChangeEvent {
   external JSObject? get methodDetails;
 }
 
-@JS('PaymentMethodChangeEventInit')
+@JS()
 @staticInterop
+@anonymous
 class PaymentMethodChangeEventInit extends PaymentRequestUpdateEventInit {
-  external factory PaymentMethodChangeEventInit();
+  external factory PaymentMethodChangeEventInit({
+    JSString methodName = '',
+    JSObject? methodDetails,
+  });
 }
 
 extension PaymentMethodChangeEventInitExtension
-    on PaymentMethodChangeEventInit {}
+    on PaymentMethodChangeEventInit {
+  external set methodName(JSString value);
+  external JSString get methodName;
+  external set methodDetails(JSObject? value);
+  external JSObject? get methodDetails;
+}
 
 @JS('PaymentRequestUpdateEvent')
 @staticInterop
@@ -171,8 +265,9 @@ extension PaymentRequestUpdateEventExtension on PaymentRequestUpdateEvent {
   external JSVoid updateWith(JSPromise detailsPromise);
 }
 
-@JS('PaymentRequestUpdateEventInit')
+@JS()
 @staticInterop
+@anonymous
 class PaymentRequestUpdateEventInit extends EventInit {
   external factory PaymentRequestUpdateEventInit();
 }

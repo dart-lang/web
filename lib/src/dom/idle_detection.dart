@@ -14,13 +14,22 @@ import 'html.dart';
 typedef UserIdleState = JSString;
 typedef ScreenIdleState = JSString;
 
-@JS('IdleOptions')
+@JS()
 @staticInterop
+@anonymous
 class IdleOptions {
-  external factory IdleOptions();
+  external factory IdleOptions({
+    JSNumber threshold,
+    AbortSignal signal,
+  });
 }
 
-extension IdleOptionsExtension on IdleOptions {}
+extension IdleOptionsExtension on IdleOptions {
+  external set threshold(JSNumber value);
+  external JSNumber get threshold;
+  external set signal(AbortSignal value);
+  external AbortSignal get signal;
+}
 
 @JS('IdleDetector')
 @staticInterop

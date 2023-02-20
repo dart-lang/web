@@ -14,13 +14,25 @@ import 'html.dart';
 typedef SchedulerPostTaskCallback = JSFunction;
 typedef TaskPriority = JSString;
 
-@JS('SchedulerPostTaskOptions')
+@JS()
 @staticInterop
+@anonymous
 class SchedulerPostTaskOptions {
-  external factory SchedulerPostTaskOptions();
+  external factory SchedulerPostTaskOptions({
+    AbortSignal signal,
+    TaskPriority priority,
+    JSNumber delay = 0,
+  });
 }
 
-extension SchedulerPostTaskOptionsExtension on SchedulerPostTaskOptions {}
+extension SchedulerPostTaskOptionsExtension on SchedulerPostTaskOptions {
+  external set signal(AbortSignal value);
+  external AbortSignal get signal;
+  external set priority(TaskPriority value);
+  external TaskPriority get priority;
+  external set delay(JSNumber value);
+  external JSNumber get delay;
+}
 
 @JS('Scheduler')
 @staticInterop
@@ -51,21 +63,30 @@ extension TaskPriorityChangeEventExtension on TaskPriorityChangeEvent {
   external TaskPriority get previousPriority;
 }
 
-@JS('TaskPriorityChangeEventInit')
+@JS()
 @staticInterop
+@anonymous
 class TaskPriorityChangeEventInit extends EventInit {
-  external factory TaskPriorityChangeEventInit();
+  external factory TaskPriorityChangeEventInit(
+      {required TaskPriority previousPriority});
 }
 
-extension TaskPriorityChangeEventInitExtension on TaskPriorityChangeEventInit {}
+extension TaskPriorityChangeEventInitExtension on TaskPriorityChangeEventInit {
+  external set previousPriority(TaskPriority value);
+  external TaskPriority get previousPriority;
+}
 
-@JS('TaskControllerInit')
+@JS()
 @staticInterop
+@anonymous
 class TaskControllerInit {
-  external factory TaskControllerInit();
+  external factory TaskControllerInit({TaskPriority priority = 'user-visible'});
 }
 
-extension TaskControllerInitExtension on TaskControllerInit {}
+extension TaskControllerInitExtension on TaskControllerInit {
+  external set priority(TaskPriority value);
+  external TaskPriority get priority;
+}
 
 @JS('TaskController')
 @staticInterop

@@ -11,13 +11,17 @@ import 'package:js/js.dart' hide JS;
 typedef CSSStringSource = JSAny;
 typedef CSSToken = JSAny;
 
-@JS('CSSParserOptions')
+@JS()
 @staticInterop
+@anonymous
 class CSSParserOptions {
-  external factory CSSParserOptions();
+  external factory CSSParserOptions({JSObject atRules});
 }
 
-extension CSSParserOptionsExtension on CSSParserOptions {}
+extension CSSParserOptionsExtension on CSSParserOptions {
+  external set atRules(JSObject value);
+  external JSObject get atRules;
+}
 
 @JS('CSSParserRule')
 @staticInterop

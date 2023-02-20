@@ -10,36 +10,71 @@ import 'package:js/js.dart' hide JS;
 
 typedef MockCapturePromptResult = JSString;
 
-@JS('MockCapturePromptResultConfiguration')
+@JS()
 @staticInterop
+@anonymous
 class MockCapturePromptResultConfiguration {
-  external factory MockCapturePromptResultConfiguration();
+  external factory MockCapturePromptResultConfiguration({
+    MockCapturePromptResult getUserMedia,
+    MockCapturePromptResult getDisplayMedia,
+  });
 }
 
 extension MockCapturePromptResultConfigurationExtension
-    on MockCapturePromptResultConfiguration {}
+    on MockCapturePromptResultConfiguration {
+  external set getUserMedia(MockCapturePromptResult value);
+  external MockCapturePromptResult get getUserMedia;
+  external set getDisplayMedia(MockCapturePromptResult value);
+  external MockCapturePromptResult get getDisplayMedia;
+}
 
-@JS('MockCaptureDeviceConfiguration')
+@JS()
 @staticInterop
+@anonymous
 class MockCaptureDeviceConfiguration {
-  external factory MockCaptureDeviceConfiguration();
+  external factory MockCaptureDeviceConfiguration({
+    JSString label,
+    JSString deviceId,
+    JSString groupId,
+  });
 }
 
 extension MockCaptureDeviceConfigurationExtension
-    on MockCaptureDeviceConfiguration {}
+    on MockCaptureDeviceConfiguration {
+  external set label(JSString value);
+  external JSString get label;
+  external set deviceId(JSString value);
+  external JSString get deviceId;
+  external set groupId(JSString value);
+  external JSString get groupId;
+}
 
-@JS('MockCameraConfiguration')
+@JS()
 @staticInterop
+@anonymous
 class MockCameraConfiguration extends MockCaptureDeviceConfiguration {
-  external factory MockCameraConfiguration();
+  external factory MockCameraConfiguration({
+    JSNumber defaultFrameRate = 30,
+    JSString facingMode = 'user',
+  });
 }
 
-extension MockCameraConfigurationExtension on MockCameraConfiguration {}
+extension MockCameraConfigurationExtension on MockCameraConfiguration {
+  external set defaultFrameRate(JSNumber value);
+  external JSNumber get defaultFrameRate;
+  external set facingMode(JSString value);
+  external JSString get facingMode;
+}
 
-@JS('MockMicrophoneConfiguration')
+@JS()
 @staticInterop
+@anonymous
 class MockMicrophoneConfiguration extends MockCaptureDeviceConfiguration {
-  external factory MockMicrophoneConfiguration();
+  external factory MockMicrophoneConfiguration(
+      {JSNumber defaultSampleRate = 44100});
 }
 
-extension MockMicrophoneConfigurationExtension on MockMicrophoneConfiguration {}
+extension MockMicrophoneConfigurationExtension on MockMicrophoneConfiguration {
+  external set defaultSampleRate(JSNumber value);
+  external JSNumber get defaultSampleRate;
+}

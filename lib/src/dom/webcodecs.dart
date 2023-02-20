@@ -10,6 +10,12 @@ import 'package:js/js.dart' hide JS;
 
 import 'geometry.dart';
 import 'html.dart';
+import 'mediastream_recording.dart';
+import 'webcodecs_aac_codec_registration.dart';
+import 'webcodecs_avc_codec_registration.dart';
+import 'webcodecs_flac_codec_registration.dart';
+import 'webcodecs_hevc_codec_registration.dart';
+import 'webcodecs_opus_codec_registration.dart';
 import 'webidl.dart';
 
 typedef ImageBufferSource = JSAny;
@@ -52,13 +58,22 @@ extension AudioDecoderExtension on AudioDecoder {
   external JSVoid close();
 }
 
-@JS('AudioDecoderInit')
+@JS()
 @staticInterop
+@anonymous
 class AudioDecoderInit {
-  external factory AudioDecoderInit();
+  external factory AudioDecoderInit({
+    required AudioDataOutputCallback output,
+    required WebCodecsErrorCallback error,
+  });
 }
 
-extension AudioDecoderInitExtension on AudioDecoderInit {}
+extension AudioDecoderInitExtension on AudioDecoderInit {
+  external set output(AudioDataOutputCallback value);
+  external AudioDataOutputCallback get output;
+  external set error(WebCodecsErrorCallback value);
+  external WebCodecsErrorCallback get error;
+}
 
 @JS('VideoDecoder')
 @staticInterop
@@ -82,13 +97,22 @@ extension VideoDecoderExtension on VideoDecoder {
   external JSVoid close();
 }
 
-@JS('VideoDecoderInit')
+@JS()
 @staticInterop
+@anonymous
 class VideoDecoderInit {
-  external factory VideoDecoderInit();
+  external factory VideoDecoderInit({
+    required VideoFrameOutputCallback output,
+    required WebCodecsErrorCallback error,
+  });
 }
 
-extension VideoDecoderInitExtension on VideoDecoderInit {}
+extension VideoDecoderInitExtension on VideoDecoderInit {
+  external set output(VideoFrameOutputCallback value);
+  external VideoFrameOutputCallback get output;
+  external set error(WebCodecsErrorCallback value);
+  external WebCodecsErrorCallback get error;
+}
 
 @JS('AudioEncoder')
 @staticInterop
@@ -112,21 +136,35 @@ extension AudioEncoderExtension on AudioEncoder {
   external JSVoid close();
 }
 
-@JS('AudioEncoderInit')
+@JS()
 @staticInterop
+@anonymous
 class AudioEncoderInit {
-  external factory AudioEncoderInit();
+  external factory AudioEncoderInit({
+    required EncodedAudioChunkOutputCallback output,
+    required WebCodecsErrorCallback error,
+  });
 }
 
-extension AudioEncoderInitExtension on AudioEncoderInit {}
+extension AudioEncoderInitExtension on AudioEncoderInit {
+  external set output(EncodedAudioChunkOutputCallback value);
+  external EncodedAudioChunkOutputCallback get output;
+  external set error(WebCodecsErrorCallback value);
+  external WebCodecsErrorCallback get error;
+}
 
-@JS('EncodedAudioChunkMetadata')
+@JS()
 @staticInterop
+@anonymous
 class EncodedAudioChunkMetadata {
-  external factory EncodedAudioChunkMetadata();
+  external factory EncodedAudioChunkMetadata(
+      {AudioDecoderConfig decoderConfig});
 }
 
-extension EncodedAudioChunkMetadataExtension on EncodedAudioChunkMetadata {}
+extension EncodedAudioChunkMetadataExtension on EncodedAudioChunkMetadata {
+  external set decoderConfig(AudioDecoderConfig value);
+  external AudioDecoderConfig get decoderConfig;
+}
 
 @JS('VideoEncoder')
 @staticInterop
@@ -154,101 +192,280 @@ extension VideoEncoderExtension on VideoEncoder {
   external JSVoid close();
 }
 
-@JS('VideoEncoderInit')
+@JS()
 @staticInterop
+@anonymous
 class VideoEncoderInit {
-  external factory VideoEncoderInit();
+  external factory VideoEncoderInit({
+    required EncodedVideoChunkOutputCallback output,
+    required WebCodecsErrorCallback error,
+  });
 }
 
-extension VideoEncoderInitExtension on VideoEncoderInit {}
+extension VideoEncoderInitExtension on VideoEncoderInit {
+  external set output(EncodedVideoChunkOutputCallback value);
+  external EncodedVideoChunkOutputCallback get output;
+  external set error(WebCodecsErrorCallback value);
+  external WebCodecsErrorCallback get error;
+}
 
-@JS('EncodedVideoChunkMetadata')
+@JS()
 @staticInterop
+@anonymous
 class EncodedVideoChunkMetadata {
-  external factory EncodedVideoChunkMetadata();
+  external factory EncodedVideoChunkMetadata({
+    VideoDecoderConfig decoderConfig,
+    SvcOutputMetadata svc,
+    BufferSource alphaSideData,
+  });
 }
 
-extension EncodedVideoChunkMetadataExtension on EncodedVideoChunkMetadata {}
+extension EncodedVideoChunkMetadataExtension on EncodedVideoChunkMetadata {
+  external set decoderConfig(VideoDecoderConfig value);
+  external VideoDecoderConfig get decoderConfig;
+  external set svc(SvcOutputMetadata value);
+  external SvcOutputMetadata get svc;
+  external set alphaSideData(BufferSource value);
+  external BufferSource get alphaSideData;
+}
 
-@JS('SvcOutputMetadata')
+@JS()
 @staticInterop
+@anonymous
 class SvcOutputMetadata {
-  external factory SvcOutputMetadata();
+  external factory SvcOutputMetadata({JSNumber temporalLayerId});
 }
 
-extension SvcOutputMetadataExtension on SvcOutputMetadata {}
+extension SvcOutputMetadataExtension on SvcOutputMetadata {
+  external set temporalLayerId(JSNumber value);
+  external JSNumber get temporalLayerId;
+}
 
-@JS('AudioDecoderSupport')
+@JS()
 @staticInterop
+@anonymous
 class AudioDecoderSupport {
-  external factory AudioDecoderSupport();
+  external factory AudioDecoderSupport({
+    JSBoolean supported,
+    AudioDecoderConfig config,
+  });
 }
 
-extension AudioDecoderSupportExtension on AudioDecoderSupport {}
+extension AudioDecoderSupportExtension on AudioDecoderSupport {
+  external set supported(JSBoolean value);
+  external JSBoolean get supported;
+  external set config(AudioDecoderConfig value);
+  external AudioDecoderConfig get config;
+}
 
-@JS('VideoDecoderSupport')
+@JS()
 @staticInterop
+@anonymous
 class VideoDecoderSupport {
-  external factory VideoDecoderSupport();
+  external factory VideoDecoderSupport({
+    JSBoolean supported,
+    VideoDecoderConfig config,
+  });
 }
 
-extension VideoDecoderSupportExtension on VideoDecoderSupport {}
+extension VideoDecoderSupportExtension on VideoDecoderSupport {
+  external set supported(JSBoolean value);
+  external JSBoolean get supported;
+  external set config(VideoDecoderConfig value);
+  external VideoDecoderConfig get config;
+}
 
-@JS('AudioEncoderSupport')
+@JS()
 @staticInterop
+@anonymous
 class AudioEncoderSupport {
-  external factory AudioEncoderSupport();
+  external factory AudioEncoderSupport({
+    JSBoolean supported,
+    AudioEncoderConfig config,
+  });
 }
 
-extension AudioEncoderSupportExtension on AudioEncoderSupport {}
+extension AudioEncoderSupportExtension on AudioEncoderSupport {
+  external set supported(JSBoolean value);
+  external JSBoolean get supported;
+  external set config(AudioEncoderConfig value);
+  external AudioEncoderConfig get config;
+}
 
-@JS('VideoEncoderSupport')
+@JS()
 @staticInterop
+@anonymous
 class VideoEncoderSupport {
-  external factory VideoEncoderSupport();
+  external factory VideoEncoderSupport({
+    JSBoolean supported,
+    VideoEncoderConfig config,
+  });
 }
 
-extension VideoEncoderSupportExtension on VideoEncoderSupport {}
+extension VideoEncoderSupportExtension on VideoEncoderSupport {
+  external set supported(JSBoolean value);
+  external JSBoolean get supported;
+  external set config(VideoEncoderConfig value);
+  external VideoEncoderConfig get config;
+}
 
-@JS('AudioDecoderConfig')
+@JS()
 @staticInterop
+@anonymous
 class AudioDecoderConfig {
-  external factory AudioDecoderConfig();
+  external factory AudioDecoderConfig({
+    required JSString codec,
+    required JSNumber sampleRate,
+    required JSNumber numberOfChannels,
+    BufferSource description,
+  });
 }
 
-extension AudioDecoderConfigExtension on AudioDecoderConfig {}
+extension AudioDecoderConfigExtension on AudioDecoderConfig {
+  external set codec(JSString value);
+  external JSString get codec;
+  external set sampleRate(JSNumber value);
+  external JSNumber get sampleRate;
+  external set numberOfChannels(JSNumber value);
+  external JSNumber get numberOfChannels;
+  external set description(BufferSource value);
+  external BufferSource get description;
+}
 
-@JS('VideoDecoderConfig')
+@JS()
 @staticInterop
+@anonymous
 class VideoDecoderConfig {
-  external factory VideoDecoderConfig();
+  external factory VideoDecoderConfig({
+    required JSString codec,
+    BufferSource description,
+    JSNumber codedWidth,
+    JSNumber codedHeight,
+    JSNumber displayAspectWidth,
+    JSNumber displayAspectHeight,
+    VideoColorSpaceInit colorSpace,
+    HardwareAcceleration hardwareAcceleration = 'no-preference',
+    JSBoolean optimizeForLatency,
+  });
 }
 
-extension VideoDecoderConfigExtension on VideoDecoderConfig {}
+extension VideoDecoderConfigExtension on VideoDecoderConfig {
+  external set codec(JSString value);
+  external JSString get codec;
+  external set description(BufferSource value);
+  external BufferSource get description;
+  external set codedWidth(JSNumber value);
+  external JSNumber get codedWidth;
+  external set codedHeight(JSNumber value);
+  external JSNumber get codedHeight;
+  external set displayAspectWidth(JSNumber value);
+  external JSNumber get displayAspectWidth;
+  external set displayAspectHeight(JSNumber value);
+  external JSNumber get displayAspectHeight;
+  external set colorSpace(VideoColorSpaceInit value);
+  external VideoColorSpaceInit get colorSpace;
+  external set hardwareAcceleration(HardwareAcceleration value);
+  external HardwareAcceleration get hardwareAcceleration;
+  external set optimizeForLatency(JSBoolean value);
+  external JSBoolean get optimizeForLatency;
+}
 
-@JS('AudioEncoderConfig')
+@JS()
 @staticInterop
+@anonymous
 class AudioEncoderConfig {
-  external factory AudioEncoderConfig();
+  external factory AudioEncoderConfig({
+    AacEncoderConfig aac,
+    FlacEncoderConfig flac,
+    OpusEncoderConfig opus,
+    required JSString codec,
+    JSNumber sampleRate,
+    JSNumber numberOfChannels,
+    JSNumber bitrate,
+  });
 }
 
-extension AudioEncoderConfigExtension on AudioEncoderConfig {}
+extension AudioEncoderConfigExtension on AudioEncoderConfig {
+  external set aac(AacEncoderConfig value);
+  external AacEncoderConfig get aac;
+  external set flac(FlacEncoderConfig value);
+  external FlacEncoderConfig get flac;
+  external set opus(OpusEncoderConfig value);
+  external OpusEncoderConfig get opus;
+  external set codec(JSString value);
+  external JSString get codec;
+  external set sampleRate(JSNumber value);
+  external JSNumber get sampleRate;
+  external set numberOfChannels(JSNumber value);
+  external JSNumber get numberOfChannels;
+  external set bitrate(JSNumber value);
+  external JSNumber get bitrate;
+}
 
-@JS('VideoEncoderConfig')
+@JS()
 @staticInterop
+@anonymous
 class VideoEncoderConfig {
-  external factory VideoEncoderConfig();
+  external factory VideoEncoderConfig({
+    AvcEncoderConfig avc,
+    HevcEncoderConfig hevc,
+    required JSString codec,
+    required JSNumber width,
+    required JSNumber height,
+    JSNumber displayWidth,
+    JSNumber displayHeight,
+    JSNumber bitrate,
+    JSNumber framerate,
+    HardwareAcceleration hardwareAcceleration = 'no-preference',
+    AlphaOption alpha = 'discard',
+    JSString scalabilityMode,
+    BitrateMode bitrateMode = 'variable',
+    LatencyMode latencyMode = 'quality',
+  });
 }
 
-extension VideoEncoderConfigExtension on VideoEncoderConfig {}
+extension VideoEncoderConfigExtension on VideoEncoderConfig {
+  external set avc(AvcEncoderConfig value);
+  external AvcEncoderConfig get avc;
+  external set hevc(HevcEncoderConfig value);
+  external HevcEncoderConfig get hevc;
+  external set codec(JSString value);
+  external JSString get codec;
+  external set width(JSNumber value);
+  external JSNumber get width;
+  external set height(JSNumber value);
+  external JSNumber get height;
+  external set displayWidth(JSNumber value);
+  external JSNumber get displayWidth;
+  external set displayHeight(JSNumber value);
+  external JSNumber get displayHeight;
+  external set bitrate(JSNumber value);
+  external JSNumber get bitrate;
+  external set framerate(JSNumber value);
+  external JSNumber get framerate;
+  external set hardwareAcceleration(HardwareAcceleration value);
+  external HardwareAcceleration get hardwareAcceleration;
+  external set alpha(AlphaOption value);
+  external AlphaOption get alpha;
+  external set scalabilityMode(JSString value);
+  external JSString get scalabilityMode;
+  external set bitrateMode(BitrateMode value);
+  external BitrateMode get bitrateMode;
+  external set latencyMode(LatencyMode value);
+  external LatencyMode get latencyMode;
+}
 
-@JS('VideoEncoderEncodeOptions')
+@JS()
 @staticInterop
+@anonymous
 class VideoEncoderEncodeOptions {
-  external factory VideoEncoderEncodeOptions();
+  external factory VideoEncoderEncodeOptions({JSBoolean keyFrame = false});
 }
 
-extension VideoEncoderEncodeOptionsExtension on VideoEncoderEncodeOptions {}
+extension VideoEncoderEncodeOptionsExtension on VideoEncoderEncodeOptions {
+  external set keyFrame(JSBoolean value);
+  external JSBoolean get keyFrame;
+}
 
 @JS('EncodedAudioChunk')
 @staticInterop
@@ -266,13 +483,28 @@ extension EncodedAudioChunkExtension on EncodedAudioChunk {
   external JSVoid copyTo(BufferSource destination);
 }
 
-@JS('EncodedAudioChunkInit')
+@JS()
 @staticInterop
+@anonymous
 class EncodedAudioChunkInit {
-  external factory EncodedAudioChunkInit();
+  external factory EncodedAudioChunkInit({
+    required EncodedAudioChunkType type,
+    required JSNumber timestamp,
+    JSNumber duration,
+    required BufferSource data,
+  });
 }
 
-extension EncodedAudioChunkInitExtension on EncodedAudioChunkInit {}
+extension EncodedAudioChunkInitExtension on EncodedAudioChunkInit {
+  external set type(EncodedAudioChunkType value);
+  external EncodedAudioChunkType get type;
+  external set timestamp(JSNumber value);
+  external JSNumber get timestamp;
+  external set duration(JSNumber value);
+  external JSNumber get duration;
+  external set data(BufferSource value);
+  external BufferSource get data;
+}
 
 @JS('EncodedVideoChunk')
 @staticInterop
@@ -290,13 +522,28 @@ extension EncodedVideoChunkExtension on EncodedVideoChunk {
   external JSVoid copyTo(BufferSource destination);
 }
 
-@JS('EncodedVideoChunkInit')
+@JS()
 @staticInterop
+@anonymous
 class EncodedVideoChunkInit {
-  external factory EncodedVideoChunkInit();
+  external factory EncodedVideoChunkInit({
+    required EncodedVideoChunkType type,
+    required JSNumber timestamp,
+    JSNumber duration,
+    required BufferSource data,
+  });
 }
 
-extension EncodedVideoChunkInitExtension on EncodedVideoChunkInit {}
+extension EncodedVideoChunkInitExtension on EncodedVideoChunkInit {
+  external set type(EncodedVideoChunkType value);
+  external EncodedVideoChunkType get type;
+  external set timestamp(JSNumber value);
+  external JSNumber get timestamp;
+  external set duration(JSNumber value);
+  external JSNumber get duration;
+  external set data(BufferSource value);
+  external BufferSource get data;
+}
 
 @JS('AudioData')
 @staticInterop
@@ -322,21 +569,57 @@ extension AudioDataExtension on AudioData {
   external JSVoid close();
 }
 
-@JS('AudioDataInit')
+@JS()
 @staticInterop
+@anonymous
 class AudioDataInit {
-  external factory AudioDataInit();
+  external factory AudioDataInit({
+    required AudioSampleFormat format,
+    required JSNumber sampleRate,
+    required JSNumber numberOfFrames,
+    required JSNumber numberOfChannels,
+    required JSNumber timestamp,
+    required BufferSource data,
+  });
 }
 
-extension AudioDataInitExtension on AudioDataInit {}
+extension AudioDataInitExtension on AudioDataInit {
+  external set format(AudioSampleFormat value);
+  external AudioSampleFormat get format;
+  external set sampleRate(JSNumber value);
+  external JSNumber get sampleRate;
+  external set numberOfFrames(JSNumber value);
+  external JSNumber get numberOfFrames;
+  external set numberOfChannels(JSNumber value);
+  external JSNumber get numberOfChannels;
+  external set timestamp(JSNumber value);
+  external JSNumber get timestamp;
+  external set data(BufferSource value);
+  external BufferSource get data;
+}
 
-@JS('AudioDataCopyToOptions')
+@JS()
 @staticInterop
+@anonymous
 class AudioDataCopyToOptions {
-  external factory AudioDataCopyToOptions();
+  external factory AudioDataCopyToOptions({
+    required JSNumber planeIndex,
+    JSNumber frameOffset = 0,
+    JSNumber frameCount,
+    AudioSampleFormat format,
+  });
 }
 
-extension AudioDataCopyToOptionsExtension on AudioDataCopyToOptions {}
+extension AudioDataCopyToOptionsExtension on AudioDataCopyToOptions {
+  external set planeIndex(JSNumber value);
+  external JSNumber get planeIndex;
+  external set frameOffset(JSNumber value);
+  external JSNumber get frameOffset;
+  external set frameCount(JSNumber value);
+  external JSNumber get frameCount;
+  external set format(AudioSampleFormat value);
+  external AudioSampleFormat get format;
+}
 
 @JS('VideoFrame')
 @staticInterop
@@ -379,43 +662,119 @@ extension VideoFrameExtension on VideoFrame {
   external JSVoid close();
 }
 
-@JS('VideoFrameInit')
+@JS()
 @staticInterop
+@anonymous
 class VideoFrameInit {
-  external factory VideoFrameInit();
+  external factory VideoFrameInit({
+    JSNumber duration,
+    JSNumber timestamp,
+    AlphaOption alpha = 'keep',
+    DOMRectInit visibleRect,
+    JSNumber displayWidth,
+    JSNumber displayHeight,
+    VideoFrameMetadata metadata,
+  });
 }
 
-extension VideoFrameInitExtension on VideoFrameInit {}
+extension VideoFrameInitExtension on VideoFrameInit {
+  external set duration(JSNumber value);
+  external JSNumber get duration;
+  external set timestamp(JSNumber value);
+  external JSNumber get timestamp;
+  external set alpha(AlphaOption value);
+  external AlphaOption get alpha;
+  external set visibleRect(DOMRectInit value);
+  external DOMRectInit get visibleRect;
+  external set displayWidth(JSNumber value);
+  external JSNumber get displayWidth;
+  external set displayHeight(JSNumber value);
+  external JSNumber get displayHeight;
+  external set metadata(VideoFrameMetadata value);
+  external VideoFrameMetadata get metadata;
+}
 
-@JS('VideoFrameBufferInit')
+@JS()
 @staticInterop
+@anonymous
 class VideoFrameBufferInit {
-  external factory VideoFrameBufferInit();
+  external factory VideoFrameBufferInit({
+    required VideoPixelFormat format,
+    required JSNumber codedWidth,
+    required JSNumber codedHeight,
+    required JSNumber timestamp,
+    JSNumber duration,
+    JSArray layout,
+    DOMRectInit visibleRect,
+    JSNumber displayWidth,
+    JSNumber displayHeight,
+    VideoColorSpaceInit colorSpace,
+  });
 }
 
-extension VideoFrameBufferInitExtension on VideoFrameBufferInit {}
+extension VideoFrameBufferInitExtension on VideoFrameBufferInit {
+  external set format(VideoPixelFormat value);
+  external VideoPixelFormat get format;
+  external set codedWidth(JSNumber value);
+  external JSNumber get codedWidth;
+  external set codedHeight(JSNumber value);
+  external JSNumber get codedHeight;
+  external set timestamp(JSNumber value);
+  external JSNumber get timestamp;
+  external set duration(JSNumber value);
+  external JSNumber get duration;
+  external set layout(JSArray value);
+  external JSArray get layout;
+  external set visibleRect(DOMRectInit value);
+  external DOMRectInit get visibleRect;
+  external set displayWidth(JSNumber value);
+  external JSNumber get displayWidth;
+  external set displayHeight(JSNumber value);
+  external JSNumber get displayHeight;
+  external set colorSpace(VideoColorSpaceInit value);
+  external VideoColorSpaceInit get colorSpace;
+}
 
-@JS('VideoFrameMetadata')
+@JS()
 @staticInterop
+@anonymous
 class VideoFrameMetadata {
   external factory VideoFrameMetadata();
 }
 
-@JS('VideoFrameCopyToOptions')
+@JS()
 @staticInterop
+@anonymous
 class VideoFrameCopyToOptions {
-  external factory VideoFrameCopyToOptions();
+  external factory VideoFrameCopyToOptions({
+    DOMRectInit rect,
+    JSArray layout,
+  });
 }
 
-extension VideoFrameCopyToOptionsExtension on VideoFrameCopyToOptions {}
+extension VideoFrameCopyToOptionsExtension on VideoFrameCopyToOptions {
+  external set rect(DOMRectInit value);
+  external DOMRectInit get rect;
+  external set layout(JSArray value);
+  external JSArray get layout;
+}
 
-@JS('PlaneLayout')
+@JS()
 @staticInterop
+@anonymous
 class PlaneLayout {
-  external factory PlaneLayout();
+  external factory PlaneLayout({
+    required JSNumber offset,
+    required JSNumber stride,
+  });
 }
 
-extension PlaneLayoutExtension on PlaneLayout {}
+extension PlaneLayoutExtension on PlaneLayout {
+  external set offset(JSNumber value);
+  external JSNumber get offset;
+  external set stride(JSNumber value);
+  external JSNumber get stride;
+}
 
 @JS('VideoColorSpace')
 @staticInterop
@@ -435,13 +794,28 @@ extension VideoColorSpaceExtension on VideoColorSpace {
   external VideoColorSpaceInit toJSON();
 }
 
-@JS('VideoColorSpaceInit')
+@JS()
 @staticInterop
+@anonymous
 class VideoColorSpaceInit {
-  external factory VideoColorSpaceInit();
+  external factory VideoColorSpaceInit({
+    VideoColorPrimaries? primaries,
+    VideoTransferCharacteristics? transfer,
+    VideoMatrixCoefficients? matrix,
+    JSBoolean? fullRange,
+  });
 }
 
-extension VideoColorSpaceInitExtension on VideoColorSpaceInit {}
+extension VideoColorSpaceInitExtension on VideoColorSpaceInit {
+  external set primaries(VideoColorPrimaries? value);
+  external VideoColorPrimaries? get primaries;
+  external set transfer(VideoTransferCharacteristics? value);
+  external VideoTransferCharacteristics? get transfer;
+  external set matrix(VideoMatrixCoefficients? value);
+  external VideoMatrixCoefficients? get matrix;
+  external set fullRange(JSBoolean? value);
+  external JSBoolean? get fullRange;
+}
 
 @JS('ImageDecoder')
 @staticInterop
@@ -464,29 +838,68 @@ extension ImageDecoderExtension on ImageDecoder {
   external JSVoid close();
 }
 
-@JS('ImageDecoderInit')
+@JS()
 @staticInterop
+@anonymous
 class ImageDecoderInit {
-  external factory ImageDecoderInit();
+  external factory ImageDecoderInit({
+    required JSString type,
+    required ImageBufferSource data,
+    ColorSpaceConversion colorSpaceConversion = 'default',
+    JSNumber desiredWidth,
+    JSNumber desiredHeight,
+    JSBoolean preferAnimation,
+  });
 }
 
-extension ImageDecoderInitExtension on ImageDecoderInit {}
+extension ImageDecoderInitExtension on ImageDecoderInit {
+  external set type(JSString value);
+  external JSString get type;
+  external set data(ImageBufferSource value);
+  external ImageBufferSource get data;
+  external set colorSpaceConversion(ColorSpaceConversion value);
+  external ColorSpaceConversion get colorSpaceConversion;
+  external set desiredWidth(JSNumber value);
+  external JSNumber get desiredWidth;
+  external set desiredHeight(JSNumber value);
+  external JSNumber get desiredHeight;
+  external set preferAnimation(JSBoolean value);
+  external JSBoolean get preferAnimation;
+}
 
-@JS('ImageDecodeOptions')
+@JS()
 @staticInterop
+@anonymous
 class ImageDecodeOptions {
-  external factory ImageDecodeOptions();
+  external factory ImageDecodeOptions({
+    JSNumber frameIndex = 0,
+    JSBoolean completeFramesOnly = true,
+  });
 }
 
-extension ImageDecodeOptionsExtension on ImageDecodeOptions {}
+extension ImageDecodeOptionsExtension on ImageDecodeOptions {
+  external set frameIndex(JSNumber value);
+  external JSNumber get frameIndex;
+  external set completeFramesOnly(JSBoolean value);
+  external JSBoolean get completeFramesOnly;
+}
 
-@JS('ImageDecodeResult')
+@JS()
 @staticInterop
+@anonymous
 class ImageDecodeResult {
-  external factory ImageDecodeResult();
+  external factory ImageDecodeResult({
+    required VideoFrame image,
+    required JSBoolean complete,
+  });
 }
 
-extension ImageDecodeResultExtension on ImageDecodeResult {}
+extension ImageDecodeResultExtension on ImageDecodeResult {
+  external set image(VideoFrame value);
+  external VideoFrame get image;
+  external set complete(JSBoolean value);
+  external JSBoolean get complete;
+}
 
 @JS('ImageTrackList')
 @staticInterop

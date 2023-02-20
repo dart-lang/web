@@ -8,12 +8,23 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
+import 'window_placement.dart';
+
 typedef FullscreenNavigationUI = JSString;
 
-@JS('FullscreenOptions')
+@JS()
 @staticInterop
+@anonymous
 class FullscreenOptions {
-  external factory FullscreenOptions();
+  external factory FullscreenOptions({
+    FullscreenNavigationUI navigationUI = 'auto',
+    ScreenDetailed screen,
+  });
 }
 
-extension FullscreenOptionsExtension on FullscreenOptions {}
+extension FullscreenOptionsExtension on FullscreenOptions {
+  external set navigationUI(FullscreenNavigationUI value);
+  external FullscreenNavigationUI get navigationUI;
+  external set screen(ScreenDetailed value);
+  external ScreenDetailed get screen;
+}

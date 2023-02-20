@@ -14,14 +14,23 @@ typedef ImportExportKind = JSString;
 typedef TableKind = JSString;
 typedef ValueType = JSString;
 
-@JS('WebAssemblyInstantiatedSource')
+@JS()
 @staticInterop
+@anonymous
 class WebAssemblyInstantiatedSource {
-  external factory WebAssemblyInstantiatedSource();
+  external factory WebAssemblyInstantiatedSource({
+    required Module module,
+    required Instance instance,
+  });
 }
 
 extension WebAssemblyInstantiatedSourceExtension
-    on WebAssemblyInstantiatedSource {}
+    on WebAssemblyInstantiatedSource {
+  external set module(Module value);
+  external Module get module;
+  external set instance(Instance value);
+  external Instance get instance;
+}
 
 @JS()
 external $WebAssembly get WebAssembly;
@@ -55,21 +64,42 @@ extension $WebAssemblyExtension on $WebAssembly {
   );
 }
 
-@JS('ModuleExportDescriptor')
+@JS()
 @staticInterop
+@anonymous
 class ModuleExportDescriptor {
-  external factory ModuleExportDescriptor();
+  external factory ModuleExportDescriptor({
+    required JSString name,
+    required ImportExportKind kind,
+  });
 }
 
-extension ModuleExportDescriptorExtension on ModuleExportDescriptor {}
+extension ModuleExportDescriptorExtension on ModuleExportDescriptor {
+  external set name(JSString value);
+  external JSString get name;
+  external set kind(ImportExportKind value);
+  external ImportExportKind get kind;
+}
 
-@JS('ModuleImportDescriptor')
+@JS()
 @staticInterop
+@anonymous
 class ModuleImportDescriptor {
-  external factory ModuleImportDescriptor();
+  external factory ModuleImportDescriptor({
+    required JSString module,
+    required JSString name,
+    required ImportExportKind kind,
+  });
 }
 
-extension ModuleImportDescriptorExtension on ModuleImportDescriptor {}
+extension ModuleImportDescriptorExtension on ModuleImportDescriptor {
+  external set module(JSString value);
+  external JSString get module;
+  external set name(JSString value);
+  external JSString get name;
+  external set kind(ImportExportKind value);
+  external ImportExportKind get kind;
+}
 
 @JS('Module')
 @staticInterop
@@ -103,13 +133,22 @@ extension InstanceExtension on Instance {
   external JSObject get exports;
 }
 
-@JS('MemoryDescriptor')
+@JS()
 @staticInterop
+@anonymous
 class MemoryDescriptor {
-  external factory MemoryDescriptor();
+  external factory MemoryDescriptor({
+    required JSNumber initial,
+    JSNumber maximum,
+  });
 }
 
-extension MemoryDescriptorExtension on MemoryDescriptor {}
+extension MemoryDescriptorExtension on MemoryDescriptor {
+  external set initial(JSNumber value);
+  external JSNumber get initial;
+  external set maximum(JSNumber value);
+  external JSNumber get maximum;
+}
 
 @JS('Memory')
 @staticInterop
@@ -124,13 +163,25 @@ extension MemoryExtension on Memory {
   external JSArrayBuffer get buffer;
 }
 
-@JS('TableDescriptor')
+@JS()
 @staticInterop
+@anonymous
 class TableDescriptor {
-  external factory TableDescriptor();
+  external factory TableDescriptor({
+    required TableKind element,
+    required JSNumber initial,
+    JSNumber maximum,
+  });
 }
 
-extension TableDescriptorExtension on TableDescriptor {}
+extension TableDescriptorExtension on TableDescriptor {
+  external set element(TableKind value);
+  external TableKind get element;
+  external set initial(JSNumber value);
+  external JSNumber get initial;
+  external set maximum(JSNumber value);
+  external JSNumber get maximum;
+}
 
 @JS('Table')
 @staticInterop
@@ -160,13 +211,22 @@ extension TableExtension on Table {
   external JSNumber get length;
 }
 
-@JS('GlobalDescriptor')
+@JS()
 @staticInterop
+@anonymous
 class GlobalDescriptor {
-  external factory GlobalDescriptor();
+  external factory GlobalDescriptor({
+    required ValueType value,
+    JSBoolean mutable = false,
+  });
 }
 
-extension GlobalDescriptorExtension on GlobalDescriptor {}
+extension GlobalDescriptorExtension on GlobalDescriptor {
+  external set value(ValueType value);
+  external ValueType get value;
+  external set mutable(JSBoolean value);
+  external JSBoolean get mutable;
+}
 
 @JS('Global')
 @staticInterop

@@ -19,21 +19,46 @@ typedef USBRecipient = JSString;
 typedef USBDirection = JSString;
 typedef USBEndpointType = JSString;
 
-@JS('USBDeviceFilter')
+@JS()
 @staticInterop
+@anonymous
 class USBDeviceFilter {
-  external factory USBDeviceFilter();
+  external factory USBDeviceFilter({
+    JSNumber vendorId,
+    JSNumber productId,
+    JSNumber classCode,
+    JSNumber subclassCode,
+    JSNumber protocolCode,
+    JSString serialNumber,
+  });
 }
 
-extension USBDeviceFilterExtension on USBDeviceFilter {}
+extension USBDeviceFilterExtension on USBDeviceFilter {
+  external set vendorId(JSNumber value);
+  external JSNumber get vendorId;
+  external set productId(JSNumber value);
+  external JSNumber get productId;
+  external set classCode(JSNumber value);
+  external JSNumber get classCode;
+  external set subclassCode(JSNumber value);
+  external JSNumber get subclassCode;
+  external set protocolCode(JSNumber value);
+  external JSNumber get protocolCode;
+  external set serialNumber(JSString value);
+  external JSString get serialNumber;
+}
 
-@JS('USBDeviceRequestOptions')
+@JS()
 @staticInterop
+@anonymous
 class USBDeviceRequestOptions {
-  external factory USBDeviceRequestOptions();
+  external factory USBDeviceRequestOptions({required JSArray filters});
 }
 
-extension USBDeviceRequestOptionsExtension on USBDeviceRequestOptions {}
+extension USBDeviceRequestOptionsExtension on USBDeviceRequestOptions {
+  external set filters(JSArray value);
+  external JSArray get filters;
+}
 
 @JS('USB')
 @staticInterop
@@ -50,13 +75,17 @@ extension USBExtension on USB {
   external JSPromise requestDevice(USBDeviceRequestOptions options);
 }
 
-@JS('USBConnectionEventInit')
+@JS()
 @staticInterop
+@anonymous
 class USBConnectionEventInit extends EventInit {
-  external factory USBConnectionEventInit();
+  external factory USBConnectionEventInit({required USBDevice device});
 }
 
-extension USBConnectionEventInitExtension on USBConnectionEventInit {}
+extension USBConnectionEventInitExtension on USBConnectionEventInit {
+  external set device(USBDevice value);
+  external USBDevice get device;
+}
 
 @JS('USBConnectionEvent')
 @staticInterop
@@ -246,14 +275,32 @@ extension USBDeviceExtension on USBDevice {
   external JSPromise reset();
 }
 
-@JS('USBControlTransferParameters')
+@JS()
 @staticInterop
+@anonymous
 class USBControlTransferParameters {
-  external factory USBControlTransferParameters();
+  external factory USBControlTransferParameters({
+    required USBRequestType requestType,
+    required USBRecipient recipient,
+    required JSNumber request,
+    required JSNumber value,
+    required JSNumber index,
+  });
 }
 
 extension USBControlTransferParametersExtension
-    on USBControlTransferParameters {}
+    on USBControlTransferParameters {
+  external set requestType(USBRequestType value);
+  external USBRequestType get requestType;
+  external set recipient(USBRecipient value);
+  external USBRecipient get recipient;
+  external set request(JSNumber value);
+  external JSNumber get request;
+  external set value(JSNumber value);
+  external JSNumber get value;
+  external set index(JSNumber value);
+  external JSNumber get index;
+}
 
 @JS('USBConfiguration')
 @staticInterop
@@ -329,29 +376,49 @@ extension USBEndpointExtension on USBEndpoint {
   external JSNumber get packetSize;
 }
 
-@JS('USBPermissionDescriptor')
+@JS()
 @staticInterop
+@anonymous
 class USBPermissionDescriptor extends PermissionDescriptor {
-  external factory USBPermissionDescriptor();
+  external factory USBPermissionDescriptor({JSArray filters});
 }
 
-extension USBPermissionDescriptorExtension on USBPermissionDescriptor {}
+extension USBPermissionDescriptorExtension on USBPermissionDescriptor {
+  external set filters(JSArray value);
+  external JSArray get filters;
+}
 
-@JS('AllowedUSBDevice')
+@JS()
 @staticInterop
+@anonymous
 class AllowedUSBDevice {
-  external factory AllowedUSBDevice();
+  external factory AllowedUSBDevice({
+    required JSNumber vendorId,
+    required JSNumber productId,
+    JSString serialNumber,
+  });
 }
 
-extension AllowedUSBDeviceExtension on AllowedUSBDevice {}
+extension AllowedUSBDeviceExtension on AllowedUSBDevice {
+  external set vendorId(JSNumber value);
+  external JSNumber get vendorId;
+  external set productId(JSNumber value);
+  external JSNumber get productId;
+  external set serialNumber(JSString value);
+  external JSString get serialNumber;
+}
 
-@JS('USBPermissionStorage')
+@JS()
 @staticInterop
+@anonymous
 class USBPermissionStorage {
-  external factory USBPermissionStorage();
+  external factory USBPermissionStorage({JSArray allowedDevices = const []});
 }
 
-extension USBPermissionStorageExtension on USBPermissionStorage {}
+extension USBPermissionStorageExtension on USBPermissionStorage {
+  external set allowedDevices(JSArray value);
+  external JSArray get allowedDevices;
+}
 
 @JS('USBPermissionResult')
 @staticInterop

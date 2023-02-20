@@ -8,6 +8,7 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
+import 'geometry.dart';
 import 'html.dart';
 
 typedef LandmarkType = JSString;
@@ -27,29 +28,56 @@ extension FaceDetectorExtension on FaceDetector {
   external JSPromise detect(ImageBitmapSource image);
 }
 
-@JS('FaceDetectorOptions')
+@JS()
 @staticInterop
+@anonymous
 class FaceDetectorOptions {
-  external factory FaceDetectorOptions();
+  external factory FaceDetectorOptions({
+    JSNumber maxDetectedFaces,
+    JSBoolean fastMode,
+  });
 }
 
-extension FaceDetectorOptionsExtension on FaceDetectorOptions {}
+extension FaceDetectorOptionsExtension on FaceDetectorOptions {
+  external set maxDetectedFaces(JSNumber value);
+  external JSNumber get maxDetectedFaces;
+  external set fastMode(JSBoolean value);
+  external JSBoolean get fastMode;
+}
 
-@JS('DetectedFace')
+@JS()
 @staticInterop
+@anonymous
 class DetectedFace {
-  external factory DetectedFace();
+  external factory DetectedFace({
+    required DOMRectReadOnly boundingBox,
+    required JSArray? landmarks,
+  });
 }
 
-extension DetectedFaceExtension on DetectedFace {}
+extension DetectedFaceExtension on DetectedFace {
+  external set boundingBox(DOMRectReadOnly value);
+  external DOMRectReadOnly get boundingBox;
+  external set landmarks(JSArray? value);
+  external JSArray? get landmarks;
+}
 
-@JS('Landmark')
+@JS()
 @staticInterop
+@anonymous
 class Landmark {
-  external factory Landmark();
+  external factory Landmark({
+    required JSArray locations,
+    LandmarkType type,
+  });
 }
 
-extension LandmarkExtension on Landmark {}
+extension LandmarkExtension on Landmark {
+  external set locations(JSArray value);
+  external JSArray get locations;
+  external set type(LandmarkType value);
+  external LandmarkType get type;
+}
 
 @JS('BarcodeDetector')
 @staticInterop
@@ -68,18 +96,37 @@ extension BarcodeDetectorExtension on BarcodeDetector {
   external JSPromise detect(ImageBitmapSource image);
 }
 
-@JS('BarcodeDetectorOptions')
+@JS()
 @staticInterop
+@anonymous
 class BarcodeDetectorOptions {
-  external factory BarcodeDetectorOptions();
+  external factory BarcodeDetectorOptions({JSArray formats});
 }
 
-extension BarcodeDetectorOptionsExtension on BarcodeDetectorOptions {}
+extension BarcodeDetectorOptionsExtension on BarcodeDetectorOptions {
+  external set formats(JSArray value);
+  external JSArray get formats;
+}
 
-@JS('DetectedBarcode')
+@JS()
 @staticInterop
+@anonymous
 class DetectedBarcode {
-  external factory DetectedBarcode();
+  external factory DetectedBarcode({
+    required DOMRectReadOnly boundingBox,
+    required JSString rawValue,
+    required BarcodeFormat format,
+    required JSArray cornerPoints,
+  });
 }
 
-extension DetectedBarcodeExtension on DetectedBarcode {}
+extension DetectedBarcodeExtension on DetectedBarcode {
+  external set boundingBox(DOMRectReadOnly value);
+  external DOMRectReadOnly get boundingBox;
+  external set rawValue(JSString value);
+  external JSString get rawValue;
+  external set format(BarcodeFormat value);
+  external BarcodeFormat get format;
+  external set cornerPoints(JSArray value);
+  external JSArray get cornerPoints;
+}

@@ -18,21 +18,34 @@ typedef ScrollBehavior = JSString;
 typedef ScrollLogicalPosition = JSString;
 typedef CSSBoxType = JSString;
 
-@JS('ScrollOptions')
+@JS()
 @staticInterop
+@anonymous
 class ScrollOptions {
-  external factory ScrollOptions();
+  external factory ScrollOptions({ScrollBehavior behavior = 'auto'});
 }
 
-extension ScrollOptionsExtension on ScrollOptions {}
+extension ScrollOptionsExtension on ScrollOptions {
+  external set behavior(ScrollBehavior value);
+  external ScrollBehavior get behavior;
+}
 
-@JS('ScrollToOptions')
+@JS()
 @staticInterop
+@anonymous
 class ScrollToOptions extends ScrollOptions {
-  external factory ScrollToOptions();
+  external factory ScrollToOptions({
+    JSNumber left,
+    JSNumber top,
+  });
 }
 
-extension ScrollToOptionsExtension on ScrollToOptions {}
+extension ScrollToOptionsExtension on ScrollToOptions {
+  external set left(JSNumber value);
+  external JSNumber get left;
+  external set top(JSNumber value);
+  external JSNumber get top;
+}
 
 @JS('MediaQueryList')
 @staticInterop
@@ -67,13 +80,22 @@ extension MediaQueryListEventExtension on MediaQueryListEvent {
   external JSBoolean get matches;
 }
 
-@JS('MediaQueryListEventInit')
+@JS()
 @staticInterop
+@anonymous
 class MediaQueryListEventInit extends EventInit {
-  external factory MediaQueryListEventInit();
+  external factory MediaQueryListEventInit({
+    JSString media = '',
+    JSBoolean matches = false,
+  });
 }
 
-extension MediaQueryListEventInitExtension on MediaQueryListEventInit {}
+extension MediaQueryListEventInitExtension on MediaQueryListEventInit {
+  external set media(JSString value);
+  external JSString get media;
+  external set matches(JSBoolean value);
+  external JSBoolean get matches;
+}
 
 @JS('Screen')
 @staticInterop
@@ -106,37 +128,73 @@ extension CaretPositionExtension on CaretPosition {
   external DOMRect? getClientRect();
 }
 
-@JS('ScrollIntoViewOptions')
+@JS()
 @staticInterop
+@anonymous
 class ScrollIntoViewOptions extends ScrollOptions {
-  external factory ScrollIntoViewOptions();
+  external factory ScrollIntoViewOptions({
+    ScrollLogicalPosition block = 'start',
+    ScrollLogicalPosition inline = 'nearest',
+  });
 }
 
-extension ScrollIntoViewOptionsExtension on ScrollIntoViewOptions {}
+extension ScrollIntoViewOptionsExtension on ScrollIntoViewOptions {
+  external set block(ScrollLogicalPosition value);
+  external ScrollLogicalPosition get block;
+  external set inline(ScrollLogicalPosition value);
+  external ScrollLogicalPosition get inline;
+}
 
-@JS('CheckVisibilityOptions')
+@JS()
 @staticInterop
+@anonymous
 class CheckVisibilityOptions {
-  external factory CheckVisibilityOptions();
+  external factory CheckVisibilityOptions({
+    JSBoolean checkOpacity = false,
+    JSBoolean checkVisibilityCSS = false,
+  });
 }
 
-extension CheckVisibilityOptionsExtension on CheckVisibilityOptions {}
+extension CheckVisibilityOptionsExtension on CheckVisibilityOptions {
+  external set checkOpacity(JSBoolean value);
+  external JSBoolean get checkOpacity;
+  external set checkVisibilityCSS(JSBoolean value);
+  external JSBoolean get checkVisibilityCSS;
+}
 
-@JS('BoxQuadOptions')
+@JS()
 @staticInterop
+@anonymous
 class BoxQuadOptions {
-  external factory BoxQuadOptions();
+  external factory BoxQuadOptions({
+    CSSBoxType box = 'border',
+    GeometryNode relativeTo,
+  });
 }
 
-extension BoxQuadOptionsExtension on BoxQuadOptions {}
+extension BoxQuadOptionsExtension on BoxQuadOptions {
+  external set box(CSSBoxType value);
+  external CSSBoxType get box;
+  external set relativeTo(GeometryNode value);
+  external GeometryNode get relativeTo;
+}
 
-@JS('ConvertCoordinateOptions')
+@JS()
 @staticInterop
+@anonymous
 class ConvertCoordinateOptions {
-  external factory ConvertCoordinateOptions();
+  external factory ConvertCoordinateOptions({
+    CSSBoxType fromBox = 'border',
+    CSSBoxType toBox = 'border',
+  });
 }
 
-extension ConvertCoordinateOptionsExtension on ConvertCoordinateOptions {}
+extension ConvertCoordinateOptionsExtension on ConvertCoordinateOptions {
+  external set fromBox(CSSBoxType value);
+  external CSSBoxType get fromBox;
+  external set toBox(CSSBoxType value);
+  external CSSBoxType get toBox;
+}
 
 @JS('GeometryUtils')
 @staticInterop

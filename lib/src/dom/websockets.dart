@@ -75,10 +75,22 @@ extension CloseEventExtension on CloseEvent {
   external JSString get reason;
 }
 
-@JS('CloseEventInit')
+@JS()
 @staticInterop
+@anonymous
 class CloseEventInit extends EventInit {
-  external factory CloseEventInit();
+  external factory CloseEventInit({
+    JSBoolean wasClean = false,
+    JSNumber code = 0,
+    JSString reason = '',
+  });
 }
 
-extension CloseEventInitExtension on CloseEventInit {}
+extension CloseEventInitExtension on CloseEventInit {
+  external set wasClean(JSBoolean value);
+  external JSBoolean get wasClean;
+  external set code(JSNumber value);
+  external JSNumber get code;
+  external set reason(JSString value);
+  external JSString get reason;
+}

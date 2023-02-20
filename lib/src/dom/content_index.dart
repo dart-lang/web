@@ -12,13 +12,34 @@ import 'service_workers.dart';
 
 typedef ContentCategory = JSString;
 
-@JS('ContentDescription')
+@JS()
 @staticInterop
+@anonymous
 class ContentDescription {
-  external factory ContentDescription();
+  external factory ContentDescription({
+    required JSString id,
+    required JSString title,
+    required JSString description,
+    ContentCategory category = '',
+    JSArray icons = const [],
+    required JSString url,
+  });
 }
 
-extension ContentDescriptionExtension on ContentDescription {}
+extension ContentDescriptionExtension on ContentDescription {
+  external set id(JSString value);
+  external JSString get id;
+  external set title(JSString value);
+  external JSString get title;
+  external set description(JSString value);
+  external JSString get description;
+  external set category(ContentCategory value);
+  external ContentCategory get category;
+  external set icons(JSArray value);
+  external JSArray get icons;
+  external set url(JSString value);
+  external JSString get url;
+}
 
 @JS('ContentIndex')
 @staticInterop
@@ -32,13 +53,17 @@ extension ContentIndexExtension on ContentIndex {
   external JSPromise getAll();
 }
 
-@JS('ContentIndexEventInit')
+@JS()
 @staticInterop
+@anonymous
 class ContentIndexEventInit extends ExtendableEventInit {
-  external factory ContentIndexEventInit();
+  external factory ContentIndexEventInit({required JSString id});
 }
 
-extension ContentIndexEventInitExtension on ContentIndexEventInit {}
+extension ContentIndexEventInitExtension on ContentIndexEventInit {
+  external set id(JSString value);
+  external JSString get id;
+}
 
 @JS('ContentIndexEvent')
 @staticInterop

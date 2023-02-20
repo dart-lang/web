@@ -331,7 +331,7 @@ class Translator {
       case 'number':
         return (defaultValue as JSString).toDart.toString();
       case 'sequence':
-        // For sequenec, the only possible value is `[]`.
+        // For sequence, the only possible value is `[]`.
         return 'const []';
       default:
         throw Exception('Default value not allowed for $type');
@@ -348,7 +348,6 @@ class Translator {
       final field = member as idl.Field;
       final isRequired = field.required.toDart;
       final defaultValue = _defaultValue(field.defaultValue);
-      print('${field.name.toDart} = $defaultValue');
       final parameter = code.Parameter((b) => b
         ..name = _argumentName(field.name.toDart)
         ..type = _idlTypeToTypeReference(field.idlType)
@@ -377,14 +376,14 @@ class Translator {
   }
 
   List<code.Expression> _jsOverride(String? jsOverride,
-          {bool staticInterop = false, bool anonymous = false}) =>
+          {bool staticInterop = false, bool objectLiteral = false}) =>
       [
         if (jsOverride != null)
           code.refer('JS', 'dart:js_interop').call([
             if (jsOverride.isNotEmpty) code.literalString(jsOverride),
           ]),
         if (staticInterop) code.refer('staticInterop'),
-        if (anonymous) code.refer('anonymous'),
+        if (objectLiteral) code.refer('anonymous'),
       ];
 
   List<code.Method> _operation(idl.Operation operation) {
@@ -493,16 +492,15 @@ class Translator {
   }) =>
       code.Class(
         (b) => b
-          ..annotations.addAll(_jsOverride(jsName,
-              staticInterop: true, anonymous: isObjectLiteral))
+          ..annotations.addAll(_jsOverride(isObjectLiteral ? '' : jsName,
+              staticInterop: true, objectLiteral: isObjectLiteral))
           ..name = dartClassName
           ..extend = inheritance == null ? null : _typeReference(inheritance)
           ..implements.addAll(includes.map(_typeReference))
-          ..constructors.addAll(_constructors(
-                  dartClassName, constructors, needsNoArgumentsConstructor)
-              .followedBy([
-            if (isObjectLiteral) _objectLiteral(dartClassName, members)
-          ]))
+          ..constructors.addAll(isObjectLiteral
+              ? [_objectLiteral(dartClassName, members)]
+              : _constructors(
+                  dartClassName, constructors, needsNoArgumentsConstructor))
           ..methods.addAll(_members(staticMembers))
           ..abstract = isAbstract,
       );
@@ -515,7 +513,6 @@ class Translator {
     final interfacelike = _interfacelikes[name]!;
     final jsName = interfacelike.name;
     final type = interfacelike.type;
-
     final isNamespace = type == 'namespace';
     final isDictionary = type == 'dictionary';
 

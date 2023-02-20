@@ -75,14 +75,19 @@ extension PresentationConnectionAvailableEventExtension
   external PresentationConnection get connection;
 }
 
-@JS('PresentationConnectionAvailableEventInit')
+@JS()
 @staticInterop
+@anonymous
 class PresentationConnectionAvailableEventInit extends EventInit {
-  external factory PresentationConnectionAvailableEventInit();
+  external factory PresentationConnectionAvailableEventInit(
+      {required PresentationConnection connection});
 }
 
 extension PresentationConnectionAvailableEventInitExtension
-    on PresentationConnectionAvailableEventInit {}
+    on PresentationConnectionAvailableEventInit {
+  external set connection(PresentationConnection value);
+  external PresentationConnection get connection;
+}
 
 @JS('PresentationConnection')
 @staticInterop
@@ -132,14 +137,23 @@ extension PresentationConnectionCloseEventExtension
   external JSString get message;
 }
 
-@JS('PresentationConnectionCloseEventInit')
+@JS()
 @staticInterop
+@anonymous
 class PresentationConnectionCloseEventInit extends EventInit {
-  external factory PresentationConnectionCloseEventInit();
+  external factory PresentationConnectionCloseEventInit({
+    required PresentationConnectionCloseReason reason,
+    JSString message = '',
+  });
 }
 
 extension PresentationConnectionCloseEventInitExtension
-    on PresentationConnectionCloseEventInit {}
+    on PresentationConnectionCloseEventInit {
+  external set reason(PresentationConnectionCloseReason value);
+  external PresentationConnectionCloseReason get reason;
+  external set message(JSString value);
+  external JSString get message;
+}
 
 @JS('PresentationReceiver')
 @staticInterop

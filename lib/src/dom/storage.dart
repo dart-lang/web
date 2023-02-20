@@ -31,10 +31,19 @@ extension StorageManagerExtension on StorageManager {
   external JSPromise estimate();
 }
 
-@JS('StorageEstimate')
+@JS()
 @staticInterop
+@anonymous
 class StorageEstimate {
-  external factory StorageEstimate();
+  external factory StorageEstimate({
+    JSNumber usage,
+    JSNumber quota,
+  });
 }
 
-extension StorageEstimateExtension on StorageEstimate {}
+extension StorageEstimateExtension on StorageEstimate {
+  external set usage(JSNumber value);
+  external JSNumber get usage;
+  external set quota(JSNumber value);
+  external JSNumber get quota;
+}

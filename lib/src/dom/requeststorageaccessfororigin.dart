@@ -10,11 +10,16 @@ import 'package:js/js.dart' hide JS;
 
 import 'permissions.dart';
 
-@JS('TopLevelStorageAccessPermissionDescriptor')
+@JS()
 @staticInterop
+@anonymous
 class TopLevelStorageAccessPermissionDescriptor extends PermissionDescriptor {
-  external factory TopLevelStorageAccessPermissionDescriptor();
+  external factory TopLevelStorageAccessPermissionDescriptor(
+      {JSString requestedOrigin = ''});
 }
 
 extension TopLevelStorageAccessPermissionDescriptorExtension
-    on TopLevelStorageAccessPermissionDescriptor {}
+    on TopLevelStorageAccessPermissionDescriptor {
+  external set requestedOrigin(JSString value);
+  external JSString get requestedOrigin;
+}

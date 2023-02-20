@@ -35,13 +35,17 @@ extension SensorExtension on Sensor {
   external EventHandler get onerror;
 }
 
-@JS('SensorOptions')
+@JS()
 @staticInterop
+@anonymous
 class SensorOptions {
-  external factory SensorOptions();
+  external factory SensorOptions({JSNumber frequency});
 }
 
-extension SensorOptionsExtension on SensorOptions {}
+extension SensorOptionsExtension on SensorOptions {
+  external set frequency(JSNumber value);
+  external JSNumber get frequency;
+}
 
 @JS('SensorErrorEvent')
 @staticInterop
@@ -58,32 +62,64 @@ extension SensorErrorEventExtension on SensorErrorEvent {
   external DOMException get error;
 }
 
-@JS('SensorErrorEventInit')
+@JS()
 @staticInterop
+@anonymous
 class SensorErrorEventInit extends EventInit {
-  external factory SensorErrorEventInit();
+  external factory SensorErrorEventInit({required DOMException error});
 }
 
-extension SensorErrorEventInitExtension on SensorErrorEventInit {}
+extension SensorErrorEventInitExtension on SensorErrorEventInit {
+  external set error(DOMException value);
+  external DOMException get error;
+}
 
-@JS('MockSensorConfiguration')
+@JS()
 @staticInterop
+@anonymous
 class MockSensorConfiguration {
-  external factory MockSensorConfiguration();
+  external factory MockSensorConfiguration({
+    required MockSensorType mockSensorType,
+    JSBoolean connected = true,
+    JSNumber? maxSamplingFrequency,
+    JSNumber? minSamplingFrequency,
+  });
 }
 
-extension MockSensorConfigurationExtension on MockSensorConfiguration {}
+extension MockSensorConfigurationExtension on MockSensorConfiguration {
+  external set mockSensorType(MockSensorType value);
+  external MockSensorType get mockSensorType;
+  external set connected(JSBoolean value);
+  external JSBoolean get connected;
+  external set maxSamplingFrequency(JSNumber? value);
+  external JSNumber? get maxSamplingFrequency;
+  external set minSamplingFrequency(JSNumber? value);
+  external JSNumber? get minSamplingFrequency;
+}
 
-@JS('MockSensor')
+@JS()
 @staticInterop
+@anonymous
 class MockSensor {
-  external factory MockSensor();
+  external factory MockSensor({
+    JSNumber maxSamplingFrequency,
+    JSNumber minSamplingFrequency,
+    JSNumber requestedSamplingFrequency,
+  });
 }
 
-extension MockSensorExtension on MockSensor {}
+extension MockSensorExtension on MockSensor {
+  external set maxSamplingFrequency(JSNumber value);
+  external JSNumber get maxSamplingFrequency;
+  external set minSamplingFrequency(JSNumber value);
+  external JSNumber get minSamplingFrequency;
+  external set requestedSamplingFrequency(JSNumber value);
+  external JSNumber get requestedSamplingFrequency;
+}
 
-@JS('MockSensorReadingValues')
+@JS()
 @staticInterop
+@anonymous
 class MockSensorReadingValues {
   external factory MockSensorReadingValues();
 }

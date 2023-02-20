@@ -8,10 +8,25 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
-@JS('ShareData')
+@JS()
 @staticInterop
+@anonymous
 class ShareData {
-  external factory ShareData();
+  external factory ShareData({
+    JSArray files,
+    JSString title,
+    JSString text,
+    JSString url,
+  });
 }
 
-extension ShareDataExtension on ShareData {}
+extension ShareDataExtension on ShareData {
+  external set files(JSArray value);
+  external JSArray get files;
+  external set title(JSString value);
+  external JSString get title;
+  external set text(JSString value);
+  external JSString get text;
+  external set url(JSString value);
+  external JSString get url;
+}

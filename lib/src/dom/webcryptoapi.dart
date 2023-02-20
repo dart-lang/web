@@ -30,21 +30,29 @@ extension CryptoExtension on Crypto {
   external JSString randomUUID();
 }
 
-@JS('Algorithm')
+@JS()
 @staticInterop
+@anonymous
 class Algorithm {
-  external factory Algorithm();
+  external factory Algorithm({required JSString name});
 }
 
-extension AlgorithmExtension on Algorithm {}
+extension AlgorithmExtension on Algorithm {
+  external set name(JSString value);
+  external JSString get name;
+}
 
-@JS('KeyAlgorithm')
+@JS()
 @staticInterop
+@anonymous
 class KeyAlgorithm {
-  external factory KeyAlgorithm();
+  external factory KeyAlgorithm({required JSString name});
 }
 
-extension KeyAlgorithmExtension on KeyAlgorithm {}
+extension KeyAlgorithmExtension on KeyAlgorithm {
+  external set name(JSString value);
+  external JSString get name;
+}
 
 @JS('CryptoKey')
 @staticInterop
@@ -136,210 +144,436 @@ extension SubtleCryptoExtension on SubtleCrypto {
   );
 }
 
-@JS('RsaOtherPrimesInfo')
+@JS()
 @staticInterop
+@anonymous
 class RsaOtherPrimesInfo {
-  external factory RsaOtherPrimesInfo();
+  external factory RsaOtherPrimesInfo({
+    JSString r,
+    JSString d,
+    JSString t,
+  });
 }
 
-extension RsaOtherPrimesInfoExtension on RsaOtherPrimesInfo {}
+extension RsaOtherPrimesInfoExtension on RsaOtherPrimesInfo {
+  external set r(JSString value);
+  external JSString get r;
+  external set d(JSString value);
+  external JSString get d;
+  external set t(JSString value);
+  external JSString get t;
+}
 
-@JS('JsonWebKey')
+@JS()
 @staticInterop
+@anonymous
 class JsonWebKey {
-  external factory JsonWebKey();
+  external factory JsonWebKey({
+    JSString kty,
+    JSString use,
+    JSArray key_ops,
+    JSString alg,
+    JSBoolean ext,
+    JSString crv,
+    JSString x,
+    JSString y,
+    JSString d,
+    JSString n,
+    JSString e,
+    JSString p,
+    JSString q,
+    JSString dp,
+    JSString dq,
+    JSString qi,
+    JSArray oth,
+    JSString k,
+  });
 }
 
-extension JsonWebKeyExtension on JsonWebKey {}
+extension JsonWebKeyExtension on JsonWebKey {
+  external set kty(JSString value);
+  external JSString get kty;
+  external set use(JSString value);
+  external JSString get use;
+  external set key_ops(JSArray value);
+  external JSArray get key_ops;
+  external set alg(JSString value);
+  external JSString get alg;
+  external set ext(JSBoolean value);
+  external JSBoolean get ext;
+  external set crv(JSString value);
+  external JSString get crv;
+  external set x(JSString value);
+  external JSString get x;
+  external set y(JSString value);
+  external JSString get y;
+  external set d(JSString value);
+  external JSString get d;
+  external set n(JSString value);
+  external JSString get n;
+  external set e(JSString value);
+  external JSString get e;
+  external set p(JSString value);
+  external JSString get p;
+  external set q(JSString value);
+  external JSString get q;
+  external set dp(JSString value);
+  external JSString get dp;
+  external set dq(JSString value);
+  external JSString get dq;
+  external set qi(JSString value);
+  external JSString get qi;
+  external set oth(JSArray value);
+  external JSArray get oth;
+  external set k(JSString value);
+  external JSString get k;
+}
 
-@JS('CryptoKeyPair')
+@JS()
 @staticInterop
+@anonymous
 class CryptoKeyPair {
-  external factory CryptoKeyPair();
+  external factory CryptoKeyPair({
+    CryptoKey publicKey,
+    CryptoKey privateKey,
+  });
 }
 
-extension CryptoKeyPairExtension on CryptoKeyPair {}
+extension CryptoKeyPairExtension on CryptoKeyPair {
+  external set publicKey(CryptoKey value);
+  external CryptoKey get publicKey;
+  external set privateKey(CryptoKey value);
+  external CryptoKey get privateKey;
+}
 
-@JS('RsaKeyGenParams')
+@JS()
 @staticInterop
+@anonymous
 class RsaKeyGenParams extends Algorithm {
-  external factory RsaKeyGenParams();
+  external factory RsaKeyGenParams({
+    required JSNumber modulusLength,
+    required BigInteger publicExponent,
+  });
 }
 
-extension RsaKeyGenParamsExtension on RsaKeyGenParams {}
+extension RsaKeyGenParamsExtension on RsaKeyGenParams {
+  external set modulusLength(JSNumber value);
+  external JSNumber get modulusLength;
+  external set publicExponent(BigInteger value);
+  external BigInteger get publicExponent;
+}
 
-@JS('RsaHashedKeyGenParams')
+@JS()
 @staticInterop
+@anonymous
 class RsaHashedKeyGenParams extends RsaKeyGenParams {
-  external factory RsaHashedKeyGenParams();
+  external factory RsaHashedKeyGenParams(
+      {required HashAlgorithmIdentifier hash});
 }
 
-extension RsaHashedKeyGenParamsExtension on RsaHashedKeyGenParams {}
+extension RsaHashedKeyGenParamsExtension on RsaHashedKeyGenParams {
+  external set hash(HashAlgorithmIdentifier value);
+  external HashAlgorithmIdentifier get hash;
+}
 
-@JS('RsaKeyAlgorithm')
+@JS()
 @staticInterop
+@anonymous
 class RsaKeyAlgorithm extends KeyAlgorithm {
-  external factory RsaKeyAlgorithm();
+  external factory RsaKeyAlgorithm({
+    required JSNumber modulusLength,
+    required BigInteger publicExponent,
+  });
 }
 
-extension RsaKeyAlgorithmExtension on RsaKeyAlgorithm {}
+extension RsaKeyAlgorithmExtension on RsaKeyAlgorithm {
+  external set modulusLength(JSNumber value);
+  external JSNumber get modulusLength;
+  external set publicExponent(BigInteger value);
+  external BigInteger get publicExponent;
+}
 
-@JS('RsaHashedKeyAlgorithm')
+@JS()
 @staticInterop
+@anonymous
 class RsaHashedKeyAlgorithm extends RsaKeyAlgorithm {
-  external factory RsaHashedKeyAlgorithm();
+  external factory RsaHashedKeyAlgorithm({required KeyAlgorithm hash});
 }
 
-extension RsaHashedKeyAlgorithmExtension on RsaHashedKeyAlgorithm {}
+extension RsaHashedKeyAlgorithmExtension on RsaHashedKeyAlgorithm {
+  external set hash(KeyAlgorithm value);
+  external KeyAlgorithm get hash;
+}
 
-@JS('RsaHashedImportParams')
+@JS()
 @staticInterop
+@anonymous
 class RsaHashedImportParams extends Algorithm {
-  external factory RsaHashedImportParams();
+  external factory RsaHashedImportParams(
+      {required HashAlgorithmIdentifier hash});
 }
 
-extension RsaHashedImportParamsExtension on RsaHashedImportParams {}
+extension RsaHashedImportParamsExtension on RsaHashedImportParams {
+  external set hash(HashAlgorithmIdentifier value);
+  external HashAlgorithmIdentifier get hash;
+}
 
-@JS('RsaPssParams')
+@JS()
 @staticInterop
+@anonymous
 class RsaPssParams extends Algorithm {
-  external factory RsaPssParams();
+  external factory RsaPssParams({required JSNumber saltLength});
 }
 
-extension RsaPssParamsExtension on RsaPssParams {}
+extension RsaPssParamsExtension on RsaPssParams {
+  external set saltLength(JSNumber value);
+  external JSNumber get saltLength;
+}
 
-@JS('RsaOaepParams')
+@JS()
 @staticInterop
+@anonymous
 class RsaOaepParams extends Algorithm {
-  external factory RsaOaepParams();
+  external factory RsaOaepParams({BufferSource label});
 }
 
-extension RsaOaepParamsExtension on RsaOaepParams {}
+extension RsaOaepParamsExtension on RsaOaepParams {
+  external set label(BufferSource value);
+  external BufferSource get label;
+}
 
-@JS('EcdsaParams')
+@JS()
 @staticInterop
+@anonymous
 class EcdsaParams extends Algorithm {
-  external factory EcdsaParams();
+  external factory EcdsaParams({required HashAlgorithmIdentifier hash});
 }
 
-extension EcdsaParamsExtension on EcdsaParams {}
+extension EcdsaParamsExtension on EcdsaParams {
+  external set hash(HashAlgorithmIdentifier value);
+  external HashAlgorithmIdentifier get hash;
+}
 
-@JS('EcKeyGenParams')
+@JS()
 @staticInterop
+@anonymous
 class EcKeyGenParams extends Algorithm {
-  external factory EcKeyGenParams();
+  external factory EcKeyGenParams({required NamedCurve namedCurve});
 }
 
-extension EcKeyGenParamsExtension on EcKeyGenParams {}
+extension EcKeyGenParamsExtension on EcKeyGenParams {
+  external set namedCurve(NamedCurve value);
+  external NamedCurve get namedCurve;
+}
 
-@JS('EcKeyAlgorithm')
+@JS()
 @staticInterop
+@anonymous
 class EcKeyAlgorithm extends KeyAlgorithm {
-  external factory EcKeyAlgorithm();
+  external factory EcKeyAlgorithm({required NamedCurve namedCurve});
 }
 
-extension EcKeyAlgorithmExtension on EcKeyAlgorithm {}
+extension EcKeyAlgorithmExtension on EcKeyAlgorithm {
+  external set namedCurve(NamedCurve value);
+  external NamedCurve get namedCurve;
+}
 
-@JS('EcKeyImportParams')
+@JS()
 @staticInterop
+@anonymous
 class EcKeyImportParams extends Algorithm {
-  external factory EcKeyImportParams();
+  external factory EcKeyImportParams({required NamedCurve namedCurve});
 }
 
-extension EcKeyImportParamsExtension on EcKeyImportParams {}
+extension EcKeyImportParamsExtension on EcKeyImportParams {
+  external set namedCurve(NamedCurve value);
+  external NamedCurve get namedCurve;
+}
 
-@JS('EcdhKeyDeriveParams')
+@JS()
 @staticInterop
+@anonymous
 class EcdhKeyDeriveParams extends Algorithm {
-  external factory EcdhKeyDeriveParams();
+  external factory EcdhKeyDeriveParams({required CryptoKey public});
 }
 
-extension EcdhKeyDeriveParamsExtension on EcdhKeyDeriveParams {}
+extension EcdhKeyDeriveParamsExtension on EcdhKeyDeriveParams {
+  external set public(CryptoKey value);
+  external CryptoKey get public;
+}
 
-@JS('AesCtrParams')
+@JS()
 @staticInterop
+@anonymous
 class AesCtrParams extends Algorithm {
-  external factory AesCtrParams();
+  external factory AesCtrParams({
+    required BufferSource counter,
+    required JSNumber length,
+  });
 }
 
-extension AesCtrParamsExtension on AesCtrParams {}
+extension AesCtrParamsExtension on AesCtrParams {
+  external set counter(BufferSource value);
+  external BufferSource get counter;
+  external set length(JSNumber value);
+  external JSNumber get length;
+}
 
-@JS('AesKeyAlgorithm')
+@JS()
 @staticInterop
+@anonymous
 class AesKeyAlgorithm extends KeyAlgorithm {
-  external factory AesKeyAlgorithm();
+  external factory AesKeyAlgorithm({required JSNumber length});
 }
 
-extension AesKeyAlgorithmExtension on AesKeyAlgorithm {}
+extension AesKeyAlgorithmExtension on AesKeyAlgorithm {
+  external set length(JSNumber value);
+  external JSNumber get length;
+}
 
-@JS('AesKeyGenParams')
+@JS()
 @staticInterop
+@anonymous
 class AesKeyGenParams extends Algorithm {
-  external factory AesKeyGenParams();
+  external factory AesKeyGenParams({required JSNumber length});
 }
 
-extension AesKeyGenParamsExtension on AesKeyGenParams {}
+extension AesKeyGenParamsExtension on AesKeyGenParams {
+  external set length(JSNumber value);
+  external JSNumber get length;
+}
 
-@JS('AesDerivedKeyParams')
+@JS()
 @staticInterop
+@anonymous
 class AesDerivedKeyParams extends Algorithm {
-  external factory AesDerivedKeyParams();
+  external factory AesDerivedKeyParams({required JSNumber length});
 }
 
-extension AesDerivedKeyParamsExtension on AesDerivedKeyParams {}
+extension AesDerivedKeyParamsExtension on AesDerivedKeyParams {
+  external set length(JSNumber value);
+  external JSNumber get length;
+}
 
-@JS('AesCbcParams')
+@JS()
 @staticInterop
+@anonymous
 class AesCbcParams extends Algorithm {
-  external factory AesCbcParams();
+  external factory AesCbcParams({required BufferSource iv});
 }
 
-extension AesCbcParamsExtension on AesCbcParams {}
+extension AesCbcParamsExtension on AesCbcParams {
+  external set iv(BufferSource value);
+  external BufferSource get iv;
+}
 
-@JS('AesGcmParams')
+@JS()
 @staticInterop
+@anonymous
 class AesGcmParams extends Algorithm {
-  external factory AesGcmParams();
+  external factory AesGcmParams({
+    required BufferSource iv,
+    BufferSource additionalData,
+    JSNumber tagLength,
+  });
 }
 
-extension AesGcmParamsExtension on AesGcmParams {}
+extension AesGcmParamsExtension on AesGcmParams {
+  external set iv(BufferSource value);
+  external BufferSource get iv;
+  external set additionalData(BufferSource value);
+  external BufferSource get additionalData;
+  external set tagLength(JSNumber value);
+  external JSNumber get tagLength;
+}
 
-@JS('HmacImportParams')
+@JS()
 @staticInterop
+@anonymous
 class HmacImportParams extends Algorithm {
-  external factory HmacImportParams();
+  external factory HmacImportParams({
+    required HashAlgorithmIdentifier hash,
+    JSNumber length,
+  });
 }
 
-extension HmacImportParamsExtension on HmacImportParams {}
+extension HmacImportParamsExtension on HmacImportParams {
+  external set hash(HashAlgorithmIdentifier value);
+  external HashAlgorithmIdentifier get hash;
+  external set length(JSNumber value);
+  external JSNumber get length;
+}
 
-@JS('HmacKeyAlgorithm')
+@JS()
 @staticInterop
+@anonymous
 class HmacKeyAlgorithm extends KeyAlgorithm {
-  external factory HmacKeyAlgorithm();
+  external factory HmacKeyAlgorithm({
+    required KeyAlgorithm hash,
+    required JSNumber length,
+  });
 }
 
-extension HmacKeyAlgorithmExtension on HmacKeyAlgorithm {}
+extension HmacKeyAlgorithmExtension on HmacKeyAlgorithm {
+  external set hash(KeyAlgorithm value);
+  external KeyAlgorithm get hash;
+  external set length(JSNumber value);
+  external JSNumber get length;
+}
 
-@JS('HmacKeyGenParams')
+@JS()
 @staticInterop
+@anonymous
 class HmacKeyGenParams extends Algorithm {
-  external factory HmacKeyGenParams();
+  external factory HmacKeyGenParams({
+    required HashAlgorithmIdentifier hash,
+    JSNumber length,
+  });
 }
 
-extension HmacKeyGenParamsExtension on HmacKeyGenParams {}
+extension HmacKeyGenParamsExtension on HmacKeyGenParams {
+  external set hash(HashAlgorithmIdentifier value);
+  external HashAlgorithmIdentifier get hash;
+  external set length(JSNumber value);
+  external JSNumber get length;
+}
 
-@JS('HkdfParams')
+@JS()
 @staticInterop
+@anonymous
 class HkdfParams extends Algorithm {
-  external factory HkdfParams();
+  external factory HkdfParams({
+    required HashAlgorithmIdentifier hash,
+    required BufferSource salt,
+    required BufferSource info,
+  });
 }
 
-extension HkdfParamsExtension on HkdfParams {}
+extension HkdfParamsExtension on HkdfParams {
+  external set hash(HashAlgorithmIdentifier value);
+  external HashAlgorithmIdentifier get hash;
+  external set salt(BufferSource value);
+  external BufferSource get salt;
+  external set info(BufferSource value);
+  external BufferSource get info;
+}
 
-@JS('Pbkdf2Params')
+@JS()
 @staticInterop
+@anonymous
 class Pbkdf2Params extends Algorithm {
-  external factory Pbkdf2Params();
+  external factory Pbkdf2Params({
+    required BufferSource salt,
+    required JSNumber iterations,
+    required HashAlgorithmIdentifier hash,
+  });
 }
 
-extension Pbkdf2ParamsExtension on Pbkdf2Params {}
+extension Pbkdf2ParamsExtension on Pbkdf2Params {
+  external set salt(BufferSource value);
+  external BufferSource get salt;
+  external set iterations(JSNumber value);
+  external JSNumber get iterations;
+  external set hash(HashAlgorithmIdentifier value);
+  external HashAlgorithmIdentifier get hash;
+}

@@ -8,6 +8,7 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
+import 'hr_time.dart';
 import 'streams.dart';
 import 'webidl.dart';
 
@@ -68,54 +69,145 @@ extension WebTransportExtension on WebTransport {
   external ReadableStream get incomingUnidirectionalStreams;
 }
 
-@JS('WebTransportHash')
+@JS()
 @staticInterop
+@anonymous
 class WebTransportHash {
-  external factory WebTransportHash();
+  external factory WebTransportHash({
+    JSString algorithm,
+    BufferSource value,
+  });
 }
 
-extension WebTransportHashExtension on WebTransportHash {}
+extension WebTransportHashExtension on WebTransportHash {
+  external set algorithm(JSString value);
+  external JSString get algorithm;
+  external set value(BufferSource value);
+  external BufferSource get value;
+}
 
-@JS('WebTransportOptions')
+@JS()
 @staticInterop
+@anonymous
 class WebTransportOptions {
-  external factory WebTransportOptions();
+  external factory WebTransportOptions({
+    JSBoolean allowPooling = false,
+    JSBoolean requireUnreliable = false,
+    JSArray serverCertificateHashes,
+    WebTransportCongestionControl congestionControl = 'default',
+  });
 }
 
-extension WebTransportOptionsExtension on WebTransportOptions {}
+extension WebTransportOptionsExtension on WebTransportOptions {
+  external set allowPooling(JSBoolean value);
+  external JSBoolean get allowPooling;
+  external set requireUnreliable(JSBoolean value);
+  external JSBoolean get requireUnreliable;
+  external set serverCertificateHashes(JSArray value);
+  external JSArray get serverCertificateHashes;
+  external set congestionControl(WebTransportCongestionControl value);
+  external WebTransportCongestionControl get congestionControl;
+}
 
-@JS('WebTransportCloseInfo')
+@JS()
 @staticInterop
+@anonymous
 class WebTransportCloseInfo {
-  external factory WebTransportCloseInfo();
+  external factory WebTransportCloseInfo({
+    JSNumber closeCode = 0,
+    JSString reason = '',
+  });
 }
 
-extension WebTransportCloseInfoExtension on WebTransportCloseInfo {}
+extension WebTransportCloseInfoExtension on WebTransportCloseInfo {
+  external set closeCode(JSNumber value);
+  external JSNumber get closeCode;
+  external set reason(JSString value);
+  external JSString get reason;
+}
 
-@JS('WebTransportSendStreamOptions')
+@JS()
 @staticInterop
+@anonymous
 class WebTransportSendStreamOptions {
-  external factory WebTransportSendStreamOptions();
+  external factory WebTransportSendStreamOptions({JSNumber? sendOrder});
 }
 
 extension WebTransportSendStreamOptionsExtension
-    on WebTransportSendStreamOptions {}
+    on WebTransportSendStreamOptions {
+  external set sendOrder(JSNumber? value);
+  external JSNumber? get sendOrder;
+}
 
-@JS('WebTransportStats')
+@JS()
 @staticInterop
+@anonymous
 class WebTransportStats {
-  external factory WebTransportStats();
+  external factory WebTransportStats({
+    DOMHighResTimeStamp timestamp,
+    JSNumber bytesSent,
+    JSNumber packetsSent,
+    JSNumber packetsLost,
+    JSNumber numOutgoingStreamsCreated,
+    JSNumber numIncomingStreamsCreated,
+    JSNumber bytesReceived,
+    JSNumber packetsReceived,
+    DOMHighResTimeStamp smoothedRtt,
+    DOMHighResTimeStamp rttVariation,
+    DOMHighResTimeStamp minRtt,
+    WebTransportDatagramStats datagrams,
+  });
 }
 
-extension WebTransportStatsExtension on WebTransportStats {}
+extension WebTransportStatsExtension on WebTransportStats {
+  external set timestamp(DOMHighResTimeStamp value);
+  external DOMHighResTimeStamp get timestamp;
+  external set bytesSent(JSNumber value);
+  external JSNumber get bytesSent;
+  external set packetsSent(JSNumber value);
+  external JSNumber get packetsSent;
+  external set packetsLost(JSNumber value);
+  external JSNumber get packetsLost;
+  external set numOutgoingStreamsCreated(JSNumber value);
+  external JSNumber get numOutgoingStreamsCreated;
+  external set numIncomingStreamsCreated(JSNumber value);
+  external JSNumber get numIncomingStreamsCreated;
+  external set bytesReceived(JSNumber value);
+  external JSNumber get bytesReceived;
+  external set packetsReceived(JSNumber value);
+  external JSNumber get packetsReceived;
+  external set smoothedRtt(DOMHighResTimeStamp value);
+  external DOMHighResTimeStamp get smoothedRtt;
+  external set rttVariation(DOMHighResTimeStamp value);
+  external DOMHighResTimeStamp get rttVariation;
+  external set minRtt(DOMHighResTimeStamp value);
+  external DOMHighResTimeStamp get minRtt;
+  external set datagrams(WebTransportDatagramStats value);
+  external WebTransportDatagramStats get datagrams;
+}
 
-@JS('WebTransportDatagramStats')
+@JS()
 @staticInterop
+@anonymous
 class WebTransportDatagramStats {
-  external factory WebTransportDatagramStats();
+  external factory WebTransportDatagramStats({
+    DOMHighResTimeStamp timestamp,
+    JSNumber expiredOutgoing,
+    JSNumber droppedIncoming,
+    JSNumber lostOutgoing,
+  });
 }
 
-extension WebTransportDatagramStatsExtension on WebTransportDatagramStats {}
+extension WebTransportDatagramStatsExtension on WebTransportDatagramStats {
+  external set timestamp(DOMHighResTimeStamp value);
+  external DOMHighResTimeStamp get timestamp;
+  external set expiredOutgoing(JSNumber value);
+  external JSNumber get expiredOutgoing;
+  external set droppedIncoming(JSNumber value);
+  external JSNumber get droppedIncoming;
+  external set lostOutgoing(JSNumber value);
+  external JSNumber get lostOutgoing;
+}
 
 @JS('WebTransportSendStream')
 @staticInterop
@@ -127,13 +219,28 @@ extension WebTransportSendStreamExtension on WebTransportSendStream {
   external JSPromise getStats();
 }
 
-@JS('WebTransportSendStreamStats')
+@JS()
 @staticInterop
+@anonymous
 class WebTransportSendStreamStats {
-  external factory WebTransportSendStreamStats();
+  external factory WebTransportSendStreamStats({
+    DOMHighResTimeStamp timestamp,
+    JSNumber bytesWritten,
+    JSNumber bytesSent,
+    JSNumber bytesAcknowledged,
+  });
 }
 
-extension WebTransportSendStreamStatsExtension on WebTransportSendStreamStats {}
+extension WebTransportSendStreamStatsExtension on WebTransportSendStreamStats {
+  external set timestamp(DOMHighResTimeStamp value);
+  external DOMHighResTimeStamp get timestamp;
+  external set bytesWritten(JSNumber value);
+  external JSNumber get bytesWritten;
+  external set bytesSent(JSNumber value);
+  external JSNumber get bytesSent;
+  external set bytesAcknowledged(JSNumber value);
+  external JSNumber get bytesAcknowledged;
+}
 
 @JS('WebTransportReceiveStream')
 @staticInterop
@@ -145,14 +252,26 @@ extension WebTransportReceiveStreamExtension on WebTransportReceiveStream {
   external JSPromise getStats();
 }
 
-@JS('WebTransportReceiveStreamStats')
+@JS()
 @staticInterop
+@anonymous
 class WebTransportReceiveStreamStats {
-  external factory WebTransportReceiveStreamStats();
+  external factory WebTransportReceiveStreamStats({
+    DOMHighResTimeStamp timestamp,
+    JSNumber bytesReceived,
+    JSNumber bytesRead,
+  });
 }
 
 extension WebTransportReceiveStreamStatsExtension
-    on WebTransportReceiveStreamStats {}
+    on WebTransportReceiveStreamStats {
+  external set timestamp(DOMHighResTimeStamp value);
+  external DOMHighResTimeStamp get timestamp;
+  external set bytesReceived(JSNumber value);
+  external JSNumber get bytesReceived;
+  external set bytesRead(JSNumber value);
+  external JSNumber get bytesRead;
+}
 
 @JS('WebTransportBidirectionalStream')
 @staticInterop
@@ -181,10 +300,19 @@ extension WebTransportErrorExtension on WebTransportError {
   external JSNumber? get streamErrorCode;
 }
 
-@JS('WebTransportErrorInit')
+@JS()
 @staticInterop
+@anonymous
 class WebTransportErrorInit {
-  external factory WebTransportErrorInit();
+  external factory WebTransportErrorInit({
+    JSNumber streamErrorCode,
+    JSString message,
+  });
 }
 
-extension WebTransportErrorInitExtension on WebTransportErrorInit {}
+extension WebTransportErrorInitExtension on WebTransportErrorInit {
+  external set streamErrorCode(JSNumber value);
+  external JSNumber get streamErrorCode;
+  external set message(JSString value);
+  external JSString get message;
+}

@@ -29,10 +29,22 @@ extension TransitionEventExtension on TransitionEvent {
   external JSString get pseudoElement;
 }
 
-@JS('TransitionEventInit')
+@JS()
 @staticInterop
+@anonymous
 class TransitionEventInit extends EventInit {
-  external factory TransitionEventInit();
+  external factory TransitionEventInit({
+    JSString propertyName = '',
+    JSNumber elapsedTime = 0.0,
+    JSString pseudoElement = '',
+  });
 }
 
-extension TransitionEventInitExtension on TransitionEventInit {}
+extension TransitionEventInitExtension on TransitionEventInit {
+  external set propertyName(JSString value);
+  external JSString get propertyName;
+  external set elapsedTime(JSNumber value);
+  external JSNumber get elapsedTime;
+  external set pseudoElement(JSString value);
+  external JSString get pseudoElement;
+}

@@ -98,13 +98,61 @@ extension RequestExtension on Request {
   external Request clone();
 }
 
-@JS('RequestInit')
+@JS()
 @staticInterop
+@anonymous
 class RequestInit {
-  external factory RequestInit();
+  external factory RequestInit({
+    JSString method,
+    HeadersInit headers,
+    BodyInit? body,
+    JSString referrer,
+    ReferrerPolicy referrerPolicy,
+    RequestMode mode,
+    RequestCredentials credentials,
+    RequestCache cache,
+    RequestRedirect redirect,
+    JSString integrity,
+    JSBoolean keepalive,
+    AbortSignal? signal,
+    RequestDuplex duplex,
+    RequestPriority priority,
+    JSAny window,
+  });
 }
 
-extension RequestInitExtension on RequestInit {}
+extension RequestInitExtension on RequestInit {
+  external set method(JSString value);
+  external JSString get method;
+  external set headers(HeadersInit value);
+  external HeadersInit get headers;
+  external set body(BodyInit? value);
+  external BodyInit? get body;
+  external set referrer(JSString value);
+  external JSString get referrer;
+  external set referrerPolicy(ReferrerPolicy value);
+  external ReferrerPolicy get referrerPolicy;
+  external set mode(RequestMode value);
+  external RequestMode get mode;
+  external set credentials(RequestCredentials value);
+  external RequestCredentials get credentials;
+  external set cache(RequestCache value);
+  external RequestCache get cache;
+  external set redirect(RequestRedirect value);
+  external RequestRedirect get redirect;
+  external set integrity(JSString value);
+  external JSString get integrity;
+  external set keepalive(JSBoolean value);
+  external JSBoolean get keepalive;
+  external set signal(AbortSignal? value);
+  external AbortSignal? get signal;
+  external set duplex(RequestDuplex value);
+  external RequestDuplex get duplex;
+  external set priority(RequestPriority value);
+  external RequestPriority get priority;
+  external set window(JSAny value);
+  external JSAny get window;
+}
 
 @JS('Response')
 @staticInterop
@@ -144,10 +192,22 @@ extension ResponseExtension on Response {
   external Response clone();
 }
 
-@JS('ResponseInit')
+@JS()
 @staticInterop
+@anonymous
 class ResponseInit {
-  external factory ResponseInit();
+  external factory ResponseInit({
+    JSNumber status = 200,
+    JSString statusText = '',
+    HeadersInit headers,
+  });
 }
 
-extension ResponseInitExtension on ResponseInit {}
+extension ResponseInitExtension on ResponseInit {
+  external set status(JSNumber value);
+  external JSNumber get status;
+  external set statusText(JSString value);
+  external JSString get statusText;
+  external set headers(HeadersInit value);
+  external HeadersInit get headers;
+}

@@ -10,70 +10,148 @@ import 'package:js/js.dart' hide JS;
 
 import 'credential_management.dart';
 
-@JS('IdentityProviderWellKnown')
+@JS()
 @staticInterop
+@anonymous
 class IdentityProviderWellKnown {
-  external factory IdentityProviderWellKnown();
+  external factory IdentityProviderWellKnown({required JSArray provider_urls});
 }
 
-extension IdentityProviderWellKnownExtension on IdentityProviderWellKnown {}
+extension IdentityProviderWellKnownExtension on IdentityProviderWellKnown {
+  external set provider_urls(JSArray value);
+  external JSArray get provider_urls;
+}
 
-@JS('IdentityProviderIcon')
+@JS()
 @staticInterop
+@anonymous
 class IdentityProviderIcon {
-  external factory IdentityProviderIcon();
+  external factory IdentityProviderIcon({
+    required JSString url,
+    JSNumber size,
+  });
 }
 
-extension IdentityProviderIconExtension on IdentityProviderIcon {}
+extension IdentityProviderIconExtension on IdentityProviderIcon {
+  external set url(JSString value);
+  external JSString get url;
+  external set size(JSNumber value);
+  external JSNumber get size;
+}
 
-@JS('IdentityProviderBranding')
+@JS()
 @staticInterop
+@anonymous
 class IdentityProviderBranding {
-  external factory IdentityProviderBranding();
+  external factory IdentityProviderBranding({
+    JSString background_color,
+    JSString color,
+    JSArray icons,
+  });
 }
 
-extension IdentityProviderBrandingExtension on IdentityProviderBranding {}
+extension IdentityProviderBrandingExtension on IdentityProviderBranding {
+  external set background_color(JSString value);
+  external JSString get background_color;
+  external set color(JSString value);
+  external JSString get color;
+  external set icons(JSArray value);
+  external JSArray get icons;
+}
 
-@JS('IdentityProviderAPIConfig')
+@JS()
 @staticInterop
+@anonymous
 class IdentityProviderAPIConfig {
-  external factory IdentityProviderAPIConfig();
+  external factory IdentityProviderAPIConfig({
+    required JSString accounts_endpoint,
+    required JSString client_metadata_endpoint,
+    required JSString id_assertion_endpoint,
+    IdentityProviderBranding branding,
+  });
 }
 
-extension IdentityProviderAPIConfigExtension on IdentityProviderAPIConfig {}
+extension IdentityProviderAPIConfigExtension on IdentityProviderAPIConfig {
+  external set accounts_endpoint(JSString value);
+  external JSString get accounts_endpoint;
+  external set client_metadata_endpoint(JSString value);
+  external JSString get client_metadata_endpoint;
+  external set id_assertion_endpoint(JSString value);
+  external JSString get id_assertion_endpoint;
+  external set branding(IdentityProviderBranding value);
+  external IdentityProviderBranding get branding;
+}
 
-@JS('IdentityProviderAccount')
+@JS()
 @staticInterop
+@anonymous
 class IdentityProviderAccount {
-  external factory IdentityProviderAccount();
+  external factory IdentityProviderAccount({
+    required JSString id,
+    required JSString name,
+    required JSString email,
+    JSString given_name,
+    JSString picture,
+    JSArray approved_clients,
+  });
 }
 
-extension IdentityProviderAccountExtension on IdentityProviderAccount {}
+extension IdentityProviderAccountExtension on IdentityProviderAccount {
+  external set id(JSString value);
+  external JSString get id;
+  external set name(JSString value);
+  external JSString get name;
+  external set email(JSString value);
+  external JSString get email;
+  external set given_name(JSString value);
+  external JSString get given_name;
+  external set picture(JSString value);
+  external JSString get picture;
+  external set approved_clients(JSArray value);
+  external JSArray get approved_clients;
+}
 
-@JS('IdentityProviderAccountList')
+@JS()
 @staticInterop
+@anonymous
 class IdentityProviderAccountList {
-  external factory IdentityProviderAccountList();
+  external factory IdentityProviderAccountList({JSArray accounts});
 }
 
-extension IdentityProviderAccountListExtension on IdentityProviderAccountList {}
+extension IdentityProviderAccountListExtension on IdentityProviderAccountList {
+  external set accounts(JSArray value);
+  external JSArray get accounts;
+}
 
-@JS('IdentityProviderClientMetadata')
+@JS()
 @staticInterop
+@anonymous
 class IdentityProviderClientMetadata {
-  external factory IdentityProviderClientMetadata();
+  external factory IdentityProviderClientMetadata({
+    JSString privacy_policy_url,
+    JSString terms_of_service_url,
+  });
 }
 
 extension IdentityProviderClientMetadataExtension
-    on IdentityProviderClientMetadata {}
-
-@JS('IdentityProviderToken')
-@staticInterop
-class IdentityProviderToken {
-  external factory IdentityProviderToken();
+    on IdentityProviderClientMetadata {
+  external set privacy_policy_url(JSString value);
+  external JSString get privacy_policy_url;
+  external set terms_of_service_url(JSString value);
+  external JSString get terms_of_service_url;
 }
 
-extension IdentityProviderTokenExtension on IdentityProviderToken {}
+@JS()
+@staticInterop
+@anonymous
+class IdentityProviderToken {
+  external factory IdentityProviderToken({required JSString token});
+}
+
+extension IdentityProviderTokenExtension on IdentityProviderToken {
+  external set token(JSString value);
+  external JSString get token;
+}
 
 @JS('IdentityCredential')
 @staticInterop
@@ -87,31 +165,56 @@ extension IdentityCredentialExtension on IdentityCredential {
   external JSString? get token;
 }
 
-@JS('IdentityCredentialRequestOptions')
+@JS()
 @staticInterop
+@anonymous
 class IdentityCredentialRequestOptions {
-  external factory IdentityCredentialRequestOptions();
+  external factory IdentityCredentialRequestOptions({JSArray providers});
 }
 
 extension IdentityCredentialRequestOptionsExtension
-    on IdentityCredentialRequestOptions {}
-
-@JS('IdentityProviderConfig')
-@staticInterop
-class IdentityProviderConfig {
-  external factory IdentityProviderConfig();
+    on IdentityCredentialRequestOptions {
+  external set providers(JSArray value);
+  external JSArray get providers;
 }
 
-extension IdentityProviderConfigExtension on IdentityProviderConfig {}
-
-@JS('IdentityCredentialLogoutRPsRequest')
+@JS()
 @staticInterop
+@anonymous
+class IdentityProviderConfig {
+  external factory IdentityProviderConfig({
+    required JSString configURL,
+    required JSString clientId,
+    JSString nonce,
+  });
+}
+
+extension IdentityProviderConfigExtension on IdentityProviderConfig {
+  external set configURL(JSString value);
+  external JSString get configURL;
+  external set clientId(JSString value);
+  external JSString get clientId;
+  external set nonce(JSString value);
+  external JSString get nonce;
+}
+
+@JS()
+@staticInterop
+@anonymous
 class IdentityCredentialLogoutRPsRequest {
-  external factory IdentityCredentialLogoutRPsRequest();
+  external factory IdentityCredentialLogoutRPsRequest({
+    required JSString url,
+    required JSString accountId,
+  });
 }
 
 extension IdentityCredentialLogoutRPsRequestExtension
-    on IdentityCredentialLogoutRPsRequest {}
+    on IdentityCredentialLogoutRPsRequest {
+  external set url(JSString value);
+  external JSString get url;
+  external set accountId(JSString value);
+  external JSString get accountId;
+}
 
 @JS('IdentityProvider')
 @staticInterop

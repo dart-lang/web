@@ -58,46 +58,76 @@ extension NavigationExtension on Navigation {
   external EventHandler get oncurrententrychange;
 }
 
-@JS('NavigationUpdateCurrentEntryOptions')
+@JS()
 @staticInterop
+@anonymous
 class NavigationUpdateCurrentEntryOptions {
-  external factory NavigationUpdateCurrentEntryOptions();
+  external factory NavigationUpdateCurrentEntryOptions({required JSAny state});
 }
 
 extension NavigationUpdateCurrentEntryOptionsExtension
-    on NavigationUpdateCurrentEntryOptions {}
+    on NavigationUpdateCurrentEntryOptions {
+  external set state(JSAny value);
+  external JSAny get state;
+}
 
-@JS('NavigationOptions')
+@JS()
 @staticInterop
+@anonymous
 class NavigationOptions {
-  external factory NavigationOptions();
+  external factory NavigationOptions({JSAny info});
 }
 
-extension NavigationOptionsExtension on NavigationOptions {}
+extension NavigationOptionsExtension on NavigationOptions {
+  external set info(JSAny value);
+  external JSAny get info;
+}
 
-@JS('NavigationNavigateOptions')
+@JS()
 @staticInterop
+@anonymous
 class NavigationNavigateOptions extends NavigationOptions {
-  external factory NavigationNavigateOptions();
+  external factory NavigationNavigateOptions({
+    JSAny state,
+    NavigationHistoryBehavior history = 'auto',
+  });
 }
 
-extension NavigationNavigateOptionsExtension on NavigationNavigateOptions {}
+extension NavigationNavigateOptionsExtension on NavigationNavigateOptions {
+  external set state(JSAny value);
+  external JSAny get state;
+  external set history(NavigationHistoryBehavior value);
+  external NavigationHistoryBehavior get history;
+}
 
-@JS('NavigationReloadOptions')
+@JS()
 @staticInterop
+@anonymous
 class NavigationReloadOptions extends NavigationOptions {
-  external factory NavigationReloadOptions();
+  external factory NavigationReloadOptions({JSAny state});
 }
 
-extension NavigationReloadOptionsExtension on NavigationReloadOptions {}
+extension NavigationReloadOptionsExtension on NavigationReloadOptions {
+  external set state(JSAny value);
+  external JSAny get state;
+}
 
-@JS('NavigationResult')
+@JS()
 @staticInterop
+@anonymous
 class NavigationResult {
-  external factory NavigationResult();
+  external factory NavigationResult({
+    JSPromise committed,
+    JSPromise finished,
+  });
 }
 
-extension NavigationResultExtension on NavigationResult {}
+extension NavigationResultExtension on NavigationResult {
+  external set committed(JSPromise value);
+  external JSPromise get committed;
+  external set finished(JSPromise value);
+  external JSPromise get finished;
+}
 
 @JS('NavigationCurrentEntryChangeEvent')
 @staticInterop
@@ -116,14 +146,23 @@ extension NavigationCurrentEntryChangeEventExtension
   external NavigationHistoryEntry get from;
 }
 
-@JS('NavigationCurrentEntryChangeEventInit')
+@JS()
 @staticInterop
+@anonymous
 class NavigationCurrentEntryChangeEventInit extends EventInit {
-  external factory NavigationCurrentEntryChangeEventInit();
+  external factory NavigationCurrentEntryChangeEventInit({
+    NavigationType? navigationType,
+    required NavigationHistoryEntry destination,
+  });
 }
 
 extension NavigationCurrentEntryChangeEventInitExtension
-    on NavigationCurrentEntryChangeEventInit {}
+    on NavigationCurrentEntryChangeEventInit {
+  external set navigationType(NavigationType? value);
+  external NavigationType? get navigationType;
+  external set destination(NavigationHistoryEntry value);
+  external NavigationHistoryEntry get destination;
+}
 
 @JS('NavigationTransition')
 @staticInterop
@@ -163,21 +202,63 @@ extension NavigateEventExtension on NavigateEvent {
   external JSVoid scroll();
 }
 
-@JS('NavigateEventInit')
+@JS()
 @staticInterop
+@anonymous
 class NavigateEventInit extends EventInit {
-  external factory NavigateEventInit();
+  external factory NavigateEventInit({
+    NavigationType navigationType = 'push',
+    required NavigationDestination destination,
+    JSBoolean canIntercept = false,
+    JSBoolean userInitiated = false,
+    JSBoolean hashChange = false,
+    required AbortSignal signal,
+    FormData? formData,
+    JSString? downloadRequest,
+    JSAny info,
+  });
 }
 
-extension NavigateEventInitExtension on NavigateEventInit {}
+extension NavigateEventInitExtension on NavigateEventInit {
+  external set navigationType(NavigationType value);
+  external NavigationType get navigationType;
+  external set destination(NavigationDestination value);
+  external NavigationDestination get destination;
+  external set canIntercept(JSBoolean value);
+  external JSBoolean get canIntercept;
+  external set userInitiated(JSBoolean value);
+  external JSBoolean get userInitiated;
+  external set hashChange(JSBoolean value);
+  external JSBoolean get hashChange;
+  external set signal(AbortSignal value);
+  external AbortSignal get signal;
+  external set formData(FormData? value);
+  external FormData? get formData;
+  external set downloadRequest(JSString? value);
+  external JSString? get downloadRequest;
+  external set info(JSAny value);
+  external JSAny get info;
+}
 
-@JS('NavigationInterceptOptions')
+@JS()
 @staticInterop
+@anonymous
 class NavigationInterceptOptions {
-  external factory NavigationInterceptOptions();
+  external factory NavigationInterceptOptions({
+    NavigationInterceptHandler handler,
+    NavigationFocusReset focusReset,
+    NavigationScrollBehavior scroll,
+  });
 }
 
-extension NavigationInterceptOptionsExtension on NavigationInterceptOptions {}
+extension NavigationInterceptOptionsExtension on NavigationInterceptOptions {
+  external set handler(NavigationInterceptHandler value);
+  external NavigationInterceptHandler get handler;
+  external set focusReset(NavigationFocusReset value);
+  external NavigationFocusReset get focusReset;
+  external set scroll(NavigationScrollBehavior value);
+  external NavigationScrollBehavior get scroll;
+}
 
 @JS('NavigationDestination')
 @staticInterop

@@ -9,6 +9,7 @@ import 'dart:js_interop';
 import 'package:js/js.dart' hide JS;
 
 import 'dom.dart';
+import 'hr_time.dart';
 import 'html.dart';
 import 'service_workers.dart';
 
@@ -45,37 +46,103 @@ extension CookieStoreExtension on CookieStore {
   external EventHandler get onchange;
 }
 
-@JS('CookieStoreGetOptions')
+@JS()
 @staticInterop
+@anonymous
 class CookieStoreGetOptions {
-  external factory CookieStoreGetOptions();
+  external factory CookieStoreGetOptions({
+    JSString name,
+    JSString url,
+  });
 }
 
-extension CookieStoreGetOptionsExtension on CookieStoreGetOptions {}
+extension CookieStoreGetOptionsExtension on CookieStoreGetOptions {
+  external set name(JSString value);
+  external JSString get name;
+  external set url(JSString value);
+  external JSString get url;
+}
 
-@JS('CookieInit')
+@JS()
 @staticInterop
+@anonymous
 class CookieInit {
-  external factory CookieInit();
+  external factory CookieInit({
+    required JSString name,
+    required JSString value,
+    EpochTimeStamp? expires,
+    JSString? domain,
+    JSString path = '/',
+    CookieSameSite sameSite = 'strict',
+  });
 }
 
-extension CookieInitExtension on CookieInit {}
+extension CookieInitExtension on CookieInit {
+  external set name(JSString value);
+  external JSString get name;
+  external set value(JSString value);
+  external JSString get value;
+  external set expires(EpochTimeStamp? value);
+  external EpochTimeStamp? get expires;
+  external set domain(JSString? value);
+  external JSString? get domain;
+  external set path(JSString value);
+  external JSString get path;
+  external set sameSite(CookieSameSite value);
+  external CookieSameSite get sameSite;
+}
 
-@JS('CookieStoreDeleteOptions')
+@JS()
 @staticInterop
+@anonymous
 class CookieStoreDeleteOptions {
-  external factory CookieStoreDeleteOptions();
+  external factory CookieStoreDeleteOptions({
+    required JSString name,
+    JSString? domain,
+    JSString path = '/',
+  });
 }
 
-extension CookieStoreDeleteOptionsExtension on CookieStoreDeleteOptions {}
+extension CookieStoreDeleteOptionsExtension on CookieStoreDeleteOptions {
+  external set name(JSString value);
+  external JSString get name;
+  external set domain(JSString? value);
+  external JSString? get domain;
+  external set path(JSString value);
+  external JSString get path;
+}
 
-@JS('CookieListItem')
+@JS()
 @staticInterop
+@anonymous
 class CookieListItem {
-  external factory CookieListItem();
+  external factory CookieListItem({
+    JSString name,
+    JSString value,
+    JSString? domain,
+    JSString path,
+    EpochTimeStamp? expires,
+    JSBoolean secure,
+    CookieSameSite sameSite,
+  });
 }
 
-extension CookieListItemExtension on CookieListItem {}
+extension CookieListItemExtension on CookieListItem {
+  external set name(JSString value);
+  external JSString get name;
+  external set value(JSString value);
+  external JSString get value;
+  external set domain(JSString? value);
+  external JSString? get domain;
+  external set path(JSString value);
+  external JSString get path;
+  external set expires(EpochTimeStamp? value);
+  external EpochTimeStamp? get expires;
+  external set secure(JSBoolean value);
+  external JSBoolean get secure;
+  external set sameSite(CookieSameSite value);
+  external CookieSameSite get sameSite;
+}
 
 @JS('CookieStoreManager')
 @staticInterop
@@ -107,13 +174,22 @@ extension CookieChangeEventExtension on CookieChangeEvent {
   external JSArray get deleted;
 }
 
-@JS('CookieChangeEventInit')
+@JS()
 @staticInterop
+@anonymous
 class CookieChangeEventInit extends EventInit {
-  external factory CookieChangeEventInit();
+  external factory CookieChangeEventInit({
+    CookieList changed,
+    CookieList deleted,
+  });
 }
 
-extension CookieChangeEventInitExtension on CookieChangeEventInit {}
+extension CookieChangeEventInitExtension on CookieChangeEventInit {
+  external set changed(CookieList value);
+  external CookieList get changed;
+  external set deleted(CookieList value);
+  external CookieList get deleted;
+}
 
 @JS('ExtendableCookieChangeEvent')
 @staticInterop
@@ -133,11 +209,20 @@ extension ExtendableCookieChangeEventExtension on ExtendableCookieChangeEvent {
   external JSArray get deleted;
 }
 
-@JS('ExtendableCookieChangeEventInit')
+@JS()
 @staticInterop
+@anonymous
 class ExtendableCookieChangeEventInit extends ExtendableEventInit {
-  external factory ExtendableCookieChangeEventInit();
+  external factory ExtendableCookieChangeEventInit({
+    CookieList changed,
+    CookieList deleted,
+  });
 }
 
 extension ExtendableCookieChangeEventInitExtension
-    on ExtendableCookieChangeEventInit {}
+    on ExtendableCookieChangeEventInit {
+  external set changed(CookieList value);
+  external CookieList get changed;
+  external set deleted(CookieList value);
+  external CookieList get deleted;
+}

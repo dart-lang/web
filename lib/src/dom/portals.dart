@@ -35,13 +35,17 @@ extension HTMLPortalElementExtension on HTMLPortalElement {
   external EventHandler get onmessageerror;
 }
 
-@JS('PortalActivateOptions')
+@JS()
 @staticInterop
+@anonymous
 class PortalActivateOptions extends StructuredSerializeOptions {
-  external factory PortalActivateOptions();
+  external factory PortalActivateOptions({JSAny data});
 }
 
-extension PortalActivateOptionsExtension on PortalActivateOptions {}
+extension PortalActivateOptionsExtension on PortalActivateOptions {
+  external set data(JSAny value);
+  external JSAny get data;
+}
 
 @JS('PortalHost')
 @staticInterop
@@ -79,10 +83,14 @@ extension PortalActivateEventExtension on PortalActivateEvent {
   external HTMLPortalElement adoptPredecessor();
 }
 
-@JS('PortalActivateEventInit')
+@JS()
 @staticInterop
+@anonymous
 class PortalActivateEventInit extends EventInit {
-  external factory PortalActivateEventInit();
+  external factory PortalActivateEventInit({JSAny data});
 }
 
-extension PortalActivateEventInitExtension on PortalActivateEventInit {}
+extension PortalActivateEventInitExtension on PortalActivateEventInit {
+  external set data(JSAny value);
+  external JSAny get data;
+}

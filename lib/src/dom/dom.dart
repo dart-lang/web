@@ -88,13 +88,25 @@ extension EventExtension on Event {
   );
 }
 
-@JS('EventInit')
+@JS()
 @staticInterop
+@anonymous
 class EventInit {
-  external factory EventInit();
+  external factory EventInit({
+    JSBoolean bubbles = false,
+    JSBoolean cancelable = false,
+    JSBoolean composed = false,
+  });
 }
 
-extension EventInitExtension on EventInit {}
+extension EventInitExtension on EventInit {
+  external set bubbles(JSBoolean value);
+  external JSBoolean get bubbles;
+  external set cancelable(JSBoolean value);
+  external JSBoolean get cancelable;
+  external set composed(JSBoolean value);
+  external JSBoolean get composed;
+}
 
 @JS('CustomEvent')
 @staticInterop
@@ -129,13 +141,17 @@ extension CustomEventExtension on CustomEvent {
   );
 }
 
-@JS('CustomEventInit')
+@JS()
 @staticInterop
+@anonymous
 class CustomEventInit extends EventInit {
-  external factory CustomEventInit();
+  external factory CustomEventInit({JSAny detail});
 }
 
-extension CustomEventInitExtension on CustomEventInit {}
+extension CustomEventInitExtension on CustomEventInit {
+  external set detail(JSAny value);
+  external JSAny get detail;
+}
 
 @JS('EventTarget')
 @staticInterop
@@ -165,21 +181,37 @@ extension EventTargetExtension on EventTarget {
   external JSBoolean dispatchEvent(Event event);
 }
 
-@JS('EventListenerOptions')
+@JS()
 @staticInterop
+@anonymous
 class EventListenerOptions {
-  external factory EventListenerOptions();
+  external factory EventListenerOptions({JSBoolean capture = false});
 }
 
-extension EventListenerOptionsExtension on EventListenerOptions {}
+extension EventListenerOptionsExtension on EventListenerOptions {
+  external set capture(JSBoolean value);
+  external JSBoolean get capture;
+}
 
-@JS('AddEventListenerOptions')
+@JS()
 @staticInterop
+@anonymous
 class AddEventListenerOptions extends EventListenerOptions {
-  external factory AddEventListenerOptions();
+  external factory AddEventListenerOptions({
+    JSBoolean passive,
+    JSBoolean once = false,
+    AbortSignal signal,
+  });
 }
 
-extension AddEventListenerOptionsExtension on AddEventListenerOptions {}
+extension AddEventListenerOptionsExtension on AddEventListenerOptions {
+  external set passive(JSBoolean value);
+  external JSBoolean get passive;
+  external set once(JSBoolean value);
+  external JSBoolean get once;
+  external set signal(AbortSignal value);
+  external AbortSignal get signal;
+}
 
 @JS('AbortController')
 @staticInterop
@@ -331,13 +363,37 @@ extension MutationObserverExtension on MutationObserver {
   external JSArray takeRecords();
 }
 
-@JS('MutationObserverInit')
+@JS()
 @staticInterop
+@anonymous
 class MutationObserverInit {
-  external factory MutationObserverInit();
+  external factory MutationObserverInit({
+    JSBoolean childList = false,
+    JSBoolean attributes,
+    JSBoolean characterData,
+    JSBoolean subtree = false,
+    JSBoolean attributeOldValue,
+    JSBoolean characterDataOldValue,
+    JSArray attributeFilter,
+  });
 }
 
-extension MutationObserverInitExtension on MutationObserverInit {}
+extension MutationObserverInitExtension on MutationObserverInit {
+  external set childList(JSBoolean value);
+  external JSBoolean get childList;
+  external set attributes(JSBoolean value);
+  external JSBoolean get attributes;
+  external set characterData(JSBoolean value);
+  external JSBoolean get characterData;
+  external set subtree(JSBoolean value);
+  external JSBoolean get subtree;
+  external set attributeOldValue(JSBoolean value);
+  external JSBoolean get attributeOldValue;
+  external set characterDataOldValue(JSBoolean value);
+  external JSBoolean get characterDataOldValue;
+  external set attributeFilter(JSArray value);
+  external JSArray get attributeFilter;
+}
 
 @JS('MutationRecord')
 @staticInterop
@@ -424,13 +480,17 @@ extension NodeExtension on Node {
   external Node removeChild(Node child);
 }
 
-@JS('GetRootNodeOptions')
+@JS()
 @staticInterop
+@anonymous
 class GetRootNodeOptions {
-  external factory GetRootNodeOptions();
+  external factory GetRootNodeOptions({JSBoolean composed = false});
 }
 
-extension GetRootNodeOptionsExtension on GetRootNodeOptions {}
+extension GetRootNodeOptionsExtension on GetRootNodeOptions {
+  external set composed(JSBoolean value);
+  external JSBoolean get composed;
+}
 
 @JS()
 external Document get document;
@@ -659,13 +719,19 @@ class XMLDocument extends Document {
   external factory XMLDocument();
 }
 
-@JS('ElementCreationOptions')
+@JS()
 @staticInterop
+@anonymous
 class ElementCreationOptions {
-  external factory ElementCreationOptions();
+  external factory ElementCreationOptions({JSString is_});
 }
 
-extension ElementCreationOptionsExtension on ElementCreationOptions {}
+extension ElementCreationOptionsExtension on ElementCreationOptions {
+  @JS('is')
+  external set is_0_(JSString value);
+  @JS('is')
+  external JSString get is_0_;
+}
 
 @JS('DOMImplementation')
 @staticInterop
@@ -890,13 +956,25 @@ extension ElementExtension on Element {
   );
 }
 
-@JS('ShadowRootInit')
+@JS()
 @staticInterop
+@anonymous
 class ShadowRootInit {
-  external factory ShadowRootInit();
+  external factory ShadowRootInit({
+    required ShadowRootMode mode,
+    JSBoolean delegatesFocus = false,
+    SlotAssignmentMode slotAssignment = 'named',
+  });
 }
 
-extension ShadowRootInitExtension on ShadowRootInit {}
+extension ShadowRootInitExtension on ShadowRootInit {
+  external set mode(ShadowRootMode value);
+  external ShadowRootMode get mode;
+  external set delegatesFocus(JSBoolean value);
+  external JSBoolean get delegatesFocus;
+  external set slotAssignment(SlotAssignmentMode value);
+  external SlotAssignmentMode get slotAssignment;
+}
 
 @JS('NamedNodeMap')
 @staticInterop
@@ -1024,13 +1102,28 @@ extension AbstractRangeExtension on AbstractRange {
   external JSBoolean get collapsed;
 }
 
-@JS('StaticRangeInit')
+@JS()
 @staticInterop
+@anonymous
 class StaticRangeInit {
-  external factory StaticRangeInit();
+  external factory StaticRangeInit({
+    required Node startContainer,
+    required JSNumber startOffset,
+    required Node endContainer,
+    required JSNumber endOffset,
+  });
 }
 
-extension StaticRangeInitExtension on StaticRangeInit {}
+extension StaticRangeInitExtension on StaticRangeInit {
+  external set startContainer(Node value);
+  external Node get startContainer;
+  external set startOffset(JSNumber value);
+  external JSNumber get startOffset;
+  external set endContainer(Node value);
+  external Node get endContainer;
+  external set endOffset(JSNumber value);
+  external JSNumber get endOffset;
+}
 
 @JS('StaticRange')
 @staticInterop

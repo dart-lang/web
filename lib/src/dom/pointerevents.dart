@@ -10,13 +10,58 @@ import 'package:js/js.dart' hide JS;
 
 import 'uievents.dart';
 
-@JS('PointerEventInit')
+@JS()
 @staticInterop
+@anonymous
 class PointerEventInit extends MouseEventInit {
-  external factory PointerEventInit();
+  external factory PointerEventInit({
+    JSNumber pointerId = 0,
+    JSNumber width = 1,
+    JSNumber height = 1,
+    JSNumber pressure = 0,
+    JSNumber tangentialPressure = 0,
+    JSNumber tiltX,
+    JSNumber tiltY,
+    JSNumber twist = 0,
+    JSNumber altitudeAngle,
+    JSNumber azimuthAngle,
+    JSString pointerType = '',
+    JSBoolean isPrimary = false,
+    JSArray coalescedEvents = const [],
+    JSArray predictedEvents = const [],
+  });
 }
 
-extension PointerEventInitExtension on PointerEventInit {}
+extension PointerEventInitExtension on PointerEventInit {
+  external set pointerId(JSNumber value);
+  external JSNumber get pointerId;
+  external set width(JSNumber value);
+  external JSNumber get width;
+  external set height(JSNumber value);
+  external JSNumber get height;
+  external set pressure(JSNumber value);
+  external JSNumber get pressure;
+  external set tangentialPressure(JSNumber value);
+  external JSNumber get tangentialPressure;
+  external set tiltX(JSNumber value);
+  external JSNumber get tiltX;
+  external set tiltY(JSNumber value);
+  external JSNumber get tiltY;
+  external set twist(JSNumber value);
+  external JSNumber get twist;
+  external set altitudeAngle(JSNumber value);
+  external JSNumber get altitudeAngle;
+  external set azimuthAngle(JSNumber value);
+  external JSNumber get azimuthAngle;
+  external set pointerType(JSString value);
+  external JSString get pointerType;
+  external set isPrimary(JSBoolean value);
+  external JSBoolean get isPrimary;
+  external set coalescedEvents(JSArray value);
+  external JSArray get coalescedEvents;
+  external set predictedEvents(JSArray value);
+  external JSArray get predictedEvents;
+}
 
 @JS('PointerEvent')
 @staticInterop

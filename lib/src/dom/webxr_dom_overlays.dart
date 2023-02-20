@@ -8,20 +8,30 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
+import 'dom.dart';
+
 typedef XRDOMOverlayType = JSString;
 
-@JS('XRDOMOverlayInit')
+@JS()
 @staticInterop
+@anonymous
 class XRDOMOverlayInit {
-  external factory XRDOMOverlayInit();
+  external factory XRDOMOverlayInit({required Element root});
 }
 
-extension XRDOMOverlayInitExtension on XRDOMOverlayInit {}
+extension XRDOMOverlayInitExtension on XRDOMOverlayInit {
+  external set root(Element value);
+  external Element get root;
+}
 
-@JS('XRDOMOverlayState')
+@JS()
 @staticInterop
+@anonymous
 class XRDOMOverlayState {
-  external factory XRDOMOverlayState();
+  external factory XRDOMOverlayState({XRDOMOverlayType type});
 }
 
-extension XRDOMOverlayStateExtension on XRDOMOverlayState {}
+extension XRDOMOverlayStateExtension on XRDOMOverlayState {
+  external set type(XRDOMOverlayType value);
+  external XRDOMOverlayType get type;
+}

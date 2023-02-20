@@ -9,6 +9,7 @@ import 'dart:js_interop';
 import 'package:js/js.dart' hide JS;
 
 import 'dom.dart';
+import 'hr_time.dart';
 import 'html.dart';
 import 'mediacapture_streams.dart';
 
@@ -132,21 +133,37 @@ extension AudioContextExtension on AudioContext {
   external MediaStreamAudioDestinationNode createMediaStreamDestination();
 }
 
-@JS('AudioContextOptions')
+@JS()
 @staticInterop
+@anonymous
 class AudioContextOptions {
-  external factory AudioContextOptions();
+  external factory AudioContextOptions({
+    JSAny latencyHint = 'interactive',
+    JSNumber sampleRate,
+    JSAny sinkId,
+  });
 }
 
-extension AudioContextOptionsExtension on AudioContextOptions {}
+extension AudioContextOptionsExtension on AudioContextOptions {
+  external set latencyHint(JSAny value);
+  external JSAny get latencyHint;
+  external set sampleRate(JSNumber value);
+  external JSNumber get sampleRate;
+  external set sinkId(JSAny value);
+  external JSAny get sinkId;
+}
 
-@JS('AudioSinkOptions')
+@JS()
 @staticInterop
+@anonymous
 class AudioSinkOptions {
-  external factory AudioSinkOptions();
+  external factory AudioSinkOptions({required AudioSinkType type});
 }
 
-extension AudioSinkOptionsExtension on AudioSinkOptions {}
+extension AudioSinkOptionsExtension on AudioSinkOptions {
+  external set type(AudioSinkType value);
+  external AudioSinkType get type;
+}
 
 @JS('AudioSinkInfo')
 @staticInterop
@@ -158,13 +175,22 @@ extension AudioSinkInfoExtension on AudioSinkInfo {
   external AudioSinkType get type;
 }
 
-@JS('AudioTimestamp')
+@JS()
 @staticInterop
+@anonymous
 class AudioTimestamp {
-  external factory AudioTimestamp();
+  external factory AudioTimestamp({
+    JSNumber contextTime,
+    DOMHighResTimeStamp performanceTime,
+  });
 }
 
-extension AudioTimestampExtension on AudioTimestamp {}
+extension AudioTimestampExtension on AudioTimestamp {
+  external set contextTime(JSNumber value);
+  external JSNumber get contextTime;
+  external set performanceTime(DOMHighResTimeStamp value);
+  external DOMHighResTimeStamp get performanceTime;
+}
 
 @JS('AudioRenderCapacity')
 @staticInterop
@@ -180,13 +206,17 @@ extension AudioRenderCapacityExtension on AudioRenderCapacity {
   external EventHandler get onupdate;
 }
 
-@JS('AudioRenderCapacityOptions')
+@JS()
 @staticInterop
+@anonymous
 class AudioRenderCapacityOptions {
-  external factory AudioRenderCapacityOptions();
+  external factory AudioRenderCapacityOptions({JSNumber updateInterval = 1});
 }
 
-extension AudioRenderCapacityOptionsExtension on AudioRenderCapacityOptions {}
+extension AudioRenderCapacityOptionsExtension on AudioRenderCapacityOptions {
+  external set updateInterval(JSNumber value);
+  external JSNumber get updateInterval;
+}
 
 @JS('AudioRenderCapacityEvent')
 @staticInterop
@@ -208,14 +238,29 @@ extension AudioRenderCapacityEventExtension on AudioRenderCapacityEvent {
   external JSNumber get underrunRatio;
 }
 
-@JS('AudioRenderCapacityEventInit')
+@JS()
 @staticInterop
+@anonymous
 class AudioRenderCapacityEventInit extends EventInit {
-  external factory AudioRenderCapacityEventInit();
+  external factory AudioRenderCapacityEventInit({
+    JSNumber timestamp = 0,
+    JSNumber averageLoad = 0,
+    JSNumber peakLoad = 0,
+    JSNumber underrunRatio = 0,
+  });
 }
 
 extension AudioRenderCapacityEventInitExtension
-    on AudioRenderCapacityEventInit {}
+    on AudioRenderCapacityEventInit {
+  external set timestamp(JSNumber value);
+  external JSNumber get timestamp;
+  external set averageLoad(JSNumber value);
+  external JSNumber get averageLoad;
+  external set peakLoad(JSNumber value);
+  external JSNumber get peakLoad;
+  external set underrunRatio(JSNumber value);
+  external JSNumber get underrunRatio;
+}
 
 @JS('OfflineAudioContext')
 @staticInterop
@@ -241,13 +286,25 @@ extension OfflineAudioContextExtension on OfflineAudioContext {
   external EventHandler get oncomplete;
 }
 
-@JS('OfflineAudioContextOptions')
+@JS()
 @staticInterop
+@anonymous
 class OfflineAudioContextOptions {
-  external factory OfflineAudioContextOptions();
+  external factory OfflineAudioContextOptions({
+    JSNumber numberOfChannels = 1,
+    required JSNumber length,
+    required JSNumber sampleRate,
+  });
 }
 
-extension OfflineAudioContextOptionsExtension on OfflineAudioContextOptions {}
+extension OfflineAudioContextOptionsExtension on OfflineAudioContextOptions {
+  external set numberOfChannels(JSNumber value);
+  external JSNumber get numberOfChannels;
+  external set length(JSNumber value);
+  external JSNumber get length;
+  external set sampleRate(JSNumber value);
+  external JSNumber get sampleRate;
+}
 
 @JS('OfflineAudioCompletionEvent')
 @staticInterop
@@ -264,14 +321,19 @@ extension OfflineAudioCompletionEventExtension on OfflineAudioCompletionEvent {
   external AudioBuffer get renderedBuffer;
 }
 
-@JS('OfflineAudioCompletionEventInit')
+@JS()
 @staticInterop
+@anonymous
 class OfflineAudioCompletionEventInit extends EventInit {
-  external factory OfflineAudioCompletionEventInit();
+  external factory OfflineAudioCompletionEventInit(
+      {required AudioBuffer renderedBuffer});
 }
 
 extension OfflineAudioCompletionEventInitExtension
-    on OfflineAudioCompletionEventInit {}
+    on OfflineAudioCompletionEventInit {
+  external set renderedBuffer(AudioBuffer value);
+  external AudioBuffer get renderedBuffer;
+}
 
 @JS('AudioBuffer')
 @staticInterop
@@ -307,13 +369,25 @@ extension AudioBufferExtension on AudioBuffer {
   );
 }
 
-@JS('AudioBufferOptions')
+@JS()
 @staticInterop
+@anonymous
 class AudioBufferOptions {
-  external factory AudioBufferOptions();
+  external factory AudioBufferOptions({
+    JSNumber numberOfChannels = 1,
+    required JSNumber length,
+    required JSNumber sampleRate,
+  });
 }
 
-extension AudioBufferOptionsExtension on AudioBufferOptions {}
+extension AudioBufferOptionsExtension on AudioBufferOptions {
+  external set numberOfChannels(JSNumber value);
+  external JSNumber get numberOfChannels;
+  external set length(JSNumber value);
+  external JSNumber get length;
+  external set sampleRate(JSNumber value);
+  external JSNumber get sampleRate;
+}
 
 @JS('AudioNode')
 @staticInterop
@@ -373,13 +447,25 @@ extension AudioNodeExtension on AudioNode {
   external ChannelInterpretation get channelInterpretation;
 }
 
-@JS('AudioNodeOptions')
+@JS()
 @staticInterop
+@anonymous
 class AudioNodeOptions {
-  external factory AudioNodeOptions();
+  external factory AudioNodeOptions({
+    JSNumber channelCount,
+    ChannelCountMode channelCountMode,
+    ChannelInterpretation channelInterpretation,
+  });
 }
 
-extension AudioNodeOptionsExtension on AudioNodeOptions {}
+extension AudioNodeOptionsExtension on AudioNodeOptions {
+  external set channelCount(JSNumber value);
+  external JSNumber get channelCount;
+  external set channelCountMode(ChannelCountMode value);
+  external ChannelCountMode get channelCountMode;
+  external set channelInterpretation(ChannelInterpretation value);
+  external ChannelInterpretation get channelInterpretation;
+}
 
 @JS('AudioParam')
 @staticInterop
@@ -465,13 +551,28 @@ extension AnalyserNodeExtension on AnalyserNode {
   external JSNumber get smoothingTimeConstant;
 }
 
-@JS('AnalyserOptions')
+@JS()
 @staticInterop
+@anonymous
 class AnalyserOptions extends AudioNodeOptions {
-  external factory AnalyserOptions();
+  external factory AnalyserOptions({
+    JSNumber fftSize = 2048,
+    JSNumber maxDecibels = -30,
+    JSNumber minDecibels = -100,
+    JSNumber smoothingTimeConstant = 0.8,
+  });
 }
 
-extension AnalyserOptionsExtension on AnalyserOptions {}
+extension AnalyserOptionsExtension on AnalyserOptions {
+  external set fftSize(JSNumber value);
+  external JSNumber get fftSize;
+  external set maxDecibels(JSNumber value);
+  external JSNumber get maxDecibels;
+  external set minDecibels(JSNumber value);
+  external JSNumber get minDecibels;
+  external set smoothingTimeConstant(JSNumber value);
+  external JSNumber get smoothingTimeConstant;
+}
 
 @JS('AudioBufferSourceNode')
 @staticInterop
@@ -510,13 +611,34 @@ extension AudioBufferSourceNodeExtension on AudioBufferSourceNode {
   );
 }
 
-@JS('AudioBufferSourceOptions')
+@JS()
 @staticInterop
+@anonymous
 class AudioBufferSourceOptions {
-  external factory AudioBufferSourceOptions();
+  external factory AudioBufferSourceOptions({
+    AudioBuffer? buffer,
+    JSNumber detune = 0,
+    JSBoolean loop = false,
+    JSNumber loopEnd = 0,
+    JSNumber loopStart = 0,
+    JSNumber playbackRate = 1,
+  });
 }
 
-extension AudioBufferSourceOptionsExtension on AudioBufferSourceOptions {}
+extension AudioBufferSourceOptionsExtension on AudioBufferSourceOptions {
+  external set buffer(AudioBuffer? value);
+  external AudioBuffer? get buffer;
+  external set detune(JSNumber value);
+  external JSNumber get detune;
+  external set loop(JSBoolean value);
+  external JSBoolean get loop;
+  external set loopEnd(JSNumber value);
+  external JSNumber get loopEnd;
+  external set loopStart(JSNumber value);
+  external JSNumber get loopStart;
+  external set playbackRate(JSNumber value);
+  external JSNumber get playbackRate;
+}
 
 @JS('AudioDestinationNode')
 @staticInterop
@@ -576,13 +698,25 @@ extension AudioProcessingEventExtension on AudioProcessingEvent {
   external AudioBuffer get outputBuffer;
 }
 
-@JS('AudioProcessingEventInit')
+@JS()
 @staticInterop
+@anonymous
 class AudioProcessingEventInit extends EventInit {
-  external factory AudioProcessingEventInit();
+  external factory AudioProcessingEventInit({
+    required JSNumber playbackTime,
+    required AudioBuffer inputBuffer,
+    required AudioBuffer outputBuffer,
+  });
 }
 
-extension AudioProcessingEventInitExtension on AudioProcessingEventInit {}
+extension AudioProcessingEventInitExtension on AudioProcessingEventInit {
+  external set playbackTime(JSNumber value);
+  external JSNumber get playbackTime;
+  external set inputBuffer(AudioBuffer value);
+  external AudioBuffer get inputBuffer;
+  external set outputBuffer(AudioBuffer value);
+  external AudioBuffer get outputBuffer;
+}
 
 @JS('BiquadFilterNode')
 @staticInterop
@@ -611,13 +745,31 @@ extension BiquadFilterNodeExtension on BiquadFilterNode {
   );
 }
 
-@JS('BiquadFilterOptions')
+@JS()
 @staticInterop
+@anonymous
 class BiquadFilterOptions extends AudioNodeOptions {
-  external factory BiquadFilterOptions();
+  external factory BiquadFilterOptions({
+    BiquadFilterType type = 'lowpass',
+    JSNumber Q = 1,
+    JSNumber detune = 0,
+    JSNumber frequency = 350,
+    JSNumber gain = 0,
+  });
 }
 
-extension BiquadFilterOptionsExtension on BiquadFilterOptions {}
+extension BiquadFilterOptionsExtension on BiquadFilterOptions {
+  external set type(BiquadFilterType value);
+  external BiquadFilterType get type;
+  external set Q(JSNumber value);
+  external JSNumber get Q;
+  external set detune(JSNumber value);
+  external JSNumber get detune;
+  external set frequency(JSNumber value);
+  external JSNumber get frequency;
+  external set gain(JSNumber value);
+  external JSNumber get gain;
+}
 
 @JS('ChannelMergerNode')
 @staticInterop
@@ -632,13 +784,17 @@ class ChannelMergerNode extends AudioNode {
   );
 }
 
-@JS('ChannelMergerOptions')
+@JS()
 @staticInterop
+@anonymous
 class ChannelMergerOptions extends AudioNodeOptions {
-  external factory ChannelMergerOptions();
+  external factory ChannelMergerOptions({JSNumber numberOfInputs = 6});
 }
 
-extension ChannelMergerOptionsExtension on ChannelMergerOptions {}
+extension ChannelMergerOptionsExtension on ChannelMergerOptions {
+  external set numberOfInputs(JSNumber value);
+  external JSNumber get numberOfInputs;
+}
 
 @JS('ChannelSplitterNode')
 @staticInterop
@@ -653,13 +809,17 @@ class ChannelSplitterNode extends AudioNode {
   );
 }
 
-@JS('ChannelSplitterOptions')
+@JS()
 @staticInterop
+@anonymous
 class ChannelSplitterOptions extends AudioNodeOptions {
-  external factory ChannelSplitterOptions();
+  external factory ChannelSplitterOptions({JSNumber numberOfOutputs = 6});
 }
 
-extension ChannelSplitterOptionsExtension on ChannelSplitterOptions {}
+extension ChannelSplitterOptionsExtension on ChannelSplitterOptions {
+  external set numberOfOutputs(JSNumber value);
+  external JSNumber get numberOfOutputs;
+}
 
 @JS('ConstantSourceNode')
 @staticInterop
@@ -678,13 +838,17 @@ extension ConstantSourceNodeExtension on ConstantSourceNode {
   external AudioParam get offset;
 }
 
-@JS('ConstantSourceOptions')
+@JS()
 @staticInterop
+@anonymous
 class ConstantSourceOptions {
-  external factory ConstantSourceOptions();
+  external factory ConstantSourceOptions({JSNumber offset = 1});
 }
 
-extension ConstantSourceOptionsExtension on ConstantSourceOptions {}
+extension ConstantSourceOptionsExtension on ConstantSourceOptions {
+  external set offset(JSNumber value);
+  external JSNumber get offset;
+}
 
 @JS('ConvolverNode')
 @staticInterop
@@ -706,13 +870,22 @@ extension ConvolverNodeExtension on ConvolverNode {
   external JSBoolean get normalize;
 }
 
-@JS('ConvolverOptions')
+@JS()
 @staticInterop
+@anonymous
 class ConvolverOptions extends AudioNodeOptions {
-  external factory ConvolverOptions();
+  external factory ConvolverOptions({
+    AudioBuffer? buffer,
+    JSBoolean disableNormalization = false,
+  });
 }
 
-extension ConvolverOptionsExtension on ConvolverOptions {}
+extension ConvolverOptionsExtension on ConvolverOptions {
+  external set buffer(AudioBuffer? value);
+  external AudioBuffer? get buffer;
+  external set disableNormalization(JSBoolean value);
+  external JSBoolean get disableNormalization;
+}
 
 @JS('DelayNode')
 @staticInterop
@@ -731,13 +904,22 @@ extension DelayNodeExtension on DelayNode {
   external AudioParam get delayTime;
 }
 
-@JS('DelayOptions')
+@JS()
 @staticInterop
+@anonymous
 class DelayOptions extends AudioNodeOptions {
-  external factory DelayOptions();
+  external factory DelayOptions({
+    JSNumber maxDelayTime = 1,
+    JSNumber delayTime = 0,
+  });
 }
 
-extension DelayOptionsExtension on DelayOptions {}
+extension DelayOptionsExtension on DelayOptions {
+  external set maxDelayTime(JSNumber value);
+  external JSNumber get maxDelayTime;
+  external set delayTime(JSNumber value);
+  external JSNumber get delayTime;
+}
 
 @JS('DynamicsCompressorNode')
 @staticInterop
@@ -761,13 +943,31 @@ extension DynamicsCompressorNodeExtension on DynamicsCompressorNode {
   external AudioParam get release;
 }
 
-@JS('DynamicsCompressorOptions')
+@JS()
 @staticInterop
+@anonymous
 class DynamicsCompressorOptions extends AudioNodeOptions {
-  external factory DynamicsCompressorOptions();
+  external factory DynamicsCompressorOptions({
+    JSNumber attack = 0.003,
+    JSNumber knee = 30,
+    JSNumber ratio = 12,
+    JSNumber release = 0.25,
+    JSNumber threshold = -24,
+  });
 }
 
-extension DynamicsCompressorOptionsExtension on DynamicsCompressorOptions {}
+extension DynamicsCompressorOptionsExtension on DynamicsCompressorOptions {
+  external set attack(JSNumber value);
+  external JSNumber get attack;
+  external set knee(JSNumber value);
+  external JSNumber get knee;
+  external set ratio(JSNumber value);
+  external JSNumber get ratio;
+  external set release(JSNumber value);
+  external JSNumber get release;
+  external set threshold(JSNumber value);
+  external JSNumber get threshold;
+}
 
 @JS('GainNode')
 @staticInterop
@@ -786,13 +986,17 @@ extension GainNodeExtension on GainNode {
   external AudioParam get gain;
 }
 
-@JS('GainOptions')
+@JS()
 @staticInterop
+@anonymous
 class GainOptions extends AudioNodeOptions {
-  external factory GainOptions();
+  external factory GainOptions({JSNumber gain = 1.0});
 }
 
-extension GainOptionsExtension on GainOptions {}
+extension GainOptionsExtension on GainOptions {
+  external set gain(JSNumber value);
+  external JSNumber get gain;
+}
 
 @JS('IIRFilterNode')
 @staticInterop
@@ -813,13 +1017,22 @@ extension IIRFilterNodeExtension on IIRFilterNode {
   );
 }
 
-@JS('IIRFilterOptions')
+@JS()
 @staticInterop
+@anonymous
 class IIRFilterOptions extends AudioNodeOptions {
-  external factory IIRFilterOptions();
+  external factory IIRFilterOptions({
+    required JSArray feedforward,
+    required JSArray feedback,
+  });
 }
 
-extension IIRFilterOptionsExtension on IIRFilterOptions {}
+extension IIRFilterOptionsExtension on IIRFilterOptions {
+  external set feedforward(JSArray value);
+  external JSArray get feedforward;
+  external set feedback(JSArray value);
+  external JSArray get feedback;
+}
 
 @JS('MediaElementAudioSourceNode')
 @staticInterop
@@ -836,14 +1049,19 @@ extension MediaElementAudioSourceNodeExtension on MediaElementAudioSourceNode {
   external HTMLMediaElement get mediaElement;
 }
 
-@JS('MediaElementAudioSourceOptions')
+@JS()
 @staticInterop
+@anonymous
 class MediaElementAudioSourceOptions {
-  external factory MediaElementAudioSourceOptions();
+  external factory MediaElementAudioSourceOptions(
+      {required HTMLMediaElement mediaElement});
 }
 
 extension MediaElementAudioSourceOptionsExtension
-    on MediaElementAudioSourceOptions {}
+    on MediaElementAudioSourceOptions {
+  external set mediaElement(HTMLMediaElement value);
+  external HTMLMediaElement get mediaElement;
+}
 
 @JS('MediaStreamAudioDestinationNode')
 @staticInterop
@@ -878,14 +1096,19 @@ extension MediaStreamAudioSourceNodeExtension on MediaStreamAudioSourceNode {
   external MediaStream get mediaStream;
 }
 
-@JS('MediaStreamAudioSourceOptions')
+@JS()
 @staticInterop
+@anonymous
 class MediaStreamAudioSourceOptions {
-  external factory MediaStreamAudioSourceOptions();
+  external factory MediaStreamAudioSourceOptions(
+      {required MediaStream mediaStream});
 }
 
 extension MediaStreamAudioSourceOptionsExtension
-    on MediaStreamAudioSourceOptions {}
+    on MediaStreamAudioSourceOptions {
+  external set mediaStream(MediaStream value);
+  external MediaStream get mediaStream;
+}
 
 @JS('MediaStreamTrackAudioSourceNode')
 @staticInterop
@@ -898,14 +1121,19 @@ class MediaStreamTrackAudioSourceNode extends AudioNode {
   );
 }
 
-@JS('MediaStreamTrackAudioSourceOptions')
+@JS()
 @staticInterop
+@anonymous
 class MediaStreamTrackAudioSourceOptions {
-  external factory MediaStreamTrackAudioSourceOptions();
+  external factory MediaStreamTrackAudioSourceOptions(
+      {required MediaStreamTrack mediaStreamTrack});
 }
 
 extension MediaStreamTrackAudioSourceOptionsExtension
-    on MediaStreamTrackAudioSourceOptions {}
+    on MediaStreamTrackAudioSourceOptions {
+  external set mediaStreamTrack(MediaStreamTrack value);
+  external MediaStreamTrack get mediaStreamTrack;
+}
 
 @JS('OscillatorNode')
 @staticInterop
@@ -928,13 +1156,28 @@ extension OscillatorNodeExtension on OscillatorNode {
   external JSVoid setPeriodicWave(PeriodicWave periodicWave);
 }
 
-@JS('OscillatorOptions')
+@JS()
 @staticInterop
+@anonymous
 class OscillatorOptions extends AudioNodeOptions {
-  external factory OscillatorOptions();
+  external factory OscillatorOptions({
+    OscillatorType type = 'sine',
+    JSNumber frequency = 440,
+    JSNumber detune = 0,
+    PeriodicWave periodicWave,
+  });
 }
 
-extension OscillatorOptionsExtension on OscillatorOptions {}
+extension OscillatorOptionsExtension on OscillatorOptions {
+  external set type(OscillatorType value);
+  external OscillatorType get type;
+  external set frequency(JSNumber value);
+  external JSNumber get frequency;
+  external set detune(JSNumber value);
+  external JSNumber get detune;
+  external set periodicWave(PeriodicWave value);
+  external PeriodicWave get periodicWave;
+}
 
 @JS('PannerNode')
 @staticInterop
@@ -984,13 +1227,58 @@ extension PannerNodeExtension on PannerNode {
   );
 }
 
-@JS('PannerOptions')
+@JS()
 @staticInterop
+@anonymous
 class PannerOptions extends AudioNodeOptions {
-  external factory PannerOptions();
+  external factory PannerOptions({
+    PanningModelType panningModel = 'equalpower',
+    DistanceModelType distanceModel = 'inverse',
+    JSNumber positionX = 0,
+    JSNumber positionY = 0,
+    JSNumber positionZ = 0,
+    JSNumber orientationX = 1,
+    JSNumber orientationY = 0,
+    JSNumber orientationZ = 0,
+    JSNumber refDistance = 1,
+    JSNumber maxDistance = 10000,
+    JSNumber rolloffFactor = 1,
+    JSNumber coneInnerAngle = 360,
+    JSNumber coneOuterAngle = 360,
+    JSNumber coneOuterGain = 0,
+  });
 }
 
-extension PannerOptionsExtension on PannerOptions {}
+extension PannerOptionsExtension on PannerOptions {
+  external set panningModel(PanningModelType value);
+  external PanningModelType get panningModel;
+  external set distanceModel(DistanceModelType value);
+  external DistanceModelType get distanceModel;
+  external set positionX(JSNumber value);
+  external JSNumber get positionX;
+  external set positionY(JSNumber value);
+  external JSNumber get positionY;
+  external set positionZ(JSNumber value);
+  external JSNumber get positionZ;
+  external set orientationX(JSNumber value);
+  external JSNumber get orientationX;
+  external set orientationY(JSNumber value);
+  external JSNumber get orientationY;
+  external set orientationZ(JSNumber value);
+  external JSNumber get orientationZ;
+  external set refDistance(JSNumber value);
+  external JSNumber get refDistance;
+  external set maxDistance(JSNumber value);
+  external JSNumber get maxDistance;
+  external set rolloffFactor(JSNumber value);
+  external JSNumber get rolloffFactor;
+  external set coneInnerAngle(JSNumber value);
+  external JSNumber get coneInnerAngle;
+  external set coneOuterAngle(JSNumber value);
+  external JSNumber get coneOuterAngle;
+  external set coneOuterGain(JSNumber value);
+  external JSNumber get coneOuterGain;
+}
 
 @JS('PeriodicWave')
 @staticInterop
@@ -1005,21 +1293,35 @@ class PeriodicWave {
   );
 }
 
-@JS('PeriodicWaveConstraints')
+@JS()
 @staticInterop
+@anonymous
 class PeriodicWaveConstraints {
-  external factory PeriodicWaveConstraints();
+  external factory PeriodicWaveConstraints(
+      {JSBoolean disableNormalization = false});
 }
 
-extension PeriodicWaveConstraintsExtension on PeriodicWaveConstraints {}
+extension PeriodicWaveConstraintsExtension on PeriodicWaveConstraints {
+  external set disableNormalization(JSBoolean value);
+  external JSBoolean get disableNormalization;
+}
 
-@JS('PeriodicWaveOptions')
+@JS()
 @staticInterop
+@anonymous
 class PeriodicWaveOptions extends PeriodicWaveConstraints {
-  external factory PeriodicWaveOptions();
+  external factory PeriodicWaveOptions({
+    JSArray real,
+    JSArray imag,
+  });
 }
 
-extension PeriodicWaveOptionsExtension on PeriodicWaveOptions {}
+extension PeriodicWaveOptionsExtension on PeriodicWaveOptions {
+  external set real(JSArray value);
+  external JSArray get real;
+  external set imag(JSArray value);
+  external JSArray get imag;
+}
 
 @JS('ScriptProcessorNode')
 @staticInterop
@@ -1050,13 +1352,17 @@ extension StereoPannerNodeExtension on StereoPannerNode {
   external AudioParam get pan;
 }
 
-@JS('StereoPannerOptions')
+@JS()
 @staticInterop
+@anonymous
 class StereoPannerOptions extends AudioNodeOptions {
-  external factory StereoPannerOptions();
+  external factory StereoPannerOptions({JSNumber pan = 0});
 }
 
-extension StereoPannerOptionsExtension on StereoPannerOptions {}
+extension StereoPannerOptionsExtension on StereoPannerOptions {
+  external set pan(JSNumber value);
+  external JSNumber get pan;
+}
 
 @JS('WaveShaperNode')
 @staticInterop
@@ -1078,13 +1384,22 @@ extension WaveShaperNodeExtension on WaveShaperNode {
   external OverSampleType get oversample;
 }
 
-@JS('WaveShaperOptions')
+@JS()
 @staticInterop
+@anonymous
 class WaveShaperOptions extends AudioNodeOptions {
-  external factory WaveShaperOptions();
+  external factory WaveShaperOptions({
+    JSArray curve,
+    OverSampleType oversample = 'none',
+  });
 }
 
-extension WaveShaperOptionsExtension on WaveShaperOptions {}
+extension WaveShaperOptionsExtension on WaveShaperOptions {
+  external set curve(JSArray value);
+  external JSArray get curve;
+  external set oversample(OverSampleType value);
+  external OverSampleType get oversample;
+}
 
 @JS('AudioWorklet')
 @staticInterop
@@ -1145,13 +1460,31 @@ extension AudioWorkletNodeExtension on AudioWorkletNode {
   external EventHandler get onprocessorerror;
 }
 
-@JS('AudioWorkletNodeOptions')
+@JS()
 @staticInterop
+@anonymous
 class AudioWorkletNodeOptions extends AudioNodeOptions {
-  external factory AudioWorkletNodeOptions();
+  external factory AudioWorkletNodeOptions({
+    JSNumber numberOfInputs = 1,
+    JSNumber numberOfOutputs = 1,
+    JSArray outputChannelCount,
+    JSAny parameterData,
+    JSObject processorOptions,
+  });
 }
 
-extension AudioWorkletNodeOptionsExtension on AudioWorkletNodeOptions {}
+extension AudioWorkletNodeOptionsExtension on AudioWorkletNodeOptions {
+  external set numberOfInputs(JSNumber value);
+  external JSNumber get numberOfInputs;
+  external set numberOfOutputs(JSNumber value);
+  external JSNumber get numberOfOutputs;
+  external set outputChannelCount(JSArray value);
+  external JSArray get outputChannelCount;
+  external set parameterData(JSAny value);
+  external JSAny get parameterData;
+  external set processorOptions(JSObject value);
+  external JSObject get processorOptions;
+}
 
 @JS('AudioWorkletProcessor')
 @staticInterop
@@ -1163,10 +1496,28 @@ extension AudioWorkletProcessorExtension on AudioWorkletProcessor {
   external MessagePort get port;
 }
 
-@JS('AudioParamDescriptor')
+@JS()
 @staticInterop
+@anonymous
 class AudioParamDescriptor {
-  external factory AudioParamDescriptor();
+  external factory AudioParamDescriptor({
+    required JSString name,
+    JSNumber defaultValue = 0,
+    JSNumber minValue = -3.4028235e38,
+    JSNumber maxValue = 3.4028235e38,
+    AutomationRate automationRate = 'a-rate',
+  });
 }
 
-extension AudioParamDescriptorExtension on AudioParamDescriptor {}
+extension AudioParamDescriptorExtension on AudioParamDescriptor {
+  external set name(JSString value);
+  external JSString get name;
+  external set defaultValue(JSNumber value);
+  external JSNumber get defaultValue;
+  external set minValue(JSNumber value);
+  external JSNumber get minValue;
+  external set maxValue(JSNumber value);
+  external JSNumber get maxValue;
+  external set automationRate(AutomationRate value);
+  external AutomationRate get automationRate;
+}

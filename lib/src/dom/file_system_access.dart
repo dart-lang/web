@@ -8,66 +8,125 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
+import 'fs.dart';
 import 'permissions.dart';
 
 typedef StartInDirectory = JSAny;
 typedef FileSystemPermissionMode = JSString;
 typedef WellKnownDirectory = JSString;
 
-@JS('FileSystemPermissionDescriptor')
+@JS()
 @staticInterop
+@anonymous
 class FileSystemPermissionDescriptor extends PermissionDescriptor {
-  external factory FileSystemPermissionDescriptor();
+  external factory FileSystemPermissionDescriptor({
+    required FileSystemHandle handle,
+    FileSystemPermissionMode mode = 'read',
+  });
 }
 
 extension FileSystemPermissionDescriptorExtension
-    on FileSystemPermissionDescriptor {}
+    on FileSystemPermissionDescriptor {
+  external set handle(FileSystemHandle value);
+  external FileSystemHandle get handle;
+  external set mode(FileSystemPermissionMode value);
+  external FileSystemPermissionMode get mode;
+}
 
-@JS('FileSystemHandlePermissionDescriptor')
+@JS()
 @staticInterop
+@anonymous
 class FileSystemHandlePermissionDescriptor {
-  external factory FileSystemHandlePermissionDescriptor();
+  external factory FileSystemHandlePermissionDescriptor(
+      {FileSystemPermissionMode mode = 'read'});
 }
 
 extension FileSystemHandlePermissionDescriptorExtension
-    on FileSystemHandlePermissionDescriptor {}
+    on FileSystemHandlePermissionDescriptor {
+  external set mode(FileSystemPermissionMode value);
+  external FileSystemPermissionMode get mode;
+}
 
-@JS('FilePickerAcceptType')
+@JS()
 @staticInterop
+@anonymous
 class FilePickerAcceptType {
-  external factory FilePickerAcceptType();
+  external factory FilePickerAcceptType({
+    JSString description,
+    JSAny accept,
+  });
 }
 
-extension FilePickerAcceptTypeExtension on FilePickerAcceptType {}
+extension FilePickerAcceptTypeExtension on FilePickerAcceptType {
+  external set description(JSString value);
+  external JSString get description;
+  external set accept(JSAny value);
+  external JSAny get accept;
+}
 
-@JS('FilePickerOptions')
+@JS()
 @staticInterop
+@anonymous
 class FilePickerOptions {
-  external factory FilePickerOptions();
+  external factory FilePickerOptions({
+    JSArray types,
+    JSBoolean excludeAcceptAllOption = false,
+    JSString id,
+    StartInDirectory startIn,
+  });
 }
 
-extension FilePickerOptionsExtension on FilePickerOptions {}
+extension FilePickerOptionsExtension on FilePickerOptions {
+  external set types(JSArray value);
+  external JSArray get types;
+  external set excludeAcceptAllOption(JSBoolean value);
+  external JSBoolean get excludeAcceptAllOption;
+  external set id(JSString value);
+  external JSString get id;
+  external set startIn(StartInDirectory value);
+  external StartInDirectory get startIn;
+}
 
-@JS('OpenFilePickerOptions')
+@JS()
 @staticInterop
+@anonymous
 class OpenFilePickerOptions extends FilePickerOptions {
-  external factory OpenFilePickerOptions();
+  external factory OpenFilePickerOptions({JSBoolean multiple = false});
 }
 
-extension OpenFilePickerOptionsExtension on OpenFilePickerOptions {}
+extension OpenFilePickerOptionsExtension on OpenFilePickerOptions {
+  external set multiple(JSBoolean value);
+  external JSBoolean get multiple;
+}
 
-@JS('SaveFilePickerOptions')
+@JS()
 @staticInterop
+@anonymous
 class SaveFilePickerOptions extends FilePickerOptions {
-  external factory SaveFilePickerOptions();
+  external factory SaveFilePickerOptions({JSString? suggestedName});
 }
 
-extension SaveFilePickerOptionsExtension on SaveFilePickerOptions {}
+extension SaveFilePickerOptionsExtension on SaveFilePickerOptions {
+  external set suggestedName(JSString? value);
+  external JSString? get suggestedName;
+}
 
-@JS('DirectoryPickerOptions')
+@JS()
 @staticInterop
+@anonymous
 class DirectoryPickerOptions {
-  external factory DirectoryPickerOptions();
+  external factory DirectoryPickerOptions({
+    JSString id,
+    StartInDirectory startIn,
+    FileSystemPermissionMode mode = 'read',
+  });
 }
 
-extension DirectoryPickerOptionsExtension on DirectoryPickerOptions {}
+extension DirectoryPickerOptionsExtension on DirectoryPickerOptions {
+  external set id(JSString value);
+  external JSString get id;
+  external set startIn(StartInDirectory value);
+  external StartInDirectory get startIn;
+  external set mode(FileSystemPermissionMode value);
+  external FileSystemPermissionMode get mode;
+}

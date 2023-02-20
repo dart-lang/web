@@ -8,21 +8,31 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
-@JS('ColorSelectionResult')
+import 'dom.dart';
+
+@JS()
 @staticInterop
+@anonymous
 class ColorSelectionResult {
-  external factory ColorSelectionResult();
+  external factory ColorSelectionResult({JSString sRGBHex});
 }
 
-extension ColorSelectionResultExtension on ColorSelectionResult {}
+extension ColorSelectionResultExtension on ColorSelectionResult {
+  external set sRGBHex(JSString value);
+  external JSString get sRGBHex;
+}
 
-@JS('ColorSelectionOptions')
+@JS()
 @staticInterop
+@anonymous
 class ColorSelectionOptions {
-  external factory ColorSelectionOptions();
+  external factory ColorSelectionOptions({AbortSignal signal});
 }
 
-extension ColorSelectionOptionsExtension on ColorSelectionOptions {}
+extension ColorSelectionOptionsExtension on ColorSelectionOptions {
+  external set signal(AbortSignal value);
+  external AbortSignal get signal;
+}
 
 @JS('EyeDropper')
 @staticInterop

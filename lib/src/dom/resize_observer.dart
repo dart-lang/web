@@ -14,13 +14,18 @@ import 'geometry.dart';
 typedef ResizeObserverCallback = JSFunction;
 typedef ResizeObserverBoxOptions = JSString;
 
-@JS('ResizeObserverOptions')
+@JS()
 @staticInterop
+@anonymous
 class ResizeObserverOptions {
-  external factory ResizeObserverOptions();
+  external factory ResizeObserverOptions(
+      {ResizeObserverBoxOptions box = 'content-box'});
 }
 
-extension ResizeObserverOptionsExtension on ResizeObserverOptions {}
+extension ResizeObserverOptionsExtension on ResizeObserverOptions {
+  external set box(ResizeObserverBoxOptions value);
+  external ResizeObserverBoxOptions get box;
+}
 
 @JS('ResizeObserver')
 @staticInterop

@@ -22,13 +22,17 @@ extension InkExtension on Ink {
   external JSPromise requestPresenter1(InkPresenterParam param);
 }
 
-@JS('InkPresenterParam')
+@JS()
 @staticInterop
+@anonymous
 class InkPresenterParam {
-  external factory InkPresenterParam();
+  external factory InkPresenterParam({Element? presentationArea});
 }
 
-extension InkPresenterParamExtension on InkPresenterParam {}
+extension InkPresenterParamExtension on InkPresenterParam {
+  external set presentationArea(Element? value);
+  external Element? get presentationArea;
+}
 
 @JS('InkPresenter')
 @staticInterop
@@ -45,10 +49,19 @@ extension InkPresenterExtension on InkPresenter {
   );
 }
 
-@JS('InkTrailStyle')
+@JS()
 @staticInterop
+@anonymous
 class InkTrailStyle {
-  external factory InkTrailStyle();
+  external factory InkTrailStyle({
+    required JSString color,
+    required JSNumber diameter,
+  });
 }
 
-extension InkTrailStyleExtension on InkTrailStyle {}
+extension InkTrailStyleExtension on InkTrailStyle {
+  external set color(JSString value);
+  external JSString get color;
+  external set diameter(JSNumber value);
+  external JSNumber get diameter;
+}

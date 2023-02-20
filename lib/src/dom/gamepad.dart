@@ -62,10 +62,14 @@ extension GamepadEventExtension on GamepadEvent {
   external Gamepad get gamepad;
 }
 
-@JS('GamepadEventInit')
+@JS()
 @staticInterop
+@anonymous
 class GamepadEventInit extends EventInit {
-  external factory GamepadEventInit();
+  external factory GamepadEventInit({required Gamepad gamepad});
 }
 
-extension GamepadEventInitExtension on GamepadEventInit {}
+extension GamepadEventInitExtension on GamepadEventInit {
+  external set gamepad(Gamepad value);
+  external Gamepad get gamepad;
+}

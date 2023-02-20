@@ -29,10 +29,14 @@ extension BeforeInstallPromptEventExtension on BeforeInstallPromptEvent {
   external JSPromise prompt();
 }
 
-@JS('PromptResponseObject')
+@JS()
 @staticInterop
+@anonymous
 class PromptResponseObject {
-  external factory PromptResponseObject();
+  external factory PromptResponseObject({AppBannerPromptOutcome userChoice});
 }
 
-extension PromptResponseObjectExtension on PromptResponseObject {}
+extension PromptResponseObjectExtension on PromptResponseObject {
+  external set userChoice(AppBannerPromptOutcome value);
+  external AppBannerPromptOutcome get userChoice;
+}

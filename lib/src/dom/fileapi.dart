@@ -50,13 +50,22 @@ extension BlobExtension on Blob {
   external JSPromise arrayBuffer();
 }
 
-@JS('BlobPropertyBag')
+@JS()
 @staticInterop
+@anonymous
 class BlobPropertyBag {
-  external factory BlobPropertyBag();
+  external factory BlobPropertyBag({
+    JSString type = '',
+    EndingType endings = 'transparent',
+  });
 }
 
-extension BlobPropertyBagExtension on BlobPropertyBag {}
+extension BlobPropertyBagExtension on BlobPropertyBag {
+  external set type(JSString value);
+  external JSString get type;
+  external set endings(EndingType value);
+  external EndingType get endings;
+}
 
 @JS('File')
 @staticInterop
@@ -81,13 +90,17 @@ extension FileExtension on File {
   external JSString get webkitRelativePath;
 }
 
-@JS('FilePropertyBag')
+@JS()
 @staticInterop
+@anonymous
 class FilePropertyBag extends BlobPropertyBag {
-  external factory FilePropertyBag();
+  external factory FilePropertyBag({JSNumber lastModified});
 }
 
-extension FilePropertyBagExtension on FilePropertyBag {}
+extension FilePropertyBagExtension on FilePropertyBag {
+  external set lastModified(JSNumber value);
+  external JSNumber get lastModified;
+}
 
 @JS('FileList')
 @staticInterop

@@ -16,13 +16,17 @@ typedef ClipboardItemData = JSPromise;
 typedef ClipboardItems = JSArray;
 typedef PresentationStyle = JSString;
 
-@JS('ClipboardEventInit')
+@JS()
 @staticInterop
+@anonymous
 class ClipboardEventInit extends EventInit {
-  external factory ClipboardEventInit();
+  external factory ClipboardEventInit({DataTransfer? clipboardData});
 }
 
-extension ClipboardEventInitExtension on ClipboardEventInit {}
+extension ClipboardEventInitExtension on ClipboardEventInit {
+  external set clipboardData(DataTransfer? value);
+  external DataTransfer? get clipboardData;
+}
 
 @JS('ClipboardEvent')
 @staticInterop
@@ -60,13 +64,18 @@ extension ClipboardItemExtension on ClipboardItem {
   external JSPromise getType(JSString type);
 }
 
-@JS('ClipboardItemOptions')
+@JS()
 @staticInterop
+@anonymous
 class ClipboardItemOptions {
-  external factory ClipboardItemOptions();
+  external factory ClipboardItemOptions(
+      {PresentationStyle presentationStyle = 'unspecified'});
 }
 
-extension ClipboardItemOptionsExtension on ClipboardItemOptions {}
+extension ClipboardItemOptionsExtension on ClipboardItemOptions {
+  external set presentationStyle(PresentationStyle value);
+  external PresentationStyle get presentationStyle;
+}
 
 @JS('Clipboard')
 @staticInterop
@@ -81,11 +90,16 @@ extension ClipboardExtension on Clipboard {
   external JSPromise writeText(JSString data);
 }
 
-@JS('ClipboardPermissionDescriptor')
+@JS()
 @staticInterop
+@anonymous
 class ClipboardPermissionDescriptor extends PermissionDescriptor {
-  external factory ClipboardPermissionDescriptor();
+  external factory ClipboardPermissionDescriptor(
+      {JSBoolean allowWithoutGesture = false});
 }
 
 extension ClipboardPermissionDescriptorExtension
-    on ClipboardPermissionDescriptor {}
+    on ClipboardPermissionDescriptor {
+  external set allowWithoutGesture(JSBoolean value);
+  external JSBoolean get allowWithoutGesture;
+}

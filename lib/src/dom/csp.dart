@@ -63,11 +63,50 @@ extension SecurityPolicyViolationEventExtension
   external JSNumber get columnNumber;
 }
 
-@JS('SecurityPolicyViolationEventInit')
+@JS()
 @staticInterop
+@anonymous
 class SecurityPolicyViolationEventInit extends EventInit {
-  external factory SecurityPolicyViolationEventInit();
+  external factory SecurityPolicyViolationEventInit({
+    required JSString documentURI,
+    JSString referrer = '',
+    JSString blockedURI = '',
+    required JSString violatedDirective,
+    required JSString effectiveDirective,
+    required JSString originalPolicy,
+    JSString sourceFile = '',
+    JSString sample = '',
+    required SecurityPolicyViolationEventDisposition disposition,
+    required JSNumber statusCode,
+    JSNumber lineNumber = 0,
+    JSNumber columnNumber = 0,
+  });
 }
 
 extension SecurityPolicyViolationEventInitExtension
-    on SecurityPolicyViolationEventInit {}
+    on SecurityPolicyViolationEventInit {
+  external set documentURI(JSString value);
+  external JSString get documentURI;
+  external set referrer(JSString value);
+  external JSString get referrer;
+  external set blockedURI(JSString value);
+  external JSString get blockedURI;
+  external set violatedDirective(JSString value);
+  external JSString get violatedDirective;
+  external set effectiveDirective(JSString value);
+  external JSString get effectiveDirective;
+  external set originalPolicy(JSString value);
+  external JSString get originalPolicy;
+  external set sourceFile(JSString value);
+  external JSString get sourceFile;
+  external set sample(JSString value);
+  external JSString get sample;
+  external set disposition(SecurityPolicyViolationEventDisposition value);
+  external SecurityPolicyViolationEventDisposition get disposition;
+  external set statusCode(JSNumber value);
+  external JSNumber get statusCode;
+  external set lineNumber(JSNumber value);
+  external JSNumber get lineNumber;
+  external set columnNumber(JSNumber value);
+  external JSNumber get columnNumber;
+}

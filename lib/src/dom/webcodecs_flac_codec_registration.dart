@@ -8,10 +8,19 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
-@JS('FlacEncoderConfig')
+@JS()
 @staticInterop
+@anonymous
 class FlacEncoderConfig {
-  external factory FlacEncoderConfig();
+  external factory FlacEncoderConfig({
+    JSNumber blockSize = 0,
+    JSNumber compressLevel = 5,
+  });
 }
 
-extension FlacEncoderConfigExtension on FlacEncoderConfig {}
+extension FlacEncoderConfigExtension on FlacEncoderConfig {
+  external set blockSize(JSNumber value);
+  external JSNumber get blockSize;
+  external set compressLevel(JSNumber value);
+  external JSNumber get compressLevel;
+}

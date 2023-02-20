@@ -1223,13 +1223,17 @@ extension TrackEventExtension on TrackEvent {
   external JSAny? get track;
 }
 
-@JS('TrackEventInit')
+@JS()
 @staticInterop
+@anonymous
 class TrackEventInit extends EventInit {
-  external factory TrackEventInit();
+  external factory TrackEventInit({JSAny? track});
 }
 
-extension TrackEventInitExtension on TrackEventInit {}
+extension TrackEventInitExtension on TrackEventInit {
+  external set track(JSAny? value);
+  external JSAny? get track;
+}
 
 @JS('HTMLMapElement')
 @staticInterop
@@ -1952,13 +1956,17 @@ extension SubmitEventExtension on SubmitEvent {
   external HTMLElement? get submitter;
 }
 
-@JS('SubmitEventInit')
+@JS()
 @staticInterop
+@anonymous
 class SubmitEventInit extends EventInit {
-  external factory SubmitEventInit();
+  external factory SubmitEventInit({HTMLElement? submitter});
 }
 
-extension SubmitEventInitExtension on SubmitEventInit {}
+extension SubmitEventInitExtension on SubmitEventInit {
+  external set submitter(HTMLElement? value);
+  external HTMLElement? get submitter;
+}
 
 @JS('FormDataEvent')
 @staticInterop
@@ -1975,13 +1983,17 @@ extension FormDataEventExtension on FormDataEvent {
   external FormData get formData;
 }
 
-@JS('FormDataEventInit')
+@JS()
 @staticInterop
+@anonymous
 class FormDataEventInit extends EventInit {
-  external factory FormDataEventInit();
+  external factory FormDataEventInit({required FormData formData});
 }
 
-extension FormDataEventInitExtension on FormDataEventInit {}
+extension FormDataEventInitExtension on FormDataEventInit {
+  external set formData(FormData value);
+  external FormData get formData;
+}
 
 @JS('HTMLDetailsElement')
 @staticInterop
@@ -2076,13 +2088,17 @@ extension HTMLSlotElementExtension on HTMLSlotElement {
   external JSVoid assign(JSAny nodes);
 }
 
-@JS('AssignedNodesOptions')
+@JS()
 @staticInterop
+@anonymous
 class AssignedNodesOptions {
-  external factory AssignedNodesOptions();
+  external factory AssignedNodesOptions({JSBoolean flatten = false});
 }
 
-extension AssignedNodesOptionsExtension on AssignedNodesOptions {}
+extension AssignedNodesOptionsExtension on AssignedNodesOptions {
+  external set flatten(JSBoolean value);
+  external JSBoolean get flatten;
+}
 
 @JS('HTMLCanvasElement')
 @staticInterop
@@ -2121,14 +2137,29 @@ extension HTMLCanvasElementExtension on HTMLCanvasElement {
   external MediaStream captureStream1(JSNumber frameRequestRate);
 }
 
-@JS('CanvasRenderingContext2DSettings')
+@JS()
 @staticInterop
+@anonymous
 class CanvasRenderingContext2DSettings {
-  external factory CanvasRenderingContext2DSettings();
+  external factory CanvasRenderingContext2DSettings({
+    JSBoolean alpha = true,
+    JSBoolean desynchronized = false,
+    PredefinedColorSpace colorSpace = 'srgb',
+    JSBoolean willReadFrequently = false,
+  });
 }
 
 extension CanvasRenderingContext2DSettingsExtension
-    on CanvasRenderingContext2DSettings {}
+    on CanvasRenderingContext2DSettings {
+  external set alpha(JSBoolean value);
+  external JSBoolean get alpha;
+  external set desynchronized(JSBoolean value);
+  external JSBoolean get desynchronized;
+  external set colorSpace(PredefinedColorSpace value);
+  external PredefinedColorSpace get colorSpace;
+  external set willReadFrequently(JSBoolean value);
+  external JSBoolean get willReadFrequently;
+}
 
 @JS('CanvasRenderingContext2D')
 @staticInterop
@@ -2710,13 +2741,17 @@ extension TextMetricsExtension on TextMetrics {
   external JSNumber get ideographicBaseline;
 }
 
-@JS('ImageDataSettings')
+@JS()
 @staticInterop
+@anonymous
 class ImageDataSettings {
-  external factory ImageDataSettings();
+  external factory ImageDataSettings({PredefinedColorSpace colorSpace});
 }
 
-extension ImageDataSettingsExtension on ImageDataSettings {}
+extension ImageDataSettingsExtension on ImageDataSettings {
+  external set colorSpace(PredefinedColorSpace value);
+  external PredefinedColorSpace get colorSpace;
+}
 
 @JS('ImageData')
 @staticInterop
@@ -2789,22 +2824,36 @@ extension ImageBitmapRenderingContextExtension on ImageBitmapRenderingContext {
   external JSVoid transferFromImageBitmap(ImageBitmap? bitmap);
 }
 
-@JS('ImageBitmapRenderingContextSettings')
+@JS()
 @staticInterop
+@anonymous
 class ImageBitmapRenderingContextSettings {
-  external factory ImageBitmapRenderingContextSettings();
+  external factory ImageBitmapRenderingContextSettings(
+      {JSBoolean alpha = true});
 }
 
 extension ImageBitmapRenderingContextSettingsExtension
-    on ImageBitmapRenderingContextSettings {}
-
-@JS('ImageEncodeOptions')
-@staticInterop
-class ImageEncodeOptions {
-  external factory ImageEncodeOptions();
+    on ImageBitmapRenderingContextSettings {
+  external set alpha(JSBoolean value);
+  external JSBoolean get alpha;
 }
 
-extension ImageEncodeOptionsExtension on ImageEncodeOptions {}
+@JS()
+@staticInterop
+@anonymous
+class ImageEncodeOptions {
+  external factory ImageEncodeOptions({
+    JSString type = 'image/png',
+    JSNumber quality,
+  });
+}
+
+extension ImageEncodeOptionsExtension on ImageEncodeOptions {
+  external set type(JSString value);
+  external JSString get type;
+  external set quality(JSNumber value);
+  external JSNumber get quality;
+}
 
 @JS('OffscreenCanvas')
 @staticInterop
@@ -2886,13 +2935,19 @@ extension CustomElementRegistryExtension on CustomElementRegistry {
   external JSVoid upgrade(Node root);
 }
 
-@JS('ElementDefinitionOptions')
+@JS()
 @staticInterop
+@anonymous
 class ElementDefinitionOptions {
-  external factory ElementDefinitionOptions();
+  external factory ElementDefinitionOptions({JSString extends_});
 }
 
-extension ElementDefinitionOptionsExtension on ElementDefinitionOptions {}
+extension ElementDefinitionOptionsExtension on ElementDefinitionOptions {
+  @JS('extends')
+  external set extends_0_(JSString value);
+  @JS('extends')
+  external JSString get extends_0_;
+}
 
 @JS('ElementInternals')
 @staticInterop
@@ -2928,13 +2983,46 @@ extension ElementInternalsExtension on ElementInternals {
   external NodeList get labels;
 }
 
-@JS('ValidityStateFlags')
+@JS()
 @staticInterop
+@anonymous
 class ValidityStateFlags {
-  external factory ValidityStateFlags();
+  external factory ValidityStateFlags({
+    JSBoolean valueMissing = false,
+    JSBoolean typeMismatch = false,
+    JSBoolean patternMismatch = false,
+    JSBoolean tooLong = false,
+    JSBoolean tooShort = false,
+    JSBoolean rangeUnderflow = false,
+    JSBoolean rangeOverflow = false,
+    JSBoolean stepMismatch = false,
+    JSBoolean badInput = false,
+    JSBoolean customError = false,
+  });
 }
 
-extension ValidityStateFlagsExtension on ValidityStateFlags {}
+extension ValidityStateFlagsExtension on ValidityStateFlags {
+  external set valueMissing(JSBoolean value);
+  external JSBoolean get valueMissing;
+  external set typeMismatch(JSBoolean value);
+  external JSBoolean get typeMismatch;
+  external set patternMismatch(JSBoolean value);
+  external JSBoolean get patternMismatch;
+  external set tooLong(JSBoolean value);
+  external JSBoolean get tooLong;
+  external set tooShort(JSBoolean value);
+  external JSBoolean get tooShort;
+  external set rangeUnderflow(JSBoolean value);
+  external JSBoolean get rangeUnderflow;
+  external set rangeOverflow(JSBoolean value);
+  external JSBoolean get rangeOverflow;
+  external set stepMismatch(JSBoolean value);
+  external JSBoolean get stepMismatch;
+  external set badInput(JSBoolean value);
+  external JSBoolean get badInput;
+  external set customError(JSBoolean value);
+  external JSBoolean get customError;
+}
 
 @JS('UserActivation')
 @staticInterop
@@ -2947,13 +3035,22 @@ extension UserActivationExtension on UserActivation {
   external JSBoolean get isActive;
 }
 
-@JS('FocusOptions')
+@JS()
 @staticInterop
+@anonymous
 class FocusOptions {
-  external factory FocusOptions();
+  external factory FocusOptions({
+    JSBoolean preventScroll = false,
+    JSBoolean focusVisible,
+  });
 }
 
-extension FocusOptionsExtension on FocusOptions {}
+extension FocusOptionsExtension on FocusOptions {
+  external set preventScroll(JSBoolean value);
+  external JSBoolean get preventScroll;
+  external set focusVisible(JSBoolean value);
+  external JSBoolean get focusVisible;
+}
 
 @JS('ElementContentEditable')
 @staticInterop
@@ -3051,13 +3148,17 @@ extension DragEventExtension on DragEvent {
   external DataTransfer? get dataTransfer;
 }
 
-@JS('DragEventInit')
+@JS()
 @staticInterop
+@anonymous
 class DragEventInit extends MouseEventInit {
-  external factory DragEventInit();
+  external factory DragEventInit({DataTransfer? dataTransfer});
 }
 
-extension DragEventInitExtension on DragEventInit {}
+extension DragEventInitExtension on DragEventInit {
+  external set dataTransfer(DataTransfer? value);
+  external DataTransfer? get dataTransfer;
+}
 
 @JS('PopoverTargetElement')
 @staticInterop
@@ -3092,13 +3193,22 @@ extension ToggleEventExtension on ToggleEvent {
   external JSString get newState;
 }
 
-@JS('ToggleEventInit')
+@JS()
 @staticInterop
+@anonymous
 class ToggleEventInit extends EventInit {
-  external factory ToggleEventInit();
+  external factory ToggleEventInit({
+    JSString oldState = '',
+    JSString newState = '',
+  });
 }
 
-extension ToggleEventInitExtension on ToggleEventInit {}
+extension ToggleEventInitExtension on ToggleEventInit {
+  external set oldState(JSString value);
+  external JSString get oldState;
+  external set newState(JSString value);
+  external JSString get newState;
+}
 
 @JS()
 external Window get window;
@@ -3289,13 +3399,17 @@ extension WindowExtension on Window {
   external JSPromise getScreenDetails();
 }
 
-@JS('WindowPostMessageOptions')
+@JS()
 @staticInterop
+@anonymous
 class WindowPostMessageOptions extends StructuredSerializeOptions {
-  external factory WindowPostMessageOptions();
+  external factory WindowPostMessageOptions({JSString targetOrigin = '/'});
 }
 
-extension WindowPostMessageOptionsExtension on WindowPostMessageOptions {}
+extension WindowPostMessageOptionsExtension on WindowPostMessageOptions {
+  external set targetOrigin(JSString value);
+  external JSString get targetOrigin;
+}
 
 @JS('BarProp')
 @staticInterop
@@ -3389,13 +3503,17 @@ extension PopStateEventExtension on PopStateEvent {
   external JSAny get state;
 }
 
-@JS('PopStateEventInit')
+@JS()
 @staticInterop
+@anonymous
 class PopStateEventInit extends EventInit {
-  external factory PopStateEventInit();
+  external factory PopStateEventInit({JSAny state});
 }
 
-extension PopStateEventInitExtension on PopStateEventInit {}
+extension PopStateEventInitExtension on PopStateEventInit {
+  external set state(JSAny value);
+  external JSAny get state;
+}
 
 @JS('HashChangeEvent')
 @staticInterop
@@ -3415,13 +3533,22 @@ extension HashChangeEventExtension on HashChangeEvent {
   external JSString get newURL;
 }
 
-@JS('HashChangeEventInit')
+@JS()
 @staticInterop
+@anonymous
 class HashChangeEventInit extends EventInit {
-  external factory HashChangeEventInit();
+  external factory HashChangeEventInit({
+    JSString oldURL = '',
+    JSString newURL = '',
+  });
 }
 
-extension HashChangeEventInitExtension on HashChangeEventInit {}
+extension HashChangeEventInitExtension on HashChangeEventInit {
+  external set oldURL(JSString value);
+  external JSString get oldURL;
+  external set newURL(JSString value);
+  external JSString get newURL;
+}
 
 @JS('PageTransitionEvent')
 @staticInterop
@@ -3440,13 +3567,17 @@ extension PageTransitionEventExtension on PageTransitionEvent {
   external JSBoolean get persisted;
 }
 
-@JS('PageTransitionEventInit')
+@JS()
 @staticInterop
+@anonymous
 class PageTransitionEventInit extends EventInit {
-  external factory PageTransitionEventInit();
+  external factory PageTransitionEventInit({JSBoolean persisted = false});
 }
 
-extension PageTransitionEventInitExtension on PageTransitionEventInit {}
+extension PageTransitionEventInitExtension on PageTransitionEventInit {
+  external set persisted(JSBoolean value);
+  external JSBoolean get persisted;
+}
 
 @JS('BeforeUnloadEvent')
 @staticInterop
@@ -3480,13 +3611,31 @@ extension ErrorEventExtension on ErrorEvent {
   external JSAny get error;
 }
 
-@JS('ErrorEventInit')
+@JS()
 @staticInterop
+@anonymous
 class ErrorEventInit extends EventInit {
-  external factory ErrorEventInit();
+  external factory ErrorEventInit({
+    JSString message = '',
+    JSString filename = '',
+    JSNumber lineno = 0,
+    JSNumber colno = 0,
+    JSAny error,
+  });
 }
 
-extension ErrorEventInitExtension on ErrorEventInit {}
+extension ErrorEventInitExtension on ErrorEventInit {
+  external set message(JSString value);
+  external JSString get message;
+  external set filename(JSString value);
+  external JSString get filename;
+  external set lineno(JSNumber value);
+  external JSNumber get lineno;
+  external set colno(JSNumber value);
+  external JSNumber get colno;
+  external set error(JSAny value);
+  external JSAny get error;
+}
 
 @JS('PromiseRejectionEvent')
 @staticInterop
@@ -3504,13 +3653,22 @@ extension PromiseRejectionEventExtension on PromiseRejectionEvent {
   external JSAny get reason;
 }
 
-@JS('PromiseRejectionEventInit')
+@JS()
 @staticInterop
+@anonymous
 class PromiseRejectionEventInit extends EventInit {
-  external factory PromiseRejectionEventInit();
+  external factory PromiseRejectionEventInit({
+    required JSPromise promise,
+    JSAny reason,
+  });
 }
 
-extension PromiseRejectionEventInitExtension on PromiseRejectionEventInit {}
+extension PromiseRejectionEventInitExtension on PromiseRejectionEventInit {
+  external set promise(JSPromise value);
+  external JSPromise get promise;
+  external set reason(JSAny value);
+  external JSAny get reason;
+}
 
 @JS('GlobalEventHandlers')
 @staticInterop
@@ -4080,13 +4238,34 @@ extension ImageBitmapExtension on ImageBitmap {
   external JSVoid close();
 }
 
-@JS('ImageBitmapOptions')
+@JS()
 @staticInterop
+@anonymous
 class ImageBitmapOptions {
-  external factory ImageBitmapOptions();
+  external factory ImageBitmapOptions({
+    ImageOrientation imageOrientation = 'from-image',
+    PremultiplyAlpha premultiplyAlpha = 'default',
+    ColorSpaceConversion colorSpaceConversion = 'default',
+    JSNumber resizeWidth,
+    JSNumber resizeHeight,
+    ResizeQuality resizeQuality = 'low',
+  });
 }
 
-extension ImageBitmapOptionsExtension on ImageBitmapOptions {}
+extension ImageBitmapOptionsExtension on ImageBitmapOptions {
+  external set imageOrientation(ImageOrientation value);
+  external ImageOrientation get imageOrientation;
+  external set premultiplyAlpha(PremultiplyAlpha value);
+  external PremultiplyAlpha get premultiplyAlpha;
+  external set colorSpaceConversion(ColorSpaceConversion value);
+  external ColorSpaceConversion get colorSpaceConversion;
+  external set resizeWidth(JSNumber value);
+  external JSNumber get resizeWidth;
+  external set resizeHeight(JSNumber value);
+  external JSNumber get resizeHeight;
+  external set resizeQuality(ResizeQuality value);
+  external ResizeQuality get resizeQuality;
+}
 
 @JS('AnimationFrameProvider')
 @staticInterop
@@ -4170,13 +4349,31 @@ extension MessageEventExtension on MessageEvent {
   );
 }
 
-@JS('MessageEventInit')
+@JS()
 @staticInterop
+@anonymous
 class MessageEventInit extends EventInit {
-  external factory MessageEventInit();
+  external factory MessageEventInit({
+    JSAny data,
+    JSString origin = '',
+    JSString lastEventId = '',
+    MessageEventSource? source,
+    JSArray ports = const [],
+  });
 }
 
-extension MessageEventInitExtension on MessageEventInit {}
+extension MessageEventInitExtension on MessageEventInit {
+  external set data(JSAny value);
+  external JSAny get data;
+  external set origin(JSString value);
+  external JSString get origin;
+  external set lastEventId(JSString value);
+  external JSString get lastEventId;
+  external set source(MessageEventSource? value);
+  external MessageEventSource? get source;
+  external set ports(JSArray value);
+  external JSArray get ports;
+}
 
 @JS('EventSource')
 @staticInterop
@@ -4208,13 +4405,17 @@ extension EventSourceExtension on EventSource {
   external JSVoid close();
 }
 
-@JS('EventSourceInit')
+@JS()
 @staticInterop
+@anonymous
 class EventSourceInit {
-  external factory EventSourceInit();
+  external factory EventSourceInit({JSBoolean withCredentials = false});
 }
 
-extension EventSourceInitExtension on EventSourceInit {}
+extension EventSourceInitExtension on EventSourceInit {
+  external set withCredentials(JSBoolean value);
+  external JSBoolean get withCredentials;
+}
 
 @JS('MessageChannel')
 @staticInterop
@@ -4253,13 +4454,17 @@ extension MessagePortExtension on MessagePort {
   external EventHandler get onmessageerror;
 }
 
-@JS('StructuredSerializeOptions')
+@JS()
 @staticInterop
+@anonymous
 class StructuredSerializeOptions {
-  external factory StructuredSerializeOptions();
+  external factory StructuredSerializeOptions({JSArray transfer = const []});
 }
 
-extension StructuredSerializeOptionsExtension on StructuredSerializeOptions {}
+extension StructuredSerializeOptionsExtension on StructuredSerializeOptions {
+  external set transfer(JSArray value);
+  external JSArray get transfer;
+}
 
 @JS('BroadcastChannel')
 @staticInterop
@@ -4390,13 +4595,25 @@ extension WorkerExtension on Worker {
   external EventHandler get onmessageerror;
 }
 
-@JS('WorkerOptions')
+@JS()
 @staticInterop
+@anonymous
 class WorkerOptions {
-  external factory WorkerOptions();
+  external factory WorkerOptions({
+    WorkerType type = 'classic',
+    RequestCredentials credentials = 'same-origin',
+    JSString name = '',
+  });
 }
 
-extension WorkerOptionsExtension on WorkerOptions {}
+extension WorkerOptionsExtension on WorkerOptions {
+  external set type(WorkerType value);
+  external WorkerType get type;
+  external set credentials(RequestCredentials value);
+  external RequestCredentials get credentials;
+  external set name(JSString value);
+  external JSString get name;
+}
 
 @JS('SharedWorker')
 @staticInterop
@@ -4492,13 +4709,18 @@ extension WorkletExtension on Worklet {
   );
 }
 
-@JS('WorkletOptions')
+@JS()
 @staticInterop
+@anonymous
 class WorkletOptions {
-  external factory WorkletOptions();
+  external factory WorkletOptions(
+      {RequestCredentials credentials = 'same-origin'});
 }
 
-extension WorkletOptionsExtension on WorkletOptions {}
+extension WorkletOptionsExtension on WorkletOptions {
+  external set credentials(RequestCredentials value);
+  external RequestCredentials get credentials;
+}
 
 @JS('Storage')
 @staticInterop
@@ -4609,13 +4831,31 @@ extension StorageEventExtension on StorageEvent {
   );
 }
 
-@JS('StorageEventInit')
+@JS()
 @staticInterop
+@anonymous
 class StorageEventInit extends EventInit {
-  external factory StorageEventInit();
+  external factory StorageEventInit({
+    JSString? key,
+    JSString? oldValue,
+    JSString? newValue,
+    JSString url = '',
+    Storage? storageArea,
+  });
 }
 
-extension StorageEventInitExtension on StorageEventInit {}
+extension StorageEventInitExtension on StorageEventInit {
+  external set key(JSString? value);
+  external JSString? get key;
+  external set oldValue(JSString? value);
+  external JSString? get oldValue;
+  external set newValue(JSString? value);
+  external JSString? get newValue;
+  external set url(JSString value);
+  external JSString get url;
+  external set storageArea(Storage? value);
+  external Storage? get storageArea;
+}
 
 @JS('HTMLMarqueeElement')
 @staticInterop

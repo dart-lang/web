@@ -12,6 +12,7 @@ import 'dom.dart';
 import 'hr_time.dart';
 import 'html.dart';
 import 'service_workers.dart';
+import 'vibration.dart';
 
 typedef NotificationPermissionCallback = JSFunction;
 typedef NotificationPermission = JSString;
@@ -63,29 +64,90 @@ extension NotificationExtension on Notification {
   external JSVoid close();
 }
 
-@JS('NotificationOptions')
+@JS()
 @staticInterop
+@anonymous
 class NotificationOptions {
-  external factory NotificationOptions();
+  external factory NotificationOptions({
+    NotificationDirection dir = 'auto',
+    JSString lang = '',
+    JSString body = '',
+    JSString tag = '',
+    JSString image,
+    JSString icon,
+    JSString badge,
+    VibratePattern vibrate,
+    EpochTimeStamp timestamp,
+    JSBoolean renotify = false,
+    JSBoolean silent = false,
+    JSBoolean requireInteraction = false,
+    JSAny data,
+    JSArray actions = const [],
+  });
 }
 
-extension NotificationOptionsExtension on NotificationOptions {}
+extension NotificationOptionsExtension on NotificationOptions {
+  external set dir(NotificationDirection value);
+  external NotificationDirection get dir;
+  external set lang(JSString value);
+  external JSString get lang;
+  external set body(JSString value);
+  external JSString get body;
+  external set tag(JSString value);
+  external JSString get tag;
+  external set image(JSString value);
+  external JSString get image;
+  external set icon(JSString value);
+  external JSString get icon;
+  external set badge(JSString value);
+  external JSString get badge;
+  external set vibrate(VibratePattern value);
+  external VibratePattern get vibrate;
+  external set timestamp(EpochTimeStamp value);
+  external EpochTimeStamp get timestamp;
+  external set renotify(JSBoolean value);
+  external JSBoolean get renotify;
+  external set silent(JSBoolean value);
+  external JSBoolean get silent;
+  external set requireInteraction(JSBoolean value);
+  external JSBoolean get requireInteraction;
+  external set data(JSAny value);
+  external JSAny get data;
+  external set actions(JSArray value);
+  external JSArray get actions;
+}
 
-@JS('NotificationAction')
+@JS()
 @staticInterop
+@anonymous
 class NotificationAction {
-  external factory NotificationAction();
+  external factory NotificationAction({
+    required JSString action,
+    required JSString title,
+    JSString icon,
+  });
 }
 
-extension NotificationActionExtension on NotificationAction {}
+extension NotificationActionExtension on NotificationAction {
+  external set action(JSString value);
+  external JSString get action;
+  external set title(JSString value);
+  external JSString get title;
+  external set icon(JSString value);
+  external JSString get icon;
+}
 
-@JS('GetNotificationOptions')
+@JS()
 @staticInterop
+@anonymous
 class GetNotificationOptions {
-  external factory GetNotificationOptions();
+  external factory GetNotificationOptions({JSString tag = ''});
 }
 
-extension GetNotificationOptionsExtension on GetNotificationOptions {}
+extension GetNotificationOptionsExtension on GetNotificationOptions {
+  external set tag(JSString value);
+  external JSString get tag;
+}
 
 @JS('NotificationEvent')
 @staticInterop
@@ -103,10 +165,19 @@ extension NotificationEventExtension on NotificationEvent {
   external JSString get action;
 }
 
-@JS('NotificationEventInit')
+@JS()
 @staticInterop
+@anonymous
 class NotificationEventInit extends ExtendableEventInit {
-  external factory NotificationEventInit();
+  external factory NotificationEventInit({
+    required Notification notification,
+    JSString action = '',
+  });
 }
 
-extension NotificationEventInitExtension on NotificationEventInit {}
+extension NotificationEventInitExtension on NotificationEventInit {
+  external set notification(Notification value);
+  external Notification get notification;
+  external set action(JSString value);
+  external JSString get action;
+}

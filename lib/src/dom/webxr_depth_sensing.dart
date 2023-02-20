@@ -14,13 +14,22 @@ import 'webxr.dart';
 typedef XRDepthUsage = JSString;
 typedef XRDepthDataFormat = JSString;
 
-@JS('XRDepthStateInit')
+@JS()
 @staticInterop
+@anonymous
 class XRDepthStateInit {
-  external factory XRDepthStateInit();
+  external factory XRDepthStateInit({
+    required JSArray usagePreference,
+    required JSArray dataFormatPreference,
+  });
 }
 
-extension XRDepthStateInitExtension on XRDepthStateInit {}
+extension XRDepthStateInitExtension on XRDepthStateInit {
+  external set usagePreference(JSArray value);
+  external JSArray get usagePreference;
+  external set dataFormatPreference(JSArray value);
+  external JSArray get dataFormatPreference;
+}
 
 @JS('XRDepthInformation')
 @staticInterop

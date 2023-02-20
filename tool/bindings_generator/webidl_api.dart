@@ -106,7 +106,7 @@ extension MemberExtension on Member {
 @staticInterop
 class Argument {}
 
-extension ArggumentExtension on Argument {
+extension ArgumentExtension on Argument {
   external JSString get type;
   @JS('default')
   external Value? get defaultValue;
@@ -164,7 +164,7 @@ class Value {}
 
 extension ValueExtension on Value {
   external JSString get type;
-  external JSAny get value;
+  external JSAny? get value;
   external JSBoolean? get negative;
 }
 

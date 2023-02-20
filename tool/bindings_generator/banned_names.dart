@@ -7,4 +7,7 @@ const bannedNames = <String>{
   'continue',
   'default',
   'in',
+  'is',
+  'extends',
+  'break',
 };

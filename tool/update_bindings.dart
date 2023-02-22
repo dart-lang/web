@@ -44,6 +44,14 @@ $_usage''');
   }
 
   // Run app with `node`.
+  if (argResult['delete-src'] as bool) {
+    // TODO: file cleanup should happen in the tool itself
+    final srcDir = Directory(p.join(p.current, 'lib', 'src'));
+
+    if (srcDir.existsSync()) {
+      srcDir.deleteSync(recursive: true);
+    }
+  }
   await _runProc('node', ['main.mjs', '../../lib'], _bindingsGeneratorPath);
 
   // Update readme.
@@ -129,4 +137,5 @@ ${_parser.usage}''';
 final _parser = ArgParser()
   ..addFlag('update', abbr: 'u', help: 'Update npm dependencies')
   ..addFlag('compile', defaultsTo: true)
-  ..addFlag('help', negatable: false);
+  ..addFlag('help', negatable: false)
+  ..addFlag('delete-src', help: 'Delete the lib/src directory before running.');

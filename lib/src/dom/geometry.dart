@@ -91,13 +91,28 @@ extension DOMPointExtension on DOMPoint {
   external JSNumber get w;
 }
 
-@JS('DOMPointInit')
+@JS()
 @staticInterop
+@anonymous
 class DOMPointInit {
-  external factory DOMPointInit();
+  external factory DOMPointInit({
+    JSNumber x = 0,
+    JSNumber y = 0,
+    JSNumber z = 0,
+    JSNumber w = 1,
+  });
 }
 
-extension DOMPointInitExtension on DOMPointInit {}
+extension DOMPointInitExtension on DOMPointInit {
+  external set x(JSNumber value);
+  external JSNumber get x;
+  external set y(JSNumber value);
+  external JSNumber get y;
+  external set z(JSNumber value);
+  external JSNumber get z;
+  external set w(JSNumber value);
+  external JSNumber get w;
+}
 
 @JS('DOMRectReadOnly')
 @staticInterop
@@ -184,13 +199,28 @@ extension DOMRectExtension on DOMRect {
   external JSNumber get height;
 }
 
-@JS('DOMRectInit')
+@JS()
 @staticInterop
+@anonymous
 class DOMRectInit {
-  external factory DOMRectInit();
+  external factory DOMRectInit({
+    JSNumber x = 0,
+    JSNumber y = 0,
+    JSNumber width = 0,
+    JSNumber height = 0,
+  });
 }
 
-extension DOMRectInitExtension on DOMRectInit {}
+extension DOMRectInitExtension on DOMRectInit {
+  external set x(JSNumber value);
+  external JSNumber get x;
+  external set y(JSNumber value);
+  external JSNumber get y;
+  external set width(JSNumber value);
+  external JSNumber get width;
+  external set height(JSNumber value);
+  external JSNumber get height;
+}
 
 @JS('DOMRectList')
 @staticInterop
@@ -245,13 +275,28 @@ extension DOMQuadExtension on DOMQuad {
   external JSObject toJSON();
 }
 
-@JS('DOMQuadInit')
+@JS()
 @staticInterop
+@anonymous
 class DOMQuadInit {
-  external factory DOMQuadInit();
+  external factory DOMQuadInit({
+    DOMPointInit p1,
+    DOMPointInit p2,
+    DOMPointInit p3,
+    DOMPointInit p4,
+  });
 }
 
-extension DOMQuadInitExtension on DOMQuadInit {}
+extension DOMQuadInitExtension on DOMQuadInit {
+  external set p1(DOMPointInit value);
+  external DOMPointInit get p1;
+  external set p2(DOMPointInit value);
+  external DOMPointInit get p2;
+  external set p3(DOMPointInit value);
+  external DOMPointInit get p3;
+  external set p4(DOMPointInit value);
+  external DOMPointInit get p4;
+}
 
 @JS('DOMMatrixReadOnly')
 @staticInterop
@@ -575,18 +620,93 @@ extension DOMMatrixExtension on DOMMatrix {
   external DOMMatrix setMatrixValue(JSString transformList);
 }
 
-@JS('DOMMatrix2DInit')
+@JS()
 @staticInterop
+@anonymous
 class DOMMatrix2DInit {
-  external factory DOMMatrix2DInit();
+  external factory DOMMatrix2DInit({
+    JSNumber a,
+    JSNumber b,
+    JSNumber c,
+    JSNumber d,
+    JSNumber e,
+    JSNumber f,
+    JSNumber m11,
+    JSNumber m12,
+    JSNumber m21,
+    JSNumber m22,
+    JSNumber m41,
+    JSNumber m42,
+  });
 }
 
-extension DOMMatrix2DInitExtension on DOMMatrix2DInit {}
+extension DOMMatrix2DInitExtension on DOMMatrix2DInit {
+  external set a(JSNumber value);
+  external JSNumber get a;
+  external set b(JSNumber value);
+  external JSNumber get b;
+  external set c(JSNumber value);
+  external JSNumber get c;
+  external set d(JSNumber value);
+  external JSNumber get d;
+  external set e(JSNumber value);
+  external JSNumber get e;
+  external set f(JSNumber value);
+  external JSNumber get f;
+  external set m11(JSNumber value);
+  external JSNumber get m11;
+  external set m12(JSNumber value);
+  external JSNumber get m12;
+  external set m21(JSNumber value);
+  external JSNumber get m21;
+  external set m22(JSNumber value);
+  external JSNumber get m22;
+  external set m41(JSNumber value);
+  external JSNumber get m41;
+  external set m42(JSNumber value);
+  external JSNumber get m42;
+}
 
-@JS('DOMMatrixInit')
+@JS()
 @staticInterop
+@anonymous
 class DOMMatrixInit extends DOMMatrix2DInit {
-  external factory DOMMatrixInit();
+  external factory DOMMatrixInit({
+    JSNumber m13 = 0,
+    JSNumber m14 = 0,
+    JSNumber m23 = 0,
+    JSNumber m24 = 0,
+    JSNumber m31 = 0,
+    JSNumber m32 = 0,
+    JSNumber m33 = 1,
+    JSNumber m34 = 0,
+    JSNumber m43 = 0,
+    JSNumber m44 = 1,
+    JSBoolean is2D,
+  });
 }
 
-extension DOMMatrixInitExtension on DOMMatrixInit {}
+extension DOMMatrixInitExtension on DOMMatrixInit {
+  external set m13(JSNumber value);
+  external JSNumber get m13;
+  external set m14(JSNumber value);
+  external JSNumber get m14;
+  external set m23(JSNumber value);
+  external JSNumber get m23;
+  external set m24(JSNumber value);
+  external JSNumber get m24;
+  external set m31(JSNumber value);
+  external JSNumber get m31;
+  external set m32(JSNumber value);
+  external JSNumber get m32;
+  external set m33(JSNumber value);
+  external JSNumber get m33;
+  external set m34(JSNumber value);
+  external JSNumber get m34;
+  external set m43(JSNumber value);
+  external JSNumber get m43;
+  external set m44(JSNumber value);
+  external JSNumber get m44;
+  external set is2D(JSBoolean value);
+  external JSBoolean get is2D;
+}

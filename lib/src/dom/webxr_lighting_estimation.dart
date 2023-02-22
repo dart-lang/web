@@ -39,10 +39,15 @@ extension XRLightEstimateExtension on XRLightEstimate {
   external DOMPointReadOnly get primaryLightIntensity;
 }
 
-@JS('XRLightProbeInit')
+@JS()
 @staticInterop
+@anonymous
 class XRLightProbeInit {
-  external factory XRLightProbeInit();
+  external factory XRLightProbeInit(
+      {XRReflectionFormat reflectionFormat = 'srgba8'});
 }
 
-extension XRLightProbeInitExtension on XRLightProbeInit {}
+extension XRLightProbeInitExtension on XRLightProbeInit {
+  external set reflectionFormat(XRReflectionFormat value);
+  external XRReflectionFormat get reflectionFormat;
+}

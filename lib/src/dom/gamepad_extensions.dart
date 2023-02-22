@@ -34,13 +34,28 @@ extension GamepadHapticActuatorExtension on GamepadHapticActuator {
   external JSPromise reset();
 }
 
-@JS('GamepadEffectParameters')
+@JS()
 @staticInterop
+@anonymous
 class GamepadEffectParameters {
-  external factory GamepadEffectParameters();
+  external factory GamepadEffectParameters({
+    JSNumber duration = 0.0,
+    JSNumber startDelay = 0.0,
+    JSNumber strongMagnitude = 0.0,
+    JSNumber weakMagnitude = 0.0,
+  });
 }
 
-extension GamepadEffectParametersExtension on GamepadEffectParameters {}
+extension GamepadEffectParametersExtension on GamepadEffectParameters {
+  external set duration(JSNumber value);
+  external JSNumber get duration;
+  external set startDelay(JSNumber value);
+  external JSNumber get startDelay;
+  external set strongMagnitude(JSNumber value);
+  external JSNumber get strongMagnitude;
+  external set weakMagnitude(JSNumber value);
+  external JSNumber get weakMagnitude;
+}
 
 @JS('GamepadPose')
 @staticInterop

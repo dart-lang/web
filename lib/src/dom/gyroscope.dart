@@ -28,18 +28,35 @@ extension GyroscopeExtension on Gyroscope {
   external JSNumber? get z;
 }
 
-@JS('GyroscopeSensorOptions')
+@JS()
 @staticInterop
+@anonymous
 class GyroscopeSensorOptions extends SensorOptions {
-  external factory GyroscopeSensorOptions();
+  external factory GyroscopeSensorOptions(
+      {GyroscopeLocalCoordinateSystem referenceFrame = 'device'});
 }
 
-extension GyroscopeSensorOptionsExtension on GyroscopeSensorOptions {}
+extension GyroscopeSensorOptionsExtension on GyroscopeSensorOptions {
+  external set referenceFrame(GyroscopeLocalCoordinateSystem value);
+  external GyroscopeLocalCoordinateSystem get referenceFrame;
+}
 
-@JS('GyroscopeReadingValues')
+@JS()
 @staticInterop
+@anonymous
 class GyroscopeReadingValues {
-  external factory GyroscopeReadingValues();
+  external factory GyroscopeReadingValues({
+    required JSNumber? x,
+    required JSNumber? y,
+    required JSNumber? z,
+  });
 }
 
-extension GyroscopeReadingValuesExtension on GyroscopeReadingValues {}
+extension GyroscopeReadingValuesExtension on GyroscopeReadingValues {
+  external set x(JSNumber? value);
+  external JSNumber? get x;
+  external set y(JSNumber? value);
+  external JSNumber? get y;
+  external set z(JSNumber? value);
+  external JSNumber? get z;
+}

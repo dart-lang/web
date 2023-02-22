@@ -37,10 +37,19 @@ extension SyncEventExtension on SyncEvent {
   external JSBoolean get lastChance;
 }
 
-@JS('SyncEventInit')
+@JS()
 @staticInterop
+@anonymous
 class SyncEventInit extends ExtendableEventInit {
-  external factory SyncEventInit();
+  external factory SyncEventInit({
+    required JSString tag,
+    JSBoolean lastChance = false,
+  });
 }
 
-extension SyncEventInitExtension on SyncEventInit {}
+extension SyncEventInitExtension on SyncEventInit {
+  external set tag(JSString value);
+  external JSString get tag;
+  external set lastChance(JSBoolean value);
+  external JSBoolean get lastChance;
+}

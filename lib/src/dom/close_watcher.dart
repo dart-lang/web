@@ -30,10 +30,14 @@ extension CloseWatcherExtension on CloseWatcher {
   external EventHandler get onclose;
 }
 
-@JS('CloseWatcherOptions')
+@JS()
 @staticInterop
+@anonymous
 class CloseWatcherOptions {
-  external factory CloseWatcherOptions();
+  external factory CloseWatcherOptions({AbortSignal signal});
 }
 
-extension CloseWatcherOptionsExtension on CloseWatcherOptions {}
+extension CloseWatcherOptionsExtension on CloseWatcherOptions {
+  external set signal(AbortSignal value);
+  external AbortSignal get signal;
+}

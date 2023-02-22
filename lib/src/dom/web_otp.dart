@@ -22,10 +22,14 @@ extension OTPCredentialExtension on OTPCredential {
   external JSString get code;
 }
 
-@JS('OTPCredentialRequestOptions')
+@JS()
 @staticInterop
+@anonymous
 class OTPCredentialRequestOptions {
-  external factory OTPCredentialRequestOptions();
+  external factory OTPCredentialRequestOptions({JSArray transport = const []});
 }
 
-extension OTPCredentialRequestOptionsExtension on OTPCredentialRequestOptions {}
+extension OTPCredentialRequestOptionsExtension on OTPCredentialRequestOptions {
+  external set transport(JSArray value);
+  external JSArray get transport;
+}

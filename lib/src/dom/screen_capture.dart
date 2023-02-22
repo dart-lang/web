@@ -25,10 +25,31 @@ extension CaptureControllerExtension on CaptureController {
   external JSVoid setFocusBehavior(CaptureStartFocusBehavior focusBehavior);
 }
 
-@JS('DisplayMediaStreamOptions')
+@JS()
 @staticInterop
+@anonymous
 class DisplayMediaStreamOptions {
-  external factory DisplayMediaStreamOptions();
+  external factory DisplayMediaStreamOptions({
+    JSAny video = true,
+    JSAny audio = false,
+    CaptureController controller,
+    SelfCapturePreferenceEnum selfBrowserSurface,
+    SystemAudioPreferenceEnum systemAudio,
+    SurfaceSwitchingPreferenceEnum surfaceSwitching,
+  });
 }
 
-extension DisplayMediaStreamOptionsExtension on DisplayMediaStreamOptions {}
+extension DisplayMediaStreamOptionsExtension on DisplayMediaStreamOptions {
+  external set video(JSAny value);
+  external JSAny get video;
+  external set audio(JSAny value);
+  external JSAny get audio;
+  external set controller(CaptureController value);
+  external CaptureController get controller;
+  external set selfBrowserSurface(SelfCapturePreferenceEnum value);
+  external SelfCapturePreferenceEnum get selfBrowserSurface;
+  external set systemAudio(SystemAudioPreferenceEnum value);
+  external SystemAudioPreferenceEnum get systemAudio;
+  external set surfaceSwitching(SurfaceSwitchingPreferenceEnum value);
+  external SurfaceSwitchingPreferenceEnum get surfaceSwitching;
+}

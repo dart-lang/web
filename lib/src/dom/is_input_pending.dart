@@ -8,13 +8,17 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
-@JS('IsInputPendingOptions')
+@JS()
 @staticInterop
+@anonymous
 class IsInputPendingOptions {
-  external factory IsInputPendingOptions();
+  external factory IsInputPendingOptions({JSBoolean includeContinuous = false});
 }
 
-extension IsInputPendingOptionsExtension on IsInputPendingOptions {}
+extension IsInputPendingOptionsExtension on IsInputPendingOptions {
+  external set includeContinuous(JSBoolean value);
+  external JSBoolean get includeContinuous;
+}
 
 @JS('Scheduling')
 @staticInterop

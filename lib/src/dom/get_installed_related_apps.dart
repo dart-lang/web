@@ -8,10 +8,25 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
-@JS('RelatedApplication')
+@JS()
 @staticInterop
+@anonymous
 class RelatedApplication {
-  external factory RelatedApplication();
+  external factory RelatedApplication({
+    required JSString platform,
+    JSString url,
+    JSString id,
+    JSString version,
+  });
 }
 
-extension RelatedApplicationExtension on RelatedApplication {}
+extension RelatedApplicationExtension on RelatedApplication {
+  external set platform(JSString value);
+  external JSString get platform;
+  external set url(JSString value);
+  external JSString get url;
+  external set id(JSString value);
+  external JSString get id;
+  external set version(JSString value);
+  external JSString get version;
+}

@@ -28,13 +28,18 @@ extension AccelerometerExtension on Accelerometer {
   external JSNumber? get z;
 }
 
-@JS('AccelerometerSensorOptions')
+@JS()
 @staticInterop
+@anonymous
 class AccelerometerSensorOptions extends SensorOptions {
-  external factory AccelerometerSensorOptions();
+  external factory AccelerometerSensorOptions(
+      {AccelerometerLocalCoordinateSystem referenceFrame = 'device'});
 }
 
-extension AccelerometerSensorOptionsExtension on AccelerometerSensorOptions {}
+extension AccelerometerSensorOptionsExtension on AccelerometerSensorOptions {
+  external set referenceFrame(AccelerometerLocalCoordinateSystem value);
+  external AccelerometerLocalCoordinateSystem get referenceFrame;
+}
 
 @JS('LinearAccelerationSensor')
 @staticInterop
@@ -57,22 +62,36 @@ class GravitySensor extends Accelerometer {
   external factory GravitySensor.a2(AccelerometerSensorOptions options);
 }
 
-@JS('AccelerometerReadingValues')
+@JS()
 @staticInterop
+@anonymous
 class AccelerometerReadingValues {
-  external factory AccelerometerReadingValues();
+  external factory AccelerometerReadingValues({
+    required JSNumber? x,
+    required JSNumber? y,
+    required JSNumber? z,
+  });
 }
 
-extension AccelerometerReadingValuesExtension on AccelerometerReadingValues {}
+extension AccelerometerReadingValuesExtension on AccelerometerReadingValues {
+  external set x(JSNumber? value);
+  external JSNumber? get x;
+  external set y(JSNumber? value);
+  external JSNumber? get y;
+  external set z(JSNumber? value);
+  external JSNumber? get z;
+}
 
-@JS('LinearAccelerationReadingValues')
+@JS()
 @staticInterop
+@anonymous
 class LinearAccelerationReadingValues extends AccelerometerReadingValues {
   external factory LinearAccelerationReadingValues();
 }
 
-@JS('GravityReadingValues')
+@JS()
 @staticInterop
+@anonymous
 class GravityReadingValues extends AccelerometerReadingValues {
   external factory GravityReadingValues();
 }

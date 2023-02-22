@@ -25,14 +25,18 @@ extension PaintWorkletGlobalScopeExtension on PaintWorkletGlobalScope {
   external JSNumber get devicePixelRatio;
 }
 
-@JS('PaintRenderingContext2DSettings')
+@JS()
 @staticInterop
+@anonymous
 class PaintRenderingContext2DSettings {
-  external factory PaintRenderingContext2DSettings();
+  external factory PaintRenderingContext2DSettings({JSBoolean alpha = true});
 }
 
 extension PaintRenderingContext2DSettingsExtension
-    on PaintRenderingContext2DSettings {}
+    on PaintRenderingContext2DSettings {
+  external set alpha(JSBoolean value);
+  external JSBoolean get alpha;
+}
 
 @JS('PaintRenderingContext2D')
 @staticInterop

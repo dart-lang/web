@@ -112,13 +112,40 @@ extension CSSKeywordValueExtension on CSSKeywordValue {
   external JSString get value;
 }
 
-@JS('CSSNumericType')
+@JS()
 @staticInterop
+@anonymous
 class CSSNumericType {
-  external factory CSSNumericType();
+  external factory CSSNumericType({
+    JSNumber length,
+    JSNumber angle,
+    JSNumber time,
+    JSNumber frequency,
+    JSNumber resolution,
+    JSNumber flex,
+    JSNumber percent,
+    CSSNumericBaseType percentHint,
+  });
 }
 
-extension CSSNumericTypeExtension on CSSNumericType {}
+extension CSSNumericTypeExtension on CSSNumericType {
+  external set length(JSNumber value);
+  external JSNumber get length;
+  external set angle(JSNumber value);
+  external JSNumber get angle;
+  external set time(JSNumber value);
+  external JSNumber get time;
+  external set frequency(JSNumber value);
+  external JSNumber get frequency;
+  external set resolution(JSNumber value);
+  external JSNumber get resolution;
+  external set flex(JSNumber value);
+  external JSNumber get flex;
+  external set percent(JSNumber value);
+  external JSNumber get percent;
+  external set percentHint(CSSNumericBaseType value);
+  external CSSNumericBaseType get percentHint;
+}
 
 @JS('CSSNumericValue')
 @staticInterop
@@ -447,13 +474,17 @@ extension CSSMatrixComponentExtension on CSSMatrixComponent {
   external DOMMatrix get matrix;
 }
 
-@JS('CSSMatrixComponentOptions')
+@JS()
 @staticInterop
+@anonymous
 class CSSMatrixComponentOptions {
-  external factory CSSMatrixComponentOptions();
+  external factory CSSMatrixComponentOptions({JSBoolean is2D});
 }
 
-extension CSSMatrixComponentOptionsExtension on CSSMatrixComponentOptions {}
+extension CSSMatrixComponentOptionsExtension on CSSMatrixComponentOptions {
+  external set is2D(JSBoolean value);
+  external JSBoolean get is2D;
+}
 
 @JS('CSSImageValue')
 @staticInterop

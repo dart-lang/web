@@ -25,14 +25,23 @@ extension MediaStreamTrackProcessorExtension on MediaStreamTrackProcessor {
   external ReadableStream get readable;
 }
 
-@JS('MediaStreamTrackProcessorInit')
+@JS()
 @staticInterop
+@anonymous
 class MediaStreamTrackProcessorInit {
-  external factory MediaStreamTrackProcessorInit();
+  external factory MediaStreamTrackProcessorInit({
+    required MediaStreamTrack track,
+    JSNumber maxBufferSize,
+  });
 }
 
 extension MediaStreamTrackProcessorInitExtension
-    on MediaStreamTrackProcessorInit {}
+    on MediaStreamTrackProcessorInit {
+  external set track(MediaStreamTrack value);
+  external MediaStreamTrack get track;
+  external set maxBufferSize(JSNumber value);
+  external JSNumber get maxBufferSize;
+}
 
 @JS('VideoTrackGenerator')
 @staticInterop

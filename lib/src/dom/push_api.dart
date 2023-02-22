@@ -16,13 +16,18 @@ import 'service_workers.dart';
 typedef PushMessageDataInit = JSAny;
 typedef PushEncryptionKeyName = JSString;
 
-@JS('PushPermissionDescriptor')
+@JS()
 @staticInterop
+@anonymous
 class PushPermissionDescriptor extends PermissionDescriptor {
-  external factory PushPermissionDescriptor();
+  external factory PushPermissionDescriptor(
+      {JSBoolean userVisibleOnly = false});
 }
 
-extension PushPermissionDescriptorExtension on PushPermissionDescriptor {}
+extension PushPermissionDescriptorExtension on PushPermissionDescriptor {
+  external set userVisibleOnly(JSBoolean value);
+  external JSBoolean get userVisibleOnly;
+}
 
 @JS('PushManager')
 @staticInterop
@@ -51,13 +56,22 @@ extension PushSubscriptionOptionsExtension on PushSubscriptionOptions {
   external JSArrayBuffer? get applicationServerKey;
 }
 
-@JS('PushSubscriptionOptionsInit')
+@JS()
 @staticInterop
+@anonymous
 class PushSubscriptionOptionsInit {
-  external factory PushSubscriptionOptionsInit();
+  external factory PushSubscriptionOptionsInit({
+    JSBoolean userVisibleOnly = false,
+    JSAny? applicationServerKey,
+  });
 }
 
-extension PushSubscriptionOptionsInitExtension on PushSubscriptionOptionsInit {}
+extension PushSubscriptionOptionsInitExtension on PushSubscriptionOptionsInit {
+  external set userVisibleOnly(JSBoolean value);
+  external JSBoolean get userVisibleOnly;
+  external set applicationServerKey(JSAny? value);
+  external JSAny? get applicationServerKey;
+}
 
 @JS('PushSubscription')
 @staticInterop
@@ -74,13 +88,25 @@ extension PushSubscriptionExtension on PushSubscription {
   external PushSubscriptionJSON toJSON();
 }
 
-@JS('PushSubscriptionJSON')
+@JS()
 @staticInterop
+@anonymous
 class PushSubscriptionJSON {
-  external factory PushSubscriptionJSON();
+  external factory PushSubscriptionJSON({
+    JSString endpoint,
+    EpochTimeStamp? expirationTime,
+    JSAny keys,
+  });
 }
 
-extension PushSubscriptionJSONExtension on PushSubscriptionJSON {}
+extension PushSubscriptionJSONExtension on PushSubscriptionJSON {
+  external set endpoint(JSString value);
+  external JSString get endpoint;
+  external set expirationTime(EpochTimeStamp? value);
+  external EpochTimeStamp? get expirationTime;
+  external set keys(JSAny value);
+  external JSAny get keys;
+}
 
 @JS('PushMessageData')
 @staticInterop
@@ -112,13 +138,17 @@ extension PushEventExtension on PushEvent {
   external PushMessageData? get data;
 }
 
-@JS('PushEventInit')
+@JS()
 @staticInterop
+@anonymous
 class PushEventInit extends ExtendableEventInit {
-  external factory PushEventInit();
+  external factory PushEventInit({PushMessageDataInit data});
 }
 
-extension PushEventInitExtension on PushEventInit {}
+extension PushEventInitExtension on PushEventInit {
+  external set data(PushMessageDataInit value);
+  external PushMessageDataInit get data;
+}
 
 @JS('PushSubscriptionChangeEvent')
 @staticInterop
@@ -138,11 +168,20 @@ extension PushSubscriptionChangeEventExtension on PushSubscriptionChangeEvent {
   external PushSubscription? get oldSubscription;
 }
 
-@JS('PushSubscriptionChangeEventInit')
+@JS()
 @staticInterop
+@anonymous
 class PushSubscriptionChangeEventInit extends ExtendableEventInit {
-  external factory PushSubscriptionChangeEventInit();
+  external factory PushSubscriptionChangeEventInit({
+    PushSubscription newSubscription,
+    PushSubscription oldSubscription,
+  });
 }
 
 extension PushSubscriptionChangeEventInitExtension
-    on PushSubscriptionChangeEventInit {}
+    on PushSubscriptionChangeEventInit {
+  external set newSubscription(PushSubscription value);
+  external PushSubscription get newSubscription;
+  external set oldSubscription(PushSubscription value);
+  external PushSubscription get oldSubscription;
+}

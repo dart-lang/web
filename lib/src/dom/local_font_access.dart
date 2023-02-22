@@ -8,13 +8,17 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
-@JS('QueryOptions')
+@JS()
 @staticInterop
+@anonymous
 class QueryOptions {
-  external factory QueryOptions();
+  external factory QueryOptions({JSArray postscriptNames});
 }
 
-extension QueryOptionsExtension on QueryOptions {}
+extension QueryOptionsExtension on QueryOptions {
+  external set postscriptNames(JSArray value);
+  external JSArray get postscriptNames;
+}
 
 @JS('FontData')
 @staticInterop

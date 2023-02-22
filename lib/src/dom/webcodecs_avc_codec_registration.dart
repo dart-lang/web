@@ -10,10 +10,14 @@ import 'package:js/js.dart' hide JS;
 
 typedef AvcBitstreamFormat = JSString;
 
-@JS('AvcEncoderConfig')
+@JS()
 @staticInterop
+@anonymous
 class AvcEncoderConfig {
-  external factory AvcEncoderConfig();
+  external factory AvcEncoderConfig({AvcBitstreamFormat format = 'avc'});
 }
 
-extension AvcEncoderConfigExtension on AvcEncoderConfig {}
+extension AvcEncoderConfigExtension on AvcEncoderConfig {
+  external set format(AvcBitstreamFormat value);
+  external AvcBitstreamFormat get format;
+}

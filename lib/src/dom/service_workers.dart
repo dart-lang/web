@@ -109,13 +109,25 @@ extension ServiceWorkerContainerExtension on ServiceWorkerContainer {
   external EventHandler get onmessageerror;
 }
 
-@JS('RegistrationOptions')
+@JS()
 @staticInterop
+@anonymous
 class RegistrationOptions {
-  external factory RegistrationOptions();
+  external factory RegistrationOptions({
+    JSString scope,
+    WorkerType type = 'classic',
+    ServiceWorkerUpdateViaCache updateViaCache = 'imports',
+  });
 }
 
-extension RegistrationOptionsExtension on RegistrationOptions {}
+extension RegistrationOptionsExtension on RegistrationOptions {
+  external set scope(JSString value);
+  external JSString get scope;
+  external set type(WorkerType value);
+  external WorkerType get type;
+  external set updateViaCache(ServiceWorkerUpdateViaCache value);
+  external ServiceWorkerUpdateViaCache get updateViaCache;
+}
 
 @JS('NavigationPreloadManager')
 @staticInterop
@@ -130,13 +142,22 @@ extension NavigationPreloadManagerExtension on NavigationPreloadManager {
   external JSPromise getState();
 }
 
-@JS('NavigationPreloadState')
+@JS()
 @staticInterop
+@anonymous
 class NavigationPreloadState {
-  external factory NavigationPreloadState();
+  external factory NavigationPreloadState({
+    JSBoolean enabled = false,
+    JSString headerValue,
+  });
 }
 
-extension NavigationPreloadStateExtension on NavigationPreloadState {}
+extension NavigationPreloadStateExtension on NavigationPreloadState {
+  external set enabled(JSBoolean value);
+  external JSBoolean get enabled;
+  external set headerValue(JSString value);
+  external JSString get headerValue;
+}
 
 @JS('ServiceWorkerGlobalScope')
 @staticInterop
@@ -243,13 +264,22 @@ extension ClientsExtension on Clients {
   external JSPromise claim();
 }
 
-@JS('ClientQueryOptions')
+@JS()
 @staticInterop
+@anonymous
 class ClientQueryOptions {
-  external factory ClientQueryOptions();
+  external factory ClientQueryOptions({
+    JSBoolean includeUncontrolled = false,
+    ClientType type = 'window',
+  });
 }
 
-extension ClientQueryOptionsExtension on ClientQueryOptions {}
+extension ClientQueryOptionsExtension on ClientQueryOptions {
+  external set includeUncontrolled(JSBoolean value);
+  external JSBoolean get includeUncontrolled;
+  external set type(ClientType value);
+  external ClientType get type;
+}
 
 @JS('ExtendableEvent')
 @staticInterop
@@ -268,8 +298,9 @@ extension ExtendableEventExtension on ExtendableEvent {
   external JSVoid waitUntil(JSPromise f);
 }
 
-@JS('ExtendableEventInit')
+@JS()
 @staticInterop
+@anonymous
 class ExtendableEventInit extends EventInit {
   external factory ExtendableEventInit();
 }
@@ -295,13 +326,34 @@ extension FetchEventExtension on FetchEvent {
   external JSVoid respondWith(JSPromise r);
 }
 
-@JS('FetchEventInit')
+@JS()
 @staticInterop
+@anonymous
 class FetchEventInit extends ExtendableEventInit {
-  external factory FetchEventInit();
+  external factory FetchEventInit({
+    required Request request,
+    JSPromise preloadResponse,
+    JSString clientId = '',
+    JSString resultingClientId = '',
+    JSString replacesClientId = '',
+    JSPromise handled,
+  });
 }
 
-extension FetchEventInitExtension on FetchEventInit {}
+extension FetchEventInitExtension on FetchEventInit {
+  external set request(Request value);
+  external Request get request;
+  external set preloadResponse(JSPromise value);
+  external JSPromise get preloadResponse;
+  external set clientId(JSString value);
+  external JSString get clientId;
+  external set resultingClientId(JSString value);
+  external JSString get resultingClientId;
+  external set replacesClientId(JSString value);
+  external JSString get replacesClientId;
+  external set handled(JSPromise value);
+  external JSPromise get handled;
+}
 
 @JS('ExtendableMessageEvent')
 @staticInterop
@@ -324,13 +376,31 @@ extension ExtendableMessageEventExtension on ExtendableMessageEvent {
   external JSArray get ports;
 }
 
-@JS('ExtendableMessageEventInit')
+@JS()
 @staticInterop
+@anonymous
 class ExtendableMessageEventInit extends ExtendableEventInit {
-  external factory ExtendableMessageEventInit();
+  external factory ExtendableMessageEventInit({
+    JSAny data,
+    JSString origin = '',
+    JSString lastEventId = '',
+    JSAny? source,
+    JSArray ports = const [],
+  });
 }
 
-extension ExtendableMessageEventInitExtension on ExtendableMessageEventInit {}
+extension ExtendableMessageEventInitExtension on ExtendableMessageEventInit {
+  external set data(JSAny value);
+  external JSAny get data;
+  external set origin(JSString value);
+  external JSString get origin;
+  external set lastEventId(JSString value);
+  external JSString get lastEventId;
+  external set source(JSAny? value);
+  external JSAny? get source;
+  external set ports(JSArray value);
+  external JSArray get ports;
+}
 
 @JS('Cache')
 @staticInterop
@@ -369,13 +439,25 @@ extension CacheExtension on Cache {
   );
 }
 
-@JS('CacheQueryOptions')
+@JS()
 @staticInterop
+@anonymous
 class CacheQueryOptions {
-  external factory CacheQueryOptions();
+  external factory CacheQueryOptions({
+    JSBoolean ignoreSearch = false,
+    JSBoolean ignoreMethod = false,
+    JSBoolean ignoreVary = false,
+  });
 }
 
-extension CacheQueryOptionsExtension on CacheQueryOptions {}
+extension CacheQueryOptionsExtension on CacheQueryOptions {
+  external set ignoreSearch(JSBoolean value);
+  external JSBoolean get ignoreSearch;
+  external set ignoreMethod(JSBoolean value);
+  external JSBoolean get ignoreMethod;
+  external set ignoreVary(JSBoolean value);
+  external JSBoolean get ignoreVary;
+}
 
 @JS('CacheStorage')
 @staticInterop
@@ -395,10 +477,14 @@ extension CacheStorageExtension on CacheStorage {
   external JSPromise keys();
 }
 
-@JS('MultiCacheQueryOptions')
+@JS()
 @staticInterop
+@anonymous
 class MultiCacheQueryOptions extends CacheQueryOptions {
-  external factory MultiCacheQueryOptions();
+  external factory MultiCacheQueryOptions({JSString cacheName});
 }
 
-extension MultiCacheQueryOptionsExtension on MultiCacheQueryOptions {}
+extension MultiCacheQueryOptionsExtension on MultiCacheQueryOptions {
+  external set cacheName(JSString value);
+  external JSString get cacheName;
+}

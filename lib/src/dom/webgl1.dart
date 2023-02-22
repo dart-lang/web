@@ -31,13 +31,46 @@ typedef Float32List = JSAny;
 typedef Int32List = JSAny;
 typedef WebGLPowerPreference = JSString;
 
-@JS('WebGLContextAttributes')
+@JS()
 @staticInterop
+@anonymous
 class WebGLContextAttributes {
-  external factory WebGLContextAttributes();
+  external factory WebGLContextAttributes({
+    JSBoolean alpha = true,
+    JSBoolean depth = true,
+    JSBoolean stencil = false,
+    JSBoolean antialias = true,
+    JSBoolean premultipliedAlpha = true,
+    JSBoolean preserveDrawingBuffer = false,
+    WebGLPowerPreference powerPreference = 'default',
+    JSBoolean failIfMajorPerformanceCaveat = false,
+    JSBoolean desynchronized = false,
+    JSBoolean xrCompatible = false,
+  });
 }
 
-extension WebGLContextAttributesExtension on WebGLContextAttributes {}
+extension WebGLContextAttributesExtension on WebGLContextAttributes {
+  external set alpha(JSBoolean value);
+  external JSBoolean get alpha;
+  external set depth(JSBoolean value);
+  external JSBoolean get depth;
+  external set stencil(JSBoolean value);
+  external JSBoolean get stencil;
+  external set antialias(JSBoolean value);
+  external JSBoolean get antialias;
+  external set premultipliedAlpha(JSBoolean value);
+  external JSBoolean get premultipliedAlpha;
+  external set preserveDrawingBuffer(JSBoolean value);
+  external JSBoolean get preserveDrawingBuffer;
+  external set powerPreference(WebGLPowerPreference value);
+  external WebGLPowerPreference get powerPreference;
+  external set failIfMajorPerformanceCaveat(JSBoolean value);
+  external JSBoolean get failIfMajorPerformanceCaveat;
+  external set desynchronized(JSBoolean value);
+  external JSBoolean get desynchronized;
+  external set xrCompatible(JSBoolean value);
+  external JSBoolean get xrCompatible;
+}
 
 @JS('WebGLObject')
 @staticInterop
@@ -973,10 +1006,14 @@ extension WebGLContextEventExtension on WebGLContextEvent {
   external JSString get statusMessage;
 }
 
-@JS('WebGLContextEventInit')
+@JS()
 @staticInterop
+@anonymous
 class WebGLContextEventInit extends EventInit {
-  external factory WebGLContextEventInit();
+  external factory WebGLContextEventInit({JSString statusMessage = ''});
 }
 
-extension WebGLContextEventInitExtension on WebGLContextEventInit {}
+extension WebGLContextEventInitExtension on WebGLContextEventInit {
+  external set statusMessage(JSString value);
+  external JSString get statusMessage;
+}

@@ -53,19 +53,37 @@ extension ReportingObserverExtension on ReportingObserver {
   external ReportList takeRecords();
 }
 
-@JS('ReportingObserverOptions')
+@JS()
 @staticInterop
+@anonymous
 class ReportingObserverOptions {
-  external factory ReportingObserverOptions();
+  external factory ReportingObserverOptions({
+    JSArray types,
+    JSBoolean buffered = false,
+  });
 }
 
-extension ReportingObserverOptionsExtension on ReportingObserverOptions {}
+extension ReportingObserverOptionsExtension on ReportingObserverOptions {
+  external set types(JSArray value);
+  external JSArray get types;
+  external set buffered(JSBoolean value);
+  external JSBoolean get buffered;
+}
 
-@JS('GenerateTestReportParameters')
+@JS()
 @staticInterop
+@anonymous
 class GenerateTestReportParameters {
-  external factory GenerateTestReportParameters();
+  external factory GenerateTestReportParameters({
+    required JSString message,
+    JSString group = 'default',
+  });
 }
 
 extension GenerateTestReportParametersExtension
-    on GenerateTestReportParameters {}
+    on GenerateTestReportParameters {
+  external set message(JSString value);
+  external JSString get message;
+  external set group(JSString value);
+  external JSString get group;
+}

@@ -24,10 +24,14 @@ extension AmbientLightSensorExtension on AmbientLightSensor {
   external JSNumber? get illuminance;
 }
 
-@JS('AmbientLightReadingValues')
+@JS()
 @staticInterop
+@anonymous
 class AmbientLightReadingValues {
-  external factory AmbientLightReadingValues();
+  external factory AmbientLightReadingValues({required JSNumber? illuminance});
 }
 
-extension AmbientLightReadingValuesExtension on AmbientLightReadingValues {}
+extension AmbientLightReadingValuesExtension on AmbientLightReadingValues {
+  external set illuminance(JSNumber? value);
+  external JSNumber? get illuminance;
+}

@@ -44,22 +44,42 @@ extension PerformanceObserverExtension on PerformanceObserver {
   external PerformanceEntryList takeRecords();
 }
 
-@JS('PerformanceObserverCallbackOptions')
+@JS()
 @staticInterop
+@anonymous
 class PerformanceObserverCallbackOptions {
-  external factory PerformanceObserverCallbackOptions();
+  external factory PerformanceObserverCallbackOptions(
+      {JSNumber droppedEntriesCount});
 }
 
 extension PerformanceObserverCallbackOptionsExtension
-    on PerformanceObserverCallbackOptions {}
-
-@JS('PerformanceObserverInit')
-@staticInterop
-class PerformanceObserverInit {
-  external factory PerformanceObserverInit();
+    on PerformanceObserverCallbackOptions {
+  external set droppedEntriesCount(JSNumber value);
+  external JSNumber get droppedEntriesCount;
 }
 
-extension PerformanceObserverInitExtension on PerformanceObserverInit {}
+@JS()
+@staticInterop
+@anonymous
+class PerformanceObserverInit {
+  external factory PerformanceObserverInit({
+    DOMHighResTimeStamp durationThreshold,
+    JSArray entryTypes,
+    JSString type,
+    JSBoolean buffered,
+  });
+}
+
+extension PerformanceObserverInitExtension on PerformanceObserverInit {
+  external set durationThreshold(DOMHighResTimeStamp value);
+  external DOMHighResTimeStamp get durationThreshold;
+  external set entryTypes(JSArray value);
+  external JSArray get entryTypes;
+  external set type(JSString value);
+  external JSString get type;
+  external set buffered(JSBoolean value);
+  external JSBoolean get buffered;
+}
 
 @JS('PerformanceObserverEntryList')
 @staticInterop

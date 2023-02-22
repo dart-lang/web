@@ -10,13 +10,28 @@ import 'package:js/js.dart' hide JS;
 
 import 'cssom.dart';
 
-@JS('PropertyDefinition')
+@JS()
 @staticInterop
+@anonymous
 class PropertyDefinition {
-  external factory PropertyDefinition();
+  external factory PropertyDefinition({
+    required JSString name,
+    JSString syntax = '*',
+    required JSBoolean inherits,
+    JSString initialValue,
+  });
 }
 
-extension PropertyDefinitionExtension on PropertyDefinition {}
+extension PropertyDefinitionExtension on PropertyDefinition {
+  external set name(JSString value);
+  external JSString get name;
+  external set syntax(JSString value);
+  external JSString get syntax;
+  external set inherits(JSBoolean value);
+  external JSBoolean get inherits;
+  external set initialValue(JSString value);
+  external JSString get initialValue;
+}
 
 @JS('CSSPropertyRule')
 @staticInterop

@@ -23,21 +23,34 @@ extension TextDecoderCommonExtension on TextDecoderCommon {
   external JSBoolean get ignoreBOM;
 }
 
-@JS('TextDecoderOptions')
+@JS()
 @staticInterop
+@anonymous
 class TextDecoderOptions {
-  external factory TextDecoderOptions();
+  external factory TextDecoderOptions({
+    JSBoolean fatal = false,
+    JSBoolean ignoreBOM = false,
+  });
 }
 
-extension TextDecoderOptionsExtension on TextDecoderOptions {}
+extension TextDecoderOptionsExtension on TextDecoderOptions {
+  external set fatal(JSBoolean value);
+  external JSBoolean get fatal;
+  external set ignoreBOM(JSBoolean value);
+  external JSBoolean get ignoreBOM;
+}
 
-@JS('TextDecodeOptions')
+@JS()
 @staticInterop
+@anonymous
 class TextDecodeOptions {
-  external factory TextDecodeOptions();
+  external factory TextDecodeOptions({JSBoolean stream = false});
 }
 
-extension TextDecodeOptionsExtension on TextDecodeOptions {}
+extension TextDecodeOptionsExtension on TextDecodeOptions {
+  external set stream(JSBoolean value);
+  external JSBoolean get stream;
+}
 
 @JS('TextDecoder')
 @staticInterop
@@ -73,13 +86,22 @@ extension TextEncoderCommonExtension on TextEncoderCommon {
   external JSString get encoding;
 }
 
-@JS('TextEncoderEncodeIntoResult')
+@JS()
 @staticInterop
+@anonymous
 class TextEncoderEncodeIntoResult {
-  external factory TextEncoderEncodeIntoResult();
+  external factory TextEncoderEncodeIntoResult({
+    JSNumber read,
+    JSNumber written,
+  });
 }
 
-extension TextEncoderEncodeIntoResultExtension on TextEncoderEncodeIntoResult {}
+extension TextEncoderEncodeIntoResultExtension on TextEncoderEncodeIntoResult {
+  external set read(JSNumber value);
+  external JSNumber get read;
+  external set written(JSNumber value);
+  external JSNumber get written;
+}
 
 @JS('TextEncoder')
 @staticInterop

@@ -59,13 +59,31 @@ extension MediaRecorderExtension on MediaRecorder {
   external JSVoid requestData();
 }
 
-@JS('MediaRecorderOptions')
+@JS()
 @staticInterop
+@anonymous
 class MediaRecorderOptions {
-  external factory MediaRecorderOptions();
+  external factory MediaRecorderOptions({
+    JSString mimeType = '',
+    JSNumber audioBitsPerSecond,
+    JSNumber videoBitsPerSecond,
+    JSNumber bitsPerSecond,
+    BitrateMode audioBitrateMode = 'variable',
+  });
 }
 
-extension MediaRecorderOptionsExtension on MediaRecorderOptions {}
+extension MediaRecorderOptionsExtension on MediaRecorderOptions {
+  external set mimeType(JSString value);
+  external JSString get mimeType;
+  external set audioBitsPerSecond(JSNumber value);
+  external JSNumber get audioBitsPerSecond;
+  external set videoBitsPerSecond(JSNumber value);
+  external JSNumber get videoBitsPerSecond;
+  external set bitsPerSecond(JSNumber value);
+  external JSNumber get bitsPerSecond;
+  external set audioBitrateMode(BitrateMode value);
+  external BitrateMode get audioBitrateMode;
+}
 
 @JS('BlobEvent')
 @staticInterop
@@ -83,10 +101,19 @@ extension BlobEventExtension on BlobEvent {
   external DOMHighResTimeStamp get timecode;
 }
 
-@JS('BlobEventInit')
+@JS()
 @staticInterop
+@anonymous
 class BlobEventInit {
-  external factory BlobEventInit();
+  external factory BlobEventInit({
+    required Blob data,
+    DOMHighResTimeStamp timecode,
+  });
 }
 
-extension BlobEventInitExtension on BlobEventInit {}
+extension BlobEventInitExtension on BlobEventInit {
+  external set data(Blob value);
+  external Blob get data;
+  external set timecode(DOMHighResTimeStamp value);
+  external DOMHighResTimeStamp get timecode;
+}

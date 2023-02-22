@@ -57,19 +57,55 @@ extension IntersectionObserverEntryExtension on IntersectionObserverEntry {
   external Element get target;
 }
 
-@JS('IntersectionObserverEntryInit')
+@JS()
 @staticInterop
+@anonymous
 class IntersectionObserverEntryInit {
-  external factory IntersectionObserverEntryInit();
+  external factory IntersectionObserverEntryInit({
+    required DOMHighResTimeStamp time,
+    required DOMRectInit? rootBounds,
+    required DOMRectInit boundingClientRect,
+    required DOMRectInit intersectionRect,
+    required JSBoolean isIntersecting,
+    required JSNumber intersectionRatio,
+    required Element target,
+  });
 }
 
 extension IntersectionObserverEntryInitExtension
-    on IntersectionObserverEntryInit {}
-
-@JS('IntersectionObserverInit')
-@staticInterop
-class IntersectionObserverInit {
-  external factory IntersectionObserverInit();
+    on IntersectionObserverEntryInit {
+  external set time(DOMHighResTimeStamp value);
+  external DOMHighResTimeStamp get time;
+  external set rootBounds(DOMRectInit? value);
+  external DOMRectInit? get rootBounds;
+  external set boundingClientRect(DOMRectInit value);
+  external DOMRectInit get boundingClientRect;
+  external set intersectionRect(DOMRectInit value);
+  external DOMRectInit get intersectionRect;
+  external set isIntersecting(JSBoolean value);
+  external JSBoolean get isIntersecting;
+  external set intersectionRatio(JSNumber value);
+  external JSNumber get intersectionRatio;
+  external set target(Element value);
+  external Element get target;
 }
 
-extension IntersectionObserverInitExtension on IntersectionObserverInit {}
+@JS()
+@staticInterop
+@anonymous
+class IntersectionObserverInit {
+  external factory IntersectionObserverInit({
+    JSAny? root,
+    JSString rootMargin = '0px',
+    JSAny threshold = 0,
+  });
+}
+
+extension IntersectionObserverInitExtension on IntersectionObserverInit {
+  external set root(JSAny? value);
+  external JSAny? get root;
+  external set rootMargin(JSString value);
+  external JSString get rootMargin;
+  external set threshold(JSAny value);
+  external JSAny get threshold;
+}

@@ -83,10 +83,19 @@ extension AnimationPlaybackEventExtension on AnimationPlaybackEvent {
   external CSSNumberish? get timelineTime;
 }
 
-@JS('AnimationPlaybackEventInit')
+@JS()
 @staticInterop
+@anonymous
 class AnimationPlaybackEventInit extends EventInit {
-  external factory AnimationPlaybackEventInit();
+  external factory AnimationPlaybackEventInit({
+    CSSNumberish? currentTime,
+    CSSNumberish? timelineTime,
+  });
 }
 
-extension AnimationPlaybackEventInitExtension on AnimationPlaybackEventInit {}
+extension AnimationPlaybackEventInitExtension on AnimationPlaybackEventInit {
+  external set currentTime(CSSNumberish? value);
+  external CSSNumberish? get currentTime;
+  external set timelineTime(CSSNumberish? value);
+  external CSSNumberish? get timelineTime;
+}

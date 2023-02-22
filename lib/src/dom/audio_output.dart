@@ -8,10 +8,14 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
-@JS('AudioOutputOptions')
+@JS()
 @staticInterop
+@anonymous
 class AudioOutputOptions {
-  external factory AudioOutputOptions();
+  external factory AudioOutputOptions({JSString deviceId = ''});
 }
 
-extension AudioOutputOptionsExtension on AudioOutputOptions {}
+extension AudioOutputOptionsExtension on AudioOutputOptions {
+  external set deviceId(JSString value);
+  external JSString get deviceId;
+}

@@ -42,11 +42,20 @@ extension WindowControlsOverlayGeometryChangeEventExtension
   external JSBoolean get visible;
 }
 
-@JS('WindowControlsOverlayGeometryChangeEventInit')
+@JS()
 @staticInterop
+@anonymous
 class WindowControlsOverlayGeometryChangeEventInit extends EventInit {
-  external factory WindowControlsOverlayGeometryChangeEventInit();
+  external factory WindowControlsOverlayGeometryChangeEventInit({
+    required DOMRect titlebarAreaRect,
+    JSBoolean visible = false,
+  });
 }
 
 extension WindowControlsOverlayGeometryChangeEventInitExtension
-    on WindowControlsOverlayGeometryChangeEventInit {}
+    on WindowControlsOverlayGeometryChangeEventInit {
+  external set titlebarAreaRect(DOMRect value);
+  external DOMRect get titlebarAreaRect;
+  external set visible(JSBoolean value);
+  external JSBoolean get visible;
+}

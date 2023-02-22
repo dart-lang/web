@@ -8,6 +8,7 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
+import 'payment_request.dart';
 import 'service_workers.dart';
 
 typedef PaymentDelegation = JSString;
@@ -37,13 +38,34 @@ extension CanMakePaymentEventExtension on CanMakePaymentEvent {
   external JSVoid respondWith(JSPromise canMakePaymentResponse);
 }
 
-@JS('PaymentRequestDetailsUpdate')
+@JS()
 @staticInterop
+@anonymous
 class PaymentRequestDetailsUpdate {
-  external factory PaymentRequestDetailsUpdate();
+  external factory PaymentRequestDetailsUpdate({
+    JSString error,
+    PaymentCurrencyAmount total,
+    JSArray modifiers,
+    JSArray shippingOptions,
+    JSObject paymentMethodErrors,
+    AddressErrors shippingAddressErrors,
+  });
 }
 
-extension PaymentRequestDetailsUpdateExtension on PaymentRequestDetailsUpdate {}
+extension PaymentRequestDetailsUpdateExtension on PaymentRequestDetailsUpdate {
+  external set error(JSString value);
+  external JSString get error;
+  external set total(PaymentCurrencyAmount value);
+  external PaymentCurrencyAmount get total;
+  external set modifiers(JSArray value);
+  external JSArray get modifiers;
+  external set shippingOptions(JSArray value);
+  external JSArray get shippingOptions;
+  external set paymentMethodErrors(JSObject value);
+  external JSObject get paymentMethodErrors;
+  external set shippingAddressErrors(AddressErrors value);
+  external AddressErrors get shippingAddressErrors;
+}
 
 @JS('PaymentRequestEvent')
 @staticInterop
@@ -79,50 +101,203 @@ extension PaymentRequestEventExtension on PaymentRequestEvent {
   external JSVoid respondWith(JSPromise handlerResponsePromise);
 }
 
-@JS('PaymentRequestEventInit')
+@JS()
 @staticInterop
+@anonymous
 class PaymentRequestEventInit extends ExtendableEventInit {
-  external factory PaymentRequestEventInit();
+  external factory PaymentRequestEventInit({
+    JSString topOrigin,
+    JSString paymentRequestOrigin,
+    JSString paymentRequestId,
+    JSArray methodData,
+    PaymentCurrencyAmount total,
+    JSArray modifiers,
+    PaymentOptions paymentOptions,
+    JSArray shippingOptions,
+  });
 }
 
-extension PaymentRequestEventInitExtension on PaymentRequestEventInit {}
+extension PaymentRequestEventInitExtension on PaymentRequestEventInit {
+  external set topOrigin(JSString value);
+  external JSString get topOrigin;
+  external set paymentRequestOrigin(JSString value);
+  external JSString get paymentRequestOrigin;
+  external set paymentRequestId(JSString value);
+  external JSString get paymentRequestId;
+  external set methodData(JSArray value);
+  external JSArray get methodData;
+  external set total(PaymentCurrencyAmount value);
+  external PaymentCurrencyAmount get total;
+  external set modifiers(JSArray value);
+  external JSArray get modifiers;
+  external set paymentOptions(PaymentOptions value);
+  external PaymentOptions get paymentOptions;
+  external set shippingOptions(JSArray value);
+  external JSArray get shippingOptions;
+}
 
-@JS('PaymentHandlerResponse')
+@JS()
 @staticInterop
+@anonymous
 class PaymentHandlerResponse {
-  external factory PaymentHandlerResponse();
+  external factory PaymentHandlerResponse({
+    JSString methodName,
+    JSObject details,
+    JSString? payerName,
+    JSString? payerEmail,
+    JSString? payerPhone,
+    AddressInit shippingAddress,
+    JSString? shippingOption,
+  });
 }
 
-extension PaymentHandlerResponseExtension on PaymentHandlerResponse {}
+extension PaymentHandlerResponseExtension on PaymentHandlerResponse {
+  external set methodName(JSString value);
+  external JSString get methodName;
+  external set details(JSObject value);
+  external JSObject get details;
+  external set payerName(JSString? value);
+  external JSString? get payerName;
+  external set payerEmail(JSString? value);
+  external JSString? get payerEmail;
+  external set payerPhone(JSString? value);
+  external JSString? get payerPhone;
+  external set shippingAddress(AddressInit value);
+  external AddressInit get shippingAddress;
+  external set shippingOption(JSString? value);
+  external JSString? get shippingOption;
+}
 
-@JS('AddressInit')
+@JS()
 @staticInterop
+@anonymous
 class AddressInit {
-  external factory AddressInit();
+  external factory AddressInit({
+    JSString country = '',
+    JSArray addressLine = const [],
+    JSString region = '',
+    JSString city = '',
+    JSString dependentLocality = '',
+    JSString postalCode = '',
+    JSString sortingCode = '',
+    JSString organization = '',
+    JSString recipient = '',
+    JSString phone = '',
+  });
 }
 
-extension AddressInitExtension on AddressInit {}
+extension AddressInitExtension on AddressInit {
+  external set country(JSString value);
+  external JSString get country;
+  external set addressLine(JSArray value);
+  external JSArray get addressLine;
+  external set region(JSString value);
+  external JSString get region;
+  external set city(JSString value);
+  external JSString get city;
+  external set dependentLocality(JSString value);
+  external JSString get dependentLocality;
+  external set postalCode(JSString value);
+  external JSString get postalCode;
+  external set sortingCode(JSString value);
+  external JSString get sortingCode;
+  external set organization(JSString value);
+  external JSString get organization;
+  external set recipient(JSString value);
+  external JSString get recipient;
+  external set phone(JSString value);
+  external JSString get phone;
+}
 
-@JS('PaymentOptions')
+@JS()
 @staticInterop
+@anonymous
 class PaymentOptions {
-  external factory PaymentOptions();
+  external factory PaymentOptions({
+    JSBoolean requestPayerName = false,
+    JSBoolean requestBillingAddress = false,
+    JSBoolean requestPayerEmail = false,
+    JSBoolean requestPayerPhone = false,
+    JSBoolean requestShipping = false,
+    PaymentShippingType shippingType = 'shipping',
+  });
 }
 
-extension PaymentOptionsExtension on PaymentOptions {}
+extension PaymentOptionsExtension on PaymentOptions {
+  external set requestPayerName(JSBoolean value);
+  external JSBoolean get requestPayerName;
+  external set requestBillingAddress(JSBoolean value);
+  external JSBoolean get requestBillingAddress;
+  external set requestPayerEmail(JSBoolean value);
+  external JSBoolean get requestPayerEmail;
+  external set requestPayerPhone(JSBoolean value);
+  external JSBoolean get requestPayerPhone;
+  external set requestShipping(JSBoolean value);
+  external JSBoolean get requestShipping;
+  external set shippingType(PaymentShippingType value);
+  external PaymentShippingType get shippingType;
+}
 
-@JS('PaymentShippingOption')
+@JS()
 @staticInterop
+@anonymous
 class PaymentShippingOption {
-  external factory PaymentShippingOption();
+  external factory PaymentShippingOption({
+    required JSString id,
+    required JSString label,
+    required PaymentCurrencyAmount amount,
+    JSBoolean selected = false,
+  });
 }
 
-extension PaymentShippingOptionExtension on PaymentShippingOption {}
+extension PaymentShippingOptionExtension on PaymentShippingOption {
+  external set id(JSString value);
+  external JSString get id;
+  external set label(JSString value);
+  external JSString get label;
+  external set amount(PaymentCurrencyAmount value);
+  external PaymentCurrencyAmount get amount;
+  external set selected(JSBoolean value);
+  external JSBoolean get selected;
+}
 
-@JS('AddressErrors')
+@JS()
 @staticInterop
+@anonymous
 class AddressErrors {
-  external factory AddressErrors();
+  external factory AddressErrors({
+    JSString addressLine,
+    JSString city,
+    JSString country,
+    JSString dependentLocality,
+    JSString organization,
+    JSString phone,
+    JSString postalCode,
+    JSString recipient,
+    JSString region,
+    JSString sortingCode,
+  });
 }
 
-extension AddressErrorsExtension on AddressErrors {}
+extension AddressErrorsExtension on AddressErrors {
+  external set addressLine(JSString value);
+  external JSString get addressLine;
+  external set city(JSString value);
+  external JSString get city;
+  external set country(JSString value);
+  external JSString get country;
+  external set dependentLocality(JSString value);
+  external JSString get dependentLocality;
+  external set organization(JSString value);
+  external JSString get organization;
+  external set phone(JSString value);
+  external JSString get phone;
+  external set postalCode(JSString value);
+  external JSString get postalCode;
+  external set recipient(JSString value);
+  external JSString get recipient;
+  external set region(JSString value);
+  external JSString get region;
+  external set sortingCode(JSString value);
+  external JSString get sortingCode;
+}

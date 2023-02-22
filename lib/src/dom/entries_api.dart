@@ -77,13 +77,22 @@ extension FileSystemDirectoryEntryExtension on FileSystemDirectoryEntry {
   );
 }
 
-@JS('FileSystemFlags')
+@JS()
 @staticInterop
+@anonymous
 class FileSystemFlags {
-  external factory FileSystemFlags();
+  external factory FileSystemFlags({
+    JSBoolean create = false,
+    JSBoolean exclusive = false,
+  });
 }
 
-extension FileSystemFlagsExtension on FileSystemFlags {}
+extension FileSystemFlagsExtension on FileSystemFlags {
+  external set create(JSBoolean value);
+  external JSBoolean get create;
+  external set exclusive(JSBoolean value);
+  external JSBoolean get exclusive;
+}
 
 @JS('FileSystemDirectoryReader')
 @staticInterop

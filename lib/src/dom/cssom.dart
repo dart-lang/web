@@ -83,13 +83,25 @@ extension CSSStyleSheetExtension on CSSStyleSheet {
   external JSVoid removeRule1(JSNumber index);
 }
 
-@JS('CSSStyleSheetInit')
+@JS()
 @staticInterop
+@anonymous
 class CSSStyleSheetInit {
-  external factory CSSStyleSheetInit();
+  external factory CSSStyleSheetInit({
+    JSString baseURL,
+    JSAny media = '',
+    JSBoolean disabled = false,
+  });
 }
 
-extension CSSStyleSheetInitExtension on CSSStyleSheetInit {}
+extension CSSStyleSheetInitExtension on CSSStyleSheetInit {
+  external set baseURL(JSString value);
+  external JSString get baseURL;
+  external set media(JSAny value);
+  external JSAny get media;
+  external set disabled(JSBoolean value);
+  external JSBoolean get disabled;
+}
 
 @JS('StyleSheetList')
 @staticInterop

@@ -20,13 +20,18 @@ typedef SFrameTransformRole = JSString;
 typedef SFrameTransformErrorEventType = JSString;
 typedef RTCEncodedVideoFrameType = JSString;
 
-@JS('SFrameTransformOptions')
+@JS()
 @staticInterop
+@anonymous
 class SFrameTransformOptions {
-  external factory SFrameTransformOptions();
+  external factory SFrameTransformOptions(
+      {SFrameTransformRole role = 'encrypt'});
 }
 
-extension SFrameTransformOptionsExtension on SFrameTransformOptions {}
+extension SFrameTransformOptionsExtension on SFrameTransformOptions {
+  external set role(SFrameTransformRole value);
+  external SFrameTransformRole get role;
+}
 
 @JS('SFrameTransform')
 @staticInterop
@@ -65,23 +70,65 @@ extension SFrameTransformErrorEventExtension on SFrameTransformErrorEvent {
   external JSAny get frame;
 }
 
-@JS('SFrameTransformErrorEventInit')
+@JS()
 @staticInterop
+@anonymous
 class SFrameTransformErrorEventInit extends EventInit {
-  external factory SFrameTransformErrorEventInit();
+  external factory SFrameTransformErrorEventInit({
+    required SFrameTransformErrorEventType errorType,
+    required JSAny frame,
+    CryptoKeyID? keyID,
+  });
 }
 
 extension SFrameTransformErrorEventInitExtension
-    on SFrameTransformErrorEventInit {}
+    on SFrameTransformErrorEventInit {
+  external set errorType(SFrameTransformErrorEventType value);
+  external SFrameTransformErrorEventType get errorType;
+  external set frame(JSAny value);
+  external JSAny get frame;
+  external set keyID(CryptoKeyID? value);
+  external CryptoKeyID? get keyID;
+}
 
-@JS('RTCEncodedVideoFrameMetadata')
+@JS()
 @staticInterop
+@anonymous
 class RTCEncodedVideoFrameMetadata {
-  external factory RTCEncodedVideoFrameMetadata();
+  external factory RTCEncodedVideoFrameMetadata({
+    JSNumber frameId,
+    JSArray dependencies,
+    JSNumber width,
+    JSNumber height,
+    JSNumber spatialIndex,
+    JSNumber temporalIndex,
+    JSNumber synchronizationSource,
+    JSNumber payloadType,
+    JSArray contributingSources,
+  });
 }
 
 extension RTCEncodedVideoFrameMetadataExtension
-    on RTCEncodedVideoFrameMetadata {}
+    on RTCEncodedVideoFrameMetadata {
+  external set frameId(JSNumber value);
+  external JSNumber get frameId;
+  external set dependencies(JSArray value);
+  external JSArray get dependencies;
+  external set width(JSNumber value);
+  external JSNumber get width;
+  external set height(JSNumber value);
+  external JSNumber get height;
+  external set spatialIndex(JSNumber value);
+  external JSNumber get spatialIndex;
+  external set temporalIndex(JSNumber value);
+  external JSNumber get temporalIndex;
+  external set synchronizationSource(JSNumber value);
+  external JSNumber get synchronizationSource;
+  external set payloadType(JSNumber value);
+  external JSNumber get payloadType;
+  external set contributingSources(JSArray value);
+  external JSArray get contributingSources;
+}
 
 @JS('RTCEncodedVideoFrame')
 @staticInterop
@@ -97,14 +144,29 @@ extension RTCEncodedVideoFrameExtension on RTCEncodedVideoFrame {
   external RTCEncodedVideoFrameMetadata getMetadata();
 }
 
-@JS('RTCEncodedAudioFrameMetadata')
+@JS()
 @staticInterop
+@anonymous
 class RTCEncodedAudioFrameMetadata {
-  external factory RTCEncodedAudioFrameMetadata();
+  external factory RTCEncodedAudioFrameMetadata({
+    JSNumber synchronizationSource,
+    JSNumber payloadType,
+    JSArray contributingSources,
+    JSNumber sequenceNumber,
+  });
 }
 
 extension RTCEncodedAudioFrameMetadataExtension
-    on RTCEncodedAudioFrameMetadata {}
+    on RTCEncodedAudioFrameMetadata {
+  external set synchronizationSource(JSNumber value);
+  external JSNumber get synchronizationSource;
+  external set payloadType(JSNumber value);
+  external JSNumber get payloadType;
+  external set contributingSources(JSArray value);
+  external JSArray get contributingSources;
+  external set sequenceNumber(JSNumber value);
+  external JSNumber get sequenceNumber;
+}
 
 @JS('RTCEncodedAudioFrame')
 @staticInterop

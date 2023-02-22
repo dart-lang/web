@@ -33,18 +33,49 @@ extension SanitizerExtension on Sanitizer {
   external SanitizerConfig getConfiguration();
 }
 
-@JS('SetHTMLOptions')
+@JS()
 @staticInterop
+@anonymous
 class SetHTMLOptions {
-  external factory SetHTMLOptions();
+  external factory SetHTMLOptions({Sanitizer sanitizer});
 }
 
-extension SetHTMLOptionsExtension on SetHTMLOptions {}
+extension SetHTMLOptionsExtension on SetHTMLOptions {
+  external set sanitizer(Sanitizer value);
+  external Sanitizer get sanitizer;
+}
 
-@JS('SanitizerConfig')
+@JS()
 @staticInterop
+@anonymous
 class SanitizerConfig {
-  external factory SanitizerConfig();
+  external factory SanitizerConfig({
+    JSArray allowElements,
+    JSArray blockElements,
+    JSArray dropElements,
+    AttributeMatchList allowAttributes,
+    AttributeMatchList dropAttributes,
+    JSBoolean allowCustomElements,
+    JSBoolean allowUnknownMarkup,
+    JSBoolean allowComments,
+  });
 }
 
-extension SanitizerConfigExtension on SanitizerConfig {}
+extension SanitizerConfigExtension on SanitizerConfig {
+  external set allowElements(JSArray value);
+  external JSArray get allowElements;
+  external set blockElements(JSArray value);
+  external JSArray get blockElements;
+  external set dropElements(JSArray value);
+  external JSArray get dropElements;
+  external set allowAttributes(AttributeMatchList value);
+  external AttributeMatchList get allowAttributes;
+  external set dropAttributes(AttributeMatchList value);
+  external AttributeMatchList get dropAttributes;
+  external set allowCustomElements(JSBoolean value);
+  external JSBoolean get allowCustomElements;
+  external set allowUnknownMarkup(JSBoolean value);
+  external JSBoolean get allowUnknownMarkup;
+  external set allowComments(JSBoolean value);
+  external JSBoolean get allowComments;
+}

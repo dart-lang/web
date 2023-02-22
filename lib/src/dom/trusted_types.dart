@@ -118,10 +118,22 @@ extension TrustedTypePolicyExtension on TrustedTypePolicy {
   );
 }
 
-@JS('TrustedTypePolicyOptions')
+@JS()
 @staticInterop
+@anonymous
 class TrustedTypePolicyOptions {
-  external factory TrustedTypePolicyOptions();
+  external factory TrustedTypePolicyOptions({
+    CreateHTMLCallback? createHTML,
+    CreateScriptCallback? createScript,
+    CreateScriptURLCallback? createScriptURL,
+  });
 }
 
-extension TrustedTypePolicyOptionsExtension on TrustedTypePolicyOptions {}
+extension TrustedTypePolicyOptionsExtension on TrustedTypePolicyOptions {
+  external set createHTML(CreateHTMLCallback? value);
+  external CreateHTMLCallback? get createHTML;
+  external set createScript(CreateScriptCallback? value);
+  external CreateScriptCallback? get createScript;
+  external set createScriptURL(CreateScriptURLCallback? value);
+  external CreateScriptURLCallback? get createScriptURL;
+}

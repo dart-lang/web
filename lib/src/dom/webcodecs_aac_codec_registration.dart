@@ -10,10 +10,14 @@ import 'package:js/js.dart' hide JS;
 
 typedef AacBitstreamFormat = JSString;
 
-@JS('AacEncoderConfig')
+@JS()
 @staticInterop
+@anonymous
 class AacEncoderConfig {
-  external factory AacEncoderConfig();
+  external factory AacEncoderConfig({AacBitstreamFormat format = 'aac'});
 }
 
-extension AacEncoderConfigExtension on AacEncoderConfig {}
+extension AacEncoderConfigExtension on AacEncoderConfig {
+  external set format(AacBitstreamFormat value);
+  external AacBitstreamFormat get format;
+}

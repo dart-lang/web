@@ -8,7 +8,11 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
+import 'dom.dart';
+import 'fedcm.dart';
 import 'html.dart';
+import 'web_otp.dart';
+import 'webauthn.dart';
 
 typedef PasswordCredentialInit = JSAny;
 typedef CredentialMediationRequirement = JSString;
@@ -52,29 +56,72 @@ extension CredentialsContainerExtension on CredentialsContainer {
   external JSPromise preventSilentAccess();
 }
 
-@JS('CredentialData')
+@JS()
 @staticInterop
+@anonymous
 class CredentialData {
-  external factory CredentialData();
+  external factory CredentialData({required JSString id});
 }
 
-extension CredentialDataExtension on CredentialData {}
+extension CredentialDataExtension on CredentialData {
+  external set id(JSString value);
+  external JSString get id;
+}
 
-@JS('CredentialRequestOptions')
+@JS()
 @staticInterop
+@anonymous
 class CredentialRequestOptions {
-  external factory CredentialRequestOptions();
+  external factory CredentialRequestOptions({
+    IdentityCredentialRequestOptions identity,
+    CredentialMediationRequirement mediation = 'optional',
+    AbortSignal signal,
+    JSBoolean password = false,
+    FederatedCredentialRequestOptions federated,
+    OTPCredentialRequestOptions otp,
+    PublicKeyCredentialRequestOptions publicKey,
+  });
 }
 
-extension CredentialRequestOptionsExtension on CredentialRequestOptions {}
+extension CredentialRequestOptionsExtension on CredentialRequestOptions {
+  external set identity(IdentityCredentialRequestOptions value);
+  external IdentityCredentialRequestOptions get identity;
+  external set mediation(CredentialMediationRequirement value);
+  external CredentialMediationRequirement get mediation;
+  external set signal(AbortSignal value);
+  external AbortSignal get signal;
+  external set password(JSBoolean value);
+  external JSBoolean get password;
+  external set federated(FederatedCredentialRequestOptions value);
+  external FederatedCredentialRequestOptions get federated;
+  external set otp(OTPCredentialRequestOptions value);
+  external OTPCredentialRequestOptions get otp;
+  external set publicKey(PublicKeyCredentialRequestOptions value);
+  external PublicKeyCredentialRequestOptions get publicKey;
+}
 
-@JS('CredentialCreationOptions')
+@JS()
 @staticInterop
+@anonymous
 class CredentialCreationOptions {
-  external factory CredentialCreationOptions();
+  external factory CredentialCreationOptions({
+    AbortSignal signal,
+    PasswordCredentialInit password,
+    FederatedCredentialInit federated,
+    PublicKeyCredentialCreationOptions publicKey,
+  });
 }
 
-extension CredentialCreationOptionsExtension on CredentialCreationOptions {}
+extension CredentialCreationOptionsExtension on CredentialCreationOptions {
+  external set signal(AbortSignal value);
+  external AbortSignal get signal;
+  external set password(PasswordCredentialInit value);
+  external PasswordCredentialInit get password;
+  external set federated(FederatedCredentialInit value);
+  external FederatedCredentialInit get federated;
+  external set publicKey(PublicKeyCredentialCreationOptions value);
+  external PublicKeyCredentialCreationOptions get publicKey;
+}
 
 @JS('PasswordCredential')
 @staticInterop
@@ -90,13 +137,28 @@ extension PasswordCredentialExtension on PasswordCredential {
   external JSString get password;
 }
 
-@JS('PasswordCredentialData')
+@JS()
 @staticInterop
+@anonymous
 class PasswordCredentialData extends CredentialData {
-  external factory PasswordCredentialData();
+  external factory PasswordCredentialData({
+    JSString name,
+    JSString iconURL,
+    required JSString origin,
+    required JSString password,
+  });
 }
 
-extension PasswordCredentialDataExtension on PasswordCredentialData {}
+extension PasswordCredentialDataExtension on PasswordCredentialData {
+  external set name(JSString value);
+  external JSString get name;
+  external set iconURL(JSString value);
+  external JSString get iconURL;
+  external set origin(JSString value);
+  external JSString get origin;
+  external set password(JSString value);
+  external JSString get password;
+}
 
 @JS('FederatedCredential')
 @staticInterop
@@ -111,19 +173,46 @@ extension FederatedCredentialExtension on FederatedCredential {
   external JSString? get protocol;
 }
 
-@JS('FederatedCredentialRequestOptions')
+@JS()
 @staticInterop
+@anonymous
 class FederatedCredentialRequestOptions {
-  external factory FederatedCredentialRequestOptions();
+  external factory FederatedCredentialRequestOptions({
+    JSArray providers,
+    JSArray protocols,
+  });
 }
 
 extension FederatedCredentialRequestOptionsExtension
-    on FederatedCredentialRequestOptions {}
-
-@JS('FederatedCredentialInit')
-@staticInterop
-class FederatedCredentialInit extends CredentialData {
-  external factory FederatedCredentialInit();
+    on FederatedCredentialRequestOptions {
+  external set providers(JSArray value);
+  external JSArray get providers;
+  external set protocols(JSArray value);
+  external JSArray get protocols;
 }
 
-extension FederatedCredentialInitExtension on FederatedCredentialInit {}
+@JS()
+@staticInterop
+@anonymous
+class FederatedCredentialInit extends CredentialData {
+  external factory FederatedCredentialInit({
+    JSString name,
+    JSString iconURL,
+    required JSString origin,
+    required JSString provider,
+    JSString protocol,
+  });
+}
+
+extension FederatedCredentialInitExtension on FederatedCredentialInit {
+  external set name(JSString value);
+  external JSString get name;
+  external set iconURL(JSString value);
+  external JSString get iconURL;
+  external set origin(JSString value);
+  external JSString get origin;
+  external set provider(JSString value);
+  external JSString get provider;
+  external set protocol(JSString value);
+  external JSString get protocol;
+}

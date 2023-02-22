@@ -8,34 +8,76 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
-@JS('MemoryMeasurement')
+@JS()
 @staticInterop
+@anonymous
 class MemoryMeasurement {
-  external factory MemoryMeasurement();
+  external factory MemoryMeasurement({
+    JSNumber bytes,
+    JSArray breakdown,
+  });
 }
 
-extension MemoryMeasurementExtension on MemoryMeasurement {}
+extension MemoryMeasurementExtension on MemoryMeasurement {
+  external set bytes(JSNumber value);
+  external JSNumber get bytes;
+  external set breakdown(JSArray value);
+  external JSArray get breakdown;
+}
 
-@JS('MemoryBreakdownEntry')
+@JS()
 @staticInterop
+@anonymous
 class MemoryBreakdownEntry {
-  external factory MemoryBreakdownEntry();
+  external factory MemoryBreakdownEntry({
+    JSNumber bytes,
+    JSArray attribution,
+    JSArray types,
+  });
 }
 
-extension MemoryBreakdownEntryExtension on MemoryBreakdownEntry {}
+extension MemoryBreakdownEntryExtension on MemoryBreakdownEntry {
+  external set bytes(JSNumber value);
+  external JSNumber get bytes;
+  external set attribution(JSArray value);
+  external JSArray get attribution;
+  external set types(JSArray value);
+  external JSArray get types;
+}
 
-@JS('MemoryAttribution')
+@JS()
 @staticInterop
+@anonymous
 class MemoryAttribution {
-  external factory MemoryAttribution();
+  external factory MemoryAttribution({
+    JSString url,
+    MemoryAttributionContainer container,
+    JSString scope,
+  });
 }
 
-extension MemoryAttributionExtension on MemoryAttribution {}
+extension MemoryAttributionExtension on MemoryAttribution {
+  external set url(JSString value);
+  external JSString get url;
+  external set container(MemoryAttributionContainer value);
+  external MemoryAttributionContainer get container;
+  external set scope(JSString value);
+  external JSString get scope;
+}
 
-@JS('MemoryAttributionContainer')
+@JS()
 @staticInterop
+@anonymous
 class MemoryAttributionContainer {
-  external factory MemoryAttributionContainer();
+  external factory MemoryAttributionContainer({
+    JSString id,
+    JSString src,
+  });
 }
 
-extension MemoryAttributionContainerExtension on MemoryAttributionContainer {}
+extension MemoryAttributionContainerExtension on MemoryAttributionContainer {
+  external set id(JSString value);
+  external JSString get id;
+  external set src(JSString value);
+  external JSString get src;
+}

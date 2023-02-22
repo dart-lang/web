@@ -12,13 +12,25 @@ import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
 
-@JS('EditContextInit')
+@JS()
 @staticInterop
+@anonymous
 class EditContextInit {
-  external factory EditContextInit();
+  external factory EditContextInit({
+    JSString text,
+    JSNumber selectionStart,
+    JSNumber selectionEnd,
+  });
 }
 
-extension EditContextInitExtension on EditContextInit {}
+extension EditContextInitExtension on EditContextInit {
+  external set text(JSString value);
+  external JSString get text;
+  external set selectionStart(JSNumber value);
+  external JSNumber get selectionStart;
+  external set selectionEnd(JSNumber value);
+  external JSNumber get selectionEnd;
+}
 
 @JS('EditContext')
 @staticInterop
@@ -69,13 +81,37 @@ extension EditContextExtension on EditContext {
   external EventHandler get oncompositionend;
 }
 
-@JS('TextUpdateEventInit')
+@JS()
 @staticInterop
+@anonymous
 class TextUpdateEventInit {
-  external factory TextUpdateEventInit();
+  external factory TextUpdateEventInit({
+    JSNumber updateRangeStart,
+    JSNumber updateRangeEnd,
+    JSString text,
+    JSNumber selectionStart,
+    JSNumber selectionEnd,
+    JSNumber compositionStart,
+    JSNumber compositionEnd,
+  });
 }
 
-extension TextUpdateEventInitExtension on TextUpdateEventInit {}
+extension TextUpdateEventInitExtension on TextUpdateEventInit {
+  external set updateRangeStart(JSNumber value);
+  external JSNumber get updateRangeStart;
+  external set updateRangeEnd(JSNumber value);
+  external JSNumber get updateRangeEnd;
+  external set text(JSString value);
+  external JSString get text;
+  external set selectionStart(JSNumber value);
+  external JSNumber get selectionStart;
+  external set selectionEnd(JSNumber value);
+  external JSNumber get selectionEnd;
+  external set compositionStart(JSNumber value);
+  external JSNumber get compositionStart;
+  external set compositionEnd(JSNumber value);
+  external JSNumber get compositionEnd;
+}
 
 @JS('TextUpdateEvent')
 @staticInterop
@@ -97,13 +133,37 @@ extension TextUpdateEventExtension on TextUpdateEvent {
   external JSNumber get compositionEnd;
 }
 
-@JS('TextFormatInit')
+@JS()
 @staticInterop
+@anonymous
 class TextFormatInit {
-  external factory TextFormatInit();
+  external factory TextFormatInit({
+    JSNumber rangeStart,
+    JSNumber rangeEnd,
+    JSString textColor,
+    JSString backgroundColor,
+    JSString underlineStyle,
+    JSString underlineThickness,
+    JSString underlineColor,
+  });
 }
 
-extension TextFormatInitExtension on TextFormatInit {}
+extension TextFormatInitExtension on TextFormatInit {
+  external set rangeStart(JSNumber value);
+  external JSNumber get rangeStart;
+  external set rangeEnd(JSNumber value);
+  external JSNumber get rangeEnd;
+  external set textColor(JSString value);
+  external JSString get textColor;
+  external set backgroundColor(JSString value);
+  external JSString get backgroundColor;
+  external set underlineStyle(JSString value);
+  external JSString get underlineStyle;
+  external set underlineThickness(JSString value);
+  external JSString get underlineThickness;
+  external set underlineColor(JSString value);
+  external JSString get underlineColor;
+}
 
 @JS('TextFormat')
 @staticInterop
@@ -132,13 +192,17 @@ extension TextFormatExtension on TextFormat {
   external JSString get underlineColor;
 }
 
-@JS('TextFormatUpdateEventInit')
+@JS()
 @staticInterop
+@anonymous
 class TextFormatUpdateEventInit {
-  external factory TextFormatUpdateEventInit();
+  external factory TextFormatUpdateEventInit({JSArray textFormats});
 }
 
-extension TextFormatUpdateEventInitExtension on TextFormatUpdateEventInit {}
+extension TextFormatUpdateEventInitExtension on TextFormatUpdateEventInit {
+  external set textFormats(JSArray value);
+  external JSArray get textFormats;
+}
 
 @JS('TextFormatUpdateEvent')
 @staticInterop
@@ -154,14 +218,23 @@ extension TextFormatUpdateEventExtension on TextFormatUpdateEvent {
   external JSArray getTextFormats();
 }
 
-@JS('CharacterBoundsUpdateEventInit')
+@JS()
 @staticInterop
+@anonymous
 class CharacterBoundsUpdateEventInit {
-  external factory CharacterBoundsUpdateEventInit();
+  external factory CharacterBoundsUpdateEventInit({
+    JSNumber rangeStart,
+    JSNumber rangeEnd,
+  });
 }
 
 extension CharacterBoundsUpdateEventInitExtension
-    on CharacterBoundsUpdateEventInit {}
+    on CharacterBoundsUpdateEventInit {
+  external set rangeStart(JSNumber value);
+  external JSNumber get rangeStart;
+  external set rangeEnd(JSNumber value);
+  external JSNumber get rangeEnd;
+}
 
 @JS('CharacterBoundsUpdateEvent')
 @staticInterop

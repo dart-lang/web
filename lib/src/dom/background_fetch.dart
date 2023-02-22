@@ -36,21 +36,34 @@ extension BackgroundFetchManagerExtension on BackgroundFetchManager {
   external JSPromise getIds();
 }
 
-@JS('BackgroundFetchUIOptions')
+@JS()
 @staticInterop
+@anonymous
 class BackgroundFetchUIOptions {
-  external factory BackgroundFetchUIOptions();
+  external factory BackgroundFetchUIOptions({
+    JSArray icons,
+    JSString title,
+  });
 }
 
-extension BackgroundFetchUIOptionsExtension on BackgroundFetchUIOptions {}
+extension BackgroundFetchUIOptionsExtension on BackgroundFetchUIOptions {
+  external set icons(JSArray value);
+  external JSArray get icons;
+  external set title(JSString value);
+  external JSString get title;
+}
 
-@JS('BackgroundFetchOptions')
+@JS()
 @staticInterop
+@anonymous
 class BackgroundFetchOptions extends BackgroundFetchUIOptions {
-  external factory BackgroundFetchOptions();
+  external factory BackgroundFetchOptions({JSNumber downloadTotal = 0});
 }
 
-extension BackgroundFetchOptionsExtension on BackgroundFetchOptions {}
+extension BackgroundFetchOptionsExtension on BackgroundFetchOptions {
+  external set downloadTotal(JSNumber value);
+  external JSNumber get downloadTotal;
+}
 
 @JS('BackgroundFetchRegistration')
 @staticInterop
@@ -109,13 +122,18 @@ extension BackgroundFetchEventExtension on BackgroundFetchEvent {
   external BackgroundFetchRegistration get registration;
 }
 
-@JS('BackgroundFetchEventInit')
+@JS()
 @staticInterop
+@anonymous
 class BackgroundFetchEventInit extends ExtendableEventInit {
-  external factory BackgroundFetchEventInit();
+  external factory BackgroundFetchEventInit(
+      {required BackgroundFetchRegistration registration});
 }
 
-extension BackgroundFetchEventInitExtension on BackgroundFetchEventInit {}
+extension BackgroundFetchEventInitExtension on BackgroundFetchEventInit {
+  external set registration(BackgroundFetchRegistration value);
+  external BackgroundFetchRegistration get registration;
+}
 
 @JS('BackgroundFetchUpdateUIEvent')
 @staticInterop

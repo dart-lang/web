@@ -24,13 +24,18 @@ extension OrientationSensorExtension on OrientationSensor {
   external JSVoid populateMatrix(RotationMatrixType targetMatrix);
 }
 
-@JS('OrientationSensorOptions')
+@JS()
 @staticInterop
+@anonymous
 class OrientationSensorOptions extends SensorOptions {
-  external factory OrientationSensorOptions();
+  external factory OrientationSensorOptions(
+      {OrientationSensorLocalCoordinateSystem referenceFrame = 'device'});
 }
 
-extension OrientationSensorOptionsExtension on OrientationSensorOptions {}
+extension OrientationSensorOptionsExtension on OrientationSensorOptions {
+  external set referenceFrame(OrientationSensorLocalCoordinateSystem value);
+  external OrientationSensorLocalCoordinateSystem get referenceFrame;
+}
 
 @JS('AbsoluteOrientationSensor')
 @staticInterop
@@ -54,17 +59,23 @@ class RelativeOrientationSensor extends OrientationSensor {
       OrientationSensorOptions sensorOptions);
 }
 
-@JS('AbsoluteOrientationReadingValues')
+@JS()
 @staticInterop
+@anonymous
 class AbsoluteOrientationReadingValues {
-  external factory AbsoluteOrientationReadingValues();
+  external factory AbsoluteOrientationReadingValues(
+      {required JSArray? quaternion});
 }
 
 extension AbsoluteOrientationReadingValuesExtension
-    on AbsoluteOrientationReadingValues {}
+    on AbsoluteOrientationReadingValues {
+  external set quaternion(JSArray? value);
+  external JSArray? get quaternion;
+}
 
-@JS('RelativeOrientationReadingValues')
+@JS()
 @staticInterop
+@anonymous
 class RelativeOrientationReadingValues
     extends AbsoluteOrientationReadingValues {
   external factory RelativeOrientationReadingValues();

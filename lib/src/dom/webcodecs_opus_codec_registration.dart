@@ -10,10 +10,31 @@ import 'package:js/js.dart' hide JS;
 
 typedef OpusBitstreamFormat = JSString;
 
-@JS('OpusEncoderConfig')
+@JS()
 @staticInterop
+@anonymous
 class OpusEncoderConfig {
-  external factory OpusEncoderConfig();
+  external factory OpusEncoderConfig({
+    OpusBitstreamFormat format = 'opus',
+    JSNumber frameDuration = 20000,
+    JSNumber complexity,
+    JSNumber packetlossperc = 0,
+    JSBoolean useinbandfec = false,
+    JSBoolean usedtx = false,
+  });
 }
 
-extension OpusEncoderConfigExtension on OpusEncoderConfig {}
+extension OpusEncoderConfigExtension on OpusEncoderConfig {
+  external set format(OpusBitstreamFormat value);
+  external OpusBitstreamFormat get format;
+  external set frameDuration(JSNumber value);
+  external JSNumber get frameDuration;
+  external set complexity(JSNumber value);
+  external JSNumber get complexity;
+  external set packetlossperc(JSNumber value);
+  external JSNumber get packetlossperc;
+  external set useinbandfec(JSBoolean value);
+  external JSBoolean get useinbandfec;
+  external set usedtx(JSBoolean value);
+  external JSBoolean get usedtx;
+}

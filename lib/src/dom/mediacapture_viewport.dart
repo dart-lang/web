@@ -8,11 +8,20 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
-@JS('ViewportMediaStreamConstraints')
+@JS()
 @staticInterop
+@anonymous
 class ViewportMediaStreamConstraints {
-  external factory ViewportMediaStreamConstraints();
+  external factory ViewportMediaStreamConstraints({
+    JSAny video = true,
+    JSAny audio = false,
+  });
 }
 
 extension ViewportMediaStreamConstraintsExtension
-    on ViewportMediaStreamConstraints {}
+    on ViewportMediaStreamConstraints {
+  external set video(JSAny value);
+  external JSAny get video;
+  external set audio(JSAny value);
+  external JSAny get audio;
+}

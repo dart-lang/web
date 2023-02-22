@@ -66,13 +66,22 @@ extension IDBVersionChangeEventExtension on IDBVersionChangeEvent {
   external JSNumber? get newVersion;
 }
 
-@JS('IDBVersionChangeEventInit')
+@JS()
 @staticInterop
+@anonymous
 class IDBVersionChangeEventInit extends EventInit {
-  external factory IDBVersionChangeEventInit();
+  external factory IDBVersionChangeEventInit({
+    JSNumber oldVersion = 0,
+    JSNumber? newVersion,
+  });
 }
 
-extension IDBVersionChangeEventInitExtension on IDBVersionChangeEventInit {}
+extension IDBVersionChangeEventInitExtension on IDBVersionChangeEventInit {
+  external set oldVersion(JSNumber value);
+  external JSNumber get oldVersion;
+  external set newVersion(JSNumber? value);
+  external JSNumber? get newVersion;
+}
 
 @JS('IDBFactory')
 @staticInterop
@@ -94,13 +103,22 @@ extension IDBFactoryExtension on IDBFactory {
   );
 }
 
-@JS('IDBDatabaseInfo')
+@JS()
 @staticInterop
+@anonymous
 class IDBDatabaseInfo {
-  external factory IDBDatabaseInfo();
+  external factory IDBDatabaseInfo({
+    JSString name,
+    JSNumber version,
+  });
 }
 
-extension IDBDatabaseInfoExtension on IDBDatabaseInfo {}
+extension IDBDatabaseInfoExtension on IDBDatabaseInfo {
+  external set name(JSString value);
+  external JSString get name;
+  external set version(JSNumber value);
+  external JSNumber get version;
+}
 
 @JS('IDBDatabase')
 @staticInterop
@@ -139,21 +157,35 @@ extension IDBDatabaseExtension on IDBDatabase {
   external EventHandler get onversionchange;
 }
 
-@JS('IDBTransactionOptions')
+@JS()
 @staticInterop
+@anonymous
 class IDBTransactionOptions {
-  external factory IDBTransactionOptions();
+  external factory IDBTransactionOptions(
+      {IDBTransactionDurability durability = 'default'});
 }
 
-extension IDBTransactionOptionsExtension on IDBTransactionOptions {}
+extension IDBTransactionOptionsExtension on IDBTransactionOptions {
+  external set durability(IDBTransactionDurability value);
+  external IDBTransactionDurability get durability;
+}
 
-@JS('IDBObjectStoreParameters')
+@JS()
 @staticInterop
+@anonymous
 class IDBObjectStoreParameters {
-  external factory IDBObjectStoreParameters();
+  external factory IDBObjectStoreParameters({
+    JSAny? keyPath,
+    JSBoolean autoIncrement = false,
+  });
 }
 
-extension IDBObjectStoreParametersExtension on IDBObjectStoreParameters {}
+extension IDBObjectStoreParametersExtension on IDBObjectStoreParameters {
+  external set keyPath(JSAny? value);
+  external JSAny? get keyPath;
+  external set autoIncrement(JSBoolean value);
+  external JSBoolean get autoIncrement;
+}
 
 @JS('IDBObjectStore')
 @staticInterop
@@ -221,13 +253,22 @@ extension IDBObjectStoreExtension on IDBObjectStore {
   external JSVoid deleteIndex(JSString name);
 }
 
-@JS('IDBIndexParameters')
+@JS()
 @staticInterop
+@anonymous
 class IDBIndexParameters {
-  external factory IDBIndexParameters();
+  external factory IDBIndexParameters({
+    JSBoolean unique = false,
+    JSBoolean multiEntry = false,
+  });
 }
 
-extension IDBIndexParametersExtension on IDBIndexParameters {}
+extension IDBIndexParametersExtension on IDBIndexParameters {
+  external set unique(JSBoolean value);
+  external JSBoolean get unique;
+  external set multiEntry(JSBoolean value);
+  external JSBoolean get multiEntry;
+}
 
 @JS('IDBIndex')
 @staticInterop

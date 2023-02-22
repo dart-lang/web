@@ -18,47 +18,99 @@ typedef BluetoothServiceUUID = JSAny;
 typedef BluetoothCharacteristicUUID = JSAny;
 typedef BluetoothDescriptorUUID = JSAny;
 
-@JS('BluetoothDataFilterInit')
+@JS()
 @staticInterop
+@anonymous
 class BluetoothDataFilterInit {
-  external factory BluetoothDataFilterInit();
+  external factory BluetoothDataFilterInit({
+    BufferSource dataPrefix,
+    BufferSource mask,
+  });
 }
 
-extension BluetoothDataFilterInitExtension on BluetoothDataFilterInit {}
+extension BluetoothDataFilterInitExtension on BluetoothDataFilterInit {
+  external set dataPrefix(BufferSource value);
+  external BufferSource get dataPrefix;
+  external set mask(BufferSource value);
+  external BufferSource get mask;
+}
 
-@JS('BluetoothManufacturerDataFilterInit')
+@JS()
 @staticInterop
+@anonymous
 class BluetoothManufacturerDataFilterInit extends BluetoothDataFilterInit {
-  external factory BluetoothManufacturerDataFilterInit();
+  external factory BluetoothManufacturerDataFilterInit(
+      {required JSNumber companyIdentifier});
 }
 
 extension BluetoothManufacturerDataFilterInitExtension
-    on BluetoothManufacturerDataFilterInit {}
+    on BluetoothManufacturerDataFilterInit {
+  external set companyIdentifier(JSNumber value);
+  external JSNumber get companyIdentifier;
+}
 
-@JS('BluetoothServiceDataFilterInit')
+@JS()
 @staticInterop
+@anonymous
 class BluetoothServiceDataFilterInit extends BluetoothDataFilterInit {
-  external factory BluetoothServiceDataFilterInit();
+  external factory BluetoothServiceDataFilterInit(
+      {required BluetoothServiceUUID service});
 }
 
 extension BluetoothServiceDataFilterInitExtension
-    on BluetoothServiceDataFilterInit {}
+    on BluetoothServiceDataFilterInit {
+  external set service(BluetoothServiceUUID value);
+  external BluetoothServiceUUID get service;
+}
 
-@JS('BluetoothLEScanFilterInit')
+@JS()
 @staticInterop
+@anonymous
 class BluetoothLEScanFilterInit {
-  external factory BluetoothLEScanFilterInit();
+  external factory BluetoothLEScanFilterInit({
+    JSArray services,
+    JSString name,
+    JSString namePrefix,
+    JSArray manufacturerData,
+    JSArray serviceData,
+  });
 }
 
-extension BluetoothLEScanFilterInitExtension on BluetoothLEScanFilterInit {}
+extension BluetoothLEScanFilterInitExtension on BluetoothLEScanFilterInit {
+  external set services(JSArray value);
+  external JSArray get services;
+  external set name(JSString value);
+  external JSString get name;
+  external set namePrefix(JSString value);
+  external JSString get namePrefix;
+  external set manufacturerData(JSArray value);
+  external JSArray get manufacturerData;
+  external set serviceData(JSArray value);
+  external JSArray get serviceData;
+}
 
-@JS('RequestDeviceOptions')
+@JS()
 @staticInterop
+@anonymous
 class RequestDeviceOptions {
-  external factory RequestDeviceOptions();
+  external factory RequestDeviceOptions({
+    JSArray filters,
+    JSArray optionalServices = const [],
+    JSArray optionalManufacturerData = const [],
+    JSBoolean acceptAllDevices = false,
+  });
 }
 
-extension RequestDeviceOptionsExtension on RequestDeviceOptions {}
+extension RequestDeviceOptionsExtension on RequestDeviceOptions {
+  external set filters(JSArray value);
+  external JSArray get filters;
+  external set optionalServices(JSArray value);
+  external JSArray get optionalServices;
+  external set optionalManufacturerData(JSArray value);
+  external JSArray get optionalManufacturerData;
+  external set acceptAllDevices(JSBoolean value);
+  external JSBoolean get acceptAllDevices;
+}
 
 @JS('Bluetooth')
 @staticInterop
@@ -80,30 +132,68 @@ extension BluetoothExtension on Bluetooth {
   external JSPromise requestDevice1(RequestDeviceOptions options);
 }
 
-@JS('BluetoothPermissionDescriptor')
+@JS()
 @staticInterop
+@anonymous
 class BluetoothPermissionDescriptor extends PermissionDescriptor {
-  external factory BluetoothPermissionDescriptor();
+  external factory BluetoothPermissionDescriptor({
+    JSString deviceId,
+    JSArray filters,
+    JSArray optionalServices = const [],
+    JSArray optionalManufacturerData = const [],
+    JSBoolean acceptAllDevices = false,
+  });
 }
 
 extension BluetoothPermissionDescriptorExtension
-    on BluetoothPermissionDescriptor {}
+    on BluetoothPermissionDescriptor {
+  external set deviceId(JSString value);
+  external JSString get deviceId;
+  external set filters(JSArray value);
+  external JSArray get filters;
+  external set optionalServices(JSArray value);
+  external JSArray get optionalServices;
+  external set optionalManufacturerData(JSArray value);
+  external JSArray get optionalManufacturerData;
+  external set acceptAllDevices(JSBoolean value);
+  external JSBoolean get acceptAllDevices;
+}
 
-@JS('AllowedBluetoothDevice')
+@JS()
 @staticInterop
+@anonymous
 class AllowedBluetoothDevice {
-  external factory AllowedBluetoothDevice();
+  external factory AllowedBluetoothDevice({
+    required JSString deviceId,
+    required JSBoolean mayUseGATT,
+    required JSAny allowedServices,
+    required JSArray allowedManufacturerData,
+  });
 }
 
-extension AllowedBluetoothDeviceExtension on AllowedBluetoothDevice {}
+extension AllowedBluetoothDeviceExtension on AllowedBluetoothDevice {
+  external set deviceId(JSString value);
+  external JSString get deviceId;
+  external set mayUseGATT(JSBoolean value);
+  external JSBoolean get mayUseGATT;
+  external set allowedServices(JSAny value);
+  external JSAny get allowedServices;
+  external set allowedManufacturerData(JSArray value);
+  external JSArray get allowedManufacturerData;
+}
 
-@JS('BluetoothPermissionStorage')
+@JS()
 @staticInterop
+@anonymous
 class BluetoothPermissionStorage {
-  external factory BluetoothPermissionStorage();
+  external factory BluetoothPermissionStorage(
+      {required JSArray allowedDevices});
 }
 
-extension BluetoothPermissionStorageExtension on BluetoothPermissionStorage {}
+extension BluetoothPermissionStorageExtension on BluetoothPermissionStorage {
+  external set allowedDevices(JSArray value);
+  external JSArray get allowedDevices;
+}
 
 @JS('BluetoothPermissionResult')
 @staticInterop
@@ -133,13 +223,17 @@ extension ValueEventExtension on ValueEvent {
   external JSAny get value;
 }
 
-@JS('ValueEventInit')
+@JS()
 @staticInterop
+@anonymous
 class ValueEventInit extends EventInit {
-  external factory ValueEventInit();
+  external factory ValueEventInit({JSAny value});
 }
 
-extension ValueEventInitExtension on ValueEventInit {}
+extension ValueEventInitExtension on ValueEventInit {
+  external set value(JSAny value);
+  external JSAny get value;
+}
 
 @JS('BluetoothDevice')
 @staticInterop
@@ -161,13 +255,17 @@ extension BluetoothDeviceExtension on BluetoothDevice {
   external JSBoolean get watchingAdvertisements;
 }
 
-@JS('WatchAdvertisementsOptions')
+@JS()
 @staticInterop
+@anonymous
 class WatchAdvertisementsOptions {
-  external factory WatchAdvertisementsOptions();
+  external factory WatchAdvertisementsOptions({AbortSignal signal});
 }
 
-extension WatchAdvertisementsOptionsExtension on WatchAdvertisementsOptions {}
+extension WatchAdvertisementsOptionsExtension on WatchAdvertisementsOptions {
+  external set signal(AbortSignal value);
+  external AbortSignal get signal;
+}
 
 @JS('BluetoothManufacturerDataMap')
 @staticInterop
@@ -208,14 +306,41 @@ extension BluetoothAdvertisingEventExtension on BluetoothAdvertisingEvent {
   external BluetoothServiceDataMap get serviceData;
 }
 
-@JS('BluetoothAdvertisingEventInit')
+@JS()
 @staticInterop
+@anonymous
 class BluetoothAdvertisingEventInit extends EventInit {
-  external factory BluetoothAdvertisingEventInit();
+  external factory BluetoothAdvertisingEventInit({
+    required BluetoothDevice device,
+    JSArray uuids,
+    JSString name,
+    JSNumber appearance,
+    JSNumber txPower,
+    JSNumber rssi,
+    BluetoothManufacturerDataMap manufacturerData,
+    BluetoothServiceDataMap serviceData,
+  });
 }
 
 extension BluetoothAdvertisingEventInitExtension
-    on BluetoothAdvertisingEventInit {}
+    on BluetoothAdvertisingEventInit {
+  external set device(BluetoothDevice value);
+  external BluetoothDevice get device;
+  external set uuids(JSArray value);
+  external JSArray get uuids;
+  external set name(JSString value);
+  external JSString get name;
+  external set appearance(JSNumber value);
+  external JSNumber get appearance;
+  external set txPower(JSNumber value);
+  external JSNumber get txPower;
+  external set rssi(JSNumber value);
+  external JSNumber get rssi;
+  external set manufacturerData(BluetoothManufacturerDataMap value);
+  external BluetoothManufacturerDataMap get manufacturerData;
+  external set serviceData(BluetoothServiceDataMap value);
+  external BluetoothServiceDataMap get serviceData;
+}
 
 @JS('BluetoothRemoteGATTServer')
 @staticInterop

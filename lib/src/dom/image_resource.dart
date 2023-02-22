@@ -8,10 +8,25 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
-@JS('ImageResource')
+@JS()
 @staticInterop
+@anonymous
 class ImageResource {
-  external factory ImageResource();
+  external factory ImageResource({
+    required JSString src,
+    JSString sizes,
+    JSString type,
+    JSString label,
+  });
 }
 
-extension ImageResourceExtension on ImageResource {}
+extension ImageResourceExtension on ImageResource {
+  external set src(JSString value);
+  external JSString get src;
+  external set sizes(JSString value);
+  external JSString get sizes;
+  external set type(JSString value);
+  external JSString get type;
+  external set label(JSString value);
+  external JSString get label;
+}

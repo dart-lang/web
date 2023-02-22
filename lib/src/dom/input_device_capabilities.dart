@@ -24,10 +24,19 @@ extension InputDeviceCapabilitiesExtension on InputDeviceCapabilities {
   external JSBoolean get pointerMovementScrolls;
 }
 
-@JS('InputDeviceCapabilitiesInit')
+@JS()
 @staticInterop
+@anonymous
 class InputDeviceCapabilitiesInit {
-  external factory InputDeviceCapabilitiesInit();
+  external factory InputDeviceCapabilitiesInit({
+    JSBoolean firesTouchEvents = false,
+    JSBoolean pointerMovementScrolls = false,
+  });
 }
 
-extension InputDeviceCapabilitiesInitExtension on InputDeviceCapabilitiesInit {}
+extension InputDeviceCapabilitiesInitExtension on InputDeviceCapabilitiesInit {
+  external set firesTouchEvents(JSBoolean value);
+  external JSBoolean get firesTouchEvents;
+  external set pointerMovementScrolls(JSBoolean value);
+  external JSBoolean get pointerMovementScrolls;
+}

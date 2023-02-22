@@ -163,53 +163,153 @@ extension XRWebGLSubImageExtension on XRWebGLSubImage {
   external JSNumber? get motionVectorTextureHeight;
 }
 
-@JS('XRProjectionLayerInit')
+@JS()
 @staticInterop
+@anonymous
 class XRProjectionLayerInit {
-  external factory XRProjectionLayerInit();
+  external factory XRProjectionLayerInit({
+    XRTextureType textureType = 'texture',
+    GLenum colorFormat = 0x1908,
+    GLenum depthFormat = 0x1902,
+    JSNumber scaleFactor = 1.0,
+  });
 }
 
-extension XRProjectionLayerInitExtension on XRProjectionLayerInit {}
+extension XRProjectionLayerInitExtension on XRProjectionLayerInit {
+  external set textureType(XRTextureType value);
+  external XRTextureType get textureType;
+  external set colorFormat(GLenum value);
+  external GLenum get colorFormat;
+  external set depthFormat(GLenum value);
+  external GLenum get depthFormat;
+  external set scaleFactor(JSNumber value);
+  external JSNumber get scaleFactor;
+}
 
-@JS('XRLayerInit')
+@JS()
 @staticInterop
+@anonymous
 class XRLayerInit {
-  external factory XRLayerInit();
+  external factory XRLayerInit({
+    required XRSpace space,
+    GLenum colorFormat = 0x1908,
+    GLenum? depthFormat,
+    JSNumber mipLevels = 1,
+    required JSNumber viewPixelWidth,
+    required JSNumber viewPixelHeight,
+    XRLayerLayout layout = 'mono',
+    JSBoolean isStatic = false,
+  });
 }
 
-extension XRLayerInitExtension on XRLayerInit {}
+extension XRLayerInitExtension on XRLayerInit {
+  external set space(XRSpace value);
+  external XRSpace get space;
+  external set colorFormat(GLenum value);
+  external GLenum get colorFormat;
+  external set depthFormat(GLenum? value);
+  external GLenum? get depthFormat;
+  external set mipLevels(JSNumber value);
+  external JSNumber get mipLevels;
+  external set viewPixelWidth(JSNumber value);
+  external JSNumber get viewPixelWidth;
+  external set viewPixelHeight(JSNumber value);
+  external JSNumber get viewPixelHeight;
+  external set layout(XRLayerLayout value);
+  external XRLayerLayout get layout;
+  external set isStatic(JSBoolean value);
+  external JSBoolean get isStatic;
+}
 
-@JS('XRQuadLayerInit')
+@JS()
 @staticInterop
+@anonymous
 class XRQuadLayerInit extends XRLayerInit {
-  external factory XRQuadLayerInit();
+  external factory XRQuadLayerInit({
+    XRTextureType textureType = 'texture',
+    XRRigidTransform? transform,
+    JSNumber width = 1.0,
+    JSNumber height = 1.0,
+  });
 }
 
-extension XRQuadLayerInitExtension on XRQuadLayerInit {}
+extension XRQuadLayerInitExtension on XRQuadLayerInit {
+  external set textureType(XRTextureType value);
+  external XRTextureType get textureType;
+  external set transform(XRRigidTransform? value);
+  external XRRigidTransform? get transform;
+  external set width(JSNumber value);
+  external JSNumber get width;
+  external set height(JSNumber value);
+  external JSNumber get height;
+}
 
-@JS('XRCylinderLayerInit')
+@JS()
 @staticInterop
+@anonymous
 class XRCylinderLayerInit extends XRLayerInit {
-  external factory XRCylinderLayerInit();
+  external factory XRCylinderLayerInit({
+    XRTextureType textureType = 'texture',
+    XRRigidTransform? transform,
+    JSNumber radius = 2.0,
+    JSNumber centralAngle = 0.78539,
+    JSNumber aspectRatio = 2.0,
+  });
 }
 
-extension XRCylinderLayerInitExtension on XRCylinderLayerInit {}
+extension XRCylinderLayerInitExtension on XRCylinderLayerInit {
+  external set textureType(XRTextureType value);
+  external XRTextureType get textureType;
+  external set transform(XRRigidTransform? value);
+  external XRRigidTransform? get transform;
+  external set radius(JSNumber value);
+  external JSNumber get radius;
+  external set centralAngle(JSNumber value);
+  external JSNumber get centralAngle;
+  external set aspectRatio(JSNumber value);
+  external JSNumber get aspectRatio;
+}
 
-@JS('XREquirectLayerInit')
+@JS()
 @staticInterop
+@anonymous
 class XREquirectLayerInit extends XRLayerInit {
-  external factory XREquirectLayerInit();
+  external factory XREquirectLayerInit({
+    XRTextureType textureType = 'texture',
+    XRRigidTransform? transform,
+    JSNumber radius = 0,
+    JSNumber centralHorizontalAngle = 6.28318,
+    JSNumber upperVerticalAngle = 1.570795,
+    JSNumber lowerVerticalAngle = -1.570795,
+  });
 }
 
-extension XREquirectLayerInitExtension on XREquirectLayerInit {}
+extension XREquirectLayerInitExtension on XREquirectLayerInit {
+  external set textureType(XRTextureType value);
+  external XRTextureType get textureType;
+  external set transform(XRRigidTransform? value);
+  external XRRigidTransform? get transform;
+  external set radius(JSNumber value);
+  external JSNumber get radius;
+  external set centralHorizontalAngle(JSNumber value);
+  external JSNumber get centralHorizontalAngle;
+  external set upperVerticalAngle(JSNumber value);
+  external JSNumber get upperVerticalAngle;
+  external set lowerVerticalAngle(JSNumber value);
+  external JSNumber get lowerVerticalAngle;
+}
 
-@JS('XRCubeLayerInit')
+@JS()
 @staticInterop
+@anonymous
 class XRCubeLayerInit extends XRLayerInit {
-  external factory XRCubeLayerInit();
+  external factory XRCubeLayerInit({DOMPointReadOnly? orientation});
 }
 
-extension XRCubeLayerInitExtension on XRCubeLayerInit {}
+extension XRCubeLayerInitExtension on XRCubeLayerInit {
+  external set orientation(DOMPointReadOnly? value);
+  external DOMPointReadOnly? get orientation;
+}
 
 @JS('XRWebGLBinding')
 @staticInterop
@@ -253,37 +353,94 @@ extension XRWebGLBindingExtension on XRWebGLBinding {
   );
 }
 
-@JS('XRMediaLayerInit')
+@JS()
 @staticInterop
+@anonymous
 class XRMediaLayerInit {
-  external factory XRMediaLayerInit();
+  external factory XRMediaLayerInit({
+    required XRSpace space,
+    XRLayerLayout layout = 'mono',
+    JSBoolean invertStereo = false,
+  });
 }
 
-extension XRMediaLayerInitExtension on XRMediaLayerInit {}
+extension XRMediaLayerInitExtension on XRMediaLayerInit {
+  external set space(XRSpace value);
+  external XRSpace get space;
+  external set layout(XRLayerLayout value);
+  external XRLayerLayout get layout;
+  external set invertStereo(JSBoolean value);
+  external JSBoolean get invertStereo;
+}
 
-@JS('XRMediaQuadLayerInit')
+@JS()
 @staticInterop
+@anonymous
 class XRMediaQuadLayerInit extends XRMediaLayerInit {
-  external factory XRMediaQuadLayerInit();
+  external factory XRMediaQuadLayerInit({
+    XRRigidTransform? transform,
+    JSNumber? width,
+    JSNumber? height,
+  });
 }
 
-extension XRMediaQuadLayerInitExtension on XRMediaQuadLayerInit {}
+extension XRMediaQuadLayerInitExtension on XRMediaQuadLayerInit {
+  external set transform(XRRigidTransform? value);
+  external XRRigidTransform? get transform;
+  external set width(JSNumber? value);
+  external JSNumber? get width;
+  external set height(JSNumber? value);
+  external JSNumber? get height;
+}
 
-@JS('XRMediaCylinderLayerInit')
+@JS()
 @staticInterop
+@anonymous
 class XRMediaCylinderLayerInit extends XRMediaLayerInit {
-  external factory XRMediaCylinderLayerInit();
+  external factory XRMediaCylinderLayerInit({
+    XRRigidTransform? transform,
+    JSNumber radius = 2.0,
+    JSNumber centralAngle = 0.78539,
+    JSNumber? aspectRatio,
+  });
 }
 
-extension XRMediaCylinderLayerInitExtension on XRMediaCylinderLayerInit {}
+extension XRMediaCylinderLayerInitExtension on XRMediaCylinderLayerInit {
+  external set transform(XRRigidTransform? value);
+  external XRRigidTransform? get transform;
+  external set radius(JSNumber value);
+  external JSNumber get radius;
+  external set centralAngle(JSNumber value);
+  external JSNumber get centralAngle;
+  external set aspectRatio(JSNumber? value);
+  external JSNumber? get aspectRatio;
+}
 
-@JS('XRMediaEquirectLayerInit')
+@JS()
 @staticInterop
+@anonymous
 class XRMediaEquirectLayerInit extends XRMediaLayerInit {
-  external factory XRMediaEquirectLayerInit();
+  external factory XRMediaEquirectLayerInit({
+    XRRigidTransform? transform,
+    JSNumber radius = 0.0,
+    JSNumber centralHorizontalAngle = 6.28318,
+    JSNumber upperVerticalAngle = 1.570795,
+    JSNumber lowerVerticalAngle = -1.570795,
+  });
 }
 
-extension XRMediaEquirectLayerInitExtension on XRMediaEquirectLayerInit {}
+extension XRMediaEquirectLayerInitExtension on XRMediaEquirectLayerInit {
+  external set transform(XRRigidTransform? value);
+  external XRRigidTransform? get transform;
+  external set radius(JSNumber value);
+  external JSNumber get radius;
+  external set centralHorizontalAngle(JSNumber value);
+  external JSNumber get centralHorizontalAngle;
+  external set upperVerticalAngle(JSNumber value);
+  external JSNumber get upperVerticalAngle;
+  external set lowerVerticalAngle(JSNumber value);
+  external JSNumber get lowerVerticalAngle;
+}
 
 @JS('XRMediaBinding')
 @staticInterop
@@ -326,10 +483,14 @@ extension XRLayerEventExtension on XRLayerEvent {
   external XRLayer get layer;
 }
 
-@JS('XRLayerEventInit')
+@JS()
 @staticInterop
+@anonymous
 class XRLayerEventInit extends EventInit {
-  external factory XRLayerEventInit();
+  external factory XRLayerEventInit({required XRLayer layer});
 }
 
-extension XRLayerEventInitExtension on XRLayerEventInit {}
+extension XRLayerEventInitExtension on XRLayerEventInit {
+  external set layer(XRLayer value);
+  external XRLayer get layer;
+}

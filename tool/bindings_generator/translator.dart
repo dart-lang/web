@@ -138,6 +138,8 @@ class _PartialInterfacelike {
           _processMember(operation, operation.special.toDart);
           break;
         case 'field':
+          members.add(member);
+          break;
         case 'maplike':
         case 'setlike':
         case 'iterable':
@@ -312,6 +314,54 @@ class Translator {
     return builtConstructors;
   }
 
+  String? _defaultValue(idl.Value? value) {
+    if (value == null) {
+      return null;
+    }
+    final type = value.type.toDart;
+    final defaultValue = value.value;
+    if (defaultValue == null) {
+      return null;
+    }
+    switch (type) {
+      case 'boolean':
+        return (defaultValue as JSBoolean).toDart.toString();
+      case 'string':
+        return "'${(defaultValue as JSString).toDart}'";
+      case 'number':
+        return (defaultValue as JSString).toDart.toString();
+      case 'sequence':
+        // For sequence, the only possible value is `[]`.
+        return 'const []';
+      default:
+        throw Exception('Default value not allowed for $type');
+    }
+  }
+
+  code.Constructor _objectLiteral(
+      String dartClassName, List<idl.Member> members) {
+    final optionalParameters = <code.Parameter>[];
+    for (final member in members) {
+      // We currently only lower dictionaries to object literals, and
+      // dictionaries can only have 'field' members.
+      assert(member.type == 'field');
+      final field = member as idl.Field;
+      final isRequired = field.required.toDart;
+      final defaultValue = _defaultValue(field.defaultValue);
+      final parameter = code.Parameter((b) => b
+        ..name = _argumentName(field.name.toDart)
+        ..type = _idlTypeToTypeReference(field.idlType)
+        ..required = isRequired
+        ..defaultTo = defaultValue == null ? null : code.Code(defaultValue)
+        ..named = true);
+      optionalParameters.add(parameter);
+    }
+    return code.Constructor((b) => b
+      ..optionalParameters.addAll(optionalParameters)
+      ..external = true
+      ..factory = true);
+  }
+
   _MemberName _memberName(String name) {
     // TODO(joshualitt): Name override members more elegantly.
     var memberName = name;
@@ -326,13 +376,14 @@ class Translator {
   }
 
   List<code.Expression> _jsOverride(String? jsOverride,
-          [bool staticInterop = false]) =>
+          {bool staticInterop = false, bool objectLiteral = false}) =>
       [
         if (jsOverride != null)
           code.refer('JS', 'dart:js_interop').call([
             if (jsOverride.isNotEmpty) code.literalString(jsOverride),
           ]),
         if (staticInterop) code.refer('staticInterop'),
+        if (objectLiteral) code.refer('anonymous'),
       ];
 
   List<code.Method> _operation(idl.Operation operation) {
@@ -350,29 +401,39 @@ class Translator {
           ..requiredParameters.addAll(parameters)));
   }
 
-  List<code.Method> _attribute(idl.Attribute attribute) {
-    final memberName = _memberName(attribute.name.toDart);
+  List<code.Method> _getterSetter(
+      {required String fieldName,
+      required idl.IDLType type,
+      required bool isStatic,
+      required bool readOnly}) {
+    final memberName = _memberName(fieldName);
     final name = memberName.name;
     return [
-      if (!attribute.readonly.toDart)
+      if (!readOnly)
         code.Method((b) => b
           ..annotations.addAll(_jsOverride(memberName.jsOverride))
           ..external = true
-          ..static = attribute.special.toDart == 'static'
+          ..static = isStatic
           ..type = code.MethodType.setter
           ..name = name
           ..requiredParameters.add(code.Parameter((b) => b
-            ..type = _idlTypeToTypeReference(attribute.idlType)
+            ..type = _idlTypeToTypeReference(type)
             ..name = 'value'))),
       code.Method((b) => b
         ..annotations.addAll(_jsOverride(memberName.jsOverride))
         ..external = true
-        ..static = attribute.special.toDart == 'static'
-        ..returns = _idlTypeToTypeReference(attribute.idlType, true)
+        ..static = isStatic
+        ..returns = _idlTypeToTypeReference(type, true)
         ..type = code.MethodType.getter
         ..name = name)
     ];
   }
+
+  List<code.Method> _attribute(idl.Attribute attribute) => _getterSetter(
+      fieldName: attribute.name.toDart,
+      type: attribute.idlType,
+      readOnly: attribute.readonly.toDart,
+      isStatic: attribute.special.toDart == 'static');
 
   code.Method _constant(idl.Constant constant) => code.Method((b) => b
     ..external = true
@@ -380,6 +441,12 @@ class Translator {
     ..returns = _idlTypeToTypeReference(constant.idlType, true)
     ..type = code.MethodType.getter
     ..name = constant.name.toDart);
+
+  List<code.Method> _field(idl.Field field) => _getterSetter(
+      fieldName: field.name.toDart,
+      type: field.idlType,
+      readOnly: false,
+      isStatic: false);
 
   List<code.Method> _member(idl.Member member) {
     final type = member.type.toDart;
@@ -391,6 +458,7 @@ class Translator {
       case 'const':
         return [_constant(member as idl.Constant)];
       case 'field':
+        return _field(member as idl.Field);
       case 'iterable':
       case 'maplike':
       case 'setlike':
@@ -410,26 +478,31 @@ class Translator {
         ..on = _typeReference(name)
         ..methods.addAll(_members(members)));
 
-  code.Class _class(
-    String jsName,
-    String dartClassName,
-    String? inheritance,
-    List<String> includes,
-    List<idl.Constructor> constructors,
-    bool needsNoArgumentsConstructor,
-    List<idl.Member> staticMembers, {
-    required bool abstract,
+  code.Class _class({
+    required String jsName,
+    required String dartClassName,
+    required String? inheritance,
+    required List<String> includes,
+    required List<idl.Constructor> constructors,
+    required bool needsNoArgumentsConstructor,
+    required List<idl.Member> members,
+    required List<idl.Member> staticMembers,
+    required bool isAbstract,
+    required bool isObjectLiteral,
   }) =>
       code.Class(
         (b) => b
-          ..annotations.addAll(_jsOverride(jsName, true))
+          ..annotations.addAll(_jsOverride(isObjectLiteral ? '' : jsName,
+              staticInterop: true, objectLiteral: isObjectLiteral))
           ..name = dartClassName
           ..extend = inheritance == null ? null : _typeReference(inheritance)
           ..implements.addAll(includes.map(_typeReference))
-          ..constructors.addAll(_constructors(
-              dartClassName, constructors, needsNoArgumentsConstructor))
+          ..constructors.addAll(isObjectLiteral
+              ? [_objectLiteral(dartClassName, members)]
+              : _constructors(
+                  dartClassName, constructors, needsNoArgumentsConstructor))
           ..methods.addAll(_members(staticMembers))
-          ..abstract = abstract,
+          ..abstract = isAbstract,
       );
 
   List<code.Spec> _interfacelike(idl.Interfacelike idlInterfacelike) {
@@ -440,8 +513,8 @@ class Translator {
     final interfacelike = _interfacelikes[name]!;
     final jsName = interfacelike.name;
     final type = interfacelike.type;
-
     final isNamespace = type == 'namespace';
+    final isDictionary = type == 'dictionary';
 
     // Namespaces have lowercase names. We also translate them to
     // private classes, and make their first character uppercase in the process.
@@ -456,14 +529,16 @@ class Translator {
     return [
       if (getterName != null) _topLevelGetter(dartClassName, getterName),
       _class(
-          jsName,
-          dartClassName,
-          interfacelike.inheritance,
-          interfacelike.includes,
-          interfacelike.constructors,
-          !interfacelike.hasNoArgumentsConstructor,
-          interfacelike.staticMembers,
-          abstract: isNamespace),
+          jsName: jsName,
+          dartClassName: dartClassName,
+          inheritance: interfacelike.inheritance,
+          includes: interfacelike.includes,
+          constructors: interfacelike.constructors,
+          needsNoArgumentsConstructor: !interfacelike.hasNoArgumentsConstructor,
+          members: interfacelike.members,
+          staticMembers: interfacelike.staticMembers,
+          isAbstract: isNamespace,
+          isObjectLiteral: isDictionary),
       if (members.isNotEmpty) _extension(dartClassName, members)
     ];
   }

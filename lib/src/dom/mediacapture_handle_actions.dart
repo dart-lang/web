@@ -26,10 +26,14 @@ extension CaptureActionEventExtension on CaptureActionEvent {
   external CaptureAction get action;
 }
 
-@JS('CaptureActionEventInit')
+@JS()
 @staticInterop
+@anonymous
 class CaptureActionEventInit extends EventInit {
-  external factory CaptureActionEventInit();
+  external factory CaptureActionEventInit({JSString action});
 }
 
-extension CaptureActionEventInitExtension on CaptureActionEventInit {}
+extension CaptureActionEventInitExtension on CaptureActionEventInit {
+  external set action(JSString value);
+  external JSString get action;
+}

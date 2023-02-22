@@ -25,13 +25,17 @@ extension PermissionsExtension on Permissions {
   external JSPromise query(JSObject permissionDesc);
 }
 
-@JS('PermissionDescriptor')
+@JS()
 @staticInterop
+@anonymous
 class PermissionDescriptor {
-  external factory PermissionDescriptor();
+  external factory PermissionDescriptor({required JSString name});
 }
 
-extension PermissionDescriptorExtension on PermissionDescriptor {}
+extension PermissionDescriptorExtension on PermissionDescriptor {
+  external set name(JSString value);
+  external JSString get name;
+}
 
 @JS('PermissionStatus')
 @staticInterop
@@ -46,10 +50,19 @@ extension PermissionStatusExtension on PermissionStatus {
   external EventHandler get onchange;
 }
 
-@JS('PermissionSetParameters')
+@JS()
 @staticInterop
+@anonymous
 class PermissionSetParameters {
-  external factory PermissionSetParameters();
+  external factory PermissionSetParameters({
+    required PermissionDescriptor descriptor,
+    required PermissionState state,
+  });
 }
 
-extension PermissionSetParametersExtension on PermissionSetParameters {}
+extension PermissionSetParametersExtension on PermissionSetParameters {
+  external set descriptor(PermissionDescriptor value);
+  external PermissionDescriptor get descriptor;
+  external set state(PermissionState value);
+  external PermissionState get state;
+}

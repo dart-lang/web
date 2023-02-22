@@ -181,10 +181,22 @@ extension ProgressEventExtension on ProgressEvent {
   external JSNumber get total;
 }
 
-@JS('ProgressEventInit')
+@JS()
 @staticInterop
+@anonymous
 class ProgressEventInit extends EventInit {
-  external factory ProgressEventInit();
+  external factory ProgressEventInit({
+    JSBoolean lengthComputable = false,
+    JSNumber loaded = 0,
+    JSNumber total = 0,
+  });
 }
 
-extension ProgressEventInitExtension on ProgressEventInit {}
+extension ProgressEventInitExtension on ProgressEventInit {
+  external set lengthComputable(JSBoolean value);
+  external JSBoolean get lengthComputable;
+  external set loaded(JSNumber value);
+  external JSNumber get loaded;
+  external set total(JSNumber value);
+  external JSNumber get total;
+}

@@ -14,13 +14,22 @@ import 'web_animations.dart';
 
 typedef ScrollAxis = JSString;
 
-@JS('ScrollTimelineOptions')
+@JS()
 @staticInterop
+@anonymous
 class ScrollTimelineOptions {
-  external factory ScrollTimelineOptions();
+  external factory ScrollTimelineOptions({
+    Element? source,
+    ScrollAxis axis = 'block',
+  });
 }
 
-extension ScrollTimelineOptionsExtension on ScrollTimelineOptions {}
+extension ScrollTimelineOptionsExtension on ScrollTimelineOptions {
+  external set source(Element? value);
+  external Element? get source;
+  external set axis(ScrollAxis value);
+  external ScrollAxis get axis;
+}
 
 @JS('ScrollTimeline')
 @staticInterop
@@ -37,13 +46,22 @@ extension ScrollTimelineExtension on ScrollTimeline {
   external ScrollAxis get axis;
 }
 
-@JS('ViewTimelineOptions')
+@JS()
 @staticInterop
+@anonymous
 class ViewTimelineOptions {
-  external factory ViewTimelineOptions();
+  external factory ViewTimelineOptions({
+    Element subject,
+    ScrollAxis axis = 'block',
+  });
 }
 
-extension ViewTimelineOptionsExtension on ViewTimelineOptions {}
+extension ViewTimelineOptionsExtension on ViewTimelineOptions {
+  external set subject(Element value);
+  external Element get subject;
+  external set axis(ScrollAxis value);
+  external ScrollAxis get axis;
+}
 
 @JS('ViewTimeline')
 @staticInterop

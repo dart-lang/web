@@ -26,10 +26,22 @@ extension ProximitySensorExtension on ProximitySensor {
   external JSBoolean? get near;
 }
 
-@JS('ProximityReadingValues')
+@JS()
 @staticInterop
+@anonymous
 class ProximityReadingValues {
-  external factory ProximityReadingValues();
+  external factory ProximityReadingValues({
+    required JSNumber? distance,
+    required JSNumber? max,
+    required JSBoolean? near,
+  });
 }
 
-extension ProximityReadingValuesExtension on ProximityReadingValues {}
+extension ProximityReadingValuesExtension on ProximityReadingValues {
+  external set distance(JSNumber? value);
+  external JSNumber? get distance;
+  external set max(JSNumber? value);
+  external JSNumber? get max;
+  external set near(JSBoolean? value);
+  external JSBoolean? get near;
+}

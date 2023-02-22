@@ -26,21 +26,29 @@ extension PeriodicSyncManagerExtension on PeriodicSyncManager {
   external JSPromise unregister(JSString tag);
 }
 
-@JS('BackgroundSyncOptions')
+@JS()
 @staticInterop
+@anonymous
 class BackgroundSyncOptions {
-  external factory BackgroundSyncOptions();
+  external factory BackgroundSyncOptions({JSNumber minInterval = 0});
 }
 
-extension BackgroundSyncOptionsExtension on BackgroundSyncOptions {}
+extension BackgroundSyncOptionsExtension on BackgroundSyncOptions {
+  external set minInterval(JSNumber value);
+  external JSNumber get minInterval;
+}
 
-@JS('PeriodicSyncEventInit')
+@JS()
 @staticInterop
+@anonymous
 class PeriodicSyncEventInit extends ExtendableEventInit {
-  external factory PeriodicSyncEventInit();
+  external factory PeriodicSyncEventInit({required JSString tag});
 }
 
-extension PeriodicSyncEventInitExtension on PeriodicSyncEventInit {}
+extension PeriodicSyncEventInitExtension on PeriodicSyncEventInit {
+  external set tag(JSString value);
+  external JSString get tag;
+}
 
 @JS('PeriodicSyncEvent')
 @staticInterop

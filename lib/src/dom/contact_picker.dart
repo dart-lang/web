@@ -30,21 +30,43 @@ extension ContactAddressExtension on ContactAddress {
   external JSArray get addressLine;
 }
 
-@JS('ContactInfo')
+@JS()
 @staticInterop
+@anonymous
 class ContactInfo {
-  external factory ContactInfo();
+  external factory ContactInfo({
+    JSArray address,
+    JSArray email,
+    JSArray icon,
+    JSArray name,
+    JSArray tel,
+  });
 }
 
-extension ContactInfoExtension on ContactInfo {}
+extension ContactInfoExtension on ContactInfo {
+  external set address(JSArray value);
+  external JSArray get address;
+  external set email(JSArray value);
+  external JSArray get email;
+  external set icon(JSArray value);
+  external JSArray get icon;
+  external set name(JSArray value);
+  external JSArray get name;
+  external set tel(JSArray value);
+  external JSArray get tel;
+}
 
-@JS('ContactsSelectOptions')
+@JS()
 @staticInterop
+@anonymous
 class ContactsSelectOptions {
-  external factory ContactsSelectOptions();
+  external factory ContactsSelectOptions({JSBoolean multiple = false});
 }
 
-extension ContactsSelectOptionsExtension on ContactsSelectOptions {}
+extension ContactsSelectOptionsExtension on ContactsSelectOptions {
+  external set multiple(JSBoolean value);
+  external JSBoolean get multiple;
+}
 
 @JS('ContactsManager')
 @staticInterop

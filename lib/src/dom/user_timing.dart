@@ -8,23 +8,48 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
+import 'hr_time.dart';
 import 'performance_timeline.dart';
 
-@JS('PerformanceMarkOptions')
+@JS()
 @staticInterop
+@anonymous
 class PerformanceMarkOptions {
-  external factory PerformanceMarkOptions();
+  external factory PerformanceMarkOptions({
+    JSAny detail,
+    DOMHighResTimeStamp startTime,
+  });
 }
 
-extension PerformanceMarkOptionsExtension on PerformanceMarkOptions {}
+extension PerformanceMarkOptionsExtension on PerformanceMarkOptions {
+  external set detail(JSAny value);
+  external JSAny get detail;
+  external set startTime(DOMHighResTimeStamp value);
+  external DOMHighResTimeStamp get startTime;
+}
 
-@JS('PerformanceMeasureOptions')
+@JS()
 @staticInterop
+@anonymous
 class PerformanceMeasureOptions {
-  external factory PerformanceMeasureOptions();
+  external factory PerformanceMeasureOptions({
+    JSAny detail,
+    JSAny start,
+    DOMHighResTimeStamp duration,
+    JSAny end,
+  });
 }
 
-extension PerformanceMeasureOptionsExtension on PerformanceMeasureOptions {}
+extension PerformanceMeasureOptionsExtension on PerformanceMeasureOptions {
+  external set detail(JSAny value);
+  external JSAny get detail;
+  external set start(JSAny value);
+  external JSAny get start;
+  external set duration(DOMHighResTimeStamp value);
+  external DOMHighResTimeStamp get duration;
+  external set end(JSAny value);
+  external JSAny get end;
+}
 
 @JS('PerformanceMark')
 @staticInterop

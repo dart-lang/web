@@ -28,13 +28,18 @@ extension MagnetometerExtension on Magnetometer {
   external JSNumber? get z;
 }
 
-@JS('MagnetometerSensorOptions')
+@JS()
 @staticInterop
+@anonymous
 class MagnetometerSensorOptions extends SensorOptions {
-  external factory MagnetometerSensorOptions();
+  external factory MagnetometerSensorOptions(
+      {MagnetometerLocalCoordinateSystem referenceFrame = 'device'});
 }
 
-extension MagnetometerSensorOptionsExtension on MagnetometerSensorOptions {}
+extension MagnetometerSensorOptionsExtension on MagnetometerSensorOptions {
+  external set referenceFrame(MagnetometerLocalCoordinateSystem value);
+  external MagnetometerLocalCoordinateSystem get referenceFrame;
+}
 
 @JS('UncalibratedMagnetometer')
 @staticInterop
@@ -56,19 +61,52 @@ extension UncalibratedMagnetometerExtension on UncalibratedMagnetometer {
   external JSNumber? get zBias;
 }
 
-@JS('MagnetometerReadingValues')
+@JS()
 @staticInterop
+@anonymous
 class MagnetometerReadingValues {
-  external factory MagnetometerReadingValues();
+  external factory MagnetometerReadingValues({
+    required JSNumber? x,
+    required JSNumber? y,
+    required JSNumber? z,
+  });
 }
 
-extension MagnetometerReadingValuesExtension on MagnetometerReadingValues {}
+extension MagnetometerReadingValuesExtension on MagnetometerReadingValues {
+  external set x(JSNumber? value);
+  external JSNumber? get x;
+  external set y(JSNumber? value);
+  external JSNumber? get y;
+  external set z(JSNumber? value);
+  external JSNumber? get z;
+}
 
-@JS('UncalibratedMagnetometerReadingValues')
+@JS()
 @staticInterop
+@anonymous
 class UncalibratedMagnetometerReadingValues {
-  external factory UncalibratedMagnetometerReadingValues();
+  external factory UncalibratedMagnetometerReadingValues({
+    required JSNumber? x,
+    required JSNumber? y,
+    required JSNumber? z,
+    required JSNumber? xBias,
+    required JSNumber? yBias,
+    required JSNumber? zBias,
+  });
 }
 
 extension UncalibratedMagnetometerReadingValuesExtension
-    on UncalibratedMagnetometerReadingValues {}
+    on UncalibratedMagnetometerReadingValues {
+  external set x(JSNumber? value);
+  external JSNumber? get x;
+  external set y(JSNumber? value);
+  external JSNumber? get y;
+  external set z(JSNumber? value);
+  external JSNumber? get z;
+  external set xBias(JSNumber? value);
+  external JSNumber? get xBias;
+  external set yBias(JSNumber? value);
+  external JSNumber? get yBias;
+  external set zBias(JSNumber? value);
+  external JSNumber? get zBias;
+}

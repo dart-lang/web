@@ -34,14 +34,19 @@ extension FileSystemHandleExtension on FileSystemHandle {
   external JSPromise isSameEntry(FileSystemHandle other);
 }
 
-@JS('FileSystemCreateWritableOptions')
+@JS()
 @staticInterop
+@anonymous
 class FileSystemCreateWritableOptions {
-  external factory FileSystemCreateWritableOptions();
+  external factory FileSystemCreateWritableOptions(
+      {JSBoolean keepExistingData = false});
 }
 
 extension FileSystemCreateWritableOptionsExtension
-    on FileSystemCreateWritableOptions {}
+    on FileSystemCreateWritableOptions {
+  external set keepExistingData(JSBoolean value);
+  external JSBoolean get keepExistingData;
+}
 
 @JS('FileSystemFileHandle')
 @staticInterop
@@ -56,30 +61,42 @@ extension FileSystemFileHandleExtension on FileSystemFileHandle {
   external JSPromise createSyncAccessHandle();
 }
 
-@JS('FileSystemGetFileOptions')
+@JS()
 @staticInterop
+@anonymous
 class FileSystemGetFileOptions {
-  external factory FileSystemGetFileOptions();
+  external factory FileSystemGetFileOptions({JSBoolean create = false});
 }
 
-extension FileSystemGetFileOptionsExtension on FileSystemGetFileOptions {}
+extension FileSystemGetFileOptionsExtension on FileSystemGetFileOptions {
+  external set create(JSBoolean value);
+  external JSBoolean get create;
+}
 
-@JS('FileSystemGetDirectoryOptions')
+@JS()
 @staticInterop
+@anonymous
 class FileSystemGetDirectoryOptions {
-  external factory FileSystemGetDirectoryOptions();
+  external factory FileSystemGetDirectoryOptions({JSBoolean create = false});
 }
 
 extension FileSystemGetDirectoryOptionsExtension
-    on FileSystemGetDirectoryOptions {}
-
-@JS('FileSystemRemoveOptions')
-@staticInterop
-class FileSystemRemoveOptions {
-  external factory FileSystemRemoveOptions();
+    on FileSystemGetDirectoryOptions {
+  external set create(JSBoolean value);
+  external JSBoolean get create;
 }
 
-extension FileSystemRemoveOptionsExtension on FileSystemRemoveOptions {}
+@JS()
+@staticInterop
+@anonymous
+class FileSystemRemoveOptions {
+  external factory FileSystemRemoveOptions({JSBoolean recursive = false});
+}
+
+extension FileSystemRemoveOptionsExtension on FileSystemRemoveOptions {
+  external set recursive(JSBoolean value);
+  external JSBoolean get recursive;
+}
 
 @JS('FileSystemDirectoryHandle')
 @staticInterop
@@ -106,13 +123,28 @@ extension FileSystemDirectoryHandleExtension on FileSystemDirectoryHandle {
   external JSPromise resolve(FileSystemHandle possibleDescendant);
 }
 
-@JS('WriteParams')
+@JS()
 @staticInterop
+@anonymous
 class WriteParams {
-  external factory WriteParams();
+  external factory WriteParams({
+    required WriteCommandType type,
+    JSNumber? size,
+    JSNumber? position,
+    JSAny? data,
+  });
 }
 
-extension WriteParamsExtension on WriteParams {}
+extension WriteParamsExtension on WriteParams {
+  external set type(WriteCommandType value);
+  external WriteCommandType get type;
+  external set size(JSNumber? value);
+  external JSNumber? get size;
+  external set position(JSNumber? value);
+  external JSNumber? get position;
+  external set data(JSAny? value);
+  external JSAny? get data;
+}
 
 @JS('FileSystemWritableFileStream')
 @staticInterop
@@ -127,13 +159,17 @@ extension FileSystemWritableFileStreamExtension
   external JSPromise truncate(JSNumber size);
 }
 
-@JS('FileSystemReadWriteOptions')
+@JS()
 @staticInterop
+@anonymous
 class FileSystemReadWriteOptions {
-  external factory FileSystemReadWriteOptions();
+  external factory FileSystemReadWriteOptions({JSNumber at});
 }
 
-extension FileSystemReadWriteOptionsExtension on FileSystemReadWriteOptions {}
+extension FileSystemReadWriteOptionsExtension on FileSystemReadWriteOptions {
+  external set at(JSNumber value);
+  external JSNumber get at;
+}
 
 @JS('FileSystemSyncAccessHandle')
 @staticInterop

@@ -30,13 +30,22 @@ extension LayoutWorkletGlobalScopeExtension on LayoutWorkletGlobalScope {
   );
 }
 
-@JS('LayoutOptions')
+@JS()
 @staticInterop
+@anonymous
 class LayoutOptions {
-  external factory LayoutOptions();
+  external factory LayoutOptions({
+    ChildDisplayType childDisplay = 'block',
+    LayoutSizingMode sizing = 'block-like',
+  });
 }
 
-extension LayoutOptionsExtension on LayoutOptions {}
+extension LayoutOptionsExtension on LayoutOptions {
+  external set childDisplay(ChildDisplayType value);
+  external ChildDisplayType get childDisplay;
+  external set sizing(LayoutSizingMode value);
+  external LayoutSizingMode get sizing;
+}
 
 @JS('LayoutChild')
 @staticInterop
@@ -99,13 +108,43 @@ extension LayoutConstraintsExtension on LayoutConstraints {
   external JSAny get data;
 }
 
-@JS('LayoutConstraintsOptions')
+@JS()
 @staticInterop
+@anonymous
 class LayoutConstraintsOptions {
-  external factory LayoutConstraintsOptions();
+  external factory LayoutConstraintsOptions({
+    JSNumber availableInlineSize,
+    JSNumber availableBlockSize,
+    JSNumber fixedInlineSize,
+    JSNumber fixedBlockSize,
+    JSNumber percentageInlineSize,
+    JSNumber percentageBlockSize,
+    JSNumber blockFragmentationOffset,
+    BlockFragmentationType blockFragmentationType = 'none',
+    JSAny data,
+  });
 }
 
-extension LayoutConstraintsOptionsExtension on LayoutConstraintsOptions {}
+extension LayoutConstraintsOptionsExtension on LayoutConstraintsOptions {
+  external set availableInlineSize(JSNumber value);
+  external JSNumber get availableInlineSize;
+  external set availableBlockSize(JSNumber value);
+  external JSNumber get availableBlockSize;
+  external set fixedInlineSize(JSNumber value);
+  external JSNumber get fixedInlineSize;
+  external set fixedBlockSize(JSNumber value);
+  external JSNumber get fixedBlockSize;
+  external set percentageInlineSize(JSNumber value);
+  external JSNumber get percentageInlineSize;
+  external set percentageBlockSize(JSNumber value);
+  external JSNumber get percentageBlockSize;
+  external set blockFragmentationOffset(JSNumber value);
+  external JSNumber get blockFragmentationOffset;
+  external set blockFragmentationType(BlockFragmentationType value);
+  external BlockFragmentationType get blockFragmentationType;
+  external set data(JSAny value);
+  external JSAny get data;
+}
 
 @JS('ChildBreakToken')
 @staticInterop
@@ -129,13 +168,22 @@ extension BreakTokenExtension on BreakToken {
   external JSAny get data;
 }
 
-@JS('BreakTokenOptions')
+@JS()
 @staticInterop
+@anonymous
 class BreakTokenOptions {
-  external factory BreakTokenOptions();
+  external factory BreakTokenOptions({
+    JSArray childBreakTokens,
+    JSAny data,
+  });
 }
 
-extension BreakTokenOptionsExtension on BreakTokenOptions {}
+extension BreakTokenOptionsExtension on BreakTokenOptions {
+  external set childBreakTokens(JSArray value);
+  external JSArray get childBreakTokens;
+  external set data(JSAny value);
+  external JSAny get data;
+}
 
 @JS('LayoutEdges')
 @staticInterop
@@ -152,13 +200,34 @@ extension LayoutEdgesExtension on LayoutEdges {
   external JSNumber get block;
 }
 
-@JS('FragmentResultOptions')
+@JS()
 @staticInterop
+@anonymous
 class FragmentResultOptions {
-  external factory FragmentResultOptions();
+  external factory FragmentResultOptions({
+    JSNumber inlineSize = 0,
+    JSNumber blockSize = 0,
+    JSNumber autoBlockSize = 0,
+    JSArray childFragments = const [],
+    JSAny data,
+    BreakTokenOptions breakToken,
+  });
 }
 
-extension FragmentResultOptionsExtension on FragmentResultOptions {}
+extension FragmentResultOptionsExtension on FragmentResultOptions {
+  external set inlineSize(JSNumber value);
+  external JSNumber get inlineSize;
+  external set blockSize(JSNumber value);
+  external JSNumber get blockSize;
+  external set autoBlockSize(JSNumber value);
+  external JSNumber get autoBlockSize;
+  external set childFragments(JSArray value);
+  external JSArray get childFragments;
+  external set data(JSAny value);
+  external JSAny get data;
+  external set breakToken(BreakTokenOptions value);
+  external BreakTokenOptions get breakToken;
+}
 
 @JS('FragmentResult')
 @staticInterop
@@ -175,10 +244,19 @@ extension FragmentResultExtension on FragmentResult {
   external JSNumber get blockSize;
 }
 
-@JS('IntrinsicSizesResultOptions')
+@JS()
 @staticInterop
+@anonymous
 class IntrinsicSizesResultOptions {
-  external factory IntrinsicSizesResultOptions();
+  external factory IntrinsicSizesResultOptions({
+    JSNumber maxContentSize,
+    JSNumber minContentSize,
+  });
 }
 
-extension IntrinsicSizesResultOptionsExtension on IntrinsicSizesResultOptions {}
+extension IntrinsicSizesResultOptionsExtension on IntrinsicSizesResultOptions {
+  external set maxContentSize(JSNumber value);
+  external JSNumber get maxContentSize;
+  external set minContentSize(JSNumber value);
+  external JSNumber get minContentSize;
+}

@@ -10,10 +10,14 @@ import 'package:js/js.dart' hide JS;
 
 typedef HevcBitstreamFormat = JSString;
 
-@JS('HevcEncoderConfig')
+@JS()
 @staticInterop
+@anonymous
 class HevcEncoderConfig {
-  external factory HevcEncoderConfig();
+  external factory HevcEncoderConfig({HevcBitstreamFormat format = 'hevc'});
 }
 
-extension HevcEncoderConfigExtension on HevcEncoderConfig {}
+extension HevcEncoderConfigExtension on HevcEncoderConfig {
+  external set format(HevcBitstreamFormat value);
+  external HevcBitstreamFormat get format;
+}

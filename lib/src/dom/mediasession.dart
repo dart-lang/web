@@ -54,34 +54,88 @@ extension MediaMetadataExtension on MediaMetadata {
   external JSArray get artwork;
 }
 
-@JS('MediaMetadataInit')
+@JS()
 @staticInterop
+@anonymous
 class MediaMetadataInit {
-  external factory MediaMetadataInit();
+  external factory MediaMetadataInit({
+    JSString title = '',
+    JSString artist = '',
+    JSString album = '',
+    JSArray artwork = const [],
+  });
 }
 
-extension MediaMetadataInitExtension on MediaMetadataInit {}
+extension MediaMetadataInitExtension on MediaMetadataInit {
+  external set title(JSString value);
+  external JSString get title;
+  external set artist(JSString value);
+  external JSString get artist;
+  external set album(JSString value);
+  external JSString get album;
+  external set artwork(JSArray value);
+  external JSArray get artwork;
+}
 
-@JS('MediaImage')
+@JS()
 @staticInterop
+@anonymous
 class MediaImage {
-  external factory MediaImage();
+  external factory MediaImage({
+    required JSString src,
+    JSString sizes = '',
+    JSString type = '',
+  });
 }
 
-extension MediaImageExtension on MediaImage {}
+extension MediaImageExtension on MediaImage {
+  external set src(JSString value);
+  external JSString get src;
+  external set sizes(JSString value);
+  external JSString get sizes;
+  external set type(JSString value);
+  external JSString get type;
+}
 
-@JS('MediaPositionState')
+@JS()
 @staticInterop
+@anonymous
 class MediaPositionState {
-  external factory MediaPositionState();
+  external factory MediaPositionState({
+    JSNumber duration,
+    JSNumber playbackRate,
+    JSNumber position,
+  });
 }
 
-extension MediaPositionStateExtension on MediaPositionState {}
+extension MediaPositionStateExtension on MediaPositionState {
+  external set duration(JSNumber value);
+  external JSNumber get duration;
+  external set playbackRate(JSNumber value);
+  external JSNumber get playbackRate;
+  external set position(JSNumber value);
+  external JSNumber get position;
+}
 
-@JS('MediaSessionActionDetails')
+@JS()
 @staticInterop
+@anonymous
 class MediaSessionActionDetails {
-  external factory MediaSessionActionDetails();
+  external factory MediaSessionActionDetails({
+    required MediaSessionAction action,
+    JSNumber seekOffset,
+    JSNumber seekTime,
+    JSBoolean fastSeek,
+  });
 }
 
-extension MediaSessionActionDetailsExtension on MediaSessionActionDetails {}
+extension MediaSessionActionDetailsExtension on MediaSessionActionDetails {
+  external set action(MediaSessionAction value);
+  external MediaSessionAction get action;
+  external set seekOffset(JSNumber value);
+  external JSNumber get seekOffset;
+  external set seekTime(JSNumber value);
+  external JSNumber get seekTime;
+  external set fastSeek(JSBoolean value);
+  external JSBoolean get fastSeek;
+}

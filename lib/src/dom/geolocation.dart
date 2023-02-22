@@ -43,13 +43,25 @@ extension GeolocationExtension on Geolocation {
   external JSVoid clearWatch(JSNumber watchId);
 }
 
-@JS('PositionOptions')
+@JS()
 @staticInterop
+@anonymous
 class PositionOptions {
-  external factory PositionOptions();
+  external factory PositionOptions({
+    JSBoolean enableHighAccuracy = false,
+    JSNumber timeout = 0xFFFFFFFF,
+    JSNumber maximumAge = 0,
+  });
 }
 
-extension PositionOptionsExtension on PositionOptions {}
+extension PositionOptionsExtension on PositionOptions {
+  external set enableHighAccuracy(JSBoolean value);
+  external JSBoolean get enableHighAccuracy;
+  external set timeout(JSNumber value);
+  external JSNumber get timeout;
+  external set maximumAge(JSNumber value);
+  external JSNumber get maximumAge;
+}
 
 @JS('GeolocationPosition')
 @staticInterop

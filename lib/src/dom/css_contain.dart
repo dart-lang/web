@@ -28,11 +28,16 @@ extension ContentVisibilityAutoStateChangedEventExtension
   external JSBoolean get skipped;
 }
 
-@JS('ContentVisibilityAutoStateChangedEventInit')
+@JS()
 @staticInterop
+@anonymous
 class ContentVisibilityAutoStateChangedEventInit extends EventInit {
-  external factory ContentVisibilityAutoStateChangedEventInit();
+  external factory ContentVisibilityAutoStateChangedEventInit(
+      {JSBoolean skipped = false});
 }
 
 extension ContentVisibilityAutoStateChangedEventInitExtension
-    on ContentVisibilityAutoStateChangedEventInit {}
+    on ContentVisibilityAutoStateChangedEventInit {
+  external set skipped(JSBoolean value);
+  external JSBoolean get skipped;
+}

@@ -51,10 +51,14 @@ extension PressureRecordExtension on PressureRecord {
   external JSObject toJSON();
 }
 
-@JS('PressureObserverOptions')
+@JS()
 @staticInterop
+@anonymous
 class PressureObserverOptions {
-  external factory PressureObserverOptions();
+  external factory PressureObserverOptions({JSNumber sampleRate = 1.0});
 }
 
-extension PressureObserverOptionsExtension on PressureObserverOptions {}
+extension PressureObserverOptionsExtension on PressureObserverOptions {
+  external set sampleRate(JSNumber value);
+  external JSNumber get sampleRate;
+}

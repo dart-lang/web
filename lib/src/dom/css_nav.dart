@@ -14,22 +14,35 @@ import 'uievents.dart';
 typedef SpatialNavigationDirection = JSString;
 typedef FocusableAreaSearchMode = JSString;
 
-@JS('FocusableAreasOption')
+@JS()
 @staticInterop
+@anonymous
 class FocusableAreasOption {
-  external factory FocusableAreasOption();
+  external factory FocusableAreasOption({FocusableAreaSearchMode mode});
 }
 
-extension FocusableAreasOptionExtension on FocusableAreasOption {}
+extension FocusableAreasOptionExtension on FocusableAreasOption {
+  external set mode(FocusableAreaSearchMode value);
+  external FocusableAreaSearchMode get mode;
+}
 
-@JS('SpatialNavigationSearchOptions')
+@JS()
 @staticInterop
+@anonymous
 class SpatialNavigationSearchOptions {
-  external factory SpatialNavigationSearchOptions();
+  external factory SpatialNavigationSearchOptions({
+    JSArray? candidates,
+    Node? container,
+  });
 }
 
 extension SpatialNavigationSearchOptionsExtension
-    on SpatialNavigationSearchOptions {}
+    on SpatialNavigationSearchOptions {
+  external set candidates(JSArray? value);
+  external JSArray? get candidates;
+  external set container(Node? value);
+  external Node? get container;
+}
 
 @JS('NavigationEvent')
 @staticInterop
@@ -49,10 +62,19 @@ extension NavigationEventExtension on NavigationEvent {
   external EventTarget? get relatedTarget;
 }
 
-@JS('NavigationEventInit')
+@JS()
 @staticInterop
+@anonymous
 class NavigationEventInit extends UIEventInit {
-  external factory NavigationEventInit();
+  external factory NavigationEventInit({
+    SpatialNavigationDirection dir,
+    EventTarget? relatedTarget,
+  });
 }
 
-extension NavigationEventInitExtension on NavigationEventInit {}
+extension NavigationEventInitExtension on NavigationEventInit {
+  external set dir(SpatialNavigationDirection value);
+  external SpatialNavigationDirection get dir;
+  external set relatedTarget(EventTarget? value);
+  external EventTarget? get relatedTarget;
+}

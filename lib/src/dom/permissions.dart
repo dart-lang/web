@@ -15,9 +15,7 @@ typedef PermissionState = JSString;
 
 @JS('Permissions')
 @staticInterop
-class Permissions {
-  external factory Permissions();
-}
+class Permissions {}
 
 extension PermissionsExtension on Permissions {
   external JSPromise request(JSObject permissionDesc);
@@ -39,9 +37,7 @@ extension PermissionDescriptorExtension on PermissionDescriptor {
 
 @JS('PermissionStatus')
 @staticInterop
-class PermissionStatus extends EventTarget {
-  external factory PermissionStatus();
-}
+class PermissionStatus implements EventTarget {}
 
 extension PermissionStatusExtension on PermissionStatus {
   external PermissionState get state;

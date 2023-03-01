@@ -37,31 +37,20 @@ external $WebAssembly get WebAssembly;
 
 @JS('WebAssembly')
 @staticInterop
-abstract class $WebAssembly {
-  external factory $WebAssembly();
-}
+abstract class $WebAssembly {}
 
 extension $WebAssemblyExtension on $WebAssembly {
   external JSBoolean validate(BufferSource bytes);
   external JSPromise compile(BufferSource bytes);
-  external JSPromise instantiate(BufferSource bytes);
-  external JSPromise instantiate1(
-    BufferSource bytes,
+  external JSPromise instantiate(
+    JSAny bytesOrModuleObject, [
     JSObject importObject,
-  );
-  @JS('instantiate')
-  external JSPromise instantiate_1_(Module moduleObject);
-  @JS('instantiate')
-  external JSPromise instantiate_1_1(
-    Module moduleObject,
-    JSObject importObject,
-  );
+  ]);
   external JSPromise compileStreaming(JSPromise source);
-  external JSPromise instantiateStreaming(JSPromise source);
-  external JSPromise instantiateStreaming1(
-    JSPromise source,
+  external JSPromise instantiateStreaming(
+    JSPromise source, [
     JSObject importObject,
-  );
+  ]);
 }
 
 @JS()
@@ -104,9 +93,7 @@ extension ModuleImportDescriptorExtension on ModuleImportDescriptor {
 @JS('Module')
 @staticInterop
 class Module {
-  external factory Module();
-
-  external factory Module.a1(BufferSource bytes);
+  external factory Module(BufferSource bytes);
 
   external static JSArray exports(Module moduleObject);
   external static JSArray imports(Module moduleObject);
@@ -119,14 +106,10 @@ class Module {
 @JS('Instance')
 @staticInterop
 class Instance {
-  external factory Instance();
-
-  external factory Instance.a1(Module module);
-
-  external factory Instance.a2(
-    Module module,
+  external factory Instance(
+    Module module, [
     JSObject importObject,
-  );
+  ]);
 }
 
 extension InstanceExtension on Instance {
@@ -153,9 +136,7 @@ extension MemoryDescriptorExtension on MemoryDescriptor {
 @JS('Memory')
 @staticInterop
 class Memory {
-  external factory Memory();
-
-  external factory Memory.a1(MemoryDescriptor descriptor);
+  external factory Memory(MemoryDescriptor descriptor);
 }
 
 extension MemoryExtension on Memory {
@@ -186,28 +167,22 @@ extension TableDescriptorExtension on TableDescriptor {
 @JS('Table')
 @staticInterop
 class Table {
-  external factory Table();
-
-  external factory Table.a1(TableDescriptor descriptor);
-
-  external factory Table.a2(
-    TableDescriptor descriptor,
+  external factory Table(
+    TableDescriptor descriptor, [
     JSAny value,
-  );
+  ]);
 }
 
 extension TableExtension on Table {
-  external JSNumber grow(JSNumber delta);
-  external JSNumber grow1(
-    JSNumber delta,
+  external JSNumber grow(
+    JSNumber delta, [
     JSAny value,
-  );
+  ]);
   external JSAny get(JSNumber index);
-  external JSVoid set(JSNumber index);
-  external JSVoid set1(
-    JSNumber index,
+  external JSVoid set(
+    JSNumber index, [
     JSAny value,
-  );
+  ]);
   external JSNumber get length;
 }
 
@@ -231,14 +206,10 @@ extension GlobalDescriptorExtension on GlobalDescriptor {
 @JS('Global')
 @staticInterop
 class Global {
-  external factory Global();
-
-  external factory Global.a1(GlobalDescriptor descriptor);
-
-  external factory Global.a2(
-    GlobalDescriptor descriptor,
+  external factory Global(
+    GlobalDescriptor descriptor, [
     JSAny v,
-  );
+  ]);
 }
 
 extension GlobalExtension on Global {

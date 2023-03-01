@@ -10,9 +10,7 @@ import 'package:js/js.dart' hide JS;
 
 @JS('NetworkInformationSaveData')
 @staticInterop
-class NetworkInformationSaveData {
-  external factory NetworkInformationSaveData();
-}
+class NetworkInformationSaveData {}
 
 extension NetworkInformationSaveDataExtension on NetworkInformationSaveData {
   external JSBoolean get saveData;

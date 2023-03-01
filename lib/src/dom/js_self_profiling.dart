@@ -15,16 +15,14 @@ typedef ProfilerResource = JSString;
 
 @JS('Profiler')
 @staticInterop
-class Profiler extends EventTarget {
-  external factory Profiler();
-
-  external factory Profiler.a1(ProfilerInitOptions options);
+class Profiler implements EventTarget {
+  external factory Profiler(ProfilerInitOptions options);
 }
 
 extension ProfilerExtension on Profiler {
+  external JSPromise stop();
   external DOMHighResTimeStamp get sampleInterval;
   external JSBoolean get stopped;
-  external JSPromise stop();
 }
 
 @JS()

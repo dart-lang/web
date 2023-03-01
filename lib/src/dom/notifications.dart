@@ -20,24 +20,20 @@ typedef NotificationDirection = JSString;
 
 @JS('Notification')
 @staticInterop
-class Notification extends EventTarget {
-  external factory Notification();
-
-  external factory Notification.a1(JSString title);
-
-  external factory Notification.a2(
-    JSString title,
+class Notification implements EventTarget {
+  external factory Notification(
+    JSString title, [
     NotificationOptions options,
-  );
+  ]);
 
+  external static JSPromise requestPermission(
+      [NotificationPermissionCallback deprecatedCallback]);
   external static NotificationPermission get permission;
-  external static JSPromise requestPermission();
-  external static JSPromise requestPermission1(
-      NotificationPermissionCallback deprecatedCallback);
   external static JSNumber get maxActions;
 }
 
 extension NotificationExtension on Notification {
+  external JSVoid close();
   external set onclick(EventHandler value);
   external EventHandler get onclick;
   external set onshow(EventHandler value);
@@ -61,7 +57,6 @@ extension NotificationExtension on Notification {
   external JSBoolean get requireInteraction;
   external JSAny get data;
   external JSArray get actions;
-  external JSVoid close();
 }
 
 @JS()
@@ -151,10 +146,8 @@ extension GetNotificationOptionsExtension on GetNotificationOptions {
 
 @JS('NotificationEvent')
 @staticInterop
-class NotificationEvent extends ExtendableEvent {
-  external factory NotificationEvent();
-
-  external factory NotificationEvent.a1(
+class NotificationEvent implements ExtendableEvent {
+  external factory NotificationEvent(
     JSString type,
     NotificationEventInit eventInitDict,
   );
@@ -168,7 +161,7 @@ extension NotificationEventExtension on NotificationEvent {
 @JS()
 @staticInterop
 @anonymous
-class NotificationEventInit extends ExtendableEventInit {
+class NotificationEventInit implements ExtendableEventInit {
   external factory NotificationEventInit({
     required Notification notification,
     JSString action = '',

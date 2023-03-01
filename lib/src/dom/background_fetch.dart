@@ -18,20 +18,14 @@ typedef BackgroundFetchFailureReason = JSString;
 
 @JS('BackgroundFetchManager')
 @staticInterop
-class BackgroundFetchManager {
-  external factory BackgroundFetchManager();
-}
+class BackgroundFetchManager {}
 
 extension BackgroundFetchManagerExtension on BackgroundFetchManager {
   external JSPromise fetch(
     JSString id,
-    JSAny requests,
-  );
-  external JSPromise fetch1(
-    JSString id,
-    JSAny requests,
+    JSAny requests, [
     BackgroundFetchOptions options,
-  );
+  ]);
   external JSPromise get(JSString id);
   external JSPromise getIds();
 }
@@ -56,7 +50,7 @@ extension BackgroundFetchUIOptionsExtension on BackgroundFetchUIOptions {
 @JS()
 @staticInterop
 @anonymous
-class BackgroundFetchOptions extends BackgroundFetchUIOptions {
+class BackgroundFetchOptions implements BackgroundFetchUIOptions {
   external factory BackgroundFetchOptions({JSNumber downloadTotal = 0});
 }
 
@@ -67,11 +61,18 @@ extension BackgroundFetchOptionsExtension on BackgroundFetchOptions {
 
 @JS('BackgroundFetchRegistration')
 @staticInterop
-class BackgroundFetchRegistration extends EventTarget {
-  external factory BackgroundFetchRegistration();
-}
+class BackgroundFetchRegistration implements EventTarget {}
 
 extension BackgroundFetchRegistrationExtension on BackgroundFetchRegistration {
+  external JSPromise abort();
+  external JSPromise match(
+    RequestInfo request, [
+    CacheQueryOptions options,
+  ]);
+  external JSPromise matchAll([
+    RequestInfo request,
+    CacheQueryOptions options,
+  ]);
   external JSString get id;
   external JSNumber get uploadTotal;
   external JSNumber get uploaded;
@@ -82,25 +83,11 @@ extension BackgroundFetchRegistrationExtension on BackgroundFetchRegistration {
   external JSBoolean get recordsAvailable;
   external set onprogress(EventHandler value);
   external EventHandler get onprogress;
-  external JSPromise abort();
-  external JSPromise match(RequestInfo request);
-  external JSPromise match1(
-    RequestInfo request,
-    CacheQueryOptions options,
-  );
-  external JSPromise matchAll();
-  external JSPromise matchAll1(RequestInfo request);
-  external JSPromise matchAll2(
-    RequestInfo request,
-    CacheQueryOptions options,
-  );
 }
 
 @JS('BackgroundFetchRecord')
 @staticInterop
-class BackgroundFetchRecord {
-  external factory BackgroundFetchRecord();
-}
+class BackgroundFetchRecord {}
 
 extension BackgroundFetchRecordExtension on BackgroundFetchRecord {
   external Request get request;
@@ -109,10 +96,8 @@ extension BackgroundFetchRecordExtension on BackgroundFetchRecord {
 
 @JS('BackgroundFetchEvent')
 @staticInterop
-class BackgroundFetchEvent extends ExtendableEvent {
-  external factory BackgroundFetchEvent();
-
-  external factory BackgroundFetchEvent.a1(
+class BackgroundFetchEvent implements ExtendableEvent {
+  external factory BackgroundFetchEvent(
     JSString type,
     BackgroundFetchEventInit init,
   );
@@ -125,7 +110,7 @@ extension BackgroundFetchEventExtension on BackgroundFetchEvent {
 @JS()
 @staticInterop
 @anonymous
-class BackgroundFetchEventInit extends ExtendableEventInit {
+class BackgroundFetchEventInit implements ExtendableEventInit {
   external factory BackgroundFetchEventInit(
       {required BackgroundFetchRegistration registration});
 }
@@ -137,10 +122,8 @@ extension BackgroundFetchEventInitExtension on BackgroundFetchEventInit {
 
 @JS('BackgroundFetchUpdateUIEvent')
 @staticInterop
-class BackgroundFetchUpdateUIEvent extends BackgroundFetchEvent {
-  external factory BackgroundFetchUpdateUIEvent();
-
-  external factory BackgroundFetchUpdateUIEvent.a1(
+class BackgroundFetchUpdateUIEvent implements BackgroundFetchEvent {
+  external factory BackgroundFetchUpdateUIEvent(
     JSString type,
     BackgroundFetchEventInit init,
   );
@@ -148,6 +131,5 @@ class BackgroundFetchUpdateUIEvent extends BackgroundFetchEvent {
 
 extension BackgroundFetchUpdateUIEventExtension
     on BackgroundFetchUpdateUIEvent {
-  external JSPromise updateUI();
-  external JSPromise updateUI1(BackgroundFetchUIOptions options);
+  external JSPromise updateUI([BackgroundFetchUIOptions options]);
 }

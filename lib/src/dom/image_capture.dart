@@ -18,14 +18,11 @@ typedef MeteringMode = JSString;
 @JS('ImageCapture')
 @staticInterop
 class ImageCapture {
-  external factory ImageCapture();
-
-  external factory ImageCapture.a1(MediaStreamTrack videoTrack);
+  external factory ImageCapture(MediaStreamTrack videoTrack);
 }
 
 extension ImageCaptureExtension on ImageCapture {
-  external JSPromise takePhoto();
-  external JSPromise takePhoto1(PhotoSettings photoSettings);
+  external JSPromise takePhoto([PhotoSettings photoSettings]);
   external JSPromise getPhotoCapabilities();
   external JSPromise getPhotoSettings();
   external JSPromise grabFrame();

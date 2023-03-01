@@ -10,6 +10,4 @@ import 'package:js/js.dart' hide JS;
 
 @JS('OES_element_index_uint')
 @staticInterop
-class OES_element_index_uint {
-  external factory OES_element_index_uint();
-}
+class OES_element_index_uint {}

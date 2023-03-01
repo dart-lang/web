@@ -15,11 +15,7 @@ typedef AttributeMatchList = JSAny;
 @JS('Sanitizer')
 @staticInterop
 class Sanitizer {
-  external factory Sanitizer();
-
-  external factory Sanitizer.a1();
-
-  external factory Sanitizer.a2(SanitizerConfig config);
+  external factory Sanitizer([SanitizerConfig config]);
 
   external static SanitizerConfig getDefaultConfiguration();
 }

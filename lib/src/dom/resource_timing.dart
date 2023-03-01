@@ -15,11 +15,10 @@ typedef RenderBlockingStatusType = JSString;
 
 @JS('PerformanceResourceTiming')
 @staticInterop
-class PerformanceResourceTiming extends PerformanceEntry {
-  external factory PerformanceResourceTiming();
-}
+class PerformanceResourceTiming implements PerformanceEntry {}
 
 extension PerformanceResourceTimingExtension on PerformanceResourceTiming {
+  external JSObject toJSON();
   external JSString get initiatorType;
   external JSString get nextHopProtocol;
   external DOMHighResTimeStamp get workerStart;
@@ -39,6 +38,5 @@ extension PerformanceResourceTimingExtension on PerformanceResourceTiming {
   external JSNumber get decodedBodySize;
   external JSNumber get responseStatus;
   external RenderBlockingStatusType get renderBlockingStatus;
-  external JSObject toJSON();
   external JSArray get serverTiming;
 }

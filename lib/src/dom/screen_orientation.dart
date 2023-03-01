@@ -16,9 +16,7 @@ typedef OrientationType = JSString;
 
 @JS('ScreenOrientation')
 @staticInterop
-class ScreenOrientation extends EventTarget {
-  external factory ScreenOrientation();
-}
+class ScreenOrientation implements EventTarget {}
 
 extension ScreenOrientationExtension on ScreenOrientation {
   external JSPromise lock(OrientationLockType orientation);

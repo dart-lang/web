@@ -20,7 +20,7 @@ typedef MIDIPortConnectionState = JSString;
 @JS()
 @staticInterop
 @anonymous
-class MidiPermissionDescriptor extends PermissionDescriptor {
+class MidiPermissionDescriptor implements PermissionDescriptor {
   external factory MidiPermissionDescriptor({JSBoolean sysex = false});
 }
 
@@ -48,25 +48,19 @@ extension MIDIOptionsExtension on MIDIOptions {
 
 @JS('MIDIInputMap')
 @staticInterop
-class MIDIInputMap {
-  external factory MIDIInputMap();
-}
+class MIDIInputMap {}
 
 extension MIDIInputMapExtension on MIDIInputMap {}
 
 @JS('MIDIOutputMap')
 @staticInterop
-class MIDIOutputMap {
-  external factory MIDIOutputMap();
-}
+class MIDIOutputMap {}
 
 extension MIDIOutputMapExtension on MIDIOutputMap {}
 
 @JS('MIDIAccess')
 @staticInterop
-class MIDIAccess extends EventTarget {
-  external factory MIDIAccess();
-}
+class MIDIAccess implements EventTarget {}
 
 extension MIDIAccessExtension on MIDIAccess {
   external MIDIInputMap get inputs;
@@ -78,11 +72,11 @@ extension MIDIAccessExtension on MIDIAccess {
 
 @JS('MIDIPort')
 @staticInterop
-class MIDIPort extends EventTarget {
-  external factory MIDIPort();
-}
+class MIDIPort implements EventTarget {}
 
 extension MIDIPortExtension on MIDIPort {
+  external JSPromise open();
+  external JSPromise close();
   external JSString get id;
   external JSString? get manufacturer;
   external JSString? get name;
@@ -92,15 +86,11 @@ extension MIDIPortExtension on MIDIPort {
   external MIDIPortConnectionState get connection;
   external set onstatechange(EventHandler value);
   external EventHandler get onstatechange;
-  external JSPromise open();
-  external JSPromise close();
 }
 
 @JS('MIDIInput')
 @staticInterop
-class MIDIInput extends MIDIPort {
-  external factory MIDIInput();
-}
+class MIDIInput implements MIDIPort {}
 
 extension MIDIInputExtension on MIDIInput {
   external set onmidimessage(EventHandler value);
@@ -109,30 +99,23 @@ extension MIDIInputExtension on MIDIInput {
 
 @JS('MIDIOutput')
 @staticInterop
-class MIDIOutput extends MIDIPort {
-  external factory MIDIOutput();
-}
+class MIDIOutput implements MIDIPort {}
 
 extension MIDIOutputExtension on MIDIOutput {
-  external JSVoid send(JSArray data);
-  external JSVoid send1(
-    JSArray data,
+  external JSVoid send(
+    JSArray data, [
     DOMHighResTimeStamp timestamp,
-  );
+  ]);
   external JSVoid clear();
 }
 
 @JS('MIDIMessageEvent')
 @staticInterop
-class MIDIMessageEvent extends Event {
-  external factory MIDIMessageEvent();
-
-  external factory MIDIMessageEvent.a1(JSString type);
-
-  external factory MIDIMessageEvent.a2(
-    JSString type,
+class MIDIMessageEvent implements Event {
+  external factory MIDIMessageEvent(
+    JSString type, [
     MIDIMessageEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension MIDIMessageEventExtension on MIDIMessageEvent {
@@ -142,7 +125,7 @@ extension MIDIMessageEventExtension on MIDIMessageEvent {
 @JS()
 @staticInterop
 @anonymous
-class MIDIMessageEventInit extends EventInit {
+class MIDIMessageEventInit implements EventInit {
   external factory MIDIMessageEventInit({JSUint8Array data});
 }
 
@@ -153,15 +136,11 @@ extension MIDIMessageEventInitExtension on MIDIMessageEventInit {
 
 @JS('MIDIConnectionEvent')
 @staticInterop
-class MIDIConnectionEvent extends Event {
-  external factory MIDIConnectionEvent();
-
-  external factory MIDIConnectionEvent.a1(JSString type);
-
-  external factory MIDIConnectionEvent.a2(
-    JSString type,
+class MIDIConnectionEvent implements Event {
+  external factory MIDIConnectionEvent(
+    JSString type, [
     MIDIConnectionEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension MIDIConnectionEventExtension on MIDIConnectionEvent {
@@ -171,7 +150,7 @@ extension MIDIConnectionEventExtension on MIDIConnectionEvent {
 @JS()
 @staticInterop
 @anonymous
-class MIDIConnectionEventInit extends EventInit {
+class MIDIConnectionEventInit implements EventInit {
   external factory MIDIConnectionEventInit({MIDIPort port});
 }
 

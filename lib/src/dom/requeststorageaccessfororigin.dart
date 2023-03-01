@@ -13,7 +13,8 @@ import 'permissions.dart';
 @JS()
 @staticInterop
 @anonymous
-class TopLevelStorageAccessPermissionDescriptor extends PermissionDescriptor {
+class TopLevelStorageAccessPermissionDescriptor
+    implements PermissionDescriptor {
   external factory TopLevelStorageAccessPermissionDescriptor(
       {JSString requestedOrigin = ''});
 }

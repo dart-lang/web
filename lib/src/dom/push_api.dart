@@ -19,7 +19,7 @@ typedef PushEncryptionKeyName = JSString;
 @JS()
 @staticInterop
 @anonymous
-class PushPermissionDescriptor extends PermissionDescriptor {
+class PushPermissionDescriptor implements PermissionDescriptor {
   external factory PushPermissionDescriptor(
       {JSBoolean userVisibleOnly = false});
 }
@@ -32,24 +32,18 @@ extension PushPermissionDescriptorExtension on PushPermissionDescriptor {
 @JS('PushManager')
 @staticInterop
 class PushManager {
-  external factory PushManager();
-
   external static JSArray get supportedContentEncodings;
 }
 
 extension PushManagerExtension on PushManager {
-  external JSPromise subscribe();
-  external JSPromise subscribe1(PushSubscriptionOptionsInit options);
+  external JSPromise subscribe([PushSubscriptionOptionsInit options]);
   external JSPromise getSubscription();
-  external JSPromise permissionState();
-  external JSPromise permissionState1(PushSubscriptionOptionsInit options);
+  external JSPromise permissionState([PushSubscriptionOptionsInit options]);
 }
 
 @JS('PushSubscriptionOptions')
 @staticInterop
-class PushSubscriptionOptions {
-  external factory PushSubscriptionOptions();
-}
+class PushSubscriptionOptions {}
 
 extension PushSubscriptionOptionsExtension on PushSubscriptionOptions {
   external JSBoolean get userVisibleOnly;
@@ -75,17 +69,15 @@ extension PushSubscriptionOptionsInitExtension on PushSubscriptionOptionsInit {
 
 @JS('PushSubscription')
 @staticInterop
-class PushSubscription {
-  external factory PushSubscription();
-}
+class PushSubscription {}
 
 extension PushSubscriptionExtension on PushSubscription {
-  external JSString get endpoint;
-  external EpochTimeStamp? get expirationTime;
-  external PushSubscriptionOptions get options;
   external JSArrayBuffer? getKey(PushEncryptionKeyName name);
   external JSPromise unsubscribe();
   external PushSubscriptionJSON toJSON();
+  external JSString get endpoint;
+  external EpochTimeStamp? get expirationTime;
+  external PushSubscriptionOptions get options;
 }
 
 @JS()
@@ -110,9 +102,7 @@ extension PushSubscriptionJSONExtension on PushSubscriptionJSON {
 
 @JS('PushMessageData')
 @staticInterop
-class PushMessageData {
-  external factory PushMessageData();
-}
+class PushMessageData {}
 
 extension PushMessageDataExtension on PushMessageData {
   external JSArrayBuffer arrayBuffer();
@@ -123,15 +113,11 @@ extension PushMessageDataExtension on PushMessageData {
 
 @JS('PushEvent')
 @staticInterop
-class PushEvent extends ExtendableEvent {
-  external factory PushEvent();
-
-  external factory PushEvent.a1(JSString type);
-
-  external factory PushEvent.a2(
-    JSString type,
+class PushEvent implements ExtendableEvent {
+  external factory PushEvent(
+    JSString type, [
     PushEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension PushEventExtension on PushEvent {
@@ -141,7 +127,7 @@ extension PushEventExtension on PushEvent {
 @JS()
 @staticInterop
 @anonymous
-class PushEventInit extends ExtendableEventInit {
+class PushEventInit implements ExtendableEventInit {
   external factory PushEventInit({PushMessageDataInit data});
 }
 
@@ -152,15 +138,11 @@ extension PushEventInitExtension on PushEventInit {
 
 @JS('PushSubscriptionChangeEvent')
 @staticInterop
-class PushSubscriptionChangeEvent extends ExtendableEvent {
-  external factory PushSubscriptionChangeEvent();
-
-  external factory PushSubscriptionChangeEvent.a1(JSString type);
-
-  external factory PushSubscriptionChangeEvent.a2(
-    JSString type,
+class PushSubscriptionChangeEvent implements ExtendableEvent {
+  external factory PushSubscriptionChangeEvent(
+    JSString type, [
     PushSubscriptionChangeEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension PushSubscriptionChangeEventExtension on PushSubscriptionChangeEvent {
@@ -171,7 +153,7 @@ extension PushSubscriptionChangeEventExtension on PushSubscriptionChangeEvent {
 @JS()
 @staticInterop
 @anonymous
-class PushSubscriptionChangeEventInit extends ExtendableEventInit {
+class PushSubscriptionChangeEventInit implements ExtendableEventInit {
   external factory PushSubscriptionChangeEventInit({
     PushSubscription newSubscription,
     PushSubscription oldSubscription,

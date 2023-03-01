@@ -15,9 +15,7 @@ typedef DevicePostureType = JSString;
 
 @JS('DevicePosture')
 @staticInterop
-class DevicePosture extends EventTarget {
-  external factory DevicePosture();
-}
+class DevicePosture implements EventTarget {}
 
 extension DevicePostureExtension on DevicePosture {
   external DevicePostureType get type;

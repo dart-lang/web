@@ -19,9 +19,7 @@ typedef BreakType = JSString;
 
 @JS('LayoutWorkletGlobalScope')
 @staticInterop
-class LayoutWorkletGlobalScope extends WorkletGlobalScope {
-  external factory LayoutWorkletGlobalScope();
-}
+class LayoutWorkletGlobalScope implements WorkletGlobalScope {}
 
 extension LayoutWorkletGlobalScopeExtension on LayoutWorkletGlobalScope {
   external JSVoid registerLayout(
@@ -49,24 +47,20 @@ extension LayoutOptionsExtension on LayoutOptions {
 
 @JS('LayoutChild')
 @staticInterop
-class LayoutChild {
-  external factory LayoutChild();
-}
+class LayoutChild {}
 
 extension LayoutChildExtension on LayoutChild {
-  external StylePropertyMapReadOnly get styleMap;
   external JSPromise intrinsicSizes();
   external JSPromise layoutNextFragment(
     LayoutConstraintsOptions constraints,
     ChildBreakToken breakToken,
   );
+  external StylePropertyMapReadOnly get styleMap;
 }
 
 @JS('LayoutFragment')
 @staticInterop
-class LayoutFragment {
-  external factory LayoutFragment();
-}
+class LayoutFragment {}
 
 extension LayoutFragmentExtension on LayoutFragment {
   external JSNumber get inlineSize;
@@ -81,9 +75,7 @@ extension LayoutFragmentExtension on LayoutFragment {
 
 @JS('IntrinsicSizes')
 @staticInterop
-class IntrinsicSizes {
-  external factory IntrinsicSizes();
-}
+class IntrinsicSizes {}
 
 extension IntrinsicSizesExtension on IntrinsicSizes {
   external JSNumber get minContentSize;
@@ -92,9 +84,7 @@ extension IntrinsicSizesExtension on IntrinsicSizes {
 
 @JS('LayoutConstraints')
 @staticInterop
-class LayoutConstraints {
-  external factory LayoutConstraints();
-}
+class LayoutConstraints {}
 
 extension LayoutConstraintsExtension on LayoutConstraints {
   external JSNumber get availableInlineSize;
@@ -148,9 +138,7 @@ extension LayoutConstraintsOptionsExtension on LayoutConstraintsOptions {
 
 @JS('ChildBreakToken')
 @staticInterop
-class ChildBreakToken {
-  external factory ChildBreakToken();
-}
+class ChildBreakToken {}
 
 extension ChildBreakTokenExtension on ChildBreakToken {
   external BreakType get breakType;
@@ -159,9 +147,7 @@ extension ChildBreakTokenExtension on ChildBreakToken {
 
 @JS('BreakToken')
 @staticInterop
-class BreakToken {
-  external factory BreakToken();
-}
+class BreakToken {}
 
 extension BreakTokenExtension on BreakToken {
   external JSArray get childBreakTokens;
@@ -187,9 +173,7 @@ extension BreakTokenOptionsExtension on BreakTokenOptions {
 
 @JS('LayoutEdges')
 @staticInterop
-class LayoutEdges {
-  external factory LayoutEdges();
-}
+class LayoutEdges {}
 
 extension LayoutEdgesExtension on LayoutEdges {
   external JSNumber get inlineStart;
@@ -232,11 +216,7 @@ extension FragmentResultOptionsExtension on FragmentResultOptions {
 @JS('FragmentResult')
 @staticInterop
 class FragmentResult {
-  external factory FragmentResult();
-
-  external factory FragmentResult.a1();
-
-  external factory FragmentResult.a2(FragmentResultOptions options);
+  external factory FragmentResult([FragmentResultOptions options]);
 }
 
 extension FragmentResultExtension on FragmentResult {

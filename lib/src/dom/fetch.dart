@@ -28,11 +28,7 @@ typedef ResponseType = JSString;
 @JS('Headers')
 @staticInterop
 class Headers {
-  external factory Headers();
-
-  external factory Headers.a1();
-
-  external factory Headers.a2(HeadersInit init);
+  external factory Headers([HeadersInit init]);
 }
 
 extension HeadersExtension on Headers {
@@ -51,34 +47,29 @@ extension HeadersExtension on Headers {
 
 @JS('Body')
 @staticInterop
-class Body {
-  external factory Body();
-}
+class Body {}
 
 extension BodyExtension on Body {
-  external ReadableStream? get body;
-  external JSBoolean get bodyUsed;
   external JSPromise arrayBuffer();
   external JSPromise blob();
   external JSPromise formData();
   external JSPromise json();
   external JSPromise text();
+  external ReadableStream? get body;
+  external JSBoolean get bodyUsed;
 }
 
 @JS('Request')
 @staticInterop
 class Request implements Body {
-  external factory Request();
-
-  external factory Request.a1(RequestInfo input);
-
-  external factory Request.a2(
-    RequestInfo input,
+  external factory Request(
+    RequestInfo input, [
     RequestInit init,
-  );
+  ]);
 }
 
 extension RequestExtension on Request {
+  external Request clone();
   external JSString get method;
   external JSString get url;
   external Headers get headers;
@@ -95,7 +86,6 @@ extension RequestExtension on Request {
   external JSBoolean get isHistoryNavigation;
   external AbortSignal get signal;
   external RequestDuplex get duplex;
-  external Request clone();
 }
 
 @JS()
@@ -157,31 +147,24 @@ extension RequestInitExtension on RequestInit {
 @JS('Response')
 @staticInterop
 class Response implements Body {
-  external factory Response();
-
-  external factory Response.a1();
-
-  external factory Response.a2(BodyInit? body);
-
-  external factory Response.a3(
+  external factory Response([
     BodyInit? body,
     ResponseInit init,
-  );
+  ]);
 
   external static Response error();
-  external static Response redirect(JSString url);
-  external static Response redirect1(
-    JSString url,
+  external static Response redirect(
+    JSString url, [
     JSNumber status,
-  );
-  external static Response json(JSAny data);
-  external static Response json1(
-    JSAny data,
+  ]);
+  external static Response json(
+    JSAny data, [
     ResponseInit init,
-  );
+  ]);
 }
 
 extension ResponseExtension on Response {
+  external Response clone();
   external ResponseType get type;
   external JSString get url;
   external JSBoolean get redirected;
@@ -189,7 +172,6 @@ extension ResponseExtension on Response {
   external JSBoolean get ok;
   external JSString get statusText;
   external Headers get headers;
-  external Response clone();
 }
 
 @JS()

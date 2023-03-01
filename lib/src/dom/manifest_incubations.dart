@@ -14,15 +14,11 @@ typedef AppBannerPromptOutcome = JSString;
 
 @JS('BeforeInstallPromptEvent')
 @staticInterop
-class BeforeInstallPromptEvent extends Event {
-  external factory BeforeInstallPromptEvent();
-
-  external factory BeforeInstallPromptEvent.a1(JSString type);
-
-  external factory BeforeInstallPromptEvent.a2(
-    JSString type,
+class BeforeInstallPromptEvent implements Event {
+  external factory BeforeInstallPromptEvent(
+    JSString type, [
     EventInit eventInitDict,
-  );
+  ]);
 }
 
 extension BeforeInstallPromptEventExtension on BeforeInstallPromptEvent {

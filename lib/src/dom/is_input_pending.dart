@@ -22,12 +22,9 @@ extension IsInputPendingOptionsExtension on IsInputPendingOptions {
 
 @JS('Scheduling')
 @staticInterop
-class Scheduling {
-  external factory Scheduling();
-}
+class Scheduling {}
 
 extension SchedulingExtension on Scheduling {
-  external JSBoolean isInputPending();
-  external JSBoolean isInputPending1(
-      IsInputPendingOptions isInputPendingOptions);
+  external JSBoolean isInputPending(
+      [IsInputPendingOptions isInputPendingOptions]);
 }

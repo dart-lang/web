@@ -13,8 +13,6 @@ import 'webgl1.dart';
 @JS('ANGLE_instanced_arrays')
 @staticInterop
 class ANGLE_instanced_arrays {
-  external factory ANGLE_instanced_arrays();
-
   external static GLenum get VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE;
 }
 

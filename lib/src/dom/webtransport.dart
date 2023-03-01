@@ -18,9 +18,7 @@ typedef WebTransportErrorSource = JSString;
 
 @JS('WebTransportDatagramDuplexStream')
 @staticInterop
-class WebTransportDatagramDuplexStream {
-  external factory WebTransportDatagramDuplexStream();
-}
+class WebTransportDatagramDuplexStream {}
 
 extension WebTransportDatagramDuplexStreamExtension
     on WebTransportDatagramDuplexStream {
@@ -40,32 +38,25 @@ extension WebTransportDatagramDuplexStreamExtension
 @JS('WebTransport')
 @staticInterop
 class WebTransport {
-  external factory WebTransport();
-
-  external factory WebTransport.a1(JSString url);
-
-  external factory WebTransport.a2(
-    JSString url,
+  external factory WebTransport(
+    JSString url, [
     WebTransportOptions options,
-  );
+  ]);
 }
 
 extension WebTransportExtension on WebTransport {
   external JSPromise getStats();
+  external JSVoid close([WebTransportCloseInfo closeInfo]);
+  external JSPromise createBidirectionalStream(
+      [WebTransportSendStreamOptions options]);
+  external JSPromise createUnidirectionalStream(
+      [WebTransportSendStreamOptions options]);
   external JSPromise get ready;
   external WebTransportReliabilityMode get reliability;
   external WebTransportCongestionControl get congestionControl;
   external JSPromise get closed;
-  external JSVoid close();
-  external JSVoid close1(WebTransportCloseInfo closeInfo);
   external WebTransportDatagramDuplexStream get datagrams;
-  external JSPromise createBidirectionalStream();
-  external JSPromise createBidirectionalStream1(
-      WebTransportSendStreamOptions options);
   external ReadableStream get incomingBidirectionalStreams;
-  external JSPromise createUnidirectionalStream();
-  external JSPromise createUnidirectionalStream1(
-      WebTransportSendStreamOptions options);
   external ReadableStream get incomingUnidirectionalStreams;
 }
 
@@ -211,9 +202,7 @@ extension WebTransportDatagramStatsExtension on WebTransportDatagramStats {
 
 @JS('WebTransportSendStream')
 @staticInterop
-class WebTransportSendStream extends WritableStream {
-  external factory WebTransportSendStream();
-}
+class WebTransportSendStream implements WritableStream {}
 
 extension WebTransportSendStreamExtension on WebTransportSendStream {
   external JSPromise getStats();
@@ -244,9 +233,7 @@ extension WebTransportSendStreamStatsExtension on WebTransportSendStreamStats {
 
 @JS('WebTransportReceiveStream')
 @staticInterop
-class WebTransportReceiveStream extends ReadableStream {
-  external factory WebTransportReceiveStream();
-}
+class WebTransportReceiveStream implements ReadableStream {}
 
 extension WebTransportReceiveStreamExtension on WebTransportReceiveStream {
   external JSPromise getStats();
@@ -275,9 +262,7 @@ extension WebTransportReceiveStreamStatsExtension
 
 @JS('WebTransportBidirectionalStream')
 @staticInterop
-class WebTransportBidirectionalStream {
-  external factory WebTransportBidirectionalStream();
-}
+class WebTransportBidirectionalStream {}
 
 extension WebTransportBidirectionalStreamExtension
     on WebTransportBidirectionalStream {
@@ -287,12 +272,8 @@ extension WebTransportBidirectionalStreamExtension
 
 @JS('WebTransportError')
 @staticInterop
-class WebTransportError extends DOMException {
-  external factory WebTransportError();
-
-  external factory WebTransportError.a1();
-
-  external factory WebTransportError.a2(WebTransportErrorInit init);
+class WebTransportError implements DOMException {
+  external factory WebTransportError([WebTransportErrorInit init]);
 }
 
 extension WebTransportErrorExtension on WebTransportError {

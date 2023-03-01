@@ -10,7 +10,6 @@ import 'package:js/js.dart' hide JS;
 
 import 'dom.dart';
 import 'fedcm.dart';
-import 'html.dart';
 import 'web_otp.dart';
 import 'webauthn.dart';
 
@@ -20,8 +19,6 @@ typedef CredentialMediationRequirement = JSString;
 @JS('Credential')
 @staticInterop
 class Credential {
-  external factory Credential();
-
   external static JSPromise isConditionalMediationAvailable();
 }
 
@@ -32,9 +29,7 @@ extension CredentialExtension on Credential {
 
 @JS('CredentialUserData')
 @staticInterop
-class CredentialUserData {
-  external factory CredentialUserData();
-}
+class CredentialUserData {}
 
 extension CredentialUserDataExtension on CredentialUserData {
   external JSString get name;
@@ -43,16 +38,12 @@ extension CredentialUserDataExtension on CredentialUserData {
 
 @JS('CredentialsContainer')
 @staticInterop
-class CredentialsContainer {
-  external factory CredentialsContainer();
-}
+class CredentialsContainer {}
 
 extension CredentialsContainerExtension on CredentialsContainer {
-  external JSPromise get();
-  external JSPromise get1(CredentialRequestOptions options);
+  external JSPromise get([CredentialRequestOptions options]);
   external JSPromise store(Credential credential);
-  external JSPromise create();
-  external JSPromise create1(CredentialCreationOptions options);
+  external JSPromise create([CredentialCreationOptions options]);
   external JSPromise preventSilentAccess();
 }
 
@@ -125,12 +116,8 @@ extension CredentialCreationOptionsExtension on CredentialCreationOptions {
 
 @JS('PasswordCredential')
 @staticInterop
-class PasswordCredential extends Credential implements CredentialUserData {
-  external factory PasswordCredential();
-
-  external factory PasswordCredential.a1(HTMLFormElement form);
-
-  external factory PasswordCredential.a2(PasswordCredentialData data);
+class PasswordCredential implements Credential, CredentialUserData {
+  external factory PasswordCredential(JSAny dataOrForm);
 }
 
 extension PasswordCredentialExtension on PasswordCredential {
@@ -140,7 +127,7 @@ extension PasswordCredentialExtension on PasswordCredential {
 @JS()
 @staticInterop
 @anonymous
-class PasswordCredentialData extends CredentialData {
+class PasswordCredentialData implements CredentialData {
   external factory PasswordCredentialData({
     JSString name,
     JSString iconURL,
@@ -162,10 +149,8 @@ extension PasswordCredentialDataExtension on PasswordCredentialData {
 
 @JS('FederatedCredential')
 @staticInterop
-class FederatedCredential extends Credential implements CredentialUserData {
-  external factory FederatedCredential();
-
-  external factory FederatedCredential.a1(FederatedCredentialInit data);
+class FederatedCredential implements Credential, CredentialUserData {
+  external factory FederatedCredential(FederatedCredentialInit data);
 }
 
 extension FederatedCredentialExtension on FederatedCredential {
@@ -194,7 +179,7 @@ extension FederatedCredentialRequestOptionsExtension
 @JS()
 @staticInterop
 @anonymous
-class FederatedCredentialInit extends CredentialData {
+class FederatedCredentialInit implements CredentialData {
   external factory FederatedCredentialInit({
     JSString name,
     JSString iconURL,

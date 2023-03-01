@@ -16,24 +16,20 @@ import 'html.dart';
 
 @JS('MediaList')
 @staticInterop
-class MediaList {
-  external factory MediaList();
-}
+class MediaList {}
 
 extension MediaListExtension on MediaList {
-  external set mediaText(JSString value);
-  external JSString get mediaText;
-  external JSNumber get length;
   external JSString? item(JSNumber index);
   external JSVoid appendMedium(JSString medium);
   external JSVoid deleteMedium(JSString medium);
+  external set mediaText(JSString value);
+  external JSString get mediaText;
+  external JSNumber get length;
 }
 
 @JS('StyleSheet')
 @staticInterop
-class StyleSheet {
-  external factory StyleSheet();
-}
+class StyleSheet {}
 
 extension StyleSheetExtension on StyleSheet {
   external JSString get type;
@@ -48,39 +44,27 @@ extension StyleSheetExtension on StyleSheet {
 
 @JS('CSSStyleSheet')
 @staticInterop
-class CSSStyleSheet extends StyleSheet {
-  external factory CSSStyleSheet();
-
-  external factory CSSStyleSheet.a1();
-
-  external factory CSSStyleSheet.a2(CSSStyleSheetInit options);
+class CSSStyleSheet implements StyleSheet {
+  external factory CSSStyleSheet([CSSStyleSheetInit options]);
 }
 
 extension CSSStyleSheetExtension on CSSStyleSheet {
-  external CSSRule? get ownerRule;
-  external CSSRuleList get cssRules;
-  external JSNumber insertRule(JSString rule);
-  external JSNumber insertRule1(
-    JSString rule,
+  external JSNumber insertRule(
+    JSString rule, [
     JSNumber index,
-  );
+  ]);
   external JSVoid deleteRule(JSNumber index);
   external JSPromise replace(JSString text);
   external JSVoid replaceSync(JSString text);
-  external CSSRuleList get rules;
-  external JSNumber addRule();
-  external JSNumber addRule1(JSString selector);
-  external JSNumber addRule2(
-    JSString selector,
-    JSString style,
-  );
-  external JSNumber addRule3(
+  external JSNumber addRule([
     JSString selector,
     JSString style,
     JSNumber index,
-  );
-  external JSVoid removeRule();
-  external JSVoid removeRule1(JSNumber index);
+  ]);
+  external JSVoid removeRule([JSNumber index]);
+  external CSSRule? get ownerRule;
+  external CSSRuleList get cssRules;
+  external CSSRuleList get rules;
 }
 
 @JS()
@@ -105,9 +89,7 @@ extension CSSStyleSheetInitExtension on CSSStyleSheetInit {
 
 @JS('StyleSheetList')
 @staticInterop
-class StyleSheetList {
-  external factory StyleSheetList();
-}
+class StyleSheetList {}
 
 extension StyleSheetListExtension on StyleSheetList {
   external CSSStyleSheet? item(JSNumber index);
@@ -116,9 +98,7 @@ extension StyleSheetListExtension on StyleSheetList {
 
 @JS('LinkStyle')
 @staticInterop
-class LinkStyle {
-  external factory LinkStyle();
-}
+class LinkStyle {}
 
 extension LinkStyleExtension on LinkStyle {
   external CSSStyleSheet? get sheet;
@@ -126,9 +106,7 @@ extension LinkStyleExtension on LinkStyle {
 
 @JS('CSSRuleList')
 @staticInterop
-class CSSRuleList {
-  external factory CSSRuleList();
-}
+class CSSRuleList {}
 
 extension CSSRuleListExtension on CSSRuleList {
   external CSSRule? item(JSNumber index);
@@ -138,8 +116,6 @@ extension CSSRuleListExtension on CSSRuleList {
 @JS('CSSRule')
 @staticInterop
 class CSSRule {
-  external factory CSSRule();
-
   external static JSNumber get KEYFRAMES_RULE;
   external static JSNumber get KEYFRAME_RULE;
   external static JSNumber get SUPPORTS_RULE;
@@ -165,18 +141,15 @@ extension CSSRuleExtension on CSSRule {
 
 @JS('CSSStyleRule')
 @staticInterop
-class CSSStyleRule extends CSSRule {
-  external factory CSSStyleRule();
-}
+class CSSStyleRule implements CSSRule {}
 
 extension CSSStyleRuleExtension on CSSStyleRule {
-  external CSSRuleList get cssRules;
-  external JSNumber insertRule(JSString rule);
-  external JSNumber insertRule1(
-    JSString rule,
+  external JSNumber insertRule(
+    JSString rule, [
     JSNumber index,
-  );
+  ]);
   external JSVoid deleteRule(JSNumber index);
+  external CSSRuleList get cssRules;
   external StylePropertyMap get styleMap;
   external set selectorText(JSString value);
   external JSString get selectorText;
@@ -185,9 +158,7 @@ extension CSSStyleRuleExtension on CSSStyleRule {
 
 @JS('CSSImportRule')
 @staticInterop
-class CSSImportRule extends CSSRule {
-  external factory CSSImportRule();
-}
+class CSSImportRule implements CSSRule {}
 
 extension CSSImportRuleExtension on CSSImportRule {
   external JSString? get layerName;
@@ -198,25 +169,20 @@ extension CSSImportRuleExtension on CSSImportRule {
 
 @JS('CSSGroupingRule')
 @staticInterop
-class CSSGroupingRule extends CSSRule {
-  external factory CSSGroupingRule();
-}
+class CSSGroupingRule implements CSSRule {}
 
 extension CSSGroupingRuleExtension on CSSGroupingRule {
-  external CSSRuleList get cssRules;
-  external JSNumber insertRule(JSString rule);
-  external JSNumber insertRule1(
-    JSString rule,
+  external JSNumber insertRule(
+    JSString rule, [
     JSNumber index,
-  );
+  ]);
   external JSVoid deleteRule(JSNumber index);
+  external CSSRuleList get cssRules;
 }
 
 @JS('CSSPageRule')
 @staticInterop
-class CSSPageRule extends CSSGroupingRule {
-  external factory CSSPageRule();
-}
+class CSSPageRule implements CSSGroupingRule {}
 
 extension CSSPageRuleExtension on CSSPageRule {
   external set selectorText(JSString value);
@@ -226,9 +192,7 @@ extension CSSPageRuleExtension on CSSPageRule {
 
 @JS('CSSMarginRule')
 @staticInterop
-class CSSMarginRule extends CSSRule {
-  external factory CSSMarginRule();
-}
+class CSSMarginRule implements CSSRule {}
 
 extension CSSMarginRuleExtension on CSSMarginRule {
   external JSString get name;
@@ -237,9 +201,7 @@ extension CSSMarginRuleExtension on CSSMarginRule {
 
 @JS('CSSNamespaceRule')
 @staticInterop
-class CSSNamespaceRule extends CSSRule {
-  external factory CSSNamespaceRule();
-}
+class CSSNamespaceRule implements CSSRule {}
 
 extension CSSNamespaceRuleExtension on CSSNamespaceRule {
   external JSString get namespaceURI;
@@ -248,27 +210,21 @@ extension CSSNamespaceRuleExtension on CSSNamespaceRule {
 
 @JS('CSSStyleDeclaration')
 @staticInterop
-class CSSStyleDeclaration {
-  external factory CSSStyleDeclaration();
-}
+class CSSStyleDeclaration {}
 
 extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
-  external set cssText(JSString value);
-  external JSString get cssText;
-  external JSNumber get length;
   external JSString item(JSNumber index);
   external JSString getPropertyValue(JSString property);
   external JSString getPropertyPriority(JSString property);
   external JSVoid setProperty(
     JSString property,
-    JSString value,
-  );
-  external JSVoid setProperty1(
-    JSString property,
-    JSString value,
+    JSString value, [
     JSString priority,
-  );
+  ]);
   external JSString removeProperty(JSString property);
+  external set cssText(JSString value);
+  external JSString get cssText;
+  external JSNumber get length;
   external CSSRule? get parentRule;
   external set cssFloat(JSString value);
   external JSString get cssFloat;
@@ -276,9 +232,7 @@ extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
 
 @JS('ElementCSSInlineStyle')
 @staticInterop
-class ElementCSSInlineStyle {
-  external factory ElementCSSInlineStyle();
-}
+class ElementCSSInlineStyle {}
 
 extension ElementCSSInlineStyleExtension on ElementCSSInlineStyle {
   external StylePropertyMap get attributeStyleMap;
@@ -290,47 +244,33 @@ external $CSS get CSS;
 
 @JS('CSS')
 @staticInterop
-abstract class $CSS {
-  external factory $CSS();
-}
+abstract class $CSS {}
 
 extension $CSSExtension on $CSS {
-  external Worklet get animationWorklet;
   external JSBoolean supports(
-    JSString property,
+    JSString conditionTextOrProperty, [
     JSString value,
-  );
-  @JS('supports')
-  external JSBoolean supports_1_(JSString conditionText);
-  external HighlightRegistry get highlights;
-  external JSAny get elementSources;
-  external Worklet get layoutWorklet;
-  external Worklet get paintWorklet;
-  external JSPromise parseStylesheet(CSSStringSource css);
-  external JSPromise parseStylesheet1(
-    CSSStringSource css,
+  ]);
+  external JSPromise parseStylesheet(
+    CSSStringSource css, [
     CSSParserOptions options,
-  );
-  external JSPromise parseRuleList(CSSStringSource css);
-  external JSPromise parseRuleList1(
-    CSSStringSource css,
+  ]);
+  external JSPromise parseRuleList(
+    CSSStringSource css, [
     CSSParserOptions options,
-  );
-  external JSPromise parseRule(CSSStringSource css);
-  external JSPromise parseRule1(
-    CSSStringSource css,
+  ]);
+  external JSPromise parseRule(
+    CSSStringSource css, [
     CSSParserOptions options,
-  );
-  external JSPromise parseDeclarationList(CSSStringSource css);
-  external JSPromise parseDeclarationList1(
-    CSSStringSource css,
+  ]);
+  external JSPromise parseDeclarationList(
+    CSSStringSource css, [
     CSSParserOptions options,
-  );
-  external CSSParserDeclaration parseDeclaration(JSString css);
-  external CSSParserDeclaration parseDeclaration1(
-    JSString css,
+  ]);
+  external CSSParserDeclaration parseDeclaration(
+    JSString css, [
     CSSParserOptions options,
-  );
+  ]);
   external CSSToken parseValue(JSString css);
   external JSArray parseValueList(JSString css);
   external JSArray parseCommaValueList(JSString css);
@@ -378,7 +318,7 @@ extension $CSSExtension on $CSS {
   external CSSUnitValue mm(JSNumber value);
   external CSSUnitValue Q(JSNumber value);
   @JS('in')
-  external CSSUnitValue in_0_(JSNumber value);
+  external CSSUnitValue in_(JSNumber value);
   external CSSUnitValue pt(JSNumber value);
   external CSSUnitValue pc(JSNumber value);
   external CSSUnitValue px(JSNumber value);
@@ -395,4 +335,9 @@ extension $CSSExtension on $CSS {
   external CSSUnitValue dppx(JSNumber value);
   external CSSUnitValue fr(JSNumber value);
   external JSString escape(JSString ident);
+  external Worklet get animationWorklet;
+  external HighlightRegistry get highlights;
+  external JSAny get elementSources;
+  external Worklet get layoutWorklet;
+  external Worklet get paintWorklet;
 }

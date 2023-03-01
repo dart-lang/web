@@ -10,9 +10,7 @@ import 'package:js/js.dart' hide JS;
 
 @JS('NavigatorAutomationInformation')
 @staticInterop
-class NavigatorAutomationInformation {
-  external factory NavigatorAutomationInformation();
-}
+class NavigatorAutomationInformation {}
 
 extension NavigatorAutomationInformationExtension
     on NavigatorAutomationInformation {

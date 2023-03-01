@@ -15,9 +15,7 @@ typedef AnimatorInstanceConstructor = JSFunction;
 
 @JS('AnimationWorkletGlobalScope')
 @staticInterop
-class AnimationWorkletGlobalScope extends WorkletGlobalScope {
-  external factory AnimationWorkletGlobalScope();
-}
+class AnimationWorkletGlobalScope implements WorkletGlobalScope {}
 
 extension AnimationWorkletGlobalScopeExtension on AnimationWorkletGlobalScope {
   external JSVoid registerAnimator(
@@ -28,9 +26,7 @@ extension AnimationWorkletGlobalScopeExtension on AnimationWorkletGlobalScope {
 
 @JS('WorkletAnimationEffect')
 @staticInterop
-class WorkletAnimationEffect {
-  external factory WorkletAnimationEffect();
-}
+class WorkletAnimationEffect {}
 
 extension WorkletAnimationEffectExtension on WorkletAnimationEffect {
   external EffectTiming getTiming();
@@ -41,28 +37,13 @@ extension WorkletAnimationEffectExtension on WorkletAnimationEffect {
 
 @JS('WorkletAnimation')
 @staticInterop
-class WorkletAnimation extends Animation {
-  external factory WorkletAnimation();
-
-  external factory WorkletAnimation.a1(JSString animatorName);
-
-  external factory WorkletAnimation.a2(
-    JSString animatorName,
-    JSAny? effects,
-  );
-
-  external factory WorkletAnimation.a3(
-    JSString animatorName,
-    JSAny? effects,
-    AnimationTimeline? timeline,
-  );
-
-  external factory WorkletAnimation.a4(
-    JSString animatorName,
+class WorkletAnimation implements Animation {
+  external factory WorkletAnimation(
+    JSString animatorName, [
     JSAny? effects,
     AnimationTimeline? timeline,
     JSAny options,
-  );
+  ]);
 }
 
 extension WorkletAnimationExtension on WorkletAnimation {
@@ -71,9 +52,7 @@ extension WorkletAnimationExtension on WorkletAnimation {
 
 @JS('WorkletGroupEffect')
 @staticInterop
-class WorkletGroupEffect {
-  external factory WorkletGroupEffect();
-}
+class WorkletGroupEffect {}
 
 extension WorkletGroupEffectExtension on WorkletGroupEffect {
   external JSArray getChildren();

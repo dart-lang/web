@@ -72,9 +72,7 @@ extension TouchInitExtension on TouchInit {
 @JS('Touch')
 @staticInterop
 class Touch {
-  external factory Touch();
-
-  external factory Touch.a1(TouchInit touchInitDict);
+  external factory Touch(TouchInit touchInitDict);
 }
 
 extension TouchExtension on Touch {
@@ -97,19 +95,17 @@ extension TouchExtension on Touch {
 
 @JS('TouchList')
 @staticInterop
-class TouchList {
-  external factory TouchList();
-}
+class TouchList {}
 
 extension TouchListExtension on TouchList {
-  external JSNumber get length;
   external Touch? item(JSNumber index);
+  external JSNumber get length;
 }
 
 @JS()
 @staticInterop
 @anonymous
-class TouchEventInit extends EventModifierInit {
+class TouchEventInit implements EventModifierInit {
   external factory TouchEventInit({
     JSArray touches = const [],
     JSArray targetTouches = const [],
@@ -128,18 +124,15 @@ extension TouchEventInitExtension on TouchEventInit {
 
 @JS('TouchEvent')
 @staticInterop
-class TouchEvent extends UIEvent {
-  external factory TouchEvent();
-
-  external factory TouchEvent.a1(JSString type);
-
-  external factory TouchEvent.a2(
-    JSString type,
+class TouchEvent implements UIEvent {
+  external factory TouchEvent(
+    JSString type, [
     TouchEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension TouchEventExtension on TouchEvent {
+  external JSBoolean getModifierState(JSString keyArg);
   external TouchList get touches;
   external TouchList get targetTouches;
   external TouchList get changedTouches;
@@ -147,5 +140,4 @@ extension TouchEventExtension on TouchEvent {
   external JSBoolean get metaKey;
   external JSBoolean get ctrlKey;
   external JSBoolean get shiftKey;
-  external JSBoolean getModifierState(JSString keyArg);
 }

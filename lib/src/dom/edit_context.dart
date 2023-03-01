@@ -34,12 +34,8 @@ extension EditContextInitExtension on EditContextInit {
 
 @JS('EditContext')
 @staticInterop
-class EditContext extends EventTarget {
-  external factory EditContext();
-
-  external factory EditContext.a1();
-
-  external factory EditContext.a2(EditContextInit options);
+class EditContext implements EventTarget {
+  external factory EditContext([EditContextInit options]);
 }
 
 extension EditContextExtension on EditContext {
@@ -59,6 +55,7 @@ extension EditContextExtension on EditContext {
     JSArray characterBounds,
   );
   external JSArray attachedElements();
+  external JSArray characterBounds();
   external JSString get text;
   external JSNumber get selectionStart;
   external JSNumber get selectionEnd;
@@ -68,7 +65,6 @@ extension EditContextExtension on EditContext {
   external DOMRect get controlBound;
   external DOMRect get selectionBound;
   external JSNumber get characterBoundsRangeStart;
-  external JSArray characterBounds();
   external set ontextupdate(EventHandler value);
   external EventHandler get ontextupdate;
   external set ontextformatupdate(EventHandler value);
@@ -115,12 +111,8 @@ extension TextUpdateEventInitExtension on TextUpdateEventInit {
 
 @JS('TextUpdateEvent')
 @staticInterop
-class TextUpdateEvent extends Event {
-  external factory TextUpdateEvent();
-
-  external factory TextUpdateEvent.a1();
-
-  external factory TextUpdateEvent.a2(TextUpdateEventInit options);
+class TextUpdateEvent implements Event {
+  external factory TextUpdateEvent([TextUpdateEventInit options]);
 }
 
 extension TextUpdateEventExtension on TextUpdateEvent {
@@ -168,11 +160,7 @@ extension TextFormatInitExtension on TextFormatInit {
 @JS('TextFormat')
 @staticInterop
 class TextFormat {
-  external factory TextFormat();
-
-  external factory TextFormat.a1();
-
-  external factory TextFormat.a2(TextFormatInit options);
+  external factory TextFormat([TextFormatInit options]);
 }
 
 extension TextFormatExtension on TextFormat {
@@ -206,12 +194,8 @@ extension TextFormatUpdateEventInitExtension on TextFormatUpdateEventInit {
 
 @JS('TextFormatUpdateEvent')
 @staticInterop
-class TextFormatUpdateEvent extends Event {
-  external factory TextFormatUpdateEvent();
-
-  external factory TextFormatUpdateEvent.a1();
-
-  external factory TextFormatUpdateEvent.a2(TextFormatUpdateEventInit options);
+class TextFormatUpdateEvent implements Event {
+  external factory TextFormatUpdateEvent([TextFormatUpdateEventInit options]);
 }
 
 extension TextFormatUpdateEventExtension on TextFormatUpdateEvent {
@@ -238,13 +222,9 @@ extension CharacterBoundsUpdateEventInitExtension
 
 @JS('CharacterBoundsUpdateEvent')
 @staticInterop
-class CharacterBoundsUpdateEvent extends Event {
-  external factory CharacterBoundsUpdateEvent();
-
-  external factory CharacterBoundsUpdateEvent.a1();
-
-  external factory CharacterBoundsUpdateEvent.a2(
-      CharacterBoundsUpdateEventInit options);
+class CharacterBoundsUpdateEvent implements Event {
+  external factory CharacterBoundsUpdateEvent(
+      [CharacterBoundsUpdateEventInit options]);
 }
 
 extension CharacterBoundsUpdateEventExtension on CharacterBoundsUpdateEvent {

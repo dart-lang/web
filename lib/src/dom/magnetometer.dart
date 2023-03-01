@@ -14,12 +14,8 @@ typedef MagnetometerLocalCoordinateSystem = JSString;
 
 @JS('Magnetometer')
 @staticInterop
-class Magnetometer extends Sensor {
-  external factory Magnetometer();
-
-  external factory Magnetometer.a1();
-
-  external factory Magnetometer.a2(MagnetometerSensorOptions sensorOptions);
+class Magnetometer implements Sensor {
+  external factory Magnetometer([MagnetometerSensorOptions sensorOptions]);
 }
 
 extension MagnetometerExtension on Magnetometer {
@@ -31,7 +27,7 @@ extension MagnetometerExtension on Magnetometer {
 @JS()
 @staticInterop
 @anonymous
-class MagnetometerSensorOptions extends SensorOptions {
+class MagnetometerSensorOptions implements SensorOptions {
   external factory MagnetometerSensorOptions(
       {MagnetometerLocalCoordinateSystem referenceFrame = 'device'});
 }
@@ -43,13 +39,9 @@ extension MagnetometerSensorOptionsExtension on MagnetometerSensorOptions {
 
 @JS('UncalibratedMagnetometer')
 @staticInterop
-class UncalibratedMagnetometer extends Sensor {
-  external factory UncalibratedMagnetometer();
-
-  external factory UncalibratedMagnetometer.a1();
-
-  external factory UncalibratedMagnetometer.a2(
-      MagnetometerSensorOptions sensorOptions);
+class UncalibratedMagnetometer implements Sensor {
+  external factory UncalibratedMagnetometer(
+      [MagnetometerSensorOptions sensorOptions]);
 }
 
 extension UncalibratedMagnetometerExtension on UncalibratedMagnetometer {

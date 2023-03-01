@@ -13,9 +13,7 @@ import 'webidl.dart';
 
 @JS('PaintWorkletGlobalScope')
 @staticInterop
-class PaintWorkletGlobalScope extends WorkletGlobalScope {
-  external factory PaintWorkletGlobalScope();
-}
+class PaintWorkletGlobalScope implements WorkletGlobalScope {}
 
 extension PaintWorkletGlobalScopeExtension on PaintWorkletGlobalScope {
   external JSVoid registerPaint(
@@ -52,15 +50,11 @@ class PaintRenderingContext2D
         CanvasDrawPath,
         CanvasDrawImage,
         CanvasPathDrawingStyles,
-        CanvasPath {
-  external factory PaintRenderingContext2D();
-}
+        CanvasPath {}
 
 @JS('PaintSize')
 @staticInterop
-class PaintSize {
-  external factory PaintSize();
-}
+class PaintSize {}
 
 extension PaintSizeExtension on PaintSize {
   external JSNumber get width;

@@ -36,7 +36,7 @@ extension MediaConfigurationExtension on MediaConfiguration {
 @JS()
 @staticInterop
 @anonymous
-class MediaDecodingConfiguration extends MediaConfiguration {
+class MediaDecodingConfiguration implements MediaConfiguration {
   external factory MediaDecodingConfiguration({
     required MediaDecodingType type,
     MediaCapabilitiesKeySystemConfiguration keySystemConfiguration,
@@ -54,7 +54,7 @@ extension MediaDecodingConfigurationExtension on MediaDecodingConfiguration {
 @JS()
 @staticInterop
 @anonymous
-class MediaEncodingConfiguration extends MediaConfiguration {
+class MediaEncodingConfiguration implements MediaConfiguration {
   external factory MediaEncodingConfiguration(
       {required MediaEncodingType type});
 }
@@ -207,7 +207,7 @@ extension MediaCapabilitiesInfoExtension on MediaCapabilitiesInfo {
 @JS()
 @staticInterop
 @anonymous
-class MediaCapabilitiesDecodingInfo extends MediaCapabilitiesInfo {
+class MediaCapabilitiesDecodingInfo implements MediaCapabilitiesInfo {
   external factory MediaCapabilitiesDecodingInfo({
     required MediaKeySystemAccess keySystemAccess,
     MediaDecodingConfiguration configuration,
@@ -225,7 +225,7 @@ extension MediaCapabilitiesDecodingInfoExtension
 @JS()
 @staticInterop
 @anonymous
-class MediaCapabilitiesEncodingInfo extends MediaCapabilitiesInfo {
+class MediaCapabilitiesEncodingInfo implements MediaCapabilitiesInfo {
   external factory MediaCapabilitiesEncodingInfo(
       {MediaEncodingConfiguration configuration});
 }
@@ -238,9 +238,7 @@ extension MediaCapabilitiesEncodingInfoExtension
 
 @JS('MediaCapabilities')
 @staticInterop
-class MediaCapabilities {
-  external factory MediaCapabilities();
-}
+class MediaCapabilities {}
 
 extension MediaCapabilitiesExtension on MediaCapabilities {
   external JSPromise decodingInfo(MediaDecodingConfiguration configuration);

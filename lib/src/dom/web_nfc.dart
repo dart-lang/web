@@ -16,9 +16,7 @@ typedef NDEFMessageSource = JSAny;
 @JS('NDEFMessage')
 @staticInterop
 class NDEFMessage {
-  external factory NDEFMessage();
-
-  external factory NDEFMessage.a1(NDEFMessageInit messageInit);
+  external factory NDEFMessage(NDEFMessageInit messageInit);
 }
 
 extension NDEFMessageExtension on NDEFMessage {
@@ -40,19 +38,17 @@ extension NDEFMessageInitExtension on NDEFMessageInit {
 @JS('NDEFRecord')
 @staticInterop
 class NDEFRecord {
-  external factory NDEFRecord();
-
-  external factory NDEFRecord.a1(NDEFRecordInit recordInit);
+  external factory NDEFRecord(NDEFRecordInit recordInit);
 }
 
 extension NDEFRecordExtension on NDEFRecord {
+  external JSArray? toRecords();
   external JSString get recordType;
   external JSString? get mediaType;
   external JSString? get id;
   external JSDataView? get data;
   external JSString? get encoding;
   external JSString? get lang;
-  external JSArray? toRecords();
 }
 
 @JS()
@@ -86,32 +82,27 @@ extension NDEFRecordInitExtension on NDEFRecordInit {
 
 @JS('NDEFReader')
 @staticInterop
-class NDEFReader extends EventTarget {
-  external factory NDEFReader.a0();
+class NDEFReader implements EventTarget {
+  external factory NDEFReader();
 }
 
 extension NDEFReaderExtension on NDEFReader {
+  external JSPromise scan([NDEFScanOptions options]);
+  external JSPromise write(
+    NDEFMessageSource message, [
+    NDEFWriteOptions options,
+  ]);
+  external JSPromise makeReadOnly([NDEFMakeReadOnlyOptions options]);
   external set onreading(EventHandler value);
   external EventHandler get onreading;
   external set onreadingerror(EventHandler value);
   external EventHandler get onreadingerror;
-  external JSPromise scan();
-  external JSPromise scan1(NDEFScanOptions options);
-  external JSPromise write(NDEFMessageSource message);
-  external JSPromise write1(
-    NDEFMessageSource message,
-    NDEFWriteOptions options,
-  );
-  external JSPromise makeReadOnly();
-  external JSPromise makeReadOnly1(NDEFMakeReadOnlyOptions options);
 }
 
 @JS('NDEFReadingEvent')
 @staticInterop
-class NDEFReadingEvent extends Event {
-  external factory NDEFReadingEvent();
-
-  external factory NDEFReadingEvent.a1(
+class NDEFReadingEvent implements Event {
+  external factory NDEFReadingEvent(
     JSString type,
     NDEFReadingEventInit readingEventInitDict,
   );
@@ -125,7 +116,7 @@ extension NDEFReadingEventExtension on NDEFReadingEvent {
 @JS()
 @staticInterop
 @anonymous
-class NDEFReadingEventInit extends EventInit {
+class NDEFReadingEventInit implements EventInit {
   external factory NDEFReadingEventInit({
     JSString? serialNumber = '',
     required NDEFMessageInit message,

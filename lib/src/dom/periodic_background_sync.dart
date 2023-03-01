@@ -12,16 +12,13 @@ import 'service_workers.dart';
 
 @JS('PeriodicSyncManager')
 @staticInterop
-class PeriodicSyncManager {
-  external factory PeriodicSyncManager();
-}
+class PeriodicSyncManager {}
 
 extension PeriodicSyncManagerExtension on PeriodicSyncManager {
-  external JSPromise register(JSString tag);
-  external JSPromise register1(
-    JSString tag,
+  external JSPromise register(
+    JSString tag, [
     BackgroundSyncOptions options,
-  );
+  ]);
   external JSPromise getTags();
   external JSPromise unregister(JSString tag);
 }
@@ -41,7 +38,7 @@ extension BackgroundSyncOptionsExtension on BackgroundSyncOptions {
 @JS()
 @staticInterop
 @anonymous
-class PeriodicSyncEventInit extends ExtendableEventInit {
+class PeriodicSyncEventInit implements ExtendableEventInit {
   external factory PeriodicSyncEventInit({required JSString tag});
 }
 
@@ -52,10 +49,8 @@ extension PeriodicSyncEventInitExtension on PeriodicSyncEventInit {
 
 @JS('PeriodicSyncEvent')
 @staticInterop
-class PeriodicSyncEvent extends ExtendableEvent {
-  external factory PeriodicSyncEvent();
-
-  external factory PeriodicSyncEvent.a1(
+class PeriodicSyncEvent implements ExtendableEvent {
+  external factory PeriodicSyncEvent(
     JSString type,
     PeriodicSyncEventInit init,
   );

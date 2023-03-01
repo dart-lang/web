@@ -12,13 +12,11 @@ typedef UpdateCallback = JSFunction;
 
 @JS('ViewTransition')
 @staticInterop
-class ViewTransition {
-  external factory ViewTransition();
-}
+class ViewTransition {}
 
 extension ViewTransitionExtension on ViewTransition {
+  external JSVoid skipTransition();
   external JSPromise get updateCallbackDone;
   external JSPromise get ready;
   external JSPromise get finished;
-  external JSVoid skipTransition();
 }

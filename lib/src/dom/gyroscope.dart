@@ -14,12 +14,8 @@ typedef GyroscopeLocalCoordinateSystem = JSString;
 
 @JS('Gyroscope')
 @staticInterop
-class Gyroscope extends Sensor {
-  external factory Gyroscope();
-
-  external factory Gyroscope.a1();
-
-  external factory Gyroscope.a2(GyroscopeSensorOptions sensorOptions);
+class Gyroscope implements Sensor {
+  external factory Gyroscope([GyroscopeSensorOptions sensorOptions]);
 }
 
 extension GyroscopeExtension on Gyroscope {
@@ -31,7 +27,7 @@ extension GyroscopeExtension on Gyroscope {
 @JS()
 @staticInterop
 @anonymous
-class GyroscopeSensorOptions extends SensorOptions {
+class GyroscopeSensorOptions implements SensorOptions {
   external factory GyroscopeSensorOptions(
       {GyroscopeLocalCoordinateSystem referenceFrame = 'device'});
 }

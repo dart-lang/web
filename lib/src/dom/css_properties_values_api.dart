@@ -35,9 +35,7 @@ extension PropertyDefinitionExtension on PropertyDefinition {
 
 @JS('CSSPropertyRule')
 @staticInterop
-class CSSPropertyRule extends CSSRule {
-  external factory CSSPropertyRule();
-}
+class CSSPropertyRule implements CSSRule {}
 
 extension CSSPropertyRuleExtension on CSSPropertyRule {
   external JSString get name;

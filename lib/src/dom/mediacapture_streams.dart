@@ -32,16 +32,11 @@ typedef MediaDeviceKind = JSString;
 
 @JS('MediaStream')
 @staticInterop
-class MediaStream extends EventTarget {
-  external factory MediaStream.a0();
-
-  external factory MediaStream.a1(MediaStream stream);
-
-  external factory MediaStream.a2(JSArray tracks);
+class MediaStream implements EventTarget {
+  external factory MediaStream([JSAny streamOrTracks]);
 }
 
 extension MediaStreamExtension on MediaStream {
-  external JSString get id;
   external JSArray getAudioTracks();
   external JSArray getVideoTracks();
   external JSArray getTracks();
@@ -49,6 +44,7 @@ extension MediaStreamExtension on MediaStream {
   external JSVoid addTrack(MediaStreamTrack track);
   external JSVoid removeTrack(MediaStreamTrack track);
   external MediaStream clone();
+  external JSString get id;
   external JSBoolean get active;
   external set onaddtrack(EventHandler value);
   external EventHandler get onaddtrack;
@@ -58,16 +54,20 @@ extension MediaStreamExtension on MediaStream {
 
 @JS('MediaStreamTrack')
 @staticInterop
-class MediaStreamTrack extends EventTarget {
-  external factory MediaStreamTrack();
-}
+class MediaStreamTrack implements EventTarget {}
 
 extension MediaStreamTrackExtension on MediaStreamTrack {
   external CaptureHandle? getCaptureHandle();
-  external set oncapturehandlechange(EventHandler value);
-  external EventHandler get oncapturehandlechange;
   external JSArray getSupportedCaptureActions();
   external JSPromise sendCaptureAction(CaptureAction action);
+  external MediaStreamTrack clone();
+  external JSVoid stop();
+  external MediaTrackCapabilities getCapabilities();
+  external MediaTrackConstraints getConstraints();
+  external MediaTrackSettings getSettings();
+  external JSPromise applyConstraints([MediaTrackConstraints constraints]);
+  external set oncapturehandlechange(EventHandler value);
+  external EventHandler get oncapturehandlechange;
   external JSString get kind;
   external JSString get id;
   external JSString get label;
@@ -81,13 +81,6 @@ extension MediaStreamTrackExtension on MediaStreamTrack {
   external MediaStreamTrackState get readyState;
   external set onended(EventHandler value);
   external EventHandler get onended;
-  external MediaStreamTrack clone();
-  external JSVoid stop();
-  external MediaTrackCapabilities getCapabilities();
-  external MediaTrackConstraints getConstraints();
-  external MediaTrackSettings getSettings();
-  external JSPromise applyConstraints();
-  external JSPromise applyConstraints1(MediaTrackConstraints constraints);
   external set contentHint(JSString value);
   external JSString get contentHint;
   external JSBoolean get isolated;
@@ -334,7 +327,7 @@ extension MediaTrackCapabilitiesExtension on MediaTrackCapabilities {
 @JS()
 @staticInterop
 @anonymous
-class MediaTrackConstraints extends MediaTrackConstraintSet {
+class MediaTrackConstraints implements MediaTrackConstraintSet {
   external factory MediaTrackConstraints({JSArray advanced});
 }
 
@@ -589,10 +582,8 @@ extension MediaTrackSettingsExtension on MediaTrackSettings {
 
 @JS('MediaStreamTrackEvent')
 @staticInterop
-class MediaStreamTrackEvent extends Event {
-  external factory MediaStreamTrackEvent();
-
-  external factory MediaStreamTrackEvent.a1(
+class MediaStreamTrackEvent implements Event {
+  external factory MediaStreamTrackEvent(
     JSString type,
     MediaStreamTrackEventInit eventInitDict,
   );
@@ -605,7 +596,7 @@ extension MediaStreamTrackEventExtension on MediaStreamTrackEvent {
 @JS()
 @staticInterop
 @anonymous
-class MediaStreamTrackEventInit extends EventInit {
+class MediaStreamTrackEventInit implements EventInit {
   external factory MediaStreamTrackEventInit({required MediaStreamTrack track});
 }
 
@@ -616,15 +607,11 @@ extension MediaStreamTrackEventInitExtension on MediaStreamTrackEventInit {
 
 @JS('OverconstrainedError')
 @staticInterop
-class OverconstrainedError extends DOMException {
-  external factory OverconstrainedError();
-
-  external factory OverconstrainedError.a1(JSString constraint);
-
-  external factory OverconstrainedError.a2(
-    JSString constraint,
+class OverconstrainedError implements DOMException {
+  external factory OverconstrainedError(
+    JSString constraint, [
     JSString message,
-  );
+  ]);
 }
 
 extension OverconstrainedErrorExtension on OverconstrainedError {
@@ -633,50 +620,39 @@ extension OverconstrainedErrorExtension on OverconstrainedError {
 
 @JS('MediaDevices')
 @staticInterop
-class MediaDevices extends EventTarget {
-  external factory MediaDevices();
-}
+class MediaDevices implements EventTarget {}
 
 extension MediaDevicesExtension on MediaDevices {
-  external JSPromise selectAudioOutput();
-  external JSPromise selectAudioOutput1(AudioOutputOptions options);
-  external JSVoid setCaptureHandleConfig();
-  external JSVoid setCaptureHandleConfig1(CaptureHandleConfig config);
+  external JSPromise selectAudioOutput([AudioOutputOptions options]);
+  external JSVoid setCaptureHandleConfig([CaptureHandleConfig config]);
   external JSVoid setSupportedCaptureActions(JSArray actions);
+  external JSPromise enumerateDevices();
+  external MediaTrackSupportedConstraints getSupportedConstraints();
+  external JSPromise getUserMedia([MediaStreamConstraints constraints]);
+  external JSPromise getViewportMedia(
+      [ViewportMediaStreamConstraints constraints]);
+  external JSPromise getDisplayMedia([DisplayMediaStreamOptions options]);
   external set oncaptureaction(EventHandler value);
   external EventHandler get oncaptureaction;
   external set ondevicechange(EventHandler value);
   external EventHandler get ondevicechange;
-  external JSPromise enumerateDevices();
-  external MediaTrackSupportedConstraints getSupportedConstraints();
-  external JSPromise getUserMedia();
-  external JSPromise getUserMedia1(MediaStreamConstraints constraints);
-  external JSPromise getViewportMedia();
-  external JSPromise getViewportMedia1(
-      ViewportMediaStreamConstraints constraints);
-  external JSPromise getDisplayMedia();
-  external JSPromise getDisplayMedia1(DisplayMediaStreamOptions options);
 }
 
 @JS('MediaDeviceInfo')
 @staticInterop
-class MediaDeviceInfo {
-  external factory MediaDeviceInfo();
-}
+class MediaDeviceInfo {}
 
 extension MediaDeviceInfoExtension on MediaDeviceInfo {
+  external JSObject toJSON();
   external JSString get deviceId;
   external MediaDeviceKind get kind;
   external JSString get label;
   external JSString get groupId;
-  external JSObject toJSON();
 }
 
 @JS('InputDeviceInfo')
 @staticInterop
-class InputDeviceInfo extends MediaDeviceInfo {
-  external factory InputDeviceInfo();
-}
+class InputDeviceInfo implements MediaDeviceInfo {}
 
 extension InputDeviceInfoExtension on InputDeviceInfo {
   external MediaTrackCapabilities getCapabilities();
@@ -725,7 +701,7 @@ extension DoubleRangeExtension on DoubleRange {
 @JS()
 @staticInterop
 @anonymous
-class ConstrainDoubleRange extends DoubleRange {
+class ConstrainDoubleRange implements DoubleRange {
   external factory ConstrainDoubleRange({
     JSNumber exact,
     JSNumber ideal,
@@ -759,7 +735,7 @@ extension ULongRangeExtension on ULongRange {
 @JS()
 @staticInterop
 @anonymous
-class ConstrainULongRange extends ULongRange {
+class ConstrainULongRange implements ULongRange {
   external factory ConstrainULongRange({
     JSNumber exact,
     JSNumber ideal,
@@ -811,7 +787,7 @@ extension ConstrainDOMStringParametersExtension
 @JS()
 @staticInterop
 @anonymous
-class DevicePermissionDescriptor extends PermissionDescriptor {
+class DevicePermissionDescriptor implements PermissionDescriptor {
   external factory DevicePermissionDescriptor({JSString deviceId});
 }
 
@@ -823,7 +799,7 @@ extension DevicePermissionDescriptorExtension on DevicePermissionDescriptor {
 @JS()
 @staticInterop
 @anonymous
-class CameraDevicePermissionDescriptor extends DevicePermissionDescriptor {
+class CameraDevicePermissionDescriptor implements DevicePermissionDescriptor {
   external factory CameraDevicePermissionDescriptor(
       {JSBoolean panTiltZoom = false});
 }

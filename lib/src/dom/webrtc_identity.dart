@@ -16,9 +16,7 @@ typedef RTCErrorDetailTypeIdp = JSString;
 
 @JS('RTCIdentityProviderGlobalScope')
 @staticInterop
-class RTCIdentityProviderGlobalScope extends WorkerGlobalScope {
-  external factory RTCIdentityProviderGlobalScope();
-}
+class RTCIdentityProviderGlobalScope implements WorkerGlobalScope {}
 
 extension RTCIdentityProviderGlobalScopeExtension
     on RTCIdentityProviderGlobalScope {
@@ -27,9 +25,7 @@ extension RTCIdentityProviderGlobalScopeExtension
 
 @JS('RTCIdentityProviderRegistrar')
 @staticInterop
-class RTCIdentityProviderRegistrar {
-  external factory RTCIdentityProviderRegistrar();
-}
+class RTCIdentityProviderRegistrar {}
 
 extension RTCIdentityProviderRegistrarExtension
     on RTCIdentityProviderRegistrar {
@@ -127,9 +123,7 @@ extension RTCIdentityProviderOptionsExtension on RTCIdentityProviderOptions {
 @JS('RTCIdentityAssertion')
 @staticInterop
 class RTCIdentityAssertion {
-  external factory RTCIdentityAssertion();
-
-  external factory RTCIdentityAssertion.a1(
+  external factory RTCIdentityAssertion(
     JSString idp,
     JSString name,
   );

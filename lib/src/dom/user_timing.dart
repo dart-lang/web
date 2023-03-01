@@ -53,15 +53,11 @@ extension PerformanceMeasureOptionsExtension on PerformanceMeasureOptions {
 
 @JS('PerformanceMark')
 @staticInterop
-class PerformanceMark extends PerformanceEntry {
-  external factory PerformanceMark();
-
-  external factory PerformanceMark.a1(JSString markName);
-
-  external factory PerformanceMark.a2(
-    JSString markName,
+class PerformanceMark implements PerformanceEntry {
+  external factory PerformanceMark(
+    JSString markName, [
     PerformanceMarkOptions markOptions,
-  );
+  ]);
 }
 
 extension PerformanceMarkExtension on PerformanceMark {
@@ -70,9 +66,7 @@ extension PerformanceMarkExtension on PerformanceMark {
 
 @JS('PerformanceMeasure')
 @staticInterop
-class PerformanceMeasure extends PerformanceEntry {
-  external factory PerformanceMeasure();
-}
+class PerformanceMeasure implements PerformanceEntry {}
 
 extension PerformanceMeasureExtension on PerformanceMeasure {
   external JSAny get detail;

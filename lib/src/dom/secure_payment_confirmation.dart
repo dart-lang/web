@@ -90,7 +90,7 @@ extension AuthenticationExtensionsPaymentInputsExtension
 @JS()
 @staticInterop
 @anonymous
-class CollectedClientPaymentData extends CollectedClientData {
+class CollectedClientPaymentData implements CollectedClientData {
   external factory CollectedClientPaymentData(
       {required CollectedClientAdditionalPaymentData payment});
 }

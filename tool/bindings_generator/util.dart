@@ -44,3 +44,6 @@ extension StringExt on String {
 final _snakeBit = RegExp('_[a-zA-Z]');
 
 const packageRoot = 'package:web';
+
+String capitalize(String s) =>
+    s.isEmpty ? '' : '${s[0].toUpperCase()}${s.substring(1)}';

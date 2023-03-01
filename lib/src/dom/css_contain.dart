@@ -12,15 +12,11 @@ import 'dom.dart';
 
 @JS('ContentVisibilityAutoStateChangedEvent')
 @staticInterop
-class ContentVisibilityAutoStateChangedEvent extends Event {
-  external factory ContentVisibilityAutoStateChangedEvent();
-
-  external factory ContentVisibilityAutoStateChangedEvent.a1(JSString type);
-
-  external factory ContentVisibilityAutoStateChangedEvent.a2(
-    JSString type,
+class ContentVisibilityAutoStateChangedEvent implements Event {
+  external factory ContentVisibilityAutoStateChangedEvent(
+    JSString type, [
     ContentVisibilityAutoStateChangedEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension ContentVisibilityAutoStateChangedEventExtension
@@ -31,7 +27,7 @@ extension ContentVisibilityAutoStateChangedEventExtension
 @JS()
 @staticInterop
 @anonymous
-class ContentVisibilityAutoStateChangedEventInit extends EventInit {
+class ContentVisibilityAutoStateChangedEventInit implements EventInit {
   external factory ContentVisibilityAutoStateChangedEventInit(
       {JSBoolean skipped = false});
 }

@@ -13,9 +13,7 @@ import 'webidl.dart';
 
 @JS('TextDecoderCommon')
 @staticInterop
-class TextDecoderCommon {
-  external factory TextDecoderCommon();
-}
+class TextDecoderCommon {}
 
 extension TextDecoderCommonExtension on TextDecoderCommon {
   external JSString get encoding;
@@ -55,32 +53,22 @@ extension TextDecodeOptionsExtension on TextDecodeOptions {
 @JS('TextDecoder')
 @staticInterop
 class TextDecoder implements TextDecoderCommon {
-  external factory TextDecoder();
-
-  external factory TextDecoder.a1();
-
-  external factory TextDecoder.a2(JSString label);
-
-  external factory TextDecoder.a3(
+  external factory TextDecoder([
     JSString label,
     TextDecoderOptions options,
-  );
+  ]);
 }
 
 extension TextDecoderExtension on TextDecoder {
-  external JSString decode();
-  external JSString decode1(BufferSource input);
-  external JSString decode2(
+  external JSString decode([
     BufferSource input,
     TextDecodeOptions options,
-  );
+  ]);
 }
 
 @JS('TextEncoderCommon')
 @staticInterop
-class TextEncoderCommon {
-  external factory TextEncoderCommon();
-}
+class TextEncoderCommon {}
 
 extension TextEncoderCommonExtension on TextEncoderCommon {
   external JSString get encoding;
@@ -106,12 +94,11 @@ extension TextEncoderEncodeIntoResultExtension on TextEncoderEncodeIntoResult {
 @JS('TextEncoder')
 @staticInterop
 class TextEncoder implements TextEncoderCommon {
-  external factory TextEncoder.a0();
+  external factory TextEncoder();
 }
 
 extension TextEncoderExtension on TextEncoder {
-  external JSUint8Array encode();
-  external JSUint8Array encode1(JSString input);
+  external JSUint8Array encode([JSString input]);
   external TextEncoderEncodeIntoResult encodeInto(
     JSString source,
     JSUint8Array destination,
@@ -121,20 +108,14 @@ extension TextEncoderExtension on TextEncoder {
 @JS('TextDecoderStream')
 @staticInterop
 class TextDecoderStream implements TextDecoderCommon, GenericTransformStream {
-  external factory TextDecoderStream();
-
-  external factory TextDecoderStream.a1();
-
-  external factory TextDecoderStream.a2(JSString label);
-
-  external factory TextDecoderStream.a3(
+  external factory TextDecoderStream([
     JSString label,
     TextDecoderOptions options,
-  );
+  ]);
 }
 
 @JS('TextEncoderStream')
 @staticInterop
 class TextEncoderStream implements TextEncoderCommon, GenericTransformStream {
-  external factory TextEncoderStream.a0();
+  external factory TextEncoderStream();
 }

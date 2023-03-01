@@ -29,9 +29,7 @@ typedef LargeBlobSupport = JSString;
 
 @JS('PublicKeyCredential')
 @staticInterop
-class PublicKeyCredential extends Credential {
-  external factory PublicKeyCredential();
-
+class PublicKeyCredential implements Credential {
   external static JSPromise isConditionalMediationAvailable();
   external static JSPromise isUserVerifyingPlatformAuthenticatorAvailable();
   external static PublicKeyCredentialCreationOptions
@@ -42,11 +40,11 @@ class PublicKeyCredential extends Credential {
 }
 
 extension PublicKeyCredentialExtension on PublicKeyCredential {
+  external AuthenticationExtensionsClientOutputs getClientExtensionResults();
+  external PublicKeyCredentialJSON toJSON();
   external JSArrayBuffer get rawId;
   external AuthenticatorResponse get response;
   external JSString? get authenticatorAttachment;
-  external AuthenticationExtensionsClientOutputs getClientExtensionResults();
-  external PublicKeyCredentialJSON toJSON();
 }
 
 @JS()
@@ -281,9 +279,7 @@ extension PublicKeyCredentialRequestOptionsJSONExtension
 
 @JS('AuthenticatorResponse')
 @staticInterop
-class AuthenticatorResponse {
-  external factory AuthenticatorResponse();
-}
+class AuthenticatorResponse {}
 
 extension AuthenticatorResponseExtension on AuthenticatorResponse {
   external JSArrayBuffer get clientDataJSON;
@@ -291,24 +287,20 @@ extension AuthenticatorResponseExtension on AuthenticatorResponse {
 
 @JS('AuthenticatorAttestationResponse')
 @staticInterop
-class AuthenticatorAttestationResponse extends AuthenticatorResponse {
-  external factory AuthenticatorAttestationResponse();
-}
+class AuthenticatorAttestationResponse implements AuthenticatorResponse {}
 
 extension AuthenticatorAttestationResponseExtension
     on AuthenticatorAttestationResponse {
-  external JSArrayBuffer get attestationObject;
   external JSArray getTransports();
   external JSArrayBuffer getAuthenticatorData();
   external JSArrayBuffer? getPublicKey();
   external COSEAlgorithmIdentifier getPublicKeyAlgorithm();
+  external JSArrayBuffer get attestationObject;
 }
 
 @JS('AuthenticatorAssertionResponse')
 @staticInterop
-class AuthenticatorAssertionResponse extends AuthenticatorResponse {
-  external factory AuthenticatorAssertionResponse();
-}
+class AuthenticatorAssertionResponse implements AuthenticatorResponse {}
 
 extension AuthenticatorAssertionResponseExtension
     on AuthenticatorAssertionResponse {
@@ -393,7 +385,7 @@ extension PublicKeyCredentialEntityExtension on PublicKeyCredentialEntity {
 @JS()
 @staticInterop
 @anonymous
-class PublicKeyCredentialRpEntity extends PublicKeyCredentialEntity {
+class PublicKeyCredentialRpEntity implements PublicKeyCredentialEntity {
   external factory PublicKeyCredentialRpEntity({JSString id});
 }
 
@@ -405,7 +397,7 @@ extension PublicKeyCredentialRpEntityExtension on PublicKeyCredentialRpEntity {
 @JS()
 @staticInterop
 @anonymous
-class PublicKeyCredentialUserEntity extends PublicKeyCredentialEntity {
+class PublicKeyCredentialUserEntity implements PublicKeyCredentialEntity {
   external factory PublicKeyCredentialUserEntity({
     required BufferSource id,
     required JSString displayName,

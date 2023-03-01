@@ -21,10 +21,8 @@ typedef ScrollSetting = JSString;
 
 @JS('VTTCue')
 @staticInterop
-class VTTCue extends TextTrackCue {
-  external factory VTTCue();
-
-  external factory VTTCue.a1(
+class VTTCue implements TextTrackCue {
+  external factory VTTCue(
     JSNumber startTime,
     JSNumber endTime,
     JSString text,
@@ -32,6 +30,7 @@ class VTTCue extends TextTrackCue {
 }
 
 extension VTTCueExtension on VTTCue {
+  external DocumentFragment getCueAsHTML();
   external set region(VTTRegion? value);
   external VTTRegion? get region;
   external set vertical(DirectionSetting value);
@@ -52,13 +51,12 @@ extension VTTCueExtension on VTTCue {
   external AlignSetting get align;
   external set text(JSString value);
   external JSString get text;
-  external DocumentFragment getCueAsHTML();
 }
 
 @JS('VTTRegion')
 @staticInterop
 class VTTRegion {
-  external factory VTTRegion.a0();
+  external factory VTTRegion();
 }
 
 extension VTTRegionExtension on VTTRegion {

@@ -10,9 +10,7 @@ import 'package:js/js.dart' hide JS;
 
 @JS('GlobalPrivacyControl')
 @staticInterop
-class GlobalPrivacyControl {
-  external factory GlobalPrivacyControl();
-}
+class GlobalPrivacyControl {}
 
 extension GlobalPrivacyControlExtension on GlobalPrivacyControl {
   external JSBoolean get globalPrivacyControl;

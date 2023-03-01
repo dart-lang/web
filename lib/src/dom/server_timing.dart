@@ -12,13 +12,11 @@ import 'hr_time.dart';
 
 @JS('PerformanceServerTiming')
 @staticInterop
-class PerformanceServerTiming {
-  external factory PerformanceServerTiming();
-}
+class PerformanceServerTiming {}
 
 extension PerformanceServerTimingExtension on PerformanceServerTiming {
+  external JSObject toJSON();
   external JSString get name;
   external DOMHighResTimeStamp get duration;
   external JSString get description;
-  external JSObject toJSON();
 }

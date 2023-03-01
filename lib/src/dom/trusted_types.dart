@@ -19,8 +19,6 @@ typedef CreateScriptURLCallback = JSFunction;
 @JS('TrustedHTML')
 @staticInterop
 class TrustedHTML {
-  external factory TrustedHTML();
-
   external static TrustedHTML fromLiteral(JSObject templateStringsArray);
 }
 
@@ -31,8 +29,6 @@ extension TrustedHTMLExtension on TrustedHTML {
 @JS('TrustedScript')
 @staticInterop
 class TrustedScript {
-  external factory TrustedScript();
-
   external static TrustedScript fromLiteral(JSObject templateStringsArray);
 }
 
@@ -43,8 +39,6 @@ extension TrustedScriptExtension on TrustedScript {
 @JS('TrustedScriptURL')
 @staticInterop
 class TrustedScriptURL {
-  external factory TrustedScriptURL();
-
   external static TrustedScriptURL fromLiteral(JSObject templateStringsArray);
 }
 
@@ -54,56 +48,37 @@ extension TrustedScriptURLExtension on TrustedScriptURL {
 
 @JS('TrustedTypePolicyFactory')
 @staticInterop
-class TrustedTypePolicyFactory {
-  external factory TrustedTypePolicyFactory();
-}
+class TrustedTypePolicyFactory {}
 
 extension TrustedTypePolicyFactoryExtension on TrustedTypePolicyFactory {
-  external TrustedTypePolicy createPolicy(JSString policyName);
-  external TrustedTypePolicy createPolicy1(
-    JSString policyName,
+  external TrustedTypePolicy createPolicy(
+    JSString policyName, [
     TrustedTypePolicyOptions policyOptions,
-  );
+  ]);
   external JSBoolean isHTML(JSAny value);
   external JSBoolean isScript(JSAny value);
   external JSBoolean isScriptURL(JSAny value);
-  external TrustedHTML get emptyHTML;
-  external TrustedScript get emptyScript;
   external JSString? getAttributeType(
     JSString tagName,
-    JSString attribute,
-  );
-  external JSString? getAttributeType1(
-    JSString tagName,
-    JSString attribute,
-    JSString elementNs,
-  );
-  external JSString? getAttributeType2(
-    JSString tagName,
-    JSString attribute,
+    JSString attribute, [
     JSString elementNs,
     JSString attrNs,
-  );
+  ]);
   external JSString? getPropertyType(
     JSString tagName,
-    JSString property,
-  );
-  external JSString? getPropertyType1(
-    JSString tagName,
-    JSString property,
+    JSString property, [
     JSString elementNs,
-  );
+  ]);
+  external TrustedHTML get emptyHTML;
+  external TrustedScript get emptyScript;
   external TrustedTypePolicy? get defaultPolicy;
 }
 
 @JS('TrustedTypePolicy')
 @staticInterop
-class TrustedTypePolicy {
-  external factory TrustedTypePolicy();
-}
+class TrustedTypePolicy {}
 
 extension TrustedTypePolicyExtension on TrustedTypePolicy {
-  external JSString get name;
   external TrustedHTML createHTML(
     JSString input,
     JSAny arguments,
@@ -116,6 +91,7 @@ extension TrustedTypePolicyExtension on TrustedTypePolicy {
     JSString input,
     JSAny arguments,
   );
+  external JSString get name;
 }
 
 @JS()

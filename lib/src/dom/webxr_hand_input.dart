@@ -14,20 +14,16 @@ typedef XRHandJoint = JSString;
 
 @JS('XRHand')
 @staticInterop
-class XRHand {
-  external factory XRHand();
-}
+class XRHand {}
 
 extension XRHandExtension on XRHand {
-  external JSNumber get size;
   external XRJointSpace get(XRHandJoint key);
+  external JSNumber get size;
 }
 
 @JS('XRJointSpace')
 @staticInterop
-class XRJointSpace extends XRSpace {
-  external factory XRJointSpace();
-}
+class XRJointSpace implements XRSpace {}
 
 extension XRJointSpaceExtension on XRJointSpace {
   external XRHandJoint get jointName;
@@ -35,9 +31,7 @@ extension XRJointSpaceExtension on XRJointSpace {
 
 @JS('XRJointPose')
 @staticInterop
-class XRJointPose extends XRPose {
-  external factory XRJointPose();
-}
+class XRJointPose implements XRPose {}
 
 extension XRJointPoseExtension on XRJointPose {
   external JSNumber get radius;

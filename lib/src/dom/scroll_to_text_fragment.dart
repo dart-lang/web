@@ -10,6 +10,4 @@ import 'package:js/js.dart' hide JS;
 
 @JS('FragmentDirective')
 @staticInterop
-class FragmentDirective {
-  external factory FragmentDirective();
-}
+class FragmentDirective {}

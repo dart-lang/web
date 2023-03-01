@@ -12,20 +12,16 @@ import 'webxr.dart';
 
 @JS('XRAnchor')
 @staticInterop
-class XRAnchor {
-  external factory XRAnchor();
-}
+class XRAnchor {}
 
 extension XRAnchorExtension on XRAnchor {
-  external XRSpace get anchorSpace;
   external JSPromise requestPersistentHandle();
   external JSVoid delete();
+  external XRSpace get anchorSpace;
 }
 
 @JS('XRAnchorSet')
 @staticInterop
-class XRAnchorSet {
-  external factory XRAnchorSet();
-}
+class XRAnchorSet {}
 
 extension XRAnchorSetExtension on XRAnchorSet {}

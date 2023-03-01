@@ -15,9 +15,7 @@ typedef SecurityPolicyViolationEventDisposition = JSString;
 
 @JS('CSPViolationReportBody')
 @staticInterop
-class CSPViolationReportBody extends ReportBody {
-  external factory CSPViolationReportBody();
-}
+class CSPViolationReportBody implements ReportBody {}
 
 extension CSPViolationReportBodyExtension on CSPViolationReportBody {
   external JSObject toJSON();
@@ -36,15 +34,11 @@ extension CSPViolationReportBodyExtension on CSPViolationReportBody {
 
 @JS('SecurityPolicyViolationEvent')
 @staticInterop
-class SecurityPolicyViolationEvent extends Event {
-  external factory SecurityPolicyViolationEvent();
-
-  external factory SecurityPolicyViolationEvent.a1(JSString type);
-
-  external factory SecurityPolicyViolationEvent.a2(
-    JSString type,
+class SecurityPolicyViolationEvent implements Event {
+  external factory SecurityPolicyViolationEvent(
+    JSString type, [
     SecurityPolicyViolationEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension SecurityPolicyViolationEventExtension
@@ -66,7 +60,7 @@ extension SecurityPolicyViolationEventExtension
 @JS()
 @staticInterop
 @anonymous
-class SecurityPolicyViolationEventInit extends EventInit {
+class SecurityPolicyViolationEventInit implements EventInit {
   external factory SecurityPolicyViolationEventInit({
     required JSString documentURI,
     JSString referrer = '',

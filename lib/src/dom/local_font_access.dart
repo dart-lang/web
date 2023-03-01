@@ -22,9 +22,7 @@ extension QueryOptionsExtension on QueryOptions {
 
 @JS('FontData')
 @staticInterop
-class FontData {
-  external factory FontData();
-}
+class FontData {}
 
 extension FontDataExtension on FontData {
   external JSPromise blob();

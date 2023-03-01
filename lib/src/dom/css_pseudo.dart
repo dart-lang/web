@@ -13,13 +13,11 @@ import 'dom.dart';
 
 @JS('CSSPseudoElement')
 @staticInterop
-class CSSPseudoElement extends EventTarget implements GeometryUtils {
-  external factory CSSPseudoElement();
-}
+class CSSPseudoElement implements EventTarget, GeometryUtils {}
 
 extension CSSPseudoElementExtension on CSSPseudoElement {
+  external CSSPseudoElement? pseudo(JSString type);
   external JSString get type;
   external Element get element;
   external JSAny get parent;
-  external CSSPseudoElement? pseudo(JSString type);
 }

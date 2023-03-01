@@ -13,7 +13,7 @@ import 'uievents.dart';
 @JS()
 @staticInterop
 @anonymous
-class PointerEventInit extends MouseEventInit {
+class PointerEventInit implements MouseEventInit {
   external factory PointerEventInit({
     JSNumber pointerId = 0,
     JSNumber width = 1,
@@ -65,18 +65,16 @@ extension PointerEventInitExtension on PointerEventInit {
 
 @JS('PointerEvent')
 @staticInterop
-class PointerEvent extends MouseEvent {
-  external factory PointerEvent();
-
-  external factory PointerEvent.a1(JSString type);
-
-  external factory PointerEvent.a2(
-    JSString type,
+class PointerEvent implements MouseEvent {
+  external factory PointerEvent(
+    JSString type, [
     PointerEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension PointerEventExtension on PointerEvent {
+  external JSArray getCoalescedEvents();
+  external JSArray getPredictedEvents();
   external JSNumber get pointerId;
   external JSNumber get width;
   external JSNumber get height;
@@ -89,6 +87,4 @@ extension PointerEventExtension on PointerEvent {
   external JSNumber get azimuthAngle;
   external JSString get pointerType;
   external JSBoolean get isPrimary;
-  external JSArray getCoalescedEvents();
-  external JSArray getPredictedEvents();
 }

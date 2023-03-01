@@ -12,9 +12,7 @@ import 'web_animations.dart';
 
 @JS('CSSTransition')
 @staticInterop
-class CSSTransition extends Animation {
-  external factory CSSTransition();
-}
+class CSSTransition implements Animation {}
 
 extension CSSTransitionExtension on CSSTransition {
   external JSString get transitionProperty;

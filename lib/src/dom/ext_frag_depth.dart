@@ -10,6 +10,4 @@ import 'package:js/js.dart' hide JS;
 
 @JS('EXT_frag_depth')
 @staticInterop
-class EXT_frag_depth {
-  external factory EXT_frag_depth();
-}
+class EXT_frag_depth {}

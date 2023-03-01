@@ -12,34 +12,28 @@ import 'dom.dart';
 
 @JS('NamedFlowMap')
 @staticInterop
-class NamedFlowMap {
-  external factory NamedFlowMap();
-}
+class NamedFlowMap {}
 
 extension NamedFlowMapExtension on NamedFlowMap {}
 
 @JS('NamedFlow')
 @staticInterop
-class NamedFlow extends EventTarget {
-  external factory NamedFlow();
-}
+class NamedFlow implements EventTarget {}
 
 extension NamedFlowExtension on NamedFlow {
-  external JSString get name;
-  external JSBoolean get overset;
   external JSArray getRegions();
-  external JSNumber get firstEmptyRegionIndex;
   external JSArray getContent();
   external JSArray getRegionsByContent(Node node);
+  external JSString get name;
+  external JSBoolean get overset;
+  external JSNumber get firstEmptyRegionIndex;
 }
 
 @JS('Region')
 @staticInterop
-class Region {
-  external factory Region();
-}
+class Region {}
 
 extension RegionExtension on Region {
-  external JSString get regionOverset;
   external JSArray? getRegionFlowRanges();
+  external JSString get regionOverset;
 }

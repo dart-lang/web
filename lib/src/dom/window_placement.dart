@@ -14,9 +14,7 @@ import 'html.dart';
 
 @JS('ScreenDetails')
 @staticInterop
-class ScreenDetails extends EventTarget {
-  external factory ScreenDetails();
-}
+class ScreenDetails implements EventTarget {}
 
 extension ScreenDetailsExtension on ScreenDetails {
   external JSArray get screens;
@@ -29,9 +27,7 @@ extension ScreenDetailsExtension on ScreenDetails {
 
 @JS('ScreenDetailed')
 @staticInterop
-class ScreenDetailed extends Screen {
-  external factory ScreenDetailed();
-}
+class ScreenDetailed implements Screen {}
 
 extension ScreenDetailedExtension on ScreenDetailed {
   external JSNumber get availLeft;

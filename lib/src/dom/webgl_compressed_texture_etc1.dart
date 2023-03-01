@@ -13,7 +13,5 @@ import 'webgl1.dart';
 @JS('WEBGL_compressed_texture_etc1')
 @staticInterop
 class WEBGL_compressed_texture_etc1 {
-  external factory WEBGL_compressed_texture_etc1();
-
   external static GLenum get COMPRESSED_RGB_ETC1_WEBGL;
 }

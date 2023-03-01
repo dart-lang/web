@@ -36,29 +36,22 @@ extension SFrameTransformOptionsExtension on SFrameTransformOptions {
 @JS('SFrameTransform')
 @staticInterop
 class SFrameTransform implements GenericTransformStream {
-  external factory SFrameTransform();
-
-  external factory SFrameTransform.a1();
-
-  external factory SFrameTransform.a2(SFrameTransformOptions options);
+  external factory SFrameTransform([SFrameTransformOptions options]);
 }
 
 extension SFrameTransformExtension on SFrameTransform {
-  external JSPromise setEncryptionKey(CryptoKey key);
-  external JSPromise setEncryptionKey1(
-    CryptoKey key,
+  external JSPromise setEncryptionKey(
+    CryptoKey key, [
     CryptoKeyID keyID,
-  );
+  ]);
   external set onerror(EventHandler value);
   external EventHandler get onerror;
 }
 
 @JS('SFrameTransformErrorEvent')
 @staticInterop
-class SFrameTransformErrorEvent extends Event {
-  external factory SFrameTransformErrorEvent();
-
-  external factory SFrameTransformErrorEvent.a1(
+class SFrameTransformErrorEvent implements Event {
+  external factory SFrameTransformErrorEvent(
     JSString type,
     SFrameTransformErrorEventInit eventInitDict,
   );
@@ -73,7 +66,7 @@ extension SFrameTransformErrorEventExtension on SFrameTransformErrorEvent {
 @JS()
 @staticInterop
 @anonymous
-class SFrameTransformErrorEventInit extends EventInit {
+class SFrameTransformErrorEventInit implements EventInit {
   external factory SFrameTransformErrorEventInit({
     required SFrameTransformErrorEventType errorType,
     required JSAny frame,
@@ -132,16 +125,14 @@ extension RTCEncodedVideoFrameMetadataExtension
 
 @JS('RTCEncodedVideoFrame')
 @staticInterop
-class RTCEncodedVideoFrame {
-  external factory RTCEncodedVideoFrame();
-}
+class RTCEncodedVideoFrame {}
 
 extension RTCEncodedVideoFrameExtension on RTCEncodedVideoFrame {
+  external RTCEncodedVideoFrameMetadata getMetadata();
   external RTCEncodedVideoFrameType get type;
   external JSNumber get timestamp;
   external set data(JSArrayBuffer value);
   external JSArrayBuffer get data;
-  external RTCEncodedVideoFrameMetadata getMetadata();
 }
 
 @JS()
@@ -170,22 +161,18 @@ extension RTCEncodedAudioFrameMetadataExtension
 
 @JS('RTCEncodedAudioFrame')
 @staticInterop
-class RTCEncodedAudioFrame {
-  external factory RTCEncodedAudioFrame();
-}
+class RTCEncodedAudioFrame {}
 
 extension RTCEncodedAudioFrameExtension on RTCEncodedAudioFrame {
+  external RTCEncodedAudioFrameMetadata getMetadata();
   external JSNumber get timestamp;
   external set data(JSArrayBuffer value);
   external JSArrayBuffer get data;
-  external RTCEncodedAudioFrameMetadata getMetadata();
 }
 
 @JS('RTCTransformEvent')
 @staticInterop
-class RTCTransformEvent extends Event {
-  external factory RTCTransformEvent();
-}
+class RTCTransformEvent implements Event {}
 
 extension RTCTransformEventExtension on RTCTransformEvent {
   external RTCRtpScriptTransformer get transformer;
@@ -193,34 +180,22 @@ extension RTCTransformEventExtension on RTCTransformEvent {
 
 @JS('RTCRtpScriptTransformer')
 @staticInterop
-class RTCRtpScriptTransformer {
-  external factory RTCRtpScriptTransformer();
-}
+class RTCRtpScriptTransformer {}
 
 extension RTCRtpScriptTransformerExtension on RTCRtpScriptTransformer {
+  external JSPromise generateKeyFrame([JSString rid]);
+  external JSPromise sendKeyFrameRequest();
   external ReadableStream get readable;
   external WritableStream get writable;
   external JSAny get options;
-  external JSPromise generateKeyFrame();
-  external JSPromise generateKeyFrame1(JSString rid);
-  external JSPromise sendKeyFrameRequest();
 }
 
 @JS('RTCRtpScriptTransform')
 @staticInterop
 class RTCRtpScriptTransform {
-  external factory RTCRtpScriptTransform();
-
-  external factory RTCRtpScriptTransform.a1(Worker worker);
-
-  external factory RTCRtpScriptTransform.a2(
-    Worker worker,
-    JSAny options,
-  );
-
-  external factory RTCRtpScriptTransform.a3(
-    Worker worker,
+  external factory RTCRtpScriptTransform(
+    Worker worker, [
     JSAny options,
     JSArray transfer,
-  );
+  ]);
 }

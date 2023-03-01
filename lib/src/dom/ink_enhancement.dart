@@ -13,13 +13,10 @@ import 'pointerevents.dart';
 
 @JS('Ink')
 @staticInterop
-class Ink {
-  external factory Ink();
-}
+class Ink {}
 
 extension InkExtension on Ink {
-  external JSPromise requestPresenter();
-  external JSPromise requestPresenter1(InkPresenterParam param);
+  external JSPromise requestPresenter([InkPresenterParam param]);
 }
 
 @JS()
@@ -36,17 +33,15 @@ extension InkPresenterParamExtension on InkPresenterParam {
 
 @JS('InkPresenter')
 @staticInterop
-class InkPresenter {
-  external factory InkPresenter();
-}
+class InkPresenter {}
 
 extension InkPresenterExtension on InkPresenter {
-  external Element? get presentationArea;
-  external JSNumber get expectedImprovement;
   external JSVoid updateInkTrailStartPoint(
     PointerEvent event,
     InkTrailStyle style,
   );
+  external Element? get presentationArea;
+  external JSNumber get expectedImprovement;
 }
 
 @JS()

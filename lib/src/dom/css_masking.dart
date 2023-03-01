@@ -12,9 +12,7 @@ import 'svg.dart';
 
 @JS('SVGClipPathElement')
 @staticInterop
-class SVGClipPathElement extends SVGElement {
-  external factory SVGClipPathElement();
-}
+class SVGClipPathElement implements SVGElement {}
 
 extension SVGClipPathElementExtension on SVGClipPathElement {
   external SVGAnimatedEnumeration get clipPathUnits;
@@ -23,9 +21,7 @@ extension SVGClipPathElementExtension on SVGClipPathElement {
 
 @JS('SVGMaskElement')
 @staticInterop
-class SVGMaskElement extends SVGElement {
-  external factory SVGMaskElement();
-}
+class SVGMaskElement implements SVGElement {}
 
 extension SVGMaskElementExtension on SVGMaskElement {
   external SVGAnimatedEnumeration get maskUnits;

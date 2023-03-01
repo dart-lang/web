@@ -12,15 +12,11 @@ import 'dom.dart';
 
 @JS('TransitionEvent')
 @staticInterop
-class TransitionEvent extends Event {
-  external factory TransitionEvent();
-
-  external factory TransitionEvent.a1(JSString type);
-
-  external factory TransitionEvent.a2(
-    JSString type,
+class TransitionEvent implements Event {
+  external factory TransitionEvent(
+    JSString type, [
     TransitionEventInit transitionEventInitDict,
-  );
+  ]);
 }
 
 extension TransitionEventExtension on TransitionEvent {
@@ -32,7 +28,7 @@ extension TransitionEventExtension on TransitionEvent {
 @JS()
 @staticInterop
 @anonymous
-class TransitionEventInit extends EventInit {
+class TransitionEventInit implements EventInit {
   external factory TransitionEventInit({
     JSString propertyName = '',
     JSNumber elapsedTime = 0.0,

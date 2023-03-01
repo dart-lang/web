@@ -56,9 +56,7 @@ extension XRTransientInputHitTestOptionsInitExtension
 
 @JS('XRHitTestSource')
 @staticInterop
-class XRHitTestSource {
-  external factory XRHitTestSource();
-}
+class XRHitTestSource {}
 
 extension XRHitTestSourceExtension on XRHitTestSource {
   external JSVoid cancel();
@@ -66,9 +64,7 @@ extension XRHitTestSourceExtension on XRHitTestSource {
 
 @JS('XRTransientInputHitTestSource')
 @staticInterop
-class XRTransientInputHitTestSource {
-  external factory XRTransientInputHitTestSource();
-}
+class XRTransientInputHitTestSource {}
 
 extension XRTransientInputHitTestSourceExtension
     on XRTransientInputHitTestSource {
@@ -77,9 +73,7 @@ extension XRTransientInputHitTestSourceExtension
 
 @JS('XRHitTestResult')
 @staticInterop
-class XRHitTestResult {
-  external factory XRHitTestResult();
-}
+class XRHitTestResult {}
 
 extension XRHitTestResultExtension on XRHitTestResult {
   external JSPromise createAnchor();
@@ -88,9 +82,7 @@ extension XRHitTestResultExtension on XRHitTestResult {
 
 @JS('XRTransientInputHitTestResult')
 @staticInterop
-class XRTransientInputHitTestResult {
-  external factory XRTransientInputHitTestResult();
-}
+class XRTransientInputHitTestResult {}
 
 extension XRTransientInputHitTestResultExtension
     on XRTransientInputHitTestResult {
@@ -124,18 +116,10 @@ extension XRRayDirectionInitExtension on XRRayDirectionInit {
 @JS('XRRay')
 @staticInterop
 class XRRay {
-  external factory XRRay();
-
-  external factory XRRay.a1();
-
-  external factory XRRay.a2(DOMPointInit origin);
-
-  external factory XRRay.a3(
-    DOMPointInit origin,
+  external factory XRRay([
+    JSAny originOrTransform,
     XRRayDirectionInit direction,
-  );
-
-  external factory XRRay.a4(XRRigidTransform transform);
+  ]);
 }
 
 extension XRRayExtension on XRRay {

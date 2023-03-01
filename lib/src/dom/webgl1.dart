@@ -74,57 +74,39 @@ extension WebGLContextAttributesExtension on WebGLContextAttributes {
 
 @JS('WebGLObject')
 @staticInterop
-class WebGLObject {
-  external factory WebGLObject();
-}
+class WebGLObject {}
 
 @JS('WebGLBuffer')
 @staticInterop
-class WebGLBuffer extends WebGLObject {
-  external factory WebGLBuffer();
-}
+class WebGLBuffer implements WebGLObject {}
 
 @JS('WebGLFramebuffer')
 @staticInterop
-class WebGLFramebuffer extends WebGLObject {
-  external factory WebGLFramebuffer();
-}
+class WebGLFramebuffer implements WebGLObject {}
 
 @JS('WebGLProgram')
 @staticInterop
-class WebGLProgram extends WebGLObject {
-  external factory WebGLProgram();
-}
+class WebGLProgram implements WebGLObject {}
 
 @JS('WebGLRenderbuffer')
 @staticInterop
-class WebGLRenderbuffer extends WebGLObject {
-  external factory WebGLRenderbuffer();
-}
+class WebGLRenderbuffer implements WebGLObject {}
 
 @JS('WebGLShader')
 @staticInterop
-class WebGLShader extends WebGLObject {
-  external factory WebGLShader();
-}
+class WebGLShader implements WebGLObject {}
 
 @JS('WebGLTexture')
 @staticInterop
-class WebGLTexture extends WebGLObject {
-  external factory WebGLTexture();
-}
+class WebGLTexture implements WebGLObject {}
 
 @JS('WebGLUniformLocation')
 @staticInterop
-class WebGLUniformLocation {
-  external factory WebGLUniformLocation();
-}
+class WebGLUniformLocation {}
 
 @JS('WebGLActiveInfo')
 @staticInterop
-class WebGLActiveInfo {
-  external factory WebGLActiveInfo();
-}
+class WebGLActiveInfo {}
 
 extension WebGLActiveInfoExtension on WebGLActiveInfo {
   external GLint get size;
@@ -134,9 +116,7 @@ extension WebGLActiveInfoExtension on WebGLActiveInfo {
 
 @JS('WebGLShaderPrecisionFormat')
 @staticInterop
-class WebGLShaderPrecisionFormat {
-  external factory WebGLShaderPrecisionFormat();
-}
+class WebGLShaderPrecisionFormat {}
 
 extension WebGLShaderPrecisionFormatExtension on WebGLShaderPrecisionFormat {
   external GLint get rangeMin;
@@ -147,8 +127,6 @@ extension WebGLShaderPrecisionFormatExtension on WebGLShaderPrecisionFormat {
 @JS('WebGLRenderingContextBase')
 @staticInterop
 class WebGLRenderingContextBase {
-  external factory WebGLRenderingContextBase();
-
   external static GLenum get DEPTH_BUFFER_BIT;
   external static GLenum get STENCIL_BUFFER_BIT;
   external static GLenum get COLOR_BUFFER_BIT;
@@ -448,13 +426,6 @@ class WebGLRenderingContextBase {
 }
 
 extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
-  external JSAny get canvas;
-  external GLsizei get drawingBufferWidth;
-  external GLsizei get drawingBufferHeight;
-  external set drawingBufferColorSpace(PredefinedColorSpace value);
-  external PredefinedColorSpace get drawingBufferColorSpace;
-  external set unpackColorSpace(PredefinedColorSpace value);
-  external PredefinedColorSpace get unpackColorSpace;
   external WebGLContextAttributes? getContextAttributes();
   external JSBoolean isContextLost();
   external JSArray? getSupportedExtensions();
@@ -838,25 +809,24 @@ extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
     GLsizei height,
   );
   external JSPromise makeXRCompatible();
+  external JSAny get canvas;
+  external GLsizei get drawingBufferWidth;
+  external GLsizei get drawingBufferHeight;
+  external set drawingBufferColorSpace(PredefinedColorSpace value);
+  external PredefinedColorSpace get drawingBufferColorSpace;
+  external set unpackColorSpace(PredefinedColorSpace value);
+  external PredefinedColorSpace get unpackColorSpace;
 }
 
 @JS('WebGLRenderingContextOverloads')
 @staticInterop
-class WebGLRenderingContextOverloads {
-  external factory WebGLRenderingContextOverloads();
-}
+class WebGLRenderingContextOverloads {}
 
 extension WebGLRenderingContextOverloadsExtension
     on WebGLRenderingContextOverloads {
   external JSVoid bufferData(
     GLenum target,
-    GLsizeiptr size,
-    GLenum usage,
-  );
-  @JS('bufferData')
-  external JSVoid bufferData_1_(
-    GLenum target,
-    BufferSource? data,
+    JSAny? dataOrSize,
     GLenum usage,
   );
   external JSVoid bufferSubData(
@@ -896,43 +866,24 @@ extension WebGLRenderingContextOverloadsExtension
     GLenum target,
     GLint level,
     GLint internalformat,
-    GLsizei width,
-    GLsizei height,
-    GLint border,
+    JSAny formatOrWidth,
+    JSAny heightOrType,
+    JSAny borderOrSource, [
     GLenum format,
     GLenum type,
     ArrayBufferView? pixels,
-  );
-  @JS('texImage2D')
-  external JSVoid texImage2D_1_(
-    GLenum target,
-    GLint level,
-    GLint internalformat,
-    GLenum format,
-    GLenum type,
-    TexImageSource source,
-  );
+  ]);
   external JSVoid texSubImage2D(
     GLenum target,
     GLint level,
     GLint xoffset,
     GLint yoffset,
-    GLsizei width,
-    GLsizei height,
-    GLenum format,
+    JSAny formatOrWidth,
+    JSAny heightOrType,
+    JSAny formatOrSource, [
     GLenum type,
     ArrayBufferView? pixels,
-  );
-  @JS('texSubImage2D')
-  external JSVoid texSubImage2D_1_(
-    GLenum target,
-    GLint level,
-    GLint xoffset,
-    GLint yoffset,
-    GLenum format,
-    GLenum type,
-    TexImageSource source,
-  );
+  ]);
   external JSVoid uniform1fv(
     WebGLUniformLocation? location,
     Float32List v,
@@ -985,21 +936,15 @@ extension WebGLRenderingContextOverloadsExtension
 @JS('WebGLRenderingContext')
 @staticInterop
 class WebGLRenderingContext
-    implements WebGLRenderingContextBase, WebGLRenderingContextOverloads {
-  external factory WebGLRenderingContext();
-}
+    implements WebGLRenderingContextBase, WebGLRenderingContextOverloads {}
 
 @JS('WebGLContextEvent')
 @staticInterop
-class WebGLContextEvent extends Event {
-  external factory WebGLContextEvent();
-
-  external factory WebGLContextEvent.a1(JSString type);
-
-  external factory WebGLContextEvent.a2(
-    JSString type,
+class WebGLContextEvent implements Event {
+  external factory WebGLContextEvent(
+    JSString type, [
     WebGLContextEventInit eventInit,
-  );
+  ]);
 }
 
 extension WebGLContextEventExtension on WebGLContextEvent {
@@ -1009,7 +954,7 @@ extension WebGLContextEventExtension on WebGLContextEvent {
 @JS()
 @staticInterop
 @anonymous
-class WebGLContextEventInit extends EventInit {
+class WebGLContextEventInit implements EventInit {
   external factory WebGLContextEventInit({JSString statusMessage = ''});
 }
 

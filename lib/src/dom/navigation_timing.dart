@@ -15,11 +15,10 @@ typedef NavigationTimingType = JSString;
 
 @JS('PerformanceNavigationTiming')
 @staticInterop
-class PerformanceNavigationTiming extends PerformanceResourceTiming {
-  external factory PerformanceNavigationTiming();
-}
+class PerformanceNavigationTiming implements PerformanceResourceTiming {}
 
 extension PerformanceNavigationTimingExtension on PerformanceNavigationTiming {
+  external JSObject toJSON();
   external DOMHighResTimeStamp get unloadEventStart;
   external DOMHighResTimeStamp get unloadEventEnd;
   external DOMHighResTimeStamp get domInteractive;
@@ -30,17 +29,15 @@ extension PerformanceNavigationTimingExtension on PerformanceNavigationTiming {
   external DOMHighResTimeStamp get loadEventEnd;
   external NavigationTimingType get type;
   external JSNumber get redirectCount;
-  external JSObject toJSON();
   external DOMHighResTimeStamp get activationStart;
 }
 
 @JS('PerformanceTiming')
 @staticInterop
-class PerformanceTiming {
-  external factory PerformanceTiming();
-}
+class PerformanceTiming {}
 
 extension PerformanceTimingExtension on PerformanceTiming {
+  external JSObject toJSON();
   external JSNumber get navigationStart;
   external JSNumber get unloadEventStart;
   external JSNumber get unloadEventEnd;
@@ -62,14 +59,11 @@ extension PerformanceTimingExtension on PerformanceTiming {
   external JSNumber get domComplete;
   external JSNumber get loadEventStart;
   external JSNumber get loadEventEnd;
-  external JSObject toJSON();
 }
 
 @JS('PerformanceNavigation')
 @staticInterop
 class PerformanceNavigation {
-  external factory PerformanceNavigation();
-
   external static JSNumber get TYPE_NAVIGATE;
   external static JSNumber get TYPE_RELOAD;
   external static JSNumber get TYPE_BACK_FORWARD;
@@ -77,7 +71,7 @@ class PerformanceNavigation {
 }
 
 extension PerformanceNavigationExtension on PerformanceNavigation {
+  external JSObject toJSON();
   external JSNumber get type;
   external JSNumber get redirectCount;
-  external JSObject toJSON();
 }

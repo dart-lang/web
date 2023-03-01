@@ -14,23 +14,19 @@ import 'performance_timeline.dart';
 
 @JS('PerformanceEventTiming')
 @staticInterop
-class PerformanceEventTiming extends PerformanceEntry {
-  external factory PerformanceEventTiming();
-}
+class PerformanceEventTiming implements PerformanceEntry {}
 
 extension PerformanceEventTimingExtension on PerformanceEventTiming {
+  external JSObject toJSON();
   external DOMHighResTimeStamp get processingStart;
   external DOMHighResTimeStamp get processingEnd;
   external JSBoolean get cancelable;
   external Node? get target;
   external JSNumber get interactionId;
-  external JSObject toJSON();
 }
 
 @JS('EventCounts')
 @staticInterop
-class EventCounts {
-  external factory EventCounts();
-}
+class EventCounts {}
 
 extension EventCountsExtension on EventCounts {}

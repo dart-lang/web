@@ -18,7 +18,7 @@ typedef WellKnownDirectory = JSString;
 @JS()
 @staticInterop
 @anonymous
-class FileSystemPermissionDescriptor extends PermissionDescriptor {
+class FileSystemPermissionDescriptor implements PermissionDescriptor {
   external factory FileSystemPermissionDescriptor({
     required FileSystemHandle handle,
     FileSystemPermissionMode mode = 'read',
@@ -90,7 +90,7 @@ extension FilePickerOptionsExtension on FilePickerOptions {
 @JS()
 @staticInterop
 @anonymous
-class OpenFilePickerOptions extends FilePickerOptions {
+class OpenFilePickerOptions implements FilePickerOptions {
   external factory OpenFilePickerOptions({JSBoolean multiple = false});
 }
 
@@ -102,7 +102,7 @@ extension OpenFilePickerOptionsExtension on OpenFilePickerOptions {
 @JS()
 @staticInterop
 @anonymous
-class SaveFilePickerOptions extends FilePickerOptions {
+class SaveFilePickerOptions implements FilePickerOptions {
   external factory SaveFilePickerOptions({JSString? suggestedName});
 }
 

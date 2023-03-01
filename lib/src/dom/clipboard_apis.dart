@@ -19,7 +19,7 @@ typedef PresentationStyle = JSString;
 @JS()
 @staticInterop
 @anonymous
-class ClipboardEventInit extends EventInit {
+class ClipboardEventInit implements EventInit {
   external factory ClipboardEventInit({DataTransfer? clipboardData});
 }
 
@@ -30,15 +30,11 @@ extension ClipboardEventInitExtension on ClipboardEventInit {
 
 @JS('ClipboardEvent')
 @staticInterop
-class ClipboardEvent extends Event {
-  external factory ClipboardEvent();
-
-  external factory ClipboardEvent.a1(JSString type);
-
-  external factory ClipboardEvent.a2(
-    JSString type,
+class ClipboardEvent implements Event {
+  external factory ClipboardEvent(
+    JSString type, [
     ClipboardEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension ClipboardEventExtension on ClipboardEvent {
@@ -48,20 +44,16 @@ extension ClipboardEventExtension on ClipboardEvent {
 @JS('ClipboardItem')
 @staticInterop
 class ClipboardItem {
-  external factory ClipboardItem();
-
-  external factory ClipboardItem.a1(JSAny items);
-
-  external factory ClipboardItem.a2(
-    JSAny items,
+  external factory ClipboardItem(
+    JSAny items, [
     ClipboardItemOptions options,
-  );
+  ]);
 }
 
 extension ClipboardItemExtension on ClipboardItem {
+  external JSPromise getType(JSString type);
   external PresentationStyle get presentationStyle;
   external JSArray get types;
-  external JSPromise getType(JSString type);
 }
 
 @JS()
@@ -79,9 +71,7 @@ extension ClipboardItemOptionsExtension on ClipboardItemOptions {
 
 @JS('Clipboard')
 @staticInterop
-class Clipboard extends EventTarget {
-  external factory Clipboard();
-}
+class Clipboard implements EventTarget {}
 
 extension ClipboardExtension on Clipboard {
   external JSPromise read();
@@ -93,7 +83,7 @@ extension ClipboardExtension on Clipboard {
 @JS()
 @staticInterop
 @anonymous
-class ClipboardPermissionDescriptor extends PermissionDescriptor {
+class ClipboardPermissionDescriptor implements PermissionDescriptor {
   external factory ClipboardPermissionDescriptor(
       {JSBoolean allowWithoutGesture = false});
 }

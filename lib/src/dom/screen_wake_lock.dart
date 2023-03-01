@@ -15,25 +15,20 @@ typedef WakeLockType = JSString;
 
 @JS('WakeLock')
 @staticInterop
-class WakeLock {
-  external factory WakeLock();
-}
+class WakeLock {}
 
 extension WakeLockExtension on WakeLock {
-  external JSPromise request();
-  external JSPromise request1(WakeLockType type);
+  external JSPromise request([WakeLockType type]);
 }
 
 @JS('WakeLockSentinel')
 @staticInterop
-class WakeLockSentinel extends EventTarget {
-  external factory WakeLockSentinel();
-}
+class WakeLockSentinel implements EventTarget {}
 
 extension WakeLockSentinelExtension on WakeLockSentinel {
+  external JSPromise release();
   external JSBoolean get released;
   external WakeLockType get type;
-  external JSPromise release();
   external set onrelease(EventHandler value);
   external EventHandler get onrelease;
 }

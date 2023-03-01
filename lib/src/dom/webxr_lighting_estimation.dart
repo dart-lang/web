@@ -17,9 +17,7 @@ typedef XRReflectionFormat = JSString;
 
 @JS('XRLightProbe')
 @staticInterop
-class XRLightProbe extends EventTarget {
-  external factory XRLightProbe();
-}
+class XRLightProbe implements EventTarget {}
 
 extension XRLightProbeExtension on XRLightProbe {
   external XRSpace get probeSpace;
@@ -29,9 +27,7 @@ extension XRLightProbeExtension on XRLightProbe {
 
 @JS('XRLightEstimate')
 @staticInterop
-class XRLightEstimate {
-  external factory XRLightEstimate();
-}
+class XRLightEstimate {}
 
 extension XRLightEstimateExtension on XRLightEstimate {
   external JSFloat32Array get sphericalHarmonicsCoefficients;

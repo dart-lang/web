@@ -14,12 +14,8 @@ typedef AccelerometerLocalCoordinateSystem = JSString;
 
 @JS('Accelerometer')
 @staticInterop
-class Accelerometer extends Sensor {
-  external factory Accelerometer();
-
-  external factory Accelerometer.a1();
-
-  external factory Accelerometer.a2(AccelerometerSensorOptions options);
+class Accelerometer implements Sensor {
+  external factory Accelerometer([AccelerometerSensorOptions options]);
 }
 
 extension AccelerometerExtension on Accelerometer {
@@ -31,7 +27,7 @@ extension AccelerometerExtension on Accelerometer {
 @JS()
 @staticInterop
 @anonymous
-class AccelerometerSensorOptions extends SensorOptions {
+class AccelerometerSensorOptions implements SensorOptions {
   external factory AccelerometerSensorOptions(
       {AccelerometerLocalCoordinateSystem referenceFrame = 'device'});
 }
@@ -43,23 +39,15 @@ extension AccelerometerSensorOptionsExtension on AccelerometerSensorOptions {
 
 @JS('LinearAccelerationSensor')
 @staticInterop
-class LinearAccelerationSensor extends Accelerometer {
-  external factory LinearAccelerationSensor();
-
-  external factory LinearAccelerationSensor.a1();
-
-  external factory LinearAccelerationSensor.a2(
-      AccelerometerSensorOptions options);
+class LinearAccelerationSensor implements Accelerometer {
+  external factory LinearAccelerationSensor(
+      [AccelerometerSensorOptions options]);
 }
 
 @JS('GravitySensor')
 @staticInterop
-class GravitySensor extends Accelerometer {
-  external factory GravitySensor();
-
-  external factory GravitySensor.a1();
-
-  external factory GravitySensor.a2(AccelerometerSensorOptions options);
+class GravitySensor implements Accelerometer {
+  external factory GravitySensor([AccelerometerSensorOptions options]);
 }
 
 @JS()
@@ -85,13 +73,13 @@ extension AccelerometerReadingValuesExtension on AccelerometerReadingValues {
 @JS()
 @staticInterop
 @anonymous
-class LinearAccelerationReadingValues extends AccelerometerReadingValues {
+class LinearAccelerationReadingValues implements AccelerometerReadingValues {
   external factory LinearAccelerationReadingValues();
 }
 
 @JS()
 @staticInterop
 @anonymous
-class GravityReadingValues extends AccelerometerReadingValues {
+class GravityReadingValues implements AccelerometerReadingValues {
   external factory GravityReadingValues();
 }

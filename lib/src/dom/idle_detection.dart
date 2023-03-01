@@ -33,17 +33,16 @@ extension IdleOptionsExtension on IdleOptions {
 
 @JS('IdleDetector')
 @staticInterop
-class IdleDetector extends EventTarget {
-  external factory IdleDetector.a0();
+class IdleDetector implements EventTarget {
+  external factory IdleDetector();
 
   external static JSPromise requestPermission();
 }
 
 extension IdleDetectorExtension on IdleDetector {
+  external JSPromise start([IdleOptions options]);
   external UserIdleState? get userState;
   external ScreenIdleState? get screenState;
   external set onchange(EventHandler value);
   external EventHandler get onchange;
-  external JSPromise start();
-  external JSPromise start1(IdleOptions options);
 }

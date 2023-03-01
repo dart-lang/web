@@ -12,9 +12,7 @@ import 'dom.dart';
 
 @JS('ARIAMixin')
 @staticInterop
-class ARIAMixin {
-  external factory ARIAMixin();
-}
+class ARIAMixin {}
 
 extension ARIAMixinExtension on ARIAMixin {
   external set role(JSString? value);

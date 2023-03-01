@@ -12,9 +12,7 @@ import 'reporting.dart';
 
 @JS('InterventionReportBody')
 @staticInterop
-class InterventionReportBody extends ReportBody {
-  external factory InterventionReportBody();
-}
+class InterventionReportBody implements ReportBody {}
 
 extension InterventionReportBodyExtension on InterventionReportBody {
   external JSObject toJSON();

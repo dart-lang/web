@@ -33,12 +33,8 @@ extension ScrollTimelineOptionsExtension on ScrollTimelineOptions {
 
 @JS('ScrollTimeline')
 @staticInterop
-class ScrollTimeline extends AnimationTimeline {
-  external factory ScrollTimeline();
-
-  external factory ScrollTimeline.a1();
-
-  external factory ScrollTimeline.a2(ScrollTimelineOptions options);
+class ScrollTimeline implements AnimationTimeline {
+  external factory ScrollTimeline([ScrollTimelineOptions options]);
 }
 
 extension ScrollTimelineExtension on ScrollTimeline {
@@ -65,12 +61,8 @@ extension ViewTimelineOptionsExtension on ViewTimelineOptions {
 
 @JS('ViewTimeline')
 @staticInterop
-class ViewTimeline extends ScrollTimeline {
-  external factory ViewTimeline();
-
-  external factory ViewTimeline.a1();
-
-  external factory ViewTimeline.a2(ViewTimelineOptions options);
+class ViewTimeline implements ScrollTimeline {
+  external factory ViewTimeline([ViewTimelineOptions options]);
 }
 
 extension ViewTimelineExtension on ViewTimeline {

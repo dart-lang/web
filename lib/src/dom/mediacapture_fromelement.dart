@@ -13,12 +13,10 @@ import 'mediacapture_streams.dart';
 
 @JS('CanvasCaptureMediaStreamTrack')
 @staticInterop
-class CanvasCaptureMediaStreamTrack extends MediaStreamTrack {
-  external factory CanvasCaptureMediaStreamTrack();
-}
+class CanvasCaptureMediaStreamTrack implements MediaStreamTrack {}
 
 extension CanvasCaptureMediaStreamTrackExtension
     on CanvasCaptureMediaStreamTrack {
-  external HTMLCanvasElement get canvas;
   external JSVoid requestFrame();
+  external HTMLCanvasElement get canvas;
 }

@@ -15,18 +15,15 @@ typedef PaymentComplete = JSString;
 
 @JS('PaymentRequest')
 @staticInterop
-class PaymentRequest extends EventTarget {
-  external factory PaymentRequest();
-
-  external factory PaymentRequest.a1(
+class PaymentRequest implements EventTarget {
+  external factory PaymentRequest(
     JSArray methodData,
     PaymentDetailsInit details,
   );
 }
 
 extension PaymentRequestExtension on PaymentRequest {
-  external JSPromise show();
-  external JSPromise show1(JSPromise detailsPromise);
+  external JSPromise show([JSPromise detailsPromise]);
   external JSPromise abort();
   external JSPromise canMakePayment();
   external JSString get id;
@@ -88,7 +85,7 @@ extension PaymentDetailsBaseExtension on PaymentDetailsBase {
 @JS()
 @staticInterop
 @anonymous
-class PaymentDetailsInit extends PaymentDetailsBase {
+class PaymentDetailsInit implements PaymentDetailsBase {
   external factory PaymentDetailsInit({
     JSString id,
     required PaymentItem total,
@@ -105,7 +102,7 @@ extension PaymentDetailsInitExtension on PaymentDetailsInit {
 @JS()
 @staticInterop
 @anonymous
-class PaymentDetailsUpdate extends PaymentDetailsBase {
+class PaymentDetailsUpdate implements PaymentDetailsBase {
   external factory PaymentDetailsUpdate({
     PaymentItem total,
     JSObject paymentMethodErrors,
@@ -176,23 +173,18 @@ extension PaymentCompleteDetailsExtension on PaymentCompleteDetails {
 
 @JS('PaymentResponse')
 @staticInterop
-class PaymentResponse extends EventTarget {
-  external factory PaymentResponse();
-}
+class PaymentResponse implements EventTarget {}
 
 extension PaymentResponseExtension on PaymentResponse {
   external JSObject toJSON();
+  external JSPromise complete([
+    PaymentComplete result,
+    PaymentCompleteDetails details,
+  ]);
+  external JSPromise retry([PaymentValidationErrors errorFields]);
   external JSString get requestId;
   external JSString get methodName;
   external JSObject get details;
-  external JSPromise complete();
-  external JSPromise complete1(PaymentComplete result);
-  external JSPromise complete2(
-    PaymentComplete result,
-    PaymentCompleteDetails details,
-  );
-  external JSPromise retry();
-  external JSPromise retry1(PaymentValidationErrors errorFields);
 }
 
 @JS()
@@ -214,15 +206,11 @@ extension PaymentValidationErrorsExtension on PaymentValidationErrors {
 
 @JS('PaymentMethodChangeEvent')
 @staticInterop
-class PaymentMethodChangeEvent extends PaymentRequestUpdateEvent {
-  external factory PaymentMethodChangeEvent();
-
-  external factory PaymentMethodChangeEvent.a1(JSString type);
-
-  external factory PaymentMethodChangeEvent.a2(
-    JSString type,
+class PaymentMethodChangeEvent implements PaymentRequestUpdateEvent {
+  external factory PaymentMethodChangeEvent(
+    JSString type, [
     PaymentMethodChangeEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension PaymentMethodChangeEventExtension on PaymentMethodChangeEvent {
@@ -233,7 +221,7 @@ extension PaymentMethodChangeEventExtension on PaymentMethodChangeEvent {
 @JS()
 @staticInterop
 @anonymous
-class PaymentMethodChangeEventInit extends PaymentRequestUpdateEventInit {
+class PaymentMethodChangeEventInit implements PaymentRequestUpdateEventInit {
   external factory PaymentMethodChangeEventInit({
     JSString methodName = '',
     JSObject? methodDetails,
@@ -250,15 +238,11 @@ extension PaymentMethodChangeEventInitExtension
 
 @JS('PaymentRequestUpdateEvent')
 @staticInterop
-class PaymentRequestUpdateEvent extends Event {
-  external factory PaymentRequestUpdateEvent();
-
-  external factory PaymentRequestUpdateEvent.a1(JSString type);
-
-  external factory PaymentRequestUpdateEvent.a2(
-    JSString type,
+class PaymentRequestUpdateEvent implements Event {
+  external factory PaymentRequestUpdateEvent(
+    JSString type, [
     PaymentRequestUpdateEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension PaymentRequestUpdateEventExtension on PaymentRequestUpdateEvent {
@@ -268,6 +252,6 @@ extension PaymentRequestUpdateEventExtension on PaymentRequestUpdateEvent {
 @JS()
 @staticInterop
 @anonymous
-class PaymentRequestUpdateEventInit extends EventInit {
+class PaymentRequestUpdateEventInit implements EventInit {
   external factory PaymentRequestUpdateEventInit();
 }

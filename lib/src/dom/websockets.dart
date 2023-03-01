@@ -15,15 +15,11 @@ typedef BinaryType = JSString;
 
 @JS('WebSocket')
 @staticInterop
-class WebSocket extends EventTarget {
-  external factory WebSocket();
-
-  external factory WebSocket.a1(JSString url);
-
-  external factory WebSocket.a2(
-    JSString url,
+class WebSocket implements EventTarget {
+  external factory WebSocket(
+    JSString url, [
     JSAny protocols,
-  );
+  ]);
 
   external static JSNumber get CONNECTING;
   external static JSNumber get OPEN;
@@ -32,6 +28,11 @@ class WebSocket extends EventTarget {
 }
 
 extension WebSocketExtension on WebSocket {
+  external JSVoid close([
+    JSNumber code,
+    JSString reason,
+  ]);
+  external JSVoid send(JSAny data);
   external JSString get url;
   external JSNumber get readyState;
   external JSNumber get bufferedAmount;
@@ -43,30 +44,19 @@ extension WebSocketExtension on WebSocket {
   external EventHandler get onclose;
   external JSString get extensions;
   external JSString get protocol;
-  external JSVoid close();
-  external JSVoid close1(JSNumber code);
-  external JSVoid close2(
-    JSNumber code,
-    JSString reason,
-  );
   external set onmessage(EventHandler value);
   external EventHandler get onmessage;
   external set binaryType(BinaryType value);
   external BinaryType get binaryType;
-  external JSVoid send(JSAny data);
 }
 
 @JS('CloseEvent')
 @staticInterop
-class CloseEvent extends Event {
-  external factory CloseEvent();
-
-  external factory CloseEvent.a1(JSString type);
-
-  external factory CloseEvent.a2(
-    JSString type,
+class CloseEvent implements Event {
+  external factory CloseEvent(
+    JSString type, [
     CloseEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension CloseEventExtension on CloseEvent {
@@ -78,7 +68,7 @@ extension CloseEventExtension on CloseEvent {
 @JS()
 @staticInterop
 @anonymous
-class CloseEventInit extends EventInit {
+class CloseEventInit implements EventInit {
   external factory CloseEventInit({
     JSBoolean wasClean = false,
     JSNumber code = 0,

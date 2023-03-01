@@ -17,18 +17,15 @@ typedef FlowControlType = JSString;
 
 @JS('Serial')
 @staticInterop
-class Serial extends EventTarget {
-  external factory Serial();
-}
+class Serial implements EventTarget {}
 
 extension SerialExtension on Serial {
+  external JSPromise getPorts();
+  external JSPromise requestPort([SerialPortRequestOptions options]);
   external set onconnect(EventHandler value);
   external EventHandler get onconnect;
   external set ondisconnect(EventHandler value);
   external EventHandler get ondisconnect;
-  external JSPromise getPorts();
-  external JSPromise requestPort();
-  external JSPromise requestPort1(SerialPortRequestOptions options);
 }
 
 @JS()
@@ -62,24 +59,21 @@ extension SerialPortFilterExtension on SerialPortFilter {
 
 @JS('SerialPort')
 @staticInterop
-class SerialPort extends EventTarget {
-  external factory SerialPort();
-}
+class SerialPort implements EventTarget {}
 
 extension SerialPortExtension on SerialPort {
+  external SerialPortInfo getInfo();
+  external JSPromise open(SerialOptions options);
+  external JSPromise setSignals([SerialOutputSignals signals]);
+  external JSPromise getSignals();
+  external JSPromise close();
+  external JSPromise forget();
   external set onconnect(EventHandler value);
   external EventHandler get onconnect;
   external set ondisconnect(EventHandler value);
   external EventHandler get ondisconnect;
   external ReadableStream get readable;
   external WritableStream get writable;
-  external SerialPortInfo getInfo();
-  external JSPromise open(SerialOptions options);
-  external JSPromise setSignals();
-  external JSPromise setSignals1(SerialOutputSignals signals);
-  external JSPromise getSignals();
-  external JSPromise close();
-  external JSPromise forget();
 }
 
 @JS()
@@ -145,9 +139,9 @@ extension SerialOutputSignalsExtension on SerialOutputSignals {
   external set requestToSend(JSBoolean value);
   external JSBoolean get requestToSend;
   @JS('break')
-  external set break_0_(JSBoolean value);
+  external set break_(JSBoolean value);
   @JS('break')
-  external JSBoolean get break_0_;
+  external JSBoolean get break_;
 }
 
 @JS()

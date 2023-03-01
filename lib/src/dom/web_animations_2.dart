@@ -18,47 +18,37 @@ typedef IterationCompositeOperation = JSString;
 @JS('GroupEffect')
 @staticInterop
 class GroupEffect {
-  external factory GroupEffect();
-
-  external factory GroupEffect.a1(JSArray? children);
-
-  external factory GroupEffect.a2(
-    JSArray? children,
+  external factory GroupEffect(
+    JSArray? children, [
     JSAny timing,
-  );
+  ]);
 }
 
 extension GroupEffectExtension on GroupEffect {
-  external AnimationNodeList get children;
-  external AnimationEffect? get firstChild;
-  external AnimationEffect? get lastChild;
   external GroupEffect clone();
   external JSVoid prepend(AnimationEffect effects);
   external JSVoid append(AnimationEffect effects);
+  external AnimationNodeList get children;
+  external AnimationEffect? get firstChild;
+  external AnimationEffect? get lastChild;
 }
 
 @JS('AnimationNodeList')
 @staticInterop
-class AnimationNodeList {
-  external factory AnimationNodeList();
-}
+class AnimationNodeList {}
 
 extension AnimationNodeListExtension on AnimationNodeList {
-  external JSNumber get length;
   external AnimationEffect? item(JSNumber index);
+  external JSNumber get length;
 }
 
 @JS('SequenceEffect')
 @staticInterop
-class SequenceEffect extends GroupEffect {
-  external factory SequenceEffect();
-
-  external factory SequenceEffect.a1(JSArray? children);
-
-  external factory SequenceEffect.a2(
-    JSArray? children,
+class SequenceEffect implements GroupEffect {
+  external factory SequenceEffect(
+    JSArray? children, [
     JSAny timing,
-  );
+  ]);
 }
 
 extension SequenceEffectExtension on SequenceEffect {
@@ -67,15 +57,11 @@ extension SequenceEffectExtension on SequenceEffect {
 
 @JS('AnimationPlaybackEvent')
 @staticInterop
-class AnimationPlaybackEvent extends Event {
-  external factory AnimationPlaybackEvent();
-
-  external factory AnimationPlaybackEvent.a1(JSString type);
-
-  external factory AnimationPlaybackEvent.a2(
-    JSString type,
+class AnimationPlaybackEvent implements Event {
+  external factory AnimationPlaybackEvent(
+    JSString type, [
     AnimationPlaybackEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension AnimationPlaybackEventExtension on AnimationPlaybackEvent {
@@ -86,7 +72,7 @@ extension AnimationPlaybackEventExtension on AnimationPlaybackEvent {
 @JS()
 @staticInterop
 @anonymous
-class AnimationPlaybackEventInit extends EventInit {
+class AnimationPlaybackEventInit implements EventInit {
   external factory AnimationPlaybackEventInit({
     CSSNumberish? currentTime,
     CSSNumberish? timelineTime,

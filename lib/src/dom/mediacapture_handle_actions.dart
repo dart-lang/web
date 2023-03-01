@@ -14,12 +14,8 @@ typedef CaptureAction = JSString;
 
 @JS('CaptureActionEvent')
 @staticInterop
-class CaptureActionEvent extends Event {
-  external factory CaptureActionEvent();
-
-  external factory CaptureActionEvent.a1();
-
-  external factory CaptureActionEvent.a2(CaptureActionEventInit init);
+class CaptureActionEvent implements Event {
+  external factory CaptureActionEvent([CaptureActionEventInit init]);
 }
 
 extension CaptureActionEventExtension on CaptureActionEvent {
@@ -29,7 +25,7 @@ extension CaptureActionEventExtension on CaptureActionEvent {
 @JS()
 @staticInterop
 @anonymous
-class CaptureActionEventInit extends EventInit {
+class CaptureActionEventInit implements EventInit {
   external factory CaptureActionEventInit({JSString action});
 }
 

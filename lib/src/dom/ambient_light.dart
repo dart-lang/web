@@ -12,12 +12,8 @@ import 'generic_sensor.dart';
 
 @JS('AmbientLightSensor')
 @staticInterop
-class AmbientLightSensor extends Sensor {
-  external factory AmbientLightSensor();
-
-  external factory AmbientLightSensor.a1();
-
-  external factory AmbientLightSensor.a2(SensorOptions sensorOptions);
+class AmbientLightSensor implements Sensor {
+  external factory AmbientLightSensor([SensorOptions sensorOptions]);
 }
 
 extension AmbientLightSensorExtension on AmbientLightSensor {

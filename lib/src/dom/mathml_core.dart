@@ -14,7 +14,9 @@ import 'html.dart';
 
 @JS('MathMLElement')
 @staticInterop
-class MathMLElement extends Element
-    implements ElementCSSInlineStyle, GlobalEventHandlers, HTMLOrSVGElement {
-  external factory MathMLElement();
-}
+class MathMLElement
+    implements
+        Element,
+        ElementCSSInlineStyle,
+        GlobalEventHandlers,
+        HTMLOrSVGElement {}

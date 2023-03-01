@@ -15,31 +15,19 @@ typedef PositionErrorCallback = JSFunction;
 
 @JS('Geolocation')
 @staticInterop
-class Geolocation {
-  external factory Geolocation();
-}
+class Geolocation {}
 
 extension GeolocationExtension on Geolocation {
-  external JSVoid getCurrentPosition(PositionCallback successCallback);
-  external JSVoid getCurrentPosition1(
-    PositionCallback successCallback,
-    PositionErrorCallback? errorCallback,
-  );
-  external JSVoid getCurrentPosition2(
-    PositionCallback successCallback,
+  external JSVoid getCurrentPosition(
+    PositionCallback successCallback, [
     PositionErrorCallback? errorCallback,
     PositionOptions options,
-  );
-  external JSNumber watchPosition(PositionCallback successCallback);
-  external JSNumber watchPosition1(
-    PositionCallback successCallback,
-    PositionErrorCallback? errorCallback,
-  );
-  external JSNumber watchPosition2(
-    PositionCallback successCallback,
+  ]);
+  external JSNumber watchPosition(
+    PositionCallback successCallback, [
     PositionErrorCallback? errorCallback,
     PositionOptions options,
-  );
+  ]);
   external JSVoid clearWatch(JSNumber watchId);
 }
 
@@ -65,9 +53,7 @@ extension PositionOptionsExtension on PositionOptions {
 
 @JS('GeolocationPosition')
 @staticInterop
-class GeolocationPosition {
-  external factory GeolocationPosition();
-}
+class GeolocationPosition {}
 
 extension GeolocationPositionExtension on GeolocationPosition {
   external GeolocationCoordinates get coords;
@@ -76,9 +62,7 @@ extension GeolocationPositionExtension on GeolocationPosition {
 
 @JS('GeolocationCoordinates')
 @staticInterop
-class GeolocationCoordinates {
-  external factory GeolocationCoordinates();
-}
+class GeolocationCoordinates {}
 
 extension GeolocationCoordinatesExtension on GeolocationCoordinates {
   external JSNumber get accuracy;
@@ -93,8 +77,6 @@ extension GeolocationCoordinatesExtension on GeolocationCoordinates {
 @JS('GeolocationPositionError')
 @staticInterop
 class GeolocationPositionError {
-  external factory GeolocationPositionError();
-
   external static JSNumber get PERMISSION_DENIED;
   external static JSNumber get POSITION_UNAVAILABLE;
   external static JSNumber get TIMEOUT;

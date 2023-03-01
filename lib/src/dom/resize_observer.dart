@@ -30,26 +30,21 @@ extension ResizeObserverOptionsExtension on ResizeObserverOptions {
 @JS('ResizeObserver')
 @staticInterop
 class ResizeObserver {
-  external factory ResizeObserver();
-
-  external factory ResizeObserver.a1(ResizeObserverCallback callback);
+  external factory ResizeObserver(ResizeObserverCallback callback);
 }
 
 extension ResizeObserverExtension on ResizeObserver {
-  external JSVoid observe(Element target);
-  external JSVoid observe1(
-    Element target,
+  external JSVoid observe(
+    Element target, [
     ResizeObserverOptions options,
-  );
+  ]);
   external JSVoid unobserve(Element target);
   external JSVoid disconnect();
 }
 
 @JS('ResizeObserverEntry')
 @staticInterop
-class ResizeObserverEntry {
-  external factory ResizeObserverEntry();
-}
+class ResizeObserverEntry {}
 
 extension ResizeObserverEntryExtension on ResizeObserverEntry {
   external Element get target;
@@ -61,9 +56,7 @@ extension ResizeObserverEntryExtension on ResizeObserverEntry {
 
 @JS('ResizeObserverSize')
 @staticInterop
-class ResizeObserverSize {
-  external factory ResizeObserverSize();
-}
+class ResizeObserverSize {}
 
 extension ResizeObserverSizeExtension on ResizeObserverSize {
   external JSNumber get inlineSize;

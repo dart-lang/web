@@ -14,7 +14,7 @@ import 'webidl.dart';
 @JS()
 @staticInterop
 @anonymous
-class Ed448Params extends Algorithm {
+class Ed448Params implements Algorithm {
   external factory Ed448Params({BufferSource context});
 }
 

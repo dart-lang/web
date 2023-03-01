@@ -10,9 +10,7 @@ import 'package:js/js.dart' hide JS;
 
 @JS('CustomStateSet')
 @staticInterop
-class CustomStateSet {
-  external factory CustomStateSet();
-}
+class CustomStateSet {}
 
 extension CustomStateSetExtension on CustomStateSet {
   external JSVoid add(JSString value);

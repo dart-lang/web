@@ -25,25 +25,16 @@ extension CSSParserOptionsExtension on CSSParserOptions {
 
 @JS('CSSParserRule')
 @staticInterop
-class CSSParserRule {
-  external factory CSSParserRule();
-}
+class CSSParserRule {}
 
 @JS('CSSParserAtRule')
 @staticInterop
-class CSSParserAtRule extends CSSParserRule {
-  external factory CSSParserAtRule();
-
-  external factory CSSParserAtRule.a1(
+class CSSParserAtRule implements CSSParserRule {
+  external factory CSSParserAtRule(
     JSString name,
-    JSArray prelude,
-  );
-
-  external factory CSSParserAtRule.a2(
-    JSString name,
-    JSArray prelude,
+    JSArray prelude, [
     JSArray? body,
-  );
+  ]);
 }
 
 extension CSSParserAtRuleExtension on CSSParserAtRule {
@@ -54,15 +45,11 @@ extension CSSParserAtRuleExtension on CSSParserAtRule {
 
 @JS('CSSParserQualifiedRule')
 @staticInterop
-class CSSParserQualifiedRule extends CSSParserRule {
-  external factory CSSParserQualifiedRule();
-
-  external factory CSSParserQualifiedRule.a1(JSArray prelude);
-
-  external factory CSSParserQualifiedRule.a2(
-    JSArray prelude,
+class CSSParserQualifiedRule implements CSSParserRule {
+  external factory CSSParserQualifiedRule(
+    JSArray prelude, [
     JSArray? body,
-  );
+  ]);
 }
 
 extension CSSParserQualifiedRuleExtension on CSSParserQualifiedRule {
@@ -72,15 +59,11 @@ extension CSSParserQualifiedRuleExtension on CSSParserQualifiedRule {
 
 @JS('CSSParserDeclaration')
 @staticInterop
-class CSSParserDeclaration extends CSSParserRule {
-  external factory CSSParserDeclaration();
-
-  external factory CSSParserDeclaration.a1(JSString name);
-
-  external factory CSSParserDeclaration.a2(
-    JSString name,
+class CSSParserDeclaration implements CSSParserRule {
+  external factory CSSParserDeclaration(
+    JSString name, [
     JSArray body,
-  );
+  ]);
 }
 
 extension CSSParserDeclarationExtension on CSSParserDeclaration {
@@ -90,16 +73,12 @@ extension CSSParserDeclarationExtension on CSSParserDeclaration {
 
 @JS('CSSParserValue')
 @staticInterop
-class CSSParserValue {
-  external factory CSSParserValue();
-}
+class CSSParserValue {}
 
 @JS('CSSParserBlock')
 @staticInterop
-class CSSParserBlock extends CSSParserValue {
-  external factory CSSParserBlock();
-
-  external factory CSSParserBlock.a1(
+class CSSParserBlock implements CSSParserValue {
+  external factory CSSParserBlock(
     JSString name,
     JSArray body,
   );
@@ -112,10 +91,8 @@ extension CSSParserBlockExtension on CSSParserBlock {
 
 @JS('CSSParserFunction')
 @staticInterop
-class CSSParserFunction extends CSSParserValue {
-  external factory CSSParserFunction();
-
-  external factory CSSParserFunction.a1(
+class CSSParserFunction implements CSSParserValue {
+  external factory CSSParserFunction(
     JSString name,
     JSArray args,
   );

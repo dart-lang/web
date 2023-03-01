@@ -14,34 +14,23 @@ import 'svg.dart';
 
 @JS('TimeEvent')
 @staticInterop
-class TimeEvent extends Event {
-  external factory TimeEvent();
-}
+class TimeEvent implements Event {}
 
 extension TimeEventExtension on TimeEvent {
-  external Window? get view;
-  external JSNumber get detail;
   external JSVoid initTimeEvent(
     JSString typeArg,
     Window? viewArg,
     JSNumber detailArg,
   );
+  external Window? get view;
+  external JSNumber get detail;
 }
 
 @JS('SVGAnimationElement')
 @staticInterop
-class SVGAnimationElement extends SVGElement implements SVGTests {
-  external factory SVGAnimationElement();
-}
+class SVGAnimationElement implements SVGElement, SVGTests {}
 
 extension SVGAnimationElementExtension on SVGAnimationElement {
-  external SVGElement? get targetElement;
-  external set onbegin(EventHandler value);
-  external EventHandler get onbegin;
-  external set onend(EventHandler value);
-  external EventHandler get onend;
-  external set onrepeat(EventHandler value);
-  external EventHandler get onrepeat;
   external JSNumber getStartTime();
   external JSNumber getCurrentTime();
   external JSNumber getSimpleDuration();
@@ -49,40 +38,35 @@ extension SVGAnimationElementExtension on SVGAnimationElement {
   external JSVoid beginElementAt(JSNumber offset);
   external JSVoid endElement();
   external JSVoid endElementAt(JSNumber offset);
+  external SVGElement? get targetElement;
+  external set onbegin(EventHandler value);
+  external EventHandler get onbegin;
+  external set onend(EventHandler value);
+  external EventHandler get onend;
+  external set onrepeat(EventHandler value);
+  external EventHandler get onrepeat;
 }
 
 @JS('SVGAnimateElement')
 @staticInterop
-class SVGAnimateElement extends SVGAnimationElement {
-  external factory SVGAnimateElement();
-}
+class SVGAnimateElement implements SVGAnimationElement {}
 
 @JS('SVGSetElement')
 @staticInterop
-class SVGSetElement extends SVGAnimationElement {
-  external factory SVGSetElement();
-}
+class SVGSetElement implements SVGAnimationElement {}
 
 @JS('SVGAnimateMotionElement')
 @staticInterop
-class SVGAnimateMotionElement extends SVGAnimationElement {
-  external factory SVGAnimateMotionElement();
-}
+class SVGAnimateMotionElement implements SVGAnimationElement {}
 
 @JS('SVGMPathElement')
 @staticInterop
-class SVGMPathElement extends SVGElement implements SVGURIReference {
-  external factory SVGMPathElement();
-}
+class SVGMPathElement implements SVGElement, SVGURIReference {}
 
 @JS('SVGAnimateTransformElement')
 @staticInterop
-class SVGAnimateTransformElement extends SVGAnimationElement {
-  external factory SVGAnimateTransformElement();
-}
+class SVGAnimateTransformElement implements SVGAnimationElement {}
 
 @JS('SVGDiscardElement')
 @staticInterop
-class SVGDiscardElement extends SVGAnimationElement {
-  external factory SVGDiscardElement();
-}
+class SVGDiscardElement implements SVGAnimationElement {}

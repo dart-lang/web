@@ -17,16 +17,14 @@ typedef MockSensorType = JSString;
 
 @JS('Sensor')
 @staticInterop
-class Sensor extends EventTarget {
-  external factory Sensor();
-}
+class Sensor implements EventTarget {}
 
 extension SensorExtension on Sensor {
+  external JSVoid start();
+  external JSVoid stop();
   external JSBoolean get activated;
   external JSBoolean get hasReading;
   external DOMHighResTimeStamp? get timestamp;
-  external JSVoid start();
-  external JSVoid stop();
   external set onreading(EventHandler value);
   external EventHandler get onreading;
   external set onactivate(EventHandler value);
@@ -49,10 +47,8 @@ extension SensorOptionsExtension on SensorOptions {
 
 @JS('SensorErrorEvent')
 @staticInterop
-class SensorErrorEvent extends Event {
-  external factory SensorErrorEvent();
-
-  external factory SensorErrorEvent.a1(
+class SensorErrorEvent implements Event {
+  external factory SensorErrorEvent(
     JSString type,
     SensorErrorEventInit errorEventInitDict,
   );
@@ -65,7 +61,7 @@ extension SensorErrorEventExtension on SensorErrorEvent {
 @JS()
 @staticInterop
 @anonymous
-class SensorErrorEventInit extends EventInit {
+class SensorErrorEventInit implements EventInit {
   external factory SensorErrorEventInit({required DOMException error});
 }
 

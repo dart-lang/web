@@ -13,42 +13,22 @@ typedef URLPatternInput = JSAny;
 @JS('URLPattern')
 @staticInterop
 class URLPattern {
-  external factory URLPattern();
-
-  external factory URLPattern.a1(
+  external factory URLPattern([
     URLPatternInput input,
-    JSString baseURL,
-  );
-
-  external factory URLPattern.a2(
-    URLPatternInput input,
-    JSString baseURL,
+    JSAny baseURLOrOptions,
     URLPatternOptions options,
-  );
-
-  external factory URLPattern.a3();
-
-  external factory URLPattern.a4(URLPatternInput input);
-
-  external factory URLPattern.a5(
-    URLPatternInput input,
-    URLPatternOptions options,
-  );
+  ]);
 }
 
 extension URLPatternExtension on URLPattern {
-  external JSBoolean test();
-  external JSBoolean test1(URLPatternInput input);
-  external JSBoolean test2(
+  external JSBoolean test([
     URLPatternInput input,
     JSString baseURL,
-  );
-  external URLPatternResult? exec();
-  external URLPatternResult? exec1(URLPatternInput input);
-  external URLPatternResult? exec2(
+  ]);
+  external URLPatternResult? exec([
     URLPatternInput input,
     JSString baseURL,
-  );
+  ]);
   external JSString get protocol;
   external JSString get username;
   external JSString get password;

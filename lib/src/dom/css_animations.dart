@@ -13,15 +13,11 @@ import 'dom.dart';
 
 @JS('AnimationEvent')
 @staticInterop
-class AnimationEvent extends Event {
-  external factory AnimationEvent();
-
-  external factory AnimationEvent.a1(JSString type);
-
-  external factory AnimationEvent.a2(
-    JSString type,
+class AnimationEvent implements Event {
+  external factory AnimationEvent(
+    JSString type, [
     AnimationEventInit animationEventInitDict,
-  );
+  ]);
 }
 
 extension AnimationEventExtension on AnimationEvent {
@@ -33,7 +29,7 @@ extension AnimationEventExtension on AnimationEvent {
 @JS()
 @staticInterop
 @anonymous
-class AnimationEventInit extends EventInit {
+class AnimationEventInit implements EventInit {
   external factory AnimationEventInit({
     JSString animationName = '',
     JSNumber elapsedTime = 0.0,
@@ -52,9 +48,7 @@ extension AnimationEventInitExtension on AnimationEventInit {
 
 @JS('CSSKeyframeRule')
 @staticInterop
-class CSSKeyframeRule extends CSSRule {
-  external factory CSSKeyframeRule();
-}
+class CSSKeyframeRule implements CSSRule {}
 
 extension CSSKeyframeRuleExtension on CSSKeyframeRule {
   external set keyText(JSString value);
@@ -64,16 +58,14 @@ extension CSSKeyframeRuleExtension on CSSKeyframeRule {
 
 @JS('CSSKeyframesRule')
 @staticInterop
-class CSSKeyframesRule extends CSSRule {
-  external factory CSSKeyframesRule();
-}
+class CSSKeyframesRule implements CSSRule {}
 
 extension CSSKeyframesRuleExtension on CSSKeyframesRule {
+  external JSVoid appendRule(JSString rule);
+  external JSVoid deleteRule(JSString select);
+  external CSSKeyframeRule? findRule(JSString select);
   external set name(JSString value);
   external JSString get name;
   external CSSRuleList get cssRules;
   external JSNumber get length;
-  external JSVoid appendRule(JSString rule);
-  external JSVoid deleteRule(JSString select);
-  external CSSKeyframeRule? findRule(JSString select);
 }

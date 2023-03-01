@@ -44,6 +44,14 @@ $_usage''');
   }
 
   // Run app with `node`.
+  if (argResult['delete-src'] as bool) {
+    // TODO(dart-lang/web#28): file cleanup should happen in the tool itself
+    final srcDir = Directory(p.join(p.current, 'lib', 'src'));
+
+    if (srcDir.existsSync()) {
+      srcDir.deleteSync(recursive: true);
+    }
+  }
   await _runProc('node', ['main.mjs', '../../lib'], _bindingsGeneratorPath);
 
   // Update readme.
@@ -83,8 +91,9 @@ $_endComment
 
 String _webRefIdlVersion() {
   final packageLockData = jsonDecode(
-      File(p.join(_bindingsGeneratorPath, 'package-lock.json'))
-          .readAsStringSync()) as Map<String, dynamic>;
+    File(p.join(_bindingsGeneratorPath, 'package-lock.json'))
+        .readAsStringSync(),
+  ) as Map<String, dynamic>;
 
   final packages = packageLockData['packages'] as Map<String, dynamic>;
   final webRefIdl =
@@ -129,4 +138,5 @@ ${_parser.usage}''';
 final _parser = ArgParser()
   ..addFlag('update', abbr: 'u', help: 'Update npm dependencies')
   ..addFlag('compile', defaultsTo: true)
-  ..addFlag('help', negatable: false);
+  ..addFlag('help', negatable: false)
+  ..addFlag('delete-src', help: 'Delete the lib/src directory before running.');

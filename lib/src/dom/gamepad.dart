@@ -16,9 +16,7 @@ typedef GamepadMappingType = JSString;
 
 @JS('Gamepad')
 @staticInterop
-class Gamepad {
-  external factory Gamepad();
-}
+class Gamepad {}
 
 extension GamepadExtension on Gamepad {
   external GamepadHand get hand;
@@ -37,9 +35,7 @@ extension GamepadExtension on Gamepad {
 
 @JS('GamepadButton')
 @staticInterop
-class GamepadButton {
-  external factory GamepadButton();
-}
+class GamepadButton {}
 
 extension GamepadButtonExtension on GamepadButton {
   external JSBoolean get pressed;
@@ -49,10 +45,8 @@ extension GamepadButtonExtension on GamepadButton {
 
 @JS('GamepadEvent')
 @staticInterop
-class GamepadEvent extends Event {
-  external factory GamepadEvent();
-
-  external factory GamepadEvent.a1(
+class GamepadEvent implements Event {
+  external factory GamepadEvent(
     JSString type,
     GamepadEventInit eventInitDict,
   );
@@ -65,7 +59,7 @@ extension GamepadEventExtension on GamepadEvent {
 @JS()
 @staticInterop
 @anonymous
-class GamepadEventInit extends EventInit {
+class GamepadEventInit implements EventInit {
   external factory GamepadEventInit({required Gamepad gamepad});
 }
 

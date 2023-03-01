@@ -12,9 +12,7 @@ import 'web_animations.dart';
 
 @JS('CSSAnimation')
 @staticInterop
-class CSSAnimation extends Animation {
-  external factory CSSAnimation();
-}
+class CSSAnimation implements Animation {}
 
 extension CSSAnimationExtension on CSSAnimation {
   external JSString get animationName;

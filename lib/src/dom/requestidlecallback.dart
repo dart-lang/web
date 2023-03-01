@@ -26,9 +26,7 @@ extension IdleRequestOptionsExtension on IdleRequestOptions {
 
 @JS('IdleDeadline')
 @staticInterop
-class IdleDeadline {
-  external factory IdleDeadline();
-}
+class IdleDeadline {}
 
 extension IdleDeadlineExtension on IdleDeadline {
   external DOMHighResTimeStamp timeRemaining();

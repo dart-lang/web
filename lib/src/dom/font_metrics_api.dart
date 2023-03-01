@@ -10,9 +10,7 @@ import 'package:js/js.dart' hide JS;
 
 @JS('FontMetrics')
 @staticInterop
-class FontMetrics {
-  external factory FontMetrics();
-}
+class FontMetrics {}
 
 extension FontMetricsExtension on FontMetrics {
   external JSNumber get width;
@@ -33,9 +31,7 @@ extension FontMetricsExtension on FontMetrics {
 
 @JS('Baseline')
 @staticInterop
-class Baseline {
-  external factory Baseline();
-}
+class Baseline {}
 
 extension BaselineExtension on Baseline {
   external JSString get name;
@@ -44,9 +40,7 @@ extension BaselineExtension on Baseline {
 
 @JS('Font')
 @staticInterop
-class Font {
-  external factory Font();
-}
+class Font {}
 
 extension FontExtension on Font {
   external JSString get name;

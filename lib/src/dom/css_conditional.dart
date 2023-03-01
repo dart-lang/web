@@ -12,9 +12,7 @@ import 'cssom.dart';
 
 @JS('CSSConditionRule')
 @staticInterop
-class CSSConditionRule extends CSSGroupingRule {
-  external factory CSSConditionRule();
-}
+class CSSConditionRule implements CSSGroupingRule {}
 
 extension CSSConditionRuleExtension on CSSConditionRule {
   external JSString get conditionText;
@@ -22,9 +20,7 @@ extension CSSConditionRuleExtension on CSSConditionRule {
 
 @JS('CSSMediaRule')
 @staticInterop
-class CSSMediaRule extends CSSConditionRule {
-  external factory CSSMediaRule();
-}
+class CSSMediaRule implements CSSConditionRule {}
 
 extension CSSMediaRuleExtension on CSSMediaRule {
   external MediaList get media;
@@ -32,6 +28,4 @@ extension CSSMediaRuleExtension on CSSMediaRule {
 
 @JS('CSSSupportsRule')
 @staticInterop
-class CSSSupportsRule extends CSSConditionRule {
-  external factory CSSSupportsRule();
-}
+class CSSSupportsRule implements CSSConditionRule {}

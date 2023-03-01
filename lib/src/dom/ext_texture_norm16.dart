@@ -13,8 +13,6 @@ import 'webgl1.dart';
 @JS('EXT_texture_norm16')
 @staticInterop
 class EXT_texture_norm16 {
-  external factory EXT_texture_norm16();
-
   external static GLenum get R16_EXT;
   external static GLenum get RG16_EXT;
   external static GLenum get RGB16_EXT;

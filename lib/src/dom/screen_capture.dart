@@ -18,7 +18,7 @@ typedef CursorCaptureConstraint = JSString;
 @JS('CaptureController')
 @staticInterop
 class CaptureController {
-  external factory CaptureController.a0();
+  external factory CaptureController();
 }
 
 extension CaptureControllerExtension on CaptureController {

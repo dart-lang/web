@@ -10,6 +10,4 @@ import 'package:js/js.dart' hide JS;
 
 @JS('EXT_color_buffer_float')
 @staticInterop
-class EXT_color_buffer_float {
-  external factory EXT_color_buffer_float();
-}
+class EXT_color_buffer_float {}

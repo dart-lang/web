@@ -18,14 +18,22 @@ typedef AppendMode = JSString;
 
 @JS('MediaSource')
 @staticInterop
-class MediaSource extends EventTarget {
-  external factory MediaSource.a0();
+class MediaSource implements EventTarget {
+  external factory MediaSource();
 
-  external static JSBoolean get canConstructInDedicatedWorker;
   external static JSBoolean isTypeSupported(JSString type);
+  external static JSBoolean get canConstructInDedicatedWorker;
 }
 
 extension MediaSourceExtension on MediaSource {
+  external SourceBuffer addSourceBuffer(JSString type);
+  external JSVoid removeSourceBuffer(SourceBuffer sourceBuffer);
+  external JSVoid endOfStream([EndOfStreamError error]);
+  external JSVoid setLiveSeekableRange(
+    JSNumber start,
+    JSNumber end,
+  );
+  external JSVoid clearLiveSeekableRange();
   external MediaSourceHandle get handle;
   external SourceBufferList get sourceBuffers;
   external SourceBufferList get activeSourceBuffers;
@@ -38,30 +46,24 @@ extension MediaSourceExtension on MediaSource {
   external EventHandler get onsourceended;
   external set onsourceclose(EventHandler value);
   external EventHandler get onsourceclose;
-  external SourceBuffer addSourceBuffer(JSString type);
-  external JSVoid removeSourceBuffer(SourceBuffer sourceBuffer);
-  external JSVoid endOfStream();
-  external JSVoid endOfStream1(EndOfStreamError error);
-  external JSVoid setLiveSeekableRange(
-    JSNumber start,
-    JSNumber end,
-  );
-  external JSVoid clearLiveSeekableRange();
 }
 
 @JS('MediaSourceHandle')
 @staticInterop
-class MediaSourceHandle {
-  external factory MediaSourceHandle();
-}
+class MediaSourceHandle {}
 
 @JS('SourceBuffer')
 @staticInterop
-class SourceBuffer extends EventTarget {
-  external factory SourceBuffer();
-}
+class SourceBuffer implements EventTarget {}
 
 extension SourceBufferExtension on SourceBuffer {
+  external JSVoid appendBuffer(BufferSource data);
+  external JSVoid abort();
+  external JSVoid changeType(JSString type);
+  external JSVoid remove(
+    JSNumber start,
+    JSNumber end,
+  );
   external set mode(AppendMode value);
   external AppendMode get mode;
   external JSBoolean get updating;
@@ -85,20 +87,11 @@ extension SourceBufferExtension on SourceBuffer {
   external EventHandler get onerror;
   external set onabort(EventHandler value);
   external EventHandler get onabort;
-  external JSVoid appendBuffer(BufferSource data);
-  external JSVoid abort();
-  external JSVoid changeType(JSString type);
-  external JSVoid remove(
-    JSNumber start,
-    JSNumber end,
-  );
 }
 
 @JS('SourceBufferList')
 @staticInterop
-class SourceBufferList extends EventTarget {
-  external factory SourceBufferList();
-}
+class SourceBufferList implements EventTarget {}
 
 extension SourceBufferListExtension on SourceBufferList {
   external JSNumber get length;

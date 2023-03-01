@@ -46,15 +46,11 @@ extension SpatialNavigationSearchOptionsExtension
 
 @JS('NavigationEvent')
 @staticInterop
-class NavigationEvent extends UIEvent {
-  external factory NavigationEvent();
-
-  external factory NavigationEvent.a1(JSString type);
-
-  external factory NavigationEvent.a2(
-    JSString type,
+class NavigationEvent implements UIEvent {
+  external factory NavigationEvent(
+    JSString type, [
     NavigationEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension NavigationEventExtension on NavigationEvent {
@@ -65,7 +61,7 @@ extension NavigationEventExtension on NavigationEvent {
 @JS()
 @staticInterop
 @anonymous
-class NavigationEventInit extends UIEventInit {
+class NavigationEventInit implements UIEventInit {
   external factory NavigationEventInit({
     SpatialNavigationDirection dir,
     EventTarget? relatedTarget,

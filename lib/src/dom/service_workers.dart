@@ -28,46 +28,35 @@ typedef ClientType = JSString;
 
 @JS('ServiceWorker')
 @staticInterop
-class ServiceWorker extends EventTarget implements AbstractWorker {
-  external factory ServiceWorker();
-}
+class ServiceWorker implements EventTarget, AbstractWorker {}
 
 extension ServiceWorkerExtension on ServiceWorker {
+  external JSVoid postMessage(
+    JSAny message, [
+    JSAny optionsOrTransfer,
+  ]);
   external JSString get scriptURL;
   external ServiceWorkerState get state;
-  external JSVoid postMessage(
-    JSAny message,
-    JSArray transfer,
-  );
-  @JS('postMessage')
-  external JSVoid postMessage_1_(JSAny message);
-  @JS('postMessage')
-  external JSVoid postMessage_1_1(
-    JSAny message,
-    StructuredSerializeOptions options,
-  );
   external set onstatechange(EventHandler value);
   external EventHandler get onstatechange;
 }
 
 @JS('ServiceWorkerRegistration')
 @staticInterop
-class ServiceWorkerRegistration extends EventTarget {
-  external factory ServiceWorkerRegistration();
-}
+class ServiceWorkerRegistration implements EventTarget {}
 
 extension ServiceWorkerRegistrationExtension on ServiceWorkerRegistration {
+  external JSPromise showNotification(
+    JSString title, [
+    NotificationOptions options,
+  ]);
+  external JSPromise getNotifications([GetNotificationOptions filter]);
+  external JSPromise update();
+  external JSPromise unregister();
   external BackgroundFetchManager get backgroundFetch;
   external SyncManager get sync;
   external ContentIndex get index;
   external CookieStoreManager get cookies;
-  external JSPromise showNotification(JSString title);
-  external JSPromise showNotification1(
-    JSString title,
-    NotificationOptions options,
-  );
-  external JSPromise getNotifications();
-  external JSPromise getNotifications1(GetNotificationOptions filter);
   external PaymentManager get paymentManager;
   external PeriodicSyncManager get periodicSync;
   external PushManager get pushManager;
@@ -77,30 +66,24 @@ extension ServiceWorkerRegistrationExtension on ServiceWorkerRegistration {
   external NavigationPreloadManager get navigationPreload;
   external JSString get scope;
   external ServiceWorkerUpdateViaCache get updateViaCache;
-  external JSPromise update();
-  external JSPromise unregister();
   external set onupdatefound(EventHandler value);
   external EventHandler get onupdatefound;
 }
 
 @JS('ServiceWorkerContainer')
 @staticInterop
-class ServiceWorkerContainer extends EventTarget {
-  external factory ServiceWorkerContainer();
-}
+class ServiceWorkerContainer implements EventTarget {}
 
 extension ServiceWorkerContainerExtension on ServiceWorkerContainer {
-  external ServiceWorker? get controller;
-  external JSPromise get ready;
-  external JSPromise register(JSString scriptURL);
-  external JSPromise register1(
-    JSString scriptURL,
+  external JSPromise register(
+    JSString scriptURL, [
     RegistrationOptions options,
-  );
-  external JSPromise getRegistration();
-  external JSPromise getRegistration1(JSString clientURL);
+  ]);
+  external JSPromise getRegistration([JSString clientURL]);
   external JSPromise getRegistrations();
   external JSVoid startMessages();
+  external ServiceWorker? get controller;
+  external JSPromise get ready;
   external set oncontrollerchange(EventHandler value);
   external EventHandler get oncontrollerchange;
   external set onmessage(EventHandler value);
@@ -131,9 +114,7 @@ extension RegistrationOptionsExtension on RegistrationOptions {
 
 @JS('NavigationPreloadManager')
 @staticInterop
-class NavigationPreloadManager {
-  external factory NavigationPreloadManager();
-}
+class NavigationPreloadManager {}
 
 extension NavigationPreloadManagerExtension on NavigationPreloadManager {
   external JSPromise enable();
@@ -161,11 +142,10 @@ extension NavigationPreloadStateExtension on NavigationPreloadState {
 
 @JS('ServiceWorkerGlobalScope')
 @staticInterop
-class ServiceWorkerGlobalScope extends WorkerGlobalScope {
-  external factory ServiceWorkerGlobalScope();
-}
+class ServiceWorkerGlobalScope implements WorkerGlobalScope {}
 
 extension ServiceWorkerGlobalScopeExtension on ServiceWorkerGlobalScope {
+  external JSPromise skipWaiting();
   external set onbackgroundfetchsuccess(EventHandler value);
   external EventHandler get onbackgroundfetchsuccess;
   external set onbackgroundfetchfail(EventHandler value);
@@ -198,7 +178,6 @@ extension ServiceWorkerGlobalScopeExtension on ServiceWorkerGlobalScope {
   external Clients get clients;
   external ServiceWorkerRegistration get registration;
   external ServiceWorker get serviceWorker;
-  external JSPromise skipWaiting();
   external set oninstall(EventHandler value);
   external EventHandler get oninstall;
   external set onactivate(EventHandler value);
@@ -213,53 +192,39 @@ extension ServiceWorkerGlobalScopeExtension on ServiceWorkerGlobalScope {
 
 @JS('Client')
 @staticInterop
-class Client {
-  external factory Client();
-}
+class Client {}
 
 extension ClientExtension on Client {
+  external JSVoid postMessage(
+    JSAny message, [
+    JSAny optionsOrTransfer,
+  ]);
   external ClientLifecycleState get lifecycleState;
   external JSString get url;
   external FrameType get frameType;
   external JSString get id;
   external ClientType get type;
-  external JSVoid postMessage(
-    JSAny message,
-    JSArray transfer,
-  );
-  @JS('postMessage')
-  external JSVoid postMessage_1_(JSAny message);
-  @JS('postMessage')
-  external JSVoid postMessage_1_1(
-    JSAny message,
-    StructuredSerializeOptions options,
-  );
 }
 
 @JS('WindowClient')
 @staticInterop
-class WindowClient extends Client {
-  external factory WindowClient();
-}
+class WindowClient implements Client {}
 
 extension WindowClientExtension on WindowClient {
+  external JSPromise focus();
+  external JSPromise navigate(JSString url);
   external DocumentVisibilityState get visibilityState;
   external JSBoolean get focused;
   external JSArray get ancestorOrigins;
-  external JSPromise focus();
-  external JSPromise navigate(JSString url);
 }
 
 @JS('Clients')
 @staticInterop
-class Clients {
-  external factory Clients();
-}
+class Clients {}
 
 extension ClientsExtension on Clients {
   external JSPromise get(JSString id);
-  external JSPromise matchAll();
-  external JSPromise matchAll1(ClientQueryOptions options);
+  external JSPromise matchAll([ClientQueryOptions options]);
   external JSPromise openWindow(JSString url);
   external JSPromise claim();
 }
@@ -283,15 +248,11 @@ extension ClientQueryOptionsExtension on ClientQueryOptions {
 
 @JS('ExtendableEvent')
 @staticInterop
-class ExtendableEvent extends Event {
-  external factory ExtendableEvent();
-
-  external factory ExtendableEvent.a1(JSString type);
-
-  external factory ExtendableEvent.a2(
-    JSString type,
+class ExtendableEvent implements Event {
+  external factory ExtendableEvent(
+    JSString type, [
     ExtendableEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension ExtendableEventExtension on ExtendableEvent {
@@ -301,35 +262,33 @@ extension ExtendableEventExtension on ExtendableEvent {
 @JS()
 @staticInterop
 @anonymous
-class ExtendableEventInit extends EventInit {
+class ExtendableEventInit implements EventInit {
   external factory ExtendableEventInit();
 }
 
 @JS('FetchEvent')
 @staticInterop
-class FetchEvent extends ExtendableEvent {
-  external factory FetchEvent();
-
-  external factory FetchEvent.a1(
+class FetchEvent implements ExtendableEvent {
+  external factory FetchEvent(
     JSString type,
     FetchEventInit eventInitDict,
   );
 }
 
 extension FetchEventExtension on FetchEvent {
+  external JSVoid respondWith(JSPromise r);
   external Request get request;
   external JSPromise get preloadResponse;
   external JSString get clientId;
   external JSString get resultingClientId;
   external JSString get replacesClientId;
   external JSPromise get handled;
-  external JSVoid respondWith(JSPromise r);
 }
 
 @JS()
 @staticInterop
 @anonymous
-class FetchEventInit extends ExtendableEventInit {
+class FetchEventInit implements ExtendableEventInit {
   external factory FetchEventInit({
     required Request request,
     JSPromise preloadResponse,
@@ -357,15 +316,11 @@ extension FetchEventInitExtension on FetchEventInit {
 
 @JS('ExtendableMessageEvent')
 @staticInterop
-class ExtendableMessageEvent extends ExtendableEvent {
-  external factory ExtendableMessageEvent();
-
-  external factory ExtendableMessageEvent.a1(JSString type);
-
-  external factory ExtendableMessageEvent.a2(
-    JSString type,
+class ExtendableMessageEvent implements ExtendableEvent {
+  external factory ExtendableMessageEvent(
+    JSString type, [
     ExtendableMessageEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension ExtendableMessageEventExtension on ExtendableMessageEvent {
@@ -379,7 +334,7 @@ extension ExtendableMessageEventExtension on ExtendableMessageEvent {
 @JS()
 @staticInterop
 @anonymous
-class ExtendableMessageEventInit extends ExtendableEventInit {
+class ExtendableMessageEventInit implements ExtendableEventInit {
   external factory ExtendableMessageEventInit({
     JSAny data,
     JSString origin = '',
@@ -404,39 +359,31 @@ extension ExtendableMessageEventInitExtension on ExtendableMessageEventInit {
 
 @JS('Cache')
 @staticInterop
-class Cache {
-  external factory Cache();
-}
+class Cache {}
 
 extension CacheExtension on Cache {
-  external JSPromise match(RequestInfo request);
-  external JSPromise match1(
+  external JSPromise match(
+    RequestInfo request, [
+    CacheQueryOptions options,
+  ]);
+  external JSPromise matchAll([
     RequestInfo request,
     CacheQueryOptions options,
-  );
-  external JSPromise matchAll();
-  external JSPromise matchAll1(RequestInfo request);
-  external JSPromise matchAll2(
-    RequestInfo request,
-    CacheQueryOptions options,
-  );
+  ]);
   external JSPromise add(RequestInfo request);
   external JSPromise addAll(JSArray requests);
   external JSPromise put(
     RequestInfo request,
     Response response,
   );
-  external JSPromise delete(RequestInfo request);
-  external JSPromise delete1(
+  external JSPromise delete(
+    RequestInfo request, [
+    CacheQueryOptions options,
+  ]);
+  external JSPromise keys([
     RequestInfo request,
     CacheQueryOptions options,
-  );
-  external JSPromise keys();
-  external JSPromise keys1(RequestInfo request);
-  external JSPromise keys2(
-    RequestInfo request,
-    CacheQueryOptions options,
-  );
+  ]);
 }
 
 @JS()
@@ -461,16 +408,13 @@ extension CacheQueryOptionsExtension on CacheQueryOptions {
 
 @JS('CacheStorage')
 @staticInterop
-class CacheStorage {
-  external factory CacheStorage();
-}
+class CacheStorage {}
 
 extension CacheStorageExtension on CacheStorage {
-  external JSPromise match(RequestInfo request);
-  external JSPromise match1(
-    RequestInfo request,
+  external JSPromise match(
+    RequestInfo request, [
     MultiCacheQueryOptions options,
-  );
+  ]);
   external JSPromise has(JSString cacheName);
   external JSPromise open(JSString cacheName);
   external JSPromise delete(JSString cacheName);
@@ -480,7 +424,7 @@ extension CacheStorageExtension on CacheStorage {
 @JS()
 @staticInterop
 @anonymous
-class MultiCacheQueryOptions extends CacheQueryOptions {
+class MultiCacheQueryOptions implements CacheQueryOptions {
   external factory MultiCacheQueryOptions({JSString cacheName});
 }
 

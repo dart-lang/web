@@ -14,9 +14,7 @@ typedef ScriptingPolicyViolationType = JSString;
 
 @JS('ScriptingPolicyReportBody')
 @staticInterop
-class ScriptingPolicyReportBody extends ReportBody {
-  external factory ScriptingPolicyReportBody();
-}
+class ScriptingPolicyReportBody implements ReportBody {}
 
 extension ScriptingPolicyReportBodyExtension on ScriptingPolicyReportBody {
   external JSObject toJSON();

@@ -19,35 +19,23 @@ typedef EndingType = JSString;
 @JS('Blob')
 @staticInterop
 class Blob {
-  external factory Blob();
-
-  external factory Blob.a1();
-
-  external factory Blob.a2(JSArray blobParts);
-
-  external factory Blob.a3(
+  external factory Blob([
     JSArray blobParts,
     BlobPropertyBag options,
-  );
+  ]);
 }
 
 extension BlobExtension on Blob {
-  external JSNumber get size;
-  external JSString get type;
-  external Blob slice();
-  external Blob slice1(JSNumber start);
-  external Blob slice2(
-    JSNumber start,
-    JSNumber end,
-  );
-  external Blob slice3(
+  external Blob slice([
     JSNumber start,
     JSNumber end,
     JSString contentType,
-  );
+  ]);
   external ReadableStream stream();
   external JSPromise text();
   external JSPromise arrayBuffer();
+  external JSNumber get size;
+  external JSString get type;
 }
 
 @JS()
@@ -69,19 +57,12 @@ extension BlobPropertyBagExtension on BlobPropertyBag {
 
 @JS('File')
 @staticInterop
-class File extends Blob {
-  external factory File();
-
-  external factory File.a1(
+class File implements Blob {
+  external factory File(
     JSArray fileBits,
-    JSString fileName,
-  );
-
-  external factory File.a2(
-    JSArray fileBits,
-    JSString fileName,
+    JSString fileName, [
     FilePropertyBag options,
-  );
+  ]);
 }
 
 extension FileExtension on File {
@@ -93,7 +74,7 @@ extension FileExtension on File {
 @JS()
 @staticInterop
 @anonymous
-class FilePropertyBag extends BlobPropertyBag {
+class FilePropertyBag implements BlobPropertyBag {
   external factory FilePropertyBag({JSNumber lastModified});
 }
 
@@ -104,9 +85,7 @@ extension FilePropertyBagExtension on FilePropertyBag {
 
 @JS('FileList')
 @staticInterop
-class FileList {
-  external factory FileList();
-}
+class FileList {}
 
 extension FileListExtension on FileList {
   external File? item(JSNumber index);
@@ -115,8 +94,8 @@ extension FileListExtension on FileList {
 
 @JS('FileReader')
 @staticInterop
-class FileReader extends EventTarget {
-  external factory FileReader.a0();
+class FileReader implements EventTarget {
+  external factory FileReader();
 
   external static JSNumber get EMPTY;
   external static JSNumber get LOADING;
@@ -126,11 +105,10 @@ class FileReader extends EventTarget {
 extension FileReaderExtension on FileReader {
   external JSVoid readAsArrayBuffer(Blob blob);
   external JSVoid readAsBinaryString(Blob blob);
-  external JSVoid readAsText(Blob blob);
-  external JSVoid readAsText1(
-    Blob blob,
+  external JSVoid readAsText(
+    Blob blob, [
     JSString encoding,
-  );
+  ]);
   external JSVoid readAsDataURL(Blob blob);
   external JSVoid abort();
   external JSNumber get readyState;
@@ -153,16 +131,15 @@ extension FileReaderExtension on FileReader {
 @JS('FileReaderSync')
 @staticInterop
 class FileReaderSync {
-  external factory FileReaderSync.a0();
+  external factory FileReaderSync();
 }
 
 extension FileReaderSyncExtension on FileReaderSync {
   external JSArrayBuffer readAsArrayBuffer(Blob blob);
   external JSString readAsBinaryString(Blob blob);
-  external JSString readAsText(Blob blob);
-  external JSString readAsText1(
-    Blob blob,
+  external JSString readAsText(
+    Blob blob, [
     JSString encoding,
-  );
+  ]);
   external JSString readAsDataURL(Blob blob);
 }

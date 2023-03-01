@@ -13,8 +13,6 @@ import 'webgl1.dart';
 @JS('WEBGL_compressed_texture_pvrtc')
 @staticInterop
 class WEBGL_compressed_texture_pvrtc {
-  external factory WEBGL_compressed_texture_pvrtc();
-
   external static GLenum get COMPRESSED_RGB_PVRTC_4BPPV1_IMG;
   external static GLenum get COMPRESSED_RGB_PVRTC_2BPPV1_IMG;
   external static GLenum get COMPRESSED_RGBA_PVRTC_4BPPV1_IMG;

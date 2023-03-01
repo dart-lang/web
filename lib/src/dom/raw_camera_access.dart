@@ -10,9 +10,7 @@ import 'package:js/js.dart' hide JS;
 
 @JS('XRCamera')
 @staticInterop
-class XRCamera {
-  external factory XRCamera();
-}
+class XRCamera {}
 
 extension XRCameraExtension on XRCamera {
   external JSNumber get width;

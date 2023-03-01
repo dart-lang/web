@@ -13,8 +13,6 @@ import 'webgl1.dart';
 @JS('EXT_texture_filter_anisotropic')
 @staticInterop
 class EXT_texture_filter_anisotropic {
-  external factory EXT_texture_filter_anisotropic();
-
   external static GLenum get TEXTURE_MAX_ANISOTROPY_EXT;
   external static GLenum get MAX_TEXTURE_MAX_ANISOTROPY_EXT;
 }

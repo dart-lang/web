@@ -10,9 +10,7 @@ import 'package:js/js.dart' hide JS;
 
 @JS('NavigatorDeviceMemory')
 @staticInterop
-class NavigatorDeviceMemory {
-  external factory NavigatorDeviceMemory();
-}
+class NavigatorDeviceMemory {}
 
 extension NavigatorDeviceMemoryExtension on NavigatorDeviceMemory {
   external JSNumber get deviceMemory;

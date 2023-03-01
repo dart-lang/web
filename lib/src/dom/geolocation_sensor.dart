@@ -14,15 +14,10 @@ import 'hr_time.dart';
 
 @JS('GeolocationSensor')
 @staticInterop
-class GeolocationSensor extends Sensor {
-  external factory GeolocationSensor();
+class GeolocationSensor implements Sensor {
+  external factory GeolocationSensor([GeolocationSensorOptions options]);
 
-  external factory GeolocationSensor.a1();
-
-  external factory GeolocationSensor.a2(GeolocationSensorOptions options);
-
-  external static JSPromise read();
-  external static JSPromise read1(ReadOptions readOptions);
+  external static JSPromise read([ReadOptions readOptions]);
 }
 
 extension GeolocationSensorExtension on GeolocationSensor {
@@ -38,14 +33,14 @@ extension GeolocationSensorExtension on GeolocationSensor {
 @JS()
 @staticInterop
 @anonymous
-class GeolocationSensorOptions extends SensorOptions {
+class GeolocationSensorOptions implements SensorOptions {
   external factory GeolocationSensorOptions();
 }
 
 @JS()
 @staticInterop
 @anonymous
-class ReadOptions extends GeolocationSensorOptions {
+class ReadOptions implements GeolocationSensorOptions {
   external factory ReadOptions({AbortSignal? signal});
 }
 

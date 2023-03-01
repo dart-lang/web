@@ -14,33 +14,26 @@ typedef MediaSessionAction = JSString;
 
 @JS('MediaSession')
 @staticInterop
-class MediaSession {
-  external factory MediaSession();
-}
+class MediaSession {}
 
 extension MediaSessionExtension on MediaSession {
-  external set metadata(MediaMetadata? value);
-  external MediaMetadata? get metadata;
-  external set playbackState(MediaSessionPlaybackState value);
-  external MediaSessionPlaybackState get playbackState;
   external JSVoid setActionHandler(
     MediaSessionAction action,
     MediaSessionActionHandler? handler,
   );
-  external JSVoid setPositionState();
-  external JSVoid setPositionState1(MediaPositionState state);
+  external JSVoid setPositionState([MediaPositionState state]);
   external JSVoid setMicrophoneActive(JSBoolean active);
   external JSVoid setCameraActive(JSBoolean active);
+  external set metadata(MediaMetadata? value);
+  external MediaMetadata? get metadata;
+  external set playbackState(MediaSessionPlaybackState value);
+  external MediaSessionPlaybackState get playbackState;
 }
 
 @JS('MediaMetadata')
 @staticInterop
 class MediaMetadata {
-  external factory MediaMetadata();
-
-  external factory MediaMetadata.a1();
-
-  external factory MediaMetadata.a2(MediaMetadataInit init);
+  external factory MediaMetadata([MediaMetadataInit init]);
 }
 
 extension MediaMetadataExtension on MediaMetadata {

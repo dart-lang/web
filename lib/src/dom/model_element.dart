@@ -12,6 +12,4 @@ import 'html.dart';
 
 @JS('HTMLModelElement')
 @staticInterop
-class HTMLModelElement extends HTMLElement {
-  external factory HTMLModelElement();
-}
+class HTMLModelElement implements HTMLElement {}

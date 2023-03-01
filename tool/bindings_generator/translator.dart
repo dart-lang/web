@@ -80,15 +80,145 @@ class _Library {
   }
 }
 
+String _typeRaw(idl.IDLType idlType) {
+  final String type;
+  if (idlType.union.toDart) {
+    type = 'union';
+  } else if (idlType.generic.toDart.isNotEmpty) {
+    type = idlType.generic.toDart;
+  } else {
+    type = (idlType.idlType as JSString).toDart;
+  }
+  if (typeAliases.containsKey(type)) {
+    return typeAliases[type]!;
+  } else {
+    return type;
+  }
+}
+
+class _Type {
+  String type;
+  bool isNullable;
+
+  _Type._(this.type, this.isNullable);
+
+  factory _Type(idl.IDLType type) =>
+      _Type._(_typeRaw(type), type.nullable.toDart);
+
+  void update(idl.IDLType idlType) {
+    final thatType = _typeRaw(idlType);
+    if (type != thatType) {
+      // TODO(joshualitt): In some cases we could probably find a better upper
+      // bound.
+      type = 'JSAny';
+    }
+    if (idlType.nullable.toDart) {
+      isNullable = true;
+    }
+  }
+}
+
+class _Parameter {
+  final Set<String> _names;
+  final _Type type;
+  bool isOptional;
+  late final String name = _generateName();
+
+  _Parameter._(this._names, this.type, this.isOptional);
+
+  factory _Parameter(idl.Argument argument) => _Parameter._(
+      {argument.name.toDart},
+      _Type(argument.idlType),
+      argument.optional.toDart);
+
+  String _generateName() {
+    final namesList = _names.toList();
+    namesList.sort();
+    return namesList
+        .sublist(0, 1)
+        .followedBy(namesList.sublist(1).map(capitalize))
+        .join('Or');
+  }
+
+  void update(idl.Argument argument) {
+    final thatName = argument.name.toDart;
+    _names.add(thatName);
+    type.update(argument.idlType);
+    if (argument.optional.toDart) {
+      isOptional = true;
+    }
+  }
+}
+
+class _OverridableMember {
+  final List<_Parameter> parameters = [];
+
+  _OverridableMember(JSArray rawParameters) {
+    for (var i = 0; i < rawParameters.length; i++) {
+      parameters.add(_Parameter(rawParameters[i] as idl.Argument));
+    }
+  }
+
+  void _processParameters(JSArray thoseParameters) {
+    // Assume if we have extra arguments beyond what was provided in some other
+    // method, that these are all optional.
+    final thatLength = thoseParameters.length;
+    for (var i = thatLength; i < parameters.length; i++) {
+      parameters[i].isOptional = true;
+    }
+    for (var i = 0; i < thatLength; i++) {
+      final argument = thoseParameters[i] as idl.Argument;
+      if (i >= parameters.length) {
+        // We assume these parameters must be optional, regardless of what the
+        // IDL says.
+        parameters.add(_Parameter(argument)..isOptional = true);
+      } else {
+        parameters[i].update(argument);
+      }
+    }
+  }
+}
+
+class _OverridableOperation extends _OverridableMember {
+  final String name;
+  final bool isStatic;
+  final _Type returnType;
+
+  _OverridableOperation._(
+      this.name, this.isStatic, this.returnType, super.parameters);
+
+  factory _OverridableOperation(idl.Operation operation) =>
+      _OverridableOperation._(
+          operation.name.toDart,
+          operation.special.toDart == 'static',
+          _Type(operation.idlType),
+          operation.arguments);
+
+  void update(idl.Operation that) {
+    assert(name == that.name.toDart &&
+        isStatic == (that.special.toDart == 'static'));
+    returnType.update(that.idlType);
+    _processParameters(that.arguments);
+  }
+}
+
+class _OverridableConstructor extends _OverridableMember {
+  _OverridableConstructor(idl.Constructor constructor)
+      : super(constructor.arguments);
+
+  void update(idl.Constructor that) => _processParameters(that.arguments);
+}
+
 class _PartialInterfacelike {
   final String name;
   final String type;
   String? inheritance;
+  final Map<String, _OverridableOperation> operations = {};
+  final Map<String, _OverridableOperation> staticOperations = {};
   final List<idl.Member> members = [];
   final List<idl.Member> staticMembers = [];
-  final List<idl.Constructor> constructors = [];
+  _OverridableConstructor? constructor;
   final List<String> includes = [];
-  bool hasNoArgumentsConstructor = false;
 
   _PartialInterfacelike._(this.name, this.type, this.inheritance);
 
@@ -101,41 +231,53 @@ class _PartialInterfacelike {
     return partialInterfacelike;
   }
 
-  void _processMember(idl.Member member, String special) {
-    if (special == 'static') {
-      staticMembers.add(member);
-    } else {
-      members.add(member);
-    }
-  }
-
   void _processMembers(JSArray nodeMembers) {
     for (var i = 0; i < nodeMembers.length; i++) {
       final member = nodeMembers[i] as idl.Member;
       final type = member.type.toDart;
       switch (type) {
         case 'constructor':
-          final constructor = member as idl.Constructor;
-          if (constructor.arguments.isEmpty) {
-            hasNoArgumentsConstructor = true;
+          final idlConstructor = member as idl.Constructor;
+          if (constructor == null) {
+            constructor = _OverridableConstructor(idlConstructor);
+          } else {
+            constructor!.update(idlConstructor);
           }
-          constructors.add(constructor);
           break;
         case 'const':
           staticMembers.add(member);
           break;
         case 'attribute':
           final attribute = member as idl.Attribute;
-          _processMember(attribute, attribute.special.toDart);
+          if (attribute.special.toDart == 'static') {
+            staticMembers.add(member);
+          } else {
+            members.add(member);
+          }
           break;
         case 'operation':
           final operation = member as idl.Operation;
-          if (operation.name.toDart.isEmpty) {
+          final name = operation.name.toDart;
+          if (name.isEmpty) {
             // TODO(joshualitt): We may be able to handle some unnamed
             // operations.
             continue;
           }
-          _processMember(operation, operation.special.toDart);
+          if (operation.special.toDart == 'static') {
+            assert(!operations.containsKey(name));
+            if (staticOperations.containsKey(name)) {
+              staticOperations[name]!.update(operation);
+            } else {
+              staticOperations[name] = _OverridableOperation(operation);
+            }
+          } else {
+            assert(!staticOperations.containsKey(name));
+            if (operations.containsKey(name)) {
+              operations[name]!.update(operation);
+            } else {
+              operations[name] = _OverridableOperation(operation);
+            }
+          }
           break;
         case 'field':
           members.add(member);
@@ -179,7 +321,6 @@ class Translator {
   final _typeToLibrary = <String, _Library>{};
   final _interfacelikes = <String, _PartialInterfacelike>{};
   final _includes = <idl.Includes>[];
-  final _namesSeen = <String, int>{};
   final String _librarySubDir;
   late String _currentlyTranslatingUrl;
 
@@ -204,22 +345,6 @@ class Translator {
     }
   }
 
-  String _typeRaw(idl.IDLType idlType) {
-    final String type;
-    if (idlType.union.toDart) {
-      type = 'union';
-    } else if (idlType.generic.toDart.isNotEmpty) {
-      type = idlType.generic.toDart;
-    } else {
-      type = (idlType.idlType as JSString).toDart;
-    }
-    if (typeAliases.containsKey(type)) {
-      return typeAliases[type]!;
-    } else {
-      return type;
-    }
-  }
-
   code.TypeDef _typedef(String name, String type) => code.TypeDef((b) => b
     ..name = name
     ..definition = _typeReference(type));
@@ -232,7 +357,7 @@ class Translator {
         ..name = getterName
         ..type = code.MethodType.getter);
 
-  String _argumentName(String name) {
+  String _parameterName(String name) {
     if (bannedNames.contains(name)) {
       return '${name}_';
     } else {
@@ -262,57 +387,43 @@ class Translator {
   }
 
   code.TypeReference _idlTypeToTypeReference(idl.IDLType idlType,
-          [bool isReturn = false]) =>
+          {required bool isReturn}) =>
       _typeReference(_typeRaw(idlType),
           isNullable: idlType.nullable.toDart, isReturn: isReturn);
 
-  List<code.Parameter> _parameters(JSArray arguments, int stop) {
-    final builtParameters = <code.Parameter>[];
-    for (var i = 0; i < stop; i++) {
-      final argument = arguments[i] as idl.Argument;
-      builtParameters.add(code.Parameter((b) => b
-        ..name = _argumentName(argument.name.toDart)
-        ..type = _idlTypeToTypeReference(argument.idlType)));
-    }
-    return builtParameters;
-  }
+  code.TypeReference _typeToTypeReference(_Type type,
+          {required bool isReturn}) =>
+      _typeReference(type.type,
+          isNullable: type.isNullable, isReturn: isReturn);
 
-  // TODO(joshualitt): More elegant approach to renaming methods / factories.
-  List<T> _multiProcedure<T>(
-      JSArray arguments, T Function(List<code.Parameter> parameters) builder) {
-    final built = <T>[];
-    void emit(int stop) => built.add(builder(_parameters(arguments, stop)));
-    for (var i = 0; i < arguments.length; i++) {
-      final argument = arguments[i] as idl.Argument;
-      if (argument.optional.toDart) {
-        emit(i);
+  T _overridableMember<T>(
+      _OverridableMember member,
+      T Function(List<code.Parameter> requiredParameters,
+              List<code.Parameter> optionalParameters)
+          generator) {
+    final requiredParameters = <code.Parameter>[];
+    final optionalParameters = <code.Parameter>[];
+    for (final rawParameter in member.parameters) {
+      final parameter = code.Parameter((b) => b
+        ..name = _parameterName(rawParameter.name)
+        ..type = _typeToTypeReference(rawParameter.type, isReturn: false));
+      if (rawParameter.isOptional) {
+        optionalParameters.add(parameter);
+      } else {
+        requiredParameters.add(parameter);
       }
     }
-    emit(arguments.length);
-    return built;
+    return generator(requiredParameters, optionalParameters);
   }
 
-  List<code.Constructor> _constructors(String dartClassName,
-      List<idl.Constructor> idlConstructors, bool needsNoArgumentsConstructor) {
-    var constructorCount = -1;
-    final builtConstructors = <code.Constructor>[];
-    if (needsNoArgumentsConstructor) {
-      builtConstructors.add(code.Constructor((b) => b
-        ..external = true
-        ..factory = true));
-      constructorCount++;
-    }
-    for (final constructor in idlConstructors) {
-      builtConstructors.addAll(_multiProcedure<code.Constructor>(
-          constructor.arguments,
-          (parameters) => code.Constructor((b) => b
+  code.Constructor _constructor(_OverridableConstructor constructor) =>
+      _overridableMember<code.Constructor>(
+          constructor,
+          (requiredParameters, optionalParameters) => code.Constructor((b) => b
             ..external = true
             ..factory = true
-            ..name = ++constructorCount == -1 ? null : 'a$constructorCount'
-            ..requiredParameters.addAll(parameters))));
-    }
-    return builtConstructors;
-  }
+            ..requiredParameters.addAll(requiredParameters)
+            ..optionalParameters.addAll(optionalParameters)));
 
   String? _defaultValue(idl.Value? value) {
     if (value == null) {
@@ -338,8 +449,7 @@ class Translator {
     }
   }
 
-  code.Constructor _objectLiteral(
-      String dartClassName, List<idl.Member> members) {
+  code.Constructor _objectLiteral(List<idl.Member> members) {
     final optionalParameters = <code.Parameter>[];
     for (final member in members) {
       // We currently only lower dictionaries to object literals, and
@@ -349,8 +459,8 @@ class Translator {
       final isRequired = field.required.toDart;
       final defaultValue = _defaultValue(field.defaultValue);
       final parameter = code.Parameter((b) => b
-        ..name = _argumentName(field.name.toDart)
-        ..type = _idlTypeToTypeReference(field.idlType)
+        ..name = _parameterName(field.name.toDart)
+        ..type = _idlTypeToTypeReference(field.idlType, isReturn: false)
         ..required = isRequired
         ..defaultTo = defaultValue == null ? null : code.Code(defaultValue)
         ..named = true);
@@ -363,15 +473,12 @@ class Translator {
   }
 
   _MemberName _memberName(String name) {
-    // TODO(joshualitt): Name override members more elegantly.
     var memberName = name;
-    final count = _namesSeen[name] ?? 0;
     String? jsOverride;
-    if (bannedNames.contains(name) || _namesSeen.containsKey(name)) {
+    if (bannedNames.contains(name)) {
       jsOverride = name;
-      memberName = '${name}_${count}_';
+      memberName = '${name}_';
     }
-    _namesSeen[name] = count + 1;
     return _MemberName(memberName, jsOverride);
   }
 
@@ -386,19 +493,19 @@ class Translator {
         if (objectLiteral) code.refer('anonymous'),
       ];
 
-  List<code.Method> _operation(idl.Operation operation) {
-    final memberName = _memberName(operation.name.toDart);
+  code.Method _operation(_OverridableOperation operation) {
+    final memberName = _memberName(operation.name);
     final name = memberName.name;
-    var count = -1;
-    return _multiProcedure<code.Method>(
-        operation.arguments,
-        (parameters) => code.Method((b) => b
+    return _overridableMember<code.Method>(
+        operation,
+        (requiredParameters, optionalParameters) => code.Method((b) => b
           ..annotations.addAll(_jsOverride(memberName.jsOverride))
           ..external = true
-          ..static = operation.special.toDart == 'static'
-          ..returns = _idlTypeToTypeReference(operation.idlType, true)
-          ..name = ++count == 0 ? name : '$name$count'
-          ..requiredParameters.addAll(parameters)));
+          ..static = operation.isStatic
+          ..returns = _typeToTypeReference(operation.returnType, isReturn: true)
+          ..name = name
+          ..requiredParameters.addAll(requiredParameters)
+          ..optionalParameters.addAll(optionalParameters)));
   }
 
   List<code.Method> _getterSetter(
@@ -417,13 +524,13 @@ class Translator {
           ..type = code.MethodType.setter
           ..name = name
           ..requiredParameters.add(code.Parameter((b) => b
-            ..type = _idlTypeToTypeReference(type)
+            ..type = _idlTypeToTypeReference(type, isReturn: false)
             ..name = 'value'))),
       code.Method((b) => b
         ..annotations.addAll(_jsOverride(memberName.jsOverride))
         ..external = true
         ..static = isStatic
-        ..returns = _idlTypeToTypeReference(type, true)
+        ..returns = _idlTypeToTypeReference(type, isReturn: true)
         ..type = code.MethodType.getter
         ..name = name)
     ];
@@ -438,7 +545,7 @@ class Translator {
   code.Method _constant(idl.Constant constant) => code.Method((b) => b
     ..external = true
     ..static = true
-    ..returns = _idlTypeToTypeReference(constant.idlType, true)
+    ..returns = _idlTypeToTypeReference(constant.idlType, isReturn: true)
     ..type = code.MethodType.getter
     ..name = constant.name.toDart);
 
@@ -452,7 +559,7 @@ class Translator {
     final type = member.type.toDart;
     switch (type) {
       case 'operation':
-        return _operation(member as idl.Operation);
+        throw Exception('Should be handled explicitly.');
       case 'attribute':
         return _attribute(member as idl.Attribute);
       case 'const':
@@ -472,19 +579,24 @@ class Translator {
   List<code.Method> _members(List<idl.Member> members) =>
       [for (final member in members) ..._member(member)];
 
-  code.Extension _extension(String name, List<idl.Member> members) =>
+  List<code.Method> _operations(List<_OverridableOperation> operations) =>
+      [for (final operation in operations) _operation(operation)];
+
+  code.Extension _extension(String name, List<_OverridableOperation> operations,
+          List<idl.Member> members) =>
       code.Extension((b) => b
         ..name = '${name.snakeToPascal}Extension'
         ..on = _typeReference(name)
-        ..methods.addAll(_members(members)));
+        ..methods
+            .addAll(_operations(operations).followedBy(_members(members))));
 
   code.Class _class({
     required String jsName,
     required String dartClassName,
     required String? inheritance,
     required List<String> includes,
-    required List<idl.Constructor> constructors,
-    required bool needsNoArgumentsConstructor,
+    required _OverridableConstructor? constructor,
+    required List<_OverridableOperation> staticOperations,
     required List<idl.Member> members,
     required List<idl.Member> staticMembers,
     required bool isAbstract,
@@ -495,20 +607,20 @@ class Translator {
           ..annotations.addAll(_jsOverride(isObjectLiteral ? '' : jsName,
               staticInterop: true, objectLiteral: isObjectLiteral))
           ..name = dartClassName
-          ..extend = inheritance == null ? null : _typeReference(inheritance)
-          ..implements.addAll(includes.map(_typeReference))
+          ..implements.addAll([
+            if (inheritance != null) _typeReference(inheritance)
+          ].followedBy(includes.map(_typeReference)))
           ..constructors.addAll(isObjectLiteral
-              ? [_objectLiteral(dartClassName, members)]
-              : _constructors(
-                  dartClassName, constructors, needsNoArgumentsConstructor))
-          ..methods.addAll(_members(staticMembers))
+              ? [_objectLiteral(members)]
+              : constructor != null
+                  ? [_constructor(constructor)]
+                  : [])
+          ..methods.addAll(
+              _operations(staticOperations).followedBy(_members(staticMembers)))
           ..abstract = isAbstract,
       );
 
   List<code.Spec> _interfacelike(idl.Interfacelike idlInterfacelike) {
-    // Each [interfacelike] acts as a namespace, so we clear the
-    // [namesSeen] map each time through the loop.
-    _namesSeen.clear();
     final name = idlInterfacelike.name.toDart;
     final interfacelike = _interfacelikes[name]!;
     final jsName = interfacelike.name;
@@ -518,13 +630,12 @@ class Translator {
 
     // Namespaces have lowercase names. We also translate them to
     // private classes, and make their first character uppercase in the process.
-    final dartClassName = isNamespace
-        ? '\$${jsName[0].toUpperCase()}${jsName.substring(1)}'
-        : jsName;
+    final dartClassName = isNamespace ? '\$${capitalize(jsName)}' : jsName;
 
     // We create a getter for namespaces with the expected name. We also create
     // getters for a few pre-defined singleton classes.
     final getterName = isNamespace ? jsName : singletons[jsName];
+    final operations = interfacelike.operations.values.toList();
     final members = interfacelike.members;
     return [
       if (getterName != null) _topLevelGetter(dartClassName, getterName),
@@ -533,13 +644,14 @@ class Translator {
           dartClassName: dartClassName,
           inheritance: interfacelike.inheritance,
           includes: interfacelike.includes,
-          constructors: interfacelike.constructors,
-          needsNoArgumentsConstructor: !interfacelike.hasNoArgumentsConstructor,
+          constructor: interfacelike.constructor,
+          staticOperations: interfacelike.staticOperations.values.toList(),
           members: interfacelike.members,
           staticMembers: interfacelike.staticMembers,
           isAbstract: isNamespace,
           isObjectLiteral: isDictionary),
-      if (members.isNotEmpty) _extension(dartClassName, members)
+      if (operations.isNotEmpty || members.isNotEmpty)
+        _extension(dartClassName, operations, members)
     ];
   }
 

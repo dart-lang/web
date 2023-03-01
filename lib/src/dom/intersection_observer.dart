@@ -17,33 +17,26 @@ typedef IntersectionObserverCallback = JSFunction;
 @JS('IntersectionObserver')
 @staticInterop
 class IntersectionObserver {
-  external factory IntersectionObserver();
-
-  external factory IntersectionObserver.a1(
-      IntersectionObserverCallback callback);
-
-  external factory IntersectionObserver.a2(
-    IntersectionObserverCallback callback,
+  external factory IntersectionObserver(
+    IntersectionObserverCallback callback, [
     IntersectionObserverInit options,
-  );
+  ]);
 }
 
 extension IntersectionObserverExtension on IntersectionObserver {
-  external JSAny? get root;
-  external JSString get rootMargin;
-  external JSArray get thresholds;
   external JSVoid observe(Element target);
   external JSVoid unobserve(Element target);
   external JSVoid disconnect();
   external JSArray takeRecords();
+  external JSAny? get root;
+  external JSString get rootMargin;
+  external JSArray get thresholds;
 }
 
 @JS('IntersectionObserverEntry')
 @staticInterop
 class IntersectionObserverEntry {
-  external factory IntersectionObserverEntry();
-
-  external factory IntersectionObserverEntry.a1(
+  external factory IntersectionObserverEntry(
       IntersectionObserverEntryInit intersectionObserverEntryInit);
 }
 

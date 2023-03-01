@@ -36,24 +36,19 @@ extension SchedulerPostTaskOptionsExtension on SchedulerPostTaskOptions {
 
 @JS('Scheduler')
 @staticInterop
-class Scheduler {
-  external factory Scheduler();
-}
+class Scheduler {}
 
 extension SchedulerExtension on Scheduler {
-  external JSPromise postTask(SchedulerPostTaskCallback callback);
-  external JSPromise postTask1(
-    SchedulerPostTaskCallback callback,
+  external JSPromise postTask(
+    SchedulerPostTaskCallback callback, [
     SchedulerPostTaskOptions options,
-  );
+  ]);
 }
 
 @JS('TaskPriorityChangeEvent')
 @staticInterop
-class TaskPriorityChangeEvent extends Event {
-  external factory TaskPriorityChangeEvent();
-
-  external factory TaskPriorityChangeEvent.a1(
+class TaskPriorityChangeEvent implements Event {
+  external factory TaskPriorityChangeEvent(
     JSString type,
     TaskPriorityChangeEventInit priorityChangeEventInitDict,
   );
@@ -66,7 +61,7 @@ extension TaskPriorityChangeEventExtension on TaskPriorityChangeEvent {
 @JS()
 @staticInterop
 @anonymous
-class TaskPriorityChangeEventInit extends EventInit {
+class TaskPriorityChangeEventInit implements EventInit {
   external factory TaskPriorityChangeEventInit(
       {required TaskPriority previousPriority});
 }
@@ -90,12 +85,8 @@ extension TaskControllerInitExtension on TaskControllerInit {
 
 @JS('TaskController')
 @staticInterop
-class TaskController extends AbortController {
-  external factory TaskController();
-
-  external factory TaskController.a1();
-
-  external factory TaskController.a2(TaskControllerInit init);
+class TaskController implements AbortController {
+  external factory TaskController([TaskControllerInit init]);
 }
 
 extension TaskControllerExtension on TaskController {
@@ -104,9 +95,7 @@ extension TaskControllerExtension on TaskController {
 
 @JS('TaskSignal')
 @staticInterop
-class TaskSignal extends AbortSignal {
-  external factory TaskSignal();
-}
+class TaskSignal implements AbortSignal {}
 
 extension TaskSignalExtension on TaskSignal {
   external TaskPriority get priority;

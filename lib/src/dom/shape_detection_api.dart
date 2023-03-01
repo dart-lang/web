@@ -17,11 +17,7 @@ typedef BarcodeFormat = JSString;
 @JS('FaceDetector')
 @staticInterop
 class FaceDetector {
-  external factory FaceDetector();
-
-  external factory FaceDetector.a1();
-
-  external factory FaceDetector.a2(FaceDetectorOptions faceDetectorOptions);
+  external factory FaceDetector([FaceDetectorOptions faceDetectorOptions]);
 }
 
 extension FaceDetectorExtension on FaceDetector {
@@ -82,12 +78,8 @@ extension LandmarkExtension on Landmark {
 @JS('BarcodeDetector')
 @staticInterop
 class BarcodeDetector {
-  external factory BarcodeDetector();
-
-  external factory BarcodeDetector.a1();
-
-  external factory BarcodeDetector.a2(
-      BarcodeDetectorOptions barcodeDetectorOptions);
+  external factory BarcodeDetector(
+      [BarcodeDetectorOptions barcodeDetectorOptions]);
 
   external static JSPromise getSupportedFormats();
 }

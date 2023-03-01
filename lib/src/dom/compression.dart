@@ -13,15 +13,11 @@ import 'streams.dart';
 @JS('CompressionStream')
 @staticInterop
 class CompressionStream implements GenericTransformStream {
-  external factory CompressionStream();
-
-  external factory CompressionStream.a1(JSString format);
+  external factory CompressionStream(JSString format);
 }
 
 @JS('DecompressionStream')
 @staticInterop
 class DecompressionStream implements GenericTransformStream {
-  external factory DecompressionStream();
-
-  external factory DecompressionStream.a1(JSString format);
+  external factory DecompressionStream(JSString format);
 }

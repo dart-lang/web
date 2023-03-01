@@ -19,20 +19,21 @@ typedef RecordingState = JSString;
 
 @JS('MediaRecorder')
 @staticInterop
-class MediaRecorder extends EventTarget {
-  external factory MediaRecorder();
-
-  external factory MediaRecorder.a1(MediaStream stream);
-
-  external factory MediaRecorder.a2(
-    MediaStream stream,
+class MediaRecorder implements EventTarget {
+  external factory MediaRecorder(
+    MediaStream stream, [
     MediaRecorderOptions options,
-  );
+  ]);
 
   external static JSBoolean isTypeSupported(JSString type);
 }
 
 extension MediaRecorderExtension on MediaRecorder {
+  external JSVoid start([JSNumber timeslice]);
+  external JSVoid stop();
+  external JSVoid pause();
+  external JSVoid resume();
+  external JSVoid requestData();
   external MediaStream get stream;
   external JSString get mimeType;
   external RecordingState get state;
@@ -51,12 +52,6 @@ extension MediaRecorderExtension on MediaRecorder {
   external JSNumber get videoBitsPerSecond;
   external JSNumber get audioBitsPerSecond;
   external BitrateMode get audioBitrateMode;
-  external JSVoid start();
-  external JSVoid start1(JSNumber timeslice);
-  external JSVoid stop();
-  external JSVoid pause();
-  external JSVoid resume();
-  external JSVoid requestData();
 }
 
 @JS()
@@ -87,10 +82,8 @@ extension MediaRecorderOptionsExtension on MediaRecorderOptions {
 
 @JS('BlobEvent')
 @staticInterop
-class BlobEvent extends Event {
-  external factory BlobEvent();
-
-  external factory BlobEvent.a1(
+class BlobEvent implements Event {
+  external factory BlobEvent(
     JSString type,
     BlobEventInit eventInitDict,
   );

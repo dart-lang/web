@@ -10,6 +10,4 @@ import 'package:js/js.dart' hide JS;
 
 @JS('OES_fbo_render_mipmap')
 @staticInterop
-class OES_fbo_render_mipmap {
-  external factory OES_fbo_render_mipmap();
-}
+class OES_fbo_render_mipmap {}

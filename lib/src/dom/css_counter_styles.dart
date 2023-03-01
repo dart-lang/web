@@ -12,9 +12,7 @@ import 'cssom.dart';
 
 @JS('CSSCounterStyleRule')
 @staticInterop
-class CSSCounterStyleRule extends CSSRule {
-  external factory CSSCounterStyleRule();
-}
+class CSSCounterStyleRule implements CSSRule {}
 
 extension CSSCounterStyleRuleExtension on CSSCounterStyleRule {
   external set name(JSString value);

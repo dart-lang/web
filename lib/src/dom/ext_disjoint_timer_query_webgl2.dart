@@ -14,8 +14,6 @@ import 'webgl2.dart';
 @JS('EXT_disjoint_timer_query_webgl2')
 @staticInterop
 class EXT_disjoint_timer_query_webgl2 {
-  external factory EXT_disjoint_timer_query_webgl2();
-
   external static GLenum get QUERY_COUNTER_BITS_EXT;
   external static GLenum get TIME_ELAPSED_EXT;
   external static GLenum get TIMESTAMP_EXT;

@@ -19,7 +19,7 @@ typedef RTCStatsIceCandidatePairState = JSString;
 @JS()
 @staticInterop
 @anonymous
-class RTCRtpStreamStats extends RTCStats {
+class RTCRtpStreamStats implements RTCStats {
   external factory RTCRtpStreamStats({
     required JSNumber ssrc,
     required JSString kind,
@@ -42,7 +42,7 @@ extension RTCRtpStreamStatsExtension on RTCRtpStreamStats {
 @JS()
 @staticInterop
 @anonymous
-class RTCCodecStats extends RTCStats {
+class RTCCodecStats implements RTCStats {
   external factory RTCCodecStats({
     required JSNumber payloadType,
     required JSString transportId,
@@ -71,7 +71,7 @@ extension RTCCodecStatsExtension on RTCCodecStats {
 @JS()
 @staticInterop
 @anonymous
-class RTCReceivedRtpStreamStats extends RTCRtpStreamStats {
+class RTCReceivedRtpStreamStats implements RTCRtpStreamStats {
   external factory RTCReceivedRtpStreamStats({
     JSNumber packetsReceived,
     JSNumber packetsLost,
@@ -91,7 +91,7 @@ extension RTCReceivedRtpStreamStatsExtension on RTCReceivedRtpStreamStats {
 @JS()
 @staticInterop
 @anonymous
-class RTCInboundRtpStreamStats extends RTCReceivedRtpStreamStats {
+class RTCInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
   external factory RTCInboundRtpStreamStats({
     required JSString trackIdentifier,
     required JSString kind,
@@ -249,7 +249,7 @@ extension RTCInboundRtpStreamStatsExtension on RTCInboundRtpStreamStats {
 @JS()
 @staticInterop
 @anonymous
-class RTCRemoteInboundRtpStreamStats extends RTCReceivedRtpStreamStats {
+class RTCRemoteInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
   external factory RTCRemoteInboundRtpStreamStats({
     JSString localId,
     JSNumber roundTripTime,
@@ -276,7 +276,7 @@ extension RTCRemoteInboundRtpStreamStatsExtension
 @JS()
 @staticInterop
 @anonymous
-class RTCSentRtpStreamStats extends RTCRtpStreamStats {
+class RTCSentRtpStreamStats implements RTCRtpStreamStats {
   external factory RTCSentRtpStreamStats({
     JSNumber packetsSent,
     JSNumber bytesSent,
@@ -293,7 +293,7 @@ extension RTCSentRtpStreamStatsExtension on RTCSentRtpStreamStats {
 @JS()
 @staticInterop
 @anonymous
-class RTCOutboundRtpStreamStats extends RTCSentRtpStreamStats {
+class RTCOutboundRtpStreamStats implements RTCSentRtpStreamStats {
   external factory RTCOutboundRtpStreamStats({
     JSString mid,
     JSString mediaSourceId,
@@ -391,7 +391,7 @@ extension RTCOutboundRtpStreamStatsExtension on RTCOutboundRtpStreamStats {
 @JS()
 @staticInterop
 @anonymous
-class RTCRemoteOutboundRtpStreamStats extends RTCSentRtpStreamStats {
+class RTCRemoteOutboundRtpStreamStats implements RTCSentRtpStreamStats {
   external factory RTCRemoteOutboundRtpStreamStats({
     JSString localId,
     DOMHighResTimeStamp remoteTimestamp,
@@ -421,7 +421,7 @@ extension RTCRemoteOutboundRtpStreamStatsExtension
 @JS()
 @staticInterop
 @anonymous
-class RTCMediaSourceStats extends RTCStats {
+class RTCMediaSourceStats implements RTCStats {
   external factory RTCMediaSourceStats({
     required JSString trackIdentifier,
     required JSString kind,
@@ -438,7 +438,7 @@ extension RTCMediaSourceStatsExtension on RTCMediaSourceStats {
 @JS()
 @staticInterop
 @anonymous
-class RTCAudioSourceStats extends RTCMediaSourceStats {
+class RTCAudioSourceStats implements RTCMediaSourceStats {
   external factory RTCAudioSourceStats({
     JSNumber audioLevel,
     JSNumber totalAudioEnergy,
@@ -476,7 +476,7 @@ extension RTCAudioSourceStatsExtension on RTCAudioSourceStats {
 @JS()
 @staticInterop
 @anonymous
-class RTCVideoSourceStats extends RTCMediaSourceStats {
+class RTCVideoSourceStats implements RTCMediaSourceStats {
   external factory RTCVideoSourceStats({
     JSNumber width,
     JSNumber height,
@@ -499,7 +499,7 @@ extension RTCVideoSourceStatsExtension on RTCVideoSourceStats {
 @JS()
 @staticInterop
 @anonymous
-class RTCAudioPlayoutStats extends RTCStats {
+class RTCAudioPlayoutStats implements RTCStats {
   external factory RTCAudioPlayoutStats({
     required JSString kind,
     JSNumber synthesizedSamplesDuration,
@@ -528,7 +528,7 @@ extension RTCAudioPlayoutStatsExtension on RTCAudioPlayoutStats {
 @JS()
 @staticInterop
 @anonymous
-class RTCPeerConnectionStats extends RTCStats {
+class RTCPeerConnectionStats implements RTCStats {
   external factory RTCPeerConnectionStats({
     JSNumber dataChannelsOpened,
     JSNumber dataChannelsClosed,
@@ -545,7 +545,7 @@ extension RTCPeerConnectionStatsExtension on RTCPeerConnectionStats {
 @JS()
 @staticInterop
 @anonymous
-class RTCDataChannelStats extends RTCStats {
+class RTCDataChannelStats implements RTCStats {
   external factory RTCDataChannelStats({
     JSString label,
     JSString protocol,
@@ -580,7 +580,7 @@ extension RTCDataChannelStatsExtension on RTCDataChannelStats {
 @JS()
 @staticInterop
 @anonymous
-class RTCTransportStats extends RTCStats {
+class RTCTransportStats implements RTCStats {
   external factory RTCTransportStats({
     JSNumber packetsSent,
     JSNumber packetsReceived,
@@ -639,7 +639,7 @@ extension RTCTransportStatsExtension on RTCTransportStats {
 @JS()
 @staticInterop
 @anonymous
-class RTCIceCandidateStats extends RTCStats {
+class RTCIceCandidateStats implements RTCStats {
   external factory RTCIceCandidateStats({
     required JSString transportId,
     JSString? address,
@@ -689,7 +689,7 @@ extension RTCIceCandidateStatsExtension on RTCIceCandidateStats {
 @JS()
 @staticInterop
 @anonymous
-class RTCIceCandidatePairStats extends RTCStats {
+class RTCIceCandidatePairStats implements RTCStats {
   external factory RTCIceCandidatePairStats({
     required JSString transportId,
     required JSString localCandidateId,
@@ -766,7 +766,7 @@ extension RTCIceCandidatePairStatsExtension on RTCIceCandidatePairStats {
 @JS()
 @staticInterop
 @anonymous
-class RTCCertificateStats extends RTCStats {
+class RTCCertificateStats implements RTCStats {
   external factory RTCCertificateStats({
     required JSString fingerprint,
     required JSString fingerprintAlgorithm,

@@ -13,13 +13,10 @@ import 'html.dart';
 
 @JS('Keyboard')
 @staticInterop
-class Keyboard extends EventTarget {
-  external factory Keyboard();
-}
+class Keyboard implements EventTarget {}
 
 extension KeyboardExtension on Keyboard {
-  external JSPromise lock();
-  external JSPromise lock1(JSArray keyCodes);
+  external JSPromise lock([JSArray keyCodes]);
   external JSVoid unlock();
   external JSPromise getLayoutMap();
   external set onlayoutchange(EventHandler value);

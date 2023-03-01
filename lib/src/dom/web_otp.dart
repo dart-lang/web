@@ -14,9 +14,7 @@ typedef OTPCredentialTransportType = JSString;
 
 @JS('OTPCredential')
 @staticInterop
-class OTPCredential extends Credential {
-  external factory OTPCredential();
-}
+class OTPCredential implements Credential {}
 
 extension OTPCredentialExtension on OTPCredential {
   external JSString get code;

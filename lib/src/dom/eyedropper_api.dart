@@ -37,10 +37,9 @@ extension ColorSelectionOptionsExtension on ColorSelectionOptions {
 @JS('EyeDropper')
 @staticInterop
 class EyeDropper {
-  external factory EyeDropper.a0();
+  external factory EyeDropper();
 }
 
 extension EyeDropperExtension on EyeDropper {
-  external JSPromise open();
-  external JSPromise open1(ColorSelectionOptions options);
+  external JSPromise open([ColorSelectionOptions options]);
 }

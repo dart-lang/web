@@ -13,22 +13,20 @@ import 'html.dart';
 
 @JS('HTMLPortalElement')
 @staticInterop
-class HTMLPortalElement extends HTMLElement {
-  external factory HTMLPortalElement.a0();
+class HTMLPortalElement implements HTMLElement {
+  external factory HTMLPortalElement();
 }
 
 extension HTMLPortalElementExtension on HTMLPortalElement {
+  external JSPromise activate([PortalActivateOptions options]);
+  external JSVoid postMessage(
+    JSAny message, [
+    StructuredSerializeOptions options,
+  ]);
   external set src(JSString value);
   external JSString get src;
   external set referrerPolicy(JSString value);
   external JSString get referrerPolicy;
-  external JSPromise activate();
-  external JSPromise activate1(PortalActivateOptions options);
-  external JSVoid postMessage(JSAny message);
-  external JSVoid postMessage1(
-    JSAny message,
-    StructuredSerializeOptions options,
-  );
   external set onmessage(EventHandler value);
   external EventHandler get onmessage;
   external set onmessageerror(EventHandler value);
@@ -38,7 +36,7 @@ extension HTMLPortalElementExtension on HTMLPortalElement {
 @JS()
 @staticInterop
 @anonymous
-class PortalActivateOptions extends StructuredSerializeOptions {
+class PortalActivateOptions implements StructuredSerializeOptions {
   external factory PortalActivateOptions({JSAny data});
 }
 
@@ -49,16 +47,13 @@ extension PortalActivateOptionsExtension on PortalActivateOptions {
 
 @JS('PortalHost')
 @staticInterop
-class PortalHost extends EventTarget {
-  external factory PortalHost();
-}
+class PortalHost implements EventTarget {}
 
 extension PortalHostExtension on PortalHost {
-  external JSVoid postMessage(JSAny message);
-  external JSVoid postMessage1(
-    JSAny message,
+  external JSVoid postMessage(
+    JSAny message, [
     StructuredSerializeOptions options,
-  );
+  ]);
   external set onmessage(EventHandler value);
   external EventHandler get onmessage;
   external set onmessageerror(EventHandler value);
@@ -67,26 +62,22 @@ extension PortalHostExtension on PortalHost {
 
 @JS('PortalActivateEvent')
 @staticInterop
-class PortalActivateEvent extends Event {
-  external factory PortalActivateEvent();
-
-  external factory PortalActivateEvent.a1(JSString type);
-
-  external factory PortalActivateEvent.a2(
-    JSString type,
+class PortalActivateEvent implements Event {
+  external factory PortalActivateEvent(
+    JSString type, [
     PortalActivateEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension PortalActivateEventExtension on PortalActivateEvent {
-  external JSAny get data;
   external HTMLPortalElement adoptPredecessor();
+  external JSAny get data;
 }
 
 @JS()
 @staticInterop
 @anonymous
-class PortalActivateEventInit extends EventInit {
+class PortalActivateEventInit implements EventInit {
   external factory PortalActivateEventInit({JSAny data});
 }
 

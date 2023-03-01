@@ -155,9 +155,7 @@ extension IdentityProviderTokenExtension on IdentityProviderToken {
 
 @JS('IdentityCredential')
 @staticInterop
-class IdentityCredential extends Credential {
-  external factory IdentityCredential();
-
+class IdentityCredential implements Credential {
   external static JSPromise logoutRPs(JSArray logoutRequests);
 }
 
@@ -219,8 +217,6 @@ extension IdentityCredentialLogoutRPsRequestExtension
 @JS('IdentityProvider')
 @staticInterop
 class IdentityProvider {
-  external factory IdentityProvider();
-
   external static JSVoid login();
   external static JSVoid logout();
 }

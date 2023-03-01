@@ -15,23 +15,19 @@ import 'performance_timeline.dart';
 
 @JS('LayoutShift')
 @staticInterop
-class LayoutShift extends PerformanceEntry {
-  external factory LayoutShift();
-}
+class LayoutShift implements PerformanceEntry {}
 
 extension LayoutShiftExtension on LayoutShift {
+  external JSObject toJSON();
   external JSNumber get value;
   external JSBoolean get hadRecentInput;
   external DOMHighResTimeStamp get lastInputTime;
   external JSArray get sources;
-  external JSObject toJSON();
 }
 
 @JS('LayoutShiftAttribution')
 @staticInterop
-class LayoutShiftAttribution {
-  external factory LayoutShiftAttribution();
-}
+class LayoutShiftAttribution {}
 
 extension LayoutShiftAttributionExtension on LayoutShiftAttribution {
   external Node? get node;

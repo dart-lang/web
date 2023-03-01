@@ -16,16 +16,10 @@ typedef VoidFunction = JSFunction;
 @JS('DOMException')
 @staticInterop
 class DOMException {
-  external factory DOMException();
-
-  external factory DOMException.a1();
-
-  external factory DOMException.a2(JSString message);
-
-  external factory DOMException.a3(
+  external factory DOMException([
     JSString message,
     JSString name,
-  );
+  ]);
 
   external static JSNumber get INDEX_SIZE_ERR;
   external static JSNumber get DOMSTRING_SIZE_ERR;

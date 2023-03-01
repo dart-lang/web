@@ -22,11 +22,10 @@ typedef XRTextureType = JSString;
 
 @JS('XRCompositionLayer')
 @staticInterop
-class XRCompositionLayer extends XRLayer {
-  external factory XRCompositionLayer();
-}
+class XRCompositionLayer implements XRLayer {}
 
 extension XRCompositionLayerExtension on XRCompositionLayer {
+  external JSVoid destroy();
   external XRLayerLayout get layout;
   external set blendTextureSourceAlpha(JSBoolean value);
   external JSBoolean get blendTextureSourceAlpha;
@@ -36,14 +35,11 @@ extension XRCompositionLayerExtension on XRCompositionLayer {
   external JSNumber get opacity;
   external JSNumber get mipLevels;
   external JSBoolean get needsRedraw;
-  external JSVoid destroy();
 }
 
 @JS('XRProjectionLayer')
 @staticInterop
-class XRProjectionLayer extends XRCompositionLayer {
-  external factory XRProjectionLayer();
-}
+class XRProjectionLayer implements XRCompositionLayer {}
 
 extension XRProjectionLayerExtension on XRProjectionLayer {
   external JSNumber get textureWidth;
@@ -58,9 +54,7 @@ extension XRProjectionLayerExtension on XRProjectionLayer {
 
 @JS('XRQuadLayer')
 @staticInterop
-class XRQuadLayer extends XRCompositionLayer {
-  external factory XRQuadLayer();
-}
+class XRQuadLayer implements XRCompositionLayer {}
 
 extension XRQuadLayerExtension on XRQuadLayer {
   external set space(XRSpace value);
@@ -77,9 +71,7 @@ extension XRQuadLayerExtension on XRQuadLayer {
 
 @JS('XRCylinderLayer')
 @staticInterop
-class XRCylinderLayer extends XRCompositionLayer {
-  external factory XRCylinderLayer();
-}
+class XRCylinderLayer implements XRCompositionLayer {}
 
 extension XRCylinderLayerExtension on XRCylinderLayer {
   external set space(XRSpace value);
@@ -98,9 +90,7 @@ extension XRCylinderLayerExtension on XRCylinderLayer {
 
 @JS('XREquirectLayer')
 @staticInterop
-class XREquirectLayer extends XRCompositionLayer {
-  external factory XREquirectLayer();
-}
+class XREquirectLayer implements XRCompositionLayer {}
 
 extension XREquirectLayerExtension on XREquirectLayer {
   external set space(XRSpace value);
@@ -121,9 +111,7 @@ extension XREquirectLayerExtension on XREquirectLayer {
 
 @JS('XRCubeLayer')
 @staticInterop
-class XRCubeLayer extends XRCompositionLayer {
-  external factory XRCubeLayer();
-}
+class XRCubeLayer implements XRCompositionLayer {}
 
 extension XRCubeLayerExtension on XRCubeLayer {
   external set space(XRSpace value);
@@ -136,9 +124,7 @@ extension XRCubeLayerExtension on XRCubeLayer {
 
 @JS('XRSubImage')
 @staticInterop
-class XRSubImage {
-  external factory XRSubImage();
-}
+class XRSubImage {}
 
 extension XRSubImageExtension on XRSubImage {
   external XRViewport get viewport;
@@ -146,9 +132,7 @@ extension XRSubImageExtension on XRSubImage {
 
 @JS('XRWebGLSubImage')
 @staticInterop
-class XRWebGLSubImage extends XRSubImage {
-  external factory XRWebGLSubImage();
-}
+class XRWebGLSubImage implements XRSubImage {}
 
 extension XRWebGLSubImageExtension on XRWebGLSubImage {
   external WebGLTexture get colorTexture;
@@ -224,7 +208,7 @@ extension XRLayerInitExtension on XRLayerInit {
 @JS()
 @staticInterop
 @anonymous
-class XRQuadLayerInit extends XRLayerInit {
+class XRQuadLayerInit implements XRLayerInit {
   external factory XRQuadLayerInit({
     XRTextureType textureType = 'texture',
     XRRigidTransform? transform,
@@ -247,7 +231,7 @@ extension XRQuadLayerInitExtension on XRQuadLayerInit {
 @JS()
 @staticInterop
 @anonymous
-class XRCylinderLayerInit extends XRLayerInit {
+class XRCylinderLayerInit implements XRLayerInit {
   external factory XRCylinderLayerInit({
     XRTextureType textureType = 'texture',
     XRRigidTransform? transform,
@@ -273,7 +257,7 @@ extension XRCylinderLayerInitExtension on XRCylinderLayerInit {
 @JS()
 @staticInterop
 @anonymous
-class XREquirectLayerInit extends XRLayerInit {
+class XREquirectLayerInit implements XRLayerInit {
   external factory XREquirectLayerInit({
     XRTextureType textureType = 'texture',
     XRRigidTransform? transform,
@@ -302,7 +286,7 @@ extension XREquirectLayerInitExtension on XREquirectLayerInit {
 @JS()
 @staticInterop
 @anonymous
-class XRCubeLayerInit extends XRLayerInit {
+class XRCubeLayerInit implements XRLayerInit {
   external factory XRCubeLayerInit({DOMPointReadOnly? orientation});
 }
 
@@ -314,9 +298,7 @@ extension XRCubeLayerInitExtension on XRCubeLayerInit {
 @JS('XRWebGLBinding')
 @staticInterop
 class XRWebGLBinding {
-  external factory XRWebGLBinding();
-
-  external factory XRWebGLBinding.a1(
+  external factory XRWebGLBinding(
     XRSession session,
     XRWebGLRenderingContext context,
   );
@@ -326,31 +308,23 @@ extension XRWebGLBindingExtension on XRWebGLBinding {
   external WebGLTexture? getCameraImage(XRCamera camera);
   external XRWebGLDepthInformation? getDepthInformation(XRView view);
   external WebGLTexture? getReflectionCubeMap(XRLightProbe lightProbe);
-  external JSNumber get nativeProjectionScaleFactor;
-  external JSBoolean get usesDepthValues;
-  external XRProjectionLayer createProjectionLayer();
-  external XRProjectionLayer createProjectionLayer1(XRProjectionLayerInit init);
-  external XRQuadLayer createQuadLayer();
-  external XRQuadLayer createQuadLayer1(XRQuadLayerInit init);
-  external XRCylinderLayer createCylinderLayer();
-  external XRCylinderLayer createCylinderLayer1(XRCylinderLayerInit init);
-  external XREquirectLayer createEquirectLayer();
-  external XREquirectLayer createEquirectLayer1(XREquirectLayerInit init);
-  external XRCubeLayer createCubeLayer();
-  external XRCubeLayer createCubeLayer1(XRCubeLayerInit init);
+  external XRProjectionLayer createProjectionLayer(
+      [XRProjectionLayerInit init]);
+  external XRQuadLayer createQuadLayer([XRQuadLayerInit init]);
+  external XRCylinderLayer createCylinderLayer([XRCylinderLayerInit init]);
+  external XREquirectLayer createEquirectLayer([XREquirectLayerInit init]);
+  external XRCubeLayer createCubeLayer([XRCubeLayerInit init]);
   external XRWebGLSubImage getSubImage(
     XRCompositionLayer layer,
-    XRFrame frame,
-  );
-  external XRWebGLSubImage getSubImage1(
-    XRCompositionLayer layer,
-    XRFrame frame,
+    XRFrame frame, [
     XREye eye,
-  );
+  ]);
   external XRWebGLSubImage getViewSubImage(
     XRProjectionLayer layer,
     XRView view,
   );
+  external JSNumber get nativeProjectionScaleFactor;
+  external JSBoolean get usesDepthValues;
 }
 
 @JS()
@@ -376,7 +350,7 @@ extension XRMediaLayerInitExtension on XRMediaLayerInit {
 @JS()
 @staticInterop
 @anonymous
-class XRMediaQuadLayerInit extends XRMediaLayerInit {
+class XRMediaQuadLayerInit implements XRMediaLayerInit {
   external factory XRMediaQuadLayerInit({
     XRRigidTransform? transform,
     JSNumber? width,
@@ -396,7 +370,7 @@ extension XRMediaQuadLayerInitExtension on XRMediaQuadLayerInit {
 @JS()
 @staticInterop
 @anonymous
-class XRMediaCylinderLayerInit extends XRMediaLayerInit {
+class XRMediaCylinderLayerInit implements XRMediaLayerInit {
   external factory XRMediaCylinderLayerInit({
     XRRigidTransform? transform,
     JSNumber radius = 2.0,
@@ -419,7 +393,7 @@ extension XRMediaCylinderLayerInitExtension on XRMediaCylinderLayerInit {
 @JS()
 @staticInterop
 @anonymous
-class XRMediaEquirectLayerInit extends XRMediaLayerInit {
+class XRMediaEquirectLayerInit implements XRMediaLayerInit {
   external factory XRMediaEquirectLayerInit({
     XRRigidTransform? transform,
     JSNumber radius = 0.0,
@@ -445,35 +419,28 @@ extension XRMediaEquirectLayerInitExtension on XRMediaEquirectLayerInit {
 @JS('XRMediaBinding')
 @staticInterop
 class XRMediaBinding {
-  external factory XRMediaBinding();
-
-  external factory XRMediaBinding.a1(XRSession session);
+  external factory XRMediaBinding(XRSession session);
 }
 
 extension XRMediaBindingExtension on XRMediaBinding {
-  external XRQuadLayer createQuadLayer(HTMLVideoElement video);
-  external XRQuadLayer createQuadLayer1(
-    HTMLVideoElement video,
+  external XRQuadLayer createQuadLayer(
+    HTMLVideoElement video, [
     XRMediaQuadLayerInit init,
-  );
-  external XRCylinderLayer createCylinderLayer(HTMLVideoElement video);
-  external XRCylinderLayer createCylinderLayer1(
-    HTMLVideoElement video,
+  ]);
+  external XRCylinderLayer createCylinderLayer(
+    HTMLVideoElement video, [
     XRMediaCylinderLayerInit init,
-  );
-  external XREquirectLayer createEquirectLayer(HTMLVideoElement video);
-  external XREquirectLayer createEquirectLayer1(
-    HTMLVideoElement video,
+  ]);
+  external XREquirectLayer createEquirectLayer(
+    HTMLVideoElement video, [
     XRMediaEquirectLayerInit init,
-  );
+  ]);
 }
 
 @JS('XRLayerEvent')
 @staticInterop
-class XRLayerEvent extends Event {
-  external factory XRLayerEvent();
-
-  external factory XRLayerEvent.a1(
+class XRLayerEvent implements Event {
+  external factory XRLayerEvent(
     JSString type,
     XRLayerEventInit eventInitDict,
   );
@@ -486,7 +453,7 @@ extension XRLayerEventExtension on XRLayerEvent {
 @JS()
 @staticInterop
 @anonymous
-class XRLayerEventInit extends EventInit {
+class XRLayerEventInit implements EventInit {
   external factory XRLayerEventInit({required XRLayer layer});
 }
 

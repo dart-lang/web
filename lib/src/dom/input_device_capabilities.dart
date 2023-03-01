@@ -11,12 +11,8 @@ import 'package:js/js.dart' hide JS;
 @JS('InputDeviceCapabilities')
 @staticInterop
 class InputDeviceCapabilities {
-  external factory InputDeviceCapabilities();
-
-  external factory InputDeviceCapabilities.a1();
-
-  external factory InputDeviceCapabilities.a2(
-      InputDeviceCapabilitiesInit deviceInitDict);
+  external factory InputDeviceCapabilities(
+      [InputDeviceCapabilitiesInit deviceInitDict]);
 }
 
 extension InputDeviceCapabilitiesExtension on InputDeviceCapabilities {

@@ -15,11 +15,10 @@ import 'performance_timeline.dart';
 
 @JS('PerformanceElementTiming')
 @staticInterop
-class PerformanceElementTiming extends PerformanceEntry {
-  external factory PerformanceElementTiming();
-}
+class PerformanceElementTiming implements PerformanceEntry {}
 
 extension PerformanceElementTimingExtension on PerformanceElementTiming {
+  external JSObject toJSON();
   external DOMHighResTimeStamp get renderTime;
   external DOMHighResTimeStamp get loadTime;
   external DOMRectReadOnly get intersectionRect;
@@ -29,5 +28,4 @@ extension PerformanceElementTimingExtension on PerformanceElementTiming {
   external JSString get id;
   external Element? get element;
   external JSString get url;
-  external JSObject toJSON();
 }

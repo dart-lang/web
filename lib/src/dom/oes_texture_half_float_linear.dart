@@ -10,6 +10,4 @@ import 'package:js/js.dart' hide JS;
 
 @JS('OES_texture_half_float_linear')
 @staticInterop
-class OES_texture_half_float_linear {
-  external factory OES_texture_half_float_linear();
-}
+class OES_texture_half_float_linear {}

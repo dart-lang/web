@@ -13,8 +13,6 @@ import 'webgl1.dart';
 @JS('EXT_blend_minmax')
 @staticInterop
 class EXT_blend_minmax {
-  external factory EXT_blend_minmax();
-
   external static GLenum get MIN_EXT;
   external static GLenum get MAX_EXT;
 }

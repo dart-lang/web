@@ -68,7 +68,6 @@ import 'web_app_launch.dart';
 import 'web_bluetooth.dart';
 import 'web_locks.dart';
 import 'web_share.dart';
-import 'webaudio.dart';
 import 'webcryptoapi.dart';
 import 'webdriver.dart';
 import 'webgpu.dart';
@@ -129,22 +128,17 @@ typedef WorkerType = JSString;
 
 @JS('HTMLAllCollection')
 @staticInterop
-class HTMLAllCollection {
-  external factory HTMLAllCollection();
-}
+class HTMLAllCollection {}
 
 extension HTMLAllCollectionExtension on HTMLAllCollection {
-  external JSNumber get length;
   external JSAny? namedItem(JSString name);
-  external JSAny? item();
-  external JSAny? item1(JSString nameOrIndex);
+  external JSAny? item([JSString nameOrIndex]);
+  external JSNumber get length;
 }
 
 @JS('HTMLFormControlsCollection')
 @staticInterop
-class HTMLFormControlsCollection extends HTMLCollection {
-  external factory HTMLFormControlsCollection();
-}
+class HTMLFormControlsCollection implements HTMLCollection {}
 
 extension HTMLFormControlsCollectionExtension on HTMLFormControlsCollection {
   external JSAny? namedItem(JSString name);
@@ -152,9 +146,7 @@ extension HTMLFormControlsCollectionExtension on HTMLFormControlsCollection {
 
 @JS('RadioNodeList')
 @staticInterop
-class RadioNodeList extends NodeList {
-  external factory RadioNodeList();
-}
+class RadioNodeList implements NodeList {}
 
 extension RadioNodeListExtension on RadioNodeList {
   external set value(JSString value);
@@ -163,47 +155,48 @@ extension RadioNodeListExtension on RadioNodeList {
 
 @JS('HTMLOptionsCollection')
 @staticInterop
-class HTMLOptionsCollection extends HTMLCollection {
-  external factory HTMLOptionsCollection();
-}
+class HTMLOptionsCollection implements HTMLCollection {}
 
 extension HTMLOptionsCollectionExtension on HTMLOptionsCollection {
+  external JSVoid add(
+    JSAny element, [
+    JSAny? before,
+  ]);
+  external JSVoid remove(JSNumber index);
   external set length(JSNumber value);
   external JSNumber get length;
-  external JSVoid add(JSAny element);
-  external JSVoid add1(
-    JSAny element,
-    JSAny? before,
-  );
-  external JSVoid remove(JSNumber index);
   external set selectedIndex(JSNumber value);
   external JSNumber get selectedIndex;
 }
 
 @JS('DOMStringList')
 @staticInterop
-class DOMStringList {
-  external factory DOMStringList();
-}
+class DOMStringList {}
 
 extension DOMStringListExtension on DOMStringList {
-  external JSNumber get length;
   external JSString? item(JSNumber index);
   external JSBoolean contains(JSString string);
+  external JSNumber get length;
 }
 
 @JS('HTMLElement')
 @staticInterop
-class HTMLElement extends Element
+class HTMLElement
     implements
+        Element,
         ElementCSSInlineStyle,
         GlobalEventHandlers,
         ElementContentEditable,
         HTMLOrSVGElement {
-  external factory HTMLElement.a0();
+  external factory HTMLElement();
 }
 
 extension HTMLElementExtension on HTMLElement {
+  external JSVoid click();
+  external ElementInternals attachInternals();
+  external JSVoid showPopover();
+  external JSVoid hidePopover();
+  external JSVoid togglePopover([JSBoolean force]);
   external Element? get offsetParent;
   external JSNumber get offsetTop;
   external JSNumber get offsetLeft;
@@ -221,7 +214,6 @@ extension HTMLElementExtension on HTMLElement {
   external JSAny? get hidden;
   external set inert(JSBoolean value);
   external JSBoolean get inert;
-  external JSVoid click();
   external set accessKey(JSString value);
   external JSString get accessKey;
   external JSString get accessKeyLabel;
@@ -235,28 +227,21 @@ extension HTMLElementExtension on HTMLElement {
   external JSString get innerText;
   external set outerText(JSString value);
   external JSString get outerText;
-  external ElementInternals attachInternals();
-  external JSVoid showPopover();
-  external JSVoid hidePopover();
-  external JSVoid togglePopover();
-  external JSVoid togglePopover1(JSBoolean force);
   external set popover(JSString? value);
   external JSString? get popover;
 }
 
 @JS('HTMLUnknownElement')
 @staticInterop
-class HTMLUnknownElement extends HTMLElement {
-  external factory HTMLUnknownElement();
-}
+class HTMLUnknownElement implements HTMLElement {}
 
 @JS('HTMLOrSVGElement')
 @staticInterop
-class HTMLOrSVGElement {
-  external factory HTMLOrSVGElement();
-}
+class HTMLOrSVGElement {}
 
 extension HTMLOrSVGElementExtension on HTMLOrSVGElement {
+  external JSVoid focus([FocusOptions options]);
+  external JSVoid blur();
   external DOMStringMap get dataset;
   external set nonce(JSString value);
   external JSString get nonce;
@@ -264,21 +249,16 @@ extension HTMLOrSVGElementExtension on HTMLOrSVGElement {
   external JSBoolean get autofocus;
   external set tabIndex(JSNumber value);
   external JSNumber get tabIndex;
-  external JSVoid focus();
-  external JSVoid focus1(FocusOptions options);
-  external JSVoid blur();
 }
 
 @JS('DOMStringMap')
 @staticInterop
-class DOMStringMap {
-  external factory DOMStringMap();
-}
+class DOMStringMap {}
 
 @JS('HTMLHtmlElement')
 @staticInterop
-class HTMLHtmlElement extends HTMLElement {
-  external factory HTMLHtmlElement.a0();
+class HTMLHtmlElement implements HTMLElement {
+  external factory HTMLHtmlElement();
 }
 
 extension HTMLHtmlElementExtension on HTMLHtmlElement {
@@ -288,14 +268,14 @@ extension HTMLHtmlElementExtension on HTMLHtmlElement {
 
 @JS('HTMLHeadElement')
 @staticInterop
-class HTMLHeadElement extends HTMLElement {
-  external factory HTMLHeadElement.a0();
+class HTMLHeadElement implements HTMLElement {
+  external factory HTMLHeadElement();
 }
 
 @JS('HTMLTitleElement')
 @staticInterop
-class HTMLTitleElement extends HTMLElement {
-  external factory HTMLTitleElement.a0();
+class HTMLTitleElement implements HTMLElement {
+  external factory HTMLTitleElement();
 }
 
 extension HTMLTitleElementExtension on HTMLTitleElement {
@@ -305,8 +285,8 @@ extension HTMLTitleElementExtension on HTMLTitleElement {
 
 @JS('HTMLBaseElement')
 @staticInterop
-class HTMLBaseElement extends HTMLElement {
-  external factory HTMLBaseElement.a0();
+class HTMLBaseElement implements HTMLElement {
+  external factory HTMLBaseElement();
 }
 
 extension HTMLBaseElementExtension on HTMLBaseElement {
@@ -318,8 +298,8 @@ extension HTMLBaseElementExtension on HTMLBaseElement {
 
 @JS('HTMLLinkElement')
 @staticInterop
-class HTMLLinkElement extends HTMLElement implements LinkStyle {
-  external factory HTMLLinkElement.a0();
+class HTMLLinkElement implements HTMLElement, LinkStyle {
+  external factory HTMLLinkElement();
 }
 
 extension HTMLLinkElementExtension on HTMLLinkElement {
@@ -362,8 +342,8 @@ extension HTMLLinkElementExtension on HTMLLinkElement {
 
 @JS('HTMLMetaElement')
 @staticInterop
-class HTMLMetaElement extends HTMLElement {
-  external factory HTMLMetaElement.a0();
+class HTMLMetaElement implements HTMLElement {
+  external factory HTMLMetaElement();
 }
 
 extension HTMLMetaElementExtension on HTMLMetaElement {
@@ -381,8 +361,8 @@ extension HTMLMetaElementExtension on HTMLMetaElement {
 
 @JS('HTMLStyleElement')
 @staticInterop
-class HTMLStyleElement extends HTMLElement implements LinkStyle {
-  external factory HTMLStyleElement.a0();
+class HTMLStyleElement implements HTMLElement, LinkStyle {
+  external factory HTMLStyleElement();
 }
 
 extension HTMLStyleElementExtension on HTMLStyleElement {
@@ -397,8 +377,8 @@ extension HTMLStyleElementExtension on HTMLStyleElement {
 
 @JS('HTMLBodyElement')
 @staticInterop
-class HTMLBodyElement extends HTMLElement implements WindowEventHandlers {
-  external factory HTMLBodyElement.a0();
+class HTMLBodyElement implements HTMLElement, WindowEventHandlers {
+  external factory HTMLBodyElement();
 }
 
 extension HTMLBodyElementExtension on HTMLBodyElement {
@@ -420,8 +400,8 @@ extension HTMLBodyElementExtension on HTMLBodyElement {
 
 @JS('HTMLHeadingElement')
 @staticInterop
-class HTMLHeadingElement extends HTMLElement {
-  external factory HTMLHeadingElement.a0();
+class HTMLHeadingElement implements HTMLElement {
+  external factory HTMLHeadingElement();
 }
 
 extension HTMLHeadingElementExtension on HTMLHeadingElement {
@@ -431,8 +411,8 @@ extension HTMLHeadingElementExtension on HTMLHeadingElement {
 
 @JS('HTMLParagraphElement')
 @staticInterop
-class HTMLParagraphElement extends HTMLElement {
-  external factory HTMLParagraphElement.a0();
+class HTMLParagraphElement implements HTMLElement {
+  external factory HTMLParagraphElement();
 }
 
 extension HTMLParagraphElementExtension on HTMLParagraphElement {
@@ -442,8 +422,8 @@ extension HTMLParagraphElementExtension on HTMLParagraphElement {
 
 @JS('HTMLHRElement')
 @staticInterop
-class HTMLHRElement extends HTMLElement {
-  external factory HTMLHRElement.a0();
+class HTMLHRElement implements HTMLElement {
+  external factory HTMLHRElement();
 }
 
 extension HTMLHRElementExtension on HTMLHRElement {
@@ -461,8 +441,8 @@ extension HTMLHRElementExtension on HTMLHRElement {
 
 @JS('HTMLPreElement')
 @staticInterop
-class HTMLPreElement extends HTMLElement {
-  external factory HTMLPreElement.a0();
+class HTMLPreElement implements HTMLElement {
+  external factory HTMLPreElement();
 }
 
 extension HTMLPreElementExtension on HTMLPreElement {
@@ -472,8 +452,8 @@ extension HTMLPreElementExtension on HTMLPreElement {
 
 @JS('HTMLQuoteElement')
 @staticInterop
-class HTMLQuoteElement extends HTMLElement {
-  external factory HTMLQuoteElement.a0();
+class HTMLQuoteElement implements HTMLElement {
+  external factory HTMLQuoteElement();
 }
 
 extension HTMLQuoteElementExtension on HTMLQuoteElement {
@@ -483,8 +463,8 @@ extension HTMLQuoteElementExtension on HTMLQuoteElement {
 
 @JS('HTMLOListElement')
 @staticInterop
-class HTMLOListElement extends HTMLElement {
-  external factory HTMLOListElement.a0();
+class HTMLOListElement implements HTMLElement {
+  external factory HTMLOListElement();
 }
 
 extension HTMLOListElementExtension on HTMLOListElement {
@@ -500,8 +480,8 @@ extension HTMLOListElementExtension on HTMLOListElement {
 
 @JS('HTMLUListElement')
 @staticInterop
-class HTMLUListElement extends HTMLElement {
-  external factory HTMLUListElement.a0();
+class HTMLUListElement implements HTMLElement {
+  external factory HTMLUListElement();
 }
 
 extension HTMLUListElementExtension on HTMLUListElement {
@@ -513,8 +493,8 @@ extension HTMLUListElementExtension on HTMLUListElement {
 
 @JS('HTMLMenuElement')
 @staticInterop
-class HTMLMenuElement extends HTMLElement {
-  external factory HTMLMenuElement.a0();
+class HTMLMenuElement implements HTMLElement {
+  external factory HTMLMenuElement();
 }
 
 extension HTMLMenuElementExtension on HTMLMenuElement {
@@ -524,8 +504,8 @@ extension HTMLMenuElementExtension on HTMLMenuElement {
 
 @JS('HTMLLIElement')
 @staticInterop
-class HTMLLIElement extends HTMLElement {
-  external factory HTMLLIElement.a0();
+class HTMLLIElement implements HTMLElement {
+  external factory HTMLLIElement();
 }
 
 extension HTMLLIElementExtension on HTMLLIElement {
@@ -537,8 +517,8 @@ extension HTMLLIElementExtension on HTMLLIElement {
 
 @JS('HTMLDListElement')
 @staticInterop
-class HTMLDListElement extends HTMLElement {
-  external factory HTMLDListElement.a0();
+class HTMLDListElement implements HTMLElement {
+  external factory HTMLDListElement();
 }
 
 extension HTMLDListElementExtension on HTMLDListElement {
@@ -548,8 +528,8 @@ extension HTMLDListElementExtension on HTMLDListElement {
 
 @JS('HTMLDivElement')
 @staticInterop
-class HTMLDivElement extends HTMLElement {
-  external factory HTMLDivElement.a0();
+class HTMLDivElement implements HTMLElement {
+  external factory HTMLDivElement();
 }
 
 extension HTMLDivElementExtension on HTMLDivElement {
@@ -559,9 +539,12 @@ extension HTMLDivElementExtension on HTMLDivElement {
 
 @JS('HTMLAnchorElement')
 @staticInterop
-class HTMLAnchorElement extends HTMLElement
-    implements HTMLAttributionSrcElementUtils, HTMLHyperlinkElementUtils {
-  external factory HTMLAnchorElement.a0();
+class HTMLAnchorElement
+    implements
+        HTMLElement,
+        HTMLAttributionSrcElementUtils,
+        HTMLHyperlinkElementUtils {
+  external factory HTMLAnchorElement();
 }
 
 extension HTMLAnchorElementExtension on HTMLAnchorElement {
@@ -598,8 +581,8 @@ extension HTMLAnchorElementExtension on HTMLAnchorElement {
 
 @JS('HTMLDataElement')
 @staticInterop
-class HTMLDataElement extends HTMLElement {
-  external factory HTMLDataElement.a0();
+class HTMLDataElement implements HTMLElement {
+  external factory HTMLDataElement();
 }
 
 extension HTMLDataElementExtension on HTMLDataElement {
@@ -609,8 +592,8 @@ extension HTMLDataElementExtension on HTMLDataElement {
 
 @JS('HTMLTimeElement')
 @staticInterop
-class HTMLTimeElement extends HTMLElement {
-  external factory HTMLTimeElement.a0();
+class HTMLTimeElement implements HTMLElement {
+  external factory HTMLTimeElement();
 }
 
 extension HTMLTimeElementExtension on HTMLTimeElement {
@@ -620,14 +603,14 @@ extension HTMLTimeElementExtension on HTMLTimeElement {
 
 @JS('HTMLSpanElement')
 @staticInterop
-class HTMLSpanElement extends HTMLElement {
-  external factory HTMLSpanElement.a0();
+class HTMLSpanElement implements HTMLElement {
+  external factory HTMLSpanElement();
 }
 
 @JS('HTMLBRElement')
 @staticInterop
-class HTMLBRElement extends HTMLElement {
-  external factory HTMLBRElement.a0();
+class HTMLBRElement implements HTMLElement {
+  external factory HTMLBRElement();
 }
 
 extension HTMLBRElementExtension on HTMLBRElement {
@@ -637,9 +620,7 @@ extension HTMLBRElementExtension on HTMLBRElement {
 
 @JS('HTMLHyperlinkElementUtils')
 @staticInterop
-class HTMLHyperlinkElementUtils {
-  external factory HTMLHyperlinkElementUtils();
-}
+class HTMLHyperlinkElementUtils {}
 
 extension HTMLHyperlinkElementUtilsExtension on HTMLHyperlinkElementUtils {
   external set href(JSString value);
@@ -667,8 +648,8 @@ extension HTMLHyperlinkElementUtilsExtension on HTMLHyperlinkElementUtils {
 
 @JS('HTMLModElement')
 @staticInterop
-class HTMLModElement extends HTMLElement {
-  external factory HTMLModElement.a0();
+class HTMLModElement implements HTMLElement {
+  external factory HTMLModElement();
 }
 
 extension HTMLModElementExtension on HTMLModElement {
@@ -680,14 +661,14 @@ extension HTMLModElementExtension on HTMLModElement {
 
 @JS('HTMLPictureElement')
 @staticInterop
-class HTMLPictureElement extends HTMLElement {
-  external factory HTMLPictureElement.a0();
+class HTMLPictureElement implements HTMLElement {
+  external factory HTMLPictureElement();
 }
 
 @JS('HTMLSourceElement')
 @staticInterop
-class HTMLSourceElement extends HTMLElement {
-  external factory HTMLSourceElement.a0();
+class HTMLSourceElement implements HTMLElement {
+  external factory HTMLSourceElement();
 }
 
 extension HTMLSourceElementExtension on HTMLSourceElement {
@@ -709,12 +690,12 @@ extension HTMLSourceElementExtension on HTMLSourceElement {
 
 @JS('HTMLImageElement')
 @staticInterop
-class HTMLImageElement extends HTMLElement
-    implements HTMLAttributionSrcElementUtils {
-  external factory HTMLImageElement.a0();
+class HTMLImageElement implements HTMLElement, HTMLAttributionSrcElementUtils {
+  external factory HTMLImageElement();
 }
 
 extension HTMLImageElementExtension on HTMLImageElement {
+  external JSPromise decode();
   external JSNumber get x;
   external JSNumber get y;
   external set alt(JSString value);
@@ -745,7 +726,6 @@ extension HTMLImageElementExtension on HTMLImageElement {
   external JSString get decoding;
   external set loading(JSString value);
   external JSString get loading;
-  external JSPromise decode();
   external set name(JSString value);
   external JSString get name;
   external set lowsrc(JSString value);
@@ -766,11 +746,12 @@ extension HTMLImageElementExtension on HTMLImageElement {
 
 @JS('HTMLIFrameElement')
 @staticInterop
-class HTMLIFrameElement extends HTMLElement {
-  external factory HTMLIFrameElement.a0();
+class HTMLIFrameElement implements HTMLElement {
+  external factory HTMLIFrameElement();
 }
 
 extension HTMLIFrameElementExtension on HTMLIFrameElement {
+  external Document? getSVGDocument();
   external set csp(JSString value);
   external JSString get csp;
   external set src(JSString value);
@@ -794,7 +775,6 @@ extension HTMLIFrameElementExtension on HTMLIFrameElement {
   external JSString get loading;
   external Document? get contentDocument;
   external Window? get contentWindow;
-  external Document? getSVGDocument();
   external set align(JSString value);
   external JSString get align;
   external set scrolling(JSString value);
@@ -814,11 +794,12 @@ extension HTMLIFrameElementExtension on HTMLIFrameElement {
 
 @JS('HTMLEmbedElement')
 @staticInterop
-class HTMLEmbedElement extends HTMLElement {
-  external factory HTMLEmbedElement.a0();
+class HTMLEmbedElement implements HTMLElement {
+  external factory HTMLEmbedElement();
 }
 
 extension HTMLEmbedElementExtension on HTMLEmbedElement {
+  external Document? getSVGDocument();
   external set src(JSString value);
   external JSString get src;
   external set type(JSString value);
@@ -827,7 +808,6 @@ extension HTMLEmbedElementExtension on HTMLEmbedElement {
   external JSString get width;
   external set height(JSString value);
   external JSString get height;
-  external Document? getSVGDocument();
   external set align(JSString value);
   external JSString get align;
   external set name(JSString value);
@@ -836,11 +816,15 @@ extension HTMLEmbedElementExtension on HTMLEmbedElement {
 
 @JS('HTMLObjectElement')
 @staticInterop
-class HTMLObjectElement extends HTMLElement {
-  external factory HTMLObjectElement.a0();
+class HTMLObjectElement implements HTMLElement {
+  external factory HTMLObjectElement();
 }
 
 extension HTMLObjectElementExtension on HTMLObjectElement {
+  external Document? getSVGDocument();
+  external JSBoolean checkValidity();
+  external JSBoolean reportValidity();
+  external JSVoid setCustomValidity(JSString error);
   external set data(JSString value);
   external JSString get data;
   external set type(JSString value);
@@ -854,13 +838,9 @@ extension HTMLObjectElementExtension on HTMLObjectElement {
   external JSString get height;
   external Document? get contentDocument;
   external Window? get contentWindow;
-  external Document? getSVGDocument();
   external JSBoolean get willValidate;
   external ValidityState get validity;
   external JSString get validationMessage;
-  external JSBoolean checkValidity();
-  external JSBoolean reportValidity();
-  external JSVoid setCustomValidity(JSString error);
   external set align(JSString value);
   external JSString get align;
   external set archive(JSString value);
@@ -887,11 +867,16 @@ extension HTMLObjectElementExtension on HTMLObjectElement {
 
 @JS('HTMLVideoElement')
 @staticInterop
-class HTMLVideoElement extends HTMLMediaElement {
-  external factory HTMLVideoElement.a0();
+class HTMLVideoElement implements HTMLMediaElement {
+  external factory HTMLVideoElement();
 }
 
 extension HTMLVideoElementExtension on HTMLVideoElement {
+  external VideoPlaybackQuality getVideoPlaybackQuality();
+  external JSPromise requestPictureInPicture();
+  external JSNumber requestVideoFrameCallback(
+      VideoFrameRequestCallback callback);
+  external JSVoid cancelVideoFrameCallback(JSNumber handle);
   external set width(JSNumber value);
   external JSNumber get width;
   external set height(JSNumber value);
@@ -902,29 +887,24 @@ extension HTMLVideoElementExtension on HTMLVideoElement {
   external JSString get poster;
   external set playsInline(JSBoolean value);
   external JSBoolean get playsInline;
-  external VideoPlaybackQuality getVideoPlaybackQuality();
-  external JSPromise requestPictureInPicture();
   external set onenterpictureinpicture(EventHandler value);
   external EventHandler get onenterpictureinpicture;
   external set onleavepictureinpicture(EventHandler value);
   external EventHandler get onleavepictureinpicture;
   external set disablePictureInPicture(JSBoolean value);
   external JSBoolean get disablePictureInPicture;
-  external JSNumber requestVideoFrameCallback(
-      VideoFrameRequestCallback callback);
-  external JSVoid cancelVideoFrameCallback(JSNumber handle);
 }
 
 @JS('HTMLAudioElement')
 @staticInterop
-class HTMLAudioElement extends HTMLMediaElement {
-  external factory HTMLAudioElement.a0();
+class HTMLAudioElement implements HTMLMediaElement {
+  external factory HTMLAudioElement();
 }
 
 @JS('HTMLTrackElement')
 @staticInterop
-class HTMLTrackElement extends HTMLElement {
-  external factory HTMLTrackElement.a0();
+class HTMLTrackElement implements HTMLElement {
+  external factory HTMLTrackElement();
 
   external static JSNumber get NONE;
   external static JSNumber get LOADING;
@@ -942,18 +922,16 @@ extension HTMLTrackElementExtension on HTMLTrackElement {
   external set label(JSString value);
   external JSString get label;
   @JS('default')
-  external set default_0_(JSBoolean value);
+  external set default_(JSBoolean value);
   @JS('default')
-  external JSBoolean get default_0_;
+  external JSBoolean get default_;
   external JSNumber get readyState;
   external TextTrack get track;
 }
 
 @JS('HTMLMediaElement')
 @staticInterop
-class HTMLMediaElement extends HTMLElement {
-  external factory HTMLMediaElement();
-
+class HTMLMediaElement implements HTMLElement {
   external static JSNumber get NETWORK_EMPTY;
   external static JSNumber get NETWORK_IDLE;
   external static JSNumber get NETWORK_LOADING;
@@ -966,14 +944,26 @@ class HTMLMediaElement extends HTMLElement {
 }
 
 extension HTMLMediaElementExtension on HTMLMediaElement {
-  external JSString get sinkId;
   external JSPromise setSinkId(JSString sinkId);
+  external JSPromise setMediaKeys(MediaKeys? mediaKeys);
+  external JSVoid load();
+  external CanPlayTypeResult canPlayType(JSString type);
+  external JSVoid fastSeek(JSNumber time);
+  external JSObject getStartDate();
+  external JSPromise play();
+  external JSVoid pause();
+  external TextTrack addTextTrack(
+    TextTrackKind kind, [
+    JSString label,
+    JSString language,
+  ]);
+  external MediaStream captureStream();
+  external JSString get sinkId;
   external MediaKeys? get mediaKeys;
   external set onencrypted(EventHandler value);
   external EventHandler get onencrypted;
   external set onwaitingforkey(EventHandler value);
   external EventHandler get onwaitingforkey;
-  external JSPromise setMediaKeys(MediaKeys? mediaKeys);
   external MediaError? get error;
   external set src(JSString value);
   external JSString get src;
@@ -986,15 +976,11 @@ extension HTMLMediaElementExtension on HTMLMediaElement {
   external set preload(JSString value);
   external JSString get preload;
   external TimeRanges get buffered;
-  external JSVoid load();
-  external CanPlayTypeResult canPlayType(JSString type);
   external JSNumber get readyState;
   external JSBoolean get seeking;
   external set currentTime(JSNumber value);
   external JSNumber get currentTime;
-  external JSVoid fastSeek(JSNumber time);
   external JSNumber get duration;
-  external JSObject getStartDate();
   external JSBoolean get paused;
   external set defaultPlaybackRate(JSNumber value);
   external JSNumber get defaultPlaybackRate;
@@ -1009,8 +995,6 @@ extension HTMLMediaElementExtension on HTMLMediaElement {
   external JSBoolean get autoplay;
   external set loop(JSBoolean value);
   external JSBoolean get loop;
-  external JSPromise play();
-  external JSVoid pause();
   external set controls(JSBoolean value);
   external JSBoolean get controls;
   external set volume(JSNumber value);
@@ -1022,17 +1006,6 @@ extension HTMLMediaElementExtension on HTMLMediaElement {
   external AudioTrackList get audioTracks;
   external VideoTrackList get videoTracks;
   external TextTrackList get textTracks;
-  external TextTrack addTextTrack(TextTrackKind kind);
-  external TextTrack addTextTrack1(
-    TextTrackKind kind,
-    JSString label,
-  );
-  external TextTrack addTextTrack2(
-    TextTrackKind kind,
-    JSString label,
-    JSString language,
-  );
-  external MediaStream captureStream();
   external RemotePlayback get remote;
   external set disableRemotePlayback(JSBoolean value);
   external JSBoolean get disableRemotePlayback;
@@ -1041,8 +1014,6 @@ extension HTMLMediaElementExtension on HTMLMediaElement {
 @JS('MediaError')
 @staticInterop
 class MediaError {
-  external factory MediaError();
-
   external static JSNumber get MEDIA_ERR_ABORTED;
   external static JSNumber get MEDIA_ERR_NETWORK;
   external static JSNumber get MEDIA_ERR_DECODE;
@@ -1056,13 +1027,11 @@ extension MediaErrorExtension on MediaError {
 
 @JS('AudioTrackList')
 @staticInterop
-class AudioTrackList extends EventTarget {
-  external factory AudioTrackList();
-}
+class AudioTrackList implements EventTarget {}
 
 extension AudioTrackListExtension on AudioTrackList {
-  external JSNumber get length;
   external AudioTrack? getTrackById(JSString id);
+  external JSNumber get length;
   external set onchange(EventHandler value);
   external EventHandler get onchange;
   external set onaddtrack(EventHandler value);
@@ -1073,9 +1042,7 @@ extension AudioTrackListExtension on AudioTrackList {
 
 @JS('AudioTrack')
 @staticInterop
-class AudioTrack {
-  external factory AudioTrack();
-}
+class AudioTrack {}
 
 extension AudioTrackExtension on AudioTrack {
   external JSString get id;
@@ -1089,13 +1056,11 @@ extension AudioTrackExtension on AudioTrack {
 
 @JS('VideoTrackList')
 @staticInterop
-class VideoTrackList extends EventTarget {
-  external factory VideoTrackList();
-}
+class VideoTrackList implements EventTarget {}
 
 extension VideoTrackListExtension on VideoTrackList {
-  external JSNumber get length;
   external VideoTrack? getTrackById(JSString id);
+  external JSNumber get length;
   external JSNumber get selectedIndex;
   external set onchange(EventHandler value);
   external EventHandler get onchange;
@@ -1107,9 +1072,7 @@ extension VideoTrackListExtension on VideoTrackList {
 
 @JS('VideoTrack')
 @staticInterop
-class VideoTrack {
-  external factory VideoTrack();
-}
+class VideoTrack {}
 
 extension VideoTrackExtension on VideoTrack {
   external JSString get id;
@@ -1123,13 +1086,11 @@ extension VideoTrackExtension on VideoTrack {
 
 @JS('TextTrackList')
 @staticInterop
-class TextTrackList extends EventTarget {
-  external factory TextTrackList();
-}
+class TextTrackList implements EventTarget {}
 
 extension TextTrackListExtension on TextTrackList {
-  external JSNumber get length;
   external TextTrack? getTrackById(JSString id);
+  external JSNumber get length;
   external set onchange(EventHandler value);
   external EventHandler get onchange;
   external set onaddtrack(EventHandler value);
@@ -1140,11 +1101,11 @@ extension TextTrackListExtension on TextTrackList {
 
 @JS('TextTrack')
 @staticInterop
-class TextTrack extends EventTarget {
-  external factory TextTrack();
-}
+class TextTrack implements EventTarget {}
 
 extension TextTrackExtension on TextTrack {
+  external JSVoid addCue(TextTrackCue cue);
+  external JSVoid removeCue(TextTrackCue cue);
   external TextTrackKind get kind;
   external JSString get label;
   external JSString get language;
@@ -1154,8 +1115,6 @@ extension TextTrackExtension on TextTrack {
   external TextTrackMode get mode;
   external TextTrackCueList? get cues;
   external TextTrackCueList? get activeCues;
-  external JSVoid addCue(TextTrackCue cue);
-  external JSVoid removeCue(TextTrackCue cue);
   external set oncuechange(EventHandler value);
   external EventHandler get oncuechange;
   external SourceBuffer? get sourceBuffer;
@@ -1163,20 +1122,16 @@ extension TextTrackExtension on TextTrack {
 
 @JS('TextTrackCueList')
 @staticInterop
-class TextTrackCueList {
-  external factory TextTrackCueList();
-}
+class TextTrackCueList {}
 
 extension TextTrackCueListExtension on TextTrackCueList {
-  external JSNumber get length;
   external TextTrackCue? getCueById(JSString id);
+  external JSNumber get length;
 }
 
 @JS('TextTrackCue')
 @staticInterop
-class TextTrackCue extends EventTarget {
-  external factory TextTrackCue();
-}
+class TextTrackCue implements EventTarget {}
 
 extension TextTrackCueExtension on TextTrackCue {
   external TextTrack? get track;
@@ -1196,27 +1151,21 @@ extension TextTrackCueExtension on TextTrackCue {
 
 @JS('TimeRanges')
 @staticInterop
-class TimeRanges {
-  external factory TimeRanges();
-}
+class TimeRanges {}
 
 extension TimeRangesExtension on TimeRanges {
-  external JSNumber get length;
   external JSNumber start(JSNumber index);
   external JSNumber end(JSNumber index);
+  external JSNumber get length;
 }
 
 @JS('TrackEvent')
 @staticInterop
-class TrackEvent extends Event {
-  external factory TrackEvent();
-
-  external factory TrackEvent.a1(JSString type);
-
-  external factory TrackEvent.a2(
-    JSString type,
+class TrackEvent implements Event {
+  external factory TrackEvent(
+    JSString type, [
     TrackEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension TrackEventExtension on TrackEvent {
@@ -1226,7 +1175,7 @@ extension TrackEventExtension on TrackEvent {
 @JS()
 @staticInterop
 @anonymous
-class TrackEventInit extends EventInit {
+class TrackEventInit implements EventInit {
   external factory TrackEventInit({JSAny? track});
 }
 
@@ -1237,8 +1186,8 @@ extension TrackEventInitExtension on TrackEventInit {
 
 @JS('HTMLMapElement')
 @staticInterop
-class HTMLMapElement extends HTMLElement {
-  external factory HTMLMapElement.a0();
+class HTMLMapElement implements HTMLElement {
+  external factory HTMLMapElement();
 }
 
 extension HTMLMapElementExtension on HTMLMapElement {
@@ -1249,8 +1198,8 @@ extension HTMLMapElementExtension on HTMLMapElement {
 
 @JS('HTMLAreaElement')
 @staticInterop
-class HTMLAreaElement extends HTMLElement implements HTMLHyperlinkElementUtils {
-  external factory HTMLAreaElement.a0();
+class HTMLAreaElement implements HTMLElement, HTMLHyperlinkElementUtils {
+  external factory HTMLAreaElement();
 }
 
 extension HTMLAreaElementExtension on HTMLAreaElement {
@@ -1277,29 +1226,28 @@ extension HTMLAreaElementExtension on HTMLAreaElement {
 
 @JS('HTMLTableElement')
 @staticInterop
-class HTMLTableElement extends HTMLElement {
-  external factory HTMLTableElement.a0();
+class HTMLTableElement implements HTMLElement {
+  external factory HTMLTableElement();
 }
 
 extension HTMLTableElementExtension on HTMLTableElement {
-  external set caption(HTMLTableCaptionElement? value);
-  external HTMLTableCaptionElement? get caption;
   external HTMLTableCaptionElement createCaption();
   external JSVoid deleteCaption();
-  external set tHead(HTMLTableSectionElement? value);
-  external HTMLTableSectionElement? get tHead;
   external HTMLTableSectionElement createTHead();
   external JSVoid deleteTHead();
-  external set tFoot(HTMLTableSectionElement? value);
-  external HTMLTableSectionElement? get tFoot;
   external HTMLTableSectionElement createTFoot();
   external JSVoid deleteTFoot();
-  external HTMLCollection get tBodies;
   external HTMLTableSectionElement createTBody();
-  external HTMLCollection get rows;
-  external HTMLTableRowElement insertRow();
-  external HTMLTableRowElement insertRow1(JSNumber index);
+  external HTMLTableRowElement insertRow([JSNumber index]);
   external JSVoid deleteRow(JSNumber index);
+  external set caption(HTMLTableCaptionElement? value);
+  external HTMLTableCaptionElement? get caption;
+  external set tHead(HTMLTableSectionElement? value);
+  external HTMLTableSectionElement? get tHead;
+  external set tFoot(HTMLTableSectionElement? value);
+  external HTMLTableSectionElement? get tFoot;
+  external HTMLCollection get tBodies;
+  external HTMLCollection get rows;
   external set align(JSString value);
   external JSString get align;
   external set border(JSString value);
@@ -1322,8 +1270,8 @@ extension HTMLTableElementExtension on HTMLTableElement {
 
 @JS('HTMLTableCaptionElement')
 @staticInterop
-class HTMLTableCaptionElement extends HTMLElement {
-  external factory HTMLTableCaptionElement.a0();
+class HTMLTableCaptionElement implements HTMLElement {
+  external factory HTMLTableCaptionElement();
 }
 
 extension HTMLTableCaptionElementExtension on HTMLTableCaptionElement {
@@ -1333,8 +1281,8 @@ extension HTMLTableCaptionElementExtension on HTMLTableCaptionElement {
 
 @JS('HTMLTableColElement')
 @staticInterop
-class HTMLTableColElement extends HTMLElement {
-  external factory HTMLTableColElement.a0();
+class HTMLTableColElement implements HTMLElement {
+  external factory HTMLTableColElement();
 }
 
 extension HTMLTableColElementExtension on HTMLTableColElement {
@@ -1354,15 +1302,14 @@ extension HTMLTableColElementExtension on HTMLTableColElement {
 
 @JS('HTMLTableSectionElement')
 @staticInterop
-class HTMLTableSectionElement extends HTMLElement {
-  external factory HTMLTableSectionElement.a0();
+class HTMLTableSectionElement implements HTMLElement {
+  external factory HTMLTableSectionElement();
 }
 
 extension HTMLTableSectionElementExtension on HTMLTableSectionElement {
-  external HTMLCollection get rows;
-  external HTMLTableRowElement insertRow();
-  external HTMLTableRowElement insertRow1(JSNumber index);
+  external HTMLTableRowElement insertRow([JSNumber index]);
   external JSVoid deleteRow(JSNumber index);
+  external HTMLCollection get rows;
   external set align(JSString value);
   external JSString get align;
   external set ch(JSString value);
@@ -1375,17 +1322,16 @@ extension HTMLTableSectionElementExtension on HTMLTableSectionElement {
 
 @JS('HTMLTableRowElement')
 @staticInterop
-class HTMLTableRowElement extends HTMLElement {
-  external factory HTMLTableRowElement.a0();
+class HTMLTableRowElement implements HTMLElement {
+  external factory HTMLTableRowElement();
 }
 
 extension HTMLTableRowElementExtension on HTMLTableRowElement {
+  external HTMLTableCellElement insertCell([JSNumber index]);
+  external JSVoid deleteCell(JSNumber index);
   external JSNumber get rowIndex;
   external JSNumber get sectionRowIndex;
   external HTMLCollection get cells;
-  external HTMLTableCellElement insertCell();
-  external HTMLTableCellElement insertCell1(JSNumber index);
-  external JSVoid deleteCell(JSNumber index);
   external set align(JSString value);
   external JSString get align;
   external set ch(JSString value);
@@ -1400,8 +1346,8 @@ extension HTMLTableRowElementExtension on HTMLTableRowElement {
 
 @JS('HTMLTableCellElement')
 @staticInterop
-class HTMLTableCellElement extends HTMLElement {
-  external factory HTMLTableCellElement.a0();
+class HTMLTableCellElement implements HTMLElement {
+  external factory HTMLTableCellElement();
 }
 
 extension HTMLTableCellElementExtension on HTMLTableCellElement {
@@ -1438,11 +1384,16 @@ extension HTMLTableCellElementExtension on HTMLTableCellElement {
 
 @JS('HTMLFormElement')
 @staticInterop
-class HTMLFormElement extends HTMLElement {
-  external factory HTMLFormElement.a0();
+class HTMLFormElement implements HTMLElement {
+  external factory HTMLFormElement();
 }
 
 extension HTMLFormElementExtension on HTMLFormElement {
+  external JSVoid submit();
+  external JSVoid requestSubmit([HTMLElement? submitter]);
+  external JSVoid reset();
+  external JSBoolean checkValidity();
+  external JSBoolean reportValidity();
   external set acceptCharset(JSString value);
   external JSString get acceptCharset;
   external set action(JSString value);
@@ -1466,18 +1417,12 @@ extension HTMLFormElementExtension on HTMLFormElement {
   external DOMTokenList get relList;
   external HTMLFormControlsCollection get elements;
   external JSNumber get length;
-  external JSVoid submit();
-  external JSVoid requestSubmit();
-  external JSVoid requestSubmit1(HTMLElement? submitter);
-  external JSVoid reset();
-  external JSBoolean checkValidity();
-  external JSBoolean reportValidity();
 }
 
 @JS('HTMLLabelElement')
 @staticInterop
-class HTMLLabelElement extends HTMLElement {
-  external factory HTMLLabelElement.a0();
+class HTMLLabelElement implements HTMLElement {
+  external factory HTMLLabelElement();
 }
 
 extension HTMLLabelElementExtension on HTMLLabelElement {
@@ -1489,11 +1434,29 @@ extension HTMLLabelElementExtension on HTMLLabelElement {
 
 @JS('HTMLInputElement')
 @staticInterop
-class HTMLInputElement extends HTMLElement implements PopoverTargetElement {
-  external factory HTMLInputElement.a0();
+class HTMLInputElement implements HTMLElement, PopoverTargetElement {
+  external factory HTMLInputElement();
 }
 
 extension HTMLInputElementExtension on HTMLInputElement {
+  external JSVoid stepUp([JSNumber n]);
+  external JSVoid stepDown([JSNumber n]);
+  external JSBoolean checkValidity();
+  external JSBoolean reportValidity();
+  external JSVoid setCustomValidity(JSString error);
+  external JSVoid select();
+  external JSVoid setRangeText(
+    JSString replacement, [
+    JSNumber start,
+    JSNumber end,
+    SelectionMode selectionMode,
+  ]);
+  external JSVoid setSelectionRange(
+    JSNumber start,
+    JSNumber end, [
+    JSString direction,
+  ]);
+  external JSVoid showPicker();
   external set webkitdirectory(JSBoolean value);
   external JSBoolean get webkitdirectory;
   external JSArray get webkitEntries;
@@ -1569,48 +1532,16 @@ extension HTMLInputElementExtension on HTMLInputElement {
   external JSNumber get valueAsNumber;
   external set width(JSNumber value);
   external JSNumber get width;
-  external JSVoid stepUp();
-  external JSVoid stepUp1(JSNumber n);
-  external JSVoid stepDown();
-  external JSVoid stepDown1(JSNumber n);
   external JSBoolean get willValidate;
   external ValidityState get validity;
   external JSString get validationMessage;
-  external JSBoolean checkValidity();
-  external JSBoolean reportValidity();
-  external JSVoid setCustomValidity(JSString error);
   external NodeList? get labels;
-  external JSVoid select();
   external set selectionStart(JSNumber? value);
   external JSNumber? get selectionStart;
   external set selectionEnd(JSNumber? value);
   external JSNumber? get selectionEnd;
   external set selectionDirection(JSString? value);
   external JSString? get selectionDirection;
-  external JSVoid setRangeText(JSString replacement);
-  @JS('setRangeText')
-  external JSVoid setRangeText_1_(
-    JSString replacement,
-    JSNumber start,
-    JSNumber end,
-  );
-  @JS('setRangeText')
-  external JSVoid setRangeText_1_1(
-    JSString replacement,
-    JSNumber start,
-    JSNumber end,
-    SelectionMode selectionMode,
-  );
-  external JSVoid setSelectionRange(
-    JSNumber start,
-    JSNumber end,
-  );
-  external JSVoid setSelectionRange1(
-    JSNumber start,
-    JSNumber end,
-    JSString direction,
-  );
-  external JSVoid showPicker();
   external set align(JSString value);
   external JSString get align;
   external set useMap(JSString value);
@@ -1619,11 +1550,14 @@ extension HTMLInputElementExtension on HTMLInputElement {
 
 @JS('HTMLButtonElement')
 @staticInterop
-class HTMLButtonElement extends HTMLElement implements PopoverTargetElement {
-  external factory HTMLButtonElement.a0();
+class HTMLButtonElement implements HTMLElement, PopoverTargetElement {
+  external factory HTMLButtonElement();
 }
 
 extension HTMLButtonElementExtension on HTMLButtonElement {
+  external JSBoolean checkValidity();
+  external JSBoolean reportValidity();
+  external JSVoid setCustomValidity(JSString error);
   external set disabled(JSBoolean value);
   external JSBoolean get disabled;
   external HTMLFormElement? get form;
@@ -1646,19 +1580,26 @@ extension HTMLButtonElementExtension on HTMLButtonElement {
   external JSBoolean get willValidate;
   external ValidityState get validity;
   external JSString get validationMessage;
-  external JSBoolean checkValidity();
-  external JSBoolean reportValidity();
-  external JSVoid setCustomValidity(JSString error);
   external NodeList get labels;
 }
 
 @JS('HTMLSelectElement')
 @staticInterop
-class HTMLSelectElement extends HTMLElement {
-  external factory HTMLSelectElement.a0();
+class HTMLSelectElement implements HTMLElement {
+  external factory HTMLSelectElement();
 }
 
 extension HTMLSelectElementExtension on HTMLSelectElement {
+  external HTMLOptionElement? item(JSNumber index);
+  external HTMLOptionElement? namedItem(JSString name);
+  external JSVoid add(
+    JSAny element, [
+    JSAny? before,
+  ]);
+  external JSVoid remove([JSNumber index]);
+  external JSBoolean checkValidity();
+  external JSBoolean reportValidity();
+  external JSVoid setCustomValidity(JSString error);
   external set autocomplete(JSString value);
   external JSString get autocomplete;
   external set disabled(JSBoolean value);
@@ -1676,16 +1617,6 @@ extension HTMLSelectElementExtension on HTMLSelectElement {
   external HTMLOptionsCollection get options;
   external set length(JSNumber value);
   external JSNumber get length;
-  external HTMLOptionElement? item(JSNumber index);
-  external HTMLOptionElement? namedItem(JSString name);
-  external JSVoid add(JSAny element);
-  external JSVoid add1(
-    JSAny element,
-    JSAny? before,
-  );
-  external JSVoid remove();
-  @JS('remove')
-  external JSVoid remove_1_(JSNumber index);
   external HTMLCollection get selectedOptions;
   external set selectedIndex(JSNumber value);
   external JSNumber get selectedIndex;
@@ -1694,16 +1625,13 @@ extension HTMLSelectElementExtension on HTMLSelectElement {
   external JSBoolean get willValidate;
   external ValidityState get validity;
   external JSString get validationMessage;
-  external JSBoolean checkValidity();
-  external JSBoolean reportValidity();
-  external JSVoid setCustomValidity(JSString error);
   external NodeList get labels;
 }
 
 @JS('HTMLDataListElement')
 @staticInterop
-class HTMLDataListElement extends HTMLElement {
-  external factory HTMLDataListElement.a0();
+class HTMLDataListElement implements HTMLElement {
+  external factory HTMLDataListElement();
 }
 
 extension HTMLDataListElementExtension on HTMLDataListElement {
@@ -1712,8 +1640,8 @@ extension HTMLDataListElementExtension on HTMLDataListElement {
 
 @JS('HTMLOptGroupElement')
 @staticInterop
-class HTMLOptGroupElement extends HTMLElement {
-  external factory HTMLOptGroupElement.a0();
+class HTMLOptGroupElement implements HTMLElement {
+  external factory HTMLOptGroupElement();
 }
 
 extension HTMLOptGroupElementExtension on HTMLOptGroupElement {
@@ -1725,8 +1653,8 @@ extension HTMLOptGroupElementExtension on HTMLOptGroupElement {
 
 @JS('HTMLOptionElement')
 @staticInterop
-class HTMLOptionElement extends HTMLElement {
-  external factory HTMLOptionElement.a0();
+class HTMLOptionElement implements HTMLElement {
+  external factory HTMLOptionElement();
 }
 
 extension HTMLOptionElementExtension on HTMLOptionElement {
@@ -1748,11 +1676,26 @@ extension HTMLOptionElementExtension on HTMLOptionElement {
 
 @JS('HTMLTextAreaElement')
 @staticInterop
-class HTMLTextAreaElement extends HTMLElement {
-  external factory HTMLTextAreaElement.a0();
+class HTMLTextAreaElement implements HTMLElement {
+  external factory HTMLTextAreaElement();
 }
 
 extension HTMLTextAreaElementExtension on HTMLTextAreaElement {
+  external JSBoolean checkValidity();
+  external JSBoolean reportValidity();
+  external JSVoid setCustomValidity(JSString error);
+  external JSVoid select();
+  external JSVoid setRangeText(
+    JSString replacement, [
+    JSNumber start,
+    JSNumber end,
+    SelectionMode selectionMode,
+  ]);
+  external JSVoid setSelectionRange(
+    JSNumber start,
+    JSNumber end, [
+    JSString direction,
+  ]);
   external set autocomplete(JSString value);
   external JSString get autocomplete;
   external set cols(JSNumber value);
@@ -1787,49 +1730,25 @@ extension HTMLTextAreaElementExtension on HTMLTextAreaElement {
   external JSBoolean get willValidate;
   external ValidityState get validity;
   external JSString get validationMessage;
-  external JSBoolean checkValidity();
-  external JSBoolean reportValidity();
-  external JSVoid setCustomValidity(JSString error);
   external NodeList get labels;
-  external JSVoid select();
   external set selectionStart(JSNumber value);
   external JSNumber get selectionStart;
   external set selectionEnd(JSNumber value);
   external JSNumber get selectionEnd;
   external set selectionDirection(JSString value);
   external JSString get selectionDirection;
-  external JSVoid setRangeText(JSString replacement);
-  @JS('setRangeText')
-  external JSVoid setRangeText_1_(
-    JSString replacement,
-    JSNumber start,
-    JSNumber end,
-  );
-  @JS('setRangeText')
-  external JSVoid setRangeText_1_1(
-    JSString replacement,
-    JSNumber start,
-    JSNumber end,
-    SelectionMode selectionMode,
-  );
-  external JSVoid setSelectionRange(
-    JSNumber start,
-    JSNumber end,
-  );
-  external JSVoid setSelectionRange1(
-    JSNumber start,
-    JSNumber end,
-    JSString direction,
-  );
 }
 
 @JS('HTMLOutputElement')
 @staticInterop
-class HTMLOutputElement extends HTMLElement {
-  external factory HTMLOutputElement.a0();
+class HTMLOutputElement implements HTMLElement {
+  external factory HTMLOutputElement();
 }
 
 extension HTMLOutputElementExtension on HTMLOutputElement {
+  external JSBoolean checkValidity();
+  external JSBoolean reportValidity();
+  external JSVoid setCustomValidity(JSString error);
   external DOMTokenList get htmlFor;
   external HTMLFormElement? get form;
   external set name(JSString value);
@@ -1842,16 +1761,13 @@ extension HTMLOutputElementExtension on HTMLOutputElement {
   external JSBoolean get willValidate;
   external ValidityState get validity;
   external JSString get validationMessage;
-  external JSBoolean checkValidity();
-  external JSBoolean reportValidity();
-  external JSVoid setCustomValidity(JSString error);
   external NodeList get labels;
 }
 
 @JS('HTMLProgressElement')
 @staticInterop
-class HTMLProgressElement extends HTMLElement {
-  external factory HTMLProgressElement.a0();
+class HTMLProgressElement implements HTMLElement {
+  external factory HTMLProgressElement();
 }
 
 extension HTMLProgressElementExtension on HTMLProgressElement {
@@ -1865,8 +1781,8 @@ extension HTMLProgressElementExtension on HTMLProgressElement {
 
 @JS('HTMLMeterElement')
 @staticInterop
-class HTMLMeterElement extends HTMLElement {
-  external factory HTMLMeterElement.a0();
+class HTMLMeterElement implements HTMLElement {
+  external factory HTMLMeterElement();
 }
 
 extension HTMLMeterElementExtension on HTMLMeterElement {
@@ -1887,11 +1803,14 @@ extension HTMLMeterElementExtension on HTMLMeterElement {
 
 @JS('HTMLFieldSetElement')
 @staticInterop
-class HTMLFieldSetElement extends HTMLElement {
-  external factory HTMLFieldSetElement.a0();
+class HTMLFieldSetElement implements HTMLElement {
+  external factory HTMLFieldSetElement();
 }
 
 extension HTMLFieldSetElementExtension on HTMLFieldSetElement {
+  external JSBoolean checkValidity();
+  external JSBoolean reportValidity();
+  external JSVoid setCustomValidity(JSString error);
   external set disabled(JSBoolean value);
   external JSBoolean get disabled;
   external HTMLFormElement? get form;
@@ -1902,15 +1821,12 @@ extension HTMLFieldSetElementExtension on HTMLFieldSetElement {
   external JSBoolean get willValidate;
   external ValidityState get validity;
   external JSString get validationMessage;
-  external JSBoolean checkValidity();
-  external JSBoolean reportValidity();
-  external JSVoid setCustomValidity(JSString error);
 }
 
 @JS('HTMLLegendElement')
 @staticInterop
-class HTMLLegendElement extends HTMLElement {
-  external factory HTMLLegendElement.a0();
+class HTMLLegendElement implements HTMLElement {
+  external factory HTMLLegendElement();
 }
 
 extension HTMLLegendElementExtension on HTMLLegendElement {
@@ -1921,9 +1837,7 @@ extension HTMLLegendElementExtension on HTMLLegendElement {
 
 @JS('ValidityState')
 @staticInterop
-class ValidityState {
-  external factory ValidityState();
-}
+class ValidityState {}
 
 extension ValidityStateExtension on ValidityState {
   external JSBoolean get valueMissing;
@@ -1941,15 +1855,11 @@ extension ValidityStateExtension on ValidityState {
 
 @JS('SubmitEvent')
 @staticInterop
-class SubmitEvent extends Event {
-  external factory SubmitEvent();
-
-  external factory SubmitEvent.a1(JSString type);
-
-  external factory SubmitEvent.a2(
-    JSString type,
+class SubmitEvent implements Event {
+  external factory SubmitEvent(
+    JSString type, [
     SubmitEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension SubmitEventExtension on SubmitEvent {
@@ -1959,7 +1869,7 @@ extension SubmitEventExtension on SubmitEvent {
 @JS()
 @staticInterop
 @anonymous
-class SubmitEventInit extends EventInit {
+class SubmitEventInit implements EventInit {
   external factory SubmitEventInit({HTMLElement? submitter});
 }
 
@@ -1970,10 +1880,8 @@ extension SubmitEventInitExtension on SubmitEventInit {
 
 @JS('FormDataEvent')
 @staticInterop
-class FormDataEvent extends Event {
-  external factory FormDataEvent();
-
-  external factory FormDataEvent.a1(
+class FormDataEvent implements Event {
+  external factory FormDataEvent(
     JSString type,
     FormDataEventInit eventInitDict,
   );
@@ -1986,7 +1894,7 @@ extension FormDataEventExtension on FormDataEvent {
 @JS()
 @staticInterop
 @anonymous
-class FormDataEventInit extends EventInit {
+class FormDataEventInit implements EventInit {
   external factory FormDataEventInit({required FormData formData});
 }
 
@@ -1997,8 +1905,8 @@ extension FormDataEventInitExtension on FormDataEventInit {
 
 @JS('HTMLDetailsElement')
 @staticInterop
-class HTMLDetailsElement extends HTMLElement {
-  external factory HTMLDetailsElement.a0();
+class HTMLDetailsElement implements HTMLElement {
+  external factory HTMLDetailsElement();
 }
 
 extension HTMLDetailsElementExtension on HTMLDetailsElement {
@@ -2008,26 +1916,24 @@ extension HTMLDetailsElementExtension on HTMLDetailsElement {
 
 @JS('HTMLDialogElement')
 @staticInterop
-class HTMLDialogElement extends HTMLElement {
-  external factory HTMLDialogElement.a0();
+class HTMLDialogElement implements HTMLElement {
+  external factory HTMLDialogElement();
 }
 
 extension HTMLDialogElementExtension on HTMLDialogElement {
+  external JSVoid show();
+  external JSVoid showModal();
+  external JSVoid close([JSString returnValue]);
   external set open(JSBoolean value);
   external JSBoolean get open;
   external set returnValue(JSString value);
   external JSString get returnValue;
-  external JSVoid show();
-  external JSVoid showModal();
-  external JSVoid close();
-  external JSVoid close1(JSString returnValue);
 }
 
 @JS('HTMLScriptElement')
 @staticInterop
-class HTMLScriptElement extends HTMLElement
-    implements HTMLAttributionSrcElementUtils {
-  external factory HTMLScriptElement.a0();
+class HTMLScriptElement implements HTMLElement, HTMLAttributionSrcElementUtils {
+  external factory HTMLScriptElement();
 
   external static JSBoolean supports(JSString type);
 }
@@ -2064,8 +1970,8 @@ extension HTMLScriptElementExtension on HTMLScriptElement {
 
 @JS('HTMLTemplateElement')
 @staticInterop
-class HTMLTemplateElement extends HTMLElement {
-  external factory HTMLTemplateElement.a0();
+class HTMLTemplateElement implements HTMLElement {
+  external factory HTMLTemplateElement();
 }
 
 extension HTMLTemplateElementExtension on HTMLTemplateElement {
@@ -2074,18 +1980,16 @@ extension HTMLTemplateElementExtension on HTMLTemplateElement {
 
 @JS('HTMLSlotElement')
 @staticInterop
-class HTMLSlotElement extends HTMLElement {
-  external factory HTMLSlotElement.a0();
+class HTMLSlotElement implements HTMLElement {
+  external factory HTMLSlotElement();
 }
 
 extension HTMLSlotElementExtension on HTMLSlotElement {
+  external JSArray assignedNodes([AssignedNodesOptions options]);
+  external JSArray assignedElements([AssignedNodesOptions options]);
+  external JSVoid assign(JSAny nodes);
   external set name(JSString value);
   external JSString get name;
-  external JSArray assignedNodes();
-  external JSArray assignedNodes1(AssignedNodesOptions options);
-  external JSArray assignedElements();
-  external JSArray assignedElements1(AssignedNodesOptions options);
-  external JSVoid assign(JSAny nodes);
 }
 
 @JS()
@@ -2102,39 +2006,30 @@ extension AssignedNodesOptionsExtension on AssignedNodesOptions {
 
 @JS('HTMLCanvasElement')
 @staticInterop
-class HTMLCanvasElement extends HTMLElement {
-  external factory HTMLCanvasElement.a0();
+class HTMLCanvasElement implements HTMLElement {
+  external factory HTMLCanvasElement();
 }
 
 extension HTMLCanvasElementExtension on HTMLCanvasElement {
+  external RenderingContext? getContext(
+    JSString contextId, [
+    JSAny options,
+  ]);
+  external JSString toDataURL([
+    JSString type,
+    JSAny quality,
+  ]);
+  external JSVoid toBlob(
+    BlobCallback callback, [
+    JSString type,
+    JSAny quality,
+  ]);
+  external OffscreenCanvas transferControlToOffscreen();
+  external MediaStream captureStream([JSNumber frameRequestRate]);
   external set width(JSNumber value);
   external JSNumber get width;
   external set height(JSNumber value);
   external JSNumber get height;
-  external RenderingContext? getContext(JSString contextId);
-  external RenderingContext? getContext1(
-    JSString contextId,
-    JSAny options,
-  );
-  external JSString toDataURL();
-  external JSString toDataURL1(JSString type);
-  external JSString toDataURL2(
-    JSString type,
-    JSAny quality,
-  );
-  external JSVoid toBlob(BlobCallback callback);
-  external JSVoid toBlob1(
-    BlobCallback callback,
-    JSString type,
-  );
-  external JSVoid toBlob2(
-    BlobCallback callback,
-    JSString type,
-    JSAny quality,
-  );
-  external OffscreenCanvas transferControlToOffscreen();
-  external MediaStream captureStream();
-  external MediaStream captureStream1(JSNumber frameRequestRate);
 }
 
 @JS()
@@ -2180,20 +2075,16 @@ class CanvasRenderingContext2D
         CanvasImageData,
         CanvasPathDrawingStyles,
         CanvasTextDrawingStyles,
-        CanvasPath {
-  external factory CanvasRenderingContext2D();
-}
+        CanvasPath {}
 
 extension CanvasRenderingContext2DExtension on CanvasRenderingContext2D {
-  external HTMLCanvasElement get canvas;
   external CanvasRenderingContext2DSettings getContextAttributes();
+  external HTMLCanvasElement get canvas;
 }
 
 @JS('CanvasState')
 @staticInterop
-class CanvasState {
-  external factory CanvasState();
-}
+class CanvasState {}
 
 extension CanvasStateExtension on CanvasState {
   external JSVoid save();
@@ -2204,9 +2095,7 @@ extension CanvasStateExtension on CanvasState {
 
 @JS('CanvasTransform')
 @staticInterop
-class CanvasTransform {
-  external factory CanvasTransform();
-}
+class CanvasTransform {}
 
 extension CanvasTransformExtension on CanvasTransform {
   external JSVoid scale(
@@ -2227,26 +2116,20 @@ extension CanvasTransformExtension on CanvasTransform {
     JSNumber f,
   );
   external DOMMatrix getTransform();
-  external JSVoid setTransform(
-    JSNumber a,
+  external JSVoid setTransform([
+    JSAny aOrTransform,
     JSNumber b,
     JSNumber c,
     JSNumber d,
     JSNumber e,
     JSNumber f,
-  );
-  @JS('setTransform')
-  external JSVoid setTransform_1_();
-  @JS('setTransform')
-  external JSVoid setTransform_1_1(DOMMatrix2DInit transform);
+  ]);
   external JSVoid resetTransform();
 }
 
 @JS('CanvasCompositing')
 @staticInterop
-class CanvasCompositing {
-  external factory CanvasCompositing();
-}
+class CanvasCompositing {}
 
 extension CanvasCompositingExtension on CanvasCompositing {
   external set globalAlpha(JSNumber value);
@@ -2257,9 +2140,7 @@ extension CanvasCompositingExtension on CanvasCompositing {
 
 @JS('CanvasImageSmoothing')
 @staticInterop
-class CanvasImageSmoothing {
-  external factory CanvasImageSmoothing();
-}
+class CanvasImageSmoothing {}
 
 extension CanvasImageSmoothingExtension on CanvasImageSmoothing {
   external set imageSmoothingEnabled(JSBoolean value);
@@ -2270,15 +2151,9 @@ extension CanvasImageSmoothingExtension on CanvasImageSmoothing {
 
 @JS('CanvasFillStrokeStyles')
 @staticInterop
-class CanvasFillStrokeStyles {
-  external factory CanvasFillStrokeStyles();
-}
+class CanvasFillStrokeStyles {}
 
 extension CanvasFillStrokeStylesExtension on CanvasFillStrokeStyles {
-  external set strokeStyle(JSAny value);
-  external JSAny get strokeStyle;
-  external set fillStyle(JSAny value);
-  external JSAny get fillStyle;
   external CanvasGradient createLinearGradient(
     JSNumber x0,
     JSNumber y0,
@@ -2302,13 +2177,15 @@ extension CanvasFillStrokeStylesExtension on CanvasFillStrokeStyles {
     CanvasImageSource image,
     JSString repetition,
   );
+  external set strokeStyle(JSAny value);
+  external JSAny get strokeStyle;
+  external set fillStyle(JSAny value);
+  external JSAny get fillStyle;
 }
 
 @JS('CanvasShadowStyles')
 @staticInterop
-class CanvasShadowStyles {
-  external factory CanvasShadowStyles();
-}
+class CanvasShadowStyles {}
 
 extension CanvasShadowStylesExtension on CanvasShadowStyles {
   external set shadowOffsetX(JSNumber value);
@@ -2323,9 +2200,7 @@ extension CanvasShadowStylesExtension on CanvasShadowStyles {
 
 @JS('CanvasFilters')
 @staticInterop
-class CanvasFilters {
-  external factory CanvasFilters();
-}
+class CanvasFilters {}
 
 extension CanvasFiltersExtension on CanvasFilters {
   external set filter(JSString value);
@@ -2334,9 +2209,7 @@ extension CanvasFiltersExtension on CanvasFilters {
 
 @JS('CanvasRect')
 @staticInterop
-class CanvasRect {
-  external factory CanvasRect();
-}
+class CanvasRect {}
 
 extension CanvasRectExtension on CanvasRect {
   external JSVoid clearRect(
@@ -2361,206 +2234,117 @@ extension CanvasRectExtension on CanvasRect {
 
 @JS('CanvasDrawPath')
 @staticInterop
-class CanvasDrawPath {
-  external factory CanvasDrawPath();
-}
+class CanvasDrawPath {}
 
 extension CanvasDrawPathExtension on CanvasDrawPath {
   external JSVoid beginPath();
-  external JSVoid fill();
-  external JSVoid fill1(CanvasFillRule fillRule);
-  @JS('fill')
-  external JSVoid fill_1_(Path2D path);
-  @JS('fill')
-  external JSVoid fill_1_1(
-    Path2D path,
+  external JSVoid fill([
+    JSAny fillRuleOrPath,
     CanvasFillRule fillRule,
-  );
-  external JSVoid stroke();
-  @JS('stroke')
-  external JSVoid stroke_1_(Path2D path);
-  external JSVoid clip();
-  external JSVoid clip1(CanvasFillRule fillRule);
-  @JS('clip')
-  external JSVoid clip_1_(Path2D path);
-  @JS('clip')
-  external JSVoid clip_1_1(
-    Path2D path,
+  ]);
+  external JSVoid stroke([Path2D path]);
+  external JSVoid clip([
+    JSAny fillRuleOrPath,
     CanvasFillRule fillRule,
-  );
+  ]);
   external JSBoolean isPointInPath(
-    JSNumber x,
-    JSNumber y,
-  );
-  external JSBoolean isPointInPath1(
-    JSNumber x,
-    JSNumber y,
+    JSAny pathOrX,
+    JSNumber xOrY, [
+    JSAny fillRuleOrY,
     CanvasFillRule fillRule,
-  );
-  @JS('isPointInPath')
-  external JSBoolean isPointInPath_1_(
-    Path2D path,
-    JSNumber x,
-    JSNumber y,
-  );
-  @JS('isPointInPath')
-  external JSBoolean isPointInPath_1_1(
-    Path2D path,
-    JSNumber x,
-    JSNumber y,
-    CanvasFillRule fillRule,
-  );
+  ]);
   external JSBoolean isPointInStroke(
-    JSNumber x,
+    JSAny pathOrX,
+    JSNumber xOrY, [
     JSNumber y,
-  );
-  @JS('isPointInStroke')
-  external JSBoolean isPointInStroke_1_(
-    Path2D path,
-    JSNumber x,
-    JSNumber y,
-  );
+  ]);
 }
 
 @JS('CanvasUserInterface')
 @staticInterop
-class CanvasUserInterface {
-  external factory CanvasUserInterface();
-}
+class CanvasUserInterface {}
 
 extension CanvasUserInterfaceExtension on CanvasUserInterface {
-  external JSVoid drawFocusIfNeeded(Element element);
-  @JS('drawFocusIfNeeded')
-  external JSVoid drawFocusIfNeeded_1_(
-    Path2D path,
+  external JSVoid drawFocusIfNeeded(
+    JSAny elementOrPath, [
     Element element,
-  );
-  external JSVoid scrollPathIntoView();
-  @JS('scrollPathIntoView')
-  external JSVoid scrollPathIntoView_1_(Path2D path);
+  ]);
+  external JSVoid scrollPathIntoView([Path2D path]);
 }
 
 @JS('CanvasText')
 @staticInterop
-class CanvasText {
-  external factory CanvasText();
-}
+class CanvasText {}
 
 extension CanvasTextExtension on CanvasText {
   external JSVoid fillText(
     JSString text,
     JSNumber x,
-    JSNumber y,
-  );
-  external JSVoid fillText1(
-    JSString text,
-    JSNumber x,
-    JSNumber y,
+    JSNumber y, [
     JSNumber maxWidth,
-  );
+  ]);
   external JSVoid strokeText(
     JSString text,
     JSNumber x,
-    JSNumber y,
-  );
-  external JSVoid strokeText1(
-    JSString text,
-    JSNumber x,
-    JSNumber y,
+    JSNumber y, [
     JSNumber maxWidth,
-  );
+  ]);
   external TextMetrics measureText(JSString text);
 }
 
 @JS('CanvasDrawImage')
 @staticInterop
-class CanvasDrawImage {
-  external factory CanvasDrawImage();
-}
+class CanvasDrawImage {}
 
 extension CanvasDrawImageExtension on CanvasDrawImage {
   external JSVoid drawImage(
     CanvasImageSource image,
-    JSNumber dx,
-    JSNumber dy,
-  );
-  @JS('drawImage')
-  external JSVoid drawImage_1_(
-    CanvasImageSource image,
-    JSNumber dx,
-    JSNumber dy,
-    JSNumber dw,
-    JSNumber dh,
-  );
-  @JS('drawImage')
-  external JSVoid drawImage_2_(
-    CanvasImageSource image,
-    JSNumber sx,
-    JSNumber sy,
-    JSNumber sw,
-    JSNumber sh,
+    JSNumber dxOrSx,
+    JSNumber dyOrSy, [
+    JSNumber dwOrSw,
+    JSNumber dhOrSh,
     JSNumber dx,
     JSNumber dy,
     JSNumber dw,
     JSNumber dh,
-  );
+  ]);
 }
 
 @JS('CanvasImageData')
 @staticInterop
-class CanvasImageData {
-  external factory CanvasImageData();
-}
+class CanvasImageData {}
 
 extension CanvasImageDataExtension on CanvasImageData {
   external ImageData createImageData(
-    JSNumber sw,
-    JSNumber sh,
-  );
-  external ImageData createImageData1(
-    JSNumber sw,
+    JSAny imagedataOrSw, [
     JSNumber sh,
     ImageDataSettings settings,
-  );
-  @JS('createImageData')
-  external ImageData createImageData_1_(ImageData imagedata);
+  ]);
   external ImageData getImageData(
     JSNumber sx,
     JSNumber sy,
     JSNumber sw,
-    JSNumber sh,
-  );
-  external ImageData getImageData1(
-    JSNumber sx,
-    JSNumber sy,
-    JSNumber sw,
-    JSNumber sh,
+    JSNumber sh, [
     ImageDataSettings settings,
-  );
+  ]);
   external JSVoid putImageData(
     ImageData imagedata,
     JSNumber dx,
-    JSNumber dy,
-  );
-  @JS('putImageData')
-  external JSVoid putImageData_1_(
-    ImageData imagedata,
-    JSNumber dx,
-    JSNumber dy,
+    JSNumber dy, [
     JSNumber dirtyX,
     JSNumber dirtyY,
     JSNumber dirtyWidth,
     JSNumber dirtyHeight,
-  );
+  ]);
 }
 
 @JS('CanvasPathDrawingStyles')
 @staticInterop
-class CanvasPathDrawingStyles {
-  external factory CanvasPathDrawingStyles();
-}
+class CanvasPathDrawingStyles {}
 
 extension CanvasPathDrawingStylesExtension on CanvasPathDrawingStyles {
+  external JSVoid setLineDash(JSArray segments);
+  external JSArray getLineDash();
   external set lineWidth(JSNumber value);
   external JSNumber get lineWidth;
   external set lineCap(CanvasLineCap value);
@@ -2569,17 +2353,13 @@ extension CanvasPathDrawingStylesExtension on CanvasPathDrawingStyles {
   external CanvasLineJoin get lineJoin;
   external set miterLimit(JSNumber value);
   external JSNumber get miterLimit;
-  external JSVoid setLineDash(JSArray segments);
-  external JSArray getLineDash();
   external set lineDashOffset(JSNumber value);
   external JSNumber get lineDashOffset;
 }
 
 @JS('CanvasTextDrawingStyles')
 @staticInterop
-class CanvasTextDrawingStyles {
-  external factory CanvasTextDrawingStyles();
-}
+class CanvasTextDrawingStyles {}
 
 extension CanvasTextDrawingStylesExtension on CanvasTextDrawingStyles {
   external set font(JSString value);
@@ -2606,9 +2386,7 @@ extension CanvasTextDrawingStylesExtension on CanvasTextDrawingStyles {
 
 @JS('CanvasPath')
 @staticInterop
-class CanvasPath {
-  external factory CanvasPath();
-}
+class CanvasPath {}
 
 extension CanvasPathExtension on CanvasPath {
   external JSVoid closePath();
@@ -2651,30 +2429,17 @@ extension CanvasPathExtension on CanvasPath {
     JSNumber x,
     JSNumber y,
     JSNumber w,
-    JSNumber h,
-  );
-  external JSVoid roundRect1(
-    JSNumber x,
-    JSNumber y,
-    JSNumber w,
-    JSNumber h,
+    JSNumber h, [
     JSAny radii,
-  );
+  ]);
   external JSVoid arc(
     JSNumber x,
     JSNumber y,
     JSNumber radius,
     JSNumber startAngle,
-    JSNumber endAngle,
-  );
-  external JSVoid arc1(
-    JSNumber x,
-    JSNumber y,
-    JSNumber radius,
-    JSNumber startAngle,
-    JSNumber endAngle,
+    JSNumber endAngle, [
     JSBoolean counterclockwise,
-  );
+  ]);
   external JSVoid ellipse(
     JSNumber x,
     JSNumber y,
@@ -2682,25 +2447,14 @@ extension CanvasPathExtension on CanvasPath {
     JSNumber radiusY,
     JSNumber rotation,
     JSNumber startAngle,
-    JSNumber endAngle,
-  );
-  external JSVoid ellipse1(
-    JSNumber x,
-    JSNumber y,
-    JSNumber radiusX,
-    JSNumber radiusY,
-    JSNumber rotation,
-    JSNumber startAngle,
-    JSNumber endAngle,
+    JSNumber endAngle, [
     JSBoolean counterclockwise,
-  );
+  ]);
 }
 
 @JS('CanvasGradient')
 @staticInterop
-class CanvasGradient {
-  external factory CanvasGradient();
-}
+class CanvasGradient {}
 
 extension CanvasGradientExtension on CanvasGradient {
   external JSVoid addColorStop(
@@ -2711,20 +2465,15 @@ extension CanvasGradientExtension on CanvasGradient {
 
 @JS('CanvasPattern')
 @staticInterop
-class CanvasPattern {
-  external factory CanvasPattern();
-}
+class CanvasPattern {}
 
 extension CanvasPatternExtension on CanvasPattern {
-  external JSVoid setTransform();
-  external JSVoid setTransform1(DOMMatrix2DInit transform);
+  external JSVoid setTransform([DOMMatrix2DInit transform]);
 }
 
 @JS('TextMetrics')
 @staticInterop
-class TextMetrics {
-  external factory TextMetrics();
-}
+class TextMetrics {}
 
 extension TextMetricsExtension on TextMetrics {
   external JSNumber get width;
@@ -2756,36 +2505,12 @@ extension ImageDataSettingsExtension on ImageDataSettings {
 @JS('ImageData')
 @staticInterop
 class ImageData {
-  external factory ImageData();
-
-  external factory ImageData.a1(
-    JSNumber sw,
-    JSNumber sh,
-  );
-
-  external factory ImageData.a2(
-    JSNumber sw,
-    JSNumber sh,
+  external factory ImageData(
+    JSAny dataOrSw,
+    JSNumber shOrSw, [
+    JSAny settingsOrSh,
     ImageDataSettings settings,
-  );
-
-  external factory ImageData.a3(
-    JSUint8ClampedArray data,
-    JSNumber sw,
-  );
-
-  external factory ImageData.a4(
-    JSUint8ClampedArray data,
-    JSNumber sw,
-    JSNumber sh,
-  );
-
-  external factory ImageData.a5(
-    JSUint8ClampedArray data,
-    JSNumber sw,
-    JSNumber sh,
-    ImageDataSettings settings,
-  );
+  ]);
 }
 
 extension ImageDataExtension on ImageData {
@@ -2798,30 +2523,23 @@ extension ImageDataExtension on ImageData {
 @JS('Path2D')
 @staticInterop
 class Path2D implements CanvasPath {
-  external factory Path2D();
-
-  external factory Path2D.a1();
-
-  external factory Path2D.a2(JSAny path);
+  external factory Path2D([JSAny path]);
 }
 
 extension Path2DExtension on Path2D {
-  external JSVoid addPath(Path2D path);
-  external JSVoid addPath1(
-    Path2D path,
+  external JSVoid addPath(
+    Path2D path, [
     DOMMatrix2DInit transform,
-  );
+  ]);
 }
 
 @JS('ImageBitmapRenderingContext')
 @staticInterop
-class ImageBitmapRenderingContext {
-  external factory ImageBitmapRenderingContext();
-}
+class ImageBitmapRenderingContext {}
 
 extension ImageBitmapRenderingContextExtension on ImageBitmapRenderingContext {
-  external JSAny get canvas;
   external JSVoid transferFromImageBitmap(ImageBitmap? bitmap);
+  external JSAny get canvas;
 }
 
 @JS()
@@ -2857,29 +2575,24 @@ extension ImageEncodeOptionsExtension on ImageEncodeOptions {
 
 @JS('OffscreenCanvas')
 @staticInterop
-class OffscreenCanvas extends EventTarget {
-  external factory OffscreenCanvas();
-
-  external factory OffscreenCanvas.a1(
+class OffscreenCanvas implements EventTarget {
+  external factory OffscreenCanvas(
     JSNumber width,
     JSNumber height,
   );
 }
 
 extension OffscreenCanvasExtension on OffscreenCanvas {
+  external OffscreenRenderingContext? getContext(
+    OffscreenRenderingContextId contextId, [
+    JSAny options,
+  ]);
+  external ImageBitmap transferToImageBitmap();
+  external JSPromise convertToBlob([ImageEncodeOptions options]);
   external set width(JSNumber value);
   external JSNumber get width;
   external set height(JSNumber value);
   external JSNumber get height;
-  external OffscreenRenderingContext? getContext(
-      OffscreenRenderingContextId contextId);
-  external OffscreenRenderingContext? getContext1(
-    OffscreenRenderingContextId contextId,
-    JSAny options,
-  );
-  external ImageBitmap transferToImageBitmap();
-  external JSPromise convertToBlob();
-  external JSPromise convertToBlob1(ImageEncodeOptions options);
   external set oncontextlost(EventHandler value);
   external EventHandler get oncontextlost;
   external set oncontextrestored(EventHandler value);
@@ -2904,9 +2617,7 @@ class OffscreenCanvasRenderingContext2D
         CanvasImageData,
         CanvasPathDrawingStyles,
         CanvasTextDrawingStyles,
-        CanvasPath {
-  external factory OffscreenCanvasRenderingContext2D();
-}
+        CanvasPath {}
 
 extension OffscreenCanvasRenderingContext2DExtension
     on OffscreenCanvasRenderingContext2D {
@@ -2916,20 +2627,14 @@ extension OffscreenCanvasRenderingContext2DExtension
 
 @JS('CustomElementRegistry')
 @staticInterop
-class CustomElementRegistry {
-  external factory CustomElementRegistry();
-}
+class CustomElementRegistry {}
 
 extension CustomElementRegistryExtension on CustomElementRegistry {
   external JSVoid define(
     JSString name,
-    CustomElementConstructor constructor,
-  );
-  external JSVoid define1(
-    JSString name,
-    CustomElementConstructor constructor,
+    CustomElementConstructor constructor, [
     ElementDefinitionOptions options,
-  );
+  ]);
   external JSAny get(JSString name);
   external JSPromise whenDefined(JSString name);
   external JSVoid upgrade(Node root);
@@ -2944,42 +2649,33 @@ class ElementDefinitionOptions {
 
 extension ElementDefinitionOptionsExtension on ElementDefinitionOptions {
   @JS('extends')
-  external set extends_0_(JSString value);
+  external set extends_(JSString value);
   @JS('extends')
-  external JSString get extends_0_;
+  external JSString get extends_;
 }
 
 @JS('ElementInternals')
 @staticInterop
-class ElementInternals implements ARIAMixin {
-  external factory ElementInternals();
-}
+class ElementInternals implements ARIAMixin {}
 
 extension ElementInternalsExtension on ElementInternals {
-  external CustomStateSet get states;
-  external ShadowRoot? get shadowRoot;
-  external JSVoid setFormValue(JSAny? value);
-  external JSVoid setFormValue1(
-    JSAny? value,
+  external JSVoid setFormValue(
+    JSAny? value, [
     JSAny? state,
-  );
-  external HTMLFormElement? get form;
-  external JSVoid setValidity();
-  external JSVoid setValidity1(ValidityStateFlags flags);
-  external JSVoid setValidity2(
-    ValidityStateFlags flags,
-    JSString message,
-  );
-  external JSVoid setValidity3(
+  ]);
+  external JSVoid setValidity([
     ValidityStateFlags flags,
     JSString message,
     HTMLElement anchor,
-  );
+  ]);
+  external JSBoolean checkValidity();
+  external JSBoolean reportValidity();
+  external CustomStateSet get states;
+  external ShadowRoot? get shadowRoot;
+  external HTMLFormElement? get form;
   external JSBoolean get willValidate;
   external ValidityState get validity;
   external JSString get validationMessage;
-  external JSBoolean checkValidity();
-  external JSBoolean reportValidity();
   external NodeList get labels;
 }
 
@@ -3026,9 +2722,7 @@ extension ValidityStateFlagsExtension on ValidityStateFlags {
 
 @JS('UserActivation')
 @staticInterop
-class UserActivation {
-  external factory UserActivation();
-}
+class UserActivation {}
 
 extension UserActivationExtension on UserActivation {
   external JSBoolean get hasBeenActive;
@@ -3054,9 +2748,7 @@ extension FocusOptionsExtension on FocusOptions {
 
 @JS('ElementContentEditable')
 @staticInterop
-class ElementContentEditable {
-  external factory ElementContentEditable();
-}
+class ElementContentEditable {}
 
 extension ElementContentEditableExtension on ElementContentEditable {
   external set contentEditable(JSString value);
@@ -3073,75 +2765,64 @@ extension ElementContentEditableExtension on ElementContentEditable {
 @JS('DataTransfer')
 @staticInterop
 class DataTransfer {
-  external factory DataTransfer.a0();
+  external factory DataTransfer();
 }
 
 extension DataTransferExtension on DataTransfer {
-  external set dropEffect(JSString value);
-  external JSString get dropEffect;
-  external set effectAllowed(JSString value);
-  external JSString get effectAllowed;
-  external DataTransferItemList get items;
   external JSVoid setDragImage(
     Element image,
     JSNumber x,
     JSNumber y,
   );
-  external JSArray get types;
   external JSString getData(JSString format);
   external JSVoid setData(
     JSString format,
     JSString data,
   );
-  external JSVoid clearData();
-  external JSVoid clearData1(JSString format);
+  external JSVoid clearData([JSString format]);
+  external set dropEffect(JSString value);
+  external JSString get dropEffect;
+  external set effectAllowed(JSString value);
+  external JSString get effectAllowed;
+  external DataTransferItemList get items;
+  external JSArray get types;
   external FileList get files;
 }
 
 @JS('DataTransferItemList')
 @staticInterop
-class DataTransferItemList {
-  external factory DataTransferItemList();
-}
+class DataTransferItemList {}
 
 extension DataTransferItemListExtension on DataTransferItemList {
-  external JSNumber get length;
   external DataTransferItem? add(
-    JSString data,
+    JSAny data, [
     JSString type,
-  );
-  @JS('add')
-  external DataTransferItem? add_1_(File data);
+  ]);
   external JSVoid remove(JSNumber index);
   external JSVoid clear();
+  external JSNumber get length;
 }
 
 @JS('DataTransferItem')
 @staticInterop
-class DataTransferItem {
-  external factory DataTransferItem();
-}
+class DataTransferItem {}
 
 extension DataTransferItemExtension on DataTransferItem {
   external FileSystemEntry? webkitGetAsEntry();
   external JSPromise getAsFileSystemHandle();
-  external JSString get kind;
-  external JSString get type;
   external JSVoid getAsString(FunctionStringCallback? callback);
   external File? getAsFile();
+  external JSString get kind;
+  external JSString get type;
 }
 
 @JS('DragEvent')
 @staticInterop
-class DragEvent extends MouseEvent {
-  external factory DragEvent();
-
-  external factory DragEvent.a1(JSString type);
-
-  external factory DragEvent.a2(
-    JSString type,
+class DragEvent implements MouseEvent {
+  external factory DragEvent(
+    JSString type, [
     DragEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension DragEventExtension on DragEvent {
@@ -3151,7 +2832,7 @@ extension DragEventExtension on DragEvent {
 @JS()
 @staticInterop
 @anonymous
-class DragEventInit extends MouseEventInit {
+class DragEventInit implements MouseEventInit {
   external factory DragEventInit({DataTransfer? dataTransfer});
 }
 
@@ -3162,9 +2843,7 @@ extension DragEventInitExtension on DragEventInit {
 
 @JS('PopoverTargetElement')
 @staticInterop
-class PopoverTargetElement {
-  external factory PopoverTargetElement();
-}
+class PopoverTargetElement {}
 
 extension PopoverTargetElementExtension on PopoverTargetElement {
   external set popoverToggleTargetElement(Element? value);
@@ -3177,15 +2856,11 @@ extension PopoverTargetElementExtension on PopoverTargetElement {
 
 @JS('ToggleEvent')
 @staticInterop
-class ToggleEvent extends Event {
-  external factory ToggleEvent();
-
-  external factory ToggleEvent.a1(JSString type);
-
-  external factory ToggleEvent.a2(
-    JSString type,
+class ToggleEvent implements Event {
+  external factory ToggleEvent(
+    JSString type, [
     ToggleEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension ToggleEventExtension on ToggleEvent {
@@ -3196,7 +2871,7 @@ extension ToggleEventExtension on ToggleEvent {
 @JS()
 @staticInterop
 @anonymous
-class ToggleEventInit extends EventInit {
+class ToggleEventInit implements EventInit {
   external factory ToggleEventInit({
     JSString oldState = '',
     JSString newState = '',
@@ -3215,26 +2890,19 @@ external Window get window;
 
 @JS('Window')
 @staticInterop
-class Window extends EventTarget
+class Window
     implements
+        EventTarget,
         GlobalEventHandlers,
         WindowEventHandlers,
         WindowOrWorkerGlobalScope,
         AnimationFrameProvider,
         WindowSessionStorage,
-        WindowLocalStorage {
-  external factory Window();
-}
+        WindowLocalStorage {}
 
 extension WindowExtension on Window {
-  external JSNumber get orientation;
-  external set onorientationchange(EventHandler value);
-  external EventHandler get onorientationchange;
-  external CookieStore get cookieStore;
   external JSVoid navigate(SpatialNavigationDirection dir);
   external MediaQueryList matchMedia(JSString query);
-  external Screen get screen;
-  external VisualViewport? get visualViewport;
   external JSVoid moveTo(
     JSNumber x,
     JSNumber y,
@@ -3251,33 +2919,69 @@ extension WindowExtension on Window {
     JSNumber x,
     JSNumber y,
   );
+  external JSVoid scroll([
+    JSAny optionsOrX,
+    JSNumber y,
+  ]);
+  external JSVoid scrollTo([
+    JSAny optionsOrX,
+    JSNumber y,
+  ]);
+  external JSVoid scrollBy([
+    JSAny optionsOrX,
+    JSNumber y,
+  ]);
+  external CSSStyleDeclaration getComputedStyle(
+    Element elt, [
+    JSString? pseudoElt,
+  ]);
+  external JSPromise getDigitalGoodsService(JSString serviceProvider);
+  external JSPromise showOpenFilePicker([OpenFilePickerOptions options]);
+  external JSPromise showSaveFilePicker([SaveFilePickerOptions options]);
+  external JSPromise showDirectoryPicker([DirectoryPickerOptions options]);
+  external JSVoid close();
+  external JSVoid stop();
+  external JSVoid focus();
+  external JSVoid blur();
+  external Window? open([
+    JSString url,
+    JSString target,
+    JSString features,
+  ]);
+  external JSVoid alert([JSString message]);
+  external JSBoolean confirm([JSString message]);
+  external JSString? prompt([
+    JSString message,
+    JSString default_,
+  ]);
+  external JSVoid print();
+  external JSVoid postMessage(
+    JSAny message, [
+    JSAny optionsOrTargetOrigin,
+    JSArray transfer,
+  ]);
+  external JSVoid captureEvents();
+  external JSVoid releaseEvents();
+  external JSPromise queryLocalFonts([QueryOptions options]);
+  external JSNumber requestIdleCallback(
+    IdleRequestCallback callback, [
+    IdleRequestOptions options,
+  ]);
+  external JSVoid cancelIdleCallback(JSNumber handle);
+  external Selection? getSelection();
+  external JSPromise getScreenDetails();
+  external JSNumber get orientation;
+  external set onorientationchange(EventHandler value);
+  external EventHandler get onorientationchange;
+  external CookieStore get cookieStore;
+  external Screen get screen;
+  external VisualViewport? get visualViewport;
   external JSNumber get innerWidth;
   external JSNumber get innerHeight;
   external JSNumber get scrollX;
   external JSNumber get pageXOffset;
   external JSNumber get scrollY;
   external JSNumber get pageYOffset;
-  external JSVoid scroll();
-  external JSVoid scroll1(ScrollToOptions options);
-  @JS('scroll')
-  external JSVoid scroll_1_(
-    JSNumber x,
-    JSNumber y,
-  );
-  external JSVoid scrollTo();
-  external JSVoid scrollTo1(ScrollToOptions options);
-  @JS('scrollTo')
-  external JSVoid scrollTo_1_(
-    JSNumber x,
-    JSNumber y,
-  );
-  external JSVoid scrollBy();
-  external JSVoid scrollBy1(ScrollToOptions options);
-  @JS('scrollBy')
-  external JSVoid scrollBy_1_(
-    JSNumber x,
-    JSNumber y,
-  );
   external JSNumber get screenX;
   external JSNumber get screenLeft;
   external JSNumber get screenY;
@@ -3285,19 +2989,7 @@ extension WindowExtension on Window {
   external JSNumber get outerWidth;
   external JSNumber get outerHeight;
   external JSNumber get devicePixelRatio;
-  external CSSStyleDeclaration getComputedStyle(Element elt);
-  external CSSStyleDeclaration getComputedStyle1(
-    Element elt,
-    JSString? pseudoElt,
-  );
-  external JSPromise getDigitalGoodsService(JSString serviceProvider);
   external JSAny get event;
-  external JSPromise showOpenFilePicker();
-  external JSPromise showOpenFilePicker1(OpenFilePickerOptions options);
-  external JSPromise showSaveFilePicker();
-  external JSPromise showSaveFilePicker1(SaveFilePickerOptions options);
-  external JSPromise showDirectoryPicker();
-  external JSPromise showDirectoryPicker1(DirectoryPickerOptions options);
   external Window get window;
   external Window get self;
   external Document get document;
@@ -3314,11 +3006,7 @@ extension WindowExtension on Window {
   external BarProp get toolbar;
   external set status(JSString value);
   external JSString get status;
-  external JSVoid close();
   external JSBoolean get closed;
-  external JSVoid stop();
-  external JSVoid focus();
-  external JSVoid blur();
   external Window get frames;
   external JSNumber get length;
   external Window? get top;
@@ -3326,53 +3014,10 @@ extension WindowExtension on Window {
   external JSAny get opener;
   external Window? get parent;
   external Element? get frameElement;
-  external Window? open();
-  external Window? open1(JSString url);
-  external Window? open2(
-    JSString url,
-    JSString target,
-  );
-  external Window? open3(
-    JSString url,
-    JSString target,
-    JSString features,
-  );
   external Navigator get navigator;
   external Navigator get clientInformation;
   external JSBoolean get originAgentCluster;
-  external JSVoid alert();
-  @JS('alert')
-  external JSVoid alert_1_(JSString message);
-  external JSBoolean confirm();
-  external JSBoolean confirm1(JSString message);
-  external JSString? prompt();
-  external JSString? prompt1(JSString message);
-  external JSString? prompt2(
-    JSString message,
-    JSString default_,
-  );
-  external JSVoid print();
-  external JSVoid postMessage(
-    JSAny message,
-    JSString targetOrigin,
-  );
-  external JSVoid postMessage1(
-    JSAny message,
-    JSString targetOrigin,
-    JSArray transfer,
-  );
-  @JS('postMessage')
-  external JSVoid postMessage_1_(JSAny message);
-  @JS('postMessage')
-  external JSVoid postMessage_1_1(
-    JSAny message,
-    WindowPostMessageOptions options,
-  );
-  external JSVoid captureEvents();
-  external JSVoid releaseEvents();
   external External get external;
-  external JSPromise queryLocalFonts();
-  external JSPromise queryLocalFonts1(QueryOptions options);
   external set onappinstalled(EventHandler value);
   external EventHandler get onappinstalled;
   external set onbeforeinstallprompt(EventHandler value);
@@ -3387,22 +3032,14 @@ extension WindowExtension on Window {
   external set ondevicemotion(EventHandler value);
   external EventHandler get ondevicemotion;
   external PortalHost? get portalHost;
-  external JSNumber requestIdleCallback(IdleRequestCallback callback);
-  external JSNumber requestIdleCallback1(
-    IdleRequestCallback callback,
-    IdleRequestOptions options,
-  );
-  external JSVoid cancelIdleCallback(JSNumber handle);
-  external Selection? getSelection();
   external SpeechSynthesis get speechSynthesis;
   external LaunchQueue get launchQueue;
-  external JSPromise getScreenDetails();
 }
 
 @JS()
 @staticInterop
 @anonymous
-class WindowPostMessageOptions extends StructuredSerializeOptions {
+class WindowPostMessageOptions implements StructuredSerializeOptions {
   external factory WindowPostMessageOptions({JSString targetOrigin = '/'});
 }
 
@@ -3413,9 +3050,7 @@ extension WindowPostMessageOptionsExtension on WindowPostMessageOptions {
 
 @JS('BarProp')
 @staticInterop
-class BarProp {
-  external factory BarProp();
-}
+class BarProp {}
 
 extension BarPropExtension on BarProp {
   external JSBoolean get visible;
@@ -3423,11 +3058,12 @@ extension BarPropExtension on BarProp {
 
 @JS('Location')
 @staticInterop
-class Location {
-  external factory Location();
-}
+class Location {}
 
 extension LocationExtension on Location {
+  external JSVoid assign(JSString url);
+  external JSVoid replace(JSString url);
+  external JSVoid reload();
   external set href(JSString value);
   external JSString get href;
   external JSString get origin;
@@ -3445,58 +3081,40 @@ extension LocationExtension on Location {
   external JSString get search;
   external set hash(JSString value);
   external JSString get hash;
-  external JSVoid assign(JSString url);
-  external JSVoid replace(JSString url);
-  external JSVoid reload();
   external DOMStringList get ancestorOrigins;
 }
 
 @JS('History')
 @staticInterop
-class History {
-  external factory History();
-}
+class History {}
 
 extension HistoryExtension on History {
-  external JSNumber get length;
-  external set scrollRestoration(ScrollRestoration value);
-  external ScrollRestoration get scrollRestoration;
-  external JSAny get state;
-  external JSVoid go();
-  external JSVoid go1(JSNumber delta);
+  external JSVoid go([JSNumber delta]);
   external JSVoid back();
   external JSVoid forward();
   external JSVoid pushState(
     JSAny data,
-    JSString unused,
-  );
-  external JSVoid pushState1(
-    JSAny data,
-    JSString unused,
+    JSString unused, [
     JSString? url,
-  );
+  ]);
   external JSVoid replaceState(
     JSAny data,
-    JSString unused,
-  );
-  external JSVoid replaceState1(
-    JSAny data,
-    JSString unused,
+    JSString unused, [
     JSString? url,
-  );
+  ]);
+  external JSNumber get length;
+  external set scrollRestoration(ScrollRestoration value);
+  external ScrollRestoration get scrollRestoration;
+  external JSAny get state;
 }
 
 @JS('PopStateEvent')
 @staticInterop
-class PopStateEvent extends Event {
-  external factory PopStateEvent();
-
-  external factory PopStateEvent.a1(JSString type);
-
-  external factory PopStateEvent.a2(
-    JSString type,
+class PopStateEvent implements Event {
+  external factory PopStateEvent(
+    JSString type, [
     PopStateEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension PopStateEventExtension on PopStateEvent {
@@ -3506,7 +3124,7 @@ extension PopStateEventExtension on PopStateEvent {
 @JS()
 @staticInterop
 @anonymous
-class PopStateEventInit extends EventInit {
+class PopStateEventInit implements EventInit {
   external factory PopStateEventInit({JSAny state});
 }
 
@@ -3517,15 +3135,11 @@ extension PopStateEventInitExtension on PopStateEventInit {
 
 @JS('HashChangeEvent')
 @staticInterop
-class HashChangeEvent extends Event {
-  external factory HashChangeEvent();
-
-  external factory HashChangeEvent.a1(JSString type);
-
-  external factory HashChangeEvent.a2(
-    JSString type,
+class HashChangeEvent implements Event {
+  external factory HashChangeEvent(
+    JSString type, [
     HashChangeEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension HashChangeEventExtension on HashChangeEvent {
@@ -3536,7 +3150,7 @@ extension HashChangeEventExtension on HashChangeEvent {
 @JS()
 @staticInterop
 @anonymous
-class HashChangeEventInit extends EventInit {
+class HashChangeEventInit implements EventInit {
   external factory HashChangeEventInit({
     JSString oldURL = '',
     JSString newURL = '',
@@ -3552,15 +3166,11 @@ extension HashChangeEventInitExtension on HashChangeEventInit {
 
 @JS('PageTransitionEvent')
 @staticInterop
-class PageTransitionEvent extends Event {
-  external factory PageTransitionEvent();
-
-  external factory PageTransitionEvent.a1(JSString type);
-
-  external factory PageTransitionEvent.a2(
-    JSString type,
+class PageTransitionEvent implements Event {
+  external factory PageTransitionEvent(
+    JSString type, [
     PageTransitionEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension PageTransitionEventExtension on PageTransitionEvent {
@@ -3570,7 +3180,7 @@ extension PageTransitionEventExtension on PageTransitionEvent {
 @JS()
 @staticInterop
 @anonymous
-class PageTransitionEventInit extends EventInit {
+class PageTransitionEventInit implements EventInit {
   external factory PageTransitionEventInit({JSBoolean persisted = false});
 }
 
@@ -3581,9 +3191,7 @@ extension PageTransitionEventInitExtension on PageTransitionEventInit {
 
 @JS('BeforeUnloadEvent')
 @staticInterop
-class BeforeUnloadEvent extends Event {
-  external factory BeforeUnloadEvent();
-}
+class BeforeUnloadEvent implements Event {}
 
 extension BeforeUnloadEventExtension on BeforeUnloadEvent {
   external set returnValue(JSString value);
@@ -3592,15 +3200,11 @@ extension BeforeUnloadEventExtension on BeforeUnloadEvent {
 
 @JS('ErrorEvent')
 @staticInterop
-class ErrorEvent extends Event {
-  external factory ErrorEvent();
-
-  external factory ErrorEvent.a1(JSString type);
-
-  external factory ErrorEvent.a2(
-    JSString type,
+class ErrorEvent implements Event {
+  external factory ErrorEvent(
+    JSString type, [
     ErrorEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension ErrorEventExtension on ErrorEvent {
@@ -3614,7 +3218,7 @@ extension ErrorEventExtension on ErrorEvent {
 @JS()
 @staticInterop
 @anonymous
-class ErrorEventInit extends EventInit {
+class ErrorEventInit implements EventInit {
   external factory ErrorEventInit({
     JSString message = '',
     JSString filename = '',
@@ -3639,10 +3243,8 @@ extension ErrorEventInitExtension on ErrorEventInit {
 
 @JS('PromiseRejectionEvent')
 @staticInterop
-class PromiseRejectionEvent extends Event {
-  external factory PromiseRejectionEvent();
-
-  external factory PromiseRejectionEvent.a1(
+class PromiseRejectionEvent implements Event {
+  external factory PromiseRejectionEvent(
     JSString type,
     PromiseRejectionEventInit eventInitDict,
   );
@@ -3656,7 +3258,7 @@ extension PromiseRejectionEventExtension on PromiseRejectionEvent {
 @JS()
 @staticInterop
 @anonymous
-class PromiseRejectionEventInit extends EventInit {
+class PromiseRejectionEventInit implements EventInit {
   external factory PromiseRejectionEventInit({
     required JSPromise promise,
     JSAny reason,
@@ -3672,9 +3274,7 @@ extension PromiseRejectionEventInitExtension on PromiseRejectionEventInit {
 
 @JS('GlobalEventHandlers')
 @staticInterop
-class GlobalEventHandlers {
-  external factory GlobalEventHandlers();
-}
+class GlobalEventHandlers {}
 
 extension GlobalEventHandlersExtension on GlobalEventHandlers {
   external set onanimationstart(EventHandler value);
@@ -3881,9 +3481,7 @@ extension GlobalEventHandlersExtension on GlobalEventHandlers {
 
 @JS('WindowEventHandlers')
 @staticInterop
-class WindowEventHandlers {
-  external factory WindowEventHandlers();
-}
+class WindowEventHandlers {}
 
 extension WindowEventHandlersExtension on WindowEventHandlers {
   external set ongamepadconnected(EventHandler value);
@@ -3928,69 +3526,47 @@ extension WindowEventHandlersExtension on WindowEventHandlers {
 
 @JS('WindowOrWorkerGlobalScope')
 @staticInterop
-class WindowOrWorkerGlobalScope {
-  external factory WindowOrWorkerGlobalScope();
-}
+class WindowOrWorkerGlobalScope {}
 
 extension WindowOrWorkerGlobalScopeExtension on WindowOrWorkerGlobalScope {
+  external JSPromise fetch(
+    RequestInfo input, [
+    RequestInit init,
+  ]);
+  external JSVoid reportError(JSAny e);
+  external JSString btoa(JSString data);
+  external JSString atob(JSString data);
+  external JSNumber setTimeout(
+    TimerHandler handler,
+    JSAny arguments, [
+    JSNumber timeout,
+  ]);
+  external JSVoid clearTimeout([JSNumber id]);
+  external JSNumber setInterval(
+    TimerHandler handler,
+    JSAny arguments, [
+    JSNumber timeout,
+  ]);
+  external JSVoid clearInterval([JSNumber id]);
+  external JSVoid queueMicrotask(VoidFunction callback);
+  external JSPromise createImageBitmap(
+    ImageBitmapSource image, [
+    JSAny optionsOrSx,
+    JSNumber sy,
+    JSNumber sw,
+    JSNumber sh,
+    ImageBitmapOptions options,
+  ]);
+  external JSAny structuredClone(
+    JSAny value, [
+    StructuredSerializeOptions options,
+  ]);
   external IDBFactory get indexedDB;
   external Crypto get crypto;
-  external JSPromise fetch(RequestInfo input);
-  external JSPromise fetch1(
-    RequestInfo input,
-    RequestInit init,
-  );
   external Performance get performance;
   external JSString get origin;
   external JSBoolean get isSecureContext;
   external JSBoolean get crossOriginIsolated;
-  external JSVoid reportError(JSAny e);
-  external JSString btoa(JSString data);
-  external JSString atob(JSString data);
-  external JSNumber setTimeout(TimerHandler handler);
-  external JSNumber setTimeout1(
-    TimerHandler handler,
-    JSNumber timeout,
-    JSAny arguments,
-  );
-  external JSVoid clearTimeout();
-  external JSVoid clearTimeout1(JSNumber id);
-  external JSNumber setInterval(TimerHandler handler);
-  external JSNumber setInterval1(
-    TimerHandler handler,
-    JSNumber timeout,
-    JSAny arguments,
-  );
-  external JSVoid clearInterval();
-  external JSVoid clearInterval1(JSNumber id);
-  external JSVoid queueMicrotask(VoidFunction callback);
-  external JSPromise createImageBitmap(ImageBitmapSource image);
-  external JSPromise createImageBitmap1(
-    ImageBitmapSource image,
-    ImageBitmapOptions options,
-  );
-  @JS('createImageBitmap')
-  external JSPromise createImageBitmap_1_(
-    ImageBitmapSource image,
-    JSNumber sx,
-    JSNumber sy,
-    JSNumber sw,
-    JSNumber sh,
-  );
-  @JS('createImageBitmap')
-  external JSPromise createImageBitmap_1_1(
-    ImageBitmapSource image,
-    JSNumber sx,
-    JSNumber sy,
-    JSNumber sw,
-    JSNumber sh,
-    ImageBitmapOptions options,
-  );
-  external JSAny structuredClone(JSAny value);
-  external JSAny structuredClone1(
-    JSAny value,
-    StructuredSerializeOptions options,
-  );
   external Scheduler get scheduler;
   external CacheStorage get caches;
   external TrustedTypePolicyFactory get trustedTypes;
@@ -3999,7 +3575,7 @@ extension WindowOrWorkerGlobalScopeExtension on WindowOrWorkerGlobalScope {
 @JS('DOMParser')
 @staticInterop
 class DOMParser {
-  external factory DOMParser.a0();
+  external factory DOMParser();
 }
 
 extension DOMParserExtension on DOMParser {
@@ -4029,47 +3605,43 @@ class Navigator
         NavigatorLocks,
         NavigatorAutomationInformation,
         NavigatorGPU,
-        NavigatorML {
-  external factory Navigator();
-}
+        NavigatorML {}
 
 extension NavigatorExtension on Navigator {
-  external AutoplayPolicy getAutoplayPolicy(AutoplayPolicyMediaType type);
-  @JS('getAutoplayPolicy')
-  external AutoplayPolicy getAutoplayPolicy_1_(HTMLMediaElement element);
-  @JS('getAutoplayPolicy')
-  external AutoplayPolicy getAutoplayPolicy_2_(AudioContext context);
-  external JSPromise setClientBadge();
-  external JSPromise setClientBadge1(JSNumber contents);
+  external AutoplayPolicy getAutoplayPolicy(JSAny contextOrElementOrType);
+  external JSPromise setClientBadge([JSNumber contents]);
   external JSPromise clearClientBadge();
   external JSPromise getBattery();
-  external JSBoolean sendBeacon(JSString url);
-  external JSBoolean sendBeacon1(
-    JSString url,
+  external JSBoolean sendBeacon(
+    JSString url, [
     BodyInit? data,
-  );
-  external Clipboard get clipboard;
-  external ContactsManager get contacts;
-  external CredentialsContainer get credentials;
-  external DevicePosture get devicePosture;
+  ]);
   external JSPromise requestMediaKeySystemAccess(
     JSString keySystem,
     JSArray supportedConfigurations,
   );
   external JSArray getGamepads();
-  external Geolocation get geolocation;
   external JSPromise getInstalledRelatedApps();
+  external JSVoid getUserMedia(
+    MediaStreamConstraints constraints,
+    NavigatorUserMediaSuccessCallback successCallback,
+    NavigatorUserMediaErrorCallback errorCallback,
+  );
+  external JSBoolean vibrate(VibratePattern pattern);
+  external JSPromise share([ShareData data]);
+  external JSBoolean canShare([ShareData data]);
+  external JSPromise requestMIDIAccess([MIDIOptions options]);
+  external Clipboard get clipboard;
+  external ContactsManager get contacts;
+  external CredentialsContainer get credentials;
+  external DevicePosture get devicePosture;
+  external Geolocation get geolocation;
   external UserActivation get userActivation;
   external Ink get ink;
   external Scheduling get scheduling;
   external Keyboard get keyboard;
   external MediaCapabilities get mediaCapabilities;
   external MediaDevices get mediaDevices;
-  external JSVoid getUserMedia(
-    MediaStreamConstraints constraints,
-    NavigatorUserMediaSuccessCallback successCallback,
-    NavigatorUserMediaErrorCallback errorCallback,
-  );
   external MediaSession get mediaSession;
   external Permissions get permissions;
   external JSNumber get maxTouchPoints;
@@ -4077,16 +3649,9 @@ extension NavigatorExtension on Navigator {
   external WakeLock get wakeLock;
   external Serial get serial;
   external ServiceWorkerContainer get serviceWorker;
-  external JSBoolean vibrate(VibratePattern pattern);
   external VirtualKeyboard get virtualKeyboard;
   external Bluetooth get bluetooth;
-  external JSPromise share();
-  external JSPromise share1(ShareData data);
-  external JSBoolean canShare();
-  external JSBoolean canShare1(ShareData data);
   external HID get hid;
-  external JSPromise requestMIDIAccess();
-  external JSPromise requestMIDIAccess1(MIDIOptions options);
   external USB get usb;
   external XRSystem get xr;
   external WindowControlsOverlay get windowControlsOverlay;
@@ -4094,11 +3659,10 @@ extension NavigatorExtension on Navigator {
 
 @JS('NavigatorID')
 @staticInterop
-class NavigatorID {
-  external factory NavigatorID();
-}
+class NavigatorID {}
 
 extension NavigatorIDExtension on NavigatorID {
+  external JSBoolean taintEnabled();
   external JSString get appCodeName;
   external JSString get appName;
   external JSString get appVersion;
@@ -4108,15 +3672,12 @@ extension NavigatorIDExtension on NavigatorID {
   external JSString get userAgent;
   external JSString get vendor;
   external JSString get vendorSub;
-  external JSBoolean taintEnabled();
   external JSString get oscpu;
 }
 
 @JS('NavigatorLanguage')
 @staticInterop
-class NavigatorLanguage {
-  external factory NavigatorLanguage();
-}
+class NavigatorLanguage {}
 
 extension NavigatorLanguageExtension on NavigatorLanguage {
   external JSString get language;
@@ -4125,9 +3686,7 @@ extension NavigatorLanguageExtension on NavigatorLanguage {
 
 @JS('NavigatorOnLine')
 @staticInterop
-class NavigatorOnLine {
-  external factory NavigatorOnLine();
-}
+class NavigatorOnLine {}
 
 extension NavigatorOnLineExtension on NavigatorOnLine {
   external JSBoolean get onLine;
@@ -4135,9 +3694,7 @@ extension NavigatorOnLineExtension on NavigatorOnLine {
 
 @JS('NavigatorContentUtils')
 @staticInterop
-class NavigatorContentUtils {
-  external factory NavigatorContentUtils();
-}
+class NavigatorContentUtils {}
 
 extension NavigatorContentUtilsExtension on NavigatorContentUtils {
   external JSVoid registerProtocolHandler(
@@ -4152,9 +3709,7 @@ extension NavigatorContentUtilsExtension on NavigatorContentUtils {
 
 @JS('NavigatorCookies')
 @staticInterop
-class NavigatorCookies {
-  external factory NavigatorCookies();
-}
+class NavigatorCookies {}
 
 extension NavigatorCookiesExtension on NavigatorCookies {
   external JSBoolean get cookieEnabled;
@@ -4162,62 +3717,52 @@ extension NavigatorCookiesExtension on NavigatorCookies {
 
 @JS('NavigatorPlugins')
 @staticInterop
-class NavigatorPlugins {
-  external factory NavigatorPlugins();
-}
+class NavigatorPlugins {}
 
 extension NavigatorPluginsExtension on NavigatorPlugins {
+  external JSBoolean javaEnabled();
   external PluginArray get plugins;
   external MimeTypeArray get mimeTypes;
-  external JSBoolean javaEnabled();
   external JSBoolean get pdfViewerEnabled;
 }
 
 @JS('PluginArray')
 @staticInterop
-class PluginArray {
-  external factory PluginArray();
-}
+class PluginArray {}
 
 extension PluginArrayExtension on PluginArray {
   external JSVoid refresh();
-  external JSNumber get length;
   external Plugin? item(JSNumber index);
   external Plugin? namedItem(JSString name);
+  external JSNumber get length;
 }
 
 @JS('MimeTypeArray')
 @staticInterop
-class MimeTypeArray {
-  external factory MimeTypeArray();
-}
+class MimeTypeArray {}
 
 extension MimeTypeArrayExtension on MimeTypeArray {
-  external JSNumber get length;
   external MimeType? item(JSNumber index);
   external MimeType? namedItem(JSString name);
+  external JSNumber get length;
 }
 
 @JS('Plugin')
 @staticInterop
-class Plugin {
-  external factory Plugin();
-}
+class Plugin {}
 
 extension PluginExtension on Plugin {
+  external MimeType? item(JSNumber index);
+  external MimeType? namedItem(JSString name);
   external JSString get name;
   external JSString get description;
   external JSString get filename;
   external JSNumber get length;
-  external MimeType? item(JSNumber index);
-  external MimeType? namedItem(JSString name);
 }
 
 @JS('MimeType')
 @staticInterop
-class MimeType {
-  external factory MimeType();
-}
+class MimeType {}
 
 extension MimeTypeExtension on MimeType {
   external JSString get type;
@@ -4228,14 +3773,12 @@ extension MimeTypeExtension on MimeType {
 
 @JS('ImageBitmap')
 @staticInterop
-class ImageBitmap {
-  external factory ImageBitmap();
-}
+class ImageBitmap {}
 
 extension ImageBitmapExtension on ImageBitmap {
+  external JSVoid close();
   external JSNumber get width;
   external JSNumber get height;
-  external JSVoid close();
 }
 
 @JS()
@@ -4269,9 +3812,7 @@ extension ImageBitmapOptionsExtension on ImageBitmapOptions {
 
 @JS('AnimationFrameProvider')
 @staticInterop
-class AnimationFrameProvider {
-  external factory AnimationFrameProvider();
-}
+class AnimationFrameProvider {}
 
 extension AnimationFrameProviderExtension on AnimationFrameProvider {
   external JSNumber requestAnimationFrame(FrameRequestCallback callback);
@@ -4280,65 +3821,16 @@ extension AnimationFrameProviderExtension on AnimationFrameProvider {
 
 @JS('MessageEvent')
 @staticInterop
-class MessageEvent extends Event {
-  external factory MessageEvent();
-
-  external factory MessageEvent.a1(JSString type);
-
-  external factory MessageEvent.a2(
-    JSString type,
+class MessageEvent implements Event {
+  external factory MessageEvent(
+    JSString type, [
     MessageEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension MessageEventExtension on MessageEvent {
-  external JSAny get data;
-  external JSString get origin;
-  external JSString get lastEventId;
-  external MessageEventSource? get source;
-  external JSArray get ports;
-  external JSVoid initMessageEvent(JSString type);
-  external JSVoid initMessageEvent1(
-    JSString type,
-    JSBoolean bubbles,
-  );
-  external JSVoid initMessageEvent2(
-    JSString type,
-    JSBoolean bubbles,
-    JSBoolean cancelable,
-  );
-  external JSVoid initMessageEvent3(
-    JSString type,
-    JSBoolean bubbles,
-    JSBoolean cancelable,
-    JSAny data,
-  );
-  external JSVoid initMessageEvent4(
-    JSString type,
-    JSBoolean bubbles,
-    JSBoolean cancelable,
-    JSAny data,
-    JSString origin,
-  );
-  external JSVoid initMessageEvent5(
-    JSString type,
-    JSBoolean bubbles,
-    JSBoolean cancelable,
-    JSAny data,
-    JSString origin,
-    JSString lastEventId,
-  );
-  external JSVoid initMessageEvent6(
-    JSString type,
-    JSBoolean bubbles,
-    JSBoolean cancelable,
-    JSAny data,
-    JSString origin,
-    JSString lastEventId,
-    MessageEventSource? source,
-  );
-  external JSVoid initMessageEvent7(
-    JSString type,
+  external JSVoid initMessageEvent(
+    JSString type, [
     JSBoolean bubbles,
     JSBoolean cancelable,
     JSAny data,
@@ -4346,13 +3838,18 @@ extension MessageEventExtension on MessageEvent {
     JSString lastEventId,
     MessageEventSource? source,
     JSArray ports,
-  );
+  ]);
+  external JSAny get data;
+  external JSString get origin;
+  external JSString get lastEventId;
+  external MessageEventSource? get source;
+  external JSArray get ports;
 }
 
 @JS()
 @staticInterop
 @anonymous
-class MessageEventInit extends EventInit {
+class MessageEventInit implements EventInit {
   external factory MessageEventInit({
     JSAny data,
     JSString origin = '',
@@ -4377,15 +3874,11 @@ extension MessageEventInitExtension on MessageEventInit {
 
 @JS('EventSource')
 @staticInterop
-class EventSource extends EventTarget {
-  external factory EventSource();
-
-  external factory EventSource.a1(JSString url);
-
-  external factory EventSource.a2(
-    JSString url,
+class EventSource implements EventTarget {
+  external factory EventSource(
+    JSString url, [
     EventSourceInit eventSourceInitDict,
-  );
+  ]);
 
   external static JSNumber get CONNECTING;
   external static JSNumber get OPEN;
@@ -4393,6 +3886,7 @@ class EventSource extends EventTarget {
 }
 
 extension EventSourceExtension on EventSource {
+  external JSVoid close();
   external JSString get url;
   external JSBoolean get withCredentials;
   external JSNumber get readyState;
@@ -4402,7 +3896,6 @@ extension EventSourceExtension on EventSource {
   external EventHandler get onmessage;
   external set onerror(EventHandler value);
   external EventHandler get onerror;
-  external JSVoid close();
 }
 
 @JS()
@@ -4420,7 +3913,7 @@ extension EventSourceInitExtension on EventSourceInit {
 @JS('MessageChannel')
 @staticInterop
 class MessageChannel {
-  external factory MessageChannel.a0();
+  external factory MessageChannel();
 }
 
 extension MessageChannelExtension on MessageChannel {
@@ -4430,22 +3923,13 @@ extension MessageChannelExtension on MessageChannel {
 
 @JS('MessagePort')
 @staticInterop
-class MessagePort extends EventTarget {
-  external factory MessagePort();
-}
+class MessagePort implements EventTarget {}
 
 extension MessagePortExtension on MessagePort {
   external JSVoid postMessage(
-    JSAny message,
-    JSArray transfer,
-  );
-  @JS('postMessage')
-  external JSVoid postMessage_1_(JSAny message);
-  @JS('postMessage')
-  external JSVoid postMessage_1_1(
-    JSAny message,
-    StructuredSerializeOptions options,
-  );
+    JSAny message, [
+    JSAny optionsOrTransfer,
+  ]);
   external JSVoid start();
   external JSVoid close();
   external set onmessage(EventHandler value);
@@ -4468,16 +3952,14 @@ extension StructuredSerializeOptionsExtension on StructuredSerializeOptions {
 
 @JS('BroadcastChannel')
 @staticInterop
-class BroadcastChannel extends EventTarget {
-  external factory BroadcastChannel();
-
-  external factory BroadcastChannel.a1(JSString name);
+class BroadcastChannel implements EventTarget {
+  external factory BroadcastChannel(JSString name);
 }
 
 extension BroadcastChannelExtension on BroadcastChannel {
-  external JSString get name;
   external JSVoid postMessage(JSAny message);
   external JSVoid close();
+  external JSString get name;
   external set onmessage(EventHandler value);
   external EventHandler get onmessage;
   external set onmessageerror(EventHandler value);
@@ -4486,16 +3968,14 @@ extension BroadcastChannelExtension on BroadcastChannel {
 
 @JS('WorkerGlobalScope')
 @staticInterop
-class WorkerGlobalScope extends EventTarget
-    implements FontFaceSource, WindowOrWorkerGlobalScope {
-  external factory WorkerGlobalScope();
-}
+class WorkerGlobalScope
+    implements EventTarget, FontFaceSource, WindowOrWorkerGlobalScope {}
 
 extension WorkerGlobalScopeExtension on WorkerGlobalScope {
+  external JSVoid importScripts(JSString urls);
   external WorkerGlobalScope get self;
   external WorkerLocation get location;
   external WorkerNavigator get navigator;
-  external JSVoid importScripts(JSString urls);
   external set onerror(OnErrorEventHandler value);
   external OnErrorEventHandler get onerror;
   external set onlanguagechange(EventHandler value);
@@ -4512,25 +3992,16 @@ extension WorkerGlobalScopeExtension on WorkerGlobalScope {
 
 @JS('DedicatedWorkerGlobalScope')
 @staticInterop
-class DedicatedWorkerGlobalScope extends WorkerGlobalScope
-    implements AnimationFrameProvider {
-  external factory DedicatedWorkerGlobalScope();
-}
+class DedicatedWorkerGlobalScope
+    implements WorkerGlobalScope, AnimationFrameProvider {}
 
 extension DedicatedWorkerGlobalScopeExtension on DedicatedWorkerGlobalScope {
-  external JSString get name;
   external JSVoid postMessage(
-    JSAny message,
-    JSArray transfer,
-  );
-  @JS('postMessage')
-  external JSVoid postMessage_1_(JSAny message);
-  @JS('postMessage')
-  external JSVoid postMessage_1_1(
-    JSAny message,
-    StructuredSerializeOptions options,
-  );
+    JSAny message, [
+    JSAny optionsOrTransfer,
+  ]);
   external JSVoid close();
+  external JSString get name;
   external set onmessage(EventHandler value);
   external EventHandler get onmessage;
   external set onmessageerror(EventHandler value);
@@ -4541,22 +4012,18 @@ extension DedicatedWorkerGlobalScopeExtension on DedicatedWorkerGlobalScope {
 
 @JS('SharedWorkerGlobalScope')
 @staticInterop
-class SharedWorkerGlobalScope extends WorkerGlobalScope {
-  external factory SharedWorkerGlobalScope();
-}
+class SharedWorkerGlobalScope implements WorkerGlobalScope {}
 
 extension SharedWorkerGlobalScopeExtension on SharedWorkerGlobalScope {
-  external JSString get name;
   external JSVoid close();
+  external JSString get name;
   external set onconnect(EventHandler value);
   external EventHandler get onconnect;
 }
 
 @JS('AbstractWorker')
 @staticInterop
-class AbstractWorker {
-  external factory AbstractWorker();
-}
+class AbstractWorker {}
 
 extension AbstractWorkerExtension on AbstractWorker {
   external set onerror(EventHandler value);
@@ -4565,30 +4032,19 @@ extension AbstractWorkerExtension on AbstractWorker {
 
 @JS('Worker')
 @staticInterop
-class Worker extends EventTarget implements AbstractWorker {
-  external factory Worker();
-
-  external factory Worker.a1(JSString scriptURL);
-
-  external factory Worker.a2(
-    JSString scriptURL,
+class Worker implements EventTarget, AbstractWorker {
+  external factory Worker(
+    JSString scriptURL, [
     WorkerOptions options,
-  );
+  ]);
 }
 
 extension WorkerExtension on Worker {
   external JSVoid terminate();
   external JSVoid postMessage(
-    JSAny message,
-    JSArray transfer,
-  );
-  @JS('postMessage')
-  external JSVoid postMessage_1_(JSAny message);
-  @JS('postMessage')
-  external JSVoid postMessage_1_1(
-    JSAny message,
-    StructuredSerializeOptions options,
-  );
+    JSAny message, [
+    JSAny optionsOrTransfer,
+  ]);
   external set onmessage(EventHandler value);
   external EventHandler get onmessage;
   external set onmessageerror(EventHandler value);
@@ -4617,15 +4073,11 @@ extension WorkerOptionsExtension on WorkerOptions {
 
 @JS('SharedWorker')
 @staticInterop
-class SharedWorker extends EventTarget implements AbstractWorker {
-  external factory SharedWorker();
-
-  external factory SharedWorker.a1(JSString scriptURL);
-
-  external factory SharedWorker.a2(
-    JSString scriptURL,
+class SharedWorker implements EventTarget, AbstractWorker {
+  external factory SharedWorker(
+    JSString scriptURL, [
     JSAny options,
-  );
+  ]);
 }
 
 extension SharedWorkerExtension on SharedWorker {
@@ -4634,9 +4086,7 @@ extension SharedWorkerExtension on SharedWorker {
 
 @JS('NavigatorConcurrentHardware')
 @staticInterop
-class NavigatorConcurrentHardware {
-  external factory NavigatorConcurrentHardware();
-}
+class NavigatorConcurrentHardware {}
 
 extension NavigatorConcurrentHardwareExtension on NavigatorConcurrentHardware {
   external JSNumber get hardwareConcurrency;
@@ -4658,9 +4108,7 @@ class WorkerNavigator
         NavigatorUA,
         NavigatorLocks,
         NavigatorGPU,
-        NavigatorML {
-  external factory WorkerNavigator();
-}
+        NavigatorML {}
 
 extension WorkerNavigatorExtension on WorkerNavigator {
   external MediaCapabilities get mediaCapabilities;
@@ -4673,9 +4121,7 @@ extension WorkerNavigatorExtension on WorkerNavigator {
 
 @JS('WorkerLocation')
 @staticInterop
-class WorkerLocation {
-  external factory WorkerLocation();
-}
+class WorkerLocation {}
 
 extension WorkerLocationExtension on WorkerLocation {
   external JSString get href;
@@ -4691,22 +4137,17 @@ extension WorkerLocationExtension on WorkerLocation {
 
 @JS('WorkletGlobalScope')
 @staticInterop
-class WorkletGlobalScope {
-  external factory WorkletGlobalScope();
-}
+class WorkletGlobalScope {}
 
 @JS('Worklet')
 @staticInterop
-class Worklet {
-  external factory Worklet();
-}
+class Worklet {}
 
 extension WorkletExtension on Worklet {
-  external JSPromise addModule(JSString moduleURL);
-  external JSPromise addModule1(
-    JSString moduleURL,
+  external JSPromise addModule(
+    JSString moduleURL, [
     WorkletOptions options,
-  );
+  ]);
 }
 
 @JS()
@@ -4724,12 +4165,9 @@ extension WorkletOptionsExtension on WorkletOptions {
 
 @JS('Storage')
 @staticInterop
-class Storage {
-  external factory Storage();
-}
+class Storage {}
 
 extension StorageExtension on Storage {
-  external JSNumber get length;
   external JSString? key(JSNumber index);
   external JSString? getItem(JSString key);
   external JSVoid setItem(
@@ -4738,13 +4176,12 @@ extension StorageExtension on Storage {
   );
   external JSVoid removeItem(JSString key);
   external JSVoid clear();
+  external JSNumber get length;
 }
 
 @JS('WindowSessionStorage')
 @staticInterop
-class WindowSessionStorage {
-  external factory WindowSessionStorage();
-}
+class WindowSessionStorage {}
 
 extension WindowSessionStorageExtension on WindowSessionStorage {
   external Storage get sessionStorage;
@@ -4752,9 +4189,7 @@ extension WindowSessionStorageExtension on WindowSessionStorage {
 
 @JS('WindowLocalStorage')
 @staticInterop
-class WindowLocalStorage {
-  external factory WindowLocalStorage();
-}
+class WindowLocalStorage {}
 
 extension WindowLocalStorageExtension on WindowLocalStorage {
   external Storage get localStorage;
@@ -4762,65 +4197,16 @@ extension WindowLocalStorageExtension on WindowLocalStorage {
 
 @JS('StorageEvent')
 @staticInterop
-class StorageEvent extends Event {
-  external factory StorageEvent();
-
-  external factory StorageEvent.a1(JSString type);
-
-  external factory StorageEvent.a2(
-    JSString type,
+class StorageEvent implements Event {
+  external factory StorageEvent(
+    JSString type, [
     StorageEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension StorageEventExtension on StorageEvent {
-  external JSString? get key;
-  external JSString? get oldValue;
-  external JSString? get newValue;
-  external JSString get url;
-  external Storage? get storageArea;
-  external JSVoid initStorageEvent(JSString type);
-  external JSVoid initStorageEvent1(
-    JSString type,
-    JSBoolean bubbles,
-  );
-  external JSVoid initStorageEvent2(
-    JSString type,
-    JSBoolean bubbles,
-    JSBoolean cancelable,
-  );
-  external JSVoid initStorageEvent3(
-    JSString type,
-    JSBoolean bubbles,
-    JSBoolean cancelable,
-    JSString? key,
-  );
-  external JSVoid initStorageEvent4(
-    JSString type,
-    JSBoolean bubbles,
-    JSBoolean cancelable,
-    JSString? key,
-    JSString? oldValue,
-  );
-  external JSVoid initStorageEvent5(
-    JSString type,
-    JSBoolean bubbles,
-    JSBoolean cancelable,
-    JSString? key,
-    JSString? oldValue,
-    JSString? newValue,
-  );
-  external JSVoid initStorageEvent6(
-    JSString type,
-    JSBoolean bubbles,
-    JSBoolean cancelable,
-    JSString? key,
-    JSString? oldValue,
-    JSString? newValue,
-    JSString url,
-  );
-  external JSVoid initStorageEvent7(
-    JSString type,
+  external JSVoid initStorageEvent(
+    JSString type, [
     JSBoolean bubbles,
     JSBoolean cancelable,
     JSString? key,
@@ -4828,13 +4214,18 @@ extension StorageEventExtension on StorageEvent {
     JSString? newValue,
     JSString url,
     Storage? storageArea,
-  );
+  ]);
+  external JSString? get key;
+  external JSString? get oldValue;
+  external JSString? get newValue;
+  external JSString get url;
+  external Storage? get storageArea;
 }
 
 @JS()
 @staticInterop
 @anonymous
-class StorageEventInit extends EventInit {
+class StorageEventInit implements EventInit {
   external factory StorageEventInit({
     JSString? key,
     JSString? oldValue,
@@ -4859,11 +4250,13 @@ extension StorageEventInitExtension on StorageEventInit {
 
 @JS('HTMLMarqueeElement')
 @staticInterop
-class HTMLMarqueeElement extends HTMLElement {
-  external factory HTMLMarqueeElement.a0();
+class HTMLMarqueeElement implements HTMLElement {
+  external factory HTMLMarqueeElement();
 }
 
 extension HTMLMarqueeElementExtension on HTMLMarqueeElement {
+  external JSVoid start();
+  external JSVoid stop();
   external set behavior(JSString value);
   external JSString get behavior;
   external set bgColor(JSString value);
@@ -4886,14 +4279,12 @@ extension HTMLMarqueeElementExtension on HTMLMarqueeElement {
   external JSNumber get vspace;
   external set width(JSString value);
   external JSString get width;
-  external JSVoid start();
-  external JSVoid stop();
 }
 
 @JS('HTMLFrameSetElement')
 @staticInterop
-class HTMLFrameSetElement extends HTMLElement implements WindowEventHandlers {
-  external factory HTMLFrameSetElement.a0();
+class HTMLFrameSetElement implements HTMLElement, WindowEventHandlers {
+  external factory HTMLFrameSetElement();
 }
 
 extension HTMLFrameSetElementExtension on HTMLFrameSetElement {
@@ -4905,8 +4296,8 @@ extension HTMLFrameSetElementExtension on HTMLFrameSetElement {
 
 @JS('HTMLFrameElement')
 @staticInterop
-class HTMLFrameElement extends HTMLElement {
-  external factory HTMLFrameElement.a0();
+class HTMLFrameElement implements HTMLElement {
+  external factory HTMLFrameElement();
 }
 
 extension HTMLFrameElementExtension on HTMLFrameElement {
@@ -4932,8 +4323,8 @@ extension HTMLFrameElementExtension on HTMLFrameElement {
 
 @JS('HTMLDirectoryElement')
 @staticInterop
-class HTMLDirectoryElement extends HTMLElement {
-  external factory HTMLDirectoryElement.a0();
+class HTMLDirectoryElement implements HTMLElement {
+  external factory HTMLDirectoryElement();
 }
 
 extension HTMLDirectoryElementExtension on HTMLDirectoryElement {
@@ -4943,8 +4334,8 @@ extension HTMLDirectoryElementExtension on HTMLDirectoryElement {
 
 @JS('HTMLFontElement')
 @staticInterop
-class HTMLFontElement extends HTMLElement {
-  external factory HTMLFontElement.a0();
+class HTMLFontElement implements HTMLElement {
+  external factory HTMLFontElement();
 }
 
 extension HTMLFontElementExtension on HTMLFontElement {
@@ -4958,8 +4349,8 @@ extension HTMLFontElementExtension on HTMLFontElement {
 
 @JS('HTMLParamElement')
 @staticInterop
-class HTMLParamElement extends HTMLElement {
-  external factory HTMLParamElement.a0();
+class HTMLParamElement implements HTMLElement {
+  external factory HTMLParamElement();
 }
 
 extension HTMLParamElementExtension on HTMLParamElement {
@@ -4975,9 +4366,7 @@ extension HTMLParamElementExtension on HTMLParamElement {
 
 @JS('External')
 @staticInterop
-class External {
-  external factory External();
-}
+class External {}
 
 extension ExternalExtension on External {
   external JSVoid AddSearchProvider();

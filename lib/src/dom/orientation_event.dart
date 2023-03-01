@@ -12,15 +12,11 @@ import 'dom.dart';
 
 @JS('DeviceOrientationEvent')
 @staticInterop
-class DeviceOrientationEvent extends Event {
-  external factory DeviceOrientationEvent();
-
-  external factory DeviceOrientationEvent.a1(JSString type);
-
-  external factory DeviceOrientationEvent.a2(
-    JSString type,
+class DeviceOrientationEvent implements Event {
+  external factory DeviceOrientationEvent(
+    JSString type, [
     DeviceOrientationEventInit eventInitDict,
-  );
+  ]);
 
   external static JSPromise requestPermission();
 }
@@ -35,7 +31,7 @@ extension DeviceOrientationEventExtension on DeviceOrientationEvent {
 @JS()
 @staticInterop
 @anonymous
-class DeviceOrientationEventInit extends EventInit {
+class DeviceOrientationEventInit implements EventInit {
   external factory DeviceOrientationEventInit({
     JSNumber? alpha,
     JSNumber? beta,
@@ -57,9 +53,7 @@ extension DeviceOrientationEventInitExtension on DeviceOrientationEventInit {
 
 @JS('DeviceMotionEventAcceleration')
 @staticInterop
-class DeviceMotionEventAcceleration {
-  external factory DeviceMotionEventAcceleration();
-}
+class DeviceMotionEventAcceleration {}
 
 extension DeviceMotionEventAccelerationExtension
     on DeviceMotionEventAcceleration {
@@ -70,9 +64,7 @@ extension DeviceMotionEventAccelerationExtension
 
 @JS('DeviceMotionEventRotationRate')
 @staticInterop
-class DeviceMotionEventRotationRate {
-  external factory DeviceMotionEventRotationRate();
-}
+class DeviceMotionEventRotationRate {}
 
 extension DeviceMotionEventRotationRateExtension
     on DeviceMotionEventRotationRate {
@@ -83,15 +75,11 @@ extension DeviceMotionEventRotationRateExtension
 
 @JS('DeviceMotionEvent')
 @staticInterop
-class DeviceMotionEvent extends Event {
-  external factory DeviceMotionEvent();
-
-  external factory DeviceMotionEvent.a1(JSString type);
-
-  external factory DeviceMotionEvent.a2(
-    JSString type,
+class DeviceMotionEvent implements Event {
+  external factory DeviceMotionEvent(
+    JSString type, [
     DeviceMotionEventInit eventInitDict,
-  );
+  ]);
 
   external static JSPromise requestPermission();
 }
@@ -148,7 +136,7 @@ extension DeviceMotionEventRotationRateInitExtension
 @JS()
 @staticInterop
 @anonymous
-class DeviceMotionEventInit extends EventInit {
+class DeviceMotionEventInit implements EventInit {
   external factory DeviceMotionEventInit({
     DeviceMotionEventAccelerationInit acceleration,
     DeviceMotionEventAccelerationInit accelerationIncludingGravity,

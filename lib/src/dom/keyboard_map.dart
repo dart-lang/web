@@ -10,8 +10,6 @@ import 'package:js/js.dart' hide JS;
 
 @JS('KeyboardLayoutMap')
 @staticInterop
-class KeyboardLayoutMap {
-  external factory KeyboardLayoutMap();
-}
+class KeyboardLayoutMap {}
 
 extension KeyboardLayoutMapExtension on KeyboardLayoutMap {}

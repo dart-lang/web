@@ -10,6 +10,4 @@ import 'package:js/js.dart' hide JS;
 
 @JS('OES_texture_float')
 @staticInterop
-class OES_texture_float {
-  external factory OES_texture_float();
-}
+class OES_texture_float {}

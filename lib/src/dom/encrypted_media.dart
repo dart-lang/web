@@ -73,43 +73,28 @@ extension MediaKeySystemMediaCapabilityExtension
 
 @JS('MediaKeySystemAccess')
 @staticInterop
-class MediaKeySystemAccess {
-  external factory MediaKeySystemAccess();
-}
+class MediaKeySystemAccess {}
 
 extension MediaKeySystemAccessExtension on MediaKeySystemAccess {
-  external JSString get keySystem;
   external MediaKeySystemConfiguration getConfiguration();
   external JSPromise createMediaKeys();
+  external JSString get keySystem;
 }
 
 @JS('MediaKeys')
 @staticInterop
-class MediaKeys {
-  external factory MediaKeys();
-}
+class MediaKeys {}
 
 extension MediaKeysExtension on MediaKeys {
-  external MediaKeySession createSession();
-  external MediaKeySession createSession1(MediaKeySessionType sessionType);
+  external MediaKeySession createSession([MediaKeySessionType sessionType]);
   external JSPromise setServerCertificate(BufferSource serverCertificate);
 }
 
 @JS('MediaKeySession')
 @staticInterop
-class MediaKeySession extends EventTarget {
-  external factory MediaKeySession();
-}
+class MediaKeySession implements EventTarget {}
 
 extension MediaKeySessionExtension on MediaKeySession {
-  external JSString get sessionId;
-  external JSNumber get expiration;
-  external JSPromise get closed;
-  external MediaKeyStatusMap get keyStatuses;
-  external set onkeystatuseschange(EventHandler value);
-  external EventHandler get onkeystatuseschange;
-  external set onmessage(EventHandler value);
-  external EventHandler get onmessage;
   external JSPromise generateRequest(
     JSString initDataType,
     BufferSource initData,
@@ -118,26 +103,30 @@ extension MediaKeySessionExtension on MediaKeySession {
   external JSPromise update(BufferSource response);
   external JSPromise close();
   external JSPromise remove();
+  external JSString get sessionId;
+  external JSNumber get expiration;
+  external JSPromise get closed;
+  external MediaKeyStatusMap get keyStatuses;
+  external set onkeystatuseschange(EventHandler value);
+  external EventHandler get onkeystatuseschange;
+  external set onmessage(EventHandler value);
+  external EventHandler get onmessage;
 }
 
 @JS('MediaKeyStatusMap')
 @staticInterop
-class MediaKeyStatusMap {
-  external factory MediaKeyStatusMap();
-}
+class MediaKeyStatusMap {}
 
 extension MediaKeyStatusMapExtension on MediaKeyStatusMap {
-  external JSNumber get size;
   external JSBoolean has(BufferSource keyId);
   external JSAny get(BufferSource keyId);
+  external JSNumber get size;
 }
 
 @JS('MediaKeyMessageEvent')
 @staticInterop
-class MediaKeyMessageEvent extends Event {
-  external factory MediaKeyMessageEvent();
-
-  external factory MediaKeyMessageEvent.a1(
+class MediaKeyMessageEvent implements Event {
+  external factory MediaKeyMessageEvent(
     JSString type,
     MediaKeyMessageEventInit eventInitDict,
   );
@@ -151,7 +140,7 @@ extension MediaKeyMessageEventExtension on MediaKeyMessageEvent {
 @JS()
 @staticInterop
 @anonymous
-class MediaKeyMessageEventInit extends EventInit {
+class MediaKeyMessageEventInit implements EventInit {
   external factory MediaKeyMessageEventInit({
     required MediaKeyMessageType messageType,
     required JSArrayBuffer message,
@@ -167,15 +156,11 @@ extension MediaKeyMessageEventInitExtension on MediaKeyMessageEventInit {
 
 @JS('MediaEncryptedEvent')
 @staticInterop
-class MediaEncryptedEvent extends Event {
-  external factory MediaEncryptedEvent();
-
-  external factory MediaEncryptedEvent.a1(JSString type);
-
-  external factory MediaEncryptedEvent.a2(
-    JSString type,
+class MediaEncryptedEvent implements Event {
+  external factory MediaEncryptedEvent(
+    JSString type, [
     MediaEncryptedEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension MediaEncryptedEventExtension on MediaEncryptedEvent {
@@ -186,7 +171,7 @@ extension MediaEncryptedEventExtension on MediaEncryptedEvent {
 @JS()
 @staticInterop
 @anonymous
-class MediaEncryptedEventInit extends EventInit {
+class MediaEncryptedEventInit implements EventInit {
   external factory MediaEncryptedEventInit({
     JSString initDataType = '',
     JSArrayBuffer? initData,

@@ -30,36 +30,26 @@ typedef ReadableStreamType = JSString;
 @JS('ReadableStream')
 @staticInterop
 class ReadableStream {
-  external factory ReadableStream();
-
-  external factory ReadableStream.a1();
-
-  external factory ReadableStream.a2(JSObject underlyingSource);
-
-  external factory ReadableStream.a3(
+  external factory ReadableStream([
     JSObject underlyingSource,
     QueuingStrategy strategy,
-  );
+  ]);
 }
 
 extension ReadableStreamExtension on ReadableStream {
-  external JSBoolean get locked;
-  external JSPromise cancel();
-  external JSPromise cancel1(JSAny reason);
-  external ReadableStreamReader getReader();
-  external ReadableStreamReader getReader1(
-      ReadableStreamGetReaderOptions options);
-  external ReadableStream pipeThrough(ReadableWritablePair transform);
-  external ReadableStream pipeThrough1(
-    ReadableWritablePair transform,
+  external JSPromise cancel([JSAny reason]);
+  external ReadableStreamReader getReader(
+      [ReadableStreamGetReaderOptions options]);
+  external ReadableStream pipeThrough(
+    ReadableWritablePair transform, [
     StreamPipeOptions options,
-  );
-  external JSPromise pipeTo(WritableStream destination);
-  external JSPromise pipeTo1(
-    WritableStream destination,
+  ]);
+  external JSPromise pipeTo(
+    WritableStream destination, [
     StreamPipeOptions options,
-  );
+  ]);
   external JSArray tee();
+  external JSBoolean get locked;
 }
 
 @JS()
@@ -158,22 +148,17 @@ extension UnderlyingSourceExtension on UnderlyingSource {
 
 @JS('ReadableStreamGenericReader')
 @staticInterop
-class ReadableStreamGenericReader {
-  external factory ReadableStreamGenericReader();
-}
+class ReadableStreamGenericReader {}
 
 extension ReadableStreamGenericReaderExtension on ReadableStreamGenericReader {
+  external JSPromise cancel([JSAny reason]);
   external JSPromise get closed;
-  external JSPromise cancel();
-  external JSPromise cancel1(JSAny reason);
 }
 
 @JS('ReadableStreamDefaultReader')
 @staticInterop
 class ReadableStreamDefaultReader implements ReadableStreamGenericReader {
-  external factory ReadableStreamDefaultReader();
-
-  external factory ReadableStreamDefaultReader.a1(ReadableStream stream);
+  external factory ReadableStreamDefaultReader(ReadableStream stream);
 }
 
 extension ReadableStreamDefaultReaderExtension on ReadableStreamDefaultReader {
@@ -201,9 +186,7 @@ extension ReadableStreamReadResultExtension on ReadableStreamReadResult {
 @JS('ReadableStreamBYOBReader')
 @staticInterop
 class ReadableStreamBYOBReader implements ReadableStreamGenericReader {
-  external factory ReadableStreamBYOBReader();
-
-  external factory ReadableStreamBYOBReader.a1(ReadableStream stream);
+  external factory ReadableStreamBYOBReader(ReadableStream stream);
 }
 
 extension ReadableStreamBYOBReaderExtension on ReadableStreamBYOBReader {
@@ -213,69 +196,53 @@ extension ReadableStreamBYOBReaderExtension on ReadableStreamBYOBReader {
 
 @JS('ReadableStreamDefaultController')
 @staticInterop
-class ReadableStreamDefaultController {
-  external factory ReadableStreamDefaultController();
-}
+class ReadableStreamDefaultController {}
 
 extension ReadableStreamDefaultControllerExtension
     on ReadableStreamDefaultController {
-  external JSNumber? get desiredSize;
   external JSVoid close();
-  external JSVoid enqueue();
-  external JSVoid enqueue1(JSAny chunk);
-  external JSVoid error();
-  external JSVoid error1(JSAny e);
+  external JSVoid enqueue([JSAny chunk]);
+  external JSVoid error([JSAny e]);
+  external JSNumber? get desiredSize;
 }
 
 @JS('ReadableByteStreamController')
 @staticInterop
-class ReadableByteStreamController {
-  external factory ReadableByteStreamController();
-}
+class ReadableByteStreamController {}
 
 extension ReadableByteStreamControllerExtension
     on ReadableByteStreamController {
-  external ReadableStreamBYOBRequest? get byobRequest;
-  external JSNumber? get desiredSize;
   external JSVoid close();
   external JSVoid enqueue(ArrayBufferView chunk);
-  external JSVoid error();
-  external JSVoid error1(JSAny e);
+  external JSVoid error([JSAny e]);
+  external ReadableStreamBYOBRequest? get byobRequest;
+  external JSNumber? get desiredSize;
 }
 
 @JS('ReadableStreamBYOBRequest')
 @staticInterop
-class ReadableStreamBYOBRequest {
-  external factory ReadableStreamBYOBRequest();
-}
+class ReadableStreamBYOBRequest {}
 
 extension ReadableStreamBYOBRequestExtension on ReadableStreamBYOBRequest {
-  external ArrayBufferView? get view;
   external JSVoid respond(JSNumber bytesWritten);
   external JSVoid respondWithNewView(ArrayBufferView view);
+  external ArrayBufferView? get view;
 }
 
 @JS('WritableStream')
 @staticInterop
 class WritableStream {
-  external factory WritableStream();
-
-  external factory WritableStream.a1();
-
-  external factory WritableStream.a2(JSObject underlyingSink);
-
-  external factory WritableStream.a3(
+  external factory WritableStream([
     JSObject underlyingSink,
     QueuingStrategy strategy,
-  );
+  ]);
 }
 
 extension WritableStreamExtension on WritableStream {
-  external JSBoolean get locked;
-  external JSPromise abort();
-  external JSPromise abort1(JSAny reason);
+  external JSPromise abort([JSAny reason]);
   external JSPromise close();
   external WritableStreamDefaultWriter getWriter();
+  external JSBoolean get locked;
 }
 
 @JS()
@@ -307,55 +274,37 @@ extension UnderlyingSinkExtension on UnderlyingSink {
 @JS('WritableStreamDefaultWriter')
 @staticInterop
 class WritableStreamDefaultWriter {
-  external factory WritableStreamDefaultWriter();
-
-  external factory WritableStreamDefaultWriter.a1(WritableStream stream);
+  external factory WritableStreamDefaultWriter(WritableStream stream);
 }
 
 extension WritableStreamDefaultWriterExtension on WritableStreamDefaultWriter {
+  external JSPromise abort([JSAny reason]);
+  external JSPromise close();
+  external JSVoid releaseLock();
+  external JSPromise write([JSAny chunk]);
   external JSPromise get closed;
   external JSNumber? get desiredSize;
   external JSPromise get ready;
-  external JSPromise abort();
-  external JSPromise abort1(JSAny reason);
-  external JSPromise close();
-  external JSVoid releaseLock();
-  external JSPromise write();
-  external JSPromise write1(JSAny chunk);
 }
 
 @JS('WritableStreamDefaultController')
 @staticInterop
-class WritableStreamDefaultController {
-  external factory WritableStreamDefaultController();
-}
+class WritableStreamDefaultController {}
 
 extension WritableStreamDefaultControllerExtension
     on WritableStreamDefaultController {
+  external JSVoid error([JSAny e]);
   external AbortSignal get signal;
-  external JSVoid error();
-  external JSVoid error1(JSAny e);
 }
 
 @JS('TransformStream')
 @staticInterop
 class TransformStream {
-  external factory TransformStream();
-
-  external factory TransformStream.a1();
-
-  external factory TransformStream.a2(JSObject transformer);
-
-  external factory TransformStream.a3(
-    JSObject transformer,
-    QueuingStrategy writableStrategy,
-  );
-
-  external factory TransformStream.a4(
+  external factory TransformStream([
     JSObject transformer,
     QueuingStrategy writableStrategy,
     QueuingStrategy readableStrategy,
-  );
+  ]);
 }
 
 extension TransformStreamExtension on TransformStream {
@@ -391,18 +340,14 @@ extension TransformerExtension on Transformer {
 
 @JS('TransformStreamDefaultController')
 @staticInterop
-class TransformStreamDefaultController {
-  external factory TransformStreamDefaultController();
-}
+class TransformStreamDefaultController {}
 
 extension TransformStreamDefaultControllerExtension
     on TransformStreamDefaultController {
-  external JSNumber? get desiredSize;
-  external JSVoid enqueue();
-  external JSVoid enqueue1(JSAny chunk);
-  external JSVoid error();
-  external JSVoid error1(JSAny reason);
+  external JSVoid enqueue([JSAny chunk]);
+  external JSVoid error([JSAny reason]);
   external JSVoid terminate();
+  external JSNumber? get desiredSize;
 }
 
 @JS()
@@ -437,9 +382,7 @@ extension QueuingStrategyInitExtension on QueuingStrategyInit {
 @JS('ByteLengthQueuingStrategy')
 @staticInterop
 class ByteLengthQueuingStrategy {
-  external factory ByteLengthQueuingStrategy();
-
-  external factory ByteLengthQueuingStrategy.a1(QueuingStrategyInit init);
+  external factory ByteLengthQueuingStrategy(QueuingStrategyInit init);
 }
 
 extension ByteLengthQueuingStrategyExtension on ByteLengthQueuingStrategy {
@@ -450,9 +393,7 @@ extension ByteLengthQueuingStrategyExtension on ByteLengthQueuingStrategy {
 @JS('CountQueuingStrategy')
 @staticInterop
 class CountQueuingStrategy {
-  external factory CountQueuingStrategy();
-
-  external factory CountQueuingStrategy.a1(QueuingStrategyInit init);
+  external factory CountQueuingStrategy(QueuingStrategyInit init);
 }
 
 extension CountQueuingStrategyExtension on CountQueuingStrategy {
@@ -462,9 +403,7 @@ extension CountQueuingStrategyExtension on CountQueuingStrategy {
 
 @JS('GenericTransformStream')
 @staticInterop
-class GenericTransformStream {
-  external factory GenericTransformStream();
-}
+class GenericTransformStream {}
 
 extension GenericTransformStreamExtension on GenericTransformStream {
   external ReadableStream get readable;

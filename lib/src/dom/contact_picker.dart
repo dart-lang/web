@@ -12,9 +12,7 @@ typedef ContactProperty = JSString;
 
 @JS('ContactAddress')
 @staticInterop
-class ContactAddress {
-  external factory ContactAddress();
-}
+class ContactAddress {}
 
 extension ContactAddressExtension on ContactAddress {
   external JSObject toJSON();
@@ -70,15 +68,12 @@ extension ContactsSelectOptionsExtension on ContactsSelectOptions {
 
 @JS('ContactsManager')
 @staticInterop
-class ContactsManager {
-  external factory ContactsManager();
-}
+class ContactsManager {}
 
 extension ContactsManagerExtension on ContactsManager {
   external JSPromise getProperties();
-  external JSPromise select(JSArray properties);
-  external JSPromise select1(
-    JSArray properties,
+  external JSPromise select(
+    JSArray properties, [
     ContactsSelectOptions options,
-  );
+  ]);
 }

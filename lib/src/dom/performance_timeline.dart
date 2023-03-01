@@ -15,31 +15,26 @@ typedef PerformanceObserverCallback = JSFunction;
 
 @JS('PerformanceEntry')
 @staticInterop
-class PerformanceEntry {
-  external factory PerformanceEntry();
-}
+class PerformanceEntry {}
 
 extension PerformanceEntryExtension on PerformanceEntry {
+  external JSObject toJSON();
   external JSString get name;
   external JSString get entryType;
   external DOMHighResTimeStamp get startTime;
   external DOMHighResTimeStamp get duration;
-  external JSObject toJSON();
 }
 
 @JS('PerformanceObserver')
 @staticInterop
 class PerformanceObserver {
-  external factory PerformanceObserver();
-
-  external factory PerformanceObserver.a1(PerformanceObserverCallback callback);
+  external factory PerformanceObserver(PerformanceObserverCallback callback);
 
   external static JSArray get supportedEntryTypes;
 }
 
 extension PerformanceObserverExtension on PerformanceObserver {
-  external JSVoid observe();
-  external JSVoid observe1(PerformanceObserverInit options);
+  external JSVoid observe([PerformanceObserverInit options]);
   external JSVoid disconnect();
   external PerformanceEntryList takeRecords();
 }
@@ -83,17 +78,14 @@ extension PerformanceObserverInitExtension on PerformanceObserverInit {
 
 @JS('PerformanceObserverEntryList')
 @staticInterop
-class PerformanceObserverEntryList {
-  external factory PerformanceObserverEntryList();
-}
+class PerformanceObserverEntryList {}
 
 extension PerformanceObserverEntryListExtension
     on PerformanceObserverEntryList {
   external PerformanceEntryList getEntries();
   external PerformanceEntryList getEntriesByType(JSString type);
-  external PerformanceEntryList getEntriesByName(JSString name);
-  external PerformanceEntryList getEntriesByName1(
-    JSString name,
+  external PerformanceEntryList getEntriesByName(
+    JSString name, [
     JSString type,
-  );
+  ]);
 }

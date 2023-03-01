@@ -9,9 +9,7 @@ import 'dart:js_interop';
 import 'package:js/js.dart' hide JS;
 
 import 'dom.dart';
-import 'fileapi.dart';
 import 'html.dart';
-import 'webidl.dart';
 import 'websockets.dart';
 
 typedef PresentationConnectionState = JSString;
@@ -19,9 +17,7 @@ typedef PresentationConnectionCloseReason = JSString;
 
 @JS('Presentation')
 @staticInterop
-class Presentation {
-  external factory Presentation();
-}
+class Presentation {}
 
 extension PresentationExtension on Presentation {
   external set defaultRequest(PresentationRequest? value);
@@ -31,12 +27,8 @@ extension PresentationExtension on Presentation {
 
 @JS('PresentationRequest')
 @staticInterop
-class PresentationRequest extends EventTarget {
-  external factory PresentationRequest();
-
-  external factory PresentationRequest.a1(JSString url);
-
-  external factory PresentationRequest.a2(JSArray urls);
+class PresentationRequest implements EventTarget {
+  external factory PresentationRequest(JSAny urlOrUrls);
 }
 
 extension PresentationRequestExtension on PresentationRequest {
@@ -49,9 +41,7 @@ extension PresentationRequestExtension on PresentationRequest {
 
 @JS('PresentationAvailability')
 @staticInterop
-class PresentationAvailability extends EventTarget {
-  external factory PresentationAvailability();
-}
+class PresentationAvailability implements EventTarget {}
 
 extension PresentationAvailabilityExtension on PresentationAvailability {
   external JSBoolean get value;
@@ -61,10 +51,8 @@ extension PresentationAvailabilityExtension on PresentationAvailability {
 
 @JS('PresentationConnectionAvailableEvent')
 @staticInterop
-class PresentationConnectionAvailableEvent extends Event {
-  external factory PresentationConnectionAvailableEvent();
-
-  external factory PresentationConnectionAvailableEvent.a1(
+class PresentationConnectionAvailableEvent implements Event {
+  external factory PresentationConnectionAvailableEvent(
     JSString type,
     PresentationConnectionAvailableEventInit eventInitDict,
   );
@@ -78,7 +66,7 @@ extension PresentationConnectionAvailableEventExtension
 @JS()
 @staticInterop
 @anonymous
-class PresentationConnectionAvailableEventInit extends EventInit {
+class PresentationConnectionAvailableEventInit implements EventInit {
   external factory PresentationConnectionAvailableEventInit(
       {required PresentationConnection connection});
 }
@@ -91,16 +79,15 @@ extension PresentationConnectionAvailableEventInitExtension
 
 @JS('PresentationConnection')
 @staticInterop
-class PresentationConnection extends EventTarget {
-  external factory PresentationConnection();
-}
+class PresentationConnection implements EventTarget {}
 
 extension PresentationConnectionExtension on PresentationConnection {
+  external JSVoid close();
+  external JSVoid terminate();
+  external JSVoid send(JSAny dataOrMessage);
   external JSString get id;
   external JSString get url;
   external PresentationConnectionState get state;
-  external JSVoid close();
-  external JSVoid terminate();
   external set onconnect(EventHandler value);
   external EventHandler get onconnect;
   external set onclose(EventHandler value);
@@ -111,21 +98,12 @@ extension PresentationConnectionExtension on PresentationConnection {
   external BinaryType get binaryType;
   external set onmessage(EventHandler value);
   external EventHandler get onmessage;
-  external JSVoid send(JSString message);
-  @JS('send')
-  external JSVoid send_1_(Blob data);
-  @JS('send')
-  external JSVoid send_2_(JSArrayBuffer data);
-  @JS('send')
-  external JSVoid send_3_(ArrayBufferView data);
 }
 
 @JS('PresentationConnectionCloseEvent')
 @staticInterop
-class PresentationConnectionCloseEvent extends Event {
-  external factory PresentationConnectionCloseEvent();
-
-  external factory PresentationConnectionCloseEvent.a1(
+class PresentationConnectionCloseEvent implements Event {
+  external factory PresentationConnectionCloseEvent(
     JSString type,
     PresentationConnectionCloseEventInit eventInitDict,
   );
@@ -140,7 +118,7 @@ extension PresentationConnectionCloseEventExtension
 @JS()
 @staticInterop
 @anonymous
-class PresentationConnectionCloseEventInit extends EventInit {
+class PresentationConnectionCloseEventInit implements EventInit {
   external factory PresentationConnectionCloseEventInit({
     required PresentationConnectionCloseReason reason,
     JSString message = '',
@@ -157,9 +135,7 @@ extension PresentationConnectionCloseEventInitExtension
 
 @JS('PresentationReceiver')
 @staticInterop
-class PresentationReceiver {
-  external factory PresentationReceiver();
-}
+class PresentationReceiver {}
 
 extension PresentationReceiverExtension on PresentationReceiver {
   external JSPromise get connectionList;
@@ -167,9 +143,7 @@ extension PresentationReceiverExtension on PresentationReceiver {
 
 @JS('PresentationConnectionList')
 @staticInterop
-class PresentationConnectionList extends EventTarget {
-  external factory PresentationConnectionList();
-}
+class PresentationConnectionList implements EventTarget {}
 
 extension PresentationConnectionListExtension on PresentationConnectionList {
   external JSArray get connections;

@@ -16,22 +16,18 @@ typedef PaymentShippingType = JSString;
 
 @JS('PaymentManager')
 @staticInterop
-class PaymentManager {
-  external factory PaymentManager();
-}
+class PaymentManager {}
 
 extension PaymentManagerExtension on PaymentManager {
+  external JSPromise enableDelegations(JSArray delegations);
   external set userHint(JSString value);
   external JSString get userHint;
-  external JSPromise enableDelegations(JSArray delegations);
 }
 
 @JS('CanMakePaymentEvent')
 @staticInterop
-class CanMakePaymentEvent extends ExtendableEvent {
-  external factory CanMakePaymentEvent();
-
-  external factory CanMakePaymentEvent.a1(JSString type);
+class CanMakePaymentEvent implements ExtendableEvent {
+  external factory CanMakePaymentEvent(JSString type);
 }
 
 extension CanMakePaymentEventExtension on CanMakePaymentEvent {
@@ -69,18 +65,22 @@ extension PaymentRequestDetailsUpdateExtension on PaymentRequestDetailsUpdate {
 
 @JS('PaymentRequestEvent')
 @staticInterop
-class PaymentRequestEvent extends ExtendableEvent {
-  external factory PaymentRequestEvent();
-
-  external factory PaymentRequestEvent.a1(JSString type);
-
-  external factory PaymentRequestEvent.a2(
-    JSString type,
+class PaymentRequestEvent implements ExtendableEvent {
+  external factory PaymentRequestEvent(
+    JSString type, [
     PaymentRequestEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension PaymentRequestEventExtension on PaymentRequestEvent {
+  external JSPromise openWindow(JSString url);
+  external JSPromise changePaymentMethod(
+    JSString methodName, [
+    JSObject? methodDetails,
+  ]);
+  external JSPromise changeShippingAddress([AddressInit shippingAddress]);
+  external JSPromise changeShippingOption(JSString shippingOption);
+  external JSVoid respondWith(JSPromise handlerResponsePromise);
   external JSString get topOrigin;
   external JSString get paymentRequestOrigin;
   external JSString get paymentRequestId;
@@ -89,22 +89,12 @@ extension PaymentRequestEventExtension on PaymentRequestEvent {
   external JSArray get modifiers;
   external JSObject? get paymentOptions;
   external JSArray? get shippingOptions;
-  external JSPromise openWindow(JSString url);
-  external JSPromise changePaymentMethod(JSString methodName);
-  external JSPromise changePaymentMethod1(
-    JSString methodName,
-    JSObject? methodDetails,
-  );
-  external JSPromise changeShippingAddress();
-  external JSPromise changeShippingAddress1(AddressInit shippingAddress);
-  external JSPromise changeShippingOption(JSString shippingOption);
-  external JSVoid respondWith(JSPromise handlerResponsePromise);
 }
 
 @JS()
 @staticInterop
 @anonymous
-class PaymentRequestEventInit extends ExtendableEventInit {
+class PaymentRequestEventInit implements ExtendableEventInit {
   external factory PaymentRequestEventInit({
     JSString topOrigin,
     JSString paymentRequestOrigin,

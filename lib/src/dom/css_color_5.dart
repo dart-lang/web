@@ -12,9 +12,7 @@ import 'cssom.dart';
 
 @JS('CSSColorProfileRule')
 @staticInterop
-class CSSColorProfileRule extends CSSRule {
-  external factory CSSColorProfileRule();
-}
+class CSSColorProfileRule implements CSSRule {}
 
 extension CSSColorProfileRuleExtension on CSSColorProfileRule {
   external JSString get name;

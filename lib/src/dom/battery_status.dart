@@ -13,9 +13,7 @@ import 'html.dart';
 
 @JS('BatteryManager')
 @staticInterop
-class BatteryManager extends EventTarget {
-  external factory BatteryManager();
-}
+class BatteryManager implements EventTarget {}
 
 extension BatteryManagerExtension on BatteryManager {
   external JSBoolean get charging;

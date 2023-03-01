@@ -15,9 +15,7 @@ typedef LockMode = JSString;
 
 @JS('NavigatorLocks')
 @staticInterop
-class NavigatorLocks {
-  external factory NavigatorLocks();
-}
+class NavigatorLocks {}
 
 extension NavigatorLocksExtension on NavigatorLocks {
   external LockManager get locks;
@@ -25,21 +23,14 @@ extension NavigatorLocksExtension on NavigatorLocks {
 
 @JS('LockManager')
 @staticInterop
-class LockManager {
-  external factory LockManager();
-}
+class LockManager {}
 
 extension LockManagerExtension on LockManager {
   external JSPromise request(
     JSString name,
+    JSAny callbackOrOptions, [
     LockGrantedCallback callback,
-  );
-  @JS('request')
-  external JSPromise request_1_(
-    JSString name,
-    LockOptions options,
-    LockGrantedCallback callback,
-  );
+  ]);
   external JSPromise query();
 }
 
@@ -105,9 +96,7 @@ extension LockInfoExtension on LockInfo {
 
 @JS('Lock')
 @staticInterop
-class Lock {
-  external factory Lock();
-}
+class Lock {}
 
 extension LockExtension on Lock {
   external JSString get name;

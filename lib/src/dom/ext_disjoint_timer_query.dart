@@ -14,15 +14,11 @@ typedef GLuint64EXT = JSNumber;
 
 @JS('WebGLTimerQueryEXT')
 @staticInterop
-class WebGLTimerQueryEXT extends WebGLObject {
-  external factory WebGLTimerQueryEXT();
-}
+class WebGLTimerQueryEXT implements WebGLObject {}
 
 @JS('EXT_disjoint_timer_query')
 @staticInterop
 class EXT_disjoint_timer_query {
-  external factory EXT_disjoint_timer_query();
-
   external static GLenum get QUERY_COUNTER_BITS_EXT;
   external static GLenum get CURRENT_QUERY_EXT;
   external static GLenum get QUERY_RESULT_EXT;

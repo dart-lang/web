@@ -38,7 +38,7 @@ extension BluetoothDataFilterInitExtension on BluetoothDataFilterInit {
 @JS()
 @staticInterop
 @anonymous
-class BluetoothManufacturerDataFilterInit extends BluetoothDataFilterInit {
+class BluetoothManufacturerDataFilterInit implements BluetoothDataFilterInit {
   external factory BluetoothManufacturerDataFilterInit(
       {required JSNumber companyIdentifier});
 }
@@ -52,7 +52,7 @@ extension BluetoothManufacturerDataFilterInitExtension
 @JS()
 @staticInterop
 @anonymous
-class BluetoothServiceDataFilterInit extends BluetoothDataFilterInit {
+class BluetoothServiceDataFilterInit implements BluetoothDataFilterInit {
   external factory BluetoothServiceDataFilterInit(
       {required BluetoothServiceUUID service});
 }
@@ -114,28 +114,26 @@ extension RequestDeviceOptionsExtension on RequestDeviceOptions {
 
 @JS('Bluetooth')
 @staticInterop
-class Bluetooth extends EventTarget
+class Bluetooth
     implements
+        EventTarget,
         BluetoothDeviceEventHandlers,
         CharacteristicEventHandlers,
-        ServiceEventHandlers {
-  external factory Bluetooth();
-}
+        ServiceEventHandlers {}
 
 extension BluetoothExtension on Bluetooth {
   external JSPromise getAvailability();
+  external JSPromise getDevices();
+  external JSPromise requestDevice([RequestDeviceOptions options]);
   external set onavailabilitychanged(EventHandler value);
   external EventHandler get onavailabilitychanged;
   external BluetoothDevice? get referringDevice;
-  external JSPromise getDevices();
-  external JSPromise requestDevice();
-  external JSPromise requestDevice1(RequestDeviceOptions options);
 }
 
 @JS()
 @staticInterop
 @anonymous
-class BluetoothPermissionDescriptor extends PermissionDescriptor {
+class BluetoothPermissionDescriptor implements PermissionDescriptor {
   external factory BluetoothPermissionDescriptor({
     JSString deviceId,
     JSArray filters,
@@ -197,9 +195,7 @@ extension BluetoothPermissionStorageExtension on BluetoothPermissionStorage {
 
 @JS('BluetoothPermissionResult')
 @staticInterop
-class BluetoothPermissionResult extends PermissionStatus {
-  external factory BluetoothPermissionResult();
-}
+class BluetoothPermissionResult implements PermissionStatus {}
 
 extension BluetoothPermissionResultExtension on BluetoothPermissionResult {
   external set devices(JSArray value);
@@ -208,15 +204,11 @@ extension BluetoothPermissionResultExtension on BluetoothPermissionResult {
 
 @JS('ValueEvent')
 @staticInterop
-class ValueEvent extends Event {
-  external factory ValueEvent();
-
-  external factory ValueEvent.a1(JSString type);
-
-  external factory ValueEvent.a2(
-    JSString type,
+class ValueEvent implements Event {
+  external factory ValueEvent(
+    JSString type, [
     ValueEventInit initDict,
-  );
+  ]);
 }
 
 extension ValueEventExtension on ValueEvent {
@@ -226,7 +218,7 @@ extension ValueEventExtension on ValueEvent {
 @JS()
 @staticInterop
 @anonymous
-class ValueEventInit extends EventInit {
+class ValueEventInit implements EventInit {
   external factory ValueEventInit({JSAny value});
 }
 
@@ -237,21 +229,19 @@ extension ValueEventInitExtension on ValueEventInit {
 
 @JS('BluetoothDevice')
 @staticInterop
-class BluetoothDevice extends EventTarget
+class BluetoothDevice
     implements
+        EventTarget,
         BluetoothDeviceEventHandlers,
         CharacteristicEventHandlers,
-        ServiceEventHandlers {
-  external factory BluetoothDevice();
-}
+        ServiceEventHandlers {}
 
 extension BluetoothDeviceExtension on BluetoothDevice {
+  external JSPromise forget();
+  external JSPromise watchAdvertisements([WatchAdvertisementsOptions options]);
   external JSString get id;
   external JSString? get name;
   external BluetoothRemoteGATTServer? get gatt;
-  external JSPromise forget();
-  external JSPromise watchAdvertisements();
-  external JSPromise watchAdvertisements1(WatchAdvertisementsOptions options);
   external JSBoolean get watchingAdvertisements;
 }
 
@@ -269,27 +259,21 @@ extension WatchAdvertisementsOptionsExtension on WatchAdvertisementsOptions {
 
 @JS('BluetoothManufacturerDataMap')
 @staticInterop
-class BluetoothManufacturerDataMap {
-  external factory BluetoothManufacturerDataMap();
-}
+class BluetoothManufacturerDataMap {}
 
 extension BluetoothManufacturerDataMapExtension
     on BluetoothManufacturerDataMap {}
 
 @JS('BluetoothServiceDataMap')
 @staticInterop
-class BluetoothServiceDataMap {
-  external factory BluetoothServiceDataMap();
-}
+class BluetoothServiceDataMap {}
 
 extension BluetoothServiceDataMapExtension on BluetoothServiceDataMap {}
 
 @JS('BluetoothAdvertisingEvent')
 @staticInterop
-class BluetoothAdvertisingEvent extends Event {
-  external factory BluetoothAdvertisingEvent();
-
-  external factory BluetoothAdvertisingEvent.a1(
+class BluetoothAdvertisingEvent implements Event {
+  external factory BluetoothAdvertisingEvent(
     JSString type,
     BluetoothAdvertisingEventInit init,
   );
@@ -309,7 +293,7 @@ extension BluetoothAdvertisingEventExtension on BluetoothAdvertisingEvent {
 @JS()
 @staticInterop
 @anonymous
-class BluetoothAdvertisingEventInit extends EventInit {
+class BluetoothAdvertisingEventInit implements EventInit {
   external factory BluetoothAdvertisingEventInit({
     required BluetoothDevice device,
     JSArray uuids,
@@ -344,70 +328,58 @@ extension BluetoothAdvertisingEventInitExtension
 
 @JS('BluetoothRemoteGATTServer')
 @staticInterop
-class BluetoothRemoteGATTServer {
-  external factory BluetoothRemoteGATTServer();
-}
+class BluetoothRemoteGATTServer {}
 
 extension BluetoothRemoteGATTServerExtension on BluetoothRemoteGATTServer {
-  external BluetoothDevice get device;
-  external JSBoolean get connected;
   external JSPromise connect();
   external JSVoid disconnect();
   external JSPromise getPrimaryService(BluetoothServiceUUID service);
-  external JSPromise getPrimaryServices();
-  external JSPromise getPrimaryServices1(BluetoothServiceUUID service);
+  external JSPromise getPrimaryServices([BluetoothServiceUUID service]);
+  external BluetoothDevice get device;
+  external JSBoolean get connected;
 }
 
 @JS('BluetoothRemoteGATTService')
 @staticInterop
-class BluetoothRemoteGATTService extends EventTarget
-    implements CharacteristicEventHandlers, ServiceEventHandlers {
-  external factory BluetoothRemoteGATTService();
-}
+class BluetoothRemoteGATTService
+    implements EventTarget, CharacteristicEventHandlers, ServiceEventHandlers {}
 
 extension BluetoothRemoteGATTServiceExtension on BluetoothRemoteGATTService {
+  external JSPromise getCharacteristic(
+      BluetoothCharacteristicUUID characteristic);
+  external JSPromise getCharacteristics(
+      [BluetoothCharacteristicUUID characteristic]);
+  external JSPromise getIncludedService(BluetoothServiceUUID service);
+  external JSPromise getIncludedServices([BluetoothServiceUUID service]);
   external BluetoothDevice get device;
   external UUID get uuid;
   external JSBoolean get isPrimary;
-  external JSPromise getCharacteristic(
-      BluetoothCharacteristicUUID characteristic);
-  external JSPromise getCharacteristics();
-  external JSPromise getCharacteristics1(
-      BluetoothCharacteristicUUID characteristic);
-  external JSPromise getIncludedService(BluetoothServiceUUID service);
-  external JSPromise getIncludedServices();
-  external JSPromise getIncludedServices1(BluetoothServiceUUID service);
 }
 
 @JS('BluetoothRemoteGATTCharacteristic')
 @staticInterop
-class BluetoothRemoteGATTCharacteristic extends EventTarget
-    implements CharacteristicEventHandlers {
-  external factory BluetoothRemoteGATTCharacteristic();
-}
+class BluetoothRemoteGATTCharacteristic
+    implements EventTarget, CharacteristicEventHandlers {}
 
 extension BluetoothRemoteGATTCharacteristicExtension
     on BluetoothRemoteGATTCharacteristic {
-  external BluetoothRemoteGATTService get service;
-  external UUID get uuid;
-  external BluetoothCharacteristicProperties get properties;
-  external JSDataView? get value;
   external JSPromise getDescriptor(BluetoothDescriptorUUID descriptor);
-  external JSPromise getDescriptors();
-  external JSPromise getDescriptors1(BluetoothDescriptorUUID descriptor);
+  external JSPromise getDescriptors([BluetoothDescriptorUUID descriptor]);
   external JSPromise readValue();
   external JSPromise writeValue(BufferSource value);
   external JSPromise writeValueWithResponse(BufferSource value);
   external JSPromise writeValueWithoutResponse(BufferSource value);
   external JSPromise startNotifications();
   external JSPromise stopNotifications();
+  external BluetoothRemoteGATTService get service;
+  external UUID get uuid;
+  external BluetoothCharacteristicProperties get properties;
+  external JSDataView? get value;
 }
 
 @JS('BluetoothCharacteristicProperties')
 @staticInterop
-class BluetoothCharacteristicProperties {
-  external factory BluetoothCharacteristicProperties();
-}
+class BluetoothCharacteristicProperties {}
 
 extension BluetoothCharacteristicPropertiesExtension
     on BluetoothCharacteristicProperties {
@@ -424,24 +396,20 @@ extension BluetoothCharacteristicPropertiesExtension
 
 @JS('BluetoothRemoteGATTDescriptor')
 @staticInterop
-class BluetoothRemoteGATTDescriptor {
-  external factory BluetoothRemoteGATTDescriptor();
-}
+class BluetoothRemoteGATTDescriptor {}
 
 extension BluetoothRemoteGATTDescriptorExtension
     on BluetoothRemoteGATTDescriptor {
+  external JSPromise readValue();
+  external JSPromise writeValue(BufferSource value);
   external BluetoothRemoteGATTCharacteristic get characteristic;
   external UUID get uuid;
   external JSDataView? get value;
-  external JSPromise readValue();
-  external JSPromise writeValue(BufferSource value);
 }
 
 @JS('CharacteristicEventHandlers')
 @staticInterop
-class CharacteristicEventHandlers {
-  external factory CharacteristicEventHandlers();
-}
+class CharacteristicEventHandlers {}
 
 extension CharacteristicEventHandlersExtension on CharacteristicEventHandlers {
   external set oncharacteristicvaluechanged(EventHandler value);
@@ -450,9 +418,7 @@ extension CharacteristicEventHandlersExtension on CharacteristicEventHandlers {
 
 @JS('BluetoothDeviceEventHandlers')
 @staticInterop
-class BluetoothDeviceEventHandlers {
-  external factory BluetoothDeviceEventHandlers();
-}
+class BluetoothDeviceEventHandlers {}
 
 extension BluetoothDeviceEventHandlersExtension
     on BluetoothDeviceEventHandlers {
@@ -464,9 +430,7 @@ extension BluetoothDeviceEventHandlersExtension
 
 @JS('ServiceEventHandlers')
 @staticInterop
-class ServiceEventHandlers {
-  external factory ServiceEventHandlers();
-}
+class ServiceEventHandlers {}
 
 extension ServiceEventHandlersExtension on ServiceEventHandlers {
   external set onserviceadded(EventHandler value);
@@ -480,8 +444,6 @@ extension ServiceEventHandlersExtension on ServiceEventHandlers {
 @JS('BluetoothUUID')
 @staticInterop
 class BluetoothUUID {
-  external factory BluetoothUUID();
-
   external static UUID getService(JSAny name);
   external static UUID getCharacteristic(JSAny name);
   external static UUID getDescriptor(JSAny name);

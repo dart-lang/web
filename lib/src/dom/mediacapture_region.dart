@@ -14,16 +14,12 @@ import 'mediacapture_streams.dart';
 @JS('CropTarget')
 @staticInterop
 class CropTarget {
-  external factory CropTarget();
-
   external static JSPromise fromElement(Element element);
 }
 
 @JS('BrowserCaptureMediaStreamTrack')
 @staticInterop
-class BrowserCaptureMediaStreamTrack extends MediaStreamTrack {
-  external factory BrowserCaptureMediaStreamTrack();
-}
+class BrowserCaptureMediaStreamTrack implements MediaStreamTrack {}
 
 extension BrowserCaptureMediaStreamTrackExtension
     on BrowserCaptureMediaStreamTrack {

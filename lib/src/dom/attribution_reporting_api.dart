@@ -10,9 +10,7 @@ import 'package:js/js.dart' hide JS;
 
 @JS('HTMLAttributionSrcElementUtils')
 @staticInterop
-class HTMLAttributionSrcElementUtils {
-  external factory HTMLAttributionSrcElementUtils();
-}
+class HTMLAttributionSrcElementUtils {}
 
 extension HTMLAttributionSrcElementUtilsExtension
     on HTMLAttributionSrcElementUtils {

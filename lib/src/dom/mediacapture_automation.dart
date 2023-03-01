@@ -52,7 +52,7 @@ extension MockCaptureDeviceConfigurationExtension
 @JS()
 @staticInterop
 @anonymous
-class MockCameraConfiguration extends MockCaptureDeviceConfiguration {
+class MockCameraConfiguration implements MockCaptureDeviceConfiguration {
   external factory MockCameraConfiguration({
     JSNumber defaultFrameRate = 30,
     JSString facingMode = 'user',
@@ -69,7 +69,7 @@ extension MockCameraConfigurationExtension on MockCameraConfiguration {
 @JS()
 @staticInterop
 @anonymous
-class MockMicrophoneConfiguration extends MockCaptureDeviceConfiguration {
+class MockMicrophoneConfiguration implements MockCaptureDeviceConfiguration {
   external factory MockMicrophoneConfiguration(
       {JSNumber defaultSampleRate = 44100});
 }

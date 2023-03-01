@@ -33,7 +33,7 @@ extension ScrollOptionsExtension on ScrollOptions {
 @JS()
 @staticInterop
 @anonymous
-class ScrollToOptions extends ScrollOptions {
+class ScrollToOptions implements ScrollOptions {
   external factory ScrollToOptions({
     JSNumber left,
     JSNumber top,
@@ -49,30 +49,24 @@ extension ScrollToOptionsExtension on ScrollToOptions {
 
 @JS('MediaQueryList')
 @staticInterop
-class MediaQueryList extends EventTarget {
-  external factory MediaQueryList();
-}
+class MediaQueryList implements EventTarget {}
 
 extension MediaQueryListExtension on MediaQueryList {
-  external JSString get media;
-  external JSBoolean get matches;
   external JSVoid addListener(EventListener? callback);
   external JSVoid removeListener(EventListener? callback);
+  external JSString get media;
+  external JSBoolean get matches;
   external set onchange(EventHandler value);
   external EventHandler get onchange;
 }
 
 @JS('MediaQueryListEvent')
 @staticInterop
-class MediaQueryListEvent extends Event {
-  external factory MediaQueryListEvent();
-
-  external factory MediaQueryListEvent.a1(JSString type);
-
-  external factory MediaQueryListEvent.a2(
-    JSString type,
+class MediaQueryListEvent implements Event {
+  external factory MediaQueryListEvent(
+    JSString type, [
     MediaQueryListEventInit eventInitDict,
-  );
+  ]);
 }
 
 extension MediaQueryListEventExtension on MediaQueryListEvent {
@@ -83,7 +77,7 @@ extension MediaQueryListEventExtension on MediaQueryListEvent {
 @JS()
 @staticInterop
 @anonymous
-class MediaQueryListEventInit extends EventInit {
+class MediaQueryListEventInit implements EventInit {
   external factory MediaQueryListEventInit({
     JSString media = '',
     JSBoolean matches = false,
@@ -99,9 +93,7 @@ extension MediaQueryListEventInitExtension on MediaQueryListEventInit {
 
 @JS('Screen')
 @staticInterop
-class Screen {
-  external factory Screen();
-}
+class Screen {}
 
 extension ScreenExtension on Screen {
   external JSNumber get availWidth;
@@ -118,20 +110,18 @@ extension ScreenExtension on Screen {
 
 @JS('CaretPosition')
 @staticInterop
-class CaretPosition {
-  external factory CaretPosition();
-}
+class CaretPosition {}
 
 extension CaretPositionExtension on CaretPosition {
+  external DOMRect? getClientRect();
   external Node get offsetNode;
   external JSNumber get offset;
-  external DOMRect? getClientRect();
 }
 
 @JS()
 @staticInterop
 @anonymous
-class ScrollIntoViewOptions extends ScrollOptions {
+class ScrollIntoViewOptions implements ScrollOptions {
   external factory ScrollIntoViewOptions({
     ScrollLogicalPosition block = 'start',
     ScrollLogicalPosition inline = 'nearest',
@@ -198,47 +188,30 @@ extension ConvertCoordinateOptionsExtension on ConvertCoordinateOptions {
 
 @JS('GeometryUtils')
 @staticInterop
-class GeometryUtils {
-  external factory GeometryUtils();
-}
+class GeometryUtils {}
 
 extension GeometryUtilsExtension on GeometryUtils {
-  external JSArray getBoxQuads();
-  external JSArray getBoxQuads1(BoxQuadOptions options);
+  external JSArray getBoxQuads([BoxQuadOptions options]);
   external DOMQuad convertQuadFromNode(
     DOMQuadInit quad,
-    GeometryNode from,
-  );
-  external DOMQuad convertQuadFromNode1(
-    DOMQuadInit quad,
-    GeometryNode from,
+    GeometryNode from, [
     ConvertCoordinateOptions options,
-  );
+  ]);
   external DOMQuad convertRectFromNode(
     DOMRectReadOnly rect,
-    GeometryNode from,
-  );
-  external DOMQuad convertRectFromNode1(
-    DOMRectReadOnly rect,
-    GeometryNode from,
+    GeometryNode from, [
     ConvertCoordinateOptions options,
-  );
+  ]);
   external DOMPoint convertPointFromNode(
     DOMPointInit point,
-    GeometryNode from,
-  );
-  external DOMPoint convertPointFromNode1(
-    DOMPointInit point,
-    GeometryNode from,
+    GeometryNode from, [
     ConvertCoordinateOptions options,
-  );
+  ]);
 }
 
 @JS('VisualViewport')
 @staticInterop
-class VisualViewport extends EventTarget {
-  external factory VisualViewport();
-}
+class VisualViewport implements EventTarget {}
 
 extension VisualViewportExtension on VisualViewport {
   external JSNumber get offsetLeft;

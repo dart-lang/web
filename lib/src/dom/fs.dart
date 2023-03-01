@@ -18,20 +18,16 @@ typedef WriteCommandType = JSString;
 
 @JS('FileSystemHandle')
 @staticInterop
-class FileSystemHandle {
-  external factory FileSystemHandle();
-}
+class FileSystemHandle {}
 
 extension FileSystemHandleExtension on FileSystemHandle {
-  external JSPromise queryPermission();
-  external JSPromise queryPermission1(
-      FileSystemHandlePermissionDescriptor descriptor);
-  external JSPromise requestPermission();
-  external JSPromise requestPermission1(
-      FileSystemHandlePermissionDescriptor descriptor);
+  external JSPromise queryPermission(
+      [FileSystemHandlePermissionDescriptor descriptor]);
+  external JSPromise requestPermission(
+      [FileSystemHandlePermissionDescriptor descriptor]);
+  external JSPromise isSameEntry(FileSystemHandle other);
   external FileSystemHandleKind get kind;
   external JSString get name;
-  external JSPromise isSameEntry(FileSystemHandle other);
 }
 
 @JS()
@@ -50,14 +46,11 @@ extension FileSystemCreateWritableOptionsExtension
 
 @JS('FileSystemFileHandle')
 @staticInterop
-class FileSystemFileHandle extends FileSystemHandle {
-  external factory FileSystemFileHandle();
-}
+class FileSystemFileHandle implements FileSystemHandle {}
 
 extension FileSystemFileHandleExtension on FileSystemFileHandle {
   external JSPromise getFile();
-  external JSPromise createWritable();
-  external JSPromise createWritable1(FileSystemCreateWritableOptions options);
+  external JSPromise createWritable([FileSystemCreateWritableOptions options]);
   external JSPromise createSyncAccessHandle();
 }
 
@@ -100,26 +93,21 @@ extension FileSystemRemoveOptionsExtension on FileSystemRemoveOptions {
 
 @JS('FileSystemDirectoryHandle')
 @staticInterop
-class FileSystemDirectoryHandle extends FileSystemHandle {
-  external factory FileSystemDirectoryHandle();
-}
+class FileSystemDirectoryHandle implements FileSystemHandle {}
 
 extension FileSystemDirectoryHandleExtension on FileSystemDirectoryHandle {
-  external JSPromise getFileHandle(JSString name);
-  external JSPromise getFileHandle1(
-    JSString name,
+  external JSPromise getFileHandle(
+    JSString name, [
     FileSystemGetFileOptions options,
-  );
-  external JSPromise getDirectoryHandle(JSString name);
-  external JSPromise getDirectoryHandle1(
-    JSString name,
+  ]);
+  external JSPromise getDirectoryHandle(
+    JSString name, [
     FileSystemGetDirectoryOptions options,
-  );
-  external JSPromise removeEntry(JSString name);
-  external JSPromise removeEntry1(
-    JSString name,
+  ]);
+  external JSPromise removeEntry(
+    JSString name, [
     FileSystemRemoveOptions options,
-  );
+  ]);
   external JSPromise resolve(FileSystemHandle possibleDescendant);
 }
 
@@ -148,9 +136,7 @@ extension WriteParamsExtension on WriteParams {
 
 @JS('FileSystemWritableFileStream')
 @staticInterop
-class FileSystemWritableFileStream extends WritableStream {
-  external factory FileSystemWritableFileStream();
-}
+class FileSystemWritableFileStream implements WritableStream {}
 
 extension FileSystemWritableFileStreamExtension
     on FileSystemWritableFileStream {
@@ -173,21 +159,17 @@ extension FileSystemReadWriteOptionsExtension on FileSystemReadWriteOptions {
 
 @JS('FileSystemSyncAccessHandle')
 @staticInterop
-class FileSystemSyncAccessHandle {
-  external factory FileSystemSyncAccessHandle();
-}
+class FileSystemSyncAccessHandle {}
 
 extension FileSystemSyncAccessHandleExtension on FileSystemSyncAccessHandle {
-  external JSNumber read(BufferSource buffer);
-  external JSNumber read1(
-    BufferSource buffer,
+  external JSNumber read(
+    BufferSource buffer, [
     FileSystemReadWriteOptions options,
-  );
-  external JSNumber write(BufferSource buffer);
-  external JSNumber write1(
-    BufferSource buffer,
+  ]);
+  external JSNumber write(
+    BufferSource buffer, [
     FileSystemReadWriteOptions options,
-  );
+  ]);
   external JSVoid truncate(JSNumber newSize);
   external JSNumber getSize();
   external JSVoid flush();

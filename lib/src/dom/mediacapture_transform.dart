@@ -14,9 +14,7 @@ import 'streams.dart';
 @JS('MediaStreamTrackProcessor')
 @staticInterop
 class MediaStreamTrackProcessor {
-  external factory MediaStreamTrackProcessor();
-
-  external factory MediaStreamTrackProcessor.a1(
+  external factory MediaStreamTrackProcessor(
       MediaStreamTrackProcessorInit init);
 }
 
@@ -46,7 +44,7 @@ extension MediaStreamTrackProcessorInitExtension
 @JS('VideoTrackGenerator')
 @staticInterop
 class VideoTrackGenerator {
-  external factory VideoTrackGenerator.a0();
+  external factory VideoTrackGenerator();
 }
 
 extension VideoTrackGeneratorExtension on VideoTrackGenerator {

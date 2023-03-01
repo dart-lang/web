@@ -15,19 +15,17 @@ typedef OrientationSensorLocalCoordinateSystem = JSString;
 
 @JS('OrientationSensor')
 @staticInterop
-class OrientationSensor extends Sensor {
-  external factory OrientationSensor();
-}
+class OrientationSensor implements Sensor {}
 
 extension OrientationSensorExtension on OrientationSensor {
-  external JSArray? get quaternion;
   external JSVoid populateMatrix(RotationMatrixType targetMatrix);
+  external JSArray? get quaternion;
 }
 
 @JS()
 @staticInterop
 @anonymous
-class OrientationSensorOptions extends SensorOptions {
+class OrientationSensorOptions implements SensorOptions {
   external factory OrientationSensorOptions(
       {OrientationSensorLocalCoordinateSystem referenceFrame = 'device'});
 }
@@ -39,24 +37,16 @@ extension OrientationSensorOptionsExtension on OrientationSensorOptions {
 
 @JS('AbsoluteOrientationSensor')
 @staticInterop
-class AbsoluteOrientationSensor extends OrientationSensor {
-  external factory AbsoluteOrientationSensor();
-
-  external factory AbsoluteOrientationSensor.a1();
-
-  external factory AbsoluteOrientationSensor.a2(
-      OrientationSensorOptions sensorOptions);
+class AbsoluteOrientationSensor implements OrientationSensor {
+  external factory AbsoluteOrientationSensor(
+      [OrientationSensorOptions sensorOptions]);
 }
 
 @JS('RelativeOrientationSensor')
 @staticInterop
-class RelativeOrientationSensor extends OrientationSensor {
-  external factory RelativeOrientationSensor();
-
-  external factory RelativeOrientationSensor.a1();
-
-  external factory RelativeOrientationSensor.a2(
-      OrientationSensorOptions sensorOptions);
+class RelativeOrientationSensor implements OrientationSensor {
+  external factory RelativeOrientationSensor(
+      [OrientationSensorOptions sensorOptions]);
 }
 
 @JS()
@@ -77,6 +67,6 @@ extension AbsoluteOrientationReadingValuesExtension
 @staticInterop
 @anonymous
 class RelativeOrientationReadingValues
-    extends AbsoluteOrientationReadingValues {
+    implements AbsoluteOrientationReadingValues {
   external factory RelativeOrientationReadingValues();
 }

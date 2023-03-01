@@ -10,9 +10,7 @@ import 'package:js/js.dart' hide JS;
 
 @JS('NavigatorStorage')
 @staticInterop
-class NavigatorStorage {
-  external factory NavigatorStorage();
-}
+class NavigatorStorage {}
 
 extension NavigatorStorageExtension on NavigatorStorage {
   external StorageManager get storage;
@@ -20,9 +18,7 @@ extension NavigatorStorageExtension on NavigatorStorage {
 
 @JS('StorageManager')
 @staticInterop
-class StorageManager {
-  external factory StorageManager();
-}
+class StorageManager {}
 
 extension StorageManagerExtension on StorageManager {
   external JSPromise getDirectory();

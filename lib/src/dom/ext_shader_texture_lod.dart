@@ -10,6 +10,4 @@ import 'package:js/js.dart' hide JS;
 
 @JS('EXT_shader_texture_lod')
 @staticInterop
-class EXT_shader_texture_lod {
-  external factory EXT_shader_texture_lod();
-}
+class EXT_shader_texture_lod {}

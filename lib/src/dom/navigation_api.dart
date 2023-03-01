@@ -20,34 +20,27 @@ typedef NavigationType = JSString;
 
 @JS('Navigation')
 @staticInterop
-class Navigation extends EventTarget {
-  external factory Navigation();
-}
+class Navigation implements EventTarget {}
 
 extension NavigationExtension on Navigation {
   external JSArray entries();
-  external NavigationHistoryEntry? get currentEntry;
   external JSVoid updateCurrentEntry(
       NavigationUpdateCurrentEntryOptions options);
+  external NavigationResult navigate(
+    JSString url, [
+    NavigationNavigateOptions options,
+  ]);
+  external NavigationResult reload([NavigationReloadOptions options]);
+  external NavigationResult traverseTo(
+    JSString key, [
+    NavigationOptions options,
+  ]);
+  external NavigationResult back([NavigationOptions options]);
+  external NavigationResult forward([NavigationOptions options]);
+  external NavigationHistoryEntry? get currentEntry;
   external NavigationTransition? get transition;
   external JSBoolean get canGoBack;
   external JSBoolean get canGoForward;
-  external NavigationResult navigate(JSString url);
-  external NavigationResult navigate1(
-    JSString url,
-    NavigationNavigateOptions options,
-  );
-  external NavigationResult reload();
-  external NavigationResult reload1(NavigationReloadOptions options);
-  external NavigationResult traverseTo(JSString key);
-  external NavigationResult traverseTo1(
-    JSString key,
-    NavigationOptions options,
-  );
-  external NavigationResult back();
-  external NavigationResult back1(NavigationOptions options);
-  external NavigationResult forward();
-  external NavigationResult forward1(NavigationOptions options);
   external set onnavigate(EventHandler value);
   external EventHandler get onnavigate;
   external set onnavigatesuccess(EventHandler value);
@@ -86,7 +79,7 @@ extension NavigationOptionsExtension on NavigationOptions {
 @JS()
 @staticInterop
 @anonymous
-class NavigationNavigateOptions extends NavigationOptions {
+class NavigationNavigateOptions implements NavigationOptions {
   external factory NavigationNavigateOptions({
     JSAny state,
     NavigationHistoryBehavior history = 'auto',
@@ -103,7 +96,7 @@ extension NavigationNavigateOptionsExtension on NavigationNavigateOptions {
 @JS()
 @staticInterop
 @anonymous
-class NavigationReloadOptions extends NavigationOptions {
+class NavigationReloadOptions implements NavigationOptions {
   external factory NavigationReloadOptions({JSAny state});
 }
 
@@ -131,10 +124,8 @@ extension NavigationResultExtension on NavigationResult {
 
 @JS('NavigationCurrentEntryChangeEvent')
 @staticInterop
-class NavigationCurrentEntryChangeEvent extends Event {
-  external factory NavigationCurrentEntryChangeEvent();
-
-  external factory NavigationCurrentEntryChangeEvent.a1(
+class NavigationCurrentEntryChangeEvent implements Event {
+  external factory NavigationCurrentEntryChangeEvent(
     JSString type,
     NavigationCurrentEntryChangeEventInit eventInit,
   );
@@ -149,7 +140,7 @@ extension NavigationCurrentEntryChangeEventExtension
 @JS()
 @staticInterop
 @anonymous
-class NavigationCurrentEntryChangeEventInit extends EventInit {
+class NavigationCurrentEntryChangeEventInit implements EventInit {
   external factory NavigationCurrentEntryChangeEventInit({
     NavigationType? navigationType,
     required NavigationHistoryEntry destination,
@@ -166,9 +157,7 @@ extension NavigationCurrentEntryChangeEventInitExtension
 
 @JS('NavigationTransition')
 @staticInterop
-class NavigationTransition {
-  external factory NavigationTransition();
-}
+class NavigationTransition {}
 
 extension NavigationTransitionExtension on NavigationTransition {
   external NavigationType get navigationType;
@@ -178,16 +167,16 @@ extension NavigationTransitionExtension on NavigationTransition {
 
 @JS('NavigateEvent')
 @staticInterop
-class NavigateEvent extends Event {
-  external factory NavigateEvent();
-
-  external factory NavigateEvent.a1(
+class NavigateEvent implements Event {
+  external factory NavigateEvent(
     JSString type,
     NavigateEventInit eventInit,
   );
 }
 
 extension NavigateEventExtension on NavigateEvent {
+  external JSVoid intercept([NavigationInterceptOptions options]);
+  external JSVoid scroll();
   external NavigationType get navigationType;
   external NavigationDestination get destination;
   external JSBoolean get canIntercept;
@@ -197,15 +186,12 @@ extension NavigateEventExtension on NavigateEvent {
   external FormData? get formData;
   external JSString? get downloadRequest;
   external JSAny get info;
-  external JSVoid intercept();
-  external JSVoid intercept1(NavigationInterceptOptions options);
-  external JSVoid scroll();
 }
 
 @JS()
 @staticInterop
 @anonymous
-class NavigateEventInit extends EventInit {
+class NavigateEventInit implements EventInit {
   external factory NavigateEventInit({
     NavigationType navigationType = 'push',
     required NavigationDestination destination,
@@ -262,32 +248,28 @@ extension NavigationInterceptOptionsExtension on NavigationInterceptOptions {
 
 @JS('NavigationDestination')
 @staticInterop
-class NavigationDestination {
-  external factory NavigationDestination();
-}
+class NavigationDestination {}
 
 extension NavigationDestinationExtension on NavigationDestination {
+  external JSAny getState();
   external JSString get url;
   external JSString? get key;
   external JSString? get id;
   external JSNumber get index;
   external JSBoolean get sameDocument;
-  external JSAny getState();
 }
 
 @JS('NavigationHistoryEntry')
 @staticInterop
-class NavigationHistoryEntry extends EventTarget {
-  external factory NavigationHistoryEntry();
-}
+class NavigationHistoryEntry implements EventTarget {}
 
 extension NavigationHistoryEntryExtension on NavigationHistoryEntry {
+  external JSAny getState();
   external JSString? get url;
   external JSString get key;
   external JSString get id;
   external JSNumber get index;
   external JSBoolean get sameDocument;
-  external JSAny getState();
   external set ondispose(EventHandler value);
   external EventHandler get ondispose;
 }

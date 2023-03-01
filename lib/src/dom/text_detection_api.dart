@@ -14,7 +14,7 @@ import 'html.dart';
 @JS('TextDetector')
 @staticInterop
 class TextDetector {
-  external factory TextDetector.a0();
+  external factory TextDetector();
 }
 
 extension TextDetectorExtension on TextDetector {

@@ -33,9 +33,7 @@ extension XRDepthStateInitExtension on XRDepthStateInit {
 
 @JS('XRDepthInformation')
 @staticInterop
-class XRDepthInformation {
-  external factory XRDepthInformation();
-}
+class XRDepthInformation {}
 
 extension XRDepthInformationExtension on XRDepthInformation {
   external JSNumber get width;
@@ -46,23 +44,19 @@ extension XRDepthInformationExtension on XRDepthInformation {
 
 @JS('XRCPUDepthInformation')
 @staticInterop
-class XRCPUDepthInformation extends XRDepthInformation {
-  external factory XRCPUDepthInformation();
-}
+class XRCPUDepthInformation implements XRDepthInformation {}
 
 extension XRCPUDepthInformationExtension on XRCPUDepthInformation {
-  external JSArrayBuffer get data;
   external JSNumber getDepthInMeters(
     JSNumber x,
     JSNumber y,
   );
+  external JSArrayBuffer get data;
 }
 
 @JS('XRWebGLDepthInformation')
 @staticInterop
-class XRWebGLDepthInformation extends XRDepthInformation {
-  external factory XRWebGLDepthInformation();
-}
+class XRWebGLDepthInformation implements XRDepthInformation {}
 
 extension XRWebGLDepthInformationExtension on XRWebGLDepthInformation {
   external WebGLTexture get texture;

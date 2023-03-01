@@ -14,16 +14,14 @@ import 'performance_timeline.dart';
 
 @JS('LargestContentfulPaint')
 @staticInterop
-class LargestContentfulPaint extends PerformanceEntry {
-  external factory LargestContentfulPaint();
-}
+class LargestContentfulPaint implements PerformanceEntry {}
 
 extension LargestContentfulPaintExtension on LargestContentfulPaint {
+  external JSObject toJSON();
   external DOMHighResTimeStamp get renderTime;
   external DOMHighResTimeStamp get loadTime;
   external JSNumber get size;
   external JSString get id;
   external JSString get url;
   external Element? get element;
-  external JSObject toJSON();
 }

@@ -10,9 +10,7 @@ import 'package:js/js.dart' hide JS;
 
 @JS('WEBGL_lose_context')
 @staticInterop
-class WEBGL_lose_context {
-  external factory WEBGL_lose_context();
-}
+class WEBGL_lose_context {}
 
 extension WEBGLLoseContextExtension on WEBGL_lose_context {
   external JSVoid loseContext();

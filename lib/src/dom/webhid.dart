@@ -16,17 +16,15 @@ typedef HIDUnitSystem = JSString;
 
 @JS('HID')
 @staticInterop
-class HID extends EventTarget {
-  external factory HID();
-}
+class HID implements EventTarget {}
 
 extension HIDExtension on HID {
+  external JSPromise getDevices();
+  external JSPromise requestDevice(HIDDeviceRequestOptions options);
   external set onconnect(EventHandler value);
   external EventHandler get onconnect;
   external set ondisconnect(EventHandler value);
   external EventHandler get ondisconnect;
-  external JSPromise getDevices();
-  external JSPromise requestDevice(HIDDeviceRequestOptions options);
 }
 
 @JS()
@@ -71,18 +69,9 @@ extension HIDDeviceFilterExtension on HIDDeviceFilter {
 
 @JS('HIDDevice')
 @staticInterop
-class HIDDevice extends EventTarget {
-  external factory HIDDevice();
-}
+class HIDDevice implements EventTarget {}
 
 extension HIDDeviceExtension on HIDDevice {
-  external set oninputreport(EventHandler value);
-  external EventHandler get oninputreport;
-  external JSBoolean get opened;
-  external JSNumber get vendorId;
-  external JSNumber get productId;
-  external JSString get productName;
-  external JSArray get collections;
   external JSPromise open();
   external JSPromise close();
   external JSPromise forget();
@@ -95,14 +84,19 @@ extension HIDDeviceExtension on HIDDevice {
     BufferSource data,
   );
   external JSPromise receiveFeatureReport(JSNumber reportId);
+  external set oninputreport(EventHandler value);
+  external EventHandler get oninputreport;
+  external JSBoolean get opened;
+  external JSNumber get vendorId;
+  external JSNumber get productId;
+  external JSString get productName;
+  external JSArray get collections;
 }
 
 @JS('HIDConnectionEvent')
 @staticInterop
-class HIDConnectionEvent extends Event {
-  external factory HIDConnectionEvent();
-
-  external factory HIDConnectionEvent.a1(
+class HIDConnectionEvent implements Event {
+  external factory HIDConnectionEvent(
     JSString type,
     HIDConnectionEventInit eventInitDict,
   );
@@ -115,7 +109,7 @@ extension HIDConnectionEventExtension on HIDConnectionEvent {
 @JS()
 @staticInterop
 @anonymous
-class HIDConnectionEventInit extends EventInit {
+class HIDConnectionEventInit implements EventInit {
   external factory HIDConnectionEventInit({required HIDDevice device});
 }
 
@@ -126,10 +120,8 @@ extension HIDConnectionEventInitExtension on HIDConnectionEventInit {
 
 @JS('HIDInputReportEvent')
 @staticInterop
-class HIDInputReportEvent extends Event {
-  external factory HIDInputReportEvent();
-
-  external factory HIDInputReportEvent.a1(
+class HIDInputReportEvent implements Event {
+  external factory HIDInputReportEvent(
     JSString type,
     HIDInputReportEventInit eventInitDict,
   );
@@ -144,7 +136,7 @@ extension HIDInputReportEventExtension on HIDInputReportEvent {
 @JS()
 @staticInterop
 @anonymous
-class HIDInputReportEventInit extends EventInit {
+class HIDInputReportEventInit implements EventInit {
   external factory HIDInputReportEventInit({
     required HIDDevice device,
     required JSNumber reportId,

@@ -18,14 +18,10 @@ typedef PressureSource = JSString;
 @JS('PressureObserver')
 @staticInterop
 class PressureObserver {
-  external factory PressureObserver();
-
-  external factory PressureObserver.a1(PressureUpdateCallback callback);
-
-  external factory PressureObserver.a2(
-    PressureUpdateCallback callback,
+  external factory PressureObserver(
+    PressureUpdateCallback callback, [
     PressureObserverOptions options,
-  );
+  ]);
 
   external static JSArray get supportedSources;
 }
@@ -39,16 +35,14 @@ extension PressureObserverExtension on PressureObserver {
 
 @JS('PressureRecord')
 @staticInterop
-class PressureRecord {
-  external factory PressureRecord();
-}
+class PressureRecord {}
 
 extension PressureRecordExtension on PressureRecord {
+  external JSObject toJSON();
   external PressureSource get source;
   external PressureState get state;
   external JSArray get factors;
   external DOMHighResTimeStamp get time;
-  external JSObject toJSON();
 }
 
 @JS()

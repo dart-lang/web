@@ -10,12 +10,9 @@ import 'package:js/js.dart' hide JS;
 
 @JS('NavigatorBadge')
 @staticInterop
-class NavigatorBadge {
-  external factory NavigatorBadge();
-}
+class NavigatorBadge {}
 
 extension NavigatorBadgeExtension on NavigatorBadge {
-  external JSPromise setAppBadge();
-  external JSPromise setAppBadge1(JSNumber contents);
+  external JSPromise setAppBadge([JSNumber contents]);
   external JSPromise clearAppBadge();
 }

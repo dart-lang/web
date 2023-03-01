@@ -16,15 +16,13 @@ typedef RemotePlaybackState = JSString;
 
 @JS('RemotePlayback')
 @staticInterop
-class RemotePlayback extends EventTarget {
-  external factory RemotePlayback();
-}
+class RemotePlayback implements EventTarget {}
 
 extension RemotePlaybackExtension on RemotePlayback {
   external JSPromise watchAvailability(
       RemotePlaybackAvailabilityCallback callback);
-  external JSPromise cancelWatchAvailability();
-  external JSPromise cancelWatchAvailability1(JSNumber id);
+  external JSPromise cancelWatchAvailability([JSNumber id]);
+  external JSPromise prompt();
   external RemotePlaybackState get state;
   external set onconnecting(EventHandler value);
   external EventHandler get onconnecting;
@@ -32,5 +30,4 @@ extension RemotePlaybackExtension on RemotePlayback {
   external EventHandler get onconnect;
   external set ondisconnect(EventHandler value);
   external EventHandler get ondisconnect;
-  external JSPromise prompt();
 }

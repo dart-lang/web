@@ -13,9 +13,7 @@ external $TestUtils get TestUtils;
 
 @JS('TestUtils')
 @staticInterop
-abstract class $TestUtils {
-  external factory $TestUtils();
-}
+abstract class $TestUtils {}
 
 extension $TestUtilsExtension on $TestUtils {
   external JSPromise gc();

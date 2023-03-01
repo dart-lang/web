@@ -43,9 +43,7 @@ extension ContentDescriptionExtension on ContentDescription {
 
 @JS('ContentIndex')
 @staticInterop
-class ContentIndex {
-  external factory ContentIndex();
-}
+class ContentIndex {}
 
 extension ContentIndexExtension on ContentIndex {
   external JSPromise add(ContentDescription description);
@@ -56,7 +54,7 @@ extension ContentIndexExtension on ContentIndex {
 @JS()
 @staticInterop
 @anonymous
-class ContentIndexEventInit extends ExtendableEventInit {
+class ContentIndexEventInit implements ExtendableEventInit {
   external factory ContentIndexEventInit({required JSString id});
 }
 
@@ -67,10 +65,8 @@ extension ContentIndexEventInitExtension on ContentIndexEventInit {
 
 @JS('ContentIndexEvent')
 @staticInterop
-class ContentIndexEvent extends ExtendableEvent {
-  external factory ContentIndexEvent();
-
-  external factory ContentIndexEvent.a1(
+class ContentIndexEvent implements ExtendableEvent {
+  external factory ContentIndexEvent(
     JSString type,
     ContentIndexEventInit init,
   );

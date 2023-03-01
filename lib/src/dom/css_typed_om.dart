@@ -24,8 +24,6 @@ typedef CSSMathOperator = JSString;
 @JS('CSSStyleValue')
 @staticInterop
 class CSSStyleValue {
-  external factory CSSStyleValue();
-
   external static CSSStyleValue parse(
     JSString property,
     JSString cssText,
@@ -38,9 +36,7 @@ class CSSStyleValue {
 
 @JS('StylePropertyMapReadOnly')
 @staticInterop
-class StylePropertyMapReadOnly {
-  external factory StylePropertyMapReadOnly();
-}
+class StylePropertyMapReadOnly {}
 
 extension StylePropertyMapReadOnlyExtension on StylePropertyMapReadOnly {
   external JSAny get(JSString property);
@@ -51,9 +47,7 @@ extension StylePropertyMapReadOnlyExtension on StylePropertyMapReadOnly {
 
 @JS('StylePropertyMap')
 @staticInterop
-class StylePropertyMap extends StylePropertyMapReadOnly {
-  external factory StylePropertyMap();
-}
+class StylePropertyMap implements StylePropertyMapReadOnly {}
 
 extension StylePropertyMapExtension on StylePropertyMap {
   external JSVoid set(
@@ -70,10 +64,8 @@ extension StylePropertyMapExtension on StylePropertyMap {
 
 @JS('CSSUnparsedValue')
 @staticInterop
-class CSSUnparsedValue extends CSSStyleValue {
-  external factory CSSUnparsedValue();
-
-  external factory CSSUnparsedValue.a1(JSArray members);
+class CSSUnparsedValue implements CSSStyleValue {
+  external factory CSSUnparsedValue(JSArray members);
 }
 
 extension CSSUnparsedValueExtension on CSSUnparsedValue {
@@ -83,14 +75,10 @@ extension CSSUnparsedValueExtension on CSSUnparsedValue {
 @JS('CSSVariableReferenceValue')
 @staticInterop
 class CSSVariableReferenceValue {
-  external factory CSSVariableReferenceValue();
-
-  external factory CSSVariableReferenceValue.a1(JSString variable);
-
-  external factory CSSVariableReferenceValue.a2(
-    JSString variable,
+  external factory CSSVariableReferenceValue(
+    JSString variable, [
     CSSUnparsedValue? fallback,
-  );
+  ]);
 }
 
 extension CSSVariableReferenceValueExtension on CSSVariableReferenceValue {
@@ -101,10 +89,8 @@ extension CSSVariableReferenceValueExtension on CSSVariableReferenceValue {
 
 @JS('CSSKeywordValue')
 @staticInterop
-class CSSKeywordValue extends CSSStyleValue {
-  external factory CSSKeywordValue();
-
-  external factory CSSKeywordValue.a1(JSString value);
+class CSSKeywordValue implements CSSStyleValue {
+  external factory CSSKeywordValue(JSString value);
 }
 
 extension CSSKeywordValueExtension on CSSKeywordValue {
@@ -149,9 +135,7 @@ extension CSSNumericTypeExtension on CSSNumericType {
 
 @JS('CSSNumericValue')
 @staticInterop
-class CSSNumericValue extends CSSStyleValue {
-  external factory CSSNumericValue();
-
+class CSSNumericValue implements CSSStyleValue {
   external static CSSNumericValue parse(JSString cssText);
 }
 
@@ -170,10 +154,8 @@ extension CSSNumericValueExtension on CSSNumericValue {
 
 @JS('CSSUnitValue')
 @staticInterop
-class CSSUnitValue extends CSSNumericValue {
-  external factory CSSUnitValue();
-
-  external factory CSSUnitValue.a1(
+class CSSUnitValue implements CSSNumericValue {
+  external factory CSSUnitValue(
     JSNumber value,
     JSString unit,
   );
@@ -187,9 +169,7 @@ extension CSSUnitValueExtension on CSSUnitValue {
 
 @JS('CSSMathValue')
 @staticInterop
-class CSSMathValue extends CSSNumericValue {
-  external factory CSSMathValue();
-}
+class CSSMathValue implements CSSNumericValue {}
 
 extension CSSMathValueExtension on CSSMathValue {
   external CSSMathOperator get operator;
@@ -197,10 +177,8 @@ extension CSSMathValueExtension on CSSMathValue {
 
 @JS('CSSMathSum')
 @staticInterop
-class CSSMathSum extends CSSMathValue {
-  external factory CSSMathSum();
-
-  external factory CSSMathSum.a1(CSSNumberish args);
+class CSSMathSum implements CSSMathValue {
+  external factory CSSMathSum(CSSNumberish args);
 }
 
 extension CSSMathSumExtension on CSSMathSum {
@@ -209,10 +187,8 @@ extension CSSMathSumExtension on CSSMathSum {
 
 @JS('CSSMathProduct')
 @staticInterop
-class CSSMathProduct extends CSSMathValue {
-  external factory CSSMathProduct();
-
-  external factory CSSMathProduct.a1(CSSNumberish args);
+class CSSMathProduct implements CSSMathValue {
+  external factory CSSMathProduct(CSSNumberish args);
 }
 
 extension CSSMathProductExtension on CSSMathProduct {
@@ -221,10 +197,8 @@ extension CSSMathProductExtension on CSSMathProduct {
 
 @JS('CSSMathNegate')
 @staticInterop
-class CSSMathNegate extends CSSMathValue {
-  external factory CSSMathNegate();
-
-  external factory CSSMathNegate.a1(CSSNumberish arg);
+class CSSMathNegate implements CSSMathValue {
+  external factory CSSMathNegate(CSSNumberish arg);
 }
 
 extension CSSMathNegateExtension on CSSMathNegate {
@@ -233,10 +207,8 @@ extension CSSMathNegateExtension on CSSMathNegate {
 
 @JS('CSSMathInvert')
 @staticInterop
-class CSSMathInvert extends CSSMathValue {
-  external factory CSSMathInvert();
-
-  external factory CSSMathInvert.a1(CSSNumberish arg);
+class CSSMathInvert implements CSSMathValue {
+  external factory CSSMathInvert(CSSNumberish arg);
 }
 
 extension CSSMathInvertExtension on CSSMathInvert {
@@ -245,10 +217,8 @@ extension CSSMathInvertExtension on CSSMathInvert {
 
 @JS('CSSMathMin')
 @staticInterop
-class CSSMathMin extends CSSMathValue {
-  external factory CSSMathMin();
-
-  external factory CSSMathMin.a1(CSSNumberish args);
+class CSSMathMin implements CSSMathValue {
+  external factory CSSMathMin(CSSNumberish args);
 }
 
 extension CSSMathMinExtension on CSSMathMin {
@@ -257,10 +227,8 @@ extension CSSMathMinExtension on CSSMathMin {
 
 @JS('CSSMathMax')
 @staticInterop
-class CSSMathMax extends CSSMathValue {
-  external factory CSSMathMax();
-
-  external factory CSSMathMax.a1(CSSNumberish args);
+class CSSMathMax implements CSSMathValue {
+  external factory CSSMathMax(CSSNumberish args);
 }
 
 extension CSSMathMaxExtension on CSSMathMax {
@@ -269,10 +237,8 @@ extension CSSMathMaxExtension on CSSMathMax {
 
 @JS('CSSMathClamp')
 @staticInterop
-class CSSMathClamp extends CSSMathValue {
-  external factory CSSMathClamp();
-
-  external factory CSSMathClamp.a1(
+class CSSMathClamp implements CSSMathValue {
+  external factory CSSMathClamp(
     CSSNumberish lower,
     CSSNumberish value,
     CSSNumberish upper,
@@ -287,9 +253,7 @@ extension CSSMathClampExtension on CSSMathClamp {
 
 @JS('CSSNumericArray')
 @staticInterop
-class CSSNumericArray {
-  external factory CSSNumericArray();
-}
+class CSSNumericArray {}
 
 extension CSSNumericArrayExtension on CSSNumericArray {
   external JSNumber get length;
@@ -297,45 +261,34 @@ extension CSSNumericArrayExtension on CSSNumericArray {
 
 @JS('CSSTransformValue')
 @staticInterop
-class CSSTransformValue extends CSSStyleValue {
-  external factory CSSTransformValue();
-
-  external factory CSSTransformValue.a1(JSArray transforms);
+class CSSTransformValue implements CSSStyleValue {
+  external factory CSSTransformValue(JSArray transforms);
 }
 
 extension CSSTransformValueExtension on CSSTransformValue {
+  external DOMMatrix toMatrix();
   external JSNumber get length;
   external JSBoolean get is2D;
-  external DOMMatrix toMatrix();
 }
 
 @JS('CSSTransformComponent')
 @staticInterop
-class CSSTransformComponent {
-  external factory CSSTransformComponent();
-}
+class CSSTransformComponent {}
 
 extension CSSTransformComponentExtension on CSSTransformComponent {
+  external DOMMatrix toMatrix();
   external set is2D(JSBoolean value);
   external JSBoolean get is2D;
-  external DOMMatrix toMatrix();
 }
 
 @JS('CSSTranslate')
 @staticInterop
-class CSSTranslate extends CSSTransformComponent {
-  external factory CSSTranslate();
-
-  external factory CSSTranslate.a1(
+class CSSTranslate implements CSSTransformComponent {
+  external factory CSSTranslate(
     CSSNumericValue x,
-    CSSNumericValue y,
-  );
-
-  external factory CSSTranslate.a2(
-    CSSNumericValue x,
-    CSSNumericValue y,
+    CSSNumericValue y, [
     CSSNumericValue z,
-  );
+  ]);
 }
 
 extension CSSTranslateExtension on CSSTranslate {
@@ -349,17 +302,13 @@ extension CSSTranslateExtension on CSSTranslate {
 
 @JS('CSSRotate')
 @staticInterop
-class CSSRotate extends CSSTransformComponent {
-  external factory CSSRotate();
-
-  external factory CSSRotate.a1(CSSNumericValue angle);
-
-  external factory CSSRotate.a2(
-    CSSNumberish x,
+class CSSRotate implements CSSTransformComponent {
+  external factory CSSRotate(
+    JSAny angleOrX, [
     CSSNumberish y,
     CSSNumberish z,
     CSSNumericValue angle,
-  );
+  ]);
 }
 
 extension CSSRotateExtension on CSSRotate {
@@ -375,19 +324,12 @@ extension CSSRotateExtension on CSSRotate {
 
 @JS('CSSScale')
 @staticInterop
-class CSSScale extends CSSTransformComponent {
-  external factory CSSScale();
-
-  external factory CSSScale.a1(
+class CSSScale implements CSSTransformComponent {
+  external factory CSSScale(
     CSSNumberish x,
-    CSSNumberish y,
-  );
-
-  external factory CSSScale.a2(
-    CSSNumberish x,
-    CSSNumberish y,
+    CSSNumberish y, [
     CSSNumberish z,
-  );
+  ]);
 }
 
 extension CSSScaleExtension on CSSScale {
@@ -401,10 +343,8 @@ extension CSSScaleExtension on CSSScale {
 
 @JS('CSSSkew')
 @staticInterop
-class CSSSkew extends CSSTransformComponent {
-  external factory CSSSkew();
-
-  external factory CSSSkew.a1(
+class CSSSkew implements CSSTransformComponent {
+  external factory CSSSkew(
     CSSNumericValue ax,
     CSSNumericValue ay,
   );
@@ -419,10 +359,8 @@ extension CSSSkewExtension on CSSSkew {
 
 @JS('CSSSkewX')
 @staticInterop
-class CSSSkewX extends CSSTransformComponent {
-  external factory CSSSkewX();
-
-  external factory CSSSkewX.a1(CSSNumericValue ax);
+class CSSSkewX implements CSSTransformComponent {
+  external factory CSSSkewX(CSSNumericValue ax);
 }
 
 extension CSSSkewXExtension on CSSSkewX {
@@ -432,10 +370,8 @@ extension CSSSkewXExtension on CSSSkewX {
 
 @JS('CSSSkewY')
 @staticInterop
-class CSSSkewY extends CSSTransformComponent {
-  external factory CSSSkewY();
-
-  external factory CSSSkewY.a1(CSSNumericValue ay);
+class CSSSkewY implements CSSTransformComponent {
+  external factory CSSSkewY(CSSNumericValue ay);
 }
 
 extension CSSSkewYExtension on CSSSkewY {
@@ -445,10 +381,8 @@ extension CSSSkewYExtension on CSSSkewY {
 
 @JS('CSSPerspective')
 @staticInterop
-class CSSPerspective extends CSSTransformComponent {
-  external factory CSSPerspective();
-
-  external factory CSSPerspective.a1(CSSPerspectiveValue length);
+class CSSPerspective implements CSSTransformComponent {
+  external factory CSSPerspective(CSSPerspectiveValue length);
 }
 
 extension CSSPerspectiveExtension on CSSPerspective {
@@ -458,15 +392,11 @@ extension CSSPerspectiveExtension on CSSPerspective {
 
 @JS('CSSMatrixComponent')
 @staticInterop
-class CSSMatrixComponent extends CSSTransformComponent {
-  external factory CSSMatrixComponent();
-
-  external factory CSSMatrixComponent.a1(DOMMatrixReadOnly matrix);
-
-  external factory CSSMatrixComponent.a2(
-    DOMMatrixReadOnly matrix,
+class CSSMatrixComponent implements CSSTransformComponent {
+  external factory CSSMatrixComponent(
+    DOMMatrixReadOnly matrix, [
     CSSMatrixComponentOptions options,
-  );
+  ]);
 }
 
 extension CSSMatrixComponentExtension on CSSMatrixComponent {
@@ -488,35 +418,23 @@ extension CSSMatrixComponentOptionsExtension on CSSMatrixComponentOptions {
 
 @JS('CSSImageValue')
 @staticInterop
-class CSSImageValue extends CSSStyleValue {
-  external factory CSSImageValue();
-}
+class CSSImageValue implements CSSStyleValue {}
 
 @JS('CSSColorValue')
 @staticInterop
-class CSSColorValue extends CSSStyleValue {
-  external factory CSSColorValue();
-
+class CSSColorValue implements CSSStyleValue {
   external static JSAny parse(JSString cssText);
 }
 
 @JS('CSSRGB')
 @staticInterop
-class CSSRGB extends CSSColorValue {
-  external factory CSSRGB();
-
-  external factory CSSRGB.a1(
+class CSSRGB implements CSSColorValue {
+  external factory CSSRGB(
     CSSColorRGBComp r,
     CSSColorRGBComp g,
-    CSSColorRGBComp b,
-  );
-
-  external factory CSSRGB.a2(
-    CSSColorRGBComp r,
-    CSSColorRGBComp g,
-    CSSColorRGBComp b,
+    CSSColorRGBComp b, [
     CSSColorPercent alpha,
-  );
+  ]);
 }
 
 extension CSSRGBExtension on CSSRGB {
@@ -532,21 +450,13 @@ extension CSSRGBExtension on CSSRGB {
 
 @JS('CSSHSL')
 @staticInterop
-class CSSHSL extends CSSColorValue {
-  external factory CSSHSL();
-
-  external factory CSSHSL.a1(
+class CSSHSL implements CSSColorValue {
+  external factory CSSHSL(
     CSSColorAngle h,
     CSSColorPercent s,
-    CSSColorPercent l,
-  );
-
-  external factory CSSHSL.a2(
-    CSSColorAngle h,
-    CSSColorPercent s,
-    CSSColorPercent l,
+    CSSColorPercent l, [
     CSSColorPercent alpha,
-  );
+  ]);
 }
 
 extension CSSHSLExtension on CSSHSL {
@@ -562,21 +472,13 @@ extension CSSHSLExtension on CSSHSL {
 
 @JS('CSSHWB')
 @staticInterop
-class CSSHWB extends CSSColorValue {
-  external factory CSSHWB();
-
-  external factory CSSHWB.a1(
+class CSSHWB implements CSSColorValue {
+  external factory CSSHWB(
     CSSNumericValue h,
     CSSNumberish w,
-    CSSNumberish b,
-  );
-
-  external factory CSSHWB.a2(
-    CSSNumericValue h,
-    CSSNumberish w,
-    CSSNumberish b,
+    CSSNumberish b, [
     CSSNumberish alpha,
-  );
+  ]);
 }
 
 extension CSSHWBExtension on CSSHWB {
@@ -592,21 +494,13 @@ extension CSSHWBExtension on CSSHWB {
 
 @JS('CSSLab')
 @staticInterop
-class CSSLab extends CSSColorValue {
-  external factory CSSLab();
-
-  external factory CSSLab.a1(
+class CSSLab implements CSSColorValue {
+  external factory CSSLab(
     CSSColorPercent l,
     CSSColorNumber a,
-    CSSColorNumber b,
-  );
-
-  external factory CSSLab.a2(
-    CSSColorPercent l,
-    CSSColorNumber a,
-    CSSColorNumber b,
+    CSSColorNumber b, [
     CSSColorPercent alpha,
-  );
+  ]);
 }
 
 extension CSSLabExtension on CSSLab {
@@ -622,21 +516,13 @@ extension CSSLabExtension on CSSLab {
 
 @JS('CSSLCH')
 @staticInterop
-class CSSLCH extends CSSColorValue {
-  external factory CSSLCH();
-
-  external factory CSSLCH.a1(
+class CSSLCH implements CSSColorValue {
+  external factory CSSLCH(
     CSSColorPercent l,
     CSSColorPercent c,
-    CSSColorAngle h,
-  );
-
-  external factory CSSLCH.a2(
-    CSSColorPercent l,
-    CSSColorPercent c,
-    CSSColorAngle h,
+    CSSColorAngle h, [
     CSSColorPercent alpha,
-  );
+  ]);
 }
 
 extension CSSLCHExtension on CSSLCH {
@@ -652,21 +538,13 @@ extension CSSLCHExtension on CSSLCH {
 
 @JS('CSSOKLab')
 @staticInterop
-class CSSOKLab extends CSSColorValue {
-  external factory CSSOKLab();
-
-  external factory CSSOKLab.a1(
+class CSSOKLab implements CSSColorValue {
+  external factory CSSOKLab(
     CSSColorPercent l,
     CSSColorNumber a,
-    CSSColorNumber b,
-  );
-
-  external factory CSSOKLab.a2(
-    CSSColorPercent l,
-    CSSColorNumber a,
-    CSSColorNumber b,
+    CSSColorNumber b, [
     CSSColorPercent alpha,
-  );
+  ]);
 }
 
 extension CSSOKLabExtension on CSSOKLab {
@@ -682,21 +560,13 @@ extension CSSOKLabExtension on CSSOKLab {
 
 @JS('CSSOKLCH')
 @staticInterop
-class CSSOKLCH extends CSSColorValue {
-  external factory CSSOKLCH();
-
-  external factory CSSOKLCH.a1(
+class CSSOKLCH implements CSSColorValue {
+  external factory CSSOKLCH(
     CSSColorPercent l,
     CSSColorPercent c,
-    CSSColorAngle h,
-  );
-
-  external factory CSSOKLCH.a2(
-    CSSColorPercent l,
-    CSSColorPercent c,
-    CSSColorAngle h,
+    CSSColorAngle h, [
     CSSColorPercent alpha,
-  );
+  ]);
 }
 
 extension CSSOKLCHExtension on CSSOKLCH {
@@ -712,19 +582,12 @@ extension CSSOKLCHExtension on CSSOKLCH {
 
 @JS('CSSColor')
 @staticInterop
-class CSSColor extends CSSColorValue {
-  external factory CSSColor();
-
-  external factory CSSColor.a1(
+class CSSColor implements CSSColorValue {
+  external factory CSSColor(
     CSSKeywordish colorSpace,
-    JSArray channels,
-  );
-
-  external factory CSSColor.a2(
-    CSSKeywordish colorSpace,
-    JSArray channels,
+    JSArray channels, [
     CSSNumberish alpha,
-  );
+  ]);
 }
 
 extension CSSColorExtension on CSSColor {

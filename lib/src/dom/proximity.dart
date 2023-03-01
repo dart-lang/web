@@ -12,12 +12,8 @@ import 'generic_sensor.dart';
 
 @JS('ProximitySensor')
 @staticInterop
-class ProximitySensor extends Sensor {
-  external factory ProximitySensor();
-
-  external factory ProximitySensor.a1();
-
-  external factory ProximitySensor.a2(SensorOptions sensorOptions);
+class ProximitySensor implements Sensor {
+  external factory ProximitySensor([SensorOptions sensorOptions]);
 }
 
 extension ProximitySensorExtension on ProximitySensor {

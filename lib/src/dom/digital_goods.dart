@@ -14,9 +14,7 @@ typedef ItemType = JSString;
 
 @JS('DigitalGoodsService')
 @staticInterop
-class DigitalGoodsService {
-  external factory DigitalGoodsService();
-}
+class DigitalGoodsService {}
 
 extension DigitalGoodsServiceExtension on DigitalGoodsService {
   external JSPromise getDetails(JSArray itemIds);

@@ -10,6 +10,4 @@ import 'package:js/js.dart' hide JS;
 
 @JS('EXT_float_blend')
 @staticInterop
-class EXT_float_blend {
-  external factory EXT_float_blend();
-}
+class EXT_float_blend {}

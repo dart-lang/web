@@ -11,20 +11,17 @@ import 'package:js/js.dart' hide JS;
 @JS('URL')
 @staticInterop
 class URL {
-  external factory URL();
-
-  external factory URL.a1(JSString url);
-
-  external factory URL.a2(
-    JSString url,
+  external factory URL(
+    JSString url, [
     JSString base,
-  );
+  ]);
 
   external static JSString createObjectURL(JSAny obj);
   external static JSVoid revokeObjectURL(JSString url);
 }
 
 extension URLExtension on URL {
+  external JSString toJSON();
   external set href(JSString value);
   external JSString get href;
   external JSString get origin;
@@ -47,17 +44,12 @@ extension URLExtension on URL {
   external URLSearchParams get searchParams;
   external set hash(JSString value);
   external JSString get hash;
-  external JSString toJSON();
 }
 
 @JS('URLSearchParams')
 @staticInterop
 class URLSearchParams {
-  external factory URLSearchParams();
-
-  external factory URLSearchParams.a1();
-
-  external factory URLSearchParams.a2(JSAny init);
+  external factory URLSearchParams([JSAny init]);
 }
 
 extension URLSearchParamsExtension on URLSearchParams {

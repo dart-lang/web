@@ -20,14 +20,12 @@ typedef KeyFormat = JSString;
 
 @JS('Crypto')
 @staticInterop
-class Crypto {
-  external factory Crypto();
-}
+class Crypto {}
 
 extension CryptoExtension on Crypto {
-  external SubtleCrypto get subtle;
   external ArrayBufferView getRandomValues(ArrayBufferView array);
   external JSString randomUUID();
+  external SubtleCrypto get subtle;
 }
 
 @JS()
@@ -56,9 +54,7 @@ extension KeyAlgorithmExtension on KeyAlgorithm {
 
 @JS('CryptoKey')
 @staticInterop
-class CryptoKey {
-  external factory CryptoKey();
-}
+class CryptoKey {}
 
 extension CryptoKeyExtension on CryptoKey {
   external KeyType get type;
@@ -69,9 +65,7 @@ extension CryptoKeyExtension on CryptoKey {
 
 @JS('SubtleCrypto')
 @staticInterop
-class SubtleCrypto {
-  external factory SubtleCrypto();
-}
+class SubtleCrypto {}
 
 extension SubtleCryptoExtension on SubtleCrypto {
   external JSPromise encrypt(
@@ -249,7 +243,7 @@ extension CryptoKeyPairExtension on CryptoKeyPair {
 @JS()
 @staticInterop
 @anonymous
-class RsaKeyGenParams extends Algorithm {
+class RsaKeyGenParams implements Algorithm {
   external factory RsaKeyGenParams({
     required JSNumber modulusLength,
     required BigInteger publicExponent,
@@ -266,7 +260,7 @@ extension RsaKeyGenParamsExtension on RsaKeyGenParams {
 @JS()
 @staticInterop
 @anonymous
-class RsaHashedKeyGenParams extends RsaKeyGenParams {
+class RsaHashedKeyGenParams implements RsaKeyGenParams {
   external factory RsaHashedKeyGenParams(
       {required HashAlgorithmIdentifier hash});
 }
@@ -279,7 +273,7 @@ extension RsaHashedKeyGenParamsExtension on RsaHashedKeyGenParams {
 @JS()
 @staticInterop
 @anonymous
-class RsaKeyAlgorithm extends KeyAlgorithm {
+class RsaKeyAlgorithm implements KeyAlgorithm {
   external factory RsaKeyAlgorithm({
     required JSNumber modulusLength,
     required BigInteger publicExponent,
@@ -296,7 +290,7 @@ extension RsaKeyAlgorithmExtension on RsaKeyAlgorithm {
 @JS()
 @staticInterop
 @anonymous
-class RsaHashedKeyAlgorithm extends RsaKeyAlgorithm {
+class RsaHashedKeyAlgorithm implements RsaKeyAlgorithm {
   external factory RsaHashedKeyAlgorithm({required KeyAlgorithm hash});
 }
 
@@ -308,7 +302,7 @@ extension RsaHashedKeyAlgorithmExtension on RsaHashedKeyAlgorithm {
 @JS()
 @staticInterop
 @anonymous
-class RsaHashedImportParams extends Algorithm {
+class RsaHashedImportParams implements Algorithm {
   external factory RsaHashedImportParams(
       {required HashAlgorithmIdentifier hash});
 }
@@ -321,7 +315,7 @@ extension RsaHashedImportParamsExtension on RsaHashedImportParams {
 @JS()
 @staticInterop
 @anonymous
-class RsaPssParams extends Algorithm {
+class RsaPssParams implements Algorithm {
   external factory RsaPssParams({required JSNumber saltLength});
 }
 
@@ -333,7 +327,7 @@ extension RsaPssParamsExtension on RsaPssParams {
 @JS()
 @staticInterop
 @anonymous
-class RsaOaepParams extends Algorithm {
+class RsaOaepParams implements Algorithm {
   external factory RsaOaepParams({BufferSource label});
 }
 
@@ -345,7 +339,7 @@ extension RsaOaepParamsExtension on RsaOaepParams {
 @JS()
 @staticInterop
 @anonymous
-class EcdsaParams extends Algorithm {
+class EcdsaParams implements Algorithm {
   external factory EcdsaParams({required HashAlgorithmIdentifier hash});
 }
 
@@ -357,7 +351,7 @@ extension EcdsaParamsExtension on EcdsaParams {
 @JS()
 @staticInterop
 @anonymous
-class EcKeyGenParams extends Algorithm {
+class EcKeyGenParams implements Algorithm {
   external factory EcKeyGenParams({required NamedCurve namedCurve});
 }
 
@@ -369,7 +363,7 @@ extension EcKeyGenParamsExtension on EcKeyGenParams {
 @JS()
 @staticInterop
 @anonymous
-class EcKeyAlgorithm extends KeyAlgorithm {
+class EcKeyAlgorithm implements KeyAlgorithm {
   external factory EcKeyAlgorithm({required NamedCurve namedCurve});
 }
 
@@ -381,7 +375,7 @@ extension EcKeyAlgorithmExtension on EcKeyAlgorithm {
 @JS()
 @staticInterop
 @anonymous
-class EcKeyImportParams extends Algorithm {
+class EcKeyImportParams implements Algorithm {
   external factory EcKeyImportParams({required NamedCurve namedCurve});
 }
 
@@ -393,7 +387,7 @@ extension EcKeyImportParamsExtension on EcKeyImportParams {
 @JS()
 @staticInterop
 @anonymous
-class EcdhKeyDeriveParams extends Algorithm {
+class EcdhKeyDeriveParams implements Algorithm {
   external factory EcdhKeyDeriveParams({required CryptoKey public});
 }
 
@@ -405,7 +399,7 @@ extension EcdhKeyDeriveParamsExtension on EcdhKeyDeriveParams {
 @JS()
 @staticInterop
 @anonymous
-class AesCtrParams extends Algorithm {
+class AesCtrParams implements Algorithm {
   external factory AesCtrParams({
     required BufferSource counter,
     required JSNumber length,
@@ -422,7 +416,7 @@ extension AesCtrParamsExtension on AesCtrParams {
 @JS()
 @staticInterop
 @anonymous
-class AesKeyAlgorithm extends KeyAlgorithm {
+class AesKeyAlgorithm implements KeyAlgorithm {
   external factory AesKeyAlgorithm({required JSNumber length});
 }
 
@@ -434,7 +428,7 @@ extension AesKeyAlgorithmExtension on AesKeyAlgorithm {
 @JS()
 @staticInterop
 @anonymous
-class AesKeyGenParams extends Algorithm {
+class AesKeyGenParams implements Algorithm {
   external factory AesKeyGenParams({required JSNumber length});
 }
 
@@ -446,7 +440,7 @@ extension AesKeyGenParamsExtension on AesKeyGenParams {
 @JS()
 @staticInterop
 @anonymous
-class AesDerivedKeyParams extends Algorithm {
+class AesDerivedKeyParams implements Algorithm {
   external factory AesDerivedKeyParams({required JSNumber length});
 }
 
@@ -458,7 +452,7 @@ extension AesDerivedKeyParamsExtension on AesDerivedKeyParams {
 @JS()
 @staticInterop
 @anonymous
-class AesCbcParams extends Algorithm {
+class AesCbcParams implements Algorithm {
   external factory AesCbcParams({required BufferSource iv});
 }
 
@@ -470,7 +464,7 @@ extension AesCbcParamsExtension on AesCbcParams {
 @JS()
 @staticInterop
 @anonymous
-class AesGcmParams extends Algorithm {
+class AesGcmParams implements Algorithm {
   external factory AesGcmParams({
     required BufferSource iv,
     BufferSource additionalData,
@@ -490,7 +484,7 @@ extension AesGcmParamsExtension on AesGcmParams {
 @JS()
 @staticInterop
 @anonymous
-class HmacImportParams extends Algorithm {
+class HmacImportParams implements Algorithm {
   external factory HmacImportParams({
     required HashAlgorithmIdentifier hash,
     JSNumber length,
@@ -507,7 +501,7 @@ extension HmacImportParamsExtension on HmacImportParams {
 @JS()
 @staticInterop
 @anonymous
-class HmacKeyAlgorithm extends KeyAlgorithm {
+class HmacKeyAlgorithm implements KeyAlgorithm {
   external factory HmacKeyAlgorithm({
     required KeyAlgorithm hash,
     required JSNumber length,
@@ -524,7 +518,7 @@ extension HmacKeyAlgorithmExtension on HmacKeyAlgorithm {
 @JS()
 @staticInterop
 @anonymous
-class HmacKeyGenParams extends Algorithm {
+class HmacKeyGenParams implements Algorithm {
   external factory HmacKeyGenParams({
     required HashAlgorithmIdentifier hash,
     JSNumber length,
@@ -541,7 +535,7 @@ extension HmacKeyGenParamsExtension on HmacKeyGenParams {
 @JS()
 @staticInterop
 @anonymous
-class HkdfParams extends Algorithm {
+class HkdfParams implements Algorithm {
   external factory HkdfParams({
     required HashAlgorithmIdentifier hash,
     required BufferSource salt,
@@ -561,7 +555,7 @@ extension HkdfParamsExtension on HkdfParams {
 @JS()
 @staticInterop
 @anonymous
-class Pbkdf2Params extends Algorithm {
+class Pbkdf2Params implements Algorithm {
   external factory Pbkdf2Params({
     required BufferSource salt,
     required JSNumber iterations,

@@ -20,47 +20,36 @@ typedef EpochTimeStamp = JSNumber;
 
 @JS('Performance')
 @staticInterop
-class Performance extends EventTarget {
-  external factory Performance();
-}
+class Performance implements EventTarget {}
 
 extension PerformanceExtension on Performance {
-  external EventCounts get eventCounts;
-  external JSNumber get interactionCount;
   external DOMHighResTimeStamp now();
-  external DOMHighResTimeStamp get timeOrigin;
   external JSObject toJSON();
-  external PerformanceTiming get timing;
-  external PerformanceNavigation get navigation;
   external JSPromise measureUserAgentSpecificMemory();
   external PerformanceEntryList getEntries();
   external PerformanceEntryList getEntriesByType(JSString type);
-  external PerformanceEntryList getEntriesByName(JSString name);
-  external PerformanceEntryList getEntriesByName1(
-    JSString name,
+  external PerformanceEntryList getEntriesByName(
+    JSString name, [
     JSString type,
-  );
+  ]);
   external JSVoid clearResourceTimings();
   external JSVoid setResourceTimingBufferSize(JSNumber maxSize);
-  external set onresourcetimingbufferfull(EventHandler value);
-  external EventHandler get onresourcetimingbufferfull;
-  external PerformanceMark mark(JSString markName);
-  external PerformanceMark mark1(
-    JSString markName,
+  external PerformanceMark mark(
+    JSString markName, [
     PerformanceMarkOptions markOptions,
-  );
-  external JSVoid clearMarks();
-  external JSVoid clearMarks1(JSString markName);
-  external PerformanceMeasure measure(JSString measureName);
-  external PerformanceMeasure measure1(
-    JSString measureName,
-    JSAny startOrMeasureOptions,
-  );
-  external PerformanceMeasure measure2(
-    JSString measureName,
+  ]);
+  external JSVoid clearMarks([JSString markName]);
+  external PerformanceMeasure measure(
+    JSString measureName, [
     JSAny startOrMeasureOptions,
     JSString endMark,
-  );
-  external JSVoid clearMeasures();
-  external JSVoid clearMeasures1(JSString measureName);
+  ]);
+  external JSVoid clearMeasures([JSString measureName]);
+  external EventCounts get eventCounts;
+  external JSNumber get interactionCount;
+  external DOMHighResTimeStamp get timeOrigin;
+  external PerformanceTiming get timing;
+  external PerformanceNavigation get navigation;
+  external set onresourcetimingbufferfull(EventHandler value);
+  external EventHandler get onresourcetimingbufferfull;
 }

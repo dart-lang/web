@@ -88,23 +88,19 @@ extension UALowEntropyJSONExtension on UALowEntropyJSON {
 
 @JS('NavigatorUAData')
 @staticInterop
-class NavigatorUAData {
-  external factory NavigatorUAData();
-}
+class NavigatorUAData {}
 
 extension NavigatorUADataExtension on NavigatorUAData {
+  external JSPromise getHighEntropyValues(JSArray hints);
+  external UALowEntropyJSON toJSON();
   external JSArray get brands;
   external JSBoolean get mobile;
   external JSString get platform;
-  external JSPromise getHighEntropyValues(JSArray hints);
-  external UALowEntropyJSON toJSON();
 }
 
 @JS('NavigatorUA')
 @staticInterop
-class NavigatorUA {
-  external factory NavigatorUA();
-}
+class NavigatorUA {}
 
 extension NavigatorUAExtension on NavigatorUA {
   external NavigatorUAData get userAgentData;

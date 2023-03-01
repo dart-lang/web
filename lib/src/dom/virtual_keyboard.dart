@@ -14,9 +14,7 @@ import 'html.dart';
 
 @JS('VirtualKeyboard')
 @staticInterop
-class VirtualKeyboard extends EventTarget {
-  external factory VirtualKeyboard();
-}
+class VirtualKeyboard implements EventTarget {}
 
 extension VirtualKeyboardExtension on VirtualKeyboard {
   external JSVoid show();

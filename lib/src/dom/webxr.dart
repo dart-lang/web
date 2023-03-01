@@ -35,17 +35,14 @@ typedef XRTargetRayMode = JSString;
 
 @JS('XRSystem')
 @staticInterop
-class XRSystem extends EventTarget {
-  external factory XRSystem();
-}
+class XRSystem implements EventTarget {}
 
 extension XRSystemExtension on XRSystem {
   external JSPromise isSessionSupported(XRSessionMode mode);
-  external JSPromise requestSession(XRSessionMode mode);
-  external JSPromise requestSession1(
-    XRSessionMode mode,
+  external JSPromise requestSession(
+    XRSessionMode mode, [
     XRSessionInit options,
-  );
+  ]);
   external set ondevicechange(EventHandler value);
   external EventHandler get ondevicechange;
 }
@@ -75,23 +72,26 @@ extension XRSessionInitExtension on XRSessionInit {
 
 @JS('XRSession')
 @staticInterop
-class XRSession extends EventTarget {
-  external factory XRSession();
-}
+class XRSession implements EventTarget {}
 
 extension XRSessionExtension on XRSession {
   external JSPromise restorePersistentAnchor(JSString uuid);
   external JSPromise deletePersistentAnchor(JSString uuid);
+  external JSPromise requestHitTestSource(XRHitTestOptionsInit options);
+  external JSPromise requestHitTestSourceForTransientInput(
+      XRTransientInputHitTestOptionsInit options);
+  external JSPromise requestLightProbe([XRLightProbeInit options]);
+  external JSVoid updateRenderState([XRRenderStateInit state]);
+  external JSPromise updateTargetFrameRate(JSNumber rate);
+  external JSPromise requestReferenceSpace(XRReferenceSpaceType type);
+  external JSNumber requestAnimationFrame(XRFrameRequestCallback callback);
+  external JSVoid cancelAnimationFrame(JSNumber handle);
+  external JSPromise end();
   external XREnvironmentBlendMode get environmentBlendMode;
   external XRInteractionMode get interactionMode;
   external XRDepthUsage get depthUsage;
   external XRDepthDataFormat get depthDataFormat;
   external XRDOMOverlayState? get domOverlayState;
-  external JSPromise requestHitTestSource(XRHitTestOptionsInit options);
-  external JSPromise requestHitTestSourceForTransientInput(
-      XRTransientInputHitTestOptionsInit options);
-  external JSPromise requestLightProbe();
-  external JSPromise requestLightProbe1(XRLightProbeInit options);
   external XRReflectionFormat get preferredReflectionFormat;
   external XRVisibilityState get visibilityState;
   external JSNumber? get frameRate;
@@ -99,13 +99,6 @@ extension XRSessionExtension on XRSession {
   external XRRenderState get renderState;
   external XRInputSourceArray get inputSources;
   external JSArray get enabledFeatures;
-  external JSVoid updateRenderState();
-  external JSVoid updateRenderState1(XRRenderStateInit state);
-  external JSPromise updateTargetFrameRate(JSNumber rate);
-  external JSPromise requestReferenceSpace(XRReferenceSpaceType type);
-  external JSNumber requestAnimationFrame(XRFrameRequestCallback callback);
-  external JSVoid cancelAnimationFrame(JSNumber handle);
-  external JSPromise end();
   external set onend(EventHandler value);
   external EventHandler get onend;
   external set oninputsourceschange(EventHandler value);
@@ -156,9 +149,7 @@ extension XRRenderStateInitExtension on XRRenderStateInit {
 
 @JS('XRRenderState')
 @staticInterop
-class XRRenderState {
-  external factory XRRenderState();
-}
+class XRRenderState {}
 
 extension XRRenderStateExtension on XRRenderState {
   external JSNumber get depthNear;
@@ -170,16 +161,13 @@ extension XRRenderStateExtension on XRRenderState {
 
 @JS('XRFrame')
 @staticInterop
-class XRFrame {
-  external factory XRFrame();
-}
+class XRFrame {}
 
 extension XRFrameExtension on XRFrame {
   external JSPromise createAnchor(
     XRRigidTransform pose,
     XRSpace space,
   );
-  external XRAnchorSet get trackedAnchors;
   external XRCPUDepthInformation? getDepthInformation(XRView view);
   external XRJointPose? getJointPose(
     XRJointSpace joint,
@@ -198,26 +186,23 @@ extension XRFrameExtension on XRFrame {
   external JSArray getHitTestResultsForTransientInput(
       XRTransientInputHitTestSource hitTestSource);
   external XRLightEstimate? getLightEstimate(XRLightProbe lightProbe);
-  external XRSession get session;
-  external DOMHighResTimeStamp get predictedDisplayTime;
   external XRViewerPose? getViewerPose(XRReferenceSpace referenceSpace);
   external XRPose? getPose(
     XRSpace space,
     XRSpace baseSpace,
   );
+  external XRAnchorSet get trackedAnchors;
+  external XRSession get session;
+  external DOMHighResTimeStamp get predictedDisplayTime;
 }
 
 @JS('XRSpace')
 @staticInterop
-class XRSpace extends EventTarget {
-  external factory XRSpace();
-}
+class XRSpace implements EventTarget {}
 
 @JS('XRReferenceSpace')
 @staticInterop
-class XRReferenceSpace extends XRSpace {
-  external factory XRReferenceSpace();
-}
+class XRReferenceSpace implements XRSpace {}
 
 extension XRReferenceSpaceExtension on XRReferenceSpace {
   external XRReferenceSpace getOffsetReferenceSpace(
@@ -228,9 +213,7 @@ extension XRReferenceSpaceExtension on XRReferenceSpace {
 
 @JS('XRBoundedReferenceSpace')
 @staticInterop
-class XRBoundedReferenceSpace extends XRReferenceSpace {
-  external factory XRBoundedReferenceSpace();
-}
+class XRBoundedReferenceSpace implements XRReferenceSpace {}
 
 extension XRBoundedReferenceSpaceExtension on XRBoundedReferenceSpace {
   external JSArray get boundsGeometry;
@@ -238,25 +221,21 @@ extension XRBoundedReferenceSpaceExtension on XRBoundedReferenceSpace {
 
 @JS('XRView')
 @staticInterop
-class XRView {
-  external factory XRView();
-}
+class XRView {}
 
 extension XRViewExtension on XRView {
+  external JSVoid requestViewportScale(JSNumber? scale);
   external XRCamera? get camera;
   external JSBoolean get isFirstPersonObserver;
   external XREye get eye;
   external JSFloat32Array get projectionMatrix;
   external XRRigidTransform get transform;
   external JSNumber? get recommendedViewportScale;
-  external JSVoid requestViewportScale(JSNumber? scale);
 }
 
 @JS('XRViewport')
 @staticInterop
-class XRViewport {
-  external factory XRViewport();
-}
+class XRViewport {}
 
 extension XRViewportExtension on XRViewport {
   external JSNumber get x;
@@ -268,16 +247,10 @@ extension XRViewportExtension on XRViewport {
 @JS('XRRigidTransform')
 @staticInterop
 class XRRigidTransform {
-  external factory XRRigidTransform();
-
-  external factory XRRigidTransform.a1();
-
-  external factory XRRigidTransform.a2(DOMPointInit position);
-
-  external factory XRRigidTransform.a3(
+  external factory XRRigidTransform([
     DOMPointInit position,
     DOMPointInit orientation,
-  );
+  ]);
 }
 
 extension XRRigidTransformExtension on XRRigidTransform {
@@ -289,9 +262,7 @@ extension XRRigidTransformExtension on XRRigidTransform {
 
 @JS('XRPose')
 @staticInterop
-class XRPose {
-  external factory XRPose();
-}
+class XRPose {}
 
 extension XRPoseExtension on XRPose {
   external XRRigidTransform get transform;
@@ -302,9 +273,7 @@ extension XRPoseExtension on XRPose {
 
 @JS('XRViewerPose')
 @staticInterop
-class XRViewerPose extends XRPose {
-  external factory XRViewerPose();
-}
+class XRViewerPose implements XRPose {}
 
 extension XRViewerPoseExtension on XRViewerPose {
   external JSArray get views;
@@ -312,9 +281,7 @@ extension XRViewerPoseExtension on XRViewerPose {
 
 @JS('XRInputSource')
 @staticInterop
-class XRInputSource {
-  external factory XRInputSource();
-}
+class XRInputSource {}
 
 extension XRInputSourceExtension on XRInputSource {
   external Gamepad? get gamepad;
@@ -328,9 +295,7 @@ extension XRInputSourceExtension on XRInputSource {
 
 @JS('XRInputSourceArray')
 @staticInterop
-class XRInputSourceArray {
-  external factory XRInputSourceArray();
-}
+class XRInputSourceArray {}
 
 extension XRInputSourceArrayExtension on XRInputSourceArray {
   external JSNumber get length;
@@ -338,9 +303,7 @@ extension XRInputSourceArrayExtension on XRInputSourceArray {
 
 @JS('XRLayer')
 @staticInterop
-class XRLayer extends EventTarget {
-  external factory XRLayer();
-}
+class XRLayer implements EventTarget {}
 
 @JS()
 @staticInterop
@@ -373,24 +336,18 @@ extension XRWebGLLayerInitExtension on XRWebGLLayerInit {
 
 @JS('XRWebGLLayer')
 @staticInterop
-class XRWebGLLayer extends XRLayer {
-  external factory XRWebGLLayer();
-
-  external factory XRWebGLLayer.a1(
+class XRWebGLLayer implements XRLayer {
+  external factory XRWebGLLayer(
     XRSession session,
-    XRWebGLRenderingContext context,
-  );
-
-  external factory XRWebGLLayer.a2(
-    XRSession session,
-    XRWebGLRenderingContext context,
+    XRWebGLRenderingContext context, [
     XRWebGLLayerInit layerInit,
-  );
+  ]);
 
   external static JSNumber getNativeFramebufferScaleFactor(XRSession session);
 }
 
 extension XRWebGLLayerExtension on XRWebGLLayer {
+  external XRViewport? getViewport(XRView view);
   external JSBoolean get antialias;
   external JSBoolean get ignoreDepthValues;
   external set fixedFoveation(JSNumber? value);
@@ -398,15 +355,12 @@ extension XRWebGLLayerExtension on XRWebGLLayer {
   external WebGLFramebuffer? get framebuffer;
   external JSNumber get framebufferWidth;
   external JSNumber get framebufferHeight;
-  external XRViewport? getViewport(XRView view);
 }
 
 @JS('XRSessionEvent')
 @staticInterop
-class XRSessionEvent extends Event {
-  external factory XRSessionEvent();
-
-  external factory XRSessionEvent.a1(
+class XRSessionEvent implements Event {
+  external factory XRSessionEvent(
     JSString type,
     XRSessionEventInit eventInitDict,
   );
@@ -419,7 +373,7 @@ extension XRSessionEventExtension on XRSessionEvent {
 @JS()
 @staticInterop
 @anonymous
-class XRSessionEventInit extends EventInit {
+class XRSessionEventInit implements EventInit {
   external factory XRSessionEventInit({required XRSession session});
 }
 
@@ -430,10 +384,8 @@ extension XRSessionEventInitExtension on XRSessionEventInit {
 
 @JS('XRInputSourceEvent')
 @staticInterop
-class XRInputSourceEvent extends Event {
-  external factory XRInputSourceEvent();
-
-  external factory XRInputSourceEvent.a1(
+class XRInputSourceEvent implements Event {
+  external factory XRInputSourceEvent(
     JSString type,
     XRInputSourceEventInit eventInitDict,
   );
@@ -447,7 +399,7 @@ extension XRInputSourceEventExtension on XRInputSourceEvent {
 @JS()
 @staticInterop
 @anonymous
-class XRInputSourceEventInit extends EventInit {
+class XRInputSourceEventInit implements EventInit {
   external factory XRInputSourceEventInit({
     required XRFrame frame,
     required XRInputSource inputSource,
@@ -463,10 +415,8 @@ extension XRInputSourceEventInitExtension on XRInputSourceEventInit {
 
 @JS('XRInputSourcesChangeEvent')
 @staticInterop
-class XRInputSourcesChangeEvent extends Event {
-  external factory XRInputSourcesChangeEvent();
-
-  external factory XRInputSourcesChangeEvent.a1(
+class XRInputSourcesChangeEvent implements Event {
+  external factory XRInputSourcesChangeEvent(
     JSString type,
     XRInputSourcesChangeEventInit eventInitDict,
   );
@@ -481,7 +431,7 @@ extension XRInputSourcesChangeEventExtension on XRInputSourcesChangeEvent {
 @JS()
 @staticInterop
 @anonymous
-class XRInputSourcesChangeEventInit extends EventInit {
+class XRInputSourcesChangeEventInit implements EventInit {
   external factory XRInputSourcesChangeEventInit({
     required XRSession session,
     required JSArray added,
@@ -501,10 +451,8 @@ extension XRInputSourcesChangeEventInitExtension
 
 @JS('XRReferenceSpaceEvent')
 @staticInterop
-class XRReferenceSpaceEvent extends Event {
-  external factory XRReferenceSpaceEvent();
-
-  external factory XRReferenceSpaceEvent.a1(
+class XRReferenceSpaceEvent implements Event {
+  external factory XRReferenceSpaceEvent(
     JSString type,
     XRReferenceSpaceEventInit eventInitDict,
   );
@@ -518,7 +466,7 @@ extension XRReferenceSpaceEventExtension on XRReferenceSpaceEvent {
 @JS()
 @staticInterop
 @anonymous
-class XRReferenceSpaceEventInit extends EventInit {
+class XRReferenceSpaceEventInit implements EventInit {
   external factory XRReferenceSpaceEventInit({
     required XRReferenceSpace referenceSpace,
     XRRigidTransform? transform,
@@ -535,7 +483,7 @@ extension XRReferenceSpaceEventInitExtension on XRReferenceSpaceEventInit {
 @JS()
 @staticInterop
 @anonymous
-class XRSessionSupportedPermissionDescriptor extends PermissionDescriptor {
+class XRSessionSupportedPermissionDescriptor implements PermissionDescriptor {
   external factory XRSessionSupportedPermissionDescriptor({XRSessionMode mode});
 }
 
@@ -548,7 +496,7 @@ extension XRSessionSupportedPermissionDescriptorExtension
 @JS()
 @staticInterop
 @anonymous
-class XRPermissionDescriptor extends PermissionDescriptor {
+class XRPermissionDescriptor implements PermissionDescriptor {
   external factory XRPermissionDescriptor({
     XRSessionMode mode,
     JSArray requiredFeatures,
@@ -567,9 +515,7 @@ extension XRPermissionDescriptorExtension on XRPermissionDescriptor {
 
 @JS('XRPermissionStatus')
 @staticInterop
-class XRPermissionStatus extends PermissionStatus {
-  external factory XRPermissionStatus();
-}
+class XRPermissionStatus implements PermissionStatus {}
 
 extension XRPermissionStatusExtension on XRPermissionStatus {
   external set granted(JSArray value);

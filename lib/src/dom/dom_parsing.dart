@@ -13,7 +13,7 @@ import 'dom.dart';
 @JS('XMLSerializer')
 @staticInterop
 class XMLSerializer {
-  external factory XMLSerializer.a0();
+  external factory XMLSerializer();
 }
 
 extension XMLSerializerExtension on XMLSerializer {
@@ -22,9 +22,7 @@ extension XMLSerializerExtension on XMLSerializer {
 
 @JS('InnerHTML')
 @staticInterop
-class InnerHTML {
-  external factory InnerHTML();
-}
+class InnerHTML {}
 
 extension InnerHTMLExtension on InnerHTML {
   external set innerHTML(JSString value);

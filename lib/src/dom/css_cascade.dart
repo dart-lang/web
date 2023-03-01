@@ -12,9 +12,7 @@ import 'cssom.dart';
 
 @JS('CSSLayerBlockRule')
 @staticInterop
-class CSSLayerBlockRule extends CSSGroupingRule {
-  external factory CSSLayerBlockRule();
-}
+class CSSLayerBlockRule implements CSSGroupingRule {}
 
 extension CSSLayerBlockRuleExtension on CSSLayerBlockRule {
   external JSString get name;
@@ -22,9 +20,7 @@ extension CSSLayerBlockRuleExtension on CSSLayerBlockRule {
 
 @JS('CSSLayerStatementRule')
 @staticInterop
-class CSSLayerStatementRule extends CSSRule {
-  external factory CSSLayerStatementRule();
-}
+class CSSLayerStatementRule implements CSSRule {}
 
 extension CSSLayerStatementRuleExtension on CSSLayerStatementRule {
   external JSArray get nameList;

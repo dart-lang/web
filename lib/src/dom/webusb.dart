@@ -62,23 +62,21 @@ extension USBDeviceRequestOptionsExtension on USBDeviceRequestOptions {
 
 @JS('USB')
 @staticInterop
-class USB extends EventTarget {
-  external factory USB();
-}
+class USB implements EventTarget {}
 
 extension USBExtension on USB {
+  external JSPromise getDevices();
+  external JSPromise requestDevice(USBDeviceRequestOptions options);
   external set onconnect(EventHandler value);
   external EventHandler get onconnect;
   external set ondisconnect(EventHandler value);
   external EventHandler get ondisconnect;
-  external JSPromise getDevices();
-  external JSPromise requestDevice(USBDeviceRequestOptions options);
 }
 
 @JS()
 @staticInterop
 @anonymous
-class USBConnectionEventInit extends EventInit {
+class USBConnectionEventInit implements EventInit {
   external factory USBConnectionEventInit({required USBDevice device});
 }
 
@@ -89,10 +87,8 @@ extension USBConnectionEventInitExtension on USBConnectionEventInit {
 
 @JS('USBConnectionEvent')
 @staticInterop
-class USBConnectionEvent extends Event {
-  external factory USBConnectionEvent();
-
-  external factory USBConnectionEvent.a1(
+class USBConnectionEvent implements Event {
+  external factory USBConnectionEvent(
     JSString type,
     USBConnectionEventInit eventInitDict,
   );
@@ -105,14 +101,10 @@ extension USBConnectionEventExtension on USBConnectionEvent {
 @JS('USBInTransferResult')
 @staticInterop
 class USBInTransferResult {
-  external factory USBInTransferResult();
-
-  external factory USBInTransferResult.a1(USBTransferStatus status);
-
-  external factory USBInTransferResult.a2(
-    USBTransferStatus status,
+  external factory USBInTransferResult(
+    USBTransferStatus status, [
     JSDataView? data,
-  );
+  ]);
 }
 
 extension USBInTransferResultExtension on USBInTransferResult {
@@ -123,14 +115,10 @@ extension USBInTransferResultExtension on USBInTransferResult {
 @JS('USBOutTransferResult')
 @staticInterop
 class USBOutTransferResult {
-  external factory USBOutTransferResult();
-
-  external factory USBOutTransferResult.a1(USBTransferStatus status);
-
-  external factory USBOutTransferResult.a2(
-    USBTransferStatus status,
+  external factory USBOutTransferResult(
+    USBTransferStatus status, [
     JSNumber bytesWritten,
-  );
+  ]);
 }
 
 extension USBOutTransferResultExtension on USBOutTransferResult {
@@ -141,14 +129,10 @@ extension USBOutTransferResultExtension on USBOutTransferResult {
 @JS('USBIsochronousInTransferPacket')
 @staticInterop
 class USBIsochronousInTransferPacket {
-  external factory USBIsochronousInTransferPacket();
-
-  external factory USBIsochronousInTransferPacket.a1(USBTransferStatus status);
-
-  external factory USBIsochronousInTransferPacket.a2(
-    USBTransferStatus status,
+  external factory USBIsochronousInTransferPacket(
+    USBTransferStatus status, [
     JSDataView? data,
-  );
+  ]);
 }
 
 extension USBIsochronousInTransferPacketExtension
@@ -160,14 +144,10 @@ extension USBIsochronousInTransferPacketExtension
 @JS('USBIsochronousInTransferResult')
 @staticInterop
 class USBIsochronousInTransferResult {
-  external factory USBIsochronousInTransferResult();
-
-  external factory USBIsochronousInTransferResult.a1(JSArray packets);
-
-  external factory USBIsochronousInTransferResult.a2(
-    JSArray packets,
+  external factory USBIsochronousInTransferResult(
+    JSArray packets, [
     JSDataView? data,
-  );
+  ]);
 }
 
 extension USBIsochronousInTransferResultExtension
@@ -179,14 +159,10 @@ extension USBIsochronousInTransferResultExtension
 @JS('USBIsochronousOutTransferPacket')
 @staticInterop
 class USBIsochronousOutTransferPacket {
-  external factory USBIsochronousOutTransferPacket();
-
-  external factory USBIsochronousOutTransferPacket.a1(USBTransferStatus status);
-
-  external factory USBIsochronousOutTransferPacket.a2(
-    USBTransferStatus status,
+  external factory USBIsochronousOutTransferPacket(
+    USBTransferStatus status, [
     JSNumber bytesWritten,
-  );
+  ]);
 }
 
 extension USBIsochronousOutTransferPacketExtension
@@ -198,9 +174,7 @@ extension USBIsochronousOutTransferPacketExtension
 @JS('USBIsochronousOutTransferResult')
 @staticInterop
 class USBIsochronousOutTransferResult {
-  external factory USBIsochronousOutTransferResult();
-
-  external factory USBIsochronousOutTransferResult.a1(JSArray packets);
+  external factory USBIsochronousOutTransferResult(JSArray packets);
 }
 
 extension USBIsochronousOutTransferResultExtension
@@ -210,28 +184,9 @@ extension USBIsochronousOutTransferResultExtension
 
 @JS('USBDevice')
 @staticInterop
-class USBDevice {
-  external factory USBDevice();
-}
+class USBDevice {}
 
 extension USBDeviceExtension on USBDevice {
-  external JSNumber get usbVersionMajor;
-  external JSNumber get usbVersionMinor;
-  external JSNumber get usbVersionSubminor;
-  external JSNumber get deviceClass;
-  external JSNumber get deviceSubclass;
-  external JSNumber get deviceProtocol;
-  external JSNumber get vendorId;
-  external JSNumber get productId;
-  external JSNumber get deviceVersionMajor;
-  external JSNumber get deviceVersionMinor;
-  external JSNumber get deviceVersionSubminor;
-  external JSString? get manufacturerName;
-  external JSString? get productName;
-  external JSString? get serialNumber;
-  external USBConfiguration? get configuration;
-  external JSArray get configurations;
-  external JSBoolean get opened;
   external JSPromise open();
   external JSPromise close();
   external JSPromise forget();
@@ -246,11 +201,10 @@ extension USBDeviceExtension on USBDevice {
     USBControlTransferParameters setup,
     JSNumber length,
   );
-  external JSPromise controlTransferOut(USBControlTransferParameters setup);
-  external JSPromise controlTransferOut1(
-    USBControlTransferParameters setup,
+  external JSPromise controlTransferOut(
+    USBControlTransferParameters setup, [
     BufferSource data,
-  );
+  ]);
   external JSPromise clearHalt(
     USBDirection direction,
     JSNumber endpointNumber,
@@ -273,6 +227,23 @@ extension USBDeviceExtension on USBDevice {
     JSArray packetLengths,
   );
   external JSPromise reset();
+  external JSNumber get usbVersionMajor;
+  external JSNumber get usbVersionMinor;
+  external JSNumber get usbVersionSubminor;
+  external JSNumber get deviceClass;
+  external JSNumber get deviceSubclass;
+  external JSNumber get deviceProtocol;
+  external JSNumber get vendorId;
+  external JSNumber get productId;
+  external JSNumber get deviceVersionMajor;
+  external JSNumber get deviceVersionMinor;
+  external JSNumber get deviceVersionSubminor;
+  external JSString? get manufacturerName;
+  external JSString? get productName;
+  external JSString? get serialNumber;
+  external USBConfiguration? get configuration;
+  external JSArray get configurations;
+  external JSBoolean get opened;
 }
 
 @JS()
@@ -305,9 +276,7 @@ extension USBControlTransferParametersExtension
 @JS('USBConfiguration')
 @staticInterop
 class USBConfiguration {
-  external factory USBConfiguration();
-
-  external factory USBConfiguration.a1(
+  external factory USBConfiguration(
     USBDevice device,
     JSNumber configurationValue,
   );
@@ -322,9 +291,7 @@ extension USBConfigurationExtension on USBConfiguration {
 @JS('USBInterface')
 @staticInterop
 class USBInterface {
-  external factory USBInterface();
-
-  external factory USBInterface.a1(
+  external factory USBInterface(
     USBConfiguration configuration,
     JSNumber interfaceNumber,
   );
@@ -340,9 +307,7 @@ extension USBInterfaceExtension on USBInterface {
 @JS('USBAlternateInterface')
 @staticInterop
 class USBAlternateInterface {
-  external factory USBAlternateInterface();
-
-  external factory USBAlternateInterface.a1(
+  external factory USBAlternateInterface(
     USBInterface deviceInterface,
     JSNumber alternateSetting,
   );
@@ -360,9 +325,7 @@ extension USBAlternateInterfaceExtension on USBAlternateInterface {
 @JS('USBEndpoint')
 @staticInterop
 class USBEndpoint {
-  external factory USBEndpoint();
-
-  external factory USBEndpoint.a1(
+  external factory USBEndpoint(
     USBAlternateInterface alternate,
     JSNumber endpointNumber,
     USBDirection direction,
@@ -379,7 +342,7 @@ extension USBEndpointExtension on USBEndpoint {
 @JS()
 @staticInterop
 @anonymous
-class USBPermissionDescriptor extends PermissionDescriptor {
+class USBPermissionDescriptor implements PermissionDescriptor {
   external factory USBPermissionDescriptor({JSArray filters});
 }
 
@@ -422,9 +385,7 @@ extension USBPermissionStorageExtension on USBPermissionStorage {
 
 @JS('USBPermissionResult')
 @staticInterop
-class USBPermissionResult extends PermissionStatus {
-  external factory USBPermissionResult();
-}
+class USBPermissionResult implements PermissionStatus {}
 
 extension USBPermissionResultExtension on USBPermissionResult {
   external set devices(JSArray value);

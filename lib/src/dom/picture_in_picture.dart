@@ -13,9 +13,7 @@ import 'html.dart';
 
 @JS('PictureInPictureWindow')
 @staticInterop
-class PictureInPictureWindow extends EventTarget {
-  external factory PictureInPictureWindow();
-}
+class PictureInPictureWindow implements EventTarget {}
 
 extension PictureInPictureWindowExtension on PictureInPictureWindow {
   external JSNumber get width;
@@ -26,10 +24,8 @@ extension PictureInPictureWindowExtension on PictureInPictureWindow {
 
 @JS('PictureInPictureEvent')
 @staticInterop
-class PictureInPictureEvent extends Event {
-  external factory PictureInPictureEvent();
-
-  external factory PictureInPictureEvent.a1(
+class PictureInPictureEvent implements Event {
+  external factory PictureInPictureEvent(
     JSString type,
     PictureInPictureEventInit eventInitDict,
   );
@@ -42,7 +38,7 @@ extension PictureInPictureEventExtension on PictureInPictureEvent {
 @JS()
 @staticInterop
 @anonymous
-class PictureInPictureEventInit extends EventInit {
+class PictureInPictureEventInit implements EventInit {
   external factory PictureInPictureEventInit(
       {required PictureInPictureWindow pictureInPictureWindow});
 }

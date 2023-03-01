@@ -13,12 +13,8 @@ import 'html.dart';
 
 @JS('CloseWatcher')
 @staticInterop
-class CloseWatcher extends EventTarget {
-  external factory CloseWatcher();
-
-  external factory CloseWatcher.a1();
-
-  external factory CloseWatcher.a2(CloseWatcherOptions options);
+class CloseWatcher implements EventTarget {
+  external factory CloseWatcher([CloseWatcherOptions options]);
 }
 
 extension CloseWatcherExtension on CloseWatcher {

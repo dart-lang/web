@@ -23,17 +23,13 @@ typedef CompositeOperationOrAuto = JSString;
 
 @JS('AnimationTimeline')
 @staticInterop
-class AnimationTimeline {
-  external factory AnimationTimeline();
-}
+class AnimationTimeline {}
 
 extension AnimationTimelineExtension on AnimationTimeline {
-  external CSSNumericValue? getCurrentTime();
-  external CSSNumericValue? getCurrentTime1(JSString rangeName);
+  external CSSNumericValue? getCurrentTime([JSString rangeName]);
+  external Animation play([AnimationEffect? effect]);
   external CSSNumberish? get currentTime;
   external CSSNumberish? get duration;
-  external Animation play();
-  external Animation play1(AnimationEffect? effect);
 }
 
 @JS()
@@ -51,30 +47,28 @@ extension DocumentTimelineOptionsExtension on DocumentTimelineOptions {
 
 @JS('DocumentTimeline')
 @staticInterop
-class DocumentTimeline extends AnimationTimeline {
-  external factory DocumentTimeline();
-
-  external factory DocumentTimeline.a1();
-
-  external factory DocumentTimeline.a2(DocumentTimelineOptions options);
+class DocumentTimeline implements AnimationTimeline {
+  external factory DocumentTimeline([DocumentTimelineOptions options]);
 }
 
 @JS('Animation')
 @staticInterop
-class Animation extends EventTarget {
-  external factory Animation();
-
-  external factory Animation.a1();
-
-  external factory Animation.a2(AnimationEffect? effect);
-
-  external factory Animation.a3(
+class Animation implements EventTarget {
+  external factory Animation([
     AnimationEffect? effect,
     AnimationTimeline? timeline,
-  );
+  ]);
 }
 
 extension AnimationExtension on Animation {
+  external JSVoid cancel();
+  external JSVoid finish();
+  external JSVoid play();
+  external JSVoid pause();
+  external JSVoid updatePlaybackRate(JSNumber playbackRate);
+  external JSVoid reverse();
+  external JSVoid persist();
+  external JSVoid commitStyles();
   external set startTime(CSSNumberish? value);
   external CSSNumberish? get startTime;
   external set currentTime(CSSNumberish? value);
@@ -98,34 +92,23 @@ extension AnimationExtension on Animation {
   external EventHandler get oncancel;
   external set onremove(EventHandler value);
   external EventHandler get onremove;
-  external JSVoid cancel();
-  external JSVoid finish();
-  external JSVoid play();
-  external JSVoid pause();
-  external JSVoid updatePlaybackRate(JSNumber playbackRate);
-  external JSVoid reverse();
-  external JSVoid persist();
-  external JSVoid commitStyles();
 }
 
 @JS('AnimationEffect')
 @staticInterop
-class AnimationEffect {
-  external factory AnimationEffect();
-}
+class AnimationEffect {}
 
 extension AnimationEffectExtension on AnimationEffect {
-  external GroupEffect? get parent;
-  external AnimationEffect? get previousSibling;
-  external AnimationEffect? get nextSibling;
   external JSVoid before(AnimationEffect effects);
   external JSVoid after(AnimationEffect effects);
   external JSVoid replace(AnimationEffect effects);
   external JSVoid remove();
   external EffectTiming getTiming();
   external ComputedEffectTiming getComputedTiming();
-  external JSVoid updateTiming();
-  external JSVoid updateTiming1(OptionalEffectTiming timing);
+  external JSVoid updateTiming([OptionalEffectTiming timing]);
+  external GroupEffect? get parent;
+  external AnimationEffect? get previousSibling;
+  external AnimationEffect? get nextSibling;
 }
 
 @JS()
@@ -207,7 +190,7 @@ extension OptionalEffectTimingExtension on OptionalEffectTiming {
 @JS()
 @staticInterop
 @anonymous
-class ComputedEffectTiming extends EffectTiming {
+class ComputedEffectTiming implements EffectTiming {
   external factory ComputedEffectTiming({
     CSSNumberish startTime,
     CSSNumberish endTime,
@@ -235,24 +218,17 @@ extension ComputedEffectTimingExtension on ComputedEffectTiming {
 
 @JS('KeyframeEffect')
 @staticInterop
-class KeyframeEffect extends AnimationEffect {
-  external factory KeyframeEffect();
-
-  external factory KeyframeEffect.a1(
-    Element? target,
-    JSObject? keyframes,
-  );
-
-  external factory KeyframeEffect.a2(
-    Element? target,
+class KeyframeEffect implements AnimationEffect {
+  external factory KeyframeEffect(
+    JSAny? sourceOrTarget, [
     JSObject? keyframes,
     JSAny options,
-  );
-
-  external factory KeyframeEffect.a3(KeyframeEffect source);
+  ]);
 }
 
 extension KeyframeEffectExtension on KeyframeEffect {
+  external JSArray getKeyframes();
+  external JSVoid setKeyframes(JSObject? keyframes);
   external set iterationComposite(IterationCompositeOperation value);
   external IterationCompositeOperation get iterationComposite;
   external set target(Element? value);
@@ -261,8 +237,6 @@ extension KeyframeEffectExtension on KeyframeEffect {
   external JSString? get pseudoElement;
   external set composite(CompositeOperation value);
   external CompositeOperation get composite;
-  external JSArray getKeyframes();
-  external JSVoid setKeyframes(JSObject? keyframes);
 }
 
 @JS()
@@ -331,7 +305,7 @@ extension BaseKeyframeExtension on BaseKeyframe {
 @JS()
 @staticInterop
 @anonymous
-class KeyframeEffectOptions extends EffectTiming {
+class KeyframeEffectOptions implements EffectTiming {
   external factory KeyframeEffectOptions({
     IterationCompositeOperation iterationComposite = 'replace',
     CompositeOperation composite = 'replace',
@@ -350,24 +324,20 @@ extension KeyframeEffectOptionsExtension on KeyframeEffectOptions {
 
 @JS('Animatable')
 @staticInterop
-class Animatable {
-  external factory Animatable();
-}
+class Animatable {}
 
 extension AnimatableExtension on Animatable {
-  external Animation animate(JSObject? keyframes);
-  external Animation animate1(
-    JSObject? keyframes,
+  external Animation animate(
+    JSObject? keyframes, [
     JSAny options,
-  );
-  external JSArray getAnimations();
-  external JSArray getAnimations1(GetAnimationsOptions options);
+  ]);
+  external JSArray getAnimations([GetAnimationsOptions options]);
 }
 
 @JS()
 @staticInterop
 @anonymous
-class KeyframeAnimationOptions extends KeyframeEffectOptions {
+class KeyframeAnimationOptions implements KeyframeEffectOptions {
   external factory KeyframeAnimationOptions({
     JSString id = '',
     AnimationTimeline? timeline,

@@ -12,6 +12,4 @@ import 'performance_timeline.dart';
 
 @JS('PerformancePaintTiming')
 @staticInterop
-class PerformancePaintTiming extends PerformanceEntry {
-  external factory PerformancePaintTiming();
-}
+class PerformancePaintTiming implements PerformanceEntry {}

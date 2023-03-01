@@ -12,9 +12,7 @@ import 'reporting.dart';
 
 @JS('DeprecationReportBody')
 @staticInterop
-class DeprecationReportBody extends ReportBody {
-  external factory DeprecationReportBody();
-}
+class DeprecationReportBody implements ReportBody {}
 
 extension DeprecationReportBodyExtension on DeprecationReportBody {
   external JSObject toJSON();

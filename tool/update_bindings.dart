@@ -45,7 +45,7 @@ $_usage''');
 
   // Run app with `node`.
   if (argResult['delete-src'] as bool) {
-    // TODO: file cleanup should happen in the tool itself
+    // TODO(dart-lang/web#28): file cleanup should happen in the tool itself
     final srcDir = Directory(p.join(p.current, 'lib', 'src'));
 
     if (srcDir.existsSync()) {
@@ -91,8 +91,9 @@ $_endComment
 
 String _webRefIdlVersion() {
   final packageLockData = jsonDecode(
-      File(p.join(_bindingsGeneratorPath, 'package-lock.json'))
-          .readAsStringSync()) as Map<String, dynamic>;
+    File(p.join(_bindingsGeneratorPath, 'package-lock.json'))
+        .readAsStringSync(),
+  ) as Map<String, dynamic>;
 
   final packages = packageLockData['packages'] as Map<String, dynamic>;
   final webRefIdl =

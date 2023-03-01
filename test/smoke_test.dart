@@ -6,7 +6,7 @@
 library;
 
 import 'package:test/test.dart';
-import 'package:web/dom.dart';
+import 'package:web/web.dart';
 
 void main() {
   test('Hello World!', () {

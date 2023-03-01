@@ -577,7 +577,7 @@ class Translator {
   TranslationResult translate() {
     // Create a root import that exports all of the other libraries.
     final dartLibraries = <String, code.Library>{};
-    dartLibraries['dom.dart'] = generateRootImport(_libraries.keys);
+    dartLibraries['web.dart'] = generateRootImport(_libraries.keys);
 
     // Wire up includes. This step must come before we start translating
     // libraries because interfaces and namespaces may include across library

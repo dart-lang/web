@@ -52,12 +52,12 @@ typedef RTCErrorDetailType = JSString;
 class RTCConfiguration {
   external factory RTCConfiguration({
     JSString peerIdentity,
-    JSArray iceServers = const [],
-    RTCIceTransportPolicy iceTransportPolicy = 'all',
-    RTCBundlePolicy bundlePolicy = 'balanced',
-    RTCRtcpMuxPolicy rtcpMuxPolicy = 'require',
-    JSArray certificates = const [],
-    JSNumber iceCandidatePoolSize = 0,
+    JSArray iceServers,
+    RTCIceTransportPolicy iceTransportPolicy,
+    RTCBundlePolicy bundlePolicy,
+    RTCRtcpMuxPolicy rtcpMuxPolicy,
+    JSArray certificates,
+    JSNumber iceCandidatePoolSize,
   });
 }
 
@@ -110,7 +110,7 @@ class RTCOfferAnswerOptions {
 @anonymous
 class RTCOfferOptions implements RTCOfferAnswerOptions {
   external factory RTCOfferOptions({
-    JSBoolean iceRestart = false,
+    JSBoolean iceRestart,
     JSBoolean offerToReceiveAudio,
     JSBoolean offerToReceiveVideo,
   });
@@ -246,7 +246,7 @@ extension RTCSessionDescriptionExtension on RTCSessionDescription {
 class RTCSessionDescriptionInit {
   external factory RTCSessionDescriptionInit({
     required RTCSdpType type,
-    JSString sdp = '',
+    JSString sdp,
   });
 }
 
@@ -263,7 +263,7 @@ extension RTCSessionDescriptionInitExtension on RTCSessionDescriptionInit {
 class RTCLocalSessionDescriptionInit {
   external factory RTCLocalSessionDescriptionInit({
     RTCSdpType type,
-    JSString sdp = '',
+    JSString sdp,
   });
 }
 
@@ -306,7 +306,7 @@ extension RTCIceCandidateExtension on RTCIceCandidate {
 @anonymous
 class RTCIceCandidateInit {
   external factory RTCIceCandidateInit({
-    JSString candidate = '',
+    JSString candidate,
     JSString? sdpMid,
     JSNumber? sdpMLineIndex,
     JSString? usernameFragment,
@@ -427,9 +427,9 @@ extension RTCCertificateExtension on RTCCertificate {
 @anonymous
 class RTCRtpTransceiverInit {
   external factory RTCRtpTransceiverInit({
-    RTCRtpTransceiverDirection direction = 'sendrecv',
-    JSArray streams = const [],
-    JSArray sendEncodings = const [],
+    RTCRtpTransceiverDirection direction,
+    JSArray streams,
+    JSArray sendEncodings,
   });
 }
 
@@ -526,10 +526,10 @@ extension RTCRtpCodingParametersExtension on RTCRtpCodingParameters {
 @anonymous
 class RTCRtpEncodingParameters implements RTCRtpCodingParameters {
   external factory RTCRtpEncodingParameters({
-    RTCPriorityType priority = 'low',
+    RTCPriorityType priority,
     RTCPriorityType networkPriority,
     JSString scalabilityMode,
-    JSBoolean active = true,
+    JSBoolean active,
     JSNumber maxBitrate,
     JSNumber maxFramerate,
     JSNumber scaleResolutionDownBy,
@@ -577,7 +577,7 @@ class RTCRtpHeaderExtensionParameters {
   external factory RTCRtpHeaderExtensionParameters({
     required JSString uri,
     required JSNumber id,
-    JSBoolean encrypted = false,
+    JSBoolean encrypted,
   });
 }
 
@@ -858,7 +858,7 @@ class RTCTrackEventInit implements EventInit {
   external factory RTCTrackEventInit({
     required RTCRtpReceiver receiver,
     required MediaStreamTrack track,
-    JSArray streams = const [],
+    JSArray streams,
     required RTCRtpTransceiver transceiver,
   });
 }
@@ -927,12 +927,12 @@ extension RTCDataChannelExtension on RTCDataChannel {
 @anonymous
 class RTCDataChannelInit {
   external factory RTCDataChannelInit({
-    RTCPriorityType priority = 'low',
-    JSBoolean ordered = true,
+    RTCPriorityType priority,
+    JSBoolean ordered,
     JSNumber maxPacketLifeTime,
     JSNumber maxRetransmits,
-    JSString protocol = '',
-    JSBoolean negotiated = false,
+    JSString protocol,
+    JSBoolean negotiated,
     JSNumber id,
   });
 }
@@ -1012,7 +1012,7 @@ extension RTCDTMFToneChangeEventExtension on RTCDTMFToneChangeEvent {
 @staticInterop
 @anonymous
 class RTCDTMFToneChangeEventInit implements EventInit {
-  external factory RTCDTMFToneChangeEventInit({JSString tone = ''});
+  external factory RTCDTMFToneChangeEventInit({JSString tone});
 }
 
 extension RTCDTMFToneChangeEventInitExtension on RTCDTMFToneChangeEventInit {

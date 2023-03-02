@@ -35,7 +35,7 @@ extension FileSystemHandleExtension on FileSystemHandle {
 @anonymous
 class FileSystemCreateWritableOptions {
   external factory FileSystemCreateWritableOptions(
-      {JSBoolean keepExistingData = false});
+      {JSBoolean keepExistingData});
 }
 
 extension FileSystemCreateWritableOptionsExtension
@@ -58,7 +58,7 @@ extension FileSystemFileHandleExtension on FileSystemFileHandle {
 @staticInterop
 @anonymous
 class FileSystemGetFileOptions {
-  external factory FileSystemGetFileOptions({JSBoolean create = false});
+  external factory FileSystemGetFileOptions({JSBoolean create});
 }
 
 extension FileSystemGetFileOptionsExtension on FileSystemGetFileOptions {
@@ -70,7 +70,7 @@ extension FileSystemGetFileOptionsExtension on FileSystemGetFileOptions {
 @staticInterop
 @anonymous
 class FileSystemGetDirectoryOptions {
-  external factory FileSystemGetDirectoryOptions({JSBoolean create = false});
+  external factory FileSystemGetDirectoryOptions({JSBoolean create});
 }
 
 extension FileSystemGetDirectoryOptionsExtension
@@ -83,7 +83,7 @@ extension FileSystemGetDirectoryOptionsExtension
 @staticInterop
 @anonymous
 class FileSystemRemoveOptions {
-  external factory FileSystemRemoveOptions({JSBoolean recursive = false});
+  external factory FileSystemRemoveOptions({JSBoolean recursive});
 }
 
 extension FileSystemRemoveOptionsExtension on FileSystemRemoveOptions {

@@ -140,9 +140,9 @@ extension AudioConfigurationExtension on AudioConfiguration {
 class MediaCapabilitiesKeySystemConfiguration {
   external factory MediaCapabilitiesKeySystemConfiguration({
     required JSString keySystem,
-    JSString initDataType = '',
-    MediaKeysRequirement distinctiveIdentifier = 'optional',
-    MediaKeysRequirement persistentState = 'optional',
+    JSString initDataType,
+    MediaKeysRequirement distinctiveIdentifier,
+    MediaKeysRequirement persistentState,
     JSArray sessionTypes,
     KeySystemTrackConfiguration audio,
     KeySystemTrackConfiguration video,
@@ -172,7 +172,7 @@ extension MediaCapabilitiesKeySystemConfigurationExtension
 @anonymous
 class KeySystemTrackConfiguration {
   external factory KeySystemTrackConfiguration({
-    JSString robustness = '',
+    JSString robustness,
     JSString? encryptionScheme,
   });
 }

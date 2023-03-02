@@ -17,7 +17,7 @@ typedef FullscreenNavigationUI = JSString;
 @anonymous
 class FullscreenOptions {
   external factory FullscreenOptions({
-    FullscreenNavigationUI navigationUI = 'auto',
+    FullscreenNavigationUI navigationUI,
     ScreenDetailed screen,
   });
 }

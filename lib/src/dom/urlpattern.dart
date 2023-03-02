@@ -81,7 +81,7 @@ extension URLPatternInitExtension on URLPatternInit {
 @staticInterop
 @anonymous
 class URLPatternOptions {
-  external factory URLPatternOptions({JSBoolean ignoreCase = false});
+  external factory URLPatternOptions({JSBoolean ignoreCase});
 }
 
 extension URLPatternOptionsExtension on URLPatternOptions {

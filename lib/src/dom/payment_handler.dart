@@ -163,16 +163,16 @@ extension PaymentHandlerResponseExtension on PaymentHandlerResponse {
 @anonymous
 class AddressInit {
   external factory AddressInit({
-    JSString country = '',
-    JSArray addressLine = const [],
-    JSString region = '',
-    JSString city = '',
-    JSString dependentLocality = '',
-    JSString postalCode = '',
-    JSString sortingCode = '',
-    JSString organization = '',
-    JSString recipient = '',
-    JSString phone = '',
+    JSString country,
+    JSArray addressLine,
+    JSString region,
+    JSString city,
+    JSString dependentLocality,
+    JSString postalCode,
+    JSString sortingCode,
+    JSString organization,
+    JSString recipient,
+    JSString phone,
   });
 }
 
@@ -204,12 +204,12 @@ extension AddressInitExtension on AddressInit {
 @anonymous
 class PaymentOptions {
   external factory PaymentOptions({
-    JSBoolean requestPayerName = false,
-    JSBoolean requestBillingAddress = false,
-    JSBoolean requestPayerEmail = false,
-    JSBoolean requestPayerPhone = false,
-    JSBoolean requestShipping = false,
-    PaymentShippingType shippingType = 'shipping',
+    JSBoolean requestPayerName,
+    JSBoolean requestBillingAddress,
+    JSBoolean requestPayerEmail,
+    JSBoolean requestPayerPhone,
+    JSBoolean requestShipping,
+    PaymentShippingType shippingType,
   });
 }
 
@@ -236,7 +236,7 @@ class PaymentShippingOption {
     required JSString id,
     required JSString label,
     required PaymentCurrencyAmount amount,
-    JSBoolean selected = false,
+    JSBoolean selected,
   });
 }
 

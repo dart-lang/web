@@ -14,7 +14,7 @@ typedef HevcBitstreamFormat = JSString;
 @staticInterop
 @anonymous
 class HevcEncoderConfig {
-  external factory HevcEncoderConfig({HevcBitstreamFormat format = 'hevc'});
+  external factory HevcEncoderConfig({HevcBitstreamFormat format});
 }
 
 extension HevcEncoderConfigExtension on HevcEncoderConfig {

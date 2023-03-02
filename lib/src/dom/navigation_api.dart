@@ -82,7 +82,7 @@ extension NavigationOptionsExtension on NavigationOptions {
 class NavigationNavigateOptions implements NavigationOptions {
   external factory NavigationNavigateOptions({
     JSAny state,
-    NavigationHistoryBehavior history = 'auto',
+    NavigationHistoryBehavior history,
   });
 }
 
@@ -193,11 +193,11 @@ extension NavigateEventExtension on NavigateEvent {
 @anonymous
 class NavigateEventInit implements EventInit {
   external factory NavigateEventInit({
-    NavigationType navigationType = 'push',
+    NavigationType navigationType,
     required NavigationDestination destination,
-    JSBoolean canIntercept = false,
-    JSBoolean userInitiated = false,
-    JSBoolean hashChange = false,
+    JSBoolean canIntercept,
+    JSBoolean userInitiated,
+    JSBoolean hashChange,
     required AbortSignal signal,
     FormData? formData,
     JSString? downloadRequest,

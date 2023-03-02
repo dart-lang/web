@@ -13,9 +13,9 @@ import 'package:js/js.dart' hide JS;
 @anonymous
 class CaptureHandleConfig {
   external factory CaptureHandleConfig({
-    JSBoolean exposeOrigin = false,
-    JSString handle = '',
-    JSArray permittedOrigins = const [],
+    JSBoolean exposeOrigin,
+    JSString handle,
+    JSArray permittedOrigins,
   });
 }
 

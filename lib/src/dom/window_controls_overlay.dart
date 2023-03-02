@@ -44,7 +44,7 @@ extension WindowControlsOverlayGeometryChangeEventExtension
 class WindowControlsOverlayGeometryChangeEventInit implements EventInit {
   external factory WindowControlsOverlayGeometryChangeEventInit({
     required DOMRect titlebarAreaRect,
-    JSBoolean visible = false,
+    JSBoolean visible,
   });
 }
 

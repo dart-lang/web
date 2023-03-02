@@ -1996,7 +1996,7 @@ extension HTMLSlotElementExtension on HTMLSlotElement {
 @staticInterop
 @anonymous
 class AssignedNodesOptions {
-  external factory AssignedNodesOptions({JSBoolean flatten = false});
+  external factory AssignedNodesOptions({JSBoolean flatten});
 }
 
 extension AssignedNodesOptionsExtension on AssignedNodesOptions {
@@ -2037,10 +2037,10 @@ extension HTMLCanvasElementExtension on HTMLCanvasElement {
 @anonymous
 class CanvasRenderingContext2DSettings {
   external factory CanvasRenderingContext2DSettings({
-    JSBoolean alpha = true,
-    JSBoolean desynchronized = false,
-    PredefinedColorSpace colorSpace = 'srgb',
-    JSBoolean willReadFrequently = false,
+    JSBoolean alpha,
+    JSBoolean desynchronized,
+    PredefinedColorSpace colorSpace,
+    JSBoolean willReadFrequently,
   });
 }
 
@@ -2546,8 +2546,7 @@ extension ImageBitmapRenderingContextExtension on ImageBitmapRenderingContext {
 @staticInterop
 @anonymous
 class ImageBitmapRenderingContextSettings {
-  external factory ImageBitmapRenderingContextSettings(
-      {JSBoolean alpha = true});
+  external factory ImageBitmapRenderingContextSettings({JSBoolean alpha});
 }
 
 extension ImageBitmapRenderingContextSettingsExtension
@@ -2561,7 +2560,7 @@ extension ImageBitmapRenderingContextSettingsExtension
 @anonymous
 class ImageEncodeOptions {
   external factory ImageEncodeOptions({
-    JSString type = 'image/png',
+    JSString type,
     JSNumber quality,
   });
 }
@@ -2684,16 +2683,16 @@ extension ElementInternalsExtension on ElementInternals {
 @anonymous
 class ValidityStateFlags {
   external factory ValidityStateFlags({
-    JSBoolean valueMissing = false,
-    JSBoolean typeMismatch = false,
-    JSBoolean patternMismatch = false,
-    JSBoolean tooLong = false,
-    JSBoolean tooShort = false,
-    JSBoolean rangeUnderflow = false,
-    JSBoolean rangeOverflow = false,
-    JSBoolean stepMismatch = false,
-    JSBoolean badInput = false,
-    JSBoolean customError = false,
+    JSBoolean valueMissing,
+    JSBoolean typeMismatch,
+    JSBoolean patternMismatch,
+    JSBoolean tooLong,
+    JSBoolean tooShort,
+    JSBoolean rangeUnderflow,
+    JSBoolean rangeOverflow,
+    JSBoolean stepMismatch,
+    JSBoolean badInput,
+    JSBoolean customError,
   });
 }
 
@@ -2734,7 +2733,7 @@ extension UserActivationExtension on UserActivation {
 @anonymous
 class FocusOptions {
   external factory FocusOptions({
-    JSBoolean preventScroll = false,
+    JSBoolean preventScroll,
     JSBoolean focusVisible,
   });
 }
@@ -2873,8 +2872,8 @@ extension ToggleEventExtension on ToggleEvent {
 @anonymous
 class ToggleEventInit implements EventInit {
   external factory ToggleEventInit({
-    JSString oldState = '',
-    JSString newState = '',
+    JSString oldState,
+    JSString newState,
   });
 }
 
@@ -3040,7 +3039,7 @@ extension WindowExtension on Window {
 @staticInterop
 @anonymous
 class WindowPostMessageOptions implements StructuredSerializeOptions {
-  external factory WindowPostMessageOptions({JSString targetOrigin = '/'});
+  external factory WindowPostMessageOptions({JSString targetOrigin});
 }
 
 extension WindowPostMessageOptionsExtension on WindowPostMessageOptions {
@@ -3152,8 +3151,8 @@ extension HashChangeEventExtension on HashChangeEvent {
 @anonymous
 class HashChangeEventInit implements EventInit {
   external factory HashChangeEventInit({
-    JSString oldURL = '',
-    JSString newURL = '',
+    JSString oldURL,
+    JSString newURL,
   });
 }
 
@@ -3181,7 +3180,7 @@ extension PageTransitionEventExtension on PageTransitionEvent {
 @staticInterop
 @anonymous
 class PageTransitionEventInit implements EventInit {
-  external factory PageTransitionEventInit({JSBoolean persisted = false});
+  external factory PageTransitionEventInit({JSBoolean persisted});
 }
 
 extension PageTransitionEventInitExtension on PageTransitionEventInit {
@@ -3220,10 +3219,10 @@ extension ErrorEventExtension on ErrorEvent {
 @anonymous
 class ErrorEventInit implements EventInit {
   external factory ErrorEventInit({
-    JSString message = '',
-    JSString filename = '',
-    JSNumber lineno = 0,
-    JSNumber colno = 0,
+    JSString message,
+    JSString filename,
+    JSNumber lineno,
+    JSNumber colno,
     JSAny error,
   });
 }
@@ -3786,12 +3785,12 @@ extension ImageBitmapExtension on ImageBitmap {
 @anonymous
 class ImageBitmapOptions {
   external factory ImageBitmapOptions({
-    ImageOrientation imageOrientation = 'from-image',
-    PremultiplyAlpha premultiplyAlpha = 'default',
-    ColorSpaceConversion colorSpaceConversion = 'default',
+    ImageOrientation imageOrientation,
+    PremultiplyAlpha premultiplyAlpha,
+    ColorSpaceConversion colorSpaceConversion,
     JSNumber resizeWidth,
     JSNumber resizeHeight,
-    ResizeQuality resizeQuality = 'low',
+    ResizeQuality resizeQuality,
   });
 }
 
@@ -3852,10 +3851,10 @@ extension MessageEventExtension on MessageEvent {
 class MessageEventInit implements EventInit {
   external factory MessageEventInit({
     JSAny data,
-    JSString origin = '',
-    JSString lastEventId = '',
+    JSString origin,
+    JSString lastEventId,
     MessageEventSource? source,
-    JSArray ports = const [],
+    JSArray ports,
   });
 }
 
@@ -3902,7 +3901,7 @@ extension EventSourceExtension on EventSource {
 @staticInterop
 @anonymous
 class EventSourceInit {
-  external factory EventSourceInit({JSBoolean withCredentials = false});
+  external factory EventSourceInit({JSBoolean withCredentials});
 }
 
 extension EventSourceInitExtension on EventSourceInit {
@@ -3942,7 +3941,7 @@ extension MessagePortExtension on MessagePort {
 @staticInterop
 @anonymous
 class StructuredSerializeOptions {
-  external factory StructuredSerializeOptions({JSArray transfer = const []});
+  external factory StructuredSerializeOptions({JSArray transfer});
 }
 
 extension StructuredSerializeOptionsExtension on StructuredSerializeOptions {
@@ -4056,9 +4055,9 @@ extension WorkerExtension on Worker {
 @anonymous
 class WorkerOptions {
   external factory WorkerOptions({
-    WorkerType type = 'classic',
-    RequestCredentials credentials = 'same-origin',
-    JSString name = '',
+    WorkerType type,
+    RequestCredentials credentials,
+    JSString name,
   });
 }
 
@@ -4154,8 +4153,7 @@ extension WorkletExtension on Worklet {
 @staticInterop
 @anonymous
 class WorkletOptions {
-  external factory WorkletOptions(
-      {RequestCredentials credentials = 'same-origin'});
+  external factory WorkletOptions({RequestCredentials credentials});
 }
 
 extension WorkletOptionsExtension on WorkletOptions {
@@ -4230,7 +4228,7 @@ class StorageEventInit implements EventInit {
     JSString? key,
     JSString? oldValue,
     JSString? newValue,
-    JSString url = '',
+    JSString url,
     Storage? storageArea,
   });
 }

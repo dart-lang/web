@@ -36,10 +36,10 @@ extension GamepadHapticActuatorExtension on GamepadHapticActuator {
 @anonymous
 class GamepadEffectParameters {
   external factory GamepadEffectParameters({
-    JSNumber duration = 0.0,
-    JSNumber startDelay = 0.0,
-    JSNumber strongMagnitude = 0.0,
-    JSNumber weakMagnitude = 0.0,
+    JSNumber duration,
+    JSNumber startDelay,
+    JSNumber strongMagnitude,
+    JSNumber weakMagnitude,
   });
 }
 

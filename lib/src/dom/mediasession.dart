@@ -52,10 +52,10 @@ extension MediaMetadataExtension on MediaMetadata {
 @anonymous
 class MediaMetadataInit {
   external factory MediaMetadataInit({
-    JSString title = '',
-    JSString artist = '',
-    JSString album = '',
-    JSArray artwork = const [],
+    JSString title,
+    JSString artist,
+    JSString album,
+    JSArray artwork,
   });
 }
 
@@ -76,8 +76,8 @@ extension MediaMetadataInitExtension on MediaMetadataInit {
 class MediaImage {
   external factory MediaImage({
     required JSString src,
-    JSString sizes = '',
-    JSString type = '',
+    JSString sizes,
+    JSString type,
   });
 }
 

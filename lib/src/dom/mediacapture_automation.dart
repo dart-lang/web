@@ -54,8 +54,8 @@ extension MockCaptureDeviceConfigurationExtension
 @anonymous
 class MockCameraConfiguration implements MockCaptureDeviceConfiguration {
   external factory MockCameraConfiguration({
-    JSNumber defaultFrameRate = 30,
-    JSString facingMode = 'user',
+    JSNumber defaultFrameRate,
+    JSString facingMode,
   });
 }
 
@@ -70,8 +70,7 @@ extension MockCameraConfigurationExtension on MockCameraConfiguration {
 @staticInterop
 @anonymous
 class MockMicrophoneConfiguration implements MockCaptureDeviceConfiguration {
-  external factory MockMicrophoneConfiguration(
-      {JSNumber defaultSampleRate = 44100});
+  external factory MockMicrophoneConfiguration({JSNumber defaultSampleRate});
 }
 
 extension MockMicrophoneConfigurationExtension on MockMicrophoneConfiguration {

@@ -14,7 +14,7 @@ typedef AvcBitstreamFormat = JSString;
 @staticInterop
 @anonymous
 class AvcEncoderConfig {
-  external factory AvcEncoderConfig({AvcBitstreamFormat format = 'avc'});
+  external factory AvcEncoderConfig({AvcBitstreamFormat format});
 }
 
 extension AvcEncoderConfigExtension on AvcEncoderConfig {

@@ -375,7 +375,7 @@ extension AllowedUSBDeviceExtension on AllowedUSBDevice {
 @staticInterop
 @anonymous
 class USBPermissionStorage {
-  external factory USBPermissionStorage({JSArray allowedDevices = const []});
+  external factory USBPermissionStorage({JSArray allowedDevices});
 }
 
 extension USBPermissionStorageExtension on USBPermissionStorage {

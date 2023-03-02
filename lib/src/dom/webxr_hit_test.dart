@@ -95,10 +95,10 @@ extension XRTransientInputHitTestResultExtension
 @anonymous
 class XRRayDirectionInit {
   external factory XRRayDirectionInit({
-    JSNumber x = 0,
-    JSNumber y = 0,
-    JSNumber z = -1,
-    JSNumber w = 0,
+    JSNumber x,
+    JSNumber y,
+    JSNumber z,
+    JSNumber w,
   });
 }
 

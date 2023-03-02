@@ -31,9 +31,9 @@ extension AnimationEventExtension on AnimationEvent {
 @anonymous
 class AnimationEventInit implements EventInit {
   external factory AnimationEventInit({
-    JSString animationName = '',
-    JSNumber elapsedTime = 0.0,
-    JSString pseudoElement = '',
+    JSString animationName,
+    JSNumber elapsedTime,
+    JSString pseudoElement,
   });
 }
 

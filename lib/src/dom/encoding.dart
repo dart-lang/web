@@ -26,8 +26,8 @@ extension TextDecoderCommonExtension on TextDecoderCommon {
 @anonymous
 class TextDecoderOptions {
   external factory TextDecoderOptions({
-    JSBoolean fatal = false,
-    JSBoolean ignoreBOM = false,
+    JSBoolean fatal,
+    JSBoolean ignoreBOM,
   });
 }
 
@@ -42,7 +42,7 @@ extension TextDecoderOptionsExtension on TextDecoderOptions {
 @staticInterop
 @anonymous
 class TextDecodeOptions {
-  external factory TextDecodeOptions({JSBoolean stream = false});
+  external factory TextDecodeOptions({JSBoolean stream});
 }
 
 extension TextDecodeOptionsExtension on TextDecodeOptions {

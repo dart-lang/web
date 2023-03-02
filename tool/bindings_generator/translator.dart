@@ -425,30 +425,6 @@ class Translator {
             ..requiredParameters.addAll(requiredParameters)
             ..optionalParameters.addAll(optionalParameters)));
 
-  String? _defaultValue(idl.Value? value) {
-    if (value == null) {
-      return null;
-    }
-    final type = value.type.toDart;
-    final defaultValue = value.value;
-    if (defaultValue == null) {
-      return null;
-    }
-    switch (type) {
-      case 'boolean':
-        return (defaultValue as JSBoolean).toDart.toString();
-      case 'string':
-        return "'${(defaultValue as JSString).toDart}'";
-      case 'number':
-        return (defaultValue as JSString).toDart.toString();
-      case 'sequence':
-        // For sequence, the only possible value is `[]`.
-        return 'const []';
-      default:
-        throw Exception('Default value not allowed for $type');
-    }
-  }
-
   code.Constructor _objectLiteral(List<idl.Member> members) {
     final optionalParameters = <code.Parameter>[];
     for (final member in members) {
@@ -457,12 +433,10 @@ class Translator {
       assert(member.type == 'field');
       final field = member as idl.Field;
       final isRequired = field.required.toDart;
-      final defaultValue = _defaultValue(field.defaultValue);
       final parameter = code.Parameter((b) => b
         ..name = _parameterName(field.name.toDart)
         ..type = _idlTypeToTypeReference(field.idlType, isReturn: false)
         ..required = isRequired
-        ..defaultTo = defaultValue == null ? null : code.Code(defaultValue)
         ..named = true);
       optionalParameters.add(parameter);
     }

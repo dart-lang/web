@@ -59,11 +59,11 @@ extension MediaRecorderExtension on MediaRecorder {
 @anonymous
 class MediaRecorderOptions {
   external factory MediaRecorderOptions({
-    JSString mimeType = '',
+    JSString mimeType,
     JSNumber audioBitsPerSecond,
     JSNumber videoBitsPerSecond,
     JSNumber bitsPerSecond,
-    BitrateMode audioBitrateMode = 'variable',
+    BitrateMode audioBitrateMode,
   });
 }
 

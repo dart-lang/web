@@ -29,7 +29,7 @@ extension AccelerometerExtension on Accelerometer {
 @anonymous
 class AccelerometerSensorOptions implements SensorOptions {
   external factory AccelerometerSensorOptions(
-      {AccelerometerLocalCoordinateSystem referenceFrame = 'device'});
+      {AccelerometerLocalCoordinateSystem referenceFrame});
 }
 
 extension AccelerometerSensorOptionsExtension on AccelerometerSensorOptions {

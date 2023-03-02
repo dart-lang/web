@@ -118,7 +118,7 @@ extension NDEFReadingEventExtension on NDEFReadingEvent {
 @anonymous
 class NDEFReadingEventInit implements EventInit {
   external factory NDEFReadingEventInit({
-    JSString? serialNumber = '',
+    JSString? serialNumber,
     required NDEFMessageInit message,
   });
 }
@@ -135,7 +135,7 @@ extension NDEFReadingEventInitExtension on NDEFReadingEventInit {
 @anonymous
 class NDEFWriteOptions {
   external factory NDEFWriteOptions({
-    JSBoolean overwrite = true,
+    JSBoolean overwrite,
     AbortSignal? signal,
   });
 }

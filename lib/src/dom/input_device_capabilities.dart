@@ -25,8 +25,8 @@ extension InputDeviceCapabilitiesExtension on InputDeviceCapabilities {
 @anonymous
 class InputDeviceCapabilitiesInit {
   external factory InputDeviceCapabilitiesInit({
-    JSBoolean firesTouchEvents = false,
-    JSBoolean pointerMovementScrolls = false,
+    JSBoolean firesTouchEvents,
+    JSBoolean pointerMovementScrolls,
   });
 }
 

@@ -59,10 +59,10 @@ extension DOMPointExtension on DOMPoint {
 @anonymous
 class DOMPointInit {
   external factory DOMPointInit({
-    JSNumber x = 0,
-    JSNumber y = 0,
-    JSNumber z = 0,
-    JSNumber w = 1,
+    JSNumber x,
+    JSNumber y,
+    JSNumber z,
+    JSNumber w,
   });
 }
 
@@ -131,10 +131,10 @@ extension DOMRectExtension on DOMRect {
 @anonymous
 class DOMRectInit {
   external factory DOMRectInit({
-    JSNumber x = 0,
-    JSNumber y = 0,
-    JSNumber width = 0,
-    JSNumber height = 0,
+    JSNumber x,
+    JSNumber y,
+    JSNumber width,
+    JSNumber height,
   });
 }
 
@@ -438,16 +438,16 @@ extension DOMMatrix2DInitExtension on DOMMatrix2DInit {
 @anonymous
 class DOMMatrixInit implements DOMMatrix2DInit {
   external factory DOMMatrixInit({
-    JSNumber m13 = 0,
-    JSNumber m14 = 0,
-    JSNumber m23 = 0,
-    JSNumber m24 = 0,
-    JSNumber m31 = 0,
-    JSNumber m32 = 0,
-    JSNumber m33 = 1,
-    JSNumber m34 = 0,
-    JSNumber m43 = 0,
-    JSNumber m44 = 1,
+    JSNumber m13,
+    JSNumber m14,
+    JSNumber m23,
+    JSNumber m24,
+    JSNumber m31,
+    JSNumber m32,
+    JSNumber m33,
+    JSNumber m34,
+    JSNumber m43,
+    JSNumber m44,
     JSBoolean is2D,
   });
 }

@@ -51,7 +51,7 @@ extension ReportingObserverExtension on ReportingObserver {
 class ReportingObserverOptions {
   external factory ReportingObserverOptions({
     JSArray types,
-    JSBoolean buffered = false,
+    JSBoolean buffered,
   });
 }
 
@@ -68,7 +68,7 @@ extension ReportingObserverOptionsExtension on ReportingObserverOptions {
 class GenerateTestReportParameters {
   external factory GenerateTestReportParameters({
     required JSString message,
-    JSString group = 'default',
+    JSString group,
   });
 }
 

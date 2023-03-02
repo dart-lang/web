@@ -20,8 +20,7 @@ typedef PushEncryptionKeyName = JSString;
 @staticInterop
 @anonymous
 class PushPermissionDescriptor implements PermissionDescriptor {
-  external factory PushPermissionDescriptor(
-      {JSBoolean userVisibleOnly = false});
+  external factory PushPermissionDescriptor({JSBoolean userVisibleOnly});
 }
 
 extension PushPermissionDescriptorExtension on PushPermissionDescriptor {
@@ -55,7 +54,7 @@ extension PushSubscriptionOptionsExtension on PushSubscriptionOptions {
 @anonymous
 class PushSubscriptionOptionsInit {
   external factory PushSubscriptionOptionsInit({
-    JSBoolean userVisibleOnly = false,
+    JSBoolean userVisibleOnly,
     JSAny? applicationServerKey,
   });
 }

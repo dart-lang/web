@@ -78,7 +78,7 @@ extension SpeechRecognitionErrorEventExtension on SpeechRecognitionErrorEvent {
 class SpeechRecognitionErrorEventInit implements EventInit {
   external factory SpeechRecognitionErrorEventInit({
     required SpeechRecognitionErrorCode error,
-    JSString message = '',
+    JSString message,
   });
 }
 
@@ -138,7 +138,7 @@ extension SpeechRecognitionEventExtension on SpeechRecognitionEvent {
 @anonymous
 class SpeechRecognitionEventInit implements EventInit {
   external factory SpeechRecognitionEventInit({
-    JSNumber resultIndex = 0,
+    JSNumber resultIndex,
     required SpeechRecognitionResultList results,
   });
 }
@@ -255,10 +255,10 @@ extension SpeechSynthesisEventExtension on SpeechSynthesisEvent {
 class SpeechSynthesisEventInit implements EventInit {
   external factory SpeechSynthesisEventInit({
     required SpeechSynthesisUtterance utterance,
-    JSNumber charIndex = 0,
-    JSNumber charLength = 0,
-    JSNumber elapsedTime = 0,
-    JSString name = '',
+    JSNumber charIndex,
+    JSNumber charLength,
+    JSNumber elapsedTime,
+    JSString name,
   });
 }
 

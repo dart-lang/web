@@ -15,20 +15,20 @@ import 'uievents.dart';
 @anonymous
 class PointerEventInit implements MouseEventInit {
   external factory PointerEventInit({
-    JSNumber pointerId = 0,
-    JSNumber width = 1,
-    JSNumber height = 1,
-    JSNumber pressure = 0,
-    JSNumber tangentialPressure = 0,
+    JSNumber pointerId,
+    JSNumber width,
+    JSNumber height,
+    JSNumber pressure,
+    JSNumber tangentialPressure,
     JSNumber tiltX,
     JSNumber tiltY,
-    JSNumber twist = 0,
+    JSNumber twist,
     JSNumber altitudeAngle,
     JSNumber azimuthAngle,
-    JSString pointerType = '',
-    JSBoolean isPrimary = false,
-    JSArray coalescedEvents = const [],
-    JSArray predictedEvents = const [],
+    JSString pointerType,
+    JSBoolean isPrimary,
+    JSArray coalescedEvents,
+    JSArray predictedEvents,
   });
 }
 

@@ -30,8 +30,8 @@ extension CaptureControllerExtension on CaptureController {
 @anonymous
 class DisplayMediaStreamOptions {
   external factory DisplayMediaStreamOptions({
-    JSAny video = true,
-    JSAny audio = false,
+    JSAny video,
+    JSAny audio,
     CaptureController controller,
     SelfCapturePreferenceEnum selfBrowserSurface,
     SystemAudioPreferenceEnum systemAudio,

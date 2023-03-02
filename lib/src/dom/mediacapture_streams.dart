@@ -93,43 +93,43 @@ extension MediaStreamTrackExtension on MediaStreamTrack {
 @anonymous
 class MediaTrackSupportedConstraints {
   external factory MediaTrackSupportedConstraints({
-    JSBoolean whiteBalanceMode = true,
-    JSBoolean exposureMode = true,
-    JSBoolean focusMode = true,
-    JSBoolean pointsOfInterest = true,
-    JSBoolean exposureCompensation = true,
-    JSBoolean exposureTime = true,
-    JSBoolean colorTemperature = true,
-    JSBoolean iso = true,
-    JSBoolean brightness = true,
-    JSBoolean contrast = true,
-    JSBoolean pan = true,
-    JSBoolean saturation = true,
-    JSBoolean sharpness = true,
-    JSBoolean focusDistance = true,
-    JSBoolean tilt = true,
-    JSBoolean zoom = true,
-    JSBoolean torch = true,
-    JSBoolean width = true,
-    JSBoolean height = true,
-    JSBoolean aspectRatio = true,
-    JSBoolean frameRate = true,
-    JSBoolean facingMode = true,
-    JSBoolean resizeMode = true,
-    JSBoolean sampleRate = true,
-    JSBoolean sampleSize = true,
-    JSBoolean echoCancellation = true,
-    JSBoolean autoGainControl = true,
-    JSBoolean noiseSuppression = true,
-    JSBoolean latency = true,
-    JSBoolean channelCount = true,
-    JSBoolean deviceId = true,
-    JSBoolean groupId = true,
-    JSBoolean displaySurface = true,
-    JSBoolean logicalSurface = true,
-    JSBoolean cursor = true,
-    JSBoolean restrictOwnAudio = true,
-    JSBoolean suppressLocalAudioPlayback = true,
+    JSBoolean whiteBalanceMode,
+    JSBoolean exposureMode,
+    JSBoolean focusMode,
+    JSBoolean pointsOfInterest,
+    JSBoolean exposureCompensation,
+    JSBoolean exposureTime,
+    JSBoolean colorTemperature,
+    JSBoolean iso,
+    JSBoolean brightness,
+    JSBoolean contrast,
+    JSBoolean pan,
+    JSBoolean saturation,
+    JSBoolean sharpness,
+    JSBoolean focusDistance,
+    JSBoolean tilt,
+    JSBoolean zoom,
+    JSBoolean torch,
+    JSBoolean width,
+    JSBoolean height,
+    JSBoolean aspectRatio,
+    JSBoolean frameRate,
+    JSBoolean facingMode,
+    JSBoolean resizeMode,
+    JSBoolean sampleRate,
+    JSBoolean sampleSize,
+    JSBoolean echoCancellation,
+    JSBoolean autoGainControl,
+    JSBoolean noiseSuppression,
+    JSBoolean latency,
+    JSBoolean channelCount,
+    JSBoolean deviceId,
+    JSBoolean groupId,
+    JSBoolean displaySurface,
+    JSBoolean logicalSurface,
+    JSBoolean cursor,
+    JSBoolean restrictOwnAudio,
+    JSBoolean suppressLocalAudioPlayback,
   });
 }
 
@@ -663,9 +663,9 @@ extension InputDeviceInfoExtension on InputDeviceInfo {
 @anonymous
 class MediaStreamConstraints {
   external factory MediaStreamConstraints({
-    JSAny video = false,
-    JSAny audio = false,
-    JSBoolean preferCurrentTab = false,
+    JSAny video,
+    JSAny audio,
+    JSBoolean preferCurrentTab,
     JSString peerIdentity,
   });
 }
@@ -800,8 +800,7 @@ extension DevicePermissionDescriptorExtension on DevicePermissionDescriptor {
 @staticInterop
 @anonymous
 class CameraDevicePermissionDescriptor implements DevicePermissionDescriptor {
-  external factory CameraDevicePermissionDescriptor(
-      {JSBoolean panTiltZoom = false});
+  external factory CameraDevicePermissionDescriptor({JSBoolean panTiltZoom});
 }
 
 extension CameraDevicePermissionDescriptorExtension

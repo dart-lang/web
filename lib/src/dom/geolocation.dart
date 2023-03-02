@@ -36,9 +36,9 @@ extension GeolocationExtension on Geolocation {
 @anonymous
 class PositionOptions {
   external factory PositionOptions({
-    JSBoolean enableHighAccuracy = false,
-    JSNumber timeout = 0xFFFFFFFF,
-    JSNumber maximumAge = 0,
+    JSBoolean enableHighAccuracy,
+    JSNumber timeout,
+    JSNumber maximumAge,
   });
 }
 

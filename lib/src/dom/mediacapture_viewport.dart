@@ -13,8 +13,8 @@ import 'package:js/js.dart' hide JS;
 @anonymous
 class ViewportMediaStreamConstraints {
   external factory ViewportMediaStreamConstraints({
-    JSAny video = true,
-    JSAny audio = false,
+    JSAny video,
+    JSAny audio,
   });
 }
 

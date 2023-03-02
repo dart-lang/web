@@ -24,7 +24,7 @@ extension OTPCredentialExtension on OTPCredential {
 @staticInterop
 @anonymous
 class OTPCredentialRequestOptions {
-  external factory OTPCredentialRequestOptions({JSArray transport = const []});
+  external factory OTPCredentialRequestOptions({JSArray transport});
 }
 
 extension OTPCredentialRequestOptionsExtension on OTPCredentialRequestOptions {

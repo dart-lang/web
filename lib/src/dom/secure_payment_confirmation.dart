@@ -137,7 +137,7 @@ class PaymentCredentialInstrument {
   external factory PaymentCredentialInstrument({
     required JSString displayName,
     required JSString icon,
-    JSBoolean iconMustBeShown = true,
+    JSBoolean iconMustBeShown,
   });
 }
 

@@ -689,7 +689,6 @@ class Translator {
   TranslationResult translate() {
     // Create a root import that exports all of the other libraries.
     final dartLibraries = <String, code.Library>{};
-    dartLibraries['web.dart'] = generateRootImport(_libraries.keys);
 
     // Wire up includes. This step must come before we start translating
     // libraries because interfaces and namespaces may include across library
@@ -700,11 +699,27 @@ class Translator {
       target.include(includes);
     }
 
+    final skips = <String>[];
     // Translate each IDL library into a Dart library.
     for (var entry in _libraries.entries) {
       _currentlyTranslatingUrl = entry.value.url;
-      dartLibraries[entry.key] = _library(entry.value);
+      final library = _library(entry.value);
+
+      if (library.body.isEmpty) {
+        skips.add(entry.key);
+      } else {
+        dartLibraries[entry.key] = library;
+      }
     }
+
+    if (skips.isNotEmpty) {
+      print('''
+Skipped empty files:
+  ${skips.join('\n  ')}
+''');
+    }
+
+    dartLibraries['web.dart'] = generateRootImport(dartLibraries.keys.toSet());
 
     return dartLibraries;
   }

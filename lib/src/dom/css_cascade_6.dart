@@ -4,4 +4,17 @@
 
 // ignore_for_file: unused_import
 
+import 'dart:js_interop';
+
 import 'package:js/js.dart' hide JS;
+
+import 'cssom.dart';
+
+@JS('CSSScopeRule')
+@staticInterop
+class CSSScopeRule implements CSSGroupingRule {}
+
+extension CSSScopeRuleExtension on CSSScopeRule {
+  external JSString get start;
+  external JSString get end;
+}

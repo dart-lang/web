@@ -10,30 +10,30 @@ import 'package:js/js.dart' hide JS;
 
 import 'dom.dart';
 
-@JS('ContentVisibilityAutoStateChangedEvent')
+@JS('ContentVisibilityAutoStateChangeEvent')
 @staticInterop
-class ContentVisibilityAutoStateChangedEvent implements Event {
-  external factory ContentVisibilityAutoStateChangedEvent(
+class ContentVisibilityAutoStateChangeEvent implements Event {
+  external factory ContentVisibilityAutoStateChangeEvent(
     JSString type, [
-    ContentVisibilityAutoStateChangedEventInit eventInitDict,
+    ContentVisibilityAutoStateChangeEventInit eventInitDict,
   ]);
 }
 
-extension ContentVisibilityAutoStateChangedEventExtension
-    on ContentVisibilityAutoStateChangedEvent {
+extension ContentVisibilityAutoStateChangeEventExtension
+    on ContentVisibilityAutoStateChangeEvent {
   external JSBoolean get skipped;
 }
 
 @JS()
 @staticInterop
 @anonymous
-class ContentVisibilityAutoStateChangedEventInit implements EventInit {
-  external factory ContentVisibilityAutoStateChangedEventInit(
+class ContentVisibilityAutoStateChangeEventInit implements EventInit {
+  external factory ContentVisibilityAutoStateChangeEventInit(
       {JSBoolean skipped = false});
 }
 
-extension ContentVisibilityAutoStateChangedEventInitExtension
-    on ContentVisibilityAutoStateChangedEventInit {
+extension ContentVisibilityAutoStateChangeEventInitExtension
+    on ContentVisibilityAutoStateChangeEventInit {
   external set skipped(JSBoolean value);
   external JSBoolean get skipped;
 }

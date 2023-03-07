@@ -10,7 +10,6 @@ import 'package:js/js.dart' hide JS;
 
 typedef ArrayBufferView = JSAny;
 typedef BufferSource = JSAny;
-typedef DOMTimeStamp = JSNumber;
 typedef VoidFunction = JSFunction;
 
 @JS('DOMException')

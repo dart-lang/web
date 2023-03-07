@@ -709,7 +709,7 @@ extension GPUPipelineLayoutDescriptorExtension on GPUPipelineLayoutDescriptor {
 class GPUShaderModule implements GPUObjectBase {}
 
 extension GPUShaderModuleExtension on GPUShaderModule {
-  external JSPromise compilationInfo();
+  external JSPromise getCompilationInfo();
 }
 
 @JS()

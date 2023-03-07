@@ -38,6 +38,7 @@ extension HeadersExtension on Headers {
   );
   external JSVoid delete(JSString name);
   external JSString? get(JSString name);
+  external JSArray getSetCookie();
   external JSBoolean has(JSString name);
   external JSVoid set(
     JSString name,

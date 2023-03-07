@@ -20,7 +20,7 @@ extension SelectionExtension on Selection {
   external JSVoid removeRange(Range range);
   external JSVoid removeAllRanges();
   external JSVoid empty();
-  external StaticRange getComposedRange(ShadowRoot shadowRoots);
+  external JSArray getComposedRanges(ShadowRoot shadowRoots);
   external JSVoid collapse(
     Node? node, [
     JSNumber offset,
@@ -59,4 +59,5 @@ extension SelectionExtension on Selection {
   external JSBoolean get isCollapsed;
   external JSNumber get rangeCount;
   external JSString get type;
+  external JSString get direction;
 }

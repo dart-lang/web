@@ -66,4 +66,5 @@ extension URLSearchParamsExtension on URLSearchParams {
     JSString value,
   );
   external JSVoid sort();
+  external JSNumber get size;
 }

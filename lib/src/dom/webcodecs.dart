@@ -8,6 +8,7 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
+import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
 import 'mediastream_recording.dart';
@@ -38,7 +39,7 @@ typedef VideoMatrixCoefficients = JSString;
 
 @JS('AudioDecoder')
 @staticInterop
-class AudioDecoder {
+class AudioDecoder implements EventTarget {
   external factory AudioDecoder(AudioDecoderInit init);
 
   external static JSPromise isConfigSupported(AudioDecoderConfig config);
@@ -75,7 +76,7 @@ extension AudioDecoderInitExtension on AudioDecoderInit {
 
 @JS('VideoDecoder')
 @staticInterop
-class VideoDecoder {
+class VideoDecoder implements EventTarget {
   external factory VideoDecoder(VideoDecoderInit init);
 
   external static JSPromise isConfigSupported(VideoDecoderConfig config);
@@ -112,7 +113,7 @@ extension VideoDecoderInitExtension on VideoDecoderInit {
 
 @JS('AudioEncoder')
 @staticInterop
-class AudioEncoder {
+class AudioEncoder implements EventTarget {
   external factory AudioEncoder(AudioEncoderInit init);
 
   external static JSPromise isConfigSupported(AudioEncoderConfig config);
@@ -162,7 +163,7 @@ extension EncodedAudioChunkMetadataExtension on EncodedAudioChunkMetadata {
 
 @JS('VideoEncoder')
 @staticInterop
-class VideoEncoder {
+class VideoEncoder implements EventTarget {
   external factory VideoEncoder(VideoEncoderInit init);
 
   external static JSPromise isConfigSupported(VideoEncoderConfig config);

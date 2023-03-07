@@ -23,7 +23,7 @@ extension GamepadExtension on Gamepad {
   external JSArray get hapticActuators;
   external GamepadPose? get pose;
   external JSArray? get touchEvents;
-  external GamepadHapticActuator get vibrationActuator;
+  external GamepadHapticActuator? get vibrationActuator;
   external JSString get id;
   external JSNumber get index;
   external JSBoolean get connected;

@@ -540,7 +540,7 @@ extension DocumentExtension on Document {
   external JSVoid releaseEvents();
   external JSPromise exitPictureInPicture();
   external JSVoid exitPointerLock();
-  external JSPromise requestStorageAccessForOrigin(JSString origin);
+  external JSPromise requestStorageAccessForOrigin(JSString requestedOrigin);
   external Selection? getSelection();
   external JSPromise hasStorageAccess();
   external JSPromise requestStorageAccess();
@@ -1148,7 +1148,7 @@ extension XPathEvaluatorBaseExtension on XPathEvaluatorBase {
     JSString expression, [
     XPathNSResolver? resolver,
   ]);
-  external XPathNSResolver createNSResolver(Node nodeResolver);
+  external Node createNSResolver(Node nodeResolver);
   external XPathResult evaluate(
     JSString expression,
     Node contextNode, [

@@ -56,7 +56,7 @@ class CookieInit {
   external factory CookieInit({
     required JSString name,
     required JSString value,
-    EpochTimeStamp? expires,
+    DOMHighResTimeStamp? expires,
     JSString? domain,
     JSString path = '/',
     CookieSameSite sameSite = 'strict',
@@ -68,8 +68,8 @@ extension CookieInitExtension on CookieInit {
   external JSString get name;
   external set value(JSString value);
   external JSString get value;
-  external set expires(EpochTimeStamp? value);
-  external EpochTimeStamp? get expires;
+  external set expires(DOMHighResTimeStamp? value);
+  external DOMHighResTimeStamp? get expires;
   external set domain(JSString? value);
   external JSString? get domain;
   external set path(JSString value);
@@ -107,7 +107,7 @@ class CookieListItem {
     JSString value,
     JSString? domain,
     JSString path,
-    EpochTimeStamp? expires,
+    DOMHighResTimeStamp? expires,
     JSBoolean secure,
     CookieSameSite sameSite,
   });
@@ -122,8 +122,8 @@ extension CookieListItemExtension on CookieListItem {
   external JSString? get domain;
   external set path(JSString value);
   external JSString get path;
-  external set expires(EpochTimeStamp? value);
-  external EpochTimeStamp? get expires;
+  external set expires(DOMHighResTimeStamp? value);
+  external DOMHighResTimeStamp? get expires;
   external set secure(JSBoolean value);
   external JSBoolean get secure;
   external set sameSite(CookieSameSite value);

@@ -10,6 +10,47 @@ import 'package:js/js.dart' hide JS;
 
 import 'credential_management.dart';
 
+@JS('IdentityCredential')
+@staticInterop
+class IdentityCredential implements Credential {}
+
+extension IdentityCredentialExtension on IdentityCredential {
+  external JSString? get token;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class IdentityCredentialRequestOptions {
+  external factory IdentityCredentialRequestOptions({JSArray providers});
+}
+
+extension IdentityCredentialRequestOptionsExtension
+    on IdentityCredentialRequestOptions {
+  external set providers(JSArray value);
+  external JSArray get providers;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class IdentityProviderConfig {
+  external factory IdentityProviderConfig({
+    required JSString configURL,
+    required JSString clientId,
+    JSString nonce,
+  });
+}
+
+extension IdentityProviderConfigExtension on IdentityProviderConfig {
+  external set configURL(JSString value);
+  external JSString get configURL;
+  external set clientId(JSString value);
+  external JSString get clientId;
+  external set nonce(JSString value);
+  external JSString get nonce;
+}
+
 @JS()
 @staticInterop
 @anonymous
@@ -47,6 +88,7 @@ class IdentityProviderBranding {
     JSString background_color,
     JSString color,
     JSArray icons,
+    JSString name,
   });
 }
 
@@ -57,6 +99,8 @@ extension IdentityProviderBrandingExtension on IdentityProviderBranding {
   external JSString get color;
   external set icons(JSArray value);
   external JSArray get icons;
+  external set name(JSString value);
+  external JSString get name;
 }
 
 @JS()
@@ -126,6 +170,18 @@ extension IdentityProviderAccountListExtension on IdentityProviderAccountList {
 @JS()
 @staticInterop
 @anonymous
+class IdentityProviderToken {
+  external factory IdentityProviderToken({required JSString token});
+}
+
+extension IdentityProviderTokenExtension on IdentityProviderToken {
+  external set token(JSString value);
+  external JSString get token;
+}
+
+@JS()
+@staticInterop
+@anonymous
 class IdentityProviderClientMetadata {
   external factory IdentityProviderClientMetadata({
     JSString privacy_policy_url,
@@ -139,84 +195,4 @@ extension IdentityProviderClientMetadataExtension
   external JSString get privacy_policy_url;
   external set terms_of_service_url(JSString value);
   external JSString get terms_of_service_url;
-}
-
-@JS()
-@staticInterop
-@anonymous
-class IdentityProviderToken {
-  external factory IdentityProviderToken({required JSString token});
-}
-
-extension IdentityProviderTokenExtension on IdentityProviderToken {
-  external set token(JSString value);
-  external JSString get token;
-}
-
-@JS('IdentityCredential')
-@staticInterop
-class IdentityCredential implements Credential {
-  external static JSPromise logoutRPs(JSArray logoutRequests);
-}
-
-extension IdentityCredentialExtension on IdentityCredential {
-  external JSString? get token;
-}
-
-@JS()
-@staticInterop
-@anonymous
-class IdentityCredentialRequestOptions {
-  external factory IdentityCredentialRequestOptions({JSArray providers});
-}
-
-extension IdentityCredentialRequestOptionsExtension
-    on IdentityCredentialRequestOptions {
-  external set providers(JSArray value);
-  external JSArray get providers;
-}
-
-@JS()
-@staticInterop
-@anonymous
-class IdentityProviderConfig {
-  external factory IdentityProviderConfig({
-    required JSString configURL,
-    required JSString clientId,
-    JSString nonce,
-  });
-}
-
-extension IdentityProviderConfigExtension on IdentityProviderConfig {
-  external set configURL(JSString value);
-  external JSString get configURL;
-  external set clientId(JSString value);
-  external JSString get clientId;
-  external set nonce(JSString value);
-  external JSString get nonce;
-}
-
-@JS()
-@staticInterop
-@anonymous
-class IdentityCredentialLogoutRPsRequest {
-  external factory IdentityCredentialLogoutRPsRequest({
-    required JSString url,
-    required JSString accountId,
-  });
-}
-
-extension IdentityCredentialLogoutRPsRequestExtension
-    on IdentityCredentialLogoutRPsRequest {
-  external set url(JSString value);
-  external JSString get url;
-  external set accountId(JSString value);
-  external JSString get accountId;
-}
-
-@JS('IdentityProvider')
-@staticInterop
-class IdentityProvider {
-  external static JSVoid login();
-  external static JSVoid logout();
 }

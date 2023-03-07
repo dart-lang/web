@@ -8,7 +8,9 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
+import 'dom.dart';
 import 'hr_time.dart';
+import 'html.dart';
 import 'streams.dart';
 import 'webidl.dart';
 
@@ -25,10 +27,10 @@ extension WebTransportDatagramDuplexStreamExtension
   external ReadableStream get readable;
   external WritableStream get writable;
   external JSNumber get maxDatagramSize;
-  external set incomingMaxAge(JSNumber? value);
-  external JSNumber? get incomingMaxAge;
-  external set outgoingMaxAge(JSNumber? value);
-  external JSNumber? get outgoingMaxAge;
+  external set incomingMaxAge(JSNumber value);
+  external JSNumber get incomingMaxAge;
+  external set outgoingMaxAge(JSNumber value);
+  external JSNumber get outgoingMaxAge;
   external set incomingHighWaterMark(JSNumber value);
   external JSNumber get incomingHighWaterMark;
   external set outgoingHighWaterMark(JSNumber value);
@@ -37,7 +39,7 @@ extension WebTransportDatagramDuplexStreamExtension
 
 @JS('WebTransport')
 @staticInterop
-class WebTransport {
+class WebTransport implements EventTarget {
   external factory WebTransport(
     JSString url, [
     WebTransportOptions options,
@@ -58,6 +60,11 @@ extension WebTransportExtension on WebTransport {
   external WebTransportDatagramDuplexStream get datagrams;
   external ReadableStream get incomingBidirectionalStreams;
   external ReadableStream get incomingUnidirectionalStreams;
+  external set rateControlFeedbackMinInterval(JSNumber value);
+  external JSNumber get rateControlFeedbackMinInterval;
+  external set onratecontrolfeedback(EventHandler value);
+  external EventHandler get onratecontrolfeedback;
+  external WebTransportRateControlFeedback get rateControlFeedback;
 }
 
 @JS()
@@ -270,10 +277,22 @@ extension WebTransportBidirectionalStreamExtension
   external WebTransportSendStream get writable;
 }
 
+@JS('WebTransportRateControlFeedback')
+@staticInterop
+class WebTransportRateControlFeedback {}
+
+extension WebTransportRateControlFeedbackExtension
+    on WebTransportRateControlFeedback {
+  external JSNumber? get sendRate;
+}
+
 @JS('WebTransportError')
 @staticInterop
 class WebTransportError implements DOMException {
-  external factory WebTransportError([WebTransportErrorInit init]);
+  external factory WebTransportError([
+    JSString message,
+    WebTransportErrorOptions options,
+  ]);
 }
 
 extension WebTransportErrorExtension on WebTransportError {
@@ -284,16 +303,16 @@ extension WebTransportErrorExtension on WebTransportError {
 @JS()
 @staticInterop
 @anonymous
-class WebTransportErrorInit {
-  external factory WebTransportErrorInit({
-    JSNumber streamErrorCode,
-    JSString message,
+class WebTransportErrorOptions {
+  external factory WebTransportErrorOptions({
+    WebTransportErrorSource source = 'stream',
+    JSNumber? streamErrorCode,
   });
 }
 
-extension WebTransportErrorInitExtension on WebTransportErrorInit {
-  external set streamErrorCode(JSNumber value);
-  external JSNumber get streamErrorCode;
-  external set message(JSString value);
-  external JSString get message;
+extension WebTransportErrorOptionsExtension on WebTransportErrorOptions {
+  external set source(WebTransportErrorSource value);
+  external WebTransportErrorSource get source;
+  external set streamErrorCode(JSNumber? value);
+  external JSNumber? get streamErrorCode;
 }

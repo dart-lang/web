@@ -330,14 +330,14 @@ extension HTMLLinkElementExtension on HTMLLinkElement {
   external DOMTokenList get blocking;
   external set disabled(JSBoolean value);
   external JSBoolean get disabled;
+  external set fetchPriority(JSString value);
+  external JSString get fetchPriority;
   external set charset(JSString value);
   external JSString get charset;
   external set rev(JSString value);
   external JSString get rev;
   external set target(JSString value);
   external JSString get target;
-  external set fetchPriority(JSString value);
-  external JSString get fetchPriority;
 }
 
 @JS('HTMLMetaElement')
@@ -726,6 +726,8 @@ extension HTMLImageElementExtension on HTMLImageElement {
   external JSString get decoding;
   external set loading(JSString value);
   external JSString get loading;
+  external set fetchPriority(JSString value);
+  external JSString get fetchPriority;
   external set name(JSString value);
   external JSString get name;
   external set lowsrc(JSString value);
@@ -740,8 +742,6 @@ extension HTMLImageElementExtension on HTMLImageElement {
   external JSString get longDesc;
   external set border(JSString value);
   external JSString get border;
-  external set fetchPriority(JSString value);
-  external JSString get fetchPriority;
 }
 
 @JS('HTMLIFrameElement')
@@ -788,8 +788,6 @@ extension HTMLIFrameElementExtension on HTMLIFrameElement {
   external set marginWidth(JSString value);
   external JSString get marginWidth;
   external PermissionsPolicy get permissionsPolicy;
-  external set fetchPriority(JSString value);
-  external JSString get fetchPriority;
 }
 
 @JS('HTMLEmbedElement')
@@ -1958,14 +1956,14 @@ extension HTMLScriptElementExtension on HTMLScriptElement {
   external set referrerPolicy(JSString value);
   external JSString get referrerPolicy;
   external DOMTokenList get blocking;
+  external set fetchPriority(JSString value);
+  external JSString get fetchPriority;
   external set charset(JSString value);
   external JSString get charset;
   external set event(JSString value);
   external JSString get event;
   external set htmlFor(JSString value);
   external JSString get htmlFor;
-  external set fetchPriority(JSString value);
-  external JSString get fetchPriority;
 }
 
 @JS('HTMLTemplateElement')
@@ -3301,6 +3299,8 @@ extension GlobalEventHandlersExtension on GlobalEventHandlers {
   external EventHandler get onbeforeinput;
   external set onbeforematch(EventHandler value);
   external EventHandler get onbeforematch;
+  external set onbeforetoggle(EventHandler value);
+  external EventHandler get onbeforetoggle;
   external set onblur(EventHandler value);
   external EventHandler get onblur;
   external set oncancel(EventHandler value);

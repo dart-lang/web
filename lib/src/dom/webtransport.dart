@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
-import 'dom.dart';
 import 'hr_time.dart';
-import 'html.dart';
 import 'streams.dart';
 import 'webidl.dart';
 
@@ -39,7 +37,7 @@ extension WebTransportDatagramDuplexStreamExtension
 
 @JS('WebTransport')
 @staticInterop
-class WebTransport implements EventTarget {
+class WebTransport {
   external factory WebTransport(
     JSString url, [
     WebTransportOptions options,
@@ -60,11 +58,6 @@ extension WebTransportExtension on WebTransport {
   external WebTransportDatagramDuplexStream get datagrams;
   external ReadableStream get incomingBidirectionalStreams;
   external ReadableStream get incomingUnidirectionalStreams;
-  external set rateControlFeedbackMinInterval(JSNumber value);
-  external JSNumber get rateControlFeedbackMinInterval;
-  external set onratecontrolfeedback(EventHandler value);
-  external EventHandler get onratecontrolfeedback;
-  external WebTransportRateControlFeedback get rateControlFeedback;
 }
 
 @JS()
@@ -275,15 +268,6 @@ extension WebTransportBidirectionalStreamExtension
     on WebTransportBidirectionalStream {
   external WebTransportReceiveStream get readable;
   external WebTransportSendStream get writable;
-}
-
-@JS('WebTransportRateControlFeedback')
-@staticInterop
-class WebTransportRateControlFeedback {}
-
-extension WebTransportRateControlFeedbackExtension
-    on WebTransportRateControlFeedback {
-  external JSNumber? get sendRate;
 }
 
 @JS('WebTransportError')

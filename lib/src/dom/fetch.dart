@@ -11,6 +11,7 @@ import 'package:js/js.dart' hide JS;
 import 'dom.dart';
 import 'referrer_policy.dart';
 import 'streams.dart';
+import 'trust_token_api.dart';
 
 typedef HeadersInit = JSAny;
 typedef XMLHttpRequestBodyInit = JSAny;
@@ -109,6 +110,7 @@ class RequestInit {
     RequestDuplex duplex,
     RequestPriority priority,
     JSAny window,
+    PrivateToken privateToken,
   });
 }
 
@@ -143,6 +145,8 @@ extension RequestInitExtension on RequestInit {
   external RequestPriority get priority;
   external set window(JSAny value);
   external JSAny get window;
+  external set privateToken(PrivateToken value);
+  external PrivateToken get privateToken;
 }
 
 @JS('Response')

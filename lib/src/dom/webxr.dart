@@ -99,6 +99,7 @@ extension XRSessionExtension on XRSession {
   external XRRenderState get renderState;
   external XRInputSourceArray get inputSources;
   external JSArray get enabledFeatures;
+  external JSBoolean get isSystemKeyboardSupported;
   external set onend(EventHandler value);
   external EventHandler get onend;
   external set oninputsourceschange(EventHandler value);

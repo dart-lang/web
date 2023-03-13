@@ -304,7 +304,8 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
   );
   external MLOperand pad(
     MLOperand input,
-    MLOperand padding, [
+    JSArray beginningPadding,
+    JSArray endingPadding, [
     MLPadOptions options,
   ]);
   external MLOperand averagePool2d(
@@ -319,6 +320,10 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
     MLOperand input, [
     MLPool2dOptions options,
   ]);
+  external MLOperand prelu(
+    MLOperand x,
+    MLOperand slope,
+  );
   external MLOperand reduceL1(
     MLOperand input, [
     MLReduceOptions options,

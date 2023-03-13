@@ -110,6 +110,7 @@ extension GPUSupportedLimitsExtension on GPUSupportedLimits {
   external JSNumber get maxStorageBuffersPerShaderStage;
   external JSNumber get maxStorageTexturesPerShaderStage;
   external JSNumber get maxUniformBuffersPerShaderStage;
+  external JSNumber get maxFragmentCombinedOutputResources;
   external JSNumber get maxUniformBufferBindingSize;
   external JSNumber get maxStorageBufferBindingSize;
   external JSNumber get minUniformBufferOffsetAlignment;
@@ -1014,8 +1015,8 @@ extension GPUBlendComponentExtension on GPUBlendComponent {
 class GPUDepthStencilState {
   external factory GPUDepthStencilState({
     required GPUTextureFormat format,
-    JSBoolean depthWriteEnabled = false,
-    GPUCompareFunction depthCompare = 'always',
+    required JSBoolean depthWriteEnabled,
+    required GPUCompareFunction depthCompare,
     GPUStencilFaceState stencilFront,
     GPUStencilFaceState stencilBack,
     GPUStencilValue stencilReadMask = 0xFFFFFFFF,
@@ -1483,7 +1484,7 @@ extension GPURenderPassColorAttachmentExtension
 class GPURenderPassDepthStencilAttachment {
   external factory GPURenderPassDepthStencilAttachment({
     required GPUTextureView view,
-    JSNumber depthClearValue = 0,
+    JSNumber depthClearValue,
     GPULoadOp depthLoadOp,
     GPUStoreOp depthStoreOp,
     JSBoolean depthReadOnly = false,

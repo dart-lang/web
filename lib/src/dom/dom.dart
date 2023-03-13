@@ -544,6 +544,14 @@ extension DocumentExtension on Document {
   external Selection? getSelection();
   external JSPromise hasStorageAccess();
   external JSPromise requestStorageAccess();
+  external JSPromise hasPrivateTokens(
+    JSString issuer,
+    JSString type,
+  );
+  external JSPromise hasRedemptionRecord(
+    JSString issuer,
+    JSString type,
+  );
   external SVGSVGElement? get rootElement;
   external NamedFlowMap get namedFlows;
   external Element? get scrollingElement;

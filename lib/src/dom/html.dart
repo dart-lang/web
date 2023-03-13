@@ -25,6 +25,7 @@ import 'device_posture.dart';
 import 'dom.dart';
 import 'encrypted_media.dart';
 import 'entries_api.dart';
+import 'fenced_frame.dart';
 import 'fetch.dart';
 import 'file_system_access.dart';
 import 'fileapi.dart';
@@ -42,7 +43,6 @@ import 'media_playback_quality.dart';
 import 'media_source.dart';
 import 'mediacapture_streams.dart';
 import 'mediasession.dart';
-import 'navigation_api.dart';
 import 'netinfo.dart';
 import 'permissions.dart';
 import 'permissions_policy.dart';
@@ -58,6 +58,7 @@ import 'service_workers.dart';
 import 'speech_api.dart';
 import 'storage.dart';
 import 'trusted_types.dart';
+import 'turtledove.dart';
 import 'ua_client_hints.dart';
 import 'uievents.dart';
 import 'vibration.dart';
@@ -1432,7 +1433,7 @@ extension HTMLLabelElementExtension on HTMLLabelElement {
 
 @JS('HTMLInputElement')
 @staticInterop
-class HTMLInputElement implements HTMLElement, PopoverTargetElement {
+class HTMLInputElement implements HTMLElement, PopoverInvokerElement {
   external factory HTMLInputElement();
 }
 
@@ -1548,7 +1549,7 @@ extension HTMLInputElementExtension on HTMLInputElement {
 
 @JS('HTMLButtonElement')
 @staticInterop
-class HTMLButtonElement implements HTMLElement, PopoverTargetElement {
+class HTMLButtonElement implements HTMLElement, PopoverInvokerElement {
   external factory HTMLButtonElement();
 }
 
@@ -2839,17 +2840,15 @@ extension DragEventInitExtension on DragEventInit {
   external DataTransfer? get dataTransfer;
 }
 
-@JS('PopoverTargetElement')
+@JS('PopoverInvokerElement')
 @staticInterop
-class PopoverTargetElement {}
+class PopoverInvokerElement {}
 
-extension PopoverTargetElementExtension on PopoverTargetElement {
-  external set popoverToggleTargetElement(Element? value);
-  external Element? get popoverToggleTargetElement;
-  external set popoverHideTargetElement(Element? value);
-  external Element? get popoverHideTargetElement;
-  external set popoverShowTargetElement(Element? value);
-  external Element? get popoverShowTargetElement;
+extension PopoverInvokerElementExtension on PopoverInvokerElement {
+  external set popoverTargetElement(Element? value);
+  external Element? get popoverTargetElement;
+  external set popoverTargetAction(JSString value);
+  external JSString get popoverTargetAction;
 }
 
 @JS('ToggleEvent')
@@ -2988,6 +2987,7 @@ extension WindowExtension on Window {
   external JSNumber get outerHeight;
   external JSNumber get devicePixelRatio;
   external JSAny get event;
+  external Fence? get fence;
   external Window get window;
   external Window get self;
   external Document get document;
@@ -3020,7 +3020,6 @@ extension WindowExtension on Window {
   external EventHandler get onappinstalled;
   external set onbeforeinstallprompt(EventHandler value);
   external EventHandler get onbeforeinstallprompt;
-  external Navigation get navigation;
   external set ondeviceorientation(EventHandler value);
   external EventHandler get ondeviceorientation;
   external set ondeviceorientationabsolute(EventHandler value);
@@ -3627,6 +3626,11 @@ extension NavigatorExtension on Navigator {
     NavigatorUserMediaSuccessCallback successCallback,
     NavigatorUserMediaErrorCallback errorCallback,
   );
+  external JSPromise joinAdInterestGroup(
+    AuctionAdInterestGroup group,
+    JSNumber durationSeconds,
+  );
+  external JSPromise runAdAuction(AuctionAdConfig config);
   external JSBoolean vibrate(VibratePattern pattern);
   external JSPromise share([ShareData data]);
   external JSBoolean canShare([ShareData data]);

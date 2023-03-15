@@ -17,7 +17,6 @@ import 'css_view_transitions.dart';
 import 'cssom.dart';
 import 'cssom_view.dart';
 import 'dom_parsing.dart';
-import 'edit_context.dart';
 import 'font_metrics_api.dart';
 import 'fullscreen.dart';
 import 'geometry.dart';
@@ -834,8 +833,6 @@ extension ElementExtension on Element {
   external JSString get slot;
   external NamedNodeMap get attributes;
   external ShadowRoot? get shadowRoot;
-  external set editContext(EditContext? value);
-  external EditContext? get editContext;
   external set elementTiming(JSString value);
   external JSString get elementTiming;
   external set onfullscreenchange(EventHandler value);

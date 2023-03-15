@@ -11,12 +11,12 @@ import 'package:js/js.dart' hide JS;
 import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
-import 'mediastream_recording.dart';
 import 'webcodecs_aac_codec_registration.dart';
 import 'webcodecs_avc_codec_registration.dart';
 import 'webcodecs_flac_codec_registration.dart';
 import 'webcodecs_hevc_codec_registration.dart';
 import 'webcodecs_opus_codec_registration.dart';
+import 'webcodecs_vp9_codec_registration.dart';
 import 'webidl.dart';
 
 typedef ImageBufferSource = JSAny;
@@ -28,6 +28,7 @@ typedef WebCodecsErrorCallback = JSFunction;
 typedef HardwareAcceleration = JSString;
 typedef AlphaOption = JSString;
 typedef LatencyMode = JSString;
+typedef VideoEncoderBitrateMode = JSString;
 typedef CodecState = JSString;
 typedef EncodedAudioChunkType = JSString;
 typedef EncodedVideoChunkType = JSString;
@@ -411,7 +412,7 @@ class VideoEncoderConfig {
     HardwareAcceleration hardwareAcceleration = 'no-preference',
     AlphaOption alpha = 'discard',
     JSString scalabilityMode,
-    BitrateMode bitrateMode = 'variable',
+    VideoEncoderBitrateMode bitrateMode = 'variable',
     LatencyMode latencyMode = 'quality',
   });
 }
@@ -441,8 +442,8 @@ extension VideoEncoderConfigExtension on VideoEncoderConfig {
   external AlphaOption get alpha;
   external set scalabilityMode(JSString value);
   external JSString get scalabilityMode;
-  external set bitrateMode(BitrateMode value);
-  external BitrateMode get bitrateMode;
+  external set bitrateMode(VideoEncoderBitrateMode value);
+  external VideoEncoderBitrateMode get bitrateMode;
   external set latencyMode(LatencyMode value);
   external LatencyMode get latencyMode;
 }
@@ -451,10 +452,15 @@ extension VideoEncoderConfigExtension on VideoEncoderConfig {
 @staticInterop
 @anonymous
 class VideoEncoderEncodeOptions {
-  external factory VideoEncoderEncodeOptions({JSBoolean keyFrame = false});
+  external factory VideoEncoderEncodeOptions({
+    VideoEncoderEncodeOptionsForVp9 vp9,
+    JSBoolean keyFrame = false,
+  });
 }
 
 extension VideoEncoderEncodeOptionsExtension on VideoEncoderEncodeOptions {
+  external set vp9(VideoEncoderEncodeOptionsForVp9 value);
+  external VideoEncoderEncodeOptionsForVp9 get vp9;
   external set keyFrame(JSBoolean value);
   external JSBoolean get keyFrame;
 }

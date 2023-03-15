@@ -55,6 +55,7 @@ extension WebTransportExtension on WebTransport {
   external WebTransportReliabilityMode get reliability;
   external WebTransportCongestionControl get congestionControl;
   external JSPromise get closed;
+  external JSPromise get draining;
   external WebTransportDatagramDuplexStream get datagrams;
   external ReadableStream get incomingBidirectionalStreams;
   external ReadableStream get incomingUnidirectionalStreams;

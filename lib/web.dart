@@ -241,6 +241,7 @@ export 'src/dom/webcodecs_avc_codec_registration.dart';
 export 'src/dom/webcodecs_flac_codec_registration.dart';
 export 'src/dom/webcodecs_hevc_codec_registration.dart';
 export 'src/dom/webcodecs_opus_codec_registration.dart';
+export 'src/dom/webcodecs_vp9_codec_registration.dart';
 export 'src/dom/webcrypto_secure_curves.dart';
 export 'src/dom/webcryptoapi.dart';
 export 'src/dom/webdriver.dart';

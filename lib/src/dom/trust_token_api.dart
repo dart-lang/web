@@ -10,6 +10,7 @@ import 'package:js/js.dart' hide JS;
 
 typedef RefreshPolicy = JSString;
 typedef TokenType = JSString;
+typedef TokenVersion = JSString;
 typedef OperationType = JSString;
 
 @JS()
@@ -17,6 +18,8 @@ typedef OperationType = JSString;
 @anonymous
 class PrivateToken {
   external factory PrivateToken({
+    required TokenType type,
+    required TokenVersion version,
     required OperationType operation,
     RefreshPolicy refreshPolicy = 'none',
     JSArray issuers,
@@ -24,6 +27,10 @@ class PrivateToken {
 }
 
 extension PrivateTokenExtension on PrivateToken {
+  external set type(TokenType value);
+  external TokenType get type;
+  external set version(TokenVersion value);
+  external TokenVersion get version;
   external set operation(OperationType value);
   external OperationType get operation;
   external set refreshPolicy(RefreshPolicy value);

@@ -23,6 +23,7 @@ import 'custom_state_pseudo_class.dart';
 import 'device_memory.dart';
 import 'device_posture.dart';
 import 'dom.dart';
+import 'edit_context.dart';
 import 'encrypted_media.dart';
 import 'entries_api.dart';
 import 'fenced_frame.dart';
@@ -203,6 +204,8 @@ extension HTMLElementExtension on HTMLElement {
   external JSNumber get offsetLeft;
   external JSNumber get offsetWidth;
   external JSNumber get offsetHeight;
+  external set editContext(EditContext? value);
+  external EditContext? get editContext;
   external set title(JSString value);
   external JSString get title;
   external set lang(JSString value);

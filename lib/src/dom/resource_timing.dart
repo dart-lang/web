@@ -20,6 +20,7 @@ class PerformanceResourceTiming implements PerformanceEntry {}
 extension PerformanceResourceTimingExtension on PerformanceResourceTiming {
   external JSObject toJSON();
   external JSString get initiatorType;
+  external JSString get deliveryType;
   external JSString get nextHopProtocol;
   external DOMHighResTimeStamp get workerStart;
   external DOMHighResTimeStamp get redirectStart;

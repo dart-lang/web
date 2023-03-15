@@ -87,6 +87,7 @@ extension XRSessionExtension on XRSession {
   external JSNumber requestAnimationFrame(XRFrameRequestCallback callback);
   external JSVoid cancelAnimationFrame(JSNumber handle);
   external JSPromise end();
+  external JSArray get persistentAnchors;
   external XREnvironmentBlendMode get environmentBlendMode;
   external XRInteractionMode get interactionMode;
   external XRDepthUsage get depthUsage;

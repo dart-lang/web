@@ -48,8 +48,8 @@ extension EditContextExtension on EditContext {
     JSNumber start,
     JSNumber end,
   );
-  external JSVoid updateControlBound(DOMRect controlBound);
-  external JSVoid updateSelectionBound(DOMRect selectionBound);
+  external JSVoid updateControlBounds(DOMRect controlBounds);
+  external JSVoid updateSelectionBounds(DOMRect selectionBounds);
   external JSVoid updateCharacterBounds(
     JSNumber rangeStart,
     JSArray characterBounds,
@@ -61,9 +61,9 @@ extension EditContextExtension on EditContext {
   external JSNumber get selectionEnd;
   external JSNumber get compositionRangeStart;
   external JSNumber get compositionRangeEnd;
-  external JSBoolean get isInComposition;
-  external DOMRect get controlBound;
-  external DOMRect get selectionBound;
+  external JSBoolean get isComposing;
+  external DOMRect get controlBounds;
+  external DOMRect get selectionBounds;
   external JSNumber get characterBoundsRangeStart;
   external set ontextupdate(EventHandler value);
   external EventHandler get ontextupdate;
@@ -80,7 +80,7 @@ extension EditContextExtension on EditContext {
 @JS()
 @staticInterop
 @anonymous
-class TextUpdateEventInit {
+class TextUpdateEventInit implements EventInit {
   external factory TextUpdateEventInit({
     JSNumber updateRangeStart,
     JSNumber updateRangeEnd,
@@ -112,7 +112,10 @@ extension TextUpdateEventInitExtension on TextUpdateEventInit {
 @JS('TextUpdateEvent')
 @staticInterop
 class TextUpdateEvent implements Event {
-  external factory TextUpdateEvent([TextUpdateEventInit options]);
+  external factory TextUpdateEvent(
+    JSString type, [
+    TextUpdateEventInit options,
+  ]);
 }
 
 extension TextUpdateEventExtension on TextUpdateEvent {
@@ -164,26 +167,19 @@ class TextFormat {
 }
 
 extension TextFormatExtension on TextFormat {
-  external set rangeStart(JSNumber value);
   external JSNumber get rangeStart;
-  external set rangeEnd(JSNumber value);
   external JSNumber get rangeEnd;
-  external set textColor(JSString value);
   external JSString get textColor;
-  external set backgroundColor(JSString value);
   external JSString get backgroundColor;
-  external set underlineStyle(JSString value);
   external JSString get underlineStyle;
-  external set underlineThickness(JSString value);
   external JSString get underlineThickness;
-  external set underlineColor(JSString value);
   external JSString get underlineColor;
 }
 
 @JS()
 @staticInterop
 @anonymous
-class TextFormatUpdateEventInit {
+class TextFormatUpdateEventInit implements EventInit {
   external factory TextFormatUpdateEventInit({JSArray textFormats});
 }
 
@@ -195,7 +191,10 @@ extension TextFormatUpdateEventInitExtension on TextFormatUpdateEventInit {
 @JS('TextFormatUpdateEvent')
 @staticInterop
 class TextFormatUpdateEvent implements Event {
-  external factory TextFormatUpdateEvent([TextFormatUpdateEventInit options]);
+  external factory TextFormatUpdateEvent(
+    JSString type, [
+    TextFormatUpdateEventInit options,
+  ]);
 }
 
 extension TextFormatUpdateEventExtension on TextFormatUpdateEvent {
@@ -205,7 +204,7 @@ extension TextFormatUpdateEventExtension on TextFormatUpdateEvent {
 @JS()
 @staticInterop
 @anonymous
-class CharacterBoundsUpdateEventInit {
+class CharacterBoundsUpdateEventInit implements EventInit {
   external factory CharacterBoundsUpdateEventInit({
     JSNumber rangeStart,
     JSNumber rangeEnd,
@@ -224,7 +223,9 @@ extension CharacterBoundsUpdateEventInitExtension
 @staticInterop
 class CharacterBoundsUpdateEvent implements Event {
   external factory CharacterBoundsUpdateEvent(
-      [CharacterBoundsUpdateEventInit options]);
+    JSString type, [
+    CharacterBoundsUpdateEventInit options,
+  ]);
 }
 
 extension CharacterBoundsUpdateEventExtension on CharacterBoundsUpdateEvent {

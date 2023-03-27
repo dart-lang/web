@@ -20,19 +20,19 @@ class TouchInit {
   external factory TouchInit({
     required JSNumber identifier,
     required EventTarget target,
-    JSNumber clientX = 0,
-    JSNumber clientY = 0,
-    JSNumber screenX = 0,
-    JSNumber screenY = 0,
-    JSNumber pageX = 0,
-    JSNumber pageY = 0,
-    JSNumber radiusX = 0,
-    JSNumber radiusY = 0,
-    JSNumber rotationAngle = 0,
-    JSNumber force = 0,
-    JSNumber altitudeAngle = 0,
-    JSNumber azimuthAngle = 0,
-    TouchType touchType = 'direct',
+    JSNumber clientX,
+    JSNumber clientY,
+    JSNumber screenX,
+    JSNumber screenY,
+    JSNumber pageX,
+    JSNumber pageY,
+    JSNumber radiusX,
+    JSNumber radiusY,
+    JSNumber rotationAngle,
+    JSNumber force,
+    JSNumber altitudeAngle,
+    JSNumber azimuthAngle,
+    TouchType touchType,
   });
 }
 
@@ -107,9 +107,9 @@ extension TouchListExtension on TouchList {
 @anonymous
 class TouchEventInit implements EventModifierInit {
   external factory TouchEventInit({
-    JSArray touches = const [],
-    JSArray targetTouches = const [],
-    JSArray changedTouches = const [],
+    JSArray touches,
+    JSArray targetTouches,
+    JSArray changedTouches,
   });
 }
 

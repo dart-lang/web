@@ -23,12 +23,12 @@ typedef MediaKeyMessageType = JSString;
 @anonymous
 class MediaKeySystemConfiguration {
   external factory MediaKeySystemConfiguration({
-    JSString label = '',
-    JSArray initDataTypes = const [],
-    JSArray audioCapabilities = const [],
-    JSArray videoCapabilities = const [],
-    MediaKeysRequirement distinctiveIdentifier = 'optional',
-    MediaKeysRequirement persistentState = 'optional',
+    JSString label,
+    JSArray initDataTypes,
+    JSArray audioCapabilities,
+    JSArray videoCapabilities,
+    MediaKeysRequirement distinctiveIdentifier,
+    MediaKeysRequirement persistentState,
     JSArray sessionTypes,
   });
 }
@@ -55,9 +55,9 @@ extension MediaKeySystemConfigurationExtension on MediaKeySystemConfiguration {
 @anonymous
 class MediaKeySystemMediaCapability {
   external factory MediaKeySystemMediaCapability({
-    JSString contentType = '',
+    JSString contentType,
     JSString? encryptionScheme,
-    JSString robustness = '',
+    JSString robustness,
   });
 }
 
@@ -173,7 +173,7 @@ extension MediaEncryptedEventExtension on MediaEncryptedEvent {
 @anonymous
 class MediaEncryptedEventInit implements EventInit {
   external factory MediaEncryptedEventInit({
-    JSString initDataType = '',
+    JSString initDataType,
     JSArrayBuffer? initData,
   });
 }

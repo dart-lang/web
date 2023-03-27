@@ -15,7 +15,7 @@ import 'webrtc.dart';
 @anonymous
 class RTCIceGatherOptions {
   external factory RTCIceGatherOptions({
-    RTCIceTransportPolicy gatherPolicy = 'all',
+    RTCIceTransportPolicy gatherPolicy,
     JSArray iceServers,
   });
 }

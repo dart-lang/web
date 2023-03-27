@@ -30,9 +30,9 @@ extension TransitionEventExtension on TransitionEvent {
 @anonymous
 class TransitionEventInit implements EventInit {
   external factory TransitionEventInit({
-    JSString propertyName = '',
-    JSNumber elapsedTime = 0.0,
-    JSString pseudoElement = '',
+    JSString propertyName,
+    JSNumber elapsedTime,
+    JSString pseudoElement,
   });
 }
 

@@ -132,9 +132,9 @@ extension ProgressEventExtension on ProgressEvent {
 @anonymous
 class ProgressEventInit implements EventInit {
   external factory ProgressEventInit({
-    JSBoolean lengthComputable = false,
-    JSNumber loaded = 0,
-    JSNumber total = 0,
+    JSBoolean lengthComputable,
+    JSNumber loaded,
+    JSNumber total,
   });
 }
 

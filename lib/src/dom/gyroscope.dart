@@ -29,7 +29,7 @@ extension GyroscopeExtension on Gyroscope {
 @anonymous
 class GyroscopeSensorOptions implements SensorOptions {
   external factory GyroscopeSensorOptions(
-      {GyroscopeLocalCoordinateSystem referenceFrame = 'device'});
+      {GyroscopeLocalCoordinateSystem referenceFrame});
 }
 
 extension GyroscopeSensorOptionsExtension on GyroscopeSensorOptions {

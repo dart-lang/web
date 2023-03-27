@@ -70,8 +70,7 @@ extension ReadableStreamGetReaderOptionsExtension
 @staticInterop
 @anonymous
 class ReadableStreamIteratorOptions {
-  external factory ReadableStreamIteratorOptions(
-      {JSBoolean preventCancel = false});
+  external factory ReadableStreamIteratorOptions({JSBoolean preventCancel});
 }
 
 extension ReadableStreamIteratorOptionsExtension
@@ -102,9 +101,9 @@ extension ReadableWritablePairExtension on ReadableWritablePair {
 @anonymous
 class StreamPipeOptions {
   external factory StreamPipeOptions({
-    JSBoolean preventClose = false,
-    JSBoolean preventAbort = false,
-    JSBoolean preventCancel = false,
+    JSBoolean preventClose,
+    JSBoolean preventAbort,
+    JSBoolean preventCancel,
     AbortSignal signal,
   });
 }

@@ -21,7 +21,7 @@ typedef WellKnownDirectory = JSString;
 class FileSystemPermissionDescriptor implements PermissionDescriptor {
   external factory FileSystemPermissionDescriptor({
     required FileSystemHandle handle,
-    FileSystemPermissionMode mode = 'read',
+    FileSystemPermissionMode mode,
   });
 }
 
@@ -38,7 +38,7 @@ extension FileSystemPermissionDescriptorExtension
 @anonymous
 class FileSystemHandlePermissionDescriptor {
   external factory FileSystemHandlePermissionDescriptor(
-      {FileSystemPermissionMode mode = 'read'});
+      {FileSystemPermissionMode mode});
 }
 
 extension FileSystemHandlePermissionDescriptorExtension
@@ -70,7 +70,7 @@ extension FilePickerAcceptTypeExtension on FilePickerAcceptType {
 class FilePickerOptions {
   external factory FilePickerOptions({
     JSArray types,
-    JSBoolean excludeAcceptAllOption = false,
+    JSBoolean excludeAcceptAllOption,
     JSString id,
     StartInDirectory startIn,
   });
@@ -91,7 +91,7 @@ extension FilePickerOptionsExtension on FilePickerOptions {
 @staticInterop
 @anonymous
 class OpenFilePickerOptions implements FilePickerOptions {
-  external factory OpenFilePickerOptions({JSBoolean multiple = false});
+  external factory OpenFilePickerOptions({JSBoolean multiple});
 }
 
 extension OpenFilePickerOptionsExtension on OpenFilePickerOptions {
@@ -118,7 +118,7 @@ class DirectoryPickerOptions {
   external factory DirectoryPickerOptions({
     JSString id,
     StartInDirectory startIn,
-    FileSystemPermissionMode mode = 'read',
+    FileSystemPermissionMode mode,
   });
 }
 

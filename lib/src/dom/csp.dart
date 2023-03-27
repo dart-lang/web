@@ -63,17 +63,17 @@ extension SecurityPolicyViolationEventExtension
 class SecurityPolicyViolationEventInit implements EventInit {
   external factory SecurityPolicyViolationEventInit({
     required JSString documentURI,
-    JSString referrer = '',
-    JSString blockedURI = '',
+    JSString referrer,
+    JSString blockedURI,
     required JSString violatedDirective,
     required JSString effectiveDirective,
     required JSString originalPolicy,
-    JSString sourceFile = '',
-    JSString sample = '',
+    JSString sourceFile,
+    JSString sample,
     required SecurityPolicyViolationEventDisposition disposition,
     required JSNumber statusCode,
-    JSNumber lineNumber = 0,
-    JSNumber columnNumber = 0,
+    JSNumber lineNumber,
+    JSNumber columnNumber,
   });
 }
 

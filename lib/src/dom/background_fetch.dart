@@ -51,7 +51,7 @@ extension BackgroundFetchUIOptionsExtension on BackgroundFetchUIOptions {
 @staticInterop
 @anonymous
 class BackgroundFetchOptions implements BackgroundFetchUIOptions {
-  external factory BackgroundFetchOptions({JSNumber downloadTotal = 0});
+  external factory BackgroundFetchOptions({JSNumber downloadTotal});
 }
 
 extension BackgroundFetchOptionsExtension on BackgroundFetchOptions {

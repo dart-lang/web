@@ -15,12 +15,12 @@ typedef OpusBitstreamFormat = JSString;
 @anonymous
 class OpusEncoderConfig {
   external factory OpusEncoderConfig({
-    OpusBitstreamFormat format = 'opus',
-    JSNumber frameDuration = 20000,
+    OpusBitstreamFormat format,
+    JSNumber frameDuration,
     JSNumber complexity,
-    JSNumber packetlossperc = 0,
-    JSBoolean useinbandfec = false,
-    JSBoolean usedtx = false,
+    JSNumber packetlossperc,
+    JSBoolean useinbandfec,
+    JSBoolean usedtx,
   });
 }
 

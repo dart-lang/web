@@ -36,16 +36,16 @@ typedef WebGLPowerPreference = JSString;
 @anonymous
 class WebGLContextAttributes {
   external factory WebGLContextAttributes({
-    JSBoolean alpha = true,
-    JSBoolean depth = true,
-    JSBoolean stencil = false,
-    JSBoolean antialias = true,
-    JSBoolean premultipliedAlpha = true,
-    JSBoolean preserveDrawingBuffer = false,
-    WebGLPowerPreference powerPreference = 'default',
-    JSBoolean failIfMajorPerformanceCaveat = false,
-    JSBoolean desynchronized = false,
-    JSBoolean xrCompatible = false,
+    JSBoolean alpha,
+    JSBoolean depth,
+    JSBoolean stencil,
+    JSBoolean antialias,
+    JSBoolean premultipliedAlpha,
+    JSBoolean preserveDrawingBuffer,
+    WebGLPowerPreference powerPreference,
+    JSBoolean failIfMajorPerformanceCaveat,
+    JSBoolean desynchronized,
+    JSBoolean xrCompatible,
   });
 }
 
@@ -955,7 +955,7 @@ extension WebGLContextEventExtension on WebGLContextEvent {
 @staticInterop
 @anonymous
 class WebGLContextEventInit implements EventInit {
-  external factory WebGLContextEventInit({JSString statusMessage = ''});
+  external factory WebGLContextEventInit({JSString statusMessage});
 }
 
 extension WebGLContextEventInitExtension on WebGLContextEventInit {

@@ -64,20 +64,20 @@ extension NotificationExtension on Notification {
 @anonymous
 class NotificationOptions {
   external factory NotificationOptions({
-    NotificationDirection dir = 'auto',
-    JSString lang = '',
-    JSString body = '',
-    JSString tag = '',
+    NotificationDirection dir,
+    JSString lang,
+    JSString body,
+    JSString tag,
     JSString image,
     JSString icon,
     JSString badge,
     VibratePattern vibrate,
     EpochTimeStamp timestamp,
-    JSBoolean renotify = false,
-    JSBoolean silent = false,
-    JSBoolean requireInteraction = false,
+    JSBoolean renotify,
+    JSBoolean silent,
+    JSBoolean requireInteraction,
     JSAny data,
-    JSArray actions = const [],
+    JSArray actions,
   });
 }
 
@@ -136,7 +136,7 @@ extension NotificationActionExtension on NotificationAction {
 @staticInterop
 @anonymous
 class GetNotificationOptions {
-  external factory GetNotificationOptions({JSString tag = ''});
+  external factory GetNotificationOptions({JSString tag});
 }
 
 extension GetNotificationOptionsExtension on GetNotificationOptions {
@@ -164,7 +164,7 @@ extension NotificationEventExtension on NotificationEvent {
 class NotificationEventInit implements ExtendableEventInit {
   external factory NotificationEventInit({
     required Notification notification,
-    JSString action = '',
+    JSString action,
   });
 }
 

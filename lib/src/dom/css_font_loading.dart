@@ -20,17 +20,17 @@ typedef FontFaceSetLoadStatus = JSString;
 @anonymous
 class FontFaceDescriptors {
   external factory FontFaceDescriptors({
-    JSString style = 'normal',
-    JSString weight = 'normal',
-    JSString stretch = 'normal',
-    JSString unicodeRange = 'U+0-10FFFF',
-    JSString variant = 'normal',
-    JSString featureSettings = 'normal',
-    JSString variationSettings = 'normal',
-    JSString display = 'auto',
-    JSString ascentOverride = 'normal',
-    JSString descentOverride = 'normal',
-    JSString lineGapOverride = 'normal',
+    JSString style,
+    JSString weight,
+    JSString stretch,
+    JSString unicodeRange,
+    JSString variant,
+    JSString featureSettings,
+    JSString variationSettings,
+    JSString display,
+    JSString ascentOverride,
+    JSString descentOverride,
+    JSString lineGapOverride,
   });
 }
 
@@ -146,7 +146,7 @@ extension FontFacePalettesExtension on FontFacePalettes {
 @staticInterop
 @anonymous
 class FontFaceSetLoadEventInit implements EventInit {
-  external factory FontFaceSetLoadEventInit({JSArray fontfaces = const []});
+  external factory FontFaceSetLoadEventInit({JSArray fontfaces});
 }
 
 extension FontFaceSetLoadEventInitExtension on FontFaceSetLoadEventInit {

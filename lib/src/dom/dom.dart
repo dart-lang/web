@@ -84,9 +84,9 @@ extension EventExtension on Event {
 @anonymous
 class EventInit {
   external factory EventInit({
-    JSBoolean bubbles = false,
-    JSBoolean cancelable = false,
-    JSBoolean composed = false,
+    JSBoolean bubbles,
+    JSBoolean cancelable,
+    JSBoolean composed,
   });
 }
 
@@ -154,7 +154,7 @@ extension EventTargetExtension on EventTarget {
 @staticInterop
 @anonymous
 class EventListenerOptions {
-  external factory EventListenerOptions({JSBoolean capture = false});
+  external factory EventListenerOptions({JSBoolean capture});
 }
 
 extension EventListenerOptionsExtension on EventListenerOptions {
@@ -168,7 +168,7 @@ extension EventListenerOptionsExtension on EventListenerOptions {
 class AddEventListenerOptions implements EventListenerOptions {
   external factory AddEventListenerOptions({
     JSBoolean passive,
-    JSBoolean once = false,
+    JSBoolean once,
     AbortSignal signal,
   });
 }
@@ -314,10 +314,10 @@ extension MutationObserverExtension on MutationObserver {
 @anonymous
 class MutationObserverInit {
   external factory MutationObserverInit({
-    JSBoolean childList = false,
+    JSBoolean childList,
     JSBoolean attributes,
     JSBoolean characterData,
-    JSBoolean subtree = false,
+    JSBoolean subtree,
     JSBoolean attributeOldValue,
     JSBoolean characterDataOldValue,
     JSArray attributeFilter,
@@ -424,7 +424,7 @@ extension NodeExtension on Node {
 @staticInterop
 @anonymous
 class GetRootNodeOptions {
-  external factory GetRootNodeOptions({JSBoolean composed = false});
+  external factory GetRootNodeOptions({JSBoolean composed});
 }
 
 extension GetRootNodeOptionsExtension on GetRootNodeOptions {
@@ -842,8 +842,8 @@ extension ElementExtension on Element {
 class ShadowRootInit {
   external factory ShadowRootInit({
     required ShadowRootMode mode,
-    JSBoolean delegatesFocus = false,
-    SlotAssignmentMode slotAssignment = 'named',
+    JSBoolean delegatesFocus,
+    SlotAssignmentMode slotAssignment,
   });
 }
 

@@ -335,7 +335,7 @@ class VideoDecoderConfig {
     JSNumber displayAspectWidth,
     JSNumber displayAspectHeight,
     VideoColorSpaceInit colorSpace,
-    HardwareAcceleration hardwareAcceleration = 'no-preference',
+    HardwareAcceleration hardwareAcceleration,
     JSBoolean optimizeForLatency,
   });
 }
@@ -407,11 +407,11 @@ class VideoEncoderConfig {
     JSNumber displayHeight,
     JSNumber bitrate,
     JSNumber framerate,
-    HardwareAcceleration hardwareAcceleration = 'no-preference',
-    AlphaOption alpha = 'discard',
+    HardwareAcceleration hardwareAcceleration,
+    AlphaOption alpha,
     JSString scalabilityMode,
-    BitrateMode bitrateMode = 'variable',
-    LatencyMode latencyMode = 'quality',
+    BitrateMode bitrateMode,
+    LatencyMode latencyMode,
   });
 }
 
@@ -450,7 +450,7 @@ extension VideoEncoderConfigExtension on VideoEncoderConfig {
 @staticInterop
 @anonymous
 class VideoEncoderEncodeOptions {
-  external factory VideoEncoderEncodeOptions({JSBoolean keyFrame = false});
+  external factory VideoEncoderEncodeOptions({JSBoolean keyFrame});
 }
 
 extension VideoEncoderEncodeOptionsExtension on VideoEncoderEncodeOptions {
@@ -589,7 +589,7 @@ extension AudioDataInitExtension on AudioDataInit {
 class AudioDataCopyToOptions {
   external factory AudioDataCopyToOptions({
     required JSNumber planeIndex,
-    JSNumber frameOffset = 0,
+    JSNumber frameOffset,
     JSNumber frameCount,
     AudioSampleFormat format,
   });
@@ -643,7 +643,7 @@ class VideoFrameInit {
   external factory VideoFrameInit({
     JSNumber duration,
     JSNumber timestamp,
-    AlphaOption alpha = 'keep',
+    AlphaOption alpha,
     DOMRectInit visibleRect,
     JSNumber displayWidth,
     JSNumber displayHeight,
@@ -812,7 +812,7 @@ class ImageDecoderInit {
   external factory ImageDecoderInit({
     required JSString type,
     required ImageBufferSource data,
-    ColorSpaceConversion colorSpaceConversion = 'default',
+    ColorSpaceConversion colorSpaceConversion,
     JSNumber desiredWidth,
     JSNumber desiredHeight,
     JSBoolean preferAnimation,
@@ -839,8 +839,8 @@ extension ImageDecoderInitExtension on ImageDecoderInit {
 @anonymous
 class ImageDecodeOptions {
   external factory ImageDecodeOptions({
-    JSNumber frameIndex = 0,
-    JSBoolean completeFramesOnly = true,
+    JSNumber frameIndex,
+    JSBoolean completeFramesOnly,
   });
 }
 

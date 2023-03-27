@@ -72,7 +72,7 @@ extension RTCIdentityAssertionResultExtension on RTCIdentityAssertionResult {
 class RTCIdentityProviderDetails {
   external factory RTCIdentityProviderDetails({
     required JSString domain,
-    JSString protocol = 'default',
+    JSString protocol,
   });
 }
 
@@ -105,7 +105,7 @@ extension RTCIdentityValidationResultExtension on RTCIdentityValidationResult {
 @anonymous
 class RTCIdentityProviderOptions {
   external factory RTCIdentityProviderOptions({
-    JSString protocol = 'default',
+    JSString protocol,
     JSString usernameHint,
     JSString peerIdentity,
   });

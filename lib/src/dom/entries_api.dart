@@ -54,8 +54,8 @@ extension FileSystemDirectoryEntryExtension on FileSystemDirectoryEntry {
 @anonymous
 class FileSystemFlags {
   external factory FileSystemFlags({
-    JSBoolean create = false,
-    JSBoolean exclusive = false,
+    JSBoolean create,
+    JSBoolean exclusive,
   });
 }
 

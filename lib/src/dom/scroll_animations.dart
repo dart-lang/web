@@ -20,7 +20,7 @@ typedef ScrollAxis = JSString;
 class ScrollTimelineOptions {
   external factory ScrollTimelineOptions({
     Element? source,
-    ScrollAxis axis = 'block',
+    ScrollAxis axis,
   });
 }
 
@@ -48,7 +48,7 @@ extension ScrollTimelineExtension on ScrollTimeline {
 class ViewTimelineOptions {
   external factory ViewTimelineOptions({
     Element subject,
-    ScrollAxis axis = 'block',
+    ScrollAxis axis,
   });
 }
 

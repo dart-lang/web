@@ -12,7 +12,7 @@ import 'package:js/js.dart' hide JS;
 @staticInterop
 @anonymous
 class IsInputPendingOptions {
-  external factory IsInputPendingOptions({JSBoolean includeContinuous = false});
+  external factory IsInputPendingOptions({JSBoolean includeContinuous});
 }
 
 extension IsInputPendingOptionsExtension on IsInputPendingOptions {

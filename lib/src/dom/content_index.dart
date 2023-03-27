@@ -20,8 +20,8 @@ class ContentDescription {
     required JSString id,
     required JSString title,
     required JSString description,
-    ContentCategory category = '',
-    JSArray icons = const [],
+    ContentCategory category,
+    JSArray icons,
     required JSString url,
   });
 }

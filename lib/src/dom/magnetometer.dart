@@ -29,7 +29,7 @@ extension MagnetometerExtension on Magnetometer {
 @anonymous
 class MagnetometerSensorOptions implements SensorOptions {
   external factory MagnetometerSensorOptions(
-      {MagnetometerLocalCoordinateSystem referenceFrame = 'device'});
+      {MagnetometerLocalCoordinateSystem referenceFrame});
 }
 
 extension MagnetometerSensorOptionsExtension on MagnetometerSensorOptions {

@@ -58,7 +58,7 @@ extension ContactInfoExtension on ContactInfo {
 @staticInterop
 @anonymous
 class ContactsSelectOptions {
-  external factory ContactsSelectOptions({JSBoolean multiple = false});
+  external factory ContactsSelectOptions({JSBoolean multiple});
 }
 
 extension ContactsSelectOptionsExtension on ContactsSelectOptions {

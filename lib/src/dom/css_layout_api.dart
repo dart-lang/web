@@ -33,8 +33,8 @@ extension LayoutWorkletGlobalScopeExtension on LayoutWorkletGlobalScope {
 @anonymous
 class LayoutOptions {
   external factory LayoutOptions({
-    ChildDisplayType childDisplay = 'block',
-    LayoutSizingMode sizing = 'block-like',
+    ChildDisplayType childDisplay,
+    LayoutSizingMode sizing,
   });
 }
 
@@ -110,7 +110,7 @@ class LayoutConstraintsOptions {
     JSNumber percentageInlineSize,
     JSNumber percentageBlockSize,
     JSNumber blockFragmentationOffset,
-    BlockFragmentationType blockFragmentationType = 'none',
+    BlockFragmentationType blockFragmentationType,
     JSAny data,
   });
 }
@@ -189,10 +189,10 @@ extension LayoutEdgesExtension on LayoutEdges {
 @anonymous
 class FragmentResultOptions {
   external factory FragmentResultOptions({
-    JSNumber inlineSize = 0,
-    JSNumber blockSize = 0,
-    JSNumber autoBlockSize = 0,
-    JSArray childFragments = const [],
+    JSNumber inlineSize,
+    JSNumber blockSize,
+    JSNumber autoBlockSize,
+    JSArray childFragments,
     JSAny data,
     BreakTokenOptions breakToken,
   });

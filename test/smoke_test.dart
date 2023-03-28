@@ -5,16 +5,17 @@
 @TestOn('browser')
 library;
 
+import 'dart:js_interop';
 import 'package:test/test.dart';
 import 'package:web/web.dart';
 
 void main() {
   test('Hello World!', () {
-    final div = document.createElement('div') as HTMLDivElement;
-    div.innerText = 'Hello World!';
-    div.id = 'foo';
+    final div = document.createElement('div'.toJS) as HTMLDivElement;
+    div.innerText = 'Hello World!'.toJS;
+    div.id = 'foo'.toJS;
     document.body!.appendChild(div);
-    final found = document.getElementById('foo') as HTMLDivElement;
-    expect(found.innerText, equals('Hello World!'));
+    final found = document.getElementById('foo'.toJS) as HTMLDivElement;
+    expect(found.innerText.toDart, equals('Hello World!'));
   });
 }

@@ -18,8 +18,7 @@ typedef ResizeObserverBoxOptions = JSString;
 @staticInterop
 @anonymous
 class ResizeObserverOptions {
-  external factory ResizeObserverOptions(
-      {ResizeObserverBoxOptions box = 'content-box'});
+  external factory ResizeObserverOptions({ResizeObserverBoxOptions box});
 }
 
 extension ResizeObserverOptionsExtension on ResizeObserverOptions {

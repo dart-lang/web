@@ -42,8 +42,8 @@ extension NavigatorMLExtension on NavigatorML {
 @anonymous
 class MLContextOptions {
   external factory MLContextOptions({
-    MLDeviceType deviceType = 'cpu',
-    MLPowerPreference powerPreference = 'default',
+    MLDeviceType deviceType,
+    MLPowerPreference powerPreference,
   });
 }
 
@@ -147,7 +147,7 @@ extension MLCommandEncoderExtension on MLCommandEncoder {
 class MLBufferResourceView {
   external factory MLBufferResourceView({
     required GPUBuffer resource,
-    JSNumber offset = 0,
+    JSNumber offset,
     JSNumber size,
   });
 }
@@ -409,8 +409,8 @@ class MLBatchNormalizationOptions {
   external factory MLBatchNormalizationOptions({
     MLOperand scale,
     MLOperand bias,
-    JSNumber axis = 1,
-    JSNumber epsilon = 1e-5,
+    JSNumber axis,
+    JSNumber epsilon,
     MLActivation activation,
   });
 }
@@ -453,10 +453,10 @@ class MLConv2dOptions {
     JSArray padding,
     JSArray strides,
     JSArray dilations,
-    MLAutoPad autoPad = 'explicit',
-    JSNumber groups = 1,
-    MLInputOperandLayout inputLayout = 'nchw',
-    MLConv2dFilterOperandLayout filterLayout = 'oihw',
+    MLAutoPad autoPad,
+    JSNumber groups,
+    MLInputOperandLayout inputLayout,
+    MLConv2dFilterOperandLayout filterLayout,
     MLOperand bias,
     MLActivation activation,
   });
@@ -493,10 +493,10 @@ class MLConvTranspose2dOptions {
     JSArray dilations,
     JSArray outputPadding,
     JSArray outputSizes,
-    MLAutoPad autoPad = 'explicit',
-    JSNumber groups = 1,
-    MLInputOperandLayout inputLayout = 'nchw',
-    MLConvTranspose2dFilterOperandLayout filterLayout = 'iohw',
+    MLAutoPad autoPad,
+    JSNumber groups,
+    MLInputOperandLayout inputLayout,
+    MLConvTranspose2dFilterOperandLayout filterLayout,
     MLOperand bias,
     MLActivation activation,
   });
@@ -531,7 +531,7 @@ extension MLConvTranspose2dOptionsExtension on MLConvTranspose2dOptions {
 @staticInterop
 @anonymous
 class MLEluOptions {
-  external factory MLEluOptions({JSNumber alpha = 1});
+  external factory MLEluOptions({JSNumber alpha});
 }
 
 extension MLEluOptionsExtension on MLEluOptions {
@@ -545,10 +545,10 @@ extension MLEluOptionsExtension on MLEluOptions {
 class MLGemmOptions {
   external factory MLGemmOptions({
     MLOperand c,
-    JSNumber alpha = 1.0,
-    JSNumber beta = 1.0,
-    JSBoolean aTranspose = false,
-    JSBoolean bTranspose = false,
+    JSNumber alpha,
+    JSNumber beta,
+    JSBoolean aTranspose,
+    JSBoolean bTranspose,
   });
 }
 
@@ -573,10 +573,10 @@ class MLGruOptions {
     MLOperand bias,
     MLOperand recurrentBias,
     MLOperand initialHiddenState,
-    JSBoolean resetAfter = true,
-    JSBoolean returnSequence = false,
-    MLRecurrentNetworkDirection direction = 'forward',
-    MLGruWeightLayout layout = 'zrn',
+    JSBoolean resetAfter,
+    JSBoolean returnSequence,
+    MLRecurrentNetworkDirection direction,
+    MLGruWeightLayout layout,
     JSArray activations,
   });
 }
@@ -607,8 +607,8 @@ class MLGruCellOptions {
   external factory MLGruCellOptions({
     MLOperand bias,
     MLOperand recurrentBias,
-    JSBoolean resetAfter = true,
-    MLGruWeightLayout layout = 'zrn',
+    JSBoolean resetAfter,
+    MLGruWeightLayout layout,
     JSArray activations,
   });
 }
@@ -631,8 +631,8 @@ extension MLGruCellOptionsExtension on MLGruCellOptions {
 @anonymous
 class MLHardSigmoidOptions {
   external factory MLHardSigmoidOptions({
-    JSNumber alpha = 0.2,
-    JSNumber beta = 0.5,
+    JSNumber alpha,
+    JSNumber beta,
   });
 }
 
@@ -650,8 +650,8 @@ class MLInstanceNormalizationOptions {
   external factory MLInstanceNormalizationOptions({
     MLOperand scale,
     MLOperand bias,
-    JSNumber epsilon = 1e-5,
-    MLInputOperandLayout layout = 'nchw',
+    JSNumber epsilon,
+    MLInputOperandLayout layout,
   });
 }
 
@@ -671,7 +671,7 @@ extension MLInstanceNormalizationOptionsExtension
 @staticInterop
 @anonymous
 class MLLeakyReluOptions {
-  external factory MLLeakyReluOptions({JSNumber alpha = 0.01});
+  external factory MLLeakyReluOptions({JSNumber alpha});
 }
 
 extension MLLeakyReluOptionsExtension on MLLeakyReluOptions {
@@ -684,8 +684,8 @@ extension MLLeakyReluOptionsExtension on MLLeakyReluOptions {
 @anonymous
 class MLLinearOptions {
   external factory MLLinearOptions({
-    JSNumber alpha = 1,
-    JSNumber beta = 0,
+    JSNumber alpha,
+    JSNumber beta,
   });
 }
 
@@ -706,9 +706,9 @@ class MLLstmOptions {
     MLOperand peepholeWeight,
     MLOperand initialHiddenState,
     MLOperand initialCellState,
-    JSBoolean returnSequence = false,
-    MLRecurrentNetworkDirection direction = 'forward',
-    MLLstmWeightLayout layout = 'iofg',
+    JSBoolean returnSequence,
+    MLRecurrentNetworkDirection direction,
+    MLLstmWeightLayout layout,
     JSArray activations,
   });
 }
@@ -742,7 +742,7 @@ class MLLstmCellOptions {
     MLOperand bias,
     MLOperand recurrentBias,
     MLOperand peepholeWeight,
-    MLLstmWeightLayout layout = 'iofg',
+    MLLstmWeightLayout layout,
     JSArray activations,
   });
 }
@@ -765,8 +765,8 @@ extension MLLstmCellOptionsExtension on MLLstmCellOptions {
 @anonymous
 class MLPadOptions {
   external factory MLPadOptions({
-    MLPaddingMode mode = 'constant',
-    JSNumber value = 0,
+    MLPaddingMode mode,
+    JSNumber value,
   });
 }
 
@@ -786,9 +786,9 @@ class MLPool2dOptions {
     JSArray padding,
     JSArray strides,
     JSArray dilations,
-    MLAutoPad autoPad = 'explicit',
-    MLInputOperandLayout layout = 'nchw',
-    MLRoundingType roundingType = 'floor',
+    MLAutoPad autoPad,
+    MLInputOperandLayout layout,
+    MLRoundingType roundingType,
     JSArray outputSizes,
   });
 }
@@ -818,7 +818,7 @@ extension MLPool2dOptionsExtension on MLPool2dOptions {
 class MLReduceOptions {
   external factory MLReduceOptions({
     JSArray axes,
-    JSBoolean keepDimensions = false,
+    JSBoolean keepDimensions,
   });
 }
 
@@ -834,7 +834,7 @@ extension MLReduceOptionsExtension on MLReduceOptions {
 @anonymous
 class MLResample2dOptions {
   external factory MLResample2dOptions({
-    MLInterpolationMode mode = 'nearest-neighbor',
+    MLInterpolationMode mode,
     JSArray scales,
     JSArray sizes,
     JSArray axes,
@@ -868,7 +868,7 @@ extension MLSliceOptionsExtension on MLSliceOptions {
 @staticInterop
 @anonymous
 class MLSoftplusOptions {
-  external factory MLSoftplusOptions({JSNumber steepness = 1});
+  external factory MLSoftplusOptions({JSNumber steepness});
 }
 
 extension MLSoftplusOptionsExtension on MLSoftplusOptions {
@@ -880,7 +880,7 @@ extension MLSoftplusOptionsExtension on MLSoftplusOptions {
 @staticInterop
 @anonymous
 class MLSplitOptions {
-  external factory MLSplitOptions({JSNumber axis = 0});
+  external factory MLSplitOptions({JSNumber axis});
 }
 
 extension MLSplitOptionsExtension on MLSplitOptions {

@@ -34,11 +34,11 @@ class AuctionAdInterestGroup {
   external factory AuctionAdInterestGroup({
     required JSString owner,
     required JSString name,
-    JSNumber priority = 0.0,
-    JSBoolean enableBiddingSignalsPrioritization = false,
+    JSNumber priority,
+    JSBoolean enableBiddingSignalsPrioritization,
     JSAny priorityVector,
     JSAny prioritySignalsOverrides,
-    JSString executionMode = 'compatibility',
+    JSString executionMode,
     JSString biddingLogicUrl,
     JSString biddingWasmHelperUrl,
     JSString dailyUpdateUrl,
@@ -102,7 +102,7 @@ class AuctionAdConfig {
     JSAny perBuyerGroupLimits,
     JSAny perBuyerExperimentGroupIds,
     JSAny perBuyerPrioritySignals,
-    JSArray componentAuctions = const [],
+    JSArray componentAuctions,
     AbortSignal? signal,
   });
 }

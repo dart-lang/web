@@ -22,7 +22,7 @@ typedef CSSBoxType = JSString;
 @staticInterop
 @anonymous
 class ScrollOptions {
-  external factory ScrollOptions({ScrollBehavior behavior = 'auto'});
+  external factory ScrollOptions({ScrollBehavior behavior});
 }
 
 extension ScrollOptionsExtension on ScrollOptions {
@@ -79,8 +79,8 @@ extension MediaQueryListEventExtension on MediaQueryListEvent {
 @anonymous
 class MediaQueryListEventInit implements EventInit {
   external factory MediaQueryListEventInit({
-    JSString media = '',
-    JSBoolean matches = false,
+    JSString media,
+    JSBoolean matches,
   });
 }
 
@@ -123,8 +123,8 @@ extension CaretPositionExtension on CaretPosition {
 @anonymous
 class ScrollIntoViewOptions implements ScrollOptions {
   external factory ScrollIntoViewOptions({
-    ScrollLogicalPosition block = 'start',
-    ScrollLogicalPosition inline = 'nearest',
+    ScrollLogicalPosition block,
+    ScrollLogicalPosition inline,
   });
 }
 
@@ -140,8 +140,8 @@ extension ScrollIntoViewOptionsExtension on ScrollIntoViewOptions {
 @anonymous
 class CheckVisibilityOptions {
   external factory CheckVisibilityOptions({
-    JSBoolean checkOpacity = false,
-    JSBoolean checkVisibilityCSS = false,
+    JSBoolean checkOpacity,
+    JSBoolean checkVisibilityCSS,
   });
 }
 
@@ -157,7 +157,7 @@ extension CheckVisibilityOptionsExtension on CheckVisibilityOptions {
 @anonymous
 class BoxQuadOptions {
   external factory BoxQuadOptions({
-    CSSBoxType box = 'border',
+    CSSBoxType box,
     GeometryNode relativeTo,
   });
 }
@@ -174,8 +174,8 @@ extension BoxQuadOptionsExtension on BoxQuadOptions {
 @anonymous
 class ConvertCoordinateOptions {
   external factory ConvertCoordinateOptions({
-    CSSBoxType fromBox = 'border',
-    CSSBoxType toBox = 'border',
+    CSSBoxType fromBox,
+    CSSBoxType toBox,
   });
 }
 

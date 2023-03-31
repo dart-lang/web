@@ -63,7 +63,7 @@ extension IDBVersionChangeEventExtension on IDBVersionChangeEvent {
 @anonymous
 class IDBVersionChangeEventInit implements EventInit {
   external factory IDBVersionChangeEventInit({
-    JSNumber oldVersion = 0,
+    JSNumber oldVersion,
     JSNumber? newVersion,
   });
 }
@@ -142,8 +142,7 @@ extension IDBDatabaseExtension on IDBDatabase {
 @staticInterop
 @anonymous
 class IDBTransactionOptions {
-  external factory IDBTransactionOptions(
-      {IDBTransactionDurability durability = 'default'});
+  external factory IDBTransactionOptions({IDBTransactionDurability durability});
 }
 
 extension IDBTransactionOptionsExtension on IDBTransactionOptions {
@@ -157,7 +156,7 @@ extension IDBTransactionOptionsExtension on IDBTransactionOptions {
 class IDBObjectStoreParameters {
   external factory IDBObjectStoreParameters({
     JSAny? keyPath,
-    JSBoolean autoIncrement = false,
+    JSBoolean autoIncrement,
   });
 }
 
@@ -222,8 +221,8 @@ extension IDBObjectStoreExtension on IDBObjectStore {
 @anonymous
 class IDBIndexParameters {
   external factory IDBIndexParameters({
-    JSBoolean unique = false,
-    JSBoolean multiEntry = false,
+    JSBoolean unique,
+    JSBoolean multiEntry,
   });
 }
 

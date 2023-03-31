@@ -117,8 +117,8 @@ extension ConstrainPoint2DParametersExtension on ConstrainPoint2DParameters {
 @anonymous
 class Point2D {
   external factory Point2D({
-    JSNumber x = 0.0,
-    JSNumber y = 0.0,
+    JSNumber x,
+    JSNumber y,
   });
 }
 

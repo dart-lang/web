@@ -65,9 +65,9 @@ extension CredentialDataExtension on CredentialData {
 class CredentialRequestOptions {
   external factory CredentialRequestOptions({
     IdentityCredentialRequestOptions identity,
-    CredentialMediationRequirement mediation = 'optional',
+    CredentialMediationRequirement mediation,
     AbortSignal signal,
-    JSBoolean password = false,
+    JSBoolean password,
     FederatedCredentialRequestOptions federated,
     OTPCredentialRequestOptions otp,
     PublicKeyCredentialRequestOptions publicKey,

@@ -21,7 +21,7 @@ class PrivateToken {
     required TokenType type,
     required TokenVersion version,
     required OperationType operation,
-    RefreshPolicy refreshPolicy = 'none',
+    RefreshPolicy refreshPolicy,
     JSArray issuers,
   });
 }

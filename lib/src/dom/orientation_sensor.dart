@@ -27,7 +27,7 @@ extension OrientationSensorExtension on OrientationSensor {
 @anonymous
 class OrientationSensorOptions implements SensorOptions {
   external factory OrientationSensorOptions(
-      {OrientationSensorLocalCoordinateSystem referenceFrame = 'device'});
+      {OrientationSensorLocalCoordinateSystem referenceFrame});
 }
 
 extension OrientationSensorOptionsExtension on OrientationSensorOptions {

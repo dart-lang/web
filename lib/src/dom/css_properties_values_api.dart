@@ -16,7 +16,7 @@ import 'cssom.dart';
 class PropertyDefinition {
   external factory PropertyDefinition({
     required JSString name,
-    JSString syntax = '*',
+    JSString syntax,
     required JSBoolean inherits,
     JSString initialValue,
   });

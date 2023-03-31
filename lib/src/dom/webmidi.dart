@@ -21,7 +21,7 @@ typedef MIDIPortConnectionState = JSString;
 @staticInterop
 @anonymous
 class MidiPermissionDescriptor implements PermissionDescriptor {
-  external factory MidiPermissionDescriptor({JSBoolean sysex = false});
+  external factory MidiPermissionDescriptor({JSBoolean sysex});
 }
 
 extension MidiPermissionDescriptorExtension on MidiPermissionDescriptor {

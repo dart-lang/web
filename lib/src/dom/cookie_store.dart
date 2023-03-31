@@ -58,8 +58,8 @@ class CookieInit {
     required JSString value,
     DOMHighResTimeStamp? expires,
     JSString? domain,
-    JSString path = '/',
-    CookieSameSite sameSite = 'strict',
+    JSString path,
+    CookieSameSite sameSite,
   });
 }
 
@@ -85,7 +85,7 @@ class CookieStoreDeleteOptions {
   external factory CookieStoreDeleteOptions({
     required JSString name,
     JSString? domain,
-    JSString path = '/',
+    JSString path,
   });
 }
 

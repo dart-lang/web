@@ -13,8 +13,8 @@ import 'package:js/js.dart' hide JS;
 @anonymous
 class FlacEncoderConfig {
   external factory FlacEncoderConfig({
-    JSNumber blockSize = 0,
-    JSNumber compressLevel = 5,
+    JSNumber blockSize,
+    JSNumber compressLevel,
   });
 }
 

@@ -16,7 +16,7 @@ import 'permissions.dart';
 class TopLevelStorageAccessPermissionDescriptor
     implements PermissionDescriptor {
   external factory TopLevelStorageAccessPermissionDescriptor(
-      {JSString requestedOrigin = ''});
+      {JSString requestedOrigin});
 }
 
 extension TopLevelStorageAccessPermissionDescriptorExtension

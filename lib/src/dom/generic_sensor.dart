@@ -76,7 +76,7 @@ extension SensorErrorEventInitExtension on SensorErrorEventInit {
 class MockSensorConfiguration {
   external factory MockSensorConfiguration({
     required MockSensorType mockSensorType,
-    JSBoolean connected = true,
+    JSBoolean connected,
     JSNumber? maxSamplingFrequency,
     JSNumber? minSamplingFrequency,
   });

@@ -39,8 +39,7 @@ extension XRLightEstimateExtension on XRLightEstimate {
 @staticInterop
 @anonymous
 class XRLightProbeInit {
-  external factory XRLightProbeInit(
-      {XRReflectionFormat reflectionFormat = 'srgba8'});
+  external factory XRLightProbeInit({XRReflectionFormat reflectionFormat});
 }
 
 extension XRLightProbeInitExtension on XRLightProbeInit {

@@ -39,9 +39,9 @@ extension LockManagerExtension on LockManager {
 @anonymous
 class LockOptions {
   external factory LockOptions({
-    LockMode mode = 'exclusive',
-    JSBoolean ifAvailable = false,
-    JSBoolean steal = false,
+    LockMode mode,
+    JSBoolean ifAvailable,
+    JSBoolean steal,
     AbortSignal signal,
   });
 }

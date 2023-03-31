@@ -29,7 +29,7 @@ extension ContentVisibilityAutoStateChangeEventExtension
 @anonymous
 class ContentVisibilityAutoStateChangeEventInit implements EventInit {
   external factory ContentVisibilityAutoStateChangeEventInit(
-      {JSBoolean skipped = false});
+      {JSBoolean skipped});
 }
 
 extension ContentVisibilityAutoStateChangeEventInitExtension

@@ -83,10 +83,10 @@ extension WebTransportHashExtension on WebTransportHash {
 @anonymous
 class WebTransportOptions {
   external factory WebTransportOptions({
-    JSBoolean allowPooling = false,
-    JSBoolean requireUnreliable = false,
+    JSBoolean allowPooling,
+    JSBoolean requireUnreliable,
     JSArray serverCertificateHashes,
-    WebTransportCongestionControl congestionControl = 'default',
+    WebTransportCongestionControl congestionControl,
   });
 }
 
@@ -106,8 +106,8 @@ extension WebTransportOptionsExtension on WebTransportOptions {
 @anonymous
 class WebTransportCloseInfo {
   external factory WebTransportCloseInfo({
-    JSNumber closeCode = 0,
-    JSString reason = '',
+    JSNumber closeCode,
+    JSString reason,
   });
 }
 
@@ -290,7 +290,7 @@ extension WebTransportErrorExtension on WebTransportError {
 @anonymous
 class WebTransportErrorOptions {
   external factory WebTransportErrorOptions({
-    WebTransportErrorSource source = 'stream',
+    WebTransportErrorSource source,
     JSNumber? streamErrorCode,
   });
 }

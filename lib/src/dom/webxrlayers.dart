@@ -152,10 +152,10 @@ extension XRWebGLSubImageExtension on XRWebGLSubImage {
 @anonymous
 class XRProjectionLayerInit {
   external factory XRProjectionLayerInit({
-    XRTextureType textureType = 'texture',
-    GLenum colorFormat = 0x1908,
-    GLenum depthFormat = 0x1902,
-    JSNumber scaleFactor = 1.0,
+    XRTextureType textureType,
+    GLenum colorFormat,
+    GLenum depthFormat,
+    JSNumber scaleFactor,
   });
 }
 
@@ -176,13 +176,13 @@ extension XRProjectionLayerInitExtension on XRProjectionLayerInit {
 class XRLayerInit {
   external factory XRLayerInit({
     required XRSpace space,
-    GLenum colorFormat = 0x1908,
+    GLenum colorFormat,
     GLenum? depthFormat,
-    JSNumber mipLevels = 1,
+    JSNumber mipLevels,
     required JSNumber viewPixelWidth,
     required JSNumber viewPixelHeight,
-    XRLayerLayout layout = 'mono',
-    JSBoolean isStatic = false,
+    XRLayerLayout layout,
+    JSBoolean isStatic,
   });
 }
 
@@ -210,10 +210,10 @@ extension XRLayerInitExtension on XRLayerInit {
 @anonymous
 class XRQuadLayerInit implements XRLayerInit {
   external factory XRQuadLayerInit({
-    XRTextureType textureType = 'texture',
+    XRTextureType textureType,
     XRRigidTransform? transform,
-    JSNumber width = 1.0,
-    JSNumber height = 1.0,
+    JSNumber width,
+    JSNumber height,
   });
 }
 
@@ -233,11 +233,11 @@ extension XRQuadLayerInitExtension on XRQuadLayerInit {
 @anonymous
 class XRCylinderLayerInit implements XRLayerInit {
   external factory XRCylinderLayerInit({
-    XRTextureType textureType = 'texture',
+    XRTextureType textureType,
     XRRigidTransform? transform,
-    JSNumber radius = 2.0,
-    JSNumber centralAngle = 0.78539,
-    JSNumber aspectRatio = 2.0,
+    JSNumber radius,
+    JSNumber centralAngle,
+    JSNumber aspectRatio,
   });
 }
 
@@ -259,12 +259,12 @@ extension XRCylinderLayerInitExtension on XRCylinderLayerInit {
 @anonymous
 class XREquirectLayerInit implements XRLayerInit {
   external factory XREquirectLayerInit({
-    XRTextureType textureType = 'texture',
+    XRTextureType textureType,
     XRRigidTransform? transform,
-    JSNumber radius = 0,
-    JSNumber centralHorizontalAngle = 6.28318,
-    JSNumber upperVerticalAngle = 1.570795,
-    JSNumber lowerVerticalAngle = -1.570795,
+    JSNumber radius,
+    JSNumber centralHorizontalAngle,
+    JSNumber upperVerticalAngle,
+    JSNumber lowerVerticalAngle,
   });
 }
 
@@ -333,8 +333,8 @@ extension XRWebGLBindingExtension on XRWebGLBinding {
 class XRMediaLayerInit {
   external factory XRMediaLayerInit({
     required XRSpace space,
-    XRLayerLayout layout = 'mono',
-    JSBoolean invertStereo = false,
+    XRLayerLayout layout,
+    JSBoolean invertStereo,
   });
 }
 
@@ -373,8 +373,8 @@ extension XRMediaQuadLayerInitExtension on XRMediaQuadLayerInit {
 class XRMediaCylinderLayerInit implements XRMediaLayerInit {
   external factory XRMediaCylinderLayerInit({
     XRRigidTransform? transform,
-    JSNumber radius = 2.0,
-    JSNumber centralAngle = 0.78539,
+    JSNumber radius,
+    JSNumber centralAngle,
     JSNumber? aspectRatio,
   });
 }
@@ -396,10 +396,10 @@ extension XRMediaCylinderLayerInitExtension on XRMediaCylinderLayerInit {
 class XRMediaEquirectLayerInit implements XRMediaLayerInit {
   external factory XRMediaEquirectLayerInit({
     XRRigidTransform? transform,
-    JSNumber radius = 0.0,
-    JSNumber centralHorizontalAngle = 6.28318,
-    JSNumber upperVerticalAngle = 1.570795,
-    JSNumber lowerVerticalAngle = -1.570795,
+    JSNumber radius,
+    JSNumber centralHorizontalAngle,
+    JSNumber upperVerticalAngle,
+    JSNumber lowerVerticalAngle,
   });
 }
 

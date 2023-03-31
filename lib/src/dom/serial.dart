@@ -99,11 +99,11 @@ extension SerialPortInfoExtension on SerialPortInfo {
 class SerialOptions {
   external factory SerialOptions({
     required JSNumber baudRate,
-    JSNumber dataBits = 8,
-    JSNumber stopBits = 1,
-    ParityType parity = 'none',
-    JSNumber bufferSize = 255,
-    FlowControlType flowControl = 'none',
+    JSNumber dataBits,
+    JSNumber stopBits,
+    ParityType parity,
+    JSNumber bufferSize,
+    FlowControlType flowControl,
   });
 }
 

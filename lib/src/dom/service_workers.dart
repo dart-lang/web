@@ -98,8 +98,8 @@ extension ServiceWorkerContainerExtension on ServiceWorkerContainer {
 class RegistrationOptions {
   external factory RegistrationOptions({
     JSString scope,
-    WorkerType type = 'classic',
-    ServiceWorkerUpdateViaCache updateViaCache = 'imports',
+    WorkerType type,
+    ServiceWorkerUpdateViaCache updateViaCache,
   });
 }
 
@@ -128,7 +128,7 @@ extension NavigationPreloadManagerExtension on NavigationPreloadManager {
 @anonymous
 class NavigationPreloadState {
   external factory NavigationPreloadState({
-    JSBoolean enabled = false,
+    JSBoolean enabled,
     JSString headerValue,
   });
 }
@@ -234,8 +234,8 @@ extension ClientsExtension on Clients {
 @anonymous
 class ClientQueryOptions {
   external factory ClientQueryOptions({
-    JSBoolean includeUncontrolled = false,
-    ClientType type = 'window',
+    JSBoolean includeUncontrolled,
+    ClientType type,
   });
 }
 
@@ -292,9 +292,9 @@ class FetchEventInit implements ExtendableEventInit {
   external factory FetchEventInit({
     required Request request,
     JSPromise preloadResponse,
-    JSString clientId = '',
-    JSString resultingClientId = '',
-    JSString replacesClientId = '',
+    JSString clientId,
+    JSString resultingClientId,
+    JSString replacesClientId,
     JSPromise handled,
   });
 }
@@ -337,10 +337,10 @@ extension ExtendableMessageEventExtension on ExtendableMessageEvent {
 class ExtendableMessageEventInit implements ExtendableEventInit {
   external factory ExtendableMessageEventInit({
     JSAny data,
-    JSString origin = '',
-    JSString lastEventId = '',
+    JSString origin,
+    JSString lastEventId,
     JSAny? source,
-    JSArray ports = const [],
+    JSArray ports,
   });
 }
 
@@ -391,9 +391,9 @@ extension CacheExtension on Cache {
 @anonymous
 class CacheQueryOptions {
   external factory CacheQueryOptions({
-    JSBoolean ignoreSearch = false,
-    JSBoolean ignoreMethod = false,
-    JSBoolean ignoreVary = false,
+    JSBoolean ignoreSearch,
+    JSBoolean ignoreMethod,
+    JSBoolean ignoreVary,
   });
 }
 

@@ -171,7 +171,7 @@ extension GPUExtension on GPU {
 class GPURequestAdapterOptions {
   external factory GPURequestAdapterOptions({
     GPUPowerPreference powerPreference,
-    JSBoolean forceFallbackAdapter = false,
+    JSBoolean forceFallbackAdapter,
   });
 }
 
@@ -199,7 +199,7 @@ extension GPUAdapterExtension on GPUAdapter {
 @anonymous
 class GPUDeviceDescriptor implements GPUObjectDescriptorBase {
   external factory GPUDeviceDescriptor({
-    JSArray requiredFeatures = const [],
+    JSArray requiredFeatures,
     JSAny requiredLimits,
     GPUQueueDescriptor defaultQueue,
   });
@@ -283,7 +283,7 @@ class GPUBufferDescriptor implements GPUObjectDescriptorBase {
   external factory GPUBufferDescriptor({
     required GPUSize64 size,
     required GPUBufferUsageFlags usage,
-    JSBoolean mappedAtCreation = false,
+    JSBoolean mappedAtCreation,
   });
 }
 
@@ -347,12 +347,12 @@ extension GPUTextureExtension on GPUTexture {
 class GPUTextureDescriptor implements GPUObjectDescriptorBase {
   external factory GPUTextureDescriptor({
     required GPUExtent3D size,
-    GPUIntegerCoordinate mipLevelCount = 1,
-    GPUSize32 sampleCount = 1,
-    GPUTextureDimension dimension = '2d',
+    GPUIntegerCoordinate mipLevelCount,
+    GPUSize32 sampleCount,
+    GPUTextureDimension dimension,
     required GPUTextureFormat format,
     required GPUTextureUsageFlags usage,
-    JSArray viewFormats = const [],
+    JSArray viewFormats,
   });
 }
 
@@ -397,10 +397,10 @@ class GPUTextureViewDescriptor implements GPUObjectDescriptorBase {
   external factory GPUTextureViewDescriptor({
     GPUTextureFormat format,
     GPUTextureViewDimension dimension,
-    GPUTextureAspect aspect = 'all',
-    GPUIntegerCoordinate baseMipLevel = 0,
+    GPUTextureAspect aspect,
+    GPUIntegerCoordinate baseMipLevel,
     GPUIntegerCoordinate mipLevelCount,
-    GPUIntegerCoordinate baseArrayLayer = 0,
+    GPUIntegerCoordinate baseArrayLayer,
     GPUIntegerCoordinate arrayLayerCount,
   });
 }
@@ -432,7 +432,7 @@ class GPUExternalTexture implements GPUObjectBase {}
 class GPUExternalTextureDescriptor implements GPUObjectDescriptorBase {
   external factory GPUExternalTextureDescriptor({
     required HTMLVideoElement source,
-    PredefinedColorSpace colorSpace = 'srgb',
+    PredefinedColorSpace colorSpace,
   });
 }
 
@@ -453,16 +453,16 @@ class GPUSampler implements GPUObjectBase {}
 @anonymous
 class GPUSamplerDescriptor implements GPUObjectDescriptorBase {
   external factory GPUSamplerDescriptor({
-    GPUAddressMode addressModeU = 'clamp-to-edge',
-    GPUAddressMode addressModeV = 'clamp-to-edge',
-    GPUAddressMode addressModeW = 'clamp-to-edge',
-    GPUFilterMode magFilter = 'nearest',
-    GPUFilterMode minFilter = 'nearest',
-    GPUMipmapFilterMode mipmapFilter = 'nearest',
-    JSNumber lodMinClamp = 0,
-    JSNumber lodMaxClamp = 32,
+    GPUAddressMode addressModeU,
+    GPUAddressMode addressModeV,
+    GPUAddressMode addressModeW,
+    GPUFilterMode magFilter,
+    GPUFilterMode minFilter,
+    GPUMipmapFilterMode mipmapFilter,
+    JSNumber lodMinClamp,
+    JSNumber lodMaxClamp,
     GPUCompareFunction compare,
-    JSNumber maxAnisotropy = 1,
+    JSNumber maxAnisotropy,
   });
 }
 
@@ -554,9 +554,9 @@ abstract class $GPUShaderStage {
 @anonymous
 class GPUBufferBindingLayout {
   external factory GPUBufferBindingLayout({
-    GPUBufferBindingType type = 'uniform',
-    JSBoolean hasDynamicOffset = false,
-    GPUSize64 minBindingSize = 0,
+    GPUBufferBindingType type,
+    JSBoolean hasDynamicOffset,
+    GPUSize64 minBindingSize,
   });
 }
 
@@ -573,8 +573,7 @@ extension GPUBufferBindingLayoutExtension on GPUBufferBindingLayout {
 @staticInterop
 @anonymous
 class GPUSamplerBindingLayout {
-  external factory GPUSamplerBindingLayout(
-      {GPUSamplerBindingType type = 'filtering'});
+  external factory GPUSamplerBindingLayout({GPUSamplerBindingType type});
 }
 
 extension GPUSamplerBindingLayoutExtension on GPUSamplerBindingLayout {
@@ -587,9 +586,9 @@ extension GPUSamplerBindingLayoutExtension on GPUSamplerBindingLayout {
 @anonymous
 class GPUTextureBindingLayout {
   external factory GPUTextureBindingLayout({
-    GPUTextureSampleType sampleType = 'float',
-    GPUTextureViewDimension viewDimension = '2d',
-    JSBoolean multisampled = false,
+    GPUTextureSampleType sampleType,
+    GPUTextureViewDimension viewDimension,
+    JSBoolean multisampled,
   });
 }
 
@@ -607,9 +606,9 @@ extension GPUTextureBindingLayoutExtension on GPUTextureBindingLayout {
 @anonymous
 class GPUStorageTextureBindingLayout {
   external factory GPUStorageTextureBindingLayout({
-    GPUStorageTextureAccess access = 'write-only',
+    GPUStorageTextureAccess access,
     required GPUTextureFormat format,
-    GPUTextureViewDimension viewDimension = '2d',
+    GPUTextureViewDimension viewDimension,
   });
 }
 
@@ -674,7 +673,7 @@ extension GPUBindGroupEntryExtension on GPUBindGroupEntry {
 class GPUBufferBinding {
   external factory GPUBufferBinding({
     required GPUBuffer buffer,
-    GPUSize64 offset = 0,
+    GPUSize64 offset,
     GPUSize64 size,
   });
 }
@@ -886,11 +885,11 @@ extension GPURenderPipelineDescriptorExtension on GPURenderPipelineDescriptor {
 @anonymous
 class GPUPrimitiveState {
   external factory GPUPrimitiveState({
-    GPUPrimitiveTopology topology = 'triangle-list',
+    GPUPrimitiveTopology topology,
     GPUIndexFormat stripIndexFormat,
-    GPUFrontFace frontFace = 'ccw',
-    GPUCullMode cullMode = 'none',
-    JSBoolean unclippedDepth = false,
+    GPUFrontFace frontFace,
+    GPUCullMode cullMode,
+    JSBoolean unclippedDepth,
   });
 }
 
@@ -912,9 +911,9 @@ extension GPUPrimitiveStateExtension on GPUPrimitiveState {
 @anonymous
 class GPUMultisampleState {
   external factory GPUMultisampleState({
-    GPUSize32 count = 1,
-    GPUSampleMask mask = 0xFFFFFFFF,
-    JSBoolean alphaToCoverageEnabled = false,
+    GPUSize32 count,
+    GPUSampleMask mask,
+    JSBoolean alphaToCoverageEnabled,
   });
 }
 
@@ -946,7 +945,7 @@ class GPUColorTargetState {
   external factory GPUColorTargetState({
     required GPUTextureFormat format,
     GPUBlendState blend,
-    GPUColorWriteFlags writeMask = 0xF,
+    GPUColorWriteFlags writeMask,
   });
 }
 
@@ -994,9 +993,9 @@ abstract class $GPUColorWrite {
 @anonymous
 class GPUBlendComponent {
   external factory GPUBlendComponent({
-    GPUBlendOperation operation = 'add',
-    GPUBlendFactor srcFactor = 'one',
-    GPUBlendFactor dstFactor = 'zero',
+    GPUBlendOperation operation,
+    GPUBlendFactor srcFactor,
+    GPUBlendFactor dstFactor,
   });
 }
 
@@ -1019,11 +1018,11 @@ class GPUDepthStencilState {
     required GPUCompareFunction depthCompare,
     GPUStencilFaceState stencilFront,
     GPUStencilFaceState stencilBack,
-    GPUStencilValue stencilReadMask = 0xFFFFFFFF,
-    GPUStencilValue stencilWriteMask = 0xFFFFFFFF,
-    GPUDepthBias depthBias = 0,
-    JSNumber depthBiasSlopeScale = 0,
-    JSNumber depthBiasClamp = 0,
+    GPUStencilValue stencilReadMask,
+    GPUStencilValue stencilWriteMask,
+    GPUDepthBias depthBias,
+    JSNumber depthBiasSlopeScale,
+    JSNumber depthBiasClamp,
   });
 }
 
@@ -1055,10 +1054,10 @@ extension GPUDepthStencilStateExtension on GPUDepthStencilState {
 @anonymous
 class GPUStencilFaceState {
   external factory GPUStencilFaceState({
-    GPUCompareFunction compare = 'always',
-    GPUStencilOperation failOp = 'keep',
-    GPUStencilOperation depthFailOp = 'keep',
-    GPUStencilOperation passOp = 'keep',
+    GPUCompareFunction compare,
+    GPUStencilOperation failOp,
+    GPUStencilOperation depthFailOp,
+    GPUStencilOperation passOp,
   });
 }
 
@@ -1077,7 +1076,7 @@ extension GPUStencilFaceStateExtension on GPUStencilFaceState {
 @staticInterop
 @anonymous
 class GPUVertexState implements GPUProgrammableStage {
-  external factory GPUVertexState({JSArray buffers = const []});
+  external factory GPUVertexState({JSArray buffers});
 }
 
 extension GPUVertexStateExtension on GPUVertexState {
@@ -1091,7 +1090,7 @@ extension GPUVertexStateExtension on GPUVertexState {
 class GPUVertexBufferLayout {
   external factory GPUVertexBufferLayout({
     required GPUSize64 arrayStride,
-    GPUVertexStepMode stepMode = 'vertex',
+    GPUVertexStepMode stepMode,
     required JSArray attributes,
   });
 }
@@ -1130,7 +1129,7 @@ extension GPUVertexAttributeExtension on GPUVertexAttribute {
 @anonymous
 class GPUImageDataLayout {
   external factory GPUImageDataLayout({
-    GPUSize64 offset = 0,
+    GPUSize64 offset,
     GPUSize32 bytesPerRow,
     GPUSize32 rowsPerImage,
   });
@@ -1163,9 +1162,9 @@ extension GPUImageCopyBufferExtension on GPUImageCopyBuffer {
 class GPUImageCopyTexture {
   external factory GPUImageCopyTexture({
     required GPUTexture texture,
-    GPUIntegerCoordinate mipLevel = 0,
+    GPUIntegerCoordinate mipLevel,
     GPUOrigin3D origin,
-    GPUTextureAspect aspect = 'all',
+    GPUTextureAspect aspect,
   });
 }
 
@@ -1185,8 +1184,8 @@ extension GPUImageCopyTextureExtension on GPUImageCopyTexture {
 @anonymous
 class GPUImageCopyTextureTagged implements GPUImageCopyTexture {
   external factory GPUImageCopyTextureTagged({
-    PredefinedColorSpace colorSpace = 'srgb',
-    JSBoolean premultipliedAlpha = false,
+    PredefinedColorSpace colorSpace,
+    JSBoolean premultipliedAlpha,
   });
 }
 
@@ -1204,7 +1203,7 @@ class GPUImageCopyExternalImage {
   external factory GPUImageCopyExternalImage({
     required JSAny source,
     GPUOrigin2D origin,
-    JSBoolean flipY = false,
+    JSBoolean flipY,
   });
 }
 
@@ -1363,7 +1362,7 @@ extension GPUComputePassTimestampWriteExtension
 @anonymous
 class GPUComputePassDescriptor implements GPUObjectDescriptorBase {
   external factory GPUComputePassDescriptor(
-      {GPUComputePassTimestampWrites timestampWrites = const []});
+      {GPUComputePassTimestampWrites timestampWrites});
 }
 
 extension GPUComputePassDescriptorExtension on GPUComputePassDescriptor {
@@ -1432,8 +1431,8 @@ class GPURenderPassDescriptor implements GPUObjectDescriptorBase {
     required JSArray colorAttachments,
     GPURenderPassDepthStencilAttachment depthStencilAttachment,
     GPUQuerySet occlusionQuerySet,
-    GPURenderPassTimestampWrites timestampWrites = const [],
-    GPUSize64 maxDrawCount = 50000000,
+    GPURenderPassTimestampWrites timestampWrites,
+    GPUSize64 maxDrawCount,
   });
 }
 
@@ -1487,11 +1486,11 @@ class GPURenderPassDepthStencilAttachment {
     JSNumber depthClearValue,
     GPULoadOp depthLoadOp,
     GPUStoreOp depthStoreOp,
-    JSBoolean depthReadOnly = false,
-    GPUStencilValue stencilClearValue = 0,
+    JSBoolean depthReadOnly,
+    GPUStencilValue stencilClearValue,
     GPULoadOp stencilLoadOp,
     GPUStoreOp stencilStoreOp,
-    JSBoolean stencilReadOnly = false,
+    JSBoolean stencilReadOnly,
   });
 }
 
@@ -1524,7 +1523,7 @@ class GPURenderPassLayout implements GPUObjectDescriptorBase {
   external factory GPURenderPassLayout({
     required JSArray colorFormats,
     GPUTextureFormat depthStencilFormat,
-    GPUSize32 sampleCount = 1,
+    GPUSize32 sampleCount,
   });
 }
 
@@ -1608,8 +1607,8 @@ extension GPURenderBundleEncoderExtension on GPURenderBundleEncoder {
 @anonymous
 class GPURenderBundleEncoderDescriptor implements GPURenderPassLayout {
   external factory GPURenderBundleEncoderDescriptor({
-    JSBoolean depthReadOnly = false,
-    JSBoolean stencilReadOnly = false,
+    JSBoolean depthReadOnly,
+    JSBoolean stencilReadOnly,
   });
 }
 
@@ -1700,10 +1699,10 @@ class GPUCanvasConfiguration {
   external factory GPUCanvasConfiguration({
     required GPUDevice device,
     required GPUTextureFormat format,
-    GPUTextureUsageFlags usage = 0x10,
-    JSArray viewFormats = const [],
-    PredefinedColorSpace colorSpace = 'srgb',
-    GPUCanvasAlphaMode alphaMode = 'opaque',
+    GPUTextureUsageFlags usage,
+    JSArray viewFormats,
+    PredefinedColorSpace colorSpace,
+    GPUCanvasAlphaMode alphaMode,
   });
 }
 
@@ -1810,8 +1809,8 @@ extension GPUColorDictExtension on GPUColorDict {
 @anonymous
 class GPUOrigin2DDict {
   external factory GPUOrigin2DDict({
-    GPUIntegerCoordinate x = 0,
-    GPUIntegerCoordinate y = 0,
+    GPUIntegerCoordinate x,
+    GPUIntegerCoordinate y,
   });
 }
 
@@ -1827,9 +1826,9 @@ extension GPUOrigin2DDictExtension on GPUOrigin2DDict {
 @anonymous
 class GPUOrigin3DDict {
   external factory GPUOrigin3DDict({
-    GPUIntegerCoordinate x = 0,
-    GPUIntegerCoordinate y = 0,
-    GPUIntegerCoordinate z = 0,
+    GPUIntegerCoordinate x,
+    GPUIntegerCoordinate y,
+    GPUIntegerCoordinate z,
   });
 }
 
@@ -1848,8 +1847,8 @@ extension GPUOrigin3DDictExtension on GPUOrigin3DDict {
 class GPUExtent3DDict {
   external factory GPUExtent3DDict({
     required GPUIntegerCoordinate width,
-    GPUIntegerCoordinate height = 1,
-    GPUIntegerCoordinate depthOrArrayLayers = 1,
+    GPUIntegerCoordinate height,
+    GPUIntegerCoordinate depthOrArrayLayers,
   });
 }
 

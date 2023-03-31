@@ -96,9 +96,9 @@ class RequestDeviceOptions {
   external factory RequestDeviceOptions({
     JSArray filters,
     JSArray exclusionFilters,
-    JSArray optionalServices = const [],
-    JSArray optionalManufacturerData = const [],
-    JSBoolean acceptAllDevices = false,
+    JSArray optionalServices,
+    JSArray optionalManufacturerData,
+    JSBoolean acceptAllDevices,
   });
 }
 
@@ -140,9 +140,9 @@ class BluetoothPermissionDescriptor implements PermissionDescriptor {
   external factory BluetoothPermissionDescriptor({
     JSString deviceId,
     JSArray filters,
-    JSArray optionalServices = const [],
-    JSArray optionalManufacturerData = const [],
-    JSBoolean acceptAllDevices = false,
+    JSArray optionalServices,
+    JSArray optionalManufacturerData,
+    JSBoolean acceptAllDevices,
   });
 }
 

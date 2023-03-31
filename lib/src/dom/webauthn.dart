@@ -169,9 +169,9 @@ class PublicKeyCredentialCreationOptionsJSON {
     required Base64URLString challenge,
     required JSArray pubKeyCredParams,
     JSNumber timeout,
-    JSArray excludeCredentials = const [],
+    JSArray excludeCredentials,
     AuthenticatorSelectionCriteria authenticatorSelection,
-    JSString attestation = 'none',
+    JSString attestation,
     AuthenticationExtensionsClientInputsJSON extensions,
   });
 }
@@ -255,8 +255,8 @@ class PublicKeyCredentialRequestOptionsJSON {
     required Base64URLString challenge,
     JSNumber timeout,
     JSString rpId,
-    JSArray allowCredentials = const [],
-    JSString userVerification = 'preferred',
+    JSArray allowCredentials,
+    JSString userVerification,
     AuthenticationExtensionsClientInputsJSON extensions,
   });
 }
@@ -338,10 +338,10 @@ class PublicKeyCredentialCreationOptions {
     required BufferSource challenge,
     required JSArray pubKeyCredParams,
     JSNumber timeout,
-    JSArray excludeCredentials = const [],
+    JSArray excludeCredentials,
     AuthenticatorSelectionCriteria authenticatorSelection,
-    JSString attestation = 'none',
-    JSArray attestationFormats = const [],
+    JSString attestation,
+    JSArray attestationFormats,
     AuthenticationExtensionsClientInputs extensions,
   });
 }
@@ -419,8 +419,8 @@ class AuthenticatorSelectionCriteria {
   external factory AuthenticatorSelectionCriteria({
     JSString authenticatorAttachment,
     JSString residentKey,
-    JSBoolean requireResidentKey = false,
-    JSString userVerification = 'preferred',
+    JSBoolean requireResidentKey,
+    JSString userVerification,
   });
 }
 
@@ -444,10 +444,10 @@ class PublicKeyCredentialRequestOptions {
     required BufferSource challenge,
     JSNumber timeout,
     JSString rpId,
-    JSArray allowCredentials = const [],
-    JSString userVerification = 'preferred',
-    JSString attestation = 'none',
-    JSArray attestationFormats = const [],
+    JSArray allowCredentials,
+    JSString userVerification,
+    JSString attestation,
+    JSArray attestationFormats,
     AuthenticationExtensionsClientInputs extensions,
   });
 }
@@ -478,7 +478,7 @@ extension PublicKeyCredentialRequestOptionsExtension
 class AuthenticationExtensionsClientInputs {
   external factory AuthenticationExtensionsClientInputs({
     JSString credentialProtectionPolicy,
-    JSBoolean enforceCredentialProtectionPolicy = false,
+    JSBoolean enforceCredentialProtectionPolicy,
     JSArrayBuffer credBlob,
     JSBoolean getCredBlob,
     JSBoolean minPinLength,
@@ -747,8 +747,8 @@ extension AuthenticationExtensionsLargeBlobOutputsExtension
 @anonymous
 class AuthenticationExtensionsDevicePublicKeyInputs {
   external factory AuthenticationExtensionsDevicePublicKeyInputs({
-    JSString attestation = 'none',
-    JSArray attestationFormats = const [],
+    JSString attestation,
+    JSArray attestationFormats,
   });
 }
 

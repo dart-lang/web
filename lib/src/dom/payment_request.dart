@@ -146,7 +146,7 @@ class PaymentItem {
   external factory PaymentItem({
     required JSString label,
     required PaymentCurrencyAmount amount,
-    JSBoolean pending = false,
+    JSBoolean pending,
   });
 }
 
@@ -223,7 +223,7 @@ extension PaymentMethodChangeEventExtension on PaymentMethodChangeEvent {
 @anonymous
 class PaymentMethodChangeEventInit implements PaymentRequestUpdateEventInit {
   external factory PaymentMethodChangeEventInit({
-    JSString methodName = '',
+    JSString methodName,
     JSObject? methodDetails,
   });
 }

@@ -121,7 +121,7 @@ extension PresentationConnectionCloseEventExtension
 class PresentationConnectionCloseEventInit implements EventInit {
   external factory PresentationConnectionCloseEventInit({
     required PresentationConnectionCloseReason reason,
-    JSString message = '',
+    JSString message,
   });
 }
 

@@ -47,7 +47,7 @@ extension PressureRecordExtension on PressureRecord {
 @staticInterop
 @anonymous
 class PressureObserverOptions {
-  external factory PressureObserverOptions({JSNumber sampleRate = 1.0});
+  external factory PressureObserverOptions({JSNumber sampleRate});
 }
 
 extension PressureObserverOptionsExtension on PressureObserverOptions {

@@ -27,7 +27,7 @@ extension PeriodicSyncManagerExtension on PeriodicSyncManager {
 @staticInterop
 @anonymous
 class BackgroundSyncOptions {
-  external factory BackgroundSyncOptions({JSNumber minInterval = 0});
+  external factory BackgroundSyncOptions({JSNumber minInterval});
 }
 
 extension BackgroundSyncOptionsExtension on BackgroundSyncOptions {

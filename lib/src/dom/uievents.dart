@@ -42,8 +42,8 @@ class UIEventInit implements EventInit {
   external factory UIEventInit({
     InputDeviceCapabilities? sourceCapabilities,
     Window? view,
-    JSNumber detail = 0,
-    JSNumber which = 0,
+    JSNumber detail,
+    JSNumber which,
   });
 }
 
@@ -137,14 +137,14 @@ extension MouseEventExtension on MouseEvent {
 @anonymous
 class MouseEventInit implements EventModifierInit {
   external factory MouseEventInit({
-    JSNumber movementX = 0,
-    JSNumber movementY = 0,
-    JSNumber screenX = 0,
-    JSNumber screenY = 0,
-    JSNumber clientX = 0,
-    JSNumber clientY = 0,
-    JSNumber button = 0,
-    JSNumber buttons = 0,
+    JSNumber movementX,
+    JSNumber movementY,
+    JSNumber screenX,
+    JSNumber screenY,
+    JSNumber clientX,
+    JSNumber clientY,
+    JSNumber button,
+    JSNumber buttons,
     EventTarget? relatedTarget,
   });
 }
@@ -175,20 +175,20 @@ extension MouseEventInitExtension on MouseEventInit {
 @anonymous
 class EventModifierInit implements UIEventInit {
   external factory EventModifierInit({
-    JSBoolean ctrlKey = false,
-    JSBoolean shiftKey = false,
-    JSBoolean altKey = false,
-    JSBoolean metaKey = false,
-    JSBoolean modifierAltGraph = false,
-    JSBoolean modifierCapsLock = false,
-    JSBoolean modifierFn = false,
-    JSBoolean modifierFnLock = false,
-    JSBoolean modifierHyper = false,
-    JSBoolean modifierNumLock = false,
-    JSBoolean modifierScrollLock = false,
-    JSBoolean modifierSuper = false,
-    JSBoolean modifierSymbol = false,
-    JSBoolean modifierSymbolLock = false,
+    JSBoolean ctrlKey,
+    JSBoolean shiftKey,
+    JSBoolean altKey,
+    JSBoolean metaKey,
+    JSBoolean modifierAltGraph,
+    JSBoolean modifierCapsLock,
+    JSBoolean modifierFn,
+    JSBoolean modifierFnLock,
+    JSBoolean modifierHyper,
+    JSBoolean modifierNumLock,
+    JSBoolean modifierScrollLock,
+    JSBoolean modifierSuper,
+    JSBoolean modifierSymbol,
+    JSBoolean modifierSymbolLock,
   });
 }
 
@@ -248,10 +248,10 @@ extension WheelEventExtension on WheelEvent {
 @anonymous
 class WheelEventInit implements MouseEventInit {
   external factory WheelEventInit({
-    JSNumber deltaX = 0.0,
-    JSNumber deltaY = 0.0,
-    JSNumber deltaZ = 0.0,
-    JSNumber deltaMode = 0,
+    JSNumber deltaX,
+    JSNumber deltaY,
+    JSNumber deltaZ,
+    JSNumber deltaMode,
   });
 }
 
@@ -289,10 +289,10 @@ extension InputEventExtension on InputEvent {
 class InputEventInit implements UIEventInit {
   external factory InputEventInit({
     DataTransfer? dataTransfer,
-    JSArray targetRanges = const [],
+    JSArray targetRanges,
     JSString? data,
-    JSBoolean isComposing = false,
-    JSString inputType = '',
+    JSBoolean isComposing,
+    JSString inputType,
   });
 }
 
@@ -355,13 +355,13 @@ extension KeyboardEventExtension on KeyboardEvent {
 @anonymous
 class KeyboardEventInit implements EventModifierInit {
   external factory KeyboardEventInit({
-    JSString key = '',
-    JSString code = '',
-    JSNumber location = 0,
-    JSBoolean repeat = false,
-    JSBoolean isComposing = false,
-    JSNumber charCode = 0,
-    JSNumber keyCode = 0,
+    JSString key,
+    JSString code,
+    JSNumber location,
+    JSBoolean repeat,
+    JSBoolean isComposing,
+    JSNumber charCode,
+    JSNumber keyCode,
   });
 }
 
@@ -406,7 +406,7 @@ extension CompositionEventExtension on CompositionEvent {
 @staticInterop
 @anonymous
 class CompositionEventInit implements UIEventInit {
-  external factory CompositionEventInit({JSString data = ''});
+  external factory CompositionEventInit({JSString data});
 }
 
 extension CompositionEventInitExtension on CompositionEventInit {

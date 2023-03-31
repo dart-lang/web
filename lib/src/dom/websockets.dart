@@ -70,9 +70,9 @@ extension CloseEventExtension on CloseEvent {
 @anonymous
 class CloseEventInit implements EventInit {
   external factory CloseEventInit({
-    JSBoolean wasClean = false,
-    JSNumber code = 0,
-    JSString reason = '',
+    JSBoolean wasClean,
+    JSNumber code,
+    JSString reason,
   });
 }
 

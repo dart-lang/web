@@ -89,8 +89,8 @@ extension IntersectionObserverEntryInitExtension
 class IntersectionObserverInit {
   external factory IntersectionObserverInit({
     JSAny? root,
-    JSString rootMargin = '0px',
-    JSAny threshold = 0,
+    JSString rootMargin,
+    JSAny threshold,
   });
 }
 

@@ -35,10 +35,10 @@ extension SVGElementExtension on SVGElement {
 @anonymous
 class SVGBoundingBoxOptions {
   external factory SVGBoundingBoxOptions({
-    JSBoolean fill = true,
-    JSBoolean stroke = false,
-    JSBoolean markers = false,
-    JSBoolean clipped = false,
+    JSBoolean fill,
+    JSBoolean stroke,
+    JSBoolean markers,
+    JSBoolean clipped,
   });
 }
 

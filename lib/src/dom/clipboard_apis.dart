@@ -60,8 +60,7 @@ extension ClipboardItemExtension on ClipboardItem {
 @staticInterop
 @anonymous
 class ClipboardItemOptions {
-  external factory ClipboardItemOptions(
-      {PresentationStyle presentationStyle = 'unspecified'});
+  external factory ClipboardItemOptions({PresentationStyle presentationStyle});
 }
 
 extension ClipboardItemOptionsExtension on ClipboardItemOptions {
@@ -85,7 +84,7 @@ extension ClipboardExtension on Clipboard {
 @anonymous
 class ClipboardPermissionDescriptor implements PermissionDescriptor {
   external factory ClipboardPermissionDescriptor(
-      {JSBoolean allowWithoutGesture = false});
+      {JSBoolean allowWithoutGesture});
 }
 
 extension ClipboardPermissionDescriptorExtension

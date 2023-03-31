@@ -39,7 +39,7 @@ extension SyncEventExtension on SyncEvent {
 class SyncEventInit implements ExtendableEventInit {
   external factory SyncEventInit({
     required JSString tag,
-    JSBoolean lastChance = false,
+    JSBoolean lastChance,
   });
 }
 

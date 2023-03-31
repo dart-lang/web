@@ -24,8 +24,7 @@ typedef RTCEncodedVideoFrameType = JSString;
 @staticInterop
 @anonymous
 class SFrameTransformOptions {
-  external factory SFrameTransformOptions(
-      {SFrameTransformRole role = 'encrypt'});
+  external factory SFrameTransformOptions({SFrameTransformRole role});
 }
 
 extension SFrameTransformOptionsExtension on SFrameTransformOptions {

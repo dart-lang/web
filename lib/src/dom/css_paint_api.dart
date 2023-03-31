@@ -27,7 +27,7 @@ extension PaintWorkletGlobalScopeExtension on PaintWorkletGlobalScope {
 @staticInterop
 @anonymous
 class PaintRenderingContext2DSettings {
-  external factory PaintRenderingContext2DSettings({JSBoolean alpha = true});
+  external factory PaintRenderingContext2DSettings({JSBoolean alpha});
 }
 
 extension PaintRenderingContext2DSettingsExtension

@@ -192,7 +192,7 @@ extension TableExtension on Table {
 class GlobalDescriptor {
   external factory GlobalDescriptor({
     required ValueType value,
-    JSBoolean mutable = false,
+    JSBoolean mutable,
   });
 }
 

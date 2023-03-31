@@ -73,8 +73,8 @@ extension CSSStyleSheetExtension on CSSStyleSheet {
 class CSSStyleSheetInit {
   external factory CSSStyleSheetInit({
     JSString baseURL,
-    JSAny media = '',
-    JSBoolean disabled = false,
+    JSAny media,
+    JSBoolean disabled,
   });
 }
 

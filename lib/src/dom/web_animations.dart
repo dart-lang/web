@@ -36,8 +36,7 @@ extension AnimationTimelineExtension on AnimationTimeline {
 @staticInterop
 @anonymous
 class DocumentTimelineOptions {
-  external factory DocumentTimelineOptions(
-      {DOMHighResTimeStamp originTime = 0});
+  external factory DocumentTimelineOptions({DOMHighResTimeStamp originTime});
 }
 
 extension DocumentTimelineOptionsExtension on DocumentTimelineOptions {
@@ -118,13 +117,13 @@ class EffectTiming {
   external factory EffectTiming({
     JSNumber delay,
     JSNumber endDelay,
-    JSNumber playbackRate = 1.0,
-    JSAny duration = 'auto',
-    FillMode fill = 'auto',
-    JSNumber iterationStart = 0.0,
-    JSNumber iterations = 1.0,
-    PlaybackDirection direction = 'normal',
-    JSString easing = 'linear',
+    JSNumber playbackRate,
+    JSAny duration,
+    FillMode fill,
+    JSNumber iterationStart,
+    JSNumber iterations,
+    PlaybackDirection direction,
+    JSString easing,
   });
 }
 
@@ -246,8 +245,8 @@ class BaseComputedKeyframe {
   external factory BaseComputedKeyframe({
     JSNumber? offset,
     JSNumber computedOffset,
-    JSString easing = 'linear',
-    CompositeOperationOrAuto composite = 'auto',
+    JSString easing,
+    CompositeOperationOrAuto composite,
   });
 }
 
@@ -267,9 +266,9 @@ extension BaseComputedKeyframeExtension on BaseComputedKeyframe {
 @anonymous
 class BasePropertyIndexedKeyframe {
   external factory BasePropertyIndexedKeyframe({
-    JSAny offset = const [],
-    JSAny easing = const [],
-    JSAny composite = const [],
+    JSAny offset,
+    JSAny easing,
+    JSAny composite,
   });
 }
 
@@ -288,8 +287,8 @@ extension BasePropertyIndexedKeyframeExtension on BasePropertyIndexedKeyframe {
 class BaseKeyframe {
   external factory BaseKeyframe({
     JSNumber? offset,
-    JSString easing = 'linear',
-    CompositeOperationOrAuto composite = 'auto',
+    JSString easing,
+    CompositeOperationOrAuto composite,
   });
 }
 
@@ -307,8 +306,8 @@ extension BaseKeyframeExtension on BaseKeyframe {
 @anonymous
 class KeyframeEffectOptions implements EffectTiming {
   external factory KeyframeEffectOptions({
-    IterationCompositeOperation iterationComposite = 'replace',
-    CompositeOperation composite = 'replace',
+    IterationCompositeOperation iterationComposite,
+    CompositeOperation composite,
     JSString? pseudoElement,
   });
 }
@@ -339,7 +338,7 @@ extension AnimatableExtension on Animatable {
 @anonymous
 class KeyframeAnimationOptions implements KeyframeEffectOptions {
   external factory KeyframeAnimationOptions({
-    JSString id = '',
+    JSString id,
     AnimationTimeline? timeline,
   });
 }
@@ -355,7 +354,7 @@ extension KeyframeAnimationOptionsExtension on KeyframeAnimationOptions {
 @staticInterop
 @anonymous
 class GetAnimationsOptions {
-  external factory GetAnimationsOptions({JSBoolean subtree = false});
+  external factory GetAnimationsOptions({JSBoolean subtree});
 }
 
 extension GetAnimationsOptionsExtension on GetAnimationsOptions {

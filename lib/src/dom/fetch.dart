@@ -184,8 +184,8 @@ extension ResponseExtension on Response {
 @anonymous
 class ResponseInit {
   external factory ResponseInit({
-    JSNumber status = 200,
-    JSString statusText = '',
+    JSNumber status,
+    JSString statusText,
     HeadersInit headers,
   });
 }

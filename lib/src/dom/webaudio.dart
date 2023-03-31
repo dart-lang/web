@@ -115,7 +115,7 @@ extension AudioContextExtension on AudioContext {
 @anonymous
 class AudioContextOptions {
   external factory AudioContextOptions({
-    JSAny latencyHint = 'interactive',
+    JSAny latencyHint,
     JSNumber sampleRate,
     JSAny sinkId,
   });
@@ -182,7 +182,7 @@ extension AudioRenderCapacityExtension on AudioRenderCapacity {
 @staticInterop
 @anonymous
 class AudioRenderCapacityOptions {
-  external factory AudioRenderCapacityOptions({JSNumber updateInterval = 1});
+  external factory AudioRenderCapacityOptions({JSNumber updateInterval});
 }
 
 extension AudioRenderCapacityOptionsExtension on AudioRenderCapacityOptions {
@@ -211,10 +211,10 @@ extension AudioRenderCapacityEventExtension on AudioRenderCapacityEvent {
 @anonymous
 class AudioRenderCapacityEventInit implements EventInit {
   external factory AudioRenderCapacityEventInit({
-    JSNumber timestamp = 0,
-    JSNumber averageLoad = 0,
-    JSNumber peakLoad = 0,
-    JSNumber underrunRatio = 0,
+    JSNumber timestamp,
+    JSNumber averageLoad,
+    JSNumber peakLoad,
+    JSNumber underrunRatio,
   });
 }
 
@@ -254,7 +254,7 @@ extension OfflineAudioContextExtension on OfflineAudioContext {
 @anonymous
 class OfflineAudioContextOptions {
   external factory OfflineAudioContextOptions({
-    JSNumber numberOfChannels = 1,
+    JSNumber numberOfChannels,
     required JSNumber length,
     required JSNumber sampleRate,
   });
@@ -325,7 +325,7 @@ extension AudioBufferExtension on AudioBuffer {
 @anonymous
 class AudioBufferOptions {
   external factory AudioBufferOptions({
-    JSNumber numberOfChannels = 1,
+    JSNumber numberOfChannels,
     required JSNumber length,
     required JSNumber sampleRate,
   });
@@ -465,10 +465,10 @@ extension AnalyserNodeExtension on AnalyserNode {
 @anonymous
 class AnalyserOptions implements AudioNodeOptions {
   external factory AnalyserOptions({
-    JSNumber fftSize = 2048,
-    JSNumber maxDecibels = -30,
-    JSNumber minDecibels = -100,
-    JSNumber smoothingTimeConstant = 0.8,
+    JSNumber fftSize,
+    JSNumber maxDecibels,
+    JSNumber minDecibels,
+    JSNumber smoothingTimeConstant,
   });
 }
 
@@ -516,11 +516,11 @@ extension AudioBufferSourceNodeExtension on AudioBufferSourceNode {
 class AudioBufferSourceOptions {
   external factory AudioBufferSourceOptions({
     AudioBuffer? buffer,
-    JSNumber detune = 0,
-    JSBoolean loop = false,
-    JSNumber loopEnd = 0,
-    JSNumber loopStart = 0,
-    JSNumber playbackRate = 1,
+    JSNumber detune,
+    JSBoolean loop,
+    JSNumber loopEnd,
+    JSNumber loopStart,
+    JSNumber playbackRate,
   });
 }
 
@@ -639,11 +639,11 @@ extension BiquadFilterNodeExtension on BiquadFilterNode {
 @anonymous
 class BiquadFilterOptions implements AudioNodeOptions {
   external factory BiquadFilterOptions({
-    BiquadFilterType type = 'lowpass',
-    JSNumber Q = 1,
-    JSNumber detune = 0,
-    JSNumber frequency = 350,
-    JSNumber gain = 0,
+    BiquadFilterType type,
+    JSNumber Q,
+    JSNumber detune,
+    JSNumber frequency,
+    JSNumber gain,
   });
 }
 
@@ -673,7 +673,7 @@ class ChannelMergerNode implements AudioNode {
 @staticInterop
 @anonymous
 class ChannelMergerOptions implements AudioNodeOptions {
-  external factory ChannelMergerOptions({JSNumber numberOfInputs = 6});
+  external factory ChannelMergerOptions({JSNumber numberOfInputs});
 }
 
 extension ChannelMergerOptionsExtension on ChannelMergerOptions {
@@ -694,7 +694,7 @@ class ChannelSplitterNode implements AudioNode {
 @staticInterop
 @anonymous
 class ChannelSplitterOptions implements AudioNodeOptions {
-  external factory ChannelSplitterOptions({JSNumber numberOfOutputs = 6});
+  external factory ChannelSplitterOptions({JSNumber numberOfOutputs});
 }
 
 extension ChannelSplitterOptionsExtension on ChannelSplitterOptions {
@@ -719,7 +719,7 @@ extension ConstantSourceNodeExtension on ConstantSourceNode {
 @staticInterop
 @anonymous
 class ConstantSourceOptions {
-  external factory ConstantSourceOptions({JSNumber offset = 1});
+  external factory ConstantSourceOptions({JSNumber offset});
 }
 
 extension ConstantSourceOptionsExtension on ConstantSourceOptions {
@@ -749,7 +749,7 @@ extension ConvolverNodeExtension on ConvolverNode {
 class ConvolverOptions implements AudioNodeOptions {
   external factory ConvolverOptions({
     AudioBuffer? buffer,
-    JSBoolean disableNormalization = false,
+    JSBoolean disableNormalization,
   });
 }
 
@@ -778,8 +778,8 @@ extension DelayNodeExtension on DelayNode {
 @anonymous
 class DelayOptions implements AudioNodeOptions {
   external factory DelayOptions({
-    JSNumber maxDelayTime = 1,
-    JSNumber delayTime = 0,
+    JSNumber maxDelayTime,
+    JSNumber delayTime,
   });
 }
 
@@ -813,11 +813,11 @@ extension DynamicsCompressorNodeExtension on DynamicsCompressorNode {
 @anonymous
 class DynamicsCompressorOptions implements AudioNodeOptions {
   external factory DynamicsCompressorOptions({
-    JSNumber attack = 0.003,
-    JSNumber knee = 30,
-    JSNumber ratio = 12,
-    JSNumber release = 0.25,
-    JSNumber threshold = -24,
+    JSNumber attack,
+    JSNumber knee,
+    JSNumber ratio,
+    JSNumber release,
+    JSNumber threshold,
   });
 }
 
@@ -851,7 +851,7 @@ extension GainNodeExtension on GainNode {
 @staticInterop
 @anonymous
 class GainOptions implements AudioNodeOptions {
-  external factory GainOptions({JSNumber gain = 1.0});
+  external factory GainOptions({JSNumber gain});
 }
 
 extension GainOptionsExtension on GainOptions {
@@ -1006,9 +1006,9 @@ extension OscillatorNodeExtension on OscillatorNode {
 @anonymous
 class OscillatorOptions implements AudioNodeOptions {
   external factory OscillatorOptions({
-    OscillatorType type = 'sine',
-    JSNumber frequency = 440,
-    JSNumber detune = 0,
+    OscillatorType type,
+    JSNumber frequency,
+    JSNumber detune,
     PeriodicWave periodicWave,
   });
 }
@@ -1073,20 +1073,20 @@ extension PannerNodeExtension on PannerNode {
 @anonymous
 class PannerOptions implements AudioNodeOptions {
   external factory PannerOptions({
-    PanningModelType panningModel = 'equalpower',
-    DistanceModelType distanceModel = 'inverse',
-    JSNumber positionX = 0,
-    JSNumber positionY = 0,
-    JSNumber positionZ = 0,
-    JSNumber orientationX = 1,
-    JSNumber orientationY = 0,
-    JSNumber orientationZ = 0,
-    JSNumber refDistance = 1,
-    JSNumber maxDistance = 10000,
-    JSNumber rolloffFactor = 1,
-    JSNumber coneInnerAngle = 360,
-    JSNumber coneOuterAngle = 360,
-    JSNumber coneOuterGain = 0,
+    PanningModelType panningModel,
+    DistanceModelType distanceModel,
+    JSNumber positionX,
+    JSNumber positionY,
+    JSNumber positionZ,
+    JSNumber orientationX,
+    JSNumber orientationY,
+    JSNumber orientationZ,
+    JSNumber refDistance,
+    JSNumber maxDistance,
+    JSNumber rolloffFactor,
+    JSNumber coneInnerAngle,
+    JSNumber coneOuterAngle,
+    JSNumber coneOuterGain,
   });
 }
 
@@ -1134,8 +1134,7 @@ class PeriodicWave {
 @staticInterop
 @anonymous
 class PeriodicWaveConstraints {
-  external factory PeriodicWaveConstraints(
-      {JSBoolean disableNormalization = false});
+  external factory PeriodicWaveConstraints({JSBoolean disableNormalization});
 }
 
 extension PeriodicWaveConstraintsExtension on PeriodicWaveConstraints {
@@ -1187,7 +1186,7 @@ extension StereoPannerNodeExtension on StereoPannerNode {
 @staticInterop
 @anonymous
 class StereoPannerOptions implements AudioNodeOptions {
-  external factory StereoPannerOptions({JSNumber pan = 0});
+  external factory StereoPannerOptions({JSNumber pan});
 }
 
 extension StereoPannerOptionsExtension on StereoPannerOptions {
@@ -1217,7 +1216,7 @@ extension WaveShaperNodeExtension on WaveShaperNode {
 class WaveShaperOptions implements AudioNodeOptions {
   external factory WaveShaperOptions({
     JSArray curve,
-    OverSampleType oversample = 'none',
+    OverSampleType oversample,
   });
 }
 
@@ -1279,8 +1278,8 @@ extension AudioWorkletNodeExtension on AudioWorkletNode {
 @anonymous
 class AudioWorkletNodeOptions implements AudioNodeOptions {
   external factory AudioWorkletNodeOptions({
-    JSNumber numberOfInputs = 1,
-    JSNumber numberOfOutputs = 1,
+    JSNumber numberOfInputs,
+    JSNumber numberOfOutputs,
     JSArray outputChannelCount,
     JSAny parameterData,
     JSObject processorOptions,
@@ -1316,10 +1315,10 @@ extension AudioWorkletProcessorExtension on AudioWorkletProcessor {
 class AudioParamDescriptor {
   external factory AudioParamDescriptor({
     required JSString name,
-    JSNumber defaultValue = 0,
-    JSNumber minValue = -3.4028235e38,
-    JSNumber maxValue = 3.4028235e38,
-    AutomationRate automationRate = 'a-rate',
+    JSNumber defaultValue,
+    JSNumber minValue,
+    JSNumber maxValue,
+    AutomationRate automationRate,
   });
 }
 

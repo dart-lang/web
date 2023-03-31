@@ -14,7 +14,7 @@ typedef AacBitstreamFormat = JSString;
 @staticInterop
 @anonymous
 class AacEncoderConfig {
-  external factory AacEncoderConfig({AacBitstreamFormat format = 'aac'});
+  external factory AacEncoderConfig({AacBitstreamFormat format});
 }
 
 extension AacEncoderConfigExtension on AacEncoderConfig {

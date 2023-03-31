@@ -43,8 +43,8 @@ extension BlobExtension on Blob {
 @anonymous
 class BlobPropertyBag {
   external factory BlobPropertyBag({
-    JSString type = '',
-    EndingType endings = 'transparent',
+    JSString type,
+    EndingType endings,
   });
 }
 

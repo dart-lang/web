@@ -312,12 +312,12 @@ class XRLayer implements EventTarget {}
 @anonymous
 class XRWebGLLayerInit {
   external factory XRWebGLLayerInit({
-    JSBoolean antialias = true,
-    JSBoolean depth = true,
-    JSBoolean stencil = false,
-    JSBoolean alpha = true,
-    JSBoolean ignoreDepthValues = false,
-    JSNumber framebufferScaleFactor = 1.0,
+    JSBoolean antialias,
+    JSBoolean depth,
+    JSBoolean stencil,
+    JSBoolean alpha,
+    JSBoolean ignoreDepthValues,
+    JSNumber framebufferScaleFactor,
   });
 }
 

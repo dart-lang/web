@@ -36,7 +36,7 @@ class DeviceOrientationEventInit implements EventInit {
     JSNumber? alpha,
     JSNumber? beta,
     JSNumber? gamma,
-    JSBoolean absolute = false,
+    JSBoolean absolute,
   });
 }
 
@@ -141,7 +141,7 @@ class DeviceMotionEventInit implements EventInit {
     DeviceMotionEventAccelerationInit acceleration,
     DeviceMotionEventAccelerationInit accelerationIncludingGravity,
     DeviceMotionEventRotationRateInit rotationRate,
-    JSNumber interval = 0,
+    JSNumber interval,
   });
 }
 

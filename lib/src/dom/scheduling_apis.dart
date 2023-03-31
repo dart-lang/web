@@ -21,7 +21,7 @@ class SchedulerPostTaskOptions {
   external factory SchedulerPostTaskOptions({
     AbortSignal signal,
     TaskPriority priority,
-    JSNumber delay = 0,
+    JSNumber delay,
   });
 }
 
@@ -75,7 +75,7 @@ extension TaskPriorityChangeEventInitExtension on TaskPriorityChangeEventInit {
 @staticInterop
 @anonymous
 class TaskControllerInit {
-  external factory TaskControllerInit({TaskPriority priority = 'user-visible'});
+  external factory TaskControllerInit({TaskPriority priority});
 }
 
 extension TaskControllerInitExtension on TaskControllerInit {

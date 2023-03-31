@@ -10,14 +10,16 @@ import 'package:js/js.dart' hide JS;
 
 import 'streams.dart';
 
+typedef CompressionFormat = JSString;
+
 @JS('CompressionStream')
 @staticInterop
 class CompressionStream implements GenericTransformStream {
-  external factory CompressionStream(JSString format);
+  external factory CompressionStream(CompressionFormat format);
 }
 
 @JS('DecompressionStream')
 @staticInterop
 class DecompressionStream implements GenericTransformStream {
-  external factory DecompressionStream(JSString format);
+  external factory DecompressionStream(CompressionFormat format);
 }

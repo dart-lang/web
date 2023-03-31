@@ -651,17 +651,17 @@ extension CredentialPropertiesOutputExtension on CredentialPropertiesOutput {
 @anonymous
 class AuthenticationExtensionsPRFValues {
   external factory AuthenticationExtensionsPRFValues({
-    required JSArrayBuffer first,
-    JSArrayBuffer second,
+    required BufferSource first,
+    BufferSource second,
   });
 }
 
 extension AuthenticationExtensionsPRFValuesExtension
     on AuthenticationExtensionsPRFValues {
-  external set first(JSArrayBuffer value);
-  external JSArrayBuffer get first;
-  external set second(JSArrayBuffer value);
-  external JSArrayBuffer get second;
+  external set first(BufferSource value);
+  external BufferSource get first;
+  external set second(BufferSource value);
+  external BufferSource get second;
 }
 
 @JS()

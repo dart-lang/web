@@ -22,8 +22,8 @@ class HTMLFencedFrameElement implements HTMLElement {
 }
 
 extension HTMLFencedFrameElementExtension on HTMLFencedFrameElement {
-  external set config(FencedFrameConfig value);
-  external FencedFrameConfig get config;
+  external set config(FencedFrameConfig? value);
+  external FencedFrameConfig? get config;
   external set width(JSString value);
   external JSString get width;
   external set height(JSString value);

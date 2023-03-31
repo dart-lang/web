@@ -539,7 +539,7 @@ extension DocumentExtension on Document {
   external JSVoid releaseEvents();
   external JSPromise exitPictureInPicture();
   external JSVoid exitPointerLock();
-  external JSPromise requestStorageAccessForOrigin(JSString requestedOrigin);
+  external JSPromise requestStorageAccessFor(JSString requestedOrigin);
   external Selection? getSelection();
   external JSPromise hasStorageAccess();
   external JSPromise requestStorageAccess();

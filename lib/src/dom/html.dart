@@ -3027,8 +3027,6 @@ extension WindowExtension on Window {
   external EventHandler get ondeviceorientation;
   external set ondeviceorientationabsolute(EventHandler value);
   external EventHandler get ondeviceorientationabsolute;
-  external set oncompassneedscalibration(EventHandler value);
-  external EventHandler get oncompassneedscalibration;
   external set ondevicemotion(EventHandler value);
   external EventHandler get ondevicemotion;
   external PortalHost? get portalHost;
@@ -3611,8 +3609,6 @@ class Navigator
 
 extension NavigatorExtension on Navigator {
   external AutoplayPolicy getAutoplayPolicy(JSAny contextOrElementOrType);
-  external JSPromise setClientBadge([JSNumber contents]);
-  external JSPromise clearClientBadge();
   external JSPromise getBattery();
   external JSBoolean sendBeacon(
     JSString url, [

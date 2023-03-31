@@ -18,6 +18,10 @@ class URL {
 
   external static JSString createObjectURL(JSAny obj);
   external static JSVoid revokeObjectURL(JSString url);
+  external static JSBoolean canParse(
+    JSString url, [
+    JSString base,
+  ]);
 }
 
 extension URLExtension on URL {

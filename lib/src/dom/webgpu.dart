@@ -771,7 +771,7 @@ extension GPUCompilationInfoExtension on GPUCompilationInfo {
 @staticInterop
 class GPUPipelineError implements DOMException {
   external factory GPUPipelineError(
-    JSString message,
+    JSAny message,
     GPUPipelineErrorInit options,
   );
 }
@@ -1727,7 +1727,7 @@ extension GPUCanvasConfigurationExtension on GPUCanvasConfiguration {
 class GPUDeviceLostInfo {}
 
 extension GPUDeviceLostInfoExtension on GPUDeviceLostInfo {
-  external JSAny get reason;
+  external GPUDeviceLostReason get reason;
   external JSString get message;
 }
 

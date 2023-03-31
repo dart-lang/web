@@ -185,7 +185,7 @@ export 'src/dom/referrer_policy.dart';
 export 'src/dom/remote_playback.dart';
 export 'src/dom/reporting.dart';
 export 'src/dom/requestidlecallback.dart';
-export 'src/dom/requeststorageaccessfororigin.dart';
+export 'src/dom/requeststorageaccessfor.dart';
 export 'src/dom/resize_observer.dart';
 export 'src/dom/resource_timing.dart';
 export 'src/dom/sanitizer_api.dart';

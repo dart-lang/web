@@ -10,8 +10,6 @@ import 'package:js/js.dart' hide JS;
 
 import 'dom.dart';
 
-typedef WorkletExecutionMode = JSString;
-
 @JS()
 @staticInterop
 @anonymous
@@ -40,7 +38,7 @@ class AuctionAdInterestGroup {
     JSBoolean enableBiddingSignalsPrioritization = false,
     JSAny priorityVector,
     JSAny prioritySignalsOverrides,
-    WorkletExecutionMode executionMode = 'compatibility',
+    JSString executionMode = 'compatibility',
     JSString biddingLogicUrl,
     JSString biddingWasmHelperUrl,
     JSString dailyUpdateUrl,
@@ -65,8 +63,8 @@ extension AuctionAdInterestGroupExtension on AuctionAdInterestGroup {
   external JSAny get priorityVector;
   external set prioritySignalsOverrides(JSAny value);
   external JSAny get prioritySignalsOverrides;
-  external set executionMode(WorkletExecutionMode value);
-  external WorkletExecutionMode get executionMode;
+  external set executionMode(JSString value);
+  external JSString get executionMode;
   external set biddingLogicUrl(JSString value);
   external JSString get biddingLogicUrl;
   external set biddingWasmHelperUrl(JSString value);

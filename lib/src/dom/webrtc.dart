@@ -594,9 +594,8 @@ extension RTCRtpHeaderExtensionParametersExtension
 @JS()
 @staticInterop
 @anonymous
-class RTCRtpCodecParameters {
-  external factory RTCRtpCodecParameters({
-    required JSNumber payloadType,
+class RTCRtpCodec {
+  external factory RTCRtpCodec({
     required JSString mimeType,
     required JSNumber clockRate,
     JSNumber channels,
@@ -604,9 +603,7 @@ class RTCRtpCodecParameters {
   });
 }
 
-extension RTCRtpCodecParametersExtension on RTCRtpCodecParameters {
-  external set payloadType(JSNumber value);
-  external JSNumber get payloadType;
+extension RTCRtpCodecExtension on RTCRtpCodec {
   external set mimeType(JSString value);
   external JSString get mimeType;
   external set clockRate(JSNumber value);
@@ -615,6 +612,18 @@ extension RTCRtpCodecParametersExtension on RTCRtpCodecParameters {
   external JSNumber get channels;
   external set sdpFmtpLine(JSString value);
   external JSString get sdpFmtpLine;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class RTCRtpCodecParameters implements RTCRtpCodec {
+  external factory RTCRtpCodecParameters({required JSNumber payloadType});
+}
+
+extension RTCRtpCodecParametersExtension on RTCRtpCodecParameters {
+  external set payloadType(JSNumber value);
+  external JSNumber get payloadType;
 }
 
 @JS()
@@ -637,31 +646,15 @@ extension RTCRtpCapabilitiesExtension on RTCRtpCapabilities {
 @JS()
 @staticInterop
 @anonymous
-class RTCRtpCodecCapability {
-  external factory RTCRtpCodecCapability({
-    required JSString mimeType,
-    required JSNumber clockRate,
-    JSNumber channels,
-    JSString sdpFmtpLine,
-  });
-}
-
-extension RTCRtpCodecCapabilityExtension on RTCRtpCodecCapability {
-  external set mimeType(JSString value);
-  external JSString get mimeType;
-  external set clockRate(JSNumber value);
-  external JSNumber get clockRate;
-  external set channels(JSNumber value);
-  external JSNumber get channels;
-  external set sdpFmtpLine(JSString value);
-  external JSString get sdpFmtpLine;
+class RTCRtpCodecCapability implements RTCRtpCodec {
+  external factory RTCRtpCodecCapability();
 }
 
 @JS()
 @staticInterop
 @anonymous
 class RTCRtpHeaderExtensionCapability {
-  external factory RTCRtpHeaderExtensionCapability({JSString uri});
+  external factory RTCRtpHeaderExtensionCapability({required JSString uri});
 }
 
 extension RTCRtpHeaderExtensionCapabilityExtension

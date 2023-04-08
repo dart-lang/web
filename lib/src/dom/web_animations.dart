@@ -338,12 +338,18 @@ extension AnimatableExtension on Animatable {
 @anonymous
 class KeyframeAnimationOptions implements KeyframeEffectOptions {
   external factory KeyframeAnimationOptions({
+    JSAny rangeStart,
+    JSAny rangeEnd,
     JSString id,
     AnimationTimeline? timeline,
   });
 }
 
 extension KeyframeAnimationOptionsExtension on KeyframeAnimationOptions {
+  external set rangeStart(JSAny value);
+  external JSAny get rangeStart;
+  external set rangeEnd(JSAny value);
+  external JSAny get rangeEnd;
   external set id(JSString value);
   external JSString get id;
   external set timeline(AnimationTimeline? value);

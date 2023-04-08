@@ -237,6 +237,7 @@ export 'src/dom/webaudio.dart';
 export 'src/dom/webauthn.dart';
 export 'src/dom/webcodecs.dart';
 export 'src/dom/webcodecs_aac_codec_registration.dart';
+export 'src/dom/webcodecs_av1_codec_registration.dart';
 export 'src/dom/webcodecs_avc_codec_registration.dart';
 export 'src/dom/webcodecs_flac_codec_registration.dart';
 export 'src/dom/webcodecs_hevc_codec_registration.dart';

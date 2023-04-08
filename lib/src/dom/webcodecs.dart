@@ -12,6 +12,7 @@ import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
 import 'webcodecs_aac_codec_registration.dart';
+import 'webcodecs_av1_codec_registration.dart';
 import 'webcodecs_avc_codec_registration.dart';
 import 'webcodecs_flac_codec_registration.dart';
 import 'webcodecs_hevc_codec_registration.dart';
@@ -453,12 +454,15 @@ extension VideoEncoderConfigExtension on VideoEncoderConfig {
 @anonymous
 class VideoEncoderEncodeOptions {
   external factory VideoEncoderEncodeOptions({
+    VideoEncoderEncodeOptionsForAv1 av1,
     VideoEncoderEncodeOptionsForVp9 vp9,
     JSBoolean keyFrame,
   });
 }
 
 extension VideoEncoderEncodeOptionsExtension on VideoEncoderEncodeOptions {
+  external set av1(VideoEncoderEncodeOptionsForAv1 value);
+  external VideoEncoderEncodeOptionsForAv1 get av1;
   external set vp9(VideoEncoderEncodeOptionsForVp9 value);
   external VideoEncoderEncodeOptionsForVp9 get vp9;
   external set keyFrame(JSBoolean value);

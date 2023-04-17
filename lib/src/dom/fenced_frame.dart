@@ -12,6 +12,7 @@ import 'html.dart';
 
 typedef FencedFrameConfigSize = JSAny;
 typedef FencedFrameConfigURL = JSAny;
+typedef ReportEventType = JSAny;
 typedef OpaqueProperty = JSString;
 typedef FenceReportingDestination = JSString;
 
@@ -67,5 +68,7 @@ extension FenceEventExtension on FenceEvent {
 class Fence {}
 
 extension FenceExtension on Fence {
-  external JSVoid reportEvent(FenceEvent event);
+  external JSVoid reportEvent(ReportEventType event);
+  external JSVoid setReportEventDataForAutomaticBeacons(FenceEvent event);
+  external JSArray getNestedConfigs();
 }

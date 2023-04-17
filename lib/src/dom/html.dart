@@ -3628,7 +3628,9 @@ extension NavigatorExtension on Navigator {
     AuctionAdInterestGroup group,
     JSNumber durationSeconds,
   );
+  external JSPromise leaveAdInterestGroup(AuctionAdInterestGroupKey group);
   external JSPromise runAdAuction(AuctionAdConfig config);
+  external JSVoid updateAdInterestGroups();
   external JSBoolean vibrate(VibratePattern pattern);
   external JSPromise share([ShareData data]);
   external JSBoolean canShare([ShareData data]);

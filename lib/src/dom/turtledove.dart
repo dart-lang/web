@@ -15,14 +15,14 @@ import 'dom.dart';
 @anonymous
 class AuctionAd {
   external factory AuctionAd({
-    required JSString renderUrl,
+    required JSString renderURL,
     JSAny metadata,
   });
 }
 
 extension AuctionAdExtension on AuctionAd {
-  external set renderUrl(JSString value);
-  external JSString get renderUrl;
+  external set renderURL(JSString value);
+  external JSString get renderURL;
   external set metadata(JSAny value);
   external JSAny get metadata;
 }
@@ -39,10 +39,10 @@ class AuctionAdInterestGroup {
     JSAny priorityVector,
     JSAny prioritySignalsOverrides,
     JSString executionMode,
-    JSString biddingLogicUrl,
-    JSString biddingWasmHelperUrl,
-    JSString dailyUpdateUrl,
-    JSString trustedBiddingSignalsUrl,
+    JSString biddingLogicURL,
+    JSString biddingWasmHelperURL,
+    JSString dailyUpdateURL,
+    JSString trustedBiddingSignalsURL,
     JSArray trustedBiddingSignalsKeys,
     JSAny userBiddingSignals,
     JSArray ads,
@@ -65,14 +65,14 @@ extension AuctionAdInterestGroupExtension on AuctionAdInterestGroup {
   external JSAny get prioritySignalsOverrides;
   external set executionMode(JSString value);
   external JSString get executionMode;
-  external set biddingLogicUrl(JSString value);
-  external JSString get biddingLogicUrl;
-  external set biddingWasmHelperUrl(JSString value);
-  external JSString get biddingWasmHelperUrl;
-  external set dailyUpdateUrl(JSString value);
-  external JSString get dailyUpdateUrl;
-  external set trustedBiddingSignalsUrl(JSString value);
-  external JSString get trustedBiddingSignalsUrl;
+  external set biddingLogicURL(JSString value);
+  external JSString get biddingLogicURL;
+  external set biddingWasmHelperURL(JSString value);
+  external JSString get biddingWasmHelperURL;
+  external set dailyUpdateURL(JSString value);
+  external JSString get dailyUpdateURL;
+  external set trustedBiddingSignalsURL(JSString value);
+  external JSString get trustedBiddingSignalsURL;
   external set trustedBiddingSignalsKeys(JSArray value);
   external JSArray get trustedBiddingSignalsKeys;
   external set userBiddingSignals(JSAny value);
@@ -86,11 +86,28 @@ extension AuctionAdInterestGroupExtension on AuctionAdInterestGroup {
 @JS()
 @staticInterop
 @anonymous
+class AuctionAdInterestGroupKey {
+  external factory AuctionAdInterestGroupKey({
+    required JSString owner,
+    required JSString name,
+  });
+}
+
+extension AuctionAdInterestGroupKeyExtension on AuctionAdInterestGroupKey {
+  external set owner(JSString value);
+  external JSString get owner;
+  external set name(JSString value);
+  external JSString get name;
+}
+
+@JS()
+@staticInterop
+@anonymous
 class AuctionAdConfig {
   external factory AuctionAdConfig({
     required JSString seller,
-    required JSString decisionLogicUrl,
-    JSString trustedScoringSignalsUrl,
+    required JSString decisionLogicURL,
+    JSString trustedScoringSignalsURL,
     JSArray interestGroupBuyers,
     JSAny auctionSignals,
     JSAny sellerSignals,
@@ -110,10 +127,10 @@ class AuctionAdConfig {
 extension AuctionAdConfigExtension on AuctionAdConfig {
   external set seller(JSString value);
   external JSString get seller;
-  external set decisionLogicUrl(JSString value);
-  external JSString get decisionLogicUrl;
-  external set trustedScoringSignalsUrl(JSString value);
-  external JSString get trustedScoringSignalsUrl;
+  external set decisionLogicURL(JSString value);
+  external JSString get decisionLogicURL;
+  external set trustedScoringSignalsURL(JSString value);
+  external JSString get trustedScoringSignalsURL;
   external set interestGroupBuyers(JSArray value);
   external JSArray get interestGroupBuyers;
   external set auctionSignals(JSAny value);
@@ -140,4 +157,83 @@ extension AuctionAdConfigExtension on AuctionAdConfig {
   external JSArray get componentAuctions;
   external set signal(AbortSignal? value);
   external AbortSignal? get signal;
+}
+
+@JS('InterestGroupBiddingScriptRunnerGlobalScope')
+@staticInterop
+class InterestGroupBiddingScriptRunnerGlobalScope {}
+
+extension InterestGroupBiddingScriptRunnerGlobalScopeExtension
+    on InterestGroupBiddingScriptRunnerGlobalScope {
+  external JSBoolean setBid([GenerateBidOutput generateBidOutput]);
+  external JSVoid setPriority(JSNumber priority);
+  external JSVoid setPrioritySignalsOverride(
+    JSString key,
+    JSNumber priority,
+  );
+}
+
+@JS('InterestGroupScoringScriptRunnerGlobalScope')
+@staticInterop
+class InterestGroupScoringScriptRunnerGlobalScope {}
+
+@JS('InterestGroupReportingScriptRunnerGlobalScope')
+@staticInterop
+class InterestGroupReportingScriptRunnerGlobalScope {}
+
+extension InterestGroupReportingScriptRunnerGlobalScopeExtension
+    on InterestGroupReportingScriptRunnerGlobalScope {
+  external JSVoid sendReportTo(JSString url);
+}
+
+@JS()
+@staticInterop
+@anonymous
+class AdRender {
+  external factory AdRender({
+    required JSString url,
+    required JSString width,
+    required JSString height,
+  });
+}
+
+extension AdRenderExtension on AdRender {
+  external set url(JSString value);
+  external JSString get url;
+  external set width(JSString value);
+  external JSString get width;
+  external set height(JSString value);
+  external JSString get height;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class GenerateBidOutput {
+  external factory GenerateBidOutput({
+    required JSNumber bid,
+    required JSAny adRender,
+    JSString ad,
+    JSArray adComponents,
+    JSNumber adCost,
+    JSNumber modelingSignals,
+    JSBoolean allowComponentAuction,
+  });
+}
+
+extension GenerateBidOutputExtension on GenerateBidOutput {
+  external set bid(JSNumber value);
+  external JSNumber get bid;
+  external set adRender(JSAny value);
+  external JSAny get adRender;
+  external set ad(JSString value);
+  external JSString get ad;
+  external set adComponents(JSArray value);
+  external JSArray get adComponents;
+  external set adCost(JSNumber value);
+  external JSNumber get adCost;
+  external set modelingSignals(JSNumber value);
+  external JSNumber get modelingSignals;
+  external set allowComponentAuction(JSBoolean value);
+  external JSBoolean get allowComponentAuction;
 }

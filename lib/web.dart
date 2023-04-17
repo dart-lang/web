@@ -292,5 +292,5 @@ export 'src/dom/webxr_hit_test.dart';
 export 'src/dom/webxr_lighting_estimation.dart';
 export 'src/dom/webxrlayers.dart';
 export 'src/dom/window_controls_overlay.dart';
-export 'src/dom/window_placement.dart';
+export 'src/dom/window_management.dart';
 export 'src/dom/xhr.dart';

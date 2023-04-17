@@ -137,6 +137,12 @@ class GPUSupportedFeatures {}
 
 extension GPUSupportedFeaturesExtension on GPUSupportedFeatures {}
 
+@JS('WGSLLanguageFeatures')
+@staticInterop
+class WGSLLanguageFeatures {}
+
+extension WGSLLanguageFeaturesExtension on WGSLLanguageFeatures {}
+
 @JS('GPUAdapterInfo')
 @staticInterop
 class GPUAdapterInfo {}
@@ -163,6 +169,7 @@ class GPU {}
 extension GPUExtension on GPU {
   external JSPromise requestAdapter([GPURequestAdapterOptions options]);
   external GPUTextureFormat getPreferredCanvasFormat();
+  external WGSLLanguageFeatures get wgslLanguageFeatures;
 }
 
 @JS()

@@ -148,6 +148,7 @@ class WebTransportStats {
     DOMHighResTimeStamp rttVariation,
     DOMHighResTimeStamp minRtt,
     WebTransportDatagramStats datagrams,
+    JSNumber? estimatedSendRate,
   });
 }
 
@@ -176,6 +177,8 @@ extension WebTransportStatsExtension on WebTransportStats {
   external DOMHighResTimeStamp get minRtt;
   external set datagrams(WebTransportDatagramStats value);
   external WebTransportDatagramStats get datagrams;
+  external set estimatedSendRate(JSNumber? value);
+  external JSNumber? get estimatedSendRate;
 }
 
 @JS()

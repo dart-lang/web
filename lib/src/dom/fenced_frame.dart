@@ -11,7 +11,7 @@ import 'package:js/js.dart' hide JS;
 import 'html.dart';
 
 typedef FencedFrameConfigSize = JSAny;
-typedef FencedFrameConfigURL = JSAny;
+typedef FencedFrameConfigURL = JSString;
 typedef ReportEventType = JSAny;
 typedef OpaqueProperty = JSString;
 typedef FenceReportingDestination = JSString;
@@ -33,14 +33,15 @@ extension HTMLFencedFrameElementExtension on HTMLFencedFrameElement {
 
 @JS('FencedFrameConfig')
 @staticInterop
-class FencedFrameConfig {
-  external factory FencedFrameConfig(JSString url);
-}
+class FencedFrameConfig {}
 
 extension FencedFrameConfigExtension on FencedFrameConfig {
+  external JSVoid setSharedStorageContext(JSString contextString);
   external FencedFrameConfigURL? get url;
-  external FencedFrameConfigSize? get width;
-  external FencedFrameConfigSize? get height;
+  external FencedFrameConfigSize? get containerWidth;
+  external FencedFrameConfigSize? get containerHeight;
+  external FencedFrameConfigSize? get contentWidth;
+  external FencedFrameConfigSize? get contentHeight;
 }
 
 @JS()

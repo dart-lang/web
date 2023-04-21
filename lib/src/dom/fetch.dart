@@ -8,6 +8,7 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
+import 'attribution_reporting_api.dart';
 import 'dom.dart';
 import 'referrer_policy.dart';
 import 'streams.dart';
@@ -95,6 +96,7 @@ extension RequestExtension on Request {
 @anonymous
 class RequestInit {
   external factory RequestInit({
+    AttributionReportingRequestOptions attributionReporting,
     JSString method,
     HeadersInit headers,
     BodyInit? body,
@@ -115,6 +117,8 @@ class RequestInit {
 }
 
 extension RequestInitExtension on RequestInit {
+  external set attributionReporting(AttributionReportingRequestOptions value);
+  external AttributionReportingRequestOptions get attributionReporting;
   external set method(JSString value);
   external JSString get method;
   external set headers(HeadersInit value);

@@ -8,6 +8,7 @@ import 'dart:js_interop';
 
 import 'package:js/js.dart' hide JS;
 
+import 'attribution_reporting_api.dart';
 import 'dom.dart';
 import 'html.dart';
 
@@ -52,6 +53,8 @@ class XMLHttpRequest implements XMLHttpRequestEventTarget {
 }
 
 extension XMLHttpRequestExtension on XMLHttpRequest {
+  external JSVoid setAttributionReporting(
+      AttributionReportingRequestOptions options);
   external JSVoid open(
     JSString method,
     JSString url, [

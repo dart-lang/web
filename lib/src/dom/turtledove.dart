@@ -213,7 +213,7 @@ class GenerateBidOutput {
   external factory GenerateBidOutput({
     required JSNumber bid,
     required JSAny adRender,
-    JSString ad,
+    JSAny ad,
     JSArray adComponents,
     JSNumber adCost,
     JSNumber modelingSignals,
@@ -226,8 +226,8 @@ extension GenerateBidOutputExtension on GenerateBidOutput {
   external JSNumber get bid;
   external set adRender(JSAny value);
   external JSAny get adRender;
-  external set ad(JSString value);
-  external JSString get ad;
+  external set ad(JSAny value);
+  external JSAny get ad;
   external set adComponents(JSArray value);
   external JSArray get adComponents;
   external set adCost(JSNumber value);

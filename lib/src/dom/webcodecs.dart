@@ -11,6 +11,7 @@ import 'package:js/js.dart' hide JS;
 import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
+import 'mediastream_recording.dart';
 import 'webcodecs_aac_codec_registration.dart';
 import 'webcodecs_av1_codec_registration.dart';
 import 'webcodecs_avc_codec_registration.dart';
@@ -376,6 +377,7 @@ class AudioEncoderConfig {
     JSNumber sampleRate,
     JSNumber numberOfChannels,
     JSNumber bitrate,
+    BitrateMode bitrateMode,
   });
 }
 
@@ -394,6 +396,8 @@ extension AudioEncoderConfigExtension on AudioEncoderConfig {
   external JSNumber get numberOfChannels;
   external set bitrate(JSNumber value);
   external JSNumber get bitrate;
+  external set bitrateMode(BitrateMode value);
+  external BitrateMode get bitrateMode;
 }
 
 @JS()

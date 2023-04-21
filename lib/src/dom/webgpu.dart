@@ -102,6 +102,7 @@ extension GPUSupportedLimitsExtension on GPUSupportedLimits {
   external JSNumber get maxTextureDimension3D;
   external JSNumber get maxTextureArrayLayers;
   external JSNumber get maxBindGroups;
+  external JSNumber get maxBindGroupsPlusVertexBuffers;
   external JSNumber get maxBindingsPerBindGroup;
   external JSNumber get maxDynamicUniformBuffersPerPipelineLayout;
   external JSNumber get maxDynamicStorageBuffersPerPipelineLayout;
@@ -110,7 +111,6 @@ extension GPUSupportedLimitsExtension on GPUSupportedLimits {
   external JSNumber get maxStorageBuffersPerShaderStage;
   external JSNumber get maxStorageTexturesPerShaderStage;
   external JSNumber get maxUniformBuffersPerShaderStage;
-  external JSNumber get maxFragmentCombinedOutputResources;
   external JSNumber get maxUniformBufferBindingSize;
   external JSNumber get maxStorageBufferBindingSize;
   external JSNumber get minUniformBufferOffsetAlignment;
@@ -1303,7 +1303,7 @@ class GPUBindingCommandsMixin {}
 extension GPUBindingCommandsMixinExtension on GPUBindingCommandsMixin {
   external JSVoid setBindGroup(
     GPUIndex32 index,
-    GPUBindGroup bindGroup, [
+    GPUBindGroup? bindGroup, [
     JSAny dynamicOffsetsOrDynamicOffsetsData,
     GPUSize64 dynamicOffsetsDataStart,
     GPUSize32 dynamicOffsetsDataLength,
@@ -1557,7 +1557,7 @@ extension GPURenderCommandsMixinExtension on GPURenderCommandsMixin {
   ]);
   external JSVoid setVertexBuffer(
     GPUIndex32 slot,
-    GPUBuffer buffer, [
+    GPUBuffer? buffer, [
     GPUSize64 offset,
     GPUSize64 size,
   ]);

@@ -631,12 +631,6 @@ class Translator {
 
   code.Library _library(_Library library) => code.Library((b) => b
     ..comments.addAll(licenseHeader)
-    ..ignoreForFile.add('unused_import')
-    ..directives.addAll([
-      // TODO(joshualitt): Remove this and the `ignoreForFile` when we no longer
-      // need `staticInterop`.
-      code.Directive.import('package:js/js.dart', hide: ['JS']),
-    ])
     ..body.addAll([
       for (final typedef in library.typedefs)
         _typedef(typedef.name.toDart, _typeRaw(typedef.idlType)),

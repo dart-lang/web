@@ -4,8 +4,6 @@
 
 import 'dart:js_interop';
 
-import 'package:js/js.dart';
-
 import 'filesystem_api.dart';
 
 // TODO(joshualitt): Let's find a better place for these.

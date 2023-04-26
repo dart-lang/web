@@ -574,6 +574,7 @@ class CollectedClientData {
     required JSString type,
     required JSString challenge,
     required JSString origin,
+    JSString topOrigin,
     JSBoolean crossOrigin,
   });
 }
@@ -585,6 +586,8 @@ extension CollectedClientDataExtension on CollectedClientData {
   external JSString get challenge;
   external set origin(JSString value);
   external JSString get origin;
+  external set topOrigin(JSString value);
+  external JSString get topOrigin;
   external set crossOrigin(JSBoolean value);
   external JSBoolean get crossOrigin;
 }
@@ -644,17 +647,17 @@ extension CredentialPropertiesOutputExtension on CredentialPropertiesOutput {
 @anonymous
 class AuthenticationExtensionsPRFValues {
   external factory AuthenticationExtensionsPRFValues({
-    required JSArrayBuffer first,
-    JSArrayBuffer second,
+    required BufferSource first,
+    BufferSource second,
   });
 }
 
 extension AuthenticationExtensionsPRFValuesExtension
     on AuthenticationExtensionsPRFValues {
-  external set first(JSArrayBuffer value);
-  external JSArrayBuffer get first;
-  external set second(JSArrayBuffer value);
-  external JSArrayBuffer get second;
+  external set first(BufferSource value);
+  external BufferSource get first;
+  external set second(BufferSource value);
+  external BufferSource get second;
 }
 
 @JS()
@@ -757,16 +760,12 @@ extension AuthenticationExtensionsDevicePublicKeyInputsExtension
 @staticInterop
 @anonymous
 class AuthenticationExtensionsDevicePublicKeyOutputs {
-  external factory AuthenticationExtensionsDevicePublicKeyOutputs({
-    JSArrayBuffer authenticatorOutput,
-    JSArrayBuffer signature,
-  });
+  external factory AuthenticationExtensionsDevicePublicKeyOutputs(
+      {JSArrayBuffer signature});
 }
 
 extension AuthenticationExtensionsDevicePublicKeyOutputsExtension
     on AuthenticationExtensionsDevicePublicKeyOutputs {
-  external set authenticatorOutput(JSArrayBuffer value);
-  external JSArrayBuffer get authenticatorOutput;
   external set signature(JSArrayBuffer value);
   external JSArrayBuffer get signature;
 }

@@ -4,7 +4,7 @@
 
 import 'dart:js_interop';
 
-import 'window_placement.dart';
+import 'window_management.dart';
 
 typedef FullscreenNavigationUI = JSString;
 

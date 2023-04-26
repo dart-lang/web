@@ -13,3 +13,21 @@ extension HTMLAttributionSrcElementUtilsExtension
   external set attributionSrc(JSString value);
   external JSString get attributionSrc;
 }
+
+@JS()
+@staticInterop
+@anonymous
+class AttributionReportingRequestOptions {
+  external factory AttributionReportingRequestOptions({
+    required JSBoolean eventSourceEligible,
+    required JSBoolean triggerEligible,
+  });
+}
+
+extension AttributionReportingRequestOptionsExtension
+    on AttributionReportingRequestOptions {
+  external set eventSourceEligible(JSBoolean value);
+  external JSBoolean get eventSourceEligible;
+  external set triggerEligible(JSBoolean value);
+  external JSBoolean get triggerEligible;
+}

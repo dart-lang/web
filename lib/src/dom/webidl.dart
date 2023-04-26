@@ -6,7 +6,6 @@ import 'dart:js_interop';
 
 typedef ArrayBufferView = JSAny;
 typedef BufferSource = JSAny;
-typedef DOMTimeStamp = JSNumber;
 typedef VoidFunction = JSFunction;
 
 @JS('DOMException')

@@ -7,9 +7,8 @@ import 'dart:js_interop';
 import 'hr_time.dart';
 
 typedef PressureUpdateCallback = JSFunction;
-typedef PressureState = JSString;
-typedef PressureFactor = JSString;
 typedef PressureSource = JSString;
+typedef PressureState = JSString;
 
 @JS('PressureObserver')
 @staticInterop
@@ -37,7 +36,6 @@ extension PressureRecordExtension on PressureRecord {
   external JSObject toJSON();
   external PressureSource get source;
   external PressureState get state;
-  external JSArray get factors;
   external DOMHighResTimeStamp get time;
 }
 

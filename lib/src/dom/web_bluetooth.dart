@@ -91,6 +91,7 @@ extension BluetoothLEScanFilterInitExtension on BluetoothLEScanFilterInit {
 class RequestDeviceOptions {
   external factory RequestDeviceOptions({
     JSArray filters,
+    JSArray exclusionFilters,
     JSArray optionalServices,
     JSArray optionalManufacturerData,
     JSBoolean acceptAllDevices,
@@ -100,6 +101,8 @@ class RequestDeviceOptions {
 extension RequestDeviceOptionsExtension on RequestDeviceOptions {
   external set filters(JSArray value);
   external JSArray get filters;
+  external set exclusionFilters(JSArray value);
+  external JSArray get exclusionFilters;
   external set optionalServices(JSArray value);
   external JSArray get optionalServices;
   external set optionalManufacturerData(JSArray value);

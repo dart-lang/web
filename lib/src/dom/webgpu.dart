@@ -98,6 +98,7 @@ extension GPUSupportedLimitsExtension on GPUSupportedLimits {
   external JSNumber get maxTextureDimension3D;
   external JSNumber get maxTextureArrayLayers;
   external JSNumber get maxBindGroups;
+  external JSNumber get maxBindGroupsPlusVertexBuffers;
   external JSNumber get maxBindingsPerBindGroup;
   external JSNumber get maxDynamicUniformBuffersPerPipelineLayout;
   external JSNumber get maxDynamicStorageBuffersPerPipelineLayout;
@@ -132,6 +133,12 @@ class GPUSupportedFeatures {}
 
 extension GPUSupportedFeaturesExtension on GPUSupportedFeatures {}
 
+@JS('WGSLLanguageFeatures')
+@staticInterop
+class WGSLLanguageFeatures {}
+
+extension WGSLLanguageFeaturesExtension on WGSLLanguageFeatures {}
+
 @JS('GPUAdapterInfo')
 @staticInterop
 class GPUAdapterInfo {}
@@ -158,6 +165,7 @@ class GPU {}
 extension GPUExtension on GPU {
   external JSPromise requestAdapter([GPURequestAdapterOptions options]);
   external GPUTextureFormat getPreferredCanvasFormat();
+  external WGSLLanguageFeatures get wgslLanguageFeatures;
 }
 
 @JS()
@@ -704,7 +712,7 @@ extension GPUPipelineLayoutDescriptorExtension on GPUPipelineLayoutDescriptor {
 class GPUShaderModule implements GPUObjectBase {}
 
 extension GPUShaderModuleExtension on GPUShaderModule {
-  external JSPromise compilationInfo();
+  external JSPromise getCompilationInfo();
 }
 
 @JS()
@@ -765,7 +773,7 @@ extension GPUCompilationInfoExtension on GPUCompilationInfo {
 @staticInterop
 class GPUPipelineError implements DOMException {
   external factory GPUPipelineError(
-    JSString message,
+    JSAny message,
     GPUPipelineErrorInit options,
   );
 }
@@ -1009,8 +1017,8 @@ extension GPUBlendComponentExtension on GPUBlendComponent {
 class GPUDepthStencilState {
   external factory GPUDepthStencilState({
     required GPUTextureFormat format,
-    JSBoolean depthWriteEnabled,
-    GPUCompareFunction depthCompare,
+    required JSBoolean depthWriteEnabled,
+    required GPUCompareFunction depthCompare,
     GPUStencilFaceState stencilFront,
     GPUStencilFaceState stencilBack,
     GPUStencilValue stencilReadMask,
@@ -1291,7 +1299,7 @@ class GPUBindingCommandsMixin {}
 extension GPUBindingCommandsMixinExtension on GPUBindingCommandsMixin {
   external JSVoid setBindGroup(
     GPUIndex32 index,
-    GPUBindGroup bindGroup, [
+    GPUBindGroup? bindGroup, [
     JSAny dynamicOffsetsOrDynamicOffsetsData,
     GPUSize64 dynamicOffsetsDataStart,
     GPUSize32 dynamicOffsetsDataLength,
@@ -1545,7 +1553,7 @@ extension GPURenderCommandsMixinExtension on GPURenderCommandsMixin {
   ]);
   external JSVoid setVertexBuffer(
     GPUIndex32 slot,
-    GPUBuffer buffer, [
+    GPUBuffer? buffer, [
     GPUSize64 offset,
     GPUSize64 size,
   ]);
@@ -1721,7 +1729,7 @@ extension GPUCanvasConfigurationExtension on GPUCanvasConfiguration {
 class GPUDeviceLostInfo {}
 
 extension GPUDeviceLostInfoExtension on GPUDeviceLostInfo {
-  external JSAny get reason;
+  external GPUDeviceLostReason get reason;
   external JSString get message;
 }
 

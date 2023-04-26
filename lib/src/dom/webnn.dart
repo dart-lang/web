@@ -300,7 +300,8 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
   );
   external MLOperand pad(
     MLOperand input,
-    MLOperand padding, [
+    JSArray beginningPadding,
+    JSArray endingPadding, [
     MLPadOptions options,
   ]);
   external MLOperand averagePool2d(
@@ -315,6 +316,10 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
     MLOperand input, [
     MLPool2dOptions options,
   ]);
+  external MLOperand prelu(
+    MLOperand x,
+    MLOperand slope,
+  );
   external MLOperand reduceL1(
     MLOperand input, [
     MLReduceOptions options,
@@ -368,9 +373,8 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
   external MLOperand slice(
     MLOperand input,
     JSArray starts,
-    JSArray sizes, [
-    MLSliceOptions options,
-  ]);
+    JSArray sizes,
+  );
   external JSAny softmax([MLOperand x]);
   external JSAny softplus([
     JSAny optionsOrX,
@@ -839,18 +843,6 @@ extension MLResample2dOptionsExtension on MLResample2dOptions {
   external JSArray get scales;
   external set sizes(JSArray value);
   external JSArray get sizes;
-  external set axes(JSArray value);
-  external JSArray get axes;
-}
-
-@JS()
-@staticInterop
-@anonymous
-class MLSliceOptions {
-  external factory MLSliceOptions({JSArray axes});
-}
-
-extension MLSliceOptionsExtension on MLSliceOptions {
   external set axes(JSArray value);
   external JSArray get axes;
 }

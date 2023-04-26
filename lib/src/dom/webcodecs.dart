@@ -4,14 +4,17 @@
 
 import 'dart:js_interop';
 
+import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
 import 'mediastream_recording.dart';
 import 'webcodecs_aac_codec_registration.dart';
+import 'webcodecs_av1_codec_registration.dart';
 import 'webcodecs_avc_codec_registration.dart';
 import 'webcodecs_flac_codec_registration.dart';
 import 'webcodecs_hevc_codec_registration.dart';
 import 'webcodecs_opus_codec_registration.dart';
+import 'webcodecs_vp9_codec_registration.dart';
 import 'webidl.dart';
 
 typedef ImageBufferSource = JSAny;
@@ -23,6 +26,7 @@ typedef WebCodecsErrorCallback = JSFunction;
 typedef HardwareAcceleration = JSString;
 typedef AlphaOption = JSString;
 typedef LatencyMode = JSString;
+typedef VideoEncoderBitrateMode = JSString;
 typedef CodecState = JSString;
 typedef EncodedAudioChunkType = JSString;
 typedef EncodedVideoChunkType = JSString;
@@ -34,7 +38,7 @@ typedef VideoMatrixCoefficients = JSString;
 
 @JS('AudioDecoder')
 @staticInterop
-class AudioDecoder {
+class AudioDecoder implements EventTarget {
   external factory AudioDecoder(AudioDecoderInit init);
 
   external static JSPromise isConfigSupported(AudioDecoderConfig config);
@@ -71,7 +75,7 @@ extension AudioDecoderInitExtension on AudioDecoderInit {
 
 @JS('VideoDecoder')
 @staticInterop
-class VideoDecoder {
+class VideoDecoder implements EventTarget {
   external factory VideoDecoder(VideoDecoderInit init);
 
   external static JSPromise isConfigSupported(VideoDecoderConfig config);
@@ -108,7 +112,7 @@ extension VideoDecoderInitExtension on VideoDecoderInit {
 
 @JS('AudioEncoder')
 @staticInterop
-class AudioEncoder {
+class AudioEncoder implements EventTarget {
   external factory AudioEncoder(AudioEncoderInit init);
 
   external static JSPromise isConfigSupported(AudioEncoderConfig config);
@@ -158,7 +162,7 @@ extension EncodedAudioChunkMetadataExtension on EncodedAudioChunkMetadata {
 
 @JS('VideoEncoder')
 @staticInterop
-class VideoEncoder {
+class VideoEncoder implements EventTarget {
   external factory VideoEncoder(VideoEncoderInit init);
 
   external static JSPromise isConfigSupported(VideoEncoderConfig config);
@@ -369,6 +373,7 @@ class AudioEncoderConfig {
     JSNumber sampleRate,
     JSNumber numberOfChannels,
     JSNumber bitrate,
+    BitrateMode bitrateMode,
   });
 }
 
@@ -387,6 +392,8 @@ extension AudioEncoderConfigExtension on AudioEncoderConfig {
   external JSNumber get numberOfChannels;
   external set bitrate(JSNumber value);
   external JSNumber get bitrate;
+  external set bitrateMode(BitrateMode value);
+  external BitrateMode get bitrateMode;
 }
 
 @JS()
@@ -406,7 +413,7 @@ class VideoEncoderConfig {
     HardwareAcceleration hardwareAcceleration,
     AlphaOption alpha,
     JSString scalabilityMode,
-    BitrateMode bitrateMode,
+    VideoEncoderBitrateMode bitrateMode,
     LatencyMode latencyMode,
   });
 }
@@ -436,8 +443,8 @@ extension VideoEncoderConfigExtension on VideoEncoderConfig {
   external AlphaOption get alpha;
   external set scalabilityMode(JSString value);
   external JSString get scalabilityMode;
-  external set bitrateMode(BitrateMode value);
-  external BitrateMode get bitrateMode;
+  external set bitrateMode(VideoEncoderBitrateMode value);
+  external VideoEncoderBitrateMode get bitrateMode;
   external set latencyMode(LatencyMode value);
   external LatencyMode get latencyMode;
 }
@@ -446,10 +453,18 @@ extension VideoEncoderConfigExtension on VideoEncoderConfig {
 @staticInterop
 @anonymous
 class VideoEncoderEncodeOptions {
-  external factory VideoEncoderEncodeOptions({JSBoolean keyFrame});
+  external factory VideoEncoderEncodeOptions({
+    VideoEncoderEncodeOptionsForAv1 av1,
+    VideoEncoderEncodeOptionsForVp9 vp9,
+    JSBoolean keyFrame,
+  });
 }
 
 extension VideoEncoderEncodeOptionsExtension on VideoEncoderEncodeOptions {
+  external set av1(VideoEncoderEncodeOptionsForAv1 value);
+  external VideoEncoderEncodeOptionsForAv1 get av1;
+  external set vp9(VideoEncoderEncodeOptionsForVp9 value);
+  external VideoEncoderEncodeOptionsForVp9 get vp9;
   external set keyFrame(JSBoolean value);
   external JSBoolean get keyFrame;
 }

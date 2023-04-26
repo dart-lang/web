@@ -83,6 +83,7 @@ extension XRSessionExtension on XRSession {
   external JSNumber requestAnimationFrame(XRFrameRequestCallback callback);
   external JSVoid cancelAnimationFrame(JSNumber handle);
   external JSPromise end();
+  external JSArray get persistentAnchors;
   external XREnvironmentBlendMode get environmentBlendMode;
   external XRInteractionMode get interactionMode;
   external XRDepthUsage get depthUsage;
@@ -95,6 +96,7 @@ extension XRSessionExtension on XRSession {
   external XRRenderState get renderState;
   external XRInputSourceArray get inputSources;
   external JSArray get enabledFeatures;
+  external JSBoolean get isSystemKeyboardSupported;
   external set onend(EventHandler value);
   external EventHandler get onend;
   external set oninputsourceschange(EventHandler value);

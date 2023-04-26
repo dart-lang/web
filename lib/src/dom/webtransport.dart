@@ -21,10 +21,10 @@ extension WebTransportDatagramDuplexStreamExtension
   external ReadableStream get readable;
   external WritableStream get writable;
   external JSNumber get maxDatagramSize;
-  external set incomingMaxAge(JSNumber? value);
-  external JSNumber? get incomingMaxAge;
-  external set outgoingMaxAge(JSNumber? value);
-  external JSNumber? get outgoingMaxAge;
+  external set incomingMaxAge(JSNumber value);
+  external JSNumber get incomingMaxAge;
+  external set outgoingMaxAge(JSNumber value);
+  external JSNumber get outgoingMaxAge;
   external set incomingHighWaterMark(JSNumber value);
   external JSNumber get incomingHighWaterMark;
   external set outgoingHighWaterMark(JSNumber value);
@@ -51,6 +51,7 @@ extension WebTransportExtension on WebTransport {
   external WebTransportReliabilityMode get reliability;
   external WebTransportCongestionControl get congestionControl;
   external JSPromise get closed;
+  external JSPromise get draining;
   external WebTransportDatagramDuplexStream get datagrams;
   external ReadableStream get incomingBidirectionalStreams;
   external ReadableStream get incomingUnidirectionalStreams;
@@ -143,6 +144,7 @@ class WebTransportStats {
     DOMHighResTimeStamp rttVariation,
     DOMHighResTimeStamp minRtt,
     WebTransportDatagramStats datagrams,
+    JSNumber? estimatedSendRate,
   });
 }
 
@@ -171,6 +173,8 @@ extension WebTransportStatsExtension on WebTransportStats {
   external DOMHighResTimeStamp get minRtt;
   external set datagrams(WebTransportDatagramStats value);
   external WebTransportDatagramStats get datagrams;
+  external set estimatedSendRate(JSNumber? value);
+  external JSNumber? get estimatedSendRate;
 }
 
 @JS()
@@ -269,7 +273,10 @@ extension WebTransportBidirectionalStreamExtension
 @JS('WebTransportError')
 @staticInterop
 class WebTransportError implements DOMException {
-  external factory WebTransportError([WebTransportErrorInit init]);
+  external factory WebTransportError([
+    JSString message,
+    WebTransportErrorOptions options,
+  ]);
 }
 
 extension WebTransportErrorExtension on WebTransportError {
@@ -280,16 +287,16 @@ extension WebTransportErrorExtension on WebTransportError {
 @JS()
 @staticInterop
 @anonymous
-class WebTransportErrorInit {
-  external factory WebTransportErrorInit({
-    JSNumber streamErrorCode,
-    JSString message,
+class WebTransportErrorOptions {
+  external factory WebTransportErrorOptions({
+    WebTransportErrorSource source,
+    JSNumber? streamErrorCode,
   });
 }
 
-extension WebTransportErrorInitExtension on WebTransportErrorInit {
-  external set streamErrorCode(JSNumber value);
-  external JSNumber get streamErrorCode;
-  external set message(JSString value);
-  external JSString get message;
+extension WebTransportErrorOptionsExtension on WebTransportErrorOptions {
+  external set source(WebTransportErrorSource value);
+  external WebTransportErrorSource get source;
+  external set streamErrorCode(JSNumber? value);
+  external JSNumber? get streamErrorCode;
 }

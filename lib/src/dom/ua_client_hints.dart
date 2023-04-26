@@ -26,30 +26,35 @@ extension NavigatorUABrandVersionExtension on NavigatorUABrandVersion {
 @anonymous
 class UADataValues {
   external factory UADataValues({
-    JSArray brands,
-    JSBoolean mobile,
     JSString architecture,
     JSString bitness,
+    JSArray brands,
+    JSString formFactor,
+    JSArray fullVersionList,
     JSString model,
+    JSBoolean mobile,
     JSString platform,
     JSString platformVersion,
     JSString uaFullVersion,
     JSBoolean wow64,
-    JSArray fullVersionList,
   });
 }
 
 extension UADataValuesExtension on UADataValues {
-  external set brands(JSArray value);
-  external JSArray get brands;
-  external set mobile(JSBoolean value);
-  external JSBoolean get mobile;
   external set architecture(JSString value);
   external JSString get architecture;
   external set bitness(JSString value);
   external JSString get bitness;
+  external set brands(JSArray value);
+  external JSArray get brands;
+  external set formFactor(JSString value);
+  external JSString get formFactor;
+  external set fullVersionList(JSArray value);
+  external JSArray get fullVersionList;
   external set model(JSString value);
   external JSString get model;
+  external set mobile(JSBoolean value);
+  external JSBoolean get mobile;
   external set platform(JSString value);
   external JSString get platform;
   external set platformVersion(JSString value);
@@ -58,8 +63,6 @@ extension UADataValuesExtension on UADataValues {
   external JSString get uaFullVersion;
   external set wow64(JSBoolean value);
   external JSBoolean get wow64;
-  external set fullVersionList(JSArray value);
-  external JSArray get fullVersionList;
 }
 
 @JS()

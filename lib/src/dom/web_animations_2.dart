@@ -51,6 +51,23 @@ extension SequenceEffectExtension on SequenceEffect {
   external SequenceEffect clone();
 }
 
+@JS()
+@staticInterop
+@anonymous
+class TimelineRangeOffset {
+  external factory TimelineRangeOffset({
+    JSString? rangeName,
+    CSSNumericValue offset,
+  });
+}
+
+extension TimelineRangeOffsetExtension on TimelineRangeOffset {
+  external set rangeName(JSString? value);
+  external JSString? get rangeName;
+  external set offset(CSSNumericValue value);
+  external CSSNumericValue get offset;
+}
+
 @JS('AnimationPlaybackEvent')
 @staticInterop
 class AnimationPlaybackEvent implements Event {

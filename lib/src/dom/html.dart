@@ -19,8 +19,10 @@ import 'custom_state_pseudo_class.dart';
 import 'device_memory.dart';
 import 'device_posture.dart';
 import 'dom.dart';
+import 'edit_context.dart';
 import 'encrypted_media.dart';
 import 'entries_api.dart';
+import 'fenced_frame.dart';
 import 'fetch.dart';
 import 'file_system_access.dart';
 import 'fileapi.dart';
@@ -38,7 +40,6 @@ import 'media_playback_quality.dart';
 import 'media_source.dart';
 import 'mediacapture_streams.dart';
 import 'mediasession.dart';
-import 'navigation_api.dart';
 import 'netinfo.dart';
 import 'permissions.dart';
 import 'permissions_policy.dart';
@@ -54,6 +55,7 @@ import 'service_workers.dart';
 import 'speech_api.dart';
 import 'storage.dart';
 import 'trusted_types.dart';
+import 'turtledove.dart';
 import 'ua_client_hints.dart';
 import 'uievents.dart';
 import 'vibration.dart';
@@ -198,6 +200,8 @@ extension HTMLElementExtension on HTMLElement {
   external JSNumber get offsetLeft;
   external JSNumber get offsetWidth;
   external JSNumber get offsetHeight;
+  external set editContext(EditContext? value);
+  external EditContext? get editContext;
   external set title(JSString value);
   external JSString get title;
   external set lang(JSString value);
@@ -326,14 +330,14 @@ extension HTMLLinkElementExtension on HTMLLinkElement {
   external DOMTokenList get blocking;
   external set disabled(JSBoolean value);
   external JSBoolean get disabled;
+  external set fetchPriority(JSString value);
+  external JSString get fetchPriority;
   external set charset(JSString value);
   external JSString get charset;
   external set rev(JSString value);
   external JSString get rev;
   external set target(JSString value);
   external JSString get target;
-  external set fetchPriority(JSString value);
-  external JSString get fetchPriority;
 }
 
 @JS('HTMLMetaElement')
@@ -722,6 +726,8 @@ extension HTMLImageElementExtension on HTMLImageElement {
   external JSString get decoding;
   external set loading(JSString value);
   external JSString get loading;
+  external set fetchPriority(JSString value);
+  external JSString get fetchPriority;
   external set name(JSString value);
   external JSString get name;
   external set lowsrc(JSString value);
@@ -736,8 +742,6 @@ extension HTMLImageElementExtension on HTMLImageElement {
   external JSString get longDesc;
   external set border(JSString value);
   external JSString get border;
-  external set fetchPriority(JSString value);
-  external JSString get fetchPriority;
 }
 
 @JS('HTMLIFrameElement')
@@ -784,8 +788,6 @@ extension HTMLIFrameElementExtension on HTMLIFrameElement {
   external set marginWidth(JSString value);
   external JSString get marginWidth;
   external PermissionsPolicy get permissionsPolicy;
-  external set fetchPriority(JSString value);
-  external JSString get fetchPriority;
 }
 
 @JS('HTMLEmbedElement')
@@ -1430,7 +1432,7 @@ extension HTMLLabelElementExtension on HTMLLabelElement {
 
 @JS('HTMLInputElement')
 @staticInterop
-class HTMLInputElement implements HTMLElement, PopoverTargetElement {
+class HTMLInputElement implements HTMLElement, PopoverInvokerElement {
   external factory HTMLInputElement();
 }
 
@@ -1546,7 +1548,7 @@ extension HTMLInputElementExtension on HTMLInputElement {
 
 @JS('HTMLButtonElement')
 @staticInterop
-class HTMLButtonElement implements HTMLElement, PopoverTargetElement {
+class HTMLButtonElement implements HTMLElement, PopoverInvokerElement {
   external factory HTMLButtonElement();
 }
 
@@ -1954,14 +1956,14 @@ extension HTMLScriptElementExtension on HTMLScriptElement {
   external set referrerPolicy(JSString value);
   external JSString get referrerPolicy;
   external DOMTokenList get blocking;
+  external set fetchPriority(JSString value);
+  external JSString get fetchPriority;
   external set charset(JSString value);
   external JSString get charset;
   external set event(JSString value);
   external JSString get event;
   external set htmlFor(JSString value);
   external JSString get htmlFor;
-  external set fetchPriority(JSString value);
-  external JSString get fetchPriority;
 }
 
 @JS('HTMLTemplateElement')
@@ -2836,17 +2838,15 @@ extension DragEventInitExtension on DragEventInit {
   external DataTransfer? get dataTransfer;
 }
 
-@JS('PopoverTargetElement')
+@JS('PopoverInvokerElement')
 @staticInterop
-class PopoverTargetElement {}
+class PopoverInvokerElement {}
 
-extension PopoverTargetElementExtension on PopoverTargetElement {
-  external set popoverToggleTargetElement(Element? value);
-  external Element? get popoverToggleTargetElement;
-  external set popoverHideTargetElement(Element? value);
-  external Element? get popoverHideTargetElement;
-  external set popoverShowTargetElement(Element? value);
-  external Element? get popoverShowTargetElement;
+extension PopoverInvokerElementExtension on PopoverInvokerElement {
+  external set popoverTargetElement(Element? value);
+  external Element? get popoverTargetElement;
+  external set popoverTargetAction(JSString value);
+  external JSString get popoverTargetAction;
 }
 
 @JS('ToggleEvent')
@@ -2985,6 +2985,7 @@ extension WindowExtension on Window {
   external JSNumber get outerHeight;
   external JSNumber get devicePixelRatio;
   external JSAny get event;
+  external Fence? get fence;
   external Window get window;
   external Window get self;
   external Document get document;
@@ -3017,13 +3018,10 @@ extension WindowExtension on Window {
   external EventHandler get onappinstalled;
   external set onbeforeinstallprompt(EventHandler value);
   external EventHandler get onbeforeinstallprompt;
-  external Navigation get navigation;
   external set ondeviceorientation(EventHandler value);
   external EventHandler get ondeviceorientation;
   external set ondeviceorientationabsolute(EventHandler value);
   external EventHandler get ondeviceorientationabsolute;
-  external set oncompassneedscalibration(EventHandler value);
-  external EventHandler get oncompassneedscalibration;
   external set ondevicemotion(EventHandler value);
   external EventHandler get ondevicemotion;
   external PortalHost? get portalHost;
@@ -3296,6 +3294,8 @@ extension GlobalEventHandlersExtension on GlobalEventHandlers {
   external EventHandler get onbeforeinput;
   external set onbeforematch(EventHandler value);
   external EventHandler get onbeforematch;
+  external set onbeforetoggle(EventHandler value);
+  external EventHandler get onbeforetoggle;
   external set onblur(EventHandler value);
   external EventHandler get onblur;
   external set oncancel(EventHandler value);
@@ -3604,8 +3604,6 @@ class Navigator
 
 extension NavigatorExtension on Navigator {
   external AutoplayPolicy getAutoplayPolicy(JSAny contextOrElementOrType);
-  external JSPromise setClientBadge([JSNumber contents]);
-  external JSPromise clearClientBadge();
   external JSPromise getBattery();
   external JSBoolean sendBeacon(
     JSString url, [
@@ -3622,6 +3620,13 @@ extension NavigatorExtension on Navigator {
     NavigatorUserMediaSuccessCallback successCallback,
     NavigatorUserMediaErrorCallback errorCallback,
   );
+  external JSPromise joinAdInterestGroup(
+    AuctionAdInterestGroup group,
+    JSNumber durationSeconds,
+  );
+  external JSPromise leaveAdInterestGroup(AuctionAdInterestGroupKey group);
+  external JSPromise runAdAuction(AuctionAdConfig config);
+  external JSVoid updateAdInterestGroups();
   external JSBoolean vibrate(VibratePattern pattern);
   external JSPromise share([ShareData data]);
   external JSBoolean canShare([ShareData data]);

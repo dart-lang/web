@@ -13,7 +13,6 @@ import 'css_view_transitions.dart';
 import 'cssom.dart';
 import 'cssom_view.dart';
 import 'dom_parsing.dart';
-import 'edit_context.dart';
 import 'font_metrics_api.dart';
 import 'fullscreen.dart';
 import 'geometry.dart';
@@ -536,10 +535,18 @@ extension DocumentExtension on Document {
   external JSVoid releaseEvents();
   external JSPromise exitPictureInPicture();
   external JSVoid exitPointerLock();
-  external JSPromise requestStorageAccessForOrigin(JSString origin);
+  external JSPromise requestStorageAccessFor(JSString requestedOrigin);
   external Selection? getSelection();
   external JSPromise hasStorageAccess();
   external JSPromise requestStorageAccess();
+  external JSPromise hasPrivateTokens(
+    JSString issuer,
+    JSString type,
+  );
+  external JSPromise hasRedemptionRecord(
+    JSString issuer,
+    JSString type,
+  );
   external SVGSVGElement? get rootElement;
   external NamedFlowMap get namedFlows;
   external Element? get scrollingElement;
@@ -822,8 +829,6 @@ extension ElementExtension on Element {
   external JSString get slot;
   external NamedNodeMap get attributes;
   external ShadowRoot? get shadowRoot;
-  external set editContext(EditContext? value);
-  external EditContext? get editContext;
   external set elementTiming(JSString value);
   external JSString get elementTiming;
   external set onfullscreenchange(EventHandler value);
@@ -1144,7 +1149,7 @@ extension XPathEvaluatorBaseExtension on XPathEvaluatorBase {
     JSString expression, [
     XPathNSResolver? resolver,
   ]);
-  external XPathNSResolver createNSResolver(Node nodeResolver);
+  external Node createNSResolver(Node nodeResolver);
   external XPathResult evaluate(
     JSString expression,
     Node contextNode, [

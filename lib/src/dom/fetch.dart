@@ -4,9 +4,11 @@
 
 import 'dart:js_interop';
 
+import 'attribution_reporting_api.dart';
 import 'dom.dart';
 import 'referrer_policy.dart';
 import 'streams.dart';
+import 'trust_token_api.dart';
 
 typedef HeadersInit = JSAny;
 typedef XMLHttpRequestBodyInit = JSAny;
@@ -34,6 +36,7 @@ extension HeadersExtension on Headers {
   );
   external JSVoid delete(JSString name);
   external JSString? get(JSString name);
+  external JSArray getSetCookie();
   external JSBoolean has(JSString name);
   external JSVoid set(
     JSString name,
@@ -89,6 +92,7 @@ extension RequestExtension on Request {
 @anonymous
 class RequestInit {
   external factory RequestInit({
+    AttributionReportingRequestOptions attributionReporting,
     JSString method,
     HeadersInit headers,
     BodyInit? body,
@@ -104,10 +108,13 @@ class RequestInit {
     RequestDuplex duplex,
     RequestPriority priority,
     JSAny window,
+    PrivateToken privateToken,
   });
 }
 
 extension RequestInitExtension on RequestInit {
+  external set attributionReporting(AttributionReportingRequestOptions value);
+  external AttributionReportingRequestOptions get attributionReporting;
   external set method(JSString value);
   external JSString get method;
   external set headers(HeadersInit value);
@@ -138,6 +145,8 @@ extension RequestInitExtension on RequestInit {
   external RequestPriority get priority;
   external set window(JSAny value);
   external JSAny get window;
+  external set privateToken(PrivateToken value);
+  external PrivateToken get privateToken;
 }
 
 @JS('Response')

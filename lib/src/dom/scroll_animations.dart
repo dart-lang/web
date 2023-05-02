@@ -69,3 +69,15 @@ extension ViewTimelineExtension on ViewTimeline {
   external CSSNumericValue get startOffset;
   external CSSNumericValue get endOffset;
 }
+
+@JS()
+@staticInterop
+@anonymous
+class AnimationTimeOptions {
+  external factory AnimationTimeOptions({JSString? range});
+}
+
+extension AnimationTimeOptionsExtension on AnimationTimeOptions {
+  external set range(JSString? value);
+  external JSString? get range;
+}

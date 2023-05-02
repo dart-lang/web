@@ -7,6 +7,18 @@ import 'dart:js_interop';
 @JS()
 @staticInterop
 @anonymous
+class AV1EncoderConfig {
+  external factory AV1EncoderConfig({JSBoolean forceScreenContentTools});
+}
+
+extension AV1EncoderConfigExtension on AV1EncoderConfig {
+  external set forceScreenContentTools(JSBoolean value);
+  external JSBoolean get forceScreenContentTools;
+}
+
+@JS()
+@staticInterop
+@anonymous
 class VideoEncoderEncodeOptionsForAv1 {
   external factory VideoEncoderEncodeOptionsForAv1({JSNumber? quantizer});
 }

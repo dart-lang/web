@@ -434,15 +434,15 @@ class GPUExternalTexture implements GPUObjectBase {}
 @anonymous
 class GPUExternalTextureDescriptor implements GPUObjectDescriptorBase {
   external factory GPUExternalTextureDescriptor({
-    required HTMLVideoElement source,
+    required JSAny source,
     PredefinedColorSpace colorSpace,
   });
 }
 
 extension GPUExternalTextureDescriptorExtension
     on GPUExternalTextureDescriptor {
-  external set source(HTMLVideoElement value);
-  external HTMLVideoElement get source;
+  external set source(JSAny value);
+  external JSAny get source;
   external set colorSpace(PredefinedColorSpace value);
   external PredefinedColorSpace get colorSpace;
 }

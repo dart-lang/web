@@ -401,6 +401,7 @@ extension AudioEncoderConfigExtension on AudioEncoderConfig {
 @anonymous
 class VideoEncoderConfig {
   external factory VideoEncoderConfig({
+    AV1EncoderConfig av1,
     AvcEncoderConfig avc,
     HevcEncoderConfig hevc,
     required JSString codec,
@@ -419,6 +420,8 @@ class VideoEncoderConfig {
 }
 
 extension VideoEncoderConfigExtension on VideoEncoderConfig {
+  external set av1(AV1EncoderConfig value);
+  external AV1EncoderConfig get av1;
   external set avc(AvcEncoderConfig value);
   external AvcEncoderConfig get avc;
   external set hevc(HevcEncoderConfig value);
@@ -455,6 +458,7 @@ extension VideoEncoderConfigExtension on VideoEncoderConfig {
 class VideoEncoderEncodeOptions {
   external factory VideoEncoderEncodeOptions({
     VideoEncoderEncodeOptionsForAv1 av1,
+    VideoEncoderEncodeOptionsForAvc avc,
     VideoEncoderEncodeOptionsForVp9 vp9,
     JSBoolean keyFrame,
   });
@@ -463,6 +467,8 @@ class VideoEncoderEncodeOptions {
 extension VideoEncoderEncodeOptionsExtension on VideoEncoderEncodeOptions {
   external set av1(VideoEncoderEncodeOptionsForAv1 value);
   external VideoEncoderEncodeOptionsForAv1 get av1;
+  external set avc(VideoEncoderEncodeOptionsForAvc value);
+  external VideoEncoderEncodeOptionsForAvc get avc;
   external set vp9(VideoEncoderEncodeOptionsForVp9 value);
   external VideoEncoderEncodeOptionsForVp9 get vp9;
   external set keyFrame(JSBoolean value);

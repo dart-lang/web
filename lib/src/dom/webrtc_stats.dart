@@ -138,6 +138,8 @@ class RTCInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
     JSBoolean powerEfficientDecoder,
     JSNumber framesAssembledFromMultiplePackets,
     JSNumber totalAssemblyTime,
+    JSNumber retransmittedPacketsReceived,
+    JSNumber retransmittedBytesReceived,
   });
 }
 
@@ -240,6 +242,10 @@ extension RTCInboundRtpStreamStatsExtension on RTCInboundRtpStreamStats {
   external JSNumber get framesAssembledFromMultiplePackets;
   external set totalAssemblyTime(JSNumber value);
   external JSNumber get totalAssemblyTime;
+  external set retransmittedPacketsReceived(JSNumber value);
+  external JSNumber get retransmittedPacketsReceived;
+  external set retransmittedBytesReceived(JSNumber value);
+  external JSNumber get retransmittedBytesReceived;
 }
 
 @JS()

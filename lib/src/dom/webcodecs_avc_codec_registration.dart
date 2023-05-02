@@ -17,3 +17,16 @@ extension AvcEncoderConfigExtension on AvcEncoderConfig {
   external set format(AvcBitstreamFormat value);
   external AvcBitstreamFormat get format;
 }
+
+@JS()
+@staticInterop
+@anonymous
+class VideoEncoderEncodeOptionsForAvc {
+  external factory VideoEncoderEncodeOptionsForAvc({JSNumber? quantizer});
+}
+
+extension VideoEncoderEncodeOptionsForAvcExtension
+    on VideoEncoderEncodeOptionsForAvc {
+  external set quantizer(JSNumber? value);
+  external JSNumber? get quantizer;
+}

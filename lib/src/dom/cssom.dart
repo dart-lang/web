@@ -159,8 +159,9 @@ class CSSImportRule implements CSSRule {}
 extension CSSImportRuleExtension on CSSImportRule {
   external JSString get href;
   external MediaList get media;
-  external CSSStyleSheet get styleSheet;
+  external CSSStyleSheet? get styleSheet;
   external JSString? get layerName;
+  external JSString? get supportsText;
 }
 
 @JS('CSSGroupingRule')

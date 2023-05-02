@@ -93,6 +93,7 @@ class RTCEncodedVideoFrameMetadata {
     JSNumber synchronizationSource,
     JSNumber payloadType,
     JSArray contributingSources,
+    JSNumber timestamp,
   });
 }
 
@@ -116,6 +117,8 @@ extension RTCEncodedVideoFrameMetadataExtension
   external JSNumber get payloadType;
   external set contributingSources(JSArray value);
   external JSArray get contributingSources;
+  external set timestamp(JSNumber value);
+  external JSNumber get timestamp;
 }
 
 @JS('RTCEncodedVideoFrame')

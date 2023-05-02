@@ -41,6 +41,7 @@ import 'media_source.dart';
 import 'mediacapture_streams.dart';
 import 'mediasession.dart';
 import 'netinfo.dart';
+import 'performance_timeline.dart';
 import 'permissions.dart';
 import 'permissions_policy.dart';
 import 'portals.dart';
@@ -2715,6 +2716,17 @@ extension ValidityStateFlagsExtension on ValidityStateFlags {
   external JSBoolean get badInput;
   external set customError(JSBoolean value);
   external JSBoolean get customError;
+}
+
+@JS('VisibilityStateEntry')
+@staticInterop
+class VisibilityStateEntry implements PerformanceEntry {}
+
+extension VisibilityStateEntryExtension on VisibilityStateEntry {
+  external JSString get name;
+  external JSString get entryType;
+  external DOMHighResTimeStamp get startTime;
+  external JSNumber get duration;
 }
 
 @JS('UserActivation')

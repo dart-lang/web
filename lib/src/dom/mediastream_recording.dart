@@ -60,6 +60,8 @@ class MediaRecorderOptions {
     JSNumber videoBitsPerSecond,
     JSNumber bitsPerSecond,
     BitrateMode audioBitrateMode,
+    DOMHighResTimeStamp videoKeyFrameIntervalDuration,
+    JSNumber videoKeyFrameIntervalCount,
   });
 }
 
@@ -74,6 +76,10 @@ extension MediaRecorderOptionsExtension on MediaRecorderOptions {
   external JSNumber get bitsPerSecond;
   external set audioBitrateMode(BitrateMode value);
   external BitrateMode get audioBitrateMode;
+  external set videoKeyFrameIntervalDuration(DOMHighResTimeStamp value);
+  external DOMHighResTimeStamp get videoKeyFrameIntervalDuration;
+  external set videoKeyFrameIntervalCount(JSNumber value);
+  external JSNumber get videoKeyFrameIntervalCount;
 }
 
 @JS('BlobEvent')

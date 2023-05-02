@@ -155,9 +155,14 @@ extension AuctionAdConfigExtension on AuctionAdConfig {
   external AbortSignal? get signal;
 }
 
+@JS('InterestGroupScriptRunnerGlobalScope')
+@staticInterop
+class InterestGroupScriptRunnerGlobalScope {}
+
 @JS('InterestGroupBiddingScriptRunnerGlobalScope')
 @staticInterop
-class InterestGroupBiddingScriptRunnerGlobalScope {}
+class InterestGroupBiddingScriptRunnerGlobalScope
+    implements InterestGroupScriptRunnerGlobalScope {}
 
 extension InterestGroupBiddingScriptRunnerGlobalScopeExtension
     on InterestGroupBiddingScriptRunnerGlobalScope {
@@ -171,11 +176,13 @@ extension InterestGroupBiddingScriptRunnerGlobalScopeExtension
 
 @JS('InterestGroupScoringScriptRunnerGlobalScope')
 @staticInterop
-class InterestGroupScoringScriptRunnerGlobalScope {}
+class InterestGroupScoringScriptRunnerGlobalScope
+    implements InterestGroupScriptRunnerGlobalScope {}
 
 @JS('InterestGroupReportingScriptRunnerGlobalScope')
 @staticInterop
-class InterestGroupReportingScriptRunnerGlobalScope {}
+class InterestGroupReportingScriptRunnerGlobalScope
+    implements InterestGroupScriptRunnerGlobalScope {}
 
 extension InterestGroupReportingScriptRunnerGlobalScopeExtension
     on InterestGroupReportingScriptRunnerGlobalScope {

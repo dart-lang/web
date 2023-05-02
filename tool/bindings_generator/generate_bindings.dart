@@ -13,10 +13,10 @@ Future<TranslationResult> generateBindings(
     String packageRoot, String librarySubDir) async {
   final translator = Translator(librarySubDir);
   final array = objectEntries(await promiseToFuture<JSObject>(idl.parseAll()));
-  for (var i = 0; i < array.length; i++) {
-    final entry = array[i] as JSArray;
-    final shortname = (entry[0] as JSString).toDart.kebabToSnake;
-    final ast = entry[1] as JSArray;
+  for (var i = 0; i < array.length.toDart; i++) {
+    final entry = array[i.toJS] as JSArray;
+    final shortname = (entry[0.toJS] as JSString).toDart.kebabToSnake;
+    final ast = entry[1.toJS] as JSArray;
     translator.collect(shortname, ast);
   }
   return translator.translate();

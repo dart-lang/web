@@ -10,6 +10,11 @@ import 'filesystem_api.dart';
 @JS('Object.entries')
 external JSArray objectEntries(JSObject o);
 
+extension JSArrayExtension on JSArray {
+  external JSAny? operator [](JSNumber i);
+  external JSNumber get length;
+}
+
 extension JSStringHelpers on JSString? {
   // TODO(joshualitt): Clean this up after updating JS types.
   // String? get toDartString => this.isUndefinedOrNull ? null : this!.toDart;
@@ -18,7 +23,7 @@ extension JSStringHelpers on JSString? {
 
 void ensureDirectoryExists(String dir) {
   if (!fs.existsSync(dir.toJS).toDart) {
-    fs.mkdirSync(dir, JSMkdirOptions(recursive: true.toJS));
+    fs.mkdirSync(dir.toJS, JSMkdirOptions(recursive: true.toJS));
   }
 }
 

@@ -9,15 +9,15 @@ import 'dart:js_interop';
 @anonymous
 class ViewportMediaStreamConstraints implements JSObject {
   external factory ViewportMediaStreamConstraints({
-    JSAny video,
-    JSAny audio,
+    JSAny? video,
+    JSAny? audio,
   });
 }
 
 extension ViewportMediaStreamConstraintsExtension
     on ViewportMediaStreamConstraints {
-  external set video(JSAny value);
-  external JSAny get video;
-  external set audio(JSAny value);
-  external JSAny get audio;
+  external set video(JSAny? value);
+  external JSAny? get video;
+  external set audio(JSAny? value);
+  external JSAny? get audio;
 }

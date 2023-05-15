@@ -22,9 +22,9 @@ typedef GLushort = JSNumber;
 typedef GLuint = JSNumber;
 typedef GLfloat = JSNumber;
 typedef GLclampf = JSNumber;
-typedef TexImageSource = JSAny;
-typedef Float32List = JSAny;
-typedef Int32List = JSAny;
+typedef TexImageSource = JSAny?;
+typedef Float32List = JSAny?;
+typedef Int32List = JSAny?;
 typedef WebGLPowerPreference = JSString;
 
 @JS()
@@ -578,27 +578,27 @@ extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
     WebGLProgram program,
     JSString name,
   );
-  external JSAny getBufferParameter(
+  external JSAny? getBufferParameter(
     GLenum target,
     GLenum pname,
   );
-  external JSAny getParameter(GLenum pname);
+  external JSAny? getParameter(GLenum pname);
   external GLenum getError();
-  external JSAny getFramebufferAttachmentParameter(
+  external JSAny? getFramebufferAttachmentParameter(
     GLenum target,
     GLenum attachment,
     GLenum pname,
   );
-  external JSAny getProgramParameter(
+  external JSAny? getProgramParameter(
     WebGLProgram program,
     GLenum pname,
   );
   external JSString? getProgramInfoLog(WebGLProgram program);
-  external JSAny getRenderbufferParameter(
+  external JSAny? getRenderbufferParameter(
     GLenum target,
     GLenum pname,
   );
-  external JSAny getShaderParameter(
+  external JSAny? getShaderParameter(
     WebGLShader shader,
     GLenum pname,
   );
@@ -608,11 +608,11 @@ extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
   );
   external JSString? getShaderInfoLog(WebGLShader shader);
   external JSString? getShaderSource(WebGLShader shader);
-  external JSAny getTexParameter(
+  external JSAny? getTexParameter(
     GLenum target,
     GLenum pname,
   );
-  external JSAny getUniform(
+  external JSAny? getUniform(
     WebGLProgram program,
     WebGLUniformLocation location,
   );
@@ -620,7 +620,7 @@ extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
     WebGLProgram program,
     JSString name,
   );
-  external JSAny getVertexAttrib(
+  external JSAny? getVertexAttrib(
     GLuint index,
     GLenum pname,
   );
@@ -805,7 +805,7 @@ extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
     GLsizei height,
   );
   external JSPromise makeXRCompatible();
-  external JSAny get canvas;
+  external JSAny? get canvas;
   external GLsizei get drawingBufferWidth;
   external GLsizei get drawingBufferHeight;
   external set drawingBufferColorSpace(PredefinedColorSpace value);
@@ -862,9 +862,9 @@ extension WebGLRenderingContextOverloadsExtension
     GLenum target,
     GLint level,
     GLint internalformat,
-    JSAny formatOrWidth,
-    JSAny heightOrType,
-    JSAny borderOrSource, [
+    JSAny? formatOrWidth,
+    JSAny? heightOrType,
+    JSAny? borderOrSource, [
     GLenum format,
     GLenum type,
     ArrayBufferView? pixels,
@@ -874,9 +874,9 @@ extension WebGLRenderingContextOverloadsExtension
     GLint level,
     GLint xoffset,
     GLint yoffset,
-    JSAny formatOrWidth,
-    JSAny heightOrType,
-    JSAny formatOrSource, [
+    JSAny? formatOrWidth,
+    JSAny? heightOrType,
+    JSAny? formatOrSource, [
     GLenum type,
     ArrayBufferView? pixels,
   ]);

@@ -45,7 +45,7 @@ class ViewTimelineOptions implements JSObject {
   external factory ViewTimelineOptions({
     Element subject,
     ScrollAxis axis,
-    JSAny inset,
+    JSAny? inset,
   });
 }
 
@@ -54,8 +54,8 @@ extension ViewTimelineOptionsExtension on ViewTimelineOptions {
   external Element get subject;
   external set axis(ScrollAxis value);
   external ScrollAxis get axis;
-  external set inset(JSAny value);
-  external JSAny get inset;
+  external set inset(JSAny? value);
+  external JSAny? get inset;
 }
 
 @JS('ViewTimeline')

@@ -16,7 +16,7 @@ class HTMLPortalElement implements HTMLElement {
 extension HTMLPortalElementExtension on HTMLPortalElement {
   external JSPromise activate([PortalActivateOptions options]);
   external JSVoid postMessage(
-    JSAny message, [
+    JSAny? message, [
     StructuredSerializeOptions options,
   ]);
   external set src(JSString value);
@@ -33,12 +33,12 @@ extension HTMLPortalElementExtension on HTMLPortalElement {
 @staticInterop
 @anonymous
 class PortalActivateOptions implements StructuredSerializeOptions {
-  external factory PortalActivateOptions({JSAny data});
+  external factory PortalActivateOptions({JSAny? data});
 }
 
 extension PortalActivateOptionsExtension on PortalActivateOptions {
-  external set data(JSAny value);
-  external JSAny get data;
+  external set data(JSAny? value);
+  external JSAny? get data;
 }
 
 @JS('PortalHost')
@@ -47,7 +47,7 @@ class PortalHost implements EventTarget {}
 
 extension PortalHostExtension on PortalHost {
   external JSVoid postMessage(
-    JSAny message, [
+    JSAny? message, [
     StructuredSerializeOptions options,
   ]);
   external set onmessage(EventHandler value);
@@ -67,17 +67,17 @@ class PortalActivateEvent implements Event {
 
 extension PortalActivateEventExtension on PortalActivateEvent {
   external HTMLPortalElement adoptPredecessor();
-  external JSAny get data;
+  external JSAny? get data;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class PortalActivateEventInit implements EventInit {
-  external factory PortalActivateEventInit({JSAny data});
+  external factory PortalActivateEventInit({JSAny? data});
 }
 
 extension PortalActivateEventInitExtension on PortalActivateEventInit {
-  external set data(JSAny value);
-  external JSAny get data;
+  external set data(JSAny? value);
+  external JSAny? get data;
 }

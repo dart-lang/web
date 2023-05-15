@@ -9,9 +9,9 @@ import 'html.dart';
 import 'streams.dart';
 import 'webcryptoapi.dart';
 
-typedef RTCRtpTransform = JSAny;
+typedef RTCRtpTransform = JSAny?;
 typedef SmallCryptoKeyID = JSNumber;
-typedef CryptoKeyID = JSAny;
+typedef CryptoKeyID = JSAny?;
 typedef SFrameTransformRole = JSString;
 typedef SFrameTransformErrorEventType = JSString;
 typedef RTCEncodedVideoFrameType = JSString;
@@ -55,7 +55,7 @@ class SFrameTransformErrorEvent implements Event {
 extension SFrameTransformErrorEventExtension on SFrameTransformErrorEvent {
   external SFrameTransformErrorEventType get errorType;
   external CryptoKeyID? get keyID;
-  external JSAny get frame;
+  external JSAny? get frame;
 }
 
 @JS()
@@ -64,7 +64,7 @@ extension SFrameTransformErrorEventExtension on SFrameTransformErrorEvent {
 class SFrameTransformErrorEventInit implements EventInit {
   external factory SFrameTransformErrorEventInit({
     required SFrameTransformErrorEventType errorType,
-    required JSAny frame,
+    required JSAny? frame,
     CryptoKeyID? keyID,
   });
 }
@@ -73,8 +73,8 @@ extension SFrameTransformErrorEventInitExtension
     on SFrameTransformErrorEventInit {
   external set errorType(SFrameTransformErrorEventType value);
   external SFrameTransformErrorEventType get errorType;
-  external set frame(JSAny value);
-  external JSAny get frame;
+  external set frame(JSAny? value);
+  external JSAny? get frame;
   external set keyID(CryptoKeyID? value);
   external CryptoKeyID? get keyID;
 }
@@ -185,7 +185,7 @@ extension RTCRtpScriptTransformerExtension on RTCRtpScriptTransformer {
   external JSPromise sendKeyFrameRequest();
   external ReadableStream get readable;
   external WritableStream get writable;
-  external JSAny get options;
+  external JSAny? get options;
 }
 
 @JS('RTCRtpScriptTransform')
@@ -193,7 +193,7 @@ extension RTCRtpScriptTransformerExtension on RTCRtpScriptTransformer {
 class RTCRtpScriptTransform implements JSObject {
   external factory RTCRtpScriptTransform(
     Worker worker, [
-    JSAny options,
+    JSAny? options,
     JSArray transfer,
   ]);
 }

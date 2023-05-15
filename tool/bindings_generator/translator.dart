@@ -380,6 +380,10 @@ class Translator {
     if (isReturn && symbol == 'JSUndefined') {
       symbol = 'JSVoid';
     }
+    // In the IDL, `any` is always nullable, and thus so is `JSAny`.
+    if (symbol == 'JSAny') {
+      isNullable = true;
+    }
     return code.TypeReference((b) => b
       ..symbol = symbol
       ..isNullable = isNullable

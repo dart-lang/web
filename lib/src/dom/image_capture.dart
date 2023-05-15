@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 import 'mediacapture_streams.dart';
 
-typedef ConstrainPoint2D = JSAny;
+typedef ConstrainPoint2D = JSAny?;
 typedef RedEyeReduction = JSString;
 typedef FillLightMode = JSString;
 typedef MeteringMode = JSString;

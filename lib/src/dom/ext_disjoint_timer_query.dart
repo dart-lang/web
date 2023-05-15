@@ -37,11 +37,11 @@ extension EXTDisjointTimerQueryExtension on EXT_disjoint_timer_query {
     WebGLTimerQueryEXT query,
     GLenum target,
   );
-  external JSAny getQueryEXT(
+  external JSAny? getQueryEXT(
     GLenum target,
     GLenum pname,
   );
-  external JSAny getQueryObjectEXT(
+  external JSAny? getQueryObjectEXT(
     WebGLTimerQueryEXT query,
     GLenum pname,
   );

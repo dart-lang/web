@@ -10,7 +10,7 @@ import 'secure_payment_confirmation.dart';
 import 'webidl.dart';
 
 typedef Base64URLString = JSString;
-typedef PublicKeyCredentialJSON = JSAny;
+typedef PublicKeyCredentialJSON = JSAny?;
 typedef COSEAlgorithmIdentifier = JSNumber;
 typedef UvmEntry = JSArray;
 typedef UvmEntries = JSArray;
@@ -666,7 +666,7 @@ extension AuthenticationExtensionsPRFValuesExtension
 class AuthenticationExtensionsPRFInputs implements JSObject {
   external factory AuthenticationExtensionsPRFInputs({
     AuthenticationExtensionsPRFValues eval,
-    JSAny evalByCredential,
+    JSAny? evalByCredential,
   });
 }
 
@@ -674,8 +674,8 @@ extension AuthenticationExtensionsPRFInputsExtension
     on AuthenticationExtensionsPRFInputs {
   external set eval(AuthenticationExtensionsPRFValues value);
   external AuthenticationExtensionsPRFValues get eval;
-  external set evalByCredential(JSAny value);
-  external JSAny get evalByCredential;
+  external set evalByCredential(JSAny? value);
+  external JSAny? get evalByCredential;
 }
 
 @JS()

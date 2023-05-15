@@ -317,7 +317,7 @@ class RTCOutboundRtpStreamStats implements RTCSentRtpStreamStats {
     JSNumber totalEncodeTime,
     JSNumber totalPacketSendDelay,
     RTCQualityLimitationReason qualityLimitationReason,
-    JSAny qualityLimitationDurations,
+    JSAny? qualityLimitationDurations,
     JSNumber qualityLimitationResolutionChanges,
     JSNumber nackCount,
     JSNumber firCount,
@@ -370,8 +370,8 @@ extension RTCOutboundRtpStreamStatsExtension on RTCOutboundRtpStreamStats {
   external JSNumber get totalPacketSendDelay;
   external set qualityLimitationReason(RTCQualityLimitationReason value);
   external RTCQualityLimitationReason get qualityLimitationReason;
-  external set qualityLimitationDurations(JSAny value);
-  external JSAny get qualityLimitationDurations;
+  external set qualityLimitationDurations(JSAny? value);
+  external JSAny? get qualityLimitationDurations;
   external set qualityLimitationResolutionChanges(JSNumber value);
   external JSNumber get qualityLimitationResolutionChanges;
   external set nackCount(JSNumber value);

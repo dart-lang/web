@@ -7,7 +7,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
-typedef NDEFMessageSource = JSAny;
+typedef NDEFMessageSource = JSAny?;
 
 @JS('NDEFMessage')
 @staticInterop
@@ -57,7 +57,7 @@ class NDEFRecordInit implements JSObject {
     JSString id,
     JSString encoding,
     JSString lang,
-    JSAny data,
+    JSAny? data,
   });
 }
 
@@ -72,8 +72,8 @@ extension NDEFRecordInitExtension on NDEFRecordInit {
   external JSString get encoding;
   external set lang(JSString value);
   external JSString get lang;
-  external set data(JSAny value);
-  external JSAny get data;
+  external set data(JSAny? value);
+  external JSAny? get data;
 }
 
 @JS('NDEFReader')

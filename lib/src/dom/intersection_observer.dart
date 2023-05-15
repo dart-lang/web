@@ -86,7 +86,7 @@ class IntersectionObserverInit implements JSObject {
   external factory IntersectionObserverInit({
     JSAny? root,
     JSString rootMargin,
-    JSAny threshold,
+    JSAny? threshold,
   });
 }
 
@@ -95,6 +95,6 @@ extension IntersectionObserverInitExtension on IntersectionObserverInit {
   external JSAny? get root;
   external set rootMargin(JSString value);
   external JSString get rootMargin;
-  external set threshold(JSAny value);
-  external JSAny get threshold;
+  external set threshold(JSAny? value);
+  external JSAny? get threshold;
 }

@@ -12,7 +12,7 @@ typedef GPUBufferUsageFlags = JSNumber;
 typedef GPUMapModeFlags = JSNumber;
 typedef GPUTextureUsageFlags = JSNumber;
 typedef GPUShaderStageFlags = JSNumber;
-typedef GPUBindingResource = JSAny;
+typedef GPUBindingResource = JSAny?;
 typedef GPUPipelineConstantValue = JSNumber;
 typedef GPUColorWriteFlags = JSNumber;
 typedef GPUComputePassTimestampWrites = JSArray;
@@ -27,10 +27,10 @@ typedef GPUIndex32 = JSNumber;
 typedef GPUSize32 = JSNumber;
 typedef GPUSignedOffset32 = JSNumber;
 typedef GPUFlagsConstant = JSNumber;
-typedef GPUColor = JSAny;
-typedef GPUOrigin2D = JSAny;
-typedef GPUOrigin3D = JSAny;
-typedef GPUExtent3D = JSAny;
+typedef GPUColor = JSAny?;
+typedef GPUOrigin2D = JSAny?;
+typedef GPUOrigin3D = JSAny?;
+typedef GPUExtent3D = JSAny?;
 typedef GPUPowerPreference = JSString;
 typedef GPUFeatureName = JSString;
 typedef GPUBufferMapState = JSString;
@@ -203,7 +203,7 @@ extension GPUAdapterExtension on GPUAdapter {
 class GPUDeviceDescriptor implements GPUObjectDescriptorBase {
   external factory GPUDeviceDescriptor({
     JSArray requiredFeatures,
-    JSAny requiredLimits,
+    JSAny? requiredLimits,
     GPUQueueDescriptor defaultQueue,
   });
 }
@@ -211,8 +211,8 @@ class GPUDeviceDescriptor implements GPUObjectDescriptorBase {
 extension GPUDeviceDescriptorExtension on GPUDeviceDescriptor {
   external set requiredFeatures(JSArray value);
   external JSArray get requiredFeatures;
-  external set requiredLimits(JSAny value);
-  external JSAny get requiredLimits;
+  external set requiredLimits(JSAny? value);
+  external JSAny? get requiredLimits;
   external set defaultQueue(GPUQueueDescriptor value);
   external GPUQueueDescriptor get defaultQueue;
 }
@@ -434,15 +434,15 @@ class GPUExternalTexture implements GPUObjectBase {}
 @anonymous
 class GPUExternalTextureDescriptor implements GPUObjectDescriptorBase {
   external factory GPUExternalTextureDescriptor({
-    required JSAny source,
+    required JSAny? source,
     PredefinedColorSpace colorSpace,
   });
 }
 
 extension GPUExternalTextureDescriptorExtension
     on GPUExternalTextureDescriptor {
-  external set source(JSAny value);
-  external JSAny get source;
+  external set source(JSAny? value);
+  external JSAny? get source;
   external set colorSpace(PredefinedColorSpace value);
   external PredefinedColorSpace get colorSpace;
 }
@@ -722,7 +722,7 @@ class GPUShaderModuleDescriptor implements GPUObjectDescriptorBase {
   external factory GPUShaderModuleDescriptor({
     required JSString code,
     JSObject sourceMap,
-    JSAny hints,
+    JSAny? hints,
   });
 }
 
@@ -731,21 +731,21 @@ extension GPUShaderModuleDescriptorExtension on GPUShaderModuleDescriptor {
   external JSString get code;
   external set sourceMap(JSObject value);
   external JSObject get sourceMap;
-  external set hints(JSAny value);
-  external JSAny get hints;
+  external set hints(JSAny? value);
+  external JSAny? get hints;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class GPUShaderModuleCompilationHint implements JSObject {
-  external factory GPUShaderModuleCompilationHint({JSAny layout});
+  external factory GPUShaderModuleCompilationHint({JSAny? layout});
 }
 
 extension GPUShaderModuleCompilationHintExtension
     on GPUShaderModuleCompilationHint {
-  external set layout(JSAny value);
-  external JSAny get layout;
+  external set layout(JSAny? value);
+  external JSAny? get layout;
 }
 
 @JS('GPUCompilationMessage')
@@ -773,7 +773,7 @@ extension GPUCompilationInfoExtension on GPUCompilationInfo {
 @staticInterop
 class GPUPipelineError implements DOMException {
   external factory GPUPipelineError(
-    JSAny message,
+    JSAny? message,
     GPUPipelineErrorInit options,
   );
 }
@@ -799,12 +799,12 @@ extension GPUPipelineErrorInitExtension on GPUPipelineErrorInit {
 @staticInterop
 @anonymous
 class GPUPipelineDescriptorBase implements GPUObjectDescriptorBase {
-  external factory GPUPipelineDescriptorBase({required JSAny layout});
+  external factory GPUPipelineDescriptorBase({required JSAny? layout});
 }
 
 extension GPUPipelineDescriptorBaseExtension on GPUPipelineDescriptorBase {
-  external set layout(JSAny value);
-  external JSAny get layout;
+  external set layout(JSAny? value);
+  external JSAny? get layout;
 }
 
 @JS('GPUPipelineBase')
@@ -822,7 +822,7 @@ class GPUProgrammableStage implements JSObject {
   external factory GPUProgrammableStage({
     required GPUShaderModule module,
     required JSString entryPoint,
-    JSAny constants,
+    JSAny? constants,
   });
 }
 
@@ -831,8 +831,8 @@ extension GPUProgrammableStageExtension on GPUProgrammableStage {
   external GPUShaderModule get module;
   external set entryPoint(JSString value);
   external JSString get entryPoint;
-  external set constants(JSAny value);
-  external JSAny get constants;
+  external set constants(JSAny? value);
+  external JSAny? get constants;
 }
 
 @JS('GPUComputePipeline')
@@ -1204,15 +1204,15 @@ extension GPUImageCopyTextureTaggedExtension on GPUImageCopyTextureTagged {
 @anonymous
 class GPUImageCopyExternalImage implements JSObject {
   external factory GPUImageCopyExternalImage({
-    required JSAny source,
+    required JSAny? source,
     GPUOrigin2D origin,
     JSBoolean flipY,
   });
 }
 
 extension GPUImageCopyExternalImageExtension on GPUImageCopyExternalImage {
-  external set source(JSAny value);
-  external JSAny get source;
+  external set source(JSAny? value);
+  external JSAny? get source;
   external set origin(GPUOrigin2D value);
   external GPUOrigin2D get origin;
   external set flipY(JSBoolean value);
@@ -1300,7 +1300,7 @@ extension GPUBindingCommandsMixinExtension on GPUBindingCommandsMixin {
   external JSVoid setBindGroup(
     GPUIndex32 index,
     GPUBindGroup? bindGroup, [
-    JSAny dynamicOffsetsOrDynamicOffsetsData,
+    JSAny? dynamicOffsetsOrDynamicOffsetsData,
     GPUSize64 dynamicOffsetsDataStart,
     GPUSize32 dynamicOffsetsDataLength,
   ]);
@@ -1692,7 +1692,7 @@ extension GPUCanvasContextExtension on GPUCanvasContext {
   external JSVoid configure(GPUCanvasConfiguration configuration);
   external JSVoid unconfigure();
   external GPUTexture getCurrentTexture();
-  external JSAny get canvas;
+  external JSAny? get canvas;
 }
 
 @JS()

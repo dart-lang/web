@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 import 'webidl.dart';
 
-typedef AlgorithmIdentifier = JSAny;
+typedef AlgorithmIdentifier = JSAny?;
 typedef HashAlgorithmIdentifier = AlgorithmIdentifier;
 typedef BigInteger = JSUint8Array;
 typedef NamedCurve = JSString;
@@ -108,7 +108,7 @@ extension SubtleCryptoExtension on SubtleCrypto {
   );
   external JSPromise importKey(
     KeyFormat format,
-    JSAny keyData,
+    JSAny? keyData,
     AlgorithmIdentifier algorithm,
     JSBoolean extractable,
     JSArray keyUsages,

@@ -6,14 +6,14 @@ import 'dart:js_interop';
 
 import 'geometry.dart';
 
-typedef CSSUnparsedSegment = JSAny;
-typedef CSSKeywordish = JSAny;
-typedef CSSNumberish = JSAny;
-typedef CSSPerspectiveValue = JSAny;
-typedef CSSColorRGBComp = JSAny;
-typedef CSSColorPercent = JSAny;
-typedef CSSColorNumber = JSAny;
-typedef CSSColorAngle = JSAny;
+typedef CSSUnparsedSegment = JSAny?;
+typedef CSSKeywordish = JSAny?;
+typedef CSSNumberish = JSAny?;
+typedef CSSPerspectiveValue = JSAny?;
+typedef CSSColorRGBComp = JSAny?;
+typedef CSSColorPercent = JSAny?;
+typedef CSSColorNumber = JSAny?;
+typedef CSSColorAngle = JSAny?;
 typedef CSSNumericBaseType = JSString;
 typedef CSSMathOperator = JSString;
 
@@ -35,7 +35,7 @@ class CSSStyleValue implements JSObject {
 class StylePropertyMapReadOnly implements JSObject {}
 
 extension StylePropertyMapReadOnlyExtension on StylePropertyMapReadOnly {
-  external JSAny get(JSString property);
+  external JSAny? get(JSString property);
   external JSArray getAll(JSString property);
   external JSBoolean has(JSString property);
   external JSNumber get size;
@@ -48,11 +48,11 @@ class StylePropertyMap implements StylePropertyMapReadOnly {}
 extension StylePropertyMapExtension on StylePropertyMap {
   external JSVoid set(
     JSString property,
-    JSAny values,
+    JSAny? values,
   );
   external JSVoid append(
     JSString property,
-    JSAny values,
+    JSAny? values,
   );
   external JSVoid delete(JSString property);
   external JSVoid clear();
@@ -300,7 +300,7 @@ extension CSSTranslateExtension on CSSTranslate {
 @staticInterop
 class CSSRotate implements CSSTransformComponent {
   external factory CSSRotate(
-    JSAny angleOrX, [
+    JSAny? angleOrX, [
     CSSNumberish y,
     CSSNumberish z,
     CSSNumericValue angle,
@@ -419,7 +419,7 @@ class CSSImageValue implements CSSStyleValue {}
 @JS('CSSColorValue')
 @staticInterop
 class CSSColorValue implements CSSStyleValue {
-  external static JSAny parse(JSString cssText);
+  external static JSAny? parse(JSString cssText);
 }
 
 @JS('CSSRGB')

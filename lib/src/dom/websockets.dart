@@ -14,7 +14,7 @@ typedef BinaryType = JSString;
 class WebSocket implements EventTarget {
   external factory WebSocket(
     JSString url, [
-    JSAny protocols,
+    JSAny? protocols,
   ]);
 
   external static JSNumber get CONNECTING;
@@ -28,7 +28,7 @@ extension WebSocketExtension on WebSocket {
     JSNumber code,
     JSString reason,
   ]);
-  external JSVoid send(JSAny data);
+  external JSVoid send(JSAny? data);
   external JSString get url;
   external JSNumber get readyState;
   external JSNumber get bufferedAmount;

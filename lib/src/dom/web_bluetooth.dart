@@ -10,9 +10,9 @@ import 'permissions.dart';
 import 'webidl.dart';
 
 typedef UUID = JSString;
-typedef BluetoothServiceUUID = JSAny;
-typedef BluetoothCharacteristicUUID = JSAny;
-typedef BluetoothDescriptorUUID = JSAny;
+typedef BluetoothServiceUUID = JSAny?;
+typedef BluetoothCharacteristicUUID = JSAny?;
+typedef BluetoothDescriptorUUID = JSAny?;
 
 @JS()
 @staticInterop
@@ -163,7 +163,7 @@ class AllowedBluetoothDevice implements JSObject {
   external factory AllowedBluetoothDevice({
     required JSString deviceId,
     required JSBoolean mayUseGATT,
-    required JSAny allowedServices,
+    required JSAny? allowedServices,
     required JSArray allowedManufacturerData,
   });
 }
@@ -173,8 +173,8 @@ extension AllowedBluetoothDeviceExtension on AllowedBluetoothDevice {
   external JSString get deviceId;
   external set mayUseGATT(JSBoolean value);
   external JSBoolean get mayUseGATT;
-  external set allowedServices(JSAny value);
-  external JSAny get allowedServices;
+  external set allowedServices(JSAny? value);
+  external JSAny? get allowedServices;
   external set allowedManufacturerData(JSArray value);
   external JSArray get allowedManufacturerData;
 }
@@ -211,19 +211,19 @@ class ValueEvent implements Event {
 }
 
 extension ValueEventExtension on ValueEvent {
-  external JSAny get value;
+  external JSAny? get value;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class ValueEventInit implements EventInit {
-  external factory ValueEventInit({JSAny value});
+  external factory ValueEventInit({JSAny? value});
 }
 
 extension ValueEventInitExtension on ValueEventInit {
-  external set value(JSAny value);
-  external JSAny get value;
+  external set value(JSAny? value);
+  external JSAny? get value;
 }
 
 @JS('BluetoothDevice')
@@ -443,8 +443,8 @@ extension ServiceEventHandlersExtension on ServiceEventHandlers {
 @JS('BluetoothUUID')
 @staticInterop
 class BluetoothUUID implements JSObject {
-  external static UUID getService(JSAny name);
-  external static UUID getCharacteristic(JSAny name);
-  external static UUID getDescriptor(JSAny name);
+  external static UUID getService(JSAny? name);
+  external static UUID getCharacteristic(JSAny? name);
+  external static UUID getDescriptor(JSAny? name);
   external static UUID canonicalUUID(JSNumber alias);
 }

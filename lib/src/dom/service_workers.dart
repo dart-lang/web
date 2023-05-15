@@ -28,8 +28,8 @@ class ServiceWorker implements EventTarget, AbstractWorker {}
 
 extension ServiceWorkerExtension on ServiceWorker {
   external JSVoid postMessage(
-    JSAny message, [
-    JSAny optionsOrTransfer,
+    JSAny? message, [
+    JSAny? optionsOrTransfer,
   ]);
   external JSString get scriptURL;
   external ServiceWorkerState get state;
@@ -192,8 +192,8 @@ class Client implements JSObject {}
 
 extension ClientExtension on Client {
   external JSVoid postMessage(
-    JSAny message, [
-    JSAny optionsOrTransfer,
+    JSAny? message, [
+    JSAny? optionsOrTransfer,
   ]);
   external ClientLifecycleState get lifecycleState;
   external JSString get url;
@@ -320,7 +320,7 @@ class ExtendableMessageEvent implements ExtendableEvent {
 }
 
 extension ExtendableMessageEventExtension on ExtendableMessageEvent {
-  external JSAny get data;
+  external JSAny? get data;
   external JSString get origin;
   external JSString get lastEventId;
   external JSAny? get source;
@@ -332,7 +332,7 @@ extension ExtendableMessageEventExtension on ExtendableMessageEvent {
 @anonymous
 class ExtendableMessageEventInit implements ExtendableEventInit {
   external factory ExtendableMessageEventInit({
-    JSAny data,
+    JSAny? data,
     JSString origin,
     JSString lastEventId,
     JSAny? source,
@@ -341,8 +341,8 @@ class ExtendableMessageEventInit implements ExtendableEventInit {
 }
 
 extension ExtendableMessageEventInitExtension on ExtendableMessageEventInit {
-  external set data(JSAny value);
-  external JSAny get data;
+  external set data(JSAny? value);
+  external JSAny? get data;
   external set origin(JSString value);
   external JSString get origin;
   external set lastEventId(JSString value);

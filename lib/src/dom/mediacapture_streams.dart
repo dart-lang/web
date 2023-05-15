@@ -15,10 +15,10 @@ import 'permissions.dart';
 import 'screen_capture.dart';
 import 'webidl.dart';
 
-typedef ConstrainULong = JSAny;
-typedef ConstrainDouble = JSAny;
-typedef ConstrainBoolean = JSAny;
-typedef ConstrainDOMString = JSAny;
+typedef ConstrainULong = JSAny?;
+typedef ConstrainDouble = JSAny?;
+typedef ConstrainBoolean = JSAny?;
+typedef ConstrainDOMString = JSAny?;
 typedef NavigatorUserMediaSuccessCallback = JSFunction;
 typedef NavigatorUserMediaErrorCallback = JSFunction;
 typedef MediaStreamTrackState = JSString;
@@ -29,7 +29,7 @@ typedef MediaDeviceKind = JSString;
 @JS('MediaStream')
 @staticInterop
 class MediaStream implements EventTarget {
-  external factory MediaStream([JSAny streamOrTracks]);
+  external factory MediaStream([JSAny? streamOrTracks]);
 }
 
 extension MediaStreamExtension on MediaStream {
@@ -350,9 +350,9 @@ class MediaTrackConstraintSet implements JSObject {
     ConstrainDouble saturation,
     ConstrainDouble sharpness,
     ConstrainDouble focusDistance,
-    JSAny pan,
-    JSAny tilt,
-    JSAny zoom,
+    JSAny? pan,
+    JSAny? tilt,
+    JSAny? zoom,
     ConstrainBoolean torch,
     ConstrainULong width,
     ConstrainULong height,
@@ -404,12 +404,12 @@ extension MediaTrackConstraintSetExtension on MediaTrackConstraintSet {
   external ConstrainDouble get sharpness;
   external set focusDistance(ConstrainDouble value);
   external ConstrainDouble get focusDistance;
-  external set pan(JSAny value);
-  external JSAny get pan;
-  external set tilt(JSAny value);
-  external JSAny get tilt;
-  external set zoom(JSAny value);
-  external JSAny get zoom;
+  external set pan(JSAny? value);
+  external JSAny? get pan;
+  external set tilt(JSAny? value);
+  external JSAny? get tilt;
+  external set zoom(JSAny? value);
+  external JSAny? get zoom;
   external set torch(ConstrainBoolean value);
   external ConstrainBoolean get torch;
   external set width(ConstrainULong value);
@@ -659,18 +659,18 @@ extension InputDeviceInfoExtension on InputDeviceInfo {
 @anonymous
 class MediaStreamConstraints implements JSObject {
   external factory MediaStreamConstraints({
-    JSAny video,
-    JSAny audio,
+    JSAny? video,
+    JSAny? audio,
     JSBoolean preferCurrentTab,
     JSString peerIdentity,
   });
 }
 
 extension MediaStreamConstraintsExtension on MediaStreamConstraints {
-  external set video(JSAny value);
-  external JSAny get video;
-  external set audio(JSAny value);
-  external JSAny get audio;
+  external set video(JSAny? value);
+  external JSAny? get video;
+  external set audio(JSAny? value);
+  external JSAny? get audio;
   external set preferCurrentTab(JSBoolean value);
   external JSBoolean get preferCurrentTab;
   external set peerIdentity(JSString value);
@@ -767,17 +767,17 @@ extension ConstrainBooleanParametersExtension on ConstrainBooleanParameters {
 @anonymous
 class ConstrainDOMStringParameters implements JSObject {
   external factory ConstrainDOMStringParameters({
-    JSAny exact,
-    JSAny ideal,
+    JSAny? exact,
+    JSAny? ideal,
   });
 }
 
 extension ConstrainDOMStringParametersExtension
     on ConstrainDOMStringParameters {
-  external set exact(JSAny value);
-  external JSAny get exact;
-  external set ideal(JSAny value);
-  external JSAny get ideal;
+  external set exact(JSAny? value);
+  external JSAny? get exact;
+  external set ideal(JSAny? value);
+  external JSAny? get ideal;
 }
 
 @JS()

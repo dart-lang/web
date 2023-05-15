@@ -8,7 +8,7 @@ import 'attribution_reporting_api.dart';
 import 'dom.dart';
 import 'html.dart';
 
-typedef FormDataEntryValue = JSAny;
+typedef FormDataEntryValue = JSAny?;
 typedef XMLHttpRequestResponseType = JSString;
 
 @JS('XMLHttpRequestEventTarget')
@@ -80,7 +80,7 @@ extension XMLHttpRequestExtension on XMLHttpRequest {
   external JSString get statusText;
   external set responseType(XMLHttpRequestResponseType value);
   external XMLHttpRequestResponseType get responseType;
-  external JSAny get response;
+  external JSAny? get response;
   external JSString get responseText;
   external Document? get responseXML;
 }
@@ -97,7 +97,7 @@ class FormData implements JSObject {
 extension FormDataExtension on FormData {
   external JSVoid append(
     JSString name,
-    JSAny blobValueOrValue, [
+    JSAny? blobValueOrValue, [
     JSString filename,
   ]);
   external JSVoid delete(JSString name);
@@ -106,7 +106,7 @@ extension FormDataExtension on FormData {
   external JSBoolean has(JSString name);
   external JSVoid set(
     JSString name,
-    JSAny blobValueOrValue, [
+    JSAny? blobValueOrValue, [
     JSString filename,
   ]);
 }

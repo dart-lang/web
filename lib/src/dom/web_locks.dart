@@ -24,7 +24,7 @@ class LockManager implements JSObject {}
 extension LockManagerExtension on LockManager {
   external JSPromise request(
     JSString name,
-    JSAny callbackOrOptions, [
+    JSAny? callbackOrOptions, [
     LockGrantedCallback callback,
   ]);
   external JSPromise query();

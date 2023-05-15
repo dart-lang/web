@@ -12,14 +12,14 @@ import 'performance_timeline.dart';
 @anonymous
 class PerformanceMarkOptions implements JSObject {
   external factory PerformanceMarkOptions({
-    JSAny detail,
+    JSAny? detail,
     DOMHighResTimeStamp startTime,
   });
 }
 
 extension PerformanceMarkOptionsExtension on PerformanceMarkOptions {
-  external set detail(JSAny value);
-  external JSAny get detail;
+  external set detail(JSAny? value);
+  external JSAny? get detail;
   external set startTime(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get startTime;
 }
@@ -29,22 +29,22 @@ extension PerformanceMarkOptionsExtension on PerformanceMarkOptions {
 @anonymous
 class PerformanceMeasureOptions implements JSObject {
   external factory PerformanceMeasureOptions({
-    JSAny detail,
-    JSAny start,
+    JSAny? detail,
+    JSAny? start,
     DOMHighResTimeStamp duration,
-    JSAny end,
+    JSAny? end,
   });
 }
 
 extension PerformanceMeasureOptionsExtension on PerformanceMeasureOptions {
-  external set detail(JSAny value);
-  external JSAny get detail;
-  external set start(JSAny value);
-  external JSAny get start;
+  external set detail(JSAny? value);
+  external JSAny? get detail;
+  external set start(JSAny? value);
+  external JSAny? get start;
   external set duration(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get duration;
-  external set end(JSAny value);
-  external JSAny get end;
+  external set end(JSAny? value);
+  external JSAny? get end;
 }
 
 @JS('PerformanceMark')
@@ -57,7 +57,7 @@ class PerformanceMark implements PerformanceEntry {
 }
 
 extension PerformanceMarkExtension on PerformanceMark {
-  external JSAny get detail;
+  external JSAny? get detail;
 }
 
 @JS('PerformanceMeasure')
@@ -65,5 +65,5 @@ extension PerformanceMarkExtension on PerformanceMark {
 class PerformanceMeasure implements PerformanceEntry {}
 
 extension PerformanceMeasureExtension on PerformanceMeasure {
-  external JSAny get detail;
+  external JSAny? get detail;
 }

@@ -39,7 +39,7 @@ extension $WebAssemblyExtension on $WebAssembly {
   external JSBoolean validate(BufferSource bytes);
   external JSPromise compile(BufferSource bytes);
   external JSPromise instantiate(
-    JSAny bytesOrModuleObject, [
+    JSAny? bytesOrModuleObject, [
     JSObject importObject,
   ]);
   external JSPromise compileStreaming(JSPromise source);
@@ -165,19 +165,19 @@ extension TableDescriptorExtension on TableDescriptor {
 class Table implements JSObject {
   external factory Table(
     TableDescriptor descriptor, [
-    JSAny value,
+    JSAny? value,
   ]);
 }
 
 extension TableExtension on Table {
   external JSNumber grow(
     JSNumber delta, [
-    JSAny value,
+    JSAny? value,
   ]);
-  external JSAny get(JSNumber index);
+  external JSAny? get(JSNumber index);
   external JSVoid set(
     JSNumber index, [
-    JSAny value,
+    JSAny? value,
   ]);
   external JSNumber get length;
 }
@@ -204,12 +204,12 @@ extension GlobalDescriptorExtension on GlobalDescriptor {
 class Global implements JSObject {
   external factory Global(
     GlobalDescriptor descriptor, [
-    JSAny v,
+    JSAny? v,
   ]);
 }
 
 extension GlobalExtension on Global {
-  external JSAny valueOf();
-  external set value(JSAny value);
-  external JSAny get value;
+  external JSAny? valueOf();
+  external set value(JSAny? value);
+  external JSAny? get value;
 }

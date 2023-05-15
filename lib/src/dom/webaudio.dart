@@ -90,7 +90,7 @@ extension AudioContextExtension on AudioContext {
   external JSPromise resume();
   external JSPromise suspend();
   external JSPromise close();
-  external JSPromise setSinkId(JSAny sinkId);
+  external JSPromise setSinkId(JSAny? sinkId);
   external MediaElementAudioSourceNode createMediaElementSource(
       HTMLMediaElement mediaElement);
   external MediaStreamAudioSourceNode createMediaStreamSource(
@@ -100,7 +100,7 @@ extension AudioContextExtension on AudioContext {
   external MediaStreamAudioDestinationNode createMediaStreamDestination();
   external JSNumber get baseLatency;
   external JSNumber get outputLatency;
-  external JSAny get sinkId;
+  external JSAny? get sinkId;
   external AudioRenderCapacity get renderCapacity;
   external set onsinkchange(EventHandler value);
   external EventHandler get onsinkchange;
@@ -111,19 +111,19 @@ extension AudioContextExtension on AudioContext {
 @anonymous
 class AudioContextOptions implements JSObject {
   external factory AudioContextOptions({
-    JSAny latencyHint,
+    JSAny? latencyHint,
     JSNumber sampleRate,
-    JSAny sinkId,
+    JSAny? sinkId,
   });
 }
 
 extension AudioContextOptionsExtension on AudioContextOptions {
-  external set latencyHint(JSAny value);
-  external JSAny get latencyHint;
+  external set latencyHint(JSAny? value);
+  external JSAny? get latencyHint;
   external set sampleRate(JSNumber value);
   external JSNumber get sampleRate;
-  external set sinkId(JSAny value);
-  external JSAny get sinkId;
+  external set sinkId(JSAny? value);
+  external JSAny? get sinkId;
 }
 
 @JS()
@@ -230,7 +230,7 @@ extension AudioRenderCapacityEventInitExtension
 @staticInterop
 class OfflineAudioContext implements BaseAudioContext {
   external factory OfflineAudioContext(
-    JSAny contextOptionsOrNumberOfChannels, [
+    JSAny? contextOptionsOrNumberOfChannels, [
     JSNumber length,
     JSNumber sampleRate,
   ]);
@@ -341,13 +341,13 @@ extension AudioBufferOptionsExtension on AudioBufferOptions {
 class AudioNode implements EventTarget {}
 
 extension AudioNodeExtension on AudioNode {
-  external JSAny connect(
-    JSAny destinationNodeOrDestinationParam, [
+  external JSAny? connect(
+    JSAny? destinationNodeOrDestinationParam, [
     JSNumber output,
     JSNumber input,
   ]);
   external JSVoid disconnect([
-    JSAny destinationNodeOrDestinationParamOrOutput,
+    JSAny? destinationNodeOrDestinationParamOrOutput,
     JSNumber output,
     JSNumber input,
   ]);
@@ -1277,7 +1277,7 @@ class AudioWorkletNodeOptions implements AudioNodeOptions {
     JSNumber numberOfInputs,
     JSNumber numberOfOutputs,
     JSArray outputChannelCount,
-    JSAny parameterData,
+    JSAny? parameterData,
     JSObject processorOptions,
   });
 }
@@ -1289,8 +1289,8 @@ extension AudioWorkletNodeOptionsExtension on AudioWorkletNodeOptions {
   external JSNumber get numberOfOutputs;
   external set outputChannelCount(JSArray value);
   external JSArray get outputChannelCount;
-  external set parameterData(JSAny value);
-  external JSAny get parameterData;
+  external set parameterData(JSAny? value);
+  external JSAny? get parameterData;
   external set processorOptions(JSObject value);
   external JSObject get processorOptions;
 }

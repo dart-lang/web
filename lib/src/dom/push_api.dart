@@ -9,7 +9,7 @@ import 'hr_time.dart';
 import 'permissions.dart';
 import 'service_workers.dart';
 
-typedef PushMessageDataInit = JSAny;
+typedef PushMessageDataInit = JSAny?;
 typedef PushEncryptionKeyName = JSString;
 
 @JS()
@@ -82,7 +82,7 @@ class PushSubscriptionJSON implements JSObject {
   external factory PushSubscriptionJSON({
     JSString endpoint,
     EpochTimeStamp? expirationTime,
-    JSAny keys,
+    JSAny? keys,
   });
 }
 
@@ -91,8 +91,8 @@ extension PushSubscriptionJSONExtension on PushSubscriptionJSON {
   external JSString get endpoint;
   external set expirationTime(EpochTimeStamp? value);
   external EpochTimeStamp? get expirationTime;
-  external set keys(JSAny value);
-  external JSAny get keys;
+  external set keys(JSAny? value);
+  external JSAny? get keys;
 }
 
 @JS('PushMessageData')
@@ -102,7 +102,7 @@ class PushMessageData implements JSObject {}
 extension PushMessageDataExtension on PushMessageData {
   external JSArrayBuffer arrayBuffer();
   external Blob blob();
-  external JSAny json();
+  external JSAny? json();
   external JSString text();
 }
 

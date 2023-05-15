@@ -8,7 +8,7 @@ import 'file_system_access.dart';
 import 'streams.dart';
 import 'webidl.dart';
 
-typedef FileSystemWriteChunkType = JSAny;
+typedef FileSystemWriteChunkType = JSAny?;
 typedef FileSystemHandleKind = JSString;
 typedef WriteCommandType = JSString;
 

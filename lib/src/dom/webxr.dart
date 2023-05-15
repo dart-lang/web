@@ -20,7 +20,7 @@ import 'webxr_hand_input.dart';
 import 'webxr_hit_test.dart';
 import 'webxr_lighting_estimation.dart';
 
-typedef XRWebGLRenderingContext = JSAny;
+typedef XRWebGLRenderingContext = JSAny?;
 typedef XRFrameRequestCallback = JSFunction;
 typedef XRSessionMode = JSString;
 typedef XRVisibilityState = JSString;

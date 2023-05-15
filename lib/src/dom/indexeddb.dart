@@ -18,7 +18,7 @@ typedef IDBTransactionMode = JSString;
 class IDBRequest implements EventTarget {}
 
 extension IDBRequestExtension on IDBRequest {
-  external JSAny get result;
+  external JSAny? get result;
   external DOMException? get error;
   external JSAny? get source;
   external IDBTransaction? get transaction;
@@ -83,8 +83,8 @@ extension IDBFactoryExtension on IDBFactory {
   external IDBOpenDBRequest deleteDatabase(JSString name);
   external JSPromise databases();
   external JSNumber cmp(
-    JSAny first,
-    JSAny second,
+    JSAny? first,
+    JSAny? second,
   );
 }
 
@@ -111,7 +111,7 @@ class IDBDatabase implements EventTarget {}
 
 extension IDBDatabaseExtension on IDBDatabase {
   external IDBTransaction transaction(
-    JSAny storeNames, [
+    JSAny? storeNames, [
     IDBTransactionMode mode,
     IDBTransactionOptions options,
   ]);
@@ -169,44 +169,44 @@ class IDBObjectStore implements JSObject {}
 
 extension IDBObjectStoreExtension on IDBObjectStore {
   external IDBRequest put(
-    JSAny value, [
-    JSAny key,
+    JSAny? value, [
+    JSAny? key,
   ]);
   external IDBRequest add(
-    JSAny value, [
-    JSAny key,
+    JSAny? value, [
+    JSAny? key,
   ]);
-  external IDBRequest delete(JSAny query);
+  external IDBRequest delete(JSAny? query);
   external IDBRequest clear();
-  external IDBRequest get(JSAny query);
-  external IDBRequest getKey(JSAny query);
+  external IDBRequest get(JSAny? query);
+  external IDBRequest getKey(JSAny? query);
   external IDBRequest getAll([
-    JSAny query,
+    JSAny? query,
     JSNumber count,
   ]);
   external IDBRequest getAllKeys([
-    JSAny query,
+    JSAny? query,
     JSNumber count,
   ]);
-  external IDBRequest count([JSAny query]);
+  external IDBRequest count([JSAny? query]);
   external IDBRequest openCursor([
-    JSAny query,
+    JSAny? query,
     IDBCursorDirection direction,
   ]);
   external IDBRequest openKeyCursor([
-    JSAny query,
+    JSAny? query,
     IDBCursorDirection direction,
   ]);
   external IDBIndex index(JSString name);
   external IDBIndex createIndex(
     JSString name,
-    JSAny keyPath, [
+    JSAny? keyPath, [
     IDBIndexParameters options,
   ]);
   external JSVoid deleteIndex(JSString name);
   external set name(JSString value);
   external JSString get name;
-  external JSAny get keyPath;
+  external JSAny? get keyPath;
   external DOMStringList get indexNames;
   external IDBTransaction get transaction;
   external JSBoolean get autoIncrement;
@@ -234,29 +234,29 @@ extension IDBIndexParametersExtension on IDBIndexParameters {
 class IDBIndex implements JSObject {}
 
 extension IDBIndexExtension on IDBIndex {
-  external IDBRequest get(JSAny query);
-  external IDBRequest getKey(JSAny query);
+  external IDBRequest get(JSAny? query);
+  external IDBRequest getKey(JSAny? query);
   external IDBRequest getAll([
-    JSAny query,
+    JSAny? query,
     JSNumber count,
   ]);
   external IDBRequest getAllKeys([
-    JSAny query,
+    JSAny? query,
     JSNumber count,
   ]);
-  external IDBRequest count([JSAny query]);
+  external IDBRequest count([JSAny? query]);
   external IDBRequest openCursor([
-    JSAny query,
+    JSAny? query,
     IDBCursorDirection direction,
   ]);
   external IDBRequest openKeyCursor([
-    JSAny query,
+    JSAny? query,
     IDBCursorDirection direction,
   ]);
   external set name(JSString value);
   external JSString get name;
   external IDBObjectStore get objectStore;
-  external JSAny get keyPath;
+  external JSAny? get keyPath;
   external JSBoolean get multiEntry;
   external JSBoolean get unique;
 }
@@ -264,27 +264,27 @@ extension IDBIndexExtension on IDBIndex {
 @JS('IDBKeyRange')
 @staticInterop
 class IDBKeyRange implements JSObject {
-  external static IDBKeyRange only(JSAny value);
+  external static IDBKeyRange only(JSAny? value);
   external static IDBKeyRange lowerBound(
-    JSAny lower, [
+    JSAny? lower, [
     JSBoolean open,
   ]);
   external static IDBKeyRange upperBound(
-    JSAny upper, [
+    JSAny? upper, [
     JSBoolean open,
   ]);
   external static IDBKeyRange bound(
-    JSAny lower,
-    JSAny upper, [
+    JSAny? lower,
+    JSAny? upper, [
     JSBoolean lowerOpen,
     JSBoolean upperOpen,
   ]);
 }
 
 extension IDBKeyRangeExtension on IDBKeyRange {
-  external JSBoolean includes(JSAny key);
-  external JSAny get lower;
-  external JSAny get upper;
+  external JSBoolean includes(JSAny? key);
+  external JSAny? get lower;
+  external JSAny? get upper;
   external JSBoolean get lowerOpen;
   external JSBoolean get upperOpen;
 }
@@ -296,17 +296,17 @@ class IDBCursor implements JSObject {}
 extension IDBCursorExtension on IDBCursor {
   external JSVoid advance(JSNumber count);
   @JS('continue')
-  external JSVoid continue_([JSAny key]);
+  external JSVoid continue_([JSAny? key]);
   external JSVoid continuePrimaryKey(
-    JSAny key,
-    JSAny primaryKey,
+    JSAny? key,
+    JSAny? primaryKey,
   );
-  external IDBRequest update(JSAny value);
+  external IDBRequest update(JSAny? value);
   external IDBRequest delete();
-  external JSAny get source;
+  external JSAny? get source;
   external IDBCursorDirection get direction;
-  external JSAny get key;
-  external JSAny get primaryKey;
+  external JSAny? get key;
+  external JSAny? get primaryKey;
   external IDBRequest get request;
 }
 
@@ -315,7 +315,7 @@ extension IDBCursorExtension on IDBCursor {
 class IDBCursorWithValue implements IDBCursor {}
 
 extension IDBCursorWithValueExtension on IDBCursorWithValue {
-  external JSAny get value;
+  external JSAny? get value;
 }
 
 @JS('IDBTransaction')

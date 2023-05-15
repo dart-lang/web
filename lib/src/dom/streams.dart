@@ -7,8 +7,8 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'webidl.dart';
 
-typedef ReadableStreamReader = JSAny;
-typedef ReadableStreamController = JSAny;
+typedef ReadableStreamReader = JSAny?;
+typedef ReadableStreamController = JSAny?;
 typedef UnderlyingSourceStartCallback = JSFunction;
 typedef UnderlyingSourcePullCallback = JSFunction;
 typedef UnderlyingSourceCancelCallback = JSFunction;
@@ -33,7 +33,7 @@ class ReadableStream implements JSObject {
 }
 
 extension ReadableStreamExtension on ReadableStream {
-  external JSPromise cancel([JSAny reason]);
+  external JSPromise cancel([JSAny? reason]);
   external ReadableStreamReader getReader(
       [ReadableStreamGetReaderOptions options]);
   external ReadableStream pipeThrough(
@@ -146,7 +146,7 @@ extension UnderlyingSourceExtension on UnderlyingSource {
 class ReadableStreamGenericReader implements JSObject {}
 
 extension ReadableStreamGenericReaderExtension on ReadableStreamGenericReader {
-  external JSPromise cancel([JSAny reason]);
+  external JSPromise cancel([JSAny? reason]);
   external JSPromise get closed;
 }
 
@@ -166,14 +166,14 @@ extension ReadableStreamDefaultReaderExtension on ReadableStreamDefaultReader {
 @anonymous
 class ReadableStreamReadResult implements JSObject {
   external factory ReadableStreamReadResult({
-    JSAny value,
+    JSAny? value,
     JSBoolean done,
   });
 }
 
 extension ReadableStreamReadResultExtension on ReadableStreamReadResult {
-  external set value(JSAny value);
-  external JSAny get value;
+  external set value(JSAny? value);
+  external JSAny? get value;
   external set done(JSBoolean value);
   external JSBoolean get done;
 }
@@ -196,8 +196,8 @@ class ReadableStreamDefaultController implements JSObject {}
 extension ReadableStreamDefaultControllerExtension
     on ReadableStreamDefaultController {
   external JSVoid close();
-  external JSVoid enqueue([JSAny chunk]);
-  external JSVoid error([JSAny e]);
+  external JSVoid enqueue([JSAny? chunk]);
+  external JSVoid error([JSAny? e]);
   external JSNumber? get desiredSize;
 }
 
@@ -209,7 +209,7 @@ extension ReadableByteStreamControllerExtension
     on ReadableByteStreamController {
   external JSVoid close();
   external JSVoid enqueue(ArrayBufferView chunk);
-  external JSVoid error([JSAny e]);
+  external JSVoid error([JSAny? e]);
   external ReadableStreamBYOBRequest? get byobRequest;
   external JSNumber? get desiredSize;
 }
@@ -234,7 +234,7 @@ class WritableStream implements JSObject {
 }
 
 extension WritableStreamExtension on WritableStream {
-  external JSPromise abort([JSAny reason]);
+  external JSPromise abort([JSAny? reason]);
   external JSPromise close();
   external WritableStreamDefaultWriter getWriter();
   external JSBoolean get locked;
@@ -249,7 +249,7 @@ class UnderlyingSink implements JSObject {
     UnderlyingSinkWriteCallback write,
     UnderlyingSinkCloseCallback close,
     UnderlyingSinkAbortCallback abort,
-    JSAny type,
+    JSAny? type,
   });
 }
 
@@ -262,8 +262,8 @@ extension UnderlyingSinkExtension on UnderlyingSink {
   external UnderlyingSinkCloseCallback get close;
   external set abort(UnderlyingSinkAbortCallback value);
   external UnderlyingSinkAbortCallback get abort;
-  external set type(JSAny value);
-  external JSAny get type;
+  external set type(JSAny? value);
+  external JSAny? get type;
 }
 
 @JS('WritableStreamDefaultWriter')
@@ -273,10 +273,10 @@ class WritableStreamDefaultWriter implements JSObject {
 }
 
 extension WritableStreamDefaultWriterExtension on WritableStreamDefaultWriter {
-  external JSPromise abort([JSAny reason]);
+  external JSPromise abort([JSAny? reason]);
   external JSPromise close();
   external JSVoid releaseLock();
-  external JSPromise write([JSAny chunk]);
+  external JSPromise write([JSAny? chunk]);
   external JSPromise get closed;
   external JSNumber? get desiredSize;
   external JSPromise get ready;
@@ -288,7 +288,7 @@ class WritableStreamDefaultController implements JSObject {}
 
 extension WritableStreamDefaultControllerExtension
     on WritableStreamDefaultController {
-  external JSVoid error([JSAny e]);
+  external JSVoid error([JSAny? e]);
   external AbortSignal get signal;
 }
 
@@ -315,8 +315,8 @@ class Transformer implements JSObject {
     TransformerStartCallback start,
     TransformerTransformCallback transform,
     TransformerFlushCallback flush,
-    JSAny readableType,
-    JSAny writableType,
+    JSAny? readableType,
+    JSAny? writableType,
   });
 }
 
@@ -327,10 +327,10 @@ extension TransformerExtension on Transformer {
   external TransformerTransformCallback get transform;
   external set flush(TransformerFlushCallback value);
   external TransformerFlushCallback get flush;
-  external set readableType(JSAny value);
-  external JSAny get readableType;
-  external set writableType(JSAny value);
-  external JSAny get writableType;
+  external set readableType(JSAny? value);
+  external JSAny? get readableType;
+  external set writableType(JSAny? value);
+  external JSAny? get writableType;
 }
 
 @JS('TransformStreamDefaultController')
@@ -339,8 +339,8 @@ class TransformStreamDefaultController implements JSObject {}
 
 extension TransformStreamDefaultControllerExtension
     on TransformStreamDefaultController {
-  external JSVoid enqueue([JSAny chunk]);
-  external JSVoid error([JSAny reason]);
+  external JSVoid enqueue([JSAny? chunk]);
+  external JSVoid error([JSAny? reason]);
   external JSVoid terminate();
   external JSNumber? get desiredSize;
 }

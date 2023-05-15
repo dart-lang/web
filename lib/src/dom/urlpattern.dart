@@ -4,14 +4,14 @@
 
 import 'dart:js_interop';
 
-typedef URLPatternInput = JSAny;
+typedef URLPatternInput = JSAny?;
 
 @JS('URLPattern')
 @staticInterop
 class URLPattern implements JSObject {
   external factory URLPattern([
     URLPatternInput input,
-    JSAny baseURLOrOptions,
+    JSAny? baseURLOrOptions,
     URLPatternOptions options,
   ]);
 }
@@ -129,13 +129,13 @@ extension URLPatternResultExtension on URLPatternResult {
 class URLPatternComponentResult implements JSObject {
   external factory URLPatternComponentResult({
     JSString input,
-    JSAny groups,
+    JSAny? groups,
   });
 }
 
 extension URLPatternComponentResultExtension on URLPatternComponentResult {
   external set input(JSString value);
   external JSString get input;
-  external set groups(JSAny value);
-  external JSAny get groups;
+  external set groups(JSAny? value);
+  external JSAny? get groups;
 }

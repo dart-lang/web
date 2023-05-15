@@ -79,18 +79,18 @@ import 'webxr.dart';
 import 'window_controls_overlay.dart';
 import 'xhr.dart';
 
-typedef HTMLOrSVGScriptElement = JSAny;
-typedef MediaProvider = JSAny;
-typedef RenderingContext = JSAny;
-typedef HTMLOrSVGImageElement = JSAny;
-typedef CanvasImageSource = JSAny;
-typedef OffscreenRenderingContext = JSAny;
+typedef HTMLOrSVGScriptElement = JSAny?;
+typedef MediaProvider = JSAny?;
+typedef RenderingContext = JSAny?;
+typedef HTMLOrSVGImageElement = JSAny?;
+typedef CanvasImageSource = JSAny?;
+typedef OffscreenRenderingContext = JSAny?;
 typedef EventHandler = EventHandlerNonNull;
 typedef OnErrorEventHandler = OnErrorEventHandlerNonNull;
 typedef OnBeforeUnloadEventHandler = OnBeforeUnloadEventHandlerNonNull;
-typedef TimerHandler = JSAny;
-typedef ImageBitmapSource = JSAny;
-typedef MessageEventSource = JSAny;
+typedef TimerHandler = JSAny?;
+typedef ImageBitmapSource = JSAny?;
+typedef MessageEventSource = JSAny?;
 typedef BlobCallback = JSFunction;
 typedef CustomElementConstructor = JSFunction;
 typedef FunctionStringCallback = JSFunction;
@@ -158,7 +158,7 @@ class HTMLOptionsCollection implements HTMLCollection {}
 
 extension HTMLOptionsCollectionExtension on HTMLOptionsCollection {
   external JSVoid add(
-    JSAny element, [
+    JSAny? element, [
     JSAny? before,
   ]);
   external JSVoid remove(JSNumber index);
@@ -1592,7 +1592,7 @@ extension HTMLSelectElementExtension on HTMLSelectElement {
   external HTMLOptionElement? item(JSNumber index);
   external HTMLOptionElement? namedItem(JSString name);
   external JSVoid add(
-    JSAny element, [
+    JSAny? element, [
     JSAny? before,
   ]);
   external JSVoid remove([JSNumber index]);
@@ -1986,7 +1986,7 @@ class HTMLSlotElement implements HTMLElement {
 extension HTMLSlotElementExtension on HTMLSlotElement {
   external JSArray assignedNodes([AssignedNodesOptions options]);
   external JSArray assignedElements([AssignedNodesOptions options]);
-  external JSVoid assign(JSAny nodes);
+  external JSVoid assign(JSAny? nodes);
   external set name(JSString value);
   external JSString get name;
 }
@@ -2012,16 +2012,16 @@ class HTMLCanvasElement implements HTMLElement {
 extension HTMLCanvasElementExtension on HTMLCanvasElement {
   external RenderingContext? getContext(
     JSString contextId, [
-    JSAny options,
+    JSAny? options,
   ]);
   external JSString toDataURL([
     JSString type,
-    JSAny quality,
+    JSAny? quality,
   ]);
   external JSVoid toBlob(
     BlobCallback callback, [
     JSString type,
-    JSAny quality,
+    JSAny? quality,
   ]);
   external OffscreenCanvas transferControlToOffscreen();
   external MediaStream captureStream([JSNumber frameRequestRate]);
@@ -2116,7 +2116,7 @@ extension CanvasTransformExtension on CanvasTransform {
   );
   external DOMMatrix getTransform();
   external JSVoid setTransform([
-    JSAny aOrTransform,
+    JSAny? aOrTransform,
     JSNumber b,
     JSNumber c,
     JSNumber d,
@@ -2176,10 +2176,10 @@ extension CanvasFillStrokeStylesExtension on CanvasFillStrokeStyles {
     CanvasImageSource image,
     JSString repetition,
   );
-  external set strokeStyle(JSAny value);
-  external JSAny get strokeStyle;
-  external set fillStyle(JSAny value);
-  external JSAny get fillStyle;
+  external set strokeStyle(JSAny? value);
+  external JSAny? get strokeStyle;
+  external set fillStyle(JSAny? value);
+  external JSAny? get fillStyle;
 }
 
 @JS('CanvasShadowStyles')
@@ -2238,22 +2238,22 @@ class CanvasDrawPath implements JSObject {}
 extension CanvasDrawPathExtension on CanvasDrawPath {
   external JSVoid beginPath();
   external JSVoid fill([
-    JSAny fillRuleOrPath,
+    JSAny? fillRuleOrPath,
     CanvasFillRule fillRule,
   ]);
   external JSVoid stroke([Path2D path]);
   external JSVoid clip([
-    JSAny fillRuleOrPath,
+    JSAny? fillRuleOrPath,
     CanvasFillRule fillRule,
   ]);
   external JSBoolean isPointInPath(
-    JSAny pathOrX,
+    JSAny? pathOrX,
     JSNumber xOrY, [
-    JSAny fillRuleOrY,
+    JSAny? fillRuleOrY,
     CanvasFillRule fillRule,
   ]);
   external JSBoolean isPointInStroke(
-    JSAny pathOrX,
+    JSAny? pathOrX,
     JSNumber xOrY, [
     JSNumber y,
   ]);
@@ -2265,7 +2265,7 @@ class CanvasUserInterface implements JSObject {}
 
 extension CanvasUserInterfaceExtension on CanvasUserInterface {
   external JSVoid drawFocusIfNeeded(
-    JSAny elementOrPath, [
+    JSAny? elementOrPath, [
     Element element,
   ]);
   external JSVoid scrollPathIntoView([Path2D path]);
@@ -2315,7 +2315,7 @@ class CanvasImageData implements JSObject {}
 
 extension CanvasImageDataExtension on CanvasImageData {
   external ImageData createImageData(
-    JSAny imagedataOrSw, [
+    JSAny? imagedataOrSw, [
     JSNumber sh,
     ImageDataSettings settings,
   ]);
@@ -2429,7 +2429,7 @@ extension CanvasPathExtension on CanvasPath {
     JSNumber y,
     JSNumber w,
     JSNumber h, [
-    JSAny radii,
+    JSAny? radii,
   ]);
   external JSVoid arc(
     JSNumber x,
@@ -2505,9 +2505,9 @@ extension ImageDataSettingsExtension on ImageDataSettings {
 @staticInterop
 class ImageData implements JSObject {
   external factory ImageData(
-    JSAny dataOrSw,
+    JSAny? dataOrSw,
     JSNumber shOrSw, [
-    JSAny settingsOrSh,
+    JSAny? settingsOrSh,
     ImageDataSettings settings,
   ]);
 }
@@ -2522,7 +2522,7 @@ extension ImageDataExtension on ImageData {
 @JS('Path2D')
 @staticInterop
 class Path2D implements CanvasPath {
-  external factory Path2D([JSAny path]);
+  external factory Path2D([JSAny? path]);
 }
 
 extension Path2DExtension on Path2D {
@@ -2538,7 +2538,7 @@ class ImageBitmapRenderingContext implements JSObject {}
 
 extension ImageBitmapRenderingContextExtension on ImageBitmapRenderingContext {
   external JSVoid transferFromImageBitmap(ImageBitmap? bitmap);
-  external JSAny get canvas;
+  external JSAny? get canvas;
 }
 
 @JS()
@@ -2583,7 +2583,7 @@ class OffscreenCanvas implements EventTarget {
 extension OffscreenCanvasExtension on OffscreenCanvas {
   external OffscreenRenderingContext? getContext(
     OffscreenRenderingContextId contextId, [
-    JSAny options,
+    JSAny? options,
   ]);
   external ImageBitmap transferToImageBitmap();
   external JSPromise convertToBlob([ImageEncodeOptions options]);
@@ -2633,7 +2633,7 @@ extension CustomElementRegistryExtension on CustomElementRegistry {
     CustomElementConstructor constructor, [
     ElementDefinitionOptions options,
   ]);
-  external JSAny get(JSString name);
+  external JSAny? get(JSString name);
   external JSPromise whenDefined(JSString name);
   external JSVoid upgrade(Node root);
 }
@@ -2804,7 +2804,7 @@ class DataTransferItemList implements JSObject {}
 
 extension DataTransferItemListExtension on DataTransferItemList {
   external DataTransferItem? add(
-    JSAny data, [
+    JSAny? data, [
     JSString type,
   ]);
   external JSVoid remove(JSNumber index);
@@ -2927,15 +2927,15 @@ extension WindowExtension on Window {
     JSNumber y,
   );
   external JSVoid scroll([
-    JSAny optionsOrX,
+    JSAny? optionsOrX,
     JSNumber y,
   ]);
   external JSVoid scrollTo([
-    JSAny optionsOrX,
+    JSAny? optionsOrX,
     JSNumber y,
   ]);
   external JSVoid scrollBy([
-    JSAny optionsOrX,
+    JSAny? optionsOrX,
     JSNumber y,
   ]);
   external CSSStyleDeclaration getComputedStyle(
@@ -2963,8 +2963,8 @@ extension WindowExtension on Window {
   ]);
   external JSVoid print();
   external JSVoid postMessage(
-    JSAny message, [
-    JSAny optionsOrTargetOrigin,
+    JSAny? message, [
+    JSAny? optionsOrTargetOrigin,
     JSArray transfer,
   ]);
   external JSVoid captureEvents();
@@ -2996,7 +2996,7 @@ extension WindowExtension on Window {
   external JSNumber get outerWidth;
   external JSNumber get outerHeight;
   external JSNumber get devicePixelRatio;
-  external JSAny get event;
+  external JSAny? get event;
   external Fence? get fence;
   external Window get window;
   external Window get self;
@@ -3018,8 +3018,8 @@ extension WindowExtension on Window {
   external Window get frames;
   external JSNumber get length;
   external Window? get top;
-  external set opener(JSAny value);
-  external JSAny get opener;
+  external set opener(JSAny? value);
+  external JSAny? get opener;
   external Window? get parent;
   external Element? get frameElement;
   external Navigator get navigator;
@@ -3098,19 +3098,19 @@ extension HistoryExtension on History {
   external JSVoid back();
   external JSVoid forward();
   external JSVoid pushState(
-    JSAny data,
+    JSAny? data,
     JSString unused, [
     JSString? url,
   ]);
   external JSVoid replaceState(
-    JSAny data,
+    JSAny? data,
     JSString unused, [
     JSString? url,
   ]);
   external JSNumber get length;
   external set scrollRestoration(ScrollRestoration value);
   external ScrollRestoration get scrollRestoration;
-  external JSAny get state;
+  external JSAny? get state;
 }
 
 @JS('PopStateEvent')
@@ -3123,19 +3123,19 @@ class PopStateEvent implements Event {
 }
 
 extension PopStateEventExtension on PopStateEvent {
-  external JSAny get state;
+  external JSAny? get state;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class PopStateEventInit implements EventInit {
-  external factory PopStateEventInit({JSAny state});
+  external factory PopStateEventInit({JSAny? state});
 }
 
 extension PopStateEventInitExtension on PopStateEventInit {
-  external set state(JSAny value);
-  external JSAny get state;
+  external set state(JSAny? value);
+  external JSAny? get state;
 }
 
 @JS('HashChangeEvent')
@@ -3217,7 +3217,7 @@ extension ErrorEventExtension on ErrorEvent {
   external JSString get filename;
   external JSNumber get lineno;
   external JSNumber get colno;
-  external JSAny get error;
+  external JSAny? get error;
 }
 
 @JS()
@@ -3229,7 +3229,7 @@ class ErrorEventInit implements EventInit {
     JSString filename,
     JSNumber lineno,
     JSNumber colno,
-    JSAny error,
+    JSAny? error,
   });
 }
 
@@ -3242,8 +3242,8 @@ extension ErrorEventInitExtension on ErrorEventInit {
   external JSNumber get lineno;
   external set colno(JSNumber value);
   external JSNumber get colno;
-  external set error(JSAny value);
-  external JSAny get error;
+  external set error(JSAny? value);
+  external JSAny? get error;
 }
 
 @JS('PromiseRejectionEvent')
@@ -3257,7 +3257,7 @@ class PromiseRejectionEvent implements Event {
 
 extension PromiseRejectionEventExtension on PromiseRejectionEvent {
   external JSPromise get promise;
-  external JSAny get reason;
+  external JSAny? get reason;
 }
 
 @JS()
@@ -3266,15 +3266,15 @@ extension PromiseRejectionEventExtension on PromiseRejectionEvent {
 class PromiseRejectionEventInit implements EventInit {
   external factory PromiseRejectionEventInit({
     required JSPromise promise,
-    JSAny reason,
+    JSAny? reason,
   });
 }
 
 extension PromiseRejectionEventInitExtension on PromiseRejectionEventInit {
   external set promise(JSPromise value);
   external JSPromise get promise;
-  external set reason(JSAny value);
-  external JSAny get reason;
+  external set reason(JSAny? value);
+  external JSAny? get reason;
 }
 
 @JS('GlobalEventHandlers')
@@ -3540,32 +3540,32 @@ extension WindowOrWorkerGlobalScopeExtension on WindowOrWorkerGlobalScope {
     RequestInfo input, [
     RequestInit init,
   ]);
-  external JSVoid reportError(JSAny e);
+  external JSVoid reportError(JSAny? e);
   external JSString btoa(JSString data);
   external JSString atob(JSString data);
   external JSNumber setTimeout(
     TimerHandler handler,
-    JSAny arguments, [
+    JSAny? arguments, [
     JSNumber timeout,
   ]);
   external JSVoid clearTimeout([JSNumber id]);
   external JSNumber setInterval(
     TimerHandler handler,
-    JSAny arguments, [
+    JSAny? arguments, [
     JSNumber timeout,
   ]);
   external JSVoid clearInterval([JSNumber id]);
   external JSVoid queueMicrotask(VoidFunction callback);
   external JSPromise createImageBitmap(
     ImageBitmapSource image, [
-    JSAny optionsOrSx,
+    JSAny? optionsOrSx,
     JSNumber sy,
     JSNumber sw,
     JSNumber sh,
     ImageBitmapOptions options,
   ]);
-  external JSAny structuredClone(
-    JSAny value, [
+  external JSAny? structuredClone(
+    JSAny? value, [
     StructuredSerializeOptions options,
   ]);
   external IDBFactory get indexedDB;
@@ -3615,7 +3615,7 @@ class Navigator
         NavigatorML {}
 
 extension NavigatorExtension on Navigator {
-  external AutoplayPolicy getAutoplayPolicy(JSAny contextOrElementOrType);
+  external AutoplayPolicy getAutoplayPolicy(JSAny? contextOrElementOrType);
   external JSPromise getBattery();
   external JSBoolean sendBeacon(
     JSString url, [
@@ -3845,13 +3845,13 @@ extension MessageEventExtension on MessageEvent {
     JSString type, [
     JSBoolean bubbles,
     JSBoolean cancelable,
-    JSAny data,
+    JSAny? data,
     JSString origin,
     JSString lastEventId,
     MessageEventSource? source,
     JSArray ports,
   ]);
-  external JSAny get data;
+  external JSAny? get data;
   external JSString get origin;
   external JSString get lastEventId;
   external MessageEventSource? get source;
@@ -3863,7 +3863,7 @@ extension MessageEventExtension on MessageEvent {
 @anonymous
 class MessageEventInit implements EventInit {
   external factory MessageEventInit({
-    JSAny data,
+    JSAny? data,
     JSString origin,
     JSString lastEventId,
     MessageEventSource? source,
@@ -3872,8 +3872,8 @@ class MessageEventInit implements EventInit {
 }
 
 extension MessageEventInitExtension on MessageEventInit {
-  external set data(JSAny value);
-  external JSAny get data;
+  external set data(JSAny? value);
+  external JSAny? get data;
   external set origin(JSString value);
   external JSString get origin;
   external set lastEventId(JSString value);
@@ -3939,8 +3939,8 @@ class MessagePort implements EventTarget {}
 
 extension MessagePortExtension on MessagePort {
   external JSVoid postMessage(
-    JSAny message, [
-    JSAny optionsOrTransfer,
+    JSAny? message, [
+    JSAny? optionsOrTransfer,
   ]);
   external JSVoid start();
   external JSVoid close();
@@ -3969,7 +3969,7 @@ class BroadcastChannel implements EventTarget {
 }
 
 extension BroadcastChannelExtension on BroadcastChannel {
-  external JSVoid postMessage(JSAny message);
+  external JSVoid postMessage(JSAny? message);
   external JSVoid close();
   external JSString get name;
   external set onmessage(EventHandler value);
@@ -4009,8 +4009,8 @@ class DedicatedWorkerGlobalScope
 
 extension DedicatedWorkerGlobalScopeExtension on DedicatedWorkerGlobalScope {
   external JSVoid postMessage(
-    JSAny message, [
-    JSAny optionsOrTransfer,
+    JSAny? message, [
+    JSAny? optionsOrTransfer,
   ]);
   external JSVoid close();
   external JSString get name;
@@ -4054,8 +4054,8 @@ class Worker implements EventTarget, AbstractWorker {
 extension WorkerExtension on Worker {
   external JSVoid terminate();
   external JSVoid postMessage(
-    JSAny message, [
-    JSAny optionsOrTransfer,
+    JSAny? message, [
+    JSAny? optionsOrTransfer,
   ]);
   external set onmessage(EventHandler value);
   external EventHandler get onmessage;
@@ -4088,7 +4088,7 @@ extension WorkerOptionsExtension on WorkerOptions {
 class SharedWorker implements EventTarget, AbstractWorker {
   external factory SharedWorker(
     JSString scriptURL, [
-    JSAny options,
+    JSAny? options,
   ]);
 }
 

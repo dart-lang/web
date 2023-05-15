@@ -16,7 +16,7 @@ typedef IterationCompositeOperation = JSString;
 class GroupEffect implements JSObject {
   external factory GroupEffect(
     JSArray? children, [
-    JSAny timing,
+    JSAny? timing,
   ]);
 }
 
@@ -43,7 +43,7 @@ extension AnimationNodeListExtension on AnimationNodeList {
 class SequenceEffect implements GroupEffect {
   external factory SequenceEffect(
     JSArray? children, [
-    JSAny timing,
+    JSAny? timing,
   ]);
 }
 

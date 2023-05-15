@@ -113,7 +113,7 @@ extension XRRayDirectionInitExtension on XRRayDirectionInit {
 @staticInterop
 class XRRay implements JSObject {
   external factory XRRay([
-    JSAny originOrTransform,
+    JSAny? originOrTransform,
     XRRayDirectionInit direction,
   ]);
 }

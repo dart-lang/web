@@ -7,7 +7,7 @@ import 'dart:js_interop';
 typedef HTMLString = JSString;
 typedef ScriptString = JSString;
 typedef ScriptURLString = JSString;
-typedef TrustedType = JSAny;
+typedef TrustedType = JSAny?;
 typedef CreateHTMLCallback = JSFunction;
 typedef CreateScriptCallback = JSFunction;
 typedef CreateScriptURLCallback = JSFunction;
@@ -51,9 +51,9 @@ extension TrustedTypePolicyFactoryExtension on TrustedTypePolicyFactory {
     JSString policyName, [
     TrustedTypePolicyOptions policyOptions,
   ]);
-  external JSBoolean isHTML(JSAny value);
-  external JSBoolean isScript(JSAny value);
-  external JSBoolean isScriptURL(JSAny value);
+  external JSBoolean isHTML(JSAny? value);
+  external JSBoolean isScript(JSAny? value);
+  external JSBoolean isScriptURL(JSAny? value);
   external JSString? getAttributeType(
     JSString tagName,
     JSString attribute, [
@@ -77,15 +77,15 @@ class TrustedTypePolicy implements JSObject {}
 extension TrustedTypePolicyExtension on TrustedTypePolicy {
   external TrustedHTML createHTML(
     JSString input,
-    JSAny arguments,
+    JSAny? arguments,
   );
   external TrustedScript createScript(
     JSString input,
-    JSAny arguments,
+    JSAny? arguments,
   );
   external TrustedScriptURL createScriptURL(
     JSString input,
-    JSAny arguments,
+    JSAny? arguments,
   );
   external JSString get name;
 }

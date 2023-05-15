@@ -7,7 +7,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
-typedef BinaryData = JSAny;
+typedef BinaryData = JSAny?;
 typedef FontFaceLoadStatus = JSString;
 typedef FontFaceSetLoadStatus = JSString;
 
@@ -60,7 +60,7 @@ extension FontFaceDescriptorsExtension on FontFaceDescriptors {
 class FontFace implements JSObject {
   external factory FontFace(
     JSString family,
-    JSAny source, [
+    JSAny? source, [
     FontFaceDescriptors descriptors,
   ]);
 }

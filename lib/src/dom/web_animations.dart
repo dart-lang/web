@@ -115,7 +115,7 @@ class EffectTiming implements JSObject {
     JSNumber delay,
     JSNumber endDelay,
     JSNumber playbackRate,
-    JSAny duration,
+    JSAny? duration,
     FillMode fill,
     JSNumber iterationStart,
     JSNumber iterations,
@@ -131,8 +131,8 @@ extension EffectTimingExtension on EffectTiming {
   external JSNumber get endDelay;
   external set playbackRate(JSNumber value);
   external JSNumber get playbackRate;
-  external set duration(JSAny value);
-  external JSAny get duration;
+  external set duration(JSAny? value);
+  external JSAny? get duration;
   external set fill(FillMode value);
   external FillMode get fill;
   external set iterationStart(JSNumber value);
@@ -156,7 +156,7 @@ class OptionalEffectTiming implements JSObject {
     FillMode fill,
     JSNumber iterationStart,
     JSNumber iterations,
-    JSAny duration,
+    JSAny? duration,
     PlaybackDirection direction,
     JSString easing,
   });
@@ -175,8 +175,8 @@ extension OptionalEffectTimingExtension on OptionalEffectTiming {
   external JSNumber get iterationStart;
   external set iterations(JSNumber value);
   external JSNumber get iterations;
-  external set duration(JSAny value);
-  external JSAny get duration;
+  external set duration(JSAny? value);
+  external JSAny? get duration;
   external set direction(PlaybackDirection value);
   external PlaybackDirection get direction;
   external set easing(JSString value);
@@ -218,7 +218,7 @@ class KeyframeEffect implements AnimationEffect {
   external factory KeyframeEffect(
     JSAny? sourceOrTarget, [
     JSObject? keyframes,
-    JSAny options,
+    JSAny? options,
   ]);
 }
 
@@ -263,19 +263,19 @@ extension BaseComputedKeyframeExtension on BaseComputedKeyframe {
 @anonymous
 class BasePropertyIndexedKeyframe implements JSObject {
   external factory BasePropertyIndexedKeyframe({
-    JSAny offset,
-    JSAny easing,
-    JSAny composite,
+    JSAny? offset,
+    JSAny? easing,
+    JSAny? composite,
   });
 }
 
 extension BasePropertyIndexedKeyframeExtension on BasePropertyIndexedKeyframe {
-  external set offset(JSAny value);
-  external JSAny get offset;
-  external set easing(JSAny value);
-  external JSAny get easing;
-  external set composite(JSAny value);
-  external JSAny get composite;
+  external set offset(JSAny? value);
+  external JSAny? get offset;
+  external set easing(JSAny? value);
+  external JSAny? get easing;
+  external set composite(JSAny? value);
+  external JSAny? get composite;
 }
 
 @JS()
@@ -325,7 +325,7 @@ class Animatable implements JSObject {}
 extension AnimatableExtension on Animatable {
   external Animation animate(
     JSObject? keyframes, [
-    JSAny options,
+    JSAny? options,
   ]);
   external JSArray getAnimations([GetAnimationsOptions options]);
 }
@@ -335,18 +335,18 @@ extension AnimatableExtension on Animatable {
 @anonymous
 class KeyframeAnimationOptions implements KeyframeEffectOptions {
   external factory KeyframeAnimationOptions({
-    JSAny rangeStart,
-    JSAny rangeEnd,
+    JSAny? rangeStart,
+    JSAny? rangeEnd,
     JSString id,
     AnimationTimeline? timeline,
   });
 }
 
 extension KeyframeAnimationOptionsExtension on KeyframeAnimationOptions {
-  external set rangeStart(JSAny value);
-  external JSAny get rangeStart;
-  external set rangeEnd(JSAny value);
-  external JSAny get rangeEnd;
+  external set rangeStart(JSAny? value);
+  external JSAny? get rangeStart;
+  external set rangeEnd(JSAny? value);
+  external JSAny? get rangeEnd;
   external set id(JSString value);
   external JSString get id;
   external set timeline(AnimationTimeline? value);

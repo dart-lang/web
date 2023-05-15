@@ -11,7 +11,7 @@ typedef GamepadHapticEffectType = JSString;
 
 @JS('GamepadHapticActuator')
 @staticInterop
-class GamepadHapticActuator {}
+class GamepadHapticActuator implements JSObject {}
 
 extension GamepadHapticActuatorExtension on GamepadHapticActuator {
   external JSBoolean canPlayEffectType(GamepadHapticEffectType type);
@@ -30,7 +30,7 @@ extension GamepadHapticActuatorExtension on GamepadHapticActuator {
 @JS()
 @staticInterop
 @anonymous
-class GamepadEffectParameters {
+class GamepadEffectParameters implements JSObject {
   external factory GamepadEffectParameters({
     JSNumber duration,
     JSNumber startDelay,
@@ -52,7 +52,7 @@ extension GamepadEffectParametersExtension on GamepadEffectParameters {
 
 @JS('GamepadPose')
 @staticInterop
-class GamepadPose {}
+class GamepadPose implements JSObject {}
 
 extension GamepadPoseExtension on GamepadPose {
   external JSBoolean get hasOrientation;
@@ -67,7 +67,7 @@ extension GamepadPoseExtension on GamepadPose {
 
 @JS('GamepadTouch')
 @staticInterop
-class GamepadTouch {}
+class GamepadTouch implements JSObject {}
 
 extension GamepadTouchExtension on GamepadTouch {
   external JSNumber get touchId;

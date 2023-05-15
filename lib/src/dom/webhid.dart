@@ -26,7 +26,7 @@ extension HIDExtension on HID {
 @JS()
 @staticInterop
 @anonymous
-class HIDDeviceRequestOptions {
+class HIDDeviceRequestOptions implements JSObject {
   external factory HIDDeviceRequestOptions({
     required JSArray filters,
     JSArray exclusionFilters,
@@ -43,7 +43,7 @@ extension HIDDeviceRequestOptionsExtension on HIDDeviceRequestOptions {
 @JS()
 @staticInterop
 @anonymous
-class HIDDeviceFilter {
+class HIDDeviceFilter implements JSObject {
   external factory HIDDeviceFilter({
     JSNumber vendorId,
     JSNumber productId,
@@ -152,7 +152,7 @@ extension HIDInputReportEventInitExtension on HIDInputReportEventInit {
 @JS()
 @staticInterop
 @anonymous
-class HIDCollectionInfo {
+class HIDCollectionInfo implements JSObject {
   external factory HIDCollectionInfo({
     JSNumber usagePage,
     JSNumber usage,
@@ -184,7 +184,7 @@ extension HIDCollectionInfoExtension on HIDCollectionInfo {
 @JS()
 @staticInterop
 @anonymous
-class HIDReportInfo {
+class HIDReportInfo implements JSObject {
   external factory HIDReportInfo({
     JSNumber reportId,
     JSArray items,
@@ -201,7 +201,7 @@ extension HIDReportInfoExtension on HIDReportInfo {
 @JS()
 @staticInterop
 @anonymous
-class HIDReportItem {
+class HIDReportItem implements JSObject {
   external factory HIDReportItem({
     JSBoolean isAbsolute,
     JSBoolean isArray,

@@ -127,7 +127,7 @@ typedef WorkerType = JSString;
 
 @JS('HTMLAllCollection')
 @staticInterop
-class HTMLAllCollection {}
+class HTMLAllCollection implements JSObject {}
 
 extension HTMLAllCollectionExtension on HTMLAllCollection {
   external JSAny? namedItem(JSString name);
@@ -170,7 +170,7 @@ extension HTMLOptionsCollectionExtension on HTMLOptionsCollection {
 
 @JS('DOMStringList')
 @staticInterop
-class DOMStringList {}
+class DOMStringList implements JSObject {}
 
 extension DOMStringListExtension on DOMStringList {
   external JSString? item(JSNumber index);
@@ -238,7 +238,7 @@ class HTMLUnknownElement implements HTMLElement {}
 
 @JS('HTMLOrSVGElement')
 @staticInterop
-class HTMLOrSVGElement {}
+class HTMLOrSVGElement implements JSObject {}
 
 extension HTMLOrSVGElementExtension on HTMLOrSVGElement {
   external JSVoid focus([FocusOptions options]);
@@ -254,7 +254,7 @@ extension HTMLOrSVGElementExtension on HTMLOrSVGElement {
 
 @JS('DOMStringMap')
 @staticInterop
-class DOMStringMap {}
+class DOMStringMap implements JSObject {}
 
 @JS('HTMLHtmlElement')
 @staticInterop
@@ -621,7 +621,7 @@ extension HTMLBRElementExtension on HTMLBRElement {
 
 @JS('HTMLHyperlinkElementUtils')
 @staticInterop
-class HTMLHyperlinkElementUtils {}
+class HTMLHyperlinkElementUtils implements JSObject {}
 
 extension HTMLHyperlinkElementUtilsExtension on HTMLHyperlinkElementUtils {
   external set href(JSString value);
@@ -1012,7 +1012,7 @@ extension HTMLMediaElementExtension on HTMLMediaElement {
 
 @JS('MediaError')
 @staticInterop
-class MediaError {
+class MediaError implements JSObject {
   external static JSNumber get MEDIA_ERR_ABORTED;
   external static JSNumber get MEDIA_ERR_NETWORK;
   external static JSNumber get MEDIA_ERR_DECODE;
@@ -1041,7 +1041,7 @@ extension AudioTrackListExtension on AudioTrackList {
 
 @JS('AudioTrack')
 @staticInterop
-class AudioTrack {}
+class AudioTrack implements JSObject {}
 
 extension AudioTrackExtension on AudioTrack {
   external JSString get id;
@@ -1071,7 +1071,7 @@ extension VideoTrackListExtension on VideoTrackList {
 
 @JS('VideoTrack')
 @staticInterop
-class VideoTrack {}
+class VideoTrack implements JSObject {}
 
 extension VideoTrackExtension on VideoTrack {
   external JSString get id;
@@ -1121,7 +1121,7 @@ extension TextTrackExtension on TextTrack {
 
 @JS('TextTrackCueList')
 @staticInterop
-class TextTrackCueList {}
+class TextTrackCueList implements JSObject {}
 
 extension TextTrackCueListExtension on TextTrackCueList {
   external TextTrackCue? getCueById(JSString id);
@@ -1150,7 +1150,7 @@ extension TextTrackCueExtension on TextTrackCue {
 
 @JS('TimeRanges')
 @staticInterop
-class TimeRanges {}
+class TimeRanges implements JSObject {}
 
 extension TimeRangesExtension on TimeRanges {
   external JSNumber start(JSNumber index);
@@ -1836,7 +1836,7 @@ extension HTMLLegendElementExtension on HTMLLegendElement {
 
 @JS('ValidityState')
 @staticInterop
-class ValidityState {}
+class ValidityState implements JSObject {}
 
 extension ValidityStateExtension on ValidityState {
   external JSBoolean get valueMissing;
@@ -1994,7 +1994,7 @@ extension HTMLSlotElementExtension on HTMLSlotElement {
 @JS()
 @staticInterop
 @anonymous
-class AssignedNodesOptions {
+class AssignedNodesOptions implements JSObject {
   external factory AssignedNodesOptions({JSBoolean flatten});
 }
 
@@ -2034,7 +2034,7 @@ extension HTMLCanvasElementExtension on HTMLCanvasElement {
 @JS()
 @staticInterop
 @anonymous
-class CanvasRenderingContext2DSettings {
+class CanvasRenderingContext2DSettings implements JSObject {
   external factory CanvasRenderingContext2DSettings({
     JSBoolean alpha,
     JSBoolean desynchronized,
@@ -2083,7 +2083,7 @@ extension CanvasRenderingContext2DExtension on CanvasRenderingContext2D {
 
 @JS('CanvasState')
 @staticInterop
-class CanvasState {}
+class CanvasState implements JSObject {}
 
 extension CanvasStateExtension on CanvasState {
   external JSVoid save();
@@ -2094,7 +2094,7 @@ extension CanvasStateExtension on CanvasState {
 
 @JS('CanvasTransform')
 @staticInterop
-class CanvasTransform {}
+class CanvasTransform implements JSObject {}
 
 extension CanvasTransformExtension on CanvasTransform {
   external JSVoid scale(
@@ -2128,7 +2128,7 @@ extension CanvasTransformExtension on CanvasTransform {
 
 @JS('CanvasCompositing')
 @staticInterop
-class CanvasCompositing {}
+class CanvasCompositing implements JSObject {}
 
 extension CanvasCompositingExtension on CanvasCompositing {
   external set globalAlpha(JSNumber value);
@@ -2139,7 +2139,7 @@ extension CanvasCompositingExtension on CanvasCompositing {
 
 @JS('CanvasImageSmoothing')
 @staticInterop
-class CanvasImageSmoothing {}
+class CanvasImageSmoothing implements JSObject {}
 
 extension CanvasImageSmoothingExtension on CanvasImageSmoothing {
   external set imageSmoothingEnabled(JSBoolean value);
@@ -2150,7 +2150,7 @@ extension CanvasImageSmoothingExtension on CanvasImageSmoothing {
 
 @JS('CanvasFillStrokeStyles')
 @staticInterop
-class CanvasFillStrokeStyles {}
+class CanvasFillStrokeStyles implements JSObject {}
 
 extension CanvasFillStrokeStylesExtension on CanvasFillStrokeStyles {
   external CanvasGradient createLinearGradient(
@@ -2184,7 +2184,7 @@ extension CanvasFillStrokeStylesExtension on CanvasFillStrokeStyles {
 
 @JS('CanvasShadowStyles')
 @staticInterop
-class CanvasShadowStyles {}
+class CanvasShadowStyles implements JSObject {}
 
 extension CanvasShadowStylesExtension on CanvasShadowStyles {
   external set shadowOffsetX(JSNumber value);
@@ -2199,7 +2199,7 @@ extension CanvasShadowStylesExtension on CanvasShadowStyles {
 
 @JS('CanvasFilters')
 @staticInterop
-class CanvasFilters {}
+class CanvasFilters implements JSObject {}
 
 extension CanvasFiltersExtension on CanvasFilters {
   external set filter(JSString value);
@@ -2208,7 +2208,7 @@ extension CanvasFiltersExtension on CanvasFilters {
 
 @JS('CanvasRect')
 @staticInterop
-class CanvasRect {}
+class CanvasRect implements JSObject {}
 
 extension CanvasRectExtension on CanvasRect {
   external JSVoid clearRect(
@@ -2233,7 +2233,7 @@ extension CanvasRectExtension on CanvasRect {
 
 @JS('CanvasDrawPath')
 @staticInterop
-class CanvasDrawPath {}
+class CanvasDrawPath implements JSObject {}
 
 extension CanvasDrawPathExtension on CanvasDrawPath {
   external JSVoid beginPath();
@@ -2261,7 +2261,7 @@ extension CanvasDrawPathExtension on CanvasDrawPath {
 
 @JS('CanvasUserInterface')
 @staticInterop
-class CanvasUserInterface {}
+class CanvasUserInterface implements JSObject {}
 
 extension CanvasUserInterfaceExtension on CanvasUserInterface {
   external JSVoid drawFocusIfNeeded(
@@ -2273,7 +2273,7 @@ extension CanvasUserInterfaceExtension on CanvasUserInterface {
 
 @JS('CanvasText')
 @staticInterop
-class CanvasText {}
+class CanvasText implements JSObject {}
 
 extension CanvasTextExtension on CanvasText {
   external JSVoid fillText(
@@ -2293,7 +2293,7 @@ extension CanvasTextExtension on CanvasText {
 
 @JS('CanvasDrawImage')
 @staticInterop
-class CanvasDrawImage {}
+class CanvasDrawImage implements JSObject {}
 
 extension CanvasDrawImageExtension on CanvasDrawImage {
   external JSVoid drawImage(
@@ -2311,7 +2311,7 @@ extension CanvasDrawImageExtension on CanvasDrawImage {
 
 @JS('CanvasImageData')
 @staticInterop
-class CanvasImageData {}
+class CanvasImageData implements JSObject {}
 
 extension CanvasImageDataExtension on CanvasImageData {
   external ImageData createImageData(
@@ -2339,7 +2339,7 @@ extension CanvasImageDataExtension on CanvasImageData {
 
 @JS('CanvasPathDrawingStyles')
 @staticInterop
-class CanvasPathDrawingStyles {}
+class CanvasPathDrawingStyles implements JSObject {}
 
 extension CanvasPathDrawingStylesExtension on CanvasPathDrawingStyles {
   external JSVoid setLineDash(JSArray segments);
@@ -2358,7 +2358,7 @@ extension CanvasPathDrawingStylesExtension on CanvasPathDrawingStyles {
 
 @JS('CanvasTextDrawingStyles')
 @staticInterop
-class CanvasTextDrawingStyles {}
+class CanvasTextDrawingStyles implements JSObject {}
 
 extension CanvasTextDrawingStylesExtension on CanvasTextDrawingStyles {
   external set font(JSString value);
@@ -2385,7 +2385,7 @@ extension CanvasTextDrawingStylesExtension on CanvasTextDrawingStyles {
 
 @JS('CanvasPath')
 @staticInterop
-class CanvasPath {}
+class CanvasPath implements JSObject {}
 
 extension CanvasPathExtension on CanvasPath {
   external JSVoid closePath();
@@ -2453,7 +2453,7 @@ extension CanvasPathExtension on CanvasPath {
 
 @JS('CanvasGradient')
 @staticInterop
-class CanvasGradient {}
+class CanvasGradient implements JSObject {}
 
 extension CanvasGradientExtension on CanvasGradient {
   external JSVoid addColorStop(
@@ -2464,7 +2464,7 @@ extension CanvasGradientExtension on CanvasGradient {
 
 @JS('CanvasPattern')
 @staticInterop
-class CanvasPattern {}
+class CanvasPattern implements JSObject {}
 
 extension CanvasPatternExtension on CanvasPattern {
   external JSVoid setTransform([DOMMatrix2DInit transform]);
@@ -2472,7 +2472,7 @@ extension CanvasPatternExtension on CanvasPattern {
 
 @JS('TextMetrics')
 @staticInterop
-class TextMetrics {}
+class TextMetrics implements JSObject {}
 
 extension TextMetricsExtension on TextMetrics {
   external JSNumber get width;
@@ -2492,7 +2492,7 @@ extension TextMetricsExtension on TextMetrics {
 @JS()
 @staticInterop
 @anonymous
-class ImageDataSettings {
+class ImageDataSettings implements JSObject {
   external factory ImageDataSettings({PredefinedColorSpace colorSpace});
 }
 
@@ -2503,7 +2503,7 @@ extension ImageDataSettingsExtension on ImageDataSettings {
 
 @JS('ImageData')
 @staticInterop
-class ImageData {
+class ImageData implements JSObject {
   external factory ImageData(
     JSAny dataOrSw,
     JSNumber shOrSw, [
@@ -2534,7 +2534,7 @@ extension Path2DExtension on Path2D {
 
 @JS('ImageBitmapRenderingContext')
 @staticInterop
-class ImageBitmapRenderingContext {}
+class ImageBitmapRenderingContext implements JSObject {}
 
 extension ImageBitmapRenderingContextExtension on ImageBitmapRenderingContext {
   external JSVoid transferFromImageBitmap(ImageBitmap? bitmap);
@@ -2544,7 +2544,7 @@ extension ImageBitmapRenderingContextExtension on ImageBitmapRenderingContext {
 @JS()
 @staticInterop
 @anonymous
-class ImageBitmapRenderingContextSettings {
+class ImageBitmapRenderingContextSettings implements JSObject {
   external factory ImageBitmapRenderingContextSettings({JSBoolean alpha});
 }
 
@@ -2557,7 +2557,7 @@ extension ImageBitmapRenderingContextSettingsExtension
 @JS()
 @staticInterop
 @anonymous
-class ImageEncodeOptions {
+class ImageEncodeOptions implements JSObject {
   external factory ImageEncodeOptions({
     JSString type,
     JSNumber quality,
@@ -2625,7 +2625,7 @@ extension OffscreenCanvasRenderingContext2DExtension
 
 @JS('CustomElementRegistry')
 @staticInterop
-class CustomElementRegistry {}
+class CustomElementRegistry implements JSObject {}
 
 extension CustomElementRegistryExtension on CustomElementRegistry {
   external JSVoid define(
@@ -2641,7 +2641,7 @@ extension CustomElementRegistryExtension on CustomElementRegistry {
 @JS()
 @staticInterop
 @anonymous
-class ElementDefinitionOptions {
+class ElementDefinitionOptions implements JSObject {
   external factory ElementDefinitionOptions({JSString extends_});
 }
 
@@ -2680,7 +2680,7 @@ extension ElementInternalsExtension on ElementInternals {
 @JS()
 @staticInterop
 @anonymous
-class ValidityStateFlags {
+class ValidityStateFlags implements JSObject {
   external factory ValidityStateFlags({
     JSBoolean valueMissing,
     JSBoolean typeMismatch,
@@ -2731,7 +2731,7 @@ extension VisibilityStateEntryExtension on VisibilityStateEntry {
 
 @JS('UserActivation')
 @staticInterop
-class UserActivation {}
+class UserActivation implements JSObject {}
 
 extension UserActivationExtension on UserActivation {
   external JSBoolean get hasBeenActive;
@@ -2741,7 +2741,7 @@ extension UserActivationExtension on UserActivation {
 @JS()
 @staticInterop
 @anonymous
-class FocusOptions {
+class FocusOptions implements JSObject {
   external factory FocusOptions({
     JSBoolean preventScroll,
     JSBoolean focusVisible,
@@ -2757,7 +2757,7 @@ extension FocusOptionsExtension on FocusOptions {
 
 @JS('ElementContentEditable')
 @staticInterop
-class ElementContentEditable {}
+class ElementContentEditable implements JSObject {}
 
 extension ElementContentEditableExtension on ElementContentEditable {
   external set contentEditable(JSString value);
@@ -2773,7 +2773,7 @@ extension ElementContentEditableExtension on ElementContentEditable {
 
 @JS('DataTransfer')
 @staticInterop
-class DataTransfer {
+class DataTransfer implements JSObject {
   external factory DataTransfer();
 }
 
@@ -2800,7 +2800,7 @@ extension DataTransferExtension on DataTransfer {
 
 @JS('DataTransferItemList')
 @staticInterop
-class DataTransferItemList {}
+class DataTransferItemList implements JSObject {}
 
 extension DataTransferItemListExtension on DataTransferItemList {
   external DataTransferItem? add(
@@ -2814,7 +2814,7 @@ extension DataTransferItemListExtension on DataTransferItemList {
 
 @JS('DataTransferItem')
 @staticInterop
-class DataTransferItem {}
+class DataTransferItem implements JSObject {}
 
 extension DataTransferItemExtension on DataTransferItem {
   external FileSystemEntry? webkitGetAsEntry();
@@ -2852,7 +2852,7 @@ extension DragEventInitExtension on DragEventInit {
 
 @JS('PopoverInvokerElement')
 @staticInterop
-class PopoverInvokerElement {}
+class PopoverInvokerElement implements JSObject {}
 
 extension PopoverInvokerElementExtension on PopoverInvokerElement {
   external set popoverTargetElement(Element? value);
@@ -3055,7 +3055,7 @@ extension WindowPostMessageOptionsExtension on WindowPostMessageOptions {
 
 @JS('BarProp')
 @staticInterop
-class BarProp {}
+class BarProp implements JSObject {}
 
 extension BarPropExtension on BarProp {
   external JSBoolean get visible;
@@ -3063,7 +3063,7 @@ extension BarPropExtension on BarProp {
 
 @JS('Location')
 @staticInterop
-class Location {}
+class Location implements JSObject {}
 
 extension LocationExtension on Location {
   external JSVoid assign(JSString url);
@@ -3091,7 +3091,7 @@ extension LocationExtension on Location {
 
 @JS('History')
 @staticInterop
-class History {}
+class History implements JSObject {}
 
 extension HistoryExtension on History {
   external JSVoid go([JSNumber delta]);
@@ -3279,7 +3279,7 @@ extension PromiseRejectionEventInitExtension on PromiseRejectionEventInit {
 
 @JS('GlobalEventHandlers')
 @staticInterop
-class GlobalEventHandlers {}
+class GlobalEventHandlers implements JSObject {}
 
 extension GlobalEventHandlersExtension on GlobalEventHandlers {
   external set onanimationstart(EventHandler value);
@@ -3488,7 +3488,7 @@ extension GlobalEventHandlersExtension on GlobalEventHandlers {
 
 @JS('WindowEventHandlers')
 @staticInterop
-class WindowEventHandlers {}
+class WindowEventHandlers implements JSObject {}
 
 extension WindowEventHandlersExtension on WindowEventHandlers {
   external set ongamepadconnected(EventHandler value);
@@ -3533,7 +3533,7 @@ extension WindowEventHandlersExtension on WindowEventHandlers {
 
 @JS('WindowOrWorkerGlobalScope')
 @staticInterop
-class WindowOrWorkerGlobalScope {}
+class WindowOrWorkerGlobalScope implements JSObject {}
 
 extension WindowOrWorkerGlobalScopeExtension on WindowOrWorkerGlobalScope {
   external JSPromise fetch(
@@ -3581,7 +3581,7 @@ extension WindowOrWorkerGlobalScopeExtension on WindowOrWorkerGlobalScope {
 
 @JS('DOMParser')
 @staticInterop
-class DOMParser {
+class DOMParser implements JSObject {
   external factory DOMParser();
 }
 
@@ -3671,7 +3671,7 @@ extension NavigatorExtension on Navigator {
 
 @JS('NavigatorID')
 @staticInterop
-class NavigatorID {}
+class NavigatorID implements JSObject {}
 
 extension NavigatorIDExtension on NavigatorID {
   external JSBoolean taintEnabled();
@@ -3689,7 +3689,7 @@ extension NavigatorIDExtension on NavigatorID {
 
 @JS('NavigatorLanguage')
 @staticInterop
-class NavigatorLanguage {}
+class NavigatorLanguage implements JSObject {}
 
 extension NavigatorLanguageExtension on NavigatorLanguage {
   external JSString get language;
@@ -3698,7 +3698,7 @@ extension NavigatorLanguageExtension on NavigatorLanguage {
 
 @JS('NavigatorOnLine')
 @staticInterop
-class NavigatorOnLine {}
+class NavigatorOnLine implements JSObject {}
 
 extension NavigatorOnLineExtension on NavigatorOnLine {
   external JSBoolean get onLine;
@@ -3706,7 +3706,7 @@ extension NavigatorOnLineExtension on NavigatorOnLine {
 
 @JS('NavigatorContentUtils')
 @staticInterop
-class NavigatorContentUtils {}
+class NavigatorContentUtils implements JSObject {}
 
 extension NavigatorContentUtilsExtension on NavigatorContentUtils {
   external JSVoid registerProtocolHandler(
@@ -3721,7 +3721,7 @@ extension NavigatorContentUtilsExtension on NavigatorContentUtils {
 
 @JS('NavigatorCookies')
 @staticInterop
-class NavigatorCookies {}
+class NavigatorCookies implements JSObject {}
 
 extension NavigatorCookiesExtension on NavigatorCookies {
   external JSBoolean get cookieEnabled;
@@ -3729,7 +3729,7 @@ extension NavigatorCookiesExtension on NavigatorCookies {
 
 @JS('NavigatorPlugins')
 @staticInterop
-class NavigatorPlugins {}
+class NavigatorPlugins implements JSObject {}
 
 extension NavigatorPluginsExtension on NavigatorPlugins {
   external JSBoolean javaEnabled();
@@ -3740,7 +3740,7 @@ extension NavigatorPluginsExtension on NavigatorPlugins {
 
 @JS('PluginArray')
 @staticInterop
-class PluginArray {}
+class PluginArray implements JSObject {}
 
 extension PluginArrayExtension on PluginArray {
   external JSVoid refresh();
@@ -3751,7 +3751,7 @@ extension PluginArrayExtension on PluginArray {
 
 @JS('MimeTypeArray')
 @staticInterop
-class MimeTypeArray {}
+class MimeTypeArray implements JSObject {}
 
 extension MimeTypeArrayExtension on MimeTypeArray {
   external MimeType? item(JSNumber index);
@@ -3761,7 +3761,7 @@ extension MimeTypeArrayExtension on MimeTypeArray {
 
 @JS('Plugin')
 @staticInterop
-class Plugin {}
+class Plugin implements JSObject {}
 
 extension PluginExtension on Plugin {
   external MimeType? item(JSNumber index);
@@ -3774,7 +3774,7 @@ extension PluginExtension on Plugin {
 
 @JS('MimeType')
 @staticInterop
-class MimeType {}
+class MimeType implements JSObject {}
 
 extension MimeTypeExtension on MimeType {
   external JSString get type;
@@ -3785,7 +3785,7 @@ extension MimeTypeExtension on MimeType {
 
 @JS('ImageBitmap')
 @staticInterop
-class ImageBitmap {}
+class ImageBitmap implements JSObject {}
 
 extension ImageBitmapExtension on ImageBitmap {
   external JSVoid close();
@@ -3796,7 +3796,7 @@ extension ImageBitmapExtension on ImageBitmap {
 @JS()
 @staticInterop
 @anonymous
-class ImageBitmapOptions {
+class ImageBitmapOptions implements JSObject {
   external factory ImageBitmapOptions({
     ImageOrientation imageOrientation,
     PremultiplyAlpha premultiplyAlpha,
@@ -3824,7 +3824,7 @@ extension ImageBitmapOptionsExtension on ImageBitmapOptions {
 
 @JS('AnimationFrameProvider')
 @staticInterop
-class AnimationFrameProvider {}
+class AnimationFrameProvider implements JSObject {}
 
 extension AnimationFrameProviderExtension on AnimationFrameProvider {
   external JSNumber requestAnimationFrame(FrameRequestCallback callback);
@@ -3913,7 +3913,7 @@ extension EventSourceExtension on EventSource {
 @JS()
 @staticInterop
 @anonymous
-class EventSourceInit {
+class EventSourceInit implements JSObject {
   external factory EventSourceInit({JSBoolean withCredentials});
 }
 
@@ -3924,7 +3924,7 @@ extension EventSourceInitExtension on EventSourceInit {
 
 @JS('MessageChannel')
 @staticInterop
-class MessageChannel {
+class MessageChannel implements JSObject {
   external factory MessageChannel();
 }
 
@@ -3953,7 +3953,7 @@ extension MessagePortExtension on MessagePort {
 @JS()
 @staticInterop
 @anonymous
-class StructuredSerializeOptions {
+class StructuredSerializeOptions implements JSObject {
   external factory StructuredSerializeOptions({JSArray transfer});
 }
 
@@ -4035,7 +4035,7 @@ extension SharedWorkerGlobalScopeExtension on SharedWorkerGlobalScope {
 
 @JS('AbstractWorker')
 @staticInterop
-class AbstractWorker {}
+class AbstractWorker implements JSObject {}
 
 extension AbstractWorkerExtension on AbstractWorker {
   external set onerror(EventHandler value);
@@ -4066,7 +4066,7 @@ extension WorkerExtension on Worker {
 @JS()
 @staticInterop
 @anonymous
-class WorkerOptions {
+class WorkerOptions implements JSObject {
   external factory WorkerOptions({
     WorkerType type,
     RequestCredentials credentials,
@@ -4098,7 +4098,7 @@ extension SharedWorkerExtension on SharedWorker {
 
 @JS('NavigatorConcurrentHardware')
 @staticInterop
-class NavigatorConcurrentHardware {}
+class NavigatorConcurrentHardware implements JSObject {}
 
 extension NavigatorConcurrentHardwareExtension on NavigatorConcurrentHardware {
   external JSNumber get hardwareConcurrency;
@@ -4133,7 +4133,7 @@ extension WorkerNavigatorExtension on WorkerNavigator {
 
 @JS('WorkerLocation')
 @staticInterop
-class WorkerLocation {}
+class WorkerLocation implements JSObject {}
 
 extension WorkerLocationExtension on WorkerLocation {
   external JSString get href;
@@ -4149,11 +4149,11 @@ extension WorkerLocationExtension on WorkerLocation {
 
 @JS('WorkletGlobalScope')
 @staticInterop
-class WorkletGlobalScope {}
+class WorkletGlobalScope implements JSObject {}
 
 @JS('Worklet')
 @staticInterop
-class Worklet {}
+class Worklet implements JSObject {}
 
 extension WorkletExtension on Worklet {
   external JSPromise addModule(
@@ -4165,7 +4165,7 @@ extension WorkletExtension on Worklet {
 @JS()
 @staticInterop
 @anonymous
-class WorkletOptions {
+class WorkletOptions implements JSObject {
   external factory WorkletOptions({RequestCredentials credentials});
 }
 
@@ -4176,7 +4176,7 @@ extension WorkletOptionsExtension on WorkletOptions {
 
 @JS('Storage')
 @staticInterop
-class Storage {}
+class Storage implements JSObject {}
 
 extension StorageExtension on Storage {
   external JSString? key(JSNumber index);
@@ -4192,7 +4192,7 @@ extension StorageExtension on Storage {
 
 @JS('WindowSessionStorage')
 @staticInterop
-class WindowSessionStorage {}
+class WindowSessionStorage implements JSObject {}
 
 extension WindowSessionStorageExtension on WindowSessionStorage {
   external Storage get sessionStorage;
@@ -4200,7 +4200,7 @@ extension WindowSessionStorageExtension on WindowSessionStorage {
 
 @JS('WindowLocalStorage')
 @staticInterop
-class WindowLocalStorage {}
+class WindowLocalStorage implements JSObject {}
 
 extension WindowLocalStorageExtension on WindowLocalStorage {
   external Storage get localStorage;
@@ -4377,7 +4377,7 @@ extension HTMLParamElementExtension on HTMLParamElement {
 
 @JS('External')
 @staticInterop
-class External {}
+class External implements JSObject {}
 
 extension ExternalExtension on External {
   external JSVoid AddSearchProvider();

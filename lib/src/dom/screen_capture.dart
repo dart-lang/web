@@ -13,7 +13,7 @@ typedef CursorCaptureConstraint = JSString;
 
 @JS('CaptureController')
 @staticInterop
-class CaptureController {
+class CaptureController implements JSObject {
   external factory CaptureController();
 }
 
@@ -24,7 +24,7 @@ extension CaptureControllerExtension on CaptureController {
 @JS()
 @staticInterop
 @anonymous
-class DisplayMediaStreamOptions {
+class DisplayMediaStreamOptions implements JSObject {
   external factory DisplayMediaStreamOptions({
     JSAny video,
     JSAny audio,

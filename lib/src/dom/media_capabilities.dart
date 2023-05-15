@@ -15,7 +15,7 @@ typedef TransferFunction = JSString;
 @JS()
 @staticInterop
 @anonymous
-class MediaConfiguration {
+class MediaConfiguration implements JSObject {
   external factory MediaConfiguration({
     VideoConfiguration video,
     AudioConfiguration audio,
@@ -63,7 +63,7 @@ extension MediaEncodingConfigurationExtension on MediaEncodingConfiguration {
 @JS()
 @staticInterop
 @anonymous
-class VideoConfiguration {
+class VideoConfiguration implements JSObject {
   external factory VideoConfiguration({
     required JSString contentType,
     required JSNumber width,
@@ -107,7 +107,7 @@ extension VideoConfigurationExtension on VideoConfiguration {
 @JS()
 @staticInterop
 @anonymous
-class AudioConfiguration {
+class AudioConfiguration implements JSObject {
   external factory AudioConfiguration({
     required JSString contentType,
     JSString channels,
@@ -133,7 +133,7 @@ extension AudioConfigurationExtension on AudioConfiguration {
 @JS()
 @staticInterop
 @anonymous
-class MediaCapabilitiesKeySystemConfiguration {
+class MediaCapabilitiesKeySystemConfiguration implements JSObject {
   external factory MediaCapabilitiesKeySystemConfiguration({
     required JSString keySystem,
     JSString initDataType,
@@ -166,7 +166,7 @@ extension MediaCapabilitiesKeySystemConfigurationExtension
 @JS()
 @staticInterop
 @anonymous
-class KeySystemTrackConfiguration {
+class KeySystemTrackConfiguration implements JSObject {
   external factory KeySystemTrackConfiguration({
     JSString robustness,
     JSString? encryptionScheme,
@@ -183,7 +183,7 @@ extension KeySystemTrackConfigurationExtension on KeySystemTrackConfiguration {
 @JS()
 @staticInterop
 @anonymous
-class MediaCapabilitiesInfo {
+class MediaCapabilitiesInfo implements JSObject {
   external factory MediaCapabilitiesInfo({
     required JSBoolean supported,
     required JSBoolean smooth,
@@ -234,7 +234,7 @@ extension MediaCapabilitiesEncodingInfoExtension
 
 @JS('MediaCapabilities')
 @staticInterop
-class MediaCapabilities {}
+class MediaCapabilities implements JSObject {}
 
 extension MediaCapabilitiesExtension on MediaCapabilities {
   external JSPromise decodingInfo(MediaDecodingConfiguration configuration);

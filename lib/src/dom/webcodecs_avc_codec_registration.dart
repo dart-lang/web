@@ -9,7 +9,7 @@ typedef AvcBitstreamFormat = JSString;
 @JS()
 @staticInterop
 @anonymous
-class AvcEncoderConfig {
+class AvcEncoderConfig implements JSObject {
   external factory AvcEncoderConfig({AvcBitstreamFormat format});
 }
 
@@ -21,7 +21,7 @@ extension AvcEncoderConfigExtension on AvcEncoderConfig {
 @JS()
 @staticInterop
 @anonymous
-class VideoEncoderEncodeOptionsForAvc {
+class VideoEncoderEncodeOptionsForAvc implements JSObject {
   external factory VideoEncoderEncodeOptionsForAvc({JSNumber? quantizer});
 }
 

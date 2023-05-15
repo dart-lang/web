@@ -11,7 +11,7 @@ typedef VideoFrameRequestCallback = JSFunction;
 @JS()
 @staticInterop
 @anonymous
-class VideoFrameCallbackMetadata {
+class VideoFrameCallbackMetadata implements JSObject {
   external factory VideoFrameCallbackMetadata({
     required DOMHighResTimeStamp presentationTime,
     required DOMHighResTimeStamp expectedDisplayTime,

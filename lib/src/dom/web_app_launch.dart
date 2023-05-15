@@ -8,7 +8,7 @@ typedef LaunchConsumer = JSFunction;
 
 @JS('LaunchParams')
 @staticInterop
-class LaunchParams {}
+class LaunchParams implements JSObject {}
 
 extension LaunchParamsExtension on LaunchParams {
   external JSString? get targetURL;
@@ -17,7 +17,7 @@ extension LaunchParamsExtension on LaunchParams {
 
 @JS('LaunchQueue')
 @staticInterop
-class LaunchQueue {}
+class LaunchQueue implements JSObject {}
 
 extension LaunchQueueExtension on LaunchQueue {
   external JSVoid setConsumer(LaunchConsumer consumer);

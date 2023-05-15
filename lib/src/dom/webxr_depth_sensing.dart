@@ -13,7 +13,7 @@ typedef XRDepthDataFormat = JSString;
 @JS()
 @staticInterop
 @anonymous
-class XRDepthStateInit {
+class XRDepthStateInit implements JSObject {
   external factory XRDepthStateInit({
     required JSArray usagePreference,
     required JSArray dataFormatPreference,
@@ -29,7 +29,7 @@ extension XRDepthStateInitExtension on XRDepthStateInit {
 
 @JS('XRDepthInformation')
 @staticInterop
-class XRDepthInformation {}
+class XRDepthInformation implements JSObject {}
 
 extension XRDepthInformationExtension on XRDepthInformation {
   external JSNumber get width;

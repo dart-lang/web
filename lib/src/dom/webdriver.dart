@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 @JS('NavigatorAutomationInformation')
 @staticInterop
-class NavigatorAutomationInformation {}
+class NavigatorAutomationInformation implements JSObject {}
 
 extension NavigatorAutomationInformationExtension
     on NavigatorAutomationInformation {

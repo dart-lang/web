@@ -6,4 +6,4 @@ import 'dart:js_interop';
 
 @JS('EXT_frag_depth')
 @staticInterop
-class EXT_frag_depth {}
+class EXT_frag_depth implements JSObject {}

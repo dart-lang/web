@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 @JS('CustomStateSet')
 @staticInterop
-class CustomStateSet {}
+class CustomStateSet implements JSObject {}
 
 extension CustomStateSetExtension on CustomStateSet {
   external JSVoid add(JSString value);

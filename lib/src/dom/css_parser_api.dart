@@ -10,7 +10,7 @@ typedef CSSToken = JSAny;
 @JS()
 @staticInterop
 @anonymous
-class CSSParserOptions {
+class CSSParserOptions implements JSObject {
   external factory CSSParserOptions({JSObject atRules});
 }
 
@@ -21,7 +21,7 @@ extension CSSParserOptionsExtension on CSSParserOptions {
 
 @JS('CSSParserRule')
 @staticInterop
-class CSSParserRule {}
+class CSSParserRule implements JSObject {}
 
 @JS('CSSParserAtRule')
 @staticInterop
@@ -69,7 +69,7 @@ extension CSSParserDeclarationExtension on CSSParserDeclaration {
 
 @JS('CSSParserValue')
 @staticInterop
-class CSSParserValue {}
+class CSSParserValue implements JSObject {}
 
 @JS('CSSParserBlock')
 @staticInterop

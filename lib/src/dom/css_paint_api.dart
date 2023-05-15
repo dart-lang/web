@@ -22,7 +22,7 @@ extension PaintWorkletGlobalScopeExtension on PaintWorkletGlobalScope {
 @JS()
 @staticInterop
 @anonymous
-class PaintRenderingContext2DSettings {
+class PaintRenderingContext2DSettings implements JSObject {
   external factory PaintRenderingContext2DSettings({JSBoolean alpha});
 }
 
@@ -50,7 +50,7 @@ class PaintRenderingContext2D
 
 @JS('PaintSize')
 @staticInterop
-class PaintSize {}
+class PaintSize implements JSObject {}
 
 extension PaintSizeExtension on PaintSize {
   external JSNumber get width;

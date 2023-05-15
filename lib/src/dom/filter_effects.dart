@@ -21,7 +21,7 @@ extension SVGFilterElementExtension on SVGFilterElement {
 
 @JS('SVGFilterPrimitiveStandardAttributes')
 @staticInterop
-class SVGFilterPrimitiveStandardAttributes {}
+class SVGFilterPrimitiveStandardAttributes implements JSObject {}
 
 extension SVGFilterPrimitiveStandardAttributesExtension
     on SVGFilterPrimitiveStandardAttributes {

@@ -11,7 +11,7 @@ typedef FileCallback = JSFunction;
 
 @JS('FileSystemEntry')
 @staticInterop
-class FileSystemEntry {}
+class FileSystemEntry implements JSObject {}
 
 extension FileSystemEntryExtension on FileSystemEntry {
   external JSVoid getParent([
@@ -48,7 +48,7 @@ extension FileSystemDirectoryEntryExtension on FileSystemDirectoryEntry {
 @JS()
 @staticInterop
 @anonymous
-class FileSystemFlags {
+class FileSystemFlags implements JSObject {
   external factory FileSystemFlags({
     JSBoolean create,
     JSBoolean exclusive,
@@ -64,7 +64,7 @@ extension FileSystemFlagsExtension on FileSystemFlags {
 
 @JS('FileSystemDirectoryReader')
 @staticInterop
-class FileSystemDirectoryReader {}
+class FileSystemDirectoryReader implements JSObject {}
 
 extension FileSystemDirectoryReaderExtension on FileSystemDirectoryReader {
   external JSVoid readEntries(
@@ -86,7 +86,7 @@ extension FileSystemFileEntryExtension on FileSystemFileEntry {
 
 @JS('FileSystem')
 @staticInterop
-class FileSystem {}
+class FileSystem implements JSObject {}
 
 extension FileSystemExtension on FileSystem {
   external JSString get name;

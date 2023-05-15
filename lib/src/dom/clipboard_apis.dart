@@ -39,7 +39,7 @@ extension ClipboardEventExtension on ClipboardEvent {
 
 @JS('ClipboardItem')
 @staticInterop
-class ClipboardItem {
+class ClipboardItem implements JSObject {
   external factory ClipboardItem(
     JSAny items, [
     ClipboardItemOptions options,
@@ -55,7 +55,7 @@ extension ClipboardItemExtension on ClipboardItem {
 @JS()
 @staticInterop
 @anonymous
-class ClipboardItemOptions {
+class ClipboardItemOptions implements JSObject {
   external factory ClipboardItemOptions({PresentationStyle presentationStyle});
 }
 

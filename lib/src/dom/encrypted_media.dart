@@ -17,7 +17,7 @@ typedef MediaKeyMessageType = JSString;
 @JS()
 @staticInterop
 @anonymous
-class MediaKeySystemConfiguration {
+class MediaKeySystemConfiguration implements JSObject {
   external factory MediaKeySystemConfiguration({
     JSString label,
     JSArray initDataTypes,
@@ -49,7 +49,7 @@ extension MediaKeySystemConfigurationExtension on MediaKeySystemConfiguration {
 @JS()
 @staticInterop
 @anonymous
-class MediaKeySystemMediaCapability {
+class MediaKeySystemMediaCapability implements JSObject {
   external factory MediaKeySystemMediaCapability({
     JSString contentType,
     JSString? encryptionScheme,
@@ -69,7 +69,7 @@ extension MediaKeySystemMediaCapabilityExtension
 
 @JS('MediaKeySystemAccess')
 @staticInterop
-class MediaKeySystemAccess {}
+class MediaKeySystemAccess implements JSObject {}
 
 extension MediaKeySystemAccessExtension on MediaKeySystemAccess {
   external MediaKeySystemConfiguration getConfiguration();
@@ -79,7 +79,7 @@ extension MediaKeySystemAccessExtension on MediaKeySystemAccess {
 
 @JS('MediaKeys')
 @staticInterop
-class MediaKeys {}
+class MediaKeys implements JSObject {}
 
 extension MediaKeysExtension on MediaKeys {
   external MediaKeySession createSession([MediaKeySessionType sessionType]);
@@ -111,7 +111,7 @@ extension MediaKeySessionExtension on MediaKeySession {
 
 @JS('MediaKeyStatusMap')
 @staticInterop
-class MediaKeyStatusMap {}
+class MediaKeyStatusMap implements JSObject {}
 
 extension MediaKeyStatusMapExtension on MediaKeyStatusMap {
   external JSBoolean has(BufferSource keyId);

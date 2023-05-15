@@ -8,7 +8,7 @@ import 'webxr.dart';
 
 @JS('XRAnchor')
 @staticInterop
-class XRAnchor {}
+class XRAnchor implements JSObject {}
 
 extension XRAnchorExtension on XRAnchor {
   external JSPromise requestPersistentHandle();
@@ -18,6 +18,6 @@ extension XRAnchorExtension on XRAnchor {
 
 @JS('XRAnchorSet')
 @staticInterop
-class XRAnchorSet {}
+class XRAnchorSet implements JSObject {}
 
 extension XRAnchorSetExtension on XRAnchorSet {}

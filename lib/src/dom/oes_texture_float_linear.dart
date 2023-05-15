@@ -6,4 +6,4 @@ import 'dart:js_interop';
 
 @JS('OES_texture_float_linear')
 @staticInterop
-class OES_texture_float_linear {}
+class OES_texture_float_linear implements JSObject {}

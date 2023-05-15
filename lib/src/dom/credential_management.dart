@@ -14,7 +14,7 @@ typedef CredentialMediationRequirement = JSString;
 
 @JS('Credential')
 @staticInterop
-class Credential {
+class Credential implements JSObject {
   external static JSPromise isConditionalMediationAvailable();
 }
 
@@ -25,7 +25,7 @@ extension CredentialExtension on Credential {
 
 @JS('CredentialUserData')
 @staticInterop
-class CredentialUserData {}
+class CredentialUserData implements JSObject {}
 
 extension CredentialUserDataExtension on CredentialUserData {
   external JSString get name;
@@ -34,7 +34,7 @@ extension CredentialUserDataExtension on CredentialUserData {
 
 @JS('CredentialsContainer')
 @staticInterop
-class CredentialsContainer {}
+class CredentialsContainer implements JSObject {}
 
 extension CredentialsContainerExtension on CredentialsContainer {
   external JSPromise get([CredentialRequestOptions options]);
@@ -46,7 +46,7 @@ extension CredentialsContainerExtension on CredentialsContainer {
 @JS()
 @staticInterop
 @anonymous
-class CredentialData {
+class CredentialData implements JSObject {
   external factory CredentialData({required JSString id});
 }
 
@@ -58,7 +58,7 @@ extension CredentialDataExtension on CredentialData {
 @JS()
 @staticInterop
 @anonymous
-class CredentialRequestOptions {
+class CredentialRequestOptions implements JSObject {
   external factory CredentialRequestOptions({
     IdentityCredentialRequestOptions identity,
     CredentialMediationRequirement mediation,
@@ -90,7 +90,7 @@ extension CredentialRequestOptionsExtension on CredentialRequestOptions {
 @JS()
 @staticInterop
 @anonymous
-class CredentialCreationOptions {
+class CredentialCreationOptions implements JSObject {
   external factory CredentialCreationOptions({
     AbortSignal signal,
     PasswordCredentialInit password,
@@ -157,7 +157,7 @@ extension FederatedCredentialExtension on FederatedCredential {
 @JS()
 @staticInterop
 @anonymous
-class FederatedCredentialRequestOptions {
+class FederatedCredentialRequestOptions implements JSObject {
   external factory FederatedCredentialRequestOptions({
     JSArray providers,
     JSArray protocols,

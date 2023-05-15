@@ -88,7 +88,7 @@ extension SpeechRecognitionErrorEventInitExtension
 
 @JS('SpeechRecognitionAlternative')
 @staticInterop
-class SpeechRecognitionAlternative {}
+class SpeechRecognitionAlternative implements JSObject {}
 
 extension SpeechRecognitionAlternativeExtension
     on SpeechRecognitionAlternative {
@@ -98,7 +98,7 @@ extension SpeechRecognitionAlternativeExtension
 
 @JS('SpeechRecognitionResult')
 @staticInterop
-class SpeechRecognitionResult {}
+class SpeechRecognitionResult implements JSObject {}
 
 extension SpeechRecognitionResultExtension on SpeechRecognitionResult {
   external SpeechRecognitionAlternative item(JSNumber index);
@@ -108,7 +108,7 @@ extension SpeechRecognitionResultExtension on SpeechRecognitionResult {
 
 @JS('SpeechRecognitionResultList')
 @staticInterop
-class SpeechRecognitionResultList {}
+class SpeechRecognitionResultList implements JSObject {}
 
 extension SpeechRecognitionResultListExtension on SpeechRecognitionResultList {
   external SpeechRecognitionResult item(JSNumber index);
@@ -148,7 +148,7 @@ extension SpeechRecognitionEventInitExtension on SpeechRecognitionEventInit {
 
 @JS('SpeechGrammar')
 @staticInterop
-class SpeechGrammar {}
+class SpeechGrammar implements JSObject {}
 
 extension SpeechGrammarExtension on SpeechGrammar {
   external set src(JSString value);
@@ -159,7 +159,7 @@ extension SpeechGrammarExtension on SpeechGrammar {
 
 @JS('SpeechGrammarList')
 @staticInterop
-class SpeechGrammarList {
+class SpeechGrammarList implements JSObject {
   external factory SpeechGrammarList();
 }
 
@@ -300,7 +300,7 @@ extension SpeechSynthesisErrorEventInitExtension
 
 @JS('SpeechSynthesisVoice')
 @staticInterop
-class SpeechSynthesisVoice {}
+class SpeechSynthesisVoice implements JSObject {}
 
 extension SpeechSynthesisVoiceExtension on SpeechSynthesisVoice {
   external JSString get voiceURI;

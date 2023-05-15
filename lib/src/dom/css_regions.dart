@@ -8,7 +8,7 @@ import 'dom.dart';
 
 @JS('NamedFlowMap')
 @staticInterop
-class NamedFlowMap {}
+class NamedFlowMap implements JSObject {}
 
 extension NamedFlowMapExtension on NamedFlowMap {}
 
@@ -27,7 +27,7 @@ extension NamedFlowExtension on NamedFlow {
 
 @JS('Region')
 @staticInterop
-class Region {}
+class Region implements JSObject {}
 
 extension RegionExtension on Region {
   external JSArray? getRegionFlowRanges();

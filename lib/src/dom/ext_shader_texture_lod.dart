@@ -6,4 +6,4 @@ import 'dart:js_interop';
 
 @JS('EXT_shader_texture_lod')
 @staticInterop
-class EXT_shader_texture_lod {}
+class EXT_shader_texture_lod implements JSObject {}

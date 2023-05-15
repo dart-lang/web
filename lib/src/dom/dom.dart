@@ -35,7 +35,7 @@ typedef SlotAssignmentMode = JSString;
 
 @JS('Event')
 @staticInterop
-class Event {
+class Event implements JSObject {
   external factory Event(
     JSString type, [
     EventInit eventInitDict,
@@ -77,7 +77,7 @@ extension EventExtension on Event {
 @JS()
 @staticInterop
 @anonymous
-class EventInit {
+class EventInit implements JSObject {
   external factory EventInit({
     JSBoolean bubbles,
     JSBoolean cancelable,
@@ -127,7 +127,7 @@ extension CustomEventInitExtension on CustomEventInit {
 
 @JS('EventTarget')
 @staticInterop
-class EventTarget {
+class EventTarget implements JSObject {
   external factory EventTarget();
 }
 
@@ -148,7 +148,7 @@ extension EventTargetExtension on EventTarget {
 @JS()
 @staticInterop
 @anonymous
-class EventListenerOptions {
+class EventListenerOptions implements JSObject {
   external factory EventListenerOptions({JSBoolean capture});
 }
 
@@ -179,7 +179,7 @@ extension AddEventListenerOptionsExtension on AddEventListenerOptions {
 
 @JS('AbortController')
 @staticInterop
-class AbortController {
+class AbortController implements JSObject {
   external factory AbortController();
 }
 
@@ -205,7 +205,7 @@ extension AbortSignalExtension on AbortSignal {
 
 @JS('NonElementParentNode')
 @staticInterop
-class NonElementParentNode {}
+class NonElementParentNode implements JSObject {}
 
 extension NonElementParentNodeExtension on NonElementParentNode {
   external Element? getElementById(JSString elementId);
@@ -213,7 +213,7 @@ extension NonElementParentNodeExtension on NonElementParentNode {
 
 @JS('DocumentOrShadowRoot')
 @staticInterop
-class DocumentOrShadowRoot {}
+class DocumentOrShadowRoot implements JSObject {}
 
 extension DocumentOrShadowRootExtension on DocumentOrShadowRoot {
   external JSArray getAnimations();
@@ -228,7 +228,7 @@ extension DocumentOrShadowRootExtension on DocumentOrShadowRoot {
 
 @JS('ParentNode')
 @staticInterop
-class ParentNode {}
+class ParentNode implements JSObject {}
 
 extension ParentNodeExtension on ParentNode {
   external JSVoid prepend(JSAny nodes);
@@ -244,7 +244,7 @@ extension ParentNodeExtension on ParentNode {
 
 @JS('NonDocumentTypeChildNode')
 @staticInterop
-class NonDocumentTypeChildNode {}
+class NonDocumentTypeChildNode implements JSObject {}
 
 extension NonDocumentTypeChildNodeExtension on NonDocumentTypeChildNode {
   external Element? get previousElementSibling;
@@ -253,7 +253,7 @@ extension NonDocumentTypeChildNodeExtension on NonDocumentTypeChildNode {
 
 @JS('ChildNode')
 @staticInterop
-class ChildNode {}
+class ChildNode implements JSObject {}
 
 extension ChildNodeExtension on ChildNode {
   external JSVoid before(JSAny nodes);
@@ -264,7 +264,7 @@ extension ChildNodeExtension on ChildNode {
 
 @JS('Slottable')
 @staticInterop
-class Slottable {}
+class Slottable implements JSObject {}
 
 extension SlottableExtension on Slottable {
   external HTMLSlotElement? get assignedSlot;
@@ -272,7 +272,7 @@ extension SlottableExtension on Slottable {
 
 @JS('NodeList')
 @staticInterop
-class NodeList {}
+class NodeList implements JSObject {}
 
 extension NodeListExtension on NodeList {
   external Node? item(JSNumber index);
@@ -281,7 +281,7 @@ extension NodeListExtension on NodeList {
 
 @JS('HTMLCollection')
 @staticInterop
-class HTMLCollection {}
+class HTMLCollection implements JSObject {}
 
 extension HTMLCollectionExtension on HTMLCollection {
   external Element? item(JSNumber index);
@@ -291,7 +291,7 @@ extension HTMLCollectionExtension on HTMLCollection {
 
 @JS('MutationObserver')
 @staticInterop
-class MutationObserver {
+class MutationObserver implements JSObject {
   external factory MutationObserver(MutationCallback callback);
 }
 
@@ -307,7 +307,7 @@ extension MutationObserverExtension on MutationObserver {
 @JS()
 @staticInterop
 @anonymous
-class MutationObserverInit {
+class MutationObserverInit implements JSObject {
   external factory MutationObserverInit({
     JSBoolean childList,
     JSBoolean attributes,
@@ -338,7 +338,7 @@ extension MutationObserverInitExtension on MutationObserverInit {
 
 @JS('MutationRecord')
 @staticInterop
-class MutationRecord {}
+class MutationRecord implements JSObject {}
 
 extension MutationRecordExtension on MutationRecord {
   external JSString get type;
@@ -418,7 +418,7 @@ extension NodeExtension on Node {
 @JS()
 @staticInterop
 @anonymous
-class GetRootNodeOptions {
+class GetRootNodeOptions implements JSObject {
   external factory GetRootNodeOptions({JSBoolean composed});
 }
 
@@ -635,7 +635,7 @@ class XMLDocument implements Document {}
 @JS()
 @staticInterop
 @anonymous
-class ElementCreationOptions {
+class ElementCreationOptions implements JSObject {
   external factory ElementCreationOptions({JSString is_});
 }
 
@@ -648,7 +648,7 @@ extension ElementCreationOptionsExtension on ElementCreationOptions {
 
 @JS('DOMImplementation')
 @staticInterop
-class DOMImplementation {}
+class DOMImplementation implements JSObject {}
 
 extension DOMImplementationExtension on DOMImplementation {
   external DocumentType createDocumentType(
@@ -840,7 +840,7 @@ extension ElementExtension on Element {
 @JS()
 @staticInterop
 @anonymous
-class ShadowRootInit {
+class ShadowRootInit implements JSObject {
   external factory ShadowRootInit({
     required ShadowRootMode mode,
     JSBoolean delegatesFocus,
@@ -859,7 +859,7 @@ extension ShadowRootInitExtension on ShadowRootInit {
 
 @JS('NamedNodeMap')
 @staticInterop
-class NamedNodeMap {}
+class NamedNodeMap implements JSObject {}
 
 extension NamedNodeMapExtension on NamedNodeMap {
   external Attr? item(JSNumber index);
@@ -952,7 +952,7 @@ class Comment implements CharacterData {
 
 @JS('AbstractRange')
 @staticInterop
-class AbstractRange {}
+class AbstractRange implements JSObject {}
 
 extension AbstractRangeExtension on AbstractRange {
   external Node get startContainer;
@@ -965,7 +965,7 @@ extension AbstractRangeExtension on AbstractRange {
 @JS()
 @staticInterop
 @anonymous
-class StaticRangeInit {
+class StaticRangeInit implements JSObject {
   external factory StaticRangeInit({
     required Node startContainer,
     required JSNumber startOffset,
@@ -1046,7 +1046,7 @@ extension RangeExtension on Range {
 
 @JS('NodeIterator')
 @staticInterop
-class NodeIterator {}
+class NodeIterator implements JSObject {}
 
 extension NodeIteratorExtension on NodeIterator {
   external Node? nextNode();
@@ -1061,7 +1061,7 @@ extension NodeIteratorExtension on NodeIterator {
 
 @JS('TreeWalker')
 @staticInterop
-class TreeWalker {}
+class TreeWalker implements JSObject {}
 
 extension TreeWalkerExtension on TreeWalker {
   external Node? parentNode();
@@ -1080,7 +1080,7 @@ extension TreeWalkerExtension on TreeWalker {
 
 @JS('DOMTokenList')
 @staticInterop
-class DOMTokenList {}
+class DOMTokenList implements JSObject {}
 
 extension DOMTokenListExtension on DOMTokenList {
   external JSString? item(JSNumber index);
@@ -1103,7 +1103,7 @@ extension DOMTokenListExtension on DOMTokenList {
 
 @JS('XPathResult')
 @staticInterop
-class XPathResult {
+class XPathResult implements JSObject {
   external static JSNumber get ANY_TYPE;
   external static JSNumber get NUMBER_TYPE;
   external static JSNumber get STRING_TYPE;
@@ -1130,7 +1130,7 @@ extension XPathResultExtension on XPathResult {
 
 @JS('XPathExpression')
 @staticInterop
-class XPathExpression {}
+class XPathExpression implements JSObject {}
 
 extension XPathExpressionExtension on XPathExpression {
   external XPathResult evaluate(
@@ -1142,7 +1142,7 @@ extension XPathExpressionExtension on XPathExpression {
 
 @JS('XPathEvaluatorBase')
 @staticInterop
-class XPathEvaluatorBase {}
+class XPathEvaluatorBase implements JSObject {}
 
 extension XPathEvaluatorBaseExtension on XPathEvaluatorBase {
   external XPathExpression createExpression(
@@ -1167,7 +1167,7 @@ class XPathEvaluator implements XPathEvaluatorBase {
 
 @JS('XSLTProcessor')
 @staticInterop
-class XSLTProcessor {
+class XSLTProcessor implements JSObject {
   external factory XSLTProcessor();
 }
 

@@ -25,7 +25,7 @@ typedef ResponseType = JSString;
 
 @JS('Headers')
 @staticInterop
-class Headers {
+class Headers implements JSObject {
   external factory Headers([HeadersInit init]);
 }
 
@@ -46,7 +46,7 @@ extension HeadersExtension on Headers {
 
 @JS('Body')
 @staticInterop
-class Body {}
+class Body implements JSObject {}
 
 extension BodyExtension on Body {
   external JSPromise arrayBuffer();
@@ -90,7 +90,7 @@ extension RequestExtension on Request {
 @JS()
 @staticInterop
 @anonymous
-class RequestInit {
+class RequestInit implements JSObject {
   external factory RequestInit({
     AttributionReportingRequestOptions attributionReporting,
     JSString method,
@@ -182,7 +182,7 @@ extension ResponseExtension on Response {
 @JS()
 @staticInterop
 @anonymous
-class ResponseInit {
+class ResponseInit implements JSObject {
   external factory ResponseInit({
     JSNumber status,
     JSString statusText,

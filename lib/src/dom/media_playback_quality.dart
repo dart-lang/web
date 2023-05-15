@@ -8,7 +8,7 @@ import 'hr_time.dart';
 
 @JS('VideoPlaybackQuality')
 @staticInterop
-class VideoPlaybackQuality {}
+class VideoPlaybackQuality implements JSObject {}
 
 extension VideoPlaybackQualityExtension on VideoPlaybackQuality {
   external DOMHighResTimeStamp get creationTime;

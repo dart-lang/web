@@ -30,7 +30,7 @@ extension PaymentRequestExtension on PaymentRequest {
 @JS()
 @staticInterop
 @anonymous
-class PaymentMethodData {
+class PaymentMethodData implements JSObject {
   external factory PaymentMethodData({
     required JSString supportedMethods,
     JSObject data,
@@ -47,7 +47,7 @@ extension PaymentMethodDataExtension on PaymentMethodData {
 @JS()
 @staticInterop
 @anonymous
-class PaymentCurrencyAmount {
+class PaymentCurrencyAmount implements JSObject {
   external factory PaymentCurrencyAmount({
     required JSString currency,
     required JSString value,
@@ -64,7 +64,7 @@ extension PaymentCurrencyAmountExtension on PaymentCurrencyAmount {
 @JS()
 @staticInterop
 @anonymous
-class PaymentDetailsBase {
+class PaymentDetailsBase implements JSObject {
   external factory PaymentDetailsBase({
     JSArray displayItems,
     JSArray modifiers,
@@ -115,7 +115,7 @@ extension PaymentDetailsUpdateExtension on PaymentDetailsUpdate {
 @JS()
 @staticInterop
 @anonymous
-class PaymentDetailsModifier {
+class PaymentDetailsModifier implements JSObject {
   external factory PaymentDetailsModifier({
     required JSString supportedMethods,
     PaymentItem total,
@@ -138,7 +138,7 @@ extension PaymentDetailsModifierExtension on PaymentDetailsModifier {
 @JS()
 @staticInterop
 @anonymous
-class PaymentItem {
+class PaymentItem implements JSObject {
   external factory PaymentItem({
     required JSString label,
     required PaymentCurrencyAmount amount,
@@ -158,7 +158,7 @@ extension PaymentItemExtension on PaymentItem {
 @JS()
 @staticInterop
 @anonymous
-class PaymentCompleteDetails {
+class PaymentCompleteDetails implements JSObject {
   external factory PaymentCompleteDetails({JSObject? data});
 }
 
@@ -186,7 +186,7 @@ extension PaymentResponseExtension on PaymentResponse {
 @JS()
 @staticInterop
 @anonymous
-class PaymentValidationErrors {
+class PaymentValidationErrors implements JSObject {
   external factory PaymentValidationErrors({
     JSString error,
     JSObject paymentMethod,

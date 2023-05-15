@@ -29,7 +29,7 @@ extension HTMLFencedFrameElementExtension on HTMLFencedFrameElement {
 
 @JS('FencedFrameConfig')
 @staticInterop
-class FencedFrameConfig {}
+class FencedFrameConfig implements JSObject {}
 
 extension FencedFrameConfigExtension on FencedFrameConfig {
   external JSVoid setSharedStorageContext(JSString contextString);
@@ -43,7 +43,7 @@ extension FencedFrameConfigExtension on FencedFrameConfig {
 @JS()
 @staticInterop
 @anonymous
-class FenceEvent {
+class FenceEvent implements JSObject {
   external factory FenceEvent({
     required JSString eventType,
     required JSString eventData,
@@ -62,7 +62,7 @@ extension FenceEventExtension on FenceEvent {
 
 @JS('Fence')
 @staticInterop
-class Fence {}
+class Fence implements JSObject {}
 
 extension FenceExtension on Fence {
   external JSVoid reportEvent(ReportEventType event);

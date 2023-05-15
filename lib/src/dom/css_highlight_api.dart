@@ -10,7 +10,7 @@ typedef HighlightType = JSString;
 
 @JS('Highlight')
 @staticInterop
-class Highlight {
+class Highlight implements JSObject {
   external factory Highlight(AbstractRange initialRanges);
 }
 
@@ -23,6 +23,6 @@ extension HighlightExtension on Highlight {
 
 @JS('HighlightRegistry')
 @staticInterop
-class HighlightRegistry {}
+class HighlightRegistry implements JSObject {}
 
 extension HighlightRegistryExtension on HighlightRegistry {}

@@ -9,7 +9,7 @@ typedef MockCapturePromptResult = JSString;
 @JS()
 @staticInterop
 @anonymous
-class MockCapturePromptResultConfiguration {
+class MockCapturePromptResultConfiguration implements JSObject {
   external factory MockCapturePromptResultConfiguration({
     MockCapturePromptResult getUserMedia,
     MockCapturePromptResult getDisplayMedia,
@@ -27,7 +27,7 @@ extension MockCapturePromptResultConfigurationExtension
 @JS()
 @staticInterop
 @anonymous
-class MockCaptureDeviceConfiguration {
+class MockCaptureDeviceConfiguration implements JSObject {
   external factory MockCaptureDeviceConfiguration({
     JSString label,
     JSString deviceId,

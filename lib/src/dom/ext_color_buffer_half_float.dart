@@ -8,7 +8,7 @@ import 'webgl1.dart';
 
 @JS('EXT_color_buffer_half_float')
 @staticInterop
-class EXT_color_buffer_half_float {
+class EXT_color_buffer_half_float implements JSObject {
   external static GLenum get RGBA16F_EXT;
   external static GLenum get RGB16F_EXT;
   external static GLenum get FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT;

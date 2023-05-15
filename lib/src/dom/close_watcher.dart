@@ -25,7 +25,7 @@ extension CloseWatcherExtension on CloseWatcher {
 @JS()
 @staticInterop
 @anonymous
-class CloseWatcherOptions {
+class CloseWatcherOptions implements JSObject {
   external factory CloseWatcherOptions({AbortSignal signal});
 }
 

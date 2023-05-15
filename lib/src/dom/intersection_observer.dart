@@ -12,7 +12,7 @@ typedef IntersectionObserverCallback = JSFunction;
 
 @JS('IntersectionObserver')
 @staticInterop
-class IntersectionObserver {
+class IntersectionObserver implements JSObject {
   external factory IntersectionObserver(
     IntersectionObserverCallback callback, [
     IntersectionObserverInit options,
@@ -31,7 +31,7 @@ extension IntersectionObserverExtension on IntersectionObserver {
 
 @JS('IntersectionObserverEntry')
 @staticInterop
-class IntersectionObserverEntry {
+class IntersectionObserverEntry implements JSObject {
   external factory IntersectionObserverEntry(
       IntersectionObserverEntryInit intersectionObserverEntryInit);
 }
@@ -49,7 +49,7 @@ extension IntersectionObserverEntryExtension on IntersectionObserverEntry {
 @JS()
 @staticInterop
 @anonymous
-class IntersectionObserverEntryInit {
+class IntersectionObserverEntryInit implements JSObject {
   external factory IntersectionObserverEntryInit({
     required DOMHighResTimeStamp time,
     required DOMRectInit? rootBounds,
@@ -82,7 +82,7 @@ extension IntersectionObserverEntryInitExtension
 @JS()
 @staticInterop
 @anonymous
-class IntersectionObserverInit {
+class IntersectionObserverInit implements JSObject {
   external factory IntersectionObserverInit({
     JSAny? root,
     JSString rootMargin,

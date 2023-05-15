@@ -13,7 +13,7 @@ typedef ScrollAxis = JSString;
 @JS()
 @staticInterop
 @anonymous
-class ScrollTimelineOptions {
+class ScrollTimelineOptions implements JSObject {
   external factory ScrollTimelineOptions({
     Element? source,
     ScrollAxis axis,
@@ -41,7 +41,7 @@ extension ScrollTimelineExtension on ScrollTimeline {
 @JS()
 @staticInterop
 @anonymous
-class ViewTimelineOptions {
+class ViewTimelineOptions implements JSObject {
   external factory ViewTimelineOptions({
     Element subject,
     ScrollAxis axis,
@@ -73,7 +73,7 @@ extension ViewTimelineExtension on ViewTimeline {
 @JS()
 @staticInterop
 @anonymous
-class AnimationTimeOptions {
+class AnimationTimeOptions implements JSObject {
   external factory AnimationTimeOptions({JSString? range});
 }
 

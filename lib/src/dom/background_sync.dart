@@ -8,7 +8,7 @@ import 'service_workers.dart';
 
 @JS('SyncManager')
 @staticInterop
-class SyncManager {}
+class SyncManager implements JSObject {}
 
 extension SyncManagerExtension on SyncManager {
   external JSPromise register(JSString tag);

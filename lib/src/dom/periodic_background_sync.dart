@@ -8,7 +8,7 @@ import 'service_workers.dart';
 
 @JS('PeriodicSyncManager')
 @staticInterop
-class PeriodicSyncManager {}
+class PeriodicSyncManager implements JSObject {}
 
 extension PeriodicSyncManagerExtension on PeriodicSyncManager {
   external JSPromise register(
@@ -22,7 +22,7 @@ extension PeriodicSyncManagerExtension on PeriodicSyncManager {
 @JS()
 @staticInterop
 @anonymous
-class BackgroundSyncOptions {
+class BackgroundSyncOptions implements JSObject {
   external factory BackgroundSyncOptions({JSNumber minInterval});
 }
 

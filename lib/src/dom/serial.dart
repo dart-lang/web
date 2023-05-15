@@ -27,7 +27,7 @@ extension SerialExtension on Serial {
 @JS()
 @staticInterop
 @anonymous
-class SerialPortRequestOptions {
+class SerialPortRequestOptions implements JSObject {
   external factory SerialPortRequestOptions({JSArray filters});
 }
 
@@ -39,7 +39,7 @@ extension SerialPortRequestOptionsExtension on SerialPortRequestOptions {
 @JS()
 @staticInterop
 @anonymous
-class SerialPortFilter {
+class SerialPortFilter implements JSObject {
   external factory SerialPortFilter({
     JSNumber usbVendorId,
     JSNumber usbProductId,
@@ -75,7 +75,7 @@ extension SerialPortExtension on SerialPort {
 @JS()
 @staticInterop
 @anonymous
-class SerialPortInfo {
+class SerialPortInfo implements JSObject {
   external factory SerialPortInfo({
     JSNumber usbVendorId,
     JSNumber usbProductId,
@@ -92,7 +92,7 @@ extension SerialPortInfoExtension on SerialPortInfo {
 @JS()
 @staticInterop
 @anonymous
-class SerialOptions {
+class SerialOptions implements JSObject {
   external factory SerialOptions({
     required JSNumber baudRate,
     JSNumber dataBits,
@@ -121,7 +121,7 @@ extension SerialOptionsExtension on SerialOptions {
 @JS()
 @staticInterop
 @anonymous
-class SerialOutputSignals {
+class SerialOutputSignals implements JSObject {
   external factory SerialOutputSignals({
     JSBoolean dataTerminalReady,
     JSBoolean requestToSend,
@@ -143,7 +143,7 @@ extension SerialOutputSignalsExtension on SerialOutputSignals {
 @JS()
 @staticInterop
 @anonymous
-class SerialInputSignals {
+class SerialInputSignals implements JSObject {
   external factory SerialInputSignals({
     required JSBoolean dataCarrierDetect,
     required JSBoolean clearToSend,

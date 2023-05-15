@@ -13,7 +13,7 @@ typedef IterationCompositeOperation = JSString;
 
 @JS('GroupEffect')
 @staticInterop
-class GroupEffect {
+class GroupEffect implements JSObject {
   external factory GroupEffect(
     JSArray? children, [
     JSAny timing,
@@ -31,7 +31,7 @@ extension GroupEffectExtension on GroupEffect {
 
 @JS('AnimationNodeList')
 @staticInterop
-class AnimationNodeList {}
+class AnimationNodeList implements JSObject {}
 
 extension AnimationNodeListExtension on AnimationNodeList {
   external AnimationEffect? item(JSNumber index);
@@ -54,7 +54,7 @@ extension SequenceEffectExtension on SequenceEffect {
 @JS()
 @staticInterop
 @anonymous
-class TimelineRangeOffset {
+class TimelineRangeOffset implements JSObject {
   external factory TimelineRangeOffset({
     JSString? rangeName,
     CSSNumericValue offset,

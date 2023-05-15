@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 @JS('NavigatorStorage')
 @staticInterop
-class NavigatorStorage {}
+class NavigatorStorage implements JSObject {}
 
 extension NavigatorStorageExtension on NavigatorStorage {
   external StorageManager get storage;
@@ -14,7 +14,7 @@ extension NavigatorStorageExtension on NavigatorStorage {
 
 @JS('StorageManager')
 @staticInterop
-class StorageManager {}
+class StorageManager implements JSObject {}
 
 extension StorageManagerExtension on StorageManager {
   external JSPromise getDirectory();
@@ -26,7 +26,7 @@ extension StorageManagerExtension on StorageManager {
 @JS()
 @staticInterop
 @anonymous
-class StorageEstimate {
+class StorageEstimate implements JSObject {
   external factory StorageEstimate({
     JSNumber usage,
     JSNumber quota,

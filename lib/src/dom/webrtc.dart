@@ -45,7 +45,7 @@ typedef RTCErrorDetailType = JSString;
 @JS()
 @staticInterop
 @anonymous
-class RTCConfiguration {
+class RTCConfiguration implements JSObject {
   external factory RTCConfiguration({
     JSString peerIdentity,
     JSArray iceServers,
@@ -77,7 +77,7 @@ extension RTCConfigurationExtension on RTCConfiguration {
 @JS()
 @staticInterop
 @anonymous
-class RTCIceServer {
+class RTCIceServer implements JSObject {
   external factory RTCIceServer({
     required JSAny urls,
     JSString username,
@@ -97,7 +97,7 @@ extension RTCIceServerExtension on RTCIceServer {
 @JS()
 @staticInterop
 @anonymous
-class RTCOfferAnswerOptions {
+class RTCOfferAnswerOptions implements JSObject {
   external factory RTCOfferAnswerOptions();
 }
 
@@ -225,7 +225,7 @@ extension RTCPeerConnectionExtension on RTCPeerConnection {
 
 @JS('RTCSessionDescription')
 @staticInterop
-class RTCSessionDescription {
+class RTCSessionDescription implements JSObject {
   external factory RTCSessionDescription(
       RTCSessionDescriptionInit descriptionInitDict);
 }
@@ -239,7 +239,7 @@ extension RTCSessionDescriptionExtension on RTCSessionDescription {
 @JS()
 @staticInterop
 @anonymous
-class RTCSessionDescriptionInit {
+class RTCSessionDescriptionInit implements JSObject {
   external factory RTCSessionDescriptionInit({
     required RTCSdpType type,
     JSString sdp,
@@ -256,7 +256,7 @@ extension RTCSessionDescriptionInitExtension on RTCSessionDescriptionInit {
 @JS()
 @staticInterop
 @anonymous
-class RTCLocalSessionDescriptionInit {
+class RTCLocalSessionDescriptionInit implements JSObject {
   external factory RTCLocalSessionDescriptionInit({
     RTCSdpType type,
     JSString sdp,
@@ -273,7 +273,7 @@ extension RTCLocalSessionDescriptionInitExtension
 
 @JS('RTCIceCandidate')
 @staticInterop
-class RTCIceCandidate {
+class RTCIceCandidate implements JSObject {
   external factory RTCIceCandidate([RTCIceCandidateInit candidateInitDict]);
 }
 
@@ -300,7 +300,7 @@ extension RTCIceCandidateExtension on RTCIceCandidate {
 @JS()
 @staticInterop
 @anonymous
-class RTCIceCandidateInit {
+class RTCIceCandidateInit implements JSObject {
   external factory RTCIceCandidateInit({
     JSString candidate,
     JSString? sdpMid,
@@ -400,7 +400,7 @@ extension RTCPeerConnectionIceErrorEventInitExtension
 @JS()
 @staticInterop
 @anonymous
-class RTCCertificateExpiration {
+class RTCCertificateExpiration implements JSObject {
   external factory RTCCertificateExpiration({JSNumber expires});
 }
 
@@ -411,7 +411,7 @@ extension RTCCertificateExpirationExtension on RTCCertificateExpiration {
 
 @JS('RTCCertificate')
 @staticInterop
-class RTCCertificate {}
+class RTCCertificate implements JSObject {}
 
 extension RTCCertificateExtension on RTCCertificate {
   external JSArray getFingerprints();
@@ -421,7 +421,7 @@ extension RTCCertificateExtension on RTCCertificate {
 @JS()
 @staticInterop
 @anonymous
-class RTCRtpTransceiverInit {
+class RTCRtpTransceiverInit implements JSObject {
   external factory RTCRtpTransceiverInit({
     RTCRtpTransceiverDirection direction,
     JSArray streams,
@@ -440,7 +440,7 @@ extension RTCRtpTransceiverInitExtension on RTCRtpTransceiverInit {
 
 @JS('RTCRtpSender')
 @staticInterop
-class RTCRtpSender {
+class RTCRtpSender implements JSObject {
   external static RTCRtpCapabilities? getCapabilities(JSString kind);
 }
 
@@ -461,7 +461,7 @@ extension RTCRtpSenderExtension on RTCRtpSender {
 @JS()
 @staticInterop
 @anonymous
-class RTCRtpParameters {
+class RTCRtpParameters implements JSObject {
   external factory RTCRtpParameters({
     required JSArray headerExtensions,
     required RTCRtcpParameters rtcp,
@@ -508,7 +508,7 @@ class RTCRtpReceiveParameters implements RTCRtpParameters {
 @JS()
 @staticInterop
 @anonymous
-class RTCRtpCodingParameters {
+class RTCRtpCodingParameters implements JSObject {
   external factory RTCRtpCodingParameters({JSString rid});
 }
 
@@ -552,7 +552,7 @@ extension RTCRtpEncodingParametersExtension on RTCRtpEncodingParameters {
 @JS()
 @staticInterop
 @anonymous
-class RTCRtcpParameters {
+class RTCRtcpParameters implements JSObject {
   external factory RTCRtcpParameters({
     JSString cname,
     JSBoolean reducedSize,
@@ -569,7 +569,7 @@ extension RTCRtcpParametersExtension on RTCRtcpParameters {
 @JS()
 @staticInterop
 @anonymous
-class RTCRtpHeaderExtensionParameters {
+class RTCRtpHeaderExtensionParameters implements JSObject {
   external factory RTCRtpHeaderExtensionParameters({
     required JSString uri,
     required JSNumber id,
@@ -590,7 +590,7 @@ extension RTCRtpHeaderExtensionParametersExtension
 @JS()
 @staticInterop
 @anonymous
-class RTCRtpCodec {
+class RTCRtpCodec implements JSObject {
   external factory RTCRtpCodec({
     required JSString mimeType,
     required JSNumber clockRate,
@@ -625,7 +625,7 @@ extension RTCRtpCodecParametersExtension on RTCRtpCodecParameters {
 @JS()
 @staticInterop
 @anonymous
-class RTCRtpCapabilities {
+class RTCRtpCapabilities implements JSObject {
   external factory RTCRtpCapabilities({
     required JSArray codecs,
     required JSArray headerExtensions,
@@ -649,7 +649,7 @@ class RTCRtpCodecCapability implements RTCRtpCodec {
 @JS()
 @staticInterop
 @anonymous
-class RTCRtpHeaderExtensionCapability {
+class RTCRtpHeaderExtensionCapability implements JSObject {
   external factory RTCRtpHeaderExtensionCapability({required JSString uri});
 }
 
@@ -661,7 +661,7 @@ extension RTCRtpHeaderExtensionCapabilityExtension
 
 @JS('RTCRtpReceiver')
 @staticInterop
-class RTCRtpReceiver {
+class RTCRtpReceiver implements JSObject {
   external static RTCRtpCapabilities? getCapabilities(JSString kind);
 }
 
@@ -679,7 +679,7 @@ extension RTCRtpReceiverExtension on RTCRtpReceiver {
 @JS()
 @staticInterop
 @anonymous
-class RTCRtpContributingSource {
+class RTCRtpContributingSource implements JSObject {
   external factory RTCRtpContributingSource({
     required DOMHighResTimeStamp timestamp,
     required JSNumber source,
@@ -708,7 +708,7 @@ class RTCRtpSynchronizationSource implements RTCRtpContributingSource {
 
 @JS('RTCRtpTransceiver')
 @staticInterop
-class RTCRtpTransceiver {}
+class RTCRtpTransceiver implements JSObject {}
 
 extension RTCRtpTransceiverExtension on RTCRtpTransceiver {
   external JSVoid stop();
@@ -738,7 +738,7 @@ extension RTCDtlsTransportExtension on RTCDtlsTransport {
 @JS()
 @staticInterop
 @anonymous
-class RTCDtlsFingerprint {
+class RTCDtlsFingerprint implements JSObject {
   external factory RTCDtlsFingerprint({
     JSString algorithm,
     JSString value,
@@ -790,7 +790,7 @@ extension RTCIceTransportExtension on RTCIceTransport {
 @JS()
 @staticInterop
 @anonymous
-class RTCIceParameters {
+class RTCIceParameters implements JSObject {
   external factory RTCIceParameters({
     JSBoolean iceLite,
     JSString usernameFragment,
@@ -810,7 +810,7 @@ extension RTCIceParametersExtension on RTCIceParameters {
 @JS()
 @staticInterop
 @anonymous
-class RTCIceCandidatePair {
+class RTCIceCandidatePair implements JSObject {
   external factory RTCIceCandidatePair({
     RTCIceCandidate local,
     RTCIceCandidate remote,
@@ -914,7 +914,7 @@ extension RTCDataChannelExtension on RTCDataChannel {
 @JS()
 @staticInterop
 @anonymous
-class RTCDataChannelInit {
+class RTCDataChannelInit implements JSObject {
   external factory RTCDataChannelInit({
     RTCPriorityType priority,
     JSBoolean ordered,
@@ -1011,14 +1011,14 @@ extension RTCDTMFToneChangeEventInitExtension on RTCDTMFToneChangeEventInit {
 
 @JS('RTCStatsReport')
 @staticInterop
-class RTCStatsReport {}
+class RTCStatsReport implements JSObject {}
 
 extension RTCStatsReportExtension on RTCStatsReport {}
 
 @JS()
 @staticInterop
 @anonymous
-class RTCStats {
+class RTCStats implements JSObject {
   external factory RTCStats({
     required DOMHighResTimeStamp timestamp,
     required RTCStatsType type,
@@ -1056,7 +1056,7 @@ extension RTCErrorExtension on RTCError {
 @JS()
 @staticInterop
 @anonymous
-class RTCErrorInit {
+class RTCErrorInit implements JSObject {
   external factory RTCErrorInit({
     JSNumber httpRequestStatusCode,
     required RTCErrorDetailType errorDetail,

@@ -13,7 +13,7 @@ typedef MeteringMode = JSString;
 
 @JS('ImageCapture')
 @staticInterop
-class ImageCapture {
+class ImageCapture implements JSObject {
   external factory ImageCapture(MediaStreamTrack videoTrack);
 }
 
@@ -28,7 +28,7 @@ extension ImageCaptureExtension on ImageCapture {
 @JS()
 @staticInterop
 @anonymous
-class PhotoCapabilities {
+class PhotoCapabilities implements JSObject {
   external factory PhotoCapabilities({
     RedEyeReduction redEyeReduction,
     MediaSettingsRange imageHeight,
@@ -51,7 +51,7 @@ extension PhotoCapabilitiesExtension on PhotoCapabilities {
 @JS()
 @staticInterop
 @anonymous
-class PhotoSettings {
+class PhotoSettings implements JSObject {
   external factory PhotoSettings({
     FillLightMode fillLightMode,
     JSNumber imageHeight,
@@ -74,7 +74,7 @@ extension PhotoSettingsExtension on PhotoSettings {
 @JS()
 @staticInterop
 @anonymous
-class MediaSettingsRange {
+class MediaSettingsRange implements JSObject {
   external factory MediaSettingsRange({
     JSNumber max,
     JSNumber min,
@@ -94,7 +94,7 @@ extension MediaSettingsRangeExtension on MediaSettingsRange {
 @JS()
 @staticInterop
 @anonymous
-class ConstrainPoint2DParameters {
+class ConstrainPoint2DParameters implements JSObject {
   external factory ConstrainPoint2DParameters({
     JSArray exact,
     JSArray ideal,
@@ -111,7 +111,7 @@ extension ConstrainPoint2DParametersExtension on ConstrainPoint2DParameters {
 @JS()
 @staticInterop
 @anonymous
-class Point2D {
+class Point2D implements JSObject {
   external factory Point2D({
     JSNumber x,
     JSNumber y,

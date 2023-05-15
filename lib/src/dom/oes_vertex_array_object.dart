@@ -12,7 +12,7 @@ class WebGLVertexArrayObjectOES implements WebGLObject {}
 
 @JS('OES_vertex_array_object')
 @staticInterop
-class OES_vertex_array_object {
+class OES_vertex_array_object implements JSObject {
   external static GLenum get VERTEX_ARRAY_BINDING_OES;
 }
 

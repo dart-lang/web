@@ -19,7 +19,7 @@ typedef RTCEncodedVideoFrameType = JSString;
 @JS()
 @staticInterop
 @anonymous
-class SFrameTransformOptions {
+class SFrameTransformOptions implements JSObject {
   external factory SFrameTransformOptions({SFrameTransformRole role});
 }
 
@@ -82,7 +82,7 @@ extension SFrameTransformErrorEventInitExtension
 @JS()
 @staticInterop
 @anonymous
-class RTCEncodedVideoFrameMetadata {
+class RTCEncodedVideoFrameMetadata implements JSObject {
   external factory RTCEncodedVideoFrameMetadata({
     JSNumber frameId,
     JSArray dependencies,
@@ -123,7 +123,7 @@ extension RTCEncodedVideoFrameMetadataExtension
 
 @JS('RTCEncodedVideoFrame')
 @staticInterop
-class RTCEncodedVideoFrame {}
+class RTCEncodedVideoFrame implements JSObject {}
 
 extension RTCEncodedVideoFrameExtension on RTCEncodedVideoFrame {
   external RTCEncodedVideoFrameMetadata getMetadata();
@@ -136,7 +136,7 @@ extension RTCEncodedVideoFrameExtension on RTCEncodedVideoFrame {
 @JS()
 @staticInterop
 @anonymous
-class RTCEncodedAudioFrameMetadata {
+class RTCEncodedAudioFrameMetadata implements JSObject {
   external factory RTCEncodedAudioFrameMetadata({
     JSNumber synchronizationSource,
     JSNumber payloadType,
@@ -159,7 +159,7 @@ extension RTCEncodedAudioFrameMetadataExtension
 
 @JS('RTCEncodedAudioFrame')
 @staticInterop
-class RTCEncodedAudioFrame {}
+class RTCEncodedAudioFrame implements JSObject {}
 
 extension RTCEncodedAudioFrameExtension on RTCEncodedAudioFrame {
   external RTCEncodedAudioFrameMetadata getMetadata();
@@ -178,7 +178,7 @@ extension RTCTransformEventExtension on RTCTransformEvent {
 
 @JS('RTCRtpScriptTransformer')
 @staticInterop
-class RTCRtpScriptTransformer {}
+class RTCRtpScriptTransformer implements JSObject {}
 
 extension RTCRtpScriptTransformerExtension on RTCRtpScriptTransformer {
   external JSPromise generateKeyFrame([JSString rid]);
@@ -190,7 +190,7 @@ extension RTCRtpScriptTransformerExtension on RTCRtpScriptTransformer {
 
 @JS('RTCRtpScriptTransform')
 @staticInterop
-class RTCRtpScriptTransform {
+class RTCRtpScriptTransform implements JSObject {
   external factory RTCRtpScriptTransform(
     Worker worker, [
     JSAny options,

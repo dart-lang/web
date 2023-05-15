@@ -10,7 +10,7 @@ typedef VoidFunction = JSFunction;
 
 @JS('DOMException')
 @staticInterop
-class DOMException {
+class DOMException implements JSObject {
   external factory DOMException([
     JSString message,
     JSString name,

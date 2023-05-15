@@ -11,7 +11,7 @@ import 'html.dart';
 @JS()
 @staticInterop
 @anonymous
-class EditContextInit {
+class EditContextInit implements JSObject {
   external factory EditContextInit({
     JSString text,
     JSNumber selectionStart,
@@ -127,7 +127,7 @@ extension TextUpdateEventExtension on TextUpdateEvent {
 @JS()
 @staticInterop
 @anonymous
-class TextFormatInit {
+class TextFormatInit implements JSObject {
   external factory TextFormatInit({
     JSNumber rangeStart,
     JSNumber rangeEnd,
@@ -158,7 +158,7 @@ extension TextFormatInitExtension on TextFormatInit {
 
 @JS('TextFormat')
 @staticInterop
-class TextFormat {
+class TextFormat implements JSObject {
   external factory TextFormat([TextFormatInit options]);
 }
 

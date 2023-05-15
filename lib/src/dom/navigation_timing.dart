@@ -30,7 +30,7 @@ extension PerformanceNavigationTimingExtension on PerformanceNavigationTiming {
 
 @JS('PerformanceTiming')
 @staticInterop
-class PerformanceTiming {}
+class PerformanceTiming implements JSObject {}
 
 extension PerformanceTimingExtension on PerformanceTiming {
   external JSObject toJSON();
@@ -59,7 +59,7 @@ extension PerformanceTimingExtension on PerformanceTiming {
 
 @JS('PerformanceNavigation')
 @staticInterop
-class PerformanceNavigation {
+class PerformanceNavigation implements JSObject {
   external static JSNumber get TYPE_NAVIGATE;
   external static JSNumber get TYPE_RELOAD;
   external static JSNumber get TYPE_BACK_FORWARD;

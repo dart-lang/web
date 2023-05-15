@@ -13,7 +13,7 @@ typedef PresentationConnectionCloseReason = JSString;
 
 @JS('Presentation')
 @staticInterop
-class Presentation {}
+class Presentation implements JSObject {}
 
 extension PresentationExtension on Presentation {
   external set defaultRequest(PresentationRequest? value);
@@ -131,7 +131,7 @@ extension PresentationConnectionCloseEventInitExtension
 
 @JS('PresentationReceiver')
 @staticInterop
-class PresentationReceiver {}
+class PresentationReceiver implements JSObject {}
 
 extension PresentationReceiverExtension on PresentationReceiver {
   external JSPromise get connectionList;

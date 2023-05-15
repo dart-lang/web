@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 @JS('GlobalPrivacyControl')
 @staticInterop
-class GlobalPrivacyControl {}
+class GlobalPrivacyControl implements JSObject {}
 
 extension GlobalPrivacyControlExtension on GlobalPrivacyControl {
   external JSBoolean get globalPrivacyControl;

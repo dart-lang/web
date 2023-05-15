@@ -11,7 +11,7 @@ typedef LockMode = JSString;
 
 @JS('NavigatorLocks')
 @staticInterop
-class NavigatorLocks {}
+class NavigatorLocks implements JSObject {}
 
 extension NavigatorLocksExtension on NavigatorLocks {
   external LockManager get locks;
@@ -19,7 +19,7 @@ extension NavigatorLocksExtension on NavigatorLocks {
 
 @JS('LockManager')
 @staticInterop
-class LockManager {}
+class LockManager implements JSObject {}
 
 extension LockManagerExtension on LockManager {
   external JSPromise request(
@@ -33,7 +33,7 @@ extension LockManagerExtension on LockManager {
 @JS()
 @staticInterop
 @anonymous
-class LockOptions {
+class LockOptions implements JSObject {
   external factory LockOptions({
     LockMode mode,
     JSBoolean ifAvailable,
@@ -56,7 +56,7 @@ extension LockOptionsExtension on LockOptions {
 @JS()
 @staticInterop
 @anonymous
-class LockManagerSnapshot {
+class LockManagerSnapshot implements JSObject {
   external factory LockManagerSnapshot({
     JSArray held,
     JSArray pending,
@@ -73,7 +73,7 @@ extension LockManagerSnapshotExtension on LockManagerSnapshot {
 @JS()
 @staticInterop
 @anonymous
-class LockInfo {
+class LockInfo implements JSObject {
   external factory LockInfo({
     JSString name,
     LockMode mode,
@@ -92,7 +92,7 @@ extension LockInfoExtension on LockInfo {
 
 @JS('Lock')
 @staticInterop
-class Lock {}
+class Lock implements JSObject {}
 
 extension LockExtension on Lock {
   external JSString get name;

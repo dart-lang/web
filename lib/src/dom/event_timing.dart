@@ -23,6 +23,6 @@ extension PerformanceEventTimingExtension on PerformanceEventTiming {
 
 @JS('EventCounts')
 @staticInterop
-class EventCounts {}
+class EventCounts implements JSObject {}
 
 extension EventCountsExtension on EventCounts {}

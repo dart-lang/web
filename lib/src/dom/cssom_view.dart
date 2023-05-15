@@ -17,7 +17,7 @@ typedef CSSBoxType = JSString;
 @JS()
 @staticInterop
 @anonymous
-class ScrollOptions {
+class ScrollOptions implements JSObject {
   external factory ScrollOptions({ScrollBehavior behavior});
 }
 
@@ -89,7 +89,7 @@ extension MediaQueryListEventInitExtension on MediaQueryListEventInit {
 
 @JS('Screen')
 @staticInterop
-class Screen {}
+class Screen implements JSObject {}
 
 extension ScreenExtension on Screen {
   external JSNumber get availWidth;
@@ -106,7 +106,7 @@ extension ScreenExtension on Screen {
 
 @JS('CaretPosition')
 @staticInterop
-class CaretPosition {}
+class CaretPosition implements JSObject {}
 
 extension CaretPositionExtension on CaretPosition {
   external DOMRect? getClientRect();
@@ -134,7 +134,7 @@ extension ScrollIntoViewOptionsExtension on ScrollIntoViewOptions {
 @JS()
 @staticInterop
 @anonymous
-class CheckVisibilityOptions {
+class CheckVisibilityOptions implements JSObject {
   external factory CheckVisibilityOptions({
     JSBoolean checkOpacity,
     JSBoolean checkVisibilityCSS,
@@ -151,7 +151,7 @@ extension CheckVisibilityOptionsExtension on CheckVisibilityOptions {
 @JS()
 @staticInterop
 @anonymous
-class BoxQuadOptions {
+class BoxQuadOptions implements JSObject {
   external factory BoxQuadOptions({
     CSSBoxType box,
     GeometryNode relativeTo,
@@ -168,7 +168,7 @@ extension BoxQuadOptionsExtension on BoxQuadOptions {
 @JS()
 @staticInterop
 @anonymous
-class ConvertCoordinateOptions {
+class ConvertCoordinateOptions implements JSObject {
   external factory ConvertCoordinateOptions({
     CSSBoxType fromBox,
     CSSBoxType toBox,
@@ -184,7 +184,7 @@ extension ConvertCoordinateOptionsExtension on ConvertCoordinateOptions {
 
 @JS('GeometryUtils')
 @staticInterop
-class GeometryUtils {}
+class GeometryUtils implements JSObject {}
 
 extension GeometryUtilsExtension on GeometryUtils {
   external JSArray getBoxQuads([BoxQuadOptions options]);

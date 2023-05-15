@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 @JS('NavigatorDeviceMemory')
 @staticInterop
-class NavigatorDeviceMemory {}
+class NavigatorDeviceMemory implements JSObject {}
 
 extension NavigatorDeviceMemoryExtension on NavigatorDeviceMemory {
   external JSNumber get deviceMemory;

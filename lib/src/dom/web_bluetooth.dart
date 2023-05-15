@@ -17,7 +17,7 @@ typedef BluetoothDescriptorUUID = JSAny;
 @JS()
 @staticInterop
 @anonymous
-class BluetoothDataFilterInit {
+class BluetoothDataFilterInit implements JSObject {
   external factory BluetoothDataFilterInit({
     BufferSource dataPrefix,
     BufferSource mask,
@@ -62,7 +62,7 @@ extension BluetoothServiceDataFilterInitExtension
 @JS()
 @staticInterop
 @anonymous
-class BluetoothLEScanFilterInit {
+class BluetoothLEScanFilterInit implements JSObject {
   external factory BluetoothLEScanFilterInit({
     JSArray services,
     JSString name,
@@ -88,7 +88,7 @@ extension BluetoothLEScanFilterInitExtension on BluetoothLEScanFilterInit {
 @JS()
 @staticInterop
 @anonymous
-class RequestDeviceOptions {
+class RequestDeviceOptions implements JSObject {
   external factory RequestDeviceOptions({
     JSArray filters,
     JSArray exclusionFilters,
@@ -159,7 +159,7 @@ extension BluetoothPermissionDescriptorExtension
 @JS()
 @staticInterop
 @anonymous
-class AllowedBluetoothDevice {
+class AllowedBluetoothDevice implements JSObject {
   external factory AllowedBluetoothDevice({
     required JSString deviceId,
     required JSBoolean mayUseGATT,
@@ -182,7 +182,7 @@ extension AllowedBluetoothDeviceExtension on AllowedBluetoothDevice {
 @JS()
 @staticInterop
 @anonymous
-class BluetoothPermissionStorage {
+class BluetoothPermissionStorage implements JSObject {
   external factory BluetoothPermissionStorage(
       {required JSArray allowedDevices});
 }
@@ -247,7 +247,7 @@ extension BluetoothDeviceExtension on BluetoothDevice {
 @JS()
 @staticInterop
 @anonymous
-class WatchAdvertisementsOptions {
+class WatchAdvertisementsOptions implements JSObject {
   external factory WatchAdvertisementsOptions({AbortSignal signal});
 }
 
@@ -258,14 +258,14 @@ extension WatchAdvertisementsOptionsExtension on WatchAdvertisementsOptions {
 
 @JS('BluetoothManufacturerDataMap')
 @staticInterop
-class BluetoothManufacturerDataMap {}
+class BluetoothManufacturerDataMap implements JSObject {}
 
 extension BluetoothManufacturerDataMapExtension
     on BluetoothManufacturerDataMap {}
 
 @JS('BluetoothServiceDataMap')
 @staticInterop
-class BluetoothServiceDataMap {}
+class BluetoothServiceDataMap implements JSObject {}
 
 extension BluetoothServiceDataMapExtension on BluetoothServiceDataMap {}
 
@@ -327,7 +327,7 @@ extension BluetoothAdvertisingEventInitExtension
 
 @JS('BluetoothRemoteGATTServer')
 @staticInterop
-class BluetoothRemoteGATTServer {}
+class BluetoothRemoteGATTServer implements JSObject {}
 
 extension BluetoothRemoteGATTServerExtension on BluetoothRemoteGATTServer {
   external JSPromise connect();
@@ -378,7 +378,7 @@ extension BluetoothRemoteGATTCharacteristicExtension
 
 @JS('BluetoothCharacteristicProperties')
 @staticInterop
-class BluetoothCharacteristicProperties {}
+class BluetoothCharacteristicProperties implements JSObject {}
 
 extension BluetoothCharacteristicPropertiesExtension
     on BluetoothCharacteristicProperties {
@@ -395,7 +395,7 @@ extension BluetoothCharacteristicPropertiesExtension
 
 @JS('BluetoothRemoteGATTDescriptor')
 @staticInterop
-class BluetoothRemoteGATTDescriptor {}
+class BluetoothRemoteGATTDescriptor implements JSObject {}
 
 extension BluetoothRemoteGATTDescriptorExtension
     on BluetoothRemoteGATTDescriptor {
@@ -408,7 +408,7 @@ extension BluetoothRemoteGATTDescriptorExtension
 
 @JS('CharacteristicEventHandlers')
 @staticInterop
-class CharacteristicEventHandlers {}
+class CharacteristicEventHandlers implements JSObject {}
 
 extension CharacteristicEventHandlersExtension on CharacteristicEventHandlers {
   external set oncharacteristicvaluechanged(EventHandler value);
@@ -417,7 +417,7 @@ extension CharacteristicEventHandlersExtension on CharacteristicEventHandlers {
 
 @JS('BluetoothDeviceEventHandlers')
 @staticInterop
-class BluetoothDeviceEventHandlers {}
+class BluetoothDeviceEventHandlers implements JSObject {}
 
 extension BluetoothDeviceEventHandlersExtension
     on BluetoothDeviceEventHandlers {
@@ -429,7 +429,7 @@ extension BluetoothDeviceEventHandlersExtension
 
 @JS('ServiceEventHandlers')
 @staticInterop
-class ServiceEventHandlers {}
+class ServiceEventHandlers implements JSObject {}
 
 extension ServiceEventHandlersExtension on ServiceEventHandlers {
   external set onserviceadded(EventHandler value);
@@ -442,7 +442,7 @@ extension ServiceEventHandlersExtension on ServiceEventHandlers {
 
 @JS('BluetoothUUID')
 @staticInterop
-class BluetoothUUID {
+class BluetoothUUID implements JSObject {
   external static UUID getService(JSAny name);
   external static UUID getCharacteristic(JSAny name);
   external static UUID getDescriptor(JSAny name);

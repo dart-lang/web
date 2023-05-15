@@ -20,7 +20,7 @@ typedef CompositeOperationOrAuto = JSString;
 
 @JS('AnimationTimeline')
 @staticInterop
-class AnimationTimeline {}
+class AnimationTimeline implements JSObject {}
 
 extension AnimationTimelineExtension on AnimationTimeline {
   external CSSNumericValue? getCurrentTime([AnimationTimeOptions options]);
@@ -32,7 +32,7 @@ extension AnimationTimelineExtension on AnimationTimeline {
 @JS()
 @staticInterop
 @anonymous
-class DocumentTimelineOptions {
+class DocumentTimelineOptions implements JSObject {
   external factory DocumentTimelineOptions({DOMHighResTimeStamp originTime});
 }
 
@@ -92,7 +92,7 @@ extension AnimationExtension on Animation {
 
 @JS('AnimationEffect')
 @staticInterop
-class AnimationEffect {}
+class AnimationEffect implements JSObject {}
 
 extension AnimationEffectExtension on AnimationEffect {
   external JSVoid before(AnimationEffect effects);
@@ -110,7 +110,7 @@ extension AnimationEffectExtension on AnimationEffect {
 @JS()
 @staticInterop
 @anonymous
-class EffectTiming {
+class EffectTiming implements JSObject {
   external factory EffectTiming({
     JSNumber delay,
     JSNumber endDelay,
@@ -148,7 +148,7 @@ extension EffectTimingExtension on EffectTiming {
 @JS()
 @staticInterop
 @anonymous
-class OptionalEffectTiming {
+class OptionalEffectTiming implements JSObject {
   external factory OptionalEffectTiming({
     JSNumber playbackRate,
     JSNumber delay,
@@ -238,7 +238,7 @@ extension KeyframeEffectExtension on KeyframeEffect {
 @JS()
 @staticInterop
 @anonymous
-class BaseComputedKeyframe {
+class BaseComputedKeyframe implements JSObject {
   external factory BaseComputedKeyframe({
     JSNumber? offset,
     JSNumber computedOffset,
@@ -261,7 +261,7 @@ extension BaseComputedKeyframeExtension on BaseComputedKeyframe {
 @JS()
 @staticInterop
 @anonymous
-class BasePropertyIndexedKeyframe {
+class BasePropertyIndexedKeyframe implements JSObject {
   external factory BasePropertyIndexedKeyframe({
     JSAny offset,
     JSAny easing,
@@ -281,7 +281,7 @@ extension BasePropertyIndexedKeyframeExtension on BasePropertyIndexedKeyframe {
 @JS()
 @staticInterop
 @anonymous
-class BaseKeyframe {
+class BaseKeyframe implements JSObject {
   external factory BaseKeyframe({
     JSNumber? offset,
     JSString easing,
@@ -320,7 +320,7 @@ extension KeyframeEffectOptionsExtension on KeyframeEffectOptions {
 
 @JS('Animatable')
 @staticInterop
-class Animatable {}
+class Animatable implements JSObject {}
 
 extension AnimatableExtension on Animatable {
   external Animation animate(
@@ -356,7 +356,7 @@ extension KeyframeAnimationOptionsExtension on KeyframeAnimationOptions {
 @JS()
 @staticInterop
 @anonymous
-class GetAnimationsOptions {
+class GetAnimationsOptions implements JSObject {
   external factory GetAnimationsOptions({JSBoolean subtree});
 }
 

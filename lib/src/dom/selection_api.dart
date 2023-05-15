@@ -8,7 +8,7 @@ import 'dom.dart';
 
 @JS('Selection')
 @staticInterop
-class Selection {}
+class Selection implements JSObject {}
 
 extension SelectionExtension on Selection {
   external Range getRangeAt(JSNumber index);

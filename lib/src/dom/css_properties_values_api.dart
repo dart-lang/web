@@ -9,7 +9,7 @@ import 'cssom.dart';
 @JS()
 @staticInterop
 @anonymous
-class PropertyDefinition {
+class PropertyDefinition implements JSObject {
   external factory PropertyDefinition({
     required JSString name,
     JSString syntax,

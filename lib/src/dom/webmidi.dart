@@ -28,7 +28,7 @@ extension MidiPermissionDescriptorExtension on MidiPermissionDescriptor {
 @JS()
 @staticInterop
 @anonymous
-class MIDIOptions {
+class MIDIOptions implements JSObject {
   external factory MIDIOptions({
     JSBoolean sysex,
     JSBoolean software,
@@ -44,13 +44,13 @@ extension MIDIOptionsExtension on MIDIOptions {
 
 @JS('MIDIInputMap')
 @staticInterop
-class MIDIInputMap {}
+class MIDIInputMap implements JSObject {}
 
 extension MIDIInputMapExtension on MIDIInputMap {}
 
 @JS('MIDIOutputMap')
 @staticInterop
-class MIDIOutputMap {}
+class MIDIOutputMap implements JSObject {}
 
 extension MIDIOutputMapExtension on MIDIOutputMap {}
 

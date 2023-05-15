@@ -9,7 +9,7 @@ import 'dom.dart';
 @JS()
 @staticInterop
 @anonymous
-class AuctionAd {
+class AuctionAd implements JSObject {
   external factory AuctionAd({
     required JSString renderURL,
     JSAny metadata,
@@ -26,7 +26,7 @@ extension AuctionAdExtension on AuctionAd {
 @JS()
 @staticInterop
 @anonymous
-class AuctionAdInterestGroup {
+class AuctionAdInterestGroup implements JSObject {
   external factory AuctionAdInterestGroup({
     required JSString owner,
     required JSString name,
@@ -82,7 +82,7 @@ extension AuctionAdInterestGroupExtension on AuctionAdInterestGroup {
 @JS()
 @staticInterop
 @anonymous
-class AuctionAdInterestGroupKey {
+class AuctionAdInterestGroupKey implements JSObject {
   external factory AuctionAdInterestGroupKey({
     required JSString owner,
     required JSString name,
@@ -99,7 +99,7 @@ extension AuctionAdInterestGroupKeyExtension on AuctionAdInterestGroupKey {
 @JS()
 @staticInterop
 @anonymous
-class AuctionAdConfig {
+class AuctionAdConfig implements JSObject {
   external factory AuctionAdConfig({
     required JSString seller,
     required JSString decisionLogicURL,
@@ -157,7 +157,7 @@ extension AuctionAdConfigExtension on AuctionAdConfig {
 
 @JS('InterestGroupScriptRunnerGlobalScope')
 @staticInterop
-class InterestGroupScriptRunnerGlobalScope {}
+class InterestGroupScriptRunnerGlobalScope implements JSObject {}
 
 @JS('InterestGroupBiddingScriptRunnerGlobalScope')
 @staticInterop
@@ -192,7 +192,7 @@ extension InterestGroupReportingScriptRunnerGlobalScopeExtension
 @JS()
 @staticInterop
 @anonymous
-class AdRender {
+class AdRender implements JSObject {
   external factory AdRender({
     required JSString url,
     required JSString width,
@@ -212,7 +212,7 @@ extension AdRenderExtension on AdRender {
 @JS()
 @staticInterop
 @anonymous
-class GenerateBidOutput {
+class GenerateBidOutput implements JSObject {
   external factory GenerateBidOutput({
     required JSNumber bid,
     required JSAny adRender,

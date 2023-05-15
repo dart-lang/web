@@ -9,7 +9,7 @@ import 'webrtc.dart';
 @JS()
 @staticInterop
 @anonymous
-class RTCIceGatherOptions {
+class RTCIceGatherOptions implements JSObject {
   external factory RTCIceGatherOptions({
     RTCIceTransportPolicy gatherPolicy,
     JSArray iceServers,

@@ -12,7 +12,7 @@ typedef XRHitTestTrackableType = JSString;
 @JS()
 @staticInterop
 @anonymous
-class XRHitTestOptionsInit {
+class XRHitTestOptionsInit implements JSObject {
   external factory XRHitTestOptionsInit({
     required XRSpace space,
     JSArray entityTypes,
@@ -32,7 +32,7 @@ extension XRHitTestOptionsInitExtension on XRHitTestOptionsInit {
 @JS()
 @staticInterop
 @anonymous
-class XRTransientInputHitTestOptionsInit {
+class XRTransientInputHitTestOptionsInit implements JSObject {
   external factory XRTransientInputHitTestOptionsInit({
     required JSString profile,
     JSArray entityTypes,
@@ -52,7 +52,7 @@ extension XRTransientInputHitTestOptionsInitExtension
 
 @JS('XRHitTestSource')
 @staticInterop
-class XRHitTestSource {}
+class XRHitTestSource implements JSObject {}
 
 extension XRHitTestSourceExtension on XRHitTestSource {
   external JSVoid cancel();
@@ -60,7 +60,7 @@ extension XRHitTestSourceExtension on XRHitTestSource {
 
 @JS('XRTransientInputHitTestSource')
 @staticInterop
-class XRTransientInputHitTestSource {}
+class XRTransientInputHitTestSource implements JSObject {}
 
 extension XRTransientInputHitTestSourceExtension
     on XRTransientInputHitTestSource {
@@ -69,7 +69,7 @@ extension XRTransientInputHitTestSourceExtension
 
 @JS('XRHitTestResult')
 @staticInterop
-class XRHitTestResult {}
+class XRHitTestResult implements JSObject {}
 
 extension XRHitTestResultExtension on XRHitTestResult {
   external JSPromise createAnchor();
@@ -78,7 +78,7 @@ extension XRHitTestResultExtension on XRHitTestResult {
 
 @JS('XRTransientInputHitTestResult')
 @staticInterop
-class XRTransientInputHitTestResult {}
+class XRTransientInputHitTestResult implements JSObject {}
 
 extension XRTransientInputHitTestResultExtension
     on XRTransientInputHitTestResult {
@@ -89,7 +89,7 @@ extension XRTransientInputHitTestResultExtension
 @JS()
 @staticInterop
 @anonymous
-class XRRayDirectionInit {
+class XRRayDirectionInit implements JSObject {
   external factory XRRayDirectionInit({
     JSNumber x,
     JSNumber y,
@@ -111,7 +111,7 @@ extension XRRayDirectionInitExtension on XRRayDirectionInit {
 
 @JS('XRRay')
 @staticInterop
-class XRRay {
+class XRRay implements JSObject {
   external factory XRRay([
     JSAny originOrTransform,
     XRRayDirectionInit direction,

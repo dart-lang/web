@@ -27,7 +27,7 @@ typedef MLInterpolationMode = JSString;
 
 @JS('NavigatorML')
 @staticInterop
-class NavigatorML {}
+class NavigatorML implements JSObject {}
 
 extension NavigatorMLExtension on NavigatorML {
   external ML get ml;
@@ -36,7 +36,7 @@ extension NavigatorMLExtension on NavigatorML {
 @JS()
 @staticInterop
 @anonymous
-class MLContextOptions {
+class MLContextOptions implements JSObject {
   external factory MLContextOptions({
     MLDeviceType deviceType,
     MLPowerPreference powerPreference,
@@ -52,7 +52,7 @@ extension MLContextOptionsExtension on MLContextOptions {
 
 @JS('ML')
 @staticInterop
-class ML {}
+class ML implements JSObject {}
 
 extension MLExtension on ML {
   external JSPromise createContext([JSAny gpuDeviceOrOptions]);
@@ -61,12 +61,12 @@ extension MLExtension on ML {
 
 @JS('MLGraph')
 @staticInterop
-class MLGraph {}
+class MLGraph implements JSObject {}
 
 @JS()
 @staticInterop
 @anonymous
-class MLOperandDescriptor {
+class MLOperandDescriptor implements JSObject {
   external factory MLOperandDescriptor({
     required MLOperandType type,
     JSArray dimensions,
@@ -82,15 +82,15 @@ extension MLOperandDescriptorExtension on MLOperandDescriptor {
 
 @JS('MLOperand')
 @staticInterop
-class MLOperand {}
+class MLOperand implements JSObject {}
 
 @JS('MLActivation')
 @staticInterop
-class MLActivation {}
+class MLActivation implements JSObject {}
 
 @JS('MLContext')
 @staticInterop
-class MLContext {}
+class MLContext implements JSObject {}
 
 extension MLContextExtension on MLContext {
   external JSVoid computeSync(
@@ -109,7 +109,7 @@ extension MLContextExtension on MLContext {
 @JS()
 @staticInterop
 @anonymous
-class MLComputeResult {
+class MLComputeResult implements JSObject {
   external factory MLComputeResult({
     MLNamedArrayBufferViews inputs,
     MLNamedArrayBufferViews outputs,
@@ -125,7 +125,7 @@ extension MLComputeResultExtension on MLComputeResult {
 
 @JS('MLCommandEncoder')
 @staticInterop
-class MLCommandEncoder {}
+class MLCommandEncoder implements JSObject {}
 
 extension MLCommandEncoderExtension on MLCommandEncoder {
   external JSVoid initializeGraph(MLGraph graph);
@@ -140,7 +140,7 @@ extension MLCommandEncoderExtension on MLCommandEncoder {
 @JS()
 @staticInterop
 @anonymous
-class MLBufferResourceView {
+class MLBufferResourceView implements JSObject {
   external factory MLBufferResourceView({
     required GPUBuffer resource,
     JSNumber offset,
@@ -159,7 +159,7 @@ extension MLBufferResourceViewExtension on MLBufferResourceView {
 
 @JS('MLGraphBuilder')
 @staticInterop
-class MLGraphBuilder {
+class MLGraphBuilder implements JSObject {
   external factory MLGraphBuilder(MLContext context);
 }
 
@@ -400,7 +400,7 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
 @JS()
 @staticInterop
 @anonymous
-class MLBatchNormalizationOptions {
+class MLBatchNormalizationOptions implements JSObject {
   external factory MLBatchNormalizationOptions({
     MLOperand scale,
     MLOperand bias,
@@ -426,7 +426,7 @@ extension MLBatchNormalizationOptionsExtension on MLBatchNormalizationOptions {
 @JS()
 @staticInterop
 @anonymous
-class MLClampOptions {
+class MLClampOptions implements JSObject {
   external factory MLClampOptions({
     JSNumber minValue,
     JSNumber maxValue,
@@ -443,7 +443,7 @@ extension MLClampOptionsExtension on MLClampOptions {
 @JS()
 @staticInterop
 @anonymous
-class MLConv2dOptions {
+class MLConv2dOptions implements JSObject {
   external factory MLConv2dOptions({
     JSArray padding,
     JSArray strides,
@@ -481,7 +481,7 @@ extension MLConv2dOptionsExtension on MLConv2dOptions {
 @JS()
 @staticInterop
 @anonymous
-class MLConvTranspose2dOptions {
+class MLConvTranspose2dOptions implements JSObject {
   external factory MLConvTranspose2dOptions({
     JSArray padding,
     JSArray strides,
@@ -525,7 +525,7 @@ extension MLConvTranspose2dOptionsExtension on MLConvTranspose2dOptions {
 @JS()
 @staticInterop
 @anonymous
-class MLEluOptions {
+class MLEluOptions implements JSObject {
   external factory MLEluOptions({JSNumber alpha});
 }
 
@@ -537,7 +537,7 @@ extension MLEluOptionsExtension on MLEluOptions {
 @JS()
 @staticInterop
 @anonymous
-class MLGemmOptions {
+class MLGemmOptions implements JSObject {
   external factory MLGemmOptions({
     MLOperand c,
     JSNumber alpha,
@@ -563,7 +563,7 @@ extension MLGemmOptionsExtension on MLGemmOptions {
 @JS()
 @staticInterop
 @anonymous
-class MLGruOptions {
+class MLGruOptions implements JSObject {
   external factory MLGruOptions({
     MLOperand bias,
     MLOperand recurrentBias,
@@ -598,7 +598,7 @@ extension MLGruOptionsExtension on MLGruOptions {
 @JS()
 @staticInterop
 @anonymous
-class MLGruCellOptions {
+class MLGruCellOptions implements JSObject {
   external factory MLGruCellOptions({
     MLOperand bias,
     MLOperand recurrentBias,
@@ -624,7 +624,7 @@ extension MLGruCellOptionsExtension on MLGruCellOptions {
 @JS()
 @staticInterop
 @anonymous
-class MLHardSigmoidOptions {
+class MLHardSigmoidOptions implements JSObject {
   external factory MLHardSigmoidOptions({
     JSNumber alpha,
     JSNumber beta,
@@ -641,7 +641,7 @@ extension MLHardSigmoidOptionsExtension on MLHardSigmoidOptions {
 @JS()
 @staticInterop
 @anonymous
-class MLInstanceNormalizationOptions {
+class MLInstanceNormalizationOptions implements JSObject {
   external factory MLInstanceNormalizationOptions({
     MLOperand scale,
     MLOperand bias,
@@ -665,7 +665,7 @@ extension MLInstanceNormalizationOptionsExtension
 @JS()
 @staticInterop
 @anonymous
-class MLLeakyReluOptions {
+class MLLeakyReluOptions implements JSObject {
   external factory MLLeakyReluOptions({JSNumber alpha});
 }
 
@@ -677,7 +677,7 @@ extension MLLeakyReluOptionsExtension on MLLeakyReluOptions {
 @JS()
 @staticInterop
 @anonymous
-class MLLinearOptions {
+class MLLinearOptions implements JSObject {
   external factory MLLinearOptions({
     JSNumber alpha,
     JSNumber beta,
@@ -694,7 +694,7 @@ extension MLLinearOptionsExtension on MLLinearOptions {
 @JS()
 @staticInterop
 @anonymous
-class MLLstmOptions {
+class MLLstmOptions implements JSObject {
   external factory MLLstmOptions({
     MLOperand bias,
     MLOperand recurrentBias,
@@ -732,7 +732,7 @@ extension MLLstmOptionsExtension on MLLstmOptions {
 @JS()
 @staticInterop
 @anonymous
-class MLLstmCellOptions {
+class MLLstmCellOptions implements JSObject {
   external factory MLLstmCellOptions({
     MLOperand bias,
     MLOperand recurrentBias,
@@ -758,7 +758,7 @@ extension MLLstmCellOptionsExtension on MLLstmCellOptions {
 @JS()
 @staticInterop
 @anonymous
-class MLPadOptions {
+class MLPadOptions implements JSObject {
   external factory MLPadOptions({
     MLPaddingMode mode,
     JSNumber value,
@@ -775,7 +775,7 @@ extension MLPadOptionsExtension on MLPadOptions {
 @JS()
 @staticInterop
 @anonymous
-class MLPool2dOptions {
+class MLPool2dOptions implements JSObject {
   external factory MLPool2dOptions({
     JSArray windowDimensions,
     JSArray padding,
@@ -810,7 +810,7 @@ extension MLPool2dOptionsExtension on MLPool2dOptions {
 @JS()
 @staticInterop
 @anonymous
-class MLReduceOptions {
+class MLReduceOptions implements JSObject {
   external factory MLReduceOptions({
     JSArray axes,
     JSBoolean keepDimensions,
@@ -827,7 +827,7 @@ extension MLReduceOptionsExtension on MLReduceOptions {
 @JS()
 @staticInterop
 @anonymous
-class MLResample2dOptions {
+class MLResample2dOptions implements JSObject {
   external factory MLResample2dOptions({
     MLInterpolationMode mode,
     JSArray scales,
@@ -850,7 +850,7 @@ extension MLResample2dOptionsExtension on MLResample2dOptions {
 @JS()
 @staticInterop
 @anonymous
-class MLSoftplusOptions {
+class MLSoftplusOptions implements JSObject {
   external factory MLSoftplusOptions({JSNumber steepness});
 }
 
@@ -862,7 +862,7 @@ extension MLSoftplusOptionsExtension on MLSoftplusOptions {
 @JS()
 @staticInterop
 @anonymous
-class MLSplitOptions {
+class MLSplitOptions implements JSObject {
   external factory MLSplitOptions({JSNumber axis});
 }
 
@@ -874,7 +874,7 @@ extension MLSplitOptionsExtension on MLSplitOptions {
 @JS()
 @staticInterop
 @anonymous
-class MLSqueezeOptions {
+class MLSqueezeOptions implements JSObject {
   external factory MLSqueezeOptions({JSArray axes});
 }
 
@@ -886,7 +886,7 @@ extension MLSqueezeOptionsExtension on MLSqueezeOptions {
 @JS()
 @staticInterop
 @anonymous
-class MLTransposeOptions {
+class MLTransposeOptions implements JSObject {
   external factory MLTransposeOptions({JSArray permutation});
 }
 

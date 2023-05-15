@@ -14,7 +14,7 @@ typedef EndingType = JSString;
 
 @JS('Blob')
 @staticInterop
-class Blob {
+class Blob implements JSObject {
   external factory Blob([
     JSArray blobParts,
     BlobPropertyBag options,
@@ -37,7 +37,7 @@ extension BlobExtension on Blob {
 @JS()
 @staticInterop
 @anonymous
-class BlobPropertyBag {
+class BlobPropertyBag implements JSObject {
   external factory BlobPropertyBag({
     JSString type,
     EndingType endings,
@@ -81,7 +81,7 @@ extension FilePropertyBagExtension on FilePropertyBag {
 
 @JS('FileList')
 @staticInterop
-class FileList {}
+class FileList implements JSObject {}
 
 extension FileListExtension on FileList {
   external File? item(JSNumber index);
@@ -126,7 +126,7 @@ extension FileReaderExtension on FileReader {
 
 @JS('FileReaderSync')
 @staticInterop
-class FileReaderSync {
+class FileReaderSync implements JSObject {
   external factory FileReaderSync();
 }
 

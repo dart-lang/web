@@ -8,7 +8,7 @@ import 'webgl1.dart';
 
 @JS('EXT_texture_compression_bptc')
 @staticInterop
-class EXT_texture_compression_bptc {
+class EXT_texture_compression_bptc implements JSObject {
   external static GLenum get COMPRESSED_RGBA_BPTC_UNORM_EXT;
   external static GLenum get COMPRESSED_SRGB_ALPHA_BPTC_UNORM_EXT;
   external static GLenum get COMPRESSED_RGB_BPTC_SIGNED_FLOAT_EXT;

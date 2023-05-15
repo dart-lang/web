@@ -87,7 +87,7 @@ extension MediaStreamTrackExtension on MediaStreamTrack {
 @JS()
 @staticInterop
 @anonymous
-class MediaTrackSupportedConstraints {
+class MediaTrackSupportedConstraints implements JSObject {
   external factory MediaTrackSupportedConstraints({
     JSBoolean whiteBalanceMode,
     JSBoolean exposureMode,
@@ -210,7 +210,7 @@ extension MediaTrackSupportedConstraintsExtension
 @JS()
 @staticInterop
 @anonymous
-class MediaTrackCapabilities {
+class MediaTrackCapabilities implements JSObject {
   external factory MediaTrackCapabilities({
     JSArray whiteBalanceMode,
     JSArray exposureMode,
@@ -335,7 +335,7 @@ extension MediaTrackConstraintsExtension on MediaTrackConstraints {
 @JS()
 @staticInterop
 @anonymous
-class MediaTrackConstraintSet {
+class MediaTrackConstraintSet implements JSObject {
   external factory MediaTrackConstraintSet({
     ConstrainDOMString whiteBalanceMode,
     ConstrainDOMString exposureMode,
@@ -457,7 +457,7 @@ extension MediaTrackConstraintSetExtension on MediaTrackConstraintSet {
 @JS()
 @staticInterop
 @anonymous
-class MediaTrackSettings {
+class MediaTrackSettings implements JSObject {
   external factory MediaTrackSettings({
     JSString whiteBalanceMode,
     JSString exposureMode,
@@ -636,7 +636,7 @@ extension MediaDevicesExtension on MediaDevices {
 
 @JS('MediaDeviceInfo')
 @staticInterop
-class MediaDeviceInfo {}
+class MediaDeviceInfo implements JSObject {}
 
 extension MediaDeviceInfoExtension on MediaDeviceInfo {
   external JSObject toJSON();
@@ -657,7 +657,7 @@ extension InputDeviceInfoExtension on InputDeviceInfo {
 @JS()
 @staticInterop
 @anonymous
-class MediaStreamConstraints {
+class MediaStreamConstraints implements JSObject {
   external factory MediaStreamConstraints({
     JSAny video,
     JSAny audio,
@@ -680,7 +680,7 @@ extension MediaStreamConstraintsExtension on MediaStreamConstraints {
 @JS()
 @staticInterop
 @anonymous
-class DoubleRange {
+class DoubleRange implements JSObject {
   external factory DoubleRange({
     JSNumber max,
     JSNumber min,
@@ -714,7 +714,7 @@ extension ConstrainDoubleRangeExtension on ConstrainDoubleRange {
 @JS()
 @staticInterop
 @anonymous
-class ULongRange {
+class ULongRange implements JSObject {
   external factory ULongRange({
     JSNumber max,
     JSNumber min,
@@ -748,7 +748,7 @@ extension ConstrainULongRangeExtension on ConstrainULongRange {
 @JS()
 @staticInterop
 @anonymous
-class ConstrainBooleanParameters {
+class ConstrainBooleanParameters implements JSObject {
   external factory ConstrainBooleanParameters({
     JSBoolean exact,
     JSBoolean ideal,
@@ -765,7 +765,7 @@ extension ConstrainBooleanParametersExtension on ConstrainBooleanParameters {
 @JS()
 @staticInterop
 @anonymous
-class ConstrainDOMStringParameters {
+class ConstrainDOMStringParameters implements JSObject {
   external factory ConstrainDOMStringParameters({
     JSAny exact,
     JSAny ideal,

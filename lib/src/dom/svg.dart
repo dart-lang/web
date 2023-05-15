@@ -29,7 +29,7 @@ extension SVGElementExtension on SVGElement {
 @JS()
 @staticInterop
 @anonymous
-class SVGBoundingBoxOptions {
+class SVGBoundingBoxOptions implements JSObject {
   external factory SVGBoundingBoxOptions({
     JSBoolean fill,
     JSBoolean stroke,
@@ -74,7 +74,7 @@ extension SVGGeometryElementExtension on SVGGeometryElement {
 
 @JS('SVGNumber')
 @staticInterop
-class SVGNumber {}
+class SVGNumber implements JSObject {}
 
 extension SVGNumberExtension on SVGNumber {
   external set value(JSNumber value);
@@ -83,7 +83,7 @@ extension SVGNumberExtension on SVGNumber {
 
 @JS('SVGLength')
 @staticInterop
-class SVGLength {
+class SVGLength implements JSObject {
   external static JSNumber get SVG_LENGTHTYPE_UNKNOWN;
   external static JSNumber get SVG_LENGTHTYPE_NUMBER;
   external static JSNumber get SVG_LENGTHTYPE_PERCENTAGE;
@@ -114,7 +114,7 @@ extension SVGLengthExtension on SVGLength {
 
 @JS('SVGAngle')
 @staticInterop
-class SVGAngle {
+class SVGAngle implements JSObject {
   external static JSNumber get SVG_ANGLETYPE_UNKNOWN;
   external static JSNumber get SVG_ANGLETYPE_UNSPECIFIED;
   external static JSNumber get SVG_ANGLETYPE_DEG;
@@ -139,7 +139,7 @@ extension SVGAngleExtension on SVGAngle {
 
 @JS('SVGNumberList')
 @staticInterop
-class SVGNumberList {}
+class SVGNumberList implements JSObject {}
 
 extension SVGNumberListExtension on SVGNumberList {
   external JSVoid clear();
@@ -161,7 +161,7 @@ extension SVGNumberListExtension on SVGNumberList {
 
 @JS('SVGLengthList')
 @staticInterop
-class SVGLengthList {}
+class SVGLengthList implements JSObject {}
 
 extension SVGLengthListExtension on SVGLengthList {
   external JSVoid clear();
@@ -183,7 +183,7 @@ extension SVGLengthListExtension on SVGLengthList {
 
 @JS('SVGStringList')
 @staticInterop
-class SVGStringList {}
+class SVGStringList implements JSObject {}
 
 extension SVGStringListExtension on SVGStringList {
   external JSVoid clear();
@@ -205,7 +205,7 @@ extension SVGStringListExtension on SVGStringList {
 
 @JS('SVGAnimatedBoolean')
 @staticInterop
-class SVGAnimatedBoolean {}
+class SVGAnimatedBoolean implements JSObject {}
 
 extension SVGAnimatedBooleanExtension on SVGAnimatedBoolean {
   external set baseVal(JSBoolean value);
@@ -215,7 +215,7 @@ extension SVGAnimatedBooleanExtension on SVGAnimatedBoolean {
 
 @JS('SVGAnimatedEnumeration')
 @staticInterop
-class SVGAnimatedEnumeration {}
+class SVGAnimatedEnumeration implements JSObject {}
 
 extension SVGAnimatedEnumerationExtension on SVGAnimatedEnumeration {
   external set baseVal(JSNumber value);
@@ -225,7 +225,7 @@ extension SVGAnimatedEnumerationExtension on SVGAnimatedEnumeration {
 
 @JS('SVGAnimatedInteger')
 @staticInterop
-class SVGAnimatedInteger {}
+class SVGAnimatedInteger implements JSObject {}
 
 extension SVGAnimatedIntegerExtension on SVGAnimatedInteger {
   external set baseVal(JSNumber value);
@@ -235,7 +235,7 @@ extension SVGAnimatedIntegerExtension on SVGAnimatedInteger {
 
 @JS('SVGAnimatedNumber')
 @staticInterop
-class SVGAnimatedNumber {}
+class SVGAnimatedNumber implements JSObject {}
 
 extension SVGAnimatedNumberExtension on SVGAnimatedNumber {
   external set baseVal(JSNumber value);
@@ -245,7 +245,7 @@ extension SVGAnimatedNumberExtension on SVGAnimatedNumber {
 
 @JS('SVGAnimatedLength')
 @staticInterop
-class SVGAnimatedLength {}
+class SVGAnimatedLength implements JSObject {}
 
 extension SVGAnimatedLengthExtension on SVGAnimatedLength {
   external SVGLength get baseVal;
@@ -254,7 +254,7 @@ extension SVGAnimatedLengthExtension on SVGAnimatedLength {
 
 @JS('SVGAnimatedAngle')
 @staticInterop
-class SVGAnimatedAngle {}
+class SVGAnimatedAngle implements JSObject {}
 
 extension SVGAnimatedAngleExtension on SVGAnimatedAngle {
   external SVGAngle get baseVal;
@@ -263,7 +263,7 @@ extension SVGAnimatedAngleExtension on SVGAnimatedAngle {
 
 @JS('SVGAnimatedString')
 @staticInterop
-class SVGAnimatedString {}
+class SVGAnimatedString implements JSObject {}
 
 extension SVGAnimatedStringExtension on SVGAnimatedString {
   external set baseVal(JSString value);
@@ -273,7 +273,7 @@ extension SVGAnimatedStringExtension on SVGAnimatedString {
 
 @JS('SVGAnimatedRect')
 @staticInterop
-class SVGAnimatedRect {}
+class SVGAnimatedRect implements JSObject {}
 
 extension SVGAnimatedRectExtension on SVGAnimatedRect {
   external DOMRect get baseVal;
@@ -282,7 +282,7 @@ extension SVGAnimatedRectExtension on SVGAnimatedRect {
 
 @JS('SVGAnimatedNumberList')
 @staticInterop
-class SVGAnimatedNumberList {}
+class SVGAnimatedNumberList implements JSObject {}
 
 extension SVGAnimatedNumberListExtension on SVGAnimatedNumberList {
   external SVGNumberList get baseVal;
@@ -291,7 +291,7 @@ extension SVGAnimatedNumberListExtension on SVGAnimatedNumberList {
 
 @JS('SVGAnimatedLengthList')
 @staticInterop
-class SVGAnimatedLengthList {}
+class SVGAnimatedLengthList implements JSObject {}
 
 extension SVGAnimatedLengthListExtension on SVGAnimatedLengthList {
   external SVGLengthList get baseVal;
@@ -300,7 +300,7 @@ extension SVGAnimatedLengthListExtension on SVGAnimatedLengthList {
 
 @JS('SVGUnitTypes')
 @staticInterop
-class SVGUnitTypes {
+class SVGUnitTypes implements JSObject {
   external static JSNumber get SVG_UNIT_TYPE_UNKNOWN;
   external static JSNumber get SVG_UNIT_TYPE_USERSPACEONUSE;
   external static JSNumber get SVG_UNIT_TYPE_OBJECTBOUNDINGBOX;
@@ -308,7 +308,7 @@ class SVGUnitTypes {
 
 @JS('SVGTests')
 @staticInterop
-class SVGTests {}
+class SVGTests implements JSObject {}
 
 extension SVGTestsExtension on SVGTests {
   external SVGStringList get requiredExtensions;
@@ -317,7 +317,7 @@ extension SVGTestsExtension on SVGTests {
 
 @JS('SVGFitToViewBox')
 @staticInterop
-class SVGFitToViewBox {}
+class SVGFitToViewBox implements JSObject {}
 
 extension SVGFitToViewBoxExtension on SVGFitToViewBox {
   external SVGAnimatedRect get viewBox;
@@ -326,7 +326,7 @@ extension SVGFitToViewBoxExtension on SVGFitToViewBox {
 
 @JS('SVGURIReference')
 @staticInterop
-class SVGURIReference {}
+class SVGURIReference implements JSObject {}
 
 extension SVGURIReferenceExtension on SVGURIReference {
   external SVGAnimatedString get href;
@@ -425,7 +425,7 @@ class SVGUseElementShadowRoot implements ShadowRoot {}
 
 @JS('SVGElementInstance')
 @staticInterop
-class SVGElementInstance {}
+class SVGElementInstance implements JSObject {}
 
 extension SVGElementInstanceExtension on SVGElementInstance {
   external SVGElement? get correspondingElement;
@@ -451,7 +451,7 @@ class SVGSwitchElement implements SVGGraphicsElement {}
 
 @JS('GetSVGDocument')
 @staticInterop
-class GetSVGDocument {}
+class GetSVGDocument implements JSObject {}
 
 extension GetSVGDocumentExtension on GetSVGDocument {
   external Document getSVGDocument();
@@ -472,7 +472,7 @@ extension SVGStyleElementExtension on SVGStyleElement {
 
 @JS('SVGTransform')
 @staticInterop
-class SVGTransform {
+class SVGTransform implements JSObject {
   external static JSNumber get SVG_TRANSFORM_UNKNOWN;
   external static JSNumber get SVG_TRANSFORM_MATRIX;
   external static JSNumber get SVG_TRANSFORM_TRANSLATE;
@@ -506,7 +506,7 @@ extension SVGTransformExtension on SVGTransform {
 
 @JS('SVGTransformList')
 @staticInterop
-class SVGTransformList {}
+class SVGTransformList implements JSObject {}
 
 extension SVGTransformListExtension on SVGTransformList {
   external JSVoid clear();
@@ -530,7 +530,7 @@ extension SVGTransformListExtension on SVGTransformList {
 
 @JS('SVGAnimatedTransformList')
 @staticInterop
-class SVGAnimatedTransformList {}
+class SVGAnimatedTransformList implements JSObject {}
 
 extension SVGAnimatedTransformListExtension on SVGAnimatedTransformList {
   external SVGTransformList get baseVal;
@@ -539,7 +539,7 @@ extension SVGAnimatedTransformListExtension on SVGAnimatedTransformList {
 
 @JS('SVGPreserveAspectRatio')
 @staticInterop
-class SVGPreserveAspectRatio {
+class SVGPreserveAspectRatio implements JSObject {
   external static JSNumber get SVG_PRESERVEASPECTRATIO_UNKNOWN;
   external static JSNumber get SVG_PRESERVEASPECTRATIO_NONE;
   external static JSNumber get SVG_PRESERVEASPECTRATIO_XMINYMIN;
@@ -565,7 +565,7 @@ extension SVGPreserveAspectRatioExtension on SVGPreserveAspectRatio {
 
 @JS('SVGAnimatedPreserveAspectRatio')
 @staticInterop
-class SVGAnimatedPreserveAspectRatio {}
+class SVGAnimatedPreserveAspectRatio implements JSObject {}
 
 extension SVGAnimatedPreserveAspectRatioExtension
     on SVGAnimatedPreserveAspectRatio {
@@ -624,7 +624,7 @@ extension SVGLineElementExtension on SVGLineElement {
 
 @JS('SVGAnimatedPoints')
 @staticInterop
-class SVGAnimatedPoints {}
+class SVGAnimatedPoints implements JSObject {}
 
 extension SVGAnimatedPointsExtension on SVGAnimatedPoints {
   external SVGPointList get points;
@@ -633,7 +633,7 @@ extension SVGAnimatedPointsExtension on SVGAnimatedPoints {
 
 @JS('SVGPointList')
 @staticInterop
-class SVGPointList {}
+class SVGPointList implements JSObject {}
 
 extension SVGPointListExtension on SVGPointList {
   external JSVoid clear();

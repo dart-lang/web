@@ -9,7 +9,7 @@ import 'mediacapture_streams.dart';
 
 @JS('CropTarget')
 @staticInterop
-class CropTarget {
+class CropTarget implements JSObject {
   external static JSPromise fromElement(Element element);
 }
 

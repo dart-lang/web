@@ -14,7 +14,7 @@ class WebGLTimerQueryEXT implements WebGLObject {}
 
 @JS('EXT_disjoint_timer_query')
 @staticInterop
-class EXT_disjoint_timer_query {
+class EXT_disjoint_timer_query implements JSObject {
   external static GLenum get QUERY_COUNTER_BITS_EXT;
   external static GLenum get CURRENT_QUERY_EXT;
   external static GLenum get QUERY_RESULT_EXT;

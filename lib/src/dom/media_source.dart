@@ -46,7 +46,7 @@ extension MediaSourceExtension on MediaSource {
 
 @JS('MediaSourceHandle')
 @staticInterop
-class MediaSourceHandle {}
+class MediaSourceHandle implements JSObject {}
 
 @JS('SourceBuffer')
 @staticInterop

@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 @JS('InputDeviceCapabilities')
 @staticInterop
-class InputDeviceCapabilities {
+class InputDeviceCapabilities implements JSObject {
   external factory InputDeviceCapabilities(
       [InputDeviceCapabilitiesInit deviceInitDict]);
 }
@@ -19,7 +19,7 @@ extension InputDeviceCapabilitiesExtension on InputDeviceCapabilities {
 @JS()
 @staticInterop
 @anonymous
-class InputDeviceCapabilitiesInit {
+class InputDeviceCapabilitiesInit implements JSObject {
   external factory InputDeviceCapabilitiesInit({
     JSBoolean firesTouchEvents,
     JSBoolean pointerMovementScrolls,

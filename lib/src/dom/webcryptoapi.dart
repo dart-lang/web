@@ -16,7 +16,7 @@ typedef KeyFormat = JSString;
 
 @JS('Crypto')
 @staticInterop
-class Crypto {}
+class Crypto implements JSObject {}
 
 extension CryptoExtension on Crypto {
   external ArrayBufferView getRandomValues(ArrayBufferView array);
@@ -27,7 +27,7 @@ extension CryptoExtension on Crypto {
 @JS()
 @staticInterop
 @anonymous
-class Algorithm {
+class Algorithm implements JSObject {
   external factory Algorithm({required JSString name});
 }
 
@@ -39,7 +39,7 @@ extension AlgorithmExtension on Algorithm {
 @JS()
 @staticInterop
 @anonymous
-class KeyAlgorithm {
+class KeyAlgorithm implements JSObject {
   external factory KeyAlgorithm({required JSString name});
 }
 
@@ -50,7 +50,7 @@ extension KeyAlgorithmExtension on KeyAlgorithm {
 
 @JS('CryptoKey')
 @staticInterop
-class CryptoKey {}
+class CryptoKey implements JSObject {}
 
 extension CryptoKeyExtension on CryptoKey {
   external KeyType get type;
@@ -61,7 +61,7 @@ extension CryptoKeyExtension on CryptoKey {
 
 @JS('SubtleCrypto')
 @staticInterop
-class SubtleCrypto {}
+class SubtleCrypto implements JSObject {}
 
 extension SubtleCryptoExtension on SubtleCrypto {
   external JSPromise encrypt(
@@ -137,7 +137,7 @@ extension SubtleCryptoExtension on SubtleCrypto {
 @JS()
 @staticInterop
 @anonymous
-class RsaOtherPrimesInfo {
+class RsaOtherPrimesInfo implements JSObject {
   external factory RsaOtherPrimesInfo({
     JSString r,
     JSString d,
@@ -157,7 +157,7 @@ extension RsaOtherPrimesInfoExtension on RsaOtherPrimesInfo {
 @JS()
 @staticInterop
 @anonymous
-class JsonWebKey {
+class JsonWebKey implements JSObject {
   external factory JsonWebKey({
     JSString kty,
     JSString use,
@@ -222,7 +222,7 @@ extension JsonWebKeyExtension on JsonWebKey {
 @JS()
 @staticInterop
 @anonymous
-class CryptoKeyPair {
+class CryptoKeyPair implements JSObject {
   external factory CryptoKeyPair({
     CryptoKey publicKey,
     CryptoKey privateKey,

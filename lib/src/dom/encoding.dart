@@ -9,7 +9,7 @@ import 'webidl.dart';
 
 @JS('TextDecoderCommon')
 @staticInterop
-class TextDecoderCommon {}
+class TextDecoderCommon implements JSObject {}
 
 extension TextDecoderCommonExtension on TextDecoderCommon {
   external JSString get encoding;
@@ -20,7 +20,7 @@ extension TextDecoderCommonExtension on TextDecoderCommon {
 @JS()
 @staticInterop
 @anonymous
-class TextDecoderOptions {
+class TextDecoderOptions implements JSObject {
   external factory TextDecoderOptions({
     JSBoolean fatal,
     JSBoolean ignoreBOM,
@@ -37,7 +37,7 @@ extension TextDecoderOptionsExtension on TextDecoderOptions {
 @JS()
 @staticInterop
 @anonymous
-class TextDecodeOptions {
+class TextDecodeOptions implements JSObject {
   external factory TextDecodeOptions({JSBoolean stream});
 }
 
@@ -64,7 +64,7 @@ extension TextDecoderExtension on TextDecoder {
 
 @JS('TextEncoderCommon')
 @staticInterop
-class TextEncoderCommon {}
+class TextEncoderCommon implements JSObject {}
 
 extension TextEncoderCommonExtension on TextEncoderCommon {
   external JSString get encoding;
@@ -73,7 +73,7 @@ extension TextEncoderCommonExtension on TextEncoderCommon {
 @JS()
 @staticInterop
 @anonymous
-class TextEncoderEncodeIntoResult {
+class TextEncoderEncodeIntoResult implements JSObject {
   external factory TextEncoderEncodeIntoResult({
     JSNumber read,
     JSNumber written,

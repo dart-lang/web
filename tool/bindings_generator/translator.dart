@@ -567,8 +567,7 @@ class Translator {
   code.Class _class({
     required String jsName,
     required String dartClassName,
-    required String? inheritance,
-    required List<String> includes,
+    required List<String> implements,
     required _OverridableConstructor? constructor,
     required List<_OverridableOperation> staticOperations,
     required List<idl.Member> members,
@@ -581,9 +580,7 @@ class Translator {
           ..annotations.addAll(_jsOverride(isObjectLiteral ? '' : jsName,
               staticInterop: true, objectLiteral: isObjectLiteral))
           ..name = dartClassName
-          ..implements.addAll([
-            if (inheritance != null) _typeReference(inheritance)
-          ].followedBy(includes.map(_typeReference)))
+          ..implements.addAll(implements.map(_typeReference))
           ..constructors.addAll(isObjectLiteral
               ? [_objectLiteral(members)]
               : constructor != null
@@ -611,13 +608,20 @@ class Translator {
     final getterName = isNamespace ? jsName : singletons[jsName];
     final operations = interfacelike.operations.values.toList();
     final members = interfacelike.members;
+    final implements = [
+      if (interfacelike.inheritance != null) interfacelike.inheritance!
+    ].followedBy(interfacelike.includes).toList();
+
+    // All non-namespace root classes must inherit from `JSObject`.
+    if (implements.isEmpty && !isNamespace) {
+      implements.add('JSObject');
+    }
     return [
       if (getterName != null) _topLevelGetter(dartClassName, getterName),
       _class(
           jsName: jsName,
           dartClassName: dartClassName,
-          inheritance: interfacelike.inheritance,
-          includes: interfacelike.includes,
+          implements: implements,
           constructor: interfacelike.constructor,
           staticOperations: interfacelike.staticOperations.values.toList(),
           members: interfacelike.members,

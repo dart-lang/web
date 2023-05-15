@@ -13,7 +13,7 @@ typedef ScreenIdleState = JSString;
 @JS()
 @staticInterop
 @anonymous
-class IdleOptions {
+class IdleOptions implements JSObject {
   external factory IdleOptions({
     JSNumber threshold,
     AbortSignal signal,

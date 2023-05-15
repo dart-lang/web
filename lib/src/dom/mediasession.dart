@@ -10,7 +10,7 @@ typedef MediaSessionAction = JSString;
 
 @JS('MediaSession')
 @staticInterop
-class MediaSession {}
+class MediaSession implements JSObject {}
 
 extension MediaSessionExtension on MediaSession {
   external JSVoid setActionHandler(
@@ -28,7 +28,7 @@ extension MediaSessionExtension on MediaSession {
 
 @JS('MediaMetadata')
 @staticInterop
-class MediaMetadata {
+class MediaMetadata implements JSObject {
   external factory MediaMetadata([MediaMetadataInit init]);
 }
 
@@ -46,7 +46,7 @@ extension MediaMetadataExtension on MediaMetadata {
 @JS()
 @staticInterop
 @anonymous
-class MediaMetadataInit {
+class MediaMetadataInit implements JSObject {
   external factory MediaMetadataInit({
     JSString title,
     JSString artist,
@@ -69,7 +69,7 @@ extension MediaMetadataInitExtension on MediaMetadataInit {
 @JS()
 @staticInterop
 @anonymous
-class MediaImage {
+class MediaImage implements JSObject {
   external factory MediaImage({
     required JSString src,
     JSString sizes,
@@ -89,7 +89,7 @@ extension MediaImageExtension on MediaImage {
 @JS()
 @staticInterop
 @anonymous
-class MediaPositionState {
+class MediaPositionState implements JSObject {
   external factory MediaPositionState({
     JSNumber duration,
     JSNumber playbackRate,
@@ -109,7 +109,7 @@ extension MediaPositionStateExtension on MediaPositionState {
 @JS()
 @staticInterop
 @anonymous
-class MediaSessionActionDetails {
+class MediaSessionActionDetails implements JSObject {
   external factory MediaSessionActionDetails({
     required MediaSessionAction action,
     JSNumber seekOffset,

@@ -12,7 +12,7 @@ typedef PaymentShippingType = JSString;
 
 @JS('PaymentManager')
 @staticInterop
-class PaymentManager {}
+class PaymentManager implements JSObject {}
 
 extension PaymentManagerExtension on PaymentManager {
   external JSPromise enableDelegations(JSArray delegations);
@@ -33,7 +33,7 @@ extension CanMakePaymentEventExtension on CanMakePaymentEvent {
 @JS()
 @staticInterop
 @anonymous
-class PaymentRequestDetailsUpdate {
+class PaymentRequestDetailsUpdate implements JSObject {
   external factory PaymentRequestDetailsUpdate({
     JSString error,
     PaymentCurrencyAmount total,
@@ -125,7 +125,7 @@ extension PaymentRequestEventInitExtension on PaymentRequestEventInit {
 @JS()
 @staticInterop
 @anonymous
-class PaymentHandlerResponse {
+class PaymentHandlerResponse implements JSObject {
   external factory PaymentHandlerResponse({
     JSString methodName,
     JSObject details,
@@ -157,7 +157,7 @@ extension PaymentHandlerResponseExtension on PaymentHandlerResponse {
 @JS()
 @staticInterop
 @anonymous
-class AddressInit {
+class AddressInit implements JSObject {
   external factory AddressInit({
     JSString country,
     JSArray addressLine,
@@ -198,7 +198,7 @@ extension AddressInitExtension on AddressInit {
 @JS()
 @staticInterop
 @anonymous
-class PaymentOptions {
+class PaymentOptions implements JSObject {
   external factory PaymentOptions({
     JSBoolean requestPayerName,
     JSBoolean requestBillingAddress,
@@ -227,7 +227,7 @@ extension PaymentOptionsExtension on PaymentOptions {
 @JS()
 @staticInterop
 @anonymous
-class PaymentShippingOption {
+class PaymentShippingOption implements JSObject {
   external factory PaymentShippingOption({
     required JSString id,
     required JSString label,
@@ -250,7 +250,7 @@ extension PaymentShippingOptionExtension on PaymentShippingOption {
 @JS()
 @staticInterop
 @anonymous
-class AddressErrors {
+class AddressErrors implements JSObject {
   external factory AddressErrors({
     JSString addressLine,
     JSString city,

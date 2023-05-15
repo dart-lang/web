@@ -15,7 +15,7 @@ typedef EffectiveConnectionType = JSString;
 
 @JS('NavigatorNetworkInformation')
 @staticInterop
-class NavigatorNetworkInformation {}
+class NavigatorNetworkInformation implements JSObject {}
 
 extension NavigatorNetworkInformationExtension on NavigatorNetworkInformation {
   external NetworkInformation get connection;

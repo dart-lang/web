@@ -9,7 +9,7 @@ import 'dom.dart';
 @JS()
 @staticInterop
 @anonymous
-class ColorSelectionResult {
+class ColorSelectionResult implements JSObject {
   external factory ColorSelectionResult({JSString sRGBHex});
 }
 
@@ -21,7 +21,7 @@ extension ColorSelectionResultExtension on ColorSelectionResult {
 @JS()
 @staticInterop
 @anonymous
-class ColorSelectionOptions {
+class ColorSelectionOptions implements JSObject {
   external factory ColorSelectionOptions({AbortSignal signal});
 }
 
@@ -32,7 +32,7 @@ extension ColorSelectionOptionsExtension on ColorSelectionOptions {
 
 @JS('EyeDropper')
 @staticInterop
-class EyeDropper {
+class EyeDropper implements JSObject {
   external factory EyeDropper();
 }
 

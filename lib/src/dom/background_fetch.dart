@@ -14,7 +14,7 @@ typedef BackgroundFetchFailureReason = JSString;
 
 @JS('BackgroundFetchManager')
 @staticInterop
-class BackgroundFetchManager {}
+class BackgroundFetchManager implements JSObject {}
 
 extension BackgroundFetchManagerExtension on BackgroundFetchManager {
   external JSPromise fetch(
@@ -29,7 +29,7 @@ extension BackgroundFetchManagerExtension on BackgroundFetchManager {
 @JS()
 @staticInterop
 @anonymous
-class BackgroundFetchUIOptions {
+class BackgroundFetchUIOptions implements JSObject {
   external factory BackgroundFetchUIOptions({
     JSArray icons,
     JSString title,
@@ -83,7 +83,7 @@ extension BackgroundFetchRegistrationExtension on BackgroundFetchRegistration {
 
 @JS('BackgroundFetchRecord')
 @staticInterop
-class BackgroundFetchRecord {}
+class BackgroundFetchRecord implements JSObject {}
 
 extension BackgroundFetchRecordExtension on BackgroundFetchRecord {
   external Request get request;

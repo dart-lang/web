@@ -14,7 +14,7 @@ typedef WriteCommandType = JSString;
 
 @JS('FileSystemHandle')
 @staticInterop
-class FileSystemHandle {}
+class FileSystemHandle implements JSObject {}
 
 extension FileSystemHandleExtension on FileSystemHandle {
   external JSPromise queryPermission(
@@ -29,7 +29,7 @@ extension FileSystemHandleExtension on FileSystemHandle {
 @JS()
 @staticInterop
 @anonymous
-class FileSystemCreateWritableOptions {
+class FileSystemCreateWritableOptions implements JSObject {
   external factory FileSystemCreateWritableOptions(
       {JSBoolean keepExistingData});
 }
@@ -53,7 +53,7 @@ extension FileSystemFileHandleExtension on FileSystemFileHandle {
 @JS()
 @staticInterop
 @anonymous
-class FileSystemGetFileOptions {
+class FileSystemGetFileOptions implements JSObject {
   external factory FileSystemGetFileOptions({JSBoolean create});
 }
 
@@ -65,7 +65,7 @@ extension FileSystemGetFileOptionsExtension on FileSystemGetFileOptions {
 @JS()
 @staticInterop
 @anonymous
-class FileSystemGetDirectoryOptions {
+class FileSystemGetDirectoryOptions implements JSObject {
   external factory FileSystemGetDirectoryOptions({JSBoolean create});
 }
 
@@ -78,7 +78,7 @@ extension FileSystemGetDirectoryOptionsExtension
 @JS()
 @staticInterop
 @anonymous
-class FileSystemRemoveOptions {
+class FileSystemRemoveOptions implements JSObject {
   external factory FileSystemRemoveOptions({JSBoolean recursive});
 }
 
@@ -110,7 +110,7 @@ extension FileSystemDirectoryHandleExtension on FileSystemDirectoryHandle {
 @JS()
 @staticInterop
 @anonymous
-class WriteParams {
+class WriteParams implements JSObject {
   external factory WriteParams({
     required WriteCommandType type,
     JSNumber? size,
@@ -144,7 +144,7 @@ extension FileSystemWritableFileStreamExtension
 @JS()
 @staticInterop
 @anonymous
-class FileSystemReadWriteOptions {
+class FileSystemReadWriteOptions implements JSObject {
   external factory FileSystemReadWriteOptions({JSNumber at});
 }
 
@@ -155,7 +155,7 @@ extension FileSystemReadWriteOptionsExtension on FileSystemReadWriteOptions {
 
 @JS('FileSystemSyncAccessHandle')
 @staticInterop
-class FileSystemSyncAccessHandle {}
+class FileSystemSyncAccessHandle implements JSObject {}
 
 extension FileSystemSyncAccessHandleExtension on FileSystemSyncAccessHandle {
   external JSNumber read(

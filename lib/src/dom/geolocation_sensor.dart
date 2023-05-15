@@ -48,7 +48,7 @@ extension ReadOptionsExtension on ReadOptions {
 @JS()
 @staticInterop
 @anonymous
-class GeolocationSensorReading {
+class GeolocationSensorReading implements JSObject {
   external factory GeolocationSensorReading({
     DOMHighResTimeStamp? timestamp,
     JSNumber? latitude,
@@ -83,7 +83,7 @@ extension GeolocationSensorReadingExtension on GeolocationSensorReading {
 @JS()
 @staticInterop
 @anonymous
-class GeolocationReadingValues {
+class GeolocationReadingValues implements JSObject {
   external factory GeolocationReadingValues({
     required JSNumber? latitude,
     required JSNumber? longitude,

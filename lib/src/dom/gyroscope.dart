@@ -36,7 +36,7 @@ extension GyroscopeSensorOptionsExtension on GyroscopeSensorOptions {
 @JS()
 @staticInterop
 @anonymous
-class GyroscopeReadingValues {
+class GyroscopeReadingValues implements JSObject {
   external factory GyroscopeReadingValues({
     required JSNumber? x,
     required JSNumber? y,

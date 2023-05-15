@@ -8,7 +8,7 @@ import 'dom.dart';
 
 @JS('ARIAMixin')
 @staticInterop
-class ARIAMixin {}
+class ARIAMixin implements JSObject {}
 
 extension ARIAMixinExtension on ARIAMixin {
   external set role(JSString? value);

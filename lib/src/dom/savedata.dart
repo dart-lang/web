@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 @JS('NetworkInformationSaveData')
 @staticInterop
-class NetworkInformationSaveData {}
+class NetworkInformationSaveData implements JSObject {}
 
 extension NetworkInformationSaveDataExtension on NetworkInformationSaveData {
   external JSBoolean get saveData;

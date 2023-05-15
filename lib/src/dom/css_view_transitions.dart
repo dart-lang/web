@@ -8,7 +8,7 @@ typedef UpdateCallback = JSFunction;
 
 @JS('ViewTransition')
 @staticInterop
-class ViewTransition {}
+class ViewTransition implements JSObject {}
 
 extension ViewTransitionExtension on ViewTransition {
   external JSVoid skipTransition();

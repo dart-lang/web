@@ -8,7 +8,7 @@ import 'webgl1.dart';
 
 @JS('WEBGL_compressed_texture_astc')
 @staticInterop
-class WEBGL_compressed_texture_astc {
+class WEBGL_compressed_texture_astc implements JSObject {
   external static GLenum get COMPRESSED_RGBA_ASTC_4x4_KHR;
   external static GLenum get COMPRESSED_RGBA_ASTC_5x4_KHR;
   external static GLenum get COMPRESSED_RGBA_ASTC_5x5_KHR;

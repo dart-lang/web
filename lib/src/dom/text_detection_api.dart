@@ -9,7 +9,7 @@ import 'html.dart';
 
 @JS('TextDetector')
 @staticInterop
-class TextDetector {
+class TextDetector implements JSObject {
   external factory TextDetector();
 }
 
@@ -20,7 +20,7 @@ extension TextDetectorExtension on TextDetector {
 @JS()
 @staticInterop
 @anonymous
-class DetectedText {
+class DetectedText implements JSObject {
   external factory DetectedText({
     required DOMRectReadOnly boundingBox,
     required JSString rawValue,

@@ -14,7 +14,7 @@ typedef FontFaceSetLoadStatus = JSString;
 @JS()
 @staticInterop
 @anonymous
-class FontFaceDescriptors {
+class FontFaceDescriptors implements JSObject {
   external factory FontFaceDescriptors({
     JSString style,
     JSString weight,
@@ -57,7 +57,7 @@ extension FontFaceDescriptorsExtension on FontFaceDescriptors {
 
 @JS('FontFace')
 @staticInterop
-class FontFace {
+class FontFace implements JSObject {
   external factory FontFace(
     JSString family,
     JSAny source, [
@@ -100,11 +100,11 @@ extension FontFaceExtension on FontFace {
 
 @JS('FontFaceFeatures')
 @staticInterop
-class FontFaceFeatures {}
+class FontFaceFeatures implements JSObject {}
 
 @JS('FontFaceVariationAxis')
 @staticInterop
-class FontFaceVariationAxis {}
+class FontFaceVariationAxis implements JSObject {}
 
 extension FontFaceVariationAxisExtension on FontFaceVariationAxis {
   external JSString get name;
@@ -116,13 +116,13 @@ extension FontFaceVariationAxisExtension on FontFaceVariationAxis {
 
 @JS('FontFaceVariations')
 @staticInterop
-class FontFaceVariations {}
+class FontFaceVariations implements JSObject {}
 
 extension FontFaceVariationsExtension on FontFaceVariations {}
 
 @JS('FontFacePalette')
 @staticInterop
-class FontFacePalette {}
+class FontFacePalette implements JSObject {}
 
 extension FontFacePaletteExtension on FontFacePalette {
   external JSNumber get length;
@@ -132,7 +132,7 @@ extension FontFacePaletteExtension on FontFacePalette {
 
 @JS('FontFacePalettes')
 @staticInterop
-class FontFacePalettes {}
+class FontFacePalettes implements JSObject {}
 
 extension FontFacePalettesExtension on FontFacePalettes {
   external JSNumber get length;
@@ -193,7 +193,7 @@ extension FontFaceSetExtension on FontFaceSet {
 
 @JS('FontFaceSource')
 @staticInterop
-class FontFaceSource {}
+class FontFaceSource implements JSObject {}
 
 extension FontFaceSourceExtension on FontFaceSource {
   external FontFaceSet get fonts;

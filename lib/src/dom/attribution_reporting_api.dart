@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 @JS('HTMLAttributionSrcElementUtils')
 @staticInterop
-class HTMLAttributionSrcElementUtils {}
+class HTMLAttributionSrcElementUtils implements JSObject {}
 
 extension HTMLAttributionSrcElementUtilsExtension
     on HTMLAttributionSrcElementUtils {
@@ -17,7 +17,7 @@ extension HTMLAttributionSrcElementUtilsExtension
 @JS()
 @staticInterop
 @anonymous
-class AttributionReportingRequestOptions {
+class AttributionReportingRequestOptions implements JSObject {
   external factory AttributionReportingRequestOptions({
     required JSBoolean eventSourceEligible,
     required JSBoolean triggerEligible,

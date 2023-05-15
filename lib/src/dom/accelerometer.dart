@@ -49,7 +49,7 @@ class GravitySensor implements Accelerometer {
 @JS()
 @staticInterop
 @anonymous
-class AccelerometerReadingValues {
+class AccelerometerReadingValues implements JSObject {
   external factory AccelerometerReadingValues({
     required JSNumber? x,
     required JSNumber? y,

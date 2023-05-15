@@ -7,7 +7,7 @@ import 'dart:js_interop';
 @JS()
 @staticInterop
 @anonymous
-class CaptureHandleConfig {
+class CaptureHandleConfig implements JSObject {
   external factory CaptureHandleConfig({
     JSBoolean exposeOrigin,
     JSString handle,
@@ -27,7 +27,7 @@ extension CaptureHandleConfigExtension on CaptureHandleConfig {
 @JS()
 @staticInterop
 @anonymous
-class CaptureHandle {
+class CaptureHandle implements JSObject {
   external factory CaptureHandle({
     JSString origin,
     JSString handle,

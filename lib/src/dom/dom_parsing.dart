@@ -8,7 +8,7 @@ import 'dom.dart';
 
 @JS('XMLSerializer')
 @staticInterop
-class XMLSerializer {
+class XMLSerializer implements JSObject {
   external factory XMLSerializer();
 }
 
@@ -18,7 +18,7 @@ extension XMLSerializerExtension on XMLSerializer {
 
 @JS('InnerHTML')
 @staticInterop
-class InnerHTML {}
+class InnerHTML implements JSObject {}
 
 extension InnerHTMLExtension on InnerHTML {
   external set innerHTML(JSString value);

@@ -7,7 +7,7 @@ import 'dart:js_interop';
 @JS()
 @staticInterop
 @anonymous
-class MemoryMeasurement {
+class MemoryMeasurement implements JSObject {
   external factory MemoryMeasurement({
     JSNumber bytes,
     JSArray breakdown,
@@ -24,7 +24,7 @@ extension MemoryMeasurementExtension on MemoryMeasurement {
 @JS()
 @staticInterop
 @anonymous
-class MemoryBreakdownEntry {
+class MemoryBreakdownEntry implements JSObject {
   external factory MemoryBreakdownEntry({
     JSNumber bytes,
     JSArray attribution,
@@ -44,7 +44,7 @@ extension MemoryBreakdownEntryExtension on MemoryBreakdownEntry {
 @JS()
 @staticInterop
 @anonymous
-class MemoryAttribution {
+class MemoryAttribution implements JSObject {
   external factory MemoryAttribution({
     JSString url,
     MemoryAttributionContainer container,
@@ -64,7 +64,7 @@ extension MemoryAttributionExtension on MemoryAttribution {
 @JS()
 @staticInterop
 @anonymous
-class MemoryAttributionContainer {
+class MemoryAttributionContainer implements JSObject {
   external factory MemoryAttributionContainer({
     JSString id,
     JSString src,

@@ -59,7 +59,7 @@ extension AudioDecoderExtension on AudioDecoder {
 @JS()
 @staticInterop
 @anonymous
-class AudioDecoderInit {
+class AudioDecoderInit implements JSObject {
   external factory AudioDecoderInit({
     required AudioDataOutputCallback output,
     required WebCodecsErrorCallback error,
@@ -96,7 +96,7 @@ extension VideoDecoderExtension on VideoDecoder {
 @JS()
 @staticInterop
 @anonymous
-class VideoDecoderInit {
+class VideoDecoderInit implements JSObject {
   external factory VideoDecoderInit({
     required VideoFrameOutputCallback output,
     required WebCodecsErrorCallback error,
@@ -133,7 +133,7 @@ extension AudioEncoderExtension on AudioEncoder {
 @JS()
 @staticInterop
 @anonymous
-class AudioEncoderInit {
+class AudioEncoderInit implements JSObject {
   external factory AudioEncoderInit({
     required EncodedAudioChunkOutputCallback output,
     required WebCodecsErrorCallback error,
@@ -150,7 +150,7 @@ extension AudioEncoderInitExtension on AudioEncoderInit {
 @JS()
 @staticInterop
 @anonymous
-class EncodedAudioChunkMetadata {
+class EncodedAudioChunkMetadata implements JSObject {
   external factory EncodedAudioChunkMetadata(
       {AudioDecoderConfig decoderConfig});
 }
@@ -186,7 +186,7 @@ extension VideoEncoderExtension on VideoEncoder {
 @JS()
 @staticInterop
 @anonymous
-class VideoEncoderInit {
+class VideoEncoderInit implements JSObject {
   external factory VideoEncoderInit({
     required EncodedVideoChunkOutputCallback output,
     required WebCodecsErrorCallback error,
@@ -203,7 +203,7 @@ extension VideoEncoderInitExtension on VideoEncoderInit {
 @JS()
 @staticInterop
 @anonymous
-class EncodedVideoChunkMetadata {
+class EncodedVideoChunkMetadata implements JSObject {
   external factory EncodedVideoChunkMetadata({
     VideoDecoderConfig decoderConfig,
     SvcOutputMetadata svc,
@@ -223,7 +223,7 @@ extension EncodedVideoChunkMetadataExtension on EncodedVideoChunkMetadata {
 @JS()
 @staticInterop
 @anonymous
-class SvcOutputMetadata {
+class SvcOutputMetadata implements JSObject {
   external factory SvcOutputMetadata({JSNumber temporalLayerId});
 }
 
@@ -235,7 +235,7 @@ extension SvcOutputMetadataExtension on SvcOutputMetadata {
 @JS()
 @staticInterop
 @anonymous
-class AudioDecoderSupport {
+class AudioDecoderSupport implements JSObject {
   external factory AudioDecoderSupport({
     JSBoolean supported,
     AudioDecoderConfig config,
@@ -252,7 +252,7 @@ extension AudioDecoderSupportExtension on AudioDecoderSupport {
 @JS()
 @staticInterop
 @anonymous
-class VideoDecoderSupport {
+class VideoDecoderSupport implements JSObject {
   external factory VideoDecoderSupport({
     JSBoolean supported,
     VideoDecoderConfig config,
@@ -269,7 +269,7 @@ extension VideoDecoderSupportExtension on VideoDecoderSupport {
 @JS()
 @staticInterop
 @anonymous
-class AudioEncoderSupport {
+class AudioEncoderSupport implements JSObject {
   external factory AudioEncoderSupport({
     JSBoolean supported,
     AudioEncoderConfig config,
@@ -286,7 +286,7 @@ extension AudioEncoderSupportExtension on AudioEncoderSupport {
 @JS()
 @staticInterop
 @anonymous
-class VideoEncoderSupport {
+class VideoEncoderSupport implements JSObject {
   external factory VideoEncoderSupport({
     JSBoolean supported,
     VideoEncoderConfig config,
@@ -303,7 +303,7 @@ extension VideoEncoderSupportExtension on VideoEncoderSupport {
 @JS()
 @staticInterop
 @anonymous
-class AudioDecoderConfig {
+class AudioDecoderConfig implements JSObject {
   external factory AudioDecoderConfig({
     required JSString codec,
     required JSNumber sampleRate,
@@ -326,7 +326,7 @@ extension AudioDecoderConfigExtension on AudioDecoderConfig {
 @JS()
 @staticInterop
 @anonymous
-class VideoDecoderConfig {
+class VideoDecoderConfig implements JSObject {
   external factory VideoDecoderConfig({
     required JSString codec,
     BufferSource description,
@@ -364,7 +364,7 @@ extension VideoDecoderConfigExtension on VideoDecoderConfig {
 @JS()
 @staticInterop
 @anonymous
-class AudioEncoderConfig {
+class AudioEncoderConfig implements JSObject {
   external factory AudioEncoderConfig({
     AacEncoderConfig aac,
     FlacEncoderConfig flac,
@@ -399,7 +399,7 @@ extension AudioEncoderConfigExtension on AudioEncoderConfig {
 @JS()
 @staticInterop
 @anonymous
-class VideoEncoderConfig {
+class VideoEncoderConfig implements JSObject {
   external factory VideoEncoderConfig({
     AV1EncoderConfig av1,
     AvcEncoderConfig avc,
@@ -455,7 +455,7 @@ extension VideoEncoderConfigExtension on VideoEncoderConfig {
 @JS()
 @staticInterop
 @anonymous
-class VideoEncoderEncodeOptions {
+class VideoEncoderEncodeOptions implements JSObject {
   external factory VideoEncoderEncodeOptions({
     VideoEncoderEncodeOptionsForAv1 av1,
     VideoEncoderEncodeOptionsForAvc avc,
@@ -477,7 +477,7 @@ extension VideoEncoderEncodeOptionsExtension on VideoEncoderEncodeOptions {
 
 @JS('EncodedAudioChunk')
 @staticInterop
-class EncodedAudioChunk {
+class EncodedAudioChunk implements JSObject {
   external factory EncodedAudioChunk(EncodedAudioChunkInit init);
 }
 
@@ -492,7 +492,7 @@ extension EncodedAudioChunkExtension on EncodedAudioChunk {
 @JS()
 @staticInterop
 @anonymous
-class EncodedAudioChunkInit {
+class EncodedAudioChunkInit implements JSObject {
   external factory EncodedAudioChunkInit({
     required EncodedAudioChunkType type,
     required JSNumber timestamp,
@@ -514,7 +514,7 @@ extension EncodedAudioChunkInitExtension on EncodedAudioChunkInit {
 
 @JS('EncodedVideoChunk')
 @staticInterop
-class EncodedVideoChunk {
+class EncodedVideoChunk implements JSObject {
   external factory EncodedVideoChunk(EncodedVideoChunkInit init);
 }
 
@@ -529,7 +529,7 @@ extension EncodedVideoChunkExtension on EncodedVideoChunk {
 @JS()
 @staticInterop
 @anonymous
-class EncodedVideoChunkInit {
+class EncodedVideoChunkInit implements JSObject {
   external factory EncodedVideoChunkInit({
     required EncodedVideoChunkType type,
     required JSNumber timestamp,
@@ -551,7 +551,7 @@ extension EncodedVideoChunkInitExtension on EncodedVideoChunkInit {
 
 @JS('AudioData')
 @staticInterop
-class AudioData {
+class AudioData implements JSObject {
   external factory AudioData(AudioDataInit init);
 }
 
@@ -574,7 +574,7 @@ extension AudioDataExtension on AudioData {
 @JS()
 @staticInterop
 @anonymous
-class AudioDataInit {
+class AudioDataInit implements JSObject {
   external factory AudioDataInit({
     required AudioSampleFormat format,
     required JSNumber sampleRate,
@@ -603,7 +603,7 @@ extension AudioDataInitExtension on AudioDataInit {
 @JS()
 @staticInterop
 @anonymous
-class AudioDataCopyToOptions {
+class AudioDataCopyToOptions implements JSObject {
   external factory AudioDataCopyToOptions({
     required JSNumber planeIndex,
     JSNumber frameOffset,
@@ -625,7 +625,7 @@ extension AudioDataCopyToOptionsExtension on AudioDataCopyToOptions {
 
 @JS('VideoFrame')
 @staticInterop
-class VideoFrame {
+class VideoFrame implements JSObject {
   external factory VideoFrame(
     JSAny dataOrImage, [
     JSAny init,
@@ -656,7 +656,7 @@ extension VideoFrameExtension on VideoFrame {
 @JS()
 @staticInterop
 @anonymous
-class VideoFrameInit {
+class VideoFrameInit implements JSObject {
   external factory VideoFrameInit({
     JSNumber duration,
     JSNumber timestamp,
@@ -688,7 +688,7 @@ extension VideoFrameInitExtension on VideoFrameInit {
 @JS()
 @staticInterop
 @anonymous
-class VideoFrameBufferInit {
+class VideoFrameBufferInit implements JSObject {
   external factory VideoFrameBufferInit({
     required VideoPixelFormat format,
     required JSNumber codedWidth,
@@ -729,14 +729,14 @@ extension VideoFrameBufferInitExtension on VideoFrameBufferInit {
 @JS()
 @staticInterop
 @anonymous
-class VideoFrameMetadata {
+class VideoFrameMetadata implements JSObject {
   external factory VideoFrameMetadata();
 }
 
 @JS()
 @staticInterop
 @anonymous
-class VideoFrameCopyToOptions {
+class VideoFrameCopyToOptions implements JSObject {
   external factory VideoFrameCopyToOptions({
     DOMRectInit rect,
     JSArray layout,
@@ -753,7 +753,7 @@ extension VideoFrameCopyToOptionsExtension on VideoFrameCopyToOptions {
 @JS()
 @staticInterop
 @anonymous
-class PlaneLayout {
+class PlaneLayout implements JSObject {
   external factory PlaneLayout({
     required JSNumber offset,
     required JSNumber stride,
@@ -769,7 +769,7 @@ extension PlaneLayoutExtension on PlaneLayout {
 
 @JS('VideoColorSpace')
 @staticInterop
-class VideoColorSpace {
+class VideoColorSpace implements JSObject {
   external factory VideoColorSpace([VideoColorSpaceInit init]);
 }
 
@@ -784,7 +784,7 @@ extension VideoColorSpaceExtension on VideoColorSpace {
 @JS()
 @staticInterop
 @anonymous
-class VideoColorSpaceInit {
+class VideoColorSpaceInit implements JSObject {
   external factory VideoColorSpaceInit({
     VideoColorPrimaries? primaries,
     VideoTransferCharacteristics? transfer,
@@ -806,7 +806,7 @@ extension VideoColorSpaceInitExtension on VideoColorSpaceInit {
 
 @JS('ImageDecoder')
 @staticInterop
-class ImageDecoder {
+class ImageDecoder implements JSObject {
   external factory ImageDecoder(ImageDecoderInit init);
 
   external static JSPromise isTypeSupported(JSString type);
@@ -825,7 +825,7 @@ extension ImageDecoderExtension on ImageDecoder {
 @JS()
 @staticInterop
 @anonymous
-class ImageDecoderInit {
+class ImageDecoderInit implements JSObject {
   external factory ImageDecoderInit({
     required JSString type,
     required ImageBufferSource data,
@@ -854,7 +854,7 @@ extension ImageDecoderInitExtension on ImageDecoderInit {
 @JS()
 @staticInterop
 @anonymous
-class ImageDecodeOptions {
+class ImageDecodeOptions implements JSObject {
   external factory ImageDecodeOptions({
     JSNumber frameIndex,
     JSBoolean completeFramesOnly,
@@ -871,7 +871,7 @@ extension ImageDecodeOptionsExtension on ImageDecodeOptions {
 @JS()
 @staticInterop
 @anonymous
-class ImageDecodeResult {
+class ImageDecodeResult implements JSObject {
   external factory ImageDecodeResult({
     required VideoFrame image,
     required JSBoolean complete,
@@ -887,7 +887,7 @@ extension ImageDecodeResultExtension on ImageDecodeResult {
 
 @JS('ImageTrackList')
 @staticInterop
-class ImageTrackList {}
+class ImageTrackList implements JSObject {}
 
 extension ImageTrackListExtension on ImageTrackList {
   external JSPromise get ready;
@@ -898,7 +898,7 @@ extension ImageTrackListExtension on ImageTrackList {
 
 @JS('ImageTrack')
 @staticInterop
-class ImageTrack {}
+class ImageTrack implements JSObject {}
 
 extension ImageTrackExtension on ImageTrack {
   external JSBoolean get animated;

@@ -12,7 +12,7 @@ typedef GamepadMappingType = JSString;
 
 @JS('Gamepad')
 @staticInterop
-class Gamepad {}
+class Gamepad implements JSObject {}
 
 extension GamepadExtension on Gamepad {
   external GamepadHand get hand;
@@ -31,7 +31,7 @@ extension GamepadExtension on Gamepad {
 
 @JS('GamepadButton')
 @staticInterop
-class GamepadButton {}
+class GamepadButton implements JSObject {}
 
 extension GamepadButtonExtension on GamepadButton {
   external JSBoolean get pressed;

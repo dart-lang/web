@@ -33,7 +33,7 @@ class WebGLVertexArrayObject implements WebGLObject {}
 
 @JS('WebGL2RenderingContextBase')
 @staticInterop
-class WebGL2RenderingContextBase {
+class WebGL2RenderingContextBase implements JSObject {
   external static GLenum get READ_BUFFER;
   external static GLenum get UNPACK_ROW_LENGTH;
   external static GLenum get UNPACK_SKIP_ROWS;
@@ -736,7 +736,7 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
 
 @JS('WebGL2RenderingContextOverloads')
 @staticInterop
-class WebGL2RenderingContextOverloads {}
+class WebGL2RenderingContextOverloads implements JSObject {}
 
 extension WebGL2RenderingContextOverloadsExtension
     on WebGL2RenderingContextOverloads {

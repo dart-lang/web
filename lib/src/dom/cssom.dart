@@ -12,7 +12,7 @@ import 'html.dart';
 
 @JS('MediaList')
 @staticInterop
-class MediaList {}
+class MediaList implements JSObject {}
 
 extension MediaListExtension on MediaList {
   external JSString? item(JSNumber index);
@@ -25,7 +25,7 @@ extension MediaListExtension on MediaList {
 
 @JS('StyleSheet')
 @staticInterop
-class StyleSheet {}
+class StyleSheet implements JSObject {}
 
 extension StyleSheetExtension on StyleSheet {
   external JSString get type;
@@ -66,7 +66,7 @@ extension CSSStyleSheetExtension on CSSStyleSheet {
 @JS()
 @staticInterop
 @anonymous
-class CSSStyleSheetInit {
+class CSSStyleSheetInit implements JSObject {
   external factory CSSStyleSheetInit({
     JSString baseURL,
     JSAny media,
@@ -85,7 +85,7 @@ extension CSSStyleSheetInitExtension on CSSStyleSheetInit {
 
 @JS('StyleSheetList')
 @staticInterop
-class StyleSheetList {}
+class StyleSheetList implements JSObject {}
 
 extension StyleSheetListExtension on StyleSheetList {
   external CSSStyleSheet? item(JSNumber index);
@@ -94,7 +94,7 @@ extension StyleSheetListExtension on StyleSheetList {
 
 @JS('LinkStyle')
 @staticInterop
-class LinkStyle {}
+class LinkStyle implements JSObject {}
 
 extension LinkStyleExtension on LinkStyle {
   external CSSStyleSheet? get sheet;
@@ -102,7 +102,7 @@ extension LinkStyleExtension on LinkStyle {
 
 @JS('CSSRuleList')
 @staticInterop
-class CSSRuleList {}
+class CSSRuleList implements JSObject {}
 
 extension CSSRuleListExtension on CSSRuleList {
   external CSSRule? item(JSNumber index);
@@ -111,7 +111,7 @@ extension CSSRuleListExtension on CSSRuleList {
 
 @JS('CSSRule')
 @staticInterop
-class CSSRule {
+class CSSRule implements JSObject {
   external static JSNumber get KEYFRAMES_RULE;
   external static JSNumber get KEYFRAME_RULE;
   external static JSNumber get SUPPORTS_RULE;
@@ -207,7 +207,7 @@ extension CSSNamespaceRuleExtension on CSSNamespaceRule {
 
 @JS('CSSStyleDeclaration')
 @staticInterop
-class CSSStyleDeclaration {}
+class CSSStyleDeclaration implements JSObject {}
 
 extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
   external JSString item(JSNumber index);
@@ -229,7 +229,7 @@ extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
 
 @JS('ElementCSSInlineStyle')
 @staticInterop
-class ElementCSSInlineStyle {}
+class ElementCSSInlineStyle implements JSObject {}
 
 extension ElementCSSInlineStyleExtension on ElementCSSInlineStyle {
   external StylePropertyMap get attributeStyleMap;

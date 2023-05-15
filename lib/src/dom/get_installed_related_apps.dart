@@ -7,7 +7,7 @@ import 'dart:js_interop';
 @JS()
 @staticInterop
 @anonymous
-class RelatedApplication {
+class RelatedApplication implements JSObject {
   external factory RelatedApplication({
     required JSString platform,
     JSString url,

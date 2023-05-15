@@ -52,7 +52,7 @@ extension UncalibratedMagnetometerExtension on UncalibratedMagnetometer {
 @JS()
 @staticInterop
 @anonymous
-class MagnetometerReadingValues {
+class MagnetometerReadingValues implements JSObject {
   external factory MagnetometerReadingValues({
     required JSNumber? x,
     required JSNumber? y,
@@ -72,7 +72,7 @@ extension MagnetometerReadingValuesExtension on MagnetometerReadingValues {
 @JS()
 @staticInterop
 @anonymous
-class UncalibratedMagnetometerReadingValues {
+class UncalibratedMagnetometerReadingValues implements JSObject {
   external factory UncalibratedMagnetometerReadingValues({
     required JSNumber? x,
     required JSNumber? y,

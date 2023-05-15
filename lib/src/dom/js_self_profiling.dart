@@ -24,7 +24,7 @@ extension ProfilerExtension on Profiler {
 @JS()
 @staticInterop
 @anonymous
-class ProfilerTrace {
+class ProfilerTrace implements JSObject {
   external factory ProfilerTrace({
     required JSArray resources,
     required JSArray frames,
@@ -47,7 +47,7 @@ extension ProfilerTraceExtension on ProfilerTrace {
 @JS()
 @staticInterop
 @anonymous
-class ProfilerSample {
+class ProfilerSample implements JSObject {
   external factory ProfilerSample({
     required DOMHighResTimeStamp timestamp,
     JSNumber stackId,
@@ -64,7 +64,7 @@ extension ProfilerSampleExtension on ProfilerSample {
 @JS()
 @staticInterop
 @anonymous
-class ProfilerStack {
+class ProfilerStack implements JSObject {
   external factory ProfilerStack({
     JSNumber parentId,
     required JSNumber frameId,
@@ -81,7 +81,7 @@ extension ProfilerStackExtension on ProfilerStack {
 @JS()
 @staticInterop
 @anonymous
-class ProfilerFrame {
+class ProfilerFrame implements JSObject {
   external factory ProfilerFrame({
     required JSString name,
     JSNumber resourceId,
@@ -104,7 +104,7 @@ extension ProfilerFrameExtension on ProfilerFrame {
 @JS()
 @staticInterop
 @anonymous
-class ProfilerInitOptions {
+class ProfilerInitOptions implements JSObject {
   external factory ProfilerInitOptions({
     required DOMHighResTimeStamp sampleInterval,
     required JSNumber maxBufferSize,

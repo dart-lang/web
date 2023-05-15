@@ -73,7 +73,7 @@ extension IDBVersionChangeEventInitExtension on IDBVersionChangeEventInit {
 
 @JS('IDBFactory')
 @staticInterop
-class IDBFactory {}
+class IDBFactory implements JSObject {}
 
 extension IDBFactoryExtension on IDBFactory {
   external IDBOpenDBRequest open(
@@ -91,7 +91,7 @@ extension IDBFactoryExtension on IDBFactory {
 @JS()
 @staticInterop
 @anonymous
-class IDBDatabaseInfo {
+class IDBDatabaseInfo implements JSObject {
   external factory IDBDatabaseInfo({
     JSString name,
     JSNumber version,
@@ -137,7 +137,7 @@ extension IDBDatabaseExtension on IDBDatabase {
 @JS()
 @staticInterop
 @anonymous
-class IDBTransactionOptions {
+class IDBTransactionOptions implements JSObject {
   external factory IDBTransactionOptions({IDBTransactionDurability durability});
 }
 
@@ -149,7 +149,7 @@ extension IDBTransactionOptionsExtension on IDBTransactionOptions {
 @JS()
 @staticInterop
 @anonymous
-class IDBObjectStoreParameters {
+class IDBObjectStoreParameters implements JSObject {
   external factory IDBObjectStoreParameters({
     JSAny? keyPath,
     JSBoolean autoIncrement,
@@ -165,7 +165,7 @@ extension IDBObjectStoreParametersExtension on IDBObjectStoreParameters {
 
 @JS('IDBObjectStore')
 @staticInterop
-class IDBObjectStore {}
+class IDBObjectStore implements JSObject {}
 
 extension IDBObjectStoreExtension on IDBObjectStore {
   external IDBRequest put(
@@ -215,7 +215,7 @@ extension IDBObjectStoreExtension on IDBObjectStore {
 @JS()
 @staticInterop
 @anonymous
-class IDBIndexParameters {
+class IDBIndexParameters implements JSObject {
   external factory IDBIndexParameters({
     JSBoolean unique,
     JSBoolean multiEntry,
@@ -231,7 +231,7 @@ extension IDBIndexParametersExtension on IDBIndexParameters {
 
 @JS('IDBIndex')
 @staticInterop
-class IDBIndex {}
+class IDBIndex implements JSObject {}
 
 extension IDBIndexExtension on IDBIndex {
   external IDBRequest get(JSAny query);
@@ -263,7 +263,7 @@ extension IDBIndexExtension on IDBIndex {
 
 @JS('IDBKeyRange')
 @staticInterop
-class IDBKeyRange {
+class IDBKeyRange implements JSObject {
   external static IDBKeyRange only(JSAny value);
   external static IDBKeyRange lowerBound(
     JSAny lower, [
@@ -291,7 +291,7 @@ extension IDBKeyRangeExtension on IDBKeyRange {
 
 @JS('IDBCursor')
 @staticInterop
-class IDBCursor {}
+class IDBCursor implements JSObject {}
 
 extension IDBCursorExtension on IDBCursor {
   external JSVoid advance(JSNumber count);

@@ -8,7 +8,7 @@ import 'webgl1.dart';
 
 @JS('EXT_texture_compression_rgtc')
 @staticInterop
-class EXT_texture_compression_rgtc {
+class EXT_texture_compression_rgtc implements JSObject {
   external static GLenum get COMPRESSED_RED_RGTC1_EXT;
   external static GLenum get COMPRESSED_SIGNED_RED_RGTC1_EXT;
   external static GLenum get COMPRESSED_RED_GREEN_RGTC2_EXT;

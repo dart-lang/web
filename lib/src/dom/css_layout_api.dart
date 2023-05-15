@@ -27,7 +27,7 @@ extension LayoutWorkletGlobalScopeExtension on LayoutWorkletGlobalScope {
 @JS()
 @staticInterop
 @anonymous
-class LayoutOptions {
+class LayoutOptions implements JSObject {
   external factory LayoutOptions({
     ChildDisplayType childDisplay,
     LayoutSizingMode sizing,
@@ -43,7 +43,7 @@ extension LayoutOptionsExtension on LayoutOptions {
 
 @JS('LayoutChild')
 @staticInterop
-class LayoutChild {}
+class LayoutChild implements JSObject {}
 
 extension LayoutChildExtension on LayoutChild {
   external JSPromise intrinsicSizes();
@@ -56,7 +56,7 @@ extension LayoutChildExtension on LayoutChild {
 
 @JS('LayoutFragment')
 @staticInterop
-class LayoutFragment {}
+class LayoutFragment implements JSObject {}
 
 extension LayoutFragmentExtension on LayoutFragment {
   external JSNumber get inlineSize;
@@ -71,7 +71,7 @@ extension LayoutFragmentExtension on LayoutFragment {
 
 @JS('IntrinsicSizes')
 @staticInterop
-class IntrinsicSizes {}
+class IntrinsicSizes implements JSObject {}
 
 extension IntrinsicSizesExtension on IntrinsicSizes {
   external JSNumber get minContentSize;
@@ -80,7 +80,7 @@ extension IntrinsicSizesExtension on IntrinsicSizes {
 
 @JS('LayoutConstraints')
 @staticInterop
-class LayoutConstraints {}
+class LayoutConstraints implements JSObject {}
 
 extension LayoutConstraintsExtension on LayoutConstraints {
   external JSNumber get availableInlineSize;
@@ -97,7 +97,7 @@ extension LayoutConstraintsExtension on LayoutConstraints {
 @JS()
 @staticInterop
 @anonymous
-class LayoutConstraintsOptions {
+class LayoutConstraintsOptions implements JSObject {
   external factory LayoutConstraintsOptions({
     JSNumber availableInlineSize,
     JSNumber availableBlockSize,
@@ -134,7 +134,7 @@ extension LayoutConstraintsOptionsExtension on LayoutConstraintsOptions {
 
 @JS('ChildBreakToken')
 @staticInterop
-class ChildBreakToken {}
+class ChildBreakToken implements JSObject {}
 
 extension ChildBreakTokenExtension on ChildBreakToken {
   external BreakType get breakType;
@@ -143,7 +143,7 @@ extension ChildBreakTokenExtension on ChildBreakToken {
 
 @JS('BreakToken')
 @staticInterop
-class BreakToken {}
+class BreakToken implements JSObject {}
 
 extension BreakTokenExtension on BreakToken {
   external JSArray get childBreakTokens;
@@ -153,7 +153,7 @@ extension BreakTokenExtension on BreakToken {
 @JS()
 @staticInterop
 @anonymous
-class BreakTokenOptions {
+class BreakTokenOptions implements JSObject {
   external factory BreakTokenOptions({
     JSArray childBreakTokens,
     JSAny data,
@@ -169,7 +169,7 @@ extension BreakTokenOptionsExtension on BreakTokenOptions {
 
 @JS('LayoutEdges')
 @staticInterop
-class LayoutEdges {}
+class LayoutEdges implements JSObject {}
 
 extension LayoutEdgesExtension on LayoutEdges {
   external JSNumber get inlineStart;
@@ -183,7 +183,7 @@ extension LayoutEdgesExtension on LayoutEdges {
 @JS()
 @staticInterop
 @anonymous
-class FragmentResultOptions {
+class FragmentResultOptions implements JSObject {
   external factory FragmentResultOptions({
     JSNumber inlineSize,
     JSNumber blockSize,
@@ -211,7 +211,7 @@ extension FragmentResultOptionsExtension on FragmentResultOptions {
 
 @JS('FragmentResult')
 @staticInterop
-class FragmentResult {
+class FragmentResult implements JSObject {
   external factory FragmentResult([FragmentResultOptions options]);
 }
 
@@ -223,7 +223,7 @@ extension FragmentResultExtension on FragmentResult {
 @JS()
 @staticInterop
 @anonymous
-class IntrinsicSizesResultOptions {
+class IntrinsicSizesResultOptions implements JSObject {
   external factory IntrinsicSizesResultOptions({
     JSNumber maxContentSize,
     JSNumber minContentSize,

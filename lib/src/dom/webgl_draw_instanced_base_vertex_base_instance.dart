@@ -8,7 +8,7 @@ import 'webgl1.dart';
 
 @JS('WEBGL_draw_instanced_base_vertex_base_instance')
 @staticInterop
-class WEBGL_draw_instanced_base_vertex_base_instance {}
+class WEBGL_draw_instanced_base_vertex_base_instance implements JSObject {}
 
 extension WEBGLDrawInstancedBaseVertexBaseInstanceExtension
     on WEBGL_draw_instanced_base_vertex_base_instance {

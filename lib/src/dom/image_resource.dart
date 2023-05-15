@@ -7,7 +7,7 @@ import 'dart:js_interop';
 @JS()
 @staticInterop
 @anonymous
-class ImageResource {
+class ImageResource implements JSObject {
   external factory ImageResource({
     required JSString src,
     JSString sizes,

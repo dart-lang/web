@@ -30,7 +30,7 @@ typedef WebGLPowerPreference = JSString;
 @JS()
 @staticInterop
 @anonymous
-class WebGLContextAttributes {
+class WebGLContextAttributes implements JSObject {
   external factory WebGLContextAttributes({
     JSBoolean alpha,
     JSBoolean depth,
@@ -70,7 +70,7 @@ extension WebGLContextAttributesExtension on WebGLContextAttributes {
 
 @JS('WebGLObject')
 @staticInterop
-class WebGLObject {}
+class WebGLObject implements JSObject {}
 
 @JS('WebGLBuffer')
 @staticInterop
@@ -98,11 +98,11 @@ class WebGLTexture implements WebGLObject {}
 
 @JS('WebGLUniformLocation')
 @staticInterop
-class WebGLUniformLocation {}
+class WebGLUniformLocation implements JSObject {}
 
 @JS('WebGLActiveInfo')
 @staticInterop
-class WebGLActiveInfo {}
+class WebGLActiveInfo implements JSObject {}
 
 extension WebGLActiveInfoExtension on WebGLActiveInfo {
   external GLint get size;
@@ -112,7 +112,7 @@ extension WebGLActiveInfoExtension on WebGLActiveInfo {
 
 @JS('WebGLShaderPrecisionFormat')
 @staticInterop
-class WebGLShaderPrecisionFormat {}
+class WebGLShaderPrecisionFormat implements JSObject {}
 
 extension WebGLShaderPrecisionFormatExtension on WebGLShaderPrecisionFormat {
   external GLint get rangeMin;
@@ -122,7 +122,7 @@ extension WebGLShaderPrecisionFormatExtension on WebGLShaderPrecisionFormat {
 
 @JS('WebGLRenderingContextBase')
 @staticInterop
-class WebGLRenderingContextBase {
+class WebGLRenderingContextBase implements JSObject {
   external static GLenum get DEPTH_BUFFER_BIT;
   external static GLenum get STENCIL_BUFFER_BIT;
   external static GLenum get COLOR_BUFFER_BIT;
@@ -816,7 +816,7 @@ extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
 
 @JS('WebGLRenderingContextOverloads')
 @staticInterop
-class WebGLRenderingContextOverloads {}
+class WebGLRenderingContextOverloads implements JSObject {}
 
 extension WebGLRenderingContextOverloadsExtension
     on WebGLRenderingContextOverloads {

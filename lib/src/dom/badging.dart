@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 @JS('NavigatorBadge')
 @staticInterop
-class NavigatorBadge {}
+class NavigatorBadge implements JSObject {}
 
 extension NavigatorBadgeExtension on NavigatorBadge {
   external JSPromise setAppBadge([JSNumber contents]);

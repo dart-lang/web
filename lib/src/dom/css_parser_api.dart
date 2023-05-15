@@ -4,8 +4,8 @@
 
 import 'dart:js_interop';
 
-typedef CSSStringSource = JSAny;
-typedef CSSToken = JSAny;
+typedef CSSStringSource = JSAny?;
+typedef CSSToken = JSAny?;
 
 @JS()
 @staticInterop

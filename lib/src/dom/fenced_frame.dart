@@ -6,9 +6,9 @@ import 'dart:js_interop';
 
 import 'html.dart';
 
-typedef FencedFrameConfigSize = JSAny;
+typedef FencedFrameConfigSize = JSAny?;
 typedef FencedFrameConfigURL = JSString;
-typedef ReportEventType = JSAny;
+typedef ReportEventType = JSAny?;
 typedef OpaqueProperty = JSString;
 typedef FenceReportingDestination = JSString;
 

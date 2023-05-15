@@ -6,11 +6,11 @@ import 'dart:js_interop';
 
 import 'webgpu.dart';
 
-typedef MLNamedArrayBufferViews = JSAny;
-typedef MLGPUResource = JSAny;
-typedef MLNamedGPUResources = JSAny;
-typedef MLNamedOperands = JSAny;
-typedef MLBufferView = JSAny;
+typedef MLNamedArrayBufferViews = JSAny?;
+typedef MLGPUResource = JSAny?;
+typedef MLNamedGPUResources = JSAny?;
+typedef MLNamedOperands = JSAny?;
+typedef MLBufferView = JSAny?;
 typedef MLDeviceType = JSString;
 typedef MLPowerPreference = JSString;
 typedef MLInputOperandLayout = JSString;
@@ -55,8 +55,8 @@ extension MLContextOptionsExtension on MLContextOptions {
 class ML implements JSObject {}
 
 extension MLExtension on ML {
-  external JSPromise createContext([JSAny gpuDeviceOrOptions]);
-  external MLContext createContextSync([JSAny gpuDeviceOrOptions]);
+  external JSPromise createContext([JSAny? gpuDeviceOrOptions]);
+  external MLContext createContextSync([JSAny? gpuDeviceOrOptions]);
 }
 
 @JS('MLGraph')
@@ -169,8 +169,8 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
     MLOperandDescriptor desc,
   );
   external MLOperand constant(
-    JSAny descOrValue, [
-    JSAny bufferViewOrType,
+    JSAny? descOrValue, [
+    JSAny? bufferViewOrType,
   ]);
   external JSPromise build(MLNamedOperands outputs);
   external MLGraph buildSync(MLNamedOperands outputs);
@@ -180,8 +180,8 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
     MLOperand variance, [
     MLBatchNormalizationOptions options,
   ]);
-  external JSAny clamp([
-    JSAny optionsOrX,
+  external JSAny? clamp([
+    JSAny? optionsOrX,
     MLClampOptions options,
   ]);
   external MLOperand concat(
@@ -235,8 +235,8 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
   external MLOperand neg(MLOperand x);
   external MLOperand sin(MLOperand x);
   external MLOperand tan(MLOperand x);
-  external JSAny elu([
-    JSAny optionsOrX,
+  external JSAny? elu([
+    JSAny? optionsOrX,
     MLEluOptions options,
   ]);
   external MLOperand gemm(
@@ -260,21 +260,21 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
     JSNumber hiddenSize, [
     MLGruCellOptions options,
   ]);
-  external JSAny hardSigmoid([
-    JSAny optionsOrX,
+  external JSAny? hardSigmoid([
+    JSAny? optionsOrX,
     MLHardSigmoidOptions options,
   ]);
-  external JSAny hardSwish([MLOperand x]);
+  external JSAny? hardSwish([MLOperand x]);
   external MLOperand instanceNormalization(
     MLOperand input, [
     MLInstanceNormalizationOptions options,
   ]);
-  external JSAny leakyRelu([
-    JSAny optionsOrX,
+  external JSAny? leakyRelu([
+    JSAny? optionsOrX,
     MLLeakyReluOptions options,
   ]);
-  external JSAny linear([
-    JSAny optionsOrX,
+  external JSAny? linear([
+    JSAny? optionsOrX,
     MLLinearOptions options,
   ]);
   external JSArray lstm(
@@ -360,7 +360,7 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
     MLOperand input, [
     MLReduceOptions options,
   ]);
-  external JSAny relu([MLOperand x]);
+  external JSAny? relu([MLOperand x]);
   external MLOperand resample2d(
     MLOperand input, [
     MLResample2dOptions options,
@@ -369,28 +369,28 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
     MLOperand input,
     JSArray newShape,
   );
-  external JSAny sigmoid([MLOperand x]);
+  external JSAny? sigmoid([MLOperand x]);
   external MLOperand slice(
     MLOperand input,
     JSArray starts,
     JSArray sizes,
   );
-  external JSAny softmax([MLOperand x]);
-  external JSAny softplus([
-    JSAny optionsOrX,
+  external JSAny? softmax([MLOperand x]);
+  external JSAny? softplus([
+    JSAny? optionsOrX,
     MLSoftplusOptions options,
   ]);
-  external JSAny softsign([MLOperand x]);
+  external JSAny? softsign([MLOperand x]);
   external JSArray split(
     MLOperand input,
-    JSAny splits, [
+    JSAny? splits, [
     MLSplitOptions options,
   ]);
   external MLOperand squeeze(
     MLOperand input, [
     MLSqueezeOptions options,
   ]);
-  external JSAny tanh([MLOperand x]);
+  external JSAny? tanh([MLOperand x]);
   external MLOperand transpose(
     MLOperand input, [
     MLTransposeOptions options,

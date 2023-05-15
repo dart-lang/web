@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 
-typedef AttributeMatchList = JSAny;
+typedef AttributeMatchList = JSAny?;
 
 @JS('Sanitizer')
 @staticInterop
@@ -17,7 +17,7 @@ class Sanitizer implements JSObject {
 }
 
 extension SanitizerExtension on Sanitizer {
-  external DocumentFragment sanitize(JSAny input);
+  external DocumentFragment sanitize(JSAny? input);
   external Element? sanitizeFor(
     JSString element,
     JSString input,

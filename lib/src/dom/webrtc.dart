@@ -79,15 +79,15 @@ extension RTCConfigurationExtension on RTCConfiguration {
 @anonymous
 class RTCIceServer implements JSObject {
   external factory RTCIceServer({
-    required JSAny urls,
+    required JSAny? urls,
     JSString username,
     JSString credential,
   });
 }
 
 extension RTCIceServerExtension on RTCIceServer {
-  external set urls(JSAny value);
-  external JSAny get urls;
+  external set urls(JSAny? value);
+  external JSAny? get urls;
   external set username(JSString value);
   external JSString get username;
   external set credential(JSString value);
@@ -144,12 +144,12 @@ extension RTCPeerConnectionExtension on RTCPeerConnection {
   ]);
   external JSPromise getIdentityAssertion();
   external JSPromise createOffer([
-    JSAny optionsOrSuccessCallback,
+    JSAny? optionsOrSuccessCallback,
     RTCPeerConnectionErrorCallback failureCallback,
     RTCOfferOptions options,
   ]);
   external JSPromise createAnswer([
-    JSAny optionsOrSuccessCallback,
+    JSAny? optionsOrSuccessCallback,
     RTCPeerConnectionErrorCallback failureCallback,
   ]);
   external JSPromise setLocalDescription([
@@ -180,7 +180,7 @@ extension RTCPeerConnectionExtension on RTCPeerConnection {
   );
   external JSVoid removeTrack(RTCRtpSender sender);
   external RTCRtpTransceiver addTransceiver(
-    JSAny trackOrKind, [
+    JSAny? trackOrKind, [
     RTCRtpTransceiverInit init,
   ]);
   external RTCDataChannel createDataChannel(
@@ -882,7 +882,7 @@ class RTCDataChannel implements EventTarget {}
 
 extension RTCDataChannelExtension on RTCDataChannel {
   external JSVoid close();
-  external JSVoid send(JSAny data);
+  external JSVoid send(JSAny? data);
   external RTCPriorityType get priority;
   external JSString get label;
   external JSBoolean get ordered;

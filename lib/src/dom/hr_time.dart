@@ -37,7 +37,7 @@ extension PerformanceExtension on Performance {
   external JSVoid clearMarks([JSString markName]);
   external PerformanceMeasure measure(
     JSString measureName, [
-    JSAny startOrMeasureOptions,
+    JSAny? startOrMeasureOptions,
     JSString endMark,
   ]);
   external JSVoid clearMeasures([JSString measureName]);

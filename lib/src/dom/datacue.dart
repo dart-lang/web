@@ -12,13 +12,13 @@ class DataCue implements TextTrackCue {
   external factory DataCue(
     JSNumber startTime,
     JSNumber endTime,
-    JSAny value, [
+    JSAny? value, [
     JSString type,
   ]);
 }
 
 extension DataCueExtension on DataCue {
-  external set value(JSAny value);
-  external JSAny get value;
+  external set value(JSAny? value);
+  external JSAny? get value;
   external JSString get type;
 }

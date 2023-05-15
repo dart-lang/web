@@ -12,15 +12,15 @@ import 'dom.dart';
 class AuctionAd implements JSObject {
   external factory AuctionAd({
     required JSString renderURL,
-    JSAny metadata,
+    JSAny? metadata,
   });
 }
 
 extension AuctionAdExtension on AuctionAd {
   external set renderURL(JSString value);
   external JSString get renderURL;
-  external set metadata(JSAny value);
-  external JSAny get metadata;
+  external set metadata(JSAny? value);
+  external JSAny? get metadata;
 }
 
 @JS()
@@ -32,15 +32,15 @@ class AuctionAdInterestGroup implements JSObject {
     required JSString name,
     JSNumber priority,
     JSBoolean enableBiddingSignalsPrioritization,
-    JSAny priorityVector,
-    JSAny prioritySignalsOverrides,
+    JSAny? priorityVector,
+    JSAny? prioritySignalsOverrides,
     JSString executionMode,
     JSString biddingLogicURL,
     JSString biddingWasmHelperURL,
     JSString dailyUpdateURL,
     JSString trustedBiddingSignalsURL,
     JSArray trustedBiddingSignalsKeys,
-    JSAny userBiddingSignals,
+    JSAny? userBiddingSignals,
     JSArray ads,
     JSArray adComponents,
   });
@@ -55,10 +55,10 @@ extension AuctionAdInterestGroupExtension on AuctionAdInterestGroup {
   external JSNumber get priority;
   external set enableBiddingSignalsPrioritization(JSBoolean value);
   external JSBoolean get enableBiddingSignalsPrioritization;
-  external set priorityVector(JSAny value);
-  external JSAny get priorityVector;
-  external set prioritySignalsOverrides(JSAny value);
-  external JSAny get prioritySignalsOverrides;
+  external set priorityVector(JSAny? value);
+  external JSAny? get priorityVector;
+  external set prioritySignalsOverrides(JSAny? value);
+  external JSAny? get prioritySignalsOverrides;
   external set executionMode(JSString value);
   external JSString get executionMode;
   external set biddingLogicURL(JSString value);
@@ -71,8 +71,8 @@ extension AuctionAdInterestGroupExtension on AuctionAdInterestGroup {
   external JSString get trustedBiddingSignalsURL;
   external set trustedBiddingSignalsKeys(JSArray value);
   external JSArray get trustedBiddingSignalsKeys;
-  external set userBiddingSignals(JSAny value);
-  external JSAny get userBiddingSignals;
+  external set userBiddingSignals(JSAny? value);
+  external JSAny? get userBiddingSignals;
   external set ads(JSArray value);
   external JSArray get ads;
   external set adComponents(JSArray value);
@@ -105,16 +105,16 @@ class AuctionAdConfig implements JSObject {
     required JSString decisionLogicURL,
     JSString trustedScoringSignalsURL,
     JSArray interestGroupBuyers,
-    JSAny auctionSignals,
-    JSAny sellerSignals,
+    JSAny? auctionSignals,
+    JSAny? sellerSignals,
     JSString directFromSellerSignals,
     JSNumber sellerTimeout,
     JSNumber sellerExperimentGroupId,
-    JSAny perBuyerSignals,
-    JSAny perBuyerTimeouts,
-    JSAny perBuyerGroupLimits,
-    JSAny perBuyerExperimentGroupIds,
-    JSAny perBuyerPrioritySignals,
+    JSAny? perBuyerSignals,
+    JSAny? perBuyerTimeouts,
+    JSAny? perBuyerGroupLimits,
+    JSAny? perBuyerExperimentGroupIds,
+    JSAny? perBuyerPrioritySignals,
     JSArray componentAuctions,
     AbortSignal? signal,
   });
@@ -129,26 +129,26 @@ extension AuctionAdConfigExtension on AuctionAdConfig {
   external JSString get trustedScoringSignalsURL;
   external set interestGroupBuyers(JSArray value);
   external JSArray get interestGroupBuyers;
-  external set auctionSignals(JSAny value);
-  external JSAny get auctionSignals;
-  external set sellerSignals(JSAny value);
-  external JSAny get sellerSignals;
+  external set auctionSignals(JSAny? value);
+  external JSAny? get auctionSignals;
+  external set sellerSignals(JSAny? value);
+  external JSAny? get sellerSignals;
   external set directFromSellerSignals(JSString value);
   external JSString get directFromSellerSignals;
   external set sellerTimeout(JSNumber value);
   external JSNumber get sellerTimeout;
   external set sellerExperimentGroupId(JSNumber value);
   external JSNumber get sellerExperimentGroupId;
-  external set perBuyerSignals(JSAny value);
-  external JSAny get perBuyerSignals;
-  external set perBuyerTimeouts(JSAny value);
-  external JSAny get perBuyerTimeouts;
-  external set perBuyerGroupLimits(JSAny value);
-  external JSAny get perBuyerGroupLimits;
-  external set perBuyerExperimentGroupIds(JSAny value);
-  external JSAny get perBuyerExperimentGroupIds;
-  external set perBuyerPrioritySignals(JSAny value);
-  external JSAny get perBuyerPrioritySignals;
+  external set perBuyerSignals(JSAny? value);
+  external JSAny? get perBuyerSignals;
+  external set perBuyerTimeouts(JSAny? value);
+  external JSAny? get perBuyerTimeouts;
+  external set perBuyerGroupLimits(JSAny? value);
+  external JSAny? get perBuyerGroupLimits;
+  external set perBuyerExperimentGroupIds(JSAny? value);
+  external JSAny? get perBuyerExperimentGroupIds;
+  external set perBuyerPrioritySignals(JSAny? value);
+  external JSAny? get perBuyerPrioritySignals;
   external set componentAuctions(JSArray value);
   external JSArray get componentAuctions;
   external set signal(AbortSignal? value);
@@ -215,8 +215,8 @@ extension AdRenderExtension on AdRender {
 class GenerateBidOutput implements JSObject {
   external factory GenerateBidOutput({
     required JSNumber bid,
-    required JSAny adRender,
-    JSAny ad,
+    required JSAny? adRender,
+    JSAny? ad,
     JSArray adComponents,
     JSNumber adCost,
     JSNumber modelingSignals,
@@ -227,10 +227,10 @@ class GenerateBidOutput implements JSObject {
 extension GenerateBidOutputExtension on GenerateBidOutput {
   external set bid(JSNumber value);
   external JSNumber get bid;
-  external set adRender(JSAny value);
-  external JSAny get adRender;
-  external set ad(JSAny value);
-  external JSAny get ad;
+  external set adRender(JSAny? value);
+  external JSAny? get adRender;
+  external set ad(JSAny? value);
+  external JSAny? get ad;
   external set adComponents(JSArray value);
   external JSArray get adComponents;
   external set adCost(JSNumber value);

@@ -65,7 +65,7 @@ extension LayoutFragmentExtension on LayoutFragment {
   external JSNumber get inlineOffset;
   external set blockOffset(JSNumber value);
   external JSNumber get blockOffset;
-  external JSAny get data;
+  external JSAny? get data;
   external ChildBreakToken? get breakToken;
 }
 
@@ -91,7 +91,7 @@ extension LayoutConstraintsExtension on LayoutConstraints {
   external JSNumber get percentageBlockSize;
   external JSNumber? get blockFragmentationOffset;
   external BlockFragmentationType get blockFragmentationType;
-  external JSAny get data;
+  external JSAny? get data;
 }
 
 @JS()
@@ -107,7 +107,7 @@ class LayoutConstraintsOptions implements JSObject {
     JSNumber percentageBlockSize,
     JSNumber blockFragmentationOffset,
     BlockFragmentationType blockFragmentationType,
-    JSAny data,
+    JSAny? data,
   });
 }
 
@@ -128,8 +128,8 @@ extension LayoutConstraintsOptionsExtension on LayoutConstraintsOptions {
   external JSNumber get blockFragmentationOffset;
   external set blockFragmentationType(BlockFragmentationType value);
   external BlockFragmentationType get blockFragmentationType;
-  external set data(JSAny value);
-  external JSAny get data;
+  external set data(JSAny? value);
+  external JSAny? get data;
 }
 
 @JS('ChildBreakToken')
@@ -147,7 +147,7 @@ class BreakToken implements JSObject {}
 
 extension BreakTokenExtension on BreakToken {
   external JSArray get childBreakTokens;
-  external JSAny get data;
+  external JSAny? get data;
 }
 
 @JS()
@@ -156,15 +156,15 @@ extension BreakTokenExtension on BreakToken {
 class BreakTokenOptions implements JSObject {
   external factory BreakTokenOptions({
     JSArray childBreakTokens,
-    JSAny data,
+    JSAny? data,
   });
 }
 
 extension BreakTokenOptionsExtension on BreakTokenOptions {
   external set childBreakTokens(JSArray value);
   external JSArray get childBreakTokens;
-  external set data(JSAny value);
-  external JSAny get data;
+  external set data(JSAny? value);
+  external JSAny? get data;
 }
 
 @JS('LayoutEdges')
@@ -189,7 +189,7 @@ class FragmentResultOptions implements JSObject {
     JSNumber blockSize,
     JSNumber autoBlockSize,
     JSArray childFragments,
-    JSAny data,
+    JSAny? data,
     BreakTokenOptions breakToken,
   });
 }
@@ -203,8 +203,8 @@ extension FragmentResultOptionsExtension on FragmentResultOptions {
   external JSNumber get autoBlockSize;
   external set childFragments(JSArray value);
   external JSArray get childFragments;
-  external set data(JSAny value);
-  external JSAny get data;
+  external set data(JSAny? value);
+  external JSAny? get data;
   external set breakToken(BreakTokenOptions value);
   external BreakTokenOptions get breakToken;
 }

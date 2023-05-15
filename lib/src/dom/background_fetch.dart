@@ -19,7 +19,7 @@ class BackgroundFetchManager implements JSObject {}
 extension BackgroundFetchManagerExtension on BackgroundFetchManager {
   external JSPromise fetch(
     JSString id,
-    JSAny requests, [
+    JSAny? requests, [
     BackgroundFetchOptions options,
   ]);
   external JSPromise get(JSString id);

@@ -36,7 +36,7 @@ class CSSFontFeatureValuesMap implements JSObject {}
 extension CSSFontFeatureValuesMapExtension on CSSFontFeatureValuesMap {
   external JSVoid set(
     JSString featureValueName,
-    JSAny values,
+    JSAny? values,
   );
 }
 

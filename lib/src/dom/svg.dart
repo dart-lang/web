@@ -437,7 +437,7 @@ extension SVGElementInstanceExtension on SVGElementInstance {
 class ShadowAnimation implements Animation {
   external factory ShadowAnimation(
     Animation source,
-    JSAny newTarget,
+    JSAny? newTarget,
   );
 }
 

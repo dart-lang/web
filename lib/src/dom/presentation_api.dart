@@ -24,7 +24,7 @@ extension PresentationExtension on Presentation {
 @JS('PresentationRequest')
 @staticInterop
 class PresentationRequest implements EventTarget {
-  external factory PresentationRequest(JSAny urlOrUrls);
+  external factory PresentationRequest(JSAny? urlOrUrls);
 }
 
 extension PresentationRequestExtension on PresentationRequest {
@@ -80,7 +80,7 @@ class PresentationConnection implements EventTarget {}
 extension PresentationConnectionExtension on PresentationConnection {
   external JSVoid close();
   external JSVoid terminate();
-  external JSVoid send(JSAny dataOrMessage);
+  external JSVoid send(JSAny? dataOrMessage);
   external JSString get id;
   external JSString get url;
   external PresentationConnectionState get state;

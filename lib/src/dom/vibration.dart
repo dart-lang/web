@@ -4,4 +4,4 @@
 
 import 'dart:js_interop';
 
-typedef VibratePattern = JSAny;
+typedef VibratePattern = JSAny?;

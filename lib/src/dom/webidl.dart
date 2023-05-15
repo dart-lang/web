@@ -4,8 +4,8 @@
 
 import 'dart:js_interop';
 
-typedef ArrayBufferView = JSAny;
-typedef BufferSource = JSAny;
+typedef ArrayBufferView = JSAny?;
+typedef BufferSource = JSAny?;
 typedef VoidFunction = JSFunction;
 
 @JS('DOMException')

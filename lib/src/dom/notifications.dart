@@ -51,7 +51,7 @@ extension NotificationExtension on Notification {
   external JSBoolean get renotify;
   external JSBoolean get silent;
   external JSBoolean get requireInteraction;
-  external JSAny get data;
+  external JSAny? get data;
   external JSArray get actions;
 }
 
@@ -72,7 +72,7 @@ class NotificationOptions implements JSObject {
     JSBoolean renotify,
     JSBoolean silent,
     JSBoolean requireInteraction,
-    JSAny data,
+    JSAny? data,
     JSArray actions,
   });
 }
@@ -102,8 +102,8 @@ extension NotificationOptionsExtension on NotificationOptions {
   external JSBoolean get silent;
   external set requireInteraction(JSBoolean value);
   external JSBoolean get requireInteraction;
-  external set data(JSAny value);
-  external JSAny get data;
+  external set data(JSAny? value);
+  external JSAny? get data;
   external set actions(JSArray value);
   external JSArray get actions;
 }

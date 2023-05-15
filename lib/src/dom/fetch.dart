@@ -10,10 +10,10 @@ import 'referrer_policy.dart';
 import 'streams.dart';
 import 'trust_token_api.dart';
 
-typedef HeadersInit = JSAny;
-typedef XMLHttpRequestBodyInit = JSAny;
-typedef BodyInit = JSAny;
-typedef RequestInfo = JSAny;
+typedef HeadersInit = JSAny?;
+typedef XMLHttpRequestBodyInit = JSAny?;
+typedef BodyInit = JSAny?;
+typedef RequestInfo = JSAny?;
 typedef RequestDestination = JSString;
 typedef RequestMode = JSString;
 typedef RequestCredentials = JSString;
@@ -107,7 +107,7 @@ class RequestInit implements JSObject {
     AbortSignal? signal,
     RequestDuplex duplex,
     RequestPriority priority,
-    JSAny window,
+    JSAny? window,
     PrivateToken privateToken,
   });
 }
@@ -143,8 +143,8 @@ extension RequestInitExtension on RequestInit {
   external RequestDuplex get duplex;
   external set priority(RequestPriority value);
   external RequestPriority get priority;
-  external set window(JSAny value);
-  external JSAny get window;
+  external set window(JSAny? value);
+  external JSAny? get window;
   external set privateToken(PrivateToken value);
   external PrivateToken get privateToken;
 }
@@ -163,7 +163,7 @@ class Response implements Body {
     JSNumber status,
   ]);
   external static Response json(
-    JSAny data, [
+    JSAny? data, [
     ResponseInit init,
   ]);
 }

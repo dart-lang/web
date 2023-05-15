@@ -9,7 +9,7 @@ import 'html.dart';
 import 'streams.dart';
 import 'webidl.dart';
 
-typedef BlobPart = JSAny;
+typedef BlobPart = JSAny?;
 typedef EndingType = JSString;
 
 @JS('Blob')

@@ -38,7 +38,7 @@ class WorkletAnimation implements Animation {
     JSString animatorName, [
     JSAny? effects,
     AnimationTimeline? timeline,
-    JSAny options,
+    JSAny? options,
   ]);
 }
 

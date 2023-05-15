@@ -9,7 +9,7 @@ import 'webidl.dart';
 
 typedef GLint64 = JSNumber;
 typedef GLuint64 = JSNumber;
-typedef Uint32List = JSAny;
+typedef Uint32List = JSAny?;
 
 @JS('WebGLQuery')
 @staticInterop
@@ -346,7 +346,7 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     GLsizei height,
   );
   external JSVoid readBuffer(GLenum src);
-  external JSAny getInternalformatParameter(
+  external JSAny? getInternalformatParameter(
     GLenum target,
     GLenum internalformat,
     GLenum pname,
@@ -419,8 +419,8 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     GLsizei height,
     GLsizei depth,
     GLint border,
-    JSAny imageSizeOrSrcData, [
-    JSAny offsetOrSrcOffset,
+    JSAny? imageSizeOrSrcData, [
+    JSAny? offsetOrSrcOffset,
     GLuint srcLengthOverride,
   ]);
   external JSVoid compressedTexSubImage3D(
@@ -433,8 +433,8 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     GLsizei height,
     GLsizei depth,
     GLenum format,
-    JSAny imageSizeOrSrcData, [
-    JSAny offsetOrSrcOffset,
+    JSAny? imageSizeOrSrcData, [
+    JSAny? offsetOrSrcOffset,
     GLuint srcLengthOverride,
   ]);
   external GLint getFragDataLocation(
@@ -620,7 +620,7 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     GLenum target,
     GLenum pname,
   );
-  external JSAny getQueryParameter(
+  external JSAny? getQueryParameter(
     WebGLQuery query,
     GLenum pname,
   );
@@ -641,7 +641,7 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     GLenum pname,
     GLfloat param,
   );
-  external JSAny getSamplerParameter(
+  external JSAny? getSamplerParameter(
     WebGLSampler sampler,
     GLenum pname,
   );
@@ -661,7 +661,7 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     GLbitfield flags,
     GLint64 timeout,
   );
-  external JSAny getSyncParameter(
+  external JSAny? getSyncParameter(
     WebGLSync sync,
     GLenum pname,
   );
@@ -697,7 +697,7 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     GLintptr offset,
     GLsizeiptr size,
   );
-  external JSAny getIndexedParameter(
+  external JSAny? getIndexedParameter(
     GLenum target,
     GLuint index,
   );
@@ -705,7 +705,7 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     WebGLProgram program,
     JSArray uniformNames,
   );
-  external JSAny getActiveUniforms(
+  external JSAny? getActiveUniforms(
     WebGLProgram program,
     JSArray uniformIndices,
     GLenum pname,
@@ -714,7 +714,7 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     WebGLProgram program,
     JSString uniformBlockName,
   );
-  external JSAny getActiveUniformBlockParameter(
+  external JSAny? getActiveUniformBlockParameter(
     WebGLProgram program,
     GLuint uniformBlockIndex,
     GLenum pname,
@@ -750,7 +750,7 @@ extension WebGL2RenderingContextOverloadsExtension
   external JSVoid bufferSubData(
     GLenum target,
     GLintptr dstByteOffset,
-    JSAny srcData, [
+    JSAny? srcData, [
     GLuint srcOffset,
     GLuint length,
   ]);
@@ -758,9 +758,9 @@ extension WebGL2RenderingContextOverloadsExtension
     GLenum target,
     GLint level,
     GLint internalformat,
-    JSAny formatOrWidth,
-    JSAny heightOrType,
-    JSAny borderOrSource, [
+    JSAny? formatOrWidth,
+    JSAny? heightOrType,
+    JSAny? borderOrSource, [
     GLenum format,
     GLenum type,
     JSAny? pboOffsetOrPixelsOrSourceOrSrcData,
@@ -771,9 +771,9 @@ extension WebGL2RenderingContextOverloadsExtension
     GLint level,
     GLint xoffset,
     GLint yoffset,
-    JSAny formatOrWidth,
-    JSAny heightOrType,
-    JSAny formatOrSource, [
+    JSAny? formatOrWidth,
+    JSAny? heightOrType,
+    JSAny? formatOrSource, [
     GLenum type,
     JSAny? pboOffsetOrPixelsOrSourceOrSrcData,
     GLuint srcOffset,
@@ -785,8 +785,8 @@ extension WebGL2RenderingContextOverloadsExtension
     GLsizei width,
     GLsizei height,
     GLint border,
-    JSAny imageSizeOrSrcData, [
-    JSAny offsetOrSrcOffset,
+    JSAny? imageSizeOrSrcData, [
+    JSAny? offsetOrSrcOffset,
     GLuint srcLengthOverride,
   ]);
   external JSVoid compressedTexSubImage2D(
@@ -797,8 +797,8 @@ extension WebGL2RenderingContextOverloadsExtension
     GLsizei width,
     GLsizei height,
     GLenum format,
-    JSAny imageSizeOrSrcData, [
-    JSAny offsetOrSrcOffset,
+    JSAny? imageSizeOrSrcData, [
+    JSAny? offsetOrSrcOffset,
     GLuint srcLengthOverride,
   ]);
   external JSVoid uniform1fv(

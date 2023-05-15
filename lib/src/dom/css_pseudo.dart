@@ -15,5 +15,5 @@ extension CSSPseudoElementExtension on CSSPseudoElement {
   external CSSPseudoElement? pseudo(JSString type);
   external JSString get type;
   external Element get element;
-  external JSAny get parent;
+  external JSAny? get parent;
 }

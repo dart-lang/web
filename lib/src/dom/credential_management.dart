@@ -9,7 +9,7 @@ import 'fedcm.dart';
 import 'web_otp.dart';
 import 'webauthn.dart';
 
-typedef PasswordCredentialInit = JSAny;
+typedef PasswordCredentialInit = JSAny?;
 typedef CredentialMediationRequirement = JSString;
 
 @JS('Credential')
@@ -113,7 +113,7 @@ extension CredentialCreationOptionsExtension on CredentialCreationOptions {
 @JS('PasswordCredential')
 @staticInterop
 class PasswordCredential implements Credential, CredentialUserData {
-  external factory PasswordCredential(JSAny dataOrForm);
+  external factory PasswordCredential(JSAny? dataOrForm);
 }
 
 extension PasswordCredentialExtension on PasswordCredential {

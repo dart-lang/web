@@ -108,21 +108,21 @@ extension CustomEventExtension on CustomEvent {
     JSString type, [
     JSBoolean bubbles,
     JSBoolean cancelable,
-    JSAny detail,
+    JSAny? detail,
   ]);
-  external JSAny get detail;
+  external JSAny? get detail;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class CustomEventInit implements EventInit {
-  external factory CustomEventInit({JSAny detail});
+  external factory CustomEventInit({JSAny? detail});
 }
 
 extension CustomEventInitExtension on CustomEventInit {
-  external set detail(JSAny value);
-  external JSAny get detail;
+  external set detail(JSAny? value);
+  external JSAny? get detail;
 }
 
 @JS('EventTarget')
@@ -135,12 +135,12 @@ extension EventTargetExtension on EventTarget {
   external JSVoid addEventListener(
     JSString type,
     EventListener? callback, [
-    JSAny options,
+    JSAny? options,
   ]);
   external JSVoid removeEventListener(
     JSString type,
     EventListener? callback, [
-    JSAny options,
+    JSAny? options,
   ]);
   external JSBoolean dispatchEvent(Event event);
 }
@@ -184,21 +184,21 @@ class AbortController implements JSObject {
 }
 
 extension AbortControllerExtension on AbortController {
-  external JSVoid abort([JSAny reason]);
+  external JSVoid abort([JSAny? reason]);
   external AbortSignal get signal;
 }
 
 @JS('AbortSignal')
 @staticInterop
 class AbortSignal implements EventTarget {
-  external static AbortSignal abort([JSAny reason]);
+  external static AbortSignal abort([JSAny? reason]);
   external static AbortSignal timeout(JSNumber milliseconds);
 }
 
 extension AbortSignalExtension on AbortSignal {
   external JSVoid throwIfAborted();
   external JSBoolean get aborted;
-  external JSAny get reason;
+  external JSAny? get reason;
   external set onabort(EventHandler value);
   external EventHandler get onabort;
 }
@@ -231,9 +231,9 @@ extension DocumentOrShadowRootExtension on DocumentOrShadowRoot {
 class ParentNode implements JSObject {}
 
 extension ParentNodeExtension on ParentNode {
-  external JSVoid prepend(JSAny nodes);
-  external JSVoid append(JSAny nodes);
-  external JSVoid replaceChildren(JSAny nodes);
+  external JSVoid prepend(JSAny? nodes);
+  external JSVoid append(JSAny? nodes);
+  external JSVoid replaceChildren(JSAny? nodes);
   external Element? querySelector(JSString selectors);
   external NodeList querySelectorAll(JSString selectors);
   external HTMLCollection get children;
@@ -256,9 +256,9 @@ extension NonDocumentTypeChildNodeExtension on NonDocumentTypeChildNode {
 class ChildNode implements JSObject {}
 
 extension ChildNodeExtension on ChildNode {
-  external JSVoid before(JSAny nodes);
-  external JSVoid after(JSAny nodes);
-  external JSVoid replaceWith(JSAny nodes);
+  external JSVoid before(JSAny? nodes);
+  external JSVoid after(JSAny? nodes);
+  external JSVoid replaceWith(JSAny? nodes);
   external JSVoid remove();
 }
 
@@ -467,12 +467,12 @@ extension DocumentExtension on Document {
   external HTMLCollection getElementsByClassName(JSString classNames);
   external Element createElement(
     JSString localName, [
-    JSAny options,
+    JSAny? options,
   ]);
   external Element createElementNS(
     JSString? namespace,
     JSString qualifiedName, [
-    JSAny options,
+    JSAny? options,
   ]);
   external DocumentFragment createDocumentFragment();
   external Text createTextNode(JSString data);
@@ -725,17 +725,17 @@ extension ElementExtension on Element {
   external DOMRectList getClientRects();
   external DOMRect getBoundingClientRect();
   external JSBoolean checkVisibility([CheckVisibilityOptions options]);
-  external JSVoid scrollIntoView([JSAny arg]);
+  external JSVoid scrollIntoView([JSAny? arg]);
   external JSVoid scroll([
-    JSAny optionsOrX,
+    JSAny? optionsOrX,
     JSNumber y,
   ]);
   external JSVoid scrollTo([
-    JSAny optionsOrX,
+    JSAny? optionsOrX,
     JSNumber y,
   ]);
   external JSVoid scrollBy([
-    JSAny optionsOrX,
+    JSAny? optionsOrX,
     JSNumber y,
   ]);
   external JSBoolean hasAttributes();
@@ -1181,9 +1181,9 @@ extension XSLTProcessorExtension on XSLTProcessor {
   external JSVoid setParameter(
     JSString namespaceURI,
     JSString localName,
-    JSAny value,
+    JSAny? value,
   );
-  external JSAny getParameter(
+  external JSAny? getParameter(
     JSString namespaceURI,
     JSString localName,
   );

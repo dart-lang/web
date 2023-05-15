@@ -12,7 +12,7 @@ class URL implements JSObject {
     JSString base,
   ]);
 
-  external static JSString createObjectURL(JSAny obj);
+  external static JSString createObjectURL(JSAny? obj);
   external static JSVoid revokeObjectURL(JSString url);
   external static JSBoolean canParse(
     JSString url, [
@@ -49,7 +49,7 @@ extension URLExtension on URL {
 @JS('URLSearchParams')
 @staticInterop
 class URLSearchParams implements JSObject {
-  external factory URLSearchParams([JSAny init]);
+  external factory URLSearchParams([JSAny? init]);
 }
 
 extension URLSearchParamsExtension on URLSearchParams {

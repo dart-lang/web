@@ -69,7 +69,7 @@ extension CSSStyleSheetExtension on CSSStyleSheet {
 class CSSStyleSheetInit implements JSObject {
   external factory CSSStyleSheetInit({
     JSString baseURL,
-    JSAny media,
+    JSAny? media,
     JSBoolean disabled,
   });
 }
@@ -77,8 +77,8 @@ class CSSStyleSheetInit implements JSObject {
 extension CSSStyleSheetInitExtension on CSSStyleSheetInit {
   external set baseURL(JSString value);
   external JSString get baseURL;
-  external set media(JSAny value);
-  external JSAny get media;
+  external set media(JSAny? value);
+  external JSAny? get media;
   external set disabled(JSBoolean value);
   external JSBoolean get disabled;
 }
@@ -334,7 +334,7 @@ extension $CSSExtension on $CSS {
   external JSString escape(JSString ident);
   external Worklet get animationWorklet;
   external HighlightRegistry get highlights;
-  external JSAny get elementSources;
+  external JSAny? get elementSources;
   external Worklet get layoutWorklet;
   external Worklet get paintWorklet;
 }

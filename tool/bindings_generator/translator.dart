@@ -323,8 +323,9 @@ class Translator {
   final _includes = <idl.Includes>[];
   final String _librarySubDir;
   late String _currentlyTranslatingUrl;
+  final List<String> _cssStyleDeclarations;
 
-  Translator(this._librarySubDir);
+  Translator(this._librarySubDir, this._cssStyleDeclarations);
 
   void setOrUpdateInterfacelike(idl.Interfacelike interfacelike) {
     final name = interfacelike.name.toDart;
@@ -484,7 +485,7 @@ class Translator {
 
   List<code.Method> _getterSetter(
       {required String fieldName,
-      required idl.IDLType type,
+      required code.Reference Function({required bool isReturn}) getType,
       required bool isStatic,
       required bool readOnly}) {
     final memberName = _memberName(fieldName);
@@ -498,23 +499,36 @@ class Translator {
           ..type = code.MethodType.setter
           ..name = name
           ..requiredParameters.add(code.Parameter((b) => b
-            ..type = _idlTypeToTypeReference(type, isReturn: false)
+            ..type = getType(isReturn: false)
             ..name = 'value'))),
       code.Method((b) => b
         ..annotations.addAll(_jsOverride(memberName.jsOverride))
         ..external = true
         ..static = isStatic
-        ..returns = _idlTypeToTypeReference(type, isReturn: true)
+        ..returns = getType(isReturn: true)
         ..type = code.MethodType.getter
         ..name = name)
     ];
   }
 
-  List<code.Method> _attribute(idl.Attribute attribute) => _getterSetter(
-      fieldName: attribute.name.toDart,
-      type: attribute.idlType,
-      readOnly: attribute.readonly.toDart,
-      isStatic: attribute.special.toDart == 'static');
+  List<code.Method> _getterSetterWithIDLType(
+          {required String fieldName,
+          required idl.IDLType type,
+          required bool isStatic,
+          required bool readOnly}) =>
+      _getterSetter(
+          fieldName: fieldName,
+          getType: ({required bool isReturn}) =>
+              _idlTypeToTypeReference(type, isReturn: isReturn),
+          isStatic: isStatic,
+          readOnly: readOnly);
+
+  List<code.Method> _attribute(idl.Attribute attribute) =>
+      _getterSetterWithIDLType(
+          fieldName: attribute.name.toDart,
+          type: attribute.idlType,
+          readOnly: attribute.readonly.toDart,
+          isStatic: attribute.special.toDart == 'static');
 
   code.Method _constant(idl.Constant constant) => code.Method((b) => b
     ..external = true
@@ -523,7 +537,7 @@ class Translator {
     ..type = code.MethodType.getter
     ..name = constant.name.toDart);
 
-  List<code.Method> _field(idl.Field field) => _getterSetter(
+  List<code.Method> _field(idl.Field field) => _getterSetterWithIDLType(
       fieldName: field.name.toDart,
       type: field.idlType,
       readOnly: false,
@@ -561,8 +575,21 @@ class Translator {
       code.Extension((b) => b
         ..name = '${name.snakeToPascal}Extension'
         ..on = _typeReference(name)
-        ..methods
-            .addAll(_operations(operations).followedBy(_members(members))));
+        ..methods.addAll(_operations(operations)
+            .followedBy(_members(members))
+            .followedBy(name == 'CSSStyleDeclaration'
+                ? _cssStyleDeclarationProperties()
+                : [])));
+
+  List<code.Method> _cssStyleDeclarationProperties() => [
+        for (final style in _cssStyleDeclarations)
+          ..._getterSetter(
+              fieldName: style,
+              getType: ({required bool isReturn}) =>
+                  code.TypeReference((b) => b..symbol = 'JSString'),
+              isStatic: false,
+              readOnly: false),
+      ];
 
   code.Class _class({
     required String jsName,

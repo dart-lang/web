@@ -11,7 +11,6 @@ external WebRefIDL get idl;
 @staticInterop
 class WebRefIDL {}
 
-// TODO(joshualitt): Replace `JSObject` with `JSPromise`.
 extension WebRefIDLExtension on WebRefIDL {
-  external JSObject parseAll();
+  external JSPromise parseAll();
 }

@@ -6,12 +6,14 @@ import * as fs from 'fs';
 import * as childProcess from 'child_process';
 import { createRequire } from 'module';
 import * as idl from '@webref/idl';
+import * as css from '@webref/css';
 
 const require = createRequire(import.meta.url);
 
 // Setup properties for JS interop in Dart.
 globalThis.self = globalThis;
 globalThis.childProcess = childProcess;
+globalThis.css = css;
 globalThis.idl = idl;
 globalThis.fs = fs;
 globalThis.location = { href: `file://${process.cwd()}/`}

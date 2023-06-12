@@ -39,12 +39,12 @@ class NDEFRecord implements JSObject {
 
 extension NDEFRecordExtension on NDEFRecord {
   external JSArray? toRecords();
-  external JSString get recordType;
-  external JSString? get mediaType;
-  external JSString? get id;
+  external String get recordType;
+  external String? get mediaType;
+  external String? get id;
   external JSDataView? get data;
-  external JSString? get encoding;
-  external JSString? get lang;
+  external String? get encoding;
+  external String? get lang;
 }
 
 @JS()
@@ -52,26 +52,26 @@ extension NDEFRecordExtension on NDEFRecord {
 @anonymous
 class NDEFRecordInit implements JSObject {
   external factory NDEFRecordInit({
-    required JSString recordType,
-    JSString mediaType,
-    JSString id,
-    JSString encoding,
-    JSString lang,
+    required String recordType,
+    String mediaType,
+    String id,
+    String encoding,
+    String lang,
     JSAny? data,
   });
 }
 
 extension NDEFRecordInitExtension on NDEFRecordInit {
-  external set recordType(JSString value);
-  external JSString get recordType;
-  external set mediaType(JSString value);
-  external JSString get mediaType;
-  external set id(JSString value);
-  external JSString get id;
-  external set encoding(JSString value);
-  external JSString get encoding;
-  external set lang(JSString value);
-  external JSString get lang;
+  external set recordType(String value);
+  external String get recordType;
+  external set mediaType(String value);
+  external String get mediaType;
+  external set id(String value);
+  external String get id;
+  external set encoding(String value);
+  external String get encoding;
+  external set lang(String value);
+  external String get lang;
   external set data(JSAny? value);
   external JSAny? get data;
 }
@@ -99,13 +99,13 @@ extension NDEFReaderExtension on NDEFReader {
 @staticInterop
 class NDEFReadingEvent implements Event {
   external factory NDEFReadingEvent(
-    JSString type,
+    String type,
     NDEFReadingEventInit readingEventInitDict,
   );
 }
 
 extension NDEFReadingEventExtension on NDEFReadingEvent {
-  external JSString get serialNumber;
+  external String get serialNumber;
   external NDEFMessage get message;
 }
 
@@ -114,14 +114,14 @@ extension NDEFReadingEventExtension on NDEFReadingEvent {
 @anonymous
 class NDEFReadingEventInit implements EventInit {
   external factory NDEFReadingEventInit({
-    JSString? serialNumber,
+    String? serialNumber,
     required NDEFMessageInit message,
   });
 }
 
 extension NDEFReadingEventInitExtension on NDEFReadingEventInit {
-  external set serialNumber(JSString? value);
-  external JSString? get serialNumber;
+  external set serialNumber(String? value);
+  external String? get serialNumber;
   external set message(NDEFMessageInit value);
   external NDEFMessageInit get message;
 }
@@ -131,14 +131,14 @@ extension NDEFReadingEventInitExtension on NDEFReadingEventInit {
 @anonymous
 class NDEFWriteOptions implements JSObject {
   external factory NDEFWriteOptions({
-    JSBoolean overwrite,
+    bool overwrite,
     AbortSignal? signal,
   });
 }
 
 extension NDEFWriteOptionsExtension on NDEFWriteOptions {
-  external set overwrite(JSBoolean value);
-  external JSBoolean get overwrite;
+  external set overwrite(bool value);
+  external bool get overwrite;
   external set signal(AbortSignal? value);
   external AbortSignal? get signal;
 }

@@ -10,15 +10,15 @@ import 'dom.dart';
 @staticInterop
 class TransitionEvent implements Event {
   external factory TransitionEvent(
-    JSString type, [
+    String type, [
     TransitionEventInit transitionEventInitDict,
   ]);
 }
 
 extension TransitionEventExtension on TransitionEvent {
-  external JSString get propertyName;
-  external JSNumber get elapsedTime;
-  external JSString get pseudoElement;
+  external String get propertyName;
+  external double get elapsedTime;
+  external String get pseudoElement;
 }
 
 @JS()
@@ -26,17 +26,17 @@ extension TransitionEventExtension on TransitionEvent {
 @anonymous
 class TransitionEventInit implements EventInit {
   external factory TransitionEventInit({
-    JSString propertyName,
-    JSNumber elapsedTime,
-    JSString pseudoElement,
+    String propertyName,
+    double elapsedTime,
+    String pseudoElement,
   });
 }
 
 extension TransitionEventInitExtension on TransitionEventInit {
-  external set propertyName(JSString value);
-  external JSString get propertyName;
-  external set elapsedTime(JSNumber value);
-  external JSNumber get elapsedTime;
-  external set pseudoElement(JSString value);
-  external JSString get pseudoElement;
+  external set propertyName(String value);
+  external String get propertyName;
+  external set elapsedTime(double value);
+  external double get elapsedTime;
+  external set pseudoElement(String value);
+  external String get pseudoElement;
 }

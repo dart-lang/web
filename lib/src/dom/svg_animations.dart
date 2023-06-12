@@ -14,12 +14,12 @@ class TimeEvent implements Event {}
 
 extension TimeEventExtension on TimeEvent {
   external JSVoid initTimeEvent(
-    JSString typeArg,
+    String typeArg,
     Window? viewArg,
-    JSNumber detailArg,
+    int detailArg,
   );
   external Window? get view;
-  external JSNumber get detail;
+  external int get detail;
 }
 
 @JS('SVGAnimationElement')
@@ -27,13 +27,13 @@ extension TimeEventExtension on TimeEvent {
 class SVGAnimationElement implements SVGElement, SVGTests {}
 
 extension SVGAnimationElementExtension on SVGAnimationElement {
-  external JSNumber getStartTime();
-  external JSNumber getCurrentTime();
-  external JSNumber getSimpleDuration();
+  external double getStartTime();
+  external double getCurrentTime();
+  external double getSimpleDuration();
   external JSVoid beginElement();
-  external JSVoid beginElementAt(JSNumber offset);
+  external JSVoid beginElementAt(double offset);
   external JSVoid endElement();
-  external JSVoid endElementAt(JSNumber offset);
+  external JSVoid endElementAt(double offset);
   external SVGElement? get targetElement;
   external set onbegin(EventHandler value);
   external EventHandler get onbegin;

@@ -12,8 +12,8 @@ import 'dom.dart';
 class CSSPseudoElement implements EventTarget, GeometryUtils {}
 
 extension CSSPseudoElementExtension on CSSPseudoElement {
-  external CSSPseudoElement? pseudo(JSString type);
-  external JSString get type;
+  external CSSPseudoElement? pseudo(String type);
+  external String get type;
   external Element get element;
   external JSAny? get parent;
 }

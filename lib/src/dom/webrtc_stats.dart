@@ -7,32 +7,32 @@ import 'dart:js_interop';
 import 'hr_time.dart';
 import 'webrtc.dart';
 
-typedef RTCStatsType = JSString;
-typedef RTCQualityLimitationReason = JSString;
-typedef RTCDtlsRole = JSString;
-typedef RTCStatsIceCandidatePairState = JSString;
+typedef RTCStatsType = String;
+typedef RTCQualityLimitationReason = String;
+typedef RTCDtlsRole = String;
+typedef RTCStatsIceCandidatePairState = String;
 
 @JS()
 @staticInterop
 @anonymous
 class RTCRtpStreamStats implements RTCStats {
   external factory RTCRtpStreamStats({
-    required JSNumber ssrc,
-    required JSString kind,
-    JSString transportId,
-    JSString codecId,
+    required int ssrc,
+    required String kind,
+    String transportId,
+    String codecId,
   });
 }
 
 extension RTCRtpStreamStatsExtension on RTCRtpStreamStats {
-  external set ssrc(JSNumber value);
-  external JSNumber get ssrc;
-  external set kind(JSString value);
-  external JSString get kind;
-  external set transportId(JSString value);
-  external JSString get transportId;
-  external set codecId(JSString value);
-  external JSString get codecId;
+  external set ssrc(int value);
+  external int get ssrc;
+  external set kind(String value);
+  external String get kind;
+  external set transportId(String value);
+  external String get transportId;
+  external set codecId(String value);
+  external String get codecId;
 }
 
 @JS()
@@ -40,28 +40,28 @@ extension RTCRtpStreamStatsExtension on RTCRtpStreamStats {
 @anonymous
 class RTCCodecStats implements RTCStats {
   external factory RTCCodecStats({
-    required JSNumber payloadType,
-    required JSString transportId,
-    required JSString mimeType,
-    JSNumber clockRate,
-    JSNumber channels,
-    JSString sdpFmtpLine,
+    required int payloadType,
+    required String transportId,
+    required String mimeType,
+    int clockRate,
+    int channels,
+    String sdpFmtpLine,
   });
 }
 
 extension RTCCodecStatsExtension on RTCCodecStats {
-  external set payloadType(JSNumber value);
-  external JSNumber get payloadType;
-  external set transportId(JSString value);
-  external JSString get transportId;
-  external set mimeType(JSString value);
-  external JSString get mimeType;
-  external set clockRate(JSNumber value);
-  external JSNumber get clockRate;
-  external set channels(JSNumber value);
-  external JSNumber get channels;
-  external set sdpFmtpLine(JSString value);
-  external JSString get sdpFmtpLine;
+  external set payloadType(int value);
+  external int get payloadType;
+  external set transportId(String value);
+  external String get transportId;
+  external set mimeType(String value);
+  external String get mimeType;
+  external set clockRate(int value);
+  external int get clockRate;
+  external set channels(int value);
+  external int get channels;
+  external set sdpFmtpLine(String value);
+  external String get sdpFmtpLine;
 }
 
 @JS()
@@ -69,19 +69,19 @@ extension RTCCodecStatsExtension on RTCCodecStats {
 @anonymous
 class RTCReceivedRtpStreamStats implements RTCRtpStreamStats {
   external factory RTCReceivedRtpStreamStats({
-    JSNumber packetsReceived,
-    JSNumber packetsLost,
-    JSNumber jitter,
+    int packetsReceived,
+    int packetsLost,
+    double jitter,
   });
 }
 
 extension RTCReceivedRtpStreamStatsExtension on RTCReceivedRtpStreamStats {
-  external set packetsReceived(JSNumber value);
-  external JSNumber get packetsReceived;
-  external set packetsLost(JSNumber value);
-  external JSNumber get packetsLost;
-  external set jitter(JSNumber value);
-  external JSNumber get jitter;
+  external set packetsReceived(int value);
+  external int get packetsReceived;
+  external set packetsLost(int value);
+  external int get packetsLost;
+  external set jitter(double value);
+  external double get jitter;
 }
 
 @JS()
@@ -89,163 +89,163 @@ extension RTCReceivedRtpStreamStatsExtension on RTCReceivedRtpStreamStats {
 @anonymous
 class RTCInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
   external factory RTCInboundRtpStreamStats({
-    required JSString trackIdentifier,
-    required JSString kind,
-    JSString mid,
-    JSString remoteId,
-    JSNumber framesDecoded,
-    JSNumber keyFramesDecoded,
-    JSNumber framesRendered,
-    JSNumber framesDropped,
-    JSNumber frameWidth,
-    JSNumber frameHeight,
-    JSNumber framesPerSecond,
-    JSNumber qpSum,
-    JSNumber totalDecodeTime,
-    JSNumber totalInterFrameDelay,
-    JSNumber totalSquaredInterFrameDelay,
-    JSNumber pauseCount,
-    JSNumber totalPausesDuration,
-    JSNumber freezeCount,
-    JSNumber totalFreezesDuration,
+    required String trackIdentifier,
+    required String kind,
+    String mid,
+    String remoteId,
+    int framesDecoded,
+    int keyFramesDecoded,
+    int framesRendered,
+    int framesDropped,
+    int frameWidth,
+    int frameHeight,
+    double framesPerSecond,
+    int qpSum,
+    double totalDecodeTime,
+    double totalInterFrameDelay,
+    double totalSquaredInterFrameDelay,
+    int pauseCount,
+    double totalPausesDuration,
+    int freezeCount,
+    double totalFreezesDuration,
     DOMHighResTimeStamp lastPacketReceivedTimestamp,
-    JSNumber headerBytesReceived,
-    JSNumber packetsDiscarded,
-    JSNumber fecPacketsReceived,
-    JSNumber fecPacketsDiscarded,
-    JSNumber bytesReceived,
-    JSNumber nackCount,
-    JSNumber firCount,
-    JSNumber pliCount,
-    JSNumber totalProcessingDelay,
+    int headerBytesReceived,
+    int packetsDiscarded,
+    int fecPacketsReceived,
+    int fecPacketsDiscarded,
+    int bytesReceived,
+    int nackCount,
+    int firCount,
+    int pliCount,
+    double totalProcessingDelay,
     DOMHighResTimeStamp estimatedPlayoutTimestamp,
-    JSNumber jitterBufferDelay,
-    JSNumber jitterBufferTargetDelay,
-    JSNumber jitterBufferEmittedCount,
-    JSNumber jitterBufferMinimumDelay,
-    JSNumber totalSamplesReceived,
-    JSNumber concealedSamples,
-    JSNumber silentConcealedSamples,
-    JSNumber concealmentEvents,
-    JSNumber insertedSamplesForDeceleration,
-    JSNumber removedSamplesForAcceleration,
-    JSNumber audioLevel,
-    JSNumber totalAudioEnergy,
-    JSNumber totalSamplesDuration,
-    JSNumber framesReceived,
-    JSString decoderImplementation,
-    JSString playoutId,
-    JSBoolean powerEfficientDecoder,
-    JSNumber framesAssembledFromMultiplePackets,
-    JSNumber totalAssemblyTime,
-    JSNumber retransmittedPacketsReceived,
-    JSNumber retransmittedBytesReceived,
+    double jitterBufferDelay,
+    double jitterBufferTargetDelay,
+    int jitterBufferEmittedCount,
+    double jitterBufferMinimumDelay,
+    int totalSamplesReceived,
+    int concealedSamples,
+    int silentConcealedSamples,
+    int concealmentEvents,
+    int insertedSamplesForDeceleration,
+    int removedSamplesForAcceleration,
+    double audioLevel,
+    double totalAudioEnergy,
+    double totalSamplesDuration,
+    int framesReceived,
+    String decoderImplementation,
+    String playoutId,
+    bool powerEfficientDecoder,
+    int framesAssembledFromMultiplePackets,
+    double totalAssemblyTime,
+    int retransmittedPacketsReceived,
+    int retransmittedBytesReceived,
   });
 }
 
 extension RTCInboundRtpStreamStatsExtension on RTCInboundRtpStreamStats {
-  external set trackIdentifier(JSString value);
-  external JSString get trackIdentifier;
-  external set kind(JSString value);
-  external JSString get kind;
-  external set mid(JSString value);
-  external JSString get mid;
-  external set remoteId(JSString value);
-  external JSString get remoteId;
-  external set framesDecoded(JSNumber value);
-  external JSNumber get framesDecoded;
-  external set keyFramesDecoded(JSNumber value);
-  external JSNumber get keyFramesDecoded;
-  external set framesRendered(JSNumber value);
-  external JSNumber get framesRendered;
-  external set framesDropped(JSNumber value);
-  external JSNumber get framesDropped;
-  external set frameWidth(JSNumber value);
-  external JSNumber get frameWidth;
-  external set frameHeight(JSNumber value);
-  external JSNumber get frameHeight;
-  external set framesPerSecond(JSNumber value);
-  external JSNumber get framesPerSecond;
-  external set qpSum(JSNumber value);
-  external JSNumber get qpSum;
-  external set totalDecodeTime(JSNumber value);
-  external JSNumber get totalDecodeTime;
-  external set totalInterFrameDelay(JSNumber value);
-  external JSNumber get totalInterFrameDelay;
-  external set totalSquaredInterFrameDelay(JSNumber value);
-  external JSNumber get totalSquaredInterFrameDelay;
-  external set pauseCount(JSNumber value);
-  external JSNumber get pauseCount;
-  external set totalPausesDuration(JSNumber value);
-  external JSNumber get totalPausesDuration;
-  external set freezeCount(JSNumber value);
-  external JSNumber get freezeCount;
-  external set totalFreezesDuration(JSNumber value);
-  external JSNumber get totalFreezesDuration;
+  external set trackIdentifier(String value);
+  external String get trackIdentifier;
+  external set kind(String value);
+  external String get kind;
+  external set mid(String value);
+  external String get mid;
+  external set remoteId(String value);
+  external String get remoteId;
+  external set framesDecoded(int value);
+  external int get framesDecoded;
+  external set keyFramesDecoded(int value);
+  external int get keyFramesDecoded;
+  external set framesRendered(int value);
+  external int get framesRendered;
+  external set framesDropped(int value);
+  external int get framesDropped;
+  external set frameWidth(int value);
+  external int get frameWidth;
+  external set frameHeight(int value);
+  external int get frameHeight;
+  external set framesPerSecond(double value);
+  external double get framesPerSecond;
+  external set qpSum(int value);
+  external int get qpSum;
+  external set totalDecodeTime(double value);
+  external double get totalDecodeTime;
+  external set totalInterFrameDelay(double value);
+  external double get totalInterFrameDelay;
+  external set totalSquaredInterFrameDelay(double value);
+  external double get totalSquaredInterFrameDelay;
+  external set pauseCount(int value);
+  external int get pauseCount;
+  external set totalPausesDuration(double value);
+  external double get totalPausesDuration;
+  external set freezeCount(int value);
+  external int get freezeCount;
+  external set totalFreezesDuration(double value);
+  external double get totalFreezesDuration;
   external set lastPacketReceivedTimestamp(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get lastPacketReceivedTimestamp;
-  external set headerBytesReceived(JSNumber value);
-  external JSNumber get headerBytesReceived;
-  external set packetsDiscarded(JSNumber value);
-  external JSNumber get packetsDiscarded;
-  external set fecPacketsReceived(JSNumber value);
-  external JSNumber get fecPacketsReceived;
-  external set fecPacketsDiscarded(JSNumber value);
-  external JSNumber get fecPacketsDiscarded;
-  external set bytesReceived(JSNumber value);
-  external JSNumber get bytesReceived;
-  external set nackCount(JSNumber value);
-  external JSNumber get nackCount;
-  external set firCount(JSNumber value);
-  external JSNumber get firCount;
-  external set pliCount(JSNumber value);
-  external JSNumber get pliCount;
-  external set totalProcessingDelay(JSNumber value);
-  external JSNumber get totalProcessingDelay;
+  external set headerBytesReceived(int value);
+  external int get headerBytesReceived;
+  external set packetsDiscarded(int value);
+  external int get packetsDiscarded;
+  external set fecPacketsReceived(int value);
+  external int get fecPacketsReceived;
+  external set fecPacketsDiscarded(int value);
+  external int get fecPacketsDiscarded;
+  external set bytesReceived(int value);
+  external int get bytesReceived;
+  external set nackCount(int value);
+  external int get nackCount;
+  external set firCount(int value);
+  external int get firCount;
+  external set pliCount(int value);
+  external int get pliCount;
+  external set totalProcessingDelay(double value);
+  external double get totalProcessingDelay;
   external set estimatedPlayoutTimestamp(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get estimatedPlayoutTimestamp;
-  external set jitterBufferDelay(JSNumber value);
-  external JSNumber get jitterBufferDelay;
-  external set jitterBufferTargetDelay(JSNumber value);
-  external JSNumber get jitterBufferTargetDelay;
-  external set jitterBufferEmittedCount(JSNumber value);
-  external JSNumber get jitterBufferEmittedCount;
-  external set jitterBufferMinimumDelay(JSNumber value);
-  external JSNumber get jitterBufferMinimumDelay;
-  external set totalSamplesReceived(JSNumber value);
-  external JSNumber get totalSamplesReceived;
-  external set concealedSamples(JSNumber value);
-  external JSNumber get concealedSamples;
-  external set silentConcealedSamples(JSNumber value);
-  external JSNumber get silentConcealedSamples;
-  external set concealmentEvents(JSNumber value);
-  external JSNumber get concealmentEvents;
-  external set insertedSamplesForDeceleration(JSNumber value);
-  external JSNumber get insertedSamplesForDeceleration;
-  external set removedSamplesForAcceleration(JSNumber value);
-  external JSNumber get removedSamplesForAcceleration;
-  external set audioLevel(JSNumber value);
-  external JSNumber get audioLevel;
-  external set totalAudioEnergy(JSNumber value);
-  external JSNumber get totalAudioEnergy;
-  external set totalSamplesDuration(JSNumber value);
-  external JSNumber get totalSamplesDuration;
-  external set framesReceived(JSNumber value);
-  external JSNumber get framesReceived;
-  external set decoderImplementation(JSString value);
-  external JSString get decoderImplementation;
-  external set playoutId(JSString value);
-  external JSString get playoutId;
-  external set powerEfficientDecoder(JSBoolean value);
-  external JSBoolean get powerEfficientDecoder;
-  external set framesAssembledFromMultiplePackets(JSNumber value);
-  external JSNumber get framesAssembledFromMultiplePackets;
-  external set totalAssemblyTime(JSNumber value);
-  external JSNumber get totalAssemblyTime;
-  external set retransmittedPacketsReceived(JSNumber value);
-  external JSNumber get retransmittedPacketsReceived;
-  external set retransmittedBytesReceived(JSNumber value);
-  external JSNumber get retransmittedBytesReceived;
+  external set jitterBufferDelay(double value);
+  external double get jitterBufferDelay;
+  external set jitterBufferTargetDelay(double value);
+  external double get jitterBufferTargetDelay;
+  external set jitterBufferEmittedCount(int value);
+  external int get jitterBufferEmittedCount;
+  external set jitterBufferMinimumDelay(double value);
+  external double get jitterBufferMinimumDelay;
+  external set totalSamplesReceived(int value);
+  external int get totalSamplesReceived;
+  external set concealedSamples(int value);
+  external int get concealedSamples;
+  external set silentConcealedSamples(int value);
+  external int get silentConcealedSamples;
+  external set concealmentEvents(int value);
+  external int get concealmentEvents;
+  external set insertedSamplesForDeceleration(int value);
+  external int get insertedSamplesForDeceleration;
+  external set removedSamplesForAcceleration(int value);
+  external int get removedSamplesForAcceleration;
+  external set audioLevel(double value);
+  external double get audioLevel;
+  external set totalAudioEnergy(double value);
+  external double get totalAudioEnergy;
+  external set totalSamplesDuration(double value);
+  external double get totalSamplesDuration;
+  external set framesReceived(int value);
+  external int get framesReceived;
+  external set decoderImplementation(String value);
+  external String get decoderImplementation;
+  external set playoutId(String value);
+  external String get playoutId;
+  external set powerEfficientDecoder(bool value);
+  external bool get powerEfficientDecoder;
+  external set framesAssembledFromMultiplePackets(int value);
+  external int get framesAssembledFromMultiplePackets;
+  external set totalAssemblyTime(double value);
+  external double get totalAssemblyTime;
+  external set retransmittedPacketsReceived(int value);
+  external int get retransmittedPacketsReceived;
+  external set retransmittedBytesReceived(int value);
+  external int get retransmittedBytesReceived;
 }
 
 @JS()
@@ -253,26 +253,26 @@ extension RTCInboundRtpStreamStatsExtension on RTCInboundRtpStreamStats {
 @anonymous
 class RTCRemoteInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
   external factory RTCRemoteInboundRtpStreamStats({
-    JSString localId,
-    JSNumber roundTripTime,
-    JSNumber totalRoundTripTime,
-    JSNumber fractionLost,
-    JSNumber roundTripTimeMeasurements,
+    String localId,
+    double roundTripTime,
+    double totalRoundTripTime,
+    double fractionLost,
+    int roundTripTimeMeasurements,
   });
 }
 
 extension RTCRemoteInboundRtpStreamStatsExtension
     on RTCRemoteInboundRtpStreamStats {
-  external set localId(JSString value);
-  external JSString get localId;
-  external set roundTripTime(JSNumber value);
-  external JSNumber get roundTripTime;
-  external set totalRoundTripTime(JSNumber value);
-  external JSNumber get totalRoundTripTime;
-  external set fractionLost(JSNumber value);
-  external JSNumber get fractionLost;
-  external set roundTripTimeMeasurements(JSNumber value);
-  external JSNumber get roundTripTimeMeasurements;
+  external set localId(String value);
+  external String get localId;
+  external set roundTripTime(double value);
+  external double get roundTripTime;
+  external set totalRoundTripTime(double value);
+  external double get totalRoundTripTime;
+  external set fractionLost(double value);
+  external double get fractionLost;
+  external set roundTripTimeMeasurements(int value);
+  external int get roundTripTimeMeasurements;
 }
 
 @JS()
@@ -280,16 +280,16 @@ extension RTCRemoteInboundRtpStreamStatsExtension
 @anonymous
 class RTCSentRtpStreamStats implements RTCRtpStreamStats {
   external factory RTCSentRtpStreamStats({
-    JSNumber packetsSent,
-    JSNumber bytesSent,
+    int packetsSent,
+    int bytesSent,
   });
 }
 
 extension RTCSentRtpStreamStatsExtension on RTCSentRtpStreamStats {
-  external set packetsSent(JSNumber value);
-  external JSNumber get packetsSent;
-  external set bytesSent(JSNumber value);
-  external JSNumber get bytesSent;
+  external set packetsSent(int value);
+  external int get packetsSent;
+  external set bytesSent(int value);
+  external int get bytesSent;
 }
 
 @JS()
@@ -297,97 +297,97 @@ extension RTCSentRtpStreamStatsExtension on RTCSentRtpStreamStats {
 @anonymous
 class RTCOutboundRtpStreamStats implements RTCSentRtpStreamStats {
   external factory RTCOutboundRtpStreamStats({
-    JSString mid,
-    JSString mediaSourceId,
-    JSString remoteId,
-    JSString rid,
-    JSNumber headerBytesSent,
-    JSNumber retransmittedPacketsSent,
-    JSNumber retransmittedBytesSent,
-    JSNumber targetBitrate,
-    JSNumber totalEncodedBytesTarget,
-    JSNumber frameWidth,
-    JSNumber frameHeight,
-    JSNumber framesPerSecond,
-    JSNumber framesSent,
-    JSNumber hugeFramesSent,
-    JSNumber framesEncoded,
-    JSNumber keyFramesEncoded,
-    JSNumber qpSum,
-    JSNumber totalEncodeTime,
-    JSNumber totalPacketSendDelay,
+    String mid,
+    String mediaSourceId,
+    String remoteId,
+    String rid,
+    int headerBytesSent,
+    int retransmittedPacketsSent,
+    int retransmittedBytesSent,
+    double targetBitrate,
+    int totalEncodedBytesTarget,
+    int frameWidth,
+    int frameHeight,
+    double framesPerSecond,
+    int framesSent,
+    int hugeFramesSent,
+    int framesEncoded,
+    int keyFramesEncoded,
+    int qpSum,
+    double totalEncodeTime,
+    double totalPacketSendDelay,
     RTCQualityLimitationReason qualityLimitationReason,
     JSAny? qualityLimitationDurations,
-    JSNumber qualityLimitationResolutionChanges,
-    JSNumber nackCount,
-    JSNumber firCount,
-    JSNumber pliCount,
-    JSString encoderImplementation,
-    JSBoolean powerEfficientEncoder,
-    JSBoolean active,
-    JSString scalabilityMode,
+    int qualityLimitationResolutionChanges,
+    int nackCount,
+    int firCount,
+    int pliCount,
+    String encoderImplementation,
+    bool powerEfficientEncoder,
+    bool active,
+    String scalabilityMode,
   });
 }
 
 extension RTCOutboundRtpStreamStatsExtension on RTCOutboundRtpStreamStats {
-  external set mid(JSString value);
-  external JSString get mid;
-  external set mediaSourceId(JSString value);
-  external JSString get mediaSourceId;
-  external set remoteId(JSString value);
-  external JSString get remoteId;
-  external set rid(JSString value);
-  external JSString get rid;
-  external set headerBytesSent(JSNumber value);
-  external JSNumber get headerBytesSent;
-  external set retransmittedPacketsSent(JSNumber value);
-  external JSNumber get retransmittedPacketsSent;
-  external set retransmittedBytesSent(JSNumber value);
-  external JSNumber get retransmittedBytesSent;
-  external set targetBitrate(JSNumber value);
-  external JSNumber get targetBitrate;
-  external set totalEncodedBytesTarget(JSNumber value);
-  external JSNumber get totalEncodedBytesTarget;
-  external set frameWidth(JSNumber value);
-  external JSNumber get frameWidth;
-  external set frameHeight(JSNumber value);
-  external JSNumber get frameHeight;
-  external set framesPerSecond(JSNumber value);
-  external JSNumber get framesPerSecond;
-  external set framesSent(JSNumber value);
-  external JSNumber get framesSent;
-  external set hugeFramesSent(JSNumber value);
-  external JSNumber get hugeFramesSent;
-  external set framesEncoded(JSNumber value);
-  external JSNumber get framesEncoded;
-  external set keyFramesEncoded(JSNumber value);
-  external JSNumber get keyFramesEncoded;
-  external set qpSum(JSNumber value);
-  external JSNumber get qpSum;
-  external set totalEncodeTime(JSNumber value);
-  external JSNumber get totalEncodeTime;
-  external set totalPacketSendDelay(JSNumber value);
-  external JSNumber get totalPacketSendDelay;
+  external set mid(String value);
+  external String get mid;
+  external set mediaSourceId(String value);
+  external String get mediaSourceId;
+  external set remoteId(String value);
+  external String get remoteId;
+  external set rid(String value);
+  external String get rid;
+  external set headerBytesSent(int value);
+  external int get headerBytesSent;
+  external set retransmittedPacketsSent(int value);
+  external int get retransmittedPacketsSent;
+  external set retransmittedBytesSent(int value);
+  external int get retransmittedBytesSent;
+  external set targetBitrate(double value);
+  external double get targetBitrate;
+  external set totalEncodedBytesTarget(int value);
+  external int get totalEncodedBytesTarget;
+  external set frameWidth(int value);
+  external int get frameWidth;
+  external set frameHeight(int value);
+  external int get frameHeight;
+  external set framesPerSecond(double value);
+  external double get framesPerSecond;
+  external set framesSent(int value);
+  external int get framesSent;
+  external set hugeFramesSent(int value);
+  external int get hugeFramesSent;
+  external set framesEncoded(int value);
+  external int get framesEncoded;
+  external set keyFramesEncoded(int value);
+  external int get keyFramesEncoded;
+  external set qpSum(int value);
+  external int get qpSum;
+  external set totalEncodeTime(double value);
+  external double get totalEncodeTime;
+  external set totalPacketSendDelay(double value);
+  external double get totalPacketSendDelay;
   external set qualityLimitationReason(RTCQualityLimitationReason value);
   external RTCQualityLimitationReason get qualityLimitationReason;
   external set qualityLimitationDurations(JSAny? value);
   external JSAny? get qualityLimitationDurations;
-  external set qualityLimitationResolutionChanges(JSNumber value);
-  external JSNumber get qualityLimitationResolutionChanges;
-  external set nackCount(JSNumber value);
-  external JSNumber get nackCount;
-  external set firCount(JSNumber value);
-  external JSNumber get firCount;
-  external set pliCount(JSNumber value);
-  external JSNumber get pliCount;
-  external set encoderImplementation(JSString value);
-  external JSString get encoderImplementation;
-  external set powerEfficientEncoder(JSBoolean value);
-  external JSBoolean get powerEfficientEncoder;
-  external set active(JSBoolean value);
-  external JSBoolean get active;
-  external set scalabilityMode(JSString value);
-  external JSString get scalabilityMode;
+  external set qualityLimitationResolutionChanges(int value);
+  external int get qualityLimitationResolutionChanges;
+  external set nackCount(int value);
+  external int get nackCount;
+  external set firCount(int value);
+  external int get firCount;
+  external set pliCount(int value);
+  external int get pliCount;
+  external set encoderImplementation(String value);
+  external String get encoderImplementation;
+  external set powerEfficientEncoder(bool value);
+  external bool get powerEfficientEncoder;
+  external set active(bool value);
+  external bool get active;
+  external set scalabilityMode(String value);
+  external String get scalabilityMode;
 }
 
 @JS()
@@ -395,29 +395,29 @@ extension RTCOutboundRtpStreamStatsExtension on RTCOutboundRtpStreamStats {
 @anonymous
 class RTCRemoteOutboundRtpStreamStats implements RTCSentRtpStreamStats {
   external factory RTCRemoteOutboundRtpStreamStats({
-    JSString localId,
+    String localId,
     DOMHighResTimeStamp remoteTimestamp,
-    JSNumber reportsSent,
-    JSNumber roundTripTime,
-    JSNumber totalRoundTripTime,
-    JSNumber roundTripTimeMeasurements,
+    int reportsSent,
+    double roundTripTime,
+    double totalRoundTripTime,
+    int roundTripTimeMeasurements,
   });
 }
 
 extension RTCRemoteOutboundRtpStreamStatsExtension
     on RTCRemoteOutboundRtpStreamStats {
-  external set localId(JSString value);
-  external JSString get localId;
+  external set localId(String value);
+  external String get localId;
   external set remoteTimestamp(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get remoteTimestamp;
-  external set reportsSent(JSNumber value);
-  external JSNumber get reportsSent;
-  external set roundTripTime(JSNumber value);
-  external JSNumber get roundTripTime;
-  external set totalRoundTripTime(JSNumber value);
-  external JSNumber get totalRoundTripTime;
-  external set roundTripTimeMeasurements(JSNumber value);
-  external JSNumber get roundTripTimeMeasurements;
+  external set reportsSent(int value);
+  external int get reportsSent;
+  external set roundTripTime(double value);
+  external double get roundTripTime;
+  external set totalRoundTripTime(double value);
+  external double get totalRoundTripTime;
+  external set roundTripTimeMeasurements(int value);
+  external int get roundTripTimeMeasurements;
 }
 
 @JS()
@@ -425,16 +425,16 @@ extension RTCRemoteOutboundRtpStreamStatsExtension
 @anonymous
 class RTCMediaSourceStats implements RTCStats {
   external factory RTCMediaSourceStats({
-    required JSString trackIdentifier,
-    required JSString kind,
+    required String trackIdentifier,
+    required String kind,
   });
 }
 
 extension RTCMediaSourceStatsExtension on RTCMediaSourceStats {
-  external set trackIdentifier(JSString value);
-  external JSString get trackIdentifier;
-  external set kind(JSString value);
-  external JSString get kind;
+  external set trackIdentifier(String value);
+  external String get trackIdentifier;
+  external set kind(String value);
+  external String get kind;
 }
 
 @JS()
@@ -442,37 +442,37 @@ extension RTCMediaSourceStatsExtension on RTCMediaSourceStats {
 @anonymous
 class RTCAudioSourceStats implements RTCMediaSourceStats {
   external factory RTCAudioSourceStats({
-    JSNumber audioLevel,
-    JSNumber totalAudioEnergy,
-    JSNumber totalSamplesDuration,
-    JSNumber echoReturnLoss,
-    JSNumber echoReturnLossEnhancement,
-    JSNumber droppedSamplesDuration,
-    JSNumber droppedSamplesEvents,
-    JSNumber totalCaptureDelay,
-    JSNumber totalSamplesCaptured,
+    double audioLevel,
+    double totalAudioEnergy,
+    double totalSamplesDuration,
+    double echoReturnLoss,
+    double echoReturnLossEnhancement,
+    double droppedSamplesDuration,
+    int droppedSamplesEvents,
+    double totalCaptureDelay,
+    int totalSamplesCaptured,
   });
 }
 
 extension RTCAudioSourceStatsExtension on RTCAudioSourceStats {
-  external set audioLevel(JSNumber value);
-  external JSNumber get audioLevel;
-  external set totalAudioEnergy(JSNumber value);
-  external JSNumber get totalAudioEnergy;
-  external set totalSamplesDuration(JSNumber value);
-  external JSNumber get totalSamplesDuration;
-  external set echoReturnLoss(JSNumber value);
-  external JSNumber get echoReturnLoss;
-  external set echoReturnLossEnhancement(JSNumber value);
-  external JSNumber get echoReturnLossEnhancement;
-  external set droppedSamplesDuration(JSNumber value);
-  external JSNumber get droppedSamplesDuration;
-  external set droppedSamplesEvents(JSNumber value);
-  external JSNumber get droppedSamplesEvents;
-  external set totalCaptureDelay(JSNumber value);
-  external JSNumber get totalCaptureDelay;
-  external set totalSamplesCaptured(JSNumber value);
-  external JSNumber get totalSamplesCaptured;
+  external set audioLevel(double value);
+  external double get audioLevel;
+  external set totalAudioEnergy(double value);
+  external double get totalAudioEnergy;
+  external set totalSamplesDuration(double value);
+  external double get totalSamplesDuration;
+  external set echoReturnLoss(double value);
+  external double get echoReturnLoss;
+  external set echoReturnLossEnhancement(double value);
+  external double get echoReturnLossEnhancement;
+  external set droppedSamplesDuration(double value);
+  external double get droppedSamplesDuration;
+  external set droppedSamplesEvents(int value);
+  external int get droppedSamplesEvents;
+  external set totalCaptureDelay(double value);
+  external double get totalCaptureDelay;
+  external set totalSamplesCaptured(int value);
+  external int get totalSamplesCaptured;
 }
 
 @JS()
@@ -480,22 +480,22 @@ extension RTCAudioSourceStatsExtension on RTCAudioSourceStats {
 @anonymous
 class RTCVideoSourceStats implements RTCMediaSourceStats {
   external factory RTCVideoSourceStats({
-    JSNumber width,
-    JSNumber height,
-    JSNumber frames,
-    JSNumber framesPerSecond,
+    int width,
+    int height,
+    int frames,
+    double framesPerSecond,
   });
 }
 
 extension RTCVideoSourceStatsExtension on RTCVideoSourceStats {
-  external set width(JSNumber value);
-  external JSNumber get width;
-  external set height(JSNumber value);
-  external JSNumber get height;
-  external set frames(JSNumber value);
-  external JSNumber get frames;
-  external set framesPerSecond(JSNumber value);
-  external JSNumber get framesPerSecond;
+  external set width(int value);
+  external int get width;
+  external set height(int value);
+  external int get height;
+  external set frames(int value);
+  external int get frames;
+  external set framesPerSecond(double value);
+  external double get framesPerSecond;
 }
 
 @JS()
@@ -503,28 +503,28 @@ extension RTCVideoSourceStatsExtension on RTCVideoSourceStats {
 @anonymous
 class RTCAudioPlayoutStats implements RTCStats {
   external factory RTCAudioPlayoutStats({
-    required JSString kind,
-    JSNumber synthesizedSamplesDuration,
-    JSNumber synthesizedSamplesEvents,
-    JSNumber totalSamplesDuration,
-    JSNumber totalPlayoutDelay,
-    JSNumber totalSamplesCount,
+    required String kind,
+    double synthesizedSamplesDuration,
+    int synthesizedSamplesEvents,
+    double totalSamplesDuration,
+    double totalPlayoutDelay,
+    int totalSamplesCount,
   });
 }
 
 extension RTCAudioPlayoutStatsExtension on RTCAudioPlayoutStats {
-  external set kind(JSString value);
-  external JSString get kind;
-  external set synthesizedSamplesDuration(JSNumber value);
-  external JSNumber get synthesizedSamplesDuration;
-  external set synthesizedSamplesEvents(JSNumber value);
-  external JSNumber get synthesizedSamplesEvents;
-  external set totalSamplesDuration(JSNumber value);
-  external JSNumber get totalSamplesDuration;
-  external set totalPlayoutDelay(JSNumber value);
-  external JSNumber get totalPlayoutDelay;
-  external set totalSamplesCount(JSNumber value);
-  external JSNumber get totalSamplesCount;
+  external set kind(String value);
+  external String get kind;
+  external set synthesizedSamplesDuration(double value);
+  external double get synthesizedSamplesDuration;
+  external set synthesizedSamplesEvents(int value);
+  external int get synthesizedSamplesEvents;
+  external set totalSamplesDuration(double value);
+  external double get totalSamplesDuration;
+  external set totalPlayoutDelay(double value);
+  external double get totalPlayoutDelay;
+  external set totalSamplesCount(int value);
+  external int get totalSamplesCount;
 }
 
 @JS()
@@ -532,16 +532,16 @@ extension RTCAudioPlayoutStatsExtension on RTCAudioPlayoutStats {
 @anonymous
 class RTCPeerConnectionStats implements RTCStats {
   external factory RTCPeerConnectionStats({
-    JSNumber dataChannelsOpened,
-    JSNumber dataChannelsClosed,
+    int dataChannelsOpened,
+    int dataChannelsClosed,
   });
 }
 
 extension RTCPeerConnectionStatsExtension on RTCPeerConnectionStats {
-  external set dataChannelsOpened(JSNumber value);
-  external JSNumber get dataChannelsOpened;
-  external set dataChannelsClosed(JSNumber value);
-  external JSNumber get dataChannelsClosed;
+  external set dataChannelsOpened(int value);
+  external int get dataChannelsOpened;
+  external set dataChannelsClosed(int value);
+  external int get dataChannelsClosed;
 }
 
 @JS()
@@ -549,34 +549,34 @@ extension RTCPeerConnectionStatsExtension on RTCPeerConnectionStats {
 @anonymous
 class RTCDataChannelStats implements RTCStats {
   external factory RTCDataChannelStats({
-    JSString label,
-    JSString protocol,
-    JSNumber dataChannelIdentifier,
+    String label,
+    String protocol,
+    int dataChannelIdentifier,
     required RTCDataChannelState state,
-    JSNumber messagesSent,
-    JSNumber bytesSent,
-    JSNumber messagesReceived,
-    JSNumber bytesReceived,
+    int messagesSent,
+    int bytesSent,
+    int messagesReceived,
+    int bytesReceived,
   });
 }
 
 extension RTCDataChannelStatsExtension on RTCDataChannelStats {
-  external set label(JSString value);
-  external JSString get label;
-  external set protocol(JSString value);
-  external JSString get protocol;
-  external set dataChannelIdentifier(JSNumber value);
-  external JSNumber get dataChannelIdentifier;
+  external set label(String value);
+  external String get label;
+  external set protocol(String value);
+  external String get protocol;
+  external set dataChannelIdentifier(int value);
+  external int get dataChannelIdentifier;
   external set state(RTCDataChannelState value);
   external RTCDataChannelState get state;
-  external set messagesSent(JSNumber value);
-  external JSNumber get messagesSent;
-  external set bytesSent(JSNumber value);
-  external JSNumber get bytesSent;
-  external set messagesReceived(JSNumber value);
-  external JSNumber get messagesReceived;
-  external set bytesReceived(JSNumber value);
-  external JSNumber get bytesReceived;
+  external set messagesSent(int value);
+  external int get messagesSent;
+  external set bytesSent(int value);
+  external int get bytesSent;
+  external set messagesReceived(int value);
+  external int get messagesReceived;
+  external set bytesReceived(int value);
+  external int get bytesReceived;
 }
 
 @JS()
@@ -584,58 +584,58 @@ extension RTCDataChannelStatsExtension on RTCDataChannelStats {
 @anonymous
 class RTCTransportStats implements RTCStats {
   external factory RTCTransportStats({
-    JSNumber packetsSent,
-    JSNumber packetsReceived,
-    JSNumber bytesSent,
-    JSNumber bytesReceived,
+    int packetsSent,
+    int packetsReceived,
+    int bytesSent,
+    int bytesReceived,
     RTCIceRole iceRole,
-    JSString iceLocalUsernameFragment,
+    String iceLocalUsernameFragment,
     required RTCDtlsTransportState dtlsState,
     RTCIceTransportState iceState,
-    JSString selectedCandidatePairId,
-    JSString localCertificateId,
-    JSString remoteCertificateId,
-    JSString tlsVersion,
-    JSString dtlsCipher,
+    String selectedCandidatePairId,
+    String localCertificateId,
+    String remoteCertificateId,
+    String tlsVersion,
+    String dtlsCipher,
     RTCDtlsRole dtlsRole,
-    JSString srtpCipher,
-    JSNumber selectedCandidatePairChanges,
+    String srtpCipher,
+    int selectedCandidatePairChanges,
   });
 }
 
 extension RTCTransportStatsExtension on RTCTransportStats {
-  external set packetsSent(JSNumber value);
-  external JSNumber get packetsSent;
-  external set packetsReceived(JSNumber value);
-  external JSNumber get packetsReceived;
-  external set bytesSent(JSNumber value);
-  external JSNumber get bytesSent;
-  external set bytesReceived(JSNumber value);
-  external JSNumber get bytesReceived;
+  external set packetsSent(int value);
+  external int get packetsSent;
+  external set packetsReceived(int value);
+  external int get packetsReceived;
+  external set bytesSent(int value);
+  external int get bytesSent;
+  external set bytesReceived(int value);
+  external int get bytesReceived;
   external set iceRole(RTCIceRole value);
   external RTCIceRole get iceRole;
-  external set iceLocalUsernameFragment(JSString value);
-  external JSString get iceLocalUsernameFragment;
+  external set iceLocalUsernameFragment(String value);
+  external String get iceLocalUsernameFragment;
   external set dtlsState(RTCDtlsTransportState value);
   external RTCDtlsTransportState get dtlsState;
   external set iceState(RTCIceTransportState value);
   external RTCIceTransportState get iceState;
-  external set selectedCandidatePairId(JSString value);
-  external JSString get selectedCandidatePairId;
-  external set localCertificateId(JSString value);
-  external JSString get localCertificateId;
-  external set remoteCertificateId(JSString value);
-  external JSString get remoteCertificateId;
-  external set tlsVersion(JSString value);
-  external JSString get tlsVersion;
-  external set dtlsCipher(JSString value);
-  external JSString get dtlsCipher;
+  external set selectedCandidatePairId(String value);
+  external String get selectedCandidatePairId;
+  external set localCertificateId(String value);
+  external String get localCertificateId;
+  external set remoteCertificateId(String value);
+  external String get remoteCertificateId;
+  external set tlsVersion(String value);
+  external String get tlsVersion;
+  external set dtlsCipher(String value);
+  external String get dtlsCipher;
   external set dtlsRole(RTCDtlsRole value);
   external RTCDtlsRole get dtlsRole;
-  external set srtpCipher(JSString value);
-  external JSString get srtpCipher;
-  external set selectedCandidatePairChanges(JSNumber value);
-  external JSNumber get selectedCandidatePairChanges;
+  external set srtpCipher(String value);
+  external String get srtpCipher;
+  external set selectedCandidatePairChanges(int value);
+  external int get selectedCandidatePairChanges;
 }
 
 @JS()
@@ -643,47 +643,47 @@ extension RTCTransportStatsExtension on RTCTransportStats {
 @anonymous
 class RTCIceCandidateStats implements RTCStats {
   external factory RTCIceCandidateStats({
-    required JSString transportId,
-    JSString? address,
-    JSNumber port,
-    JSString protocol,
+    required String transportId,
+    String? address,
+    int port,
+    String protocol,
     required RTCIceCandidateType candidateType,
-    JSNumber priority,
-    JSString url,
+    int priority,
+    String url,
     RTCIceServerTransportProtocol relayProtocol,
-    JSString foundation,
-    JSString relatedAddress,
-    JSNumber relatedPort,
-    JSString usernameFragment,
+    String foundation,
+    String relatedAddress,
+    int relatedPort,
+    String usernameFragment,
     RTCIceTcpCandidateType tcpType,
   });
 }
 
 extension RTCIceCandidateStatsExtension on RTCIceCandidateStats {
-  external set transportId(JSString value);
-  external JSString get transportId;
-  external set address(JSString? value);
-  external JSString? get address;
-  external set port(JSNumber value);
-  external JSNumber get port;
-  external set protocol(JSString value);
-  external JSString get protocol;
+  external set transportId(String value);
+  external String get transportId;
+  external set address(String? value);
+  external String? get address;
+  external set port(int value);
+  external int get port;
+  external set protocol(String value);
+  external String get protocol;
   external set candidateType(RTCIceCandidateType value);
   external RTCIceCandidateType get candidateType;
-  external set priority(JSNumber value);
-  external JSNumber get priority;
-  external set url(JSString value);
-  external JSString get url;
+  external set priority(int value);
+  external int get priority;
+  external set url(String value);
+  external String get url;
   external set relayProtocol(RTCIceServerTransportProtocol value);
   external RTCIceServerTransportProtocol get relayProtocol;
-  external set foundation(JSString value);
-  external JSString get foundation;
-  external set relatedAddress(JSString value);
-  external JSString get relatedAddress;
-  external set relatedPort(JSNumber value);
-  external JSNumber get relatedPort;
-  external set usernameFragment(JSString value);
-  external JSString get usernameFragment;
+  external set foundation(String value);
+  external String get foundation;
+  external set relatedAddress(String value);
+  external String get relatedAddress;
+  external set relatedPort(int value);
+  external int get relatedPort;
+  external set usernameFragment(String value);
+  external String get usernameFragment;
   external set tcpType(RTCIceTcpCandidateType value);
   external RTCIceTcpCandidateType get tcpType;
 }
@@ -693,76 +693,76 @@ extension RTCIceCandidateStatsExtension on RTCIceCandidateStats {
 @anonymous
 class RTCIceCandidatePairStats implements RTCStats {
   external factory RTCIceCandidatePairStats({
-    required JSString transportId,
-    required JSString localCandidateId,
-    required JSString remoteCandidateId,
+    required String transportId,
+    required String localCandidateId,
+    required String remoteCandidateId,
     required RTCStatsIceCandidatePairState state,
-    JSBoolean nominated,
-    JSNumber packetsSent,
-    JSNumber packetsReceived,
-    JSNumber bytesSent,
-    JSNumber bytesReceived,
+    bool nominated,
+    int packetsSent,
+    int packetsReceived,
+    int bytesSent,
+    int bytesReceived,
     DOMHighResTimeStamp lastPacketSentTimestamp,
     DOMHighResTimeStamp lastPacketReceivedTimestamp,
-    JSNumber totalRoundTripTime,
-    JSNumber currentRoundTripTime,
-    JSNumber availableOutgoingBitrate,
-    JSNumber availableIncomingBitrate,
-    JSNumber requestsReceived,
-    JSNumber requestsSent,
-    JSNumber responsesReceived,
-    JSNumber responsesSent,
-    JSNumber consentRequestsSent,
-    JSNumber packetsDiscardedOnSend,
-    JSNumber bytesDiscardedOnSend,
+    double totalRoundTripTime,
+    double currentRoundTripTime,
+    double availableOutgoingBitrate,
+    double availableIncomingBitrate,
+    int requestsReceived,
+    int requestsSent,
+    int responsesReceived,
+    int responsesSent,
+    int consentRequestsSent,
+    int packetsDiscardedOnSend,
+    int bytesDiscardedOnSend,
   });
 }
 
 extension RTCIceCandidatePairStatsExtension on RTCIceCandidatePairStats {
-  external set transportId(JSString value);
-  external JSString get transportId;
-  external set localCandidateId(JSString value);
-  external JSString get localCandidateId;
-  external set remoteCandidateId(JSString value);
-  external JSString get remoteCandidateId;
+  external set transportId(String value);
+  external String get transportId;
+  external set localCandidateId(String value);
+  external String get localCandidateId;
+  external set remoteCandidateId(String value);
+  external String get remoteCandidateId;
   external set state(RTCStatsIceCandidatePairState value);
   external RTCStatsIceCandidatePairState get state;
-  external set nominated(JSBoolean value);
-  external JSBoolean get nominated;
-  external set packetsSent(JSNumber value);
-  external JSNumber get packetsSent;
-  external set packetsReceived(JSNumber value);
-  external JSNumber get packetsReceived;
-  external set bytesSent(JSNumber value);
-  external JSNumber get bytesSent;
-  external set bytesReceived(JSNumber value);
-  external JSNumber get bytesReceived;
+  external set nominated(bool value);
+  external bool get nominated;
+  external set packetsSent(int value);
+  external int get packetsSent;
+  external set packetsReceived(int value);
+  external int get packetsReceived;
+  external set bytesSent(int value);
+  external int get bytesSent;
+  external set bytesReceived(int value);
+  external int get bytesReceived;
   external set lastPacketSentTimestamp(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get lastPacketSentTimestamp;
   external set lastPacketReceivedTimestamp(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get lastPacketReceivedTimestamp;
-  external set totalRoundTripTime(JSNumber value);
-  external JSNumber get totalRoundTripTime;
-  external set currentRoundTripTime(JSNumber value);
-  external JSNumber get currentRoundTripTime;
-  external set availableOutgoingBitrate(JSNumber value);
-  external JSNumber get availableOutgoingBitrate;
-  external set availableIncomingBitrate(JSNumber value);
-  external JSNumber get availableIncomingBitrate;
-  external set requestsReceived(JSNumber value);
-  external JSNumber get requestsReceived;
-  external set requestsSent(JSNumber value);
-  external JSNumber get requestsSent;
-  external set responsesReceived(JSNumber value);
-  external JSNumber get responsesReceived;
-  external set responsesSent(JSNumber value);
-  external JSNumber get responsesSent;
-  external set consentRequestsSent(JSNumber value);
-  external JSNumber get consentRequestsSent;
-  external set packetsDiscardedOnSend(JSNumber value);
-  external JSNumber get packetsDiscardedOnSend;
-  external set bytesDiscardedOnSend(JSNumber value);
-  external JSNumber get bytesDiscardedOnSend;
+  external set totalRoundTripTime(double value);
+  external double get totalRoundTripTime;
+  external set currentRoundTripTime(double value);
+  external double get currentRoundTripTime;
+  external set availableOutgoingBitrate(double value);
+  external double get availableOutgoingBitrate;
+  external set availableIncomingBitrate(double value);
+  external double get availableIncomingBitrate;
+  external set requestsReceived(int value);
+  external int get requestsReceived;
+  external set requestsSent(int value);
+  external int get requestsSent;
+  external set responsesReceived(int value);
+  external int get responsesReceived;
+  external set responsesSent(int value);
+  external int get responsesSent;
+  external set consentRequestsSent(int value);
+  external int get consentRequestsSent;
+  external set packetsDiscardedOnSend(int value);
+  external int get packetsDiscardedOnSend;
+  external set bytesDiscardedOnSend(int value);
+  external int get bytesDiscardedOnSend;
 }
 
 @JS()
@@ -770,20 +770,20 @@ extension RTCIceCandidatePairStatsExtension on RTCIceCandidatePairStats {
 @anonymous
 class RTCCertificateStats implements RTCStats {
   external factory RTCCertificateStats({
-    required JSString fingerprint,
-    required JSString fingerprintAlgorithm,
-    required JSString base64Certificate,
-    JSString issuerCertificateId,
+    required String fingerprint,
+    required String fingerprintAlgorithm,
+    required String base64Certificate,
+    String issuerCertificateId,
   });
 }
 
 extension RTCCertificateStatsExtension on RTCCertificateStats {
-  external set fingerprint(JSString value);
-  external JSString get fingerprint;
-  external set fingerprintAlgorithm(JSString value);
-  external JSString get fingerprintAlgorithm;
-  external set base64Certificate(JSString value);
-  external JSString get base64Certificate;
-  external set issuerCertificateId(JSString value);
-  external JSString get issuerCertificateId;
+  external set fingerprint(String value);
+  external String get fingerprint;
+  external set fingerprintAlgorithm(String value);
+  external String get fingerprintAlgorithm;
+  external set base64Certificate(String value);
+  external String get base64Certificate;
+  external set issuerCertificateId(String value);
+  external String get issuerCertificateId;
 }

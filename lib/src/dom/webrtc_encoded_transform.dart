@@ -10,11 +10,11 @@ import 'streams.dart';
 import 'webcryptoapi.dart';
 
 typedef RTCRtpTransform = JSAny?;
-typedef SmallCryptoKeyID = JSNumber;
+typedef SmallCryptoKeyID = int;
 typedef CryptoKeyID = JSAny?;
-typedef SFrameTransformRole = JSString;
-typedef SFrameTransformErrorEventType = JSString;
-typedef RTCEncodedVideoFrameType = JSString;
+typedef SFrameTransformRole = String;
+typedef SFrameTransformErrorEventType = String;
+typedef RTCEncodedVideoFrameType = String;
 
 @JS()
 @staticInterop
@@ -47,7 +47,7 @@ extension SFrameTransformExtension on SFrameTransform {
 @staticInterop
 class SFrameTransformErrorEvent implements Event {
   external factory SFrameTransformErrorEvent(
-    JSString type,
+    String type,
     SFrameTransformErrorEventInit eventInitDict,
   );
 }
@@ -84,41 +84,41 @@ extension SFrameTransformErrorEventInitExtension
 @anonymous
 class RTCEncodedVideoFrameMetadata implements JSObject {
   external factory RTCEncodedVideoFrameMetadata({
-    JSNumber frameId,
+    int frameId,
     JSArray dependencies,
-    JSNumber width,
-    JSNumber height,
-    JSNumber spatialIndex,
-    JSNumber temporalIndex,
-    JSNumber synchronizationSource,
-    JSNumber payloadType,
+    int width,
+    int height,
+    int spatialIndex,
+    int temporalIndex,
+    int synchronizationSource,
+    int payloadType,
     JSArray contributingSources,
-    JSNumber timestamp,
+    int timestamp,
   });
 }
 
 extension RTCEncodedVideoFrameMetadataExtension
     on RTCEncodedVideoFrameMetadata {
-  external set frameId(JSNumber value);
-  external JSNumber get frameId;
+  external set frameId(int value);
+  external int get frameId;
   external set dependencies(JSArray value);
   external JSArray get dependencies;
-  external set width(JSNumber value);
-  external JSNumber get width;
-  external set height(JSNumber value);
-  external JSNumber get height;
-  external set spatialIndex(JSNumber value);
-  external JSNumber get spatialIndex;
-  external set temporalIndex(JSNumber value);
-  external JSNumber get temporalIndex;
-  external set synchronizationSource(JSNumber value);
-  external JSNumber get synchronizationSource;
-  external set payloadType(JSNumber value);
-  external JSNumber get payloadType;
+  external set width(int value);
+  external int get width;
+  external set height(int value);
+  external int get height;
+  external set spatialIndex(int value);
+  external int get spatialIndex;
+  external set temporalIndex(int value);
+  external int get temporalIndex;
+  external set synchronizationSource(int value);
+  external int get synchronizationSource;
+  external set payloadType(int value);
+  external int get payloadType;
   external set contributingSources(JSArray value);
   external JSArray get contributingSources;
-  external set timestamp(JSNumber value);
-  external JSNumber get timestamp;
+  external set timestamp(int value);
+  external int get timestamp;
 }
 
 @JS('RTCEncodedVideoFrame')
@@ -128,7 +128,7 @@ class RTCEncodedVideoFrame implements JSObject {}
 extension RTCEncodedVideoFrameExtension on RTCEncodedVideoFrame {
   external RTCEncodedVideoFrameMetadata getMetadata();
   external RTCEncodedVideoFrameType get type;
-  external JSNumber get timestamp;
+  external int get timestamp;
   external set data(JSArrayBuffer value);
   external JSArrayBuffer get data;
 }
@@ -138,23 +138,23 @@ extension RTCEncodedVideoFrameExtension on RTCEncodedVideoFrame {
 @anonymous
 class RTCEncodedAudioFrameMetadata implements JSObject {
   external factory RTCEncodedAudioFrameMetadata({
-    JSNumber synchronizationSource,
-    JSNumber payloadType,
+    int synchronizationSource,
+    int payloadType,
     JSArray contributingSources,
-    JSNumber sequenceNumber,
+    int sequenceNumber,
   });
 }
 
 extension RTCEncodedAudioFrameMetadataExtension
     on RTCEncodedAudioFrameMetadata {
-  external set synchronizationSource(JSNumber value);
-  external JSNumber get synchronizationSource;
-  external set payloadType(JSNumber value);
-  external JSNumber get payloadType;
+  external set synchronizationSource(int value);
+  external int get synchronizationSource;
+  external set payloadType(int value);
+  external int get payloadType;
   external set contributingSources(JSArray value);
   external JSArray get contributingSources;
-  external set sequenceNumber(JSNumber value);
-  external JSNumber get sequenceNumber;
+  external set sequenceNumber(int value);
+  external int get sequenceNumber;
 }
 
 @JS('RTCEncodedAudioFrame')
@@ -163,7 +163,7 @@ class RTCEncodedAudioFrame implements JSObject {}
 
 extension RTCEncodedAudioFrameExtension on RTCEncodedAudioFrame {
   external RTCEncodedAudioFrameMetadata getMetadata();
-  external JSNumber get timestamp;
+  external int get timestamp;
   external set data(JSArrayBuffer value);
   external JSArrayBuffer get data;
 }
@@ -181,7 +181,7 @@ extension RTCTransformEventExtension on RTCTransformEvent {
 class RTCRtpScriptTransformer implements JSObject {}
 
 extension RTCRtpScriptTransformerExtension on RTCRtpScriptTransformer {
-  external JSPromise generateKeyFrame([JSString rid]);
+  external JSPromise generateKeyFrame([String rid]);
   external JSPromise sendKeyFrameRequest();
   external ReadableStream get readable;
   external WritableStream get writable;

@@ -11,7 +11,7 @@ import 'dom.dart';
 class Selection implements JSObject {}
 
 extension SelectionExtension on Selection {
-  external Range getRangeAt(JSNumber index);
+  external Range getRangeAt(int index);
   external JSVoid addRange(Range range);
   external JSVoid removeRange(Range range);
   external JSVoid removeAllRanges();
@@ -19,41 +19,41 @@ extension SelectionExtension on Selection {
   external JSArray getComposedRanges(ShadowRoot shadowRoots);
   external JSVoid collapse(
     Node? node, [
-    JSNumber offset,
+    int offset,
   ]);
   external JSVoid setPosition(
     Node? node, [
-    JSNumber offset,
+    int offset,
   ]);
   external JSVoid collapseToStart();
   external JSVoid collapseToEnd();
   external JSVoid extend(
     Node node, [
-    JSNumber offset,
+    int offset,
   ]);
   external JSVoid setBaseAndExtent(
     Node anchorNode,
-    JSNumber anchorOffset,
+    int anchorOffset,
     Node focusNode,
-    JSNumber focusOffset,
+    int focusOffset,
   );
   external JSVoid selectAllChildren(Node node);
   external JSVoid modify([
-    JSString alter,
-    JSString direction,
-    JSString granularity,
+    String alter,
+    String direction,
+    String granularity,
   ]);
   external JSVoid deleteFromDocument();
-  external JSBoolean containsNode(
+  external bool containsNode(
     Node node, [
-    JSBoolean allowPartialContainment,
+    bool allowPartialContainment,
   ]);
   external Node? get anchorNode;
-  external JSNumber get anchorOffset;
+  external int get anchorOffset;
   external Node? get focusNode;
-  external JSNumber get focusOffset;
-  external JSBoolean get isCollapsed;
-  external JSNumber get rangeCount;
-  external JSString get type;
-  external JSString get direction;
+  external int get focusOffset;
+  external bool get isCollapsed;
+  external int get rangeCount;
+  external String get type;
+  external String get direction;
 }

@@ -21,8 +21,8 @@ class TaskAttributionTiming implements PerformanceEntry {}
 
 extension TaskAttributionTimingExtension on TaskAttributionTiming {
   external JSObject toJSON();
-  external JSString get containerType;
-  external JSString get containerSrc;
-  external JSString get containerId;
-  external JSString get containerName;
+  external String get containerType;
+  external String get containerSrc;
+  external String get containerId;
+  external String get containerName;
 }

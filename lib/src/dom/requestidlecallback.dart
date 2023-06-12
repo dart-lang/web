@@ -12,12 +12,12 @@ typedef IdleRequestCallback = JSFunction;
 @staticInterop
 @anonymous
 class IdleRequestOptions implements JSObject {
-  external factory IdleRequestOptions({JSNumber timeout});
+  external factory IdleRequestOptions({int timeout});
 }
 
 extension IdleRequestOptionsExtension on IdleRequestOptions {
-  external set timeout(JSNumber value);
-  external JSNumber get timeout;
+  external set timeout(int value);
+  external int get timeout;
 }
 
 @JS('IdleDeadline')
@@ -26,5 +26,5 @@ class IdleDeadline implements JSObject {}
 
 extension IdleDeadlineExtension on IdleDeadline {
   external DOMHighResTimeStamp timeRemaining();
-  external JSBoolean get didTimeout;
+  external bool get didTimeout;
 }

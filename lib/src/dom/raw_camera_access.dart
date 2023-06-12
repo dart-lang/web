@@ -9,6 +9,6 @@ import 'dart:js_interop';
 class XRCamera implements JSObject {}
 
 extension XRCameraExtension on XRCamera {
-  external JSNumber get width;
-  external JSNumber get height;
+  external int get width;
+  external int get height;
 }

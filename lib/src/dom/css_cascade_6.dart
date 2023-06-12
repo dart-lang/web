@@ -11,6 +11,6 @@ import 'cssom.dart';
 class CSSScopeRule implements CSSGroupingRule {}
 
 extension CSSScopeRuleExtension on CSSScopeRule {
-  external JSString? get start;
-  external JSString? get end;
+  external String? get start;
+  external String? get end;
 }

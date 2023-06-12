@@ -10,7 +10,7 @@ import 'permissions.dart';
 
 typedef ClipboardItemData = JSPromise;
 typedef ClipboardItems = JSArray;
-typedef PresentationStyle = JSString;
+typedef PresentationStyle = String;
 
 @JS()
 @staticInterop
@@ -28,7 +28,7 @@ extension ClipboardEventInitExtension on ClipboardEventInit {
 @staticInterop
 class ClipboardEvent implements Event {
   external factory ClipboardEvent(
-    JSString type, [
+    String type, [
     ClipboardEventInit eventInitDict,
   ]);
 }
@@ -47,7 +47,7 @@ class ClipboardItem implements JSObject {
 }
 
 extension ClipboardItemExtension on ClipboardItem {
-  external JSPromise getType(JSString type);
+  external JSPromise getType(String type);
   external PresentationStyle get presentationStyle;
   external JSArray get types;
 }
@@ -72,19 +72,18 @@ extension ClipboardExtension on Clipboard {
   external JSPromise read();
   external JSPromise readText();
   external JSPromise write(ClipboardItems data);
-  external JSPromise writeText(JSString data);
+  external JSPromise writeText(String data);
 }
 
 @JS()
 @staticInterop
 @anonymous
 class ClipboardPermissionDescriptor implements PermissionDescriptor {
-  external factory ClipboardPermissionDescriptor(
-      {JSBoolean allowWithoutGesture});
+  external factory ClipboardPermissionDescriptor({bool allowWithoutGesture});
 }
 
 extension ClipboardPermissionDescriptorExtension
     on ClipboardPermissionDescriptor {
-  external set allowWithoutGesture(JSBoolean value);
-  external JSBoolean get allowWithoutGesture;
+  external set allowWithoutGesture(bool value);
+  external bool get allowWithoutGesture;
 }

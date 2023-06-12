@@ -9,17 +9,17 @@ import 'dart:js_interop';
 class FontMetrics implements JSObject {}
 
 extension FontMetricsExtension on FontMetrics {
-  external JSNumber get width;
+  external double get width;
   external JSArray get advances;
-  external JSNumber get boundingBoxLeft;
-  external JSNumber get boundingBoxRight;
-  external JSNumber get height;
-  external JSNumber get emHeightAscent;
-  external JSNumber get emHeightDescent;
-  external JSNumber get boundingBoxAscent;
-  external JSNumber get boundingBoxDescent;
-  external JSNumber get fontBoundingBoxAscent;
-  external JSNumber get fontBoundingBoxDescent;
+  external double get boundingBoxLeft;
+  external double get boundingBoxRight;
+  external double get height;
+  external double get emHeightAscent;
+  external double get emHeightDescent;
+  external double get boundingBoxAscent;
+  external double get boundingBoxDescent;
+  external double get fontBoundingBoxAscent;
+  external double get fontBoundingBoxDescent;
   external Baseline get dominantBaseline;
   external JSArray get baselines;
   external JSArray get fonts;
@@ -30,8 +30,8 @@ extension FontMetricsExtension on FontMetrics {
 class Baseline implements JSObject {}
 
 extension BaselineExtension on Baseline {
-  external JSString get name;
-  external JSNumber get value;
+  external String get name;
+  external double get value;
 }
 
 @JS('Font')
@@ -39,6 +39,6 @@ extension BaselineExtension on Baseline {
 class Font implements JSObject {}
 
 extension FontExtension on Font {
-  external JSString get name;
-  external JSNumber get glyphsRendered;
+  external String get name;
+  external int get glyphsRendered;
 }

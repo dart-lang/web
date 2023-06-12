@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 import 'generic_sensor.dart';
 
-typedef AccelerometerLocalCoordinateSystem = JSString;
+typedef AccelerometerLocalCoordinateSystem = String;
 
 @JS('Accelerometer')
 @staticInterop
@@ -15,9 +15,9 @@ class Accelerometer implements Sensor {
 }
 
 extension AccelerometerExtension on Accelerometer {
-  external JSNumber? get x;
-  external JSNumber? get y;
-  external JSNumber? get z;
+  external double? get x;
+  external double? get y;
+  external double? get z;
 }
 
 @JS()
@@ -51,19 +51,19 @@ class GravitySensor implements Accelerometer {
 @anonymous
 class AccelerometerReadingValues implements JSObject {
   external factory AccelerometerReadingValues({
-    required JSNumber? x,
-    required JSNumber? y,
-    required JSNumber? z,
+    required double? x,
+    required double? y,
+    required double? z,
   });
 }
 
 extension AccelerometerReadingValuesExtension on AccelerometerReadingValues {
-  external set x(JSNumber? value);
-  external JSNumber? get x;
-  external set y(JSNumber? value);
-  external JSNumber? get y;
-  external set z(JSNumber? value);
-  external JSNumber? get z;
+  external set x(double? value);
+  external double? get x;
+  external set y(double? value);
+  external double? get y;
+  external set z(double? value);
+  external double? get z;
 }
 
 @JS()

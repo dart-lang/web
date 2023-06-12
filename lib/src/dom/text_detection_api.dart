@@ -23,7 +23,7 @@ extension TextDetectorExtension on TextDetector {
 class DetectedText implements JSObject {
   external factory DetectedText({
     required DOMRectReadOnly boundingBox,
-    required JSString rawValue,
+    required String rawValue,
     required JSArray cornerPoints,
   });
 }
@@ -31,8 +31,8 @@ class DetectedText implements JSObject {
 extension DetectedTextExtension on DetectedText {
   external set boundingBox(DOMRectReadOnly value);
   external DOMRectReadOnly get boundingBox;
-  external set rawValue(JSString value);
-  external JSString get rawValue;
+  external set rawValue(String value);
+  external String get rawValue;
   external set cornerPoints(JSArray value);
   external JSArray get cornerPoints;
 }

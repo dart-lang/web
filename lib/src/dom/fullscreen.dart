@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 import 'window_management.dart';
 
-typedef FullscreenNavigationUI = JSString;
+typedef FullscreenNavigationUI = String;
 
 @JS()
 @staticInterop

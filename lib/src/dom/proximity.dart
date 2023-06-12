@@ -13,9 +13,9 @@ class ProximitySensor implements Sensor {
 }
 
 extension ProximitySensorExtension on ProximitySensor {
-  external JSNumber? get distance;
-  external JSNumber? get max;
-  external JSBoolean? get near;
+  external double? get distance;
+  external double? get max;
+  external bool? get near;
 }
 
 @JS()
@@ -23,17 +23,17 @@ extension ProximitySensorExtension on ProximitySensor {
 @anonymous
 class ProximityReadingValues implements JSObject {
   external factory ProximityReadingValues({
-    required JSNumber? distance,
-    required JSNumber? max,
-    required JSBoolean? near,
+    required double? distance,
+    required double? max,
+    required bool? near,
   });
 }
 
 extension ProximityReadingValuesExtension on ProximityReadingValues {
-  external set distance(JSNumber? value);
-  external JSNumber? get distance;
-  external set max(JSNumber? value);
-  external JSNumber? get max;
-  external set near(JSBoolean? value);
-  external JSBoolean? get near;
+  external set distance(double? value);
+  external double? get distance;
+  external set max(double? value);
+  external double? get max;
+  external set near(bool? value);
+  external bool? get near;
 }

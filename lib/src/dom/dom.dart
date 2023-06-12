@@ -30,21 +30,21 @@ typedef MutationCallback = JSFunction;
 typedef EventListener = JSFunction;
 typedef NodeFilter = JSFunction;
 typedef XPathNSResolver = JSFunction;
-typedef ShadowRootMode = JSString;
-typedef SlotAssignmentMode = JSString;
+typedef ShadowRootMode = String;
+typedef SlotAssignmentMode = String;
 
 @JS('Event')
 @staticInterop
 class Event implements JSObject {
   external factory Event(
-    JSString type, [
+    String type, [
     EventInit eventInitDict,
   ]);
 
-  external static JSNumber get NONE;
-  external static JSNumber get CAPTURING_PHASE;
-  external static JSNumber get AT_TARGET;
-  external static JSNumber get BUBBLING_PHASE;
+  external static int get NONE;
+  external static int get CAPTURING_PHASE;
+  external static int get AT_TARGET;
+  external static int get BUBBLING_PHASE;
 }
 
 extension EventExtension on Event {
@@ -53,24 +53,24 @@ extension EventExtension on Event {
   external JSVoid stopImmediatePropagation();
   external JSVoid preventDefault();
   external JSVoid initEvent(
-    JSString type, [
-    JSBoolean bubbles,
-    JSBoolean cancelable,
+    String type, [
+    bool bubbles,
+    bool cancelable,
   ]);
-  external JSString get type;
+  external String get type;
   external EventTarget? get target;
   external EventTarget? get srcElement;
   external EventTarget? get currentTarget;
-  external JSNumber get eventPhase;
-  external set cancelBubble(JSBoolean value);
-  external JSBoolean get cancelBubble;
-  external JSBoolean get bubbles;
-  external JSBoolean get cancelable;
-  external set returnValue(JSBoolean value);
-  external JSBoolean get returnValue;
-  external JSBoolean get defaultPrevented;
-  external JSBoolean get composed;
-  external JSBoolean get isTrusted;
+  external int get eventPhase;
+  external set cancelBubble(bool value);
+  external bool get cancelBubble;
+  external bool get bubbles;
+  external bool get cancelable;
+  external set returnValue(bool value);
+  external bool get returnValue;
+  external bool get defaultPrevented;
+  external bool get composed;
+  external bool get isTrusted;
   external DOMHighResTimeStamp get timeStamp;
 }
 
@@ -79,35 +79,35 @@ extension EventExtension on Event {
 @anonymous
 class EventInit implements JSObject {
   external factory EventInit({
-    JSBoolean bubbles,
-    JSBoolean cancelable,
-    JSBoolean composed,
+    bool bubbles,
+    bool cancelable,
+    bool composed,
   });
 }
 
 extension EventInitExtension on EventInit {
-  external set bubbles(JSBoolean value);
-  external JSBoolean get bubbles;
-  external set cancelable(JSBoolean value);
-  external JSBoolean get cancelable;
-  external set composed(JSBoolean value);
-  external JSBoolean get composed;
+  external set bubbles(bool value);
+  external bool get bubbles;
+  external set cancelable(bool value);
+  external bool get cancelable;
+  external set composed(bool value);
+  external bool get composed;
 }
 
 @JS('CustomEvent')
 @staticInterop
 class CustomEvent implements Event {
   external factory CustomEvent(
-    JSString type, [
+    String type, [
     CustomEventInit eventInitDict,
   ]);
 }
 
 extension CustomEventExtension on CustomEvent {
   external JSVoid initCustomEvent(
-    JSString type, [
-    JSBoolean bubbles,
-    JSBoolean cancelable,
+    String type, [
+    bool bubbles,
+    bool cancelable,
     JSAny? detail,
   ]);
   external JSAny? get detail;
@@ -133,28 +133,28 @@ class EventTarget implements JSObject {
 
 extension EventTargetExtension on EventTarget {
   external JSVoid addEventListener(
-    JSString type,
+    String type,
     EventListener? callback, [
     JSAny? options,
   ]);
   external JSVoid removeEventListener(
-    JSString type,
+    String type,
     EventListener? callback, [
     JSAny? options,
   ]);
-  external JSBoolean dispatchEvent(Event event);
+  external bool dispatchEvent(Event event);
 }
 
 @JS()
 @staticInterop
 @anonymous
 class EventListenerOptions implements JSObject {
-  external factory EventListenerOptions({JSBoolean capture});
+  external factory EventListenerOptions({bool capture});
 }
 
 extension EventListenerOptionsExtension on EventListenerOptions {
-  external set capture(JSBoolean value);
-  external JSBoolean get capture;
+  external set capture(bool value);
+  external bool get capture;
 }
 
 @JS()
@@ -162,17 +162,17 @@ extension EventListenerOptionsExtension on EventListenerOptions {
 @anonymous
 class AddEventListenerOptions implements EventListenerOptions {
   external factory AddEventListenerOptions({
-    JSBoolean passive,
-    JSBoolean once,
+    bool passive,
+    bool once,
     AbortSignal signal,
   });
 }
 
 extension AddEventListenerOptionsExtension on AddEventListenerOptions {
-  external set passive(JSBoolean value);
-  external JSBoolean get passive;
-  external set once(JSBoolean value);
-  external JSBoolean get once;
+  external set passive(bool value);
+  external bool get passive;
+  external set once(bool value);
+  external bool get once;
   external set signal(AbortSignal value);
   external AbortSignal get signal;
 }
@@ -192,12 +192,12 @@ extension AbortControllerExtension on AbortController {
 @staticInterop
 class AbortSignal implements EventTarget {
   external static AbortSignal abort([JSAny? reason]);
-  external static AbortSignal timeout(JSNumber milliseconds);
+  external static AbortSignal timeout(int milliseconds);
 }
 
 extension AbortSignalExtension on AbortSignal {
   external JSVoid throwIfAborted();
-  external JSBoolean get aborted;
+  external bool get aborted;
   external JSAny? get reason;
   external set onabort(EventHandler value);
   external EventHandler get onabort;
@@ -208,7 +208,7 @@ extension AbortSignalExtension on AbortSignal {
 class NonElementParentNode implements JSObject {}
 
 extension NonElementParentNodeExtension on NonElementParentNode {
-  external Element? getElementById(JSString elementId);
+  external Element? getElementById(String elementId);
 }
 
 @JS('DocumentOrShadowRoot')
@@ -234,12 +234,12 @@ extension ParentNodeExtension on ParentNode {
   external JSVoid prepend(JSAny? nodes);
   external JSVoid append(JSAny? nodes);
   external JSVoid replaceChildren(JSAny? nodes);
-  external Element? querySelector(JSString selectors);
-  external NodeList querySelectorAll(JSString selectors);
+  external Element? querySelector(String selectors);
+  external NodeList querySelectorAll(String selectors);
   external HTMLCollection get children;
   external Element? get firstElementChild;
   external Element? get lastElementChild;
-  external JSNumber get childElementCount;
+  external int get childElementCount;
 }
 
 @JS('NonDocumentTypeChildNode')
@@ -275,8 +275,8 @@ extension SlottableExtension on Slottable {
 class NodeList implements JSObject {}
 
 extension NodeListExtension on NodeList {
-  external Node? item(JSNumber index);
-  external JSNumber get length;
+  external Node? item(int index);
+  external int get length;
 }
 
 @JS('HTMLCollection')
@@ -284,9 +284,9 @@ extension NodeListExtension on NodeList {
 class HTMLCollection implements JSObject {}
 
 extension HTMLCollectionExtension on HTMLCollection {
-  external Element? item(JSNumber index);
-  external Element? namedItem(JSString name);
-  external JSNumber get length;
+  external Element? item(int index);
+  external Element? namedItem(String name);
+  external int get length;
 }
 
 @JS('MutationObserver')
@@ -309,29 +309,29 @@ extension MutationObserverExtension on MutationObserver {
 @anonymous
 class MutationObserverInit implements JSObject {
   external factory MutationObserverInit({
-    JSBoolean childList,
-    JSBoolean attributes,
-    JSBoolean characterData,
-    JSBoolean subtree,
-    JSBoolean attributeOldValue,
-    JSBoolean characterDataOldValue,
+    bool childList,
+    bool attributes,
+    bool characterData,
+    bool subtree,
+    bool attributeOldValue,
+    bool characterDataOldValue,
     JSArray attributeFilter,
   });
 }
 
 extension MutationObserverInitExtension on MutationObserverInit {
-  external set childList(JSBoolean value);
-  external JSBoolean get childList;
-  external set attributes(JSBoolean value);
-  external JSBoolean get attributes;
-  external set characterData(JSBoolean value);
-  external JSBoolean get characterData;
-  external set subtree(JSBoolean value);
-  external JSBoolean get subtree;
-  external set attributeOldValue(JSBoolean value);
-  external JSBoolean get attributeOldValue;
-  external set characterDataOldValue(JSBoolean value);
-  external JSBoolean get characterDataOldValue;
+  external set childList(bool value);
+  external bool get childList;
+  external set attributes(bool value);
+  external bool get attributes;
+  external set characterData(bool value);
+  external bool get characterData;
+  external set subtree(bool value);
+  external bool get subtree;
+  external set attributeOldValue(bool value);
+  external bool get attributeOldValue;
+  external set characterDataOldValue(bool value);
+  external bool get characterDataOldValue;
   external set attributeFilter(JSArray value);
   external JSArray get attributeFilter;
 }
@@ -341,52 +341,52 @@ extension MutationObserverInitExtension on MutationObserverInit {
 class MutationRecord implements JSObject {}
 
 extension MutationRecordExtension on MutationRecord {
-  external JSString get type;
+  external String get type;
   external Node get target;
   external NodeList get addedNodes;
   external NodeList get removedNodes;
   external Node? get previousSibling;
   external Node? get nextSibling;
-  external JSString? get attributeName;
-  external JSString? get attributeNamespace;
-  external JSString? get oldValue;
+  external String? get attributeName;
+  external String? get attributeNamespace;
+  external String? get oldValue;
 }
 
 @JS('Node')
 @staticInterop
 class Node implements EventTarget {
-  external static JSNumber get ELEMENT_NODE;
-  external static JSNumber get ATTRIBUTE_NODE;
-  external static JSNumber get TEXT_NODE;
-  external static JSNumber get CDATA_SECTION_NODE;
-  external static JSNumber get ENTITY_REFERENCE_NODE;
-  external static JSNumber get ENTITY_NODE;
-  external static JSNumber get PROCESSING_INSTRUCTION_NODE;
-  external static JSNumber get COMMENT_NODE;
-  external static JSNumber get DOCUMENT_NODE;
-  external static JSNumber get DOCUMENT_TYPE_NODE;
-  external static JSNumber get DOCUMENT_FRAGMENT_NODE;
-  external static JSNumber get NOTATION_NODE;
-  external static JSNumber get DOCUMENT_POSITION_DISCONNECTED;
-  external static JSNumber get DOCUMENT_POSITION_PRECEDING;
-  external static JSNumber get DOCUMENT_POSITION_FOLLOWING;
-  external static JSNumber get DOCUMENT_POSITION_CONTAINS;
-  external static JSNumber get DOCUMENT_POSITION_CONTAINED_BY;
-  external static JSNumber get DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
+  external static int get ELEMENT_NODE;
+  external static int get ATTRIBUTE_NODE;
+  external static int get TEXT_NODE;
+  external static int get CDATA_SECTION_NODE;
+  external static int get ENTITY_REFERENCE_NODE;
+  external static int get ENTITY_NODE;
+  external static int get PROCESSING_INSTRUCTION_NODE;
+  external static int get COMMENT_NODE;
+  external static int get DOCUMENT_NODE;
+  external static int get DOCUMENT_TYPE_NODE;
+  external static int get DOCUMENT_FRAGMENT_NODE;
+  external static int get NOTATION_NODE;
+  external static int get DOCUMENT_POSITION_DISCONNECTED;
+  external static int get DOCUMENT_POSITION_PRECEDING;
+  external static int get DOCUMENT_POSITION_FOLLOWING;
+  external static int get DOCUMENT_POSITION_CONTAINS;
+  external static int get DOCUMENT_POSITION_CONTAINED_BY;
+  external static int get DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
 }
 
 extension NodeExtension on Node {
   external Node getRootNode([GetRootNodeOptions options]);
-  external JSBoolean hasChildNodes();
+  external bool hasChildNodes();
   external JSVoid normalize();
-  external Node cloneNode([JSBoolean deep]);
-  external JSBoolean isEqualNode(Node? otherNode);
-  external JSBoolean isSameNode(Node? otherNode);
-  external JSNumber compareDocumentPosition(Node other);
-  external JSBoolean contains(Node? other);
-  external JSString? lookupPrefix(JSString? namespace);
-  external JSString? lookupNamespaceURI(JSString? prefix);
-  external JSBoolean isDefaultNamespace(JSString? namespace);
+  external Node cloneNode([bool deep]);
+  external bool isEqualNode(Node? otherNode);
+  external bool isSameNode(Node? otherNode);
+  external int compareDocumentPosition(Node other);
+  external bool contains(Node? other);
+  external String? lookupPrefix(String? namespace);
+  external String? lookupNamespaceURI(String? prefix);
+  external bool isDefaultNamespace(String? namespace);
   external Node insertBefore(
     Node node,
     Node? child,
@@ -397,10 +397,10 @@ extension NodeExtension on Node {
     Node child,
   );
   external Node removeChild(Node child);
-  external JSNumber get nodeType;
-  external JSString get nodeName;
-  external JSString get baseURI;
-  external JSBoolean get isConnected;
+  external int get nodeType;
+  external String get nodeName;
+  external String get baseURI;
+  external bool get isConnected;
   external Document? get ownerDocument;
   external Node? get parentNode;
   external Element? get parentElement;
@@ -409,22 +409,22 @@ extension NodeExtension on Node {
   external Node? get lastChild;
   external Node? get previousSibling;
   external Node? get nextSibling;
-  external set nodeValue(JSString? value);
-  external JSString? get nodeValue;
-  external set textContent(JSString? value);
-  external JSString? get textContent;
+  external set nodeValue(String? value);
+  external String? get nodeValue;
+  external set textContent(String? value);
+  external String? get textContent;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class GetRootNodeOptions implements JSObject {
-  external factory GetRootNodeOptions({JSBoolean composed});
+  external factory GetRootNodeOptions({bool composed});
 }
 
 extension GetRootNodeOptionsExtension on GetRootNodeOptions {
-  external set composed(JSBoolean value);
-  external JSBoolean get composed;
+  external set composed(bool value);
+  external bool get composed;
 }
 
 @JS()
@@ -448,136 +448,136 @@ class Document
 extension DocumentExtension on Document {
   external ViewTransition startViewTransition([UpdateCallback? updateCallback]);
   external Element? elementFromPoint(
-    JSNumber x,
-    JSNumber y,
+    double x,
+    double y,
   );
   external JSArray elementsFromPoint(
-    JSNumber x,
-    JSNumber y,
+    double x,
+    double y,
   );
   external CaretPosition? caretPositionFromPoint(
-    JSNumber x,
-    JSNumber y,
+    double x,
+    double y,
   );
-  external HTMLCollection getElementsByTagName(JSString qualifiedName);
+  external HTMLCollection getElementsByTagName(String qualifiedName);
   external HTMLCollection getElementsByTagNameNS(
-    JSString? namespace,
-    JSString localName,
+    String? namespace,
+    String localName,
   );
-  external HTMLCollection getElementsByClassName(JSString classNames);
+  external HTMLCollection getElementsByClassName(String classNames);
   external Element createElement(
-    JSString localName, [
+    String localName, [
     JSAny? options,
   ]);
   external Element createElementNS(
-    JSString? namespace,
-    JSString qualifiedName, [
+    String? namespace,
+    String qualifiedName, [
     JSAny? options,
   ]);
   external DocumentFragment createDocumentFragment();
-  external Text createTextNode(JSString data);
-  external CDATASection createCDATASection(JSString data);
-  external Comment createComment(JSString data);
+  external Text createTextNode(String data);
+  external CDATASection createCDATASection(String data);
+  external Comment createComment(String data);
   external ProcessingInstruction createProcessingInstruction(
-    JSString target,
-    JSString data,
+    String target,
+    String data,
   );
   external Node importNode(
     Node node, [
-    JSBoolean deep,
+    bool deep,
   ]);
   external Node adoptNode(Node node);
-  external Attr createAttribute(JSString localName);
+  external Attr createAttribute(String localName);
   external Attr createAttributeNS(
-    JSString? namespace,
-    JSString qualifiedName,
+    String? namespace,
+    String qualifiedName,
   );
-  external Event createEvent(JSString interface);
+  external Event createEvent(String interface);
   external Range createRange();
   external NodeIterator createNodeIterator(
     Node root, [
-    JSNumber whatToShow,
+    int whatToShow,
     NodeFilter? filter,
   ]);
   external TreeWalker createTreeWalker(
     Node root, [
-    JSNumber whatToShow,
+    int whatToShow,
     NodeFilter? filter,
   ]);
   external FontMetrics measureElement(Element element);
   external FontMetrics measureText(
-    JSString text,
+    String text,
     StylePropertyMapReadOnly styleMap,
   );
   external JSPromise exitFullscreen();
-  external NodeList getElementsByName(JSString elementName);
+  external NodeList getElementsByName(String elementName);
   external JSAny? open([
-    JSString unused1OrUrl,
-    JSString nameOrUnused2,
-    JSString features,
+    String unused1OrUrl,
+    String nameOrUnused2,
+    String features,
   ]);
   external JSVoid close();
-  external JSVoid write(JSString text);
-  external JSVoid writeln(JSString text);
-  external JSBoolean hasFocus();
-  external JSBoolean execCommand(
-    JSString commandId, [
-    JSBoolean showUI,
-    JSString value,
+  external JSVoid write(String text);
+  external JSVoid writeln(String text);
+  external bool hasFocus();
+  external bool execCommand(
+    String commandId, [
+    bool showUI,
+    String value,
   ]);
-  external JSBoolean queryCommandEnabled(JSString commandId);
-  external JSBoolean queryCommandIndeterm(JSString commandId);
-  external JSBoolean queryCommandState(JSString commandId);
-  external JSBoolean queryCommandSupported(JSString commandId);
-  external JSString queryCommandValue(JSString commandId);
+  external bool queryCommandEnabled(String commandId);
+  external bool queryCommandIndeterm(String commandId);
+  external bool queryCommandState(String commandId);
+  external bool queryCommandSupported(String commandId);
+  external String queryCommandValue(String commandId);
   external JSVoid clear();
   external JSVoid captureEvents();
   external JSVoid releaseEvents();
   external JSPromise exitPictureInPicture();
   external JSVoid exitPointerLock();
-  external JSPromise requestStorageAccessFor(JSString requestedOrigin);
+  external JSPromise requestStorageAccessFor(String requestedOrigin);
   external Selection? getSelection();
   external JSPromise hasStorageAccess();
   external JSPromise requestStorageAccess();
   external JSPromise hasPrivateTokens(
-    JSString issuer,
-    JSString type,
+    String issuer,
+    String type,
   );
   external JSPromise hasRedemptionRecord(
-    JSString issuer,
-    JSString type,
+    String issuer,
+    String type,
   );
   external SVGSVGElement? get rootElement;
   external NamedFlowMap get namedFlows;
   external Element? get scrollingElement;
   external DOMImplementation get implementation;
-  external JSString get URL;
-  external JSString get documentURI;
-  external JSString get compatMode;
-  external JSString get characterSet;
-  external JSString get charset;
-  external JSString get inputEncoding;
-  external JSString get contentType;
+  external String get URL;
+  external String get documentURI;
+  external String get compatMode;
+  external String get characterSet;
+  external String get charset;
+  external String get inputEncoding;
+  external String get contentType;
   external DocumentType? get doctype;
   external Element? get documentElement;
-  external JSBoolean get fullscreenEnabled;
-  external JSBoolean get fullscreen;
+  external bool get fullscreenEnabled;
+  external bool get fullscreen;
   external set onfullscreenchange(EventHandler value);
   external EventHandler get onfullscreenchange;
   external set onfullscreenerror(EventHandler value);
   external EventHandler get onfullscreenerror;
   external Location? get location;
-  external set domain(JSString value);
-  external JSString get domain;
-  external JSString get referrer;
-  external set cookie(JSString value);
-  external JSString get cookie;
-  external JSString get lastModified;
+  external set domain(String value);
+  external String get domain;
+  external String get referrer;
+  external set cookie(String value);
+  external String get cookie;
+  external String get lastModified;
   external DocumentReadyState get readyState;
-  external set title(JSString value);
-  external JSString get title;
-  external set dir(JSString value);
-  external JSString get dir;
+  external set title(String value);
+  external String get title;
+  external set dir(String value);
+  external String get dir;
   external set body(HTMLElement? value);
   external HTMLElement? get body;
   external HTMLHeadElement? get head;
@@ -589,24 +589,24 @@ extension DocumentExtension on Document {
   external HTMLCollection get scripts;
   external HTMLOrSVGScriptElement? get currentScript;
   external Window? get defaultView;
-  external set designMode(JSString value);
-  external JSString get designMode;
-  external JSBoolean get hidden;
+  external set designMode(String value);
+  external String get designMode;
+  external bool get hidden;
   external DocumentVisibilityState get visibilityState;
   external set onreadystatechange(EventHandler value);
   external EventHandler get onreadystatechange;
   external set onvisibilitychange(EventHandler value);
   external EventHandler get onvisibilitychange;
-  external set fgColor(JSString value);
-  external JSString get fgColor;
-  external set linkColor(JSString value);
-  external JSString get linkColor;
-  external set vlinkColor(JSString value);
-  external JSString get vlinkColor;
-  external set alinkColor(JSString value);
-  external JSString get alinkColor;
-  external set bgColor(JSString value);
-  external JSString get bgColor;
+  external set fgColor(String value);
+  external String get fgColor;
+  external set linkColor(String value);
+  external String get linkColor;
+  external set vlinkColor(String value);
+  external String get vlinkColor;
+  external set alinkColor(String value);
+  external String get alinkColor;
+  external set bgColor(String value);
+  external String get bgColor;
   external HTMLCollection get anchors;
   external HTMLCollection get applets;
   external HTMLAllCollection get all;
@@ -614,14 +614,14 @@ extension DocumentExtension on Document {
   external EventHandler get onfreeze;
   external set onresume(EventHandler value);
   external EventHandler get onresume;
-  external JSBoolean get wasDiscarded;
+  external bool get wasDiscarded;
   external PermissionsPolicy get permissionsPolicy;
-  external JSBoolean get pictureInPictureEnabled;
+  external bool get pictureInPictureEnabled;
   external set onpointerlockchange(EventHandler value);
   external EventHandler get onpointerlockchange;
   external set onpointerlockerror(EventHandler value);
   external EventHandler get onpointerlockerror;
-  external JSBoolean get prerendering;
+  external bool get prerendering;
   external set onprerenderingchange(EventHandler value);
   external EventHandler get onprerenderingchange;
   external FragmentDirective get fragmentDirective;
@@ -636,14 +636,14 @@ class XMLDocument implements Document {}
 @staticInterop
 @anonymous
 class ElementCreationOptions implements JSObject {
-  external factory ElementCreationOptions({JSString is_});
+  external factory ElementCreationOptions({String is_});
 }
 
 extension ElementCreationOptionsExtension on ElementCreationOptions {
   @JS('is')
-  external set is_(JSString value);
+  external set is_(String value);
   @JS('is')
-  external JSString get is_;
+  external String get is_;
 }
 
 @JS('DOMImplementation')
@@ -652,17 +652,17 @@ class DOMImplementation implements JSObject {}
 
 extension DOMImplementationExtension on DOMImplementation {
   external DocumentType createDocumentType(
-    JSString qualifiedName,
-    JSString publicId,
-    JSString systemId,
+    String qualifiedName,
+    String publicId,
+    String systemId,
   );
   external XMLDocument createDocument(
-    JSString? namespace,
-    JSString qualifiedName, [
+    String? namespace,
+    String qualifiedName, [
     DocumentType? doctype,
   ]);
-  external Document createHTMLDocument([JSString title]);
-  external JSBoolean hasFeature();
+  external Document createHTMLDocument([String title]);
+  external bool hasFeature();
 }
 
 @JS('DocumentType')
@@ -670,9 +670,9 @@ extension DOMImplementationExtension on DOMImplementation {
 class DocumentType implements Node, ChildNode {}
 
 extension DocumentTypeExtension on DocumentType {
-  external JSString get name;
-  external JSString get publicId;
-  external JSString get systemId;
+  external String get name;
+  external String get publicId;
+  external String get systemId;
 }
 
 @JS('DocumentFragment')
@@ -687,7 +687,7 @@ class ShadowRoot implements DocumentFragment, InnerHTML, DocumentOrShadowRoot {}
 
 extension ShadowRootExtension on ShadowRoot {
   external ShadowRootMode get mode;
-  external JSBoolean get delegatesFocus;
+  external bool get delegatesFocus;
   external SlotAssignmentMode get slotAssignment;
   external Element get host;
   external set onslotchange(EventHandler value);
@@ -711,8 +711,8 @@ class Element
 
 extension ElementExtension on Element {
   external JSVoid insertAdjacentHTML(
-    JSString position,
-    JSString text,
+    String position,
+    String text,
   );
   external Node getSpatialNavigationContainer();
   external JSArray focusableAreas([FocusableAreasOption option]);
@@ -720,117 +720,117 @@ extension ElementExtension on Element {
     SpatialNavigationDirection dir, [
     SpatialNavigationSearchOptions options,
   ]);
-  external CSSPseudoElement? pseudo(JSString type);
+  external CSSPseudoElement? pseudo(String type);
   external StylePropertyMapReadOnly computedStyleMap();
   external DOMRectList getClientRects();
   external DOMRect getBoundingClientRect();
-  external JSBoolean checkVisibility([CheckVisibilityOptions options]);
+  external bool checkVisibility([CheckVisibilityOptions options]);
   external JSVoid scrollIntoView([JSAny? arg]);
   external JSVoid scroll([
     JSAny? optionsOrX,
-    JSNumber y,
+    double y,
   ]);
   external JSVoid scrollTo([
     JSAny? optionsOrX,
-    JSNumber y,
+    double y,
   ]);
   external JSVoid scrollBy([
     JSAny? optionsOrX,
-    JSNumber y,
+    double y,
   ]);
-  external JSBoolean hasAttributes();
+  external bool hasAttributes();
   external JSArray getAttributeNames();
-  external JSString? getAttribute(JSString qualifiedName);
-  external JSString? getAttributeNS(
-    JSString? namespace,
-    JSString localName,
+  external String? getAttribute(String qualifiedName);
+  external String? getAttributeNS(
+    String? namespace,
+    String localName,
   );
   external JSVoid setAttribute(
-    JSString qualifiedName,
-    JSString value,
+    String qualifiedName,
+    String value,
   );
   external JSVoid setAttributeNS(
-    JSString? namespace,
-    JSString qualifiedName,
-    JSString value,
+    String? namespace,
+    String qualifiedName,
+    String value,
   );
-  external JSVoid removeAttribute(JSString qualifiedName);
+  external JSVoid removeAttribute(String qualifiedName);
   external JSVoid removeAttributeNS(
-    JSString? namespace,
-    JSString localName,
+    String? namespace,
+    String localName,
   );
-  external JSBoolean toggleAttribute(
-    JSString qualifiedName, [
-    JSBoolean force,
+  external bool toggleAttribute(
+    String qualifiedName, [
+    bool force,
   ]);
-  external JSBoolean hasAttribute(JSString qualifiedName);
-  external JSBoolean hasAttributeNS(
-    JSString? namespace,
-    JSString localName,
+  external bool hasAttribute(String qualifiedName);
+  external bool hasAttributeNS(
+    String? namespace,
+    String localName,
   );
-  external Attr? getAttributeNode(JSString qualifiedName);
+  external Attr? getAttributeNode(String qualifiedName);
   external Attr? getAttributeNodeNS(
-    JSString? namespace,
-    JSString localName,
+    String? namespace,
+    String localName,
   );
   external Attr? setAttributeNode(Attr attr);
   external Attr? setAttributeNodeNS(Attr attr);
   external Attr removeAttributeNode(Attr attr);
   external ShadowRoot attachShadow(ShadowRootInit init);
-  external Element? closest(JSString selectors);
-  external JSBoolean matches(JSString selectors);
-  external JSBoolean webkitMatchesSelector(JSString selectors);
-  external HTMLCollection getElementsByTagName(JSString qualifiedName);
+  external Element? closest(String selectors);
+  external bool matches(String selectors);
+  external bool webkitMatchesSelector(String selectors);
+  external HTMLCollection getElementsByTagName(String qualifiedName);
   external HTMLCollection getElementsByTagNameNS(
-    JSString? namespace,
-    JSString localName,
+    String? namespace,
+    String localName,
   );
-  external HTMLCollection getElementsByClassName(JSString classNames);
+  external HTMLCollection getElementsByClassName(String classNames);
   external Element? insertAdjacentElement(
-    JSString where,
+    String where,
     Element element,
   );
   external JSVoid insertAdjacentText(
-    JSString where,
-    JSString data,
+    String where,
+    String data,
   );
   external JSPromise requestFullscreen([FullscreenOptions options]);
-  external JSVoid setPointerCapture(JSNumber pointerId);
-  external JSVoid releasePointerCapture(JSNumber pointerId);
-  external JSBoolean hasPointerCapture(JSNumber pointerId);
+  external JSVoid setPointerCapture(int pointerId);
+  external JSVoid releasePointerCapture(int pointerId);
+  external bool hasPointerCapture(int pointerId);
   external JSVoid requestPointerLock();
   external JSVoid setHTML(
-    JSString input, [
+    String input, [
     SetHTMLOptions options,
   ]);
-  external set outerHTML(JSString value);
-  external JSString get outerHTML;
+  external set outerHTML(String value);
+  external String get outerHTML;
   external DOMTokenList get part;
-  external set scrollTop(JSNumber value);
-  external JSNumber get scrollTop;
-  external set scrollLeft(JSNumber value);
-  external JSNumber get scrollLeft;
-  external JSNumber get scrollWidth;
-  external JSNumber get scrollHeight;
-  external JSNumber get clientTop;
-  external JSNumber get clientLeft;
-  external JSNumber get clientWidth;
-  external JSNumber get clientHeight;
-  external JSString? get namespaceURI;
-  external JSString? get prefix;
-  external JSString get localName;
-  external JSString get tagName;
-  external set id(JSString value);
-  external JSString get id;
-  external set className(JSString value);
-  external JSString get className;
+  external set scrollTop(double value);
+  external double get scrollTop;
+  external set scrollLeft(double value);
+  external double get scrollLeft;
+  external int get scrollWidth;
+  external int get scrollHeight;
+  external int get clientTop;
+  external int get clientLeft;
+  external int get clientWidth;
+  external int get clientHeight;
+  external String? get namespaceURI;
+  external String? get prefix;
+  external String get localName;
+  external String get tagName;
+  external set id(String value);
+  external String get id;
+  external set className(String value);
+  external String get className;
   external DOMTokenList get classList;
-  external set slot(JSString value);
-  external JSString get slot;
+  external set slot(String value);
+  external String get slot;
   external NamedNodeMap get attributes;
   external ShadowRoot? get shadowRoot;
-  external set elementTiming(JSString value);
-  external JSString get elementTiming;
+  external set elementTiming(String value);
+  external String get elementTiming;
   external set onfullscreenchange(EventHandler value);
   external EventHandler get onfullscreenchange;
   external set onfullscreenerror(EventHandler value);
@@ -843,7 +843,7 @@ extension ElementExtension on Element {
 class ShadowRootInit implements JSObject {
   external factory ShadowRootInit({
     required ShadowRootMode mode,
-    JSBoolean delegatesFocus,
+    bool delegatesFocus,
     SlotAssignmentMode slotAssignment,
   });
 }
@@ -851,8 +851,8 @@ class ShadowRootInit implements JSObject {
 extension ShadowRootInitExtension on ShadowRootInit {
   external set mode(ShadowRootMode value);
   external ShadowRootMode get mode;
-  external set delegatesFocus(JSBoolean value);
-  external JSBoolean get delegatesFocus;
+  external set delegatesFocus(bool value);
+  external bool get delegatesFocus;
   external set slotAssignment(SlotAssignmentMode value);
   external SlotAssignmentMode get slotAssignment;
 }
@@ -862,20 +862,20 @@ extension ShadowRootInitExtension on ShadowRootInit {
 class NamedNodeMap implements JSObject {}
 
 extension NamedNodeMapExtension on NamedNodeMap {
-  external Attr? item(JSNumber index);
-  external Attr? getNamedItem(JSString qualifiedName);
+  external Attr? item(int index);
+  external Attr? getNamedItem(String qualifiedName);
   external Attr? getNamedItemNS(
-    JSString? namespace,
-    JSString localName,
+    String? namespace,
+    String localName,
   );
   external Attr? setNamedItem(Attr attr);
   external Attr? setNamedItemNS(Attr attr);
-  external Attr removeNamedItem(JSString qualifiedName);
+  external Attr removeNamedItem(String qualifiedName);
   external Attr removeNamedItemNS(
-    JSString? namespace,
-    JSString localName,
+    String? namespace,
+    String localName,
   );
-  external JSNumber get length;
+  external int get length;
 }
 
 @JS('Attr')
@@ -883,14 +883,14 @@ extension NamedNodeMapExtension on NamedNodeMap {
 class Attr implements Node {}
 
 extension AttrExtension on Attr {
-  external JSString? get namespaceURI;
-  external JSString? get prefix;
-  external JSString get localName;
-  external JSString get name;
-  external set value(JSString value);
-  external JSString get value;
+  external String? get namespaceURI;
+  external String? get prefix;
+  external String get localName;
+  external String get name;
+  external set value(String value);
+  external String get value;
   external Element? get ownerElement;
-  external JSBoolean get specified;
+  external bool get specified;
 }
 
 @JS('CharacterData')
@@ -898,38 +898,38 @@ extension AttrExtension on Attr {
 class CharacterData implements Node, NonDocumentTypeChildNode, ChildNode {}
 
 extension CharacterDataExtension on CharacterData {
-  external JSString substringData(
-    JSNumber offset,
-    JSNumber count,
+  external String substringData(
+    int offset,
+    int count,
   );
-  external JSVoid appendData(JSString data);
+  external JSVoid appendData(String data);
   external JSVoid insertData(
-    JSNumber offset,
-    JSString data,
+    int offset,
+    String data,
   );
   external JSVoid deleteData(
-    JSNumber offset,
-    JSNumber count,
+    int offset,
+    int count,
   );
   external JSVoid replaceData(
-    JSNumber offset,
-    JSNumber count,
-    JSString data,
+    int offset,
+    int count,
+    String data,
   );
-  external set data(JSString value);
-  external JSString get data;
-  external JSNumber get length;
+  external set data(String value);
+  external String get data;
+  external int get length;
 }
 
 @JS('Text')
 @staticInterop
 class Text implements CharacterData, GeometryUtils, Slottable {
-  external factory Text([JSString data]);
+  external factory Text([String data]);
 }
 
 extension TextExtension on Text {
-  external Text splitText(JSNumber offset);
-  external JSString get wholeText;
+  external Text splitText(int offset);
+  external String get wholeText;
 }
 
 @JS('CDATASection')
@@ -941,13 +941,13 @@ class CDATASection implements Text {}
 class ProcessingInstruction implements CharacterData, LinkStyle {}
 
 extension ProcessingInstructionExtension on ProcessingInstruction {
-  external JSString get target;
+  external String get target;
 }
 
 @JS('Comment')
 @staticInterop
 class Comment implements CharacterData {
-  external factory Comment([JSString data]);
+  external factory Comment([String data]);
 }
 
 @JS('AbstractRange')
@@ -956,10 +956,10 @@ class AbstractRange implements JSObject {}
 
 extension AbstractRangeExtension on AbstractRange {
   external Node get startContainer;
-  external JSNumber get startOffset;
+  external int get startOffset;
   external Node get endContainer;
-  external JSNumber get endOffset;
-  external JSBoolean get collapsed;
+  external int get endOffset;
+  external bool get collapsed;
 }
 
 @JS()
@@ -968,21 +968,21 @@ extension AbstractRangeExtension on AbstractRange {
 class StaticRangeInit implements JSObject {
   external factory StaticRangeInit({
     required Node startContainer,
-    required JSNumber startOffset,
+    required int startOffset,
     required Node endContainer,
-    required JSNumber endOffset,
+    required int endOffset,
   });
 }
 
 extension StaticRangeInitExtension on StaticRangeInit {
   external set startContainer(Node value);
   external Node get startContainer;
-  external set startOffset(JSNumber value);
-  external JSNumber get startOffset;
+  external set startOffset(int value);
+  external int get startOffset;
   external set endContainer(Node value);
   external Node get endContainer;
-  external set endOffset(JSNumber value);
-  external JSNumber get endOffset;
+  external set endOffset(int value);
+  external int get endOffset;
 }
 
 @JS('StaticRange')
@@ -996,33 +996,33 @@ class StaticRange implements AbstractRange {
 class Range implements AbstractRange {
   external factory Range();
 
-  external static JSNumber get START_TO_START;
-  external static JSNumber get START_TO_END;
-  external static JSNumber get END_TO_END;
-  external static JSNumber get END_TO_START;
+  external static int get START_TO_START;
+  external static int get START_TO_END;
+  external static int get END_TO_END;
+  external static int get END_TO_START;
 }
 
 extension RangeExtension on Range {
-  external DocumentFragment createContextualFragment(JSString fragment);
+  external DocumentFragment createContextualFragment(String fragment);
   external DOMRectList getClientRects();
   external DOMRect getBoundingClientRect();
   external JSVoid setStart(
     Node node,
-    JSNumber offset,
+    int offset,
   );
   external JSVoid setEnd(
     Node node,
-    JSNumber offset,
+    int offset,
   );
   external JSVoid setStartBefore(Node node);
   external JSVoid setStartAfter(Node node);
   external JSVoid setEndBefore(Node node);
   external JSVoid setEndAfter(Node node);
-  external JSVoid collapse([JSBoolean toStart]);
+  external JSVoid collapse([bool toStart]);
   external JSVoid selectNode(Node node);
   external JSVoid selectNodeContents(Node node);
-  external JSNumber compareBoundaryPoints(
-    JSNumber how,
+  external int compareBoundaryPoints(
+    int how,
     Range sourceRange,
   );
   external JSVoid deleteContents();
@@ -1032,15 +1032,15 @@ extension RangeExtension on Range {
   external JSVoid surroundContents(Node newParent);
   external Range cloneRange();
   external JSVoid detach();
-  external JSBoolean isPointInRange(
+  external bool isPointInRange(
     Node node,
-    JSNumber offset,
+    int offset,
   );
-  external JSNumber comparePoint(
+  external int comparePoint(
     Node node,
-    JSNumber offset,
+    int offset,
   );
-  external JSBoolean intersectsNode(Node node);
+  external bool intersectsNode(Node node);
   external Node get commonAncestorContainer;
 }
 
@@ -1054,8 +1054,8 @@ extension NodeIteratorExtension on NodeIterator {
   external JSVoid detach();
   external Node get root;
   external Node get referenceNode;
-  external JSBoolean get pointerBeforeReferenceNode;
-  external JSNumber get whatToShow;
+  external bool get pointerBeforeReferenceNode;
+  external int get whatToShow;
   external NodeFilter? get filter;
 }
 
@@ -1072,7 +1072,7 @@ extension TreeWalkerExtension on TreeWalker {
   external Node? previousNode();
   external Node? nextNode();
   external Node get root;
-  external JSNumber get whatToShow;
+  external int get whatToShow;
   external NodeFilter? get filter;
   external set currentNode(Node value);
   external Node get currentNode;
@@ -1083,49 +1083,49 @@ extension TreeWalkerExtension on TreeWalker {
 class DOMTokenList implements JSObject {}
 
 extension DOMTokenListExtension on DOMTokenList {
-  external JSString? item(JSNumber index);
-  external JSBoolean contains(JSString token);
-  external JSVoid add(JSString tokens);
-  external JSVoid remove(JSString tokens);
-  external JSBoolean toggle(
-    JSString token, [
-    JSBoolean force,
+  external String? item(int index);
+  external bool contains(String token);
+  external JSVoid add(String tokens);
+  external JSVoid remove(String tokens);
+  external bool toggle(
+    String token, [
+    bool force,
   ]);
-  external JSBoolean replace(
-    JSString token,
-    JSString newToken,
+  external bool replace(
+    String token,
+    String newToken,
   );
-  external JSBoolean supports(JSString token);
-  external JSNumber get length;
-  external set value(JSString value);
-  external JSString get value;
+  external bool supports(String token);
+  external int get length;
+  external set value(String value);
+  external String get value;
 }
 
 @JS('XPathResult')
 @staticInterop
 class XPathResult implements JSObject {
-  external static JSNumber get ANY_TYPE;
-  external static JSNumber get NUMBER_TYPE;
-  external static JSNumber get STRING_TYPE;
-  external static JSNumber get BOOLEAN_TYPE;
-  external static JSNumber get UNORDERED_NODE_ITERATOR_TYPE;
-  external static JSNumber get ORDERED_NODE_ITERATOR_TYPE;
-  external static JSNumber get UNORDERED_NODE_SNAPSHOT_TYPE;
-  external static JSNumber get ORDERED_NODE_SNAPSHOT_TYPE;
-  external static JSNumber get ANY_UNORDERED_NODE_TYPE;
-  external static JSNumber get FIRST_ORDERED_NODE_TYPE;
+  external static int get ANY_TYPE;
+  external static int get NUMBER_TYPE;
+  external static int get STRING_TYPE;
+  external static int get BOOLEAN_TYPE;
+  external static int get UNORDERED_NODE_ITERATOR_TYPE;
+  external static int get ORDERED_NODE_ITERATOR_TYPE;
+  external static int get UNORDERED_NODE_SNAPSHOT_TYPE;
+  external static int get ORDERED_NODE_SNAPSHOT_TYPE;
+  external static int get ANY_UNORDERED_NODE_TYPE;
+  external static int get FIRST_ORDERED_NODE_TYPE;
 }
 
 extension XPathResultExtension on XPathResult {
   external Node? iterateNext();
-  external Node? snapshotItem(JSNumber index);
-  external JSNumber get resultType;
-  external JSNumber get numberValue;
-  external JSString get stringValue;
-  external JSBoolean get booleanValue;
+  external Node? snapshotItem(int index);
+  external int get resultType;
+  external double get numberValue;
+  external String get stringValue;
+  external bool get booleanValue;
   external Node? get singleNodeValue;
-  external JSBoolean get invalidIteratorState;
-  external JSNumber get snapshotLength;
+  external bool get invalidIteratorState;
+  external int get snapshotLength;
 }
 
 @JS('XPathExpression')
@@ -1135,7 +1135,7 @@ class XPathExpression implements JSObject {}
 extension XPathExpressionExtension on XPathExpression {
   external XPathResult evaluate(
     Node contextNode, [
-    JSNumber type,
+    int type,
     XPathResult? result,
   ]);
 }
@@ -1146,15 +1146,15 @@ class XPathEvaluatorBase implements JSObject {}
 
 extension XPathEvaluatorBaseExtension on XPathEvaluatorBase {
   external XPathExpression createExpression(
-    JSString expression, [
+    String expression, [
     XPathNSResolver? resolver,
   ]);
   external Node createNSResolver(Node nodeResolver);
   external XPathResult evaluate(
-    JSString expression,
+    String expression,
     Node contextNode, [
     XPathNSResolver? resolver,
-    JSNumber type,
+    int type,
     XPathResult? result,
   ]);
 }
@@ -1179,17 +1179,17 @@ extension XSLTProcessorExtension on XSLTProcessor {
   );
   external Document transformToDocument(Node source);
   external JSVoid setParameter(
-    JSString namespaceURI,
-    JSString localName,
+    String namespaceURI,
+    String localName,
     JSAny? value,
   );
   external JSAny? getParameter(
-    JSString namespaceURI,
-    JSString localName,
+    String namespaceURI,
+    String localName,
   );
   external JSVoid removeParameter(
-    JSString namespaceURI,
-    JSString localName,
+    String namespaceURI,
+    String localName,
   );
   external JSVoid clearParameters();
   external JSVoid reset();

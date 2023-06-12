@@ -7,8 +7,8 @@ import 'dart:js_interop';
 import 'geometry.dart';
 import 'html.dart';
 
-typedef LandmarkType = JSString;
-typedef BarcodeFormat = JSString;
+typedef LandmarkType = String;
+typedef BarcodeFormat = String;
 
 @JS('FaceDetector')
 @staticInterop
@@ -25,16 +25,16 @@ extension FaceDetectorExtension on FaceDetector {
 @anonymous
 class FaceDetectorOptions implements JSObject {
   external factory FaceDetectorOptions({
-    JSNumber maxDetectedFaces,
-    JSBoolean fastMode,
+    int maxDetectedFaces,
+    bool fastMode,
   });
 }
 
 extension FaceDetectorOptionsExtension on FaceDetectorOptions {
-  external set maxDetectedFaces(JSNumber value);
-  external JSNumber get maxDetectedFaces;
-  external set fastMode(JSBoolean value);
-  external JSBoolean get fastMode;
+  external set maxDetectedFaces(int value);
+  external int get maxDetectedFaces;
+  external set fastMode(bool value);
+  external bool get fastMode;
 }
 
 @JS()
@@ -102,7 +102,7 @@ extension BarcodeDetectorOptionsExtension on BarcodeDetectorOptions {
 class DetectedBarcode implements JSObject {
   external factory DetectedBarcode({
     required DOMRectReadOnly boundingBox,
-    required JSString rawValue,
+    required String rawValue,
     required BarcodeFormat format,
     required JSArray cornerPoints,
   });
@@ -111,8 +111,8 @@ class DetectedBarcode implements JSObject {
 extension DetectedBarcodeExtension on DetectedBarcode {
   external set boundingBox(DOMRectReadOnly value);
   external DOMRectReadOnly get boundingBox;
-  external set rawValue(JSString value);
-  external JSString get rawValue;
+  external set rawValue(String value);
+  external String get rawValue;
   external set format(BarcodeFormat value);
   external BarcodeFormat get format;
   external set cornerPoints(JSArray value);

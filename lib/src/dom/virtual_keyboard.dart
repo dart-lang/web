@@ -16,8 +16,8 @@ extension VirtualKeyboardExtension on VirtualKeyboard {
   external JSVoid show();
   external JSVoid hide();
   external DOMRect get boundingRect;
-  external set overlaysContent(JSBoolean value);
-  external JSBoolean get overlaysContent;
+  external set overlaysContent(bool value);
+  external bool get overlaysContent;
   external set ongeometrychange(EventHandler value);
   external EventHandler get ongeometrychange;
 }

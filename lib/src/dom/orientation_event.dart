@@ -10,7 +10,7 @@ import 'dom.dart';
 @staticInterop
 class DeviceOrientationEvent implements Event {
   external factory DeviceOrientationEvent(
-    JSString type, [
+    String type, [
     DeviceOrientationEventInit eventInitDict,
   ]);
 
@@ -18,10 +18,10 @@ class DeviceOrientationEvent implements Event {
 }
 
 extension DeviceOrientationEventExtension on DeviceOrientationEvent {
-  external JSNumber? get alpha;
-  external JSNumber? get beta;
-  external JSNumber? get gamma;
-  external JSBoolean get absolute;
+  external double? get alpha;
+  external double? get beta;
+  external double? get gamma;
+  external bool get absolute;
 }
 
 @JS()
@@ -29,22 +29,22 @@ extension DeviceOrientationEventExtension on DeviceOrientationEvent {
 @anonymous
 class DeviceOrientationEventInit implements EventInit {
   external factory DeviceOrientationEventInit({
-    JSNumber? alpha,
-    JSNumber? beta,
-    JSNumber? gamma,
-    JSBoolean absolute,
+    double? alpha,
+    double? beta,
+    double? gamma,
+    bool absolute,
   });
 }
 
 extension DeviceOrientationEventInitExtension on DeviceOrientationEventInit {
-  external set alpha(JSNumber? value);
-  external JSNumber? get alpha;
-  external set beta(JSNumber? value);
-  external JSNumber? get beta;
-  external set gamma(JSNumber? value);
-  external JSNumber? get gamma;
-  external set absolute(JSBoolean value);
-  external JSBoolean get absolute;
+  external set alpha(double? value);
+  external double? get alpha;
+  external set beta(double? value);
+  external double? get beta;
+  external set gamma(double? value);
+  external double? get gamma;
+  external set absolute(bool value);
+  external bool get absolute;
 }
 
 @JS('DeviceMotionEventAcceleration')
@@ -53,9 +53,9 @@ class DeviceMotionEventAcceleration implements JSObject {}
 
 extension DeviceMotionEventAccelerationExtension
     on DeviceMotionEventAcceleration {
-  external JSNumber? get x;
-  external JSNumber? get y;
-  external JSNumber? get z;
+  external double? get x;
+  external double? get y;
+  external double? get z;
 }
 
 @JS('DeviceMotionEventRotationRate')
@@ -64,16 +64,16 @@ class DeviceMotionEventRotationRate implements JSObject {}
 
 extension DeviceMotionEventRotationRateExtension
     on DeviceMotionEventRotationRate {
-  external JSNumber? get alpha;
-  external JSNumber? get beta;
-  external JSNumber? get gamma;
+  external double? get alpha;
+  external double? get beta;
+  external double? get gamma;
 }
 
 @JS('DeviceMotionEvent')
 @staticInterop
 class DeviceMotionEvent implements Event {
   external factory DeviceMotionEvent(
-    JSString type, [
+    String type, [
     DeviceMotionEventInit eventInitDict,
   ]);
 
@@ -84,7 +84,7 @@ extension DeviceMotionEventExtension on DeviceMotionEvent {
   external DeviceMotionEventAcceleration? get acceleration;
   external DeviceMotionEventAcceleration? get accelerationIncludingGravity;
   external DeviceMotionEventRotationRate? get rotationRate;
-  external JSNumber get interval;
+  external double get interval;
 }
 
 @JS()
@@ -92,20 +92,20 @@ extension DeviceMotionEventExtension on DeviceMotionEvent {
 @anonymous
 class DeviceMotionEventAccelerationInit implements JSObject {
   external factory DeviceMotionEventAccelerationInit({
-    JSNumber? x,
-    JSNumber? y,
-    JSNumber? z,
+    double? x,
+    double? y,
+    double? z,
   });
 }
 
 extension DeviceMotionEventAccelerationInitExtension
     on DeviceMotionEventAccelerationInit {
-  external set x(JSNumber? value);
-  external JSNumber? get x;
-  external set y(JSNumber? value);
-  external JSNumber? get y;
-  external set z(JSNumber? value);
-  external JSNumber? get z;
+  external set x(double? value);
+  external double? get x;
+  external set y(double? value);
+  external double? get y;
+  external set z(double? value);
+  external double? get z;
 }
 
 @JS()
@@ -113,20 +113,20 @@ extension DeviceMotionEventAccelerationInitExtension
 @anonymous
 class DeviceMotionEventRotationRateInit implements JSObject {
   external factory DeviceMotionEventRotationRateInit({
-    JSNumber? alpha,
-    JSNumber? beta,
-    JSNumber? gamma,
+    double? alpha,
+    double? beta,
+    double? gamma,
   });
 }
 
 extension DeviceMotionEventRotationRateInitExtension
     on DeviceMotionEventRotationRateInit {
-  external set alpha(JSNumber? value);
-  external JSNumber? get alpha;
-  external set beta(JSNumber? value);
-  external JSNumber? get beta;
-  external set gamma(JSNumber? value);
-  external JSNumber? get gamma;
+  external set alpha(double? value);
+  external double? get alpha;
+  external set beta(double? value);
+  external double? get beta;
+  external set gamma(double? value);
+  external double? get gamma;
 }
 
 @JS()
@@ -137,7 +137,7 @@ class DeviceMotionEventInit implements EventInit {
     DeviceMotionEventAccelerationInit acceleration,
     DeviceMotionEventAccelerationInit accelerationIncludingGravity,
     DeviceMotionEventRotationRateInit rotationRate,
-    JSNumber interval,
+    double interval,
   });
 }
 
@@ -149,6 +149,6 @@ extension DeviceMotionEventInitExtension on DeviceMotionEventInit {
   external DeviceMotionEventAccelerationInit get accelerationIncludingGravity;
   external set rotationRate(DeviceMotionEventRotationRateInit value);
   external DeviceMotionEventRotationRateInit get rotationRate;
-  external set interval(JSNumber value);
-  external JSNumber get interval;
+  external set interval(double value);
+  external double get interval;
 }

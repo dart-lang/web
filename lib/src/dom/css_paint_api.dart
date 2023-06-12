@@ -13,23 +13,23 @@ class PaintWorkletGlobalScope implements WorkletGlobalScope {}
 
 extension PaintWorkletGlobalScopeExtension on PaintWorkletGlobalScope {
   external JSVoid registerPaint(
-    JSString name,
+    String name,
     VoidFunction paintCtor,
   );
-  external JSNumber get devicePixelRatio;
+  external double get devicePixelRatio;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class PaintRenderingContext2DSettings implements JSObject {
-  external factory PaintRenderingContext2DSettings({JSBoolean alpha});
+  external factory PaintRenderingContext2DSettings({bool alpha});
 }
 
 extension PaintRenderingContext2DSettingsExtension
     on PaintRenderingContext2DSettings {
-  external set alpha(JSBoolean value);
-  external JSBoolean get alpha;
+  external set alpha(bool value);
+  external bool get alpha;
 }
 
 @JS('PaintRenderingContext2D')
@@ -53,6 +53,6 @@ class PaintRenderingContext2D
 class PaintSize implements JSObject {}
 
 extension PaintSizeExtension on PaintSize {
-  external JSNumber get width;
-  external JSNumber get height;
+  external double get width;
+  external double get height;
 }

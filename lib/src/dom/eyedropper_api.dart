@@ -10,12 +10,12 @@ import 'dom.dart';
 @staticInterop
 @anonymous
 class ColorSelectionResult implements JSObject {
-  external factory ColorSelectionResult({JSString sRGBHex});
+  external factory ColorSelectionResult({String sRGBHex});
 }
 
 extension ColorSelectionResultExtension on ColorSelectionResult {
-  external set sRGBHex(JSString value);
-  external JSString get sRGBHex;
+  external set sRGBHex(String value);
+  external String get sRGBHex;
 }
 
 @JS()

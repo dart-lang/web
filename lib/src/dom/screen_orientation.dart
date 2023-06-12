@@ -7,8 +7,8 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
-typedef OrientationLockType = JSString;
-typedef OrientationType = JSString;
+typedef OrientationLockType = String;
+typedef OrientationType = String;
 
 @JS('ScreenOrientation')
 @staticInterop
@@ -18,7 +18,7 @@ extension ScreenOrientationExtension on ScreenOrientation {
   external JSPromise lock(OrientationLockType orientation);
   external JSVoid unlock();
   external OrientationType get type;
-  external JSNumber get angle;
+  external int get angle;
   external set onchange(EventHandler value);
   external EventHandler get onchange;
 }

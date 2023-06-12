@@ -22,8 +22,8 @@ class FontData implements JSObject {}
 
 extension FontDataExtension on FontData {
   external JSPromise blob();
-  external JSString get postscriptName;
-  external JSString get fullName;
-  external JSString get family;
-  external JSString get style;
+  external String get postscriptName;
+  external String get fullName;
+  external String get family;
+  external String get style;
 }

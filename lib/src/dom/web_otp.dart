@@ -6,14 +6,14 @@ import 'dart:js_interop';
 
 import 'credential_management.dart';
 
-typedef OTPCredentialTransportType = JSString;
+typedef OTPCredentialTransportType = String;
 
 @JS('OTPCredential')
 @staticInterop
 class OTPCredential implements Credential {}
 
 extension OTPCredentialExtension on OTPCredential {
-  external JSString get code;
+  external String get code;
 }
 
 @JS()

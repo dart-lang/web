@@ -6,11 +6,11 @@ import 'dart:js_interop';
 
 import 'encrypted_media.dart';
 
-typedef MediaDecodingType = JSString;
-typedef MediaEncodingType = JSString;
-typedef HdrMetadataType = JSString;
-typedef ColorGamut = JSString;
-typedef TransferFunction = JSString;
+typedef MediaDecodingType = String;
+typedef MediaEncodingType = String;
+typedef HdrMetadataType = String;
+typedef ColorGamut = String;
+typedef TransferFunction = String;
 
 @JS()
 @staticInterop
@@ -65,43 +65,43 @@ extension MediaEncodingConfigurationExtension on MediaEncodingConfiguration {
 @anonymous
 class VideoConfiguration implements JSObject {
   external factory VideoConfiguration({
-    required JSString contentType,
-    required JSNumber width,
-    required JSNumber height,
-    required JSNumber bitrate,
-    required JSNumber framerate,
-    JSBoolean hasAlphaChannel,
+    required String contentType,
+    required int width,
+    required int height,
+    required int bitrate,
+    required double framerate,
+    bool hasAlphaChannel,
     HdrMetadataType hdrMetadataType,
     ColorGamut colorGamut,
     TransferFunction transferFunction,
-    JSString scalabilityMode,
-    JSBoolean spatialScalability,
+    String scalabilityMode,
+    bool spatialScalability,
   });
 }
 
 extension VideoConfigurationExtension on VideoConfiguration {
-  external set contentType(JSString value);
-  external JSString get contentType;
-  external set width(JSNumber value);
-  external JSNumber get width;
-  external set height(JSNumber value);
-  external JSNumber get height;
-  external set bitrate(JSNumber value);
-  external JSNumber get bitrate;
-  external set framerate(JSNumber value);
-  external JSNumber get framerate;
-  external set hasAlphaChannel(JSBoolean value);
-  external JSBoolean get hasAlphaChannel;
+  external set contentType(String value);
+  external String get contentType;
+  external set width(int value);
+  external int get width;
+  external set height(int value);
+  external int get height;
+  external set bitrate(int value);
+  external int get bitrate;
+  external set framerate(double value);
+  external double get framerate;
+  external set hasAlphaChannel(bool value);
+  external bool get hasAlphaChannel;
   external set hdrMetadataType(HdrMetadataType value);
   external HdrMetadataType get hdrMetadataType;
   external set colorGamut(ColorGamut value);
   external ColorGamut get colorGamut;
   external set transferFunction(TransferFunction value);
   external TransferFunction get transferFunction;
-  external set scalabilityMode(JSString value);
-  external JSString get scalabilityMode;
-  external set spatialScalability(JSBoolean value);
-  external JSBoolean get spatialScalability;
+  external set scalabilityMode(String value);
+  external String get scalabilityMode;
+  external set spatialScalability(bool value);
+  external bool get spatialScalability;
 }
 
 @JS()
@@ -109,25 +109,25 @@ extension VideoConfigurationExtension on VideoConfiguration {
 @anonymous
 class AudioConfiguration implements JSObject {
   external factory AudioConfiguration({
-    required JSString contentType,
-    JSString channels,
-    JSNumber bitrate,
-    JSNumber samplerate,
-    JSBoolean spatialRendering,
+    required String contentType,
+    String channels,
+    int bitrate,
+    int samplerate,
+    bool spatialRendering,
   });
 }
 
 extension AudioConfigurationExtension on AudioConfiguration {
-  external set contentType(JSString value);
-  external JSString get contentType;
-  external set channels(JSString value);
-  external JSString get channels;
-  external set bitrate(JSNumber value);
-  external JSNumber get bitrate;
-  external set samplerate(JSNumber value);
-  external JSNumber get samplerate;
-  external set spatialRendering(JSBoolean value);
-  external JSBoolean get spatialRendering;
+  external set contentType(String value);
+  external String get contentType;
+  external set channels(String value);
+  external String get channels;
+  external set bitrate(int value);
+  external int get bitrate;
+  external set samplerate(int value);
+  external int get samplerate;
+  external set spatialRendering(bool value);
+  external bool get spatialRendering;
 }
 
 @JS()
@@ -135,8 +135,8 @@ extension AudioConfigurationExtension on AudioConfiguration {
 @anonymous
 class MediaCapabilitiesKeySystemConfiguration implements JSObject {
   external factory MediaCapabilitiesKeySystemConfiguration({
-    required JSString keySystem,
-    JSString initDataType,
+    required String keySystem,
+    String initDataType,
     MediaKeysRequirement distinctiveIdentifier,
     MediaKeysRequirement persistentState,
     JSArray sessionTypes,
@@ -147,10 +147,10 @@ class MediaCapabilitiesKeySystemConfiguration implements JSObject {
 
 extension MediaCapabilitiesKeySystemConfigurationExtension
     on MediaCapabilitiesKeySystemConfiguration {
-  external set keySystem(JSString value);
-  external JSString get keySystem;
-  external set initDataType(JSString value);
-  external JSString get initDataType;
+  external set keySystem(String value);
+  external String get keySystem;
+  external set initDataType(String value);
+  external String get initDataType;
   external set distinctiveIdentifier(MediaKeysRequirement value);
   external MediaKeysRequirement get distinctiveIdentifier;
   external set persistentState(MediaKeysRequirement value);
@@ -168,16 +168,16 @@ extension MediaCapabilitiesKeySystemConfigurationExtension
 @anonymous
 class KeySystemTrackConfiguration implements JSObject {
   external factory KeySystemTrackConfiguration({
-    JSString robustness,
-    JSString? encryptionScheme,
+    String robustness,
+    String? encryptionScheme,
   });
 }
 
 extension KeySystemTrackConfigurationExtension on KeySystemTrackConfiguration {
-  external set robustness(JSString value);
-  external JSString get robustness;
-  external set encryptionScheme(JSString? value);
-  external JSString? get encryptionScheme;
+  external set robustness(String value);
+  external String get robustness;
+  external set encryptionScheme(String? value);
+  external String? get encryptionScheme;
 }
 
 @JS()
@@ -185,19 +185,19 @@ extension KeySystemTrackConfigurationExtension on KeySystemTrackConfiguration {
 @anonymous
 class MediaCapabilitiesInfo implements JSObject {
   external factory MediaCapabilitiesInfo({
-    required JSBoolean supported,
-    required JSBoolean smooth,
-    required JSBoolean powerEfficient,
+    required bool supported,
+    required bool smooth,
+    required bool powerEfficient,
   });
 }
 
 extension MediaCapabilitiesInfoExtension on MediaCapabilitiesInfo {
-  external set supported(JSBoolean value);
-  external JSBoolean get supported;
-  external set smooth(JSBoolean value);
-  external JSBoolean get smooth;
-  external set powerEfficient(JSBoolean value);
-  external JSBoolean get powerEfficient;
+  external set supported(bool value);
+  external bool get supported;
+  external set smooth(bool value);
+  external bool get smooth;
+  external set powerEfficient(bool value);
+  external bool get powerEfficient;
 }
 
 @JS()

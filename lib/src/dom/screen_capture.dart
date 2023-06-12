@@ -4,12 +4,12 @@
 
 import 'dart:js_interop';
 
-typedef CaptureStartFocusBehavior = JSString;
-typedef SelfCapturePreferenceEnum = JSString;
-typedef SystemAudioPreferenceEnum = JSString;
-typedef SurfaceSwitchingPreferenceEnum = JSString;
-typedef DisplayCaptureSurfaceType = JSString;
-typedef CursorCaptureConstraint = JSString;
+typedef CaptureStartFocusBehavior = String;
+typedef SelfCapturePreferenceEnum = String;
+typedef SystemAudioPreferenceEnum = String;
+typedef SurfaceSwitchingPreferenceEnum = String;
+typedef DisplayCaptureSurfaceType = String;
+typedef CursorCaptureConstraint = String;
 
 @JS('CaptureController')
 @staticInterop

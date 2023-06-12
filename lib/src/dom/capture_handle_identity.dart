@@ -9,17 +9,17 @@ import 'dart:js_interop';
 @anonymous
 class CaptureHandleConfig implements JSObject {
   external factory CaptureHandleConfig({
-    JSBoolean exposeOrigin,
-    JSString handle,
+    bool exposeOrigin,
+    String handle,
     JSArray permittedOrigins,
   });
 }
 
 extension CaptureHandleConfigExtension on CaptureHandleConfig {
-  external set exposeOrigin(JSBoolean value);
-  external JSBoolean get exposeOrigin;
-  external set handle(JSString value);
-  external JSString get handle;
+  external set exposeOrigin(bool value);
+  external bool get exposeOrigin;
+  external set handle(String value);
+  external String get handle;
   external set permittedOrigins(JSArray value);
   external JSArray get permittedOrigins;
 }
@@ -29,14 +29,14 @@ extension CaptureHandleConfigExtension on CaptureHandleConfig {
 @anonymous
 class CaptureHandle implements JSObject {
   external factory CaptureHandle({
-    JSString origin,
-    JSString handle,
+    String origin,
+    String handle,
   });
 }
 
 extension CaptureHandleExtension on CaptureHandle {
-  external set origin(JSString value);
-  external JSString get origin;
-  external set handle(JSString value);
-  external JSString get handle;
+  external set origin(String value);
+  external String get origin;
+  external set handle(String value);
+  external String get handle;
 }

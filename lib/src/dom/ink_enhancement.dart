@@ -37,7 +37,7 @@ extension InkPresenterExtension on InkPresenter {
     InkTrailStyle style,
   );
   external Element? get presentationArea;
-  external JSNumber get expectedImprovement;
+  external int get expectedImprovement;
 }
 
 @JS()
@@ -45,14 +45,14 @@ extension InkPresenterExtension on InkPresenter {
 @anonymous
 class InkTrailStyle implements JSObject {
   external factory InkTrailStyle({
-    required JSString color,
-    required JSNumber diameter,
+    required String color,
+    required double diameter,
   });
 }
 
 extension InkTrailStyleExtension on InkTrailStyle {
-  external set color(JSString value);
-  external JSString get color;
-  external set diameter(JSNumber value);
-  external JSNumber get diameter;
+  external set color(String value);
+  external String get color;
+  external set diameter(double value);
+  external double get diameter;
 }

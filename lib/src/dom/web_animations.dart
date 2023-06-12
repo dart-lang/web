@@ -11,12 +11,12 @@ import 'html.dart';
 import 'scroll_animations.dart';
 import 'web_animations_2.dart';
 
-typedef AnimationPlayState = JSString;
-typedef AnimationReplaceState = JSString;
-typedef FillMode = JSString;
-typedef PlaybackDirection = JSString;
-typedef CompositeOperation = JSString;
-typedef CompositeOperationOrAuto = JSString;
+typedef AnimationPlayState = String;
+typedef AnimationReplaceState = String;
+typedef FillMode = String;
+typedef PlaybackDirection = String;
+typedef CompositeOperation = String;
+typedef CompositeOperationOrAuto = String;
 
 @JS('AnimationTimeline')
 @staticInterop
@@ -61,7 +61,7 @@ extension AnimationExtension on Animation {
   external JSVoid finish();
   external JSVoid play();
   external JSVoid pause();
-  external JSVoid updatePlaybackRate(JSNumber playbackRate);
+  external JSVoid updatePlaybackRate(double playbackRate);
   external JSVoid reverse();
   external JSVoid persist();
   external JSVoid commitStyles();
@@ -69,17 +69,17 @@ extension AnimationExtension on Animation {
   external CSSNumberish? get startTime;
   external set currentTime(CSSNumberish? value);
   external CSSNumberish? get currentTime;
-  external set id(JSString value);
-  external JSString get id;
+  external set id(String value);
+  external String get id;
   external set effect(AnimationEffect? value);
   external AnimationEffect? get effect;
   external set timeline(AnimationTimeline? value);
   external AnimationTimeline? get timeline;
-  external set playbackRate(JSNumber value);
-  external JSNumber get playbackRate;
+  external set playbackRate(double value);
+  external double get playbackRate;
   external AnimationPlayState get playState;
   external AnimationReplaceState get replaceState;
-  external JSBoolean get pending;
+  external bool get pending;
   external JSPromise get ready;
   external JSPromise get finished;
   external set onfinish(EventHandler value);
@@ -112,37 +112,37 @@ extension AnimationEffectExtension on AnimationEffect {
 @anonymous
 class EffectTiming implements JSObject {
   external factory EffectTiming({
-    JSNumber delay,
-    JSNumber endDelay,
-    JSNumber playbackRate,
+    double delay,
+    double endDelay,
+    double playbackRate,
     JSAny? duration,
     FillMode fill,
-    JSNumber iterationStart,
-    JSNumber iterations,
+    double iterationStart,
+    double iterations,
     PlaybackDirection direction,
-    JSString easing,
+    String easing,
   });
 }
 
 extension EffectTimingExtension on EffectTiming {
-  external set delay(JSNumber value);
-  external JSNumber get delay;
-  external set endDelay(JSNumber value);
-  external JSNumber get endDelay;
-  external set playbackRate(JSNumber value);
-  external JSNumber get playbackRate;
+  external set delay(double value);
+  external double get delay;
+  external set endDelay(double value);
+  external double get endDelay;
+  external set playbackRate(double value);
+  external double get playbackRate;
   external set duration(JSAny? value);
   external JSAny? get duration;
   external set fill(FillMode value);
   external FillMode get fill;
-  external set iterationStart(JSNumber value);
-  external JSNumber get iterationStart;
-  external set iterations(JSNumber value);
-  external JSNumber get iterations;
+  external set iterationStart(double value);
+  external double get iterationStart;
+  external set iterations(double value);
+  external double get iterations;
   external set direction(PlaybackDirection value);
   external PlaybackDirection get direction;
-  external set easing(JSString value);
-  external JSString get easing;
+  external set easing(String value);
+  external String get easing;
 }
 
 @JS()
@@ -150,37 +150,37 @@ extension EffectTimingExtension on EffectTiming {
 @anonymous
 class OptionalEffectTiming implements JSObject {
   external factory OptionalEffectTiming({
-    JSNumber playbackRate,
-    JSNumber delay,
-    JSNumber endDelay,
+    double playbackRate,
+    double delay,
+    double endDelay,
     FillMode fill,
-    JSNumber iterationStart,
-    JSNumber iterations,
+    double iterationStart,
+    double iterations,
     JSAny? duration,
     PlaybackDirection direction,
-    JSString easing,
+    String easing,
   });
 }
 
 extension OptionalEffectTimingExtension on OptionalEffectTiming {
-  external set playbackRate(JSNumber value);
-  external JSNumber get playbackRate;
-  external set delay(JSNumber value);
-  external JSNumber get delay;
-  external set endDelay(JSNumber value);
-  external JSNumber get endDelay;
+  external set playbackRate(double value);
+  external double get playbackRate;
+  external set delay(double value);
+  external double get delay;
+  external set endDelay(double value);
+  external double get endDelay;
   external set fill(FillMode value);
   external FillMode get fill;
-  external set iterationStart(JSNumber value);
-  external JSNumber get iterationStart;
-  external set iterations(JSNumber value);
-  external JSNumber get iterations;
+  external set iterationStart(double value);
+  external double get iterationStart;
+  external set iterations(double value);
+  external double get iterations;
   external set duration(JSAny? value);
   external JSAny? get duration;
   external set direction(PlaybackDirection value);
   external PlaybackDirection get direction;
-  external set easing(JSString value);
-  external JSString get easing;
+  external set easing(String value);
+  external String get easing;
 }
 
 @JS()
@@ -192,8 +192,8 @@ class ComputedEffectTiming implements EffectTiming {
     CSSNumberish endTime,
     CSSNumberish activeDuration,
     CSSNumberish? localTime,
-    JSNumber? progress,
-    JSNumber? currentIteration,
+    double? progress,
+    double? currentIteration,
   });
 }
 
@@ -206,10 +206,10 @@ extension ComputedEffectTimingExtension on ComputedEffectTiming {
   external CSSNumberish get activeDuration;
   external set localTime(CSSNumberish? value);
   external CSSNumberish? get localTime;
-  external set progress(JSNumber? value);
-  external JSNumber? get progress;
-  external set currentIteration(JSNumber? value);
-  external JSNumber? get currentIteration;
+  external set progress(double? value);
+  external double? get progress;
+  external set currentIteration(double? value);
+  external double? get currentIteration;
 }
 
 @JS('KeyframeEffect')
@@ -229,8 +229,8 @@ extension KeyframeEffectExtension on KeyframeEffect {
   external IterationCompositeOperation get iterationComposite;
   external set target(Element? value);
   external Element? get target;
-  external set pseudoElement(JSString? value);
-  external JSString? get pseudoElement;
+  external set pseudoElement(String? value);
+  external String? get pseudoElement;
   external set composite(CompositeOperation value);
   external CompositeOperation get composite;
 }
@@ -240,20 +240,20 @@ extension KeyframeEffectExtension on KeyframeEffect {
 @anonymous
 class BaseComputedKeyframe implements JSObject {
   external factory BaseComputedKeyframe({
-    JSNumber? offset,
-    JSNumber computedOffset,
-    JSString easing,
+    double? offset,
+    double computedOffset,
+    String easing,
     CompositeOperationOrAuto composite,
   });
 }
 
 extension BaseComputedKeyframeExtension on BaseComputedKeyframe {
-  external set offset(JSNumber? value);
-  external JSNumber? get offset;
-  external set computedOffset(JSNumber value);
-  external JSNumber get computedOffset;
-  external set easing(JSString value);
-  external JSString get easing;
+  external set offset(double? value);
+  external double? get offset;
+  external set computedOffset(double value);
+  external double get computedOffset;
+  external set easing(String value);
+  external String get easing;
   external set composite(CompositeOperationOrAuto value);
   external CompositeOperationOrAuto get composite;
 }
@@ -283,17 +283,17 @@ extension BasePropertyIndexedKeyframeExtension on BasePropertyIndexedKeyframe {
 @anonymous
 class BaseKeyframe implements JSObject {
   external factory BaseKeyframe({
-    JSNumber? offset,
-    JSString easing,
+    double? offset,
+    String easing,
     CompositeOperationOrAuto composite,
   });
 }
 
 extension BaseKeyframeExtension on BaseKeyframe {
-  external set offset(JSNumber? value);
-  external JSNumber? get offset;
-  external set easing(JSString value);
-  external JSString get easing;
+  external set offset(double? value);
+  external double? get offset;
+  external set easing(String value);
+  external String get easing;
   external set composite(CompositeOperationOrAuto value);
   external CompositeOperationOrAuto get composite;
 }
@@ -305,7 +305,7 @@ class KeyframeEffectOptions implements EffectTiming {
   external factory KeyframeEffectOptions({
     IterationCompositeOperation iterationComposite,
     CompositeOperation composite,
-    JSString? pseudoElement,
+    String? pseudoElement,
   });
 }
 
@@ -314,8 +314,8 @@ extension KeyframeEffectOptionsExtension on KeyframeEffectOptions {
   external IterationCompositeOperation get iterationComposite;
   external set composite(CompositeOperation value);
   external CompositeOperation get composite;
-  external set pseudoElement(JSString? value);
-  external JSString? get pseudoElement;
+  external set pseudoElement(String? value);
+  external String? get pseudoElement;
 }
 
 @JS('Animatable')
@@ -337,7 +337,7 @@ class KeyframeAnimationOptions implements KeyframeEffectOptions {
   external factory KeyframeAnimationOptions({
     JSAny? rangeStart,
     JSAny? rangeEnd,
-    JSString id,
+    String id,
     AnimationTimeline? timeline,
   });
 }
@@ -347,8 +347,8 @@ extension KeyframeAnimationOptionsExtension on KeyframeAnimationOptions {
   external JSAny? get rangeStart;
   external set rangeEnd(JSAny? value);
   external JSAny? get rangeEnd;
-  external set id(JSString value);
-  external JSString get id;
+  external set id(String value);
+  external String get id;
   external set timeline(AnimationTimeline? value);
   external AnimationTimeline? get timeline;
 }
@@ -357,10 +357,10 @@ extension KeyframeAnimationOptionsExtension on KeyframeAnimationOptions {
 @staticInterop
 @anonymous
 class GetAnimationsOptions implements JSObject {
-  external factory GetAnimationsOptions({JSBoolean subtree});
+  external factory GetAnimationsOptions({bool subtree});
 }
 
 extension GetAnimationsOptionsExtension on GetAnimationsOptions {
-  external set subtree(JSBoolean value);
-  external JSBoolean get subtree;
+  external set subtree(bool value);
+  external bool get subtree;
 }

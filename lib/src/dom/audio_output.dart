@@ -8,10 +8,10 @@ import 'dart:js_interop';
 @staticInterop
 @anonymous
 class AudioOutputOptions implements JSObject {
-  external factory AudioOutputOptions({JSString deviceId});
+  external factory AudioOutputOptions({String deviceId});
 }
 
 extension AudioOutputOptionsExtension on AudioOutputOptions {
-  external set deviceId(JSString value);
-  external JSString get deviceId;
+  external set deviceId(String value);
+  external String get deviceId;
 }

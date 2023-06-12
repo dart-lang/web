@@ -9,20 +9,20 @@ import 'dart:js_interop';
 @anonymous
 class RelatedApplication implements JSObject {
   external factory RelatedApplication({
-    required JSString platform,
-    JSString url,
-    JSString id,
-    JSString version,
+    required String platform,
+    String url,
+    String id,
+    String version,
   });
 }
 
 extension RelatedApplicationExtension on RelatedApplication {
-  external set platform(JSString value);
-  external JSString get platform;
-  external set url(JSString value);
-  external JSString get url;
-  external set id(JSString value);
-  external JSString get id;
-  external set version(JSString value);
-  external JSString get version;
+  external set platform(String value);
+  external String get platform;
+  external set url(String value);
+  external String get url;
+  external set id(String value);
+  external String get id;
+  external set version(String value);
+  external String get version;
 }

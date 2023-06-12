@@ -15,7 +15,7 @@ extension $ConsoleExtension on $Console {
   @JS('assert')
   external JSVoid assert_(
     JSAny? data, [
-    JSBoolean condition,
+    bool condition,
   ]);
   external JSVoid clear();
   external JSVoid debug(JSAny? data);
@@ -33,15 +33,15 @@ extension $ConsoleExtension on $Console {
     JSObject? options,
   ]);
   external JSVoid dirxml(JSAny? data);
-  external JSVoid count([JSString label]);
-  external JSVoid countReset([JSString label]);
+  external JSVoid count([String label]);
+  external JSVoid countReset([String label]);
   external JSVoid group(JSAny? data);
   external JSVoid groupCollapsed(JSAny? data);
   external JSVoid groupEnd();
-  external JSVoid time([JSString label]);
+  external JSVoid time([String label]);
   external JSVoid timeLog(
     JSAny? data, [
-    JSString label,
+    String label,
   ]);
-  external JSVoid timeEnd([JSString label]);
+  external JSVoid timeEnd([String label]);
 }

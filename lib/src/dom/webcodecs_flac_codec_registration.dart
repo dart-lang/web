@@ -9,14 +9,14 @@ import 'dart:js_interop';
 @anonymous
 class FlacEncoderConfig implements JSObject {
   external factory FlacEncoderConfig({
-    JSNumber blockSize,
-    JSNumber compressLevel,
+    int blockSize,
+    int compressLevel,
   });
 }
 
 extension FlacEncoderConfigExtension on FlacEncoderConfig {
-  external set blockSize(JSNumber value);
-  external JSNumber get blockSize;
-  external set compressLevel(JSNumber value);
-  external JSNumber get compressLevel;
+  external set blockSize(int value);
+  external int get blockSize;
+  external set compressLevel(int value);
+  external int get compressLevel;
 }

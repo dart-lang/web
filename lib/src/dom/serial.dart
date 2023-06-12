@@ -8,8 +8,8 @@ import 'dom.dart';
 import 'html.dart';
 import 'streams.dart';
 
-typedef ParityType = JSString;
-typedef FlowControlType = JSString;
+typedef ParityType = String;
+typedef FlowControlType = String;
 
 @JS('Serial')
 @staticInterop
@@ -41,16 +41,16 @@ extension SerialPortRequestOptionsExtension on SerialPortRequestOptions {
 @anonymous
 class SerialPortFilter implements JSObject {
   external factory SerialPortFilter({
-    JSNumber usbVendorId,
-    JSNumber usbProductId,
+    int usbVendorId,
+    int usbProductId,
   });
 }
 
 extension SerialPortFilterExtension on SerialPortFilter {
-  external set usbVendorId(JSNumber value);
-  external JSNumber get usbVendorId;
-  external set usbProductId(JSNumber value);
-  external JSNumber get usbProductId;
+  external set usbVendorId(int value);
+  external int get usbVendorId;
+  external set usbProductId(int value);
+  external int get usbProductId;
 }
 
 @JS('SerialPort')
@@ -77,16 +77,16 @@ extension SerialPortExtension on SerialPort {
 @anonymous
 class SerialPortInfo implements JSObject {
   external factory SerialPortInfo({
-    JSNumber usbVendorId,
-    JSNumber usbProductId,
+    int usbVendorId,
+    int usbProductId,
   });
 }
 
 extension SerialPortInfoExtension on SerialPortInfo {
-  external set usbVendorId(JSNumber value);
-  external JSNumber get usbVendorId;
-  external set usbProductId(JSNumber value);
-  external JSNumber get usbProductId;
+  external set usbVendorId(int value);
+  external int get usbVendorId;
+  external set usbProductId(int value);
+  external int get usbProductId;
 }
 
 @JS()
@@ -94,26 +94,26 @@ extension SerialPortInfoExtension on SerialPortInfo {
 @anonymous
 class SerialOptions implements JSObject {
   external factory SerialOptions({
-    required JSNumber baudRate,
-    JSNumber dataBits,
-    JSNumber stopBits,
+    required int baudRate,
+    int dataBits,
+    int stopBits,
     ParityType parity,
-    JSNumber bufferSize,
+    int bufferSize,
     FlowControlType flowControl,
   });
 }
 
 extension SerialOptionsExtension on SerialOptions {
-  external set baudRate(JSNumber value);
-  external JSNumber get baudRate;
-  external set dataBits(JSNumber value);
-  external JSNumber get dataBits;
-  external set stopBits(JSNumber value);
-  external JSNumber get stopBits;
+  external set baudRate(int value);
+  external int get baudRate;
+  external set dataBits(int value);
+  external int get dataBits;
+  external set stopBits(int value);
+  external int get stopBits;
   external set parity(ParityType value);
   external ParityType get parity;
-  external set bufferSize(JSNumber value);
-  external JSNumber get bufferSize;
+  external set bufferSize(int value);
+  external int get bufferSize;
   external set flowControl(FlowControlType value);
   external FlowControlType get flowControl;
 }
@@ -123,21 +123,21 @@ extension SerialOptionsExtension on SerialOptions {
 @anonymous
 class SerialOutputSignals implements JSObject {
   external factory SerialOutputSignals({
-    JSBoolean dataTerminalReady,
-    JSBoolean requestToSend,
-    JSBoolean break_,
+    bool dataTerminalReady,
+    bool requestToSend,
+    bool break_,
   });
 }
 
 extension SerialOutputSignalsExtension on SerialOutputSignals {
-  external set dataTerminalReady(JSBoolean value);
-  external JSBoolean get dataTerminalReady;
-  external set requestToSend(JSBoolean value);
-  external JSBoolean get requestToSend;
+  external set dataTerminalReady(bool value);
+  external bool get dataTerminalReady;
+  external set requestToSend(bool value);
+  external bool get requestToSend;
   @JS('break')
-  external set break_(JSBoolean value);
+  external set break_(bool value);
   @JS('break')
-  external JSBoolean get break_;
+  external bool get break_;
 }
 
 @JS()
@@ -145,20 +145,20 @@ extension SerialOutputSignalsExtension on SerialOutputSignals {
 @anonymous
 class SerialInputSignals implements JSObject {
   external factory SerialInputSignals({
-    required JSBoolean dataCarrierDetect,
-    required JSBoolean clearToSend,
-    required JSBoolean ringIndicator,
-    required JSBoolean dataSetReady,
+    required bool dataCarrierDetect,
+    required bool clearToSend,
+    required bool ringIndicator,
+    required bool dataSetReady,
   });
 }
 
 extension SerialInputSignalsExtension on SerialInputSignals {
-  external set dataCarrierDetect(JSBoolean value);
-  external JSBoolean get dataCarrierDetect;
-  external set clearToSend(JSBoolean value);
-  external JSBoolean get clearToSend;
-  external set ringIndicator(JSBoolean value);
-  external JSBoolean get ringIndicator;
-  external set dataSetReady(JSBoolean value);
-  external JSBoolean get dataSetReady;
+  external set dataCarrierDetect(bool value);
+  external bool get dataCarrierDetect;
+  external set clearToSend(bool value);
+  external bool get clearToSend;
+  external set ringIndicator(bool value);
+  external bool get ringIndicator;
+  external set dataSetReady(bool value);
+  external bool get dataSetReady;
 }

@@ -4,7 +4,7 @@
 
 import 'dart:js_interop';
 
-typedef HevcBitstreamFormat = JSString;
+typedef HevcBitstreamFormat = String;
 
 @JS()
 @staticInterop

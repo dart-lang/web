@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 import 'webxr.dart';
 
-typedef XRHandJoint = JSString;
+typedef XRHandJoint = String;
 
 @JS('XRHand')
 @staticInterop
@@ -14,7 +14,7 @@ class XRHand implements JSObject {}
 
 extension XRHandExtension on XRHand {
   external XRJointSpace get(XRHandJoint key);
-  external JSNumber get size;
+  external int get size;
 }
 
 @JS('XRJointSpace')
@@ -30,5 +30,5 @@ extension XRJointSpaceExtension on XRJointSpace {
 class XRJointPose implements XRPose {}
 
 extension XRJointPoseExtension on XRJointPose {
-  external JSNumber get radius;
+  external double get radius;
 }

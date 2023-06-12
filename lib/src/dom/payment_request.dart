@@ -7,7 +7,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
-typedef PaymentComplete = JSString;
+typedef PaymentComplete = String;
 
 @JS('PaymentRequest')
 @staticInterop
@@ -22,7 +22,7 @@ extension PaymentRequestExtension on PaymentRequest {
   external JSPromise show([JSPromise detailsPromise]);
   external JSPromise abort();
   external JSPromise canMakePayment();
-  external JSString get id;
+  external String get id;
   external set onpaymentmethodchange(EventHandler value);
   external EventHandler get onpaymentmethodchange;
 }
@@ -32,14 +32,14 @@ extension PaymentRequestExtension on PaymentRequest {
 @anonymous
 class PaymentMethodData implements JSObject {
   external factory PaymentMethodData({
-    required JSString supportedMethods,
+    required String supportedMethods,
     JSObject data,
   });
 }
 
 extension PaymentMethodDataExtension on PaymentMethodData {
-  external set supportedMethods(JSString value);
-  external JSString get supportedMethods;
+  external set supportedMethods(String value);
+  external String get supportedMethods;
   external set data(JSObject value);
   external JSObject get data;
 }
@@ -49,16 +49,16 @@ extension PaymentMethodDataExtension on PaymentMethodData {
 @anonymous
 class PaymentCurrencyAmount implements JSObject {
   external factory PaymentCurrencyAmount({
-    required JSString currency,
-    required JSString value,
+    required String currency,
+    required String value,
   });
 }
 
 extension PaymentCurrencyAmountExtension on PaymentCurrencyAmount {
-  external set currency(JSString value);
-  external JSString get currency;
-  external set value(JSString value);
-  external JSString get value;
+  external set currency(String value);
+  external String get currency;
+  external set value(String value);
+  external String get value;
 }
 
 @JS()
@@ -83,14 +83,14 @@ extension PaymentDetailsBaseExtension on PaymentDetailsBase {
 @anonymous
 class PaymentDetailsInit implements PaymentDetailsBase {
   external factory PaymentDetailsInit({
-    JSString id,
+    String id,
     required PaymentItem total,
   });
 }
 
 extension PaymentDetailsInitExtension on PaymentDetailsInit {
-  external set id(JSString value);
-  external JSString get id;
+  external set id(String value);
+  external String get id;
   external set total(PaymentItem value);
   external PaymentItem get total;
 }
@@ -117,7 +117,7 @@ extension PaymentDetailsUpdateExtension on PaymentDetailsUpdate {
 @anonymous
 class PaymentDetailsModifier implements JSObject {
   external factory PaymentDetailsModifier({
-    required JSString supportedMethods,
+    required String supportedMethods,
     PaymentItem total,
     JSArray additionalDisplayItems,
     JSObject data,
@@ -125,8 +125,8 @@ class PaymentDetailsModifier implements JSObject {
 }
 
 extension PaymentDetailsModifierExtension on PaymentDetailsModifier {
-  external set supportedMethods(JSString value);
-  external JSString get supportedMethods;
+  external set supportedMethods(String value);
+  external String get supportedMethods;
   external set total(PaymentItem value);
   external PaymentItem get total;
   external set additionalDisplayItems(JSArray value);
@@ -140,19 +140,19 @@ extension PaymentDetailsModifierExtension on PaymentDetailsModifier {
 @anonymous
 class PaymentItem implements JSObject {
   external factory PaymentItem({
-    required JSString label,
+    required String label,
     required PaymentCurrencyAmount amount,
-    JSBoolean pending,
+    bool pending,
   });
 }
 
 extension PaymentItemExtension on PaymentItem {
-  external set label(JSString value);
-  external JSString get label;
+  external set label(String value);
+  external String get label;
   external set amount(PaymentCurrencyAmount value);
   external PaymentCurrencyAmount get amount;
-  external set pending(JSBoolean value);
-  external JSBoolean get pending;
+  external set pending(bool value);
+  external bool get pending;
 }
 
 @JS()
@@ -178,8 +178,8 @@ extension PaymentResponseExtension on PaymentResponse {
     PaymentCompleteDetails details,
   ]);
   external JSPromise retry([PaymentValidationErrors errorFields]);
-  external JSString get requestId;
-  external JSString get methodName;
+  external String get requestId;
+  external String get methodName;
   external JSObject get details;
 }
 
@@ -188,14 +188,14 @@ extension PaymentResponseExtension on PaymentResponse {
 @anonymous
 class PaymentValidationErrors implements JSObject {
   external factory PaymentValidationErrors({
-    JSString error,
+    String error,
     JSObject paymentMethod,
   });
 }
 
 extension PaymentValidationErrorsExtension on PaymentValidationErrors {
-  external set error(JSString value);
-  external JSString get error;
+  external set error(String value);
+  external String get error;
   external set paymentMethod(JSObject value);
   external JSObject get paymentMethod;
 }
@@ -204,13 +204,13 @@ extension PaymentValidationErrorsExtension on PaymentValidationErrors {
 @staticInterop
 class PaymentMethodChangeEvent implements PaymentRequestUpdateEvent {
   external factory PaymentMethodChangeEvent(
-    JSString type, [
+    String type, [
     PaymentMethodChangeEventInit eventInitDict,
   ]);
 }
 
 extension PaymentMethodChangeEventExtension on PaymentMethodChangeEvent {
-  external JSString get methodName;
+  external String get methodName;
   external JSObject? get methodDetails;
 }
 
@@ -219,15 +219,15 @@ extension PaymentMethodChangeEventExtension on PaymentMethodChangeEvent {
 @anonymous
 class PaymentMethodChangeEventInit implements PaymentRequestUpdateEventInit {
   external factory PaymentMethodChangeEventInit({
-    JSString methodName,
+    String methodName,
     JSObject? methodDetails,
   });
 }
 
 extension PaymentMethodChangeEventInitExtension
     on PaymentMethodChangeEventInit {
-  external set methodName(JSString value);
-  external JSString get methodName;
+  external set methodName(String value);
+  external String get methodName;
   external set methodDetails(JSObject? value);
   external JSObject? get methodDetails;
 }
@@ -236,7 +236,7 @@ extension PaymentMethodChangeEventInitExtension
 @staticInterop
 class PaymentRequestUpdateEvent implements Event {
   external factory PaymentRequestUpdateEvent(
-    JSString type, [
+    String type, [
     PaymentRequestUpdateEventInit eventInitDict,
   ]);
 }

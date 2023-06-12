@@ -4,7 +4,7 @@
 
 import 'dart:js_interop';
 
-typedef AacBitstreamFormat = JSString;
+typedef AacBitstreamFormat = String;
 
 @JS()
 @staticInterop

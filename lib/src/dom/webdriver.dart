@@ -10,5 +10,5 @@ class NavigatorAutomationInformation implements JSObject {}
 
 extension NavigatorAutomationInformationExtension
     on NavigatorAutomationInformation {
-  external JSBoolean get webdriver;
+  external bool get webdriver;
 }

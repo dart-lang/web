@@ -9,5 +9,5 @@ import 'dart:js_interop';
 class CustomStateSet implements JSObject {}
 
 extension CustomStateSetExtension on CustomStateSet {
-  external JSVoid add(JSString value);
+  external JSVoid add(String value);
 }

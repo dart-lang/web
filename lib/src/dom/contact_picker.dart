@@ -4,7 +4,7 @@
 
 import 'dart:js_interop';
 
-typedef ContactProperty = JSString;
+typedef ContactProperty = String;
 
 @JS('ContactAddress')
 @staticInterop
@@ -12,15 +12,15 @@ class ContactAddress implements JSObject {}
 
 extension ContactAddressExtension on ContactAddress {
   external JSObject toJSON();
-  external JSString get city;
-  external JSString get country;
-  external JSString get dependentLocality;
-  external JSString get organization;
-  external JSString get phone;
-  external JSString get postalCode;
-  external JSString get recipient;
-  external JSString get region;
-  external JSString get sortingCode;
+  external String get city;
+  external String get country;
+  external String get dependentLocality;
+  external String get organization;
+  external String get phone;
+  external String get postalCode;
+  external String get recipient;
+  external String get region;
+  external String get sortingCode;
   external JSArray get addressLine;
 }
 
@@ -54,12 +54,12 @@ extension ContactInfoExtension on ContactInfo {
 @staticInterop
 @anonymous
 class ContactsSelectOptions implements JSObject {
-  external factory ContactsSelectOptions({JSBoolean multiple});
+  external factory ContactsSelectOptions({bool multiple});
 }
 
 extension ContactsSelectOptionsExtension on ContactsSelectOptions {
-  external set multiple(JSBoolean value);
-  external JSBoolean get multiple;
+  external set multiple(bool value);
+  external bool get multiple;
 }
 
 @JS('ContactsManager')

@@ -12,9 +12,9 @@ import 'webidl.dart';
 class TextDecoderCommon implements JSObject {}
 
 extension TextDecoderCommonExtension on TextDecoderCommon {
-  external JSString get encoding;
-  external JSBoolean get fatal;
-  external JSBoolean get ignoreBOM;
+  external String get encoding;
+  external bool get fatal;
+  external bool get ignoreBOM;
 }
 
 @JS()
@@ -22,41 +22,41 @@ extension TextDecoderCommonExtension on TextDecoderCommon {
 @anonymous
 class TextDecoderOptions implements JSObject {
   external factory TextDecoderOptions({
-    JSBoolean fatal,
-    JSBoolean ignoreBOM,
+    bool fatal,
+    bool ignoreBOM,
   });
 }
 
 extension TextDecoderOptionsExtension on TextDecoderOptions {
-  external set fatal(JSBoolean value);
-  external JSBoolean get fatal;
-  external set ignoreBOM(JSBoolean value);
-  external JSBoolean get ignoreBOM;
+  external set fatal(bool value);
+  external bool get fatal;
+  external set ignoreBOM(bool value);
+  external bool get ignoreBOM;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class TextDecodeOptions implements JSObject {
-  external factory TextDecodeOptions({JSBoolean stream});
+  external factory TextDecodeOptions({bool stream});
 }
 
 extension TextDecodeOptionsExtension on TextDecodeOptions {
-  external set stream(JSBoolean value);
-  external JSBoolean get stream;
+  external set stream(bool value);
+  external bool get stream;
 }
 
 @JS('TextDecoder')
 @staticInterop
 class TextDecoder implements TextDecoderCommon {
   external factory TextDecoder([
-    JSString label,
+    String label,
     TextDecoderOptions options,
   ]);
 }
 
 extension TextDecoderExtension on TextDecoder {
-  external JSString decode([
+  external String decode([
     BufferSource input,
     TextDecodeOptions options,
   ]);
@@ -67,7 +67,7 @@ extension TextDecoderExtension on TextDecoder {
 class TextEncoderCommon implements JSObject {}
 
 extension TextEncoderCommonExtension on TextEncoderCommon {
-  external JSString get encoding;
+  external String get encoding;
 }
 
 @JS()
@@ -75,16 +75,16 @@ extension TextEncoderCommonExtension on TextEncoderCommon {
 @anonymous
 class TextEncoderEncodeIntoResult implements JSObject {
   external factory TextEncoderEncodeIntoResult({
-    JSNumber read,
-    JSNumber written,
+    int read,
+    int written,
   });
 }
 
 extension TextEncoderEncodeIntoResultExtension on TextEncoderEncodeIntoResult {
-  external set read(JSNumber value);
-  external JSNumber get read;
-  external set written(JSNumber value);
-  external JSNumber get written;
+  external set read(int value);
+  external int get read;
+  external set written(int value);
+  external int get written;
 }
 
 @JS('TextEncoder')
@@ -94,9 +94,9 @@ class TextEncoder implements TextEncoderCommon {
 }
 
 extension TextEncoderExtension on TextEncoder {
-  external JSUint8Array encode([JSString input]);
+  external JSUint8Array encode([String input]);
   external TextEncoderEncodeIntoResult encodeInto(
-    JSString source,
+    String source,
     JSUint8Array destination,
   );
 }
@@ -105,7 +105,7 @@ extension TextEncoderExtension on TextEncoder {
 @staticInterop
 class TextDecoderStream implements TextDecoderCommon, GenericTransformStream {
   external factory TextDecoderStream([
-    JSString label,
+    String label,
     TextDecoderOptions options,
   ]);
 }

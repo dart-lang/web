@@ -8,7 +8,7 @@ import 'dom.dart';
 import 'html.dart';
 import 'webidl.dart';
 
-typedef HIDUnitSystem = JSString;
+typedef HIDUnitSystem = String;
 
 @JS('HID')
 @staticInterop
@@ -45,22 +45,22 @@ extension HIDDeviceRequestOptionsExtension on HIDDeviceRequestOptions {
 @anonymous
 class HIDDeviceFilter implements JSObject {
   external factory HIDDeviceFilter({
-    JSNumber vendorId,
-    JSNumber productId,
-    JSNumber usagePage,
-    JSNumber usage,
+    int vendorId,
+    int productId,
+    int usagePage,
+    int usage,
   });
 }
 
 extension HIDDeviceFilterExtension on HIDDeviceFilter {
-  external set vendorId(JSNumber value);
-  external JSNumber get vendorId;
-  external set productId(JSNumber value);
-  external JSNumber get productId;
-  external set usagePage(JSNumber value);
-  external JSNumber get usagePage;
-  external set usage(JSNumber value);
-  external JSNumber get usage;
+  external set vendorId(int value);
+  external int get vendorId;
+  external set productId(int value);
+  external int get productId;
+  external set usagePage(int value);
+  external int get usagePage;
+  external set usage(int value);
+  external int get usage;
 }
 
 @JS('HIDDevice')
@@ -72,20 +72,20 @@ extension HIDDeviceExtension on HIDDevice {
   external JSPromise close();
   external JSPromise forget();
   external JSPromise sendReport(
-    JSNumber reportId,
+    int reportId,
     BufferSource data,
   );
   external JSPromise sendFeatureReport(
-    JSNumber reportId,
+    int reportId,
     BufferSource data,
   );
-  external JSPromise receiveFeatureReport(JSNumber reportId);
+  external JSPromise receiveFeatureReport(int reportId);
   external set oninputreport(EventHandler value);
   external EventHandler get oninputreport;
-  external JSBoolean get opened;
-  external JSNumber get vendorId;
-  external JSNumber get productId;
-  external JSString get productName;
+  external bool get opened;
+  external int get vendorId;
+  external int get productId;
+  external String get productName;
   external JSArray get collections;
 }
 
@@ -93,7 +93,7 @@ extension HIDDeviceExtension on HIDDevice {
 @staticInterop
 class HIDConnectionEvent implements Event {
   external factory HIDConnectionEvent(
-    JSString type,
+    String type,
     HIDConnectionEventInit eventInitDict,
   );
 }
@@ -118,14 +118,14 @@ extension HIDConnectionEventInitExtension on HIDConnectionEventInit {
 @staticInterop
 class HIDInputReportEvent implements Event {
   external factory HIDInputReportEvent(
-    JSString type,
+    String type,
     HIDInputReportEventInit eventInitDict,
   );
 }
 
 extension HIDInputReportEventExtension on HIDInputReportEvent {
   external HIDDevice get device;
-  external JSNumber get reportId;
+  external int get reportId;
   external JSDataView get data;
 }
 
@@ -135,7 +135,7 @@ extension HIDInputReportEventExtension on HIDInputReportEvent {
 class HIDInputReportEventInit implements EventInit {
   external factory HIDInputReportEventInit({
     required HIDDevice device,
-    required JSNumber reportId,
+    required int reportId,
     required JSDataView data,
   });
 }
@@ -143,8 +143,8 @@ class HIDInputReportEventInit implements EventInit {
 extension HIDInputReportEventInitExtension on HIDInputReportEventInit {
   external set device(HIDDevice value);
   external HIDDevice get device;
-  external set reportId(JSNumber value);
-  external JSNumber get reportId;
+  external set reportId(int value);
+  external int get reportId;
   external set data(JSDataView value);
   external JSDataView get data;
 }
@@ -154,9 +154,9 @@ extension HIDInputReportEventInitExtension on HIDInputReportEventInit {
 @anonymous
 class HIDCollectionInfo implements JSObject {
   external factory HIDCollectionInfo({
-    JSNumber usagePage,
-    JSNumber usage,
-    JSNumber type,
+    int usagePage,
+    int usage,
+    int type,
     JSArray children,
     JSArray inputReports,
     JSArray outputReports,
@@ -165,12 +165,12 @@ class HIDCollectionInfo implements JSObject {
 }
 
 extension HIDCollectionInfoExtension on HIDCollectionInfo {
-  external set usagePage(JSNumber value);
-  external JSNumber get usagePage;
-  external set usage(JSNumber value);
-  external JSNumber get usage;
-  external set type(JSNumber value);
-  external JSNumber get type;
+  external set usagePage(int value);
+  external int get usagePage;
+  external set usage(int value);
+  external int get usage;
+  external set type(int value);
+  external int get type;
   external set children(JSArray value);
   external JSArray get children;
   external set inputReports(JSArray value);
@@ -186,14 +186,14 @@ extension HIDCollectionInfoExtension on HIDCollectionInfo {
 @anonymous
 class HIDReportInfo implements JSObject {
   external factory HIDReportInfo({
-    JSNumber reportId,
+    int reportId,
     JSArray items,
   });
 }
 
 extension HIDReportInfoExtension on HIDReportInfo {
-  external set reportId(JSNumber value);
-  external JSNumber get reportId;
+  external set reportId(int value);
+  external int get reportId;
   external set items(JSArray value);
   external JSArray get items;
 }
@@ -203,92 +203,92 @@ extension HIDReportInfoExtension on HIDReportInfo {
 @anonymous
 class HIDReportItem implements JSObject {
   external factory HIDReportItem({
-    JSBoolean isAbsolute,
-    JSBoolean isArray,
-    JSBoolean isBufferedBytes,
-    JSBoolean isConstant,
-    JSBoolean isLinear,
-    JSBoolean isRange,
-    JSBoolean isVolatile,
-    JSBoolean hasNull,
-    JSBoolean hasPreferredState,
-    JSBoolean wrap,
+    bool isAbsolute,
+    bool isArray,
+    bool isBufferedBytes,
+    bool isConstant,
+    bool isLinear,
+    bool isRange,
+    bool isVolatile,
+    bool hasNull,
+    bool hasPreferredState,
+    bool wrap,
     JSArray usages,
-    JSNumber usageMinimum,
-    JSNumber usageMaximum,
-    JSNumber reportSize,
-    JSNumber reportCount,
-    JSNumber unitExponent,
+    int usageMinimum,
+    int usageMaximum,
+    int reportSize,
+    int reportCount,
+    int unitExponent,
     HIDUnitSystem unitSystem,
-    JSNumber unitFactorLengthExponent,
-    JSNumber unitFactorMassExponent,
-    JSNumber unitFactorTimeExponent,
-    JSNumber unitFactorTemperatureExponent,
-    JSNumber unitFactorCurrentExponent,
-    JSNumber unitFactorLuminousIntensityExponent,
-    JSNumber logicalMinimum,
-    JSNumber logicalMaximum,
-    JSNumber physicalMinimum,
-    JSNumber physicalMaximum,
+    int unitFactorLengthExponent,
+    int unitFactorMassExponent,
+    int unitFactorTimeExponent,
+    int unitFactorTemperatureExponent,
+    int unitFactorCurrentExponent,
+    int unitFactorLuminousIntensityExponent,
+    int logicalMinimum,
+    int logicalMaximum,
+    int physicalMinimum,
+    int physicalMaximum,
     JSArray strings,
   });
 }
 
 extension HIDReportItemExtension on HIDReportItem {
-  external set isAbsolute(JSBoolean value);
-  external JSBoolean get isAbsolute;
-  external set isArray(JSBoolean value);
-  external JSBoolean get isArray;
-  external set isBufferedBytes(JSBoolean value);
-  external JSBoolean get isBufferedBytes;
-  external set isConstant(JSBoolean value);
-  external JSBoolean get isConstant;
-  external set isLinear(JSBoolean value);
-  external JSBoolean get isLinear;
-  external set isRange(JSBoolean value);
-  external JSBoolean get isRange;
-  external set isVolatile(JSBoolean value);
-  external JSBoolean get isVolatile;
-  external set hasNull(JSBoolean value);
-  external JSBoolean get hasNull;
-  external set hasPreferredState(JSBoolean value);
-  external JSBoolean get hasPreferredState;
-  external set wrap(JSBoolean value);
-  external JSBoolean get wrap;
+  external set isAbsolute(bool value);
+  external bool get isAbsolute;
+  external set isArray(bool value);
+  external bool get isArray;
+  external set isBufferedBytes(bool value);
+  external bool get isBufferedBytes;
+  external set isConstant(bool value);
+  external bool get isConstant;
+  external set isLinear(bool value);
+  external bool get isLinear;
+  external set isRange(bool value);
+  external bool get isRange;
+  external set isVolatile(bool value);
+  external bool get isVolatile;
+  external set hasNull(bool value);
+  external bool get hasNull;
+  external set hasPreferredState(bool value);
+  external bool get hasPreferredState;
+  external set wrap(bool value);
+  external bool get wrap;
   external set usages(JSArray value);
   external JSArray get usages;
-  external set usageMinimum(JSNumber value);
-  external JSNumber get usageMinimum;
-  external set usageMaximum(JSNumber value);
-  external JSNumber get usageMaximum;
-  external set reportSize(JSNumber value);
-  external JSNumber get reportSize;
-  external set reportCount(JSNumber value);
-  external JSNumber get reportCount;
-  external set unitExponent(JSNumber value);
-  external JSNumber get unitExponent;
+  external set usageMinimum(int value);
+  external int get usageMinimum;
+  external set usageMaximum(int value);
+  external int get usageMaximum;
+  external set reportSize(int value);
+  external int get reportSize;
+  external set reportCount(int value);
+  external int get reportCount;
+  external set unitExponent(int value);
+  external int get unitExponent;
   external set unitSystem(HIDUnitSystem value);
   external HIDUnitSystem get unitSystem;
-  external set unitFactorLengthExponent(JSNumber value);
-  external JSNumber get unitFactorLengthExponent;
-  external set unitFactorMassExponent(JSNumber value);
-  external JSNumber get unitFactorMassExponent;
-  external set unitFactorTimeExponent(JSNumber value);
-  external JSNumber get unitFactorTimeExponent;
-  external set unitFactorTemperatureExponent(JSNumber value);
-  external JSNumber get unitFactorTemperatureExponent;
-  external set unitFactorCurrentExponent(JSNumber value);
-  external JSNumber get unitFactorCurrentExponent;
-  external set unitFactorLuminousIntensityExponent(JSNumber value);
-  external JSNumber get unitFactorLuminousIntensityExponent;
-  external set logicalMinimum(JSNumber value);
-  external JSNumber get logicalMinimum;
-  external set logicalMaximum(JSNumber value);
-  external JSNumber get logicalMaximum;
-  external set physicalMinimum(JSNumber value);
-  external JSNumber get physicalMinimum;
-  external set physicalMaximum(JSNumber value);
-  external JSNumber get physicalMaximum;
+  external set unitFactorLengthExponent(int value);
+  external int get unitFactorLengthExponent;
+  external set unitFactorMassExponent(int value);
+  external int get unitFactorMassExponent;
+  external set unitFactorTimeExponent(int value);
+  external int get unitFactorTimeExponent;
+  external set unitFactorTemperatureExponent(int value);
+  external int get unitFactorTemperatureExponent;
+  external set unitFactorCurrentExponent(int value);
+  external int get unitFactorCurrentExponent;
+  external set unitFactorLuminousIntensityExponent(int value);
+  external int get unitFactorLuminousIntensityExponent;
+  external set logicalMinimum(int value);
+  external int get logicalMinimum;
+  external set logicalMaximum(int value);
+  external int get logicalMaximum;
+  external set physicalMinimum(int value);
+  external int get physicalMinimum;
+  external set physicalMaximum(int value);
+  external int get physicalMaximum;
   external set strings(JSArray value);
   external JSArray get strings;
 }

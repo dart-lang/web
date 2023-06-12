@@ -8,64 +8,64 @@ import 'dom.dart';
 import 'html.dart';
 import 'webidl.dart';
 
-typedef GLenum = JSNumber;
-typedef GLboolean = JSBoolean;
-typedef GLbitfield = JSNumber;
-typedef GLbyte = JSNumber;
-typedef GLshort = JSNumber;
-typedef GLint = JSNumber;
-typedef GLsizei = JSNumber;
-typedef GLintptr = JSNumber;
-typedef GLsizeiptr = JSNumber;
-typedef GLubyte = JSNumber;
-typedef GLushort = JSNumber;
-typedef GLuint = JSNumber;
-typedef GLfloat = JSNumber;
-typedef GLclampf = JSNumber;
+typedef GLenum = int;
+typedef GLboolean = bool;
+typedef GLbitfield = int;
+typedef GLbyte = int;
+typedef GLshort = int;
+typedef GLint = int;
+typedef GLsizei = int;
+typedef GLintptr = int;
+typedef GLsizeiptr = int;
+typedef GLubyte = int;
+typedef GLushort = int;
+typedef GLuint = int;
+typedef GLfloat = double;
+typedef GLclampf = double;
 typedef TexImageSource = JSAny?;
 typedef Float32List = JSAny?;
 typedef Int32List = JSAny?;
-typedef WebGLPowerPreference = JSString;
+typedef WebGLPowerPreference = String;
 
 @JS()
 @staticInterop
 @anonymous
 class WebGLContextAttributes implements JSObject {
   external factory WebGLContextAttributes({
-    JSBoolean alpha,
-    JSBoolean depth,
-    JSBoolean stencil,
-    JSBoolean antialias,
-    JSBoolean premultipliedAlpha,
-    JSBoolean preserveDrawingBuffer,
+    bool alpha,
+    bool depth,
+    bool stencil,
+    bool antialias,
+    bool premultipliedAlpha,
+    bool preserveDrawingBuffer,
     WebGLPowerPreference powerPreference,
-    JSBoolean failIfMajorPerformanceCaveat,
-    JSBoolean desynchronized,
-    JSBoolean xrCompatible,
+    bool failIfMajorPerformanceCaveat,
+    bool desynchronized,
+    bool xrCompatible,
   });
 }
 
 extension WebGLContextAttributesExtension on WebGLContextAttributes {
-  external set alpha(JSBoolean value);
-  external JSBoolean get alpha;
-  external set depth(JSBoolean value);
-  external JSBoolean get depth;
-  external set stencil(JSBoolean value);
-  external JSBoolean get stencil;
-  external set antialias(JSBoolean value);
-  external JSBoolean get antialias;
-  external set premultipliedAlpha(JSBoolean value);
-  external JSBoolean get premultipliedAlpha;
-  external set preserveDrawingBuffer(JSBoolean value);
-  external JSBoolean get preserveDrawingBuffer;
+  external set alpha(bool value);
+  external bool get alpha;
+  external set depth(bool value);
+  external bool get depth;
+  external set stencil(bool value);
+  external bool get stencil;
+  external set antialias(bool value);
+  external bool get antialias;
+  external set premultipliedAlpha(bool value);
+  external bool get premultipliedAlpha;
+  external set preserveDrawingBuffer(bool value);
+  external bool get preserveDrawingBuffer;
   external set powerPreference(WebGLPowerPreference value);
   external WebGLPowerPreference get powerPreference;
-  external set failIfMajorPerformanceCaveat(JSBoolean value);
-  external JSBoolean get failIfMajorPerformanceCaveat;
-  external set desynchronized(JSBoolean value);
-  external JSBoolean get desynchronized;
-  external set xrCompatible(JSBoolean value);
-  external JSBoolean get xrCompatible;
+  external set failIfMajorPerformanceCaveat(bool value);
+  external bool get failIfMajorPerformanceCaveat;
+  external set desynchronized(bool value);
+  external bool get desynchronized;
+  external set xrCompatible(bool value);
+  external bool get xrCompatible;
 }
 
 @JS('WebGLObject')
@@ -107,7 +107,7 @@ class WebGLActiveInfo implements JSObject {}
 extension WebGLActiveInfoExtension on WebGLActiveInfo {
   external GLint get size;
   external GLenum get type;
-  external JSString get name;
+  external String get name;
 }
 
 @JS('WebGLShaderPrecisionFormat')
@@ -423,9 +423,9 @@ class WebGLRenderingContextBase implements JSObject {
 
 extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
   external WebGLContextAttributes? getContextAttributes();
-  external JSBoolean isContextLost();
+  external bool isContextLost();
   external JSArray? getSupportedExtensions();
-  external JSObject? getExtension(JSString name);
+  external JSObject? getExtension(String name);
   external JSVoid activeTexture(GLenum texture);
   external JSVoid attachShader(
     WebGLProgram program,
@@ -434,7 +434,7 @@ extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
   external JSVoid bindAttribLocation(
     WebGLProgram program,
     GLuint index,
-    JSString name,
+    String name,
   );
   external JSVoid bindBuffer(
     GLenum target,
@@ -576,7 +576,7 @@ extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
   external JSArray? getAttachedShaders(WebGLProgram program);
   external GLint getAttribLocation(
     WebGLProgram program,
-    JSString name,
+    String name,
   );
   external JSAny? getBufferParameter(
     GLenum target,
@@ -593,7 +593,7 @@ extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
     WebGLProgram program,
     GLenum pname,
   );
-  external JSString? getProgramInfoLog(WebGLProgram program);
+  external String? getProgramInfoLog(WebGLProgram program);
   external JSAny? getRenderbufferParameter(
     GLenum target,
     GLenum pname,
@@ -606,8 +606,8 @@ extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
     GLenum shadertype,
     GLenum precisiontype,
   );
-  external JSString? getShaderInfoLog(WebGLShader shader);
-  external JSString? getShaderSource(WebGLShader shader);
+  external String? getShaderInfoLog(WebGLShader shader);
+  external String? getShaderSource(WebGLShader shader);
   external JSAny? getTexParameter(
     GLenum target,
     GLenum pname,
@@ -618,7 +618,7 @@ extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
   );
   external WebGLUniformLocation? getUniformLocation(
     WebGLProgram program,
-    JSString name,
+    String name,
   );
   external JSAny? getVertexAttrib(
     GLuint index,
@@ -667,7 +667,7 @@ extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
   );
   external JSVoid shaderSource(
     WebGLShader shader,
-    JSString source,
+    String source,
   );
   external JSVoid stencilFunc(
     GLenum func,
@@ -938,23 +938,23 @@ class WebGLRenderingContext
 @staticInterop
 class WebGLContextEvent implements Event {
   external factory WebGLContextEvent(
-    JSString type, [
+    String type, [
     WebGLContextEventInit eventInit,
   ]);
 }
 
 extension WebGLContextEventExtension on WebGLContextEvent {
-  external JSString get statusMessage;
+  external String get statusMessage;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class WebGLContextEventInit implements EventInit {
-  external factory WebGLContextEventInit({JSString statusMessage});
+  external factory WebGLContextEventInit({String statusMessage});
 }
 
 extension WebGLContextEventInitExtension on WebGLContextEventInit {
-  external set statusMessage(JSString value);
-  external JSString get statusMessage;
+  external set statusMessage(String value);
+  external String get statusMessage;
 }

@@ -8,34 +8,34 @@ import 'dom.dart';
 import 'html.dart';
 import 'webidl.dart';
 
-typedef ReadyState = JSString;
-typedef EndOfStreamError = JSString;
-typedef AppendMode = JSString;
+typedef ReadyState = String;
+typedef EndOfStreamError = String;
+typedef AppendMode = String;
 
 @JS('MediaSource')
 @staticInterop
 class MediaSource implements EventTarget {
   external factory MediaSource();
 
-  external static JSBoolean isTypeSupported(JSString type);
-  external static JSBoolean get canConstructInDedicatedWorker;
+  external static bool isTypeSupported(String type);
+  external static bool get canConstructInDedicatedWorker;
 }
 
 extension MediaSourceExtension on MediaSource {
-  external SourceBuffer addSourceBuffer(JSString type);
+  external SourceBuffer addSourceBuffer(String type);
   external JSVoid removeSourceBuffer(SourceBuffer sourceBuffer);
   external JSVoid endOfStream([EndOfStreamError error]);
   external JSVoid setLiveSeekableRange(
-    JSNumber start,
-    JSNumber end,
+    double start,
+    double end,
   );
   external JSVoid clearLiveSeekableRange();
   external MediaSourceHandle get handle;
   external SourceBufferList get sourceBuffers;
   external SourceBufferList get activeSourceBuffers;
   external ReadyState get readyState;
-  external set duration(JSNumber value);
-  external JSNumber get duration;
+  external set duration(double value);
+  external double get duration;
   external set onsourceopen(EventHandler value);
   external EventHandler get onsourceopen;
   external set onsourceended(EventHandler value);
@@ -55,24 +55,24 @@ class SourceBuffer implements EventTarget {}
 extension SourceBufferExtension on SourceBuffer {
   external JSVoid appendBuffer(BufferSource data);
   external JSVoid abort();
-  external JSVoid changeType(JSString type);
+  external JSVoid changeType(String type);
   external JSVoid remove(
-    JSNumber start,
-    JSNumber end,
+    double start,
+    double end,
   );
   external set mode(AppendMode value);
   external AppendMode get mode;
-  external JSBoolean get updating;
+  external bool get updating;
   external TimeRanges get buffered;
-  external set timestampOffset(JSNumber value);
-  external JSNumber get timestampOffset;
+  external set timestampOffset(double value);
+  external double get timestampOffset;
   external AudioTrackList get audioTracks;
   external VideoTrackList get videoTracks;
   external TextTrackList get textTracks;
-  external set appendWindowStart(JSNumber value);
-  external JSNumber get appendWindowStart;
-  external set appendWindowEnd(JSNumber value);
-  external JSNumber get appendWindowEnd;
+  external set appendWindowStart(double value);
+  external double get appendWindowStart;
+  external set appendWindowEnd(double value);
+  external double get appendWindowEnd;
   external set onupdatestart(EventHandler value);
   external EventHandler get onupdatestart;
   external set onupdate(EventHandler value);
@@ -90,7 +90,7 @@ extension SourceBufferExtension on SourceBuffer {
 class SourceBufferList implements EventTarget {}
 
 extension SourceBufferListExtension on SourceBufferList {
-  external JSNumber get length;
+  external int get length;
   external set onaddsourcebuffer(EventHandler value);
   external EventHandler get onaddsourcebuffer;
   external set onremovesourcebuffer(EventHandler value);

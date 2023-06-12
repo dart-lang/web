@@ -9,10 +9,10 @@ import 'webidl.dart';
 typedef AlgorithmIdentifier = JSAny?;
 typedef HashAlgorithmIdentifier = AlgorithmIdentifier;
 typedef BigInteger = JSUint8Array;
-typedef NamedCurve = JSString;
-typedef KeyType = JSString;
-typedef KeyUsage = JSString;
-typedef KeyFormat = JSString;
+typedef NamedCurve = String;
+typedef KeyType = String;
+typedef KeyUsage = String;
+typedef KeyFormat = String;
 
 @JS('Crypto')
 @staticInterop
@@ -20,7 +20,7 @@ class Crypto implements JSObject {}
 
 extension CryptoExtension on Crypto {
   external ArrayBufferView getRandomValues(ArrayBufferView array);
-  external JSString randomUUID();
+  external String randomUUID();
   external SubtleCrypto get subtle;
 }
 
@@ -28,24 +28,24 @@ extension CryptoExtension on Crypto {
 @staticInterop
 @anonymous
 class Algorithm implements JSObject {
-  external factory Algorithm({required JSString name});
+  external factory Algorithm({required String name});
 }
 
 extension AlgorithmExtension on Algorithm {
-  external set name(JSString value);
-  external JSString get name;
+  external set name(String value);
+  external String get name;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class KeyAlgorithm implements JSObject {
-  external factory KeyAlgorithm({required JSString name});
+  external factory KeyAlgorithm({required String name});
 }
 
 extension KeyAlgorithmExtension on KeyAlgorithm {
-  external set name(JSString value);
-  external JSString get name;
+  external set name(String value);
+  external String get name;
 }
 
 @JS('CryptoKey')
@@ -54,7 +54,7 @@ class CryptoKey implements JSObject {}
 
 extension CryptoKeyExtension on CryptoKey {
   external KeyType get type;
-  external JSBoolean get extractable;
+  external bool get extractable;
   external JSObject get algorithm;
   external JSObject get usages;
 }
@@ -91,26 +91,26 @@ extension SubtleCryptoExtension on SubtleCrypto {
   );
   external JSPromise generateKey(
     AlgorithmIdentifier algorithm,
-    JSBoolean extractable,
+    bool extractable,
     JSArray keyUsages,
   );
   external JSPromise deriveKey(
     AlgorithmIdentifier algorithm,
     CryptoKey baseKey,
     AlgorithmIdentifier derivedKeyType,
-    JSBoolean extractable,
+    bool extractable,
     JSArray keyUsages,
   );
   external JSPromise deriveBits(
     AlgorithmIdentifier algorithm,
     CryptoKey baseKey,
-    JSNumber length,
+    int length,
   );
   external JSPromise importKey(
     KeyFormat format,
     JSAny? keyData,
     AlgorithmIdentifier algorithm,
-    JSBoolean extractable,
+    bool extractable,
     JSArray keyUsages,
   );
   external JSPromise exportKey(
@@ -129,7 +129,7 @@ extension SubtleCryptoExtension on SubtleCrypto {
     CryptoKey unwrappingKey,
     AlgorithmIdentifier unwrapAlgorithm,
     AlgorithmIdentifier unwrappedKeyAlgorithm,
-    JSBoolean extractable,
+    bool extractable,
     JSArray keyUsages,
   );
 }
@@ -139,19 +139,19 @@ extension SubtleCryptoExtension on SubtleCrypto {
 @anonymous
 class RsaOtherPrimesInfo implements JSObject {
   external factory RsaOtherPrimesInfo({
-    JSString r,
-    JSString d,
-    JSString t,
+    String r,
+    String d,
+    String t,
   });
 }
 
 extension RsaOtherPrimesInfoExtension on RsaOtherPrimesInfo {
-  external set r(JSString value);
-  external JSString get r;
-  external set d(JSString value);
-  external JSString get d;
-  external set t(JSString value);
-  external JSString get t;
+  external set r(String value);
+  external String get r;
+  external set d(String value);
+  external String get d;
+  external set t(String value);
+  external String get t;
 }
 
 @JS()
@@ -159,64 +159,64 @@ extension RsaOtherPrimesInfoExtension on RsaOtherPrimesInfo {
 @anonymous
 class JsonWebKey implements JSObject {
   external factory JsonWebKey({
-    JSString kty,
-    JSString use,
+    String kty,
+    String use,
     JSArray key_ops,
-    JSString alg,
-    JSBoolean ext,
-    JSString crv,
-    JSString x,
-    JSString y,
-    JSString d,
-    JSString n,
-    JSString e,
-    JSString p,
-    JSString q,
-    JSString dp,
-    JSString dq,
-    JSString qi,
+    String alg,
+    bool ext,
+    String crv,
+    String x,
+    String y,
+    String d,
+    String n,
+    String e,
+    String p,
+    String q,
+    String dp,
+    String dq,
+    String qi,
     JSArray oth,
-    JSString k,
+    String k,
   });
 }
 
 extension JsonWebKeyExtension on JsonWebKey {
-  external set kty(JSString value);
-  external JSString get kty;
-  external set use(JSString value);
-  external JSString get use;
+  external set kty(String value);
+  external String get kty;
+  external set use(String value);
+  external String get use;
   external set key_ops(JSArray value);
   external JSArray get key_ops;
-  external set alg(JSString value);
-  external JSString get alg;
-  external set ext(JSBoolean value);
-  external JSBoolean get ext;
-  external set crv(JSString value);
-  external JSString get crv;
-  external set x(JSString value);
-  external JSString get x;
-  external set y(JSString value);
-  external JSString get y;
-  external set d(JSString value);
-  external JSString get d;
-  external set n(JSString value);
-  external JSString get n;
-  external set e(JSString value);
-  external JSString get e;
-  external set p(JSString value);
-  external JSString get p;
-  external set q(JSString value);
-  external JSString get q;
-  external set dp(JSString value);
-  external JSString get dp;
-  external set dq(JSString value);
-  external JSString get dq;
-  external set qi(JSString value);
-  external JSString get qi;
+  external set alg(String value);
+  external String get alg;
+  external set ext(bool value);
+  external bool get ext;
+  external set crv(String value);
+  external String get crv;
+  external set x(String value);
+  external String get x;
+  external set y(String value);
+  external String get y;
+  external set d(String value);
+  external String get d;
+  external set n(String value);
+  external String get n;
+  external set e(String value);
+  external String get e;
+  external set p(String value);
+  external String get p;
+  external set q(String value);
+  external String get q;
+  external set dp(String value);
+  external String get dp;
+  external set dq(String value);
+  external String get dq;
+  external set qi(String value);
+  external String get qi;
   external set oth(JSArray value);
   external JSArray get oth;
-  external set k(JSString value);
-  external JSString get k;
+  external set k(String value);
+  external String get k;
 }
 
 @JS()
@@ -241,14 +241,14 @@ extension CryptoKeyPairExtension on CryptoKeyPair {
 @anonymous
 class RsaKeyGenParams implements Algorithm {
   external factory RsaKeyGenParams({
-    required JSNumber modulusLength,
+    required int modulusLength,
     required BigInteger publicExponent,
   });
 }
 
 extension RsaKeyGenParamsExtension on RsaKeyGenParams {
-  external set modulusLength(JSNumber value);
-  external JSNumber get modulusLength;
+  external set modulusLength(int value);
+  external int get modulusLength;
   external set publicExponent(BigInteger value);
   external BigInteger get publicExponent;
 }
@@ -271,14 +271,14 @@ extension RsaHashedKeyGenParamsExtension on RsaHashedKeyGenParams {
 @anonymous
 class RsaKeyAlgorithm implements KeyAlgorithm {
   external factory RsaKeyAlgorithm({
-    required JSNumber modulusLength,
+    required int modulusLength,
     required BigInteger publicExponent,
   });
 }
 
 extension RsaKeyAlgorithmExtension on RsaKeyAlgorithm {
-  external set modulusLength(JSNumber value);
-  external JSNumber get modulusLength;
+  external set modulusLength(int value);
+  external int get modulusLength;
   external set publicExponent(BigInteger value);
   external BigInteger get publicExponent;
 }
@@ -312,12 +312,12 @@ extension RsaHashedImportParamsExtension on RsaHashedImportParams {
 @staticInterop
 @anonymous
 class RsaPssParams implements Algorithm {
-  external factory RsaPssParams({required JSNumber saltLength});
+  external factory RsaPssParams({required int saltLength});
 }
 
 extension RsaPssParamsExtension on RsaPssParams {
-  external set saltLength(JSNumber value);
-  external JSNumber get saltLength;
+  external set saltLength(int value);
+  external int get saltLength;
 }
 
 @JS()
@@ -398,51 +398,51 @@ extension EcdhKeyDeriveParamsExtension on EcdhKeyDeriveParams {
 class AesCtrParams implements Algorithm {
   external factory AesCtrParams({
     required BufferSource counter,
-    required JSNumber length,
+    required int length,
   });
 }
 
 extension AesCtrParamsExtension on AesCtrParams {
   external set counter(BufferSource value);
   external BufferSource get counter;
-  external set length(JSNumber value);
-  external JSNumber get length;
+  external set length(int value);
+  external int get length;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class AesKeyAlgorithm implements KeyAlgorithm {
-  external factory AesKeyAlgorithm({required JSNumber length});
+  external factory AesKeyAlgorithm({required int length});
 }
 
 extension AesKeyAlgorithmExtension on AesKeyAlgorithm {
-  external set length(JSNumber value);
-  external JSNumber get length;
+  external set length(int value);
+  external int get length;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class AesKeyGenParams implements Algorithm {
-  external factory AesKeyGenParams({required JSNumber length});
+  external factory AesKeyGenParams({required int length});
 }
 
 extension AesKeyGenParamsExtension on AesKeyGenParams {
-  external set length(JSNumber value);
-  external JSNumber get length;
+  external set length(int value);
+  external int get length;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class AesDerivedKeyParams implements Algorithm {
-  external factory AesDerivedKeyParams({required JSNumber length});
+  external factory AesDerivedKeyParams({required int length});
 }
 
 extension AesDerivedKeyParamsExtension on AesDerivedKeyParams {
-  external set length(JSNumber value);
-  external JSNumber get length;
+  external set length(int value);
+  external int get length;
 }
 
 @JS()
@@ -464,7 +464,7 @@ class AesGcmParams implements Algorithm {
   external factory AesGcmParams({
     required BufferSource iv,
     BufferSource additionalData,
-    JSNumber tagLength,
+    int tagLength,
   });
 }
 
@@ -473,8 +473,8 @@ extension AesGcmParamsExtension on AesGcmParams {
   external BufferSource get iv;
   external set additionalData(BufferSource value);
   external BufferSource get additionalData;
-  external set tagLength(JSNumber value);
-  external JSNumber get tagLength;
+  external set tagLength(int value);
+  external int get tagLength;
 }
 
 @JS()
@@ -483,15 +483,15 @@ extension AesGcmParamsExtension on AesGcmParams {
 class HmacImportParams implements Algorithm {
   external factory HmacImportParams({
     required HashAlgorithmIdentifier hash,
-    JSNumber length,
+    int length,
   });
 }
 
 extension HmacImportParamsExtension on HmacImportParams {
   external set hash(HashAlgorithmIdentifier value);
   external HashAlgorithmIdentifier get hash;
-  external set length(JSNumber value);
-  external JSNumber get length;
+  external set length(int value);
+  external int get length;
 }
 
 @JS()
@@ -500,15 +500,15 @@ extension HmacImportParamsExtension on HmacImportParams {
 class HmacKeyAlgorithm implements KeyAlgorithm {
   external factory HmacKeyAlgorithm({
     required KeyAlgorithm hash,
-    required JSNumber length,
+    required int length,
   });
 }
 
 extension HmacKeyAlgorithmExtension on HmacKeyAlgorithm {
   external set hash(KeyAlgorithm value);
   external KeyAlgorithm get hash;
-  external set length(JSNumber value);
-  external JSNumber get length;
+  external set length(int value);
+  external int get length;
 }
 
 @JS()
@@ -517,15 +517,15 @@ extension HmacKeyAlgorithmExtension on HmacKeyAlgorithm {
 class HmacKeyGenParams implements Algorithm {
   external factory HmacKeyGenParams({
     required HashAlgorithmIdentifier hash,
-    JSNumber length,
+    int length,
   });
 }
 
 extension HmacKeyGenParamsExtension on HmacKeyGenParams {
   external set hash(HashAlgorithmIdentifier value);
   external HashAlgorithmIdentifier get hash;
-  external set length(JSNumber value);
-  external JSNumber get length;
+  external set length(int value);
+  external int get length;
 }
 
 @JS()
@@ -554,7 +554,7 @@ extension HkdfParamsExtension on HkdfParams {
 class Pbkdf2Params implements Algorithm {
   external factory Pbkdf2Params({
     required BufferSource salt,
-    required JSNumber iterations,
+    required int iterations,
     required HashAlgorithmIdentifier hash,
   });
 }
@@ -562,8 +562,8 @@ class Pbkdf2Params implements Algorithm {
 extension Pbkdf2ParamsExtension on Pbkdf2Params {
   external set salt(BufferSource value);
   external BufferSource get salt;
-  external set iterations(JSNumber value);
-  external JSNumber get iterations;
+  external set iterations(int value);
+  external int get iterations;
   external set hash(HashAlgorithmIdentifier value);
   external HashAlgorithmIdentifier get hash;
 }

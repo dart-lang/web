@@ -9,20 +9,20 @@ import 'dart:js_interop';
 @anonymous
 class ImageResource implements JSObject {
   external factory ImageResource({
-    required JSString src,
-    JSString sizes,
-    JSString type,
-    JSString label,
+    required String src,
+    String sizes,
+    String type,
+    String label,
   });
 }
 
 extension ImageResourceExtension on ImageResource {
-  external set src(JSString value);
-  external JSString get src;
-  external set sizes(JSString value);
-  external JSString get sizes;
-  external set type(JSString value);
-  external JSString get type;
-  external set label(JSString value);
-  external JSString get label;
+  external set src(String value);
+  external String get src;
+  external set sizes(String value);
+  external String get sizes;
+  external set type(String value);
+  external String get type;
+  external set label(String value);
+  external String get label;
 }

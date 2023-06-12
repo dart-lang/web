@@ -8,9 +8,9 @@ import 'hr_time.dart';
 import 'streams.dart';
 import 'webidl.dart';
 
-typedef WebTransportReliabilityMode = JSString;
-typedef WebTransportCongestionControl = JSString;
-typedef WebTransportErrorSource = JSString;
+typedef WebTransportReliabilityMode = String;
+typedef WebTransportCongestionControl = String;
+typedef WebTransportErrorSource = String;
 
 @JS('WebTransportDatagramDuplexStream')
 @staticInterop
@@ -20,22 +20,22 @@ extension WebTransportDatagramDuplexStreamExtension
     on WebTransportDatagramDuplexStream {
   external ReadableStream get readable;
   external WritableStream get writable;
-  external JSNumber get maxDatagramSize;
-  external set incomingMaxAge(JSNumber value);
-  external JSNumber get incomingMaxAge;
-  external set outgoingMaxAge(JSNumber value);
-  external JSNumber get outgoingMaxAge;
-  external set incomingHighWaterMark(JSNumber value);
-  external JSNumber get incomingHighWaterMark;
-  external set outgoingHighWaterMark(JSNumber value);
-  external JSNumber get outgoingHighWaterMark;
+  external int get maxDatagramSize;
+  external set incomingMaxAge(double value);
+  external double get incomingMaxAge;
+  external set outgoingMaxAge(double value);
+  external double get outgoingMaxAge;
+  external set incomingHighWaterMark(double value);
+  external double get incomingHighWaterMark;
+  external set outgoingHighWaterMark(double value);
+  external double get outgoingHighWaterMark;
 }
 
 @JS('WebTransport')
 @staticInterop
 class WebTransport implements JSObject {
   external factory WebTransport(
-    JSString url, [
+    String url, [
     WebTransportOptions options,
   ]);
 }
@@ -62,14 +62,14 @@ extension WebTransportExtension on WebTransport {
 @anonymous
 class WebTransportHash implements JSObject {
   external factory WebTransportHash({
-    JSString algorithm,
+    String algorithm,
     BufferSource value,
   });
 }
 
 extension WebTransportHashExtension on WebTransportHash {
-  external set algorithm(JSString value);
-  external JSString get algorithm;
+  external set algorithm(String value);
+  external String get algorithm;
   external set value(BufferSource value);
   external BufferSource get value;
 }
@@ -79,18 +79,18 @@ extension WebTransportHashExtension on WebTransportHash {
 @anonymous
 class WebTransportOptions implements JSObject {
   external factory WebTransportOptions({
-    JSBoolean allowPooling,
-    JSBoolean requireUnreliable,
+    bool allowPooling,
+    bool requireUnreliable,
     JSArray serverCertificateHashes,
     WebTransportCongestionControl congestionControl,
   });
 }
 
 extension WebTransportOptionsExtension on WebTransportOptions {
-  external set allowPooling(JSBoolean value);
-  external JSBoolean get allowPooling;
-  external set requireUnreliable(JSBoolean value);
-  external JSBoolean get requireUnreliable;
+  external set allowPooling(bool value);
+  external bool get allowPooling;
+  external set requireUnreliable(bool value);
+  external bool get requireUnreliable;
   external set serverCertificateHashes(JSArray value);
   external JSArray get serverCertificateHashes;
   external set congestionControl(WebTransportCongestionControl value);
@@ -102,29 +102,29 @@ extension WebTransportOptionsExtension on WebTransportOptions {
 @anonymous
 class WebTransportCloseInfo implements JSObject {
   external factory WebTransportCloseInfo({
-    JSNumber closeCode,
-    JSString reason,
+    int closeCode,
+    String reason,
   });
 }
 
 extension WebTransportCloseInfoExtension on WebTransportCloseInfo {
-  external set closeCode(JSNumber value);
-  external JSNumber get closeCode;
-  external set reason(JSString value);
-  external JSString get reason;
+  external set closeCode(int value);
+  external int get closeCode;
+  external set reason(String value);
+  external String get reason;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class WebTransportSendStreamOptions implements JSObject {
-  external factory WebTransportSendStreamOptions({JSNumber? sendOrder});
+  external factory WebTransportSendStreamOptions({int? sendOrder});
 }
 
 extension WebTransportSendStreamOptionsExtension
     on WebTransportSendStreamOptions {
-  external set sendOrder(JSNumber? value);
-  external JSNumber? get sendOrder;
+  external set sendOrder(int? value);
+  external int? get sendOrder;
 }
 
 @JS()
@@ -133,38 +133,38 @@ extension WebTransportSendStreamOptionsExtension
 class WebTransportStats implements JSObject {
   external factory WebTransportStats({
     DOMHighResTimeStamp timestamp,
-    JSNumber bytesSent,
-    JSNumber packetsSent,
-    JSNumber packetsLost,
-    JSNumber numOutgoingStreamsCreated,
-    JSNumber numIncomingStreamsCreated,
-    JSNumber bytesReceived,
-    JSNumber packetsReceived,
+    int bytesSent,
+    int packetsSent,
+    int packetsLost,
+    int numOutgoingStreamsCreated,
+    int numIncomingStreamsCreated,
+    int bytesReceived,
+    int packetsReceived,
     DOMHighResTimeStamp smoothedRtt,
     DOMHighResTimeStamp rttVariation,
     DOMHighResTimeStamp minRtt,
     WebTransportDatagramStats datagrams,
-    JSNumber? estimatedSendRate,
+    int? estimatedSendRate,
   });
 }
 
 extension WebTransportStatsExtension on WebTransportStats {
   external set timestamp(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get timestamp;
-  external set bytesSent(JSNumber value);
-  external JSNumber get bytesSent;
-  external set packetsSent(JSNumber value);
-  external JSNumber get packetsSent;
-  external set packetsLost(JSNumber value);
-  external JSNumber get packetsLost;
-  external set numOutgoingStreamsCreated(JSNumber value);
-  external JSNumber get numOutgoingStreamsCreated;
-  external set numIncomingStreamsCreated(JSNumber value);
-  external JSNumber get numIncomingStreamsCreated;
-  external set bytesReceived(JSNumber value);
-  external JSNumber get bytesReceived;
-  external set packetsReceived(JSNumber value);
-  external JSNumber get packetsReceived;
+  external set bytesSent(int value);
+  external int get bytesSent;
+  external set packetsSent(int value);
+  external int get packetsSent;
+  external set packetsLost(int value);
+  external int get packetsLost;
+  external set numOutgoingStreamsCreated(int value);
+  external int get numOutgoingStreamsCreated;
+  external set numIncomingStreamsCreated(int value);
+  external int get numIncomingStreamsCreated;
+  external set bytesReceived(int value);
+  external int get bytesReceived;
+  external set packetsReceived(int value);
+  external int get packetsReceived;
   external set smoothedRtt(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get smoothedRtt;
   external set rttVariation(DOMHighResTimeStamp value);
@@ -173,8 +173,8 @@ extension WebTransportStatsExtension on WebTransportStats {
   external DOMHighResTimeStamp get minRtt;
   external set datagrams(WebTransportDatagramStats value);
   external WebTransportDatagramStats get datagrams;
-  external set estimatedSendRate(JSNumber? value);
-  external JSNumber? get estimatedSendRate;
+  external set estimatedSendRate(int? value);
+  external int? get estimatedSendRate;
 }
 
 @JS()
@@ -183,21 +183,21 @@ extension WebTransportStatsExtension on WebTransportStats {
 class WebTransportDatagramStats implements JSObject {
   external factory WebTransportDatagramStats({
     DOMHighResTimeStamp timestamp,
-    JSNumber expiredOutgoing,
-    JSNumber droppedIncoming,
-    JSNumber lostOutgoing,
+    int expiredOutgoing,
+    int droppedIncoming,
+    int lostOutgoing,
   });
 }
 
 extension WebTransportDatagramStatsExtension on WebTransportDatagramStats {
   external set timestamp(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get timestamp;
-  external set expiredOutgoing(JSNumber value);
-  external JSNumber get expiredOutgoing;
-  external set droppedIncoming(JSNumber value);
-  external JSNumber get droppedIncoming;
-  external set lostOutgoing(JSNumber value);
-  external JSNumber get lostOutgoing;
+  external set expiredOutgoing(int value);
+  external int get expiredOutgoing;
+  external set droppedIncoming(int value);
+  external int get droppedIncoming;
+  external set lostOutgoing(int value);
+  external int get lostOutgoing;
 }
 
 @JS('WebTransportSendStream')
@@ -214,21 +214,21 @@ extension WebTransportSendStreamExtension on WebTransportSendStream {
 class WebTransportSendStreamStats implements JSObject {
   external factory WebTransportSendStreamStats({
     DOMHighResTimeStamp timestamp,
-    JSNumber bytesWritten,
-    JSNumber bytesSent,
-    JSNumber bytesAcknowledged,
+    int bytesWritten,
+    int bytesSent,
+    int bytesAcknowledged,
   });
 }
 
 extension WebTransportSendStreamStatsExtension on WebTransportSendStreamStats {
   external set timestamp(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get timestamp;
-  external set bytesWritten(JSNumber value);
-  external JSNumber get bytesWritten;
-  external set bytesSent(JSNumber value);
-  external JSNumber get bytesSent;
-  external set bytesAcknowledged(JSNumber value);
-  external JSNumber get bytesAcknowledged;
+  external set bytesWritten(int value);
+  external int get bytesWritten;
+  external set bytesSent(int value);
+  external int get bytesSent;
+  external set bytesAcknowledged(int value);
+  external int get bytesAcknowledged;
 }
 
 @JS('WebTransportReceiveStream')
@@ -245,8 +245,8 @@ extension WebTransportReceiveStreamExtension on WebTransportReceiveStream {
 class WebTransportReceiveStreamStats implements JSObject {
   external factory WebTransportReceiveStreamStats({
     DOMHighResTimeStamp timestamp,
-    JSNumber bytesReceived,
-    JSNumber bytesRead,
+    int bytesReceived,
+    int bytesRead,
   });
 }
 
@@ -254,10 +254,10 @@ extension WebTransportReceiveStreamStatsExtension
     on WebTransportReceiveStreamStats {
   external set timestamp(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get timestamp;
-  external set bytesReceived(JSNumber value);
-  external JSNumber get bytesReceived;
-  external set bytesRead(JSNumber value);
-  external JSNumber get bytesRead;
+  external set bytesReceived(int value);
+  external int get bytesReceived;
+  external set bytesRead(int value);
+  external int get bytesRead;
 }
 
 @JS('WebTransportBidirectionalStream')
@@ -274,14 +274,14 @@ extension WebTransportBidirectionalStreamExtension
 @staticInterop
 class WebTransportError implements DOMException {
   external factory WebTransportError([
-    JSString message,
+    String message,
     WebTransportErrorOptions options,
   ]);
 }
 
 extension WebTransportErrorExtension on WebTransportError {
   external WebTransportErrorSource get source;
-  external JSNumber? get streamErrorCode;
+  external int? get streamErrorCode;
 }
 
 @JS()
@@ -290,13 +290,13 @@ extension WebTransportErrorExtension on WebTransportError {
 class WebTransportErrorOptions implements JSObject {
   external factory WebTransportErrorOptions({
     WebTransportErrorSource source,
-    JSNumber? streamErrorCode,
+    int? streamErrorCode,
   });
 }
 
 extension WebTransportErrorOptionsExtension on WebTransportErrorOptions {
   external set source(WebTransportErrorSource value);
   external WebTransportErrorSource get source;
-  external set streamErrorCode(JSNumber? value);
-  external JSNumber? get streamErrorCode;
+  external set streamErrorCode(int? value);
+  external int? get streamErrorCode;
 }

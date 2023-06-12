@@ -8,7 +8,7 @@ import 'dom.dart';
 import 'html.dart';
 
 typedef SchedulerPostTaskCallback = JSFunction;
-typedef TaskPriority = JSString;
+typedef TaskPriority = String;
 
 @JS()
 @staticInterop
@@ -17,7 +17,7 @@ class SchedulerPostTaskOptions implements JSObject {
   external factory SchedulerPostTaskOptions({
     AbortSignal signal,
     TaskPriority priority,
-    JSNumber delay,
+    int delay,
   });
 }
 
@@ -26,8 +26,8 @@ extension SchedulerPostTaskOptionsExtension on SchedulerPostTaskOptions {
   external AbortSignal get signal;
   external set priority(TaskPriority value);
   external TaskPriority get priority;
-  external set delay(JSNumber value);
-  external JSNumber get delay;
+  external set delay(int value);
+  external int get delay;
 }
 
 @JS('Scheduler')
@@ -45,7 +45,7 @@ extension SchedulerExtension on Scheduler {
 @staticInterop
 class TaskPriorityChangeEvent implements Event {
   external factory TaskPriorityChangeEvent(
-    JSString type,
+    String type,
     TaskPriorityChangeEventInit priorityChangeEventInitDict,
   );
 }

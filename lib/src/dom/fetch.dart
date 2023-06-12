@@ -14,14 +14,14 @@ typedef HeadersInit = JSAny?;
 typedef XMLHttpRequestBodyInit = JSAny?;
 typedef BodyInit = JSAny?;
 typedef RequestInfo = JSAny?;
-typedef RequestDestination = JSString;
-typedef RequestMode = JSString;
-typedef RequestCredentials = JSString;
-typedef RequestCache = JSString;
-typedef RequestRedirect = JSString;
-typedef RequestDuplex = JSString;
-typedef RequestPriority = JSString;
-typedef ResponseType = JSString;
+typedef RequestDestination = String;
+typedef RequestMode = String;
+typedef RequestCredentials = String;
+typedef RequestCache = String;
+typedef RequestRedirect = String;
+typedef RequestDuplex = String;
+typedef RequestPriority = String;
+typedef ResponseType = String;
 
 @JS('Headers')
 @staticInterop
@@ -31,16 +31,16 @@ class Headers implements JSObject {
 
 extension HeadersExtension on Headers {
   external JSVoid append(
-    JSString name,
-    JSString value,
+    String name,
+    String value,
   );
-  external JSVoid delete(JSString name);
-  external JSString? get(JSString name);
+  external JSVoid delete(String name);
+  external String? get(String name);
   external JSArray getSetCookie();
-  external JSBoolean has(JSString name);
+  external bool has(String name);
   external JSVoid set(
-    JSString name,
-    JSString value,
+    String name,
+    String value,
   );
 }
 
@@ -55,7 +55,7 @@ extension BodyExtension on Body {
   external JSPromise json();
   external JSPromise text();
   external ReadableStream? get body;
-  external JSBoolean get bodyUsed;
+  external bool get bodyUsed;
 }
 
 @JS('Request')
@@ -69,20 +69,20 @@ class Request implements Body {
 
 extension RequestExtension on Request {
   external Request clone();
-  external JSString get method;
-  external JSString get url;
+  external String get method;
+  external String get url;
   external Headers get headers;
   external RequestDestination get destination;
-  external JSString get referrer;
+  external String get referrer;
   external ReferrerPolicy get referrerPolicy;
   external RequestMode get mode;
   external RequestCredentials get credentials;
   external RequestCache get cache;
   external RequestRedirect get redirect;
-  external JSString get integrity;
-  external JSBoolean get keepalive;
-  external JSBoolean get isReloadNavigation;
-  external JSBoolean get isHistoryNavigation;
+  external String get integrity;
+  external bool get keepalive;
+  external bool get isReloadNavigation;
+  external bool get isHistoryNavigation;
   external AbortSignal get signal;
   external RequestDuplex get duplex;
 }
@@ -93,17 +93,17 @@ extension RequestExtension on Request {
 class RequestInit implements JSObject {
   external factory RequestInit({
     AttributionReportingRequestOptions attributionReporting,
-    JSString method,
+    String method,
     HeadersInit headers,
     BodyInit? body,
-    JSString referrer,
+    String referrer,
     ReferrerPolicy referrerPolicy,
     RequestMode mode,
     RequestCredentials credentials,
     RequestCache cache,
     RequestRedirect redirect,
-    JSString integrity,
-    JSBoolean keepalive,
+    String integrity,
+    bool keepalive,
     AbortSignal? signal,
     RequestDuplex duplex,
     RequestPriority priority,
@@ -115,14 +115,14 @@ class RequestInit implements JSObject {
 extension RequestInitExtension on RequestInit {
   external set attributionReporting(AttributionReportingRequestOptions value);
   external AttributionReportingRequestOptions get attributionReporting;
-  external set method(JSString value);
-  external JSString get method;
+  external set method(String value);
+  external String get method;
   external set headers(HeadersInit value);
   external HeadersInit get headers;
   external set body(BodyInit? value);
   external BodyInit? get body;
-  external set referrer(JSString value);
-  external JSString get referrer;
+  external set referrer(String value);
+  external String get referrer;
   external set referrerPolicy(ReferrerPolicy value);
   external ReferrerPolicy get referrerPolicy;
   external set mode(RequestMode value);
@@ -133,10 +133,10 @@ extension RequestInitExtension on RequestInit {
   external RequestCache get cache;
   external set redirect(RequestRedirect value);
   external RequestRedirect get redirect;
-  external set integrity(JSString value);
-  external JSString get integrity;
-  external set keepalive(JSBoolean value);
-  external JSBoolean get keepalive;
+  external set integrity(String value);
+  external String get integrity;
+  external set keepalive(bool value);
+  external bool get keepalive;
   external set signal(AbortSignal? value);
   external AbortSignal? get signal;
   external set duplex(RequestDuplex value);
@@ -159,8 +159,8 @@ class Response implements Body {
 
   external static Response error();
   external static Response redirect(
-    JSString url, [
-    JSNumber status,
+    String url, [
+    int status,
   ]);
   external static Response json(
     JSAny? data, [
@@ -171,11 +171,11 @@ class Response implements Body {
 extension ResponseExtension on Response {
   external Response clone();
   external ResponseType get type;
-  external JSString get url;
-  external JSBoolean get redirected;
-  external JSNumber get status;
-  external JSBoolean get ok;
-  external JSString get statusText;
+  external String get url;
+  external bool get redirected;
+  external int get status;
+  external bool get ok;
+  external String get statusText;
   external Headers get headers;
 }
 
@@ -184,17 +184,17 @@ extension ResponseExtension on Response {
 @anonymous
 class ResponseInit implements JSObject {
   external factory ResponseInit({
-    JSNumber status,
-    JSString statusText,
+    int status,
+    String statusText,
     HeadersInit headers,
   });
 }
 
 extension ResponseInitExtension on ResponseInit {
-  external set status(JSNumber value);
-  external JSNumber get status;
-  external set statusText(JSString value);
-  external JSString get statusText;
+  external set status(int value);
+  external int get status;
+  external set statusText(String value);
+  external String get statusText;
   external set headers(HeadersInit value);
   external HeadersInit get headers;
 }

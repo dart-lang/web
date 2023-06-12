@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 
-typedef HighlightType = JSString;
+typedef HighlightType = String;
 
 @JS('Highlight')
 @staticInterop
@@ -15,8 +15,8 @@ class Highlight implements JSObject {
 }
 
 extension HighlightExtension on Highlight {
-  external set priority(JSNumber value);
-  external JSNumber get priority;
+  external set priority(int value);
+  external int get priority;
   external set type(HighlightType value);
   external HighlightType get type;
 }

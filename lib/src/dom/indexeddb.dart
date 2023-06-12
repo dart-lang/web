@@ -8,10 +8,10 @@ import 'dom.dart';
 import 'html.dart';
 import 'webidl.dart';
 
-typedef IDBRequestReadyState = JSString;
-typedef IDBTransactionDurability = JSString;
-typedef IDBCursorDirection = JSString;
-typedef IDBTransactionMode = JSString;
+typedef IDBRequestReadyState = String;
+typedef IDBTransactionDurability = String;
+typedef IDBCursorDirection = String;
+typedef IDBTransactionMode = String;
 
 @JS('IDBRequest')
 @staticInterop
@@ -44,14 +44,14 @@ extension IDBOpenDBRequestExtension on IDBOpenDBRequest {
 @staticInterop
 class IDBVersionChangeEvent implements Event {
   external factory IDBVersionChangeEvent(
-    JSString type, [
+    String type, [
     IDBVersionChangeEventInit eventInitDict,
   ]);
 }
 
 extension IDBVersionChangeEventExtension on IDBVersionChangeEvent {
-  external JSNumber get oldVersion;
-  external JSNumber? get newVersion;
+  external int get oldVersion;
+  external int? get newVersion;
 }
 
 @JS()
@@ -59,16 +59,16 @@ extension IDBVersionChangeEventExtension on IDBVersionChangeEvent {
 @anonymous
 class IDBVersionChangeEventInit implements EventInit {
   external factory IDBVersionChangeEventInit({
-    JSNumber oldVersion,
-    JSNumber? newVersion,
+    int oldVersion,
+    int? newVersion,
   });
 }
 
 extension IDBVersionChangeEventInitExtension on IDBVersionChangeEventInit {
-  external set oldVersion(JSNumber value);
-  external JSNumber get oldVersion;
-  external set newVersion(JSNumber? value);
-  external JSNumber? get newVersion;
+  external set oldVersion(int value);
+  external int get oldVersion;
+  external set newVersion(int? value);
+  external int? get newVersion;
 }
 
 @JS('IDBFactory')
@@ -77,12 +77,12 @@ class IDBFactory implements JSObject {}
 
 extension IDBFactoryExtension on IDBFactory {
   external IDBOpenDBRequest open(
-    JSString name, [
-    JSNumber version,
+    String name, [
+    int version,
   ]);
-  external IDBOpenDBRequest deleteDatabase(JSString name);
+  external IDBOpenDBRequest deleteDatabase(String name);
   external JSPromise databases();
-  external JSNumber cmp(
+  external int cmp(
     JSAny? first,
     JSAny? second,
   );
@@ -93,16 +93,16 @@ extension IDBFactoryExtension on IDBFactory {
 @anonymous
 class IDBDatabaseInfo implements JSObject {
   external factory IDBDatabaseInfo({
-    JSString name,
-    JSNumber version,
+    String name,
+    int version,
   });
 }
 
 extension IDBDatabaseInfoExtension on IDBDatabaseInfo {
-  external set name(JSString value);
-  external JSString get name;
-  external set version(JSNumber value);
-  external JSNumber get version;
+  external set name(String value);
+  external String get name;
+  external set version(int value);
+  external int get version;
 }
 
 @JS('IDBDatabase')
@@ -117,12 +117,12 @@ extension IDBDatabaseExtension on IDBDatabase {
   ]);
   external JSVoid close();
   external IDBObjectStore createObjectStore(
-    JSString name, [
+    String name, [
     IDBObjectStoreParameters options,
   ]);
-  external JSVoid deleteObjectStore(JSString name);
-  external JSString get name;
-  external JSNumber get version;
+  external JSVoid deleteObjectStore(String name);
+  external String get name;
+  external int get version;
   external DOMStringList get objectStoreNames;
   external set onabort(EventHandler value);
   external EventHandler get onabort;
@@ -152,15 +152,15 @@ extension IDBTransactionOptionsExtension on IDBTransactionOptions {
 class IDBObjectStoreParameters implements JSObject {
   external factory IDBObjectStoreParameters({
     JSAny? keyPath,
-    JSBoolean autoIncrement,
+    bool autoIncrement,
   });
 }
 
 extension IDBObjectStoreParametersExtension on IDBObjectStoreParameters {
   external set keyPath(JSAny? value);
   external JSAny? get keyPath;
-  external set autoIncrement(JSBoolean value);
-  external JSBoolean get autoIncrement;
+  external set autoIncrement(bool value);
+  external bool get autoIncrement;
 }
 
 @JS('IDBObjectStore')
@@ -182,11 +182,11 @@ extension IDBObjectStoreExtension on IDBObjectStore {
   external IDBRequest getKey(JSAny? query);
   external IDBRequest getAll([
     JSAny? query,
-    JSNumber count,
+    int count,
   ]);
   external IDBRequest getAllKeys([
     JSAny? query,
-    JSNumber count,
+    int count,
   ]);
   external IDBRequest count([JSAny? query]);
   external IDBRequest openCursor([
@@ -197,19 +197,19 @@ extension IDBObjectStoreExtension on IDBObjectStore {
     JSAny? query,
     IDBCursorDirection direction,
   ]);
-  external IDBIndex index(JSString name);
+  external IDBIndex index(String name);
   external IDBIndex createIndex(
-    JSString name,
+    String name,
     JSAny? keyPath, [
     IDBIndexParameters options,
   ]);
-  external JSVoid deleteIndex(JSString name);
-  external set name(JSString value);
-  external JSString get name;
+  external JSVoid deleteIndex(String name);
+  external set name(String value);
+  external String get name;
   external JSAny? get keyPath;
   external DOMStringList get indexNames;
   external IDBTransaction get transaction;
-  external JSBoolean get autoIncrement;
+  external bool get autoIncrement;
 }
 
 @JS()
@@ -217,16 +217,16 @@ extension IDBObjectStoreExtension on IDBObjectStore {
 @anonymous
 class IDBIndexParameters implements JSObject {
   external factory IDBIndexParameters({
-    JSBoolean unique,
-    JSBoolean multiEntry,
+    bool unique,
+    bool multiEntry,
   });
 }
 
 extension IDBIndexParametersExtension on IDBIndexParameters {
-  external set unique(JSBoolean value);
-  external JSBoolean get unique;
-  external set multiEntry(JSBoolean value);
-  external JSBoolean get multiEntry;
+  external set unique(bool value);
+  external bool get unique;
+  external set multiEntry(bool value);
+  external bool get multiEntry;
 }
 
 @JS('IDBIndex')
@@ -238,11 +238,11 @@ extension IDBIndexExtension on IDBIndex {
   external IDBRequest getKey(JSAny? query);
   external IDBRequest getAll([
     JSAny? query,
-    JSNumber count,
+    int count,
   ]);
   external IDBRequest getAllKeys([
     JSAny? query,
-    JSNumber count,
+    int count,
   ]);
   external IDBRequest count([JSAny? query]);
   external IDBRequest openCursor([
@@ -253,12 +253,12 @@ extension IDBIndexExtension on IDBIndex {
     JSAny? query,
     IDBCursorDirection direction,
   ]);
-  external set name(JSString value);
-  external JSString get name;
+  external set name(String value);
+  external String get name;
   external IDBObjectStore get objectStore;
   external JSAny? get keyPath;
-  external JSBoolean get multiEntry;
-  external JSBoolean get unique;
+  external bool get multiEntry;
+  external bool get unique;
 }
 
 @JS('IDBKeyRange')
@@ -267,26 +267,26 @@ class IDBKeyRange implements JSObject {
   external static IDBKeyRange only(JSAny? value);
   external static IDBKeyRange lowerBound(
     JSAny? lower, [
-    JSBoolean open,
+    bool open,
   ]);
   external static IDBKeyRange upperBound(
     JSAny? upper, [
-    JSBoolean open,
+    bool open,
   ]);
   external static IDBKeyRange bound(
     JSAny? lower,
     JSAny? upper, [
-    JSBoolean lowerOpen,
-    JSBoolean upperOpen,
+    bool lowerOpen,
+    bool upperOpen,
   ]);
 }
 
 extension IDBKeyRangeExtension on IDBKeyRange {
-  external JSBoolean includes(JSAny? key);
+  external bool includes(JSAny? key);
   external JSAny? get lower;
   external JSAny? get upper;
-  external JSBoolean get lowerOpen;
-  external JSBoolean get upperOpen;
+  external bool get lowerOpen;
+  external bool get upperOpen;
 }
 
 @JS('IDBCursor')
@@ -294,7 +294,7 @@ extension IDBKeyRangeExtension on IDBKeyRange {
 class IDBCursor implements JSObject {}
 
 extension IDBCursorExtension on IDBCursor {
-  external JSVoid advance(JSNumber count);
+  external JSVoid advance(int count);
   @JS('continue')
   external JSVoid continue_([JSAny? key]);
   external JSVoid continuePrimaryKey(
@@ -323,7 +323,7 @@ extension IDBCursorWithValueExtension on IDBCursorWithValue {
 class IDBTransaction implements EventTarget {}
 
 extension IDBTransactionExtension on IDBTransaction {
-  external IDBObjectStore objectStore(JSString name);
+  external IDBObjectStore objectStore(String name);
   external JSVoid commit();
   external JSVoid abort();
   external DOMStringList get objectStoreNames;

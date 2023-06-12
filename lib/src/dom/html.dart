@@ -98,41 +98,41 @@ typedef EventHandlerNonNull = JSFunction;
 typedef OnErrorEventHandlerNonNull = JSFunction;
 typedef OnBeforeUnloadEventHandlerNonNull = JSFunction;
 typedef FrameRequestCallback = JSFunction;
-typedef DocumentReadyState = JSString;
-typedef DocumentVisibilityState = JSString;
-typedef CanPlayTypeResult = JSString;
-typedef TextTrackMode = JSString;
-typedef TextTrackKind = JSString;
-typedef SelectionMode = JSString;
-typedef PredefinedColorSpace = JSString;
-typedef CanvasFillRule = JSString;
-typedef ImageSmoothingQuality = JSString;
-typedef CanvasLineCap = JSString;
-typedef CanvasLineJoin = JSString;
-typedef CanvasTextAlign = JSString;
-typedef CanvasTextBaseline = JSString;
-typedef CanvasDirection = JSString;
-typedef CanvasFontKerning = JSString;
-typedef CanvasFontStretch = JSString;
-typedef CanvasFontVariantCaps = JSString;
-typedef CanvasTextRendering = JSString;
-typedef OffscreenRenderingContextId = JSString;
-typedef ScrollRestoration = JSString;
-typedef DOMParserSupportedType = JSString;
-typedef ImageOrientation = JSString;
-typedef PremultiplyAlpha = JSString;
-typedef ColorSpaceConversion = JSString;
-typedef ResizeQuality = JSString;
-typedef WorkerType = JSString;
+typedef DocumentReadyState = String;
+typedef DocumentVisibilityState = String;
+typedef CanPlayTypeResult = String;
+typedef TextTrackMode = String;
+typedef TextTrackKind = String;
+typedef SelectionMode = String;
+typedef PredefinedColorSpace = String;
+typedef CanvasFillRule = String;
+typedef ImageSmoothingQuality = String;
+typedef CanvasLineCap = String;
+typedef CanvasLineJoin = String;
+typedef CanvasTextAlign = String;
+typedef CanvasTextBaseline = String;
+typedef CanvasDirection = String;
+typedef CanvasFontKerning = String;
+typedef CanvasFontStretch = String;
+typedef CanvasFontVariantCaps = String;
+typedef CanvasTextRendering = String;
+typedef OffscreenRenderingContextId = String;
+typedef ScrollRestoration = String;
+typedef DOMParserSupportedType = String;
+typedef ImageOrientation = String;
+typedef PremultiplyAlpha = String;
+typedef ColorSpaceConversion = String;
+typedef ResizeQuality = String;
+typedef WorkerType = String;
 
 @JS('HTMLAllCollection')
 @staticInterop
 class HTMLAllCollection implements JSObject {}
 
 extension HTMLAllCollectionExtension on HTMLAllCollection {
-  external JSAny? namedItem(JSString name);
-  external JSAny? item([JSString nameOrIndex]);
-  external JSNumber get length;
+  external JSAny? namedItem(String name);
+  external JSAny? item([String nameOrIndex]);
+  external int get length;
 }
 
 @JS('HTMLFormControlsCollection')
@@ -140,7 +140,7 @@ extension HTMLAllCollectionExtension on HTMLAllCollection {
 class HTMLFormControlsCollection implements HTMLCollection {}
 
 extension HTMLFormControlsCollectionExtension on HTMLFormControlsCollection {
-  external JSAny? namedItem(JSString name);
+  external JSAny? namedItem(String name);
 }
 
 @JS('RadioNodeList')
@@ -148,8 +148,8 @@ extension HTMLFormControlsCollectionExtension on HTMLFormControlsCollection {
 class RadioNodeList implements NodeList {}
 
 extension RadioNodeListExtension on RadioNodeList {
-  external set value(JSString value);
-  external JSString get value;
+  external set value(String value);
+  external String get value;
 }
 
 @JS('HTMLOptionsCollection')
@@ -161,11 +161,11 @@ extension HTMLOptionsCollectionExtension on HTMLOptionsCollection {
     JSAny? element, [
     JSAny? before,
   ]);
-  external JSVoid remove(JSNumber index);
-  external set length(JSNumber value);
-  external JSNumber get length;
-  external set selectedIndex(JSNumber value);
-  external JSNumber get selectedIndex;
+  external JSVoid remove(int index);
+  external set length(int value);
+  external int get length;
+  external set selectedIndex(int value);
+  external int get selectedIndex;
 }
 
 @JS('DOMStringList')
@@ -173,9 +173,9 @@ extension HTMLOptionsCollectionExtension on HTMLOptionsCollection {
 class DOMStringList implements JSObject {}
 
 extension DOMStringListExtension on DOMStringList {
-  external JSString? item(JSNumber index);
-  external JSBoolean contains(JSString string);
-  external JSNumber get length;
+  external String? item(int index);
+  external bool contains(String string);
+  external int get length;
 }
 
 @JS('HTMLElement')
@@ -195,41 +195,41 @@ extension HTMLElementExtension on HTMLElement {
   external ElementInternals attachInternals();
   external JSVoid showPopover();
   external JSVoid hidePopover();
-  external JSVoid togglePopover([JSBoolean force]);
+  external JSVoid togglePopover([bool force]);
   external Element? get offsetParent;
-  external JSNumber get offsetTop;
-  external JSNumber get offsetLeft;
-  external JSNumber get offsetWidth;
-  external JSNumber get offsetHeight;
+  external int get offsetTop;
+  external int get offsetLeft;
+  external int get offsetWidth;
+  external int get offsetHeight;
   external set editContext(EditContext? value);
   external EditContext? get editContext;
-  external set title(JSString value);
-  external JSString get title;
-  external set lang(JSString value);
-  external JSString get lang;
-  external set translate(JSBoolean value);
-  external JSBoolean get translate;
-  external set dir(JSString value);
-  external JSString get dir;
+  external set title(String value);
+  external String get title;
+  external set lang(String value);
+  external String get lang;
+  external set translate(bool value);
+  external bool get translate;
+  external set dir(String value);
+  external String get dir;
   external set hidden(JSAny? value);
   external JSAny? get hidden;
-  external set inert(JSBoolean value);
-  external JSBoolean get inert;
-  external set accessKey(JSString value);
-  external JSString get accessKey;
-  external JSString get accessKeyLabel;
-  external set draggable(JSBoolean value);
-  external JSBoolean get draggable;
-  external set spellcheck(JSBoolean value);
-  external JSBoolean get spellcheck;
-  external set autocapitalize(JSString value);
-  external JSString get autocapitalize;
-  external set innerText(JSString value);
-  external JSString get innerText;
-  external set outerText(JSString value);
-  external JSString get outerText;
-  external set popover(JSString? value);
-  external JSString? get popover;
+  external set inert(bool value);
+  external bool get inert;
+  external set accessKey(String value);
+  external String get accessKey;
+  external String get accessKeyLabel;
+  external set draggable(bool value);
+  external bool get draggable;
+  external set spellcheck(bool value);
+  external bool get spellcheck;
+  external set autocapitalize(String value);
+  external String get autocapitalize;
+  external set innerText(String value);
+  external String get innerText;
+  external set outerText(String value);
+  external String get outerText;
+  external set popover(String? value);
+  external String? get popover;
 }
 
 @JS('HTMLUnknownElement')
@@ -244,12 +244,12 @@ extension HTMLOrSVGElementExtension on HTMLOrSVGElement {
   external JSVoid focus([FocusOptions options]);
   external JSVoid blur();
   external DOMStringMap get dataset;
-  external set nonce(JSString value);
-  external JSString get nonce;
-  external set autofocus(JSBoolean value);
-  external JSBoolean get autofocus;
-  external set tabIndex(JSNumber value);
-  external JSNumber get tabIndex;
+  external set nonce(String value);
+  external String get nonce;
+  external set autofocus(bool value);
+  external bool get autofocus;
+  external set tabIndex(int value);
+  external int get tabIndex;
 }
 
 @JS('DOMStringMap')
@@ -263,8 +263,8 @@ class HTMLHtmlElement implements HTMLElement {
 }
 
 extension HTMLHtmlElementExtension on HTMLHtmlElement {
-  external set version(JSString value);
-  external JSString get version;
+  external set version(String value);
+  external String get version;
 }
 
 @JS('HTMLHeadElement')
@@ -280,8 +280,8 @@ class HTMLTitleElement implements HTMLElement {
 }
 
 extension HTMLTitleElementExtension on HTMLTitleElement {
-  external set text(JSString value);
-  external JSString get text;
+  external set text(String value);
+  external String get text;
 }
 
 @JS('HTMLBaseElement')
@@ -291,10 +291,10 @@ class HTMLBaseElement implements HTMLElement {
 }
 
 extension HTMLBaseElementExtension on HTMLBaseElement {
-  external set href(JSString value);
-  external JSString get href;
-  external set target(JSString value);
-  external JSString get target;
+  external set href(String value);
+  external String get href;
+  external set target(String value);
+  external String get target;
 }
 
 @JS('HTMLLinkElement')
@@ -304,41 +304,41 @@ class HTMLLinkElement implements HTMLElement, LinkStyle {
 }
 
 extension HTMLLinkElementExtension on HTMLLinkElement {
-  external set href(JSString value);
-  external JSString get href;
-  external set crossOrigin(JSString? value);
-  external JSString? get crossOrigin;
-  external set rel(JSString value);
-  external JSString get rel;
-  external set as(JSString value);
-  external JSString get as;
+  external set href(String value);
+  external String get href;
+  external set crossOrigin(String? value);
+  external String? get crossOrigin;
+  external set rel(String value);
+  external String get rel;
+  external set as(String value);
+  external String get as;
   external DOMTokenList get relList;
-  external set media(JSString value);
-  external JSString get media;
-  external set integrity(JSString value);
-  external JSString get integrity;
-  external set hreflang(JSString value);
-  external JSString get hreflang;
-  external set type(JSString value);
-  external JSString get type;
+  external set media(String value);
+  external String get media;
+  external set integrity(String value);
+  external String get integrity;
+  external set hreflang(String value);
+  external String get hreflang;
+  external set type(String value);
+  external String get type;
   external DOMTokenList get sizes;
-  external set imageSrcset(JSString value);
-  external JSString get imageSrcset;
-  external set imageSizes(JSString value);
-  external JSString get imageSizes;
-  external set referrerPolicy(JSString value);
-  external JSString get referrerPolicy;
+  external set imageSrcset(String value);
+  external String get imageSrcset;
+  external set imageSizes(String value);
+  external String get imageSizes;
+  external set referrerPolicy(String value);
+  external String get referrerPolicy;
   external DOMTokenList get blocking;
-  external set disabled(JSBoolean value);
-  external JSBoolean get disabled;
-  external set fetchPriority(JSString value);
-  external JSString get fetchPriority;
-  external set charset(JSString value);
-  external JSString get charset;
-  external set rev(JSString value);
-  external JSString get rev;
-  external set target(JSString value);
-  external JSString get target;
+  external set disabled(bool value);
+  external bool get disabled;
+  external set fetchPriority(String value);
+  external String get fetchPriority;
+  external set charset(String value);
+  external String get charset;
+  external set rev(String value);
+  external String get rev;
+  external set target(String value);
+  external String get target;
 }
 
 @JS('HTMLMetaElement')
@@ -348,16 +348,16 @@ class HTMLMetaElement implements HTMLElement {
 }
 
 extension HTMLMetaElementExtension on HTMLMetaElement {
-  external set name(JSString value);
-  external JSString get name;
-  external set httpEquiv(JSString value);
-  external JSString get httpEquiv;
-  external set content(JSString value);
-  external JSString get content;
-  external set media(JSString value);
-  external JSString get media;
-  external set scheme(JSString value);
-  external JSString get scheme;
+  external set name(String value);
+  external String get name;
+  external set httpEquiv(String value);
+  external String get httpEquiv;
+  external set content(String value);
+  external String get content;
+  external set media(String value);
+  external String get media;
+  external set scheme(String value);
+  external String get scheme;
 }
 
 @JS('HTMLStyleElement')
@@ -367,13 +367,13 @@ class HTMLStyleElement implements HTMLElement, LinkStyle {
 }
 
 extension HTMLStyleElementExtension on HTMLStyleElement {
-  external set disabled(JSBoolean value);
-  external JSBoolean get disabled;
-  external set media(JSString value);
-  external JSString get media;
+  external set disabled(bool value);
+  external bool get disabled;
+  external set media(String value);
+  external String get media;
   external DOMTokenList get blocking;
-  external set type(JSString value);
-  external JSString get type;
+  external set type(String value);
+  external String get type;
 }
 
 @JS('HTMLBodyElement')
@@ -385,18 +385,18 @@ class HTMLBodyElement implements HTMLElement, WindowEventHandlers {
 extension HTMLBodyElementExtension on HTMLBodyElement {
   external set onorientationchange(EventHandler value);
   external EventHandler get onorientationchange;
-  external set text(JSString value);
-  external JSString get text;
-  external set link(JSString value);
-  external JSString get link;
-  external set vLink(JSString value);
-  external JSString get vLink;
-  external set aLink(JSString value);
-  external JSString get aLink;
-  external set bgColor(JSString value);
-  external JSString get bgColor;
-  external set background(JSString value);
-  external JSString get background;
+  external set text(String value);
+  external String get text;
+  external set link(String value);
+  external String get link;
+  external set vLink(String value);
+  external String get vLink;
+  external set aLink(String value);
+  external String get aLink;
+  external set bgColor(String value);
+  external String get bgColor;
+  external set background(String value);
+  external String get background;
 }
 
 @JS('HTMLHeadingElement')
@@ -406,8 +406,8 @@ class HTMLHeadingElement implements HTMLElement {
 }
 
 extension HTMLHeadingElementExtension on HTMLHeadingElement {
-  external set align(JSString value);
-  external JSString get align;
+  external set align(String value);
+  external String get align;
 }
 
 @JS('HTMLParagraphElement')
@@ -417,8 +417,8 @@ class HTMLParagraphElement implements HTMLElement {
 }
 
 extension HTMLParagraphElementExtension on HTMLParagraphElement {
-  external set align(JSString value);
-  external JSString get align;
+  external set align(String value);
+  external String get align;
 }
 
 @JS('HTMLHRElement')
@@ -428,16 +428,16 @@ class HTMLHRElement implements HTMLElement {
 }
 
 extension HTMLHRElementExtension on HTMLHRElement {
-  external set align(JSString value);
-  external JSString get align;
-  external set color(JSString value);
-  external JSString get color;
-  external set noShade(JSBoolean value);
-  external JSBoolean get noShade;
-  external set size(JSString value);
-  external JSString get size;
-  external set width(JSString value);
-  external JSString get width;
+  external set align(String value);
+  external String get align;
+  external set color(String value);
+  external String get color;
+  external set noShade(bool value);
+  external bool get noShade;
+  external set size(String value);
+  external String get size;
+  external set width(String value);
+  external String get width;
 }
 
 @JS('HTMLPreElement')
@@ -447,8 +447,8 @@ class HTMLPreElement implements HTMLElement {
 }
 
 extension HTMLPreElementExtension on HTMLPreElement {
-  external set width(JSNumber value);
-  external JSNumber get width;
+  external set width(int value);
+  external int get width;
 }
 
 @JS('HTMLQuoteElement')
@@ -458,8 +458,8 @@ class HTMLQuoteElement implements HTMLElement {
 }
 
 extension HTMLQuoteElementExtension on HTMLQuoteElement {
-  external set cite(JSString value);
-  external JSString get cite;
+  external set cite(String value);
+  external String get cite;
 }
 
 @JS('HTMLOListElement')
@@ -469,14 +469,14 @@ class HTMLOListElement implements HTMLElement {
 }
 
 extension HTMLOListElementExtension on HTMLOListElement {
-  external set reversed(JSBoolean value);
-  external JSBoolean get reversed;
-  external set start(JSNumber value);
-  external JSNumber get start;
-  external set type(JSString value);
-  external JSString get type;
-  external set compact(JSBoolean value);
-  external JSBoolean get compact;
+  external set reversed(bool value);
+  external bool get reversed;
+  external set start(int value);
+  external int get start;
+  external set type(String value);
+  external String get type;
+  external set compact(bool value);
+  external bool get compact;
 }
 
 @JS('HTMLUListElement')
@@ -486,10 +486,10 @@ class HTMLUListElement implements HTMLElement {
 }
 
 extension HTMLUListElementExtension on HTMLUListElement {
-  external set compact(JSBoolean value);
-  external JSBoolean get compact;
-  external set type(JSString value);
-  external JSString get type;
+  external set compact(bool value);
+  external bool get compact;
+  external set type(String value);
+  external String get type;
 }
 
 @JS('HTMLMenuElement')
@@ -499,8 +499,8 @@ class HTMLMenuElement implements HTMLElement {
 }
 
 extension HTMLMenuElementExtension on HTMLMenuElement {
-  external set compact(JSBoolean value);
-  external JSBoolean get compact;
+  external set compact(bool value);
+  external bool get compact;
 }
 
 @JS('HTMLLIElement')
@@ -510,10 +510,10 @@ class HTMLLIElement implements HTMLElement {
 }
 
 extension HTMLLIElementExtension on HTMLLIElement {
-  external set value(JSNumber value);
-  external JSNumber get value;
-  external set type(JSString value);
-  external JSString get type;
+  external set value(int value);
+  external int get value;
+  external set type(String value);
+  external String get type;
 }
 
 @JS('HTMLDListElement')
@@ -523,8 +523,8 @@ class HTMLDListElement implements HTMLElement {
 }
 
 extension HTMLDListElementExtension on HTMLDListElement {
-  external set compact(JSBoolean value);
-  external JSBoolean get compact;
+  external set compact(bool value);
+  external bool get compact;
 }
 
 @JS('HTMLDivElement')
@@ -534,8 +534,8 @@ class HTMLDivElement implements HTMLElement {
 }
 
 extension HTMLDivElementExtension on HTMLDivElement {
-  external set align(JSString value);
-  external JSString get align;
+  external set align(String value);
+  external String get align;
 }
 
 @JS('HTMLAnchorElement')
@@ -549,35 +549,35 @@ class HTMLAnchorElement
 }
 
 extension HTMLAnchorElementExtension on HTMLAnchorElement {
-  external set target(JSString value);
-  external JSString get target;
-  external set download(JSString value);
-  external JSString get download;
-  external set ping(JSString value);
-  external JSString get ping;
-  external set rel(JSString value);
-  external JSString get rel;
+  external set target(String value);
+  external String get target;
+  external set download(String value);
+  external String get download;
+  external set ping(String value);
+  external String get ping;
+  external set rel(String value);
+  external String get rel;
   external DOMTokenList get relList;
-  external set hreflang(JSString value);
-  external JSString get hreflang;
-  external set type(JSString value);
-  external JSString get type;
-  external set text(JSString value);
-  external JSString get text;
-  external set referrerPolicy(JSString value);
-  external JSString get referrerPolicy;
-  external set coords(JSString value);
-  external JSString get coords;
-  external set charset(JSString value);
-  external JSString get charset;
-  external set name(JSString value);
-  external JSString get name;
-  external set rev(JSString value);
-  external JSString get rev;
-  external set shape(JSString value);
-  external JSString get shape;
-  external set attributionSourceId(JSNumber value);
-  external JSNumber get attributionSourceId;
+  external set hreflang(String value);
+  external String get hreflang;
+  external set type(String value);
+  external String get type;
+  external set text(String value);
+  external String get text;
+  external set referrerPolicy(String value);
+  external String get referrerPolicy;
+  external set coords(String value);
+  external String get coords;
+  external set charset(String value);
+  external String get charset;
+  external set name(String value);
+  external String get name;
+  external set rev(String value);
+  external String get rev;
+  external set shape(String value);
+  external String get shape;
+  external set attributionSourceId(int value);
+  external int get attributionSourceId;
 }
 
 @JS('HTMLDataElement')
@@ -587,8 +587,8 @@ class HTMLDataElement implements HTMLElement {
 }
 
 extension HTMLDataElementExtension on HTMLDataElement {
-  external set value(JSString value);
-  external JSString get value;
+  external set value(String value);
+  external String get value;
 }
 
 @JS('HTMLTimeElement')
@@ -598,8 +598,8 @@ class HTMLTimeElement implements HTMLElement {
 }
 
 extension HTMLTimeElementExtension on HTMLTimeElement {
-  external set dateTime(JSString value);
-  external JSString get dateTime;
+  external set dateTime(String value);
+  external String get dateTime;
 }
 
 @JS('HTMLSpanElement')
@@ -615,8 +615,8 @@ class HTMLBRElement implements HTMLElement {
 }
 
 extension HTMLBRElementExtension on HTMLBRElement {
-  external set clear(JSString value);
-  external JSString get clear;
+  external set clear(String value);
+  external String get clear;
 }
 
 @JS('HTMLHyperlinkElementUtils')
@@ -624,27 +624,27 @@ extension HTMLBRElementExtension on HTMLBRElement {
 class HTMLHyperlinkElementUtils implements JSObject {}
 
 extension HTMLHyperlinkElementUtilsExtension on HTMLHyperlinkElementUtils {
-  external set href(JSString value);
-  external JSString get href;
-  external JSString get origin;
-  external set protocol(JSString value);
-  external JSString get protocol;
-  external set username(JSString value);
-  external JSString get username;
-  external set password(JSString value);
-  external JSString get password;
-  external set host(JSString value);
-  external JSString get host;
-  external set hostname(JSString value);
-  external JSString get hostname;
-  external set port(JSString value);
-  external JSString get port;
-  external set pathname(JSString value);
-  external JSString get pathname;
-  external set search(JSString value);
-  external JSString get search;
-  external set hash(JSString value);
-  external JSString get hash;
+  external set href(String value);
+  external String get href;
+  external String get origin;
+  external set protocol(String value);
+  external String get protocol;
+  external set username(String value);
+  external String get username;
+  external set password(String value);
+  external String get password;
+  external set host(String value);
+  external String get host;
+  external set hostname(String value);
+  external String get hostname;
+  external set port(String value);
+  external String get port;
+  external set pathname(String value);
+  external String get pathname;
+  external set search(String value);
+  external String get search;
+  external set hash(String value);
+  external String get hash;
 }
 
 @JS('HTMLModElement')
@@ -654,10 +654,10 @@ class HTMLModElement implements HTMLElement {
 }
 
 extension HTMLModElementExtension on HTMLModElement {
-  external set cite(JSString value);
-  external JSString get cite;
-  external set dateTime(JSString value);
-  external JSString get dateTime;
+  external set cite(String value);
+  external String get cite;
+  external set dateTime(String value);
+  external String get dateTime;
 }
 
 @JS('HTMLPictureElement')
@@ -673,20 +673,20 @@ class HTMLSourceElement implements HTMLElement {
 }
 
 extension HTMLSourceElementExtension on HTMLSourceElement {
-  external set src(JSString value);
-  external JSString get src;
-  external set type(JSString value);
-  external JSString get type;
-  external set srcset(JSString value);
-  external JSString get srcset;
-  external set sizes(JSString value);
-  external JSString get sizes;
-  external set media(JSString value);
-  external JSString get media;
-  external set width(JSNumber value);
-  external JSNumber get width;
-  external set height(JSNumber value);
-  external JSNumber get height;
+  external set src(String value);
+  external String get src;
+  external set type(String value);
+  external String get type;
+  external set srcset(String value);
+  external String get srcset;
+  external set sizes(String value);
+  external String get sizes;
+  external set media(String value);
+  external String get media;
+  external set width(int value);
+  external int get width;
+  external set height(int value);
+  external int get height;
 }
 
 @JS('HTMLImageElement')
@@ -697,52 +697,52 @@ class HTMLImageElement implements HTMLElement, HTMLAttributionSrcElementUtils {
 
 extension HTMLImageElementExtension on HTMLImageElement {
   external JSPromise decode();
-  external JSNumber get x;
-  external JSNumber get y;
-  external set alt(JSString value);
-  external JSString get alt;
-  external set src(JSString value);
-  external JSString get src;
-  external set srcset(JSString value);
-  external JSString get srcset;
-  external set sizes(JSString value);
-  external JSString get sizes;
-  external set crossOrigin(JSString? value);
-  external JSString? get crossOrigin;
-  external set useMap(JSString value);
-  external JSString get useMap;
-  external set isMap(JSBoolean value);
-  external JSBoolean get isMap;
-  external set width(JSNumber value);
-  external JSNumber get width;
-  external set height(JSNumber value);
-  external JSNumber get height;
-  external JSNumber get naturalWidth;
-  external JSNumber get naturalHeight;
-  external JSBoolean get complete;
-  external JSString get currentSrc;
-  external set referrerPolicy(JSString value);
-  external JSString get referrerPolicy;
-  external set decoding(JSString value);
-  external JSString get decoding;
-  external set loading(JSString value);
-  external JSString get loading;
-  external set fetchPriority(JSString value);
-  external JSString get fetchPriority;
-  external set name(JSString value);
-  external JSString get name;
-  external set lowsrc(JSString value);
-  external JSString get lowsrc;
-  external set align(JSString value);
-  external JSString get align;
-  external set hspace(JSNumber value);
-  external JSNumber get hspace;
-  external set vspace(JSNumber value);
-  external JSNumber get vspace;
-  external set longDesc(JSString value);
-  external JSString get longDesc;
-  external set border(JSString value);
-  external JSString get border;
+  external int get x;
+  external int get y;
+  external set alt(String value);
+  external String get alt;
+  external set src(String value);
+  external String get src;
+  external set srcset(String value);
+  external String get srcset;
+  external set sizes(String value);
+  external String get sizes;
+  external set crossOrigin(String? value);
+  external String? get crossOrigin;
+  external set useMap(String value);
+  external String get useMap;
+  external set isMap(bool value);
+  external bool get isMap;
+  external set width(int value);
+  external int get width;
+  external set height(int value);
+  external int get height;
+  external int get naturalWidth;
+  external int get naturalHeight;
+  external bool get complete;
+  external String get currentSrc;
+  external set referrerPolicy(String value);
+  external String get referrerPolicy;
+  external set decoding(String value);
+  external String get decoding;
+  external set loading(String value);
+  external String get loading;
+  external set fetchPriority(String value);
+  external String get fetchPriority;
+  external set name(String value);
+  external String get name;
+  external set lowsrc(String value);
+  external String get lowsrc;
+  external set align(String value);
+  external String get align;
+  external set hspace(int value);
+  external int get hspace;
+  external set vspace(int value);
+  external int get vspace;
+  external set longDesc(String value);
+  external String get longDesc;
+  external set border(String value);
+  external String get border;
 }
 
 @JS('HTMLIFrameElement')
@@ -753,41 +753,41 @@ class HTMLIFrameElement implements HTMLElement {
 
 extension HTMLIFrameElementExtension on HTMLIFrameElement {
   external Document? getSVGDocument();
-  external set csp(JSString value);
-  external JSString get csp;
-  external set src(JSString value);
-  external JSString get src;
-  external set srcdoc(JSString value);
-  external JSString get srcdoc;
-  external set name(JSString value);
-  external JSString get name;
+  external set csp(String value);
+  external String get csp;
+  external set src(String value);
+  external String get src;
+  external set srcdoc(String value);
+  external String get srcdoc;
+  external set name(String value);
+  external String get name;
   external DOMTokenList get sandbox;
-  external set allow(JSString value);
-  external JSString get allow;
-  external set allowFullscreen(JSBoolean value);
-  external JSBoolean get allowFullscreen;
-  external set width(JSString value);
-  external JSString get width;
-  external set height(JSString value);
-  external JSString get height;
-  external set referrerPolicy(JSString value);
-  external JSString get referrerPolicy;
-  external set loading(JSString value);
-  external JSString get loading;
+  external set allow(String value);
+  external String get allow;
+  external set allowFullscreen(bool value);
+  external bool get allowFullscreen;
+  external set width(String value);
+  external String get width;
+  external set height(String value);
+  external String get height;
+  external set referrerPolicy(String value);
+  external String get referrerPolicy;
+  external set loading(String value);
+  external String get loading;
   external Document? get contentDocument;
   external Window? get contentWindow;
-  external set align(JSString value);
-  external JSString get align;
-  external set scrolling(JSString value);
-  external JSString get scrolling;
-  external set frameBorder(JSString value);
-  external JSString get frameBorder;
-  external set longDesc(JSString value);
-  external JSString get longDesc;
-  external set marginHeight(JSString value);
-  external JSString get marginHeight;
-  external set marginWidth(JSString value);
-  external JSString get marginWidth;
+  external set align(String value);
+  external String get align;
+  external set scrolling(String value);
+  external String get scrolling;
+  external set frameBorder(String value);
+  external String get frameBorder;
+  external set longDesc(String value);
+  external String get longDesc;
+  external set marginHeight(String value);
+  external String get marginHeight;
+  external set marginWidth(String value);
+  external String get marginWidth;
   external PermissionsPolicy get permissionsPolicy;
 }
 
@@ -799,18 +799,18 @@ class HTMLEmbedElement implements HTMLElement {
 
 extension HTMLEmbedElementExtension on HTMLEmbedElement {
   external Document? getSVGDocument();
-  external set src(JSString value);
-  external JSString get src;
-  external set type(JSString value);
-  external JSString get type;
-  external set width(JSString value);
-  external JSString get width;
-  external set height(JSString value);
-  external JSString get height;
-  external set align(JSString value);
-  external JSString get align;
-  external set name(JSString value);
-  external JSString get name;
+  external set src(String value);
+  external String get src;
+  external set type(String value);
+  external String get type;
+  external set width(String value);
+  external String get width;
+  external set height(String value);
+  external String get height;
+  external set align(String value);
+  external String get align;
+  external set name(String value);
+  external String get name;
 }
 
 @JS('HTMLObjectElement')
@@ -821,47 +821,47 @@ class HTMLObjectElement implements HTMLElement {
 
 extension HTMLObjectElementExtension on HTMLObjectElement {
   external Document? getSVGDocument();
-  external JSBoolean checkValidity();
-  external JSBoolean reportValidity();
-  external JSVoid setCustomValidity(JSString error);
-  external set data(JSString value);
-  external JSString get data;
-  external set type(JSString value);
-  external JSString get type;
-  external set name(JSString value);
-  external JSString get name;
+  external bool checkValidity();
+  external bool reportValidity();
+  external JSVoid setCustomValidity(String error);
+  external set data(String value);
+  external String get data;
+  external set type(String value);
+  external String get type;
+  external set name(String value);
+  external String get name;
   external HTMLFormElement? get form;
-  external set width(JSString value);
-  external JSString get width;
-  external set height(JSString value);
-  external JSString get height;
+  external set width(String value);
+  external String get width;
+  external set height(String value);
+  external String get height;
   external Document? get contentDocument;
   external Window? get contentWindow;
-  external JSBoolean get willValidate;
+  external bool get willValidate;
   external ValidityState get validity;
-  external JSString get validationMessage;
-  external set align(JSString value);
-  external JSString get align;
-  external set archive(JSString value);
-  external JSString get archive;
-  external set code(JSString value);
-  external JSString get code;
-  external set declare(JSBoolean value);
-  external JSBoolean get declare;
-  external set hspace(JSNumber value);
-  external JSNumber get hspace;
-  external set standby(JSString value);
-  external JSString get standby;
-  external set vspace(JSNumber value);
-  external JSNumber get vspace;
-  external set codeBase(JSString value);
-  external JSString get codeBase;
-  external set codeType(JSString value);
-  external JSString get codeType;
-  external set useMap(JSString value);
-  external JSString get useMap;
-  external set border(JSString value);
-  external JSString get border;
+  external String get validationMessage;
+  external set align(String value);
+  external String get align;
+  external set archive(String value);
+  external String get archive;
+  external set code(String value);
+  external String get code;
+  external set declare(bool value);
+  external bool get declare;
+  external set hspace(int value);
+  external int get hspace;
+  external set standby(String value);
+  external String get standby;
+  external set vspace(int value);
+  external int get vspace;
+  external set codeBase(String value);
+  external String get codeBase;
+  external set codeType(String value);
+  external String get codeType;
+  external set useMap(String value);
+  external String get useMap;
+  external set border(String value);
+  external String get border;
 }
 
 @JS('HTMLVideoElement')
@@ -873,25 +873,24 @@ class HTMLVideoElement implements HTMLMediaElement {
 extension HTMLVideoElementExtension on HTMLVideoElement {
   external VideoPlaybackQuality getVideoPlaybackQuality();
   external JSPromise requestPictureInPicture();
-  external JSNumber requestVideoFrameCallback(
-      VideoFrameRequestCallback callback);
-  external JSVoid cancelVideoFrameCallback(JSNumber handle);
-  external set width(JSNumber value);
-  external JSNumber get width;
-  external set height(JSNumber value);
-  external JSNumber get height;
-  external JSNumber get videoWidth;
-  external JSNumber get videoHeight;
-  external set poster(JSString value);
-  external JSString get poster;
-  external set playsInline(JSBoolean value);
-  external JSBoolean get playsInline;
+  external int requestVideoFrameCallback(VideoFrameRequestCallback callback);
+  external JSVoid cancelVideoFrameCallback(int handle);
+  external set width(int value);
+  external int get width;
+  external set height(int value);
+  external int get height;
+  external int get videoWidth;
+  external int get videoHeight;
+  external set poster(String value);
+  external String get poster;
+  external set playsInline(bool value);
+  external bool get playsInline;
   external set onenterpictureinpicture(EventHandler value);
   external EventHandler get onenterpictureinpicture;
   external set onleavepictureinpicture(EventHandler value);
   external EventHandler get onleavepictureinpicture;
-  external set disablePictureInPicture(JSBoolean value);
-  external JSBoolean get disablePictureInPicture;
+  external set disablePictureInPicture(bool value);
+  external bool get disablePictureInPicture;
 }
 
 @JS('HTMLAudioElement')
@@ -905,123 +904,123 @@ class HTMLAudioElement implements HTMLMediaElement {
 class HTMLTrackElement implements HTMLElement {
   external factory HTMLTrackElement();
 
-  external static JSNumber get NONE;
-  external static JSNumber get LOADING;
-  external static JSNumber get LOADED;
-  external static JSNumber get ERROR;
+  external static int get NONE;
+  external static int get LOADING;
+  external static int get LOADED;
+  external static int get ERROR;
 }
 
 extension HTMLTrackElementExtension on HTMLTrackElement {
-  external set kind(JSString value);
-  external JSString get kind;
-  external set src(JSString value);
-  external JSString get src;
-  external set srclang(JSString value);
-  external JSString get srclang;
-  external set label(JSString value);
-  external JSString get label;
+  external set kind(String value);
+  external String get kind;
+  external set src(String value);
+  external String get src;
+  external set srclang(String value);
+  external String get srclang;
+  external set label(String value);
+  external String get label;
   @JS('default')
-  external set default_(JSBoolean value);
+  external set default_(bool value);
   @JS('default')
-  external JSBoolean get default_;
-  external JSNumber get readyState;
+  external bool get default_;
+  external int get readyState;
   external TextTrack get track;
 }
 
 @JS('HTMLMediaElement')
 @staticInterop
 class HTMLMediaElement implements HTMLElement {
-  external static JSNumber get NETWORK_EMPTY;
-  external static JSNumber get NETWORK_IDLE;
-  external static JSNumber get NETWORK_LOADING;
-  external static JSNumber get NETWORK_NO_SOURCE;
-  external static JSNumber get HAVE_NOTHING;
-  external static JSNumber get HAVE_METADATA;
-  external static JSNumber get HAVE_CURRENT_DATA;
-  external static JSNumber get HAVE_FUTURE_DATA;
-  external static JSNumber get HAVE_ENOUGH_DATA;
+  external static int get NETWORK_EMPTY;
+  external static int get NETWORK_IDLE;
+  external static int get NETWORK_LOADING;
+  external static int get NETWORK_NO_SOURCE;
+  external static int get HAVE_NOTHING;
+  external static int get HAVE_METADATA;
+  external static int get HAVE_CURRENT_DATA;
+  external static int get HAVE_FUTURE_DATA;
+  external static int get HAVE_ENOUGH_DATA;
 }
 
 extension HTMLMediaElementExtension on HTMLMediaElement {
-  external JSPromise setSinkId(JSString sinkId);
+  external JSPromise setSinkId(String sinkId);
   external JSPromise setMediaKeys(MediaKeys? mediaKeys);
   external JSVoid load();
-  external CanPlayTypeResult canPlayType(JSString type);
-  external JSVoid fastSeek(JSNumber time);
+  external CanPlayTypeResult canPlayType(String type);
+  external JSVoid fastSeek(double time);
   external JSObject getStartDate();
   external JSPromise play();
   external JSVoid pause();
   external TextTrack addTextTrack(
     TextTrackKind kind, [
-    JSString label,
-    JSString language,
+    String label,
+    String language,
   ]);
   external MediaStream captureStream();
-  external JSString get sinkId;
+  external String get sinkId;
   external MediaKeys? get mediaKeys;
   external set onencrypted(EventHandler value);
   external EventHandler get onencrypted;
   external set onwaitingforkey(EventHandler value);
   external EventHandler get onwaitingforkey;
   external MediaError? get error;
-  external set src(JSString value);
-  external JSString get src;
+  external set src(String value);
+  external String get src;
   external set srcObject(MediaProvider? value);
   external MediaProvider? get srcObject;
-  external JSString get currentSrc;
-  external set crossOrigin(JSString? value);
-  external JSString? get crossOrigin;
-  external JSNumber get networkState;
-  external set preload(JSString value);
-  external JSString get preload;
+  external String get currentSrc;
+  external set crossOrigin(String? value);
+  external String? get crossOrigin;
+  external int get networkState;
+  external set preload(String value);
+  external String get preload;
   external TimeRanges get buffered;
-  external JSNumber get readyState;
-  external JSBoolean get seeking;
-  external set currentTime(JSNumber value);
-  external JSNumber get currentTime;
-  external JSNumber get duration;
-  external JSBoolean get paused;
-  external set defaultPlaybackRate(JSNumber value);
-  external JSNumber get defaultPlaybackRate;
-  external set playbackRate(JSNumber value);
-  external JSNumber get playbackRate;
-  external set preservesPitch(JSBoolean value);
-  external JSBoolean get preservesPitch;
+  external int get readyState;
+  external bool get seeking;
+  external set currentTime(double value);
+  external double get currentTime;
+  external double get duration;
+  external bool get paused;
+  external set defaultPlaybackRate(double value);
+  external double get defaultPlaybackRate;
+  external set playbackRate(double value);
+  external double get playbackRate;
+  external set preservesPitch(bool value);
+  external bool get preservesPitch;
   external TimeRanges get played;
   external TimeRanges get seekable;
-  external JSBoolean get ended;
-  external set autoplay(JSBoolean value);
-  external JSBoolean get autoplay;
-  external set loop(JSBoolean value);
-  external JSBoolean get loop;
-  external set controls(JSBoolean value);
-  external JSBoolean get controls;
-  external set volume(JSNumber value);
-  external JSNumber get volume;
-  external set muted(JSBoolean value);
-  external JSBoolean get muted;
-  external set defaultMuted(JSBoolean value);
-  external JSBoolean get defaultMuted;
+  external bool get ended;
+  external set autoplay(bool value);
+  external bool get autoplay;
+  external set loop(bool value);
+  external bool get loop;
+  external set controls(bool value);
+  external bool get controls;
+  external set volume(double value);
+  external double get volume;
+  external set muted(bool value);
+  external bool get muted;
+  external set defaultMuted(bool value);
+  external bool get defaultMuted;
   external AudioTrackList get audioTracks;
   external VideoTrackList get videoTracks;
   external TextTrackList get textTracks;
   external RemotePlayback get remote;
-  external set disableRemotePlayback(JSBoolean value);
-  external JSBoolean get disableRemotePlayback;
+  external set disableRemotePlayback(bool value);
+  external bool get disableRemotePlayback;
 }
 
 @JS('MediaError')
 @staticInterop
 class MediaError implements JSObject {
-  external static JSNumber get MEDIA_ERR_ABORTED;
-  external static JSNumber get MEDIA_ERR_NETWORK;
-  external static JSNumber get MEDIA_ERR_DECODE;
-  external static JSNumber get MEDIA_ERR_SRC_NOT_SUPPORTED;
+  external static int get MEDIA_ERR_ABORTED;
+  external static int get MEDIA_ERR_NETWORK;
+  external static int get MEDIA_ERR_DECODE;
+  external static int get MEDIA_ERR_SRC_NOT_SUPPORTED;
 }
 
 extension MediaErrorExtension on MediaError {
-  external JSNumber get code;
-  external JSString get message;
+  external int get code;
+  external String get message;
 }
 
 @JS('AudioTrackList')
@@ -1029,8 +1028,8 @@ extension MediaErrorExtension on MediaError {
 class AudioTrackList implements EventTarget {}
 
 extension AudioTrackListExtension on AudioTrackList {
-  external AudioTrack? getTrackById(JSString id);
-  external JSNumber get length;
+  external AudioTrack? getTrackById(String id);
+  external int get length;
   external set onchange(EventHandler value);
   external EventHandler get onchange;
   external set onaddtrack(EventHandler value);
@@ -1044,12 +1043,12 @@ extension AudioTrackListExtension on AudioTrackList {
 class AudioTrack implements JSObject {}
 
 extension AudioTrackExtension on AudioTrack {
-  external JSString get id;
-  external JSString get kind;
-  external JSString get label;
-  external JSString get language;
-  external set enabled(JSBoolean value);
-  external JSBoolean get enabled;
+  external String get id;
+  external String get kind;
+  external String get label;
+  external String get language;
+  external set enabled(bool value);
+  external bool get enabled;
   external SourceBuffer? get sourceBuffer;
 }
 
@@ -1058,9 +1057,9 @@ extension AudioTrackExtension on AudioTrack {
 class VideoTrackList implements EventTarget {}
 
 extension VideoTrackListExtension on VideoTrackList {
-  external VideoTrack? getTrackById(JSString id);
-  external JSNumber get length;
-  external JSNumber get selectedIndex;
+  external VideoTrack? getTrackById(String id);
+  external int get length;
+  external int get selectedIndex;
   external set onchange(EventHandler value);
   external EventHandler get onchange;
   external set onaddtrack(EventHandler value);
@@ -1074,12 +1073,12 @@ extension VideoTrackListExtension on VideoTrackList {
 class VideoTrack implements JSObject {}
 
 extension VideoTrackExtension on VideoTrack {
-  external JSString get id;
-  external JSString get kind;
-  external JSString get label;
-  external JSString get language;
-  external set selected(JSBoolean value);
-  external JSBoolean get selected;
+  external String get id;
+  external String get kind;
+  external String get label;
+  external String get language;
+  external set selected(bool value);
+  external bool get selected;
   external SourceBuffer? get sourceBuffer;
 }
 
@@ -1088,8 +1087,8 @@ extension VideoTrackExtension on VideoTrack {
 class TextTrackList implements EventTarget {}
 
 extension TextTrackListExtension on TextTrackList {
-  external TextTrack? getTrackById(JSString id);
-  external JSNumber get length;
+  external TextTrack? getTrackById(String id);
+  external int get length;
   external set onchange(EventHandler value);
   external EventHandler get onchange;
   external set onaddtrack(EventHandler value);
@@ -1106,10 +1105,10 @@ extension TextTrackExtension on TextTrack {
   external JSVoid addCue(TextTrackCue cue);
   external JSVoid removeCue(TextTrackCue cue);
   external TextTrackKind get kind;
-  external JSString get label;
-  external JSString get language;
-  external JSString get id;
-  external JSString get inBandMetadataTrackDispatchType;
+  external String get label;
+  external String get language;
+  external String get id;
+  external String get inBandMetadataTrackDispatchType;
   external set mode(TextTrackMode value);
   external TextTrackMode get mode;
   external TextTrackCueList? get cues;
@@ -1124,8 +1123,8 @@ extension TextTrackExtension on TextTrack {
 class TextTrackCueList implements JSObject {}
 
 extension TextTrackCueListExtension on TextTrackCueList {
-  external TextTrackCue? getCueById(JSString id);
-  external JSNumber get length;
+  external TextTrackCue? getCueById(String id);
+  external int get length;
 }
 
 @JS('TextTrackCue')
@@ -1134,14 +1133,14 @@ class TextTrackCue implements EventTarget {}
 
 extension TextTrackCueExtension on TextTrackCue {
   external TextTrack? get track;
-  external set id(JSString value);
-  external JSString get id;
-  external set startTime(JSNumber value);
-  external JSNumber get startTime;
-  external set endTime(JSNumber value);
-  external JSNumber get endTime;
-  external set pauseOnExit(JSBoolean value);
-  external JSBoolean get pauseOnExit;
+  external set id(String value);
+  external String get id;
+  external set startTime(double value);
+  external double get startTime;
+  external set endTime(double value);
+  external double get endTime;
+  external set pauseOnExit(bool value);
+  external bool get pauseOnExit;
   external set onenter(EventHandler value);
   external EventHandler get onenter;
   external set onexit(EventHandler value);
@@ -1153,16 +1152,16 @@ extension TextTrackCueExtension on TextTrackCue {
 class TimeRanges implements JSObject {}
 
 extension TimeRangesExtension on TimeRanges {
-  external JSNumber start(JSNumber index);
-  external JSNumber end(JSNumber index);
-  external JSNumber get length;
+  external double start(int index);
+  external double end(int index);
+  external int get length;
 }
 
 @JS('TrackEvent')
 @staticInterop
 class TrackEvent implements Event {
   external factory TrackEvent(
-    JSString type, [
+    String type, [
     TrackEventInit eventInitDict,
   ]);
 }
@@ -1190,8 +1189,8 @@ class HTMLMapElement implements HTMLElement {
 }
 
 extension HTMLMapElementExtension on HTMLMapElement {
-  external set name(JSString value);
-  external JSString get name;
+  external set name(String value);
+  external String get name;
   external HTMLCollection get areas;
 }
 
@@ -1202,25 +1201,25 @@ class HTMLAreaElement implements HTMLElement, HTMLHyperlinkElementUtils {
 }
 
 extension HTMLAreaElementExtension on HTMLAreaElement {
-  external set alt(JSString value);
-  external JSString get alt;
-  external set coords(JSString value);
-  external JSString get coords;
-  external set shape(JSString value);
-  external JSString get shape;
-  external set target(JSString value);
-  external JSString get target;
-  external set download(JSString value);
-  external JSString get download;
-  external set ping(JSString value);
-  external JSString get ping;
-  external set rel(JSString value);
-  external JSString get rel;
+  external set alt(String value);
+  external String get alt;
+  external set coords(String value);
+  external String get coords;
+  external set shape(String value);
+  external String get shape;
+  external set target(String value);
+  external String get target;
+  external set download(String value);
+  external String get download;
+  external set ping(String value);
+  external String get ping;
+  external set rel(String value);
+  external String get rel;
   external DOMTokenList get relList;
-  external set referrerPolicy(JSString value);
-  external JSString get referrerPolicy;
-  external set noHref(JSBoolean value);
-  external JSBoolean get noHref;
+  external set referrerPolicy(String value);
+  external String get referrerPolicy;
+  external set noHref(bool value);
+  external bool get noHref;
 }
 
 @JS('HTMLTableElement')
@@ -1237,8 +1236,8 @@ extension HTMLTableElementExtension on HTMLTableElement {
   external HTMLTableSectionElement createTFoot();
   external JSVoid deleteTFoot();
   external HTMLTableSectionElement createTBody();
-  external HTMLTableRowElement insertRow([JSNumber index]);
-  external JSVoid deleteRow(JSNumber index);
+  external HTMLTableRowElement insertRow([int index]);
+  external JSVoid deleteRow(int index);
   external set caption(HTMLTableCaptionElement? value);
   external HTMLTableCaptionElement? get caption;
   external set tHead(HTMLTableSectionElement? value);
@@ -1247,24 +1246,24 @@ extension HTMLTableElementExtension on HTMLTableElement {
   external HTMLTableSectionElement? get tFoot;
   external HTMLCollection get tBodies;
   external HTMLCollection get rows;
-  external set align(JSString value);
-  external JSString get align;
-  external set border(JSString value);
-  external JSString get border;
-  external set frame(JSString value);
-  external JSString get frame;
-  external set rules(JSString value);
-  external JSString get rules;
-  external set summary(JSString value);
-  external JSString get summary;
-  external set width(JSString value);
-  external JSString get width;
-  external set bgColor(JSString value);
-  external JSString get bgColor;
-  external set cellPadding(JSString value);
-  external JSString get cellPadding;
-  external set cellSpacing(JSString value);
-  external JSString get cellSpacing;
+  external set align(String value);
+  external String get align;
+  external set border(String value);
+  external String get border;
+  external set frame(String value);
+  external String get frame;
+  external set rules(String value);
+  external String get rules;
+  external set summary(String value);
+  external String get summary;
+  external set width(String value);
+  external String get width;
+  external set bgColor(String value);
+  external String get bgColor;
+  external set cellPadding(String value);
+  external String get cellPadding;
+  external set cellSpacing(String value);
+  external String get cellSpacing;
 }
 
 @JS('HTMLTableCaptionElement')
@@ -1274,8 +1273,8 @@ class HTMLTableCaptionElement implements HTMLElement {
 }
 
 extension HTMLTableCaptionElementExtension on HTMLTableCaptionElement {
-  external set align(JSString value);
-  external JSString get align;
+  external set align(String value);
+  external String get align;
 }
 
 @JS('HTMLTableColElement')
@@ -1285,18 +1284,18 @@ class HTMLTableColElement implements HTMLElement {
 }
 
 extension HTMLTableColElementExtension on HTMLTableColElement {
-  external set span(JSNumber value);
-  external JSNumber get span;
-  external set align(JSString value);
-  external JSString get align;
-  external set ch(JSString value);
-  external JSString get ch;
-  external set chOff(JSString value);
-  external JSString get chOff;
-  external set vAlign(JSString value);
-  external JSString get vAlign;
-  external set width(JSString value);
-  external JSString get width;
+  external set span(int value);
+  external int get span;
+  external set align(String value);
+  external String get align;
+  external set ch(String value);
+  external String get ch;
+  external set chOff(String value);
+  external String get chOff;
+  external set vAlign(String value);
+  external String get vAlign;
+  external set width(String value);
+  external String get width;
 }
 
 @JS('HTMLTableSectionElement')
@@ -1306,17 +1305,17 @@ class HTMLTableSectionElement implements HTMLElement {
 }
 
 extension HTMLTableSectionElementExtension on HTMLTableSectionElement {
-  external HTMLTableRowElement insertRow([JSNumber index]);
-  external JSVoid deleteRow(JSNumber index);
+  external HTMLTableRowElement insertRow([int index]);
+  external JSVoid deleteRow(int index);
   external HTMLCollection get rows;
-  external set align(JSString value);
-  external JSString get align;
-  external set ch(JSString value);
-  external JSString get ch;
-  external set chOff(JSString value);
-  external JSString get chOff;
-  external set vAlign(JSString value);
-  external JSString get vAlign;
+  external set align(String value);
+  external String get align;
+  external set ch(String value);
+  external String get ch;
+  external set chOff(String value);
+  external String get chOff;
+  external set vAlign(String value);
+  external String get vAlign;
 }
 
 @JS('HTMLTableRowElement')
@@ -1326,21 +1325,21 @@ class HTMLTableRowElement implements HTMLElement {
 }
 
 extension HTMLTableRowElementExtension on HTMLTableRowElement {
-  external HTMLTableCellElement insertCell([JSNumber index]);
-  external JSVoid deleteCell(JSNumber index);
-  external JSNumber get rowIndex;
-  external JSNumber get sectionRowIndex;
+  external HTMLTableCellElement insertCell([int index]);
+  external JSVoid deleteCell(int index);
+  external int get rowIndex;
+  external int get sectionRowIndex;
   external HTMLCollection get cells;
-  external set align(JSString value);
-  external JSString get align;
-  external set ch(JSString value);
-  external JSString get ch;
-  external set chOff(JSString value);
-  external JSString get chOff;
-  external set vAlign(JSString value);
-  external JSString get vAlign;
-  external set bgColor(JSString value);
-  external JSString get bgColor;
+  external set align(String value);
+  external String get align;
+  external set ch(String value);
+  external String get ch;
+  external set chOff(String value);
+  external String get chOff;
+  external set vAlign(String value);
+  external String get vAlign;
+  external set bgColor(String value);
+  external String get bgColor;
 }
 
 @JS('HTMLTableCellElement')
@@ -1350,35 +1349,35 @@ class HTMLTableCellElement implements HTMLElement {
 }
 
 extension HTMLTableCellElementExtension on HTMLTableCellElement {
-  external set colSpan(JSNumber value);
-  external JSNumber get colSpan;
-  external set rowSpan(JSNumber value);
-  external JSNumber get rowSpan;
-  external set headers(JSString value);
-  external JSString get headers;
-  external JSNumber get cellIndex;
-  external set scope(JSString value);
-  external JSString get scope;
-  external set abbr(JSString value);
-  external JSString get abbr;
-  external set align(JSString value);
-  external JSString get align;
-  external set axis(JSString value);
-  external JSString get axis;
-  external set height(JSString value);
-  external JSString get height;
-  external set width(JSString value);
-  external JSString get width;
-  external set ch(JSString value);
-  external JSString get ch;
-  external set chOff(JSString value);
-  external JSString get chOff;
-  external set noWrap(JSBoolean value);
-  external JSBoolean get noWrap;
-  external set vAlign(JSString value);
-  external JSString get vAlign;
-  external set bgColor(JSString value);
-  external JSString get bgColor;
+  external set colSpan(int value);
+  external int get colSpan;
+  external set rowSpan(int value);
+  external int get rowSpan;
+  external set headers(String value);
+  external String get headers;
+  external int get cellIndex;
+  external set scope(String value);
+  external String get scope;
+  external set abbr(String value);
+  external String get abbr;
+  external set align(String value);
+  external String get align;
+  external set axis(String value);
+  external String get axis;
+  external set height(String value);
+  external String get height;
+  external set width(String value);
+  external String get width;
+  external set ch(String value);
+  external String get ch;
+  external set chOff(String value);
+  external String get chOff;
+  external set noWrap(bool value);
+  external bool get noWrap;
+  external set vAlign(String value);
+  external String get vAlign;
+  external set bgColor(String value);
+  external String get bgColor;
 }
 
 @JS('HTMLFormElement')
@@ -1391,31 +1390,31 @@ extension HTMLFormElementExtension on HTMLFormElement {
   external JSVoid submit();
   external JSVoid requestSubmit([HTMLElement? submitter]);
   external JSVoid reset();
-  external JSBoolean checkValidity();
-  external JSBoolean reportValidity();
-  external set acceptCharset(JSString value);
-  external JSString get acceptCharset;
-  external set action(JSString value);
-  external JSString get action;
-  external set autocomplete(JSString value);
-  external JSString get autocomplete;
-  external set enctype(JSString value);
-  external JSString get enctype;
-  external set encoding(JSString value);
-  external JSString get encoding;
-  external set method(JSString value);
-  external JSString get method;
-  external set name(JSString value);
-  external JSString get name;
-  external set noValidate(JSBoolean value);
-  external JSBoolean get noValidate;
-  external set target(JSString value);
-  external JSString get target;
-  external set rel(JSString value);
-  external JSString get rel;
+  external bool checkValidity();
+  external bool reportValidity();
+  external set acceptCharset(String value);
+  external String get acceptCharset;
+  external set action(String value);
+  external String get action;
+  external set autocomplete(String value);
+  external String get autocomplete;
+  external set enctype(String value);
+  external String get enctype;
+  external set encoding(String value);
+  external String get encoding;
+  external set method(String value);
+  external String get method;
+  external set name(String value);
+  external String get name;
+  external set noValidate(bool value);
+  external bool get noValidate;
+  external set target(String value);
+  external String get target;
+  external set rel(String value);
+  external String get rel;
   external DOMTokenList get relList;
   external HTMLFormControlsCollection get elements;
-  external JSNumber get length;
+  external int get length;
 }
 
 @JS('HTMLLabelElement')
@@ -1426,8 +1425,8 @@ class HTMLLabelElement implements HTMLElement {
 
 extension HTMLLabelElementExtension on HTMLLabelElement {
   external HTMLFormElement? get form;
-  external set htmlFor(JSString value);
-  external JSString get htmlFor;
+  external set htmlFor(String value);
+  external String get htmlFor;
   external HTMLElement? get control;
 }
 
@@ -1438,113 +1437,113 @@ class HTMLInputElement implements HTMLElement, PopoverInvokerElement {
 }
 
 extension HTMLInputElementExtension on HTMLInputElement {
-  external JSVoid stepUp([JSNumber n]);
-  external JSVoid stepDown([JSNumber n]);
-  external JSBoolean checkValidity();
-  external JSBoolean reportValidity();
-  external JSVoid setCustomValidity(JSString error);
+  external JSVoid stepUp([int n]);
+  external JSVoid stepDown([int n]);
+  external bool checkValidity();
+  external bool reportValidity();
+  external JSVoid setCustomValidity(String error);
   external JSVoid select();
   external JSVoid setRangeText(
-    JSString replacement, [
-    JSNumber start,
-    JSNumber end,
+    String replacement, [
+    int start,
+    int end,
     SelectionMode selectionMode,
   ]);
   external JSVoid setSelectionRange(
-    JSNumber start,
-    JSNumber end, [
-    JSString direction,
+    int start,
+    int end, [
+    String direction,
   ]);
   external JSVoid showPicker();
-  external set webkitdirectory(JSBoolean value);
-  external JSBoolean get webkitdirectory;
+  external set webkitdirectory(bool value);
+  external bool get webkitdirectory;
   external JSArray get webkitEntries;
-  external set capture(JSString value);
-  external JSString get capture;
-  external set accept(JSString value);
-  external JSString get accept;
-  external set alt(JSString value);
-  external JSString get alt;
-  external set autocomplete(JSString value);
-  external JSString get autocomplete;
-  external set defaultChecked(JSBoolean value);
-  external JSBoolean get defaultChecked;
-  external set checked(JSBoolean value);
-  external JSBoolean get checked;
-  external set dirName(JSString value);
-  external JSString get dirName;
-  external set disabled(JSBoolean value);
-  external JSBoolean get disabled;
+  external set capture(String value);
+  external String get capture;
+  external set accept(String value);
+  external String get accept;
+  external set alt(String value);
+  external String get alt;
+  external set autocomplete(String value);
+  external String get autocomplete;
+  external set defaultChecked(bool value);
+  external bool get defaultChecked;
+  external set checked(bool value);
+  external bool get checked;
+  external set dirName(String value);
+  external String get dirName;
+  external set disabled(bool value);
+  external bool get disabled;
   external HTMLFormElement? get form;
   external set files(FileList? value);
   external FileList? get files;
-  external set formAction(JSString value);
-  external JSString get formAction;
-  external set formEnctype(JSString value);
-  external JSString get formEnctype;
-  external set formMethod(JSString value);
-  external JSString get formMethod;
-  external set formNoValidate(JSBoolean value);
-  external JSBoolean get formNoValidate;
-  external set formTarget(JSString value);
-  external JSString get formTarget;
-  external set height(JSNumber value);
-  external JSNumber get height;
-  external set indeterminate(JSBoolean value);
-  external JSBoolean get indeterminate;
+  external set formAction(String value);
+  external String get formAction;
+  external set formEnctype(String value);
+  external String get formEnctype;
+  external set formMethod(String value);
+  external String get formMethod;
+  external set formNoValidate(bool value);
+  external bool get formNoValidate;
+  external set formTarget(String value);
+  external String get formTarget;
+  external set height(int value);
+  external int get height;
+  external set indeterminate(bool value);
+  external bool get indeterminate;
   external HTMLDataListElement? get list;
-  external set max(JSString value);
-  external JSString get max;
-  external set maxLength(JSNumber value);
-  external JSNumber get maxLength;
-  external set min(JSString value);
-  external JSString get min;
-  external set minLength(JSNumber value);
-  external JSNumber get minLength;
-  external set multiple(JSBoolean value);
-  external JSBoolean get multiple;
-  external set name(JSString value);
-  external JSString get name;
-  external set pattern(JSString value);
-  external JSString get pattern;
-  external set placeholder(JSString value);
-  external JSString get placeholder;
-  external set readOnly(JSBoolean value);
-  external JSBoolean get readOnly;
-  external set required(JSBoolean value);
-  external JSBoolean get required;
-  external set size(JSNumber value);
-  external JSNumber get size;
-  external set src(JSString value);
-  external JSString get src;
-  external set step(JSString value);
-  external JSString get step;
-  external set type(JSString value);
-  external JSString get type;
-  external set defaultValue(JSString value);
-  external JSString get defaultValue;
-  external set value(JSString value);
-  external JSString get value;
+  external set max(String value);
+  external String get max;
+  external set maxLength(int value);
+  external int get maxLength;
+  external set min(String value);
+  external String get min;
+  external set minLength(int value);
+  external int get minLength;
+  external set multiple(bool value);
+  external bool get multiple;
+  external set name(String value);
+  external String get name;
+  external set pattern(String value);
+  external String get pattern;
+  external set placeholder(String value);
+  external String get placeholder;
+  external set readOnly(bool value);
+  external bool get readOnly;
+  external set required(bool value);
+  external bool get required;
+  external set size(int value);
+  external int get size;
+  external set src(String value);
+  external String get src;
+  external set step(String value);
+  external String get step;
+  external set type(String value);
+  external String get type;
+  external set defaultValue(String value);
+  external String get defaultValue;
+  external set value(String value);
+  external String get value;
   external set valueAsDate(JSObject? value);
   external JSObject? get valueAsDate;
-  external set valueAsNumber(JSNumber value);
-  external JSNumber get valueAsNumber;
-  external set width(JSNumber value);
-  external JSNumber get width;
-  external JSBoolean get willValidate;
+  external set valueAsNumber(double value);
+  external double get valueAsNumber;
+  external set width(int value);
+  external int get width;
+  external bool get willValidate;
   external ValidityState get validity;
-  external JSString get validationMessage;
+  external String get validationMessage;
   external NodeList? get labels;
-  external set selectionStart(JSNumber? value);
-  external JSNumber? get selectionStart;
-  external set selectionEnd(JSNumber? value);
-  external JSNumber? get selectionEnd;
-  external set selectionDirection(JSString? value);
-  external JSString? get selectionDirection;
-  external set align(JSString value);
-  external JSString get align;
-  external set useMap(JSString value);
-  external JSString get useMap;
+  external set selectionStart(int? value);
+  external int? get selectionStart;
+  external set selectionEnd(int? value);
+  external int? get selectionEnd;
+  external set selectionDirection(String? value);
+  external String? get selectionDirection;
+  external set align(String value);
+  external String get align;
+  external set useMap(String value);
+  external String get useMap;
 }
 
 @JS('HTMLButtonElement')
@@ -1554,31 +1553,31 @@ class HTMLButtonElement implements HTMLElement, PopoverInvokerElement {
 }
 
 extension HTMLButtonElementExtension on HTMLButtonElement {
-  external JSBoolean checkValidity();
-  external JSBoolean reportValidity();
-  external JSVoid setCustomValidity(JSString error);
-  external set disabled(JSBoolean value);
-  external JSBoolean get disabled;
+  external bool checkValidity();
+  external bool reportValidity();
+  external JSVoid setCustomValidity(String error);
+  external set disabled(bool value);
+  external bool get disabled;
   external HTMLFormElement? get form;
-  external set formAction(JSString value);
-  external JSString get formAction;
-  external set formEnctype(JSString value);
-  external JSString get formEnctype;
-  external set formMethod(JSString value);
-  external JSString get formMethod;
-  external set formNoValidate(JSBoolean value);
-  external JSBoolean get formNoValidate;
-  external set formTarget(JSString value);
-  external JSString get formTarget;
-  external set name(JSString value);
-  external JSString get name;
-  external set type(JSString value);
-  external JSString get type;
-  external set value(JSString value);
-  external JSString get value;
-  external JSBoolean get willValidate;
+  external set formAction(String value);
+  external String get formAction;
+  external set formEnctype(String value);
+  external String get formEnctype;
+  external set formMethod(String value);
+  external String get formMethod;
+  external set formNoValidate(bool value);
+  external bool get formNoValidate;
+  external set formTarget(String value);
+  external String get formTarget;
+  external set name(String value);
+  external String get name;
+  external set type(String value);
+  external String get type;
+  external set value(String value);
+  external String get value;
+  external bool get willValidate;
   external ValidityState get validity;
-  external JSString get validationMessage;
+  external String get validationMessage;
   external NodeList get labels;
 }
 
@@ -1589,41 +1588,41 @@ class HTMLSelectElement implements HTMLElement {
 }
 
 extension HTMLSelectElementExtension on HTMLSelectElement {
-  external HTMLOptionElement? item(JSNumber index);
-  external HTMLOptionElement? namedItem(JSString name);
+  external HTMLOptionElement? item(int index);
+  external HTMLOptionElement? namedItem(String name);
   external JSVoid add(
     JSAny? element, [
     JSAny? before,
   ]);
-  external JSVoid remove([JSNumber index]);
-  external JSBoolean checkValidity();
-  external JSBoolean reportValidity();
-  external JSVoid setCustomValidity(JSString error);
-  external set autocomplete(JSString value);
-  external JSString get autocomplete;
-  external set disabled(JSBoolean value);
-  external JSBoolean get disabled;
+  external JSVoid remove([int index]);
+  external bool checkValidity();
+  external bool reportValidity();
+  external JSVoid setCustomValidity(String error);
+  external set autocomplete(String value);
+  external String get autocomplete;
+  external set disabled(bool value);
+  external bool get disabled;
   external HTMLFormElement? get form;
-  external set multiple(JSBoolean value);
-  external JSBoolean get multiple;
-  external set name(JSString value);
-  external JSString get name;
-  external set required(JSBoolean value);
-  external JSBoolean get required;
-  external set size(JSNumber value);
-  external JSNumber get size;
-  external JSString get type;
+  external set multiple(bool value);
+  external bool get multiple;
+  external set name(String value);
+  external String get name;
+  external set required(bool value);
+  external bool get required;
+  external set size(int value);
+  external int get size;
+  external String get type;
   external HTMLOptionsCollection get options;
-  external set length(JSNumber value);
-  external JSNumber get length;
+  external set length(int value);
+  external int get length;
   external HTMLCollection get selectedOptions;
-  external set selectedIndex(JSNumber value);
-  external JSNumber get selectedIndex;
-  external set value(JSString value);
-  external JSString get value;
-  external JSBoolean get willValidate;
+  external set selectedIndex(int value);
+  external int get selectedIndex;
+  external set value(String value);
+  external String get value;
+  external bool get willValidate;
   external ValidityState get validity;
-  external JSString get validationMessage;
+  external String get validationMessage;
   external NodeList get labels;
 }
 
@@ -1644,10 +1643,10 @@ class HTMLOptGroupElement implements HTMLElement {
 }
 
 extension HTMLOptGroupElementExtension on HTMLOptGroupElement {
-  external set disabled(JSBoolean value);
-  external JSBoolean get disabled;
-  external set label(JSString value);
-  external JSString get label;
+  external set disabled(bool value);
+  external bool get disabled;
+  external set label(String value);
+  external String get label;
 }
 
 @JS('HTMLOptionElement')
@@ -1657,20 +1656,20 @@ class HTMLOptionElement implements HTMLElement {
 }
 
 extension HTMLOptionElementExtension on HTMLOptionElement {
-  external set disabled(JSBoolean value);
-  external JSBoolean get disabled;
+  external set disabled(bool value);
+  external bool get disabled;
   external HTMLFormElement? get form;
-  external set label(JSString value);
-  external JSString get label;
-  external set defaultSelected(JSBoolean value);
-  external JSBoolean get defaultSelected;
-  external set selected(JSBoolean value);
-  external JSBoolean get selected;
-  external set value(JSString value);
-  external JSString get value;
-  external set text(JSString value);
-  external JSString get text;
-  external JSNumber get index;
+  external set label(String value);
+  external String get label;
+  external set defaultSelected(bool value);
+  external bool get defaultSelected;
+  external set selected(bool value);
+  external bool get selected;
+  external set value(String value);
+  external String get value;
+  external set text(String value);
+  external String get text;
+  external int get index;
 }
 
 @JS('HTMLTextAreaElement')
@@ -1680,62 +1679,62 @@ class HTMLTextAreaElement implements HTMLElement {
 }
 
 extension HTMLTextAreaElementExtension on HTMLTextAreaElement {
-  external JSBoolean checkValidity();
-  external JSBoolean reportValidity();
-  external JSVoid setCustomValidity(JSString error);
+  external bool checkValidity();
+  external bool reportValidity();
+  external JSVoid setCustomValidity(String error);
   external JSVoid select();
   external JSVoid setRangeText(
-    JSString replacement, [
-    JSNumber start,
-    JSNumber end,
+    String replacement, [
+    int start,
+    int end,
     SelectionMode selectionMode,
   ]);
   external JSVoid setSelectionRange(
-    JSNumber start,
-    JSNumber end, [
-    JSString direction,
+    int start,
+    int end, [
+    String direction,
   ]);
-  external set autocomplete(JSString value);
-  external JSString get autocomplete;
-  external set cols(JSNumber value);
-  external JSNumber get cols;
-  external set dirName(JSString value);
-  external JSString get dirName;
-  external set disabled(JSBoolean value);
-  external JSBoolean get disabled;
+  external set autocomplete(String value);
+  external String get autocomplete;
+  external set cols(int value);
+  external int get cols;
+  external set dirName(String value);
+  external String get dirName;
+  external set disabled(bool value);
+  external bool get disabled;
   external HTMLFormElement? get form;
-  external set maxLength(JSNumber value);
-  external JSNumber get maxLength;
-  external set minLength(JSNumber value);
-  external JSNumber get minLength;
-  external set name(JSString value);
-  external JSString get name;
-  external set placeholder(JSString value);
-  external JSString get placeholder;
-  external set readOnly(JSBoolean value);
-  external JSBoolean get readOnly;
-  external set required(JSBoolean value);
-  external JSBoolean get required;
-  external set rows(JSNumber value);
-  external JSNumber get rows;
-  external set wrap(JSString value);
-  external JSString get wrap;
-  external JSString get type;
-  external set defaultValue(JSString value);
-  external JSString get defaultValue;
-  external set value(JSString value);
-  external JSString get value;
-  external JSNumber get textLength;
-  external JSBoolean get willValidate;
+  external set maxLength(int value);
+  external int get maxLength;
+  external set minLength(int value);
+  external int get minLength;
+  external set name(String value);
+  external String get name;
+  external set placeholder(String value);
+  external String get placeholder;
+  external set readOnly(bool value);
+  external bool get readOnly;
+  external set required(bool value);
+  external bool get required;
+  external set rows(int value);
+  external int get rows;
+  external set wrap(String value);
+  external String get wrap;
+  external String get type;
+  external set defaultValue(String value);
+  external String get defaultValue;
+  external set value(String value);
+  external String get value;
+  external int get textLength;
+  external bool get willValidate;
   external ValidityState get validity;
-  external JSString get validationMessage;
+  external String get validationMessage;
   external NodeList get labels;
-  external set selectionStart(JSNumber value);
-  external JSNumber get selectionStart;
-  external set selectionEnd(JSNumber value);
-  external JSNumber get selectionEnd;
-  external set selectionDirection(JSString value);
-  external JSString get selectionDirection;
+  external set selectionStart(int value);
+  external int get selectionStart;
+  external set selectionEnd(int value);
+  external int get selectionEnd;
+  external set selectionDirection(String value);
+  external String get selectionDirection;
 }
 
 @JS('HTMLOutputElement')
@@ -1745,21 +1744,21 @@ class HTMLOutputElement implements HTMLElement {
 }
 
 extension HTMLOutputElementExtension on HTMLOutputElement {
-  external JSBoolean checkValidity();
-  external JSBoolean reportValidity();
-  external JSVoid setCustomValidity(JSString error);
+  external bool checkValidity();
+  external bool reportValidity();
+  external JSVoid setCustomValidity(String error);
   external DOMTokenList get htmlFor;
   external HTMLFormElement? get form;
-  external set name(JSString value);
-  external JSString get name;
-  external JSString get type;
-  external set defaultValue(JSString value);
-  external JSString get defaultValue;
-  external set value(JSString value);
-  external JSString get value;
-  external JSBoolean get willValidate;
+  external set name(String value);
+  external String get name;
+  external String get type;
+  external set defaultValue(String value);
+  external String get defaultValue;
+  external set value(String value);
+  external String get value;
+  external bool get willValidate;
   external ValidityState get validity;
-  external JSString get validationMessage;
+  external String get validationMessage;
   external NodeList get labels;
 }
 
@@ -1770,11 +1769,11 @@ class HTMLProgressElement implements HTMLElement {
 }
 
 extension HTMLProgressElementExtension on HTMLProgressElement {
-  external set value(JSNumber value);
-  external JSNumber get value;
-  external set max(JSNumber value);
-  external JSNumber get max;
-  external JSNumber get position;
+  external set value(double value);
+  external double get value;
+  external set max(double value);
+  external double get max;
+  external double get position;
   external NodeList get labels;
 }
 
@@ -1785,18 +1784,18 @@ class HTMLMeterElement implements HTMLElement {
 }
 
 extension HTMLMeterElementExtension on HTMLMeterElement {
-  external set value(JSNumber value);
-  external JSNumber get value;
-  external set min(JSNumber value);
-  external JSNumber get min;
-  external set max(JSNumber value);
-  external JSNumber get max;
-  external set low(JSNumber value);
-  external JSNumber get low;
-  external set high(JSNumber value);
-  external JSNumber get high;
-  external set optimum(JSNumber value);
-  external JSNumber get optimum;
+  external set value(double value);
+  external double get value;
+  external set min(double value);
+  external double get min;
+  external set max(double value);
+  external double get max;
+  external set low(double value);
+  external double get low;
+  external set high(double value);
+  external double get high;
+  external set optimum(double value);
+  external double get optimum;
   external NodeList get labels;
 }
 
@@ -1807,19 +1806,19 @@ class HTMLFieldSetElement implements HTMLElement {
 }
 
 extension HTMLFieldSetElementExtension on HTMLFieldSetElement {
-  external JSBoolean checkValidity();
-  external JSBoolean reportValidity();
-  external JSVoid setCustomValidity(JSString error);
-  external set disabled(JSBoolean value);
-  external JSBoolean get disabled;
+  external bool checkValidity();
+  external bool reportValidity();
+  external JSVoid setCustomValidity(String error);
+  external set disabled(bool value);
+  external bool get disabled;
   external HTMLFormElement? get form;
-  external set name(JSString value);
-  external JSString get name;
-  external JSString get type;
+  external set name(String value);
+  external String get name;
+  external String get type;
   external HTMLCollection get elements;
-  external JSBoolean get willValidate;
+  external bool get willValidate;
   external ValidityState get validity;
-  external JSString get validationMessage;
+  external String get validationMessage;
 }
 
 @JS('HTMLLegendElement')
@@ -1830,8 +1829,8 @@ class HTMLLegendElement implements HTMLElement {
 
 extension HTMLLegendElementExtension on HTMLLegendElement {
   external HTMLFormElement? get form;
-  external set align(JSString value);
-  external JSString get align;
+  external set align(String value);
+  external String get align;
 }
 
 @JS('ValidityState')
@@ -1839,24 +1838,24 @@ extension HTMLLegendElementExtension on HTMLLegendElement {
 class ValidityState implements JSObject {}
 
 extension ValidityStateExtension on ValidityState {
-  external JSBoolean get valueMissing;
-  external JSBoolean get typeMismatch;
-  external JSBoolean get patternMismatch;
-  external JSBoolean get tooLong;
-  external JSBoolean get tooShort;
-  external JSBoolean get rangeUnderflow;
-  external JSBoolean get rangeOverflow;
-  external JSBoolean get stepMismatch;
-  external JSBoolean get badInput;
-  external JSBoolean get customError;
-  external JSBoolean get valid;
+  external bool get valueMissing;
+  external bool get typeMismatch;
+  external bool get patternMismatch;
+  external bool get tooLong;
+  external bool get tooShort;
+  external bool get rangeUnderflow;
+  external bool get rangeOverflow;
+  external bool get stepMismatch;
+  external bool get badInput;
+  external bool get customError;
+  external bool get valid;
 }
 
 @JS('SubmitEvent')
 @staticInterop
 class SubmitEvent implements Event {
   external factory SubmitEvent(
-    JSString type, [
+    String type, [
     SubmitEventInit eventInitDict,
   ]);
 }
@@ -1881,7 +1880,7 @@ extension SubmitEventInitExtension on SubmitEventInit {
 @staticInterop
 class FormDataEvent implements Event {
   external factory FormDataEvent(
-    JSString type,
+    String type,
     FormDataEventInit eventInitDict,
   );
 }
@@ -1909,8 +1908,8 @@ class HTMLDetailsElement implements HTMLElement {
 }
 
 extension HTMLDetailsElementExtension on HTMLDetailsElement {
-  external set open(JSBoolean value);
-  external JSBoolean get open;
+  external set open(bool value);
+  external bool get open;
 }
 
 @JS('HTMLDialogElement')
@@ -1922,11 +1921,11 @@ class HTMLDialogElement implements HTMLElement {
 extension HTMLDialogElementExtension on HTMLDialogElement {
   external JSVoid show();
   external JSVoid showModal();
-  external JSVoid close([JSString returnValue]);
-  external set open(JSBoolean value);
-  external JSBoolean get open;
-  external set returnValue(JSString value);
-  external JSString get returnValue;
+  external JSVoid close([String returnValue]);
+  external set open(bool value);
+  external bool get open;
+  external set returnValue(String value);
+  external String get returnValue;
 }
 
 @JS('HTMLScriptElement')
@@ -1934,37 +1933,37 @@ extension HTMLDialogElementExtension on HTMLDialogElement {
 class HTMLScriptElement implements HTMLElement, HTMLAttributionSrcElementUtils {
   external factory HTMLScriptElement();
 
-  external static JSBoolean supports(JSString type);
+  external static bool supports(String type);
 }
 
 extension HTMLScriptElementExtension on HTMLScriptElement {
-  external set src(JSString value);
-  external JSString get src;
-  external set type(JSString value);
-  external JSString get type;
-  external set noModule(JSBoolean value);
-  external JSBoolean get noModule;
-  external set async(JSBoolean value);
-  external JSBoolean get async;
-  external set defer(JSBoolean value);
-  external JSBoolean get defer;
-  external set crossOrigin(JSString? value);
-  external JSString? get crossOrigin;
-  external set text(JSString value);
-  external JSString get text;
-  external set integrity(JSString value);
-  external JSString get integrity;
-  external set referrerPolicy(JSString value);
-  external JSString get referrerPolicy;
+  external set src(String value);
+  external String get src;
+  external set type(String value);
+  external String get type;
+  external set noModule(bool value);
+  external bool get noModule;
+  external set async(bool value);
+  external bool get async;
+  external set defer(bool value);
+  external bool get defer;
+  external set crossOrigin(String? value);
+  external String? get crossOrigin;
+  external set text(String value);
+  external String get text;
+  external set integrity(String value);
+  external String get integrity;
+  external set referrerPolicy(String value);
+  external String get referrerPolicy;
   external DOMTokenList get blocking;
-  external set fetchPriority(JSString value);
-  external JSString get fetchPriority;
-  external set charset(JSString value);
-  external JSString get charset;
-  external set event(JSString value);
-  external JSString get event;
-  external set htmlFor(JSString value);
-  external JSString get htmlFor;
+  external set fetchPriority(String value);
+  external String get fetchPriority;
+  external set charset(String value);
+  external String get charset;
+  external set event(String value);
+  external String get event;
+  external set htmlFor(String value);
+  external String get htmlFor;
 }
 
 @JS('HTMLTemplateElement')
@@ -1987,20 +1986,20 @@ extension HTMLSlotElementExtension on HTMLSlotElement {
   external JSArray assignedNodes([AssignedNodesOptions options]);
   external JSArray assignedElements([AssignedNodesOptions options]);
   external JSVoid assign(JSAny? nodes);
-  external set name(JSString value);
-  external JSString get name;
+  external set name(String value);
+  external String get name;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class AssignedNodesOptions implements JSObject {
-  external factory AssignedNodesOptions({JSBoolean flatten});
+  external factory AssignedNodesOptions({bool flatten});
 }
 
 extension AssignedNodesOptionsExtension on AssignedNodesOptions {
-  external set flatten(JSBoolean value);
-  external JSBoolean get flatten;
+  external set flatten(bool value);
+  external bool get flatten;
 }
 
 @JS('HTMLCanvasElement')
@@ -2011,24 +2010,24 @@ class HTMLCanvasElement implements HTMLElement {
 
 extension HTMLCanvasElementExtension on HTMLCanvasElement {
   external RenderingContext? getContext(
-    JSString contextId, [
+    String contextId, [
     JSAny? options,
   ]);
-  external JSString toDataURL([
-    JSString type,
+  external String toDataURL([
+    String type,
     JSAny? quality,
   ]);
   external JSVoid toBlob(
     BlobCallback callback, [
-    JSString type,
+    String type,
     JSAny? quality,
   ]);
   external OffscreenCanvas transferControlToOffscreen();
-  external MediaStream captureStream([JSNumber frameRequestRate]);
-  external set width(JSNumber value);
-  external JSNumber get width;
-  external set height(JSNumber value);
-  external JSNumber get height;
+  external MediaStream captureStream([double frameRequestRate]);
+  external set width(int value);
+  external int get width;
+  external set height(int value);
+  external int get height;
 }
 
 @JS()
@@ -2036,23 +2035,23 @@ extension HTMLCanvasElementExtension on HTMLCanvasElement {
 @anonymous
 class CanvasRenderingContext2DSettings implements JSObject {
   external factory CanvasRenderingContext2DSettings({
-    JSBoolean alpha,
-    JSBoolean desynchronized,
+    bool alpha,
+    bool desynchronized,
     PredefinedColorSpace colorSpace,
-    JSBoolean willReadFrequently,
+    bool willReadFrequently,
   });
 }
 
 extension CanvasRenderingContext2DSettingsExtension
     on CanvasRenderingContext2DSettings {
-  external set alpha(JSBoolean value);
-  external JSBoolean get alpha;
-  external set desynchronized(JSBoolean value);
-  external JSBoolean get desynchronized;
+  external set alpha(bool value);
+  external bool get alpha;
+  external set desynchronized(bool value);
+  external bool get desynchronized;
   external set colorSpace(PredefinedColorSpace value);
   external PredefinedColorSpace get colorSpace;
-  external set willReadFrequently(JSBoolean value);
-  external JSBoolean get willReadFrequently;
+  external set willReadFrequently(bool value);
+  external bool get willReadFrequently;
 }
 
 @JS('CanvasRenderingContext2D')
@@ -2089,7 +2088,7 @@ extension CanvasStateExtension on CanvasState {
   external JSVoid save();
   external JSVoid restore();
   external JSVoid reset();
-  external JSBoolean isContextLost();
+  external bool isContextLost();
 }
 
 @JS('CanvasTransform')
@@ -2098,30 +2097,30 @@ class CanvasTransform implements JSObject {}
 
 extension CanvasTransformExtension on CanvasTransform {
   external JSVoid scale(
-    JSNumber x,
-    JSNumber y,
+    double x,
+    double y,
   );
-  external JSVoid rotate(JSNumber angle);
+  external JSVoid rotate(double angle);
   external JSVoid translate(
-    JSNumber x,
-    JSNumber y,
+    double x,
+    double y,
   );
   external JSVoid transform(
-    JSNumber a,
-    JSNumber b,
-    JSNumber c,
-    JSNumber d,
-    JSNumber e,
-    JSNumber f,
+    double a,
+    double b,
+    double c,
+    double d,
+    double e,
+    double f,
   );
   external DOMMatrix getTransform();
   external JSVoid setTransform([
     JSAny? aOrTransform,
-    JSNumber b,
-    JSNumber c,
-    JSNumber d,
-    JSNumber e,
-    JSNumber f,
+    double b,
+    double c,
+    double d,
+    double e,
+    double f,
   ]);
   external JSVoid resetTransform();
 }
@@ -2131,10 +2130,10 @@ extension CanvasTransformExtension on CanvasTransform {
 class CanvasCompositing implements JSObject {}
 
 extension CanvasCompositingExtension on CanvasCompositing {
-  external set globalAlpha(JSNumber value);
-  external JSNumber get globalAlpha;
-  external set globalCompositeOperation(JSString value);
-  external JSString get globalCompositeOperation;
+  external set globalAlpha(double value);
+  external double get globalAlpha;
+  external set globalCompositeOperation(String value);
+  external String get globalCompositeOperation;
 }
 
 @JS('CanvasImageSmoothing')
@@ -2142,8 +2141,8 @@ extension CanvasCompositingExtension on CanvasCompositing {
 class CanvasImageSmoothing implements JSObject {}
 
 extension CanvasImageSmoothingExtension on CanvasImageSmoothing {
-  external set imageSmoothingEnabled(JSBoolean value);
-  external JSBoolean get imageSmoothingEnabled;
+  external set imageSmoothingEnabled(bool value);
+  external bool get imageSmoothingEnabled;
   external set imageSmoothingQuality(ImageSmoothingQuality value);
   external ImageSmoothingQuality get imageSmoothingQuality;
 }
@@ -2154,27 +2153,27 @@ class CanvasFillStrokeStyles implements JSObject {}
 
 extension CanvasFillStrokeStylesExtension on CanvasFillStrokeStyles {
   external CanvasGradient createLinearGradient(
-    JSNumber x0,
-    JSNumber y0,
-    JSNumber x1,
-    JSNumber y1,
+    double x0,
+    double y0,
+    double x1,
+    double y1,
   );
   external CanvasGradient createRadialGradient(
-    JSNumber x0,
-    JSNumber y0,
-    JSNumber r0,
-    JSNumber x1,
-    JSNumber y1,
-    JSNumber r1,
+    double x0,
+    double y0,
+    double r0,
+    double x1,
+    double y1,
+    double r1,
   );
   external CanvasGradient createConicGradient(
-    JSNumber startAngle,
-    JSNumber x,
-    JSNumber y,
+    double startAngle,
+    double x,
+    double y,
   );
   external CanvasPattern? createPattern(
     CanvasImageSource image,
-    JSString repetition,
+    String repetition,
   );
   external set strokeStyle(JSAny? value);
   external JSAny? get strokeStyle;
@@ -2187,14 +2186,14 @@ extension CanvasFillStrokeStylesExtension on CanvasFillStrokeStyles {
 class CanvasShadowStyles implements JSObject {}
 
 extension CanvasShadowStylesExtension on CanvasShadowStyles {
-  external set shadowOffsetX(JSNumber value);
-  external JSNumber get shadowOffsetX;
-  external set shadowOffsetY(JSNumber value);
-  external JSNumber get shadowOffsetY;
-  external set shadowBlur(JSNumber value);
-  external JSNumber get shadowBlur;
-  external set shadowColor(JSString value);
-  external JSString get shadowColor;
+  external set shadowOffsetX(double value);
+  external double get shadowOffsetX;
+  external set shadowOffsetY(double value);
+  external double get shadowOffsetY;
+  external set shadowBlur(double value);
+  external double get shadowBlur;
+  external set shadowColor(String value);
+  external String get shadowColor;
 }
 
 @JS('CanvasFilters')
@@ -2202,8 +2201,8 @@ extension CanvasShadowStylesExtension on CanvasShadowStyles {
 class CanvasFilters implements JSObject {}
 
 extension CanvasFiltersExtension on CanvasFilters {
-  external set filter(JSString value);
-  external JSString get filter;
+  external set filter(String value);
+  external String get filter;
 }
 
 @JS('CanvasRect')
@@ -2212,22 +2211,22 @@ class CanvasRect implements JSObject {}
 
 extension CanvasRectExtension on CanvasRect {
   external JSVoid clearRect(
-    JSNumber x,
-    JSNumber y,
-    JSNumber w,
-    JSNumber h,
+    double x,
+    double y,
+    double w,
+    double h,
   );
   external JSVoid fillRect(
-    JSNumber x,
-    JSNumber y,
-    JSNumber w,
-    JSNumber h,
+    double x,
+    double y,
+    double w,
+    double h,
   );
   external JSVoid strokeRect(
-    JSNumber x,
-    JSNumber y,
-    JSNumber w,
-    JSNumber h,
+    double x,
+    double y,
+    double w,
+    double h,
   );
 }
 
@@ -2246,16 +2245,16 @@ extension CanvasDrawPathExtension on CanvasDrawPath {
     JSAny? fillRuleOrPath,
     CanvasFillRule fillRule,
   ]);
-  external JSBoolean isPointInPath(
+  external bool isPointInPath(
     JSAny? pathOrX,
-    JSNumber xOrY, [
+    double xOrY, [
     JSAny? fillRuleOrY,
     CanvasFillRule fillRule,
   ]);
-  external JSBoolean isPointInStroke(
+  external bool isPointInStroke(
     JSAny? pathOrX,
-    JSNumber xOrY, [
-    JSNumber y,
+    double xOrY, [
+    double y,
   ]);
 }
 
@@ -2277,18 +2276,18 @@ class CanvasText implements JSObject {}
 
 extension CanvasTextExtension on CanvasText {
   external JSVoid fillText(
-    JSString text,
-    JSNumber x,
-    JSNumber y, [
-    JSNumber maxWidth,
+    String text,
+    double x,
+    double y, [
+    double maxWidth,
   ]);
   external JSVoid strokeText(
-    JSString text,
-    JSNumber x,
-    JSNumber y, [
-    JSNumber maxWidth,
+    String text,
+    double x,
+    double y, [
+    double maxWidth,
   ]);
-  external TextMetrics measureText(JSString text);
+  external TextMetrics measureText(String text);
 }
 
 @JS('CanvasDrawImage')
@@ -2298,14 +2297,14 @@ class CanvasDrawImage implements JSObject {}
 extension CanvasDrawImageExtension on CanvasDrawImage {
   external JSVoid drawImage(
     CanvasImageSource image,
-    JSNumber dxOrSx,
-    JSNumber dyOrSy, [
-    JSNumber dwOrSw,
-    JSNumber dhOrSh,
-    JSNumber dx,
-    JSNumber dy,
-    JSNumber dw,
-    JSNumber dh,
+    double dxOrSx,
+    double dyOrSy, [
+    double dwOrSw,
+    double dhOrSh,
+    double dx,
+    double dy,
+    double dw,
+    double dh,
   ]);
 }
 
@@ -2316,24 +2315,24 @@ class CanvasImageData implements JSObject {}
 extension CanvasImageDataExtension on CanvasImageData {
   external ImageData createImageData(
     JSAny? imagedataOrSw, [
-    JSNumber sh,
+    int sh,
     ImageDataSettings settings,
   ]);
   external ImageData getImageData(
-    JSNumber sx,
-    JSNumber sy,
-    JSNumber sw,
-    JSNumber sh, [
+    int sx,
+    int sy,
+    int sw,
+    int sh, [
     ImageDataSettings settings,
   ]);
   external JSVoid putImageData(
     ImageData imagedata,
-    JSNumber dx,
-    JSNumber dy, [
-    JSNumber dirtyX,
-    JSNumber dirtyY,
-    JSNumber dirtyWidth,
-    JSNumber dirtyHeight,
+    int dx,
+    int dy, [
+    int dirtyX,
+    int dirtyY,
+    int dirtyWidth,
+    int dirtyHeight,
   ]);
 }
 
@@ -2344,16 +2343,16 @@ class CanvasPathDrawingStyles implements JSObject {}
 extension CanvasPathDrawingStylesExtension on CanvasPathDrawingStyles {
   external JSVoid setLineDash(JSArray segments);
   external JSArray getLineDash();
-  external set lineWidth(JSNumber value);
-  external JSNumber get lineWidth;
+  external set lineWidth(double value);
+  external double get lineWidth;
   external set lineCap(CanvasLineCap value);
   external CanvasLineCap get lineCap;
   external set lineJoin(CanvasLineJoin value);
   external CanvasLineJoin get lineJoin;
-  external set miterLimit(JSNumber value);
-  external JSNumber get miterLimit;
-  external set lineDashOffset(JSNumber value);
-  external JSNumber get lineDashOffset;
+  external set miterLimit(double value);
+  external double get miterLimit;
+  external set lineDashOffset(double value);
+  external double get lineDashOffset;
 }
 
 @JS('CanvasTextDrawingStyles')
@@ -2361,16 +2360,16 @@ extension CanvasPathDrawingStylesExtension on CanvasPathDrawingStyles {
 class CanvasTextDrawingStyles implements JSObject {}
 
 extension CanvasTextDrawingStylesExtension on CanvasTextDrawingStyles {
-  external set font(JSString value);
-  external JSString get font;
+  external set font(String value);
+  external String get font;
   external set textAlign(CanvasTextAlign value);
   external CanvasTextAlign get textAlign;
   external set textBaseline(CanvasTextBaseline value);
   external CanvasTextBaseline get textBaseline;
   external set direction(CanvasDirection value);
   external CanvasDirection get direction;
-  external set letterSpacing(JSString value);
-  external JSString get letterSpacing;
+  external set letterSpacing(String value);
+  external String get letterSpacing;
   external set fontKerning(CanvasFontKerning value);
   external CanvasFontKerning get fontKerning;
   external set fontStretch(CanvasFontStretch value);
@@ -2379,8 +2378,8 @@ extension CanvasTextDrawingStylesExtension on CanvasTextDrawingStyles {
   external CanvasFontVariantCaps get fontVariantCaps;
   external set textRendering(CanvasTextRendering value);
   external CanvasTextRendering get textRendering;
-  external set wordSpacing(JSString value);
-  external JSString get wordSpacing;
+  external set wordSpacing(String value);
+  external String get wordSpacing;
 }
 
 @JS('CanvasPath')
@@ -2390,64 +2389,64 @@ class CanvasPath implements JSObject {}
 extension CanvasPathExtension on CanvasPath {
   external JSVoid closePath();
   external JSVoid moveTo(
-    JSNumber x,
-    JSNumber y,
+    double x,
+    double y,
   );
   external JSVoid lineTo(
-    JSNumber x,
-    JSNumber y,
+    double x,
+    double y,
   );
   external JSVoid quadraticCurveTo(
-    JSNumber cpx,
-    JSNumber cpy,
-    JSNumber x,
-    JSNumber y,
+    double cpx,
+    double cpy,
+    double x,
+    double y,
   );
   external JSVoid bezierCurveTo(
-    JSNumber cp1x,
-    JSNumber cp1y,
-    JSNumber cp2x,
-    JSNumber cp2y,
-    JSNumber x,
-    JSNumber y,
+    double cp1x,
+    double cp1y,
+    double cp2x,
+    double cp2y,
+    double x,
+    double y,
   );
   external JSVoid arcTo(
-    JSNumber x1,
-    JSNumber y1,
-    JSNumber x2,
-    JSNumber y2,
-    JSNumber radius,
+    double x1,
+    double y1,
+    double x2,
+    double y2,
+    double radius,
   );
   external JSVoid rect(
-    JSNumber x,
-    JSNumber y,
-    JSNumber w,
-    JSNumber h,
+    double x,
+    double y,
+    double w,
+    double h,
   );
   external JSVoid roundRect(
-    JSNumber x,
-    JSNumber y,
-    JSNumber w,
-    JSNumber h, [
+    double x,
+    double y,
+    double w,
+    double h, [
     JSAny? radii,
   ]);
   external JSVoid arc(
-    JSNumber x,
-    JSNumber y,
-    JSNumber radius,
-    JSNumber startAngle,
-    JSNumber endAngle, [
-    JSBoolean counterclockwise,
+    double x,
+    double y,
+    double radius,
+    double startAngle,
+    double endAngle, [
+    bool counterclockwise,
   ]);
   external JSVoid ellipse(
-    JSNumber x,
-    JSNumber y,
-    JSNumber radiusX,
-    JSNumber radiusY,
-    JSNumber rotation,
-    JSNumber startAngle,
-    JSNumber endAngle, [
-    JSBoolean counterclockwise,
+    double x,
+    double y,
+    double radiusX,
+    double radiusY,
+    double rotation,
+    double startAngle,
+    double endAngle, [
+    bool counterclockwise,
   ]);
 }
 
@@ -2457,8 +2456,8 @@ class CanvasGradient implements JSObject {}
 
 extension CanvasGradientExtension on CanvasGradient {
   external JSVoid addColorStop(
-    JSNumber offset,
-    JSString color,
+    double offset,
+    String color,
   );
 }
 
@@ -2475,18 +2474,18 @@ extension CanvasPatternExtension on CanvasPattern {
 class TextMetrics implements JSObject {}
 
 extension TextMetricsExtension on TextMetrics {
-  external JSNumber get width;
-  external JSNumber get actualBoundingBoxLeft;
-  external JSNumber get actualBoundingBoxRight;
-  external JSNumber get fontBoundingBoxAscent;
-  external JSNumber get fontBoundingBoxDescent;
-  external JSNumber get actualBoundingBoxAscent;
-  external JSNumber get actualBoundingBoxDescent;
-  external JSNumber get emHeightAscent;
-  external JSNumber get emHeightDescent;
-  external JSNumber get hangingBaseline;
-  external JSNumber get alphabeticBaseline;
-  external JSNumber get ideographicBaseline;
+  external double get width;
+  external double get actualBoundingBoxLeft;
+  external double get actualBoundingBoxRight;
+  external double get fontBoundingBoxAscent;
+  external double get fontBoundingBoxDescent;
+  external double get actualBoundingBoxAscent;
+  external double get actualBoundingBoxDescent;
+  external double get emHeightAscent;
+  external double get emHeightDescent;
+  external double get hangingBaseline;
+  external double get alphabeticBaseline;
+  external double get ideographicBaseline;
 }
 
 @JS()
@@ -2506,15 +2505,15 @@ extension ImageDataSettingsExtension on ImageDataSettings {
 class ImageData implements JSObject {
   external factory ImageData(
     JSAny? dataOrSw,
-    JSNumber shOrSw, [
+    int shOrSw, [
     JSAny? settingsOrSh,
     ImageDataSettings settings,
   ]);
 }
 
 extension ImageDataExtension on ImageData {
-  external JSNumber get width;
-  external JSNumber get height;
+  external int get width;
+  external int get height;
   external JSUint8ClampedArray get data;
   external PredefinedColorSpace get colorSpace;
 }
@@ -2545,13 +2544,13 @@ extension ImageBitmapRenderingContextExtension on ImageBitmapRenderingContext {
 @staticInterop
 @anonymous
 class ImageBitmapRenderingContextSettings implements JSObject {
-  external factory ImageBitmapRenderingContextSettings({JSBoolean alpha});
+  external factory ImageBitmapRenderingContextSettings({bool alpha});
 }
 
 extension ImageBitmapRenderingContextSettingsExtension
     on ImageBitmapRenderingContextSettings {
-  external set alpha(JSBoolean value);
-  external JSBoolean get alpha;
+  external set alpha(bool value);
+  external bool get alpha;
 }
 
 @JS()
@@ -2559,24 +2558,24 @@ extension ImageBitmapRenderingContextSettingsExtension
 @anonymous
 class ImageEncodeOptions implements JSObject {
   external factory ImageEncodeOptions({
-    JSString type,
-    JSNumber quality,
+    String type,
+    double quality,
   });
 }
 
 extension ImageEncodeOptionsExtension on ImageEncodeOptions {
-  external set type(JSString value);
-  external JSString get type;
-  external set quality(JSNumber value);
-  external JSNumber get quality;
+  external set type(String value);
+  external String get type;
+  external set quality(double value);
+  external double get quality;
 }
 
 @JS('OffscreenCanvas')
 @staticInterop
 class OffscreenCanvas implements EventTarget {
   external factory OffscreenCanvas(
-    JSNumber width,
-    JSNumber height,
+    int width,
+    int height,
   );
 }
 
@@ -2587,10 +2586,10 @@ extension OffscreenCanvasExtension on OffscreenCanvas {
   ]);
   external ImageBitmap transferToImageBitmap();
   external JSPromise convertToBlob([ImageEncodeOptions options]);
-  external set width(JSNumber value);
-  external JSNumber get width;
-  external set height(JSNumber value);
-  external JSNumber get height;
+  external set width(int value);
+  external int get width;
+  external set height(int value);
+  external int get height;
   external set oncontextlost(EventHandler value);
   external EventHandler get oncontextlost;
   external set oncontextrestored(EventHandler value);
@@ -2629,12 +2628,12 @@ class CustomElementRegistry implements JSObject {}
 
 extension CustomElementRegistryExtension on CustomElementRegistry {
   external JSVoid define(
-    JSString name,
+    String name,
     CustomElementConstructor constructor, [
     ElementDefinitionOptions options,
   ]);
-  external JSAny? get(JSString name);
-  external JSPromise whenDefined(JSString name);
+  external JSAny? get(String name);
+  external JSPromise whenDefined(String name);
   external JSVoid upgrade(Node root);
 }
 
@@ -2642,14 +2641,14 @@ extension CustomElementRegistryExtension on CustomElementRegistry {
 @staticInterop
 @anonymous
 class ElementDefinitionOptions implements JSObject {
-  external factory ElementDefinitionOptions({JSString extends_});
+  external factory ElementDefinitionOptions({String extends_});
 }
 
 extension ElementDefinitionOptionsExtension on ElementDefinitionOptions {
   @JS('extends')
-  external set extends_(JSString value);
+  external set extends_(String value);
   @JS('extends')
-  external JSString get extends_;
+  external String get extends_;
 }
 
 @JS('ElementInternals')
@@ -2663,17 +2662,17 @@ extension ElementInternalsExtension on ElementInternals {
   ]);
   external JSVoid setValidity([
     ValidityStateFlags flags,
-    JSString message,
+    String message,
     HTMLElement anchor,
   ]);
-  external JSBoolean checkValidity();
-  external JSBoolean reportValidity();
+  external bool checkValidity();
+  external bool reportValidity();
   external CustomStateSet get states;
   external ShadowRoot? get shadowRoot;
   external HTMLFormElement? get form;
-  external JSBoolean get willValidate;
+  external bool get willValidate;
   external ValidityState get validity;
-  external JSString get validationMessage;
+  external String get validationMessage;
   external NodeList get labels;
 }
 
@@ -2682,40 +2681,40 @@ extension ElementInternalsExtension on ElementInternals {
 @anonymous
 class ValidityStateFlags implements JSObject {
   external factory ValidityStateFlags({
-    JSBoolean valueMissing,
-    JSBoolean typeMismatch,
-    JSBoolean patternMismatch,
-    JSBoolean tooLong,
-    JSBoolean tooShort,
-    JSBoolean rangeUnderflow,
-    JSBoolean rangeOverflow,
-    JSBoolean stepMismatch,
-    JSBoolean badInput,
-    JSBoolean customError,
+    bool valueMissing,
+    bool typeMismatch,
+    bool patternMismatch,
+    bool tooLong,
+    bool tooShort,
+    bool rangeUnderflow,
+    bool rangeOverflow,
+    bool stepMismatch,
+    bool badInput,
+    bool customError,
   });
 }
 
 extension ValidityStateFlagsExtension on ValidityStateFlags {
-  external set valueMissing(JSBoolean value);
-  external JSBoolean get valueMissing;
-  external set typeMismatch(JSBoolean value);
-  external JSBoolean get typeMismatch;
-  external set patternMismatch(JSBoolean value);
-  external JSBoolean get patternMismatch;
-  external set tooLong(JSBoolean value);
-  external JSBoolean get tooLong;
-  external set tooShort(JSBoolean value);
-  external JSBoolean get tooShort;
-  external set rangeUnderflow(JSBoolean value);
-  external JSBoolean get rangeUnderflow;
-  external set rangeOverflow(JSBoolean value);
-  external JSBoolean get rangeOverflow;
-  external set stepMismatch(JSBoolean value);
-  external JSBoolean get stepMismatch;
-  external set badInput(JSBoolean value);
-  external JSBoolean get badInput;
-  external set customError(JSBoolean value);
-  external JSBoolean get customError;
+  external set valueMissing(bool value);
+  external bool get valueMissing;
+  external set typeMismatch(bool value);
+  external bool get typeMismatch;
+  external set patternMismatch(bool value);
+  external bool get patternMismatch;
+  external set tooLong(bool value);
+  external bool get tooLong;
+  external set tooShort(bool value);
+  external bool get tooShort;
+  external set rangeUnderflow(bool value);
+  external bool get rangeUnderflow;
+  external set rangeOverflow(bool value);
+  external bool get rangeOverflow;
+  external set stepMismatch(bool value);
+  external bool get stepMismatch;
+  external set badInput(bool value);
+  external bool get badInput;
+  external set customError(bool value);
+  external bool get customError;
 }
 
 @JS('VisibilityStateEntry')
@@ -2723,10 +2722,10 @@ extension ValidityStateFlagsExtension on ValidityStateFlags {
 class VisibilityStateEntry implements PerformanceEntry {}
 
 extension VisibilityStateEntryExtension on VisibilityStateEntry {
-  external JSString get name;
-  external JSString get entryType;
+  external String get name;
+  external String get entryType;
   external DOMHighResTimeStamp get startTime;
-  external JSNumber get duration;
+  external int get duration;
 }
 
 @JS('UserActivation')
@@ -2734,8 +2733,8 @@ extension VisibilityStateEntryExtension on VisibilityStateEntry {
 class UserActivation implements JSObject {}
 
 extension UserActivationExtension on UserActivation {
-  external JSBoolean get hasBeenActive;
-  external JSBoolean get isActive;
+  external bool get hasBeenActive;
+  external bool get isActive;
 }
 
 @JS()
@@ -2743,16 +2742,16 @@ extension UserActivationExtension on UserActivation {
 @anonymous
 class FocusOptions implements JSObject {
   external factory FocusOptions({
-    JSBoolean preventScroll,
-    JSBoolean focusVisible,
+    bool preventScroll,
+    bool focusVisible,
   });
 }
 
 extension FocusOptionsExtension on FocusOptions {
-  external set preventScroll(JSBoolean value);
-  external JSBoolean get preventScroll;
-  external set focusVisible(JSBoolean value);
-  external JSBoolean get focusVisible;
+  external set preventScroll(bool value);
+  external bool get preventScroll;
+  external set focusVisible(bool value);
+  external bool get focusVisible;
 }
 
 @JS('ElementContentEditable')
@@ -2760,15 +2759,15 @@ extension FocusOptionsExtension on FocusOptions {
 class ElementContentEditable implements JSObject {}
 
 extension ElementContentEditableExtension on ElementContentEditable {
-  external set contentEditable(JSString value);
-  external JSString get contentEditable;
-  external set enterKeyHint(JSString value);
-  external JSString get enterKeyHint;
-  external JSBoolean get isContentEditable;
-  external set inputMode(JSString value);
-  external JSString get inputMode;
-  external set virtualKeyboardPolicy(JSString value);
-  external JSString get virtualKeyboardPolicy;
+  external set contentEditable(String value);
+  external String get contentEditable;
+  external set enterKeyHint(String value);
+  external String get enterKeyHint;
+  external bool get isContentEditable;
+  external set inputMode(String value);
+  external String get inputMode;
+  external set virtualKeyboardPolicy(String value);
+  external String get virtualKeyboardPolicy;
 }
 
 @JS('DataTransfer')
@@ -2780,19 +2779,19 @@ class DataTransfer implements JSObject {
 extension DataTransferExtension on DataTransfer {
   external JSVoid setDragImage(
     Element image,
-    JSNumber x,
-    JSNumber y,
+    int x,
+    int y,
   );
-  external JSString getData(JSString format);
+  external String getData(String format);
   external JSVoid setData(
-    JSString format,
-    JSString data,
+    String format,
+    String data,
   );
-  external JSVoid clearData([JSString format]);
-  external set dropEffect(JSString value);
-  external JSString get dropEffect;
-  external set effectAllowed(JSString value);
-  external JSString get effectAllowed;
+  external JSVoid clearData([String format]);
+  external set dropEffect(String value);
+  external String get dropEffect;
+  external set effectAllowed(String value);
+  external String get effectAllowed;
   external DataTransferItemList get items;
   external JSArray get types;
   external FileList get files;
@@ -2805,11 +2804,11 @@ class DataTransferItemList implements JSObject {}
 extension DataTransferItemListExtension on DataTransferItemList {
   external DataTransferItem? add(
     JSAny? data, [
-    JSString type,
+    String type,
   ]);
-  external JSVoid remove(JSNumber index);
+  external JSVoid remove(int index);
   external JSVoid clear();
-  external JSNumber get length;
+  external int get length;
 }
 
 @JS('DataTransferItem')
@@ -2821,15 +2820,15 @@ extension DataTransferItemExtension on DataTransferItem {
   external JSPromise getAsFileSystemHandle();
   external JSVoid getAsString(FunctionStringCallback? callback);
   external File? getAsFile();
-  external JSString get kind;
-  external JSString get type;
+  external String get kind;
+  external String get type;
 }
 
 @JS('DragEvent')
 @staticInterop
 class DragEvent implements MouseEvent {
   external factory DragEvent(
-    JSString type, [
+    String type, [
     DragEventInit eventInitDict,
   ]);
 }
@@ -2857,22 +2856,22 @@ class PopoverInvokerElement implements JSObject {}
 extension PopoverInvokerElementExtension on PopoverInvokerElement {
   external set popoverTargetElement(Element? value);
   external Element? get popoverTargetElement;
-  external set popoverTargetAction(JSString value);
-  external JSString get popoverTargetAction;
+  external set popoverTargetAction(String value);
+  external String get popoverTargetAction;
 }
 
 @JS('ToggleEvent')
 @staticInterop
 class ToggleEvent implements Event {
   external factory ToggleEvent(
-    JSString type, [
+    String type, [
     ToggleEventInit eventInitDict,
   ]);
 }
 
 extension ToggleEventExtension on ToggleEvent {
-  external JSString get oldState;
-  external JSString get newState;
+  external String get oldState;
+  external String get newState;
 }
 
 @JS()
@@ -2880,16 +2879,16 @@ extension ToggleEventExtension on ToggleEvent {
 @anonymous
 class ToggleEventInit implements EventInit {
   external factory ToggleEventInit({
-    JSString oldState,
-    JSString newState,
+    String oldState,
+    String newState,
   });
 }
 
 extension ToggleEventInitExtension on ToggleEventInit {
-  external set oldState(JSString value);
-  external JSString get oldState;
-  external set newState(JSString value);
-  external JSString get newState;
+  external set oldState(String value);
+  external String get oldState;
+  external set newState(String value);
+  external String get newState;
 }
 
 @JS()
@@ -2909,40 +2908,40 @@ class Window
 
 extension WindowExtension on Window {
   external JSVoid navigate(SpatialNavigationDirection dir);
-  external MediaQueryList matchMedia(JSString query);
+  external MediaQueryList matchMedia(String query);
   external JSVoid moveTo(
-    JSNumber x,
-    JSNumber y,
+    int x,
+    int y,
   );
   external JSVoid moveBy(
-    JSNumber x,
-    JSNumber y,
+    int x,
+    int y,
   );
   external JSVoid resizeTo(
-    JSNumber width,
-    JSNumber height,
+    int width,
+    int height,
   );
   external JSVoid resizeBy(
-    JSNumber x,
-    JSNumber y,
+    int x,
+    int y,
   );
   external JSVoid scroll([
     JSAny? optionsOrX,
-    JSNumber y,
+    double y,
   ]);
   external JSVoid scrollTo([
     JSAny? optionsOrX,
-    JSNumber y,
+    double y,
   ]);
   external JSVoid scrollBy([
     JSAny? optionsOrX,
-    JSNumber y,
+    double y,
   ]);
   external CSSStyleDeclaration getComputedStyle(
     Element elt, [
-    JSString? pseudoElt,
+    String? pseudoElt,
   ]);
-  external JSPromise getDigitalGoodsService(JSString serviceProvider);
+  external JSPromise getDigitalGoodsService(String serviceProvider);
   external JSPromise showOpenFilePicker([OpenFilePickerOptions options]);
   external JSPromise showSaveFilePicker([SaveFilePickerOptions options]);
   external JSPromise showDirectoryPicker([DirectoryPickerOptions options]);
@@ -2951,15 +2950,15 @@ extension WindowExtension on Window {
   external JSVoid focus();
   external JSVoid blur();
   external Window? open([
-    JSString url,
-    JSString target,
-    JSString features,
+    String url,
+    String target,
+    String features,
   ]);
-  external JSVoid alert([JSString message]);
-  external JSBoolean confirm([JSString message]);
-  external JSString? prompt([
-    JSString message,
-    JSString default_,
+  external JSVoid alert([String message]);
+  external bool confirm([String message]);
+  external String? prompt([
+    String message,
+    String default_,
   ]);
   external JSVoid print();
   external JSVoid postMessage(
@@ -2970,39 +2969,39 @@ extension WindowExtension on Window {
   external JSVoid captureEvents();
   external JSVoid releaseEvents();
   external JSPromise queryLocalFonts([QueryOptions options]);
-  external JSNumber requestIdleCallback(
+  external int requestIdleCallback(
     IdleRequestCallback callback, [
     IdleRequestOptions options,
   ]);
-  external JSVoid cancelIdleCallback(JSNumber handle);
+  external JSVoid cancelIdleCallback(int handle);
   external Selection? getSelection();
   external JSPromise getScreenDetails();
-  external JSNumber get orientation;
+  external int get orientation;
   external set onorientationchange(EventHandler value);
   external EventHandler get onorientationchange;
   external CookieStore get cookieStore;
   external Screen get screen;
   external VisualViewport? get visualViewport;
-  external JSNumber get innerWidth;
-  external JSNumber get innerHeight;
-  external JSNumber get scrollX;
-  external JSNumber get pageXOffset;
-  external JSNumber get scrollY;
-  external JSNumber get pageYOffset;
-  external JSNumber get screenX;
-  external JSNumber get screenLeft;
-  external JSNumber get screenY;
-  external JSNumber get screenTop;
-  external JSNumber get outerWidth;
-  external JSNumber get outerHeight;
-  external JSNumber get devicePixelRatio;
+  external int get innerWidth;
+  external int get innerHeight;
+  external double get scrollX;
+  external double get pageXOffset;
+  external double get scrollY;
+  external double get pageYOffset;
+  external int get screenX;
+  external int get screenLeft;
+  external int get screenY;
+  external int get screenTop;
+  external int get outerWidth;
+  external int get outerHeight;
+  external double get devicePixelRatio;
   external JSAny? get event;
   external Fence? get fence;
   external Window get window;
   external Window get self;
   external Document get document;
-  external set name(JSString value);
-  external JSString get name;
+  external set name(String value);
+  external String get name;
   external Location get location;
   external History get history;
   external CustomElementRegistry get customElements;
@@ -3012,11 +3011,11 @@ extension WindowExtension on Window {
   external BarProp get scrollbars;
   external BarProp get statusbar;
   external BarProp get toolbar;
-  external set status(JSString value);
-  external JSString get status;
-  external JSBoolean get closed;
+  external set status(String value);
+  external String get status;
+  external bool get closed;
   external Window get frames;
-  external JSNumber get length;
+  external int get length;
   external Window? get top;
   external set opener(JSAny? value);
   external JSAny? get opener;
@@ -3024,7 +3023,7 @@ extension WindowExtension on Window {
   external Element? get frameElement;
   external Navigator get navigator;
   external Navigator get clientInformation;
-  external JSBoolean get originAgentCluster;
+  external bool get originAgentCluster;
   external External get external;
   external set onappinstalled(EventHandler value);
   external EventHandler get onappinstalled;
@@ -3045,12 +3044,12 @@ extension WindowExtension on Window {
 @staticInterop
 @anonymous
 class WindowPostMessageOptions implements StructuredSerializeOptions {
-  external factory WindowPostMessageOptions({JSString targetOrigin});
+  external factory WindowPostMessageOptions({String targetOrigin});
 }
 
 extension WindowPostMessageOptionsExtension on WindowPostMessageOptions {
-  external set targetOrigin(JSString value);
-  external JSString get targetOrigin;
+  external set targetOrigin(String value);
+  external String get targetOrigin;
 }
 
 @JS('BarProp')
@@ -3058,7 +3057,7 @@ extension WindowPostMessageOptionsExtension on WindowPostMessageOptions {
 class BarProp implements JSObject {}
 
 extension BarPropExtension on BarProp {
-  external JSBoolean get visible;
+  external bool get visible;
 }
 
 @JS('Location')
@@ -3066,26 +3065,26 @@ extension BarPropExtension on BarProp {
 class Location implements JSObject {}
 
 extension LocationExtension on Location {
-  external JSVoid assign(JSString url);
-  external JSVoid replace(JSString url);
+  external JSVoid assign(String url);
+  external JSVoid replace(String url);
   external JSVoid reload();
-  external set href(JSString value);
-  external JSString get href;
-  external JSString get origin;
-  external set protocol(JSString value);
-  external JSString get protocol;
-  external set host(JSString value);
-  external JSString get host;
-  external set hostname(JSString value);
-  external JSString get hostname;
-  external set port(JSString value);
-  external JSString get port;
-  external set pathname(JSString value);
-  external JSString get pathname;
-  external set search(JSString value);
-  external JSString get search;
-  external set hash(JSString value);
-  external JSString get hash;
+  external set href(String value);
+  external String get href;
+  external String get origin;
+  external set protocol(String value);
+  external String get protocol;
+  external set host(String value);
+  external String get host;
+  external set hostname(String value);
+  external String get hostname;
+  external set port(String value);
+  external String get port;
+  external set pathname(String value);
+  external String get pathname;
+  external set search(String value);
+  external String get search;
+  external set hash(String value);
+  external String get hash;
   external DOMStringList get ancestorOrigins;
 }
 
@@ -3094,20 +3093,20 @@ extension LocationExtension on Location {
 class History implements JSObject {}
 
 extension HistoryExtension on History {
-  external JSVoid go([JSNumber delta]);
+  external JSVoid go([int delta]);
   external JSVoid back();
   external JSVoid forward();
   external JSVoid pushState(
     JSAny? data,
-    JSString unused, [
-    JSString? url,
+    String unused, [
+    String? url,
   ]);
   external JSVoid replaceState(
     JSAny? data,
-    JSString unused, [
-    JSString? url,
+    String unused, [
+    String? url,
   ]);
-  external JSNumber get length;
+  external int get length;
   external set scrollRestoration(ScrollRestoration value);
   external ScrollRestoration get scrollRestoration;
   external JSAny? get state;
@@ -3117,7 +3116,7 @@ extension HistoryExtension on History {
 @staticInterop
 class PopStateEvent implements Event {
   external factory PopStateEvent(
-    JSString type, [
+    String type, [
     PopStateEventInit eventInitDict,
   ]);
 }
@@ -3142,14 +3141,14 @@ extension PopStateEventInitExtension on PopStateEventInit {
 @staticInterop
 class HashChangeEvent implements Event {
   external factory HashChangeEvent(
-    JSString type, [
+    String type, [
     HashChangeEventInit eventInitDict,
   ]);
 }
 
 extension HashChangeEventExtension on HashChangeEvent {
-  external JSString get oldURL;
-  external JSString get newURL;
+  external String get oldURL;
+  external String get newURL;
 }
 
 @JS()
@@ -3157,41 +3156,41 @@ extension HashChangeEventExtension on HashChangeEvent {
 @anonymous
 class HashChangeEventInit implements EventInit {
   external factory HashChangeEventInit({
-    JSString oldURL,
-    JSString newURL,
+    String oldURL,
+    String newURL,
   });
 }
 
 extension HashChangeEventInitExtension on HashChangeEventInit {
-  external set oldURL(JSString value);
-  external JSString get oldURL;
-  external set newURL(JSString value);
-  external JSString get newURL;
+  external set oldURL(String value);
+  external String get oldURL;
+  external set newURL(String value);
+  external String get newURL;
 }
 
 @JS('PageTransitionEvent')
 @staticInterop
 class PageTransitionEvent implements Event {
   external factory PageTransitionEvent(
-    JSString type, [
+    String type, [
     PageTransitionEventInit eventInitDict,
   ]);
 }
 
 extension PageTransitionEventExtension on PageTransitionEvent {
-  external JSBoolean get persisted;
+  external bool get persisted;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class PageTransitionEventInit implements EventInit {
-  external factory PageTransitionEventInit({JSBoolean persisted});
+  external factory PageTransitionEventInit({bool persisted});
 }
 
 extension PageTransitionEventInitExtension on PageTransitionEventInit {
-  external set persisted(JSBoolean value);
-  external JSBoolean get persisted;
+  external set persisted(bool value);
+  external bool get persisted;
 }
 
 @JS('BeforeUnloadEvent')
@@ -3199,24 +3198,24 @@ extension PageTransitionEventInitExtension on PageTransitionEventInit {
 class BeforeUnloadEvent implements Event {}
 
 extension BeforeUnloadEventExtension on BeforeUnloadEvent {
-  external set returnValue(JSString value);
-  external JSString get returnValue;
+  external set returnValue(String value);
+  external String get returnValue;
 }
 
 @JS('ErrorEvent')
 @staticInterop
 class ErrorEvent implements Event {
   external factory ErrorEvent(
-    JSString type, [
+    String type, [
     ErrorEventInit eventInitDict,
   ]);
 }
 
 extension ErrorEventExtension on ErrorEvent {
-  external JSString get message;
-  external JSString get filename;
-  external JSNumber get lineno;
-  external JSNumber get colno;
+  external String get message;
+  external String get filename;
+  external int get lineno;
+  external int get colno;
   external JSAny? get error;
 }
 
@@ -3225,23 +3224,23 @@ extension ErrorEventExtension on ErrorEvent {
 @anonymous
 class ErrorEventInit implements EventInit {
   external factory ErrorEventInit({
-    JSString message,
-    JSString filename,
-    JSNumber lineno,
-    JSNumber colno,
+    String message,
+    String filename,
+    int lineno,
+    int colno,
     JSAny? error,
   });
 }
 
 extension ErrorEventInitExtension on ErrorEventInit {
-  external set message(JSString value);
-  external JSString get message;
-  external set filename(JSString value);
-  external JSString get filename;
-  external set lineno(JSNumber value);
-  external JSNumber get lineno;
-  external set colno(JSNumber value);
-  external JSNumber get colno;
+  external set message(String value);
+  external String get message;
+  external set filename(String value);
+  external String get filename;
+  external set lineno(int value);
+  external int get lineno;
+  external set colno(int value);
+  external int get colno;
   external set error(JSAny? value);
   external JSAny? get error;
 }
@@ -3250,7 +3249,7 @@ extension ErrorEventInitExtension on ErrorEventInit {
 @staticInterop
 class PromiseRejectionEvent implements Event {
   external factory PromiseRejectionEvent(
-    JSString type,
+    String type,
     PromiseRejectionEventInit eventInitDict,
   );
 }
@@ -3541,27 +3540,27 @@ extension WindowOrWorkerGlobalScopeExtension on WindowOrWorkerGlobalScope {
     RequestInit init,
   ]);
   external JSVoid reportError(JSAny? e);
-  external JSString btoa(JSString data);
-  external JSString atob(JSString data);
-  external JSNumber setTimeout(
+  external String btoa(String data);
+  external String atob(String data);
+  external int setTimeout(
     TimerHandler handler,
     JSAny? arguments, [
-    JSNumber timeout,
+    int timeout,
   ]);
-  external JSVoid clearTimeout([JSNumber id]);
-  external JSNumber setInterval(
+  external JSVoid clearTimeout([int id]);
+  external int setInterval(
     TimerHandler handler,
     JSAny? arguments, [
-    JSNumber timeout,
+    int timeout,
   ]);
-  external JSVoid clearInterval([JSNumber id]);
+  external JSVoid clearInterval([int id]);
   external JSVoid queueMicrotask(VoidFunction callback);
   external JSPromise createImageBitmap(
     ImageBitmapSource image, [
     JSAny? optionsOrSx,
-    JSNumber sy,
-    JSNumber sw,
-    JSNumber sh,
+    int sy,
+    int sw,
+    int sh,
     ImageBitmapOptions options,
   ]);
   external JSAny? structuredClone(
@@ -3571,9 +3570,9 @@ extension WindowOrWorkerGlobalScopeExtension on WindowOrWorkerGlobalScope {
   external IDBFactory get indexedDB;
   external Crypto get crypto;
   external Performance get performance;
-  external JSString get origin;
-  external JSBoolean get isSecureContext;
-  external JSBoolean get crossOriginIsolated;
+  external String get origin;
+  external bool get isSecureContext;
+  external bool get crossOriginIsolated;
   external Scheduler get scheduler;
   external CacheStorage get caches;
   external TrustedTypePolicyFactory get trustedTypes;
@@ -3587,7 +3586,7 @@ class DOMParser implements JSObject {
 
 extension DOMParserExtension on DOMParser {
   external Document parseFromString(
-    JSString string,
+    String string,
     DOMParserSupportedType type,
   );
 }
@@ -3617,12 +3616,12 @@ class Navigator
 extension NavigatorExtension on Navigator {
   external AutoplayPolicy getAutoplayPolicy(JSAny? contextOrElementOrType);
   external JSPromise getBattery();
-  external JSBoolean sendBeacon(
-    JSString url, [
+  external bool sendBeacon(
+    String url, [
     BodyInit? data,
   ]);
   external JSPromise requestMediaKeySystemAccess(
-    JSString keySystem,
+    String keySystem,
     JSArray supportedConfigurations,
   );
   external JSArray getGamepads();
@@ -3634,14 +3633,14 @@ extension NavigatorExtension on Navigator {
   );
   external JSPromise joinAdInterestGroup(
     AuctionAdInterestGroup group,
-    JSNumber durationSeconds,
+    double durationSeconds,
   );
   external JSPromise leaveAdInterestGroup(AuctionAdInterestGroupKey group);
   external JSPromise runAdAuction(AuctionAdConfig config);
   external JSVoid updateAdInterestGroups();
-  external JSBoolean vibrate(VibratePattern pattern);
+  external bool vibrate(VibratePattern pattern);
   external JSPromise share([ShareData data]);
-  external JSBoolean canShare([ShareData data]);
+  external bool canShare([ShareData data]);
   external JSPromise requestMIDIAccess([MIDIOptions options]);
   external Clipboard get clipboard;
   external ContactsManager get contacts;
@@ -3656,7 +3655,7 @@ extension NavigatorExtension on Navigator {
   external MediaDevices get mediaDevices;
   external MediaSession get mediaSession;
   external Permissions get permissions;
-  external JSNumber get maxTouchPoints;
+  external int get maxTouchPoints;
   external Presentation get presentation;
   external WakeLock get wakeLock;
   external Serial get serial;
@@ -3674,17 +3673,17 @@ extension NavigatorExtension on Navigator {
 class NavigatorID implements JSObject {}
 
 extension NavigatorIDExtension on NavigatorID {
-  external JSBoolean taintEnabled();
-  external JSString get appCodeName;
-  external JSString get appName;
-  external JSString get appVersion;
-  external JSString get platform;
-  external JSString get product;
-  external JSString get productSub;
-  external JSString get userAgent;
-  external JSString get vendor;
-  external JSString get vendorSub;
-  external JSString get oscpu;
+  external bool taintEnabled();
+  external String get appCodeName;
+  external String get appName;
+  external String get appVersion;
+  external String get platform;
+  external String get product;
+  external String get productSub;
+  external String get userAgent;
+  external String get vendor;
+  external String get vendorSub;
+  external String get oscpu;
 }
 
 @JS('NavigatorLanguage')
@@ -3692,7 +3691,7 @@ extension NavigatorIDExtension on NavigatorID {
 class NavigatorLanguage implements JSObject {}
 
 extension NavigatorLanguageExtension on NavigatorLanguage {
-  external JSString get language;
+  external String get language;
   external JSArray get languages;
 }
 
@@ -3701,7 +3700,7 @@ extension NavigatorLanguageExtension on NavigatorLanguage {
 class NavigatorOnLine implements JSObject {}
 
 extension NavigatorOnLineExtension on NavigatorOnLine {
-  external JSBoolean get onLine;
+  external bool get onLine;
 }
 
 @JS('NavigatorContentUtils')
@@ -3710,12 +3709,12 @@ class NavigatorContentUtils implements JSObject {}
 
 extension NavigatorContentUtilsExtension on NavigatorContentUtils {
   external JSVoid registerProtocolHandler(
-    JSString scheme,
-    JSString url,
+    String scheme,
+    String url,
   );
   external JSVoid unregisterProtocolHandler(
-    JSString scheme,
-    JSString url,
+    String scheme,
+    String url,
   );
 }
 
@@ -3724,7 +3723,7 @@ extension NavigatorContentUtilsExtension on NavigatorContentUtils {
 class NavigatorCookies implements JSObject {}
 
 extension NavigatorCookiesExtension on NavigatorCookies {
-  external JSBoolean get cookieEnabled;
+  external bool get cookieEnabled;
 }
 
 @JS('NavigatorPlugins')
@@ -3732,10 +3731,10 @@ extension NavigatorCookiesExtension on NavigatorCookies {
 class NavigatorPlugins implements JSObject {}
 
 extension NavigatorPluginsExtension on NavigatorPlugins {
-  external JSBoolean javaEnabled();
+  external bool javaEnabled();
   external PluginArray get plugins;
   external MimeTypeArray get mimeTypes;
-  external JSBoolean get pdfViewerEnabled;
+  external bool get pdfViewerEnabled;
 }
 
 @JS('PluginArray')
@@ -3744,9 +3743,9 @@ class PluginArray implements JSObject {}
 
 extension PluginArrayExtension on PluginArray {
   external JSVoid refresh();
-  external Plugin? item(JSNumber index);
-  external Plugin? namedItem(JSString name);
-  external JSNumber get length;
+  external Plugin? item(int index);
+  external Plugin? namedItem(String name);
+  external int get length;
 }
 
 @JS('MimeTypeArray')
@@ -3754,9 +3753,9 @@ extension PluginArrayExtension on PluginArray {
 class MimeTypeArray implements JSObject {}
 
 extension MimeTypeArrayExtension on MimeTypeArray {
-  external MimeType? item(JSNumber index);
-  external MimeType? namedItem(JSString name);
-  external JSNumber get length;
+  external MimeType? item(int index);
+  external MimeType? namedItem(String name);
+  external int get length;
 }
 
 @JS('Plugin')
@@ -3764,12 +3763,12 @@ extension MimeTypeArrayExtension on MimeTypeArray {
 class Plugin implements JSObject {}
 
 extension PluginExtension on Plugin {
-  external MimeType? item(JSNumber index);
-  external MimeType? namedItem(JSString name);
-  external JSString get name;
-  external JSString get description;
-  external JSString get filename;
-  external JSNumber get length;
+  external MimeType? item(int index);
+  external MimeType? namedItem(String name);
+  external String get name;
+  external String get description;
+  external String get filename;
+  external int get length;
 }
 
 @JS('MimeType')
@@ -3777,9 +3776,9 @@ extension PluginExtension on Plugin {
 class MimeType implements JSObject {}
 
 extension MimeTypeExtension on MimeType {
-  external JSString get type;
-  external JSString get description;
-  external JSString get suffixes;
+  external String get type;
+  external String get description;
+  external String get suffixes;
   external Plugin get enabledPlugin;
 }
 
@@ -3789,8 +3788,8 @@ class ImageBitmap implements JSObject {}
 
 extension ImageBitmapExtension on ImageBitmap {
   external JSVoid close();
-  external JSNumber get width;
-  external JSNumber get height;
+  external int get width;
+  external int get height;
 }
 
 @JS()
@@ -3801,8 +3800,8 @@ class ImageBitmapOptions implements JSObject {
     ImageOrientation imageOrientation,
     PremultiplyAlpha premultiplyAlpha,
     ColorSpaceConversion colorSpaceConversion,
-    JSNumber resizeWidth,
-    JSNumber resizeHeight,
+    int resizeWidth,
+    int resizeHeight,
     ResizeQuality resizeQuality,
   });
 }
@@ -3814,10 +3813,10 @@ extension ImageBitmapOptionsExtension on ImageBitmapOptions {
   external PremultiplyAlpha get premultiplyAlpha;
   external set colorSpaceConversion(ColorSpaceConversion value);
   external ColorSpaceConversion get colorSpaceConversion;
-  external set resizeWidth(JSNumber value);
-  external JSNumber get resizeWidth;
-  external set resizeHeight(JSNumber value);
-  external JSNumber get resizeHeight;
+  external set resizeWidth(int value);
+  external int get resizeWidth;
+  external set resizeHeight(int value);
+  external int get resizeHeight;
   external set resizeQuality(ResizeQuality value);
   external ResizeQuality get resizeQuality;
 }
@@ -3827,33 +3826,33 @@ extension ImageBitmapOptionsExtension on ImageBitmapOptions {
 class AnimationFrameProvider implements JSObject {}
 
 extension AnimationFrameProviderExtension on AnimationFrameProvider {
-  external JSNumber requestAnimationFrame(FrameRequestCallback callback);
-  external JSVoid cancelAnimationFrame(JSNumber handle);
+  external int requestAnimationFrame(FrameRequestCallback callback);
+  external JSVoid cancelAnimationFrame(int handle);
 }
 
 @JS('MessageEvent')
 @staticInterop
 class MessageEvent implements Event {
   external factory MessageEvent(
-    JSString type, [
+    String type, [
     MessageEventInit eventInitDict,
   ]);
 }
 
 extension MessageEventExtension on MessageEvent {
   external JSVoid initMessageEvent(
-    JSString type, [
-    JSBoolean bubbles,
-    JSBoolean cancelable,
+    String type, [
+    bool bubbles,
+    bool cancelable,
     JSAny? data,
-    JSString origin,
-    JSString lastEventId,
+    String origin,
+    String lastEventId,
     MessageEventSource? source,
     JSArray ports,
   ]);
   external JSAny? get data;
-  external JSString get origin;
-  external JSString get lastEventId;
+  external String get origin;
+  external String get lastEventId;
   external MessageEventSource? get source;
   external JSArray get ports;
 }
@@ -3864,8 +3863,8 @@ extension MessageEventExtension on MessageEvent {
 class MessageEventInit implements EventInit {
   external factory MessageEventInit({
     JSAny? data,
-    JSString origin,
-    JSString lastEventId,
+    String origin,
+    String lastEventId,
     MessageEventSource? source,
     JSArray ports,
   });
@@ -3874,10 +3873,10 @@ class MessageEventInit implements EventInit {
 extension MessageEventInitExtension on MessageEventInit {
   external set data(JSAny? value);
   external JSAny? get data;
-  external set origin(JSString value);
-  external JSString get origin;
-  external set lastEventId(JSString value);
-  external JSString get lastEventId;
+  external set origin(String value);
+  external String get origin;
+  external set lastEventId(String value);
+  external String get lastEventId;
   external set source(MessageEventSource? value);
   external MessageEventSource? get source;
   external set ports(JSArray value);
@@ -3888,20 +3887,20 @@ extension MessageEventInitExtension on MessageEventInit {
 @staticInterop
 class EventSource implements EventTarget {
   external factory EventSource(
-    JSString url, [
+    String url, [
     EventSourceInit eventSourceInitDict,
   ]);
 
-  external static JSNumber get CONNECTING;
-  external static JSNumber get OPEN;
-  external static JSNumber get CLOSED;
+  external static int get CONNECTING;
+  external static int get OPEN;
+  external static int get CLOSED;
 }
 
 extension EventSourceExtension on EventSource {
   external JSVoid close();
-  external JSString get url;
-  external JSBoolean get withCredentials;
-  external JSNumber get readyState;
+  external String get url;
+  external bool get withCredentials;
+  external int get readyState;
   external set onopen(EventHandler value);
   external EventHandler get onopen;
   external set onmessage(EventHandler value);
@@ -3914,12 +3913,12 @@ extension EventSourceExtension on EventSource {
 @staticInterop
 @anonymous
 class EventSourceInit implements JSObject {
-  external factory EventSourceInit({JSBoolean withCredentials});
+  external factory EventSourceInit({bool withCredentials});
 }
 
 extension EventSourceInitExtension on EventSourceInit {
-  external set withCredentials(JSBoolean value);
-  external JSBoolean get withCredentials;
+  external set withCredentials(bool value);
+  external bool get withCredentials;
 }
 
 @JS('MessageChannel')
@@ -3965,13 +3964,13 @@ extension StructuredSerializeOptionsExtension on StructuredSerializeOptions {
 @JS('BroadcastChannel')
 @staticInterop
 class BroadcastChannel implements EventTarget {
-  external factory BroadcastChannel(JSString name);
+  external factory BroadcastChannel(String name);
 }
 
 extension BroadcastChannelExtension on BroadcastChannel {
   external JSVoid postMessage(JSAny? message);
   external JSVoid close();
-  external JSString get name;
+  external String get name;
   external set onmessage(EventHandler value);
   external EventHandler get onmessage;
   external set onmessageerror(EventHandler value);
@@ -3984,7 +3983,7 @@ class WorkerGlobalScope
     implements EventTarget, FontFaceSource, WindowOrWorkerGlobalScope {}
 
 extension WorkerGlobalScopeExtension on WorkerGlobalScope {
-  external JSVoid importScripts(JSString urls);
+  external JSVoid importScripts(String urls);
   external WorkerGlobalScope get self;
   external WorkerLocation get location;
   external WorkerNavigator get navigator;
@@ -4013,7 +4012,7 @@ extension DedicatedWorkerGlobalScopeExtension on DedicatedWorkerGlobalScope {
     JSAny? optionsOrTransfer,
   ]);
   external JSVoid close();
-  external JSString get name;
+  external String get name;
   external set onmessage(EventHandler value);
   external EventHandler get onmessage;
   external set onmessageerror(EventHandler value);
@@ -4028,7 +4027,7 @@ class SharedWorkerGlobalScope implements WorkerGlobalScope {}
 
 extension SharedWorkerGlobalScopeExtension on SharedWorkerGlobalScope {
   external JSVoid close();
-  external JSString get name;
+  external String get name;
   external set onconnect(EventHandler value);
   external EventHandler get onconnect;
 }
@@ -4046,7 +4045,7 @@ extension AbstractWorkerExtension on AbstractWorker {
 @staticInterop
 class Worker implements EventTarget, AbstractWorker {
   external factory Worker(
-    JSString scriptURL, [
+    String scriptURL, [
     WorkerOptions options,
   ]);
 }
@@ -4070,7 +4069,7 @@ class WorkerOptions implements JSObject {
   external factory WorkerOptions({
     WorkerType type,
     RequestCredentials credentials,
-    JSString name,
+    String name,
   });
 }
 
@@ -4079,15 +4078,15 @@ extension WorkerOptionsExtension on WorkerOptions {
   external WorkerType get type;
   external set credentials(RequestCredentials value);
   external RequestCredentials get credentials;
-  external set name(JSString value);
-  external JSString get name;
+  external set name(String value);
+  external String get name;
 }
 
 @JS('SharedWorker')
 @staticInterop
 class SharedWorker implements EventTarget, AbstractWorker {
   external factory SharedWorker(
-    JSString scriptURL, [
+    String scriptURL, [
     JSAny? options,
   ]);
 }
@@ -4101,7 +4100,7 @@ extension SharedWorkerExtension on SharedWorker {
 class NavigatorConcurrentHardware implements JSObject {}
 
 extension NavigatorConcurrentHardwareExtension on NavigatorConcurrentHardware {
-  external JSNumber get hardwareConcurrency;
+  external int get hardwareConcurrency;
 }
 
 @JS('WorkerNavigator')
@@ -4136,15 +4135,15 @@ extension WorkerNavigatorExtension on WorkerNavigator {
 class WorkerLocation implements JSObject {}
 
 extension WorkerLocationExtension on WorkerLocation {
-  external JSString get href;
-  external JSString get origin;
-  external JSString get protocol;
-  external JSString get host;
-  external JSString get hostname;
-  external JSString get port;
-  external JSString get pathname;
-  external JSString get search;
-  external JSString get hash;
+  external String get href;
+  external String get origin;
+  external String get protocol;
+  external String get host;
+  external String get hostname;
+  external String get port;
+  external String get pathname;
+  external String get search;
+  external String get hash;
 }
 
 @JS('WorkletGlobalScope')
@@ -4157,7 +4156,7 @@ class Worklet implements JSObject {}
 
 extension WorkletExtension on Worklet {
   external JSPromise addModule(
-    JSString moduleURL, [
+    String moduleURL, [
     WorkletOptions options,
   ]);
 }
@@ -4179,15 +4178,15 @@ extension WorkletOptionsExtension on WorkletOptions {
 class Storage implements JSObject {}
 
 extension StorageExtension on Storage {
-  external JSString? key(JSNumber index);
-  external JSString? getItem(JSString key);
+  external String? key(int index);
+  external String? getItem(String key);
   external JSVoid setItem(
-    JSString key,
-    JSString value,
+    String key,
+    String value,
   );
-  external JSVoid removeItem(JSString key);
+  external JSVoid removeItem(String key);
   external JSVoid clear();
-  external JSNumber get length;
+  external int get length;
 }
 
 @JS('WindowSessionStorage')
@@ -4210,26 +4209,26 @@ extension WindowLocalStorageExtension on WindowLocalStorage {
 @staticInterop
 class StorageEvent implements Event {
   external factory StorageEvent(
-    JSString type, [
+    String type, [
     StorageEventInit eventInitDict,
   ]);
 }
 
 extension StorageEventExtension on StorageEvent {
   external JSVoid initStorageEvent(
-    JSString type, [
-    JSBoolean bubbles,
-    JSBoolean cancelable,
-    JSString? key,
-    JSString? oldValue,
-    JSString? newValue,
-    JSString url,
+    String type, [
+    bool bubbles,
+    bool cancelable,
+    String? key,
+    String? oldValue,
+    String? newValue,
+    String url,
     Storage? storageArea,
   ]);
-  external JSString? get key;
-  external JSString? get oldValue;
-  external JSString? get newValue;
-  external JSString get url;
+  external String? get key;
+  external String? get oldValue;
+  external String? get newValue;
+  external String get url;
   external Storage? get storageArea;
 }
 
@@ -4238,23 +4237,23 @@ extension StorageEventExtension on StorageEvent {
 @anonymous
 class StorageEventInit implements EventInit {
   external factory StorageEventInit({
-    JSString? key,
-    JSString? oldValue,
-    JSString? newValue,
-    JSString url,
+    String? key,
+    String? oldValue,
+    String? newValue,
+    String url,
     Storage? storageArea,
   });
 }
 
 extension StorageEventInitExtension on StorageEventInit {
-  external set key(JSString? value);
-  external JSString? get key;
-  external set oldValue(JSString? value);
-  external JSString? get oldValue;
-  external set newValue(JSString? value);
-  external JSString? get newValue;
-  external set url(JSString value);
-  external JSString get url;
+  external set key(String? value);
+  external String? get key;
+  external set oldValue(String? value);
+  external String? get oldValue;
+  external set newValue(String? value);
+  external String? get newValue;
+  external set url(String value);
+  external String get url;
   external set storageArea(Storage? value);
   external Storage? get storageArea;
 }
@@ -4268,28 +4267,28 @@ class HTMLMarqueeElement implements HTMLElement {
 extension HTMLMarqueeElementExtension on HTMLMarqueeElement {
   external JSVoid start();
   external JSVoid stop();
-  external set behavior(JSString value);
-  external JSString get behavior;
-  external set bgColor(JSString value);
-  external JSString get bgColor;
-  external set direction(JSString value);
-  external JSString get direction;
-  external set height(JSString value);
-  external JSString get height;
-  external set hspace(JSNumber value);
-  external JSNumber get hspace;
-  external set loop(JSNumber value);
-  external JSNumber get loop;
-  external set scrollAmount(JSNumber value);
-  external JSNumber get scrollAmount;
-  external set scrollDelay(JSNumber value);
-  external JSNumber get scrollDelay;
-  external set trueSpeed(JSBoolean value);
-  external JSBoolean get trueSpeed;
-  external set vspace(JSNumber value);
-  external JSNumber get vspace;
-  external set width(JSString value);
-  external JSString get width;
+  external set behavior(String value);
+  external String get behavior;
+  external set bgColor(String value);
+  external String get bgColor;
+  external set direction(String value);
+  external String get direction;
+  external set height(String value);
+  external String get height;
+  external set hspace(int value);
+  external int get hspace;
+  external set loop(int value);
+  external int get loop;
+  external set scrollAmount(int value);
+  external int get scrollAmount;
+  external set scrollDelay(int value);
+  external int get scrollDelay;
+  external set trueSpeed(bool value);
+  external bool get trueSpeed;
+  external set vspace(int value);
+  external int get vspace;
+  external set width(String value);
+  external String get width;
 }
 
 @JS('HTMLFrameSetElement')
@@ -4299,10 +4298,10 @@ class HTMLFrameSetElement implements HTMLElement, WindowEventHandlers {
 }
 
 extension HTMLFrameSetElementExtension on HTMLFrameSetElement {
-  external set cols(JSString value);
-  external JSString get cols;
-  external set rows(JSString value);
-  external JSString get rows;
+  external set cols(String value);
+  external String get cols;
+  external set rows(String value);
+  external String get rows;
 }
 
 @JS('HTMLFrameElement')
@@ -4312,24 +4311,24 @@ class HTMLFrameElement implements HTMLElement {
 }
 
 extension HTMLFrameElementExtension on HTMLFrameElement {
-  external set name(JSString value);
-  external JSString get name;
-  external set scrolling(JSString value);
-  external JSString get scrolling;
-  external set src(JSString value);
-  external JSString get src;
-  external set frameBorder(JSString value);
-  external JSString get frameBorder;
-  external set longDesc(JSString value);
-  external JSString get longDesc;
-  external set noResize(JSBoolean value);
-  external JSBoolean get noResize;
+  external set name(String value);
+  external String get name;
+  external set scrolling(String value);
+  external String get scrolling;
+  external set src(String value);
+  external String get src;
+  external set frameBorder(String value);
+  external String get frameBorder;
+  external set longDesc(String value);
+  external String get longDesc;
+  external set noResize(bool value);
+  external bool get noResize;
   external Document? get contentDocument;
   external Window? get contentWindow;
-  external set marginHeight(JSString value);
-  external JSString get marginHeight;
-  external set marginWidth(JSString value);
-  external JSString get marginWidth;
+  external set marginHeight(String value);
+  external String get marginHeight;
+  external set marginWidth(String value);
+  external String get marginWidth;
 }
 
 @JS('HTMLDirectoryElement')
@@ -4339,8 +4338,8 @@ class HTMLDirectoryElement implements HTMLElement {
 }
 
 extension HTMLDirectoryElementExtension on HTMLDirectoryElement {
-  external set compact(JSBoolean value);
-  external JSBoolean get compact;
+  external set compact(bool value);
+  external bool get compact;
 }
 
 @JS('HTMLFontElement')
@@ -4350,12 +4349,12 @@ class HTMLFontElement implements HTMLElement {
 }
 
 extension HTMLFontElementExtension on HTMLFontElement {
-  external set color(JSString value);
-  external JSString get color;
-  external set face(JSString value);
-  external JSString get face;
-  external set size(JSString value);
-  external JSString get size;
+  external set color(String value);
+  external String get color;
+  external set face(String value);
+  external String get face;
+  external set size(String value);
+  external String get size;
 }
 
 @JS('HTMLParamElement')
@@ -4365,14 +4364,14 @@ class HTMLParamElement implements HTMLElement {
 }
 
 extension HTMLParamElementExtension on HTMLParamElement {
-  external set name(JSString value);
-  external JSString get name;
-  external set value(JSString value);
-  external JSString get value;
-  external set type(JSString value);
-  external JSString get type;
-  external set valueType(JSString value);
-  external JSString get valueType;
+  external set name(String value);
+  external String get name;
+  external set value(String value);
+  external String get value;
+  external set type(String value);
+  external String get type;
+  external set valueType(String value);
+  external String get valueType;
 }
 
 @JS('External')

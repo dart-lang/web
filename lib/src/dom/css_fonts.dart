@@ -19,8 +19,8 @@ extension CSSFontFaceRuleExtension on CSSFontFaceRule {
 class CSSFontFeatureValuesRule implements CSSRule {}
 
 extension CSSFontFeatureValuesRuleExtension on CSSFontFeatureValuesRule {
-  external set fontFamily(JSString value);
-  external JSString get fontFamily;
+  external set fontFamily(String value);
+  external String get fontFamily;
   external CSSFontFeatureValuesMap get annotation;
   external CSSFontFeatureValuesMap get ornaments;
   external CSSFontFeatureValuesMap get stylistic;
@@ -35,7 +35,7 @@ class CSSFontFeatureValuesMap implements JSObject {}
 
 extension CSSFontFeatureValuesMapExtension on CSSFontFeatureValuesMap {
   external JSVoid set(
-    JSString featureValueName,
+    String featureValueName,
     JSAny? values,
   );
 }
@@ -45,8 +45,8 @@ extension CSSFontFeatureValuesMapExtension on CSSFontFeatureValuesMap {
 class CSSFontPaletteValuesRule implements CSSRule {}
 
 extension CSSFontPaletteValuesRuleExtension on CSSFontPaletteValuesRule {
-  external JSString get name;
-  external JSString get fontFamily;
-  external JSString get basePalette;
-  external JSString get overrideColors;
+  external String get name;
+  external String get fontFamily;
+  external String get basePalette;
+  external String get overrideColors;
 }

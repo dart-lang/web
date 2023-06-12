@@ -7,8 +7,8 @@ import 'dart:js_interop';
 import 'webgl1.dart';
 import 'webidl.dart';
 
-typedef GLint64 = JSNumber;
-typedef GLuint64 = JSNumber;
+typedef GLint64 = int;
+typedef GLuint64 = int;
 typedef Uint32List = JSAny?;
 
 @JS('WebGLQuery')
@@ -439,7 +439,7 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
   ]);
   external GLint getFragDataLocation(
     WebGLProgram program,
-    JSString name,
+    String name,
   );
   external JSVoid uniform1ui(
     WebGLUniformLocation? location,
@@ -712,14 +712,14 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
   );
   external GLuint getUniformBlockIndex(
     WebGLProgram program,
-    JSString uniformBlockName,
+    String uniformBlockName,
   );
   external JSAny? getActiveUniformBlockParameter(
     WebGLProgram program,
     GLuint uniformBlockIndex,
     GLenum pname,
   );
-  external JSString? getActiveUniformBlockName(
+  external String? getActiveUniformBlockName(
     WebGLProgram program,
     GLuint uniformBlockIndex,
   );

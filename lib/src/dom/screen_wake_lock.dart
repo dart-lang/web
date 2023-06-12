@@ -7,7 +7,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
-typedef WakeLockType = JSString;
+typedef WakeLockType = String;
 
 @JS('WakeLock')
 @staticInterop
@@ -23,7 +23,7 @@ class WakeLockSentinel implements EventTarget {}
 
 extension WakeLockSentinelExtension on WakeLockSentinel {
   external JSPromise release();
-  external JSBoolean get released;
+  external bool get released;
   external WakeLockType get type;
   external set onrelease(EventHandler value);
   external EventHandler get onrelease;

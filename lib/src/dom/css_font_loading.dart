@@ -8,58 +8,58 @@ import 'dom.dart';
 import 'html.dart';
 
 typedef BinaryData = JSAny?;
-typedef FontFaceLoadStatus = JSString;
-typedef FontFaceSetLoadStatus = JSString;
+typedef FontFaceLoadStatus = String;
+typedef FontFaceSetLoadStatus = String;
 
 @JS()
 @staticInterop
 @anonymous
 class FontFaceDescriptors implements JSObject {
   external factory FontFaceDescriptors({
-    JSString style,
-    JSString weight,
-    JSString stretch,
-    JSString unicodeRange,
-    JSString variant,
-    JSString featureSettings,
-    JSString variationSettings,
-    JSString display,
-    JSString ascentOverride,
-    JSString descentOverride,
-    JSString lineGapOverride,
+    String style,
+    String weight,
+    String stretch,
+    String unicodeRange,
+    String variant,
+    String featureSettings,
+    String variationSettings,
+    String display,
+    String ascentOverride,
+    String descentOverride,
+    String lineGapOverride,
   });
 }
 
 extension FontFaceDescriptorsExtension on FontFaceDescriptors {
-  external set style(JSString value);
-  external JSString get style;
-  external set weight(JSString value);
-  external JSString get weight;
-  external set stretch(JSString value);
-  external JSString get stretch;
-  external set unicodeRange(JSString value);
-  external JSString get unicodeRange;
-  external set variant(JSString value);
-  external JSString get variant;
-  external set featureSettings(JSString value);
-  external JSString get featureSettings;
-  external set variationSettings(JSString value);
-  external JSString get variationSettings;
-  external set display(JSString value);
-  external JSString get display;
-  external set ascentOverride(JSString value);
-  external JSString get ascentOverride;
-  external set descentOverride(JSString value);
-  external JSString get descentOverride;
-  external set lineGapOverride(JSString value);
-  external JSString get lineGapOverride;
+  external set style(String value);
+  external String get style;
+  external set weight(String value);
+  external String get weight;
+  external set stretch(String value);
+  external String get stretch;
+  external set unicodeRange(String value);
+  external String get unicodeRange;
+  external set variant(String value);
+  external String get variant;
+  external set featureSettings(String value);
+  external String get featureSettings;
+  external set variationSettings(String value);
+  external String get variationSettings;
+  external set display(String value);
+  external String get display;
+  external set ascentOverride(String value);
+  external String get ascentOverride;
+  external set descentOverride(String value);
+  external String get descentOverride;
+  external set lineGapOverride(String value);
+  external String get lineGapOverride;
 }
 
 @JS('FontFace')
 @staticInterop
 class FontFace implements JSObject {
   external factory FontFace(
-    JSString family,
+    String family,
     JSAny? source, [
     FontFaceDescriptors descriptors,
   ]);
@@ -67,30 +67,30 @@ class FontFace implements JSObject {
 
 extension FontFaceExtension on FontFace {
   external JSPromise load();
-  external set family(JSString value);
-  external JSString get family;
-  external set style(JSString value);
-  external JSString get style;
-  external set weight(JSString value);
-  external JSString get weight;
-  external set stretch(JSString value);
-  external JSString get stretch;
-  external set unicodeRange(JSString value);
-  external JSString get unicodeRange;
-  external set variant(JSString value);
-  external JSString get variant;
-  external set featureSettings(JSString value);
-  external JSString get featureSettings;
-  external set variationSettings(JSString value);
-  external JSString get variationSettings;
-  external set display(JSString value);
-  external JSString get display;
-  external set ascentOverride(JSString value);
-  external JSString get ascentOverride;
-  external set descentOverride(JSString value);
-  external JSString get descentOverride;
-  external set lineGapOverride(JSString value);
-  external JSString get lineGapOverride;
+  external set family(String value);
+  external String get family;
+  external set style(String value);
+  external String get style;
+  external set weight(String value);
+  external String get weight;
+  external set stretch(String value);
+  external String get stretch;
+  external set unicodeRange(String value);
+  external String get unicodeRange;
+  external set variant(String value);
+  external String get variant;
+  external set featureSettings(String value);
+  external String get featureSettings;
+  external set variationSettings(String value);
+  external String get variationSettings;
+  external set display(String value);
+  external String get display;
+  external set ascentOverride(String value);
+  external String get ascentOverride;
+  external set descentOverride(String value);
+  external String get descentOverride;
+  external set lineGapOverride(String value);
+  external String get lineGapOverride;
   external FontFaceLoadStatus get status;
   external JSPromise get loaded;
   external FontFaceFeatures get features;
@@ -107,11 +107,11 @@ class FontFaceFeatures implements JSObject {}
 class FontFaceVariationAxis implements JSObject {}
 
 extension FontFaceVariationAxisExtension on FontFaceVariationAxis {
-  external JSString get name;
-  external JSString get axisTag;
-  external JSNumber get minimumValue;
-  external JSNumber get maximumValue;
-  external JSNumber get defaultValue;
+  external String get name;
+  external String get axisTag;
+  external double get minimumValue;
+  external double get maximumValue;
+  external double get defaultValue;
 }
 
 @JS('FontFaceVariations')
@@ -125,9 +125,9 @@ extension FontFaceVariationsExtension on FontFaceVariations {}
 class FontFacePalette implements JSObject {}
 
 extension FontFacePaletteExtension on FontFacePalette {
-  external JSNumber get length;
-  external JSBoolean get usableWithLightBackground;
-  external JSBoolean get usableWithDarkBackground;
+  external int get length;
+  external bool get usableWithLightBackground;
+  external bool get usableWithDarkBackground;
 }
 
 @JS('FontFacePalettes')
@@ -135,7 +135,7 @@ extension FontFacePaletteExtension on FontFacePalette {
 class FontFacePalettes implements JSObject {}
 
 extension FontFacePalettesExtension on FontFacePalettes {
-  external JSNumber get length;
+  external int get length;
 }
 
 @JS()
@@ -154,7 +154,7 @@ extension FontFaceSetLoadEventInitExtension on FontFaceSetLoadEventInit {
 @staticInterop
 class FontFaceSetLoadEvent implements Event {
   external factory FontFaceSetLoadEvent(
-    JSString type, [
+    String type, [
     FontFaceSetLoadEventInit eventInitDict,
   ]);
 }
@@ -171,15 +171,15 @@ class FontFaceSet implements EventTarget {
 
 extension FontFaceSetExtension on FontFaceSet {
   external FontFaceSet add(FontFace font);
-  external JSBoolean delete(FontFace font);
+  external bool delete(FontFace font);
   external JSVoid clear();
   external JSPromise load(
-    JSString font, [
-    JSString text,
+    String font, [
+    String text,
   ]);
-  external JSBoolean check(
-    JSString font, [
-    JSString text,
+  external bool check(
+    String font, [
+    String text,
   ]);
   external set onloading(EventHandler value);
   external EventHandler get onloading;

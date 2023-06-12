@@ -16,8 +16,8 @@ extension LargestContentfulPaintExtension on LargestContentfulPaint {
   external JSObject toJSON();
   external DOMHighResTimeStamp get renderTime;
   external DOMHighResTimeStamp get loadTime;
-  external JSNumber get size;
-  external JSString get id;
-  external JSString get url;
+  external int get size;
+  external String get id;
+  external String get url;
   external Element? get element;
 }

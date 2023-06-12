@@ -8,7 +8,7 @@ import 'css_typed_om.dart';
 import 'dom.dart';
 import 'web_animations.dart';
 
-typedef ScrollAxis = JSString;
+typedef ScrollAxis = String;
 
 @JS()
 @staticInterop
@@ -74,10 +74,10 @@ extension ViewTimelineExtension on ViewTimeline {
 @staticInterop
 @anonymous
 class AnimationTimeOptions implements JSObject {
-  external factory AnimationTimeOptions({JSString? range});
+  external factory AnimationTimeOptions({String? range});
 }
 
 extension AnimationTimeOptionsExtension on AnimationTimeOptions {
-  external set range(JSString? value);
-  external JSString? get range;
+  external set range(String? value);
+  external String? get range;
 }

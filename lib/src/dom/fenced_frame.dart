@@ -7,10 +7,10 @@ import 'dart:js_interop';
 import 'html.dart';
 
 typedef FencedFrameConfigSize = JSAny?;
-typedef FencedFrameConfigURL = JSString;
+typedef FencedFrameConfigURL = String;
 typedef ReportEventType = JSAny?;
-typedef OpaqueProperty = JSString;
-typedef FenceReportingDestination = JSString;
+typedef OpaqueProperty = String;
+typedef FenceReportingDestination = String;
 
 @JS('HTMLFencedFrameElement')
 @staticInterop
@@ -21,10 +21,10 @@ class HTMLFencedFrameElement implements HTMLElement {
 extension HTMLFencedFrameElementExtension on HTMLFencedFrameElement {
   external set config(FencedFrameConfig? value);
   external FencedFrameConfig? get config;
-  external set width(JSString value);
-  external JSString get width;
-  external set height(JSString value);
-  external JSString get height;
+  external set width(String value);
+  external String get width;
+  external set height(String value);
+  external String get height;
 }
 
 @JS('FencedFrameConfig')
@@ -32,7 +32,7 @@ extension HTMLFencedFrameElementExtension on HTMLFencedFrameElement {
 class FencedFrameConfig implements JSObject {}
 
 extension FencedFrameConfigExtension on FencedFrameConfig {
-  external JSVoid setSharedStorageContext(JSString contextString);
+  external JSVoid setSharedStorageContext(String contextString);
   external FencedFrameConfigURL? get url;
   external FencedFrameConfigSize? get containerWidth;
   external FencedFrameConfigSize? get containerHeight;
@@ -45,17 +45,17 @@ extension FencedFrameConfigExtension on FencedFrameConfig {
 @anonymous
 class FenceEvent implements JSObject {
   external factory FenceEvent({
-    required JSString eventType,
-    required JSString eventData,
+    required String eventType,
+    required String eventData,
     required JSArray destination,
   });
 }
 
 extension FenceEventExtension on FenceEvent {
-  external set eventType(JSString value);
-  external JSString get eventType;
-  external set eventData(JSString value);
-  external JSString get eventData;
+  external set eventType(String value);
+  external String get eventType;
+  external set eventData(String value);
+  external String get eventData;
   external set destination(JSArray value);
   external JSArray get destination;
 }

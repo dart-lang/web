@@ -11,8 +11,8 @@ import 'navigation_timing.dart';
 import 'performance_timeline.dart';
 import 'user_timing.dart';
 
-typedef DOMHighResTimeStamp = JSNumber;
-typedef EpochTimeStamp = JSNumber;
+typedef DOMHighResTimeStamp = double;
+typedef EpochTimeStamp = int;
 
 @JS('Performance')
 @staticInterop
@@ -23,26 +23,26 @@ extension PerformanceExtension on Performance {
   external JSObject toJSON();
   external JSPromise measureUserAgentSpecificMemory();
   external PerformanceEntryList getEntries();
-  external PerformanceEntryList getEntriesByType(JSString type);
+  external PerformanceEntryList getEntriesByType(String type);
   external PerformanceEntryList getEntriesByName(
-    JSString name, [
-    JSString type,
+    String name, [
+    String type,
   ]);
   external JSVoid clearResourceTimings();
-  external JSVoid setResourceTimingBufferSize(JSNumber maxSize);
+  external JSVoid setResourceTimingBufferSize(int maxSize);
   external PerformanceMark mark(
-    JSString markName, [
+    String markName, [
     PerformanceMarkOptions markOptions,
   ]);
-  external JSVoid clearMarks([JSString markName]);
+  external JSVoid clearMarks([String markName]);
   external PerformanceMeasure measure(
-    JSString measureName, [
+    String measureName, [
     JSAny? startOrMeasureOptions,
-    JSString endMark,
+    String endMark,
   ]);
-  external JSVoid clearMeasures([JSString measureName]);
+  external JSVoid clearMeasures([String measureName]);
   external EventCounts get eventCounts;
-  external JSNumber get interactionCount;
+  external int get interactionCount;
   external DOMHighResTimeStamp get timeOrigin;
   external PerformanceTiming get timing;
   external PerformanceNavigation get navigation;

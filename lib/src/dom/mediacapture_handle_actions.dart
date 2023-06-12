@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 
-typedef CaptureAction = JSString;
+typedef CaptureAction = String;
 
 @JS('CaptureActionEvent')
 @staticInterop
@@ -22,10 +22,10 @@ extension CaptureActionEventExtension on CaptureActionEvent {
 @staticInterop
 @anonymous
 class CaptureActionEventInit implements EventInit {
-  external factory CaptureActionEventInit({JSString action});
+  external factory CaptureActionEventInit({String action});
 }
 
 extension CaptureActionEventInitExtension on CaptureActionEventInit {
-  external set action(JSString value);
-  external JSString get action;
+  external set action(String value);
+  external String get action;
 }

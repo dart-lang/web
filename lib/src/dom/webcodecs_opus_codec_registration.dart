@@ -4,7 +4,7 @@
 
 import 'dart:js_interop';
 
-typedef OpusBitstreamFormat = JSString;
+typedef OpusBitstreamFormat = String;
 
 @JS()
 @staticInterop
@@ -12,25 +12,25 @@ typedef OpusBitstreamFormat = JSString;
 class OpusEncoderConfig implements JSObject {
   external factory OpusEncoderConfig({
     OpusBitstreamFormat format,
-    JSNumber frameDuration,
-    JSNumber complexity,
-    JSNumber packetlossperc,
-    JSBoolean useinbandfec,
-    JSBoolean usedtx,
+    int frameDuration,
+    int complexity,
+    int packetlossperc,
+    bool useinbandfec,
+    bool usedtx,
   });
 }
 
 extension OpusEncoderConfigExtension on OpusEncoderConfig {
   external set format(OpusBitstreamFormat value);
   external OpusBitstreamFormat get format;
-  external set frameDuration(JSNumber value);
-  external JSNumber get frameDuration;
-  external set complexity(JSNumber value);
-  external JSNumber get complexity;
-  external set packetlossperc(JSNumber value);
-  external JSNumber get packetlossperc;
-  external set useinbandfec(JSBoolean value);
-  external JSBoolean get useinbandfec;
-  external set usedtx(JSBoolean value);
-  external JSBoolean get usedtx;
+  external set frameDuration(int value);
+  external int get frameDuration;
+  external set complexity(int value);
+  external int get complexity;
+  external set packetlossperc(int value);
+  external int get packetlossperc;
+  external set useinbandfec(bool value);
+  external bool get useinbandfec;
+  external set usedtx(bool value);
+  external bool get usedtx;
 }

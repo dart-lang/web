@@ -8,18 +8,18 @@ import 'dom.dart';
 import 'html.dart';
 import 'webidl.dart';
 
-typedef MediaKeysRequirement = JSString;
-typedef MediaKeySessionType = JSString;
-typedef MediaKeySessionClosedReason = JSString;
-typedef MediaKeyStatus = JSString;
-typedef MediaKeyMessageType = JSString;
+typedef MediaKeysRequirement = String;
+typedef MediaKeySessionType = String;
+typedef MediaKeySessionClosedReason = String;
+typedef MediaKeyStatus = String;
+typedef MediaKeyMessageType = String;
 
 @JS()
 @staticInterop
 @anonymous
 class MediaKeySystemConfiguration implements JSObject {
   external factory MediaKeySystemConfiguration({
-    JSString label,
+    String label,
     JSArray initDataTypes,
     JSArray audioCapabilities,
     JSArray videoCapabilities,
@@ -30,8 +30,8 @@ class MediaKeySystemConfiguration implements JSObject {
 }
 
 extension MediaKeySystemConfigurationExtension on MediaKeySystemConfiguration {
-  external set label(JSString value);
-  external JSString get label;
+  external set label(String value);
+  external String get label;
   external set initDataTypes(JSArray value);
   external JSArray get initDataTypes;
   external set audioCapabilities(JSArray value);
@@ -51,20 +51,20 @@ extension MediaKeySystemConfigurationExtension on MediaKeySystemConfiguration {
 @anonymous
 class MediaKeySystemMediaCapability implements JSObject {
   external factory MediaKeySystemMediaCapability({
-    JSString contentType,
-    JSString? encryptionScheme,
-    JSString robustness,
+    String contentType,
+    String? encryptionScheme,
+    String robustness,
   });
 }
 
 extension MediaKeySystemMediaCapabilityExtension
     on MediaKeySystemMediaCapability {
-  external set contentType(JSString value);
-  external JSString get contentType;
-  external set encryptionScheme(JSString? value);
-  external JSString? get encryptionScheme;
-  external set robustness(JSString value);
-  external JSString get robustness;
+  external set contentType(String value);
+  external String get contentType;
+  external set encryptionScheme(String? value);
+  external String? get encryptionScheme;
+  external set robustness(String value);
+  external String get robustness;
 }
 
 @JS('MediaKeySystemAccess')
@@ -74,7 +74,7 @@ class MediaKeySystemAccess implements JSObject {}
 extension MediaKeySystemAccessExtension on MediaKeySystemAccess {
   external MediaKeySystemConfiguration getConfiguration();
   external JSPromise createMediaKeys();
-  external JSString get keySystem;
+  external String get keySystem;
 }
 
 @JS('MediaKeys')
@@ -92,15 +92,15 @@ class MediaKeySession implements EventTarget {}
 
 extension MediaKeySessionExtension on MediaKeySession {
   external JSPromise generateRequest(
-    JSString initDataType,
+    String initDataType,
     BufferSource initData,
   );
-  external JSPromise load(JSString sessionId);
+  external JSPromise load(String sessionId);
   external JSPromise update(BufferSource response);
   external JSPromise close();
   external JSPromise remove();
-  external JSString get sessionId;
-  external JSNumber get expiration;
+  external String get sessionId;
+  external double get expiration;
   external JSPromise get closed;
   external MediaKeyStatusMap get keyStatuses;
   external set onkeystatuseschange(EventHandler value);
@@ -114,16 +114,16 @@ extension MediaKeySessionExtension on MediaKeySession {
 class MediaKeyStatusMap implements JSObject {}
 
 extension MediaKeyStatusMapExtension on MediaKeyStatusMap {
-  external JSBoolean has(BufferSource keyId);
+  external bool has(BufferSource keyId);
   external JSAny? get(BufferSource keyId);
-  external JSNumber get size;
+  external int get size;
 }
 
 @JS('MediaKeyMessageEvent')
 @staticInterop
 class MediaKeyMessageEvent implements Event {
   external factory MediaKeyMessageEvent(
-    JSString type,
+    String type,
     MediaKeyMessageEventInit eventInitDict,
   );
 }
@@ -154,13 +154,13 @@ extension MediaKeyMessageEventInitExtension on MediaKeyMessageEventInit {
 @staticInterop
 class MediaEncryptedEvent implements Event {
   external factory MediaEncryptedEvent(
-    JSString type, [
+    String type, [
     MediaEncryptedEventInit eventInitDict,
   ]);
 }
 
 extension MediaEncryptedEventExtension on MediaEncryptedEvent {
-  external JSString get initDataType;
+  external String get initDataType;
   external JSArrayBuffer? get initData;
 }
 
@@ -169,14 +169,14 @@ extension MediaEncryptedEventExtension on MediaEncryptedEvent {
 @anonymous
 class MediaEncryptedEventInit implements EventInit {
   external factory MediaEncryptedEventInit({
-    JSString initDataType,
+    String initDataType,
     JSArrayBuffer? initData,
   });
 }
 
 extension MediaEncryptedEventInitExtension on MediaEncryptedEventInit {
-  external set initDataType(JSString value);
-  external JSString get initDataType;
+  external set initDataType(String value);
+  external String get initDataType;
   external set initData(JSArrayBuffer? value);
   external JSArrayBuffer? get initData;
 }

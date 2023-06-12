@@ -5,8 +5,8 @@
 import 'dart:js_interop';
 
 typedef MediaSessionActionHandler = JSFunction;
-typedef MediaSessionPlaybackState = JSString;
-typedef MediaSessionAction = JSString;
+typedef MediaSessionPlaybackState = String;
+typedef MediaSessionAction = String;
 
 @JS('MediaSession')
 @staticInterop
@@ -18,8 +18,8 @@ extension MediaSessionExtension on MediaSession {
     MediaSessionActionHandler? handler,
   );
   external JSVoid setPositionState([MediaPositionState state]);
-  external JSVoid setMicrophoneActive(JSBoolean active);
-  external JSVoid setCameraActive(JSBoolean active);
+  external JSVoid setMicrophoneActive(bool active);
+  external JSVoid setCameraActive(bool active);
   external set metadata(MediaMetadata? value);
   external MediaMetadata? get metadata;
   external set playbackState(MediaSessionPlaybackState value);
@@ -33,12 +33,12 @@ class MediaMetadata implements JSObject {
 }
 
 extension MediaMetadataExtension on MediaMetadata {
-  external set title(JSString value);
-  external JSString get title;
-  external set artist(JSString value);
-  external JSString get artist;
-  external set album(JSString value);
-  external JSString get album;
+  external set title(String value);
+  external String get title;
+  external set artist(String value);
+  external String get artist;
+  external set album(String value);
+  external String get album;
   external set artwork(JSArray value);
   external JSArray get artwork;
 }
@@ -48,20 +48,20 @@ extension MediaMetadataExtension on MediaMetadata {
 @anonymous
 class MediaMetadataInit implements JSObject {
   external factory MediaMetadataInit({
-    JSString title,
-    JSString artist,
-    JSString album,
+    String title,
+    String artist,
+    String album,
     JSArray artwork,
   });
 }
 
 extension MediaMetadataInitExtension on MediaMetadataInit {
-  external set title(JSString value);
-  external JSString get title;
-  external set artist(JSString value);
-  external JSString get artist;
-  external set album(JSString value);
-  external JSString get album;
+  external set title(String value);
+  external String get title;
+  external set artist(String value);
+  external String get artist;
+  external set album(String value);
+  external String get album;
   external set artwork(JSArray value);
   external JSArray get artwork;
 }
@@ -71,19 +71,19 @@ extension MediaMetadataInitExtension on MediaMetadataInit {
 @anonymous
 class MediaImage implements JSObject {
   external factory MediaImage({
-    required JSString src,
-    JSString sizes,
-    JSString type,
+    required String src,
+    String sizes,
+    String type,
   });
 }
 
 extension MediaImageExtension on MediaImage {
-  external set src(JSString value);
-  external JSString get src;
-  external set sizes(JSString value);
-  external JSString get sizes;
-  external set type(JSString value);
-  external JSString get type;
+  external set src(String value);
+  external String get src;
+  external set sizes(String value);
+  external String get sizes;
+  external set type(String value);
+  external String get type;
 }
 
 @JS()
@@ -91,19 +91,19 @@ extension MediaImageExtension on MediaImage {
 @anonymous
 class MediaPositionState implements JSObject {
   external factory MediaPositionState({
-    JSNumber duration,
-    JSNumber playbackRate,
-    JSNumber position,
+    double duration,
+    double playbackRate,
+    double position,
   });
 }
 
 extension MediaPositionStateExtension on MediaPositionState {
-  external set duration(JSNumber value);
-  external JSNumber get duration;
-  external set playbackRate(JSNumber value);
-  external JSNumber get playbackRate;
-  external set position(JSNumber value);
-  external JSNumber get position;
+  external set duration(double value);
+  external double get duration;
+  external set playbackRate(double value);
+  external double get playbackRate;
+  external set position(double value);
+  external double get position;
 }
 
 @JS()
@@ -112,19 +112,19 @@ extension MediaPositionStateExtension on MediaPositionState {
 class MediaSessionActionDetails implements JSObject {
   external factory MediaSessionActionDetails({
     required MediaSessionAction action,
-    JSNumber seekOffset,
-    JSNumber seekTime,
-    JSBoolean fastSeek,
+    double seekOffset,
+    double seekTime,
+    bool fastSeek,
   });
 }
 
 extension MediaSessionActionDetailsExtension on MediaSessionActionDetails {
   external set action(MediaSessionAction value);
   external MediaSessionAction get action;
-  external set seekOffset(JSNumber value);
-  external JSNumber get seekOffset;
-  external set seekTime(JSNumber value);
-  external JSNumber get seekTime;
-  external set fastSeek(JSBoolean value);
-  external JSBoolean get fastSeek;
+  external set seekOffset(double value);
+  external double get seekOffset;
+  external set seekTime(double value);
+  external double get seekTime;
+  external set fastSeek(bool value);
+  external bool get fastSeek;
 }

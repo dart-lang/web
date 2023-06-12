@@ -7,7 +7,7 @@ import 'dart:js_interop';
 import 'hr_time.dart';
 import 'resource_timing.dart';
 
-typedef NavigationTimingType = JSString;
+typedef NavigationTimingType = String;
 
 @JS('PerformanceNavigationTiming')
 @staticInterop
@@ -24,7 +24,7 @@ extension PerformanceNavigationTimingExtension on PerformanceNavigationTiming {
   external DOMHighResTimeStamp get loadEventStart;
   external DOMHighResTimeStamp get loadEventEnd;
   external NavigationTimingType get type;
-  external JSNumber get redirectCount;
+  external int get redirectCount;
   external DOMHighResTimeStamp get activationStart;
 }
 
@@ -34,40 +34,40 @@ class PerformanceTiming implements JSObject {}
 
 extension PerformanceTimingExtension on PerformanceTiming {
   external JSObject toJSON();
-  external JSNumber get navigationStart;
-  external JSNumber get unloadEventStart;
-  external JSNumber get unloadEventEnd;
-  external JSNumber get redirectStart;
-  external JSNumber get redirectEnd;
-  external JSNumber get fetchStart;
-  external JSNumber get domainLookupStart;
-  external JSNumber get domainLookupEnd;
-  external JSNumber get connectStart;
-  external JSNumber get connectEnd;
-  external JSNumber get secureConnectionStart;
-  external JSNumber get requestStart;
-  external JSNumber get responseStart;
-  external JSNumber get responseEnd;
-  external JSNumber get domLoading;
-  external JSNumber get domInteractive;
-  external JSNumber get domContentLoadedEventStart;
-  external JSNumber get domContentLoadedEventEnd;
-  external JSNumber get domComplete;
-  external JSNumber get loadEventStart;
-  external JSNumber get loadEventEnd;
+  external int get navigationStart;
+  external int get unloadEventStart;
+  external int get unloadEventEnd;
+  external int get redirectStart;
+  external int get redirectEnd;
+  external int get fetchStart;
+  external int get domainLookupStart;
+  external int get domainLookupEnd;
+  external int get connectStart;
+  external int get connectEnd;
+  external int get secureConnectionStart;
+  external int get requestStart;
+  external int get responseStart;
+  external int get responseEnd;
+  external int get domLoading;
+  external int get domInteractive;
+  external int get domContentLoadedEventStart;
+  external int get domContentLoadedEventEnd;
+  external int get domComplete;
+  external int get loadEventStart;
+  external int get loadEventEnd;
 }
 
 @JS('PerformanceNavigation')
 @staticInterop
 class PerformanceNavigation implements JSObject {
-  external static JSNumber get TYPE_NAVIGATE;
-  external static JSNumber get TYPE_RELOAD;
-  external static JSNumber get TYPE_BACK_FORWARD;
-  external static JSNumber get TYPE_RESERVED;
+  external static int get TYPE_NAVIGATE;
+  external static int get TYPE_RELOAD;
+  external static int get TYPE_BACK_FORWARD;
+  external static int get TYPE_RESERVED;
 }
 
 extension PerformanceNavigationExtension on PerformanceNavigation {
   external JSObject toJSON();
-  external JSNumber get type;
-  external JSNumber get redirectCount;
+  external int get type;
+  external int get redirectCount;
 }

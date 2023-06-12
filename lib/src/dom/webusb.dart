@@ -9,39 +9,39 @@ import 'html.dart';
 import 'permissions.dart';
 import 'webidl.dart';
 
-typedef USBTransferStatus = JSString;
-typedef USBRequestType = JSString;
-typedef USBRecipient = JSString;
-typedef USBDirection = JSString;
-typedef USBEndpointType = JSString;
+typedef USBTransferStatus = String;
+typedef USBRequestType = String;
+typedef USBRecipient = String;
+typedef USBDirection = String;
+typedef USBEndpointType = String;
 
 @JS()
 @staticInterop
 @anonymous
 class USBDeviceFilter implements JSObject {
   external factory USBDeviceFilter({
-    JSNumber vendorId,
-    JSNumber productId,
-    JSNumber classCode,
-    JSNumber subclassCode,
-    JSNumber protocolCode,
-    JSString serialNumber,
+    int vendorId,
+    int productId,
+    int classCode,
+    int subclassCode,
+    int protocolCode,
+    String serialNumber,
   });
 }
 
 extension USBDeviceFilterExtension on USBDeviceFilter {
-  external set vendorId(JSNumber value);
-  external JSNumber get vendorId;
-  external set productId(JSNumber value);
-  external JSNumber get productId;
-  external set classCode(JSNumber value);
-  external JSNumber get classCode;
-  external set subclassCode(JSNumber value);
-  external JSNumber get subclassCode;
-  external set protocolCode(JSNumber value);
-  external JSNumber get protocolCode;
-  external set serialNumber(JSString value);
-  external JSString get serialNumber;
+  external set vendorId(int value);
+  external int get vendorId;
+  external set productId(int value);
+  external int get productId;
+  external set classCode(int value);
+  external int get classCode;
+  external set subclassCode(int value);
+  external int get subclassCode;
+  external set protocolCode(int value);
+  external int get protocolCode;
+  external set serialNumber(String value);
+  external String get serialNumber;
 }
 
 @JS()
@@ -85,7 +85,7 @@ extension USBConnectionEventInitExtension on USBConnectionEventInit {
 @staticInterop
 class USBConnectionEvent implements Event {
   external factory USBConnectionEvent(
-    JSString type,
+    String type,
     USBConnectionEventInit eventInitDict,
   );
 }
@@ -113,12 +113,12 @@ extension USBInTransferResultExtension on USBInTransferResult {
 class USBOutTransferResult implements JSObject {
   external factory USBOutTransferResult(
     USBTransferStatus status, [
-    JSNumber bytesWritten,
+    int bytesWritten,
   ]);
 }
 
 extension USBOutTransferResultExtension on USBOutTransferResult {
-  external JSNumber get bytesWritten;
+  external int get bytesWritten;
   external USBTransferStatus get status;
 }
 
@@ -157,13 +157,13 @@ extension USBIsochronousInTransferResultExtension
 class USBIsochronousOutTransferPacket implements JSObject {
   external factory USBIsochronousOutTransferPacket(
     USBTransferStatus status, [
-    JSNumber bytesWritten,
+    int bytesWritten,
   ]);
 }
 
 extension USBIsochronousOutTransferPacketExtension
     on USBIsochronousOutTransferPacket {
-  external JSNumber get bytesWritten;
+  external int get bytesWritten;
   external USBTransferStatus get status;
 }
 
@@ -186,16 +186,16 @@ extension USBDeviceExtension on USBDevice {
   external JSPromise open();
   external JSPromise close();
   external JSPromise forget();
-  external JSPromise selectConfiguration(JSNumber configurationValue);
-  external JSPromise claimInterface(JSNumber interfaceNumber);
-  external JSPromise releaseInterface(JSNumber interfaceNumber);
+  external JSPromise selectConfiguration(int configurationValue);
+  external JSPromise claimInterface(int interfaceNumber);
+  external JSPromise releaseInterface(int interfaceNumber);
   external JSPromise selectAlternateInterface(
-    JSNumber interfaceNumber,
-    JSNumber alternateSetting,
+    int interfaceNumber,
+    int alternateSetting,
   );
   external JSPromise controlTransferIn(
     USBControlTransferParameters setup,
-    JSNumber length,
+    int length,
   );
   external JSPromise controlTransferOut(
     USBControlTransferParameters setup, [
@@ -203,43 +203,43 @@ extension USBDeviceExtension on USBDevice {
   ]);
   external JSPromise clearHalt(
     USBDirection direction,
-    JSNumber endpointNumber,
+    int endpointNumber,
   );
   external JSPromise transferIn(
-    JSNumber endpointNumber,
-    JSNumber length,
+    int endpointNumber,
+    int length,
   );
   external JSPromise transferOut(
-    JSNumber endpointNumber,
+    int endpointNumber,
     BufferSource data,
   );
   external JSPromise isochronousTransferIn(
-    JSNumber endpointNumber,
+    int endpointNumber,
     JSArray packetLengths,
   );
   external JSPromise isochronousTransferOut(
-    JSNumber endpointNumber,
+    int endpointNumber,
     BufferSource data,
     JSArray packetLengths,
   );
   external JSPromise reset();
-  external JSNumber get usbVersionMajor;
-  external JSNumber get usbVersionMinor;
-  external JSNumber get usbVersionSubminor;
-  external JSNumber get deviceClass;
-  external JSNumber get deviceSubclass;
-  external JSNumber get deviceProtocol;
-  external JSNumber get vendorId;
-  external JSNumber get productId;
-  external JSNumber get deviceVersionMajor;
-  external JSNumber get deviceVersionMinor;
-  external JSNumber get deviceVersionSubminor;
-  external JSString? get manufacturerName;
-  external JSString? get productName;
-  external JSString? get serialNumber;
+  external int get usbVersionMajor;
+  external int get usbVersionMinor;
+  external int get usbVersionSubminor;
+  external int get deviceClass;
+  external int get deviceSubclass;
+  external int get deviceProtocol;
+  external int get vendorId;
+  external int get productId;
+  external int get deviceVersionMajor;
+  external int get deviceVersionMinor;
+  external int get deviceVersionSubminor;
+  external String? get manufacturerName;
+  external String? get productName;
+  external String? get serialNumber;
   external USBConfiguration? get configuration;
   external JSArray get configurations;
-  external JSBoolean get opened;
+  external bool get opened;
 }
 
 @JS()
@@ -249,9 +249,9 @@ class USBControlTransferParameters implements JSObject {
   external factory USBControlTransferParameters({
     required USBRequestType requestType,
     required USBRecipient recipient,
-    required JSNumber request,
-    required JSNumber value,
-    required JSNumber index,
+    required int request,
+    required int value,
+    required int index,
   });
 }
 
@@ -261,12 +261,12 @@ extension USBControlTransferParametersExtension
   external USBRequestType get requestType;
   external set recipient(USBRecipient value);
   external USBRecipient get recipient;
-  external set request(JSNumber value);
-  external JSNumber get request;
-  external set value(JSNumber value);
-  external JSNumber get value;
-  external set index(JSNumber value);
-  external JSNumber get index;
+  external set request(int value);
+  external int get request;
+  external set value(int value);
+  external int get value;
+  external set index(int value);
+  external int get index;
 }
 
 @JS('USBConfiguration')
@@ -274,13 +274,13 @@ extension USBControlTransferParametersExtension
 class USBConfiguration implements JSObject {
   external factory USBConfiguration(
     USBDevice device,
-    JSNumber configurationValue,
+    int configurationValue,
   );
 }
 
 extension USBConfigurationExtension on USBConfiguration {
-  external JSNumber get configurationValue;
-  external JSString? get configurationName;
+  external int get configurationValue;
+  external String? get configurationName;
   external JSArray get interfaces;
 }
 
@@ -289,15 +289,15 @@ extension USBConfigurationExtension on USBConfiguration {
 class USBInterface implements JSObject {
   external factory USBInterface(
     USBConfiguration configuration,
-    JSNumber interfaceNumber,
+    int interfaceNumber,
   );
 }
 
 extension USBInterfaceExtension on USBInterface {
-  external JSNumber get interfaceNumber;
+  external int get interfaceNumber;
   external USBAlternateInterface get alternate;
   external JSArray get alternates;
-  external JSBoolean get claimed;
+  external bool get claimed;
 }
 
 @JS('USBAlternateInterface')
@@ -305,16 +305,16 @@ extension USBInterfaceExtension on USBInterface {
 class USBAlternateInterface implements JSObject {
   external factory USBAlternateInterface(
     USBInterface deviceInterface,
-    JSNumber alternateSetting,
+    int alternateSetting,
   );
 }
 
 extension USBAlternateInterfaceExtension on USBAlternateInterface {
-  external JSNumber get alternateSetting;
-  external JSNumber get interfaceClass;
-  external JSNumber get interfaceSubclass;
-  external JSNumber get interfaceProtocol;
-  external JSString? get interfaceName;
+  external int get alternateSetting;
+  external int get interfaceClass;
+  external int get interfaceSubclass;
+  external int get interfaceProtocol;
+  external String? get interfaceName;
   external JSArray get endpoints;
 }
 
@@ -323,16 +323,16 @@ extension USBAlternateInterfaceExtension on USBAlternateInterface {
 class USBEndpoint implements JSObject {
   external factory USBEndpoint(
     USBAlternateInterface alternate,
-    JSNumber endpointNumber,
+    int endpointNumber,
     USBDirection direction,
   );
 }
 
 extension USBEndpointExtension on USBEndpoint {
-  external JSNumber get endpointNumber;
+  external int get endpointNumber;
   external USBDirection get direction;
   external USBEndpointType get type;
-  external JSNumber get packetSize;
+  external int get packetSize;
 }
 
 @JS()
@@ -352,19 +352,19 @@ extension USBPermissionDescriptorExtension on USBPermissionDescriptor {
 @anonymous
 class AllowedUSBDevice implements JSObject {
   external factory AllowedUSBDevice({
-    required JSNumber vendorId,
-    required JSNumber productId,
-    JSString serialNumber,
+    required int vendorId,
+    required int productId,
+    String serialNumber,
   });
 }
 
 extension AllowedUSBDeviceExtension on AllowedUSBDevice {
-  external set vendorId(JSNumber value);
-  external JSNumber get vendorId;
-  external set productId(JSNumber value);
-  external JSNumber get productId;
-  external set serialNumber(JSString value);
-  external JSString get serialNumber;
+  external set vendorId(int value);
+  external int get vendorId;
+  external set productId(int value);
+  external int get productId;
+  external set serialNumber(String value);
+  external String get serialNumber;
 }
 
 @JS()

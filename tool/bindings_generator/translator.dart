@@ -370,9 +370,15 @@ class Translator {
       {bool isNullable = false, bool isReturn = false}) {
     // Unfortunately, `code_builder` doesn't know the url of the library we are
     // emitting, so we have to remove it here to avoid importing ourselves.
-    // TODO(joshualitt): Properly track JS type dependencies.
-    String? url = _typeToLibrary[symbol]?.url ?? 'dart:js_interop';
-    if (url == _currentlyTranslatingUrl) {
+    var url = _typeToLibrary[symbol]?.url;
+
+    // JS types and core types don't have urls.
+    if (url == null) {
+      if (symbol.startsWith('JS')) {
+        url = 'dart:js_interop';
+      }
+      // Else is a core type, so no import required.
+    } else if (url == _currentlyTranslatingUrl) {
       url = null;
     } else if (p.dirname(url) == p.dirname(_currentlyTranslatingUrl)) {
       url = p.basename(url);
@@ -590,7 +596,7 @@ class Translator {
           ..._getterSetter(
               fieldName: style,
               getType: ({required bool isReturn}) =>
-                  code.TypeReference((b) => b..symbol = 'JSString'),
+                  code.TypeReference((b) => b..symbol = 'String'),
               isStatic: false,
               readOnly: false),
       ];
@@ -678,8 +684,7 @@ class Translator {
         _typedef(callbackInterface.name.toDart, 'JSFunction'),
       // TODO(joshualitt): Enums in the WebIDL are just strings, but we could
       // make them easier to work with on the Dart side.
-      for (final enum_ in library.enums)
-        _typedef(enum_.name.toDart, 'JSString'),
+      for (final enum_ in library.enums) _typedef(enum_.name.toDart, 'String'),
       for (final interfacelike in library.interfacelikes)
         ..._interfacelike(interfacelike),
     ]));

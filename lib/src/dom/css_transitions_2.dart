@@ -11,5 +11,5 @@ import 'web_animations.dart';
 class CSSTransition implements Animation {}
 
 extension CSSTransitionExtension on CSSTransition {
-  external JSString get transitionProperty;
+  external String get transitionProperty;
 }

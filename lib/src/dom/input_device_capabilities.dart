@@ -12,8 +12,8 @@ class InputDeviceCapabilities implements JSObject {
 }
 
 extension InputDeviceCapabilitiesExtension on InputDeviceCapabilities {
-  external JSBoolean get firesTouchEvents;
-  external JSBoolean get pointerMovementScrolls;
+  external bool get firesTouchEvents;
+  external bool get pointerMovementScrolls;
 }
 
 @JS()
@@ -21,14 +21,14 @@ extension InputDeviceCapabilitiesExtension on InputDeviceCapabilities {
 @anonymous
 class InputDeviceCapabilitiesInit implements JSObject {
   external factory InputDeviceCapabilitiesInit({
-    JSBoolean firesTouchEvents,
-    JSBoolean pointerMovementScrolls,
+    bool firesTouchEvents,
+    bool pointerMovementScrolls,
   });
 }
 
 extension InputDeviceCapabilitiesInitExtension on InputDeviceCapabilitiesInit {
-  external set firesTouchEvents(JSBoolean value);
-  external JSBoolean get firesTouchEvents;
-  external set pointerMovementScrolls(JSBoolean value);
-  external JSBoolean get pointerMovementScrolls;
+  external set firesTouchEvents(bool value);
+  external bool get firesTouchEvents;
+  external set pointerMovementScrolls(bool value);
+  external bool get pointerMovementScrolls;
 }

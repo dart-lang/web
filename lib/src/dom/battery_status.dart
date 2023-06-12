@@ -12,10 +12,10 @@ import 'html.dart';
 class BatteryManager implements EventTarget {}
 
 extension BatteryManagerExtension on BatteryManager {
-  external JSBoolean get charging;
-  external JSNumber get chargingTime;
-  external JSNumber get dischargingTime;
-  external JSNumber get level;
+  external bool get charging;
+  external double get chargingTime;
+  external double get dischargingTime;
+  external double get level;
   external set onchargingchange(EventHandler value);
   external EventHandler get onchargingchange;
   external set onchargingtimechange(EventHandler value);

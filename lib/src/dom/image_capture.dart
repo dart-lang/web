@@ -7,9 +7,9 @@ import 'dart:js_interop';
 import 'mediacapture_streams.dart';
 
 typedef ConstrainPoint2D = JSAny?;
-typedef RedEyeReduction = JSString;
-typedef FillLightMode = JSString;
-typedef MeteringMode = JSString;
+typedef RedEyeReduction = String;
+typedef FillLightMode = String;
+typedef MeteringMode = String;
 
 @JS('ImageCapture')
 @staticInterop
@@ -54,21 +54,21 @@ extension PhotoCapabilitiesExtension on PhotoCapabilities {
 class PhotoSettings implements JSObject {
   external factory PhotoSettings({
     FillLightMode fillLightMode,
-    JSNumber imageHeight,
-    JSNumber imageWidth,
-    JSBoolean redEyeReduction,
+    double imageHeight,
+    double imageWidth,
+    bool redEyeReduction,
   });
 }
 
 extension PhotoSettingsExtension on PhotoSettings {
   external set fillLightMode(FillLightMode value);
   external FillLightMode get fillLightMode;
-  external set imageHeight(JSNumber value);
-  external JSNumber get imageHeight;
-  external set imageWidth(JSNumber value);
-  external JSNumber get imageWidth;
-  external set redEyeReduction(JSBoolean value);
-  external JSBoolean get redEyeReduction;
+  external set imageHeight(double value);
+  external double get imageHeight;
+  external set imageWidth(double value);
+  external double get imageWidth;
+  external set redEyeReduction(bool value);
+  external bool get redEyeReduction;
 }
 
 @JS()
@@ -76,19 +76,19 @@ extension PhotoSettingsExtension on PhotoSettings {
 @anonymous
 class MediaSettingsRange implements JSObject {
   external factory MediaSettingsRange({
-    JSNumber max,
-    JSNumber min,
-    JSNumber step,
+    double max,
+    double min,
+    double step,
   });
 }
 
 extension MediaSettingsRangeExtension on MediaSettingsRange {
-  external set max(JSNumber value);
-  external JSNumber get max;
-  external set min(JSNumber value);
-  external JSNumber get min;
-  external set step(JSNumber value);
-  external JSNumber get step;
+  external set max(double value);
+  external double get max;
+  external set min(double value);
+  external double get min;
+  external set step(double value);
+  external double get step;
 }
 
 @JS()
@@ -113,14 +113,14 @@ extension ConstrainPoint2DParametersExtension on ConstrainPoint2DParameters {
 @anonymous
 class Point2D implements JSObject {
   external factory Point2D({
-    JSNumber x,
-    JSNumber y,
+    double x,
+    double y,
   });
 }
 
 extension Point2DExtension on Point2D {
-  external set x(JSNumber value);
-  external JSNumber get x;
-  external set y(JSNumber value);
-  external JSNumber get y;
+  external set x(double value);
+  external double get x;
+  external set y(double value);
+  external double get y;
 }

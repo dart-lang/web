@@ -25,7 +25,7 @@ extension IntersectionObserverExtension on IntersectionObserver {
   external JSVoid disconnect();
   external JSArray takeRecords();
   external JSAny? get root;
-  external JSString get rootMargin;
+  external String get rootMargin;
   external JSArray get thresholds;
 }
 
@@ -41,8 +41,8 @@ extension IntersectionObserverEntryExtension on IntersectionObserverEntry {
   external DOMRectReadOnly? get rootBounds;
   external DOMRectReadOnly get boundingClientRect;
   external DOMRectReadOnly get intersectionRect;
-  external JSBoolean get isIntersecting;
-  external JSNumber get intersectionRatio;
+  external bool get isIntersecting;
+  external double get intersectionRatio;
   external Element get target;
 }
 
@@ -55,8 +55,8 @@ class IntersectionObserverEntryInit implements JSObject {
     required DOMRectInit? rootBounds,
     required DOMRectInit boundingClientRect,
     required DOMRectInit intersectionRect,
-    required JSBoolean isIntersecting,
-    required JSNumber intersectionRatio,
+    required bool isIntersecting,
+    required double intersectionRatio,
     required Element target,
   });
 }
@@ -71,10 +71,10 @@ extension IntersectionObserverEntryInitExtension
   external DOMRectInit get boundingClientRect;
   external set intersectionRect(DOMRectInit value);
   external DOMRectInit get intersectionRect;
-  external set isIntersecting(JSBoolean value);
-  external JSBoolean get isIntersecting;
-  external set intersectionRatio(JSNumber value);
-  external JSNumber get intersectionRatio;
+  external set isIntersecting(bool value);
+  external bool get isIntersecting;
+  external set intersectionRatio(double value);
+  external double get intersectionRatio;
   external set target(Element value);
   external Element get target;
 }
@@ -85,7 +85,7 @@ extension IntersectionObserverEntryInitExtension
 class IntersectionObserverInit implements JSObject {
   external factory IntersectionObserverInit({
     JSAny? root,
-    JSString rootMargin,
+    String rootMargin,
     JSAny? threshold,
   });
 }
@@ -93,8 +93,8 @@ class IntersectionObserverInit implements JSObject {
 extension IntersectionObserverInitExtension on IntersectionObserverInit {
   external set root(JSAny? value);
   external JSAny? get root;
-  external set rootMargin(JSString value);
-  external JSString get rootMargin;
+  external set rootMargin(String value);
+  external String get rootMargin;
   external set threshold(JSAny? value);
   external JSAny? get threshold;
 }

@@ -9,14 +9,14 @@ import 'dart:js_interop';
 @anonymous
 class MemoryMeasurement implements JSObject {
   external factory MemoryMeasurement({
-    JSNumber bytes,
+    int bytes,
     JSArray breakdown,
   });
 }
 
 extension MemoryMeasurementExtension on MemoryMeasurement {
-  external set bytes(JSNumber value);
-  external JSNumber get bytes;
+  external set bytes(int value);
+  external int get bytes;
   external set breakdown(JSArray value);
   external JSArray get breakdown;
 }
@@ -26,15 +26,15 @@ extension MemoryMeasurementExtension on MemoryMeasurement {
 @anonymous
 class MemoryBreakdownEntry implements JSObject {
   external factory MemoryBreakdownEntry({
-    JSNumber bytes,
+    int bytes,
     JSArray attribution,
     JSArray types,
   });
 }
 
 extension MemoryBreakdownEntryExtension on MemoryBreakdownEntry {
-  external set bytes(JSNumber value);
-  external JSNumber get bytes;
+  external set bytes(int value);
+  external int get bytes;
   external set attribution(JSArray value);
   external JSArray get attribution;
   external set types(JSArray value);
@@ -46,19 +46,19 @@ extension MemoryBreakdownEntryExtension on MemoryBreakdownEntry {
 @anonymous
 class MemoryAttribution implements JSObject {
   external factory MemoryAttribution({
-    JSString url,
+    String url,
     MemoryAttributionContainer container,
-    JSString scope,
+    String scope,
   });
 }
 
 extension MemoryAttributionExtension on MemoryAttribution {
-  external set url(JSString value);
-  external JSString get url;
+  external set url(String value);
+  external String get url;
   external set container(MemoryAttributionContainer value);
   external MemoryAttributionContainer get container;
-  external set scope(JSString value);
-  external JSString get scope;
+  external set scope(String value);
+  external String get scope;
 }
 
 @JS()
@@ -66,14 +66,14 @@ extension MemoryAttributionExtension on MemoryAttribution {
 @anonymous
 class MemoryAttributionContainer implements JSObject {
   external factory MemoryAttributionContainer({
-    JSString id,
-    JSString src,
+    String id,
+    String src,
   });
 }
 
 extension MemoryAttributionContainerExtension on MemoryAttributionContainer {
-  external set id(JSString value);
-  external JSString get id;
-  external set src(JSString value);
-  external JSString get src;
+  external set id(String value);
+  external String get id;
+  external set src(String value);
+  external String get src;
 }

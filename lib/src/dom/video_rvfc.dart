@@ -15,14 +15,14 @@ class VideoFrameCallbackMetadata implements JSObject {
   external factory VideoFrameCallbackMetadata({
     required DOMHighResTimeStamp presentationTime,
     required DOMHighResTimeStamp expectedDisplayTime,
-    required JSNumber width,
-    required JSNumber height,
-    required JSNumber mediaTime,
-    required JSNumber presentedFrames,
-    JSNumber processingDuration,
+    required int width,
+    required int height,
+    required double mediaTime,
+    required int presentedFrames,
+    double processingDuration,
     DOMHighResTimeStamp captureTime,
     DOMHighResTimeStamp receiveTime,
-    JSNumber rtpTimestamp,
+    int rtpTimestamp,
   });
 }
 
@@ -31,20 +31,20 @@ extension VideoFrameCallbackMetadataExtension on VideoFrameCallbackMetadata {
   external DOMHighResTimeStamp get presentationTime;
   external set expectedDisplayTime(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get expectedDisplayTime;
-  external set width(JSNumber value);
-  external JSNumber get width;
-  external set height(JSNumber value);
-  external JSNumber get height;
-  external set mediaTime(JSNumber value);
-  external JSNumber get mediaTime;
-  external set presentedFrames(JSNumber value);
-  external JSNumber get presentedFrames;
-  external set processingDuration(JSNumber value);
-  external JSNumber get processingDuration;
+  external set width(int value);
+  external int get width;
+  external set height(int value);
+  external int get height;
+  external set mediaTime(double value);
+  external double get mediaTime;
+  external set presentedFrames(int value);
+  external int get presentedFrames;
+  external set processingDuration(double value);
+  external double get processingDuration;
   external set captureTime(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get captureTime;
   external set receiveTime(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get receiveTime;
-  external set rtpTimestamp(JSNumber value);
-  external JSNumber get rtpTimestamp;
+  external set rtpTimestamp(int value);
+  external int get rtpTimestamp;
 }

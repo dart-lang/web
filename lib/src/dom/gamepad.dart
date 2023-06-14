@@ -8,7 +8,7 @@ import 'dom.dart';
 import 'gamepad_extensions.dart';
 import 'hr_time.dart';
 
-typedef GamepadMappingType = JSString;
+typedef GamepadMappingType = String;
 
 @JS('Gamepad')
 @staticInterop
@@ -20,9 +20,9 @@ extension GamepadExtension on Gamepad {
   external GamepadPose? get pose;
   external JSArray? get touchEvents;
   external GamepadHapticActuator? get vibrationActuator;
-  external JSString get id;
-  external JSNumber get index;
-  external JSBoolean get connected;
+  external String get id;
+  external int get index;
+  external bool get connected;
   external DOMHighResTimeStamp get timestamp;
   external GamepadMappingType get mapping;
   external JSArray get axes;
@@ -34,16 +34,16 @@ extension GamepadExtension on Gamepad {
 class GamepadButton implements JSObject {}
 
 extension GamepadButtonExtension on GamepadButton {
-  external JSBoolean get pressed;
-  external JSBoolean get touched;
-  external JSNumber get value;
+  external bool get pressed;
+  external bool get touched;
+  external double get value;
 }
 
 @JS('GamepadEvent')
 @staticInterop
 class GamepadEvent implements Event {
   external factory GamepadEvent(
-    JSString type,
+    String type,
     GamepadEventInit eventInitDict,
   );
 }

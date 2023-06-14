@@ -9,16 +9,16 @@ import 'dart:js_interop';
 @anonymous
 class NavigatorUABrandVersion implements JSObject {
   external factory NavigatorUABrandVersion({
-    JSString brand,
-    JSString version,
+    String brand,
+    String version,
   });
 }
 
 extension NavigatorUABrandVersionExtension on NavigatorUABrandVersion {
-  external set brand(JSString value);
-  external JSString get brand;
-  external set version(JSString value);
-  external JSString get version;
+  external set brand(String value);
+  external String get brand;
+  external set version(String value);
+  external String get version;
 }
 
 @JS()
@@ -26,43 +26,43 @@ extension NavigatorUABrandVersionExtension on NavigatorUABrandVersion {
 @anonymous
 class UADataValues implements JSObject {
   external factory UADataValues({
-    JSString architecture,
-    JSString bitness,
+    String architecture,
+    String bitness,
     JSArray brands,
-    JSString formFactor,
+    String formFactor,
     JSArray fullVersionList,
-    JSString model,
-    JSBoolean mobile,
-    JSString platform,
-    JSString platformVersion,
-    JSString uaFullVersion,
-    JSBoolean wow64,
+    String model,
+    bool mobile,
+    String platform,
+    String platformVersion,
+    String uaFullVersion,
+    bool wow64,
   });
 }
 
 extension UADataValuesExtension on UADataValues {
-  external set architecture(JSString value);
-  external JSString get architecture;
-  external set bitness(JSString value);
-  external JSString get bitness;
+  external set architecture(String value);
+  external String get architecture;
+  external set bitness(String value);
+  external String get bitness;
   external set brands(JSArray value);
   external JSArray get brands;
-  external set formFactor(JSString value);
-  external JSString get formFactor;
+  external set formFactor(String value);
+  external String get formFactor;
   external set fullVersionList(JSArray value);
   external JSArray get fullVersionList;
-  external set model(JSString value);
-  external JSString get model;
-  external set mobile(JSBoolean value);
-  external JSBoolean get mobile;
-  external set platform(JSString value);
-  external JSString get platform;
-  external set platformVersion(JSString value);
-  external JSString get platformVersion;
-  external set uaFullVersion(JSString value);
-  external JSString get uaFullVersion;
-  external set wow64(JSBoolean value);
-  external JSBoolean get wow64;
+  external set model(String value);
+  external String get model;
+  external set mobile(bool value);
+  external bool get mobile;
+  external set platform(String value);
+  external String get platform;
+  external set platformVersion(String value);
+  external String get platformVersion;
+  external set uaFullVersion(String value);
+  external String get uaFullVersion;
+  external set wow64(bool value);
+  external bool get wow64;
 }
 
 @JS()
@@ -71,18 +71,18 @@ extension UADataValuesExtension on UADataValues {
 class UALowEntropyJSON implements JSObject {
   external factory UALowEntropyJSON({
     JSArray brands,
-    JSBoolean mobile,
-    JSString platform,
+    bool mobile,
+    String platform,
   });
 }
 
 extension UALowEntropyJSONExtension on UALowEntropyJSON {
   external set brands(JSArray value);
   external JSArray get brands;
-  external set mobile(JSBoolean value);
-  external JSBoolean get mobile;
-  external set platform(JSString value);
-  external JSString get platform;
+  external set mobile(bool value);
+  external bool get mobile;
+  external set platform(String value);
+  external String get platform;
 }
 
 @JS('NavigatorUAData')
@@ -93,8 +93,8 @@ extension NavigatorUADataExtension on NavigatorUAData {
   external JSPromise getHighEntropyValues(JSArray hints);
   external UALowEntropyJSON toJSON();
   external JSArray get brands;
-  external JSBoolean get mobile;
-  external JSString get platform;
+  external bool get mobile;
+  external String get platform;
 }
 
 @JS('NavigatorUA')

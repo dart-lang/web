@@ -20,8 +20,8 @@ typedef TransformerStartCallback = JSFunction;
 typedef TransformerFlushCallback = JSFunction;
 typedef TransformerTransformCallback = JSFunction;
 typedef QueuingStrategySize = JSFunction;
-typedef ReadableStreamReaderMode = JSString;
-typedef ReadableStreamType = JSString;
+typedef ReadableStreamReaderMode = String;
+typedef ReadableStreamType = String;
 
 @JS('ReadableStream')
 @staticInterop
@@ -45,7 +45,7 @@ extension ReadableStreamExtension on ReadableStream {
     StreamPipeOptions options,
   ]);
   external JSArray tee();
-  external JSBoolean get locked;
+  external bool get locked;
 }
 
 @JS()
@@ -66,13 +66,13 @@ extension ReadableStreamGetReaderOptionsExtension
 @staticInterop
 @anonymous
 class ReadableStreamIteratorOptions implements JSObject {
-  external factory ReadableStreamIteratorOptions({JSBoolean preventCancel});
+  external factory ReadableStreamIteratorOptions({bool preventCancel});
 }
 
 extension ReadableStreamIteratorOptionsExtension
     on ReadableStreamIteratorOptions {
-  external set preventCancel(JSBoolean value);
-  external JSBoolean get preventCancel;
+  external set preventCancel(bool value);
+  external bool get preventCancel;
 }
 
 @JS()
@@ -97,20 +97,20 @@ extension ReadableWritablePairExtension on ReadableWritablePair {
 @anonymous
 class StreamPipeOptions implements JSObject {
   external factory StreamPipeOptions({
-    JSBoolean preventClose,
-    JSBoolean preventAbort,
-    JSBoolean preventCancel,
+    bool preventClose,
+    bool preventAbort,
+    bool preventCancel,
     AbortSignal signal,
   });
 }
 
 extension StreamPipeOptionsExtension on StreamPipeOptions {
-  external set preventClose(JSBoolean value);
-  external JSBoolean get preventClose;
-  external set preventAbort(JSBoolean value);
-  external JSBoolean get preventAbort;
-  external set preventCancel(JSBoolean value);
-  external JSBoolean get preventCancel;
+  external set preventClose(bool value);
+  external bool get preventClose;
+  external set preventAbort(bool value);
+  external bool get preventAbort;
+  external set preventCancel(bool value);
+  external bool get preventCancel;
   external set signal(AbortSignal value);
   external AbortSignal get signal;
 }
@@ -124,7 +124,7 @@ class UnderlyingSource implements JSObject {
     UnderlyingSourcePullCallback pull,
     UnderlyingSourceCancelCallback cancel,
     ReadableStreamType type,
-    JSNumber autoAllocateChunkSize,
+    int autoAllocateChunkSize,
   });
 }
 
@@ -137,8 +137,8 @@ extension UnderlyingSourceExtension on UnderlyingSource {
   external UnderlyingSourceCancelCallback get cancel;
   external set type(ReadableStreamType value);
   external ReadableStreamType get type;
-  external set autoAllocateChunkSize(JSNumber value);
-  external JSNumber get autoAllocateChunkSize;
+  external set autoAllocateChunkSize(int value);
+  external int get autoAllocateChunkSize;
 }
 
 @JS('ReadableStreamGenericReader')
@@ -167,15 +167,15 @@ extension ReadableStreamDefaultReaderExtension on ReadableStreamDefaultReader {
 class ReadableStreamReadResult implements JSObject {
   external factory ReadableStreamReadResult({
     JSAny? value,
-    JSBoolean done,
+    bool done,
   });
 }
 
 extension ReadableStreamReadResultExtension on ReadableStreamReadResult {
   external set value(JSAny? value);
   external JSAny? get value;
-  external set done(JSBoolean value);
-  external JSBoolean get done;
+  external set done(bool value);
+  external bool get done;
 }
 
 @JS('ReadableStreamBYOBReader')
@@ -198,7 +198,7 @@ extension ReadableStreamDefaultControllerExtension
   external JSVoid close();
   external JSVoid enqueue([JSAny? chunk]);
   external JSVoid error([JSAny? e]);
-  external JSNumber? get desiredSize;
+  external double? get desiredSize;
 }
 
 @JS('ReadableByteStreamController')
@@ -211,7 +211,7 @@ extension ReadableByteStreamControllerExtension
   external JSVoid enqueue(ArrayBufferView chunk);
   external JSVoid error([JSAny? e]);
   external ReadableStreamBYOBRequest? get byobRequest;
-  external JSNumber? get desiredSize;
+  external double? get desiredSize;
 }
 
 @JS('ReadableStreamBYOBRequest')
@@ -219,7 +219,7 @@ extension ReadableByteStreamControllerExtension
 class ReadableStreamBYOBRequest implements JSObject {}
 
 extension ReadableStreamBYOBRequestExtension on ReadableStreamBYOBRequest {
-  external JSVoid respond(JSNumber bytesWritten);
+  external JSVoid respond(int bytesWritten);
   external JSVoid respondWithNewView(ArrayBufferView view);
   external ArrayBufferView? get view;
 }
@@ -237,7 +237,7 @@ extension WritableStreamExtension on WritableStream {
   external JSPromise abort([JSAny? reason]);
   external JSPromise close();
   external WritableStreamDefaultWriter getWriter();
-  external JSBoolean get locked;
+  external bool get locked;
 }
 
 @JS()
@@ -278,7 +278,7 @@ extension WritableStreamDefaultWriterExtension on WritableStreamDefaultWriter {
   external JSVoid releaseLock();
   external JSPromise write([JSAny? chunk]);
   external JSPromise get closed;
-  external JSNumber? get desiredSize;
+  external double? get desiredSize;
   external JSPromise get ready;
 }
 
@@ -342,7 +342,7 @@ extension TransformStreamDefaultControllerExtension
   external JSVoid enqueue([JSAny? chunk]);
   external JSVoid error([JSAny? reason]);
   external JSVoid terminate();
-  external JSNumber? get desiredSize;
+  external double? get desiredSize;
 }
 
 @JS()
@@ -350,14 +350,14 @@ extension TransformStreamDefaultControllerExtension
 @anonymous
 class QueuingStrategy implements JSObject {
   external factory QueuingStrategy({
-    JSNumber highWaterMark,
+    double highWaterMark,
     QueuingStrategySize size,
   });
 }
 
 extension QueuingStrategyExtension on QueuingStrategy {
-  external set highWaterMark(JSNumber value);
-  external JSNumber get highWaterMark;
+  external set highWaterMark(double value);
+  external double get highWaterMark;
   external set size(QueuingStrategySize value);
   external QueuingStrategySize get size;
 }
@@ -366,12 +366,12 @@ extension QueuingStrategyExtension on QueuingStrategy {
 @staticInterop
 @anonymous
 class QueuingStrategyInit implements JSObject {
-  external factory QueuingStrategyInit({required JSNumber highWaterMark});
+  external factory QueuingStrategyInit({required double highWaterMark});
 }
 
 extension QueuingStrategyInitExtension on QueuingStrategyInit {
-  external set highWaterMark(JSNumber value);
-  external JSNumber get highWaterMark;
+  external set highWaterMark(double value);
+  external double get highWaterMark;
 }
 
 @JS('ByteLengthQueuingStrategy')
@@ -381,7 +381,7 @@ class ByteLengthQueuingStrategy implements JSObject {
 }
 
 extension ByteLengthQueuingStrategyExtension on ByteLengthQueuingStrategy {
-  external JSNumber get highWaterMark;
+  external double get highWaterMark;
   external JSFunction get size;
 }
 
@@ -392,7 +392,7 @@ class CountQueuingStrategy implements JSObject {
 }
 
 extension CountQueuingStrategyExtension on CountQueuingStrategy {
-  external JSNumber get highWaterMark;
+  external double get highWaterMark;
   external JSFunction get size;
 }
 

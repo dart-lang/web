@@ -21,10 +21,10 @@ typedef ConstrainBoolean = JSAny?;
 typedef ConstrainDOMString = JSAny?;
 typedef NavigatorUserMediaSuccessCallback = JSFunction;
 typedef NavigatorUserMediaErrorCallback = JSFunction;
-typedef MediaStreamTrackState = JSString;
-typedef VideoFacingModeEnum = JSString;
-typedef VideoResizeModeEnum = JSString;
-typedef MediaDeviceKind = JSString;
+typedef MediaStreamTrackState = String;
+typedef VideoFacingModeEnum = String;
+typedef VideoResizeModeEnum = String;
+typedef MediaDeviceKind = String;
 
 @JS('MediaStream')
 @staticInterop
@@ -36,12 +36,12 @@ extension MediaStreamExtension on MediaStream {
   external JSArray getAudioTracks();
   external JSArray getVideoTracks();
   external JSArray getTracks();
-  external MediaStreamTrack? getTrackById(JSString trackId);
+  external MediaStreamTrack? getTrackById(String trackId);
   external JSVoid addTrack(MediaStreamTrack track);
   external JSVoid removeTrack(MediaStreamTrack track);
   external MediaStream clone();
-  external JSString get id;
-  external JSBoolean get active;
+  external String get id;
+  external bool get active;
   external set onaddtrack(EventHandler value);
   external EventHandler get onaddtrack;
   external set onremovetrack(EventHandler value);
@@ -64,12 +64,12 @@ extension MediaStreamTrackExtension on MediaStreamTrack {
   external JSPromise applyConstraints([MediaTrackConstraints constraints]);
   external set oncapturehandlechange(EventHandler value);
   external EventHandler get oncapturehandlechange;
-  external JSString get kind;
-  external JSString get id;
-  external JSString get label;
-  external set enabled(JSBoolean value);
-  external JSBoolean get enabled;
-  external JSBoolean get muted;
+  external String get kind;
+  external String get id;
+  external String get label;
+  external set enabled(bool value);
+  external bool get enabled;
+  external bool get muted;
   external set onmute(EventHandler value);
   external EventHandler get onmute;
   external set onunmute(EventHandler value);
@@ -77,9 +77,9 @@ extension MediaStreamTrackExtension on MediaStreamTrack {
   external MediaStreamTrackState get readyState;
   external set onended(EventHandler value);
   external EventHandler get onended;
-  external set contentHint(JSString value);
-  external JSString get contentHint;
-  external JSBoolean get isolated;
+  external set contentHint(String value);
+  external String get contentHint;
+  external bool get isolated;
   external set onisolationchange(EventHandler value);
   external EventHandler get onisolationchange;
 }
@@ -89,122 +89,122 @@ extension MediaStreamTrackExtension on MediaStreamTrack {
 @anonymous
 class MediaTrackSupportedConstraints implements JSObject {
   external factory MediaTrackSupportedConstraints({
-    JSBoolean whiteBalanceMode,
-    JSBoolean exposureMode,
-    JSBoolean focusMode,
-    JSBoolean pointsOfInterest,
-    JSBoolean exposureCompensation,
-    JSBoolean exposureTime,
-    JSBoolean colorTemperature,
-    JSBoolean iso,
-    JSBoolean brightness,
-    JSBoolean contrast,
-    JSBoolean pan,
-    JSBoolean saturation,
-    JSBoolean sharpness,
-    JSBoolean focusDistance,
-    JSBoolean tilt,
-    JSBoolean zoom,
-    JSBoolean torch,
-    JSBoolean width,
-    JSBoolean height,
-    JSBoolean aspectRatio,
-    JSBoolean frameRate,
-    JSBoolean facingMode,
-    JSBoolean resizeMode,
-    JSBoolean sampleRate,
-    JSBoolean sampleSize,
-    JSBoolean echoCancellation,
-    JSBoolean autoGainControl,
-    JSBoolean noiseSuppression,
-    JSBoolean latency,
-    JSBoolean channelCount,
-    JSBoolean deviceId,
-    JSBoolean groupId,
-    JSBoolean displaySurface,
-    JSBoolean logicalSurface,
-    JSBoolean cursor,
-    JSBoolean restrictOwnAudio,
-    JSBoolean suppressLocalAudioPlayback,
+    bool whiteBalanceMode,
+    bool exposureMode,
+    bool focusMode,
+    bool pointsOfInterest,
+    bool exposureCompensation,
+    bool exposureTime,
+    bool colorTemperature,
+    bool iso,
+    bool brightness,
+    bool contrast,
+    bool pan,
+    bool saturation,
+    bool sharpness,
+    bool focusDistance,
+    bool tilt,
+    bool zoom,
+    bool torch,
+    bool width,
+    bool height,
+    bool aspectRatio,
+    bool frameRate,
+    bool facingMode,
+    bool resizeMode,
+    bool sampleRate,
+    bool sampleSize,
+    bool echoCancellation,
+    bool autoGainControl,
+    bool noiseSuppression,
+    bool latency,
+    bool channelCount,
+    bool deviceId,
+    bool groupId,
+    bool displaySurface,
+    bool logicalSurface,
+    bool cursor,
+    bool restrictOwnAudio,
+    bool suppressLocalAudioPlayback,
   });
 }
 
 extension MediaTrackSupportedConstraintsExtension
     on MediaTrackSupportedConstraints {
-  external set whiteBalanceMode(JSBoolean value);
-  external JSBoolean get whiteBalanceMode;
-  external set exposureMode(JSBoolean value);
-  external JSBoolean get exposureMode;
-  external set focusMode(JSBoolean value);
-  external JSBoolean get focusMode;
-  external set pointsOfInterest(JSBoolean value);
-  external JSBoolean get pointsOfInterest;
-  external set exposureCompensation(JSBoolean value);
-  external JSBoolean get exposureCompensation;
-  external set exposureTime(JSBoolean value);
-  external JSBoolean get exposureTime;
-  external set colorTemperature(JSBoolean value);
-  external JSBoolean get colorTemperature;
-  external set iso(JSBoolean value);
-  external JSBoolean get iso;
-  external set brightness(JSBoolean value);
-  external JSBoolean get brightness;
-  external set contrast(JSBoolean value);
-  external JSBoolean get contrast;
-  external set pan(JSBoolean value);
-  external JSBoolean get pan;
-  external set saturation(JSBoolean value);
-  external JSBoolean get saturation;
-  external set sharpness(JSBoolean value);
-  external JSBoolean get sharpness;
-  external set focusDistance(JSBoolean value);
-  external JSBoolean get focusDistance;
-  external set tilt(JSBoolean value);
-  external JSBoolean get tilt;
-  external set zoom(JSBoolean value);
-  external JSBoolean get zoom;
-  external set torch(JSBoolean value);
-  external JSBoolean get torch;
-  external set width(JSBoolean value);
-  external JSBoolean get width;
-  external set height(JSBoolean value);
-  external JSBoolean get height;
-  external set aspectRatio(JSBoolean value);
-  external JSBoolean get aspectRatio;
-  external set frameRate(JSBoolean value);
-  external JSBoolean get frameRate;
-  external set facingMode(JSBoolean value);
-  external JSBoolean get facingMode;
-  external set resizeMode(JSBoolean value);
-  external JSBoolean get resizeMode;
-  external set sampleRate(JSBoolean value);
-  external JSBoolean get sampleRate;
-  external set sampleSize(JSBoolean value);
-  external JSBoolean get sampleSize;
-  external set echoCancellation(JSBoolean value);
-  external JSBoolean get echoCancellation;
-  external set autoGainControl(JSBoolean value);
-  external JSBoolean get autoGainControl;
-  external set noiseSuppression(JSBoolean value);
-  external JSBoolean get noiseSuppression;
-  external set latency(JSBoolean value);
-  external JSBoolean get latency;
-  external set channelCount(JSBoolean value);
-  external JSBoolean get channelCount;
-  external set deviceId(JSBoolean value);
-  external JSBoolean get deviceId;
-  external set groupId(JSBoolean value);
-  external JSBoolean get groupId;
-  external set displaySurface(JSBoolean value);
-  external JSBoolean get displaySurface;
-  external set logicalSurface(JSBoolean value);
-  external JSBoolean get logicalSurface;
-  external set cursor(JSBoolean value);
-  external JSBoolean get cursor;
-  external set restrictOwnAudio(JSBoolean value);
-  external JSBoolean get restrictOwnAudio;
-  external set suppressLocalAudioPlayback(JSBoolean value);
-  external JSBoolean get suppressLocalAudioPlayback;
+  external set whiteBalanceMode(bool value);
+  external bool get whiteBalanceMode;
+  external set exposureMode(bool value);
+  external bool get exposureMode;
+  external set focusMode(bool value);
+  external bool get focusMode;
+  external set pointsOfInterest(bool value);
+  external bool get pointsOfInterest;
+  external set exposureCompensation(bool value);
+  external bool get exposureCompensation;
+  external set exposureTime(bool value);
+  external bool get exposureTime;
+  external set colorTemperature(bool value);
+  external bool get colorTemperature;
+  external set iso(bool value);
+  external bool get iso;
+  external set brightness(bool value);
+  external bool get brightness;
+  external set contrast(bool value);
+  external bool get contrast;
+  external set pan(bool value);
+  external bool get pan;
+  external set saturation(bool value);
+  external bool get saturation;
+  external set sharpness(bool value);
+  external bool get sharpness;
+  external set focusDistance(bool value);
+  external bool get focusDistance;
+  external set tilt(bool value);
+  external bool get tilt;
+  external set zoom(bool value);
+  external bool get zoom;
+  external set torch(bool value);
+  external bool get torch;
+  external set width(bool value);
+  external bool get width;
+  external set height(bool value);
+  external bool get height;
+  external set aspectRatio(bool value);
+  external bool get aspectRatio;
+  external set frameRate(bool value);
+  external bool get frameRate;
+  external set facingMode(bool value);
+  external bool get facingMode;
+  external set resizeMode(bool value);
+  external bool get resizeMode;
+  external set sampleRate(bool value);
+  external bool get sampleRate;
+  external set sampleSize(bool value);
+  external bool get sampleSize;
+  external set echoCancellation(bool value);
+  external bool get echoCancellation;
+  external set autoGainControl(bool value);
+  external bool get autoGainControl;
+  external set noiseSuppression(bool value);
+  external bool get noiseSuppression;
+  external set latency(bool value);
+  external bool get latency;
+  external set channelCount(bool value);
+  external bool get channelCount;
+  external set deviceId(bool value);
+  external bool get deviceId;
+  external set groupId(bool value);
+  external bool get groupId;
+  external set displaySurface(bool value);
+  external bool get displaySurface;
+  external set logicalSurface(bool value);
+  external bool get logicalSurface;
+  external set cursor(bool value);
+  external bool get cursor;
+  external set restrictOwnAudio(bool value);
+  external bool get restrictOwnAudio;
+  external set suppressLocalAudioPlayback(bool value);
+  external bool get suppressLocalAudioPlayback;
 }
 
 @JS()
@@ -227,7 +227,7 @@ class MediaTrackCapabilities implements JSObject {
     MediaSettingsRange pan,
     MediaSettingsRange tilt,
     MediaSettingsRange zoom,
-    JSBoolean torch,
+    bool torch,
     ULongRange width,
     ULongRange height,
     DoubleRange aspectRatio,
@@ -241,10 +241,10 @@ class MediaTrackCapabilities implements JSObject {
     JSArray noiseSuppression,
     DoubleRange latency,
     ULongRange channelCount,
-    JSString deviceId,
-    JSString groupId,
-    JSString displaySurface,
-    JSBoolean logicalSurface,
+    String deviceId,
+    String groupId,
+    String displaySurface,
+    bool logicalSurface,
     JSArray cursor,
   });
 }
@@ -280,8 +280,8 @@ extension MediaTrackCapabilitiesExtension on MediaTrackCapabilities {
   external MediaSettingsRange get tilt;
   external set zoom(MediaSettingsRange value);
   external MediaSettingsRange get zoom;
-  external set torch(JSBoolean value);
-  external JSBoolean get torch;
+  external set torch(bool value);
+  external bool get torch;
   external set width(ULongRange value);
   external ULongRange get width;
   external set height(ULongRange value);
@@ -308,14 +308,14 @@ extension MediaTrackCapabilitiesExtension on MediaTrackCapabilities {
   external DoubleRange get latency;
   external set channelCount(ULongRange value);
   external ULongRange get channelCount;
-  external set deviceId(JSString value);
-  external JSString get deviceId;
-  external set groupId(JSString value);
-  external JSString get groupId;
-  external set displaySurface(JSString value);
-  external JSString get displaySurface;
-  external set logicalSurface(JSBoolean value);
-  external JSBoolean get logicalSurface;
+  external set deviceId(String value);
+  external String get deviceId;
+  external set groupId(String value);
+  external String get groupId;
+  external set displaySurface(String value);
+  external String get displaySurface;
+  external set logicalSurface(bool value);
+  external bool get logicalSurface;
   external set cursor(JSArray value);
   external JSArray get cursor;
 }
@@ -459,128 +459,128 @@ extension MediaTrackConstraintSetExtension on MediaTrackConstraintSet {
 @anonymous
 class MediaTrackSettings implements JSObject {
   external factory MediaTrackSettings({
-    JSString whiteBalanceMode,
-    JSString exposureMode,
-    JSString focusMode,
+    String whiteBalanceMode,
+    String exposureMode,
+    String focusMode,
     JSArray pointsOfInterest,
-    JSNumber exposureCompensation,
-    JSNumber exposureTime,
-    JSNumber colorTemperature,
-    JSNumber iso,
-    JSNumber brightness,
-    JSNumber contrast,
-    JSNumber saturation,
-    JSNumber sharpness,
-    JSNumber focusDistance,
-    JSNumber pan,
-    JSNumber tilt,
-    JSNumber zoom,
-    JSBoolean torch,
-    JSNumber width,
-    JSNumber height,
-    JSNumber aspectRatio,
-    JSNumber frameRate,
-    JSString facingMode,
-    JSString resizeMode,
-    JSNumber sampleRate,
-    JSNumber sampleSize,
-    JSBoolean echoCancellation,
-    JSBoolean autoGainControl,
-    JSBoolean noiseSuppression,
-    JSNumber latency,
-    JSNumber channelCount,
-    JSString deviceId,
-    JSString groupId,
-    JSString displaySurface,
-    JSBoolean logicalSurface,
-    JSString cursor,
-    JSBoolean restrictOwnAudio,
-    JSBoolean suppressLocalAudioPlayback,
+    double exposureCompensation,
+    double exposureTime,
+    double colorTemperature,
+    double iso,
+    double brightness,
+    double contrast,
+    double saturation,
+    double sharpness,
+    double focusDistance,
+    double pan,
+    double tilt,
+    double zoom,
+    bool torch,
+    int width,
+    int height,
+    double aspectRatio,
+    double frameRate,
+    String facingMode,
+    String resizeMode,
+    int sampleRate,
+    int sampleSize,
+    bool echoCancellation,
+    bool autoGainControl,
+    bool noiseSuppression,
+    double latency,
+    int channelCount,
+    String deviceId,
+    String groupId,
+    String displaySurface,
+    bool logicalSurface,
+    String cursor,
+    bool restrictOwnAudio,
+    bool suppressLocalAudioPlayback,
   });
 }
 
 extension MediaTrackSettingsExtension on MediaTrackSettings {
-  external set whiteBalanceMode(JSString value);
-  external JSString get whiteBalanceMode;
-  external set exposureMode(JSString value);
-  external JSString get exposureMode;
-  external set focusMode(JSString value);
-  external JSString get focusMode;
+  external set whiteBalanceMode(String value);
+  external String get whiteBalanceMode;
+  external set exposureMode(String value);
+  external String get exposureMode;
+  external set focusMode(String value);
+  external String get focusMode;
   external set pointsOfInterest(JSArray value);
   external JSArray get pointsOfInterest;
-  external set exposureCompensation(JSNumber value);
-  external JSNumber get exposureCompensation;
-  external set exposureTime(JSNumber value);
-  external JSNumber get exposureTime;
-  external set colorTemperature(JSNumber value);
-  external JSNumber get colorTemperature;
-  external set iso(JSNumber value);
-  external JSNumber get iso;
-  external set brightness(JSNumber value);
-  external JSNumber get brightness;
-  external set contrast(JSNumber value);
-  external JSNumber get contrast;
-  external set saturation(JSNumber value);
-  external JSNumber get saturation;
-  external set sharpness(JSNumber value);
-  external JSNumber get sharpness;
-  external set focusDistance(JSNumber value);
-  external JSNumber get focusDistance;
-  external set pan(JSNumber value);
-  external JSNumber get pan;
-  external set tilt(JSNumber value);
-  external JSNumber get tilt;
-  external set zoom(JSNumber value);
-  external JSNumber get zoom;
-  external set torch(JSBoolean value);
-  external JSBoolean get torch;
-  external set width(JSNumber value);
-  external JSNumber get width;
-  external set height(JSNumber value);
-  external JSNumber get height;
-  external set aspectRatio(JSNumber value);
-  external JSNumber get aspectRatio;
-  external set frameRate(JSNumber value);
-  external JSNumber get frameRate;
-  external set facingMode(JSString value);
-  external JSString get facingMode;
-  external set resizeMode(JSString value);
-  external JSString get resizeMode;
-  external set sampleRate(JSNumber value);
-  external JSNumber get sampleRate;
-  external set sampleSize(JSNumber value);
-  external JSNumber get sampleSize;
-  external set echoCancellation(JSBoolean value);
-  external JSBoolean get echoCancellation;
-  external set autoGainControl(JSBoolean value);
-  external JSBoolean get autoGainControl;
-  external set noiseSuppression(JSBoolean value);
-  external JSBoolean get noiseSuppression;
-  external set latency(JSNumber value);
-  external JSNumber get latency;
-  external set channelCount(JSNumber value);
-  external JSNumber get channelCount;
-  external set deviceId(JSString value);
-  external JSString get deviceId;
-  external set groupId(JSString value);
-  external JSString get groupId;
-  external set displaySurface(JSString value);
-  external JSString get displaySurface;
-  external set logicalSurface(JSBoolean value);
-  external JSBoolean get logicalSurface;
-  external set cursor(JSString value);
-  external JSString get cursor;
-  external set restrictOwnAudio(JSBoolean value);
-  external JSBoolean get restrictOwnAudio;
-  external set suppressLocalAudioPlayback(JSBoolean value);
-  external JSBoolean get suppressLocalAudioPlayback;
+  external set exposureCompensation(double value);
+  external double get exposureCompensation;
+  external set exposureTime(double value);
+  external double get exposureTime;
+  external set colorTemperature(double value);
+  external double get colorTemperature;
+  external set iso(double value);
+  external double get iso;
+  external set brightness(double value);
+  external double get brightness;
+  external set contrast(double value);
+  external double get contrast;
+  external set saturation(double value);
+  external double get saturation;
+  external set sharpness(double value);
+  external double get sharpness;
+  external set focusDistance(double value);
+  external double get focusDistance;
+  external set pan(double value);
+  external double get pan;
+  external set tilt(double value);
+  external double get tilt;
+  external set zoom(double value);
+  external double get zoom;
+  external set torch(bool value);
+  external bool get torch;
+  external set width(int value);
+  external int get width;
+  external set height(int value);
+  external int get height;
+  external set aspectRatio(double value);
+  external double get aspectRatio;
+  external set frameRate(double value);
+  external double get frameRate;
+  external set facingMode(String value);
+  external String get facingMode;
+  external set resizeMode(String value);
+  external String get resizeMode;
+  external set sampleRate(int value);
+  external int get sampleRate;
+  external set sampleSize(int value);
+  external int get sampleSize;
+  external set echoCancellation(bool value);
+  external bool get echoCancellation;
+  external set autoGainControl(bool value);
+  external bool get autoGainControl;
+  external set noiseSuppression(bool value);
+  external bool get noiseSuppression;
+  external set latency(double value);
+  external double get latency;
+  external set channelCount(int value);
+  external int get channelCount;
+  external set deviceId(String value);
+  external String get deviceId;
+  external set groupId(String value);
+  external String get groupId;
+  external set displaySurface(String value);
+  external String get displaySurface;
+  external set logicalSurface(bool value);
+  external bool get logicalSurface;
+  external set cursor(String value);
+  external String get cursor;
+  external set restrictOwnAudio(bool value);
+  external bool get restrictOwnAudio;
+  external set suppressLocalAudioPlayback(bool value);
+  external bool get suppressLocalAudioPlayback;
 }
 
 @JS('MediaStreamTrackEvent')
 @staticInterop
 class MediaStreamTrackEvent implements Event {
   external factory MediaStreamTrackEvent(
-    JSString type,
+    String type,
     MediaStreamTrackEventInit eventInitDict,
   );
 }
@@ -605,13 +605,13 @@ extension MediaStreamTrackEventInitExtension on MediaStreamTrackEventInit {
 @staticInterop
 class OverconstrainedError implements DOMException {
   external factory OverconstrainedError(
-    JSString constraint, [
-    JSString message,
+    String constraint, [
+    String message,
   ]);
 }
 
 extension OverconstrainedErrorExtension on OverconstrainedError {
-  external JSString get constraint;
+  external String get constraint;
 }
 
 @JS('MediaDevices')
@@ -640,10 +640,10 @@ class MediaDeviceInfo implements JSObject {}
 
 extension MediaDeviceInfoExtension on MediaDeviceInfo {
   external JSObject toJSON();
-  external JSString get deviceId;
+  external String get deviceId;
   external MediaDeviceKind get kind;
-  external JSString get label;
-  external JSString get groupId;
+  external String get label;
+  external String get groupId;
 }
 
 @JS('InputDeviceInfo')
@@ -661,8 +661,8 @@ class MediaStreamConstraints implements JSObject {
   external factory MediaStreamConstraints({
     JSAny? video,
     JSAny? audio,
-    JSBoolean preferCurrentTab,
-    JSString peerIdentity,
+    bool preferCurrentTab,
+    String peerIdentity,
   });
 }
 
@@ -671,10 +671,10 @@ extension MediaStreamConstraintsExtension on MediaStreamConstraints {
   external JSAny? get video;
   external set audio(JSAny? value);
   external JSAny? get audio;
-  external set preferCurrentTab(JSBoolean value);
-  external JSBoolean get preferCurrentTab;
-  external set peerIdentity(JSString value);
-  external JSString get peerIdentity;
+  external set preferCurrentTab(bool value);
+  external bool get preferCurrentTab;
+  external set peerIdentity(String value);
+  external String get peerIdentity;
 }
 
 @JS()
@@ -682,16 +682,16 @@ extension MediaStreamConstraintsExtension on MediaStreamConstraints {
 @anonymous
 class DoubleRange implements JSObject {
   external factory DoubleRange({
-    JSNumber max,
-    JSNumber min,
+    double max,
+    double min,
   });
 }
 
 extension DoubleRangeExtension on DoubleRange {
-  external set max(JSNumber value);
-  external JSNumber get max;
-  external set min(JSNumber value);
-  external JSNumber get min;
+  external set max(double value);
+  external double get max;
+  external set min(double value);
+  external double get min;
 }
 
 @JS()
@@ -699,16 +699,16 @@ extension DoubleRangeExtension on DoubleRange {
 @anonymous
 class ConstrainDoubleRange implements DoubleRange {
   external factory ConstrainDoubleRange({
-    JSNumber exact,
-    JSNumber ideal,
+    double exact,
+    double ideal,
   });
 }
 
 extension ConstrainDoubleRangeExtension on ConstrainDoubleRange {
-  external set exact(JSNumber value);
-  external JSNumber get exact;
-  external set ideal(JSNumber value);
-  external JSNumber get ideal;
+  external set exact(double value);
+  external double get exact;
+  external set ideal(double value);
+  external double get ideal;
 }
 
 @JS()
@@ -716,16 +716,16 @@ extension ConstrainDoubleRangeExtension on ConstrainDoubleRange {
 @anonymous
 class ULongRange implements JSObject {
   external factory ULongRange({
-    JSNumber max,
-    JSNumber min,
+    int max,
+    int min,
   });
 }
 
 extension ULongRangeExtension on ULongRange {
-  external set max(JSNumber value);
-  external JSNumber get max;
-  external set min(JSNumber value);
-  external JSNumber get min;
+  external set max(int value);
+  external int get max;
+  external set min(int value);
+  external int get min;
 }
 
 @JS()
@@ -733,16 +733,16 @@ extension ULongRangeExtension on ULongRange {
 @anonymous
 class ConstrainULongRange implements ULongRange {
   external factory ConstrainULongRange({
-    JSNumber exact,
-    JSNumber ideal,
+    int exact,
+    int ideal,
   });
 }
 
 extension ConstrainULongRangeExtension on ConstrainULongRange {
-  external set exact(JSNumber value);
-  external JSNumber get exact;
-  external set ideal(JSNumber value);
-  external JSNumber get ideal;
+  external set exact(int value);
+  external int get exact;
+  external set ideal(int value);
+  external int get ideal;
 }
 
 @JS()
@@ -750,16 +750,16 @@ extension ConstrainULongRangeExtension on ConstrainULongRange {
 @anonymous
 class ConstrainBooleanParameters implements JSObject {
   external factory ConstrainBooleanParameters({
-    JSBoolean exact,
-    JSBoolean ideal,
+    bool exact,
+    bool ideal,
   });
 }
 
 extension ConstrainBooleanParametersExtension on ConstrainBooleanParameters {
-  external set exact(JSBoolean value);
-  external JSBoolean get exact;
-  external set ideal(JSBoolean value);
-  external JSBoolean get ideal;
+  external set exact(bool value);
+  external bool get exact;
+  external set ideal(bool value);
+  external bool get ideal;
 }
 
 @JS()
@@ -784,23 +784,23 @@ extension ConstrainDOMStringParametersExtension
 @staticInterop
 @anonymous
 class DevicePermissionDescriptor implements PermissionDescriptor {
-  external factory DevicePermissionDescriptor({JSString deviceId});
+  external factory DevicePermissionDescriptor({String deviceId});
 }
 
 extension DevicePermissionDescriptorExtension on DevicePermissionDescriptor {
-  external set deviceId(JSString value);
-  external JSString get deviceId;
+  external set deviceId(String value);
+  external String get deviceId;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class CameraDevicePermissionDescriptor implements DevicePermissionDescriptor {
-  external factory CameraDevicePermissionDescriptor({JSBoolean panTiltZoom});
+  external factory CameraDevicePermissionDescriptor({bool panTiltZoom});
 }
 
 extension CameraDevicePermissionDescriptorExtension
     on CameraDevicePermissionDescriptor {
-  external set panTiltZoom(JSBoolean value);
-  external JSBoolean get panTiltZoom;
+  external set panTiltZoom(bool value);
+  external bool get panTiltZoom;
 }

@@ -9,5 +9,5 @@ import 'dart:js_interop';
 class NetworkInformationSaveData implements JSObject {}
 
 extension NetworkInformationSaveDataExtension on NetworkInformationSaveData {
-  external JSBoolean get saveData;
+  external bool get saveData;
 }

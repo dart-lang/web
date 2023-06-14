@@ -6,35 +6,35 @@ import 'dart:js_interop';
 
 import 'service_workers.dart';
 
-typedef ContentCategory = JSString;
+typedef ContentCategory = String;
 
 @JS()
 @staticInterop
 @anonymous
 class ContentDescription implements JSObject {
   external factory ContentDescription({
-    required JSString id,
-    required JSString title,
-    required JSString description,
+    required String id,
+    required String title,
+    required String description,
     ContentCategory category,
     JSArray icons,
-    required JSString url,
+    required String url,
   });
 }
 
 extension ContentDescriptionExtension on ContentDescription {
-  external set id(JSString value);
-  external JSString get id;
-  external set title(JSString value);
-  external JSString get title;
-  external set description(JSString value);
-  external JSString get description;
+  external set id(String value);
+  external String get id;
+  external set title(String value);
+  external String get title;
+  external set description(String value);
+  external String get description;
   external set category(ContentCategory value);
   external ContentCategory get category;
   external set icons(JSArray value);
   external JSArray get icons;
-  external set url(JSString value);
-  external JSString get url;
+  external set url(String value);
+  external String get url;
 }
 
 @JS('ContentIndex')
@@ -43,7 +43,7 @@ class ContentIndex implements JSObject {}
 
 extension ContentIndexExtension on ContentIndex {
   external JSPromise add(ContentDescription description);
-  external JSPromise delete(JSString id);
+  external JSPromise delete(String id);
   external JSPromise getAll();
 }
 
@@ -51,23 +51,23 @@ extension ContentIndexExtension on ContentIndex {
 @staticInterop
 @anonymous
 class ContentIndexEventInit implements ExtendableEventInit {
-  external factory ContentIndexEventInit({required JSString id});
+  external factory ContentIndexEventInit({required String id});
 }
 
 extension ContentIndexEventInitExtension on ContentIndexEventInit {
-  external set id(JSString value);
-  external JSString get id;
+  external set id(String value);
+  external String get id;
 }
 
 @JS('ContentIndexEvent')
 @staticInterop
 class ContentIndexEvent implements ExtendableEvent {
   external factory ContentIndexEvent(
-    JSString type,
+    String type,
     ContentIndexEventInit init,
   );
 }
 
 extension ContentIndexEventExtension on ContentIndexEvent {
-  external JSString get id;
+  external String get id;
 }

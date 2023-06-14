@@ -8,7 +8,7 @@ import 'dom.dart';
 import 'html.dart';
 
 typedef RemotePlaybackAvailabilityCallback = JSFunction;
-typedef RemotePlaybackState = JSString;
+typedef RemotePlaybackState = String;
 
 @JS('RemotePlayback')
 @staticInterop
@@ -17,7 +17,7 @@ class RemotePlayback implements EventTarget {}
 extension RemotePlaybackExtension on RemotePlayback {
   external JSPromise watchAvailability(
       RemotePlaybackAvailabilityCallback callback);
-  external JSPromise cancelWatchAvailability([JSNumber id]);
+  external JSPromise cancelWatchAvailability([int id]);
   external JSPromise prompt();
   external RemotePlaybackState get state;
   external set onconnecting(EventHandler value);

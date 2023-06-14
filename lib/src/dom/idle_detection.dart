@@ -7,22 +7,22 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
-typedef UserIdleState = JSString;
-typedef ScreenIdleState = JSString;
+typedef UserIdleState = String;
+typedef ScreenIdleState = String;
 
 @JS()
 @staticInterop
 @anonymous
 class IdleOptions implements JSObject {
   external factory IdleOptions({
-    JSNumber threshold,
+    int threshold,
     AbortSignal signal,
   });
 }
 
 extension IdleOptionsExtension on IdleOptions {
-  external set threshold(JSNumber value);
-  external JSNumber get threshold;
+  external set threshold(int value);
+  external int get threshold;
   external set signal(AbortSignal value);
   external AbortSignal get signal;
 }

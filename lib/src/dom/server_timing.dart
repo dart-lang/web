@@ -12,7 +12,7 @@ class PerformanceServerTiming implements JSObject {}
 
 extension PerformanceServerTimingExtension on PerformanceServerTiming {
   external JSObject toJSON();
-  external JSString get name;
+  external String get name;
   external DOMHighResTimeStamp get duration;
-  external JSString get description;
+  external String get description;
 }

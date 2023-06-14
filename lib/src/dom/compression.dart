@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 import 'streams.dart';
 
-typedef CompressionFormat = JSString;
+typedef CompressionFormat = String;
 
 @JS('CompressionStream')
 @staticInterop

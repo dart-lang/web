@@ -11,13 +11,13 @@ import 'reporting.dart';
 class PermissionsPolicy implements JSObject {}
 
 extension PermissionsPolicyExtension on PermissionsPolicy {
-  external JSBoolean allowsFeature(
-    JSString feature, [
-    JSString origin,
+  external bool allowsFeature(
+    String feature, [
+    String origin,
   ]);
   external JSArray features();
   external JSArray allowedFeatures();
-  external JSArray getAllowlistForFeature(JSString feature);
+  external JSArray getAllowlistForFeature(String feature);
 }
 
 @JS('PermissionsPolicyViolationReportBody')
@@ -26,9 +26,9 @@ class PermissionsPolicyViolationReportBody implements ReportBody {}
 
 extension PermissionsPolicyViolationReportBodyExtension
     on PermissionsPolicyViolationReportBody {
-  external JSString get featureId;
-  external JSString? get sourceFile;
-  external JSNumber? get lineNumber;
-  external JSNumber? get columnNumber;
-  external JSString get disposition;
+  external String get featureId;
+  external String? get sourceFile;
+  external int? get lineNumber;
+  external int? get columnNumber;
+  external String get disposition;
 }

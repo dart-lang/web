@@ -28,14 +28,14 @@ extension StorageManagerExtension on StorageManager {
 @anonymous
 class StorageEstimate implements JSObject {
   external factory StorageEstimate({
-    JSNumber usage,
-    JSNumber quota,
+    int usage,
+    int quota,
   });
 }
 
 extension StorageEstimateExtension on StorageEstimate {
-  external set usage(JSNumber value);
-  external JSNumber get usage;
-  external set quota(JSNumber value);
-  external JSNumber get quota;
+  external set usage(int value);
+  external int get usage;
+  external set quota(int value);
+  external int get quota;
 }

@@ -20,9 +20,9 @@ extension NamedFlowExtension on NamedFlow {
   external JSArray getRegions();
   external JSArray getContent();
   external JSArray getRegionsByContent(Node node);
-  external JSString get name;
-  external JSBoolean get overset;
-  external JSNumber get firstEmptyRegionIndex;
+  external String get name;
+  external bool get overset;
+  external int get firstEmptyRegionIndex;
 }
 
 @JS('Region')
@@ -31,5 +31,5 @@ class Region implements JSObject {}
 
 extension RegionExtension on Region {
   external JSArray? getRegionFlowRanges();
-  external JSString get regionOverset;
+  external String get regionOverset;
 }

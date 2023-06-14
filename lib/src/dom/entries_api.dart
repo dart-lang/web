@@ -18,10 +18,10 @@ extension FileSystemEntryExtension on FileSystemEntry {
     FileSystemEntryCallback successCallback,
     ErrorCallback errorCallback,
   ]);
-  external JSBoolean get isFile;
-  external JSBoolean get isDirectory;
-  external JSString get name;
-  external JSString get fullPath;
+  external bool get isFile;
+  external bool get isDirectory;
+  external String get name;
+  external String get fullPath;
   external FileSystem get filesystem;
 }
 
@@ -32,13 +32,13 @@ class FileSystemDirectoryEntry implements FileSystemEntry {}
 extension FileSystemDirectoryEntryExtension on FileSystemDirectoryEntry {
   external FileSystemDirectoryReader createReader();
   external JSVoid getFile([
-    JSString? path,
+    String? path,
     FileSystemFlags options,
     FileSystemEntryCallback successCallback,
     ErrorCallback errorCallback,
   ]);
   external JSVoid getDirectory([
-    JSString? path,
+    String? path,
     FileSystemFlags options,
     FileSystemEntryCallback successCallback,
     ErrorCallback errorCallback,
@@ -50,16 +50,16 @@ extension FileSystemDirectoryEntryExtension on FileSystemDirectoryEntry {
 @anonymous
 class FileSystemFlags implements JSObject {
   external factory FileSystemFlags({
-    JSBoolean create,
-    JSBoolean exclusive,
+    bool create,
+    bool exclusive,
   });
 }
 
 extension FileSystemFlagsExtension on FileSystemFlags {
-  external set create(JSBoolean value);
-  external JSBoolean get create;
-  external set exclusive(JSBoolean value);
-  external JSBoolean get exclusive;
+  external set create(bool value);
+  external bool get create;
+  external set exclusive(bool value);
+  external bool get exclusive;
 }
 
 @JS('FileSystemDirectoryReader')
@@ -89,6 +89,6 @@ extension FileSystemFileEntryExtension on FileSystemFileEntry {
 class FileSystem implements JSObject {}
 
 extension FileSystemExtension on FileSystem {
-  external JSString get name;
+  external String get name;
   external FileSystemDirectoryEntry get root;
 }

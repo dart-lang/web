@@ -18,10 +18,10 @@ extension PerformanceElementTimingExtension on PerformanceElementTiming {
   external DOMHighResTimeStamp get renderTime;
   external DOMHighResTimeStamp get loadTime;
   external DOMRectReadOnly get intersectionRect;
-  external JSString get identifier;
-  external JSNumber get naturalWidth;
-  external JSNumber get naturalHeight;
-  external JSString get id;
+  external String get identifier;
+  external int get naturalWidth;
+  external int get naturalHeight;
+  external String get id;
   external Element? get element;
-  external JSString get url;
+  external String get url;
 }

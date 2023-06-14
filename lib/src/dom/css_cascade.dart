@@ -11,7 +11,7 @@ import 'cssom.dart';
 class CSSLayerBlockRule implements CSSGroupingRule {}
 
 extension CSSLayerBlockRuleExtension on CSSLayerBlockRule {
-  external JSString get name;
+  external String get name;
 }
 
 @JS('CSSLayerStatementRule')

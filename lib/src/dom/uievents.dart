@@ -12,23 +12,23 @@ import 'input_device_capabilities.dart';
 @staticInterop
 class UIEvent implements Event {
   external factory UIEvent(
-    JSString type, [
+    String type, [
     UIEventInit eventInitDict,
   ]);
 }
 
 extension UIEventExtension on UIEvent {
   external JSVoid initUIEvent(
-    JSString typeArg, [
-    JSBoolean bubblesArg,
-    JSBoolean cancelableArg,
+    String typeArg, [
+    bool bubblesArg,
+    bool cancelableArg,
     Window? viewArg,
-    JSNumber detailArg,
+    int detailArg,
   ]);
   external InputDeviceCapabilities? get sourceCapabilities;
   external Window? get view;
-  external JSNumber get detail;
-  external JSNumber get which;
+  external int get detail;
+  external int get which;
 }
 
 @JS()
@@ -38,8 +38,8 @@ class UIEventInit implements EventInit {
   external factory UIEventInit({
     InputDeviceCapabilities? sourceCapabilities,
     Window? view,
-    JSNumber detail,
-    JSNumber which,
+    int detail,
+    int which,
   });
 }
 
@@ -48,17 +48,17 @@ extension UIEventInitExtension on UIEventInit {
   external InputDeviceCapabilities? get sourceCapabilities;
   external set view(Window? value);
   external Window? get view;
-  external set detail(JSNumber value);
-  external JSNumber get detail;
-  external set which(JSNumber value);
-  external JSNumber get which;
+  external set detail(int value);
+  external int get detail;
+  external set which(int value);
+  external int get which;
 }
 
 @JS('FocusEvent')
 @staticInterop
 class FocusEvent implements UIEvent {
   external factory FocusEvent(
-    JSString type, [
+    String type, [
     FocusEventInit eventInitDict,
   ]);
 }
@@ -83,48 +83,48 @@ extension FocusEventInitExtension on FocusEventInit {
 @staticInterop
 class MouseEvent implements UIEvent {
   external factory MouseEvent(
-    JSString type, [
+    String type, [
     MouseEventInit eventInitDict,
   ]);
 }
 
 extension MouseEventExtension on MouseEvent {
-  external JSBoolean getModifierState(JSString keyArg);
+  external bool getModifierState(String keyArg);
   external JSVoid initMouseEvent(
-    JSString typeArg, [
-    JSBoolean bubblesArg,
-    JSBoolean cancelableArg,
+    String typeArg, [
+    bool bubblesArg,
+    bool cancelableArg,
     Window? viewArg,
-    JSNumber detailArg,
-    JSNumber screenXArg,
-    JSNumber screenYArg,
-    JSNumber clientXArg,
-    JSNumber clientYArg,
-    JSBoolean ctrlKeyArg,
-    JSBoolean altKeyArg,
-    JSBoolean shiftKeyArg,
-    JSBoolean metaKeyArg,
-    JSNumber buttonArg,
+    int detailArg,
+    int screenXArg,
+    int screenYArg,
+    int clientXArg,
+    int clientYArg,
+    bool ctrlKeyArg,
+    bool altKeyArg,
+    bool shiftKeyArg,
+    bool metaKeyArg,
+    int buttonArg,
     EventTarget? relatedTargetArg,
   ]);
-  external JSNumber get pageX;
-  external JSNumber get pageY;
-  external JSNumber get x;
-  external JSNumber get y;
-  external JSNumber get offsetX;
-  external JSNumber get offsetY;
-  external JSNumber get movementX;
-  external JSNumber get movementY;
-  external JSNumber get screenX;
-  external JSNumber get screenY;
-  external JSNumber get clientX;
-  external JSNumber get clientY;
-  external JSBoolean get ctrlKey;
-  external JSBoolean get shiftKey;
-  external JSBoolean get altKey;
-  external JSBoolean get metaKey;
-  external JSNumber get button;
-  external JSNumber get buttons;
+  external double get pageX;
+  external double get pageY;
+  external double get x;
+  external double get y;
+  external double get offsetX;
+  external double get offsetY;
+  external double get movementX;
+  external double get movementY;
+  external int get screenX;
+  external int get screenY;
+  external int get clientX;
+  external int get clientY;
+  external bool get ctrlKey;
+  external bool get shiftKey;
+  external bool get altKey;
+  external bool get metaKey;
+  external int get button;
+  external int get buttons;
   external EventTarget? get relatedTarget;
 }
 
@@ -133,35 +133,35 @@ extension MouseEventExtension on MouseEvent {
 @anonymous
 class MouseEventInit implements EventModifierInit {
   external factory MouseEventInit({
-    JSNumber movementX,
-    JSNumber movementY,
-    JSNumber screenX,
-    JSNumber screenY,
-    JSNumber clientX,
-    JSNumber clientY,
-    JSNumber button,
-    JSNumber buttons,
+    double movementX,
+    double movementY,
+    int screenX,
+    int screenY,
+    int clientX,
+    int clientY,
+    int button,
+    int buttons,
     EventTarget? relatedTarget,
   });
 }
 
 extension MouseEventInitExtension on MouseEventInit {
-  external set movementX(JSNumber value);
-  external JSNumber get movementX;
-  external set movementY(JSNumber value);
-  external JSNumber get movementY;
-  external set screenX(JSNumber value);
-  external JSNumber get screenX;
-  external set screenY(JSNumber value);
-  external JSNumber get screenY;
-  external set clientX(JSNumber value);
-  external JSNumber get clientX;
-  external set clientY(JSNumber value);
-  external JSNumber get clientY;
-  external set button(JSNumber value);
-  external JSNumber get button;
-  external set buttons(JSNumber value);
-  external JSNumber get buttons;
+  external set movementX(double value);
+  external double get movementX;
+  external set movementY(double value);
+  external double get movementY;
+  external set screenX(int value);
+  external int get screenX;
+  external set screenY(int value);
+  external int get screenY;
+  external set clientX(int value);
+  external int get clientX;
+  external set clientY(int value);
+  external int get clientY;
+  external set button(int value);
+  external int get button;
+  external set buttons(int value);
+  external int get buttons;
   external set relatedTarget(EventTarget? value);
   external EventTarget? get relatedTarget;
 }
@@ -171,72 +171,72 @@ extension MouseEventInitExtension on MouseEventInit {
 @anonymous
 class EventModifierInit implements UIEventInit {
   external factory EventModifierInit({
-    JSBoolean ctrlKey,
-    JSBoolean shiftKey,
-    JSBoolean altKey,
-    JSBoolean metaKey,
-    JSBoolean modifierAltGraph,
-    JSBoolean modifierCapsLock,
-    JSBoolean modifierFn,
-    JSBoolean modifierFnLock,
-    JSBoolean modifierHyper,
-    JSBoolean modifierNumLock,
-    JSBoolean modifierScrollLock,
-    JSBoolean modifierSuper,
-    JSBoolean modifierSymbol,
-    JSBoolean modifierSymbolLock,
+    bool ctrlKey,
+    bool shiftKey,
+    bool altKey,
+    bool metaKey,
+    bool modifierAltGraph,
+    bool modifierCapsLock,
+    bool modifierFn,
+    bool modifierFnLock,
+    bool modifierHyper,
+    bool modifierNumLock,
+    bool modifierScrollLock,
+    bool modifierSuper,
+    bool modifierSymbol,
+    bool modifierSymbolLock,
   });
 }
 
 extension EventModifierInitExtension on EventModifierInit {
-  external set ctrlKey(JSBoolean value);
-  external JSBoolean get ctrlKey;
-  external set shiftKey(JSBoolean value);
-  external JSBoolean get shiftKey;
-  external set altKey(JSBoolean value);
-  external JSBoolean get altKey;
-  external set metaKey(JSBoolean value);
-  external JSBoolean get metaKey;
-  external set modifierAltGraph(JSBoolean value);
-  external JSBoolean get modifierAltGraph;
-  external set modifierCapsLock(JSBoolean value);
-  external JSBoolean get modifierCapsLock;
-  external set modifierFn(JSBoolean value);
-  external JSBoolean get modifierFn;
-  external set modifierFnLock(JSBoolean value);
-  external JSBoolean get modifierFnLock;
-  external set modifierHyper(JSBoolean value);
-  external JSBoolean get modifierHyper;
-  external set modifierNumLock(JSBoolean value);
-  external JSBoolean get modifierNumLock;
-  external set modifierScrollLock(JSBoolean value);
-  external JSBoolean get modifierScrollLock;
-  external set modifierSuper(JSBoolean value);
-  external JSBoolean get modifierSuper;
-  external set modifierSymbol(JSBoolean value);
-  external JSBoolean get modifierSymbol;
-  external set modifierSymbolLock(JSBoolean value);
-  external JSBoolean get modifierSymbolLock;
+  external set ctrlKey(bool value);
+  external bool get ctrlKey;
+  external set shiftKey(bool value);
+  external bool get shiftKey;
+  external set altKey(bool value);
+  external bool get altKey;
+  external set metaKey(bool value);
+  external bool get metaKey;
+  external set modifierAltGraph(bool value);
+  external bool get modifierAltGraph;
+  external set modifierCapsLock(bool value);
+  external bool get modifierCapsLock;
+  external set modifierFn(bool value);
+  external bool get modifierFn;
+  external set modifierFnLock(bool value);
+  external bool get modifierFnLock;
+  external set modifierHyper(bool value);
+  external bool get modifierHyper;
+  external set modifierNumLock(bool value);
+  external bool get modifierNumLock;
+  external set modifierScrollLock(bool value);
+  external bool get modifierScrollLock;
+  external set modifierSuper(bool value);
+  external bool get modifierSuper;
+  external set modifierSymbol(bool value);
+  external bool get modifierSymbol;
+  external set modifierSymbolLock(bool value);
+  external bool get modifierSymbolLock;
 }
 
 @JS('WheelEvent')
 @staticInterop
 class WheelEvent implements MouseEvent {
   external factory WheelEvent(
-    JSString type, [
+    String type, [
     WheelEventInit eventInitDict,
   ]);
 
-  external static JSNumber get DOM_DELTA_PIXEL;
-  external static JSNumber get DOM_DELTA_LINE;
-  external static JSNumber get DOM_DELTA_PAGE;
+  external static int get DOM_DELTA_PIXEL;
+  external static int get DOM_DELTA_LINE;
+  external static int get DOM_DELTA_PAGE;
 }
 
 extension WheelEventExtension on WheelEvent {
-  external JSNumber get deltaX;
-  external JSNumber get deltaY;
-  external JSNumber get deltaZ;
-  external JSNumber get deltaMode;
+  external double get deltaX;
+  external double get deltaY;
+  external double get deltaZ;
+  external int get deltaMode;
 }
 
 @JS()
@@ -244,29 +244,29 @@ extension WheelEventExtension on WheelEvent {
 @anonymous
 class WheelEventInit implements MouseEventInit {
   external factory WheelEventInit({
-    JSNumber deltaX,
-    JSNumber deltaY,
-    JSNumber deltaZ,
-    JSNumber deltaMode,
+    double deltaX,
+    double deltaY,
+    double deltaZ,
+    int deltaMode,
   });
 }
 
 extension WheelEventInitExtension on WheelEventInit {
-  external set deltaX(JSNumber value);
-  external JSNumber get deltaX;
-  external set deltaY(JSNumber value);
-  external JSNumber get deltaY;
-  external set deltaZ(JSNumber value);
-  external JSNumber get deltaZ;
-  external set deltaMode(JSNumber value);
-  external JSNumber get deltaMode;
+  external set deltaX(double value);
+  external double get deltaX;
+  external set deltaY(double value);
+  external double get deltaY;
+  external set deltaZ(double value);
+  external double get deltaZ;
+  external set deltaMode(int value);
+  external int get deltaMode;
 }
 
 @JS('InputEvent')
 @staticInterop
 class InputEvent implements UIEvent {
   external factory InputEvent(
-    JSString type, [
+    String type, [
     InputEventInit eventInitDict,
   ]);
 }
@@ -274,9 +274,9 @@ class InputEvent implements UIEvent {
 extension InputEventExtension on InputEvent {
   external JSArray getTargetRanges();
   external DataTransfer? get dataTransfer;
-  external JSString? get data;
-  external JSBoolean get isComposing;
-  external JSString get inputType;
+  external String? get data;
+  external bool get isComposing;
+  external String get inputType;
 }
 
 @JS()
@@ -286,9 +286,9 @@ class InputEventInit implements UIEventInit {
   external factory InputEventInit({
     DataTransfer? dataTransfer,
     JSArray targetRanges,
-    JSString? data,
-    JSBoolean isComposing,
-    JSString inputType,
+    String? data,
+    bool isComposing,
+    String inputType,
   });
 }
 
@@ -297,53 +297,53 @@ extension InputEventInitExtension on InputEventInit {
   external DataTransfer? get dataTransfer;
   external set targetRanges(JSArray value);
   external JSArray get targetRanges;
-  external set data(JSString? value);
-  external JSString? get data;
-  external set isComposing(JSBoolean value);
-  external JSBoolean get isComposing;
-  external set inputType(JSString value);
-  external JSString get inputType;
+  external set data(String? value);
+  external String? get data;
+  external set isComposing(bool value);
+  external bool get isComposing;
+  external set inputType(String value);
+  external String get inputType;
 }
 
 @JS('KeyboardEvent')
 @staticInterop
 class KeyboardEvent implements UIEvent {
   external factory KeyboardEvent(
-    JSString type, [
+    String type, [
     KeyboardEventInit eventInitDict,
   ]);
 
-  external static JSNumber get DOM_KEY_LOCATION_STANDARD;
-  external static JSNumber get DOM_KEY_LOCATION_LEFT;
-  external static JSNumber get DOM_KEY_LOCATION_RIGHT;
-  external static JSNumber get DOM_KEY_LOCATION_NUMPAD;
+  external static int get DOM_KEY_LOCATION_STANDARD;
+  external static int get DOM_KEY_LOCATION_LEFT;
+  external static int get DOM_KEY_LOCATION_RIGHT;
+  external static int get DOM_KEY_LOCATION_NUMPAD;
 }
 
 extension KeyboardEventExtension on KeyboardEvent {
-  external JSBoolean getModifierState(JSString keyArg);
+  external bool getModifierState(String keyArg);
   external JSVoid initKeyboardEvent(
-    JSString typeArg, [
-    JSBoolean bubblesArg,
-    JSBoolean cancelableArg,
+    String typeArg, [
+    bool bubblesArg,
+    bool cancelableArg,
     Window? viewArg,
-    JSString keyArg,
-    JSNumber locationArg,
-    JSBoolean ctrlKey,
-    JSBoolean altKey,
-    JSBoolean shiftKey,
-    JSBoolean metaKey,
+    String keyArg,
+    int locationArg,
+    bool ctrlKey,
+    bool altKey,
+    bool shiftKey,
+    bool metaKey,
   ]);
-  external JSString get key;
-  external JSString get code;
-  external JSNumber get location;
-  external JSBoolean get ctrlKey;
-  external JSBoolean get shiftKey;
-  external JSBoolean get altKey;
-  external JSBoolean get metaKey;
-  external JSBoolean get repeat;
-  external JSBoolean get isComposing;
-  external JSNumber get charCode;
-  external JSNumber get keyCode;
+  external String get key;
+  external String get code;
+  external int get location;
+  external bool get ctrlKey;
+  external bool get shiftKey;
+  external bool get altKey;
+  external bool get metaKey;
+  external bool get repeat;
+  external bool get isComposing;
+  external int get charCode;
+  external int get keyCode;
 }
 
 @JS()
@@ -351,87 +351,87 @@ extension KeyboardEventExtension on KeyboardEvent {
 @anonymous
 class KeyboardEventInit implements EventModifierInit {
   external factory KeyboardEventInit({
-    JSString key,
-    JSString code,
-    JSNumber location,
-    JSBoolean repeat,
-    JSBoolean isComposing,
-    JSNumber charCode,
-    JSNumber keyCode,
+    String key,
+    String code,
+    int location,
+    bool repeat,
+    bool isComposing,
+    int charCode,
+    int keyCode,
   });
 }
 
 extension KeyboardEventInitExtension on KeyboardEventInit {
-  external set key(JSString value);
-  external JSString get key;
-  external set code(JSString value);
-  external JSString get code;
-  external set location(JSNumber value);
-  external JSNumber get location;
-  external set repeat(JSBoolean value);
-  external JSBoolean get repeat;
-  external set isComposing(JSBoolean value);
-  external JSBoolean get isComposing;
-  external set charCode(JSNumber value);
-  external JSNumber get charCode;
-  external set keyCode(JSNumber value);
-  external JSNumber get keyCode;
+  external set key(String value);
+  external String get key;
+  external set code(String value);
+  external String get code;
+  external set location(int value);
+  external int get location;
+  external set repeat(bool value);
+  external bool get repeat;
+  external set isComposing(bool value);
+  external bool get isComposing;
+  external set charCode(int value);
+  external int get charCode;
+  external set keyCode(int value);
+  external int get keyCode;
 }
 
 @JS('CompositionEvent')
 @staticInterop
 class CompositionEvent implements UIEvent {
   external factory CompositionEvent(
-    JSString type, [
+    String type, [
     CompositionEventInit eventInitDict,
   ]);
 }
 
 extension CompositionEventExtension on CompositionEvent {
   external JSVoid initCompositionEvent(
-    JSString typeArg, [
-    JSBoolean bubblesArg,
-    JSBoolean cancelableArg,
+    String typeArg, [
+    bool bubblesArg,
+    bool cancelableArg,
     Window? viewArg,
-    JSString dataArg,
+    String dataArg,
   ]);
-  external JSString get data;
+  external String get data;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class CompositionEventInit implements UIEventInit {
-  external factory CompositionEventInit({JSString data});
+  external factory CompositionEventInit({String data});
 }
 
 extension CompositionEventInitExtension on CompositionEventInit {
-  external set data(JSString value);
-  external JSString get data;
+  external set data(String value);
+  external String get data;
 }
 
 @JS('MutationEvent')
 @staticInterop
 class MutationEvent implements Event {
-  external static JSNumber get MODIFICATION;
-  external static JSNumber get ADDITION;
-  external static JSNumber get REMOVAL;
+  external static int get MODIFICATION;
+  external static int get ADDITION;
+  external static int get REMOVAL;
 }
 
 extension MutationEventExtension on MutationEvent {
   external JSVoid initMutationEvent(
-    JSString typeArg, [
-    JSBoolean bubblesArg,
-    JSBoolean cancelableArg,
+    String typeArg, [
+    bool bubblesArg,
+    bool cancelableArg,
     Node? relatedNodeArg,
-    JSString prevValueArg,
-    JSString newValueArg,
-    JSString attrNameArg,
-    JSNumber attrChangeArg,
+    String prevValueArg,
+    String newValueArg,
+    String attrNameArg,
+    int attrChangeArg,
   ]);
   external Node? get relatedNode;
-  external JSString get prevValue;
-  external JSString get newValue;
-  external JSString get attrName;
-  external JSNumber get attrChange;
+  external String get prevValue;
+  external String get newValue;
+  external String get attrName;
+  external int get attrChange;
 }

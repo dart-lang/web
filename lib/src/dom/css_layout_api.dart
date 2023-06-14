@@ -8,10 +8,10 @@ import 'css_typed_om.dart';
 import 'html.dart';
 import 'webidl.dart';
 
-typedef ChildDisplayType = JSString;
-typedef LayoutSizingMode = JSString;
-typedef BlockFragmentationType = JSString;
-typedef BreakType = JSString;
+typedef ChildDisplayType = String;
+typedef LayoutSizingMode = String;
+typedef BlockFragmentationType = String;
+typedef BreakType = String;
 
 @JS('LayoutWorkletGlobalScope')
 @staticInterop
@@ -19,7 +19,7 @@ class LayoutWorkletGlobalScope implements WorkletGlobalScope {}
 
 extension LayoutWorkletGlobalScopeExtension on LayoutWorkletGlobalScope {
   external JSVoid registerLayout(
-    JSString name,
+    String name,
     VoidFunction layoutCtor,
   );
 }
@@ -59,12 +59,12 @@ extension LayoutChildExtension on LayoutChild {
 class LayoutFragment implements JSObject {}
 
 extension LayoutFragmentExtension on LayoutFragment {
-  external JSNumber get inlineSize;
-  external JSNumber get blockSize;
-  external set inlineOffset(JSNumber value);
-  external JSNumber get inlineOffset;
-  external set blockOffset(JSNumber value);
-  external JSNumber get blockOffset;
+  external double get inlineSize;
+  external double get blockSize;
+  external set inlineOffset(double value);
+  external double get inlineOffset;
+  external set blockOffset(double value);
+  external double get blockOffset;
   external JSAny? get data;
   external ChildBreakToken? get breakToken;
 }
@@ -74,8 +74,8 @@ extension LayoutFragmentExtension on LayoutFragment {
 class IntrinsicSizes implements JSObject {}
 
 extension IntrinsicSizesExtension on IntrinsicSizes {
-  external JSNumber get minContentSize;
-  external JSNumber get maxContentSize;
+  external double get minContentSize;
+  external double get maxContentSize;
 }
 
 @JS('LayoutConstraints')
@@ -83,13 +83,13 @@ extension IntrinsicSizesExtension on IntrinsicSizes {
 class LayoutConstraints implements JSObject {}
 
 extension LayoutConstraintsExtension on LayoutConstraints {
-  external JSNumber get availableInlineSize;
-  external JSNumber get availableBlockSize;
-  external JSNumber? get fixedInlineSize;
-  external JSNumber? get fixedBlockSize;
-  external JSNumber get percentageInlineSize;
-  external JSNumber get percentageBlockSize;
-  external JSNumber? get blockFragmentationOffset;
+  external double get availableInlineSize;
+  external double get availableBlockSize;
+  external double? get fixedInlineSize;
+  external double? get fixedBlockSize;
+  external double get percentageInlineSize;
+  external double get percentageBlockSize;
+  external double? get blockFragmentationOffset;
   external BlockFragmentationType get blockFragmentationType;
   external JSAny? get data;
 }
@@ -99,33 +99,33 @@ extension LayoutConstraintsExtension on LayoutConstraints {
 @anonymous
 class LayoutConstraintsOptions implements JSObject {
   external factory LayoutConstraintsOptions({
-    JSNumber availableInlineSize,
-    JSNumber availableBlockSize,
-    JSNumber fixedInlineSize,
-    JSNumber fixedBlockSize,
-    JSNumber percentageInlineSize,
-    JSNumber percentageBlockSize,
-    JSNumber blockFragmentationOffset,
+    double availableInlineSize,
+    double availableBlockSize,
+    double fixedInlineSize,
+    double fixedBlockSize,
+    double percentageInlineSize,
+    double percentageBlockSize,
+    double blockFragmentationOffset,
     BlockFragmentationType blockFragmentationType,
     JSAny? data,
   });
 }
 
 extension LayoutConstraintsOptionsExtension on LayoutConstraintsOptions {
-  external set availableInlineSize(JSNumber value);
-  external JSNumber get availableInlineSize;
-  external set availableBlockSize(JSNumber value);
-  external JSNumber get availableBlockSize;
-  external set fixedInlineSize(JSNumber value);
-  external JSNumber get fixedInlineSize;
-  external set fixedBlockSize(JSNumber value);
-  external JSNumber get fixedBlockSize;
-  external set percentageInlineSize(JSNumber value);
-  external JSNumber get percentageInlineSize;
-  external set percentageBlockSize(JSNumber value);
-  external JSNumber get percentageBlockSize;
-  external set blockFragmentationOffset(JSNumber value);
-  external JSNumber get blockFragmentationOffset;
+  external set availableInlineSize(double value);
+  external double get availableInlineSize;
+  external set availableBlockSize(double value);
+  external double get availableBlockSize;
+  external set fixedInlineSize(double value);
+  external double get fixedInlineSize;
+  external set fixedBlockSize(double value);
+  external double get fixedBlockSize;
+  external set percentageInlineSize(double value);
+  external double get percentageInlineSize;
+  external set percentageBlockSize(double value);
+  external double get percentageBlockSize;
+  external set blockFragmentationOffset(double value);
+  external double get blockFragmentationOffset;
   external set blockFragmentationType(BlockFragmentationType value);
   external BlockFragmentationType get blockFragmentationType;
   external set data(JSAny? value);
@@ -172,12 +172,12 @@ extension BreakTokenOptionsExtension on BreakTokenOptions {
 class LayoutEdges implements JSObject {}
 
 extension LayoutEdgesExtension on LayoutEdges {
-  external JSNumber get inlineStart;
-  external JSNumber get inlineEnd;
-  external JSNumber get blockStart;
-  external JSNumber get blockEnd;
-  external JSNumber get inline;
-  external JSNumber get block;
+  external double get inlineStart;
+  external double get inlineEnd;
+  external double get blockStart;
+  external double get blockEnd;
+  external double get inline;
+  external double get block;
 }
 
 @JS()
@@ -185,9 +185,9 @@ extension LayoutEdgesExtension on LayoutEdges {
 @anonymous
 class FragmentResultOptions implements JSObject {
   external factory FragmentResultOptions({
-    JSNumber inlineSize,
-    JSNumber blockSize,
-    JSNumber autoBlockSize,
+    double inlineSize,
+    double blockSize,
+    double autoBlockSize,
     JSArray childFragments,
     JSAny? data,
     BreakTokenOptions breakToken,
@@ -195,12 +195,12 @@ class FragmentResultOptions implements JSObject {
 }
 
 extension FragmentResultOptionsExtension on FragmentResultOptions {
-  external set inlineSize(JSNumber value);
-  external JSNumber get inlineSize;
-  external set blockSize(JSNumber value);
-  external JSNumber get blockSize;
-  external set autoBlockSize(JSNumber value);
-  external JSNumber get autoBlockSize;
+  external set inlineSize(double value);
+  external double get inlineSize;
+  external set blockSize(double value);
+  external double get blockSize;
+  external set autoBlockSize(double value);
+  external double get autoBlockSize;
   external set childFragments(JSArray value);
   external JSArray get childFragments;
   external set data(JSAny? value);
@@ -216,8 +216,8 @@ class FragmentResult implements JSObject {
 }
 
 extension FragmentResultExtension on FragmentResult {
-  external JSNumber get inlineSize;
-  external JSNumber get blockSize;
+  external double get inlineSize;
+  external double get blockSize;
 }
 
 @JS()
@@ -225,14 +225,14 @@ extension FragmentResultExtension on FragmentResult {
 @anonymous
 class IntrinsicSizesResultOptions implements JSObject {
   external factory IntrinsicSizesResultOptions({
-    JSNumber maxContentSize,
-    JSNumber minContentSize,
+    double maxContentSize,
+    double minContentSize,
   });
 }
 
 extension IntrinsicSizesResultOptionsExtension on IntrinsicSizesResultOptions {
-  external set maxContentSize(JSNumber value);
-  external JSNumber get maxContentSize;
-  external set minContentSize(JSNumber value);
-  external JSNumber get minContentSize;
+  external set maxContentSize(double value);
+  external double get maxContentSize;
+  external set minContentSize(double value);
+  external double get minContentSize;
 }

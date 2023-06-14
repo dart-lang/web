@@ -16,9 +16,9 @@ extension PerformanceEventTimingExtension on PerformanceEventTiming {
   external JSObject toJSON();
   external DOMHighResTimeStamp get processingStart;
   external DOMHighResTimeStamp get processingEnd;
-  external JSBoolean get cancelable;
+  external bool get cancelable;
   external Node? get target;
-  external JSNumber get interactionId;
+  external int get interactionId;
 }
 
 @JS('EventCounts')

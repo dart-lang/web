@@ -11,7 +11,7 @@ import 'service_workers.dart';
 class SyncManager implements JSObject {}
 
 extension SyncManagerExtension on SyncManager {
-  external JSPromise register(JSString tag);
+  external JSPromise register(String tag);
   external JSPromise getTags();
 }
 
@@ -19,14 +19,14 @@ extension SyncManagerExtension on SyncManager {
 @staticInterop
 class SyncEvent implements ExtendableEvent {
   external factory SyncEvent(
-    JSString type,
+    String type,
     SyncEventInit init,
   );
 }
 
 extension SyncEventExtension on SyncEvent {
-  external JSString get tag;
-  external JSBoolean get lastChance;
+  external String get tag;
+  external bool get lastChance;
 }
 
 @JS()
@@ -34,14 +34,14 @@ extension SyncEventExtension on SyncEvent {
 @anonymous
 class SyncEventInit implements ExtendableEventInit {
   external factory SyncEventInit({
-    required JSString tag,
-    JSBoolean lastChance,
+    required String tag,
+    bool lastChance,
   });
 }
 
 extension SyncEventInitExtension on SyncEventInit {
-  external set tag(JSString value);
-  external JSString get tag;
-  external set lastChance(JSBoolean value);
-  external JSBoolean get lastChance;
+  external set tag(String value);
+  external String get tag;
+  external set lastChance(bool value);
+  external bool get lastChance;
 }

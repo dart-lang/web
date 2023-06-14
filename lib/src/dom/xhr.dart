@@ -9,7 +9,7 @@ import 'dom.dart';
 import 'html.dart';
 
 typedef FormDataEntryValue = JSAny?;
-typedef XMLHttpRequestResponseType = JSString;
+typedef XMLHttpRequestResponseType = String;
 
 @JS('XMLHttpRequestEventTarget')
 @staticInterop
@@ -41,47 +41,47 @@ class XMLHttpRequestUpload implements XMLHttpRequestEventTarget {}
 class XMLHttpRequest implements XMLHttpRequestEventTarget {
   external factory XMLHttpRequest();
 
-  external static JSNumber get UNSENT;
-  external static JSNumber get OPENED;
-  external static JSNumber get HEADERS_RECEIVED;
-  external static JSNumber get LOADING;
-  external static JSNumber get DONE;
+  external static int get UNSENT;
+  external static int get OPENED;
+  external static int get HEADERS_RECEIVED;
+  external static int get LOADING;
+  external static int get DONE;
 }
 
 extension XMLHttpRequestExtension on XMLHttpRequest {
   external JSVoid setAttributionReporting(
       AttributionReportingRequestOptions options);
   external JSVoid open(
-    JSString method,
-    JSString url, [
-    JSBoolean async,
-    JSString? username,
-    JSString? password,
+    String method,
+    String url, [
+    bool async,
+    String? username,
+    String? password,
   ]);
   external JSVoid setRequestHeader(
-    JSString name,
-    JSString value,
+    String name,
+    String value,
   );
   external JSVoid send([JSAny? body]);
   external JSVoid abort();
-  external JSString? getResponseHeader(JSString name);
-  external JSString getAllResponseHeaders();
-  external JSVoid overrideMimeType(JSString mime);
+  external String? getResponseHeader(String name);
+  external String getAllResponseHeaders();
+  external JSVoid overrideMimeType(String mime);
   external set onreadystatechange(EventHandler value);
   external EventHandler get onreadystatechange;
-  external JSNumber get readyState;
-  external set timeout(JSNumber value);
-  external JSNumber get timeout;
-  external set withCredentials(JSBoolean value);
-  external JSBoolean get withCredentials;
+  external int get readyState;
+  external set timeout(int value);
+  external int get timeout;
+  external set withCredentials(bool value);
+  external bool get withCredentials;
   external XMLHttpRequestUpload get upload;
-  external JSString get responseURL;
-  external JSNumber get status;
-  external JSString get statusText;
+  external String get responseURL;
+  external int get status;
+  external String get statusText;
   external set responseType(XMLHttpRequestResponseType value);
   external XMLHttpRequestResponseType get responseType;
   external JSAny? get response;
-  external JSString get responseText;
+  external String get responseText;
   external Document? get responseXML;
 }
 
@@ -96,18 +96,18 @@ class FormData implements JSObject {
 
 extension FormDataExtension on FormData {
   external JSVoid append(
-    JSString name,
+    String name,
     JSAny? blobValueOrValue, [
-    JSString filename,
+    String filename,
   ]);
-  external JSVoid delete(JSString name);
-  external FormDataEntryValue? get(JSString name);
-  external JSArray getAll(JSString name);
-  external JSBoolean has(JSString name);
+  external JSVoid delete(String name);
+  external FormDataEntryValue? get(String name);
+  external JSArray getAll(String name);
+  external bool has(String name);
   external JSVoid set(
-    JSString name,
+    String name,
     JSAny? blobValueOrValue, [
-    JSString filename,
+    String filename,
   ]);
 }
 
@@ -115,15 +115,15 @@ extension FormDataExtension on FormData {
 @staticInterop
 class ProgressEvent implements Event {
   external factory ProgressEvent(
-    JSString type, [
+    String type, [
     ProgressEventInit eventInitDict,
   ]);
 }
 
 extension ProgressEventExtension on ProgressEvent {
-  external JSBoolean get lengthComputable;
-  external JSNumber get loaded;
-  external JSNumber get total;
+  external bool get lengthComputable;
+  external int get loaded;
+  external int get total;
 }
 
 @JS()
@@ -131,17 +131,17 @@ extension ProgressEventExtension on ProgressEvent {
 @anonymous
 class ProgressEventInit implements EventInit {
   external factory ProgressEventInit({
-    JSBoolean lengthComputable,
-    JSNumber loaded,
-    JSNumber total,
+    bool lengthComputable,
+    int loaded,
+    int total,
   });
 }
 
 extension ProgressEventInitExtension on ProgressEventInit {
-  external set lengthComputable(JSBoolean value);
-  external JSBoolean get lengthComputable;
-  external set loaded(JSNumber value);
-  external JSNumber get loaded;
-  external set total(JSNumber value);
-  external JSNumber get total;
+  external set lengthComputable(bool value);
+  external bool get lengthComputable;
+  external set loaded(int value);
+  external int get loaded;
+  external set total(int value);
+  external int get total;
 }

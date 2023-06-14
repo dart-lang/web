@@ -19,10 +19,10 @@ extension HTMLPortalElementExtension on HTMLPortalElement {
     JSAny? message, [
     StructuredSerializeOptions options,
   ]);
-  external set src(JSString value);
-  external JSString get src;
-  external set referrerPolicy(JSString value);
-  external JSString get referrerPolicy;
+  external set src(String value);
+  external String get src;
+  external set referrerPolicy(String value);
+  external String get referrerPolicy;
   external set onmessage(EventHandler value);
   external EventHandler get onmessage;
   external set onmessageerror(EventHandler value);
@@ -60,7 +60,7 @@ extension PortalHostExtension on PortalHost {
 @staticInterop
 class PortalActivateEvent implements Event {
   external factory PortalActivateEvent(
-    JSString type, [
+    String type, [
     PortalActivateEventInit eventInitDict,
   ]);
 }

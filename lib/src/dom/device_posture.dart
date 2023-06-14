@@ -7,7 +7,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
-typedef DevicePostureType = JSString;
+typedef DevicePostureType = String;
 
 @JS('DevicePosture')
 @staticInterop

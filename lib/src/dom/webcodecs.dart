@@ -23,18 +23,18 @@ typedef VideoFrameOutputCallback = JSFunction;
 typedef EncodedAudioChunkOutputCallback = JSFunction;
 typedef EncodedVideoChunkOutputCallback = JSFunction;
 typedef WebCodecsErrorCallback = JSFunction;
-typedef HardwareAcceleration = JSString;
-typedef AlphaOption = JSString;
-typedef LatencyMode = JSString;
-typedef VideoEncoderBitrateMode = JSString;
-typedef CodecState = JSString;
-typedef EncodedAudioChunkType = JSString;
-typedef EncodedVideoChunkType = JSString;
-typedef AudioSampleFormat = JSString;
-typedef VideoPixelFormat = JSString;
-typedef VideoColorPrimaries = JSString;
-typedef VideoTransferCharacteristics = JSString;
-typedef VideoMatrixCoefficients = JSString;
+typedef HardwareAcceleration = String;
+typedef AlphaOption = String;
+typedef LatencyMode = String;
+typedef VideoEncoderBitrateMode = String;
+typedef CodecState = String;
+typedef EncodedAudioChunkType = String;
+typedef EncodedVideoChunkType = String;
+typedef AudioSampleFormat = String;
+typedef VideoPixelFormat = String;
+typedef VideoColorPrimaries = String;
+typedef VideoTransferCharacteristics = String;
+typedef VideoMatrixCoefficients = String;
 
 @JS('AudioDecoder')
 @staticInterop
@@ -51,7 +51,7 @@ extension AudioDecoderExtension on AudioDecoder {
   external JSVoid reset();
   external JSVoid close();
   external CodecState get state;
-  external JSNumber get decodeQueueSize;
+  external int get decodeQueueSize;
   external set ondequeue(EventHandler value);
   external EventHandler get ondequeue;
 }
@@ -88,7 +88,7 @@ extension VideoDecoderExtension on VideoDecoder {
   external JSVoid reset();
   external JSVoid close();
   external CodecState get state;
-  external JSNumber get decodeQueueSize;
+  external int get decodeQueueSize;
   external set ondequeue(EventHandler value);
   external EventHandler get ondequeue;
 }
@@ -125,7 +125,7 @@ extension AudioEncoderExtension on AudioEncoder {
   external JSVoid reset();
   external JSVoid close();
   external CodecState get state;
-  external JSNumber get encodeQueueSize;
+  external int get encodeQueueSize;
   external set ondequeue(EventHandler value);
   external EventHandler get ondequeue;
 }
@@ -178,7 +178,7 @@ extension VideoEncoderExtension on VideoEncoder {
   external JSVoid reset();
   external JSVoid close();
   external CodecState get state;
-  external JSNumber get encodeQueueSize;
+  external int get encodeQueueSize;
   external set ondequeue(EventHandler value);
   external EventHandler get ondequeue;
 }
@@ -224,12 +224,12 @@ extension EncodedVideoChunkMetadataExtension on EncodedVideoChunkMetadata {
 @staticInterop
 @anonymous
 class SvcOutputMetadata implements JSObject {
-  external factory SvcOutputMetadata({JSNumber temporalLayerId});
+  external factory SvcOutputMetadata({int temporalLayerId});
 }
 
 extension SvcOutputMetadataExtension on SvcOutputMetadata {
-  external set temporalLayerId(JSNumber value);
-  external JSNumber get temporalLayerId;
+  external set temporalLayerId(int value);
+  external int get temporalLayerId;
 }
 
 @JS()
@@ -237,14 +237,14 @@ extension SvcOutputMetadataExtension on SvcOutputMetadata {
 @anonymous
 class AudioDecoderSupport implements JSObject {
   external factory AudioDecoderSupport({
-    JSBoolean supported,
+    bool supported,
     AudioDecoderConfig config,
   });
 }
 
 extension AudioDecoderSupportExtension on AudioDecoderSupport {
-  external set supported(JSBoolean value);
-  external JSBoolean get supported;
+  external set supported(bool value);
+  external bool get supported;
   external set config(AudioDecoderConfig value);
   external AudioDecoderConfig get config;
 }
@@ -254,14 +254,14 @@ extension AudioDecoderSupportExtension on AudioDecoderSupport {
 @anonymous
 class VideoDecoderSupport implements JSObject {
   external factory VideoDecoderSupport({
-    JSBoolean supported,
+    bool supported,
     VideoDecoderConfig config,
   });
 }
 
 extension VideoDecoderSupportExtension on VideoDecoderSupport {
-  external set supported(JSBoolean value);
-  external JSBoolean get supported;
+  external set supported(bool value);
+  external bool get supported;
   external set config(VideoDecoderConfig value);
   external VideoDecoderConfig get config;
 }
@@ -271,14 +271,14 @@ extension VideoDecoderSupportExtension on VideoDecoderSupport {
 @anonymous
 class AudioEncoderSupport implements JSObject {
   external factory AudioEncoderSupport({
-    JSBoolean supported,
+    bool supported,
     AudioEncoderConfig config,
   });
 }
 
 extension AudioEncoderSupportExtension on AudioEncoderSupport {
-  external set supported(JSBoolean value);
-  external JSBoolean get supported;
+  external set supported(bool value);
+  external bool get supported;
   external set config(AudioEncoderConfig value);
   external AudioEncoderConfig get config;
 }
@@ -288,14 +288,14 @@ extension AudioEncoderSupportExtension on AudioEncoderSupport {
 @anonymous
 class VideoEncoderSupport implements JSObject {
   external factory VideoEncoderSupport({
-    JSBoolean supported,
+    bool supported,
     VideoEncoderConfig config,
   });
 }
 
 extension VideoEncoderSupportExtension on VideoEncoderSupport {
-  external set supported(JSBoolean value);
-  external JSBoolean get supported;
+  external set supported(bool value);
+  external bool get supported;
   external set config(VideoEncoderConfig value);
   external VideoEncoderConfig get config;
 }
@@ -305,20 +305,20 @@ extension VideoEncoderSupportExtension on VideoEncoderSupport {
 @anonymous
 class AudioDecoderConfig implements JSObject {
   external factory AudioDecoderConfig({
-    required JSString codec,
-    required JSNumber sampleRate,
-    required JSNumber numberOfChannels,
+    required String codec,
+    required int sampleRate,
+    required int numberOfChannels,
     BufferSource description,
   });
 }
 
 extension AudioDecoderConfigExtension on AudioDecoderConfig {
-  external set codec(JSString value);
-  external JSString get codec;
-  external set sampleRate(JSNumber value);
-  external JSNumber get sampleRate;
-  external set numberOfChannels(JSNumber value);
-  external JSNumber get numberOfChannels;
+  external set codec(String value);
+  external String get codec;
+  external set sampleRate(int value);
+  external int get sampleRate;
+  external set numberOfChannels(int value);
+  external int get numberOfChannels;
   external set description(BufferSource value);
   external BufferSource get description;
 }
@@ -328,37 +328,37 @@ extension AudioDecoderConfigExtension on AudioDecoderConfig {
 @anonymous
 class VideoDecoderConfig implements JSObject {
   external factory VideoDecoderConfig({
-    required JSString codec,
+    required String codec,
     BufferSource description,
-    JSNumber codedWidth,
-    JSNumber codedHeight,
-    JSNumber displayAspectWidth,
-    JSNumber displayAspectHeight,
+    int codedWidth,
+    int codedHeight,
+    int displayAspectWidth,
+    int displayAspectHeight,
     VideoColorSpaceInit colorSpace,
     HardwareAcceleration hardwareAcceleration,
-    JSBoolean optimizeForLatency,
+    bool optimizeForLatency,
   });
 }
 
 extension VideoDecoderConfigExtension on VideoDecoderConfig {
-  external set codec(JSString value);
-  external JSString get codec;
+  external set codec(String value);
+  external String get codec;
   external set description(BufferSource value);
   external BufferSource get description;
-  external set codedWidth(JSNumber value);
-  external JSNumber get codedWidth;
-  external set codedHeight(JSNumber value);
-  external JSNumber get codedHeight;
-  external set displayAspectWidth(JSNumber value);
-  external JSNumber get displayAspectWidth;
-  external set displayAspectHeight(JSNumber value);
-  external JSNumber get displayAspectHeight;
+  external set codedWidth(int value);
+  external int get codedWidth;
+  external set codedHeight(int value);
+  external int get codedHeight;
+  external set displayAspectWidth(int value);
+  external int get displayAspectWidth;
+  external set displayAspectHeight(int value);
+  external int get displayAspectHeight;
   external set colorSpace(VideoColorSpaceInit value);
   external VideoColorSpaceInit get colorSpace;
   external set hardwareAcceleration(HardwareAcceleration value);
   external HardwareAcceleration get hardwareAcceleration;
-  external set optimizeForLatency(JSBoolean value);
-  external JSBoolean get optimizeForLatency;
+  external set optimizeForLatency(bool value);
+  external bool get optimizeForLatency;
 }
 
 @JS()
@@ -369,10 +369,10 @@ class AudioEncoderConfig implements JSObject {
     AacEncoderConfig aac,
     FlacEncoderConfig flac,
     OpusEncoderConfig opus,
-    required JSString codec,
-    JSNumber sampleRate,
-    JSNumber numberOfChannels,
-    JSNumber bitrate,
+    required String codec,
+    int sampleRate,
+    int numberOfChannels,
+    int bitrate,
     BitrateMode bitrateMode,
   });
 }
@@ -384,14 +384,14 @@ extension AudioEncoderConfigExtension on AudioEncoderConfig {
   external FlacEncoderConfig get flac;
   external set opus(OpusEncoderConfig value);
   external OpusEncoderConfig get opus;
-  external set codec(JSString value);
-  external JSString get codec;
-  external set sampleRate(JSNumber value);
-  external JSNumber get sampleRate;
-  external set numberOfChannels(JSNumber value);
-  external JSNumber get numberOfChannels;
-  external set bitrate(JSNumber value);
-  external JSNumber get bitrate;
+  external set codec(String value);
+  external String get codec;
+  external set sampleRate(int value);
+  external int get sampleRate;
+  external set numberOfChannels(int value);
+  external int get numberOfChannels;
+  external set bitrate(int value);
+  external int get bitrate;
   external set bitrateMode(BitrateMode value);
   external BitrateMode get bitrateMode;
 }
@@ -404,16 +404,16 @@ class VideoEncoderConfig implements JSObject {
     AV1EncoderConfig av1,
     AvcEncoderConfig avc,
     HevcEncoderConfig hevc,
-    required JSString codec,
-    required JSNumber width,
-    required JSNumber height,
-    JSNumber displayWidth,
-    JSNumber displayHeight,
-    JSNumber bitrate,
-    JSNumber framerate,
+    required String codec,
+    required int width,
+    required int height,
+    int displayWidth,
+    int displayHeight,
+    int bitrate,
+    double framerate,
     HardwareAcceleration hardwareAcceleration,
     AlphaOption alpha,
-    JSString scalabilityMode,
+    String scalabilityMode,
     VideoEncoderBitrateMode bitrateMode,
     LatencyMode latencyMode,
   });
@@ -426,26 +426,26 @@ extension VideoEncoderConfigExtension on VideoEncoderConfig {
   external AvcEncoderConfig get avc;
   external set hevc(HevcEncoderConfig value);
   external HevcEncoderConfig get hevc;
-  external set codec(JSString value);
-  external JSString get codec;
-  external set width(JSNumber value);
-  external JSNumber get width;
-  external set height(JSNumber value);
-  external JSNumber get height;
-  external set displayWidth(JSNumber value);
-  external JSNumber get displayWidth;
-  external set displayHeight(JSNumber value);
-  external JSNumber get displayHeight;
-  external set bitrate(JSNumber value);
-  external JSNumber get bitrate;
-  external set framerate(JSNumber value);
-  external JSNumber get framerate;
+  external set codec(String value);
+  external String get codec;
+  external set width(int value);
+  external int get width;
+  external set height(int value);
+  external int get height;
+  external set displayWidth(int value);
+  external int get displayWidth;
+  external set displayHeight(int value);
+  external int get displayHeight;
+  external set bitrate(int value);
+  external int get bitrate;
+  external set framerate(double value);
+  external double get framerate;
   external set hardwareAcceleration(HardwareAcceleration value);
   external HardwareAcceleration get hardwareAcceleration;
   external set alpha(AlphaOption value);
   external AlphaOption get alpha;
-  external set scalabilityMode(JSString value);
-  external JSString get scalabilityMode;
+  external set scalabilityMode(String value);
+  external String get scalabilityMode;
   external set bitrateMode(VideoEncoderBitrateMode value);
   external VideoEncoderBitrateMode get bitrateMode;
   external set latencyMode(LatencyMode value);
@@ -460,7 +460,7 @@ class VideoEncoderEncodeOptions implements JSObject {
     VideoEncoderEncodeOptionsForAv1 av1,
     VideoEncoderEncodeOptionsForAvc avc,
     VideoEncoderEncodeOptionsForVp9 vp9,
-    JSBoolean keyFrame,
+    bool keyFrame,
   });
 }
 
@@ -471,8 +471,8 @@ extension VideoEncoderEncodeOptionsExtension on VideoEncoderEncodeOptions {
   external VideoEncoderEncodeOptionsForAvc get avc;
   external set vp9(VideoEncoderEncodeOptionsForVp9 value);
   external VideoEncoderEncodeOptionsForVp9 get vp9;
-  external set keyFrame(JSBoolean value);
-  external JSBoolean get keyFrame;
+  external set keyFrame(bool value);
+  external bool get keyFrame;
 }
 
 @JS('EncodedAudioChunk')
@@ -484,9 +484,9 @@ class EncodedAudioChunk implements JSObject {
 extension EncodedAudioChunkExtension on EncodedAudioChunk {
   external JSVoid copyTo(BufferSource destination);
   external EncodedAudioChunkType get type;
-  external JSNumber get timestamp;
-  external JSNumber? get duration;
-  external JSNumber get byteLength;
+  external int get timestamp;
+  external int? get duration;
+  external int get byteLength;
 }
 
 @JS()
@@ -495,8 +495,8 @@ extension EncodedAudioChunkExtension on EncodedAudioChunk {
 class EncodedAudioChunkInit implements JSObject {
   external factory EncodedAudioChunkInit({
     required EncodedAudioChunkType type,
-    required JSNumber timestamp,
-    JSNumber duration,
+    required int timestamp,
+    int duration,
     required BufferSource data,
   });
 }
@@ -504,10 +504,10 @@ class EncodedAudioChunkInit implements JSObject {
 extension EncodedAudioChunkInitExtension on EncodedAudioChunkInit {
   external set type(EncodedAudioChunkType value);
   external EncodedAudioChunkType get type;
-  external set timestamp(JSNumber value);
-  external JSNumber get timestamp;
-  external set duration(JSNumber value);
-  external JSNumber get duration;
+  external set timestamp(int value);
+  external int get timestamp;
+  external set duration(int value);
+  external int get duration;
   external set data(BufferSource value);
   external BufferSource get data;
 }
@@ -521,9 +521,9 @@ class EncodedVideoChunk implements JSObject {
 extension EncodedVideoChunkExtension on EncodedVideoChunk {
   external JSVoid copyTo(BufferSource destination);
   external EncodedVideoChunkType get type;
-  external JSNumber get timestamp;
-  external JSNumber? get duration;
-  external JSNumber get byteLength;
+  external int get timestamp;
+  external int? get duration;
+  external int get byteLength;
 }
 
 @JS()
@@ -532,8 +532,8 @@ extension EncodedVideoChunkExtension on EncodedVideoChunk {
 class EncodedVideoChunkInit implements JSObject {
   external factory EncodedVideoChunkInit({
     required EncodedVideoChunkType type,
-    required JSNumber timestamp,
-    JSNumber duration,
+    required int timestamp,
+    int duration,
     required BufferSource data,
   });
 }
@@ -541,10 +541,10 @@ class EncodedVideoChunkInit implements JSObject {
 extension EncodedVideoChunkInitExtension on EncodedVideoChunkInit {
   external set type(EncodedVideoChunkType value);
   external EncodedVideoChunkType get type;
-  external set timestamp(JSNumber value);
-  external JSNumber get timestamp;
-  external set duration(JSNumber value);
-  external JSNumber get duration;
+  external set timestamp(int value);
+  external int get timestamp;
+  external set duration(int value);
+  external int get duration;
   external set data(BufferSource value);
   external BufferSource get data;
 }
@@ -556,7 +556,7 @@ class AudioData implements JSObject {
 }
 
 extension AudioDataExtension on AudioData {
-  external JSNumber allocationSize(AudioDataCopyToOptions options);
+  external int allocationSize(AudioDataCopyToOptions options);
   external JSVoid copyTo(
     BufferSource destination,
     AudioDataCopyToOptions options,
@@ -564,11 +564,11 @@ extension AudioDataExtension on AudioData {
   external AudioData clone();
   external JSVoid close();
   external AudioSampleFormat? get format;
-  external JSNumber get sampleRate;
-  external JSNumber get numberOfFrames;
-  external JSNumber get numberOfChannels;
-  external JSNumber get duration;
-  external JSNumber get timestamp;
+  external double get sampleRate;
+  external int get numberOfFrames;
+  external int get numberOfChannels;
+  external int get duration;
+  external int get timestamp;
 }
 
 @JS()
@@ -577,10 +577,10 @@ extension AudioDataExtension on AudioData {
 class AudioDataInit implements JSObject {
   external factory AudioDataInit({
     required AudioSampleFormat format,
-    required JSNumber sampleRate,
-    required JSNumber numberOfFrames,
-    required JSNumber numberOfChannels,
-    required JSNumber timestamp,
+    required double sampleRate,
+    required int numberOfFrames,
+    required int numberOfChannels,
+    required int timestamp,
     required BufferSource data,
   });
 }
@@ -588,14 +588,14 @@ class AudioDataInit implements JSObject {
 extension AudioDataInitExtension on AudioDataInit {
   external set format(AudioSampleFormat value);
   external AudioSampleFormat get format;
-  external set sampleRate(JSNumber value);
-  external JSNumber get sampleRate;
-  external set numberOfFrames(JSNumber value);
-  external JSNumber get numberOfFrames;
-  external set numberOfChannels(JSNumber value);
-  external JSNumber get numberOfChannels;
-  external set timestamp(JSNumber value);
-  external JSNumber get timestamp;
+  external set sampleRate(double value);
+  external double get sampleRate;
+  external set numberOfFrames(int value);
+  external int get numberOfFrames;
+  external set numberOfChannels(int value);
+  external int get numberOfChannels;
+  external set timestamp(int value);
+  external int get timestamp;
   external set data(BufferSource value);
   external BufferSource get data;
 }
@@ -605,20 +605,20 @@ extension AudioDataInitExtension on AudioDataInit {
 @anonymous
 class AudioDataCopyToOptions implements JSObject {
   external factory AudioDataCopyToOptions({
-    required JSNumber planeIndex,
-    JSNumber frameOffset,
-    JSNumber frameCount,
+    required int planeIndex,
+    int frameOffset,
+    int frameCount,
     AudioSampleFormat format,
   });
 }
 
 extension AudioDataCopyToOptionsExtension on AudioDataCopyToOptions {
-  external set planeIndex(JSNumber value);
-  external JSNumber get planeIndex;
-  external set frameOffset(JSNumber value);
-  external JSNumber get frameOffset;
-  external set frameCount(JSNumber value);
-  external JSNumber get frameCount;
+  external set planeIndex(int value);
+  external int get planeIndex;
+  external set frameOffset(int value);
+  external int get frameOffset;
+  external set frameCount(int value);
+  external int get frameCount;
   external set format(AudioSampleFormat value);
   external AudioSampleFormat get format;
 }
@@ -634,7 +634,7 @@ class VideoFrame implements JSObject {
 
 extension VideoFrameExtension on VideoFrame {
   external VideoFrameMetadata metadata();
-  external JSNumber allocationSize([VideoFrameCopyToOptions options]);
+  external int allocationSize([VideoFrameCopyToOptions options]);
   external JSPromise copyTo(
     BufferSource destination, [
     VideoFrameCopyToOptions options,
@@ -642,14 +642,14 @@ extension VideoFrameExtension on VideoFrame {
   external VideoFrame clone();
   external JSVoid close();
   external VideoPixelFormat? get format;
-  external JSNumber get codedWidth;
-  external JSNumber get codedHeight;
+  external int get codedWidth;
+  external int get codedHeight;
   external DOMRectReadOnly? get codedRect;
   external DOMRectReadOnly? get visibleRect;
-  external JSNumber get displayWidth;
-  external JSNumber get displayHeight;
-  external JSNumber? get duration;
-  external JSNumber get timestamp;
+  external int get displayWidth;
+  external int get displayHeight;
+  external int? get duration;
+  external int get timestamp;
   external VideoColorSpace get colorSpace;
 }
 
@@ -658,29 +658,29 @@ extension VideoFrameExtension on VideoFrame {
 @anonymous
 class VideoFrameInit implements JSObject {
   external factory VideoFrameInit({
-    JSNumber duration,
-    JSNumber timestamp,
+    int duration,
+    int timestamp,
     AlphaOption alpha,
     DOMRectInit visibleRect,
-    JSNumber displayWidth,
-    JSNumber displayHeight,
+    int displayWidth,
+    int displayHeight,
     VideoFrameMetadata metadata,
   });
 }
 
 extension VideoFrameInitExtension on VideoFrameInit {
-  external set duration(JSNumber value);
-  external JSNumber get duration;
-  external set timestamp(JSNumber value);
-  external JSNumber get timestamp;
+  external set duration(int value);
+  external int get duration;
+  external set timestamp(int value);
+  external int get timestamp;
   external set alpha(AlphaOption value);
   external AlphaOption get alpha;
   external set visibleRect(DOMRectInit value);
   external DOMRectInit get visibleRect;
-  external set displayWidth(JSNumber value);
-  external JSNumber get displayWidth;
-  external set displayHeight(JSNumber value);
-  external JSNumber get displayHeight;
+  external set displayWidth(int value);
+  external int get displayWidth;
+  external set displayHeight(int value);
+  external int get displayHeight;
   external set metadata(VideoFrameMetadata value);
   external VideoFrameMetadata get metadata;
 }
@@ -691,14 +691,14 @@ extension VideoFrameInitExtension on VideoFrameInit {
 class VideoFrameBufferInit implements JSObject {
   external factory VideoFrameBufferInit({
     required VideoPixelFormat format,
-    required JSNumber codedWidth,
-    required JSNumber codedHeight,
-    required JSNumber timestamp,
-    JSNumber duration,
+    required int codedWidth,
+    required int codedHeight,
+    required int timestamp,
+    int duration,
     JSArray layout,
     DOMRectInit visibleRect,
-    JSNumber displayWidth,
-    JSNumber displayHeight,
+    int displayWidth,
+    int displayHeight,
     VideoColorSpaceInit colorSpace,
   });
 }
@@ -706,22 +706,22 @@ class VideoFrameBufferInit implements JSObject {
 extension VideoFrameBufferInitExtension on VideoFrameBufferInit {
   external set format(VideoPixelFormat value);
   external VideoPixelFormat get format;
-  external set codedWidth(JSNumber value);
-  external JSNumber get codedWidth;
-  external set codedHeight(JSNumber value);
-  external JSNumber get codedHeight;
-  external set timestamp(JSNumber value);
-  external JSNumber get timestamp;
-  external set duration(JSNumber value);
-  external JSNumber get duration;
+  external set codedWidth(int value);
+  external int get codedWidth;
+  external set codedHeight(int value);
+  external int get codedHeight;
+  external set timestamp(int value);
+  external int get timestamp;
+  external set duration(int value);
+  external int get duration;
   external set layout(JSArray value);
   external JSArray get layout;
   external set visibleRect(DOMRectInit value);
   external DOMRectInit get visibleRect;
-  external set displayWidth(JSNumber value);
-  external JSNumber get displayWidth;
-  external set displayHeight(JSNumber value);
-  external JSNumber get displayHeight;
+  external set displayWidth(int value);
+  external int get displayWidth;
+  external set displayHeight(int value);
+  external int get displayHeight;
   external set colorSpace(VideoColorSpaceInit value);
   external VideoColorSpaceInit get colorSpace;
 }
@@ -755,16 +755,16 @@ extension VideoFrameCopyToOptionsExtension on VideoFrameCopyToOptions {
 @anonymous
 class PlaneLayout implements JSObject {
   external factory PlaneLayout({
-    required JSNumber offset,
-    required JSNumber stride,
+    required int offset,
+    required int stride,
   });
 }
 
 extension PlaneLayoutExtension on PlaneLayout {
-  external set offset(JSNumber value);
-  external JSNumber get offset;
-  external set stride(JSNumber value);
-  external JSNumber get stride;
+  external set offset(int value);
+  external int get offset;
+  external set stride(int value);
+  external int get stride;
 }
 
 @JS('VideoColorSpace')
@@ -778,7 +778,7 @@ extension VideoColorSpaceExtension on VideoColorSpace {
   external VideoColorPrimaries? get primaries;
   external VideoTransferCharacteristics? get transfer;
   external VideoMatrixCoefficients? get matrix;
-  external JSBoolean? get fullRange;
+  external bool? get fullRange;
 }
 
 @JS()
@@ -789,7 +789,7 @@ class VideoColorSpaceInit implements JSObject {
     VideoColorPrimaries? primaries,
     VideoTransferCharacteristics? transfer,
     VideoMatrixCoefficients? matrix,
-    JSBoolean? fullRange,
+    bool? fullRange,
   });
 }
 
@@ -800,8 +800,8 @@ extension VideoColorSpaceInitExtension on VideoColorSpaceInit {
   external VideoTransferCharacteristics? get transfer;
   external set matrix(VideoMatrixCoefficients? value);
   external VideoMatrixCoefficients? get matrix;
-  external set fullRange(JSBoolean? value);
-  external JSBoolean? get fullRange;
+  external set fullRange(bool? value);
+  external bool? get fullRange;
 }
 
 @JS('ImageDecoder')
@@ -809,15 +809,15 @@ extension VideoColorSpaceInitExtension on VideoColorSpaceInit {
 class ImageDecoder implements JSObject {
   external factory ImageDecoder(ImageDecoderInit init);
 
-  external static JSPromise isTypeSupported(JSString type);
+  external static JSPromise isTypeSupported(String type);
 }
 
 extension ImageDecoderExtension on ImageDecoder {
   external JSPromise decode([ImageDecodeOptions options]);
   external JSVoid reset();
   external JSVoid close();
-  external JSString get type;
-  external JSBoolean get complete;
+  external String get type;
+  external bool get complete;
   external JSPromise get completed;
   external ImageTrackList get tracks;
 }
@@ -827,28 +827,28 @@ extension ImageDecoderExtension on ImageDecoder {
 @anonymous
 class ImageDecoderInit implements JSObject {
   external factory ImageDecoderInit({
-    required JSString type,
+    required String type,
     required ImageBufferSource data,
     ColorSpaceConversion colorSpaceConversion,
-    JSNumber desiredWidth,
-    JSNumber desiredHeight,
-    JSBoolean preferAnimation,
+    int desiredWidth,
+    int desiredHeight,
+    bool preferAnimation,
   });
 }
 
 extension ImageDecoderInitExtension on ImageDecoderInit {
-  external set type(JSString value);
-  external JSString get type;
+  external set type(String value);
+  external String get type;
   external set data(ImageBufferSource value);
   external ImageBufferSource get data;
   external set colorSpaceConversion(ColorSpaceConversion value);
   external ColorSpaceConversion get colorSpaceConversion;
-  external set desiredWidth(JSNumber value);
-  external JSNumber get desiredWidth;
-  external set desiredHeight(JSNumber value);
-  external JSNumber get desiredHeight;
-  external set preferAnimation(JSBoolean value);
-  external JSBoolean get preferAnimation;
+  external set desiredWidth(int value);
+  external int get desiredWidth;
+  external set desiredHeight(int value);
+  external int get desiredHeight;
+  external set preferAnimation(bool value);
+  external bool get preferAnimation;
 }
 
 @JS()
@@ -856,16 +856,16 @@ extension ImageDecoderInitExtension on ImageDecoderInit {
 @anonymous
 class ImageDecodeOptions implements JSObject {
   external factory ImageDecodeOptions({
-    JSNumber frameIndex,
-    JSBoolean completeFramesOnly,
+    int frameIndex,
+    bool completeFramesOnly,
   });
 }
 
 extension ImageDecodeOptionsExtension on ImageDecodeOptions {
-  external set frameIndex(JSNumber value);
-  external JSNumber get frameIndex;
-  external set completeFramesOnly(JSBoolean value);
-  external JSBoolean get completeFramesOnly;
+  external set frameIndex(int value);
+  external int get frameIndex;
+  external set completeFramesOnly(bool value);
+  external bool get completeFramesOnly;
 }
 
 @JS()
@@ -874,15 +874,15 @@ extension ImageDecodeOptionsExtension on ImageDecodeOptions {
 class ImageDecodeResult implements JSObject {
   external factory ImageDecodeResult({
     required VideoFrame image,
-    required JSBoolean complete,
+    required bool complete,
   });
 }
 
 extension ImageDecodeResultExtension on ImageDecodeResult {
   external set image(VideoFrame value);
   external VideoFrame get image;
-  external set complete(JSBoolean value);
-  external JSBoolean get complete;
+  external set complete(bool value);
+  external bool get complete;
 }
 
 @JS('ImageTrackList')
@@ -891,8 +891,8 @@ class ImageTrackList implements JSObject {}
 
 extension ImageTrackListExtension on ImageTrackList {
   external JSPromise get ready;
-  external JSNumber get length;
-  external JSNumber get selectedIndex;
+  external int get length;
+  external int get selectedIndex;
   external ImageTrack? get selectedTrack;
 }
 
@@ -901,9 +901,9 @@ extension ImageTrackListExtension on ImageTrackList {
 class ImageTrack implements JSObject {}
 
 extension ImageTrackExtension on ImageTrack {
-  external JSBoolean get animated;
-  external JSNumber get frameCount;
-  external JSNumber get repetitionCount;
-  external set selected(JSBoolean value);
-  external JSBoolean get selected;
+  external bool get animated;
+  external int get frameCount;
+  external double get repetitionCount;
+  external set selected(bool value);
+  external bool get selected;
 }

@@ -12,7 +12,7 @@ class VideoPlaybackQuality implements JSObject {}
 
 extension VideoPlaybackQualityExtension on VideoPlaybackQuality {
   external DOMHighResTimeStamp get creationTime;
-  external JSNumber get droppedVideoFrames;
-  external JSNumber get totalVideoFrames;
-  external JSNumber get corruptedVideoFrames;
+  external int get droppedVideoFrames;
+  external int get totalVideoFrames;
+  external int get corruptedVideoFrames;
 }

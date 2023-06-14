@@ -51,7 +51,7 @@ extension PerformanceMeasureOptionsExtension on PerformanceMeasureOptions {
 @staticInterop
 class PerformanceMark implements PerformanceEntry {
   external factory PerformanceMark(
-    JSString markName, [
+    String markName, [
     PerformanceMarkOptions markOptions,
   ]);
 }

@@ -11,6 +11,6 @@ import 'css_conditional.dart';
 class CSSContainerRule implements CSSConditionRule {}
 
 extension CSSContainerRuleExtension on CSSContainerRule {
-  external JSString get containerName;
-  external JSString get containerQuery;
+  external String get containerName;
+  external String get containerQuery;
 }

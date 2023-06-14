@@ -8,42 +8,42 @@ import 'dart:js_interop';
 @staticInterop
 class URL implements JSObject {
   external factory URL(
-    JSString url, [
-    JSString base,
+    String url, [
+    String base,
   ]);
 
-  external static JSString createObjectURL(JSAny? obj);
-  external static JSVoid revokeObjectURL(JSString url);
-  external static JSBoolean canParse(
-    JSString url, [
-    JSString base,
+  external static String createObjectURL(JSAny? obj);
+  external static JSVoid revokeObjectURL(String url);
+  external static bool canParse(
+    String url, [
+    String base,
   ]);
 }
 
 extension URLExtension on URL {
-  external JSString toJSON();
-  external set href(JSString value);
-  external JSString get href;
-  external JSString get origin;
-  external set protocol(JSString value);
-  external JSString get protocol;
-  external set username(JSString value);
-  external JSString get username;
-  external set password(JSString value);
-  external JSString get password;
-  external set host(JSString value);
-  external JSString get host;
-  external set hostname(JSString value);
-  external JSString get hostname;
-  external set port(JSString value);
-  external JSString get port;
-  external set pathname(JSString value);
-  external JSString get pathname;
-  external set search(JSString value);
-  external JSString get search;
+  external String toJSON();
+  external set href(String value);
+  external String get href;
+  external String get origin;
+  external set protocol(String value);
+  external String get protocol;
+  external set username(String value);
+  external String get username;
+  external set password(String value);
+  external String get password;
+  external set host(String value);
+  external String get host;
+  external set hostname(String value);
+  external String get hostname;
+  external set port(String value);
+  external String get port;
+  external set pathname(String value);
+  external String get pathname;
+  external set search(String value);
+  external String get search;
   external URLSearchParams get searchParams;
-  external set hash(JSString value);
-  external JSString get hash;
+  external set hash(String value);
+  external String get hash;
 }
 
 @JS('URLSearchParams')
@@ -54,17 +54,17 @@ class URLSearchParams implements JSObject {
 
 extension URLSearchParamsExtension on URLSearchParams {
   external JSVoid append(
-    JSString name,
-    JSString value,
+    String name,
+    String value,
   );
-  external JSVoid delete(JSString name);
-  external JSString? get(JSString name);
-  external JSArray getAll(JSString name);
-  external JSBoolean has(JSString name);
+  external JSVoid delete(String name);
+  external String? get(String name);
+  external JSArray getAll(String name);
+  external bool has(String name);
   external JSVoid set(
-    JSString name,
-    JSString value,
+    String name,
+    String value,
   );
   external JSVoid sort();
-  external JSNumber get size;
+  external int get size;
 }

@@ -10,26 +10,25 @@ import 'dom.dart';
 @staticInterop
 class ContentVisibilityAutoStateChangeEvent implements Event {
   external factory ContentVisibilityAutoStateChangeEvent(
-    JSString type, [
+    String type, [
     ContentVisibilityAutoStateChangeEventInit eventInitDict,
   ]);
 }
 
 extension ContentVisibilityAutoStateChangeEventExtension
     on ContentVisibilityAutoStateChangeEvent {
-  external JSBoolean get skipped;
+  external bool get skipped;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class ContentVisibilityAutoStateChangeEventInit implements EventInit {
-  external factory ContentVisibilityAutoStateChangeEventInit(
-      {JSBoolean skipped});
+  external factory ContentVisibilityAutoStateChangeEventInit({bool skipped});
 }
 
 extension ContentVisibilityAutoStateChangeEventInitExtension
     on ContentVisibilityAutoStateChangeEventInit {
-  external set skipped(JSBoolean value);
-  external JSBoolean get skipped;
+  external set skipped(bool value);
+  external bool get skipped;
 }

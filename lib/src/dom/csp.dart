@@ -7,7 +7,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'reporting.dart';
 
-typedef SecurityPolicyViolationEventDisposition = JSString;
+typedef SecurityPolicyViolationEventDisposition = String;
 
 @JS('CSPViolationReportBody')
 @staticInterop
@@ -15,42 +15,42 @@ class CSPViolationReportBody implements ReportBody {}
 
 extension CSPViolationReportBodyExtension on CSPViolationReportBody {
   external JSObject toJSON();
-  external JSString get documentURL;
-  external JSString? get referrer;
-  external JSString? get blockedURL;
-  external JSString get effectiveDirective;
-  external JSString get originalPolicy;
-  external JSString? get sourceFile;
-  external JSString? get sample;
+  external String get documentURL;
+  external String? get referrer;
+  external String? get blockedURL;
+  external String get effectiveDirective;
+  external String get originalPolicy;
+  external String? get sourceFile;
+  external String? get sample;
   external SecurityPolicyViolationEventDisposition get disposition;
-  external JSNumber get statusCode;
-  external JSNumber? get lineNumber;
-  external JSNumber? get columnNumber;
+  external int get statusCode;
+  external int? get lineNumber;
+  external int? get columnNumber;
 }
 
 @JS('SecurityPolicyViolationEvent')
 @staticInterop
 class SecurityPolicyViolationEvent implements Event {
   external factory SecurityPolicyViolationEvent(
-    JSString type, [
+    String type, [
     SecurityPolicyViolationEventInit eventInitDict,
   ]);
 }
 
 extension SecurityPolicyViolationEventExtension
     on SecurityPolicyViolationEvent {
-  external JSString get documentURI;
-  external JSString get referrer;
-  external JSString get blockedURI;
-  external JSString get effectiveDirective;
-  external JSString get violatedDirective;
-  external JSString get originalPolicy;
-  external JSString get sourceFile;
-  external JSString get sample;
+  external String get documentURI;
+  external String get referrer;
+  external String get blockedURI;
+  external String get effectiveDirective;
+  external String get violatedDirective;
+  external String get originalPolicy;
+  external String get sourceFile;
+  external String get sample;
   external SecurityPolicyViolationEventDisposition get disposition;
-  external JSNumber get statusCode;
-  external JSNumber get lineNumber;
-  external JSNumber get columnNumber;
+  external int get statusCode;
+  external int get lineNumber;
+  external int get columnNumber;
 }
 
 @JS()
@@ -58,45 +58,45 @@ extension SecurityPolicyViolationEventExtension
 @anonymous
 class SecurityPolicyViolationEventInit implements EventInit {
   external factory SecurityPolicyViolationEventInit({
-    required JSString documentURI,
-    JSString referrer,
-    JSString blockedURI,
-    required JSString violatedDirective,
-    required JSString effectiveDirective,
-    required JSString originalPolicy,
-    JSString sourceFile,
-    JSString sample,
+    required String documentURI,
+    String referrer,
+    String blockedURI,
+    required String violatedDirective,
+    required String effectiveDirective,
+    required String originalPolicy,
+    String sourceFile,
+    String sample,
     required SecurityPolicyViolationEventDisposition disposition,
-    required JSNumber statusCode,
-    JSNumber lineNumber,
-    JSNumber columnNumber,
+    required int statusCode,
+    int lineNumber,
+    int columnNumber,
   });
 }
 
 extension SecurityPolicyViolationEventInitExtension
     on SecurityPolicyViolationEventInit {
-  external set documentURI(JSString value);
-  external JSString get documentURI;
-  external set referrer(JSString value);
-  external JSString get referrer;
-  external set blockedURI(JSString value);
-  external JSString get blockedURI;
-  external set violatedDirective(JSString value);
-  external JSString get violatedDirective;
-  external set effectiveDirective(JSString value);
-  external JSString get effectiveDirective;
-  external set originalPolicy(JSString value);
-  external JSString get originalPolicy;
-  external set sourceFile(JSString value);
-  external JSString get sourceFile;
-  external set sample(JSString value);
-  external JSString get sample;
+  external set documentURI(String value);
+  external String get documentURI;
+  external set referrer(String value);
+  external String get referrer;
+  external set blockedURI(String value);
+  external String get blockedURI;
+  external set violatedDirective(String value);
+  external String get violatedDirective;
+  external set effectiveDirective(String value);
+  external String get effectiveDirective;
+  external set originalPolicy(String value);
+  external String get originalPolicy;
+  external set sourceFile(String value);
+  external String get sourceFile;
+  external set sample(String value);
+  external String get sample;
   external set disposition(SecurityPolicyViolationEventDisposition value);
   external SecurityPolicyViolationEventDisposition get disposition;
-  external set statusCode(JSNumber value);
-  external JSNumber get statusCode;
-  external set lineNumber(JSNumber value);
-  external JSNumber get lineNumber;
-  external set columnNumber(JSNumber value);
-  external JSNumber get columnNumber;
+  external set statusCode(int value);
+  external int get statusCode;
+  external set lineNumber(int value);
+  external int get lineNumber;
+  external set columnNumber(int value);
+  external int get columnNumber;
 }

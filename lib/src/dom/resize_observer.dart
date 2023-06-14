@@ -8,7 +8,7 @@ import 'dom.dart';
 import 'geometry.dart';
 
 typedef ResizeObserverCallback = JSFunction;
-typedef ResizeObserverBoxOptions = JSString;
+typedef ResizeObserverBoxOptions = String;
 
 @JS()
 @staticInterop
@@ -54,6 +54,6 @@ extension ResizeObserverEntryExtension on ResizeObserverEntry {
 class ResizeObserverSize implements JSObject {}
 
 extension ResizeObserverSizeExtension on ResizeObserverSize {
-  external JSNumber get inlineSize;
-  external JSNumber get blockSize;
+  external double get inlineSize;
+  external double get blockSize;
 }

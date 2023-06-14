@@ -31,22 +31,22 @@ extension SVGElementExtension on SVGElement {
 @anonymous
 class SVGBoundingBoxOptions implements JSObject {
   external factory SVGBoundingBoxOptions({
-    JSBoolean fill,
-    JSBoolean stroke,
-    JSBoolean markers,
-    JSBoolean clipped,
+    bool fill,
+    bool stroke,
+    bool markers,
+    bool clipped,
   });
 }
 
 extension SVGBoundingBoxOptionsExtension on SVGBoundingBoxOptions {
-  external set fill(JSBoolean value);
-  external JSBoolean get fill;
-  external set stroke(JSBoolean value);
-  external JSBoolean get stroke;
-  external set markers(JSBoolean value);
-  external JSBoolean get markers;
-  external set clipped(JSBoolean value);
-  external JSBoolean get clipped;
+  external set fill(bool value);
+  external bool get fill;
+  external set stroke(bool value);
+  external bool get stroke;
+  external set markers(bool value);
+  external bool get markers;
+  external set clipped(bool value);
+  external bool get clipped;
 }
 
 @JS('SVGGraphicsElement')
@@ -65,10 +65,10 @@ extension SVGGraphicsElementExtension on SVGGraphicsElement {
 class SVGGeometryElement implements SVGGraphicsElement {}
 
 extension SVGGeometryElementExtension on SVGGeometryElement {
-  external JSBoolean isPointInFill([DOMPointInit point]);
-  external JSBoolean isPointInStroke([DOMPointInit point]);
-  external JSNumber getTotalLength();
-  external DOMPoint getPointAtLength(JSNumber distance);
+  external bool isPointInFill([DOMPointInit point]);
+  external bool isPointInStroke([DOMPointInit point]);
+  external double getTotalLength();
+  external DOMPoint getPointAtLength(double distance);
   external SVGAnimatedNumber get pathLength;
 }
 
@@ -77,64 +77,64 @@ extension SVGGeometryElementExtension on SVGGeometryElement {
 class SVGNumber implements JSObject {}
 
 extension SVGNumberExtension on SVGNumber {
-  external set value(JSNumber value);
-  external JSNumber get value;
+  external set value(double value);
+  external double get value;
 }
 
 @JS('SVGLength')
 @staticInterop
 class SVGLength implements JSObject {
-  external static JSNumber get SVG_LENGTHTYPE_UNKNOWN;
-  external static JSNumber get SVG_LENGTHTYPE_NUMBER;
-  external static JSNumber get SVG_LENGTHTYPE_PERCENTAGE;
-  external static JSNumber get SVG_LENGTHTYPE_EMS;
-  external static JSNumber get SVG_LENGTHTYPE_EXS;
-  external static JSNumber get SVG_LENGTHTYPE_PX;
-  external static JSNumber get SVG_LENGTHTYPE_CM;
-  external static JSNumber get SVG_LENGTHTYPE_MM;
-  external static JSNumber get SVG_LENGTHTYPE_IN;
-  external static JSNumber get SVG_LENGTHTYPE_PT;
-  external static JSNumber get SVG_LENGTHTYPE_PC;
+  external static int get SVG_LENGTHTYPE_UNKNOWN;
+  external static int get SVG_LENGTHTYPE_NUMBER;
+  external static int get SVG_LENGTHTYPE_PERCENTAGE;
+  external static int get SVG_LENGTHTYPE_EMS;
+  external static int get SVG_LENGTHTYPE_EXS;
+  external static int get SVG_LENGTHTYPE_PX;
+  external static int get SVG_LENGTHTYPE_CM;
+  external static int get SVG_LENGTHTYPE_MM;
+  external static int get SVG_LENGTHTYPE_IN;
+  external static int get SVG_LENGTHTYPE_PT;
+  external static int get SVG_LENGTHTYPE_PC;
 }
 
 extension SVGLengthExtension on SVGLength {
   external JSVoid newValueSpecifiedUnits(
-    JSNumber unitType,
-    JSNumber valueInSpecifiedUnits,
+    int unitType,
+    double valueInSpecifiedUnits,
   );
-  external JSVoid convertToSpecifiedUnits(JSNumber unitType);
-  external JSNumber get unitType;
-  external set value(JSNumber value);
-  external JSNumber get value;
-  external set valueInSpecifiedUnits(JSNumber value);
-  external JSNumber get valueInSpecifiedUnits;
-  external set valueAsString(JSString value);
-  external JSString get valueAsString;
+  external JSVoid convertToSpecifiedUnits(int unitType);
+  external int get unitType;
+  external set value(double value);
+  external double get value;
+  external set valueInSpecifiedUnits(double value);
+  external double get valueInSpecifiedUnits;
+  external set valueAsString(String value);
+  external String get valueAsString;
 }
 
 @JS('SVGAngle')
 @staticInterop
 class SVGAngle implements JSObject {
-  external static JSNumber get SVG_ANGLETYPE_UNKNOWN;
-  external static JSNumber get SVG_ANGLETYPE_UNSPECIFIED;
-  external static JSNumber get SVG_ANGLETYPE_DEG;
-  external static JSNumber get SVG_ANGLETYPE_RAD;
-  external static JSNumber get SVG_ANGLETYPE_GRAD;
+  external static int get SVG_ANGLETYPE_UNKNOWN;
+  external static int get SVG_ANGLETYPE_UNSPECIFIED;
+  external static int get SVG_ANGLETYPE_DEG;
+  external static int get SVG_ANGLETYPE_RAD;
+  external static int get SVG_ANGLETYPE_GRAD;
 }
 
 extension SVGAngleExtension on SVGAngle {
   external JSVoid newValueSpecifiedUnits(
-    JSNumber unitType,
-    JSNumber valueInSpecifiedUnits,
+    int unitType,
+    double valueInSpecifiedUnits,
   );
-  external JSVoid convertToSpecifiedUnits(JSNumber unitType);
-  external JSNumber get unitType;
-  external set value(JSNumber value);
-  external JSNumber get value;
-  external set valueInSpecifiedUnits(JSNumber value);
-  external JSNumber get valueInSpecifiedUnits;
-  external set valueAsString(JSString value);
-  external JSString get valueAsString;
+  external JSVoid convertToSpecifiedUnits(int unitType);
+  external int get unitType;
+  external set value(double value);
+  external double get value;
+  external set valueInSpecifiedUnits(double value);
+  external double get valueInSpecifiedUnits;
+  external set valueAsString(String value);
+  external String get valueAsString;
 }
 
 @JS('SVGNumberList')
@@ -144,19 +144,19 @@ class SVGNumberList implements JSObject {}
 extension SVGNumberListExtension on SVGNumberList {
   external JSVoid clear();
   external SVGNumber initialize(SVGNumber newItem);
-  external SVGNumber getItem(JSNumber index);
+  external SVGNumber getItem(int index);
   external SVGNumber insertItemBefore(
     SVGNumber newItem,
-    JSNumber index,
+    int index,
   );
   external SVGNumber replaceItem(
     SVGNumber newItem,
-    JSNumber index,
+    int index,
   );
-  external SVGNumber removeItem(JSNumber index);
+  external SVGNumber removeItem(int index);
   external SVGNumber appendItem(SVGNumber newItem);
-  external JSNumber get length;
-  external JSNumber get numberOfItems;
+  external int get length;
+  external int get numberOfItems;
 }
 
 @JS('SVGLengthList')
@@ -166,19 +166,19 @@ class SVGLengthList implements JSObject {}
 extension SVGLengthListExtension on SVGLengthList {
   external JSVoid clear();
   external SVGLength initialize(SVGLength newItem);
-  external SVGLength getItem(JSNumber index);
+  external SVGLength getItem(int index);
   external SVGLength insertItemBefore(
     SVGLength newItem,
-    JSNumber index,
+    int index,
   );
   external SVGLength replaceItem(
     SVGLength newItem,
-    JSNumber index,
+    int index,
   );
-  external SVGLength removeItem(JSNumber index);
+  external SVGLength removeItem(int index);
   external SVGLength appendItem(SVGLength newItem);
-  external JSNumber get length;
-  external JSNumber get numberOfItems;
+  external int get length;
+  external int get numberOfItems;
 }
 
 @JS('SVGStringList')
@@ -187,20 +187,20 @@ class SVGStringList implements JSObject {}
 
 extension SVGStringListExtension on SVGStringList {
   external JSVoid clear();
-  external JSString initialize(JSString newItem);
-  external JSString getItem(JSNumber index);
-  external JSString insertItemBefore(
-    JSString newItem,
-    JSNumber index,
+  external String initialize(String newItem);
+  external String getItem(int index);
+  external String insertItemBefore(
+    String newItem,
+    int index,
   );
-  external JSString replaceItem(
-    JSString newItem,
-    JSNumber index,
+  external String replaceItem(
+    String newItem,
+    int index,
   );
-  external JSString removeItem(JSNumber index);
-  external JSString appendItem(JSString newItem);
-  external JSNumber get length;
-  external JSNumber get numberOfItems;
+  external String removeItem(int index);
+  external String appendItem(String newItem);
+  external int get length;
+  external int get numberOfItems;
 }
 
 @JS('SVGAnimatedBoolean')
@@ -208,9 +208,9 @@ extension SVGStringListExtension on SVGStringList {
 class SVGAnimatedBoolean implements JSObject {}
 
 extension SVGAnimatedBooleanExtension on SVGAnimatedBoolean {
-  external set baseVal(JSBoolean value);
-  external JSBoolean get baseVal;
-  external JSBoolean get animVal;
+  external set baseVal(bool value);
+  external bool get baseVal;
+  external bool get animVal;
 }
 
 @JS('SVGAnimatedEnumeration')
@@ -218,9 +218,9 @@ extension SVGAnimatedBooleanExtension on SVGAnimatedBoolean {
 class SVGAnimatedEnumeration implements JSObject {}
 
 extension SVGAnimatedEnumerationExtension on SVGAnimatedEnumeration {
-  external set baseVal(JSNumber value);
-  external JSNumber get baseVal;
-  external JSNumber get animVal;
+  external set baseVal(int value);
+  external int get baseVal;
+  external int get animVal;
 }
 
 @JS('SVGAnimatedInteger')
@@ -228,9 +228,9 @@ extension SVGAnimatedEnumerationExtension on SVGAnimatedEnumeration {
 class SVGAnimatedInteger implements JSObject {}
 
 extension SVGAnimatedIntegerExtension on SVGAnimatedInteger {
-  external set baseVal(JSNumber value);
-  external JSNumber get baseVal;
-  external JSNumber get animVal;
+  external set baseVal(int value);
+  external int get baseVal;
+  external int get animVal;
 }
 
 @JS('SVGAnimatedNumber')
@@ -238,9 +238,9 @@ extension SVGAnimatedIntegerExtension on SVGAnimatedInteger {
 class SVGAnimatedNumber implements JSObject {}
 
 extension SVGAnimatedNumberExtension on SVGAnimatedNumber {
-  external set baseVal(JSNumber value);
-  external JSNumber get baseVal;
-  external JSNumber get animVal;
+  external set baseVal(double value);
+  external double get baseVal;
+  external double get animVal;
 }
 
 @JS('SVGAnimatedLength')
@@ -266,9 +266,9 @@ extension SVGAnimatedAngleExtension on SVGAnimatedAngle {
 class SVGAnimatedString implements JSObject {}
 
 extension SVGAnimatedStringExtension on SVGAnimatedString {
-  external set baseVal(JSString value);
-  external JSString get baseVal;
-  external JSString get animVal;
+  external set baseVal(String value);
+  external String get baseVal;
+  external String get animVal;
 }
 
 @JS('SVGAnimatedRect')
@@ -301,9 +301,9 @@ extension SVGAnimatedLengthListExtension on SVGAnimatedLengthList {
 @JS('SVGUnitTypes')
 @staticInterop
 class SVGUnitTypes implements JSObject {
-  external static JSNumber get SVG_UNIT_TYPE_UNKNOWN;
-  external static JSNumber get SVG_UNIT_TYPE_USERSPACEONUSE;
-  external static JSNumber get SVG_UNIT_TYPE_OBJECTBOUNDINGBOX;
+  external static int get SVG_UNIT_TYPE_UNKNOWN;
+  external static int get SVG_UNIT_TYPE_USERSPACEONUSE;
+  external static int get SVG_UNIT_TYPE_OBJECTBOUNDINGBOX;
 }
 
 @JS('SVGTests')
@@ -346,11 +346,11 @@ extension SVGSVGElementExtension on SVGSVGElement {
     DOMRectReadOnly rect,
     SVGElement? referenceElement,
   );
-  external JSBoolean checkIntersection(
+  external bool checkIntersection(
     SVGElement element,
     DOMRectReadOnly rect,
   );
-  external JSBoolean checkEnclosure(
+  external bool checkEnclosure(
     SVGElement element,
     DOMRectReadOnly rect,
   );
@@ -363,22 +363,22 @@ extension SVGSVGElementExtension on SVGSVGElement {
   external DOMRect createSVGRect();
   external SVGTransform createSVGTransform();
   external SVGTransform createSVGTransformFromMatrix([DOMMatrix2DInit matrix]);
-  external Element getElementById(JSString elementId);
-  external JSNumber suspendRedraw(JSNumber maxWaitMilliseconds);
-  external JSVoid unsuspendRedraw(JSNumber suspendHandleID);
+  external Element getElementById(String elementId);
+  external int suspendRedraw(int maxWaitMilliseconds);
+  external JSVoid unsuspendRedraw(int suspendHandleID);
   external JSVoid unsuspendRedrawAll();
   external JSVoid forceRedraw();
   external JSVoid pauseAnimations();
   external JSVoid unpauseAnimations();
-  external JSBoolean animationsPaused();
-  external JSNumber getCurrentTime();
-  external JSVoid setCurrentTime(JSNumber seconds);
+  external bool animationsPaused();
+  external double getCurrentTime();
+  external JSVoid setCurrentTime(double seconds);
   external SVGAnimatedLength get x;
   external SVGAnimatedLength get y;
   external SVGAnimatedLength get width;
   external SVGAnimatedLength get height;
-  external set currentScale(JSNumber value);
-  external JSNumber get currentScale;
+  external set currentScale(double value);
+  external double get currentScale;
   external DOMPointReadOnly get currentTranslate;
 }
 
@@ -462,46 +462,46 @@ extension GetSVGDocumentExtension on GetSVGDocument {
 class SVGStyleElement implements SVGElement, LinkStyle {}
 
 extension SVGStyleElementExtension on SVGStyleElement {
-  external set type(JSString value);
-  external JSString get type;
-  external set media(JSString value);
-  external JSString get media;
-  external set title(JSString value);
-  external JSString get title;
+  external set type(String value);
+  external String get type;
+  external set media(String value);
+  external String get media;
+  external set title(String value);
+  external String get title;
 }
 
 @JS('SVGTransform')
 @staticInterop
 class SVGTransform implements JSObject {
-  external static JSNumber get SVG_TRANSFORM_UNKNOWN;
-  external static JSNumber get SVG_TRANSFORM_MATRIX;
-  external static JSNumber get SVG_TRANSFORM_TRANSLATE;
-  external static JSNumber get SVG_TRANSFORM_SCALE;
-  external static JSNumber get SVG_TRANSFORM_ROTATE;
-  external static JSNumber get SVG_TRANSFORM_SKEWX;
-  external static JSNumber get SVG_TRANSFORM_SKEWY;
+  external static int get SVG_TRANSFORM_UNKNOWN;
+  external static int get SVG_TRANSFORM_MATRIX;
+  external static int get SVG_TRANSFORM_TRANSLATE;
+  external static int get SVG_TRANSFORM_SCALE;
+  external static int get SVG_TRANSFORM_ROTATE;
+  external static int get SVG_TRANSFORM_SKEWX;
+  external static int get SVG_TRANSFORM_SKEWY;
 }
 
 extension SVGTransformExtension on SVGTransform {
   external JSVoid setMatrix([DOMMatrix2DInit matrix]);
   external JSVoid setTranslate(
-    JSNumber tx,
-    JSNumber ty,
+    double tx,
+    double ty,
   );
   external JSVoid setScale(
-    JSNumber sx,
-    JSNumber sy,
+    double sx,
+    double sy,
   );
   external JSVoid setRotate(
-    JSNumber angle,
-    JSNumber cx,
-    JSNumber cy,
+    double angle,
+    double cx,
+    double cy,
   );
-  external JSVoid setSkewX(JSNumber angle);
-  external JSVoid setSkewY(JSNumber angle);
-  external JSNumber get type;
+  external JSVoid setSkewX(double angle);
+  external JSVoid setSkewY(double angle);
+  external int get type;
   external DOMMatrix get matrix;
-  external JSNumber get angle;
+  external double get angle;
 }
 
 @JS('SVGTransformList')
@@ -511,21 +511,21 @@ class SVGTransformList implements JSObject {}
 extension SVGTransformListExtension on SVGTransformList {
   external JSVoid clear();
   external SVGTransform initialize(SVGTransform newItem);
-  external SVGTransform getItem(JSNumber index);
+  external SVGTransform getItem(int index);
   external SVGTransform insertItemBefore(
     SVGTransform newItem,
-    JSNumber index,
+    int index,
   );
   external SVGTransform replaceItem(
     SVGTransform newItem,
-    JSNumber index,
+    int index,
   );
-  external SVGTransform removeItem(JSNumber index);
+  external SVGTransform removeItem(int index);
   external SVGTransform appendItem(SVGTransform newItem);
   external SVGTransform createSVGTransformFromMatrix([DOMMatrix2DInit matrix]);
   external SVGTransform? consolidate();
-  external JSNumber get length;
-  external JSNumber get numberOfItems;
+  external int get length;
+  external int get numberOfItems;
 }
 
 @JS('SVGAnimatedTransformList')
@@ -540,27 +540,27 @@ extension SVGAnimatedTransformListExtension on SVGAnimatedTransformList {
 @JS('SVGPreserveAspectRatio')
 @staticInterop
 class SVGPreserveAspectRatio implements JSObject {
-  external static JSNumber get SVG_PRESERVEASPECTRATIO_UNKNOWN;
-  external static JSNumber get SVG_PRESERVEASPECTRATIO_NONE;
-  external static JSNumber get SVG_PRESERVEASPECTRATIO_XMINYMIN;
-  external static JSNumber get SVG_PRESERVEASPECTRATIO_XMIDYMIN;
-  external static JSNumber get SVG_PRESERVEASPECTRATIO_XMAXYMIN;
-  external static JSNumber get SVG_PRESERVEASPECTRATIO_XMINYMID;
-  external static JSNumber get SVG_PRESERVEASPECTRATIO_XMIDYMID;
-  external static JSNumber get SVG_PRESERVEASPECTRATIO_XMAXYMID;
-  external static JSNumber get SVG_PRESERVEASPECTRATIO_XMINYMAX;
-  external static JSNumber get SVG_PRESERVEASPECTRATIO_XMIDYMAX;
-  external static JSNumber get SVG_PRESERVEASPECTRATIO_XMAXYMAX;
-  external static JSNumber get SVG_MEETORSLICE_UNKNOWN;
-  external static JSNumber get SVG_MEETORSLICE_MEET;
-  external static JSNumber get SVG_MEETORSLICE_SLICE;
+  external static int get SVG_PRESERVEASPECTRATIO_UNKNOWN;
+  external static int get SVG_PRESERVEASPECTRATIO_NONE;
+  external static int get SVG_PRESERVEASPECTRATIO_XMINYMIN;
+  external static int get SVG_PRESERVEASPECTRATIO_XMIDYMIN;
+  external static int get SVG_PRESERVEASPECTRATIO_XMAXYMIN;
+  external static int get SVG_PRESERVEASPECTRATIO_XMINYMID;
+  external static int get SVG_PRESERVEASPECTRATIO_XMIDYMID;
+  external static int get SVG_PRESERVEASPECTRATIO_XMAXYMID;
+  external static int get SVG_PRESERVEASPECTRATIO_XMINYMAX;
+  external static int get SVG_PRESERVEASPECTRATIO_XMIDYMAX;
+  external static int get SVG_PRESERVEASPECTRATIO_XMAXYMAX;
+  external static int get SVG_MEETORSLICE_UNKNOWN;
+  external static int get SVG_MEETORSLICE_MEET;
+  external static int get SVG_MEETORSLICE_SLICE;
 }
 
 extension SVGPreserveAspectRatioExtension on SVGPreserveAspectRatio {
-  external set align(JSNumber value);
-  external JSNumber get align;
-  external set meetOrSlice(JSNumber value);
-  external JSNumber get meetOrSlice;
+  external set align(int value);
+  external int get align;
+  external set meetOrSlice(int value);
+  external int get meetOrSlice;
 }
 
 @JS('SVGAnimatedPreserveAspectRatio')
@@ -638,19 +638,19 @@ class SVGPointList implements JSObject {}
 extension SVGPointListExtension on SVGPointList {
   external JSVoid clear();
   external DOMPoint initialize(DOMPoint newItem);
-  external DOMPoint getItem(JSNumber index);
+  external DOMPoint getItem(int index);
   external DOMPoint insertItemBefore(
     DOMPoint newItem,
-    JSNumber index,
+    int index,
   );
   external DOMPoint replaceItem(
     DOMPoint newItem,
-    JSNumber index,
+    int index,
   );
-  external DOMPoint removeItem(JSNumber index);
+  external DOMPoint removeItem(int index);
   external DOMPoint appendItem(DOMPoint newItem);
-  external JSNumber get length;
-  external JSNumber get numberOfItems;
+  external int get length;
+  external int get numberOfItems;
 }
 
 @JS('SVGPolylineElement')
@@ -664,26 +664,26 @@ class SVGPolygonElement implements SVGGeometryElement, SVGAnimatedPoints {}
 @JS('SVGTextContentElement')
 @staticInterop
 class SVGTextContentElement implements SVGGraphicsElement {
-  external static JSNumber get LENGTHADJUST_UNKNOWN;
-  external static JSNumber get LENGTHADJUST_SPACING;
-  external static JSNumber get LENGTHADJUST_SPACINGANDGLYPHS;
+  external static int get LENGTHADJUST_UNKNOWN;
+  external static int get LENGTHADJUST_SPACING;
+  external static int get LENGTHADJUST_SPACINGANDGLYPHS;
 }
 
 extension SVGTextContentElementExtension on SVGTextContentElement {
-  external JSNumber getNumberOfChars();
-  external JSNumber getComputedTextLength();
-  external JSNumber getSubStringLength(
-    JSNumber charnum,
-    JSNumber nchars,
+  external int getNumberOfChars();
+  external double getComputedTextLength();
+  external double getSubStringLength(
+    int charnum,
+    int nchars,
   );
-  external DOMPoint getStartPositionOfChar(JSNumber charnum);
-  external DOMPoint getEndPositionOfChar(JSNumber charnum);
-  external DOMRect getExtentOfChar(JSNumber charnum);
-  external JSNumber getRotationOfChar(JSNumber charnum);
-  external JSNumber getCharNumAtPosition([DOMPointInit point]);
+  external DOMPoint getStartPositionOfChar(int charnum);
+  external DOMPoint getEndPositionOfChar(int charnum);
+  external DOMRect getExtentOfChar(int charnum);
+  external double getRotationOfChar(int charnum);
+  external int getCharNumAtPosition([DOMPointInit point]);
   external JSVoid selectSubString(
-    JSNumber charnum,
-    JSNumber nchars,
+    int charnum,
+    int nchars,
   );
   external SVGAnimatedLength get textLength;
   external SVGAnimatedEnumeration get lengthAdjust;
@@ -712,12 +712,12 @@ class SVGTSpanElement implements SVGTextPositioningElement {}
 @JS('SVGTextPathElement')
 @staticInterop
 class SVGTextPathElement implements SVGTextContentElement, SVGURIReference {
-  external static JSNumber get TEXTPATH_METHODTYPE_UNKNOWN;
-  external static JSNumber get TEXTPATH_METHODTYPE_ALIGN;
-  external static JSNumber get TEXTPATH_METHODTYPE_STRETCH;
-  external static JSNumber get TEXTPATH_SPACINGTYPE_UNKNOWN;
-  external static JSNumber get TEXTPATH_SPACINGTYPE_AUTO;
-  external static JSNumber get TEXTPATH_SPACINGTYPE_EXACT;
+  external static int get TEXTPATH_METHODTYPE_UNKNOWN;
+  external static int get TEXTPATH_METHODTYPE_ALIGN;
+  external static int get TEXTPATH_METHODTYPE_STRETCH;
+  external static int get TEXTPATH_SPACINGTYPE_UNKNOWN;
+  external static int get TEXTPATH_SPACINGTYPE_AUTO;
+  external static int get TEXTPATH_SPACINGTYPE_EXACT;
 }
 
 extension SVGTextPathElementExtension on SVGTextPathElement {
@@ -736,8 +736,8 @@ extension SVGImageElementExtension on SVGImageElement {
   external SVGAnimatedLength get width;
   external SVGAnimatedLength get height;
   external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
-  external set crossOrigin(JSString? value);
-  external JSString? get crossOrigin;
+  external set crossOrigin(String? value);
+  external String? get crossOrigin;
 }
 
 @JS('SVGForeignObjectElement')
@@ -754,12 +754,12 @@ extension SVGForeignObjectElementExtension on SVGForeignObjectElement {
 @JS('SVGMarkerElement')
 @staticInterop
 class SVGMarkerElement implements SVGElement, SVGFitToViewBox {
-  external static JSNumber get SVG_MARKERUNITS_UNKNOWN;
-  external static JSNumber get SVG_MARKERUNITS_USERSPACEONUSE;
-  external static JSNumber get SVG_MARKERUNITS_STROKEWIDTH;
-  external static JSNumber get SVG_MARKER_ORIENT_UNKNOWN;
-  external static JSNumber get SVG_MARKER_ORIENT_AUTO;
-  external static JSNumber get SVG_MARKER_ORIENT_ANGLE;
+  external static int get SVG_MARKERUNITS_UNKNOWN;
+  external static int get SVG_MARKERUNITS_USERSPACEONUSE;
+  external static int get SVG_MARKERUNITS_STROKEWIDTH;
+  external static int get SVG_MARKER_ORIENT_UNKNOWN;
+  external static int get SVG_MARKER_ORIENT_AUTO;
+  external static int get SVG_MARKER_ORIENT_ANGLE;
 }
 
 extension SVGMarkerElementExtension on SVGMarkerElement {
@@ -772,17 +772,17 @@ extension SVGMarkerElementExtension on SVGMarkerElement {
   external SVGAnimatedLength get markerHeight;
   external SVGAnimatedEnumeration get orientType;
   external SVGAnimatedAngle get orientAngle;
-  external set orient(JSString value);
-  external JSString get orient;
+  external set orient(String value);
+  external String get orient;
 }
 
 @JS('SVGGradientElement')
 @staticInterop
 class SVGGradientElement implements SVGElement, SVGURIReference {
-  external static JSNumber get SVG_SPREADMETHOD_UNKNOWN;
-  external static JSNumber get SVG_SPREADMETHOD_PAD;
-  external static JSNumber get SVG_SPREADMETHOD_REFLECT;
-  external static JSNumber get SVG_SPREADMETHOD_REPEAT;
+  external static int get SVG_SPREADMETHOD_UNKNOWN;
+  external static int get SVG_SPREADMETHOD_PAD;
+  external static int get SVG_SPREADMETHOD_REFLECT;
+  external static int get SVG_SPREADMETHOD_REPEAT;
 }
 
 extension SVGGradientElementExtension on SVGGradientElement {
@@ -843,10 +843,10 @@ extension SVGPatternElementExtension on SVGPatternElement {
 class SVGScriptElement implements SVGElement, SVGURIReference {}
 
 extension SVGScriptElementExtension on SVGScriptElement {
-  external set type(JSString value);
-  external JSString get type;
-  external set crossOrigin(JSString? value);
-  external JSString? get crossOrigin;
+  external set type(String value);
+  external String get type;
+  external set crossOrigin(String? value);
+  external String? get crossOrigin;
 }
 
 @JS('SVGAElement')
@@ -855,40 +855,40 @@ class SVGAElement implements SVGGraphicsElement, SVGURIReference {}
 
 extension SVGAElementExtension on SVGAElement {
   external SVGAnimatedString get target;
-  external set download(JSString value);
-  external JSString get download;
-  external set ping(JSString value);
-  external JSString get ping;
-  external set rel(JSString value);
-  external JSString get rel;
+  external set download(String value);
+  external String get download;
+  external set ping(String value);
+  external String get ping;
+  external set rel(String value);
+  external String get rel;
   external DOMTokenList get relList;
-  external set hreflang(JSString value);
-  external JSString get hreflang;
-  external set type(JSString value);
-  external JSString get type;
-  external set text(JSString value);
-  external JSString get text;
-  external set referrerPolicy(JSString value);
-  external JSString get referrerPolicy;
-  external JSString get origin;
-  external set protocol(JSString value);
-  external JSString get protocol;
-  external set username(JSString value);
-  external JSString get username;
-  external set password(JSString value);
-  external JSString get password;
-  external set host(JSString value);
-  external JSString get host;
-  external set hostname(JSString value);
-  external JSString get hostname;
-  external set port(JSString value);
-  external JSString get port;
-  external set pathname(JSString value);
-  external JSString get pathname;
-  external set search(JSString value);
-  external JSString get search;
-  external set hash(JSString value);
-  external JSString get hash;
+  external set hreflang(String value);
+  external String get hreflang;
+  external set type(String value);
+  external String get type;
+  external set text(String value);
+  external String get text;
+  external set referrerPolicy(String value);
+  external String get referrerPolicy;
+  external String get origin;
+  external set protocol(String value);
+  external String get protocol;
+  external set username(String value);
+  external String get username;
+  external set password(String value);
+  external String get password;
+  external set host(String value);
+  external String get host;
+  external set hostname(String value);
+  external String get hostname;
+  external set port(String value);
+  external String get port;
+  external set pathname(String value);
+  external String get pathname;
+  external set search(String value);
+  external String get search;
+  external set hash(String value);
+  external String get hash;
 }
 
 @JS('SVGViewElement')

@@ -9,8 +9,8 @@ import 'fetch.dart';
 import 'html.dart';
 import 'service_workers.dart';
 
-typedef BackgroundFetchResult = JSString;
-typedef BackgroundFetchFailureReason = JSString;
+typedef BackgroundFetchResult = String;
+typedef BackgroundFetchFailureReason = String;
 
 @JS('BackgroundFetchManager')
 @staticInterop
@@ -18,11 +18,11 @@ class BackgroundFetchManager implements JSObject {}
 
 extension BackgroundFetchManagerExtension on BackgroundFetchManager {
   external JSPromise fetch(
-    JSString id,
+    String id,
     JSAny? requests, [
     BackgroundFetchOptions options,
   ]);
-  external JSPromise get(JSString id);
+  external JSPromise get(String id);
   external JSPromise getIds();
 }
 
@@ -32,27 +32,27 @@ extension BackgroundFetchManagerExtension on BackgroundFetchManager {
 class BackgroundFetchUIOptions implements JSObject {
   external factory BackgroundFetchUIOptions({
     JSArray icons,
-    JSString title,
+    String title,
   });
 }
 
 extension BackgroundFetchUIOptionsExtension on BackgroundFetchUIOptions {
   external set icons(JSArray value);
   external JSArray get icons;
-  external set title(JSString value);
-  external JSString get title;
+  external set title(String value);
+  external String get title;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class BackgroundFetchOptions implements BackgroundFetchUIOptions {
-  external factory BackgroundFetchOptions({JSNumber downloadTotal});
+  external factory BackgroundFetchOptions({int downloadTotal});
 }
 
 extension BackgroundFetchOptionsExtension on BackgroundFetchOptions {
-  external set downloadTotal(JSNumber value);
-  external JSNumber get downloadTotal;
+  external set downloadTotal(int value);
+  external int get downloadTotal;
 }
 
 @JS('BackgroundFetchRegistration')
@@ -69,14 +69,14 @@ extension BackgroundFetchRegistrationExtension on BackgroundFetchRegistration {
     RequestInfo request,
     CacheQueryOptions options,
   ]);
-  external JSString get id;
-  external JSNumber get uploadTotal;
-  external JSNumber get uploaded;
-  external JSNumber get downloadTotal;
-  external JSNumber get downloaded;
+  external String get id;
+  external int get uploadTotal;
+  external int get uploaded;
+  external int get downloadTotal;
+  external int get downloaded;
   external BackgroundFetchResult get result;
   external BackgroundFetchFailureReason get failureReason;
-  external JSBoolean get recordsAvailable;
+  external bool get recordsAvailable;
   external set onprogress(EventHandler value);
   external EventHandler get onprogress;
 }
@@ -94,7 +94,7 @@ extension BackgroundFetchRecordExtension on BackgroundFetchRecord {
 @staticInterop
 class BackgroundFetchEvent implements ExtendableEvent {
   external factory BackgroundFetchEvent(
-    JSString type,
+    String type,
     BackgroundFetchEventInit init,
   );
 }
@@ -120,7 +120,7 @@ extension BackgroundFetchEventInitExtension on BackgroundFetchEventInit {
 @staticInterop
 class BackgroundFetchUpdateUIEvent implements BackgroundFetchEvent {
   external factory BackgroundFetchUpdateUIEvent(
-    JSString type,
+    String type,
     BackgroundFetchEventInit init,
   );
 }

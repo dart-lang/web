@@ -12,39 +12,39 @@ typedef VoidFunction = JSFunction;
 @staticInterop
 class DOMException implements JSObject {
   external factory DOMException([
-    JSString message,
-    JSString name,
+    String message,
+    String name,
   ]);
 
-  external static JSNumber get INDEX_SIZE_ERR;
-  external static JSNumber get DOMSTRING_SIZE_ERR;
-  external static JSNumber get HIERARCHY_REQUEST_ERR;
-  external static JSNumber get WRONG_DOCUMENT_ERR;
-  external static JSNumber get INVALID_CHARACTER_ERR;
-  external static JSNumber get NO_DATA_ALLOWED_ERR;
-  external static JSNumber get NO_MODIFICATION_ALLOWED_ERR;
-  external static JSNumber get NOT_FOUND_ERR;
-  external static JSNumber get NOT_SUPPORTED_ERR;
-  external static JSNumber get INUSE_ATTRIBUTE_ERR;
-  external static JSNumber get INVALID_STATE_ERR;
-  external static JSNumber get SYNTAX_ERR;
-  external static JSNumber get INVALID_MODIFICATION_ERR;
-  external static JSNumber get NAMESPACE_ERR;
-  external static JSNumber get INVALID_ACCESS_ERR;
-  external static JSNumber get VALIDATION_ERR;
-  external static JSNumber get TYPE_MISMATCH_ERR;
-  external static JSNumber get SECURITY_ERR;
-  external static JSNumber get NETWORK_ERR;
-  external static JSNumber get ABORT_ERR;
-  external static JSNumber get URL_MISMATCH_ERR;
-  external static JSNumber get QUOTA_EXCEEDED_ERR;
-  external static JSNumber get TIMEOUT_ERR;
-  external static JSNumber get INVALID_NODE_TYPE_ERR;
-  external static JSNumber get DATA_CLONE_ERR;
+  external static int get INDEX_SIZE_ERR;
+  external static int get DOMSTRING_SIZE_ERR;
+  external static int get HIERARCHY_REQUEST_ERR;
+  external static int get WRONG_DOCUMENT_ERR;
+  external static int get INVALID_CHARACTER_ERR;
+  external static int get NO_DATA_ALLOWED_ERR;
+  external static int get NO_MODIFICATION_ALLOWED_ERR;
+  external static int get NOT_FOUND_ERR;
+  external static int get NOT_SUPPORTED_ERR;
+  external static int get INUSE_ATTRIBUTE_ERR;
+  external static int get INVALID_STATE_ERR;
+  external static int get SYNTAX_ERR;
+  external static int get INVALID_MODIFICATION_ERR;
+  external static int get NAMESPACE_ERR;
+  external static int get INVALID_ACCESS_ERR;
+  external static int get VALIDATION_ERR;
+  external static int get TYPE_MISMATCH_ERR;
+  external static int get SECURITY_ERR;
+  external static int get NETWORK_ERR;
+  external static int get ABORT_ERR;
+  external static int get URL_MISMATCH_ERR;
+  external static int get QUOTA_EXCEEDED_ERR;
+  external static int get TIMEOUT_ERR;
+  external static int get INVALID_NODE_TYPE_ERR;
+  external static int get DATA_CLONE_ERR;
 }
 
 extension DOMExceptionExtension on DOMException {
-  external JSString get name;
-  external JSString get message;
-  external JSNumber get code;
+  external String get name;
+  external String get message;
+  external int get code;
 }

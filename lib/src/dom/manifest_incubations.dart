@@ -6,13 +6,13 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 
-typedef AppBannerPromptOutcome = JSString;
+typedef AppBannerPromptOutcome = String;
 
 @JS('BeforeInstallPromptEvent')
 @staticInterop
 class BeforeInstallPromptEvent implements Event {
   external factory BeforeInstallPromptEvent(
-    JSString type, [
+    String type, [
     EventInit eventInitDict,
   ]);
 }

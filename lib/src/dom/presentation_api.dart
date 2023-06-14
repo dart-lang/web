@@ -8,8 +8,8 @@ import 'dom.dart';
 import 'html.dart';
 import 'websockets.dart';
 
-typedef PresentationConnectionState = JSString;
-typedef PresentationConnectionCloseReason = JSString;
+typedef PresentationConnectionState = String;
+typedef PresentationConnectionCloseReason = String;
 
 @JS('Presentation')
 @staticInterop
@@ -29,7 +29,7 @@ class PresentationRequest implements EventTarget {
 
 extension PresentationRequestExtension on PresentationRequest {
   external JSPromise start();
-  external JSPromise reconnect(JSString presentationId);
+  external JSPromise reconnect(String presentationId);
   external JSPromise getAvailability();
   external set onconnectionavailable(EventHandler value);
   external EventHandler get onconnectionavailable;
@@ -40,7 +40,7 @@ extension PresentationRequestExtension on PresentationRequest {
 class PresentationAvailability implements EventTarget {}
 
 extension PresentationAvailabilityExtension on PresentationAvailability {
-  external JSBoolean get value;
+  external bool get value;
   external set onchange(EventHandler value);
   external EventHandler get onchange;
 }
@@ -49,7 +49,7 @@ extension PresentationAvailabilityExtension on PresentationAvailability {
 @staticInterop
 class PresentationConnectionAvailableEvent implements Event {
   external factory PresentationConnectionAvailableEvent(
-    JSString type,
+    String type,
     PresentationConnectionAvailableEventInit eventInitDict,
   );
 }
@@ -81,8 +81,8 @@ extension PresentationConnectionExtension on PresentationConnection {
   external JSVoid close();
   external JSVoid terminate();
   external JSVoid send(JSAny? dataOrMessage);
-  external JSString get id;
-  external JSString get url;
+  external String get id;
+  external String get url;
   external PresentationConnectionState get state;
   external set onconnect(EventHandler value);
   external EventHandler get onconnect;
@@ -100,7 +100,7 @@ extension PresentationConnectionExtension on PresentationConnection {
 @staticInterop
 class PresentationConnectionCloseEvent implements Event {
   external factory PresentationConnectionCloseEvent(
-    JSString type,
+    String type,
     PresentationConnectionCloseEventInit eventInitDict,
   );
 }
@@ -108,7 +108,7 @@ class PresentationConnectionCloseEvent implements Event {
 extension PresentationConnectionCloseEventExtension
     on PresentationConnectionCloseEvent {
   external PresentationConnectionCloseReason get reason;
-  external JSString get message;
+  external String get message;
 }
 
 @JS()
@@ -117,7 +117,7 @@ extension PresentationConnectionCloseEventExtension
 class PresentationConnectionCloseEventInit implements EventInit {
   external factory PresentationConnectionCloseEventInit({
     required PresentationConnectionCloseReason reason,
-    JSString message,
+    String message,
   });
 }
 
@@ -125,8 +125,8 @@ extension PresentationConnectionCloseEventInitExtension
     on PresentationConnectionCloseEventInit {
   external set reason(PresentationConnectionCloseReason value);
   external PresentationConnectionCloseReason get reason;
-  external set message(JSString value);
-  external JSString get message;
+  external set message(String value);
+  external String get message;
 }
 
 @JS('PresentationReceiver')

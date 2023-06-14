@@ -10,8 +10,8 @@ class HTMLAttributionSrcElementUtils implements JSObject {}
 
 extension HTMLAttributionSrcElementUtilsExtension
     on HTMLAttributionSrcElementUtils {
-  external set attributionSrc(JSString value);
-  external JSString get attributionSrc;
+  external set attributionSrc(String value);
+  external String get attributionSrc;
 }
 
 @JS()
@@ -19,15 +19,15 @@ extension HTMLAttributionSrcElementUtilsExtension
 @anonymous
 class AttributionReportingRequestOptions implements JSObject {
   external factory AttributionReportingRequestOptions({
-    required JSBoolean eventSourceEligible,
-    required JSBoolean triggerEligible,
+    required bool eventSourceEligible,
+    required bool triggerEligible,
   });
 }
 
 extension AttributionReportingRequestOptionsExtension
     on AttributionReportingRequestOptions {
-  external set eventSourceEligible(JSBoolean value);
-  external JSBoolean get eventSourceEligible;
-  external set triggerEligible(JSBoolean value);
-  external JSBoolean get triggerEligible;
+  external set eventSourceEligible(bool value);
+  external bool get eventSourceEligible;
+  external set triggerEligible(bool value);
+  external bool get triggerEligible;
 }

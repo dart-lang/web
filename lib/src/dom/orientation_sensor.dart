@@ -7,7 +7,7 @@ import 'dart:js_interop';
 import 'generic_sensor.dart';
 
 typedef RotationMatrixType = JSAny?;
-typedef OrientationSensorLocalCoordinateSystem = JSString;
+typedef OrientationSensorLocalCoordinateSystem = String;
 
 @JS('OrientationSensor')
 @staticInterop

@@ -15,8 +15,8 @@ class PerformanceEntry implements JSObject {}
 
 extension PerformanceEntryExtension on PerformanceEntry {
   external JSObject toJSON();
-  external JSString get name;
-  external JSString get entryType;
+  external String get name;
+  external String get entryType;
   external DOMHighResTimeStamp get startTime;
   external DOMHighResTimeStamp get duration;
 }
@@ -40,13 +40,13 @@ extension PerformanceObserverExtension on PerformanceObserver {
 @anonymous
 class PerformanceObserverCallbackOptions implements JSObject {
   external factory PerformanceObserverCallbackOptions(
-      {JSNumber droppedEntriesCount});
+      {int droppedEntriesCount});
 }
 
 extension PerformanceObserverCallbackOptionsExtension
     on PerformanceObserverCallbackOptions {
-  external set droppedEntriesCount(JSNumber value);
-  external JSNumber get droppedEntriesCount;
+  external set droppedEntriesCount(int value);
+  external int get droppedEntriesCount;
 }
 
 @JS()
@@ -56,8 +56,8 @@ class PerformanceObserverInit implements JSObject {
   external factory PerformanceObserverInit({
     DOMHighResTimeStamp durationThreshold,
     JSArray entryTypes,
-    JSString type,
-    JSBoolean buffered,
+    String type,
+    bool buffered,
   });
 }
 
@@ -66,10 +66,10 @@ extension PerformanceObserverInitExtension on PerformanceObserverInit {
   external DOMHighResTimeStamp get durationThreshold;
   external set entryTypes(JSArray value);
   external JSArray get entryTypes;
-  external set type(JSString value);
-  external JSString get type;
-  external set buffered(JSBoolean value);
-  external JSBoolean get buffered;
+  external set type(String value);
+  external String get type;
+  external set buffered(bool value);
+  external bool get buffered;
 }
 
 @JS('PerformanceObserverEntryList')
@@ -79,9 +79,9 @@ class PerformanceObserverEntryList implements JSObject {}
 extension PerformanceObserverEntryListExtension
     on PerformanceObserverEntryList {
   external PerformanceEntryList getEntries();
-  external PerformanceEntryList getEntriesByType(JSString type);
+  external PerformanceEntryList getEntriesByType(String type);
   external PerformanceEntryList getEntriesByName(
-    JSString name, [
-    JSString type,
+    String name, [
+    String type,
   ]);
 }

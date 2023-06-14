@@ -19,8 +19,8 @@ class Sanitizer implements JSObject {
 extension SanitizerExtension on Sanitizer {
   external DocumentFragment sanitize(JSAny? input);
   external Element? sanitizeFor(
-    JSString element,
-    JSString input,
+    String element,
+    String input,
   );
   external SanitizerConfig getConfiguration();
 }
@@ -47,9 +47,9 @@ class SanitizerConfig implements JSObject {
     JSArray dropElements,
     AttributeMatchList allowAttributes,
     AttributeMatchList dropAttributes,
-    JSBoolean allowCustomElements,
-    JSBoolean allowUnknownMarkup,
-    JSBoolean allowComments,
+    bool allowCustomElements,
+    bool allowUnknownMarkup,
+    bool allowComments,
   });
 }
 
@@ -64,10 +64,10 @@ extension SanitizerConfigExtension on SanitizerConfig {
   external AttributeMatchList get allowAttributes;
   external set dropAttributes(AttributeMatchList value);
   external AttributeMatchList get dropAttributes;
-  external set allowCustomElements(JSBoolean value);
-  external JSBoolean get allowCustomElements;
-  external set allowUnknownMarkup(JSBoolean value);
-  external JSBoolean get allowUnknownMarkup;
-  external set allowComments(JSBoolean value);
-  external JSBoolean get allowComments;
+  external set allowCustomElements(bool value);
+  external bool get allowCustomElements;
+  external set allowUnknownMarkup(bool value);
+  external bool get allowUnknownMarkup;
+  external set allowComments(bool value);
+  external bool get allowComments;
 }

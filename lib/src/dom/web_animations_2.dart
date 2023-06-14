@@ -9,7 +9,7 @@ import 'dom.dart';
 import 'web_animations.dart';
 
 typedef EffectCallback = JSFunction;
-typedef IterationCompositeOperation = JSString;
+typedef IterationCompositeOperation = String;
 
 @JS('GroupEffect')
 @staticInterop
@@ -34,8 +34,8 @@ extension GroupEffectExtension on GroupEffect {
 class AnimationNodeList implements JSObject {}
 
 extension AnimationNodeListExtension on AnimationNodeList {
-  external AnimationEffect? item(JSNumber index);
-  external JSNumber get length;
+  external AnimationEffect? item(int index);
+  external int get length;
 }
 
 @JS('SequenceEffect')
@@ -56,14 +56,14 @@ extension SequenceEffectExtension on SequenceEffect {
 @anonymous
 class TimelineRangeOffset implements JSObject {
   external factory TimelineRangeOffset({
-    JSString? rangeName,
+    String? rangeName,
     CSSNumericValue offset,
   });
 }
 
 extension TimelineRangeOffsetExtension on TimelineRangeOffset {
-  external set rangeName(JSString? value);
-  external JSString? get rangeName;
+  external set rangeName(String? value);
+  external String? get rangeName;
   external set offset(CSSNumericValue value);
   external CSSNumericValue get offset;
 }
@@ -72,7 +72,7 @@ extension TimelineRangeOffsetExtension on TimelineRangeOffset {
 @staticInterop
 class AnimationPlaybackEvent implements Event {
   external factory AnimationPlaybackEvent(
-    JSString type, [
+    String type, [
     AnimationPlaybackEventInit eventInitDict,
   ]);
 }

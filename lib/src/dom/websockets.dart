@@ -7,39 +7,39 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
-typedef BinaryType = JSString;
+typedef BinaryType = String;
 
 @JS('WebSocket')
 @staticInterop
 class WebSocket implements EventTarget {
   external factory WebSocket(
-    JSString url, [
+    String url, [
     JSAny? protocols,
   ]);
 
-  external static JSNumber get CONNECTING;
-  external static JSNumber get OPEN;
-  external static JSNumber get CLOSING;
-  external static JSNumber get CLOSED;
+  external static int get CONNECTING;
+  external static int get OPEN;
+  external static int get CLOSING;
+  external static int get CLOSED;
 }
 
 extension WebSocketExtension on WebSocket {
   external JSVoid close([
-    JSNumber code,
-    JSString reason,
+    int code,
+    String reason,
   ]);
   external JSVoid send(JSAny? data);
-  external JSString get url;
-  external JSNumber get readyState;
-  external JSNumber get bufferedAmount;
+  external String get url;
+  external int get readyState;
+  external int get bufferedAmount;
   external set onopen(EventHandler value);
   external EventHandler get onopen;
   external set onerror(EventHandler value);
   external EventHandler get onerror;
   external set onclose(EventHandler value);
   external EventHandler get onclose;
-  external JSString get extensions;
-  external JSString get protocol;
+  external String get extensions;
+  external String get protocol;
   external set onmessage(EventHandler value);
   external EventHandler get onmessage;
   external set binaryType(BinaryType value);
@@ -50,15 +50,15 @@ extension WebSocketExtension on WebSocket {
 @staticInterop
 class CloseEvent implements Event {
   external factory CloseEvent(
-    JSString type, [
+    String type, [
     CloseEventInit eventInitDict,
   ]);
 }
 
 extension CloseEventExtension on CloseEvent {
-  external JSBoolean get wasClean;
-  external JSNumber get code;
-  external JSString get reason;
+  external bool get wasClean;
+  external int get code;
+  external String get reason;
 }
 
 @JS()
@@ -66,17 +66,17 @@ extension CloseEventExtension on CloseEvent {
 @anonymous
 class CloseEventInit implements EventInit {
   external factory CloseEventInit({
-    JSBoolean wasClean,
-    JSNumber code,
-    JSString reason,
+    bool wasClean,
+    int code,
+    String reason,
   });
 }
 
 extension CloseEventInitExtension on CloseEventInit {
-  external set wasClean(JSBoolean value);
-  external JSBoolean get wasClean;
-  external set code(JSNumber value);
-  external JSNumber get code;
-  external set reason(JSString value);
-  external JSString get reason;
+  external set wasClean(bool value);
+  external bool get wasClean;
+  external set code(int value);
+  external int get code;
+  external set reason(String value);
+  external String get reason;
 }

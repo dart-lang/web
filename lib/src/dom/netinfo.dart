@@ -8,10 +8,10 @@ import 'dom.dart';
 import 'html.dart';
 import 'savedata.dart';
 
-typedef Megabit = JSNumber;
-typedef Millisecond = JSNumber;
-typedef ConnectionType = JSString;
-typedef EffectiveConnectionType = JSString;
+typedef Megabit = double;
+typedef Millisecond = int;
+typedef ConnectionType = String;
+typedef EffectiveConnectionType = String;
 
 @JS('NavigatorNetworkInformation')
 @staticInterop

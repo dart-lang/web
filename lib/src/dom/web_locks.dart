@@ -7,7 +7,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 
 typedef LockGrantedCallback = JSFunction;
-typedef LockMode = JSString;
+typedef LockMode = String;
 
 @JS('NavigatorLocks')
 @staticInterop
@@ -23,7 +23,7 @@ class LockManager implements JSObject {}
 
 extension LockManagerExtension on LockManager {
   external JSPromise request(
-    JSString name,
+    String name,
     JSAny? callbackOrOptions, [
     LockGrantedCallback callback,
   ]);
@@ -36,8 +36,8 @@ extension LockManagerExtension on LockManager {
 class LockOptions implements JSObject {
   external factory LockOptions({
     LockMode mode,
-    JSBoolean ifAvailable,
-    JSBoolean steal,
+    bool ifAvailable,
+    bool steal,
     AbortSignal signal,
   });
 }
@@ -45,10 +45,10 @@ class LockOptions implements JSObject {
 extension LockOptionsExtension on LockOptions {
   external set mode(LockMode value);
   external LockMode get mode;
-  external set ifAvailable(JSBoolean value);
-  external JSBoolean get ifAvailable;
-  external set steal(JSBoolean value);
-  external JSBoolean get steal;
+  external set ifAvailable(bool value);
+  external bool get ifAvailable;
+  external set steal(bool value);
+  external bool get steal;
   external set signal(AbortSignal value);
   external AbortSignal get signal;
 }
@@ -75,19 +75,19 @@ extension LockManagerSnapshotExtension on LockManagerSnapshot {
 @anonymous
 class LockInfo implements JSObject {
   external factory LockInfo({
-    JSString name,
+    String name,
     LockMode mode,
-    JSString clientId,
+    String clientId,
   });
 }
 
 extension LockInfoExtension on LockInfo {
-  external set name(JSString value);
-  external JSString get name;
+  external set name(String value);
+  external String get name;
   external set mode(LockMode value);
   external LockMode get mode;
-  external set clientId(JSString value);
-  external JSString get clientId;
+  external set clientId(String value);
+  external String get clientId;
 }
 
 @JS('Lock')
@@ -95,6 +95,6 @@ extension LockInfoExtension on LockInfo {
 class Lock implements JSObject {}
 
 extension LockExtension on Lock {
-  external JSString get name;
+  external String get name;
   external LockMode get mode;
 }

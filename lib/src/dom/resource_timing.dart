@@ -7,7 +7,7 @@ import 'dart:js_interop';
 import 'hr_time.dart';
 import 'performance_timeline.dart';
 
-typedef RenderBlockingStatusType = JSString;
+typedef RenderBlockingStatusType = String;
 
 @JS('PerformanceResourceTiming')
 @staticInterop
@@ -15,9 +15,9 @@ class PerformanceResourceTiming implements PerformanceEntry {}
 
 extension PerformanceResourceTimingExtension on PerformanceResourceTiming {
   external JSObject toJSON();
-  external JSString get initiatorType;
-  external JSString get deliveryType;
-  external JSString get nextHopProtocol;
+  external String get initiatorType;
+  external String get deliveryType;
+  external String get nextHopProtocol;
   external DOMHighResTimeStamp get workerStart;
   external DOMHighResTimeStamp get redirectStart;
   external DOMHighResTimeStamp get redirectEnd;
@@ -30,10 +30,10 @@ extension PerformanceResourceTimingExtension on PerformanceResourceTiming {
   external DOMHighResTimeStamp get requestStart;
   external DOMHighResTimeStamp get responseStart;
   external DOMHighResTimeStamp get responseEnd;
-  external JSNumber get transferSize;
-  external JSNumber get encodedBodySize;
-  external JSNumber get decodedBodySize;
-  external JSNumber get responseStatus;
+  external int get transferSize;
+  external int get encodedBodySize;
+  external int get decodedBodySize;
+  external int get responseStatus;
   external RenderBlockingStatusType get renderBlockingStatus;
   external JSArray get serverTiming;
 }

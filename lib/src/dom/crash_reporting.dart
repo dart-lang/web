@@ -12,5 +12,5 @@ class CrashReportBody implements ReportBody {}
 
 extension CrashReportBodyExtension on CrashReportBody {
   external JSObject toJSON();
-  external JSString? get reason;
+  external String? get reason;
 }

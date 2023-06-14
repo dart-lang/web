@@ -7,8 +7,8 @@ import 'dart:js_interop';
 import 'webgl1.dart';
 import 'webxr.dart';
 
-typedef XRDepthUsage = JSString;
-typedef XRDepthDataFormat = JSString;
+typedef XRDepthUsage = String;
+typedef XRDepthDataFormat = String;
 
 @JS()
 @staticInterop
@@ -32,10 +32,10 @@ extension XRDepthStateInitExtension on XRDepthStateInit {
 class XRDepthInformation implements JSObject {}
 
 extension XRDepthInformationExtension on XRDepthInformation {
-  external JSNumber get width;
-  external JSNumber get height;
+  external int get width;
+  external int get height;
   external XRRigidTransform get normDepthBufferFromNormView;
-  external JSNumber get rawValueToMeters;
+  external double get rawValueToMeters;
 }
 
 @JS('XRCPUDepthInformation')
@@ -43,9 +43,9 @@ extension XRDepthInformationExtension on XRDepthInformation {
 class XRCPUDepthInformation implements XRDepthInformation {}
 
 extension XRCPUDepthInformationExtension on XRCPUDepthInformation {
-  external JSNumber getDepthInMeters(
-    JSNumber x,
-    JSNumber y,
+  external double getDepthInMeters(
+    double x,
+    double y,
   );
   external JSArrayBuffer get data;
 }

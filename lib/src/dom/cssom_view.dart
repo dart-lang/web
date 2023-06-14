@@ -10,9 +10,9 @@ import 'html.dart';
 import 'screen_orientation.dart';
 
 typedef GeometryNode = JSAny?;
-typedef ScrollBehavior = JSString;
-typedef ScrollLogicalPosition = JSString;
-typedef CSSBoxType = JSString;
+typedef ScrollBehavior = String;
+typedef ScrollLogicalPosition = String;
+typedef CSSBoxType = String;
 
 @JS()
 @staticInterop
@@ -31,16 +31,16 @@ extension ScrollOptionsExtension on ScrollOptions {
 @anonymous
 class ScrollToOptions implements ScrollOptions {
   external factory ScrollToOptions({
-    JSNumber left,
-    JSNumber top,
+    double left,
+    double top,
   });
 }
 
 extension ScrollToOptionsExtension on ScrollToOptions {
-  external set left(JSNumber value);
-  external JSNumber get left;
-  external set top(JSNumber value);
-  external JSNumber get top;
+  external set left(double value);
+  external double get left;
+  external set top(double value);
+  external double get top;
 }
 
 @JS('MediaQueryList')
@@ -50,8 +50,8 @@ class MediaQueryList implements EventTarget {}
 extension MediaQueryListExtension on MediaQueryList {
   external JSVoid addListener(EventListener? callback);
   external JSVoid removeListener(EventListener? callback);
-  external JSString get media;
-  external JSBoolean get matches;
+  external String get media;
+  external bool get matches;
   external set onchange(EventHandler value);
   external EventHandler get onchange;
 }
@@ -60,14 +60,14 @@ extension MediaQueryListExtension on MediaQueryList {
 @staticInterop
 class MediaQueryListEvent implements Event {
   external factory MediaQueryListEvent(
-    JSString type, [
+    String type, [
     MediaQueryListEventInit eventInitDict,
   ]);
 }
 
 extension MediaQueryListEventExtension on MediaQueryListEvent {
-  external JSString get media;
-  external JSBoolean get matches;
+  external String get media;
+  external bool get matches;
 }
 
 @JS()
@@ -75,16 +75,16 @@ extension MediaQueryListEventExtension on MediaQueryListEvent {
 @anonymous
 class MediaQueryListEventInit implements EventInit {
   external factory MediaQueryListEventInit({
-    JSString media,
-    JSBoolean matches,
+    String media,
+    bool matches,
   });
 }
 
 extension MediaQueryListEventInitExtension on MediaQueryListEventInit {
-  external set media(JSString value);
-  external JSString get media;
-  external set matches(JSBoolean value);
-  external JSBoolean get matches;
+  external set media(String value);
+  external String get media;
+  external set matches(bool value);
+  external bool get matches;
 }
 
 @JS('Screen')
@@ -92,14 +92,14 @@ extension MediaQueryListEventInitExtension on MediaQueryListEventInit {
 class Screen implements JSObject {}
 
 extension ScreenExtension on Screen {
-  external JSNumber get availWidth;
-  external JSNumber get availHeight;
-  external JSNumber get width;
-  external JSNumber get height;
-  external JSNumber get colorDepth;
-  external JSNumber get pixelDepth;
+  external int get availWidth;
+  external int get availHeight;
+  external int get width;
+  external int get height;
+  external int get colorDepth;
+  external int get pixelDepth;
   external ScreenOrientation get orientation;
-  external JSBoolean get isExtended;
+  external bool get isExtended;
   external set onchange(EventHandler value);
   external EventHandler get onchange;
 }
@@ -111,7 +111,7 @@ class CaretPosition implements JSObject {}
 extension CaretPositionExtension on CaretPosition {
   external DOMRect? getClientRect();
   external Node get offsetNode;
-  external JSNumber get offset;
+  external int get offset;
 }
 
 @JS()
@@ -136,16 +136,16 @@ extension ScrollIntoViewOptionsExtension on ScrollIntoViewOptions {
 @anonymous
 class CheckVisibilityOptions implements JSObject {
   external factory CheckVisibilityOptions({
-    JSBoolean checkOpacity,
-    JSBoolean checkVisibilityCSS,
+    bool checkOpacity,
+    bool checkVisibilityCSS,
   });
 }
 
 extension CheckVisibilityOptionsExtension on CheckVisibilityOptions {
-  external set checkOpacity(JSBoolean value);
-  external JSBoolean get checkOpacity;
-  external set checkVisibilityCSS(JSBoolean value);
-  external JSBoolean get checkVisibilityCSS;
+  external set checkOpacity(bool value);
+  external bool get checkOpacity;
+  external set checkVisibilityCSS(bool value);
+  external bool get checkVisibilityCSS;
 }
 
 @JS()
@@ -210,13 +210,13 @@ extension GeometryUtilsExtension on GeometryUtils {
 class VisualViewport implements EventTarget {}
 
 extension VisualViewportExtension on VisualViewport {
-  external JSNumber get offsetLeft;
-  external JSNumber get offsetTop;
-  external JSNumber get pageLeft;
-  external JSNumber get pageTop;
-  external JSNumber get width;
-  external JSNumber get height;
-  external JSNumber get scale;
+  external double get offsetLeft;
+  external double get offsetTop;
+  external double get pageLeft;
+  external double get pageTop;
+  external double get width;
+  external double get height;
+  external double get scale;
   external set onresize(EventHandler value);
   external EventHandler get onresize;
   external set onscroll(EventHandler value);

@@ -13,17 +13,17 @@ class AmbientLightSensor implements Sensor {
 }
 
 extension AmbientLightSensorExtension on AmbientLightSensor {
-  external JSNumber? get illuminance;
+  external double? get illuminance;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class AmbientLightReadingValues implements JSObject {
-  external factory AmbientLightReadingValues({required JSNumber? illuminance});
+  external factory AmbientLightReadingValues({required double? illuminance});
 }
 
 extension AmbientLightReadingValuesExtension on AmbientLightReadingValues {
-  external set illuminance(JSNumber? value);
-  external JSNumber? get illuminance;
+  external set illuminance(double? value);
+  external double? get illuminance;
 }

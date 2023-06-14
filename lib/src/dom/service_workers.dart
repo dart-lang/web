@@ -17,10 +17,10 @@ import 'payment_handler.dart';
 import 'periodic_background_sync.dart';
 import 'push_api.dart';
 
-typedef ServiceWorkerState = JSString;
-typedef ServiceWorkerUpdateViaCache = JSString;
-typedef FrameType = JSString;
-typedef ClientType = JSString;
+typedef ServiceWorkerState = String;
+typedef ServiceWorkerUpdateViaCache = String;
+typedef FrameType = String;
+typedef ClientType = String;
 
 @JS('ServiceWorker')
 @staticInterop
@@ -31,7 +31,7 @@ extension ServiceWorkerExtension on ServiceWorker {
     JSAny? message, [
     JSAny? optionsOrTransfer,
   ]);
-  external JSString get scriptURL;
+  external String get scriptURL;
   external ServiceWorkerState get state;
   external set onstatechange(EventHandler value);
   external EventHandler get onstatechange;
@@ -43,7 +43,7 @@ class ServiceWorkerRegistration implements EventTarget {}
 
 extension ServiceWorkerRegistrationExtension on ServiceWorkerRegistration {
   external JSPromise showNotification(
-    JSString title, [
+    String title, [
     NotificationOptions options,
   ]);
   external JSPromise getNotifications([GetNotificationOptions filter]);
@@ -60,7 +60,7 @@ extension ServiceWorkerRegistrationExtension on ServiceWorkerRegistration {
   external ServiceWorker? get waiting;
   external ServiceWorker? get active;
   external NavigationPreloadManager get navigationPreload;
-  external JSString get scope;
+  external String get scope;
   external ServiceWorkerUpdateViaCache get updateViaCache;
   external set onupdatefound(EventHandler value);
   external EventHandler get onupdatefound;
@@ -72,10 +72,10 @@ class ServiceWorkerContainer implements EventTarget {}
 
 extension ServiceWorkerContainerExtension on ServiceWorkerContainer {
   external JSPromise register(
-    JSString scriptURL, [
+    String scriptURL, [
     RegistrationOptions options,
   ]);
-  external JSPromise getRegistration([JSString clientURL]);
+  external JSPromise getRegistration([String clientURL]);
   external JSPromise getRegistrations();
   external JSVoid startMessages();
   external ServiceWorker? get controller;
@@ -93,15 +93,15 @@ extension ServiceWorkerContainerExtension on ServiceWorkerContainer {
 @anonymous
 class RegistrationOptions implements JSObject {
   external factory RegistrationOptions({
-    JSString scope,
+    String scope,
     WorkerType type,
     ServiceWorkerUpdateViaCache updateViaCache,
   });
 }
 
 extension RegistrationOptionsExtension on RegistrationOptions {
-  external set scope(JSString value);
-  external JSString get scope;
+  external set scope(String value);
+  external String get scope;
   external set type(WorkerType value);
   external WorkerType get type;
   external set updateViaCache(ServiceWorkerUpdateViaCache value);
@@ -115,7 +115,7 @@ class NavigationPreloadManager implements JSObject {}
 extension NavigationPreloadManagerExtension on NavigationPreloadManager {
   external JSPromise enable();
   external JSPromise disable();
-  external JSPromise setHeaderValue(JSString value);
+  external JSPromise setHeaderValue(String value);
   external JSPromise getState();
 }
 
@@ -124,16 +124,16 @@ extension NavigationPreloadManagerExtension on NavigationPreloadManager {
 @anonymous
 class NavigationPreloadState implements JSObject {
   external factory NavigationPreloadState({
-    JSBoolean enabled,
-    JSString headerValue,
+    bool enabled,
+    String headerValue,
   });
 }
 
 extension NavigationPreloadStateExtension on NavigationPreloadState {
-  external set enabled(JSBoolean value);
-  external JSBoolean get enabled;
-  external set headerValue(JSString value);
-  external JSString get headerValue;
+  external set enabled(bool value);
+  external bool get enabled;
+  external set headerValue(String value);
+  external String get headerValue;
 }
 
 @JS('ServiceWorkerGlobalScope')
@@ -196,9 +196,9 @@ extension ClientExtension on Client {
     JSAny? optionsOrTransfer,
   ]);
   external ClientLifecycleState get lifecycleState;
-  external JSString get url;
+  external String get url;
   external FrameType get frameType;
-  external JSString get id;
+  external String get id;
   external ClientType get type;
 }
 
@@ -208,9 +208,9 @@ class WindowClient implements Client {}
 
 extension WindowClientExtension on WindowClient {
   external JSPromise focus();
-  external JSPromise navigate(JSString url);
+  external JSPromise navigate(String url);
   external DocumentVisibilityState get visibilityState;
-  external JSBoolean get focused;
+  external bool get focused;
   external JSArray get ancestorOrigins;
 }
 
@@ -219,9 +219,9 @@ extension WindowClientExtension on WindowClient {
 class Clients implements JSObject {}
 
 extension ClientsExtension on Clients {
-  external JSPromise get(JSString id);
+  external JSPromise get(String id);
   external JSPromise matchAll([ClientQueryOptions options]);
-  external JSPromise openWindow(JSString url);
+  external JSPromise openWindow(String url);
   external JSPromise claim();
 }
 
@@ -230,14 +230,14 @@ extension ClientsExtension on Clients {
 @anonymous
 class ClientQueryOptions implements JSObject {
   external factory ClientQueryOptions({
-    JSBoolean includeUncontrolled,
+    bool includeUncontrolled,
     ClientType type,
   });
 }
 
 extension ClientQueryOptionsExtension on ClientQueryOptions {
-  external set includeUncontrolled(JSBoolean value);
-  external JSBoolean get includeUncontrolled;
+  external set includeUncontrolled(bool value);
+  external bool get includeUncontrolled;
   external set type(ClientType value);
   external ClientType get type;
 }
@@ -246,7 +246,7 @@ extension ClientQueryOptionsExtension on ClientQueryOptions {
 @staticInterop
 class ExtendableEvent implements Event {
   external factory ExtendableEvent(
-    JSString type, [
+    String type, [
     ExtendableEventInit eventInitDict,
   ]);
 }
@@ -266,7 +266,7 @@ class ExtendableEventInit implements EventInit {
 @staticInterop
 class FetchEvent implements ExtendableEvent {
   external factory FetchEvent(
-    JSString type,
+    String type,
     FetchEventInit eventInitDict,
   );
 }
@@ -275,9 +275,9 @@ extension FetchEventExtension on FetchEvent {
   external JSVoid respondWith(JSPromise r);
   external Request get request;
   external JSPromise get preloadResponse;
-  external JSString get clientId;
-  external JSString get resultingClientId;
-  external JSString get replacesClientId;
+  external String get clientId;
+  external String get resultingClientId;
+  external String get replacesClientId;
   external JSPromise get handled;
 }
 
@@ -288,9 +288,9 @@ class FetchEventInit implements ExtendableEventInit {
   external factory FetchEventInit({
     required Request request,
     JSPromise preloadResponse,
-    JSString clientId,
-    JSString resultingClientId,
-    JSString replacesClientId,
+    String clientId,
+    String resultingClientId,
+    String replacesClientId,
     JSPromise handled,
   });
 }
@@ -300,12 +300,12 @@ extension FetchEventInitExtension on FetchEventInit {
   external Request get request;
   external set preloadResponse(JSPromise value);
   external JSPromise get preloadResponse;
-  external set clientId(JSString value);
-  external JSString get clientId;
-  external set resultingClientId(JSString value);
-  external JSString get resultingClientId;
-  external set replacesClientId(JSString value);
-  external JSString get replacesClientId;
+  external set clientId(String value);
+  external String get clientId;
+  external set resultingClientId(String value);
+  external String get resultingClientId;
+  external set replacesClientId(String value);
+  external String get replacesClientId;
   external set handled(JSPromise value);
   external JSPromise get handled;
 }
@@ -314,15 +314,15 @@ extension FetchEventInitExtension on FetchEventInit {
 @staticInterop
 class ExtendableMessageEvent implements ExtendableEvent {
   external factory ExtendableMessageEvent(
-    JSString type, [
+    String type, [
     ExtendableMessageEventInit eventInitDict,
   ]);
 }
 
 extension ExtendableMessageEventExtension on ExtendableMessageEvent {
   external JSAny? get data;
-  external JSString get origin;
-  external JSString get lastEventId;
+  external String get origin;
+  external String get lastEventId;
   external JSAny? get source;
   external JSArray get ports;
 }
@@ -333,8 +333,8 @@ extension ExtendableMessageEventExtension on ExtendableMessageEvent {
 class ExtendableMessageEventInit implements ExtendableEventInit {
   external factory ExtendableMessageEventInit({
     JSAny? data,
-    JSString origin,
-    JSString lastEventId,
+    String origin,
+    String lastEventId,
     JSAny? source,
     JSArray ports,
   });
@@ -343,10 +343,10 @@ class ExtendableMessageEventInit implements ExtendableEventInit {
 extension ExtendableMessageEventInitExtension on ExtendableMessageEventInit {
   external set data(JSAny? value);
   external JSAny? get data;
-  external set origin(JSString value);
-  external JSString get origin;
-  external set lastEventId(JSString value);
-  external JSString get lastEventId;
+  external set origin(String value);
+  external String get origin;
+  external set lastEventId(String value);
+  external String get lastEventId;
   external set source(JSAny? value);
   external JSAny? get source;
   external set ports(JSArray value);
@@ -387,19 +387,19 @@ extension CacheExtension on Cache {
 @anonymous
 class CacheQueryOptions implements JSObject {
   external factory CacheQueryOptions({
-    JSBoolean ignoreSearch,
-    JSBoolean ignoreMethod,
-    JSBoolean ignoreVary,
+    bool ignoreSearch,
+    bool ignoreMethod,
+    bool ignoreVary,
   });
 }
 
 extension CacheQueryOptionsExtension on CacheQueryOptions {
-  external set ignoreSearch(JSBoolean value);
-  external JSBoolean get ignoreSearch;
-  external set ignoreMethod(JSBoolean value);
-  external JSBoolean get ignoreMethod;
-  external set ignoreVary(JSBoolean value);
-  external JSBoolean get ignoreVary;
+  external set ignoreSearch(bool value);
+  external bool get ignoreSearch;
+  external set ignoreMethod(bool value);
+  external bool get ignoreMethod;
+  external set ignoreVary(bool value);
+  external bool get ignoreVary;
 }
 
 @JS('CacheStorage')
@@ -411,9 +411,9 @@ extension CacheStorageExtension on CacheStorage {
     RequestInfo request, [
     MultiCacheQueryOptions options,
   ]);
-  external JSPromise has(JSString cacheName);
-  external JSPromise open(JSString cacheName);
-  external JSPromise delete(JSString cacheName);
+  external JSPromise has(String cacheName);
+  external JSPromise open(String cacheName);
+  external JSPromise delete(String cacheName);
   external JSPromise keys();
 }
 
@@ -421,10 +421,10 @@ extension CacheStorageExtension on CacheStorage {
 @staticInterop
 @anonymous
 class MultiCacheQueryOptions implements CacheQueryOptions {
-  external factory MultiCacheQueryOptions({JSString cacheName});
+  external factory MultiCacheQueryOptions({String cacheName});
 }
 
 extension MultiCacheQueryOptionsExtension on MultiCacheQueryOptions {
-  external set cacheName(JSString value);
-  external JSString get cacheName;
+  external set cacheName(String value);
+  external String get cacheName;
 }

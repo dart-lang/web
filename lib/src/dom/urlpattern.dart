@@ -17,22 +17,22 @@ class URLPattern implements JSObject {
 }
 
 extension URLPatternExtension on URLPattern {
-  external JSBoolean test([
+  external bool test([
     URLPatternInput input,
-    JSString baseURL,
+    String baseURL,
   ]);
   external URLPatternResult? exec([
     URLPatternInput input,
-    JSString baseURL,
+    String baseURL,
   ]);
-  external JSString get protocol;
-  external JSString get username;
-  external JSString get password;
-  external JSString get hostname;
-  external JSString get port;
-  external JSString get pathname;
-  external JSString get search;
-  external JSString get hash;
+  external String get protocol;
+  external String get username;
+  external String get password;
+  external String get hostname;
+  external String get port;
+  external String get pathname;
+  external String get search;
+  external String get hash;
 }
 
 @JS()
@@ -40,49 +40,49 @@ extension URLPatternExtension on URLPattern {
 @anonymous
 class URLPatternInit implements JSObject {
   external factory URLPatternInit({
-    JSString protocol,
-    JSString username,
-    JSString password,
-    JSString hostname,
-    JSString port,
-    JSString pathname,
-    JSString search,
-    JSString hash,
-    JSString baseURL,
+    String protocol,
+    String username,
+    String password,
+    String hostname,
+    String port,
+    String pathname,
+    String search,
+    String hash,
+    String baseURL,
   });
 }
 
 extension URLPatternInitExtension on URLPatternInit {
-  external set protocol(JSString value);
-  external JSString get protocol;
-  external set username(JSString value);
-  external JSString get username;
-  external set password(JSString value);
-  external JSString get password;
-  external set hostname(JSString value);
-  external JSString get hostname;
-  external set port(JSString value);
-  external JSString get port;
-  external set pathname(JSString value);
-  external JSString get pathname;
-  external set search(JSString value);
-  external JSString get search;
-  external set hash(JSString value);
-  external JSString get hash;
-  external set baseURL(JSString value);
-  external JSString get baseURL;
+  external set protocol(String value);
+  external String get protocol;
+  external set username(String value);
+  external String get username;
+  external set password(String value);
+  external String get password;
+  external set hostname(String value);
+  external String get hostname;
+  external set port(String value);
+  external String get port;
+  external set pathname(String value);
+  external String get pathname;
+  external set search(String value);
+  external String get search;
+  external set hash(String value);
+  external String get hash;
+  external set baseURL(String value);
+  external String get baseURL;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class URLPatternOptions implements JSObject {
-  external factory URLPatternOptions({JSBoolean ignoreCase});
+  external factory URLPatternOptions({bool ignoreCase});
 }
 
 extension URLPatternOptionsExtension on URLPatternOptions {
-  external set ignoreCase(JSBoolean value);
-  external JSBoolean get ignoreCase;
+  external set ignoreCase(bool value);
+  external bool get ignoreCase;
 }
 
 @JS()
@@ -128,14 +128,14 @@ extension URLPatternResultExtension on URLPatternResult {
 @anonymous
 class URLPatternComponentResult implements JSObject {
   external factory URLPatternComponentResult({
-    JSString input,
+    String input,
     JSAny? groups,
   });
 }
 
 extension URLPatternComponentResultExtension on URLPatternComponentResult {
-  external set input(JSString value);
-  external JSString get input;
+  external set input(String value);
+  external String get input;
   external set groups(JSAny? value);
   external JSAny? get groups;
 }

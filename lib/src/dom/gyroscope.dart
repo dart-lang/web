@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 import 'generic_sensor.dart';
 
-typedef GyroscopeLocalCoordinateSystem = JSString;
+typedef GyroscopeLocalCoordinateSystem = String;
 
 @JS('Gyroscope')
 @staticInterop
@@ -15,9 +15,9 @@ class Gyroscope implements Sensor {
 }
 
 extension GyroscopeExtension on Gyroscope {
-  external JSNumber? get x;
-  external JSNumber? get y;
-  external JSNumber? get z;
+  external double? get x;
+  external double? get y;
+  external double? get z;
 }
 
 @JS()
@@ -38,17 +38,17 @@ extension GyroscopeSensorOptionsExtension on GyroscopeSensorOptions {
 @anonymous
 class GyroscopeReadingValues implements JSObject {
   external factory GyroscopeReadingValues({
-    required JSNumber? x,
-    required JSNumber? y,
-    required JSNumber? z,
+    required double? x,
+    required double? y,
+    required double? z,
   });
 }
 
 extension GyroscopeReadingValuesExtension on GyroscopeReadingValues {
-  external set x(JSNumber? value);
-  external JSNumber? get x;
-  external set y(JSNumber? value);
-  external JSNumber? get y;
-  external set z(JSNumber? value);
-  external JSNumber? get z;
+  external set x(double? value);
+  external double? get x;
+  external set y(double? value);
+  external double? get y;
+  external set z(double? value);
+  external double? get z;
 }

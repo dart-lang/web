@@ -14,15 +14,15 @@ import 'webidl.dart';
 class SecurePaymentConfirmationRequest implements JSObject {
   external factory SecurePaymentConfirmationRequest({
     required BufferSource challenge,
-    required JSString rpId,
+    required String rpId,
     required JSArray credentialIds,
     required PaymentCredentialInstrument instrument,
-    JSNumber timeout,
-    JSString payeeName,
-    JSString payeeOrigin,
+    int timeout,
+    String payeeName,
+    String payeeOrigin,
     AuthenticationExtensionsClientInputs extensions,
     JSArray locale,
-    JSBoolean showOptOut,
+    bool showOptOut,
   });
 }
 
@@ -30,24 +30,24 @@ extension SecurePaymentConfirmationRequestExtension
     on SecurePaymentConfirmationRequest {
   external set challenge(BufferSource value);
   external BufferSource get challenge;
-  external set rpId(JSString value);
-  external JSString get rpId;
+  external set rpId(String value);
+  external String get rpId;
   external set credentialIds(JSArray value);
   external JSArray get credentialIds;
   external set instrument(PaymentCredentialInstrument value);
   external PaymentCredentialInstrument get instrument;
-  external set timeout(JSNumber value);
-  external JSNumber get timeout;
-  external set payeeName(JSString value);
-  external JSString get payeeName;
-  external set payeeOrigin(JSString value);
-  external JSString get payeeOrigin;
+  external set timeout(int value);
+  external int get timeout;
+  external set payeeName(String value);
+  external String get payeeName;
+  external set payeeOrigin(String value);
+  external String get payeeOrigin;
   external set extensions(AuthenticationExtensionsClientInputs value);
   external AuthenticationExtensionsClientInputs get extensions;
   external set locale(JSArray value);
   external JSArray get locale;
-  external set showOptOut(JSBoolean value);
-  external JSBoolean get showOptOut;
+  external set showOptOut(bool value);
+  external bool get showOptOut;
 }
 
 @JS()
@@ -55,11 +55,11 @@ extension SecurePaymentConfirmationRequestExtension
 @anonymous
 class AuthenticationExtensionsPaymentInputs implements JSObject {
   external factory AuthenticationExtensionsPaymentInputs({
-    JSBoolean isPayment,
-    JSString rpId,
-    JSString topOrigin,
-    JSString payeeName,
-    JSString payeeOrigin,
+    bool isPayment,
+    String rpId,
+    String topOrigin,
+    String payeeName,
+    String payeeOrigin,
     PaymentCurrencyAmount total,
     PaymentCredentialInstrument instrument,
   });
@@ -67,16 +67,16 @@ class AuthenticationExtensionsPaymentInputs implements JSObject {
 
 extension AuthenticationExtensionsPaymentInputsExtension
     on AuthenticationExtensionsPaymentInputs {
-  external set isPayment(JSBoolean value);
-  external JSBoolean get isPayment;
-  external set rpId(JSString value);
-  external JSString get rpId;
-  external set topOrigin(JSString value);
-  external JSString get topOrigin;
-  external set payeeName(JSString value);
-  external JSString get payeeName;
-  external set payeeOrigin(JSString value);
-  external JSString get payeeOrigin;
+  external set isPayment(bool value);
+  external bool get isPayment;
+  external set rpId(String value);
+  external String get rpId;
+  external set topOrigin(String value);
+  external String get topOrigin;
+  external set payeeName(String value);
+  external String get payeeName;
+  external set payeeOrigin(String value);
+  external String get payeeOrigin;
   external set total(PaymentCurrencyAmount value);
   external PaymentCurrencyAmount get total;
   external set instrument(PaymentCredentialInstrument value);
@@ -101,10 +101,10 @@ extension CollectedClientPaymentDataExtension on CollectedClientPaymentData {
 @anonymous
 class CollectedClientAdditionalPaymentData implements JSObject {
   external factory CollectedClientAdditionalPaymentData({
-    required JSString rpId,
-    required JSString topOrigin,
-    JSString payeeName,
-    JSString payeeOrigin,
+    required String rpId,
+    required String topOrigin,
+    String payeeName,
+    String payeeOrigin,
     required PaymentCurrencyAmount total,
     required PaymentCredentialInstrument instrument,
   });
@@ -112,14 +112,14 @@ class CollectedClientAdditionalPaymentData implements JSObject {
 
 extension CollectedClientAdditionalPaymentDataExtension
     on CollectedClientAdditionalPaymentData {
-  external set rpId(JSString value);
-  external JSString get rpId;
-  external set topOrigin(JSString value);
-  external JSString get topOrigin;
-  external set payeeName(JSString value);
-  external JSString get payeeName;
-  external set payeeOrigin(JSString value);
-  external JSString get payeeOrigin;
+  external set rpId(String value);
+  external String get rpId;
+  external set topOrigin(String value);
+  external String get topOrigin;
+  external set payeeName(String value);
+  external String get payeeName;
+  external set payeeOrigin(String value);
+  external String get payeeOrigin;
   external set total(PaymentCurrencyAmount value);
   external PaymentCurrencyAmount get total;
   external set instrument(PaymentCredentialInstrument value);
@@ -131,17 +131,17 @@ extension CollectedClientAdditionalPaymentDataExtension
 @anonymous
 class PaymentCredentialInstrument implements JSObject {
   external factory PaymentCredentialInstrument({
-    required JSString displayName,
-    required JSString icon,
-    JSBoolean iconMustBeShown,
+    required String displayName,
+    required String icon,
+    bool iconMustBeShown,
   });
 }
 
 extension PaymentCredentialInstrumentExtension on PaymentCredentialInstrument {
-  external set displayName(JSString value);
-  external JSString get displayName;
-  external set icon(JSString value);
-  external JSString get icon;
-  external set iconMustBeShown(JSBoolean value);
-  external JSBoolean get iconMustBeShown;
+  external set displayName(String value);
+  external String get displayName;
+  external set icon(String value);
+  external String get icon;
+  external set iconMustBeShown(bool value);
+  external bool get iconMustBeShown;
 }

@@ -25,7 +25,7 @@ extension MediaStreamTrackProcessorExtension on MediaStreamTrackProcessor {
 class MediaStreamTrackProcessorInit implements JSObject {
   external factory MediaStreamTrackProcessorInit({
     required MediaStreamTrack track,
-    JSNumber maxBufferSize,
+    int maxBufferSize,
   });
 }
 
@@ -33,8 +33,8 @@ extension MediaStreamTrackProcessorInitExtension
     on MediaStreamTrackProcessorInit {
   external set track(MediaStreamTrack value);
   external MediaStreamTrack get track;
-  external set maxBufferSize(JSNumber value);
-  external JSNumber get maxBufferSize;
+  external set maxBufferSize(int value);
+  external int get maxBufferSize;
 }
 
 @JS('VideoTrackGenerator')
@@ -45,7 +45,7 @@ class VideoTrackGenerator implements JSObject {
 
 extension VideoTrackGeneratorExtension on VideoTrackGenerator {
   external WritableStream get writable;
-  external set muted(JSBoolean value);
-  external JSBoolean get muted;
+  external set muted(bool value);
+  external bool get muted;
   external MediaStreamTrack get track;
 }

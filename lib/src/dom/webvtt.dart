@@ -8,20 +8,20 @@ import 'dom.dart';
 import 'html.dart';
 
 typedef LineAndPositionSetting = JSAny?;
-typedef AutoKeyword = JSString;
-typedef DirectionSetting = JSString;
-typedef LineAlignSetting = JSString;
-typedef PositionAlignSetting = JSString;
-typedef AlignSetting = JSString;
-typedef ScrollSetting = JSString;
+typedef AutoKeyword = String;
+typedef DirectionSetting = String;
+typedef LineAlignSetting = String;
+typedef PositionAlignSetting = String;
+typedef AlignSetting = String;
+typedef ScrollSetting = String;
 
 @JS('VTTCue')
 @staticInterop
 class VTTCue implements TextTrackCue {
   external factory VTTCue(
-    JSNumber startTime,
-    JSNumber endTime,
-    JSString text,
+    double startTime,
+    double endTime,
+    String text,
   );
 }
 
@@ -31,8 +31,8 @@ extension VTTCueExtension on VTTCue {
   external VTTRegion? get region;
   external set vertical(DirectionSetting value);
   external DirectionSetting get vertical;
-  external set snapToLines(JSBoolean value);
-  external JSBoolean get snapToLines;
+  external set snapToLines(bool value);
+  external bool get snapToLines;
   external set line(LineAndPositionSetting value);
   external LineAndPositionSetting get line;
   external set lineAlign(LineAlignSetting value);
@@ -41,12 +41,12 @@ extension VTTCueExtension on VTTCue {
   external LineAndPositionSetting get position;
   external set positionAlign(PositionAlignSetting value);
   external PositionAlignSetting get positionAlign;
-  external set size(JSNumber value);
-  external JSNumber get size;
+  external set size(double value);
+  external double get size;
   external set align(AlignSetting value);
   external AlignSetting get align;
-  external set text(JSString value);
-  external JSString get text;
+  external set text(String value);
+  external String get text;
 }
 
 @JS('VTTRegion')
@@ -56,20 +56,20 @@ class VTTRegion implements JSObject {
 }
 
 extension VTTRegionExtension on VTTRegion {
-  external set id(JSString value);
-  external JSString get id;
-  external set width(JSNumber value);
-  external JSNumber get width;
-  external set lines(JSNumber value);
-  external JSNumber get lines;
-  external set regionAnchorX(JSNumber value);
-  external JSNumber get regionAnchorX;
-  external set regionAnchorY(JSNumber value);
-  external JSNumber get regionAnchorY;
-  external set viewportAnchorX(JSNumber value);
-  external JSNumber get viewportAnchorX;
-  external set viewportAnchorY(JSNumber value);
-  external JSNumber get viewportAnchorY;
+  external set id(String value);
+  external String get id;
+  external set width(double value);
+  external double get width;
+  external set lines(int value);
+  external int get lines;
+  external set regionAnchorX(double value);
+  external double get regionAnchorX;
+  external set regionAnchorY(double value);
+  external double get regionAnchorY;
+  external set viewportAnchorX(double value);
+  external double get viewportAnchorX;
+  external set viewportAnchorY(double value);
+  external double get viewportAnchorY;
   external set scroll(ScrollSetting value);
   external ScrollSetting get scroll;
 }

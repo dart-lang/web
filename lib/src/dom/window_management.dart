@@ -26,12 +26,12 @@ extension ScreenDetailsExtension on ScreenDetails {
 class ScreenDetailed implements Screen {}
 
 extension ScreenDetailedExtension on ScreenDetailed {
-  external JSNumber get availLeft;
-  external JSNumber get availTop;
-  external JSNumber get left;
-  external JSNumber get top;
-  external JSBoolean get isPrimary;
-  external JSBoolean get isInternal;
-  external JSNumber get devicePixelRatio;
-  external JSString get label;
+  external int get availLeft;
+  external int get availTop;
+  external int get left;
+  external int get top;
+  external bool get isPrimary;
+  external bool get isInternal;
+  external double get devicePixelRatio;
+  external String get label;
 }

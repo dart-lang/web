@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 import 'generic_sensor.dart';
 
-typedef MagnetometerLocalCoordinateSystem = JSString;
+typedef MagnetometerLocalCoordinateSystem = String;
 
 @JS('Magnetometer')
 @staticInterop
@@ -15,9 +15,9 @@ class Magnetometer implements Sensor {
 }
 
 extension MagnetometerExtension on Magnetometer {
-  external JSNumber? get x;
-  external JSNumber? get y;
-  external JSNumber? get z;
+  external double? get x;
+  external double? get y;
+  external double? get z;
 }
 
 @JS()
@@ -41,12 +41,12 @@ class UncalibratedMagnetometer implements Sensor {
 }
 
 extension UncalibratedMagnetometerExtension on UncalibratedMagnetometer {
-  external JSNumber? get x;
-  external JSNumber? get y;
-  external JSNumber? get z;
-  external JSNumber? get xBias;
-  external JSNumber? get yBias;
-  external JSNumber? get zBias;
+  external double? get x;
+  external double? get y;
+  external double? get z;
+  external double? get xBias;
+  external double? get yBias;
+  external double? get zBias;
 }
 
 @JS()
@@ -54,19 +54,19 @@ extension UncalibratedMagnetometerExtension on UncalibratedMagnetometer {
 @anonymous
 class MagnetometerReadingValues implements JSObject {
   external factory MagnetometerReadingValues({
-    required JSNumber? x,
-    required JSNumber? y,
-    required JSNumber? z,
+    required double? x,
+    required double? y,
+    required double? z,
   });
 }
 
 extension MagnetometerReadingValuesExtension on MagnetometerReadingValues {
-  external set x(JSNumber? value);
-  external JSNumber? get x;
-  external set y(JSNumber? value);
-  external JSNumber? get y;
-  external set z(JSNumber? value);
-  external JSNumber? get z;
+  external set x(double? value);
+  external double? get x;
+  external set y(double? value);
+  external double? get y;
+  external set z(double? value);
+  external double? get z;
 }
 
 @JS()
@@ -74,27 +74,27 @@ extension MagnetometerReadingValuesExtension on MagnetometerReadingValues {
 @anonymous
 class UncalibratedMagnetometerReadingValues implements JSObject {
   external factory UncalibratedMagnetometerReadingValues({
-    required JSNumber? x,
-    required JSNumber? y,
-    required JSNumber? z,
-    required JSNumber? xBias,
-    required JSNumber? yBias,
-    required JSNumber? zBias,
+    required double? x,
+    required double? y,
+    required double? z,
+    required double? xBias,
+    required double? yBias,
+    required double? zBias,
   });
 }
 
 extension UncalibratedMagnetometerReadingValuesExtension
     on UncalibratedMagnetometerReadingValues {
-  external set x(JSNumber? value);
-  external JSNumber? get x;
-  external set y(JSNumber? value);
-  external JSNumber? get y;
-  external set z(JSNumber? value);
-  external JSNumber? get z;
-  external set xBias(JSNumber? value);
-  external JSNumber? get xBias;
-  external set yBias(JSNumber? value);
-  external JSNumber? get yBias;
-  external set zBias(JSNumber? value);
-  external JSNumber? get zBias;
+  external set x(double? value);
+  external double? get x;
+  external set y(double? value);
+  external double? get y;
+  external set z(double? value);
+  external double? get z;
+  external set xBias(double? value);
+  external double? get xBias;
+  external set yBias(double? value);
+  external double? get yBias;
+  external set zBias(double? value);
+  external double? get zBias;
 }

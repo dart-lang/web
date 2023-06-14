@@ -21,8 +21,8 @@ class Report implements JSObject {}
 
 extension ReportExtension on Report {
   external JSObject toJSON();
-  external JSString get type;
-  external JSString get url;
+  external String get type;
+  external String get url;
   external ReportBody? get body;
 }
 
@@ -47,15 +47,15 @@ extension ReportingObserverExtension on ReportingObserver {
 class ReportingObserverOptions implements JSObject {
   external factory ReportingObserverOptions({
     JSArray types,
-    JSBoolean buffered,
+    bool buffered,
   });
 }
 
 extension ReportingObserverOptionsExtension on ReportingObserverOptions {
   external set types(JSArray value);
   external JSArray get types;
-  external set buffered(JSBoolean value);
-  external JSBoolean get buffered;
+  external set buffered(bool value);
+  external bool get buffered;
 }
 
 @JS()
@@ -63,15 +63,15 @@ extension ReportingObserverOptionsExtension on ReportingObserverOptions {
 @anonymous
 class GenerateTestReportParameters implements JSObject {
   external factory GenerateTestReportParameters({
-    required JSString message,
-    JSString group,
+    required String message,
+    String group,
   });
 }
 
 extension GenerateTestReportParametersExtension
     on GenerateTestReportParameters {
-  external set message(JSString value);
-  external JSString get message;
-  external set group(JSString value);
-  external JSString get group;
+  external set message(String value);
+  external String get message;
+  external set group(String value);
+  external String get group;
 }

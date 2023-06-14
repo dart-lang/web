@@ -11,5 +11,5 @@ import 'web_animations.dart';
 class CSSAnimation implements Animation {}
 
 extension CSSAnimationExtension on CSSAnimation {
-  external JSString get animationName;
+  external String get animationName;
 }

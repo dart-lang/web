@@ -9,8 +9,8 @@ import 'streams.dart';
 import 'webidl.dart';
 
 typedef FileSystemWriteChunkType = JSAny?;
-typedef FileSystemHandleKind = JSString;
-typedef WriteCommandType = JSString;
+typedef FileSystemHandleKind = String;
+typedef WriteCommandType = String;
 
 @JS('FileSystemHandle')
 @staticInterop
@@ -23,21 +23,20 @@ extension FileSystemHandleExtension on FileSystemHandle {
       [FileSystemHandlePermissionDescriptor descriptor]);
   external JSPromise isSameEntry(FileSystemHandle other);
   external FileSystemHandleKind get kind;
-  external JSString get name;
+  external String get name;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class FileSystemCreateWritableOptions implements JSObject {
-  external factory FileSystemCreateWritableOptions(
-      {JSBoolean keepExistingData});
+  external factory FileSystemCreateWritableOptions({bool keepExistingData});
 }
 
 extension FileSystemCreateWritableOptionsExtension
     on FileSystemCreateWritableOptions {
-  external set keepExistingData(JSBoolean value);
-  external JSBoolean get keepExistingData;
+  external set keepExistingData(bool value);
+  external bool get keepExistingData;
 }
 
 @JS('FileSystemFileHandle')
@@ -54,37 +53,37 @@ extension FileSystemFileHandleExtension on FileSystemFileHandle {
 @staticInterop
 @anonymous
 class FileSystemGetFileOptions implements JSObject {
-  external factory FileSystemGetFileOptions({JSBoolean create});
+  external factory FileSystemGetFileOptions({bool create});
 }
 
 extension FileSystemGetFileOptionsExtension on FileSystemGetFileOptions {
-  external set create(JSBoolean value);
-  external JSBoolean get create;
+  external set create(bool value);
+  external bool get create;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class FileSystemGetDirectoryOptions implements JSObject {
-  external factory FileSystemGetDirectoryOptions({JSBoolean create});
+  external factory FileSystemGetDirectoryOptions({bool create});
 }
 
 extension FileSystemGetDirectoryOptionsExtension
     on FileSystemGetDirectoryOptions {
-  external set create(JSBoolean value);
-  external JSBoolean get create;
+  external set create(bool value);
+  external bool get create;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class FileSystemRemoveOptions implements JSObject {
-  external factory FileSystemRemoveOptions({JSBoolean recursive});
+  external factory FileSystemRemoveOptions({bool recursive});
 }
 
 extension FileSystemRemoveOptionsExtension on FileSystemRemoveOptions {
-  external set recursive(JSBoolean value);
-  external JSBoolean get recursive;
+  external set recursive(bool value);
+  external bool get recursive;
 }
 
 @JS('FileSystemDirectoryHandle')
@@ -93,15 +92,15 @@ class FileSystemDirectoryHandle implements FileSystemHandle {}
 
 extension FileSystemDirectoryHandleExtension on FileSystemDirectoryHandle {
   external JSPromise getFileHandle(
-    JSString name, [
+    String name, [
     FileSystemGetFileOptions options,
   ]);
   external JSPromise getDirectoryHandle(
-    JSString name, [
+    String name, [
     FileSystemGetDirectoryOptions options,
   ]);
   external JSPromise removeEntry(
-    JSString name, [
+    String name, [
     FileSystemRemoveOptions options,
   ]);
   external JSPromise resolve(FileSystemHandle possibleDescendant);
@@ -113,8 +112,8 @@ extension FileSystemDirectoryHandleExtension on FileSystemDirectoryHandle {
 class WriteParams implements JSObject {
   external factory WriteParams({
     required WriteCommandType type,
-    JSNumber? size,
-    JSNumber? position,
+    int? size,
+    int? position,
     JSAny? data,
   });
 }
@@ -122,10 +121,10 @@ class WriteParams implements JSObject {
 extension WriteParamsExtension on WriteParams {
   external set type(WriteCommandType value);
   external WriteCommandType get type;
-  external set size(JSNumber? value);
-  external JSNumber? get size;
-  external set position(JSNumber? value);
-  external JSNumber? get position;
+  external set size(int? value);
+  external int? get size;
+  external set position(int? value);
+  external int? get position;
   external set data(JSAny? value);
   external JSAny? get data;
 }
@@ -137,20 +136,20 @@ class FileSystemWritableFileStream implements WritableStream {}
 extension FileSystemWritableFileStreamExtension
     on FileSystemWritableFileStream {
   external JSPromise write(FileSystemWriteChunkType data);
-  external JSPromise seek(JSNumber position);
-  external JSPromise truncate(JSNumber size);
+  external JSPromise seek(int position);
+  external JSPromise truncate(int size);
 }
 
 @JS()
 @staticInterop
 @anonymous
 class FileSystemReadWriteOptions implements JSObject {
-  external factory FileSystemReadWriteOptions({JSNumber at});
+  external factory FileSystemReadWriteOptions({int at});
 }
 
 extension FileSystemReadWriteOptionsExtension on FileSystemReadWriteOptions {
-  external set at(JSNumber value);
-  external JSNumber get at;
+  external set at(int value);
+  external int get at;
 }
 
 @JS('FileSystemSyncAccessHandle')
@@ -158,16 +157,16 @@ extension FileSystemReadWriteOptionsExtension on FileSystemReadWriteOptions {
 class FileSystemSyncAccessHandle implements JSObject {}
 
 extension FileSystemSyncAccessHandleExtension on FileSystemSyncAccessHandle {
-  external JSNumber read(
+  external int read(
     BufferSource buffer, [
     FileSystemReadWriteOptions options,
   ]);
-  external JSNumber write(
+  external int write(
     BufferSource buffer, [
     FileSystemReadWriteOptions options,
   ]);
-  external JSVoid truncate(JSNumber newSize);
-  external JSNumber getSize();
+  external JSVoid truncate(int newSize);
+  external int getSize();
   external JSVoid flush();
   external JSVoid close();
 }

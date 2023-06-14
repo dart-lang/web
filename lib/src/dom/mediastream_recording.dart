@@ -10,8 +10,8 @@ import 'hr_time.dart';
 import 'html.dart';
 import 'mediacapture_streams.dart';
 
-typedef BitrateMode = JSString;
-typedef RecordingState = JSString;
+typedef BitrateMode = String;
+typedef RecordingState = String;
 
 @JS('MediaRecorder')
 @staticInterop
@@ -21,17 +21,17 @@ class MediaRecorder implements EventTarget {
     MediaRecorderOptions options,
   ]);
 
-  external static JSBoolean isTypeSupported(JSString type);
+  external static bool isTypeSupported(String type);
 }
 
 extension MediaRecorderExtension on MediaRecorder {
-  external JSVoid start([JSNumber timeslice]);
+  external JSVoid start([int timeslice]);
   external JSVoid stop();
   external JSVoid pause();
   external JSVoid resume();
   external JSVoid requestData();
   external MediaStream get stream;
-  external JSString get mimeType;
+  external String get mimeType;
   external RecordingState get state;
   external set onstart(EventHandler value);
   external EventHandler get onstart;
@@ -45,8 +45,8 @@ extension MediaRecorderExtension on MediaRecorder {
   external EventHandler get onresume;
   external set onerror(EventHandler value);
   external EventHandler get onerror;
-  external JSNumber get videoBitsPerSecond;
-  external JSNumber get audioBitsPerSecond;
+  external int get videoBitsPerSecond;
+  external int get audioBitsPerSecond;
   external BitrateMode get audioBitrateMode;
 }
 
@@ -55,38 +55,38 @@ extension MediaRecorderExtension on MediaRecorder {
 @anonymous
 class MediaRecorderOptions implements JSObject {
   external factory MediaRecorderOptions({
-    JSString mimeType,
-    JSNumber audioBitsPerSecond,
-    JSNumber videoBitsPerSecond,
-    JSNumber bitsPerSecond,
+    String mimeType,
+    int audioBitsPerSecond,
+    int videoBitsPerSecond,
+    int bitsPerSecond,
     BitrateMode audioBitrateMode,
     DOMHighResTimeStamp videoKeyFrameIntervalDuration,
-    JSNumber videoKeyFrameIntervalCount,
+    int videoKeyFrameIntervalCount,
   });
 }
 
 extension MediaRecorderOptionsExtension on MediaRecorderOptions {
-  external set mimeType(JSString value);
-  external JSString get mimeType;
-  external set audioBitsPerSecond(JSNumber value);
-  external JSNumber get audioBitsPerSecond;
-  external set videoBitsPerSecond(JSNumber value);
-  external JSNumber get videoBitsPerSecond;
-  external set bitsPerSecond(JSNumber value);
-  external JSNumber get bitsPerSecond;
+  external set mimeType(String value);
+  external String get mimeType;
+  external set audioBitsPerSecond(int value);
+  external int get audioBitsPerSecond;
+  external set videoBitsPerSecond(int value);
+  external int get videoBitsPerSecond;
+  external set bitsPerSecond(int value);
+  external int get bitsPerSecond;
   external set audioBitrateMode(BitrateMode value);
   external BitrateMode get audioBitrateMode;
   external set videoKeyFrameIntervalDuration(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get videoKeyFrameIntervalDuration;
-  external set videoKeyFrameIntervalCount(JSNumber value);
-  external JSNumber get videoKeyFrameIntervalCount;
+  external set videoKeyFrameIntervalCount(int value);
+  external int get videoKeyFrameIntervalCount;
 }
 
 @JS('BlobEvent')
 @staticInterop
 class BlobEvent implements Event {
   external factory BlobEvent(
-    JSString type,
+    String type,
     BlobEventInit eventInitDict,
   );
 }

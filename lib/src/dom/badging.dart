@@ -9,6 +9,6 @@ import 'dart:js_interop';
 class NavigatorBadge implements JSObject {}
 
 extension NavigatorBadgeExtension on NavigatorBadge {
-  external JSPromise setAppBadge([JSNumber contents]);
+  external JSPromise setAppBadge([int contents]);
   external JSPromise clearAppBadge();
 }

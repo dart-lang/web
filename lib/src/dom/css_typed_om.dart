@@ -14,19 +14,19 @@ typedef CSSColorRGBComp = JSAny?;
 typedef CSSColorPercent = JSAny?;
 typedef CSSColorNumber = JSAny?;
 typedef CSSColorAngle = JSAny?;
-typedef CSSNumericBaseType = JSString;
-typedef CSSMathOperator = JSString;
+typedef CSSNumericBaseType = String;
+typedef CSSMathOperator = String;
 
 @JS('CSSStyleValue')
 @staticInterop
 class CSSStyleValue implements JSObject {
   external static CSSStyleValue parse(
-    JSString property,
-    JSString cssText,
+    String property,
+    String cssText,
   );
   external static JSArray parseAll(
-    JSString property,
-    JSString cssText,
+    String property,
+    String cssText,
   );
 }
 
@@ -35,10 +35,10 @@ class CSSStyleValue implements JSObject {
 class StylePropertyMapReadOnly implements JSObject {}
 
 extension StylePropertyMapReadOnlyExtension on StylePropertyMapReadOnly {
-  external JSAny? get(JSString property);
-  external JSArray getAll(JSString property);
-  external JSBoolean has(JSString property);
-  external JSNumber get size;
+  external JSAny? get(String property);
+  external JSArray getAll(String property);
+  external bool has(String property);
+  external int get size;
 }
 
 @JS('StylePropertyMap')
@@ -47,14 +47,14 @@ class StylePropertyMap implements StylePropertyMapReadOnly {}
 
 extension StylePropertyMapExtension on StylePropertyMap {
   external JSVoid set(
-    JSString property,
+    String property,
     JSAny? values,
   );
   external JSVoid append(
-    JSString property,
+    String property,
     JSAny? values,
   );
-  external JSVoid delete(JSString property);
+  external JSVoid delete(String property);
   external JSVoid clear();
 }
 
@@ -65,33 +65,33 @@ class CSSUnparsedValue implements CSSStyleValue {
 }
 
 extension CSSUnparsedValueExtension on CSSUnparsedValue {
-  external JSNumber get length;
+  external int get length;
 }
 
 @JS('CSSVariableReferenceValue')
 @staticInterop
 class CSSVariableReferenceValue implements JSObject {
   external factory CSSVariableReferenceValue(
-    JSString variable, [
+    String variable, [
     CSSUnparsedValue? fallback,
   ]);
 }
 
 extension CSSVariableReferenceValueExtension on CSSVariableReferenceValue {
-  external set variable(JSString value);
-  external JSString get variable;
+  external set variable(String value);
+  external String get variable;
   external CSSUnparsedValue? get fallback;
 }
 
 @JS('CSSKeywordValue')
 @staticInterop
 class CSSKeywordValue implements CSSStyleValue {
-  external factory CSSKeywordValue(JSString value);
+  external factory CSSKeywordValue(String value);
 }
 
 extension CSSKeywordValueExtension on CSSKeywordValue {
-  external set value(JSString value);
-  external JSString get value;
+  external set value(String value);
+  external String get value;
 }
 
 @JS()
@@ -99,32 +99,32 @@ extension CSSKeywordValueExtension on CSSKeywordValue {
 @anonymous
 class CSSNumericType implements JSObject {
   external factory CSSNumericType({
-    JSNumber length,
-    JSNumber angle,
-    JSNumber time,
-    JSNumber frequency,
-    JSNumber resolution,
-    JSNumber flex,
-    JSNumber percent,
+    int length,
+    int angle,
+    int time,
+    int frequency,
+    int resolution,
+    int flex,
+    int percent,
     CSSNumericBaseType percentHint,
   });
 }
 
 extension CSSNumericTypeExtension on CSSNumericType {
-  external set length(JSNumber value);
-  external JSNumber get length;
-  external set angle(JSNumber value);
-  external JSNumber get angle;
-  external set time(JSNumber value);
-  external JSNumber get time;
-  external set frequency(JSNumber value);
-  external JSNumber get frequency;
-  external set resolution(JSNumber value);
-  external JSNumber get resolution;
-  external set flex(JSNumber value);
-  external JSNumber get flex;
-  external set percent(JSNumber value);
-  external JSNumber get percent;
+  external set length(int value);
+  external int get length;
+  external set angle(int value);
+  external int get angle;
+  external set time(int value);
+  external int get time;
+  external set frequency(int value);
+  external int get frequency;
+  external set resolution(int value);
+  external int get resolution;
+  external set flex(int value);
+  external int get flex;
+  external set percent(int value);
+  external int get percent;
   external set percentHint(CSSNumericBaseType value);
   external CSSNumericBaseType get percentHint;
 }
@@ -132,7 +132,7 @@ extension CSSNumericTypeExtension on CSSNumericType {
 @JS('CSSNumericValue')
 @staticInterop
 class CSSNumericValue implements CSSStyleValue {
-  external static CSSNumericValue parse(JSString cssText);
+  external static CSSNumericValue parse(String cssText);
 }
 
 extension CSSNumericValueExtension on CSSNumericValue {
@@ -142,9 +142,9 @@ extension CSSNumericValueExtension on CSSNumericValue {
   external CSSNumericValue div(CSSNumberish values);
   external CSSNumericValue min(CSSNumberish values);
   external CSSNumericValue max(CSSNumberish values);
-  external JSBoolean equals(CSSNumberish value);
-  external CSSUnitValue to(JSString unit);
-  external CSSMathSum toSum(JSString units);
+  external bool equals(CSSNumberish value);
+  external CSSUnitValue to(String unit);
+  external CSSMathSum toSum(String units);
   external CSSNumericType type();
 }
 
@@ -152,15 +152,15 @@ extension CSSNumericValueExtension on CSSNumericValue {
 @staticInterop
 class CSSUnitValue implements CSSNumericValue {
   external factory CSSUnitValue(
-    JSNumber value,
-    JSString unit,
+    double value,
+    String unit,
   );
 }
 
 extension CSSUnitValueExtension on CSSUnitValue {
-  external set value(JSNumber value);
-  external JSNumber get value;
-  external JSString get unit;
+  external set value(double value);
+  external double get value;
+  external String get unit;
 }
 
 @JS('CSSMathValue')
@@ -252,7 +252,7 @@ extension CSSMathClampExtension on CSSMathClamp {
 class CSSNumericArray implements JSObject {}
 
 extension CSSNumericArrayExtension on CSSNumericArray {
-  external JSNumber get length;
+  external int get length;
 }
 
 @JS('CSSTransformValue')
@@ -263,8 +263,8 @@ class CSSTransformValue implements CSSStyleValue {
 
 extension CSSTransformValueExtension on CSSTransformValue {
   external DOMMatrix toMatrix();
-  external JSNumber get length;
-  external JSBoolean get is2D;
+  external int get length;
+  external bool get is2D;
 }
 
 @JS('CSSTransformComponent')
@@ -273,8 +273,8 @@ class CSSTransformComponent implements JSObject {}
 
 extension CSSTransformComponentExtension on CSSTransformComponent {
   external DOMMatrix toMatrix();
-  external set is2D(JSBoolean value);
-  external JSBoolean get is2D;
+  external set is2D(bool value);
+  external bool get is2D;
 }
 
 @JS('CSSTranslate')
@@ -404,12 +404,12 @@ extension CSSMatrixComponentExtension on CSSMatrixComponent {
 @staticInterop
 @anonymous
 class CSSMatrixComponentOptions implements JSObject {
-  external factory CSSMatrixComponentOptions({JSBoolean is2D});
+  external factory CSSMatrixComponentOptions({bool is2D});
 }
 
 extension CSSMatrixComponentOptionsExtension on CSSMatrixComponentOptions {
-  external set is2D(JSBoolean value);
-  external JSBoolean get is2D;
+  external set is2D(bool value);
+  external bool get is2D;
 }
 
 @JS('CSSImageValue')
@@ -419,7 +419,7 @@ class CSSImageValue implements CSSStyleValue {}
 @JS('CSSColorValue')
 @staticInterop
 class CSSColorValue implements CSSStyleValue {
-  external static JSAny? parse(JSString cssText);
+  external static JSAny? parse(String cssText);
 }
 
 @JS('CSSRGB')

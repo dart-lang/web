@@ -27,14 +27,14 @@ class CSSParserRule implements JSObject {}
 @staticInterop
 class CSSParserAtRule implements CSSParserRule {
   external factory CSSParserAtRule(
-    JSString name,
+    String name,
     JSArray prelude, [
     JSArray? body,
   ]);
 }
 
 extension CSSParserAtRuleExtension on CSSParserAtRule {
-  external JSString get name;
+  external String get name;
   external JSArray get prelude;
   external JSArray? get body;
 }
@@ -57,13 +57,13 @@ extension CSSParserQualifiedRuleExtension on CSSParserQualifiedRule {
 @staticInterop
 class CSSParserDeclaration implements CSSParserRule {
   external factory CSSParserDeclaration(
-    JSString name, [
+    String name, [
     JSArray body,
   ]);
 }
 
 extension CSSParserDeclarationExtension on CSSParserDeclaration {
-  external JSString get name;
+  external String get name;
   external JSArray get body;
 }
 
@@ -75,13 +75,13 @@ class CSSParserValue implements JSObject {}
 @staticInterop
 class CSSParserBlock implements CSSParserValue {
   external factory CSSParserBlock(
-    JSString name,
+    String name,
     JSArray body,
   );
 }
 
 extension CSSParserBlockExtension on CSSParserBlock {
-  external JSString get name;
+  external String get name;
   external JSArray get body;
 }
 
@@ -89,12 +89,12 @@ extension CSSParserBlockExtension on CSSParserBlock {
 @staticInterop
 class CSSParserFunction implements CSSParserValue {
   external factory CSSParserFunction(
-    JSString name,
+    String name,
     JSArray args,
   );
 }
 
 extension CSSParserFunctionExtension on CSSParserFunction {
-  external JSString get name;
+  external String get name;
   external JSArray get args;
 }

@@ -7,8 +7,8 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'uievents.dart';
 
-typedef SpatialNavigationDirection = JSString;
-typedef FocusableAreaSearchMode = JSString;
+typedef SpatialNavigationDirection = String;
+typedef FocusableAreaSearchMode = String;
 
 @JS()
 @staticInterop
@@ -44,7 +44,7 @@ extension SpatialNavigationSearchOptionsExtension
 @staticInterop
 class NavigationEvent implements UIEvent {
   external factory NavigationEvent(
-    JSString type, [
+    String type, [
     NavigationEventInit eventInitDict,
   ]);
 }

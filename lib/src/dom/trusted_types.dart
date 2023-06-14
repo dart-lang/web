@@ -4,9 +4,9 @@
 
 import 'dart:js_interop';
 
-typedef HTMLString = JSString;
-typedef ScriptString = JSString;
-typedef ScriptURLString = JSString;
+typedef HTMLString = String;
+typedef ScriptString = String;
+typedef ScriptURLString = String;
 typedef TrustedType = JSAny?;
 typedef CreateHTMLCallback = JSFunction;
 typedef CreateScriptCallback = JSFunction;
@@ -19,7 +19,7 @@ class TrustedHTML implements JSObject {
 }
 
 extension TrustedHTMLExtension on TrustedHTML {
-  external JSString toJSON();
+  external String toJSON();
 }
 
 @JS('TrustedScript')
@@ -29,7 +29,7 @@ class TrustedScript implements JSObject {
 }
 
 extension TrustedScriptExtension on TrustedScript {
-  external JSString toJSON();
+  external String toJSON();
 }
 
 @JS('TrustedScriptURL')
@@ -39,7 +39,7 @@ class TrustedScriptURL implements JSObject {
 }
 
 extension TrustedScriptURLExtension on TrustedScriptURL {
-  external JSString toJSON();
+  external String toJSON();
 }
 
 @JS('TrustedTypePolicyFactory')
@@ -48,22 +48,22 @@ class TrustedTypePolicyFactory implements JSObject {}
 
 extension TrustedTypePolicyFactoryExtension on TrustedTypePolicyFactory {
   external TrustedTypePolicy createPolicy(
-    JSString policyName, [
+    String policyName, [
     TrustedTypePolicyOptions policyOptions,
   ]);
-  external JSBoolean isHTML(JSAny? value);
-  external JSBoolean isScript(JSAny? value);
-  external JSBoolean isScriptURL(JSAny? value);
-  external JSString? getAttributeType(
-    JSString tagName,
-    JSString attribute, [
-    JSString elementNs,
-    JSString attrNs,
+  external bool isHTML(JSAny? value);
+  external bool isScript(JSAny? value);
+  external bool isScriptURL(JSAny? value);
+  external String? getAttributeType(
+    String tagName,
+    String attribute, [
+    String elementNs,
+    String attrNs,
   ]);
-  external JSString? getPropertyType(
-    JSString tagName,
-    JSString property, [
-    JSString elementNs,
+  external String? getPropertyType(
+    String tagName,
+    String property, [
+    String elementNs,
   ]);
   external TrustedHTML get emptyHTML;
   external TrustedScript get emptyScript;
@@ -76,18 +76,18 @@ class TrustedTypePolicy implements JSObject {}
 
 extension TrustedTypePolicyExtension on TrustedTypePolicy {
   external TrustedHTML createHTML(
-    JSString input,
+    String input,
     JSAny? arguments,
   );
   external TrustedScript createScript(
-    JSString input,
+    String input,
     JSAny? arguments,
   );
   external TrustedScriptURL createScriptURL(
-    JSString input,
+    String input,
     JSAny? arguments,
   );
-  external JSString get name;
+  external String get name;
 }
 
 @JS()

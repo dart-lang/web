@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 
-typedef XRDOMOverlayType = JSString;
+typedef XRDOMOverlayType = String;
 
 @JS()
 @staticInterop

@@ -12,10 +12,10 @@ class DeprecationReportBody implements ReportBody {}
 
 extension DeprecationReportBodyExtension on DeprecationReportBody {
   external JSObject toJSON();
-  external JSString get id;
+  external String get id;
   external JSObject? get anticipatedRemoval;
-  external JSString get message;
-  external JSString? get sourceFile;
-  external JSNumber? get lineNumber;
-  external JSNumber? get columnNumber;
+  external String get message;
+  external String? get sourceFile;
+  external int? get lineNumber;
+  external int? get columnNumber;
 }

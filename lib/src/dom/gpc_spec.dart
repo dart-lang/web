@@ -9,5 +9,5 @@ import 'dart:js_interop';
 class GlobalPrivacyControl implements JSObject {}
 
 extension GlobalPrivacyControlExtension on GlobalPrivacyControl {
-  external JSBoolean get globalPrivacyControl;
+  external bool get globalPrivacyControl;
 }

@@ -7,7 +7,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
-typedef PermissionState = JSString;
+typedef PermissionState = String;
 
 @JS('Permissions')
 @staticInterop
@@ -23,12 +23,12 @@ extension PermissionsExtension on Permissions {
 @staticInterop
 @anonymous
 class PermissionDescriptor implements JSObject {
-  external factory PermissionDescriptor({required JSString name});
+  external factory PermissionDescriptor({required String name});
 }
 
 extension PermissionDescriptorExtension on PermissionDescriptor {
-  external set name(JSString value);
-  external JSString get name;
+  external set name(String value);
+  external String get name;
 }
 
 @JS('PermissionStatus')
@@ -37,7 +37,7 @@ class PermissionStatus implements EventTarget {}
 
 extension PermissionStatusExtension on PermissionStatus {
   external PermissionState get state;
-  external JSString get name;
+  external String get name;
   external set onchange(EventHandler value);
   external EventHandler get onchange;
 }

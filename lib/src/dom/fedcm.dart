@@ -11,7 +11,7 @@ import 'credential_management.dart';
 class IdentityCredential implements Credential {}
 
 extension IdentityCredentialExtension on IdentityCredential {
-  external JSString? get token;
+  external String? get token;
 }
 
 @JS()
@@ -32,19 +32,19 @@ extension IdentityCredentialRequestOptionsExtension
 @anonymous
 class IdentityProviderConfig implements JSObject {
   external factory IdentityProviderConfig({
-    required JSString configURL,
-    required JSString clientId,
-    JSString nonce,
+    required String configURL,
+    required String clientId,
+    String nonce,
   });
 }
 
 extension IdentityProviderConfigExtension on IdentityProviderConfig {
-  external set configURL(JSString value);
-  external JSString get configURL;
-  external set clientId(JSString value);
-  external JSString get clientId;
-  external set nonce(JSString value);
-  external JSString get nonce;
+  external set configURL(String value);
+  external String get configURL;
+  external set clientId(String value);
+  external String get clientId;
+  external set nonce(String value);
+  external String get nonce;
 }
 
 @JS()
@@ -64,16 +64,16 @@ extension IdentityProviderWellKnownExtension on IdentityProviderWellKnown {
 @anonymous
 class IdentityProviderIcon implements JSObject {
   external factory IdentityProviderIcon({
-    required JSString url,
-    JSNumber size,
+    required String url,
+    int size,
   });
 }
 
 extension IdentityProviderIconExtension on IdentityProviderIcon {
-  external set url(JSString value);
-  external JSString get url;
-  external set size(JSNumber value);
-  external JSNumber get size;
+  external set url(String value);
+  external String get url;
+  external set size(int value);
+  external int get size;
 }
 
 @JS()
@@ -81,22 +81,22 @@ extension IdentityProviderIconExtension on IdentityProviderIcon {
 @anonymous
 class IdentityProviderBranding implements JSObject {
   external factory IdentityProviderBranding({
-    JSString background_color,
-    JSString color,
+    String background_color,
+    String color,
     JSArray icons,
-    JSString name,
+    String name,
   });
 }
 
 extension IdentityProviderBrandingExtension on IdentityProviderBranding {
-  external set background_color(JSString value);
-  external JSString get background_color;
-  external set color(JSString value);
-  external JSString get color;
+  external set background_color(String value);
+  external String get background_color;
+  external set color(String value);
+  external String get color;
   external set icons(JSArray value);
   external JSArray get icons;
-  external set name(JSString value);
-  external JSString get name;
+  external set name(String value);
+  external String get name;
 }
 
 @JS()
@@ -104,20 +104,20 @@ extension IdentityProviderBrandingExtension on IdentityProviderBranding {
 @anonymous
 class IdentityProviderAPIConfig implements JSObject {
   external factory IdentityProviderAPIConfig({
-    required JSString accounts_endpoint,
-    required JSString client_metadata_endpoint,
-    required JSString id_assertion_endpoint,
+    required String accounts_endpoint,
+    required String client_metadata_endpoint,
+    required String id_assertion_endpoint,
     IdentityProviderBranding branding,
   });
 }
 
 extension IdentityProviderAPIConfigExtension on IdentityProviderAPIConfig {
-  external set accounts_endpoint(JSString value);
-  external JSString get accounts_endpoint;
-  external set client_metadata_endpoint(JSString value);
-  external JSString get client_metadata_endpoint;
-  external set id_assertion_endpoint(JSString value);
-  external JSString get id_assertion_endpoint;
+  external set accounts_endpoint(String value);
+  external String get accounts_endpoint;
+  external set client_metadata_endpoint(String value);
+  external String get client_metadata_endpoint;
+  external set id_assertion_endpoint(String value);
+  external String get id_assertion_endpoint;
   external set branding(IdentityProviderBranding value);
   external IdentityProviderBranding get branding;
 }
@@ -127,26 +127,26 @@ extension IdentityProviderAPIConfigExtension on IdentityProviderAPIConfig {
 @anonymous
 class IdentityProviderAccount implements JSObject {
   external factory IdentityProviderAccount({
-    required JSString id,
-    required JSString name,
-    required JSString email,
-    JSString given_name,
-    JSString picture,
+    required String id,
+    required String name,
+    required String email,
+    String given_name,
+    String picture,
     JSArray approved_clients,
   });
 }
 
 extension IdentityProviderAccountExtension on IdentityProviderAccount {
-  external set id(JSString value);
-  external JSString get id;
-  external set name(JSString value);
-  external JSString get name;
-  external set email(JSString value);
-  external JSString get email;
-  external set given_name(JSString value);
-  external JSString get given_name;
-  external set picture(JSString value);
-  external JSString get picture;
+  external set id(String value);
+  external String get id;
+  external set name(String value);
+  external String get name;
+  external set email(String value);
+  external String get email;
+  external set given_name(String value);
+  external String get given_name;
+  external set picture(String value);
+  external String get picture;
   external set approved_clients(JSArray value);
   external JSArray get approved_clients;
 }
@@ -167,12 +167,12 @@ extension IdentityProviderAccountListExtension on IdentityProviderAccountList {
 @staticInterop
 @anonymous
 class IdentityProviderToken implements JSObject {
-  external factory IdentityProviderToken({required JSString token});
+  external factory IdentityProviderToken({required String token});
 }
 
 extension IdentityProviderTokenExtension on IdentityProviderToken {
-  external set token(JSString value);
-  external JSString get token;
+  external set token(String value);
+  external String get token;
 }
 
 @JS()
@@ -180,15 +180,15 @@ extension IdentityProviderTokenExtension on IdentityProviderToken {
 @anonymous
 class IdentityProviderClientMetadata implements JSObject {
   external factory IdentityProviderClientMetadata({
-    JSString privacy_policy_url,
-    JSString terms_of_service_url,
+    String privacy_policy_url,
+    String terms_of_service_url,
   });
 }
 
 extension IdentityProviderClientMetadataExtension
     on IdentityProviderClientMetadata {
-  external set privacy_policy_url(JSString value);
-  external JSString get privacy_policy_url;
-  external set terms_of_service_url(JSString value);
-  external JSString get terms_of_service_url;
+  external set privacy_policy_url(String value);
+  external String get privacy_policy_url;
+  external set terms_of_service_url(String value);
+  external String get terms_of_service_url;
 }

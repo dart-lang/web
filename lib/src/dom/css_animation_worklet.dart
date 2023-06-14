@@ -15,7 +15,7 @@ class AnimationWorkletGlobalScope implements WorkletGlobalScope {}
 
 extension AnimationWorkletGlobalScopeExtension on AnimationWorkletGlobalScope {
   external JSVoid registerAnimator(
-    JSString name,
+    String name,
     AnimatorInstanceConstructor animatorCtor,
   );
 }
@@ -27,15 +27,15 @@ class WorkletAnimationEffect implements JSObject {}
 extension WorkletAnimationEffectExtension on WorkletAnimationEffect {
   external EffectTiming getTiming();
   external ComputedEffectTiming getComputedTiming();
-  external set localTime(JSNumber? value);
-  external JSNumber? get localTime;
+  external set localTime(double? value);
+  external double? get localTime;
 }
 
 @JS('WorkletAnimation')
 @staticInterop
 class WorkletAnimation implements Animation {
   external factory WorkletAnimation(
-    JSString animatorName, [
+    String animatorName, [
     JSAny? effects,
     AnimationTimeline? timeline,
     JSAny? options,
@@ -43,7 +43,7 @@ class WorkletAnimation implements Animation {
 }
 
 extension WorkletAnimationExtension on WorkletAnimation {
-  external JSString get animatorName;
+  external String get animatorName;
 }
 
 @JS('WorkletGroupEffect')

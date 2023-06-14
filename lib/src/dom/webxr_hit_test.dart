@@ -7,7 +7,7 @@ import 'dart:js_interop';
 import 'geometry.dart';
 import 'webxr.dart';
 
-typedef XRHitTestTrackableType = JSString;
+typedef XRHitTestTrackableType = String;
 
 @JS()
 @staticInterop
@@ -34,7 +34,7 @@ extension XRHitTestOptionsInitExtension on XRHitTestOptionsInit {
 @anonymous
 class XRTransientInputHitTestOptionsInit implements JSObject {
   external factory XRTransientInputHitTestOptionsInit({
-    required JSString profile,
+    required String profile,
     JSArray entityTypes,
     XRRay offsetRay,
   });
@@ -42,8 +42,8 @@ class XRTransientInputHitTestOptionsInit implements JSObject {
 
 extension XRTransientInputHitTestOptionsInitExtension
     on XRTransientInputHitTestOptionsInit {
-  external set profile(JSString value);
-  external JSString get profile;
+  external set profile(String value);
+  external String get profile;
   external set entityTypes(JSArray value);
   external JSArray get entityTypes;
   external set offsetRay(XRRay value);
@@ -91,22 +91,22 @@ extension XRTransientInputHitTestResultExtension
 @anonymous
 class XRRayDirectionInit implements JSObject {
   external factory XRRayDirectionInit({
-    JSNumber x,
-    JSNumber y,
-    JSNumber z,
-    JSNumber w,
+    double x,
+    double y,
+    double z,
+    double w,
   });
 }
 
 extension XRRayDirectionInitExtension on XRRayDirectionInit {
-  external set x(JSNumber value);
-  external JSNumber get x;
-  external set y(JSNumber value);
-  external JSNumber get y;
-  external set z(JSNumber value);
-  external JSNumber get z;
-  external set w(JSNumber value);
-  external JSNumber get w;
+  external set x(double value);
+  external double get x;
+  external set y(double value);
+  external double get y;
+  external set z(double value);
+  external double get z;
+  external set w(double value);
+  external double get w;
 }
 
 @JS('XRRay')

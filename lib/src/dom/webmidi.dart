@@ -9,20 +9,20 @@ import 'hr_time.dart';
 import 'html.dart';
 import 'permissions.dart';
 
-typedef MIDIPortType = JSString;
-typedef MIDIPortDeviceState = JSString;
-typedef MIDIPortConnectionState = JSString;
+typedef MIDIPortType = String;
+typedef MIDIPortDeviceState = String;
+typedef MIDIPortConnectionState = String;
 
 @JS()
 @staticInterop
 @anonymous
 class MidiPermissionDescriptor implements PermissionDescriptor {
-  external factory MidiPermissionDescriptor({JSBoolean sysex});
+  external factory MidiPermissionDescriptor({bool sysex});
 }
 
 extension MidiPermissionDescriptorExtension on MidiPermissionDescriptor {
-  external set sysex(JSBoolean value);
-  external JSBoolean get sysex;
+  external set sysex(bool value);
+  external bool get sysex;
 }
 
 @JS()
@@ -30,16 +30,16 @@ extension MidiPermissionDescriptorExtension on MidiPermissionDescriptor {
 @anonymous
 class MIDIOptions implements JSObject {
   external factory MIDIOptions({
-    JSBoolean sysex,
-    JSBoolean software,
+    bool sysex,
+    bool software,
   });
 }
 
 extension MIDIOptionsExtension on MIDIOptions {
-  external set sysex(JSBoolean value);
-  external JSBoolean get sysex;
-  external set software(JSBoolean value);
-  external JSBoolean get software;
+  external set sysex(bool value);
+  external bool get sysex;
+  external set software(bool value);
+  external bool get software;
 }
 
 @JS('MIDIInputMap')
@@ -63,7 +63,7 @@ extension MIDIAccessExtension on MIDIAccess {
   external MIDIOutputMap get outputs;
   external set onstatechange(EventHandler value);
   external EventHandler get onstatechange;
-  external JSBoolean get sysexEnabled;
+  external bool get sysexEnabled;
 }
 
 @JS('MIDIPort')
@@ -73,11 +73,11 @@ class MIDIPort implements EventTarget {}
 extension MIDIPortExtension on MIDIPort {
   external JSPromise open();
   external JSPromise close();
-  external JSString get id;
-  external JSString? get manufacturer;
-  external JSString? get name;
+  external String get id;
+  external String? get manufacturer;
+  external String? get name;
   external MIDIPortType get type;
-  external JSString? get version;
+  external String? get version;
   external MIDIPortDeviceState get state;
   external MIDIPortConnectionState get connection;
   external set onstatechange(EventHandler value);
@@ -109,7 +109,7 @@ extension MIDIOutputExtension on MIDIOutput {
 @staticInterop
 class MIDIMessageEvent implements Event {
   external factory MIDIMessageEvent(
-    JSString type, [
+    String type, [
     MIDIMessageEventInit eventInitDict,
   ]);
 }
@@ -134,7 +134,7 @@ extension MIDIMessageEventInitExtension on MIDIMessageEventInit {
 @staticInterop
 class MIDIConnectionEvent implements Event {
   external factory MIDIConnectionEvent(
-    JSString type, [
+    String type, [
     MIDIConnectionEventInit eventInitDict,
   ]);
 }

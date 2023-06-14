@@ -10,7 +10,7 @@ import 'streams.dart';
 import 'webidl.dart';
 
 typedef BlobPart = JSAny?;
-typedef EndingType = JSString;
+typedef EndingType = String;
 
 @JS('Blob')
 @staticInterop
@@ -23,15 +23,15 @@ class Blob implements JSObject {
 
 extension BlobExtension on Blob {
   external Blob slice([
-    JSNumber start,
-    JSNumber end,
-    JSString contentType,
+    int start,
+    int end,
+    String contentType,
   ]);
   external ReadableStream stream();
   external JSPromise text();
   external JSPromise arrayBuffer();
-  external JSNumber get size;
-  external JSString get type;
+  external int get size;
+  external String get type;
 }
 
 @JS()
@@ -39,14 +39,14 @@ extension BlobExtension on Blob {
 @anonymous
 class BlobPropertyBag implements JSObject {
   external factory BlobPropertyBag({
-    JSString type,
+    String type,
     EndingType endings,
   });
 }
 
 extension BlobPropertyBagExtension on BlobPropertyBag {
-  external set type(JSString value);
-  external JSString get type;
+  external set type(String value);
+  external String get type;
   external set endings(EndingType value);
   external EndingType get endings;
 }
@@ -56,27 +56,27 @@ extension BlobPropertyBagExtension on BlobPropertyBag {
 class File implements Blob {
   external factory File(
     JSArray fileBits,
-    JSString fileName, [
+    String fileName, [
     FilePropertyBag options,
   ]);
 }
 
 extension FileExtension on File {
-  external JSString get name;
-  external JSNumber get lastModified;
-  external JSString get webkitRelativePath;
+  external String get name;
+  external int get lastModified;
+  external String get webkitRelativePath;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class FilePropertyBag implements BlobPropertyBag {
-  external factory FilePropertyBag({JSNumber lastModified});
+  external factory FilePropertyBag({int lastModified});
 }
 
 extension FilePropertyBagExtension on FilePropertyBag {
-  external set lastModified(JSNumber value);
-  external JSNumber get lastModified;
+  external set lastModified(int value);
+  external int get lastModified;
 }
 
 @JS('FileList')
@@ -84,8 +84,8 @@ extension FilePropertyBagExtension on FilePropertyBag {
 class FileList implements JSObject {}
 
 extension FileListExtension on FileList {
-  external File? item(JSNumber index);
-  external JSNumber get length;
+  external File? item(int index);
+  external int get length;
 }
 
 @JS('FileReader')
@@ -93,9 +93,9 @@ extension FileListExtension on FileList {
 class FileReader implements EventTarget {
   external factory FileReader();
 
-  external static JSNumber get EMPTY;
-  external static JSNumber get LOADING;
-  external static JSNumber get DONE;
+  external static int get EMPTY;
+  external static int get LOADING;
+  external static int get DONE;
 }
 
 extension FileReaderExtension on FileReader {
@@ -103,11 +103,11 @@ extension FileReaderExtension on FileReader {
   external JSVoid readAsBinaryString(Blob blob);
   external JSVoid readAsText(
     Blob blob, [
-    JSString encoding,
+    String encoding,
   ]);
   external JSVoid readAsDataURL(Blob blob);
   external JSVoid abort();
-  external JSNumber get readyState;
+  external int get readyState;
   external JSAny? get result;
   external DOMException? get error;
   external set onloadstart(EventHandler value);
@@ -132,10 +132,10 @@ class FileReaderSync implements JSObject {
 
 extension FileReaderSyncExtension on FileReaderSync {
   external JSArrayBuffer readAsArrayBuffer(Blob blob);
-  external JSString readAsBinaryString(Blob blob);
-  external JSString readAsText(
+  external String readAsBinaryString(Blob blob);
+  external String readAsText(
     Blob blob, [
-    JSString encoding,
+    String encoding,
   ]);
-  external JSString readAsDataURL(Blob blob);
+  external String readAsDataURL(Blob blob);
 }

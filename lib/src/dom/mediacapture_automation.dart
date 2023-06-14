@@ -4,7 +4,7 @@
 
 import 'dart:js_interop';
 
-typedef MockCapturePromptResult = JSString;
+typedef MockCapturePromptResult = String;
 
 @JS()
 @staticInterop
@@ -29,20 +29,20 @@ extension MockCapturePromptResultConfigurationExtension
 @anonymous
 class MockCaptureDeviceConfiguration implements JSObject {
   external factory MockCaptureDeviceConfiguration({
-    JSString label,
-    JSString deviceId,
-    JSString groupId,
+    String label,
+    String deviceId,
+    String groupId,
   });
 }
 
 extension MockCaptureDeviceConfigurationExtension
     on MockCaptureDeviceConfiguration {
-  external set label(JSString value);
-  external JSString get label;
-  external set deviceId(JSString value);
-  external JSString get deviceId;
-  external set groupId(JSString value);
-  external JSString get groupId;
+  external set label(String value);
+  external String get label;
+  external set deviceId(String value);
+  external String get deviceId;
+  external set groupId(String value);
+  external String get groupId;
 }
 
 @JS()
@@ -50,26 +50,26 @@ extension MockCaptureDeviceConfigurationExtension
 @anonymous
 class MockCameraConfiguration implements MockCaptureDeviceConfiguration {
   external factory MockCameraConfiguration({
-    JSNumber defaultFrameRate,
-    JSString facingMode,
+    double defaultFrameRate,
+    String facingMode,
   });
 }
 
 extension MockCameraConfigurationExtension on MockCameraConfiguration {
-  external set defaultFrameRate(JSNumber value);
-  external JSNumber get defaultFrameRate;
-  external set facingMode(JSString value);
-  external JSString get facingMode;
+  external set defaultFrameRate(double value);
+  external double get defaultFrameRate;
+  external set facingMode(String value);
+  external String get facingMode;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class MockMicrophoneConfiguration implements MockCaptureDeviceConfiguration {
-  external factory MockMicrophoneConfiguration({JSNumber defaultSampleRate});
+  external factory MockMicrophoneConfiguration({int defaultSampleRate});
 }
 
 extension MockMicrophoneConfigurationExtension on MockMicrophoneConfiguration {
-  external set defaultSampleRate(JSNumber value);
-  external JSNumber get defaultSampleRate;
+  external set defaultSampleRate(int value);
+  external int get defaultSampleRate;
 }

@@ -9,7 +9,7 @@ import 'geometry.dart';
 import 'html.dart';
 import 'webxr.dart';
 
-typedef XRReflectionFormat = JSString;
+typedef XRReflectionFormat = String;
 
 @JS('XRLightProbe')
 @staticInterop

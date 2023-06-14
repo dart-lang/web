@@ -4,10 +4,10 @@
 
 import 'dart:js_interop';
 
-typedef RefreshPolicy = JSString;
-typedef TokenType = JSString;
-typedef TokenVersion = JSString;
-typedef OperationType = JSString;
+typedef RefreshPolicy = String;
+typedef TokenType = String;
+typedef TokenVersion = String;
+typedef OperationType = String;
 
 @JS()
 @staticInterop

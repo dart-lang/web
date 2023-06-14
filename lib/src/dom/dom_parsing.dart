@@ -13,7 +13,7 @@ class XMLSerializer implements JSObject {
 }
 
 extension XMLSerializerExtension on XMLSerializer {
-  external JSString serializeToString(Node root);
+  external String serializeToString(Node root);
 }
 
 @JS('InnerHTML')
@@ -21,6 +21,6 @@ extension XMLSerializerExtension on XMLSerializer {
 class InnerHTML implements JSObject {}
 
 extension InnerHTMLExtension on InnerHTML {
-  external set innerHTML(JSString value);
-  external JSString get innerHTML;
+  external set innerHTML(String value);
+  external String get innerHTML;
 }

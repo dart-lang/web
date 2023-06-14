@@ -19,12 +19,12 @@ extension GeolocationExtension on Geolocation {
     PositionErrorCallback? errorCallback,
     PositionOptions options,
   ]);
-  external JSNumber watchPosition(
+  external int watchPosition(
     PositionCallback successCallback, [
     PositionErrorCallback? errorCallback,
     PositionOptions options,
   ]);
-  external JSVoid clearWatch(JSNumber watchId);
+  external JSVoid clearWatch(int watchId);
 }
 
 @JS()
@@ -32,19 +32,19 @@ extension GeolocationExtension on Geolocation {
 @anonymous
 class PositionOptions implements JSObject {
   external factory PositionOptions({
-    JSBoolean enableHighAccuracy,
-    JSNumber timeout,
-    JSNumber maximumAge,
+    bool enableHighAccuracy,
+    int timeout,
+    int maximumAge,
   });
 }
 
 extension PositionOptionsExtension on PositionOptions {
-  external set enableHighAccuracy(JSBoolean value);
-  external JSBoolean get enableHighAccuracy;
-  external set timeout(JSNumber value);
-  external JSNumber get timeout;
-  external set maximumAge(JSNumber value);
-  external JSNumber get maximumAge;
+  external set enableHighAccuracy(bool value);
+  external bool get enableHighAccuracy;
+  external set timeout(int value);
+  external int get timeout;
+  external set maximumAge(int value);
+  external int get maximumAge;
 }
 
 @JS('GeolocationPosition')
@@ -61,24 +61,24 @@ extension GeolocationPositionExtension on GeolocationPosition {
 class GeolocationCoordinates implements JSObject {}
 
 extension GeolocationCoordinatesExtension on GeolocationCoordinates {
-  external JSNumber get accuracy;
-  external JSNumber get latitude;
-  external JSNumber get longitude;
-  external JSNumber? get altitude;
-  external JSNumber? get altitudeAccuracy;
-  external JSNumber? get heading;
-  external JSNumber? get speed;
+  external double get accuracy;
+  external double get latitude;
+  external double get longitude;
+  external double? get altitude;
+  external double? get altitudeAccuracy;
+  external double? get heading;
+  external double? get speed;
 }
 
 @JS('GeolocationPositionError')
 @staticInterop
 class GeolocationPositionError implements JSObject {
-  external static JSNumber get PERMISSION_DENIED;
-  external static JSNumber get POSITION_UNAVAILABLE;
-  external static JSNumber get TIMEOUT;
+  external static int get PERMISSION_DENIED;
+  external static int get POSITION_UNAVAILABLE;
+  external static int get TIMEOUT;
 }
 
 extension GeolocationPositionErrorExtension on GeolocationPositionError {
-  external JSNumber get code;
-  external JSString get message;
+  external int get code;
+  external String get message;
 }

@@ -12,8 +12,8 @@ import 'html.dart';
 class PictureInPictureWindow implements EventTarget {}
 
 extension PictureInPictureWindowExtension on PictureInPictureWindow {
-  external JSNumber get width;
-  external JSNumber get height;
+  external int get width;
+  external int get height;
   external set onresize(EventHandler value);
   external EventHandler get onresize;
 }
@@ -22,7 +22,7 @@ extension PictureInPictureWindowExtension on PictureInPictureWindow {
 @staticInterop
 class PictureInPictureEvent implements Event {
   external factory PictureInPictureEvent(
-    JSString type,
+    String type,
     PictureInPictureEventInit eventInitDict,
   );
 }

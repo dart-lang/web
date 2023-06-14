@@ -6,9 +6,9 @@ import 'dart:js_interop';
 
 import 'webidl.dart';
 
-typedef ImportExportKind = JSString;
-typedef TableKind = JSString;
-typedef ValueType = JSString;
+typedef ImportExportKind = String;
+typedef TableKind = String;
+typedef ValueType = String;
 
 @JS()
 @staticInterop
@@ -36,7 +36,7 @@ external $WebAssembly get WebAssembly;
 abstract class $WebAssembly {}
 
 extension $WebAssemblyExtension on $WebAssembly {
-  external JSBoolean validate(BufferSource bytes);
+  external bool validate(BufferSource bytes);
   external JSPromise compile(BufferSource bytes);
   external JSPromise instantiate(
     JSAny? bytesOrModuleObject, [
@@ -54,14 +54,14 @@ extension $WebAssemblyExtension on $WebAssembly {
 @anonymous
 class ModuleExportDescriptor implements JSObject {
   external factory ModuleExportDescriptor({
-    required JSString name,
+    required String name,
     required ImportExportKind kind,
   });
 }
 
 extension ModuleExportDescriptorExtension on ModuleExportDescriptor {
-  external set name(JSString value);
-  external JSString get name;
+  external set name(String value);
+  external String get name;
   external set kind(ImportExportKind value);
   external ImportExportKind get kind;
 }
@@ -71,17 +71,17 @@ extension ModuleExportDescriptorExtension on ModuleExportDescriptor {
 @anonymous
 class ModuleImportDescriptor implements JSObject {
   external factory ModuleImportDescriptor({
-    required JSString module,
-    required JSString name,
+    required String module,
+    required String name,
     required ImportExportKind kind,
   });
 }
 
 extension ModuleImportDescriptorExtension on ModuleImportDescriptor {
-  external set module(JSString value);
-  external JSString get module;
-  external set name(JSString value);
-  external JSString get name;
+  external set module(String value);
+  external String get module;
+  external set name(String value);
+  external String get name;
   external set kind(ImportExportKind value);
   external ImportExportKind get kind;
 }
@@ -95,7 +95,7 @@ class Module implements JSObject {
   external static JSArray imports(Module moduleObject);
   external static JSArray customSections(
     Module moduleObject,
-    JSString sectionName,
+    String sectionName,
   );
 }
 
@@ -117,16 +117,16 @@ extension InstanceExtension on Instance {
 @anonymous
 class MemoryDescriptor implements JSObject {
   external factory MemoryDescriptor({
-    required JSNumber initial,
-    JSNumber maximum,
+    required int initial,
+    int maximum,
   });
 }
 
 extension MemoryDescriptorExtension on MemoryDescriptor {
-  external set initial(JSNumber value);
-  external JSNumber get initial;
-  external set maximum(JSNumber value);
-  external JSNumber get maximum;
+  external set initial(int value);
+  external int get initial;
+  external set maximum(int value);
+  external int get maximum;
 }
 
 @JS('Memory')
@@ -136,7 +136,7 @@ class Memory implements JSObject {
 }
 
 extension MemoryExtension on Memory {
-  external JSNumber grow(JSNumber delta);
+  external int grow(int delta);
   external JSArrayBuffer get buffer;
 }
 
@@ -146,18 +146,18 @@ extension MemoryExtension on Memory {
 class TableDescriptor implements JSObject {
   external factory TableDescriptor({
     required TableKind element,
-    required JSNumber initial,
-    JSNumber maximum,
+    required int initial,
+    int maximum,
   });
 }
 
 extension TableDescriptorExtension on TableDescriptor {
   external set element(TableKind value);
   external TableKind get element;
-  external set initial(JSNumber value);
-  external JSNumber get initial;
-  external set maximum(JSNumber value);
-  external JSNumber get maximum;
+  external set initial(int value);
+  external int get initial;
+  external set maximum(int value);
+  external int get maximum;
 }
 
 @JS('Table')
@@ -170,16 +170,16 @@ class Table implements JSObject {
 }
 
 extension TableExtension on Table {
-  external JSNumber grow(
-    JSNumber delta, [
+  external int grow(
+    int delta, [
     JSAny? value,
   ]);
-  external JSAny? get(JSNumber index);
+  external JSAny? get(int index);
   external JSVoid set(
-    JSNumber index, [
+    int index, [
     JSAny? value,
   ]);
-  external JSNumber get length;
+  external int get length;
 }
 
 @JS()
@@ -188,15 +188,15 @@ extension TableExtension on Table {
 class GlobalDescriptor implements JSObject {
   external factory GlobalDescriptor({
     required ValueType value,
-    JSBoolean mutable,
+    bool mutable,
   });
 }
 
 extension GlobalDescriptorExtension on GlobalDescriptor {
   external set value(ValueType value);
   external ValueType get value;
-  external set mutable(JSBoolean value);
-  external JSBoolean get mutable;
+  external set mutable(bool value);
+  external bool get mutable;
 }
 
 @JS('Global')

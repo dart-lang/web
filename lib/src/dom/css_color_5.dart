@@ -11,8 +11,8 @@ import 'cssom.dart';
 class CSSColorProfileRule implements CSSRule {}
 
 extension CSSColorProfileRuleExtension on CSSColorProfileRule {
-  external JSString get name;
-  external JSString get src;
-  external JSString get renderingIntent;
-  external JSString get components;
+  external String get name;
+  external String get src;
+  external String get renderingIntent;
+  external String get components;
 }

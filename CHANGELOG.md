@@ -1,3 +1,7 @@
+## 0.1.4-beta
+
+- Support `bool`, `int`, `double`, `String` in APIs.
+
 ## 0.1.3-beta
 
 - CSS properties can now be accessed directly.

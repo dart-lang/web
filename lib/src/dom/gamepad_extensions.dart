@@ -4,24 +4,24 @@
 
 import 'dart:js_interop';
 
-typedef GamepadHand = JSString;
-typedef GamepadHapticsResult = JSString;
-typedef GamepadHapticActuatorType = JSString;
-typedef GamepadHapticEffectType = JSString;
+typedef GamepadHand = String;
+typedef GamepadHapticsResult = String;
+typedef GamepadHapticActuatorType = String;
+typedef GamepadHapticEffectType = String;
 
 @JS('GamepadHapticActuator')
 @staticInterop
 class GamepadHapticActuator implements JSObject {}
 
 extension GamepadHapticActuatorExtension on GamepadHapticActuator {
-  external JSBoolean canPlayEffectType(GamepadHapticEffectType type);
+  external bool canPlayEffectType(GamepadHapticEffectType type);
   external JSPromise playEffect(
     GamepadHapticEffectType type, [
     GamepadEffectParameters params,
   ]);
   external JSPromise pulse(
-    JSNumber value,
-    JSNumber duration,
+    double value,
+    double duration,
   );
   external JSPromise reset();
   external GamepadHapticActuatorType get type;
@@ -32,22 +32,22 @@ extension GamepadHapticActuatorExtension on GamepadHapticActuator {
 @anonymous
 class GamepadEffectParameters implements JSObject {
   external factory GamepadEffectParameters({
-    JSNumber duration,
-    JSNumber startDelay,
-    JSNumber strongMagnitude,
-    JSNumber weakMagnitude,
+    double duration,
+    double startDelay,
+    double strongMagnitude,
+    double weakMagnitude,
   });
 }
 
 extension GamepadEffectParametersExtension on GamepadEffectParameters {
-  external set duration(JSNumber value);
-  external JSNumber get duration;
-  external set startDelay(JSNumber value);
-  external JSNumber get startDelay;
-  external set strongMagnitude(JSNumber value);
-  external JSNumber get strongMagnitude;
-  external set weakMagnitude(JSNumber value);
-  external JSNumber get weakMagnitude;
+  external set duration(double value);
+  external double get duration;
+  external set startDelay(double value);
+  external double get startDelay;
+  external set strongMagnitude(double value);
+  external double get strongMagnitude;
+  external set weakMagnitude(double value);
+  external double get weakMagnitude;
 }
 
 @JS('GamepadPose')
@@ -55,8 +55,8 @@ extension GamepadEffectParametersExtension on GamepadEffectParameters {
 class GamepadPose implements JSObject {}
 
 extension GamepadPoseExtension on GamepadPose {
-  external JSBoolean get hasOrientation;
-  external JSBoolean get hasPosition;
+  external bool get hasOrientation;
+  external bool get hasPosition;
   external JSFloat32Array? get position;
   external JSFloat32Array? get linearVelocity;
   external JSFloat32Array? get linearAcceleration;
@@ -70,8 +70,8 @@ extension GamepadPoseExtension on GamepadPose {
 class GamepadTouch implements JSObject {}
 
 extension GamepadTouchExtension on GamepadTouch {
-  external JSNumber get touchId;
-  external JSNumber get surfaceId;
+  external int get touchId;
+  external int get surfaceId;
   external JSFloat32Array get position;
   external JSUint32Array? get surfaceDimensions;
 }

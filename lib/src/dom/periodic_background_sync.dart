@@ -12,46 +12,46 @@ class PeriodicSyncManager implements JSObject {}
 
 extension PeriodicSyncManagerExtension on PeriodicSyncManager {
   external JSPromise register(
-    JSString tag, [
+    String tag, [
     BackgroundSyncOptions options,
   ]);
   external JSPromise getTags();
-  external JSPromise unregister(JSString tag);
+  external JSPromise unregister(String tag);
 }
 
 @JS()
 @staticInterop
 @anonymous
 class BackgroundSyncOptions implements JSObject {
-  external factory BackgroundSyncOptions({JSNumber minInterval});
+  external factory BackgroundSyncOptions({int minInterval});
 }
 
 extension BackgroundSyncOptionsExtension on BackgroundSyncOptions {
-  external set minInterval(JSNumber value);
-  external JSNumber get minInterval;
+  external set minInterval(int value);
+  external int get minInterval;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class PeriodicSyncEventInit implements ExtendableEventInit {
-  external factory PeriodicSyncEventInit({required JSString tag});
+  external factory PeriodicSyncEventInit({required String tag});
 }
 
 extension PeriodicSyncEventInitExtension on PeriodicSyncEventInit {
-  external set tag(JSString value);
-  external JSString get tag;
+  external set tag(String value);
+  external String get tag;
 }
 
 @JS('PeriodicSyncEvent')
 @staticInterop
 class PeriodicSyncEvent implements ExtendableEvent {
   external factory PeriodicSyncEvent(
-    JSString type,
+    String type,
     PeriodicSyncEventInit init,
   );
 }
 
 extension PeriodicSyncEventExtension on PeriodicSyncEvent {
-  external JSString get tag;
+  external String get tag;
 }

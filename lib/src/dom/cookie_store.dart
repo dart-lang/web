@@ -10,7 +10,7 @@ import 'html.dart';
 import 'service_workers.dart';
 
 typedef CookieList = JSArray;
-typedef CookieSameSite = JSString;
+typedef CookieSameSite = String;
 
 @JS('CookieStore')
 @staticInterop
@@ -21,7 +21,7 @@ extension CookieStoreExtension on CookieStore {
   external JSPromise getAll([JSAny? nameOrOptions]);
   external JSPromise set(
     JSAny? nameOrOptions, [
-    JSString value,
+    String value,
   ]);
   external JSPromise delete(JSAny? nameOrOptions);
   external set onchange(EventHandler value);
@@ -33,16 +33,16 @@ extension CookieStoreExtension on CookieStore {
 @anonymous
 class CookieStoreGetOptions implements JSObject {
   external factory CookieStoreGetOptions({
-    JSString name,
-    JSString url,
+    String name,
+    String url,
   });
 }
 
 extension CookieStoreGetOptionsExtension on CookieStoreGetOptions {
-  external set name(JSString value);
-  external JSString get name;
-  external set url(JSString value);
-  external JSString get url;
+  external set name(String value);
+  external String get name;
+  external set url(String value);
+  external String get url;
 }
 
 @JS()
@@ -50,26 +50,26 @@ extension CookieStoreGetOptionsExtension on CookieStoreGetOptions {
 @anonymous
 class CookieInit implements JSObject {
   external factory CookieInit({
-    required JSString name,
-    required JSString value,
+    required String name,
+    required String value,
     DOMHighResTimeStamp? expires,
-    JSString? domain,
-    JSString path,
+    String? domain,
+    String path,
     CookieSameSite sameSite,
   });
 }
 
 extension CookieInitExtension on CookieInit {
-  external set name(JSString value);
-  external JSString get name;
-  external set value(JSString value);
-  external JSString get value;
+  external set name(String value);
+  external String get name;
+  external set value(String value);
+  external String get value;
   external set expires(DOMHighResTimeStamp? value);
   external DOMHighResTimeStamp? get expires;
-  external set domain(JSString? value);
-  external JSString? get domain;
-  external set path(JSString value);
-  external JSString get path;
+  external set domain(String? value);
+  external String? get domain;
+  external set path(String value);
+  external String get path;
   external set sameSite(CookieSameSite value);
   external CookieSameSite get sameSite;
 }
@@ -79,19 +79,19 @@ extension CookieInitExtension on CookieInit {
 @anonymous
 class CookieStoreDeleteOptions implements JSObject {
   external factory CookieStoreDeleteOptions({
-    required JSString name,
-    JSString? domain,
-    JSString path,
+    required String name,
+    String? domain,
+    String path,
   });
 }
 
 extension CookieStoreDeleteOptionsExtension on CookieStoreDeleteOptions {
-  external set name(JSString value);
-  external JSString get name;
-  external set domain(JSString? value);
-  external JSString? get domain;
-  external set path(JSString value);
-  external JSString get path;
+  external set name(String value);
+  external String get name;
+  external set domain(String? value);
+  external String? get domain;
+  external set path(String value);
+  external String get path;
 }
 
 @JS()
@@ -99,29 +99,29 @@ extension CookieStoreDeleteOptionsExtension on CookieStoreDeleteOptions {
 @anonymous
 class CookieListItem implements JSObject {
   external factory CookieListItem({
-    JSString name,
-    JSString value,
-    JSString? domain,
-    JSString path,
+    String name,
+    String value,
+    String? domain,
+    String path,
     DOMHighResTimeStamp? expires,
-    JSBoolean secure,
+    bool secure,
     CookieSameSite sameSite,
   });
 }
 
 extension CookieListItemExtension on CookieListItem {
-  external set name(JSString value);
-  external JSString get name;
-  external set value(JSString value);
-  external JSString get value;
-  external set domain(JSString? value);
-  external JSString? get domain;
-  external set path(JSString value);
-  external JSString get path;
+  external set name(String value);
+  external String get name;
+  external set value(String value);
+  external String get value;
+  external set domain(String? value);
+  external String? get domain;
+  external set path(String value);
+  external String get path;
   external set expires(DOMHighResTimeStamp? value);
   external DOMHighResTimeStamp? get expires;
-  external set secure(JSBoolean value);
-  external JSBoolean get secure;
+  external set secure(bool value);
+  external bool get secure;
   external set sameSite(CookieSameSite value);
   external CookieSameSite get sameSite;
 }
@@ -140,7 +140,7 @@ extension CookieStoreManagerExtension on CookieStoreManager {
 @staticInterop
 class CookieChangeEvent implements Event {
   external factory CookieChangeEvent(
-    JSString type, [
+    String type, [
     CookieChangeEventInit eventInitDict,
   ]);
 }
@@ -171,7 +171,7 @@ extension CookieChangeEventInitExtension on CookieChangeEventInit {
 @staticInterop
 class ExtendableCookieChangeEvent implements ExtendableEvent {
   external factory ExtendableCookieChangeEvent(
-    JSString type, [
+    String type, [
     ExtendableCookieChangeEventInit eventInitDict,
   ]);
 }

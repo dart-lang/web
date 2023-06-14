@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 import 'reporting.dart';
 
-typedef ScriptingPolicyViolationType = JSString;
+typedef ScriptingPolicyViolationType = String;
 
 @JS('ScriptingPolicyReportBody')
 @staticInterop
@@ -14,9 +14,9 @@ class ScriptingPolicyReportBody implements ReportBody {}
 
 extension ScriptingPolicyReportBodyExtension on ScriptingPolicyReportBody {
   external JSObject toJSON();
-  external JSString get violationType;
-  external JSString? get violationURL;
-  external JSString? get violationSample;
-  external JSNumber get lineno;
-  external JSNumber get colno;
+  external String get violationType;
+  external String? get violationURL;
+  external String? get violationSample;
+  external int get lineno;
+  external int get colno;
 }

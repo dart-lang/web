@@ -11,7 +11,7 @@ import 'cssom.dart';
 class CSSConditionRule implements CSSGroupingRule {}
 
 extension CSSConditionRuleExtension on CSSConditionRule {
-  external JSString get conditionText;
+  external String get conditionText;
 }
 
 @JS('CSSMediaRule')

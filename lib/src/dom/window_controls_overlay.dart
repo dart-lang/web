@@ -14,7 +14,7 @@ class WindowControlsOverlay implements EventTarget {}
 
 extension WindowControlsOverlayExtension on WindowControlsOverlay {
   external DOMRect getTitlebarAreaRect();
-  external JSBoolean get visible;
+  external bool get visible;
   external set ongeometrychange(EventHandler value);
   external EventHandler get ongeometrychange;
 }
@@ -23,7 +23,7 @@ extension WindowControlsOverlayExtension on WindowControlsOverlay {
 @staticInterop
 class WindowControlsOverlayGeometryChangeEvent implements Event {
   external factory WindowControlsOverlayGeometryChangeEvent(
-    JSString type,
+    String type,
     WindowControlsOverlayGeometryChangeEventInit eventInitDict,
   );
 }
@@ -31,7 +31,7 @@ class WindowControlsOverlayGeometryChangeEvent implements Event {
 extension WindowControlsOverlayGeometryChangeEventExtension
     on WindowControlsOverlayGeometryChangeEvent {
   external DOMRect get titlebarAreaRect;
-  external JSBoolean get visible;
+  external bool get visible;
 }
 
 @JS()
@@ -40,7 +40,7 @@ extension WindowControlsOverlayGeometryChangeEventExtension
 class WindowControlsOverlayGeometryChangeEventInit implements EventInit {
   external factory WindowControlsOverlayGeometryChangeEventInit({
     required DOMRect titlebarAreaRect,
-    JSBoolean visible,
+    bool visible,
   });
 }
 
@@ -48,6 +48,6 @@ extension WindowControlsOverlayGeometryChangeEventInitExtension
     on WindowControlsOverlayGeometryChangeEventInit {
   external set titlebarAreaRect(DOMRect value);
   external DOMRect get titlebarAreaRect;
-  external set visible(JSBoolean value);
-  external JSBoolean get visible;
+  external set visible(bool value);
+  external bool get visible;
 }

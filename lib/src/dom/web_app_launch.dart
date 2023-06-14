@@ -11,7 +11,7 @@ typedef LaunchConsumer = JSFunction;
 class LaunchParams implements JSObject {}
 
 extension LaunchParamsExtension on LaunchParams {
-  external JSString? get targetURL;
+  external String? get targetURL;
   external JSArray get files;
 }
 

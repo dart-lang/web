@@ -9,6 +9,10 @@ import 'dart:js_interop';
 import '../../web.dart' as html;
 import '../glue.dart' show Device;
 
+// TODO(sigmund): revisit. This was added with a special reason to elide
+// certain costs on some JS backends and we need to assess if the way this is
+// implemented should be done differently here.
+// ignore: prefer_void_to_null, unnecessary_lambdas
 final Future<Null> nullFuture = Zone.root.run(() => Future<Null>.value());
 
 /// Helper class used to create streams abstracting DOM events. This is a
@@ -52,7 +56,8 @@ class EventStreamProvider<T extends html.Event> {
   ///
   /// This may be used to capture DOM events:
   ///
-  ///     Element.keyDownEvent.forElement(element, useCapture: true).listen(...);
+  ///     Element.keyDownEvent.forElement(element, useCapture: true)
+  ///       .listen(...);
   ///
   ///     // Alternate method:
   ///     Element.keyDownEvent.forElement(element).capture(...);
@@ -71,8 +76,9 @@ class EventStreamProvider<T extends html.Event> {
   /// Gets the type of the event which this would listen for on the specified
   /// event target.
   ///
-  /// The target is necessary because some browsers may use different event names
-  /// for the same purpose and the target allows differentiating browser support.
+  /// The target is necessary because some browsers may use different event
+  /// names for the same purpose and the target allows differentiating browser
+  /// support.
   String getEventType(html.EventTarget target) => _eventType;
 }
 
@@ -92,7 +98,7 @@ abstract class ElementStream<T extends html.Event> implements Stream<T> {
   ///
   /// * [Event Capture](http://www.w3.org/TR/DOM-Level-2-Events/events.html#Events-flow-capture)
   ///   from the W3C DOM Events specification.
-  StreamSubscription<T> capture(void onData(T event));
+  StreamSubscription<T> capture(void Function(T) onData);
 }
 
 /// Adapter for exposing DOM events as Dart streams.
@@ -127,10 +133,6 @@ class _EventStream<T extends html.Event> extends Stream<T> {
 class _ElementEventStreamImpl<T extends html.Event> extends _EventStream<T>
     implements ElementStream<T> {
   _ElementEventStreamImpl(super.target, super.eventType, super.useCapture);
-
-  @override
-  Stream<T> matches(String selector) => throw UnimplementedError();
-
   @override
   StreamSubscription<T> capture(void Function(T) onData) =>
       _EventStreamSubscription<T>(_target, _eventType, onData, true);
@@ -163,6 +165,7 @@ class _EventStreamSubscription<T extends html.Event>
   }
 
   @override
+  // ignore: prefer_void_to_null
   Future<Null> cancel() {
     if (_canceled) return nullFuture;
 
@@ -299,6 +302,7 @@ class ElementEvents extends Events {
 
   ElementEvents(html.Element ptr) : super(ptr);
 
+  @override
   Stream<html.Event> operator [](String type) {
     if (webkitEvents.keys.contains(type.toLowerCase())) {
       if (Device.isWebKit) {

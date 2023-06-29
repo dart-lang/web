@@ -79,7 +79,7 @@ class HttpRequest {
   ///
   /// See also [request].
   static Future<String> getString(String url,
-          {bool? withCredentials, void onProgress(ProgressEvent e)?}) =>
+          {bool? withCredentials, void Function(ProgressEvent)? onProgress}) =>
       request(url, withCredentials: withCredentials, onProgress: onProgress)
           .then((r) => r.responseText);
 
@@ -146,15 +146,17 @@ class HttpRequest {
   /// 'document', 'json', or 'text'.
   /// for more information.
   ///
-  /// The [withCredentials] parameter specified that credentials such as a cookie
-  /// (already) set in the header or
+  /// The [withCredentials] parameter specified that credentials such as a
+  /// cookie (already) set in the header or
   /// [authorization headers](http://tools.ietf.org/html/rfc1945#section-10.2)
   /// should be specified for the request. Details to keep in mind when using
   /// credentials:
   ///
   /// * Using credentials is only useful for cross-origin requests.
-  /// * The `Access-Control-Allow-Origin` header of `url` cannot contain a wildcard (*).
-  /// * The `Access-Control-Allow-Credentials` header of `url` must be set to true.
+  /// * The `Access-Control-Allow-Origin` header of `url` cannot contain a
+  ///   wildcard (*).
+  /// * The `Access-Control-Allow-Credentials` header of `url` must be set to
+  ///   true.
   /// * If `Access-Control-Expose-Headers` has not been set to true, only a
   ///   subset of all the response headers will be returned when calling
   ///   `getAllResponseHeaders`.
@@ -177,12 +179,14 @@ class HttpRequest {
   ///         // Do something with the response.
   ///     });
   ///
-  /// Note that requests for file:// URIs are only supported by Chrome extensions
-  /// with appropriate permissions in their manifest. Requests to file:// URIs
-  /// will also never fail- the Future will always complete successfully, even
-  /// when the file cannot be found.
+  /// Note that requests for file:// URIs are only supported by Chrome
+  /// extensions with appropriate permissions in their manifest. Requests to
+  /// file:// URIs will also never fail- the Future will always complete
+  /// successfully, even when the file cannot be found.
   ///
-  /// See also: [authorization headers](http://en.wikipedia.org/wiki/Basic_access_authentication).
+  /// See also: [authorization headers][1].
+  ///
+  /// [1]: http://en.wikipedia.org/wiki/Basic_access_authentication
   static Future<XMLHttpRequest> request(String url,
       {String? method,
       bool? withCredentials,

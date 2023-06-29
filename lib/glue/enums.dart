@@ -120,7 +120,8 @@ abstract class KeyCode {
   static const int FF_SEMICOLON = 59;
   // ignore: constant_identifier_names
   static const int FF_EQUALS = 61;
-  // CAUTION: The question mark is for US-keyboard layouts. It varies for other locales and keyboard layouts.
+  // CAUTION: The question mark is for US-keyboard layouts.
+  // It varies for other locales and keyboard layouts.
   // ignore: constant_identifier_names
   static const int QUESTION_MARK = 63;
   // ignore: constant_identifier_names

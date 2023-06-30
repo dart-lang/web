@@ -2,25 +2,27 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-//import 'dart:_internal' show nullFuture;
 import 'dart:async';
 import 'dart:js_interop';
 
 import '../../web.dart' as html;
 import '../glue.dart' show Device;
 
-// TODO(sigmund): revisit. This was added with a special reason to elide
-// certain costs on some JS backends and we need to assess if the way this is
-// implemented should be done differently here.
-// ignore: prefer_void_to_null, unnecessary_lambdas
-final Future<Null> nullFuture = Zone.root.run(() => Future<Null>.value());
-
 /// Helper class used to create streams abstracting DOM events. This is a
 /// piece of the glue layer directly derived from a similar feature in
 /// `dart:html`.
 ///
-/// Since currently the glue layer doesn't have `ElementList` APIs,
-/// this provider omits APIs related to them.
+/// A few differences compared to `dart:html`:
+///   * The glue layer doesn't have `ElementList` APIs, so this
+///     provider omits APIs related to them.
+///
+///   * Streams returned here behave slighly differently. The timing of when
+///     callbacks execute is sometimes differet when using stream to future APIs
+///     like `.first`. In particular, when using synchronous browser APIs like
+///     `dispatchEvent`, the Dart callbacks that would have executed
+///     synchronously in `dart:html`, may now execute asynchronously. This only
+///     breaks code that relied on specific timing details of the
+///     implementation, but at an API level, the change is non breaking.
 class EventStreamProvider<T extends html.Event> {
   final String _eventType;
 
@@ -165,15 +167,40 @@ class _EventStreamSubscription<T extends html.Event>
   }
 
   @override
-  // ignore: prefer_void_to_null
-  Future<Null> cancel() {
-    if (_canceled) return nullFuture;
+  Future<void> cancel() {
+    // Note: the use of `emptyFuture` here has an indirect effect. The timing of
+    // when stream listeners get dispatched is different from that of
+    // `dart:html`.
+    //
+    // For example, the following program prints 1, 2, 3, 4, but with
+    // `dart:html` it would have printed 1, 2, 4, 3
+    //
+    // ```dart
+    // import 'package:web/glue/glue.dart';
+    //
+    // main() {
+    //   print('1');
+    //   final body = document.body!;
+    //   body.onTouchStart.first.whenComplete(() {
+    //     print('4');
+    //   });
+    //
+    //   print('2');
+    //   body.dispatchEvent(TouchEvent('touchstart'));
+    //   print('3');
+    // }
+    // ```
+    //
+    // More details can be found on [this change][1].
+    // [1]: https://dart-review.googlesource.com/c/sdk/+/175323
+    final emptyFuture = Future<void>.value();
+    if (_canceled) return emptyFuture;
 
     _unlisten();
     // Clear out the target to indicate this is complete.
     _target = null;
     _onData = null;
-    return nullFuture;
+    return emptyFuture;
   }
 
   bool get _canceled => _target == null;

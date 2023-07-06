@@ -25,15 +25,15 @@ library web.glue;
 import 'dart:js_interop';
 import 'dart:js_interop_unsafe';
 
-import '../web.dart';
+import 'web.dart';
 
-export '../web.dart';
-export 'enums.dart';
-export 'events/events.dart';
-export 'extensions.dart';
-export 'http.dart';
-export 'lists.dart';
-export 'renames.dart';
+export 'src/helpers/enums.dart';
+export 'src/helpers/events/events.dart';
+export 'src/helpers/extensions.dart';
+export 'src/helpers/http.dart';
+export 'src/helpers/lists.dart';
+export 'src/helpers/renames.dart';
+export 'web.dart';
 
 HTMLElement createElementTag(String s) =>
     document.createElement(s) as HTMLElement;

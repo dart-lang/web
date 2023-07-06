@@ -6,7 +6,7 @@
 /// `dart:html` type names.
 library web.glue.renames;
 
-import '../web.dart';
+import '../../web.dart';
 
 typedef AudioElement = HTMLAudioElement;
 typedef HtmlElement = HTMLElement;

@@ -5,8 +5,8 @@
 import 'dart:async';
 import 'dart:js_interop';
 
-import '../../web.dart' as html;
-import '../glue.dart' show Device;
+import '../../../helpers.dart' show Device;
+import '../../../web.dart' as html;
 
 /// Helper class used to create streams abstracting DOM events. This is a
 /// piece of the glue layer directly derived from a similar feature in

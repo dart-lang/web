@@ -5,8 +5,8 @@
 import 'dart:js_interop';
 import 'dart:js_interop_unsafe';
 
-import '../../web.dart';
-import '../glue.dart' show Device;
+import '../../../helpers.dart' show Device;
+import '../../../web.dart';
 import 'streams.dart';
 
 /// Statically accessible `EventStreamProvider`s for all event types.

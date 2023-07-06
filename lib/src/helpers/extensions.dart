@@ -23,7 +23,7 @@ library web.glue.extensions;
 import 'dart:js_interop';
 import 'dart:math' show Point;
 
-import '../web.dart';
+import '../../web.dart';
 import 'lists.dart';
 
 extension HTMLCanvasElementGlue on HTMLCanvasElement {

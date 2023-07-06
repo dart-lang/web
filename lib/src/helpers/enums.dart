@@ -5,7 +5,7 @@
 /// Glue layer library that exposes enums commonly used from `dart:html`.
 library web.glue.enums;
 
-import '../web.dart';
+import '../../web.dart';
 
 class KeyLocation {
   // Note: this library uses legacy constant names for backwards compatibility.

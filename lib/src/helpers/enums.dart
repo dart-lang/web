@@ -7,7 +7,7 @@ library;
 
 import '../../web.dart';
 
-class KeyLocation {
+abstract final class KeyLocation {
   // Note: this library uses legacy constant names for backwards compatibility.
   // ignore: constant_identifier_names
   static const int STANDARD = 0;
@@ -23,7 +23,7 @@ class KeyLocation {
   static const int MOBILE = 5;
 }
 
-abstract class KeyCode {
+abstract final class KeyCode {
   // These constant names were borrowed from Closure's Keycode enumeration
   // class.
   // https://github.com/google/closure-library/blob/master/closure/goog/events/keycodes.js
@@ -214,7 +214,7 @@ abstract class KeyCode {
   static const int NUM_PERIOD = 110;
 }
 
-class Device {
+abstract final class Device {
   static String get userAgent => window.navigator.userAgent;
   static final bool isOpera = userAgent.contains('Opera');
   static final bool isIE = !isOpera && userAgent.contains('Trident/');

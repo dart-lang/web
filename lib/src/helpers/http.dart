@@ -47,7 +47,6 @@ import 'events/events.dart' show XHRGetters;
 /// * [Dart article on using HttpRequests](https://dart.dev/guides/libraries/library-tour#using-http-resources-with-httprequest)
 /// * [JS XMLHttpRequest](https://developer.mozilla.org/en-US/docs/DOM/XMLHttpRequest)
 /// * [Using XMLHttpRequest](https://developer.mozilla.org/en-US/docs/DOM/XMLHttpRequest/Using_XMLHttpRequest)
-
 class HttpRequest {
   // The lint is ignored because these are purposesly made to match the old
   // names used in `dart:html`

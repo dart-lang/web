@@ -154,20 +154,20 @@ class _OverridableMember {
   final List<_Parameter> parameters = [];
 
   _OverridableMember(JSArray rawParameters) {
-    for (var i = 0; i < rawParameters.length.toDart; i++) {
-      parameters.add(_Parameter(rawParameters[i.toJS] as idl.Argument));
+    for (var i = 0; i < rawParameters.length; i++) {
+      parameters.add(_Parameter(rawParameters[i] as idl.Argument));
     }
   }
 
   void _processParameters(JSArray thoseParameters) {
     // Assume if we have extra arguments beyond what was provided in some other
     // method, that these are all optional.
-    final thatLength = thoseParameters.length.toDart.toInt();
+    final thatLength = thoseParameters.length;
     for (var i = thatLength; i < parameters.length; i++) {
       parameters[i].isOptional = true;
     }
     for (var i = 0; i < thatLength; i++) {
-      final argument = thoseParameters[i.toJS] as idl.Argument;
+      final argument = thoseParameters[i] as idl.Argument;
       if (i >= parameters.length) {
         // We assume these parameters must be optional, regardless of what the
         // IDL says.
@@ -232,8 +232,8 @@ class _PartialInterfacelike {
   }
 
   void _processMembers(JSArray nodeMembers) {
-    for (var i = 0; i < nodeMembers.length.toDart; i++) {
-      final member = nodeMembers[i.toJS] as idl.Member;
+    for (var i = 0; i < nodeMembers.length; i++) {
+      final member = nodeMembers[i] as idl.Member;
       final type = member.type.toDart;
       switch (type) {
         case 'constructor':
@@ -341,8 +341,8 @@ class Translator {
     assert(!_libraries.containsKey(libraryPath));
     final library = _Library(this, '$packageRoot/$libraryPath');
     _libraries[libraryPath] = library;
-    for (var i = 0; i < ast.length.toDart; i++) {
-      library.add(ast[i.toJS] as idl.Node);
+    for (var i = 0; i < ast.length; i++) {
+      library.add(ast[i] as idl.Node);
     }
   }
 

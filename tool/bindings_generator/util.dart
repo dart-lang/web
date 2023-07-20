@@ -11,8 +11,8 @@ import 'filesystem_api.dart';
 external JSArray objectEntries(JSObject o);
 
 extension JSArrayExtension on JSArray {
-  external JSAny? operator [](JSNumber i);
-  external JSNumber get length;
+  external JSAny? operator [](int i);
+  external int get length;
 }
 
 extension JSStringHelpers on JSString? {

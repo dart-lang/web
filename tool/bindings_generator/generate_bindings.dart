@@ -13,27 +13,26 @@ import 'webref_idl_api.dart';
 Future<List<String>> _generateCSSStyleDeclarations() async {
   final cssStyleDeclarations = <String>{};
   final array = objectEntries(await css.listAll().toDart as JSObject);
-  for (var i = 0; i < array.length.toDart; i++) {
-    final entry = array[i.toJS] as JSArray;
-    final data = entry[1.toJS] as CSSEntries;
+  for (var i = 0; i < array.length; i++) {
+    final entry = array[i] as JSArray;
+    final data = entry[1] as CSSEntries;
     final properties = data.properties;
     if (properties != null) {
-      for (var j = 0; j < properties.length.toDart; j++) {
-        final property = properties[j.toJS] as CSSEntry;
+      for (var j = 0; j < properties.length; j++) {
+        final property = properties[j] as CSSEntry;
         // There are thre cases for [styleDeclaration]:
         //   1) Length == 1, a single word CSS property.
         //   2) Length == 2, a kebab case property + a camel case property.
         //   3) Length == 3, webkit CSS properties.
         final styleDeclaration = property.styleDeclaration;
         if (styleDeclaration != null) {
-          final length = styleDeclaration.length.toDart.toInt();
+          final length = styleDeclaration.length;
           if (length < 0 || length > 3) {
             throw Exception('Unexpected style declaration $styleDeclaration');
           }
           // For now we ignore browser specific properties.
           if (length == 3) continue;
-          final style =
-              (styleDeclaration[(length - 1).toJS] as JSString).toDart;
+          final style = (styleDeclaration[length - 1] as JSString).toDart;
           if (style.contains('-')) {
             throw Exception('Unexpected style declaration $styleDeclaration');
           }
@@ -50,10 +49,10 @@ Future<TranslationResult> generateBindings(
   final cssStyleDeclarations = await _generateCSSStyleDeclarations();
   final translator = Translator(librarySubDir, cssStyleDeclarations);
   final array = objectEntries(await idl.parseAll().toDart as JSObject);
-  for (var i = 0; i < array.length.toDart; i++) {
-    final entry = array[i.toJS] as JSArray;
-    final shortname = (entry[0.toJS] as JSString).toDart.kebabToSnake;
-    final ast = entry[1.toJS] as JSArray;
+  for (var i = 0; i < array.length; i++) {
+    final entry = array[i] as JSArray;
+    final shortname = (entry[0] as JSString).toDart.kebabToSnake;
+    final ast = entry[1] as JSArray;
     translator.collect(shortname, ast);
   }
   return translator.translate();

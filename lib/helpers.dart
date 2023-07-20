@@ -2,13 +2,13 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-/// Main entry library for `package:web` glue layer.
+/// Main entry library for `package:web` helper layer.
 ///
-/// The glue layer is a collection of libraries with extensions and helper
-/// methods that bring functionality to `package:web` that many Dart developers
-/// are used to have from `dart:html`.
+/// The helper layer is a collection of libraries with extensions and methods
+/// that bring functionality to `package:web` that many Dart developers are used
+/// to have from `dart:html`.
 ///
-/// This glue layer serves two purposes:
+/// This helper layer serves two purposes:
 ///   * provide useful functionality in environments where `dart:html` is not
 ///     available (like on Wasm).
 ///   * help bridge the gap in functionality from the past, which may reduce
@@ -19,8 +19,8 @@
 /// developer. Unlike `dart:html`, each developer needs to make a choice for
 /// whether to consume some of the APIs provided here.
 ///
-/// The libraries in the glue layer can also be consumed piece by piece.
-library web.glue;
+/// The libraries in this helper layer can also be consumed piece by piece.
+library;
 
 import 'dart:js_interop';
 import 'dart:js_interop_unsafe';

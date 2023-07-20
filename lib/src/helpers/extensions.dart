@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-/// Glue layer library that includes additional extension methods on existing
+/// Helper layer library that includes additional extension methods on existing
 /// `package:web` types.
 ///
 /// The extensions here are added by hand over time, depending on needs and use
@@ -18,7 +18,7 @@
 ///    `HTMLCanvasElement`).
 ///
 ///  * conversions: for example to wrap a `TouchList` as a `List<Touch>`
-library web.glue.extensions;
+library;
 
 import 'dart:js_interop';
 import 'dart:math' show Point;

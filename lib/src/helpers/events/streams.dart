@@ -9,11 +9,11 @@ import '../../../helpers.dart' show Device;
 import '../../../web.dart' as html;
 
 /// Helper class used to create streams abstracting DOM events. This is a
-/// piece of the glue layer directly derived from a similar feature in
+/// piece of the helper layer directly derived from a similar feature in
 /// `dart:html`.
 ///
 /// A few differences compared to `dart:html`:
-///   * The glue layer doesn't have `ElementList` APIs, so this
+///   * The helper layer doesn't have `ElementList` APIs, so this
 ///     provider omits APIs related to them.
 ///
 ///   * Streams returned here behave slighly differently. The timing of when
@@ -176,7 +176,7 @@ class _EventStreamSubscription<T extends html.Event>
     // `dart:html` it would have printed 1, 2, 4, 3
     //
     // ```dart
-    // import 'package:web/glue/glue.dart';
+    // import 'package:web/helpers.dart';
     //
     // main() {
     //   print('1');

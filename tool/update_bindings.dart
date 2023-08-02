@@ -46,7 +46,7 @@ $_usage''');
   // Run app with `node`.
   if (argResult['delete-src'] as bool) {
     // TODO(dart-lang/web#28): file cleanup should happen in the tool itself
-    final srcDir = Directory(p.join(p.current, 'lib', 'src'));
+    final srcDir = Directory(p.join(p.current, 'lib', 'src', 'dom'));
 
     if (srcDir.existsSync()) {
       srcDir.deleteSync(recursive: true);

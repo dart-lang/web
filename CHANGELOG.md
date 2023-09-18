@@ -1,5 +1,6 @@
 ## 0.1.4-beta
 
+- Require Dart 3.2 pre-release.
 - Support `bool`, `int`, `double`, `String` in APIs.
 
 ## 0.1.3-beta

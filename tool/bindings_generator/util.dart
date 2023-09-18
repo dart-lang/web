@@ -18,6 +18,7 @@ extension JSArrayExtension on JSArray {
 extension JSStringHelpers on JSString? {
   // TODO(joshualitt): Clean this up after updating JS types.
   // String? get toDartString => this.isUndefinedOrNull ? null : this!.toDart;
+  // ignore: prefer_null_aware_operators
   String? get toDartString => this == null ? null : this!.toDart;
 }
 

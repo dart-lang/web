@@ -53,7 +53,7 @@ Element? querySelector(String selectors) => document.querySelector(selectors);
 
 bool isInstanceOfDomType(JSObject? o, String domType) {
   if (o == null) return false;
-  final constructor = globalJSObject[domType.toJS];
+  final constructor = globalContext.getProperty(domType.toJS);
   if (constructor == null) return false;
   return o.instanceof(constructor as JSFunction).toDart;
 }

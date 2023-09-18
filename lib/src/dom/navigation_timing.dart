@@ -25,6 +25,7 @@ extension PerformanceNavigationTimingExtension on PerformanceNavigationTiming {
   external DOMHighResTimeStamp get loadEventEnd;
   external NavigationTimingType get type;
   external int get redirectCount;
+  external DOMHighResTimeStamp get criticalCHRestart;
   external DOMHighResTimeStamp get activationStart;
 }
 

@@ -3,7 +3,7 @@
 Lightweight DOM and JS bindings built around JS static interop.
 
 <!-- START updated by /tool/update_bindings.dart. Do not modify by hand -->
-Based on [`@webref/idl 3.33.3`](https://www.npmjs.com/package/@webref/idl/v/3.33.3)
+Based on [`@webref/idl 3.38.2`](https://www.npmjs.com/package/@webref/idl/v/3.38.2)
 <!-- END updated by /tool/update_bindings.dart. Do not modify by hand -->
 
 NOTE: This package is highly experimental.

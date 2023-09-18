@@ -14,6 +14,7 @@ import 'webxr_depth_sensing.dart';
 import 'webxr_lighting_estimation.dart';
 
 typedef XRLayerLayout = String;
+typedef XRLayerQuality = String;
 typedef XRTextureType = String;
 
 @JS('XRCompositionLayer')
@@ -30,6 +31,8 @@ extension XRCompositionLayerExtension on XRCompositionLayer {
   external set opacity(double value);
   external double get opacity;
   external int get mipLevels;
+  external set quality(XRLayerQuality value);
+  external XRLayerQuality get quality;
   external bool get needsRedraw;
 }
 
@@ -152,6 +155,7 @@ class XRProjectionLayerInit implements JSObject {
     GLenum colorFormat,
     GLenum depthFormat,
     double scaleFactor,
+    bool clearOnAccess,
   });
 }
 
@@ -164,6 +168,8 @@ extension XRProjectionLayerInitExtension on XRProjectionLayerInit {
   external GLenum get depthFormat;
   external set scaleFactor(double value);
   external double get scaleFactor;
+  external set clearOnAccess(bool value);
+  external bool get clearOnAccess;
 }
 
 @JS()
@@ -179,6 +185,7 @@ class XRLayerInit implements JSObject {
     required int viewPixelHeight,
     XRLayerLayout layout,
     bool isStatic,
+    bool clearOnAccess,
   });
 }
 
@@ -199,6 +206,8 @@ extension XRLayerInitExtension on XRLayerInit {
   external XRLayerLayout get layout;
   external set isStatic(bool value);
   external bool get isStatic;
+  external set clearOnAccess(bool value);
+  external bool get clearOnAccess;
 }
 
 @JS()

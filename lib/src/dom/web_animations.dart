@@ -8,7 +8,6 @@ import 'css_typed_om.dart';
 import 'dom.dart';
 import 'hr_time.dart';
 import 'html.dart';
-import 'scroll_animations.dart';
 import 'web_animations_2.dart';
 
 typedef AnimationPlayState = String;
@@ -23,7 +22,6 @@ typedef CompositeOperationOrAuto = String;
 class AnimationTimeline implements JSObject {}
 
 extension AnimationTimelineExtension on AnimationTimeline {
-  external CSSNumericValue? getCurrentTime([AnimationTimeOptions options]);
   external Animation play([AnimationEffect? effect]);
   external CSSNumberish? get currentTime;
   external CSSNumberish? get duration;

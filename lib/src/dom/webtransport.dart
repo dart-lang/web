@@ -206,6 +206,8 @@ class WebTransportSendStream implements WritableStream {}
 
 extension WebTransportSendStreamExtension on WebTransportSendStream {
   external JSPromise getStats();
+  external set sendOrder(int? value);
+  external int? get sendOrder;
 }
 
 @JS()

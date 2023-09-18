@@ -30,6 +30,8 @@ class ReadableStream implements JSObject {
     JSObject underlyingSource,
     QueuingStrategy strategy,
   ]);
+
+  external static ReadableStream from(JSAny? asyncIterable);
 }
 
 extension ReadableStreamExtension on ReadableStream {

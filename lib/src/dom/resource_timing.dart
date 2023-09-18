@@ -28,6 +28,7 @@ extension PerformanceResourceTimingExtension on PerformanceResourceTiming {
   external DOMHighResTimeStamp get connectEnd;
   external DOMHighResTimeStamp get secureConnectionStart;
   external DOMHighResTimeStamp get requestStart;
+  external DOMHighResTimeStamp get firstInterimResponseStart;
   external DOMHighResTimeStamp get responseStart;
   external DOMHighResTimeStamp get responseEnd;
   external int get transferSize;
@@ -35,5 +36,6 @@ extension PerformanceResourceTimingExtension on PerformanceResourceTiming {
   external int get decodedBodySize;
   external int get responseStatus;
   external RenderBlockingStatusType get renderBlockingStatus;
+  external String get contentType;
   external JSArray get serverTiming;
 }

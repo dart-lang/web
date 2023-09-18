@@ -158,11 +158,11 @@ class FileSystemSyncAccessHandle implements JSObject {}
 
 extension FileSystemSyncAccessHandleExtension on FileSystemSyncAccessHandle {
   external int read(
-    BufferSource buffer, [
+    AllowSharedBufferSource buffer, [
     FileSystemReadWriteOptions options,
   ]);
   external int write(
-    BufferSource buffer, [
+    AllowSharedBufferSource buffer, [
     FileSystemReadWriteOptions options,
   ]);
   external JSVoid truncate(int newSize);

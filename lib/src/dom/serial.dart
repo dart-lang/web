@@ -7,6 +7,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 import 'streams.dart';
+import 'web_bluetooth.dart';
 
 typedef ParityType = String;
 typedef FlowControlType = String;
@@ -28,12 +29,17 @@ extension SerialExtension on Serial {
 @staticInterop
 @anonymous
 class SerialPortRequestOptions implements JSObject {
-  external factory SerialPortRequestOptions({JSArray filters});
+  external factory SerialPortRequestOptions({
+    JSArray filters,
+    JSArray allowedBluetoothServiceClassIds,
+  });
 }
 
 extension SerialPortRequestOptionsExtension on SerialPortRequestOptions {
   external set filters(JSArray value);
   external JSArray get filters;
+  external set allowedBluetoothServiceClassIds(JSArray value);
+  external JSArray get allowedBluetoothServiceClassIds;
 }
 
 @JS()
@@ -43,6 +49,7 @@ class SerialPortFilter implements JSObject {
   external factory SerialPortFilter({
     int usbVendorId,
     int usbProductId,
+    BluetoothServiceUUID bluetoothServiceClassId,
   });
 }
 
@@ -51,6 +58,8 @@ extension SerialPortFilterExtension on SerialPortFilter {
   external int get usbVendorId;
   external set usbProductId(int value);
   external int get usbProductId;
+  external set bluetoothServiceClassId(BluetoothServiceUUID value);
+  external BluetoothServiceUUID get bluetoothServiceClassId;
 }
 
 @JS('SerialPort')
@@ -79,6 +88,7 @@ class SerialPortInfo implements JSObject {
   external factory SerialPortInfo({
     int usbVendorId,
     int usbProductId,
+    BluetoothServiceUUID bluetoothServiceClassId,
   });
 }
 
@@ -87,6 +97,8 @@ extension SerialPortInfoExtension on SerialPortInfo {
   external int get usbVendorId;
   external set usbProductId(int value);
   external int get usbProductId;
+  external set bluetoothServiceClassId(BluetoothServiceUUID value);
+  external BluetoothServiceUUID get bluetoothServiceClassId;
 }
 
 @JS()

@@ -137,15 +137,9 @@ extension CSSRuleExtension on CSSRule {
 
 @JS('CSSStyleRule')
 @staticInterop
-class CSSStyleRule implements CSSRule {}
+class CSSStyleRule implements CSSGroupingRule {}
 
 extension CSSStyleRuleExtension on CSSStyleRule {
-  external int insertRule(
-    String rule, [
-    int index,
-  ]);
-  external JSVoid deleteRule(int index);
-  external CSSRuleList get cssRules;
   external StylePropertyMap get styleMap;
   external set selectorText(String value);
   external String get selectorText;
@@ -243,8 +237,6 @@ extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
   external String get anchorDefault;
   external set anchorName(String value);
   external String get anchorName;
-  external set anchorScroll(String value);
-  external String get anchorScroll;
   external set animation(String value);
   external String get animation;
   external set animationComposition(String value);
@@ -693,6 +685,8 @@ extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
   external String get fontStyle;
   external set fontSynthesis(String value);
   external String get fontSynthesis;
+  external set fontSynthesisPosition(String value);
+  external String get fontSynthesisPosition;
   external set fontSynthesisSmallCaps(String value);
   external String get fontSynthesisSmallCaps;
   external set fontSynthesisStyle(String value);
@@ -1099,6 +1093,8 @@ extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
   external String get position;
   external set positionFallback(String value);
   external String get positionFallback;
+  external set positionFallbackBounds(String value);
+  external String get positionFallbackBounds;
   external set printColorAdjust(String value);
   external String get printColorAdjust;
   external set quotes(String value);
@@ -1189,10 +1185,28 @@ extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
   external String get scrollSnapStop;
   external set scrollSnapType(String value);
   external String get scrollSnapType;
+  external set scrollStart(String value);
+  external String get scrollStart;
+  external set scrollStartBlock(String value);
+  external String get scrollStartBlock;
+  external set scrollStartInline(String value);
+  external String get scrollStartInline;
+  external set scrollStartTarget(String value);
+  external String get scrollStartTarget;
+  external set scrollStartTargetBlock(String value);
+  external String get scrollStartTargetBlock;
+  external set scrollStartTargetInline(String value);
+  external String get scrollStartTargetInline;
+  external set scrollStartTargetX(String value);
+  external String get scrollStartTargetX;
+  external set scrollStartTargetY(String value);
+  external String get scrollStartTargetY;
+  external set scrollStartX(String value);
+  external String get scrollStartX;
+  external set scrollStartY(String value);
+  external String get scrollStartY;
   external set scrollTimeline(String value);
   external String get scrollTimeline;
-  external set scrollTimelineAttachment(String value);
-  external String get scrollTimelineAttachment;
   external set scrollTimelineAxis(String value);
   external String get scrollTimelineAxis;
   external set scrollTimelineName(String value);
@@ -1355,6 +1369,12 @@ extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
   external String get textUnderlinePosition;
   external set textWrap(String value);
   external String get textWrap;
+  external set textWrapMode(String value);
+  external String get textWrapMode;
+  external set textWrapStyle(String value);
+  external String get textWrapStyle;
+  external set timelineScope(String value);
+  external String get timelineScope;
   external set top(String value);
   external String get top;
   external set touchAction(String value);
@@ -1369,6 +1389,8 @@ extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
   external String get transformStyle;
   external set transition(String value);
   external String get transition;
+  external set transitionBehavior(String value);
+  external String get transitionBehavior;
   external set transitionDelay(String value);
   external String get transitionDelay;
   external set transitionDuration(String value);
@@ -1389,8 +1411,6 @@ extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
   external String get verticalAlign;
   external set viewTimeline(String value);
   external String get viewTimeline;
-  external set viewTimelineAttachment(String value);
-  external String get viewTimelineAttachment;
   external set viewTimelineAxis(String value);
   external String get viewTimelineAxis;
   external set viewTimelineInset(String value);
@@ -1429,12 +1449,10 @@ extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
   external String get width;
   external set willChange(String value);
   external String get willChange;
-  external set wordBoundaryDetection(String value);
-  external String get wordBoundaryDetection;
-  external set wordBoundaryExpansion(String value);
-  external String get wordBoundaryExpansion;
   external set wordBreak(String value);
   external String get wordBreak;
+  external set wordSpaceTransform(String value);
+  external String get wordSpaceTransform;
   external set wordSpacing(String value);
   external String get wordSpacing;
   external set wordWrap(String value);
@@ -1506,12 +1524,17 @@ extension $CSSExtension on $CSS {
   external JSVoid registerProperty(PropertyDefinition definition);
   external CSSUnitValue number(double value);
   external CSSUnitValue percent(double value);
+  external CSSUnitValue cap(double value);
+  external CSSUnitValue ch(double value);
   external CSSUnitValue em(double value);
   external CSSUnitValue ex(double value);
-  external CSSUnitValue ch(double value);
   external CSSUnitValue ic(double value);
-  external CSSUnitValue rem(double value);
   external CSSUnitValue lh(double value);
+  external CSSUnitValue rcap(double value);
+  external CSSUnitValue rch(double value);
+  external CSSUnitValue rem(double value);
+  external CSSUnitValue rex(double value);
+  external CSSUnitValue ric(double value);
   external CSSUnitValue rlh(double value);
   external CSSUnitValue vw(double value);
   external CSSUnitValue vh(double value);

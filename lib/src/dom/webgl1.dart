@@ -828,7 +828,7 @@ extension WebGLRenderingContextOverloadsExtension
   external JSVoid bufferSubData(
     GLenum target,
     GLintptr offset,
-    BufferSource data,
+    AllowSharedBufferSource data,
   );
   external JSVoid compressedTexImage2D(
     GLenum target,

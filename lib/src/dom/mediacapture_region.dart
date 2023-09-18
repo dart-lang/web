@@ -5,6 +5,7 @@
 import 'dart:js_interop';
 
 import 'dom.dart';
+import 'element_capture.dart';
 import 'mediacapture_streams.dart';
 
 @JS('CropTarget')
@@ -19,6 +20,7 @@ class BrowserCaptureMediaStreamTrack implements MediaStreamTrack {}
 
 extension BrowserCaptureMediaStreamTrackExtension
     on BrowserCaptureMediaStreamTrack {
+  external JSPromise restrictTo(RestrictionTarget? RestrictionTarget);
   external JSPromise cropTo(CropTarget? cropTarget);
   external BrowserCaptureMediaStreamTrack clone();
 }

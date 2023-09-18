@@ -783,19 +783,7 @@ extension ConstrainDOMStringParametersExtension
 @JS()
 @staticInterop
 @anonymous
-class DevicePermissionDescriptor implements PermissionDescriptor {
-  external factory DevicePermissionDescriptor({String deviceId});
-}
-
-extension DevicePermissionDescriptorExtension on DevicePermissionDescriptor {
-  external set deviceId(String value);
-  external String get deviceId;
-}
-
-@JS()
-@staticInterop
-@anonymous
-class CameraDevicePermissionDescriptor implements DevicePermissionDescriptor {
+class CameraDevicePermissionDescriptor implements PermissionDescriptor {
   external factory CameraDevicePermissionDescriptor({bool panTiltZoom});
 }
 

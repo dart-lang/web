@@ -90,7 +90,6 @@ extension RTCReceivedRtpStreamStatsExtension on RTCReceivedRtpStreamStats {
 class RTCInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
   external factory RTCInboundRtpStreamStats({
     required String trackIdentifier,
-    required String kind,
     String mid,
     String remoteId,
     int framesDecoded,
@@ -111,6 +110,7 @@ class RTCInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
     DOMHighResTimeStamp lastPacketReceivedTimestamp,
     int headerBytesReceived,
     int packetsDiscarded,
+    int fecBytesReceived,
     int fecPacketsReceived,
     int fecPacketsDiscarded,
     int bytesReceived,
@@ -140,14 +140,14 @@ class RTCInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
     double totalAssemblyTime,
     int retransmittedPacketsReceived,
     int retransmittedBytesReceived,
+    int rtxSsrc,
+    int fecSsrc,
   });
 }
 
 extension RTCInboundRtpStreamStatsExtension on RTCInboundRtpStreamStats {
   external set trackIdentifier(String value);
   external String get trackIdentifier;
-  external set kind(String value);
-  external String get kind;
   external set mid(String value);
   external String get mid;
   external set remoteId(String value);
@@ -188,6 +188,8 @@ extension RTCInboundRtpStreamStatsExtension on RTCInboundRtpStreamStats {
   external int get headerBytesReceived;
   external set packetsDiscarded(int value);
   external int get packetsDiscarded;
+  external set fecBytesReceived(int value);
+  external int get fecBytesReceived;
   external set fecPacketsReceived(int value);
   external int get fecPacketsReceived;
   external set fecPacketsDiscarded(int value);
@@ -246,6 +248,10 @@ extension RTCInboundRtpStreamStatsExtension on RTCInboundRtpStreamStats {
   external int get retransmittedPacketsReceived;
   external set retransmittedBytesReceived(int value);
   external int get retransmittedBytesReceived;
+  external set rtxSsrc(int value);
+  external int get rtxSsrc;
+  external set fecSsrc(int value);
+  external int get fecSsrc;
 }
 
 @JS()
@@ -304,6 +310,7 @@ class RTCOutboundRtpStreamStats implements RTCSentRtpStreamStats {
     int headerBytesSent,
     int retransmittedPacketsSent,
     int retransmittedBytesSent,
+    int rtxSsrc,
     double targetBitrate,
     int totalEncodedBytesTarget,
     int frameWidth,
@@ -344,6 +351,8 @@ extension RTCOutboundRtpStreamStatsExtension on RTCOutboundRtpStreamStats {
   external int get retransmittedPacketsSent;
   external set retransmittedBytesSent(int value);
   external int get retransmittedBytesSent;
+  external set rtxSsrc(int value);
+  external int get rtxSsrc;
   external set targetBitrate(double value);
   external double get targetBitrate;
   external set totalEncodedBytesTarget(int value);

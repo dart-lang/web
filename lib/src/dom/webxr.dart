@@ -12,6 +12,7 @@ import 'hr_time.dart';
 import 'html.dart';
 import 'permissions.dart';
 import 'raw_camera_access.dart';
+import 'real_world_meshing.dart';
 import 'webgl1.dart';
 import 'webxr_ar_module.dart';
 import 'webxr_depth_sensing.dart';
@@ -190,6 +191,7 @@ extension XRFrameExtension on XRFrame {
     XRSpace baseSpace,
   );
   external XRAnchorSet get trackedAnchors;
+  external XRMeshSet get detectedMeshes;
   external XRSession get session;
   external DOMHighResTimeStamp get predictedDisplayTime;
 }

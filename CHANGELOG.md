@@ -1,5 +1,6 @@
 ## 0.2.0-wip
 
+- Added `helpers.dart` top-level library.
 - Require Dart 3.2 pre-release.
 - Update to IDL 3.38.2
 

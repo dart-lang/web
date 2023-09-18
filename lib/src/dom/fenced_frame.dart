@@ -25,6 +25,8 @@ extension HTMLFencedFrameElementExtension on HTMLFencedFrameElement {
   external String get width;
   external set height(String value);
   external String get height;
+  external set allow(String value);
+  external String get allow;
 }
 
 @JS('FencedFrameConfig')
@@ -33,7 +35,6 @@ class FencedFrameConfig implements JSObject {}
 
 extension FencedFrameConfigExtension on FencedFrameConfig {
   external JSVoid setSharedStorageContext(String contextString);
-  external FencedFrameConfigURL? get url;
   external FencedFrameConfigSize? get containerWidth;
   external FencedFrameConfigSize? get containerHeight;
   external FencedFrameConfigSize? get contentWidth;
@@ -48,6 +49,7 @@ class FenceEvent implements JSObject {
     required String eventType,
     required String eventData,
     required JSArray destination,
+    bool once,
   });
 }
 
@@ -58,6 +60,8 @@ extension FenceEventExtension on FenceEvent {
   external String get eventData;
   external set destination(JSArray value);
   external JSArray get destination;
+  external set once(bool value);
+  external bool get once;
 }
 
 @JS('Fence')

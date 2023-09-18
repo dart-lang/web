@@ -166,10 +166,10 @@ class MLGraphBuilder implements JSObject {
 extension MLGraphBuilderExtension on MLGraphBuilder {
   external MLOperand input(
     String name,
-    MLOperandDescriptor desc,
+    MLOperandDescriptor descriptor,
   );
   external MLOperand constant(
-    JSAny? descOrValue, [
+    JSAny? descriptorOrValue, [
     JSAny? bufferViewOrType,
   ]);
   external JSPromise build(MLNamedOperands outputs);
@@ -181,7 +181,7 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
     MLBatchNormalizationOptions options,
   ]);
   external JSAny? clamp([
-    JSAny? optionsOrX,
+    JSAny? operandOrOptions,
     MLClampOptions options,
   ]);
   external MLOperand concat(
@@ -226,17 +226,17 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
     MLOperand a,
     MLOperand b,
   );
-  external MLOperand abs(MLOperand x);
-  external MLOperand ceil(MLOperand x);
-  external MLOperand cos(MLOperand x);
-  external MLOperand exp(MLOperand x);
-  external MLOperand floor(MLOperand x);
-  external MLOperand log(MLOperand x);
-  external MLOperand neg(MLOperand x);
-  external MLOperand sin(MLOperand x);
-  external MLOperand tan(MLOperand x);
+  external MLOperand abs(MLOperand input);
+  external MLOperand ceil(MLOperand input);
+  external MLOperand cos(MLOperand input);
+  external MLOperand exp(MLOperand input);
+  external MLOperand floor(MLOperand input);
+  external MLOperand log(MLOperand input);
+  external MLOperand neg(MLOperand input);
+  external MLOperand sin(MLOperand input);
+  external MLOperand tan(MLOperand input);
   external JSAny? elu([
-    JSAny? optionsOrX,
+    JSAny? inputOrOptions,
     MLEluOptions options,
   ]);
   external MLOperand gemm(
@@ -261,20 +261,20 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
     MLGruCellOptions options,
   ]);
   external JSAny? hardSigmoid([
-    JSAny? optionsOrX,
+    JSAny? inputOrOptions,
     MLHardSigmoidOptions options,
   ]);
-  external JSAny? hardSwish([MLOperand x]);
+  external JSAny? hardSwish([MLOperand input]);
   external MLOperand instanceNormalization(
     MLOperand input, [
     MLInstanceNormalizationOptions options,
   ]);
   external JSAny? leakyRelu([
-    JSAny? optionsOrX,
+    JSAny? inputOrOptions,
     MLLeakyReluOptions options,
   ]);
   external JSAny? linear([
-    JSAny? optionsOrX,
+    JSAny? inputOrOptions,
     MLLinearOptions options,
   ]);
   external JSArray lstm(
@@ -317,7 +317,7 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
     MLPool2dOptions options,
   ]);
   external MLOperand prelu(
-    MLOperand x,
+    MLOperand input,
     MLOperand slope,
   );
   external MLOperand reduceL1(
@@ -360,7 +360,7 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
     MLOperand input, [
     MLReduceOptions options,
   ]);
-  external JSAny? relu([MLOperand x]);
+  external JSAny? relu([MLOperand input]);
   external MLOperand resample2d(
     MLOperand input, [
     MLResample2dOptions options,
@@ -369,18 +369,18 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
     MLOperand input,
     JSArray newShape,
   );
-  external JSAny? sigmoid([MLOperand x]);
+  external JSAny? sigmoid([MLOperand input]);
   external MLOperand slice(
     MLOperand input,
     JSArray starts,
     JSArray sizes,
   );
-  external JSAny? softmax([MLOperand x]);
+  external JSAny? softmax([MLOperand input]);
   external JSAny? softplus([
-    JSAny? optionsOrX,
+    JSAny? inputOrOptions,
     MLSoftplusOptions options,
   ]);
-  external JSAny? softsign([MLOperand x]);
+  external JSAny? softsign([MLOperand input]);
   external JSArray split(
     MLOperand input,
     JSAny? splits, [
@@ -390,7 +390,7 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
     MLOperand input, [
     MLSqueezeOptions options,
   ]);
-  external JSAny? tanh([MLOperand x]);
+  external JSAny? tanh([MLOperand input]);
   external MLOperand transpose(
     MLOperand input, [
     MLTransposeOptions options,

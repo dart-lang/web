@@ -4,7 +4,12 @@
 
 import 'dart:js_interop';
 
+import 'cssom.dart';
 import 'web_animations.dart';
+
+@JS('CSSStartingStyleRule')
+@staticInterop
+class CSSStartingStyleRule implements CSSGroupingRule {}
 
 @JS('CSSTransition')
 @staticInterop

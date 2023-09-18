@@ -4,21 +4,27 @@
 
 import 'dart:js_interop';
 
+import 'dom.dart';
+import 'html.dart';
+
 typedef CaptureStartFocusBehavior = String;
 typedef SelfCapturePreferenceEnum = String;
 typedef SystemAudioPreferenceEnum = String;
 typedef SurfaceSwitchingPreferenceEnum = String;
+typedef MonitorTypeSurfacesEnum = String;
 typedef DisplayCaptureSurfaceType = String;
 typedef CursorCaptureConstraint = String;
 
 @JS('CaptureController')
 @staticInterop
-class CaptureController implements JSObject {
+class CaptureController implements EventTarget {
   external factory CaptureController();
 }
 
 extension CaptureControllerExtension on CaptureController {
   external JSVoid setFocusBehavior(CaptureStartFocusBehavior focusBehavior);
+  external set oncapturedmousechange(EventHandler value);
+  external EventHandler get oncapturedmousechange;
 }
 
 @JS()
@@ -32,6 +38,7 @@ class DisplayMediaStreamOptions implements JSObject {
     SelfCapturePreferenceEnum selfBrowserSurface,
     SystemAudioPreferenceEnum systemAudio,
     SurfaceSwitchingPreferenceEnum surfaceSwitching,
+    MonitorTypeSurfacesEnum monitorTypeSurfaces,
   });
 }
 
@@ -48,4 +55,6 @@ extension DisplayMediaStreamOptionsExtension on DisplayMediaStreamOptions {
   external SystemAudioPreferenceEnum get systemAudio;
   external set surfaceSwitching(SurfaceSwitchingPreferenceEnum value);
   external SurfaceSwitchingPreferenceEnum get surfaceSwitching;
+  external set monitorTypeSurfaces(MonitorTypeSurfacesEnum value);
+  external MonitorTypeSurfacesEnum get monitorTypeSurfaces;
 }

@@ -15,8 +15,7 @@ typedef GPUShaderStageFlags = int;
 typedef GPUBindingResource = JSAny?;
 typedef GPUPipelineConstantValue = double;
 typedef GPUColorWriteFlags = int;
-typedef GPUComputePassTimestampWrites = JSArray;
-typedef GPURenderPassTimestampWrites = JSArray;
+typedef GPUImageCopyExternalImageSource = JSAny?;
 typedef GPUBufferDynamicOffset = int;
 typedef GPUStencilValue = int;
 typedef GPUSampleMask = int;
@@ -26,6 +25,9 @@ typedef GPUIntegerCoordinate = int;
 typedef GPUIndex32 = int;
 typedef GPUSize32 = int;
 typedef GPUSignedOffset32 = int;
+typedef GPUSize64Out = int;
+typedef GPUIntegerCoordinateOut = int;
+typedef GPUSize32Out = int;
 typedef GPUFlagsConstant = int;
 typedef GPUColor = JSAny?;
 typedef GPUOrigin2D = JSAny?;
@@ -58,8 +60,6 @@ typedef GPUStencilOperation = String;
 typedef GPUIndexFormat = String;
 typedef GPUVertexFormat = String;
 typedef GPUVertexStepMode = String;
-typedef GPUComputePassTimestampLocation = String;
-typedef GPURenderPassTimestampLocation = String;
 typedef GPULoadOp = String;
 typedef GPUStoreOp = String;
 typedef GPUQueryType = String;
@@ -274,8 +274,8 @@ extension GPUBufferExtension on GPUBuffer {
   ]);
   external JSVoid unmap();
   external JSVoid destroy();
-  external GPUSize64 get size;
-  external GPUBufferUsageFlags get usage;
+  external GPUSize64Out get size;
+  external GPUFlagsConstant get usage;
   external GPUBufferMapState get mapState;
 }
 
@@ -334,14 +334,14 @@ class GPUTexture implements GPUObjectBase {}
 extension GPUTextureExtension on GPUTexture {
   external GPUTextureView createView([GPUTextureViewDescriptor descriptor]);
   external JSVoid destroy();
-  external GPUIntegerCoordinate get width;
-  external GPUIntegerCoordinate get height;
-  external GPUIntegerCoordinate get depthOrArrayLayers;
-  external GPUIntegerCoordinate get mipLevelCount;
-  external GPUSize32 get sampleCount;
+  external GPUIntegerCoordinateOut get width;
+  external GPUIntegerCoordinateOut get height;
+  external GPUIntegerCoordinateOut get depthOrArrayLayers;
+  external GPUIntegerCoordinateOut get mipLevelCount;
+  external GPUSize32Out get sampleCount;
   external GPUTextureDimension get dimension;
   external GPUTextureFormat get format;
-  external GPUTextureUsageFlags get usage;
+  external GPUFlagsConstant get usage;
 }
 
 @JS()
@@ -773,9 +773,9 @@ extension GPUCompilationInfoExtension on GPUCompilationInfo {
 @staticInterop
 class GPUPipelineError implements DOMException {
   external factory GPUPipelineError(
-    JSAny? message,
-    GPUPipelineErrorInit options,
-  );
+    GPUPipelineErrorInit options, [
+    String message,
+  ]);
 }
 
 extension GPUPipelineErrorExtension on GPUPipelineError {
@@ -1204,15 +1204,15 @@ extension GPUImageCopyTextureTaggedExtension on GPUImageCopyTextureTagged {
 @anonymous
 class GPUImageCopyExternalImage implements JSObject {
   external factory GPUImageCopyExternalImage({
-    required JSAny? source,
+    required GPUImageCopyExternalImageSource source,
     GPUOrigin2D origin,
     bool flipY,
   });
 }
 
 extension GPUImageCopyExternalImageExtension on GPUImageCopyExternalImage {
-  external set source(JSAny? value);
-  external JSAny? get source;
+  external set source(GPUImageCopyExternalImageSource value);
+  external GPUImageCopyExternalImageSource get source;
   external set origin(GPUOrigin2D value);
   external GPUOrigin2D get origin;
   external set flipY(bool value);
@@ -1342,22 +1342,22 @@ extension GPUComputePassEncoderExtension on GPUComputePassEncoder {
 @JS()
 @staticInterop
 @anonymous
-class GPUComputePassTimestampWrite implements JSObject {
-  external factory GPUComputePassTimestampWrite({
+class GPUComputePassTimestampWrites implements JSObject {
+  external factory GPUComputePassTimestampWrites({
     required GPUQuerySet querySet,
-    required GPUSize32 queryIndex,
-    required GPUComputePassTimestampLocation location,
+    GPUSize32 beginningOfPassWriteIndex,
+    GPUSize32 endOfPassWriteIndex,
   });
 }
 
-extension GPUComputePassTimestampWriteExtension
-    on GPUComputePassTimestampWrite {
+extension GPUComputePassTimestampWritesExtension
+    on GPUComputePassTimestampWrites {
   external set querySet(GPUQuerySet value);
   external GPUQuerySet get querySet;
-  external set queryIndex(GPUSize32 value);
-  external GPUSize32 get queryIndex;
-  external set location(GPUComputePassTimestampLocation value);
-  external GPUComputePassTimestampLocation get location;
+  external set beginningOfPassWriteIndex(GPUSize32 value);
+  external GPUSize32 get beginningOfPassWriteIndex;
+  external set endOfPassWriteIndex(GPUSize32 value);
+  external GPUSize32 get endOfPassWriteIndex;
 }
 
 @JS()
@@ -1409,21 +1409,22 @@ extension GPURenderPassEncoderExtension on GPURenderPassEncoder {
 @JS()
 @staticInterop
 @anonymous
-class GPURenderPassTimestampWrite implements JSObject {
-  external factory GPURenderPassTimestampWrite({
+class GPURenderPassTimestampWrites implements JSObject {
+  external factory GPURenderPassTimestampWrites({
     required GPUQuerySet querySet,
-    required GPUSize32 queryIndex,
-    required GPURenderPassTimestampLocation location,
+    GPUSize32 beginningOfPassWriteIndex,
+    GPUSize32 endOfPassWriteIndex,
   });
 }
 
-extension GPURenderPassTimestampWriteExtension on GPURenderPassTimestampWrite {
+extension GPURenderPassTimestampWritesExtension
+    on GPURenderPassTimestampWrites {
   external set querySet(GPUQuerySet value);
   external GPUQuerySet get querySet;
-  external set queryIndex(GPUSize32 value);
-  external GPUSize32 get queryIndex;
-  external set location(GPURenderPassTimestampLocation value);
-  external GPURenderPassTimestampLocation get location;
+  external set beginningOfPassWriteIndex(GPUSize32 value);
+  external GPUSize32 get beginningOfPassWriteIndex;
+  external set endOfPassWriteIndex(GPUSize32 value);
+  external GPUSize32 get endOfPassWriteIndex;
 }
 
 @JS()
@@ -1640,13 +1641,13 @@ extension GPUQueueExtension on GPUQueue {
   external JSVoid writeBuffer(
     GPUBuffer buffer,
     GPUSize64 bufferOffset,
-    BufferSource data, [
+    AllowSharedBufferSource data, [
     GPUSize64 dataOffset,
     GPUSize64 size,
   ]);
   external JSVoid writeTexture(
     GPUImageCopyTexture destination,
-    BufferSource data,
+    AllowSharedBufferSource data,
     GPUImageDataLayout dataLayout,
     GPUExtent3D size,
   );
@@ -1664,7 +1665,7 @@ class GPUQuerySet implements GPUObjectBase {}
 extension GPUQuerySetExtension on GPUQuerySet {
   external JSVoid destroy();
   external GPUQueryType get type;
-  external GPUSize32 get count;
+  external GPUSize32Out get count;
 }
 
 @JS()

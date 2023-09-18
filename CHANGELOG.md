@@ -1,6 +1,7 @@
-## 0.1.5-wip
+## 0.2.0-wip
 
 - Require Dart 3.2 pre-release.
+- Update to IDL 3.38.2
 
 ## 0.1.4-beta
 

@@ -18,6 +18,7 @@ import 'cssom_view.dart';
 import 'custom_state_pseudo_class.dart';
 import 'device_memory.dart';
 import 'device_posture.dart';
+import 'document_picture_in_picture.dart';
 import 'dom.dart';
 import 'edit_context.dart';
 import 'encrypted_media.dart';
@@ -28,7 +29,6 @@ import 'file_system_access.dart';
 import 'fileapi.dart';
 import 'geolocation.dart';
 import 'geometry.dart';
-import 'gpc_spec.dart';
 import 'hr_time.dart';
 import 'indexeddb.dart';
 import 'ink_enhancement.dart';
@@ -53,8 +53,10 @@ import 'screen_wake_lock.dart';
 import 'selection_api.dart';
 import 'serial.dart';
 import 'service_workers.dart';
+import 'shared_storage.dart';
 import 'speech_api.dart';
 import 'storage.dart';
+import 'storage_buckets.dart';
 import 'trusted_types.dart';
 import 'turtledove.dart';
 import 'ua_client_hints.dart';
@@ -94,6 +96,7 @@ typedef MessageEventSource = JSAny?;
 typedef BlobCallback = JSFunction;
 typedef CustomElementConstructor = JSFunction;
 typedef FunctionStringCallback = JSFunction;
+typedef NavigationInterceptHandler = JSFunction;
 typedef EventHandlerNonNull = JSFunction;
 typedef OnErrorEventHandlerNonNull = JSFunction;
 typedef OnBeforeUnloadEventHandlerNonNull = JSFunction;
@@ -118,6 +121,10 @@ typedef CanvasFontVariantCaps = String;
 typedef CanvasTextRendering = String;
 typedef OffscreenRenderingContextId = String;
 typedef ScrollRestoration = String;
+typedef NavigationHistoryBehavior = String;
+typedef NavigationType = String;
+typedef NavigationFocusReset = String;
+typedef NavigationScrollBehavior = String;
 typedef DOMParserSupportedType = String;
 typedef ImageOrientation = String;
 typedef PremultiplyAlpha = String;
@@ -195,7 +202,7 @@ extension HTMLElementExtension on HTMLElement {
   external ElementInternals attachInternals();
   external JSVoid showPopover();
   external JSVoid hidePopover();
-  external JSVoid togglePopover([bool force]);
+  external bool togglePopover([bool force]);
   external Element? get offsetParent;
   external int get offsetTop;
   external int get offsetLeft;
@@ -789,6 +796,8 @@ extension HTMLIFrameElementExtension on HTMLIFrameElement {
   external set marginWidth(String value);
   external String get marginWidth;
   external PermissionsPolicy get permissionsPolicy;
+  external set privateToken(String value);
+  external String get privateToken;
 }
 
 @JS('HTMLEmbedElement')
@@ -2633,6 +2642,7 @@ extension CustomElementRegistryExtension on CustomElementRegistry {
     ElementDefinitionOptions options,
   ]);
   external JSAny? get(String name);
+  external String? getName(CustomElementConstructor constructor);
   external JSPromise whenDefined(String name);
   external JSVoid upgrade(Node root);
 }
@@ -2735,6 +2745,37 @@ class UserActivation implements JSObject {}
 extension UserActivationExtension on UserActivation {
   external bool get hasBeenActive;
   external bool get isActive;
+}
+
+@JS('ToggleEvent')
+@staticInterop
+class ToggleEvent implements Event {
+  external factory ToggleEvent(
+    String type, [
+    ToggleEventInit eventInitDict,
+  ]);
+}
+
+extension ToggleEventExtension on ToggleEvent {
+  external String get oldState;
+  external String get newState;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class ToggleEventInit implements EventInit {
+  external factory ToggleEventInit({
+    String oldState,
+    String newState,
+  });
+}
+
+extension ToggleEventInitExtension on ToggleEventInit {
+  external set oldState(String value);
+  external String get oldState;
+  external set newState(String value);
+  external String get newState;
 }
 
 @JS()
@@ -2860,37 +2901,6 @@ extension PopoverInvokerElementExtension on PopoverInvokerElement {
   external String get popoverTargetAction;
 }
 
-@JS('ToggleEvent')
-@staticInterop
-class ToggleEvent implements Event {
-  external factory ToggleEvent(
-    String type, [
-    ToggleEventInit eventInitDict,
-  ]);
-}
-
-extension ToggleEventExtension on ToggleEvent {
-  external String get oldState;
-  external String get newState;
-}
-
-@JS()
-@staticInterop
-@anonymous
-class ToggleEventInit implements EventInit {
-  external factory ToggleEventInit({
-    String oldState,
-    String newState,
-  });
-}
-
-extension ToggleEventInitExtension on ToggleEventInit {
-  external set oldState(String value);
-  external String get oldState;
-  external set newState(String value);
-  external String get newState;
-}
-
 @JS()
 external Window get window;
 
@@ -2995,6 +3005,7 @@ extension WindowExtension on Window {
   external int get outerWidth;
   external int get outerHeight;
   external double get devicePixelRatio;
+  external DocumentPictureInPicture get documentPictureInPicture;
   external JSAny? get event;
   external Fence? get fence;
   external Window get window;
@@ -3004,6 +3015,7 @@ extension WindowExtension on Window {
   external String get name;
   external Location get location;
   external History get history;
+  external Navigation get navigation;
   external CustomElementRegistry get customElements;
   external BarProp get locationbar;
   external BarProp get menubar;
@@ -3036,6 +3048,7 @@ extension WindowExtension on Window {
   external set ondevicemotion(EventHandler value);
   external EventHandler get ondevicemotion;
   external PortalHost? get portalHost;
+  external WindowSharedStorage? get sharedStorage;
   external SpeechSynthesis get speechSynthesis;
   external LaunchQueue get launchQueue;
 }
@@ -3112,6 +3125,266 @@ extension HistoryExtension on History {
   external JSAny? get state;
 }
 
+@JS('Navigation')
+@staticInterop
+class Navigation implements EventTarget {}
+
+extension NavigationExtension on Navigation {
+  external JSArray entries();
+  external JSVoid updateCurrentEntry(
+      NavigationUpdateCurrentEntryOptions options);
+  external NavigationResult navigate(
+    String url, [
+    NavigationNavigateOptions options,
+  ]);
+  external NavigationResult reload([NavigationReloadOptions options]);
+  external NavigationResult traverseTo(
+    String key, [
+    NavigationOptions options,
+  ]);
+  external NavigationResult back([NavigationOptions options]);
+  external NavigationResult forward([NavigationOptions options]);
+  external NavigationHistoryEntry? get currentEntry;
+  external NavigationTransition? get transition;
+  external bool get canGoBack;
+  external bool get canGoForward;
+  external set onnavigate(EventHandler value);
+  external EventHandler get onnavigate;
+  external set onnavigatesuccess(EventHandler value);
+  external EventHandler get onnavigatesuccess;
+  external set onnavigateerror(EventHandler value);
+  external EventHandler get onnavigateerror;
+  external set oncurrententrychange(EventHandler value);
+  external EventHandler get oncurrententrychange;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class NavigationUpdateCurrentEntryOptions implements JSObject {
+  external factory NavigationUpdateCurrentEntryOptions({required JSAny? state});
+}
+
+extension NavigationUpdateCurrentEntryOptionsExtension
+    on NavigationUpdateCurrentEntryOptions {
+  external set state(JSAny? value);
+  external JSAny? get state;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class NavigationOptions implements JSObject {
+  external factory NavigationOptions({JSAny? info});
+}
+
+extension NavigationOptionsExtension on NavigationOptions {
+  external set info(JSAny? value);
+  external JSAny? get info;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class NavigationNavigateOptions implements NavigationOptions {
+  external factory NavigationNavigateOptions({
+    JSAny? state,
+    NavigationHistoryBehavior history,
+  });
+}
+
+extension NavigationNavigateOptionsExtension on NavigationNavigateOptions {
+  external set state(JSAny? value);
+  external JSAny? get state;
+  external set history(NavigationHistoryBehavior value);
+  external NavigationHistoryBehavior get history;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class NavigationReloadOptions implements NavigationOptions {
+  external factory NavigationReloadOptions({JSAny? state});
+}
+
+extension NavigationReloadOptionsExtension on NavigationReloadOptions {
+  external set state(JSAny? value);
+  external JSAny? get state;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class NavigationResult implements JSObject {
+  external factory NavigationResult({
+    JSPromise committed,
+    JSPromise finished,
+  });
+}
+
+extension NavigationResultExtension on NavigationResult {
+  external set committed(JSPromise value);
+  external JSPromise get committed;
+  external set finished(JSPromise value);
+  external JSPromise get finished;
+}
+
+@JS('NavigationHistoryEntry')
+@staticInterop
+class NavigationHistoryEntry implements EventTarget {}
+
+extension NavigationHistoryEntryExtension on NavigationHistoryEntry {
+  external JSAny? getState();
+  external String? get url;
+  external String get key;
+  external String get id;
+  external int get index;
+  external bool get sameDocument;
+  external set ondispose(EventHandler value);
+  external EventHandler get ondispose;
+}
+
+@JS('NavigationTransition')
+@staticInterop
+class NavigationTransition implements JSObject {}
+
+extension NavigationTransitionExtension on NavigationTransition {
+  external NavigationType get navigationType;
+  external NavigationHistoryEntry get from;
+  external JSPromise get finished;
+}
+
+@JS('NavigateEvent')
+@staticInterop
+class NavigateEvent implements Event {
+  external factory NavigateEvent(
+    String type,
+    NavigateEventInit eventInitDict,
+  );
+}
+
+extension NavigateEventExtension on NavigateEvent {
+  external JSVoid intercept([NavigationInterceptOptions options]);
+  external JSVoid scroll();
+  external NavigationType get navigationType;
+  external NavigationDestination get destination;
+  external bool get canIntercept;
+  external bool get userInitiated;
+  external bool get hashChange;
+  external AbortSignal get signal;
+  external FormData? get formData;
+  external String? get downloadRequest;
+  external JSAny? get info;
+  external bool get hasUAVisualTransition;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class NavigateEventInit implements EventInit {
+  external factory NavigateEventInit({
+    NavigationType navigationType,
+    required NavigationDestination destination,
+    bool canIntercept,
+    bool userInitiated,
+    bool hashChange,
+    required AbortSignal signal,
+    FormData? formData,
+    String? downloadRequest,
+    JSAny? info,
+    bool hasUAVisualTransition,
+  });
+}
+
+extension NavigateEventInitExtension on NavigateEventInit {
+  external set navigationType(NavigationType value);
+  external NavigationType get navigationType;
+  external set destination(NavigationDestination value);
+  external NavigationDestination get destination;
+  external set canIntercept(bool value);
+  external bool get canIntercept;
+  external set userInitiated(bool value);
+  external bool get userInitiated;
+  external set hashChange(bool value);
+  external bool get hashChange;
+  external set signal(AbortSignal value);
+  external AbortSignal get signal;
+  external set formData(FormData? value);
+  external FormData? get formData;
+  external set downloadRequest(String? value);
+  external String? get downloadRequest;
+  external set info(JSAny? value);
+  external JSAny? get info;
+  external set hasUAVisualTransition(bool value);
+  external bool get hasUAVisualTransition;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class NavigationInterceptOptions implements JSObject {
+  external factory NavigationInterceptOptions({
+    NavigationInterceptHandler handler,
+    NavigationFocusReset focusReset,
+    NavigationScrollBehavior scroll,
+  });
+}
+
+extension NavigationInterceptOptionsExtension on NavigationInterceptOptions {
+  external set handler(NavigationInterceptHandler value);
+  external NavigationInterceptHandler get handler;
+  external set focusReset(NavigationFocusReset value);
+  external NavigationFocusReset get focusReset;
+  external set scroll(NavigationScrollBehavior value);
+  external NavigationScrollBehavior get scroll;
+}
+
+@JS('NavigationDestination')
+@staticInterop
+class NavigationDestination implements JSObject {}
+
+extension NavigationDestinationExtension on NavigationDestination {
+  external JSAny? getState();
+  external String get url;
+  external String get key;
+  external String get id;
+  external int get index;
+  external bool get sameDocument;
+}
+
+@JS('NavigationCurrentEntryChangeEvent')
+@staticInterop
+class NavigationCurrentEntryChangeEvent implements Event {
+  external factory NavigationCurrentEntryChangeEvent(
+    String type,
+    NavigationCurrentEntryChangeEventInit eventInitDict,
+  );
+}
+
+extension NavigationCurrentEntryChangeEventExtension
+    on NavigationCurrentEntryChangeEvent {
+  external NavigationType? get navigationType;
+  external NavigationHistoryEntry get from;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class NavigationCurrentEntryChangeEventInit implements EventInit {
+  external factory NavigationCurrentEntryChangeEventInit({
+    NavigationType? navigationType,
+    required NavigationHistoryEntry from,
+  });
+}
+
+extension NavigationCurrentEntryChangeEventInitExtension
+    on NavigationCurrentEntryChangeEventInit {
+  external set navigationType(NavigationType? value);
+  external NavigationType? get navigationType;
+  external set from(NavigationHistoryEntry value);
+  external NavigationHistoryEntry get from;
+}
+
 @JS('PopStateEvent')
 @staticInterop
 class PopStateEvent implements Event {
@@ -3123,18 +3396,24 @@ class PopStateEvent implements Event {
 
 extension PopStateEventExtension on PopStateEvent {
   external JSAny? get state;
+  external bool get hasUAVisualTransition;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class PopStateEventInit implements EventInit {
-  external factory PopStateEventInit({JSAny? state});
+  external factory PopStateEventInit({
+    JSAny? state,
+    bool hasUAVisualTransition,
+  });
 }
 
 extension PopStateEventInitExtension on PopStateEventInit {
   external set state(JSAny? value);
   external JSAny? get state;
+  external set hasUAVisualTransition(bool value);
+  external bool get hasUAVisualTransition;
 }
 
 @JS('HashChangeEvent')
@@ -3597,7 +3876,6 @@ class Navigator
     implements
         NavigatorBadge,
         NavigatorDeviceMemory,
-        GlobalPrivacyControl,
         NavigatorID,
         NavigatorLanguage,
         NavigatorOnLine,
@@ -3606,6 +3884,7 @@ class Navigator
         NavigatorPlugins,
         NavigatorConcurrentHardware,
         NavigatorNetworkInformation,
+        NavigatorStorageBuckets,
         NavigatorStorage,
         NavigatorUA,
         NavigatorLocks,
@@ -3631,11 +3910,8 @@ extension NavigatorExtension on Navigator {
     NavigatorUserMediaSuccessCallback successCallback,
     NavigatorUserMediaErrorCallback errorCallback,
   );
-  external JSPromise joinAdInterestGroup(
-    AuctionAdInterestGroup group,
-    double durationSeconds,
-  );
-  external JSPromise leaveAdInterestGroup(AuctionAdInterestGroupKey group);
+  external JSPromise joinAdInterestGroup(AuctionAdInterestGroup group);
+  external JSPromise leaveAdInterestGroup([AuctionAdInterestGroupKey group]);
   external JSPromise runAdAuction(AuctionAdConfig config);
   external JSVoid updateAdInterestGroups();
   external bool vibrate(VibratePattern pattern);
@@ -4109,12 +4385,12 @@ class WorkerNavigator
     implements
         NavigatorBadge,
         NavigatorDeviceMemory,
-        GlobalPrivacyControl,
         NavigatorID,
         NavigatorLanguage,
         NavigatorOnLine,
         NavigatorConcurrentHardware,
         NavigatorNetworkInformation,
+        NavigatorStorageBuckets,
         NavigatorStorage,
         NavigatorUA,
         NavigatorLocks,

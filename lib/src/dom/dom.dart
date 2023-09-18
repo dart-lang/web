@@ -193,6 +193,7 @@ extension AbortControllerExtension on AbortController {
 class AbortSignal implements EventTarget {
   external static AbortSignal abort([JSAny? reason]);
   external static AbortSignal timeout(int milliseconds);
+  external static AbortSignal any(JSArray signals);
 }
 
 extension AbortSignalExtension on AbortSignal {
@@ -539,14 +540,8 @@ extension DocumentExtension on Document {
   external Selection? getSelection();
   external JSPromise hasStorageAccess();
   external JSPromise requestStorageAccess();
-  external JSPromise hasPrivateTokens(
-    String issuer,
-    String type,
-  );
-  external JSPromise hasRedemptionRecord(
-    String issuer,
-    String type,
-  );
+  external JSPromise hasPrivateTokens(String issuer);
+  external JSPromise hasRedemptionRecord(String issuer);
   external SVGSVGElement? get rootElement;
   external NamedFlowMap get namedFlows;
   external Element? get scrollingElement;

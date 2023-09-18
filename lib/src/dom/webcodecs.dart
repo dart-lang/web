@@ -329,7 +329,7 @@ extension AudioDecoderConfigExtension on AudioDecoderConfig {
 class VideoDecoderConfig implements JSObject {
   external factory VideoDecoderConfig({
     required String codec,
-    BufferSource description,
+    AllowSharedBufferSource description,
     int codedWidth,
     int codedHeight,
     int displayAspectWidth,
@@ -343,8 +343,8 @@ class VideoDecoderConfig implements JSObject {
 extension VideoDecoderConfigExtension on VideoDecoderConfig {
   external set codec(String value);
   external String get codec;
-  external set description(BufferSource value);
-  external BufferSource get description;
+  external set description(AllowSharedBufferSource value);
+  external AllowSharedBufferSource get description;
   external set codedWidth(int value);
   external int get codedWidth;
   external set codedHeight(int value);
@@ -459,6 +459,7 @@ class VideoEncoderEncodeOptions implements JSObject {
   external factory VideoEncoderEncodeOptions({
     VideoEncoderEncodeOptionsForAv1 av1,
     VideoEncoderEncodeOptionsForAvc avc,
+    VideoEncoderEncodeOptionsForHevc hevc,
     VideoEncoderEncodeOptionsForVp9 vp9,
     bool keyFrame,
   });
@@ -469,6 +470,8 @@ extension VideoEncoderEncodeOptionsExtension on VideoEncoderEncodeOptions {
   external VideoEncoderEncodeOptionsForAv1 get av1;
   external set avc(VideoEncoderEncodeOptionsForAvc value);
   external VideoEncoderEncodeOptionsForAvc get avc;
+  external set hevc(VideoEncoderEncodeOptionsForHevc value);
+  external VideoEncoderEncodeOptionsForHevc get hevc;
   external set vp9(VideoEncoderEncodeOptionsForVp9 value);
   external VideoEncoderEncodeOptionsForVp9 get vp9;
   external set keyFrame(bool value);
@@ -482,7 +485,7 @@ class EncodedAudioChunk implements JSObject {
 }
 
 extension EncodedAudioChunkExtension on EncodedAudioChunk {
-  external JSVoid copyTo(BufferSource destination);
+  external JSVoid copyTo(AllowSharedBufferSource destination);
   external EncodedAudioChunkType get type;
   external int get timestamp;
   external int? get duration;
@@ -519,7 +522,7 @@ class EncodedVideoChunk implements JSObject {
 }
 
 extension EncodedVideoChunkExtension on EncodedVideoChunk {
-  external JSVoid copyTo(BufferSource destination);
+  external JSVoid copyTo(AllowSharedBufferSource destination);
   external EncodedVideoChunkType get type;
   external int get timestamp;
   external int? get duration;
@@ -534,7 +537,7 @@ class EncodedVideoChunkInit implements JSObject {
     required EncodedVideoChunkType type,
     required int timestamp,
     int duration,
-    required BufferSource data,
+    required AllowSharedBufferSource data,
   });
 }
 
@@ -545,8 +548,8 @@ extension EncodedVideoChunkInitExtension on EncodedVideoChunkInit {
   external int get timestamp;
   external set duration(int value);
   external int get duration;
-  external set data(BufferSource value);
-  external BufferSource get data;
+  external set data(AllowSharedBufferSource value);
+  external AllowSharedBufferSource get data;
 }
 
 @JS('AudioData')
@@ -558,7 +561,7 @@ class AudioData implements JSObject {
 extension AudioDataExtension on AudioData {
   external int allocationSize(AudioDataCopyToOptions options);
   external JSVoid copyTo(
-    BufferSource destination,
+    AllowSharedBufferSource destination,
     AudioDataCopyToOptions options,
   );
   external AudioData clone();
@@ -582,6 +585,7 @@ class AudioDataInit implements JSObject {
     required int numberOfChannels,
     required int timestamp,
     required BufferSource data,
+    JSArray transfer,
   });
 }
 
@@ -598,6 +602,8 @@ extension AudioDataInitExtension on AudioDataInit {
   external int get timestamp;
   external set data(BufferSource value);
   external BufferSource get data;
+  external set transfer(JSArray value);
+  external JSArray get transfer;
 }
 
 @JS()
@@ -636,7 +642,7 @@ extension VideoFrameExtension on VideoFrame {
   external VideoFrameMetadata metadata();
   external int allocationSize([VideoFrameCopyToOptions options]);
   external JSPromise copyTo(
-    BufferSource destination, [
+    AllowSharedBufferSource destination, [
     VideoFrameCopyToOptions options,
   ]);
   external VideoFrame clone();
@@ -700,6 +706,7 @@ class VideoFrameBufferInit implements JSObject {
     int displayWidth,
     int displayHeight,
     VideoColorSpaceInit colorSpace,
+    JSArray transfer,
   });
 }
 
@@ -724,6 +731,8 @@ extension VideoFrameBufferInitExtension on VideoFrameBufferInit {
   external int get displayHeight;
   external set colorSpace(VideoColorSpaceInit value);
   external VideoColorSpaceInit get colorSpace;
+  external set transfer(JSArray value);
+  external JSArray get transfer;
 }
 
 @JS()
@@ -833,6 +842,7 @@ class ImageDecoderInit implements JSObject {
     int desiredWidth,
     int desiredHeight,
     bool preferAnimation,
+    JSArray transfer,
   });
 }
 
@@ -849,6 +859,8 @@ extension ImageDecoderInitExtension on ImageDecoderInit {
   external int get desiredHeight;
   external set preferAnimation(bool value);
   external bool get preferAnimation;
+  external set transfer(JSArray value);
+  external JSArray get transfer;
 }
 
 @JS()

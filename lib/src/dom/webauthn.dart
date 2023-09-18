@@ -21,6 +21,7 @@ typedef TokenBindingStatus = String;
 typedef PublicKeyCredentialType = String;
 typedef AuthenticatorTransport = String;
 typedef UserVerificationRequirement = String;
+typedef PublicKeyCredentialHints = String;
 typedef LargeBlobSupport = String;
 
 @JS('PublicKeyCredential')
@@ -28,6 +29,7 @@ typedef LargeBlobSupport = String;
 class PublicKeyCredential implements Credential {
   external static JSPromise isConditionalMediationAvailable();
   external static JSPromise isUserVerifyingPlatformAuthenticatorAvailable();
+  external static JSPromise isPasskeyPlatformAuthenticatorAvailable();
   external static PublicKeyCredentialCreationOptions
       parseCreationOptionsFromJSON(
           PublicKeyCredentialCreationOptionsJSON options);
@@ -48,12 +50,12 @@ extension PublicKeyCredentialExtension on PublicKeyCredential {
 @anonymous
 class RegistrationResponseJSON implements JSObject {
   external factory RegistrationResponseJSON({
-    Base64URLString id,
-    Base64URLString rawId,
-    AuthenticatorAttestationResponseJSON response,
-    String? authenticatorAttachment,
-    AuthenticationExtensionsClientOutputsJSON clientExtensionResults,
-    String type,
+    required Base64URLString id,
+    required Base64URLString rawId,
+    required AuthenticatorAttestationResponseJSON response,
+    String authenticatorAttachment,
+    required AuthenticationExtensionsClientOutputsJSON clientExtensionResults,
+    required String type,
   });
 }
 
@@ -64,8 +66,8 @@ extension RegistrationResponseJSONExtension on RegistrationResponseJSON {
   external Base64URLString get rawId;
   external set response(AuthenticatorAttestationResponseJSON value);
   external AuthenticatorAttestationResponseJSON get response;
-  external set authenticatorAttachment(String? value);
-  external String? get authenticatorAttachment;
+  external set authenticatorAttachment(String value);
+  external String get authenticatorAttachment;
   external set clientExtensionResults(
       AuthenticationExtensionsClientOutputsJSON value);
   external AuthenticationExtensionsClientOutputsJSON get clientExtensionResults;
@@ -78,9 +80,12 @@ extension RegistrationResponseJSONExtension on RegistrationResponseJSON {
 @anonymous
 class AuthenticatorAttestationResponseJSON implements JSObject {
   external factory AuthenticatorAttestationResponseJSON({
-    Base64URLString clientDataJSON,
-    Base64URLString attestationObject,
-    JSArray transports,
+    required Base64URLString clientDataJSON,
+    required Base64URLString authenticatorData,
+    required JSArray transports,
+    Base64URLString publicKey,
+    required int publicKeyAlgorithm,
+    required Base64URLString attestationObject,
   });
 }
 
@@ -88,10 +93,16 @@ extension AuthenticatorAttestationResponseJSONExtension
     on AuthenticatorAttestationResponseJSON {
   external set clientDataJSON(Base64URLString value);
   external Base64URLString get clientDataJSON;
-  external set attestationObject(Base64URLString value);
-  external Base64URLString get attestationObject;
+  external set authenticatorData(Base64URLString value);
+  external Base64URLString get authenticatorData;
   external set transports(JSArray value);
   external JSArray get transports;
+  external set publicKey(Base64URLString value);
+  external Base64URLString get publicKey;
+  external set publicKeyAlgorithm(int value);
+  external int get publicKeyAlgorithm;
+  external set attestationObject(Base64URLString value);
+  external Base64URLString get attestationObject;
 }
 
 @JS()
@@ -99,12 +110,12 @@ extension AuthenticatorAttestationResponseJSONExtension
 @anonymous
 class AuthenticationResponseJSON implements JSObject {
   external factory AuthenticationResponseJSON({
-    Base64URLString id,
-    Base64URLString rawId,
-    AuthenticatorAssertionResponseJSON response,
-    String? authenticatorAttachment,
-    AuthenticationExtensionsClientOutputsJSON clientExtensionResults,
-    String type,
+    required Base64URLString id,
+    required Base64URLString rawId,
+    required AuthenticatorAssertionResponseJSON response,
+    String authenticatorAttachment,
+    required AuthenticationExtensionsClientOutputsJSON clientExtensionResults,
+    required String type,
   });
 }
 
@@ -115,8 +126,8 @@ extension AuthenticationResponseJSONExtension on AuthenticationResponseJSON {
   external Base64URLString get rawId;
   external set response(AuthenticatorAssertionResponseJSON value);
   external AuthenticatorAssertionResponseJSON get response;
-  external set authenticatorAttachment(String? value);
-  external String? get authenticatorAttachment;
+  external set authenticatorAttachment(String value);
+  external String get authenticatorAttachment;
   external set clientExtensionResults(
       AuthenticationExtensionsClientOutputsJSON value);
   external AuthenticationExtensionsClientOutputsJSON get clientExtensionResults;
@@ -129,10 +140,11 @@ extension AuthenticationResponseJSONExtension on AuthenticationResponseJSON {
 @anonymous
 class AuthenticatorAssertionResponseJSON implements JSObject {
   external factory AuthenticatorAssertionResponseJSON({
-    Base64URLString clientDataJSON,
-    Base64URLString authenticatorData,
-    Base64URLString signature,
-    Base64URLString? userHandle,
+    required Base64URLString clientDataJSON,
+    required Base64URLString authenticatorData,
+    required Base64URLString signature,
+    Base64URLString userHandle,
+    Base64URLString attestationObject,
   });
 }
 
@@ -144,8 +156,10 @@ extension AuthenticatorAssertionResponseJSONExtension
   external Base64URLString get authenticatorData;
   external set signature(Base64URLString value);
   external Base64URLString get signature;
-  external set userHandle(Base64URLString? value);
-  external Base64URLString? get userHandle;
+  external set userHandle(Base64URLString value);
+  external Base64URLString get userHandle;
+  external set attestationObject(Base64URLString value);
+  external Base64URLString get attestationObject;
 }
 
 @JS()
@@ -167,7 +181,9 @@ class PublicKeyCredentialCreationOptionsJSON implements JSObject {
     int timeout,
     JSArray excludeCredentials,
     AuthenticatorSelectionCriteria authenticatorSelection,
+    JSArray hints,
     String attestation,
+    JSArray attestationFormats,
     AuthenticationExtensionsClientInputsJSON extensions,
   });
 }
@@ -188,8 +204,12 @@ extension PublicKeyCredentialCreationOptionsJSONExtension
   external JSArray get excludeCredentials;
   external set authenticatorSelection(AuthenticatorSelectionCriteria value);
   external AuthenticatorSelectionCriteria get authenticatorSelection;
+  external set hints(JSArray value);
+  external JSArray get hints;
   external set attestation(String value);
   external String get attestation;
+  external set attestationFormats(JSArray value);
+  external JSArray get attestationFormats;
   external set extensions(AuthenticationExtensionsClientInputsJSON value);
   external AuthenticationExtensionsClientInputsJSON get extensions;
 }
@@ -253,6 +273,9 @@ class PublicKeyCredentialRequestOptionsJSON implements JSObject {
     String rpId,
     JSArray allowCredentials,
     String userVerification,
+    JSArray hints,
+    String attestation,
+    JSArray attestationFormats,
     AuthenticationExtensionsClientInputsJSON extensions,
   });
 }
@@ -269,6 +292,12 @@ extension PublicKeyCredentialRequestOptionsJSONExtension
   external JSArray get allowCredentials;
   external set userVerification(String value);
   external String get userVerification;
+  external set hints(JSArray value);
+  external JSArray get hints;
+  external set attestation(String value);
+  external String get attestation;
+  external set attestationFormats(JSArray value);
+  external JSArray get attestationFormats;
   external set extensions(AuthenticationExtensionsClientInputsJSON value);
   external AuthenticationExtensionsClientInputsJSON get extensions;
 }
@@ -336,6 +365,7 @@ class PublicKeyCredentialCreationOptions implements JSObject {
     int timeout,
     JSArray excludeCredentials,
     AuthenticatorSelectionCriteria authenticatorSelection,
+    JSArray hints,
     String attestation,
     JSArray attestationFormats,
     AuthenticationExtensionsClientInputs extensions,
@@ -358,6 +388,8 @@ extension PublicKeyCredentialCreationOptionsExtension
   external JSArray get excludeCredentials;
   external set authenticatorSelection(AuthenticatorSelectionCriteria value);
   external AuthenticatorSelectionCriteria get authenticatorSelection;
+  external set hints(JSArray value);
+  external JSArray get hints;
   external set attestation(String value);
   external String get attestation;
   external set attestationFormats(JSArray value);
@@ -442,6 +474,7 @@ class PublicKeyCredentialRequestOptions implements JSObject {
     String rpId,
     JSArray allowCredentials,
     String userVerification,
+    JSArray hints,
     String attestation,
     JSArray attestationFormats,
     AuthenticationExtensionsClientInputs extensions,
@@ -460,6 +493,8 @@ extension PublicKeyCredentialRequestOptionsExtension
   external JSArray get allowCredentials;
   external set userVerification(String value);
   external String get userVerification;
+  external set hints(JSArray value);
+  external JSArray get hints;
   external set attestation(String value);
   external String get attestation;
   external set attestationFormats(JSArray value);

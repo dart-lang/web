@@ -48,12 +48,17 @@ extension USBDeviceFilterExtension on USBDeviceFilter {
 @staticInterop
 @anonymous
 class USBDeviceRequestOptions implements JSObject {
-  external factory USBDeviceRequestOptions({required JSArray filters});
+  external factory USBDeviceRequestOptions({
+    required JSArray filters,
+    JSArray exclusionFilters,
+  });
 }
 
 extension USBDeviceRequestOptionsExtension on USBDeviceRequestOptions {
   external set filters(JSArray value);
   external JSArray get filters;
+  external set exclusionFilters(JSArray value);
+  external JSArray get exclusionFilters;
 }
 
 @JS('USB')
@@ -339,12 +344,17 @@ extension USBEndpointExtension on USBEndpoint {
 @staticInterop
 @anonymous
 class USBPermissionDescriptor implements PermissionDescriptor {
-  external factory USBPermissionDescriptor({JSArray filters});
+  external factory USBPermissionDescriptor({
+    JSArray filters,
+    JSArray exclusionFilters,
+  });
 }
 
 extension USBPermissionDescriptorExtension on USBPermissionDescriptor {
   external set filters(JSArray value);
   external JSArray get filters;
+  external set exclusionFilters(JSArray value);
+  external JSArray get exclusionFilters;
 }
 
 @JS()

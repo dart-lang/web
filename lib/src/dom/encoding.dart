@@ -57,7 +57,7 @@ class TextDecoder implements TextDecoderCommon {
 
 extension TextDecoderExtension on TextDecoder {
   external String decode([
-    BufferSource input,
+    AllowSharedBufferSource input,
     TextDecodeOptions options,
   ]);
 }

@@ -446,7 +446,10 @@ class RTCRtpSender implements JSObject {
 
 extension RTCRtpSenderExtension on RTCRtpSender {
   external JSPromise generateKeyFrame([JSArray rids]);
-  external JSPromise setParameters(RTCRtpSendParameters parameters);
+  external JSPromise setParameters(
+    RTCRtpSendParameters parameters, [
+    RTCSetParameterOptions setParameterOptions,
+  ]);
   external RTCRtpSendParameters getParameters();
   external JSPromise replaceTrack(MediaStreamTrack? withTrack);
   external JSVoid setStreams(MediaStream streams);
@@ -657,6 +660,13 @@ extension RTCRtpHeaderExtensionCapabilityExtension
     on RTCRtpHeaderExtensionCapability {
   external set uri(String value);
   external String get uri;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class RTCSetParameterOptions implements JSObject {
+  external factory RTCSetParameterOptions();
 }
 
 @JS('RTCRtpReceiver')

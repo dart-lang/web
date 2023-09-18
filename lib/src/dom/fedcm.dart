@@ -6,6 +6,8 @@ import 'dart:js_interop';
 
 import 'credential_management.dart';
 
+typedef IdentityCredentialRequestOptionsContext = String;
+
 @JS('IdentityCredential')
 @staticInterop
 class IdentityCredential implements Credential {}
@@ -18,13 +20,18 @@ extension IdentityCredentialExtension on IdentityCredential {
 @staticInterop
 @anonymous
 class IdentityCredentialRequestOptions implements JSObject {
-  external factory IdentityCredentialRequestOptions({JSArray providers});
+  external factory IdentityCredentialRequestOptions({
+    required JSArray providers,
+    IdentityCredentialRequestOptionsContext context,
+  });
 }
 
 extension IdentityCredentialRequestOptionsExtension
     on IdentityCredentialRequestOptions {
   external set providers(JSArray value);
   external JSArray get providers;
+  external set context(IdentityCredentialRequestOptionsContext value);
+  external IdentityCredentialRequestOptionsContext get context;
 }
 
 @JS()
@@ -35,6 +42,7 @@ class IdentityProviderConfig implements JSObject {
     required String configURL,
     required String clientId,
     String nonce,
+    String loginHint,
   });
 }
 
@@ -45,6 +53,8 @@ extension IdentityProviderConfigExtension on IdentityProviderConfig {
   external String get clientId;
   external set nonce(String value);
   external String get nonce;
+  external set loginHint(String value);
+  external String get loginHint;
 }
 
 @JS()
@@ -133,6 +143,7 @@ class IdentityProviderAccount implements JSObject {
     String given_name,
     String picture,
     JSArray approved_clients,
+    JSArray login_hints,
   });
 }
 
@@ -149,6 +160,8 @@ extension IdentityProviderAccountExtension on IdentityProviderAccount {
   external String get picture;
   external set approved_clients(JSArray value);
   external JSArray get approved_clients;
+  external set login_hints(JSArray value);
+  external JSArray get login_hints;
 }
 
 @JS()
@@ -191,4 +204,33 @@ extension IdentityProviderClientMetadataExtension
   external String get privacy_policy_url;
   external set terms_of_service_url(String value);
   external String get terms_of_service_url;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class IdentityUserInfo implements JSObject {
+  external factory IdentityUserInfo({
+    String email,
+    String name,
+    String givenName,
+    String picture,
+  });
+}
+
+extension IdentityUserInfoExtension on IdentityUserInfo {
+  external set email(String value);
+  external String get email;
+  external set name(String value);
+  external String get name;
+  external set givenName(String value);
+  external String get givenName;
+  external set picture(String value);
+  external String get picture;
+}
+
+@JS('IdentityProvider')
+@staticInterop
+class IdentityProvider implements JSObject {
+  external static JSPromise getUserInfo(IdentityProviderConfig config);
 }

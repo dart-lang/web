@@ -57,10 +57,16 @@ extension URLSearchParamsExtension on URLSearchParams {
     String name,
     String value,
   );
-  external JSVoid delete(String name);
+  external JSVoid delete(
+    String name, [
+    String value,
+  ]);
   external String? get(String name);
   external JSArray getAll(String name);
-  external bool has(String name);
+  external bool has(
+    String name, [
+    String value,
+  ]);
   external JSVoid set(
     String name,
     String value,

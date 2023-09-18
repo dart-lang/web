@@ -30,7 +30,7 @@ extension SFrameTransformOptionsExtension on SFrameTransformOptions {
 
 @JS('SFrameTransform')
 @staticInterop
-class SFrameTransform implements GenericTransformStream {
+class SFrameTransform implements EventTarget, GenericTransformStream {
   external factory SFrameTransform([SFrameTransformOptions options]);
 }
 

@@ -49,7 +49,7 @@ extension NotificationExtension on Notification {
   external JSArray get vibrate;
   external EpochTimeStamp get timestamp;
   external bool get renotify;
-  external bool get silent;
+  external bool? get silent;
   external bool get requireInteraction;
   external JSAny? get data;
   external JSArray get actions;
@@ -70,7 +70,7 @@ class NotificationOptions implements JSObject {
     VibratePattern vibrate,
     EpochTimeStamp timestamp,
     bool renotify,
-    bool silent,
+    bool? silent,
     bool requireInteraction,
     JSAny? data,
     JSArray actions,
@@ -98,8 +98,8 @@ extension NotificationOptionsExtension on NotificationOptions {
   external EpochTimeStamp get timestamp;
   external set renotify(bool value);
   external bool get renotify;
-  external set silent(bool value);
-  external bool get silent;
+  external set silent(bool? value);
+  external bool? get silent;
   external set requireInteraction(bool value);
   external bool get requireInteraction;
   external set data(JSAny? value);

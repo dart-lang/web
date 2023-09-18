@@ -16,6 +16,8 @@ class PaymentRequest implements EventTarget {
     JSArray methodData,
     PaymentDetailsInit details,
   );
+
+  external static JSPromise isSecurePaymentConfirmationAvailable();
 }
 
 extension PaymentRequestExtension on PaymentRequest {

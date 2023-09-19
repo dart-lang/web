@@ -5,12 +5,12 @@
 import 'dart:js_interop';
 import 'dart:js_interop_unsafe';
 
-import '../../../helpers.dart' show Device;
 import '../../../web.dart';
+import '../enums.dart' show Device;
 import 'streams.dart';
 
 /// Statically accessible `EventStreamProvider`s for all event types.
-class EventStreamProviders {
+abstract final class EventStreamProviders {
   static const EventStreamProvider<ProgressEvent> abortEvent =
       EventStreamProvider<ProgressEvent>('abort');
 

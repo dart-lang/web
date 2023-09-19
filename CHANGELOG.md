@@ -1,4 +1,4 @@
-## 0.2.0-wip
+## 0.2.0-beta
 
 - Added `helpers.dart` top-level library.
 - Require Dart 3.2 pre-release.

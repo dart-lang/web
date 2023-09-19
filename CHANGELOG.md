@@ -1,4 +1,7 @@
-## 0.2.1-wip
+## 0.2.1-beta
+
+- `helpers.dart`
+  - Expose `EventStreamProvider`
 
 ## 0.2.0-beta
 

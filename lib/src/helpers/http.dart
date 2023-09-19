@@ -48,7 +48,7 @@ import 'events/events.dart' show XHRGetters;
 /// * [JS XMLHttpRequest](https://developer.mozilla.org/en-US/docs/DOM/XMLHttpRequest)
 /// * [Using XMLHttpRequest](https://developer.mozilla.org/en-US/docs/DOM/XMLHttpRequest/Using_XMLHttpRequest)
 class HttpRequest {
-  // The lint is ignored because these are purposesly made to match the old
+  // The lint is ignored because these are purposely made to match the old
   // names used in `dart:html`
   // ignore:constant_identifier_names
   static const int DONE = 4;

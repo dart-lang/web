@@ -7,11 +7,11 @@
 ///
 /// The extensions here are added by hand over time, depending on needs and use
 /// cases. They currently consist of:
-///  * renames: methods that provide the same functionaly, but use a more
+///  * renames: methods that provide the same functionality, but use a more
 ///    idiomatic Dart name. Typically these renames match the names used in
 ///    `dart:html` in the past.
 ///
-//// * operators: for exmaple access local storage items using `operator[]`.
+//// * operators: for example access local storage items using `operator[]`.
 ///
 ///  * helper logic: commonly these are methods that were very useful and
 ///    popular from `dart:html` (like the context2D getter in

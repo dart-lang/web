@@ -327,7 +327,7 @@ class ElementEvents extends Events {
     'speechchange': 'webkitSpeechChange'
   };
 
-  ElementEvents(html.Element ptr) : super(ptr);
+  ElementEvents(html.Element super.ptr);
 
   @override
   Stream<html.Event> operator [](String type) {

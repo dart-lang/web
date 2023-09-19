@@ -11,7 +11,7 @@ environment:
 dev_dependencies:
   args: ^2.4.0
   code_builder: ^4.4.0
-  dart_flutter_team_lints: ^1.0.0
+  dart_flutter_team_lints: ^2.0.0
   dart_style: ^2.2.4
   io: ^1.0.4
   path: ^1.8.3

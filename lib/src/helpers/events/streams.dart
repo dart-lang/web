@@ -310,7 +310,7 @@ class Events {
 }
 
 class ElementEvents extends Events {
-  static final webkitEvents = {
+  static final _webkitEvents = {
     'animationend': 'webkitAnimationEnd',
     'animationiteration': 'webkitAnimationIteration',
     'animationstart': 'webkitAnimationStart',
@@ -331,10 +331,10 @@ class ElementEvents extends Events {
 
   @override
   Stream<html.Event> operator [](String type) {
-    if (webkitEvents.keys.contains(type.toLowerCase())) {
+    if (_webkitEvents.keys.contains(type.toLowerCase())) {
       if (Device.isWebKit) {
         return _ElementEventStreamImpl(
-            _ptr, webkitEvents[type.toLowerCase()]!, false);
+            _ptr, _webkitEvents[type.toLowerCase()]!, false);
       }
     }
     return _ElementEventStreamImpl(_ptr, type, false);

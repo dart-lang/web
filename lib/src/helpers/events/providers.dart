@@ -612,7 +612,7 @@ String _determineTransitionEventType(EventTarget e) {
 }
 
 String _determineVisibilityChangeEventType(EventTarget e) {
-  if (e.typeofEquals('undefined'.toJS).toDart) {
+  if (e.typeofEquals('undefined')) {
     return 'visibilitychange';
   } else if (e.hasProperty('mozHidden'.toJS).toDart) {
     return 'mozvisibilitychange';

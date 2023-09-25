@@ -1,3 +1,9 @@
+## 0.2.2-beta
+
+- Updates SDK version minimum to 3.2.0-194.0.dev.
+- Removes `isInstanceOfDomType` as `dart:js_interop` now exposes
+  `instanceOfString`.
+
 ## 0.2.1-beta
 
 - `helpers.dart`

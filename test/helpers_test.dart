@@ -5,14 +5,16 @@
 @TestOn('browser')
 library;
 
+import 'dart:js_interop';
+
 import 'package:test/test.dart';
 import 'package:web/helpers.dart';
 
 void main() {
-  test('isInstanceOfDomType', () {
+  test('instanceOfString works with package:web types', () {
     final div = document.createElement('div');
 
-    expect(isInstanceOfDomType(div, 'bob'), false);
-    expect(isInstanceOfDomType(div, 'HTMLDivElement'), true);
+    expect(div.instanceOfString('bob'), false);
+    expect(div.instanceOfString('HTMLDivElement'), true);
   });
 }

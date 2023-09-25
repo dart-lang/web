@@ -51,10 +51,3 @@ external JSFunction get _audioConstructor;
 HTMLAudioElement createAudioElement() => _audioConstructor.callAsConstructor();
 
 Element? querySelector(String selectors) => document.querySelector(selectors);
-
-bool isInstanceOfDomType(JSObject? o, String domType) {
-  if (o == null) return false;
-  final constructor = globalContext[domType];
-  if (constructor == null) return false;
-  return o.instanceof(constructor as JSFunction).toDart;
-}

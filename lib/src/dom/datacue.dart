@@ -10,8 +10,8 @@ import 'html.dart';
 @staticInterop
 class DataCue implements TextTrackCue {
   external factory DataCue(
-    double startTime,
-    double endTime,
+    num startTime,
+    num endTime,
     JSAny? value, [
     String type,
   ]);

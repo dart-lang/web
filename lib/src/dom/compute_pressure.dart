@@ -43,10 +43,10 @@ extension PressureRecordExtension on PressureRecord {
 @staticInterop
 @anonymous
 class PressureObserverOptions implements JSObject {
-  external factory PressureObserverOptions({double sampleRate});
+  external factory PressureObserverOptions({num sampleRate});
 }
 
 extension PressureObserverOptionsExtension on PressureObserverOptions {
-  external set sampleRate(double value);
-  external double get sampleRate;
+  external set sampleRate(num value);
+  external num get sampleRate;
 }

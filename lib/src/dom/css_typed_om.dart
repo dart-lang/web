@@ -152,14 +152,14 @@ extension CSSNumericValueExtension on CSSNumericValue {
 @staticInterop
 class CSSUnitValue implements CSSNumericValue {
   external factory CSSUnitValue(
-    double value,
+    num value,
     String unit,
   );
 }
 
 extension CSSUnitValueExtension on CSSUnitValue {
-  external set value(double value);
-  external double get value;
+  external set value(num value);
+  external num get value;
   external String get unit;
 }
 

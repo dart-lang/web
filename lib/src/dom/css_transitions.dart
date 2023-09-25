@@ -17,7 +17,7 @@ class TransitionEvent implements Event {
 
 extension TransitionEventExtension on TransitionEvent {
   external String get propertyName;
-  external double get elapsedTime;
+  external num get elapsedTime;
   external String get pseudoElement;
 }
 
@@ -27,7 +27,7 @@ extension TransitionEventExtension on TransitionEvent {
 class TransitionEventInit implements EventInit {
   external factory TransitionEventInit({
     String propertyName,
-    double elapsedTime,
+    num elapsedTime,
     String pseudoElement,
   });
 }
@@ -35,8 +35,8 @@ class TransitionEventInit implements EventInit {
 extension TransitionEventInitExtension on TransitionEventInit {
   external set propertyName(String value);
   external String get propertyName;
-  external set elapsedTime(double value);
-  external double get elapsedTime;
+  external set elapsedTime(num value);
+  external num get elapsedTime;
   external set pseudoElement(String value);
   external String get pseudoElement;
 }

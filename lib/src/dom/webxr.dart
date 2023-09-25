@@ -79,7 +79,7 @@ extension XRSessionExtension on XRSession {
       XRTransientInputHitTestOptionsInit options);
   external JSPromise requestLightProbe([XRLightProbeInit options]);
   external JSVoid updateRenderState([XRRenderStateInit state]);
-  external JSPromise updateTargetFrameRate(double rate);
+  external JSPromise updateTargetFrameRate(num rate);
   external JSPromise requestReferenceSpace(XRReferenceSpaceType type);
   external int requestAnimationFrame(XRFrameRequestCallback callback);
   external JSVoid cancelAnimationFrame(int handle);
@@ -92,7 +92,7 @@ extension XRSessionExtension on XRSession {
   external XRDOMOverlayState? get domOverlayState;
   external XRReflectionFormat get preferredReflectionFormat;
   external XRVisibilityState get visibilityState;
-  external double? get frameRate;
+  external num? get frameRate;
   external JSFloat32Array? get supportedFrameRates;
   external XRRenderState get renderState;
   external XRInputSourceArray get inputSources;
@@ -125,21 +125,21 @@ extension XRSessionExtension on XRSession {
 @anonymous
 class XRRenderStateInit implements JSObject {
   external factory XRRenderStateInit({
-    double depthNear,
-    double depthFar,
-    double inlineVerticalFieldOfView,
+    num depthNear,
+    num depthFar,
+    num inlineVerticalFieldOfView,
     XRWebGLLayer? baseLayer,
     JSArray? layers,
   });
 }
 
 extension XRRenderStateInitExtension on XRRenderStateInit {
-  external set depthNear(double value);
-  external double get depthNear;
-  external set depthFar(double value);
-  external double get depthFar;
-  external set inlineVerticalFieldOfView(double value);
-  external double get inlineVerticalFieldOfView;
+  external set depthNear(num value);
+  external num get depthNear;
+  external set depthFar(num value);
+  external num get depthFar;
+  external set inlineVerticalFieldOfView(num value);
+  external num get inlineVerticalFieldOfView;
   external set baseLayer(XRWebGLLayer? value);
   external XRWebGLLayer? get baseLayer;
   external set layers(JSArray? value);
@@ -151,9 +151,9 @@ extension XRRenderStateInitExtension on XRRenderStateInit {
 class XRRenderState implements JSObject {}
 
 extension XRRenderStateExtension on XRRenderState {
-  external double get depthNear;
-  external double get depthFar;
-  external double? get inlineVerticalFieldOfView;
+  external num get depthNear;
+  external num get depthFar;
+  external num? get inlineVerticalFieldOfView;
   external XRWebGLLayer? get baseLayer;
   external JSArray get layers;
 }
@@ -224,13 +224,13 @@ extension XRBoundedReferenceSpaceExtension on XRBoundedReferenceSpace {
 class XRView implements JSObject {}
 
 extension XRViewExtension on XRView {
-  external JSVoid requestViewportScale(double? scale);
+  external JSVoid requestViewportScale(num? scale);
   external XRCamera? get camera;
   external bool get isFirstPersonObserver;
   external XREye get eye;
   external JSFloat32Array get projectionMatrix;
   external XRRigidTransform get transform;
-  external double? get recommendedViewportScale;
+  external num? get recommendedViewportScale;
 }
 
 @JS('XRViewport')
@@ -315,7 +315,7 @@ class XRWebGLLayerInit implements JSObject {
     bool stencil,
     bool alpha,
     bool ignoreDepthValues,
-    double framebufferScaleFactor,
+    num framebufferScaleFactor,
   });
 }
 
@@ -330,8 +330,8 @@ extension XRWebGLLayerInitExtension on XRWebGLLayerInit {
   external bool get alpha;
   external set ignoreDepthValues(bool value);
   external bool get ignoreDepthValues;
-  external set framebufferScaleFactor(double value);
-  external double get framebufferScaleFactor;
+  external set framebufferScaleFactor(num value);
+  external num get framebufferScaleFactor;
 }
 
 @JS('XRWebGLLayer')
@@ -343,15 +343,15 @@ class XRWebGLLayer implements XRLayer {
     XRWebGLLayerInit layerInit,
   ]);
 
-  external static double getNativeFramebufferScaleFactor(XRSession session);
+  external static num getNativeFramebufferScaleFactor(XRSession session);
 }
 
 extension XRWebGLLayerExtension on XRWebGLLayer {
   external XRViewport? getViewport(XRView view);
   external bool get antialias;
   external bool get ignoreDepthValues;
-  external set fixedFoveation(double? value);
-  external double? get fixedFoveation;
+  external set fixedFoveation(num? value);
+  external num? get fixedFoveation;
   external WebGLFramebuffer? get framebuffer;
   external int get framebufferWidth;
   external int get framebufferHeight;

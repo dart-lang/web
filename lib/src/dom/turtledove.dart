@@ -36,7 +36,7 @@ class GenerateBidInterestGroup implements JSObject {
   external factory GenerateBidInterestGroup({
     required String owner,
     required String name,
-    required double lifetimeMs,
+    required num lifetimeMs,
     bool enableBiddingSignalsPrioritization,
     JSAny? priorityVector,
     String executionMode,
@@ -56,8 +56,8 @@ extension GenerateBidInterestGroupExtension on GenerateBidInterestGroup {
   external String get owner;
   external set name(String value);
   external String get name;
-  external set lifetimeMs(double value);
-  external double get lifetimeMs;
+  external set lifetimeMs(num value);
+  external num get lifetimeMs;
   external set enableBiddingSignalsPrioritization(bool value);
   external bool get enableBiddingSignalsPrioritization;
   external set priorityVector(JSAny? value);
@@ -87,14 +87,14 @@ extension GenerateBidInterestGroupExtension on GenerateBidInterestGroup {
 @anonymous
 class AuctionAdInterestGroup implements GenerateBidInterestGroup {
   external factory AuctionAdInterestGroup({
-    double priority,
+    num priority,
     JSAny? prioritySignalsOverrides,
   });
 }
 
 extension AuctionAdInterestGroupExtension on AuctionAdInterestGroup {
-  external set priority(double value);
-  external double get priority;
+  external set priority(num value);
+  external num get priority;
   external set prioritySignalsOverrides(JSAny? value);
   external JSAny? get prioritySignalsOverrides;
 }
@@ -196,10 +196,10 @@ class InterestGroupBiddingScriptRunnerGlobalScope
 extension InterestGroupBiddingScriptRunnerGlobalScopeExtension
     on InterestGroupBiddingScriptRunnerGlobalScope {
   external bool setBid([GenerateBidOutput generateBidOutput]);
-  external JSVoid setPriority(double priority);
+  external JSVoid setPriority(num priority);
   external JSVoid setPrioritySignalsOverride(
     String key, [
-    double? priority,
+    num? priority,
   ]);
 }
 
@@ -228,20 +228,20 @@ extension AdRenderExtension on AdRender {
 @anonymous
 class GenerateBidOutput implements JSObject {
   external factory GenerateBidOutput({
-    double bid,
+    num bid,
     String bidCurrency,
     JSAny? render,
     JSAny? ad,
     JSArray adComponents,
-    double adCost,
-    double modelingSignals,
+    num adCost,
+    num modelingSignals,
     bool allowComponentAuction,
   });
 }
 
 extension GenerateBidOutputExtension on GenerateBidOutput {
-  external set bid(double value);
-  external double get bid;
+  external set bid(num value);
+  external num get bid;
   external set bidCurrency(String value);
   external String get bidCurrency;
   external set render(JSAny? value);
@@ -250,10 +250,10 @@ extension GenerateBidOutputExtension on GenerateBidOutput {
   external JSAny? get ad;
   external set adComponents(JSArray value);
   external JSArray get adComponents;
-  external set adCost(double value);
-  external double get adCost;
-  external set modelingSignals(double value);
-  external double get modelingSignals;
+  external set adCost(num value);
+  external num get adCost;
+  external set modelingSignals(num value);
+  external num get modelingSignals;
   external set allowComponentAuction(bool value);
   external bool get allowComponentAuction;
 }
@@ -369,8 +369,8 @@ class ReportingBrowserSignals implements JSObject {
     required String topWindowHostname,
     required String interestGroupOwner,
     required String renderURL,
-    required double bid,
-    required double highestScoringOtherBid,
+    required num bid,
+    required num highestScoringOtherBid,
     String bidCurrency,
     String highestScoringOtherBidCurrency,
     String topLevelSeller,
@@ -386,10 +386,10 @@ extension ReportingBrowserSignalsExtension on ReportingBrowserSignals {
   external String get interestGroupOwner;
   external set renderURL(String value);
   external String get renderURL;
-  external set bid(double value);
-  external double get bid;
-  external set highestScoringOtherBid(double value);
-  external double get highestScoringOtherBid;
+  external set bid(num value);
+  external num get bid;
+  external set highestScoringOtherBid(num value);
+  external num get highestScoringOtherBid;
   external set bidCurrency(String value);
   external String get bidCurrency;
   external set highestScoringOtherBidCurrency(String value);
@@ -407,20 +407,20 @@ extension ReportingBrowserSignalsExtension on ReportingBrowserSignals {
 @anonymous
 class ReportResultBrowserSignals implements ReportingBrowserSignals {
   external factory ReportResultBrowserSignals({
-    required double desirability,
+    required num desirability,
     String topLevelSellerSignals,
-    double modifiedBid,
+    num modifiedBid,
     int dataVersion,
   });
 }
 
 extension ReportResultBrowserSignalsExtension on ReportResultBrowserSignals {
-  external set desirability(double value);
-  external double get desirability;
+  external set desirability(num value);
+  external num get desirability;
   external set topLevelSellerSignals(String value);
   external String get topLevelSellerSignals;
-  external set modifiedBid(double value);
-  external double get modifiedBid;
+  external set modifiedBid(num value);
+  external num get modifiedBid;
   external set dataVersion(int value);
   external int get dataVersion;
 }
@@ -430,7 +430,7 @@ extension ReportResultBrowserSignalsExtension on ReportResultBrowserSignals {
 @anonymous
 class ReportWinBrowserSignals implements ReportingBrowserSignals {
   external factory ReportWinBrowserSignals({
-    double adCost,
+    num adCost,
     String seller,
     bool madeHighestScoringOtherBid,
     String interestGroupName,
@@ -441,8 +441,8 @@ class ReportWinBrowserSignals implements ReportingBrowserSignals {
 }
 
 extension ReportWinBrowserSignalsExtension on ReportWinBrowserSignals {
-  external set adCost(double value);
-  external double get adCost;
+  external set adCost(num value);
+  external num get adCost;
   external set seller(String value);
   external String get seller;
   external set madeHighestScoringOtherBid(bool value);
@@ -462,23 +462,23 @@ extension ReportWinBrowserSignalsExtension on ReportWinBrowserSignals {
 @anonymous
 class ScoreAdOutput implements JSObject {
   external factory ScoreAdOutput({
-    required double desirability,
-    double bid,
+    required num desirability,
+    num bid,
     String bidCurrency,
-    double incomingBidInSellerCurrency,
+    num incomingBidInSellerCurrency,
     bool allowComponentAuction,
   });
 }
 
 extension ScoreAdOutputExtension on ScoreAdOutput {
-  external set desirability(double value);
-  external double get desirability;
-  external set bid(double value);
-  external double get bid;
+  external set desirability(num value);
+  external num get desirability;
+  external set bid(num value);
+  external num get bid;
   external set bidCurrency(String value);
   external String get bidCurrency;
-  external set incomingBidInSellerCurrency(double value);
-  external double get incomingBidInSellerCurrency;
+  external set incomingBidInSellerCurrency(num value);
+  external num get incomingBidInSellerCurrency;
   external set allowComponentAuction(bool value);
   external bool get allowComponentAuction;
 }

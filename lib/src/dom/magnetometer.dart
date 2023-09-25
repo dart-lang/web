@@ -15,9 +15,9 @@ class Magnetometer implements Sensor {
 }
 
 extension MagnetometerExtension on Magnetometer {
-  external double? get x;
-  external double? get y;
-  external double? get z;
+  external num? get x;
+  external num? get y;
+  external num? get z;
 }
 
 @JS()
@@ -41,12 +41,12 @@ class UncalibratedMagnetometer implements Sensor {
 }
 
 extension UncalibratedMagnetometerExtension on UncalibratedMagnetometer {
-  external double? get x;
-  external double? get y;
-  external double? get z;
-  external double? get xBias;
-  external double? get yBias;
-  external double? get zBias;
+  external num? get x;
+  external num? get y;
+  external num? get z;
+  external num? get xBias;
+  external num? get yBias;
+  external num? get zBias;
 }
 
 @JS()
@@ -54,19 +54,19 @@ extension UncalibratedMagnetometerExtension on UncalibratedMagnetometer {
 @anonymous
 class MagnetometerReadingValues implements JSObject {
   external factory MagnetometerReadingValues({
-    required double? x,
-    required double? y,
-    required double? z,
+    required num? x,
+    required num? y,
+    required num? z,
   });
 }
 
 extension MagnetometerReadingValuesExtension on MagnetometerReadingValues {
-  external set x(double? value);
-  external double? get x;
-  external set y(double? value);
-  external double? get y;
-  external set z(double? value);
-  external double? get z;
+  external set x(num? value);
+  external num? get x;
+  external set y(num? value);
+  external num? get y;
+  external set z(num? value);
+  external num? get z;
 }
 
 @JS()
@@ -74,27 +74,27 @@ extension MagnetometerReadingValuesExtension on MagnetometerReadingValues {
 @anonymous
 class UncalibratedMagnetometerReadingValues implements JSObject {
   external factory UncalibratedMagnetometerReadingValues({
-    required double? x,
-    required double? y,
-    required double? z,
-    required double? xBias,
-    required double? yBias,
-    required double? zBias,
+    required num? x,
+    required num? y,
+    required num? z,
+    required num? xBias,
+    required num? yBias,
+    required num? zBias,
   });
 }
 
 extension UncalibratedMagnetometerReadingValuesExtension
     on UncalibratedMagnetometerReadingValues {
-  external set x(double? value);
-  external double? get x;
-  external set y(double? value);
-  external double? get y;
-  external set z(double? value);
-  external double? get z;
-  external set xBias(double? value);
-  external double? get xBias;
-  external set yBias(double? value);
-  external double? get yBias;
-  external set zBias(double? value);
-  external double? get zBias;
+  external set x(num? value);
+  external num? get x;
+  external set y(num? value);
+  external num? get y;
+  external set z(num? value);
+  external num? get z;
+  external set xBias(num? value);
+  external num? get xBias;
+  external set yBias(num? value);
+  external num? get yBias;
+  external set zBias(num? value);
+  external num? get zBias;
 }

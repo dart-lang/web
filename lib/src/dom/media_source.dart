@@ -26,16 +26,16 @@ extension MediaSourceExtension on MediaSource {
   external JSVoid removeSourceBuffer(SourceBuffer sourceBuffer);
   external JSVoid endOfStream([EndOfStreamError error]);
   external JSVoid setLiveSeekableRange(
-    double start,
-    double end,
+    num start,
+    num end,
   );
   external JSVoid clearLiveSeekableRange();
   external MediaSourceHandle get handle;
   external SourceBufferList get sourceBuffers;
   external SourceBufferList get activeSourceBuffers;
   external ReadyState get readyState;
-  external set duration(double value);
-  external double get duration;
+  external set duration(num value);
+  external num get duration;
   external set onsourceopen(EventHandler value);
   external EventHandler get onsourceopen;
   external set onsourceended(EventHandler value);
@@ -57,22 +57,22 @@ extension SourceBufferExtension on SourceBuffer {
   external JSVoid abort();
   external JSVoid changeType(String type);
   external JSVoid remove(
-    double start,
-    double end,
+    num start,
+    num end,
   );
   external set mode(AppendMode value);
   external AppendMode get mode;
   external bool get updating;
   external TimeRanges get buffered;
-  external set timestampOffset(double value);
-  external double get timestampOffset;
+  external set timestampOffset(num value);
+  external num get timestampOffset;
   external AudioTrackList get audioTracks;
   external VideoTrackList get videoTracks;
   external TextTrackList get textTracks;
-  external set appendWindowStart(double value);
-  external double get appendWindowStart;
-  external set appendWindowEnd(double value);
-  external double get appendWindowEnd;
+  external set appendWindowStart(num value);
+  external num get appendWindowStart;
+  external set appendWindowEnd(num value);
+  external num get appendWindowEnd;
   external set onupdatestart(EventHandler value);
   external EventHandler get onupdatestart;
   external set onupdate(EventHandler value);

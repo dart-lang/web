@@ -13,7 +13,7 @@ typedef GPUMapModeFlags = int;
 typedef GPUTextureUsageFlags = int;
 typedef GPUShaderStageFlags = int;
 typedef GPUBindingResource = JSAny?;
-typedef GPUPipelineConstantValue = double;
+typedef GPUPipelineConstantValue = num;
 typedef GPUColorWriteFlags = int;
 typedef GPUImageCopyExternalImageSource = JSAny?;
 typedef GPUBufferDynamicOffset = int;
@@ -462,8 +462,8 @@ class GPUSamplerDescriptor implements GPUObjectDescriptorBase {
     GPUFilterMode magFilter,
     GPUFilterMode minFilter,
     GPUMipmapFilterMode mipmapFilter,
-    double lodMinClamp,
-    double lodMaxClamp,
+    num lodMinClamp,
+    num lodMaxClamp,
     GPUCompareFunction compare,
     int maxAnisotropy,
   });
@@ -482,10 +482,10 @@ extension GPUSamplerDescriptorExtension on GPUSamplerDescriptor {
   external GPUFilterMode get minFilter;
   external set mipmapFilter(GPUMipmapFilterMode value);
   external GPUMipmapFilterMode get mipmapFilter;
-  external set lodMinClamp(double value);
-  external double get lodMinClamp;
-  external set lodMaxClamp(double value);
-  external double get lodMaxClamp;
+  external set lodMinClamp(num value);
+  external num get lodMinClamp;
+  external set lodMaxClamp(num value);
+  external num get lodMaxClamp;
   external set compare(GPUCompareFunction value);
   external GPUCompareFunction get compare;
   external set maxAnisotropy(int value);
@@ -1024,8 +1024,8 @@ class GPUDepthStencilState implements JSObject {
     GPUStencilValue stencilReadMask,
     GPUStencilValue stencilWriteMask,
     GPUDepthBias depthBias,
-    double depthBiasSlopeScale,
-    double depthBiasClamp,
+    num depthBiasSlopeScale,
+    num depthBiasClamp,
   });
 }
 
@@ -1046,10 +1046,10 @@ extension GPUDepthStencilStateExtension on GPUDepthStencilState {
   external GPUStencilValue get stencilWriteMask;
   external set depthBias(GPUDepthBias value);
   external GPUDepthBias get depthBias;
-  external set depthBiasSlopeScale(double value);
-  external double get depthBiasSlopeScale;
-  external set depthBiasClamp(double value);
-  external double get depthBiasClamp;
+  external set depthBiasSlopeScale(num value);
+  external num get depthBiasSlopeScale;
+  external set depthBiasClamp(num value);
+  external num get depthBiasClamp;
 }
 
 @JS()
@@ -1385,12 +1385,12 @@ class GPURenderPassEncoder
 
 extension GPURenderPassEncoderExtension on GPURenderPassEncoder {
   external JSVoid setViewport(
-    double x,
-    double y,
-    double width,
-    double height,
-    double minDepth,
-    double maxDepth,
+    num x,
+    num y,
+    num width,
+    num height,
+    num minDepth,
+    num maxDepth,
   );
   external JSVoid setScissorRect(
     GPUIntegerCoordinate x,
@@ -1487,7 +1487,7 @@ extension GPURenderPassColorAttachmentExtension
 class GPURenderPassDepthStencilAttachment implements JSObject {
   external factory GPURenderPassDepthStencilAttachment({
     required GPUTextureView view,
-    double depthClearValue,
+    num depthClearValue,
     GPULoadOp depthLoadOp,
     GPUStoreOp depthStoreOp,
     bool depthReadOnly,
@@ -1502,8 +1502,8 @@ extension GPURenderPassDepthStencilAttachmentExtension
     on GPURenderPassDepthStencilAttachment {
   external set view(GPUTextureView value);
   external GPUTextureView get view;
-  external set depthClearValue(double value);
-  external double get depthClearValue;
+  external set depthClearValue(num value);
+  external num get depthClearValue;
   external set depthLoadOp(GPULoadOp value);
   external GPULoadOp get depthLoadOp;
   external set depthStoreOp(GPUStoreOp value);
@@ -1790,22 +1790,22 @@ extension GPUUncapturedErrorEventInitExtension on GPUUncapturedErrorEventInit {
 @anonymous
 class GPUColorDict implements JSObject {
   external factory GPUColorDict({
-    required double r,
-    required double g,
-    required double b,
-    required double a,
+    required num r,
+    required num g,
+    required num b,
+    required num a,
   });
 }
 
 extension GPUColorDictExtension on GPUColorDict {
-  external set r(double value);
-  external double get r;
-  external set g(double value);
-  external double get g;
-  external set b(double value);
-  external double get b;
-  external set a(double value);
-  external double get a;
+  external set r(num value);
+  external num get r;
+  external set g(num value);
+  external num get g;
+  external set b(num value);
+  external num get b;
+  external set a(num value);
+  external num get a;
 }
 
 @JS()

@@ -31,16 +31,16 @@ extension ScrollOptionsExtension on ScrollOptions {
 @anonymous
 class ScrollToOptions implements ScrollOptions {
   external factory ScrollToOptions({
-    double left,
-    double top,
+    num left,
+    num top,
   });
 }
 
 extension ScrollToOptionsExtension on ScrollToOptions {
-  external set left(double value);
-  external double get left;
-  external set top(double value);
-  external double get top;
+  external set left(num value);
+  external num get left;
+  external set top(num value);
+  external num get top;
 }
 
 @JS('MediaQueryList')
@@ -210,13 +210,13 @@ extension GeometryUtilsExtension on GeometryUtils {
 class VisualViewport implements EventTarget {}
 
 extension VisualViewportExtension on VisualViewport {
-  external double get offsetLeft;
-  external double get offsetTop;
-  external double get pageLeft;
-  external double get pageTop;
-  external double get width;
-  external double get height;
-  external double get scale;
+  external num get offsetLeft;
+  external num get offsetTop;
+  external num get pageLeft;
+  external num get pageTop;
+  external num get width;
+  external num get height;
+  external num get scale;
   external set onresize(EventHandler value);
   external EventHandler get onresize;
   external set onscroll(EventHandler value);

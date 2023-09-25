@@ -27,13 +27,13 @@ extension TimeEventExtension on TimeEvent {
 class SVGAnimationElement implements SVGElement, SVGTests {}
 
 extension SVGAnimationElementExtension on SVGAnimationElement {
-  external double getStartTime();
-  external double getCurrentTime();
-  external double getSimpleDuration();
+  external num getStartTime();
+  external num getCurrentTime();
+  external num getSimpleDuration();
   external JSVoid beginElement();
-  external JSVoid beginElementAt(double offset);
+  external JSVoid beginElementAt(num offset);
   external JSVoid endElement();
-  external JSVoid endElementAt(double offset);
+  external JSVoid endElementAt(num offset);
   external SVGElement? get targetElement;
   external set onbegin(EventHandler value);
   external EventHandler get onbegin;

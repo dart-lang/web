@@ -61,13 +61,13 @@ extension GeolocationPositionExtension on GeolocationPosition {
 class GeolocationCoordinates implements JSObject {}
 
 extension GeolocationCoordinatesExtension on GeolocationCoordinates {
-  external double get accuracy;
-  external double get latitude;
-  external double get longitude;
-  external double? get altitude;
-  external double? get altitudeAccuracy;
-  external double? get heading;
-  external double? get speed;
+  external num get accuracy;
+  external num get latitude;
+  external num get longitude;
+  external num? get altitude;
+  external num? get altitudeAccuracy;
+  external num? get heading;
+  external num? get speed;
 }
 
 @JS('GeolocationPositionError')

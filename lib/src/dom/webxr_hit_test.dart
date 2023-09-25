@@ -91,22 +91,22 @@ extension XRTransientInputHitTestResultExtension
 @anonymous
 class XRRayDirectionInit implements JSObject {
   external factory XRRayDirectionInit({
-    double x,
-    double y,
-    double z,
-    double w,
+    num x,
+    num y,
+    num z,
+    num w,
   });
 }
 
 extension XRRayDirectionInitExtension on XRRayDirectionInit {
-  external set x(double value);
-  external double get x;
-  external set y(double value);
-  external double get y;
-  external set z(double value);
-  external double get z;
-  external set w(double value);
-  external double get w;
+  external set x(num value);
+  external num get x;
+  external set y(num value);
+  external num get y;
+  external set z(num value);
+  external num get z;
+  external set w(num value);
+  external num get w;
 }
 
 @JS('XRRay')

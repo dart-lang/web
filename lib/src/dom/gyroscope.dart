@@ -15,9 +15,9 @@ class Gyroscope implements Sensor {
 }
 
 extension GyroscopeExtension on Gyroscope {
-  external double? get x;
-  external double? get y;
-  external double? get z;
+  external num? get x;
+  external num? get y;
+  external num? get z;
 }
 
 @JS()
@@ -38,17 +38,17 @@ extension GyroscopeSensorOptionsExtension on GyroscopeSensorOptions {
 @anonymous
 class GyroscopeReadingValues implements JSObject {
   external factory GyroscopeReadingValues({
-    required double? x,
-    required double? y,
-    required double? z,
+    required num? x,
+    required num? y,
+    required num? z,
   });
 }
 
 extension GyroscopeReadingValuesExtension on GyroscopeReadingValues {
-  external set x(double? value);
-  external double? get x;
-  external set y(double? value);
-  external double? get y;
-  external set z(double? value);
-  external double? get z;
+  external set x(num? value);
+  external num? get x;
+  external set y(num? value);
+  external num? get y;
+  external set z(num? value);
+  external num? get z;
 }

@@ -21,14 +21,14 @@ extension WebTransportDatagramDuplexStreamExtension
   external ReadableStream get readable;
   external WritableStream get writable;
   external int get maxDatagramSize;
-  external set incomingMaxAge(double value);
-  external double get incomingMaxAge;
-  external set outgoingMaxAge(double value);
-  external double get outgoingMaxAge;
-  external set incomingHighWaterMark(double value);
-  external double get incomingHighWaterMark;
-  external set outgoingHighWaterMark(double value);
-  external double get outgoingHighWaterMark;
+  external set incomingMaxAge(num value);
+  external num get incomingMaxAge;
+  external set outgoingMaxAge(num value);
+  external num get outgoingMaxAge;
+  external set incomingHighWaterMark(num value);
+  external num get incomingHighWaterMark;
+  external set outgoingHighWaterMark(num value);
+  external num get outgoingHighWaterMark;
 }
 
 @JS('WebTransport')

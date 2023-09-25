@@ -463,23 +463,23 @@ class MediaTrackSettings implements JSObject {
     String exposureMode,
     String focusMode,
     JSArray pointsOfInterest,
-    double exposureCompensation,
-    double exposureTime,
-    double colorTemperature,
-    double iso,
-    double brightness,
-    double contrast,
-    double saturation,
-    double sharpness,
-    double focusDistance,
-    double pan,
-    double tilt,
-    double zoom,
+    num exposureCompensation,
+    num exposureTime,
+    num colorTemperature,
+    num iso,
+    num brightness,
+    num contrast,
+    num saturation,
+    num sharpness,
+    num focusDistance,
+    num pan,
+    num tilt,
+    num zoom,
     bool torch,
     int width,
     int height,
-    double aspectRatio,
-    double frameRate,
+    num aspectRatio,
+    num frameRate,
     String facingMode,
     String resizeMode,
     int sampleRate,
@@ -487,7 +487,7 @@ class MediaTrackSettings implements JSObject {
     bool echoCancellation,
     bool autoGainControl,
     bool noiseSuppression,
-    double latency,
+    num latency,
     int channelCount,
     String deviceId,
     String groupId,
@@ -508,40 +508,40 @@ extension MediaTrackSettingsExtension on MediaTrackSettings {
   external String get focusMode;
   external set pointsOfInterest(JSArray value);
   external JSArray get pointsOfInterest;
-  external set exposureCompensation(double value);
-  external double get exposureCompensation;
-  external set exposureTime(double value);
-  external double get exposureTime;
-  external set colorTemperature(double value);
-  external double get colorTemperature;
-  external set iso(double value);
-  external double get iso;
-  external set brightness(double value);
-  external double get brightness;
-  external set contrast(double value);
-  external double get contrast;
-  external set saturation(double value);
-  external double get saturation;
-  external set sharpness(double value);
-  external double get sharpness;
-  external set focusDistance(double value);
-  external double get focusDistance;
-  external set pan(double value);
-  external double get pan;
-  external set tilt(double value);
-  external double get tilt;
-  external set zoom(double value);
-  external double get zoom;
+  external set exposureCompensation(num value);
+  external num get exposureCompensation;
+  external set exposureTime(num value);
+  external num get exposureTime;
+  external set colorTemperature(num value);
+  external num get colorTemperature;
+  external set iso(num value);
+  external num get iso;
+  external set brightness(num value);
+  external num get brightness;
+  external set contrast(num value);
+  external num get contrast;
+  external set saturation(num value);
+  external num get saturation;
+  external set sharpness(num value);
+  external num get sharpness;
+  external set focusDistance(num value);
+  external num get focusDistance;
+  external set pan(num value);
+  external num get pan;
+  external set tilt(num value);
+  external num get tilt;
+  external set zoom(num value);
+  external num get zoom;
   external set torch(bool value);
   external bool get torch;
   external set width(int value);
   external int get width;
   external set height(int value);
   external int get height;
-  external set aspectRatio(double value);
-  external double get aspectRatio;
-  external set frameRate(double value);
-  external double get frameRate;
+  external set aspectRatio(num value);
+  external num get aspectRatio;
+  external set frameRate(num value);
+  external num get frameRate;
   external set facingMode(String value);
   external String get facingMode;
   external set resizeMode(String value);
@@ -556,8 +556,8 @@ extension MediaTrackSettingsExtension on MediaTrackSettings {
   external bool get autoGainControl;
   external set noiseSuppression(bool value);
   external bool get noiseSuppression;
-  external set latency(double value);
-  external double get latency;
+  external set latency(num value);
+  external num get latency;
   external set channelCount(int value);
   external int get channelCount;
   external set deviceId(String value);
@@ -682,16 +682,16 @@ extension MediaStreamConstraintsExtension on MediaStreamConstraints {
 @anonymous
 class DoubleRange implements JSObject {
   external factory DoubleRange({
-    double max,
-    double min,
+    num max,
+    num min,
   });
 }
 
 extension DoubleRangeExtension on DoubleRange {
-  external set max(double value);
-  external double get max;
-  external set min(double value);
-  external double get min;
+  external set max(num value);
+  external num get max;
+  external set min(num value);
+  external num get min;
 }
 
 @JS()
@@ -699,16 +699,16 @@ extension DoubleRangeExtension on DoubleRange {
 @anonymous
 class ConstrainDoubleRange implements DoubleRange {
   external factory ConstrainDoubleRange({
-    double exact,
-    double ideal,
+    num exact,
+    num ideal,
   });
 }
 
 extension ConstrainDoubleRangeExtension on ConstrainDoubleRange {
-  external set exact(double value);
-  external double get exact;
-  external set ideal(double value);
-  external double get ideal;
+  external set exact(num value);
+  external num get exact;
+  external set ideal(num value);
+  external num get ideal;
 }
 
 @JS()

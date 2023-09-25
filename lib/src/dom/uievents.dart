@@ -107,14 +107,14 @@ extension MouseEventExtension on MouseEvent {
     int buttonArg,
     EventTarget? relatedTargetArg,
   ]);
-  external double get pageX;
-  external double get pageY;
-  external double get x;
-  external double get y;
-  external double get offsetX;
-  external double get offsetY;
-  external double get movementX;
-  external double get movementY;
+  external num get pageX;
+  external num get pageY;
+  external num get x;
+  external num get y;
+  external num get offsetX;
+  external num get offsetY;
+  external num get movementX;
+  external num get movementY;
   external int get screenX;
   external int get screenY;
   external int get clientX;
@@ -133,8 +133,8 @@ extension MouseEventExtension on MouseEvent {
 @anonymous
 class MouseEventInit implements EventModifierInit {
   external factory MouseEventInit({
-    double movementX,
-    double movementY,
+    num movementX,
+    num movementY,
     int screenX,
     int screenY,
     int clientX,
@@ -146,10 +146,10 @@ class MouseEventInit implements EventModifierInit {
 }
 
 extension MouseEventInitExtension on MouseEventInit {
-  external set movementX(double value);
-  external double get movementX;
-  external set movementY(double value);
-  external double get movementY;
+  external set movementX(num value);
+  external num get movementX;
+  external set movementY(num value);
+  external num get movementY;
   external set screenX(int value);
   external int get screenX;
   external set screenY(int value);
@@ -233,9 +233,9 @@ class WheelEvent implements MouseEvent {
 }
 
 extension WheelEventExtension on WheelEvent {
-  external double get deltaX;
-  external double get deltaY;
-  external double get deltaZ;
+  external num get deltaX;
+  external num get deltaY;
+  external num get deltaZ;
   external int get deltaMode;
 }
 
@@ -244,20 +244,20 @@ extension WheelEventExtension on WheelEvent {
 @anonymous
 class WheelEventInit implements MouseEventInit {
   external factory WheelEventInit({
-    double deltaX,
-    double deltaY,
-    double deltaZ,
+    num deltaX,
+    num deltaY,
+    num deltaZ,
     int deltaMode,
   });
 }
 
 extension WheelEventInitExtension on WheelEventInit {
-  external set deltaX(double value);
-  external double get deltaX;
-  external set deltaY(double value);
-  external double get deltaY;
-  external set deltaZ(double value);
-  external double get deltaZ;
+  external set deltaX(num value);
+  external num get deltaX;
+  external set deltaY(num value);
+  external num get deltaY;
+  external set deltaZ(num value);
+  external num get deltaZ;
   external set deltaMode(int value);
   external int get deltaMode;
 }

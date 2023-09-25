@@ -405,7 +405,7 @@ class MLBatchNormalizationOptions implements JSObject {
     MLOperand scale,
     MLOperand bias,
     int axis,
-    double epsilon,
+    num epsilon,
     MLActivation activation,
   });
 }
@@ -417,8 +417,8 @@ extension MLBatchNormalizationOptionsExtension on MLBatchNormalizationOptions {
   external MLOperand get bias;
   external set axis(int value);
   external int get axis;
-  external set epsilon(double value);
-  external double get epsilon;
+  external set epsilon(num value);
+  external num get epsilon;
   external set activation(MLActivation value);
   external MLActivation get activation;
 }
@@ -428,16 +428,16 @@ extension MLBatchNormalizationOptionsExtension on MLBatchNormalizationOptions {
 @anonymous
 class MLClampOptions implements JSObject {
   external factory MLClampOptions({
-    double minValue,
-    double maxValue,
+    num minValue,
+    num maxValue,
   });
 }
 
 extension MLClampOptionsExtension on MLClampOptions {
-  external set minValue(double value);
-  external double get minValue;
-  external set maxValue(double value);
-  external double get maxValue;
+  external set minValue(num value);
+  external num get minValue;
+  external set maxValue(num value);
+  external num get maxValue;
 }
 
 @JS()
@@ -526,12 +526,12 @@ extension MLConvTranspose2dOptionsExtension on MLConvTranspose2dOptions {
 @staticInterop
 @anonymous
 class MLEluOptions implements JSObject {
-  external factory MLEluOptions({double alpha});
+  external factory MLEluOptions({num alpha});
 }
 
 extension MLEluOptionsExtension on MLEluOptions {
-  external set alpha(double value);
-  external double get alpha;
+  external set alpha(num value);
+  external num get alpha;
 }
 
 @JS()
@@ -540,8 +540,8 @@ extension MLEluOptionsExtension on MLEluOptions {
 class MLGemmOptions implements JSObject {
   external factory MLGemmOptions({
     MLOperand c,
-    double alpha,
-    double beta,
+    num alpha,
+    num beta,
     bool aTranspose,
     bool bTranspose,
   });
@@ -550,10 +550,10 @@ class MLGemmOptions implements JSObject {
 extension MLGemmOptionsExtension on MLGemmOptions {
   external set c(MLOperand value);
   external MLOperand get c;
-  external set alpha(double value);
-  external double get alpha;
-  external set beta(double value);
-  external double get beta;
+  external set alpha(num value);
+  external num get alpha;
+  external set beta(num value);
+  external num get beta;
   external set aTranspose(bool value);
   external bool get aTranspose;
   external set bTranspose(bool value);
@@ -626,16 +626,16 @@ extension MLGruCellOptionsExtension on MLGruCellOptions {
 @anonymous
 class MLHardSigmoidOptions implements JSObject {
   external factory MLHardSigmoidOptions({
-    double alpha,
-    double beta,
+    num alpha,
+    num beta,
   });
 }
 
 extension MLHardSigmoidOptionsExtension on MLHardSigmoidOptions {
-  external set alpha(double value);
-  external double get alpha;
-  external set beta(double value);
-  external double get beta;
+  external set alpha(num value);
+  external num get alpha;
+  external set beta(num value);
+  external num get beta;
 }
 
 @JS()
@@ -645,7 +645,7 @@ class MLInstanceNormalizationOptions implements JSObject {
   external factory MLInstanceNormalizationOptions({
     MLOperand scale,
     MLOperand bias,
-    double epsilon,
+    num epsilon,
     MLInputOperandLayout layout,
   });
 }
@@ -656,8 +656,8 @@ extension MLInstanceNormalizationOptionsExtension
   external MLOperand get scale;
   external set bias(MLOperand value);
   external MLOperand get bias;
-  external set epsilon(double value);
-  external double get epsilon;
+  external set epsilon(num value);
+  external num get epsilon;
   external set layout(MLInputOperandLayout value);
   external MLInputOperandLayout get layout;
 }
@@ -666,12 +666,12 @@ extension MLInstanceNormalizationOptionsExtension
 @staticInterop
 @anonymous
 class MLLeakyReluOptions implements JSObject {
-  external factory MLLeakyReluOptions({double alpha});
+  external factory MLLeakyReluOptions({num alpha});
 }
 
 extension MLLeakyReluOptionsExtension on MLLeakyReluOptions {
-  external set alpha(double value);
-  external double get alpha;
+  external set alpha(num value);
+  external num get alpha;
 }
 
 @JS()
@@ -679,16 +679,16 @@ extension MLLeakyReluOptionsExtension on MLLeakyReluOptions {
 @anonymous
 class MLLinearOptions implements JSObject {
   external factory MLLinearOptions({
-    double alpha,
-    double beta,
+    num alpha,
+    num beta,
   });
 }
 
 extension MLLinearOptionsExtension on MLLinearOptions {
-  external set alpha(double value);
-  external double get alpha;
-  external set beta(double value);
-  external double get beta;
+  external set alpha(num value);
+  external num get alpha;
+  external set beta(num value);
+  external num get beta;
 }
 
 @JS()
@@ -761,15 +761,15 @@ extension MLLstmCellOptionsExtension on MLLstmCellOptions {
 class MLPadOptions implements JSObject {
   external factory MLPadOptions({
     MLPaddingMode mode,
-    double value,
+    num value,
   });
 }
 
 extension MLPadOptionsExtension on MLPadOptions {
   external set mode(MLPaddingMode value);
   external MLPaddingMode get mode;
-  external set value(double value);
-  external double get value;
+  external set value(num value);
+  external num get value;
 }
 
 @JS()
@@ -851,12 +851,12 @@ extension MLResample2dOptionsExtension on MLResample2dOptions {
 @staticInterop
 @anonymous
 class MLSoftplusOptions implements JSObject {
-  external factory MLSoftplusOptions({double steepness});
+  external factory MLSoftplusOptions({num steepness});
 }
 
 extension MLSoftplusOptionsExtension on MLSoftplusOptions {
-  external set steepness(double value);
-  external double get steepness;
+  external set steepness(num value);
+  external num get steepness;
 }
 
 @JS()

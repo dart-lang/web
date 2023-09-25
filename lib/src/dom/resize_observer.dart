@@ -54,6 +54,6 @@ extension ResizeObserverEntryExtension on ResizeObserverEntry {
 class ResizeObserverSize implements JSObject {}
 
 extension ResizeObserverSizeExtension on ResizeObserverSize {
-  external double get inlineSize;
-  external double get blockSize;
+  external num get inlineSize;
+  external num get blockSize;
 }

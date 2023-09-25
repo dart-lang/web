@@ -2,6 +2,9 @@
 
 - Fixed a bug where `typedef`s were not declared with the IDL type's
   nullability.
+- Types that were aliased to `double` are now aliased to `num`. This is to make
+  it easier for users to pass integer values without going through a cast and to
+  make migration from `dart:html` easier.
 
 ## 0.2.2-beta
 

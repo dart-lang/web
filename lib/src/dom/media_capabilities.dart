@@ -69,7 +69,7 @@ class VideoConfiguration implements JSObject {
     required int width,
     required int height,
     required int bitrate,
-    required double framerate,
+    required num framerate,
     bool hasAlphaChannel,
     HdrMetadataType hdrMetadataType,
     ColorGamut colorGamut,
@@ -88,8 +88,8 @@ extension VideoConfigurationExtension on VideoConfiguration {
   external int get height;
   external set bitrate(int value);
   external int get bitrate;
-  external set framerate(double value);
-  external double get framerate;
+  external set framerate(num value);
+  external num get framerate;
   external set hasAlphaChannel(bool value);
   external bool get hasAlphaChannel;
   external set hdrMetadataType(HdrMetadataType value);

@@ -17,9 +17,9 @@ class VideoFrameCallbackMetadata implements JSObject {
     required DOMHighResTimeStamp expectedDisplayTime,
     required int width,
     required int height,
-    required double mediaTime,
+    required num mediaTime,
     required int presentedFrames,
-    double processingDuration,
+    num processingDuration,
     DOMHighResTimeStamp captureTime,
     DOMHighResTimeStamp receiveTime,
     int rtpTimestamp,
@@ -35,12 +35,12 @@ extension VideoFrameCallbackMetadataExtension on VideoFrameCallbackMetadata {
   external int get width;
   external set height(int value);
   external int get height;
-  external set mediaTime(double value);
-  external double get mediaTime;
+  external set mediaTime(num value);
+  external num get mediaTime;
   external set presentedFrames(int value);
   external int get presentedFrames;
-  external set processingDuration(double value);
-  external double get processingDuration;
+  external set processingDuration(num value);
+  external num get processingDuration;
   external set captureTime(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get captureTime;
   external set receiveTime(DOMHighResTimeStamp value);

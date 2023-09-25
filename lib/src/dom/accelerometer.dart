@@ -15,9 +15,9 @@ class Accelerometer implements Sensor {
 }
 
 extension AccelerometerExtension on Accelerometer {
-  external double? get x;
-  external double? get y;
-  external double? get z;
+  external num? get x;
+  external num? get y;
+  external num? get z;
 }
 
 @JS()
@@ -51,19 +51,19 @@ class GravitySensor implements Accelerometer {
 @anonymous
 class AccelerometerReadingValues implements JSObject {
   external factory AccelerometerReadingValues({
-    required double? x,
-    required double? y,
-    required double? z,
+    required num? x,
+    required num? y,
+    required num? z,
   });
 }
 
 extension AccelerometerReadingValuesExtension on AccelerometerReadingValues {
-  external set x(double? value);
-  external double? get x;
-  external set y(double? value);
-  external double? get y;
-  external set z(double? value);
-  external double? get z;
+  external set x(num? value);
+  external num? get x;
+  external set y(num? value);
+  external num? get y;
+  external set z(num? value);
+  external num? get z;
 }
 
 @JS()

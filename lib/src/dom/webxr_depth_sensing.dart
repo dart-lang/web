@@ -35,7 +35,7 @@ extension XRDepthInformationExtension on XRDepthInformation {
   external int get width;
   external int get height;
   external XRRigidTransform get normDepthBufferFromNormView;
-  external double get rawValueToMeters;
+  external num get rawValueToMeters;
 }
 
 @JS('XRCPUDepthInformation')
@@ -43,9 +43,9 @@ extension XRDepthInformationExtension on XRDepthInformation {
 class XRCPUDepthInformation implements XRDepthInformation {}
 
 extension XRCPUDepthInformationExtension on XRCPUDepthInformation {
-  external double getDepthInMeters(
-    double x,
-    double y,
+  external num getDepthInMeters(
+    num x,
+    num y,
   );
   external JSArrayBuffer get data;
 }

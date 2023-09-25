@@ -18,9 +18,9 @@ class DeviceOrientationEvent implements Event {
 }
 
 extension DeviceOrientationEventExtension on DeviceOrientationEvent {
-  external double? get alpha;
-  external double? get beta;
-  external double? get gamma;
+  external num? get alpha;
+  external num? get beta;
+  external num? get gamma;
   external bool get absolute;
 }
 
@@ -29,20 +29,20 @@ extension DeviceOrientationEventExtension on DeviceOrientationEvent {
 @anonymous
 class DeviceOrientationEventInit implements EventInit {
   external factory DeviceOrientationEventInit({
-    double? alpha,
-    double? beta,
-    double? gamma,
+    num? alpha,
+    num? beta,
+    num? gamma,
     bool absolute,
   });
 }
 
 extension DeviceOrientationEventInitExtension on DeviceOrientationEventInit {
-  external set alpha(double? value);
-  external double? get alpha;
-  external set beta(double? value);
-  external double? get beta;
-  external set gamma(double? value);
-  external double? get gamma;
+  external set alpha(num? value);
+  external num? get alpha;
+  external set beta(num? value);
+  external num? get beta;
+  external set gamma(num? value);
+  external num? get gamma;
   external set absolute(bool value);
   external bool get absolute;
 }
@@ -53,9 +53,9 @@ class DeviceMotionEventAcceleration implements JSObject {}
 
 extension DeviceMotionEventAccelerationExtension
     on DeviceMotionEventAcceleration {
-  external double? get x;
-  external double? get y;
-  external double? get z;
+  external num? get x;
+  external num? get y;
+  external num? get z;
 }
 
 @JS('DeviceMotionEventRotationRate')
@@ -64,9 +64,9 @@ class DeviceMotionEventRotationRate implements JSObject {}
 
 extension DeviceMotionEventRotationRateExtension
     on DeviceMotionEventRotationRate {
-  external double? get alpha;
-  external double? get beta;
-  external double? get gamma;
+  external num? get alpha;
+  external num? get beta;
+  external num? get gamma;
 }
 
 @JS('DeviceMotionEvent')
@@ -84,7 +84,7 @@ extension DeviceMotionEventExtension on DeviceMotionEvent {
   external DeviceMotionEventAcceleration? get acceleration;
   external DeviceMotionEventAcceleration? get accelerationIncludingGravity;
   external DeviceMotionEventRotationRate? get rotationRate;
-  external double get interval;
+  external num get interval;
 }
 
 @JS()
@@ -92,20 +92,20 @@ extension DeviceMotionEventExtension on DeviceMotionEvent {
 @anonymous
 class DeviceMotionEventAccelerationInit implements JSObject {
   external factory DeviceMotionEventAccelerationInit({
-    double? x,
-    double? y,
-    double? z,
+    num? x,
+    num? y,
+    num? z,
   });
 }
 
 extension DeviceMotionEventAccelerationInitExtension
     on DeviceMotionEventAccelerationInit {
-  external set x(double? value);
-  external double? get x;
-  external set y(double? value);
-  external double? get y;
-  external set z(double? value);
-  external double? get z;
+  external set x(num? value);
+  external num? get x;
+  external set y(num? value);
+  external num? get y;
+  external set z(num? value);
+  external num? get z;
 }
 
 @JS()
@@ -113,20 +113,20 @@ extension DeviceMotionEventAccelerationInitExtension
 @anonymous
 class DeviceMotionEventRotationRateInit implements JSObject {
   external factory DeviceMotionEventRotationRateInit({
-    double? alpha,
-    double? beta,
-    double? gamma,
+    num? alpha,
+    num? beta,
+    num? gamma,
   });
 }
 
 extension DeviceMotionEventRotationRateInitExtension
     on DeviceMotionEventRotationRateInit {
-  external set alpha(double? value);
-  external double? get alpha;
-  external set beta(double? value);
-  external double? get beta;
-  external set gamma(double? value);
-  external double? get gamma;
+  external set alpha(num? value);
+  external num? get alpha;
+  external set beta(num? value);
+  external num? get beta;
+  external set gamma(num? value);
+  external num? get gamma;
 }
 
 @JS()
@@ -137,7 +137,7 @@ class DeviceMotionEventInit implements EventInit {
     DeviceMotionEventAccelerationInit acceleration,
     DeviceMotionEventAccelerationInit accelerationIncludingGravity,
     DeviceMotionEventRotationRateInit rotationRate,
-    double interval,
+    num interval,
   });
 }
 
@@ -149,6 +149,6 @@ extension DeviceMotionEventInitExtension on DeviceMotionEventInit {
   external DeviceMotionEventAccelerationInit get accelerationIncludingGravity;
   external set rotationRate(DeviceMotionEventRotationRateInit value);
   external DeviceMotionEventRotationRateInit get rotationRate;
-  external set interval(double value);
-  external double get interval;
+  external set interval(num value);
+  external num get interval;
 }

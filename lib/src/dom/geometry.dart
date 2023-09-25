@@ -8,10 +8,10 @@ import 'dart:js_interop';
 @staticInterop
 class DOMPointReadOnly implements JSObject {
   external factory DOMPointReadOnly([
-    double x,
-    double y,
-    double z,
-    double w,
+    num x,
+    num y,
+    num z,
+    num w,
   ]);
 
   external static DOMPointReadOnly fromPoint([DOMPointInit other]);
@@ -20,34 +20,34 @@ class DOMPointReadOnly implements JSObject {
 extension DOMPointReadOnlyExtension on DOMPointReadOnly {
   external DOMPoint matrixTransform([DOMMatrixInit matrix]);
   external JSObject toJSON();
-  external double get x;
-  external double get y;
-  external double get z;
-  external double get w;
+  external num get x;
+  external num get y;
+  external num get z;
+  external num get w;
 }
 
 @JS('DOMPoint')
 @staticInterop
 class DOMPoint implements DOMPointReadOnly {
   external factory DOMPoint([
-    double x,
-    double y,
-    double z,
-    double w,
+    num x,
+    num y,
+    num z,
+    num w,
   ]);
 
   external static DOMPoint fromPoint([DOMPointInit other]);
 }
 
 extension DOMPointExtension on DOMPoint {
-  external set x(double value);
-  external double get x;
-  external set y(double value);
-  external double get y;
-  external set z(double value);
-  external double get z;
-  external set w(double value);
-  external double get w;
+  external set x(num value);
+  external num get x;
+  external set y(num value);
+  external num get y;
+  external set z(num value);
+  external num get z;
+  external set w(num value);
+  external num get w;
 }
 
 @JS()
@@ -55,32 +55,32 @@ extension DOMPointExtension on DOMPoint {
 @anonymous
 class DOMPointInit implements JSObject {
   external factory DOMPointInit({
-    double x,
-    double y,
-    double z,
-    double w,
+    num x,
+    num y,
+    num z,
+    num w,
   });
 }
 
 extension DOMPointInitExtension on DOMPointInit {
-  external set x(double value);
-  external double get x;
-  external set y(double value);
-  external double get y;
-  external set z(double value);
-  external double get z;
-  external set w(double value);
-  external double get w;
+  external set x(num value);
+  external num get x;
+  external set y(num value);
+  external num get y;
+  external set z(num value);
+  external num get z;
+  external set w(num value);
+  external num get w;
 }
 
 @JS('DOMRectReadOnly')
 @staticInterop
 class DOMRectReadOnly implements JSObject {
   external factory DOMRectReadOnly([
-    double x,
-    double y,
-    double width,
-    double height,
+    num x,
+    num y,
+    num width,
+    num height,
   ]);
 
   external static DOMRectReadOnly fromRect([DOMRectInit other]);
@@ -88,38 +88,38 @@ class DOMRectReadOnly implements JSObject {
 
 extension DOMRectReadOnlyExtension on DOMRectReadOnly {
   external JSObject toJSON();
-  external double get x;
-  external double get y;
-  external double get width;
-  external double get height;
-  external double get top;
-  external double get right;
-  external double get bottom;
-  external double get left;
+  external num get x;
+  external num get y;
+  external num get width;
+  external num get height;
+  external num get top;
+  external num get right;
+  external num get bottom;
+  external num get left;
 }
 
 @JS('DOMRect')
 @staticInterop
 class DOMRect implements DOMRectReadOnly {
   external factory DOMRect([
-    double x,
-    double y,
-    double width,
-    double height,
+    num x,
+    num y,
+    num width,
+    num height,
   ]);
 
   external static DOMRect fromRect([DOMRectInit other]);
 }
 
 extension DOMRectExtension on DOMRect {
-  external set x(double value);
-  external double get x;
-  external set y(double value);
-  external double get y;
-  external set width(double value);
-  external double get width;
-  external set height(double value);
-  external double get height;
+  external set x(num value);
+  external num get x;
+  external set y(num value);
+  external num get y;
+  external set width(num value);
+  external num get width;
+  external set height(num value);
+  external num get height;
 }
 
 @JS()
@@ -127,22 +127,22 @@ extension DOMRectExtension on DOMRect {
 @anonymous
 class DOMRectInit implements JSObject {
   external factory DOMRectInit({
-    double x,
-    double y,
-    double width,
-    double height,
+    num x,
+    num y,
+    num width,
+    num height,
   });
 }
 
 extension DOMRectInitExtension on DOMRectInit {
-  external set x(double value);
-  external double get x;
-  external set y(double value);
-  external double get y;
-  external set width(double value);
-  external double get width;
-  external set height(double value);
-  external double get height;
+  external set x(num value);
+  external num get x;
+  external set y(num value);
+  external num get y;
+  external set width(num value);
+  external num get width;
+  external set height(num value);
+  external num get height;
 }
 
 @JS('DOMRectList')
@@ -212,45 +212,45 @@ class DOMMatrixReadOnly implements JSObject {
 
 extension DOMMatrixReadOnlyExtension on DOMMatrixReadOnly {
   external DOMMatrix translate([
-    double tx,
-    double ty,
-    double tz,
+    num tx,
+    num ty,
+    num tz,
   ]);
   external DOMMatrix scale([
-    double scaleX,
-    double scaleY,
-    double scaleZ,
-    double originX,
-    double originY,
-    double originZ,
+    num scaleX,
+    num scaleY,
+    num scaleZ,
+    num originX,
+    num originY,
+    num originZ,
   ]);
   external DOMMatrix scaleNonUniform([
-    double scaleX,
-    double scaleY,
+    num scaleX,
+    num scaleY,
   ]);
   external DOMMatrix scale3d([
-    double scale,
-    double originX,
-    double originY,
-    double originZ,
+    num scale,
+    num originX,
+    num originY,
+    num originZ,
   ]);
   external DOMMatrix rotate([
-    double rotX,
-    double rotY,
-    double rotZ,
+    num rotX,
+    num rotY,
+    num rotZ,
   ]);
   external DOMMatrix rotateFromVector([
-    double x,
-    double y,
+    num x,
+    num y,
   ]);
   external DOMMatrix rotateAxisAngle([
-    double x,
-    double y,
-    double z,
-    double angle,
+    num x,
+    num y,
+    num z,
+    num angle,
   ]);
-  external DOMMatrix skewX([double sx]);
-  external DOMMatrix skewY([double sy]);
+  external DOMMatrix skewX([num sx]);
+  external DOMMatrix skewY([num sy]);
   external DOMMatrix multiply([DOMMatrixInit other]);
   external DOMMatrix flipX();
   external DOMMatrix flipY();
@@ -259,28 +259,28 @@ extension DOMMatrixReadOnlyExtension on DOMMatrixReadOnly {
   external JSFloat32Array toFloat32Array();
   external JSFloat64Array toFloat64Array();
   external JSObject toJSON();
-  external double get a;
-  external double get b;
-  external double get c;
-  external double get d;
-  external double get e;
-  external double get f;
-  external double get m11;
-  external double get m12;
-  external double get m13;
-  external double get m14;
-  external double get m21;
-  external double get m22;
-  external double get m23;
-  external double get m24;
-  external double get m31;
-  external double get m32;
-  external double get m33;
-  external double get m34;
-  external double get m41;
-  external double get m42;
-  external double get m43;
-  external double get m44;
+  external num get a;
+  external num get b;
+  external num get c;
+  external num get d;
+  external num get e;
+  external num get f;
+  external num get m11;
+  external num get m12;
+  external num get m13;
+  external num get m14;
+  external num get m21;
+  external num get m22;
+  external num get m23;
+  external num get m24;
+  external num get m31;
+  external num get m32;
+  external num get m33;
+  external num get m34;
+  external num get m41;
+  external num get m42;
+  external num get m43;
+  external num get m44;
   external bool get is2D;
   external bool get isIdentity;
 }
@@ -299,87 +299,87 @@ extension DOMMatrixExtension on DOMMatrix {
   external DOMMatrix multiplySelf([DOMMatrixInit other]);
   external DOMMatrix preMultiplySelf([DOMMatrixInit other]);
   external DOMMatrix translateSelf([
-    double tx,
-    double ty,
-    double tz,
+    num tx,
+    num ty,
+    num tz,
   ]);
   external DOMMatrix scaleSelf([
-    double scaleX,
-    double scaleY,
-    double scaleZ,
-    double originX,
-    double originY,
-    double originZ,
+    num scaleX,
+    num scaleY,
+    num scaleZ,
+    num originX,
+    num originY,
+    num originZ,
   ]);
   external DOMMatrix scale3dSelf([
-    double scale,
-    double originX,
-    double originY,
-    double originZ,
+    num scale,
+    num originX,
+    num originY,
+    num originZ,
   ]);
   external DOMMatrix rotateSelf([
-    double rotX,
-    double rotY,
-    double rotZ,
+    num rotX,
+    num rotY,
+    num rotZ,
   ]);
   external DOMMatrix rotateFromVectorSelf([
-    double x,
-    double y,
+    num x,
+    num y,
   ]);
   external DOMMatrix rotateAxisAngleSelf([
-    double x,
-    double y,
-    double z,
-    double angle,
+    num x,
+    num y,
+    num z,
+    num angle,
   ]);
-  external DOMMatrix skewXSelf([double sx]);
-  external DOMMatrix skewYSelf([double sy]);
+  external DOMMatrix skewXSelf([num sx]);
+  external DOMMatrix skewYSelf([num sy]);
   external DOMMatrix invertSelf();
   external DOMMatrix setMatrixValue(String transformList);
-  external set a(double value);
-  external double get a;
-  external set b(double value);
-  external double get b;
-  external set c(double value);
-  external double get c;
-  external set d(double value);
-  external double get d;
-  external set e(double value);
-  external double get e;
-  external set f(double value);
-  external double get f;
-  external set m11(double value);
-  external double get m11;
-  external set m12(double value);
-  external double get m12;
-  external set m13(double value);
-  external double get m13;
-  external set m14(double value);
-  external double get m14;
-  external set m21(double value);
-  external double get m21;
-  external set m22(double value);
-  external double get m22;
-  external set m23(double value);
-  external double get m23;
-  external set m24(double value);
-  external double get m24;
-  external set m31(double value);
-  external double get m31;
-  external set m32(double value);
-  external double get m32;
-  external set m33(double value);
-  external double get m33;
-  external set m34(double value);
-  external double get m34;
-  external set m41(double value);
-  external double get m41;
-  external set m42(double value);
-  external double get m42;
-  external set m43(double value);
-  external double get m43;
-  external set m44(double value);
-  external double get m44;
+  external set a(num value);
+  external num get a;
+  external set b(num value);
+  external num get b;
+  external set c(num value);
+  external num get c;
+  external set d(num value);
+  external num get d;
+  external set e(num value);
+  external num get e;
+  external set f(num value);
+  external num get f;
+  external set m11(num value);
+  external num get m11;
+  external set m12(num value);
+  external num get m12;
+  external set m13(num value);
+  external num get m13;
+  external set m14(num value);
+  external num get m14;
+  external set m21(num value);
+  external num get m21;
+  external set m22(num value);
+  external num get m22;
+  external set m23(num value);
+  external num get m23;
+  external set m24(num value);
+  external num get m24;
+  external set m31(num value);
+  external num get m31;
+  external set m32(num value);
+  external num get m32;
+  external set m33(num value);
+  external num get m33;
+  external set m34(num value);
+  external num get m34;
+  external set m41(num value);
+  external num get m41;
+  external set m42(num value);
+  external num get m42;
+  external set m43(num value);
+  external num get m43;
+  external set m44(num value);
+  external num get m44;
 }
 
 @JS()
@@ -387,46 +387,46 @@ extension DOMMatrixExtension on DOMMatrix {
 @anonymous
 class DOMMatrix2DInit implements JSObject {
   external factory DOMMatrix2DInit({
-    double a,
-    double b,
-    double c,
-    double d,
-    double e,
-    double f,
-    double m11,
-    double m12,
-    double m21,
-    double m22,
-    double m41,
-    double m42,
+    num a,
+    num b,
+    num c,
+    num d,
+    num e,
+    num f,
+    num m11,
+    num m12,
+    num m21,
+    num m22,
+    num m41,
+    num m42,
   });
 }
 
 extension DOMMatrix2DInitExtension on DOMMatrix2DInit {
-  external set a(double value);
-  external double get a;
-  external set b(double value);
-  external double get b;
-  external set c(double value);
-  external double get c;
-  external set d(double value);
-  external double get d;
-  external set e(double value);
-  external double get e;
-  external set f(double value);
-  external double get f;
-  external set m11(double value);
-  external double get m11;
-  external set m12(double value);
-  external double get m12;
-  external set m21(double value);
-  external double get m21;
-  external set m22(double value);
-  external double get m22;
-  external set m41(double value);
-  external double get m41;
-  external set m42(double value);
-  external double get m42;
+  external set a(num value);
+  external num get a;
+  external set b(num value);
+  external num get b;
+  external set c(num value);
+  external num get c;
+  external set d(num value);
+  external num get d;
+  external set e(num value);
+  external num get e;
+  external set f(num value);
+  external num get f;
+  external set m11(num value);
+  external num get m11;
+  external set m12(num value);
+  external num get m12;
+  external set m21(num value);
+  external num get m21;
+  external set m22(num value);
+  external num get m22;
+  external set m41(num value);
+  external num get m41;
+  external set m42(num value);
+  external num get m42;
 }
 
 @JS()
@@ -434,41 +434,41 @@ extension DOMMatrix2DInitExtension on DOMMatrix2DInit {
 @anonymous
 class DOMMatrixInit implements DOMMatrix2DInit {
   external factory DOMMatrixInit({
-    double m13,
-    double m14,
-    double m23,
-    double m24,
-    double m31,
-    double m32,
-    double m33,
-    double m34,
-    double m43,
-    double m44,
+    num m13,
+    num m14,
+    num m23,
+    num m24,
+    num m31,
+    num m32,
+    num m33,
+    num m34,
+    num m43,
+    num m44,
     bool is2D,
   });
 }
 
 extension DOMMatrixInitExtension on DOMMatrixInit {
-  external set m13(double value);
-  external double get m13;
-  external set m14(double value);
-  external double get m14;
-  external set m23(double value);
-  external double get m23;
-  external set m24(double value);
-  external double get m24;
-  external set m31(double value);
-  external double get m31;
-  external set m32(double value);
-  external double get m32;
-  external set m33(double value);
-  external double get m33;
-  external set m34(double value);
-  external double get m34;
-  external set m43(double value);
-  external double get m43;
-  external set m44(double value);
-  external double get m44;
+  external set m13(num value);
+  external num get m13;
+  external set m14(num value);
+  external num get m14;
+  external set m23(num value);
+  external num get m23;
+  external set m24(num value);
+  external num get m24;
+  external set m31(num value);
+  external num get m31;
+  external set m32(num value);
+  external num get m32;
+  external set m33(num value);
+  external num get m33;
+  external set m34(num value);
+  external num get m34;
+  external set m43(num value);
+  external num get m43;
+  external set m44(num value);
+  external num get m44;
   external set is2D(bool value);
   external bool get is2D;
 }

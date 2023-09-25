@@ -50,14 +50,14 @@ extension MockCaptureDeviceConfigurationExtension
 @anonymous
 class MockCameraConfiguration implements MockCaptureDeviceConfiguration {
   external factory MockCameraConfiguration({
-    double defaultFrameRate,
+    num defaultFrameRate,
     String facingMode,
   });
 }
 
 extension MockCameraConfigurationExtension on MockCameraConfiguration {
-  external set defaultFrameRate(double value);
-  external double get defaultFrameRate;
+  external set defaultFrameRate(num value);
+  external num get defaultFrameRate;
   external set facingMode(String value);
   external String get facingMode;
 }

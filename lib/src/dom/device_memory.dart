@@ -9,5 +9,5 @@ import 'dart:js_interop';
 class NavigatorDeviceMemory implements JSObject {}
 
 extension NavigatorDeviceMemoryExtension on NavigatorDeviceMemory {
-  external double get deviceMemory;
+  external num get deviceMemory;
 }

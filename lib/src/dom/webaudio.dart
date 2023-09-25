@@ -35,14 +35,14 @@ extension BaseAudioContextExtension on BaseAudioContext {
   external AudioBuffer createBuffer(
     int numberOfChannels,
     int length,
-    double sampleRate,
+    num sampleRate,
   );
   external AudioBufferSourceNode createBufferSource();
   external ChannelMergerNode createChannelMerger([int numberOfInputs]);
   external ChannelSplitterNode createChannelSplitter([int numberOfOutputs]);
   external ConstantSourceNode createConstantSource();
   external ConvolverNode createConvolver();
-  external DelayNode createDelay([double maxDelayTime]);
+  external DelayNode createDelay([num maxDelayTime]);
   external DynamicsCompressorNode createDynamicsCompressor();
   external GainNode createGain();
   external IIRFilterNode createIIRFilter(
@@ -69,8 +69,8 @@ extension BaseAudioContextExtension on BaseAudioContext {
     DecodeErrorCallback? errorCallback,
   ]);
   external AudioDestinationNode get destination;
-  external double get sampleRate;
-  external double get currentTime;
+  external num get sampleRate;
+  external num get currentTime;
   external AudioListener get listener;
   external AudioContextState get state;
   external AudioWorklet get audioWorklet;
@@ -97,8 +97,8 @@ extension AudioContextExtension on AudioContext {
   external MediaStreamTrackAudioSourceNode createMediaStreamTrackSource(
       MediaStreamTrack mediaStreamTrack);
   external MediaStreamAudioDestinationNode createMediaStreamDestination();
-  external double get baseLatency;
-  external double get outputLatency;
+  external num get baseLatency;
+  external num get outputLatency;
   external JSAny? get sinkId;
   external AudioRenderCapacity get renderCapacity;
   external set onsinkchange(EventHandler value);
@@ -111,7 +111,7 @@ extension AudioContextExtension on AudioContext {
 class AudioContextOptions implements JSObject {
   external factory AudioContextOptions({
     JSAny? latencyHint,
-    double sampleRate,
+    num sampleRate,
     JSAny? sinkId,
   });
 }
@@ -119,8 +119,8 @@ class AudioContextOptions implements JSObject {
 extension AudioContextOptionsExtension on AudioContextOptions {
   external set latencyHint(JSAny? value);
   external JSAny? get latencyHint;
-  external set sampleRate(double value);
-  external double get sampleRate;
+  external set sampleRate(num value);
+  external num get sampleRate;
   external set sinkId(JSAny? value);
   external JSAny? get sinkId;
 }
@@ -150,14 +150,14 @@ extension AudioSinkInfoExtension on AudioSinkInfo {
 @anonymous
 class AudioTimestamp implements JSObject {
   external factory AudioTimestamp({
-    double contextTime,
+    num contextTime,
     DOMHighResTimeStamp performanceTime,
   });
 }
 
 extension AudioTimestampExtension on AudioTimestamp {
-  external set contextTime(double value);
-  external double get contextTime;
+  external set contextTime(num value);
+  external num get contextTime;
   external set performanceTime(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get performanceTime;
 }
@@ -177,12 +177,12 @@ extension AudioRenderCapacityExtension on AudioRenderCapacity {
 @staticInterop
 @anonymous
 class AudioRenderCapacityOptions implements JSObject {
-  external factory AudioRenderCapacityOptions({double updateInterval});
+  external factory AudioRenderCapacityOptions({num updateInterval});
 }
 
 extension AudioRenderCapacityOptionsExtension on AudioRenderCapacityOptions {
-  external set updateInterval(double value);
-  external double get updateInterval;
+  external set updateInterval(num value);
+  external num get updateInterval;
 }
 
 @JS('AudioRenderCapacityEvent')
@@ -195,10 +195,10 @@ class AudioRenderCapacityEvent implements Event {
 }
 
 extension AudioRenderCapacityEventExtension on AudioRenderCapacityEvent {
-  external double get timestamp;
-  external double get averageLoad;
-  external double get peakLoad;
-  external double get underrunRatio;
+  external num get timestamp;
+  external num get averageLoad;
+  external num get peakLoad;
+  external num get underrunRatio;
 }
 
 @JS()
@@ -206,23 +206,23 @@ extension AudioRenderCapacityEventExtension on AudioRenderCapacityEvent {
 @anonymous
 class AudioRenderCapacityEventInit implements EventInit {
   external factory AudioRenderCapacityEventInit({
-    double timestamp,
-    double averageLoad,
-    double peakLoad,
-    double underrunRatio,
+    num timestamp,
+    num averageLoad,
+    num peakLoad,
+    num underrunRatio,
   });
 }
 
 extension AudioRenderCapacityEventInitExtension
     on AudioRenderCapacityEventInit {
-  external set timestamp(double value);
-  external double get timestamp;
-  external set averageLoad(double value);
-  external double get averageLoad;
-  external set peakLoad(double value);
-  external double get peakLoad;
-  external set underrunRatio(double value);
-  external double get underrunRatio;
+  external set timestamp(num value);
+  external num get timestamp;
+  external set averageLoad(num value);
+  external num get averageLoad;
+  external set peakLoad(num value);
+  external num get peakLoad;
+  external set underrunRatio(num value);
+  external num get underrunRatio;
 }
 
 @JS('OfflineAudioContext')
@@ -231,14 +231,14 @@ class OfflineAudioContext implements BaseAudioContext {
   external factory OfflineAudioContext(
     JSAny? contextOptionsOrNumberOfChannels, [
     int length,
-    double sampleRate,
+    num sampleRate,
   ]);
 }
 
 extension OfflineAudioContextExtension on OfflineAudioContext {
   external JSPromise startRendering();
   external JSPromise resume();
-  external JSPromise suspend(double suspendTime);
+  external JSPromise suspend(num suspendTime);
   external int get length;
   external set oncomplete(EventHandler value);
   external EventHandler get oncomplete;
@@ -251,7 +251,7 @@ class OfflineAudioContextOptions implements JSObject {
   external factory OfflineAudioContextOptions({
     int numberOfChannels,
     required int length,
-    required double sampleRate,
+    required num sampleRate,
   });
 }
 
@@ -260,8 +260,8 @@ extension OfflineAudioContextOptionsExtension on OfflineAudioContextOptions {
   external int get numberOfChannels;
   external set length(int value);
   external int get length;
-  external set sampleRate(double value);
-  external double get sampleRate;
+  external set sampleRate(num value);
+  external num get sampleRate;
 }
 
 @JS('OfflineAudioCompletionEvent')
@@ -309,9 +309,9 @@ extension AudioBufferExtension on AudioBuffer {
     int channelNumber, [
     int bufferOffset,
   ]);
-  external double get sampleRate;
+  external num get sampleRate;
   external int get length;
-  external double get duration;
+  external num get duration;
   external int get numberOfChannels;
 }
 
@@ -322,7 +322,7 @@ class AudioBufferOptions implements JSObject {
   external factory AudioBufferOptions({
     int numberOfChannels,
     required int length,
-    required double sampleRate,
+    required num sampleRate,
   });
 }
 
@@ -331,8 +331,8 @@ extension AudioBufferOptionsExtension on AudioBufferOptions {
   external int get numberOfChannels;
   external set length(int value);
   external int get length;
-  external set sampleRate(double value);
-  external double get sampleRate;
+  external set sampleRate(num value);
+  external num get sampleRate;
 }
 
 @JS('AudioNode')
@@ -387,36 +387,36 @@ class AudioParam implements JSObject {}
 
 extension AudioParamExtension on AudioParam {
   external AudioParam setValueAtTime(
-    double value,
-    double startTime,
+    num value,
+    num startTime,
   );
   external AudioParam linearRampToValueAtTime(
-    double value,
-    double endTime,
+    num value,
+    num endTime,
   );
   external AudioParam exponentialRampToValueAtTime(
-    double value,
-    double endTime,
+    num value,
+    num endTime,
   );
   external AudioParam setTargetAtTime(
-    double target,
-    double startTime,
-    double timeConstant,
+    num target,
+    num startTime,
+    num timeConstant,
   );
   external AudioParam setValueCurveAtTime(
     JSArray values,
-    double startTime,
-    double duration,
+    num startTime,
+    num duration,
   );
-  external AudioParam cancelScheduledValues(double cancelTime);
-  external AudioParam cancelAndHoldAtTime(double cancelTime);
-  external set value(double value);
-  external double get value;
+  external AudioParam cancelScheduledValues(num cancelTime);
+  external AudioParam cancelAndHoldAtTime(num cancelTime);
+  external set value(num value);
+  external num get value;
   external set automationRate(AutomationRate value);
   external AutomationRate get automationRate;
-  external double get defaultValue;
-  external double get minValue;
-  external double get maxValue;
+  external num get defaultValue;
+  external num get minValue;
+  external num get maxValue;
 }
 
 @JS('AudioScheduledSourceNode')
@@ -424,8 +424,8 @@ extension AudioParamExtension on AudioParam {
 class AudioScheduledSourceNode implements AudioNode {}
 
 extension AudioScheduledSourceNodeExtension on AudioScheduledSourceNode {
-  external JSVoid start([double when]);
-  external JSVoid stop([double when]);
+  external JSVoid start([num when]);
+  external JSVoid stop([num when]);
   external set onended(EventHandler value);
   external EventHandler get onended;
 }
@@ -447,12 +447,12 @@ extension AnalyserNodeExtension on AnalyserNode {
   external set fftSize(int value);
   external int get fftSize;
   external int get frequencyBinCount;
-  external set minDecibels(double value);
-  external double get minDecibels;
-  external set maxDecibels(double value);
-  external double get maxDecibels;
-  external set smoothingTimeConstant(double value);
-  external double get smoothingTimeConstant;
+  external set minDecibels(num value);
+  external num get minDecibels;
+  external set maxDecibels(num value);
+  external num get maxDecibels;
+  external set smoothingTimeConstant(num value);
+  external num get smoothingTimeConstant;
 }
 
 @JS()
@@ -461,21 +461,21 @@ extension AnalyserNodeExtension on AnalyserNode {
 class AnalyserOptions implements AudioNodeOptions {
   external factory AnalyserOptions({
     int fftSize,
-    double maxDecibels,
-    double minDecibels,
-    double smoothingTimeConstant,
+    num maxDecibels,
+    num minDecibels,
+    num smoothingTimeConstant,
   });
 }
 
 extension AnalyserOptionsExtension on AnalyserOptions {
   external set fftSize(int value);
   external int get fftSize;
-  external set maxDecibels(double value);
-  external double get maxDecibels;
-  external set minDecibels(double value);
-  external double get minDecibels;
-  external set smoothingTimeConstant(double value);
-  external double get smoothingTimeConstant;
+  external set maxDecibels(num value);
+  external num get maxDecibels;
+  external set minDecibels(num value);
+  external num get minDecibels;
+  external set smoothingTimeConstant(num value);
+  external num get smoothingTimeConstant;
 }
 
 @JS('AudioBufferSourceNode')
@@ -489,9 +489,9 @@ class AudioBufferSourceNode implements AudioScheduledSourceNode {
 
 extension AudioBufferSourceNodeExtension on AudioBufferSourceNode {
   external JSVoid start([
-    double when,
-    double offset,
-    double duration,
+    num when,
+    num offset,
+    num duration,
   ]);
   external set buffer(AudioBuffer? value);
   external AudioBuffer? get buffer;
@@ -499,10 +499,10 @@ extension AudioBufferSourceNodeExtension on AudioBufferSourceNode {
   external AudioParam get detune;
   external set loop(bool value);
   external bool get loop;
-  external set loopStart(double value);
-  external double get loopStart;
-  external set loopEnd(double value);
-  external double get loopEnd;
+  external set loopStart(num value);
+  external num get loopStart;
+  external set loopEnd(num value);
+  external num get loopEnd;
 }
 
 @JS()
@@ -511,27 +511,27 @@ extension AudioBufferSourceNodeExtension on AudioBufferSourceNode {
 class AudioBufferSourceOptions implements JSObject {
   external factory AudioBufferSourceOptions({
     AudioBuffer? buffer,
-    double detune,
+    num detune,
     bool loop,
-    double loopEnd,
-    double loopStart,
-    double playbackRate,
+    num loopEnd,
+    num loopStart,
+    num playbackRate,
   });
 }
 
 extension AudioBufferSourceOptionsExtension on AudioBufferSourceOptions {
   external set buffer(AudioBuffer? value);
   external AudioBuffer? get buffer;
-  external set detune(double value);
-  external double get detune;
+  external set detune(num value);
+  external num get detune;
   external set loop(bool value);
   external bool get loop;
-  external set loopEnd(double value);
-  external double get loopEnd;
-  external set loopStart(double value);
-  external double get loopStart;
-  external set playbackRate(double value);
-  external double get playbackRate;
+  external set loopEnd(num value);
+  external num get loopEnd;
+  external set loopStart(num value);
+  external num get loopStart;
+  external set playbackRate(num value);
+  external num get playbackRate;
 }
 
 @JS('AudioDestinationNode')
@@ -548,17 +548,17 @@ class AudioListener implements JSObject {}
 
 extension AudioListenerExtension on AudioListener {
   external JSVoid setPosition(
-    double x,
-    double y,
-    double z,
+    num x,
+    num y,
+    num z,
   );
   external JSVoid setOrientation(
-    double x,
-    double y,
-    double z,
-    double xUp,
-    double yUp,
-    double zUp,
+    num x,
+    num y,
+    num z,
+    num xUp,
+    num yUp,
+    num zUp,
   );
   external AudioParam get positionX;
   external AudioParam get positionY;
@@ -581,7 +581,7 @@ class AudioProcessingEvent implements Event {
 }
 
 extension AudioProcessingEventExtension on AudioProcessingEvent {
-  external double get playbackTime;
+  external num get playbackTime;
   external AudioBuffer get inputBuffer;
   external AudioBuffer get outputBuffer;
 }
@@ -591,15 +591,15 @@ extension AudioProcessingEventExtension on AudioProcessingEvent {
 @anonymous
 class AudioProcessingEventInit implements EventInit {
   external factory AudioProcessingEventInit({
-    required double playbackTime,
+    required num playbackTime,
     required AudioBuffer inputBuffer,
     required AudioBuffer outputBuffer,
   });
 }
 
 extension AudioProcessingEventInitExtension on AudioProcessingEventInit {
-  external set playbackTime(double value);
-  external double get playbackTime;
+  external set playbackTime(num value);
+  external num get playbackTime;
   external set inputBuffer(AudioBuffer value);
   external AudioBuffer get inputBuffer;
   external set outputBuffer(AudioBuffer value);
@@ -635,24 +635,24 @@ extension BiquadFilterNodeExtension on BiquadFilterNode {
 class BiquadFilterOptions implements AudioNodeOptions {
   external factory BiquadFilterOptions({
     BiquadFilterType type,
-    double Q,
-    double detune,
-    double frequency,
-    double gain,
+    num Q,
+    num detune,
+    num frequency,
+    num gain,
   });
 }
 
 extension BiquadFilterOptionsExtension on BiquadFilterOptions {
   external set type(BiquadFilterType value);
   external BiquadFilterType get type;
-  external set Q(double value);
-  external double get Q;
-  external set detune(double value);
-  external double get detune;
-  external set frequency(double value);
-  external double get frequency;
-  external set gain(double value);
-  external double get gain;
+  external set Q(num value);
+  external num get Q;
+  external set detune(num value);
+  external num get detune;
+  external set frequency(num value);
+  external num get frequency;
+  external set gain(num value);
+  external num get gain;
 }
 
 @JS('ChannelMergerNode')
@@ -714,12 +714,12 @@ extension ConstantSourceNodeExtension on ConstantSourceNode {
 @staticInterop
 @anonymous
 class ConstantSourceOptions implements JSObject {
-  external factory ConstantSourceOptions({double offset});
+  external factory ConstantSourceOptions({num offset});
 }
 
 extension ConstantSourceOptionsExtension on ConstantSourceOptions {
-  external set offset(double value);
-  external double get offset;
+  external set offset(num value);
+  external num get offset;
 }
 
 @JS('ConvolverNode')
@@ -773,16 +773,16 @@ extension DelayNodeExtension on DelayNode {
 @anonymous
 class DelayOptions implements AudioNodeOptions {
   external factory DelayOptions({
-    double maxDelayTime,
-    double delayTime,
+    num maxDelayTime,
+    num delayTime,
   });
 }
 
 extension DelayOptionsExtension on DelayOptions {
-  external set maxDelayTime(double value);
-  external double get maxDelayTime;
-  external set delayTime(double value);
-  external double get delayTime;
+  external set maxDelayTime(num value);
+  external num get maxDelayTime;
+  external set delayTime(num value);
+  external num get delayTime;
 }
 
 @JS('DynamicsCompressorNode')
@@ -798,7 +798,7 @@ extension DynamicsCompressorNodeExtension on DynamicsCompressorNode {
   external AudioParam get threshold;
   external AudioParam get knee;
   external AudioParam get ratio;
-  external double get reduction;
+  external num get reduction;
   external AudioParam get attack;
   external AudioParam get release;
 }
@@ -808,25 +808,25 @@ extension DynamicsCompressorNodeExtension on DynamicsCompressorNode {
 @anonymous
 class DynamicsCompressorOptions implements AudioNodeOptions {
   external factory DynamicsCompressorOptions({
-    double attack,
-    double knee,
-    double ratio,
-    double release,
-    double threshold,
+    num attack,
+    num knee,
+    num ratio,
+    num release,
+    num threshold,
   });
 }
 
 extension DynamicsCompressorOptionsExtension on DynamicsCompressorOptions {
-  external set attack(double value);
-  external double get attack;
-  external set knee(double value);
-  external double get knee;
-  external set ratio(double value);
-  external double get ratio;
-  external set release(double value);
-  external double get release;
-  external set threshold(double value);
-  external double get threshold;
+  external set attack(num value);
+  external num get attack;
+  external set knee(num value);
+  external num get knee;
+  external set ratio(num value);
+  external num get ratio;
+  external set release(num value);
+  external num get release;
+  external set threshold(num value);
+  external num get threshold;
 }
 
 @JS('GainNode')
@@ -846,12 +846,12 @@ extension GainNodeExtension on GainNode {
 @staticInterop
 @anonymous
 class GainOptions implements AudioNodeOptions {
-  external factory GainOptions({double gain});
+  external factory GainOptions({num gain});
 }
 
 extension GainOptionsExtension on GainOptions {
-  external set gain(double value);
-  external double get gain;
+  external set gain(num value);
+  external num get gain;
 }
 
 @JS('IIRFilterNode')
@@ -1002,8 +1002,8 @@ extension OscillatorNodeExtension on OscillatorNode {
 class OscillatorOptions implements AudioNodeOptions {
   external factory OscillatorOptions({
     OscillatorType type,
-    double frequency,
-    double detune,
+    num frequency,
+    num detune,
     PeriodicWave periodicWave,
   });
 }
@@ -1011,10 +1011,10 @@ class OscillatorOptions implements AudioNodeOptions {
 extension OscillatorOptionsExtension on OscillatorOptions {
   external set type(OscillatorType value);
   external OscillatorType get type;
-  external set frequency(double value);
-  external double get frequency;
-  external set detune(double value);
-  external double get detune;
+  external set frequency(num value);
+  external num get frequency;
+  external set detune(num value);
+  external num get detune;
   external set periodicWave(PeriodicWave value);
   external PeriodicWave get periodicWave;
 }
@@ -1030,14 +1030,14 @@ class PannerNode implements AudioNode {
 
 extension PannerNodeExtension on PannerNode {
   external JSVoid setPosition(
-    double x,
-    double y,
-    double z,
+    num x,
+    num y,
+    num z,
   );
   external JSVoid setOrientation(
-    double x,
-    double y,
-    double z,
+    num x,
+    num y,
+    num z,
   );
   external set panningModel(PanningModelType value);
   external PanningModelType get panningModel;
@@ -1049,18 +1049,18 @@ extension PannerNodeExtension on PannerNode {
   external AudioParam get orientationZ;
   external set distanceModel(DistanceModelType value);
   external DistanceModelType get distanceModel;
-  external set refDistance(double value);
-  external double get refDistance;
-  external set maxDistance(double value);
-  external double get maxDistance;
-  external set rolloffFactor(double value);
-  external double get rolloffFactor;
-  external set coneInnerAngle(double value);
-  external double get coneInnerAngle;
-  external set coneOuterAngle(double value);
-  external double get coneOuterAngle;
-  external set coneOuterGain(double value);
-  external double get coneOuterGain;
+  external set refDistance(num value);
+  external num get refDistance;
+  external set maxDistance(num value);
+  external num get maxDistance;
+  external set rolloffFactor(num value);
+  external num get rolloffFactor;
+  external set coneInnerAngle(num value);
+  external num get coneInnerAngle;
+  external set coneOuterAngle(num value);
+  external num get coneOuterAngle;
+  external set coneOuterGain(num value);
+  external num get coneOuterGain;
 }
 
 @JS()
@@ -1070,18 +1070,18 @@ class PannerOptions implements AudioNodeOptions {
   external factory PannerOptions({
     PanningModelType panningModel,
     DistanceModelType distanceModel,
-    double positionX,
-    double positionY,
-    double positionZ,
-    double orientationX,
-    double orientationY,
-    double orientationZ,
-    double refDistance,
-    double maxDistance,
-    double rolloffFactor,
-    double coneInnerAngle,
-    double coneOuterAngle,
-    double coneOuterGain,
+    num positionX,
+    num positionY,
+    num positionZ,
+    num orientationX,
+    num orientationY,
+    num orientationZ,
+    num refDistance,
+    num maxDistance,
+    num rolloffFactor,
+    num coneInnerAngle,
+    num coneOuterAngle,
+    num coneOuterGain,
   });
 }
 
@@ -1090,30 +1090,30 @@ extension PannerOptionsExtension on PannerOptions {
   external PanningModelType get panningModel;
   external set distanceModel(DistanceModelType value);
   external DistanceModelType get distanceModel;
-  external set positionX(double value);
-  external double get positionX;
-  external set positionY(double value);
-  external double get positionY;
-  external set positionZ(double value);
-  external double get positionZ;
-  external set orientationX(double value);
-  external double get orientationX;
-  external set orientationY(double value);
-  external double get orientationY;
-  external set orientationZ(double value);
-  external double get orientationZ;
-  external set refDistance(double value);
-  external double get refDistance;
-  external set maxDistance(double value);
-  external double get maxDistance;
-  external set rolloffFactor(double value);
-  external double get rolloffFactor;
-  external set coneInnerAngle(double value);
-  external double get coneInnerAngle;
-  external set coneOuterAngle(double value);
-  external double get coneOuterAngle;
-  external set coneOuterGain(double value);
-  external double get coneOuterGain;
+  external set positionX(num value);
+  external num get positionX;
+  external set positionY(num value);
+  external num get positionY;
+  external set positionZ(num value);
+  external num get positionZ;
+  external set orientationX(num value);
+  external num get orientationX;
+  external set orientationY(num value);
+  external num get orientationY;
+  external set orientationZ(num value);
+  external num get orientationZ;
+  external set refDistance(num value);
+  external num get refDistance;
+  external set maxDistance(num value);
+  external num get maxDistance;
+  external set rolloffFactor(num value);
+  external num get rolloffFactor;
+  external set coneInnerAngle(num value);
+  external num get coneInnerAngle;
+  external set coneOuterAngle(num value);
+  external num get coneOuterAngle;
+  external set coneOuterGain(num value);
+  external num get coneOuterGain;
 }
 
 @JS('PeriodicWave')
@@ -1181,12 +1181,12 @@ extension StereoPannerNodeExtension on StereoPannerNode {
 @staticInterop
 @anonymous
 class StereoPannerOptions implements AudioNodeOptions {
-  external factory StereoPannerOptions({double pan});
+  external factory StereoPannerOptions({num pan});
 }
 
 extension StereoPannerOptionsExtension on StereoPannerOptions {
-  external set pan(double value);
-  external double get pan;
+  external set pan(num value);
+  external num get pan;
 }
 
 @JS('WaveShaperNode')
@@ -1240,8 +1240,8 @@ extension AudioWorkletGlobalScopeExtension on AudioWorkletGlobalScope {
     AudioWorkletProcessorConstructor processorCtor,
   );
   external int get currentFrame;
-  external double get currentTime;
-  external double get sampleRate;
+  external num get currentTime;
+  external num get sampleRate;
   external MessagePort get port;
 }
 
@@ -1310,9 +1310,9 @@ extension AudioWorkletProcessorExtension on AudioWorkletProcessor {
 class AudioParamDescriptor implements JSObject {
   external factory AudioParamDescriptor({
     required String name,
-    double defaultValue,
-    double minValue,
-    double maxValue,
+    num defaultValue,
+    num minValue,
+    num maxValue,
     AutomationRate automationRate,
   });
 }
@@ -1320,12 +1320,12 @@ class AudioParamDescriptor implements JSObject {
 extension AudioParamDescriptorExtension on AudioParamDescriptor {
   external set name(String value);
   external String get name;
-  external set defaultValue(double value);
-  external double get defaultValue;
-  external set minValue(double value);
-  external double get minValue;
-  external set maxValue(double value);
-  external double get maxValue;
+  external set defaultValue(num value);
+  external num get defaultValue;
+  external set minValue(num value);
+  external num get minValue;
+  external set maxValue(num value);
+  external num get maxValue;
   external set automationRate(AutomationRate value);
   external AutomationRate get automationRate;
 }

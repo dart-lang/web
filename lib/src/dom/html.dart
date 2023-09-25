@@ -955,7 +955,7 @@ extension HTMLMediaElementExtension on HTMLMediaElement {
   external JSPromise setMediaKeys(MediaKeys? mediaKeys);
   external JSVoid load();
   external CanPlayTypeResult canPlayType(String type);
-  external JSVoid fastSeek(double time);
+  external JSVoid fastSeek(num time);
   external JSObject getStartDate();
   external JSPromise play();
   external JSVoid pause();
@@ -985,14 +985,14 @@ extension HTMLMediaElementExtension on HTMLMediaElement {
   external TimeRanges get buffered;
   external int get readyState;
   external bool get seeking;
-  external set currentTime(double value);
-  external double get currentTime;
-  external double get duration;
+  external set currentTime(num value);
+  external num get currentTime;
+  external num get duration;
   external bool get paused;
-  external set defaultPlaybackRate(double value);
-  external double get defaultPlaybackRate;
-  external set playbackRate(double value);
-  external double get playbackRate;
+  external set defaultPlaybackRate(num value);
+  external num get defaultPlaybackRate;
+  external set playbackRate(num value);
+  external num get playbackRate;
   external set preservesPitch(bool value);
   external bool get preservesPitch;
   external TimeRanges get played;
@@ -1004,8 +1004,8 @@ extension HTMLMediaElementExtension on HTMLMediaElement {
   external bool get loop;
   external set controls(bool value);
   external bool get controls;
-  external set volume(double value);
-  external double get volume;
+  external set volume(num value);
+  external num get volume;
   external set muted(bool value);
   external bool get muted;
   external set defaultMuted(bool value);
@@ -1144,10 +1144,10 @@ extension TextTrackCueExtension on TextTrackCue {
   external TextTrack? get track;
   external set id(String value);
   external String get id;
-  external set startTime(double value);
-  external double get startTime;
-  external set endTime(double value);
-  external double get endTime;
+  external set startTime(num value);
+  external num get startTime;
+  external set endTime(num value);
+  external num get endTime;
   external set pauseOnExit(bool value);
   external bool get pauseOnExit;
   external set onenter(EventHandler value);
@@ -1161,8 +1161,8 @@ extension TextTrackCueExtension on TextTrackCue {
 class TimeRanges implements JSObject {}
 
 extension TimeRangesExtension on TimeRanges {
-  external double start(int index);
-  external double end(int index);
+  external num start(int index);
+  external num end(int index);
   external int get length;
 }
 
@@ -1535,8 +1535,8 @@ extension HTMLInputElementExtension on HTMLInputElement {
   external String get value;
   external set valueAsDate(JSObject? value);
   external JSObject? get valueAsDate;
-  external set valueAsNumber(double value);
-  external double get valueAsNumber;
+  external set valueAsNumber(num value);
+  external num get valueAsNumber;
   external set width(int value);
   external int get width;
   external bool get willValidate;
@@ -1778,11 +1778,11 @@ class HTMLProgressElement implements HTMLElement {
 }
 
 extension HTMLProgressElementExtension on HTMLProgressElement {
-  external set value(double value);
-  external double get value;
-  external set max(double value);
-  external double get max;
-  external double get position;
+  external set value(num value);
+  external num get value;
+  external set max(num value);
+  external num get max;
+  external num get position;
   external NodeList get labels;
 }
 
@@ -1793,18 +1793,18 @@ class HTMLMeterElement implements HTMLElement {
 }
 
 extension HTMLMeterElementExtension on HTMLMeterElement {
-  external set value(double value);
-  external double get value;
-  external set min(double value);
-  external double get min;
-  external set max(double value);
-  external double get max;
-  external set low(double value);
-  external double get low;
-  external set high(double value);
-  external double get high;
-  external set optimum(double value);
-  external double get optimum;
+  external set value(num value);
+  external num get value;
+  external set min(num value);
+  external num get min;
+  external set max(num value);
+  external num get max;
+  external set low(num value);
+  external num get low;
+  external set high(num value);
+  external num get high;
+  external set optimum(num value);
+  external num get optimum;
   external NodeList get labels;
 }
 
@@ -2032,7 +2032,7 @@ extension HTMLCanvasElementExtension on HTMLCanvasElement {
     JSAny? quality,
   ]);
   external OffscreenCanvas transferControlToOffscreen();
-  external MediaStream captureStream([double frameRequestRate]);
+  external MediaStream captureStream([num frameRequestRate]);
   external set width(int value);
   external int get width;
   external set height(int value);
@@ -2106,30 +2106,30 @@ class CanvasTransform implements JSObject {}
 
 extension CanvasTransformExtension on CanvasTransform {
   external JSVoid scale(
-    double x,
-    double y,
+    num x,
+    num y,
   );
-  external JSVoid rotate(double angle);
+  external JSVoid rotate(num angle);
   external JSVoid translate(
-    double x,
-    double y,
+    num x,
+    num y,
   );
   external JSVoid transform(
-    double a,
-    double b,
-    double c,
-    double d,
-    double e,
-    double f,
+    num a,
+    num b,
+    num c,
+    num d,
+    num e,
+    num f,
   );
   external DOMMatrix getTransform();
   external JSVoid setTransform([
     JSAny? aOrTransform,
-    double b,
-    double c,
-    double d,
-    double e,
-    double f,
+    num b,
+    num c,
+    num d,
+    num e,
+    num f,
   ]);
   external JSVoid resetTransform();
 }
@@ -2139,8 +2139,8 @@ extension CanvasTransformExtension on CanvasTransform {
 class CanvasCompositing implements JSObject {}
 
 extension CanvasCompositingExtension on CanvasCompositing {
-  external set globalAlpha(double value);
-  external double get globalAlpha;
+  external set globalAlpha(num value);
+  external num get globalAlpha;
   external set globalCompositeOperation(String value);
   external String get globalCompositeOperation;
 }
@@ -2162,23 +2162,23 @@ class CanvasFillStrokeStyles implements JSObject {}
 
 extension CanvasFillStrokeStylesExtension on CanvasFillStrokeStyles {
   external CanvasGradient createLinearGradient(
-    double x0,
-    double y0,
-    double x1,
-    double y1,
+    num x0,
+    num y0,
+    num x1,
+    num y1,
   );
   external CanvasGradient createRadialGradient(
-    double x0,
-    double y0,
-    double r0,
-    double x1,
-    double y1,
-    double r1,
+    num x0,
+    num y0,
+    num r0,
+    num x1,
+    num y1,
+    num r1,
   );
   external CanvasGradient createConicGradient(
-    double startAngle,
-    double x,
-    double y,
+    num startAngle,
+    num x,
+    num y,
   );
   external CanvasPattern? createPattern(
     CanvasImageSource image,
@@ -2195,12 +2195,12 @@ extension CanvasFillStrokeStylesExtension on CanvasFillStrokeStyles {
 class CanvasShadowStyles implements JSObject {}
 
 extension CanvasShadowStylesExtension on CanvasShadowStyles {
-  external set shadowOffsetX(double value);
-  external double get shadowOffsetX;
-  external set shadowOffsetY(double value);
-  external double get shadowOffsetY;
-  external set shadowBlur(double value);
-  external double get shadowBlur;
+  external set shadowOffsetX(num value);
+  external num get shadowOffsetX;
+  external set shadowOffsetY(num value);
+  external num get shadowOffsetY;
+  external set shadowBlur(num value);
+  external num get shadowBlur;
   external set shadowColor(String value);
   external String get shadowColor;
 }
@@ -2220,22 +2220,22 @@ class CanvasRect implements JSObject {}
 
 extension CanvasRectExtension on CanvasRect {
   external JSVoid clearRect(
-    double x,
-    double y,
-    double w,
-    double h,
+    num x,
+    num y,
+    num w,
+    num h,
   );
   external JSVoid fillRect(
-    double x,
-    double y,
-    double w,
-    double h,
+    num x,
+    num y,
+    num w,
+    num h,
   );
   external JSVoid strokeRect(
-    double x,
-    double y,
-    double w,
-    double h,
+    num x,
+    num y,
+    num w,
+    num h,
   );
 }
 
@@ -2256,14 +2256,14 @@ extension CanvasDrawPathExtension on CanvasDrawPath {
   ]);
   external bool isPointInPath(
     JSAny? pathOrX,
-    double xOrY, [
+    num xOrY, [
     JSAny? fillRuleOrY,
     CanvasFillRule fillRule,
   ]);
   external bool isPointInStroke(
     JSAny? pathOrX,
-    double xOrY, [
-    double y,
+    num xOrY, [
+    num y,
   ]);
 }
 
@@ -2286,15 +2286,15 @@ class CanvasText implements JSObject {}
 extension CanvasTextExtension on CanvasText {
   external JSVoid fillText(
     String text,
-    double x,
-    double y, [
-    double maxWidth,
+    num x,
+    num y, [
+    num maxWidth,
   ]);
   external JSVoid strokeText(
     String text,
-    double x,
-    double y, [
-    double maxWidth,
+    num x,
+    num y, [
+    num maxWidth,
   ]);
   external TextMetrics measureText(String text);
 }
@@ -2306,14 +2306,14 @@ class CanvasDrawImage implements JSObject {}
 extension CanvasDrawImageExtension on CanvasDrawImage {
   external JSVoid drawImage(
     CanvasImageSource image,
-    double dxOrSx,
-    double dyOrSy, [
-    double dwOrSw,
-    double dhOrSh,
-    double dx,
-    double dy,
-    double dw,
-    double dh,
+    num dxOrSx,
+    num dyOrSy, [
+    num dwOrSw,
+    num dhOrSh,
+    num dx,
+    num dy,
+    num dw,
+    num dh,
   ]);
 }
 
@@ -2352,16 +2352,16 @@ class CanvasPathDrawingStyles implements JSObject {}
 extension CanvasPathDrawingStylesExtension on CanvasPathDrawingStyles {
   external JSVoid setLineDash(JSArray segments);
   external JSArray getLineDash();
-  external set lineWidth(double value);
-  external double get lineWidth;
+  external set lineWidth(num value);
+  external num get lineWidth;
   external set lineCap(CanvasLineCap value);
   external CanvasLineCap get lineCap;
   external set lineJoin(CanvasLineJoin value);
   external CanvasLineJoin get lineJoin;
-  external set miterLimit(double value);
-  external double get miterLimit;
-  external set lineDashOffset(double value);
-  external double get lineDashOffset;
+  external set miterLimit(num value);
+  external num get miterLimit;
+  external set lineDashOffset(num value);
+  external num get lineDashOffset;
 }
 
 @JS('CanvasTextDrawingStyles')
@@ -2398,63 +2398,63 @@ class CanvasPath implements JSObject {}
 extension CanvasPathExtension on CanvasPath {
   external JSVoid closePath();
   external JSVoid moveTo(
-    double x,
-    double y,
+    num x,
+    num y,
   );
   external JSVoid lineTo(
-    double x,
-    double y,
+    num x,
+    num y,
   );
   external JSVoid quadraticCurveTo(
-    double cpx,
-    double cpy,
-    double x,
-    double y,
+    num cpx,
+    num cpy,
+    num x,
+    num y,
   );
   external JSVoid bezierCurveTo(
-    double cp1x,
-    double cp1y,
-    double cp2x,
-    double cp2y,
-    double x,
-    double y,
+    num cp1x,
+    num cp1y,
+    num cp2x,
+    num cp2y,
+    num x,
+    num y,
   );
   external JSVoid arcTo(
-    double x1,
-    double y1,
-    double x2,
-    double y2,
-    double radius,
+    num x1,
+    num y1,
+    num x2,
+    num y2,
+    num radius,
   );
   external JSVoid rect(
-    double x,
-    double y,
-    double w,
-    double h,
+    num x,
+    num y,
+    num w,
+    num h,
   );
   external JSVoid roundRect(
-    double x,
-    double y,
-    double w,
-    double h, [
+    num x,
+    num y,
+    num w,
+    num h, [
     JSAny? radii,
   ]);
   external JSVoid arc(
-    double x,
-    double y,
-    double radius,
-    double startAngle,
-    double endAngle, [
+    num x,
+    num y,
+    num radius,
+    num startAngle,
+    num endAngle, [
     bool counterclockwise,
   ]);
   external JSVoid ellipse(
-    double x,
-    double y,
-    double radiusX,
-    double radiusY,
-    double rotation,
-    double startAngle,
-    double endAngle, [
+    num x,
+    num y,
+    num radiusX,
+    num radiusY,
+    num rotation,
+    num startAngle,
+    num endAngle, [
     bool counterclockwise,
   ]);
 }
@@ -2465,7 +2465,7 @@ class CanvasGradient implements JSObject {}
 
 extension CanvasGradientExtension on CanvasGradient {
   external JSVoid addColorStop(
-    double offset,
+    num offset,
     String color,
   );
 }
@@ -2483,18 +2483,18 @@ extension CanvasPatternExtension on CanvasPattern {
 class TextMetrics implements JSObject {}
 
 extension TextMetricsExtension on TextMetrics {
-  external double get width;
-  external double get actualBoundingBoxLeft;
-  external double get actualBoundingBoxRight;
-  external double get fontBoundingBoxAscent;
-  external double get fontBoundingBoxDescent;
-  external double get actualBoundingBoxAscent;
-  external double get actualBoundingBoxDescent;
-  external double get emHeightAscent;
-  external double get emHeightDescent;
-  external double get hangingBaseline;
-  external double get alphabeticBaseline;
-  external double get ideographicBaseline;
+  external num get width;
+  external num get actualBoundingBoxLeft;
+  external num get actualBoundingBoxRight;
+  external num get fontBoundingBoxAscent;
+  external num get fontBoundingBoxDescent;
+  external num get actualBoundingBoxAscent;
+  external num get actualBoundingBoxDescent;
+  external num get emHeightAscent;
+  external num get emHeightDescent;
+  external num get hangingBaseline;
+  external num get alphabeticBaseline;
+  external num get ideographicBaseline;
 }
 
 @JS()
@@ -2568,15 +2568,15 @@ extension ImageBitmapRenderingContextSettingsExtension
 class ImageEncodeOptions implements JSObject {
   external factory ImageEncodeOptions({
     String type,
-    double quality,
+    num quality,
   });
 }
 
 extension ImageEncodeOptionsExtension on ImageEncodeOptions {
   external set type(String value);
   external String get type;
-  external set quality(double value);
-  external double get quality;
+  external set quality(num value);
+  external num get quality;
 }
 
 @JS('OffscreenCanvas')
@@ -2937,15 +2937,15 @@ extension WindowExtension on Window {
   );
   external JSVoid scroll([
     JSAny? optionsOrX,
-    double y,
+    num y,
   ]);
   external JSVoid scrollTo([
     JSAny? optionsOrX,
-    double y,
+    num y,
   ]);
   external JSVoid scrollBy([
     JSAny? optionsOrX,
-    double y,
+    num y,
   ]);
   external CSSStyleDeclaration getComputedStyle(
     Element elt, [
@@ -2994,17 +2994,17 @@ extension WindowExtension on Window {
   external VisualViewport? get visualViewport;
   external int get innerWidth;
   external int get innerHeight;
-  external double get scrollX;
-  external double get pageXOffset;
-  external double get scrollY;
-  external double get pageYOffset;
+  external num get scrollX;
+  external num get pageXOffset;
+  external num get scrollY;
+  external num get pageYOffset;
   external int get screenX;
   external int get screenLeft;
   external int get screenY;
   external int get screenTop;
   external int get outerWidth;
   external int get outerHeight;
-  external double get devicePixelRatio;
+  external num get devicePixelRatio;
   external DocumentPictureInPicture get documentPictureInPicture;
   external JSAny? get event;
   external Fence? get fence;

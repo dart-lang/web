@@ -530,8 +530,8 @@ class RTCRtpEncodingParameters implements RTCRtpCodingParameters {
     String scalabilityMode,
     bool active,
     int maxBitrate,
-    double maxFramerate,
-    double scaleResolutionDownBy,
+    num maxFramerate,
+    num scaleResolutionDownBy,
   });
 }
 
@@ -546,10 +546,10 @@ extension RTCRtpEncodingParametersExtension on RTCRtpEncodingParameters {
   external bool get active;
   external set maxBitrate(int value);
   external int get maxBitrate;
-  external set maxFramerate(double value);
-  external double get maxFramerate;
-  external set scaleResolutionDownBy(double value);
-  external double get scaleResolutionDownBy;
+  external set maxFramerate(num value);
+  external num get maxFramerate;
+  external set scaleResolutionDownBy(num value);
+  external num get scaleResolutionDownBy;
 }
 
 @JS()
@@ -693,7 +693,7 @@ class RTCRtpContributingSource implements JSObject {
   external factory RTCRtpContributingSource({
     required DOMHighResTimeStamp timestamp,
     required int source,
-    double audioLevel,
+    num audioLevel,
     required int rtpTimestamp,
   });
 }
@@ -703,8 +703,8 @@ extension RTCRtpContributingSourceExtension on RTCRtpContributingSource {
   external DOMHighResTimeStamp get timestamp;
   external set source(int value);
   external int get source;
-  external set audioLevel(double value);
-  external double get audioLevel;
+  external set audioLevel(num value);
+  external num get audioLevel;
   external set rtpTimestamp(int value);
   external int get rtpTimestamp;
 }
@@ -880,7 +880,7 @@ class RTCSctpTransport implements EventTarget {}
 extension RTCSctpTransportExtension on RTCSctpTransport {
   external RTCDtlsTransport get transport;
   external RTCSctpTransportState get state;
-  external double get maxMessageSize;
+  external num get maxMessageSize;
   external int? get maxChannels;
   external set onstatechange(EventHandler value);
   external EventHandler get onstatechange;

@@ -368,7 +368,7 @@ class WrappedEvent {
 
   html.EventTarget? get target => wrapped.target;
 
-  double get timeStamp => wrapped.timeStamp;
+  double get timeStamp => wrapped.timeStamp.toDouble();
 
   String get type => wrapped.type;
 

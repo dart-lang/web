@@ -91,19 +91,19 @@ extension MediaImageExtension on MediaImage {
 @anonymous
 class MediaPositionState implements JSObject {
   external factory MediaPositionState({
-    double duration,
-    double playbackRate,
-    double position,
+    num duration,
+    num playbackRate,
+    num position,
   });
 }
 
 extension MediaPositionStateExtension on MediaPositionState {
-  external set duration(double value);
-  external double get duration;
-  external set playbackRate(double value);
-  external double get playbackRate;
-  external set position(double value);
-  external double get position;
+  external set duration(num value);
+  external num get duration;
+  external set playbackRate(num value);
+  external num get playbackRate;
+  external set position(num value);
+  external num get position;
 }
 
 @JS()
@@ -112,8 +112,8 @@ extension MediaPositionStateExtension on MediaPositionState {
 class MediaSessionActionDetails implements JSObject {
   external factory MediaSessionActionDetails({
     required MediaSessionAction action,
-    double seekOffset,
-    double seekTime,
+    num seekOffset,
+    num seekTime,
     bool fastSeek,
   });
 }
@@ -121,10 +121,10 @@ class MediaSessionActionDetails implements JSObject {
 extension MediaSessionActionDetailsExtension on MediaSessionActionDetails {
   external set action(MediaSessionAction value);
   external MediaSessionAction get action;
-  external set seekOffset(double value);
-  external double get seekOffset;
-  external set seekTime(double value);
-  external double get seekTime;
+  external set seekOffset(num value);
+  external num get seekOffset;
+  external set seekTime(num value);
+  external num get seekTime;
   external set fastSeek(bool value);
   external bool get fastSeek;
 }

@@ -32,6 +32,6 @@ extension ScreenDetailedExtension on ScreenDetailed {
   external int get top;
   external bool get isPrimary;
   external bool get isInternal;
-  external double get devicePixelRatio;
+  external num get devicePixelRatio;
   external String get label;
 }

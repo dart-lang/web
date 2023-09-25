@@ -109,9 +109,9 @@ class FontFaceVariationAxis implements JSObject {}
 extension FontFaceVariationAxisExtension on FontFaceVariationAxis {
   external String get name;
   external String get axisTag;
-  external double get minimumValue;
-  external double get maximumValue;
-  external double get defaultValue;
+  external num get minimumValue;
+  external num get maximumValue;
+  external num get defaultValue;
 }
 
 @JS('FontFaceVariations')

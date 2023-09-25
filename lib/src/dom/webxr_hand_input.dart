@@ -30,5 +30,5 @@ extension XRJointSpaceExtension on XRJointSpace {
 class XRJointPose implements XRPose {}
 
 extension XRJointPoseExtension on XRJointPose {
-  external double get radius;
+  external num get radius;
 }

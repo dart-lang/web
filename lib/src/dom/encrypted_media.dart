@@ -100,7 +100,7 @@ extension MediaKeySessionExtension on MediaKeySession {
   external JSPromise close();
   external JSPromise remove();
   external String get sessionId;
-  external double get expiration;
+  external num get expiration;
   external JSPromise get closed;
   external MediaKeyStatusMap get keyStatuses;
   external set onkeystatuseschange(EventHandler value);

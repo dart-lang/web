@@ -200,7 +200,7 @@ extension ReadableStreamDefaultControllerExtension
   external JSVoid close();
   external JSVoid enqueue([JSAny? chunk]);
   external JSVoid error([JSAny? e]);
-  external double? get desiredSize;
+  external num? get desiredSize;
 }
 
 @JS('ReadableByteStreamController')
@@ -213,7 +213,7 @@ extension ReadableByteStreamControllerExtension
   external JSVoid enqueue(ArrayBufferView chunk);
   external JSVoid error([JSAny? e]);
   external ReadableStreamBYOBRequest? get byobRequest;
-  external double? get desiredSize;
+  external num? get desiredSize;
 }
 
 @JS('ReadableStreamBYOBRequest')
@@ -280,7 +280,7 @@ extension WritableStreamDefaultWriterExtension on WritableStreamDefaultWriter {
   external JSVoid releaseLock();
   external JSPromise write([JSAny? chunk]);
   external JSPromise get closed;
-  external double? get desiredSize;
+  external num? get desiredSize;
   external JSPromise get ready;
 }
 
@@ -344,7 +344,7 @@ extension TransformStreamDefaultControllerExtension
   external JSVoid enqueue([JSAny? chunk]);
   external JSVoid error([JSAny? reason]);
   external JSVoid terminate();
-  external double? get desiredSize;
+  external num? get desiredSize;
 }
 
 @JS()
@@ -352,14 +352,14 @@ extension TransformStreamDefaultControllerExtension
 @anonymous
 class QueuingStrategy implements JSObject {
   external factory QueuingStrategy({
-    double highWaterMark,
+    num highWaterMark,
     QueuingStrategySize size,
   });
 }
 
 extension QueuingStrategyExtension on QueuingStrategy {
-  external set highWaterMark(double value);
-  external double get highWaterMark;
+  external set highWaterMark(num value);
+  external num get highWaterMark;
   external set size(QueuingStrategySize value);
   external QueuingStrategySize get size;
 }
@@ -368,12 +368,12 @@ extension QueuingStrategyExtension on QueuingStrategy {
 @staticInterop
 @anonymous
 class QueuingStrategyInit implements JSObject {
-  external factory QueuingStrategyInit({required double highWaterMark});
+  external factory QueuingStrategyInit({required num highWaterMark});
 }
 
 extension QueuingStrategyInitExtension on QueuingStrategyInit {
-  external set highWaterMark(double value);
-  external double get highWaterMark;
+  external set highWaterMark(num value);
+  external num get highWaterMark;
 }
 
 @JS('ByteLengthQueuingStrategy')
@@ -383,7 +383,7 @@ class ByteLengthQueuingStrategy implements JSObject {
 }
 
 extension ByteLengthQueuingStrategyExtension on ByteLengthQueuingStrategy {
-  external double get highWaterMark;
+  external num get highWaterMark;
   external JSFunction get size;
 }
 
@@ -394,7 +394,7 @@ class CountQueuingStrategy implements JSObject {
 }
 
 extension CountQueuingStrategyExtension on CountQueuingStrategy {
-  external double get highWaterMark;
+  external num get highWaterMark;
   external JSFunction get size;
 }
 

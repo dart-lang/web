@@ -449,16 +449,16 @@ class Document
 extension DocumentExtension on Document {
   external ViewTransition startViewTransition([UpdateCallback? updateCallback]);
   external Element? elementFromPoint(
-    double x,
-    double y,
+    num x,
+    num y,
   );
   external JSArray elementsFromPoint(
-    double x,
-    double y,
+    num x,
+    num y,
   );
   external CaretPosition? caretPositionFromPoint(
-    double x,
-    double y,
+    num x,
+    num y,
   );
   external HTMLCollection getElementsByTagName(String qualifiedName);
   external HTMLCollection getElementsByTagNameNS(
@@ -723,15 +723,15 @@ extension ElementExtension on Element {
   external JSVoid scrollIntoView([JSAny? arg]);
   external JSVoid scroll([
     JSAny? optionsOrX,
-    double y,
+    num y,
   ]);
   external JSVoid scrollTo([
     JSAny? optionsOrX,
-    double y,
+    num y,
   ]);
   external JSVoid scrollBy([
     JSAny? optionsOrX,
-    double y,
+    num y,
   ]);
   external bool hasAttributes();
   external JSArray getAttributeNames();
@@ -801,10 +801,10 @@ extension ElementExtension on Element {
   external set outerHTML(String value);
   external String get outerHTML;
   external DOMTokenList get part;
-  external set scrollTop(double value);
-  external double get scrollTop;
-  external set scrollLeft(double value);
-  external double get scrollLeft;
+  external set scrollTop(num value);
+  external num get scrollTop;
+  external set scrollLeft(num value);
+  external num get scrollLeft;
   external int get scrollWidth;
   external int get scrollHeight;
   external int get clientTop;
@@ -1115,7 +1115,7 @@ extension XPathResultExtension on XPathResult {
   external Node? iterateNext();
   external Node? snapshotItem(int index);
   external int get resultType;
-  external double get numberValue;
+  external num get numberValue;
   external String get stringValue;
   external bool get booleanValue;
   external Node? get singleNodeValue;

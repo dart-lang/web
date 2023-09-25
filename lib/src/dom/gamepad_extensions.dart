@@ -20,8 +20,8 @@ extension GamepadHapticActuatorExtension on GamepadHapticActuator {
     GamepadEffectParameters params,
   ]);
   external JSPromise pulse(
-    double value,
-    double duration,
+    num value,
+    num duration,
   );
   external JSPromise reset();
   external GamepadHapticActuatorType get type;
@@ -32,22 +32,22 @@ extension GamepadHapticActuatorExtension on GamepadHapticActuator {
 @anonymous
 class GamepadEffectParameters implements JSObject {
   external factory GamepadEffectParameters({
-    double duration,
-    double startDelay,
-    double strongMagnitude,
-    double weakMagnitude,
+    num duration,
+    num startDelay,
+    num strongMagnitude,
+    num weakMagnitude,
   });
 }
 
 extension GamepadEffectParametersExtension on GamepadEffectParameters {
-  external set duration(double value);
-  external double get duration;
-  external set startDelay(double value);
-  external double get startDelay;
-  external set strongMagnitude(double value);
-  external double get strongMagnitude;
-  external set weakMagnitude(double value);
-  external double get weakMagnitude;
+  external set duration(num value);
+  external num get duration;
+  external set startDelay(num value);
+  external num get startDelay;
+  external set strongMagnitude(num value);
+  external num get strongMagnitude;
+  external set weakMagnitude(num value);
+  external num get weakMagnitude;
 }
 
 @JS('GamepadPose')

@@ -15,7 +15,7 @@ class LayoutShift implements PerformanceEntry {}
 
 extension LayoutShiftExtension on LayoutShift {
   external JSObject toJSON();
-  external double get value;
+  external num get value;
   external bool get hadRecentInput;
   external DOMHighResTimeStamp get lastInputTime;
   external JSArray get sources;

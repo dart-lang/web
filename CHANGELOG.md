@@ -1,3 +1,8 @@
+## 0.2.3-wip
+
+- Fixed a bug where `typedef`s were not declared with the IDL type's
+  nullability.
+
 ## 0.2.2-beta
 
 - Updates SDK version minimum to 3.2.0-194.0.dev.

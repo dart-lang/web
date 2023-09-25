@@ -346,9 +346,10 @@ class Translator {
     }
   }
 
-  code.TypeDef _typedef(String name, String type) => code.TypeDef((b) => b
-    ..name = name
-    ..definition = _typeReference(type));
+  code.TypeDef _typedef(String name, String type, bool nullable) =>
+      code.TypeDef((b) => b
+        ..name = name
+        ..definition = _typeReference(type, isNullable: nullable));
 
   code.Method _topLevelGetter(String dartName, String getterName) =>
       code.Method((b) => b
@@ -674,17 +675,19 @@ class Translator {
     ..comments.addAll(licenseHeader)
     ..body.addAll([
       for (final typedef in library.typedefs)
-        _typedef(typedef.name.toDart, _typeRaw(typedef.idlType)),
+        _typedef(typedef.name.toDart, _typeRaw(typedef.idlType),
+            typedef.idlType.nullable.toDart),
       // TODO(joshualitt): We should lower callbacks and callback interfaces to
       // a Dart function that takes a typed Dart function, and returns an
       // JSFunction.
       for (final callback in library.callbacks)
-        _typedef(callback.name.toDart, 'JSFunction'),
+        _typedef(callback.name.toDart, 'JSFunction', false),
       for (final callbackInterface in library.callbackInterfaces)
-        _typedef(callbackInterface.name.toDart, 'JSFunction'),
+        _typedef(callbackInterface.name.toDart, 'JSFunction', false),
       // TODO(joshualitt): Enums in the WebIDL are just strings, but we could
       // make them easier to work with on the Dart side.
-      for (final enum_ in library.enums) _typedef(enum_.name.toDart, 'String'),
+      for (final enum_ in library.enums)
+        _typedef(enum_.name.toDart, 'String', false),
       for (final interfacelike in library.interfacelikes)
         ..._interfacelike(interfacelike),
     ]));

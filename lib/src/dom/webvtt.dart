@@ -19,8 +19,8 @@ typedef ScrollSetting = String;
 @staticInterop
 class VTTCue implements TextTrackCue {
   external factory VTTCue(
-    double startTime,
-    double endTime,
+    num startTime,
+    num endTime,
     String text,
   );
 }
@@ -41,8 +41,8 @@ extension VTTCueExtension on VTTCue {
   external LineAndPositionSetting get position;
   external set positionAlign(PositionAlignSetting value);
   external PositionAlignSetting get positionAlign;
-  external set size(double value);
-  external double get size;
+  external set size(num value);
+  external num get size;
   external set align(AlignSetting value);
   external AlignSetting get align;
   external set text(String value);
@@ -58,18 +58,18 @@ class VTTRegion implements JSObject {
 extension VTTRegionExtension on VTTRegion {
   external set id(String value);
   external String get id;
-  external set width(double value);
-  external double get width;
+  external set width(num value);
+  external num get width;
   external set lines(int value);
   external int get lines;
-  external set regionAnchorX(double value);
-  external double get regionAnchorX;
-  external set regionAnchorY(double value);
-  external double get regionAnchorY;
-  external set viewportAnchorX(double value);
-  external double get viewportAnchorX;
-  external set viewportAnchorY(double value);
-  external double get viewportAnchorY;
+  external set regionAnchorX(num value);
+  external num get regionAnchorX;
+  external set regionAnchorY(num value);
+  external num get regionAnchorY;
+  external set viewportAnchorX(num value);
+  external num get viewportAnchorX;
+  external set viewportAnchorY(num value);
+  external num get viewportAnchorY;
   external set scroll(ScrollSetting value);
   external ScrollSetting get scroll;
 }

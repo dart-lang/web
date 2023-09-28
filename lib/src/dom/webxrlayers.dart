@@ -28,8 +28,8 @@ extension XRCompositionLayerExtension on XRCompositionLayer {
   external bool get blendTextureSourceAlpha;
   external set forceMonoPresentation(bool value);
   external bool get forceMonoPresentation;
-  external set opacity(double value);
-  external double get opacity;
+  external set opacity(num value);
+  external num get opacity;
   external int get mipLevels;
   external set quality(XRLayerQuality value);
   external XRLayerQuality get quality;
@@ -45,8 +45,8 @@ extension XRProjectionLayerExtension on XRProjectionLayer {
   external int get textureHeight;
   external int get textureArrayLength;
   external bool get ignoreDepthValues;
-  external set fixedFoveation(double? value);
-  external double? get fixedFoveation;
+  external set fixedFoveation(num? value);
+  external num? get fixedFoveation;
   external set deltaPose(XRRigidTransform? value);
   external XRRigidTransform? get deltaPose;
 }
@@ -60,10 +60,10 @@ extension XRQuadLayerExtension on XRQuadLayer {
   external XRSpace get space;
   external set transform(XRRigidTransform value);
   external XRRigidTransform get transform;
-  external set width(double value);
-  external double get width;
-  external set height(double value);
-  external double get height;
+  external set width(num value);
+  external num get width;
+  external set height(num value);
+  external num get height;
   external set onredraw(EventHandler value);
   external EventHandler get onredraw;
 }
@@ -77,12 +77,12 @@ extension XRCylinderLayerExtension on XRCylinderLayer {
   external XRSpace get space;
   external set transform(XRRigidTransform value);
   external XRRigidTransform get transform;
-  external set radius(double value);
-  external double get radius;
-  external set centralAngle(double value);
-  external double get centralAngle;
-  external set aspectRatio(double value);
-  external double get aspectRatio;
+  external set radius(num value);
+  external num get radius;
+  external set centralAngle(num value);
+  external num get centralAngle;
+  external set aspectRatio(num value);
+  external num get aspectRatio;
   external set onredraw(EventHandler value);
   external EventHandler get onredraw;
 }
@@ -96,14 +96,14 @@ extension XREquirectLayerExtension on XREquirectLayer {
   external XRSpace get space;
   external set transform(XRRigidTransform value);
   external XRRigidTransform get transform;
-  external set radius(double value);
-  external double get radius;
-  external set centralHorizontalAngle(double value);
-  external double get centralHorizontalAngle;
-  external set upperVerticalAngle(double value);
-  external double get upperVerticalAngle;
-  external set lowerVerticalAngle(double value);
-  external double get lowerVerticalAngle;
+  external set radius(num value);
+  external num get radius;
+  external set centralHorizontalAngle(num value);
+  external num get centralHorizontalAngle;
+  external set upperVerticalAngle(num value);
+  external num get upperVerticalAngle;
+  external set lowerVerticalAngle(num value);
+  external num get lowerVerticalAngle;
   external set onredraw(EventHandler value);
   external EventHandler get onredraw;
 }
@@ -154,7 +154,7 @@ class XRProjectionLayerInit implements JSObject {
     XRTextureType textureType,
     GLenum colorFormat,
     GLenum depthFormat,
-    double scaleFactor,
+    num scaleFactor,
     bool clearOnAccess,
   });
 }
@@ -166,8 +166,8 @@ extension XRProjectionLayerInitExtension on XRProjectionLayerInit {
   external GLenum get colorFormat;
   external set depthFormat(GLenum value);
   external GLenum get depthFormat;
-  external set scaleFactor(double value);
-  external double get scaleFactor;
+  external set scaleFactor(num value);
+  external num get scaleFactor;
   external set clearOnAccess(bool value);
   external bool get clearOnAccess;
 }
@@ -217,8 +217,8 @@ class XRQuadLayerInit implements XRLayerInit {
   external factory XRQuadLayerInit({
     XRTextureType textureType,
     XRRigidTransform? transform,
-    double width,
-    double height,
+    num width,
+    num height,
   });
 }
 
@@ -227,10 +227,10 @@ extension XRQuadLayerInitExtension on XRQuadLayerInit {
   external XRTextureType get textureType;
   external set transform(XRRigidTransform? value);
   external XRRigidTransform? get transform;
-  external set width(double value);
-  external double get width;
-  external set height(double value);
-  external double get height;
+  external set width(num value);
+  external num get width;
+  external set height(num value);
+  external num get height;
 }
 
 @JS()
@@ -240,9 +240,9 @@ class XRCylinderLayerInit implements XRLayerInit {
   external factory XRCylinderLayerInit({
     XRTextureType textureType,
     XRRigidTransform? transform,
-    double radius,
-    double centralAngle,
-    double aspectRatio,
+    num radius,
+    num centralAngle,
+    num aspectRatio,
   });
 }
 
@@ -251,12 +251,12 @@ extension XRCylinderLayerInitExtension on XRCylinderLayerInit {
   external XRTextureType get textureType;
   external set transform(XRRigidTransform? value);
   external XRRigidTransform? get transform;
-  external set radius(double value);
-  external double get radius;
-  external set centralAngle(double value);
-  external double get centralAngle;
-  external set aspectRatio(double value);
-  external double get aspectRatio;
+  external set radius(num value);
+  external num get radius;
+  external set centralAngle(num value);
+  external num get centralAngle;
+  external set aspectRatio(num value);
+  external num get aspectRatio;
 }
 
 @JS()
@@ -266,10 +266,10 @@ class XREquirectLayerInit implements XRLayerInit {
   external factory XREquirectLayerInit({
     XRTextureType textureType,
     XRRigidTransform? transform,
-    double radius,
-    double centralHorizontalAngle,
-    double upperVerticalAngle,
-    double lowerVerticalAngle,
+    num radius,
+    num centralHorizontalAngle,
+    num upperVerticalAngle,
+    num lowerVerticalAngle,
   });
 }
 
@@ -278,14 +278,14 @@ extension XREquirectLayerInitExtension on XREquirectLayerInit {
   external XRTextureType get textureType;
   external set transform(XRRigidTransform? value);
   external XRRigidTransform? get transform;
-  external set radius(double value);
-  external double get radius;
-  external set centralHorizontalAngle(double value);
-  external double get centralHorizontalAngle;
-  external set upperVerticalAngle(double value);
-  external double get upperVerticalAngle;
-  external set lowerVerticalAngle(double value);
-  external double get lowerVerticalAngle;
+  external set radius(num value);
+  external num get radius;
+  external set centralHorizontalAngle(num value);
+  external num get centralHorizontalAngle;
+  external set upperVerticalAngle(num value);
+  external num get upperVerticalAngle;
+  external set lowerVerticalAngle(num value);
+  external num get lowerVerticalAngle;
 }
 
 @JS()
@@ -328,7 +328,7 @@ extension XRWebGLBindingExtension on XRWebGLBinding {
     XRProjectionLayer layer,
     XRView view,
   );
-  external double get nativeProjectionScaleFactor;
+  external num get nativeProjectionScaleFactor;
   external bool get usesDepthValues;
 }
 
@@ -358,18 +358,18 @@ extension XRMediaLayerInitExtension on XRMediaLayerInit {
 class XRMediaQuadLayerInit implements XRMediaLayerInit {
   external factory XRMediaQuadLayerInit({
     XRRigidTransform? transform,
-    double? width,
-    double? height,
+    num? width,
+    num? height,
   });
 }
 
 extension XRMediaQuadLayerInitExtension on XRMediaQuadLayerInit {
   external set transform(XRRigidTransform? value);
   external XRRigidTransform? get transform;
-  external set width(double? value);
-  external double? get width;
-  external set height(double? value);
-  external double? get height;
+  external set width(num? value);
+  external num? get width;
+  external set height(num? value);
+  external num? get height;
 }
 
 @JS()
@@ -378,21 +378,21 @@ extension XRMediaQuadLayerInitExtension on XRMediaQuadLayerInit {
 class XRMediaCylinderLayerInit implements XRMediaLayerInit {
   external factory XRMediaCylinderLayerInit({
     XRRigidTransform? transform,
-    double radius,
-    double centralAngle,
-    double? aspectRatio,
+    num radius,
+    num centralAngle,
+    num? aspectRatio,
   });
 }
 
 extension XRMediaCylinderLayerInitExtension on XRMediaCylinderLayerInit {
   external set transform(XRRigidTransform? value);
   external XRRigidTransform? get transform;
-  external set radius(double value);
-  external double get radius;
-  external set centralAngle(double value);
-  external double get centralAngle;
-  external set aspectRatio(double? value);
-  external double? get aspectRatio;
+  external set radius(num value);
+  external num get radius;
+  external set centralAngle(num value);
+  external num get centralAngle;
+  external set aspectRatio(num? value);
+  external num? get aspectRatio;
 }
 
 @JS()
@@ -401,24 +401,24 @@ extension XRMediaCylinderLayerInitExtension on XRMediaCylinderLayerInit {
 class XRMediaEquirectLayerInit implements XRMediaLayerInit {
   external factory XRMediaEquirectLayerInit({
     XRRigidTransform? transform,
-    double radius,
-    double centralHorizontalAngle,
-    double upperVerticalAngle,
-    double lowerVerticalAngle,
+    num radius,
+    num centralHorizontalAngle,
+    num upperVerticalAngle,
+    num lowerVerticalAngle,
   });
 }
 
 extension XRMediaEquirectLayerInitExtension on XRMediaEquirectLayerInit {
   external set transform(XRRigidTransform? value);
   external XRRigidTransform? get transform;
-  external set radius(double value);
-  external double get radius;
-  external set centralHorizontalAngle(double value);
-  external double get centralHorizontalAngle;
-  external set upperVerticalAngle(double value);
-  external double get upperVerticalAngle;
-  external set lowerVerticalAngle(double value);
-  external double get lowerVerticalAngle;
+  external set radius(num value);
+  external num get radius;
+  external set centralHorizontalAngle(num value);
+  external num get centralHorizontalAngle;
+  external set upperVerticalAngle(num value);
+  external num get upperVerticalAngle;
+  external set lowerVerticalAngle(num value);
+  external num get lowerVerticalAngle;
 }
 
 @JS('XRMediaBinding')

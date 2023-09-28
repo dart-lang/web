@@ -39,10 +39,10 @@ const typeAliases = <String, String>{
   'unsigned short': 'int',
   'unsigned long': 'int',
   'unsigned long long': 'int',
-  'float': 'double',
-  'double': 'double',
-  'unrestricted double': 'double',
-  'unrestricted float': 'double',
+  'float': 'num',
+  'double': 'num',
+  'unrestricted double': 'num',
+  'unrestricted float': 'num',
 
   // String aliases.
   'DOMString': 'String',

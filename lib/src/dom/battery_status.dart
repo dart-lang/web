@@ -13,9 +13,9 @@ class BatteryManager implements EventTarget {}
 
 extension BatteryManagerExtension on BatteryManager {
   external bool get charging;
-  external double get chargingTime;
-  external double get dischargingTime;
-  external double get level;
+  external num get chargingTime;
+  external num get dischargingTime;
+  external num get level;
   external set onchargingchange(EventHandler value);
   external EventHandler get onchargingchange;
   external set onchargingtimechange(EventHandler value);

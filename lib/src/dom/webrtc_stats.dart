@@ -71,7 +71,7 @@ class RTCReceivedRtpStreamStats implements RTCRtpStreamStats {
   external factory RTCReceivedRtpStreamStats({
     int packetsReceived,
     int packetsLost,
-    double jitter,
+    num jitter,
   });
 }
 
@@ -80,8 +80,8 @@ extension RTCReceivedRtpStreamStatsExtension on RTCReceivedRtpStreamStats {
   external int get packetsReceived;
   external set packetsLost(int value);
   external int get packetsLost;
-  external set jitter(double value);
-  external double get jitter;
+  external set jitter(num value);
+  external num get jitter;
 }
 
 @JS()
@@ -98,15 +98,15 @@ class RTCInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
     int framesDropped,
     int frameWidth,
     int frameHeight,
-    double framesPerSecond,
+    num framesPerSecond,
     int qpSum,
-    double totalDecodeTime,
-    double totalInterFrameDelay,
-    double totalSquaredInterFrameDelay,
+    num totalDecodeTime,
+    num totalInterFrameDelay,
+    num totalSquaredInterFrameDelay,
     int pauseCount,
-    double totalPausesDuration,
+    num totalPausesDuration,
     int freezeCount,
-    double totalFreezesDuration,
+    num totalFreezesDuration,
     DOMHighResTimeStamp lastPacketReceivedTimestamp,
     int headerBytesReceived,
     int packetsDiscarded,
@@ -117,27 +117,27 @@ class RTCInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
     int nackCount,
     int firCount,
     int pliCount,
-    double totalProcessingDelay,
+    num totalProcessingDelay,
     DOMHighResTimeStamp estimatedPlayoutTimestamp,
-    double jitterBufferDelay,
-    double jitterBufferTargetDelay,
+    num jitterBufferDelay,
+    num jitterBufferTargetDelay,
     int jitterBufferEmittedCount,
-    double jitterBufferMinimumDelay,
+    num jitterBufferMinimumDelay,
     int totalSamplesReceived,
     int concealedSamples,
     int silentConcealedSamples,
     int concealmentEvents,
     int insertedSamplesForDeceleration,
     int removedSamplesForAcceleration,
-    double audioLevel,
-    double totalAudioEnergy,
-    double totalSamplesDuration,
+    num audioLevel,
+    num totalAudioEnergy,
+    num totalSamplesDuration,
     int framesReceived,
     String decoderImplementation,
     String playoutId,
     bool powerEfficientDecoder,
     int framesAssembledFromMultiplePackets,
-    double totalAssemblyTime,
+    num totalAssemblyTime,
     int retransmittedPacketsReceived,
     int retransmittedBytesReceived,
     int rtxSsrc,
@@ -164,24 +164,24 @@ extension RTCInboundRtpStreamStatsExtension on RTCInboundRtpStreamStats {
   external int get frameWidth;
   external set frameHeight(int value);
   external int get frameHeight;
-  external set framesPerSecond(double value);
-  external double get framesPerSecond;
+  external set framesPerSecond(num value);
+  external num get framesPerSecond;
   external set qpSum(int value);
   external int get qpSum;
-  external set totalDecodeTime(double value);
-  external double get totalDecodeTime;
-  external set totalInterFrameDelay(double value);
-  external double get totalInterFrameDelay;
-  external set totalSquaredInterFrameDelay(double value);
-  external double get totalSquaredInterFrameDelay;
+  external set totalDecodeTime(num value);
+  external num get totalDecodeTime;
+  external set totalInterFrameDelay(num value);
+  external num get totalInterFrameDelay;
+  external set totalSquaredInterFrameDelay(num value);
+  external num get totalSquaredInterFrameDelay;
   external set pauseCount(int value);
   external int get pauseCount;
-  external set totalPausesDuration(double value);
-  external double get totalPausesDuration;
+  external set totalPausesDuration(num value);
+  external num get totalPausesDuration;
   external set freezeCount(int value);
   external int get freezeCount;
-  external set totalFreezesDuration(double value);
-  external double get totalFreezesDuration;
+  external set totalFreezesDuration(num value);
+  external num get totalFreezesDuration;
   external set lastPacketReceivedTimestamp(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get lastPacketReceivedTimestamp;
   external set headerBytesReceived(int value);
@@ -202,18 +202,18 @@ extension RTCInboundRtpStreamStatsExtension on RTCInboundRtpStreamStats {
   external int get firCount;
   external set pliCount(int value);
   external int get pliCount;
-  external set totalProcessingDelay(double value);
-  external double get totalProcessingDelay;
+  external set totalProcessingDelay(num value);
+  external num get totalProcessingDelay;
   external set estimatedPlayoutTimestamp(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get estimatedPlayoutTimestamp;
-  external set jitterBufferDelay(double value);
-  external double get jitterBufferDelay;
-  external set jitterBufferTargetDelay(double value);
-  external double get jitterBufferTargetDelay;
+  external set jitterBufferDelay(num value);
+  external num get jitterBufferDelay;
+  external set jitterBufferTargetDelay(num value);
+  external num get jitterBufferTargetDelay;
   external set jitterBufferEmittedCount(int value);
   external int get jitterBufferEmittedCount;
-  external set jitterBufferMinimumDelay(double value);
-  external double get jitterBufferMinimumDelay;
+  external set jitterBufferMinimumDelay(num value);
+  external num get jitterBufferMinimumDelay;
   external set totalSamplesReceived(int value);
   external int get totalSamplesReceived;
   external set concealedSamples(int value);
@@ -226,12 +226,12 @@ extension RTCInboundRtpStreamStatsExtension on RTCInboundRtpStreamStats {
   external int get insertedSamplesForDeceleration;
   external set removedSamplesForAcceleration(int value);
   external int get removedSamplesForAcceleration;
-  external set audioLevel(double value);
-  external double get audioLevel;
-  external set totalAudioEnergy(double value);
-  external double get totalAudioEnergy;
-  external set totalSamplesDuration(double value);
-  external double get totalSamplesDuration;
+  external set audioLevel(num value);
+  external num get audioLevel;
+  external set totalAudioEnergy(num value);
+  external num get totalAudioEnergy;
+  external set totalSamplesDuration(num value);
+  external num get totalSamplesDuration;
   external set framesReceived(int value);
   external int get framesReceived;
   external set decoderImplementation(String value);
@@ -242,8 +242,8 @@ extension RTCInboundRtpStreamStatsExtension on RTCInboundRtpStreamStats {
   external bool get powerEfficientDecoder;
   external set framesAssembledFromMultiplePackets(int value);
   external int get framesAssembledFromMultiplePackets;
-  external set totalAssemblyTime(double value);
-  external double get totalAssemblyTime;
+  external set totalAssemblyTime(num value);
+  external num get totalAssemblyTime;
   external set retransmittedPacketsReceived(int value);
   external int get retransmittedPacketsReceived;
   external set retransmittedBytesReceived(int value);
@@ -260,9 +260,9 @@ extension RTCInboundRtpStreamStatsExtension on RTCInboundRtpStreamStats {
 class RTCRemoteInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
   external factory RTCRemoteInboundRtpStreamStats({
     String localId,
-    double roundTripTime,
-    double totalRoundTripTime,
-    double fractionLost,
+    num roundTripTime,
+    num totalRoundTripTime,
+    num fractionLost,
     int roundTripTimeMeasurements,
   });
 }
@@ -271,12 +271,12 @@ extension RTCRemoteInboundRtpStreamStatsExtension
     on RTCRemoteInboundRtpStreamStats {
   external set localId(String value);
   external String get localId;
-  external set roundTripTime(double value);
-  external double get roundTripTime;
-  external set totalRoundTripTime(double value);
-  external double get totalRoundTripTime;
-  external set fractionLost(double value);
-  external double get fractionLost;
+  external set roundTripTime(num value);
+  external num get roundTripTime;
+  external set totalRoundTripTime(num value);
+  external num get totalRoundTripTime;
+  external set fractionLost(num value);
+  external num get fractionLost;
   external set roundTripTimeMeasurements(int value);
   external int get roundTripTimeMeasurements;
 }
@@ -311,18 +311,18 @@ class RTCOutboundRtpStreamStats implements RTCSentRtpStreamStats {
     int retransmittedPacketsSent,
     int retransmittedBytesSent,
     int rtxSsrc,
-    double targetBitrate,
+    num targetBitrate,
     int totalEncodedBytesTarget,
     int frameWidth,
     int frameHeight,
-    double framesPerSecond,
+    num framesPerSecond,
     int framesSent,
     int hugeFramesSent,
     int framesEncoded,
     int keyFramesEncoded,
     int qpSum,
-    double totalEncodeTime,
-    double totalPacketSendDelay,
+    num totalEncodeTime,
+    num totalPacketSendDelay,
     RTCQualityLimitationReason qualityLimitationReason,
     JSAny? qualityLimitationDurations,
     int qualityLimitationResolutionChanges,
@@ -353,16 +353,16 @@ extension RTCOutboundRtpStreamStatsExtension on RTCOutboundRtpStreamStats {
   external int get retransmittedBytesSent;
   external set rtxSsrc(int value);
   external int get rtxSsrc;
-  external set targetBitrate(double value);
-  external double get targetBitrate;
+  external set targetBitrate(num value);
+  external num get targetBitrate;
   external set totalEncodedBytesTarget(int value);
   external int get totalEncodedBytesTarget;
   external set frameWidth(int value);
   external int get frameWidth;
   external set frameHeight(int value);
   external int get frameHeight;
-  external set framesPerSecond(double value);
-  external double get framesPerSecond;
+  external set framesPerSecond(num value);
+  external num get framesPerSecond;
   external set framesSent(int value);
   external int get framesSent;
   external set hugeFramesSent(int value);
@@ -373,10 +373,10 @@ extension RTCOutboundRtpStreamStatsExtension on RTCOutboundRtpStreamStats {
   external int get keyFramesEncoded;
   external set qpSum(int value);
   external int get qpSum;
-  external set totalEncodeTime(double value);
-  external double get totalEncodeTime;
-  external set totalPacketSendDelay(double value);
-  external double get totalPacketSendDelay;
+  external set totalEncodeTime(num value);
+  external num get totalEncodeTime;
+  external set totalPacketSendDelay(num value);
+  external num get totalPacketSendDelay;
   external set qualityLimitationReason(RTCQualityLimitationReason value);
   external RTCQualityLimitationReason get qualityLimitationReason;
   external set qualityLimitationDurations(JSAny? value);
@@ -407,8 +407,8 @@ class RTCRemoteOutboundRtpStreamStats implements RTCSentRtpStreamStats {
     String localId,
     DOMHighResTimeStamp remoteTimestamp,
     int reportsSent,
-    double roundTripTime,
-    double totalRoundTripTime,
+    num roundTripTime,
+    num totalRoundTripTime,
     int roundTripTimeMeasurements,
   });
 }
@@ -421,10 +421,10 @@ extension RTCRemoteOutboundRtpStreamStatsExtension
   external DOMHighResTimeStamp get remoteTimestamp;
   external set reportsSent(int value);
   external int get reportsSent;
-  external set roundTripTime(double value);
-  external double get roundTripTime;
-  external set totalRoundTripTime(double value);
-  external double get totalRoundTripTime;
+  external set roundTripTime(num value);
+  external num get roundTripTime;
+  external set totalRoundTripTime(num value);
+  external num get totalRoundTripTime;
   external set roundTripTimeMeasurements(int value);
   external int get roundTripTimeMeasurements;
 }
@@ -451,35 +451,35 @@ extension RTCMediaSourceStatsExtension on RTCMediaSourceStats {
 @anonymous
 class RTCAudioSourceStats implements RTCMediaSourceStats {
   external factory RTCAudioSourceStats({
-    double audioLevel,
-    double totalAudioEnergy,
-    double totalSamplesDuration,
-    double echoReturnLoss,
-    double echoReturnLossEnhancement,
-    double droppedSamplesDuration,
+    num audioLevel,
+    num totalAudioEnergy,
+    num totalSamplesDuration,
+    num echoReturnLoss,
+    num echoReturnLossEnhancement,
+    num droppedSamplesDuration,
     int droppedSamplesEvents,
-    double totalCaptureDelay,
+    num totalCaptureDelay,
     int totalSamplesCaptured,
   });
 }
 
 extension RTCAudioSourceStatsExtension on RTCAudioSourceStats {
-  external set audioLevel(double value);
-  external double get audioLevel;
-  external set totalAudioEnergy(double value);
-  external double get totalAudioEnergy;
-  external set totalSamplesDuration(double value);
-  external double get totalSamplesDuration;
-  external set echoReturnLoss(double value);
-  external double get echoReturnLoss;
-  external set echoReturnLossEnhancement(double value);
-  external double get echoReturnLossEnhancement;
-  external set droppedSamplesDuration(double value);
-  external double get droppedSamplesDuration;
+  external set audioLevel(num value);
+  external num get audioLevel;
+  external set totalAudioEnergy(num value);
+  external num get totalAudioEnergy;
+  external set totalSamplesDuration(num value);
+  external num get totalSamplesDuration;
+  external set echoReturnLoss(num value);
+  external num get echoReturnLoss;
+  external set echoReturnLossEnhancement(num value);
+  external num get echoReturnLossEnhancement;
+  external set droppedSamplesDuration(num value);
+  external num get droppedSamplesDuration;
   external set droppedSamplesEvents(int value);
   external int get droppedSamplesEvents;
-  external set totalCaptureDelay(double value);
-  external double get totalCaptureDelay;
+  external set totalCaptureDelay(num value);
+  external num get totalCaptureDelay;
   external set totalSamplesCaptured(int value);
   external int get totalSamplesCaptured;
 }
@@ -492,7 +492,7 @@ class RTCVideoSourceStats implements RTCMediaSourceStats {
     int width,
     int height,
     int frames,
-    double framesPerSecond,
+    num framesPerSecond,
   });
 }
 
@@ -503,8 +503,8 @@ extension RTCVideoSourceStatsExtension on RTCVideoSourceStats {
   external int get height;
   external set frames(int value);
   external int get frames;
-  external set framesPerSecond(double value);
-  external double get framesPerSecond;
+  external set framesPerSecond(num value);
+  external num get framesPerSecond;
 }
 
 @JS()
@@ -513,10 +513,10 @@ extension RTCVideoSourceStatsExtension on RTCVideoSourceStats {
 class RTCAudioPlayoutStats implements RTCStats {
   external factory RTCAudioPlayoutStats({
     required String kind,
-    double synthesizedSamplesDuration,
+    num synthesizedSamplesDuration,
     int synthesizedSamplesEvents,
-    double totalSamplesDuration,
-    double totalPlayoutDelay,
+    num totalSamplesDuration,
+    num totalPlayoutDelay,
     int totalSamplesCount,
   });
 }
@@ -524,14 +524,14 @@ class RTCAudioPlayoutStats implements RTCStats {
 extension RTCAudioPlayoutStatsExtension on RTCAudioPlayoutStats {
   external set kind(String value);
   external String get kind;
-  external set synthesizedSamplesDuration(double value);
-  external double get synthesizedSamplesDuration;
+  external set synthesizedSamplesDuration(num value);
+  external num get synthesizedSamplesDuration;
   external set synthesizedSamplesEvents(int value);
   external int get synthesizedSamplesEvents;
-  external set totalSamplesDuration(double value);
-  external double get totalSamplesDuration;
-  external set totalPlayoutDelay(double value);
-  external double get totalPlayoutDelay;
+  external set totalSamplesDuration(num value);
+  external num get totalSamplesDuration;
+  external set totalPlayoutDelay(num value);
+  external num get totalPlayoutDelay;
   external set totalSamplesCount(int value);
   external int get totalSamplesCount;
 }
@@ -713,10 +713,10 @@ class RTCIceCandidatePairStats implements RTCStats {
     int bytesReceived,
     DOMHighResTimeStamp lastPacketSentTimestamp,
     DOMHighResTimeStamp lastPacketReceivedTimestamp,
-    double totalRoundTripTime,
-    double currentRoundTripTime,
-    double availableOutgoingBitrate,
-    double availableIncomingBitrate,
+    num totalRoundTripTime,
+    num currentRoundTripTime,
+    num availableOutgoingBitrate,
+    num availableIncomingBitrate,
     int requestsReceived,
     int requestsSent,
     int responsesReceived,
@@ -750,14 +750,14 @@ extension RTCIceCandidatePairStatsExtension on RTCIceCandidatePairStats {
   external DOMHighResTimeStamp get lastPacketSentTimestamp;
   external set lastPacketReceivedTimestamp(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get lastPacketReceivedTimestamp;
-  external set totalRoundTripTime(double value);
-  external double get totalRoundTripTime;
-  external set currentRoundTripTime(double value);
-  external double get currentRoundTripTime;
-  external set availableOutgoingBitrate(double value);
-  external double get availableOutgoingBitrate;
-  external set availableIncomingBitrate(double value);
-  external double get availableIncomingBitrate;
+  external set totalRoundTripTime(num value);
+  external num get totalRoundTripTime;
+  external set currentRoundTripTime(num value);
+  external num get currentRoundTripTime;
+  external set availableOutgoingBitrate(num value);
+  external num get availableOutgoingBitrate;
+  external set availableIncomingBitrate(num value);
+  external num get availableIncomingBitrate;
   external set requestsReceived(int value);
   external int get requestsReceived;
   external set requestsSent(int value);

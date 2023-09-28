@@ -247,8 +247,8 @@ class SVGFEDropShadowElement
 
 extension SVGFEDropShadowElementExtension on SVGFEDropShadowElement {
   external JSVoid setStdDeviation(
-    double stdDeviationX,
-    double stdDeviationY,
+    num stdDeviationX,
+    num stdDeviationY,
   );
   external SVGAnimatedString get in1;
   external SVGAnimatedNumber get dx;
@@ -274,8 +274,8 @@ class SVGFEGaussianBlurElement
 
 extension SVGFEGaussianBlurElementExtension on SVGFEGaussianBlurElement {
   external JSVoid setStdDeviation(
-    double stdDeviationX,
-    double stdDeviationY,
+    num stdDeviationX,
+    num stdDeviationY,
   );
   external SVGAnimatedString get in1;
   external SVGAnimatedNumber get stdDeviationX;

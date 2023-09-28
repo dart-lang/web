@@ -33,12 +33,12 @@ extension SensorExtension on Sensor {
 @staticInterop
 @anonymous
 class SensorOptions implements JSObject {
-  external factory SensorOptions({double frequency});
+  external factory SensorOptions({num frequency});
 }
 
 extension SensorOptionsExtension on SensorOptions {
-  external set frequency(double value);
-  external double get frequency;
+  external set frequency(num value);
+  external num get frequency;
 }
 
 @JS('SensorErrorEvent')
@@ -73,8 +73,8 @@ class MockSensorConfiguration implements JSObject {
   external factory MockSensorConfiguration({
     required MockSensorType mockSensorType,
     bool connected,
-    double? maxSamplingFrequency,
-    double? minSamplingFrequency,
+    num? maxSamplingFrequency,
+    num? minSamplingFrequency,
   });
 }
 
@@ -83,10 +83,10 @@ extension MockSensorConfigurationExtension on MockSensorConfiguration {
   external MockSensorType get mockSensorType;
   external set connected(bool value);
   external bool get connected;
-  external set maxSamplingFrequency(double? value);
-  external double? get maxSamplingFrequency;
-  external set minSamplingFrequency(double? value);
-  external double? get minSamplingFrequency;
+  external set maxSamplingFrequency(num? value);
+  external num? get maxSamplingFrequency;
+  external set minSamplingFrequency(num? value);
+  external num? get minSamplingFrequency;
 }
 
 @JS()
@@ -94,19 +94,19 @@ extension MockSensorConfigurationExtension on MockSensorConfiguration {
 @anonymous
 class MockSensor implements JSObject {
   external factory MockSensor({
-    double maxSamplingFrequency,
-    double minSamplingFrequency,
-    double requestedSamplingFrequency,
+    num maxSamplingFrequency,
+    num minSamplingFrequency,
+    num requestedSamplingFrequency,
   });
 }
 
 extension MockSensorExtension on MockSensor {
-  external set maxSamplingFrequency(double value);
-  external double get maxSamplingFrequency;
-  external set minSamplingFrequency(double value);
-  external double get minSamplingFrequency;
-  external set requestedSamplingFrequency(double value);
-  external double get requestedSamplingFrequency;
+  external set maxSamplingFrequency(num value);
+  external num get maxSamplingFrequency;
+  external set minSamplingFrequency(num value);
+  external num get minSamplingFrequency;
+  external set requestedSamplingFrequency(num value);
+  external num get requestedSamplingFrequency;
 }
 
 @JS()

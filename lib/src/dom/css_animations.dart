@@ -18,7 +18,7 @@ class AnimationEvent implements Event {
 
 extension AnimationEventExtension on AnimationEvent {
   external String get animationName;
-  external double get elapsedTime;
+  external num get elapsedTime;
   external String get pseudoElement;
 }
 
@@ -28,7 +28,7 @@ extension AnimationEventExtension on AnimationEvent {
 class AnimationEventInit implements EventInit {
   external factory AnimationEventInit({
     String animationName,
-    double elapsedTime,
+    num elapsedTime,
     String pseudoElement,
   });
 }
@@ -36,8 +36,8 @@ class AnimationEventInit implements EventInit {
 extension AnimationEventInitExtension on AnimationEventInit {
   external set animationName(String value);
   external String get animationName;
-  external set elapsedTime(double value);
-  external double get elapsedTime;
+  external set elapsedTime(num value);
+  external num get elapsedTime;
   external set pseudoElement(String value);
   external String get pseudoElement;
 }

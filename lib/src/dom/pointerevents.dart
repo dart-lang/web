@@ -12,15 +12,15 @@ import 'uievents.dart';
 class PointerEventInit implements MouseEventInit {
   external factory PointerEventInit({
     int pointerId,
-    double width,
-    double height,
-    double pressure,
-    double tangentialPressure,
+    num width,
+    num height,
+    num pressure,
+    num tangentialPressure,
     int tiltX,
     int tiltY,
     int twist,
-    double altitudeAngle,
-    double azimuthAngle,
+    num altitudeAngle,
+    num azimuthAngle,
     String pointerType,
     bool isPrimary,
     JSArray coalescedEvents,
@@ -31,24 +31,24 @@ class PointerEventInit implements MouseEventInit {
 extension PointerEventInitExtension on PointerEventInit {
   external set pointerId(int value);
   external int get pointerId;
-  external set width(double value);
-  external double get width;
-  external set height(double value);
-  external double get height;
-  external set pressure(double value);
-  external double get pressure;
-  external set tangentialPressure(double value);
-  external double get tangentialPressure;
+  external set width(num value);
+  external num get width;
+  external set height(num value);
+  external num get height;
+  external set pressure(num value);
+  external num get pressure;
+  external set tangentialPressure(num value);
+  external num get tangentialPressure;
   external set tiltX(int value);
   external int get tiltX;
   external set tiltY(int value);
   external int get tiltY;
   external set twist(int value);
   external int get twist;
-  external set altitudeAngle(double value);
-  external double get altitudeAngle;
-  external set azimuthAngle(double value);
-  external double get azimuthAngle;
+  external set altitudeAngle(num value);
+  external num get altitudeAngle;
+  external set azimuthAngle(num value);
+  external num get azimuthAngle;
   external set pointerType(String value);
   external String get pointerType;
   external set isPrimary(bool value);
@@ -72,15 +72,15 @@ extension PointerEventExtension on PointerEvent {
   external JSArray getCoalescedEvents();
   external JSArray getPredictedEvents();
   external int get pointerId;
-  external double get width;
-  external double get height;
-  external double get pressure;
-  external double get tangentialPressure;
+  external num get width;
+  external num get height;
+  external num get pressure;
+  external num get tangentialPressure;
   external int get tiltX;
   external int get tiltY;
   external int get twist;
-  external double get altitudeAngle;
-  external double get azimuthAngle;
+  external num get altitudeAngle;
+  external num get azimuthAngle;
   external String get pointerType;
   external bool get isPrimary;
 }

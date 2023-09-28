@@ -11,7 +11,7 @@ import 'navigation_timing.dart';
 import 'performance_timeline.dart';
 import 'user_timing.dart';
 
-typedef DOMHighResTimeStamp = double;
+typedef DOMHighResTimeStamp = num;
 typedef EpochTimeStamp = int;
 
 @JS('Performance')

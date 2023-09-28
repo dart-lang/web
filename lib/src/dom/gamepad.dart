@@ -36,7 +36,7 @@ class GamepadButton implements JSObject {}
 extension GamepadButtonExtension on GamepadButton {
   external bool get pressed;
   external bool get touched;
-  external double get value;
+  external num get value;
 }
 
 @JS('GamepadEvent')

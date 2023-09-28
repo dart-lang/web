@@ -93,7 +93,7 @@ class SpeechRecognitionAlternative implements JSObject {}
 extension SpeechRecognitionAlternativeExtension
     on SpeechRecognitionAlternative {
   external String get transcript;
-  external double get confidence;
+  external num get confidence;
 }
 
 @JS('SpeechRecognitionResult')
@@ -153,8 +153,8 @@ class SpeechGrammar implements JSObject {}
 extension SpeechGrammarExtension on SpeechGrammar {
   external set src(String value);
   external String get src;
-  external set weight(double value);
-  external double get weight;
+  external set weight(num value);
+  external num get weight;
 }
 
 @JS('SpeechGrammarList')
@@ -167,11 +167,11 @@ extension SpeechGrammarListExtension on SpeechGrammarList {
   external SpeechGrammar item(int index);
   external JSVoid addFromURI(
     String src, [
-    double weight,
+    num weight,
   ]);
   external JSVoid addFromString(
     String string, [
-    double weight,
+    num weight,
   ]);
   external int get length;
 }
@@ -206,12 +206,12 @@ extension SpeechSynthesisUtteranceExtension on SpeechSynthesisUtterance {
   external String get lang;
   external set voice(SpeechSynthesisVoice? value);
   external SpeechSynthesisVoice? get voice;
-  external set volume(double value);
-  external double get volume;
-  external set rate(double value);
-  external double get rate;
-  external set pitch(double value);
-  external double get pitch;
+  external set volume(num value);
+  external num get volume;
+  external set rate(num value);
+  external num get rate;
+  external set pitch(num value);
+  external num get pitch;
   external set onstart(EventHandler value);
   external EventHandler get onstart;
   external set onend(EventHandler value);
@@ -241,7 +241,7 @@ extension SpeechSynthesisEventExtension on SpeechSynthesisEvent {
   external SpeechSynthesisUtterance get utterance;
   external int get charIndex;
   external int get charLength;
-  external double get elapsedTime;
+  external num get elapsedTime;
   external String get name;
 }
 
@@ -253,7 +253,7 @@ class SpeechSynthesisEventInit implements EventInit {
     required SpeechSynthesisUtterance utterance,
     int charIndex,
     int charLength,
-    double elapsedTime,
+    num elapsedTime,
     String name,
   });
 }
@@ -265,8 +265,8 @@ extension SpeechSynthesisEventInitExtension on SpeechSynthesisEventInit {
   external int get charIndex;
   external set charLength(int value);
   external int get charLength;
-  external set elapsedTime(double value);
-  external double get elapsedTime;
+  external set elapsedTime(num value);
+  external num get elapsedTime;
   external set name(String value);
   external String get name;
 }

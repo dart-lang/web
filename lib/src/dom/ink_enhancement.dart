@@ -46,13 +46,13 @@ extension InkPresenterExtension on InkPresenter {
 class InkTrailStyle implements JSObject {
   external factory InkTrailStyle({
     required String color,
-    required double diameter,
+    required num diameter,
   });
 }
 
 extension InkTrailStyleExtension on InkTrailStyle {
   external set color(String value);
   external String get color;
-  external set diameter(double value);
-  external double get diameter;
+  external set diameter(num value);
+  external num get diameter;
 }

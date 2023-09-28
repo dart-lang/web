@@ -54,8 +54,8 @@ extension PhotoCapabilitiesExtension on PhotoCapabilities {
 class PhotoSettings implements JSObject {
   external factory PhotoSettings({
     FillLightMode fillLightMode,
-    double imageHeight,
-    double imageWidth,
+    num imageHeight,
+    num imageWidth,
     bool redEyeReduction,
   });
 }
@@ -63,10 +63,10 @@ class PhotoSettings implements JSObject {
 extension PhotoSettingsExtension on PhotoSettings {
   external set fillLightMode(FillLightMode value);
   external FillLightMode get fillLightMode;
-  external set imageHeight(double value);
-  external double get imageHeight;
-  external set imageWidth(double value);
-  external double get imageWidth;
+  external set imageHeight(num value);
+  external num get imageHeight;
+  external set imageWidth(num value);
+  external num get imageWidth;
   external set redEyeReduction(bool value);
   external bool get redEyeReduction;
 }
@@ -76,19 +76,19 @@ extension PhotoSettingsExtension on PhotoSettings {
 @anonymous
 class MediaSettingsRange implements JSObject {
   external factory MediaSettingsRange({
-    double max,
-    double min,
-    double step,
+    num max,
+    num min,
+    num step,
   });
 }
 
 extension MediaSettingsRangeExtension on MediaSettingsRange {
-  external set max(double value);
-  external double get max;
-  external set min(double value);
-  external double get min;
-  external set step(double value);
-  external double get step;
+  external set max(num value);
+  external num get max;
+  external set min(num value);
+  external num get min;
+  external set step(num value);
+  external num get step;
 }
 
 @JS()
@@ -113,14 +113,14 @@ extension ConstrainPoint2DParametersExtension on ConstrainPoint2DParameters {
 @anonymous
 class Point2D implements JSObject {
   external factory Point2D({
-    double x,
-    double y,
+    num x,
+    num y,
   });
 }
 
 extension Point2DExtension on Point2D {
-  external set x(double value);
-  external double get x;
-  external set y(double value);
-  external double get y;
+  external set x(num value);
+  external num get x;
+  external set y(num value);
+  external num get y;
 }

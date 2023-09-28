@@ -410,7 +410,7 @@ class VideoEncoderConfig implements JSObject {
     int displayWidth,
     int displayHeight,
     int bitrate,
-    double framerate,
+    num framerate,
     HardwareAcceleration hardwareAcceleration,
     AlphaOption alpha,
     String scalabilityMode,
@@ -438,8 +438,8 @@ extension VideoEncoderConfigExtension on VideoEncoderConfig {
   external int get displayHeight;
   external set bitrate(int value);
   external int get bitrate;
-  external set framerate(double value);
-  external double get framerate;
+  external set framerate(num value);
+  external num get framerate;
   external set hardwareAcceleration(HardwareAcceleration value);
   external HardwareAcceleration get hardwareAcceleration;
   external set alpha(AlphaOption value);
@@ -567,7 +567,7 @@ extension AudioDataExtension on AudioData {
   external AudioData clone();
   external JSVoid close();
   external AudioSampleFormat? get format;
-  external double get sampleRate;
+  external num get sampleRate;
   external int get numberOfFrames;
   external int get numberOfChannels;
   external int get duration;
@@ -580,7 +580,7 @@ extension AudioDataExtension on AudioData {
 class AudioDataInit implements JSObject {
   external factory AudioDataInit({
     required AudioSampleFormat format,
-    required double sampleRate,
+    required num sampleRate,
     required int numberOfFrames,
     required int numberOfChannels,
     required int timestamp,
@@ -592,8 +592,8 @@ class AudioDataInit implements JSObject {
 extension AudioDataInitExtension on AudioDataInit {
   external set format(AudioSampleFormat value);
   external AudioSampleFormat get format;
-  external set sampleRate(double value);
-  external double get sampleRate;
+  external set sampleRate(num value);
+  external num get sampleRate;
   external set numberOfFrames(int value);
   external int get numberOfFrames;
   external set numberOfChannels(int value);
@@ -915,7 +915,7 @@ class ImageTrack implements JSObject {}
 extension ImageTrackExtension on ImageTrack {
   external bool get animated;
   external int get frameCount;
-  external double get repetitionCount;
+  external num get repetitionCount;
   external set selected(bool value);
   external bool get selected;
 }

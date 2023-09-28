@@ -8,7 +8,7 @@ import 'dom.dart';
 import 'html.dart';
 import 'savedata.dart';
 
-typedef Megabit = double;
+typedef Megabit = num;
 typedef Millisecond = int;
 typedef ConnectionType = String;
 typedef EffectiveConnectionType = String;

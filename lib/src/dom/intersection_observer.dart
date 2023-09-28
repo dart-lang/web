@@ -42,7 +42,7 @@ extension IntersectionObserverEntryExtension on IntersectionObserverEntry {
   external DOMRectReadOnly get boundingClientRect;
   external DOMRectReadOnly get intersectionRect;
   external bool get isIntersecting;
-  external double get intersectionRatio;
+  external num get intersectionRatio;
   external Element get target;
 }
 
@@ -56,7 +56,7 @@ class IntersectionObserverEntryInit implements JSObject {
     required DOMRectInit boundingClientRect,
     required DOMRectInit intersectionRect,
     required bool isIntersecting,
-    required double intersectionRatio,
+    required num intersectionRatio,
     required Element target,
   });
 }
@@ -73,8 +73,8 @@ extension IntersectionObserverEntryInitExtension
   external DOMRectInit get intersectionRect;
   external set isIntersecting(bool value);
   external bool get isIntersecting;
-  external set intersectionRatio(double value);
-  external double get intersectionRatio;
+  external set intersectionRatio(num value);
+  external num get intersectionRatio;
   external set target(Element value);
   external Element get target;
 }

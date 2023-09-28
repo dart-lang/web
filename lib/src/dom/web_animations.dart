@@ -59,7 +59,7 @@ extension AnimationExtension on Animation {
   external JSVoid finish();
   external JSVoid play();
   external JSVoid pause();
-  external JSVoid updatePlaybackRate(double playbackRate);
+  external JSVoid updatePlaybackRate(num playbackRate);
   external JSVoid reverse();
   external JSVoid persist();
   external JSVoid commitStyles();
@@ -73,8 +73,8 @@ extension AnimationExtension on Animation {
   external AnimationEffect? get effect;
   external set timeline(AnimationTimeline? value);
   external AnimationTimeline? get timeline;
-  external set playbackRate(double value);
-  external double get playbackRate;
+  external set playbackRate(num value);
+  external num get playbackRate;
   external AnimationPlayState get playState;
   external AnimationReplaceState get replaceState;
   external bool get pending;
@@ -110,33 +110,33 @@ extension AnimationEffectExtension on AnimationEffect {
 @anonymous
 class EffectTiming implements JSObject {
   external factory EffectTiming({
-    double delay,
-    double endDelay,
-    double playbackRate,
+    num delay,
+    num endDelay,
+    num playbackRate,
     JSAny? duration,
     FillMode fill,
-    double iterationStart,
-    double iterations,
+    num iterationStart,
+    num iterations,
     PlaybackDirection direction,
     String easing,
   });
 }
 
 extension EffectTimingExtension on EffectTiming {
-  external set delay(double value);
-  external double get delay;
-  external set endDelay(double value);
-  external double get endDelay;
-  external set playbackRate(double value);
-  external double get playbackRate;
+  external set delay(num value);
+  external num get delay;
+  external set endDelay(num value);
+  external num get endDelay;
+  external set playbackRate(num value);
+  external num get playbackRate;
   external set duration(JSAny? value);
   external JSAny? get duration;
   external set fill(FillMode value);
   external FillMode get fill;
-  external set iterationStart(double value);
-  external double get iterationStart;
-  external set iterations(double value);
-  external double get iterations;
+  external set iterationStart(num value);
+  external num get iterationStart;
+  external set iterations(num value);
+  external num get iterations;
   external set direction(PlaybackDirection value);
   external PlaybackDirection get direction;
   external set easing(String value);
@@ -148,12 +148,12 @@ extension EffectTimingExtension on EffectTiming {
 @anonymous
 class OptionalEffectTiming implements JSObject {
   external factory OptionalEffectTiming({
-    double playbackRate,
-    double delay,
-    double endDelay,
+    num playbackRate,
+    num delay,
+    num endDelay,
     FillMode fill,
-    double iterationStart,
-    double iterations,
+    num iterationStart,
+    num iterations,
     JSAny? duration,
     PlaybackDirection direction,
     String easing,
@@ -161,18 +161,18 @@ class OptionalEffectTiming implements JSObject {
 }
 
 extension OptionalEffectTimingExtension on OptionalEffectTiming {
-  external set playbackRate(double value);
-  external double get playbackRate;
-  external set delay(double value);
-  external double get delay;
-  external set endDelay(double value);
-  external double get endDelay;
+  external set playbackRate(num value);
+  external num get playbackRate;
+  external set delay(num value);
+  external num get delay;
+  external set endDelay(num value);
+  external num get endDelay;
   external set fill(FillMode value);
   external FillMode get fill;
-  external set iterationStart(double value);
-  external double get iterationStart;
-  external set iterations(double value);
-  external double get iterations;
+  external set iterationStart(num value);
+  external num get iterationStart;
+  external set iterations(num value);
+  external num get iterations;
   external set duration(JSAny? value);
   external JSAny? get duration;
   external set direction(PlaybackDirection value);
@@ -190,8 +190,8 @@ class ComputedEffectTiming implements EffectTiming {
     CSSNumberish endTime,
     CSSNumberish activeDuration,
     CSSNumberish? localTime,
-    double? progress,
-    double? currentIteration,
+    num? progress,
+    num? currentIteration,
   });
 }
 
@@ -204,10 +204,10 @@ extension ComputedEffectTimingExtension on ComputedEffectTiming {
   external CSSNumberish get activeDuration;
   external set localTime(CSSNumberish? value);
   external CSSNumberish? get localTime;
-  external set progress(double? value);
-  external double? get progress;
-  external set currentIteration(double? value);
-  external double? get currentIteration;
+  external set progress(num? value);
+  external num? get progress;
+  external set currentIteration(num? value);
+  external num? get currentIteration;
 }
 
 @JS('KeyframeEffect')
@@ -238,18 +238,18 @@ extension KeyframeEffectExtension on KeyframeEffect {
 @anonymous
 class BaseComputedKeyframe implements JSObject {
   external factory BaseComputedKeyframe({
-    double? offset,
-    double computedOffset,
+    num? offset,
+    num computedOffset,
     String easing,
     CompositeOperationOrAuto composite,
   });
 }
 
 extension BaseComputedKeyframeExtension on BaseComputedKeyframe {
-  external set offset(double? value);
-  external double? get offset;
-  external set computedOffset(double value);
-  external double get computedOffset;
+  external set offset(num? value);
+  external num? get offset;
+  external set computedOffset(num value);
+  external num get computedOffset;
   external set easing(String value);
   external String get easing;
   external set composite(CompositeOperationOrAuto value);
@@ -281,15 +281,15 @@ extension BasePropertyIndexedKeyframeExtension on BasePropertyIndexedKeyframe {
 @anonymous
 class BaseKeyframe implements JSObject {
   external factory BaseKeyframe({
-    double? offset,
+    num? offset,
     String easing,
     CompositeOperationOrAuto composite,
   });
 }
 
 extension BaseKeyframeExtension on BaseKeyframe {
-  external set offset(double? value);
-  external double? get offset;
+  external set offset(num? value);
+  external num? get offset;
   external set easing(String value);
   external String get easing;
   external set composite(CompositeOperationOrAuto value);

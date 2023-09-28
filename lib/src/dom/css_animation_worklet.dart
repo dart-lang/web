@@ -27,8 +27,8 @@ class WorkletAnimationEffect implements JSObject {}
 extension WorkletAnimationEffectExtension on WorkletAnimationEffect {
   external EffectTiming getTiming();
   external ComputedEffectTiming getComputedTiming();
-  external set localTime(double? value);
-  external double? get localTime;
+  external set localTime(num? value);
+  external num? get localTime;
 }
 
 @JS('WorkletAnimation')

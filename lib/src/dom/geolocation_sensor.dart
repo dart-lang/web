@@ -17,13 +17,13 @@ class GeolocationSensor implements Sensor {
 }
 
 extension GeolocationSensorExtension on GeolocationSensor {
-  external double? get latitude;
-  external double? get longitude;
-  external double? get altitude;
-  external double? get accuracy;
-  external double? get altitudeAccuracy;
-  external double? get heading;
-  external double? get speed;
+  external num? get latitude;
+  external num? get longitude;
+  external num? get altitude;
+  external num? get accuracy;
+  external num? get altitudeAccuracy;
+  external num? get heading;
+  external num? get speed;
 }
 
 @JS()
@@ -51,33 +51,33 @@ extension ReadOptionsExtension on ReadOptions {
 class GeolocationSensorReading implements JSObject {
   external factory GeolocationSensorReading({
     DOMHighResTimeStamp? timestamp,
-    double? latitude,
-    double? longitude,
-    double? altitude,
-    double? accuracy,
-    double? altitudeAccuracy,
-    double? heading,
-    double? speed,
+    num? latitude,
+    num? longitude,
+    num? altitude,
+    num? accuracy,
+    num? altitudeAccuracy,
+    num? heading,
+    num? speed,
   });
 }
 
 extension GeolocationSensorReadingExtension on GeolocationSensorReading {
   external set timestamp(DOMHighResTimeStamp? value);
   external DOMHighResTimeStamp? get timestamp;
-  external set latitude(double? value);
-  external double? get latitude;
-  external set longitude(double? value);
-  external double? get longitude;
-  external set altitude(double? value);
-  external double? get altitude;
-  external set accuracy(double? value);
-  external double? get accuracy;
-  external set altitudeAccuracy(double? value);
-  external double? get altitudeAccuracy;
-  external set heading(double? value);
-  external double? get heading;
-  external set speed(double? value);
-  external double? get speed;
+  external set latitude(num? value);
+  external num? get latitude;
+  external set longitude(num? value);
+  external num? get longitude;
+  external set altitude(num? value);
+  external num? get altitude;
+  external set accuracy(num? value);
+  external num? get accuracy;
+  external set altitudeAccuracy(num? value);
+  external num? get altitudeAccuracy;
+  external set heading(num? value);
+  external num? get heading;
+  external set speed(num? value);
+  external num? get speed;
 }
 
 @JS()
@@ -85,29 +85,29 @@ extension GeolocationSensorReadingExtension on GeolocationSensorReading {
 @anonymous
 class GeolocationReadingValues implements JSObject {
   external factory GeolocationReadingValues({
-    required double? latitude,
-    required double? longitude,
-    required double? altitude,
-    required double? accuracy,
-    required double? altitudeAccuracy,
-    required double? heading,
-    required double? speed,
+    required num? latitude,
+    required num? longitude,
+    required num? altitude,
+    required num? accuracy,
+    required num? altitudeAccuracy,
+    required num? heading,
+    required num? speed,
   });
 }
 
 extension GeolocationReadingValuesExtension on GeolocationReadingValues {
-  external set latitude(double? value);
-  external double? get latitude;
-  external set longitude(double? value);
-  external double? get longitude;
-  external set altitude(double? value);
-  external double? get altitude;
-  external set accuracy(double? value);
-  external double? get accuracy;
-  external set altitudeAccuracy(double? value);
-  external double? get altitudeAccuracy;
-  external set heading(double? value);
-  external double? get heading;
-  external set speed(double? value);
-  external double? get speed;
+  external set latitude(num? value);
+  external num? get latitude;
+  external set longitude(num? value);
+  external num? get longitude;
+  external set altitude(num? value);
+  external num? get altitude;
+  external set accuracy(num? value);
+  external num? get accuracy;
+  external set altitudeAccuracy(num? value);
+  external num? get altitudeAccuracy;
+  external set heading(num? value);
+  external num? get heading;
+  external set speed(num? value);
+  external num? get speed;
 }

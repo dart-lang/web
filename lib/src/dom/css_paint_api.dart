@@ -16,7 +16,7 @@ extension PaintWorkletGlobalScopeExtension on PaintWorkletGlobalScope {
     String name,
     VoidFunction paintCtor,
   );
-  external double get devicePixelRatio;
+  external num get devicePixelRatio;
 }
 
 @JS()
@@ -53,6 +53,6 @@ class PaintRenderingContext2D
 class PaintSize implements JSObject {}
 
 extension PaintSizeExtension on PaintSize {
-  external double get width;
-  external double get height;
+  external num get width;
+  external num get height;
 }

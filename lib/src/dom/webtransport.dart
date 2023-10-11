@@ -130,14 +130,13 @@ extension WebTransportSendStreamOptionsExtension
 @JS()
 @staticInterop
 @anonymous
-class WebTransportStats implements JSObject {
-  external factory WebTransportStats({
+class WebTransportConnectionStats implements JSObject {
+  external factory WebTransportConnectionStats({
     DOMHighResTimeStamp timestamp,
     int bytesSent,
     int packetsSent,
+    int bytesLost,
     int packetsLost,
-    int numOutgoingStreamsCreated,
-    int numIncomingStreamsCreated,
     int bytesReceived,
     int packetsReceived,
     DOMHighResTimeStamp smoothedRtt,
@@ -148,19 +147,17 @@ class WebTransportStats implements JSObject {
   });
 }
 
-extension WebTransportStatsExtension on WebTransportStats {
+extension WebTransportConnectionStatsExtension on WebTransportConnectionStats {
   external set timestamp(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get timestamp;
   external set bytesSent(int value);
   external int get bytesSent;
   external set packetsSent(int value);
   external int get packetsSent;
+  external set bytesLost(int value);
+  external int get bytesLost;
   external set packetsLost(int value);
   external int get packetsLost;
-  external set numOutgoingStreamsCreated(int value);
-  external int get numOutgoingStreamsCreated;
-  external set numIncomingStreamsCreated(int value);
-  external int get numIncomingStreamsCreated;
   external set bytesReceived(int value);
   external int get bytesReceived;
   external set packetsReceived(int value);

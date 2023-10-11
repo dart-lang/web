@@ -15,6 +15,7 @@ class AuctionAd implements JSObject {
     JSAny? metadata,
     String buyerReportingId,
     String buyerAndSellerReportingId,
+    JSArray allowedReportingOrigins,
   });
 }
 
@@ -27,6 +28,8 @@ extension AuctionAdExtension on AuctionAd {
   external String get buyerReportingId;
   external set buyerAndSellerReportingId(String value);
   external String get buyerAndSellerReportingId;
+  external set allowedReportingOrigins(JSArray value);
+  external JSArray get allowedReportingOrigins;
 }
 
 @JS()
@@ -272,6 +275,10 @@ extension InterestGroupReportingScriptRunnerGlobalScopeExtension
     on InterestGroupReportingScriptRunnerGlobalScope {
   external JSVoid sendReportTo(String url);
   external JSVoid registerAdBeacon(JSAny? map);
+  external JSVoid registerAdMacro(
+    String name,
+    String value,
+  );
 }
 
 @JS()

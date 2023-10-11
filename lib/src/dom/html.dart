@@ -5,6 +5,7 @@
 import 'dart:js_interop';
 
 import 'attribution_reporting_api.dart';
+import 'audio_session.dart';
 import 'autoplay_detection.dart';
 import 'badging.dart';
 import 'clipboard_apis.dart';
@@ -698,7 +699,11 @@ extension HTMLSourceElementExtension on HTMLSourceElement {
 
 @JS('HTMLImageElement')
 @staticInterop
-class HTMLImageElement implements HTMLElement, HTMLAttributionSrcElementUtils {
+class HTMLImageElement
+    implements
+        HTMLElement,
+        HTMLAttributionSrcElementUtils,
+        HTMLSharedStorageWritableElementUtils {
   external factory HTMLImageElement();
 }
 
@@ -754,7 +759,8 @@ extension HTMLImageElementExtension on HTMLImageElement {
 
 @JS('HTMLIFrameElement')
 @staticInterop
-class HTMLIFrameElement implements HTMLElement {
+class HTMLIFrameElement
+    implements HTMLElement, HTMLSharedStorageWritableElementUtils {
   external factory HTMLIFrameElement();
 }
 
@@ -1917,6 +1923,8 @@ class HTMLDetailsElement implements HTMLElement {
 }
 
 extension HTMLDetailsElementExtension on HTMLDetailsElement {
+  external set name(String value);
+  external String get name;
   external set open(bool value);
   external bool get open;
 }
@@ -3903,6 +3911,10 @@ extension NavigatorExtension on Navigator {
     String keySystem,
     JSArray supportedConfigurations,
   );
+  external JSPromise deprecatedReplaceInURN(
+    UrnOrConfig urnOrConfig,
+    JSAny? replacements,
+  );
   external JSArray getGamepads();
   external JSPromise getInstalledRelatedApps();
   external JSVoid getUserMedia(
@@ -3918,6 +3930,7 @@ extension NavigatorExtension on Navigator {
   external JSPromise share([ShareData data]);
   external bool canShare([ShareData data]);
   external JSPromise requestMIDIAccess([MIDIOptions options]);
+  external AudioSession get audioSession;
   external Clipboard get clipboard;
   external ContactsManager get contacts;
   external CredentialsContainer get credentials;

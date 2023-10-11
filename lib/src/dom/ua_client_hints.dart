@@ -29,7 +29,7 @@ class UADataValues implements JSObject {
     String architecture,
     String bitness,
     JSArray brands,
-    String formFactor,
+    JSArray formFactor,
     JSArray fullVersionList,
     String model,
     bool mobile,
@@ -47,8 +47,8 @@ extension UADataValuesExtension on UADataValues {
   external String get bitness;
   external set brands(JSArray value);
   external JSArray get brands;
-  external set formFactor(String value);
-  external String get formFactor;
+  external set formFactor(JSArray value);
+  external JSArray get formFactor;
   external set fullVersionList(JSArray value);
   external JSArray get fullVersionList;
   external set model(String value);

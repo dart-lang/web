@@ -1,5 +1,6 @@
-## 0.2.3-wip
+## 0.3.0
 
+- Updated source IDL to `v3.39.1`.
 - Fixed a bug where `typedef`s were not declared with the IDL type's
   nullability.
 - Types that were aliased to `double` are now aliased to `num`. This is to make

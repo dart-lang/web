@@ -119,6 +119,8 @@ extension MouseEventExtension on MouseEvent {
   external int get screenY;
   external int get clientX;
   external int get clientY;
+  external int get layerX;
+  external int get layerY;
   external bool get ctrlKey;
   external bool get shiftKey;
   external bool get altKey;

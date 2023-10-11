@@ -110,6 +110,7 @@ class RequestInit implements JSObject {
     RequestPriority priority,
     JSAny? window,
     RequestTargetAddressSpace targetAddressSpace,
+    bool sharedStorageWritable,
     PrivateToken privateToken,
   });
 }
@@ -149,6 +150,8 @@ extension RequestInitExtension on RequestInit {
   external JSAny? get window;
   external set targetAddressSpace(RequestTargetAddressSpace value);
   external RequestTargetAddressSpace get targetAddressSpace;
+  external set sharedStorageWritable(bool value);
+  external bool get sharedStorageWritable;
   external set privateToken(PrivateToken value);
   external PrivateToken get privateToken;
 }

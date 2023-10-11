@@ -10,7 +10,7 @@ import 'secure_payment_confirmation.dart';
 import 'webidl.dart';
 
 typedef Base64URLString = String;
-typedef PublicKeyCredentialJSON = JSAny?;
+typedef PublicKeyCredentialJSON = JSObject;
 typedef COSEAlgorithmIdentifier = int;
 typedef UvmEntry = JSArray;
 typedef UvmEntries = JSArray;

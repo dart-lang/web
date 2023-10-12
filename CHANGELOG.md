@@ -1,3 +1,7 @@
+## 0.3.1-dev
+
+- Updated types to account for union types.
+
 ## 0.3.0
 
 - Updated source IDL to `v3.39.1`.

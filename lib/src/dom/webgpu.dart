@@ -12,10 +12,10 @@ typedef GPUBufferUsageFlags = int;
 typedef GPUMapModeFlags = int;
 typedef GPUTextureUsageFlags = int;
 typedef GPUShaderStageFlags = int;
-typedef GPUBindingResource = JSAny?;
+typedef GPUBindingResource = JSObject;
 typedef GPUPipelineConstantValue = num;
 typedef GPUColorWriteFlags = int;
-typedef GPUImageCopyExternalImageSource = JSAny?;
+typedef GPUImageCopyExternalImageSource = JSObject;
 typedef GPUBufferDynamicOffset = int;
 typedef GPUStencilValue = int;
 typedef GPUSampleMask = int;
@@ -29,10 +29,10 @@ typedef GPUSize64Out = int;
 typedef GPUIntegerCoordinateOut = int;
 typedef GPUSize32Out = int;
 typedef GPUFlagsConstant = int;
-typedef GPUColor = JSAny?;
-typedef GPUOrigin2D = JSAny?;
-typedef GPUOrigin3D = JSAny?;
-typedef GPUExtent3D = JSAny?;
+typedef GPUColor = JSObject;
+typedef GPUOrigin2D = JSObject;
+typedef GPUOrigin3D = JSObject;
+typedef GPUExtent3D = JSObject;
 typedef GPUPowerPreference = String;
 typedef GPUFeatureName = String;
 typedef GPUBufferMapState = String;
@@ -434,15 +434,15 @@ class GPUExternalTexture implements GPUObjectBase {}
 @anonymous
 class GPUExternalTextureDescriptor implements GPUObjectDescriptorBase {
   external factory GPUExternalTextureDescriptor({
-    required JSAny? source,
+    required JSObject source,
     PredefinedColorSpace colorSpace,
   });
 }
 
 extension GPUExternalTextureDescriptorExtension
     on GPUExternalTextureDescriptor {
-  external set source(JSAny? value);
-  external JSAny? get source;
+  external set source(JSObject value);
+  external JSObject get source;
   external set colorSpace(PredefinedColorSpace value);
   external PredefinedColorSpace get colorSpace;
 }
@@ -1300,7 +1300,7 @@ extension GPUBindingCommandsMixinExtension on GPUBindingCommandsMixin {
   external JSVoid setBindGroup(
     GPUIndex32 index,
     GPUBindGroup? bindGroup, [
-    JSAny? dynamicOffsetsOrDynamicOffsetsData,
+    JSObject dynamicOffsetsOrDynamicOffsetsData,
     GPUSize64 dynamicOffsetsDataStart,
     GPUSize32 dynamicOffsetsDataLength,
   ]);
@@ -1693,7 +1693,7 @@ extension GPUCanvasContextExtension on GPUCanvasContext {
   external JSVoid configure(GPUCanvasConfiguration configuration);
   external JSVoid unconfigure();
   external GPUTexture getCurrentTexture();
-  external JSAny? get canvas;
+  external JSObject get canvas;
 }
 
 @JS()

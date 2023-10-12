@@ -512,7 +512,7 @@ extension DocumentExtension on Document {
   );
   external JSPromise exitFullscreen();
   external NodeList getElementsByName(String elementName);
-  external JSAny? open([
+  external JSObject? open([
     String unused1OrUrl,
     String nameOrUnused2,
     String features,

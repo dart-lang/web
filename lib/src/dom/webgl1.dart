@@ -22,9 +22,9 @@ typedef GLushort = int;
 typedef GLuint = int;
 typedef GLfloat = num;
 typedef GLclampf = num;
-typedef TexImageSource = JSAny?;
-typedef Float32List = JSAny?;
-typedef Int32List = JSAny?;
+typedef TexImageSource = JSObject;
+typedef Float32List = JSObject;
+typedef Int32List = JSObject;
 typedef WebGLPowerPreference = String;
 
 @JS()
@@ -805,7 +805,7 @@ extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
     GLsizei height,
   );
   external JSPromise makeXRCompatible();
-  external JSAny? get canvas;
+  external JSObject get canvas;
   external GLsizei get drawingBufferWidth;
   external GLsizei get drawingBufferHeight;
   external set drawingBufferColorSpace(PredefinedColorSpace value);

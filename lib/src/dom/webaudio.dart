@@ -348,8 +348,8 @@ extension AudioBufferOptionsExtension on AudioBufferOptions {
 class AudioNode implements EventTarget {}
 
 extension AudioNodeExtension on AudioNode {
-  external JSAny? connect(
-    JSAny? destinationNodeOrDestinationParam, [
+  external AudioNode? connect(
+    JSObject destinationNodeOrDestinationParam, [
     int output,
     int input,
   ]);

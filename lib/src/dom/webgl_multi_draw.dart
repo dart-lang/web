@@ -13,39 +13,39 @@ class WEBGL_multi_draw implements JSObject {}
 extension WEBGLMultiDrawExtension on WEBGL_multi_draw {
   external JSVoid multiDrawArraysWEBGL(
     GLenum mode,
-    JSAny? firstsList,
+    JSObject firstsList,
     int firstsOffset,
-    JSAny? countsList,
+    JSObject countsList,
     int countsOffset,
     GLsizei drawcount,
   );
   external JSVoid multiDrawElementsWEBGL(
     GLenum mode,
-    JSAny? countsList,
+    JSObject countsList,
     int countsOffset,
     GLenum type,
-    JSAny? offsetsList,
+    JSObject offsetsList,
     int offsetsOffset,
     GLsizei drawcount,
   );
   external JSVoid multiDrawArraysInstancedWEBGL(
     GLenum mode,
-    JSAny? firstsList,
+    JSObject firstsList,
     int firstsOffset,
-    JSAny? countsList,
+    JSObject countsList,
     int countsOffset,
-    JSAny? instanceCountsList,
+    JSObject instanceCountsList,
     int instanceCountsOffset,
     GLsizei drawcount,
   );
   external JSVoid multiDrawElementsInstancedWEBGL(
     GLenum mode,
-    JSAny? countsList,
+    JSObject countsList,
     int countsOffset,
     GLenum type,
-    JSAny? offsetsList,
+    JSObject offsetsList,
     int offsetsOffset,
-    JSAny? instanceCountsList,
+    JSObject instanceCountsList,
     int instanceCountsOffset,
     GLsizei drawcount,
   );

@@ -17,7 +17,7 @@ class Sanitizer implements JSObject {
 }
 
 extension SanitizerExtension on Sanitizer {
-  external DocumentFragment sanitize(JSAny? input);
+  external DocumentFragment sanitize(JSObject input);
   external Element? sanitizeFor(
     String element,
     String input,

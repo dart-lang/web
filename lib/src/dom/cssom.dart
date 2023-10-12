@@ -30,7 +30,7 @@ class StyleSheet implements JSObject {}
 extension StyleSheetExtension on StyleSheet {
   external String get type;
   external String? get href;
-  external JSAny? get ownerNode;
+  external JSObject? get ownerNode;
   external CSSStyleSheet? get parentStyleSheet;
   external String? get title;
   external MediaList get media;

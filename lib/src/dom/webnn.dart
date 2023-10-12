@@ -7,10 +7,10 @@ import 'dart:js_interop';
 import 'webgpu.dart';
 
 typedef MLNamedArrayBufferViews = JSAny?;
-typedef MLGPUResource = JSAny?;
+typedef MLGPUResource = JSObject;
 typedef MLNamedGPUResources = JSAny?;
 typedef MLNamedOperands = JSAny?;
-typedef MLBufferView = JSAny?;
+typedef MLBufferView = JSObject;
 typedef MLDeviceType = String;
 typedef MLPowerPreference = String;
 typedef MLInputOperandLayout = String;
@@ -55,8 +55,8 @@ extension MLContextOptionsExtension on MLContextOptions {
 class ML implements JSObject {}
 
 extension MLExtension on ML {
-  external JSPromise createContext([JSAny? gpuDeviceOrOptions]);
-  external MLContext createContextSync([JSAny? gpuDeviceOrOptions]);
+  external JSPromise createContext([JSObject gpuDeviceOrOptions]);
+  external MLContext createContextSync([JSObject gpuDeviceOrOptions]);
 }
 
 @JS('MLGraph')
@@ -180,8 +180,8 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
     MLOperand variance, [
     MLBatchNormalizationOptions options,
   ]);
-  external JSAny? clamp([
-    JSAny? operandOrOptions,
+  external JSObject clamp([
+    JSObject operandOrOptions,
     MLClampOptions options,
   ]);
   external MLOperand concat(
@@ -235,8 +235,8 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
   external MLOperand neg(MLOperand input);
   external MLOperand sin(MLOperand input);
   external MLOperand tan(MLOperand input);
-  external JSAny? elu([
-    JSAny? inputOrOptions,
+  external JSObject elu([
+    JSObject inputOrOptions,
     MLEluOptions options,
   ]);
   external MLOperand gemm(
@@ -260,21 +260,21 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
     int hiddenSize, [
     MLGruCellOptions options,
   ]);
-  external JSAny? hardSigmoid([
-    JSAny? inputOrOptions,
+  external JSObject hardSigmoid([
+    JSObject inputOrOptions,
     MLHardSigmoidOptions options,
   ]);
-  external JSAny? hardSwish([MLOperand input]);
+  external JSObject hardSwish([MLOperand input]);
   external MLOperand instanceNormalization(
     MLOperand input, [
     MLInstanceNormalizationOptions options,
   ]);
-  external JSAny? leakyRelu([
-    JSAny? inputOrOptions,
+  external JSObject leakyRelu([
+    JSObject inputOrOptions,
     MLLeakyReluOptions options,
   ]);
-  external JSAny? linear([
-    JSAny? inputOrOptions,
+  external JSObject linear([
+    JSObject inputOrOptions,
     MLLinearOptions options,
   ]);
   external JSArray lstm(
@@ -360,7 +360,7 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
     MLOperand input, [
     MLReduceOptions options,
   ]);
-  external JSAny? relu([MLOperand input]);
+  external JSObject relu([MLOperand input]);
   external MLOperand resample2d(
     MLOperand input, [
     MLResample2dOptions options,
@@ -369,18 +369,18 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
     MLOperand input,
     JSArray newShape,
   );
-  external JSAny? sigmoid([MLOperand input]);
+  external JSObject sigmoid([MLOperand input]);
   external MLOperand slice(
     MLOperand input,
     JSArray starts,
     JSArray sizes,
   );
-  external JSAny? softmax([MLOperand input]);
-  external JSAny? softplus([
-    JSAny? inputOrOptions,
+  external JSObject softmax([MLOperand input]);
+  external JSObject softplus([
+    JSObject inputOrOptions,
     MLSoftplusOptions options,
   ]);
-  external JSAny? softsign([MLOperand input]);
+  external JSObject softsign([MLOperand input]);
   external JSArray split(
     MLOperand input,
     JSAny? splits, [
@@ -390,7 +390,7 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
     MLOperand input, [
     MLSqueezeOptions options,
   ]);
-  external JSAny? tanh([MLOperand input]);
+  external JSObject tanh([MLOperand input]);
   external MLOperand transpose(
     MLOperand input, [
     MLTransposeOptions options,

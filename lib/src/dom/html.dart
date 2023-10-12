@@ -82,18 +82,18 @@ import 'webxr.dart';
 import 'window_controls_overlay.dart';
 import 'xhr.dart';
 
-typedef HTMLOrSVGScriptElement = JSAny?;
-typedef MediaProvider = JSAny?;
-typedef RenderingContext = JSAny?;
-typedef HTMLOrSVGImageElement = JSAny?;
-typedef CanvasImageSource = JSAny?;
-typedef OffscreenRenderingContext = JSAny?;
+typedef HTMLOrSVGScriptElement = JSObject;
+typedef MediaProvider = JSObject;
+typedef RenderingContext = JSObject;
+typedef HTMLOrSVGImageElement = JSObject;
+typedef CanvasImageSource = JSObject;
+typedef OffscreenRenderingContext = JSObject;
 typedef EventHandler = EventHandlerNonNull?;
 typedef OnErrorEventHandler = OnErrorEventHandlerNonNull?;
 typedef OnBeforeUnloadEventHandler = OnBeforeUnloadEventHandlerNonNull?;
 typedef TimerHandler = JSAny?;
-typedef ImageBitmapSource = JSAny?;
-typedef MessageEventSource = JSAny?;
+typedef ImageBitmapSource = JSObject;
+typedef MessageEventSource = JSObject;
 typedef BlobCallback = JSFunction;
 typedef CustomElementConstructor = JSFunction;
 typedef FunctionStringCallback = JSFunction;
@@ -138,8 +138,8 @@ typedef WorkerType = String;
 class HTMLAllCollection implements JSObject {}
 
 extension HTMLAllCollectionExtension on HTMLAllCollection {
-  external JSAny? namedItem(String name);
-  external JSAny? item([String nameOrIndex]);
+  external JSObject? namedItem(String name);
+  external JSObject? item([String nameOrIndex]);
   external int get length;
 }
 
@@ -148,7 +148,7 @@ extension HTMLAllCollectionExtension on HTMLAllCollection {
 class HTMLFormControlsCollection implements HTMLCollection {}
 
 extension HTMLFormControlsCollectionExtension on HTMLFormControlsCollection {
-  external JSAny? namedItem(String name);
+  external JSObject? namedItem(String name);
 }
 
 @JS('RadioNodeList')
@@ -166,7 +166,7 @@ class HTMLOptionsCollection implements HTMLCollection {}
 
 extension HTMLOptionsCollectionExtension on HTMLOptionsCollection {
   external JSVoid add(
-    JSAny? element, [
+    JSObject element, [
     JSAny? before,
   ]);
   external JSVoid remove(int index);
@@ -1182,19 +1182,19 @@ class TrackEvent implements Event {
 }
 
 extension TrackEventExtension on TrackEvent {
-  external JSAny? get track;
+  external JSObject? get track;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class TrackEventInit implements EventInit {
-  external factory TrackEventInit({JSAny? track});
+  external factory TrackEventInit({JSObject? track});
 }
 
 extension TrackEventInitExtension on TrackEventInit {
-  external set track(JSAny? value);
-  external JSAny? get track;
+  external set track(JSObject? value);
+  external JSObject? get track;
 }
 
 @JS('HTMLMapElement')
@@ -1606,7 +1606,7 @@ extension HTMLSelectElementExtension on HTMLSelectElement {
   external HTMLOptionElement? item(int index);
   external HTMLOptionElement? namedItem(String name);
   external JSVoid add(
-    JSAny? element, [
+    JSObject element, [
     JSAny? before,
   ]);
   external JSVoid remove([int index]);
@@ -2002,7 +2002,7 @@ class HTMLSlotElement implements HTMLElement {
 extension HTMLSlotElementExtension on HTMLSlotElement {
   external JSArray assignedNodes([AssignedNodesOptions options]);
   external JSArray assignedElements([AssignedNodesOptions options]);
-  external JSVoid assign(JSAny? nodes);
+  external JSVoid assign(JSObject nodes);
   external set name(String value);
   external String get name;
 }
@@ -2281,7 +2281,7 @@ class CanvasUserInterface implements JSObject {}
 
 extension CanvasUserInterfaceExtension on CanvasUserInterface {
   external JSVoid drawFocusIfNeeded(
-    JSAny? elementOrPath, [
+    JSObject elementOrPath, [
     Element element,
   ]);
   external JSVoid scrollPathIntoView([Path2D path]);
@@ -2554,7 +2554,7 @@ class ImageBitmapRenderingContext implements JSObject {}
 
 extension ImageBitmapRenderingContextExtension on ImageBitmapRenderingContext {
   external JSVoid transferFromImageBitmap(ImageBitmap? bitmap);
-  external JSAny? get canvas;
+  external JSObject get canvas;
 }
 
 @JS()
@@ -2649,7 +2649,7 @@ extension CustomElementRegistryExtension on CustomElementRegistry {
     CustomElementConstructor constructor, [
     ElementDefinitionOptions options,
   ]);
-  external JSAny? get(String name);
+  external CustomElementConstructor? get(String name);
   external String? getName(CustomElementConstructor constructor);
   external JSPromise whenDefined(String name);
   external JSVoid upgrade(Node root);
@@ -3014,7 +3014,7 @@ extension WindowExtension on Window {
   external int get outerHeight;
   external num get devicePixelRatio;
   external DocumentPictureInPicture get documentPictureInPicture;
-  external JSAny? get event;
+  external Event? get event;
   external Fence? get fence;
   external Window get window;
   external Window get self;
@@ -4228,7 +4228,7 @@ class MessagePort implements EventTarget {}
 extension MessagePortExtension on MessagePort {
   external JSVoid postMessage(
     JSAny? message, [
-    JSAny? optionsOrTransfer,
+    JSObject optionsOrTransfer,
   ]);
   external JSVoid start();
   external JSVoid close();
@@ -4298,7 +4298,7 @@ class DedicatedWorkerGlobalScope
 extension DedicatedWorkerGlobalScopeExtension on DedicatedWorkerGlobalScope {
   external JSVoid postMessage(
     JSAny? message, [
-    JSAny? optionsOrTransfer,
+    JSObject optionsOrTransfer,
   ]);
   external JSVoid close();
   external String get name;
@@ -4343,7 +4343,7 @@ extension WorkerExtension on Worker {
   external JSVoid terminate();
   external JSVoid postMessage(
     JSAny? message, [
-    JSAny? optionsOrTransfer,
+    JSObject optionsOrTransfer,
   ]);
   external set onmessage(EventHandler value);
   external EventHandler get onmessage;

@@ -20,7 +20,7 @@ class IDBRequest implements EventTarget {}
 extension IDBRequestExtension on IDBRequest {
   external JSAny? get result;
   external DOMException? get error;
-  external JSAny? get source;
+  external JSObject? get source;
   external IDBTransaction? get transaction;
   external IDBRequestReadyState get readyState;
   external set onsuccess(EventHandler value);
@@ -303,7 +303,7 @@ extension IDBCursorExtension on IDBCursor {
   );
   external IDBRequest update(JSAny? value);
   external IDBRequest delete();
-  external JSAny? get source;
+  external JSObject get source;
   external IDBCursorDirection get direction;
   external JSAny? get key;
   external JSAny? get primaryKey;

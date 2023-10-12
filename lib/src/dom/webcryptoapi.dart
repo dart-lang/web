@@ -108,7 +108,7 @@ extension SubtleCryptoExtension on SubtleCrypto {
   );
   external JSPromise importKey(
     KeyFormat format,
-    JSAny? keyData,
+    JSObject keyData,
     AlgorithmIdentifier algorithm,
     bool extractable,
     JSArray keyUsages,

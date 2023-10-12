@@ -12,7 +12,7 @@ class URL implements JSObject {
     String base,
   ]);
 
-  external static String createObjectURL(JSAny? obj);
+  external static String createObjectURL(JSObject obj);
   external static JSVoid revokeObjectURL(String url);
   external static bool canParse(
     String url, [

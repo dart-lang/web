@@ -9,7 +9,7 @@ import 'geometry.dart';
 import 'html.dart';
 import 'screen_orientation.dart';
 
-typedef GeometryNode = JSAny?;
+typedef GeometryNode = JSObject;
 typedef ScrollBehavior = String;
 typedef ScrollLogicalPosition = String;
 typedef CSSBoxType = String;

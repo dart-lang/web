@@ -29,7 +29,7 @@ class ServiceWorker implements EventTarget, AbstractWorker {}
 extension ServiceWorkerExtension on ServiceWorker {
   external JSVoid postMessage(
     JSAny? message, [
-    JSAny? optionsOrTransfer,
+    JSObject optionsOrTransfer,
   ]);
   external String get scriptURL;
   external ServiceWorkerState get state;
@@ -193,7 +193,7 @@ class Client implements JSObject {}
 extension ClientExtension on Client {
   external JSVoid postMessage(
     JSAny? message, [
-    JSAny? optionsOrTransfer,
+    JSObject optionsOrTransfer,
   ]);
   external ClientLifecycleState get lifecycleState;
   external String get url;
@@ -323,7 +323,7 @@ extension ExtendableMessageEventExtension on ExtendableMessageEvent {
   external JSAny? get data;
   external String get origin;
   external String get lastEventId;
-  external JSAny? get source;
+  external JSObject? get source;
   external JSArray get ports;
 }
 
@@ -335,7 +335,7 @@ class ExtendableMessageEventInit implements ExtendableEventInit {
     JSAny? data,
     String origin,
     String lastEventId,
-    JSAny? source,
+    JSObject? source,
     JSArray ports,
   });
 }
@@ -347,8 +347,8 @@ extension ExtendableMessageEventInitExtension on ExtendableMessageEventInit {
   external String get origin;
   external set lastEventId(String value);
   external String get lastEventId;
-  external set source(JSAny? value);
-  external JSAny? get source;
+  external set source(JSObject? value);
+  external JSObject? get source;
   external set ports(JSArray value);
   external JSArray get ports;
 }

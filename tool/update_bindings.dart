@@ -1,6 +1,14 @@
+// Copyright (c) 2023, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
+import 'package:analyzer/dart/analysis/results.dart';
+import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/dart/element/type.dart';
 import 'package:args/args.dart';
 import 'package:io/ansi.dart' as ansi;
 import 'package:io/io.dart';
@@ -33,6 +41,9 @@ $_usage''');
   } else {
     await _runProc('npm', ['install'], _bindingsGeneratorPath);
   }
+
+  // Compute JS type supertypes for union calculation in translator.
+  await _generateJsTypeSupertypes();
 
   if (argResult['compile'] as bool) {
     // Compile Dart to Javascript.
@@ -129,6 +140,71 @@ Future<void> _runProc(
   if (procExit != 0) {
     throw ProcessException(executable, arguments, 'Process failed', procExit);
   }
+}
+
+Future<void> _generateJsTypeSupertypes() async {
+  // Use a file that uses `dart:js_interop` for analysis.
+  final contextCollection = AnalysisContextCollection(
+      includedPaths: [p.fromUri(Platform.script.resolve('../lib/web.dart'))]);
+  final dartJsInterop = await contextCollection.contexts.single.currentSession
+      .getLibraryByUri('dart:js_interop') as LibraryElementResult;
+  final definedNames = dartJsInterop.element.exportNamespace.definedNames;
+  final jsTypeSupertypes = <String, String?>{};
+  for (final name in definedNames.keys) {
+    final element = definedNames[name];
+    if (element is TypeDefiningElement) {
+      void storeSupertypes(InterfaceElement element) {
+        bool isInJsTypes(InterfaceElement element) =>
+            // We only care about JS types for this calculation.
+            // TODO(srujzs): We'll likely need to change this once JS types move
+            // to extension types.
+            element.library.isInSdk && element.library.name == '_js_types';
+
+        if (!isInJsTypes(element)) return;
+        String? parentJsType;
+        final supertype = element.supertype;
+        final immediateSupertypes = <InterfaceType>[
+          if (supertype != null && !supertype.isDartCoreObject) supertype,
+          ...element.interfaces,
+        ];
+        // We should have at most one non-trivial supertype.
+        assert(immediateSupertypes.length <= 1);
+        for (final supertype in immediateSupertypes) {
+          if (isInJsTypes(supertype.element)) {
+            parentJsType = "'${supertype.element.name}'";
+          }
+        }
+        // Ensure that the hierarchy forms a tree.
+        assert((parentJsType == null) == (name == 'JSAny'));
+        jsTypeSupertypes["'$name'"] = parentJsType;
+      }
+
+      if (element is TypeAliasElement) {
+        final type = element.aliasedType;
+        if (type is InterfaceType) storeSupertypes(type.element);
+      } else if (element is InterfaceElement) {
+        storeSupertypes(element);
+      }
+    }
+  }
+
+  final jsTypeSupertypesScript = '''
+  // Copyright (c) 2023, the Dart project authors.  Please see the AUTHORS file
+  // for details. All rights reserved. Use of this source code is governed by a
+  // BSD-style license that can be found in the LICENSE file.
+
+  // Updated by $_thisScript. Do not modify by hand.
+
+  const Map<String, String?> jsTypeSupertypes = $jsTypeSupertypes;
+  ''';
+  final jsTypeSupertypesPath =
+      p.join(_bindingsGeneratorPath, 'js_type_supertypes.dart');
+  await File(jsTypeSupertypesPath).writeAsString(jsTypeSupertypesScript);
+  await _runProc(
+    Platform.executable,
+    ['format', jsTypeSupertypesPath],
+    _bindingsGeneratorPath,
+  );
 }
 
 final _usage = '''

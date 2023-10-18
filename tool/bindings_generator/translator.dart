@@ -30,15 +30,15 @@ class _Library {
 
   void _addNamed<T extends idl.Named>(idl.Node node, List<T> list) {
     final named = node as T;
-    final name = named.name.toDart;
+    final name = named.name;
     assert(!translator._typeToLibrary.containsKey(name));
-    translator._typeToLibrary[named.name.toDart] = this;
-    translator._typeToDeclaration[named.name.toDart] = node;
+    translator._typeToLibrary[name] = this;
+    translator._typeToDeclaration[name] = node;
     list.add(named);
   }
 
   void add(idl.Node node) {
-    final type = node.type.toDart;
+    final type = node.type;
     // TODO(srujzs): We may want an enum here, but that would be slower due to
     // a string lookup in the set of enums.
     switch (type) {
@@ -51,7 +51,7 @@ class _Library {
         // partial interfaces, we track interfacelikes on the translator as
         // well.
         final interfacelike = node as idl.Interfacelike;
-        if (!node.partial.toDart) {
+        if (!node.partial) {
           _addNamed<idl.Interfacelike>(node, interfacelikes);
         } else {
           partialInterfacelikes.add(interfacelike);
@@ -73,7 +73,7 @@ class _Library {
         final callback = node as idl.Callback;
 
         /// TODO(joshualitt): Maybe handle this case a bit more elegantly?
-        if (callback.name.toDart == 'Function') {
+        if (callback.name == 'Function') {
           return;
         }
         _addNamed<idl.Callback>(callback, callbacks);
@@ -99,7 +99,7 @@ class _Library {
     var (type, nullable) = rawType;
     final decl = Translator.instance!._typeToDeclaration[type];
     if (decl != null) {
-      final nodeType = decl.type.toDart;
+      final nodeType = decl.type;
       switch (nodeType) {
         case 'interface':
         case 'dictionary':
@@ -139,10 +139,10 @@ class _Library {
 /// indicating whether the type is nullable.
 (String, bool) _typeRaw(idl.IDLType idlType) {
   // For union types, we take the possible union of all the types using a LUB.
-  if (idlType.union.toDart) {
+  if (idlType.union) {
     final types = (idlType.idlType as JSArray).toDart;
     String? unionType;
-    var nullable = idlType.nullable.toDart;
+    var nullable = idlType.nullable;
     for (final type in types) {
       final rawType = _typeRaw(type as idl.IDLType);
       if (unionType == null) {
@@ -157,15 +157,15 @@ class _Library {
     return (unionType!, nullable);
   }
   final String type;
-  final nullable = idlType.nullable.toDart;
-  if (idlType.generic.toDart.isNotEmpty) {
+  final nullable = idlType.nullable;
+  if (idlType.generic.isNotEmpty) {
     // TODO(srujzs): Once we have a generic `JSArray` and `JSPromise`, we should
     // add these type parameters in. We need to be careful, however, as we
     // should only add the type parameter if the type is a subtype of `JSAny?`
     // either because it is an interface or a typedef. We also need to make sure
     // to convert type aliases that are Dart types back to JS types e.g.
     // `String` should be `JSString`.
-    type = idlType.generic.toDart;
+    type = idlType.generic;
   } else {
     type = (idlType.idlType as JSString).toDart;
   }
@@ -202,10 +202,8 @@ class _Parameter {
 
   _Parameter._(this._names, this.type, this.isOptional);
 
-  factory _Parameter(idl.Argument argument) => _Parameter._(
-      {argument.name.toDart},
-      _Type(argument.idlType),
-      argument.optional.toDart);
+  factory _Parameter(idl.Argument argument) =>
+      _Parameter._({argument.name}, _Type(argument.idlType), argument.optional);
 
   String _generateName() {
     final namesList = _names.toList();
@@ -217,10 +215,10 @@ class _Parameter {
   }
 
   void update(idl.Argument argument) {
-    final thatName = argument.name.toDart;
+    final thatName = argument.name;
     _names.add(thatName);
     type.update(argument.idlType);
-    if (argument.optional.toDart) {
+    if (argument.optional) {
       isOptional = true;
     }
   }
@@ -264,15 +262,11 @@ class _OverridableOperation extends _OverridableMember {
       this.name, this.isStatic, this.returnType, super.parameters);
 
   factory _OverridableOperation(idl.Operation operation) =>
-      _OverridableOperation._(
-          operation.name.toDart,
-          operation.special.toDart == 'static',
-          _Type(operation.idlType),
-          operation.arguments);
+      _OverridableOperation._(operation.name, operation.special == 'static',
+          _Type(operation.idlType), operation.arguments);
 
   void update(idl.Operation that) {
-    assert(name == that.name.toDart &&
-        isStatic == (that.special.toDart == 'static'));
+    assert(name == that.name && isStatic == (that.special == 'static'));
     returnType.update(that.idlType);
     _processParameters(that.arguments);
   }
@@ -300,9 +294,7 @@ class _PartialInterfacelike {
 
   factory _PartialInterfacelike(idl.Interfacelike interfacelike) {
     final partialInterfacelike = _PartialInterfacelike._(
-        interfacelike.name.toDart,
-        interfacelike.type.toDart,
-        interfacelike.inheritance.toDartString);
+        interfacelike.name, interfacelike.type, interfacelike.inheritance);
     partialInterfacelike._processMembers(interfacelike.members);
     return partialInterfacelike;
   }
@@ -310,7 +302,7 @@ class _PartialInterfacelike {
   void _processMembers(JSArray nodeMembers) {
     for (var i = 0; i < nodeMembers.length; i++) {
       final member = nodeMembers[i] as idl.Member;
-      final type = member.type.toDart;
+      final type = member.type;
       switch (type) {
         case 'constructor':
           final idlConstructor = member as idl.Constructor;
@@ -325,7 +317,7 @@ class _PartialInterfacelike {
           break;
         case 'attribute':
           final attribute = member as idl.Attribute;
-          if (attribute.special.toDart == 'static') {
+          if (attribute.special == 'static') {
             staticMembers.add(member);
           } else {
             members.add(member);
@@ -333,13 +325,13 @@ class _PartialInterfacelike {
           break;
         case 'operation':
           final operation = member as idl.Operation;
-          final name = operation.name.toDart;
+          final name = operation.name;
           if (name.isEmpty) {
             // TODO(joshualitt): We may be able to handle some unnamed
             // operations.
             continue;
           }
-          if (operation.special.toDart == 'static') {
+          if (operation.special == 'static') {
             assert(!operations.containsKey(name));
             if (staticOperations.containsKey(name)) {
               staticOperations[name]!.update(operation);
@@ -370,11 +362,10 @@ class _PartialInterfacelike {
   }
 
   void update(idl.Interfacelike interfacelike) {
-    assert(
-        name == interfacelike.name.toDart && type == interfacelike.type.toDart);
+    assert(name == interfacelike.name && type == interfacelike.type);
     assert(interfacelike.inheritance == null || inheritance == null,
         'An interface should only be defined once.');
-    inheritance ??= interfacelike.inheritance.toDartString;
+    inheritance ??= interfacelike.inheritance;
     _processMembers(interfacelike.members);
   }
 
@@ -421,7 +412,7 @@ class Translator {
         ...library.interfacelikes,
         ...library.partialInterfacelikes
       ]) {
-        final name = interfacelike.name.toDart;
+        final name = interfacelike.name;
         if (_interfacelikes.containsKey(name)) {
           _interfacelikes[name]!.update(interfacelike);
         } else {
@@ -539,11 +530,11 @@ class Translator {
     for (final member in members) {
       // We currently only lower dictionaries to object literals, and
       // dictionaries can only have 'field' members.
-      assert(member.type.toDart == 'field');
+      assert(member.type == 'field');
       final field = member as idl.Field;
-      final isRequired = field.required.toDart;
+      final isRequired = field.required;
       final parameter = code.Parameter((b) => b
-        ..name = _parameterName(field.name.toDart)
+        ..name = _parameterName(field.name)
         ..type = _idlTypeToTypeReference(field.idlType, isReturn: false)
         ..required = isRequired
         ..named = true);
@@ -633,26 +624,26 @@ class Translator {
 
   List<code.Method> _attribute(idl.Attribute attribute) =>
       _getterSetterWithIDLType(
-          fieldName: attribute.name.toDart,
+          fieldName: attribute.name,
           type: attribute.idlType,
-          readOnly: attribute.readonly.toDart,
-          isStatic: attribute.special.toDart == 'static');
+          readOnly: attribute.readonly,
+          isStatic: attribute.special == 'static');
 
   code.Method _constant(idl.Constant constant) => code.Method((b) => b
     ..external = true
     ..static = true
     ..returns = _idlTypeToTypeReference(constant.idlType, isReturn: true)
     ..type = code.MethodType.getter
-    ..name = constant.name.toDart);
+    ..name = constant.name);
 
   List<code.Method> _field(idl.Field field) => _getterSetterWithIDLType(
-      fieldName: field.name.toDart,
+      fieldName: field.name,
       type: field.idlType,
       readOnly: false,
       isStatic: false);
 
   List<code.Method> _member(idl.Member member) {
-    final type = member.type.toDart;
+    final type = member.type;
     switch (type) {
       case 'operation':
         throw Exception('Should be handled explicitly.');
@@ -727,7 +718,7 @@ class Translator {
       );
 
   List<code.Spec> _interfacelike(idl.Interfacelike idlInterfacelike) {
-    final name = idlInterfacelike.name.toDart;
+    final name = idlInterfacelike.name;
     final interfacelike = _interfacelikes[name]!;
     final jsName = interfacelike.name;
     final type = interfacelike.type;
@@ -772,18 +763,18 @@ class Translator {
     ..comments.addAll(licenseHeader)
     ..body.addAll([
       for (final typedef in library.typedefs)
-        _typedef(typedef.name.toDart, _typeRaw(typedef.idlType)),
+        _typedef(typedef.name, _typeRaw(typedef.idlType)),
       // TODO(joshualitt): We should lower callbacks and callback interfaces to
       // a Dart function that takes a typed Dart function, and returns an
       // JSFunction.
       for (final callback in library.callbacks)
-        _typedef(callback.name.toDart, ('JSFunction', false)),
+        _typedef(callback.name, ('JSFunction', false)),
       for (final callbackInterface in library.callbackInterfaces)
-        _typedef(callbackInterface.name.toDart, ('JSFunction', false)),
+        _typedef(callbackInterface.name, ('JSFunction', false)),
       // TODO(joshualitt): Enums in the WebIDL are just strings, but we could
       // make them easier to work with on the Dart side.
       for (final enum_ in library.enums)
-        _typedef(enum_.name.toDart, ('String', false)),
+        _typedef(enum_.name, ('String', false)),
       for (final interfacelike in library.interfacelikes)
         ..._interfacelike(interfacelike),
     ]));
@@ -802,8 +793,8 @@ class Translator {
     // libraries because interfaces and namespaces may include across library
     // boundaries.
     for (final include in _includes) {
-      final target = _interfacelikes[include.target.toDart]!;
-      final includes = _interfacelikes[include.includes.toDart]!;
+      final target = _interfacelikes[include.target]!;
+      final includes = _interfacelikes[include.includes]!;
       target.include(includes);
     }
 

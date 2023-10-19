@@ -9,11 +9,11 @@ import 'dart:js_interop';
 class IDLType {}
 
 extension IDLTypeExtension on IDLType {
-  external JSString? get type;
-  external JSString get generic;
+  external String? get type;
+  external String get generic;
   external JSAny get idlType;
-  external JSBoolean get nullable;
-  external JSBoolean get union;
+  external bool get nullable;
+  external bool get union;
 }
 
 /// The abstract node interface in the IDL AST. All nodes that can occur at the
@@ -23,7 +23,7 @@ extension IDLTypeExtension on IDLType {
 class Node {}
 
 extension NodeExtension on Node {
-  external JSString get type;
+  external String get type;
 }
 
 /// The abstract node interface for named nodes in the IDL. Most root nodes have
@@ -33,7 +33,7 @@ extension NodeExtension on Node {
 class Named extends Node {}
 
 extension NamedExtension on Named {
-  external JSString get name;
+  external String get name;
 }
 
 /// [Interfacelike] captures multiple IDL types:
@@ -48,9 +48,9 @@ extension NamedExtension on Named {
 class Interfacelike extends Named {}
 
 extension InterfaceExtension on Interfacelike {
-  external JSBoolean get partial;
+  external bool get partial;
   external JSArray get members;
-  external JSString? get inheritance;
+  external String? get inheritance;
 }
 
 @JS()
@@ -67,8 +67,8 @@ extension CallbackExtension on Callback {
 class EnumValue {}
 
 extension EnumValueExtension on EnumValue {
-  external JSString get type;
-  external JSString get value;
+  external String get type;
+  external String get value;
 }
 
 @JS()
@@ -88,8 +88,8 @@ extension TypedefExtension on Typedef {
 class Includes extends Node {}
 
 extension IncludesExtension on Includes {
-  external JSString get target;
-  external JSString get includes;
+  external String get target;
+  external String get includes;
 }
 
 /// All members inherit from the [Member] node.
@@ -98,7 +98,7 @@ extension IncludesExtension on Includes {
 class Member {}
 
 extension MemberExtension on Member {
-  external JSString get type;
+  external String get type;
 }
 
 @JS()
@@ -106,13 +106,13 @@ extension MemberExtension on Member {
 class Argument {}
 
 extension ArgumentExtension on Argument {
-  external JSString get type;
+  external String get type;
   @JS('default')
   external Value? get defaultValue;
-  external JSBoolean get optional;
-  external JSBoolean get variadic;
+  external bool get optional;
+  external bool get variadic;
   external IDLType get idlType;
-  external JSString get name;
+  external String get name;
 }
 
 @JS()
@@ -120,9 +120,9 @@ extension ArgumentExtension on Argument {
 class Operation extends Member {}
 
 extension OperationExtension on Operation {
-  external JSString get special;
+  external String get special;
   external IDLType get idlType;
-  external JSString get name;
+  external String get name;
   external JSArray get arguments;
 }
 
@@ -139,10 +139,10 @@ extension ConstructorExtension on Constructor {
 class Attribute extends Member {}
 
 extension AttributeExtension on Attribute {
-  external JSString get special;
-  external JSBoolean get readonly;
+  external String get special;
+  external bool get readonly;
   external IDLType get idlType;
-  external JSString get name;
+  external String get name;
 }
 
 @JS()
@@ -150,8 +150,8 @@ extension AttributeExtension on Attribute {
 class Field extends Member {}
 
 extension FieldExtension on Field {
-  external JSString get name;
-  external JSBoolean get required;
+  external String get name;
+  external bool get required;
   external IDLType get idlType;
   @JS('default')
   external Value? get defaultValue;
@@ -162,9 +162,9 @@ extension FieldExtension on Field {
 class Value {}
 
 extension ValueExtension on Value {
-  external JSString get type;
+  external String get type;
   external JSAny? get value;
-  external JSBoolean? get negative;
+  external bool? get negative;
 }
 
 @JS()
@@ -173,7 +173,7 @@ class Constant extends Member {}
 
 extension ConstantExtension on Constant {
   external IDLType get idlType;
-  external JSString get name;
+  external String get name;
   external Value get value;
 }
 
@@ -187,10 +187,10 @@ extension ConstantExtension on Constant {
 class MemberDeclaration {}
 
 extension MemberDeclarationExtension on MemberDeclaration {
-  external JSString get type;
+  external String get type;
   external IDLType get idlType;
-  external JSBoolean get readonly;
-  external JSBoolean get async;
+  external bool get readonly;
+  external bool get async;
   external JSArray get arguments;
 }
 
@@ -199,6 +199,6 @@ extension MemberDeclarationExtension on MemberDeclaration {
 class EOF {}
 
 extension EOFExtension on EOF {
-  external JSString get type;
-  external JSString get value;
+  external String get type;
+  external String get value;
 }

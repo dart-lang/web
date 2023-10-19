@@ -15,10 +15,6 @@ extension JSArrayExtension on JSArray {
   external int get length;
 }
 
-extension JSStringHelpers on JSString? {
-  String? get toDartString => isUndefinedOrNull ? null : this!.toDart;
-}
-
 void ensureDirectoryExists(String dir) {
   if (!fs.existsSync(dir.toJS).toDart) {
     fs.mkdirSync(dir.toJS, JSMkdirOptions(recursive: true.toJS));

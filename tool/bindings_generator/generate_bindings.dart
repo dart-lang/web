@@ -55,5 +55,6 @@ Future<TranslationResult> generateBindings(
     final ast = entry[1] as JSArray;
     translator.collect(shortname, ast);
   }
+  translator.setOrUpdateInterfacelikes();
   return translator.translate();
 }

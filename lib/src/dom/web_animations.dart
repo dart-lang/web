@@ -214,7 +214,7 @@ extension ComputedEffectTimingExtension on ComputedEffectTiming {
 @staticInterop
 class KeyframeEffect implements AnimationEffect {
   external factory KeyframeEffect(
-    JSAny? sourceOrTarget, [
+    JSObject? sourceOrTarget, [
     JSObject? keyframes,
     JSAny? options,
   ]);

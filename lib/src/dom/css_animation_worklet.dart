@@ -36,7 +36,7 @@ extension WorkletAnimationEffectExtension on WorkletAnimationEffect {
 class WorkletAnimation implements Animation {
   external factory WorkletAnimation(
     String animatorName, [
-    JSAny? effects,
+    JSObject? effects,
     AnimationTimeline? timeline,
     JSAny? options,
   ]);

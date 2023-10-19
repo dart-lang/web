@@ -9,7 +9,7 @@ import 'html.dart';
 import 'streams.dart';
 import 'webcryptoapi.dart';
 
-typedef RTCRtpTransform = JSAny?;
+typedef RTCRtpTransform = JSObject;
 typedef SmallCryptoKeyID = int;
 typedef CryptoKeyID = JSAny?;
 typedef SFrameTransformRole = String;

@@ -17,7 +17,7 @@ import 'webcodecs_opus_codec_registration.dart';
 import 'webcodecs_vp9_codec_registration.dart';
 import 'webidl.dart';
 
-typedef ImageBufferSource = JSAny?;
+typedef ImageBufferSource = JSObject;
 typedef AudioDataOutputCallback = JSFunction;
 typedef VideoFrameOutputCallback = JSFunction;
 typedef EncodedAudioChunkOutputCallback = JSFunction;
@@ -633,8 +633,8 @@ extension AudioDataCopyToOptionsExtension on AudioDataCopyToOptions {
 @staticInterop
 class VideoFrame implements JSObject {
   external factory VideoFrame(
-    JSAny? dataOrImage, [
-    JSAny? init,
+    JSObject dataOrImage, [
+    JSObject init,
   ]);
 }
 

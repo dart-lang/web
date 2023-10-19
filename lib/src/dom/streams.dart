@@ -7,8 +7,8 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'webidl.dart';
 
-typedef ReadableStreamReader = JSAny?;
-typedef ReadableStreamController = JSAny?;
+typedef ReadableStreamReader = JSObject;
+typedef ReadableStreamController = JSObject;
 typedef UnderlyingSourceStartCallback = JSFunction;
 typedef UnderlyingSourcePullCallback = JSFunction;
 typedef UnderlyingSourceCancelCallback = JSFunction;

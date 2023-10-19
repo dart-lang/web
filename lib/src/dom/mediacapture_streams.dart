@@ -29,7 +29,7 @@ typedef MediaDeviceKind = String;
 @JS('MediaStream')
 @staticInterop
 class MediaStream implements EventTarget {
-  external factory MediaStream([JSAny? streamOrTracks]);
+  external factory MediaStream([JSObject streamOrTracks]);
 }
 
 extension MediaStreamExtension on MediaStream {

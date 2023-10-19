@@ -10,6 +10,7 @@ import 'package:path/path.dart' as p;
 import 'banned_names.dart';
 import 'singletons.dart';
 import 'type_aliases.dart';
+import 'type_union.dart';
 import 'util.dart';
 import 'webidl_api.dart' as idl;
 
@@ -19,6 +20,7 @@ class _Library {
   final Translator translator;
   final String url;
   final List<idl.Interfacelike> interfacelikes = [];
+  final List<idl.Interfacelike> partialInterfacelikes = [];
   final List<idl.Typedef> typedefs = [];
   final List<idl.Enum> enums = [];
   final List<idl.Callback> callbacks = [];
@@ -31,11 +33,14 @@ class _Library {
     final name = named.name.toDart;
     assert(!translator._typeToLibrary.containsKey(name));
     translator._typeToLibrary[named.name.toDart] = this;
+    translator._typeToDeclaration[named.name.toDart] = node;
     list.add(named);
   }
 
   void add(idl.Node node) {
     final type = node.type.toDart;
+    // TODO(srujzs): We may want an enum here, but that would be slower due to
+    // a string lookup in the set of enums.
     switch (type) {
       case 'interface mixin':
       case 'interface':
@@ -48,8 +53,9 @@ class _Library {
         final interfacelike = node as idl.Interfacelike;
         if (!node.partial.toDart) {
           _addNamed<idl.Interfacelike>(node, interfacelikes);
+        } else {
+          partialInterfacelikes.add(interfacelike);
         }
-        translator.setOrUpdateInterfacelike(interfacelike);
         break;
       case 'typedef':
         _addNamed<idl.Typedef>(node, typedefs);
@@ -80,19 +86,93 @@ class _Library {
   }
 }
 
-String _typeRaw(idl.IDLType idlType) {
-  final String type;
+(String, bool) _computeRawTypeUnion(
+    (String, bool) rawType1, (String, bool) rawType2) {
+  if (rawType1.$1 == 'JSUndefined' || rawType2.$1 == 'JSUndefined') {
+    return (rawType1.$1 == 'JSUndefined' ? rawType2.$1 : rawType1.$1, true);
+  } else if (rawType1.$1 == rawType2.$1) {
+    return (rawType1.$1, rawType1.$2 || rawType2.$2);
+  }
+  // In the case of unions, we should try and get a JS type-able type to get a
+  // better LUB.
+  (String, bool) getTypeForUnionCalculation((String, bool) rawType) {
+    var (type, nullable) = rawType;
+    final decl = Translator.instance!._typeToDeclaration[type];
+    if (decl != null) {
+      final nodeType = decl.type.toDart;
+      switch (nodeType) {
+        case 'interface':
+        case 'dictionary':
+          // TODO(srujzs): We can do better if we do a LUB of the interfaces (so
+          // we get a possible interface name instead of `JSObject`), but that
+          // might be too much effort for too little reward. This would entail
+          // caching the hierarchy of IDL types.
+          type = 'JSObject';
+          break;
+        case 'typedef':
+          final desugared = getTypeForUnionCalculation(
+              _typeRaw((decl as idl.Typedef).idlType));
+          type = desugared.$1;
+          nullable = desugared.$2;
+          break;
+        case 'callback':
+          type = 'JSFunction';
+          break;
+        case 'enum':
+          type = 'JSString';
+          break;
+        default:
+          throw Exception('Unhandled type $type with node type: $nodeType');
+      }
+    }
+    return (type, nullable);
+  }
+
+  final (type1, nullable1) = getTypeForUnionCalculation(rawType1);
+  final (type2, nullable2) = getTypeForUnionCalculation(rawType2);
+
+  // We choose `JSAny` if they're not both JS types.
+  return (computeJsTypeUnion(type1, type2) ?? 'JSAny', nullable1 || nullable2);
+}
+
+/// Returns a record containing the Dart type for the given [idlType] and a bool
+/// indicating whether the type is nullable.
+(String, bool) _typeRaw(idl.IDLType idlType) {
+  // For union types, we take the possible union of all the types using a LUB.
   if (idlType.union.toDart) {
-    type = 'union';
-  } else if (idlType.generic.toDart.isNotEmpty) {
+    final types = (idlType.idlType as JSArray).toDart;
+    String? unionType;
+    var nullable = idlType.nullable.toDart;
+    for (final type in types) {
+      final rawType = _typeRaw(type as idl.IDLType);
+      if (unionType == null) {
+        unionType = rawType.$1;
+        nullable |= rawType.$2;
+      } else {
+        final union = _computeRawTypeUnion((unionType, nullable), rawType);
+        unionType = union.$1;
+        nullable = union.$2;
+      }
+    }
+    return (unionType!, nullable);
+  }
+  final String type;
+  final nullable = idlType.nullable.toDart;
+  if (idlType.generic.toDart.isNotEmpty) {
+    // TODO(srujzs): Once we have a generic `JSArray` and `JSPromise`, we should
+    // add these type parameters in. We need to be careful, however, as we
+    // should only add the type parameter if the type is a subtype of `JSAny?`
+    // either because it is an interface or a typedef. We also need to make sure
+    // to convert type aliases that are Dart types back to JS types e.g.
+    // `String` should be `JSString`.
     type = idlType.generic.toDart;
   } else {
     type = (idlType.idlType as JSString).toDart;
   }
   if (typeAliases.containsKey(type)) {
-    return typeAliases[type]!;
+    return (typeAliases[type]!, nullable);
   } else {
-    return type;
+    return (type, nullable);
   }
 }
 
@@ -102,19 +182,15 @@ class _Type {
 
   _Type._(this.type, this.isNullable);
 
-  factory _Type(idl.IDLType type) =>
-      _Type._(_typeRaw(type), type.nullable.toDart);
+  factory _Type(idl.IDLType type) {
+    final (rawType, nullable) = _typeRaw(type);
+    return _Type._(rawType, nullable);
+  }
 
   void update(idl.IDLType idlType) {
-    final thatType = _typeRaw(idlType);
-    if (type != thatType) {
-      // TODO(joshualitt): In some cases we could probably find a better upper
-      // bound.
-      type = 'JSAny';
-    }
-    if (idlType.nullable.toDart) {
-      isNullable = true;
-    }
+    final union = _computeRawTypeUnion((type, isNullable), _typeRaw(idlType));
+    type = union.$1;
+    isNullable = union.$2;
   }
 }
 
@@ -318,6 +394,7 @@ class _MemberName {
 
 class Translator {
   final _libraries = <String, _Library>{};
+  final _typeToDeclaration = <String, idl.Node>{};
   final _typeToLibrary = <String, _Library>{};
   final _interfacelikes = <String, _PartialInterfacelike>{};
   final _includes = <idl.Includes>[];
@@ -325,14 +402,32 @@ class Translator {
   late String _currentlyTranslatingUrl;
   final List<String> _cssStyleDeclarations;
 
-  Translator(this._librarySubDir, this._cssStyleDeclarations);
+  /// Singleton so that various helper methods can access info about the AST.
+  static Translator? instance;
 
-  void setOrUpdateInterfacelike(idl.Interfacelike interfacelike) {
-    final name = interfacelike.name.toDart;
-    if (_interfacelikes.containsKey(name)) {
-      _interfacelikes[name]!.update(interfacelike);
-    } else {
-      _interfacelikes[name] = _PartialInterfacelike(interfacelike);
+  Translator(this._librarySubDir, this._cssStyleDeclarations) {
+    instance = this;
+  }
+
+  /// Set or update partial interfaces so we can have a unified interface
+  /// representation.
+  ///
+  /// Note that this is done after the initial pass on the AST. This is because
+  /// this step resolves unions and therefore can't be done until we record all
+  /// types.
+  void setOrUpdateInterfacelikes() {
+    for (final library in _libraries.values) {
+      for (final interfacelike in [
+        ...library.interfacelikes,
+        ...library.partialInterfacelikes
+      ]) {
+        final name = interfacelike.name.toDart;
+        if (_interfacelikes.containsKey(name)) {
+          _interfacelikes[name]!.update(interfacelike);
+        } else {
+          _interfacelikes[name] = _PartialInterfacelike(interfacelike);
+        }
+      }
     }
   }
 
@@ -346,10 +441,10 @@ class Translator {
     }
   }
 
-  code.TypeDef _typedef(String name, String type, bool nullable) =>
+  code.TypeDef _typedef(String name, (String, bool) rawType) =>
       code.TypeDef((b) => b
         ..name = name
-        ..definition = _typeReference(type, isNullable: nullable));
+        ..definition = _typeReference(rawType.$1, isNullable: rawType.$2));
 
   code.Method _topLevelGetter(String dartName, String getterName) =>
       code.Method((b) => b
@@ -387,6 +482,7 @@ class Translator {
     // Replace `JSUndefined` with `JSVoid` in return types.
     if (isReturn && symbol == 'JSUndefined') {
       symbol = 'JSVoid';
+      isNullable = false;
     }
     // In the IDL, `any` is always nullable, and thus so is `JSAny`.
     if (symbol == 'JSAny') {
@@ -399,9 +495,10 @@ class Translator {
   }
 
   code.TypeReference _idlTypeToTypeReference(idl.IDLType idlType,
-          {required bool isReturn}) =>
-      _typeReference(_typeRaw(idlType),
-          isNullable: idlType.nullable.toDart, isReturn: isReturn);
+      {required bool isReturn}) {
+    final type = _typeRaw(idlType);
+    return _typeReference(type.$1, isNullable: type.$2, isReturn: isReturn);
+  }
 
   code.TypeReference _typeToTypeReference(_Type type,
           {required bool isReturn}) =>
@@ -675,19 +772,18 @@ class Translator {
     ..comments.addAll(licenseHeader)
     ..body.addAll([
       for (final typedef in library.typedefs)
-        _typedef(typedef.name.toDart, _typeRaw(typedef.idlType),
-            typedef.idlType.nullable.toDart),
+        _typedef(typedef.name.toDart, _typeRaw(typedef.idlType)),
       // TODO(joshualitt): We should lower callbacks and callback interfaces to
       // a Dart function that takes a typed Dart function, and returns an
       // JSFunction.
       for (final callback in library.callbacks)
-        _typedef(callback.name.toDart, 'JSFunction', false),
+        _typedef(callback.name.toDart, ('JSFunction', false)),
       for (final callbackInterface in library.callbackInterfaces)
-        _typedef(callbackInterface.name.toDart, 'JSFunction', false),
+        _typedef(callbackInterface.name.toDart, ('JSFunction', false)),
       // TODO(joshualitt): Enums in the WebIDL are just strings, but we could
       // make them easier to work with on the Dart side.
       for (final enum_ in library.enums)
-        _typedef(enum_.name.toDart, 'String', false),
+        _typedef(enum_.name.toDart, ('String', false)),
       for (final interfacelike in library.interfacelikes)
         ..._interfacelike(interfacelike),
     ]));

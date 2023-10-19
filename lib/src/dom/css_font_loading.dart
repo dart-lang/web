@@ -7,7 +7,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
-typedef BinaryData = JSAny?;
+typedef BinaryData = JSObject;
 typedef FontFaceLoadStatus = String;
 typedef FontFaceSetLoadStatus = String;
 

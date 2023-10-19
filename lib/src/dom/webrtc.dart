@@ -144,12 +144,12 @@ extension RTCPeerConnectionExtension on RTCPeerConnection {
   ]);
   external JSPromise getIdentityAssertion();
   external JSPromise createOffer([
-    JSAny? optionsOrSuccessCallback,
+    JSObject optionsOrSuccessCallback,
     RTCPeerConnectionErrorCallback failureCallback,
     RTCOfferOptions options,
   ]);
   external JSPromise createAnswer([
-    JSAny? optionsOrSuccessCallback,
+    JSObject optionsOrSuccessCallback,
     RTCPeerConnectionErrorCallback failureCallback,
   ]);
   external JSPromise setLocalDescription([

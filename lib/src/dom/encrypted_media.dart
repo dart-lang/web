@@ -115,7 +115,7 @@ class MediaKeyStatusMap implements JSObject {}
 
 extension MediaKeyStatusMapExtension on MediaKeyStatusMap {
   external bool has(BufferSource keyId);
-  external JSAny? get(BufferSource keyId);
+  external MediaKeyStatus? get(BufferSource keyId);
   external int get size;
 }
 

@@ -1,7 +1,7 @@
 name: web
 description: >-
   Lightweight DOM and JS bindings built around JS static interop.
-version: 0.3.0
+version: 0.3.1-dev
 
 repository: https://github.com/dart-lang/web
 
@@ -9,6 +9,7 @@ environment:
   sdk: ">=3.2.0-194.0.dev <4.0.0"
 
 dev_dependencies:
+  analyzer: ^6.2.0
   args: ^2.4.0
   code_builder: ^4.4.0
   dart_flutter_team_lints: ^2.0.0

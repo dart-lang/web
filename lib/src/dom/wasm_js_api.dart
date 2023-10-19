@@ -39,7 +39,7 @@ extension $WebAssemblyExtension on $WebAssembly {
   external bool validate(BufferSource bytes);
   external JSPromise compile(BufferSource bytes);
   external JSPromise instantiate(
-    JSAny? bytesOrModuleObject, [
+    JSObject bytesOrModuleObject, [
     JSObject importObject,
   ]);
   external JSPromise compileStreaming(JSPromise source);

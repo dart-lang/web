@@ -7,7 +7,7 @@ import 'dart:js_interop';
 typedef HTMLString = String;
 typedef ScriptString = String;
 typedef ScriptURLString = String;
-typedef TrustedType = JSAny?;
+typedef TrustedType = JSObject;
 typedef CreateHTMLCallback = JSFunction;
 typedef CreateScriptCallback = JSFunction;
 typedef CreateScriptURLCallback = JSFunction;

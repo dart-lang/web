@@ -35,7 +35,7 @@ class CSSStyleValue implements JSObject {
 class StylePropertyMapReadOnly implements JSObject {}
 
 extension StylePropertyMapReadOnlyExtension on StylePropertyMapReadOnly {
-  external JSAny? get(String property);
+  external CSSStyleValue? get(String property);
   external JSArray getAll(String property);
   external bool has(String property);
   external int get size;
@@ -419,7 +419,7 @@ class CSSImageValue implements CSSStyleValue {}
 @JS('CSSColorValue')
 @staticInterop
 class CSSColorValue implements CSSStyleValue {
-  external static JSAny? parse(String cssText);
+  external static JSObject parse(String cssText);
 }
 
 @JS('CSSRGB')

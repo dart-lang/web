@@ -79,15 +79,15 @@ extension RTCConfigurationExtension on RTCConfiguration {
 @anonymous
 class RTCIceServer implements JSObject {
   external factory RTCIceServer({
-    required JSAny? urls,
+    required JSAny urls,
     String username,
     String credential,
   });
 }
 
 extension RTCIceServerExtension on RTCIceServer {
-  external set urls(JSAny? value);
-  external JSAny? get urls;
+  external set urls(JSAny value);
+  external JSAny get urls;
   external set username(String value);
   external String get username;
   external set credential(String value);
@@ -138,7 +138,7 @@ class RTCPeerConnection implements EventTarget {
 }
 
 extension RTCPeerConnectionExtension on RTCPeerConnection {
-  external JSVoid setIdentityProvider(
+  external void setIdentityProvider(
     String provider, [
     RTCIdentityProviderOptions options,
   ]);
@@ -167,10 +167,10 @@ extension RTCPeerConnectionExtension on RTCPeerConnection {
     VoidFunction successCallback,
     RTCPeerConnectionErrorCallback failureCallback,
   ]);
-  external JSVoid restartIce();
+  external void restartIce();
   external RTCConfiguration getConfiguration();
-  external JSVoid setConfiguration([RTCConfiguration configuration]);
-  external JSVoid close();
+  external void setConfiguration([RTCConfiguration configuration]);
+  external void close();
   external JSArray getSenders();
   external JSArray getReceivers();
   external JSArray getTransceivers();
@@ -178,9 +178,9 @@ extension RTCPeerConnectionExtension on RTCPeerConnection {
     MediaStreamTrack track,
     MediaStream streams,
   );
-  external JSVoid removeTrack(RTCRtpSender sender);
+  external void removeTrack(RTCRtpSender sender);
   external RTCRtpTransceiver addTransceiver(
-    JSAny? trackOrKind, [
+    JSAny trackOrKind, [
     RTCRtpTransceiverInit init,
   ]);
   external RTCDataChannel createDataChannel(
@@ -452,7 +452,7 @@ extension RTCRtpSenderExtension on RTCRtpSender {
   ]);
   external RTCRtpSendParameters getParameters();
   external JSPromise replaceTrack(MediaStreamTrack? withTrack);
-  external JSVoid setStreams(MediaStream streams);
+  external void setStreams(MediaStream streams);
   external JSPromise getStats();
   external set transform(RTCRtpTransform? value);
   external RTCRtpTransform? get transform;
@@ -721,8 +721,8 @@ class RTCRtpSynchronizationSource implements RTCRtpContributingSource {
 class RTCRtpTransceiver implements JSObject {}
 
 extension RTCRtpTransceiverExtension on RTCRtpTransceiver {
-  external JSVoid stop();
-  external JSVoid setCodecPreferences(JSArray codecs);
+  external void stop();
+  external void setCodecPreferences(JSArray codecs);
   external String? get mid;
   external RTCRtpSender get sender;
   external RTCRtpReceiver get receiver;
@@ -769,13 +769,13 @@ class RTCIceTransport implements EventTarget {
 }
 
 extension RTCIceTransportExtension on RTCIceTransport {
-  external JSVoid gather([RTCIceGatherOptions options]);
-  external JSVoid start([
+  external void gather([RTCIceGatherOptions options]);
+  external void start([
     RTCIceParameters remoteParameters,
     RTCIceRole role,
   ]);
-  external JSVoid stop();
-  external JSVoid addRemoteCandidate([RTCIceCandidateInit remoteCandidate]);
+  external void stop();
+  external void addRemoteCandidate([RTCIceCandidateInit remoteCandidate]);
   external JSArray getLocalCandidates();
   external JSArray getRemoteCandidates();
   external RTCIceCandidatePair? getSelectedCandidatePair();
@@ -891,8 +891,8 @@ extension RTCSctpTransportExtension on RTCSctpTransport {
 class RTCDataChannel implements EventTarget {}
 
 extension RTCDataChannelExtension on RTCDataChannel {
-  external JSVoid close();
-  external JSVoid send(JSAny? data);
+  external void close();
+  external void send(JSAny data);
   external RTCPriorityType get priority;
   external String get label;
   external bool get ordered;
@@ -983,7 +983,7 @@ extension RTCDataChannelEventInitExtension on RTCDataChannelEventInit {
 class RTCDTMFSender implements EventTarget {}
 
 extension RTCDTMFSenderExtension on RTCDTMFSender {
-  external JSVoid insertDTMF(
+  external void insertDTMF(
     String tones, [
     int duration,
     int interToneGap,

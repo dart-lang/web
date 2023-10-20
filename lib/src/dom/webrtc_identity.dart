@@ -25,7 +25,7 @@ class RTCIdentityProviderRegistrar implements JSObject {}
 
 extension RTCIdentityProviderRegistrarExtension
     on RTCIdentityProviderRegistrar {
-  external JSVoid register(RTCIdentityProvider idp);
+  external void register(RTCIdentityProvider idp);
 }
 
 @JS()

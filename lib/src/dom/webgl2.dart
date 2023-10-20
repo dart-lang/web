@@ -300,21 +300,21 @@ class WebGL2RenderingContextBase implements JSObject {
 }
 
 extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
-  external JSVoid copyBufferSubData(
+  external void copyBufferSubData(
     GLenum readTarget,
     GLenum writeTarget,
     GLintptr readOffset,
     GLintptr writeOffset,
     GLsizeiptr size,
   );
-  external JSVoid getBufferSubData(
+  external void getBufferSubData(
     GLenum target,
     GLintptr srcByteOffset,
     ArrayBufferView dstBuffer, [
     int dstOffset,
     GLuint length,
   ]);
-  external JSVoid blitFramebuffer(
+  external void blitFramebuffer(
     GLint srcX0,
     GLint srcY0,
     GLint srcX1,
@@ -326,18 +326,18 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     GLbitfield mask,
     GLenum filter,
   );
-  external JSVoid framebufferTextureLayer(
+  external void framebufferTextureLayer(
     GLenum target,
     GLenum attachment,
     WebGLTexture? texture,
     GLint level,
     GLint layer,
   );
-  external JSVoid invalidateFramebuffer(
+  external void invalidateFramebuffer(
     GLenum target,
     JSArray attachments,
   );
-  external JSVoid invalidateSubFramebuffer(
+  external void invalidateSubFramebuffer(
     GLenum target,
     JSArray attachments,
     GLint x,
@@ -345,27 +345,27 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     GLsizei width,
     GLsizei height,
   );
-  external JSVoid readBuffer(GLenum src);
+  external void readBuffer(GLenum src);
   external JSAny? getInternalformatParameter(
     GLenum target,
     GLenum internalformat,
     GLenum pname,
   );
-  external JSVoid renderbufferStorageMultisample(
+  external void renderbufferStorageMultisample(
     GLenum target,
     GLsizei samples,
     GLenum internalformat,
     GLsizei width,
     GLsizei height,
   );
-  external JSVoid texStorage2D(
+  external void texStorage2D(
     GLenum target,
     GLsizei levels,
     GLenum internalformat,
     GLsizei width,
     GLsizei height,
   );
-  external JSVoid texStorage3D(
+  external void texStorage3D(
     GLenum target,
     GLsizei levels,
     GLenum internalformat,
@@ -373,7 +373,7 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     GLsizei height,
     GLsizei depth,
   );
-  external JSVoid texImage3D(
+  external void texImage3D(
     GLenum target,
     GLint level,
     GLint internalformat,
@@ -383,10 +383,10 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     GLint border,
     GLenum format,
     GLenum type,
-    JSAny? pboOffsetOrSourceOrSrcData, [
+    JSAny pboOffsetOrSourceOrSrcData, [
     int srcOffset,
   ]);
-  external JSVoid texSubImage3D(
+  external void texSubImage3D(
     GLenum target,
     GLint level,
     GLint xoffset,
@@ -397,10 +397,10 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     GLsizei depth,
     GLenum format,
     GLenum type,
-    JSAny? pboOffsetOrSourceOrSrcData, [
+    JSAny pboOffsetOrSourceOrSrcData, [
     int srcOffset,
   ]);
-  external JSVoid copyTexSubImage3D(
+  external void copyTexSubImage3D(
     GLenum target,
     GLint level,
     GLint xoffset,
@@ -411,7 +411,7 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     GLsizei width,
     GLsizei height,
   );
-  external JSVoid compressedTexImage3D(
+  external void compressedTexImage3D(
     GLenum target,
     GLint level,
     GLenum internalformat,
@@ -419,11 +419,11 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     GLsizei height,
     GLsizei depth,
     GLint border,
-    JSAny? imageSizeOrSrcData, [
-    JSAny? offsetOrSrcOffset,
+    JSAny imageSizeOrSrcData, [
+    JSAny offsetOrSrcOffset,
     GLuint srcLengthOverride,
   ]);
-  external JSVoid compressedTexSubImage3D(
+  external void compressedTexSubImage3D(
     GLenum target,
     GLint level,
     GLint xoffset,
@@ -433,149 +433,149 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     GLsizei height,
     GLsizei depth,
     GLenum format,
-    JSAny? imageSizeOrSrcData, [
-    JSAny? offsetOrSrcOffset,
+    JSAny imageSizeOrSrcData, [
+    JSAny offsetOrSrcOffset,
     GLuint srcLengthOverride,
   ]);
   external GLint getFragDataLocation(
     WebGLProgram program,
     String name,
   );
-  external JSVoid uniform1ui(
+  external void uniform1ui(
     WebGLUniformLocation? location,
     GLuint v0,
   );
-  external JSVoid uniform2ui(
+  external void uniform2ui(
     WebGLUniformLocation? location,
     GLuint v0,
     GLuint v1,
   );
-  external JSVoid uniform3ui(
+  external void uniform3ui(
     WebGLUniformLocation? location,
     GLuint v0,
     GLuint v1,
     GLuint v2,
   );
-  external JSVoid uniform4ui(
+  external void uniform4ui(
     WebGLUniformLocation? location,
     GLuint v0,
     GLuint v1,
     GLuint v2,
     GLuint v3,
   );
-  external JSVoid uniform1uiv(
+  external void uniform1uiv(
     WebGLUniformLocation? location,
     Uint32List data, [
     int srcOffset,
     GLuint srcLength,
   ]);
-  external JSVoid uniform2uiv(
+  external void uniform2uiv(
     WebGLUniformLocation? location,
     Uint32List data, [
     int srcOffset,
     GLuint srcLength,
   ]);
-  external JSVoid uniform3uiv(
+  external void uniform3uiv(
     WebGLUniformLocation? location,
     Uint32List data, [
     int srcOffset,
     GLuint srcLength,
   ]);
-  external JSVoid uniform4uiv(
+  external void uniform4uiv(
     WebGLUniformLocation? location,
     Uint32List data, [
     int srcOffset,
     GLuint srcLength,
   ]);
-  external JSVoid uniformMatrix3x2fv(
+  external void uniformMatrix3x2fv(
     WebGLUniformLocation? location,
     GLboolean transpose,
     Float32List data, [
     int srcOffset,
     GLuint srcLength,
   ]);
-  external JSVoid uniformMatrix4x2fv(
+  external void uniformMatrix4x2fv(
     WebGLUniformLocation? location,
     GLboolean transpose,
     Float32List data, [
     int srcOffset,
     GLuint srcLength,
   ]);
-  external JSVoid uniformMatrix2x3fv(
+  external void uniformMatrix2x3fv(
     WebGLUniformLocation? location,
     GLboolean transpose,
     Float32List data, [
     int srcOffset,
     GLuint srcLength,
   ]);
-  external JSVoid uniformMatrix4x3fv(
+  external void uniformMatrix4x3fv(
     WebGLUniformLocation? location,
     GLboolean transpose,
     Float32List data, [
     int srcOffset,
     GLuint srcLength,
   ]);
-  external JSVoid uniformMatrix2x4fv(
+  external void uniformMatrix2x4fv(
     WebGLUniformLocation? location,
     GLboolean transpose,
     Float32List data, [
     int srcOffset,
     GLuint srcLength,
   ]);
-  external JSVoid uniformMatrix3x4fv(
+  external void uniformMatrix3x4fv(
     WebGLUniformLocation? location,
     GLboolean transpose,
     Float32List data, [
     int srcOffset,
     GLuint srcLength,
   ]);
-  external JSVoid vertexAttribI4i(
+  external void vertexAttribI4i(
     GLuint index,
     GLint x,
     GLint y,
     GLint z,
     GLint w,
   );
-  external JSVoid vertexAttribI4iv(
+  external void vertexAttribI4iv(
     GLuint index,
     Int32List values,
   );
-  external JSVoid vertexAttribI4ui(
+  external void vertexAttribI4ui(
     GLuint index,
     GLuint x,
     GLuint y,
     GLuint z,
     GLuint w,
   );
-  external JSVoid vertexAttribI4uiv(
+  external void vertexAttribI4uiv(
     GLuint index,
     Uint32List values,
   );
-  external JSVoid vertexAttribIPointer(
+  external void vertexAttribIPointer(
     GLuint index,
     GLint size,
     GLenum type,
     GLsizei stride,
     GLintptr offset,
   );
-  external JSVoid vertexAttribDivisor(
+  external void vertexAttribDivisor(
     GLuint index,
     GLuint divisor,
   );
-  external JSVoid drawArraysInstanced(
+  external void drawArraysInstanced(
     GLenum mode,
     GLint first,
     GLsizei count,
     GLsizei instanceCount,
   );
-  external JSVoid drawElementsInstanced(
+  external void drawElementsInstanced(
     GLenum mode,
     GLsizei count,
     GLenum type,
     GLintptr offset,
     GLsizei instanceCount,
   );
-  external JSVoid drawRangeElements(
+  external void drawRangeElements(
     GLenum mode,
     GLuint start,
     GLuint end,
@@ -583,39 +583,39 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     GLenum type,
     GLintptr offset,
   );
-  external JSVoid drawBuffers(JSArray buffers);
-  external JSVoid clearBufferfv(
+  external void drawBuffers(JSArray buffers);
+  external void clearBufferfv(
     GLenum buffer,
     GLint drawbuffer,
     Float32List values, [
     int srcOffset,
   ]);
-  external JSVoid clearBufferiv(
+  external void clearBufferiv(
     GLenum buffer,
     GLint drawbuffer,
     Int32List values, [
     int srcOffset,
   ]);
-  external JSVoid clearBufferuiv(
+  external void clearBufferuiv(
     GLenum buffer,
     GLint drawbuffer,
     Uint32List values, [
     int srcOffset,
   ]);
-  external JSVoid clearBufferfi(
+  external void clearBufferfi(
     GLenum buffer,
     GLint drawbuffer,
     GLfloat depth,
     GLint stencil,
   );
   external WebGLQuery? createQuery();
-  external JSVoid deleteQuery(WebGLQuery? query);
+  external void deleteQuery(WebGLQuery? query);
   external GLboolean isQuery(WebGLQuery? query);
-  external JSVoid beginQuery(
+  external void beginQuery(
     GLenum target,
     WebGLQuery query,
   );
-  external JSVoid endQuery(GLenum target);
+  external void endQuery(GLenum target);
   external WebGLQuery? getQuery(
     GLenum target,
     GLenum pname,
@@ -625,18 +625,18 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     GLenum pname,
   );
   external WebGLSampler? createSampler();
-  external JSVoid deleteSampler(WebGLSampler? sampler);
+  external void deleteSampler(WebGLSampler? sampler);
   external GLboolean isSampler(WebGLSampler? sampler);
-  external JSVoid bindSampler(
+  external void bindSampler(
     GLuint unit,
     WebGLSampler? sampler,
   );
-  external JSVoid samplerParameteri(
+  external void samplerParameteri(
     WebGLSampler sampler,
     GLenum pname,
     GLint param,
   );
-  external JSVoid samplerParameterf(
+  external void samplerParameterf(
     WebGLSampler sampler,
     GLenum pname,
     GLfloat param,
@@ -650,13 +650,13 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     GLbitfield flags,
   );
   external GLboolean isSync(WebGLSync? sync);
-  external JSVoid deleteSync(WebGLSync? sync);
+  external void deleteSync(WebGLSync? sync);
   external GLenum clientWaitSync(
     WebGLSync sync,
     GLbitfield flags,
     GLuint64 timeout,
   );
-  external JSVoid waitSync(
+  external void waitSync(
     WebGLSync sync,
     GLbitfield flags,
     GLint64 timeout,
@@ -666,15 +666,15 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     GLenum pname,
   );
   external WebGLTransformFeedback? createTransformFeedback();
-  external JSVoid deleteTransformFeedback(WebGLTransformFeedback? tf);
+  external void deleteTransformFeedback(WebGLTransformFeedback? tf);
   external GLboolean isTransformFeedback(WebGLTransformFeedback? tf);
-  external JSVoid bindTransformFeedback(
+  external void bindTransformFeedback(
     GLenum target,
     WebGLTransformFeedback? tf,
   );
-  external JSVoid beginTransformFeedback(GLenum primitiveMode);
-  external JSVoid endTransformFeedback();
-  external JSVoid transformFeedbackVaryings(
+  external void beginTransformFeedback(GLenum primitiveMode);
+  external void endTransformFeedback();
+  external void transformFeedbackVaryings(
     WebGLProgram program,
     JSArray varyings,
     GLenum bufferMode,
@@ -683,14 +683,14 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     WebGLProgram program,
     GLuint index,
   );
-  external JSVoid pauseTransformFeedback();
-  external JSVoid resumeTransformFeedback();
-  external JSVoid bindBufferBase(
+  external void pauseTransformFeedback();
+  external void resumeTransformFeedback();
+  external void bindBufferBase(
     GLenum target,
     GLuint index,
     WebGLBuffer? buffer,
   );
-  external JSVoid bindBufferRange(
+  external void bindBufferRange(
     GLenum target,
     GLuint index,
     WebGLBuffer? buffer,
@@ -723,15 +723,15 @@ extension WebGL2RenderingContextBaseExtension on WebGL2RenderingContextBase {
     WebGLProgram program,
     GLuint uniformBlockIndex,
   );
-  external JSVoid uniformBlockBinding(
+  external void uniformBlockBinding(
     WebGLProgram program,
     GLuint uniformBlockIndex,
     GLuint uniformBlockBinding,
   );
   external WebGLVertexArrayObject? createVertexArray();
-  external JSVoid deleteVertexArray(WebGLVertexArrayObject? vertexArray);
+  external void deleteVertexArray(WebGLVertexArrayObject? vertexArray);
   external GLboolean isVertexArray(WebGLVertexArrayObject? vertexArray);
-  external JSVoid bindVertexArray(WebGLVertexArrayObject? array);
+  external void bindVertexArray(WebGLVertexArrayObject? array);
 }
 
 @JS('WebGL2RenderingContextOverloads')
@@ -740,56 +740,56 @@ class WebGL2RenderingContextOverloads implements JSObject {}
 
 extension WebGL2RenderingContextOverloadsExtension
     on WebGL2RenderingContextOverloads {
-  external JSVoid bufferData(
+  external void bufferData(
     GLenum target,
-    JSAny? sizeOrSrcData,
+    JSAny sizeOrSrcData,
     GLenum usage, [
     int srcOffset,
     GLuint length,
   ]);
-  external JSVoid bufferSubData(
+  external void bufferSubData(
     GLenum target,
     GLintptr dstByteOffset,
     JSObject srcData, [
     int srcOffset,
     GLuint length,
   ]);
-  external JSVoid texImage2D(
+  external void texImage2D(
     GLenum target,
     GLint level,
     GLint internalformat,
-    JSAny? formatOrWidth,
-    JSAny? heightOrType,
-    JSAny? borderOrSource, [
+    JSAny formatOrWidth,
+    JSAny heightOrType,
+    JSAny borderOrSource, [
     GLenum format,
     GLenum type,
-    JSAny? pboOffsetOrPixelsOrSourceOrSrcData,
+    JSAny pboOffsetOrPixelsOrSourceOrSrcData,
     int srcOffset,
   ]);
-  external JSVoid texSubImage2D(
+  external void texSubImage2D(
     GLenum target,
     GLint level,
     GLint xoffset,
     GLint yoffset,
-    JSAny? formatOrWidth,
-    JSAny? heightOrType,
-    JSAny? formatOrSource, [
+    JSAny formatOrWidth,
+    JSAny heightOrType,
+    JSAny formatOrSource, [
     GLenum type,
-    JSAny? pboOffsetOrPixelsOrSourceOrSrcData,
+    JSAny pboOffsetOrPixelsOrSourceOrSrcData,
     int srcOffset,
   ]);
-  external JSVoid compressedTexImage2D(
+  external void compressedTexImage2D(
     GLenum target,
     GLint level,
     GLenum internalformat,
     GLsizei width,
     GLsizei height,
     GLint border,
-    JSAny? imageSizeOrSrcData, [
-    JSAny? offsetOrSrcOffset,
+    JSAny imageSizeOrSrcData, [
+    JSAny offsetOrSrcOffset,
     GLuint srcLengthOverride,
   ]);
-  external JSVoid compressedTexSubImage2D(
+  external void compressedTexSubImage2D(
     GLenum target,
     GLint level,
     GLint xoffset,
@@ -797,87 +797,87 @@ extension WebGL2RenderingContextOverloadsExtension
     GLsizei width,
     GLsizei height,
     GLenum format,
-    JSAny? imageSizeOrSrcData, [
-    JSAny? offsetOrSrcOffset,
+    JSAny imageSizeOrSrcData, [
+    JSAny offsetOrSrcOffset,
     GLuint srcLengthOverride,
   ]);
-  external JSVoid uniform1fv(
+  external void uniform1fv(
     WebGLUniformLocation? location,
     Float32List data, [
     int srcOffset,
     GLuint srcLength,
   ]);
-  external JSVoid uniform2fv(
+  external void uniform2fv(
     WebGLUniformLocation? location,
     Float32List data, [
     int srcOffset,
     GLuint srcLength,
   ]);
-  external JSVoid uniform3fv(
+  external void uniform3fv(
     WebGLUniformLocation? location,
     Float32List data, [
     int srcOffset,
     GLuint srcLength,
   ]);
-  external JSVoid uniform4fv(
+  external void uniform4fv(
     WebGLUniformLocation? location,
     Float32List data, [
     int srcOffset,
     GLuint srcLength,
   ]);
-  external JSVoid uniform1iv(
+  external void uniform1iv(
     WebGLUniformLocation? location,
     Int32List data, [
     int srcOffset,
     GLuint srcLength,
   ]);
-  external JSVoid uniform2iv(
+  external void uniform2iv(
     WebGLUniformLocation? location,
     Int32List data, [
     int srcOffset,
     GLuint srcLength,
   ]);
-  external JSVoid uniform3iv(
+  external void uniform3iv(
     WebGLUniformLocation? location,
     Int32List data, [
     int srcOffset,
     GLuint srcLength,
   ]);
-  external JSVoid uniform4iv(
+  external void uniform4iv(
     WebGLUniformLocation? location,
     Int32List data, [
     int srcOffset,
     GLuint srcLength,
   ]);
-  external JSVoid uniformMatrix2fv(
+  external void uniformMatrix2fv(
     WebGLUniformLocation? location,
     GLboolean transpose,
     Float32List data, [
     int srcOffset,
     GLuint srcLength,
   ]);
-  external JSVoid uniformMatrix3fv(
+  external void uniformMatrix3fv(
     WebGLUniformLocation? location,
     GLboolean transpose,
     Float32List data, [
     int srcOffset,
     GLuint srcLength,
   ]);
-  external JSVoid uniformMatrix4fv(
+  external void uniformMatrix4fv(
     WebGLUniformLocation? location,
     GLboolean transpose,
     Float32List data, [
     int srcOffset,
     GLuint srcLength,
   ]);
-  external JSVoid readPixels(
+  external void readPixels(
     GLint x,
     GLint y,
     GLsizei width,
     GLsizei height,
     GLenum format,
     GLenum type,
-    JSAny? dstDataOrOffset, [
+    JSAny dstDataOrOffset, [
     int dstOffset,
   ]);
 }

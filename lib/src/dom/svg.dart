@@ -98,11 +98,11 @@ class SVGLength implements JSObject {
 }
 
 extension SVGLengthExtension on SVGLength {
-  external JSVoid newValueSpecifiedUnits(
+  external void newValueSpecifiedUnits(
     int unitType,
     num valueInSpecifiedUnits,
   );
-  external JSVoid convertToSpecifiedUnits(int unitType);
+  external void convertToSpecifiedUnits(int unitType);
   external int get unitType;
   external set value(num value);
   external num get value;
@@ -123,11 +123,11 @@ class SVGAngle implements JSObject {
 }
 
 extension SVGAngleExtension on SVGAngle {
-  external JSVoid newValueSpecifiedUnits(
+  external void newValueSpecifiedUnits(
     int unitType,
     num valueInSpecifiedUnits,
   );
-  external JSVoid convertToSpecifiedUnits(int unitType);
+  external void convertToSpecifiedUnits(int unitType);
   external int get unitType;
   external set value(num value);
   external num get value;
@@ -142,7 +142,7 @@ extension SVGAngleExtension on SVGAngle {
 class SVGNumberList implements JSObject {}
 
 extension SVGNumberListExtension on SVGNumberList {
-  external JSVoid clear();
+  external void clear();
   external SVGNumber initialize(SVGNumber newItem);
   external SVGNumber getItem(int index);
   external SVGNumber insertItemBefore(
@@ -164,7 +164,7 @@ extension SVGNumberListExtension on SVGNumberList {
 class SVGLengthList implements JSObject {}
 
 extension SVGLengthListExtension on SVGLengthList {
-  external JSVoid clear();
+  external void clear();
   external SVGLength initialize(SVGLength newItem);
   external SVGLength getItem(int index);
   external SVGLength insertItemBefore(
@@ -186,7 +186,7 @@ extension SVGLengthListExtension on SVGLengthList {
 class SVGStringList implements JSObject {}
 
 extension SVGStringListExtension on SVGStringList {
-  external JSVoid clear();
+  external void clear();
   external String initialize(String newItem);
   external String getItem(int index);
   external String insertItemBefore(
@@ -354,7 +354,7 @@ extension SVGSVGElementExtension on SVGSVGElement {
     SVGElement element,
     DOMRectReadOnly rect,
   );
-  external JSVoid deselectAll();
+  external void deselectAll();
   external SVGNumber createSVGNumber();
   external SVGLength createSVGLength();
   external SVGAngle createSVGAngle();
@@ -365,14 +365,14 @@ extension SVGSVGElementExtension on SVGSVGElement {
   external SVGTransform createSVGTransformFromMatrix([DOMMatrix2DInit matrix]);
   external Element getElementById(String elementId);
   external int suspendRedraw(int maxWaitMilliseconds);
-  external JSVoid unsuspendRedraw(int suspendHandleID);
-  external JSVoid unsuspendRedrawAll();
-  external JSVoid forceRedraw();
-  external JSVoid pauseAnimations();
-  external JSVoid unpauseAnimations();
+  external void unsuspendRedraw(int suspendHandleID);
+  external void unsuspendRedrawAll();
+  external void forceRedraw();
+  external void pauseAnimations();
+  external void unpauseAnimations();
   external bool animationsPaused();
   external num getCurrentTime();
-  external JSVoid setCurrentTime(num seconds);
+  external void setCurrentTime(num seconds);
   external SVGAnimatedLength get x;
   external SVGAnimatedLength get y;
   external SVGAnimatedLength get width;
@@ -483,22 +483,22 @@ class SVGTransform implements JSObject {
 }
 
 extension SVGTransformExtension on SVGTransform {
-  external JSVoid setMatrix([DOMMatrix2DInit matrix]);
-  external JSVoid setTranslate(
+  external void setMatrix([DOMMatrix2DInit matrix]);
+  external void setTranslate(
     num tx,
     num ty,
   );
-  external JSVoid setScale(
+  external void setScale(
     num sx,
     num sy,
   );
-  external JSVoid setRotate(
+  external void setRotate(
     num angle,
     num cx,
     num cy,
   );
-  external JSVoid setSkewX(num angle);
-  external JSVoid setSkewY(num angle);
+  external void setSkewX(num angle);
+  external void setSkewY(num angle);
   external int get type;
   external DOMMatrix get matrix;
   external num get angle;
@@ -509,7 +509,7 @@ extension SVGTransformExtension on SVGTransform {
 class SVGTransformList implements JSObject {}
 
 extension SVGTransformListExtension on SVGTransformList {
-  external JSVoid clear();
+  external void clear();
   external SVGTransform initialize(SVGTransform newItem);
   external SVGTransform getItem(int index);
   external SVGTransform insertItemBefore(
@@ -636,7 +636,7 @@ extension SVGAnimatedPointsExtension on SVGAnimatedPoints {
 class SVGPointList implements JSObject {}
 
 extension SVGPointListExtension on SVGPointList {
-  external JSVoid clear();
+  external void clear();
   external DOMPoint initialize(DOMPoint newItem);
   external DOMPoint getItem(int index);
   external DOMPoint insertItemBefore(
@@ -681,7 +681,7 @@ extension SVGTextContentElementExtension on SVGTextContentElement {
   external DOMRect getExtentOfChar(int charnum);
   external num getRotationOfChar(int charnum);
   external int getCharNumAtPosition([DOMPointInit point]);
-  external JSVoid selectSubString(
+  external void selectSubString(
     int charnum,
     int nchars,
   );
@@ -763,8 +763,8 @@ class SVGMarkerElement implements SVGElement, SVGFitToViewBox {
 }
 
 extension SVGMarkerElementExtension on SVGMarkerElement {
-  external JSVoid setOrientToAuto();
-  external JSVoid setOrientToAngle(SVGAngle angle);
+  external void setOrientToAuto();
+  external void setOrientToAngle(SVGAngle angle);
   external SVGAnimatedLength get refX;
   external SVGAnimatedLength get refY;
   external SVGAnimatedEnumeration get markerUnits;

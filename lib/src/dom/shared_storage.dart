@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 import 'html.dart';
 
-typedef SharedStorageResponse = JSAny?;
+typedef SharedStorageResponse = JSAny;
 typedef SharedStorageOperationConstructor = JSFunction;
 
 @JS('SharedStorageWorklet')
@@ -19,7 +19,7 @@ class SharedStorageWorkletGlobalScope implements WorkletGlobalScope {}
 
 extension SharedStorageWorkletGlobalScopeExtension
     on SharedStorageWorkletGlobalScope {
-  external JSVoid register(
+  external void register(
     String name,
     SharedStorageOperationConstructor operationCtor,
   );

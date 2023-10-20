@@ -29,12 +29,12 @@ class ResizeObserver implements JSObject {
 }
 
 extension ResizeObserverExtension on ResizeObserver {
-  external JSVoid observe(
+  external void observe(
     Element target, [
     ResizeObserverOptions options,
   ]);
-  external JSVoid unobserve(Element target);
-  external JSVoid disconnect();
+  external void unobserve(Element target);
+  external void disconnect();
 }
 
 @JS('ResizeObserverEntry')

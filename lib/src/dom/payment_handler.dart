@@ -27,7 +27,7 @@ class CanMakePaymentEvent implements ExtendableEvent {
 }
 
 extension CanMakePaymentEventExtension on CanMakePaymentEvent {
-  external JSVoid respondWith(JSPromise canMakePaymentResponse);
+  external void respondWith(JSPromise canMakePaymentResponse);
 }
 
 @JS()
@@ -76,7 +76,7 @@ extension PaymentRequestEventExtension on PaymentRequestEvent {
   ]);
   external JSPromise changeShippingAddress([AddressInit shippingAddress]);
   external JSPromise changeShippingOption(String shippingOption);
-  external JSVoid respondWith(JSPromise handlerResponsePromise);
+  external void respondWith(JSPromise handlerResponsePromise);
   external String get topOrigin;
   external String get paymentRequestOrigin;
   external String get paymentRequestId;

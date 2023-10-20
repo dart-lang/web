@@ -18,7 +18,7 @@ class UIEvent implements Event {
 }
 
 extension UIEventExtension on UIEvent {
-  external JSVoid initUIEvent(
+  external void initUIEvent(
     String typeArg, [
     bool bubblesArg,
     bool cancelableArg,
@@ -90,7 +90,7 @@ class MouseEvent implements UIEvent {
 
 extension MouseEventExtension on MouseEvent {
   external bool getModifierState(String keyArg);
-  external JSVoid initMouseEvent(
+  external void initMouseEvent(
     String typeArg, [
     bool bubblesArg,
     bool cancelableArg,
@@ -323,7 +323,7 @@ class KeyboardEvent implements UIEvent {
 
 extension KeyboardEventExtension on KeyboardEvent {
   external bool getModifierState(String keyArg);
-  external JSVoid initKeyboardEvent(
+  external void initKeyboardEvent(
     String typeArg, [
     bool bubblesArg,
     bool cancelableArg,
@@ -390,7 +390,7 @@ class CompositionEvent implements UIEvent {
 }
 
 extension CompositionEventExtension on CompositionEvent {
-  external JSVoid initCompositionEvent(
+  external void initCompositionEvent(
     String typeArg, [
     bool bubblesArg,
     bool cancelableArg,
@@ -421,7 +421,7 @@ class MutationEvent implements Event {
 }
 
 extension MutationEventExtension on MutationEvent {
-  external JSVoid initMutationEvent(
+  external void initMutationEvent(
     String typeArg, [
     bool bubblesArg,
     bool cancelableArg,

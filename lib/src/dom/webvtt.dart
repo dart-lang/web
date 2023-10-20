@@ -7,7 +7,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
-typedef LineAndPositionSetting = JSAny?;
+typedef LineAndPositionSetting = JSAny;
 typedef AutoKeyword = String;
 typedef DirectionSetting = String;
 typedef LineAlignSetting = String;

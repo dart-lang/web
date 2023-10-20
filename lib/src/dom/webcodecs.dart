@@ -45,11 +45,11 @@ class AudioDecoder implements EventTarget {
 }
 
 extension AudioDecoderExtension on AudioDecoder {
-  external JSVoid configure(AudioDecoderConfig config);
-  external JSVoid decode(EncodedAudioChunk chunk);
+  external void configure(AudioDecoderConfig config);
+  external void decode(EncodedAudioChunk chunk);
   external JSPromise flush();
-  external JSVoid reset();
-  external JSVoid close();
+  external void reset();
+  external void close();
   external CodecState get state;
   external int get decodeQueueSize;
   external set ondequeue(EventHandler value);
@@ -82,11 +82,11 @@ class VideoDecoder implements EventTarget {
 }
 
 extension VideoDecoderExtension on VideoDecoder {
-  external JSVoid configure(VideoDecoderConfig config);
-  external JSVoid decode(EncodedVideoChunk chunk);
+  external void configure(VideoDecoderConfig config);
+  external void decode(EncodedVideoChunk chunk);
   external JSPromise flush();
-  external JSVoid reset();
-  external JSVoid close();
+  external void reset();
+  external void close();
   external CodecState get state;
   external int get decodeQueueSize;
   external set ondequeue(EventHandler value);
@@ -119,11 +119,11 @@ class AudioEncoder implements EventTarget {
 }
 
 extension AudioEncoderExtension on AudioEncoder {
-  external JSVoid configure(AudioEncoderConfig config);
-  external JSVoid encode(AudioData data);
+  external void configure(AudioEncoderConfig config);
+  external void encode(AudioData data);
   external JSPromise flush();
-  external JSVoid reset();
-  external JSVoid close();
+  external void reset();
+  external void close();
   external CodecState get state;
   external int get encodeQueueSize;
   external set ondequeue(EventHandler value);
@@ -169,14 +169,14 @@ class VideoEncoder implements EventTarget {
 }
 
 extension VideoEncoderExtension on VideoEncoder {
-  external JSVoid configure(VideoEncoderConfig config);
-  external JSVoid encode(
+  external void configure(VideoEncoderConfig config);
+  external void encode(
     VideoFrame frame, [
     VideoEncoderEncodeOptions options,
   ]);
   external JSPromise flush();
-  external JSVoid reset();
-  external JSVoid close();
+  external void reset();
+  external void close();
   external CodecState get state;
   external int get encodeQueueSize;
   external set ondequeue(EventHandler value);
@@ -485,7 +485,7 @@ class EncodedAudioChunk implements JSObject {
 }
 
 extension EncodedAudioChunkExtension on EncodedAudioChunk {
-  external JSVoid copyTo(AllowSharedBufferSource destination);
+  external void copyTo(AllowSharedBufferSource destination);
   external EncodedAudioChunkType get type;
   external int get timestamp;
   external int? get duration;
@@ -522,7 +522,7 @@ class EncodedVideoChunk implements JSObject {
 }
 
 extension EncodedVideoChunkExtension on EncodedVideoChunk {
-  external JSVoid copyTo(AllowSharedBufferSource destination);
+  external void copyTo(AllowSharedBufferSource destination);
   external EncodedVideoChunkType get type;
   external int get timestamp;
   external int? get duration;
@@ -560,12 +560,12 @@ class AudioData implements JSObject {
 
 extension AudioDataExtension on AudioData {
   external int allocationSize(AudioDataCopyToOptions options);
-  external JSVoid copyTo(
+  external void copyTo(
     AllowSharedBufferSource destination,
     AudioDataCopyToOptions options,
   );
   external AudioData clone();
-  external JSVoid close();
+  external void close();
   external AudioSampleFormat? get format;
   external num get sampleRate;
   external int get numberOfFrames;
@@ -646,7 +646,7 @@ extension VideoFrameExtension on VideoFrame {
     VideoFrameCopyToOptions options,
   ]);
   external VideoFrame clone();
-  external JSVoid close();
+  external void close();
   external VideoPixelFormat? get format;
   external int get codedWidth;
   external int get codedHeight;
@@ -823,8 +823,8 @@ class ImageDecoder implements JSObject {
 
 extension ImageDecoderExtension on ImageDecoder {
   external JSPromise decode([ImageDecodeOptions options]);
-  external JSVoid reset();
-  external JSVoid close();
+  external void reset();
+  external void close();
   external String get type;
   external bool get complete;
   external JSPromise get completed;

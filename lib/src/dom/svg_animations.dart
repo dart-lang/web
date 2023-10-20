@@ -13,7 +13,7 @@ import 'svg.dart';
 class TimeEvent implements Event {}
 
 extension TimeEventExtension on TimeEvent {
-  external JSVoid initTimeEvent(
+  external void initTimeEvent(
     String typeArg,
     Window? viewArg,
     int detailArg,
@@ -30,10 +30,10 @@ extension SVGAnimationElementExtension on SVGAnimationElement {
   external num getStartTime();
   external num getCurrentTime();
   external num getSimpleDuration();
-  external JSVoid beginElement();
-  external JSVoid beginElementAt(num offset);
-  external JSVoid endElement();
-  external JSVoid endElementAt(num offset);
+  external void beginElement();
+  external void beginElementAt(num offset);
+  external void endElement();
+  external void endElementAt(num offset);
   external SVGElement? get targetElement;
   external set onbegin(EventHandler value);
   external EventHandler get onbegin;

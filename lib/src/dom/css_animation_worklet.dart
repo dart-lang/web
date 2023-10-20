@@ -14,7 +14,7 @@ typedef AnimatorInstanceConstructor = JSFunction;
 class AnimationWorkletGlobalScope implements WorkletGlobalScope {}
 
 extension AnimationWorkletGlobalScopeExtension on AnimationWorkletGlobalScope {
-  external JSVoid registerAnimator(
+  external void registerAnimator(
     String name,
     AnimatorInstanceConstructor animatorCtor,
   );

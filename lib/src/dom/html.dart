@@ -91,7 +91,7 @@ typedef OffscreenRenderingContext = JSObject;
 typedef EventHandler = EventHandlerNonNull?;
 typedef OnErrorEventHandler = OnErrorEventHandlerNonNull?;
 typedef OnBeforeUnloadEventHandler = OnBeforeUnloadEventHandlerNonNull?;
-typedef TimerHandler = JSAny?;
+typedef TimerHandler = JSAny;
 typedef ImageBitmapSource = JSObject;
 typedef MessageEventSource = JSObject;
 typedef BlobCallback = JSFunction;
@@ -165,11 +165,11 @@ extension RadioNodeListExtension on RadioNodeList {
 class HTMLOptionsCollection implements HTMLCollection {}
 
 extension HTMLOptionsCollectionExtension on HTMLOptionsCollection {
-  external JSVoid add(
+  external void add(
     JSObject element, [
     JSAny? before,
   ]);
-  external JSVoid remove(int index);
+  external void remove(int index);
   external set length(int value);
   external int get length;
   external set selectedIndex(int value);
@@ -199,10 +199,10 @@ class HTMLElement
 }
 
 extension HTMLElementExtension on HTMLElement {
-  external JSVoid click();
+  external void click();
   external ElementInternals attachInternals();
-  external JSVoid showPopover();
-  external JSVoid hidePopover();
+  external void showPopover();
+  external void hidePopover();
   external bool togglePopover([bool force]);
   external Element? get offsetParent;
   external int get offsetTop;
@@ -249,8 +249,8 @@ class HTMLUnknownElement implements HTMLElement {}
 class HTMLOrSVGElement implements JSObject {}
 
 extension HTMLOrSVGElementExtension on HTMLOrSVGElement {
-  external JSVoid focus([FocusOptions options]);
-  external JSVoid blur();
+  external void focus([FocusOptions options]);
+  external void blur();
   external DOMStringMap get dataset;
   external set nonce(String value);
   external String get nonce;
@@ -838,7 +838,7 @@ extension HTMLObjectElementExtension on HTMLObjectElement {
   external Document? getSVGDocument();
   external bool checkValidity();
   external bool reportValidity();
-  external JSVoid setCustomValidity(String error);
+  external void setCustomValidity(String error);
   external set data(String value);
   external String get data;
   external set type(String value);
@@ -889,7 +889,7 @@ extension HTMLVideoElementExtension on HTMLVideoElement {
   external VideoPlaybackQuality getVideoPlaybackQuality();
   external JSPromise requestPictureInPicture();
   external int requestVideoFrameCallback(VideoFrameRequestCallback callback);
-  external JSVoid cancelVideoFrameCallback(int handle);
+  external void cancelVideoFrameCallback(int handle);
   external set width(int value);
   external int get width;
   external set height(int value);
@@ -959,12 +959,12 @@ class HTMLMediaElement implements HTMLElement {
 extension HTMLMediaElementExtension on HTMLMediaElement {
   external JSPromise setSinkId(String sinkId);
   external JSPromise setMediaKeys(MediaKeys? mediaKeys);
-  external JSVoid load();
+  external void load();
   external CanPlayTypeResult canPlayType(String type);
-  external JSVoid fastSeek(num time);
+  external void fastSeek(num time);
   external JSObject getStartDate();
   external JSPromise play();
-  external JSVoid pause();
+  external void pause();
   external TextTrack addTextTrack(
     TextTrackKind kind, [
     String label,
@@ -1117,8 +1117,8 @@ extension TextTrackListExtension on TextTrackList {
 class TextTrack implements EventTarget {}
 
 extension TextTrackExtension on TextTrack {
-  external JSVoid addCue(TextTrackCue cue);
-  external JSVoid removeCue(TextTrackCue cue);
+  external void addCue(TextTrackCue cue);
+  external void removeCue(TextTrackCue cue);
   external TextTrackKind get kind;
   external String get label;
   external String get language;
@@ -1245,14 +1245,14 @@ class HTMLTableElement implements HTMLElement {
 
 extension HTMLTableElementExtension on HTMLTableElement {
   external HTMLTableCaptionElement createCaption();
-  external JSVoid deleteCaption();
+  external void deleteCaption();
   external HTMLTableSectionElement createTHead();
-  external JSVoid deleteTHead();
+  external void deleteTHead();
   external HTMLTableSectionElement createTFoot();
-  external JSVoid deleteTFoot();
+  external void deleteTFoot();
   external HTMLTableSectionElement createTBody();
   external HTMLTableRowElement insertRow([int index]);
-  external JSVoid deleteRow(int index);
+  external void deleteRow(int index);
   external set caption(HTMLTableCaptionElement? value);
   external HTMLTableCaptionElement? get caption;
   external set tHead(HTMLTableSectionElement? value);
@@ -1321,7 +1321,7 @@ class HTMLTableSectionElement implements HTMLElement {
 
 extension HTMLTableSectionElementExtension on HTMLTableSectionElement {
   external HTMLTableRowElement insertRow([int index]);
-  external JSVoid deleteRow(int index);
+  external void deleteRow(int index);
   external HTMLCollection get rows;
   external set align(String value);
   external String get align;
@@ -1341,7 +1341,7 @@ class HTMLTableRowElement implements HTMLElement {
 
 extension HTMLTableRowElementExtension on HTMLTableRowElement {
   external HTMLTableCellElement insertCell([int index]);
-  external JSVoid deleteCell(int index);
+  external void deleteCell(int index);
   external int get rowIndex;
   external int get sectionRowIndex;
   external HTMLCollection get cells;
@@ -1402,9 +1402,9 @@ class HTMLFormElement implements HTMLElement {
 }
 
 extension HTMLFormElementExtension on HTMLFormElement {
-  external JSVoid submit();
-  external JSVoid requestSubmit([HTMLElement? submitter]);
-  external JSVoid reset();
+  external void submit();
+  external void requestSubmit([HTMLElement? submitter]);
+  external void reset();
   external bool checkValidity();
   external bool reportValidity();
   external set acceptCharset(String value);
@@ -1452,24 +1452,24 @@ class HTMLInputElement implements HTMLElement, PopoverInvokerElement {
 }
 
 extension HTMLInputElementExtension on HTMLInputElement {
-  external JSVoid stepUp([int n]);
-  external JSVoid stepDown([int n]);
+  external void stepUp([int n]);
+  external void stepDown([int n]);
   external bool checkValidity();
   external bool reportValidity();
-  external JSVoid setCustomValidity(String error);
-  external JSVoid select();
-  external JSVoid setRangeText(
+  external void setCustomValidity(String error);
+  external void select();
+  external void setRangeText(
     String replacement, [
     int start,
     int end,
     SelectionMode selectionMode,
   ]);
-  external JSVoid setSelectionRange(
+  external void setSelectionRange(
     int start,
     int end, [
     String direction,
   ]);
-  external JSVoid showPicker();
+  external void showPicker();
   external set webkitdirectory(bool value);
   external bool get webkitdirectory;
   external JSArray get webkitEntries;
@@ -1570,7 +1570,7 @@ class HTMLButtonElement implements HTMLElement, PopoverInvokerElement {
 extension HTMLButtonElementExtension on HTMLButtonElement {
   external bool checkValidity();
   external bool reportValidity();
-  external JSVoid setCustomValidity(String error);
+  external void setCustomValidity(String error);
   external set disabled(bool value);
   external bool get disabled;
   external HTMLFormElement? get form;
@@ -1605,14 +1605,14 @@ class HTMLSelectElement implements HTMLElement {
 extension HTMLSelectElementExtension on HTMLSelectElement {
   external HTMLOptionElement? item(int index);
   external HTMLOptionElement? namedItem(String name);
-  external JSVoid add(
+  external void add(
     JSObject element, [
     JSAny? before,
   ]);
-  external JSVoid remove([int index]);
+  external void remove([int index]);
   external bool checkValidity();
   external bool reportValidity();
-  external JSVoid setCustomValidity(String error);
+  external void setCustomValidity(String error);
   external set autocomplete(String value);
   external String get autocomplete;
   external set disabled(bool value);
@@ -1696,15 +1696,15 @@ class HTMLTextAreaElement implements HTMLElement {
 extension HTMLTextAreaElementExtension on HTMLTextAreaElement {
   external bool checkValidity();
   external bool reportValidity();
-  external JSVoid setCustomValidity(String error);
-  external JSVoid select();
-  external JSVoid setRangeText(
+  external void setCustomValidity(String error);
+  external void select();
+  external void setRangeText(
     String replacement, [
     int start,
     int end,
     SelectionMode selectionMode,
   ]);
-  external JSVoid setSelectionRange(
+  external void setSelectionRange(
     int start,
     int end, [
     String direction,
@@ -1761,7 +1761,7 @@ class HTMLOutputElement implements HTMLElement {
 extension HTMLOutputElementExtension on HTMLOutputElement {
   external bool checkValidity();
   external bool reportValidity();
-  external JSVoid setCustomValidity(String error);
+  external void setCustomValidity(String error);
   external DOMTokenList get htmlFor;
   external HTMLFormElement? get form;
   external set name(String value);
@@ -1823,7 +1823,7 @@ class HTMLFieldSetElement implements HTMLElement {
 extension HTMLFieldSetElementExtension on HTMLFieldSetElement {
   external bool checkValidity();
   external bool reportValidity();
-  external JSVoid setCustomValidity(String error);
+  external void setCustomValidity(String error);
   external set disabled(bool value);
   external bool get disabled;
   external HTMLFormElement? get form;
@@ -1936,9 +1936,9 @@ class HTMLDialogElement implements HTMLElement {
 }
 
 extension HTMLDialogElementExtension on HTMLDialogElement {
-  external JSVoid show();
-  external JSVoid showModal();
-  external JSVoid close([String returnValue]);
+  external void show();
+  external void showModal();
+  external void close([String returnValue]);
   external set open(bool value);
   external bool get open;
   external set returnValue(String value);
@@ -2002,7 +2002,7 @@ class HTMLSlotElement implements HTMLElement {
 extension HTMLSlotElementExtension on HTMLSlotElement {
   external JSArray assignedNodes([AssignedNodesOptions options]);
   external JSArray assignedElements([AssignedNodesOptions options]);
-  external JSVoid assign(JSObject nodes);
+  external void assign(JSObject nodes);
   external set name(String value);
   external String get name;
 }
@@ -2034,7 +2034,7 @@ extension HTMLCanvasElementExtension on HTMLCanvasElement {
     String type,
     JSAny? quality,
   ]);
-  external JSVoid toBlob(
+  external void toBlob(
     BlobCallback callback, [
     String type,
     JSAny? quality,
@@ -2102,9 +2102,9 @@ extension CanvasRenderingContext2DExtension on CanvasRenderingContext2D {
 class CanvasState implements JSObject {}
 
 extension CanvasStateExtension on CanvasState {
-  external JSVoid save();
-  external JSVoid restore();
-  external JSVoid reset();
+  external void save();
+  external void restore();
+  external void reset();
   external bool isContextLost();
 }
 
@@ -2113,16 +2113,16 @@ extension CanvasStateExtension on CanvasState {
 class CanvasTransform implements JSObject {}
 
 extension CanvasTransformExtension on CanvasTransform {
-  external JSVoid scale(
+  external void scale(
     num x,
     num y,
   );
-  external JSVoid rotate(num angle);
-  external JSVoid translate(
+  external void rotate(num angle);
+  external void translate(
     num x,
     num y,
   );
-  external JSVoid transform(
+  external void transform(
     num a,
     num b,
     num c,
@@ -2131,15 +2131,15 @@ extension CanvasTransformExtension on CanvasTransform {
     num f,
   );
   external DOMMatrix getTransform();
-  external JSVoid setTransform([
-    JSAny? aOrTransform,
+  external void setTransform([
+    JSAny aOrTransform,
     num b,
     num c,
     num d,
     num e,
     num f,
   ]);
-  external JSVoid resetTransform();
+  external void resetTransform();
 }
 
 @JS('CanvasCompositing')
@@ -2192,10 +2192,10 @@ extension CanvasFillStrokeStylesExtension on CanvasFillStrokeStyles {
     CanvasImageSource image,
     String repetition,
   );
-  external set strokeStyle(JSAny? value);
-  external JSAny? get strokeStyle;
-  external set fillStyle(JSAny? value);
-  external JSAny? get fillStyle;
+  external set strokeStyle(JSAny value);
+  external JSAny get strokeStyle;
+  external set fillStyle(JSAny value);
+  external JSAny get fillStyle;
 }
 
 @JS('CanvasShadowStyles')
@@ -2227,19 +2227,19 @@ extension CanvasFiltersExtension on CanvasFilters {
 class CanvasRect implements JSObject {}
 
 extension CanvasRectExtension on CanvasRect {
-  external JSVoid clearRect(
+  external void clearRect(
     num x,
     num y,
     num w,
     num h,
   );
-  external JSVoid fillRect(
+  external void fillRect(
     num x,
     num y,
     num w,
     num h,
   );
-  external JSVoid strokeRect(
+  external void strokeRect(
     num x,
     num y,
     num w,
@@ -2252,24 +2252,24 @@ extension CanvasRectExtension on CanvasRect {
 class CanvasDrawPath implements JSObject {}
 
 extension CanvasDrawPathExtension on CanvasDrawPath {
-  external JSVoid beginPath();
-  external JSVoid fill([
-    JSAny? fillRuleOrPath,
+  external void beginPath();
+  external void fill([
+    JSAny fillRuleOrPath,
     CanvasFillRule fillRule,
   ]);
-  external JSVoid stroke([Path2D path]);
-  external JSVoid clip([
-    JSAny? fillRuleOrPath,
+  external void stroke([Path2D path]);
+  external void clip([
+    JSAny fillRuleOrPath,
     CanvasFillRule fillRule,
   ]);
   external bool isPointInPath(
-    JSAny? pathOrX,
+    JSAny pathOrX,
     num xOrY, [
-    JSAny? fillRuleOrY,
+    JSAny fillRuleOrY,
     CanvasFillRule fillRule,
   ]);
   external bool isPointInStroke(
-    JSAny? pathOrX,
+    JSAny pathOrX,
     num xOrY, [
     num y,
   ]);
@@ -2280,11 +2280,11 @@ extension CanvasDrawPathExtension on CanvasDrawPath {
 class CanvasUserInterface implements JSObject {}
 
 extension CanvasUserInterfaceExtension on CanvasUserInterface {
-  external JSVoid drawFocusIfNeeded(
+  external void drawFocusIfNeeded(
     JSObject elementOrPath, [
     Element element,
   ]);
-  external JSVoid scrollPathIntoView([Path2D path]);
+  external void scrollPathIntoView([Path2D path]);
 }
 
 @JS('CanvasText')
@@ -2292,13 +2292,13 @@ extension CanvasUserInterfaceExtension on CanvasUserInterface {
 class CanvasText implements JSObject {}
 
 extension CanvasTextExtension on CanvasText {
-  external JSVoid fillText(
+  external void fillText(
     String text,
     num x,
     num y, [
     num maxWidth,
   ]);
-  external JSVoid strokeText(
+  external void strokeText(
     String text,
     num x,
     num y, [
@@ -2312,7 +2312,7 @@ extension CanvasTextExtension on CanvasText {
 class CanvasDrawImage implements JSObject {}
 
 extension CanvasDrawImageExtension on CanvasDrawImage {
-  external JSVoid drawImage(
+  external void drawImage(
     CanvasImageSource image,
     num dxOrSx,
     num dyOrSy, [
@@ -2331,7 +2331,7 @@ class CanvasImageData implements JSObject {}
 
 extension CanvasImageDataExtension on CanvasImageData {
   external ImageData createImageData(
-    JSAny? imagedataOrSw, [
+    JSAny imagedataOrSw, [
     int sh,
     ImageDataSettings settings,
   ]);
@@ -2342,7 +2342,7 @@ extension CanvasImageDataExtension on CanvasImageData {
     int sh, [
     ImageDataSettings settings,
   ]);
-  external JSVoid putImageData(
+  external void putImageData(
     ImageData imagedata,
     int dx,
     int dy, [
@@ -2358,7 +2358,7 @@ extension CanvasImageDataExtension on CanvasImageData {
 class CanvasPathDrawingStyles implements JSObject {}
 
 extension CanvasPathDrawingStylesExtension on CanvasPathDrawingStyles {
-  external JSVoid setLineDash(JSArray segments);
+  external void setLineDash(JSArray segments);
   external JSArray getLineDash();
   external set lineWidth(num value);
   external num get lineWidth;
@@ -2404,22 +2404,22 @@ extension CanvasTextDrawingStylesExtension on CanvasTextDrawingStyles {
 class CanvasPath implements JSObject {}
 
 extension CanvasPathExtension on CanvasPath {
-  external JSVoid closePath();
-  external JSVoid moveTo(
+  external void closePath();
+  external void moveTo(
     num x,
     num y,
   );
-  external JSVoid lineTo(
+  external void lineTo(
     num x,
     num y,
   );
-  external JSVoid quadraticCurveTo(
+  external void quadraticCurveTo(
     num cpx,
     num cpy,
     num x,
     num y,
   );
-  external JSVoid bezierCurveTo(
+  external void bezierCurveTo(
     num cp1x,
     num cp1y,
     num cp2x,
@@ -2427,27 +2427,27 @@ extension CanvasPathExtension on CanvasPath {
     num x,
     num y,
   );
-  external JSVoid arcTo(
+  external void arcTo(
     num x1,
     num y1,
     num x2,
     num y2,
     num radius,
   );
-  external JSVoid rect(
+  external void rect(
     num x,
     num y,
     num w,
     num h,
   );
-  external JSVoid roundRect(
+  external void roundRect(
     num x,
     num y,
     num w,
     num h, [
-    JSAny? radii,
+    JSAny radii,
   ]);
-  external JSVoid arc(
+  external void arc(
     num x,
     num y,
     num radius,
@@ -2455,7 +2455,7 @@ extension CanvasPathExtension on CanvasPath {
     num endAngle, [
     bool counterclockwise,
   ]);
-  external JSVoid ellipse(
+  external void ellipse(
     num x,
     num y,
     num radiusX,
@@ -2472,7 +2472,7 @@ extension CanvasPathExtension on CanvasPath {
 class CanvasGradient implements JSObject {}
 
 extension CanvasGradientExtension on CanvasGradient {
-  external JSVoid addColorStop(
+  external void addColorStop(
     num offset,
     String color,
   );
@@ -2483,7 +2483,7 @@ extension CanvasGradientExtension on CanvasGradient {
 class CanvasPattern implements JSObject {}
 
 extension CanvasPatternExtension on CanvasPattern {
-  external JSVoid setTransform([DOMMatrix2DInit transform]);
+  external void setTransform([DOMMatrix2DInit transform]);
 }
 
 @JS('TextMetrics')
@@ -2521,9 +2521,9 @@ extension ImageDataSettingsExtension on ImageDataSettings {
 @staticInterop
 class ImageData implements JSObject {
   external factory ImageData(
-    JSAny? dataOrSw,
+    JSAny dataOrSw,
     int shOrSw, [
-    JSAny? settingsOrSh,
+    JSAny settingsOrSh,
     ImageDataSettings settings,
   ]);
 }
@@ -2538,11 +2538,11 @@ extension ImageDataExtension on ImageData {
 @JS('Path2D')
 @staticInterop
 class Path2D implements CanvasPath {
-  external factory Path2D([JSAny? path]);
+  external factory Path2D([JSAny path]);
 }
 
 extension Path2DExtension on Path2D {
-  external JSVoid addPath(
+  external void addPath(
     Path2D path, [
     DOMMatrix2DInit transform,
   ]);
@@ -2553,7 +2553,7 @@ extension Path2DExtension on Path2D {
 class ImageBitmapRenderingContext implements JSObject {}
 
 extension ImageBitmapRenderingContextExtension on ImageBitmapRenderingContext {
-  external JSVoid transferFromImageBitmap(ImageBitmap? bitmap);
+  external void transferFromImageBitmap(ImageBitmap? bitmap);
   external JSObject get canvas;
 }
 
@@ -2635,7 +2635,7 @@ class OffscreenCanvasRenderingContext2D
 
 extension OffscreenCanvasRenderingContext2DExtension
     on OffscreenCanvasRenderingContext2D {
-  external JSVoid commit();
+  external void commit();
   external OffscreenCanvas get canvas;
 }
 
@@ -2644,7 +2644,7 @@ extension OffscreenCanvasRenderingContext2DExtension
 class CustomElementRegistry implements JSObject {}
 
 extension CustomElementRegistryExtension on CustomElementRegistry {
-  external JSVoid define(
+  external void define(
     String name,
     CustomElementConstructor constructor, [
     ElementDefinitionOptions options,
@@ -2652,7 +2652,7 @@ extension CustomElementRegistryExtension on CustomElementRegistry {
   external CustomElementConstructor? get(String name);
   external String? getName(CustomElementConstructor constructor);
   external JSPromise whenDefined(String name);
-  external JSVoid upgrade(Node root);
+  external void upgrade(Node root);
 }
 
 @JS()
@@ -2674,11 +2674,11 @@ extension ElementDefinitionOptionsExtension on ElementDefinitionOptions {
 class ElementInternals implements ARIAMixin {}
 
 extension ElementInternalsExtension on ElementInternals {
-  external JSVoid setFormValue(
+  external void setFormValue(
     JSAny? value, [
     JSAny? state,
   ]);
-  external JSVoid setValidity([
+  external void setValidity([
     ValidityStateFlags flags,
     String message,
     HTMLElement anchor,
@@ -2826,17 +2826,17 @@ class DataTransfer implements JSObject {
 }
 
 extension DataTransferExtension on DataTransfer {
-  external JSVoid setDragImage(
+  external void setDragImage(
     Element image,
     int x,
     int y,
   );
   external String getData(String format);
-  external JSVoid setData(
+  external void setData(
     String format,
     String data,
   );
-  external JSVoid clearData([String format]);
+  external void clearData([String format]);
   external set dropEffect(String value);
   external String get dropEffect;
   external set effectAllowed(String value);
@@ -2852,11 +2852,11 @@ class DataTransferItemList implements JSObject {}
 
 extension DataTransferItemListExtension on DataTransferItemList {
   external DataTransferItem? add(
-    JSAny? data, [
+    JSAny data, [
     String type,
   ]);
-  external JSVoid remove(int index);
-  external JSVoid clear();
+  external void remove(int index);
+  external void clear();
   external int get length;
 }
 
@@ -2867,7 +2867,7 @@ class DataTransferItem implements JSObject {}
 extension DataTransferItemExtension on DataTransferItem {
   external FileSystemEntry? webkitGetAsEntry();
   external JSPromise getAsFileSystemHandle();
-  external JSVoid getAsString(FunctionStringCallback? callback);
+  external void getAsString(FunctionStringCallback? callback);
   external File? getAsFile();
   external String get kind;
   external String get type;
@@ -2925,34 +2925,34 @@ class Window
         WindowLocalStorage {}
 
 extension WindowExtension on Window {
-  external JSVoid navigate(SpatialNavigationDirection dir);
+  external void navigate(SpatialNavigationDirection dir);
   external MediaQueryList matchMedia(String query);
-  external JSVoid moveTo(
+  external void moveTo(
     int x,
     int y,
   );
-  external JSVoid moveBy(
+  external void moveBy(
     int x,
     int y,
   );
-  external JSVoid resizeTo(
+  external void resizeTo(
     int width,
     int height,
   );
-  external JSVoid resizeBy(
+  external void resizeBy(
     int x,
     int y,
   );
-  external JSVoid scroll([
-    JSAny? optionsOrX,
+  external void scroll([
+    JSAny optionsOrX,
     num y,
   ]);
-  external JSVoid scrollTo([
-    JSAny? optionsOrX,
+  external void scrollTo([
+    JSAny optionsOrX,
     num y,
   ]);
-  external JSVoid scrollBy([
-    JSAny? optionsOrX,
+  external void scrollBy([
+    JSAny optionsOrX,
     num y,
   ]);
   external CSSStyleDeclaration getComputedStyle(
@@ -2963,35 +2963,35 @@ extension WindowExtension on Window {
   external JSPromise showOpenFilePicker([OpenFilePickerOptions options]);
   external JSPromise showSaveFilePicker([SaveFilePickerOptions options]);
   external JSPromise showDirectoryPicker([DirectoryPickerOptions options]);
-  external JSVoid close();
-  external JSVoid stop();
-  external JSVoid focus();
-  external JSVoid blur();
+  external void close();
+  external void stop();
+  external void focus();
+  external void blur();
   external Window? open([
     String url,
     String target,
     String features,
   ]);
-  external JSVoid alert([String message]);
+  external void alert([String message]);
   external bool confirm([String message]);
   external String? prompt([
     String message,
     String default_,
   ]);
-  external JSVoid print();
-  external JSVoid postMessage(
+  external void print();
+  external void postMessage(
     JSAny? message, [
-    JSAny? optionsOrTargetOrigin,
+    JSAny optionsOrTargetOrigin,
     JSArray transfer,
   ]);
-  external JSVoid captureEvents();
-  external JSVoid releaseEvents();
+  external void captureEvents();
+  external void releaseEvents();
   external JSPromise queryLocalFonts([QueryOptions options]);
   external int requestIdleCallback(
     IdleRequestCallback callback, [
     IdleRequestOptions options,
   ]);
-  external JSVoid cancelIdleCallback(int handle);
+  external void cancelIdleCallback(int handle);
   external Selection? getSelection();
   external JSPromise getScreenDetails();
   external int get orientation;
@@ -3086,9 +3086,9 @@ extension BarPropExtension on BarProp {
 class Location implements JSObject {}
 
 extension LocationExtension on Location {
-  external JSVoid assign(String url);
-  external JSVoid replace(String url);
-  external JSVoid reload();
+  external void assign(String url);
+  external void replace(String url);
+  external void reload();
   external set href(String value);
   external String get href;
   external String get origin;
@@ -3114,15 +3114,15 @@ extension LocationExtension on Location {
 class History implements JSObject {}
 
 extension HistoryExtension on History {
-  external JSVoid go([int delta]);
-  external JSVoid back();
-  external JSVoid forward();
-  external JSVoid pushState(
+  external void go([int delta]);
+  external void back();
+  external void forward();
+  external void pushState(
     JSAny? data,
     String unused, [
     String? url,
   ]);
-  external JSVoid replaceState(
+  external void replaceState(
     JSAny? data,
     String unused, [
     String? url,
@@ -3139,8 +3139,7 @@ class Navigation implements EventTarget {}
 
 extension NavigationExtension on Navigation {
   external JSArray entries();
-  external JSVoid updateCurrentEntry(
-      NavigationUpdateCurrentEntryOptions options);
+  external void updateCurrentEntry(NavigationUpdateCurrentEntryOptions options);
   external NavigationResult navigate(
     String url, [
     NavigationNavigateOptions options,
@@ -3272,8 +3271,8 @@ class NavigateEvent implements Event {
 }
 
 extension NavigateEventExtension on NavigateEvent {
-  external JSVoid intercept([NavigationInterceptOptions options]);
-  external JSVoid scroll();
+  external void intercept([NavigationInterceptOptions options]);
+  external void scroll();
   external NavigationType get navigationType;
   external NavigationDestination get destination;
   external bool get canIntercept;
@@ -3826,7 +3825,7 @@ extension WindowOrWorkerGlobalScopeExtension on WindowOrWorkerGlobalScope {
     RequestInfo input, [
     RequestInit init,
   ]);
-  external JSVoid reportError(JSAny? e);
+  external void reportError(JSAny? e);
   external String btoa(String data);
   external String atob(String data);
   external int setTimeout(
@@ -3834,17 +3833,17 @@ extension WindowOrWorkerGlobalScopeExtension on WindowOrWorkerGlobalScope {
     JSAny? arguments, [
     int timeout,
   ]);
-  external JSVoid clearTimeout([int id]);
+  external void clearTimeout([int id]);
   external int setInterval(
     TimerHandler handler,
     JSAny? arguments, [
     int timeout,
   ]);
-  external JSVoid clearInterval([int id]);
-  external JSVoid queueMicrotask(VoidFunction callback);
+  external void clearInterval([int id]);
+  external void queueMicrotask(VoidFunction callback);
   external JSPromise createImageBitmap(
     ImageBitmapSource image, [
-    JSAny? optionsOrSx,
+    JSAny optionsOrSx,
     int sy,
     int sw,
     int sh,
@@ -3901,7 +3900,7 @@ class Navigator
         NavigatorML {}
 
 extension NavigatorExtension on Navigator {
-  external AutoplayPolicy getAutoplayPolicy(JSAny? contextOrElementOrType);
+  external AutoplayPolicy getAutoplayPolicy(JSAny contextOrElementOrType);
   external JSPromise getBattery();
   external bool sendBeacon(
     String url, [
@@ -3913,11 +3912,11 @@ extension NavigatorExtension on Navigator {
   );
   external JSPromise deprecatedReplaceInURN(
     UrnOrConfig urnOrConfig,
-    JSAny? replacements,
+    JSAny replacements,
   );
   external JSArray getGamepads();
   external JSPromise getInstalledRelatedApps();
-  external JSVoid getUserMedia(
+  external void getUserMedia(
     MediaStreamConstraints constraints,
     NavigatorUserMediaSuccessCallback successCallback,
     NavigatorUserMediaErrorCallback errorCallback,
@@ -3925,7 +3924,7 @@ extension NavigatorExtension on Navigator {
   external JSPromise joinAdInterestGroup(AuctionAdInterestGroup group);
   external JSPromise leaveAdInterestGroup([AuctionAdInterestGroupKey group]);
   external JSPromise runAdAuction(AuctionAdConfig config);
-  external JSVoid updateAdInterestGroups();
+  external void updateAdInterestGroups();
   external bool vibrate(VibratePattern pattern);
   external JSPromise share([ShareData data]);
   external bool canShare([ShareData data]);
@@ -3997,11 +3996,11 @@ extension NavigatorOnLineExtension on NavigatorOnLine {
 class NavigatorContentUtils implements JSObject {}
 
 extension NavigatorContentUtilsExtension on NavigatorContentUtils {
-  external JSVoid registerProtocolHandler(
+  external void registerProtocolHandler(
     String scheme,
     String url,
   );
-  external JSVoid unregisterProtocolHandler(
+  external void unregisterProtocolHandler(
     String scheme,
     String url,
   );
@@ -4031,7 +4030,7 @@ extension NavigatorPluginsExtension on NavigatorPlugins {
 class PluginArray implements JSObject {}
 
 extension PluginArrayExtension on PluginArray {
-  external JSVoid refresh();
+  external void refresh();
   external Plugin? item(int index);
   external Plugin? namedItem(String name);
   external int get length;
@@ -4076,7 +4075,7 @@ extension MimeTypeExtension on MimeType {
 class ImageBitmap implements JSObject {}
 
 extension ImageBitmapExtension on ImageBitmap {
-  external JSVoid close();
+  external void close();
   external int get width;
   external int get height;
 }
@@ -4116,7 +4115,7 @@ class AnimationFrameProvider implements JSObject {}
 
 extension AnimationFrameProviderExtension on AnimationFrameProvider {
   external int requestAnimationFrame(FrameRequestCallback callback);
-  external JSVoid cancelAnimationFrame(int handle);
+  external void cancelAnimationFrame(int handle);
 }
 
 @JS('MessageEvent')
@@ -4129,7 +4128,7 @@ class MessageEvent implements Event {
 }
 
 extension MessageEventExtension on MessageEvent {
-  external JSVoid initMessageEvent(
+  external void initMessageEvent(
     String type, [
     bool bubbles,
     bool cancelable,
@@ -4186,7 +4185,7 @@ class EventSource implements EventTarget {
 }
 
 extension EventSourceExtension on EventSource {
-  external JSVoid close();
+  external void close();
   external String get url;
   external bool get withCredentials;
   external int get readyState;
@@ -4226,12 +4225,12 @@ extension MessageChannelExtension on MessageChannel {
 class MessagePort implements EventTarget {}
 
 extension MessagePortExtension on MessagePort {
-  external JSVoid postMessage(
+  external void postMessage(
     JSAny? message, [
     JSObject optionsOrTransfer,
   ]);
-  external JSVoid start();
-  external JSVoid close();
+  external void start();
+  external void close();
   external set onmessage(EventHandler value);
   external EventHandler get onmessage;
   external set onmessageerror(EventHandler value);
@@ -4257,8 +4256,8 @@ class BroadcastChannel implements EventTarget {
 }
 
 extension BroadcastChannelExtension on BroadcastChannel {
-  external JSVoid postMessage(JSAny? message);
-  external JSVoid close();
+  external void postMessage(JSAny? message);
+  external void close();
   external String get name;
   external set onmessage(EventHandler value);
   external EventHandler get onmessage;
@@ -4272,7 +4271,7 @@ class WorkerGlobalScope
     implements EventTarget, FontFaceSource, WindowOrWorkerGlobalScope {}
 
 extension WorkerGlobalScopeExtension on WorkerGlobalScope {
-  external JSVoid importScripts(String urls);
+  external void importScripts(String urls);
   external WorkerGlobalScope get self;
   external WorkerLocation get location;
   external WorkerNavigator get navigator;
@@ -4296,11 +4295,11 @@ class DedicatedWorkerGlobalScope
     implements WorkerGlobalScope, AnimationFrameProvider {}
 
 extension DedicatedWorkerGlobalScopeExtension on DedicatedWorkerGlobalScope {
-  external JSVoid postMessage(
+  external void postMessage(
     JSAny? message, [
     JSObject optionsOrTransfer,
   ]);
-  external JSVoid close();
+  external void close();
   external String get name;
   external set onmessage(EventHandler value);
   external EventHandler get onmessage;
@@ -4315,7 +4314,7 @@ extension DedicatedWorkerGlobalScopeExtension on DedicatedWorkerGlobalScope {
 class SharedWorkerGlobalScope implements WorkerGlobalScope {}
 
 extension SharedWorkerGlobalScopeExtension on SharedWorkerGlobalScope {
-  external JSVoid close();
+  external void close();
   external String get name;
   external set onconnect(EventHandler value);
   external EventHandler get onconnect;
@@ -4340,8 +4339,8 @@ class Worker implements EventTarget, AbstractWorker {
 }
 
 extension WorkerExtension on Worker {
-  external JSVoid terminate();
-  external JSVoid postMessage(
+  external void terminate();
+  external void postMessage(
     JSAny? message, [
     JSObject optionsOrTransfer,
   ]);
@@ -4376,7 +4375,7 @@ extension WorkerOptionsExtension on WorkerOptions {
 class SharedWorker implements EventTarget, AbstractWorker {
   external factory SharedWorker(
     String scriptURL, [
-    JSAny? options,
+    JSAny options,
   ]);
 }
 
@@ -4469,12 +4468,12 @@ class Storage implements JSObject {}
 extension StorageExtension on Storage {
   external String? key(int index);
   external String? getItem(String key);
-  external JSVoid setItem(
+  external void setItem(
     String key,
     String value,
   );
-  external JSVoid removeItem(String key);
-  external JSVoid clear();
+  external void removeItem(String key);
+  external void clear();
   external int get length;
 }
 
@@ -4504,7 +4503,7 @@ class StorageEvent implements Event {
 }
 
 extension StorageEventExtension on StorageEvent {
-  external JSVoid initStorageEvent(
+  external void initStorageEvent(
     String type, [
     bool bubbles,
     bool cancelable,
@@ -4554,8 +4553,8 @@ class HTMLMarqueeElement implements HTMLElement {
 }
 
 extension HTMLMarqueeElementExtension on HTMLMarqueeElement {
-  external JSVoid start();
-  external JSVoid stop();
+  external void start();
+  external void stop();
   external set behavior(String value);
   external String get behavior;
   external set bgColor(String value);
@@ -4668,6 +4667,6 @@ extension HTMLParamElementExtension on HTMLParamElement {
 class External implements JSObject {}
 
 extension ExternalExtension on External {
-  external JSVoid AddSearchProvider();
-  external JSVoid IsSearchProviderInstalled();
+  external void AddSearchProvider();
+  external void IsSearchProviderInstalled();
 }

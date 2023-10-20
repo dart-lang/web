@@ -32,7 +32,7 @@ extension InkPresenterParamExtension on InkPresenterParam {
 class InkPresenter implements JSObject {}
 
 extension InkPresenterExtension on InkPresenter {
-  external JSVoid updateInkTrailStartPoint(
+  external void updateInkTrailStartPoint(
     PointerEvent event,
     InkTrailStyle style,
   );

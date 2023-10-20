@@ -13,8 +13,8 @@ import 'html.dart';
 class VirtualKeyboard implements EventTarget {}
 
 extension VirtualKeyboardExtension on VirtualKeyboard {
-  external JSVoid show();
-  external JSVoid hide();
+  external void show();
+  external void hide();
   external DOMRect get boundingRect;
   external set overlaysContent(bool value);
   external bool get overlaysContent;

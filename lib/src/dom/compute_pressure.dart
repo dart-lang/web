@@ -23,8 +23,8 @@ class PressureObserver implements JSObject {
 
 extension PressureObserverExtension on PressureObserver {
   external JSPromise observe(PressureSource source);
-  external JSVoid unobserve(PressureSource source);
-  external JSVoid disconnect();
+  external void unobserve(PressureSource source);
+  external void disconnect();
   external JSArray takeRecords();
 }
 

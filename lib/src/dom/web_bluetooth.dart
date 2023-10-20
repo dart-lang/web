@@ -10,9 +10,9 @@ import 'permissions.dart';
 import 'webidl.dart';
 
 typedef UUID = String;
-typedef BluetoothServiceUUID = JSAny?;
-typedef BluetoothCharacteristicUUID = JSAny?;
-typedef BluetoothDescriptorUUID = JSAny?;
+typedef BluetoothServiceUUID = JSAny;
+typedef BluetoothCharacteristicUUID = JSAny;
+typedef BluetoothDescriptorUUID = JSAny;
 
 @JS()
 @staticInterop
@@ -163,7 +163,7 @@ class AllowedBluetoothDevice implements JSObject {
   external factory AllowedBluetoothDevice({
     required String deviceId,
     required bool mayUseGATT,
-    required JSAny? allowedServices,
+    required JSAny allowedServices,
     required JSArray allowedManufacturerData,
   });
 }
@@ -173,8 +173,8 @@ extension AllowedBluetoothDeviceExtension on AllowedBluetoothDevice {
   external String get deviceId;
   external set mayUseGATT(bool value);
   external bool get mayUseGATT;
-  external set allowedServices(JSAny? value);
-  external JSAny? get allowedServices;
+  external set allowedServices(JSAny value);
+  external JSAny get allowedServices;
   external set allowedManufacturerData(JSArray value);
   external JSArray get allowedManufacturerData;
 }
@@ -331,7 +331,7 @@ class BluetoothRemoteGATTServer implements JSObject {}
 
 extension BluetoothRemoteGATTServerExtension on BluetoothRemoteGATTServer {
   external JSPromise connect();
-  external JSVoid disconnect();
+  external void disconnect();
   external JSPromise getPrimaryService(BluetoothServiceUUID service);
   external JSPromise getPrimaryServices([BluetoothServiceUUID service]);
   external BluetoothDevice get device;
@@ -443,8 +443,8 @@ extension ServiceEventHandlersExtension on ServiceEventHandlers {
 @JS('BluetoothUUID')
 @staticInterop
 class BluetoothUUID implements JSObject {
-  external static UUID getService(JSAny? name);
-  external static UUID getCharacteristic(JSAny? name);
-  external static UUID getDescriptor(JSAny? name);
+  external static UUID getService(JSAny name);
+  external static UUID getCharacteristic(JSAny name);
+  external static UUID getDescriptor(JSAny name);
   external static UUID canonicalUUID(int alias);
 }

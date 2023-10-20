@@ -29,7 +29,7 @@ class Notification implements EventTarget {
 }
 
 extension NotificationExtension on Notification {
-  external JSVoid close();
+  external void close();
   external set onclick(EventHandler value);
   external EventHandler get onclick;
   external set onshow(EventHandler value);

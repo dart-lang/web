@@ -14,7 +14,7 @@ typedef PositionErrorCallback = JSFunction;
 class Geolocation implements JSObject {}
 
 extension GeolocationExtension on Geolocation {
-  external JSVoid getCurrentPosition(
+  external void getCurrentPosition(
     PositionCallback successCallback, [
     PositionErrorCallback? errorCallback,
     PositionOptions options,
@@ -24,7 +24,7 @@ extension GeolocationExtension on Geolocation {
     PositionErrorCallback? errorCallback,
     PositionOptions options,
   ]);
-  external JSVoid clearWatch(int watchId);
+  external void clearWatch(int watchId);
 }
 
 @JS()

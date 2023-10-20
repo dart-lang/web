@@ -11,10 +11,10 @@ import 'referrer_policy.dart';
 import 'streams.dart';
 import 'trust_token_api.dart';
 
-typedef HeadersInit = JSAny?;
-typedef XMLHttpRequestBodyInit = JSAny?;
-typedef BodyInit = JSAny?;
-typedef RequestInfo = JSAny?;
+typedef HeadersInit = JSAny;
+typedef XMLHttpRequestBodyInit = JSAny;
+typedef BodyInit = JSAny;
+typedef RequestInfo = JSAny;
 typedef RequestDestination = String;
 typedef RequestMode = String;
 typedef RequestCredentials = String;
@@ -31,15 +31,15 @@ class Headers implements JSObject {
 }
 
 extension HeadersExtension on Headers {
-  external JSVoid append(
+  external void append(
     String name,
     String value,
   );
-  external JSVoid delete(String name);
+  external void delete(String name);
   external String? get(String name);
   external JSArray getSetCookie();
   external bool has(String name);
-  external JSVoid set(
+  external void set(
     String name,
     String value,
   );

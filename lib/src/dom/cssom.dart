@@ -16,8 +16,8 @@ class MediaList implements JSObject {}
 
 extension MediaListExtension on MediaList {
   external String? item(int index);
-  external JSVoid appendMedium(String medium);
-  external JSVoid deleteMedium(String medium);
+  external void appendMedium(String medium);
+  external void deleteMedium(String medium);
   external set mediaText(String value);
   external String get mediaText;
   external int get length;
@@ -49,15 +49,15 @@ extension CSSStyleSheetExtension on CSSStyleSheet {
     String rule, [
     int index,
   ]);
-  external JSVoid deleteRule(int index);
+  external void deleteRule(int index);
   external JSPromise replace(String text);
-  external JSVoid replaceSync(String text);
+  external void replaceSync(String text);
   external int addRule([
     String selector,
     String style,
     int index,
   ]);
-  external JSVoid removeRule([int index]);
+  external void removeRule([int index]);
   external CSSRule? get ownerRule;
   external CSSRuleList get cssRules;
   external CSSRuleList get rules;
@@ -69,7 +69,7 @@ extension CSSStyleSheetExtension on CSSStyleSheet {
 class CSSStyleSheetInit implements JSObject {
   external factory CSSStyleSheetInit({
     String baseURL,
-    JSAny? media,
+    JSAny media,
     bool disabled,
   });
 }
@@ -77,8 +77,8 @@ class CSSStyleSheetInit implements JSObject {
 extension CSSStyleSheetInitExtension on CSSStyleSheetInit {
   external set baseURL(String value);
   external String get baseURL;
-  external set media(JSAny? value);
-  external JSAny? get media;
+  external set media(JSAny value);
+  external JSAny get media;
   external set disabled(bool value);
   external bool get disabled;
 }
@@ -167,7 +167,7 @@ extension CSSGroupingRuleExtension on CSSGroupingRule {
     String rule, [
     int index,
   ]);
-  external JSVoid deleteRule(int index);
+  external void deleteRule(int index);
   external CSSRuleList get cssRules;
 }
 
@@ -207,7 +207,7 @@ extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
   external String item(int index);
   external String getPropertyValue(String property);
   external String getPropertyPriority(String property);
-  external JSVoid setProperty(
+  external void setProperty(
     String property,
     String value, [
     String priority,
@@ -1521,7 +1521,7 @@ extension $CSSExtension on $CSS {
   external CSSToken parseValue(String css);
   external JSArray parseValueList(String css);
   external JSArray parseCommaValueList(String css);
-  external JSVoid registerProperty(PropertyDefinition definition);
+  external void registerProperty(PropertyDefinition definition);
   external CSSUnitValue number(num value);
   external CSSUnitValue percent(num value);
   external CSSUnitValue cap(num value);

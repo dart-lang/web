@@ -426,71 +426,71 @@ extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
   external bool isContextLost();
   external JSArray? getSupportedExtensions();
   external JSObject? getExtension(String name);
-  external JSVoid activeTexture(GLenum texture);
-  external JSVoid attachShader(
+  external void activeTexture(GLenum texture);
+  external void attachShader(
     WebGLProgram program,
     WebGLShader shader,
   );
-  external JSVoid bindAttribLocation(
+  external void bindAttribLocation(
     WebGLProgram program,
     GLuint index,
     String name,
   );
-  external JSVoid bindBuffer(
+  external void bindBuffer(
     GLenum target,
     WebGLBuffer? buffer,
   );
-  external JSVoid bindFramebuffer(
+  external void bindFramebuffer(
     GLenum target,
     WebGLFramebuffer? framebuffer,
   );
-  external JSVoid bindRenderbuffer(
+  external void bindRenderbuffer(
     GLenum target,
     WebGLRenderbuffer? renderbuffer,
   );
-  external JSVoid bindTexture(
+  external void bindTexture(
     GLenum target,
     WebGLTexture? texture,
   );
-  external JSVoid blendColor(
+  external void blendColor(
     GLclampf red,
     GLclampf green,
     GLclampf blue,
     GLclampf alpha,
   );
-  external JSVoid blendEquation(GLenum mode);
-  external JSVoid blendEquationSeparate(
+  external void blendEquation(GLenum mode);
+  external void blendEquationSeparate(
     GLenum modeRGB,
     GLenum modeAlpha,
   );
-  external JSVoid blendFunc(
+  external void blendFunc(
     GLenum sfactor,
     GLenum dfactor,
   );
-  external JSVoid blendFuncSeparate(
+  external void blendFuncSeparate(
     GLenum srcRGB,
     GLenum dstRGB,
     GLenum srcAlpha,
     GLenum dstAlpha,
   );
   external GLenum checkFramebufferStatus(GLenum target);
-  external JSVoid clear(GLbitfield mask);
-  external JSVoid clearColor(
+  external void clear(GLbitfield mask);
+  external void clearColor(
     GLclampf red,
     GLclampf green,
     GLclampf blue,
     GLclampf alpha,
   );
-  external JSVoid clearDepth(GLclampf depth);
-  external JSVoid clearStencil(GLint s);
-  external JSVoid colorMask(
+  external void clearDepth(GLclampf depth);
+  external void clearStencil(GLint s);
+  external void colorMask(
     GLboolean red,
     GLboolean green,
     GLboolean blue,
     GLboolean alpha,
   );
-  external JSVoid compileShader(WebGLShader shader);
-  external JSVoid copyTexImage2D(
+  external void compileShader(WebGLShader shader);
+  external void copyTexImage2D(
     GLenum target,
     GLint level,
     GLenum internalformat,
@@ -500,7 +500,7 @@ extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
     GLsizei height,
     GLint border,
   );
-  external JSVoid copyTexSubImage2D(
+  external void copyTexSubImage2D(
     GLenum target,
     GLint level,
     GLint xoffset,
@@ -516,55 +516,55 @@ extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
   external WebGLRenderbuffer? createRenderbuffer();
   external WebGLShader? createShader(GLenum type);
   external WebGLTexture? createTexture();
-  external JSVoid cullFace(GLenum mode);
-  external JSVoid deleteBuffer(WebGLBuffer? buffer);
-  external JSVoid deleteFramebuffer(WebGLFramebuffer? framebuffer);
-  external JSVoid deleteProgram(WebGLProgram? program);
-  external JSVoid deleteRenderbuffer(WebGLRenderbuffer? renderbuffer);
-  external JSVoid deleteShader(WebGLShader? shader);
-  external JSVoid deleteTexture(WebGLTexture? texture);
-  external JSVoid depthFunc(GLenum func);
-  external JSVoid depthMask(GLboolean flag);
-  external JSVoid depthRange(
+  external void cullFace(GLenum mode);
+  external void deleteBuffer(WebGLBuffer? buffer);
+  external void deleteFramebuffer(WebGLFramebuffer? framebuffer);
+  external void deleteProgram(WebGLProgram? program);
+  external void deleteRenderbuffer(WebGLRenderbuffer? renderbuffer);
+  external void deleteShader(WebGLShader? shader);
+  external void deleteTexture(WebGLTexture? texture);
+  external void depthFunc(GLenum func);
+  external void depthMask(GLboolean flag);
+  external void depthRange(
     GLclampf zNear,
     GLclampf zFar,
   );
-  external JSVoid detachShader(
+  external void detachShader(
     WebGLProgram program,
     WebGLShader shader,
   );
-  external JSVoid disable(GLenum cap);
-  external JSVoid disableVertexAttribArray(GLuint index);
-  external JSVoid drawArrays(
+  external void disable(GLenum cap);
+  external void disableVertexAttribArray(GLuint index);
+  external void drawArrays(
     GLenum mode,
     GLint first,
     GLsizei count,
   );
-  external JSVoid drawElements(
+  external void drawElements(
     GLenum mode,
     GLsizei count,
     GLenum type,
     GLintptr offset,
   );
-  external JSVoid enable(GLenum cap);
-  external JSVoid enableVertexAttribArray(GLuint index);
-  external JSVoid finish();
-  external JSVoid flush();
-  external JSVoid framebufferRenderbuffer(
+  external void enable(GLenum cap);
+  external void enableVertexAttribArray(GLuint index);
+  external void finish();
+  external void flush();
+  external void framebufferRenderbuffer(
     GLenum target,
     GLenum attachment,
     GLenum renderbuffertarget,
     WebGLRenderbuffer? renderbuffer,
   );
-  external JSVoid framebufferTexture2D(
+  external void framebufferTexture2D(
     GLenum target,
     GLenum attachment,
     GLenum textarget,
     WebGLTexture? texture,
     GLint level,
   );
-  external JSVoid frontFace(GLenum mode);
-  external JSVoid generateMipmap(GLenum target);
+  external void frontFace(GLenum mode);
+  external void generateMipmap(GLenum target);
   external WebGLActiveInfo? getActiveAttrib(
     WebGLProgram program,
     GLuint index,
@@ -628,7 +628,7 @@ extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
     GLuint index,
     GLenum pname,
   );
-  external JSVoid hint(
+  external void hint(
     GLenum target,
     GLenum mode,
   );
@@ -639,158 +639,158 @@ extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
   external GLboolean isRenderbuffer(WebGLRenderbuffer? renderbuffer);
   external GLboolean isShader(WebGLShader? shader);
   external GLboolean isTexture(WebGLTexture? texture);
-  external JSVoid lineWidth(GLfloat width);
-  external JSVoid linkProgram(WebGLProgram program);
-  external JSVoid pixelStorei(
+  external void lineWidth(GLfloat width);
+  external void linkProgram(WebGLProgram program);
+  external void pixelStorei(
     GLenum pname,
     GLint param,
   );
-  external JSVoid polygonOffset(
+  external void polygonOffset(
     GLfloat factor,
     GLfloat units,
   );
-  external JSVoid renderbufferStorage(
+  external void renderbufferStorage(
     GLenum target,
     GLenum internalformat,
     GLsizei width,
     GLsizei height,
   );
-  external JSVoid sampleCoverage(
+  external void sampleCoverage(
     GLclampf value,
     GLboolean invert,
   );
-  external JSVoid scissor(
+  external void scissor(
     GLint x,
     GLint y,
     GLsizei width,
     GLsizei height,
   );
-  external JSVoid shaderSource(
+  external void shaderSource(
     WebGLShader shader,
     String source,
   );
-  external JSVoid stencilFunc(
+  external void stencilFunc(
     GLenum func,
     GLint ref,
     GLuint mask,
   );
-  external JSVoid stencilFuncSeparate(
+  external void stencilFuncSeparate(
     GLenum face,
     GLenum func,
     GLint ref,
     GLuint mask,
   );
-  external JSVoid stencilMask(GLuint mask);
-  external JSVoid stencilMaskSeparate(
+  external void stencilMask(GLuint mask);
+  external void stencilMaskSeparate(
     GLenum face,
     GLuint mask,
   );
-  external JSVoid stencilOp(
+  external void stencilOp(
     GLenum fail,
     GLenum zfail,
     GLenum zpass,
   );
-  external JSVoid stencilOpSeparate(
+  external void stencilOpSeparate(
     GLenum face,
     GLenum fail,
     GLenum zfail,
     GLenum zpass,
   );
-  external JSVoid texParameterf(
+  external void texParameterf(
     GLenum target,
     GLenum pname,
     GLfloat param,
   );
-  external JSVoid texParameteri(
+  external void texParameteri(
     GLenum target,
     GLenum pname,
     GLint param,
   );
-  external JSVoid uniform1f(
+  external void uniform1f(
     WebGLUniformLocation? location,
     GLfloat x,
   );
-  external JSVoid uniform2f(
+  external void uniform2f(
     WebGLUniformLocation? location,
     GLfloat x,
     GLfloat y,
   );
-  external JSVoid uniform3f(
+  external void uniform3f(
     WebGLUniformLocation? location,
     GLfloat x,
     GLfloat y,
     GLfloat z,
   );
-  external JSVoid uniform4f(
+  external void uniform4f(
     WebGLUniformLocation? location,
     GLfloat x,
     GLfloat y,
     GLfloat z,
     GLfloat w,
   );
-  external JSVoid uniform1i(
+  external void uniform1i(
     WebGLUniformLocation? location,
     GLint x,
   );
-  external JSVoid uniform2i(
+  external void uniform2i(
     WebGLUniformLocation? location,
     GLint x,
     GLint y,
   );
-  external JSVoid uniform3i(
+  external void uniform3i(
     WebGLUniformLocation? location,
     GLint x,
     GLint y,
     GLint z,
   );
-  external JSVoid uniform4i(
+  external void uniform4i(
     WebGLUniformLocation? location,
     GLint x,
     GLint y,
     GLint z,
     GLint w,
   );
-  external JSVoid useProgram(WebGLProgram? program);
-  external JSVoid validateProgram(WebGLProgram program);
-  external JSVoid vertexAttrib1f(
+  external void useProgram(WebGLProgram? program);
+  external void validateProgram(WebGLProgram program);
+  external void vertexAttrib1f(
     GLuint index,
     GLfloat x,
   );
-  external JSVoid vertexAttrib2f(
+  external void vertexAttrib2f(
     GLuint index,
     GLfloat x,
     GLfloat y,
   );
-  external JSVoid vertexAttrib3f(
+  external void vertexAttrib3f(
     GLuint index,
     GLfloat x,
     GLfloat y,
     GLfloat z,
   );
-  external JSVoid vertexAttrib4f(
+  external void vertexAttrib4f(
     GLuint index,
     GLfloat x,
     GLfloat y,
     GLfloat z,
     GLfloat w,
   );
-  external JSVoid vertexAttrib1fv(
+  external void vertexAttrib1fv(
     GLuint index,
     Float32List values,
   );
-  external JSVoid vertexAttrib2fv(
+  external void vertexAttrib2fv(
     GLuint index,
     Float32List values,
   );
-  external JSVoid vertexAttrib3fv(
+  external void vertexAttrib3fv(
     GLuint index,
     Float32List values,
   );
-  external JSVoid vertexAttrib4fv(
+  external void vertexAttrib4fv(
     GLuint index,
     Float32List values,
   );
-  external JSVoid vertexAttribPointer(
+  external void vertexAttribPointer(
     GLuint index,
     GLint size,
     GLenum type,
@@ -798,7 +798,7 @@ extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
     GLsizei stride,
     GLintptr offset,
   );
-  external JSVoid viewport(
+  external void viewport(
     GLint x,
     GLint y,
     GLsizei width,
@@ -820,17 +820,17 @@ class WebGLRenderingContextOverloads implements JSObject {}
 
 extension WebGLRenderingContextOverloadsExtension
     on WebGLRenderingContextOverloads {
-  external JSVoid bufferData(
+  external void bufferData(
     GLenum target,
-    JSAny? dataOrSize,
+    JSAny dataOrSize,
     GLenum usage,
   );
-  external JSVoid bufferSubData(
+  external void bufferSubData(
     GLenum target,
     GLintptr offset,
     AllowSharedBufferSource data,
   );
-  external JSVoid compressedTexImage2D(
+  external void compressedTexImage2D(
     GLenum target,
     GLint level,
     GLenum internalformat,
@@ -839,7 +839,7 @@ extension WebGLRenderingContextOverloadsExtension
     GLint border,
     ArrayBufferView data,
   );
-  external JSVoid compressedTexSubImage2D(
+  external void compressedTexSubImage2D(
     GLenum target,
     GLint level,
     GLint xoffset,
@@ -849,7 +849,7 @@ extension WebGLRenderingContextOverloadsExtension
     GLenum format,
     ArrayBufferView data,
   );
-  external JSVoid readPixels(
+  external void readPixels(
     GLint x,
     GLint y,
     GLsizei width,
@@ -858,71 +858,71 @@ extension WebGLRenderingContextOverloadsExtension
     GLenum type,
     ArrayBufferView? pixels,
   );
-  external JSVoid texImage2D(
+  external void texImage2D(
     GLenum target,
     GLint level,
     GLint internalformat,
-    JSAny? formatOrWidth,
-    JSAny? heightOrType,
-    JSAny? borderOrSource, [
+    JSAny formatOrWidth,
+    JSAny heightOrType,
+    JSAny borderOrSource, [
     GLenum format,
     GLenum type,
     ArrayBufferView? pixels,
   ]);
-  external JSVoid texSubImage2D(
+  external void texSubImage2D(
     GLenum target,
     GLint level,
     GLint xoffset,
     GLint yoffset,
-    JSAny? formatOrWidth,
-    JSAny? heightOrType,
-    JSAny? formatOrSource, [
+    JSAny formatOrWidth,
+    JSAny heightOrType,
+    JSAny formatOrSource, [
     GLenum type,
     ArrayBufferView? pixels,
   ]);
-  external JSVoid uniform1fv(
+  external void uniform1fv(
     WebGLUniformLocation? location,
     Float32List v,
   );
-  external JSVoid uniform2fv(
+  external void uniform2fv(
     WebGLUniformLocation? location,
     Float32List v,
   );
-  external JSVoid uniform3fv(
+  external void uniform3fv(
     WebGLUniformLocation? location,
     Float32List v,
   );
-  external JSVoid uniform4fv(
+  external void uniform4fv(
     WebGLUniformLocation? location,
     Float32List v,
   );
-  external JSVoid uniform1iv(
+  external void uniform1iv(
     WebGLUniformLocation? location,
     Int32List v,
   );
-  external JSVoid uniform2iv(
+  external void uniform2iv(
     WebGLUniformLocation? location,
     Int32List v,
   );
-  external JSVoid uniform3iv(
+  external void uniform3iv(
     WebGLUniformLocation? location,
     Int32List v,
   );
-  external JSVoid uniform4iv(
+  external void uniform4iv(
     WebGLUniformLocation? location,
     Int32List v,
   );
-  external JSVoid uniformMatrix2fv(
+  external void uniformMatrix2fv(
     WebGLUniformLocation? location,
     GLboolean transpose,
     Float32List value,
   );
-  external JSVoid uniformMatrix3fv(
+  external void uniformMatrix3fv(
     WebGLUniformLocation? location,
     GLboolean transpose,
     Float32List value,
   );
-  external JSVoid uniformMatrix4fv(
+  external void uniformMatrix4fv(
     WebGLUniformLocation? location,
     GLboolean transpose,
     Float32List value,

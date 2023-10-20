@@ -55,7 +55,7 @@ extension XRTransientInputHitTestOptionsInitExtension
 class XRHitTestSource implements JSObject {}
 
 extension XRHitTestSourceExtension on XRHitTestSource {
-  external JSVoid cancel();
+  external void cancel();
 }
 
 @JS('XRTransientInputHitTestSource')
@@ -64,7 +64,7 @@ class XRTransientInputHitTestSource implements JSObject {}
 
 extension XRTransientInputHitTestSourceExtension
     on XRTransientInputHitTestSource {
-  external JSVoid cancel();
+  external void cancel();
 }
 
 @JS('XRHitTestResult')

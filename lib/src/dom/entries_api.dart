@@ -14,7 +14,7 @@ typedef FileCallback = JSFunction;
 class FileSystemEntry implements JSObject {}
 
 extension FileSystemEntryExtension on FileSystemEntry {
-  external JSVoid getParent([
+  external void getParent([
     FileSystemEntryCallback successCallback,
     ErrorCallback errorCallback,
   ]);
@@ -31,13 +31,13 @@ class FileSystemDirectoryEntry implements FileSystemEntry {}
 
 extension FileSystemDirectoryEntryExtension on FileSystemDirectoryEntry {
   external FileSystemDirectoryReader createReader();
-  external JSVoid getFile([
+  external void getFile([
     String? path,
     FileSystemFlags options,
     FileSystemEntryCallback successCallback,
     ErrorCallback errorCallback,
   ]);
-  external JSVoid getDirectory([
+  external void getDirectory([
     String? path,
     FileSystemFlags options,
     FileSystemEntryCallback successCallback,
@@ -67,7 +67,7 @@ extension FileSystemFlagsExtension on FileSystemFlags {
 class FileSystemDirectoryReader implements JSObject {}
 
 extension FileSystemDirectoryReaderExtension on FileSystemDirectoryReader {
-  external JSVoid readEntries(
+  external void readEntries(
     FileSystemEntriesCallback successCallback, [
     ErrorCallback errorCallback,
   ]);
@@ -78,7 +78,7 @@ extension FileSystemDirectoryReaderExtension on FileSystemDirectoryReader {
 class FileSystemFileEntry implements FileSystemEntry {}
 
 extension FileSystemFileEntryExtension on FileSystemFileEntry {
-  external JSVoid file(
+  external void file(
     FileCallback successCallback, [
     ErrorCallback errorCallback,
   ]);

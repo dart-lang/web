@@ -2,16 +2,17 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-const typeAliases = <String, String>{
+const idlOrBuiltinToJsTypeAliases = <String, String>{
   'any': 'JSAny',
   'bigint': 'JSBigInt',
   'record': 'JSAny',
   'object': 'JSObject',
   'Promise': 'JSPromise',
-  'boolean': 'bool',
+  'boolean': 'JSBoolean',
+  // Note that this is a special sentinel that doesn't actually exist in the set
+  // of JS types today (although this might in the future).
   'undefined': 'JSUndefined',
   'Function': 'JSFunction',
-  'WindowProxy': 'Window',
   'SharedArrayBuffer': 'JSObject',
 
   'ArrayBuffer': 'JSArrayBuffer',
@@ -34,26 +35,25 @@ const typeAliases = <String, String>{
   'FrozenArray': 'JSArray',
   'ObservableArray': 'JSArray',
 
-  // TODO(srujzs): We should ideally use JS types everywhere, and only change
-  // to Dart types when we are translating. However, we need to figure out what
-  // to do for `int` vs `num` as they both map to `JSNumber`.
-  // Number aliases.
-  'byte': 'int',
-  'octet': 'int',
-  'short': 'int',
-  'long': 'int',
-  'long long': 'int',
-  'unsigned short': 'int',
-  'unsigned long': 'int',
-  'unsigned long long': 'int',
-  'float': 'num',
-  'double': 'num',
-  'unrestricted double': 'num',
-  'unrestricted float': 'num',
+  // Number aliases. Like `JSUndefined`, `JSInteger` and `JSDouble` are special
+  // sentinels so that we can differentiate between `int` and `double` values
+  // when we emit Dart types.
+  'byte': 'JSInteger',
+  'octet': 'JSInteger',
+  'short': 'JSInteger',
+  'long': 'JSInteger',
+  'long long': 'JSInteger',
+  'unsigned short': 'JSInteger',
+  'unsigned long': 'JSInteger',
+  'unsigned long long': 'JSInteger',
+  'float': 'JSDouble',
+  'double': 'JSDouble',
+  'unrestricted double': 'JSDouble',
+  'unrestricted float': 'JSDouble',
 
   // String aliases.
-  'DOMString': 'String',
-  'USVString': 'String',
-  'ByteString': 'String',
-  'CSSOMString': 'String',
+  'DOMString': 'JSString',
+  'USVString': 'JSString',
+  'ByteString': 'JSString',
+  'CSSOMString': 'JSString',
 };

@@ -91,7 +91,7 @@ extension AudioContextExtension on AudioContext {
   external JSPromise resume();
   external JSPromise suspend();
   external JSPromise close();
-  external JSPromise setSinkId(JSAny? sinkId);
+  external JSPromise setSinkId(JSAny sinkId);
   external MediaElementAudioSourceNode createMediaElementSource(
       HTMLMediaElement mediaElement);
   external MediaStreamAudioSourceNode createMediaStreamSource(
@@ -101,7 +101,7 @@ extension AudioContextExtension on AudioContext {
   external MediaStreamAudioDestinationNode createMediaStreamDestination();
   external num get baseLatency;
   external num get outputLatency;
-  external JSAny? get sinkId;
+  external JSAny get sinkId;
   external AudioRenderCapacity get renderCapacity;
   external set onsinkchange(EventHandler value);
   external EventHandler get onsinkchange;
@@ -112,22 +112,22 @@ extension AudioContextExtension on AudioContext {
 @anonymous
 class AudioContextOptions implements JSObject {
   external factory AudioContextOptions({
-    JSAny? latencyHint,
+    JSAny latencyHint,
     num sampleRate,
-    JSAny? sinkId,
-    JSAny? renderSizeHint,
+    JSAny sinkId,
+    JSAny renderSizeHint,
   });
 }
 
 extension AudioContextOptionsExtension on AudioContextOptions {
-  external set latencyHint(JSAny? value);
-  external JSAny? get latencyHint;
+  external set latencyHint(JSAny value);
+  external JSAny get latencyHint;
   external set sampleRate(num value);
   external num get sampleRate;
-  external set sinkId(JSAny? value);
-  external JSAny? get sinkId;
-  external set renderSizeHint(JSAny? value);
-  external JSAny? get renderSizeHint;
+  external set sinkId(JSAny value);
+  external JSAny get sinkId;
+  external set renderSizeHint(JSAny value);
+  external JSAny get renderSizeHint;
 }
 
 @JS()
@@ -172,8 +172,8 @@ extension AudioTimestampExtension on AudioTimestamp {
 class AudioRenderCapacity implements EventTarget {}
 
 extension AudioRenderCapacityExtension on AudioRenderCapacity {
-  external JSVoid start([AudioRenderCapacityOptions options]);
-  external JSVoid stop();
+  external void start([AudioRenderCapacityOptions options]);
+  external void stop();
   external set onupdate(EventHandler value);
   external EventHandler get onupdate;
 }
@@ -234,7 +234,7 @@ extension AudioRenderCapacityEventInitExtension
 @staticInterop
 class OfflineAudioContext implements BaseAudioContext {
   external factory OfflineAudioContext(
-    JSAny? contextOptionsOrNumberOfChannels, [
+    JSAny contextOptionsOrNumberOfChannels, [
     int length,
     num sampleRate,
   ]);
@@ -257,7 +257,7 @@ class OfflineAudioContextOptions implements JSObject {
     int numberOfChannels,
     required int length,
     required num sampleRate,
-    JSAny? renderSizeHint,
+    JSAny renderSizeHint,
   });
 }
 
@@ -268,8 +268,8 @@ extension OfflineAudioContextOptionsExtension on OfflineAudioContextOptions {
   external int get length;
   external set sampleRate(num value);
   external num get sampleRate;
-  external set renderSizeHint(JSAny? value);
-  external JSAny? get renderSizeHint;
+  external set renderSizeHint(JSAny value);
+  external JSAny get renderSizeHint;
 }
 
 @JS('OfflineAudioCompletionEvent')
@@ -307,12 +307,12 @@ class AudioBuffer implements JSObject {
 
 extension AudioBufferExtension on AudioBuffer {
   external JSFloat32Array getChannelData(int channel);
-  external JSVoid copyFromChannel(
+  external void copyFromChannel(
     JSFloat32Array destination,
     int channelNumber, [
     int bufferOffset,
   ]);
-  external JSVoid copyToChannel(
+  external void copyToChannel(
     JSFloat32Array source,
     int channelNumber, [
     int bufferOffset,
@@ -353,8 +353,8 @@ extension AudioNodeExtension on AudioNode {
     int output,
     int input,
   ]);
-  external JSVoid disconnect([
-    JSAny? destinationNodeOrDestinationParamOrOutput,
+  external void disconnect([
+    JSAny destinationNodeOrDestinationParamOrOutput,
     int output,
     int input,
   ]);
@@ -432,8 +432,8 @@ extension AudioParamExtension on AudioParam {
 class AudioScheduledSourceNode implements AudioNode {}
 
 extension AudioScheduledSourceNodeExtension on AudioScheduledSourceNode {
-  external JSVoid start([num when]);
-  external JSVoid stop([num when]);
+  external void start([num when]);
+  external void stop([num when]);
   external set onended(EventHandler value);
   external EventHandler get onended;
 }
@@ -448,10 +448,10 @@ class AnalyserNode implements AudioNode {
 }
 
 extension AnalyserNodeExtension on AnalyserNode {
-  external JSVoid getFloatFrequencyData(JSFloat32Array array);
-  external JSVoid getByteFrequencyData(JSUint8Array array);
-  external JSVoid getFloatTimeDomainData(JSFloat32Array array);
-  external JSVoid getByteTimeDomainData(JSUint8Array array);
+  external void getFloatFrequencyData(JSFloat32Array array);
+  external void getByteFrequencyData(JSUint8Array array);
+  external void getFloatTimeDomainData(JSFloat32Array array);
+  external void getByteTimeDomainData(JSUint8Array array);
   external set fftSize(int value);
   external int get fftSize;
   external int get frequencyBinCount;
@@ -496,7 +496,7 @@ class AudioBufferSourceNode implements AudioScheduledSourceNode {
 }
 
 extension AudioBufferSourceNodeExtension on AudioBufferSourceNode {
-  external JSVoid start([
+  external void start([
     num when,
     num offset,
     num duration,
@@ -555,12 +555,12 @@ extension AudioDestinationNodeExtension on AudioDestinationNode {
 class AudioListener implements JSObject {}
 
 extension AudioListenerExtension on AudioListener {
-  external JSVoid setPosition(
+  external void setPosition(
     num x,
     num y,
     num z,
   );
-  external JSVoid setOrientation(
+  external void setOrientation(
     num x,
     num y,
     num z,
@@ -624,7 +624,7 @@ class BiquadFilterNode implements AudioNode {
 }
 
 extension BiquadFilterNodeExtension on BiquadFilterNode {
-  external JSVoid getFrequencyResponse(
+  external void getFrequencyResponse(
     JSFloat32Array frequencyHz,
     JSFloat32Array magResponse,
     JSFloat32Array phaseResponse,
@@ -872,7 +872,7 @@ class IIRFilterNode implements AudioNode {
 }
 
 extension IIRFilterNodeExtension on IIRFilterNode {
-  external JSVoid getFrequencyResponse(
+  external void getFrequencyResponse(
     JSFloat32Array frequencyHz,
     JSFloat32Array magResponse,
     JSFloat32Array phaseResponse,
@@ -997,7 +997,7 @@ class OscillatorNode implements AudioScheduledSourceNode {
 }
 
 extension OscillatorNodeExtension on OscillatorNode {
-  external JSVoid setPeriodicWave(PeriodicWave periodicWave);
+  external void setPeriodicWave(PeriodicWave periodicWave);
   external set type(OscillatorType value);
   external OscillatorType get type;
   external AudioParam get frequency;
@@ -1037,12 +1037,12 @@ class PannerNode implements AudioNode {
 }
 
 extension PannerNodeExtension on PannerNode {
-  external JSVoid setPosition(
+  external void setPosition(
     num x,
     num y,
     num z,
   );
-  external JSVoid setOrientation(
+  external void setOrientation(
     num x,
     num y,
     num z,
@@ -1243,7 +1243,7 @@ extension AudioWorkletExtension on AudioWorklet {
 class AudioWorkletGlobalScope implements WorkletGlobalScope {}
 
 extension AudioWorkletGlobalScopeExtension on AudioWorkletGlobalScope {
-  external JSVoid registerProcessor(
+  external void registerProcessor(
     String name,
     AudioWorkletProcessorConstructor processorCtor,
   );
@@ -1285,7 +1285,7 @@ class AudioWorkletNodeOptions implements AudioNodeOptions {
     int numberOfInputs,
     int numberOfOutputs,
     JSArray outputChannelCount,
-    JSAny? parameterData,
+    JSAny parameterData,
     JSObject processorOptions,
   });
 }
@@ -1297,8 +1297,8 @@ extension AudioWorkletNodeOptionsExtension on AudioWorkletNodeOptions {
   external int get numberOfOutputs;
   external set outputChannelCount(JSArray value);
   external JSArray get outputChannelCount;
-  external set parameterData(JSAny? value);
-  external JSAny? get parameterData;
+  external set parameterData(JSAny value);
+  external JSAny get parameterData;
   external set processorOptions(JSObject value);
   external JSObject get processorOptions;
 }

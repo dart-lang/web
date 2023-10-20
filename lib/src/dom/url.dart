@@ -13,7 +13,7 @@ class URL implements JSObject {
   ]);
 
   external static String createObjectURL(JSObject obj);
-  external static JSVoid revokeObjectURL(String url);
+  external static void revokeObjectURL(String url);
   external static bool canParse(
     String url, [
     String base,
@@ -49,15 +49,15 @@ extension URLExtension on URL {
 @JS('URLSearchParams')
 @staticInterop
 class URLSearchParams implements JSObject {
-  external factory URLSearchParams([JSAny? init]);
+  external factory URLSearchParams([JSAny init]);
 }
 
 extension URLSearchParamsExtension on URLSearchParams {
-  external JSVoid append(
+  external void append(
     String name,
     String value,
   );
-  external JSVoid delete(
+  external void delete(
     String name, [
     String value,
   ]);
@@ -67,10 +67,10 @@ extension URLSearchParamsExtension on URLSearchParams {
     String name, [
     String value,
   ]);
-  external JSVoid set(
+  external void set(
     String name,
     String value,
   );
-  external JSVoid sort();
+  external void sort();
   external int get size;
 }

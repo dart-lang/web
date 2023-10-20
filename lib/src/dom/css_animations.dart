@@ -57,8 +57,8 @@ extension CSSKeyframeRuleExtension on CSSKeyframeRule {
 class CSSKeyframesRule implements CSSRule {}
 
 extension CSSKeyframesRuleExtension on CSSKeyframesRule {
-  external JSVoid appendRule(String rule);
-  external JSVoid deleteRule(String select);
+  external void appendRule(String rule);
+  external void deleteRule(String select);
   external CSSKeyframeRule? findRule(String select);
   external set name(String value);
   external String get name;

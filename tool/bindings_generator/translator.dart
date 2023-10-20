@@ -86,17 +86,27 @@ class _Library {
   }
 }
 
-(String, bool) _computeRawTypeUnion(
-    (String, bool) rawType1, (String, bool) rawType2) {
-  if (rawType1.$1 == 'JSUndefined' || rawType2.$1 == 'JSUndefined') {
-    return (rawType1.$1 == 'JSUndefined' ? rawType2.$1 : rawType1.$1, true);
-  } else if (rawType1.$1 == rawType2.$1) {
-    return (rawType1.$1, rawType1.$2 || rawType2.$2);
-  }
+_RawType _computeRawTypeUnion(_RawType rawType1, _RawType rawType2) {
+  final type1 = rawType1.type;
+  final type2 = rawType2.type;
+  final nullable1 = rawType1.nullable;
+  final nullable2 = rawType2.nullable;
+
+  // This sentinel is only for nullability.
+  if (type1 == 'JSUndefined') return _RawType(type2, true);
+  if (type2 == 'JSUndefined') return _RawType(type1, true);
+  // Equality.
+  if (type1 == type2) return _RawType(type1, nullable1 || nullable2);
+  // If the two types are not equal, we can just use `JSNumber` as the union can
+  // never be `JSInteger` or `JSDouble` anyways.
+  if (type1 == 'JSInteger' || type1 == 'JSDouble') rawType1.type = 'JSNumber';
+  if (type2 == 'JSInteger' || type2 == 'JSDouble') rawType2.type = 'JSNumber';
+
   // In the case of unions, we should try and get a JS type-able type to get a
   // better LUB.
-  (String, bool) getTypeForUnionCalculation((String, bool) rawType) {
-    var (type, nullable) = rawType;
+  _RawType getTypeForUnionCalculation(_RawType rawType) {
+    var type = rawType.type;
+    var nullable = rawType.nullable;
     final decl = Translator.instance!._typeToDeclaration[type];
     if (decl != null) {
       final nodeType = decl.type;
@@ -111,9 +121,9 @@ class _Library {
           break;
         case 'typedef':
           final desugared = getTypeForUnionCalculation(
-              _typeRaw((decl as idl.Typedef).idlType));
-          type = desugared.$1;
-          nullable = desugared.$2;
+              _getRawType((decl as idl.Typedef).idlType));
+          type = desugared.type;
+          nullable = desugared.nullable;
           break;
         case 'callback':
           type = 'JSFunction';
@@ -125,39 +135,31 @@ class _Library {
           throw Exception('Unhandled type $type with node type: $nodeType');
       }
     }
-    return (type, nullable);
+    return _RawType(type, nullable);
   }
 
-  final (type1, nullable1) = getTypeForUnionCalculation(rawType1);
-  final (type2, nullable2) = getTypeForUnionCalculation(rawType2);
+  final unionableType1 = getTypeForUnionCalculation(rawType1);
+  final unionableType2 = getTypeForUnionCalculation(rawType2);
 
   // We choose `JSAny` if they're not both JS types.
-  return (computeJsTypeUnion(type1, type2) ?? 'JSAny', nullable1 || nullable2);
+  return _RawType(
+      computeJsTypeUnion(unionableType1.type, unionableType2.type) ?? 'JSAny',
+      unionableType1.nullable || unionableType2.nullable);
 }
 
-/// Returns a record containing the Dart type for the given [idlType] and a bool
-/// indicating whether the type is nullable.
-(String, bool) _typeRaw(idl.IDLType idlType) {
+/// Returns a [_RawType] for the given [idl.IDLType].
+_RawType _getRawType(idl.IDLType idlType) {
   // For union types, we take the possible union of all the types using a LUB.
   if (idlType.union) {
     final types = (idlType.idlType as JSArray).toDart;
-    String? unionType;
-    var nullable = idlType.nullable;
-    for (final type in types) {
-      final rawType = _typeRaw(type as idl.IDLType);
-      if (unionType == null) {
-        unionType = rawType.$1;
-        nullable |= rawType.$2;
-      } else {
-        final union = _computeRawTypeUnion((unionType, nullable), rawType);
-        unionType = union.$1;
-        nullable = union.$2;
-      }
+    final unionType = _getRawType(types[0] as idl.IDLType);
+    for (var i = 1; i < types.length; i++) {
+      unionType.update(types[i] as idl.IDLType);
     }
-    return (unionType!, nullable);
+    return unionType..nullable |= idlType.nullable;
   }
-  final String type;
-  final nullable = idlType.nullable;
+  String type;
+  var nullable = idlType.nullable;
   if (idlType.generic.isNotEmpty) {
     // TODO(srujzs): Once we have a generic `JSArray` and `JSPromise`, we should
     // add these type parameters in. We need to be careful, however, as we
@@ -169,41 +171,48 @@ class _Library {
   } else {
     type = (idlType.idlType as JSString).toDart;
   }
-  if (typeAliases.containsKey(type)) {
-    return (typeAliases[type]!, nullable);
-  } else {
-    return (type, nullable);
-  }
+
+  // Handles types that don't exist in the set of IDL type declarations. They
+  // are either some special values or JS builtin types.
+
+  // `WindowProxy` doesn't exist as an interface in the IDL. For our purposes,
+  // `Window` is the appropriate interface.
+  if (type == 'WindowProxy') type = 'Window';
+  // `any` is marked non-nullable in the IDL, but since it is a union of
+  // `undefined`, it can be nullable for our purposes.
+  if (type == 'any') nullable = true;
+  return _RawType(idlOrBuiltinToJsTypeAliases[type] ?? type, nullable);
 }
 
-class _Type {
+/// A class representing either a type that corresponds to an IDL declaration or
+/// a `dart:js_interop` JS types (including sentinels).
+///
+/// This should not include IDL types for which there isn't a declaration e.g.
+/// `any` or a JS built-in type e.g. `ArrayBuffer`.
+class _RawType {
   String type;
-  bool isNullable;
+  bool nullable;
 
-  _Type._(this.type, this.isNullable);
-
-  factory _Type(idl.IDLType type) {
-    final (rawType, nullable) = _typeRaw(type);
-    return _Type._(rawType, nullable);
-  }
+  _RawType(this.type, this.nullable);
 
   void update(idl.IDLType idlType) {
-    final union = _computeRawTypeUnion((type, isNullable), _typeRaw(idlType));
-    type = union.$1;
-    isNullable = union.$2;
+    final union =
+        _computeRawTypeUnion(_RawType(type, nullable), _getRawType(idlType));
+    type = union.type;
+    nullable = union.nullable;
   }
 }
 
 class _Parameter {
   final Set<String> _names;
-  final _Type type;
+  final _RawType type;
   bool isOptional;
   late final String name = _generateName();
 
   _Parameter._(this._names, this.type, this.isOptional);
 
-  factory _Parameter(idl.Argument argument) =>
-      _Parameter._({argument.name}, _Type(argument.idlType), argument.optional);
+  factory _Parameter(idl.Argument argument) => _Parameter._(
+      {argument.name}, _getRawType(argument.idlType), argument.optional);
 
   String _generateName() {
     final namesList = _names.toList();
@@ -256,14 +265,14 @@ class _OverridableMember {
 class _OverridableOperation extends _OverridableMember {
   final String name;
   final bool isStatic;
-  final _Type returnType;
+  final _RawType returnType;
 
   _OverridableOperation._(
       this.name, this.isStatic, this.returnType, super.parameters);
 
   factory _OverridableOperation(idl.Operation operation) =>
       _OverridableOperation._(operation.name, operation.special == 'static',
-          _Type(operation.idlType), operation.arguments);
+          _getRawType(operation.idlType), operation.arguments);
 
   void update(idl.Operation that) {
     assert(name == that.name && isStatic == (that.special == 'static'));
@@ -432,16 +441,15 @@ class Translator {
     }
   }
 
-  code.TypeDef _typedef(String name, (String, bool) rawType) =>
-      code.TypeDef((b) => b
-        ..name = name
-        ..definition = _typeReference(rawType.$1, isNullable: rawType.$2));
+  code.TypeDef _typedef(String name, _RawType rawType) => code.TypeDef((b) => b
+    ..name = name
+    ..definition = _typeReference(rawType));
 
-  code.Method _topLevelGetter(String dartName, String getterName) =>
+  code.Method _topLevelGetter(_RawType type, String getterName) =>
       code.Method((b) => b
         ..annotations.addAll(_jsOverride(''))
         ..external = true
-        ..returns = _typeReference(dartName)
+        ..returns = _typeReference(type)
         ..name = getterName
         ..type = code.MethodType.getter);
 
@@ -453,15 +461,30 @@ class Translator {
     }
   }
 
-  code.TypeReference _typeReference(String symbol,
-      {bool isNullable = false, bool isReturn = false}) {
+  // Given a raw type, convert it to the Dart type that will be emitted by the
+  // translator.
+  code.TypeReference _typeReference(_RawType type) {
+    var dartType = type.type;
+    var nullable = type.nullable;
+
+    // Convert JS types to primitives.
+    dartType = switch (dartType) {
+      'JSBoolean' => 'bool',
+      'JSString' => 'String',
+      'JSInteger' => 'int',
+      'JSDouble' => 'num',
+      'JSNumber' => 'num',
+      'JSUndefined' => 'void',
+      _ => dartType,
+    };
+    if (dartType == 'void') nullable = false;
     // Unfortunately, `code_builder` doesn't know the url of the library we are
     // emitting, so we have to remove it here to avoid importing ourselves.
-    var url = _typeToLibrary[symbol]?.url;
+    var url = _typeToLibrary[dartType]?.url;
 
     // JS types and core types don't have urls.
     if (url == null) {
-      if (symbol.startsWith('JS')) {
+      if (dartType.startsWith('JS')) {
         url = 'dart:js_interop';
       }
       // Else is a core type, so no import required.
@@ -470,31 +493,17 @@ class Translator {
     } else if (p.dirname(url) == p.dirname(_currentlyTranslatingUrl)) {
       url = p.basename(url);
     }
-    // Replace `JSUndefined` with `JSVoid` in return types.
-    if (isReturn && symbol == 'JSUndefined') {
-      symbol = 'JSVoid';
-      isNullable = false;
-    }
-    // In the IDL, `any` is always nullable, and thus so is `JSAny`.
-    if (symbol == 'JSAny') {
-      isNullable = true;
-    }
     return code.TypeReference((b) => b
-      ..symbol = symbol
-      ..isNullable = isNullable
+      ..symbol = dartType
+      ..isNullable = nullable
       ..url = url);
   }
 
-  code.TypeReference _idlTypeToTypeReference(idl.IDLType idlType,
-      {required bool isReturn}) {
-    final type = _typeRaw(idlType);
-    return _typeReference(type.$1, isNullable: type.$2, isReturn: isReturn);
-  }
+  code.TypeReference _idlTypeToTypeReference(idl.IDLType idlType) =>
+      _typeReference(_getRawType(idlType));
 
-  code.TypeReference _typeToTypeReference(_Type type,
-          {required bool isReturn}) =>
-      _typeReference(type.type,
-          isNullable: type.isNullable, isReturn: isReturn);
+  code.TypeReference _typeToTypeReference(_RawType type) =>
+      _typeReference(type);
 
   T _overridableMember<T>(
       _OverridableMember member,
@@ -506,7 +515,7 @@ class Translator {
     for (final rawParameter in member.parameters) {
       final parameter = code.Parameter((b) => b
         ..name = _parameterName(rawParameter.name)
-        ..type = _typeToTypeReference(rawParameter.type, isReturn: false));
+        ..type = _typeToTypeReference(rawParameter.type));
       if (rawParameter.isOptional) {
         optionalParameters.add(parameter);
       } else {
@@ -535,7 +544,7 @@ class Translator {
       final isRequired = field.required;
       final parameter = code.Parameter((b) => b
         ..name = _parameterName(field.name)
-        ..type = _idlTypeToTypeReference(field.idlType, isReturn: false)
+        ..type = _idlTypeToTypeReference(field.idlType)
         ..required = isRequired
         ..named = true);
       optionalParameters.add(parameter);
@@ -576,7 +585,7 @@ class Translator {
           ..annotations.addAll(_jsOverride(memberName.jsOverride))
           ..external = true
           ..static = operation.isStatic
-          ..returns = _typeToTypeReference(operation.returnType, isReturn: true)
+          ..returns = _typeToTypeReference(operation.returnType)
           ..name = name
           ..requiredParameters.addAll(requiredParameters)
           ..optionalParameters.addAll(optionalParameters)));
@@ -584,7 +593,7 @@ class Translator {
 
   List<code.Method> _getterSetter(
       {required String fieldName,
-      required code.Reference Function({required bool isReturn}) getType,
+      required code.Reference Function() getType,
       required bool isStatic,
       required bool readOnly}) {
     final memberName = _memberName(fieldName);
@@ -598,13 +607,13 @@ class Translator {
           ..type = code.MethodType.setter
           ..name = name
           ..requiredParameters.add(code.Parameter((b) => b
-            ..type = getType(isReturn: false)
+            ..type = getType()
             ..name = 'value'))),
       code.Method((b) => b
         ..annotations.addAll(_jsOverride(memberName.jsOverride))
         ..external = true
         ..static = isStatic
-        ..returns = getType(isReturn: true)
+        ..returns = getType()
         ..type = code.MethodType.getter
         ..name = name)
     ];
@@ -617,8 +626,7 @@ class Translator {
           required bool readOnly}) =>
       _getterSetter(
           fieldName: fieldName,
-          getType: ({required bool isReturn}) =>
-              _idlTypeToTypeReference(type, isReturn: isReturn),
+          getType: () => _idlTypeToTypeReference(type),
           isStatic: isStatic,
           readOnly: readOnly);
 
@@ -632,7 +640,7 @@ class Translator {
   code.Method _constant(idl.Constant constant) => code.Method((b) => b
     ..external = true
     ..static = true
-    ..returns = _idlTypeToTypeReference(constant.idlType, isReturn: true)
+    ..returns = _idlTypeToTypeReference(constant.idlType)
     ..type = code.MethodType.getter
     ..name = constant.name);
 
@@ -669,14 +677,14 @@ class Translator {
   List<code.Method> _operations(List<_OverridableOperation> operations) =>
       [for (final operation in operations) _operation(operation)];
 
-  code.Extension _extension(String name, List<_OverridableOperation> operations,
-          List<idl.Member> members) =>
+  code.Extension _extension(_RawType type,
+          List<_OverridableOperation> operations, List<idl.Member> members) =>
       code.Extension((b) => b
-        ..name = '${name.snakeToPascal}Extension'
-        ..on = _typeReference(name)
+        ..name = '${type.type.snakeToPascal}Extension'
+        ..on = _typeReference(type)
         ..methods.addAll(_operations(operations)
             .followedBy(_members(members))
-            .followedBy(name == 'CSSStyleDeclaration'
+            .followedBy(type.type == 'CSSStyleDeclaration'
                 ? _cssStyleDeclarationProperties()
                 : [])));
 
@@ -684,8 +692,7 @@ class Translator {
         for (final style in _cssStyleDeclarations)
           ..._getterSetter(
               fieldName: style,
-              getType: ({required bool isReturn}) =>
-                  code.TypeReference((b) => b..symbol = 'String'),
+              getType: () => code.TypeReference((b) => b..symbol = 'String'),
               isStatic: false,
               readOnly: false),
       ];
@@ -706,7 +713,8 @@ class Translator {
           ..annotations.addAll(_jsOverride(isObjectLiteral ? '' : jsName,
               staticInterop: true, objectLiteral: isObjectLiteral))
           ..name = dartClassName
-          ..implements.addAll(implements.map(_typeReference))
+          ..implements.addAll(implements
+              .map((interface) => _typeReference(_RawType(interface, false))))
           ..constructors.addAll(isObjectLiteral
               ? [_objectLiteral(members)]
               : constructor != null
@@ -743,7 +751,8 @@ class Translator {
       implements.add('JSObject');
     }
     return [
-      if (getterName != null) _topLevelGetter(dartClassName, getterName),
+      if (getterName != null)
+        _topLevelGetter(_RawType(dartClassName, false), getterName),
       _class(
           jsName: jsName,
           dartClassName: dartClassName,
@@ -755,7 +764,7 @@ class Translator {
           isAbstract: isNamespace,
           isObjectLiteral: isDictionary),
       if (operations.isNotEmpty || members.isNotEmpty)
-        _extension(dartClassName, operations, members)
+        _extension(_RawType(dartClassName, false), operations, members)
     ];
   }
 
@@ -763,18 +772,18 @@ class Translator {
     ..comments.addAll(licenseHeader)
     ..body.addAll([
       for (final typedef in library.typedefs)
-        _typedef(typedef.name, _typeRaw(typedef.idlType)),
+        _typedef(typedef.name, _getRawType(typedef.idlType)),
       // TODO(joshualitt): We should lower callbacks and callback interfaces to
       // a Dart function that takes a typed Dart function, and returns an
       // JSFunction.
       for (final callback in library.callbacks)
-        _typedef(callback.name, ('JSFunction', false)),
+        _typedef(callback.name, _RawType('JSFunction', false)),
       for (final callbackInterface in library.callbackInterfaces)
-        _typedef(callbackInterface.name, ('JSFunction', false)),
+        _typedef(callbackInterface.name, _RawType('JSFunction', false)),
       // TODO(joshualitt): Enums in the WebIDL are just strings, but we could
       // make them easier to work with on the Dart side.
       for (final enum_ in library.enums)
-        _typedef(enum_.name, ('String', false)),
+        _typedef(enum_.name, _RawType('String', false)),
       for (final interfacelike in library.interfacelikes)
         ..._interfacelike(interfacelike),
     ]));

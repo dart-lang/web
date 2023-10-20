@@ -22,7 +22,7 @@ typedef XRTextureType = String;
 class XRCompositionLayer implements XRLayer {}
 
 extension XRCompositionLayerExtension on XRCompositionLayer {
-  external JSVoid destroy();
+  external void destroy();
   external XRLayerLayout get layout;
   external set blendTextureSourceAlpha(bool value);
   external bool get blendTextureSourceAlpha;

@@ -161,7 +161,7 @@ class ReadableStreamDefaultReader implements ReadableStreamGenericReader {
 
 extension ReadableStreamDefaultReaderExtension on ReadableStreamDefaultReader {
   external JSPromise read();
-  external JSVoid releaseLock();
+  external void releaseLock();
 }
 
 @JS()
@@ -189,7 +189,7 @@ class ReadableStreamBYOBReader implements ReadableStreamGenericReader {
 
 extension ReadableStreamBYOBReaderExtension on ReadableStreamBYOBReader {
   external JSPromise read(ArrayBufferView view);
-  external JSVoid releaseLock();
+  external void releaseLock();
 }
 
 @JS('ReadableStreamDefaultController')
@@ -198,9 +198,9 @@ class ReadableStreamDefaultController implements JSObject {}
 
 extension ReadableStreamDefaultControllerExtension
     on ReadableStreamDefaultController {
-  external JSVoid close();
-  external JSVoid enqueue([JSAny? chunk]);
-  external JSVoid error([JSAny? e]);
+  external void close();
+  external void enqueue([JSAny? chunk]);
+  external void error([JSAny? e]);
   external num? get desiredSize;
 }
 
@@ -210,9 +210,9 @@ class ReadableByteStreamController implements JSObject {}
 
 extension ReadableByteStreamControllerExtension
     on ReadableByteStreamController {
-  external JSVoid close();
-  external JSVoid enqueue(ArrayBufferView chunk);
-  external JSVoid error([JSAny? e]);
+  external void close();
+  external void enqueue(ArrayBufferView chunk);
+  external void error([JSAny? e]);
   external ReadableStreamBYOBRequest? get byobRequest;
   external num? get desiredSize;
 }
@@ -222,8 +222,8 @@ extension ReadableByteStreamControllerExtension
 class ReadableStreamBYOBRequest implements JSObject {}
 
 extension ReadableStreamBYOBRequestExtension on ReadableStreamBYOBRequest {
-  external JSVoid respond(int bytesWritten);
-  external JSVoid respondWithNewView(ArrayBufferView view);
+  external void respond(int bytesWritten);
+  external void respondWithNewView(ArrayBufferView view);
   external ArrayBufferView? get view;
 }
 
@@ -278,7 +278,7 @@ class WritableStreamDefaultWriter implements JSObject {
 extension WritableStreamDefaultWriterExtension on WritableStreamDefaultWriter {
   external JSPromise abort([JSAny? reason]);
   external JSPromise close();
-  external JSVoid releaseLock();
+  external void releaseLock();
   external JSPromise write([JSAny? chunk]);
   external JSPromise get closed;
   external num? get desiredSize;
@@ -291,7 +291,7 @@ class WritableStreamDefaultController implements JSObject {}
 
 extension WritableStreamDefaultControllerExtension
     on WritableStreamDefaultController {
-  external JSVoid error([JSAny? e]);
+  external void error([JSAny? e]);
   external AbortSignal get signal;
 }
 
@@ -345,9 +345,9 @@ class TransformStreamDefaultController implements JSObject {}
 
 extension TransformStreamDefaultControllerExtension
     on TransformStreamDefaultController {
-  external JSVoid enqueue([JSAny? chunk]);
-  external JSVoid error([JSAny? reason]);
-  external JSVoid terminate();
+  external void enqueue([JSAny? chunk]);
+  external void error([JSAny? reason]);
+  external void terminate();
   external num? get desiredSize;
 }
 

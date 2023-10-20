@@ -18,7 +18,7 @@ class OES_vertex_array_object implements JSObject {
 
 extension OESVertexArrayObjectExtension on OES_vertex_array_object {
   external WebGLVertexArrayObjectOES? createVertexArrayOES();
-  external JSVoid deleteVertexArrayOES(WebGLVertexArrayObjectOES? arrayObject);
+  external void deleteVertexArrayOES(WebGLVertexArrayObjectOES? arrayObject);
   external GLboolean isVertexArrayOES(WebGLVertexArrayObjectOES? arrayObject);
-  external JSVoid bindVertexArrayOES(WebGLVertexArrayObjectOES? arrayObject);
+  external void bindVertexArrayOES(WebGLVertexArrayObjectOES? arrayObject);
 }

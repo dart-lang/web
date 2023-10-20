@@ -15,7 +15,7 @@ class HTMLPortalElement implements HTMLElement {
 
 extension HTMLPortalElementExtension on HTMLPortalElement {
   external JSPromise activate([PortalActivateOptions options]);
-  external JSVoid postMessage(
+  external void postMessage(
     JSAny? message, [
     StructuredSerializeOptions options,
   ]);
@@ -46,7 +46,7 @@ extension PortalActivateOptionsExtension on PortalActivateOptions {
 class PortalHost implements EventTarget {}
 
 extension PortalHostExtension on PortalHost {
-  external JSVoid postMessage(
+  external void postMessage(
     JSAny? message, [
     StructuredSerializeOptions options,
   ]);

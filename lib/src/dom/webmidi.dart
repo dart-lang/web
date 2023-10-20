@@ -98,11 +98,11 @@ extension MIDIInputExtension on MIDIInput {
 class MIDIOutput implements MIDIPort {}
 
 extension MIDIOutputExtension on MIDIOutput {
-  external JSVoid send(
+  external void send(
     JSArray data, [
     DOMHighResTimeStamp timestamp,
   ]);
-  external JSVoid clear();
+  external void clear();
 }
 
 @JS('MIDIMessageEvent')

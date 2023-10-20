@@ -30,8 +30,8 @@ class PerformanceObserver implements JSObject {
 }
 
 extension PerformanceObserverExtension on PerformanceObserver {
-  external JSVoid observe([PerformanceObserverInit options]);
-  external JSVoid disconnect();
+  external void observe([PerformanceObserverInit options]);
+  external void disconnect();
   external PerformanceEntryList takeRecords();
 }
 

@@ -11,7 +11,7 @@ typedef UpdateCallback = JSFunction;
 class ViewTransition implements JSObject {}
 
 extension ViewTransitionExtension on ViewTransition {
-  external JSVoid skipTransition();
+  external void skipTransition();
   external JSPromise get updateCallbackDone;
   external JSPromise get ready;
   external JSPromise get finished;

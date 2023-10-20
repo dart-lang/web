@@ -203,7 +203,7 @@ extension DOMQuadInitExtension on DOMQuadInit {
 @JS('DOMMatrixReadOnly')
 @staticInterop
 class DOMMatrixReadOnly implements JSObject {
-  external factory DOMMatrixReadOnly([JSAny? init]);
+  external factory DOMMatrixReadOnly([JSAny init]);
 
   external static DOMMatrixReadOnly fromMatrix([DOMMatrixInit other]);
   external static DOMMatrixReadOnly fromFloat32Array(JSFloat32Array array32);
@@ -288,7 +288,7 @@ extension DOMMatrixReadOnlyExtension on DOMMatrixReadOnly {
 @JS('DOMMatrix')
 @staticInterop
 class DOMMatrix implements DOMMatrixReadOnly {
-  external factory DOMMatrix([JSAny? init]);
+  external factory DOMMatrix([JSAny init]);
 
   external static DOMMatrix fromMatrix([DOMMatrixInit other]);
   external static DOMMatrix fromFloat32Array(JSFloat32Array array32);

@@ -13,6 +13,6 @@ class CanvasCaptureMediaStreamTrack implements MediaStreamTrack {}
 
 extension CanvasCaptureMediaStreamTrackExtension
     on CanvasCaptureMediaStreamTrack {
-  external JSVoid requestFrame();
+  external void requestFrame();
   external HTMLCanvasElement get canvas;
 }

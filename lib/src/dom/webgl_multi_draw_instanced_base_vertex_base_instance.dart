@@ -13,7 +13,7 @@ class WEBGL_multi_draw_instanced_base_vertex_base_instance
 
 extension WEBGLMultiDrawInstancedBaseVertexBaseInstanceExtension
     on WEBGL_multi_draw_instanced_base_vertex_base_instance {
-  external JSVoid multiDrawArraysInstancedBaseInstanceWEBGL(
+  external void multiDrawArraysInstancedBaseInstanceWEBGL(
     GLenum mode,
     JSObject firstsList,
     int firstsOffset,
@@ -25,7 +25,7 @@ extension WEBGLMultiDrawInstancedBaseVertexBaseInstanceExtension
     int baseInstancesOffset,
     GLsizei drawcount,
   );
-  external JSVoid multiDrawElementsInstancedBaseVertexBaseInstanceWEBGL(
+  external void multiDrawElementsInstancedBaseVertexBaseInstanceWEBGL(
     GLenum mode,
     JSObject countsList,
     int countsOffset,

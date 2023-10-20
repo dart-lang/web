@@ -13,7 +13,7 @@ class Keyboard implements EventTarget {}
 
 extension KeyboardExtension on Keyboard {
   external JSPromise lock([JSArray keyCodes]);
-  external JSVoid unlock();
+  external void unlock();
   external JSPromise getLayoutMap();
   external set onlayoutchange(EventHandler value);
   external EventHandler get onlayoutchange;

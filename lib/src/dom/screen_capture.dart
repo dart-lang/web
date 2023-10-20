@@ -22,7 +22,7 @@ class CaptureController implements EventTarget {
 }
 
 extension CaptureControllerExtension on CaptureController {
-  external JSVoid setFocusBehavior(CaptureStartFocusBehavior focusBehavior);
+  external void setFocusBehavior(CaptureStartFocusBehavior focusBehavior);
   external set oncapturedmousechange(EventHandler value);
   external EventHandler get oncapturedmousechange;
 }
@@ -32,8 +32,8 @@ extension CaptureControllerExtension on CaptureController {
 @anonymous
 class DisplayMediaStreamOptions implements JSObject {
   external factory DisplayMediaStreamOptions({
-    JSAny? video,
-    JSAny? audio,
+    JSAny video,
+    JSAny audio,
     CaptureController controller,
     SelfCapturePreferenceEnum selfBrowserSurface,
     SystemAudioPreferenceEnum systemAudio,
@@ -43,10 +43,10 @@ class DisplayMediaStreamOptions implements JSObject {
 }
 
 extension DisplayMediaStreamOptionsExtension on DisplayMediaStreamOptions {
-  external set video(JSAny? value);
-  external JSAny? get video;
-  external set audio(JSAny? value);
-  external JSAny? get audio;
+  external set video(JSAny value);
+  external JSAny get video;
+  external set audio(JSAny value);
+  external JSAny get audio;
   external set controller(CaptureController value);
   external CaptureController get controller;
   external set selfBrowserSurface(SelfCapturePreferenceEnum value);

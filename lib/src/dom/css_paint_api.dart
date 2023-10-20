@@ -12,7 +12,7 @@ import 'webidl.dart';
 class PaintWorkletGlobalScope implements WorkletGlobalScope {}
 
 extension PaintWorkletGlobalScopeExtension on PaintWorkletGlobalScope {
-  external JSVoid registerPaint(
+  external void registerPaint(
     String name,
     VoidFunction paintCtor,
   );

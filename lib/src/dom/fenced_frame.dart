@@ -6,10 +6,10 @@ import 'dart:js_interop';
 
 import 'html.dart';
 
-typedef FencedFrameConfigSize = JSAny?;
+typedef FencedFrameConfigSize = JSAny;
 typedef FencedFrameConfigURL = String;
-typedef UrnOrConfig = JSAny?;
-typedef ReportEventType = JSAny?;
+typedef UrnOrConfig = JSAny;
+typedef ReportEventType = JSAny;
 typedef OpaqueProperty = String;
 typedef FenceReportingDestination = String;
 
@@ -35,7 +35,7 @@ extension HTMLFencedFrameElementExtension on HTMLFencedFrameElement {
 class FencedFrameConfig implements JSObject {}
 
 extension FencedFrameConfigExtension on FencedFrameConfig {
-  external JSVoid setSharedStorageContext(String contextString);
+  external void setSharedStorageContext(String contextString);
   external FencedFrameConfigSize? get containerWidth;
   external FencedFrameConfigSize? get containerHeight;
   external FencedFrameConfigSize? get contentWidth;
@@ -73,7 +73,7 @@ extension FenceEventExtension on FenceEvent {
 class Fence implements JSObject {}
 
 extension FenceExtension on Fence {
-  external JSVoid reportEvent([ReportEventType event]);
-  external JSVoid setReportEventDataForAutomaticBeacons([FenceEvent event]);
+  external void reportEvent([ReportEventType event]);
+  external void setReportEventDataForAutomaticBeacons([FenceEvent event]);
   external JSArray getNestedConfigs();
 }

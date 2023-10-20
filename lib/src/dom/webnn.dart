@@ -6,10 +6,10 @@ import 'dart:js_interop';
 
 import 'webgpu.dart';
 
-typedef MLNamedArrayBufferViews = JSAny?;
+typedef MLNamedArrayBufferViews = JSAny;
 typedef MLGPUResource = JSObject;
-typedef MLNamedGPUResources = JSAny?;
-typedef MLNamedOperands = JSAny?;
+typedef MLNamedGPUResources = JSAny;
+typedef MLNamedOperands = JSAny;
 typedef MLBufferView = JSObject;
 typedef MLDeviceType = String;
 typedef MLPowerPreference = String;
@@ -93,7 +93,7 @@ class MLActivation implements JSObject {}
 class MLContext implements JSObject {}
 
 extension MLContextExtension on MLContext {
-  external JSVoid computeSync(
+  external void computeSync(
     MLGraph graph,
     MLNamedArrayBufferViews inputs,
     MLNamedArrayBufferViews outputs,
@@ -128,8 +128,8 @@ extension MLComputeResultExtension on MLComputeResult {
 class MLCommandEncoder implements JSObject {}
 
 extension MLCommandEncoderExtension on MLCommandEncoder {
-  external JSVoid initializeGraph(MLGraph graph);
-  external JSVoid dispatch(
+  external void initializeGraph(MLGraph graph);
+  external void dispatch(
     MLGraph graph,
     MLNamedGPUResources inputs,
     MLNamedGPUResources outputs,
@@ -169,8 +169,8 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
     MLOperandDescriptor descriptor,
   );
   external MLOperand constant(
-    JSAny? descriptorOrValue, [
-    JSAny? bufferViewOrType,
+    JSAny descriptorOrValue, [
+    JSAny bufferViewOrType,
   ]);
   external JSPromise build(MLNamedOperands outputs);
   external MLGraph buildSync(MLNamedOperands outputs);
@@ -383,7 +383,7 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
   external JSObject softsign([MLOperand input]);
   external JSArray split(
     MLOperand input,
-    JSAny? splits, [
+    JSAny splits, [
     MLSplitOptions options,
   ]);
   external MLOperand squeeze(

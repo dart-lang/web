@@ -26,14 +26,14 @@ class EXT_disjoint_timer_query implements JSObject {
 
 extension EXTDisjointTimerQueryExtension on EXT_disjoint_timer_query {
   external WebGLTimerQueryEXT? createQueryEXT();
-  external JSVoid deleteQueryEXT(WebGLTimerQueryEXT? query);
+  external void deleteQueryEXT(WebGLTimerQueryEXT? query);
   external bool isQueryEXT(WebGLTimerQueryEXT? query);
-  external JSVoid beginQueryEXT(
+  external void beginQueryEXT(
     GLenum target,
     WebGLTimerQueryEXT query,
   );
-  external JSVoid endQueryEXT(GLenum target);
-  external JSVoid queryCounterEXT(
+  external void endQueryEXT(GLenum target);
+  external void queryCounterEXT(
     WebGLTimerQueryEXT query,
     GLenum target,
   );

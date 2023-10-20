@@ -86,19 +86,19 @@ class TaskController implements AbortController {
 }
 
 extension TaskControllerExtension on TaskController {
-  external JSVoid setPriority(TaskPriority priority);
+  external void setPriority(TaskPriority priority);
 }
 
 @JS()
 @staticInterop
 @anonymous
 class TaskSignalAnyInit implements JSObject {
-  external factory TaskSignalAnyInit({JSAny? priority});
+  external factory TaskSignalAnyInit({JSAny priority});
 }
 
 extension TaskSignalAnyInitExtension on TaskSignalAnyInit {
-  external set priority(JSAny? value);
-  external JSAny? get priority;
+  external set priority(JSAny value);
+  external JSAny get priority;
 }
 
 @JS('TaskSignal')

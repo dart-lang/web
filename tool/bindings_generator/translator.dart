@@ -92,11 +92,11 @@ _RawType _computeRawTypeUnion(_RawType rawType1, _RawType rawType2) {
   final nullable1 = rawType1.nullable;
   final nullable2 = rawType2.nullable;
 
+  // Equality.
+  if (type1 == type2) return _RawType(type1, nullable1 || nullable2);
   // This sentinel is only for nullability.
   if (type1 == 'JSUndefined') return _RawType(type2, true);
   if (type2 == 'JSUndefined') return _RawType(type1, true);
-  // Equality.
-  if (type1 == type2) return _RawType(type1, nullable1 || nullable2);
   // If the two types are not equal, we can just use `JSNumber` as the union can
   // never be `JSInteger` or `JSDouble` anyways.
   if (type1 == 'JSInteger' || type1 == 'JSDouble') rawType1.type = 'JSNumber';
@@ -193,7 +193,11 @@ class _RawType {
   String type;
   bool nullable;
 
-  _RawType(this.type, this.nullable);
+  _RawType(this.type, this.nullable) {
+    // While the IDL does not define `undefined` as nullable, it is treated as
+    // null in interop.
+    if (type == 'JSUndefined') nullable = true;
+  }
 
   void update(idl.IDLType idlType) {
     final union =

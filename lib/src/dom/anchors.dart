@@ -12,7 +12,7 @@ class XRAnchor implements JSObject {}
 
 extension XRAnchorExtension on XRAnchor {
   external JSPromise requestPersistentHandle();
-  external JSVoid delete();
+  external void delete();
   external XRSpace get anchorSpace;
 }
 

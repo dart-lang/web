@@ -25,11 +25,11 @@ class MediaRecorder implements EventTarget {
 }
 
 extension MediaRecorderExtension on MediaRecorder {
-  external JSVoid start([int timeslice]);
-  external JSVoid stop();
-  external JSVoid pause();
-  external JSVoid resume();
-  external JSVoid requestData();
+  external void start([int timeslice]);
+  external void stop();
+  external void pause();
+  external void resume();
+  external void requestData();
   external MediaStream get stream;
   external String get mimeType;
   external RecordingState get state;

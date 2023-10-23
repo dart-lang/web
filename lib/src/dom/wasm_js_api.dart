@@ -175,7 +175,7 @@ extension TableExtension on Table {
     JSAny? value,
   ]);
   external JSAny? get(int index);
-  external JSVoid set(
+  external void set(
     int index, [
     JSAny? value,
   ]);

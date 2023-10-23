@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 import 'webidl.dart';
 
-typedef AlgorithmIdentifier = JSAny?;
+typedef AlgorithmIdentifier = JSAny;
 typedef HashAlgorithmIdentifier = AlgorithmIdentifier;
 typedef BigInteger = JSUint8Array;
 typedef NamedCurve = String;

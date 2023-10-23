@@ -6,14 +6,14 @@ import 'dart:js_interop';
 
 import 'geometry.dart';
 
-typedef CSSUnparsedSegment = JSAny?;
-typedef CSSKeywordish = JSAny?;
-typedef CSSNumberish = JSAny?;
-typedef CSSPerspectiveValue = JSAny?;
-typedef CSSColorRGBComp = JSAny?;
-typedef CSSColorPercent = JSAny?;
-typedef CSSColorNumber = JSAny?;
-typedef CSSColorAngle = JSAny?;
+typedef CSSUnparsedSegment = JSAny;
+typedef CSSKeywordish = JSAny;
+typedef CSSNumberish = JSAny;
+typedef CSSPerspectiveValue = JSAny;
+typedef CSSColorRGBComp = JSAny;
+typedef CSSColorPercent = JSAny;
+typedef CSSColorNumber = JSAny;
+typedef CSSColorAngle = JSAny;
 typedef CSSNumericBaseType = String;
 typedef CSSMathOperator = String;
 
@@ -46,16 +46,16 @@ extension StylePropertyMapReadOnlyExtension on StylePropertyMapReadOnly {
 class StylePropertyMap implements StylePropertyMapReadOnly {}
 
 extension StylePropertyMapExtension on StylePropertyMap {
-  external JSVoid set(
+  external void set(
     String property,
-    JSAny? values,
+    JSAny values,
   );
-  external JSVoid append(
+  external void append(
     String property,
-    JSAny? values,
+    JSAny values,
   );
-  external JSVoid delete(String property);
-  external JSVoid clear();
+  external void delete(String property);
+  external void clear();
 }
 
 @JS('CSSUnparsedValue')
@@ -300,7 +300,7 @@ extension CSSTranslateExtension on CSSTranslate {
 @staticInterop
 class CSSRotate implements CSSTransformComponent {
   external factory CSSRotate(
-    JSAny? angleOrX, [
+    JSAny angleOrX, [
     CSSNumberish y,
     CSSNumberish z,
     CSSNumericValue angle,

@@ -41,7 +41,7 @@ class GenerateBidInterestGroup implements JSObject {
     required String name,
     required num lifetimeMs,
     bool enableBiddingSignalsPrioritization,
-    JSAny? priorityVector,
+    JSAny priorityVector,
     String executionMode,
     String biddingLogicURL,
     String biddingWasmHelperURL,
@@ -63,8 +63,8 @@ extension GenerateBidInterestGroupExtension on GenerateBidInterestGroup {
   external num get lifetimeMs;
   external set enableBiddingSignalsPrioritization(bool value);
   external bool get enableBiddingSignalsPrioritization;
-  external set priorityVector(JSAny? value);
-  external JSAny? get priorityVector;
+  external set priorityVector(JSAny value);
+  external JSAny get priorityVector;
   external set executionMode(String value);
   external String get executionMode;
   external set biddingLogicURL(String value);
@@ -91,15 +91,15 @@ extension GenerateBidInterestGroupExtension on GenerateBidInterestGroup {
 class AuctionAdInterestGroup implements GenerateBidInterestGroup {
   external factory AuctionAdInterestGroup({
     num priority,
-    JSAny? prioritySignalsOverrides,
+    JSAny prioritySignalsOverrides,
   });
 }
 
 extension AuctionAdInterestGroupExtension on AuctionAdInterestGroup {
   external set priority(num value);
   external num get priority;
-  external set prioritySignalsOverrides(JSAny? value);
-  external JSAny? get prioritySignalsOverrides;
+  external set prioritySignalsOverrides(JSAny value);
+  external JSAny get prioritySignalsOverrides;
 }
 
 @JS()
@@ -136,9 +136,9 @@ class AuctionAdConfig implements JSObject {
     String sellerCurrency,
     JSPromise perBuyerSignals,
     JSPromise perBuyerTimeouts,
-    JSAny? perBuyerGroupLimits,
-    JSAny? perBuyerExperimentGroupIds,
-    JSAny? perBuyerPrioritySignals,
+    JSAny perBuyerGroupLimits,
+    JSAny perBuyerExperimentGroupIds,
+    JSAny perBuyerPrioritySignals,
     JSPromise perBuyerCurrencies,
     JSArray componentAuctions,
     AbortSignal? signal,
@@ -171,12 +171,12 @@ extension AuctionAdConfigExtension on AuctionAdConfig {
   external JSPromise get perBuyerSignals;
   external set perBuyerTimeouts(JSPromise value);
   external JSPromise get perBuyerTimeouts;
-  external set perBuyerGroupLimits(JSAny? value);
-  external JSAny? get perBuyerGroupLimits;
-  external set perBuyerExperimentGroupIds(JSAny? value);
-  external JSAny? get perBuyerExperimentGroupIds;
-  external set perBuyerPrioritySignals(JSAny? value);
-  external JSAny? get perBuyerPrioritySignals;
+  external set perBuyerGroupLimits(JSAny value);
+  external JSAny get perBuyerGroupLimits;
+  external set perBuyerExperimentGroupIds(JSAny value);
+  external JSAny get perBuyerExperimentGroupIds;
+  external set perBuyerPrioritySignals(JSAny value);
+  external JSAny get perBuyerPrioritySignals;
   external set perBuyerCurrencies(JSPromise value);
   external JSPromise get perBuyerCurrencies;
   external set componentAuctions(JSArray value);
@@ -199,8 +199,8 @@ class InterestGroupBiddingScriptRunnerGlobalScope
 extension InterestGroupBiddingScriptRunnerGlobalScopeExtension
     on InterestGroupBiddingScriptRunnerGlobalScope {
   external bool setBid([GenerateBidOutput generateBidOutput]);
-  external JSVoid setPriority(num priority);
-  external JSVoid setPrioritySignalsOverride(
+  external void setPriority(num priority);
+  external void setPrioritySignalsOverride(
     String key, [
     num? priority,
   ]);
@@ -233,7 +233,7 @@ class GenerateBidOutput implements JSObject {
   external factory GenerateBidOutput({
     num bid,
     String bidCurrency,
-    JSAny? render,
+    JSAny render,
     JSAny? ad,
     JSArray adComponents,
     num adCost,
@@ -247,8 +247,8 @@ extension GenerateBidOutputExtension on GenerateBidOutput {
   external num get bid;
   external set bidCurrency(String value);
   external String get bidCurrency;
-  external set render(JSAny? value);
-  external JSAny? get render;
+  external set render(JSAny value);
+  external JSAny get render;
   external set ad(JSAny? value);
   external JSAny? get ad;
   external set adComponents(JSArray value);
@@ -273,9 +273,9 @@ class InterestGroupReportingScriptRunnerGlobalScope
 
 extension InterestGroupReportingScriptRunnerGlobalScopeExtension
     on InterestGroupReportingScriptRunnerGlobalScope {
-  external JSVoid sendReportTo(String url);
-  external JSVoid registerAdBeacon(JSAny? map);
-  external JSVoid registerAdMacro(
+  external void sendReportTo(String url);
+  external void registerAdBeacon(JSAny map);
+  external void registerAdMacro(
     String name,
     String value,
   );

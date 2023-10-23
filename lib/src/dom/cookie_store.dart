@@ -17,13 +17,13 @@ typedef CookieSameSite = String;
 class CookieStore implements EventTarget {}
 
 extension CookieStoreExtension on CookieStore {
-  external JSPromise get([JSAny? nameOrOptions]);
-  external JSPromise getAll([JSAny? nameOrOptions]);
+  external JSPromise get([JSAny nameOrOptions]);
+  external JSPromise getAll([JSAny nameOrOptions]);
   external JSPromise set(
-    JSAny? nameOrOptions, [
+    JSAny nameOrOptions, [
     String value,
   ]);
-  external JSPromise delete(JSAny? nameOrOptions);
+  external JSPromise delete(JSAny nameOrOptions);
   external set onchange(EventHandler value);
   external EventHandler get onchange;
 }

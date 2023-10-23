@@ -111,16 +111,16 @@ class IDBDatabase implements EventTarget {}
 
 extension IDBDatabaseExtension on IDBDatabase {
   external IDBTransaction transaction(
-    JSAny? storeNames, [
+    JSAny storeNames, [
     IDBTransactionMode mode,
     IDBTransactionOptions options,
   ]);
-  external JSVoid close();
+  external void close();
   external IDBObjectStore createObjectStore(
     String name, [
     IDBObjectStoreParameters options,
   ]);
-  external JSVoid deleteObjectStore(String name);
+  external void deleteObjectStore(String name);
   external String get name;
   external int get version;
   external DOMStringList get objectStoreNames;
@@ -200,10 +200,10 @@ extension IDBObjectStoreExtension on IDBObjectStore {
   external IDBIndex index(String name);
   external IDBIndex createIndex(
     String name,
-    JSAny? keyPath, [
+    JSAny keyPath, [
     IDBIndexParameters options,
   ]);
-  external JSVoid deleteIndex(String name);
+  external void deleteIndex(String name);
   external set name(String value);
   external String get name;
   external JSAny? get keyPath;
@@ -294,10 +294,10 @@ extension IDBKeyRangeExtension on IDBKeyRange {
 class IDBCursor implements JSObject {}
 
 extension IDBCursorExtension on IDBCursor {
-  external JSVoid advance(int count);
+  external void advance(int count);
   @JS('continue')
-  external JSVoid continue_([JSAny? key]);
-  external JSVoid continuePrimaryKey(
+  external void continue_([JSAny? key]);
+  external void continuePrimaryKey(
     JSAny? key,
     JSAny? primaryKey,
   );
@@ -324,8 +324,8 @@ class IDBTransaction implements EventTarget {}
 
 extension IDBTransactionExtension on IDBTransaction {
   external IDBObjectStore objectStore(String name);
-  external JSVoid commit();
-  external JSVoid abort();
+  external void commit();
+  external void abort();
   external DOMStringList get objectStoreNames;
   external IDBTransactionMode get mode;
   external IDBTransactionDurability get durability;

@@ -78,11 +78,11 @@ extension XRSessionExtension on XRSession {
   external JSPromise requestHitTestSourceForTransientInput(
       XRTransientInputHitTestOptionsInit options);
   external JSPromise requestLightProbe([XRLightProbeInit options]);
-  external JSVoid updateRenderState([XRRenderStateInit state]);
+  external void updateRenderState([XRRenderStateInit state]);
   external JSPromise updateTargetFrameRate(num rate);
   external JSPromise requestReferenceSpace(XRReferenceSpaceType type);
   external int requestAnimationFrame(XRFrameRequestCallback callback);
-  external JSVoid cancelAnimationFrame(int handle);
+  external void cancelAnimationFrame(int handle);
   external JSPromise end();
   external JSArray get persistentAnchors;
   external XREnvironmentBlendMode get environmentBlendMode;
@@ -224,7 +224,7 @@ extension XRBoundedReferenceSpaceExtension on XRBoundedReferenceSpace {
 class XRView implements JSObject {}
 
 extension XRViewExtension on XRView {
-  external JSVoid requestViewportScale(num? scale);
+  external void requestViewportScale(num? scale);
   external XRCamera? get camera;
   external bool get isFirstPersonObserver;
   external XREye get eye;

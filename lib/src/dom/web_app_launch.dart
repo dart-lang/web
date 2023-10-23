@@ -20,5 +20,5 @@ extension LaunchParamsExtension on LaunchParams {
 class LaunchQueue implements JSObject {}
 
 extension LaunchQueueExtension on LaunchQueue {
-  external JSVoid setConsumer(LaunchConsumer consumer);
+  external void setConsumer(LaunchConsumer consumer);
 }

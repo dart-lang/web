@@ -14,7 +14,7 @@ typedef BinaryType = String;
 class WebSocket implements EventTarget {
   external factory WebSocket(
     String url, [
-    JSAny? protocols,
+    JSAny protocols,
   ]);
 
   external static int get CONNECTING;
@@ -24,11 +24,11 @@ class WebSocket implements EventTarget {
 }
 
 extension WebSocketExtension on WebSocket {
-  external JSVoid close([
+  external void close([
     int code,
     String reason,
   ]);
-  external JSVoid send(JSAny? data);
+  external void send(JSAny data);
   external String get url;
   external int get readyState;
   external int get bufferedAmount;

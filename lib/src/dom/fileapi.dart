@@ -9,7 +9,7 @@ import 'html.dart';
 import 'streams.dart';
 import 'webidl.dart';
 
-typedef BlobPart = JSAny?;
+typedef BlobPart = JSAny;
 typedef EndingType = String;
 
 @JS('Blob')
@@ -99,14 +99,14 @@ class FileReader implements EventTarget {
 }
 
 extension FileReaderExtension on FileReader {
-  external JSVoid readAsArrayBuffer(Blob blob);
-  external JSVoid readAsBinaryString(Blob blob);
-  external JSVoid readAsText(
+  external void readAsArrayBuffer(Blob blob);
+  external void readAsBinaryString(Blob blob);
+  external void readAsText(
     Blob blob, [
     String encoding,
   ]);
-  external JSVoid readAsDataURL(Blob blob);
-  external JSVoid abort();
+  external void readAsDataURL(Blob blob);
+  external void abort();
   external int get readyState;
   external JSAny? get result;
   external DOMException? get error;

@@ -55,14 +55,14 @@ class Animation implements EventTarget {
 }
 
 extension AnimationExtension on Animation {
-  external JSVoid cancel();
-  external JSVoid finish();
-  external JSVoid play();
-  external JSVoid pause();
-  external JSVoid updatePlaybackRate(num playbackRate);
-  external JSVoid reverse();
-  external JSVoid persist();
-  external JSVoid commitStyles();
+  external void cancel();
+  external void finish();
+  external void play();
+  external void pause();
+  external void updatePlaybackRate(num playbackRate);
+  external void reverse();
+  external void persist();
+  external void commitStyles();
   external set startTime(CSSNumberish? value);
   external CSSNumberish? get startTime;
   external set currentTime(CSSNumberish? value);
@@ -93,13 +93,13 @@ extension AnimationExtension on Animation {
 class AnimationEffect implements JSObject {}
 
 extension AnimationEffectExtension on AnimationEffect {
-  external JSVoid before(AnimationEffect effects);
-  external JSVoid after(AnimationEffect effects);
-  external JSVoid replace(AnimationEffect effects);
-  external JSVoid remove();
+  external void before(AnimationEffect effects);
+  external void after(AnimationEffect effects);
+  external void replace(AnimationEffect effects);
+  external void remove();
   external EffectTiming getTiming();
   external ComputedEffectTiming getComputedTiming();
-  external JSVoid updateTiming([OptionalEffectTiming timing]);
+  external void updateTiming([OptionalEffectTiming timing]);
   external GroupEffect? get parent;
   external AnimationEffect? get previousSibling;
   external AnimationEffect? get nextSibling;
@@ -113,7 +113,7 @@ class EffectTiming implements JSObject {
     num delay,
     num endDelay,
     num playbackRate,
-    JSAny? duration,
+    JSAny duration,
     FillMode fill,
     num iterationStart,
     num iterations,
@@ -129,8 +129,8 @@ extension EffectTimingExtension on EffectTiming {
   external num get endDelay;
   external set playbackRate(num value);
   external num get playbackRate;
-  external set duration(JSAny? value);
-  external JSAny? get duration;
+  external set duration(JSAny value);
+  external JSAny get duration;
   external set fill(FillMode value);
   external FillMode get fill;
   external set iterationStart(num value);
@@ -154,7 +154,7 @@ class OptionalEffectTiming implements JSObject {
     FillMode fill,
     num iterationStart,
     num iterations,
-    JSAny? duration,
+    JSAny duration,
     PlaybackDirection direction,
     String easing,
   });
@@ -173,8 +173,8 @@ extension OptionalEffectTimingExtension on OptionalEffectTiming {
   external num get iterationStart;
   external set iterations(num value);
   external num get iterations;
-  external set duration(JSAny? value);
-  external JSAny? get duration;
+  external set duration(JSAny value);
+  external JSAny get duration;
   external set direction(PlaybackDirection value);
   external PlaybackDirection get direction;
   external set easing(String value);
@@ -216,13 +216,13 @@ class KeyframeEffect implements AnimationEffect {
   external factory KeyframeEffect(
     JSObject? sourceOrTarget, [
     JSObject? keyframes,
-    JSAny? options,
+    JSAny options,
   ]);
 }
 
 extension KeyframeEffectExtension on KeyframeEffect {
   external JSArray getKeyframes();
-  external JSVoid setKeyframes(JSObject? keyframes);
+  external void setKeyframes(JSObject? keyframes);
   external set iterationComposite(IterationCompositeOperation value);
   external IterationCompositeOperation get iterationComposite;
   external set target(Element? value);
@@ -262,18 +262,18 @@ extension BaseComputedKeyframeExtension on BaseComputedKeyframe {
 class BasePropertyIndexedKeyframe implements JSObject {
   external factory BasePropertyIndexedKeyframe({
     JSAny? offset,
-    JSAny? easing,
-    JSAny? composite,
+    JSAny easing,
+    JSAny composite,
   });
 }
 
 extension BasePropertyIndexedKeyframeExtension on BasePropertyIndexedKeyframe {
   external set offset(JSAny? value);
   external JSAny? get offset;
-  external set easing(JSAny? value);
-  external JSAny? get easing;
-  external set composite(JSAny? value);
-  external JSAny? get composite;
+  external set easing(JSAny value);
+  external JSAny get easing;
+  external set composite(JSAny value);
+  external JSAny get composite;
 }
 
 @JS()
@@ -323,7 +323,7 @@ class Animatable implements JSObject {}
 extension AnimatableExtension on Animatable {
   external Animation animate(
     JSObject? keyframes, [
-    JSAny? options,
+    JSAny options,
   ]);
   external JSArray getAnimations([GetAnimationsOptions options]);
 }
@@ -333,18 +333,18 @@ extension AnimatableExtension on Animatable {
 @anonymous
 class KeyframeAnimationOptions implements KeyframeEffectOptions {
   external factory KeyframeAnimationOptions({
-    JSAny? rangeStart,
-    JSAny? rangeEnd,
+    JSAny rangeStart,
+    JSAny rangeEnd,
     String id,
     AnimationTimeline? timeline,
   });
 }
 
 extension KeyframeAnimationOptionsExtension on KeyframeAnimationOptions {
-  external set rangeStart(JSAny? value);
-  external JSAny? get rangeStart;
-  external set rangeEnd(JSAny? value);
-  external JSAny? get rangeEnd;
+  external set rangeStart(JSAny value);
+  external JSAny get rangeStart;
+  external set rangeEnd(JSAny value);
+  external JSAny get rangeEnd;
   external set id(String value);
   external String get id;
   external set timeline(AnimationTimeline? value);

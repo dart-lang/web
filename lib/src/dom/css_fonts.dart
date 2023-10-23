@@ -34,9 +34,9 @@ extension CSSFontFeatureValuesRuleExtension on CSSFontFeatureValuesRule {
 class CSSFontFeatureValuesMap implements JSObject {}
 
 extension CSSFontFeatureValuesMapExtension on CSSFontFeatureValuesMap {
-  external JSVoid set(
+  external void set(
     String featureValueName,
-    JSAny? values,
+    JSAny values,
   );
 }
 

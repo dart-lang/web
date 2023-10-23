@@ -246,7 +246,7 @@ class SVGFEDropShadowElement
     implements SVGElement, SVGFilterPrimitiveStandardAttributes {}
 
 extension SVGFEDropShadowElementExtension on SVGFEDropShadowElement {
-  external JSVoid setStdDeviation(
+  external void setStdDeviation(
     num stdDeviationX,
     num stdDeviationY,
   );
@@ -273,7 +273,7 @@ class SVGFEGaussianBlurElement
 }
 
 extension SVGFEGaussianBlurElementExtension on SVGFEGaussianBlurElement {
-  external JSVoid setStdDeviation(
+  external void setStdDeviation(
     num stdDeviationX,
     num stdDeviationY,
   );

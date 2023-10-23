@@ -7,7 +7,7 @@ import 'dart:js_interop';
 import 'fs.dart';
 import 'permissions.dart';
 
-typedef StartInDirectory = JSAny?;
+typedef StartInDirectory = JSAny;
 typedef FileSystemPermissionMode = String;
 typedef WellKnownDirectory = String;
 
@@ -49,15 +49,15 @@ extension FileSystemHandlePermissionDescriptorExtension
 class FilePickerAcceptType implements JSObject {
   external factory FilePickerAcceptType({
     String description,
-    JSAny? accept,
+    JSAny accept,
   });
 }
 
 extension FilePickerAcceptTypeExtension on FilePickerAcceptType {
   external set description(String value);
   external String get description;
-  external set accept(JSAny? value);
-  external JSAny? get accept;
+  external set accept(JSAny value);
+  external JSAny get accept;
 }
 
 @JS()

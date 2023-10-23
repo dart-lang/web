@@ -11,36 +11,36 @@ import 'webgl1.dart';
 class OES_draw_buffers_indexed implements JSObject {}
 
 extension OESDrawBuffersIndexedExtension on OES_draw_buffers_indexed {
-  external JSVoid enableiOES(
+  external void enableiOES(
     GLenum target,
     GLuint index,
   );
-  external JSVoid disableiOES(
+  external void disableiOES(
     GLenum target,
     GLuint index,
   );
-  external JSVoid blendEquationiOES(
+  external void blendEquationiOES(
     GLuint buf,
     GLenum mode,
   );
-  external JSVoid blendEquationSeparateiOES(
+  external void blendEquationSeparateiOES(
     GLuint buf,
     GLenum modeRGB,
     GLenum modeAlpha,
   );
-  external JSVoid blendFunciOES(
+  external void blendFunciOES(
     GLuint buf,
     GLenum src,
     GLenum dst,
   );
-  external JSVoid blendFuncSeparateiOES(
+  external void blendFuncSeparateiOES(
     GLuint buf,
     GLenum srcRGB,
     GLenum dstRGB,
     GLenum srcAlpha,
     GLenum dstAlpha,
   );
-  external JSVoid colorMaskiOES(
+  external void colorMaskiOES(
     GLuint buf,
     GLboolean r,
     GLboolean g,

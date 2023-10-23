@@ -23,13 +23,13 @@ class MediaSource implements EventTarget {
 
 extension MediaSourceExtension on MediaSource {
   external SourceBuffer addSourceBuffer(String type);
-  external JSVoid removeSourceBuffer(SourceBuffer sourceBuffer);
-  external JSVoid endOfStream([EndOfStreamError error]);
-  external JSVoid setLiveSeekableRange(
+  external void removeSourceBuffer(SourceBuffer sourceBuffer);
+  external void endOfStream([EndOfStreamError error]);
+  external void setLiveSeekableRange(
     num start,
     num end,
   );
-  external JSVoid clearLiveSeekableRange();
+  external void clearLiveSeekableRange();
   external MediaSourceHandle get handle;
   external SourceBufferList get sourceBuffers;
   external SourceBufferList get activeSourceBuffers;
@@ -53,10 +53,10 @@ class MediaSourceHandle implements JSObject {}
 class SourceBuffer implements EventTarget {}
 
 extension SourceBufferExtension on SourceBuffer {
-  external JSVoid appendBuffer(BufferSource data);
-  external JSVoid abort();
-  external JSVoid changeType(String type);
-  external JSVoid remove(
+  external void appendBuffer(BufferSource data);
+  external void abort();
+  external void changeType(String type);
+  external void remove(
     num start,
     num end,
   );

@@ -9,7 +9,7 @@ import 'dom.dart';
 import 'html.dart';
 import 'trust_token_api.dart';
 
-typedef FormDataEntryValue = JSAny?;
+typedef FormDataEntryValue = JSAny;
 typedef XMLHttpRequestResponseType = String;
 
 @JS('XMLHttpRequestEventTarget')
@@ -50,25 +50,25 @@ class XMLHttpRequest implements XMLHttpRequestEventTarget {
 }
 
 extension XMLHttpRequestExtension on XMLHttpRequest {
-  external JSVoid setAttributionReporting(
+  external void setAttributionReporting(
       AttributionReportingRequestOptions options);
-  external JSVoid setPrivateToken(PrivateToken privateToken);
-  external JSVoid open(
+  external void setPrivateToken(PrivateToken privateToken);
+  external void open(
     String method,
     String url, [
     bool async,
     String? username,
     String? password,
   ]);
-  external JSVoid setRequestHeader(
+  external void setRequestHeader(
     String name,
     String value,
   );
-  external JSVoid send([JSAny? body]);
-  external JSVoid abort();
+  external void send([JSAny? body]);
+  external void abort();
   external String? getResponseHeader(String name);
   external String getAllResponseHeaders();
-  external JSVoid overrideMimeType(String mime);
+  external void overrideMimeType(String mime);
   external set onreadystatechange(EventHandler value);
   external EventHandler get onreadystatechange;
   external int get readyState;
@@ -97,18 +97,18 @@ class FormData implements JSObject {
 }
 
 extension FormDataExtension on FormData {
-  external JSVoid append(
+  external void append(
     String name,
-    JSAny? blobValueOrValue, [
+    JSAny blobValueOrValue, [
     String filename,
   ]);
-  external JSVoid delete(String name);
+  external void delete(String name);
   external FormDataEntryValue? get(String name);
   external JSArray getAll(String name);
   external bool has(String name);
-  external JSVoid set(
+  external void set(
     String name,
-    JSAny? blobValueOrValue, [
+    JSAny blobValueOrValue, [
     String filename,
   ]);
 }

@@ -7,7 +7,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
-typedef NDEFMessageSource = JSAny?;
+typedef NDEFMessageSource = JSAny;
 
 @JS('NDEFMessage')
 @staticInterop

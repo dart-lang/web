@@ -14,7 +14,7 @@ typedef OrientationSensorLocalCoordinateSystem = String;
 class OrientationSensor implements Sensor {}
 
 extension OrientationSensorExtension on OrientationSensor {
-  external JSVoid populateMatrix(RotationMatrixType targetMatrix);
+  external void populateMatrix(RotationMatrixType targetMatrix);
   external JSArray? get quaternion;
 }
 

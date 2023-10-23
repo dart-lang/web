@@ -16,7 +16,7 @@ class OVR_multiview2 implements JSObject {
 }
 
 extension OVRMultiview2Extension on OVR_multiview2 {
-  external JSVoid framebufferTextureMultiviewOVR(
+  external void framebufferTextureMultiviewOVR(
     GLenum target,
     GLenum attachment,
     WebGLTexture? texture,

@@ -42,7 +42,7 @@ class WebTransport implements JSObject {
 
 extension WebTransportExtension on WebTransport {
   external JSPromise getStats();
-  external JSVoid close([WebTransportCloseInfo closeInfo]);
+  external void close([WebTransportCloseInfo closeInfo]);
   external JSPromise createBidirectionalStream(
       [WebTransportSendStreamOptions options]);
   external JSPromise createUnidirectionalStream(

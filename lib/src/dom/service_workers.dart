@@ -27,7 +27,7 @@ typedef ClientType = String;
 class ServiceWorker implements EventTarget, AbstractWorker {}
 
 extension ServiceWorkerExtension on ServiceWorker {
-  external JSVoid postMessage(
+  external void postMessage(
     JSAny? message, [
     JSObject optionsOrTransfer,
   ]);
@@ -77,7 +77,7 @@ extension ServiceWorkerContainerExtension on ServiceWorkerContainer {
   ]);
   external JSPromise getRegistration([String clientURL]);
   external JSPromise getRegistrations();
-  external JSVoid startMessages();
+  external void startMessages();
   external ServiceWorker? get controller;
   external JSPromise get ready;
   external set oncontrollerchange(EventHandler value);
@@ -191,7 +191,7 @@ extension ServiceWorkerGlobalScopeExtension on ServiceWorkerGlobalScope {
 class Client implements JSObject {}
 
 extension ClientExtension on Client {
-  external JSVoid postMessage(
+  external void postMessage(
     JSAny? message, [
     JSObject optionsOrTransfer,
   ]);
@@ -252,7 +252,7 @@ class ExtendableEvent implements Event {
 }
 
 extension ExtendableEventExtension on ExtendableEvent {
-  external JSVoid waitUntil(JSPromise f);
+  external void waitUntil(JSPromise f);
 }
 
 @JS()
@@ -272,7 +272,7 @@ class FetchEvent implements ExtendableEvent {
 }
 
 extension FetchEventExtension on FetchEvent {
-  external JSVoid respondWith(JSPromise r);
+  external void respondWith(JSPromise r);
   external Request get request;
   external JSPromise get preloadResponse;
   external String get clientId;

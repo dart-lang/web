@@ -15,5 +15,5 @@ class WEBGL_provoking_vertex implements JSObject {
 }
 
 extension WEBGLProvokingVertexExtension on WEBGL_provoking_vertex {
-  external JSVoid provokingVertexWEBGL(GLenum provokeMode);
+  external void provokingVertexWEBGL(GLenum provokeMode);
 }

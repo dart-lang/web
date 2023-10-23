@@ -17,9 +17,9 @@ class SpeechRecognition implements EventTarget {
 }
 
 extension SpeechRecognitionExtension on SpeechRecognition {
-  external JSVoid start();
-  external JSVoid stop();
-  external JSVoid abort();
+  external void start();
+  external void stop();
+  external void abort();
   external set grammars(SpeechGrammarList value);
   external SpeechGrammarList get grammars;
   external set lang(String value);
@@ -165,11 +165,11 @@ class SpeechGrammarList implements JSObject {
 
 extension SpeechGrammarListExtension on SpeechGrammarList {
   external SpeechGrammar item(int index);
-  external JSVoid addFromURI(
+  external void addFromURI(
     String src, [
     num weight,
   ]);
-  external JSVoid addFromString(
+  external void addFromString(
     String string, [
     num weight,
   ]);
@@ -181,10 +181,10 @@ extension SpeechGrammarListExtension on SpeechGrammarList {
 class SpeechSynthesis implements EventTarget {}
 
 extension SpeechSynthesisExtension on SpeechSynthesis {
-  external JSVoid speak(SpeechSynthesisUtterance utterance);
-  external JSVoid cancel();
-  external JSVoid pause();
-  external JSVoid resume();
+  external void speak(SpeechSynthesisUtterance utterance);
+  external void cancel();
+  external void pause();
+  external void resume();
   external JSArray getVoices();
   external bool get pending;
   external bool get speaking;

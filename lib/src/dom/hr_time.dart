@@ -28,19 +28,19 @@ extension PerformanceExtension on Performance {
     String name, [
     String type,
   ]);
-  external JSVoid clearResourceTimings();
-  external JSVoid setResourceTimingBufferSize(int maxSize);
+  external void clearResourceTimings();
+  external void setResourceTimingBufferSize(int maxSize);
   external PerformanceMark mark(
     String markName, [
     PerformanceMarkOptions markOptions,
   ]);
-  external JSVoid clearMarks([String markName]);
+  external void clearMarks([String markName]);
   external PerformanceMeasure measure(
     String measureName, [
-    JSAny? startOrMeasureOptions,
+    JSAny startOrMeasureOptions,
     String endMark,
   ]);
-  external JSVoid clearMeasures([String measureName]);
+  external void clearMeasures([String measureName]);
   external EventCounts get eventCounts;
   external int get interactionCount;
   external DOMHighResTimeStamp get timeOrigin;

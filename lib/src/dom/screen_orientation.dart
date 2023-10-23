@@ -16,7 +16,7 @@ class ScreenOrientation implements EventTarget {}
 
 extension ScreenOrientationExtension on ScreenOrientation {
   external JSPromise lock(OrientationLockType orientation);
-  external JSVoid unlock();
+  external void unlock();
   external OrientationType get type;
   external int get angle;
   external set onchange(EventHandler value);

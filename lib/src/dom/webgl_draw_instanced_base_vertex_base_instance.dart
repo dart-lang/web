@@ -12,14 +12,14 @@ class WEBGL_draw_instanced_base_vertex_base_instance implements JSObject {}
 
 extension WEBGLDrawInstancedBaseVertexBaseInstanceExtension
     on WEBGL_draw_instanced_base_vertex_base_instance {
-  external JSVoid drawArraysInstancedBaseInstanceWEBGL(
+  external void drawArraysInstancedBaseInstanceWEBGL(
     GLenum mode,
     GLint first,
     GLsizei count,
     GLsizei instanceCount,
     GLuint baseInstance,
   );
-  external JSVoid drawElementsInstancedBaseVertexBaseInstanceWEBGL(
+  external void drawElementsInstancedBaseVertexBaseInstanceWEBGL(
     GLenum mode,
     GLsizei count,
     GLenum type,

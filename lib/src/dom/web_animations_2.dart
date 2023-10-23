@@ -16,14 +16,14 @@ typedef IterationCompositeOperation = String;
 class GroupEffect implements JSObject {
   external factory GroupEffect(
     JSArray? children, [
-    JSAny? timing,
+    JSAny timing,
   ]);
 }
 
 extension GroupEffectExtension on GroupEffect {
   external GroupEffect clone();
-  external JSVoid prepend(AnimationEffect effects);
-  external JSVoid append(AnimationEffect effects);
+  external void prepend(AnimationEffect effects);
+  external void append(AnimationEffect effects);
   external AnimationNodeList get children;
   external AnimationEffect? get firstChild;
   external AnimationEffect? get lastChild;
@@ -43,7 +43,7 @@ extension AnimationNodeListExtension on AnimationNodeList {
 class SequenceEffect implements GroupEffect {
   external factory SequenceEffect(
     JSArray? children, [
-    JSAny? timing,
+    JSAny timing,
   ]);
 }
 

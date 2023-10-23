@@ -18,7 +18,7 @@ typedef BreakType = String;
 class LayoutWorkletGlobalScope implements WorkletGlobalScope {}
 
 extension LayoutWorkletGlobalScopeExtension on LayoutWorkletGlobalScope {
-  external JSVoid registerLayout(
+  external void registerLayout(
     String name,
     VoidFunction layoutCtor,
   );

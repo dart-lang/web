@@ -11,7 +11,7 @@ import 'webcryptoapi.dart';
 
 typedef RTCRtpTransform = JSObject;
 typedef SmallCryptoKeyID = int;
-typedef CryptoKeyID = JSAny?;
+typedef CryptoKeyID = JSAny;
 typedef SFrameTransformRole = String;
 typedef SFrameTransformErrorEventType = String;
 typedef RTCEncodedVideoFrameType = String;

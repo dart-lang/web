@@ -13,20 +13,20 @@ class ANGLE_instanced_arrays implements JSObject {
 }
 
 extension ANGLEInstancedArraysExtension on ANGLE_instanced_arrays {
-  external JSVoid drawArraysInstancedANGLE(
+  external void drawArraysInstancedANGLE(
     GLenum mode,
     GLint first,
     GLsizei count,
     GLsizei primcount,
   );
-  external JSVoid drawElementsInstancedANGLE(
+  external void drawElementsInstancedANGLE(
     GLenum mode,
     GLsizei count,
     GLenum type,
     GLintptr offset,
     GLsizei primcount,
   );
-  external JSVoid vertexAttribDivisorANGLE(
+  external void vertexAttribDivisorANGLE(
     GLuint index,
     GLuint divisor,
   );

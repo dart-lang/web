@@ -16,8 +16,8 @@ typedef MockSensorType = String;
 class Sensor implements EventTarget {}
 
 extension SensorExtension on Sensor {
-  external JSVoid start();
-  external JSVoid stop();
+  external void start();
+  external void stop();
   external bool get activated;
   external bool get hasReading;
   external DOMHighResTimeStamp? get timestamp;

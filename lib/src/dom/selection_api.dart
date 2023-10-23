@@ -12,38 +12,38 @@ class Selection implements JSObject {}
 
 extension SelectionExtension on Selection {
   external Range getRangeAt(int index);
-  external JSVoid addRange(Range range);
-  external JSVoid removeRange(Range range);
-  external JSVoid removeAllRanges();
-  external JSVoid empty();
+  external void addRange(Range range);
+  external void removeRange(Range range);
+  external void removeAllRanges();
+  external void empty();
   external JSArray getComposedRanges(ShadowRoot shadowRoots);
-  external JSVoid collapse(
+  external void collapse(
     Node? node, [
     int offset,
   ]);
-  external JSVoid setPosition(
+  external void setPosition(
     Node? node, [
     int offset,
   ]);
-  external JSVoid collapseToStart();
-  external JSVoid collapseToEnd();
-  external JSVoid extend(
+  external void collapseToStart();
+  external void collapseToEnd();
+  external void extend(
     Node node, [
     int offset,
   ]);
-  external JSVoid setBaseAndExtent(
+  external void setBaseAndExtent(
     Node anchorNode,
     int anchorOffset,
     Node focusNode,
     int focusOffset,
   );
-  external JSVoid selectAllChildren(Node node);
-  external JSVoid modify([
+  external void selectAllChildren(Node node);
+  external void modify([
     String alter,
     String direction,
     String granularity,
   ]);
-  external JSVoid deleteFromDocument();
+  external void deleteFromDocument();
   external bool containsNode(
     Node node, [
     bool allowPartialContainment,

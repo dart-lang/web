@@ -8,7 +8,7 @@ import 'file_system_access.dart';
 import 'streams.dart';
 import 'webidl.dart';
 
-typedef FileSystemWriteChunkType = JSAny?;
+typedef FileSystemWriteChunkType = JSAny;
 typedef FileSystemHandleKind = String;
 typedef WriteCommandType = String;
 
@@ -165,8 +165,8 @@ extension FileSystemSyncAccessHandleExtension on FileSystemSyncAccessHandle {
     AllowSharedBufferSource buffer, [
     FileSystemReadWriteOptions options,
   ]);
-  external JSVoid truncate(int newSize);
+  external void truncate(int newSize);
   external int getSize();
-  external JSVoid flush();
-  external JSVoid close();
+  external void flush();
+  external void close();
 }

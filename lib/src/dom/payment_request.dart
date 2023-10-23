@@ -244,7 +244,7 @@ class PaymentRequestUpdateEvent implements Event {
 }
 
 extension PaymentRequestUpdateEventExtension on PaymentRequestUpdateEvent {
-  external JSVoid updateWith(JSPromise detailsPromise);
+  external void updateWith(JSPromise detailsPromise);
 }
 
 @JS()

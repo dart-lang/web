@@ -30,21 +30,21 @@ extension PerformanceMarkOptionsExtension on PerformanceMarkOptions {
 class PerformanceMeasureOptions implements JSObject {
   external factory PerformanceMeasureOptions({
     JSAny? detail,
-    JSAny? start,
+    JSAny start,
     DOMHighResTimeStamp duration,
-    JSAny? end,
+    JSAny end,
   });
 }
 
 extension PerformanceMeasureOptionsExtension on PerformanceMeasureOptions {
   external set detail(JSAny? value);
   external JSAny? get detail;
-  external set start(JSAny? value);
-  external JSAny? get start;
+  external set start(JSAny value);
+  external JSAny get start;
   external set duration(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get duration;
-  external set end(JSAny? value);
-  external JSAny? get end;
+  external set end(JSAny value);
+  external JSAny get end;
 }
 
 @JS('PerformanceMark')

@@ -57,7 +57,7 @@ extension FontFaceDescriptorsExtension on FontFaceDescriptors {
 class FontFace implements JSObject {
   external factory FontFace(
     String family,
-    JSAny? source, [
+    JSAny source, [
     FontFaceDescriptors descriptors,
   ]);
 }
@@ -167,7 +167,7 @@ class FontFaceSet implements EventTarget {
 extension FontFaceSetExtension on FontFaceSet {
   external FontFaceSet add(FontFace font);
   external bool delete(FontFace font);
-  external JSVoid clear();
+  external void clear();
   external JSPromise load(
     String font, [
     String text,

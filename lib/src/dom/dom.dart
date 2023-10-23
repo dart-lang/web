@@ -49,10 +49,10 @@ class Event implements JSObject {
 
 extension EventExtension on Event {
   external JSArray composedPath();
-  external JSVoid stopPropagation();
-  external JSVoid stopImmediatePropagation();
-  external JSVoid preventDefault();
-  external JSVoid initEvent(
+  external void stopPropagation();
+  external void stopImmediatePropagation();
+  external void preventDefault();
+  external void initEvent(
     String type, [
     bool bubbles,
     bool cancelable,
@@ -104,7 +104,7 @@ class CustomEvent implements Event {
 }
 
 extension CustomEventExtension on CustomEvent {
-  external JSVoid initCustomEvent(
+  external void initCustomEvent(
     String type, [
     bool bubbles,
     bool cancelable,
@@ -132,15 +132,15 @@ class EventTarget implements JSObject {
 }
 
 extension EventTargetExtension on EventTarget {
-  external JSVoid addEventListener(
+  external void addEventListener(
     String type,
     EventListener? callback, [
-    JSAny? options,
+    JSAny options,
   ]);
-  external JSVoid removeEventListener(
+  external void removeEventListener(
     String type,
     EventListener? callback, [
-    JSAny? options,
+    JSAny options,
   ]);
   external bool dispatchEvent(Event event);
 }
@@ -184,7 +184,7 @@ class AbortController implements JSObject {
 }
 
 extension AbortControllerExtension on AbortController {
-  external JSVoid abort([JSAny? reason]);
+  external void abort([JSAny? reason]);
   external AbortSignal get signal;
 }
 
@@ -197,7 +197,7 @@ class AbortSignal implements EventTarget {
 }
 
 extension AbortSignalExtension on AbortSignal {
-  external JSVoid throwIfAborted();
+  external void throwIfAborted();
   external bool get aborted;
   external JSAny? get reason;
   external set onabort(EventHandler value);
@@ -232,9 +232,9 @@ extension DocumentOrShadowRootExtension on DocumentOrShadowRoot {
 class ParentNode implements JSObject {}
 
 extension ParentNodeExtension on ParentNode {
-  external JSVoid prepend(JSAny? nodes);
-  external JSVoid append(JSAny? nodes);
-  external JSVoid replaceChildren(JSAny? nodes);
+  external void prepend(JSAny nodes);
+  external void append(JSAny nodes);
+  external void replaceChildren(JSAny nodes);
   external Element? querySelector(String selectors);
   external NodeList querySelectorAll(String selectors);
   external HTMLCollection get children;
@@ -257,10 +257,10 @@ extension NonDocumentTypeChildNodeExtension on NonDocumentTypeChildNode {
 class ChildNode implements JSObject {}
 
 extension ChildNodeExtension on ChildNode {
-  external JSVoid before(JSAny? nodes);
-  external JSVoid after(JSAny? nodes);
-  external JSVoid replaceWith(JSAny? nodes);
-  external JSVoid remove();
+  external void before(JSAny nodes);
+  external void after(JSAny nodes);
+  external void replaceWith(JSAny nodes);
+  external void remove();
 }
 
 @JS('Slottable')
@@ -297,11 +297,11 @@ class MutationObserver implements JSObject {
 }
 
 extension MutationObserverExtension on MutationObserver {
-  external JSVoid observe(
+  external void observe(
     Node target, [
     MutationObserverInit options,
   ]);
-  external JSVoid disconnect();
+  external void disconnect();
   external JSArray takeRecords();
 }
 
@@ -379,7 +379,7 @@ class Node implements EventTarget {
 extension NodeExtension on Node {
   external Node getRootNode([GetRootNodeOptions options]);
   external bool hasChildNodes();
-  external JSVoid normalize();
+  external void normalize();
   external Node cloneNode([bool deep]);
   external bool isEqualNode(Node? otherNode);
   external bool isSameNode(Node? otherNode);
@@ -468,12 +468,12 @@ extension DocumentExtension on Document {
   external HTMLCollection getElementsByClassName(String classNames);
   external Element createElement(
     String localName, [
-    JSAny? options,
+    JSAny options,
   ]);
   external Element createElementNS(
     String? namespace,
     String qualifiedName, [
-    JSAny? options,
+    JSAny options,
   ]);
   external DocumentFragment createDocumentFragment();
   external Text createTextNode(String data);
@@ -517,9 +517,9 @@ extension DocumentExtension on Document {
     String nameOrUnused2,
     String features,
   ]);
-  external JSVoid close();
-  external JSVoid write(String text);
-  external JSVoid writeln(String text);
+  external void close();
+  external void write(String text);
+  external void writeln(String text);
   external bool hasFocus();
   external bool execCommand(
     String commandId, [
@@ -531,11 +531,11 @@ extension DocumentExtension on Document {
   external bool queryCommandState(String commandId);
   external bool queryCommandSupported(String commandId);
   external String queryCommandValue(String commandId);
-  external JSVoid clear();
-  external JSVoid captureEvents();
-  external JSVoid releaseEvents();
+  external void clear();
+  external void captureEvents();
+  external void releaseEvents();
   external JSPromise exitPictureInPicture();
-  external JSVoid exitPointerLock();
+  external void exitPointerLock();
   external JSPromise requestStorageAccessFor(String requestedOrigin);
   external Selection? getSelection();
   external JSPromise hasStorageAccess();
@@ -705,7 +705,7 @@ class Element
         Animatable {}
 
 extension ElementExtension on Element {
-  external JSVoid insertAdjacentHTML(
+  external void insertAdjacentHTML(
     String position,
     String text,
   );
@@ -720,17 +720,17 @@ extension ElementExtension on Element {
   external DOMRectList getClientRects();
   external DOMRect getBoundingClientRect();
   external bool checkVisibility([CheckVisibilityOptions options]);
-  external JSVoid scrollIntoView([JSAny? arg]);
-  external JSVoid scroll([
-    JSAny? optionsOrX,
+  external void scrollIntoView([JSAny arg]);
+  external void scroll([
+    JSAny optionsOrX,
     num y,
   ]);
-  external JSVoid scrollTo([
-    JSAny? optionsOrX,
+  external void scrollTo([
+    JSAny optionsOrX,
     num y,
   ]);
-  external JSVoid scrollBy([
-    JSAny? optionsOrX,
+  external void scrollBy([
+    JSAny optionsOrX,
     num y,
   ]);
   external bool hasAttributes();
@@ -740,17 +740,17 @@ extension ElementExtension on Element {
     String? namespace,
     String localName,
   );
-  external JSVoid setAttribute(
+  external void setAttribute(
     String qualifiedName,
     String value,
   );
-  external JSVoid setAttributeNS(
+  external void setAttributeNS(
     String? namespace,
     String qualifiedName,
     String value,
   );
-  external JSVoid removeAttribute(String qualifiedName);
-  external JSVoid removeAttributeNS(
+  external void removeAttribute(String qualifiedName);
+  external void removeAttributeNS(
     String? namespace,
     String localName,
   );
@@ -785,16 +785,16 @@ extension ElementExtension on Element {
     String where,
     Element element,
   );
-  external JSVoid insertAdjacentText(
+  external void insertAdjacentText(
     String where,
     String data,
   );
   external JSPromise requestFullscreen([FullscreenOptions options]);
-  external JSVoid setPointerCapture(int pointerId);
-  external JSVoid releasePointerCapture(int pointerId);
+  external void setPointerCapture(int pointerId);
+  external void releasePointerCapture(int pointerId);
   external bool hasPointerCapture(int pointerId);
-  external JSVoid requestPointerLock();
-  external JSVoid setHTML(
+  external void requestPointerLock();
+  external void setHTML(
     String input, [
     SetHTMLOptions options,
   ]);
@@ -897,16 +897,16 @@ extension CharacterDataExtension on CharacterData {
     int offset,
     int count,
   );
-  external JSVoid appendData(String data);
-  external JSVoid insertData(
+  external void appendData(String data);
+  external void insertData(
     int offset,
     String data,
   );
-  external JSVoid deleteData(
+  external void deleteData(
     int offset,
     int count,
   );
-  external JSVoid replaceData(
+  external void replaceData(
     int offset,
     int count,
     String data,
@@ -1001,32 +1001,32 @@ extension RangeExtension on Range {
   external DocumentFragment createContextualFragment(String fragment);
   external DOMRectList getClientRects();
   external DOMRect getBoundingClientRect();
-  external JSVoid setStart(
+  external void setStart(
     Node node,
     int offset,
   );
-  external JSVoid setEnd(
+  external void setEnd(
     Node node,
     int offset,
   );
-  external JSVoid setStartBefore(Node node);
-  external JSVoid setStartAfter(Node node);
-  external JSVoid setEndBefore(Node node);
-  external JSVoid setEndAfter(Node node);
-  external JSVoid collapse([bool toStart]);
-  external JSVoid selectNode(Node node);
-  external JSVoid selectNodeContents(Node node);
+  external void setStartBefore(Node node);
+  external void setStartAfter(Node node);
+  external void setEndBefore(Node node);
+  external void setEndAfter(Node node);
+  external void collapse([bool toStart]);
+  external void selectNode(Node node);
+  external void selectNodeContents(Node node);
   external int compareBoundaryPoints(
     int how,
     Range sourceRange,
   );
-  external JSVoid deleteContents();
+  external void deleteContents();
   external DocumentFragment extractContents();
   external DocumentFragment cloneContents();
-  external JSVoid insertNode(Node node);
-  external JSVoid surroundContents(Node newParent);
+  external void insertNode(Node node);
+  external void surroundContents(Node newParent);
   external Range cloneRange();
-  external JSVoid detach();
+  external void detach();
   external bool isPointInRange(
     Node node,
     int offset,
@@ -1046,7 +1046,7 @@ class NodeIterator implements JSObject {}
 extension NodeIteratorExtension on NodeIterator {
   external Node? nextNode();
   external Node? previousNode();
-  external JSVoid detach();
+  external void detach();
   external Node get root;
   external Node get referenceNode;
   external bool get pointerBeforeReferenceNode;
@@ -1080,8 +1080,8 @@ class DOMTokenList implements JSObject {}
 extension DOMTokenListExtension on DOMTokenList {
   external String? item(int index);
   external bool contains(String token);
-  external JSVoid add(String tokens);
-  external JSVoid remove(String tokens);
+  external void add(String tokens);
+  external void remove(String tokens);
   external bool toggle(
     String token, [
     bool force,
@@ -1167,13 +1167,13 @@ class XSLTProcessor implements JSObject {
 }
 
 extension XSLTProcessorExtension on XSLTProcessor {
-  external JSVoid importStylesheet(Node style);
+  external void importStylesheet(Node style);
   external DocumentFragment transformToFragment(
     Node source,
     Document output,
   );
   external Document transformToDocument(Node source);
-  external JSVoid setParameter(
+  external void setParameter(
     String namespaceURI,
     String localName,
     JSAny? value,
@@ -1182,10 +1182,10 @@ extension XSLTProcessorExtension on XSLTProcessor {
     String namespaceURI,
     String localName,
   );
-  external JSVoid removeParameter(
+  external void removeParameter(
     String namespaceURI,
     String localName,
   );
-  external JSVoid clearParameters();
-  external JSVoid reset();
+  external void clearParameters();
+  external void reset();
 }

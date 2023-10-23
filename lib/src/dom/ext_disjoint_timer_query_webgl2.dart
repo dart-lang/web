@@ -18,7 +18,7 @@ class EXT_disjoint_timer_query_webgl2 implements JSObject {
 
 extension EXTDisjointTimerQueryWebgl2Extension
     on EXT_disjoint_timer_query_webgl2 {
-  external JSVoid queryCounterEXT(
+  external void queryCounterEXT(
     WebGLQuery query,
     GLenum target,
   );

@@ -38,18 +38,18 @@ class EditContext implements EventTarget {
 }
 
 extension EditContextExtension on EditContext {
-  external JSVoid updateText(
+  external void updateText(
     int rangeStart,
     int rangeEnd,
     String text,
   );
-  external JSVoid updateSelection(
+  external void updateSelection(
     int start,
     int end,
   );
-  external JSVoid updateControlBounds(DOMRect controlBounds);
-  external JSVoid updateSelectionBounds(DOMRect selectionBounds);
-  external JSVoid updateCharacterBounds(
+  external void updateControlBounds(DOMRect controlBounds);
+  external void updateSelectionBounds(DOMRect selectionBounds);
+  external void updateCharacterBounds(
     int rangeStart,
     JSArray characterBounds,
   );

@@ -9,6 +9,6 @@ import 'dart:js_interop';
 class WEBGL_lose_context implements JSObject {}
 
 extension WEBGLLoseContextExtension on WEBGL_lose_context {
-  external JSVoid loseContext();
-  external JSVoid restoreContext();
+  external void loseContext();
+  external void restoreContext();
 }

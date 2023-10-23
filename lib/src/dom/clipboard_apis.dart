@@ -41,7 +41,7 @@ extension ClipboardEventExtension on ClipboardEvent {
 @staticInterop
 class ClipboardItem implements JSObject {
   external factory ClipboardItem(
-    JSAny? items, [
+    JSAny items, [
     ClipboardItemOptions options,
   ]);
 

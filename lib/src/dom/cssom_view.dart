@@ -48,8 +48,8 @@ extension ScrollToOptionsExtension on ScrollToOptions {
 class MediaQueryList implements EventTarget {}
 
 extension MediaQueryListExtension on MediaQueryList {
-  external JSVoid addListener(EventListener? callback);
-  external JSVoid removeListener(EventListener? callback);
+  external void addListener(EventListener? callback);
+  external void removeListener(EventListener? callback);
   external String get media;
   external bool get matches;
   external set onchange(EventHandler value);

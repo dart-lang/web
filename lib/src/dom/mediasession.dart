@@ -13,13 +13,13 @@ typedef MediaSessionAction = String;
 class MediaSession implements JSObject {}
 
 extension MediaSessionExtension on MediaSession {
-  external JSVoid setActionHandler(
+  external void setActionHandler(
     MediaSessionAction action,
     MediaSessionActionHandler? handler,
   );
-  external JSVoid setPositionState([MediaPositionState state]);
-  external JSVoid setMicrophoneActive(bool active);
-  external JSVoid setCameraActive(bool active);
+  external void setPositionState([MediaPositionState state]);
+  external void setMicrophoneActive(bool active);
+  external void setCameraActive(bool active);
   external set metadata(MediaMetadata? value);
   external MediaMetadata? get metadata;
   external set playbackState(MediaSessionPlaybackState value);

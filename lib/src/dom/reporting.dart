@@ -36,8 +36,8 @@ class ReportingObserver implements JSObject {
 }
 
 extension ReportingObserverExtension on ReportingObserver {
-  external JSVoid observe();
-  external JSVoid disconnect();
+  external void observe();
+  external void disconnect();
   external ReportList takeRecords();
 }
 

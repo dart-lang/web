@@ -19,8 +19,11 @@ typedef TranslationResult = Map<String, code.Library>;
 class _Library {
   final Translator translator;
   final String url;
+  // Contains both IDL `interface`s and `namespace`s.
   final List<idl.Interfacelike> interfacelikes = [];
-  final List<idl.Interfacelike> partialInterfacelikes = [];
+  final List<idl.Interfacelike> partialInterfaces = [];
+  final List<idl.Interfacelike> interfaceMixins = [];
+  final List<idl.Interfacelike> partialInterfaceMixins = [];
   final List<idl.Typedef> typedefs = [];
   final List<idl.Enum> enums = [];
   final List<idl.Callback> callbacks = [];
@@ -33,6 +36,7 @@ class _Library {
     final name = named.name;
     assert(!translator._typeToLibrary.containsKey(name));
     translator._typeToLibrary[name] = this;
+    assert(!translator._typeToDeclaration.containsKey(name));
     translator._typeToDeclaration[name] = node;
     list.add(named);
   }
@@ -50,11 +54,15 @@ class _Library {
         // library. However, in order to collect any possible cross-library
         // partial interfaces, we track interfacelikes on the translator as
         // well.
+        final isMixin = type == 'interface mixin';
+        final interfaceList = isMixin ? interfaceMixins : interfacelikes;
+        final partialInterfaceList =
+            isMixin ? partialInterfaceMixins : partialInterfaces;
         final interfacelike = node as idl.Interfacelike;
         if (!node.partial) {
-          _addNamed<idl.Interfacelike>(node, interfacelikes);
+          _addNamed<idl.Interfacelike>(node, interfaceList);
         } else {
-          partialInterfacelikes.add(interfacelike);
+          partialInterfaceList.add(interfacelike);
         }
         break;
       case 'typedef':
@@ -263,19 +271,20 @@ class _OverridableMember {
 }
 
 class _OverridableOperation extends _OverridableMember {
-  final String name;
+  _MemberName name;
   final bool isStatic;
   final _RawType returnType;
 
   _OverridableOperation._(
       this.name, this.isStatic, this.returnType, super.parameters);
 
-  factory _OverridableOperation(idl.Operation operation) =>
-      _OverridableOperation._(operation.name, operation.special == 'static',
+  factory _OverridableOperation(idl.Operation operation, _MemberName name) =>
+      _OverridableOperation._(name, operation.special == 'static',
           _getRawType(operation.idlType), operation.arguments);
 
   void update(idl.Operation that) {
-    assert(name == that.name && isStatic == (that.special == 'static'));
+    final thisName = name.jsOverride ?? name.name;
+    assert(thisName == that.name && isStatic == (that.special == 'static'));
     returnType.update(that.idlType);
     _processParameters(that.arguments);
   }
@@ -297,7 +306,6 @@ class _PartialInterfacelike {
   final List<idl.Member> members = [];
   final List<idl.Member> staticMembers = [];
   _OverridableConstructor? constructor;
-  final List<String> includes = [];
 
   _PartialInterfacelike._(this.name, this.type, this.inheritance);
 
@@ -341,18 +349,28 @@ class _PartialInterfacelike {
             continue;
           }
           if (operation.special == 'static') {
-            assert(!operations.containsKey(name));
             if (staticOperations.containsKey(name)) {
               staticOperations[name]!.update(operation);
             } else {
-              staticOperations[name] = _OverridableOperation(operation);
+              final _MemberName memberName;
+              if (operations.containsKey(name)) {
+                memberName = _MemberName('${name}_', name);
+              } else {
+                memberName = _MemberName(name);
+              }
+              staticOperations[name] =
+                  _OverridableOperation(operation, memberName);
             }
           } else {
-            assert(!staticOperations.containsKey(name));
             if (operations.containsKey(name)) {
               operations[name]!.update(operation);
             } else {
-              operations[name] = _OverridableOperation(operation);
+              final staticOperation = staticOperations[name];
+              if (staticOperation != null) {
+                staticOperation.name = _MemberName('${name}_', name);
+              }
+              operations[name] =
+                  _OverridableOperation(operation, _MemberName(operation.name));
             }
           }
           break;
@@ -371,25 +389,28 @@ class _PartialInterfacelike {
   }
 
   void update(idl.Interfacelike interfacelike) {
-    assert(name == interfacelike.name && type == interfacelike.type);
+    assert((name == interfacelike.name && type == interfacelike.type) ||
+        interfacelike.type == 'interface mixin');
     assert(interfacelike.inheritance == null || inheritance == null,
         'An interface should only be defined once.');
     inheritance ??= interfacelike.inheritance;
     _processMembers(interfacelike.members);
   }
-
-  void include(_PartialInterfacelike mixin) {
-    assert(type == 'interface' && mixin.type == 'interface mixin');
-    includes.add(mixin.name);
-  }
 }
 
-// TODO(joshualitt): Replace with a record.
 class _MemberName {
   final String name;
   final String? jsOverride;
 
-  _MemberName(this.name, this.jsOverride);
+  _MemberName._(this.name, this.jsOverride);
+
+  factory _MemberName(String name, [String? jsOverride]) {
+    if (bannedNames.contains(name)) {
+      jsOverride ??= name;
+      name = '${name}_';
+    }
+    return _MemberName._(name, jsOverride);
+  }
 }
 
 class Translator {
@@ -416,10 +437,11 @@ class Translator {
   /// this step resolves unions and therefore can't be done until we record all
   /// types.
   void setOrUpdateInterfacelikes() {
+    final mixins = <String, Set<idl.Interfacelike>>{};
     for (final library in _libraries.values) {
       for (final interfacelike in [
         ...library.interfacelikes,
-        ...library.partialInterfacelikes
+        ...library.partialInterfaces
       ]) {
         final name = interfacelike.name;
         if (_interfacelikes.containsKey(name)) {
@@ -427,6 +449,21 @@ class Translator {
         } else {
           _interfacelikes[name] = _PartialInterfacelike(interfacelike);
         }
+      }
+      for (final interfacelike in [
+        ...library.interfaceMixins,
+        ...library.partialInterfaceMixins
+      ]) {
+        mixins.putIfAbsent(interfacelike.name, () => {}).add(interfacelike);
+      }
+    }
+    for (final include in _includes) {
+      final target = include.target;
+      final includes = include.includes;
+      assert(_interfacelikes.containsKey(target));
+      assert(mixins.containsKey(includes));
+      for (final partial in mixins[includes]!) {
+        _interfacelikes[target]!.update(partial);
       }
     }
   }
@@ -555,16 +592,6 @@ class Translator {
       ..factory = true);
   }
 
-  _MemberName _memberName(String name) {
-    var memberName = name;
-    String? jsOverride;
-    if (bannedNames.contains(name)) {
-      jsOverride = name;
-      memberName = '${name}_';
-    }
-    return _MemberName(memberName, jsOverride);
-  }
-
   List<code.Expression> _jsOverride(String? jsOverride,
           {bool staticInterop = false, bool objectLiteral = false}) =>
       [
@@ -577,8 +604,7 @@ class Translator {
       ];
 
   code.Method _operation(_OverridableOperation operation) {
-    final memberName = _memberName(operation.name);
-    final name = memberName.name;
+    final memberName = operation.name;
     return _overridableMember<code.Method>(
         operation,
         (requiredParameters, optionalParameters) => code.Method((b) => b
@@ -586,7 +612,7 @@ class Translator {
           ..external = true
           ..static = operation.isStatic
           ..returns = _typeToTypeReference(operation.returnType)
-          ..name = name
+          ..name = memberName.name
           ..requiredParameters.addAll(requiredParameters)
           ..optionalParameters.addAll(optionalParameters)));
   }
@@ -596,7 +622,7 @@ class Translator {
       required code.Reference Function() getType,
       required bool isStatic,
       required bool readOnly}) {
-    final memberName = _memberName(fieldName);
+    final memberName = _MemberName(fieldName);
     final name = memberName.name;
     return [
       if (!readOnly)
@@ -741,10 +767,11 @@ class Translator {
     // getters for a few pre-defined singleton classes.
     final getterName = isNamespace ? jsName : singletons[jsName];
     final operations = interfacelike.operations.values.toList();
+    final staticOperations = interfacelike.staticOperations.values.toList();
     final members = interfacelike.members;
     final implements = [
       if (interfacelike.inheritance != null) interfacelike.inheritance!
-    ].followedBy(interfacelike.includes).toList();
+    ];
 
     // All non-namespace root classes must inherit from `JSObject`.
     if (implements.isEmpty && !isNamespace) {
@@ -758,7 +785,7 @@ class Translator {
           dartClassName: dartClassName,
           implements: implements,
           constructor: interfacelike.constructor,
-          staticOperations: interfacelike.staticOperations.values.toList(),
+          staticOperations: staticOperations,
           members: interfacelike.members,
           staticMembers: interfacelike.staticMembers,
           isAbstract: isNamespace,
@@ -797,15 +824,6 @@ class Translator {
     // Create a root import that exports all of the other libraries.
     final dartLibraries = <String, code.Library>{};
     dartLibraries['web.dart'] = generateRootImport(_libraries.keys);
-
-    // Wire up includes. This step must come before we start translating
-    // libraries because interfaces and namespaces may include across library
-    // boundaries.
-    for (final include in _includes) {
-      final target = _interfacelikes[include.target]!;
-      final includes = _interfacelikes[include.includes]!;
-      target.include(includes);
-    }
 
     // Translate each IDL library into a Dart library.
     for (var entry in _libraries.entries) {

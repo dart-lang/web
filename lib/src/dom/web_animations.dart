@@ -316,18 +316,6 @@ extension KeyframeEffectOptionsExtension on KeyframeEffectOptions {
   external String? get pseudoElement;
 }
 
-@JS('Animatable')
-@staticInterop
-class Animatable implements JSObject {}
-
-extension AnimatableExtension on Animatable {
-  external Animation animate(
-    JSObject? keyframes, [
-    JSAny options,
-  ]);
-  external JSArray getAnimations([GetAnimationsOptions options]);
-}
-
 @JS()
 @staticInterop
 @anonymous

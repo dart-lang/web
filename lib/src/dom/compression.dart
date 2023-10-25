@@ -10,12 +10,22 @@ typedef CompressionFormat = String;
 
 @JS('CompressionStream')
 @staticInterop
-class CompressionStream implements GenericTransformStream {
+class CompressionStream implements JSObject {
   external factory CompressionStream(CompressionFormat format);
+}
+
+extension CompressionStreamExtension on CompressionStream {
+  external ReadableStream get readable;
+  external WritableStream get writable;
 }
 
 @JS('DecompressionStream')
 @staticInterop
-class DecompressionStream implements GenericTransformStream {
+class DecompressionStream implements JSObject {
   external factory DecompressionStream(CompressionFormat format);
+}
+
+extension DecompressionStreamExtension on DecompressionStream {
+  external ReadableStream get readable;
+  external WritableStream get writable;
 }

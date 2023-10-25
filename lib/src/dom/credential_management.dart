@@ -23,15 +23,6 @@ extension CredentialExtension on Credential {
   external String get type;
 }
 
-@JS('CredentialUserData')
-@staticInterop
-class CredentialUserData implements JSObject {}
-
-extension CredentialUserDataExtension on CredentialUserData {
-  external String get name;
-  external String get iconURL;
-}
-
 @JS('CredentialsContainer')
 @staticInterop
 class CredentialsContainer implements JSObject {}
@@ -112,12 +103,14 @@ extension CredentialCreationOptionsExtension on CredentialCreationOptions {
 
 @JS('PasswordCredential')
 @staticInterop
-class PasswordCredential implements Credential, CredentialUserData {
+class PasswordCredential implements Credential {
   external factory PasswordCredential(JSObject dataOrForm);
 }
 
 extension PasswordCredentialExtension on PasswordCredential {
   external String get password;
+  external String get name;
+  external String get iconURL;
 }
 
 @JS()
@@ -145,13 +138,15 @@ extension PasswordCredentialDataExtension on PasswordCredentialData {
 
 @JS('FederatedCredential')
 @staticInterop
-class FederatedCredential implements Credential, CredentialUserData {
+class FederatedCredential implements Credential {
   external factory FederatedCredential(FederatedCredentialInit data);
 }
 
 extension FederatedCredentialExtension on FederatedCredential {
   external String get provider;
   external String? get protocol;
+  external String get name;
+  external String get iconURL;
 }
 
 @JS()

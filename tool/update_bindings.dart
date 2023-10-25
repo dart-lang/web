@@ -49,7 +49,14 @@ $_usage''');
     // Compile Dart to Javascript.
     await _runProc(
       Platform.executable,
-      ['compile', 'js', 'dart_main.dart', '-o', 'dart_main.js'],
+      [
+        'compile',
+        'js',
+        '--enable-asserts',
+        'dart_main.dart',
+        '-o',
+        'dart_main.js'
+      ],
       _bindingsGeneratorPath,
     );
   }

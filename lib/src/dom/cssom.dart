@@ -92,14 +92,6 @@ extension StyleSheetListExtension on StyleSheetList {
   external int get length;
 }
 
-@JS('LinkStyle')
-@staticInterop
-class LinkStyle implements JSObject {}
-
-extension LinkStyleExtension on LinkStyle {
-  external CSSStyleSheet? get sheet;
-}
-
 @JS('CSSRuleList')
 @staticInterop
 class CSSRuleList implements JSObject {}
@@ -1475,15 +1467,6 @@ extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
   external String get y;
   external set zIndex(String value);
   external String get zIndex;
-}
-
-@JS('ElementCSSInlineStyle')
-@staticInterop
-class ElementCSSInlineStyle implements JSObject {}
-
-extension ElementCSSInlineStyleExtension on ElementCSSInlineStyle {
-  external StylePropertyMap get attributeStyleMap;
-  external CSSStyleDeclaration get style;
 }
 
 @JS()

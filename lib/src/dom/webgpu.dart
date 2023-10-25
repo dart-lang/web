@@ -67,15 +67,6 @@ typedef GPUCanvasAlphaMode = String;
 typedef GPUDeviceLostReason = String;
 typedef GPUErrorFilter = String;
 
-@JS('GPUObjectBase')
-@staticInterop
-class GPUObjectBase implements JSObject {}
-
-extension GPUObjectBaseExtension on GPUObjectBase {
-  external set label(String value);
-  external String get label;
-}
-
 @JS()
 @staticInterop
 @anonymous
@@ -150,14 +141,6 @@ extension GPUAdapterInfoExtension on GPUAdapterInfo {
   external String get description;
 }
 
-@JS('NavigatorGPU')
-@staticInterop
-class NavigatorGPU implements JSObject {}
-
-extension NavigatorGPUExtension on NavigatorGPU {
-  external GPU get gpu;
-}
-
 @JS('GPU')
 @staticInterop
 class GPU implements JSObject {}
@@ -219,7 +202,7 @@ extension GPUDeviceDescriptorExtension on GPUDeviceDescriptor {
 
 @JS('GPUDevice')
 @staticInterop
-class GPUDevice implements EventTarget, GPUObjectBase {}
+class GPUDevice implements EventTarget {}
 
 extension GPUDeviceExtension on GPUDevice {
   external void destroy();
@@ -256,11 +239,13 @@ extension GPUDeviceExtension on GPUDevice {
   external JSPromise get lost;
   external set onuncapturederror(EventHandler value);
   external EventHandler get onuncapturederror;
+  external set label(String value);
+  external String get label;
 }
 
 @JS('GPUBuffer')
 @staticInterop
-class GPUBuffer implements GPUObjectBase {}
+class GPUBuffer implements JSObject {}
 
 extension GPUBufferExtension on GPUBuffer {
   external JSPromise mapAsync(
@@ -277,6 +262,8 @@ extension GPUBufferExtension on GPUBuffer {
   external GPUSize64Out get size;
   external GPUFlagsConstant get usage;
   external GPUBufferMapState get mapState;
+  external set label(String value);
+  external String get label;
 }
 
 @JS()
@@ -329,7 +316,7 @@ abstract class $GPUMapMode {
 
 @JS('GPUTexture')
 @staticInterop
-class GPUTexture implements GPUObjectBase {}
+class GPUTexture implements JSObject {}
 
 extension GPUTextureExtension on GPUTexture {
   external GPUTextureView createView([GPUTextureViewDescriptor descriptor]);
@@ -342,6 +329,8 @@ extension GPUTextureExtension on GPUTexture {
   external GPUTextureDimension get dimension;
   external GPUTextureFormat get format;
   external GPUFlagsConstant get usage;
+  external set label(String value);
+  external String get label;
 }
 
 @JS()
@@ -391,7 +380,12 @@ abstract class $GPUTextureUsage {
 
 @JS('GPUTextureView')
 @staticInterop
-class GPUTextureView implements GPUObjectBase {}
+class GPUTextureView implements JSObject {}
+
+extension GPUTextureViewExtension on GPUTextureView {
+  external set label(String value);
+  external String get label;
+}
 
 @JS()
 @staticInterop
@@ -427,7 +421,12 @@ extension GPUTextureViewDescriptorExtension on GPUTextureViewDescriptor {
 
 @JS('GPUExternalTexture')
 @staticInterop
-class GPUExternalTexture implements GPUObjectBase {}
+class GPUExternalTexture implements JSObject {}
+
+extension GPUExternalTextureExtension on GPUExternalTexture {
+  external set label(String value);
+  external String get label;
+}
 
 @JS()
 @staticInterop
@@ -449,7 +448,12 @@ extension GPUExternalTextureDescriptorExtension
 
 @JS('GPUSampler')
 @staticInterop
-class GPUSampler implements GPUObjectBase {}
+class GPUSampler implements JSObject {}
+
+extension GPUSamplerExtension on GPUSampler {
+  external set label(String value);
+  external String get label;
+}
 
 @JS()
 @staticInterop
@@ -494,7 +498,12 @@ extension GPUSamplerDescriptorExtension on GPUSamplerDescriptor {
 
 @JS('GPUBindGroupLayout')
 @staticInterop
-class GPUBindGroupLayout implements GPUObjectBase {}
+class GPUBindGroupLayout implements JSObject {}
+
+extension GPUBindGroupLayoutExtension on GPUBindGroupLayout {
+  external set label(String value);
+  external String get label;
+}
 
 @JS()
 @staticInterop
@@ -634,7 +643,12 @@ class GPUExternalTextureBindingLayout implements JSObject {
 
 @JS('GPUBindGroup')
 @staticInterop
-class GPUBindGroup implements GPUObjectBase {}
+class GPUBindGroup implements JSObject {}
+
+extension GPUBindGroupExtension on GPUBindGroup {
+  external set label(String value);
+  external String get label;
+}
 
 @JS()
 @staticInterop
@@ -692,7 +706,12 @@ extension GPUBufferBindingExtension on GPUBufferBinding {
 
 @JS('GPUPipelineLayout')
 @staticInterop
-class GPUPipelineLayout implements GPUObjectBase {}
+class GPUPipelineLayout implements JSObject {}
+
+extension GPUPipelineLayoutExtension on GPUPipelineLayout {
+  external set label(String value);
+  external String get label;
+}
 
 @JS()
 @staticInterop
@@ -709,10 +728,12 @@ extension GPUPipelineLayoutDescriptorExtension on GPUPipelineLayoutDescriptor {
 
 @JS('GPUShaderModule')
 @staticInterop
-class GPUShaderModule implements GPUObjectBase {}
+class GPUShaderModule implements JSObject {}
 
 extension GPUShaderModuleExtension on GPUShaderModule {
   external JSPromise getCompilationInfo();
+  external set label(String value);
+  external String get label;
 }
 
 @JS()
@@ -807,14 +828,6 @@ extension GPUPipelineDescriptorBaseExtension on GPUPipelineDescriptorBase {
   external JSAny get layout;
 }
 
-@JS('GPUPipelineBase')
-@staticInterop
-class GPUPipelineBase implements JSObject {}
-
-extension GPUPipelineBaseExtension on GPUPipelineBase {
-  external GPUBindGroupLayout getBindGroupLayout(int index);
-}
-
 @JS()
 @staticInterop
 @anonymous
@@ -837,7 +850,13 @@ extension GPUProgrammableStageExtension on GPUProgrammableStage {
 
 @JS('GPUComputePipeline')
 @staticInterop
-class GPUComputePipeline implements GPUObjectBase, GPUPipelineBase {}
+class GPUComputePipeline implements JSObject {}
+
+extension GPUComputePipelineExtension on GPUComputePipeline {
+  external GPUBindGroupLayout getBindGroupLayout(int index);
+  external set label(String value);
+  external String get label;
+}
 
 @JS()
 @staticInterop
@@ -855,7 +874,13 @@ extension GPUComputePipelineDescriptorExtension
 
 @JS('GPURenderPipeline')
 @staticInterop
-class GPURenderPipeline implements GPUObjectBase, GPUPipelineBase {}
+class GPURenderPipeline implements JSObject {}
+
+extension GPURenderPipelineExtension on GPURenderPipeline {
+  external GPUBindGroupLayout getBindGroupLayout(int index);
+  external set label(String value);
+  external String get label;
+}
 
 @JS()
 @staticInterop
@@ -1221,7 +1246,12 @@ extension GPUImageCopyExternalImageExtension on GPUImageCopyExternalImage {
 
 @JS('GPUCommandBuffer')
 @staticInterop
-class GPUCommandBuffer implements GPUObjectBase {}
+class GPUCommandBuffer implements JSObject {}
+
+extension GPUCommandBufferExtension on GPUCommandBuffer {
+  external set label(String value);
+  external String get label;
+}
 
 @JS()
 @staticInterop
@@ -1230,14 +1260,9 @@ class GPUCommandBufferDescriptor implements GPUObjectDescriptorBase {
   external factory GPUCommandBufferDescriptor();
 }
 
-@JS('GPUCommandsMixin')
-@staticInterop
-class GPUCommandsMixin implements JSObject {}
-
 @JS('GPUCommandEncoder')
 @staticInterop
-class GPUCommandEncoder
-    implements GPUObjectBase, GPUCommandsMixin, GPUDebugCommandsMixin {}
+class GPUCommandEncoder implements JSObject {}
 
 extension GPUCommandEncoderExtension on GPUCommandEncoder {
   external GPURenderPassEncoder beginRenderPass(
@@ -1283,6 +1308,11 @@ extension GPUCommandEncoderExtension on GPUCommandEncoder {
     GPUSize64 destinationOffset,
   );
   external GPUCommandBuffer finish([GPUCommandBufferDescriptor descriptor]);
+  external void pushDebugGroup(String groupLabel);
+  external void popDebugGroup();
+  external void insertDebugMarker(String markerLabel);
+  external set label(String value);
+  external String get label;
 }
 
 @JS()
@@ -1292,38 +1322,9 @@ class GPUCommandEncoderDescriptor implements GPUObjectDescriptorBase {
   external factory GPUCommandEncoderDescriptor();
 }
 
-@JS('GPUBindingCommandsMixin')
-@staticInterop
-class GPUBindingCommandsMixin implements JSObject {}
-
-extension GPUBindingCommandsMixinExtension on GPUBindingCommandsMixin {
-  external void setBindGroup(
-    GPUIndex32 index,
-    GPUBindGroup? bindGroup, [
-    JSObject dynamicOffsetsOrDynamicOffsetsData,
-    GPUSize64 dynamicOffsetsDataStart,
-    GPUSize32 dynamicOffsetsDataLength,
-  ]);
-}
-
-@JS('GPUDebugCommandsMixin')
-@staticInterop
-class GPUDebugCommandsMixin implements JSObject {}
-
-extension GPUDebugCommandsMixinExtension on GPUDebugCommandsMixin {
-  external void pushDebugGroup(String groupLabel);
-  external void popDebugGroup();
-  external void insertDebugMarker(String markerLabel);
-}
-
 @JS('GPUComputePassEncoder')
 @staticInterop
-class GPUComputePassEncoder
-    implements
-        GPUObjectBase,
-        GPUCommandsMixin,
-        GPUDebugCommandsMixin,
-        GPUBindingCommandsMixin {}
+class GPUComputePassEncoder implements JSObject {}
 
 extension GPUComputePassEncoderExtension on GPUComputePassEncoder {
   external void setPipeline(GPUComputePipeline pipeline);
@@ -1337,6 +1338,18 @@ extension GPUComputePassEncoderExtension on GPUComputePassEncoder {
     GPUSize64 indirectOffset,
   );
   external void end();
+  external void pushDebugGroup(String groupLabel);
+  external void popDebugGroup();
+  external void insertDebugMarker(String markerLabel);
+  external void setBindGroup(
+    GPUIndex32 index,
+    GPUBindGroup? bindGroup, [
+    JSObject dynamicOffsetsOrDynamicOffsetsData,
+    GPUSize64 dynamicOffsetsDataStart,
+    GPUSize32 dynamicOffsetsDataLength,
+  ]);
+  external set label(String value);
+  external String get label;
 }
 
 @JS()
@@ -1375,13 +1388,7 @@ extension GPUComputePassDescriptorExtension on GPUComputePassDescriptor {
 
 @JS('GPURenderPassEncoder')
 @staticInterop
-class GPURenderPassEncoder
-    implements
-        GPUObjectBase,
-        GPUCommandsMixin,
-        GPUDebugCommandsMixin,
-        GPUBindingCommandsMixin,
-        GPURenderCommandsMixin {}
+class GPURenderPassEncoder implements JSObject {}
 
 extension GPURenderPassEncoderExtension on GPURenderPassEncoder {
   external void setViewport(
@@ -1404,6 +1411,52 @@ extension GPURenderPassEncoderExtension on GPURenderPassEncoder {
   external void endOcclusionQuery();
   external void executeBundles(JSArray bundles);
   external void end();
+  external void pushDebugGroup(String groupLabel);
+  external void popDebugGroup();
+  external void insertDebugMarker(String markerLabel);
+  external void setBindGroup(
+    GPUIndex32 index,
+    GPUBindGroup? bindGroup, [
+    JSObject dynamicOffsetsOrDynamicOffsetsData,
+    GPUSize64 dynamicOffsetsDataStart,
+    GPUSize32 dynamicOffsetsDataLength,
+  ]);
+  external void setPipeline(GPURenderPipeline pipeline);
+  external void setIndexBuffer(
+    GPUBuffer buffer,
+    GPUIndexFormat indexFormat, [
+    GPUSize64 offset,
+    GPUSize64 size,
+  ]);
+  external void setVertexBuffer(
+    GPUIndex32 slot,
+    GPUBuffer? buffer, [
+    GPUSize64 offset,
+    GPUSize64 size,
+  ]);
+  external void draw(
+    GPUSize32 vertexCount, [
+    GPUSize32 instanceCount,
+    GPUSize32 firstVertex,
+    GPUSize32 firstInstance,
+  ]);
+  external void drawIndexed(
+    GPUSize32 indexCount, [
+    GPUSize32 instanceCount,
+    GPUSize32 firstIndex,
+    GPUSignedOffset32 baseVertex,
+    GPUSize32 firstInstance,
+  ]);
+  external void drawIndirect(
+    GPUBuffer indirectBuffer,
+    GPUSize64 indirectOffset,
+  );
+  external void drawIndexedIndirect(
+    GPUBuffer indirectBuffer,
+    GPUSize64 indirectOffset,
+  );
+  external set label(String value);
+  external String get label;
 }
 
 @JS()
@@ -1540,11 +1593,38 @@ extension GPURenderPassLayoutExtension on GPURenderPassLayout {
   external GPUSize32 get sampleCount;
 }
 
-@JS('GPURenderCommandsMixin')
+@JS('GPURenderBundle')
 @staticInterop
-class GPURenderCommandsMixin implements JSObject {}
+class GPURenderBundle implements JSObject {}
 
-extension GPURenderCommandsMixinExtension on GPURenderCommandsMixin {
+extension GPURenderBundleExtension on GPURenderBundle {
+  external set label(String value);
+  external String get label;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class GPURenderBundleDescriptor implements GPUObjectDescriptorBase {
+  external factory GPURenderBundleDescriptor();
+}
+
+@JS('GPURenderBundleEncoder')
+@staticInterop
+class GPURenderBundleEncoder implements JSObject {}
+
+extension GPURenderBundleEncoderExtension on GPURenderBundleEncoder {
+  external GPURenderBundle finish([GPURenderBundleDescriptor descriptor]);
+  external void pushDebugGroup(String groupLabel);
+  external void popDebugGroup();
+  external void insertDebugMarker(String markerLabel);
+  external void setBindGroup(
+    GPUIndex32 index,
+    GPUBindGroup? bindGroup, [
+    JSObject dynamicOffsetsOrDynamicOffsetsData,
+    GPUSize64 dynamicOffsetsDataStart,
+    GPUSize32 dynamicOffsetsDataLength,
+  ]);
   external void setPipeline(GPURenderPipeline pipeline);
   external void setIndexBuffer(
     GPUBuffer buffer,
@@ -1579,31 +1659,8 @@ extension GPURenderCommandsMixinExtension on GPURenderCommandsMixin {
     GPUBuffer indirectBuffer,
     GPUSize64 indirectOffset,
   );
-}
-
-@JS('GPURenderBundle')
-@staticInterop
-class GPURenderBundle implements GPUObjectBase {}
-
-@JS()
-@staticInterop
-@anonymous
-class GPURenderBundleDescriptor implements GPUObjectDescriptorBase {
-  external factory GPURenderBundleDescriptor();
-}
-
-@JS('GPURenderBundleEncoder')
-@staticInterop
-class GPURenderBundleEncoder
-    implements
-        GPUObjectBase,
-        GPUCommandsMixin,
-        GPUDebugCommandsMixin,
-        GPUBindingCommandsMixin,
-        GPURenderCommandsMixin {}
-
-extension GPURenderBundleEncoderExtension on GPURenderBundleEncoder {
-  external GPURenderBundle finish([GPURenderBundleDescriptor descriptor]);
+  external set label(String value);
+  external String get label;
 }
 
 @JS()
@@ -1633,7 +1690,7 @@ class GPUQueueDescriptor implements GPUObjectDescriptorBase {
 
 @JS('GPUQueue')
 @staticInterop
-class GPUQueue implements GPUObjectBase {}
+class GPUQueue implements JSObject {}
 
 extension GPUQueueExtension on GPUQueue {
   external void submit(JSArray commandBuffers);
@@ -1656,16 +1713,20 @@ extension GPUQueueExtension on GPUQueue {
     GPUImageCopyTextureTagged destination,
     GPUExtent3D copySize,
   );
+  external set label(String value);
+  external String get label;
 }
 
 @JS('GPUQuerySet')
 @staticInterop
-class GPUQuerySet implements GPUObjectBase {}
+class GPUQuerySet implements JSObject {}
 
 extension GPUQuerySetExtension on GPUQuerySet {
   external void destroy();
   external GPUQueryType get type;
   external GPUSize32Out get count;
+  external set label(String value);
+  external String get label;
 }
 
 @JS()

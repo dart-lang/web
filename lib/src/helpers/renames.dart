@@ -15,4 +15,4 @@ typedef ImageElement = HTMLImageElement;
 typedef VideoElement = HTMLVideoElement;
 typedef CssStyleDeclaration = CSSStyleDeclaration;
 typedef ContextEvent = WebGLContextEvent;
-typedef WebGL = WebGLRenderingContextBase;
+typedef WebGL = WebGLRenderingContext;

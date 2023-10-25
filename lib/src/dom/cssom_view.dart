@@ -182,29 +182,6 @@ extension ConvertCoordinateOptionsExtension on ConvertCoordinateOptions {
   external CSSBoxType get toBox;
 }
 
-@JS('GeometryUtils')
-@staticInterop
-class GeometryUtils implements JSObject {}
-
-extension GeometryUtilsExtension on GeometryUtils {
-  external JSArray getBoxQuads([BoxQuadOptions options]);
-  external DOMQuad convertQuadFromNode(
-    DOMQuadInit quad,
-    GeometryNode from, [
-    ConvertCoordinateOptions options,
-  ]);
-  external DOMQuad convertRectFromNode(
-    DOMRectReadOnly rect,
-    GeometryNode from, [
-    ConvertCoordinateOptions options,
-  ]);
-  external DOMPoint convertPointFromNode(
-    DOMPointInit point,
-    GeometryNode from, [
-    ConvertCoordinateOptions options,
-  ]);
-}
-
 @JS('VisualViewport')
 @staticInterop
 class VisualViewport implements EventTarget {}

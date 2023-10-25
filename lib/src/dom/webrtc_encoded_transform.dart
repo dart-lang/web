@@ -30,7 +30,7 @@ extension SFrameTransformOptionsExtension on SFrameTransformOptions {
 
 @JS('SFrameTransform')
 @staticInterop
-class SFrameTransform implements EventTarget, GenericTransformStream {
+class SFrameTransform implements EventTarget {
   external factory SFrameTransform([SFrameTransformOptions options]);
 }
 
@@ -41,6 +41,8 @@ extension SFrameTransformExtension on SFrameTransform {
   ]);
   external set onerror(EventHandler value);
   external EventHandler get onerror;
+  external ReadableStream get readable;
+  external WritableStream get writable;
 }
 
 @JS('SFrameTransformErrorEvent')

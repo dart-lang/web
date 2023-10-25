@@ -9,14 +9,6 @@ import 'dom.dart';
 typedef LockGrantedCallback = JSFunction;
 typedef LockMode = String;
 
-@JS('NavigatorLocks')
-@staticInterop
-class NavigatorLocks implements JSObject {}
-
-extension NavigatorLocksExtension on NavigatorLocks {
-  external LockManager get locks;
-}
-
 @JS('LockManager')
 @staticInterop
 class LockManager implements JSObject {}

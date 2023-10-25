@@ -12,7 +12,6 @@ import 'css_typed_om.dart';
 import 'css_view_transitions.dart';
 import 'cssom.dart';
 import 'cssom_view.dart';
-import 'dom_parsing.dart';
 import 'font_metrics_api.dart';
 import 'fullscreen.dart';
 import 'geometry.dart';
@@ -23,7 +22,6 @@ import 'sanitizer_api.dart';
 import 'scroll_to_text_fragment.dart';
 import 'selection_api.dart';
 import 'svg.dart';
-import 'wai_aria.dart';
 import 'web_animations.dart';
 
 typedef MutationCallback = JSFunction;
@@ -204,73 +202,6 @@ extension AbortSignalExtension on AbortSignal {
   external EventHandler get onabort;
 }
 
-@JS('NonElementParentNode')
-@staticInterop
-class NonElementParentNode implements JSObject {}
-
-extension NonElementParentNodeExtension on NonElementParentNode {
-  external Element? getElementById(String elementId);
-}
-
-@JS('DocumentOrShadowRoot')
-@staticInterop
-class DocumentOrShadowRoot implements JSObject {}
-
-extension DocumentOrShadowRootExtension on DocumentOrShadowRoot {
-  external JSArray getAnimations();
-  external StyleSheetList get styleSheets;
-  external set adoptedStyleSheets(JSArray value);
-  external JSArray get adoptedStyleSheets;
-  external Element? get fullscreenElement;
-  external Element? get activeElement;
-  external Element? get pictureInPictureElement;
-  external Element? get pointerLockElement;
-}
-
-@JS('ParentNode')
-@staticInterop
-class ParentNode implements JSObject {}
-
-extension ParentNodeExtension on ParentNode {
-  external void prepend(JSAny nodes);
-  external void append(JSAny nodes);
-  external void replaceChildren(JSAny nodes);
-  external Element? querySelector(String selectors);
-  external NodeList querySelectorAll(String selectors);
-  external HTMLCollection get children;
-  external Element? get firstElementChild;
-  external Element? get lastElementChild;
-  external int get childElementCount;
-}
-
-@JS('NonDocumentTypeChildNode')
-@staticInterop
-class NonDocumentTypeChildNode implements JSObject {}
-
-extension NonDocumentTypeChildNodeExtension on NonDocumentTypeChildNode {
-  external Element? get previousElementSibling;
-  external Element? get nextElementSibling;
-}
-
-@JS('ChildNode')
-@staticInterop
-class ChildNode implements JSObject {}
-
-extension ChildNodeExtension on ChildNode {
-  external void before(JSAny nodes);
-  external void after(JSAny nodes);
-  external void replaceWith(JSAny nodes);
-  external void remove();
-}
-
-@JS('Slottable')
-@staticInterop
-class Slottable implements JSObject {}
-
-extension SlottableExtension on Slottable {
-  external HTMLSlotElement? get assignedSlot;
-}
-
 @JS('NodeList')
 @staticInterop
 class NodeList implements JSObject {}
@@ -433,16 +364,7 @@ external Document get document;
 
 @JS('Document')
 @staticInterop
-class Document
-    implements
-        Node,
-        FontFaceSource,
-        GeometryUtils,
-        NonElementParentNode,
-        DocumentOrShadowRoot,
-        ParentNode,
-        XPathEvaluatorBase,
-        GlobalEventHandlers {
+class Document implements Node {
   external factory Document();
 }
 
@@ -542,6 +464,41 @@ extension DocumentExtension on Document {
   external JSPromise requestStorageAccess();
   external JSPromise hasPrivateTokens(String issuer);
   external JSPromise hasRedemptionRecord(String issuer);
+  external JSArray getBoxQuads([BoxQuadOptions options]);
+  external DOMQuad convertQuadFromNode(
+    DOMQuadInit quad,
+    GeometryNode from, [
+    ConvertCoordinateOptions options,
+  ]);
+  external DOMQuad convertRectFromNode(
+    DOMRectReadOnly rect,
+    GeometryNode from, [
+    ConvertCoordinateOptions options,
+  ]);
+  external DOMPoint convertPointFromNode(
+    DOMPointInit point,
+    GeometryNode from, [
+    ConvertCoordinateOptions options,
+  ]);
+  external Element? getElementById(String elementId);
+  external JSArray getAnimations();
+  external void prepend(JSAny nodes);
+  external void append(JSAny nodes);
+  external void replaceChildren(JSAny nodes);
+  external Element? querySelector(String selectors);
+  external NodeList querySelectorAll(String selectors);
+  external XPathExpression createExpression(
+    String expression, [
+    XPathNSResolver? resolver,
+  ]);
+  external Node createNSResolver(Node nodeResolver);
+  external XPathResult evaluate(
+    String expression,
+    Node contextNode, [
+    XPathNSResolver? resolver,
+    int type,
+    XPathResult? result,
+  ]);
   external SVGSVGElement? get rootElement;
   external NamedFlowMap get namedFlows;
   external Element? get scrollingElement;
@@ -621,6 +578,220 @@ extension DocumentExtension on Document {
   external EventHandler get onprerenderingchange;
   external FragmentDirective get fragmentDirective;
   external DocumentTimeline get timeline;
+  external FontFaceSet get fonts;
+  external StyleSheetList get styleSheets;
+  external set adoptedStyleSheets(JSArray value);
+  external JSArray get adoptedStyleSheets;
+  external Element? get fullscreenElement;
+  external Element? get activeElement;
+  external Element? get pictureInPictureElement;
+  external Element? get pointerLockElement;
+  external HTMLCollection get children;
+  external Element? get firstElementChild;
+  external Element? get lastElementChild;
+  external int get childElementCount;
+  external set onanimationstart(EventHandler value);
+  external EventHandler get onanimationstart;
+  external set onanimationiteration(EventHandler value);
+  external EventHandler get onanimationiteration;
+  external set onanimationend(EventHandler value);
+  external EventHandler get onanimationend;
+  external set onanimationcancel(EventHandler value);
+  external EventHandler get onanimationcancel;
+  external set ontransitionrun(EventHandler value);
+  external EventHandler get ontransitionrun;
+  external set ontransitionstart(EventHandler value);
+  external EventHandler get ontransitionstart;
+  external set ontransitionend(EventHandler value);
+  external EventHandler get ontransitionend;
+  external set ontransitioncancel(EventHandler value);
+  external EventHandler get ontransitioncancel;
+  external set onabort(EventHandler value);
+  external EventHandler get onabort;
+  external set onauxclick(EventHandler value);
+  external EventHandler get onauxclick;
+  external set onbeforeinput(EventHandler value);
+  external EventHandler get onbeforeinput;
+  external set onbeforematch(EventHandler value);
+  external EventHandler get onbeforematch;
+  external set onbeforetoggle(EventHandler value);
+  external EventHandler get onbeforetoggle;
+  external set onblur(EventHandler value);
+  external EventHandler get onblur;
+  external set oncancel(EventHandler value);
+  external EventHandler get oncancel;
+  external set oncanplay(EventHandler value);
+  external EventHandler get oncanplay;
+  external set oncanplaythrough(EventHandler value);
+  external EventHandler get oncanplaythrough;
+  external set onchange(EventHandler value);
+  external EventHandler get onchange;
+  external set onclick(EventHandler value);
+  external EventHandler get onclick;
+  external set onclose(EventHandler value);
+  external EventHandler get onclose;
+  external set oncontextlost(EventHandler value);
+  external EventHandler get oncontextlost;
+  external set oncontextmenu(EventHandler value);
+  external EventHandler get oncontextmenu;
+  external set oncontextrestored(EventHandler value);
+  external EventHandler get oncontextrestored;
+  external set oncopy(EventHandler value);
+  external EventHandler get oncopy;
+  external set oncuechange(EventHandler value);
+  external EventHandler get oncuechange;
+  external set oncut(EventHandler value);
+  external EventHandler get oncut;
+  external set ondblclick(EventHandler value);
+  external EventHandler get ondblclick;
+  external set ondrag(EventHandler value);
+  external EventHandler get ondrag;
+  external set ondragend(EventHandler value);
+  external EventHandler get ondragend;
+  external set ondragenter(EventHandler value);
+  external EventHandler get ondragenter;
+  external set ondragleave(EventHandler value);
+  external EventHandler get ondragleave;
+  external set ondragover(EventHandler value);
+  external EventHandler get ondragover;
+  external set ondragstart(EventHandler value);
+  external EventHandler get ondragstart;
+  external set ondrop(EventHandler value);
+  external EventHandler get ondrop;
+  external set ondurationchange(EventHandler value);
+  external EventHandler get ondurationchange;
+  external set onemptied(EventHandler value);
+  external EventHandler get onemptied;
+  external set onended(EventHandler value);
+  external EventHandler get onended;
+  external set onerror(OnErrorEventHandler value);
+  external OnErrorEventHandler get onerror;
+  external set onfocus(EventHandler value);
+  external EventHandler get onfocus;
+  external set onformdata(EventHandler value);
+  external EventHandler get onformdata;
+  external set oninput(EventHandler value);
+  external EventHandler get oninput;
+  external set oninvalid(EventHandler value);
+  external EventHandler get oninvalid;
+  external set onkeydown(EventHandler value);
+  external EventHandler get onkeydown;
+  external set onkeypress(EventHandler value);
+  external EventHandler get onkeypress;
+  external set onkeyup(EventHandler value);
+  external EventHandler get onkeyup;
+  external set onload(EventHandler value);
+  external EventHandler get onload;
+  external set onloadeddata(EventHandler value);
+  external EventHandler get onloadeddata;
+  external set onloadedmetadata(EventHandler value);
+  external EventHandler get onloadedmetadata;
+  external set onloadstart(EventHandler value);
+  external EventHandler get onloadstart;
+  external set onmousedown(EventHandler value);
+  external EventHandler get onmousedown;
+  external set onmouseenter(EventHandler value);
+  external EventHandler get onmouseenter;
+  external set onmouseleave(EventHandler value);
+  external EventHandler get onmouseleave;
+  external set onmousemove(EventHandler value);
+  external EventHandler get onmousemove;
+  external set onmouseout(EventHandler value);
+  external EventHandler get onmouseout;
+  external set onmouseover(EventHandler value);
+  external EventHandler get onmouseover;
+  external set onmouseup(EventHandler value);
+  external EventHandler get onmouseup;
+  external set onpaste(EventHandler value);
+  external EventHandler get onpaste;
+  external set onpause(EventHandler value);
+  external EventHandler get onpause;
+  external set onplay(EventHandler value);
+  external EventHandler get onplay;
+  external set onplaying(EventHandler value);
+  external EventHandler get onplaying;
+  external set onprogress(EventHandler value);
+  external EventHandler get onprogress;
+  external set onratechange(EventHandler value);
+  external EventHandler get onratechange;
+  external set onreset(EventHandler value);
+  external EventHandler get onreset;
+  external set onresize(EventHandler value);
+  external EventHandler get onresize;
+  external set onscroll(EventHandler value);
+  external EventHandler get onscroll;
+  external set onscrollend(EventHandler value);
+  external EventHandler get onscrollend;
+  external set onsecuritypolicyviolation(EventHandler value);
+  external EventHandler get onsecuritypolicyviolation;
+  external set onseeked(EventHandler value);
+  external EventHandler get onseeked;
+  external set onseeking(EventHandler value);
+  external EventHandler get onseeking;
+  external set onselect(EventHandler value);
+  external EventHandler get onselect;
+  external set onslotchange(EventHandler value);
+  external EventHandler get onslotchange;
+  external set onstalled(EventHandler value);
+  external EventHandler get onstalled;
+  external set onsubmit(EventHandler value);
+  external EventHandler get onsubmit;
+  external set onsuspend(EventHandler value);
+  external EventHandler get onsuspend;
+  external set ontimeupdate(EventHandler value);
+  external EventHandler get ontimeupdate;
+  external set ontoggle(EventHandler value);
+  external EventHandler get ontoggle;
+  external set onvolumechange(EventHandler value);
+  external EventHandler get onvolumechange;
+  external set onwaiting(EventHandler value);
+  external EventHandler get onwaiting;
+  external set onwebkitanimationend(EventHandler value);
+  external EventHandler get onwebkitanimationend;
+  external set onwebkitanimationiteration(EventHandler value);
+  external EventHandler get onwebkitanimationiteration;
+  external set onwebkitanimationstart(EventHandler value);
+  external EventHandler get onwebkitanimationstart;
+  external set onwebkittransitionend(EventHandler value);
+  external EventHandler get onwebkittransitionend;
+  external set onwheel(EventHandler value);
+  external EventHandler get onwheel;
+  external set onpointerover(EventHandler value);
+  external EventHandler get onpointerover;
+  external set onpointerenter(EventHandler value);
+  external EventHandler get onpointerenter;
+  external set onpointerdown(EventHandler value);
+  external EventHandler get onpointerdown;
+  external set onpointermove(EventHandler value);
+  external EventHandler get onpointermove;
+  external set onpointerrawupdate(EventHandler value);
+  external EventHandler get onpointerrawupdate;
+  external set onpointerup(EventHandler value);
+  external EventHandler get onpointerup;
+  external set onpointercancel(EventHandler value);
+  external EventHandler get onpointercancel;
+  external set onpointerout(EventHandler value);
+  external EventHandler get onpointerout;
+  external set onpointerleave(EventHandler value);
+  external EventHandler get onpointerleave;
+  external set ongotpointercapture(EventHandler value);
+  external EventHandler get ongotpointercapture;
+  external set onlostpointercapture(EventHandler value);
+  external EventHandler get onlostpointercapture;
+  external set onselectstart(EventHandler value);
+  external EventHandler get onselectstart;
+  external set onselectionchange(EventHandler value);
+  external EventHandler get onselectionchange;
+  external set ontouchstart(EventHandler value);
+  external EventHandler get ontouchstart;
+  external set ontouchend(EventHandler value);
+  external EventHandler get ontouchend;
+  external set ontouchmove(EventHandler value);
+  external EventHandler get ontouchmove;
+  external set ontouchcancel(EventHandler value);
+  external EventHandler get ontouchcancel;
+  external set onbeforexrselect(EventHandler value);
+  external EventHandler get onbeforexrselect;
 }
 
 @JS('XMLDocument')
@@ -662,9 +833,13 @@ extension DOMImplementationExtension on DOMImplementation {
 
 @JS('DocumentType')
 @staticInterop
-class DocumentType implements Node, ChildNode {}
+class DocumentType implements Node {}
 
 extension DocumentTypeExtension on DocumentType {
+  external void before(JSAny nodes);
+  external void after(JSAny nodes);
+  external void replaceWith(JSAny nodes);
+  external void remove();
   external String get name;
   external String get publicId;
   external String get systemId;
@@ -672,37 +847,49 @@ extension DocumentTypeExtension on DocumentType {
 
 @JS('DocumentFragment')
 @staticInterop
-class DocumentFragment implements Node, NonElementParentNode, ParentNode {
+class DocumentFragment implements Node {
   external factory DocumentFragment();
+}
+
+extension DocumentFragmentExtension on DocumentFragment {
+  external Element? getElementById(String elementId);
+  external void prepend(JSAny nodes);
+  external void append(JSAny nodes);
+  external void replaceChildren(JSAny nodes);
+  external Element? querySelector(String selectors);
+  external NodeList querySelectorAll(String selectors);
+  external HTMLCollection get children;
+  external Element? get firstElementChild;
+  external Element? get lastElementChild;
+  external int get childElementCount;
 }
 
 @JS('ShadowRoot')
 @staticInterop
-class ShadowRoot implements DocumentFragment, InnerHTML, DocumentOrShadowRoot {}
+class ShadowRoot implements DocumentFragment {}
 
 extension ShadowRootExtension on ShadowRoot {
+  external JSArray getAnimations();
   external ShadowRootMode get mode;
   external bool get delegatesFocus;
   external SlotAssignmentMode get slotAssignment;
   external Element get host;
   external set onslotchange(EventHandler value);
   external EventHandler get onslotchange;
+  external set innerHTML(String value);
+  external String get innerHTML;
+  external StyleSheetList get styleSheets;
+  external set adoptedStyleSheets(JSArray value);
+  external JSArray get adoptedStyleSheets;
+  external Element? get fullscreenElement;
+  external Element? get activeElement;
+  external Element? get pictureInPictureElement;
+  external Element? get pointerLockElement;
 }
 
 @JS('Element')
 @staticInterop
-class Element
-    implements
-        Node,
-        InnerHTML,
-        Region,
-        GeometryUtils,
-        ParentNode,
-        NonDocumentTypeChildNode,
-        ChildNode,
-        Slottable,
-        ARIAMixin,
-        Animatable {}
+class Element implements Node {}
 
 extension ElementExtension on Element {
   external void insertAdjacentHTML(
@@ -798,6 +985,37 @@ extension ElementExtension on Element {
     String input, [
     SetHTMLOptions options,
   ]);
+  external JSArray? getRegionFlowRanges();
+  external JSArray getBoxQuads([BoxQuadOptions options]);
+  external DOMQuad convertQuadFromNode(
+    DOMQuadInit quad,
+    GeometryNode from, [
+    ConvertCoordinateOptions options,
+  ]);
+  external DOMQuad convertRectFromNode(
+    DOMRectReadOnly rect,
+    GeometryNode from, [
+    ConvertCoordinateOptions options,
+  ]);
+  external DOMPoint convertPointFromNode(
+    DOMPointInit point,
+    GeometryNode from, [
+    ConvertCoordinateOptions options,
+  ]);
+  external void prepend(JSAny nodes);
+  external void append(JSAny nodes);
+  external void replaceChildren(JSAny nodes);
+  external Element? querySelector(String selectors);
+  external NodeList querySelectorAll(String selectors);
+  external void before(JSAny nodes);
+  external void after(JSAny nodes);
+  external void replaceWith(JSAny nodes);
+  external void remove();
+  external Animation animate(
+    JSObject? keyframes, [
+    JSAny options,
+  ]);
+  external JSArray getAnimations([GetAnimationsOptions options]);
   external set outerHTML(String value);
   external String get outerHTML;
   external DOMTokenList get part;
@@ -830,6 +1048,114 @@ extension ElementExtension on Element {
   external EventHandler get onfullscreenchange;
   external set onfullscreenerror(EventHandler value);
   external EventHandler get onfullscreenerror;
+  external set innerHTML(String value);
+  external String get innerHTML;
+  external String get regionOverset;
+  external HTMLCollection get children;
+  external Element? get firstElementChild;
+  external Element? get lastElementChild;
+  external int get childElementCount;
+  external Element? get previousElementSibling;
+  external Element? get nextElementSibling;
+  external HTMLSlotElement? get assignedSlot;
+  external set role(String? value);
+  external String? get role;
+  external set ariaActiveDescendantElement(Element? value);
+  external Element? get ariaActiveDescendantElement;
+  external set ariaAtomic(String? value);
+  external String? get ariaAtomic;
+  external set ariaAutoComplete(String? value);
+  external String? get ariaAutoComplete;
+  external set ariaBusy(String? value);
+  external String? get ariaBusy;
+  external set ariaChecked(String? value);
+  external String? get ariaChecked;
+  external set ariaColCount(String? value);
+  external String? get ariaColCount;
+  external set ariaColIndex(String? value);
+  external String? get ariaColIndex;
+  external set ariaColIndexText(String? value);
+  external String? get ariaColIndexText;
+  external set ariaColSpan(String? value);
+  external String? get ariaColSpan;
+  external set ariaControlsElements(JSArray? value);
+  external JSArray? get ariaControlsElements;
+  external set ariaCurrent(String? value);
+  external String? get ariaCurrent;
+  external set ariaDescribedByElements(JSArray? value);
+  external JSArray? get ariaDescribedByElements;
+  external set ariaDescription(String? value);
+  external String? get ariaDescription;
+  external set ariaDetailsElements(JSArray? value);
+  external JSArray? get ariaDetailsElements;
+  external set ariaDisabled(String? value);
+  external String? get ariaDisabled;
+  external set ariaErrorMessageElements(JSArray? value);
+  external JSArray? get ariaErrorMessageElements;
+  external set ariaExpanded(String? value);
+  external String? get ariaExpanded;
+  external set ariaFlowToElements(JSArray? value);
+  external JSArray? get ariaFlowToElements;
+  external set ariaHasPopup(String? value);
+  external String? get ariaHasPopup;
+  external set ariaHidden(String? value);
+  external String? get ariaHidden;
+  external set ariaInvalid(String? value);
+  external String? get ariaInvalid;
+  external set ariaKeyShortcuts(String? value);
+  external String? get ariaKeyShortcuts;
+  external set ariaLabel(String? value);
+  external String? get ariaLabel;
+  external set ariaLabelledByElements(JSArray? value);
+  external JSArray? get ariaLabelledByElements;
+  external set ariaLevel(String? value);
+  external String? get ariaLevel;
+  external set ariaLive(String? value);
+  external String? get ariaLive;
+  external set ariaModal(String? value);
+  external String? get ariaModal;
+  external set ariaMultiLine(String? value);
+  external String? get ariaMultiLine;
+  external set ariaMultiSelectable(String? value);
+  external String? get ariaMultiSelectable;
+  external set ariaOrientation(String? value);
+  external String? get ariaOrientation;
+  external set ariaOwnsElements(JSArray? value);
+  external JSArray? get ariaOwnsElements;
+  external set ariaPlaceholder(String? value);
+  external String? get ariaPlaceholder;
+  external set ariaPosInSet(String? value);
+  external String? get ariaPosInSet;
+  external set ariaPressed(String? value);
+  external String? get ariaPressed;
+  external set ariaReadOnly(String? value);
+  external String? get ariaReadOnly;
+  external set ariaRequired(String? value);
+  external String? get ariaRequired;
+  external set ariaRoleDescription(String? value);
+  external String? get ariaRoleDescription;
+  external set ariaRowCount(String? value);
+  external String? get ariaRowCount;
+  external set ariaRowIndex(String? value);
+  external String? get ariaRowIndex;
+  external set ariaRowIndexText(String? value);
+  external String? get ariaRowIndexText;
+  external set ariaRowSpan(String? value);
+  external String? get ariaRowSpan;
+  external set ariaSelected(String? value);
+  external String? get ariaSelected;
+  external set ariaSetSize(String? value);
+  external String? get ariaSetSize;
+  external set ariaSort(String? value);
+  external String? get ariaSort;
+  external set ariaValueMax(String? value);
+  external String? get ariaValueMax;
+  external set ariaValueMin(String? value);
+  external String? get ariaValueMin;
+  external set ariaValueNow(String? value);
+  external String? get ariaValueNow;
+  external set ariaValueText(String? value);
+  external String? get ariaValueText;
 }
 
 @JS()
@@ -890,7 +1216,7 @@ extension AttrExtension on Attr {
 
 @JS('CharacterData')
 @staticInterop
-class CharacterData implements Node, NonDocumentTypeChildNode, ChildNode {}
+class CharacterData implements Node {}
 
 extension CharacterDataExtension on CharacterData {
   external String substringData(
@@ -911,20 +1237,43 @@ extension CharacterDataExtension on CharacterData {
     int count,
     String data,
   );
+  external void before(JSAny nodes);
+  external void after(JSAny nodes);
+  external void replaceWith(JSAny nodes);
+  external void remove();
   external set data(String value);
   external String get data;
   external int get length;
+  external Element? get previousElementSibling;
+  external Element? get nextElementSibling;
 }
 
 @JS('Text')
 @staticInterop
-class Text implements CharacterData, GeometryUtils, Slottable {
+class Text implements CharacterData {
   external factory Text([String data]);
 }
 
 extension TextExtension on Text {
   external Text splitText(int offset);
+  external JSArray getBoxQuads([BoxQuadOptions options]);
+  external DOMQuad convertQuadFromNode(
+    DOMQuadInit quad,
+    GeometryNode from, [
+    ConvertCoordinateOptions options,
+  ]);
+  external DOMQuad convertRectFromNode(
+    DOMRectReadOnly rect,
+    GeometryNode from, [
+    ConvertCoordinateOptions options,
+  ]);
+  external DOMPoint convertPointFromNode(
+    DOMPointInit point,
+    GeometryNode from, [
+    ConvertCoordinateOptions options,
+  ]);
   external String get wholeText;
+  external HTMLSlotElement? get assignedSlot;
 }
 
 @JS('CDATASection')
@@ -933,10 +1282,11 @@ class CDATASection implements Text {}
 
 @JS('ProcessingInstruction')
 @staticInterop
-class ProcessingInstruction implements CharacterData, LinkStyle {}
+class ProcessingInstruction implements CharacterData {}
 
 extension ProcessingInstructionExtension on ProcessingInstruction {
   external String get target;
+  external CSSStyleSheet? get sheet;
 }
 
 @JS('Comment')
@@ -1135,11 +1485,13 @@ extension XPathExpressionExtension on XPathExpression {
   ]);
 }
 
-@JS('XPathEvaluatorBase')
+@JS('XPathEvaluator')
 @staticInterop
-class XPathEvaluatorBase implements JSObject {}
+class XPathEvaluator implements JSObject {
+  external factory XPathEvaluator();
+}
 
-extension XPathEvaluatorBaseExtension on XPathEvaluatorBase {
+extension XPathEvaluatorExtension on XPathEvaluator {
   external XPathExpression createExpression(
     String expression, [
     XPathNSResolver? resolver,
@@ -1152,12 +1504,6 @@ extension XPathEvaluatorBaseExtension on XPathEvaluatorBase {
     int type,
     XPathResult? result,
   ]);
-}
-
-@JS('XPathEvaluator')
-@staticInterop
-class XPathEvaluator implements XPathEvaluatorBase {
-  external factory XPathEvaluator();
 }
 
 @JS('XSLTProcessor')

@@ -144,24 +144,17 @@ extension UnderlyingSourceExtension on UnderlyingSource {
   external int get autoAllocateChunkSize;
 }
 
-@JS('ReadableStreamGenericReader')
-@staticInterop
-class ReadableStreamGenericReader implements JSObject {}
-
-extension ReadableStreamGenericReaderExtension on ReadableStreamGenericReader {
-  external JSPromise cancel([JSAny? reason]);
-  external JSPromise get closed;
-}
-
 @JS('ReadableStreamDefaultReader')
 @staticInterop
-class ReadableStreamDefaultReader implements ReadableStreamGenericReader {
+class ReadableStreamDefaultReader implements JSObject {
   external factory ReadableStreamDefaultReader(ReadableStream stream);
 }
 
 extension ReadableStreamDefaultReaderExtension on ReadableStreamDefaultReader {
   external JSPromise read();
   external void releaseLock();
+  external JSPromise cancel([JSAny? reason]);
+  external JSPromise get closed;
 }
 
 @JS()
@@ -183,13 +176,15 @@ extension ReadableStreamReadResultExtension on ReadableStreamReadResult {
 
 @JS('ReadableStreamBYOBReader')
 @staticInterop
-class ReadableStreamBYOBReader implements ReadableStreamGenericReader {
+class ReadableStreamBYOBReader implements JSObject {
   external factory ReadableStreamBYOBReader(ReadableStream stream);
 }
 
 extension ReadableStreamBYOBReaderExtension on ReadableStreamBYOBReader {
   external JSPromise read(ArrayBufferView view);
   external void releaseLock();
+  external JSPromise cancel([JSAny? reason]);
+  external JSPromise get closed;
 }
 
 @JS('ReadableStreamDefaultController')
@@ -400,13 +395,4 @@ class CountQueuingStrategy implements JSObject {
 extension CountQueuingStrategyExtension on CountQueuingStrategy {
   external num get highWaterMark;
   external JSFunction get size;
-}
-
-@JS('GenericTransformStream')
-@staticInterop
-class GenericTransformStream implements JSObject {}
-
-extension GenericTransformStreamExtension on GenericTransformStream {
-  external ReadableStream get readable;
-  external WritableStream get writable;
 }

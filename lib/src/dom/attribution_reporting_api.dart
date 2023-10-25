@@ -4,16 +4,6 @@
 
 import 'dart:js_interop';
 
-@JS('HTMLAttributionSrcElementUtils')
-@staticInterop
-class HTMLAttributionSrcElementUtils implements JSObject {}
-
-extension HTMLAttributionSrcElementUtilsExtension
-    on HTMLAttributionSrcElementUtils {
-  external set attributionSrc(String value);
-  external String get attributionSrc;
-}
-
 @JS()
 @staticInterop
 @anonymous

@@ -120,9 +120,9 @@ extension WebGLShaderPrecisionFormatExtension on WebGLShaderPrecisionFormat {
   external GLint get precision;
 }
 
-@JS('WebGLRenderingContextBase')
+@JS('WebGLRenderingContext')
 @staticInterop
-class WebGLRenderingContextBase implements JSObject {
+class WebGLRenderingContext implements JSObject {
   external static GLenum get DEPTH_BUFFER_BIT;
   external static GLenum get STENCIL_BUFFER_BIT;
   external static GLenum get COLOR_BUFFER_BIT;
@@ -421,7 +421,7 @@ class WebGLRenderingContextBase implements JSObject {
   external static GLenum get BROWSER_DEFAULT_WEBGL;
 }
 
-extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
+extension WebGLRenderingContextExtension on WebGLRenderingContext {
   external WebGLContextAttributes? getContextAttributes();
   external bool isContextLost();
   external JSArray? getSupportedExtensions();
@@ -805,21 +805,6 @@ extension WebGLRenderingContextBaseExtension on WebGLRenderingContextBase {
     GLsizei height,
   );
   external JSPromise makeXRCompatible();
-  external JSObject get canvas;
-  external GLsizei get drawingBufferWidth;
-  external GLsizei get drawingBufferHeight;
-  external set drawingBufferColorSpace(PredefinedColorSpace value);
-  external PredefinedColorSpace get drawingBufferColorSpace;
-  external set unpackColorSpace(PredefinedColorSpace value);
-  external PredefinedColorSpace get unpackColorSpace;
-}
-
-@JS('WebGLRenderingContextOverloads')
-@staticInterop
-class WebGLRenderingContextOverloads implements JSObject {}
-
-extension WebGLRenderingContextOverloadsExtension
-    on WebGLRenderingContextOverloads {
   external void bufferData(
     GLenum target,
     JSAny dataOrSize,
@@ -927,12 +912,14 @@ extension WebGLRenderingContextOverloadsExtension
     GLboolean transpose,
     Float32List value,
   );
+  external JSObject get canvas;
+  external GLsizei get drawingBufferWidth;
+  external GLsizei get drawingBufferHeight;
+  external set drawingBufferColorSpace(PredefinedColorSpace value);
+  external PredefinedColorSpace get drawingBufferColorSpace;
+  external set unpackColorSpace(PredefinedColorSpace value);
+  external PredefinedColorSpace get unpackColorSpace;
 }
-
-@JS('WebGLRenderingContext')
-@staticInterop
-class WebGLRenderingContext
-    implements WebGLRenderingContextBase, WebGLRenderingContextOverloads {}
 
 @JS('WebGLContextEvent')
 @staticInterop

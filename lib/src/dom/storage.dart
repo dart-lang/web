@@ -4,14 +4,6 @@
 
 import 'dart:js_interop';
 
-@JS('NavigatorStorage')
-@staticInterop
-class NavigatorStorage implements JSObject {}
-
-extension NavigatorStorageExtension on NavigatorStorage {
-  external StorageManager get storage;
-}
-
 @JS('StorageManager')
 @staticInterop
 class StorageManager implements JSObject {}

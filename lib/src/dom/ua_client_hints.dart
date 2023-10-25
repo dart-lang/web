@@ -96,11 +96,3 @@ extension NavigatorUADataExtension on NavigatorUAData {
   external bool get mobile;
   external String get platform;
 }
-
-@JS('NavigatorUA')
-@staticInterop
-class NavigatorUA implements JSObject {}
-
-extension NavigatorUAExtension on NavigatorUA {
-  external NavigatorUAData get userAgentData;
-}

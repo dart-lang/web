@@ -185,11 +185,3 @@ extension FontFaceSetExtension on FontFaceSet {
   external JSPromise get ready;
   external FontFaceSetLoadStatus get status;
 }
-
-@JS('FontFaceSource')
-@staticInterop
-class FontFaceSource implements JSObject {}
-
-extension FontFaceSourceExtension on FontFaceSource {
-  external FontFaceSet get fonts;
-}

@@ -113,12 +113,7 @@ extension RequestDeviceOptionsExtension on RequestDeviceOptions {
 
 @JS('Bluetooth')
 @staticInterop
-class Bluetooth
-    implements
-        EventTarget,
-        BluetoothDeviceEventHandlers,
-        CharacteristicEventHandlers,
-        ServiceEventHandlers {}
+class Bluetooth implements EventTarget {}
 
 extension BluetoothExtension on Bluetooth {
   external JSPromise getAvailability();
@@ -127,6 +122,18 @@ extension BluetoothExtension on Bluetooth {
   external set onavailabilitychanged(EventHandler value);
   external EventHandler get onavailabilitychanged;
   external BluetoothDevice? get referringDevice;
+  external set onadvertisementreceived(EventHandler value);
+  external EventHandler get onadvertisementreceived;
+  external set ongattserverdisconnected(EventHandler value);
+  external EventHandler get ongattserverdisconnected;
+  external set oncharacteristicvaluechanged(EventHandler value);
+  external EventHandler get oncharacteristicvaluechanged;
+  external set onserviceadded(EventHandler value);
+  external EventHandler get onserviceadded;
+  external set onservicechanged(EventHandler value);
+  external EventHandler get onservicechanged;
+  external set onserviceremoved(EventHandler value);
+  external EventHandler get onserviceremoved;
 }
 
 @JS()
@@ -228,12 +235,7 @@ extension ValueEventInitExtension on ValueEventInit {
 
 @JS('BluetoothDevice')
 @staticInterop
-class BluetoothDevice
-    implements
-        EventTarget,
-        BluetoothDeviceEventHandlers,
-        CharacteristicEventHandlers,
-        ServiceEventHandlers {}
+class BluetoothDevice implements EventTarget {}
 
 extension BluetoothDeviceExtension on BluetoothDevice {
   external JSPromise forget();
@@ -242,6 +244,18 @@ extension BluetoothDeviceExtension on BluetoothDevice {
   external String? get name;
   external BluetoothRemoteGATTServer? get gatt;
   external bool get watchingAdvertisements;
+  external set onadvertisementreceived(EventHandler value);
+  external EventHandler get onadvertisementreceived;
+  external set ongattserverdisconnected(EventHandler value);
+  external EventHandler get ongattserverdisconnected;
+  external set oncharacteristicvaluechanged(EventHandler value);
+  external EventHandler get oncharacteristicvaluechanged;
+  external set onserviceadded(EventHandler value);
+  external EventHandler get onserviceadded;
+  external set onservicechanged(EventHandler value);
+  external EventHandler get onservicechanged;
+  external set onserviceremoved(EventHandler value);
+  external EventHandler get onserviceremoved;
 }
 
 @JS()
@@ -340,8 +354,7 @@ extension BluetoothRemoteGATTServerExtension on BluetoothRemoteGATTServer {
 
 @JS('BluetoothRemoteGATTService')
 @staticInterop
-class BluetoothRemoteGATTService
-    implements EventTarget, CharacteristicEventHandlers, ServiceEventHandlers {}
+class BluetoothRemoteGATTService implements EventTarget {}
 
 extension BluetoothRemoteGATTServiceExtension on BluetoothRemoteGATTService {
   external JSPromise getCharacteristic(
@@ -353,12 +366,19 @@ extension BluetoothRemoteGATTServiceExtension on BluetoothRemoteGATTService {
   external BluetoothDevice get device;
   external UUID get uuid;
   external bool get isPrimary;
+  external set oncharacteristicvaluechanged(EventHandler value);
+  external EventHandler get oncharacteristicvaluechanged;
+  external set onserviceadded(EventHandler value);
+  external EventHandler get onserviceadded;
+  external set onservicechanged(EventHandler value);
+  external EventHandler get onservicechanged;
+  external set onserviceremoved(EventHandler value);
+  external EventHandler get onserviceremoved;
 }
 
 @JS('BluetoothRemoteGATTCharacteristic')
 @staticInterop
-class BluetoothRemoteGATTCharacteristic
-    implements EventTarget, CharacteristicEventHandlers {}
+class BluetoothRemoteGATTCharacteristic implements EventTarget {}
 
 extension BluetoothRemoteGATTCharacteristicExtension
     on BluetoothRemoteGATTCharacteristic {
@@ -374,6 +394,8 @@ extension BluetoothRemoteGATTCharacteristicExtension
   external UUID get uuid;
   external BluetoothCharacteristicProperties get properties;
   external JSDataView? get value;
+  external set oncharacteristicvaluechanged(EventHandler value);
+  external EventHandler get oncharacteristicvaluechanged;
 }
 
 @JS('BluetoothCharacteristicProperties')
@@ -404,40 +426,6 @@ extension BluetoothRemoteGATTDescriptorExtension
   external BluetoothRemoteGATTCharacteristic get characteristic;
   external UUID get uuid;
   external JSDataView? get value;
-}
-
-@JS('CharacteristicEventHandlers')
-@staticInterop
-class CharacteristicEventHandlers implements JSObject {}
-
-extension CharacteristicEventHandlersExtension on CharacteristicEventHandlers {
-  external set oncharacteristicvaluechanged(EventHandler value);
-  external EventHandler get oncharacteristicvaluechanged;
-}
-
-@JS('BluetoothDeviceEventHandlers')
-@staticInterop
-class BluetoothDeviceEventHandlers implements JSObject {}
-
-extension BluetoothDeviceEventHandlersExtension
-    on BluetoothDeviceEventHandlers {
-  external set onadvertisementreceived(EventHandler value);
-  external EventHandler get onadvertisementreceived;
-  external set ongattserverdisconnected(EventHandler value);
-  external EventHandler get ongattserverdisconnected;
-}
-
-@JS('ServiceEventHandlers')
-@staticInterop
-class ServiceEventHandlers implements JSObject {}
-
-extension ServiceEventHandlersExtension on ServiceEventHandlers {
-  external set onserviceadded(EventHandler value);
-  external EventHandler get onserviceadded;
-  external set onservicechanged(EventHandler value);
-  external EventHandler get onservicechanged;
-  external set onserviceremoved(EventHandler value);
-  external EventHandler get onserviceremoved;
 }
 
 @JS('BluetoothUUID')

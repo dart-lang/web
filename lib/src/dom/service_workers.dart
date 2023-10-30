@@ -24,7 +24,7 @@ typedef ClientType = String;
 
 @JS('ServiceWorker')
 @staticInterop
-class ServiceWorker implements EventTarget, AbstractWorker {}
+class ServiceWorker implements EventTarget {}
 
 extension ServiceWorkerExtension on ServiceWorker {
   external void postMessage(
@@ -35,6 +35,8 @@ extension ServiceWorkerExtension on ServiceWorker {
   external ServiceWorkerState get state;
   external set onstatechange(EventHandler value);
   external EventHandler get onstatechange;
+  external set onerror(EventHandler value);
+  external EventHandler get onerror;
 }
 
 @JS('ServiceWorkerRegistration')

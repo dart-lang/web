@@ -3,6 +3,8 @@
 - Updated types to account for union types.
 - Fixed issue where all `JSAny`s were treated as nullable.
 - Changed `JSVoid` to `void`.
+- `interface mixin`s are no longer emitted as interfaces. Their members are
+instead added to the interface that mixes them in.
 
 ## 0.3.0
 

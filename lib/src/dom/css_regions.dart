@@ -24,12 +24,3 @@ extension NamedFlowExtension on NamedFlow {
   external bool get overset;
   external int get firstEmptyRegionIndex;
 }
-
-@JS('Region')
-@staticInterop
-class Region implements JSObject {}
-
-extension RegionExtension on Region {
-  external JSArray? getRegionFlowRanges();
-  external String get regionOverset;
-}

@@ -45,23 +45,9 @@ extension HeadersExtension on Headers {
   );
 }
 
-@JS('Body')
-@staticInterop
-class Body implements JSObject {}
-
-extension BodyExtension on Body {
-  external JSPromise arrayBuffer();
-  external JSPromise blob();
-  external JSPromise formData();
-  external JSPromise json();
-  external JSPromise text();
-  external ReadableStream? get body;
-  external bool get bodyUsed;
-}
-
 @JS('Request')
 @staticInterop
-class Request implements Body {
+class Request implements JSObject {
   external factory Request(
     RequestInfo input, [
     RequestInit init,
@@ -70,6 +56,11 @@ class Request implements Body {
 
 extension RequestExtension on Request {
   external Request clone();
+  external JSPromise arrayBuffer();
+  external JSPromise blob();
+  external JSPromise formData();
+  external JSPromise json();
+  external JSPromise text();
   external String get method;
   external String get url;
   external Headers get headers;
@@ -86,6 +77,8 @@ extension RequestExtension on Request {
   external bool get isHistoryNavigation;
   external AbortSignal get signal;
   external RequestDuplex get duplex;
+  external ReadableStream? get body;
+  external bool get bodyUsed;
 }
 
 @JS()
@@ -158,7 +151,7 @@ extension RequestInitExtension on RequestInit {
 
 @JS('Response')
 @staticInterop
-class Response implements Body {
+class Response implements JSObject {
   external factory Response([
     BodyInit? body,
     ResponseInit init,
@@ -169,7 +162,8 @@ class Response implements Body {
     String url, [
     int status,
   ]);
-  external static Response json(
+  @JS('json')
+  external static Response json_(
     JSAny? data, [
     ResponseInit init,
   ]);
@@ -177,6 +171,11 @@ class Response implements Body {
 
 extension ResponseExtension on Response {
   external Response clone();
+  external JSPromise arrayBuffer();
+  external JSPromise blob();
+  external JSPromise formData();
+  external JSPromise json();
+  external JSPromise text();
   external ResponseType get type;
   external String get url;
   external bool get redirected;
@@ -184,6 +183,8 @@ extension ResponseExtension on Response {
   external bool get ok;
   external String get statusText;
   external Headers get headers;
+  external ReadableStream? get body;
+  external bool get bodyUsed;
 }
 
 @JS()

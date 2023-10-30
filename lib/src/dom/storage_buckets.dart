@@ -8,14 +8,6 @@ import 'hr_time.dart';
 import 'indexeddb.dart';
 import 'service_workers.dart';
 
-@JS('NavigatorStorageBuckets')
-@staticInterop
-class NavigatorStorageBuckets implements JSObject {}
-
-extension NavigatorStorageBucketsExtension on NavigatorStorageBuckets {
-  external StorageBucketManager get storageBuckets;
-}
-
 @JS('StorageBucketManager')
 @staticInterop
 class StorageBucketManager implements JSObject {}

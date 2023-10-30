@@ -146,13 +146,3 @@ extension WorkletSharedStorageExtension on WorkletSharedStorage {
   external JSPromise length();
   external JSPromise remainingBudget();
 }
-
-@JS('HTMLSharedStorageWritableElementUtils')
-@staticInterop
-class HTMLSharedStorageWritableElementUtils implements JSObject {}
-
-extension HTMLSharedStorageWritableElementUtilsExtension
-    on HTMLSharedStorageWritableElementUtils {
-  external set sharedStorageWritable(bool value);
-  external bool get sharedStorageWritable;
-}

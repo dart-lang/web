@@ -24,7 +24,7 @@ extension TimeEventExtension on TimeEvent {
 
 @JS('SVGAnimationElement')
 @staticInterop
-class SVGAnimationElement implements SVGElement, SVGTests {}
+class SVGAnimationElement implements SVGElement {}
 
 extension SVGAnimationElementExtension on SVGAnimationElement {
   external num getStartTime();
@@ -41,6 +41,8 @@ extension SVGAnimationElementExtension on SVGAnimationElement {
   external EventHandler get onend;
   external set onrepeat(EventHandler value);
   external EventHandler get onrepeat;
+  external SVGStringList get requiredExtensions;
+  external SVGStringList get systemLanguage;
 }
 
 @JS('SVGAnimateElement')
@@ -57,7 +59,11 @@ class SVGAnimateMotionElement implements SVGAnimationElement {}
 
 @JS('SVGMPathElement')
 @staticInterop
-class SVGMPathElement implements SVGElement, SVGURIReference {}
+class SVGMPathElement implements SVGElement {}
+
+extension SVGMPathElementExtension on SVGMPathElement {
+  external SVGAnimatedString get href;
+}
 
 @JS('SVGAnimateTransformElement')
 @staticInterop

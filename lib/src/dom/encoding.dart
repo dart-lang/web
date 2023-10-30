@@ -7,16 +7,6 @@ import 'dart:js_interop';
 import 'streams.dart';
 import 'webidl.dart';
 
-@JS('TextDecoderCommon')
-@staticInterop
-class TextDecoderCommon implements JSObject {}
-
-extension TextDecoderCommonExtension on TextDecoderCommon {
-  external String get encoding;
-  external bool get fatal;
-  external bool get ignoreBOM;
-}
-
 @JS()
 @staticInterop
 @anonymous
@@ -48,7 +38,7 @@ extension TextDecodeOptionsExtension on TextDecodeOptions {
 
 @JS('TextDecoder')
 @staticInterop
-class TextDecoder implements TextDecoderCommon {
+class TextDecoder implements JSObject {
   external factory TextDecoder([
     String label,
     TextDecoderOptions options,
@@ -60,14 +50,9 @@ extension TextDecoderExtension on TextDecoder {
     AllowSharedBufferSource input,
     TextDecodeOptions options,
   ]);
-}
-
-@JS('TextEncoderCommon')
-@staticInterop
-class TextEncoderCommon implements JSObject {}
-
-extension TextEncoderCommonExtension on TextEncoderCommon {
   external String get encoding;
+  external bool get fatal;
+  external bool get ignoreBOM;
 }
 
 @JS()
@@ -89,7 +74,7 @@ extension TextEncoderEncodeIntoResultExtension on TextEncoderEncodeIntoResult {
 
 @JS('TextEncoder')
 @staticInterop
-class TextEncoder implements TextEncoderCommon {
+class TextEncoder implements JSObject {
   external factory TextEncoder();
 }
 
@@ -99,19 +84,34 @@ extension TextEncoderExtension on TextEncoder {
     String source,
     JSUint8Array destination,
   );
+  external String get encoding;
 }
 
 @JS('TextDecoderStream')
 @staticInterop
-class TextDecoderStream implements TextDecoderCommon, GenericTransformStream {
+class TextDecoderStream implements JSObject {
   external factory TextDecoderStream([
     String label,
     TextDecoderOptions options,
   ]);
 }
 
+extension TextDecoderStreamExtension on TextDecoderStream {
+  external String get encoding;
+  external bool get fatal;
+  external bool get ignoreBOM;
+  external ReadableStream get readable;
+  external WritableStream get writable;
+}
+
 @JS('TextEncoderStream')
 @staticInterop
-class TextEncoderStream implements TextEncoderCommon, GenericTransformStream {
+class TextEncoderStream implements JSObject {
   external factory TextEncoderStream();
+}
+
+extension TextEncoderStreamExtension on TextEncoderStream {
+  external String get encoding;
+  external ReadableStream get readable;
+  external WritableStream get writable;
 }

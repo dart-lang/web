@@ -25,14 +25,6 @@ typedef MLPaddingMode = String;
 typedef MLRoundingType = String;
 typedef MLInterpolationMode = String;
 
-@JS('NavigatorML')
-@staticInterop
-class NavigatorML implements JSObject {}
-
-extension NavigatorMLExtension on NavigatorML {
-  external ML get ml;
-}
-
 @JS()
 @staticInterop
 @anonymous

@@ -8,7 +8,7 @@ import 'svg.dart';
 
 @JS('SVGFilterElement')
 @staticInterop
-class SVGFilterElement implements SVGElement, SVGURIReference {}
+class SVGFilterElement implements SVGElement {}
 
 extension SVGFilterElementExtension on SVGFilterElement {
   external SVGAnimatedEnumeration get filterUnits;
@@ -17,25 +17,12 @@ extension SVGFilterElementExtension on SVGFilterElement {
   external SVGAnimatedLength get y;
   external SVGAnimatedLength get width;
   external SVGAnimatedLength get height;
-}
-
-@JS('SVGFilterPrimitiveStandardAttributes')
-@staticInterop
-class SVGFilterPrimitiveStandardAttributes implements JSObject {}
-
-extension SVGFilterPrimitiveStandardAttributesExtension
-    on SVGFilterPrimitiveStandardAttributes {
-  external SVGAnimatedLength get x;
-  external SVGAnimatedLength get y;
-  external SVGAnimatedLength get width;
-  external SVGAnimatedLength get height;
-  external SVGAnimatedString get result;
+  external SVGAnimatedString get href;
 }
 
 @JS('SVGFEBlendElement')
 @staticInterop
-class SVGFEBlendElement
-    implements SVGElement, SVGFilterPrimitiveStandardAttributes {
+class SVGFEBlendElement implements SVGElement {
   external static int get SVG_FEBLEND_MODE_UNKNOWN;
   external static int get SVG_FEBLEND_MODE_NORMAL;
   external static int get SVG_FEBLEND_MODE_MULTIPLY;
@@ -59,12 +46,16 @@ extension SVGFEBlendElementExtension on SVGFEBlendElement {
   external SVGAnimatedString get in1;
   external SVGAnimatedString get in2;
   external SVGAnimatedEnumeration get mode;
+  external SVGAnimatedLength get x;
+  external SVGAnimatedLength get y;
+  external SVGAnimatedLength get width;
+  external SVGAnimatedLength get height;
+  external SVGAnimatedString get result;
 }
 
 @JS('SVGFEColorMatrixElement')
 @staticInterop
-class SVGFEColorMatrixElement
-    implements SVGElement, SVGFilterPrimitiveStandardAttributes {
+class SVGFEColorMatrixElement implements SVGElement {
   external static int get SVG_FECOLORMATRIX_TYPE_UNKNOWN;
   external static int get SVG_FECOLORMATRIX_TYPE_MATRIX;
   external static int get SVG_FECOLORMATRIX_TYPE_SATURATE;
@@ -76,16 +67,25 @@ extension SVGFEColorMatrixElementExtension on SVGFEColorMatrixElement {
   external SVGAnimatedString get in1;
   external SVGAnimatedEnumeration get type;
   external SVGAnimatedNumberList get values;
+  external SVGAnimatedLength get x;
+  external SVGAnimatedLength get y;
+  external SVGAnimatedLength get width;
+  external SVGAnimatedLength get height;
+  external SVGAnimatedString get result;
 }
 
 @JS('SVGFEComponentTransferElement')
 @staticInterop
-class SVGFEComponentTransferElement
-    implements SVGElement, SVGFilterPrimitiveStandardAttributes {}
+class SVGFEComponentTransferElement implements SVGElement {}
 
 extension SVGFEComponentTransferElementExtension
     on SVGFEComponentTransferElement {
   external SVGAnimatedString get in1;
+  external SVGAnimatedLength get x;
+  external SVGAnimatedLength get y;
+  external SVGAnimatedLength get width;
+  external SVGAnimatedLength get height;
+  external SVGAnimatedString get result;
 }
 
 @JS('SVGComponentTransferFunctionElement')
@@ -128,8 +128,7 @@ class SVGFEFuncAElement implements SVGComponentTransferFunctionElement {}
 
 @JS('SVGFECompositeElement')
 @staticInterop
-class SVGFECompositeElement
-    implements SVGElement, SVGFilterPrimitiveStandardAttributes {
+class SVGFECompositeElement implements SVGElement {
   external static int get SVG_FECOMPOSITE_OPERATOR_UNKNOWN;
   external static int get SVG_FECOMPOSITE_OPERATOR_OVER;
   external static int get SVG_FECOMPOSITE_OPERATOR_IN;
@@ -147,12 +146,16 @@ extension SVGFECompositeElementExtension on SVGFECompositeElement {
   external SVGAnimatedNumber get k2;
   external SVGAnimatedNumber get k3;
   external SVGAnimatedNumber get k4;
+  external SVGAnimatedLength get x;
+  external SVGAnimatedLength get y;
+  external SVGAnimatedLength get width;
+  external SVGAnimatedLength get height;
+  external SVGAnimatedString get result;
 }
 
 @JS('SVGFEConvolveMatrixElement')
 @staticInterop
-class SVGFEConvolveMatrixElement
-    implements SVGElement, SVGFilterPrimitiveStandardAttributes {
+class SVGFEConvolveMatrixElement implements SVGElement {
   external static int get SVG_EDGEMODE_UNKNOWN;
   external static int get SVG_EDGEMODE_DUPLICATE;
   external static int get SVG_EDGEMODE_WRAP;
@@ -172,12 +175,16 @@ extension SVGFEConvolveMatrixElementExtension on SVGFEConvolveMatrixElement {
   external SVGAnimatedNumber get kernelUnitLengthX;
   external SVGAnimatedNumber get kernelUnitLengthY;
   external SVGAnimatedBoolean get preserveAlpha;
+  external SVGAnimatedLength get x;
+  external SVGAnimatedLength get y;
+  external SVGAnimatedLength get width;
+  external SVGAnimatedLength get height;
+  external SVGAnimatedString get result;
 }
 
 @JS('SVGFEDiffuseLightingElement')
 @staticInterop
-class SVGFEDiffuseLightingElement
-    implements SVGElement, SVGFilterPrimitiveStandardAttributes {}
+class SVGFEDiffuseLightingElement implements SVGElement {}
 
 extension SVGFEDiffuseLightingElementExtension on SVGFEDiffuseLightingElement {
   external SVGAnimatedString get in1;
@@ -185,6 +192,11 @@ extension SVGFEDiffuseLightingElementExtension on SVGFEDiffuseLightingElement {
   external SVGAnimatedNumber get diffuseConstant;
   external SVGAnimatedNumber get kernelUnitLengthX;
   external SVGAnimatedNumber get kernelUnitLengthY;
+  external SVGAnimatedLength get x;
+  external SVGAnimatedLength get y;
+  external SVGAnimatedLength get width;
+  external SVGAnimatedLength get height;
+  external SVGAnimatedString get result;
 }
 
 @JS('SVGFEDistantLightElement')
@@ -223,8 +235,7 @@ extension SVGFESpotLightElementExtension on SVGFESpotLightElement {
 
 @JS('SVGFEDisplacementMapElement')
 @staticInterop
-class SVGFEDisplacementMapElement
-    implements SVGElement, SVGFilterPrimitiveStandardAttributes {
+class SVGFEDisplacementMapElement implements SVGElement {
   external static int get SVG_CHANNEL_UNKNOWN;
   external static int get SVG_CHANNEL_R;
   external static int get SVG_CHANNEL_G;
@@ -238,12 +249,16 @@ extension SVGFEDisplacementMapElementExtension on SVGFEDisplacementMapElement {
   external SVGAnimatedNumber get scale;
   external SVGAnimatedEnumeration get xChannelSelector;
   external SVGAnimatedEnumeration get yChannelSelector;
+  external SVGAnimatedLength get x;
+  external SVGAnimatedLength get y;
+  external SVGAnimatedLength get width;
+  external SVGAnimatedLength get height;
+  external SVGAnimatedString get result;
 }
 
 @JS('SVGFEDropShadowElement')
 @staticInterop
-class SVGFEDropShadowElement
-    implements SVGElement, SVGFilterPrimitiveStandardAttributes {}
+class SVGFEDropShadowElement implements SVGElement {}
 
 extension SVGFEDropShadowElementExtension on SVGFEDropShadowElement {
   external void setStdDeviation(
@@ -255,17 +270,28 @@ extension SVGFEDropShadowElementExtension on SVGFEDropShadowElement {
   external SVGAnimatedNumber get dy;
   external SVGAnimatedNumber get stdDeviationX;
   external SVGAnimatedNumber get stdDeviationY;
+  external SVGAnimatedLength get x;
+  external SVGAnimatedLength get y;
+  external SVGAnimatedLength get width;
+  external SVGAnimatedLength get height;
+  external SVGAnimatedString get result;
 }
 
 @JS('SVGFEFloodElement')
 @staticInterop
-class SVGFEFloodElement
-    implements SVGElement, SVGFilterPrimitiveStandardAttributes {}
+class SVGFEFloodElement implements SVGElement {}
+
+extension SVGFEFloodElementExtension on SVGFEFloodElement {
+  external SVGAnimatedLength get x;
+  external SVGAnimatedLength get y;
+  external SVGAnimatedLength get width;
+  external SVGAnimatedLength get height;
+  external SVGAnimatedString get result;
+}
 
 @JS('SVGFEGaussianBlurElement')
 @staticInterop
-class SVGFEGaussianBlurElement
-    implements SVGElement, SVGFilterPrimitiveStandardAttributes {
+class SVGFEGaussianBlurElement implements SVGElement {
   external static int get SVG_EDGEMODE_UNKNOWN;
   external static int get SVG_EDGEMODE_DUPLICATE;
   external static int get SVG_EDGEMODE_WRAP;
@@ -281,25 +307,39 @@ extension SVGFEGaussianBlurElementExtension on SVGFEGaussianBlurElement {
   external SVGAnimatedNumber get stdDeviationX;
   external SVGAnimatedNumber get stdDeviationY;
   external SVGAnimatedEnumeration get edgeMode;
+  external SVGAnimatedLength get x;
+  external SVGAnimatedLength get y;
+  external SVGAnimatedLength get width;
+  external SVGAnimatedLength get height;
+  external SVGAnimatedString get result;
 }
 
 @JS('SVGFEImageElement')
 @staticInterop
-class SVGFEImageElement
-    implements
-        SVGElement,
-        SVGFilterPrimitiveStandardAttributes,
-        SVGURIReference {}
+class SVGFEImageElement implements SVGElement {}
 
 extension SVGFEImageElementExtension on SVGFEImageElement {
   external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
   external SVGAnimatedString get crossOrigin;
+  external SVGAnimatedLength get x;
+  external SVGAnimatedLength get y;
+  external SVGAnimatedLength get width;
+  external SVGAnimatedLength get height;
+  external SVGAnimatedString get result;
+  external SVGAnimatedString get href;
 }
 
 @JS('SVGFEMergeElement')
 @staticInterop
-class SVGFEMergeElement
-    implements SVGElement, SVGFilterPrimitiveStandardAttributes {}
+class SVGFEMergeElement implements SVGElement {}
+
+extension SVGFEMergeElementExtension on SVGFEMergeElement {
+  external SVGAnimatedLength get x;
+  external SVGAnimatedLength get y;
+  external SVGAnimatedLength get width;
+  external SVGAnimatedLength get height;
+  external SVGAnimatedString get result;
+}
 
 @JS('SVGFEMergeNodeElement')
 @staticInterop
@@ -311,8 +351,7 @@ extension SVGFEMergeNodeElementExtension on SVGFEMergeNodeElement {
 
 @JS('SVGFEMorphologyElement')
 @staticInterop
-class SVGFEMorphologyElement
-    implements SVGElement, SVGFilterPrimitiveStandardAttributes {
+class SVGFEMorphologyElement implements SVGElement {
   external static int get SVG_MORPHOLOGY_OPERATOR_UNKNOWN;
   external static int get SVG_MORPHOLOGY_OPERATOR_ERODE;
   external static int get SVG_MORPHOLOGY_OPERATOR_DILATE;
@@ -323,23 +362,31 @@ extension SVGFEMorphologyElementExtension on SVGFEMorphologyElement {
   external SVGAnimatedEnumeration get operator;
   external SVGAnimatedNumber get radiusX;
   external SVGAnimatedNumber get radiusY;
+  external SVGAnimatedLength get x;
+  external SVGAnimatedLength get y;
+  external SVGAnimatedLength get width;
+  external SVGAnimatedLength get height;
+  external SVGAnimatedString get result;
 }
 
 @JS('SVGFEOffsetElement')
 @staticInterop
-class SVGFEOffsetElement
-    implements SVGElement, SVGFilterPrimitiveStandardAttributes {}
+class SVGFEOffsetElement implements SVGElement {}
 
 extension SVGFEOffsetElementExtension on SVGFEOffsetElement {
   external SVGAnimatedString get in1;
   external SVGAnimatedNumber get dx;
   external SVGAnimatedNumber get dy;
+  external SVGAnimatedLength get x;
+  external SVGAnimatedLength get y;
+  external SVGAnimatedLength get width;
+  external SVGAnimatedLength get height;
+  external SVGAnimatedString get result;
 }
 
 @JS('SVGFESpecularLightingElement')
 @staticInterop
-class SVGFESpecularLightingElement
-    implements SVGElement, SVGFilterPrimitiveStandardAttributes {}
+class SVGFESpecularLightingElement implements SVGElement {}
 
 extension SVGFESpecularLightingElementExtension
     on SVGFESpecularLightingElement {
@@ -349,21 +396,29 @@ extension SVGFESpecularLightingElementExtension
   external SVGAnimatedNumber get specularExponent;
   external SVGAnimatedNumber get kernelUnitLengthX;
   external SVGAnimatedNumber get kernelUnitLengthY;
+  external SVGAnimatedLength get x;
+  external SVGAnimatedLength get y;
+  external SVGAnimatedLength get width;
+  external SVGAnimatedLength get height;
+  external SVGAnimatedString get result;
 }
 
 @JS('SVGFETileElement')
 @staticInterop
-class SVGFETileElement
-    implements SVGElement, SVGFilterPrimitiveStandardAttributes {}
+class SVGFETileElement implements SVGElement {}
 
 extension SVGFETileElementExtension on SVGFETileElement {
   external SVGAnimatedString get in1;
+  external SVGAnimatedLength get x;
+  external SVGAnimatedLength get y;
+  external SVGAnimatedLength get width;
+  external SVGAnimatedLength get height;
+  external SVGAnimatedString get result;
 }
 
 @JS('SVGFETurbulenceElement')
 @staticInterop
-class SVGFETurbulenceElement
-    implements SVGElement, SVGFilterPrimitiveStandardAttributes {
+class SVGFETurbulenceElement implements SVGElement {
   external static int get SVG_TURBULENCE_TYPE_UNKNOWN;
   external static int get SVG_TURBULENCE_TYPE_FRACTALNOISE;
   external static int get SVG_TURBULENCE_TYPE_TURBULENCE;
@@ -379,4 +434,9 @@ extension SVGFETurbulenceElementExtension on SVGFETurbulenceElement {
   external SVGAnimatedNumber get seed;
   external SVGAnimatedEnumeration get stitchTiles;
   external SVGAnimatedEnumeration get type;
+  external SVGAnimatedLength get x;
+  external SVGAnimatedLength get y;
+  external SVGAnimatedLength get width;
+  external SVGAnimatedLength get height;
+  external SVGAnimatedString get result;
 }

@@ -6,24 +6,15 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'savedata.dart';
 
 typedef Megabit = num;
 typedef Millisecond = int;
 typedef ConnectionType = String;
 typedef EffectiveConnectionType = String;
 
-@JS('NavigatorNetworkInformation')
-@staticInterop
-class NavigatorNetworkInformation implements JSObject {}
-
-extension NavigatorNetworkInformationExtension on NavigatorNetworkInformation {
-  external NetworkInformation get connection;
-}
-
 @JS('NetworkInformation')
 @staticInterop
-class NetworkInformation implements EventTarget, NetworkInformationSaveData {}
+class NetworkInformation implements EventTarget {}
 
 extension NetworkInformationExtension on NetworkInformation {
   external ConnectionType get type;
@@ -33,4 +24,5 @@ extension NetworkInformationExtension on NetworkInformation {
   external Millisecond get rtt;
   external set onchange(EventHandler value);
   external EventHandler get onchange;
+  external bool get saveData;
 }

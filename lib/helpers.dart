@@ -46,6 +46,9 @@ HTMLCanvasElement createCanvasElement({int? width, int? height}) {
   return result;
 }
 
+HTMLIFrameElement createIFrameElement() =>
+    document.createElement('iframe') as HTMLIFrameElement;
+
 @JS('Audio')
 external JSFunction get _audioConstructor;
 HTMLAudioElement createAudioElement() => _audioConstructor.callAsConstructor();

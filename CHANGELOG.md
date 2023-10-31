@@ -1,5 +1,5 @@
 ## 0.3.1-dev
-
+- Add `createIFrameElement` method to `helpers.dart`.
 - Updated types to account for union types.
 - Fixed issue where all `JSAny`s were treated as nullable.
 - Changed `JSVoid` to `void`.

@@ -29,6 +29,7 @@ import 'web.dart';
 
 export 'src/helpers/enums.dart';
 export 'src/helpers/events/events.dart';
+export 'src/helpers/events/providers.dart';
 export 'src/helpers/events/streams.dart' show EventStreamProvider;
 export 'src/helpers/extensions.dart';
 export 'src/helpers/http.dart';

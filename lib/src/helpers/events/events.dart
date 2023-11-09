@@ -261,6 +261,9 @@ extension WindowEventGetters on Window {
 
   Stream<KeyboardEvent> get onKeyPress =>
       EventStreamProviders.keyPressEvent.forTarget(this);
+
+  Stream<MessageEvent> get onMessage =>
+      EventStreamProviders.messageEvent.forTarget(this);
 }
 
 extension ElementCustomEvents on Element {

@@ -1,4 +1,4 @@
-## 0.3.1-dev
+## 0.3.1
 - Add `onMessage` getter to `WindowEventGetters` extension methods.
 - `helpers.dart`: expose the `EventStreamProviders` class.
 - Add `createIFrameElement` method to `helpers.dart`.

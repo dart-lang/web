@@ -23,7 +23,7 @@ extension LayoutShiftExtension on LayoutShift {
 
 @JS('LayoutShiftAttribution')
 @staticInterop
-class LayoutShiftAttribution implements JSObject {}
+class LayoutShiftAttribution {}
 
 extension LayoutShiftAttributionExtension on LayoutShiftAttribution {
   external Node? get node;

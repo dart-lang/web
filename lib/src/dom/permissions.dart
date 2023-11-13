@@ -11,7 +11,7 @@ typedef PermissionState = String;
 
 @JS('Permissions')
 @staticInterop
-class Permissions implements JSObject {}
+class Permissions {}
 
 extension PermissionsExtension on Permissions {
   external JSPromise request(JSObject permissionDesc);
@@ -22,7 +22,7 @@ extension PermissionsExtension on Permissions {
 @JS()
 @staticInterop
 @anonymous
-class PermissionDescriptor implements JSObject {
+class PermissionDescriptor {
   external factory PermissionDescriptor({required String name});
 }
 
@@ -45,7 +45,7 @@ extension PermissionStatusExtension on PermissionStatus {
 @JS()
 @staticInterop
 @anonymous
-class PermissionSetParameters implements JSObject {
+class PermissionSetParameters {
   external factory PermissionSetParameters({
     required PermissionDescriptor descriptor,
     required PermissionState state,

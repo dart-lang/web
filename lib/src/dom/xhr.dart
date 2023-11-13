@@ -89,7 +89,7 @@ extension XMLHttpRequestExtension on XMLHttpRequest {
 
 @JS('FormData')
 @staticInterop
-class FormData implements JSObject {
+class FormData {
   external factory FormData([
     HTMLFormElement form,
     HTMLElement? submitter,

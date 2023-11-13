@@ -11,7 +11,7 @@ typedef PositionErrorCallback = JSFunction;
 
 @JS('Geolocation')
 @staticInterop
-class Geolocation implements JSObject {}
+class Geolocation {}
 
 extension GeolocationExtension on Geolocation {
   external void getCurrentPosition(
@@ -30,7 +30,7 @@ extension GeolocationExtension on Geolocation {
 @JS()
 @staticInterop
 @anonymous
-class PositionOptions implements JSObject {
+class PositionOptions {
   external factory PositionOptions({
     bool enableHighAccuracy,
     int timeout,
@@ -49,7 +49,7 @@ extension PositionOptionsExtension on PositionOptions {
 
 @JS('GeolocationPosition')
 @staticInterop
-class GeolocationPosition implements JSObject {}
+class GeolocationPosition {}
 
 extension GeolocationPositionExtension on GeolocationPosition {
   external GeolocationCoordinates get coords;
@@ -58,7 +58,7 @@ extension GeolocationPositionExtension on GeolocationPosition {
 
 @JS('GeolocationCoordinates')
 @staticInterop
-class GeolocationCoordinates implements JSObject {}
+class GeolocationCoordinates {}
 
 extension GeolocationCoordinatesExtension on GeolocationCoordinates {
   external num get accuracy;
@@ -72,7 +72,7 @@ extension GeolocationCoordinatesExtension on GeolocationCoordinates {
 
 @JS('GeolocationPositionError')
 @staticInterop
-class GeolocationPositionError implements JSObject {
+class GeolocationPositionError {
   external static int get PERMISSION_DENIED;
   external static int get POSITION_UNAVAILABLE;
   external static int get TIMEOUT;

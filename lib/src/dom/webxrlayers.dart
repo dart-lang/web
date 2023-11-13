@@ -123,7 +123,7 @@ extension XRCubeLayerExtension on XRCubeLayer {
 
 @JS('XRSubImage')
 @staticInterop
-class XRSubImage implements JSObject {}
+class XRSubImage {}
 
 extension XRSubImageExtension on XRSubImage {
   external XRViewport get viewport;
@@ -149,7 +149,7 @@ extension XRWebGLSubImageExtension on XRWebGLSubImage {
 @JS()
 @staticInterop
 @anonymous
-class XRProjectionLayerInit implements JSObject {
+class XRProjectionLayerInit {
   external factory XRProjectionLayerInit({
     XRTextureType textureType,
     GLenum colorFormat,
@@ -175,7 +175,7 @@ extension XRProjectionLayerInitExtension on XRProjectionLayerInit {
 @JS()
 @staticInterop
 @anonymous
-class XRLayerInit implements JSObject {
+class XRLayerInit {
   external factory XRLayerInit({
     required XRSpace space,
     GLenum colorFormat,
@@ -302,7 +302,7 @@ extension XRCubeLayerInitExtension on XRCubeLayerInit {
 
 @JS('XRWebGLBinding')
 @staticInterop
-class XRWebGLBinding implements JSObject {
+class XRWebGLBinding {
   external factory XRWebGLBinding(
     XRSession session,
     XRWebGLRenderingContext context,
@@ -335,7 +335,7 @@ extension XRWebGLBindingExtension on XRWebGLBinding {
 @JS()
 @staticInterop
 @anonymous
-class XRMediaLayerInit implements JSObject {
+class XRMediaLayerInit {
   external factory XRMediaLayerInit({
     required XRSpace space,
     XRLayerLayout layout,
@@ -423,7 +423,7 @@ extension XRMediaEquirectLayerInitExtension on XRMediaEquirectLayerInit {
 
 @JS('XRMediaBinding')
 @staticInterop
-class XRMediaBinding implements JSObject {
+class XRMediaBinding {
   external factory XRMediaBinding(XRSession session);
 }
 

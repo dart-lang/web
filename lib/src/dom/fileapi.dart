@@ -14,7 +14,7 @@ typedef EndingType = String;
 
 @JS('Blob')
 @staticInterop
-class Blob implements JSObject {
+class Blob {
   external factory Blob([
     JSArray blobParts,
     BlobPropertyBag options,
@@ -37,7 +37,7 @@ extension BlobExtension on Blob {
 @JS()
 @staticInterop
 @anonymous
-class BlobPropertyBag implements JSObject {
+class BlobPropertyBag {
   external factory BlobPropertyBag({
     String type,
     EndingType endings,
@@ -81,7 +81,7 @@ extension FilePropertyBagExtension on FilePropertyBag {
 
 @JS('FileList')
 @staticInterop
-class FileList implements JSObject {}
+class FileList {}
 
 extension FileListExtension on FileList {
   external File? item(int index);
@@ -126,7 +126,7 @@ extension FileReaderExtension on FileReader {
 
 @JS('FileReaderSync')
 @staticInterop
-class FileReaderSync implements JSObject {
+class FileReaderSync {
   external factory FileReaderSync();
 }
 

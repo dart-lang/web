@@ -31,7 +31,7 @@ extension CookieStoreExtension on CookieStore {
 @JS()
 @staticInterop
 @anonymous
-class CookieStoreGetOptions implements JSObject {
+class CookieStoreGetOptions {
   external factory CookieStoreGetOptions({
     String name,
     String url,
@@ -48,7 +48,7 @@ extension CookieStoreGetOptionsExtension on CookieStoreGetOptions {
 @JS()
 @staticInterop
 @anonymous
-class CookieInit implements JSObject {
+class CookieInit {
   external factory CookieInit({
     required String name,
     required String value,
@@ -80,7 +80,7 @@ extension CookieInitExtension on CookieInit {
 @JS()
 @staticInterop
 @anonymous
-class CookieStoreDeleteOptions implements JSObject {
+class CookieStoreDeleteOptions {
   external factory CookieStoreDeleteOptions({
     required String name,
     String? domain,
@@ -103,7 +103,7 @@ extension CookieStoreDeleteOptionsExtension on CookieStoreDeleteOptions {
 @JS()
 @staticInterop
 @anonymous
-class CookieListItem implements JSObject {
+class CookieListItem {
   external factory CookieListItem({
     String name,
     String value,
@@ -137,7 +137,7 @@ extension CookieListItemExtension on CookieListItem {
 
 @JS('CookieStoreManager')
 @staticInterop
-class CookieStoreManager implements JSObject {}
+class CookieStoreManager {}
 
 extension CookieStoreManagerExtension on CookieStoreManager {
   external JSPromise subscribe(JSArray subscriptions);

@@ -10,7 +10,7 @@ import 'performance_timeline.dart';
 @JS()
 @staticInterop
 @anonymous
-class PerformanceMarkOptions implements JSObject {
+class PerformanceMarkOptions {
   external factory PerformanceMarkOptions({
     JSAny? detail,
     DOMHighResTimeStamp startTime,
@@ -27,7 +27,7 @@ extension PerformanceMarkOptionsExtension on PerformanceMarkOptions {
 @JS()
 @staticInterop
 @anonymous
-class PerformanceMeasureOptions implements JSObject {
+class PerformanceMeasureOptions {
   external factory PerformanceMeasureOptions({
     JSAny? detail,
     JSAny start,

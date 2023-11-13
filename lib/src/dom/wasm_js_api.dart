@@ -13,7 +13,7 @@ typedef ValueType = String;
 @JS()
 @staticInterop
 @anonymous
-class WebAssemblyInstantiatedSource implements JSObject {
+class WebAssemblyInstantiatedSource {
   external factory WebAssemblyInstantiatedSource({
     required Module module,
     required Instance instance,
@@ -52,7 +52,7 @@ extension $WebAssemblyExtension on $WebAssembly {
 @JS()
 @staticInterop
 @anonymous
-class ModuleExportDescriptor implements JSObject {
+class ModuleExportDescriptor {
   external factory ModuleExportDescriptor({
     required String name,
     required ImportExportKind kind,
@@ -69,7 +69,7 @@ extension ModuleExportDescriptorExtension on ModuleExportDescriptor {
 @JS()
 @staticInterop
 @anonymous
-class ModuleImportDescriptor implements JSObject {
+class ModuleImportDescriptor {
   external factory ModuleImportDescriptor({
     required String module,
     required String name,
@@ -88,7 +88,7 @@ extension ModuleImportDescriptorExtension on ModuleImportDescriptor {
 
 @JS('Module')
 @staticInterop
-class Module implements JSObject {
+class Module {
   external factory Module(BufferSource bytes);
 
   external static JSArray exports(Module moduleObject);
@@ -101,7 +101,7 @@ class Module implements JSObject {
 
 @JS('Instance')
 @staticInterop
-class Instance implements JSObject {
+class Instance {
   external factory Instance(
     Module module, [
     JSObject importObject,
@@ -115,7 +115,7 @@ extension InstanceExtension on Instance {
 @JS()
 @staticInterop
 @anonymous
-class MemoryDescriptor implements JSObject {
+class MemoryDescriptor {
   external factory MemoryDescriptor({
     required int initial,
     int maximum,
@@ -131,7 +131,7 @@ extension MemoryDescriptorExtension on MemoryDescriptor {
 
 @JS('Memory')
 @staticInterop
-class Memory implements JSObject {
+class Memory {
   external factory Memory(MemoryDescriptor descriptor);
 }
 
@@ -143,7 +143,7 @@ extension MemoryExtension on Memory {
 @JS()
 @staticInterop
 @anonymous
-class TableDescriptor implements JSObject {
+class TableDescriptor {
   external factory TableDescriptor({
     required TableKind element,
     required int initial,
@@ -162,7 +162,7 @@ extension TableDescriptorExtension on TableDescriptor {
 
 @JS('Table')
 @staticInterop
-class Table implements JSObject {
+class Table {
   external factory Table(
     TableDescriptor descriptor, [
     JSAny? value,
@@ -185,7 +185,7 @@ extension TableExtension on Table {
 @JS()
 @staticInterop
 @anonymous
-class GlobalDescriptor implements JSObject {
+class GlobalDescriptor {
   external factory GlobalDescriptor({
     required ValueType value,
     bool mutable,
@@ -201,7 +201,7 @@ extension GlobalDescriptorExtension on GlobalDescriptor {
 
 @JS('Global')
 @staticInterop
-class Global implements JSObject {
+class Global {
   external factory Global(
     GlobalDescriptor descriptor, [
     JSAny? v,

@@ -1,4 +1,12 @@
+## 0.4.0
+
+- Remove `implements JSObject` from all types. This is needed to move the JS
+types exposed in `dart:js_interop` to extension types. This subtyping will be
+added back in a future version when we move all `package:web` types to extension
+types.
+
 ## 0.3.1-dev
+
 - Add `onMessage` getter to `WindowEventGetters` extension methods.
 - `helpers.dart`: expose the `EventStreamProviders` class.
 - Add `createIFrameElement` method to `helpers.dart`.

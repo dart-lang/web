@@ -19,7 +19,7 @@ typedef CSSMathOperator = String;
 
 @JS('CSSStyleValue')
 @staticInterop
-class CSSStyleValue implements JSObject {
+class CSSStyleValue {
   external static CSSStyleValue parse(
     String property,
     String cssText,
@@ -32,7 +32,7 @@ class CSSStyleValue implements JSObject {
 
 @JS('StylePropertyMapReadOnly')
 @staticInterop
-class StylePropertyMapReadOnly implements JSObject {}
+class StylePropertyMapReadOnly {}
 
 extension StylePropertyMapReadOnlyExtension on StylePropertyMapReadOnly {
   external CSSStyleValue? get(String property);
@@ -70,7 +70,7 @@ extension CSSUnparsedValueExtension on CSSUnparsedValue {
 
 @JS('CSSVariableReferenceValue')
 @staticInterop
-class CSSVariableReferenceValue implements JSObject {
+class CSSVariableReferenceValue {
   external factory CSSVariableReferenceValue(
     String variable, [
     CSSUnparsedValue? fallback,
@@ -97,7 +97,7 @@ extension CSSKeywordValueExtension on CSSKeywordValue {
 @JS()
 @staticInterop
 @anonymous
-class CSSNumericType implements JSObject {
+class CSSNumericType {
   external factory CSSNumericType({
     int length,
     int angle,
@@ -249,7 +249,7 @@ extension CSSMathClampExtension on CSSMathClamp {
 
 @JS('CSSNumericArray')
 @staticInterop
-class CSSNumericArray implements JSObject {}
+class CSSNumericArray {}
 
 extension CSSNumericArrayExtension on CSSNumericArray {
   external int get length;
@@ -269,7 +269,7 @@ extension CSSTransformValueExtension on CSSTransformValue {
 
 @JS('CSSTransformComponent')
 @staticInterop
-class CSSTransformComponent implements JSObject {}
+class CSSTransformComponent {}
 
 extension CSSTransformComponentExtension on CSSTransformComponent {
   external DOMMatrix toMatrix();
@@ -403,7 +403,7 @@ extension CSSMatrixComponentExtension on CSSMatrixComponent {
 @JS()
 @staticInterop
 @anonymous
-class CSSMatrixComponentOptions implements JSObject {
+class CSSMatrixComponentOptions {
   external factory CSSMatrixComponentOptions({bool is2D});
 }
 

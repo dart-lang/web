@@ -11,7 +11,7 @@ typedef WakeLockType = String;
 
 @JS('WakeLock')
 @staticInterop
-class WakeLock implements JSObject {}
+class WakeLock {}
 
 extension WakeLockExtension on WakeLock {
   external JSPromise request([WakeLockType type]);

@@ -11,7 +11,7 @@ typedef XRDOMOverlayType = String;
 @JS()
 @staticInterop
 @anonymous
-class XRDOMOverlayInit implements JSObject {
+class XRDOMOverlayInit {
   external factory XRDOMOverlayInit({required Element root});
 }
 
@@ -23,7 +23,7 @@ extension XRDOMOverlayInitExtension on XRDOMOverlayInit {
 @JS()
 @staticInterop
 @anonymous
-class XRDOMOverlayState implements JSObject {
+class XRDOMOverlayState {
   external factory XRDOMOverlayState({XRDOMOverlayType type});
 }
 

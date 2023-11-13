@@ -10,7 +10,7 @@ typedef HighlightType = String;
 
 @JS('Highlight')
 @staticInterop
-class Highlight implements JSObject {
+class Highlight {
   external factory Highlight(AbstractRange initialRanges);
 }
 
@@ -23,6 +23,6 @@ extension HighlightExtension on Highlight {
 
 @JS('HighlightRegistry')
 @staticInterop
-class HighlightRegistry implements JSObject {}
+class HighlightRegistry {}
 
 extension HighlightRegistryExtension on HighlightRegistry {}

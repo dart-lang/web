@@ -12,7 +12,7 @@ typedef TouchType = String;
 @JS()
 @staticInterop
 @anonymous
-class TouchInit implements JSObject {
+class TouchInit {
   external factory TouchInit({
     required int identifier,
     required EventTarget target,
@@ -67,7 +67,7 @@ extension TouchInitExtension on TouchInit {
 
 @JS('Touch')
 @staticInterop
-class Touch implements JSObject {
+class Touch {
   external factory Touch(TouchInit touchInitDict);
 }
 
@@ -91,7 +91,7 @@ extension TouchExtension on Touch {
 
 @JS('TouchList')
 @staticInterop
-class TouchList implements JSObject {}
+class TouchList {}
 
 extension TouchListExtension on TouchList {
   external Touch? item(int index);

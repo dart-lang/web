@@ -26,7 +26,7 @@ typedef ReadableStreamType = String;
 
 @JS('ReadableStream')
 @staticInterop
-class ReadableStream implements JSObject {
+class ReadableStream {
   external factory ReadableStream([
     JSObject underlyingSource,
     QueuingStrategy strategy,
@@ -54,7 +54,7 @@ extension ReadableStreamExtension on ReadableStream {
 @JS()
 @staticInterop
 @anonymous
-class ReadableStreamGetReaderOptions implements JSObject {
+class ReadableStreamGetReaderOptions {
   external factory ReadableStreamGetReaderOptions(
       {ReadableStreamReaderMode mode});
 }
@@ -68,7 +68,7 @@ extension ReadableStreamGetReaderOptionsExtension
 @JS()
 @staticInterop
 @anonymous
-class ReadableStreamIteratorOptions implements JSObject {
+class ReadableStreamIteratorOptions {
   external factory ReadableStreamIteratorOptions({bool preventCancel});
 }
 
@@ -81,7 +81,7 @@ extension ReadableStreamIteratorOptionsExtension
 @JS()
 @staticInterop
 @anonymous
-class ReadableWritablePair implements JSObject {
+class ReadableWritablePair {
   external factory ReadableWritablePair({
     required ReadableStream readable,
     required WritableStream writable,
@@ -98,7 +98,7 @@ extension ReadableWritablePairExtension on ReadableWritablePair {
 @JS()
 @staticInterop
 @anonymous
-class StreamPipeOptions implements JSObject {
+class StreamPipeOptions {
   external factory StreamPipeOptions({
     bool preventClose,
     bool preventAbort,
@@ -121,7 +121,7 @@ extension StreamPipeOptionsExtension on StreamPipeOptions {
 @JS()
 @staticInterop
 @anonymous
-class UnderlyingSource implements JSObject {
+class UnderlyingSource {
   external factory UnderlyingSource({
     UnderlyingSourceStartCallback start,
     UnderlyingSourcePullCallback pull,
@@ -146,7 +146,7 @@ extension UnderlyingSourceExtension on UnderlyingSource {
 
 @JS('ReadableStreamDefaultReader')
 @staticInterop
-class ReadableStreamDefaultReader implements JSObject {
+class ReadableStreamDefaultReader {
   external factory ReadableStreamDefaultReader(ReadableStream stream);
 }
 
@@ -160,7 +160,7 @@ extension ReadableStreamDefaultReaderExtension on ReadableStreamDefaultReader {
 @JS()
 @staticInterop
 @anonymous
-class ReadableStreamReadResult implements JSObject {
+class ReadableStreamReadResult {
   external factory ReadableStreamReadResult({
     JSAny? value,
     bool done,
@@ -176,7 +176,7 @@ extension ReadableStreamReadResultExtension on ReadableStreamReadResult {
 
 @JS('ReadableStreamBYOBReader')
 @staticInterop
-class ReadableStreamBYOBReader implements JSObject {
+class ReadableStreamBYOBReader {
   external factory ReadableStreamBYOBReader(ReadableStream stream);
 }
 
@@ -189,7 +189,7 @@ extension ReadableStreamBYOBReaderExtension on ReadableStreamBYOBReader {
 
 @JS('ReadableStreamDefaultController')
 @staticInterop
-class ReadableStreamDefaultController implements JSObject {}
+class ReadableStreamDefaultController {}
 
 extension ReadableStreamDefaultControllerExtension
     on ReadableStreamDefaultController {
@@ -201,7 +201,7 @@ extension ReadableStreamDefaultControllerExtension
 
 @JS('ReadableByteStreamController')
 @staticInterop
-class ReadableByteStreamController implements JSObject {}
+class ReadableByteStreamController {}
 
 extension ReadableByteStreamControllerExtension
     on ReadableByteStreamController {
@@ -214,7 +214,7 @@ extension ReadableByteStreamControllerExtension
 
 @JS('ReadableStreamBYOBRequest')
 @staticInterop
-class ReadableStreamBYOBRequest implements JSObject {}
+class ReadableStreamBYOBRequest {}
 
 extension ReadableStreamBYOBRequestExtension on ReadableStreamBYOBRequest {
   external void respond(int bytesWritten);
@@ -224,7 +224,7 @@ extension ReadableStreamBYOBRequestExtension on ReadableStreamBYOBRequest {
 
 @JS('WritableStream')
 @staticInterop
-class WritableStream implements JSObject {
+class WritableStream {
   external factory WritableStream([
     JSObject underlyingSink,
     QueuingStrategy strategy,
@@ -241,7 +241,7 @@ extension WritableStreamExtension on WritableStream {
 @JS()
 @staticInterop
 @anonymous
-class UnderlyingSink implements JSObject {
+class UnderlyingSink {
   external factory UnderlyingSink({
     UnderlyingSinkStartCallback start,
     UnderlyingSinkWriteCallback write,
@@ -266,7 +266,7 @@ extension UnderlyingSinkExtension on UnderlyingSink {
 
 @JS('WritableStreamDefaultWriter')
 @staticInterop
-class WritableStreamDefaultWriter implements JSObject {
+class WritableStreamDefaultWriter {
   external factory WritableStreamDefaultWriter(WritableStream stream);
 }
 
@@ -282,7 +282,7 @@ extension WritableStreamDefaultWriterExtension on WritableStreamDefaultWriter {
 
 @JS('WritableStreamDefaultController')
 @staticInterop
-class WritableStreamDefaultController implements JSObject {}
+class WritableStreamDefaultController {}
 
 extension WritableStreamDefaultControllerExtension
     on WritableStreamDefaultController {
@@ -292,7 +292,7 @@ extension WritableStreamDefaultControllerExtension
 
 @JS('TransformStream')
 @staticInterop
-class TransformStream implements JSObject {
+class TransformStream {
   external factory TransformStream([
     JSObject transformer,
     QueuingStrategy writableStrategy,
@@ -308,7 +308,7 @@ extension TransformStreamExtension on TransformStream {
 @JS()
 @staticInterop
 @anonymous
-class Transformer implements JSObject {
+class Transformer {
   external factory Transformer({
     TransformerStartCallback start,
     TransformerTransformCallback transform,
@@ -336,7 +336,7 @@ extension TransformerExtension on Transformer {
 
 @JS('TransformStreamDefaultController')
 @staticInterop
-class TransformStreamDefaultController implements JSObject {}
+class TransformStreamDefaultController {}
 
 extension TransformStreamDefaultControllerExtension
     on TransformStreamDefaultController {
@@ -349,7 +349,7 @@ extension TransformStreamDefaultControllerExtension
 @JS()
 @staticInterop
 @anonymous
-class QueuingStrategy implements JSObject {
+class QueuingStrategy {
   external factory QueuingStrategy({
     num highWaterMark,
     QueuingStrategySize size,
@@ -366,7 +366,7 @@ extension QueuingStrategyExtension on QueuingStrategy {
 @JS()
 @staticInterop
 @anonymous
-class QueuingStrategyInit implements JSObject {
+class QueuingStrategyInit {
   external factory QueuingStrategyInit({required num highWaterMark});
 }
 
@@ -377,7 +377,7 @@ extension QueuingStrategyInitExtension on QueuingStrategyInit {
 
 @JS('ByteLengthQueuingStrategy')
 @staticInterop
-class ByteLengthQueuingStrategy implements JSObject {
+class ByteLengthQueuingStrategy {
   external factory ByteLengthQueuingStrategy(QueuingStrategyInit init);
 }
 
@@ -388,7 +388,7 @@ extension ByteLengthQueuingStrategyExtension on ByteLengthQueuingStrategy {
 
 @JS('CountQueuingStrategy')
 @staticInterop
-class CountQueuingStrategy implements JSObject {
+class CountQueuingStrategy {
   external factory CountQueuingStrategy(QueuingStrategyInit init);
 }
 

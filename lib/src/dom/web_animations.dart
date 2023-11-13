@@ -19,7 +19,7 @@ typedef CompositeOperationOrAuto = String;
 
 @JS('AnimationTimeline')
 @staticInterop
-class AnimationTimeline implements JSObject {}
+class AnimationTimeline {}
 
 extension AnimationTimelineExtension on AnimationTimeline {
   external Animation play([AnimationEffect? effect]);
@@ -30,7 +30,7 @@ extension AnimationTimelineExtension on AnimationTimeline {
 @JS()
 @staticInterop
 @anonymous
-class DocumentTimelineOptions implements JSObject {
+class DocumentTimelineOptions {
   external factory DocumentTimelineOptions({DOMHighResTimeStamp originTime});
 }
 
@@ -90,7 +90,7 @@ extension AnimationExtension on Animation {
 
 @JS('AnimationEffect')
 @staticInterop
-class AnimationEffect implements JSObject {}
+class AnimationEffect {}
 
 extension AnimationEffectExtension on AnimationEffect {
   external void before(AnimationEffect effects);
@@ -108,7 +108,7 @@ extension AnimationEffectExtension on AnimationEffect {
 @JS()
 @staticInterop
 @anonymous
-class EffectTiming implements JSObject {
+class EffectTiming {
   external factory EffectTiming({
     num delay,
     num endDelay,
@@ -146,7 +146,7 @@ extension EffectTimingExtension on EffectTiming {
 @JS()
 @staticInterop
 @anonymous
-class OptionalEffectTiming implements JSObject {
+class OptionalEffectTiming {
   external factory OptionalEffectTiming({
     num playbackRate,
     num delay,
@@ -236,7 +236,7 @@ extension KeyframeEffectExtension on KeyframeEffect {
 @JS()
 @staticInterop
 @anonymous
-class BaseComputedKeyframe implements JSObject {
+class BaseComputedKeyframe {
   external factory BaseComputedKeyframe({
     num? offset,
     num computedOffset,
@@ -259,7 +259,7 @@ extension BaseComputedKeyframeExtension on BaseComputedKeyframe {
 @JS()
 @staticInterop
 @anonymous
-class BasePropertyIndexedKeyframe implements JSObject {
+class BasePropertyIndexedKeyframe {
   external factory BasePropertyIndexedKeyframe({
     JSAny? offset,
     JSAny easing,
@@ -279,7 +279,7 @@ extension BasePropertyIndexedKeyframeExtension on BasePropertyIndexedKeyframe {
 @JS()
 @staticInterop
 @anonymous
-class BaseKeyframe implements JSObject {
+class BaseKeyframe {
   external factory BaseKeyframe({
     num? offset,
     String easing,
@@ -342,7 +342,7 @@ extension KeyframeAnimationOptionsExtension on KeyframeAnimationOptions {
 @JS()
 @staticInterop
 @anonymous
-class GetAnimationsOptions implements JSObject {
+class GetAnimationsOptions {
   external factory GetAnimationsOptions({bool subtree});
 }
 

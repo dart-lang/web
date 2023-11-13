@@ -22,7 +22,7 @@ extension AnimationWorkletGlobalScopeExtension on AnimationWorkletGlobalScope {
 
 @JS('WorkletAnimationEffect')
 @staticInterop
-class WorkletAnimationEffect implements JSObject {}
+class WorkletAnimationEffect {}
 
 extension WorkletAnimationEffectExtension on WorkletAnimationEffect {
   external EffectTiming getTiming();
@@ -48,7 +48,7 @@ extension WorkletAnimationExtension on WorkletAnimation {
 
 @JS('WorkletGroupEffect')
 @staticInterop
-class WorkletGroupEffect implements JSObject {}
+class WorkletGroupEffect {}
 
 extension WorkletGroupEffectExtension on WorkletGroupEffect {
   external JSArray getChildren();

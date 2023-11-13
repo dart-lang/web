@@ -8,7 +8,7 @@ import 'dom.dart';
 
 @JS('NamedFlowMap')
 @staticInterop
-class NamedFlowMap implements JSObject {}
+class NamedFlowMap {}
 
 extension NamedFlowMapExtension on NamedFlowMap {}
 

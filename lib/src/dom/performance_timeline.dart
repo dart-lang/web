@@ -11,7 +11,7 @@ typedef PerformanceObserverCallback = JSFunction;
 
 @JS('PerformanceEntry')
 @staticInterop
-class PerformanceEntry implements JSObject {}
+class PerformanceEntry {}
 
 extension PerformanceEntryExtension on PerformanceEntry {
   external JSObject toJSON();
@@ -23,7 +23,7 @@ extension PerformanceEntryExtension on PerformanceEntry {
 
 @JS('PerformanceObserver')
 @staticInterop
-class PerformanceObserver implements JSObject {
+class PerformanceObserver {
   external factory PerformanceObserver(PerformanceObserverCallback callback);
 
   external static JSArray get supportedEntryTypes;
@@ -38,7 +38,7 @@ extension PerformanceObserverExtension on PerformanceObserver {
 @JS()
 @staticInterop
 @anonymous
-class PerformanceObserverCallbackOptions implements JSObject {
+class PerformanceObserverCallbackOptions {
   external factory PerformanceObserverCallbackOptions(
       {int droppedEntriesCount});
 }
@@ -52,7 +52,7 @@ extension PerformanceObserverCallbackOptionsExtension
 @JS()
 @staticInterop
 @anonymous
-class PerformanceObserverInit implements JSObject {
+class PerformanceObserverInit {
   external factory PerformanceObserverInit({
     DOMHighResTimeStamp durationThreshold,
     JSArray entryTypes,
@@ -74,7 +74,7 @@ extension PerformanceObserverInitExtension on PerformanceObserverInit {
 
 @JS('PerformanceObserverEntryList')
 @staticInterop
-class PerformanceObserverEntryList implements JSObject {}
+class PerformanceObserverEntryList {}
 
 extension PerformanceObserverEntryListExtension
     on PerformanceObserverEntryList {

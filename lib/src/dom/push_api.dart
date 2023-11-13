@@ -26,7 +26,7 @@ extension PushPermissionDescriptorExtension on PushPermissionDescriptor {
 
 @JS('PushManager')
 @staticInterop
-class PushManager implements JSObject {
+class PushManager {
   external static JSArray get supportedContentEncodings;
 }
 
@@ -38,7 +38,7 @@ extension PushManagerExtension on PushManager {
 
 @JS('PushSubscriptionOptions')
 @staticInterop
-class PushSubscriptionOptions implements JSObject {}
+class PushSubscriptionOptions {}
 
 extension PushSubscriptionOptionsExtension on PushSubscriptionOptions {
   external bool get userVisibleOnly;
@@ -48,7 +48,7 @@ extension PushSubscriptionOptionsExtension on PushSubscriptionOptions {
 @JS()
 @staticInterop
 @anonymous
-class PushSubscriptionOptionsInit implements JSObject {
+class PushSubscriptionOptionsInit {
   external factory PushSubscriptionOptionsInit({
     bool userVisibleOnly,
     JSAny? applicationServerKey,
@@ -64,7 +64,7 @@ extension PushSubscriptionOptionsInitExtension on PushSubscriptionOptionsInit {
 
 @JS('PushSubscription')
 @staticInterop
-class PushSubscription implements JSObject {}
+class PushSubscription {}
 
 extension PushSubscriptionExtension on PushSubscription {
   external JSArrayBuffer? getKey(PushEncryptionKeyName name);
@@ -78,7 +78,7 @@ extension PushSubscriptionExtension on PushSubscription {
 @JS()
 @staticInterop
 @anonymous
-class PushSubscriptionJSON implements JSObject {
+class PushSubscriptionJSON {
   external factory PushSubscriptionJSON({
     String endpoint,
     EpochTimeStamp? expirationTime,
@@ -97,7 +97,7 @@ extension PushSubscriptionJSONExtension on PushSubscriptionJSON {
 
 @JS('PushMessageData')
 @staticInterop
-class PushMessageData implements JSObject {}
+class PushMessageData {}
 
 extension PushMessageDataExtension on PushMessageData {
   external JSArrayBuffer arrayBuffer();

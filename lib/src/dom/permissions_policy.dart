@@ -8,7 +8,7 @@ import 'reporting.dart';
 
 @JS('PermissionsPolicy')
 @staticInterop
-class PermissionsPolicy implements JSObject {}
+class PermissionsPolicy {}
 
 extension PermissionsPolicyExtension on PermissionsPolicy {
   external bool allowsFeature(

@@ -9,7 +9,7 @@ typedef ReportingObserverCallback = JSFunction;
 
 @JS('ReportBody')
 @staticInterop
-class ReportBody implements JSObject {}
+class ReportBody {}
 
 extension ReportBodyExtension on ReportBody {
   external JSObject toJSON();
@@ -17,7 +17,7 @@ extension ReportBodyExtension on ReportBody {
 
 @JS('Report')
 @staticInterop
-class Report implements JSObject {}
+class Report {}
 
 extension ReportExtension on Report {
   external JSObject toJSON();
@@ -28,7 +28,7 @@ extension ReportExtension on Report {
 
 @JS('ReportingObserver')
 @staticInterop
-class ReportingObserver implements JSObject {
+class ReportingObserver {
   external factory ReportingObserver(
     ReportingObserverCallback callback, [
     ReportingObserverOptions options,
@@ -44,7 +44,7 @@ extension ReportingObserverExtension on ReportingObserver {
 @JS()
 @staticInterop
 @anonymous
-class ReportingObserverOptions implements JSObject {
+class ReportingObserverOptions {
   external factory ReportingObserverOptions({
     JSArray types,
     bool buffered,
@@ -61,7 +61,7 @@ extension ReportingObserverOptionsExtension on ReportingObserverOptions {
 @JS()
 @staticInterop
 @anonymous
-class GenerateTestReportParameters implements JSObject {
+class GenerateTestReportParameters {
   external factory GenerateTestReportParameters({
     required String message,
     String group,

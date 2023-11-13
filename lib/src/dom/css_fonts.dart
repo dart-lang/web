@@ -31,7 +31,7 @@ extension CSSFontFeatureValuesRuleExtension on CSSFontFeatureValuesRule {
 
 @JS('CSSFontFeatureValuesMap')
 @staticInterop
-class CSSFontFeatureValuesMap implements JSObject {}
+class CSSFontFeatureValuesMap {}
 
 extension CSSFontFeatureValuesMapExtension on CSSFontFeatureValuesMap {
   external void set(

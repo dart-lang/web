@@ -33,7 +33,7 @@ typedef SlotAssignmentMode = String;
 
 @JS('Event')
 @staticInterop
-class Event implements JSObject {
+class Event {
   external factory Event(
     String type, [
     EventInit eventInitDict,
@@ -75,7 +75,7 @@ extension EventExtension on Event {
 @JS()
 @staticInterop
 @anonymous
-class EventInit implements JSObject {
+class EventInit {
   external factory EventInit({
     bool bubbles,
     bool cancelable,
@@ -125,7 +125,7 @@ extension CustomEventInitExtension on CustomEventInit {
 
 @JS('EventTarget')
 @staticInterop
-class EventTarget implements JSObject {
+class EventTarget {
   external factory EventTarget();
 }
 
@@ -146,7 +146,7 @@ extension EventTargetExtension on EventTarget {
 @JS()
 @staticInterop
 @anonymous
-class EventListenerOptions implements JSObject {
+class EventListenerOptions {
   external factory EventListenerOptions({bool capture});
 }
 
@@ -177,7 +177,7 @@ extension AddEventListenerOptionsExtension on AddEventListenerOptions {
 
 @JS('AbortController')
 @staticInterop
-class AbortController implements JSObject {
+class AbortController {
   external factory AbortController();
 }
 
@@ -204,7 +204,7 @@ extension AbortSignalExtension on AbortSignal {
 
 @JS('NodeList')
 @staticInterop
-class NodeList implements JSObject {}
+class NodeList {}
 
 extension NodeListExtension on NodeList {
   external Node? item(int index);
@@ -213,7 +213,7 @@ extension NodeListExtension on NodeList {
 
 @JS('HTMLCollection')
 @staticInterop
-class HTMLCollection implements JSObject {}
+class HTMLCollection {}
 
 extension HTMLCollectionExtension on HTMLCollection {
   external Element? item(int index);
@@ -223,7 +223,7 @@ extension HTMLCollectionExtension on HTMLCollection {
 
 @JS('MutationObserver')
 @staticInterop
-class MutationObserver implements JSObject {
+class MutationObserver {
   external factory MutationObserver(MutationCallback callback);
 }
 
@@ -239,7 +239,7 @@ extension MutationObserverExtension on MutationObserver {
 @JS()
 @staticInterop
 @anonymous
-class MutationObserverInit implements JSObject {
+class MutationObserverInit {
   external factory MutationObserverInit({
     bool childList,
     bool attributes,
@@ -270,7 +270,7 @@ extension MutationObserverInitExtension on MutationObserverInit {
 
 @JS('MutationRecord')
 @staticInterop
-class MutationRecord implements JSObject {}
+class MutationRecord {}
 
 extension MutationRecordExtension on MutationRecord {
   external String get type;
@@ -350,7 +350,7 @@ extension NodeExtension on Node {
 @JS()
 @staticInterop
 @anonymous
-class GetRootNodeOptions implements JSObject {
+class GetRootNodeOptions {
   external factory GetRootNodeOptions({bool composed});
 }
 
@@ -801,7 +801,7 @@ class XMLDocument implements Document {}
 @JS()
 @staticInterop
 @anonymous
-class ElementCreationOptions implements JSObject {
+class ElementCreationOptions {
   external factory ElementCreationOptions({String is_});
 }
 
@@ -814,7 +814,7 @@ extension ElementCreationOptionsExtension on ElementCreationOptions {
 
 @JS('DOMImplementation')
 @staticInterop
-class DOMImplementation implements JSObject {}
+class DOMImplementation {}
 
 extension DOMImplementationExtension on DOMImplementation {
   external DocumentType createDocumentType(
@@ -1161,7 +1161,7 @@ extension ElementExtension on Element {
 @JS()
 @staticInterop
 @anonymous
-class ShadowRootInit implements JSObject {
+class ShadowRootInit {
   external factory ShadowRootInit({
     required ShadowRootMode mode,
     bool delegatesFocus,
@@ -1180,7 +1180,7 @@ extension ShadowRootInitExtension on ShadowRootInit {
 
 @JS('NamedNodeMap')
 @staticInterop
-class NamedNodeMap implements JSObject {}
+class NamedNodeMap {}
 
 extension NamedNodeMapExtension on NamedNodeMap {
   external Attr? item(int index);
@@ -1297,7 +1297,7 @@ class Comment implements CharacterData {
 
 @JS('AbstractRange')
 @staticInterop
-class AbstractRange implements JSObject {}
+class AbstractRange {}
 
 extension AbstractRangeExtension on AbstractRange {
   external Node get startContainer;
@@ -1310,7 +1310,7 @@ extension AbstractRangeExtension on AbstractRange {
 @JS()
 @staticInterop
 @anonymous
-class StaticRangeInit implements JSObject {
+class StaticRangeInit {
   external factory StaticRangeInit({
     required Node startContainer,
     required int startOffset,
@@ -1391,7 +1391,7 @@ extension RangeExtension on Range {
 
 @JS('NodeIterator')
 @staticInterop
-class NodeIterator implements JSObject {}
+class NodeIterator {}
 
 extension NodeIteratorExtension on NodeIterator {
   external Node? nextNode();
@@ -1406,7 +1406,7 @@ extension NodeIteratorExtension on NodeIterator {
 
 @JS('TreeWalker')
 @staticInterop
-class TreeWalker implements JSObject {}
+class TreeWalker {}
 
 extension TreeWalkerExtension on TreeWalker {
   external Node? parentNode();
@@ -1425,7 +1425,7 @@ extension TreeWalkerExtension on TreeWalker {
 
 @JS('DOMTokenList')
 @staticInterop
-class DOMTokenList implements JSObject {}
+class DOMTokenList {}
 
 extension DOMTokenListExtension on DOMTokenList {
   external String? item(int index);
@@ -1448,7 +1448,7 @@ extension DOMTokenListExtension on DOMTokenList {
 
 @JS('XPathResult')
 @staticInterop
-class XPathResult implements JSObject {
+class XPathResult {
   external static int get ANY_TYPE;
   external static int get NUMBER_TYPE;
   external static int get STRING_TYPE;
@@ -1475,7 +1475,7 @@ extension XPathResultExtension on XPathResult {
 
 @JS('XPathExpression')
 @staticInterop
-class XPathExpression implements JSObject {}
+class XPathExpression {}
 
 extension XPathExpressionExtension on XPathExpression {
   external XPathResult evaluate(
@@ -1487,7 +1487,7 @@ extension XPathExpressionExtension on XPathExpression {
 
 @JS('XPathEvaluator')
 @staticInterop
-class XPathEvaluator implements JSObject {
+class XPathEvaluator {
   external factory XPathEvaluator();
 }
 
@@ -1508,7 +1508,7 @@ extension XPathEvaluatorExtension on XPathEvaluator {
 
 @JS('XSLTProcessor')
 @staticInterop
-class XSLTProcessor implements JSObject {
+class XSLTProcessor {
   external factory XSLTProcessor();
 }
 

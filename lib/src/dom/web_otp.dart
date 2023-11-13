@@ -19,7 +19,7 @@ extension OTPCredentialExtension on OTPCredential {
 @JS()
 @staticInterop
 @anonymous
-class OTPCredentialRequestOptions implements JSObject {
+class OTPCredentialRequestOptions {
   external factory OTPCredentialRequestOptions({JSArray transport});
 }
 

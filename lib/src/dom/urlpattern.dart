@@ -8,7 +8,7 @@ typedef URLPatternInput = JSAny;
 
 @JS('URLPattern')
 @staticInterop
-class URLPattern implements JSObject {
+class URLPattern {
   external factory URLPattern([
     URLPatternInput input,
     JSAny baseURLOrOptions,
@@ -38,7 +38,7 @@ extension URLPatternExtension on URLPattern {
 @JS()
 @staticInterop
 @anonymous
-class URLPatternInit implements JSObject {
+class URLPatternInit {
   external factory URLPatternInit({
     String protocol,
     String username,
@@ -76,7 +76,7 @@ extension URLPatternInitExtension on URLPatternInit {
 @JS()
 @staticInterop
 @anonymous
-class URLPatternOptions implements JSObject {
+class URLPatternOptions {
   external factory URLPatternOptions({bool ignoreCase});
 }
 
@@ -88,7 +88,7 @@ extension URLPatternOptionsExtension on URLPatternOptions {
 @JS()
 @staticInterop
 @anonymous
-class URLPatternResult implements JSObject {
+class URLPatternResult {
   external factory URLPatternResult({
     JSArray inputs,
     URLPatternComponentResult protocol,
@@ -126,7 +126,7 @@ extension URLPatternResultExtension on URLPatternResult {
 @JS()
 @staticInterop
 @anonymous
-class URLPatternComponentResult implements JSObject {
+class URLPatternComponentResult {
   external factory URLPatternComponentResult({
     String input,
     JSAny groups,

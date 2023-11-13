@@ -48,7 +48,7 @@ class RelativeOrientationSensor implements OrientationSensor {
 @JS()
 @staticInterop
 @anonymous
-class AbsoluteOrientationReadingValues implements JSObject {
+class AbsoluteOrientationReadingValues {
   external factory AbsoluteOrientationReadingValues(
       {required JSArray? quaternion});
 }

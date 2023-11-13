@@ -14,7 +14,7 @@ typedef WebTransportErrorSource = String;
 
 @JS('WebTransportDatagramDuplexStream')
 @staticInterop
-class WebTransportDatagramDuplexStream implements JSObject {}
+class WebTransportDatagramDuplexStream {}
 
 extension WebTransportDatagramDuplexStreamExtension
     on WebTransportDatagramDuplexStream {
@@ -33,7 +33,7 @@ extension WebTransportDatagramDuplexStreamExtension
 
 @JS('WebTransport')
 @staticInterop
-class WebTransport implements JSObject {
+class WebTransport {
   external factory WebTransport(
     String url, [
     WebTransportOptions options,
@@ -60,7 +60,7 @@ extension WebTransportExtension on WebTransport {
 @JS()
 @staticInterop
 @anonymous
-class WebTransportHash implements JSObject {
+class WebTransportHash {
   external factory WebTransportHash({
     String algorithm,
     BufferSource value,
@@ -77,7 +77,7 @@ extension WebTransportHashExtension on WebTransportHash {
 @JS()
 @staticInterop
 @anonymous
-class WebTransportOptions implements JSObject {
+class WebTransportOptions {
   external factory WebTransportOptions({
     bool allowPooling,
     bool requireUnreliable,
@@ -100,7 +100,7 @@ extension WebTransportOptionsExtension on WebTransportOptions {
 @JS()
 @staticInterop
 @anonymous
-class WebTransportCloseInfo implements JSObject {
+class WebTransportCloseInfo {
   external factory WebTransportCloseInfo({
     int closeCode,
     String reason,
@@ -117,7 +117,7 @@ extension WebTransportCloseInfoExtension on WebTransportCloseInfo {
 @JS()
 @staticInterop
 @anonymous
-class WebTransportSendStreamOptions implements JSObject {
+class WebTransportSendStreamOptions {
   external factory WebTransportSendStreamOptions({int? sendOrder});
 }
 
@@ -130,7 +130,7 @@ extension WebTransportSendStreamOptionsExtension
 @JS()
 @staticInterop
 @anonymous
-class WebTransportConnectionStats implements JSObject {
+class WebTransportConnectionStats {
   external factory WebTransportConnectionStats({
     DOMHighResTimeStamp timestamp,
     int bytesSent,
@@ -177,7 +177,7 @@ extension WebTransportConnectionStatsExtension on WebTransportConnectionStats {
 @JS()
 @staticInterop
 @anonymous
-class WebTransportDatagramStats implements JSObject {
+class WebTransportDatagramStats {
   external factory WebTransportDatagramStats({
     DOMHighResTimeStamp timestamp,
     int expiredOutgoing,
@@ -210,7 +210,7 @@ extension WebTransportSendStreamExtension on WebTransportSendStream {
 @JS()
 @staticInterop
 @anonymous
-class WebTransportSendStreamStats implements JSObject {
+class WebTransportSendStreamStats {
   external factory WebTransportSendStreamStats({
     DOMHighResTimeStamp timestamp,
     int bytesWritten,
@@ -241,7 +241,7 @@ extension WebTransportReceiveStreamExtension on WebTransportReceiveStream {
 @JS()
 @staticInterop
 @anonymous
-class WebTransportReceiveStreamStats implements JSObject {
+class WebTransportReceiveStreamStats {
   external factory WebTransportReceiveStreamStats({
     DOMHighResTimeStamp timestamp,
     int bytesReceived,
@@ -261,7 +261,7 @@ extension WebTransportReceiveStreamStatsExtension
 
 @JS('WebTransportBidirectionalStream')
 @staticInterop
-class WebTransportBidirectionalStream implements JSObject {}
+class WebTransportBidirectionalStream {}
 
 extension WebTransportBidirectionalStreamExtension
     on WebTransportBidirectionalStream {
@@ -286,7 +286,7 @@ extension WebTransportErrorExtension on WebTransportError {
 @JS()
 @staticInterop
 @anonymous
-class WebTransportErrorOptions implements JSObject {
+class WebTransportErrorOptions {
   external factory WebTransportErrorOptions({
     WebTransportErrorSource source,
     int? streamErrorCode,

@@ -6,6 +6,6 @@ import 'dart:js_interop';
 
 @JS('KeyboardLayoutMap')
 @staticInterop
-class KeyboardLayoutMap implements JSObject {}
+class KeyboardLayoutMap {}
 
 extension KeyboardLayoutMapExtension on KeyboardLayoutMap {}

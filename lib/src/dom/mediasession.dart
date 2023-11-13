@@ -10,7 +10,7 @@ typedef MediaSessionAction = String;
 
 @JS('MediaSession')
 @staticInterop
-class MediaSession implements JSObject {}
+class MediaSession {}
 
 extension MediaSessionExtension on MediaSession {
   external void setActionHandler(
@@ -28,7 +28,7 @@ extension MediaSessionExtension on MediaSession {
 
 @JS('MediaMetadata')
 @staticInterop
-class MediaMetadata implements JSObject {
+class MediaMetadata {
   external factory MediaMetadata([MediaMetadataInit init]);
 }
 
@@ -46,7 +46,7 @@ extension MediaMetadataExtension on MediaMetadata {
 @JS()
 @staticInterop
 @anonymous
-class MediaMetadataInit implements JSObject {
+class MediaMetadataInit {
   external factory MediaMetadataInit({
     String title,
     String artist,
@@ -69,7 +69,7 @@ extension MediaMetadataInitExtension on MediaMetadataInit {
 @JS()
 @staticInterop
 @anonymous
-class MediaImage implements JSObject {
+class MediaImage {
   external factory MediaImage({
     required String src,
     String sizes,
@@ -89,7 +89,7 @@ extension MediaImageExtension on MediaImage {
 @JS()
 @staticInterop
 @anonymous
-class MediaPositionState implements JSObject {
+class MediaPositionState {
   external factory MediaPositionState({
     num duration,
     num playbackRate,
@@ -109,7 +109,7 @@ extension MediaPositionStateExtension on MediaPositionState {
 @JS()
 @staticInterop
 @anonymous
-class MediaSessionActionDetails implements JSObject {
+class MediaSessionActionDetails {
   external factory MediaSessionActionDetails({
     required MediaSessionAction action,
     num seekOffset,

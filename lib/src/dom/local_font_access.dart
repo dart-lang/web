@@ -7,7 +7,7 @@ import 'dart:js_interop';
 @JS()
 @staticInterop
 @anonymous
-class QueryOptions implements JSObject {
+class QueryOptions {
   external factory QueryOptions({JSArray postscriptNames});
 }
 
@@ -18,7 +18,7 @@ extension QueryOptionsExtension on QueryOptions {
 
 @JS('FontData')
 @staticInterop
-class FontData implements JSObject {}
+class FontData {}
 
 extension FontDataExtension on FontData {
   external JSPromise blob();

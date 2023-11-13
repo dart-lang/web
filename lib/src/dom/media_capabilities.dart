@@ -15,7 +15,7 @@ typedef TransferFunction = String;
 @JS()
 @staticInterop
 @anonymous
-class MediaConfiguration implements JSObject {
+class MediaConfiguration {
   external factory MediaConfiguration({
     VideoConfiguration video,
     AudioConfiguration audio,
@@ -63,7 +63,7 @@ extension MediaEncodingConfigurationExtension on MediaEncodingConfiguration {
 @JS()
 @staticInterop
 @anonymous
-class VideoConfiguration implements JSObject {
+class VideoConfiguration {
   external factory VideoConfiguration({
     required String contentType,
     required int width,
@@ -107,7 +107,7 @@ extension VideoConfigurationExtension on VideoConfiguration {
 @JS()
 @staticInterop
 @anonymous
-class AudioConfiguration implements JSObject {
+class AudioConfiguration {
   external factory AudioConfiguration({
     required String contentType,
     String channels,
@@ -133,7 +133,7 @@ extension AudioConfigurationExtension on AudioConfiguration {
 @JS()
 @staticInterop
 @anonymous
-class MediaCapabilitiesKeySystemConfiguration implements JSObject {
+class MediaCapabilitiesKeySystemConfiguration {
   external factory MediaCapabilitiesKeySystemConfiguration({
     required String keySystem,
     String initDataType,
@@ -166,7 +166,7 @@ extension MediaCapabilitiesKeySystemConfigurationExtension
 @JS()
 @staticInterop
 @anonymous
-class KeySystemTrackConfiguration implements JSObject {
+class KeySystemTrackConfiguration {
   external factory KeySystemTrackConfiguration({
     String robustness,
     String? encryptionScheme,
@@ -183,7 +183,7 @@ extension KeySystemTrackConfigurationExtension on KeySystemTrackConfiguration {
 @JS()
 @staticInterop
 @anonymous
-class MediaCapabilitiesInfo implements JSObject {
+class MediaCapabilitiesInfo {
   external factory MediaCapabilitiesInfo({
     required bool supported,
     required bool smooth,
@@ -234,7 +234,7 @@ extension MediaCapabilitiesEncodingInfoExtension
 
 @JS('MediaCapabilities')
 @staticInterop
-class MediaCapabilities implements JSObject {}
+class MediaCapabilities {}
 
 extension MediaCapabilitiesExtension on MediaCapabilities {
   external JSPromise decodingInfo(MediaDecodingConfiguration configuration);

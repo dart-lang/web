@@ -11,7 +11,7 @@ typedef NDEFMessageSource = JSAny;
 
 @JS('NDEFMessage')
 @staticInterop
-class NDEFMessage implements JSObject {
+class NDEFMessage {
   external factory NDEFMessage(NDEFMessageInit messageInit);
 }
 
@@ -22,7 +22,7 @@ extension NDEFMessageExtension on NDEFMessage {
 @JS()
 @staticInterop
 @anonymous
-class NDEFMessageInit implements JSObject {
+class NDEFMessageInit {
   external factory NDEFMessageInit({required JSArray records});
 }
 
@@ -33,7 +33,7 @@ extension NDEFMessageInitExtension on NDEFMessageInit {
 
 @JS('NDEFRecord')
 @staticInterop
-class NDEFRecord implements JSObject {
+class NDEFRecord {
   external factory NDEFRecord(NDEFRecordInit recordInit);
 }
 
@@ -50,7 +50,7 @@ extension NDEFRecordExtension on NDEFRecord {
 @JS()
 @staticInterop
 @anonymous
-class NDEFRecordInit implements JSObject {
+class NDEFRecordInit {
   external factory NDEFRecordInit({
     required String recordType,
     String mediaType,
@@ -129,7 +129,7 @@ extension NDEFReadingEventInitExtension on NDEFReadingEventInit {
 @JS()
 @staticInterop
 @anonymous
-class NDEFWriteOptions implements JSObject {
+class NDEFWriteOptions {
   external factory NDEFWriteOptions({
     bool overwrite,
     AbortSignal? signal,
@@ -146,7 +146,7 @@ extension NDEFWriteOptionsExtension on NDEFWriteOptions {
 @JS()
 @staticInterop
 @anonymous
-class NDEFMakeReadOnlyOptions implements JSObject {
+class NDEFMakeReadOnlyOptions {
   external factory NDEFMakeReadOnlyOptions({AbortSignal? signal});
 }
 
@@ -158,7 +158,7 @@ extension NDEFMakeReadOnlyOptionsExtension on NDEFMakeReadOnlyOptions {
 @JS()
 @staticInterop
 @anonymous
-class NDEFScanOptions implements JSObject {
+class NDEFScanOptions {
   external factory NDEFScanOptions({AbortSignal signal});
 }
 

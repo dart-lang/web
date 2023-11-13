@@ -19,7 +19,7 @@ extension IdentityCredentialExtension on IdentityCredential {
 @JS()
 @staticInterop
 @anonymous
-class IdentityCredentialRequestOptions implements JSObject {
+class IdentityCredentialRequestOptions {
   external factory IdentityCredentialRequestOptions({
     required JSArray providers,
     IdentityCredentialRequestOptionsContext context,
@@ -37,7 +37,7 @@ extension IdentityCredentialRequestOptionsExtension
 @JS()
 @staticInterop
 @anonymous
-class IdentityProviderConfig implements JSObject {
+class IdentityProviderConfig {
   external factory IdentityProviderConfig({
     required String configURL,
     required String clientId,
@@ -60,7 +60,7 @@ extension IdentityProviderConfigExtension on IdentityProviderConfig {
 @JS()
 @staticInterop
 @anonymous
-class IdentityProviderWellKnown implements JSObject {
+class IdentityProviderWellKnown {
   external factory IdentityProviderWellKnown({required JSArray provider_urls});
 }
 
@@ -72,7 +72,7 @@ extension IdentityProviderWellKnownExtension on IdentityProviderWellKnown {
 @JS()
 @staticInterop
 @anonymous
-class IdentityProviderIcon implements JSObject {
+class IdentityProviderIcon {
   external factory IdentityProviderIcon({
     required String url,
     int size,
@@ -89,7 +89,7 @@ extension IdentityProviderIconExtension on IdentityProviderIcon {
 @JS()
 @staticInterop
 @anonymous
-class IdentityProviderBranding implements JSObject {
+class IdentityProviderBranding {
   external factory IdentityProviderBranding({
     String background_color,
     String color,
@@ -112,7 +112,7 @@ extension IdentityProviderBrandingExtension on IdentityProviderBranding {
 @JS()
 @staticInterop
 @anonymous
-class IdentityProviderAPIConfig implements JSObject {
+class IdentityProviderAPIConfig {
   external factory IdentityProviderAPIConfig({
     required String accounts_endpoint,
     required String client_metadata_endpoint,
@@ -135,7 +135,7 @@ extension IdentityProviderAPIConfigExtension on IdentityProviderAPIConfig {
 @JS()
 @staticInterop
 @anonymous
-class IdentityProviderAccount implements JSObject {
+class IdentityProviderAccount {
   external factory IdentityProviderAccount({
     required String id,
     required String name,
@@ -167,7 +167,7 @@ extension IdentityProviderAccountExtension on IdentityProviderAccount {
 @JS()
 @staticInterop
 @anonymous
-class IdentityProviderAccountList implements JSObject {
+class IdentityProviderAccountList {
   external factory IdentityProviderAccountList({JSArray accounts});
 }
 
@@ -179,7 +179,7 @@ extension IdentityProviderAccountListExtension on IdentityProviderAccountList {
 @JS()
 @staticInterop
 @anonymous
-class IdentityProviderToken implements JSObject {
+class IdentityProviderToken {
   external factory IdentityProviderToken({required String token});
 }
 
@@ -191,7 +191,7 @@ extension IdentityProviderTokenExtension on IdentityProviderToken {
 @JS()
 @staticInterop
 @anonymous
-class IdentityProviderClientMetadata implements JSObject {
+class IdentityProviderClientMetadata {
   external factory IdentityProviderClientMetadata({
     String privacy_policy_url,
     String terms_of_service_url,
@@ -209,7 +209,7 @@ extension IdentityProviderClientMetadataExtension
 @JS()
 @staticInterop
 @anonymous
-class IdentityUserInfo implements JSObject {
+class IdentityUserInfo {
   external factory IdentityUserInfo({
     String email,
     String name,
@@ -231,6 +231,6 @@ extension IdentityUserInfoExtension on IdentityUserInfo {
 
 @JS('IdentityProvider')
 @staticInterop
-class IdentityProvider implements JSObject {
+class IdentityProvider {
   external static JSPromise getUserInfo(IdentityProviderConfig config);
 }

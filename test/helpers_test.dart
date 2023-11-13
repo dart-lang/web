@@ -12,7 +12,7 @@ import 'package:web/helpers.dart';
 
 void main() {
   test('instanceOfString works with package:web types', () {
-    final div = document.createElement('div');
+    final div = document.createElement('div') as JSObject;
 
     expect(div.instanceOfString('bob'), false);
     expect(div.instanceOfString('HTMLDivElement'), true);

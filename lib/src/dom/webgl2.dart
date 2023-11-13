@@ -34,7 +34,7 @@ class WebGLVertexArrayObject implements WebGLObject {}
 
 @JS('WebGL2RenderingContext')
 @staticInterop
-class WebGL2RenderingContext implements JSObject {
+class WebGL2RenderingContext {
   external static GLenum get DEPTH_BUFFER_BIT;
   external static GLenum get STENCIL_BUFFER_BIT;
   external static GLenum get COLOR_BUFFER_BIT;

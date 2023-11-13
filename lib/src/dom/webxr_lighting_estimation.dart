@@ -23,7 +23,7 @@ extension XRLightProbeExtension on XRLightProbe {
 
 @JS('XRLightEstimate')
 @staticInterop
-class XRLightEstimate implements JSObject {}
+class XRLightEstimate {}
 
 extension XRLightEstimateExtension on XRLightEstimate {
   external JSFloat32Array get sphericalHarmonicsCoefficients;
@@ -34,7 +34,7 @@ extension XRLightEstimateExtension on XRLightEstimate {
 @JS()
 @staticInterop
 @anonymous
-class XRLightProbeInit implements JSObject {
+class XRLightProbeInit {
   external factory XRLightProbeInit({XRReflectionFormat reflectionFormat});
 }
 

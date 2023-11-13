@@ -12,7 +12,7 @@ typedef BarcodeFormat = String;
 
 @JS('FaceDetector')
 @staticInterop
-class FaceDetector implements JSObject {
+class FaceDetector {
   external factory FaceDetector([FaceDetectorOptions faceDetectorOptions]);
 }
 
@@ -23,7 +23,7 @@ extension FaceDetectorExtension on FaceDetector {
 @JS()
 @staticInterop
 @anonymous
-class FaceDetectorOptions implements JSObject {
+class FaceDetectorOptions {
   external factory FaceDetectorOptions({
     int maxDetectedFaces,
     bool fastMode,
@@ -40,7 +40,7 @@ extension FaceDetectorOptionsExtension on FaceDetectorOptions {
 @JS()
 @staticInterop
 @anonymous
-class DetectedFace implements JSObject {
+class DetectedFace {
   external factory DetectedFace({
     required DOMRectReadOnly boundingBox,
     required JSArray? landmarks,
@@ -57,7 +57,7 @@ extension DetectedFaceExtension on DetectedFace {
 @JS()
 @staticInterop
 @anonymous
-class Landmark implements JSObject {
+class Landmark {
   external factory Landmark({
     required JSArray locations,
     LandmarkType type,
@@ -73,7 +73,7 @@ extension LandmarkExtension on Landmark {
 
 @JS('BarcodeDetector')
 @staticInterop
-class BarcodeDetector implements JSObject {
+class BarcodeDetector {
   external factory BarcodeDetector(
       [BarcodeDetectorOptions barcodeDetectorOptions]);
 
@@ -87,7 +87,7 @@ extension BarcodeDetectorExtension on BarcodeDetector {
 @JS()
 @staticInterop
 @anonymous
-class BarcodeDetectorOptions implements JSObject {
+class BarcodeDetectorOptions {
   external factory BarcodeDetectorOptions({JSArray formats});
 }
 
@@ -99,7 +99,7 @@ extension BarcodeDetectorOptionsExtension on BarcodeDetectorOptions {
 @JS()
 @staticInterop
 @anonymous
-class DetectedBarcode implements JSObject {
+class DetectedBarcode {
   external factory DetectedBarcode({
     required DOMRectReadOnly boundingBox,
     required String rawValue,

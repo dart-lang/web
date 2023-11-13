@@ -30,7 +30,7 @@ extension CaptureControllerExtension on CaptureController {
 @JS()
 @staticInterop
 @anonymous
-class DisplayMediaStreamOptions implements JSObject {
+class DisplayMediaStreamOptions {
   external factory DisplayMediaStreamOptions({
     JSAny video,
     JSAny audio,

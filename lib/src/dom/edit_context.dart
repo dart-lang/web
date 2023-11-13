@@ -14,7 +14,7 @@ typedef UnderlineThickness = String;
 @JS()
 @staticInterop
 @anonymous
-class EditContextInit implements JSObject {
+class EditContextInit {
   external factory EditContextInit({
     String text,
     int selectionStart,
@@ -130,7 +130,7 @@ extension TextUpdateEventExtension on TextUpdateEvent {
 @JS()
 @staticInterop
 @anonymous
-class TextFormatInit implements JSObject {
+class TextFormatInit {
   external factory TextFormatInit({
     int rangeStart,
     int rangeEnd,
@@ -152,7 +152,7 @@ extension TextFormatInitExtension on TextFormatInit {
 
 @JS('TextFormat')
 @staticInterop
-class TextFormat implements JSObject {
+class TextFormat {
   external factory TextFormat([TextFormatInit options]);
 }
 

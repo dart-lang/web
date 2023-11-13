@@ -11,7 +11,7 @@ typedef FullscreenNavigationUI = String;
 @JS()
 @staticInterop
 @anonymous
-class FullscreenOptions implements JSObject {
+class FullscreenOptions {
   external factory FullscreenOptions({
     FullscreenNavigationUI navigationUI,
     ScreenDetailed screen,

@@ -93,7 +93,7 @@ extension ServiceWorkerContainerExtension on ServiceWorkerContainer {
 @JS()
 @staticInterop
 @anonymous
-class RegistrationOptions implements JSObject {
+class RegistrationOptions {
   external factory RegistrationOptions({
     String scope,
     WorkerType type,
@@ -112,7 +112,7 @@ extension RegistrationOptionsExtension on RegistrationOptions {
 
 @JS('NavigationPreloadManager')
 @staticInterop
-class NavigationPreloadManager implements JSObject {}
+class NavigationPreloadManager {}
 
 extension NavigationPreloadManagerExtension on NavigationPreloadManager {
   external JSPromise enable();
@@ -124,7 +124,7 @@ extension NavigationPreloadManagerExtension on NavigationPreloadManager {
 @JS()
 @staticInterop
 @anonymous
-class NavigationPreloadState implements JSObject {
+class NavigationPreloadState {
   external factory NavigationPreloadState({
     bool enabled,
     String headerValue,
@@ -190,7 +190,7 @@ extension ServiceWorkerGlobalScopeExtension on ServiceWorkerGlobalScope {
 
 @JS('Client')
 @staticInterop
-class Client implements JSObject {}
+class Client {}
 
 extension ClientExtension on Client {
   external void postMessage(
@@ -218,7 +218,7 @@ extension WindowClientExtension on WindowClient {
 
 @JS('Clients')
 @staticInterop
-class Clients implements JSObject {}
+class Clients {}
 
 extension ClientsExtension on Clients {
   external JSPromise get(String id);
@@ -230,7 +230,7 @@ extension ClientsExtension on Clients {
 @JS()
 @staticInterop
 @anonymous
-class ClientQueryOptions implements JSObject {
+class ClientQueryOptions {
   external factory ClientQueryOptions({
     bool includeUncontrolled,
     ClientType type,
@@ -357,7 +357,7 @@ extension ExtendableMessageEventInitExtension on ExtendableMessageEventInit {
 
 @JS('Cache')
 @staticInterop
-class Cache implements JSObject {}
+class Cache {}
 
 extension CacheExtension on Cache {
   external JSPromise match(
@@ -387,7 +387,7 @@ extension CacheExtension on Cache {
 @JS()
 @staticInterop
 @anonymous
-class CacheQueryOptions implements JSObject {
+class CacheQueryOptions {
   external factory CacheQueryOptions({
     bool ignoreSearch,
     bool ignoreMethod,
@@ -406,7 +406,7 @@ extension CacheQueryOptionsExtension on CacheQueryOptions {
 
 @JS('CacheStorage')
 @staticInterop
-class CacheStorage implements JSObject {}
+class CacheStorage {}
 
 extension CacheStorageExtension on CacheStorage {
   external JSPromise match(

@@ -49,7 +49,7 @@ extension DeviceOrientationEventInitExtension on DeviceOrientationEventInit {
 
 @JS('DeviceMotionEventAcceleration')
 @staticInterop
-class DeviceMotionEventAcceleration implements JSObject {}
+class DeviceMotionEventAcceleration {}
 
 extension DeviceMotionEventAccelerationExtension
     on DeviceMotionEventAcceleration {
@@ -60,7 +60,7 @@ extension DeviceMotionEventAccelerationExtension
 
 @JS('DeviceMotionEventRotationRate')
 @staticInterop
-class DeviceMotionEventRotationRate implements JSObject {}
+class DeviceMotionEventRotationRate {}
 
 extension DeviceMotionEventRotationRateExtension
     on DeviceMotionEventRotationRate {
@@ -90,7 +90,7 @@ extension DeviceMotionEventExtension on DeviceMotionEvent {
 @JS()
 @staticInterop
 @anonymous
-class DeviceMotionEventAccelerationInit implements JSObject {
+class DeviceMotionEventAccelerationInit {
   external factory DeviceMotionEventAccelerationInit({
     num? x,
     num? y,
@@ -111,7 +111,7 @@ extension DeviceMotionEventAccelerationInitExtension
 @JS()
 @staticInterop
 @anonymous
-class DeviceMotionEventRotationRateInit implements JSObject {
+class DeviceMotionEventRotationRateInit {
   external factory DeviceMotionEventRotationRateInit({
     num? alpha,
     num? beta,

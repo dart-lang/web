@@ -18,7 +18,7 @@ typedef USBEndpointType = String;
 @JS()
 @staticInterop
 @anonymous
-class USBDeviceFilter implements JSObject {
+class USBDeviceFilter {
   external factory USBDeviceFilter({
     int vendorId,
     int productId,
@@ -47,7 +47,7 @@ extension USBDeviceFilterExtension on USBDeviceFilter {
 @JS()
 @staticInterop
 @anonymous
-class USBDeviceRequestOptions implements JSObject {
+class USBDeviceRequestOptions {
   external factory USBDeviceRequestOptions({
     required JSArray filters,
     JSArray exclusionFilters,
@@ -101,7 +101,7 @@ extension USBConnectionEventExtension on USBConnectionEvent {
 
 @JS('USBInTransferResult')
 @staticInterop
-class USBInTransferResult implements JSObject {
+class USBInTransferResult {
   external factory USBInTransferResult(
     USBTransferStatus status, [
     JSDataView? data,
@@ -115,7 +115,7 @@ extension USBInTransferResultExtension on USBInTransferResult {
 
 @JS('USBOutTransferResult')
 @staticInterop
-class USBOutTransferResult implements JSObject {
+class USBOutTransferResult {
   external factory USBOutTransferResult(
     USBTransferStatus status, [
     int bytesWritten,
@@ -129,7 +129,7 @@ extension USBOutTransferResultExtension on USBOutTransferResult {
 
 @JS('USBIsochronousInTransferPacket')
 @staticInterop
-class USBIsochronousInTransferPacket implements JSObject {
+class USBIsochronousInTransferPacket {
   external factory USBIsochronousInTransferPacket(
     USBTransferStatus status, [
     JSDataView? data,
@@ -144,7 +144,7 @@ extension USBIsochronousInTransferPacketExtension
 
 @JS('USBIsochronousInTransferResult')
 @staticInterop
-class USBIsochronousInTransferResult implements JSObject {
+class USBIsochronousInTransferResult {
   external factory USBIsochronousInTransferResult(
     JSArray packets, [
     JSDataView? data,
@@ -159,7 +159,7 @@ extension USBIsochronousInTransferResultExtension
 
 @JS('USBIsochronousOutTransferPacket')
 @staticInterop
-class USBIsochronousOutTransferPacket implements JSObject {
+class USBIsochronousOutTransferPacket {
   external factory USBIsochronousOutTransferPacket(
     USBTransferStatus status, [
     int bytesWritten,
@@ -174,7 +174,7 @@ extension USBIsochronousOutTransferPacketExtension
 
 @JS('USBIsochronousOutTransferResult')
 @staticInterop
-class USBIsochronousOutTransferResult implements JSObject {
+class USBIsochronousOutTransferResult {
   external factory USBIsochronousOutTransferResult(JSArray packets);
 }
 
@@ -185,7 +185,7 @@ extension USBIsochronousOutTransferResultExtension
 
 @JS('USBDevice')
 @staticInterop
-class USBDevice implements JSObject {}
+class USBDevice {}
 
 extension USBDeviceExtension on USBDevice {
   external JSPromise open();
@@ -250,7 +250,7 @@ extension USBDeviceExtension on USBDevice {
 @JS()
 @staticInterop
 @anonymous
-class USBControlTransferParameters implements JSObject {
+class USBControlTransferParameters {
   external factory USBControlTransferParameters({
     required USBRequestType requestType,
     required USBRecipient recipient,
@@ -276,7 +276,7 @@ extension USBControlTransferParametersExtension
 
 @JS('USBConfiguration')
 @staticInterop
-class USBConfiguration implements JSObject {
+class USBConfiguration {
   external factory USBConfiguration(
     USBDevice device,
     int configurationValue,
@@ -291,7 +291,7 @@ extension USBConfigurationExtension on USBConfiguration {
 
 @JS('USBInterface')
 @staticInterop
-class USBInterface implements JSObject {
+class USBInterface {
   external factory USBInterface(
     USBConfiguration configuration,
     int interfaceNumber,
@@ -307,7 +307,7 @@ extension USBInterfaceExtension on USBInterface {
 
 @JS('USBAlternateInterface')
 @staticInterop
-class USBAlternateInterface implements JSObject {
+class USBAlternateInterface {
   external factory USBAlternateInterface(
     USBInterface deviceInterface,
     int alternateSetting,
@@ -325,7 +325,7 @@ extension USBAlternateInterfaceExtension on USBAlternateInterface {
 
 @JS('USBEndpoint')
 @staticInterop
-class USBEndpoint implements JSObject {
+class USBEndpoint {
   external factory USBEndpoint(
     USBAlternateInterface alternate,
     int endpointNumber,
@@ -360,7 +360,7 @@ extension USBPermissionDescriptorExtension on USBPermissionDescriptor {
 @JS()
 @staticInterop
 @anonymous
-class AllowedUSBDevice implements JSObject {
+class AllowedUSBDevice {
   external factory AllowedUSBDevice({
     required int vendorId,
     required int productId,
@@ -380,7 +380,7 @@ extension AllowedUSBDeviceExtension on AllowedUSBDevice {
 @JS()
 @staticInterop
 @anonymous
-class USBPermissionStorage implements JSObject {
+class USBPermissionStorage {
   external factory USBPermissionStorage({JSArray allowedDevices});
 }
 

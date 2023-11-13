@@ -10,7 +10,7 @@ typedef CompressionFormat = String;
 
 @JS('CompressionStream')
 @staticInterop
-class CompressionStream implements JSObject {
+class CompressionStream {
   external factory CompressionStream(CompressionFormat format);
 }
 
@@ -21,7 +21,7 @@ extension CompressionStreamExtension on CompressionStream {
 
 @JS('DecompressionStream')
 @staticInterop
-class DecompressionStream implements JSObject {
+class DecompressionStream {
   external factory DecompressionStream(CompressionFormat format);
 }
 

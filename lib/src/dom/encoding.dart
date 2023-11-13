@@ -10,7 +10,7 @@ import 'webidl.dart';
 @JS()
 @staticInterop
 @anonymous
-class TextDecoderOptions implements JSObject {
+class TextDecoderOptions {
   external factory TextDecoderOptions({
     bool fatal,
     bool ignoreBOM,
@@ -27,7 +27,7 @@ extension TextDecoderOptionsExtension on TextDecoderOptions {
 @JS()
 @staticInterop
 @anonymous
-class TextDecodeOptions implements JSObject {
+class TextDecodeOptions {
   external factory TextDecodeOptions({bool stream});
 }
 
@@ -38,7 +38,7 @@ extension TextDecodeOptionsExtension on TextDecodeOptions {
 
 @JS('TextDecoder')
 @staticInterop
-class TextDecoder implements JSObject {
+class TextDecoder {
   external factory TextDecoder([
     String label,
     TextDecoderOptions options,
@@ -58,7 +58,7 @@ extension TextDecoderExtension on TextDecoder {
 @JS()
 @staticInterop
 @anonymous
-class TextEncoderEncodeIntoResult implements JSObject {
+class TextEncoderEncodeIntoResult {
   external factory TextEncoderEncodeIntoResult({
     int read,
     int written,
@@ -74,7 +74,7 @@ extension TextEncoderEncodeIntoResultExtension on TextEncoderEncodeIntoResult {
 
 @JS('TextEncoder')
 @staticInterop
-class TextEncoder implements JSObject {
+class TextEncoder {
   external factory TextEncoder();
 }
 
@@ -89,7 +89,7 @@ extension TextEncoderExtension on TextEncoder {
 
 @JS('TextDecoderStream')
 @staticInterop
-class TextDecoderStream implements JSObject {
+class TextDecoderStream {
   external factory TextDecoderStream([
     String label,
     TextDecoderOptions options,
@@ -106,7 +106,7 @@ extension TextDecoderStreamExtension on TextDecoderStream {
 
 @JS('TextEncoderStream')
 @staticInterop
-class TextEncoderStream implements JSObject {
+class TextEncoderStream {
   external factory TextEncoderStream();
 }
 

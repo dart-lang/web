@@ -53,7 +53,7 @@ extension MediaRecorderExtension on MediaRecorder {
 @JS()
 @staticInterop
 @anonymous
-class MediaRecorderOptions implements JSObject {
+class MediaRecorderOptions {
   external factory MediaRecorderOptions({
     String mimeType,
     int audioBitsPerSecond,
@@ -99,7 +99,7 @@ extension BlobEventExtension on BlobEvent {
 @JS()
 @staticInterop
 @anonymous
-class BlobEventInit implements JSObject {
+class BlobEventInit {
   external factory BlobEventInit({
     required Blob data,
     DOMHighResTimeStamp timecode,

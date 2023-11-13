@@ -32,7 +32,7 @@ extension SensorExtension on Sensor {
 @JS()
 @staticInterop
 @anonymous
-class SensorOptions implements JSObject {
+class SensorOptions {
   external factory SensorOptions({num frequency});
 }
 
@@ -69,7 +69,7 @@ extension SensorErrorEventInitExtension on SensorErrorEventInit {
 @JS()
 @staticInterop
 @anonymous
-class MockSensorConfiguration implements JSObject {
+class MockSensorConfiguration {
   external factory MockSensorConfiguration({
     required MockSensorType mockSensorType,
     bool connected,
@@ -92,7 +92,7 @@ extension MockSensorConfigurationExtension on MockSensorConfiguration {
 @JS()
 @staticInterop
 @anonymous
-class MockSensor implements JSObject {
+class MockSensor {
   external factory MockSensor({
     num maxSamplingFrequency,
     num minSamplingFrequency,
@@ -112,6 +112,6 @@ extension MockSensorExtension on MockSensor {
 @JS()
 @staticInterop
 @anonymous
-class MockSensorReadingValues implements JSObject {
+class MockSensorReadingValues {
   external factory MockSensorReadingValues();
 }

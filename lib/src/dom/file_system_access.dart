@@ -32,7 +32,7 @@ extension FileSystemPermissionDescriptorExtension
 @JS()
 @staticInterop
 @anonymous
-class FileSystemHandlePermissionDescriptor implements JSObject {
+class FileSystemHandlePermissionDescriptor {
   external factory FileSystemHandlePermissionDescriptor(
       {FileSystemPermissionMode mode});
 }
@@ -46,7 +46,7 @@ extension FileSystemHandlePermissionDescriptorExtension
 @JS()
 @staticInterop
 @anonymous
-class FilePickerAcceptType implements JSObject {
+class FilePickerAcceptType {
   external factory FilePickerAcceptType({
     String description,
     JSAny accept,
@@ -63,7 +63,7 @@ extension FilePickerAcceptTypeExtension on FilePickerAcceptType {
 @JS()
 @staticInterop
 @anonymous
-class FilePickerOptions implements JSObject {
+class FilePickerOptions {
   external factory FilePickerOptions({
     JSArray types,
     bool excludeAcceptAllOption,
@@ -110,7 +110,7 @@ extension SaveFilePickerOptionsExtension on SaveFilePickerOptions {
 @JS()
 @staticInterop
 @anonymous
-class DirectoryPickerOptions implements JSObject {
+class DirectoryPickerOptions {
   external factory DirectoryPickerOptions({
     String id,
     StartInDirectory startIn,

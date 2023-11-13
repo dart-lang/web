@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 @JS('WEBGL_lose_context')
 @staticInterop
-class WEBGL_lose_context implements JSObject {}
+class WEBGL_lose_context {}
 
 extension WEBGLLoseContextExtension on WEBGL_lose_context {
   external void loseContext();

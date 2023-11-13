@@ -612,13 +612,14 @@ String _determineTransitionEventType(EventTarget e) {
 }
 
 String _determineVisibilityChangeEventType(EventTarget e) {
-  if (e.typeofEquals('undefined')) {
+  final jsObject = e as JSObject;
+  if (jsObject.typeofEquals('undefined')) {
     return 'visibilitychange';
-  } else if (e.hasProperty('mozHidden'.toJS).toDart) {
+  } else if (jsObject.hasProperty('mozHidden'.toJS).toDart) {
     return 'mozvisibilitychange';
-  } else if (e.hasProperty('msHidden'.toJS).toDart) {
+  } else if (jsObject.hasProperty('msHidden'.toJS).toDart) {
     return 'msvisibilitychange';
-  } else if (e.hasProperty('webkitHidden'.toJS).toDart) {
+  } else if (jsObject.hasProperty('webkitHidden'.toJS).toDart) {
     return 'webkitvisibilitychange';
   }
   return 'visibilitychange';

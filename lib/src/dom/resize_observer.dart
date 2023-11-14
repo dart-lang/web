@@ -13,7 +13,7 @@ typedef ResizeObserverBoxOptions = String;
 @JS()
 @staticInterop
 @anonymous
-class ResizeObserverOptions implements JSObject {
+class ResizeObserverOptions {
   external factory ResizeObserverOptions({ResizeObserverBoxOptions box});
 }
 
@@ -24,7 +24,7 @@ extension ResizeObserverOptionsExtension on ResizeObserverOptions {
 
 @JS('ResizeObserver')
 @staticInterop
-class ResizeObserver implements JSObject {
+class ResizeObserver {
   external factory ResizeObserver(ResizeObserverCallback callback);
 }
 
@@ -39,7 +39,7 @@ extension ResizeObserverExtension on ResizeObserver {
 
 @JS('ResizeObserverEntry')
 @staticInterop
-class ResizeObserverEntry implements JSObject {}
+class ResizeObserverEntry {}
 
 extension ResizeObserverEntryExtension on ResizeObserverEntry {
   external Element get target;
@@ -51,7 +51,7 @@ extension ResizeObserverEntryExtension on ResizeObserverEntry {
 
 @JS('ResizeObserverSize')
 @staticInterop
-class ResizeObserverSize implements JSObject {}
+class ResizeObserverSize {}
 
 extension ResizeObserverSizeExtension on ResizeObserverSize {
   external num get inlineSize;

@@ -51,7 +51,7 @@ extension VTTCueExtension on VTTCue {
 
 @JS('VTTRegion')
 @staticInterop
-class VTTRegion implements JSObject {
+class VTTRegion {
   external factory VTTRegion();
 }
 

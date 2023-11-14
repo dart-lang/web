@@ -13,7 +13,7 @@ typedef FocusableAreaSearchMode = String;
 @JS()
 @staticInterop
 @anonymous
-class FocusableAreasOption implements JSObject {
+class FocusableAreasOption {
   external factory FocusableAreasOption({FocusableAreaSearchMode mode});
 }
 
@@ -25,7 +25,7 @@ extension FocusableAreasOptionExtension on FocusableAreasOption {
 @JS()
 @staticInterop
 @anonymous
-class SpatialNavigationSearchOptions implements JSObject {
+class SpatialNavigationSearchOptions {
   external factory SpatialNavigationSearchOptions({
     JSArray? candidates,
     Node? container,

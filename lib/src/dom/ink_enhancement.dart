@@ -9,7 +9,7 @@ import 'pointerevents.dart';
 
 @JS('Ink')
 @staticInterop
-class Ink implements JSObject {}
+class Ink {}
 
 extension InkExtension on Ink {
   external JSPromise requestPresenter([InkPresenterParam param]);
@@ -18,7 +18,7 @@ extension InkExtension on Ink {
 @JS()
 @staticInterop
 @anonymous
-class InkPresenterParam implements JSObject {
+class InkPresenterParam {
   external factory InkPresenterParam({Element? presentationArea});
 }
 
@@ -29,7 +29,7 @@ extension InkPresenterParamExtension on InkPresenterParam {
 
 @JS('InkPresenter')
 @staticInterop
-class InkPresenter implements JSObject {}
+class InkPresenter {}
 
 extension InkPresenterExtension on InkPresenter {
   external void updateInkTrailStartPoint(
@@ -43,7 +43,7 @@ extension InkPresenterExtension on InkPresenter {
 @JS()
 @staticInterop
 @anonymous
-class InkTrailStyle implements JSObject {
+class InkTrailStyle {
   external factory InkTrailStyle({
     required String color,
     required num diameter,

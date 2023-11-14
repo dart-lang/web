@@ -10,7 +10,7 @@ typedef ItemType = String;
 
 @JS('DigitalGoodsService')
 @staticInterop
-class DigitalGoodsService implements JSObject {}
+class DigitalGoodsService {}
 
 extension DigitalGoodsServiceExtension on DigitalGoodsService {
   external JSPromise getDetails(JSArray itemIds);
@@ -22,7 +22,7 @@ extension DigitalGoodsServiceExtension on DigitalGoodsService {
 @JS()
 @staticInterop
 @anonymous
-class ItemDetails implements JSObject {
+class ItemDetails {
   external factory ItemDetails({
     required String itemId,
     required String title,
@@ -66,7 +66,7 @@ extension ItemDetailsExtension on ItemDetails {
 @JS()
 @staticInterop
 @anonymous
-class PurchaseDetails implements JSObject {
+class PurchaseDetails {
   external factory PurchaseDetails({
     required String itemId,
     required String purchaseToken,

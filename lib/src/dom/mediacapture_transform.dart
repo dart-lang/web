@@ -9,7 +9,7 @@ import 'streams.dart';
 
 @JS('MediaStreamTrackProcessor')
 @staticInterop
-class MediaStreamTrackProcessor implements JSObject {
+class MediaStreamTrackProcessor {
   external factory MediaStreamTrackProcessor(
       MediaStreamTrackProcessorInit init);
 }
@@ -22,7 +22,7 @@ extension MediaStreamTrackProcessorExtension on MediaStreamTrackProcessor {
 @JS()
 @staticInterop
 @anonymous
-class MediaStreamTrackProcessorInit implements JSObject {
+class MediaStreamTrackProcessorInit {
   external factory MediaStreamTrackProcessorInit({
     required MediaStreamTrack track,
     int maxBufferSize,
@@ -39,7 +39,7 @@ extension MediaStreamTrackProcessorInitExtension
 
 @JS('VideoTrackGenerator')
 @staticInterop
-class VideoTrackGenerator implements JSObject {
+class VideoTrackGenerator {
   external factory VideoTrackGenerator();
 }
 

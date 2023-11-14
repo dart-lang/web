@@ -11,7 +11,7 @@ typedef LockMode = String;
 
 @JS('LockManager')
 @staticInterop
-class LockManager implements JSObject {}
+class LockManager {}
 
 extension LockManagerExtension on LockManager {
   external JSPromise request(
@@ -25,7 +25,7 @@ extension LockManagerExtension on LockManager {
 @JS()
 @staticInterop
 @anonymous
-class LockOptions implements JSObject {
+class LockOptions {
   external factory LockOptions({
     LockMode mode,
     bool ifAvailable,
@@ -48,7 +48,7 @@ extension LockOptionsExtension on LockOptions {
 @JS()
 @staticInterop
 @anonymous
-class LockManagerSnapshot implements JSObject {
+class LockManagerSnapshot {
   external factory LockManagerSnapshot({
     JSArray held,
     JSArray pending,
@@ -65,7 +65,7 @@ extension LockManagerSnapshotExtension on LockManagerSnapshot {
 @JS()
 @staticInterop
 @anonymous
-class LockInfo implements JSObject {
+class LockInfo {
   external factory LockInfo({
     String name,
     LockMode mode,
@@ -84,7 +84,7 @@ extension LockInfoExtension on LockInfo {
 
 @JS('Lock')
 @staticInterop
-class Lock implements JSObject {}
+class Lock {}
 
 extension LockExtension on Lock {
   external String get name;

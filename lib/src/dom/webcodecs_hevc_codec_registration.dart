@@ -9,7 +9,7 @@ typedef HevcBitstreamFormat = String;
 @JS()
 @staticInterop
 @anonymous
-class HevcEncoderConfig implements JSObject {
+class HevcEncoderConfig {
   external factory HevcEncoderConfig({HevcBitstreamFormat format});
 }
 
@@ -21,7 +21,7 @@ extension HevcEncoderConfigExtension on HevcEncoderConfig {
 @JS()
 @staticInterop
 @anonymous
-class VideoEncoderEncodeOptionsForHevc implements JSObject {
+class VideoEncoderEncodeOptionsForHevc {
   external factory VideoEncoderEncodeOptionsForHevc({int? quantizer});
 }
 

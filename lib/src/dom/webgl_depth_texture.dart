@@ -8,6 +8,6 @@ import 'webgl1.dart';
 
 @JS('WEBGL_depth_texture')
 @staticInterop
-class WEBGL_depth_texture implements JSObject {
+class WEBGL_depth_texture {
   external static GLenum get UNSIGNED_INT_24_8_WEBGL;
 }

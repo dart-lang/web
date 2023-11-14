@@ -19,7 +19,7 @@ extension AmbientLightSensorExtension on AmbientLightSensor {
 @JS()
 @staticInterop
 @anonymous
-class AmbientLightReadingValues implements JSObject {
+class AmbientLightReadingValues {
   external factory AmbientLightReadingValues({required num? illuminance});
 }
 

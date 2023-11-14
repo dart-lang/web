@@ -8,7 +8,7 @@ import 'webgl1.dart';
 
 @JS('OES_draw_buffers_indexed')
 @staticInterop
-class OES_draw_buffers_indexed implements JSObject {}
+class OES_draw_buffers_indexed {}
 
 extension OESDrawBuffersIndexedExtension on OES_draw_buffers_indexed {
   external void enableiOES(

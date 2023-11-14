@@ -6,4 +6,4 @@ import 'dart:js_interop';
 
 @JS('EXT_color_buffer_float')
 @staticInterop
-class EXT_color_buffer_float implements JSObject {}
+class EXT_color_buffer_float {}

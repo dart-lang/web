@@ -8,7 +8,7 @@ typedef LaunchConsumer = JSFunction;
 
 @JS('LaunchParams')
 @staticInterop
-class LaunchParams implements JSObject {}
+class LaunchParams {}
 
 extension LaunchParamsExtension on LaunchParams {
   external String? get targetURL;
@@ -17,7 +17,7 @@ extension LaunchParamsExtension on LaunchParams {
 
 @JS('LaunchQueue')
 @staticInterop
-class LaunchQueue implements JSObject {}
+class LaunchQueue {}
 
 extension LaunchQueueExtension on LaunchQueue {
   external void setConsumer(LaunchConsumer consumer);

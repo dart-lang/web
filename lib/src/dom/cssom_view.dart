@@ -17,7 +17,7 @@ typedef CSSBoxType = String;
 @JS()
 @staticInterop
 @anonymous
-class ScrollOptions implements JSObject {
+class ScrollOptions {
   external factory ScrollOptions({ScrollBehavior behavior});
 }
 
@@ -89,7 +89,7 @@ extension MediaQueryListEventInitExtension on MediaQueryListEventInit {
 
 @JS('Screen')
 @staticInterop
-class Screen implements JSObject {}
+class Screen {}
 
 extension ScreenExtension on Screen {
   external int get availWidth;
@@ -106,7 +106,7 @@ extension ScreenExtension on Screen {
 
 @JS('CaretPosition')
 @staticInterop
-class CaretPosition implements JSObject {}
+class CaretPosition {}
 
 extension CaretPositionExtension on CaretPosition {
   external DOMRect? getClientRect();
@@ -134,7 +134,7 @@ extension ScrollIntoViewOptionsExtension on ScrollIntoViewOptions {
 @JS()
 @staticInterop
 @anonymous
-class CheckVisibilityOptions implements JSObject {
+class CheckVisibilityOptions {
   external factory CheckVisibilityOptions({
     bool checkOpacity,
     bool checkVisibilityCSS,
@@ -151,7 +151,7 @@ extension CheckVisibilityOptionsExtension on CheckVisibilityOptions {
 @JS()
 @staticInterop
 @anonymous
-class BoxQuadOptions implements JSObject {
+class BoxQuadOptions {
   external factory BoxQuadOptions({
     CSSBoxType box,
     GeometryNode relativeTo,
@@ -168,7 +168,7 @@ extension BoxQuadOptionsExtension on BoxQuadOptions {
 @JS()
 @staticInterop
 @anonymous
-class ConvertCoordinateOptions implements JSObject {
+class ConvertCoordinateOptions {
   external factory ConvertCoordinateOptions({
     CSSBoxType fromBox,
     CSSBoxType toBox,

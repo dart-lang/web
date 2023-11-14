@@ -14,7 +14,7 @@ typedef CredentialMediationRequirement = String;
 
 @JS('Credential')
 @staticInterop
-class Credential implements JSObject {
+class Credential {
   external static JSPromise isConditionalMediationAvailable();
 }
 
@@ -25,7 +25,7 @@ extension CredentialExtension on Credential {
 
 @JS('CredentialsContainer')
 @staticInterop
-class CredentialsContainer implements JSObject {}
+class CredentialsContainer {}
 
 extension CredentialsContainerExtension on CredentialsContainer {
   external JSPromise get([CredentialRequestOptions options]);
@@ -37,7 +37,7 @@ extension CredentialsContainerExtension on CredentialsContainer {
 @JS()
 @staticInterop
 @anonymous
-class CredentialData implements JSObject {
+class CredentialData {
   external factory CredentialData({required String id});
 }
 
@@ -49,7 +49,7 @@ extension CredentialDataExtension on CredentialData {
 @JS()
 @staticInterop
 @anonymous
-class CredentialRequestOptions implements JSObject {
+class CredentialRequestOptions {
   external factory CredentialRequestOptions({
     IdentityCredentialRequestOptions identity,
     CredentialMediationRequirement mediation,
@@ -81,7 +81,7 @@ extension CredentialRequestOptionsExtension on CredentialRequestOptions {
 @JS()
 @staticInterop
 @anonymous
-class CredentialCreationOptions implements JSObject {
+class CredentialCreationOptions {
   external factory CredentialCreationOptions({
     AbortSignal signal,
     PasswordCredentialInit password,
@@ -152,7 +152,7 @@ extension FederatedCredentialExtension on FederatedCredential {
 @JS()
 @staticInterop
 @anonymous
-class FederatedCredentialRequestOptions implements JSObject {
+class FederatedCredentialRequestOptions {
   external factory FederatedCredentialRequestOptions({
     JSArray providers,
     JSArray protocols,

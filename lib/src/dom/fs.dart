@@ -14,7 +14,7 @@ typedef WriteCommandType = String;
 
 @JS('FileSystemHandle')
 @staticInterop
-class FileSystemHandle implements JSObject {}
+class FileSystemHandle {}
 
 extension FileSystemHandleExtension on FileSystemHandle {
   external JSPromise queryPermission(
@@ -29,7 +29,7 @@ extension FileSystemHandleExtension on FileSystemHandle {
 @JS()
 @staticInterop
 @anonymous
-class FileSystemCreateWritableOptions implements JSObject {
+class FileSystemCreateWritableOptions {
   external factory FileSystemCreateWritableOptions({bool keepExistingData});
 }
 
@@ -52,7 +52,7 @@ extension FileSystemFileHandleExtension on FileSystemFileHandle {
 @JS()
 @staticInterop
 @anonymous
-class FileSystemGetFileOptions implements JSObject {
+class FileSystemGetFileOptions {
   external factory FileSystemGetFileOptions({bool create});
 }
 
@@ -64,7 +64,7 @@ extension FileSystemGetFileOptionsExtension on FileSystemGetFileOptions {
 @JS()
 @staticInterop
 @anonymous
-class FileSystemGetDirectoryOptions implements JSObject {
+class FileSystemGetDirectoryOptions {
   external factory FileSystemGetDirectoryOptions({bool create});
 }
 
@@ -77,7 +77,7 @@ extension FileSystemGetDirectoryOptionsExtension
 @JS()
 @staticInterop
 @anonymous
-class FileSystemRemoveOptions implements JSObject {
+class FileSystemRemoveOptions {
   external factory FileSystemRemoveOptions({bool recursive});
 }
 
@@ -109,7 +109,7 @@ extension FileSystemDirectoryHandleExtension on FileSystemDirectoryHandle {
 @JS()
 @staticInterop
 @anonymous
-class WriteParams implements JSObject {
+class WriteParams {
   external factory WriteParams({
     required WriteCommandType type,
     int? size,
@@ -143,7 +143,7 @@ extension FileSystemWritableFileStreamExtension
 @JS()
 @staticInterop
 @anonymous
-class FileSystemReadWriteOptions implements JSObject {
+class FileSystemReadWriteOptions {
   external factory FileSystemReadWriteOptions({int at});
 }
 
@@ -154,7 +154,7 @@ extension FileSystemReadWriteOptionsExtension on FileSystemReadWriteOptions {
 
 @JS('FileSystemSyncAccessHandle')
 @staticInterop
-class FileSystemSyncAccessHandle implements JSObject {}
+class FileSystemSyncAccessHandle {}
 
 extension FileSystemSyncAccessHandleExtension on FileSystemSyncAccessHandle {
   external int read(

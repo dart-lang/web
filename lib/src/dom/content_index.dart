@@ -11,7 +11,7 @@ typedef ContentCategory = String;
 @JS()
 @staticInterop
 @anonymous
-class ContentDescription implements JSObject {
+class ContentDescription {
   external factory ContentDescription({
     required String id,
     required String title,
@@ -39,7 +39,7 @@ extension ContentDescriptionExtension on ContentDescription {
 
 @JS('ContentIndex')
 @staticInterop
-class ContentIndex implements JSObject {}
+class ContentIndex {}
 
 extension ContentIndexExtension on ContentIndex {
   external JSPromise add(ContentDescription description);

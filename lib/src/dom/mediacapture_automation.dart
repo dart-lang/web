@@ -9,7 +9,7 @@ typedef MockCapturePromptResult = String;
 @JS()
 @staticInterop
 @anonymous
-class MockCapturePromptResultConfiguration implements JSObject {
+class MockCapturePromptResultConfiguration {
   external factory MockCapturePromptResultConfiguration({
     MockCapturePromptResult getUserMedia,
     MockCapturePromptResult getDisplayMedia,
@@ -27,7 +27,7 @@ extension MockCapturePromptResultConfigurationExtension
 @JS()
 @staticInterop
 @anonymous
-class MockCaptureDeviceConfiguration implements JSObject {
+class MockCaptureDeviceConfiguration {
   external factory MockCaptureDeviceConfiguration({
     String label,
     String deviceId,

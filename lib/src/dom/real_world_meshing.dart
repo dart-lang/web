@@ -9,7 +9,7 @@ import 'webxr.dart';
 
 @JS('XRMesh')
 @staticInterop
-class XRMesh implements JSObject {}
+class XRMesh {}
 
 extension XRMeshExtension on XRMesh {
   external XRSpace get meshSpace;
@@ -21,6 +21,6 @@ extension XRMeshExtension on XRMesh {
 
 @JS('XRMeshSet')
 @staticInterop
-class XRMeshSet implements JSObject {}
+class XRMeshSet {}
 
 extension XRMeshSetExtension on XRMeshSet {}

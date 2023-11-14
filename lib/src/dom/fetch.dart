@@ -26,7 +26,7 @@ typedef ResponseType = String;
 
 @JS('Headers')
 @staticInterop
-class Headers implements JSObject {
+class Headers {
   external factory Headers([HeadersInit init]);
 }
 
@@ -47,7 +47,7 @@ extension HeadersExtension on Headers {
 
 @JS('Request')
 @staticInterop
-class Request implements JSObject {
+class Request {
   external factory Request(
     RequestInfo input, [
     RequestInit init,
@@ -84,7 +84,7 @@ extension RequestExtension on Request {
 @JS()
 @staticInterop
 @anonymous
-class RequestInit implements JSObject {
+class RequestInit {
   external factory RequestInit({
     AttributionReportingRequestOptions attributionReporting,
     String method,
@@ -151,7 +151,7 @@ extension RequestInitExtension on RequestInit {
 
 @JS('Response')
 @staticInterop
-class Response implements JSObject {
+class Response {
   external factory Response([
     BodyInit? body,
     ResponseInit init,
@@ -190,7 +190,7 @@ extension ResponseExtension on Response {
 @JS()
 @staticInterop
 @anonymous
-class ResponseInit implements JSObject {
+class ResponseInit {
   external factory ResponseInit({
     int status,
     String statusText,

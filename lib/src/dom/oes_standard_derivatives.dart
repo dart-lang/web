@@ -8,6 +8,6 @@ import 'webgl1.dart';
 
 @JS('OES_standard_derivatives')
 @staticInterop
-class OES_standard_derivatives implements JSObject {
+class OES_standard_derivatives {
   external static GLenum get FRAGMENT_SHADER_DERIVATIVE_HINT_OES;
 }

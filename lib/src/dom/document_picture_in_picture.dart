@@ -21,7 +21,7 @@ extension DocumentPictureInPictureExtension on DocumentPictureInPicture {
 @JS()
 @staticInterop
 @anonymous
-class DocumentPictureInPictureOptions implements JSObject {
+class DocumentPictureInPictureOptions {
   external factory DocumentPictureInPictureOptions({
     int width,
     int height,

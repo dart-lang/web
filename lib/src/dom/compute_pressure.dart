@@ -12,7 +12,7 @@ typedef PressureState = String;
 
 @JS('PressureObserver')
 @staticInterop
-class PressureObserver implements JSObject {
+class PressureObserver {
   external factory PressureObserver(
     PressureUpdateCallback callback, [
     PressureObserverOptions options,
@@ -30,7 +30,7 @@ extension PressureObserverExtension on PressureObserver {
 
 @JS('PressureRecord')
 @staticInterop
-class PressureRecord implements JSObject {}
+class PressureRecord {}
 
 extension PressureRecordExtension on PressureRecord {
   external JSObject toJSON();
@@ -42,7 +42,7 @@ extension PressureRecordExtension on PressureRecord {
 @JS()
 @staticInterop
 @anonymous
-class PressureObserverOptions implements JSObject {
+class PressureObserverOptions {
   external factory PressureObserverOptions({num sampleRate});
 }
 

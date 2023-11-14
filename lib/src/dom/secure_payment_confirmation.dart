@@ -11,7 +11,7 @@ import 'webidl.dart';
 @JS()
 @staticInterop
 @anonymous
-class SecurePaymentConfirmationRequest implements JSObject {
+class SecurePaymentConfirmationRequest {
   external factory SecurePaymentConfirmationRequest({
     required BufferSource challenge,
     required String rpId,
@@ -53,7 +53,7 @@ extension SecurePaymentConfirmationRequestExtension
 @JS()
 @staticInterop
 @anonymous
-class AuthenticationExtensionsPaymentInputs implements JSObject {
+class AuthenticationExtensionsPaymentInputs {
   external factory AuthenticationExtensionsPaymentInputs({
     bool isPayment,
     String rpId,
@@ -99,7 +99,7 @@ extension CollectedClientPaymentDataExtension on CollectedClientPaymentData {
 @JS()
 @staticInterop
 @anonymous
-class CollectedClientAdditionalPaymentData implements JSObject {
+class CollectedClientAdditionalPaymentData {
   external factory CollectedClientAdditionalPaymentData({
     required String rpId,
     required String topOrigin,
@@ -129,7 +129,7 @@ extension CollectedClientAdditionalPaymentDataExtension
 @JS()
 @staticInterop
 @anonymous
-class PaymentCredentialInstrument implements JSObject {
+class PaymentCredentialInstrument {
   external factory PaymentCredentialInstrument({
     required String displayName,
     required String icon,

@@ -14,7 +14,7 @@ typedef CreateScriptURLCallback = JSFunction;
 
 @JS('TrustedHTML')
 @staticInterop
-class TrustedHTML implements JSObject {
+class TrustedHTML {
   external static TrustedHTML fromLiteral(JSObject templateStringsArray);
 }
 
@@ -24,7 +24,7 @@ extension TrustedHTMLExtension on TrustedHTML {
 
 @JS('TrustedScript')
 @staticInterop
-class TrustedScript implements JSObject {
+class TrustedScript {
   external static TrustedScript fromLiteral(JSObject templateStringsArray);
 }
 
@@ -34,7 +34,7 @@ extension TrustedScriptExtension on TrustedScript {
 
 @JS('TrustedScriptURL')
 @staticInterop
-class TrustedScriptURL implements JSObject {
+class TrustedScriptURL {
   external static TrustedScriptURL fromLiteral(JSObject templateStringsArray);
 }
 
@@ -44,7 +44,7 @@ extension TrustedScriptURLExtension on TrustedScriptURL {
 
 @JS('TrustedTypePolicyFactory')
 @staticInterop
-class TrustedTypePolicyFactory implements JSObject {}
+class TrustedTypePolicyFactory {}
 
 extension TrustedTypePolicyFactoryExtension on TrustedTypePolicyFactory {
   external TrustedTypePolicy createPolicy(
@@ -72,7 +72,7 @@ extension TrustedTypePolicyFactoryExtension on TrustedTypePolicyFactory {
 
 @JS('TrustedTypePolicy')
 @staticInterop
-class TrustedTypePolicy implements JSObject {}
+class TrustedTypePolicy {}
 
 extension TrustedTypePolicyExtension on TrustedTypePolicy {
   external TrustedHTML createHTML(
@@ -93,7 +93,7 @@ extension TrustedTypePolicyExtension on TrustedTypePolicy {
 @JS()
 @staticInterop
 @anonymous
-class TrustedTypePolicyOptions implements JSObject {
+class TrustedTypePolicyOptions {
   external factory TrustedTypePolicyOptions({
     CreateHTMLCallback? createHTML,
     CreateScriptCallback? createScript,

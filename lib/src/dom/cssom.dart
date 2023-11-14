@@ -12,7 +12,7 @@ import 'html.dart';
 
 @JS('MediaList')
 @staticInterop
-class MediaList implements JSObject {}
+class MediaList {}
 
 extension MediaListExtension on MediaList {
   external String? item(int index);
@@ -25,7 +25,7 @@ extension MediaListExtension on MediaList {
 
 @JS('StyleSheet')
 @staticInterop
-class StyleSheet implements JSObject {}
+class StyleSheet {}
 
 extension StyleSheetExtension on StyleSheet {
   external String get type;
@@ -66,7 +66,7 @@ extension CSSStyleSheetExtension on CSSStyleSheet {
 @JS()
 @staticInterop
 @anonymous
-class CSSStyleSheetInit implements JSObject {
+class CSSStyleSheetInit {
   external factory CSSStyleSheetInit({
     String baseURL,
     JSAny media,
@@ -85,7 +85,7 @@ extension CSSStyleSheetInitExtension on CSSStyleSheetInit {
 
 @JS('StyleSheetList')
 @staticInterop
-class StyleSheetList implements JSObject {}
+class StyleSheetList {}
 
 extension StyleSheetListExtension on StyleSheetList {
   external CSSStyleSheet? item(int index);
@@ -94,7 +94,7 @@ extension StyleSheetListExtension on StyleSheetList {
 
 @JS('CSSRuleList')
 @staticInterop
-class CSSRuleList implements JSObject {}
+class CSSRuleList {}
 
 extension CSSRuleListExtension on CSSRuleList {
   external CSSRule? item(int index);
@@ -103,7 +103,7 @@ extension CSSRuleListExtension on CSSRuleList {
 
 @JS('CSSRule')
 @staticInterop
-class CSSRule implements JSObject {
+class CSSRule {
   external static int get KEYFRAMES_RULE;
   external static int get KEYFRAME_RULE;
   external static int get SUPPORTS_RULE;
@@ -193,7 +193,7 @@ extension CSSNamespaceRuleExtension on CSSNamespaceRule {
 
 @JS('CSSStyleDeclaration')
 @staticInterop
-class CSSStyleDeclaration implements JSObject {}
+class CSSStyleDeclaration {}
 
 extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
   external String item(int index);

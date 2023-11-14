@@ -6,4 +6,4 @@ import 'dart:js_interop';
 
 @JS('OES_fbo_render_mipmap')
 @staticInterop
-class OES_fbo_render_mipmap implements JSObject {}
+class OES_fbo_render_mipmap {}

@@ -12,7 +12,7 @@ typedef PaymentShippingType = String;
 
 @JS('PaymentManager')
 @staticInterop
-class PaymentManager implements JSObject {}
+class PaymentManager {}
 
 extension PaymentManagerExtension on PaymentManager {
   external JSPromise enableDelegations(JSArray delegations);
@@ -33,7 +33,7 @@ extension CanMakePaymentEventExtension on CanMakePaymentEvent {
 @JS()
 @staticInterop
 @anonymous
-class PaymentRequestDetailsUpdate implements JSObject {
+class PaymentRequestDetailsUpdate {
   external factory PaymentRequestDetailsUpdate({
     String error,
     PaymentCurrencyAmount total,
@@ -125,7 +125,7 @@ extension PaymentRequestEventInitExtension on PaymentRequestEventInit {
 @JS()
 @staticInterop
 @anonymous
-class PaymentHandlerResponse implements JSObject {
+class PaymentHandlerResponse {
   external factory PaymentHandlerResponse({
     String methodName,
     JSObject details,
@@ -157,7 +157,7 @@ extension PaymentHandlerResponseExtension on PaymentHandlerResponse {
 @JS()
 @staticInterop
 @anonymous
-class AddressInit implements JSObject {
+class AddressInit {
   external factory AddressInit({
     String country,
     JSArray addressLine,
@@ -198,7 +198,7 @@ extension AddressInitExtension on AddressInit {
 @JS()
 @staticInterop
 @anonymous
-class PaymentOptions implements JSObject {
+class PaymentOptions {
   external factory PaymentOptions({
     bool requestPayerName,
     bool requestBillingAddress,
@@ -227,7 +227,7 @@ extension PaymentOptionsExtension on PaymentOptions {
 @JS()
 @staticInterop
 @anonymous
-class PaymentShippingOption implements JSObject {
+class PaymentShippingOption {
   external factory PaymentShippingOption({
     required String id,
     required String label,
@@ -250,7 +250,7 @@ extension PaymentShippingOptionExtension on PaymentShippingOption {
 @JS()
 @staticInterop
 @anonymous
-class AddressErrors implements JSObject {
+class AddressErrors {
   external factory AddressErrors({
     String addressLine,
     String city,

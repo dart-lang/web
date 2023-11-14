@@ -28,7 +28,7 @@ extension SerialExtension on Serial {
 @JS()
 @staticInterop
 @anonymous
-class SerialPortRequestOptions implements JSObject {
+class SerialPortRequestOptions {
   external factory SerialPortRequestOptions({
     JSArray filters,
     JSArray allowedBluetoothServiceClassIds,
@@ -45,7 +45,7 @@ extension SerialPortRequestOptionsExtension on SerialPortRequestOptions {
 @JS()
 @staticInterop
 @anonymous
-class SerialPortFilter implements JSObject {
+class SerialPortFilter {
   external factory SerialPortFilter({
     int usbVendorId,
     int usbProductId,
@@ -84,7 +84,7 @@ extension SerialPortExtension on SerialPort {
 @JS()
 @staticInterop
 @anonymous
-class SerialPortInfo implements JSObject {
+class SerialPortInfo {
   external factory SerialPortInfo({
     int usbVendorId,
     int usbProductId,
@@ -104,7 +104,7 @@ extension SerialPortInfoExtension on SerialPortInfo {
 @JS()
 @staticInterop
 @anonymous
-class SerialOptions implements JSObject {
+class SerialOptions {
   external factory SerialOptions({
     required int baudRate,
     int dataBits,
@@ -133,7 +133,7 @@ extension SerialOptionsExtension on SerialOptions {
 @JS()
 @staticInterop
 @anonymous
-class SerialOutputSignals implements JSObject {
+class SerialOutputSignals {
   external factory SerialOutputSignals({
     bool dataTerminalReady,
     bool requestToSend,
@@ -155,7 +155,7 @@ extension SerialOutputSignalsExtension on SerialOutputSignals {
 @JS()
 @staticInterop
 @anonymous
-class SerialInputSignals implements JSObject {
+class SerialInputSignals {
   external factory SerialInputSignals({
     required bool dataCarrierDetect,
     required bool clearToSend,

@@ -58,7 +58,7 @@ extension NotificationExtension on Notification {
 @JS()
 @staticInterop
 @anonymous
-class NotificationOptions implements JSObject {
+class NotificationOptions {
   external factory NotificationOptions({
     NotificationDirection dir,
     String lang,
@@ -111,7 +111,7 @@ extension NotificationOptionsExtension on NotificationOptions {
 @JS()
 @staticInterop
 @anonymous
-class NotificationAction implements JSObject {
+class NotificationAction {
   external factory NotificationAction({
     required String action,
     required String title,
@@ -131,7 +131,7 @@ extension NotificationActionExtension on NotificationAction {
 @JS()
 @staticInterop
 @anonymous
-class GetNotificationOptions implements JSObject {
+class GetNotificationOptions {
   external factory GetNotificationOptions({String tag});
 }
 

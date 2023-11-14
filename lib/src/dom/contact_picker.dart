@@ -8,7 +8,7 @@ typedef ContactProperty = String;
 
 @JS('ContactAddress')
 @staticInterop
-class ContactAddress implements JSObject {}
+class ContactAddress {}
 
 extension ContactAddressExtension on ContactAddress {
   external JSObject toJSON();
@@ -27,7 +27,7 @@ extension ContactAddressExtension on ContactAddress {
 @JS()
 @staticInterop
 @anonymous
-class ContactInfo implements JSObject {
+class ContactInfo {
   external factory ContactInfo({
     JSArray address,
     JSArray email,
@@ -53,7 +53,7 @@ extension ContactInfoExtension on ContactInfo {
 @JS()
 @staticInterop
 @anonymous
-class ContactsSelectOptions implements JSObject {
+class ContactsSelectOptions {
   external factory ContactsSelectOptions({bool multiple});
 }
 
@@ -64,7 +64,7 @@ extension ContactsSelectOptionsExtension on ContactsSelectOptions {
 
 @JS('ContactsManager')
 @staticInterop
-class ContactsManager implements JSObject {}
+class ContactsManager {}
 
 extension ContactsManagerExtension on ContactsManager {
   external JSPromise getProperties();

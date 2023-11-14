@@ -24,7 +24,7 @@ extension BeforeInstallPromptEventExtension on BeforeInstallPromptEvent {
 @JS()
 @staticInterop
 @anonymous
-class PromptResponseObject implements JSObject {
+class PromptResponseObject {
   external factory PromptResponseObject({AppBannerPromptOutcome userChoice});
 }
 

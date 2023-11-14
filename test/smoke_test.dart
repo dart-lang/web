@@ -5,6 +5,8 @@
 @TestOn('browser')
 library;
 
+import 'dart:js_interop';
+
 import 'package:test/test.dart';
 import 'package:web/web.dart';
 
@@ -24,7 +26,7 @@ void main() {
     final div = document.createElement('div') as HTMLDivElement;
     div.innerText = 'Hello World!';
     div.id = 'foo';
-    document.body!.append(div);
+    document.body!.append(div as JSObject);
     final found = document.getElementById('foo') as HTMLDivElement;
     expect(found.innerText, equals('Hello World!'));
     document.body!.removeChild(div);

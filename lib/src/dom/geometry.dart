@@ -6,7 +6,7 @@ import 'dart:js_interop';
 
 @JS('DOMPointReadOnly')
 @staticInterop
-class DOMPointReadOnly implements JSObject {
+class DOMPointReadOnly {
   external factory DOMPointReadOnly([
     num x,
     num y,
@@ -53,7 +53,7 @@ extension DOMPointExtension on DOMPoint {
 @JS()
 @staticInterop
 @anonymous
-class DOMPointInit implements JSObject {
+class DOMPointInit {
   external factory DOMPointInit({
     num x,
     num y,
@@ -75,7 +75,7 @@ extension DOMPointInitExtension on DOMPointInit {
 
 @JS('DOMRectReadOnly')
 @staticInterop
-class DOMRectReadOnly implements JSObject {
+class DOMRectReadOnly {
   external factory DOMRectReadOnly([
     num x,
     num y,
@@ -125,7 +125,7 @@ extension DOMRectExtension on DOMRect {
 @JS()
 @staticInterop
 @anonymous
-class DOMRectInit implements JSObject {
+class DOMRectInit {
   external factory DOMRectInit({
     num x,
     num y,
@@ -147,7 +147,7 @@ extension DOMRectInitExtension on DOMRectInit {
 
 @JS('DOMRectList')
 @staticInterop
-class DOMRectList implements JSObject {}
+class DOMRectList {}
 
 extension DOMRectListExtension on DOMRectList {
   external DOMRect? item(int index);
@@ -156,7 +156,7 @@ extension DOMRectListExtension on DOMRectList {
 
 @JS('DOMQuad')
 @staticInterop
-class DOMQuad implements JSObject {
+class DOMQuad {
   external factory DOMQuad([
     DOMPointInit p1,
     DOMPointInit p2,
@@ -180,7 +180,7 @@ extension DOMQuadExtension on DOMQuad {
 @JS()
 @staticInterop
 @anonymous
-class DOMQuadInit implements JSObject {
+class DOMQuadInit {
   external factory DOMQuadInit({
     DOMPointInit p1,
     DOMPointInit p2,
@@ -202,7 +202,7 @@ extension DOMQuadInitExtension on DOMQuadInit {
 
 @JS('DOMMatrixReadOnly')
 @staticInterop
-class DOMMatrixReadOnly implements JSObject {
+class DOMMatrixReadOnly {
   external factory DOMMatrixReadOnly([JSAny init]);
 
   external static DOMMatrixReadOnly fromMatrix([DOMMatrixInit other]);
@@ -385,7 +385,7 @@ extension DOMMatrixExtension on DOMMatrix {
 @JS()
 @staticInterop
 @anonymous
-class DOMMatrix2DInit implements JSObject {
+class DOMMatrix2DInit {
   external factory DOMMatrix2DInit({
     num a,
     num b,

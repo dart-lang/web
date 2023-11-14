@@ -7,7 +7,7 @@ import 'dart:js_interop';
 @JS()
 @staticInterop
 @anonymous
-class ShareData implements JSObject {
+class ShareData {
   external factory ShareData({
     JSArray files,
     String title,

@@ -777,10 +777,13 @@ class Translator {
       if (interfacelike.inheritance != null) interfacelike.inheritance!
     ];
 
-    // All non-namespace root classes must inherit from `JSObject`.
-    if (implements.isEmpty && !isNamespace) {
-      implements.add('JSObject');
-    }
+    // TODO(srujzs): Add back implements clause once we move to extension types.
+    // For now, we don't emit this so that `dart:js_interop` can move to
+    // extension types.
+    // // All non-namespace root classes must inherit from `JSObject`.
+    // if (implements.isEmpty && !isNamespace) {
+    //   implements.add('JSObject');
+    // }
     return [
       if (getterName != null)
         _topLevelGetter(_RawType(dartClassName, false), getterName),

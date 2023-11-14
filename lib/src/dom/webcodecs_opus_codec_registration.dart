@@ -9,7 +9,7 @@ typedef OpusBitstreamFormat = String;
 @JS()
 @staticInterop
 @anonymous
-class OpusEncoderConfig implements JSObject {
+class OpusEncoderConfig {
   external factory OpusEncoderConfig({
     OpusBitstreamFormat format,
     int frameDuration,

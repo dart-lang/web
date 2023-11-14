@@ -48,7 +48,7 @@ extension PublicKeyCredentialExtension on PublicKeyCredential {
 @JS()
 @staticInterop
 @anonymous
-class RegistrationResponseJSON implements JSObject {
+class RegistrationResponseJSON {
   external factory RegistrationResponseJSON({
     required Base64URLString id,
     required Base64URLString rawId,
@@ -78,7 +78,7 @@ extension RegistrationResponseJSONExtension on RegistrationResponseJSON {
 @JS()
 @staticInterop
 @anonymous
-class AuthenticatorAttestationResponseJSON implements JSObject {
+class AuthenticatorAttestationResponseJSON {
   external factory AuthenticatorAttestationResponseJSON({
     required Base64URLString clientDataJSON,
     required Base64URLString authenticatorData,
@@ -108,7 +108,7 @@ extension AuthenticatorAttestationResponseJSONExtension
 @JS()
 @staticInterop
 @anonymous
-class AuthenticationResponseJSON implements JSObject {
+class AuthenticationResponseJSON {
   external factory AuthenticationResponseJSON({
     required Base64URLString id,
     required Base64URLString rawId,
@@ -138,7 +138,7 @@ extension AuthenticationResponseJSONExtension on AuthenticationResponseJSON {
 @JS()
 @staticInterop
 @anonymous
-class AuthenticatorAssertionResponseJSON implements JSObject {
+class AuthenticatorAssertionResponseJSON {
   external factory AuthenticatorAssertionResponseJSON({
     required Base64URLString clientDataJSON,
     required Base64URLString authenticatorData,
@@ -165,14 +165,14 @@ extension AuthenticatorAssertionResponseJSONExtension
 @JS()
 @staticInterop
 @anonymous
-class AuthenticationExtensionsClientOutputsJSON implements JSObject {
+class AuthenticationExtensionsClientOutputsJSON {
   external factory AuthenticationExtensionsClientOutputsJSON();
 }
 
 @JS()
 @staticInterop
 @anonymous
-class PublicKeyCredentialCreationOptionsJSON implements JSObject {
+class PublicKeyCredentialCreationOptionsJSON {
   external factory PublicKeyCredentialCreationOptionsJSON({
     required PublicKeyCredentialRpEntity rp,
     required PublicKeyCredentialUserEntityJSON user,
@@ -217,7 +217,7 @@ extension PublicKeyCredentialCreationOptionsJSONExtension
 @JS()
 @staticInterop
 @anonymous
-class PublicKeyCredentialUserEntityJSON implements JSObject {
+class PublicKeyCredentialUserEntityJSON {
   external factory PublicKeyCredentialUserEntityJSON({
     required Base64URLString id,
     required String name,
@@ -238,7 +238,7 @@ extension PublicKeyCredentialUserEntityJSONExtension
 @JS()
 @staticInterop
 @anonymous
-class PublicKeyCredentialDescriptorJSON implements JSObject {
+class PublicKeyCredentialDescriptorJSON {
   external factory PublicKeyCredentialDescriptorJSON({
     required Base64URLString id,
     required String type,
@@ -259,14 +259,14 @@ extension PublicKeyCredentialDescriptorJSONExtension
 @JS()
 @staticInterop
 @anonymous
-class AuthenticationExtensionsClientInputsJSON implements JSObject {
+class AuthenticationExtensionsClientInputsJSON {
   external factory AuthenticationExtensionsClientInputsJSON();
 }
 
 @JS()
 @staticInterop
 @anonymous
-class PublicKeyCredentialRequestOptionsJSON implements JSObject {
+class PublicKeyCredentialRequestOptionsJSON {
   external factory PublicKeyCredentialRequestOptionsJSON({
     required Base64URLString challenge,
     int timeout,
@@ -304,7 +304,7 @@ extension PublicKeyCredentialRequestOptionsJSONExtension
 
 @JS('AuthenticatorResponse')
 @staticInterop
-class AuthenticatorResponse implements JSObject {}
+class AuthenticatorResponse {}
 
 extension AuthenticatorResponseExtension on AuthenticatorResponse {
   external JSArrayBuffer get clientDataJSON;
@@ -338,7 +338,7 @@ extension AuthenticatorAssertionResponseExtension
 @JS()
 @staticInterop
 @anonymous
-class PublicKeyCredentialParameters implements JSObject {
+class PublicKeyCredentialParameters {
   external factory PublicKeyCredentialParameters({
     required String type,
     required COSEAlgorithmIdentifier alg,
@@ -356,7 +356,7 @@ extension PublicKeyCredentialParametersExtension
 @JS()
 @staticInterop
 @anonymous
-class PublicKeyCredentialCreationOptions implements JSObject {
+class PublicKeyCredentialCreationOptions {
   external factory PublicKeyCredentialCreationOptions({
     required PublicKeyCredentialRpEntity rp,
     required PublicKeyCredentialUserEntity user,
@@ -401,7 +401,7 @@ extension PublicKeyCredentialCreationOptionsExtension
 @JS()
 @staticInterop
 @anonymous
-class PublicKeyCredentialEntity implements JSObject {
+class PublicKeyCredentialEntity {
   external factory PublicKeyCredentialEntity({required String name});
 }
 
@@ -443,7 +443,7 @@ extension PublicKeyCredentialUserEntityExtension
 @JS()
 @staticInterop
 @anonymous
-class AuthenticatorSelectionCriteria implements JSObject {
+class AuthenticatorSelectionCriteria {
   external factory AuthenticatorSelectionCriteria({
     String authenticatorAttachment,
     String residentKey,
@@ -467,7 +467,7 @@ extension AuthenticatorSelectionCriteriaExtension
 @JS()
 @staticInterop
 @anonymous
-class PublicKeyCredentialRequestOptions implements JSObject {
+class PublicKeyCredentialRequestOptions {
   external factory PublicKeyCredentialRequestOptions({
     required BufferSource challenge,
     int timeout,
@@ -506,7 +506,7 @@ extension PublicKeyCredentialRequestOptionsExtension
 @JS()
 @staticInterop
 @anonymous
-class AuthenticationExtensionsClientInputs implements JSObject {
+class AuthenticationExtensionsClientInputs {
   external factory AuthenticationExtensionsClientInputs({
     String credentialProtectionPolicy,
     bool enforceCredentialProtectionPolicy,
@@ -564,7 +564,7 @@ extension AuthenticationExtensionsClientInputsExtension
 @JS()
 @staticInterop
 @anonymous
-class AuthenticationExtensionsClientOutputs implements JSObject {
+class AuthenticationExtensionsClientOutputs {
   external factory AuthenticationExtensionsClientOutputs({
     bool hmacCreateSecret,
     HMACGetSecretOutput hmacGetSecret,
@@ -604,7 +604,7 @@ extension AuthenticationExtensionsClientOutputsExtension
 @JS()
 @staticInterop
 @anonymous
-class CollectedClientData implements JSObject {
+class CollectedClientData {
   external factory CollectedClientData({
     required String type,
     required String challenge,
@@ -630,7 +630,7 @@ extension CollectedClientDataExtension on CollectedClientData {
 @JS()
 @staticInterop
 @anonymous
-class TokenBinding implements JSObject {
+class TokenBinding {
   external factory TokenBinding({
     required String status,
     String id,
@@ -647,7 +647,7 @@ extension TokenBindingExtension on TokenBinding {
 @JS()
 @staticInterop
 @anonymous
-class PublicKeyCredentialDescriptor implements JSObject {
+class PublicKeyCredentialDescriptor {
   external factory PublicKeyCredentialDescriptor({
     required String type,
     required BufferSource id,
@@ -668,7 +668,7 @@ extension PublicKeyCredentialDescriptorExtension
 @JS()
 @staticInterop
 @anonymous
-class CredentialPropertiesOutput implements JSObject {
+class CredentialPropertiesOutput {
   external factory CredentialPropertiesOutput({bool rk});
 }
 
@@ -680,7 +680,7 @@ extension CredentialPropertiesOutputExtension on CredentialPropertiesOutput {
 @JS()
 @staticInterop
 @anonymous
-class AuthenticationExtensionsPRFValues implements JSObject {
+class AuthenticationExtensionsPRFValues {
   external factory AuthenticationExtensionsPRFValues({
     required BufferSource first,
     BufferSource second,
@@ -698,7 +698,7 @@ extension AuthenticationExtensionsPRFValuesExtension
 @JS()
 @staticInterop
 @anonymous
-class AuthenticationExtensionsPRFInputs implements JSObject {
+class AuthenticationExtensionsPRFInputs {
   external factory AuthenticationExtensionsPRFInputs({
     AuthenticationExtensionsPRFValues eval,
     JSAny evalByCredential,
@@ -716,7 +716,7 @@ extension AuthenticationExtensionsPRFInputsExtension
 @JS()
 @staticInterop
 @anonymous
-class AuthenticationExtensionsPRFOutputs implements JSObject {
+class AuthenticationExtensionsPRFOutputs {
   external factory AuthenticationExtensionsPRFOutputs({
     bool enabled,
     AuthenticationExtensionsPRFValues results,
@@ -734,7 +734,7 @@ extension AuthenticationExtensionsPRFOutputsExtension
 @JS()
 @staticInterop
 @anonymous
-class AuthenticationExtensionsLargeBlobInputs implements JSObject {
+class AuthenticationExtensionsLargeBlobInputs {
   external factory AuthenticationExtensionsLargeBlobInputs({
     String support,
     bool read,
@@ -755,7 +755,7 @@ extension AuthenticationExtensionsLargeBlobInputsExtension
 @JS()
 @staticInterop
 @anonymous
-class AuthenticationExtensionsLargeBlobOutputs implements JSObject {
+class AuthenticationExtensionsLargeBlobOutputs {
   external factory AuthenticationExtensionsLargeBlobOutputs({
     bool supported,
     JSArrayBuffer blob,
@@ -776,7 +776,7 @@ extension AuthenticationExtensionsLargeBlobOutputsExtension
 @JS()
 @staticInterop
 @anonymous
-class AuthenticationExtensionsDevicePublicKeyInputs implements JSObject {
+class AuthenticationExtensionsDevicePublicKeyInputs {
   external factory AuthenticationExtensionsDevicePublicKeyInputs({
     String attestation,
     JSArray attestationFormats,
@@ -794,7 +794,7 @@ extension AuthenticationExtensionsDevicePublicKeyInputsExtension
 @JS()
 @staticInterop
 @anonymous
-class AuthenticationExtensionsDevicePublicKeyOutputs implements JSObject {
+class AuthenticationExtensionsDevicePublicKeyOutputs {
   external factory AuthenticationExtensionsDevicePublicKeyOutputs(
       {JSArrayBuffer signature});
 }

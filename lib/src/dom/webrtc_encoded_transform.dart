@@ -19,7 +19,7 @@ typedef RTCEncodedVideoFrameType = String;
 @JS()
 @staticInterop
 @anonymous
-class SFrameTransformOptions implements JSObject {
+class SFrameTransformOptions {
   external factory SFrameTransformOptions({SFrameTransformRole role});
 }
 
@@ -84,7 +84,7 @@ extension SFrameTransformErrorEventInitExtension
 @JS()
 @staticInterop
 @anonymous
-class RTCEncodedVideoFrameMetadata implements JSObject {
+class RTCEncodedVideoFrameMetadata {
   external factory RTCEncodedVideoFrameMetadata({
     int frameId,
     JSArray dependencies,
@@ -128,7 +128,7 @@ extension RTCEncodedVideoFrameMetadataExtension
 
 @JS('RTCEncodedVideoFrame')
 @staticInterop
-class RTCEncodedVideoFrame implements JSObject {}
+class RTCEncodedVideoFrame {}
 
 extension RTCEncodedVideoFrameExtension on RTCEncodedVideoFrame {
   external RTCEncodedVideoFrameMetadata getMetadata();
@@ -140,7 +140,7 @@ extension RTCEncodedVideoFrameExtension on RTCEncodedVideoFrame {
 @JS()
 @staticInterop
 @anonymous
-class RTCEncodedAudioFrameMetadata implements JSObject {
+class RTCEncodedAudioFrameMetadata {
   external factory RTCEncodedAudioFrameMetadata({
     int synchronizationSource,
     int payloadType,
@@ -166,7 +166,7 @@ extension RTCEncodedAudioFrameMetadataExtension
 
 @JS('RTCEncodedAudioFrame')
 @staticInterop
-class RTCEncodedAudioFrame implements JSObject {}
+class RTCEncodedAudioFrame {}
 
 extension RTCEncodedAudioFrameExtension on RTCEncodedAudioFrame {
   external RTCEncodedAudioFrameMetadata getMetadata();
@@ -184,7 +184,7 @@ extension RTCTransformEventExtension on RTCTransformEvent {
 
 @JS('RTCRtpScriptTransformer')
 @staticInterop
-class RTCRtpScriptTransformer implements JSObject {}
+class RTCRtpScriptTransformer {}
 
 extension RTCRtpScriptTransformerExtension on RTCRtpScriptTransformer {
   external JSPromise generateKeyFrame([String rid]);
@@ -196,7 +196,7 @@ extension RTCRtpScriptTransformerExtension on RTCRtpScriptTransformer {
 
 @JS('RTCRtpScriptTransform')
 @staticInterop
-class RTCRtpScriptTransform implements JSObject {
+class RTCRtpScriptTransform {
   external factory RTCRtpScriptTransform(
     Worker worker, [
     JSAny? options,

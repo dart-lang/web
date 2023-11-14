@@ -8,6 +8,6 @@ import 'dom.dart';
 
 @JS('RestrictionTarget')
 @staticInterop
-class RestrictionTarget implements JSObject {
+class RestrictionTarget {
   external static JSPromise fromElement(Element element);
 }

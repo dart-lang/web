@@ -9,7 +9,7 @@ typedef AacBitstreamFormat = String;
 @JS()
 @staticInterop
 @anonymous
-class AacEncoderConfig implements JSObject {
+class AacEncoderConfig {
   external factory AacEncoderConfig({AacBitstreamFormat format});
 }
 

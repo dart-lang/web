@@ -13,7 +13,7 @@ typedef TaskPriority = String;
 @JS()
 @staticInterop
 @anonymous
-class SchedulerPostTaskOptions implements JSObject {
+class SchedulerPostTaskOptions {
   external factory SchedulerPostTaskOptions({
     AbortSignal signal,
     TaskPriority priority,
@@ -32,7 +32,7 @@ extension SchedulerPostTaskOptionsExtension on SchedulerPostTaskOptions {
 
 @JS('Scheduler')
 @staticInterop
-class Scheduler implements JSObject {}
+class Scheduler {}
 
 extension SchedulerExtension on Scheduler {
   external JSPromise postTask(
@@ -70,7 +70,7 @@ extension TaskPriorityChangeEventInitExtension on TaskPriorityChangeEventInit {
 @JS()
 @staticInterop
 @anonymous
-class TaskControllerInit implements JSObject {
+class TaskControllerInit {
   external factory TaskControllerInit({TaskPriority priority});
 }
 
@@ -92,7 +92,7 @@ extension TaskControllerExtension on TaskController {
 @JS()
 @staticInterop
 @anonymous
-class TaskSignalAnyInit implements JSObject {
+class TaskSignalAnyInit {
   external factory TaskSignalAnyInit({JSAny priority});
 }
 

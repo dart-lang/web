@@ -11,7 +11,7 @@ typedef OperationType = String;
 @JS()
 @staticInterop
 @anonymous
-class PrivateToken implements JSObject {
+class PrivateToken {
   external factory PrivateToken({
     required TokenVersion version,
     required OperationType operation,

@@ -10,7 +10,7 @@ import 'service_workers.dart';
 
 @JS('StorageBucketManager')
 @staticInterop
-class StorageBucketManager implements JSObject {}
+class StorageBucketManager {}
 
 extension StorageBucketManagerExtension on StorageBucketManager {
   external JSPromise open(
@@ -24,7 +24,7 @@ extension StorageBucketManagerExtension on StorageBucketManager {
 @JS()
 @staticInterop
 @anonymous
-class StorageBucketOptions implements JSObject {
+class StorageBucketOptions {
   external factory StorageBucketOptions({
     bool persisted,
     int? quota,
@@ -43,7 +43,7 @@ extension StorageBucketOptionsExtension on StorageBucketOptions {
 
 @JS('StorageBucket')
 @staticInterop
-class StorageBucket implements JSObject {}
+class StorageBucket {}
 
 extension StorageBucketExtension on StorageBucket {
   external JSPromise persist();

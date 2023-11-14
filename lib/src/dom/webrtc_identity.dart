@@ -21,7 +21,7 @@ extension RTCIdentityProviderGlobalScopeExtension
 
 @JS('RTCIdentityProviderRegistrar')
 @staticInterop
-class RTCIdentityProviderRegistrar implements JSObject {}
+class RTCIdentityProviderRegistrar {}
 
 extension RTCIdentityProviderRegistrarExtension
     on RTCIdentityProviderRegistrar {
@@ -31,7 +31,7 @@ extension RTCIdentityProviderRegistrarExtension
 @JS()
 @staticInterop
 @anonymous
-class RTCIdentityProvider implements JSObject {
+class RTCIdentityProvider {
   external factory RTCIdentityProvider({
     required GenerateAssertionCallback generateAssertion,
     required ValidateAssertionCallback validateAssertion,
@@ -48,7 +48,7 @@ extension RTCIdentityProviderExtension on RTCIdentityProvider {
 @JS()
 @staticInterop
 @anonymous
-class RTCIdentityAssertionResult implements JSObject {
+class RTCIdentityAssertionResult {
   external factory RTCIdentityAssertionResult({
     required RTCIdentityProviderDetails idp,
     required String assertion,
@@ -65,7 +65,7 @@ extension RTCIdentityAssertionResultExtension on RTCIdentityAssertionResult {
 @JS()
 @staticInterop
 @anonymous
-class RTCIdentityProviderDetails implements JSObject {
+class RTCIdentityProviderDetails {
   external factory RTCIdentityProviderDetails({
     required String domain,
     String protocol,
@@ -82,7 +82,7 @@ extension RTCIdentityProviderDetailsExtension on RTCIdentityProviderDetails {
 @JS()
 @staticInterop
 @anonymous
-class RTCIdentityValidationResult implements JSObject {
+class RTCIdentityValidationResult {
   external factory RTCIdentityValidationResult({
     required String identity,
     required String contents,
@@ -99,7 +99,7 @@ extension RTCIdentityValidationResultExtension on RTCIdentityValidationResult {
 @JS()
 @staticInterop
 @anonymous
-class RTCIdentityProviderOptions implements JSObject {
+class RTCIdentityProviderOptions {
   external factory RTCIdentityProviderOptions({
     String protocol,
     String usernameHint,
@@ -118,7 +118,7 @@ extension RTCIdentityProviderOptionsExtension on RTCIdentityProviderOptions {
 
 @JS('RTCIdentityAssertion')
 @staticInterop
-class RTCIdentityAssertion implements JSObject {
+class RTCIdentityAssertion {
   external factory RTCIdentityAssertion(
     String idp,
     String name,

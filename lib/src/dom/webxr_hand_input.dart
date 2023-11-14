@@ -10,7 +10,7 @@ typedef XRHandJoint = String;
 
 @JS('XRHand')
 @staticInterop
-class XRHand implements JSObject {}
+class XRHand {}
 
 extension XRHandExtension on XRHand {
   external XRJointSpace get(XRHandJoint key);

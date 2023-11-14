@@ -21,7 +21,7 @@ extension ProximitySensorExtension on ProximitySensor {
 @JS()
 @staticInterop
 @anonymous
-class ProximityReadingValues implements JSObject {
+class ProximityReadingValues {
   external factory ProximityReadingValues({
     required num? distance,
     required num? max,

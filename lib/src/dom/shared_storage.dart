@@ -28,12 +28,12 @@ extension SharedStorageWorkletGlobalScopeExtension
 
 @JS('SharedStorageOperation')
 @staticInterop
-class SharedStorageOperation implements JSObject {}
+class SharedStorageOperation {}
 
 @JS()
 @staticInterop
 @anonymous
-class SharedStorageRunOperationMethodOptions implements JSObject {
+class SharedStorageRunOperationMethodOptions {
   external factory SharedStorageRunOperationMethodOptions({
     JSObject data,
     bool resolveToConfig,
@@ -73,7 +73,7 @@ extension SharedStorageSelectURLOperationExtension
 
 @JS('SharedStorage')
 @staticInterop
-class SharedStorage implements JSObject {}
+class SharedStorage {}
 
 extension SharedStorageExtension on SharedStorage {
   external JSPromise set(
@@ -92,7 +92,7 @@ extension SharedStorageExtension on SharedStorage {
 @JS()
 @staticInterop
 @anonymous
-class SharedStorageSetMethodOptions implements JSObject {
+class SharedStorageSetMethodOptions {
   external factory SharedStorageSetMethodOptions({bool ignoreIfPresent});
 }
 
@@ -122,7 +122,7 @@ extension WindowSharedStorageExtension on WindowSharedStorage {
 @JS()
 @staticInterop
 @anonymous
-class SharedStorageUrlWithMetadata implements JSObject {
+class SharedStorageUrlWithMetadata {
   external factory SharedStorageUrlWithMetadata({
     required String url,
     JSObject reportingMetadata,

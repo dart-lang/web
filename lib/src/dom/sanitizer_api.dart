@@ -10,7 +10,7 @@ typedef AttributeMatchList = JSAny;
 
 @JS('Sanitizer')
 @staticInterop
-class Sanitizer implements JSObject {
+class Sanitizer {
   external factory Sanitizer([SanitizerConfig config]);
 
   external static SanitizerConfig getDefaultConfiguration();
@@ -28,7 +28,7 @@ extension SanitizerExtension on Sanitizer {
 @JS()
 @staticInterop
 @anonymous
-class SetHTMLOptions implements JSObject {
+class SetHTMLOptions {
   external factory SetHTMLOptions({Sanitizer sanitizer});
 }
 
@@ -40,7 +40,7 @@ extension SetHTMLOptionsExtension on SetHTMLOptions {
 @JS()
 @staticInterop
 @anonymous
-class SanitizerConfig implements JSObject {
+class SanitizerConfig {
   external factory SanitizerConfig({
     JSArray allowElements,
     JSArray blockElements,

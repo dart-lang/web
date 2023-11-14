@@ -47,7 +47,7 @@ extension XRSystemExtension on XRSystem {
 @JS()
 @staticInterop
 @anonymous
-class XRSessionInit implements JSObject {
+class XRSessionInit {
   external factory XRSessionInit({
     XRDepthStateInit depthSensing,
     XRDOMOverlayInit? domOverlay,
@@ -123,7 +123,7 @@ extension XRSessionExtension on XRSession {
 @JS()
 @staticInterop
 @anonymous
-class XRRenderStateInit implements JSObject {
+class XRRenderStateInit {
   external factory XRRenderStateInit({
     num depthNear,
     num depthFar,
@@ -148,7 +148,7 @@ extension XRRenderStateInitExtension on XRRenderStateInit {
 
 @JS('XRRenderState')
 @staticInterop
-class XRRenderState implements JSObject {}
+class XRRenderState {}
 
 extension XRRenderStateExtension on XRRenderState {
   external num get depthNear;
@@ -160,7 +160,7 @@ extension XRRenderStateExtension on XRRenderState {
 
 @JS('XRFrame')
 @staticInterop
-class XRFrame implements JSObject {}
+class XRFrame {}
 
 extension XRFrameExtension on XRFrame {
   external JSPromise createAnchor(
@@ -221,7 +221,7 @@ extension XRBoundedReferenceSpaceExtension on XRBoundedReferenceSpace {
 
 @JS('XRView')
 @staticInterop
-class XRView implements JSObject {}
+class XRView {}
 
 extension XRViewExtension on XRView {
   external void requestViewportScale(num? scale);
@@ -235,7 +235,7 @@ extension XRViewExtension on XRView {
 
 @JS('XRViewport')
 @staticInterop
-class XRViewport implements JSObject {}
+class XRViewport {}
 
 extension XRViewportExtension on XRViewport {
   external int get x;
@@ -246,7 +246,7 @@ extension XRViewportExtension on XRViewport {
 
 @JS('XRRigidTransform')
 @staticInterop
-class XRRigidTransform implements JSObject {
+class XRRigidTransform {
   external factory XRRigidTransform([
     DOMPointInit position,
     DOMPointInit orientation,
@@ -262,7 +262,7 @@ extension XRRigidTransformExtension on XRRigidTransform {
 
 @JS('XRPose')
 @staticInterop
-class XRPose implements JSObject {}
+class XRPose {}
 
 extension XRPoseExtension on XRPose {
   external XRRigidTransform get transform;
@@ -281,7 +281,7 @@ extension XRViewerPoseExtension on XRViewerPose {
 
 @JS('XRInputSource')
 @staticInterop
-class XRInputSource implements JSObject {}
+class XRInputSource {}
 
 extension XRInputSourceExtension on XRInputSource {
   external Gamepad? get gamepad;
@@ -295,7 +295,7 @@ extension XRInputSourceExtension on XRInputSource {
 
 @JS('XRInputSourceArray')
 @staticInterop
-class XRInputSourceArray implements JSObject {}
+class XRInputSourceArray {}
 
 extension XRInputSourceArrayExtension on XRInputSourceArray {
   external int get length;
@@ -308,7 +308,7 @@ class XRLayer implements EventTarget {}
 @JS()
 @staticInterop
 @anonymous
-class XRWebGLLayerInit implements JSObject {
+class XRWebGLLayerInit {
   external factory XRWebGLLayerInit({
     bool antialias,
     bool depth,

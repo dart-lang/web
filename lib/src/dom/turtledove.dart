@@ -9,7 +9,7 @@ import 'dom.dart';
 @JS()
 @staticInterop
 @anonymous
-class AuctionAd implements JSObject {
+class AuctionAd {
   external factory AuctionAd({
     required String renderURL,
     JSAny? metadata,
@@ -35,7 +35,7 @@ extension AuctionAdExtension on AuctionAd {
 @JS()
 @staticInterop
 @anonymous
-class GenerateBidInterestGroup implements JSObject {
+class GenerateBidInterestGroup {
   external factory GenerateBidInterestGroup({
     required String owner,
     required String name,
@@ -105,7 +105,7 @@ extension AuctionAdInterestGroupExtension on AuctionAdInterestGroup {
 @JS()
 @staticInterop
 @anonymous
-class AuctionAdInterestGroupKey implements JSObject {
+class AuctionAdInterestGroupKey {
   external factory AuctionAdInterestGroupKey({
     required String owner,
     required String name,
@@ -122,7 +122,7 @@ extension AuctionAdInterestGroupKeyExtension on AuctionAdInterestGroupKey {
 @JS()
 @staticInterop
 @anonymous
-class AuctionAdConfig implements JSObject {
+class AuctionAdConfig {
   external factory AuctionAdConfig({
     required String seller,
     required String decisionLogicURL,
@@ -189,7 +189,7 @@ extension AuctionAdConfigExtension on AuctionAdConfig {
 
 @JS('InterestGroupScriptRunnerGlobalScope')
 @staticInterop
-class InterestGroupScriptRunnerGlobalScope implements JSObject {}
+class InterestGroupScriptRunnerGlobalScope {}
 
 @JS('InterestGroupBiddingScriptRunnerGlobalScope')
 @staticInterop
@@ -209,7 +209,7 @@ extension InterestGroupBiddingScriptRunnerGlobalScopeExtension
 @JS()
 @staticInterop
 @anonymous
-class AdRender implements JSObject {
+class AdRender {
   external factory AdRender({
     required String url,
     String width,
@@ -229,7 +229,7 @@ extension AdRenderExtension on AdRender {
 @JS()
 @staticInterop
 @anonymous
-class GenerateBidOutput implements JSObject {
+class GenerateBidOutput {
   external factory GenerateBidOutput({
     num bid,
     String bidCurrency,
@@ -284,7 +284,7 @@ extension InterestGroupReportingScriptRunnerGlobalScopeExtension
 @JS()
 @staticInterop
 @anonymous
-class PreviousWin implements JSObject {
+class PreviousWin {
   external factory PreviousWin({
     required int timeDelta,
     required String adJSON,
@@ -301,7 +301,7 @@ extension PreviousWinExtension on PreviousWin {
 @JS()
 @staticInterop
 @anonymous
-class BiddingBrowserSignals implements JSObject {
+class BiddingBrowserSignals {
   external factory BiddingBrowserSignals({
     required String topWindowHostname,
     required String seller,
@@ -339,7 +339,7 @@ extension BiddingBrowserSignalsExtension on BiddingBrowserSignals {
 @JS()
 @staticInterop
 @anonymous
-class ScoringBrowserSignals implements JSObject {
+class ScoringBrowserSignals {
   external factory ScoringBrowserSignals({
     required String topWindowHostname,
     required String interestGroupOwner,
@@ -371,7 +371,7 @@ extension ScoringBrowserSignalsExtension on ScoringBrowserSignals {
 @JS()
 @staticInterop
 @anonymous
-class ReportingBrowserSignals implements JSObject {
+class ReportingBrowserSignals {
   external factory ReportingBrowserSignals({
     required String topWindowHostname,
     required String interestGroupOwner,
@@ -467,7 +467,7 @@ extension ReportWinBrowserSignalsExtension on ReportWinBrowserSignals {
 @JS()
 @staticInterop
 @anonymous
-class ScoreAdOutput implements JSObject {
+class ScoreAdOutput {
   external factory ScoreAdOutput({
     required num desirability,
     num bid,

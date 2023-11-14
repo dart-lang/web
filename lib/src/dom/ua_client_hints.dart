@@ -7,7 +7,7 @@ import 'dart:js_interop';
 @JS()
 @staticInterop
 @anonymous
-class NavigatorUABrandVersion implements JSObject {
+class NavigatorUABrandVersion {
   external factory NavigatorUABrandVersion({
     String brand,
     String version,
@@ -24,7 +24,7 @@ extension NavigatorUABrandVersionExtension on NavigatorUABrandVersion {
 @JS()
 @staticInterop
 @anonymous
-class UADataValues implements JSObject {
+class UADataValues {
   external factory UADataValues({
     String architecture,
     String bitness,
@@ -68,7 +68,7 @@ extension UADataValuesExtension on UADataValues {
 @JS()
 @staticInterop
 @anonymous
-class UALowEntropyJSON implements JSObject {
+class UALowEntropyJSON {
   external factory UALowEntropyJSON({
     JSArray brands,
     bool mobile,
@@ -87,7 +87,7 @@ extension UALowEntropyJSONExtension on UALowEntropyJSON {
 
 @JS('NavigatorUAData')
 @staticInterop
-class NavigatorUAData implements JSObject {}
+class NavigatorUAData {}
 
 extension NavigatorUADataExtension on NavigatorUAData {
   external JSPromise getHighEntropyValues(JSArray hints);

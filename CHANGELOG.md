@@ -1,3 +1,7 @@
+## 0.4.1-wip
+
+- Add an example.
+
 ## 0.4.0
 
 - Remove `implements JSObject` from all types. This is needed to move the JS

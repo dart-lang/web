@@ -7,12 +7,9 @@
 ## 0.4.0
 
 - Remove `implements JSObject` from all types. This is needed to move the JS
-types exposed in `dart:js_interop` to extension types. This subtyping will be
-added back in a future version when we move all `package:web` types to extension
-types.
-
-## 0.3.1-dev
-
+  types exposed in `dart:js_interop` to extension types. This subtyping will be
+  added back in a future version when we move all `package:web` types to extension
+  types.
 - Add `onMessage` getter to `WindowEventGetters` extension methods.
 - `helpers.dart`: expose the `EventStreamProviders` class.
 - Add `createIFrameElement` method to `helpers.dart`.
@@ -20,7 +17,7 @@ types.
 - Fixed issue where all `JSAny`s were treated as nullable.
 - Changed `JSVoid` to `void`.
 - `interface mixin`s are no longer emitted as interfaces. Their members are
-instead added to the interface that mixes them in.
+  instead added to the interface that mixes them in.
 
 ## 0.3.0
 

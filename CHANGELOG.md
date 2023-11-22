@@ -1,6 +1,8 @@
 ## 0.4.1-wip
 
 - Add an example.
+- `helpers.dart`:
+  - Added event extensions for `WebSocket`
 
 ## 0.4.0
 

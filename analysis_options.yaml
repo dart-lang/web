@@ -18,8 +18,6 @@ linter:
   - avoid_bool_literals_in_conditional_expressions
   - avoid_private_typedef_functions
   - avoid_redundant_argument_values
-  - avoid_returning_null
-  - avoid_returning_null_for_future
   - avoid_returning_this
   - avoid_unused_constructor_parameters
   - cancel_subscriptions

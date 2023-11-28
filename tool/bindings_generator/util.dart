@@ -29,6 +29,8 @@ final List<String> licenseHeader = [
   'BSD-style license that can be found in the LICENSE file.',
 ];
 
+const String generatedFileDisclaimer = 'Generated from Web IDL definitions.';
+
 extension StringExt on String {
   String get kebabToSnake => toLowerCase().replaceAll('-', '_');
 

@@ -1,4 +1,5 @@
 .dart_tool
+doc/api/
 pubspec.lock
 tool/bindings_generator/*.js
 tool/bindings_generator/*.js.*

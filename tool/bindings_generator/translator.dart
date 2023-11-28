@@ -5,6 +5,7 @@
 import 'dart:js_interop';
 
 import 'package:code_builder/code_builder.dart' as code;
+import 'package:code_builder/code_builder.dart';
 import 'package:path/path.dart' as p;
 
 import 'banned_names.dart';
@@ -803,7 +804,11 @@ class Translator {
   }
 
   code.Library _library(_Library library) => code.Library((b) => b
-    ..comments.addAll(licenseHeader)
+    ..comments.addAll([
+      ...licenseHeader,
+      '',
+      generatedFileDisclaimer,
+    ])
     ..body.addAll([
       for (final typedef in library.typedefs)
         _typedef(typedef.name, _getRawType(typedef.idlType)),

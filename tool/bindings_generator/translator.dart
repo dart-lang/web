@@ -5,7 +5,6 @@
 import 'dart:js_interop';
 
 import 'package:code_builder/code_builder.dart' as code;
-import 'package:code_builder/code_builder.dart';
 import 'package:path/path.dart' as p;
 
 import 'banned_names.dart';

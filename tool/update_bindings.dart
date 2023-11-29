@@ -37,9 +37,10 @@ $_usage''');
 
   // Run `npm install` or `npm upgrade` as needed.
   if (argResult['update'] as bool) {
-    await _runProc('npm', ['update'], _bindingsGeneratorPath);
+    await _runProc('npm', ['update'], workingDirectory: _bindingsGeneratorPath);
   } else {
-    await _runProc('npm', ['install'], _bindingsGeneratorPath);
+    await _runProc('npm', ['install'],
+        workingDirectory: _bindingsGeneratorPath);
   }
 
   // Compute JS type supertypes for union calculation in translator.
@@ -57,23 +58,37 @@ $_usage''');
         '-o',
         'dart_main.js',
       ],
-      _bindingsGeneratorPath,
+      workingDirectory: _bindingsGeneratorPath,
     );
   }
 
-  // Delete all previously generated files.
+  // Determine the set of previously generated files.
   final domDir = Directory(p.join('lib', 'src', 'dom'));
-  for (final file in domDir.listSync(recursive: true).whereType<File>()) {
-    if (!file.path.endsWith('.dart')) continue;
+  final existingFiles =
+      domDir.listSync(recursive: true).whereType<File>().where((file) {
+    if (!file.path.endsWith('.dart')) return false;
 
     final contents = file.readAsStringSync();
-    if (contents.contains('Generated from Web IDL definitions')) {
+    return contents.contains('Generated from Web IDL definitions');
+  }).toList();
+  final timeStamps = {
+    for (final file in existingFiles) file.path: file.lastModifiedSync(),
+  };
+
+  // Run app with `node`.
+  await _runProc(
+    'node',
+    ['main.mjs', '../../lib'],
+    workingDirectory: _bindingsGeneratorPath,
+  );
+
+  // Delete previously generated files that have not been updated.
+  for (final file in existingFiles) {
+    final stamp = timeStamps[file.path];
+    if (stamp == file.lastModifiedSync()) {
       file.deleteSync();
     }
   }
-
-  // Run app with `node`.
-  await _runProc('node', ['main.mjs', '../../lib'], _bindingsGeneratorPath);
 
   // Update readme.
   final readmeFile = File(
@@ -127,7 +142,7 @@ final _bindingsGeneratorPath =
 
 const _webRefIdl = '@webref/idl';
 
-const _thisScript = '/tool/update_bindings.dart';
+const _thisScript = 'tool/update_bindings.dart';
 
 const _startComment =
     '<!-- START updated by $_thisScript. Do not modify by hand -->';
@@ -136,9 +151,9 @@ const _endComment =
 
 Future<void> _runProc(
   String executable,
-  List<String> arguments,
-  String workingDirectory,
-) async {
+  List<String> arguments, {
+  required String workingDirectory,
+}) async {
   print(ansi.styleBold.wrap(['*', executable, ...arguments].join(' ')));
   final proc = await Process.start(
     executable,
@@ -213,7 +228,7 @@ Future<void> _generateJsTypeSupertypes() async {
   await _runProc(
     Platform.executable,
     ['format', jsTypeSupertypesPath],
-    _bindingsGeneratorPath,
+    workingDirectory: _bindingsGeneratorPath,
   );
 }
 

@@ -33,6 +33,6 @@ void main() {
 
 ## Web IDL version
 
-<!-- START updated by /tool/update_bindings.dart. Do not modify by hand -->
+<!-- START updated by tool/update_bindings.dart. Do not modify by hand -->
 Based on [`@webref/idl 3.39.1`](https://www.npmjs.com/package/@webref/idl/v/3.39.1).
-<!-- END updated by /tool/update_bindings.dart. Do not modify by hand -->
+<!-- END updated by tool/update_bindings.dart. Do not modify by hand -->

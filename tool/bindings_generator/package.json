@@ -1,5 +1,5 @@
 {
-  "name": "Dart web bindings generator",
+  "name": "dart_web_bindings_generator",
   "version": "0.0.1",
   "description": "",
   "scripts": {
@@ -8,9 +8,10 @@
   "keywords": [],
   "author": "Dart project authors",
   "license": "BSD 3",
-  "devDependencies": {
-    "@webref/idl": "^3.23.0",
+  "dependencies": {
     "@webref/css": "^6.5.6",
+    "@webref/idl": "^3.23.0",
+    "web-specs": "^2.74.1",
     "webidl2": "^24.2.2"
   }
 }

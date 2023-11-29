@@ -35,7 +35,6 @@ export 'src/helpers/extensions.dart';
 export 'src/helpers/http.dart';
 export 'src/helpers/lists.dart';
 export 'src/helpers/renames.dart';
-export 'web.dart';
 
 HTMLElement createElementTag(String s) =>
     document.createElement(s) as HTMLElement;

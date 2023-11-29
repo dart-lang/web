@@ -2,9 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:web/helpers.dart';
+import 'package:web/web.dart';
 
 void main() {
   final div = document.querySelector('div') as HTMLDivElement;
-  div.text = 'Text set at ${DateTime.now()}';
+  div.textContent = 'Text set at ${DateTime.now()}';
 }

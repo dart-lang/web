@@ -5,8 +5,8 @@
 import 'dart:async';
 import 'dart:js_interop';
 
-import '../../../helpers.dart' show Device;
 import '../../../web.dart' as html;
+import '../../../web_helpers.dart' show Device;
 
 /// Helper class used to create streams abstracting DOM events. This is a
 /// piece of the helper layer directly derived from a similar feature in

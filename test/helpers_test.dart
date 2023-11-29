@@ -8,7 +8,7 @@ library;
 import 'dart:js_interop';
 
 import 'package:test/test.dart';
-import 'package:web/helpers.dart';
+import 'package:web/web.dart';
 
 void main() {
   test('instanceOfString works with package:web types', () {

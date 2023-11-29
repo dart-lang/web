@@ -1,8 +1,10 @@
-## 0.4.1-wip
+## 0.5.0-wip
 
-- Add an example.
-- `helpers.dart`:
+- Rename the `helpers.dart` library to `web_helpers.dart`.
+- No longer export `web.dart` from `web_helpers.dart`.
+- `web_helpers.dart`:
   - Added event extensions for `WebSocket`
+- Add an example.
 
 ## 0.4.0
 

@@ -6,12 +6,12 @@ Lightweight browser API bindings built around JS static interop.
 
 ## What's this?
 
-This package exposes the browser's DOM APIs. It's generated from the Web IDL
+This package exposes browser APIs. It's generated from the Web IDL
 definitions and uses recent Dart language features for zero-overhead bindings.
 
 This package is intended to replace
 [`dart:html`](https://api.dart.dev/stable/dart-html/dart-html-library.html) and
-similar Dart SDK libraries. The package will support DOM access from Dart code
+similar Dart SDK libraries. The package will support access to browser APIs from Dart code
 compiled to either JavaScript or WebAssembly.
 
 ## Status

@@ -12,6 +12,7 @@ import 'generate_bindings.dart';
 import 'util.dart';
 
 // Generates DOM bindings for Dart.
+
 // TODO(joshualitt): Use static interop methods for JSArray and JSPromise.
 // TODO(joshualitt): Find a way to generate bindings for JS builtins. This will
 // probably involve parsing the TC39 spec.
@@ -20,7 +21,6 @@ void main(List<String> args) async {
   await _generateAndWriteBindings(args[0]);
 }
 
-// TODO(dart-lang/web#28): delete any file that hasn't been generated!
 Future<void> _generateAndWriteBindings(String dir) async {
   const librarySubDir = 'src/dom';
   ensureDirectoryExists('$dir/$librarySubDir');

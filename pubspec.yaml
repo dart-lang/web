@@ -1,6 +1,5 @@
 name: web
-description: >-
-  Lightweight DOM and JS bindings built around JS static interop.
+description: Lightweight browser API bindings built around JS static interop.
 version: 0.4.1-wip
 
 repository: https://github.com/dart-lang/web

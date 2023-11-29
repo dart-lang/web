@@ -55,21 +55,24 @@ $_usage''');
         '--enable-asserts',
         'dart_main.dart',
         '-o',
-        'dart_main.js'
+        'dart_main.js',
       ],
       _bindingsGeneratorPath,
     );
   }
 
-  // Run app with `node`.
-  if (argResult['delete-src'] as bool) {
-    // TODO(dart-lang/web#28): file cleanup should happen in the tool itself
-    final srcDir = Directory(p.join(p.current, 'lib', 'src', 'dom'));
+  // Delete all previously generated files.
+  final domDir = Directory(p.join('lib', 'src', 'dom'));
+  for (final file in domDir.listSync(recursive: true).whereType<File>()) {
+    if (!file.path.endsWith('.dart')) continue;
 
-    if (srcDir.existsSync()) {
-      srcDir.deleteSync(recursive: true);
+    final contents = file.readAsStringSync();
+    if (contents.contains('Generated from Web IDL definitions')) {
+      file.deleteSync();
     }
   }
+
+  // Run app with `node`.
   await _runProc('node', ['main.mjs', '../../lib'], _bindingsGeneratorPath);
 
   // Update readme.
@@ -221,5 +224,4 @@ ${_parser.usage}''';
 final _parser = ArgParser()
   ..addFlag('update', abbr: 'u', help: 'Update npm dependencies')
   ..addFlag('compile', defaultsTo: true)
-  ..addFlag('help', negatable: false)
-  ..addFlag('delete-src', help: 'Delete the lib/src directory before running.');
+  ..addFlag('help', negatable: false);

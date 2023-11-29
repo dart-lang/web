@@ -4,9 +4,34 @@
 
 Lightweight browser API bindings built around JS static interop.
 
-This package will *eventually* replace [`dart:html`](https://api.dart.dev/stable/dart-html/dart-html-library.html) and
-similar libraries in the Dart SDK to fully support WebAssembly.
+## What's this?
+
+This package exposes the browser's DOM APIs. It's generated from the Web IDL
+definitions and uses recent Dart language features for zero-overhead bindings.
+
+This package is intended to replace
+[`dart:html`](https://api.dart.dev/stable/dart-html/dart-html-library.html) and
+similar Dart SDK libraries. The package will support DOM access from Dart code
+compiled to either JavaScript or WebAssembly.
+
+## Status
+
+The APIs in this package are still fairly provisional and could change rapidly.
+We'll continue to use semver as we evolve the APIs.
+
+## Usage
+
+```dart
+import 'package:web/web.dart';
+
+void main() {
+  final div = document.querySelector('div') as HTMLDivElement;
+  div.textContent = 'Text set at ${DateTime.now()}';
+}
+```
+
+## Web IDL version
 
 <!-- START updated by /tool/update_bindings.dart. Do not modify by hand -->
-Based on [`@webref/idl 3.39.1`](https://www.npmjs.com/package/@webref/idl/v/3.39.1)
+Based on [`@webref/idl 3.39.1`](https://www.npmjs.com/package/@webref/idl/v/3.39.1).
 <!-- END updated by /tool/update_bindings.dart. Do not modify by hand -->

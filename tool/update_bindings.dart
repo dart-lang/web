@@ -93,8 +93,8 @@ ${RegExp.escape(_endComment)}
 
   final idlVersion = _webRefIdlVersion();
 
-  final idlReference =
-      'Based on [`$_webRefIdl $idlVersion`](https://www.npmjs.com/package/$_webRefIdl/v/$idlVersion)';
+  final idlReference = 'Based on [`$_webRefIdl $idlVersion`]'
+      '(https://www.npmjs.com/package/$_webRefIdl/v/$idlVersion).';
 
   final newContent = sourceContent.replaceFirst(replaceRegexp, '''
 $_startComment

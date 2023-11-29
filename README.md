@@ -6,18 +6,19 @@ Lightweight browser API bindings built around JS static interop.
 
 ## What's this?
 
-This package exposes browser APIs. It's generated from the Web IDL
-definitions and uses recent Dart language features for zero-overhead bindings.
+This package exposes browser APIs. It's generated from the Web IDL definitions
+and uses recent Dart language features for zero-overhead bindings.
 
 This package is intended to replace
 [`dart:html`](https://api.dart.dev/stable/dart-html/dart-html-library.html) and
-similar Dart SDK libraries. The package will support access to browser APIs from Dart code
-compiled to either JavaScript or WebAssembly.
+similar Dart SDK libraries. It will support access to browser APIs from Dart
+code compiled to either JavaScript or WebAssembly.
 
 ## Status
 
 The APIs in this package are still fairly provisional and could change rapidly.
-We'll continue to use semver as we evolve the APIs.
+We'll continue to use [semantic versioning](https://semver.org/) as we evolve
+the APIs.
 
 ## Usage
 

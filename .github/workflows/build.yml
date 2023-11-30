@@ -70,3 +70,5 @@ jobs:
         working-directory: tool/bindings_generator
       - name: Run the generator
         run: dart tool/update_bindings.dart
+      - name: Analyze code
+        run: dart analyze --fatal-infos

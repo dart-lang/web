@@ -2,12 +2,14 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:convert';
 import 'dart:js_interop';
 
 import 'package:code_builder/code_builder.dart' as code;
 import 'package:path/path.dart' as p;
 
 import 'banned_names.dart';
+import 'filesystem_api.dart';
 import 'singletons.dart';
 import 'type_aliases.dart';
 import 'type_union.dart';
@@ -418,20 +420,26 @@ class _MemberName {
 }
 
 class Translator {
+  final String packageRoot;
+  final String _librarySubDir;
+  final List<String> _cssStyleDeclarations;
+
   final _libraries = <String, _Library>{};
   final _typeToDeclaration = <String, idl.Node>{};
   final _typeToLibrary = <String, _Library>{};
   final _interfacelikes = <String, _PartialInterfacelike>{};
   final _includes = <idl.Includes>[];
-  final String _librarySubDir;
+
   late String _currentlyTranslatingUrl;
-  final List<String> _cssStyleDeclarations;
+  late WebSpecs webSpecs;
 
   /// Singleton so that various helper methods can access info about the AST.
   static Translator? instance;
 
-  Translator(this._librarySubDir, this._cssStyleDeclarations) {
+  Translator(
+      this.packageRoot, this._librarySubDir, this._cssStyleDeclarations) {
     instance = this;
+    webSpecs = WebSpecs.read();
   }
 
   /// Set or update partial interfaces so we can have a unified interface
@@ -472,11 +480,17 @@ class Translator {
     }
   }
 
-  void collect(String name, JSArray ast) {
-    final libraryPath = '$_librarySubDir/$name.dart';
+  void collect(String shortName, JSArray ast) {
+    final libraryPath = '$_librarySubDir/${shortName.kebabToSnake}.dart';
     assert(!_libraries.containsKey(libraryPath));
+
+    // TODO: Use the info from the spec to skip generation of some libraries.
+    // ignore: unused_local_variable
+    final spec = webSpecs.specFor(shortName)!;
+
     final library = _Library(this, '$packageRoot/$libraryPath');
     _libraries[libraryPath] = library;
+
     for (var i = 0; i < ast.length; i++) {
       library.add(ast[i] as idl.Node);
     }
@@ -834,14 +848,91 @@ class Translator {
   TranslationResult translate() {
     // Create a root import that exports all of the other libraries.
     final dartLibraries = <String, code.Library>{};
-    dartLibraries['web.dart'] = generateRootImport(_libraries.keys);
 
     // Translate each IDL library into a Dart library.
     for (var entry in _libraries.entries) {
       _currentlyTranslatingUrl = entry.value.url;
-      dartLibraries[entry.key] = _library(entry.value);
+
+      final dartLibrary = _library(entry.value);
+      if (dartLibrary.body.isEmpty && dartLibrary.directives.isEmpty) {
+        print('  not generating empty library: ${entry.value.url}');
+      } else {
+        dartLibraries[entry.key] = dartLibrary;
+      }
     }
+
+    dartLibraries['web.dart'] = generateRootImport(dartLibraries.keys);
 
     return dartLibraries;
   }
+}
+
+class WebSpecs {
+  static WebSpecs read() {
+    final path = p.join('node_modules', 'web-specs', 'index.json');
+    final content = (fs.readFileSync(
+      path.toJS,
+      JSReadFileOptions(encoding: 'utf8'.toJS),
+    ) as JSString)
+        .toDart;
+    return WebSpecs(
+      (jsonDecode(content) as List)
+          .map((json) => WebSpec(json as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+
+  final List<WebSpec> specs;
+
+  WebSpecs(this.specs);
+
+  WebSpec? specFor(String shortName) {
+    for (final spec in specs) {
+      if (spec.shortname == shortName) {
+        return spec;
+      }
+    }
+
+    for (final spec in specs) {
+      if (spec.seriesShortname == shortName) {
+        return spec;
+      }
+    }
+
+    return null;
+  }
+}
+
+class WebSpec {
+  final Map<String, dynamic> json;
+
+  WebSpec(this.json);
+
+  String get url => json['url'] as String;
+
+  String get shortname => json['shortname'] as String;
+
+  String? get seriesShortname {
+    if (!json.containsKey('series')) return null;
+    return (json['series'] as Map)['shortname'] as String?;
+  }
+
+  String get standing => json['standing'] as String;
+
+  List<String> get categories {
+    if (json.containsKey('categories')) {
+      return (json['categories'] as List).cast<String>();
+    } else {
+      return const [];
+    }
+  }
+
+  String? get releaseStatus {
+    if (!json.containsKey('release')) return null;
+    return (json['release'] as Map)['status'] as String?;
+  }
+
+  @override
+  String toString() =>
+      '$shortname $url $standing [${categories.join(',')}] $releaseStatus';
 }

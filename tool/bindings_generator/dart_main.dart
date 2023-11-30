@@ -23,14 +23,26 @@ void main(List<String> args) async {
 
 Future<void> _generateAndWriteBindings(String dir) async {
   const librarySubDir = 'src/dom';
+
   ensureDirectoryExists('$dir/$librarySubDir');
+
   final bindings = await generateBindings(packageRoot, librarySubDir);
   for (var entry in bindings.entries) {
-    final formattedContents = _runDartFormat(entry.value).toJS;
-    fs.writeFileSync('$dir/${entry.key}'.toJS, formattedContents);
+    final libraryPath = entry.key;
+    final library = entry.value;
+
+    final contents = _emitLibrary(library).toJS;
+    fs.writeFileSync('$dir/$libraryPath'.toJS, contents);
   }
 }
 
-String _runDartFormat(code.Library library) => DartFormatter().format(
-      '''${library.accept(code.DartEmitter(allocator: code.Allocator(), orderDirectives: true, useNullSafetySyntax: true))}''',
-    );
+String _emitLibrary(code.Library library) {
+  final emitter = code.DartEmitter(
+    allocator: code.Allocator(),
+    orderDirectives: true,
+    useNullSafetySyntax: true,
+  );
+
+  final source = library.accept(emitter);
+  return DartFormatter().format(source.toString());
+}

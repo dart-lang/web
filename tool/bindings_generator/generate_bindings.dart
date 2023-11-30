@@ -47,11 +47,12 @@ Future<List<String>> _generateCSSStyleDeclarations() async {
 Future<TranslationResult> generateBindings(
     String packageRoot, String librarySubDir) async {
   final cssStyleDeclarations = await _generateCSSStyleDeclarations();
-  final translator = Translator(librarySubDir, cssStyleDeclarations);
+  final translator =
+      Translator(packageRoot, librarySubDir, cssStyleDeclarations);
   final array = objectEntries(await idl.parseAll().toDart as JSObject);
   for (var i = 0; i < array.length; i++) {
     final entry = array[i] as JSArray;
-    final shortname = (entry[0] as JSString).toDart.kebabToSnake;
+    final shortname = (entry[0] as JSString).toDart;
     final ast = entry[1] as JSArray;
     translator.collect(shortname, ast);
   }

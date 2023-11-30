@@ -15,16 +15,26 @@ class JSMkdirOptions {
 }
 
 @JS()
+@anonymous
+@staticInterop
+class JSReadFileOptions {
+  external factory JSReadFileOptions({JSString? encoding});
+}
+
+@JS()
 @staticInterop
 class FileSystem {}
 
 // TODO(joshualitt): Replace `void` with `JSVoid`
 extension FileSystemExtension on FileSystem {
   external JSBoolean existsSync(JSString path);
+
   @JS('mkdirSync')
   external void mkdirSyncOneArg(JSString path);
+
   @JS('mkdirSync')
   external void mkdirSyncTwoArg(JSString path, JSMkdirOptions options);
+
   void mkdirSync(JSString path, [JSMkdirOptions? options]) {
     if (options == null) {
       return mkdirSyncOneArg(path);
@@ -32,6 +42,8 @@ extension FileSystemExtension on FileSystem {
       return mkdirSyncTwoArg(path, options);
     }
   }
+
+  external JSAny readFileSync(JSString path, [JSReadFileOptions options]);
 
   external void writeFileSync(JSString path, JSString contents);
 }

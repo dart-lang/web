@@ -43,19 +43,7 @@ extension FileSystemExtension on FileSystem {
     }
   }
 
-  @JS('readFileSync')
-  external JSAny readFileSyncOneArg(JSString path);
-
-  @JS('readFileSync')
-  external JSAny readFileSyncTwoArg(JSString path, JSReadFileOptions options);
-
-  JSAny readFileSync(JSString path, [JSReadFileOptions? options]) {
-    if (options == null) {
-      return readFileSyncOneArg(path);
-    } else {
-      return readFileSyncTwoArg(path, options);
-    }
-  }
+  external JSAny readFileSync(JSString path, [JSReadFileOptions options]);
 
   external void writeFileSync(JSString path, JSString contents);
 }

@@ -1,5 +1,6 @@
-## 0.4.1-wip
+## 0.4.1
 
+- Update the readme to include usage info and package status.
 - Add an example.
 - `helpers.dart`:
   - Added event extensions for `WebSocket`

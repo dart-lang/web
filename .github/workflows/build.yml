@@ -7,6 +7,7 @@ on:
   pull_request:
     branches: [ main ]
   schedule:
+    # Run nightly.
     - cron: "0 0 * * 0"
 
 env:
@@ -20,14 +21,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [main]
-        flavor: [raw]
+        sdk: [stable]
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - uses: dart-lang/setup-dart@b64355ae6ca0b5d484f0106a033dd1388965d06d
         with:
           sdk: ${{ matrix.sdk }}
-          flavor: ${{ matrix.flavor }}
       - id: install
         name: Install dependencies
         run: dart pub get
@@ -38,29 +37,45 @@ jobs:
         run: dart analyze --fatal-infos
         if: always() && steps.install.outcome == 'success'
 
-  # Run tests on a matrix consisting of three dimensions:
-  # 1. OS: ubuntu-latest, (macos-latest, windows-latest)
-  # 2. release channel: main, dev
-  # 3. flavor: raw
+  # Run tests on a matrix of several SDK releases.
   test:
     needs: analyze
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        # Add macos-latest and/or windows-latest if relevant for this package.
         os: [ubuntu-latest]
-        sdk: [main, dev]
-        flavor: [raw]
+        sdk: [dev, beta, stable]
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
       - uses: dart-lang/setup-dart@b64355ae6ca0b5d484f0106a033dd1388965d06d
         with:
           sdk: ${{ matrix.sdk }}
-          flavor: ${{ matrix.flavor }}
-      - id: install
-        name: Install dependencies
+      - name: Install dependencies
         run: dart pub get
       - name: Run Chrome tests
         run: dart test --platform chrome
-        if: always() && steps.install.outcome == 'success'
+
+  # Ensure the generation script runs.
+  generation:
+    needs: analyze
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        sdk: [main, dev]
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: dart-lang/setup-dart@b64355ae6ca0b5d484f0106a033dd1388965d06d
+        with:
+          sdk: ${{ matrix.sdk }}
+      - name: Install Dart dependencies
+        run: dart pub get
+      - name: Install Node dependencies
+        run: npm install
+        working-directory: tool/bindings_generator
+      - name: Run the generator
+        run: dart tool/update_bindings.dart
+      - name: Analyze code
+        run: dart analyze --fatal-infos

@@ -861,7 +861,7 @@ class Translator {
       }
     }
 
-    dartLibraries['web.dart'] = generateRootImport(dartLibraries.keys);
+    dartLibraries['dom.dart'] = generateRootImport(dartLibraries.keys);
 
     return dartLibraries;
   }

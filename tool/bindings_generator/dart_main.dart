@@ -22,7 +22,7 @@ void main(List<String> args) async {
 }
 
 Future<void> _generateAndWriteBindings(String dir) async {
-  const librarySubDir = 'src/dom';
+  const librarySubDir = 'dom';
 
   ensureDirectoryExists('$dir/$librarySubDir');
 

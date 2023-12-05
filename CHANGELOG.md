@@ -1,7 +1,10 @@
 ## 0.4.1-wip
 
+- Exported the helper libraries from `web.dart`.
+- Deprecated the `helpers.dart` library in favor of `web.dart`.
+- Updated the readme to include usage info and package status.
 - Add an example.
-- `helpers.dart`:
+- `src/helpers.dart`:
   - Added event extensions for `WebSocket`
 
 ## 0.4.0

@@ -27,7 +27,7 @@ import 'package:web/web.dart';
 
 void main() {
   final div = document.querySelector('div') as HTMLDivElement;
-  div.textContent = 'Text set at ${DateTime.now()}';
+  div.text = 'Text set at ${DateTime.now()}';
 }
 ```
 

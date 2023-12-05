@@ -1,7 +1,7 @@
 ## 0.4.1-wip
 
 - Exported the helper libraries from `web.dart`.
-- Deprecated the `helpers.dart` library (n favor of `web.dart`).
+- Deprecated the `helpers.dart` library in favor of `web.dart`.
 - Updated the readme to include usage info and package status.
 - Add an example.
 - `src/helpers.dart`:

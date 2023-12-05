@@ -168,6 +168,13 @@ Future<void> _runProc(
   }
 }
 
+bool _isInJsTypesOrJsInterop(InterfaceElement element) =>
+    // We only care about JS types for this calculation.
+    element.library.isInSdk &&
+    (element.library.name == '_js_types' ||
+        element is ExtensionTypeElement &&
+            element.library.name == 'dart.js_interop');
+
 Future<void> _generateJsTypeSupertypes() async {
   // Use a file that uses `dart:js_interop` for analysis.
   final contextCollection = AnalysisContextCollection(includedPaths: [
@@ -187,14 +194,7 @@ Future<void> _generateJsTypeSupertypes() async {
       // migrate to extension types hit the dev branch, we should remove some of
       // the old code.
       void storeSupertypes(InterfaceElement element) {
-        bool isInJsTypesOrJsInterop(InterfaceElement element) =>
-            // We only care about JS types for this calculation.
-            element.library.isInSdk &&
-            (element.library.name == '_js_types' ||
-                element is ExtensionTypeElement &&
-                    element.library.name == 'dart.js_interop');
-
-        if (!isInJsTypesOrJsInterop(element)) return;
+        if (!_isInJsTypesOrJsInterop(element)) return;
         String? parentJsType;
         final supertype = element.supertype;
         final immediateSupertypes = <InterfaceType>[
@@ -204,7 +204,7 @@ Future<void> _generateJsTypeSupertypes() async {
         // We should have at most one non-trivial supertype.
         assert(immediateSupertypes.length <= 1);
         for (final supertype in immediateSupertypes) {
-          if (isInJsTypesOrJsInterop(supertype.element)) {
+          if (_isInJsTypesOrJsInterop(supertype.element)) {
             parentJsType = "'${supertype.element.name}'";
           }
         }

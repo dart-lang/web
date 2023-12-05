@@ -6,7 +6,7 @@ import 'dart:async';
 import 'dart:js_interop';
 import 'dart:typed_data';
 
-import '../../web.dart';
+import '../dom.dart';
 import 'events/events.dart' show XHRGetters;
 
 /// A helper used to make it easier to operate over [XMLHttpRequest]s.

@@ -78,7 +78,7 @@ $_usage''');
   // Run app with `node`.
   await _runProc(
     'node',
-    ['main.mjs', '../../lib'],
+    ['main.mjs', '../../lib/src'],
     workingDirectory: _bindingsGeneratorPath,
   );
 
@@ -169,8 +169,9 @@ Future<void> _runProc(
 
 Future<void> _generateJsTypeSupertypes() async {
   // Use a file that uses `dart:js_interop` for analysis.
-  final contextCollection = AnalysisContextCollection(
-      includedPaths: [p.fromUri(Platform.script.resolve('../lib/web.dart'))]);
+  final contextCollection = AnalysisContextCollection(includedPaths: [
+    p.fromUri(Platform.script.resolve('../lib/src/dom.dart'))
+  ]);
   final dartJsInterop = await contextCollection.contexts.single.currentSession
       .getLibraryByUri('dart:js_interop') as LibraryElementResult;
   final definedNames = dartJsInterop.element.exportNamespace.definedNames;

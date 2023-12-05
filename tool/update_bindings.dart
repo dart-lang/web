@@ -169,7 +169,6 @@ Future<void> _runProc(
 }
 
 bool _isInJsTypesOrJsInterop(InterfaceElement element) =>
-    // We only care about JS types for this calculation.
     element.library.isInSdk &&
     (element.library.name == '_js_types' ||
         element is ExtensionTypeElement &&

@@ -68,7 +68,7 @@ extension CanvasRenderingContext2DGlue on CanvasRenderingContext2D {
 extension NodeGlue on Node {
   set text(String s) => textContent = s;
   Node append(Node other) => appendChild(other);
-  Node clone(bool? deep) => deep == null ? cloneNode() : cloneNode(deep);
+  Node clone(bool? deep) => cloneNode(deep ?? false);
 }
 
 extension EventGlue on MouseEvent {

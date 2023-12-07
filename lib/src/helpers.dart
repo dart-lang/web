@@ -9,6 +9,7 @@
 /// to have from `dart:html`.
 ///
 /// This helper layer serves two purposes:
+///
 ///   * provide useful functionality in environments where `dart:html` is not
 ///     available (like on Wasm).
 ///   * help bridge the gap in functionality from the past, which may reduce

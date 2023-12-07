@@ -7,6 +7,7 @@
 ///
 /// The extensions here are added by hand over time, depending on needs and use
 /// cases. They currently consist of:
+///
 ///  * renames: methods that provide the same functionality, but use a more
 ///    idiomatic Dart name. Typically these renames match the names used in
 ///    `dart:html` in the past.
@@ -66,8 +67,8 @@ extension CanvasRenderingContext2DGlue on CanvasRenderingContext2D {
 
 extension NodeGlue on Node {
   set text(String s) => textContent = s;
-  void append(Node other) => appendChild(other);
-  void clone(bool deep) => cloneNode(deep);
+  Node append(Node other) => appendChild(other);
+  Node clone(bool? deep) => deep == null ? cloneNode() : cloneNode(deep);
 }
 
 extension EventGlue on MouseEvent {

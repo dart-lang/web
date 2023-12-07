@@ -6,6 +6,8 @@
 - Add an example.
 - `src/helpers.dart`:
   - Added event extensions for `WebSocket`
+  - Fixes to the return types of the `append()` and `clone()` extension methods
+    on `Node`.
 
 ## 0.4.0
 

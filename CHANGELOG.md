@@ -3,10 +3,12 @@
 - Exported the helper libraries from `web.dart`.
 - Deprecated the `helpers.dart` library in favor of `web.dart`.
 - Updated the readme to include usage info and package status.
-- Add an example.
+- Added an example.
 - Added event extensions for `WebSocket`
 - Fixes to the return types of the `append()` and `clone()` extension methods on
   `Node`.
+- Deprecated `NodeGlue.append` in favor of `Node.appendChild`.
+- Deprecated `NodeGlue.clone` in favor of `Node.cloneNode`.
 
 ## 0.4.0
 

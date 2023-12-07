@@ -3,7 +3,8 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:test/test.dart';
-import '../tool/bindings_generator/type_union.dart';
+
+import '../bindings_generator/type_union.dart';
 
 void main() {
   test('Non-JS types', () {

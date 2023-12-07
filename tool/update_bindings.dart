@@ -2,6 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
@@ -167,6 +168,12 @@ Future<void> _runProc(
   }
 }
 
+bool _isInJsTypesOrJsInterop(InterfaceElement element) =>
+    element.library.isInSdk &&
+    (element.library.name == '_js_types' ||
+        element is ExtensionTypeElement &&
+            element.library.name == 'dart.js_interop');
+
 Future<void> _generateJsTypeSupertypes() async {
   // Use a file that uses `dart:js_interop` for analysis.
   final contextCollection = AnalysisContextCollection(includedPaths: [
@@ -175,28 +182,28 @@ Future<void> _generateJsTypeSupertypes() async {
   final dartJsInterop = await contextCollection.contexts.single.currentSession
       .getLibraryByUri('dart:js_interop') as LibraryElementResult;
   final definedNames = dartJsInterop.element.exportNamespace.definedNames;
-  final jsTypeSupertypes = <String, String?>{};
+  // `SplayTreeMap` to avoid moving types around in `dart:js_interop` affecting
+  // the code generation.
+  final jsTypeSupertypes = SplayTreeMap<String, String?>();
   for (final name in definedNames.keys) {
     final element = definedNames[name];
     if (element is TypeDefiningElement) {
+      // TODO(srujzs): This contains code that handles the SDK before and after
+      // the migration of JS types to extension types. Once the changes to
+      // migrate to extension types hit the dev branch, we should remove some of
+      // the old code.
       void storeSupertypes(InterfaceElement element) {
-        bool isInJsTypes(InterfaceElement element) =>
-            // We only care about JS types for this calculation.
-            // TODO(srujzs): We'll likely need to change this once JS types move
-            // to extension types.
-            element.library.isInSdk && element.library.name == '_js_types';
-
-        if (!isInJsTypes(element)) return;
+        if (!_isInJsTypesOrJsInterop(element)) return;
         String? parentJsType;
         final supertype = element.supertype;
         final immediateSupertypes = <InterfaceType>[
-          if (supertype != null && !supertype.isDartCoreObject) supertype,
+          if (supertype != null) supertype,
           ...element.interfaces,
-        ];
+        ]..removeWhere((supertype) => supertype.isDartCoreObject);
         // We should have at most one non-trivial supertype.
         assert(immediateSupertypes.length <= 1);
         for (final supertype in immediateSupertypes) {
-          if (isInJsTypes(supertype.element)) {
+          if (_isInJsTypesOrJsInterop(supertype.element)) {
             parentJsType = "'${supertype.element.name}'";
           }
         }

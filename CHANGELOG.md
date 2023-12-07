@@ -4,10 +4,9 @@
 - Deprecated the `helpers.dart` library in favor of `web.dart`.
 - Updated the readme to include usage info and package status.
 - Add an example.
-- `src/helpers.dart`:
-  - Added event extensions for `WebSocket`
-  - Fixes to the return types of the `append()` and `clone()` extension methods
-    on `Node`.
+- Added event extensions for `WebSocket`
+- Fixes to the return types of the `append()` and `clone()` extension methods on
+  `Node`.
 
 ## 0.4.0
 

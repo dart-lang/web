@@ -12,7 +12,7 @@ dev_dependencies:
   args: ^2.4.0
   build_runner: ^2.4.0
   build_web_compilers: ^4.0.7
-  code_builder: ^4.4.0
+  code_builder: ^4.9.0
   dart_flutter_team_lints: ^2.0.0
   dart_style: ^2.2.4
   io: ^1.0.4

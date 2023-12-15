@@ -817,11 +817,8 @@ class Translator {
   }
 
   code.Library _library(_Library library) => code.Library((b) => b
-    ..comments.addAll([
-      ...licenseHeader,
-      '',
-      generatedFileDisclaimer,
-    ])
+    ..comments.addAll(licenseHeader)
+    ..generatedByComment = generatedFileDisclaimer
     ..body.addAll([
       for (final typedef in library.typedefs)
         _typedef(typedef.name, _getRawType(typedef.idlType)),

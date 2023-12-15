@@ -20,7 +20,7 @@ Future<List<String>> _generateCSSStyleDeclarations() async {
     if (properties != null) {
       for (var j = 0; j < properties.length; j++) {
         final property = properties[j] as CSSEntry;
-        // There are thre cases for [styleDeclaration]:
+        // There are three cases for [styleDeclaration]:
         //   1) Length == 1, a single word CSS property.
         //   2) Length == 2, a kebab case property + a camel case property.
         //   3) Length == 3, webkit CSS properties.

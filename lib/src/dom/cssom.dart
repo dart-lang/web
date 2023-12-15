@@ -221,8 +221,6 @@ extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
   external String get alignItems;
   external set alignSelf(String value);
   external String get alignSelf;
-  external set alignTracks(String value);
-  external String get alignTracks;
   external set alignmentBaseline(String value);
   external String get alignmentBaseline;
   external set all(String value);
@@ -295,6 +293,8 @@ extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
   external String get backgroundRepeat;
   external set backgroundSize(String value);
   external String get backgroundSize;
+  external set backgroundTbd(String value);
+  external String get backgroundTbd;
   external set baselineShift(String value);
   external String get baselineShift;
   external set baselineSource(String value);
@@ -603,6 +603,8 @@ extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
   external String get dominantBaseline;
   external set emptyCells(String value);
   external String get emptyCells;
+  external set fieldSizing(String value);
+  external String get fieldSizing;
   external set fill(String value);
   external String get fill;
   external set fillBreak(String value);
@@ -789,6 +791,8 @@ extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
   external String get inputSecurity;
   external set inset(String value);
   external String get inset;
+  external set insetArea(String value);
+  external String get insetArea;
   external set insetBlock(String value);
   external String get insetBlock;
   external set insetBlockEnd(String value);
@@ -809,8 +813,6 @@ extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
   external String get justifyItems;
   external set justifySelf(String value);
   external String get justifySelf;
-  external set justifyTracks(String value);
-  external String get justifyTracks;
   external set layoutOrder(String value);
   external String get layoutOrder;
   external set left(String value);

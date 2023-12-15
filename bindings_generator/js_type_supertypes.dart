@@ -28,5 +28,5 @@ const Map<String, String?> jsTypeSupertypes = {
   'JSUint16Array': 'JSTypedArray',
   'JSUint32Array': 'JSTypedArray',
   'JSUint8Array': 'JSTypedArray',
-  'JSUint8ClampedArray': 'JSTypedArray'
+  'JSUint8ClampedArray': 'JSTypedArray',
 };

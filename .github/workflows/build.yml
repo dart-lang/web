@@ -74,7 +74,7 @@ jobs:
         run: dart pub get
       - name: Install Node dependencies
         run: npm install
-        working-directory: tool/bindings_generator
+        working-directory: bindings_generator
       - name: Run the generator
         run: dart tool/update_bindings.dart
       - name: Analyze code

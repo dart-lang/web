@@ -36,13 +36,13 @@ $_usage''');
 
   assert(p.fromUri(Platform.script).endsWith(_thisScript));
 
-  // Run `npm install` or `npm upgrade` as needed.
-  if (argResult['update'] as bool) {
-    await _runProc('npm', ['update'], workingDirectory: _bindingsGeneratorPath);
-  } else {
-    await _runProc('npm', ['install'],
-        workingDirectory: _bindingsGeneratorPath);
-  }
+  // Run `npm install` or `npm update` as needed.
+  final update = argResult['update'] as bool;
+  await _runProc(
+    'npm',
+    [update ? 'update' : 'install'],
+    workingDirectory: _bindingsGeneratorPath,
+  );
 
   // Compute JS type supertypes for union calculation in translator.
   await _generateJsTypeSupertypes();
@@ -79,7 +79,7 @@ $_usage''');
   // Run app with `node`.
   await _runProc(
     'node',
-    ['main.mjs', '../../lib/src'],
+    ['main.mjs', '../lib/src'],
     workingDirectory: _bindingsGeneratorPath,
   );
 
@@ -93,7 +93,7 @@ $_usage''');
 
   // Update readme.
   final readmeFile = File(
-    p.normalize(p.join(_bindingsGeneratorPath, '..', '..', 'README.md')),
+    p.normalize(p.join(_bindingsGeneratorPath, '..', 'README.md')),
   );
 
   final sourceContent = readmeFile.readAsStringSync();
@@ -138,8 +138,7 @@ String _webRefIdlVersion() {
   return webRefIdl['version'] as String;
 }
 
-final _bindingsGeneratorPath =
-    p.fromUri(Platform.script.resolve('bindings_generator/'));
+const _bindingsGeneratorPath = 'bindings_generator';
 
 const _webRefIdl = '@webref/idl';
 
@@ -194,6 +193,7 @@ Future<void> _generateJsTypeSupertypes() async {
       // the old code.
       void storeSupertypes(InterfaceElement element) {
         if (!_isInJsTypesOrJsInterop(element)) return;
+
         String? parentJsType;
         final supertype = element.supertype;
         final immediateSupertypes = <InterfaceType>[
@@ -222,22 +222,19 @@ Future<void> _generateJsTypeSupertypes() async {
   }
 
   final jsTypeSupertypesScript = '''
-  // Copyright (c) 2023, the Dart project authors.  Please see the AUTHORS file
-  // for details. All rights reserved. Use of this source code is governed by a
-  // BSD-style license that can be found in the LICENSE file.
+// Copyright (c) 2023, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
 
-  // Updated by $_thisScript. Do not modify by hand.
+// Updated by $_thisScript. Do not modify by hand.
 
-  const Map<String, String?> jsTypeSupertypes = $jsTypeSupertypes;
-  ''';
+const Map<String, String?> jsTypeSupertypes = {
+${jsTypeSupertypes.entries.map((e) => "  ${e.key}: ${e.value},").join('\n')}
+};
+''';
   final jsTypeSupertypesPath =
       p.join(_bindingsGeneratorPath, 'js_type_supertypes.dart');
   await File(jsTypeSupertypesPath).writeAsString(jsTypeSupertypesScript);
-  await _runProc(
-    Platform.executable,
-    ['format', jsTypeSupertypesPath],
-    workingDirectory: _bindingsGeneratorPath,
-  );
 }
 
 final _usage = '''

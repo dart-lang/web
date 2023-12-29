@@ -29,6 +29,9 @@ final List<String> licenseHeader = [
   'BSD-style license that can be found in the LICENSE file.',
 ];
 
+// Needed for dart_style until 2.3.5 is published.
+const String inlineClassExperimentFlag = 'inline-class';
+
 const String generatedFileDisclaimer = 'Generated from Web IDL definitions.';
 
 extension StringExt on String {

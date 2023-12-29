@@ -178,38 +178,25 @@ Future<void> _generateJsTypeSupertypes() async {
   final jsTypeSupertypes = SplayTreeMap<String, String?>();
   for (final name in definedNames.keys) {
     final element = definedNames[name];
-    if (element is TypeDefiningElement) {
-      // TODO(srujzs): This contains code that handles the SDK before and after
-      // the migration of JS types to extension types. Once the changes to
-      // migrate to extension types hit the dev branch, we should remove some of
-      // the old code.
-      void storeSupertypes(InterfaceElement element) {
-        if (!_isInJsTypesOrJsInterop(element)) return;
+    if (element is ExtensionTypeElement) {
+      if (!_isInJsTypesOrJsInterop(element)) return;
 
-        String? parentJsType;
-        final supertype = element.supertype;
-        final immediateSupertypes = <InterfaceType>[
-          if (supertype != null) supertype,
-          ...element.interfaces,
-        ]..removeWhere((supertype) => supertype.isDartCoreObject);
-        // We should have at most one non-trivial supertype.
-        assert(immediateSupertypes.length <= 1);
-        for (final supertype in immediateSupertypes) {
-          if (_isInJsTypesOrJsInterop(supertype.element)) {
-            parentJsType = "'${supertype.element.name}'";
-          }
+      String? parentJsType;
+      final supertype = element.supertype;
+      final immediateSupertypes = <InterfaceType>[
+        if (supertype != null) supertype,
+        ...element.interfaces,
+      ]..removeWhere((supertype) => supertype.isDartCoreObject);
+      // We should have at most one non-trivial supertype.
+      assert(immediateSupertypes.length <= 1);
+      for (final supertype in immediateSupertypes) {
+        if (_isInJsTypesOrJsInterop(supertype.element)) {
+          parentJsType = "'${supertype.element.name}'";
         }
-        // Ensure that the hierarchy forms a tree.
-        assert((parentJsType == null) == (name == 'JSAny'));
-        jsTypeSupertypes["'$name'"] = parentJsType;
       }
-
-      if (element is TypeAliasElement) {
-        final type = element.aliasedType;
-        if (type is InterfaceType) storeSupertypes(type.element);
-      } else if (element is InterfaceElement) {
-        storeSupertypes(element);
-      }
+      // Ensure that the hierarchy forms a tree.
+      assert((parentJsType == null) == (name == 'JSAny'));
+      jsTypeSupertypes["'$name'"] = parentJsType;
     }
   }
 

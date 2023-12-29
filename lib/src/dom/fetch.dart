@@ -25,10 +25,7 @@ typedef RequestRedirect = String;
 typedef RequestDuplex = String;
 typedef RequestPriority = String;
 typedef ResponseType = String;
-
-@JS('Headers')
-@staticInterop
-class Headers {
+extension type Headers._(JSObject _) implements JSObject {
   external factory Headers([HeadersInit init]);
 }
 
@@ -47,9 +44,7 @@ extension HeadersExtension on Headers {
   );
 }
 
-@JS('Request')
-@staticInterop
-class Request {
+extension type Request._(JSObject _) implements JSObject {
   external factory Request(
     RequestInfo input, [
     RequestInit init,
@@ -83,10 +78,7 @@ extension RequestExtension on Request {
   external bool get bodyUsed;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class RequestInit {
+extension type RequestInit._(JSObject _) implements JSObject {
   external factory RequestInit({
     AttributionReportingRequestOptions attributionReporting,
     String method,
@@ -151,9 +143,7 @@ extension RequestInitExtension on RequestInit {
   external PrivateToken get privateToken;
 }
 
-@JS('Response')
-@staticInterop
-class Response {
+extension type Response._(JSObject _) implements JSObject {
   external factory Response([
     BodyInit? body,
     ResponseInit init,
@@ -189,10 +179,7 @@ extension ResponseExtension on Response {
   external bool get bodyUsed;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ResponseInit {
+extension type ResponseInit._(JSObject _) implements JSObject {
   external factory ResponseInit({
     int status,
     String statusText,

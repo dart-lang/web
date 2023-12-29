@@ -8,9 +8,8 @@ import 'dart:js_interop';
 
 import 'css_conditional.dart';
 
-@JS('CSSContainerRule')
-@staticInterop
-class CSSContainerRule implements CSSConditionRule {}
+extension type CSSContainerRule._(JSObject _)
+    implements CSSConditionRule, JSObject {}
 
 extension CSSContainerRuleExtension on CSSContainerRule {
   external String get containerName;

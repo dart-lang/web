@@ -15,10 +15,7 @@ import 'vibration.dart';
 typedef NotificationPermissionCallback = JSFunction;
 typedef NotificationPermission = String;
 typedef NotificationDirection = String;
-
-@JS('Notification')
-@staticInterop
-class Notification implements EventTarget {
+extension type Notification._(JSObject _) implements EventTarget, JSObject {
   external factory Notification(
     String title, [
     NotificationOptions options,
@@ -57,10 +54,7 @@ extension NotificationExtension on Notification {
   external JSArray get actions;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class NotificationOptions {
+extension type NotificationOptions._(JSObject _) implements JSObject {
   external factory NotificationOptions({
     NotificationDirection dir,
     String lang,
@@ -110,10 +104,7 @@ extension NotificationOptionsExtension on NotificationOptions {
   external JSArray get actions;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class NotificationAction {
+extension type NotificationAction._(JSObject _) implements JSObject {
   external factory NotificationAction({
     required String action,
     required String title,
@@ -130,10 +121,7 @@ extension NotificationActionExtension on NotificationAction {
   external String get icon;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GetNotificationOptions {
+extension type GetNotificationOptions._(JSObject _) implements JSObject {
   external factory GetNotificationOptions({String tag});
 }
 
@@ -142,9 +130,8 @@ extension GetNotificationOptionsExtension on GetNotificationOptions {
   external String get tag;
 }
 
-@JS('NotificationEvent')
-@staticInterop
-class NotificationEvent implements ExtendableEvent {
+extension type NotificationEvent._(JSObject _)
+    implements ExtendableEvent, JSObject {
   external factory NotificationEvent(
     String type,
     NotificationEventInit eventInitDict,
@@ -156,10 +143,8 @@ extension NotificationEventExtension on NotificationEvent {
   external String get action;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class NotificationEventInit implements ExtendableEventInit {
+extension type NotificationEventInit._(JSObject _)
+    implements ExtendableEventInit, JSObject {
   external factory NotificationEventInit({
     required Notification notification,
     String action,

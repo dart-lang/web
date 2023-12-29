@@ -9,9 +9,8 @@ import 'dart:js_interop';
 import 'html.dart';
 import 'mediacapture_streams.dart';
 
-@JS('CanvasCaptureMediaStreamTrack')
-@staticInterop
-class CanvasCaptureMediaStreamTrack implements MediaStreamTrack {}
+extension type CanvasCaptureMediaStreamTrack._(JSObject _)
+    implements MediaStreamTrack, JSObject {}
 
 extension CanvasCaptureMediaStreamTrackExtension
     on CanvasCaptureMediaStreamTrack {

@@ -13,10 +13,8 @@ import 'trust_token_api.dart';
 
 typedef FormDataEntryValue = JSAny;
 typedef XMLHttpRequestResponseType = String;
-
-@JS('XMLHttpRequestEventTarget')
-@staticInterop
-class XMLHttpRequestEventTarget implements EventTarget {}
+extension type XMLHttpRequestEventTarget._(JSObject _)
+    implements EventTarget, JSObject {}
 
 extension XMLHttpRequestEventTargetExtension on XMLHttpRequestEventTarget {
   external set onloadstart(EventHandler value);
@@ -35,13 +33,10 @@ extension XMLHttpRequestEventTargetExtension on XMLHttpRequestEventTarget {
   external EventHandler get onloadend;
 }
 
-@JS('XMLHttpRequestUpload')
-@staticInterop
-class XMLHttpRequestUpload implements XMLHttpRequestEventTarget {}
-
-@JS('XMLHttpRequest')
-@staticInterop
-class XMLHttpRequest implements XMLHttpRequestEventTarget {
+extension type XMLHttpRequestUpload._(JSObject _)
+    implements XMLHttpRequestEventTarget, JSObject {}
+extension type XMLHttpRequest._(JSObject _)
+    implements XMLHttpRequestEventTarget, JSObject {
   external factory XMLHttpRequest();
 
   external static int get UNSENT;
@@ -89,9 +84,7 @@ extension XMLHttpRequestExtension on XMLHttpRequest {
   external Document? get responseXML;
 }
 
-@JS('FormData')
-@staticInterop
-class FormData {
+extension type FormData._(JSObject _) implements JSObject {
   external factory FormData([
     HTMLFormElement form,
     HTMLElement? submitter,
@@ -115,9 +108,7 @@ extension FormDataExtension on FormData {
   ]);
 }
 
-@JS('ProgressEvent')
-@staticInterop
-class ProgressEvent implements Event {
+extension type ProgressEvent._(JSObject _) implements Event, JSObject {
   external factory ProgressEvent(
     String type, [
     ProgressEventInit eventInitDict,
@@ -130,10 +121,7 @@ extension ProgressEventExtension on ProgressEvent {
   external int get total;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ProgressEventInit implements EventInit {
+extension type ProgressEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ProgressEventInit({
     bool lengthComputable,
     int loaded,

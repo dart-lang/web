@@ -6,10 +6,7 @@
 
 import 'dart:js_interop';
 
-@JS()
-@staticInterop
-@anonymous
-class IsInputPendingOptions {
+extension type IsInputPendingOptions._(JSObject _) implements JSObject {
   external factory IsInputPendingOptions({bool includeContinuous});
 }
 
@@ -18,9 +15,7 @@ extension IsInputPendingOptionsExtension on IsInputPendingOptions {
   external bool get includeContinuous;
 }
 
-@JS('Scheduling')
-@staticInterop
-class Scheduling {}
+extension type Scheduling._(JSObject _) implements JSObject {}
 
 extension SchedulingExtension on Scheduling {
   external bool isInputPending([IsInputPendingOptions isInputPendingOptions]);

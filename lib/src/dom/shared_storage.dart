@@ -10,14 +10,10 @@ import 'html.dart';
 
 typedef SharedStorageResponse = JSAny;
 typedef SharedStorageOperationConstructor = JSFunction;
-
-@JS('SharedStorageWorklet')
-@staticInterop
-class SharedStorageWorklet implements Worklet {}
-
-@JS('SharedStorageWorkletGlobalScope')
-@staticInterop
-class SharedStorageWorkletGlobalScope implements WorkletGlobalScope {}
+extension type SharedStorageWorklet._(JSObject _)
+    implements Worklet, JSObject {}
+extension type SharedStorageWorkletGlobalScope._(JSObject _)
+    implements WorkletGlobalScope, JSObject {}
 
 extension SharedStorageWorkletGlobalScopeExtension
     on SharedStorageWorkletGlobalScope {
@@ -28,14 +24,9 @@ extension SharedStorageWorkletGlobalScopeExtension
   external WorkletSharedStorage get sharedStorage;
 }
 
-@JS('SharedStorageOperation')
-@staticInterop
-class SharedStorageOperation {}
-
-@JS()
-@staticInterop
-@anonymous
-class SharedStorageRunOperationMethodOptions {
+extension type SharedStorageOperation._(JSObject _) implements JSObject {}
+extension type SharedStorageRunOperationMethodOptions._(JSObject _)
+    implements JSObject {
   external factory SharedStorageRunOperationMethodOptions({
     JSObject data,
     bool resolveToConfig,
@@ -53,17 +44,15 @@ extension SharedStorageRunOperationMethodOptionsExtension
   external bool get keepAlive;
 }
 
-@JS('SharedStorageRunOperation')
-@staticInterop
-class SharedStorageRunOperation implements SharedStorageOperation {}
+extension type SharedStorageRunOperation._(JSObject _)
+    implements SharedStorageOperation, JSObject {}
 
 extension SharedStorageRunOperationExtension on SharedStorageRunOperation {
   external JSPromise run(JSObject data);
 }
 
-@JS('SharedStorageSelectURLOperation')
-@staticInterop
-class SharedStorageSelectURLOperation implements SharedStorageOperation {}
+extension type SharedStorageSelectURLOperation._(JSObject _)
+    implements SharedStorageOperation, JSObject {}
 
 extension SharedStorageSelectURLOperationExtension
     on SharedStorageSelectURLOperation {
@@ -73,9 +62,7 @@ extension SharedStorageSelectURLOperationExtension
   );
 }
 
-@JS('SharedStorage')
-@staticInterop
-class SharedStorage {}
+extension type SharedStorage._(JSObject _) implements JSObject {}
 
 extension SharedStorageExtension on SharedStorage {
   external JSPromise set(
@@ -91,10 +78,7 @@ extension SharedStorageExtension on SharedStorage {
   external JSPromise clear();
 }
 
-@JS()
-@staticInterop
-@anonymous
-class SharedStorageSetMethodOptions {
+extension type SharedStorageSetMethodOptions._(JSObject _) implements JSObject {
   external factory SharedStorageSetMethodOptions({bool ignoreIfPresent});
 }
 
@@ -104,9 +88,8 @@ extension SharedStorageSetMethodOptionsExtension
   external bool get ignoreIfPresent;
 }
 
-@JS('WindowSharedStorage')
-@staticInterop
-class WindowSharedStorage implements SharedStorage {}
+extension type WindowSharedStorage._(JSObject _)
+    implements SharedStorage, JSObject {}
 
 extension WindowSharedStorageExtension on WindowSharedStorage {
   external JSPromise run(
@@ -121,10 +104,7 @@ extension WindowSharedStorageExtension on WindowSharedStorage {
   external SharedStorageWorklet get worklet;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class SharedStorageUrlWithMetadata {
+extension type SharedStorageUrlWithMetadata._(JSObject _) implements JSObject {
   external factory SharedStorageUrlWithMetadata({
     required String url,
     JSObject reportingMetadata,
@@ -139,9 +119,8 @@ extension SharedStorageUrlWithMetadataExtension
   external JSObject get reportingMetadata;
 }
 
-@JS('WorkletSharedStorage')
-@staticInterop
-class WorkletSharedStorage implements SharedStorage {}
+extension type WorkletSharedStorage._(JSObject _)
+    implements SharedStorage, JSObject {}
 
 extension WorkletSharedStorageExtension on WorkletSharedStorage {
   external JSPromise get(String key);

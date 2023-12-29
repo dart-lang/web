@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'webgl1.dart';
 
-@JS('OVR_multiview2')
-@staticInterop
-class OVR_multiview2 {
+extension type OVR_multiview2._(JSObject _) implements JSObject {
   external static GLenum get FRAMEBUFFER_ATTACHMENT_TEXTURE_NUM_VIEWS_OVR;
   external static GLenum get FRAMEBUFFER_ATTACHMENT_TEXTURE_BASE_VIEW_INDEX_OVR;
   external static GLenum get MAX_VIEWS_OVR;

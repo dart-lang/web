@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 
-@JS('DeviceOrientationEvent')
-@staticInterop
-class DeviceOrientationEvent implements Event {
+extension type DeviceOrientationEvent._(JSObject _) implements Event, JSObject {
   external factory DeviceOrientationEvent(
     String type, [
     DeviceOrientationEventInit eventInitDict,
@@ -26,10 +24,8 @@ extension DeviceOrientationEventExtension on DeviceOrientationEvent {
   external bool get absolute;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class DeviceOrientationEventInit implements EventInit {
+extension type DeviceOrientationEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory DeviceOrientationEventInit({
     num? alpha,
     num? beta,
@@ -49,9 +45,8 @@ extension DeviceOrientationEventInitExtension on DeviceOrientationEventInit {
   external bool get absolute;
 }
 
-@JS('DeviceMotionEventAcceleration')
-@staticInterop
-class DeviceMotionEventAcceleration {}
+extension type DeviceMotionEventAcceleration._(JSObject _)
+    implements JSObject {}
 
 extension DeviceMotionEventAccelerationExtension
     on DeviceMotionEventAcceleration {
@@ -60,9 +55,8 @@ extension DeviceMotionEventAccelerationExtension
   external num? get z;
 }
 
-@JS('DeviceMotionEventRotationRate')
-@staticInterop
-class DeviceMotionEventRotationRate {}
+extension type DeviceMotionEventRotationRate._(JSObject _)
+    implements JSObject {}
 
 extension DeviceMotionEventRotationRateExtension
     on DeviceMotionEventRotationRate {
@@ -71,9 +65,7 @@ extension DeviceMotionEventRotationRateExtension
   external num? get gamma;
 }
 
-@JS('DeviceMotionEvent')
-@staticInterop
-class DeviceMotionEvent implements Event {
+extension type DeviceMotionEvent._(JSObject _) implements Event, JSObject {
   external factory DeviceMotionEvent(
     String type, [
     DeviceMotionEventInit eventInitDict,
@@ -89,10 +81,8 @@ extension DeviceMotionEventExtension on DeviceMotionEvent {
   external num get interval;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class DeviceMotionEventAccelerationInit {
+extension type DeviceMotionEventAccelerationInit._(JSObject _)
+    implements JSObject {
   external factory DeviceMotionEventAccelerationInit({
     num? x,
     num? y,
@@ -110,10 +100,8 @@ extension DeviceMotionEventAccelerationInitExtension
   external num? get z;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class DeviceMotionEventRotationRateInit {
+extension type DeviceMotionEventRotationRateInit._(JSObject _)
+    implements JSObject {
   external factory DeviceMotionEventRotationRateInit({
     num? alpha,
     num? beta,
@@ -131,10 +119,8 @@ extension DeviceMotionEventRotationRateInitExtension
   external num? get gamma;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class DeviceMotionEventInit implements EventInit {
+extension type DeviceMotionEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory DeviceMotionEventInit({
     DeviceMotionEventAccelerationInit acceleration,
     DeviceMotionEventAccelerationInit accelerationIncludingGravity,

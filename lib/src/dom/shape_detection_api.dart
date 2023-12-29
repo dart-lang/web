@@ -11,10 +11,7 @@ import 'html.dart';
 
 typedef LandmarkType = String;
 typedef BarcodeFormat = String;
-
-@JS('FaceDetector')
-@staticInterop
-class FaceDetector {
+extension type FaceDetector._(JSObject _) implements JSObject {
   external factory FaceDetector([FaceDetectorOptions faceDetectorOptions]);
 }
 
@@ -22,10 +19,7 @@ extension FaceDetectorExtension on FaceDetector {
   external JSPromise detect(ImageBitmapSource image);
 }
 
-@JS()
-@staticInterop
-@anonymous
-class FaceDetectorOptions {
+extension type FaceDetectorOptions._(JSObject _) implements JSObject {
   external factory FaceDetectorOptions({
     int maxDetectedFaces,
     bool fastMode,
@@ -39,10 +33,7 @@ extension FaceDetectorOptionsExtension on FaceDetectorOptions {
   external bool get fastMode;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class DetectedFace {
+extension type DetectedFace._(JSObject _) implements JSObject {
   external factory DetectedFace({
     required DOMRectReadOnly boundingBox,
     required JSArray? landmarks,
@@ -56,10 +47,7 @@ extension DetectedFaceExtension on DetectedFace {
   external JSArray? get landmarks;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class Landmark {
+extension type Landmark._(JSObject _) implements JSObject {
   external factory Landmark({
     required JSArray locations,
     LandmarkType type,
@@ -73,9 +61,7 @@ extension LandmarkExtension on Landmark {
   external LandmarkType get type;
 }
 
-@JS('BarcodeDetector')
-@staticInterop
-class BarcodeDetector {
+extension type BarcodeDetector._(JSObject _) implements JSObject {
   external factory BarcodeDetector(
       [BarcodeDetectorOptions barcodeDetectorOptions]);
 
@@ -86,10 +72,7 @@ extension BarcodeDetectorExtension on BarcodeDetector {
   external JSPromise detect(ImageBitmapSource image);
 }
 
-@JS()
-@staticInterop
-@anonymous
-class BarcodeDetectorOptions {
+extension type BarcodeDetectorOptions._(JSObject _) implements JSObject {
   external factory BarcodeDetectorOptions({JSArray formats});
 }
 
@@ -98,10 +81,7 @@ extension BarcodeDetectorOptionsExtension on BarcodeDetectorOptions {
   external JSArray get formats;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class DetectedBarcode {
+extension type DetectedBarcode._(JSObject _) implements JSObject {
   external factory DetectedBarcode({
     required DOMRectReadOnly boundingBox,
     required String rawValue,

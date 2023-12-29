@@ -9,9 +9,7 @@ import 'dart:js_interop';
 import 'css_view_transitions.dart';
 import 'dom.dart';
 
-@JS('PageRevealEvent')
-@staticInterop
-class PageRevealEvent implements Event {}
+extension type PageRevealEvent._(JSObject _) implements Event, JSObject {}
 
 extension PageRevealEventExtension on PageRevealEvent {
   external ViewTransition? get viewTransition;

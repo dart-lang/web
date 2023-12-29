@@ -11,10 +11,7 @@ import 'html.dart';
 import 'webidl.dart';
 
 typedef HIDUnitSystem = String;
-
-@JS('HID')
-@staticInterop
-class HID implements EventTarget {}
+extension type HID._(JSObject _) implements EventTarget, JSObject {}
 
 extension HIDExtension on HID {
   external JSPromise getDevices();
@@ -25,10 +22,7 @@ extension HIDExtension on HID {
   external EventHandler get ondisconnect;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class HIDDeviceRequestOptions {
+extension type HIDDeviceRequestOptions._(JSObject _) implements JSObject {
   external factory HIDDeviceRequestOptions({
     required JSArray filters,
     JSArray exclusionFilters,
@@ -42,10 +36,7 @@ extension HIDDeviceRequestOptionsExtension on HIDDeviceRequestOptions {
   external JSArray get exclusionFilters;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class HIDDeviceFilter {
+extension type HIDDeviceFilter._(JSObject _) implements JSObject {
   external factory HIDDeviceFilter({
     int vendorId,
     int productId,
@@ -65,9 +56,7 @@ extension HIDDeviceFilterExtension on HIDDeviceFilter {
   external int get usage;
 }
 
-@JS('HIDDevice')
-@staticInterop
-class HIDDevice implements EventTarget {}
+extension type HIDDevice._(JSObject _) implements EventTarget, JSObject {}
 
 extension HIDDeviceExtension on HIDDevice {
   external JSPromise open();
@@ -91,9 +80,7 @@ extension HIDDeviceExtension on HIDDevice {
   external JSArray get collections;
 }
 
-@JS('HIDConnectionEvent')
-@staticInterop
-class HIDConnectionEvent implements Event {
+extension type HIDConnectionEvent._(JSObject _) implements Event, JSObject {
   external factory HIDConnectionEvent(
     String type,
     HIDConnectionEventInit eventInitDict,
@@ -104,10 +91,8 @@ extension HIDConnectionEventExtension on HIDConnectionEvent {
   external HIDDevice get device;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class HIDConnectionEventInit implements EventInit {
+extension type HIDConnectionEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory HIDConnectionEventInit({required HIDDevice device});
 }
 
@@ -116,9 +101,7 @@ extension HIDConnectionEventInitExtension on HIDConnectionEventInit {
   external HIDDevice get device;
 }
 
-@JS('HIDInputReportEvent')
-@staticInterop
-class HIDInputReportEvent implements Event {
+extension type HIDInputReportEvent._(JSObject _) implements Event, JSObject {
   external factory HIDInputReportEvent(
     String type,
     HIDInputReportEventInit eventInitDict,
@@ -131,10 +114,8 @@ extension HIDInputReportEventExtension on HIDInputReportEvent {
   external JSDataView get data;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class HIDInputReportEventInit implements EventInit {
+extension type HIDInputReportEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory HIDInputReportEventInit({
     required HIDDevice device,
     required int reportId,
@@ -151,10 +132,7 @@ extension HIDInputReportEventInitExtension on HIDInputReportEventInit {
   external JSDataView get data;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class HIDCollectionInfo {
+extension type HIDCollectionInfo._(JSObject _) implements JSObject {
   external factory HIDCollectionInfo({
     int usagePage,
     int usage,
@@ -183,10 +161,7 @@ extension HIDCollectionInfoExtension on HIDCollectionInfo {
   external JSArray get featureReports;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class HIDReportInfo {
+extension type HIDReportInfo._(JSObject _) implements JSObject {
   external factory HIDReportInfo({
     int reportId,
     JSArray items,
@@ -200,10 +175,7 @@ extension HIDReportInfoExtension on HIDReportInfo {
   external JSArray get items;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class HIDReportItem {
+extension type HIDReportItem._(JSObject _) implements JSObject {
   external factory HIDReportItem({
     bool isAbsolute,
     bool isArray,

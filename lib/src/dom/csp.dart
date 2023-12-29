@@ -10,10 +10,8 @@ import 'dom.dart';
 import 'reporting.dart';
 
 typedef SecurityPolicyViolationEventDisposition = String;
-
-@JS('CSPViolationReportBody')
-@staticInterop
-class CSPViolationReportBody implements ReportBody {}
+extension type CSPViolationReportBody._(JSObject _)
+    implements ReportBody, JSObject {}
 
 extension CSPViolationReportBodyExtension on CSPViolationReportBody {
   external JSObject toJSON();
@@ -30,9 +28,8 @@ extension CSPViolationReportBodyExtension on CSPViolationReportBody {
   external int? get columnNumber;
 }
 
-@JS('SecurityPolicyViolationEvent')
-@staticInterop
-class SecurityPolicyViolationEvent implements Event {
+extension type SecurityPolicyViolationEvent._(JSObject _)
+    implements Event, JSObject {
   external factory SecurityPolicyViolationEvent(
     String type, [
     SecurityPolicyViolationEventInit eventInitDict,
@@ -55,10 +52,8 @@ extension SecurityPolicyViolationEventExtension
   external int get columnNumber;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class SecurityPolicyViolationEventInit implements EventInit {
+extension type SecurityPolicyViolationEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory SecurityPolicyViolationEventInit({
     required String documentURI,
     String referrer,

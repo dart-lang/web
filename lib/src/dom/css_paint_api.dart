@@ -10,9 +10,8 @@ import 'geometry.dart';
 import 'html.dart';
 import 'webidl.dart';
 
-@JS('PaintWorkletGlobalScope')
-@staticInterop
-class PaintWorkletGlobalScope implements WorkletGlobalScope {}
+extension type PaintWorkletGlobalScope._(JSObject _)
+    implements WorkletGlobalScope, JSObject {}
 
 extension PaintWorkletGlobalScopeExtension on PaintWorkletGlobalScope {
   external void registerPaint(
@@ -22,10 +21,8 @@ extension PaintWorkletGlobalScopeExtension on PaintWorkletGlobalScope {
   external num get devicePixelRatio;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PaintRenderingContext2DSettings {
+extension type PaintRenderingContext2DSettings._(JSObject _)
+    implements JSObject {
   external factory PaintRenderingContext2DSettings({bool alpha});
 }
 
@@ -35,9 +32,7 @@ extension PaintRenderingContext2DSettingsExtension
   external bool get alpha;
 }
 
-@JS('PaintRenderingContext2D')
-@staticInterop
-class PaintRenderingContext2D {}
+extension type PaintRenderingContext2D._(JSObject _) implements JSObject {}
 
 extension PaintRenderingContext2DExtension on PaintRenderingContext2D {
   external void save();
@@ -239,9 +234,7 @@ extension PaintRenderingContext2DExtension on PaintRenderingContext2D {
   external num get lineDashOffset;
 }
 
-@JS('PaintSize')
-@staticInterop
-class PaintSize {}
+extension type PaintSize._(JSObject _) implements JSObject {}
 
 extension PaintSizeExtension on PaintSize {
   external num get width;

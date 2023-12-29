@@ -10,10 +10,7 @@ import 'dom.dart';
 import 'html.dart';
 
 typedef DevicePostureType = String;
-
-@JS('DevicePosture')
-@staticInterop
-class DevicePosture implements EventTarget {}
+extension type DevicePosture._(JSObject _) implements EventTarget, JSObject {}
 
 extension DevicePostureExtension on DevicePosture {
   external DevicePostureType get type;

@@ -9,9 +9,7 @@ import 'dart:js_interop';
 import 'geometry.dart';
 import 'html.dart';
 
-@JS('TextDetector')
-@staticInterop
-class TextDetector {
+extension type TextDetector._(JSObject _) implements JSObject {
   external factory TextDetector();
 }
 
@@ -19,10 +17,7 @@ extension TextDetectorExtension on TextDetector {
   external JSPromise detect(ImageBitmapSource image);
 }
 
-@JS()
-@staticInterop
-@anonymous
-class DetectedText {
+extension type DetectedText._(JSObject _) implements JSObject {
   external factory DetectedText({
     required DOMRectReadOnly boundingBox,
     required String rawValue,

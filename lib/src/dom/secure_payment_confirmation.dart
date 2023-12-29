@@ -10,10 +10,8 @@ import 'payment_request.dart';
 import 'webauthn.dart';
 import 'webidl.dart';
 
-@JS()
-@staticInterop
-@anonymous
-class SecurePaymentConfirmationRequest {
+extension type SecurePaymentConfirmationRequest._(JSObject _)
+    implements JSObject {
   external factory SecurePaymentConfirmationRequest({
     required BufferSource challenge,
     required String rpId,
@@ -52,10 +50,8 @@ extension SecurePaymentConfirmationRequestExtension
   external bool get showOptOut;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class AuthenticationExtensionsPaymentInputs {
+extension type AuthenticationExtensionsPaymentInputs._(JSObject _)
+    implements JSObject {
   external factory AuthenticationExtensionsPaymentInputs({
     bool isPayment,
     String rpId,
@@ -85,10 +81,8 @@ extension AuthenticationExtensionsPaymentInputsExtension
   external PaymentCredentialInstrument get instrument;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class CollectedClientPaymentData implements CollectedClientData {
+extension type CollectedClientPaymentData._(JSObject _)
+    implements CollectedClientData, JSObject {
   external factory CollectedClientPaymentData(
       {required CollectedClientAdditionalPaymentData payment});
 }
@@ -98,10 +92,8 @@ extension CollectedClientPaymentDataExtension on CollectedClientPaymentData {
   external CollectedClientAdditionalPaymentData get payment;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class CollectedClientAdditionalPaymentData {
+extension type CollectedClientAdditionalPaymentData._(JSObject _)
+    implements JSObject {
   external factory CollectedClientAdditionalPaymentData({
     required String rpId,
     required String topOrigin,
@@ -128,10 +120,7 @@ extension CollectedClientAdditionalPaymentDataExtension
   external PaymentCredentialInstrument get instrument;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PaymentCredentialInstrument {
+extension type PaymentCredentialInstrument._(JSObject _) implements JSObject {
   external factory PaymentCredentialInstrument({
     required String displayName,
     required String icon,

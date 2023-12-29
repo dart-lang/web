@@ -6,9 +6,7 @@
 
 import 'dart:js_interop';
 
-@JS('DOMPointReadOnly')
-@staticInterop
-class DOMPointReadOnly {
+extension type DOMPointReadOnly._(JSObject _) implements JSObject {
   external factory DOMPointReadOnly([
     num x,
     num y,
@@ -28,9 +26,7 @@ extension DOMPointReadOnlyExtension on DOMPointReadOnly {
   external num get w;
 }
 
-@JS('DOMPoint')
-@staticInterop
-class DOMPoint implements DOMPointReadOnly {
+extension type DOMPoint._(JSObject _) implements DOMPointReadOnly, JSObject {
   external factory DOMPoint([
     num x,
     num y,
@@ -52,10 +48,7 @@ extension DOMPointExtension on DOMPoint {
   external num get w;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class DOMPointInit {
+extension type DOMPointInit._(JSObject _) implements JSObject {
   external factory DOMPointInit({
     num x,
     num y,
@@ -75,9 +68,7 @@ extension DOMPointInitExtension on DOMPointInit {
   external num get w;
 }
 
-@JS('DOMRectReadOnly')
-@staticInterop
-class DOMRectReadOnly {
+extension type DOMRectReadOnly._(JSObject _) implements JSObject {
   external factory DOMRectReadOnly([
     num x,
     num y,
@@ -100,9 +91,7 @@ extension DOMRectReadOnlyExtension on DOMRectReadOnly {
   external num get left;
 }
 
-@JS('DOMRect')
-@staticInterop
-class DOMRect implements DOMRectReadOnly {
+extension type DOMRect._(JSObject _) implements DOMRectReadOnly, JSObject {
   external factory DOMRect([
     num x,
     num y,
@@ -124,10 +113,7 @@ extension DOMRectExtension on DOMRect {
   external num get height;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class DOMRectInit {
+extension type DOMRectInit._(JSObject _) implements JSObject {
   external factory DOMRectInit({
     num x,
     num y,
@@ -147,18 +133,14 @@ extension DOMRectInitExtension on DOMRectInit {
   external num get height;
 }
 
-@JS('DOMRectList')
-@staticInterop
-class DOMRectList {}
+extension type DOMRectList._(JSObject _) implements JSObject {}
 
 extension DOMRectListExtension on DOMRectList {
   external DOMRect? item(int index);
   external int get length;
 }
 
-@JS('DOMQuad')
-@staticInterop
-class DOMQuad {
+extension type DOMQuad._(JSObject _) implements JSObject {
   external factory DOMQuad([
     DOMPointInit p1,
     DOMPointInit p2,
@@ -179,10 +161,7 @@ extension DOMQuadExtension on DOMQuad {
   external DOMPoint get p4;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class DOMQuadInit {
+extension type DOMQuadInit._(JSObject _) implements JSObject {
   external factory DOMQuadInit({
     DOMPointInit p1,
     DOMPointInit p2,
@@ -202,9 +181,7 @@ extension DOMQuadInitExtension on DOMQuadInit {
   external DOMPointInit get p4;
 }
 
-@JS('DOMMatrixReadOnly')
-@staticInterop
-class DOMMatrixReadOnly {
+extension type DOMMatrixReadOnly._(JSObject _) implements JSObject {
   external factory DOMMatrixReadOnly([JSAny init]);
 
   external static DOMMatrixReadOnly fromMatrix([DOMMatrixInit other]);
@@ -287,9 +264,7 @@ extension DOMMatrixReadOnlyExtension on DOMMatrixReadOnly {
   external bool get isIdentity;
 }
 
-@JS('DOMMatrix')
-@staticInterop
-class DOMMatrix implements DOMMatrixReadOnly {
+extension type DOMMatrix._(JSObject _) implements DOMMatrixReadOnly, JSObject {
   external factory DOMMatrix([JSAny init]);
 
   external static DOMMatrix fromMatrix([DOMMatrixInit other]);
@@ -384,10 +359,7 @@ extension DOMMatrixExtension on DOMMatrix {
   external num get m44;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class DOMMatrix2DInit {
+extension type DOMMatrix2DInit._(JSObject _) implements JSObject {
   external factory DOMMatrix2DInit({
     num a,
     num b,
@@ -431,10 +403,8 @@ extension DOMMatrix2DInitExtension on DOMMatrix2DInit {
   external num get m42;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class DOMMatrixInit implements DOMMatrix2DInit {
+extension type DOMMatrixInit._(JSObject _)
+    implements DOMMatrix2DInit, JSObject {
   external factory DOMMatrixInit({
     num m13,
     num m14,

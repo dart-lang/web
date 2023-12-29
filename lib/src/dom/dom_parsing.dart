@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 
-@JS('XMLSerializer')
-@staticInterop
-class XMLSerializer {
+extension type XMLSerializer._(JSObject _) implements JSObject {
   external factory XMLSerializer();
 }
 

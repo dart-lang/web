@@ -10,11 +10,7 @@ import 'geometry.dart';
 import 'webxr.dart';
 
 typedef XRHitTestTrackableType = String;
-
-@JS()
-@staticInterop
-@anonymous
-class XRHitTestOptionsInit {
+extension type XRHitTestOptionsInit._(JSObject _) implements JSObject {
   external factory XRHitTestOptionsInit({
     required XRSpace space,
     JSArray entityTypes,
@@ -31,10 +27,8 @@ extension XRHitTestOptionsInitExtension on XRHitTestOptionsInit {
   external XRRay get offsetRay;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class XRTransientInputHitTestOptionsInit {
+extension type XRTransientInputHitTestOptionsInit._(JSObject _)
+    implements JSObject {
   external factory XRTransientInputHitTestOptionsInit({
     required String profile,
     JSArray entityTypes,
@@ -52,35 +46,29 @@ extension XRTransientInputHitTestOptionsInitExtension
   external XRRay get offsetRay;
 }
 
-@JS('XRHitTestSource')
-@staticInterop
-class XRHitTestSource {}
+extension type XRHitTestSource._(JSObject _) implements JSObject {}
 
 extension XRHitTestSourceExtension on XRHitTestSource {
   external void cancel();
 }
 
-@JS('XRTransientInputHitTestSource')
-@staticInterop
-class XRTransientInputHitTestSource {}
+extension type XRTransientInputHitTestSource._(JSObject _)
+    implements JSObject {}
 
 extension XRTransientInputHitTestSourceExtension
     on XRTransientInputHitTestSource {
   external void cancel();
 }
 
-@JS('XRHitTestResult')
-@staticInterop
-class XRHitTestResult {}
+extension type XRHitTestResult._(JSObject _) implements JSObject {}
 
 extension XRHitTestResultExtension on XRHitTestResult {
   external JSPromise createAnchor();
   external XRPose? getPose(XRSpace baseSpace);
 }
 
-@JS('XRTransientInputHitTestResult')
-@staticInterop
-class XRTransientInputHitTestResult {}
+extension type XRTransientInputHitTestResult._(JSObject _)
+    implements JSObject {}
 
 extension XRTransientInputHitTestResultExtension
     on XRTransientInputHitTestResult {
@@ -88,10 +76,7 @@ extension XRTransientInputHitTestResultExtension
   external JSArray get results;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class XRRayDirectionInit {
+extension type XRRayDirectionInit._(JSObject _) implements JSObject {
   external factory XRRayDirectionInit({
     num x,
     num y,
@@ -111,9 +96,7 @@ extension XRRayDirectionInitExtension on XRRayDirectionInit {
   external num get w;
 }
 
-@JS('XRRay')
-@staticInterop
-class XRRay {
+extension type XRRay._(JSObject _) implements JSObject {
   external factory XRRay([
     JSObject originOrTransform,
     XRRayDirectionInit direction,

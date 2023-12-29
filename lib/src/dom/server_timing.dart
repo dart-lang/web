@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'hr_time.dart';
 
-@JS('PerformanceServerTiming')
-@staticInterop
-class PerformanceServerTiming {}
+extension type PerformanceServerTiming._(JSObject _) implements JSObject {}
 
 extension PerformanceServerTimingExtension on PerformanceServerTiming {
   external JSObject toJSON();

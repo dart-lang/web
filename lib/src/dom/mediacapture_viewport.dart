@@ -6,10 +6,8 @@
 
 import 'dart:js_interop';
 
-@JS()
-@staticInterop
-@anonymous
-class ViewportMediaStreamConstraints {
+extension type ViewportMediaStreamConstraints._(JSObject _)
+    implements JSObject {
   external factory ViewportMediaStreamConstraints({
     JSAny video,
     JSAny audio,

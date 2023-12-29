@@ -6,10 +6,8 @@
 
 import 'dart:js_interop';
 
-@JS()
-@staticInterop
-@anonymous
-class VideoEncoderEncodeOptionsForVp9 {
+extension type VideoEncoderEncodeOptionsForVp9._(JSObject _)
+    implements JSObject {
   external factory VideoEncoderEncodeOptionsForVp9({int? quantizer});
 }
 

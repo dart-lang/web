@@ -15,10 +15,7 @@ import 'user_timing.dart';
 
 typedef DOMHighResTimeStamp = num;
 typedef EpochTimeStamp = int;
-
-@JS('Performance')
-@staticInterop
-class Performance implements EventTarget {}
+extension type Performance._(JSObject _) implements EventTarget, JSObject {}
 
 extension PerformanceExtension on Performance {
   external DOMHighResTimeStamp now();

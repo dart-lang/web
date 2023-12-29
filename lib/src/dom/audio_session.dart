@@ -11,10 +11,7 @@ import 'html.dart';
 
 typedef AudioSessionState = String;
 typedef AudioSessionType = String;
-
-@JS('AudioSession')
-@staticInterop
-class AudioSession implements EventTarget {}
+extension type AudioSession._(JSObject _) implements EventTarget, JSObject {}
 
 extension AudioSessionExtension on AudioSession {
   external set type(AudioSessionType value);

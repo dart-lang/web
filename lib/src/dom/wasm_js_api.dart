@@ -11,11 +11,7 @@ import 'webidl.dart';
 typedef ImportExportKind = String;
 typedef TableKind = String;
 typedef ValueType = String;
-
-@JS()
-@staticInterop
-@anonymous
-class WebAssemblyInstantiatedSource {
+extension type WebAssemblyInstantiatedSource._(JSObject _) implements JSObject {
   external factory WebAssemblyInstantiatedSource({
     required Module module,
     required Instance instance,
@@ -32,10 +28,8 @@ extension WebAssemblyInstantiatedSourceExtension
 
 @JS()
 external $WebAssembly get WebAssembly;
-
 @JS('WebAssembly')
-@staticInterop
-abstract class $WebAssembly {}
+extension type $WebAssembly._(JSObject _) implements JSObject {}
 
 extension $WebAssemblyExtension on $WebAssembly {
   external bool validate(BufferSource bytes);
@@ -51,10 +45,7 @@ extension $WebAssemblyExtension on $WebAssembly {
   ]);
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ModuleExportDescriptor {
+extension type ModuleExportDescriptor._(JSObject _) implements JSObject {
   external factory ModuleExportDescriptor({
     required String name,
     required ImportExportKind kind,
@@ -68,10 +59,7 @@ extension ModuleExportDescriptorExtension on ModuleExportDescriptor {
   external ImportExportKind get kind;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ModuleImportDescriptor {
+extension type ModuleImportDescriptor._(JSObject _) implements JSObject {
   external factory ModuleImportDescriptor({
     required String module,
     required String name,
@@ -88,9 +76,7 @@ extension ModuleImportDescriptorExtension on ModuleImportDescriptor {
   external ImportExportKind get kind;
 }
 
-@JS('Module')
-@staticInterop
-class Module {
+extension type Module._(JSObject _) implements JSObject {
   external factory Module(BufferSource bytes);
 
   external static JSArray exports(Module moduleObject);
@@ -100,10 +86,7 @@ class Module {
     String sectionName,
   );
 }
-
-@JS('Instance')
-@staticInterop
-class Instance {
+extension type Instance._(JSObject _) implements JSObject {
   external factory Instance(
     Module module, [
     JSObject importObject,
@@ -114,10 +97,7 @@ extension InstanceExtension on Instance {
   external JSObject get exports;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class MemoryDescriptor {
+extension type MemoryDescriptor._(JSObject _) implements JSObject {
   external factory MemoryDescriptor({
     required int initial,
     int maximum,
@@ -131,9 +111,7 @@ extension MemoryDescriptorExtension on MemoryDescriptor {
   external int get maximum;
 }
 
-@JS('Memory')
-@staticInterop
-class Memory {
+extension type Memory._(JSObject _) implements JSObject {
   external factory Memory(MemoryDescriptor descriptor);
 }
 
@@ -142,10 +120,7 @@ extension MemoryExtension on Memory {
   external JSArrayBuffer get buffer;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class TableDescriptor {
+extension type TableDescriptor._(JSObject _) implements JSObject {
   external factory TableDescriptor({
     required TableKind element,
     required int initial,
@@ -162,9 +137,7 @@ extension TableDescriptorExtension on TableDescriptor {
   external int get maximum;
 }
 
-@JS('Table')
-@staticInterop
-class Table {
+extension type Table._(JSObject _) implements JSObject {
   external factory Table(
     TableDescriptor descriptor, [
     JSAny? value,
@@ -184,10 +157,7 @@ extension TableExtension on Table {
   external int get length;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GlobalDescriptor {
+extension type GlobalDescriptor._(JSObject _) implements JSObject {
   external factory GlobalDescriptor({
     required ValueType value,
     bool mutable,
@@ -201,9 +171,7 @@ extension GlobalDescriptorExtension on GlobalDescriptor {
   external bool get mutable;
 }
 
-@JS('Global')
-@staticInterop
-class Global {
+extension type Global._(JSObject _) implements JSObject {
   external factory Global(
     GlobalDescriptor descriptor, [
     JSAny? v,

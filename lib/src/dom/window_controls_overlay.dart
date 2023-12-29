@@ -10,9 +10,8 @@ import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
 
-@JS('WindowControlsOverlay')
-@staticInterop
-class WindowControlsOverlay implements EventTarget {}
+extension type WindowControlsOverlay._(JSObject _)
+    implements EventTarget, JSObject {}
 
 extension WindowControlsOverlayExtension on WindowControlsOverlay {
   external DOMRect getTitlebarAreaRect();
@@ -21,9 +20,8 @@ extension WindowControlsOverlayExtension on WindowControlsOverlay {
   external EventHandler get ongeometrychange;
 }
 
-@JS('WindowControlsOverlayGeometryChangeEvent')
-@staticInterop
-class WindowControlsOverlayGeometryChangeEvent implements Event {
+extension type WindowControlsOverlayGeometryChangeEvent._(JSObject _)
+    implements Event, JSObject {
   external factory WindowControlsOverlayGeometryChangeEvent(
     String type,
     WindowControlsOverlayGeometryChangeEventInit eventInitDict,
@@ -36,10 +34,8 @@ extension WindowControlsOverlayGeometryChangeEventExtension
   external bool get visible;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class WindowControlsOverlayGeometryChangeEventInit implements EventInit {
+extension type WindowControlsOverlayGeometryChangeEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory WindowControlsOverlayGeometryChangeEventInit({
     required DOMRect titlebarAreaRect,
     bool visible,

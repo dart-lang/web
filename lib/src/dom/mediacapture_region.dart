@@ -10,15 +10,11 @@ import 'dom.dart';
 import 'element_capture.dart';
 import 'mediacapture_streams.dart';
 
-@JS('CropTarget')
-@staticInterop
-class CropTarget {
+extension type CropTarget._(JSObject _) implements JSObject {
   external static JSPromise fromElement(Element element);
 }
-
-@JS('BrowserCaptureMediaStreamTrack')
-@staticInterop
-class BrowserCaptureMediaStreamTrack implements MediaStreamTrack {}
+extension type BrowserCaptureMediaStreamTrack._(JSObject _)
+    implements MediaStreamTrack, JSObject {}
 
 extension BrowserCaptureMediaStreamTrackExtension
     on BrowserCaptureMediaStreamTrack {

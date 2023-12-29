@@ -8,9 +8,8 @@ import 'dart:js_interop';
 
 import 'reporting.dart';
 
-@JS('DeprecationReportBody')
-@staticInterop
-class DeprecationReportBody implements ReportBody {}
+extension type DeprecationReportBody._(JSObject _)
+    implements ReportBody, JSObject {}
 
 extension DeprecationReportBodyExtension on DeprecationReportBody {
   external JSObject toJSON();

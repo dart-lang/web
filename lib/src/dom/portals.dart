@@ -9,9 +9,8 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
-@JS('HTMLPortalElement')
-@staticInterop
-class HTMLPortalElement implements HTMLElement {
+extension type HTMLPortalElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLPortalElement();
 }
 
@@ -31,10 +30,8 @@ extension HTMLPortalElementExtension on HTMLPortalElement {
   external EventHandler get onmessageerror;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PortalActivateOptions implements StructuredSerializeOptions {
+extension type PortalActivateOptions._(JSObject _)
+    implements StructuredSerializeOptions, JSObject {
   external factory PortalActivateOptions({JSAny? data});
 }
 
@@ -43,9 +40,7 @@ extension PortalActivateOptionsExtension on PortalActivateOptions {
   external JSAny? get data;
 }
 
-@JS('PortalHost')
-@staticInterop
-class PortalHost implements EventTarget {}
+extension type PortalHost._(JSObject _) implements EventTarget, JSObject {}
 
 extension PortalHostExtension on PortalHost {
   external void postMessage(
@@ -58,9 +53,7 @@ extension PortalHostExtension on PortalHost {
   external EventHandler get onmessageerror;
 }
 
-@JS('PortalActivateEvent')
-@staticInterop
-class PortalActivateEvent implements Event {
+extension type PortalActivateEvent._(JSObject _) implements Event, JSObject {
   external factory PortalActivateEvent(
     String type, [
     PortalActivateEventInit eventInitDict,
@@ -72,10 +65,8 @@ extension PortalActivateEventExtension on PortalActivateEvent {
   external JSAny? get data;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PortalActivateEventInit implements EventInit {
+extension type PortalActivateEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory PortalActivateEventInit({JSAny? data});
 }
 

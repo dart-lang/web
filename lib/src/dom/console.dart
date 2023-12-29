@@ -8,10 +8,8 @@ import 'dart:js_interop';
 
 @JS()
 external $Console get console;
-
 @JS('console')
-@staticInterop
-abstract class $Console {}
+extension type $Console._(JSObject _) implements JSObject {}
 
 extension $ConsoleExtension on $Console {
   @JS('assert')

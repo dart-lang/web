@@ -7,10 +7,7 @@
 import 'dart:js_interop';
 
 typedef UpdateCallback = JSFunction;
-
-@JS('ViewTransition')
-@staticInterop
-class ViewTransition {}
+extension type ViewTransition._(JSObject _) implements JSObject {}
 
 extension ViewTransitionExtension on ViewTransition {
   external void skipTransition();

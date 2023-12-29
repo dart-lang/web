@@ -9,11 +9,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 
 typedef XRDOMOverlayType = String;
-
-@JS()
-@staticInterop
-@anonymous
-class XRDOMOverlayInit {
+extension type XRDOMOverlayInit._(JSObject _) implements JSObject {
   external factory XRDOMOverlayInit({required Element root});
 }
 
@@ -22,10 +18,7 @@ extension XRDOMOverlayInitExtension on XRDOMOverlayInit {
   external Element get root;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class XRDOMOverlayState {
+extension type XRDOMOverlayState._(JSObject _) implements JSObject {
   external factory XRDOMOverlayState({XRDOMOverlayType type});
 }
 

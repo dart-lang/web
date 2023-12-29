@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'generic_sensor.dart';
 
-@JS('AmbientLightSensor')
-@staticInterop
-class AmbientLightSensor implements Sensor {
+extension type AmbientLightSensor._(JSObject _) implements Sensor, JSObject {
   external factory AmbientLightSensor([SensorOptions sensorOptions]);
 }
 
@@ -18,10 +16,7 @@ extension AmbientLightSensorExtension on AmbientLightSensor {
   external num? get illuminance;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class AmbientLightReadingValues {
+extension type AmbientLightReadingValues._(JSObject _) implements JSObject {
   external factory AmbientLightReadingValues({required num? illuminance});
 }
 

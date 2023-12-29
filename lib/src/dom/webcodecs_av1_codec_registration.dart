@@ -6,10 +6,7 @@
 
 import 'dart:js_interop';
 
-@JS()
-@staticInterop
-@anonymous
-class AV1EncoderConfig {
+extension type AV1EncoderConfig._(JSObject _) implements JSObject {
   external factory AV1EncoderConfig({bool forceScreenContentTools});
 }
 
@@ -18,10 +15,8 @@ extension AV1EncoderConfigExtension on AV1EncoderConfig {
   external bool get forceScreenContentTools;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class VideoEncoderEncodeOptionsForAv1 {
+extension type VideoEncoderEncodeOptionsForAv1._(JSObject _)
+    implements JSObject {
   external factory VideoEncoderEncodeOptionsForAv1({int? quantizer});
 }
 

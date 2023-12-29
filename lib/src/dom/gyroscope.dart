@@ -9,10 +9,7 @@ import 'dart:js_interop';
 import 'generic_sensor.dart';
 
 typedef GyroscopeLocalCoordinateSystem = String;
-
-@JS('Gyroscope')
-@staticInterop
-class Gyroscope implements Sensor {
+extension type Gyroscope._(JSObject _) implements Sensor, JSObject {
   external factory Gyroscope([GyroscopeSensorOptions sensorOptions]);
 }
 
@@ -22,10 +19,8 @@ extension GyroscopeExtension on Gyroscope {
   external num? get z;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GyroscopeSensorOptions implements SensorOptions {
+extension type GyroscopeSensorOptions._(JSObject _)
+    implements SensorOptions, JSObject {
   external factory GyroscopeSensorOptions(
       {GyroscopeLocalCoordinateSystem referenceFrame});
 }
@@ -35,10 +30,7 @@ extension GyroscopeSensorOptionsExtension on GyroscopeSensorOptions {
   external GyroscopeLocalCoordinateSystem get referenceFrame;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GyroscopeReadingValues {
+extension type GyroscopeReadingValues._(JSObject _) implements JSObject {
   external factory GyroscopeReadingValues({
     required num? x,
     required num? y,

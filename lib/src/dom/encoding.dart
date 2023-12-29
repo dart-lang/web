@@ -9,10 +9,7 @@ import 'dart:js_interop';
 import 'streams.dart';
 import 'webidl.dart';
 
-@JS()
-@staticInterop
-@anonymous
-class TextDecoderOptions {
+extension type TextDecoderOptions._(JSObject _) implements JSObject {
   external factory TextDecoderOptions({
     bool fatal,
     bool ignoreBOM,
@@ -26,10 +23,7 @@ extension TextDecoderOptionsExtension on TextDecoderOptions {
   external bool get ignoreBOM;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class TextDecodeOptions {
+extension type TextDecodeOptions._(JSObject _) implements JSObject {
   external factory TextDecodeOptions({bool stream});
 }
 
@@ -38,9 +32,7 @@ extension TextDecodeOptionsExtension on TextDecodeOptions {
   external bool get stream;
 }
 
-@JS('TextDecoder')
-@staticInterop
-class TextDecoder {
+extension type TextDecoder._(JSObject _) implements JSObject {
   external factory TextDecoder([
     String label,
     TextDecoderOptions options,
@@ -57,10 +49,7 @@ extension TextDecoderExtension on TextDecoder {
   external bool get ignoreBOM;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class TextEncoderEncodeIntoResult {
+extension type TextEncoderEncodeIntoResult._(JSObject _) implements JSObject {
   external factory TextEncoderEncodeIntoResult({
     int read,
     int written,
@@ -74,9 +63,7 @@ extension TextEncoderEncodeIntoResultExtension on TextEncoderEncodeIntoResult {
   external int get written;
 }
 
-@JS('TextEncoder')
-@staticInterop
-class TextEncoder {
+extension type TextEncoder._(JSObject _) implements JSObject {
   external factory TextEncoder();
 }
 
@@ -89,9 +76,7 @@ extension TextEncoderExtension on TextEncoder {
   external String get encoding;
 }
 
-@JS('TextDecoderStream')
-@staticInterop
-class TextDecoderStream {
+extension type TextDecoderStream._(JSObject _) implements JSObject {
   external factory TextDecoderStream([
     String label,
     TextDecoderOptions options,
@@ -106,9 +91,7 @@ extension TextDecoderStreamExtension on TextDecoderStream {
   external WritableStream get writable;
 }
 
-@JS('TextEncoderStream')
-@staticInterop
-class TextEncoderStream {
+extension type TextEncoderStream._(JSObject _) implements JSObject {
   external factory TextEncoderStream();
 }
 

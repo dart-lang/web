@@ -6,10 +6,8 @@
 
 import 'dart:js_interop';
 
-@JS()
-@staticInterop
-@anonymous
-class AttributionReportingRequestOptions {
+extension type AttributionReportingRequestOptions._(JSObject _)
+    implements JSObject {
   external factory AttributionReportingRequestOptions({
     required bool eventSourceEligible,
     required bool triggerEligible,

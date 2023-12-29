@@ -10,10 +10,7 @@ import 'dom.dart';
 import 'html.dart';
 
 typedef NDEFMessageSource = JSAny;
-
-@JS('NDEFMessage')
-@staticInterop
-class NDEFMessage {
+extension type NDEFMessage._(JSObject _) implements JSObject {
   external factory NDEFMessage(NDEFMessageInit messageInit);
 }
 
@@ -21,10 +18,7 @@ extension NDEFMessageExtension on NDEFMessage {
   external JSArray get records;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class NDEFMessageInit {
+extension type NDEFMessageInit._(JSObject _) implements JSObject {
   external factory NDEFMessageInit({required JSArray records});
 }
 
@@ -33,9 +27,7 @@ extension NDEFMessageInitExtension on NDEFMessageInit {
   external JSArray get records;
 }
 
-@JS('NDEFRecord')
-@staticInterop
-class NDEFRecord {
+extension type NDEFRecord._(JSObject _) implements JSObject {
   external factory NDEFRecord(NDEFRecordInit recordInit);
 }
 
@@ -49,10 +41,7 @@ extension NDEFRecordExtension on NDEFRecord {
   external String? get lang;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class NDEFRecordInit {
+extension type NDEFRecordInit._(JSObject _) implements JSObject {
   external factory NDEFRecordInit({
     required String recordType,
     String mediaType,
@@ -78,9 +67,7 @@ extension NDEFRecordInitExtension on NDEFRecordInit {
   external JSAny? get data;
 }
 
-@JS('NDEFReader')
-@staticInterop
-class NDEFReader implements EventTarget {
+extension type NDEFReader._(JSObject _) implements EventTarget, JSObject {
   external factory NDEFReader();
 }
 
@@ -97,9 +84,7 @@ extension NDEFReaderExtension on NDEFReader {
   external EventHandler get onreadingerror;
 }
 
-@JS('NDEFReadingEvent')
-@staticInterop
-class NDEFReadingEvent implements Event {
+extension type NDEFReadingEvent._(JSObject _) implements Event, JSObject {
   external factory NDEFReadingEvent(
     String type,
     NDEFReadingEventInit readingEventInitDict,
@@ -111,10 +96,8 @@ extension NDEFReadingEventExtension on NDEFReadingEvent {
   external NDEFMessage get message;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class NDEFReadingEventInit implements EventInit {
+extension type NDEFReadingEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory NDEFReadingEventInit({
     String? serialNumber,
     required NDEFMessageInit message,
@@ -128,10 +111,7 @@ extension NDEFReadingEventInitExtension on NDEFReadingEventInit {
   external NDEFMessageInit get message;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class NDEFWriteOptions {
+extension type NDEFWriteOptions._(JSObject _) implements JSObject {
   external factory NDEFWriteOptions({
     bool overwrite,
     AbortSignal? signal,
@@ -145,10 +125,7 @@ extension NDEFWriteOptionsExtension on NDEFWriteOptions {
   external AbortSignal? get signal;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class NDEFMakeReadOnlyOptions {
+extension type NDEFMakeReadOnlyOptions._(JSObject _) implements JSObject {
   external factory NDEFMakeReadOnlyOptions({AbortSignal? signal});
 }
 
@@ -157,10 +134,7 @@ extension NDEFMakeReadOnlyOptionsExtension on NDEFMakeReadOnlyOptions {
   external AbortSignal? get signal;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class NDEFScanOptions {
+extension type NDEFScanOptions._(JSObject _) implements JSObject {
   external factory NDEFScanOptions({AbortSignal signal});
 }
 

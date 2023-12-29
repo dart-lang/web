@@ -9,11 +9,7 @@ import 'dart:js_interop';
 import 'window_management.dart';
 
 typedef FullscreenNavigationUI = String;
-
-@JS()
-@staticInterop
-@anonymous
-class FullscreenOptions {
+extension type FullscreenOptions._(JSObject _) implements JSObject {
   external factory FullscreenOptions({
     FullscreenNavigationUI navigationUI,
     ScreenDetailed screen,

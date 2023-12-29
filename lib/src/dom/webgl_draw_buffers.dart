@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'webgl1.dart';
 
-@JS('WEBGL_draw_buffers')
-@staticInterop
-class WEBGL_draw_buffers {
+extension type WEBGL_draw_buffers._(JSObject _) implements JSObject {
   external static GLenum get COLOR_ATTACHMENT0_WEBGL;
   external static GLenum get COLOR_ATTACHMENT1_WEBGL;
   external static GLenum get COLOR_ATTACHMENT2_WEBGL;

@@ -10,9 +10,8 @@ import 'cssom_view.dart';
 import 'dom.dart';
 import 'geometry.dart';
 
-@JS('CSSPseudoElement')
-@staticInterop
-class CSSPseudoElement implements EventTarget {}
+extension type CSSPseudoElement._(JSObject _)
+    implements EventTarget, JSObject {}
 
 extension CSSPseudoElementExtension on CSSPseudoElement {
   external CSSPseudoElement? pseudo(String type);

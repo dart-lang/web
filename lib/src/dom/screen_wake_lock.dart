@@ -10,18 +10,14 @@ import 'dom.dart';
 import 'html.dart';
 
 typedef WakeLockType = String;
-
-@JS('WakeLock')
-@staticInterop
-class WakeLock {}
+extension type WakeLock._(JSObject _) implements JSObject {}
 
 extension WakeLockExtension on WakeLock {
   external JSPromise request([WakeLockType type]);
 }
 
-@JS('WakeLockSentinel')
-@staticInterop
-class WakeLockSentinel implements EventTarget {}
+extension type WakeLockSentinel._(JSObject _)
+    implements EventTarget, JSObject {}
 
 extension WakeLockSentinelExtension on WakeLockSentinel {
   external JSPromise release();

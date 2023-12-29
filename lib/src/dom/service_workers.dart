@@ -23,10 +23,7 @@ typedef ServiceWorkerState = String;
 typedef ServiceWorkerUpdateViaCache = String;
 typedef FrameType = String;
 typedef ClientType = String;
-
-@JS('ServiceWorker')
-@staticInterop
-class ServiceWorker implements EventTarget {}
+extension type ServiceWorker._(JSObject _) implements EventTarget, JSObject {}
 
 extension ServiceWorkerExtension on ServiceWorker {
   external void postMessage(
@@ -41,9 +38,8 @@ extension ServiceWorkerExtension on ServiceWorker {
   external EventHandler get onerror;
 }
 
-@JS('ServiceWorkerRegistration')
-@staticInterop
-class ServiceWorkerRegistration implements EventTarget {}
+extension type ServiceWorkerRegistration._(JSObject _)
+    implements EventTarget, JSObject {}
 
 extension ServiceWorkerRegistrationExtension on ServiceWorkerRegistration {
   external JSPromise showNotification(
@@ -70,9 +66,8 @@ extension ServiceWorkerRegistrationExtension on ServiceWorkerRegistration {
   external EventHandler get onupdatefound;
 }
 
-@JS('ServiceWorkerContainer')
-@staticInterop
-class ServiceWorkerContainer implements EventTarget {}
+extension type ServiceWorkerContainer._(JSObject _)
+    implements EventTarget, JSObject {}
 
 extension ServiceWorkerContainerExtension on ServiceWorkerContainer {
   external JSPromise register(
@@ -92,10 +87,7 @@ extension ServiceWorkerContainerExtension on ServiceWorkerContainer {
   external EventHandler get onmessageerror;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class RegistrationOptions {
+extension type RegistrationOptions._(JSObject _) implements JSObject {
   external factory RegistrationOptions({
     String scope,
     WorkerType type,
@@ -112,9 +104,7 @@ extension RegistrationOptionsExtension on RegistrationOptions {
   external ServiceWorkerUpdateViaCache get updateViaCache;
 }
 
-@JS('NavigationPreloadManager')
-@staticInterop
-class NavigationPreloadManager {}
+extension type NavigationPreloadManager._(JSObject _) implements JSObject {}
 
 extension NavigationPreloadManagerExtension on NavigationPreloadManager {
   external JSPromise enable();
@@ -123,10 +113,7 @@ extension NavigationPreloadManagerExtension on NavigationPreloadManager {
   external JSPromise getState();
 }
 
-@JS()
-@staticInterop
-@anonymous
-class NavigationPreloadState {
+extension type NavigationPreloadState._(JSObject _) implements JSObject {
   external factory NavigationPreloadState({
     bool enabled,
     String headerValue,
@@ -140,9 +127,8 @@ extension NavigationPreloadStateExtension on NavigationPreloadState {
   external String get headerValue;
 }
 
-@JS('ServiceWorkerGlobalScope')
-@staticInterop
-class ServiceWorkerGlobalScope implements WorkerGlobalScope {}
+extension type ServiceWorkerGlobalScope._(JSObject _)
+    implements WorkerGlobalScope, JSObject {}
 
 extension ServiceWorkerGlobalScopeExtension on ServiceWorkerGlobalScope {
   external JSPromise skipWaiting();
@@ -190,9 +176,7 @@ extension ServiceWorkerGlobalScopeExtension on ServiceWorkerGlobalScope {
   external EventHandler get onmessageerror;
 }
 
-@JS('Client')
-@staticInterop
-class Client {}
+extension type Client._(JSObject _) implements JSObject {}
 
 extension ClientExtension on Client {
   external void postMessage(
@@ -206,9 +190,7 @@ extension ClientExtension on Client {
   external ClientType get type;
 }
 
-@JS('WindowClient')
-@staticInterop
-class WindowClient implements Client {}
+extension type WindowClient._(JSObject _) implements Client, JSObject {}
 
 extension WindowClientExtension on WindowClient {
   external JSPromise focus();
@@ -218,9 +200,7 @@ extension WindowClientExtension on WindowClient {
   external JSArray get ancestorOrigins;
 }
 
-@JS('Clients')
-@staticInterop
-class Clients {}
+extension type Clients._(JSObject _) implements JSObject {}
 
 extension ClientsExtension on Clients {
   external JSPromise get(String id);
@@ -229,10 +209,7 @@ extension ClientsExtension on Clients {
   external JSPromise claim();
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ClientQueryOptions {
+extension type ClientQueryOptions._(JSObject _) implements JSObject {
   external factory ClientQueryOptions({
     bool includeUncontrolled,
     ClientType type,
@@ -246,9 +223,7 @@ extension ClientQueryOptionsExtension on ClientQueryOptions {
   external ClientType get type;
 }
 
-@JS('ExtendableEvent')
-@staticInterop
-class ExtendableEvent implements Event {
+extension type ExtendableEvent._(JSObject _) implements Event, JSObject {
   external factory ExtendableEvent(
     String type, [
     ExtendableEventInit eventInitDict,
@@ -259,16 +234,11 @@ extension ExtendableEventExtension on ExtendableEvent {
   external void waitUntil(JSPromise f);
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ExtendableEventInit implements EventInit {
+extension type ExtendableEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory ExtendableEventInit();
 }
-
-@JS('FetchEvent')
-@staticInterop
-class FetchEvent implements ExtendableEvent {
+extension type FetchEvent._(JSObject _) implements ExtendableEvent, JSObject {
   external factory FetchEvent(
     String type,
     FetchEventInit eventInitDict,
@@ -285,10 +255,8 @@ extension FetchEventExtension on FetchEvent {
   external JSPromise get handled;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class FetchEventInit implements ExtendableEventInit {
+extension type FetchEventInit._(JSObject _)
+    implements ExtendableEventInit, JSObject {
   external factory FetchEventInit({
     required Request request,
     JSPromise preloadResponse,
@@ -314,9 +282,8 @@ extension FetchEventInitExtension on FetchEventInit {
   external JSPromise get handled;
 }
 
-@JS('ExtendableMessageEvent')
-@staticInterop
-class ExtendableMessageEvent implements ExtendableEvent {
+extension type ExtendableMessageEvent._(JSObject _)
+    implements ExtendableEvent, JSObject {
   external factory ExtendableMessageEvent(
     String type, [
     ExtendableMessageEventInit eventInitDict,
@@ -331,10 +298,8 @@ extension ExtendableMessageEventExtension on ExtendableMessageEvent {
   external JSArray get ports;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ExtendableMessageEventInit implements ExtendableEventInit {
+extension type ExtendableMessageEventInit._(JSObject _)
+    implements ExtendableEventInit, JSObject {
   external factory ExtendableMessageEventInit({
     JSAny? data,
     String origin,
@@ -357,9 +322,7 @@ extension ExtendableMessageEventInitExtension on ExtendableMessageEventInit {
   external JSArray get ports;
 }
 
-@JS('Cache')
-@staticInterop
-class Cache {}
+extension type Cache._(JSObject _) implements JSObject {}
 
 extension CacheExtension on Cache {
   external JSPromise match(
@@ -386,10 +349,7 @@ extension CacheExtension on Cache {
   ]);
 }
 
-@JS()
-@staticInterop
-@anonymous
-class CacheQueryOptions {
+extension type CacheQueryOptions._(JSObject _) implements JSObject {
   external factory CacheQueryOptions({
     bool ignoreSearch,
     bool ignoreMethod,
@@ -406,9 +366,7 @@ extension CacheQueryOptionsExtension on CacheQueryOptions {
   external bool get ignoreVary;
 }
 
-@JS('CacheStorage')
-@staticInterop
-class CacheStorage {}
+extension type CacheStorage._(JSObject _) implements JSObject {}
 
 extension CacheStorageExtension on CacheStorage {
   external JSPromise match(
@@ -421,10 +379,8 @@ extension CacheStorageExtension on CacheStorage {
   external JSPromise keys();
 }
 
-@JS()
-@staticInterop
-@anonymous
-class MultiCacheQueryOptions implements CacheQueryOptions {
+extension type MultiCacheQueryOptions._(JSObject _)
+    implements CacheQueryOptions, JSObject {
   external factory MultiCacheQueryOptions({String cacheName});
 }
 

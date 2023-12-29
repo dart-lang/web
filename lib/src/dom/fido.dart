@@ -6,10 +6,7 @@
 
 import 'dart:js_interop';
 
-@JS()
-@staticInterop
-@anonymous
-class HMACGetSecretInput {
+extension type HMACGetSecretInput._(JSObject _) implements JSObject {
   external factory HMACGetSecretInput({
     required JSArrayBuffer salt1,
     JSArrayBuffer salt2,
@@ -23,10 +20,7 @@ extension HMACGetSecretInputExtension on HMACGetSecretInput {
   external JSArrayBuffer get salt2;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class HMACGetSecretOutput {
+extension type HMACGetSecretOutput._(JSObject _) implements JSObject {
   external factory HMACGetSecretOutput({
     required JSArrayBuffer output1,
     JSArrayBuffer output2,

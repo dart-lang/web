@@ -14,10 +14,7 @@ import 'mediacapture_streams.dart';
 
 typedef BitrateMode = String;
 typedef RecordingState = String;
-
-@JS('MediaRecorder')
-@staticInterop
-class MediaRecorder implements EventTarget {
+extension type MediaRecorder._(JSObject _) implements EventTarget, JSObject {
   external factory MediaRecorder(
     MediaStream stream, [
     MediaRecorderOptions options,
@@ -52,10 +49,7 @@ extension MediaRecorderExtension on MediaRecorder {
   external BitrateMode get audioBitrateMode;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class MediaRecorderOptions {
+extension type MediaRecorderOptions._(JSObject _) implements JSObject {
   external factory MediaRecorderOptions({
     String mimeType,
     int audioBitsPerSecond,
@@ -84,9 +78,7 @@ extension MediaRecorderOptionsExtension on MediaRecorderOptions {
   external int get videoKeyFrameIntervalCount;
 }
 
-@JS('BlobEvent')
-@staticInterop
-class BlobEvent implements Event {
+extension type BlobEvent._(JSObject _) implements Event, JSObject {
   external factory BlobEvent(
     String type,
     BlobEventInit eventInitDict,
@@ -98,10 +90,7 @@ extension BlobEventExtension on BlobEvent {
   external DOMHighResTimeStamp get timecode;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class BlobEventInit {
+extension type BlobEventInit._(JSObject _) implements JSObject {
   external factory BlobEventInit({
     required Blob data,
     DOMHighResTimeStamp timecode,

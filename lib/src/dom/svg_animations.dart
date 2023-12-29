@@ -10,9 +10,7 @@ import 'dom.dart';
 import 'html.dart';
 import 'svg.dart';
 
-@JS('TimeEvent')
-@staticInterop
-class TimeEvent implements Event {}
+extension type TimeEvent._(JSObject _) implements Event, JSObject {}
 
 extension TimeEventExtension on TimeEvent {
   external void initTimeEvent(
@@ -24,9 +22,8 @@ extension TimeEventExtension on TimeEvent {
   external int get detail;
 }
 
-@JS('SVGAnimationElement')
-@staticInterop
-class SVGAnimationElement implements SVGElement {}
+extension type SVGAnimationElement._(JSObject _)
+    implements SVGElement, JSObject {}
 
 extension SVGAnimationElementExtension on SVGAnimationElement {
   external num getStartTime();
@@ -47,30 +44,19 @@ extension SVGAnimationElementExtension on SVGAnimationElement {
   external SVGStringList get systemLanguage;
 }
 
-@JS('SVGAnimateElement')
-@staticInterop
-class SVGAnimateElement implements SVGAnimationElement {}
-
-@JS('SVGSetElement')
-@staticInterop
-class SVGSetElement implements SVGAnimationElement {}
-
-@JS('SVGAnimateMotionElement')
-@staticInterop
-class SVGAnimateMotionElement implements SVGAnimationElement {}
-
-@JS('SVGMPathElement')
-@staticInterop
-class SVGMPathElement implements SVGElement {}
+extension type SVGAnimateElement._(JSObject _)
+    implements SVGAnimationElement, JSObject {}
+extension type SVGSetElement._(JSObject _)
+    implements SVGAnimationElement, JSObject {}
+extension type SVGAnimateMotionElement._(JSObject _)
+    implements SVGAnimationElement, JSObject {}
+extension type SVGMPathElement._(JSObject _) implements SVGElement, JSObject {}
 
 extension SVGMPathElementExtension on SVGMPathElement {
   external SVGAnimatedString get href;
 }
 
-@JS('SVGAnimateTransformElement')
-@staticInterop
-class SVGAnimateTransformElement implements SVGAnimationElement {}
-
-@JS('SVGDiscardElement')
-@staticInterop
-class SVGDiscardElement implements SVGAnimationElement {}
+extension type SVGAnimateTransformElement._(JSObject _)
+    implements SVGAnimationElement, JSObject {}
+extension type SVGDiscardElement._(JSObject _)
+    implements SVGAnimationElement, JSObject {}

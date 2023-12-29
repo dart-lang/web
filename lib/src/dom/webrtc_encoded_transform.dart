@@ -17,11 +17,7 @@ typedef CryptoKeyID = JSAny;
 typedef SFrameTransformRole = String;
 typedef SFrameTransformErrorEventType = String;
 typedef RTCEncodedVideoFrameType = String;
-
-@JS()
-@staticInterop
-@anonymous
-class SFrameTransformOptions {
+extension type SFrameTransformOptions._(JSObject _) implements JSObject {
   external factory SFrameTransformOptions({SFrameTransformRole role});
 }
 
@@ -30,9 +26,7 @@ extension SFrameTransformOptionsExtension on SFrameTransformOptions {
   external SFrameTransformRole get role;
 }
 
-@JS('SFrameTransform')
-@staticInterop
-class SFrameTransform implements EventTarget {
+extension type SFrameTransform._(JSObject _) implements EventTarget, JSObject {
   external factory SFrameTransform([SFrameTransformOptions options]);
 }
 
@@ -47,9 +41,8 @@ extension SFrameTransformExtension on SFrameTransform {
   external WritableStream get writable;
 }
 
-@JS('SFrameTransformErrorEvent')
-@staticInterop
-class SFrameTransformErrorEvent implements Event {
+extension type SFrameTransformErrorEvent._(JSObject _)
+    implements Event, JSObject {
   external factory SFrameTransformErrorEvent(
     String type,
     SFrameTransformErrorEventInit eventInitDict,
@@ -62,10 +55,8 @@ extension SFrameTransformErrorEventExtension on SFrameTransformErrorEvent {
   external JSAny? get frame;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class SFrameTransformErrorEventInit implements EventInit {
+extension type SFrameTransformErrorEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory SFrameTransformErrorEventInit({
     required SFrameTransformErrorEventType errorType,
     required JSAny? frame,
@@ -83,10 +74,7 @@ extension SFrameTransformErrorEventInitExtension
   external CryptoKeyID? get keyID;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class RTCEncodedVideoFrameMetadata {
+extension type RTCEncodedVideoFrameMetadata._(JSObject _) implements JSObject {
   external factory RTCEncodedVideoFrameMetadata({
     int frameId,
     JSArray dependencies,
@@ -128,9 +116,7 @@ extension RTCEncodedVideoFrameMetadataExtension
   external int get rtpTimestamp;
 }
 
-@JS('RTCEncodedVideoFrame')
-@staticInterop
-class RTCEncodedVideoFrame {}
+extension type RTCEncodedVideoFrame._(JSObject _) implements JSObject {}
 
 extension RTCEncodedVideoFrameExtension on RTCEncodedVideoFrame {
   external RTCEncodedVideoFrameMetadata getMetadata();
@@ -139,10 +125,7 @@ extension RTCEncodedVideoFrameExtension on RTCEncodedVideoFrame {
   external JSArrayBuffer get data;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class RTCEncodedAudioFrameMetadata {
+extension type RTCEncodedAudioFrameMetadata._(JSObject _) implements JSObject {
   external factory RTCEncodedAudioFrameMetadata({
     int synchronizationSource,
     int payloadType,
@@ -166,9 +149,7 @@ extension RTCEncodedAudioFrameMetadataExtension
   external int get rtpTimestamp;
 }
 
-@JS('RTCEncodedAudioFrame')
-@staticInterop
-class RTCEncodedAudioFrame {}
+extension type RTCEncodedAudioFrame._(JSObject _) implements JSObject {}
 
 extension RTCEncodedAudioFrameExtension on RTCEncodedAudioFrame {
   external RTCEncodedAudioFrameMetadata getMetadata();
@@ -176,17 +157,13 @@ extension RTCEncodedAudioFrameExtension on RTCEncodedAudioFrame {
   external JSArrayBuffer get data;
 }
 
-@JS('RTCTransformEvent')
-@staticInterop
-class RTCTransformEvent implements Event {}
+extension type RTCTransformEvent._(JSObject _) implements Event, JSObject {}
 
 extension RTCTransformEventExtension on RTCTransformEvent {
   external RTCRtpScriptTransformer get transformer;
 }
 
-@JS('RTCRtpScriptTransformer')
-@staticInterop
-class RTCRtpScriptTransformer {}
+extension type RTCRtpScriptTransformer._(JSObject _) implements JSObject {}
 
 extension RTCRtpScriptTransformerExtension on RTCRtpScriptTransformer {
   external JSPromise generateKeyFrame([String rid]);
@@ -196,9 +173,7 @@ extension RTCRtpScriptTransformerExtension on RTCRtpScriptTransformer {
   external JSAny? get options;
 }
 
-@JS('RTCRtpScriptTransform')
-@staticInterop
-class RTCRtpScriptTransform {
+extension type RTCRtpScriptTransform._(JSObject _) implements JSObject {
   external factory RTCRtpScriptTransform(
     Worker worker, [
     JSAny? options,

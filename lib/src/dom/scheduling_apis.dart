@@ -11,11 +11,7 @@ import 'html.dart';
 
 typedef SchedulerPostTaskCallback = JSFunction;
 typedef TaskPriority = String;
-
-@JS()
-@staticInterop
-@anonymous
-class SchedulerPostTaskOptions {
+extension type SchedulerPostTaskOptions._(JSObject _) implements JSObject {
   external factory SchedulerPostTaskOptions({
     AbortSignal signal,
     TaskPriority priority,
@@ -32,9 +28,7 @@ extension SchedulerPostTaskOptionsExtension on SchedulerPostTaskOptions {
   external int get delay;
 }
 
-@JS('Scheduler')
-@staticInterop
-class Scheduler {}
+extension type Scheduler._(JSObject _) implements JSObject {}
 
 extension SchedulerExtension on Scheduler {
   external JSPromise postTask(
@@ -43,9 +37,8 @@ extension SchedulerExtension on Scheduler {
   ]);
 }
 
-@JS('TaskPriorityChangeEvent')
-@staticInterop
-class TaskPriorityChangeEvent implements Event {
+extension type TaskPriorityChangeEvent._(JSObject _)
+    implements Event, JSObject {
   external factory TaskPriorityChangeEvent(
     String type,
     TaskPriorityChangeEventInit priorityChangeEventInitDict,
@@ -56,10 +49,8 @@ extension TaskPriorityChangeEventExtension on TaskPriorityChangeEvent {
   external TaskPriority get previousPriority;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class TaskPriorityChangeEventInit implements EventInit {
+extension type TaskPriorityChangeEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory TaskPriorityChangeEventInit(
       {required TaskPriority previousPriority});
 }
@@ -69,10 +60,7 @@ extension TaskPriorityChangeEventInitExtension on TaskPriorityChangeEventInit {
   external TaskPriority get previousPriority;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class TaskControllerInit {
+extension type TaskControllerInit._(JSObject _) implements JSObject {
   external factory TaskControllerInit({TaskPriority priority});
 }
 
@@ -81,9 +69,8 @@ extension TaskControllerInitExtension on TaskControllerInit {
   external TaskPriority get priority;
 }
 
-@JS('TaskController')
-@staticInterop
-class TaskController implements AbortController {
+extension type TaskController._(JSObject _)
+    implements AbortController, JSObject {
   external factory TaskController([TaskControllerInit init]);
 }
 
@@ -91,10 +78,7 @@ extension TaskControllerExtension on TaskController {
   external void setPriority(TaskPriority priority);
 }
 
-@JS()
-@staticInterop
-@anonymous
-class TaskSignalAnyInit {
+extension type TaskSignalAnyInit._(JSObject _) implements JSObject {
   external factory TaskSignalAnyInit({JSAny priority});
 }
 
@@ -103,9 +87,7 @@ extension TaskSignalAnyInitExtension on TaskSignalAnyInit {
   external JSAny get priority;
 }
 
-@JS('TaskSignal')
-@staticInterop
-class TaskSignal implements AbortSignal {
+extension type TaskSignal._(JSObject _) implements AbortSignal, JSObject {
   external static TaskSignal any(
     JSArray signals, [
     TaskSignalAnyInit init,

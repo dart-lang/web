@@ -16,10 +16,7 @@ typedef LineAlignSetting = String;
 typedef PositionAlignSetting = String;
 typedef AlignSetting = String;
 typedef ScrollSetting = String;
-
-@JS('VTTCue')
-@staticInterop
-class VTTCue implements TextTrackCue {
+extension type VTTCue._(JSObject _) implements TextTrackCue, JSObject {
   external factory VTTCue(
     num startTime,
     num endTime,
@@ -51,9 +48,7 @@ extension VTTCueExtension on VTTCue {
   external String get text;
 }
 
-@JS('VTTRegion')
-@staticInterop
-class VTTRegion {
+extension type VTTRegion._(JSObject _) implements JSObject {
   external factory VTTRegion();
 }
 

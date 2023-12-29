@@ -7,11 +7,7 @@
 import 'dart:js_interop';
 
 typedef AvcBitstreamFormat = String;
-
-@JS()
-@staticInterop
-@anonymous
-class AvcEncoderConfig {
+extension type AvcEncoderConfig._(JSObject _) implements JSObject {
   external factory AvcEncoderConfig({AvcBitstreamFormat format});
 }
 
@@ -20,10 +16,8 @@ extension AvcEncoderConfigExtension on AvcEncoderConfig {
   external AvcBitstreamFormat get format;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class VideoEncoderEncodeOptionsForAvc {
+extension type VideoEncoderEncodeOptionsForAvc._(JSObject _)
+    implements JSObject {
   external factory VideoEncoderEncodeOptionsForAvc({int? quantizer});
 }
 

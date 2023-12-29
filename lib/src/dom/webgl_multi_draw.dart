@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'webgl1.dart';
 
-@JS('WEBGL_multi_draw')
-@staticInterop
-class WEBGL_multi_draw {}
+extension type WEBGL_multi_draw._(JSObject _) implements JSObject {}
 
 extension WEBGLMultiDrawExtension on WEBGL_multi_draw {
   external void multiDrawArraysWEBGL(

@@ -13,10 +13,7 @@ import 'service_workers.dart';
 
 typedef BackgroundFetchResult = String;
 typedef BackgroundFetchFailureReason = String;
-
-@JS('BackgroundFetchManager')
-@staticInterop
-class BackgroundFetchManager {}
+extension type BackgroundFetchManager._(JSObject _) implements JSObject {}
 
 extension BackgroundFetchManagerExtension on BackgroundFetchManager {
   external JSPromise fetch(
@@ -28,10 +25,7 @@ extension BackgroundFetchManagerExtension on BackgroundFetchManager {
   external JSPromise getIds();
 }
 
-@JS()
-@staticInterop
-@anonymous
-class BackgroundFetchUIOptions {
+extension type BackgroundFetchUIOptions._(JSObject _) implements JSObject {
   external factory BackgroundFetchUIOptions({
     JSArray icons,
     String title,
@@ -45,10 +39,8 @@ extension BackgroundFetchUIOptionsExtension on BackgroundFetchUIOptions {
   external String get title;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class BackgroundFetchOptions implements BackgroundFetchUIOptions {
+extension type BackgroundFetchOptions._(JSObject _)
+    implements BackgroundFetchUIOptions, JSObject {
   external factory BackgroundFetchOptions({int downloadTotal});
 }
 
@@ -57,9 +49,8 @@ extension BackgroundFetchOptionsExtension on BackgroundFetchOptions {
   external int get downloadTotal;
 }
 
-@JS('BackgroundFetchRegistration')
-@staticInterop
-class BackgroundFetchRegistration implements EventTarget {}
+extension type BackgroundFetchRegistration._(JSObject _)
+    implements EventTarget, JSObject {}
 
 extension BackgroundFetchRegistrationExtension on BackgroundFetchRegistration {
   external JSPromise abort();
@@ -83,18 +74,15 @@ extension BackgroundFetchRegistrationExtension on BackgroundFetchRegistration {
   external EventHandler get onprogress;
 }
 
-@JS('BackgroundFetchRecord')
-@staticInterop
-class BackgroundFetchRecord {}
+extension type BackgroundFetchRecord._(JSObject _) implements JSObject {}
 
 extension BackgroundFetchRecordExtension on BackgroundFetchRecord {
   external Request get request;
   external JSPromise get responseReady;
 }
 
-@JS('BackgroundFetchEvent')
-@staticInterop
-class BackgroundFetchEvent implements ExtendableEvent {
+extension type BackgroundFetchEvent._(JSObject _)
+    implements ExtendableEvent, JSObject {
   external factory BackgroundFetchEvent(
     String type,
     BackgroundFetchEventInit init,
@@ -105,10 +93,8 @@ extension BackgroundFetchEventExtension on BackgroundFetchEvent {
   external BackgroundFetchRegistration get registration;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class BackgroundFetchEventInit implements ExtendableEventInit {
+extension type BackgroundFetchEventInit._(JSObject _)
+    implements ExtendableEventInit, JSObject {
   external factory BackgroundFetchEventInit(
       {required BackgroundFetchRegistration registration});
 }
@@ -118,9 +104,8 @@ extension BackgroundFetchEventInitExtension on BackgroundFetchEventInit {
   external BackgroundFetchRegistration get registration;
 }
 
-@JS('BackgroundFetchUpdateUIEvent')
-@staticInterop
-class BackgroundFetchUpdateUIEvent implements BackgroundFetchEvent {
+extension type BackgroundFetchUpdateUIEvent._(JSObject _)
+    implements BackgroundFetchEvent, JSObject {
   external factory BackgroundFetchUpdateUIEvent(
     String type,
     BackgroundFetchEventInit init,

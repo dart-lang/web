@@ -11,10 +11,7 @@ import 'hr_time.dart';
 typedef PressureUpdateCallback = JSFunction;
 typedef PressureSource = String;
 typedef PressureState = String;
-
-@JS('PressureObserver')
-@staticInterop
-class PressureObserver {
+extension type PressureObserver._(JSObject _) implements JSObject {
   external factory PressureObserver(
     PressureUpdateCallback callback, [
     PressureObserverOptions options,
@@ -30,9 +27,7 @@ extension PressureObserverExtension on PressureObserver {
   external JSArray takeRecords();
 }
 
-@JS('PressureRecord')
-@staticInterop
-class PressureRecord {}
+extension type PressureRecord._(JSObject _) implements JSObject {}
 
 extension PressureRecordExtension on PressureRecord {
   external JSObject toJSON();
@@ -41,10 +36,7 @@ extension PressureRecordExtension on PressureRecord {
   external DOMHighResTimeStamp get time;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PressureObserverOptions {
+extension type PressureObserverOptions._(JSObject _) implements JSObject {
   external factory PressureObserverOptions({num sampleRate});
 }
 

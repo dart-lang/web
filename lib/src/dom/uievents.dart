@@ -10,9 +10,7 @@ import 'dom.dart';
 import 'html.dart';
 import 'input_device_capabilities.dart';
 
-@JS('UIEvent')
-@staticInterop
-class UIEvent implements Event {
+extension type UIEvent._(JSObject _) implements Event, JSObject {
   external factory UIEvent(
     String type, [
     UIEventInit eventInitDict,
@@ -33,10 +31,7 @@ extension UIEventExtension on UIEvent {
   external int get which;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class UIEventInit implements EventInit {
+extension type UIEventInit._(JSObject _) implements EventInit, JSObject {
   external factory UIEventInit({
     InputDeviceCapabilities? sourceCapabilities,
     Window? view,
@@ -56,9 +51,7 @@ extension UIEventInitExtension on UIEventInit {
   external int get which;
 }
 
-@JS('FocusEvent')
-@staticInterop
-class FocusEvent implements UIEvent {
+extension type FocusEvent._(JSObject _) implements UIEvent, JSObject {
   external factory FocusEvent(
     String type, [
     FocusEventInit eventInitDict,
@@ -69,10 +62,7 @@ extension FocusEventExtension on FocusEvent {
   external EventTarget? get relatedTarget;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class FocusEventInit implements UIEventInit {
+extension type FocusEventInit._(JSObject _) implements UIEventInit, JSObject {
   external factory FocusEventInit({EventTarget? relatedTarget});
 }
 
@@ -81,9 +71,7 @@ extension FocusEventInitExtension on FocusEventInit {
   external EventTarget? get relatedTarget;
 }
 
-@JS('MouseEvent')
-@staticInterop
-class MouseEvent implements UIEvent {
+extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   external factory MouseEvent(
     String type, [
     MouseEventInit eventInitDict,
@@ -132,10 +120,8 @@ extension MouseEventExtension on MouseEvent {
   external EventTarget? get relatedTarget;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class MouseEventInit implements EventModifierInit {
+extension type MouseEventInit._(JSObject _)
+    implements EventModifierInit, JSObject {
   external factory MouseEventInit({
     num movementX,
     num movementY,
@@ -170,10 +156,8 @@ extension MouseEventInitExtension on MouseEventInit {
   external EventTarget? get relatedTarget;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class EventModifierInit implements UIEventInit {
+extension type EventModifierInit._(JSObject _)
+    implements UIEventInit, JSObject {
   external factory EventModifierInit({
     bool ctrlKey,
     bool shiftKey,
@@ -223,9 +207,7 @@ extension EventModifierInitExtension on EventModifierInit {
   external bool get modifierSymbolLock;
 }
 
-@JS('WheelEvent')
-@staticInterop
-class WheelEvent implements MouseEvent {
+extension type WheelEvent._(JSObject _) implements MouseEvent, JSObject {
   external factory WheelEvent(
     String type, [
     WheelEventInit eventInitDict,
@@ -243,10 +225,8 @@ extension WheelEventExtension on WheelEvent {
   external int get deltaMode;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class WheelEventInit implements MouseEventInit {
+extension type WheelEventInit._(JSObject _)
+    implements MouseEventInit, JSObject {
   external factory WheelEventInit({
     num deltaX,
     num deltaY,
@@ -266,9 +246,7 @@ extension WheelEventInitExtension on WheelEventInit {
   external int get deltaMode;
 }
 
-@JS('InputEvent')
-@staticInterop
-class InputEvent implements UIEvent {
+extension type InputEvent._(JSObject _) implements UIEvent, JSObject {
   external factory InputEvent(
     String type, [
     InputEventInit eventInitDict,
@@ -283,10 +261,7 @@ extension InputEventExtension on InputEvent {
   external String get inputType;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class InputEventInit implements UIEventInit {
+extension type InputEventInit._(JSObject _) implements UIEventInit, JSObject {
   external factory InputEventInit({
     DataTransfer? dataTransfer,
     JSArray targetRanges,
@@ -309,9 +284,7 @@ extension InputEventInitExtension on InputEventInit {
   external String get inputType;
 }
 
-@JS('KeyboardEvent')
-@staticInterop
-class KeyboardEvent implements UIEvent {
+extension type KeyboardEvent._(JSObject _) implements UIEvent, JSObject {
   external factory KeyboardEvent(
     String type, [
     KeyboardEventInit eventInitDict,
@@ -350,10 +323,8 @@ extension KeyboardEventExtension on KeyboardEvent {
   external int get keyCode;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class KeyboardEventInit implements EventModifierInit {
+extension type KeyboardEventInit._(JSObject _)
+    implements EventModifierInit, JSObject {
   external factory KeyboardEventInit({
     String key,
     String code,
@@ -382,9 +353,7 @@ extension KeyboardEventInitExtension on KeyboardEventInit {
   external int get keyCode;
 }
 
-@JS('CompositionEvent')
-@staticInterop
-class CompositionEvent implements UIEvent {
+extension type CompositionEvent._(JSObject _) implements UIEvent, JSObject {
   external factory CompositionEvent(
     String type, [
     CompositionEventInit eventInitDict,
@@ -402,10 +371,8 @@ extension CompositionEventExtension on CompositionEvent {
   external String get data;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class CompositionEventInit implements UIEventInit {
+extension type CompositionEventInit._(JSObject _)
+    implements UIEventInit, JSObject {
   external factory CompositionEventInit({String data});
 }
 
@@ -414,9 +381,7 @@ extension CompositionEventInitExtension on CompositionEventInit {
   external String get data;
 }
 
-@JS('MutationEvent')
-@staticInterop
-class MutationEvent implements Event {
+extension type MutationEvent._(JSObject _) implements Event, JSObject {
   external static int get MODIFICATION;
   external static int get ADDITION;
   external static int get REMOVAL;

@@ -68,11 +68,7 @@ typedef GPUQueryType = String;
 typedef GPUCanvasAlphaMode = String;
 typedef GPUDeviceLostReason = String;
 typedef GPUErrorFilter = String;
-
-@JS()
-@staticInterop
-@anonymous
-class GPUObjectDescriptorBase {
+extension type GPUObjectDescriptorBase._(JSObject _) implements JSObject {
   external factory GPUObjectDescriptorBase({String label});
 }
 
@@ -81,9 +77,7 @@ extension GPUObjectDescriptorBaseExtension on GPUObjectDescriptorBase {
   external String get label;
 }
 
-@JS('GPUSupportedLimits')
-@staticInterop
-class GPUSupportedLimits {}
+extension type GPUSupportedLimits._(JSObject _) implements JSObject {}
 
 extension GPUSupportedLimitsExtension on GPUSupportedLimits {
   external int get maxTextureDimension1D;
@@ -120,21 +114,15 @@ extension GPUSupportedLimitsExtension on GPUSupportedLimits {
   external int get maxComputeWorkgroupsPerDimension;
 }
 
-@JS('GPUSupportedFeatures')
-@staticInterop
-class GPUSupportedFeatures {}
+extension type GPUSupportedFeatures._(JSObject _) implements JSObject {}
 
 extension GPUSupportedFeaturesExtension on GPUSupportedFeatures {}
 
-@JS('WGSLLanguageFeatures')
-@staticInterop
-class WGSLLanguageFeatures {}
+extension type WGSLLanguageFeatures._(JSObject _) implements JSObject {}
 
 extension WGSLLanguageFeaturesExtension on WGSLLanguageFeatures {}
 
-@JS('GPUAdapterInfo')
-@staticInterop
-class GPUAdapterInfo {}
+extension type GPUAdapterInfo._(JSObject _) implements JSObject {}
 
 extension GPUAdapterInfoExtension on GPUAdapterInfo {
   external String get vendor;
@@ -143,9 +131,7 @@ extension GPUAdapterInfoExtension on GPUAdapterInfo {
   external String get description;
 }
 
-@JS('GPU')
-@staticInterop
-class GPU {}
+extension type GPU._(JSObject _) implements JSObject {}
 
 extension GPUExtension on GPU {
   external JSPromise requestAdapter([GPURequestAdapterOptions options]);
@@ -153,10 +139,7 @@ extension GPUExtension on GPU {
   external WGSLLanguageFeatures get wgslLanguageFeatures;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPURequestAdapterOptions {
+extension type GPURequestAdapterOptions._(JSObject _) implements JSObject {
   external factory GPURequestAdapterOptions({
     GPUPowerPreference powerPreference,
     bool forceFallbackAdapter,
@@ -170,9 +153,7 @@ extension GPURequestAdapterOptionsExtension on GPURequestAdapterOptions {
   external bool get forceFallbackAdapter;
 }
 
-@JS('GPUAdapter')
-@staticInterop
-class GPUAdapter {}
+extension type GPUAdapter._(JSObject _) implements JSObject {}
 
 extension GPUAdapterExtension on GPUAdapter {
   external JSPromise requestDevice([GPUDeviceDescriptor descriptor]);
@@ -182,10 +163,8 @@ extension GPUAdapterExtension on GPUAdapter {
   external bool get isFallbackAdapter;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUDeviceDescriptor implements GPUObjectDescriptorBase {
+extension type GPUDeviceDescriptor._(JSObject _)
+    implements GPUObjectDescriptorBase, JSObject {
   external factory GPUDeviceDescriptor({
     JSArray requiredFeatures,
     JSAny requiredLimits,
@@ -202,9 +181,7 @@ extension GPUDeviceDescriptorExtension on GPUDeviceDescriptor {
   external GPUQueueDescriptor get defaultQueue;
 }
 
-@JS('GPUDevice')
-@staticInterop
-class GPUDevice implements EventTarget {}
+extension type GPUDevice._(JSObject _) implements EventTarget, JSObject {}
 
 extension GPUDeviceExtension on GPUDevice {
   external void destroy();
@@ -245,9 +222,7 @@ extension GPUDeviceExtension on GPUDevice {
   external String get label;
 }
 
-@JS('GPUBuffer')
-@staticInterop
-class GPUBuffer {}
+extension type GPUBuffer._(JSObject _) implements JSObject {}
 
 extension GPUBufferExtension on GPUBuffer {
   external JSPromise mapAsync(
@@ -268,10 +243,8 @@ extension GPUBufferExtension on GPUBuffer {
   external String get label;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUBufferDescriptor implements GPUObjectDescriptorBase {
+extension type GPUBufferDescriptor._(JSObject _)
+    implements GPUObjectDescriptorBase, JSObject {
   external factory GPUBufferDescriptor({
     required GPUSize64 size,
     required GPUBufferUsageFlags usage,
@@ -290,10 +263,8 @@ extension GPUBufferDescriptorExtension on GPUBufferDescriptor {
 
 @JS()
 external $GPUBufferUsage get GPUBufferUsage;
-
 @JS('GPUBufferUsage')
-@staticInterop
-abstract class $GPUBufferUsage {
+extension type $GPUBufferUsage._(JSObject _) implements JSObject {
   external static GPUFlagsConstant get MAP_READ;
   external static GPUFlagsConstant get MAP_WRITE;
   external static GPUFlagsConstant get COPY_SRC;
@@ -305,20 +276,14 @@ abstract class $GPUBufferUsage {
   external static GPUFlagsConstant get INDIRECT;
   external static GPUFlagsConstant get QUERY_RESOLVE;
 }
-
 @JS()
 external $GPUMapMode get GPUMapMode;
-
 @JS('GPUMapMode')
-@staticInterop
-abstract class $GPUMapMode {
+extension type $GPUMapMode._(JSObject _) implements JSObject {
   external static GPUFlagsConstant get READ;
   external static GPUFlagsConstant get WRITE;
 }
-
-@JS('GPUTexture')
-@staticInterop
-class GPUTexture {}
+extension type GPUTexture._(JSObject _) implements JSObject {}
 
 extension GPUTextureExtension on GPUTexture {
   external GPUTextureView createView([GPUTextureViewDescriptor descriptor]);
@@ -335,10 +300,8 @@ extension GPUTextureExtension on GPUTexture {
   external String get label;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUTextureDescriptor implements GPUObjectDescriptorBase {
+extension type GPUTextureDescriptor._(JSObject _)
+    implements GPUObjectDescriptorBase, JSObject {
   external factory GPUTextureDescriptor({
     required GPUExtent3D size,
     GPUIntegerCoordinate mipLevelCount,
@@ -369,30 +332,23 @@ extension GPUTextureDescriptorExtension on GPUTextureDescriptor {
 
 @JS()
 external $GPUTextureUsage get GPUTextureUsage;
-
 @JS('GPUTextureUsage')
-@staticInterop
-abstract class $GPUTextureUsage {
+extension type $GPUTextureUsage._(JSObject _) implements JSObject {
   external static GPUFlagsConstant get COPY_SRC;
   external static GPUFlagsConstant get COPY_DST;
   external static GPUFlagsConstant get TEXTURE_BINDING;
   external static GPUFlagsConstant get STORAGE_BINDING;
   external static GPUFlagsConstant get RENDER_ATTACHMENT;
 }
-
-@JS('GPUTextureView')
-@staticInterop
-class GPUTextureView {}
+extension type GPUTextureView._(JSObject _) implements JSObject {}
 
 extension GPUTextureViewExtension on GPUTextureView {
   external set label(String value);
   external String get label;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUTextureViewDescriptor implements GPUObjectDescriptorBase {
+extension type GPUTextureViewDescriptor._(JSObject _)
+    implements GPUObjectDescriptorBase, JSObject {
   external factory GPUTextureViewDescriptor({
     GPUTextureFormat format,
     GPUTextureViewDimension dimension,
@@ -421,19 +377,15 @@ extension GPUTextureViewDescriptorExtension on GPUTextureViewDescriptor {
   external GPUIntegerCoordinate get arrayLayerCount;
 }
 
-@JS('GPUExternalTexture')
-@staticInterop
-class GPUExternalTexture {}
+extension type GPUExternalTexture._(JSObject _) implements JSObject {}
 
 extension GPUExternalTextureExtension on GPUExternalTexture {
   external set label(String value);
   external String get label;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUExternalTextureDescriptor implements GPUObjectDescriptorBase {
+extension type GPUExternalTextureDescriptor._(JSObject _)
+    implements GPUObjectDescriptorBase, JSObject {
   external factory GPUExternalTextureDescriptor({
     required JSObject source,
     PredefinedColorSpace colorSpace,
@@ -448,19 +400,15 @@ extension GPUExternalTextureDescriptorExtension
   external PredefinedColorSpace get colorSpace;
 }
 
-@JS('GPUSampler')
-@staticInterop
-class GPUSampler {}
+extension type GPUSampler._(JSObject _) implements JSObject {}
 
 extension GPUSamplerExtension on GPUSampler {
   external set label(String value);
   external String get label;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUSamplerDescriptor implements GPUObjectDescriptorBase {
+extension type GPUSamplerDescriptor._(JSObject _)
+    implements GPUObjectDescriptorBase, JSObject {
   external factory GPUSamplerDescriptor({
     GPUAddressMode addressModeU,
     GPUAddressMode addressModeV,
@@ -498,19 +446,15 @@ extension GPUSamplerDescriptorExtension on GPUSamplerDescriptor {
   external int get maxAnisotropy;
 }
 
-@JS('GPUBindGroupLayout')
-@staticInterop
-class GPUBindGroupLayout {}
+extension type GPUBindGroupLayout._(JSObject _) implements JSObject {}
 
 extension GPUBindGroupLayoutExtension on GPUBindGroupLayout {
   external set label(String value);
   external String get label;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUBindGroupLayoutDescriptor implements GPUObjectDescriptorBase {
+extension type GPUBindGroupLayoutDescriptor._(JSObject _)
+    implements GPUObjectDescriptorBase, JSObject {
   external factory GPUBindGroupLayoutDescriptor({required JSArray entries});
 }
 
@@ -520,10 +464,7 @@ extension GPUBindGroupLayoutDescriptorExtension
   external JSArray get entries;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUBindGroupLayoutEntry {
+extension type GPUBindGroupLayoutEntry._(JSObject _) implements JSObject {
   external factory GPUBindGroupLayoutEntry({
     required GPUIndex32 binding,
     required GPUShaderStageFlags visibility,
@@ -554,19 +495,13 @@ extension GPUBindGroupLayoutEntryExtension on GPUBindGroupLayoutEntry {
 
 @JS()
 external $GPUShaderStage get GPUShaderStage;
-
 @JS('GPUShaderStage')
-@staticInterop
-abstract class $GPUShaderStage {
+extension type $GPUShaderStage._(JSObject _) implements JSObject {
   external static GPUFlagsConstant get VERTEX;
   external static GPUFlagsConstant get FRAGMENT;
   external static GPUFlagsConstant get COMPUTE;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class GPUBufferBindingLayout {
+extension type GPUBufferBindingLayout._(JSObject _) implements JSObject {
   external factory GPUBufferBindingLayout({
     GPUBufferBindingType type,
     bool hasDynamicOffset,
@@ -583,10 +518,7 @@ extension GPUBufferBindingLayoutExtension on GPUBufferBindingLayout {
   external GPUSize64 get minBindingSize;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUSamplerBindingLayout {
+extension type GPUSamplerBindingLayout._(JSObject _) implements JSObject {
   external factory GPUSamplerBindingLayout({GPUSamplerBindingType type});
 }
 
@@ -595,10 +527,7 @@ extension GPUSamplerBindingLayoutExtension on GPUSamplerBindingLayout {
   external GPUSamplerBindingType get type;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUTextureBindingLayout {
+extension type GPUTextureBindingLayout._(JSObject _) implements JSObject {
   external factory GPUTextureBindingLayout({
     GPUTextureSampleType sampleType,
     GPUTextureViewDimension viewDimension,
@@ -615,10 +544,8 @@ extension GPUTextureBindingLayoutExtension on GPUTextureBindingLayout {
   external bool get multisampled;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUStorageTextureBindingLayout {
+extension type GPUStorageTextureBindingLayout._(JSObject _)
+    implements JSObject {
   external factory GPUStorageTextureBindingLayout({
     GPUStorageTextureAccess access,
     required GPUTextureFormat format,
@@ -636,26 +563,19 @@ extension GPUStorageTextureBindingLayoutExtension
   external GPUTextureViewDimension get viewDimension;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUExternalTextureBindingLayout {
+extension type GPUExternalTextureBindingLayout._(JSObject _)
+    implements JSObject {
   external factory GPUExternalTextureBindingLayout();
 }
-
-@JS('GPUBindGroup')
-@staticInterop
-class GPUBindGroup {}
+extension type GPUBindGroup._(JSObject _) implements JSObject {}
 
 extension GPUBindGroupExtension on GPUBindGroup {
   external set label(String value);
   external String get label;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUBindGroupDescriptor implements GPUObjectDescriptorBase {
+extension type GPUBindGroupDescriptor._(JSObject _)
+    implements GPUObjectDescriptorBase, JSObject {
   external factory GPUBindGroupDescriptor({
     required GPUBindGroupLayout layout,
     required JSArray entries,
@@ -669,10 +589,7 @@ extension GPUBindGroupDescriptorExtension on GPUBindGroupDescriptor {
   external JSArray get entries;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUBindGroupEntry {
+extension type GPUBindGroupEntry._(JSObject _) implements JSObject {
   external factory GPUBindGroupEntry({
     required GPUIndex32 binding,
     required GPUBindingResource resource,
@@ -686,10 +603,7 @@ extension GPUBindGroupEntryExtension on GPUBindGroupEntry {
   external GPUBindingResource get resource;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUBufferBinding {
+extension type GPUBufferBinding._(JSObject _) implements JSObject {
   external factory GPUBufferBinding({
     required GPUBuffer buffer,
     GPUSize64 offset,
@@ -706,19 +620,15 @@ extension GPUBufferBindingExtension on GPUBufferBinding {
   external GPUSize64 get size;
 }
 
-@JS('GPUPipelineLayout')
-@staticInterop
-class GPUPipelineLayout {}
+extension type GPUPipelineLayout._(JSObject _) implements JSObject {}
 
 extension GPUPipelineLayoutExtension on GPUPipelineLayout {
   external set label(String value);
   external String get label;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUPipelineLayoutDescriptor implements GPUObjectDescriptorBase {
+extension type GPUPipelineLayoutDescriptor._(JSObject _)
+    implements GPUObjectDescriptorBase, JSObject {
   external factory GPUPipelineLayoutDescriptor(
       {required JSArray bindGroupLayouts});
 }
@@ -728,9 +638,7 @@ extension GPUPipelineLayoutDescriptorExtension on GPUPipelineLayoutDescriptor {
   external JSArray get bindGroupLayouts;
 }
 
-@JS('GPUShaderModule')
-@staticInterop
-class GPUShaderModule {}
+extension type GPUShaderModule._(JSObject _) implements JSObject {}
 
 extension GPUShaderModuleExtension on GPUShaderModule {
   external JSPromise getCompilationInfo();
@@ -738,10 +646,8 @@ extension GPUShaderModuleExtension on GPUShaderModule {
   external String get label;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUShaderModuleDescriptor implements GPUObjectDescriptorBase {
+extension type GPUShaderModuleDescriptor._(JSObject _)
+    implements GPUObjectDescriptorBase, JSObject {
   external factory GPUShaderModuleDescriptor({
     required String code,
     JSObject sourceMap,
@@ -758,10 +664,8 @@ extension GPUShaderModuleDescriptorExtension on GPUShaderModuleDescriptor {
   external JSAny get hints;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUShaderModuleCompilationHint {
+extension type GPUShaderModuleCompilationHint._(JSObject _)
+    implements JSObject {
   external factory GPUShaderModuleCompilationHint({JSAny layout});
 }
 
@@ -771,9 +675,7 @@ extension GPUShaderModuleCompilationHintExtension
   external JSAny get layout;
 }
 
-@JS('GPUCompilationMessage')
-@staticInterop
-class GPUCompilationMessage {}
+extension type GPUCompilationMessage._(JSObject _) implements JSObject {}
 
 extension GPUCompilationMessageExtension on GPUCompilationMessage {
   external String get message;
@@ -784,17 +686,14 @@ extension GPUCompilationMessageExtension on GPUCompilationMessage {
   external int get length;
 }
 
-@JS('GPUCompilationInfo')
-@staticInterop
-class GPUCompilationInfo {}
+extension type GPUCompilationInfo._(JSObject _) implements JSObject {}
 
 extension GPUCompilationInfoExtension on GPUCompilationInfo {
   external JSArray get messages;
 }
 
-@JS('GPUPipelineError')
-@staticInterop
-class GPUPipelineError implements DOMException {
+extension type GPUPipelineError._(JSObject _)
+    implements DOMException, JSObject {
   external factory GPUPipelineError(
     GPUPipelineErrorInit options, [
     String message,
@@ -805,10 +704,7 @@ extension GPUPipelineErrorExtension on GPUPipelineError {
   external GPUPipelineErrorReason get reason;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUPipelineErrorInit {
+extension type GPUPipelineErrorInit._(JSObject _) implements JSObject {
   external factory GPUPipelineErrorInit(
       {required GPUPipelineErrorReason reason});
 }
@@ -818,10 +714,8 @@ extension GPUPipelineErrorInitExtension on GPUPipelineErrorInit {
   external GPUPipelineErrorReason get reason;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUPipelineDescriptorBase implements GPUObjectDescriptorBase {
+extension type GPUPipelineDescriptorBase._(JSObject _)
+    implements GPUObjectDescriptorBase, JSObject {
   external factory GPUPipelineDescriptorBase({required JSAny layout});
 }
 
@@ -830,10 +724,7 @@ extension GPUPipelineDescriptorBaseExtension on GPUPipelineDescriptorBase {
   external JSAny get layout;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUProgrammableStage {
+extension type GPUProgrammableStage._(JSObject _) implements JSObject {
   external factory GPUProgrammableStage({
     required GPUShaderModule module,
     required String entryPoint,
@@ -850,9 +741,7 @@ extension GPUProgrammableStageExtension on GPUProgrammableStage {
   external JSAny get constants;
 }
 
-@JS('GPUComputePipeline')
-@staticInterop
-class GPUComputePipeline {}
+extension type GPUComputePipeline._(JSObject _) implements JSObject {}
 
 extension GPUComputePipelineExtension on GPUComputePipeline {
   external GPUBindGroupLayout getBindGroupLayout(int index);
@@ -860,10 +749,8 @@ extension GPUComputePipelineExtension on GPUComputePipeline {
   external String get label;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUComputePipelineDescriptor implements GPUPipelineDescriptorBase {
+extension type GPUComputePipelineDescriptor._(JSObject _)
+    implements GPUPipelineDescriptorBase, JSObject {
   external factory GPUComputePipelineDescriptor(
       {required GPUProgrammableStage compute});
 }
@@ -874,9 +761,7 @@ extension GPUComputePipelineDescriptorExtension
   external GPUProgrammableStage get compute;
 }
 
-@JS('GPURenderPipeline')
-@staticInterop
-class GPURenderPipeline {}
+extension type GPURenderPipeline._(JSObject _) implements JSObject {}
 
 extension GPURenderPipelineExtension on GPURenderPipeline {
   external GPUBindGroupLayout getBindGroupLayout(int index);
@@ -884,10 +769,8 @@ extension GPURenderPipelineExtension on GPURenderPipeline {
   external String get label;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPURenderPipelineDescriptor implements GPUPipelineDescriptorBase {
+extension type GPURenderPipelineDescriptor._(JSObject _)
+    implements GPUPipelineDescriptorBase, JSObject {
   external factory GPURenderPipelineDescriptor({
     required GPUVertexState vertex,
     GPUPrimitiveState primitive,
@@ -910,10 +793,7 @@ extension GPURenderPipelineDescriptorExtension on GPURenderPipelineDescriptor {
   external GPUFragmentState get fragment;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUPrimitiveState {
+extension type GPUPrimitiveState._(JSObject _) implements JSObject {
   external factory GPUPrimitiveState({
     GPUPrimitiveTopology topology,
     GPUIndexFormat stripIndexFormat,
@@ -936,10 +816,7 @@ extension GPUPrimitiveStateExtension on GPUPrimitiveState {
   external bool get unclippedDepth;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUMultisampleState {
+extension type GPUMultisampleState._(JSObject _) implements JSObject {
   external factory GPUMultisampleState({
     GPUSize32 count,
     GPUSampleMask mask,
@@ -956,10 +833,8 @@ extension GPUMultisampleStateExtension on GPUMultisampleState {
   external bool get alphaToCoverageEnabled;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUFragmentState implements GPUProgrammableStage {
+extension type GPUFragmentState._(JSObject _)
+    implements GPUProgrammableStage, JSObject {
   external factory GPUFragmentState({required JSArray targets});
 }
 
@@ -968,10 +843,7 @@ extension GPUFragmentStateExtension on GPUFragmentState {
   external JSArray get targets;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUColorTargetState {
+extension type GPUColorTargetState._(JSObject _) implements JSObject {
   external factory GPUColorTargetState({
     required GPUTextureFormat format,
     GPUBlendState blend,
@@ -988,10 +860,7 @@ extension GPUColorTargetStateExtension on GPUColorTargetState {
   external GPUColorWriteFlags get writeMask;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUBlendState {
+extension type GPUBlendState._(JSObject _) implements JSObject {
   external factory GPUBlendState({
     required GPUBlendComponent color,
     required GPUBlendComponent alpha,
@@ -1007,21 +876,15 @@ extension GPUBlendStateExtension on GPUBlendState {
 
 @JS()
 external $GPUColorWrite get GPUColorWrite;
-
 @JS('GPUColorWrite')
-@staticInterop
-abstract class $GPUColorWrite {
+extension type $GPUColorWrite._(JSObject _) implements JSObject {
   external static GPUFlagsConstant get RED;
   external static GPUFlagsConstant get GREEN;
   external static GPUFlagsConstant get BLUE;
   external static GPUFlagsConstant get ALPHA;
   external static GPUFlagsConstant get ALL;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class GPUBlendComponent {
+extension type GPUBlendComponent._(JSObject _) implements JSObject {
   external factory GPUBlendComponent({
     GPUBlendOperation operation,
     GPUBlendFactor srcFactor,
@@ -1038,10 +901,7 @@ extension GPUBlendComponentExtension on GPUBlendComponent {
   external GPUBlendFactor get dstFactor;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUDepthStencilState {
+extension type GPUDepthStencilState._(JSObject _) implements JSObject {
   external factory GPUDepthStencilState({
     required GPUTextureFormat format,
     required bool depthWriteEnabled,
@@ -1079,10 +939,7 @@ extension GPUDepthStencilStateExtension on GPUDepthStencilState {
   external num get depthBiasClamp;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUStencilFaceState {
+extension type GPUStencilFaceState._(JSObject _) implements JSObject {
   external factory GPUStencilFaceState({
     GPUCompareFunction compare,
     GPUStencilOperation failOp,
@@ -1102,10 +959,8 @@ extension GPUStencilFaceStateExtension on GPUStencilFaceState {
   external GPUStencilOperation get passOp;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUVertexState implements GPUProgrammableStage {
+extension type GPUVertexState._(JSObject _)
+    implements GPUProgrammableStage, JSObject {
   external factory GPUVertexState({JSArray buffers});
 }
 
@@ -1114,10 +969,7 @@ extension GPUVertexStateExtension on GPUVertexState {
   external JSArray get buffers;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUVertexBufferLayout {
+extension type GPUVertexBufferLayout._(JSObject _) implements JSObject {
   external factory GPUVertexBufferLayout({
     required GPUSize64 arrayStride,
     GPUVertexStepMode stepMode,
@@ -1134,10 +986,7 @@ extension GPUVertexBufferLayoutExtension on GPUVertexBufferLayout {
   external JSArray get attributes;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUVertexAttribute {
+extension type GPUVertexAttribute._(JSObject _) implements JSObject {
   external factory GPUVertexAttribute({
     required GPUVertexFormat format,
     required GPUSize64 offset,
@@ -1154,10 +1003,7 @@ extension GPUVertexAttributeExtension on GPUVertexAttribute {
   external GPUIndex32 get shaderLocation;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUImageDataLayout {
+extension type GPUImageDataLayout._(JSObject _) implements JSObject {
   external factory GPUImageDataLayout({
     GPUSize64 offset,
     GPUSize32 bytesPerRow,
@@ -1174,10 +1020,8 @@ extension GPUImageDataLayoutExtension on GPUImageDataLayout {
   external GPUSize32 get rowsPerImage;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUImageCopyBuffer implements GPUImageDataLayout {
+extension type GPUImageCopyBuffer._(JSObject _)
+    implements GPUImageDataLayout, JSObject {
   external factory GPUImageCopyBuffer({required GPUBuffer buffer});
 }
 
@@ -1186,10 +1030,7 @@ extension GPUImageCopyBufferExtension on GPUImageCopyBuffer {
   external GPUBuffer get buffer;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUImageCopyTexture {
+extension type GPUImageCopyTexture._(JSObject _) implements JSObject {
   external factory GPUImageCopyTexture({
     required GPUTexture texture,
     GPUIntegerCoordinate mipLevel,
@@ -1209,10 +1050,8 @@ extension GPUImageCopyTextureExtension on GPUImageCopyTexture {
   external GPUTextureAspect get aspect;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUImageCopyTextureTagged implements GPUImageCopyTexture {
+extension type GPUImageCopyTextureTagged._(JSObject _)
+    implements GPUImageCopyTexture, JSObject {
   external factory GPUImageCopyTextureTagged({
     PredefinedColorSpace colorSpace,
     bool premultipliedAlpha,
@@ -1226,10 +1065,7 @@ extension GPUImageCopyTextureTaggedExtension on GPUImageCopyTextureTagged {
   external bool get premultipliedAlpha;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUImageCopyExternalImage {
+extension type GPUImageCopyExternalImage._(JSObject _) implements JSObject {
   external factory GPUImageCopyExternalImage({
     required GPUImageCopyExternalImageSource source,
     GPUOrigin2D origin,
@@ -1246,25 +1082,18 @@ extension GPUImageCopyExternalImageExtension on GPUImageCopyExternalImage {
   external bool get flipY;
 }
 
-@JS('GPUCommandBuffer')
-@staticInterop
-class GPUCommandBuffer {}
+extension type GPUCommandBuffer._(JSObject _) implements JSObject {}
 
 extension GPUCommandBufferExtension on GPUCommandBuffer {
   external set label(String value);
   external String get label;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUCommandBufferDescriptor implements GPUObjectDescriptorBase {
+extension type GPUCommandBufferDescriptor._(JSObject _)
+    implements GPUObjectDescriptorBase, JSObject {
   external factory GPUCommandBufferDescriptor();
 }
-
-@JS('GPUCommandEncoder')
-@staticInterop
-class GPUCommandEncoder {}
+extension type GPUCommandEncoder._(JSObject _) implements JSObject {}
 
 extension GPUCommandEncoderExtension on GPUCommandEncoder {
   external GPURenderPassEncoder beginRenderPass(
@@ -1317,16 +1146,11 @@ extension GPUCommandEncoderExtension on GPUCommandEncoder {
   external String get label;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUCommandEncoderDescriptor implements GPUObjectDescriptorBase {
+extension type GPUCommandEncoderDescriptor._(JSObject _)
+    implements GPUObjectDescriptorBase, JSObject {
   external factory GPUCommandEncoderDescriptor();
 }
-
-@JS('GPUComputePassEncoder')
-@staticInterop
-class GPUComputePassEncoder {}
+extension type GPUComputePassEncoder._(JSObject _) implements JSObject {}
 
 extension GPUComputePassEncoderExtension on GPUComputePassEncoder {
   external void setPipeline(GPUComputePipeline pipeline);
@@ -1354,10 +1178,7 @@ extension GPUComputePassEncoderExtension on GPUComputePassEncoder {
   external String get label;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUComputePassTimestampWrites {
+extension type GPUComputePassTimestampWrites._(JSObject _) implements JSObject {
   external factory GPUComputePassTimestampWrites({
     required GPUQuerySet querySet,
     GPUSize32 beginningOfPassWriteIndex,
@@ -1375,10 +1196,8 @@ extension GPUComputePassTimestampWritesExtension
   external GPUSize32 get endOfPassWriteIndex;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUComputePassDescriptor implements GPUObjectDescriptorBase {
+extension type GPUComputePassDescriptor._(JSObject _)
+    implements GPUObjectDescriptorBase, JSObject {
   external factory GPUComputePassDescriptor(
       {GPUComputePassTimestampWrites timestampWrites});
 }
@@ -1388,9 +1207,7 @@ extension GPUComputePassDescriptorExtension on GPUComputePassDescriptor {
   external GPUComputePassTimestampWrites get timestampWrites;
 }
 
-@JS('GPURenderPassEncoder')
-@staticInterop
-class GPURenderPassEncoder {}
+extension type GPURenderPassEncoder._(JSObject _) implements JSObject {}
 
 extension GPURenderPassEncoderExtension on GPURenderPassEncoder {
   external void setViewport(
@@ -1461,10 +1278,7 @@ extension GPURenderPassEncoderExtension on GPURenderPassEncoder {
   external String get label;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPURenderPassTimestampWrites {
+extension type GPURenderPassTimestampWrites._(JSObject _) implements JSObject {
   external factory GPURenderPassTimestampWrites({
     required GPUQuerySet querySet,
     GPUSize32 beginningOfPassWriteIndex,
@@ -1482,10 +1296,8 @@ extension GPURenderPassTimestampWritesExtension
   external GPUSize32 get endOfPassWriteIndex;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPURenderPassDescriptor implements GPUObjectDescriptorBase {
+extension type GPURenderPassDescriptor._(JSObject _)
+    implements GPUObjectDescriptorBase, JSObject {
   external factory GPURenderPassDescriptor({
     required JSArray colorAttachments,
     GPURenderPassDepthStencilAttachment depthStencilAttachment,
@@ -1509,10 +1321,7 @@ extension GPURenderPassDescriptorExtension on GPURenderPassDescriptor {
   external GPUSize64 get maxDrawCount;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPURenderPassColorAttachment {
+extension type GPURenderPassColorAttachment._(JSObject _) implements JSObject {
   external factory GPURenderPassColorAttachment({
     required GPUTextureView view,
     GPUTextureView resolveTarget,
@@ -1536,10 +1345,8 @@ extension GPURenderPassColorAttachmentExtension
   external GPUStoreOp get storeOp;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPURenderPassDepthStencilAttachment {
+extension type GPURenderPassDepthStencilAttachment._(JSObject _)
+    implements JSObject {
   external factory GPURenderPassDepthStencilAttachment({
     required GPUTextureView view,
     num depthClearValue,
@@ -1575,10 +1382,8 @@ extension GPURenderPassDepthStencilAttachmentExtension
   external bool get stencilReadOnly;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPURenderPassLayout implements GPUObjectDescriptorBase {
+extension type GPURenderPassLayout._(JSObject _)
+    implements GPUObjectDescriptorBase, JSObject {
   external factory GPURenderPassLayout({
     required JSArray colorFormats,
     GPUTextureFormat depthStencilFormat,
@@ -1595,25 +1400,18 @@ extension GPURenderPassLayoutExtension on GPURenderPassLayout {
   external GPUSize32 get sampleCount;
 }
 
-@JS('GPURenderBundle')
-@staticInterop
-class GPURenderBundle {}
+extension type GPURenderBundle._(JSObject _) implements JSObject {}
 
 extension GPURenderBundleExtension on GPURenderBundle {
   external set label(String value);
   external String get label;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPURenderBundleDescriptor implements GPUObjectDescriptorBase {
+extension type GPURenderBundleDescriptor._(JSObject _)
+    implements GPUObjectDescriptorBase, JSObject {
   external factory GPURenderBundleDescriptor();
 }
-
-@JS('GPURenderBundleEncoder')
-@staticInterop
-class GPURenderBundleEncoder {}
+extension type GPURenderBundleEncoder._(JSObject _) implements JSObject {}
 
 extension GPURenderBundleEncoderExtension on GPURenderBundleEncoder {
   external GPURenderBundle finish([GPURenderBundleDescriptor descriptor]);
@@ -1665,10 +1463,8 @@ extension GPURenderBundleEncoderExtension on GPURenderBundleEncoder {
   external String get label;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPURenderBundleEncoderDescriptor implements GPURenderPassLayout {
+extension type GPURenderBundleEncoderDescriptor._(JSObject _)
+    implements GPURenderPassLayout, JSObject {
   external factory GPURenderBundleEncoderDescriptor({
     bool depthReadOnly,
     bool stencilReadOnly,
@@ -1683,16 +1479,11 @@ extension GPURenderBundleEncoderDescriptorExtension
   external bool get stencilReadOnly;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUQueueDescriptor implements GPUObjectDescriptorBase {
+extension type GPUQueueDescriptor._(JSObject _)
+    implements GPUObjectDescriptorBase, JSObject {
   external factory GPUQueueDescriptor();
 }
-
-@JS('GPUQueue')
-@staticInterop
-class GPUQueue {}
+extension type GPUQueue._(JSObject _) implements JSObject {}
 
 extension GPUQueueExtension on GPUQueue {
   external void submit(JSArray commandBuffers);
@@ -1719,9 +1510,7 @@ extension GPUQueueExtension on GPUQueue {
   external String get label;
 }
 
-@JS('GPUQuerySet')
-@staticInterop
-class GPUQuerySet {}
+extension type GPUQuerySet._(JSObject _) implements JSObject {}
 
 extension GPUQuerySetExtension on GPUQuerySet {
   external void destroy();
@@ -1731,10 +1520,8 @@ extension GPUQuerySetExtension on GPUQuerySet {
   external String get label;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUQuerySetDescriptor implements GPUObjectDescriptorBase {
+extension type GPUQuerySetDescriptor._(JSObject _)
+    implements GPUObjectDescriptorBase, JSObject {
   external factory GPUQuerySetDescriptor({
     required GPUQueryType type,
     required GPUSize32 count,
@@ -1748,9 +1535,7 @@ extension GPUQuerySetDescriptorExtension on GPUQuerySetDescriptor {
   external GPUSize32 get count;
 }
 
-@JS('GPUCanvasContext')
-@staticInterop
-class GPUCanvasContext {}
+extension type GPUCanvasContext._(JSObject _) implements JSObject {}
 
 extension GPUCanvasContextExtension on GPUCanvasContext {
   external void configure(GPUCanvasConfiguration configuration);
@@ -1759,10 +1544,7 @@ extension GPUCanvasContextExtension on GPUCanvasContext {
   external JSObject get canvas;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUCanvasConfiguration {
+extension type GPUCanvasConfiguration._(JSObject _) implements JSObject {
   external factory GPUCanvasConfiguration({
     required GPUDevice device,
     required GPUTextureFormat format,
@@ -1788,44 +1570,30 @@ extension GPUCanvasConfigurationExtension on GPUCanvasConfiguration {
   external GPUCanvasAlphaMode get alphaMode;
 }
 
-@JS('GPUDeviceLostInfo')
-@staticInterop
-class GPUDeviceLostInfo {}
+extension type GPUDeviceLostInfo._(JSObject _) implements JSObject {}
 
 extension GPUDeviceLostInfoExtension on GPUDeviceLostInfo {
   external GPUDeviceLostReason get reason;
   external String get message;
 }
 
-@JS('GPUError')
-@staticInterop
-class GPUError {}
+extension type GPUError._(JSObject _) implements JSObject {}
 
 extension GPUErrorExtension on GPUError {
   external String get message;
 }
 
-@JS('GPUValidationError')
-@staticInterop
-class GPUValidationError implements GPUError {
+extension type GPUValidationError._(JSObject _) implements GPUError, JSObject {
   external factory GPUValidationError(String message);
 }
-
-@JS('GPUOutOfMemoryError')
-@staticInterop
-class GPUOutOfMemoryError implements GPUError {
+extension type GPUOutOfMemoryError._(JSObject _) implements GPUError, JSObject {
   external factory GPUOutOfMemoryError(String message);
 }
-
-@JS('GPUInternalError')
-@staticInterop
-class GPUInternalError implements GPUError {
+extension type GPUInternalError._(JSObject _) implements GPUError, JSObject {
   external factory GPUInternalError(String message);
 }
-
-@JS('GPUUncapturedErrorEvent')
-@staticInterop
-class GPUUncapturedErrorEvent implements Event {
+extension type GPUUncapturedErrorEvent._(JSObject _)
+    implements Event, JSObject {
   external factory GPUUncapturedErrorEvent(
     String type,
     GPUUncapturedErrorEventInit gpuUncapturedErrorEventInitDict,
@@ -1836,10 +1604,8 @@ extension GPUUncapturedErrorEventExtension on GPUUncapturedErrorEvent {
   external GPUError get error;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUUncapturedErrorEventInit implements EventInit {
+extension type GPUUncapturedErrorEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory GPUUncapturedErrorEventInit({required GPUError error});
 }
 
@@ -1848,10 +1614,7 @@ extension GPUUncapturedErrorEventInitExtension on GPUUncapturedErrorEventInit {
   external GPUError get error;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUColorDict {
+extension type GPUColorDict._(JSObject _) implements JSObject {
   external factory GPUColorDict({
     required num r,
     required num g,
@@ -1871,10 +1634,7 @@ extension GPUColorDictExtension on GPUColorDict {
   external num get a;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUOrigin2DDict {
+extension type GPUOrigin2DDict._(JSObject _) implements JSObject {
   external factory GPUOrigin2DDict({
     GPUIntegerCoordinate x,
     GPUIntegerCoordinate y,
@@ -1888,10 +1648,7 @@ extension GPUOrigin2DDictExtension on GPUOrigin2DDict {
   external GPUIntegerCoordinate get y;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUOrigin3DDict {
+extension type GPUOrigin3DDict._(JSObject _) implements JSObject {
   external factory GPUOrigin3DDict({
     GPUIntegerCoordinate x,
     GPUIntegerCoordinate y,
@@ -1908,10 +1665,7 @@ extension GPUOrigin3DDictExtension on GPUOrigin3DDict {
   external GPUIntegerCoordinate get z;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GPUExtent3DDict {
+extension type GPUExtent3DDict._(JSObject _) implements JSObject {
   external factory GPUExtent3DDict({
     required GPUIntegerCoordinate width,
     GPUIntegerCoordinate height,

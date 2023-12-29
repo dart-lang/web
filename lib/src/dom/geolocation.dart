@@ -10,10 +10,7 @@ import 'hr_time.dart';
 
 typedef PositionCallback = JSFunction;
 typedef PositionErrorCallback = JSFunction;
-
-@JS('Geolocation')
-@staticInterop
-class Geolocation {}
+extension type Geolocation._(JSObject _) implements JSObject {}
 
 extension GeolocationExtension on Geolocation {
   external void getCurrentPosition(
@@ -29,10 +26,7 @@ extension GeolocationExtension on Geolocation {
   external void clearWatch(int watchId);
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PositionOptions {
+extension type PositionOptions._(JSObject _) implements JSObject {
   external factory PositionOptions({
     bool enableHighAccuracy,
     int timeout,
@@ -49,18 +43,14 @@ extension PositionOptionsExtension on PositionOptions {
   external int get maximumAge;
 }
 
-@JS('GeolocationPosition')
-@staticInterop
-class GeolocationPosition {}
+extension type GeolocationPosition._(JSObject _) implements JSObject {}
 
 extension GeolocationPositionExtension on GeolocationPosition {
   external GeolocationCoordinates get coords;
   external EpochTimeStamp get timestamp;
 }
 
-@JS('GeolocationCoordinates')
-@staticInterop
-class GeolocationCoordinates {}
+extension type GeolocationCoordinates._(JSObject _) implements JSObject {}
 
 extension GeolocationCoordinatesExtension on GeolocationCoordinates {
   external num get accuracy;
@@ -72,9 +62,7 @@ extension GeolocationCoordinatesExtension on GeolocationCoordinates {
   external num? get speed;
 }
 
-@JS('GeolocationPositionError')
-@staticInterop
-class GeolocationPositionError {
+extension type GeolocationPositionError._(JSObject _) implements JSObject {
   external static int get PERMISSION_DENIED;
   external static int get POSITION_UNAVAILABLE;
   external static int get TIMEOUT;

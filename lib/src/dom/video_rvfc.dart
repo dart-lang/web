@@ -9,11 +9,7 @@ import 'dart:js_interop';
 import 'hr_time.dart';
 
 typedef VideoFrameRequestCallback = JSFunction;
-
-@JS()
-@staticInterop
-@anonymous
-class VideoFrameCallbackMetadata {
+extension type VideoFrameCallbackMetadata._(JSObject _) implements JSObject {
   external factory VideoFrameCallbackMetadata({
     required DOMHighResTimeStamp presentationTime,
     required DOMHighResTimeStamp expectedDisplayTime,

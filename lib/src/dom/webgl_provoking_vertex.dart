@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'webgl1.dart';
 
-@JS('WEBGL_provoking_vertex')
-@staticInterop
-class WEBGL_provoking_vertex {
+extension type WEBGL_provoking_vertex._(JSObject _) implements JSObject {
   external static GLenum get FIRST_VERTEX_CONVENTION_WEBGL;
   external static GLenum get LAST_VERTEX_CONVENTION_WEBGL;
   external static GLenum get PROVOKING_VERTEX_WEBGL;

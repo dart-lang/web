@@ -11,11 +11,7 @@ import 'uievents.dart';
 
 typedef SpatialNavigationDirection = String;
 typedef FocusableAreaSearchMode = String;
-
-@JS()
-@staticInterop
-@anonymous
-class FocusableAreasOption {
+extension type FocusableAreasOption._(JSObject _) implements JSObject {
   external factory FocusableAreasOption({FocusableAreaSearchMode mode});
 }
 
@@ -24,10 +20,8 @@ extension FocusableAreasOptionExtension on FocusableAreasOption {
   external FocusableAreaSearchMode get mode;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class SpatialNavigationSearchOptions {
+extension type SpatialNavigationSearchOptions._(JSObject _)
+    implements JSObject {
   external factory SpatialNavigationSearchOptions({
     JSArray? candidates,
     Node? container,
@@ -42,9 +36,7 @@ extension SpatialNavigationSearchOptionsExtension
   external Node? get container;
 }
 
-@JS('NavigationEvent')
-@staticInterop
-class NavigationEvent implements UIEvent {
+extension type NavigationEvent._(JSObject _) implements UIEvent, JSObject {
   external factory NavigationEvent(
     String type, [
     NavigationEventInit eventInitDict,
@@ -56,10 +48,8 @@ extension NavigationEventExtension on NavigationEvent {
   external EventTarget? get relatedTarget;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class NavigationEventInit implements UIEventInit {
+extension type NavigationEventInit._(JSObject _)
+    implements UIEventInit, JSObject {
   external factory NavigationEventInit({
     SpatialNavigationDirection dir,
     EventTarget? relatedTarget,

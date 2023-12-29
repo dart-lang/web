@@ -10,10 +10,7 @@ typedef GamepadHand = String;
 typedef GamepadHapticsResult = String;
 typedef GamepadHapticActuatorType = String;
 typedef GamepadHapticEffectType = String;
-
-@JS('GamepadHapticActuator')
-@staticInterop
-class GamepadHapticActuator {}
+extension type GamepadHapticActuator._(JSObject _) implements JSObject {}
 
 extension GamepadHapticActuatorExtension on GamepadHapticActuator {
   external bool canPlayEffectType(GamepadHapticEffectType type);
@@ -29,10 +26,7 @@ extension GamepadHapticActuatorExtension on GamepadHapticActuator {
   external GamepadHapticActuatorType get type;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GamepadEffectParameters {
+extension type GamepadEffectParameters._(JSObject _) implements JSObject {
   external factory GamepadEffectParameters({
     num duration,
     num startDelay,
@@ -52,9 +46,7 @@ extension GamepadEffectParametersExtension on GamepadEffectParameters {
   external num get weakMagnitude;
 }
 
-@JS('GamepadPose')
-@staticInterop
-class GamepadPose {}
+extension type GamepadPose._(JSObject _) implements JSObject {}
 
 extension GamepadPoseExtension on GamepadPose {
   external bool get hasOrientation;
@@ -67,9 +59,7 @@ extension GamepadPoseExtension on GamepadPose {
   external JSFloat32Array? get angularAcceleration;
 }
 
-@JS('GamepadTouch')
-@staticInterop
-class GamepadTouch {}
+extension type GamepadTouch._(JSObject _) implements JSObject {}
 
 extension GamepadTouchExtension on GamepadTouch {
   external int get touchId;

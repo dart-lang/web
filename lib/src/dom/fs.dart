@@ -13,10 +13,7 @@ import 'webidl.dart';
 typedef FileSystemWriteChunkType = JSAny;
 typedef FileSystemHandleKind = String;
 typedef WriteCommandType = String;
-
-@JS('FileSystemHandle')
-@staticInterop
-class FileSystemHandle {}
+extension type FileSystemHandle._(JSObject _) implements JSObject {}
 
 extension FileSystemHandleExtension on FileSystemHandle {
   external JSPromise queryPermission(
@@ -28,10 +25,8 @@ extension FileSystemHandleExtension on FileSystemHandle {
   external String get name;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class FileSystemCreateWritableOptions {
+extension type FileSystemCreateWritableOptions._(JSObject _)
+    implements JSObject {
   external factory FileSystemCreateWritableOptions({bool keepExistingData});
 }
 
@@ -41,9 +36,8 @@ extension FileSystemCreateWritableOptionsExtension
   external bool get keepExistingData;
 }
 
-@JS('FileSystemFileHandle')
-@staticInterop
-class FileSystemFileHandle implements FileSystemHandle {}
+extension type FileSystemFileHandle._(JSObject _)
+    implements FileSystemHandle, JSObject {}
 
 extension FileSystemFileHandleExtension on FileSystemFileHandle {
   external JSPromise getFile();
@@ -51,10 +45,7 @@ extension FileSystemFileHandleExtension on FileSystemFileHandle {
   external JSPromise createSyncAccessHandle();
 }
 
-@JS()
-@staticInterop
-@anonymous
-class FileSystemGetFileOptions {
+extension type FileSystemGetFileOptions._(JSObject _) implements JSObject {
   external factory FileSystemGetFileOptions({bool create});
 }
 
@@ -63,10 +54,7 @@ extension FileSystemGetFileOptionsExtension on FileSystemGetFileOptions {
   external bool get create;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class FileSystemGetDirectoryOptions {
+extension type FileSystemGetDirectoryOptions._(JSObject _) implements JSObject {
   external factory FileSystemGetDirectoryOptions({bool create});
 }
 
@@ -76,10 +64,7 @@ extension FileSystemGetDirectoryOptionsExtension
   external bool get create;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class FileSystemRemoveOptions {
+extension type FileSystemRemoveOptions._(JSObject _) implements JSObject {
   external factory FileSystemRemoveOptions({bool recursive});
 }
 
@@ -88,9 +73,8 @@ extension FileSystemRemoveOptionsExtension on FileSystemRemoveOptions {
   external bool get recursive;
 }
 
-@JS('FileSystemDirectoryHandle')
-@staticInterop
-class FileSystemDirectoryHandle implements FileSystemHandle {}
+extension type FileSystemDirectoryHandle._(JSObject _)
+    implements FileSystemHandle, JSObject {}
 
 extension FileSystemDirectoryHandleExtension on FileSystemDirectoryHandle {
   external JSPromise getFileHandle(
@@ -108,10 +92,7 @@ extension FileSystemDirectoryHandleExtension on FileSystemDirectoryHandle {
   external JSPromise resolve(FileSystemHandle possibleDescendant);
 }
 
-@JS()
-@staticInterop
-@anonymous
-class WriteParams {
+extension type WriteParams._(JSObject _) implements JSObject {
   external factory WriteParams({
     required WriteCommandType type,
     int? size,
@@ -131,9 +112,8 @@ extension WriteParamsExtension on WriteParams {
   external JSAny? get data;
 }
 
-@JS('FileSystemWritableFileStream')
-@staticInterop
-class FileSystemWritableFileStream implements WritableStream {}
+extension type FileSystemWritableFileStream._(JSObject _)
+    implements WritableStream, JSObject {}
 
 extension FileSystemWritableFileStreamExtension
     on FileSystemWritableFileStream {
@@ -142,10 +122,7 @@ extension FileSystemWritableFileStreamExtension
   external JSPromise truncate(int size);
 }
 
-@JS()
-@staticInterop
-@anonymous
-class FileSystemReadWriteOptions {
+extension type FileSystemReadWriteOptions._(JSObject _) implements JSObject {
   external factory FileSystemReadWriteOptions({int at});
 }
 
@@ -154,9 +131,7 @@ extension FileSystemReadWriteOptionsExtension on FileSystemReadWriteOptions {
   external int get at;
 }
 
-@JS('FileSystemSyncAccessHandle')
-@staticInterop
-class FileSystemSyncAccessHandle {}
+extension type FileSystemSyncAccessHandle._(JSObject _) implements JSObject {}
 
 extension FileSystemSyncAccessHandleExtension on FileSystemSyncAccessHandle {
   external int read(

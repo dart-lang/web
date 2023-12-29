@@ -10,10 +10,8 @@ import 'hr_time.dart';
 import 'performance_timeline.dart';
 
 typedef RenderBlockingStatusType = String;
-
-@JS('PerformanceResourceTiming')
-@staticInterop
-class PerformanceResourceTiming implements PerformanceEntry {}
+extension type PerformanceResourceTiming._(JSObject _)
+    implements PerformanceEntry, JSObject {}
 
 extension PerformanceResourceTimingExtension on PerformanceResourceTiming {
   external JSObject toJSON();

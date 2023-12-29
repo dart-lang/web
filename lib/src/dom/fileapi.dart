@@ -13,10 +13,7 @@ import 'webidl.dart';
 
 typedef BlobPart = JSAny;
 typedef EndingType = String;
-
-@JS('Blob')
-@staticInterop
-class Blob {
+extension type Blob._(JSObject _) implements JSObject {
   external factory Blob([
     JSArray blobParts,
     BlobPropertyBag options,
@@ -36,10 +33,7 @@ extension BlobExtension on Blob {
   external String get type;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class BlobPropertyBag {
+extension type BlobPropertyBag._(JSObject _) implements JSObject {
   external factory BlobPropertyBag({
     String type,
     EndingType endings,
@@ -53,9 +47,7 @@ extension BlobPropertyBagExtension on BlobPropertyBag {
   external EndingType get endings;
 }
 
-@JS('File')
-@staticInterop
-class File implements Blob {
+extension type File._(JSObject _) implements Blob, JSObject {
   external factory File(
     JSArray fileBits,
     String fileName, [
@@ -69,10 +61,8 @@ extension FileExtension on File {
   external String get webkitRelativePath;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class FilePropertyBag implements BlobPropertyBag {
+extension type FilePropertyBag._(JSObject _)
+    implements BlobPropertyBag, JSObject {
   external factory FilePropertyBag({int lastModified});
 }
 
@@ -81,18 +71,14 @@ extension FilePropertyBagExtension on FilePropertyBag {
   external int get lastModified;
 }
 
-@JS('FileList')
-@staticInterop
-class FileList {}
+extension type FileList._(JSObject _) implements JSObject {}
 
 extension FileListExtension on FileList {
   external File? item(int index);
   external int get length;
 }
 
-@JS('FileReader')
-@staticInterop
-class FileReader implements EventTarget {
+extension type FileReader._(JSObject _) implements EventTarget, JSObject {
   external factory FileReader();
 
   external static int get EMPTY;
@@ -126,9 +112,7 @@ extension FileReaderExtension on FileReader {
   external EventHandler get onloadend;
 }
 
-@JS('FileReaderSync')
-@staticInterop
-class FileReaderSync {
+extension type FileReaderSync._(JSObject _) implements JSObject {
   external factory FileReaderSync();
 }
 

@@ -6,9 +6,7 @@
 
 import 'dart:js_interop';
 
-@JS('XRCamera')
-@staticInterop
-class XRCamera {}
+extension type XRCamera._(JSObject _) implements JSObject {}
 
 extension XRCameraExtension on XRCamera {
   external int get width;

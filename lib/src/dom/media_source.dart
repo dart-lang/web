@@ -13,10 +13,7 @@ import 'webidl.dart';
 typedef ReadyState = String;
 typedef EndOfStreamError = String;
 typedef AppendMode = String;
-
-@JS('MediaSource')
-@staticInterop
-class MediaSource implements EventTarget {
+extension type MediaSource._(JSObject _) implements EventTarget, JSObject {
   external factory MediaSource();
 
   external static bool isTypeSupported(String type);
@@ -46,13 +43,8 @@ extension MediaSourceExtension on MediaSource {
   external EventHandler get onsourceclose;
 }
 
-@JS('MediaSourceHandle')
-@staticInterop
-class MediaSourceHandle {}
-
-@JS('SourceBuffer')
-@staticInterop
-class SourceBuffer implements EventTarget {}
+extension type MediaSourceHandle._(JSObject _) implements JSObject {}
+extension type SourceBuffer._(JSObject _) implements EventTarget, JSObject {}
 
 extension SourceBufferExtension on SourceBuffer {
   external void appendBuffer(BufferSource data);
@@ -87,9 +79,8 @@ extension SourceBufferExtension on SourceBuffer {
   external EventHandler get onabort;
 }
 
-@JS('SourceBufferList')
-@staticInterop
-class SourceBufferList implements EventTarget {}
+extension type SourceBufferList._(JSObject _)
+    implements EventTarget, JSObject {}
 
 extension SourceBufferListExtension on SourceBufferList {
   external int get length;

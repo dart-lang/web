@@ -18,10 +18,7 @@ typedef FillMode = String;
 typedef PlaybackDirection = String;
 typedef CompositeOperation = String;
 typedef CompositeOperationOrAuto = String;
-
-@JS('AnimationTimeline')
-@staticInterop
-class AnimationTimeline {}
+extension type AnimationTimeline._(JSObject _) implements JSObject {}
 
 extension AnimationTimelineExtension on AnimationTimeline {
   external Animation play([AnimationEffect? effect]);
@@ -29,10 +26,7 @@ extension AnimationTimelineExtension on AnimationTimeline {
   external CSSNumberish? get duration;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class DocumentTimelineOptions {
+extension type DocumentTimelineOptions._(JSObject _) implements JSObject {
   external factory DocumentTimelineOptions({DOMHighResTimeStamp originTime});
 }
 
@@ -41,15 +35,11 @@ extension DocumentTimelineOptionsExtension on DocumentTimelineOptions {
   external DOMHighResTimeStamp get originTime;
 }
 
-@JS('DocumentTimeline')
-@staticInterop
-class DocumentTimeline implements AnimationTimeline {
+extension type DocumentTimeline._(JSObject _)
+    implements AnimationTimeline, JSObject {
   external factory DocumentTimeline([DocumentTimelineOptions options]);
 }
-
-@JS('Animation')
-@staticInterop
-class Animation implements EventTarget {
+extension type Animation._(JSObject _) implements EventTarget, JSObject {
   external factory Animation([
     AnimationEffect? effect,
     AnimationTimeline? timeline,
@@ -90,9 +80,7 @@ extension AnimationExtension on Animation {
   external EventHandler get onremove;
 }
 
-@JS('AnimationEffect')
-@staticInterop
-class AnimationEffect {}
+extension type AnimationEffect._(JSObject _) implements JSObject {}
 
 extension AnimationEffectExtension on AnimationEffect {
   external void before(AnimationEffect effects);
@@ -107,10 +95,7 @@ extension AnimationEffectExtension on AnimationEffect {
   external AnimationEffect? get nextSibling;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class EffectTiming {
+extension type EffectTiming._(JSObject _) implements JSObject {
   external factory EffectTiming({
     num delay,
     num endDelay,
@@ -145,10 +130,7 @@ extension EffectTimingExtension on EffectTiming {
   external String get easing;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class OptionalEffectTiming {
+extension type OptionalEffectTiming._(JSObject _) implements JSObject {
   external factory OptionalEffectTiming({
     num playbackRate,
     num delay,
@@ -183,10 +165,8 @@ extension OptionalEffectTimingExtension on OptionalEffectTiming {
   external String get easing;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ComputedEffectTiming implements EffectTiming {
+extension type ComputedEffectTiming._(JSObject _)
+    implements EffectTiming, JSObject {
   external factory ComputedEffectTiming({
     CSSNumberish startTime,
     CSSNumberish endTime,
@@ -212,9 +192,8 @@ extension ComputedEffectTimingExtension on ComputedEffectTiming {
   external num? get currentIteration;
 }
 
-@JS('KeyframeEffect')
-@staticInterop
-class KeyframeEffect implements AnimationEffect {
+extension type KeyframeEffect._(JSObject _)
+    implements AnimationEffect, JSObject {
   external factory KeyframeEffect(
     JSObject? sourceOrTarget, [
     JSObject? keyframes,
@@ -235,10 +214,7 @@ extension KeyframeEffectExtension on KeyframeEffect {
   external CompositeOperation get composite;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class BaseComputedKeyframe {
+extension type BaseComputedKeyframe._(JSObject _) implements JSObject {
   external factory BaseComputedKeyframe({
     num? offset,
     num computedOffset,
@@ -258,10 +234,7 @@ extension BaseComputedKeyframeExtension on BaseComputedKeyframe {
   external CompositeOperationOrAuto get composite;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class BasePropertyIndexedKeyframe {
+extension type BasePropertyIndexedKeyframe._(JSObject _) implements JSObject {
   external factory BasePropertyIndexedKeyframe({
     JSAny? offset,
     JSAny easing,
@@ -278,10 +251,7 @@ extension BasePropertyIndexedKeyframeExtension on BasePropertyIndexedKeyframe {
   external JSAny get composite;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class BaseKeyframe {
+extension type BaseKeyframe._(JSObject _) implements JSObject {
   external factory BaseKeyframe({
     num? offset,
     String easing,
@@ -298,10 +268,8 @@ extension BaseKeyframeExtension on BaseKeyframe {
   external CompositeOperationOrAuto get composite;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class KeyframeEffectOptions implements EffectTiming {
+extension type KeyframeEffectOptions._(JSObject _)
+    implements EffectTiming, JSObject {
   external factory KeyframeEffectOptions({
     IterationCompositeOperation iterationComposite,
     CompositeOperation composite,
@@ -318,10 +286,8 @@ extension KeyframeEffectOptionsExtension on KeyframeEffectOptions {
   external String? get pseudoElement;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class KeyframeAnimationOptions implements KeyframeEffectOptions {
+extension type KeyframeAnimationOptions._(JSObject _)
+    implements KeyframeEffectOptions, JSObject {
   external factory KeyframeAnimationOptions({
     JSAny rangeStart,
     JSAny rangeEnd,
@@ -341,10 +307,7 @@ extension KeyframeAnimationOptionsExtension on KeyframeAnimationOptions {
   external AnimationTimeline? get timeline;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class GetAnimationsOptions {
+extension type GetAnimationsOptions._(JSObject _) implements JSObject {
   external factory GetAnimationsOptions({bool subtree});
 }
 

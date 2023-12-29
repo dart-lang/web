@@ -9,9 +9,7 @@ import 'dart:js_interop';
 import 'cssom.dart';
 import 'dom.dart';
 
-@JS('AnimationEvent')
-@staticInterop
-class AnimationEvent implements Event {
+extension type AnimationEvent._(JSObject _) implements Event, JSObject {
   external factory AnimationEvent(
     String type, [
     AnimationEventInit animationEventInitDict,
@@ -24,10 +22,7 @@ extension AnimationEventExtension on AnimationEvent {
   external String get pseudoElement;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class AnimationEventInit implements EventInit {
+extension type AnimationEventInit._(JSObject _) implements EventInit, JSObject {
   external factory AnimationEventInit({
     String animationName,
     num elapsedTime,
@@ -44,9 +39,7 @@ extension AnimationEventInitExtension on AnimationEventInit {
   external String get pseudoElement;
 }
 
-@JS('CSSKeyframeRule')
-@staticInterop
-class CSSKeyframeRule implements CSSRule {}
+extension type CSSKeyframeRule._(JSObject _) implements CSSRule, JSObject {}
 
 extension CSSKeyframeRuleExtension on CSSKeyframeRule {
   external set keyText(String value);
@@ -54,9 +47,7 @@ extension CSSKeyframeRuleExtension on CSSKeyframeRule {
   external CSSStyleDeclaration get style;
 }
 
-@JS('CSSKeyframesRule')
-@staticInterop
-class CSSKeyframesRule implements CSSRule {}
+extension type CSSKeyframesRule._(JSObject _) implements CSSRule, JSObject {}
 
 extension CSSKeyframesRuleExtension on CSSKeyframesRule {
   external void appendRule(String rule);

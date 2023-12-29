@@ -10,10 +10,7 @@ import 'dom.dart';
 import 'html.dart';
 
 typedef BinaryType = String;
-
-@JS('WebSocket')
-@staticInterop
-class WebSocket implements EventTarget {
+extension type WebSocket._(JSObject _) implements EventTarget, JSObject {
   external factory WebSocket(
     String url, [
     JSAny protocols,
@@ -48,9 +45,7 @@ extension WebSocketExtension on WebSocket {
   external BinaryType get binaryType;
 }
 
-@JS('CloseEvent')
-@staticInterop
-class CloseEvent implements Event {
+extension type CloseEvent._(JSObject _) implements Event, JSObject {
   external factory CloseEvent(
     String type, [
     CloseEventInit eventInitDict,
@@ -63,10 +58,7 @@ extension CloseEventExtension on CloseEvent {
   external String get reason;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class CloseEventInit implements EventInit {
+extension type CloseEventInit._(JSObject _) implements EventInit, JSObject {
   external factory CloseEventInit({
     bool wasClean,
     int code,

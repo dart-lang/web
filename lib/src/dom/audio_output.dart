@@ -6,10 +6,7 @@
 
 import 'dart:js_interop';
 
-@JS()
-@staticInterop
-@anonymous
-class AudioOutputOptions {
+extension type AudioOutputOptions._(JSObject _) implements JSObject {
   external factory AudioOutputOptions({String deviceId});
 }
 

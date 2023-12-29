@@ -13,11 +13,7 @@ import 'permissions.dart';
 typedef ClipboardItemData = JSPromise;
 typedef ClipboardItems = JSArray;
 typedef PresentationStyle = String;
-
-@JS()
-@staticInterop
-@anonymous
-class ClipboardEventInit implements EventInit {
+extension type ClipboardEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ClipboardEventInit({DataTransfer? clipboardData});
 }
 
@@ -26,9 +22,7 @@ extension ClipboardEventInitExtension on ClipboardEventInit {
   external DataTransfer? get clipboardData;
 }
 
-@JS('ClipboardEvent')
-@staticInterop
-class ClipboardEvent implements Event {
+extension type ClipboardEvent._(JSObject _) implements Event, JSObject {
   external factory ClipboardEvent(
     String type, [
     ClipboardEventInit eventInitDict,
@@ -39,9 +33,7 @@ extension ClipboardEventExtension on ClipboardEvent {
   external DataTransfer? get clipboardData;
 }
 
-@JS('ClipboardItem')
-@staticInterop
-class ClipboardItem {
+extension type ClipboardItem._(JSObject _) implements JSObject {
   external factory ClipboardItem(
     JSAny items, [
     ClipboardItemOptions options,
@@ -56,10 +48,7 @@ extension ClipboardItemExtension on ClipboardItem {
   external JSArray get types;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ClipboardItemOptions {
+extension type ClipboardItemOptions._(JSObject _) implements JSObject {
   external factory ClipboardItemOptions({PresentationStyle presentationStyle});
 }
 
@@ -68,9 +57,7 @@ extension ClipboardItemOptionsExtension on ClipboardItemOptions {
   external PresentationStyle get presentationStyle;
 }
 
-@JS('Clipboard')
-@staticInterop
-class Clipboard implements EventTarget {}
+extension type Clipboard._(JSObject _) implements EventTarget, JSObject {}
 
 extension ClipboardExtension on Clipboard {
   external JSPromise read();
@@ -79,10 +66,8 @@ extension ClipboardExtension on Clipboard {
   external JSPromise writeText(String data);
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ClipboardPermissionDescriptor implements PermissionDescriptor {
+extension type ClipboardPermissionDescriptor._(JSObject _)
+    implements PermissionDescriptor, JSObject {
   external factory ClipboardPermissionDescriptor({bool allowWithoutGesture});
 }
 

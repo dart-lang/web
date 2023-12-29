@@ -12,11 +12,7 @@ import 'html.dart';
 typedef BinaryData = JSObject;
 typedef FontFaceLoadStatus = String;
 typedef FontFaceSetLoadStatus = String;
-
-@JS()
-@staticInterop
-@anonymous
-class FontFaceDescriptors {
+extension type FontFaceDescriptors._(JSObject _) implements JSObject {
   external factory FontFaceDescriptors({
     String style,
     String weight,
@@ -54,9 +50,7 @@ extension FontFaceDescriptorsExtension on FontFaceDescriptors {
   external String get lineGapOverride;
 }
 
-@JS('FontFace')
-@staticInterop
-class FontFace {
+extension type FontFace._(JSObject _) implements JSObject {
   external factory FontFace(
     String family,
     JSAny source, [
@@ -95,13 +89,8 @@ extension FontFaceExtension on FontFace {
   external FontFacePalettes get palettes;
 }
 
-@JS('FontFaceFeatures')
-@staticInterop
-class FontFaceFeatures {}
-
-@JS('FontFaceVariationAxis')
-@staticInterop
-class FontFaceVariationAxis {}
+extension type FontFaceFeatures._(JSObject _) implements JSObject {}
+extension type FontFaceVariationAxis._(JSObject _) implements JSObject {}
 
 extension FontFaceVariationAxisExtension on FontFaceVariationAxis {
   external String get name;
@@ -111,15 +100,11 @@ extension FontFaceVariationAxisExtension on FontFaceVariationAxis {
   external num get defaultValue;
 }
 
-@JS('FontFaceVariations')
-@staticInterop
-class FontFaceVariations {}
+extension type FontFaceVariations._(JSObject _) implements JSObject {}
 
 extension FontFaceVariationsExtension on FontFaceVariations {}
 
-@JS('FontFacePalette')
-@staticInterop
-class FontFacePalette {}
+extension type FontFacePalette._(JSObject _) implements JSObject {}
 
 extension FontFacePaletteExtension on FontFacePalette {
   external int get length;
@@ -127,18 +112,14 @@ extension FontFacePaletteExtension on FontFacePalette {
   external bool get usableWithDarkBackground;
 }
 
-@JS('FontFacePalettes')
-@staticInterop
-class FontFacePalettes {}
+extension type FontFacePalettes._(JSObject _) implements JSObject {}
 
 extension FontFacePalettesExtension on FontFacePalettes {
   external int get length;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class FontFaceSetLoadEventInit implements EventInit {
+extension type FontFaceSetLoadEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory FontFaceSetLoadEventInit({JSArray fontfaces});
 }
 
@@ -147,9 +128,7 @@ extension FontFaceSetLoadEventInitExtension on FontFaceSetLoadEventInit {
   external JSArray get fontfaces;
 }
 
-@JS('FontFaceSetLoadEvent')
-@staticInterop
-class FontFaceSetLoadEvent implements Event {
+extension type FontFaceSetLoadEvent._(JSObject _) implements Event, JSObject {
   external factory FontFaceSetLoadEvent(
     String type, [
     FontFaceSetLoadEventInit eventInitDict,
@@ -160,9 +139,7 @@ extension FontFaceSetLoadEventExtension on FontFaceSetLoadEvent {
   external JSArray get fontfaces;
 }
 
-@JS('FontFaceSet')
-@staticInterop
-class FontFaceSet implements EventTarget {
+extension type FontFaceSet._(JSObject _) implements EventTarget, JSObject {
   external factory FontFaceSet(JSArray initialFaces);
 }
 

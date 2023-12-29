@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 
-@JS('TransitionEvent')
-@staticInterop
-class TransitionEvent implements Event {
+extension type TransitionEvent._(JSObject _) implements Event, JSObject {
   external factory TransitionEvent(
     String type, [
     TransitionEventInit transitionEventInitDict,
@@ -23,10 +21,8 @@ extension TransitionEventExtension on TransitionEvent {
   external String get pseudoElement;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class TransitionEventInit implements EventInit {
+extension type TransitionEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory TransitionEventInit({
     String propertyName,
     num elapsedTime,

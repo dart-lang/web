@@ -9,10 +9,7 @@ import 'dart:js_interop';
 typedef MediaSessionActionHandler = JSFunction;
 typedef MediaSessionPlaybackState = String;
 typedef MediaSessionAction = String;
-
-@JS('MediaSession')
-@staticInterop
-class MediaSession {}
+extension type MediaSession._(JSObject _) implements JSObject {}
 
 extension MediaSessionExtension on MediaSession {
   external void setActionHandler(
@@ -28,9 +25,7 @@ extension MediaSessionExtension on MediaSession {
   external MediaSessionPlaybackState get playbackState;
 }
 
-@JS('MediaMetadata')
-@staticInterop
-class MediaMetadata {
+extension type MediaMetadata._(JSObject _) implements JSObject {
   external factory MediaMetadata([MediaMetadataInit init]);
 }
 
@@ -45,10 +40,7 @@ extension MediaMetadataExtension on MediaMetadata {
   external JSArray get artwork;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class MediaMetadataInit {
+extension type MediaMetadataInit._(JSObject _) implements JSObject {
   external factory MediaMetadataInit({
     String title,
     String artist,
@@ -68,10 +60,7 @@ extension MediaMetadataInitExtension on MediaMetadataInit {
   external JSArray get artwork;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class MediaImage {
+extension type MediaImage._(JSObject _) implements JSObject {
   external factory MediaImage({
     required String src,
     String sizes,
@@ -88,10 +77,7 @@ extension MediaImageExtension on MediaImage {
   external String get type;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class MediaPositionState {
+extension type MediaPositionState._(JSObject _) implements JSObject {
   external factory MediaPositionState({
     num duration,
     num playbackRate,
@@ -108,10 +94,7 @@ extension MediaPositionStateExtension on MediaPositionState {
   external num get position;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class MediaSessionActionDetails {
+extension type MediaSessionActionDetails._(JSObject _) implements JSObject {
   external factory MediaSessionActionDetails({
     required MediaSessionAction action,
     num seekOffset,

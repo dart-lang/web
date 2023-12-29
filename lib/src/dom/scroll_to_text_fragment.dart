@@ -6,6 +6,4 @@
 
 import 'dart:js_interop';
 
-@JS('FragmentDirective')
-@staticInterop
-class FragmentDirective {}
+extension type FragmentDirective._(JSObject _) implements JSObject {}

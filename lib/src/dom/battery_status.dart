@@ -9,9 +9,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
-@JS('BatteryManager')
-@staticInterop
-class BatteryManager implements EventTarget {}
+extension type BatteryManager._(JSObject _) implements EventTarget, JSObject {}
 
 extension BatteryManagerExtension on BatteryManager {
   external bool get charging;

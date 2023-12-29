@@ -6,10 +6,7 @@
 
 import 'dart:js_interop';
 
-@JS()
-@staticInterop
-@anonymous
-class CaptureHandleConfig {
+extension type CaptureHandleConfig._(JSObject _) implements JSObject {
   external factory CaptureHandleConfig({
     bool exposeOrigin,
     String handle,
@@ -26,10 +23,7 @@ extension CaptureHandleConfigExtension on CaptureHandleConfig {
   external JSArray get permittedOrigins;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class CaptureHandle {
+extension type CaptureHandle._(JSObject _) implements JSObject {
   external factory CaptureHandle({
     String origin,
     String handle,

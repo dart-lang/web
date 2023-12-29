@@ -12,10 +12,7 @@ import 'html.dart';
 import 'webidl.dart';
 
 typedef MockSensorType = String;
-
-@JS('Sensor')
-@staticInterop
-class Sensor implements EventTarget {}
+extension type Sensor._(JSObject _) implements EventTarget, JSObject {}
 
 extension SensorExtension on Sensor {
   external void start();
@@ -31,10 +28,7 @@ extension SensorExtension on Sensor {
   external EventHandler get onerror;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class SensorOptions {
+extension type SensorOptions._(JSObject _) implements JSObject {
   external factory SensorOptions({num frequency});
 }
 
@@ -43,9 +37,7 @@ extension SensorOptionsExtension on SensorOptions {
   external num get frequency;
 }
 
-@JS('SensorErrorEvent')
-@staticInterop
-class SensorErrorEvent implements Event {
+extension type SensorErrorEvent._(JSObject _) implements Event, JSObject {
   external factory SensorErrorEvent(
     String type,
     SensorErrorEventInit errorEventInitDict,
@@ -56,10 +48,8 @@ extension SensorErrorEventExtension on SensorErrorEvent {
   external DOMException get error;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class SensorErrorEventInit implements EventInit {
+extension type SensorErrorEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory SensorErrorEventInit({required DOMException error});
 }
 
@@ -68,10 +58,7 @@ extension SensorErrorEventInitExtension on SensorErrorEventInit {
   external DOMException get error;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class MockSensorConfiguration {
+extension type MockSensorConfiguration._(JSObject _) implements JSObject {
   external factory MockSensorConfiguration({
     required MockSensorType mockSensorType,
     bool connected,
@@ -91,10 +78,7 @@ extension MockSensorConfigurationExtension on MockSensorConfiguration {
   external num? get minSamplingFrequency;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class MockSensor {
+extension type MockSensor._(JSObject _) implements JSObject {
   external factory MockSensor({
     num maxSamplingFrequency,
     num minSamplingFrequency,
@@ -111,9 +95,6 @@ extension MockSensorExtension on MockSensor {
   external num get requestedSamplingFrequency;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class MockSensorReadingValues {
+extension type MockSensorReadingValues._(JSObject _) implements JSObject {
   external factory MockSensorReadingValues();
 }

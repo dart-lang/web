@@ -6,10 +6,7 @@
 
 import 'dart:js_interop';
 
-@JS()
-@staticInterop
-@anonymous
-class FlacEncoderConfig {
+extension type FlacEncoderConfig._(JSObject _) implements JSObject {
   external factory FlacEncoderConfig({
     int blockSize,
     int compressLevel,

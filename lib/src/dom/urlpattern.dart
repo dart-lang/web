@@ -7,10 +7,7 @@
 import 'dart:js_interop';
 
 typedef URLPatternInput = JSAny;
-
-@JS('URLPattern')
-@staticInterop
-class URLPattern {
+extension type URLPattern._(JSObject _) implements JSObject {
   external factory URLPattern([
     URLPatternInput input,
     JSAny baseURLOrOptions,
@@ -37,10 +34,7 @@ extension URLPatternExtension on URLPattern {
   external String get hash;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class URLPatternInit {
+extension type URLPatternInit._(JSObject _) implements JSObject {
   external factory URLPatternInit({
     String protocol,
     String username,
@@ -75,10 +69,7 @@ extension URLPatternInitExtension on URLPatternInit {
   external String get baseURL;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class URLPatternOptions {
+extension type URLPatternOptions._(JSObject _) implements JSObject {
   external factory URLPatternOptions({bool ignoreCase});
 }
 
@@ -87,10 +78,7 @@ extension URLPatternOptionsExtension on URLPatternOptions {
   external bool get ignoreCase;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class URLPatternResult {
+extension type URLPatternResult._(JSObject _) implements JSObject {
   external factory URLPatternResult({
     JSArray inputs,
     URLPatternComponentResult protocol,
@@ -125,10 +113,7 @@ extension URLPatternResultExtension on URLPatternResult {
   external URLPatternComponentResult get hash;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class URLPatternComponentResult {
+extension type URLPatternComponentResult._(JSObject _) implements JSObject {
   external factory URLPatternComponentResult({
     String input,
     JSAny groups,

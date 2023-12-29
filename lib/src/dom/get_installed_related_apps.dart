@@ -6,10 +6,7 @@
 
 import 'dart:js_interop';
 
-@JS()
-@staticInterop
-@anonymous
-class RelatedApplication {
+extension type RelatedApplication._(JSObject _) implements JSObject {
   external factory RelatedApplication({
     required String platform,
     String url,

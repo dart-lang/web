@@ -10,10 +10,7 @@ import 'dom.dart';
 import 'html.dart';
 
 typedef PaymentComplete = String;
-
-@JS('PaymentRequest')
-@staticInterop
-class PaymentRequest implements EventTarget {
+extension type PaymentRequest._(JSObject _) implements EventTarget, JSObject {
   external factory PaymentRequest(
     JSArray methodData,
     PaymentDetailsInit details,
@@ -31,10 +28,7 @@ extension PaymentRequestExtension on PaymentRequest {
   external EventHandler get onpaymentmethodchange;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PaymentMethodData {
+extension type PaymentMethodData._(JSObject _) implements JSObject {
   external factory PaymentMethodData({
     required String supportedMethods,
     JSObject data,
@@ -48,10 +42,7 @@ extension PaymentMethodDataExtension on PaymentMethodData {
   external JSObject get data;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PaymentCurrencyAmount {
+extension type PaymentCurrencyAmount._(JSObject _) implements JSObject {
   external factory PaymentCurrencyAmount({
     required String currency,
     required String value,
@@ -65,10 +56,7 @@ extension PaymentCurrencyAmountExtension on PaymentCurrencyAmount {
   external String get value;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PaymentDetailsBase {
+extension type PaymentDetailsBase._(JSObject _) implements JSObject {
   external factory PaymentDetailsBase({
     JSArray displayItems,
     JSArray modifiers,
@@ -82,10 +70,8 @@ extension PaymentDetailsBaseExtension on PaymentDetailsBase {
   external JSArray get modifiers;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PaymentDetailsInit implements PaymentDetailsBase {
+extension type PaymentDetailsInit._(JSObject _)
+    implements PaymentDetailsBase, JSObject {
   external factory PaymentDetailsInit({
     String id,
     required PaymentItem total,
@@ -99,10 +85,8 @@ extension PaymentDetailsInitExtension on PaymentDetailsInit {
   external PaymentItem get total;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PaymentDetailsUpdate implements PaymentDetailsBase {
+extension type PaymentDetailsUpdate._(JSObject _)
+    implements PaymentDetailsBase, JSObject {
   external factory PaymentDetailsUpdate({
     PaymentItem total,
     JSObject paymentMethodErrors,
@@ -116,10 +100,7 @@ extension PaymentDetailsUpdateExtension on PaymentDetailsUpdate {
   external JSObject get paymentMethodErrors;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PaymentDetailsModifier {
+extension type PaymentDetailsModifier._(JSObject _) implements JSObject {
   external factory PaymentDetailsModifier({
     required String supportedMethods,
     PaymentItem total,
@@ -139,10 +120,7 @@ extension PaymentDetailsModifierExtension on PaymentDetailsModifier {
   external JSObject get data;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PaymentItem {
+extension type PaymentItem._(JSObject _) implements JSObject {
   external factory PaymentItem({
     required String label,
     required PaymentCurrencyAmount amount,
@@ -159,10 +137,7 @@ extension PaymentItemExtension on PaymentItem {
   external bool get pending;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PaymentCompleteDetails {
+extension type PaymentCompleteDetails._(JSObject _) implements JSObject {
   external factory PaymentCompleteDetails({JSObject? data});
 }
 
@@ -171,9 +146,7 @@ extension PaymentCompleteDetailsExtension on PaymentCompleteDetails {
   external JSObject? get data;
 }
 
-@JS('PaymentResponse')
-@staticInterop
-class PaymentResponse implements EventTarget {}
+extension type PaymentResponse._(JSObject _) implements EventTarget, JSObject {}
 
 extension PaymentResponseExtension on PaymentResponse {
   external JSObject toJSON();
@@ -187,10 +160,7 @@ extension PaymentResponseExtension on PaymentResponse {
   external JSObject get details;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PaymentValidationErrors {
+extension type PaymentValidationErrors._(JSObject _) implements JSObject {
   external factory PaymentValidationErrors({
     String error,
     JSObject paymentMethod,
@@ -204,9 +174,8 @@ extension PaymentValidationErrorsExtension on PaymentValidationErrors {
   external JSObject get paymentMethod;
 }
 
-@JS('PaymentMethodChangeEvent')
-@staticInterop
-class PaymentMethodChangeEvent implements PaymentRequestUpdateEvent {
+extension type PaymentMethodChangeEvent._(JSObject _)
+    implements PaymentRequestUpdateEvent, JSObject {
   external factory PaymentMethodChangeEvent(
     String type, [
     PaymentMethodChangeEventInit eventInitDict,
@@ -218,10 +187,8 @@ extension PaymentMethodChangeEventExtension on PaymentMethodChangeEvent {
   external JSObject? get methodDetails;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PaymentMethodChangeEventInit implements PaymentRequestUpdateEventInit {
+extension type PaymentMethodChangeEventInit._(JSObject _)
+    implements PaymentRequestUpdateEventInit, JSObject {
   external factory PaymentMethodChangeEventInit({
     String methodName,
     JSObject? methodDetails,
@@ -236,9 +203,8 @@ extension PaymentMethodChangeEventInitExtension
   external JSObject? get methodDetails;
 }
 
-@JS('PaymentRequestUpdateEvent')
-@staticInterop
-class PaymentRequestUpdateEvent implements Event {
+extension type PaymentRequestUpdateEvent._(JSObject _)
+    implements Event, JSObject {
   external factory PaymentRequestUpdateEvent(
     String type, [
     PaymentRequestUpdateEventInit eventInitDict,
@@ -249,9 +215,7 @@ extension PaymentRequestUpdateEventExtension on PaymentRequestUpdateEvent {
   external void updateWith(JSPromise detailsPromise);
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PaymentRequestUpdateEventInit implements EventInit {
+extension type PaymentRequestUpdateEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory PaymentRequestUpdateEventInit();
 }

@@ -7,11 +7,8 @@
 import 'dart:js_interop';
 
 typedef MockCapturePromptResult = String;
-
-@JS()
-@staticInterop
-@anonymous
-class MockCapturePromptResultConfiguration {
+extension type MockCapturePromptResultConfiguration._(JSObject _)
+    implements JSObject {
   external factory MockCapturePromptResultConfiguration({
     MockCapturePromptResult getUserMedia,
     MockCapturePromptResult getDisplayMedia,
@@ -26,10 +23,8 @@ extension MockCapturePromptResultConfigurationExtension
   external MockCapturePromptResult get getDisplayMedia;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class MockCaptureDeviceConfiguration {
+extension type MockCaptureDeviceConfiguration._(JSObject _)
+    implements JSObject {
   external factory MockCaptureDeviceConfiguration({
     String label,
     String deviceId,
@@ -47,10 +42,8 @@ extension MockCaptureDeviceConfigurationExtension
   external String get groupId;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class MockCameraConfiguration implements MockCaptureDeviceConfiguration {
+extension type MockCameraConfiguration._(JSObject _)
+    implements MockCaptureDeviceConfiguration, JSObject {
   external factory MockCameraConfiguration({
     num defaultFrameRate,
     String facingMode,
@@ -64,10 +57,8 @@ extension MockCameraConfigurationExtension on MockCameraConfiguration {
   external String get facingMode;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class MockMicrophoneConfiguration implements MockCaptureDeviceConfiguration {
+extension type MockMicrophoneConfiguration._(JSObject _)
+    implements MockCaptureDeviceConfiguration, JSObject {
   external factory MockMicrophoneConfiguration({int defaultSampleRate});
 }
 

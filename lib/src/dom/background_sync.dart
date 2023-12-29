@@ -8,18 +8,14 @@ import 'dart:js_interop';
 
 import 'service_workers.dart';
 
-@JS('SyncManager')
-@staticInterop
-class SyncManager {}
+extension type SyncManager._(JSObject _) implements JSObject {}
 
 extension SyncManagerExtension on SyncManager {
   external JSPromise register(String tag);
   external JSPromise getTags();
 }
 
-@JS('SyncEvent')
-@staticInterop
-class SyncEvent implements ExtendableEvent {
+extension type SyncEvent._(JSObject _) implements ExtendableEvent, JSObject {
   external factory SyncEvent(
     String type,
     SyncEventInit init,
@@ -31,10 +27,8 @@ extension SyncEventExtension on SyncEvent {
   external bool get lastChance;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class SyncEventInit implements ExtendableEventInit {
+extension type SyncEventInit._(JSObject _)
+    implements ExtendableEventInit, JSObject {
   external factory SyncEventInit({
     required String tag,
     bool lastChance,

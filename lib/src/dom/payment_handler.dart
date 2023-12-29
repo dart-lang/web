@@ -11,10 +11,7 @@ import 'service_workers.dart';
 
 typedef PaymentDelegation = String;
 typedef PaymentShippingType = String;
-
-@JS('PaymentManager')
-@staticInterop
-class PaymentManager {}
+extension type PaymentManager._(JSObject _) implements JSObject {}
 
 extension PaymentManagerExtension on PaymentManager {
   external JSPromise enableDelegations(JSArray delegations);
@@ -22,9 +19,8 @@ extension PaymentManagerExtension on PaymentManager {
   external String get userHint;
 }
 
-@JS('CanMakePaymentEvent')
-@staticInterop
-class CanMakePaymentEvent implements ExtendableEvent {
+extension type CanMakePaymentEvent._(JSObject _)
+    implements ExtendableEvent, JSObject {
   external factory CanMakePaymentEvent(String type);
 }
 
@@ -32,10 +28,7 @@ extension CanMakePaymentEventExtension on CanMakePaymentEvent {
   external void respondWith(JSPromise canMakePaymentResponse);
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PaymentRequestDetailsUpdate {
+extension type PaymentRequestDetailsUpdate._(JSObject _) implements JSObject {
   external factory PaymentRequestDetailsUpdate({
     String error,
     PaymentCurrencyAmount total,
@@ -61,9 +54,8 @@ extension PaymentRequestDetailsUpdateExtension on PaymentRequestDetailsUpdate {
   external AddressErrors get shippingAddressErrors;
 }
 
-@JS('PaymentRequestEvent')
-@staticInterop
-class PaymentRequestEvent implements ExtendableEvent {
+extension type PaymentRequestEvent._(JSObject _)
+    implements ExtendableEvent, JSObject {
   external factory PaymentRequestEvent(
     String type, [
     PaymentRequestEventInit eventInitDict,
@@ -89,10 +81,8 @@ extension PaymentRequestEventExtension on PaymentRequestEvent {
   external JSArray? get shippingOptions;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PaymentRequestEventInit implements ExtendableEventInit {
+extension type PaymentRequestEventInit._(JSObject _)
+    implements ExtendableEventInit, JSObject {
   external factory PaymentRequestEventInit({
     String topOrigin,
     String paymentRequestOrigin,
@@ -124,10 +114,7 @@ extension PaymentRequestEventInitExtension on PaymentRequestEventInit {
   external JSArray get shippingOptions;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PaymentHandlerResponse {
+extension type PaymentHandlerResponse._(JSObject _) implements JSObject {
   external factory PaymentHandlerResponse({
     String methodName,
     JSObject details,
@@ -156,10 +143,7 @@ extension PaymentHandlerResponseExtension on PaymentHandlerResponse {
   external String? get shippingOption;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class AddressInit {
+extension type AddressInit._(JSObject _) implements JSObject {
   external factory AddressInit({
     String country,
     JSArray addressLine,
@@ -197,10 +181,7 @@ extension AddressInitExtension on AddressInit {
   external String get phone;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PaymentOptions {
+extension type PaymentOptions._(JSObject _) implements JSObject {
   external factory PaymentOptions({
     bool requestPayerName,
     bool requestBillingAddress,
@@ -226,10 +207,7 @@ extension PaymentOptionsExtension on PaymentOptions {
   external PaymentShippingType get shippingType;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PaymentShippingOption {
+extension type PaymentShippingOption._(JSObject _) implements JSObject {
   external factory PaymentShippingOption({
     required String id,
     required String label,
@@ -249,10 +227,7 @@ extension PaymentShippingOptionExtension on PaymentShippingOption {
   external bool get selected;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class AddressErrors {
+extension type AddressErrors._(JSObject _) implements JSObject {
   external factory AddressErrors({
     String addressLine,
     String city,

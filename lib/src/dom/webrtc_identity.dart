@@ -11,29 +11,22 @@ import 'html.dart';
 typedef GenerateAssertionCallback = JSFunction;
 typedef ValidateAssertionCallback = JSFunction;
 typedef RTCErrorDetailTypeIdp = String;
-
-@JS('RTCIdentityProviderGlobalScope')
-@staticInterop
-class RTCIdentityProviderGlobalScope implements WorkerGlobalScope {}
+extension type RTCIdentityProviderGlobalScope._(JSObject _)
+    implements WorkerGlobalScope, JSObject {}
 
 extension RTCIdentityProviderGlobalScopeExtension
     on RTCIdentityProviderGlobalScope {
   external RTCIdentityProviderRegistrar get rtcIdentityProvider;
 }
 
-@JS('RTCIdentityProviderRegistrar')
-@staticInterop
-class RTCIdentityProviderRegistrar {}
+extension type RTCIdentityProviderRegistrar._(JSObject _) implements JSObject {}
 
 extension RTCIdentityProviderRegistrarExtension
     on RTCIdentityProviderRegistrar {
   external void register(RTCIdentityProvider idp);
 }
 
-@JS()
-@staticInterop
-@anonymous
-class RTCIdentityProvider {
+extension type RTCIdentityProvider._(JSObject _) implements JSObject {
   external factory RTCIdentityProvider({
     required GenerateAssertionCallback generateAssertion,
     required ValidateAssertionCallback validateAssertion,
@@ -47,10 +40,7 @@ extension RTCIdentityProviderExtension on RTCIdentityProvider {
   external ValidateAssertionCallback get validateAssertion;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class RTCIdentityAssertionResult {
+extension type RTCIdentityAssertionResult._(JSObject _) implements JSObject {
   external factory RTCIdentityAssertionResult({
     required RTCIdentityProviderDetails idp,
     required String assertion,
@@ -64,10 +54,7 @@ extension RTCIdentityAssertionResultExtension on RTCIdentityAssertionResult {
   external String get assertion;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class RTCIdentityProviderDetails {
+extension type RTCIdentityProviderDetails._(JSObject _) implements JSObject {
   external factory RTCIdentityProviderDetails({
     required String domain,
     String protocol,
@@ -81,10 +68,7 @@ extension RTCIdentityProviderDetailsExtension on RTCIdentityProviderDetails {
   external String get protocol;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class RTCIdentityValidationResult {
+extension type RTCIdentityValidationResult._(JSObject _) implements JSObject {
   external factory RTCIdentityValidationResult({
     required String identity,
     required String contents,
@@ -98,10 +82,7 @@ extension RTCIdentityValidationResultExtension on RTCIdentityValidationResult {
   external String get contents;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class RTCIdentityProviderOptions {
+extension type RTCIdentityProviderOptions._(JSObject _) implements JSObject {
   external factory RTCIdentityProviderOptions({
     String protocol,
     String usernameHint,
@@ -118,9 +99,7 @@ extension RTCIdentityProviderOptionsExtension on RTCIdentityProviderOptions {
   external String get peerIdentity;
 }
 
-@JS('RTCIdentityAssertion')
-@staticInterop
-class RTCIdentityAssertion {
+extension type RTCIdentityAssertion._(JSObject _) implements JSObject {
   external factory RTCIdentityAssertion(
     String idp,
     String name,

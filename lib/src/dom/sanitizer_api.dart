@@ -9,10 +9,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 
 typedef AttributeMatchList = JSAny;
-
-@JS('Sanitizer')
-@staticInterop
-class Sanitizer {
+extension type Sanitizer._(JSObject _) implements JSObject {
   external factory Sanitizer([SanitizerConfig config]);
 
   external static SanitizerConfig getDefaultConfiguration();
@@ -27,10 +24,7 @@ extension SanitizerExtension on Sanitizer {
   external SanitizerConfig getConfiguration();
 }
 
-@JS()
-@staticInterop
-@anonymous
-class SetHTMLOptions {
+extension type SetHTMLOptions._(JSObject _) implements JSObject {
   external factory SetHTMLOptions({Sanitizer sanitizer});
 }
 
@@ -39,10 +33,7 @@ extension SetHTMLOptionsExtension on SetHTMLOptions {
   external Sanitizer get sanitizer;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class SanitizerConfig {
+extension type SanitizerConfig._(JSObject _) implements JSObject {
   external factory SanitizerConfig({
     JSArray allowElements,
     JSArray blockElements,

@@ -10,9 +10,7 @@ import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
 
-@JS('VirtualKeyboard')
-@staticInterop
-class VirtualKeyboard implements EventTarget {}
+extension type VirtualKeyboard._(JSObject _) implements EventTarget, JSObject {}
 
 extension VirtualKeyboardExtension on VirtualKeyboard {
   external void show();

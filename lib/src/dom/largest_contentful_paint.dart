@@ -10,9 +10,8 @@ import 'dom.dart';
 import 'hr_time.dart';
 import 'performance_timeline.dart';
 
-@JS('LargestContentfulPaint')
-@staticInterop
-class LargestContentfulPaint implements PerformanceEntry {}
+extension type LargestContentfulPaint._(JSObject _)
+    implements PerformanceEntry, JSObject {}
 
 extension LargestContentfulPaintExtension on LargestContentfulPaint {
   external JSObject toJSON();

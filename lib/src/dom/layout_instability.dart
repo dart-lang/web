@@ -11,9 +11,8 @@ import 'geometry.dart';
 import 'hr_time.dart';
 import 'performance_timeline.dart';
 
-@JS('LayoutShift')
-@staticInterop
-class LayoutShift implements PerformanceEntry {}
+extension type LayoutShift._(JSObject _)
+    implements PerformanceEntry, JSObject {}
 
 extension LayoutShiftExtension on LayoutShift {
   external JSObject toJSON();
@@ -23,9 +22,7 @@ extension LayoutShiftExtension on LayoutShift {
   external JSArray get sources;
 }
 
-@JS('LayoutShiftAttribution')
-@staticInterop
-class LayoutShiftAttribution {}
+extension type LayoutShiftAttribution._(JSObject _) implements JSObject {}
 
 extension LayoutShiftAttributionExtension on LayoutShiftAttribution {
   external Node? get node;

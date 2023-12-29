@@ -6,9 +6,7 @@
 
 import 'dart:js_interop';
 
-@JS('URL')
-@staticInterop
-class URL {
+extension type URL._(JSObject _) implements JSObject {
   external factory URL(
     String url, [
     String base,
@@ -48,9 +46,7 @@ extension URLExtension on URL {
   external String get hash;
 }
 
-@JS('URLSearchParams')
-@staticInterop
-class URLSearchParams {
+extension type URLSearchParams._(JSObject _) implements JSObject {
   external factory URLSearchParams([JSAny init]);
 }
 

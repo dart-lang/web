@@ -8,6 +8,5 @@ import 'dart:js_interop';
 
 import 'html.dart';
 
-@JS('HTMLModelElement')
-@staticInterop
-class HTMLModelElement implements HTMLElement {}
+extension type HTMLModelElement._(JSObject _)
+    implements HTMLElement, JSObject {}

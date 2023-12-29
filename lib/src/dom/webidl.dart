@@ -10,10 +10,7 @@ typedef ArrayBufferView = JSObject;
 typedef BufferSource = JSObject;
 typedef AllowSharedBufferSource = JSObject;
 typedef VoidFunction = JSFunction;
-
-@JS('DOMException')
-@staticInterop
-class DOMException {
+extension type DOMException._(JSObject _) implements JSObject {
   external factory DOMException([
     String message,
     String name,

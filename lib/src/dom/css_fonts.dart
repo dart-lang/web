@@ -8,17 +8,14 @@ import 'dart:js_interop';
 
 import 'cssom.dart';
 
-@JS('CSSFontFaceRule')
-@staticInterop
-class CSSFontFaceRule implements CSSRule {}
+extension type CSSFontFaceRule._(JSObject _) implements CSSRule, JSObject {}
 
 extension CSSFontFaceRuleExtension on CSSFontFaceRule {
   external CSSStyleDeclaration get style;
 }
 
-@JS('CSSFontFeatureValuesRule')
-@staticInterop
-class CSSFontFeatureValuesRule implements CSSRule {}
+extension type CSSFontFeatureValuesRule._(JSObject _)
+    implements CSSRule, JSObject {}
 
 extension CSSFontFeatureValuesRuleExtension on CSSFontFeatureValuesRule {
   external set fontFamily(String value);
@@ -31,9 +28,7 @@ extension CSSFontFeatureValuesRuleExtension on CSSFontFeatureValuesRule {
   external CSSFontFeatureValuesMap get styleset;
 }
 
-@JS('CSSFontFeatureValuesMap')
-@staticInterop
-class CSSFontFeatureValuesMap {}
+extension type CSSFontFeatureValuesMap._(JSObject _) implements JSObject {}
 
 extension CSSFontFeatureValuesMapExtension on CSSFontFeatureValuesMap {
   external void set(
@@ -42,9 +37,8 @@ extension CSSFontFeatureValuesMapExtension on CSSFontFeatureValuesMap {
   );
 }
 
-@JS('CSSFontPaletteValuesRule')
-@staticInterop
-class CSSFontPaletteValuesRule implements CSSRule {}
+extension type CSSFontPaletteValuesRule._(JSObject _)
+    implements CSSRule, JSObject {}
 
 extension CSSFontPaletteValuesRuleExtension on CSSFontPaletteValuesRule {
   external String get name;

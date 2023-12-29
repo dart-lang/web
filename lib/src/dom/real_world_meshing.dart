@@ -9,9 +9,7 @@ import 'dart:js_interop';
 import 'hr_time.dart';
 import 'webxr.dart';
 
-@JS('XRMesh')
-@staticInterop
-class XRMesh {}
+extension type XRMesh._(JSObject _) implements JSObject {}
 
 extension XRMeshExtension on XRMesh {
   external XRSpace get meshSpace;
@@ -21,8 +19,6 @@ extension XRMeshExtension on XRMesh {
   external String? get semanticLabel;
 }
 
-@JS('XRMeshSet')
-@staticInterop
-class XRMeshSet {}
+extension type XRMeshSet._(JSObject _) implements JSObject {}
 
 extension XRMeshSetExtension on XRMeshSet {}

@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'html.dart';
 
-@JS('DataCue')
-@staticInterop
-class DataCue implements TextTrackCue {
+extension type DataCue._(JSObject _) implements TextTrackCue, JSObject {
   external factory DataCue(
     num startTime,
     num endTime,

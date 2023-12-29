@@ -13,10 +13,7 @@ import 'service_workers.dart';
 
 typedef CookieList = JSArray;
 typedef CookieSameSite = String;
-
-@JS('CookieStore')
-@staticInterop
-class CookieStore implements EventTarget {}
+extension type CookieStore._(JSObject _) implements EventTarget, JSObject {}
 
 extension CookieStoreExtension on CookieStore {
   external JSPromise get([JSAny nameOrOptions]);
@@ -30,10 +27,7 @@ extension CookieStoreExtension on CookieStore {
   external EventHandler get onchange;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class CookieStoreGetOptions {
+extension type CookieStoreGetOptions._(JSObject _) implements JSObject {
   external factory CookieStoreGetOptions({
     String name,
     String url,
@@ -47,10 +41,7 @@ extension CookieStoreGetOptionsExtension on CookieStoreGetOptions {
   external String get url;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class CookieInit {
+extension type CookieInit._(JSObject _) implements JSObject {
   external factory CookieInit({
     required String name,
     required String value,
@@ -79,10 +70,7 @@ extension CookieInitExtension on CookieInit {
   external bool get partitioned;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class CookieStoreDeleteOptions {
+extension type CookieStoreDeleteOptions._(JSObject _) implements JSObject {
   external factory CookieStoreDeleteOptions({
     required String name,
     String? domain,
@@ -102,10 +90,7 @@ extension CookieStoreDeleteOptionsExtension on CookieStoreDeleteOptions {
   external bool get partitioned;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class CookieListItem {
+extension type CookieListItem._(JSObject _) implements JSObject {
   external factory CookieListItem({
     String name,
     String value,
@@ -137,9 +122,7 @@ extension CookieListItemExtension on CookieListItem {
   external bool get partitioned;
 }
 
-@JS('CookieStoreManager')
-@staticInterop
-class CookieStoreManager {}
+extension type CookieStoreManager._(JSObject _) implements JSObject {}
 
 extension CookieStoreManagerExtension on CookieStoreManager {
   external JSPromise subscribe(JSArray subscriptions);
@@ -147,9 +130,7 @@ extension CookieStoreManagerExtension on CookieStoreManager {
   external JSPromise unsubscribe(JSArray subscriptions);
 }
 
-@JS('CookieChangeEvent')
-@staticInterop
-class CookieChangeEvent implements Event {
+extension type CookieChangeEvent._(JSObject _) implements Event, JSObject {
   external factory CookieChangeEvent(
     String type, [
     CookieChangeEventInit eventInitDict,
@@ -161,10 +142,8 @@ extension CookieChangeEventExtension on CookieChangeEvent {
   external JSArray get deleted;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class CookieChangeEventInit implements EventInit {
+extension type CookieChangeEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory CookieChangeEventInit({
     CookieList changed,
     CookieList deleted,
@@ -178,9 +157,8 @@ extension CookieChangeEventInitExtension on CookieChangeEventInit {
   external CookieList get deleted;
 }
 
-@JS('ExtendableCookieChangeEvent')
-@staticInterop
-class ExtendableCookieChangeEvent implements ExtendableEvent {
+extension type ExtendableCookieChangeEvent._(JSObject _)
+    implements ExtendableEvent, JSObject {
   external factory ExtendableCookieChangeEvent(
     String type, [
     ExtendableCookieChangeEventInit eventInitDict,
@@ -192,10 +170,8 @@ extension ExtendableCookieChangeEventExtension on ExtendableCookieChangeEvent {
   external JSArray get deleted;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ExtendableCookieChangeEventInit implements ExtendableEventInit {
+extension type ExtendableCookieChangeEventInit._(JSObject _)
+    implements ExtendableEventInit, JSObject {
   external factory ExtendableCookieChangeEventInit({
     CookieList changed,
     CookieList deleted,

@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'webgl1.dart';
 
-@JS('WEBGL_debug_shaders')
-@staticInterop
-class WEBGL_debug_shaders {}
+extension type WEBGL_debug_shaders._(JSObject _) implements JSObject {}
 
 extension WEBGLDebugShadersExtension on WEBGL_debug_shaders {
   external String getTranslatedShaderSource(WebGLShader shader);

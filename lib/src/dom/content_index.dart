@@ -9,11 +9,7 @@ import 'dart:js_interop';
 import 'service_workers.dart';
 
 typedef ContentCategory = String;
-
-@JS()
-@staticInterop
-@anonymous
-class ContentDescription {
+extension type ContentDescription._(JSObject _) implements JSObject {
   external factory ContentDescription({
     required String id,
     required String title,
@@ -39,9 +35,7 @@ extension ContentDescriptionExtension on ContentDescription {
   external String get url;
 }
 
-@JS('ContentIndex')
-@staticInterop
-class ContentIndex {}
+extension type ContentIndex._(JSObject _) implements JSObject {}
 
 extension ContentIndexExtension on ContentIndex {
   external JSPromise add(ContentDescription description);
@@ -49,10 +43,8 @@ extension ContentIndexExtension on ContentIndex {
   external JSPromise getAll();
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ContentIndexEventInit implements ExtendableEventInit {
+extension type ContentIndexEventInit._(JSObject _)
+    implements ExtendableEventInit, JSObject {
   external factory ContentIndexEventInit({required String id});
 }
 
@@ -61,9 +53,8 @@ extension ContentIndexEventInitExtension on ContentIndexEventInit {
   external String get id;
 }
 
-@JS('ContentIndexEvent')
-@staticInterop
-class ContentIndexEvent implements ExtendableEvent {
+extension type ContentIndexEvent._(JSObject _)
+    implements ExtendableEvent, JSObject {
   external factory ContentIndexEvent(
     String type,
     ContentIndexEventInit init,

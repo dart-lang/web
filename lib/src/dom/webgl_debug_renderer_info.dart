@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'webgl1.dart';
 
-@JS('WEBGL_debug_renderer_info')
-@staticInterop
-class WEBGL_debug_renderer_info {
+extension type WEBGL_debug_renderer_info._(JSObject _) implements JSObject {
   external static GLenum get UNMASKED_VENDOR_WEBGL;
   external static GLenum get UNMASKED_RENDERER_WEBGL;
 }

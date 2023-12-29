@@ -11,11 +11,7 @@ import 'webxr.dart';
 
 typedef XRDepthUsage = String;
 typedef XRDepthDataFormat = String;
-
-@JS()
-@staticInterop
-@anonymous
-class XRDepthStateInit {
+extension type XRDepthStateInit._(JSObject _) implements JSObject {
   external factory XRDepthStateInit({
     required JSArray usagePreference,
     required JSArray dataFormatPreference,
@@ -29,9 +25,7 @@ extension XRDepthStateInitExtension on XRDepthStateInit {
   external JSArray get dataFormatPreference;
 }
 
-@JS('XRDepthInformation')
-@staticInterop
-class XRDepthInformation {}
+extension type XRDepthInformation._(JSObject _) implements JSObject {}
 
 extension XRDepthInformationExtension on XRDepthInformation {
   external int get width;
@@ -40,9 +34,8 @@ extension XRDepthInformationExtension on XRDepthInformation {
   external num get rawValueToMeters;
 }
 
-@JS('XRCPUDepthInformation')
-@staticInterop
-class XRCPUDepthInformation implements XRDepthInformation {}
+extension type XRCPUDepthInformation._(JSObject _)
+    implements XRDepthInformation, JSObject {}
 
 extension XRCPUDepthInformationExtension on XRCPUDepthInformation {
   external num getDepthInMeters(
@@ -52,9 +45,8 @@ extension XRCPUDepthInformationExtension on XRCPUDepthInformation {
   external JSArrayBuffer get data;
 }
 
-@JS('XRWebGLDepthInformation')
-@staticInterop
-class XRWebGLDepthInformation implements XRDepthInformation {}
+extension type XRWebGLDepthInformation._(JSObject _)
+    implements XRDepthInformation, JSObject {}
 
 extension XRWebGLDepthInformationExtension on XRWebGLDepthInformation {
   external WebGLTexture get texture;

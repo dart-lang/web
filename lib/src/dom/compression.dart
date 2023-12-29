@@ -9,10 +9,7 @@ import 'dart:js_interop';
 import 'streams.dart';
 
 typedef CompressionFormat = String;
-
-@JS('CompressionStream')
-@staticInterop
-class CompressionStream {
+extension type CompressionStream._(JSObject _) implements JSObject {
   external factory CompressionStream(CompressionFormat format);
 }
 
@@ -21,9 +18,7 @@ extension CompressionStreamExtension on CompressionStream {
   external WritableStream get writable;
 }
 
-@JS('DecompressionStream')
-@staticInterop
-class DecompressionStream {
+extension type DecompressionStream._(JSObject _) implements JSObject {
   external factory DecompressionStream(CompressionFormat format);
 }
 

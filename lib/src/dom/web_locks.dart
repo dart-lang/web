@@ -10,10 +10,7 @@ import 'dom.dart';
 
 typedef LockGrantedCallback = JSFunction;
 typedef LockMode = String;
-
-@JS('LockManager')
-@staticInterop
-class LockManager {}
+extension type LockManager._(JSObject _) implements JSObject {}
 
 extension LockManagerExtension on LockManager {
   external JSPromise request(
@@ -24,10 +21,7 @@ extension LockManagerExtension on LockManager {
   external JSPromise query();
 }
 
-@JS()
-@staticInterop
-@anonymous
-class LockOptions {
+extension type LockOptions._(JSObject _) implements JSObject {
   external factory LockOptions({
     LockMode mode,
     bool ifAvailable,
@@ -47,10 +41,7 @@ extension LockOptionsExtension on LockOptions {
   external AbortSignal get signal;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class LockManagerSnapshot {
+extension type LockManagerSnapshot._(JSObject _) implements JSObject {
   external factory LockManagerSnapshot({
     JSArray held,
     JSArray pending,
@@ -64,10 +55,7 @@ extension LockManagerSnapshotExtension on LockManagerSnapshot {
   external JSArray get pending;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class LockInfo {
+extension type LockInfo._(JSObject _) implements JSObject {
   external factory LockInfo({
     String name,
     LockMode mode,
@@ -84,9 +72,7 @@ extension LockInfoExtension on LockInfo {
   external String get clientId;
 }
 
-@JS('Lock')
-@staticInterop
-class Lock {}
+extension type Lock._(JSObject _) implements JSObject {}
 
 extension LockExtension on Lock {
   external String get name;

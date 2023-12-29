@@ -13,10 +13,7 @@ import 'web_bluetooth.dart';
 
 typedef ParityType = String;
 typedef FlowControlType = String;
-
-@JS('Serial')
-@staticInterop
-class Serial implements EventTarget {}
+extension type Serial._(JSObject _) implements EventTarget, JSObject {}
 
 extension SerialExtension on Serial {
   external JSPromise getPorts();
@@ -27,10 +24,7 @@ extension SerialExtension on Serial {
   external EventHandler get ondisconnect;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class SerialPortRequestOptions {
+extension type SerialPortRequestOptions._(JSObject _) implements JSObject {
   external factory SerialPortRequestOptions({
     JSArray filters,
     JSArray allowedBluetoothServiceClassIds,
@@ -44,10 +38,7 @@ extension SerialPortRequestOptionsExtension on SerialPortRequestOptions {
   external JSArray get allowedBluetoothServiceClassIds;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class SerialPortFilter {
+extension type SerialPortFilter._(JSObject _) implements JSObject {
   external factory SerialPortFilter({
     int usbVendorId,
     int usbProductId,
@@ -64,9 +55,7 @@ extension SerialPortFilterExtension on SerialPortFilter {
   external BluetoothServiceUUID get bluetoothServiceClassId;
 }
 
-@JS('SerialPort')
-@staticInterop
-class SerialPort implements EventTarget {}
+extension type SerialPort._(JSObject _) implements EventTarget, JSObject {}
 
 extension SerialPortExtension on SerialPort {
   external SerialPortInfo getInfo();
@@ -83,10 +72,7 @@ extension SerialPortExtension on SerialPort {
   external WritableStream get writable;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class SerialPortInfo {
+extension type SerialPortInfo._(JSObject _) implements JSObject {
   external factory SerialPortInfo({
     int usbVendorId,
     int usbProductId,
@@ -103,10 +89,7 @@ extension SerialPortInfoExtension on SerialPortInfo {
   external BluetoothServiceUUID get bluetoothServiceClassId;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class SerialOptions {
+extension type SerialOptions._(JSObject _) implements JSObject {
   external factory SerialOptions({
     required int baudRate,
     int dataBits,
@@ -132,10 +115,7 @@ extension SerialOptionsExtension on SerialOptions {
   external FlowControlType get flowControl;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class SerialOutputSignals {
+extension type SerialOutputSignals._(JSObject _) implements JSObject {
   external factory SerialOutputSignals({
     bool dataTerminalReady,
     bool requestToSend,
@@ -154,10 +134,7 @@ extension SerialOutputSignalsExtension on SerialOutputSignals {
   external bool get break_;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class SerialInputSignals {
+extension type SerialInputSignals._(JSObject _) implements JSObject {
   external factory SerialInputSignals({
     required bool dataCarrierDetect,
     required bool clearToSend,

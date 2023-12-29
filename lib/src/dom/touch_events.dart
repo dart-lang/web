@@ -10,11 +10,7 @@ import 'dom.dart';
 import 'uievents.dart';
 
 typedef TouchType = String;
-
-@JS()
-@staticInterop
-@anonymous
-class TouchInit {
+extension type TouchInit._(JSObject _) implements JSObject {
   external factory TouchInit({
     required int identifier,
     required EventTarget target,
@@ -67,9 +63,7 @@ extension TouchInitExtension on TouchInit {
   external TouchType get touchType;
 }
 
-@JS('Touch')
-@staticInterop
-class Touch {
+extension type Touch._(JSObject _) implements JSObject {
   external factory Touch(TouchInit touchInitDict);
 }
 
@@ -91,19 +85,15 @@ extension TouchExtension on Touch {
   external TouchType get touchType;
 }
 
-@JS('TouchList')
-@staticInterop
-class TouchList {}
+extension type TouchList._(JSObject _) implements JSObject {}
 
 extension TouchListExtension on TouchList {
   external Touch? item(int index);
   external int get length;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class TouchEventInit implements EventModifierInit {
+extension type TouchEventInit._(JSObject _)
+    implements EventModifierInit, JSObject {
   external factory TouchEventInit({
     JSArray touches,
     JSArray targetTouches,
@@ -120,9 +110,7 @@ extension TouchEventInitExtension on TouchEventInit {
   external JSArray get changedTouches;
 }
 
-@JS('TouchEvent')
-@staticInterop
-class TouchEvent implements UIEvent {
+extension type TouchEvent._(JSObject _) implements UIEvent, JSObject {
   external factory TouchEvent(
     String type, [
     TouchEventInit eventInitDict,

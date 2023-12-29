@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'webgl1.dart';
 
-@JS('EXT_texture_norm16')
-@staticInterop
-class EXT_texture_norm16 {
+extension type EXT_texture_norm16._(JSObject _) implements JSObject {
   external static GLenum get R16_EXT;
   external static GLenum get RG16_EXT;
   external static GLenum get RGB16_EXT;

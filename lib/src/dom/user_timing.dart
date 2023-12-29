@@ -9,10 +9,7 @@ import 'dart:js_interop';
 import 'hr_time.dart';
 import 'performance_timeline.dart';
 
-@JS()
-@staticInterop
-@anonymous
-class PerformanceMarkOptions {
+extension type PerformanceMarkOptions._(JSObject _) implements JSObject {
   external factory PerformanceMarkOptions({
     JSAny? detail,
     DOMHighResTimeStamp startTime,
@@ -26,10 +23,7 @@ extension PerformanceMarkOptionsExtension on PerformanceMarkOptions {
   external DOMHighResTimeStamp get startTime;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PerformanceMeasureOptions {
+extension type PerformanceMeasureOptions._(JSObject _) implements JSObject {
   external factory PerformanceMeasureOptions({
     JSAny? detail,
     JSAny start,
@@ -49,9 +43,8 @@ extension PerformanceMeasureOptionsExtension on PerformanceMeasureOptions {
   external JSAny get end;
 }
 
-@JS('PerformanceMark')
-@staticInterop
-class PerformanceMark implements PerformanceEntry {
+extension type PerformanceMark._(JSObject _)
+    implements PerformanceEntry, JSObject {
   external factory PerformanceMark(
     String markName, [
     PerformanceMarkOptions markOptions,
@@ -62,9 +55,8 @@ extension PerformanceMarkExtension on PerformanceMark {
   external JSAny? get detail;
 }
 
-@JS('PerformanceMeasure')
-@staticInterop
-class PerformanceMeasure implements PerformanceEntry {}
+extension type PerformanceMeasure._(JSObject _)
+    implements PerformanceEntry, JSObject {}
 
 extension PerformanceMeasureExtension on PerformanceMeasure {
   external JSAny? get detail;

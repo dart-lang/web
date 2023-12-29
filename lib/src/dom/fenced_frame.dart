@@ -14,10 +14,8 @@ typedef UrnOrConfig = JSAny;
 typedef ReportEventType = JSAny;
 typedef OpaqueProperty = String;
 typedef FenceReportingDestination = String;
-
-@JS('HTMLFencedFrameElement')
-@staticInterop
-class HTMLFencedFrameElement implements HTMLElement {
+extension type HTMLFencedFrameElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLFencedFrameElement();
 }
 
@@ -32,9 +30,7 @@ extension HTMLFencedFrameElementExtension on HTMLFencedFrameElement {
   external String get allow;
 }
 
-@JS('FencedFrameConfig')
-@staticInterop
-class FencedFrameConfig {}
+extension type FencedFrameConfig._(JSObject _) implements JSObject {}
 
 extension FencedFrameConfigExtension on FencedFrameConfig {
   external void setSharedStorageContext(String contextString);
@@ -44,10 +40,7 @@ extension FencedFrameConfigExtension on FencedFrameConfig {
   external FencedFrameConfigSize? get contentHeight;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class FenceEvent {
+extension type FenceEvent._(JSObject _) implements JSObject {
   external factory FenceEvent({
     String eventType,
     String eventData,
@@ -70,9 +63,7 @@ extension FenceEventExtension on FenceEvent {
   external String get destinationURL;
 }
 
-@JS('Fence')
-@staticInterop
-class Fence {}
+extension type Fence._(JSObject _) implements JSObject {}
 
 extension FenceExtension on Fence {
   external void reportEvent([ReportEventType event]);

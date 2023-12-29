@@ -6,6 +6,4 @@
 
 import 'dart:js_interop';
 
-@JS('OES_element_index_uint')
-@staticInterop
-class OES_element_index_uint {}
+extension type OES_element_index_uint._(JSObject _) implements JSObject {}

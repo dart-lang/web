@@ -11,11 +11,7 @@ import 'geometry.dart';
 
 typedef ResizeObserverCallback = JSFunction;
 typedef ResizeObserverBoxOptions = String;
-
-@JS()
-@staticInterop
-@anonymous
-class ResizeObserverOptions {
+extension type ResizeObserverOptions._(JSObject _) implements JSObject {
   external factory ResizeObserverOptions({ResizeObserverBoxOptions box});
 }
 
@@ -24,9 +20,7 @@ extension ResizeObserverOptionsExtension on ResizeObserverOptions {
   external ResizeObserverBoxOptions get box;
 }
 
-@JS('ResizeObserver')
-@staticInterop
-class ResizeObserver {
+extension type ResizeObserver._(JSObject _) implements JSObject {
   external factory ResizeObserver(ResizeObserverCallback callback);
 }
 
@@ -39,9 +33,7 @@ extension ResizeObserverExtension on ResizeObserver {
   external void disconnect();
 }
 
-@JS('ResizeObserverEntry')
-@staticInterop
-class ResizeObserverEntry {}
+extension type ResizeObserverEntry._(JSObject _) implements JSObject {}
 
 extension ResizeObserverEntryExtension on ResizeObserverEntry {
   external Element get target;
@@ -51,9 +43,7 @@ extension ResizeObserverEntryExtension on ResizeObserverEntry {
   external JSArray get devicePixelContentBoxSize;
 }
 
-@JS('ResizeObserverSize')
-@staticInterop
-class ResizeObserverSize {}
+extension type ResizeObserverSize._(JSObject _) implements JSObject {}
 
 extension ResizeObserverSizeExtension on ResizeObserverSize {
   external num get inlineSize;

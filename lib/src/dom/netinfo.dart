@@ -13,10 +13,8 @@ typedef Megabit = num;
 typedef Millisecond = int;
 typedef ConnectionType = String;
 typedef EffectiveConnectionType = String;
-
-@JS('NetworkInformation')
-@staticInterop
-class NetworkInformation implements EventTarget {}
+extension type NetworkInformation._(JSObject _)
+    implements EventTarget, JSObject {}
 
 extension NetworkInformationExtension on NetworkInformation {
   external ConnectionType get type;

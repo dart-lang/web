@@ -12,10 +12,7 @@ typedef ConstrainPoint2D = JSObject;
 typedef RedEyeReduction = String;
 typedef FillLightMode = String;
 typedef MeteringMode = String;
-
-@JS('ImageCapture')
-@staticInterop
-class ImageCapture {
+extension type ImageCapture._(JSObject _) implements JSObject {
   external factory ImageCapture(MediaStreamTrack videoTrack);
 }
 
@@ -27,10 +24,7 @@ extension ImageCaptureExtension on ImageCapture {
   external MediaStreamTrack get track;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PhotoCapabilities {
+extension type PhotoCapabilities._(JSObject _) implements JSObject {
   external factory PhotoCapabilities({
     RedEyeReduction redEyeReduction,
     MediaSettingsRange imageHeight,
@@ -50,10 +44,7 @@ extension PhotoCapabilitiesExtension on PhotoCapabilities {
   external JSArray get fillLightMode;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PhotoSettings {
+extension type PhotoSettings._(JSObject _) implements JSObject {
   external factory PhotoSettings({
     FillLightMode fillLightMode,
     num imageHeight,
@@ -73,10 +64,7 @@ extension PhotoSettingsExtension on PhotoSettings {
   external bool get redEyeReduction;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class MediaSettingsRange {
+extension type MediaSettingsRange._(JSObject _) implements JSObject {
   external factory MediaSettingsRange({
     num max,
     num min,
@@ -93,10 +81,7 @@ extension MediaSettingsRangeExtension on MediaSettingsRange {
   external num get step;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ConstrainPoint2DParameters {
+extension type ConstrainPoint2DParameters._(JSObject _) implements JSObject {
   external factory ConstrainPoint2DParameters({
     JSArray exact,
     JSArray ideal,
@@ -110,10 +95,7 @@ extension ConstrainPoint2DParametersExtension on ConstrainPoint2DParameters {
   external JSArray get ideal;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class Point2D {
+extension type Point2D._(JSObject _) implements JSObject {
   external factory Point2D({
     num x,
     num y,

@@ -15,11 +15,7 @@ typedef GeometryNode = JSObject;
 typedef ScrollBehavior = String;
 typedef ScrollLogicalPosition = String;
 typedef CSSBoxType = String;
-
-@JS()
-@staticInterop
-@anonymous
-class ScrollOptions {
+extension type ScrollOptions._(JSObject _) implements JSObject {
   external factory ScrollOptions({ScrollBehavior behavior});
 }
 
@@ -28,10 +24,8 @@ extension ScrollOptionsExtension on ScrollOptions {
   external ScrollBehavior get behavior;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ScrollToOptions implements ScrollOptions {
+extension type ScrollToOptions._(JSObject _)
+    implements ScrollOptions, JSObject {
   external factory ScrollToOptions({
     num left,
     num top,
@@ -45,9 +39,7 @@ extension ScrollToOptionsExtension on ScrollToOptions {
   external num get top;
 }
 
-@JS('MediaQueryList')
-@staticInterop
-class MediaQueryList implements EventTarget {}
+extension type MediaQueryList._(JSObject _) implements EventTarget, JSObject {}
 
 extension MediaQueryListExtension on MediaQueryList {
   external void addListener(EventListener? callback);
@@ -58,9 +50,7 @@ extension MediaQueryListExtension on MediaQueryList {
   external EventHandler get onchange;
 }
 
-@JS('MediaQueryListEvent')
-@staticInterop
-class MediaQueryListEvent implements Event {
+extension type MediaQueryListEvent._(JSObject _) implements Event, JSObject {
   external factory MediaQueryListEvent(
     String type, [
     MediaQueryListEventInit eventInitDict,
@@ -72,10 +62,8 @@ extension MediaQueryListEventExtension on MediaQueryListEvent {
   external bool get matches;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class MediaQueryListEventInit implements EventInit {
+extension type MediaQueryListEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory MediaQueryListEventInit({
     String media,
     bool matches,
@@ -89,9 +77,7 @@ extension MediaQueryListEventInitExtension on MediaQueryListEventInit {
   external bool get matches;
 }
 
-@JS('Screen')
-@staticInterop
-class Screen {}
+extension type Screen._(JSObject _) implements JSObject {}
 
 extension ScreenExtension on Screen {
   external int get availWidth;
@@ -106,9 +92,7 @@ extension ScreenExtension on Screen {
   external EventHandler get onchange;
 }
 
-@JS('CaretPosition')
-@staticInterop
-class CaretPosition {}
+extension type CaretPosition._(JSObject _) implements JSObject {}
 
 extension CaretPositionExtension on CaretPosition {
   external DOMRect? getClientRect();
@@ -116,10 +100,8 @@ extension CaretPositionExtension on CaretPosition {
   external int get offset;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ScrollIntoViewOptions implements ScrollOptions {
+extension type ScrollIntoViewOptions._(JSObject _)
+    implements ScrollOptions, JSObject {
   external factory ScrollIntoViewOptions({
     ScrollLogicalPosition block,
     ScrollLogicalPosition inline,
@@ -133,10 +115,7 @@ extension ScrollIntoViewOptionsExtension on ScrollIntoViewOptions {
   external ScrollLogicalPosition get inline;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class CheckVisibilityOptions {
+extension type CheckVisibilityOptions._(JSObject _) implements JSObject {
   external factory CheckVisibilityOptions({
     bool checkOpacity,
     bool checkVisibilityCSS,
@@ -150,10 +129,7 @@ extension CheckVisibilityOptionsExtension on CheckVisibilityOptions {
   external bool get checkVisibilityCSS;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class BoxQuadOptions {
+extension type BoxQuadOptions._(JSObject _) implements JSObject {
   external factory BoxQuadOptions({
     CSSBoxType box,
     GeometryNode relativeTo,
@@ -167,10 +143,7 @@ extension BoxQuadOptionsExtension on BoxQuadOptions {
   external GeometryNode get relativeTo;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ConvertCoordinateOptions {
+extension type ConvertCoordinateOptions._(JSObject _) implements JSObject {
   external factory ConvertCoordinateOptions({
     CSSBoxType fromBox,
     CSSBoxType toBox,
@@ -184,9 +157,7 @@ extension ConvertCoordinateOptionsExtension on ConvertCoordinateOptions {
   external CSSBoxType get toBox;
 }
 
-@JS('VisualViewport')
-@staticInterop
-class VisualViewport implements EventTarget {}
+extension type VisualViewport._(JSObject _) implements EventTarget, JSObject {}
 
 extension VisualViewportExtension on VisualViewport {
   external num get offsetLeft;

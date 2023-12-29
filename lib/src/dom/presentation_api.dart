@@ -12,10 +12,7 @@ import 'websockets.dart';
 
 typedef PresentationConnectionState = String;
 typedef PresentationConnectionCloseReason = String;
-
-@JS('Presentation')
-@staticInterop
-class Presentation {}
+extension type Presentation._(JSObject _) implements JSObject {}
 
 extension PresentationExtension on Presentation {
   external set defaultRequest(PresentationRequest? value);
@@ -23,9 +20,8 @@ extension PresentationExtension on Presentation {
   external PresentationReceiver? get receiver;
 }
 
-@JS('PresentationRequest')
-@staticInterop
-class PresentationRequest implements EventTarget {
+extension type PresentationRequest._(JSObject _)
+    implements EventTarget, JSObject {
   external factory PresentationRequest(JSAny urlOrUrls);
 }
 
@@ -37,9 +33,8 @@ extension PresentationRequestExtension on PresentationRequest {
   external EventHandler get onconnectionavailable;
 }
 
-@JS('PresentationAvailability')
-@staticInterop
-class PresentationAvailability implements EventTarget {}
+extension type PresentationAvailability._(JSObject _)
+    implements EventTarget, JSObject {}
 
 extension PresentationAvailabilityExtension on PresentationAvailability {
   external bool get value;
@@ -47,9 +42,8 @@ extension PresentationAvailabilityExtension on PresentationAvailability {
   external EventHandler get onchange;
 }
 
-@JS('PresentationConnectionAvailableEvent')
-@staticInterop
-class PresentationConnectionAvailableEvent implements Event {
+extension type PresentationConnectionAvailableEvent._(JSObject _)
+    implements Event, JSObject {
   external factory PresentationConnectionAvailableEvent(
     String type,
     PresentationConnectionAvailableEventInit eventInitDict,
@@ -61,10 +55,8 @@ extension PresentationConnectionAvailableEventExtension
   external PresentationConnection get connection;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PresentationConnectionAvailableEventInit implements EventInit {
+extension type PresentationConnectionAvailableEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory PresentationConnectionAvailableEventInit(
       {required PresentationConnection connection});
 }
@@ -75,9 +67,8 @@ extension PresentationConnectionAvailableEventInitExtension
   external PresentationConnection get connection;
 }
 
-@JS('PresentationConnection')
-@staticInterop
-class PresentationConnection implements EventTarget {}
+extension type PresentationConnection._(JSObject _)
+    implements EventTarget, JSObject {}
 
 extension PresentationConnectionExtension on PresentationConnection {
   external void close();
@@ -98,9 +89,8 @@ extension PresentationConnectionExtension on PresentationConnection {
   external EventHandler get onmessage;
 }
 
-@JS('PresentationConnectionCloseEvent')
-@staticInterop
-class PresentationConnectionCloseEvent implements Event {
+extension type PresentationConnectionCloseEvent._(JSObject _)
+    implements Event, JSObject {
   external factory PresentationConnectionCloseEvent(
     String type,
     PresentationConnectionCloseEventInit eventInitDict,
@@ -113,10 +103,8 @@ extension PresentationConnectionCloseEventExtension
   external String get message;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PresentationConnectionCloseEventInit implements EventInit {
+extension type PresentationConnectionCloseEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory PresentationConnectionCloseEventInit({
     required PresentationConnectionCloseReason reason,
     String message,
@@ -131,17 +119,14 @@ extension PresentationConnectionCloseEventInitExtension
   external String get message;
 }
 
-@JS('PresentationReceiver')
-@staticInterop
-class PresentationReceiver {}
+extension type PresentationReceiver._(JSObject _) implements JSObject {}
 
 extension PresentationReceiverExtension on PresentationReceiver {
   external JSPromise get connectionList;
 }
 
-@JS('PresentationConnectionList')
-@staticInterop
-class PresentationConnectionList implements EventTarget {}
+extension type PresentationConnectionList._(JSObject _)
+    implements EventTarget, JSObject {}
 
 extension PresentationConnectionListExtension on PresentationConnectionList {
   external JSArray get connections;

@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'web_animations.dart';
 
-@JS('CSSAnimation')
-@staticInterop
-class CSSAnimation implements Animation {}
+extension type CSSAnimation._(JSObject _) implements Animation, JSObject {}
 
 extension CSSAnimationExtension on CSSAnimation {
   external String get animationName;

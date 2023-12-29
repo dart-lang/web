@@ -11,9 +11,7 @@ import 'cssom.dart';
 import 'dom.dart';
 import 'html.dart';
 
-@JS('MathMLElement')
-@staticInterop
-class MathMLElement implements Element {}
+extension type MathMLElement._(JSObject _) implements Element, JSObject {}
 
 extension MathMLElementExtension on MathMLElement {
   external void focus([FocusOptions options]);

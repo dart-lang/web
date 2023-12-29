@@ -9,19 +9,15 @@ import 'dart:js_interop';
 import 'credential_management.dart';
 
 typedef IdentityCredentialRequestOptionsContext = String;
-
-@JS('IdentityCredential')
-@staticInterop
-class IdentityCredential implements Credential {}
+extension type IdentityCredential._(JSObject _)
+    implements Credential, JSObject {}
 
 extension IdentityCredentialExtension on IdentityCredential {
   external String? get token;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class IdentityCredentialRequestOptions {
+extension type IdentityCredentialRequestOptions._(JSObject _)
+    implements JSObject {
   external factory IdentityCredentialRequestOptions({
     required JSArray providers,
     IdentityCredentialRequestOptionsContext context,
@@ -36,10 +32,7 @@ extension IdentityCredentialRequestOptionsExtension
   external IdentityCredentialRequestOptionsContext get context;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class IdentityProviderConfig {
+extension type IdentityProviderConfig._(JSObject _) implements JSObject {
   external factory IdentityProviderConfig({
     required String configURL,
     required String clientId,
@@ -59,10 +52,7 @@ extension IdentityProviderConfigExtension on IdentityProviderConfig {
   external String get loginHint;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class IdentityProviderWellKnown {
+extension type IdentityProviderWellKnown._(JSObject _) implements JSObject {
   external factory IdentityProviderWellKnown({required JSArray provider_urls});
 }
 
@@ -71,10 +61,7 @@ extension IdentityProviderWellKnownExtension on IdentityProviderWellKnown {
   external JSArray get provider_urls;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class IdentityProviderIcon {
+extension type IdentityProviderIcon._(JSObject _) implements JSObject {
   external factory IdentityProviderIcon({
     required String url,
     int size,
@@ -88,10 +75,7 @@ extension IdentityProviderIconExtension on IdentityProviderIcon {
   external int get size;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class IdentityProviderBranding {
+extension type IdentityProviderBranding._(JSObject _) implements JSObject {
   external factory IdentityProviderBranding({
     String background_color,
     String color,
@@ -111,10 +95,7 @@ extension IdentityProviderBrandingExtension on IdentityProviderBranding {
   external String get name;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class IdentityProviderAPIConfig {
+extension type IdentityProviderAPIConfig._(JSObject _) implements JSObject {
   external factory IdentityProviderAPIConfig({
     required String accounts_endpoint,
     required String client_metadata_endpoint,
@@ -134,10 +115,7 @@ extension IdentityProviderAPIConfigExtension on IdentityProviderAPIConfig {
   external IdentityProviderBranding get branding;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class IdentityProviderAccount {
+extension type IdentityProviderAccount._(JSObject _) implements JSObject {
   external factory IdentityProviderAccount({
     required String id,
     required String name,
@@ -166,10 +144,7 @@ extension IdentityProviderAccountExtension on IdentityProviderAccount {
   external JSArray get login_hints;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class IdentityProviderAccountList {
+extension type IdentityProviderAccountList._(JSObject _) implements JSObject {
   external factory IdentityProviderAccountList({JSArray accounts});
 }
 
@@ -178,10 +153,7 @@ extension IdentityProviderAccountListExtension on IdentityProviderAccountList {
   external JSArray get accounts;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class IdentityProviderToken {
+extension type IdentityProviderToken._(JSObject _) implements JSObject {
   external factory IdentityProviderToken({required String token});
 }
 
@@ -190,10 +162,8 @@ extension IdentityProviderTokenExtension on IdentityProviderToken {
   external String get token;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class IdentityProviderClientMetadata {
+extension type IdentityProviderClientMetadata._(JSObject _)
+    implements JSObject {
   external factory IdentityProviderClientMetadata({
     String privacy_policy_url,
     String terms_of_service_url,
@@ -208,10 +178,7 @@ extension IdentityProviderClientMetadataExtension
   external String get terms_of_service_url;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class IdentityUserInfo {
+extension type IdentityUserInfo._(JSObject _) implements JSObject {
   external factory IdentityUserInfo({
     String email,
     String name,
@@ -231,8 +198,6 @@ extension IdentityUserInfoExtension on IdentityUserInfo {
   external String get picture;
 }
 
-@JS('IdentityProvider')
-@staticInterop
-class IdentityProvider {
+extension type IdentityProvider._(JSObject _) implements JSObject {
   external static JSPromise getUserInfo(IdentityProviderConfig config);
 }

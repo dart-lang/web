@@ -9,9 +9,8 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
-@JS('DocumentPictureInPicture')
-@staticInterop
-class DocumentPictureInPicture implements EventTarget {}
+extension type DocumentPictureInPicture._(JSObject _)
+    implements EventTarget, JSObject {}
 
 extension DocumentPictureInPictureExtension on DocumentPictureInPicture {
   external JSPromise requestWindow([DocumentPictureInPictureOptions options]);
@@ -20,10 +19,8 @@ extension DocumentPictureInPictureExtension on DocumentPictureInPicture {
   external EventHandler get onenter;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class DocumentPictureInPictureOptions {
+extension type DocumentPictureInPictureOptions._(JSObject _)
+    implements JSObject {
   external factory DocumentPictureInPictureOptions({
     int width,
     int height,
@@ -38,9 +35,8 @@ extension DocumentPictureInPictureOptionsExtension
   external int get height;
 }
 
-@JS('DocumentPictureInPictureEvent')
-@staticInterop
-class DocumentPictureInPictureEvent implements Event {
+extension type DocumentPictureInPictureEvent._(JSObject _)
+    implements Event, JSObject {
   external factory DocumentPictureInPictureEvent(
     String type,
     DocumentPictureInPictureEventInit eventInitDict,
@@ -52,10 +48,8 @@ extension DocumentPictureInPictureEventExtension
   external Window get window;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class DocumentPictureInPictureEventInit implements EventInit {
+extension type DocumentPictureInPictureEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory DocumentPictureInPictureEventInit({required Window window});
 }
 

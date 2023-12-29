@@ -10,10 +10,7 @@ import 'dom.dart';
 import 'hr_time.dart';
 
 typedef ProfilerResource = String;
-
-@JS('Profiler')
-@staticInterop
-class Profiler implements EventTarget {
+extension type Profiler._(JSObject _) implements EventTarget, JSObject {
   external factory Profiler(ProfilerInitOptions options);
 }
 
@@ -23,10 +20,7 @@ extension ProfilerExtension on Profiler {
   external bool get stopped;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ProfilerTrace {
+extension type ProfilerTrace._(JSObject _) implements JSObject {
   external factory ProfilerTrace({
     required JSArray resources,
     required JSArray frames,
@@ -46,10 +40,7 @@ extension ProfilerTraceExtension on ProfilerTrace {
   external JSArray get samples;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ProfilerSample {
+extension type ProfilerSample._(JSObject _) implements JSObject {
   external factory ProfilerSample({
     required DOMHighResTimeStamp timestamp,
     int stackId,
@@ -63,10 +54,7 @@ extension ProfilerSampleExtension on ProfilerSample {
   external int get stackId;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ProfilerStack {
+extension type ProfilerStack._(JSObject _) implements JSObject {
   external factory ProfilerStack({
     int parentId,
     required int frameId,
@@ -80,10 +68,7 @@ extension ProfilerStackExtension on ProfilerStack {
   external int get frameId;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ProfilerFrame {
+extension type ProfilerFrame._(JSObject _) implements JSObject {
   external factory ProfilerFrame({
     required String name,
     int resourceId,
@@ -103,10 +88,7 @@ extension ProfilerFrameExtension on ProfilerFrame {
   external int get column;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ProfilerInitOptions {
+extension type ProfilerInitOptions._(JSObject _) implements JSObject {
   external factory ProfilerInitOptions({
     required DOMHighResTimeStamp sampleInterval,
     required int maxBufferSize,

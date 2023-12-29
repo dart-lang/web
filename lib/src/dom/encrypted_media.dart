@@ -15,11 +15,7 @@ typedef MediaKeySessionType = String;
 typedef MediaKeySessionClosedReason = String;
 typedef MediaKeyStatus = String;
 typedef MediaKeyMessageType = String;
-
-@JS()
-@staticInterop
-@anonymous
-class MediaKeySystemConfiguration {
+extension type MediaKeySystemConfiguration._(JSObject _) implements JSObject {
   external factory MediaKeySystemConfiguration({
     String label,
     JSArray initDataTypes,
@@ -48,10 +44,7 @@ extension MediaKeySystemConfigurationExtension on MediaKeySystemConfiguration {
   external JSArray get sessionTypes;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class MediaKeySystemMediaCapability {
+extension type MediaKeySystemMediaCapability._(JSObject _) implements JSObject {
   external factory MediaKeySystemMediaCapability({
     String contentType,
     String? encryptionScheme,
@@ -69,9 +62,7 @@ extension MediaKeySystemMediaCapabilityExtension
   external String get robustness;
 }
 
-@JS('MediaKeySystemAccess')
-@staticInterop
-class MediaKeySystemAccess {}
+extension type MediaKeySystemAccess._(JSObject _) implements JSObject {}
 
 extension MediaKeySystemAccessExtension on MediaKeySystemAccess {
   external MediaKeySystemConfiguration getConfiguration();
@@ -79,18 +70,14 @@ extension MediaKeySystemAccessExtension on MediaKeySystemAccess {
   external String get keySystem;
 }
 
-@JS('MediaKeys')
-@staticInterop
-class MediaKeys {}
+extension type MediaKeys._(JSObject _) implements JSObject {}
 
 extension MediaKeysExtension on MediaKeys {
   external MediaKeySession createSession([MediaKeySessionType sessionType]);
   external JSPromise setServerCertificate(BufferSource serverCertificate);
 }
 
-@JS('MediaKeySession')
-@staticInterop
-class MediaKeySession implements EventTarget {}
+extension type MediaKeySession._(JSObject _) implements EventTarget, JSObject {}
 
 extension MediaKeySessionExtension on MediaKeySession {
   external JSPromise generateRequest(
@@ -111,9 +98,7 @@ extension MediaKeySessionExtension on MediaKeySession {
   external EventHandler get onmessage;
 }
 
-@JS('MediaKeyStatusMap')
-@staticInterop
-class MediaKeyStatusMap {}
+extension type MediaKeyStatusMap._(JSObject _) implements JSObject {}
 
 extension MediaKeyStatusMapExtension on MediaKeyStatusMap {
   external bool has(BufferSource keyId);
@@ -121,9 +106,7 @@ extension MediaKeyStatusMapExtension on MediaKeyStatusMap {
   external int get size;
 }
 
-@JS('MediaKeyMessageEvent')
-@staticInterop
-class MediaKeyMessageEvent implements Event {
+extension type MediaKeyMessageEvent._(JSObject _) implements Event, JSObject {
   external factory MediaKeyMessageEvent(
     String type,
     MediaKeyMessageEventInit eventInitDict,
@@ -135,10 +118,8 @@ extension MediaKeyMessageEventExtension on MediaKeyMessageEvent {
   external JSArrayBuffer get message;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class MediaKeyMessageEventInit implements EventInit {
+extension type MediaKeyMessageEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory MediaKeyMessageEventInit({
     required MediaKeyMessageType messageType,
     required JSArrayBuffer message,
@@ -152,9 +133,7 @@ extension MediaKeyMessageEventInitExtension on MediaKeyMessageEventInit {
   external JSArrayBuffer get message;
 }
 
-@JS('MediaEncryptedEvent')
-@staticInterop
-class MediaEncryptedEvent implements Event {
+extension type MediaEncryptedEvent._(JSObject _) implements Event, JSObject {
   external factory MediaEncryptedEvent(
     String type, [
     MediaEncryptedEventInit eventInitDict,
@@ -166,10 +145,8 @@ extension MediaEncryptedEventExtension on MediaEncryptedEvent {
   external JSArrayBuffer? get initData;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class MediaEncryptedEventInit implements EventInit {
+extension type MediaEncryptedEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory MediaEncryptedEventInit({
     String initDataType,
     JSArrayBuffer? initData,

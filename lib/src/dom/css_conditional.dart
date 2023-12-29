@@ -8,22 +8,19 @@ import 'dart:js_interop';
 
 import 'cssom.dart';
 
-@JS('CSSConditionRule')
-@staticInterop
-class CSSConditionRule implements CSSGroupingRule {}
+extension type CSSConditionRule._(JSObject _)
+    implements CSSGroupingRule, JSObject {}
 
 extension CSSConditionRuleExtension on CSSConditionRule {
   external String get conditionText;
 }
 
-@JS('CSSMediaRule')
-@staticInterop
-class CSSMediaRule implements CSSConditionRule {}
+extension type CSSMediaRule._(JSObject _)
+    implements CSSConditionRule, JSObject {}
 
 extension CSSMediaRuleExtension on CSSMediaRule {
   external MediaList get media;
 }
 
-@JS('CSSSupportsRule')
-@staticInterop
-class CSSSupportsRule implements CSSConditionRule {}
+extension type CSSSupportsRule._(JSObject _)
+    implements CSSConditionRule, JSObject {}

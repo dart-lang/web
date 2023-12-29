@@ -12,11 +12,8 @@ import 'permissions.dart';
 typedef StartInDirectory = JSAny;
 typedef FileSystemPermissionMode = String;
 typedef WellKnownDirectory = String;
-
-@JS()
-@staticInterop
-@anonymous
-class FileSystemPermissionDescriptor implements PermissionDescriptor {
+extension type FileSystemPermissionDescriptor._(JSObject _)
+    implements PermissionDescriptor, JSObject {
   external factory FileSystemPermissionDescriptor({
     required FileSystemHandle handle,
     FileSystemPermissionMode mode,
@@ -31,10 +28,8 @@ extension FileSystemPermissionDescriptorExtension
   external FileSystemPermissionMode get mode;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class FileSystemHandlePermissionDescriptor {
+extension type FileSystemHandlePermissionDescriptor._(JSObject _)
+    implements JSObject {
   external factory FileSystemHandlePermissionDescriptor(
       {FileSystemPermissionMode mode});
 }
@@ -45,10 +40,7 @@ extension FileSystemHandlePermissionDescriptorExtension
   external FileSystemPermissionMode get mode;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class FilePickerAcceptType {
+extension type FilePickerAcceptType._(JSObject _) implements JSObject {
   external factory FilePickerAcceptType({
     String description,
     JSAny accept,
@@ -62,10 +54,7 @@ extension FilePickerAcceptTypeExtension on FilePickerAcceptType {
   external JSAny get accept;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class FilePickerOptions {
+extension type FilePickerOptions._(JSObject _) implements JSObject {
   external factory FilePickerOptions({
     JSArray types,
     bool excludeAcceptAllOption,
@@ -85,10 +74,8 @@ extension FilePickerOptionsExtension on FilePickerOptions {
   external StartInDirectory get startIn;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class OpenFilePickerOptions implements FilePickerOptions {
+extension type OpenFilePickerOptions._(JSObject _)
+    implements FilePickerOptions, JSObject {
   external factory OpenFilePickerOptions({bool multiple});
 }
 
@@ -97,10 +84,8 @@ extension OpenFilePickerOptionsExtension on OpenFilePickerOptions {
   external bool get multiple;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class SaveFilePickerOptions implements FilePickerOptions {
+extension type SaveFilePickerOptions._(JSObject _)
+    implements FilePickerOptions, JSObject {
   external factory SaveFilePickerOptions({String? suggestedName});
 }
 
@@ -109,10 +94,7 @@ extension SaveFilePickerOptionsExtension on SaveFilePickerOptions {
   external String? get suggestedName;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class DirectoryPickerOptions {
+extension type DirectoryPickerOptions._(JSObject _) implements JSObject {
   external factory DirectoryPickerOptions({
     String id,
     StartInDirectory startIn,

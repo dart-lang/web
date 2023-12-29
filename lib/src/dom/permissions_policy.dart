@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'reporting.dart';
 
-@JS('PermissionsPolicy')
-@staticInterop
-class PermissionsPolicy {}
+extension type PermissionsPolicy._(JSObject _) implements JSObject {}
 
 extension PermissionsPolicyExtension on PermissionsPolicy {
   external bool allowsFeature(
@@ -22,9 +20,8 @@ extension PermissionsPolicyExtension on PermissionsPolicy {
   external JSArray getAllowlistForFeature(String feature);
 }
 
-@JS('PermissionsPolicyViolationReportBody')
-@staticInterop
-class PermissionsPolicyViolationReportBody implements ReportBody {}
+extension type PermissionsPolicyViolationReportBody._(JSObject _)
+    implements ReportBody, JSObject {}
 
 extension PermissionsPolicyViolationReportBodyExtension
     on PermissionsPolicyViolationReportBody {

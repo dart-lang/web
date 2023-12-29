@@ -10,10 +10,7 @@ import 'hr_time.dart';
 
 typedef PerformanceEntryList = JSArray;
 typedef PerformanceObserverCallback = JSFunction;
-
-@JS('PerformanceEntry')
-@staticInterop
-class PerformanceEntry {}
+extension type PerformanceEntry._(JSObject _) implements JSObject {}
 
 extension PerformanceEntryExtension on PerformanceEntry {
   external JSObject toJSON();
@@ -23,9 +20,7 @@ extension PerformanceEntryExtension on PerformanceEntry {
   external DOMHighResTimeStamp get duration;
 }
 
-@JS('PerformanceObserver')
-@staticInterop
-class PerformanceObserver {
+extension type PerformanceObserver._(JSObject _) implements JSObject {
   external factory PerformanceObserver(PerformanceObserverCallback callback);
 
   external static JSArray get supportedEntryTypes;
@@ -37,10 +32,8 @@ extension PerformanceObserverExtension on PerformanceObserver {
   external PerformanceEntryList takeRecords();
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PerformanceObserverCallbackOptions {
+extension type PerformanceObserverCallbackOptions._(JSObject _)
+    implements JSObject {
   external factory PerformanceObserverCallbackOptions(
       {int droppedEntriesCount});
 }
@@ -51,10 +44,7 @@ extension PerformanceObserverCallbackOptionsExtension
   external int get droppedEntriesCount;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PerformanceObserverInit {
+extension type PerformanceObserverInit._(JSObject _) implements JSObject {
   external factory PerformanceObserverInit({
     DOMHighResTimeStamp durationThreshold,
     JSArray entryTypes,
@@ -74,9 +64,7 @@ extension PerformanceObserverInitExtension on PerformanceObserverInit {
   external bool get buffered;
 }
 
-@JS('PerformanceObserverEntryList')
-@staticInterop
-class PerformanceObserverEntryList {}
+extension type PerformanceObserverEntryList._(JSObject _) implements JSObject {}
 
 extension PerformanceObserverEntryListExtension
     on PerformanceObserverEntryList {

@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'reporting.dart';
 
-@JS('CrashReportBody')
-@staticInterop
-class CrashReportBody implements ReportBody {}
+extension type CrashReportBody._(JSObject _) implements ReportBody, JSObject {}
 
 extension CrashReportBodyExtension on CrashReportBody {
   external JSObject toJSON();

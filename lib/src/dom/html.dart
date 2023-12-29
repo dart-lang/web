@@ -130,10 +130,7 @@ typedef PremultiplyAlpha = String;
 typedef ColorSpaceConversion = String;
 typedef ResizeQuality = String;
 typedef WorkerType = String;
-
-@JS('HTMLAllCollection')
-@staticInterop
-class HTMLAllCollection {}
+extension type HTMLAllCollection._(JSObject _) implements JSObject {}
 
 extension HTMLAllCollectionExtension on HTMLAllCollection {
   external JSObject? namedItem(String name);
@@ -141,26 +138,22 @@ extension HTMLAllCollectionExtension on HTMLAllCollection {
   external int get length;
 }
 
-@JS('HTMLFormControlsCollection')
-@staticInterop
-class HTMLFormControlsCollection implements HTMLCollection {}
+extension type HTMLFormControlsCollection._(JSObject _)
+    implements HTMLCollection, JSObject {}
 
 extension HTMLFormControlsCollectionExtension on HTMLFormControlsCollection {
   external JSObject? namedItem(String name);
 }
 
-@JS('RadioNodeList')
-@staticInterop
-class RadioNodeList implements NodeList {}
+extension type RadioNodeList._(JSObject _) implements NodeList, JSObject {}
 
 extension RadioNodeListExtension on RadioNodeList {
   external set value(String value);
   external String get value;
 }
 
-@JS('HTMLOptionsCollection')
-@staticInterop
-class HTMLOptionsCollection implements HTMLCollection {}
+extension type HTMLOptionsCollection._(JSObject _)
+    implements HTMLCollection, JSObject {}
 
 extension HTMLOptionsCollectionExtension on HTMLOptionsCollection {
   external void add(
@@ -174,9 +167,7 @@ extension HTMLOptionsCollectionExtension on HTMLOptionsCollection {
   external int get selectedIndex;
 }
 
-@JS('DOMStringList')
-@staticInterop
-class DOMStringList {}
+extension type DOMStringList._(JSObject _) implements JSObject {}
 
 extension DOMStringListExtension on DOMStringList {
   external String? item(int index);
@@ -184,9 +175,7 @@ extension DOMStringListExtension on DOMStringList {
   external int get length;
 }
 
-@JS('HTMLElement')
-@staticInterop
-class HTMLElement implements Element {
+extension type HTMLElement._(JSObject _) implements Element, JSObject {
   external factory HTMLElement();
 }
 
@@ -454,17 +443,10 @@ extension HTMLElementExtension on HTMLElement {
   external int get tabIndex;
 }
 
-@JS('HTMLUnknownElement')
-@staticInterop
-class HTMLUnknownElement implements HTMLElement {}
-
-@JS('DOMStringMap')
-@staticInterop
-class DOMStringMap {}
-
-@JS('HTMLHtmlElement')
-@staticInterop
-class HTMLHtmlElement implements HTMLElement {
+extension type HTMLUnknownElement._(JSObject _)
+    implements HTMLElement, JSObject {}
+extension type DOMStringMap._(JSObject _) implements JSObject {}
+extension type HTMLHtmlElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLHtmlElement();
 }
 
@@ -473,15 +455,10 @@ extension HTMLHtmlElementExtension on HTMLHtmlElement {
   external String get version;
 }
 
-@JS('HTMLHeadElement')
-@staticInterop
-class HTMLHeadElement implements HTMLElement {
+extension type HTMLHeadElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLHeadElement();
 }
-
-@JS('HTMLTitleElement')
-@staticInterop
-class HTMLTitleElement implements HTMLElement {
+extension type HTMLTitleElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLTitleElement();
 }
 
@@ -490,9 +467,7 @@ extension HTMLTitleElementExtension on HTMLTitleElement {
   external String get text;
 }
 
-@JS('HTMLBaseElement')
-@staticInterop
-class HTMLBaseElement implements HTMLElement {
+extension type HTMLBaseElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLBaseElement();
 }
 
@@ -503,9 +478,7 @@ extension HTMLBaseElementExtension on HTMLBaseElement {
   external String get target;
 }
 
-@JS('HTMLLinkElement')
-@staticInterop
-class HTMLLinkElement implements HTMLElement {
+extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLLinkElement();
 }
 
@@ -548,9 +521,7 @@ extension HTMLLinkElementExtension on HTMLLinkElement {
   external CSSStyleSheet? get sheet;
 }
 
-@JS('HTMLMetaElement')
-@staticInterop
-class HTMLMetaElement implements HTMLElement {
+extension type HTMLMetaElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLMetaElement();
 }
 
@@ -567,9 +538,7 @@ extension HTMLMetaElementExtension on HTMLMetaElement {
   external String get scheme;
 }
 
-@JS('HTMLStyleElement')
-@staticInterop
-class HTMLStyleElement implements HTMLElement {
+extension type HTMLStyleElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLStyleElement();
 }
 
@@ -584,9 +553,7 @@ extension HTMLStyleElementExtension on HTMLStyleElement {
   external CSSStyleSheet? get sheet;
 }
 
-@JS('HTMLBodyElement')
-@staticInterop
-class HTMLBodyElement implements HTMLElement {
+extension type HTMLBodyElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLBodyElement();
 }
 
@@ -645,9 +612,8 @@ extension HTMLBodyElementExtension on HTMLBodyElement {
   external EventHandler get onportalactivate;
 }
 
-@JS('HTMLHeadingElement')
-@staticInterop
-class HTMLHeadingElement implements HTMLElement {
+extension type HTMLHeadingElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLHeadingElement();
 }
 
@@ -656,9 +622,8 @@ extension HTMLHeadingElementExtension on HTMLHeadingElement {
   external String get align;
 }
 
-@JS('HTMLParagraphElement')
-@staticInterop
-class HTMLParagraphElement implements HTMLElement {
+extension type HTMLParagraphElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLParagraphElement();
 }
 
@@ -667,9 +632,7 @@ extension HTMLParagraphElementExtension on HTMLParagraphElement {
   external String get align;
 }
 
-@JS('HTMLHRElement')
-@staticInterop
-class HTMLHRElement implements HTMLElement {
+extension type HTMLHRElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLHRElement();
 }
 
@@ -686,9 +649,7 @@ extension HTMLHRElementExtension on HTMLHRElement {
   external String get width;
 }
 
-@JS('HTMLPreElement')
-@staticInterop
-class HTMLPreElement implements HTMLElement {
+extension type HTMLPreElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLPreElement();
 }
 
@@ -697,9 +658,7 @@ extension HTMLPreElementExtension on HTMLPreElement {
   external int get width;
 }
 
-@JS('HTMLQuoteElement')
-@staticInterop
-class HTMLQuoteElement implements HTMLElement {
+extension type HTMLQuoteElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLQuoteElement();
 }
 
@@ -708,9 +667,7 @@ extension HTMLQuoteElementExtension on HTMLQuoteElement {
   external String get cite;
 }
 
-@JS('HTMLOListElement')
-@staticInterop
-class HTMLOListElement implements HTMLElement {
+extension type HTMLOListElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLOListElement();
 }
 
@@ -725,9 +682,7 @@ extension HTMLOListElementExtension on HTMLOListElement {
   external bool get compact;
 }
 
-@JS('HTMLUListElement')
-@staticInterop
-class HTMLUListElement implements HTMLElement {
+extension type HTMLUListElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLUListElement();
 }
 
@@ -738,9 +693,7 @@ extension HTMLUListElementExtension on HTMLUListElement {
   external String get type;
 }
 
-@JS('HTMLMenuElement')
-@staticInterop
-class HTMLMenuElement implements HTMLElement {
+extension type HTMLMenuElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLMenuElement();
 }
 
@@ -749,9 +702,7 @@ extension HTMLMenuElementExtension on HTMLMenuElement {
   external bool get compact;
 }
 
-@JS('HTMLLIElement')
-@staticInterop
-class HTMLLIElement implements HTMLElement {
+extension type HTMLLIElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLLIElement();
 }
 
@@ -762,9 +713,7 @@ extension HTMLLIElementExtension on HTMLLIElement {
   external String get type;
 }
 
-@JS('HTMLDListElement')
-@staticInterop
-class HTMLDListElement implements HTMLElement {
+extension type HTMLDListElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLDListElement();
 }
 
@@ -773,9 +722,7 @@ extension HTMLDListElementExtension on HTMLDListElement {
   external bool get compact;
 }
 
-@JS('HTMLDivElement')
-@staticInterop
-class HTMLDivElement implements HTMLElement {
+extension type HTMLDivElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLDivElement();
 }
 
@@ -784,9 +731,8 @@ extension HTMLDivElementExtension on HTMLDivElement {
   external String get align;
 }
 
-@JS('HTMLAnchorElement')
-@staticInterop
-class HTMLAnchorElement implements HTMLElement {
+extension type HTMLAnchorElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLAnchorElement();
 }
 
@@ -845,9 +791,7 @@ extension HTMLAnchorElementExtension on HTMLAnchorElement {
   external String get hash;
 }
 
-@JS('HTMLDataElement')
-@staticInterop
-class HTMLDataElement implements HTMLElement {
+extension type HTMLDataElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLDataElement();
 }
 
@@ -856,9 +800,7 @@ extension HTMLDataElementExtension on HTMLDataElement {
   external String get value;
 }
 
-@JS('HTMLTimeElement')
-@staticInterop
-class HTMLTimeElement implements HTMLElement {
+extension type HTMLTimeElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLTimeElement();
 }
 
@@ -867,15 +809,10 @@ extension HTMLTimeElementExtension on HTMLTimeElement {
   external String get dateTime;
 }
 
-@JS('HTMLSpanElement')
-@staticInterop
-class HTMLSpanElement implements HTMLElement {
+extension type HTMLSpanElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLSpanElement();
 }
-
-@JS('HTMLBRElement')
-@staticInterop
-class HTMLBRElement implements HTMLElement {
+extension type HTMLBRElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLBRElement();
 }
 
@@ -884,9 +821,7 @@ extension HTMLBRElementExtension on HTMLBRElement {
   external String get clear;
 }
 
-@JS('HTMLModElement')
-@staticInterop
-class HTMLModElement implements HTMLElement {
+extension type HTMLModElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLModElement();
 }
 
@@ -897,15 +832,12 @@ extension HTMLModElementExtension on HTMLModElement {
   external String get dateTime;
 }
 
-@JS('HTMLPictureElement')
-@staticInterop
-class HTMLPictureElement implements HTMLElement {
+extension type HTMLPictureElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLPictureElement();
 }
-
-@JS('HTMLSourceElement')
-@staticInterop
-class HTMLSourceElement implements HTMLElement {
+extension type HTMLSourceElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLSourceElement();
 }
 
@@ -926,9 +858,7 @@ extension HTMLSourceElementExtension on HTMLSourceElement {
   external int get height;
 }
 
-@JS('HTMLImageElement')
-@staticInterop
-class HTMLImageElement implements HTMLElement {
+extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLImageElement();
 }
 
@@ -986,9 +916,8 @@ extension HTMLImageElementExtension on HTMLImageElement {
   external bool get sharedStorageWritable;
 }
 
-@JS('HTMLIFrameElement')
-@staticInterop
-class HTMLIFrameElement implements HTMLElement {
+extension type HTMLIFrameElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLIFrameElement();
 }
 
@@ -1036,9 +965,7 @@ extension HTMLIFrameElementExtension on HTMLIFrameElement {
   external bool get sharedStorageWritable;
 }
 
-@JS('HTMLEmbedElement')
-@staticInterop
-class HTMLEmbedElement implements HTMLElement {
+extension type HTMLEmbedElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLEmbedElement();
 }
 
@@ -1058,9 +985,8 @@ extension HTMLEmbedElementExtension on HTMLEmbedElement {
   external String get name;
 }
 
-@JS('HTMLObjectElement')
-@staticInterop
-class HTMLObjectElement implements HTMLElement {
+extension type HTMLObjectElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLObjectElement();
 }
 
@@ -1109,9 +1035,8 @@ extension HTMLObjectElementExtension on HTMLObjectElement {
   external String get border;
 }
 
-@JS('HTMLVideoElement')
-@staticInterop
-class HTMLVideoElement implements HTMLMediaElement {
+extension type HTMLVideoElement._(JSObject _)
+    implements HTMLMediaElement, JSObject {
   external factory HTMLVideoElement();
 }
 
@@ -1138,15 +1063,11 @@ extension HTMLVideoElementExtension on HTMLVideoElement {
   external bool get disablePictureInPicture;
 }
 
-@JS('HTMLAudioElement')
-@staticInterop
-class HTMLAudioElement implements HTMLMediaElement {
+extension type HTMLAudioElement._(JSObject _)
+    implements HTMLMediaElement, JSObject {
   external factory HTMLAudioElement();
 }
-
-@JS('HTMLTrackElement')
-@staticInterop
-class HTMLTrackElement implements HTMLElement {
+extension type HTMLTrackElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLTrackElement();
 
   external static int get NONE;
@@ -1172,9 +1093,7 @@ extension HTMLTrackElementExtension on HTMLTrackElement {
   external TextTrack get track;
 }
 
-@JS('HTMLMediaElement')
-@staticInterop
-class HTMLMediaElement implements HTMLElement {
+extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   external static int get NETWORK_EMPTY;
   external static int get NETWORK_IDLE;
   external static int get NETWORK_LOADING;
@@ -1254,9 +1173,7 @@ extension HTMLMediaElementExtension on HTMLMediaElement {
   external bool get disableRemotePlayback;
 }
 
-@JS('MediaError')
-@staticInterop
-class MediaError {
+extension type MediaError._(JSObject _) implements JSObject {
   external static int get MEDIA_ERR_ABORTED;
   external static int get MEDIA_ERR_NETWORK;
   external static int get MEDIA_ERR_DECODE;
@@ -1268,9 +1185,7 @@ extension MediaErrorExtension on MediaError {
   external String get message;
 }
 
-@JS('AudioTrackList')
-@staticInterop
-class AudioTrackList implements EventTarget {}
+extension type AudioTrackList._(JSObject _) implements EventTarget, JSObject {}
 
 extension AudioTrackListExtension on AudioTrackList {
   external AudioTrack? getTrackById(String id);
@@ -1283,9 +1198,7 @@ extension AudioTrackListExtension on AudioTrackList {
   external EventHandler get onremovetrack;
 }
 
-@JS('AudioTrack')
-@staticInterop
-class AudioTrack {}
+extension type AudioTrack._(JSObject _) implements JSObject {}
 
 extension AudioTrackExtension on AudioTrack {
   external String get id;
@@ -1297,9 +1210,7 @@ extension AudioTrackExtension on AudioTrack {
   external SourceBuffer? get sourceBuffer;
 }
 
-@JS('VideoTrackList')
-@staticInterop
-class VideoTrackList implements EventTarget {}
+extension type VideoTrackList._(JSObject _) implements EventTarget, JSObject {}
 
 extension VideoTrackListExtension on VideoTrackList {
   external VideoTrack? getTrackById(String id);
@@ -1313,9 +1224,7 @@ extension VideoTrackListExtension on VideoTrackList {
   external EventHandler get onremovetrack;
 }
 
-@JS('VideoTrack')
-@staticInterop
-class VideoTrack {}
+extension type VideoTrack._(JSObject _) implements JSObject {}
 
 extension VideoTrackExtension on VideoTrack {
   external String get id;
@@ -1327,9 +1236,7 @@ extension VideoTrackExtension on VideoTrack {
   external SourceBuffer? get sourceBuffer;
 }
 
-@JS('TextTrackList')
-@staticInterop
-class TextTrackList implements EventTarget {}
+extension type TextTrackList._(JSObject _) implements EventTarget, JSObject {}
 
 extension TextTrackListExtension on TextTrackList {
   external TextTrack? getTrackById(String id);
@@ -1342,9 +1249,7 @@ extension TextTrackListExtension on TextTrackList {
   external EventHandler get onremovetrack;
 }
 
-@JS('TextTrack')
-@staticInterop
-class TextTrack implements EventTarget {}
+extension type TextTrack._(JSObject _) implements EventTarget, JSObject {}
 
 extension TextTrackExtension on TextTrack {
   external void addCue(TextTrackCue cue);
@@ -1363,18 +1268,14 @@ extension TextTrackExtension on TextTrack {
   external SourceBuffer? get sourceBuffer;
 }
 
-@JS('TextTrackCueList')
-@staticInterop
-class TextTrackCueList {}
+extension type TextTrackCueList._(JSObject _) implements JSObject {}
 
 extension TextTrackCueListExtension on TextTrackCueList {
   external TextTrackCue? getCueById(String id);
   external int get length;
 }
 
-@JS('TextTrackCue')
-@staticInterop
-class TextTrackCue implements EventTarget {}
+extension type TextTrackCue._(JSObject _) implements EventTarget, JSObject {}
 
 extension TextTrackCueExtension on TextTrackCue {
   external TextTrack? get track;
@@ -1392,9 +1293,7 @@ extension TextTrackCueExtension on TextTrackCue {
   external EventHandler get onexit;
 }
 
-@JS('TimeRanges')
-@staticInterop
-class TimeRanges {}
+extension type TimeRanges._(JSObject _) implements JSObject {}
 
 extension TimeRangesExtension on TimeRanges {
   external num start(int index);
@@ -1402,9 +1301,7 @@ extension TimeRangesExtension on TimeRanges {
   external int get length;
 }
 
-@JS('TrackEvent')
-@staticInterop
-class TrackEvent implements Event {
+extension type TrackEvent._(JSObject _) implements Event, JSObject {
   external factory TrackEvent(
     String type, [
     TrackEventInit eventInitDict,
@@ -1415,10 +1312,7 @@ extension TrackEventExtension on TrackEvent {
   external JSObject? get track;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class TrackEventInit implements EventInit {
+extension type TrackEventInit._(JSObject _) implements EventInit, JSObject {
   external factory TrackEventInit({JSObject? track});
 }
 
@@ -1427,9 +1321,7 @@ extension TrackEventInitExtension on TrackEventInit {
   external JSObject? get track;
 }
 
-@JS('HTMLMapElement')
-@staticInterop
-class HTMLMapElement implements HTMLElement {
+extension type HTMLMapElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLMapElement();
 }
 
@@ -1439,9 +1331,7 @@ extension HTMLMapElementExtension on HTMLMapElement {
   external HTMLCollection get areas;
 }
 
-@JS('HTMLAreaElement')
-@staticInterop
-class HTMLAreaElement implements HTMLElement {
+extension type HTMLAreaElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLAreaElement();
 }
 
@@ -1488,9 +1378,7 @@ extension HTMLAreaElementExtension on HTMLAreaElement {
   external String get hash;
 }
 
-@JS('HTMLTableElement')
-@staticInterop
-class HTMLTableElement implements HTMLElement {
+extension type HTMLTableElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLTableElement();
 }
 
@@ -1532,9 +1420,8 @@ extension HTMLTableElementExtension on HTMLTableElement {
   external String get cellSpacing;
 }
 
-@JS('HTMLTableCaptionElement')
-@staticInterop
-class HTMLTableCaptionElement implements HTMLElement {
+extension type HTMLTableCaptionElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLTableCaptionElement();
 }
 
@@ -1543,9 +1430,8 @@ extension HTMLTableCaptionElementExtension on HTMLTableCaptionElement {
   external String get align;
 }
 
-@JS('HTMLTableColElement')
-@staticInterop
-class HTMLTableColElement implements HTMLElement {
+extension type HTMLTableColElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLTableColElement();
 }
 
@@ -1564,9 +1450,8 @@ extension HTMLTableColElementExtension on HTMLTableColElement {
   external String get width;
 }
 
-@JS('HTMLTableSectionElement')
-@staticInterop
-class HTMLTableSectionElement implements HTMLElement {
+extension type HTMLTableSectionElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLTableSectionElement();
 }
 
@@ -1584,9 +1469,8 @@ extension HTMLTableSectionElementExtension on HTMLTableSectionElement {
   external String get vAlign;
 }
 
-@JS('HTMLTableRowElement')
-@staticInterop
-class HTMLTableRowElement implements HTMLElement {
+extension type HTMLTableRowElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLTableRowElement();
 }
 
@@ -1608,9 +1492,8 @@ extension HTMLTableRowElementExtension on HTMLTableRowElement {
   external String get bgColor;
 }
 
-@JS('HTMLTableCellElement')
-@staticInterop
-class HTMLTableCellElement implements HTMLElement {
+extension type HTMLTableCellElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLTableCellElement();
 }
 
@@ -1646,9 +1529,7 @@ extension HTMLTableCellElementExtension on HTMLTableCellElement {
   external String get bgColor;
 }
 
-@JS('HTMLFormElement')
-@staticInterop
-class HTMLFormElement implements HTMLElement {
+extension type HTMLFormElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLFormElement();
 }
 
@@ -1683,9 +1564,7 @@ extension HTMLFormElementExtension on HTMLFormElement {
   external int get length;
 }
 
-@JS('HTMLLabelElement')
-@staticInterop
-class HTMLLabelElement implements HTMLElement {
+extension type HTMLLabelElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLLabelElement();
 }
 
@@ -1696,9 +1575,7 @@ extension HTMLLabelElementExtension on HTMLLabelElement {
   external HTMLElement? get control;
 }
 
-@JS('HTMLInputElement')
-@staticInterop
-class HTMLInputElement implements HTMLElement {
+extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLInputElement();
 }
 
@@ -1816,9 +1693,8 @@ extension HTMLInputElementExtension on HTMLInputElement {
   external String get popoverTargetAction;
 }
 
-@JS('HTMLButtonElement')
-@staticInterop
-class HTMLButtonElement implements HTMLElement {
+extension type HTMLButtonElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLButtonElement();
 }
 
@@ -1855,9 +1731,8 @@ extension HTMLButtonElementExtension on HTMLButtonElement {
   external String get popoverTargetAction;
 }
 
-@JS('HTMLSelectElement')
-@staticInterop
-class HTMLSelectElement implements HTMLElement {
+extension type HTMLSelectElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLSelectElement();
 }
 
@@ -1900,9 +1775,8 @@ extension HTMLSelectElementExtension on HTMLSelectElement {
   external NodeList get labels;
 }
 
-@JS('HTMLDataListElement')
-@staticInterop
-class HTMLDataListElement implements HTMLElement {
+extension type HTMLDataListElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLDataListElement();
 }
 
@@ -1910,9 +1784,8 @@ extension HTMLDataListElementExtension on HTMLDataListElement {
   external HTMLCollection get options;
 }
 
-@JS('HTMLOptGroupElement')
-@staticInterop
-class HTMLOptGroupElement implements HTMLElement {
+extension type HTMLOptGroupElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLOptGroupElement();
 }
 
@@ -1923,9 +1796,8 @@ extension HTMLOptGroupElementExtension on HTMLOptGroupElement {
   external String get label;
 }
 
-@JS('HTMLOptionElement')
-@staticInterop
-class HTMLOptionElement implements HTMLElement {
+extension type HTMLOptionElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLOptionElement();
 }
 
@@ -1946,9 +1818,8 @@ extension HTMLOptionElementExtension on HTMLOptionElement {
   external int get index;
 }
 
-@JS('HTMLTextAreaElement')
-@staticInterop
-class HTMLTextAreaElement implements HTMLElement {
+extension type HTMLTextAreaElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLTextAreaElement();
 }
 
@@ -2011,9 +1882,8 @@ extension HTMLTextAreaElementExtension on HTMLTextAreaElement {
   external String get selectionDirection;
 }
 
-@JS('HTMLOutputElement')
-@staticInterop
-class HTMLOutputElement implements HTMLElement {
+extension type HTMLOutputElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLOutputElement();
 }
 
@@ -2036,9 +1906,8 @@ extension HTMLOutputElementExtension on HTMLOutputElement {
   external NodeList get labels;
 }
 
-@JS('HTMLProgressElement')
-@staticInterop
-class HTMLProgressElement implements HTMLElement {
+extension type HTMLProgressElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLProgressElement();
 }
 
@@ -2051,9 +1920,7 @@ extension HTMLProgressElementExtension on HTMLProgressElement {
   external NodeList get labels;
 }
 
-@JS('HTMLMeterElement')
-@staticInterop
-class HTMLMeterElement implements HTMLElement {
+extension type HTMLMeterElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLMeterElement();
 }
 
@@ -2073,9 +1940,8 @@ extension HTMLMeterElementExtension on HTMLMeterElement {
   external NodeList get labels;
 }
 
-@JS('HTMLFieldSetElement')
-@staticInterop
-class HTMLFieldSetElement implements HTMLElement {
+extension type HTMLFieldSetElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLFieldSetElement();
 }
 
@@ -2095,9 +1961,8 @@ extension HTMLFieldSetElementExtension on HTMLFieldSetElement {
   external String get validationMessage;
 }
 
-@JS('HTMLLegendElement')
-@staticInterop
-class HTMLLegendElement implements HTMLElement {
+extension type HTMLLegendElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLLegendElement();
 }
 
@@ -2107,9 +1972,7 @@ extension HTMLLegendElementExtension on HTMLLegendElement {
   external String get align;
 }
 
-@JS('ValidityState')
-@staticInterop
-class ValidityState {}
+extension type ValidityState._(JSObject _) implements JSObject {}
 
 extension ValidityStateExtension on ValidityState {
   external bool get valueMissing;
@@ -2125,9 +1988,7 @@ extension ValidityStateExtension on ValidityState {
   external bool get valid;
 }
 
-@JS('SubmitEvent')
-@staticInterop
-class SubmitEvent implements Event {
+extension type SubmitEvent._(JSObject _) implements Event, JSObject {
   external factory SubmitEvent(
     String type, [
     SubmitEventInit eventInitDict,
@@ -2138,10 +1999,7 @@ extension SubmitEventExtension on SubmitEvent {
   external HTMLElement? get submitter;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class SubmitEventInit implements EventInit {
+extension type SubmitEventInit._(JSObject _) implements EventInit, JSObject {
   external factory SubmitEventInit({HTMLElement? submitter});
 }
 
@@ -2150,9 +2008,7 @@ extension SubmitEventInitExtension on SubmitEventInit {
   external HTMLElement? get submitter;
 }
 
-@JS('FormDataEvent')
-@staticInterop
-class FormDataEvent implements Event {
+extension type FormDataEvent._(JSObject _) implements Event, JSObject {
   external factory FormDataEvent(
     String type,
     FormDataEventInit eventInitDict,
@@ -2163,10 +2019,7 @@ extension FormDataEventExtension on FormDataEvent {
   external FormData get formData;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class FormDataEventInit implements EventInit {
+extension type FormDataEventInit._(JSObject _) implements EventInit, JSObject {
   external factory FormDataEventInit({required FormData formData});
 }
 
@@ -2175,9 +2028,8 @@ extension FormDataEventInitExtension on FormDataEventInit {
   external FormData get formData;
 }
 
-@JS('HTMLDetailsElement')
-@staticInterop
-class HTMLDetailsElement implements HTMLElement {
+extension type HTMLDetailsElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLDetailsElement();
 }
 
@@ -2188,9 +2040,8 @@ extension HTMLDetailsElementExtension on HTMLDetailsElement {
   external bool get open;
 }
 
-@JS('HTMLDialogElement')
-@staticInterop
-class HTMLDialogElement implements HTMLElement {
+extension type HTMLDialogElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLDialogElement();
 }
 
@@ -2204,9 +2055,8 @@ extension HTMLDialogElementExtension on HTMLDialogElement {
   external String get returnValue;
 }
 
-@JS('HTMLScriptElement')
-@staticInterop
-class HTMLScriptElement implements HTMLElement {
+extension type HTMLScriptElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLScriptElement();
 
   external static bool supports(String type);
@@ -2244,9 +2094,8 @@ extension HTMLScriptElementExtension on HTMLScriptElement {
   external String get attributionSrc;
 }
 
-@JS('HTMLTemplateElement')
-@staticInterop
-class HTMLTemplateElement implements HTMLElement {
+extension type HTMLTemplateElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLTemplateElement();
 }
 
@@ -2254,9 +2103,7 @@ extension HTMLTemplateElementExtension on HTMLTemplateElement {
   external DocumentFragment get content;
 }
 
-@JS('HTMLSlotElement')
-@staticInterop
-class HTMLSlotElement implements HTMLElement {
+extension type HTMLSlotElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLSlotElement();
 }
 
@@ -2268,10 +2115,7 @@ extension HTMLSlotElementExtension on HTMLSlotElement {
   external String get name;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class AssignedNodesOptions {
+extension type AssignedNodesOptions._(JSObject _) implements JSObject {
   external factory AssignedNodesOptions({bool flatten});
 }
 
@@ -2280,9 +2124,8 @@ extension AssignedNodesOptionsExtension on AssignedNodesOptions {
   external bool get flatten;
 }
 
-@JS('HTMLCanvasElement')
-@staticInterop
-class HTMLCanvasElement implements HTMLElement {
+extension type HTMLCanvasElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLCanvasElement();
 }
 
@@ -2308,10 +2151,8 @@ extension HTMLCanvasElementExtension on HTMLCanvasElement {
   external int get height;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class CanvasRenderingContext2DSettings {
+extension type CanvasRenderingContext2DSettings._(JSObject _)
+    implements JSObject {
   external factory CanvasRenderingContext2DSettings({
     bool alpha,
     bool desynchronized,
@@ -2332,9 +2173,7 @@ extension CanvasRenderingContext2DSettingsExtension
   external bool get willReadFrequently;
 }
 
-@JS('CanvasRenderingContext2D')
-@staticInterop
-class CanvasRenderingContext2D {}
+extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {}
 
 extension CanvasRenderingContext2DExtension on CanvasRenderingContext2D {
   external CanvasRenderingContext2DSettings getContextAttributes();
@@ -2599,9 +2438,7 @@ extension CanvasRenderingContext2DExtension on CanvasRenderingContext2D {
   external String get wordSpacing;
 }
 
-@JS('CanvasGradient')
-@staticInterop
-class CanvasGradient {}
+extension type CanvasGradient._(JSObject _) implements JSObject {}
 
 extension CanvasGradientExtension on CanvasGradient {
   external void addColorStop(
@@ -2610,17 +2447,13 @@ extension CanvasGradientExtension on CanvasGradient {
   );
 }
 
-@JS('CanvasPattern')
-@staticInterop
-class CanvasPattern {}
+extension type CanvasPattern._(JSObject _) implements JSObject {}
 
 extension CanvasPatternExtension on CanvasPattern {
   external void setTransform([DOMMatrix2DInit transform]);
 }
 
-@JS('TextMetrics')
-@staticInterop
-class TextMetrics {}
+extension type TextMetrics._(JSObject _) implements JSObject {}
 
 extension TextMetricsExtension on TextMetrics {
   external num get width;
@@ -2637,10 +2470,7 @@ extension TextMetricsExtension on TextMetrics {
   external num get ideographicBaseline;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ImageDataSettings {
+extension type ImageDataSettings._(JSObject _) implements JSObject {
   external factory ImageDataSettings({PredefinedColorSpace colorSpace});
 }
 
@@ -2649,9 +2479,7 @@ extension ImageDataSettingsExtension on ImageDataSettings {
   external PredefinedColorSpace get colorSpace;
 }
 
-@JS('ImageData')
-@staticInterop
-class ImageData {
+extension type ImageData._(JSObject _) implements JSObject {
   external factory ImageData(
     JSAny dataOrSw,
     int shOrSw, [
@@ -2667,9 +2495,7 @@ extension ImageDataExtension on ImageData {
   external PredefinedColorSpace get colorSpace;
 }
 
-@JS('Path2D')
-@staticInterop
-class Path2D {
+extension type Path2D._(JSObject _) implements JSObject {
   external factory Path2D([JSAny path]);
 }
 
@@ -2741,19 +2567,15 @@ extension Path2DExtension on Path2D {
   ]);
 }
 
-@JS('ImageBitmapRenderingContext')
-@staticInterop
-class ImageBitmapRenderingContext {}
+extension type ImageBitmapRenderingContext._(JSObject _) implements JSObject {}
 
 extension ImageBitmapRenderingContextExtension on ImageBitmapRenderingContext {
   external void transferFromImageBitmap(ImageBitmap? bitmap);
   external JSObject get canvas;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ImageBitmapRenderingContextSettings {
+extension type ImageBitmapRenderingContextSettings._(JSObject _)
+    implements JSObject {
   external factory ImageBitmapRenderingContextSettings({bool alpha});
 }
 
@@ -2763,10 +2585,7 @@ extension ImageBitmapRenderingContextSettingsExtension
   external bool get alpha;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ImageEncodeOptions {
+extension type ImageEncodeOptions._(JSObject _) implements JSObject {
   external factory ImageEncodeOptions({
     String type,
     num quality,
@@ -2780,9 +2599,7 @@ extension ImageEncodeOptionsExtension on ImageEncodeOptions {
   external num get quality;
 }
 
-@JS('OffscreenCanvas')
-@staticInterop
-class OffscreenCanvas implements EventTarget {
+extension type OffscreenCanvas._(JSObject _) implements EventTarget, JSObject {
   external factory OffscreenCanvas(
     int width,
     int height,
@@ -2806,9 +2623,8 @@ extension OffscreenCanvasExtension on OffscreenCanvas {
   external EventHandler get oncontextrestored;
 }
 
-@JS('OffscreenCanvasRenderingContext2D')
-@staticInterop
-class OffscreenCanvasRenderingContext2D {}
+extension type OffscreenCanvasRenderingContext2D._(JSObject _)
+    implements JSObject {}
 
 extension OffscreenCanvasRenderingContext2DExtension
     on OffscreenCanvasRenderingContext2D {
@@ -3069,9 +2885,7 @@ extension OffscreenCanvasRenderingContext2DExtension
   external String get wordSpacing;
 }
 
-@JS('CustomElementRegistry')
-@staticInterop
-class CustomElementRegistry {}
+extension type CustomElementRegistry._(JSObject _) implements JSObject {}
 
 extension CustomElementRegistryExtension on CustomElementRegistry {
   external void define(
@@ -3085,10 +2899,7 @@ extension CustomElementRegistryExtension on CustomElementRegistry {
   external void upgrade(Node root);
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ElementDefinitionOptions {
+extension type ElementDefinitionOptions._(JSObject _) implements JSObject {
   external factory ElementDefinitionOptions({String extends_});
 }
 
@@ -3099,9 +2910,7 @@ extension ElementDefinitionOptionsExtension on ElementDefinitionOptions {
   external String get extends_;
 }
 
-@JS('ElementInternals')
-@staticInterop
-class ElementInternals {}
+extension type ElementInternals._(JSObject _) implements JSObject {}
 
 extension ElementInternalsExtension on ElementInternals {
   external void setFormValue(
@@ -3222,10 +3031,7 @@ extension ElementInternalsExtension on ElementInternals {
   external String? get ariaValueText;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ValidityStateFlags {
+extension type ValidityStateFlags._(JSObject _) implements JSObject {
   external factory ValidityStateFlags({
     bool valueMissing,
     bool typeMismatch,
@@ -3263,9 +3069,8 @@ extension ValidityStateFlagsExtension on ValidityStateFlags {
   external bool get customError;
 }
 
-@JS('VisibilityStateEntry')
-@staticInterop
-class VisibilityStateEntry implements PerformanceEntry {}
+extension type VisibilityStateEntry._(JSObject _)
+    implements PerformanceEntry, JSObject {}
 
 extension VisibilityStateEntryExtension on VisibilityStateEntry {
   external String get name;
@@ -3274,18 +3079,14 @@ extension VisibilityStateEntryExtension on VisibilityStateEntry {
   external int get duration;
 }
 
-@JS('UserActivation')
-@staticInterop
-class UserActivation {}
+extension type UserActivation._(JSObject _) implements JSObject {}
 
 extension UserActivationExtension on UserActivation {
   external bool get hasBeenActive;
   external bool get isActive;
 }
 
-@JS('ToggleEvent')
-@staticInterop
-class ToggleEvent implements Event {
+extension type ToggleEvent._(JSObject _) implements Event, JSObject {
   external factory ToggleEvent(
     String type, [
     ToggleEventInit eventInitDict,
@@ -3297,10 +3098,7 @@ extension ToggleEventExtension on ToggleEvent {
   external String get newState;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ToggleEventInit implements EventInit {
+extension type ToggleEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ToggleEventInit({
     String oldState,
     String newState,
@@ -3314,10 +3112,7 @@ extension ToggleEventInitExtension on ToggleEventInit {
   external String get newState;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class FocusOptions {
+extension type FocusOptions._(JSObject _) implements JSObject {
   external factory FocusOptions({
     bool preventScroll,
     bool focusVisible,
@@ -3331,9 +3126,7 @@ extension FocusOptionsExtension on FocusOptions {
   external bool get focusVisible;
 }
 
-@JS('DataTransfer')
-@staticInterop
-class DataTransfer {
+extension type DataTransfer._(JSObject _) implements JSObject {
   external factory DataTransfer();
 }
 
@@ -3358,9 +3151,7 @@ extension DataTransferExtension on DataTransfer {
   external FileList get files;
 }
 
-@JS('DataTransferItemList')
-@staticInterop
-class DataTransferItemList {}
+extension type DataTransferItemList._(JSObject _) implements JSObject {}
 
 extension DataTransferItemListExtension on DataTransferItemList {
   external DataTransferItem? add(
@@ -3372,9 +3163,7 @@ extension DataTransferItemListExtension on DataTransferItemList {
   external int get length;
 }
 
-@JS('DataTransferItem')
-@staticInterop
-class DataTransferItem {}
+extension type DataTransferItem._(JSObject _) implements JSObject {}
 
 extension DataTransferItemExtension on DataTransferItem {
   external FileSystemEntry? webkitGetAsEntry();
@@ -3385,9 +3174,7 @@ extension DataTransferItemExtension on DataTransferItem {
   external String get type;
 }
 
-@JS('DragEvent')
-@staticInterop
-class DragEvent implements MouseEvent {
+extension type DragEvent._(JSObject _) implements MouseEvent, JSObject {
   external factory DragEvent(
     String type, [
     DragEventInit eventInitDict,
@@ -3398,10 +3185,7 @@ extension DragEventExtension on DragEvent {
   external DataTransfer? get dataTransfer;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class DragEventInit implements MouseEventInit {
+extension type DragEventInit._(JSObject _) implements MouseEventInit, JSObject {
   external factory DragEventInit({DataTransfer? dataTransfer});
 }
 
@@ -3412,10 +3196,7 @@ extension DragEventInitExtension on DragEventInit {
 
 @JS()
 external Window get window;
-
-@JS('Window')
-@staticInterop
-class Window implements EventTarget {}
+extension type Window._(JSObject _) implements EventTarget, JSObject {}
 
 extension WindowExtension on Window {
   external void navigate(SpatialNavigationDirection dir);
@@ -3839,10 +3620,8 @@ extension WindowExtension on Window {
   external Storage get localStorage;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class WindowPostMessageOptions implements StructuredSerializeOptions {
+extension type WindowPostMessageOptions._(JSObject _)
+    implements StructuredSerializeOptions, JSObject {
   external factory WindowPostMessageOptions({String targetOrigin});
 }
 
@@ -3851,17 +3630,13 @@ extension WindowPostMessageOptionsExtension on WindowPostMessageOptions {
   external String get targetOrigin;
 }
 
-@JS('BarProp')
-@staticInterop
-class BarProp {}
+extension type BarProp._(JSObject _) implements JSObject {}
 
 extension BarPropExtension on BarProp {
   external bool get visible;
 }
 
-@JS('Location')
-@staticInterop
-class Location {}
+extension type Location._(JSObject _) implements JSObject {}
 
 extension LocationExtension on Location {
   external void assign(String url);
@@ -3887,9 +3662,7 @@ extension LocationExtension on Location {
   external DOMStringList get ancestorOrigins;
 }
 
-@JS('History')
-@staticInterop
-class History {}
+extension type History._(JSObject _) implements JSObject {}
 
 extension HistoryExtension on History {
   external void go([int delta]);
@@ -3911,9 +3684,7 @@ extension HistoryExtension on History {
   external JSAny? get state;
 }
 
-@JS('Navigation')
-@staticInterop
-class Navigation implements EventTarget {}
+extension type Navigation._(JSObject _) implements EventTarget, JSObject {}
 
 extension NavigationExtension on Navigation {
   external JSArray entries();
@@ -3943,10 +3714,8 @@ extension NavigationExtension on Navigation {
   external EventHandler get oncurrententrychange;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class NavigationUpdateCurrentEntryOptions {
+extension type NavigationUpdateCurrentEntryOptions._(JSObject _)
+    implements JSObject {
   external factory NavigationUpdateCurrentEntryOptions({required JSAny? state});
 }
 
@@ -3956,10 +3725,7 @@ extension NavigationUpdateCurrentEntryOptionsExtension
   external JSAny? get state;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class NavigationOptions {
+extension type NavigationOptions._(JSObject _) implements JSObject {
   external factory NavigationOptions({JSAny? info});
 }
 
@@ -3968,10 +3734,8 @@ extension NavigationOptionsExtension on NavigationOptions {
   external JSAny? get info;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class NavigationNavigateOptions implements NavigationOptions {
+extension type NavigationNavigateOptions._(JSObject _)
+    implements NavigationOptions, JSObject {
   external factory NavigationNavigateOptions({
     JSAny? state,
     NavigationHistoryBehavior history,
@@ -3985,10 +3749,8 @@ extension NavigationNavigateOptionsExtension on NavigationNavigateOptions {
   external NavigationHistoryBehavior get history;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class NavigationReloadOptions implements NavigationOptions {
+extension type NavigationReloadOptions._(JSObject _)
+    implements NavigationOptions, JSObject {
   external factory NavigationReloadOptions({JSAny? state});
 }
 
@@ -3997,10 +3759,7 @@ extension NavigationReloadOptionsExtension on NavigationReloadOptions {
   external JSAny? get state;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class NavigationResult {
+extension type NavigationResult._(JSObject _) implements JSObject {
   external factory NavigationResult({
     JSPromise committed,
     JSPromise finished,
@@ -4014,9 +3773,8 @@ extension NavigationResultExtension on NavigationResult {
   external JSPromise get finished;
 }
 
-@JS('NavigationHistoryEntry')
-@staticInterop
-class NavigationHistoryEntry implements EventTarget {}
+extension type NavigationHistoryEntry._(JSObject _)
+    implements EventTarget, JSObject {}
 
 extension NavigationHistoryEntryExtension on NavigationHistoryEntry {
   external JSAny? getState();
@@ -4029,9 +3787,7 @@ extension NavigationHistoryEntryExtension on NavigationHistoryEntry {
   external EventHandler get ondispose;
 }
 
-@JS('NavigationTransition')
-@staticInterop
-class NavigationTransition {}
+extension type NavigationTransition._(JSObject _) implements JSObject {}
 
 extension NavigationTransitionExtension on NavigationTransition {
   external NavigationType get navigationType;
@@ -4039,9 +3795,7 @@ extension NavigationTransitionExtension on NavigationTransition {
   external JSPromise get finished;
 }
 
-@JS('NavigateEvent')
-@staticInterop
-class NavigateEvent implements Event {
+extension type NavigateEvent._(JSObject _) implements Event, JSObject {
   external factory NavigateEvent(
     String type,
     NavigateEventInit eventInitDict,
@@ -4063,10 +3817,7 @@ extension NavigateEventExtension on NavigateEvent {
   external bool get hasUAVisualTransition;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class NavigateEventInit implements EventInit {
+extension type NavigateEventInit._(JSObject _) implements EventInit, JSObject {
   external factory NavigateEventInit({
     NavigationType navigationType,
     required NavigationDestination destination,
@@ -4104,10 +3855,7 @@ extension NavigateEventInitExtension on NavigateEventInit {
   external bool get hasUAVisualTransition;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class NavigationInterceptOptions {
+extension type NavigationInterceptOptions._(JSObject _) implements JSObject {
   external factory NavigationInterceptOptions({
     NavigationInterceptHandler handler,
     NavigationFocusReset focusReset,
@@ -4124,9 +3872,7 @@ extension NavigationInterceptOptionsExtension on NavigationInterceptOptions {
   external NavigationScrollBehavior get scroll;
 }
 
-@JS('NavigationDestination')
-@staticInterop
-class NavigationDestination {}
+extension type NavigationDestination._(JSObject _) implements JSObject {}
 
 extension NavigationDestinationExtension on NavigationDestination {
   external JSAny? getState();
@@ -4137,9 +3883,8 @@ extension NavigationDestinationExtension on NavigationDestination {
   external bool get sameDocument;
 }
 
-@JS('NavigationCurrentEntryChangeEvent')
-@staticInterop
-class NavigationCurrentEntryChangeEvent implements Event {
+extension type NavigationCurrentEntryChangeEvent._(JSObject _)
+    implements Event, JSObject {
   external factory NavigationCurrentEntryChangeEvent(
     String type,
     NavigationCurrentEntryChangeEventInit eventInitDict,
@@ -4152,10 +3897,8 @@ extension NavigationCurrentEntryChangeEventExtension
   external NavigationHistoryEntry get from;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class NavigationCurrentEntryChangeEventInit implements EventInit {
+extension type NavigationCurrentEntryChangeEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory NavigationCurrentEntryChangeEventInit({
     NavigationType? navigationType,
     required NavigationHistoryEntry from,
@@ -4170,9 +3913,7 @@ extension NavigationCurrentEntryChangeEventInitExtension
   external NavigationHistoryEntry get from;
 }
 
-@JS('PopStateEvent')
-@staticInterop
-class PopStateEvent implements Event {
+extension type PopStateEvent._(JSObject _) implements Event, JSObject {
   external factory PopStateEvent(
     String type, [
     PopStateEventInit eventInitDict,
@@ -4184,10 +3925,7 @@ extension PopStateEventExtension on PopStateEvent {
   external bool get hasUAVisualTransition;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PopStateEventInit implements EventInit {
+extension type PopStateEventInit._(JSObject _) implements EventInit, JSObject {
   external factory PopStateEventInit({
     JSAny? state,
     bool hasUAVisualTransition,
@@ -4201,9 +3939,7 @@ extension PopStateEventInitExtension on PopStateEventInit {
   external bool get hasUAVisualTransition;
 }
 
-@JS('HashChangeEvent')
-@staticInterop
-class HashChangeEvent implements Event {
+extension type HashChangeEvent._(JSObject _) implements Event, JSObject {
   external factory HashChangeEvent(
     String type, [
     HashChangeEventInit eventInitDict,
@@ -4215,10 +3951,8 @@ extension HashChangeEventExtension on HashChangeEvent {
   external String get newURL;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class HashChangeEventInit implements EventInit {
+extension type HashChangeEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory HashChangeEventInit({
     String oldURL,
     String newURL,
@@ -4232,9 +3966,7 @@ extension HashChangeEventInitExtension on HashChangeEventInit {
   external String get newURL;
 }
 
-@JS('PageTransitionEvent')
-@staticInterop
-class PageTransitionEvent implements Event {
+extension type PageTransitionEvent._(JSObject _) implements Event, JSObject {
   external factory PageTransitionEvent(
     String type, [
     PageTransitionEventInit eventInitDict,
@@ -4245,10 +3977,8 @@ extension PageTransitionEventExtension on PageTransitionEvent {
   external bool get persisted;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PageTransitionEventInit implements EventInit {
+extension type PageTransitionEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory PageTransitionEventInit({bool persisted});
 }
 
@@ -4257,18 +3987,14 @@ extension PageTransitionEventInitExtension on PageTransitionEventInit {
   external bool get persisted;
 }
 
-@JS('BeforeUnloadEvent')
-@staticInterop
-class BeforeUnloadEvent implements Event {}
+extension type BeforeUnloadEvent._(JSObject _) implements Event, JSObject {}
 
 extension BeforeUnloadEventExtension on BeforeUnloadEvent {
   external set returnValue(String value);
   external String get returnValue;
 }
 
-@JS('ErrorEvent')
-@staticInterop
-class ErrorEvent implements Event {
+extension type ErrorEvent._(JSObject _) implements Event, JSObject {
   external factory ErrorEvent(
     String type, [
     ErrorEventInit eventInitDict,
@@ -4283,10 +4009,7 @@ extension ErrorEventExtension on ErrorEvent {
   external JSAny? get error;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ErrorEventInit implements EventInit {
+extension type ErrorEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ErrorEventInit({
     String message,
     String filename,
@@ -4309,9 +4032,7 @@ extension ErrorEventInitExtension on ErrorEventInit {
   external JSAny? get error;
 }
 
-@JS('PromiseRejectionEvent')
-@staticInterop
-class PromiseRejectionEvent implements Event {
+extension type PromiseRejectionEvent._(JSObject _) implements Event, JSObject {
   external factory PromiseRejectionEvent(
     String type,
     PromiseRejectionEventInit eventInitDict,
@@ -4323,10 +4044,8 @@ extension PromiseRejectionEventExtension on PromiseRejectionEvent {
   external JSAny? get reason;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class PromiseRejectionEventInit implements EventInit {
+extension type PromiseRejectionEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory PromiseRejectionEventInit({
     required JSPromise promise,
     JSAny? reason,
@@ -4340,9 +4059,7 @@ extension PromiseRejectionEventInitExtension on PromiseRejectionEventInit {
   external JSAny? get reason;
 }
 
-@JS('DOMParser')
-@staticInterop
-class DOMParser {
+extension type DOMParser._(JSObject _) implements JSObject {
   external factory DOMParser();
 }
 
@@ -4353,9 +4070,7 @@ extension DOMParserExtension on DOMParser {
   );
 }
 
-@JS('Navigator')
-@staticInterop
-class Navigator {}
+extension type Navigator._(JSObject _) implements JSObject {}
 
 extension NavigatorExtension on Navigator {
   external AutoplayPolicy getAutoplayPolicy(JSAny contextOrElementOrType);
@@ -4453,9 +4168,7 @@ extension NavigatorExtension on Navigator {
   external ML get ml;
 }
 
-@JS('PluginArray')
-@staticInterop
-class PluginArray {}
+extension type PluginArray._(JSObject _) implements JSObject {}
 
 extension PluginArrayExtension on PluginArray {
   external void refresh();
@@ -4464,9 +4177,7 @@ extension PluginArrayExtension on PluginArray {
   external int get length;
 }
 
-@JS('MimeTypeArray')
-@staticInterop
-class MimeTypeArray {}
+extension type MimeTypeArray._(JSObject _) implements JSObject {}
 
 extension MimeTypeArrayExtension on MimeTypeArray {
   external MimeType? item(int index);
@@ -4474,9 +4185,7 @@ extension MimeTypeArrayExtension on MimeTypeArray {
   external int get length;
 }
 
-@JS('Plugin')
-@staticInterop
-class Plugin {}
+extension type Plugin._(JSObject _) implements JSObject {}
 
 extension PluginExtension on Plugin {
   external MimeType? item(int index);
@@ -4487,9 +4196,7 @@ extension PluginExtension on Plugin {
   external int get length;
 }
 
-@JS('MimeType')
-@staticInterop
-class MimeType {}
+extension type MimeType._(JSObject _) implements JSObject {}
 
 extension MimeTypeExtension on MimeType {
   external String get type;
@@ -4498,9 +4205,7 @@ extension MimeTypeExtension on MimeType {
   external Plugin get enabledPlugin;
 }
 
-@JS('ImageBitmap')
-@staticInterop
-class ImageBitmap {}
+extension type ImageBitmap._(JSObject _) implements JSObject {}
 
 extension ImageBitmapExtension on ImageBitmap {
   external void close();
@@ -4508,10 +4213,7 @@ extension ImageBitmapExtension on ImageBitmap {
   external int get height;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class ImageBitmapOptions {
+extension type ImageBitmapOptions._(JSObject _) implements JSObject {
   external factory ImageBitmapOptions({
     ImageOrientation imageOrientation,
     PremultiplyAlpha premultiplyAlpha,
@@ -4537,9 +4239,7 @@ extension ImageBitmapOptionsExtension on ImageBitmapOptions {
   external ResizeQuality get resizeQuality;
 }
 
-@JS('MessageEvent')
-@staticInterop
-class MessageEvent implements Event {
+extension type MessageEvent._(JSObject _) implements Event, JSObject {
   external factory MessageEvent(
     String type, [
     MessageEventInit eventInitDict,
@@ -4564,10 +4264,7 @@ extension MessageEventExtension on MessageEvent {
   external JSArray get ports;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class MessageEventInit implements EventInit {
+extension type MessageEventInit._(JSObject _) implements EventInit, JSObject {
   external factory MessageEventInit({
     JSAny? data,
     String origin,
@@ -4590,9 +4287,7 @@ extension MessageEventInitExtension on MessageEventInit {
   external JSArray get ports;
 }
 
-@JS('EventSource')
-@staticInterop
-class EventSource implements EventTarget {
+extension type EventSource._(JSObject _) implements EventTarget, JSObject {
   external factory EventSource(
     String url, [
     EventSourceInit eventSourceInitDict,
@@ -4616,10 +4311,7 @@ extension EventSourceExtension on EventSource {
   external EventHandler get onerror;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class EventSourceInit {
+extension type EventSourceInit._(JSObject _) implements JSObject {
   external factory EventSourceInit({bool withCredentials});
 }
 
@@ -4628,9 +4320,7 @@ extension EventSourceInitExtension on EventSourceInit {
   external bool get withCredentials;
 }
 
-@JS('MessageChannel')
-@staticInterop
-class MessageChannel {
+extension type MessageChannel._(JSObject _) implements JSObject {
   external factory MessageChannel();
 }
 
@@ -4639,9 +4329,7 @@ extension MessageChannelExtension on MessageChannel {
   external MessagePort get port2;
 }
 
-@JS('MessagePort')
-@staticInterop
-class MessagePort implements EventTarget {}
+extension type MessagePort._(JSObject _) implements EventTarget, JSObject {}
 
 extension MessagePortExtension on MessagePort {
   external void postMessage(
@@ -4656,10 +4344,7 @@ extension MessagePortExtension on MessagePort {
   external EventHandler get onmessageerror;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class StructuredSerializeOptions {
+extension type StructuredSerializeOptions._(JSObject _) implements JSObject {
   external factory StructuredSerializeOptions({JSArray transfer});
 }
 
@@ -4668,9 +4353,7 @@ extension StructuredSerializeOptionsExtension on StructuredSerializeOptions {
   external JSArray get transfer;
 }
 
-@JS('BroadcastChannel')
-@staticInterop
-class BroadcastChannel implements EventTarget {
+extension type BroadcastChannel._(JSObject _) implements EventTarget, JSObject {
   external factory BroadcastChannel(String name);
 }
 
@@ -4684,9 +4367,8 @@ extension BroadcastChannelExtension on BroadcastChannel {
   external EventHandler get onmessageerror;
 }
 
-@JS('WorkerGlobalScope')
-@staticInterop
-class WorkerGlobalScope implements EventTarget {}
+extension type WorkerGlobalScope._(JSObject _)
+    implements EventTarget, JSObject {}
 
 extension WorkerGlobalScopeExtension on WorkerGlobalScope {
   external void importScripts(String urls);
@@ -4749,9 +4431,8 @@ extension WorkerGlobalScopeExtension on WorkerGlobalScope {
   external TrustedTypePolicyFactory get trustedTypes;
 }
 
-@JS('DedicatedWorkerGlobalScope')
-@staticInterop
-class DedicatedWorkerGlobalScope implements WorkerGlobalScope {}
+extension type DedicatedWorkerGlobalScope._(JSObject _)
+    implements WorkerGlobalScope, JSObject {}
 
 extension DedicatedWorkerGlobalScopeExtension on DedicatedWorkerGlobalScope {
   external void postMessage(
@@ -4770,9 +4451,8 @@ extension DedicatedWorkerGlobalScopeExtension on DedicatedWorkerGlobalScope {
   external EventHandler get onrtctransform;
 }
 
-@JS('SharedWorkerGlobalScope')
-@staticInterop
-class SharedWorkerGlobalScope implements WorkerGlobalScope {}
+extension type SharedWorkerGlobalScope._(JSObject _)
+    implements WorkerGlobalScope, JSObject {}
 
 extension SharedWorkerGlobalScopeExtension on SharedWorkerGlobalScope {
   external void close();
@@ -4781,9 +4461,7 @@ extension SharedWorkerGlobalScopeExtension on SharedWorkerGlobalScope {
   external EventHandler get onconnect;
 }
 
-@JS('Worker')
-@staticInterop
-class Worker implements EventTarget {
+extension type Worker._(JSObject _) implements EventTarget, JSObject {
   external factory Worker(
     String scriptURL, [
     WorkerOptions options,
@@ -4804,10 +4482,7 @@ extension WorkerExtension on Worker {
   external EventHandler get onerror;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class WorkerOptions {
+extension type WorkerOptions._(JSObject _) implements JSObject {
   external factory WorkerOptions({
     WorkerType type,
     RequestCredentials credentials,
@@ -4824,9 +4499,7 @@ extension WorkerOptionsExtension on WorkerOptions {
   external String get name;
 }
 
-@JS('SharedWorker')
-@staticInterop
-class SharedWorker implements EventTarget {
+extension type SharedWorker._(JSObject _) implements EventTarget, JSObject {
   external factory SharedWorker(
     String scriptURL, [
     JSAny options,
@@ -4839,9 +4512,7 @@ extension SharedWorkerExtension on SharedWorker {
   external EventHandler get onerror;
 }
 
-@JS('WorkerNavigator')
-@staticInterop
-class WorkerNavigator {}
+extension type WorkerNavigator._(JSObject _) implements JSObject {}
 
 extension WorkerNavigatorExtension on WorkerNavigator {
   external JSPromise setAppBadge([int contents]);
@@ -4877,9 +4548,7 @@ extension WorkerNavigatorExtension on WorkerNavigator {
   external ML get ml;
 }
 
-@JS('WorkerLocation')
-@staticInterop
-class WorkerLocation {}
+extension type WorkerLocation._(JSObject _) implements JSObject {}
 
 extension WorkerLocationExtension on WorkerLocation {
   external String get href;
@@ -4893,13 +4562,8 @@ extension WorkerLocationExtension on WorkerLocation {
   external String get hash;
 }
 
-@JS('WorkletGlobalScope')
-@staticInterop
-class WorkletGlobalScope {}
-
-@JS('Worklet')
-@staticInterop
-class Worklet {}
+extension type WorkletGlobalScope._(JSObject _) implements JSObject {}
+extension type Worklet._(JSObject _) implements JSObject {}
 
 extension WorkletExtension on Worklet {
   external JSPromise addModule(
@@ -4908,10 +4572,7 @@ extension WorkletExtension on Worklet {
   ]);
 }
 
-@JS()
-@staticInterop
-@anonymous
-class WorkletOptions {
+extension type WorkletOptions._(JSObject _) implements JSObject {
   external factory WorkletOptions({RequestCredentials credentials});
 }
 
@@ -4920,9 +4581,7 @@ extension WorkletOptionsExtension on WorkletOptions {
   external RequestCredentials get credentials;
 }
 
-@JS('Storage')
-@staticInterop
-class Storage {}
+extension type Storage._(JSObject _) implements JSObject {}
 
 extension StorageExtension on Storage {
   external String? key(int index);
@@ -4936,9 +4595,7 @@ extension StorageExtension on Storage {
   external int get length;
 }
 
-@JS('StorageEvent')
-@staticInterop
-class StorageEvent implements Event {
+extension type StorageEvent._(JSObject _) implements Event, JSObject {
   external factory StorageEvent(
     String type, [
     StorageEventInit eventInitDict,
@@ -4963,10 +4620,7 @@ extension StorageEventExtension on StorageEvent {
   external Storage? get storageArea;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class StorageEventInit implements EventInit {
+extension type StorageEventInit._(JSObject _) implements EventInit, JSObject {
   external factory StorageEventInit({
     String? key,
     String? oldValue,
@@ -4989,9 +4643,8 @@ extension StorageEventInitExtension on StorageEventInit {
   external Storage? get storageArea;
 }
 
-@JS('HTMLMarqueeElement')
-@staticInterop
-class HTMLMarqueeElement implements HTMLElement {
+extension type HTMLMarqueeElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLMarqueeElement();
 }
 
@@ -5022,9 +4675,8 @@ extension HTMLMarqueeElementExtension on HTMLMarqueeElement {
   external String get width;
 }
 
-@JS('HTMLFrameSetElement')
-@staticInterop
-class HTMLFrameSetElement implements HTMLElement {
+extension type HTMLFrameSetElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLFrameSetElement();
 }
 
@@ -5073,9 +4725,7 @@ extension HTMLFrameSetElementExtension on HTMLFrameSetElement {
   external EventHandler get onportalactivate;
 }
 
-@JS('HTMLFrameElement')
-@staticInterop
-class HTMLFrameElement implements HTMLElement {
+extension type HTMLFrameElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLFrameElement();
 }
 
@@ -5100,9 +4750,8 @@ extension HTMLFrameElementExtension on HTMLFrameElement {
   external String get marginWidth;
 }
 
-@JS('HTMLDirectoryElement')
-@staticInterop
-class HTMLDirectoryElement implements HTMLElement {
+extension type HTMLDirectoryElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLDirectoryElement();
 }
 
@@ -5111,9 +4760,7 @@ extension HTMLDirectoryElementExtension on HTMLDirectoryElement {
   external bool get compact;
 }
 
-@JS('HTMLFontElement')
-@staticInterop
-class HTMLFontElement implements HTMLElement {
+extension type HTMLFontElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLFontElement();
 }
 
@@ -5126,9 +4773,7 @@ extension HTMLFontElementExtension on HTMLFontElement {
   external String get size;
 }
 
-@JS('HTMLParamElement')
-@staticInterop
-class HTMLParamElement implements HTMLElement {
+extension type HTMLParamElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLParamElement();
 }
 
@@ -5143,9 +4788,7 @@ extension HTMLParamElementExtension on HTMLParamElement {
   external String get valueType;
 }
 
-@JS('External')
-@staticInterop
-class External {}
+extension type External._(JSObject _) implements JSObject {}
 
 extension ExternalExtension on External {
   external void AddSearchProvider();

@@ -13,10 +13,7 @@ typedef TrustedType = JSObject;
 typedef CreateHTMLCallback = JSFunction;
 typedef CreateScriptCallback = JSFunction;
 typedef CreateScriptURLCallback = JSFunction;
-
-@JS('TrustedHTML')
-@staticInterop
-class TrustedHTML {
+extension type TrustedHTML._(JSObject _) implements JSObject {
   external static TrustedHTML fromLiteral(JSObject templateStringsArray);
 }
 
@@ -24,9 +21,7 @@ extension TrustedHTMLExtension on TrustedHTML {
   external String toJSON();
 }
 
-@JS('TrustedScript')
-@staticInterop
-class TrustedScript {
+extension type TrustedScript._(JSObject _) implements JSObject {
   external static TrustedScript fromLiteral(JSObject templateStringsArray);
 }
 
@@ -34,9 +29,7 @@ extension TrustedScriptExtension on TrustedScript {
   external String toJSON();
 }
 
-@JS('TrustedScriptURL')
-@staticInterop
-class TrustedScriptURL {
+extension type TrustedScriptURL._(JSObject _) implements JSObject {
   external static TrustedScriptURL fromLiteral(JSObject templateStringsArray);
 }
 
@@ -44,9 +37,7 @@ extension TrustedScriptURLExtension on TrustedScriptURL {
   external String toJSON();
 }
 
-@JS('TrustedTypePolicyFactory')
-@staticInterop
-class TrustedTypePolicyFactory {}
+extension type TrustedTypePolicyFactory._(JSObject _) implements JSObject {}
 
 extension TrustedTypePolicyFactoryExtension on TrustedTypePolicyFactory {
   external TrustedTypePolicy createPolicy(
@@ -72,9 +63,7 @@ extension TrustedTypePolicyFactoryExtension on TrustedTypePolicyFactory {
   external TrustedTypePolicy? get defaultPolicy;
 }
 
-@JS('TrustedTypePolicy')
-@staticInterop
-class TrustedTypePolicy {}
+extension type TrustedTypePolicy._(JSObject _) implements JSObject {}
 
 extension TrustedTypePolicyExtension on TrustedTypePolicy {
   external TrustedHTML createHTML(
@@ -92,10 +81,7 @@ extension TrustedTypePolicyExtension on TrustedTypePolicy {
   external String get name;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class TrustedTypePolicyOptions {
+extension type TrustedTypePolicyOptions._(JSObject _) implements JSObject {
   external factory TrustedTypePolicyOptions({
     CreateHTMLCallback? createHTML,
     CreateScriptCallback? createScript,

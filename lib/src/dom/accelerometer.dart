@@ -9,10 +9,7 @@ import 'dart:js_interop';
 import 'generic_sensor.dart';
 
 typedef AccelerometerLocalCoordinateSystem = String;
-
-@JS('Accelerometer')
-@staticInterop
-class Accelerometer implements Sensor {
+extension type Accelerometer._(JSObject _) implements Sensor, JSObject {
   external factory Accelerometer([AccelerometerSensorOptions options]);
 }
 
@@ -22,10 +19,8 @@ extension AccelerometerExtension on Accelerometer {
   external num? get z;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class AccelerometerSensorOptions implements SensorOptions {
+extension type AccelerometerSensorOptions._(JSObject _)
+    implements SensorOptions, JSObject {
   external factory AccelerometerSensorOptions(
       {AccelerometerLocalCoordinateSystem referenceFrame});
 }
@@ -35,23 +30,15 @@ extension AccelerometerSensorOptionsExtension on AccelerometerSensorOptions {
   external AccelerometerLocalCoordinateSystem get referenceFrame;
 }
 
-@JS('LinearAccelerationSensor')
-@staticInterop
-class LinearAccelerationSensor implements Accelerometer {
+extension type LinearAccelerationSensor._(JSObject _)
+    implements Accelerometer, JSObject {
   external factory LinearAccelerationSensor(
       [AccelerometerSensorOptions options]);
 }
-
-@JS('GravitySensor')
-@staticInterop
-class GravitySensor implements Accelerometer {
+extension type GravitySensor._(JSObject _) implements Accelerometer, JSObject {
   external factory GravitySensor([AccelerometerSensorOptions options]);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AccelerometerReadingValues {
+extension type AccelerometerReadingValues._(JSObject _) implements JSObject {
   external factory AccelerometerReadingValues({
     required num? x,
     required num? y,
@@ -68,16 +55,11 @@ extension AccelerometerReadingValuesExtension on AccelerometerReadingValues {
   external num? get z;
 }
 
-@JS()
-@staticInterop
-@anonymous
-class LinearAccelerationReadingValues implements AccelerometerReadingValues {
+extension type LinearAccelerationReadingValues._(JSObject _)
+    implements AccelerometerReadingValues, JSObject {
   external factory LinearAccelerationReadingValues();
 }
-
-@JS()
-@staticInterop
-@anonymous
-class GravityReadingValues implements AccelerometerReadingValues {
+extension type GravityReadingValues._(JSObject _)
+    implements AccelerometerReadingValues, JSObject {
   external factory GravityReadingValues();
 }

@@ -13,7 +13,8 @@ import 'package:html/parser.dart' show parse;
 import 'package:http/http.dart' as http;
 import 'package:pool/pool.dart';
 
-const apiUrl = 'https://developer.mozilla.org/en-US/docs/Web/API';
+const mdnUrl = 'https://developer.mozilla.org/en-US/docs/Web';
+const apiUrl = '$mdnUrl/API';
 
 Future<void> main(List<String> args) async {
   final client = http.Client();
@@ -37,6 +38,7 @@ Future<void> main(List<String> args) async {
   interfaceNames.sort();
 
   print('${interfaceNames.length} items read from $apiUrl.');
+  stdout.write('Gathering MDN documentation...');
 
   final pool = Pool(6);
 
@@ -51,21 +53,22 @@ Future<void> main(List<String> args) async {
   final file = File('tool/mdn.json');
   final json = {
     '__meta__': {
-      'source': '[MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web)',
+      'source': '[MDN Web Docs]($mdnUrl)',
       'license':
           '[CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/)',
     },
     for (var i in interfaces) i.name: i.asJson,
   };
   file.writeAsStringSync('${encoder.convert(json)}\n');
+
+  print('');
+  print('Wrote ${file.lengthSync()} bytes to ${file.path}.');
 }
 
 Future<InterfaceInfo> populateInterfaceInfo(
   String interfaceName, {
   required http.Client client,
 }) async {
-  print('  $interfaceName');
-
   final info = InterfaceInfo(name: interfaceName);
 
   final url = '$apiUrl/$interfaceName';

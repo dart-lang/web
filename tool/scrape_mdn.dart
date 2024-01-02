@@ -40,9 +40,7 @@ Future<void> main(List<String> args) async {
   print('${interfaceNames.length} items read from $apiUrl.');
   stdout.write('Gathering MDN documentation...');
 
-  final pool = Pool(6);
-
-  final interfaces = await pool.forEach(interfaceNames, (item) async {
+  final interfaces = await Pool(6).forEach(interfaceNames, (item) async {
     return populateInterfaceInfo(item, client: client);
   }).toList();
 

@@ -2,7 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:convert';
+// TODO(devoncarew): Generate status information for interface properties.
+
+import 'dart:convert' hide json;
 import 'dart:js_interop';
 
 import 'package:code_builder/code_builder.dart' as code;
@@ -280,13 +282,15 @@ class _OverridableOperation extends _OverridableMember {
   _MemberName name;
   final bool isStatic;
   final _RawType returnType;
+  final BCDProperty? browserData;
 
-  _OverridableOperation._(
-      this.name, this.isStatic, this.returnType, super.parameters);
+  _OverridableOperation._(this.name, this.isStatic, this.returnType,
+      this.browserData, super.parameters);
 
-  factory _OverridableOperation(idl.Operation operation, _MemberName name) =>
+  factory _OverridableOperation(idl.Operation operation, _MemberName name,
+          BCDProperty? browserData) =>
       _OverridableOperation._(name, operation.special == 'static',
-          _getRawType(operation.idlType), operation.arguments);
+          _getRawType(operation.idlType), browserData, operation.arguments);
 
   void update(idl.Operation that) {
     final thisName = name.jsOverride ?? name.name;
@@ -307,17 +311,19 @@ class _PartialInterfacelike {
   final String name;
   final String type;
   String? inheritance;
+  final BCDInterface? bcd;
   final Map<String, _OverridableOperation> operations = {};
   final Map<String, _OverridableOperation> staticOperations = {};
   final List<idl.Member> members = [];
   final List<idl.Member> staticMembers = [];
   _OverridableConstructor? constructor;
 
-  _PartialInterfacelike._(this.name, this.type, this.inheritance);
+  _PartialInterfacelike._(this.name, this.type, this.inheritance, this.bcd);
 
-  factory _PartialInterfacelike(idl.Interfacelike interfacelike) {
+  factory _PartialInterfacelike(
+      idl.Interfacelike interfacelike, BCDInterface? bcd) {
     final partialInterfacelike = _PartialInterfacelike._(
-        interfacelike.name, interfacelike.type, interfacelike.inheritance);
+        interfacelike.name, interfacelike.type, interfacelike.inheritance, bcd);
     partialInterfacelike._processMembers(interfacelike.members);
     return partialInterfacelike;
   }
@@ -354,6 +360,9 @@ class _PartialInterfacelike {
             // operations.
             continue;
           }
+
+          final bcdProperty = bcd?.property(name);
+
           if (operation.special == 'static') {
             if (staticOperations.containsKey(name)) {
               staticOperations[name]!.update(operation);
@@ -365,7 +374,7 @@ class _PartialInterfacelike {
                 memberName = _MemberName(name);
               }
               staticOperations[name] =
-                  _OverridableOperation(operation, memberName);
+                  _OverridableOperation(operation, memberName, bcdProperty);
             }
           } else {
             if (operations.containsKey(name)) {
@@ -375,8 +384,8 @@ class _PartialInterfacelike {
               if (staticOperation != null) {
                 staticOperation.name = _MemberName('${name}_', name);
               }
-              operations[name] =
-                  _OverridableOperation(operation, _MemberName(operation.name));
+              operations[name] = _OverridableOperation(
+                  operation, _MemberName(operation.name), bcdProperty);
             }
           }
           break;
@@ -431,7 +440,7 @@ class Translator {
   final _includes = <idl.Includes>[];
 
   late String _currentlyTranslatingUrl;
-  late WebSpecs webSpecs;
+  late BrowserCompatData browserCompatData;
 
   /// Singleton so that various helper methods can access info about the AST.
   static Translator? instance;
@@ -439,7 +448,7 @@ class Translator {
   Translator(
       this.packageRoot, this._librarySubDir, this._cssStyleDeclarations) {
     instance = this;
-    webSpecs = WebSpecs.read();
+    browserCompatData = BrowserCompatData.read();
   }
 
   /// Set or update partial interfaces so we can have a unified interface
@@ -459,7 +468,8 @@ class Translator {
         if (_interfacelikes.containsKey(name)) {
           _interfacelikes[name]!.update(interfacelike);
         } else {
-          _interfacelikes[name] = _PartialInterfacelike(interfacelike);
+          final bcd = browserCompatData.statusFor(name);
+          _interfacelikes[name] = _PartialInterfacelike(interfacelike, bcd);
         }
       }
       for (final interfacelike in [
@@ -483,10 +493,6 @@ class Translator {
   void collect(String shortName, JSArray ast) {
     final libraryPath = '$_librarySubDir/${shortName.kebabToSnake}.dart';
     assert(!_libraries.containsKey(libraryPath));
-
-    // TODO: Use the info from the spec to skip generation of some libraries.
-    // ignore: unused_local_variable
-    final spec = webSpecs.specFor(shortName)!;
 
     final library = _Library(this, '$packageRoot/$libraryPath');
     _libraries[libraryPath] = library;
@@ -623,63 +629,92 @@ class Translator {
 
   code.Method _operation(_OverridableOperation operation) {
     final memberName = operation.name;
+
+    final browserData = operation.browserData;
+
     return _overridableMember<code.Method>(
-        operation,
-        (requiredParameters, optionalParameters) => code.Method((b) => b
-          ..annotations.addAll(_jsOverride(memberName.jsOverride))
-          ..external = true
-          ..static = operation.isStatic
-          ..returns = _typeToTypeReference(operation.returnType)
-          ..name = memberName.name
-          ..requiredParameters.addAll(requiredParameters)
-          ..optionalParameters.addAll(optionalParameters)));
+      operation,
+      (requiredParameters, optionalParameters) => code.Method((b) => b
+        ..annotations.addAll([
+          ..._jsOverride(memberName.jsOverride),
+          // Add annotations for status if status != the parent's status.
+          if (browserData?.statusDifferentFromParent ?? false)
+            code.refer(
+              "Status('${browserData!.statusDescription}')",
+              'status.dart',
+            ),
+        ])
+        ..external = true
+        ..static = operation.isStatic
+        ..returns = _typeToTypeReference(operation.returnType)
+        ..name = memberName.name
+        ..requiredParameters.addAll(requiredParameters)
+        ..optionalParameters.addAll(optionalParameters)),
+    );
   }
 
-  List<code.Method> _getterSetter(
-      {required String fieldName,
-      required code.Reference Function() getType,
-      required bool isStatic,
-      required bool readOnly}) {
+  List<code.Method> _getterSetter({
+    required String fieldName,
+    required code.Reference Function() getType,
+    required bool isStatic,
+    required bool readOnly,
+    required BCDProperty? bcd,
+  }) {
     final memberName = _MemberName(fieldName);
     final name = memberName.name;
     return [
       if (!readOnly)
-        code.Method((b) => b
-          ..annotations.addAll(_jsOverride(memberName.jsOverride))
+        code.Method(
+          (b) => b
+            ..annotations.addAll(_jsOverride(memberName.jsOverride))
+            ..external = true
+            ..static = isStatic
+            ..type = code.MethodType.setter
+            ..name = name
+            ..requiredParameters.add(code.Parameter((b) => b
+              ..type = getType()
+              ..name = 'value')),
+        ),
+      code.Method(
+        (b) => b
+          ..annotations.addAll([
+            ..._jsOverride(memberName.jsOverride),
+            // Add annoations for status if status != the parent's status.
+            if (bcd?.statusDifferentFromParent ?? false)
+              code.refer("Status('${bcd!.statusDescription}')", 'status.dart'),
+          ])
           ..external = true
           ..static = isStatic
-          ..type = code.MethodType.setter
-          ..name = name
-          ..requiredParameters.add(code.Parameter((b) => b
-            ..type = getType()
-            ..name = 'value'))),
-      code.Method((b) => b
-        ..annotations.addAll(_jsOverride(memberName.jsOverride))
-        ..external = true
-        ..static = isStatic
-        ..returns = getType()
-        ..type = code.MethodType.getter
-        ..name = name)
+          ..returns = getType()
+          ..type = code.MethodType.getter
+          ..name = name,
+      ),
     ];
   }
 
-  List<code.Method> _getterSetterWithIDLType(
-          {required String fieldName,
-          required idl.IDLType type,
-          required bool isStatic,
-          required bool readOnly}) =>
+  List<code.Method> _getterSetterWithIDLType({
+    required String fieldName,
+    required idl.IDLType type,
+    required bool isStatic,
+    required bool readOnly,
+    required BCDProperty? bcd,
+  }) =>
       _getterSetter(
-          fieldName: fieldName,
-          getType: () => _idlTypeToTypeReference(type),
-          isStatic: isStatic,
-          readOnly: readOnly);
+        fieldName: fieldName,
+        getType: () => _idlTypeToTypeReference(type),
+        isStatic: isStatic,
+        readOnly: readOnly,
+        bcd: bcd,
+      );
 
-  List<code.Method> _attribute(idl.Attribute attribute) =>
+  List<code.Method> _attribute(idl.Attribute attribute, BCDProperty? bcd) =>
       _getterSetterWithIDLType(
-          fieldName: attribute.name,
-          type: attribute.idlType,
-          readOnly: attribute.readonly,
-          isStatic: attribute.special == 'static');
+        fieldName: attribute.name,
+        type: attribute.idlType,
+        readOnly: attribute.readonly,
+        isStatic: attribute.special == 'static',
+        bcd: bcd,
+      );
 
   code.Method _constant(idl.Constant constant) => code.Method((b) => b
     ..external = true
@@ -688,23 +723,27 @@ class Translator {
     ..type = code.MethodType.getter
     ..name = constant.name);
 
-  List<code.Method> _field(idl.Field field) => _getterSetterWithIDLType(
-      fieldName: field.name,
-      type: field.idlType,
-      readOnly: false,
-      isStatic: false);
+  List<code.Method> _field(idl.Field field, BCDProperty? bcd) =>
+      _getterSetterWithIDLType(
+          fieldName: field.name,
+          type: field.idlType,
+          readOnly: false,
+          isStatic: false,
+          bcd: bcd);
 
-  List<code.Method> _member(idl.Member member) {
+  List<code.Method> _member(idl.Member member, BCDInterface? browserData) {
     final type = member.type;
     switch (type) {
       case 'operation':
         throw Exception('Should be handled explicitly.');
       case 'attribute':
-        return _attribute(member as idl.Attribute);
+        final attr = member as idl.Attribute;
+        return _attribute(attr, browserData?.property(attr.name));
       case 'const':
         return [_constant(member as idl.Constant)];
       case 'field':
-        return _field(member as idl.Field);
+        final field = member as idl.Field;
+        return _field(field, browserData?.property(field.name));
       case 'iterable':
       case 'maplike':
       case 'setlike':
@@ -715,22 +754,29 @@ class Translator {
     }
   }
 
-  List<code.Method> _members(List<idl.Member> members) =>
-      [for (final member in members) ..._member(member)];
+  List<code.Method> _members(
+          List<idl.Member> members, BCDInterface? browserData) =>
+      [for (final member in members) ..._member(member, browserData)];
 
   List<code.Method> _operations(List<_OverridableOperation> operations) =>
       [for (final operation in operations) _operation(operation)];
 
-  code.Extension _extension(_RawType type,
-          List<_OverridableOperation> operations, List<idl.Member> members) =>
+  code.Extension _extension(
+          _RawType type,
+          List<_OverridableOperation> operations,
+          List<idl.Member> members,
+          BCDInterface? browserData) =>
       code.Extension((b) => b
         ..name = '${type.type.snakeToPascal}Extension'
         ..on = _typeReference(type)
-        ..methods.addAll(_operations(operations)
-            .followedBy(_members(members))
-            .followedBy(type.type == 'CSSStyleDeclaration'
-                ? _cssStyleDeclarationProperties()
-                : [])));
+        ..methods.addAll(
+          [
+            ..._operations(operations),
+            ..._members(members, browserData),
+            if (type.type == 'CSSStyleDeclaration')
+              ..._cssStyleDeclarationProperties(),
+          ],
+        ));
 
   List<code.Method> _cssStyleDeclarationProperties() => [
         for (final style in _cssStyleDeclarations)
@@ -738,12 +784,14 @@ class Translator {
               fieldName: style,
               getType: () => code.TypeReference((b) => b..symbol = 'String'),
               isStatic: false,
-              readOnly: false),
+              readOnly: false,
+              bcd: null),
       ];
 
   code.Class _class({
     required String jsName,
     required String dartClassName,
+    required BCDInterface? browserData,
     required List<String> implements,
     required _OverridableConstructor? constructor,
     required List<_OverridableOperation> staticOperations,
@@ -754,8 +802,18 @@ class Translator {
   }) =>
       code.Class(
         (b) => b
-          ..annotations.addAll(_jsOverride(isObjectLiteral ? '' : jsName,
-              staticInterop: true, objectLiteral: isObjectLiteral))
+          ..annotations.addAll([
+            ..._jsOverride(isObjectLiteral ? '' : jsName,
+                staticInterop: true, objectLiteral: isObjectLiteral),
+            if (browserData != null)
+              code.refer(
+                  "Status('${browserData.statusDescription}')", 'status.dart'),
+            if (browserData != null)
+              code.refer(
+                "SupportedBrowsers('${browserData.supportedBrowsers}')",
+                'status.dart',
+              ),
+          ])
           ..name = dartClassName
           ..implements.addAll(implements
               .map((interface) => _typeReference(_RawType(interface, false))))
@@ -764,8 +822,10 @@ class Translator {
               : constructor != null
                   ? [_constructor(constructor)]
                   : [])
-          ..methods.addAll(
-              _operations(staticOperations).followedBy(_members(staticMembers)))
+          ..methods.addAll([
+            ..._operations(staticOperations),
+            ..._members(staticMembers, browserData),
+          ])
           ..abstract = isAbstract,
       );
 
@@ -780,6 +840,8 @@ class Translator {
     // Namespaces have lowercase names. We also translate them to
     // private classes, and make their first character uppercase in the process.
     final dartClassName = isNamespace ? '\$${capitalize(jsName)}' : jsName;
+
+    final browserData = browserCompatData.statusFor(name);
 
     // We create a getter for namespaces with the expected name. We also create
     // getters for a few pre-defined singleton classes.
@@ -804,6 +866,7 @@ class Translator {
       _class(
           jsName: jsName,
           dartClassName: dartClassName,
+          browserData: browserData,
           implements: implements,
           constructor: interfacelike.constructor,
           staticOperations: staticOperations,
@@ -812,7 +875,8 @@ class Translator {
           isAbstract: isNamespace,
           isObjectLiteral: isDictionary),
       if (operations.isNotEmpty || members.isNotEmpty)
-        _extension(_RawType(dartClassName, false), operations, members)
+        _extension(
+            _RawType(dartClassName, false), operations, members, browserData)
     ];
   }
 
@@ -864,72 +928,103 @@ class Translator {
   }
 }
 
-class WebSpecs {
-  static WebSpecs read() {
-    final path = p.join('node_modules', 'web-specs', 'index.json');
+class BrowserCompatData {
+  static BrowserCompatData read() {
+    final path =
+        p.join('node_modules', '@mdn', 'browser-compat-data', 'data.json');
     final content = (fs.readFileSync(
       path.toJS,
       JSReadFileOptions(encoding: 'utf8'.toJS),
     ) as JSString)
         .toDart;
-    return WebSpecs(
-      (jsonDecode(content) as List)
-          .map((json) => WebSpec(json as Map<String, dynamic>))
-          .toList(),
+
+    final api = (jsonDecode(content) as Map)['api'] as Map<String, dynamic>;
+    final interfaces = api.keys
+        .where((key) => !key.startsWith('_'))
+        .map((key) => BCDInterface(key, api[key] as Map<String, dynamic>))
+        .toList();
+    return BrowserCompatData(Map.fromIterable(
+      interfaces,
+      key: (i) => (i as BCDInterface).name,
+    ));
+  }
+
+  final Map<String, BCDInterface> interfaces;
+
+  BrowserCompatData(this.interfaces);
+
+  BCDInterface? statusFor(String name) => interfaces[name];
+}
+
+class BCDInterface extends BCDItem {
+  late final Map<String, BCDProperty> properties;
+
+  BCDInterface(super.name, super.json) {
+    final names = json.keys.where((key) => !key.startsWith('_'));
+    properties = Map.fromIterable(
+      names,
+      value: (key) =>
+          BCDProperty(key as String, json[key] as Map<String, dynamic>, this),
     );
   }
 
-  final List<WebSpec> specs;
-
-  WebSpecs(this.specs);
-
-  WebSpec? specFor(String shortName) {
-    for (final spec in specs) {
-      if (spec.shortname == shortName) {
-        return spec;
-      }
-    }
-
-    for (final spec in specs) {
-      if (spec.seriesShortname == shortName) {
-        return spec;
-      }
-    }
-
-    return null;
-  }
+  BCDProperty? property(String name) => properties[name];
 }
 
-class WebSpec {
+class BCDProperty extends BCDItem {
+  final BCDInterface parent;
+
+  BCDProperty(super.name, super.json, this.parent);
+
+  bool get statusDifferentFromParent =>
+      parent.statusDescription != statusDescription;
+}
+
+abstract class BCDItem {
+  final String name;
   final Map<String, dynamic> json;
 
-  WebSpec(this.json);
+  BCDItem(this.name, this.json);
 
-  String get url => json['url'] as String;
+  Map<String, dynamic> get compat => json['__compat'] as Map<String, dynamic>;
+  Map<String, dynamic> get status => compat['status'] as Map<String, dynamic>;
+  Map<String, dynamic> get support => compat['support'] as Map<String, dynamic>;
 
-  String get shortname => json['shortname'] as String;
+  bool get deprecated => status['deprecated'] as bool? ?? false;
+  bool get experimental => status['experimental'] as bool? ?? false;
+  bool get standardTrack => status['standard_track'] as bool? ?? false;
 
-  String? get seriesShortname {
-    if (!json.containsKey('series')) return null;
-    return (json['series'] as Map)['shortname'] as String?;
-  }
+  String get statusDescription => [
+        if (standardTrack) 'standards-track',
+        if (deprecated) 'deprecated',
+        if (experimental) 'experimental',
+      ].join(', ');
 
-  String get standing => json['standing'] as String;
+  bool get chromeSupported => _versionAdded('chrome');
+  bool get firefoxSupported => _versionAdded('firefox');
+  bool get safariSupported => _versionAdded('safari');
 
-  List<String> get categories {
-    if (json.containsKey('categories')) {
-      return (json['categories'] as List).cast<String>();
-    } else {
-      return const [];
+  String get supportedBrowsers => [
+        if (chromeSupported) 'chrome',
+        if (firefoxSupported) 'firefox',
+        if (safariSupported) 'safari',
+      ].join(', ');
+
+  bool _versionAdded(String browser) {
+    final map = (support[browser] is List
+        ? (support[browser] as List).first
+        : support[browser]) as Map<String, dynamic>;
+
+    if (map.containsKey('version_removed')) {
+      return false;
     }
-  }
 
-  String? get releaseStatus {
-    if (!json.containsKey('release')) return null;
-    return (json['release'] as Map)['status'] as String?;
+    final value = map['version_added'];
+    if (value is String) return true;
+    if (value is bool) return value;
+    return false;
   }
 
   @override
-  String toString() =>
-      '$shortname $url $standing [${categories.join(',')}] $releaseStatus';
+  String toString() => '$name ($supportedBrowsers) [$statusDescription]';
 }

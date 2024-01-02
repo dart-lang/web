@@ -9,6 +9,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 import 'permissions.dart';
+import 'status.dart';
 import 'webidl.dart';
 
 typedef UUID = String;
@@ -115,6 +116,8 @@ extension RequestDeviceOptionsExtension on RequestDeviceOptions {
 
 @JS('Bluetooth')
 @staticInterop
+@Status('standards-track, experimental')
+@SupportedBrowsers('chrome')
 class Bluetooth implements EventTarget {}
 
 extension BluetoothExtension on Bluetooth {
@@ -237,6 +240,8 @@ extension ValueEventInitExtension on ValueEventInit {
 
 @JS('BluetoothDevice')
 @staticInterop
+@Status('standards-track, experimental')
+@SupportedBrowsers('chrome')
 class BluetoothDevice implements EventTarget {}
 
 extension BluetoothDeviceExtension on BluetoothDevice {
@@ -343,6 +348,8 @@ extension BluetoothAdvertisingEventInitExtension
 
 @JS('BluetoothRemoteGATTServer')
 @staticInterop
+@Status('standards-track, experimental')
+@SupportedBrowsers('chrome')
 class BluetoothRemoteGATTServer {}
 
 extension BluetoothRemoteGATTServerExtension on BluetoothRemoteGATTServer {
@@ -356,6 +363,8 @@ extension BluetoothRemoteGATTServerExtension on BluetoothRemoteGATTServer {
 
 @JS('BluetoothRemoteGATTService')
 @staticInterop
+@Status('standards-track, experimental')
+@SupportedBrowsers('chrome')
 class BluetoothRemoteGATTService implements EventTarget {}
 
 extension BluetoothRemoteGATTServiceExtension on BluetoothRemoteGATTService {
@@ -380,6 +389,8 @@ extension BluetoothRemoteGATTServiceExtension on BluetoothRemoteGATTService {
 
 @JS('BluetoothRemoteGATTCharacteristic')
 @staticInterop
+@Status('standards-track, experimental')
+@SupportedBrowsers('chrome')
 class BluetoothRemoteGATTCharacteristic implements EventTarget {}
 
 extension BluetoothRemoteGATTCharacteristicExtension
@@ -387,6 +398,7 @@ extension BluetoothRemoteGATTCharacteristicExtension
   external JSPromise getDescriptor(BluetoothDescriptorUUID descriptor);
   external JSPromise getDescriptors([BluetoothDescriptorUUID descriptor]);
   external JSPromise readValue();
+  @Status('standards-track, deprecated')
   external JSPromise writeValue(BufferSource value);
   external JSPromise writeValueWithResponse(BufferSource value);
   external JSPromise writeValueWithoutResponse(BufferSource value);
@@ -402,6 +414,8 @@ extension BluetoothRemoteGATTCharacteristicExtension
 
 @JS('BluetoothCharacteristicProperties')
 @staticInterop
+@Status('standards-track, experimental')
+@SupportedBrowsers('chrome')
 class BluetoothCharacteristicProperties {}
 
 extension BluetoothCharacteristicPropertiesExtension
@@ -419,6 +433,8 @@ extension BluetoothCharacteristicPropertiesExtension
 
 @JS('BluetoothRemoteGATTDescriptor')
 @staticInterop
+@Status('standards-track, experimental')
+@SupportedBrowsers('chrome')
 class BluetoothRemoteGATTDescriptor {}
 
 extension BluetoothRemoteGATTDescriptorExtension
@@ -432,6 +448,8 @@ extension BluetoothRemoteGATTDescriptorExtension
 
 @JS('BluetoothUUID')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome')
 class BluetoothUUID {
   external static UUID getService(JSAny name);
   external static UUID getCharacteristic(JSAny name);

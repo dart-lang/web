@@ -56,6 +56,7 @@ import 'serial.dart';
 import 'service_workers.dart';
 import 'shared_storage.dart';
 import 'speech_api.dart';
+import 'status.dart';
 import 'storage.dart';
 import 'storage_buckets.dart';
 import 'trusted_types.dart';
@@ -133,6 +134,8 @@ typedef WorkerType = String;
 
 @JS('HTMLAllCollection')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLAllCollection {}
 
 extension HTMLAllCollectionExtension on HTMLAllCollection {
@@ -143,6 +146,8 @@ extension HTMLAllCollectionExtension on HTMLAllCollection {
 
 @JS('HTMLFormControlsCollection')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLFormControlsCollection implements HTMLCollection {}
 
 extension HTMLFormControlsCollectionExtension on HTMLFormControlsCollection {
@@ -151,6 +156,8 @@ extension HTMLFormControlsCollectionExtension on HTMLFormControlsCollection {
 
 @JS('RadioNodeList')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class RadioNodeList implements NodeList {}
 
 extension RadioNodeListExtension on RadioNodeList {
@@ -160,6 +167,8 @@ extension RadioNodeListExtension on RadioNodeList {
 
 @JS('HTMLOptionsCollection')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLOptionsCollection implements HTMLCollection {}
 
 extension HTMLOptionsCollectionExtension on HTMLOptionsCollection {
@@ -176,6 +185,8 @@ extension HTMLOptionsCollectionExtension on HTMLOptionsCollection {
 
 @JS('DOMStringList')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class DOMStringList {}
 
 extension DOMStringListExtension on DOMStringList {
@@ -186,6 +197,8 @@ extension DOMStringListExtension on DOMStringList {
 
 @JS('HTMLElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLElement implements Element {
   external factory HTMLElement();
 }
@@ -204,6 +217,7 @@ extension HTMLElementExtension on HTMLElement {
   external int get offsetWidth;
   external int get offsetHeight;
   external set editContext(EditContext? value);
+  @Status('standards-track, experimental')
   external EditContext? get editContext;
   external set title(String value);
   external String get title;
@@ -444,6 +458,7 @@ extension HTMLElementExtension on HTMLElement {
   external set inputMode(String value);
   external String get inputMode;
   external set virtualKeyboardPolicy(String value);
+  @Status('standards-track, experimental')
   external String get virtualKeyboardPolicy;
   external DOMStringMap get dataset;
   external set nonce(String value);
@@ -456,31 +471,42 @@ extension HTMLElementExtension on HTMLElement {
 
 @JS('HTMLUnknownElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLUnknownElement implements HTMLElement {}
 
 @JS('DOMStringMap')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class DOMStringMap {}
 
 @JS('HTMLHtmlElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLHtmlElement implements HTMLElement {
   external factory HTMLHtmlElement();
 }
 
 extension HTMLHtmlElementExtension on HTMLHtmlElement {
   external set version(String value);
+  @Status('standards-track, deprecated')
   external String get version;
 }
 
 @JS('HTMLHeadElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLHeadElement implements HTMLElement {
   external factory HTMLHeadElement();
 }
 
 @JS('HTMLTitleElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLTitleElement implements HTMLElement {
   external factory HTMLTitleElement();
 }
@@ -492,6 +518,8 @@ extension HTMLTitleElementExtension on HTMLTitleElement {
 
 @JS('HTMLBaseElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLBaseElement implements HTMLElement {
   external factory HTMLBaseElement();
 }
@@ -505,6 +533,8 @@ extension HTMLBaseElementExtension on HTMLBaseElement {
 
 @JS('HTMLLinkElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLLinkElement implements HTMLElement {
   external factory HTMLLinkElement();
 }
@@ -534,22 +564,28 @@ extension HTMLLinkElementExtension on HTMLLinkElement {
   external String get imageSizes;
   external set referrerPolicy(String value);
   external String get referrerPolicy;
+  @Status('standards-track, experimental')
   external DOMTokenList get blocking;
   external set disabled(bool value);
   external bool get disabled;
   external set fetchPriority(String value);
   external String get fetchPriority;
   external set charset(String value);
+  @Status('standards-track, deprecated')
   external String get charset;
   external set rev(String value);
+  @Status('standards-track, deprecated')
   external String get rev;
   external set target(String value);
+  @Status('standards-track, deprecated')
   external String get target;
   external CSSStyleSheet? get sheet;
 }
 
 @JS('HTMLMetaElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLMetaElement implements HTMLElement {
   external factory HTMLMetaElement();
 }
@@ -564,11 +600,14 @@ extension HTMLMetaElementExtension on HTMLMetaElement {
   external set media(String value);
   external String get media;
   external set scheme(String value);
+  @Status('standards-track, deprecated')
   external String get scheme;
 }
 
 @JS('HTMLStyleElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLStyleElement implements HTMLElement {
   external factory HTMLStyleElement();
 }
@@ -578,14 +617,18 @@ extension HTMLStyleElementExtension on HTMLStyleElement {
   external bool get disabled;
   external set media(String value);
   external String get media;
+  @Status('standards-track, experimental')
   external DOMTokenList get blocking;
   external set type(String value);
+  @Status('standards-track, deprecated')
   external String get type;
   external CSSStyleSheet? get sheet;
 }
 
 @JS('HTMLBodyElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLBodyElement implements HTMLElement {
   external factory HTMLBodyElement();
 }
@@ -594,16 +637,22 @@ extension HTMLBodyElementExtension on HTMLBodyElement {
   external set onorientationchange(EventHandler value);
   external EventHandler get onorientationchange;
   external set text(String value);
+  @Status('standards-track, deprecated')
   external String get text;
   external set link(String value);
+  @Status('standards-track, deprecated')
   external String get link;
   external set vLink(String value);
+  @Status('standards-track, deprecated')
   external String get vLink;
   external set aLink(String value);
+  @Status('standards-track, deprecated')
   external String get aLink;
   external set bgColor(String value);
+  @Status('standards-track, deprecated')
   external String get bgColor;
   external set background(String value);
+  @Status('standards-track, deprecated')
   external String get background;
   external set ongamepadconnected(EventHandler value);
   external EventHandler get ongamepadconnected;
@@ -647,58 +696,76 @@ extension HTMLBodyElementExtension on HTMLBodyElement {
 
 @JS('HTMLHeadingElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLHeadingElement implements HTMLElement {
   external factory HTMLHeadingElement();
 }
 
 extension HTMLHeadingElementExtension on HTMLHeadingElement {
   external set align(String value);
+  @Status('standards-track, deprecated')
   external String get align;
 }
 
 @JS('HTMLParagraphElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLParagraphElement implements HTMLElement {
   external factory HTMLParagraphElement();
 }
 
 extension HTMLParagraphElementExtension on HTMLParagraphElement {
   external set align(String value);
+  @Status('standards-track, deprecated')
   external String get align;
 }
 
 @JS('HTMLHRElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLHRElement implements HTMLElement {
   external factory HTMLHRElement();
 }
 
 extension HTMLHRElementExtension on HTMLHRElement {
   external set align(String value);
+  @Status('standards-track, deprecated')
   external String get align;
   external set color(String value);
+  @Status('standards-track, deprecated')
   external String get color;
   external set noShade(bool value);
+  @Status('standards-track, deprecated')
   external bool get noShade;
   external set size(String value);
+  @Status('standards-track, deprecated')
   external String get size;
   external set width(String value);
+  @Status('standards-track, deprecated')
   external String get width;
 }
 
 @JS('HTMLPreElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLPreElement implements HTMLElement {
   external factory HTMLPreElement();
 }
 
 extension HTMLPreElementExtension on HTMLPreElement {
   external set width(int value);
+  @Status('standards-track, deprecated')
   external int get width;
 }
 
 @JS('HTMLQuoteElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLQuoteElement implements HTMLElement {
   external factory HTMLQuoteElement();
 }
@@ -710,6 +777,8 @@ extension HTMLQuoteElementExtension on HTMLQuoteElement {
 
 @JS('HTMLOListElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLOListElement implements HTMLElement {
   external factory HTMLOListElement();
 }
@@ -722,35 +791,45 @@ extension HTMLOListElementExtension on HTMLOListElement {
   external set type(String value);
   external String get type;
   external set compact(bool value);
+  @Status('standards-track, deprecated')
   external bool get compact;
 }
 
 @JS('HTMLUListElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLUListElement implements HTMLElement {
   external factory HTMLUListElement();
 }
 
 extension HTMLUListElementExtension on HTMLUListElement {
   external set compact(bool value);
+  @Status('standards-track, deprecated')
   external bool get compact;
   external set type(String value);
+  @Status('standards-track, deprecated')
   external String get type;
 }
 
 @JS('HTMLMenuElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLMenuElement implements HTMLElement {
   external factory HTMLMenuElement();
 }
 
 extension HTMLMenuElementExtension on HTMLMenuElement {
   external set compact(bool value);
+  @Status('standards-track, deprecated')
   external bool get compact;
 }
 
 @JS('HTMLLIElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLLIElement implements HTMLElement {
   external factory HTMLLIElement();
 }
@@ -759,33 +838,42 @@ extension HTMLLIElementExtension on HTMLLIElement {
   external set value(int value);
   external int get value;
   external set type(String value);
+  @Status('standards-track, deprecated')
   external String get type;
 }
 
 @JS('HTMLDListElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLDListElement implements HTMLElement {
   external factory HTMLDListElement();
 }
 
 extension HTMLDListElementExtension on HTMLDListElement {
   external set compact(bool value);
+  @Status('standards-track, deprecated')
   external bool get compact;
 }
 
 @JS('HTMLDivElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLDivElement implements HTMLElement {
   external factory HTMLDivElement();
 }
 
 extension HTMLDivElementExtension on HTMLDivElement {
   external set align(String value);
+  @Status('standards-track, deprecated')
   external String get align;
 }
 
 @JS('HTMLAnchorElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLAnchorElement implements HTMLElement {
   external factory HTMLAnchorElement();
 }
@@ -809,18 +897,25 @@ extension HTMLAnchorElementExtension on HTMLAnchorElement {
   external set referrerPolicy(String value);
   external String get referrerPolicy;
   external set coords(String value);
+  @Status('standards-track, deprecated')
   external String get coords;
   external set charset(String value);
+  @Status('standards-track, deprecated')
   external String get charset;
   external set name(String value);
+  @Status('standards-track, deprecated')
   external String get name;
   external set rev(String value);
+  @Status('standards-track, deprecated')
   external String get rev;
   external set shape(String value);
+  @Status('standards-track, deprecated')
   external String get shape;
   external set attributionSourceId(int value);
+  @Status('standards-track, experimental')
   external int get attributionSourceId;
   external set attributionSrc(String value);
+  @Status('standards-track, experimental')
   external String get attributionSrc;
   external set href(String value);
   external String get href;
@@ -847,6 +942,8 @@ extension HTMLAnchorElementExtension on HTMLAnchorElement {
 
 @JS('HTMLDataElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLDataElement implements HTMLElement {
   external factory HTMLDataElement();
 }
@@ -858,6 +955,8 @@ extension HTMLDataElementExtension on HTMLDataElement {
 
 @JS('HTMLTimeElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLTimeElement implements HTMLElement {
   external factory HTMLTimeElement();
 }
@@ -869,23 +968,30 @@ extension HTMLTimeElementExtension on HTMLTimeElement {
 
 @JS('HTMLSpanElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLSpanElement implements HTMLElement {
   external factory HTMLSpanElement();
 }
 
 @JS('HTMLBRElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLBRElement implements HTMLElement {
   external factory HTMLBRElement();
 }
 
 extension HTMLBRElementExtension on HTMLBRElement {
   external set clear(String value);
+  @Status('standards-track, deprecated')
   external String get clear;
 }
 
 @JS('HTMLModElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLModElement implements HTMLElement {
   external factory HTMLModElement();
 }
@@ -899,12 +1005,16 @@ extension HTMLModElementExtension on HTMLModElement {
 
 @JS('HTMLPictureElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLPictureElement implements HTMLElement {
   external factory HTMLPictureElement();
 }
 
 @JS('HTMLSourceElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLSourceElement implements HTMLElement {
   external factory HTMLSourceElement();
 }
@@ -928,6 +1038,8 @@ extension HTMLSourceElementExtension on HTMLSourceElement {
 
 @JS('HTMLImageElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLImageElement implements HTMLElement {
   external factory HTMLImageElement();
 }
@@ -967,20 +1079,28 @@ extension HTMLImageElementExtension on HTMLImageElement {
   external set fetchPriority(String value);
   external String get fetchPriority;
   external set name(String value);
+  @Status('standards-track, deprecated')
   external String get name;
   external set lowsrc(String value);
+  @Status('standards-track, deprecated')
   external String get lowsrc;
   external set align(String value);
+  @Status('standards-track, deprecated')
   external String get align;
   external set hspace(int value);
+  @Status('standards-track, deprecated')
   external int get hspace;
   external set vspace(int value);
+  @Status('standards-track, deprecated')
   external int get vspace;
   external set longDesc(String value);
+  @Status('standards-track, deprecated')
   external String get longDesc;
   external set border(String value);
+  @Status('standards-track, deprecated')
   external String get border;
   external set attributionSrc(String value);
+  @Status('standards-track, experimental')
   external String get attributionSrc;
   external set sharedStorageWritable(bool value);
   external bool get sharedStorageWritable;
@@ -988,6 +1108,8 @@ extension HTMLImageElementExtension on HTMLImageElement {
 
 @JS('HTMLIFrameElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLIFrameElement implements HTMLElement {
   external factory HTMLIFrameElement();
 }
@@ -995,6 +1117,7 @@ class HTMLIFrameElement implements HTMLElement {
 extension HTMLIFrameElementExtension on HTMLIFrameElement {
   external Document? getSVGDocument();
   external set csp(String value);
+  @Status('standards-track, experimental')
   external String get csp;
   external set src(String value);
   external String get src;
@@ -1018,19 +1141,26 @@ extension HTMLIFrameElementExtension on HTMLIFrameElement {
   external Document? get contentDocument;
   external Window? get contentWindow;
   external set align(String value);
+  @Status('standards-track, deprecated')
   external String get align;
   external set scrolling(String value);
+  @Status('standards-track, deprecated')
   external String get scrolling;
   external set frameBorder(String value);
+  @Status('standards-track, deprecated')
   external String get frameBorder;
   external set longDesc(String value);
+  @Status('standards-track, deprecated')
   external String get longDesc;
   external set marginHeight(String value);
+  @Status('standards-track, deprecated')
   external String get marginHeight;
   external set marginWidth(String value);
+  @Status('standards-track, deprecated')
   external String get marginWidth;
   external PermissionsPolicy get permissionsPolicy;
   external set privateToken(String value);
+  @Status('standards-track, experimental')
   external String get privateToken;
   external set sharedStorageWritable(bool value);
   external bool get sharedStorageWritable;
@@ -1038,6 +1168,8 @@ extension HTMLIFrameElementExtension on HTMLIFrameElement {
 
 @JS('HTMLEmbedElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLEmbedElement implements HTMLElement {
   external factory HTMLEmbedElement();
 }
@@ -1053,13 +1185,17 @@ extension HTMLEmbedElementExtension on HTMLEmbedElement {
   external set height(String value);
   external String get height;
   external set align(String value);
+  @Status('standards-track, deprecated')
   external String get align;
   external set name(String value);
+  @Status('standards-track, deprecated')
   external String get name;
 }
 
 @JS('HTMLObjectElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLObjectElement implements HTMLElement {
   external factory HTMLObjectElement();
 }
@@ -1086,31 +1222,43 @@ extension HTMLObjectElementExtension on HTMLObjectElement {
   external ValidityState get validity;
   external String get validationMessage;
   external set align(String value);
+  @Status('standards-track, deprecated')
   external String get align;
   external set archive(String value);
+  @Status('standards-track, deprecated')
   external String get archive;
   external set code(String value);
+  @Status('standards-track, deprecated')
   external String get code;
   external set declare(bool value);
+  @Status('standards-track, deprecated')
   external bool get declare;
   external set hspace(int value);
+  @Status('standards-track, deprecated')
   external int get hspace;
   external set standby(String value);
+  @Status('standards-track, deprecated')
   external String get standby;
   external set vspace(int value);
+  @Status('standards-track, deprecated')
   external int get vspace;
   external set codeBase(String value);
+  @Status('standards-track, deprecated')
   external String get codeBase;
   external set codeType(String value);
+  @Status('standards-track, deprecated')
   external String get codeType;
   external set useMap(String value);
   external String get useMap;
   external set border(String value);
+  @Status('standards-track, deprecated')
   external String get border;
 }
 
 @JS('HTMLVideoElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLVideoElement implements HTMLMediaElement {
   external factory HTMLVideoElement();
 }
@@ -1140,12 +1288,16 @@ extension HTMLVideoElementExtension on HTMLVideoElement {
 
 @JS('HTMLAudioElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLAudioElement implements HTMLMediaElement {
   external factory HTMLAudioElement();
 }
 
 @JS('HTMLTrackElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLTrackElement implements HTMLElement {
   external factory HTMLTrackElement();
 
@@ -1174,6 +1326,8 @@ extension HTMLTrackElementExtension on HTMLTrackElement {
 
 @JS('HTMLMediaElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLMediaElement implements HTMLElement {
   external static int get NETWORK_EMPTY;
   external static int get NETWORK_IDLE;
@@ -1256,6 +1410,8 @@ extension HTMLMediaElementExtension on HTMLMediaElement {
 
 @JS('MediaError')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class MediaError {
   external static int get MEDIA_ERR_ABORTED;
   external static int get MEDIA_ERR_NETWORK;
@@ -1270,6 +1426,8 @@ extension MediaErrorExtension on MediaError {
 
 @JS('AudioTrackList')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class AudioTrackList implements EventTarget {}
 
 extension AudioTrackListExtension on AudioTrackList {
@@ -1285,6 +1443,8 @@ extension AudioTrackListExtension on AudioTrackList {
 
 @JS('AudioTrack')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox')
 class AudioTrack {}
 
 extension AudioTrackExtension on AudioTrack {
@@ -1299,6 +1459,8 @@ extension AudioTrackExtension on AudioTrack {
 
 @JS('VideoTrackList')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class VideoTrackList implements EventTarget {}
 
 extension VideoTrackListExtension on VideoTrackList {
@@ -1315,6 +1477,8 @@ extension VideoTrackListExtension on VideoTrackList {
 
 @JS('VideoTrack')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class VideoTrack {}
 
 extension VideoTrackExtension on VideoTrack {
@@ -1329,6 +1493,8 @@ extension VideoTrackExtension on VideoTrack {
 
 @JS('TextTrackList')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class TextTrackList implements EventTarget {}
 
 extension TextTrackListExtension on TextTrackList {
@@ -1344,6 +1510,8 @@ extension TextTrackListExtension on TextTrackList {
 
 @JS('TextTrack')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class TextTrack implements EventTarget {}
 
 extension TextTrackExtension on TextTrack {
@@ -1365,6 +1533,8 @@ extension TextTrackExtension on TextTrack {
 
 @JS('TextTrackCueList')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class TextTrackCueList {}
 
 extension TextTrackCueListExtension on TextTrackCueList {
@@ -1374,6 +1544,8 @@ extension TextTrackCueListExtension on TextTrackCueList {
 
 @JS('TextTrackCue')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class TextTrackCue implements EventTarget {}
 
 extension TextTrackCueExtension on TextTrackCue {
@@ -1394,6 +1566,8 @@ extension TextTrackCueExtension on TextTrackCue {
 
 @JS('TimeRanges')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class TimeRanges {}
 
 extension TimeRangesExtension on TimeRanges {
@@ -1404,6 +1578,8 @@ extension TimeRangesExtension on TimeRanges {
 
 @JS('TrackEvent')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class TrackEvent implements Event {
   external factory TrackEvent(
     String type, [
@@ -1429,6 +1605,8 @@ extension TrackEventInitExtension on TrackEventInit {
 
 @JS('HTMLMapElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLMapElement implements HTMLElement {
   external factory HTMLMapElement();
 }
@@ -1441,6 +1619,8 @@ extension HTMLMapElementExtension on HTMLMapElement {
 
 @JS('HTMLAreaElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLAreaElement implements HTMLElement {
   external factory HTMLAreaElement();
 }
@@ -1464,6 +1644,7 @@ extension HTMLAreaElementExtension on HTMLAreaElement {
   external set referrerPolicy(String value);
   external String get referrerPolicy;
   external set noHref(bool value);
+  @Status('standards-track, deprecated')
   external bool get noHref;
   external set href(String value);
   external String get href;
@@ -1490,6 +1671,8 @@ extension HTMLAreaElementExtension on HTMLAreaElement {
 
 @JS('HTMLTableElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLTableElement implements HTMLElement {
   external factory HTMLTableElement();
 }
@@ -1513,38 +1696,52 @@ extension HTMLTableElementExtension on HTMLTableElement {
   external HTMLCollection get tBodies;
   external HTMLCollection get rows;
   external set align(String value);
+  @Status('standards-track, deprecated')
   external String get align;
   external set border(String value);
+  @Status('standards-track, deprecated')
   external String get border;
   external set frame(String value);
+  @Status('standards-track, deprecated')
   external String get frame;
   external set rules(String value);
+  @Status('standards-track, deprecated')
   external String get rules;
   external set summary(String value);
+  @Status('standards-track, deprecated')
   external String get summary;
   external set width(String value);
+  @Status('standards-track, deprecated')
   external String get width;
   external set bgColor(String value);
+  @Status('standards-track, deprecated')
   external String get bgColor;
   external set cellPadding(String value);
+  @Status('standards-track, deprecated')
   external String get cellPadding;
   external set cellSpacing(String value);
+  @Status('standards-track, deprecated')
   external String get cellSpacing;
 }
 
 @JS('HTMLTableCaptionElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLTableCaptionElement implements HTMLElement {
   external factory HTMLTableCaptionElement();
 }
 
 extension HTMLTableCaptionElementExtension on HTMLTableCaptionElement {
   external set align(String value);
+  @Status('standards-track, deprecated')
   external String get align;
 }
 
 @JS('HTMLTableColElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLTableColElement implements HTMLElement {
   external factory HTMLTableColElement();
 }
@@ -1553,19 +1750,26 @@ extension HTMLTableColElementExtension on HTMLTableColElement {
   external set span(int value);
   external int get span;
   external set align(String value);
+  @Status('standards-track, deprecated')
   external String get align;
   external set ch(String value);
+  @Status('standards-track, deprecated')
   external String get ch;
   external set chOff(String value);
+  @Status('standards-track, deprecated')
   external String get chOff;
   external set vAlign(String value);
+  @Status('standards-track, deprecated')
   external String get vAlign;
   external set width(String value);
+  @Status('standards-track, deprecated')
   external String get width;
 }
 
 @JS('HTMLTableSectionElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLTableSectionElement implements HTMLElement {
   external factory HTMLTableSectionElement();
 }
@@ -1575,17 +1779,23 @@ extension HTMLTableSectionElementExtension on HTMLTableSectionElement {
   external void deleteRow(int index);
   external HTMLCollection get rows;
   external set align(String value);
+  @Status('standards-track, deprecated')
   external String get align;
   external set ch(String value);
+  @Status('standards-track, deprecated')
   external String get ch;
   external set chOff(String value);
+  @Status('standards-track, deprecated')
   external String get chOff;
   external set vAlign(String value);
+  @Status('standards-track, deprecated')
   external String get vAlign;
 }
 
 @JS('HTMLTableRowElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLTableRowElement implements HTMLElement {
   external factory HTMLTableRowElement();
 }
@@ -1597,19 +1807,26 @@ extension HTMLTableRowElementExtension on HTMLTableRowElement {
   external int get sectionRowIndex;
   external HTMLCollection get cells;
   external set align(String value);
+  @Status('standards-track, deprecated')
   external String get align;
   external set ch(String value);
+  @Status('standards-track, deprecated')
   external String get ch;
   external set chOff(String value);
+  @Status('standards-track, deprecated')
   external String get chOff;
   external set vAlign(String value);
+  @Status('standards-track, deprecated')
   external String get vAlign;
   external set bgColor(String value);
+  @Status('standards-track, deprecated')
   external String get bgColor;
 }
 
 @JS('HTMLTableCellElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLTableCellElement implements HTMLElement {
   external factory HTMLTableCellElement();
 }
@@ -1627,27 +1844,38 @@ extension HTMLTableCellElementExtension on HTMLTableCellElement {
   external set abbr(String value);
   external String get abbr;
   external set align(String value);
+  @Status('standards-track, deprecated')
   external String get align;
   external set axis(String value);
+  @Status('standards-track, deprecated')
   external String get axis;
   external set height(String value);
+  @Status('standards-track, deprecated')
   external String get height;
   external set width(String value);
+  @Status('standards-track, deprecated')
   external String get width;
   external set ch(String value);
+  @Status('standards-track, deprecated')
   external String get ch;
   external set chOff(String value);
+  @Status('standards-track, deprecated')
   external String get chOff;
   external set noWrap(bool value);
+  @Status('standards-track, deprecated')
   external bool get noWrap;
   external set vAlign(String value);
+  @Status('standards-track, deprecated')
   external String get vAlign;
   external set bgColor(String value);
+  @Status('standards-track, deprecated')
   external String get bgColor;
 }
 
 @JS('HTMLFormElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLFormElement implements HTMLElement {
   external factory HTMLFormElement();
 }
@@ -1685,6 +1913,8 @@ extension HTMLFormElementExtension on HTMLFormElement {
 
 @JS('HTMLLabelElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLLabelElement implements HTMLElement {
   external factory HTMLLabelElement();
 }
@@ -1698,6 +1928,8 @@ extension HTMLLabelElementExtension on HTMLLabelElement {
 
 @JS('HTMLInputElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLInputElement implements HTMLElement {
   external factory HTMLInputElement();
 }
@@ -1807,8 +2039,10 @@ extension HTMLInputElementExtension on HTMLInputElement {
   external set selectionDirection(String? value);
   external String? get selectionDirection;
   external set align(String value);
+  @Status('standards-track, deprecated')
   external String get align;
   external set useMap(String value);
+  @Status('standards-track, deprecated')
   external String get useMap;
   external set popoverTargetElement(Element? value);
   external Element? get popoverTargetElement;
@@ -1818,6 +2052,8 @@ extension HTMLInputElementExtension on HTMLInputElement {
 
 @JS('HTMLButtonElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLButtonElement implements HTMLElement {
   external factory HTMLButtonElement();
 }
@@ -1857,6 +2093,8 @@ extension HTMLButtonElementExtension on HTMLButtonElement {
 
 @JS('HTMLSelectElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLSelectElement implements HTMLElement {
   external factory HTMLSelectElement();
 }
@@ -1902,6 +2140,8 @@ extension HTMLSelectElementExtension on HTMLSelectElement {
 
 @JS('HTMLDataListElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLDataListElement implements HTMLElement {
   external factory HTMLDataListElement();
 }
@@ -1912,6 +2152,8 @@ extension HTMLDataListElementExtension on HTMLDataListElement {
 
 @JS('HTMLOptGroupElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLOptGroupElement implements HTMLElement {
   external factory HTMLOptGroupElement();
 }
@@ -1925,6 +2167,8 @@ extension HTMLOptGroupElementExtension on HTMLOptGroupElement {
 
 @JS('HTMLOptionElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLOptionElement implements HTMLElement {
   external factory HTMLOptionElement();
 }
@@ -1948,6 +2192,8 @@ extension HTMLOptionElementExtension on HTMLOptionElement {
 
 @JS('HTMLTextAreaElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLTextAreaElement implements HTMLElement {
   external factory HTMLTextAreaElement();
 }
@@ -2013,6 +2259,8 @@ extension HTMLTextAreaElementExtension on HTMLTextAreaElement {
 
 @JS('HTMLOutputElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLOutputElement implements HTMLElement {
   external factory HTMLOutputElement();
 }
@@ -2038,6 +2286,8 @@ extension HTMLOutputElementExtension on HTMLOutputElement {
 
 @JS('HTMLProgressElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLProgressElement implements HTMLElement {
   external factory HTMLProgressElement();
 }
@@ -2053,6 +2303,8 @@ extension HTMLProgressElementExtension on HTMLProgressElement {
 
 @JS('HTMLMeterElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLMeterElement implements HTMLElement {
   external factory HTMLMeterElement();
 }
@@ -2075,6 +2327,8 @@ extension HTMLMeterElementExtension on HTMLMeterElement {
 
 @JS('HTMLFieldSetElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLFieldSetElement implements HTMLElement {
   external factory HTMLFieldSetElement();
 }
@@ -2097,6 +2351,8 @@ extension HTMLFieldSetElementExtension on HTMLFieldSetElement {
 
 @JS('HTMLLegendElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLLegendElement implements HTMLElement {
   external factory HTMLLegendElement();
 }
@@ -2104,11 +2360,14 @@ class HTMLLegendElement implements HTMLElement {
 extension HTMLLegendElementExtension on HTMLLegendElement {
   external HTMLFormElement? get form;
   external set align(String value);
+  @Status('standards-track, deprecated')
   external String get align;
 }
 
 @JS('ValidityState')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class ValidityState {}
 
 extension ValidityStateExtension on ValidityState {
@@ -2127,6 +2386,8 @@ extension ValidityStateExtension on ValidityState {
 
 @JS('SubmitEvent')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class SubmitEvent implements Event {
   external factory SubmitEvent(
     String type, [
@@ -2152,6 +2413,8 @@ extension SubmitEventInitExtension on SubmitEventInit {
 
 @JS('FormDataEvent')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class FormDataEvent implements Event {
   external factory FormDataEvent(
     String type,
@@ -2177,6 +2440,8 @@ extension FormDataEventInitExtension on FormDataEventInit {
 
 @JS('HTMLDetailsElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLDetailsElement implements HTMLElement {
   external factory HTMLDetailsElement();
 }
@@ -2190,6 +2455,8 @@ extension HTMLDetailsElementExtension on HTMLDetailsElement {
 
 @JS('HTMLDialogElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLDialogElement implements HTMLElement {
   external factory HTMLDialogElement();
 }
@@ -2206,6 +2473,8 @@ extension HTMLDialogElementExtension on HTMLDialogElement {
 
 @JS('HTMLScriptElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLScriptElement implements HTMLElement {
   external factory HTMLScriptElement();
 
@@ -2231,21 +2500,28 @@ extension HTMLScriptElementExtension on HTMLScriptElement {
   external String get integrity;
   external set referrerPolicy(String value);
   external String get referrerPolicy;
+  @Status('standards-track, experimental')
   external DOMTokenList get blocking;
   external set fetchPriority(String value);
   external String get fetchPriority;
   external set charset(String value);
+  @Status('standards-track, deprecated')
   external String get charset;
   external set event(String value);
+  @Status('standards-track, deprecated')
   external String get event;
   external set htmlFor(String value);
+  @Status('standards-track, deprecated')
   external String get htmlFor;
   external set attributionSrc(String value);
+  @Status('standards-track, experimental')
   external String get attributionSrc;
 }
 
 @JS('HTMLTemplateElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLTemplateElement implements HTMLElement {
   external factory HTMLTemplateElement();
 }
@@ -2256,6 +2532,8 @@ extension HTMLTemplateElementExtension on HTMLTemplateElement {
 
 @JS('HTMLSlotElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLSlotElement implements HTMLElement {
   external factory HTMLSlotElement();
 }
@@ -2282,6 +2560,8 @@ extension AssignedNodesOptionsExtension on AssignedNodesOptions {
 
 @JS('HTMLCanvasElement')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLCanvasElement implements HTMLElement {
   external factory HTMLCanvasElement();
 }
@@ -2334,6 +2614,8 @@ extension CanvasRenderingContext2DSettingsExtension
 
 @JS('CanvasRenderingContext2D')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class CanvasRenderingContext2D {}
 
 extension CanvasRenderingContext2DExtension on CanvasRenderingContext2D {
@@ -2341,6 +2623,7 @@ extension CanvasRenderingContext2DExtension on CanvasRenderingContext2D {
   external void save();
   external void restore();
   external void reset();
+  @Status('standards-track, experimental')
   external bool isContextLost();
   external void scale(
     num x,
@@ -2435,6 +2718,7 @@ extension CanvasRenderingContext2DExtension on CanvasRenderingContext2D {
     JSObject elementOrPath, [
     Element element,
   ]);
+  @Status('standards-track, experimental')
   external void scrollPathIntoView([Path2D path]);
   external void fillText(
     String text,
@@ -2601,6 +2885,8 @@ extension CanvasRenderingContext2DExtension on CanvasRenderingContext2D {
 
 @JS('CanvasGradient')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class CanvasGradient {}
 
 extension CanvasGradientExtension on CanvasGradient {
@@ -2612,6 +2898,8 @@ extension CanvasGradientExtension on CanvasGradient {
 
 @JS('CanvasPattern')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class CanvasPattern {}
 
 extension CanvasPatternExtension on CanvasPattern {
@@ -2620,6 +2908,8 @@ extension CanvasPatternExtension on CanvasPattern {
 
 @JS('TextMetrics')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class TextMetrics {}
 
 extension TextMetricsExtension on TextMetrics {
@@ -2651,6 +2941,8 @@ extension ImageDataSettingsExtension on ImageDataSettings {
 
 @JS('ImageData')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class ImageData {
   external factory ImageData(
     JSAny dataOrSw,
@@ -2669,6 +2961,8 @@ extension ImageDataExtension on ImageData {
 
 @JS('Path2D')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class Path2D {
   external factory Path2D([JSAny path]);
 }
@@ -2743,6 +3037,8 @@ extension Path2DExtension on Path2D {
 
 @JS('ImageBitmapRenderingContext')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class ImageBitmapRenderingContext {}
 
 extension ImageBitmapRenderingContextExtension on ImageBitmapRenderingContext {
@@ -2782,6 +3078,8 @@ extension ImageEncodeOptionsExtension on ImageEncodeOptions {
 
 @JS('OffscreenCanvas')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class OffscreenCanvas implements EventTarget {
   external factory OffscreenCanvas(
     int width,
@@ -2808,6 +3106,8 @@ extension OffscreenCanvasExtension on OffscreenCanvas {
 
 @JS('OffscreenCanvasRenderingContext2D')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class OffscreenCanvasRenderingContext2D {}
 
 extension OffscreenCanvasRenderingContext2DExtension
@@ -2816,6 +3116,7 @@ extension OffscreenCanvasRenderingContext2DExtension
   external void save();
   external void restore();
   external void reset();
+  @Status('standards-track, experimental')
   external bool isContextLost();
   external void scale(
     num x,
@@ -3071,6 +3372,8 @@ extension OffscreenCanvasRenderingContext2DExtension
 
 @JS('CustomElementRegistry')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class CustomElementRegistry {}
 
 extension CustomElementRegistryExtension on CustomElementRegistry {
@@ -3101,6 +3404,8 @@ extension ElementDefinitionOptionsExtension on ElementDefinitionOptions {
 
 @JS('ElementInternals')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class ElementInternals {}
 
 extension ElementInternalsExtension on ElementInternals {
@@ -3115,6 +3420,7 @@ extension ElementInternalsExtension on ElementInternals {
   ]);
   external bool checkValidity();
   external bool reportValidity();
+  @Status('standards-track, experimental')
   external CustomStateSet get states;
   external ShadowRoot? get shadowRoot;
   external HTMLFormElement? get form;
@@ -3125,6 +3431,7 @@ extension ElementInternalsExtension on ElementInternals {
   external set role(String? value);
   external String? get role;
   external set ariaActiveDescendantElement(Element? value);
+  @Status('standards-track, experimental')
   external Element? get ariaActiveDescendantElement;
   external set ariaAtomic(String? value);
   external String? get ariaAtomic;
@@ -3139,26 +3446,32 @@ extension ElementInternalsExtension on ElementInternals {
   external set ariaColIndex(String? value);
   external String? get ariaColIndex;
   external set ariaColIndexText(String? value);
+  @Status('standards-track, experimental')
   external String? get ariaColIndexText;
   external set ariaColSpan(String? value);
   external String? get ariaColSpan;
   external set ariaControlsElements(JSArray? value);
+  @Status('standards-track, experimental')
   external JSArray? get ariaControlsElements;
   external set ariaCurrent(String? value);
   external String? get ariaCurrent;
   external set ariaDescribedByElements(JSArray? value);
+  @Status('standards-track, experimental')
   external JSArray? get ariaDescribedByElements;
   external set ariaDescription(String? value);
   external String? get ariaDescription;
   external set ariaDetailsElements(JSArray? value);
+  @Status('standards-track, experimental')
   external JSArray? get ariaDetailsElements;
   external set ariaDisabled(String? value);
   external String? get ariaDisabled;
   external set ariaErrorMessageElements(JSArray? value);
+  @Status('standards-track, experimental')
   external JSArray? get ariaErrorMessageElements;
   external set ariaExpanded(String? value);
   external String? get ariaExpanded;
   external set ariaFlowToElements(JSArray? value);
+  @Status('standards-track, experimental')
   external JSArray? get ariaFlowToElements;
   external set ariaHasPopup(String? value);
   external String? get ariaHasPopup;
@@ -3171,6 +3484,7 @@ extension ElementInternalsExtension on ElementInternals {
   external set ariaLabel(String? value);
   external String? get ariaLabel;
   external set ariaLabelledByElements(JSArray? value);
+  @Status('standards-track, experimental')
   external JSArray? get ariaLabelledByElements;
   external set ariaLevel(String? value);
   external String? get ariaLevel;
@@ -3185,6 +3499,7 @@ extension ElementInternalsExtension on ElementInternals {
   external set ariaOrientation(String? value);
   external String? get ariaOrientation;
   external set ariaOwnsElements(JSArray? value);
+  @Status('standards-track, experimental')
   external JSArray? get ariaOwnsElements;
   external set ariaPlaceholder(String? value);
   external String? get ariaPlaceholder;
@@ -3203,6 +3518,7 @@ extension ElementInternalsExtension on ElementInternals {
   external set ariaRowIndex(String? value);
   external String? get ariaRowIndex;
   external set ariaRowIndexText(String? value);
+  @Status('standards-track, experimental')
   external String? get ariaRowIndexText;
   external set ariaRowSpan(String? value);
   external String? get ariaRowSpan;
@@ -3265,6 +3581,8 @@ extension ValidityStateFlagsExtension on ValidityStateFlags {
 
 @JS('VisibilityStateEntry')
 @staticInterop
+@Status('standards-track, experimental')
+@SupportedBrowsers('chrome')
 class VisibilityStateEntry implements PerformanceEntry {}
 
 extension VisibilityStateEntryExtension on VisibilityStateEntry {
@@ -3276,6 +3594,8 @@ extension VisibilityStateEntryExtension on VisibilityStateEntry {
 
 @JS('UserActivation')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class UserActivation {}
 
 extension UserActivationExtension on UserActivation {
@@ -3285,6 +3605,8 @@ extension UserActivationExtension on UserActivation {
 
 @JS('ToggleEvent')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class ToggleEvent implements Event {
   external factory ToggleEvent(
     String type, [
@@ -3333,6 +3655,8 @@ extension FocusOptionsExtension on FocusOptions {
 
 @JS('DataTransfer')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class DataTransfer {
   external factory DataTransfer();
 }
@@ -3360,6 +3684,8 @@ extension DataTransferExtension on DataTransfer {
 
 @JS('DataTransferItemList')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class DataTransferItemList {}
 
 extension DataTransferItemListExtension on DataTransferItemList {
@@ -3374,10 +3700,13 @@ extension DataTransferItemListExtension on DataTransferItemList {
 
 @JS('DataTransferItem')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class DataTransferItem {}
 
 extension DataTransferItemExtension on DataTransferItem {
   external FileSystemEntry? webkitGetAsEntry();
+  @Status('standards-track, experimental')
   external JSPromise getAsFileSystemHandle();
   external void getAsString(FunctionStringCallback? callback);
   external File? getAsFile();
@@ -3387,6 +3716,8 @@ extension DataTransferItemExtension on DataTransferItem {
 
 @JS('DragEvent')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class DragEvent implements MouseEvent {
   external factory DragEvent(
     String type, [
@@ -3415,6 +3746,8 @@ external Window get window;
 
 @JS('Window')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class Window implements EventTarget {}
 
 extension WindowExtension on Window {
@@ -3452,9 +3785,13 @@ extension WindowExtension on Window {
     Element elt, [
     String? pseudoElt,
   ]);
+  @Status('standards-track, experimental')
   external JSPromise getDigitalGoodsService(String serviceProvider);
+  @Status('standards-track, experimental')
   external JSPromise showOpenFilePicker([OpenFilePickerOptions options]);
+  @Status('standards-track, experimental')
   external JSPromise showSaveFilePicker([SaveFilePickerOptions options]);
+  @Status('standards-track, experimental')
   external JSPromise showDirectoryPicker([DirectoryPickerOptions options]);
   external void close();
   external void stop();
@@ -3477,8 +3814,11 @@ extension WindowExtension on Window {
     JSAny optionsOrTargetOrigin,
     JSArray transfer,
   ]);
+  @Status('standards-track, deprecated')
   external void captureEvents();
+  @Status('standards-track, deprecated')
   external void releaseEvents();
+  @Status('standards-track, experimental')
   external JSPromise queryLocalFonts([QueryOptions options]);
   external int requestIdleCallback(
     IdleRequestCallback callback, [
@@ -3486,6 +3826,7 @@ extension WindowExtension on Window {
   ]);
   external void cancelIdleCallback(int handle);
   external Selection? getSelection();
+  @Status('standards-track, experimental')
   external JSPromise getScreenDetails();
   external JSPromise fetch(
     RequestInfo input, [
@@ -3521,9 +3862,11 @@ extension WindowExtension on Window {
   ]);
   external int requestAnimationFrame(FrameRequestCallback callback);
   external void cancelAnimationFrame(int handle);
+  @Status('standards-track, deprecated')
   external int get orientation;
   external set onorientationchange(EventHandler value);
   external EventHandler get onorientationchange;
+  @Status('standards-track, experimental')
   external CookieStore get cookieStore;
   external Screen get screen;
   external VisualViewport? get visualViewport;
@@ -3540,8 +3883,11 @@ extension WindowExtension on Window {
   external int get outerWidth;
   external int get outerHeight;
   external num get devicePixelRatio;
+  @Status('standards-track, experimental')
   external DocumentPictureInPicture get documentPictureInPicture;
+  @Status('standards-track, deprecated')
   external Event? get event;
+  @Status('standards-track, experimental')
   external Fence? get fence;
   external Window get window;
   external Window get self;
@@ -3550,6 +3896,7 @@ extension WindowExtension on Window {
   external String get name;
   external Location get location;
   external History get history;
+  @Status('standards-track, experimental')
   external Navigation get navigation;
   external CustomElementRegistry get customElements;
   external BarProp get locationbar;
@@ -3559,6 +3906,7 @@ extension WindowExtension on Window {
   external BarProp get statusbar;
   external BarProp get toolbar;
   external set status(String value);
+  @Status('standards-track, deprecated')
   external String get status;
   external bool get closed;
   external Window get frames;
@@ -3570,7 +3918,9 @@ extension WindowExtension on Window {
   external Element? get frameElement;
   external Navigator get navigator;
   external Navigator get clientInformation;
+  @Status('standards-track, experimental')
   external bool get originAgentCluster;
+  @Status('standards-track, deprecated')
   external External get external;
   external set onappinstalled(EventHandler value);
   external EventHandler get onappinstalled;
@@ -3583,8 +3933,10 @@ extension WindowExtension on Window {
   external set ondevicemotion(EventHandler value);
   external EventHandler get ondevicemotion;
   external PortalHost? get portalHost;
+  @Status('standards-track, experimental')
   external WindowSharedStorage? get sharedStorage;
   external SpeechSynthesis get speechSynthesis;
+  @Status('standards-track, experimental')
   external LaunchQueue get launchQueue;
   external set onanimationstart(EventHandler value);
   external EventHandler get onanimationstart;
@@ -3853,6 +4205,8 @@ extension WindowPostMessageOptionsExtension on WindowPostMessageOptions {
 
 @JS('BarProp')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class BarProp {}
 
 extension BarPropExtension on BarProp {
@@ -3861,6 +4215,8 @@ extension BarPropExtension on BarProp {
 
 @JS('Location')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class Location {}
 
 extension LocationExtension on Location {
@@ -3889,6 +4245,8 @@ extension LocationExtension on Location {
 
 @JS('History')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class History {}
 
 extension HistoryExtension on History {
@@ -3913,6 +4271,8 @@ extension HistoryExtension on History {
 
 @JS('Navigation')
 @staticInterop
+@Status('standards-track, experimental')
+@SupportedBrowsers('chrome')
 class Navigation implements EventTarget {}
 
 extension NavigationExtension on Navigation {
@@ -4016,6 +4376,8 @@ extension NavigationResultExtension on NavigationResult {
 
 @JS('NavigationHistoryEntry')
 @staticInterop
+@Status('standards-track, experimental')
+@SupportedBrowsers('chrome')
 class NavigationHistoryEntry implements EventTarget {}
 
 extension NavigationHistoryEntryExtension on NavigationHistoryEntry {
@@ -4031,6 +4393,8 @@ extension NavigationHistoryEntryExtension on NavigationHistoryEntry {
 
 @JS('NavigationTransition')
 @staticInterop
+@Status('standards-track, experimental')
+@SupportedBrowsers('chrome')
 class NavigationTransition {}
 
 extension NavigationTransitionExtension on NavigationTransition {
@@ -4041,6 +4405,8 @@ extension NavigationTransitionExtension on NavigationTransition {
 
 @JS('NavigateEvent')
 @staticInterop
+@Status('standards-track, experimental')
+@SupportedBrowsers('chrome')
 class NavigateEvent implements Event {
   external factory NavigateEvent(
     String type,
@@ -4126,6 +4492,8 @@ extension NavigationInterceptOptionsExtension on NavigationInterceptOptions {
 
 @JS('NavigationDestination')
 @staticInterop
+@Status('standards-track, experimental')
+@SupportedBrowsers('chrome')
 class NavigationDestination {}
 
 extension NavigationDestinationExtension on NavigationDestination {
@@ -4139,6 +4507,8 @@ extension NavigationDestinationExtension on NavigationDestination {
 
 @JS('NavigationCurrentEntryChangeEvent')
 @staticInterop
+@Status('standards-track, experimental')
+@SupportedBrowsers('chrome')
 class NavigationCurrentEntryChangeEvent implements Event {
   external factory NavigationCurrentEntryChangeEvent(
     String type,
@@ -4172,6 +4542,8 @@ extension NavigationCurrentEntryChangeEventInitExtension
 
 @JS('PopStateEvent')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class PopStateEvent implements Event {
   external factory PopStateEvent(
     String type, [
@@ -4181,6 +4553,7 @@ class PopStateEvent implements Event {
 
 extension PopStateEventExtension on PopStateEvent {
   external JSAny? get state;
+  @Status('standards-track, experimental')
   external bool get hasUAVisualTransition;
 }
 
@@ -4203,6 +4576,8 @@ extension PopStateEventInitExtension on PopStateEventInit {
 
 @JS('HashChangeEvent')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class HashChangeEvent implements Event {
   external factory HashChangeEvent(
     String type, [
@@ -4234,6 +4609,8 @@ extension HashChangeEventInitExtension on HashChangeEventInit {
 
 @JS('PageTransitionEvent')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class PageTransitionEvent implements Event {
   external factory PageTransitionEvent(
     String type, [
@@ -4259,15 +4636,20 @@ extension PageTransitionEventInitExtension on PageTransitionEventInit {
 
 @JS('BeforeUnloadEvent')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class BeforeUnloadEvent implements Event {}
 
 extension BeforeUnloadEventExtension on BeforeUnloadEvent {
   external set returnValue(String value);
+  @Status('standards-track, deprecated')
   external String get returnValue;
 }
 
 @JS('ErrorEvent')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class ErrorEvent implements Event {
   external factory ErrorEvent(
     String type, [
@@ -4311,6 +4693,8 @@ extension ErrorEventInitExtension on ErrorEventInit {
 
 @JS('PromiseRejectionEvent')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class PromiseRejectionEvent implements Event {
   external factory PromiseRejectionEvent(
     String type,
@@ -4342,6 +4726,8 @@ extension PromiseRejectionEventInitExtension on PromiseRejectionEventInit {
 
 @JS('DOMParser')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class DOMParser {
   external factory DOMParser();
 }
@@ -4355,9 +4741,12 @@ extension DOMParserExtension on DOMParser {
 
 @JS('Navigator')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class Navigator {}
 
 extension NavigatorExtension on Navigator {
+  @Status('standards-track, experimental')
   external AutoplayPolicy getAutoplayPolicy(JSAny contextOrElementOrType);
   external JSPromise getBattery();
   external bool sendBeacon(
@@ -4368,12 +4757,15 @@ extension NavigatorExtension on Navigator {
     String keySystem,
     JSArray supportedConfigurations,
   );
+  @Status('standards-track, experimental')
   external JSPromise deprecatedReplaceInURN(
     UrnOrConfig urnOrConfig,
     JSAny replacements,
   );
   external JSArray getGamepads();
+  @Status('standards-track, experimental')
   external JSPromise getInstalledRelatedApps();
+  @Status('standards-track, deprecated')
   external void getUserMedia(
     MediaStreamConstraints constraints,
     NavigatorUserMediaSuccessCallback successCallback,
@@ -4389,6 +4781,7 @@ extension NavigatorExtension on Navigator {
   external JSPromise requestMIDIAccess([MIDIOptions options]);
   external JSPromise setAppBadge([int contents]);
   external JSPromise clearAppBadge();
+  @Status('standards-track, deprecated')
   external bool taintEnabled();
   external void registerProtocolHandler(
     String scheme,
@@ -4398,16 +4791,23 @@ extension NavigatorExtension on Navigator {
     String scheme,
     String url,
   );
+  @Status('standards-track, deprecated')
   external bool javaEnabled();
+  @Status('standards-track, experimental')
   external AudioSession get audioSession;
   external Clipboard get clipboard;
+  @Status('standards-track, experimental')
   external ContactsManager get contacts;
   external CredentialsContainer get credentials;
+  @Status('standards-track, experimental')
   external DevicePosture get devicePosture;
   external Geolocation get geolocation;
   external UserActivation get userActivation;
+  @Status('standards-track, experimental')
   external Ink get ink;
+  @Status('standards-track, experimental')
   external Scheduling get scheduling;
+  @Status('standards-track, experimental')
   external Keyboard get keyboard;
   external MediaCapabilities get mediaCapabilities;
   external MediaDevices get mediaDevices;
@@ -4416,45 +4816,66 @@ extension NavigatorExtension on Navigator {
   external int get maxTouchPoints;
   external Presentation get presentation;
   external WakeLock get wakeLock;
+  @Status('standards-track, experimental')
   external Serial get serial;
   external ServiceWorkerContainer get serviceWorker;
+  @Status('standards-track, experimental')
   external VirtualKeyboard get virtualKeyboard;
+  @Status('standards-track, experimental')
   external Bluetooth get bluetooth;
+  @Status('standards-track, experimental')
   external HID get hid;
   external USB get usb;
+  @Status('standards-track, experimental')
   external XRSystem get xr;
   external WindowControlsOverlay get windowControlsOverlay;
   external num get deviceMemory;
+  @Status('standards-track, deprecated')
   external String get appCodeName;
+  @Status('standards-track, deprecated')
   external String get appName;
+  @Status('standards-track, deprecated')
   external String get appVersion;
+  @Status('standards-track, deprecated')
   external String get platform;
+  @Status('standards-track, deprecated')
   external String get product;
+  @Status('standards-track, deprecated')
   external String get productSub;
   external String get userAgent;
+  @Status('standards-track, deprecated')
   external String get vendor;
+  @Status('standards-track, deprecated')
   external String get vendorSub;
+  @Status('standards-track, deprecated')
   external String get oscpu;
   external String get language;
   external JSArray get languages;
   external bool get onLine;
   external bool get cookieEnabled;
+  @Status('standards-track, deprecated')
   external PluginArray get plugins;
+  @Status('standards-track, deprecated')
   external MimeTypeArray get mimeTypes;
   external bool get pdfViewerEnabled;
   external int get hardwareConcurrency;
+  @Status('standards-track, experimental')
   external NetworkInformation get connection;
   external StorageBucketManager get storageBuckets;
   external StorageManager get storage;
+  @Status('standards-track, experimental')
   external NavigatorUAData get userAgentData;
   external LockManager get locks;
   external bool get webdriver;
+  @Status('standards-track, experimental')
   external GPU get gpu;
   external ML get ml;
 }
 
 @JS('PluginArray')
 @staticInterop
+@Status('standards-track, deprecated')
+@SupportedBrowsers('chrome, firefox, safari')
 class PluginArray {}
 
 extension PluginArrayExtension on PluginArray {
@@ -4466,6 +4887,8 @@ extension PluginArrayExtension on PluginArray {
 
 @JS('MimeTypeArray')
 @staticInterop
+@Status('standards-track, deprecated')
+@SupportedBrowsers('chrome, firefox, safari')
 class MimeTypeArray {}
 
 extension MimeTypeArrayExtension on MimeTypeArray {
@@ -4476,6 +4899,8 @@ extension MimeTypeArrayExtension on MimeTypeArray {
 
 @JS('Plugin')
 @staticInterop
+@Status('standards-track, deprecated')
+@SupportedBrowsers('chrome, firefox, safari')
 class Plugin {}
 
 extension PluginExtension on Plugin {
@@ -4489,6 +4914,8 @@ extension PluginExtension on Plugin {
 
 @JS('MimeType')
 @staticInterop
+@Status('standards-track, deprecated')
+@SupportedBrowsers('chrome, firefox, safari')
 class MimeType {}
 
 extension MimeTypeExtension on MimeType {
@@ -4500,6 +4927,8 @@ extension MimeTypeExtension on MimeType {
 
 @JS('ImageBitmap')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class ImageBitmap {}
 
 extension ImageBitmapExtension on ImageBitmap {
@@ -4539,6 +4968,8 @@ extension ImageBitmapOptionsExtension on ImageBitmapOptions {
 
 @JS('MessageEvent')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class MessageEvent implements Event {
   external factory MessageEvent(
     String type, [
@@ -4547,6 +4978,7 @@ class MessageEvent implements Event {
 }
 
 extension MessageEventExtension on MessageEvent {
+  @Status('standards-track, deprecated')
   external void initMessageEvent(
     String type, [
     bool bubbles,
@@ -4592,6 +5024,8 @@ extension MessageEventInitExtension on MessageEventInit {
 
 @JS('EventSource')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class EventSource implements EventTarget {
   external factory EventSource(
     String url, [
@@ -4630,6 +5064,8 @@ extension EventSourceInitExtension on EventSourceInit {
 
 @JS('MessageChannel')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class MessageChannel {
   external factory MessageChannel();
 }
@@ -4641,6 +5077,8 @@ extension MessageChannelExtension on MessageChannel {
 
 @JS('MessagePort')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class MessagePort implements EventTarget {}
 
 extension MessagePortExtension on MessagePort {
@@ -4670,6 +5108,8 @@ extension StructuredSerializeOptionsExtension on StructuredSerializeOptions {
 
 @JS('BroadcastChannel')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class BroadcastChannel implements EventTarget {
   external factory BroadcastChannel(String name);
 }
@@ -4686,6 +5126,8 @@ extension BroadcastChannelExtension on BroadcastChannel {
 
 @JS('WorkerGlobalScope')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class WorkerGlobalScope implements EventTarget {}
 
 extension WorkerGlobalScopeExtension on WorkerGlobalScope {
@@ -4751,6 +5193,8 @@ extension WorkerGlobalScopeExtension on WorkerGlobalScope {
 
 @JS('DedicatedWorkerGlobalScope')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class DedicatedWorkerGlobalScope implements WorkerGlobalScope {}
 
 extension DedicatedWorkerGlobalScopeExtension on DedicatedWorkerGlobalScope {
@@ -4772,6 +5216,8 @@ extension DedicatedWorkerGlobalScopeExtension on DedicatedWorkerGlobalScope {
 
 @JS('SharedWorkerGlobalScope')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class SharedWorkerGlobalScope implements WorkerGlobalScope {}
 
 extension SharedWorkerGlobalScopeExtension on SharedWorkerGlobalScope {
@@ -4783,6 +5229,8 @@ extension SharedWorkerGlobalScopeExtension on SharedWorkerGlobalScope {
 
 @JS('Worker')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class Worker implements EventTarget {
   external factory Worker(
     String scriptURL, [
@@ -4826,6 +5274,8 @@ extension WorkerOptionsExtension on WorkerOptions {
 
 @JS('SharedWorker')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class SharedWorker implements EventTarget {
   external factory SharedWorker(
     String scriptURL, [
@@ -4841,6 +5291,8 @@ extension SharedWorkerExtension on SharedWorker {
 
 @JS('WorkerNavigator')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class WorkerNavigator {}
 
 extension WorkerNavigatorExtension on WorkerNavigator {
@@ -4849,15 +5301,21 @@ extension WorkerNavigatorExtension on WorkerNavigator {
   external bool taintEnabled();
   external MediaCapabilities get mediaCapabilities;
   external Permissions get permissions;
+  @Status('standards-track, experimental')
   external Serial get serial;
   external ServiceWorkerContainer get serviceWorker;
   external HID get hid;
   external USB get usb;
   external num get deviceMemory;
+  @Status('standards-track, deprecated')
   external String get appCodeName;
+  @Status('standards-track, deprecated')
   external String get appName;
+  @Status('standards-track, deprecated')
   external String get appVersion;
+  @Status('standards-track, deprecated')
   external String get platform;
+  @Status('standards-track, deprecated')
   external String get product;
   external String get productSub;
   external String get userAgent;
@@ -4871,14 +5329,18 @@ extension WorkerNavigatorExtension on WorkerNavigator {
   external NetworkInformation get connection;
   external StorageBucketManager get storageBuckets;
   external StorageManager get storage;
+  @Status('standards-track, experimental')
   external NavigatorUAData get userAgentData;
   external LockManager get locks;
+  @Status('standards-track, experimental')
   external GPU get gpu;
   external ML get ml;
 }
 
 @JS('WorkerLocation')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class WorkerLocation {}
 
 extension WorkerLocationExtension on WorkerLocation {
@@ -4895,10 +5357,14 @@ extension WorkerLocationExtension on WorkerLocation {
 
 @JS('WorkletGlobalScope')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class WorkletGlobalScope {}
 
 @JS('Worklet')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class Worklet {}
 
 extension WorkletExtension on Worklet {
@@ -4922,6 +5388,8 @@ extension WorkletOptionsExtension on WorkletOptions {
 
 @JS('Storage')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class Storage {}
 
 extension StorageExtension on Storage {
@@ -4938,6 +5406,8 @@ extension StorageExtension on Storage {
 
 @JS('StorageEvent')
 @staticInterop
+@Status('standards-track')
+@SupportedBrowsers('chrome, firefox, safari')
 class StorageEvent implements Event {
   external factory StorageEvent(
     String type, [
@@ -4946,6 +5416,7 @@ class StorageEvent implements Event {
 }
 
 extension StorageEventExtension on StorageEvent {
+  @Status('standards-track, deprecated')
   external void initStorageEvent(
     String type, [
     bool bubbles,
@@ -4991,6 +5462,8 @@ extension StorageEventInitExtension on StorageEventInit {
 
 @JS('HTMLMarqueeElement')
 @staticInterop
+@Status('standards-track, deprecated')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLMarqueeElement implements HTMLElement {
   external factory HTMLMarqueeElement();
 }
@@ -5024,6 +5497,8 @@ extension HTMLMarqueeElementExtension on HTMLMarqueeElement {
 
 @JS('HTMLFrameSetElement')
 @staticInterop
+@Status('standards-track, deprecated')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLFrameSetElement implements HTMLElement {
   external factory HTMLFrameSetElement();
 }
@@ -5075,6 +5550,8 @@ extension HTMLFrameSetElementExtension on HTMLFrameSetElement {
 
 @JS('HTMLFrameElement')
 @staticInterop
+@Status('standards-track, deprecated')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLFrameElement implements HTMLElement {
   external factory HTMLFrameElement();
 }
@@ -5102,6 +5579,8 @@ extension HTMLFrameElementExtension on HTMLFrameElement {
 
 @JS('HTMLDirectoryElement')
 @staticInterop
+@Status('standards-track, deprecated')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLDirectoryElement implements HTMLElement {
   external factory HTMLDirectoryElement();
 }
@@ -5113,6 +5592,8 @@ extension HTMLDirectoryElementExtension on HTMLDirectoryElement {
 
 @JS('HTMLFontElement')
 @staticInterop
+@Status('standards-track, deprecated')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLFontElement implements HTMLElement {
   external factory HTMLFontElement();
 }
@@ -5128,6 +5609,8 @@ extension HTMLFontElementExtension on HTMLFontElement {
 
 @JS('HTMLParamElement')
 @staticInterop
+@Status('standards-track, deprecated')
+@SupportedBrowsers('chrome, firefox, safari')
 class HTMLParamElement implements HTMLElement {
   external factory HTMLParamElement();
 }
@@ -5145,6 +5628,8 @@ extension HTMLParamElementExtension on HTMLParamElement {
 
 @JS('External')
 @staticInterop
+@Status('standards-track, deprecated')
+@SupportedBrowsers('chrome, firefox')
 class External {}
 
 extension ExternalExtension on External {

@@ -10,7 +10,7 @@
   "license": "BSD 3",
   "dependencies": {
     "@mdn/browser-compat-data": "^5.5.2",
-    "@webref/css": "^6.5.6",
+    "@webref/css": "^6.10.0",
     "@webref/idl": "^3.23.0"
   },
   "devDependencies": {

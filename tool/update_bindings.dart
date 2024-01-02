@@ -98,26 +98,18 @@ $_usage''');
 
   final sourceContent = readmeFile.readAsStringSync();
 
-  final replaceRegexp = RegExp(
-    '''
-${RegExp.escape(_startComment)}
-.*
-${RegExp.escape(_endComment)}
-''',
-    multiLine: true,
-  );
-
-  final idlVersion = _webRefIdlVersion();
-
-  final idlReference = 'Based on [`$_webRefIdl $idlVersion`]'
-      '(https://www.npmjs.com/package/$_webRefIdl/v/$idlVersion).';
-
-  final newContent = sourceContent.replaceFirst(replaceRegexp, '''
+  final idlVersion = _packageLockVersion(_webRefIdl);
+  final cssVersion = _packageLockVersion(_webRefCss);
+  final versions = '''
 $_startComment
-$idlReference
-$_endComment
-''');
+- $_webRefIdl [$idlVersion](https://www.npmjs.com/package/$_webRefIdl/v/$idlVersion)
+- $_webRefCss [$cssVersion](https://www.npmjs.com/package/$_webRefCss/v/$cssVersion)
+''';
 
+  final newContent =
+      sourceContent.substring(0, sourceContent.indexOf(_startComment)) +
+          versions +
+          sourceContent.substring(sourceContent.indexOf(_endComment));
   if (newContent == sourceContent) {
     print(ansi.styleBold.wrap('No update for readme.'));
   } else {
@@ -126,21 +118,21 @@ $_endComment
   }
 }
 
-String _webRefIdlVersion() {
+String _packageLockVersion(String package) {
   final packageLockData = jsonDecode(
     File(p.join(_bindingsGeneratorPath, 'package-lock.json'))
         .readAsStringSync(),
   ) as Map<String, dynamic>;
 
   final packages = packageLockData['packages'] as Map<String, dynamic>;
-  final webRefIdl =
-      packages['node_modules/$_webRefIdl'] as Map<String, dynamic>;
+  final webRefIdl = packages['node_modules/$package'] as Map<String, dynamic>;
   return webRefIdl['version'] as String;
 }
 
 const _bindingsGeneratorPath = 'bindings_generator';
 
 const _webRefIdl = '@webref/idl';
+const _webRefCss = '@webref/css';
 
 const _thisScript = 'tool/update_bindings.dart';
 

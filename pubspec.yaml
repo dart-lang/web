@@ -11,7 +11,7 @@ dev_dependencies:
   analyzer: ^6.3.0
   args: ^2.4.0
   build_runner: ^2.4.0
-  build_web_compilers: ^4.0.0
+  build_web_compilers: '>=3.0.0 <5.0.0'
   code_builder: ^4.9.0
   dart_flutter_team_lints: ^2.0.0
   dart_style: ^2.2.4

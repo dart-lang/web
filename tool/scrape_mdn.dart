@@ -1,8 +1,6 @@
-// Copyright (c) 2023, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
-
-// ignore_for_file: prefer_expression_function_bodies
 
 import 'dart:convert';
 import 'dart:io';
@@ -169,9 +167,7 @@ String convertMdnToMarkdown(String content) {
   });
 
   // Remove additional mustache-like directives ({{InheritanceDiagram}}, ...).
-  text = text.replaceAllMapped(_mustacheRegex, (match) {
-    return '';
-  });
+  text = text.replaceAllMapped(_mustacheRegex, (match) => '');
 
   // Replace multiple blank lines by 2 blank lines.
   text = text.replaceAll(RegExp('\n\n\n+'), '\n\n');

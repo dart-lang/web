@@ -7,44 +7,65 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:html/dom.dart' as dom;
-import 'package:html/dom_parsing.dart' show TreeVisitor;
-import 'package:html/parser.dart' show parse;
-import 'package:http/http.dart' as http;
-import 'package:pool/pool.dart';
+import 'package:path/path.dart' as p;
 
 const mdnUrl = 'https://developer.mozilla.org/en-US/docs/Web';
-const apiUrl = '$mdnUrl/API';
+const gitUrl = 'https://github.com/mdn/content.git';
 
 Future<void> main(List<String> args) async {
-  final client = http.Client();
-
-  // Get the API page with all the interface references.
-  final response = await client.get(Uri.parse(apiUrl));
-  final doc = parse(response.body);
-
-  final section = doc.querySelector('section[aria-labelledby=interfaces]')!;
-  final anchorItems = section.querySelectorAll('li a');
-
-  final interfaceNames = <String>[];
-
-  for (final item in anchorItems) {
-    final href = item.attributes['href']!;
-    final interfaceName = href.split('/').last;
-
-    interfaceNames.add(interfaceName);
+  // clone the repo
+  final repoDir = Directory(p.join('.dart_tool', 'mdn_content'));
+  if (!repoDir.existsSync()) {
+    await _run(
+      'git',
+      [
+        'clone',
+        '--depth=1',
+        gitUrl,
+        p.basename(repoDir.path),
+      ],
+      cwd: repoDir.parent,
+    );
+  } else {
+    await _run('git', ['pull'], cwd: repoDir);
   }
 
-  interfaceNames.sort();
+  print('');
 
-  print('${interfaceNames.length} items read from $apiUrl.');
-  stdout.write('Gathering MDN documentation...');
+  final interfaces = <InterfaceInfo>[];
 
-  final interfaces = await Pool(6).forEach(interfaceNames, (item) async {
-    return populateInterfaceInfo(item, client: client);
-  }).toList();
+  final apiDir =
+      Directory(p.join(repoDir.path, 'files', 'en-us', 'web', 'api'));
+  for (final dir in apiDir.listSync().whereType<Directory>()) {
+    final interfaceIndex = File(p.join(dir.path, 'index.md'));
+    if (!interfaceIndex.existsSync()) continue;
 
-  client.close();
+    final docs = interfaceIndex.readAsStringSync();
+    if (!docs.contains('page-type: web-api-interface')) {
+      continue;
+    }
+
+    final info = InterfaceInfo(name: p.basename(dir.path));
+    info.docs = convertMdnToMarkdown(interfaceIndex.readAsStringSync());
+    interfaces.add(info);
+
+    for (final child in dir.listSync().whereType<Directory>()) {
+      final propertyIndex = File(p.join(child.path, 'index.md'));
+      if (!propertyIndex.existsSync()) continue;
+
+      final property = Property(name: p.basename(child.path));
+      if (property.name != info.name) {
+        property.docs = convertMdnToMarkdown(propertyIndex.readAsStringSync());
+        info.properties.add(property);
+      }
+    }
+
+    info.properties.sort();
+  }
+
+  interfaces.sort();
+
+  print('${interfaces.length} items read from $gitUrl.');
 
   const encoder = JsonEncoder.withIndent('  ');
 
@@ -63,50 +84,7 @@ Future<void> main(List<String> args) async {
   print('Wrote ${file.lengthSync()} bytes to ${file.path}.');
 }
 
-Future<InterfaceInfo> populateInterfaceInfo(
-  String interfaceName, {
-  required http.Client client,
-}) async {
-  final info = InterfaceInfo(name: interfaceName);
-
-  final url = '$apiUrl/$interfaceName';
-
-  // Retrieve the interface docs page.
-  final response = await client.get(Uri.parse(url));
-  final doc = parse(response.body);
-
-  final article = doc.querySelector('main article')!;
-  final content = article.querySelector('div[class=section-content]')!;
-
-  info.docs = '''
-${_nodesToMarkdown(content.children)}
-
-See also $url.''';
-
-  // Gather property info.
-  for (final dt in article.querySelectorAll('dt[id]')) {
-    final id = dt.attributes['id']!;
-
-    if (id.startsWith('${interfaceName.toLowerCase()}.')) {
-      final name = id.substring(interfaceName.length + 1);
-      final property = Property(name: name);
-
-      final index = dt.parent!.children.indexOf(dt);
-      final dd = dt.parent!.children[index + 1];
-      if (dd.localName == 'dd') {
-        property.docs = _nodesToMarkdown(dd.children);
-      }
-
-      info.properties.add(property);
-    }
-  }
-
-  info.properties.sort((a, b) => a.name.compareTo(b.name));
-
-  return info;
-}
-
-class InterfaceInfo {
+class InterfaceInfo implements Comparable<InterfaceInfo> {
   final String name;
   late final String docs;
 
@@ -119,122 +97,135 @@ class InterfaceInfo {
         if (properties.isNotEmpty)
           'properties': {for (var p in properties) p.name: p.docs},
       };
+
+  @override
+  int compareTo(InterfaceInfo other) => name.compareTo(other.name);
 }
 
-class Property {
+class Property implements Comparable<Property> {
   final String name;
   late final String docs;
 
   Property({required this.name});
+
+  @override
+  int compareTo(Property other) => name.compareTo(other.name);
 }
 
-String _nodesToMarkdown(List<dom.Element> nodes) {
-  return nodes.map(_nodeToMarkdown).whereType<String>().join('\n\n');
-}
+final RegExp _xrefRegex =
+    RegExp(r'''{{\s*(\w+)\(([\w\., \n/\*"'\(\)]+)\)\s*}}''');
+final RegExp _mustacheRegex = RegExp(r'''{{\s*([\S ]+?)\s*}}''');
 
-String? _nodeToMarkdown(dom.Element node) {
-  String value;
+String convertMdnToMarkdown(String content) {
+  var lines = content.split('\n');
 
-  switch (node.localName) {
-    case 'p':
-      value = getTextForNote(node);
-      break;
-    case 'blockquote':
-      value = '> ${getTextForNote(node)}';
-      break;
-    case 'ul':
-    case 'ol':
-      final buf = StringBuffer();
-      for (var child in node.querySelectorAll('li')) {
-        buf.writeln('- ${getTextForNote(child)}');
+  // remove the front matter
+  if (lines.first.startsWith('---')) {
+    lines.removeUntil((line) => line == '---');
+    lines.removeUntil((line) => line == '---');
+  }
+
+  // remove everything after the first section
+  // TODO: handle cases where the first line is a section header
+  final index = lines.indexWhere((line) => line.startsWith('## '));
+  if (index != -1) {
+    lines = lines.sublist(0, index);
+  }
+
+  // remove leading and trailing blank lines
+  lines.removeWhile((line) => line.isEmpty);
+  while (lines.isNotEmpty && lines.last.isEmpty) {
+    lines.removeLast();
+  }
+
+  var text = lines.join('\n');
+
+  // Convert {{jsxref("Promise")}} to code references and
+  // {{domxref("BluetoothRemote")}} to symbol references.
+  text = text.replaceAllMapped(_xrefRegex, (match) {
+    final type = match.group(1)!.toLowerCase();
+    if (type == 'apiref' || type == 'glossary' || type == 'svgelement') {
+      return '';
+    }
+
+    var content = match.group(2)!;
+    if (type == 'jsxref' ||
+        type == 'htmlelement' ||
+        type == 'svgattr' ||
+        type == 'cssxref') {
+      content = _stripQuotes(content.split(',').last);
+      return '`$content`';
+    } else if (type == 'domxref') {
+      content = content.split(',').first.trim();
+      content = _stripQuotes(content);
+      if (content.endsWith('()')) {
+        content = content.substring(0, content.length - 2);
       }
-      value = buf.toString();
-      break;
-    case 'div':
-      if (node.classes.contains('notecard')) {
-        value =
-            node.children.map(_nodeToMarkdown).whereType<String>().join('\n');
-      } else if (node.classes.contains('code-example')) {
-        final buf = StringBuffer();
-        final pre = node.querySelector('pre')!;
-        buf.writeln('```');
-        buf.writeln(pre.text.trimRight());
-        buf.writeln('```');
-        value = buf.toString();
+      return '[$content]';
+    } else {
+      content = _stripQuotes(content);
+      return '`$content`';
+    }
+  });
+
+  // Remove additional mustache-like directives ({{InheritanceDiagram}}, ...).
+  text = text.replaceAllMapped(_mustacheRegex, (match) {
+    return '';
+  });
+
+  // Replace multiple blank lines by 2 blank lines.
+  text = text.replaceAll(RegExp('\n\n\n+'), '\n\n');
+
+  return text;
+}
+
+String _stripQuotes(String value) {
+  value = value.trim();
+  if (value.startsWith("'") && value.endsWith("'")) {
+    return value.substring(1, value.length - 1);
+  } else if (value.startsWith('"') && value.endsWith('"')) {
+    return value.substring(1, value.length - 1);
+  }
+  return value;
+}
+
+extension ListExtension on List<String> {
+  void removeUntil(bool Function(String) fn) {
+    while (true) {
+      if (fn(first)) {
+        removeAt(0);
+        return;
       } else {
-        throw Exception('unhandled div type: ${node.classes}');
+        removeAt(0);
       }
-      break;
-    case 'dl':
-      final buf = StringBuffer();
-      buf.writeln('| --- | --- |');
-      for (var child in node.children) {
-        if (child.localName == 'dt') {
-          buf.write('| ${getTextForNote(child).trim()} ');
-        } else if (child.localName == 'dd') {
-          buf.writeln('| ${getTextForNote(child).trim()} |');
-        }
-      }
-      value = buf.toString();
-      break;
-    case 'figure':
-    case 'svg':
-      return null;
-    default:
-      throw Exception('unhandled node type: ${node.localName}');
-  }
-
-  return value.trim();
-}
-
-String getTextForNote(dom.Element node) {
-  final visitor = MarkdownTextVisitor();
-  visitor.visit(node);
-  return visitor.toString();
-}
-
-class MarkdownTextVisitor extends TreeVisitor {
-  final StringBuffer buf = StringBuffer();
-
-  @override
-  void visitText(dom.Text node) {
-    buf.write(node.data);
-  }
-
-  @override
-  void visitElement(dom.Element node) {
-    switch (node.localName) {
-      case 'strong':
-        buf.write('**');
-        visitChildren(node);
-        buf.write('**');
-        break;
-      case 'br':
-        buf.writeln();
-        buf.writeln();
-        break;
-      case 'a':
-        // TODO(devoncarew): Fixup relative urls? Convert to symbol references?
-        final href = node.attributes['href'];
-        if (href != null && href.startsWith('https://')) {
-          buf.write('[');
-          visitChildren(node);
-          buf.write(']($href)');
-        } else {
-          visitChildren(node);
-        }
-        break;
-      case 'code':
-        buf.write('`');
-        visitChildren(node);
-        buf.write('`');
-        break;
-      default:
-        visitChildren(node);
-        break;
     }
   }
 
-  @override
-  String toString() => buf.toString();
+  void removeWhile(bool Function(String) fn) {
+    if (isEmpty) return;
+
+    while (!isEmpty && fn(first)) {
+      removeAt(0);
+    }
+  }
+}
+
+Future<void> _run(
+  String command,
+  List<String> args, {
+  required Directory cwd,
+}) async {
+  print('$command ${args.join(' ')} [${cwd.path}]');
+
+  final result = await Process.start(
+    command,
+    args,
+    workingDirectory: cwd.path,
+    mode: ProcessStartMode.inheritStdio,
+  );
+
+  final code = await result.exitCode;
+  if (code != 0) {
+    throw Exception('process exited with code $code');
+  }
 }

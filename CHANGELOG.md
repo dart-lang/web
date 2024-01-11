@@ -1,4 +1,4 @@
-## 0.4.1-wip
+## 0.4.1
 
 - Exported the helper libraries from `web.dart`.
 - Deprecated the `helpers.dart` library in favor of `web.dart`.
@@ -9,7 +9,7 @@
   `Node`.
 - Deprecated `NodeGlue.append` in favor of `Node.appendChild`.
 - Deprecated `NodeGlue.clone` in favor of `Node.cloneNode`.
-- Updated to `@webref/css` `6.10.0`.
+- Updated `@webref/css` to `6.10.0`.
 
 ## 0.4.0
 

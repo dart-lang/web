@@ -79,7 +79,7 @@ $_usage''');
   // Run app with `node`.
   await _runProc(
     'node',
-    ['main.mjs', '../lib/src'],
+    ['main.mjs', '../../lib/src'],
     workingDirectory: _bindingsGeneratorPath,
   );
 
@@ -93,7 +93,7 @@ $_usage''');
 
   // Update readme.
   final readmeFile = File(
-    p.normalize(p.join(_bindingsGeneratorPath, '..', 'README.md')),
+    p.normalize(p.join(_bindingsGeneratorPath, '..', '..', 'README.md')),
   );
 
   final sourceContent = readmeFile.readAsStringSync();
@@ -129,7 +129,7 @@ String _packageLockVersion(String package) {
   return webRefIdl['version'] as String;
 }
 
-const _bindingsGeneratorPath = 'bindings_generator';
+final _bindingsGeneratorPath = p.join('tool', 'generator');
 
 const _webRefIdl = '@webref/idl';
 const _webRefCss = '@webref/css';

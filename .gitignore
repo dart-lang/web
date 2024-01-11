@@ -2,6 +2,6 @@
 doc/api/
 pubspec.lock
 
-bindings_generator/*.js
-bindings_generator/*.js.*
-bindings_generator/node_modules/
+tool/generator/*.js
+tool/generator/*.js.*
+tool/generator/node_modules/

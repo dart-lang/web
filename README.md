@@ -40,5 +40,5 @@ Based on:
 - @webref/css [6.10.0](https://www.npmjs.com/package/@webref/css/v/6.10.0)
 <!-- END updated by tool/update_bindings.dart. Do not modify by hand -->
 
-For instructions on re-generating the DOM bindings, see
-[bindings_generator/README.md](bindings_generator/README.md).
+For instructions on re-generating the DOM bindings, see the
+[generator docs](tool/generator/README.md).

@@ -67,9 +67,13 @@ extension CanvasRenderingContext2DGlue on CanvasRenderingContext2D {
 
 extension NodeGlue on Node {
   set text(String s) => textContent = s;
-  @Deprecated('See Node.appendChild()')
+  // TODO(srujzs): Deprecate in 0.5.0 instead. Deprecations are breaking for
+  // Flutter CI.
+  // @Deprecated('See Node.appendChild()')
   Node append(Node other) => appendChild(other);
-  @Deprecated('See Node.cloneNode()')
+  // TODO(srujzs): Deprecate in 0.5.0 instead. Deprecations are breaking for
+  // Flutter CI.
+  // @Deprecated('See Node.cloneNode()')
   Node clone(bool? deep) => cloneNode(deep ?? false);
 }
 

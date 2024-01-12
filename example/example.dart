@@ -5,6 +5,11 @@
 import 'package:web/web.dart';
 
 void main() {
-  final div = document.querySelector('div') as HTMLDivElement;
+  // ignore: unused_local_variable
+  final HtmlDocument foo = document;
+
+  final doc = document as HtmlDocument;
+
+  final div = doc.querySelector('div')!;
   div.text = 'Text set at ${DateTime.now()}';
 }

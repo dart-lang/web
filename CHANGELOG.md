@@ -1,3 +1,9 @@
+## 0.4.2
+
+- Undeprecate some APIs and helpers library that were deprecated in 0.4.1.
+  Because deprecations are breaking in Flutter, they should be done in a
+  breaking change.
+
 ## 0.4.1
 
 - Exported the helper libraries from `web.dart`.

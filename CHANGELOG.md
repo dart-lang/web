@@ -1,3 +1,10 @@
+## 0.4.3-wip
+
+- Add support for `dart fix` migrations from `dart:html` classes to
+  `package:web` classes.
+- Contribute a markdown file for the renamed classes from `dart:html` to
+  `package:web` (see [renames.md](tool/renames.md)).
+
 ## 0.4.2
 
 - Undeprecate some APIs and helpers library that were deprecated in 0.4.1.

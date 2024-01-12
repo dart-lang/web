@@ -1,5 +1,6 @@
-## 0.4.3-wip
+## 0.5.0-wip
 
+- Redeprecate APIs that were deprecated in `0.4.1` but undeprecated in `0.4.2`.
 - Add support for `dart fix` migrations from `dart:html` classes to
   `package:web` classes.
 - Contribute a markdown file for the renamed classes from `dart:html` to
@@ -7,7 +8,7 @@
 
 ## 0.4.2
 
-- Undeprecate some APIs and helpers library that were deprecated in 0.4.1.
+- Undeprecate some APIs and helpers library that were deprecated in `0.4.1`.
   Because deprecations are breaking in Flutter, they should be done in a
   breaking change.
 

@@ -79,3 +79,23 @@ jobs:
         run: dart tool/update_bindings.dart
       - name: Analyze code
         run: dart analyze --fatal-infos
+
+  # Test the contributed `dart fix` fixes.
+  dart-fix:
+    needs: analyze
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        sdk: [main]
+    steps:
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+      - uses: dart-lang/setup-dart@b64355ae6ca0b5d484f0106a033dd1388965d06d
+        with:
+          sdk: ${{ matrix.sdk }}
+      - name: Install Dart dependencies
+        run: dart pub get
+      - name: Test the declarative fixes
+        run: dart fix --compare-to-golden
+        working-directory: test_fixes

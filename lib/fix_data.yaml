@@ -26,15 +26,15 @@ transforms:
     changes:
       - kind: 'rename'
         newName: 'HTMLAreaElement'
-  # AudioElement => HTMLAudioElement
-  - title: "Rename to 'HTMLAudioElement'"
-    date: 2024-01-12
-    element:
-      uris: [ 'package:web/web.dart' ]
-      class: 'AudioElement'
-    changes:
-      - kind: 'rename'
-        newName: 'HTMLAudioElement'
+  # AudioElement => HTMLAudioElement (see test_fixes/README.md)
+  # - title: "Rename to 'HTMLAudioElement'"
+  #   date: 2024-01-12
+  #   element:
+  #     uris: [ 'package:web/web.dart' ]
+  #     class: 'AudioElement'
+  #   changes:
+  #     - kind: 'rename'
+  #       newName: 'HTMLAudioElement'
   # BaseElement => HTMLBaseElement
   - title: "Rename to 'HTMLBaseElement'"
     date: 2024-01-12
@@ -80,15 +80,15 @@ transforms:
     changes:
       - kind: 'rename'
         newName: 'HTMLButtonElement'
-  # CanvasElement => HTMLCanvasElement
-  - title: "Rename to 'HTMLCanvasElement'"
-    date: 2024-01-12
-    element:
-      uris: [ 'package:web/web.dart' ]
-      class: 'CanvasElement'
-    changes:
-      - kind: 'rename'
-        newName: 'HTMLCanvasElement'
+  # CanvasElement => HTMLCanvasElement (see test_fixes/README.md)
+  # - title: "Rename to 'HTMLCanvasElement'"
+  #   date: 2024-01-12
+  #   element:
+  #     uris: [ 'package:web/web.dart' ]
+  #     class: 'CanvasElement'
+  #   changes:
+  #     - kind: 'rename'
+  #       newName: 'HTMLCanvasElement'
   # CDataSection => CDATASection
   - title: "Rename to 'CDATASection'"
     date: 2024-01-12
@@ -260,15 +260,15 @@ transforms:
     changes:
       - kind: 'rename'
         newName: 'CSSSkew'
-  # CssStyleDeclaration => CSSStyleDeclaration
-  - title: "Rename to 'CSSStyleDeclaration'"
-    date: 2024-01-12
-    element:
-      uris: [ 'package:web/web.dart' ]
-      class: 'CssStyleDeclaration'
-    changes:
-      - kind: 'rename'
-        newName: 'CSSStyleDeclaration'
+  # CssStyleDeclaration => CSSStyleDeclaration (see test_fixes/README.md)
+  # - title: "Rename to 'CSSStyleDeclaration'"
+  #   date: 2024-01-12
+  #   element:
+  #     uris: [ 'package:web/web.dart' ]
+  #     class: 'CssStyleDeclaration'
+  #   changes:
+  #     - kind: 'rename'
+  #       newName: 'CSSStyleDeclaration'
   # CssStyleRule => CSSStyleRule
   - title: "Rename to 'CSSStyleRule'"
     date: 2024-01-12
@@ -593,15 +593,15 @@ transforms:
     changes:
       - kind: 'rename'
         newName: 'Document'
-  # HtmlElement => HTMLElement
-  - title: "Rename to 'HTMLElement'"
-    date: 2024-01-12
-    element:
-      uris: [ 'package:web/web.dart' ]
-      class: 'HtmlElement'
-    changes:
-      - kind: 'rename'
-        newName: 'HTMLElement'
+  # HtmlElement => HTMLElement (see test_fixes/README.md)
+  # - title: "Rename to 'HTMLElement'"
+  #   date: 2024-01-12
+  #   element:
+  #     uris: [ 'package:web/web.dart' ]
+  #     class: 'HtmlElement'
+  #   changes:
+  #     - kind: 'rename'
+  #       newName: 'HTMLElement'
   # HtmlFormControlsCollection => HTMLFormControlsCollection
   - title: "Rename to 'HTMLFormControlsCollection'"
     date: 2024-01-12
@@ -638,15 +638,15 @@ transforms:
     changes:
       - kind: 'rename'
         newName: 'HTMLOptionsCollection'
-  # HttpRequest => XMLHttpRequest
-  - title: "Rename to 'XMLHttpRequest'"
-    date: 2024-01-12
-    element:
-      uris: [ 'package:web/web.dart' ]
-      class: 'HttpRequest'
-    changes:
-      - kind: 'rename'
-        newName: 'XMLHttpRequest'
+  # HttpRequest => XMLHttpRequest (see test_fixes/README.md)
+  # - title: "Rename to 'XMLHttpRequest'"
+  #   date: 2024-01-12
+  #   element:
+  #     uris: [ 'package:web/web.dart' ]
+  #     class: 'HttpRequest'
+  #   changes:
+  #     - kind: 'rename'
+  #       newName: 'XMLHttpRequest'
   # HttpRequestEventTarget => XMLHttpRequestEventTarget
   - title: "Rename to 'XMLHttpRequestEventTarget'"
     date: 2024-01-12
@@ -674,15 +674,15 @@ transforms:
     changes:
       - kind: 'rename'
         newName: 'HTMLIFrameElement'
-  # ImageElement => HTMLImageElement
-  - title: "Rename to 'HTMLImageElement'"
-    date: 2024-01-12
-    element:
-      uris: [ 'package:web/web.dart' ]
-      class: 'ImageElement'
-    changes:
-      - kind: 'rename'
-        newName: 'HTMLImageElement'
+  # ImageElement => HTMLImageElement (see test_fixes/README.md)
+  # - title: "Rename to 'HTMLImageElement'"
+  #   date: 2024-01-12
+  #   element:
+  #     uris: [ 'package:web/web.dart' ]
+  #     class: 'ImageElement'
+  #   changes:
+  #     - kind: 'rename'
+  #       newName: 'HTMLImageElement'
   # InputElement => HTMLInputElement
   - title: "Rename to 'HTMLInputElement'"
     date: 2024-01-12
@@ -1286,15 +1286,15 @@ transforms:
     changes:
       - kind: 'rename'
         newName: 'URLSearchParams'
-  # VideoElement => HTMLVideoElement
-  - title: "Rename to 'HTMLVideoElement'"
-    date: 2024-01-12
-    element:
-      uris: [ 'package:web/web.dart' ]
-      class: 'VideoElement'
-    changes:
-      - kind: 'rename'
-        newName: 'HTMLVideoElement'
+  # VideoElement => HTMLVideoElement (see test_fixes/README.md)
+  # - title: "Rename to 'HTMLVideoElement'"
+  #   date: 2024-01-12
+  #   element:
+  #     uris: [ 'package:web/web.dart' ]
+  #     class: 'VideoElement'
+  #   changes:
+  #     - kind: 'rename'
+  #       newName: 'HTMLVideoElement'
   # VttCue => VTTCue
   - title: "Rename to 'VTTCue'"
     date: 2024-01-12

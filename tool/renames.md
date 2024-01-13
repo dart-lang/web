@@ -88,13 +88,13 @@
 | DomStringMap                  | DOMStringMap                  |
 | DomTokenList                  | DOMTokenList                  |
 | EmbedElement                  | HTMLEmbedElement              |
-| Entry                         |                               |
+| Entry                         | FileSystemEntry               |
 | FieldSetElement               | HTMLFieldSetElement           |
-| FileEntry                     |                               |
+| FileEntry                     | FileSystemFileEntry           |
 | FileWriter                    |                               |
 | ForeignFetchEvent             |                               |
 | FormElement                   | HTMLFormElement               |
-| Geoposition                   |                               |
+| Geoposition                   | GeolocationPosition           |
 | HeadElement                   | HTMLHeadElement               |
 | HeadingElement                | HTMLHeadingElement            |
 | HRElement                     | HTMLHRElement                 |
@@ -148,7 +148,7 @@
 | PaymentAddress                |                               |
 | PaymentInstruments            |                               |
 | PictureElement                | HTMLPictureElement            |
-| PositionError                 |                               |
+| PositionError                 | GeolocationPositionError      |
 | PreElement                    | HTMLPreElement                |
 | ProgressElement               | HTMLProgressElement           |
 | QuoteElement                  | HTMLQuoteElement              |
@@ -176,7 +176,7 @@
 | SlotElement                   | HTMLSlotElement               |
 | SourceElement                 | HTMLSourceElement             |
 | SpanElement                   | HTMLSpanElement               |
-| SpeechRecognitionError        |                               |
+| SpeechRecognitionError        | SpeechRecognitionErrorEvent   |
 | StyleElement                  | HTMLStyleElement              |
 | StyleMedia                    |                               |
 | StylePropertyMapReadonly      | StylePropertyMapReadOnly      |
@@ -197,7 +197,7 @@
 | TrustedScriptUrl              | TrustedScriptURL              |
 | TrustedUrl                    |                               |
 | UListElement                  | HTMLUListElement              |
-| UnderlyingSourceBase          |                               |
+| UnderlyingSourceBase          | UnderlyingSource              |
 | UnknownElement                | HTMLUnknownElement            |
 | Url                           | URL                           |
 | UrlSearchParams               | URLSearchParams               |

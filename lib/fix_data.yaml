@@ -530,6 +530,15 @@ transforms:
     changes:
       - kind: 'rename'
         newName: 'HTMLEmbedElement'
+  # Entry => FileSystemEntry
+  - title: "Rename to 'FileSystemEntry'"
+    date: 2024-01-12
+    element:
+      uris: [ 'package:web/web.dart' ]
+      class: 'Entry'
+    changes:
+      - kind: 'rename'
+        newName: 'FileSystemEntry'
   # FieldSetElement => HTMLFieldSetElement
   - title: "Rename to 'HTMLFieldSetElement'"
     date: 2024-01-12
@@ -539,6 +548,15 @@ transforms:
     changes:
       - kind: 'rename'
         newName: 'HTMLFieldSetElement'
+  # FileEntry => FileSystemFileEntry
+  - title: "Rename to 'FileSystemFileEntry'"
+    date: 2024-01-12
+    element:
+      uris: [ 'package:web/web.dart' ]
+      class: 'FileEntry'
+    changes:
+      - kind: 'rename'
+        newName: 'FileSystemFileEntry'
   # FormElement => HTMLFormElement
   - title: "Rename to 'HTMLFormElement'"
     date: 2024-01-12
@@ -548,6 +566,15 @@ transforms:
     changes:
       - kind: 'rename'
         newName: 'HTMLFormElement'
+  # Geoposition => GeolocationPosition
+  - title: "Rename to 'GeolocationPosition'"
+    date: 2024-01-12
+    element:
+      uris: [ 'package:web/web.dart' ]
+      class: 'Geoposition'
+    changes:
+      - kind: 'rename'
+        newName: 'GeolocationPosition'
   # HeadElement => HTMLHeadElement
   - title: "Rename to 'HTMLHeadElement'"
     date: 2024-01-12
@@ -926,6 +953,15 @@ transforms:
     changes:
       - kind: 'rename'
         newName: 'HTMLPictureElement'
+  # PositionError => GeolocationPositionError
+  - title: "Rename to 'GeolocationPositionError'"
+    date: 2024-01-12
+    element:
+      uris: [ 'package:web/web.dart' ]
+      class: 'PositionError'
+    changes:
+      - kind: 'rename'
+        newName: 'GeolocationPositionError'
   # PreElement => HTMLPreElement
   - title: "Rename to 'HTMLPreElement'"
     date: 2024-01-12
@@ -1124,6 +1160,15 @@ transforms:
     changes:
       - kind: 'rename'
         newName: 'HTMLSpanElement'
+  # SpeechRecognitionError => SpeechRecognitionErrorEvent
+  - title: "Rename to 'SpeechRecognitionErrorEvent'"
+    date: 2024-01-12
+    element:
+      uris: [ 'package:web/web.dart' ]
+      class: 'SpeechRecognitionError'
+    changes:
+      - kind: 'rename'
+        newName: 'SpeechRecognitionErrorEvent'
   # StyleElement => HTMLStyleElement
   - title: "Rename to 'HTMLStyleElement'"
     date: 2024-01-12
@@ -1259,6 +1304,15 @@ transforms:
     changes:
       - kind: 'rename'
         newName: 'HTMLUListElement'
+  # UnderlyingSourceBase => UnderlyingSource
+  - title: "Rename to 'UnderlyingSource'"
+    date: 2024-01-12
+    element:
+      uris: [ 'package:web/web.dart' ]
+      class: 'UnderlyingSourceBase'
+    changes:
+      - kind: 'rename'
+        newName: 'UnderlyingSource'
   # UnknownElement => HTMLUnknownElement
   - title: "Rename to 'HTMLUnknownElement'"
     date: 2024-01-12

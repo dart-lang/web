@@ -1,4 +1,14 @@
-## 0.4.1-wip
+## 0.5.0-wip
+
+- Redeprecate APIs that were deprecated in `0.4.1` but undeprecated in `0.4.2`.
+
+## 0.4.2
+
+- Undeprecate some APIs and helpers library that were deprecated in `0.4.1`.
+  Because deprecations are breaking in Flutter, they should be done in a
+  breaking change.
+
+## 0.4.1
 
 - Exported the helper libraries from `web.dart`.
 - Deprecated the `helpers.dart` library in favor of `web.dart`.
@@ -9,7 +19,7 @@
   `Node`.
 - Deprecated `NodeGlue.append` in favor of `Node.appendChild`.
 - Deprecated `NodeGlue.clone` in favor of `Node.cloneNode`.
-- Updated to `@webref/css` `6.10.0`.
+- Updated `@webref/css` to `6.10.0`.
 
 ## 0.4.0
 

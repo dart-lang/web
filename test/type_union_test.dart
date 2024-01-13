@@ -4,7 +4,7 @@
 
 import 'package:test/test.dart';
 
-import '../bindings_generator/type_union.dart';
+import '../tool/generator/type_union.dart';
 
 void main() {
   test('Non-JS types', () {

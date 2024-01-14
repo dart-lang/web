@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -61,6 +65,20 @@ extension PointerEventInitExtension on PointerEventInit {
   external JSArray get predictedEvents;
 }
 
+/// The **`PointerEvent`** interface represents the state of a DOM event
+/// produced by a pointer such as the geometry of the contact point, the device
+/// type that generated the event, the amount of pressure that was applied on
+/// the contact surface, etc.
+///
+/// A _pointer_ is a hardware agnostic representation of input devices (such as
+/// a mouse, pen or contact point on a touch-enable surface). The pointer can
+/// target a specific coordinate (or set of coordinates) on the contact surface
+/// such as a screen.
+///
+/// A pointer's _hit test_ is the process a browser uses to determine the target
+/// element for a pointer event. Typically, this is determined by considering
+/// the pointer's location and also the visual layout of elements in a document
+/// on screen media.
 @JS('PointerEvent')
 @staticInterop
 class PointerEvent implements MouseEvent {
@@ -71,7 +89,39 @@ class PointerEvent implements MouseEvent {
 }
 
 extension PointerEventExtension on PointerEvent {
+  /// The **`getCoalescedEvents()`** method of the [PointerEvent] interface
+  /// returns a sequence of `PointerEvent` instances that were coalesced
+  /// (merged) into a single [Element/pointermove_event] or
+  /// [Element/pointerrawupdate_event] event.
+  /// Instead of a stream of many [Element/pointermove_event] events, user
+  /// agents coalesce multiple updates into a single event.
+  /// This helps with performance as the user agent has less event handling to
+  /// perform, but there is a reduction in the granularity and accuracy when
+  /// tracking, especially with fast and large movements.
+  ///
+  /// The **`getCoalescedEvents()`** method lets applications access all
+  /// un-coalesced position changes for precise handling of pointer movement
+  /// data where necessary.
+  /// Un-coalesced position changes are desirable in drawing applications, for
+  /// instance, where having access to all events helps to build smoother curves
+  /// that better match the movement of a pointer.
+  ///
+  /// For an illustration of coalesced events, see
+  /// [Figure 7 in the specification](https://w3c.github.io/pointerevents/#figure_coalesced).
   external JSArray getCoalescedEvents();
+
+  /// The **`getPredictedEvents()`** method of the [PointerEvent] interface
+  /// returns a sequence of `PointerEvent` instances that are estimated future
+  /// pointer positions.
+  /// How the predicted positions are calculated depends on the user agent, but
+  /// they are based on past points, current velocity, and trajectory.
+  ///
+  /// Applications can use the predicted events to "draw ahead" to a predicted
+  /// position which may reduce perceived latency depending on the application's
+  /// interpretation of the predicted events and the use case.
+  ///
+  /// For an illustration of predicted events, see
+  /// [Figure 8 in the specification](https://w3c.github.io/pointerevents/#figure_predicted).
   external JSArray getPredictedEvents();
   external int get pointerId;
   external num get width;

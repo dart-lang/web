@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -113,13 +117,46 @@ extension RequestDeviceOptionsExtension on RequestDeviceOptions {
   external bool get acceptAllDevices;
 }
 
+/// The **`Bluetooth`** interface of the
+/// [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API)
+/// returns a
+/// `Promise` to a [BluetoothDevice] object with the specified
+/// options.
 @JS('Bluetooth')
 @staticInterop
 class Bluetooth implements EventTarget {}
 
 extension BluetoothExtension on Bluetooth {
+  /// The **`getAvailability()`** method of the [Bluetooth] interface returns
+  /// `true` if the device has a Bluetooth adapter, and false otherwise (unless
+  /// the user has configured the browser to not expose a real value).
+  ///
+  /// > **Note:** A user might not allow use of Web Bluetooth API, even if
+  /// > `getAvailability()` returns `true`
+  /// > ([Bluetooth.requestDevice] might
+  /// > not resolve with a [BluetoothDevice]). Also, a user can configure their
+  /// > browser to return a fixed value instead of a real one.
   external JSPromise getAvailability();
+
+  /// The **`getDevices()`** method of
+  /// [Bluetooth] interface of
+  /// [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API)
+  /// exposes the
+  /// Bluetooth devices this origin is allowed to access. This method does not
+  /// display any
+  /// permission prompts.
+  ///
+  /// > **Note:** This method returns a [BluetoothDevice] for each
+  /// > device the origin is currently allowed to access, even the ones that are
+  /// > out of range
+  /// > or powered off.
   external JSPromise getDevices();
+
+  /// The **`Bluetooth.requestDevice()`** method of the
+  /// [Bluetooth] interface returns a `Promise` to a
+  /// [BluetoothDevice] object with the specified options. If there is no
+  /// chooser
+  /// UI, this method returns the first device matching the criteria.
   external JSPromise requestDevice([RequestDeviceOptions options]);
   external set onavailabilitychanged(EventHandler value);
   external EventHandler get onavailabilitychanged;
@@ -235,6 +272,10 @@ extension ValueEventInitExtension on ValueEventInit {
   external JSAny? get value;
 }
 
+/// The BluetoothDevice interface of the
+/// [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API)
+/// represents a Bluetooth device inside a particular script execution
+/// environment.
 @JS('BluetoothDevice')
 @staticInterop
 class BluetoothDevice implements EventTarget {}
@@ -341,26 +382,61 @@ extension BluetoothAdvertisingEventInitExtension
   external BluetoothServiceDataMap get serviceData;
 }
 
+/// The **`BluetoothRemoteGATTServer`** interface of the
+/// [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API)
+/// represents a GATT
+/// Server on a remote device.
 @JS('BluetoothRemoteGATTServer')
 @staticInterop
 class BluetoothRemoteGATTServer {}
 
 extension BluetoothRemoteGATTServerExtension on BluetoothRemoteGATTServer {
+  /// The
+  /// **`BluetoothRemoteGATTServer.connect()`** method causes the
+  /// script execution environment to connect to `this.device`.
   external JSPromise connect();
+
+  /// The **`BluetoothRemoteGATTServer.disconnect()`** method causes
+  /// the script execution environment to disconnect from `this.device`.
   external void disconnect();
+
+  /// The **`BluetoothRemoteGATTServer.getPrimaryService()`** method
+  /// returns a promise to the primary [BluetoothRemoteGATTService] offered by
+  /// the
+  /// Bluetooth device for a specified bluetooth service UUID.
   external JSPromise getPrimaryService(BluetoothServiceUUID service);
+
+  /// The **BluetoothRemoteGATTServer.getPrimaryServices()** method returns a
+  /// promise to a list of primary [BluetoothRemoteGATTService] objects offered
+  /// by the
+  /// Bluetooth device for a specified `BluetoothServiceUUID`.
   external JSPromise getPrimaryServices([BluetoothServiceUUID service]);
   external BluetoothDevice get device;
   external bool get connected;
 }
 
+/// The `BluetoothRemoteGATTService` interface of the
+/// [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API)
+/// represents a
+/// service provided by a GATT server, including a device, a list of referenced
+/// services,
+/// and a list of the characteristics of this service.
 @JS('BluetoothRemoteGATTService')
 @staticInterop
 class BluetoothRemoteGATTService implements EventTarget {}
 
 extension BluetoothRemoteGATTServiceExtension on BluetoothRemoteGATTService {
+  /// The **`BluetoothGATTService.getCharacteristic()`** method
+  /// returns a `Promise` to an instance of
+  /// [BluetoothRemoteGATTCharacteristic] for a given universally unique
+  /// identifier
+  /// (UUID).
   external JSPromise getCharacteristic(
       BluetoothCharacteristicUUID characteristic);
+
+  /// The **`BluetoothGATTService.getCharacteristics()`** method
+  /// returns a `Promise` to a list of [BluetoothRemoteGATTCharacteristic]
+  /// instances for a given universally unique identifier (UUID).
   external JSPromise getCharacteristics(
       [BluetoothCharacteristicUUID characteristic]);
   external JSPromise getIncludedService(BluetoothServiceUUID service);
@@ -378,19 +454,68 @@ extension BluetoothRemoteGATTServiceExtension on BluetoothRemoteGATTService {
   external EventHandler get onserviceremoved;
 }
 
+/// The `BluetoothRemoteGattCharacteristic` interface of the
+/// [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API)
+/// represents a GATT Characteristic, which is a basic data element that
+/// provides further information about a peripheral's service.
 @JS('BluetoothRemoteGATTCharacteristic')
 @staticInterop
 class BluetoothRemoteGATTCharacteristic implements EventTarget {}
 
 extension BluetoothRemoteGATTCharacteristicExtension
     on BluetoothRemoteGATTCharacteristic {
+  /// The **`BluetoothRemoteGATTCharacteristic.getDescriptor()`** method
+  /// returns a `Promise` that resolves to the
+  /// first [BluetoothRemoteGATTDescriptor] for a given descriptor UUID.
   external JSPromise getDescriptor(BluetoothDescriptorUUID descriptor);
+
+  /// The **`BluetoothRemoteGATTCharacteristic.getDescriptors()`** method
+  /// returns a `Promise` that resolves to an `Array` of all
+  /// [BluetoothRemoteGATTDescriptor] objects for a given descriptor UUID.
   external JSPromise getDescriptors([BluetoothDescriptorUUID descriptor]);
+
+  /// The **`BluetoothRemoteGATTCharacteristic.readValue()`** method
+  /// returns a `Promise` that resolves to a `DataView` holding a
+  /// duplicate of the `value` property if it is available and supported.
+  /// Otherwise
+  /// it throws an error.
   external JSPromise readValue();
+
+  /// Use [BluetoothRemoteGATTCharacteristic.writeValueWithResponse] and
+  /// [BluetoothRemoteGATTCharacteristic.writeValueWithoutResponse] instead.
+  ///
+  /// The **`BluetoothRemoteGATTCharacteristic.writeValue()`** method sets a
+  /// [BluetoothRemoteGATTCharacteristic] object's `value` property to the bytes
+  /// contained in a given `ArrayBuffer`, calls
+  /// [`WriteCharacteristicValue`(_this_=`this`, _value=value_,
+  /// _response_=`"optional"`)](https://webbluetoothcg.github.io/web-bluetooth/#writecharacteristicvalue),
+  /// and returns the resulting `Promise`.
   external JSPromise writeValue(BufferSource value);
+
+  /// The **`BluetoothRemoteGATTCharacteristic.writeValueWithResponse()`**
+  /// method sets a [BluetoothRemoteGATTCharacteristic] object's `value`
+  /// property to the bytes contained in a given `ArrayBuffer`, calls
+  /// [`WriteCharacteristicValue`(_this_=`this`, _value=value_,
+  /// _response_=`"required"`)](https://webbluetoothcg.github.io/web-bluetooth/#writecharacteristicvalue),
+  /// and returns the resulting `Promise`.
   external JSPromise writeValueWithResponse(BufferSource value);
+
+  /// The **`BluetoothRemoteGATTCharacteristic.writeValueWithoutResponse()`**
+  /// method sets a [BluetoothRemoteGATTCharacteristic] object's `value`
+  /// property to the bytes contained in a given `ArrayBuffer`, calls
+  /// [`WriteCharacteristicValue`(_this_=`this`, _value=value_,
+  /// _response_=`"never"`)](https://webbluetoothcg.github.io/web-bluetooth/#writecharacteristicvalue),
+  /// and returns the resulting `Promise`.
   external JSPromise writeValueWithoutResponse(BufferSource value);
+
+  /// The **`BluetoothRemoteGATTCharacteristic.startNotifications()`** method
+  /// returns a `Promise` to the BluetoothRemoteGATTCharacteristic instance when
+  /// there is an active notification on it.
   external JSPromise startNotifications();
+
+  /// The **`BluetoothRemoteGATTCharacteristic.stopNotifications()`** method
+  /// returns a `Promise` to the BluetoothRemoteGATTCharacteristic instance when
+  /// there is no longer an active notification on it.
   external JSPromise stopNotifications();
   external BluetoothRemoteGATTService get service;
   external UUID get uuid;
@@ -400,6 +525,13 @@ extension BluetoothRemoteGATTCharacteristicExtension
   external EventHandler get oncharacteristicvaluechanged;
 }
 
+/// The **`BluetoothCharacteristicProperties`** interface of the
+/// [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API)
+/// provides the operations that are valid on the given
+/// [BluetoothRemoteGATTCharacteristic].
+///
+/// This interface is returned by calling
+/// [BluetoothRemoteGATTCharacteristic.properties].
 @JS('BluetoothCharacteristicProperties')
 @staticInterop
 class BluetoothCharacteristicProperties {}
@@ -417,19 +549,36 @@ extension BluetoothCharacteristicPropertiesExtension
   external bool get writableAuxiliaries;
 }
 
+/// The `BluetoothRemoteGATTDescriptor` interface of the
+/// [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API)
+/// provides a GATT Descriptor,
+/// which provides further information about a characteristic's value.
 @JS('BluetoothRemoteGATTDescriptor')
 @staticInterop
 class BluetoothRemoteGATTDescriptor {}
 
 extension BluetoothRemoteGATTDescriptorExtension
     on BluetoothRemoteGATTDescriptor {
+  /// The
+  /// **`BluetoothRemoteGATTDescriptor.readValue()`**
+  /// method returns a `Promise` that resolves to
+  /// an `ArrayBuffer` holding a duplicate of the `value` property if
+  /// it is available and supported. Otherwise it throws an error.
   external JSPromise readValue();
+
+  /// The **`BluetoothRemoteGATTDescriptor.writeValue()`**
+  /// method sets the value property to the bytes contained in
+  /// an `ArrayBuffer` and returns a `Promise`.
   external JSPromise writeValue(BufferSource value);
   external BluetoothRemoteGATTCharacteristic get characteristic;
   external UUID get uuid;
   external JSDataView? get value;
 }
 
+/// The **`BluetoothUUID`** interface of the [Web Bluetooth API] provides a way
+/// to look up Universally Unique Identifier (UUID) values by name in the
+/// [registry](https://www.bluetooth.com/specifications/assigned-numbers/)
+/// maintained by the Bluetooth SIG.
 @JS('BluetoothUUID')
 @staticInterop
 class BluetoothUUID {

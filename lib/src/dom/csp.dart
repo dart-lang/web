@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -11,6 +15,18 @@ import 'reporting.dart';
 
 typedef SecurityPolicyViolationEventDisposition = String;
 
+/// The `CSPViolationReportBody` interface contains the report data for a
+/// Content Security Policy (CSP) violation. CSP violations are thrown when the
+/// webpage attempts to load a resource that violates the CSP set by the  HTTP
+/// header.
+///
+/// > **Note:** this interface is similar, but not identical to, the
+/// > [JSON objects](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP#violation_report_syntax)
+/// > sent back to the
+/// > [`report-uri`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/report-uri)
+/// > or
+/// > [`report-to`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/report-to)
+/// > policy directive of the  header.
 @JS('CSPViolationReportBody')
 @staticInterop
 class CSPViolationReportBody implements ReportBody {}
@@ -30,6 +46,9 @@ extension CSPViolationReportBodyExtension on CSPViolationReportBody {
   external int? get columnNumber;
 }
 
+/// The **`SecurityPolicyViolationEvent`** interface inherits from [Event], and
+/// represents the event object of an event sent on a document or worker when
+/// its content security policy is violated.
 @JS('SecurityPolicyViolationEvent')
 @staticInterop
 class SecurityPolicyViolationEvent implements Event {

@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -13,6 +17,11 @@ typedef RedEyeReduction = String;
 typedef FillLightMode = String;
 typedef MeteringMode = String;
 
+/// The **`ImageCapture`** interface of the
+/// [MediaStream Image Capture API](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Image_Capture_API)
+/// provides methods to enable the capture of images or photos from a camera or
+/// other photographic device. It provides an interface for capturing images
+/// from a photographic device referenced through a valid [MediaStreamTrack].
 @JS('ImageCapture')
 @staticInterop
 class ImageCapture {
@@ -20,9 +29,28 @@ class ImageCapture {
 }
 
 extension ImageCaptureExtension on ImageCapture {
+  /// The **`takePhoto()`** method of the
+  /// [ImageCapture] interface takes a single exposure using the video capture
+  /// device sourcing a [MediaStreamTrack] and returns a `Promise`
+  /// that resolves with a [Blob] containing the data.
   external JSPromise takePhoto([PhotoSettings photoSettings]);
+
+  /// The **`getPhotoCapabilities()`**
+  /// method of the [ImageCapture] interface returns a `Promise`
+  /// that resolves with an object containing the ranges of
+  /// available configuration options.
   external JSPromise getPhotoCapabilities();
+
+  /// The **`getPhotoSettings()`** method of
+  /// the [ImageCapture] interface returns a `Promise` that
+  /// resolves with an object containing the current photo
+  /// configuration settings.
   external JSPromise getPhotoSettings();
+
+  /// The **`grabFrame()`** method of the
+  /// [ImageCapture] interface takes a snapshot of the live video in a
+  /// [MediaStreamTrack] and returns a `Promise` that resolves with
+  /// a [ImageBitmap] containing the snapshot.
   external JSPromise grabFrame();
   external MediaStreamTrack get track;
 }

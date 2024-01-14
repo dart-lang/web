@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -8,6 +12,13 @@ import 'dart:js_interop';
 
 typedef URLPatternInput = JSAny;
 
+/// The **`URLPattern`** interface of the [URL Pattern API] matches URLs or
+/// parts of URLs against a pattern. The pattern can contain capturing groups
+/// that extract parts of the matched URL.
+///
+/// More information about the syntax of patterns can be found on the API
+/// overview
+/// page: [URL Pattern API].
 @JS('URLPattern')
 @staticInterop
 class URLPattern {
@@ -19,10 +30,20 @@ class URLPattern {
 }
 
 extension URLPatternExtension on URLPattern {
+  /// The **`test()`** method of the [URLPattern] interface takes a URL or
+  /// object of URL parts, and returns a boolean indicating if the given input
+  /// matches
+  /// the current pattern.
   external bool test([
     URLPatternInput input,
     String baseURL,
   ]);
+
+  /// The **`exec()`** method of the [URLPattern] interface takes a URL or
+  /// object of URL parts, and returns either an object containing the results
+  /// of
+  /// matching the URL to the pattern, or `null` if the URL does not match the
+  /// pattern.
   external URLPatternResult? exec([
     URLPatternInput input,
     String baseURL,

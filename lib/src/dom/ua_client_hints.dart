@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -87,12 +91,47 @@ extension UALowEntropyJSONExtension on UALowEntropyJSON {
   external String get platform;
 }
 
+/// The **`NavigatorUAData`** interface of the  returns information about the
+/// browser and operating system of a user.
+///
+/// An instance of this object is returned by calling [Navigator.userAgentData].
+/// Therefore, this interface has no constructor.
+///
+/// > **Note:** The terms _high entropy_ and _low entropy_ refer to the amount
+/// > of information these values reveal about the browser. The values returned
+/// > as properties are deemed low entropy, and unlikely to identify a user. The
+/// > values returned by [NavigatorUAData.getHighEntropyValues] could
+/// > potentially reveal more information. These values are therefore retrieved
+/// > via a `Promise`, allowing time for the browser to request user permission,
+/// > or make other checks.
 @JS('NavigatorUAData')
 @staticInterop
 class NavigatorUAData {}
 
 extension NavigatorUADataExtension on NavigatorUAData {
+  /// The **`getHighEntropyValues()`** method of the [NavigatorUAData] interface
+  /// is a `Promise` that resolves with a dictionary object containing the _high
+  /// entropy_ values the user-agent returns.
+  ///
+  /// > **Note:** The terms _high entropy_ and _low entropy_ refer to the amount
+  /// > of information these values reveal about the browser.
+  /// > The values returned as properties are deemed low entropy, and unlikely
+  /// > to identify a user.
+  /// > The values returned by [NavigatorUAData.getHighEntropyValues] could
+  /// > potentially reveal more information.
+  /// > These values are therefore retrieved via a `Promise`, allowing time for
+  /// > the browser to request user permission, or make other checks.
   external JSPromise getHighEntropyValues(JSArray hints);
+
+  /// The **`toJSON()`** method of the [NavigatorUAData] interface is a
+  /// _serializer_ that returns a JSON representation of the _low entropy_
+  /// properties of the `NavigatorUAData` object.
+  ///
+  /// > **Note:** The terms _high entropy_ and _low entropy_ refer to the amount
+  /// > of information these values reveal about the browser. The low entropy
+  /// > values returned by this method are those which do not reveal information
+  /// > able to identify a user. High entropy values can only be returned by the
+  /// > [NavigatorUAData.getHighEntropyValues] method.
   external UALowEntropyJSON toJSON();
   external JSArray get brands;
   external bool get mobile;

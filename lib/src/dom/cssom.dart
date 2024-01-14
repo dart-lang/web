@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -12,19 +16,38 @@ import 'css_properties_values_api.dart';
 import 'css_typed_om.dart';
 import 'html.dart';
 
+/// The **`MediaList`** interface represents the media queries of a stylesheet,
+/// e.g. those set using a `link` element's `media` attribute.
+///
+/// > **Note:** `MediaList` is a live list; updating the list using properties
+/// > or methods listed below will immediately update the behavior of the
+/// > document.
 @JS('MediaList')
 @staticInterop
 class MediaList {}
 
 extension MediaListExtension on MediaList {
+  /// The **`item()`** method of the [MediaList] interface returns the media
+  /// query at the specified `index`, or `null` if the specified `index` doesn't
+  /// exist.
   external String? item(int index);
+
+  /// The `appendMedium()` method of the [MediaList] interface adds a media
+  /// query to the list. If the media query is already in the collection, this
+  /// method does nothing.
   external void appendMedium(String medium);
+
+  /// The `deleteMedium()` method of the [MediaList] interface removes from this
+  /// `MediaList` the given media query.
   external void deleteMedium(String medium);
   external set mediaText(String value);
   external String get mediaText;
   external int get length;
 }
 
+/// An object implementing the `StyleSheet` interface represents a single style
+/// sheet. CSS style sheets will further implement the more specialized
+/// [CSSStyleSheet] interface.
 @JS('StyleSheet')
 @staticInterop
 class StyleSheet {}
@@ -40,6 +63,33 @@ extension StyleSheetExtension on StyleSheet {
   external bool get disabled;
 }
 
+/// The **`CSSStyleSheet`** interface represents a single
+/// [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) stylesheet, and lets
+/// you inspect and modify the list of rules contained in the stylesheet. It
+/// inherits properties and methods from its parent, [StyleSheet].
+///
+/// A stylesheet consists of a collection of [CSSRule] objects representing each
+/// of the rules in the stylesheet. The rules are contained in a [CSSRuleList],
+/// which can be obtained from the stylesheet's [CSSStyleSheet.cssRules]
+/// property.
+///
+/// For example, one rule might be a [CSSStyleRule] object containing a style
+/// such as:
+///
+/// ```css
+/// h1,
+/// h2 {
+///   font-size: 16pt;
+/// }
+/// ```
+///
+/// Another rule might be an _at-rule_ such as  or , and so forth.
+///
+/// See the [Obtaining a StyleSheet](#obtaining_a_stylesheet) section for the
+/// various ways a `CSSStyleSheet` object can be obtained. A `CSSStyleSheet`
+/// object can also be directly constructed. The constructor, and the
+/// [CSSStyleSheet.replace], and [CSSStyleSheet.replaceSync] methods are newer
+/// additions to the specification, enabling _Constructable Stylesheets_.
 @JS('CSSStyleSheet')
 @staticInterop
 class CSSStyleSheet implements StyleSheet {
@@ -47,18 +97,64 @@ class CSSStyleSheet implements StyleSheet {
 }
 
 extension CSSStyleSheetExtension on CSSStyleSheet {
+  /// The **`CSSStyleSheet.insertRule()`**
+  /// method inserts a new
+  /// [CSS rule](https://developer.mozilla.org/en-US/docs/Web/API/CSSRule) into
+  /// the
+  /// [current style sheet](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet).
+  ///
+  /// > **Note:** Although `insertRule()` is exclusively a method of
+  /// > [CSSStyleSheet], it actually inserts the rule into
+  /// > `[CSSStyleSheet].cssRules` — its internal
+  /// > [CSSRuleList].
   external int insertRule(
     String rule, [
     int index,
   ]);
+
+  /// The [CSSStyleSheet] method
+  /// **`deleteRule()`** removes a rule from the stylesheet
+  /// object.
   external void deleteRule(int index);
+
+  /// The **`replace()`** method of the [CSSStyleSheet] interface asynchronously
+  /// replaces the content of the stylesheet with the content passed into it.
+  /// The method returns a promise that resolves with the `CSSStyleSheet`
+  /// object.
+  ///
+  /// The `replace()` and [CSSStyleSheet.replaceSync] methods can only be used
+  /// on a stylesheet created with the [CSSStyleSheet.CSSStyleSheet]
+  /// constructor.
   external JSPromise replace(String text);
+
+  /// The **`replaceSync()`** method of the [CSSStyleSheet] interface
+  /// synchronously replaces the content of the stylesheet with the content
+  /// passed into it.
+  ///
+  /// The `replaceSync()` and [CSSStyleSheet.replace] methods can only be used
+  /// on a stylesheet created with the [CSSStyleSheet.CSSStyleSheet]
+  /// constructor.
   external void replaceSync(String text);
+
+  /// The obsolete [CSSStyleSheet] interface's
+  /// **`addRule()`** _legacy method_ adds a new rule to the
+  /// stylesheet. You should avoid using this method, and should instead use the
+  /// more standard
+  /// [CSSStyleSheet.insertRule] method.
   external int addRule([
     String selector,
     String style,
     int index,
   ]);
+
+  /// The obsolete [CSSStyleSheet] method
+  /// **`removeRule()`** removes a rule from the stylesheet
+  /// object. It is functionally identical to the standard, preferred method
+  /// [CSSStyleSheet.deleteRule].
+  ///
+  /// > **Note:** This is a _legacy method_ which has been replaced by
+  /// > the standard method [CSSStyleSheet.deleteRule]. You
+  /// > should use that instead.
   external void removeRule([int index]);
   external CSSRule? get ownerRule;
   external CSSRuleList get cssRules;
@@ -85,24 +181,83 @@ extension CSSStyleSheetInitExtension on CSSStyleSheetInit {
   external bool get disabled;
 }
 
+/// The `StyleSheetList` interface represents a list of [CSSStyleSheet] objects.
+/// An instance of this object can be returned by [Document.styleSheets].
+///
+/// It is an array-like object but can't be iterated over using `Array` methods.
+/// However it can be iterated over in a standard `for` loop over its indices,
+/// or converted to an `Array`.
+///
+/// > **Note:** This interface was an
+/// > [attempt to create an unmodifiable list](https://stackoverflow.com/questions/74630989/why-use-domstringlist-rather-than-an-array/74641156#74641156)
+/// > and only continues to be supported to not break code that's already using
+/// > it. Modern APIs use types that wrap around ECMAScript array types instead,
+/// > so you can treat them like ECMAScript arrays, and at the same time impose
+/// > additional semantics on their usage (such as making their items
+/// > read-only).
 @JS('StyleSheetList')
 @staticInterop
 class StyleSheetList {}
 
 extension StyleSheetListExtension on StyleSheetList {
+  /// The **`item()`** method of the [StyleSheetList] interface returns a single
+  /// [CSSStyleSheet] object.
   external CSSStyleSheet? item(int index);
   external int get length;
 }
 
+/// A `CSSRuleList` represents an ordered collection of read-only [CSSRule]
+/// objects.
+///
+/// While the `CSSRuleList` object is read-only, and cannot be directly
+/// modified, it is considered a `live` object, as the content can change over
+/// time.
+///
+/// To edit the underlying rules returned by `CSSRule` objects, use
+/// [CSSStyleSheet.insertRule] and [CSSStyleSheet.deleteRule], which are methods
+/// of [CSSStyleSheet].
+///
+/// The interface has no constructor. An instance of `CSSRuleList` is returned
+/// by [CSSStyleSheet.cssRules] and [CSSKeyframesRule.cssRules].
+///
+/// > **Note:** This interface was an
+/// > [attempt to create an unmodifiable list](https://stackoverflow.com/questions/74630989/why-use-domstringlist-rather-than-an-array/74641156#74641156)
+/// > and only continues to be supported to not break code that's already using
+/// > it. Modern APIs use types that wrap around ECMAScript array types instead,
+/// > so you can treat them like ECMAScript arrays, and at the same time impose
+/// > additional semantics on their usage (such as making their items
+/// > read-only).
 @JS('CSSRuleList')
 @staticInterop
 class CSSRuleList {}
 
 extension CSSRuleListExtension on CSSRuleList {
+  /// The **`item()`** method of the [CSSRuleList] interface returns the
+  /// [CSSRule] object at the specified `index` or `null` if the specified
+  /// `index` doesn't exist.
   external CSSRule? item(int index);
   external int get length;
 }
 
+/// The **`CSSRule`** interface represents a single CSS rule. There are several
+/// types of rules which inherit properties from `CSSRule`.
+///
+/// - [CSSGroupingRule]
+/// - [CSSStyleRule]
+/// - [CSSImportRule]
+/// - [CSSMediaRule]
+/// - [CSSFontFaceRule]
+/// - [CSSPageRule]
+/// - [CSSNamespaceRule]
+/// - [CSSKeyframesRule]
+/// - [CSSKeyframeRule]
+/// - [CSSCounterStyleRule]
+/// - [CSSSupportsRule]
+/// - [CSSFontFeatureValuesRule]
+/// - [CSSFontPaletteValuesRule]
+/// - [CSSLayerBlockRule]
+/// - [CSSLayerStatementRule]
+/// - [CSSPropertyRule]
 @JS('CSSRule')
 @staticInterop
 class CSSRule {
@@ -129,6 +284,7 @@ extension CSSRuleExtension on CSSRule {
   external int get type;
 }
 
+/// The **`CSSStyleRule`** interface represents a single CSS style rule.
 @JS('CSSStyleRule')
 @staticInterop
 class CSSStyleRule implements CSSGroupingRule {}
@@ -140,6 +296,8 @@ extension CSSStyleRuleExtension on CSSStyleRule {
   external CSSStyleDeclaration get style;
 }
 
+/// The **`CSSImportRule`** interface represents an
+/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
 @JS('CSSImportRule')
 @staticInterop
 class CSSImportRule implements CSSRule {}
@@ -152,19 +310,31 @@ extension CSSImportRuleExtension on CSSImportRule {
   external String? get supportsText;
 }
 
+/// The **`CSSGroupingRule`** interface of the
+/// [CSS Object Model](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// represents any CSS
+/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule) that
+/// contains other rules nested within it.
 @JS('CSSGroupingRule')
 @staticInterop
 class CSSGroupingRule implements CSSRule {}
 
 extension CSSGroupingRuleExtension on CSSGroupingRule {
+  /// The **`insertRule()`** method of the
+  /// [CSSGroupingRule] interface adds a new CSS rule to a list of CSS rules.
   external int insertRule(
     String rule, [
     int index,
   ]);
+
+  /// The **`deleteRule()`** method of the
+  /// [CSSGroupingRule] interface removes a CSS rule from a list of child CSS
+  /// rules.
   external void deleteRule(int index);
   external CSSRuleList get cssRules;
 }
 
+/// **`CSSPageRule`** represents a single CSS  rule.
 @JS('CSSPageRule')
 @staticInterop
 class CSSPageRule implements CSSGroupingRule {}
@@ -184,6 +354,9 @@ extension CSSMarginRuleExtension on CSSMarginRule {
   external CSSStyleDeclaration get style;
 }
 
+/// The **`CSSNamespaceRule`** interface describes an object representing a
+/// single CSS
+/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
 @JS('CSSNamespaceRule')
 @staticInterop
 class CSSNamespaceRule implements CSSRule {}
@@ -193,19 +366,54 @@ extension CSSNamespaceRuleExtension on CSSNamespaceRule {
   external String get prefix;
 }
 
+/// The **`CSSStyleDeclaration`** interface represents an object that is a CSS
+/// declaration block, and exposes style information and various style-related
+/// methods and properties.
+///
+/// A `CSSStyleDeclaration` object can be exposed using three different APIs:
+///
+/// - Via [HTMLElement.style], which deals with the inline styles of a single
+///   element (e.g., `<div style="…">`).
+/// - Via the [CSSStyleSheet] API. For example,
+///   `document.styleSheets[0].cssRules[0].style` returns a
+///   `CSSStyleDeclaration` object on the first CSS rule in the document's first
+///   stylesheet.
+/// - Via [Window.getComputedStyle], which exposes the `CSSStyleDeclaration`
+///   object as a **read-only** interface.
 @JS('CSSStyleDeclaration')
 @staticInterop
 class CSSStyleDeclaration {}
 
 extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
+  /// The `CSSStyleDeclaration.item()`
+  /// method interface returns a CSS property name from a [CSSStyleDeclaration]
+  /// by index.
+  ///
+  /// This method doesn't throw exceptions as long as you provide
+  /// arguments; the empty string is returned if the index is out of range and a
+  /// `TypeError` is thrown if no argument is provided.
   external String item(int index);
+
+  /// The **CSSStyleDeclaration.getPropertyValue()** method interface returns a
+  /// string containing the value of a specified CSS property.
   external String getPropertyValue(String property);
+
+  /// The **CSSStyleDeclaration.getPropertyPriority()** method interface returns
+  /// a string that provides all explicitly set priorities on the CSS
+  /// property.
   external String getPropertyPriority(String property);
+
+  /// The
+  /// **`CSSStyleDeclaration.setProperty()`** method interface sets
+  /// a new value for a property on a CSS style declaration object.
   external void setProperty(
     String property,
     String value, [
     String priority,
   ]);
+
+  /// The **`CSSStyleDeclaration.removeProperty()`** method interface
+  /// removes a property from a CSS style declaration object.
   external String removeProperty(String property);
   external set cssText(String value);
   external String get cssText;
@@ -1476,6 +1684,9 @@ extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
 @JS()
 external $CSS get CSS;
 
+/// The **`CSS`** interface holds useful CSS-related methods. No objects with
+/// this interface are implemented: it contains only static methods and is
+/// therefore a utilitarian interface.
 @JS('CSS')
 @staticInterop
 abstract class $CSS {}

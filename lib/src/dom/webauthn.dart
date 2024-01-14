@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -26,9 +30,50 @@ typedef UserVerificationRequirement = String;
 typedef PublicKeyCredentialHints = String;
 typedef LargeBlobSupport = String;
 
+/// The **`PublicKeyCredential`** interface provides information about a public
+/// key / private key pair, which is a credential for logging in to a service
+/// using an un-phishable and data-breach resistant asymmetric key pair instead
+/// of a password. It inherits from [Credential], and is part of the
+/// [Web Authentication API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API)
+/// extension to the
+/// [Credential Management API](https://developer.mozilla.org/en-US/docs/Web/API/Credential_Management_API).
+///
+/// > **Note:** This API is restricted to top-level contexts. Use from within an
+/// > `iframe` element will not have any effect.
 @JS('PublicKeyCredential')
 @staticInterop
 class PublicKeyCredential implements Credential {
+  /// The **`isConditionalMediationAvailable()`** static method of the
+  /// [PublicKeyCredential] interface returns a `Promise` which resolves to
+  /// `true` if conditional mediation is available.
+  ///
+  /// Conditional mediation, if available, results in any discovered credentials
+  /// being presented to the user in a non-modal dialog box along with an
+  /// indication of the origin requesting credentials. This is requested by
+  /// including `mediation: 'conditional'` in your `get()` call. In practice,
+  /// this means autofilling available credentials; you need to include
+  /// `autocomplete="webauthn"` on your form fields so that they will show the
+  /// WebAuthn sign-in options.
+  ///
+  /// A conditional `get()` call does not show the browser UI and remains
+  /// pending until the user picks an account to sign-in with from available
+  /// autofill suggestions:
+  ///
+  /// - If the user makes a gesture outside of the dialog, it closes without
+  ///   resolving or rejecting the Promise and without causing a user-visible
+  ///   error condition.
+  /// - If the user selects a credential, that credential is returned to the
+  ///   caller.
+  ///
+  /// The prevent silent access flag (see
+  /// [CredentialsContainer.preventSilentAccess]) is treated as being `true`
+  /// regardless of its actual value: the conditional behavior always involves
+  /// user mediation of some sort if applicable credentials are discovered.
+  ///
+  /// > **Note:** If no credentials are discovered, the non-modal dialog will
+  /// > not be visible, and the user agent can prompt the user to take action in
+  /// > a way that depends on the type of credential (for example, to insert a
+  /// > device containing credentials).
   external static JSPromise isConditionalMediationAvailable();
   external static JSPromise isUserVerifyingPlatformAuthenticatorAvailable();
   external static JSPromise isPasskeyPlatformAuthenticatorAvailable();
@@ -40,7 +85,44 @@ class PublicKeyCredential implements Credential {
 }
 
 extension PublicKeyCredentialExtension on PublicKeyCredential {
+  /// The **`getClientExtensionResults()`** method of the
+  /// [PublicKeyCredential] interface returns a map between the identifiers of
+  /// extensions requested during credential creation or authentication, and
+  /// their results after processing by the user agent.
+  ///
+  /// During the creation or fetching of a `PublicKeyCredential` (via
+  /// [CredentialsContainer.create] and
+  /// [CredentialsContainer.get] respectively), it is possible
+  /// to request "custom" processing by the client for different extensions,
+  /// specified in the `publicKey` option's `extensions` property. You can find
+  /// more information about requesting the different extensions in
+  /// [Web Authentication extensions](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API/WebAuthn_extensions).
+  ///
+  /// > **Note:** `getClientExtensionResults()` only returns the results from
+  /// > extensions processed by the user agent (client). The results from
+  /// > extensions processed by the authenticator can be found in the
+  /// > [authenticator data](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API/Authenticator_data)
+  /// > available in [AuthenticatorAssertionResponse.authenticatorData].
   external AuthenticationExtensionsClientOutputs getClientExtensionResults();
+
+  /// The **`toJSON()`** method of the [PublicKeyCredential] interface returns a
+  /// of a [PublicKeyCredential].
+  ///
+  /// The properties of the returned object depend on whether the credential is
+  /// returned by
+  /// [`navigator.credentials.create()`](/en-US/docs/Web/API/CredentialsContainer/create)
+  /// when
+  /// [creating a key pair and registering a user](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API#creating_a_key_pair_and_registering_a_user),
+  /// or
+  /// [`navigator.credentials.get()`](/en-US/docs/Web/API/CredentialsContainer/get)
+  /// when
+  /// [authenticating a user](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API#authenticating_a_user).
+  ///
+  /// This method is automatically invoked when web app code calls
+  /// [`JSON.stringify()`](/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
+  /// to serialize a [PublicKeyCredential] so that it can be sent to relying
+  /// party server when registering or authenticating a user.
+  /// It not intended to be called directly in web app code.
   external PublicKeyCredentialJSON toJSON();
   external JSArrayBuffer get rawId;
   external AuthenticatorResponse get response;
@@ -304,6 +386,12 @@ extension PublicKeyCredentialRequestOptionsJSONExtension
   external AuthenticationExtensionsClientInputsJSON get extensions;
 }
 
+/// The **`AuthenticatorResponse`** interface of the
+/// [Web Authentication API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API)
+/// is the base interface for interfaces that provide a cryptographic root of
+/// trust for a key pair. The child interfaces include information from the
+/// browser such as the challenge origin and either may be returned from
+/// [PublicKeyCredential.response].
 @JS('AuthenticatorResponse')
 @staticInterop
 class AuthenticatorResponse {}
@@ -312,19 +400,90 @@ extension AuthenticatorResponseExtension on AuthenticatorResponse {
   external JSArrayBuffer get clientDataJSON;
 }
 
+/// The **`AuthenticatorAttestationResponse`** interface of the
+/// [Web Authentication API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API)
+/// is the result of a WebAuthn credential registration. It contains information
+/// about the credential that the server needs to perform WebAuthn assertions,
+/// such as its credential ID and public key.
+///
+/// An `AuthenticatorAttestationResponse` object instance is available in the
+/// [PublicKeyCredential.response] property of a [PublicKeyCredential] object
+/// returned by a successful [CredentialsContainer.create] call.
+///
+/// This interface inherits from [AuthenticatorResponse].
+///
+/// > **Note:** This interface is restricted to top-level contexts. Use of its
+/// > features from within an `iframe` element will not have any effect.
 @JS('AuthenticatorAttestationResponse')
 @staticInterop
 class AuthenticatorAttestationResponse implements AuthenticatorResponse {}
 
 extension AuthenticatorAttestationResponseExtension
     on AuthenticatorAttestationResponse {
+  /// The **`getTransports()`** method of the [AuthenticatorAttestationResponse]
+  /// interface returns an array of strings describing the different transports
+  /// which may be used by the authenticator.
+  ///
+  /// Such transports may be USB, NFC, BLE, internal (applicable when the
+  /// authenticator is not removable from the device), or a hybrid approach.
+  /// Sites should not interpret this array but instead store it along with the
+  /// rest of the credential information. In a subsequent
+  /// [CredentialsContainer.get] call, the `transports` value(s) specified
+  /// inside `publicKey.allowCredentials` should be set to the stored array
+  /// value. This provides a hint to the browser as to which types of
+  /// authenticators to try when making an assertion for this credential.
   external JSArray getTransports();
+
+  /// The **`getAuthenticatorData()`** method of the
+  /// [AuthenticatorAttestationResponse] interface returns an `ArrayBuffer`
+  /// containing the authenticator data contained within the
+  /// [AuthenticatorAttestationResponse.attestationObject] property.
+  ///
+  /// This is a convenience function, created to allow easy access to the
+  /// authenticator data without having to write extra parsing code to extract
+  /// it from the `attestationObject`.
   external JSArrayBuffer getAuthenticatorData();
+
+  /// The **`getPublicKey()`** method of the [AuthenticatorAttestationResponse]
+  /// interface returns an `ArrayBuffer` containing the DER
+  /// `SubjectPublicKeyInfo` of the new credential (see
+  /// [Subject Public Key Info](https://www.rfc-editor.org/rfc/rfc5280#section-4.1.2.7)),
+  /// or `null` if this is not available.
+  ///
+  /// This is a convenience function, created to allow easy access to the public
+  /// key. This key will need to be stored in order to verify future
+  /// authentication operations (i.e., using [CredentialsContainer.get]).
   external JSArrayBuffer? getPublicKey();
+
+  /// The **`getPublicKeyAlgorithm()`** method of the
+  /// [AuthenticatorAttestationResponse] interface returns a number that is
+  /// equal to a
+  /// [COSE Algorithm Identifier](https://www.iana.org/assignments/cose/cose.xhtml#algorithms),
+  /// representing the cryptographic algorithm used for the new credential.
+  ///
+  /// This is a convenience function created to allow easy access to the
+  /// algorithm type. This information will need to be stored in order to verify
+  /// future authentication operations (i.e., using [CredentialsContainer.get]).
   external COSEAlgorithmIdentifier getPublicKeyAlgorithm();
   external JSArrayBuffer get attestationObject;
 }
 
+/// The **`AuthenticatorAssertionResponse`** interface of the
+/// [Web Authentication API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API)
+/// contains a
+/// [digital signature](https://developer.mozilla.org/en-US/docs/Glossary/Signature/Security)
+/// from the private key of a particular WebAuthn credential. The relying
+/// party's server can verify this signature to authenticate a user, for example
+/// when they sign in.
+///
+/// An `AuthenticatorAssertionResponse` object instance is available in the
+/// [PublicKeyCredential.response] property of a [PublicKeyCredential] object
+/// returned by a successful [CredentialsContainer.get] call.
+///
+/// This interface inherits from [AuthenticatorResponse].
+///
+/// > **Note:** This interface is restricted to top-level contexts. Use from
+/// > within an `iframe` element will not have any effect.
 @JS('AuthenticatorAssertionResponse')
 @staticInterop
 class AuthenticatorAssertionResponse implements AuthenticatorResponse {}

@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -11,6 +15,17 @@ typedef BufferSource = JSObject;
 typedef AllowSharedBufferSource = JSObject;
 typedef VoidFunction = JSFunction;
 
+/// The **`DOMException`** interface represents an abnormal event (called an
+/// **exception**) that occurs as a result of calling a method or accessing a
+/// property of a web API. This is how error conditions are described in web
+/// APIs.
+///
+/// Each exception has a **name**, which is a short "PascalCase"-style string
+/// identifying the error or abnormal condition.
+///
+/// `DOMException` is a , so it can be cloned with [structuredClone] or copied
+/// between [Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker)
+/// using [Worker.postMessage].
 @JS('DOMException')
 @staticInterop
 class DOMException {

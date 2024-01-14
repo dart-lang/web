@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -10,6 +14,17 @@ import 'generic_sensor.dart';
 
 typedef MagnetometerLocalCoordinateSystem = String;
 
+/// The **`Magnetometer`** interface of the
+/// [Sensor APIs](https://developer.mozilla.org/en-US/docs/Web/API/Sensor_APIs)
+/// provides information about the magnetic field as detected by the device's
+/// primary magnetometer sensor.
+///
+/// To use this sensor, the user must grant permission to the `'magnetometer'`
+/// device sensor through the
+/// [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API).
+/// In addition, this feature may be blocked by a
+/// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy)
+/// set on your server.
 @JS('Magnetometer')
 @staticInterop
 class Magnetometer implements Sensor {

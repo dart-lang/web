@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -13,6 +17,8 @@ import 'geometry.dart';
 import 'html.dart';
 import 'web_animations.dart';
 
+/// All of the SVG DOM interfaces that correspond directly to elements in the
+/// SVG language derive from the `SVGElement` interface.
 @JS('SVGElement')
 @staticInterop
 class SVGElement implements Element {}
@@ -261,11 +267,29 @@ extension SVGBoundingBoxOptionsExtension on SVGBoundingBoxOptions {
   external bool get clipped;
 }
 
+/// The **`SVGGraphicsElement`** interface represents SVG elements whose primary
+/// purpose is to directly render graphics into a group.
 @JS('SVGGraphicsElement')
 @staticInterop
 class SVGGraphicsElement implements SVGElement {}
 
 extension SVGGraphicsElementExtension on SVGGraphicsElement {
+  /// The **`SVGGraphicsElement.getBBox()`** method allows us to determine
+  /// the coordinates of the smallest rectangle in which the object fits. The
+  /// coordinates
+  /// returned are with respect to the current SVG space (after the application
+  /// of all
+  /// geometry attributes on all the elements contained in the target element).
+  ///
+  /// > **Note:** `getBBox()` must return the actual bounding box at
+  /// > the time the method was called—even in case the element has not yet been
+  /// > rendered. It
+  /// > also does not account for any transformation applied to the element or
+  /// > its parents.
+  ///
+  /// > **Note:** `getBBox` returns different values than
+  /// > [Element.getBoundingClientRect], as the
+  /// > latter returns value relative to the viewport
   external DOMRect getBBox([SVGBoundingBoxOptions options]);
   external DOMMatrix? getCTM();
   external DOMMatrix? getScreenCTM();
@@ -274,18 +298,50 @@ extension SVGGraphicsElementExtension on SVGGraphicsElement {
   external SVGStringList get systemLanguage;
 }
 
+/// The `SVGGeometryElement` interface represents SVG elements whose rendering
+/// is defined by geometry with an equivalent path, and which can be filled and
+/// stroked. This includes paths and the basic shapes.
 @JS('SVGGeometryElement')
 @staticInterop
 class SVGGeometryElement implements SVGGraphicsElement {}
 
 extension SVGGeometryElementExtension on SVGGeometryElement {
+  /// The **`SVGGeometryElement.isPointInFill()`** method determines
+  /// whether a given point is within the fill shape of an element. Normal hit
+  /// testing rules
+  /// apply; the value of the  property on the element determines
+  /// whether a point is considered to be within the fill. The `point` argument
+  /// is
+  /// interpreted as a point in the local coordinate system of the element.
   external bool isPointInFill([DOMPointInit point]);
+
+  /// The **`SVGGeometryElement.isPointInStroke()`** method
+  /// determines whether a given point is within the stroke shape of an element.
+  /// Normal hit
+  /// testing rules apply; the value of the  property on the
+  /// element determines whether a point is considered to be within the stroke.
+  /// The
+  /// `point` argument is interpreted as a point in the local coordinate system
+  /// of
+  /// the element.
   external bool isPointInStroke([DOMPointInit point]);
+
+  /// The **`SVGGeometryElement.getTotalLength()`** method returns
+  /// the user agent's computed value for the total length of the path in user
+  /// units.
   external num getTotalLength();
+
+  /// The
+  /// **`SVGGeometryElement.getPointAtLength()`** method returns the
+  /// point at a given distance along the path.
   external DOMPoint getPointAtLength(num distance);
   external SVGAnimatedNumber get pathLength;
 }
 
+/// The **`SVGNumber`** interface corresponds to the  basic data type.
+///
+/// An `SVGNumber` object can be designated as read only, which means that
+/// attempts to modify the object will result in an exception being thrown.
 @JS('SVGNumber')
 @staticInterop
 class SVGNumber {}
@@ -295,6 +351,7 @@ extension SVGNumberExtension on SVGNumber {
   external num get value;
 }
 
+///
 @JS('SVGLength')
 @staticInterop
 class SVGLength {
@@ -326,6 +383,24 @@ extension SVGLengthExtension on SVGLength {
   external String get valueAsString;
 }
 
+/// The `SVGAngle` interface is used to represent a value that can be an  or
+/// value. An `SVGAngle` reflected through the `animVal` attribute is always
+/// read only.
+///
+/// An `SVGAngle` object can be designated as read only, which means that
+/// attempts to modify the object will result in an exception being thrown.
+///
+/// An `SVGAngle` object can be associated with a particular element. The
+/// associated element is used to determine which element's content attribute to
+/// update if the object reflects an attribute. Unless otherwise described, an
+/// `SVGAngle` object is not associated with any element.
+///
+/// Every `SVGAngle` object operates in one of two modes:
+///
+/// 1. **_Reflect the base value_** of a reflected animatable attribute (being
+/// exposed through the `baseVal` member of an [SVGAnimatedAngle]),
+/// 2. **_Be detached_,** which is the case for `SVGAngle` objects created with
+/// [SVGSVGElement.createSVGAngle].
 @JS('SVGAngle')
 @staticInterop
 class SVGAngle {
@@ -351,6 +426,7 @@ extension SVGAngleExtension on SVGAngle {
   external String get valueAsString;
 }
 
+///
 @JS('SVGNumberList')
 @staticInterop
 class SVGNumberList {}
@@ -373,6 +449,7 @@ extension SVGNumberListExtension on SVGNumberList {
   external int get numberOfItems;
 }
 
+///
 @JS('SVGLengthList')
 @staticInterop
 class SVGLengthList {}
@@ -395,6 +472,7 @@ extension SVGLengthListExtension on SVGLengthList {
   external int get numberOfItems;
 }
 
+///
 @JS('SVGStringList')
 @staticInterop
 class SVGStringList {}
@@ -417,6 +495,7 @@ extension SVGStringListExtension on SVGStringList {
   external int get numberOfItems;
 }
 
+///
 @JS('SVGAnimatedBoolean')
 @staticInterop
 class SVGAnimatedBoolean {}
@@ -427,6 +506,8 @@ extension SVGAnimatedBooleanExtension on SVGAnimatedBoolean {
   external bool get animVal;
 }
 
+/// The **`SVGAnimatedEnumeration`** interface describes attribute values which
+/// are constants from a particular enumeration and which can be animated.
 @JS('SVGAnimatedEnumeration')
 @staticInterop
 class SVGAnimatedEnumeration {}
@@ -437,6 +518,7 @@ extension SVGAnimatedEnumerationExtension on SVGAnimatedEnumeration {
   external int get animVal;
 }
 
+///
 @JS('SVGAnimatedInteger')
 @staticInterop
 class SVGAnimatedInteger {}
@@ -447,6 +529,7 @@ extension SVGAnimatedIntegerExtension on SVGAnimatedInteger {
   external int get animVal;
 }
 
+///
 @JS('SVGAnimatedNumber')
 @staticInterop
 class SVGAnimatedNumber {}
@@ -457,6 +540,8 @@ extension SVGAnimatedNumberExtension on SVGAnimatedNumber {
   external num get animVal;
 }
 
+/// The **`SVGAnimatedLength`** interface represents attributes of type
+/// [\<length>](/en-US/docs/Web/SVG/Content_type#length) which can be animated.
 @JS('SVGAnimatedLength')
 @staticInterop
 class SVGAnimatedLength {}
@@ -466,6 +551,7 @@ extension SVGAnimatedLengthExtension on SVGAnimatedLength {
   external SVGLength get animVal;
 }
 
+///
 @JS('SVGAnimatedAngle')
 @staticInterop
 class SVGAnimatedAngle {}
@@ -475,6 +561,9 @@ extension SVGAnimatedAngleExtension on SVGAnimatedAngle {
   external SVGAngle get animVal;
 }
 
+/// The **`SVGAnimatedString`** interface represents string attributes which can
+/// be animated from each SVG declaration. You need to create SVG attribute
+/// before doing anything else, everything should be declared inside this.
 @JS('SVGAnimatedString')
 @staticInterop
 class SVGAnimatedString {}
@@ -485,6 +574,45 @@ extension SVGAnimatedStringExtension on SVGAnimatedString {
   external String get animVal;
 }
 
+/// The `SVGAnimatedRect` interface is used for attributes of basic [SVGRect]
+/// which can be animated.
+///
+/// ### Interface overview
+///
+/// <table class="no-markdown">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Also implement</th>
+///       <td><em>None</em></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Methods</th>
+///       <td><em>None</em></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Properties</th>
+///       <td>
+///         <ul>
+///           <li>
+/// readonly [SVGRect] <code>baseVal</code>
+///           </li>
+///           <li>
+/// readonly [SVGRect] <code>animVal</code>
+///           </li>
+///         </ul>
+///       </td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Normative document</th>
+///       <td>
+///         <a
+/// href="https://www.w3.org/TR/SVG11/types.html#InterfaceSVGAnimatedRect"
+/// >SVG 1.1 (2nd Edition)</a
+/// >
+///       </td>
+///     </tr>
+///   </tbody>
+/// </table>
 @JS('SVGAnimatedRect')
 @staticInterop
 class SVGAnimatedRect {}
@@ -494,6 +622,7 @@ extension SVGAnimatedRectExtension on SVGAnimatedRect {
   external DOMRectReadOnly get animVal;
 }
 
+///
 @JS('SVGAnimatedNumberList')
 @staticInterop
 class SVGAnimatedNumberList {}
@@ -503,6 +632,7 @@ extension SVGAnimatedNumberListExtension on SVGAnimatedNumberList {
   external SVGNumberList get animVal;
 }
 
+///
 @JS('SVGAnimatedLengthList')
 @staticInterop
 class SVGAnimatedLengthList {}
@@ -512,6 +642,9 @@ extension SVGAnimatedLengthListExtension on SVGAnimatedLengthList {
   external SVGLengthList get animVal;
 }
 
+/// The **`SVGUnitTypes`** interface defines a commonly used set of constants
+/// used for reflecting `gradientUnits`, `patternContentUnits` and other similar
+/// attributes.
 @JS('SVGUnitTypes')
 @staticInterop
 class SVGUnitTypes {
@@ -520,6 +653,11 @@ class SVGUnitTypes {
   external static int get SVG_UNIT_TYPE_OBJECTBOUNDINGBOX;
 }
 
+/// The **`SVGSVGElement`** interface provides access to the properties of
+/// elements, as well as methods to manipulate them. This interface contains
+/// also various miscellaneous commonly-used utility methods, such as matrix
+/// operations and the ability to control the time of redraw on visual rendering
+/// devices.
 @JS('SVGSVGElement')
 @staticInterop
 class SVGSVGElement implements SVGGraphicsElement {}
@@ -609,26 +747,32 @@ extension SVGSVGElementExtension on SVGSVGElement {
   external EventHandler get onportalactivate;
 }
 
+/// The **`SVGGElement`** interface corresponds to the  element.
 @JS('SVGGElement')
 @staticInterop
 class SVGGElement implements SVGGraphicsElement {}
 
+/// The **`SVGDefsElement`** interface corresponds to the  element.
 @JS('SVGDefsElement')
 @staticInterop
 class SVGDefsElement implements SVGGraphicsElement {}
 
+/// The **`SVGDescElement`** interface corresponds to the  element.
 @JS('SVGDescElement')
 @staticInterop
 class SVGDescElement implements SVGElement {}
 
+/// The **`SVGMetadataElement`** interface corresponds to the  element.
 @JS('SVGMetadataElement')
 @staticInterop
 class SVGMetadataElement implements SVGElement {}
 
+/// The **`SVGTitleElement`** interface corresponds to the  element.
 @JS('SVGTitleElement')
 @staticInterop
 class SVGTitleElement implements SVGElement {}
 
+/// The **`SVGSymbolElement`** interface corresponds to the  element.
 @JS('SVGSymbolElement')
 @staticInterop
 class SVGSymbolElement implements SVGGraphicsElement {}
@@ -638,6 +782,7 @@ extension SVGSymbolElementExtension on SVGSymbolElement {
   external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
 }
 
+///
 @JS('SVGUseElement')
 @staticInterop
 class SVGUseElement implements SVGGraphicsElement {}
@@ -669,10 +814,12 @@ extension ShadowAnimationExtension on ShadowAnimation {
   external Animation get sourceAnimation;
 }
 
+/// The **`SVGSwitchElement`** interface corresponds to the  element.
 @JS('SVGSwitchElement')
 @staticInterop
 class SVGSwitchElement implements SVGGraphicsElement {}
 
+/// The **`SVGStyleElement`** interface corresponds to the SVG  element.
 @JS('SVGStyleElement')
 @staticInterop
 class SVGStyleElement implements SVGElement {}
@@ -687,6 +834,7 @@ extension SVGStyleElementExtension on SVGStyleElement {
   external CSSStyleSheet? get sheet;
 }
 
+///
 @JS('SVGTransform')
 @staticInterop
 class SVGTransform {
@@ -721,6 +869,7 @@ extension SVGTransformExtension on SVGTransform {
   external num get angle;
 }
 
+///
 @JS('SVGTransformList')
 @staticInterop
 class SVGTransformList {}
@@ -745,6 +894,7 @@ extension SVGTransformListExtension on SVGTransformList {
   external int get numberOfItems;
 }
 
+///
 @JS('SVGAnimatedTransformList')
 @staticInterop
 class SVGAnimatedTransformList {}
@@ -754,6 +904,7 @@ extension SVGAnimatedTransformListExtension on SVGAnimatedTransformList {
   external SVGTransformList get animVal;
 }
 
+///
 @JS('SVGPreserveAspectRatio')
 @staticInterop
 class SVGPreserveAspectRatio {
@@ -780,6 +931,7 @@ extension SVGPreserveAspectRatioExtension on SVGPreserveAspectRatio {
   external int get meetOrSlice;
 }
 
+///
 @JS('SVGAnimatedPreserveAspectRatio')
 @staticInterop
 class SVGAnimatedPreserveAspectRatio {}
@@ -790,10 +942,18 @@ extension SVGAnimatedPreserveAspectRatioExtension
   external SVGPreserveAspectRatio get animVal;
 }
 
+/// The **`SVGPathElement`** interface corresponds to the  element.
+///
+/// > **Note:** In SVG 2 the `getPathSegAtLength()` and `createSVGPathSeg*`
+/// > methods were removed and the `pathLength` property and the
+/// > `getTotalLength()` and `getPointAtLength()` methods were moved to
+/// > [SVGGeometryElement].
 @JS('SVGPathElement')
 @staticInterop
 class SVGPathElement implements SVGGeometryElement {}
 
+/// The `SVGRectElement` interface provides access to the properties of
+/// elements, as well as methods to manipulate them.
 @JS('SVGRectElement')
 @staticInterop
 class SVGRectElement implements SVGGeometryElement {}
@@ -807,6 +967,7 @@ extension SVGRectElementExtension on SVGRectElement {
   external SVGAnimatedLength get ry;
 }
 
+/// The **`SVGCircleElement`** interface is an interface for the  element.
 @JS('SVGCircleElement')
 @staticInterop
 class SVGCircleElement implements SVGGeometryElement {}
@@ -817,6 +978,8 @@ extension SVGCircleElementExtension on SVGCircleElement {
   external SVGAnimatedLength get r;
 }
 
+/// The **`SVGEllipseElement`** interface provides access to the properties of
+/// elements.
 @JS('SVGEllipseElement')
 @staticInterop
 class SVGEllipseElement implements SVGGeometryElement {}
@@ -828,6 +991,8 @@ extension SVGEllipseElementExtension on SVGEllipseElement {
   external SVGAnimatedLength get ry;
 }
 
+/// The **`SVGLineElement`** interface provides access to the properties of
+/// elements, as well as methods to manipulate them.
 @JS('SVGLineElement')
 @staticInterop
 class SVGLineElement implements SVGGeometryElement {}
@@ -839,28 +1004,54 @@ extension SVGLineElementExtension on SVGLineElement {
   external SVGAnimatedLength get y2;
 }
 
+/// The **`SVGPointList`** interface represents a list of [SVGPoint] objects.
+///
+/// An `SVGPointList` can be designated as read-only, which means that attempts
+/// to modify the object will result in an exception being thrown.
 @JS('SVGPointList')
 @staticInterop
 class SVGPointList {}
 
 extension SVGPointListExtension on SVGPointList {
+  /// The **`clear()`** method of the [SVGPointList] interface removes all items
+  /// from the list.
   external void clear();
+
+  /// The **`initialize()`** method of the [SVGPointList] interface clears the
+  /// list then adds a single new [SVGPoint] object to the list.
   external DOMPoint initialize(DOMPoint newItem);
+
+  /// The **`getItem()`** method of the [SVGPointList] interface gets one item
+  /// from the list at the specified index.
   external DOMPoint getItem(int index);
+
+  /// The **`insertItemBefore()`** method of the [SVGPointList] interface
+  /// inserts a [SVGPoint] before another item in the list.
   external DOMPoint insertItemBefore(
     DOMPoint newItem,
     int index,
   );
+
+  /// The **`replaceItem()`** method of the [SVGPointList] interface replaces a
+  /// [SVGPoint] in the list.
   external DOMPoint replaceItem(
     DOMPoint newItem,
     int index,
   );
+
+  /// The **`removeItem()`** method of the [SVGPointList] interface removes a
+  /// [SVGPoint] from the list.
   external DOMPoint removeItem(int index);
+
+  /// The **`appendItem()`** method of the [SVGPointList] interface adds a
+  /// [SVGPoint] to the end of the list.
   external DOMPoint appendItem(DOMPoint newItem);
   external int get length;
   external int get numberOfItems;
 }
 
+/// The **`SVGPolylineElement`** interface provides access to the properties of
+/// elements, as well as methods to manipulate them.
 @JS('SVGPolylineElement')
 @staticInterop
 class SVGPolylineElement implements SVGGeometryElement {}
@@ -870,6 +1061,8 @@ extension SVGPolylineElementExtension on SVGPolylineElement {
   external SVGPointList get animatedPoints;
 }
 
+/// The **`SVGPolygonElement`** interface provides access to the properties of
+/// elements, as well as methods to manipulate them.
 @JS('SVGPolygonElement')
 @staticInterop
 class SVGPolygonElement implements SVGGeometryElement {}
@@ -879,6 +1072,10 @@ extension SVGPolygonElementExtension on SVGPolygonElement {
   external SVGPointList get animatedPoints;
 }
 
+/// The **`SVGTextContentElement`** interface is implemented by elements that
+/// support rendering child text content. It is inherited by various
+/// text-related interfaces, such as [SVGTextElement], [SVGTSpanElement],
+/// [SVGTRefElement], and [SVGTextPathElement].
 @JS('SVGTextContentElement')
 @staticInterop
 class SVGTextContentElement implements SVGGraphicsElement {
@@ -907,6 +1104,9 @@ extension SVGTextContentElementExtension on SVGTextContentElement {
   external SVGAnimatedEnumeration get lengthAdjust;
 }
 
+/// The **`SVGTextPositioningElement`** interface is implemented by elements
+/// that support attributes that position individual text glyphs. It is
+/// inherited by [SVGTextElement], [SVGTSpanElement], and [SVGTRefElement].
 @JS('SVGTextPositioningElement')
 @staticInterop
 class SVGTextPositioningElement implements SVGTextContentElement {}
@@ -919,14 +1119,17 @@ extension SVGTextPositioningElementExtension on SVGTextPositioningElement {
   external SVGAnimatedNumberList get rotate;
 }
 
+/// The **`SVGTextElement`** interface corresponds to the  elements.
 @JS('SVGTextElement')
 @staticInterop
 class SVGTextElement implements SVGTextPositioningElement {}
 
+/// The **`SVGTSpanElement`** interface represents a  element.
 @JS('SVGTSpanElement')
 @staticInterop
 class SVGTSpanElement implements SVGTextPositioningElement {}
 
+/// The **`SVGTextPathElement`** interface corresponds to the  element.
 @JS('SVGTextPathElement')
 @staticInterop
 class SVGTextPathElement implements SVGTextContentElement {
@@ -945,6 +1148,7 @@ extension SVGTextPathElementExtension on SVGTextPathElement {
   external SVGAnimatedString get href;
 }
 
+/// The **`SVGImageElement`** interface corresponds to the  element.
 @JS('SVGImageElement')
 @staticInterop
 class SVGImageElement implements SVGGraphicsElement {}
@@ -960,6 +1164,8 @@ extension SVGImageElementExtension on SVGImageElement {
   external SVGAnimatedString get href;
 }
 
+/// The **`SVGForeignObjectElement`** interface provides access to the
+/// properties of  elements, as well as methods to manipulate them.
 @JS('SVGForeignObjectElement')
 @staticInterop
 class SVGForeignObjectElement implements SVGGraphicsElement {}
@@ -971,6 +1177,12 @@ extension SVGForeignObjectElementExtension on SVGForeignObjectElement {
   external SVGAnimatedLength get height;
 }
 
+/// The **`SVGMarkerElement`** interface provides access to the properties of
+/// elements, as well as methods to manipulate them. The  element defines the
+/// graphics used for drawing marks on a shape.
+///
+/// The following properties and methods all return, or act on the attributes of
+/// the  element represented by `SVGMarkerElement`.
 @JS('SVGMarkerElement')
 @staticInterop
 class SVGMarkerElement implements SVGElement {
@@ -983,7 +1195,13 @@ class SVGMarkerElement implements SVGElement {
 }
 
 extension SVGMarkerElementExtension on SVGMarkerElement {
+  /// The **`setOrientToAuto()`** method of the [SVGMarkerElement] interface
+  /// sets the value of the `orient` attribute to `auto`.
   external void setOrientToAuto();
+
+  /// The **`setOrientToAngle()`** method of the [SVGMarkerElement] interface
+  /// sets the value of the `orient` attribute to the value in the [SVGAngle]
+  /// passed in.
   external void setOrientToAngle(SVGAngle angle);
   external SVGAnimatedLength get refX;
   external SVGAnimatedLength get refY;
@@ -998,6 +1216,8 @@ extension SVGMarkerElementExtension on SVGMarkerElement {
   external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
 }
 
+/// The **`SVGGradient`** interface is a base interface used by
+/// [SVGLinearGradientElement] and [SVGRadialGradientElement].
 @JS('SVGGradientElement')
 @staticInterop
 class SVGGradientElement implements SVGElement {
@@ -1014,6 +1234,7 @@ extension SVGGradientElementExtension on SVGGradientElement {
   external SVGAnimatedString get href;
 }
 
+/// The **`SVGLinearGradientElement`** interface corresponds to the  element.
 @JS('SVGLinearGradientElement')
 @staticInterop
 class SVGLinearGradientElement implements SVGGradientElement {}
@@ -1025,6 +1246,7 @@ extension SVGLinearGradientElementExtension on SVGLinearGradientElement {
   external SVGAnimatedLength get y2;
 }
 
+/// The **`SVGRadialGradientElement`** interface corresponds to the  element.
 @JS('SVGRadialGradientElement')
 @staticInterop
 class SVGRadialGradientElement implements SVGGradientElement {}
@@ -1038,6 +1260,7 @@ extension SVGRadialGradientElementExtension on SVGRadialGradientElement {
   external SVGAnimatedLength get fr;
 }
 
+/// The **`SVGStopElement`** interface corresponds to the  element.
 @JS('SVGStopElement')
 @staticInterop
 class SVGStopElement implements SVGElement {}
@@ -1046,6 +1269,7 @@ extension SVGStopElementExtension on SVGStopElement {
   external SVGAnimatedNumber get offset;
 }
 
+/// The **`SVGPatternElement`** interface corresponds to the  element.
 @JS('SVGPatternElement')
 @staticInterop
 class SVGPatternElement implements SVGElement {}
@@ -1063,6 +1287,7 @@ extension SVGPatternElementExtension on SVGPatternElement {
   external SVGAnimatedString get href;
 }
 
+/// The **`SVGScriptElement`** interface corresponds to the SVG  element.
 @JS('SVGScriptElement')
 @staticInterop
 class SVGScriptElement implements SVGElement {}
@@ -1075,6 +1300,8 @@ extension SVGScriptElementExtension on SVGScriptElement {
   external SVGAnimatedString get href;
 }
 
+/// The **`SVGAElement`** interface provides access to the properties of an
+/// element, as well as methods to manipulate them.
 @JS('SVGAElement')
 @staticInterop
 class SVGAElement implements SVGGraphicsElement {}
@@ -1118,6 +1345,8 @@ extension SVGAElementExtension on SVGAElement {
   external SVGAnimatedString get href;
 }
 
+/// The **`SVGViewElement`** interface provides access to the properties of
+/// elements, as well as methods to manipulate them.
 @JS('SVGViewElement')
 @staticInterop
 class SVGViewElement implements SVGElement {}

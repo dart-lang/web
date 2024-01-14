@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -8,6 +12,8 @@ import 'dart:js_interop';
 
 import 'svg.dart';
 
+/// The **`SVGFilterElement`** interface provides access to the properties of
+/// elements, as well as methods to manipulate them.
 @JS('SVGFilterElement')
 @staticInterop
 class SVGFilterElement implements SVGElement {}
@@ -22,6 +28,7 @@ extension SVGFilterElementExtension on SVGFilterElement {
   external SVGAnimatedString get href;
 }
 
+/// The **`SVGFEBlendElement`** interface corresponds to the  element.
 @JS('SVGFEBlendElement')
 @staticInterop
 class SVGFEBlendElement implements SVGElement {
@@ -55,6 +62,7 @@ extension SVGFEBlendElementExtension on SVGFEBlendElement {
   external SVGAnimatedString get result;
 }
 
+/// The **`SVGFEColorMatrixElement`** interface corresponds to the  element.
 @JS('SVGFEColorMatrixElement')
 @staticInterop
 class SVGFEColorMatrixElement implements SVGElement {
@@ -76,6 +84,8 @@ extension SVGFEColorMatrixElementExtension on SVGFEColorMatrixElement {
   external SVGAnimatedString get result;
 }
 
+/// The **`SVGFEComponentTransferElement`** interface corresponds to the
+/// element.
 @JS('SVGFEComponentTransferElement')
 @staticInterop
 class SVGFEComponentTransferElement implements SVGElement {}
@@ -90,6 +100,8 @@ extension SVGFEComponentTransferElementExtension
   external SVGAnimatedString get result;
 }
 
+/// The **`SVGComponentTransferFunctionElement`** interface defines a base
+/// interface used by the component transfer function interfaces.
 @JS('SVGComponentTransferFunctionElement')
 @staticInterop
 class SVGComponentTransferFunctionElement implements SVGElement {
@@ -112,22 +124,27 @@ extension SVGComponentTransferFunctionElementExtension
   external SVGAnimatedNumber get offset;
 }
 
+/// The **`SVGFEFuncRElement`** interface corresponds to the  element.
 @JS('SVGFEFuncRElement')
 @staticInterop
 class SVGFEFuncRElement implements SVGComponentTransferFunctionElement {}
 
+/// The **`SVGFEFuncGElement`** interface corresponds to the  element.
 @JS('SVGFEFuncGElement')
 @staticInterop
 class SVGFEFuncGElement implements SVGComponentTransferFunctionElement {}
 
+/// The **`SVGFEFuncBElement`** interface corresponds to the  element.
 @JS('SVGFEFuncBElement')
 @staticInterop
 class SVGFEFuncBElement implements SVGComponentTransferFunctionElement {}
 
+/// The **`SVGFEFuncAElement`** interface corresponds to the  element.
 @JS('SVGFEFuncAElement')
 @staticInterop
 class SVGFEFuncAElement implements SVGComponentTransferFunctionElement {}
 
+/// The **`SVGFECompositeElement`** interface corresponds to the  element.
 @JS('SVGFECompositeElement')
 @staticInterop
 class SVGFECompositeElement implements SVGElement {
@@ -155,6 +172,7 @@ extension SVGFECompositeElementExtension on SVGFECompositeElement {
   external SVGAnimatedString get result;
 }
 
+/// The **`SVGFEConvolveMatrixElement`** interface corresponds to the  element.
 @JS('SVGFEConvolveMatrixElement')
 @staticInterop
 class SVGFEConvolveMatrixElement implements SVGElement {
@@ -184,6 +202,7 @@ extension SVGFEConvolveMatrixElementExtension on SVGFEConvolveMatrixElement {
   external SVGAnimatedString get result;
 }
 
+/// The **`SVGFEDiffuseLightingElement`** interface corresponds to the  element.
 @JS('SVGFEDiffuseLightingElement')
 @staticInterop
 class SVGFEDiffuseLightingElement implements SVGElement {}
@@ -201,6 +220,7 @@ extension SVGFEDiffuseLightingElementExtension on SVGFEDiffuseLightingElement {
   external SVGAnimatedString get result;
 }
 
+/// The **`SVGFEDistantLightElement`** interface corresponds to the  element.
 @JS('SVGFEDistantLightElement')
 @staticInterop
 class SVGFEDistantLightElement implements SVGElement {}
@@ -210,6 +230,7 @@ extension SVGFEDistantLightElementExtension on SVGFEDistantLightElement {
   external SVGAnimatedNumber get elevation;
 }
 
+/// The **`SVGFEPointLightElement`** interface corresponds to the  element.
 @JS('SVGFEPointLightElement')
 @staticInterop
 class SVGFEPointLightElement implements SVGElement {}
@@ -220,6 +241,7 @@ extension SVGFEPointLightElementExtension on SVGFEPointLightElement {
   external SVGAnimatedNumber get z;
 }
 
+/// The **`SVGFESpotLightElement`** interface corresponds to the  element.
 @JS('SVGFESpotLightElement')
 @staticInterop
 class SVGFESpotLightElement implements SVGElement {}
@@ -235,6 +257,7 @@ extension SVGFESpotLightElementExtension on SVGFESpotLightElement {
   external SVGAnimatedNumber get limitingConeAngle;
 }
 
+/// The **`SVGFEDisplacementMapElement`** interface corresponds to the  element.
 @JS('SVGFEDisplacementMapElement')
 @staticInterop
 class SVGFEDisplacementMapElement implements SVGElement {
@@ -258,6 +281,7 @@ extension SVGFEDisplacementMapElementExtension on SVGFEDisplacementMapElement {
   external SVGAnimatedString get result;
 }
 
+/// The **`SVGFEDropShadowElement`** interface corresponds to the  element.
 @JS('SVGFEDropShadowElement')
 @staticInterop
 class SVGFEDropShadowElement implements SVGElement {}
@@ -279,6 +303,7 @@ extension SVGFEDropShadowElementExtension on SVGFEDropShadowElement {
   external SVGAnimatedString get result;
 }
 
+/// The **`SVGFEFloodElement`** interface corresponds to the  element.
 @JS('SVGFEFloodElement')
 @staticInterop
 class SVGFEFloodElement implements SVGElement {}
@@ -291,6 +316,7 @@ extension SVGFEFloodElementExtension on SVGFEFloodElement {
   external SVGAnimatedString get result;
 }
 
+/// The **`SVGFEGaussianBlurElement`** interface corresponds to the  element.
 @JS('SVGFEGaussianBlurElement')
 @staticInterop
 class SVGFEGaussianBlurElement implements SVGElement {
@@ -316,6 +342,7 @@ extension SVGFEGaussianBlurElementExtension on SVGFEGaussianBlurElement {
   external SVGAnimatedString get result;
 }
 
+/// The **`SVGFEImageElement`** interface corresponds to the  element.
 @JS('SVGFEImageElement')
 @staticInterop
 class SVGFEImageElement implements SVGElement {}
@@ -331,6 +358,7 @@ extension SVGFEImageElementExtension on SVGFEImageElement {
   external SVGAnimatedString get href;
 }
 
+/// The **`SVGFEMergeElement`** interface corresponds to the  element.
 @JS('SVGFEMergeElement')
 @staticInterop
 class SVGFEMergeElement implements SVGElement {}
@@ -343,6 +371,7 @@ extension SVGFEMergeElementExtension on SVGFEMergeElement {
   external SVGAnimatedString get result;
 }
 
+/// The **`SVGFEMergeNodeElement`** interface corresponds to the  element.
 @JS('SVGFEMergeNodeElement')
 @staticInterop
 class SVGFEMergeNodeElement implements SVGElement {}
@@ -351,6 +380,7 @@ extension SVGFEMergeNodeElementExtension on SVGFEMergeNodeElement {
   external SVGAnimatedString get in1;
 }
 
+/// The **`SVGFEMorphologyElement`** interface corresponds to the  element.
 @JS('SVGFEMorphologyElement')
 @staticInterop
 class SVGFEMorphologyElement implements SVGElement {
@@ -371,6 +401,7 @@ extension SVGFEMorphologyElementExtension on SVGFEMorphologyElement {
   external SVGAnimatedString get result;
 }
 
+/// The **`SVGFEOffsetElement`** interface corresponds to the  element.
 @JS('SVGFEOffsetElement')
 @staticInterop
 class SVGFEOffsetElement implements SVGElement {}
@@ -386,6 +417,8 @@ extension SVGFEOffsetElementExtension on SVGFEOffsetElement {
   external SVGAnimatedString get result;
 }
 
+/// The **`SVGFESpecularLightingElement`** interface corresponds to the
+/// element.
 @JS('SVGFESpecularLightingElement')
 @staticInterop
 class SVGFESpecularLightingElement implements SVGElement {}
@@ -405,6 +438,7 @@ extension SVGFESpecularLightingElementExtension
   external SVGAnimatedString get result;
 }
 
+/// The **`SVGFETileElement`** interface corresponds to the  element.
 @JS('SVGFETileElement')
 @staticInterop
 class SVGFETileElement implements SVGElement {}
@@ -418,6 +452,7 @@ extension SVGFETileElementExtension on SVGFETileElement {
   external SVGAnimatedString get result;
 }
 
+/// The **`SVGFETurbulenceElement`** interface corresponds to the  element.
 @JS('SVGFETurbulenceElement')
 @staticInterop
 class SVGFETurbulenceElement implements SVGElement {

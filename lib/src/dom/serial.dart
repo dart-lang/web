@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -14,12 +18,21 @@ import 'web_bluetooth.dart';
 typedef ParityType = String;
 typedef FlowControlType = String;
 
+/// The `Serial` interface of the [Web_Serial_API] provides attributes and
+/// methods for finding and connecting to serial ports from a web page.
 @JS('Serial')
 @staticInterop
 class Serial implements EventTarget {}
 
 extension SerialExtension on Serial {
+  /// The **`getPorts()`** method of the [Serial] interface returns a `Promise`
+  /// that resolves with an array of [SerialPort] objects representing serial
+  /// ports connected to the host which the origin has permission to access.
   external JSPromise getPorts();
+
+  /// The **`Serial.requestPort()`** method of the [Serial] interface returns a
+  /// `Promise` that resolves with an instance of [SerialPort] representing the
+  /// device chosen by the user or rejects if no device was selected.
   external JSPromise requestPort([SerialPortRequestOptions options]);
   external set onconnect(EventHandler value);
   external EventHandler get onconnect;
@@ -64,16 +77,39 @@ extension SerialPortFilterExtension on SerialPortFilter {
   external BluetoothServiceUUID get bluetoothServiceClassId;
 }
 
+/// The `SerialPort` interface of the [Web_Serial_API] provides access to a
+/// serial port on the host device.
 @JS('SerialPort')
 @staticInterop
 class SerialPort implements EventTarget {}
 
 extension SerialPortExtension on SerialPort {
+  /// The **`getInfo()`** method of the [SerialPort] interface returns an object
+  /// whose properties are the vendor ID and product ID of the device.
   external SerialPortInfo getInfo();
+
+  /// The **`open()`** method of the [SerialPort] interface returns a `Promise`
+  /// that resolves when the port is opened. By default the port is opened with
+  /// 8 data bits, 1 stop bit and no parity checking. The `baudRate` parameter
+  /// is required.
   external JSPromise open(SerialOptions options);
+
+  /// The **`setSignals()`** method of the [SerialPort] interface sets control
+  /// signals on the port and returns a `Promise` that resolves when they are
+  /// set.
   external JSPromise setSignals([SerialOutputSignals signals]);
+
+  /// The **`SerialPort.getSignals()`** method of the [SerialPort] interface
+  /// returns a `Promise` that resolves with an object containing the current
+  /// state of the port's control signals.
   external JSPromise getSignals();
+
+  /// The **`SerialPort.close()`** method of the [SerialPort] interface returns
+  /// a `Promise` that resolves when the port closes.
   external JSPromise close();
+
+  /// The **`SerialPort.forget()`** method of the [SerialPort] interface returns
+  /// a `Promise` that resolves when the serial port is closed and is forgotten.
   external JSPromise forget();
   external set onconnect(EventHandler value);
   external EventHandler get onconnect;

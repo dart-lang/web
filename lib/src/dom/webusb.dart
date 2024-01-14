@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -63,12 +67,30 @@ extension USBDeviceRequestOptionsExtension on USBDeviceRequestOptions {
   external JSArray get exclusionFilters;
 }
 
+/// The **`USB`** interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)
+/// provides attributes and methods for finding and connecting USB devices from
+/// a web page.
+///
+/// Use [navigator.usb] to get access to the `USB` object.
+///
+/// The USB interface inherits from [EventTarget].
 @JS('USB')
 @staticInterop
 class USB implements EventTarget {}
 
 extension USBExtension on USB {
+  /// The **`getDevices`** method of the [USB] interface
+  /// returns a `Promise` that resolves with an array of [USBDevice]
+  /// objects for paired attached devices. For information on pairing devices,
+  /// see
+  /// [USB.requestDevice].
   external JSPromise getDevices();
+
+  /// The **`requestDevice()`** method of the [USB]
+  /// interface returns a `Promise` that resolves with an instance of
+  /// [USBDevice] if the specified device is found. Calling this function
+  /// triggers the user agent's pairing flow.
   external JSPromise requestDevice(USBDeviceRequestOptions options);
   external set onconnect(EventHandler value);
   external EventHandler get onconnect;
@@ -88,6 +110,10 @@ extension USBConnectionEventInitExtension on USBConnectionEventInit {
   external USBDevice get device;
 }
 
+/// The **`USBConnectionEvent`** interface of the [WebUSB API] is the event type
+/// passed to `USB` [USB.connect_event] and [USB.disconnect_event] events when
+/// the user agent detects that a new USB device has been connected or
+/// disconnected.
 @JS('USBConnectionEvent')
 @staticInterop
 class USBConnectionEvent implements Event {
@@ -101,6 +127,12 @@ extension USBConnectionEventExtension on USBConnectionEvent {
   external USBDevice get device;
 }
 
+/// The `USBInTransferResult` interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)
+/// provides the result from a call to the `transferIn()` and
+/// `controlTransferIn()` methods of the `USBDevice` interface. It represents
+/// the result from requesting a transfer of data from the USB device to the USB
+/// host.
 @JS('USBInTransferResult')
 @staticInterop
 class USBInTransferResult {
@@ -115,6 +147,12 @@ extension USBInTransferResultExtension on USBInTransferResult {
   external USBTransferStatus get status;
 }
 
+/// The `USBOutTransferResult` interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)
+/// provides the result from a call to the `transferOut()` and
+/// `controlTransferOut()` methods of the `USBDevice` interface. It represents
+/// the result from requesting a transfer of data from the USB host to the USB
+/// device.
 @JS('USBOutTransferResult')
 @staticInterop
 class USBOutTransferResult {
@@ -129,6 +167,12 @@ extension USBOutTransferResultExtension on USBOutTransferResult {
   external USBTransferStatus get status;
 }
 
+/// The `USBIsochronousInTransferPacket` interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API) is
+/// part of the response from a call to the `isochronousTransferIn()` method of
+/// the `USBDevice` interface. It represents the status of an individual packet
+/// from a request to transfer data from the USB device to the USB host over an
+/// isochronous endpoint.
 @JS('USBIsochronousInTransferPacket')
 @staticInterop
 class USBIsochronousInTransferPacket {
@@ -144,6 +188,11 @@ extension USBIsochronousInTransferPacketExtension
   external USBTransferStatus get status;
 }
 
+/// The `USBIsochronousInTransferResult` interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)
+/// provides the result from a call to the `isochronousTransferIn()` method of
+/// the `USBDevice` interface. It represents the result from requesting a
+/// transfer of data from the USB device to the USB host.
 @JS('USBIsochronousInTransferResult')
 @staticInterop
 class USBIsochronousInTransferResult {
@@ -159,6 +208,12 @@ extension USBIsochronousInTransferResultExtension
   external JSArray get packets;
 }
 
+/// The `USBIsochronousOutTransferPacket` interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API) is
+/// part of the response from a call to the `isochronousTransferOut()` method of
+/// the `USBDevice` interface. It represents the status of an individual packet
+/// from a request to transfer data from the USB host to the USB device over an
+/// isochronous endpoint.
 @JS('USBIsochronousOutTransferPacket')
 @staticInterop
 class USBIsochronousOutTransferPacket {
@@ -174,6 +229,11 @@ extension USBIsochronousOutTransferPacketExtension
   external USBTransferStatus get status;
 }
 
+/// The `USBIsochronousOutTransferResult` interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)
+/// provides the result from a call to the `isochronousTransferOut()` method of
+/// the `USBDevice` interface. It represents the result from requesting a
+/// transfer of data from the USB host to the USB device.
 @JS('USBIsochronousOutTransferResult')
 @staticInterop
 class USBIsochronousOutTransferResult {
@@ -185,50 +245,121 @@ extension USBIsochronousOutTransferResultExtension
   external JSArray get packets;
 }
 
+/// The **`USBDevice`** interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)
+/// provides access to metadata about a paired USB device and methods for
+/// controlling it.
 @JS('USBDevice')
 @staticInterop
 class USBDevice {}
 
 extension USBDeviceExtension on USBDevice {
+  /// The **`open()`** method of the [USBDevice]
+  /// interface returns a `promise` that resolves when a device session has
+  /// started.
   external JSPromise open();
+
+  /// The **`close()`** method of the [USBDevice]
+  /// interface returns a `promise` that resolves when all open interfaces are
+  /// released and the device session has ended.
   external JSPromise close();
+
+  /// The **`forget()`** method of the [USBDevice] interface returns a `Promise`
+  /// that resolves when all pending operations are aborted, all open interfaces
+  /// are released, the device session has ended, and the permission is reset.
   external JSPromise forget();
+
+  /// The **`selectConfiguration()`** method of the
+  /// [USBDevice] interface returns a `promise` that resolves when
+  /// the specified configuration is selected.
   external JSPromise selectConfiguration(int configurationValue);
+
+  /// The **`claimInterface()`** method of the
+  /// [USBDevice] interface returns a `promise` that resolves when
+  /// the requested interface is claimed for exclusive access.
   external JSPromise claimInterface(int interfaceNumber);
+
+  /// The **`releaseInterface()`** method of the
+  /// [USBDevice] interface returns a `promise` that resolves when a
+  /// claimed interface is released from exclusive access.
   external JSPromise releaseInterface(int interfaceNumber);
+
+  /// The **`selectAlternateInterface()`** method of the
+  /// [USBDevice] interface returns a `promise` that resolves when
+  /// the specified alternative endpoint is selected.
   external JSPromise selectAlternateInterface(
     int interfaceNumber,
     int alternateSetting,
   );
+
+  /// The **`controlTransferIn()`** method of the [USBDevice] interface returns
+  /// a `Promise` that resolves with a [USBInTransferResult] when a command or
+  /// status request has been transmitted to (received by) the USB device.
   external JSPromise controlTransferIn(
     USBControlTransferParameters setup,
     int length,
   );
+
+  /// The **`controlTransferOut()`** method of the [USBDevice] interface returns
+  /// a `Promise` that resolves with a [USBOutTransferResult] when a command or
+  /// status operation has been transmitted from the USB device.
   external JSPromise controlTransferOut(
     USBControlTransferParameters setup, [
     BufferSource data,
   ]);
+
+  /// The **`clearHalt()`** method of the [USBDevice]
+  /// interface returns a `promise` that resolves when a halt condition is
+  /// cleared. A halt condition is when a data transfer to or from the device
+  /// has a status
+  /// of `'stall'`, which requires the web page (the _host_ system, in USB
+  /// terminology) to clear that condition. See the for details.
   external JSPromise clearHalt(
     USBDirection direction,
     int endpointNumber,
   );
+
+  /// The **`transferIn()`** method of the [USBDevice]
+  /// interface returns a `promise` that resolves with a
+  /// [USBInTransferResult] when bulk or interrupt data is received from the USB
+  /// device.
   external JSPromise transferIn(
     int endpointNumber,
     int length,
   );
+
+  /// The **`transferOut()`** method of the [USBDevice]
+  /// interface returns a `promise` that resolves with a
+  /// [USBOutTransferResult] when bulk or interrupt data is sent to the USB
+  /// device.
   external JSPromise transferOut(
     int endpointNumber,
     BufferSource data,
   );
+
+  /// The **`isochronousTransferIn()`** method of the [USBDevice] interface
+  /// returns a `Promise` that resolves with a [USBIsochronousInTransferResult]
+  /// when time sensitive information has been transmitted to (received by) the
+  /// USB device.
   external JSPromise isochronousTransferIn(
     int endpointNumber,
     JSArray packetLengths,
   );
+
+  /// The **`isochronousTransferOut()`** method of the
+  /// [USBDevice] interface returns a `Promise` that resolves with a
+  /// [USBIsochronousOutTransferResult] when time sensitive information has been
+  /// transmitted from the USB device.
   external JSPromise isochronousTransferOut(
     int endpointNumber,
     BufferSource data,
     JSArray packetLengths,
   );
+
+  /// The **`reset()`** method of the [USBDevice]
+  /// interface returns a `promise` that resolves when the device is reset and
+  /// all
+  /// app operations canceled and their promises rejected.
   external JSPromise reset();
   external int get usbVersionMajor;
   external int get usbVersionMinor;
@@ -276,6 +407,10 @@ extension USBControlTransferParametersExtension
   external int get index;
 }
 
+/// The `USBConfiguration` interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)
+/// provides information about a particular configuration of a USB device and
+/// the interfaces that it supports.
 @JS('USBConfiguration')
 @staticInterop
 class USBConfiguration {
@@ -291,6 +426,11 @@ extension USBConfigurationExtension on USBConfiguration {
   external JSArray get interfaces;
 }
 
+/// The `USBInterface` interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)
+/// provides information about an interface provided by the USB device. An
+/// interface represents a feature of the device which implements a particular
+/// protocol and may contain endpoints for bidirectional communication.
 @JS('USBInterface')
 @staticInterop
 class USBInterface {
@@ -307,6 +447,12 @@ extension USBInterfaceExtension on USBInterface {
   external bool get claimed;
 }
 
+/// The `USBAlternateInterface` interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)
+/// provides information about a particular configuration of an interface
+/// provided by the USB device. An interface includes one or more alternate
+/// settings which can configure a set of endpoints based on the operating mode
+/// of the device.
 @JS('USBAlternateInterface')
 @staticInterop
 class USBAlternateInterface {
@@ -325,6 +471,10 @@ extension USBAlternateInterfaceExtension on USBAlternateInterface {
   external JSArray get endpoints;
 }
 
+/// The `USBEndpoint` interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)
+/// provides information about an endpoint provided by the USB device. An
+/// endpoint represents a unidirectional data stream into or out of a device.
 @JS('USBEndpoint')
 @staticInterop
 class USBEndpoint {

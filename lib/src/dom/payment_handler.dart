@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -12,16 +16,37 @@ import 'service_workers.dart';
 typedef PaymentDelegation = String;
 typedef PaymentShippingType = String;
 
+/// The **`PaymentManager`** interface of the [Payment Handler API] is used to
+/// manage various aspects of payment app functionality.
+///
+/// It is accessed via the [ServiceWorkerRegistration.paymentManager] property.
 @JS('PaymentManager')
 @staticInterop
 class PaymentManager {}
 
 extension PaymentManagerExtension on PaymentManager {
+  /// The **`enableDelegations()`** method of the [PaymentManager] interface
+  /// delegates responsibility for providing various parts of the required
+  /// payment information to the payment app rather than collecting it from the
+  /// browser (for example, via autofill).
+  ///
+  /// For example, if the `requestShipping` option is set to `true` in the
+  /// options object when invoking the [PaymentRequest.PaymentRequest]
+  /// constructor, a shipping address will be returned.
+  ///
+  /// - If `enableDelegations()` was used to delegate `shippingAddress`, that
+  ///   address will come from the payment app.
+  /// - If not, it will come from the browser autofill.
   external JSPromise enableDelegations(JSArray delegations);
   external set userHint(String value);
   external String get userHint;
 }
 
+/// The **`CanMakePaymentEvent`** interface of the [Payment Handler API] is the
+/// event object for the [ServiceWorkerGlobalScope.canmakepayment_event] event,
+/// fired on a payment app's service worker to check whether it is ready to
+/// handle a payment. Specifically, it is fired when the merchant website calls
+/// [PaymentRequest.PaymentRequest].
 @JS('CanMakePaymentEvent')
 @staticInterop
 class CanMakePaymentEvent implements ExtendableEvent {
@@ -29,6 +54,9 @@ class CanMakePaymentEvent implements ExtendableEvent {
 }
 
 extension CanMakePaymentEventExtension on CanMakePaymentEvent {
+  /// The **`respondWith()`** method of the [CanMakePaymentEvent] interface
+  /// enables the service worker to respond appropriately to signal whether it
+  /// is ready to handle payments.
   external void respondWith(JSPromise canMakePaymentResponse);
 }
 
@@ -61,6 +89,8 @@ extension PaymentRequestDetailsUpdateExtension on PaymentRequestDetailsUpdate {
   external AddressErrors get shippingAddressErrors;
 }
 
+/// The **`PaymentRequestEvent`** interface of the [Payment Handler API] is the
+/// object passed to a payment handler when a [PaymentRequest] is made.
 @JS('PaymentRequestEvent')
 @staticInterop
 class PaymentRequestEvent implements ExtendableEvent {
@@ -71,13 +101,27 @@ class PaymentRequestEvent implements ExtendableEvent {
 }
 
 extension PaymentRequestEventExtension on PaymentRequestEvent {
+  /// The **`openWindow()`** method of the [PaymentRequestEvent] interface opens
+  /// the specified URL in a new window, only if the given URL is on the same
+  /// origin as the calling page. It returns a `Promise` that resolves with a
+  /// reference to a [WindowClient].
   external JSPromise openWindow(String url);
+
+  /// The **`changePaymentMethod()`** method of the [PaymentRequestEvent]
+  /// interface is used by the payment handler to get an updated total, given
+  /// such payment method details as the billing address.
+  ///
+  /// When this method is invoked, a [PaymentMethodChangeEvent] is fired.
   external JSPromise changePaymentMethod(
     String methodName, [
     JSObject? methodDetails,
   ]);
   external JSPromise changeShippingAddress([AddressInit shippingAddress]);
   external JSPromise changeShippingOption(String shippingOption);
+
+  /// The **`respondWith()`** method of the [PaymentRequestEvent] interface
+  /// prevents the default event handling and allows you to provide a `Promise`
+  /// for a [PaymentResponse] object yourself.
   external void respondWith(JSPromise handlerResponsePromise);
   external String get topOrigin;
   external String get paymentRequestOrigin;

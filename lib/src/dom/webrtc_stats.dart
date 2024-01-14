@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -14,6 +18,22 @@ typedef RTCQualityLimitationReason = String;
 typedef RTCDtlsRole = String;
 typedef RTCStatsIceCandidatePairState = String;
 
+/// The [RTCRtpStreamStats] dictionary is returned by the
+/// [RTCPeerConnection.getStats], [RTCRtpSender.getStats], and
+/// [RTCRtpReceiver.getStats] methods to provide detailed statistics about
+/// WebRTC connectivity.
+///
+/// While the dictionary has a base set of properties that are present in each
+/// of these cases, there are also additional properties added depending on
+/// which interface the method is called on.
+///
+/// `RTCRtpStreamStats` is the base class for all RTP-related statistics
+/// reports.
+///
+/// > **Note:** This interface was called `RTCRTPStreamStats` until a
+/// > specification update in the spring of 2017.
+/// > Check the [Browser compatibility](#browser_compatibility) table to know if
+/// > and when the name change was implemented in specific browsers.
 @JS()
 @staticInterop
 @anonymous
@@ -86,6 +106,14 @@ extension RTCReceivedRtpStreamStatsExtension on RTCReceivedRtpStreamStats {
   external num get jitter;
 }
 
+/// The **`RTCInboundRtpStreamStats`** dictionary of the
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API) is
+/// used to report statistics related to the receiving end of an RTP stream on
+/// the local end of the [RTCPeerConnection].
+///
+/// The statistics can be obtained by iterating the [RTCStatsReport] returned by
+/// [RTCPeerConnection.getStats] or [RTCRtpReceiver.getStats] until you find a
+/// report with the [`type`](#type) of `inbound-rtp`.
 @JS()
 @staticInterop
 @anonymous
@@ -300,6 +328,14 @@ extension RTCSentRtpStreamStatsExtension on RTCSentRtpStreamStats {
   external int get bytesSent;
 }
 
+/// The **`RTCOutboundRtpStreamStats`** dictionary of the
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API) is
+/// used to report metrics and statistics related to an outbound  stream being
+/// sent by an [RTCRtpSender].
+///
+/// The statistics can be obtained by iterating the [RTCStatsReport] returned by
+/// [RTCPeerConnection.getStats] or [RTCRtpSender.getStats] until you find a
+/// report with the [`type`](#type) of `outbound-rtp`.
 @JS()
 @staticInterop
 @anonymous
@@ -401,6 +437,15 @@ extension RTCOutboundRtpStreamStatsExtension on RTCOutboundRtpStreamStats {
   external String get scalabilityMode;
 }
 
+/// The **`RTCRemoteOutboundRtpStreamStats`** dictionary of the
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API) is
+/// used to report statistics from remote endpoint of its outbound RTP stream,
+/// which corresponds to an inbound stream that is currently received by an
+/// [RTCPeerConnection] object.
+///
+/// The statistics can be obtained by iterating the [RTCStatsReport] returned by
+/// [RTCPeerConnection.getStats] until you find a report with the
+/// [`type`](#type) of `remote-outbound-rtp`.
 @JS()
 @staticInterop
 @anonymous
@@ -448,6 +493,18 @@ extension RTCMediaSourceStatsExtension on RTCMediaSourceStats {
   external String get kind;
 }
 
+/// The
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)'s
+/// **`RTCAudioSourceStats`** dictionary provides information about an audio
+/// track that is attached to one or more senders.
+///
+/// These statistics can be obtained by iterating the [RTCStatsReport] returned
+/// by [RTCRtpSender.getStats] or [RTCPeerConnection.getStats] until you find a
+/// report with the [`type`](#type) of `media-source` and a [`kind`](#kind) of
+/// `audio`.
+///
+/// > **Note:** For audio information about remotely sourced tracks (that are
+/// > being received), see [RTCInboundRtpStreamStats].
 @JS()
 @staticInterop
 @anonymous
@@ -538,6 +595,18 @@ extension RTCAudioPlayoutStatsExtension on RTCAudioPlayoutStats {
   external int get totalSamplesCount;
 }
 
+/// The **`RTCPeerConnectionStats`** dictionary of the
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
+/// provides information about the high level peer connection
+/// ([RTCPeerConnection]).
+///
+/// In particular, it provides the number of unique data channels that have been
+/// opened, and the number of opened channels that have been closed.
+/// This allows the current number of open channels to be calculated.
+///
+/// These statistics can be obtained by iterating the [RTCStatsReport] returned
+/// by [RTCPeerConnection.getStats] until you find a report with the
+/// [`type`](#type) of `peer-connection`.
 @JS()
 @staticInterop
 @anonymous
@@ -590,6 +659,26 @@ extension RTCDataChannelStatsExtension on RTCDataChannelStats {
   external int get bytesReceived;
 }
 
+/// The **`RTCTransportStats`** dictionary of the
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
+/// provides information about the transport ([RTCDtlsTransport] and its
+/// underlying [RTCIceTransport]) used by a particular candidate pair.
+///
+/// The _BUNDLE_ feature is an SDP extension that allows negotiation to use a
+/// single transport for sending and receiving media described by multiple SDP
+/// media descriptions.
+/// If the remote endpoint is aware of this feature, all [MediaStreamTrack] and
+/// data channels are bundled onto a single transport at the completion of
+/// negotiation.
+/// This is true for current browsers, but if connecting to an older endpoint
+/// that is not BUNDLE-aware, then separate transports might be used for
+/// different media.
+/// The policy to use in the negotiation is configured in the
+/// [`RTCPeerConnection` constructor](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection).
+///
+/// These statistics can be obtained by iterating the [RTCStatsReport] returned
+/// by [RTCPeerConnection.getStats] until you find a report with the
+/// [`type`](#type) of `transport`.
 @JS()
 @staticInterop
 @anonymous
@@ -649,6 +738,13 @@ extension RTCTransportStatsExtension on RTCTransportStats {
   external int get selectedCandidatePairChanges;
 }
 
+/// The **`RTCIceCandidateStats`** dictionary of the
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API) is
+/// used to report statistics related to an [RTCIceCandidate].
+///
+/// The statistics can be obtained by iterating the [RTCStatsReport] returned by
+/// [RTCPeerConnection.getStats] until you find a report with the
+/// [`type`](#type) of `local-candidate`.
 @JS()
 @staticInterop
 @anonymous
@@ -699,6 +795,15 @@ extension RTCIceCandidateStatsExtension on RTCIceCandidateStats {
   external RTCIceTcpCandidateType get tcpType;
 }
 
+/// The **`RTCIceCandidatePairStats`** dictionary of the
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API) is
+/// used to report statistics that provide insight into the quality and
+/// performance of an [RTCPeerConnection] while connected and configured as
+/// described by the specified pair of  candidates.
+///
+/// The statistics can be obtained by iterating the [RTCStatsReport] returned by
+/// [RTCPeerConnection.getStats] until you find an entry with the
+/// [`type`](#type) of `"candidate-pair"`.
 @JS()
 @staticInterop
 @anonymous
@@ -776,6 +881,16 @@ extension RTCIceCandidatePairStatsExtension on RTCIceCandidatePairStats {
   external int get bytesDiscardedOnSend;
 }
 
+/// `WebRTC`
+///
+/// The **`RTCCertificateStats`** dictionary of the
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API) is
+/// used to report information about a certificate used by an [RTCDtlsTransport]
+/// and its underlying [RTCIceTransport].
+///
+/// The report can be obtained by iterating the [RTCStatsReport] returned by
+/// [RTCPeerConnection.getStats] until you find an entry with the
+/// [`type`](#type) of `certificate`.
 @JS()
 @staticInterop
 @anonymous

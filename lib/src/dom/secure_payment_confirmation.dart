@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -10,6 +14,17 @@ import 'payment_request.dart';
 import 'webauthn.dart';
 import 'webidl.dart';
 
+/// The **`SecurePaymentConfirmationRequest`** dictionary describes input to the
+/// [Payment Request API](https://developer.mozilla.org/en-US/docs/Web/API/Payment_Request_API)
+/// when used to authenticate a user during an e-commerce transaction
+/// [using SPC with Payment Request API](https://developer.mozilla.org/en-US/docs/Web/API/Payment_Request_API/Using_secure_payment_confirmation).
+///
+/// An instance of this dictionary must be passed into the
+/// [PaymentRequest.PaymentRequest] constructor as the value of the
+/// [`data`](https://developer.mozilla.org/en-US/docs/Web/API/PaymentRequest/PaymentRequest#data)
+/// field corresponding to a
+/// [`supportedMethods`](https://developer.mozilla.org/en-US/docs/Web/API/PaymentRequest/PaymentRequest#supportedmethods)
+/// value of `"secure-payment-confirmation"`.
 @JS()
 @staticInterop
 @anonymous

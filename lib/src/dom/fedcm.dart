@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -10,6 +14,12 @@ import 'credential_management.dart';
 
 typedef IdentityCredentialRequestOptionsContext = String;
 
+/// The **`IdentityCredential`** interface of the [Federated Credential
+/// Management API (FedCM)](/en-US/docs/Web/API/FedCM_API) represents a user
+/// identity credential arising from a successful federated sign-in.
+///
+/// A successful [CredentialsContainer.get] call that includes an `identity`
+/// option fulfills with an `IdentityCredential` instance.
 @JS('IdentityCredential')
 @staticInterop
 class IdentityCredential implements Credential {}
@@ -231,6 +241,9 @@ extension IdentityUserInfoExtension on IdentityUserInfo {
   external String get picture;
 }
 
+/// The **`IdentityProvider`** interface of the [Federated Credential Management
+/// (FedCM) API](/en-US/docs/Web/API/FedCM_API) represents an identity provider
+/// (IdP) and provides access to related information.
 @JS('IdentityProvider')
 @staticInterop
 class IdentityProvider {

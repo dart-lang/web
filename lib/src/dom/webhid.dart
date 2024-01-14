@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -12,12 +16,24 @@ import 'webidl.dart';
 
 typedef HIDUnitSystem = String;
 
+/// The **`HID`** interface provides methods for connecting to _HID devices_,
+/// listing attached HID devices and event handlers for connected HID devices.
 @JS('HID')
 @staticInterop
 class HID implements EventTarget {}
 
 extension HIDExtension on HID {
+  /// The **`getDevices()`** method of the [HID] interface gets a list of the
+  /// connected HID devices that the user has previously been granted access to
+  /// in response to a [HID.requestDevice] call.
   external JSPromise getDevices();
+
+  /// The **`requestDevice()`** method of the [HID] interface requests access to
+  /// a HID device.
+  ///
+  /// The user agent will present a permission dialog including a list of
+  /// connected devices, and ask the user to select and grant permission to one
+  /// of these devices.
   external JSPromise requestDevice(HIDDeviceRequestOptions options);
   external set onconnect(EventHandler value);
   external EventHandler get onconnect;
@@ -65,22 +81,58 @@ extension HIDDeviceFilterExtension on HIDDeviceFilter {
   external int get usage;
 }
 
+/// The **`HIDDevice`** interface of the [WebHID API] represents a HID Device.
+/// It provides properties for accessing information about the device, methods
+/// for opening and closing the connection, and the sending and receiving of
+/// reports.
 @JS('HIDDevice')
 @staticInterop
 class HIDDevice implements EventTarget {}
 
 extension HIDDeviceExtension on HIDDevice {
+  /// The **`open()`** method of the [HIDDevice] interface requests that the
+  /// operating system opens the HID device.
+  ///
+  /// > **Note:** HID devices are not opened automatically. Therefore, a
+  /// > [HIDDevice] returned by [HID.requestDevice] must be opened with this
+  /// > method before it is available to transfer data.
   external JSPromise open();
+
+  /// The **`close()`** method of the [HIDDevice] interface closes the
+  /// connection to the HID device.
   external JSPromise close();
+
+  /// The **`forget()`** method of the [HIDDevice] interface closes the
+  /// connection to the HID device and forgets the device.
   external JSPromise forget();
+
+  /// The **`sendReport()`** method of the [HIDDevice] interface sends an output
+  /// report to the HID device.
+  ///
+  /// The `reportId` for each of the report formats that this device supports
+  /// can be retrieved from [HIDDevice.collections].
   external JSPromise sendReport(
     int reportId,
     BufferSource data,
   );
+
+  /// The **`sendFeatureReport()`** method of the [HIDDevice] interface sends a
+  /// feature report to the HID device. Feature reports are a way for HID
+  /// devices and applications to exchange non-standardized HID data.
+  ///
+  /// The `reportId` for each of the report formats that this device supports
+  /// can be retrieved from [HIDDevice.collections].
   external JSPromise sendFeatureReport(
     int reportId,
     BufferSource data,
   );
+
+  /// The **`receiveFeatureReport()`** method of the [HIDDevice] interface
+  /// receives a feature report from the HID device. Feature reports are a way
+  /// for HID devices and applications to exchange non-standardized HID data.
+  ///
+  /// The `reportId` for each of the report formats that this device supports
+  /// can be retrieved from [HIDDevice.collections].
   external JSPromise receiveFeatureReport(int reportId);
   external set oninputreport(EventHandler value);
   external EventHandler get oninputreport;
@@ -91,6 +143,9 @@ extension HIDDeviceExtension on HIDDevice {
   external JSArray get collections;
 }
 
+/// The **`HIDConnectionEvent`** interface of the [WebHID API] represents HID
+/// connection events, and is the event type passed to [HID/connect_event] and
+/// [HID/disconnect_event] event handlers when an input report is received.
 @JS('HIDConnectionEvent')
 @staticInterop
 class HIDConnectionEvent implements Event {
@@ -116,6 +171,9 @@ extension HIDConnectionEventInitExtension on HIDConnectionEventInit {
   external HIDDevice get device;
 }
 
+/// The **`HIDInputReportEvent`** interface of the [WebHID API] is passed to
+/// [HIDDevice.inputreport_event] when an input report is received from any
+/// associated HID device.
 @JS('HIDInputReportEvent')
 @staticInterop
 class HIDInputReportEvent implements Event {

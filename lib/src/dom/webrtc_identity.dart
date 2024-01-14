@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -118,6 +122,11 @@ extension RTCIdentityProviderOptionsExtension on RTCIdentityProviderOptions {
   external String get peerIdentity;
 }
 
+/// The **`RTCIdentityAssertion`** interface of the
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
+/// represents the identity of a remote peer of the current connection. If no
+/// peer has yet been set and verified, then this interface returns `null`. Once
+/// set it can't be changed.
 @JS('RTCIdentityAssertion')
 @staticInterop
 class RTCIdentityAssertion {

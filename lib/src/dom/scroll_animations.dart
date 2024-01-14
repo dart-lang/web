@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -29,6 +33,14 @@ extension ScrollTimelineOptionsExtension on ScrollTimelineOptions {
   external ScrollAxis get axis;
 }
 
+/// The **`ScrollTimeline`** interface of the [Web Animations API] represents a
+/// scroll progress timeline (see
+/// [CSS scroll-driven animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations)
+/// for more details).
+///
+/// Pass a `ScrollTimeline` instance to the [Animation.Animation] constructor or
+/// the [Element.animate] method to specify it as the timeline that will control
+/// the progress of the animation.
 @JS('ScrollTimeline')
 @staticInterop
 class ScrollTimeline implements AnimationTimeline {
@@ -60,6 +72,14 @@ extension ViewTimelineOptionsExtension on ViewTimelineOptions {
   external JSAny get inset;
 }
 
+/// The **`ViewTimeline`** interface of the [Web Animations API] represents a
+/// view progress timeline (see
+/// [CSS scroll-driven animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations)
+/// for more details).
+///
+/// Pass a `ViewTimeline` instance to the [Animation.Animation] constructor or
+/// the [Element.animate] method to specify it as the timeline that will control
+/// the progress of the animation.
 @JS('ViewTimeline')
 @staticInterop
 class ViewTimeline implements ScrollTimeline {

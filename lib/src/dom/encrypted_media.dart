@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -69,37 +73,91 @@ extension MediaKeySystemMediaCapabilityExtension
   external String get robustness;
 }
 
+/// The **`MediaKeySystemAccess`** interface of the
+/// [Encrypted Media Extensions API](https://developer.mozilla.org/en-US/docs/Web/API/Encrypted_Media_Extensions_API)
+/// provides access to a Key System for decryption and/or a content protection
+/// provider. You can request an instance of this object using the
+/// [Navigator.requestMediaKeySystemAccess] method.
 @JS('MediaKeySystemAccess')
 @staticInterop
 class MediaKeySystemAccess {}
 
 extension MediaKeySystemAccessExtension on MediaKeySystemAccess {
+  /// The `MediaKeySystemAccess.getConfiguration()` method returns an object
+  /// with the supported combination of
+  /// the following configuration options:
+  ///
+  /// - `initDataTypes`
+  ///   - : Returns a list of supported initialization data type names. An initialization data type is a string indicating the format of the initialization data.
+  /// - `audioCapabilities`
+  ///   - : Returns a list of supported audio type and capability pairs.
+  /// - `videoCapabilities`
+  ///   - : Returns a list of supported video type and capability pairs.
+  /// - `distinctiveIdentifier`
+  ///   - : Indicates whether a persistent distinctive identifier is required.
+  /// - `persistentState`
+  ///   - : Indicates whether the ability to persist state is required.
   external MediaKeySystemConfiguration getConfiguration();
+
+  /// The `MediaKeySystemAccess.createMediaKeys()` method returns a
+  /// `Promise` that resolves to a new [MediaKeys] object.
   external JSPromise createMediaKeys();
   external String get keySystem;
 }
 
+/// The **`MediaKeys`** interface of
+/// [Encrypted Media Extensions API](https://developer.mozilla.org/en-US/docs/Web/API/Encrypted_Media_Extensions_API)
+/// represents a set of keys that an associated [HTMLMediaElement] can use for
+/// decryption of media data during playback.
 @JS('MediaKeys')
 @staticInterop
 class MediaKeys {}
 
 extension MediaKeysExtension on MediaKeys {
+  /// The `MediaKeys.createSession()` method returns a new
+  /// [MediaKeySession] object, which represents a context for message exchange
+  /// with a content decryption module (CDM).
   external MediaKeySession createSession([MediaKeySessionType sessionType]);
+
+  /// The **`MediaKeys.setServerCertificate()`** method provides a
+  /// server certificate to be used to encrypt messages to the license server.
   external JSPromise setServerCertificate(BufferSource serverCertificate);
 }
 
+/// The **`MediaKeySession`** interface of the
+/// [Encrypted Media Extensions API](https://developer.mozilla.org/en-US/docs/Web/API/Encrypted_Media_Extensions_API)
+/// represents a context for message exchange with a content decryption module
+/// (CDM).
 @JS('MediaKeySession')
 @staticInterop
 class MediaKeySession implements EventTarget {}
 
 extension MediaKeySessionExtension on MediaKeySession {
+  /// The `MediaKeySession.generateRequest()` method returns a
+  /// `Promise` after generating a media request based on initialization data.
   external JSPromise generateRequest(
     String initDataType,
     BufferSource initData,
   );
+
+  /// The `MediaKeySession.load()` method returns a `Promise` that
+  /// resolves to a boolean value after loading data for a specified session
+  /// object.
   external JSPromise load(String sessionId);
+
+  /// The `MediaKeySession.update()` method loads messages and licenses to the
+  /// CDM, and then returns a `Promise` .
   external JSPromise update(BufferSource response);
+
+  /// The `MediaKeySession.close()` method notifies that the current media
+  /// session
+  /// is no longer needed, and that the content decryption module should release
+  /// any resources
+  /// associated with this object and close it. Then, it returns a `Promise`.
   external JSPromise close();
+
+  /// The `MediaKeySession.remove()` method returns a `Promise` after removing
+  /// any session data associated with the current object.
   external JSPromise remove();
   external String get sessionId;
   external num get expiration;
@@ -111,16 +169,30 @@ extension MediaKeySessionExtension on MediaKeySession {
   external EventHandler get onmessage;
 }
 
+/// The **`MediaKeyStatusMap`** interface of the
+/// [Encrypted Media Extensions API](https://developer.mozilla.org/en-US/docs/Web/API/Encrypted_Media_Extensions_API)
+/// is a read-only map of media key statuses by key IDs.
 @JS('MediaKeyStatusMap')
 @staticInterop
 class MediaKeyStatusMap {}
 
 extension MediaKeyStatusMapExtension on MediaKeyStatusMap {
+  /// The **`has`** property of the
+  /// [MediaKeyStatusMap] interface returns a `Boolean`, asserting
+  /// whether a value has been associated with the given key.
   external bool has(BufferSource keyId);
+
+  /// The **`get`** property of the
+  /// [MediaKeyStatusMap] interface returns the value associated with the given
+  /// key, or `undefined` if there is none.
   external MediaKeyStatus? get(BufferSource keyId);
   external int get size;
 }
 
+/// The **`MediaKeyMessageEvent`** interface of the
+/// [Encrypted Media Extensions API](https://developer.mozilla.org/en-US/docs/Web/API/Encrypted_Media_Extensions_API)
+/// contains the content and related data when the content decryption module
+/// generates a message for the session.
 @JS('MediaKeyMessageEvent')
 @staticInterop
 class MediaKeyMessageEvent implements Event {
@@ -152,6 +224,11 @@ extension MediaKeyMessageEventInitExtension on MediaKeyMessageEventInit {
   external JSArrayBuffer get message;
 }
 
+/// The **`MediaEncryptedEvent`** interface of the
+/// [Encrypted Media Extensions API](https://developer.mozilla.org/en-US/docs/Web/API/Encrypted_Media_Extensions_API)
+/// contains the information associated with an
+/// [HTMLMediaElement/encrypted_event] event sent to a [HTMLMediaElement] when
+/// some initialization data is encountered in the media.
 @JS('MediaEncryptedEvent')
 @staticInterop
 class MediaEncryptedEvent implements Event {

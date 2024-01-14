@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -19,6 +23,14 @@ typedef PlaybackDirection = String;
 typedef CompositeOperation = String;
 typedef CompositeOperationOrAuto = String;
 
+/// The `AnimationTimeline` interface of the
+/// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+/// represents the timeline of an animation. This interface exists to define
+/// timeline features, inherited by other timeline types:
+///
+/// - [DocumentTimeline]
+/// - [ScrollTimeline]
+/// - [ViewTimeline]
 @JS('AnimationTimeline')
 @staticInterop
 class AnimationTimeline {}
@@ -41,12 +53,20 @@ extension DocumentTimelineOptionsExtension on DocumentTimelineOptions {
   external DOMHighResTimeStamp get originTime;
 }
 
+/// The **`DocumentTimeline`** interface of the
+/// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+/// represents animation timelines, including the default document timeline
+/// (accessed via [Document.timeline]).
 @JS('DocumentTimeline')
 @staticInterop
 class DocumentTimeline implements AnimationTimeline {
   external factory DocumentTimeline([DocumentTimelineOptions options]);
 }
 
+/// The **`Animation`** interface of the
+/// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+/// represents a single animation player and provides playback controls and a
+/// timeline for an animation node or source.
 @JS('Animation')
 @staticInterop
 class Animation implements EventTarget {
@@ -57,13 +77,97 @@ class Animation implements EventTarget {
 }
 
 extension AnimationExtension on Animation {
+  /// The Web Animations API's **`cancel()`** method of the [Animation]
+  /// interface clears all [KeyframeEffect]s caused by this animation and aborts
+  /// its playback.
+  ///
+  /// > **Note:** When an animation is cancelled, its [Animation.startTime] and
+  /// > [Animation.currentTime] are set to `null`.
   external void cancel();
+
+  /// The **`finish()`** method of the
+  /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)'s
+  /// [Animation] Interface sets the current playback time to the end of the
+  /// animation corresponding to the current playback direction.
+  ///
+  /// That is, if the animation is playing forward, it sets the playback time to
+  /// the length of the animation sequence, and if the animation is playing in
+  /// reverse (having had its [Animation.reverse] method called), it sets the
+  /// playback time to 0.
   external void finish();
+
+  /// The **`play()`** method of the
+  /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)'s
+  /// [Animation] Interface starts or resumes playing of an animation. If the
+  /// animation is finished, calling `play()` restarts the animation, playing it
+  /// from the beginning.
   external void play();
+
+  /// The **`pause()`** method of the
+  /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)'s
+  /// [Animation] interface suspends playback of the animation.
   external void pause();
+
+  /// The **`updatePlaybackRate()`** method of the
+  /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)'s
+  /// [Animation] Interface sets the speed of an animation after first
+  /// synchronizing its playback position.
+  ///
+  /// In some cases, an animation may run on a separate thread or process and
+  /// will continue
+  /// updating even while long-running JavaScript delays the main thread. In
+  /// such a case,
+  /// setting the [Animation.playbackRate] on the animation
+  /// directly may cause the animation's playback position to jump since its
+  /// playback
+  /// position on the main thread may have drifted from the playback position
+  /// where it is
+  /// currently running.
+  ///
+  /// `updatePlaybackRate()` is an asynchronous method that sets the speed of an
+  /// animation after synchronizing with its current playback position, ensuring
+  /// that the
+  /// resulting change in speed does not produce a sharp jump. After calling
+  /// `updatePlaybackRate()` the animation's [Animation.playbackRate] is _not_
+  /// immediately updated. It will be updated once the
+  /// animation's [Animation.ready] promise is resolved.
   external void updatePlaybackRate(num playbackRate);
+
+  /// The **`Animation.reverse()`** method of the [Animation] Interface reverses
+  /// the playback direction, meaning the animation ends at its beginning. If
+  /// called on an unplayed animation, the whole animation is played backwards.
+  /// If called on a paused animation, the animation will continue in reverse.
   external void reverse();
+
+  /// The `persist()` method of the
+  /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)'s
+  /// [Animation] interface explicitly persists an animation, preventing it from
+  /// being
+  /// [automatically removed](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Using_the_Web_Animations_API#automatically_removing_filling_animations)
+  /// when it is replaced by another animation.
   external void persist();
+
+  /// The `commitStyles()` method of the
+  /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)'s
+  /// [Animation] interface writes the
+  /// [computed values](https://developer.mozilla.org/en-US/docs/Web/CSS/computed_value)
+  /// of the animation's current styles into its target element's
+  /// [`style`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#style)
+  /// attribute. `commitStyles()` works even if the animation has been
+  /// [automatically removed](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Using_the_Web_Animations_API#automatically_removing_filling_animations).
+  ///
+  /// `commitStyles()` can be used in combination with `fill` to cause the final
+  /// state of an animation to persist after the animation ends. The same effect
+  /// could be achieved with `fill` alone, but
+  /// [using indefinitely filling animations is discouraged](https://drafts.csswg.org/web-animations-1/#fill-behavior).
+  /// Animations
+  /// [take precedence over all static styles](https://developer.mozilla.org/en-US/docs/Web/CSS/Cascade#cascading_order),
+  /// so an indefinite filling animation can prevent the target element from
+  /// ever being styled normally.
+  ///
+  /// Using `commitStyles()` writes the styling state into the element's
+  /// [`style`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#style)
+  /// attribute, where they can be modified and replaced as normal.
   external void commitStyles();
   external set startTime(CSSNumberish? value);
   external CSSNumberish? get startTime;
@@ -90,6 +194,17 @@ extension AnimationExtension on Animation {
   external EventHandler get onremove;
 }
 
+/// The `AnimationEffect` interface of the
+/// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+/// is an interface representing animation effects.
+///
+/// `AnimationEffect` is an abstract interface and so isn't directly
+/// instantiable. However, concrete interfaces such as [KeyframeEffect] inherit
+/// from it, and instances of these interfaces can be passed to [Animation]
+/// objects for playing, and may also be used by
+/// [CSS Animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animations)
+/// and
+/// [Transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transitions).
 @JS('AnimationEffect')
 @staticInterop
 class AnimationEffect {}
@@ -99,8 +214,30 @@ extension AnimationEffectExtension on AnimationEffect {
   external void after(AnimationEffect effects);
   external void replace(AnimationEffect effects);
   external void remove();
+
+  /// The `AnimationEffect.getTiming()` method of the [AnimationEffect]
+  /// interface returns an object containing the timing properties for the
+  /// Animation Effect.
+  ///
+  /// > **Note:** Several of the timing properties returned by `getTiming()` may
+  /// > take on the placeholder value `"auto"`. To obtain resolved values for
+  /// > use in timing computations, instead use
+  /// > [AnimationEffect.getComputedTiming].
+  /// >
+  /// > In the future, `"auto"` or similar values might be added to the types of
+  /// > more timing properties, and new types of [AnimationEffect] might resolve
+  /// > `"auto"` to different values.
   external EffectTiming getTiming();
+
+  /// The `getComputedTiming()` method of the [AnimationEffect] interface
+  /// returns the calculated timing properties for this animation effect.
+  ///
+  /// > **Note:** These values are comparable to the computed styles of an
+  /// > Element returned using `window.getComputedStyle(elem)`.
   external ComputedEffectTiming getComputedTiming();
+
+  /// The `updateTiming()` method of the [AnimationEffect] interface updates the
+  /// specified timing properties for an animation effect.
   external void updateTiming([OptionalEffectTiming timing]);
   external GroupEffect? get parent;
   external AnimationEffect? get previousSibling;
@@ -212,6 +349,11 @@ extension ComputedEffectTimingExtension on ComputedEffectTiming {
   external num? get currentIteration;
 }
 
+/// The **`KeyframeEffect`** interface of the
+/// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+/// lets us create sets of animatable properties and values, called
+/// **keyframes.** These can then be played using the [Animation.Animation]
+/// constructor.
 @JS('KeyframeEffect')
 @staticInterop
 class KeyframeEffect implements AnimationEffect {
@@ -223,7 +365,14 @@ class KeyframeEffect implements AnimationEffect {
 }
 
 extension KeyframeEffectExtension on KeyframeEffect {
+  /// The **`getKeyframes()`** method of a [KeyframeEffect] returns an Array of
+  /// the computed keyframes that make up this animation along with their
+  /// computed offsets.
   external JSArray getKeyframes();
+
+  /// The **`setKeyframes()`** method of the [KeyframeEffect] interface replaces
+  /// the keyframes that make up the affected `KeyframeEffect` with a new set of
+  /// keyframes.
   external void setKeyframes(JSObject? keyframes);
   external set iterationComposite(IterationCompositeOperation value);
   external IterationCompositeOperation get iterationComposite;

@@ -1,6 +1,10 @@
 ## 0.5.0-wip
 
 - Redeprecate APIs that were deprecated in `0.4.1` but undeprecated in `0.4.2`.
+- Add support for `dart fix` migrations from `dart:html` classes to
+  `package:web` classes.
+- Contribute a markdown file for the renamed classes from `dart:html` to
+  `package:web` (see [renames.md](tool/renames.md)).
 
 ## 0.4.2
 

@@ -1,6 +1,11 @@
 ## 0.5.0-wip
 
 - Redeprecate APIs that were deprecated in `0.4.1` but undeprecated in `0.4.2`.
+- Include MDN API documentation as class and member dartdoc comments.
+  - Documentation text from the MDN Web Docs project
+    (https://developer.mozilla.org/en-US/docs/Web); attributions and copyright
+    licensing by Mozilla Contributors is licensed under CC-BY-SA 2.5
+    (https://creativecommons.org/licenses/by-sa/2.5/).
 
 ## 0.4.2
 

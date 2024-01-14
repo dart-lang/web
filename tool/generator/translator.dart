@@ -9,6 +9,7 @@ import 'package:code_builder/code_builder.dart' as code;
 import 'package:path/path.dart' as p;
 
 import 'banned_names.dart';
+import 'doc_provider.dart';
 import 'filesystem_api.dart';
 import 'singletons.dart';
 import 'type_aliases.dart';
@@ -280,13 +281,15 @@ class _OverridableOperation extends _OverridableMember {
   _MemberName name;
   final bool isStatic;
   final _RawType returnType;
+  final MdnProperty? mdnProperty;
 
-  _OverridableOperation._(
-      this.name, this.isStatic, this.returnType, super.parameters);
+  _OverridableOperation._(this.name, this.isStatic, this.returnType,
+      this.mdnProperty, super.parameters);
 
-  factory _OverridableOperation(idl.Operation operation, _MemberName name) =>
+  factory _OverridableOperation(idl.Operation operation, _MemberName name,
+          MdnProperty? mdnProperty) =>
       _OverridableOperation._(name, operation.special == 'static',
-          _getRawType(operation.idlType), operation.arguments);
+          _getRawType(operation.idlType), mdnProperty, operation.arguments);
 
   void update(idl.Operation that) {
     final thisName = name.jsOverride ?? name.name;
@@ -311,13 +314,16 @@ class _PartialInterfacelike {
   final Map<String, _OverridableOperation> staticOperations = {};
   final List<idl.Member> members = [];
   final List<idl.Member> staticMembers = [];
+  final MdnInterface? mdnInterface;
   _OverridableConstructor? constructor;
 
-  _PartialInterfacelike._(this.name, this.type, this.inheritance);
+  _PartialInterfacelike._(
+      this.name, this.type, this.inheritance, this.mdnInterface);
 
-  factory _PartialInterfacelike(idl.Interfacelike interfacelike) {
-    final partialInterfacelike = _PartialInterfacelike._(
-        interfacelike.name, interfacelike.type, interfacelike.inheritance);
+  factory _PartialInterfacelike(
+      idl.Interfacelike interfacelike, MdnInterface? mdnInterface) {
+    final partialInterfacelike = _PartialInterfacelike._(interfacelike.name,
+        interfacelike.type, interfacelike.inheritance, mdnInterface);
     partialInterfacelike._processMembers(interfacelike.members);
     return partialInterfacelike;
   }
@@ -364,8 +370,8 @@ class _PartialInterfacelike {
               } else {
                 memberName = _MemberName(name);
               }
-              staticOperations[name] =
-                  _OverridableOperation(operation, memberName);
+              staticOperations[name] = _OverridableOperation(
+                  operation, memberName, mdnInterface?.propertyFor(name));
             }
           } else {
             if (operations.containsKey(name)) {
@@ -375,8 +381,8 @@ class _PartialInterfacelike {
               if (staticOperation != null) {
                 staticOperation.name = _MemberName('${name}_', name);
               }
-              operations[name] =
-                  _OverridableOperation(operation, _MemberName(operation.name));
+              operations[name] = _OverridableOperation(operation,
+                  _MemberName(operation.name), mdnInterface?.propertyFor(name));
             }
           }
           break;
@@ -432,6 +438,7 @@ class Translator {
 
   late String _currentlyTranslatingUrl;
   late WebSpecs webSpecs;
+  late DocProvider docProvider;
 
   /// Singleton so that various helper methods can access info about the AST.
   static Translator? instance;
@@ -440,6 +447,7 @@ class Translator {
       this.packageRoot, this._librarySubDir, this._cssStyleDeclarations) {
     instance = this;
     webSpecs = WebSpecs.read();
+    docProvider = DocProvider.create();
   }
 
   /// Set or update partial interfaces so we can have a unified interface
@@ -459,7 +467,8 @@ class Translator {
         if (_interfacelikes.containsKey(name)) {
           _interfacelikes[name]!.update(interfacelike);
         } else {
-          _interfacelikes[name] = _PartialInterfacelike(interfacelike);
+          _interfacelikes[name] = _PartialInterfacelike(
+              interfacelike, docProvider.interfaceFor(name));
         }
       }
       for (final interfacelike in [
@@ -624,15 +633,17 @@ class Translator {
   code.Method _operation(_OverridableOperation operation) {
     final memberName = operation.name;
     return _overridableMember<code.Method>(
-        operation,
-        (requiredParameters, optionalParameters) => code.Method((b) => b
-          ..annotations.addAll(_jsOverride(memberName.jsOverride))
-          ..external = true
-          ..static = operation.isStatic
-          ..returns = _typeToTypeReference(operation.returnType)
-          ..name = memberName.name
-          ..requiredParameters.addAll(requiredParameters)
-          ..optionalParameters.addAll(optionalParameters)));
+      operation,
+      (requiredParameters, optionalParameters) => code.Method((b) => b
+        ..annotations.addAll(_jsOverride(memberName.jsOverride))
+        ..external = true
+        ..static = operation.isStatic
+        ..returns = _typeToTypeReference(operation.returnType)
+        ..name = memberName.name
+        ..docs.addAll(operation.mdnProperty?.formattedDocs ?? [])
+        ..requiredParameters.addAll(requiredParameters)
+        ..optionalParameters.addAll(optionalParameters)),
+    );
   }
 
   List<code.Method> _getterSetter(
@@ -744,6 +755,7 @@ class Translator {
   code.Class _class({
     required String jsName,
     required String dartClassName,
+    required MdnInterface? mdnInterface,
     required List<String> implements,
     required _OverridableConstructor? constructor,
     required List<_OverridableOperation> staticOperations,
@@ -751,23 +763,31 @@ class Translator {
     required List<idl.Member> staticMembers,
     required bool isAbstract,
     required bool isObjectLiteral,
-  }) =>
-      code.Class(
-        (b) => b
-          ..annotations.addAll(_jsOverride(isObjectLiteral ? '' : jsName,
-              staticInterop: true, objectLiteral: isObjectLiteral))
-          ..name = dartClassName
-          ..implements.addAll(implements
-              .map((interface) => _typeReference(_RawType(interface, false))))
-          ..constructors.addAll(isObjectLiteral
-              ? [_objectLiteral(members)]
-              : constructor != null
-                  ? [_constructor(constructor)]
-                  : [])
-          ..methods.addAll(
-              _operations(staticOperations).followedBy(_members(staticMembers)))
-          ..abstract = isAbstract,
-      );
+  }) {
+    var docs = <String>[];
+    if (mdnInterface != null) {
+      docs = mdnInterface.formattedDocs;
+    }
+
+    return code.Class(
+      (b) => b
+        ..docs.addAll(docs)
+        ..annotations.addAll(_jsOverride(isObjectLiteral ? '' : jsName,
+            staticInterop: true, objectLiteral: isObjectLiteral))
+        ..name = dartClassName
+        ..implements.addAll(implements
+            .map((interface) => _typeReference(_RawType(interface, false))))
+        ..constructors.addAll(isObjectLiteral
+            ? [_objectLiteral(members)]
+            : constructor != null
+                ? [_constructor(constructor)]
+                : [])
+        ..methods.addAll(
+          _operations(staticOperations).followedBy(_members(staticMembers)),
+        )
+        ..abstract = isAbstract,
+    );
+  }
 
   List<code.Spec> _interfacelike(idl.Interfacelike idlInterfacelike) {
     final name = idlInterfacelike.name;
@@ -776,6 +796,8 @@ class Translator {
     final type = interfacelike.type;
     final isNamespace = type == 'namespace';
     final isDictionary = type == 'dictionary';
+
+    final mdnInterface = docProvider.interfaceFor(jsName);
 
     // Namespaces have lowercase names. We also translate them to
     // private classes, and make their first character uppercase in the process.
@@ -802,22 +824,28 @@ class Translator {
       if (getterName != null)
         _topLevelGetter(_RawType(dartClassName, false), getterName),
       _class(
-          jsName: jsName,
-          dartClassName: dartClassName,
-          implements: implements,
-          constructor: interfacelike.constructor,
-          staticOperations: staticOperations,
-          members: interfacelike.members,
-          staticMembers: interfacelike.staticMembers,
-          isAbstract: isNamespace,
-          isObjectLiteral: isDictionary),
+        jsName: jsName,
+        dartClassName: dartClassName,
+        mdnInterface: mdnInterface,
+        implements: implements,
+        constructor: interfacelike.constructor,
+        staticOperations: staticOperations,
+        members: interfacelike.members,
+        staticMembers: interfacelike.staticMembers,
+        isAbstract: isNamespace,
+        isObjectLiteral: isDictionary,
+      ),
       if (operations.isNotEmpty || members.isNotEmpty)
         _extension(_RawType(dartClassName, false), operations, members)
     ];
   }
 
   code.Library _library(_Library library) => code.Library((b) => b
-    ..comments.addAll(licenseHeader)
+    ..comments.addAll([
+      ...licenseHeader,
+      '',
+      ...mozLicenseHeader,
+    ])
     ..generatedByComment = generatedFileDisclaimer
     ..body.addAll([
       for (final typedef in library.typedefs)

@@ -11,6 +11,8 @@ const mdnUrl = 'https://developer.mozilla.org/en-US/docs/Web';
 const gitUrl = 'https://github.com/mdn/content.git';
 
 Future<void> main(List<String> args) async {
+  final offline = args.length == 1 && args.first == '--offline';
+
   // clone the repo
   final repoDir = Directory(p.join('.dart_tool', 'mdn_content'));
   if (!repoDir.existsSync()) {
@@ -25,7 +27,9 @@ Future<void> main(List<String> args) async {
       cwd: repoDir.parent,
     );
   } else {
-    await _run('git', ['pull'], cwd: repoDir);
+    if (!offline) {
+      await _run('git', ['pull'], cwd: repoDir);
+    }
   }
 
   print('');
@@ -147,7 +151,10 @@ String convertMdnToMarkdown(String content) {
     }
 
     var content = match.group(2)!;
-    if (type == 'jsxref' ||
+    if (type == 'availableinworkers') {
+      final name = match.group(1)!;
+      return '@$name($content)';
+    } else if (type == 'jsxref' ||
         type == 'htmlelement' ||
         type == 'svgattr' ||
         type == 'cssxref') {
@@ -172,7 +179,7 @@ String convertMdnToMarkdown(String content) {
   // Replace multiple blank lines by 2 blank lines.
   text = text.replaceAll(RegExp('\n\n\n+'), '\n\n');
 
-  return text;
+  return text.trim();
 }
 
 String _stripQuotes(String value) {

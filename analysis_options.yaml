@@ -8,9 +8,13 @@ analyzer:
     strict-raw-types: true
 
   errors:
-    # Ideally we'd fix all of these - or ignore them at the line-level where
-    # necessary
+    # 43 instances in generated code.
     camel_case_types: ignore
+    # 1,481 instances in the MDN docs.
+    comment_references: ignore
+    # 14 instances in the MDN docs.
+    lines_longer_than_80_chars: ignore
+    # 1,333 instances in generated code.
     non_constant_identifier_names: ignore
 
 linter:

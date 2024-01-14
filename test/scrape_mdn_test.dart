@@ -45,6 +45,22 @@ foo bar
 ''');
     });
 
+    test('strips AvailableInWorkers', () {
+      compare('''
+Hello world
+
+{{AvailableInWorkers("notservice")}}
+
+foo bar
+''', '''
+Hello world
+
+@AvailableInWorkers("notservice")
+
+foo bar
+''');
+    });
+
     test('reference domxref', () {
       compare('''
 Examples include:

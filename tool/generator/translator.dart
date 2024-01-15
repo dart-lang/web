@@ -2,14 +2,13 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:convert';
 import 'dart:js_interop';
 
 import 'package:code_builder/code_builder.dart' as code;
 import 'package:path/path.dart' as p;
 
 import 'banned_names.dart';
-import 'filesystem_api.dart';
+import 'bcd.dart';
 import 'singletons.dart';
 import 'type_aliases.dart';
 import 'type_union.dart';
@@ -431,7 +430,7 @@ class Translator {
   final _includes = <idl.Includes>[];
 
   late String _currentlyTranslatingUrl;
-  late WebSpecs webSpecs;
+  late BrowserCompatData browserCompatData;
 
   /// Singleton so that various helper methods can access info about the AST.
   static Translator? instance;
@@ -439,7 +438,7 @@ class Translator {
   Translator(
       this.packageRoot, this._librarySubDir, this._cssStyleDeclarations) {
     instance = this;
-    webSpecs = WebSpecs.read();
+    browserCompatData = BrowserCompatData.read();
   }
 
   /// Set or update partial interfaces so we can have a unified interface
@@ -483,10 +482,6 @@ class Translator {
   void collect(String shortName, JSArray ast) {
     final libraryPath = '$_librarySubDir/${shortName.kebabToSnake}.dart';
     assert(!_libraries.containsKey(libraryPath));
-
-    // TODO: Use the info from the spec to skip generation of some libraries.
-    // ignore: unused_local_variable
-    final spec = webSpecs.specFor(shortName)!;
 
     final library = _Library(this, '$packageRoot/$libraryPath');
     _libraries[libraryPath] = library;
@@ -744,6 +739,7 @@ class Translator {
   code.Class _class({
     required String jsName,
     required String dartClassName,
+    required InterfaceStatus? interfaceStatus,
     required List<String> implements,
     required _OverridableConstructor? constructor,
     required List<_OverridableOperation> staticOperations,
@@ -754,8 +750,15 @@ class Translator {
   }) =>
       code.Class(
         (b) => b
-          ..annotations.addAll(_jsOverride(isObjectLiteral ? '' : jsName,
-              staticInterop: true, objectLiteral: isObjectLiteral))
+          ..annotations.addAll([
+            ..._jsOverride(
+              isObjectLiteral ? '' : jsName,
+              staticInterop: true,
+              objectLiteral: isObjectLiteral,
+            ),
+            if (interfaceStatus != null)
+              code.refer(interfaceStatus.toAnnotation(), 'status.dart'),
+          ])
           ..name = dartClassName
           ..implements.addAll(implements
               .map((interface) => _typeReference(_RawType(interface, false))))
@@ -781,6 +784,22 @@ class Translator {
     // private classes, and make their first character uppercase in the process.
     final dartClassName = isNamespace ? '\$${capitalize(jsName)}' : jsName;
 
+    final status = browserCompatData.interfaceFor(name);
+
+    // if (status != null) {
+    //   final name = status.name;
+    //   final statusDescription =
+    //       '${status.statusDescription} ${status.browsersDescription}}';
+
+    //   if (!status.standardTrack) {
+    //     print('[$name]: not standards track ($statusDescription)');
+    //   } else if (status.browserCount == 0) {
+    //     print('[$name]: no supported browsers ($statusDescription)');
+    //   } else if (status.browserCount == 1) {
+    //     print('[$name]: only one supported browser  ($statusDescription)');
+    //   }
+    // }
+
     // We create a getter for namespaces with the expected name. We also create
     // getters for a few pre-defined singleton classes.
     final getterName = isNamespace ? jsName : singletons[jsName];
@@ -804,6 +823,7 @@ class Translator {
       _class(
           jsName: jsName,
           dartClassName: dartClassName,
+          interfaceStatus: status,
           implements: implements,
           constructor: interfacelike.constructor,
           staticOperations: staticOperations,
@@ -862,74 +882,4 @@ class Translator {
 
     return dartLibraries;
   }
-}
-
-class WebSpecs {
-  static WebSpecs read() {
-    final path = p.join('node_modules', 'web-specs', 'index.json');
-    final content = (fs.readFileSync(
-      path.toJS,
-      JSReadFileOptions(encoding: 'utf8'.toJS),
-    ) as JSString)
-        .toDart;
-    return WebSpecs(
-      (jsonDecode(content) as List)
-          .map((json) => WebSpec(json as Map<String, dynamic>))
-          .toList(),
-    );
-  }
-
-  final List<WebSpec> specs;
-
-  WebSpecs(this.specs);
-
-  WebSpec? specFor(String shortName) {
-    for (final spec in specs) {
-      if (spec.shortname == shortName) {
-        return spec;
-      }
-    }
-
-    for (final spec in specs) {
-      if (spec.seriesShortname == shortName) {
-        return spec;
-      }
-    }
-
-    return null;
-  }
-}
-
-class WebSpec {
-  final Map<String, dynamic> json;
-
-  WebSpec(this.json);
-
-  String get url => json['url'] as String;
-
-  String get shortname => json['shortname'] as String;
-
-  String? get seriesShortname {
-    if (!json.containsKey('series')) return null;
-    return (json['series'] as Map)['shortname'] as String?;
-  }
-
-  String get standing => json['standing'] as String;
-
-  List<String> get categories {
-    if (json.containsKey('categories')) {
-      return (json['categories'] as List).cast<String>();
-    } else {
-      return const [];
-    }
-  }
-
-  String? get releaseStatus {
-    if (!json.containsKey('release')) return null;
-    return (json['release'] as Map)['status'] as String?;
-  }
-
-  @override
-  String toString() =>
-      '$shortname $url $standing [${categories.join(',')}] $releaseStatus';
 }

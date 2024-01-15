@@ -7,7 +7,7 @@
   `package:web` (see [renames.md](tool/renames.md)).
 - Added browser compatibility metadata to the generated API. This uses a new
   `@BcdStatus` annotation to convey information about API maturity and the set
-  of supported browers. See also https://github.com/mdn/browser-compat-data.
+  of supported browsers. See also https://github.com/mdn/browser-compat-data.
 
 ## 0.4.2
 

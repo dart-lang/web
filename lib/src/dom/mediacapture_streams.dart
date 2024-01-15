@@ -15,6 +15,7 @@ import 'mediacapture_handle_actions.dart';
 import 'mediacapture_viewport.dart';
 import 'permissions.dart';
 import 'screen_capture.dart';
+import 'status.dart';
 import 'webidl.dart';
 
 typedef ConstrainULong = JSAny;
@@ -30,6 +31,7 @@ typedef MediaDeviceKind = String;
 
 @JS('MediaStream')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaStream implements EventTarget {
   external factory MediaStream([JSObject streamOrTracks]);
 }
@@ -52,6 +54,7 @@ extension MediaStreamExtension on MediaStream {
 
 @JS('MediaStreamTrack')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaStreamTrack implements EventTarget {}
 
 extension MediaStreamTrackExtension on MediaStreamTrack {
@@ -89,6 +92,7 @@ extension MediaStreamTrackExtension on MediaStreamTrack {
 @JS()
 @staticInterop
 @anonymous
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaTrackSupportedConstraints {
   external factory MediaTrackSupportedConstraints({
     bool whiteBalanceMode,
@@ -325,6 +329,7 @@ extension MediaTrackCapabilitiesExtension on MediaTrackCapabilities {
 @JS()
 @staticInterop
 @anonymous
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaTrackConstraints implements MediaTrackConstraintSet {
   external factory MediaTrackConstraints({JSArray advanced});
 }
@@ -459,6 +464,7 @@ extension MediaTrackConstraintSetExtension on MediaTrackConstraintSet {
 @JS()
 @staticInterop
 @anonymous
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaTrackSettings {
   external factory MediaTrackSettings({
     String whiteBalanceMode,
@@ -580,6 +586,7 @@ extension MediaTrackSettingsExtension on MediaTrackSettings {
 
 @JS('MediaStreamTrackEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaStreamTrackEvent implements Event {
   external factory MediaStreamTrackEvent(
     String type,
@@ -605,6 +612,7 @@ extension MediaStreamTrackEventInitExtension on MediaStreamTrackEventInit {
 
 @JS('OverconstrainedError')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class OverconstrainedError implements DOMException {
   external factory OverconstrainedError(
     String constraint, [
@@ -618,6 +626,7 @@ extension OverconstrainedErrorExtension on OverconstrainedError {
 
 @JS('MediaDevices')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaDevices implements EventTarget {}
 
 extension MediaDevicesExtension on MediaDevices {
@@ -638,6 +647,7 @@ extension MediaDevicesExtension on MediaDevices {
 
 @JS('MediaDeviceInfo')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaDeviceInfo {}
 
 extension MediaDeviceInfoExtension on MediaDeviceInfo {
@@ -650,6 +660,7 @@ extension MediaDeviceInfoExtension on MediaDeviceInfo {
 
 @JS('InputDeviceInfo')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class InputDeviceInfo implements MediaDeviceInfo {}
 
 extension InputDeviceInfoExtension on InputDeviceInfo {

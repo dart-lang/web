@@ -7,9 +7,11 @@
 import 'dart:js_interop';
 
 import 'hr_time.dart';
+import 'status.dart';
 
 @JS('PerformanceServerTiming')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PerformanceServerTiming {}
 
 extension PerformanceServerTimingExtension on PerformanceServerTiming {

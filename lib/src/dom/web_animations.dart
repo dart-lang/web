@@ -10,6 +10,7 @@ import 'css_typed_om.dart';
 import 'dom.dart';
 import 'hr_time.dart';
 import 'html.dart';
+import 'status.dart';
 import 'web_animations_2.dart';
 
 typedef AnimationPlayState = String;
@@ -21,6 +22,7 @@ typedef CompositeOperationOrAuto = String;
 
 @JS('AnimationTimeline')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AnimationTimeline {}
 
 extension AnimationTimelineExtension on AnimationTimeline {
@@ -43,12 +45,14 @@ extension DocumentTimelineOptionsExtension on DocumentTimelineOptions {
 
 @JS('DocumentTimeline')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DocumentTimeline implements AnimationTimeline {
   external factory DocumentTimeline([DocumentTimelineOptions options]);
 }
 
 @JS('Animation')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Animation implements EventTarget {
   external factory Animation([
     AnimationEffect? effect,
@@ -92,6 +96,7 @@ extension AnimationExtension on Animation {
 
 @JS('AnimationEffect')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AnimationEffect {}
 
 extension AnimationEffectExtension on AnimationEffect {
@@ -214,6 +219,7 @@ extension ComputedEffectTimingExtension on ComputedEffectTiming {
 
 @JS('KeyframeEffect')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class KeyframeEffect implements AnimationEffect {
   external factory KeyframeEffect(
     JSObject? sourceOrTarget, [

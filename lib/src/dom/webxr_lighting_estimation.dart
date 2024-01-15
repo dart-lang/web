@@ -9,12 +9,14 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
+import 'status.dart';
 import 'webxr.dart';
 
 typedef XRReflectionFormat = String;
 
 @JS('XRLightProbe')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRLightProbe implements EventTarget {}
 
 extension XRLightProbeExtension on XRLightProbe {
@@ -25,6 +27,7 @@ extension XRLightProbeExtension on XRLightProbe {
 
 @JS('XRLightEstimate')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRLightEstimate {}
 
 extension XRLightEstimateExtension on XRLightEstimate {

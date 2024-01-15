@@ -8,9 +8,11 @@ import 'dart:js_interop';
 
 import 'cssom.dart';
 import 'dom.dart';
+import 'status.dart';
 
 @JS('AnimationEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AnimationEvent implements Event {
   external factory AnimationEvent(
     String type, [
@@ -46,6 +48,7 @@ extension AnimationEventInitExtension on AnimationEventInit {
 
 @JS('CSSKeyframeRule')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSKeyframeRule implements CSSRule {}
 
 extension CSSKeyframeRuleExtension on CSSKeyframeRule {
@@ -56,6 +59,7 @@ extension CSSKeyframeRuleExtension on CSSKeyframeRule {
 
 @JS('CSSKeyframesRule')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSKeyframesRule implements CSSRule {}
 
 extension CSSKeyframesRuleExtension on CSSKeyframesRule {

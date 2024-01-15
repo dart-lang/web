@@ -7,6 +7,7 @@
 import 'dart:js_interop';
 
 import 'geometry.dart';
+import 'status.dart';
 import 'webxr.dart';
 
 typedef XRHitTestTrackableType = String;
@@ -54,6 +55,7 @@ extension XRTransientInputHitTestOptionsInitExtension
 
 @JS('XRHitTestSource')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRHitTestSource {}
 
 extension XRHitTestSourceExtension on XRHitTestSource {
@@ -62,6 +64,7 @@ extension XRHitTestSourceExtension on XRHitTestSource {
 
 @JS('XRTransientInputHitTestSource')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRTransientInputHitTestSource {}
 
 extension XRTransientInputHitTestSourceExtension
@@ -71,6 +74,7 @@ extension XRTransientInputHitTestSourceExtension
 
 @JS('XRHitTestResult')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRHitTestResult {}
 
 extension XRHitTestResultExtension on XRHitTestResult {
@@ -80,6 +84,7 @@ extension XRHitTestResultExtension on XRHitTestResult {
 
 @JS('XRTransientInputHitTestResult')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRTransientInputHitTestResult {}
 
 extension XRTransientInputHitTestResultExtension
@@ -113,6 +118,7 @@ extension XRRayDirectionInitExtension on XRRayDirectionInit {
 
 @JS('XRRay')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRRay {
   external factory XRRay([
     JSObject originOrTransform,

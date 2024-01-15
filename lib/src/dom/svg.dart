@@ -11,10 +11,12 @@ import 'cssom.dart';
 import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
+import 'status.dart';
 import 'web_animations.dart';
 
 @JS('SVGElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGElement implements Element {}
 
 extension SVGElementExtension on SVGElement {
@@ -263,6 +265,7 @@ extension SVGBoundingBoxOptionsExtension on SVGBoundingBoxOptions {
 
 @JS('SVGGraphicsElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGGraphicsElement implements SVGElement {}
 
 extension SVGGraphicsElementExtension on SVGGraphicsElement {
@@ -276,6 +279,7 @@ extension SVGGraphicsElementExtension on SVGGraphicsElement {
 
 @JS('SVGGeometryElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGGeometryElement implements SVGGraphicsElement {}
 
 extension SVGGeometryElementExtension on SVGGeometryElement {
@@ -288,6 +292,7 @@ extension SVGGeometryElementExtension on SVGGeometryElement {
 
 @JS('SVGNumber')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGNumber {}
 
 extension SVGNumberExtension on SVGNumber {
@@ -297,6 +302,7 @@ extension SVGNumberExtension on SVGNumber {
 
 @JS('SVGLength')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGLength {
   external static int get SVG_LENGTHTYPE_UNKNOWN;
   external static int get SVG_LENGTHTYPE_NUMBER;
@@ -328,6 +334,7 @@ extension SVGLengthExtension on SVGLength {
 
 @JS('SVGAngle')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGAngle {
   external static int get SVG_ANGLETYPE_UNKNOWN;
   external static int get SVG_ANGLETYPE_UNSPECIFIED;
@@ -353,6 +360,7 @@ extension SVGAngleExtension on SVGAngle {
 
 @JS('SVGNumberList')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGNumberList {}
 
 extension SVGNumberListExtension on SVGNumberList {
@@ -375,6 +383,7 @@ extension SVGNumberListExtension on SVGNumberList {
 
 @JS('SVGLengthList')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGLengthList {}
 
 extension SVGLengthListExtension on SVGLengthList {
@@ -397,6 +406,7 @@ extension SVGLengthListExtension on SVGLengthList {
 
 @JS('SVGStringList')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGStringList {}
 
 extension SVGStringListExtension on SVGStringList {
@@ -419,6 +429,7 @@ extension SVGStringListExtension on SVGStringList {
 
 @JS('SVGAnimatedBoolean')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGAnimatedBoolean {}
 
 extension SVGAnimatedBooleanExtension on SVGAnimatedBoolean {
@@ -429,6 +440,7 @@ extension SVGAnimatedBooleanExtension on SVGAnimatedBoolean {
 
 @JS('SVGAnimatedEnumeration')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGAnimatedEnumeration {}
 
 extension SVGAnimatedEnumerationExtension on SVGAnimatedEnumeration {
@@ -439,6 +451,7 @@ extension SVGAnimatedEnumerationExtension on SVGAnimatedEnumeration {
 
 @JS('SVGAnimatedInteger')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGAnimatedInteger {}
 
 extension SVGAnimatedIntegerExtension on SVGAnimatedInteger {
@@ -449,6 +462,7 @@ extension SVGAnimatedIntegerExtension on SVGAnimatedInteger {
 
 @JS('SVGAnimatedNumber')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGAnimatedNumber {}
 
 extension SVGAnimatedNumberExtension on SVGAnimatedNumber {
@@ -459,6 +473,7 @@ extension SVGAnimatedNumberExtension on SVGAnimatedNumber {
 
 @JS('SVGAnimatedLength')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGAnimatedLength {}
 
 extension SVGAnimatedLengthExtension on SVGAnimatedLength {
@@ -468,6 +483,7 @@ extension SVGAnimatedLengthExtension on SVGAnimatedLength {
 
 @JS('SVGAnimatedAngle')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGAnimatedAngle {}
 
 extension SVGAnimatedAngleExtension on SVGAnimatedAngle {
@@ -477,6 +493,7 @@ extension SVGAnimatedAngleExtension on SVGAnimatedAngle {
 
 @JS('SVGAnimatedString')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGAnimatedString {}
 
 extension SVGAnimatedStringExtension on SVGAnimatedString {
@@ -487,6 +504,7 @@ extension SVGAnimatedStringExtension on SVGAnimatedString {
 
 @JS('SVGAnimatedRect')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGAnimatedRect {}
 
 extension SVGAnimatedRectExtension on SVGAnimatedRect {
@@ -496,6 +514,7 @@ extension SVGAnimatedRectExtension on SVGAnimatedRect {
 
 @JS('SVGAnimatedNumberList')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGAnimatedNumberList {}
 
 extension SVGAnimatedNumberListExtension on SVGAnimatedNumberList {
@@ -505,6 +524,7 @@ extension SVGAnimatedNumberListExtension on SVGAnimatedNumberList {
 
 @JS('SVGAnimatedLengthList')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGAnimatedLengthList {}
 
 extension SVGAnimatedLengthListExtension on SVGAnimatedLengthList {
@@ -514,6 +534,7 @@ extension SVGAnimatedLengthListExtension on SVGAnimatedLengthList {
 
 @JS('SVGUnitTypes')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGUnitTypes {
   external static int get SVG_UNIT_TYPE_UNKNOWN;
   external static int get SVG_UNIT_TYPE_USERSPACEONUSE;
@@ -522,6 +543,7 @@ class SVGUnitTypes {
 
 @JS('SVGSVGElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGSVGElement implements SVGGraphicsElement {}
 
 extension SVGSVGElementExtension on SVGSVGElement {
@@ -611,26 +633,32 @@ extension SVGSVGElementExtension on SVGSVGElement {
 
 @JS('SVGGElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGGElement implements SVGGraphicsElement {}
 
 @JS('SVGDefsElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGDefsElement implements SVGGraphicsElement {}
 
 @JS('SVGDescElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGDescElement implements SVGElement {}
 
 @JS('SVGMetadataElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGMetadataElement implements SVGElement {}
 
 @JS('SVGTitleElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGTitleElement implements SVGElement {}
 
 @JS('SVGSymbolElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGSymbolElement implements SVGGraphicsElement {}
 
 extension SVGSymbolElementExtension on SVGSymbolElement {
@@ -640,6 +668,7 @@ extension SVGSymbolElementExtension on SVGSymbolElement {
 
 @JS('SVGUseElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGUseElement implements SVGGraphicsElement {}
 
 extension SVGUseElementExtension on SVGUseElement {
@@ -671,10 +700,12 @@ extension ShadowAnimationExtension on ShadowAnimation {
 
 @JS('SVGSwitchElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGSwitchElement implements SVGGraphicsElement {}
 
 @JS('SVGStyleElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGStyleElement implements SVGElement {}
 
 extension SVGStyleElementExtension on SVGStyleElement {
@@ -689,6 +720,7 @@ extension SVGStyleElementExtension on SVGStyleElement {
 
 @JS('SVGTransform')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGTransform {
   external static int get SVG_TRANSFORM_UNKNOWN;
   external static int get SVG_TRANSFORM_MATRIX;
@@ -723,6 +755,7 @@ extension SVGTransformExtension on SVGTransform {
 
 @JS('SVGTransformList')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGTransformList {}
 
 extension SVGTransformListExtension on SVGTransformList {
@@ -747,6 +780,7 @@ extension SVGTransformListExtension on SVGTransformList {
 
 @JS('SVGAnimatedTransformList')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGAnimatedTransformList {}
 
 extension SVGAnimatedTransformListExtension on SVGAnimatedTransformList {
@@ -756,6 +790,7 @@ extension SVGAnimatedTransformListExtension on SVGAnimatedTransformList {
 
 @JS('SVGPreserveAspectRatio')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGPreserveAspectRatio {
   external static int get SVG_PRESERVEASPECTRATIO_UNKNOWN;
   external static int get SVG_PRESERVEASPECTRATIO_NONE;
@@ -782,6 +817,7 @@ extension SVGPreserveAspectRatioExtension on SVGPreserveAspectRatio {
 
 @JS('SVGAnimatedPreserveAspectRatio')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGAnimatedPreserveAspectRatio {}
 
 extension SVGAnimatedPreserveAspectRatioExtension
@@ -792,10 +828,12 @@ extension SVGAnimatedPreserveAspectRatioExtension
 
 @JS('SVGPathElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGPathElement implements SVGGeometryElement {}
 
 @JS('SVGRectElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGRectElement implements SVGGeometryElement {}
 
 extension SVGRectElementExtension on SVGRectElement {
@@ -809,6 +847,7 @@ extension SVGRectElementExtension on SVGRectElement {
 
 @JS('SVGCircleElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGCircleElement implements SVGGeometryElement {}
 
 extension SVGCircleElementExtension on SVGCircleElement {
@@ -819,6 +858,7 @@ extension SVGCircleElementExtension on SVGCircleElement {
 
 @JS('SVGEllipseElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGEllipseElement implements SVGGeometryElement {}
 
 extension SVGEllipseElementExtension on SVGEllipseElement {
@@ -830,6 +870,7 @@ extension SVGEllipseElementExtension on SVGEllipseElement {
 
 @JS('SVGLineElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGLineElement implements SVGGeometryElement {}
 
 extension SVGLineElementExtension on SVGLineElement {
@@ -841,6 +882,7 @@ extension SVGLineElementExtension on SVGLineElement {
 
 @JS('SVGPointList')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGPointList {}
 
 extension SVGPointListExtension on SVGPointList {
@@ -863,6 +905,7 @@ extension SVGPointListExtension on SVGPointList {
 
 @JS('SVGPolylineElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGPolylineElement implements SVGGeometryElement {}
 
 extension SVGPolylineElementExtension on SVGPolylineElement {
@@ -872,6 +915,7 @@ extension SVGPolylineElementExtension on SVGPolylineElement {
 
 @JS('SVGPolygonElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGPolygonElement implements SVGGeometryElement {}
 
 extension SVGPolygonElementExtension on SVGPolygonElement {
@@ -881,6 +925,7 @@ extension SVGPolygonElementExtension on SVGPolygonElement {
 
 @JS('SVGTextContentElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGTextContentElement implements SVGGraphicsElement {
   external static int get LENGTHADJUST_UNKNOWN;
   external static int get LENGTHADJUST_SPACING;
@@ -909,6 +954,7 @@ extension SVGTextContentElementExtension on SVGTextContentElement {
 
 @JS('SVGTextPositioningElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGTextPositioningElement implements SVGTextContentElement {}
 
 extension SVGTextPositioningElementExtension on SVGTextPositioningElement {
@@ -921,14 +967,17 @@ extension SVGTextPositioningElementExtension on SVGTextPositioningElement {
 
 @JS('SVGTextElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGTextElement implements SVGTextPositioningElement {}
 
 @JS('SVGTSpanElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGTSpanElement implements SVGTextPositioningElement {}
 
 @JS('SVGTextPathElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGTextPathElement implements SVGTextContentElement {
   external static int get TEXTPATH_METHODTYPE_UNKNOWN;
   external static int get TEXTPATH_METHODTYPE_ALIGN;
@@ -947,6 +996,7 @@ extension SVGTextPathElementExtension on SVGTextPathElement {
 
 @JS('SVGImageElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGImageElement implements SVGGraphicsElement {}
 
 extension SVGImageElementExtension on SVGImageElement {
@@ -962,6 +1012,7 @@ extension SVGImageElementExtension on SVGImageElement {
 
 @JS('SVGForeignObjectElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGForeignObjectElement implements SVGGraphicsElement {}
 
 extension SVGForeignObjectElementExtension on SVGForeignObjectElement {
@@ -973,6 +1024,7 @@ extension SVGForeignObjectElementExtension on SVGForeignObjectElement {
 
 @JS('SVGMarkerElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGMarkerElement implements SVGElement {
   external static int get SVG_MARKERUNITS_UNKNOWN;
   external static int get SVG_MARKERUNITS_USERSPACEONUSE;
@@ -1000,6 +1052,7 @@ extension SVGMarkerElementExtension on SVGMarkerElement {
 
 @JS('SVGGradientElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGGradientElement implements SVGElement {
   external static int get SVG_SPREADMETHOD_UNKNOWN;
   external static int get SVG_SPREADMETHOD_PAD;
@@ -1016,6 +1069,7 @@ extension SVGGradientElementExtension on SVGGradientElement {
 
 @JS('SVGLinearGradientElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGLinearGradientElement implements SVGGradientElement {}
 
 extension SVGLinearGradientElementExtension on SVGLinearGradientElement {
@@ -1027,6 +1081,7 @@ extension SVGLinearGradientElementExtension on SVGLinearGradientElement {
 
 @JS('SVGRadialGradientElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGRadialGradientElement implements SVGGradientElement {}
 
 extension SVGRadialGradientElementExtension on SVGRadialGradientElement {
@@ -1040,6 +1095,7 @@ extension SVGRadialGradientElementExtension on SVGRadialGradientElement {
 
 @JS('SVGStopElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGStopElement implements SVGElement {}
 
 extension SVGStopElementExtension on SVGStopElement {
@@ -1048,6 +1104,7 @@ extension SVGStopElementExtension on SVGStopElement {
 
 @JS('SVGPatternElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGPatternElement implements SVGElement {}
 
 extension SVGPatternElementExtension on SVGPatternElement {
@@ -1065,6 +1122,7 @@ extension SVGPatternElementExtension on SVGPatternElement {
 
 @JS('SVGScriptElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGScriptElement implements SVGElement {}
 
 extension SVGScriptElementExtension on SVGScriptElement {
@@ -1077,6 +1135,7 @@ extension SVGScriptElementExtension on SVGScriptElement {
 
 @JS('SVGAElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGAElement implements SVGGraphicsElement {}
 
 extension SVGAElementExtension on SVGAElement {
@@ -1120,6 +1179,7 @@ extension SVGAElementExtension on SVGAElement {
 
 @JS('SVGViewElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGViewElement implements SVGElement {}
 
 extension SVGViewElementExtension on SVGViewElement {

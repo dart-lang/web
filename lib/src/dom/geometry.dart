@@ -6,8 +6,11 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
+
 @JS('DOMPointReadOnly')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DOMPointReadOnly {
   external factory DOMPointReadOnly([
     num x,
@@ -30,6 +33,7 @@ extension DOMPointReadOnlyExtension on DOMPointReadOnly {
 
 @JS('DOMPoint')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DOMPoint implements DOMPointReadOnly {
   external factory DOMPoint([
     num x,
@@ -77,6 +81,7 @@ extension DOMPointInitExtension on DOMPointInit {
 
 @JS('DOMRectReadOnly')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DOMRectReadOnly {
   external factory DOMRectReadOnly([
     num x,
@@ -102,6 +107,7 @@ extension DOMRectReadOnlyExtension on DOMRectReadOnly {
 
 @JS('DOMRect')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DOMRect implements DOMRectReadOnly {
   external factory DOMRect([
     num x,
@@ -149,6 +155,7 @@ extension DOMRectInitExtension on DOMRectInit {
 
 @JS('DOMRectList')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DOMRectList {}
 
 extension DOMRectListExtension on DOMRectList {
@@ -158,6 +165,7 @@ extension DOMRectListExtension on DOMRectList {
 
 @JS('DOMQuad')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DOMQuad {
   external factory DOMQuad([
     DOMPointInit p1,
@@ -204,6 +212,7 @@ extension DOMQuadInitExtension on DOMQuadInit {
 
 @JS('DOMMatrixReadOnly')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DOMMatrixReadOnly {
   external factory DOMMatrixReadOnly([JSAny init]);
 
@@ -289,6 +298,7 @@ extension DOMMatrixReadOnlyExtension on DOMMatrixReadOnly {
 
 @JS('DOMMatrix')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DOMMatrix implements DOMMatrixReadOnly {
   external factory DOMMatrix([JSAny init]);
 

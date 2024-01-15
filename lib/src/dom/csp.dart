@@ -8,11 +8,13 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'reporting.dart';
+import 'status.dart';
 
 typedef SecurityPolicyViolationEventDisposition = String;
 
 @JS('CSPViolationReportBody')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSPViolationReportBody implements ReportBody {}
 
 extension CSPViolationReportBodyExtension on CSPViolationReportBody {
@@ -32,6 +34,7 @@ extension CSPViolationReportBodyExtension on CSPViolationReportBody {
 
 @JS('SecurityPolicyViolationEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SecurityPolicyViolationEvent implements Event {
   external factory SecurityPolicyViolationEvent(
     String type, [

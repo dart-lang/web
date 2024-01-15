@@ -7,9 +7,11 @@
 import 'dart:js_interop';
 
 import 'service_workers.dart';
+import 'status.dart';
 
 @JS('SyncManager')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class SyncManager {}
 
 extension SyncManagerExtension on SyncManager {
@@ -19,6 +21,7 @@ extension SyncManagerExtension on SyncManager {
 
 @JS('SyncEvent')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class SyncEvent implements ExtendableEvent {
   external factory SyncEvent(
     String type,

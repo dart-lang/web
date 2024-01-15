@@ -10,12 +10,14 @@ import 'dom.dart';
 import 'fetch.dart';
 import 'html.dart';
 import 'service_workers.dart';
+import 'status.dart';
 
 typedef BackgroundFetchResult = String;
 typedef BackgroundFetchFailureReason = String;
 
 @JS('BackgroundFetchManager')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class BackgroundFetchManager {}
 
 extension BackgroundFetchManagerExtension on BackgroundFetchManager {
@@ -59,6 +61,7 @@ extension BackgroundFetchOptionsExtension on BackgroundFetchOptions {
 
 @JS('BackgroundFetchRegistration')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class BackgroundFetchRegistration implements EventTarget {}
 
 extension BackgroundFetchRegistrationExtension on BackgroundFetchRegistration {
@@ -85,6 +88,7 @@ extension BackgroundFetchRegistrationExtension on BackgroundFetchRegistration {
 
 @JS('BackgroundFetchRecord')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class BackgroundFetchRecord {}
 
 extension BackgroundFetchRecordExtension on BackgroundFetchRecord {
@@ -94,6 +98,7 @@ extension BackgroundFetchRecordExtension on BackgroundFetchRecord {
 
 @JS('BackgroundFetchEvent')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class BackgroundFetchEvent implements ExtendableEvent {
   external factory BackgroundFetchEvent(
     String type,
@@ -120,6 +125,7 @@ extension BackgroundFetchEventInitExtension on BackgroundFetchEventInit {
 
 @JS('BackgroundFetchUpdateUIEvent')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class BackgroundFetchUpdateUIEvent implements BackgroundFetchEvent {
   external factory BackgroundFetchUpdateUIEvent(
     String type,

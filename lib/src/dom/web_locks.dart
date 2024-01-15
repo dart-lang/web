@@ -7,12 +7,14 @@
 import 'dart:js_interop';
 
 import 'dom.dart';
+import 'status.dart';
 
 typedef LockGrantedCallback = JSFunction;
 typedef LockMode = String;
 
 @JS('LockManager')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class LockManager {}
 
 extension LockManagerExtension on LockManager {
@@ -86,6 +88,7 @@ extension LockInfoExtension on LockInfo {
 
 @JS('Lock')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Lock {}
 
 extension LockExtension on Lock {

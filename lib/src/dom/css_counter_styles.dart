@@ -7,9 +7,11 @@
 import 'dart:js_interop';
 
 import 'cssom.dart';
+import 'status.dart';
 
 @JS('CSSCounterStyleRule')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSCounterStyleRule implements CSSRule {}
 
 extension CSSCounterStyleRuleExtension on CSSCounterStyleRule {

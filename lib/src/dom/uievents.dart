@@ -9,9 +9,11 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 import 'input_device_capabilities.dart';
+import 'status.dart';
 
 @JS('UIEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class UIEvent implements Event {
   external factory UIEvent(
     String type, [
@@ -58,6 +60,7 @@ extension UIEventInitExtension on UIEventInit {
 
 @JS('FocusEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class FocusEvent implements UIEvent {
   external factory FocusEvent(
     String type, [
@@ -83,6 +86,7 @@ extension FocusEventInitExtension on FocusEventInit {
 
 @JS('MouseEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MouseEvent implements UIEvent {
   external factory MouseEvent(
     String type, [
@@ -225,6 +229,7 @@ extension EventModifierInitExtension on EventModifierInit {
 
 @JS('WheelEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WheelEvent implements MouseEvent {
   external factory WheelEvent(
     String type, [
@@ -268,6 +273,7 @@ extension WheelEventInitExtension on WheelEventInit {
 
 @JS('InputEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class InputEvent implements UIEvent {
   external factory InputEvent(
     String type, [
@@ -311,6 +317,7 @@ extension InputEventInitExtension on InputEventInit {
 
 @JS('KeyboardEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class KeyboardEvent implements UIEvent {
   external factory KeyboardEvent(
     String type, [
@@ -384,6 +391,7 @@ extension KeyboardEventInitExtension on KeyboardEventInit {
 
 @JS('CompositionEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CompositionEvent implements UIEvent {
   external factory CompositionEvent(
     String type, [
@@ -416,6 +424,7 @@ extension CompositionEventInitExtension on CompositionEventInit {
 
 @JS('MutationEvent')
 @staticInterop
+@BcdStatus('standards-track, deprecated', browsers: 'chrome, firefox, safari')
 class MutationEvent implements Event {
   external static int get MODIFICATION;
   external static int get ADDITION;

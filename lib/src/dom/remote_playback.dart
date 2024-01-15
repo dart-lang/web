@@ -8,12 +8,14 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
+import 'status.dart';
 
 typedef RemotePlaybackAvailabilityCallback = JSFunction;
 typedef RemotePlaybackState = String;
 
 @JS('RemotePlayback')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class RemotePlayback implements EventTarget {}
 
 extension RemotePlaybackExtension on RemotePlayback {

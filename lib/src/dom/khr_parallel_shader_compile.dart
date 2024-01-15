@@ -6,10 +6,12 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
 import 'webgl1.dart';
 
 @JS('KHR_parallel_shader_compile')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class KHR_parallel_shader_compile {
   external static GLenum get COMPLETION_STATUS_KHR;
 }

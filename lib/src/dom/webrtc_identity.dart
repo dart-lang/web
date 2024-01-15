@@ -7,6 +7,7 @@
 import 'dart:js_interop';
 
 import 'html.dart';
+import 'status.dart';
 
 typedef GenerateAssertionCallback = JSFunction;
 typedef ValidateAssertionCallback = JSFunction;
@@ -120,6 +121,7 @@ extension RTCIdentityProviderOptionsExtension on RTCIdentityProviderOptions {
 
 @JS('RTCIdentityAssertion')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'firefox')
 class RTCIdentityAssertion {
   external factory RTCIdentityAssertion(
     String idp,

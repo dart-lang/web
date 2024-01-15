@@ -9,9 +9,11 @@ import 'dart:js_interop';
 import 'cssom_view.dart';
 import 'dom.dart';
 import 'geometry.dart';
+import 'status.dart';
 
 @JS('CSSPseudoElement')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'firefox')
 class CSSPseudoElement implements EventTarget {}
 
 extension CSSPseudoElementExtension on CSSPseudoElement {

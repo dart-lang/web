@@ -7,9 +7,11 @@
 import 'dart:js_interop';
 
 import 'dom.dart';
+import 'status.dart';
 
 @JS('ContentVisibilityAutoStateChangeEvent')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class ContentVisibilityAutoStateChangeEvent implements Event {
   external factory ContentVisibilityAutoStateChangeEvent(
     String type, [

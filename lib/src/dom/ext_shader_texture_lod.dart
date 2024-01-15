@@ -6,6 +6,9 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
+
 @JS('EXT_shader_texture_lod')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class EXT_shader_texture_lod {}

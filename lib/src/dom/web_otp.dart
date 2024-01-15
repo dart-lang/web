@@ -7,11 +7,13 @@
 import 'dart:js_interop';
 
 import 'credential_management.dart';
+import 'status.dart';
 
 typedef OTPCredentialTransportType = String;
 
 @JS('OTPCredential')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class OTPCredential implements Credential {}
 
 extension OTPCredentialExtension on OTPCredential {

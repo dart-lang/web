@@ -6,6 +6,9 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
+
 @JS('OES_texture_half_float_linear')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class OES_texture_half_float_linear {}

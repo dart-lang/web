@@ -11,12 +11,14 @@ import 'fileapi.dart';
 import 'hr_time.dart';
 import 'html.dart';
 import 'mediacapture_streams.dart';
+import 'status.dart';
 
 typedef BitrateMode = String;
 typedef RecordingState = String;
 
 @JS('MediaRecorder')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaRecorder implements EventTarget {
   external factory MediaRecorder(
     MediaStream stream, [
@@ -86,6 +88,7 @@ extension MediaRecorderOptionsExtension on MediaRecorderOptions {
 
 @JS('BlobEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class BlobEvent implements Event {
   external factory BlobEvent(
     String type,

@@ -9,11 +9,13 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'geometry.dart';
 import 'hr_time.dart';
+import 'status.dart';
 
 typedef IntersectionObserverCallback = JSFunction;
 
 @JS('IntersectionObserver')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class IntersectionObserver {
   external factory IntersectionObserver(
     IntersectionObserverCallback callback, [
@@ -34,6 +36,7 @@ extension IntersectionObserverExtension on IntersectionObserver {
 
 @JS('IntersectionObserverEntry')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class IntersectionObserverEntry {
   external factory IntersectionObserverEntry(
       IntersectionObserverEntryInit intersectionObserverEntryInit);

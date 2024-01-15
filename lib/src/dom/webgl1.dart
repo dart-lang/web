@@ -8,6 +8,7 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
+import 'status.dart';
 import 'webidl.dart';
 
 typedef GLenum = int;
@@ -76,34 +77,42 @@ class WebGLObject {}
 
 @JS('WebGLBuffer')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WebGLBuffer implements WebGLObject {}
 
 @JS('WebGLFramebuffer')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WebGLFramebuffer implements WebGLObject {}
 
 @JS('WebGLProgram')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WebGLProgram implements WebGLObject {}
 
 @JS('WebGLRenderbuffer')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WebGLRenderbuffer implements WebGLObject {}
 
 @JS('WebGLShader')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WebGLShader implements WebGLObject {}
 
 @JS('WebGLTexture')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WebGLTexture implements WebGLObject {}
 
 @JS('WebGLUniformLocation')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WebGLUniformLocation {}
 
 @JS('WebGLActiveInfo')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WebGLActiveInfo {}
 
 extension WebGLActiveInfoExtension on WebGLActiveInfo {
@@ -114,6 +123,7 @@ extension WebGLActiveInfoExtension on WebGLActiveInfo {
 
 @JS('WebGLShaderPrecisionFormat')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WebGLShaderPrecisionFormat {}
 
 extension WebGLShaderPrecisionFormatExtension on WebGLShaderPrecisionFormat {
@@ -124,6 +134,7 @@ extension WebGLShaderPrecisionFormatExtension on WebGLShaderPrecisionFormat {
 
 @JS('WebGLRenderingContext')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WebGLRenderingContext {
   external static GLenum get DEPTH_BUFFER_BIT;
   external static GLenum get STENCIL_BUFFER_BIT;
@@ -925,6 +936,7 @@ extension WebGLRenderingContextExtension on WebGLRenderingContext {
 
 @JS('WebGLContextEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WebGLContextEvent implements Event {
   external factory WebGLContextEvent(
     String type, [

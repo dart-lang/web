@@ -6,10 +6,12 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
 import 'webgl1.dart';
 
 @JS('WEBGL_depth_texture')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WEBGL_depth_texture {
   external static GLenum get UNSIGNED_INT_24_8_WEBGL;
 }

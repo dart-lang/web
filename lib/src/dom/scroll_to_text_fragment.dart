@@ -6,6 +6,9 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
+
 @JS('FragmentDirective')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class FragmentDirective {}

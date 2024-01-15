@@ -6,8 +6,11 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
+
 @JS('StorageManager')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class StorageManager {}
 
 extension StorageManagerExtension on StorageManager {

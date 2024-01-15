@@ -10,6 +10,7 @@ import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
 import 'raw_camera_access.dart';
+import 'status.dart';
 import 'webgl1.dart';
 import 'webxr.dart';
 import 'webxr_depth_sensing.dart';
@@ -21,6 +22,7 @@ typedef XRTextureType = String;
 
 @JS('XRCompositionLayer')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: '')
 class XRCompositionLayer implements XRLayer {}
 
 extension XRCompositionLayerExtension on XRCompositionLayer {
@@ -40,6 +42,7 @@ extension XRCompositionLayerExtension on XRCompositionLayer {
 
 @JS('XRProjectionLayer')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: '')
 class XRProjectionLayer implements XRCompositionLayer {}
 
 extension XRProjectionLayerExtension on XRProjectionLayer {
@@ -55,6 +58,7 @@ extension XRProjectionLayerExtension on XRProjectionLayer {
 
 @JS('XRQuadLayer')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: '')
 class XRQuadLayer implements XRCompositionLayer {}
 
 extension XRQuadLayerExtension on XRQuadLayer {
@@ -72,6 +76,7 @@ extension XRQuadLayerExtension on XRQuadLayer {
 
 @JS('XRCylinderLayer')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: '')
 class XRCylinderLayer implements XRCompositionLayer {}
 
 extension XRCylinderLayerExtension on XRCylinderLayer {
@@ -91,6 +96,7 @@ extension XRCylinderLayerExtension on XRCylinderLayer {
 
 @JS('XREquirectLayer')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: '')
 class XREquirectLayer implements XRCompositionLayer {}
 
 extension XREquirectLayerExtension on XREquirectLayer {
@@ -112,6 +118,7 @@ extension XREquirectLayerExtension on XREquirectLayer {
 
 @JS('XRCubeLayer')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: '')
 class XRCubeLayer implements XRCompositionLayer {}
 
 extension XRCubeLayerExtension on XRCubeLayer {
@@ -125,6 +132,7 @@ extension XRCubeLayerExtension on XRCubeLayer {
 
 @JS('XRSubImage')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: '')
 class XRSubImage {}
 
 extension XRSubImageExtension on XRSubImage {
@@ -133,6 +141,7 @@ extension XRSubImageExtension on XRSubImage {
 
 @JS('XRWebGLSubImage')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: '')
 class XRWebGLSubImage implements XRSubImage {}
 
 extension XRWebGLSubImageExtension on XRWebGLSubImage {
@@ -304,6 +313,7 @@ extension XRCubeLayerInitExtension on XRCubeLayerInit {
 
 @JS('XRWebGLBinding')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRWebGLBinding {
   external factory XRWebGLBinding(
     XRSession session,
@@ -425,6 +435,7 @@ extension XRMediaEquirectLayerInitExtension on XRMediaEquirectLayerInit {
 
 @JS('XRMediaBinding')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: '')
 class XRMediaBinding {
   external factory XRMediaBinding(XRSession session);
 }
@@ -446,6 +457,7 @@ extension XRMediaBindingExtension on XRMediaBinding {
 
 @JS('XRLayerEvent')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: '')
 class XRLayerEvent implements Event {
   external factory XRLayerEvent(
     String type,

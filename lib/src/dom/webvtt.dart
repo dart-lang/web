@@ -8,6 +8,7 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
+import 'status.dart';
 
 typedef LineAndPositionSetting = JSAny;
 typedef AutoKeyword = String;
@@ -19,6 +20,7 @@ typedef ScrollSetting = String;
 
 @JS('VTTCue')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class VTTCue implements TextTrackCue {
   external factory VTTCue(
     num startTime,
@@ -53,6 +55,7 @@ extension VTTCueExtension on VTTCue {
 
 @JS('VTTRegion')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'firefox, safari')
 class VTTRegion {
   external factory VTTRegion();
 }

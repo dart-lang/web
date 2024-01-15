@@ -6,8 +6,11 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
+
 @JS('XRCamera')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRCamera {}
 
 extension XRCameraExtension on XRCamera {

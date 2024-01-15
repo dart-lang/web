@@ -6,10 +6,12 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
 import 'webgl1.dart';
 
 @JS('EXT_texture_compression_bptc')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class EXT_texture_compression_bptc {
   external static GLenum get COMPRESSED_RGBA_BPTC_UNORM_EXT;
   external static GLenum get COMPRESSED_SRGB_ALPHA_BPTC_UNORM_EXT;

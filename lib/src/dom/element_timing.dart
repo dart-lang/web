@@ -10,9 +10,11 @@ import 'dom.dart';
 import 'geometry.dart';
 import 'hr_time.dart';
 import 'performance_timeline.dart';
+import 'status.dart';
 
 @JS('PerformanceElementTiming')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class PerformanceElementTiming implements PerformanceEntry {}
 
 extension PerformanceElementTimingExtension on PerformanceElementTiming {

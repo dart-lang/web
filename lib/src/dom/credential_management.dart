@@ -8,6 +8,7 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'fedcm.dart';
+import 'status.dart';
 import 'web_otp.dart';
 import 'webauthn.dart';
 
@@ -16,6 +17,7 @@ typedef CredentialMediationRequirement = String;
 
 @JS('Credential')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Credential {
   external static JSPromise isConditionalMediationAvailable();
 }
@@ -27,6 +29,7 @@ extension CredentialExtension on Credential {
 
 @JS('CredentialsContainer')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CredentialsContainer {}
 
 extension CredentialsContainerExtension on CredentialsContainer {
@@ -105,6 +108,7 @@ extension CredentialCreationOptionsExtension on CredentialCreationOptions {
 
 @JS('PasswordCredential')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class PasswordCredential implements Credential {
   external factory PasswordCredential(JSObject dataOrForm);
 }
@@ -140,6 +144,7 @@ extension PasswordCredentialDataExtension on PasswordCredentialData {
 
 @JS('FederatedCredential')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class FederatedCredential implements Credential {
   external factory FederatedCredential(FederatedCredentialInit data);
 }

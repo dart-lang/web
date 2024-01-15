@@ -6,10 +6,12 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
 import 'webgl1.dart';
 
 @JS('EXT_texture_compression_rgtc')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class EXT_texture_compression_rgtc {
   external static GLenum get COMPRESSED_RED_RGTC1_EXT;
   external static GLenum get COMPRESSED_SIGNED_RED_RGTC1_EXT;

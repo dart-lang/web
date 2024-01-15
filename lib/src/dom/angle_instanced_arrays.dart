@@ -6,10 +6,12 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
 import 'webgl1.dart';
 
 @JS('ANGLE_instanced_arrays')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ANGLE_instanced_arrays {
   external static GLenum get VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE;
 }

@@ -6,6 +6,8 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
+
 @JS()
 @staticInterop
 @anonymous
@@ -20,6 +22,7 @@ extension IsInputPendingOptionsExtension on IsInputPendingOptions {
 
 @JS('Scheduling')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class Scheduling {}
 
 extension SchedulingExtension on Scheduling {

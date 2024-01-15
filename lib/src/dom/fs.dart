@@ -7,6 +7,7 @@
 import 'dart:js_interop';
 
 import 'file_system_access.dart';
+import 'status.dart';
 import 'streams.dart';
 import 'webidl.dart';
 
@@ -16,6 +17,7 @@ typedef WriteCommandType = String;
 
 @JS('FileSystemHandle')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class FileSystemHandle {}
 
 extension FileSystemHandleExtension on FileSystemHandle {
@@ -43,6 +45,7 @@ extension FileSystemCreateWritableOptionsExtension
 
 @JS('FileSystemFileHandle')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class FileSystemFileHandle implements FileSystemHandle {}
 
 extension FileSystemFileHandleExtension on FileSystemFileHandle {
@@ -90,6 +93,7 @@ extension FileSystemRemoveOptionsExtension on FileSystemRemoveOptions {
 
 @JS('FileSystemDirectoryHandle')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class FileSystemDirectoryHandle implements FileSystemHandle {}
 
 extension FileSystemDirectoryHandleExtension on FileSystemDirectoryHandle {
@@ -133,6 +137,7 @@ extension WriteParamsExtension on WriteParams {
 
 @JS('FileSystemWritableFileStream')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class FileSystemWritableFileStream implements WritableStream {}
 
 extension FileSystemWritableFileStreamExtension
@@ -156,6 +161,7 @@ extension FileSystemReadWriteOptionsExtension on FileSystemReadWriteOptions {
 
 @JS('FileSystemSyncAccessHandle')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class FileSystemSyncAccessHandle {}
 
 extension FileSystemSyncAccessHandleExtension on FileSystemSyncAccessHandle {

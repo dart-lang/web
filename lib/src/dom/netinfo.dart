@@ -8,6 +8,7 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
+import 'status.dart';
 
 typedef Megabit = num;
 typedef Millisecond = int;
@@ -16,6 +17,7 @@ typedef EffectiveConnectionType = String;
 
 @JS('NetworkInformation')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class NetworkInformation implements EventTarget {}
 
 extension NetworkInformationExtension on NetworkInformation {

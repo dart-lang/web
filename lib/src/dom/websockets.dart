@@ -8,11 +8,13 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
+import 'status.dart';
 
 typedef BinaryType = String;
 
 @JS('WebSocket')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WebSocket implements EventTarget {
   external factory WebSocket(
     String url, [
@@ -50,6 +52,7 @@ extension WebSocketExtension on WebSocket {
 
 @JS('CloseEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CloseEvent implements Event {
   external factory CloseEvent(
     String type, [

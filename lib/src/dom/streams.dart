@@ -7,6 +7,7 @@
 import 'dart:js_interop';
 
 import 'dom.dart';
+import 'status.dart';
 import 'webidl.dart';
 
 typedef ReadableStreamReader = JSObject;
@@ -28,6 +29,7 @@ typedef ReadableStreamType = String;
 
 @JS('ReadableStream')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ReadableStream {
   external factory ReadableStream([
     JSObject underlyingSource,
@@ -148,6 +150,7 @@ extension UnderlyingSourceExtension on UnderlyingSource {
 
 @JS('ReadableStreamDefaultReader')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ReadableStreamDefaultReader {
   external factory ReadableStreamDefaultReader(ReadableStream stream);
 }
@@ -178,6 +181,7 @@ extension ReadableStreamReadResultExtension on ReadableStreamReadResult {
 
 @JS('ReadableStreamBYOBReader')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class ReadableStreamBYOBReader {
   external factory ReadableStreamBYOBReader(ReadableStream stream);
 }
@@ -191,6 +195,7 @@ extension ReadableStreamBYOBReaderExtension on ReadableStreamBYOBReader {
 
 @JS('ReadableStreamDefaultController')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ReadableStreamDefaultController {}
 
 extension ReadableStreamDefaultControllerExtension
@@ -203,6 +208,7 @@ extension ReadableStreamDefaultControllerExtension
 
 @JS('ReadableByteStreamController')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class ReadableByteStreamController {}
 
 extension ReadableByteStreamControllerExtension
@@ -216,6 +222,7 @@ extension ReadableByteStreamControllerExtension
 
 @JS('ReadableStreamBYOBRequest')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class ReadableStreamBYOBRequest {}
 
 extension ReadableStreamBYOBRequestExtension on ReadableStreamBYOBRequest {
@@ -226,6 +233,7 @@ extension ReadableStreamBYOBRequestExtension on ReadableStreamBYOBRequest {
 
 @JS('WritableStream')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WritableStream {
   external factory WritableStream([
     JSObject underlyingSink,
@@ -268,6 +276,7 @@ extension UnderlyingSinkExtension on UnderlyingSink {
 
 @JS('WritableStreamDefaultWriter')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WritableStreamDefaultWriter {
   external factory WritableStreamDefaultWriter(WritableStream stream);
 }
@@ -284,6 +293,7 @@ extension WritableStreamDefaultWriterExtension on WritableStreamDefaultWriter {
 
 @JS('WritableStreamDefaultController')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WritableStreamDefaultController {}
 
 extension WritableStreamDefaultControllerExtension
@@ -294,6 +304,7 @@ extension WritableStreamDefaultControllerExtension
 
 @JS('TransformStream')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class TransformStream {
   external factory TransformStream([
     JSObject transformer,
@@ -338,6 +349,7 @@ extension TransformerExtension on Transformer {
 
 @JS('TransformStreamDefaultController')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class TransformStreamDefaultController {}
 
 extension TransformStreamDefaultControllerExtension
@@ -379,6 +391,7 @@ extension QueuingStrategyInitExtension on QueuingStrategyInit {
 
 @JS('ByteLengthQueuingStrategy')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ByteLengthQueuingStrategy {
   external factory ByteLengthQueuingStrategy(QueuingStrategyInit init);
 }
@@ -390,6 +403,7 @@ extension ByteLengthQueuingStrategyExtension on ByteLengthQueuingStrategy {
 
 @JS('CountQueuingStrategy')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CountQueuingStrategy {
   external factory CountQueuingStrategy(QueuingStrategyInit init);
 }

@@ -6,10 +6,13 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
+
 typedef UpdateCallback = JSFunction;
 
 @JS('ViewTransition')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class ViewTransition {}
 
 extension ViewTransitionExtension on ViewTransition {

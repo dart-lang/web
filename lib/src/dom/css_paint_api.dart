@@ -8,10 +8,12 @@ import 'dart:js_interop';
 
 import 'geometry.dart';
 import 'html.dart';
+import 'status.dart';
 import 'webidl.dart';
 
 @JS('PaintWorkletGlobalScope')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class PaintWorkletGlobalScope implements WorkletGlobalScope {}
 
 extension PaintWorkletGlobalScopeExtension on PaintWorkletGlobalScope {
@@ -37,6 +39,7 @@ extension PaintRenderingContext2DSettingsExtension
 
 @JS('PaintRenderingContext2D')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome')
 class PaintRenderingContext2D {}
 
 extension PaintRenderingContext2DExtension on PaintRenderingContext2D {
@@ -241,6 +244,7 @@ extension PaintRenderingContext2DExtension on PaintRenderingContext2D {
 
 @JS('PaintSize')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome')
 class PaintSize {}
 
 extension PaintSizeExtension on PaintSize {

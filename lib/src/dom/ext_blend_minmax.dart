@@ -6,10 +6,12 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
 import 'webgl1.dart';
 
 @JS('EXT_blend_minmax')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class EXT_blend_minmax {
   external static GLenum get MIN_EXT;
   external static GLenum get MAX_EXT;

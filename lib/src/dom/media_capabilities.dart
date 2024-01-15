@@ -7,6 +7,7 @@
 import 'dart:js_interop';
 
 import 'encrypted_media.dart';
+import 'status.dart';
 
 typedef MediaDecodingType = String;
 typedef MediaEncodingType = String;
@@ -236,6 +237,7 @@ extension MediaCapabilitiesEncodingInfoExtension
 
 @JS('MediaCapabilities')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaCapabilities {}
 
 extension MediaCapabilitiesExtension on MediaCapabilities {

@@ -7,11 +7,13 @@
 import 'dart:js_interop';
 
 import 'dom.dart';
+import 'status.dart';
 
 typedef HighlightType = String;
 
 @JS('Highlight')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Highlight {
   external factory Highlight(AbstractRange initialRanges);
 }
@@ -25,6 +27,7 @@ extension HighlightExtension on Highlight {
 
 @JS('HighlightRegistry')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HighlightRegistry {}
 
 extension HighlightRegistryExtension on HighlightRegistry {}

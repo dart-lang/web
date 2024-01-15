@@ -7,6 +7,7 @@
 import 'dart:js_interop';
 
 import 'hr_time.dart';
+import 'status.dart';
 
 typedef IdleRequestCallback = JSFunction;
 
@@ -24,6 +25,7 @@ extension IdleRequestOptionsExtension on IdleRequestOptions {
 
 @JS('IdleDeadline')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class IdleDeadline {}
 
 extension IdleDeadlineExtension on IdleDeadline {

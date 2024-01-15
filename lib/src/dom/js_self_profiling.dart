@@ -8,11 +8,13 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'hr_time.dart';
+import 'status.dart';
 
 typedef ProfilerResource = String;
 
 @JS('Profiler')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class Profiler implements EventTarget {
   external factory Profiler(ProfilerInitOptions options);
 }

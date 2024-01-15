@@ -7,9 +7,11 @@
 import 'dart:js_interop';
 
 import 'dom.dart';
+import 'status.dart';
 
 @JS('Selection')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Selection {}
 
 extension SelectionExtension on Selection {

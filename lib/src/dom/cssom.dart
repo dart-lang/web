@@ -11,9 +11,11 @@ import 'css_parser_api.dart';
 import 'css_properties_values_api.dart';
 import 'css_typed_om.dart';
 import 'html.dart';
+import 'status.dart';
 
 @JS('MediaList')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaList {}
 
 extension MediaListExtension on MediaList {
@@ -27,6 +29,7 @@ extension MediaListExtension on MediaList {
 
 @JS('StyleSheet')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class StyleSheet {}
 
 extension StyleSheetExtension on StyleSheet {
@@ -42,6 +45,7 @@ extension StyleSheetExtension on StyleSheet {
 
 @JS('CSSStyleSheet')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSStyleSheet implements StyleSheet {
   external factory CSSStyleSheet([CSSStyleSheetInit options]);
 }
@@ -87,6 +91,7 @@ extension CSSStyleSheetInitExtension on CSSStyleSheetInit {
 
 @JS('StyleSheetList')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class StyleSheetList {}
 
 extension StyleSheetListExtension on StyleSheetList {
@@ -96,6 +101,7 @@ extension StyleSheetListExtension on StyleSheetList {
 
 @JS('CSSRuleList')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSRuleList {}
 
 extension CSSRuleListExtension on CSSRuleList {
@@ -105,6 +111,7 @@ extension CSSRuleListExtension on CSSRuleList {
 
 @JS('CSSRule')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSRule {
   external static int get KEYFRAMES_RULE;
   external static int get KEYFRAME_RULE;
@@ -131,6 +138,7 @@ extension CSSRuleExtension on CSSRule {
 
 @JS('CSSStyleRule')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSStyleRule implements CSSGroupingRule {}
 
 extension CSSStyleRuleExtension on CSSStyleRule {
@@ -142,6 +150,7 @@ extension CSSStyleRuleExtension on CSSStyleRule {
 
 @JS('CSSImportRule')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSImportRule implements CSSRule {}
 
 extension CSSImportRuleExtension on CSSImportRule {
@@ -154,6 +163,7 @@ extension CSSImportRuleExtension on CSSImportRule {
 
 @JS('CSSGroupingRule')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSGroupingRule implements CSSRule {}
 
 extension CSSGroupingRuleExtension on CSSGroupingRule {
@@ -167,6 +177,7 @@ extension CSSGroupingRuleExtension on CSSGroupingRule {
 
 @JS('CSSPageRule')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSPageRule implements CSSGroupingRule {}
 
 extension CSSPageRuleExtension on CSSPageRule {
@@ -186,6 +197,7 @@ extension CSSMarginRuleExtension on CSSMarginRule {
 
 @JS('CSSNamespaceRule')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSNamespaceRule implements CSSRule {}
 
 extension CSSNamespaceRuleExtension on CSSNamespaceRule {
@@ -195,6 +207,7 @@ extension CSSNamespaceRuleExtension on CSSNamespaceRule {
 
 @JS('CSSStyleDeclaration')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSStyleDeclaration {}
 
 extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
@@ -1478,6 +1491,7 @@ external $CSS get CSS;
 
 @JS('CSS')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 abstract class $CSS {}
 
 extension $CSSExtension on $CSS {

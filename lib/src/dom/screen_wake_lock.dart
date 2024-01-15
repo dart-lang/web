@@ -8,11 +8,13 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
+import 'status.dart';
 
 typedef WakeLockType = String;
 
 @JS('WakeLock')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WakeLock {}
 
 extension WakeLockExtension on WakeLock {
@@ -21,6 +23,7 @@ extension WakeLockExtension on WakeLock {
 
 @JS('WakeLockSentinel')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WakeLockSentinel implements EventTarget {}
 
 extension WakeLockSentinelExtension on WakeLockSentinel {

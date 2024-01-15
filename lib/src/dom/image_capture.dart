@@ -7,6 +7,7 @@
 import 'dart:js_interop';
 
 import 'mediacapture_streams.dart';
+import 'status.dart';
 
 typedef ConstrainPoint2D = JSObject;
 typedef RedEyeReduction = String;
@@ -15,6 +16,7 @@ typedef MeteringMode = String;
 
 @JS('ImageCapture')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class ImageCapture {
   external factory ImageCapture(MediaStreamTrack videoTrack);
 }

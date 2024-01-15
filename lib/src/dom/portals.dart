@@ -8,9 +8,11 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
+import 'status.dart';
 
 @JS('HTMLPortalElement')
 @staticInterop
+@BcdStatus('experimental', browsers: 'chrome')
 class HTMLPortalElement implements HTMLElement {
   external factory HTMLPortalElement();
 }

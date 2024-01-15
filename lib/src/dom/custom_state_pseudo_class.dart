@@ -6,8 +6,11 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
+
 @JS('CustomStateSet')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class CustomStateSet {}
 
 extension CustomStateSetExtension on CustomStateSet {

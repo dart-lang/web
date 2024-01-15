@@ -9,9 +9,11 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'hr_time.dart';
 import 'performance_timeline.dart';
+import 'status.dart';
 
 @JS('LargestContentfulPaint')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class LargestContentfulPaint implements PerformanceEntry {}
 
 extension LargestContentfulPaintExtension on LargestContentfulPaint {

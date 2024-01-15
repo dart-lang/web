@@ -10,6 +10,7 @@ import 'dom.dart';
 import 'hr_time.dart';
 import 'html.dart';
 import 'mediacapture_streams.dart';
+import 'status.dart';
 
 typedef DecodeErrorCallback = JSFunction;
 typedef DecodeSuccessCallback = JSFunction;
@@ -30,6 +31,7 @@ typedef OverSampleType = String;
 
 @JS('BaseAudioContext')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class BaseAudioContext implements EventTarget {}
 
 extension BaseAudioContextExtension on BaseAudioContext {
@@ -84,6 +86,7 @@ extension BaseAudioContextExtension on BaseAudioContext {
 
 @JS('AudioContext')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AudioContext implements BaseAudioContext {
   external factory AudioContext([AudioContextOptions contextOptions]);
 }
@@ -146,6 +149,7 @@ extension AudioSinkOptionsExtension on AudioSinkOptions {
 
 @JS('AudioSinkInfo')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class AudioSinkInfo {}
 
 extension AudioSinkInfoExtension on AudioSinkInfo {
@@ -234,6 +238,7 @@ extension AudioRenderCapacityEventInitExtension
 
 @JS('OfflineAudioContext')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class OfflineAudioContext implements BaseAudioContext {
   external factory OfflineAudioContext(
     JSAny contextOptionsOrNumberOfChannels, [
@@ -276,6 +281,7 @@ extension OfflineAudioContextOptionsExtension on OfflineAudioContextOptions {
 
 @JS('OfflineAudioCompletionEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class OfflineAudioCompletionEvent implements Event {
   external factory OfflineAudioCompletionEvent(
     String type,
@@ -303,6 +309,7 @@ extension OfflineAudioCompletionEventInitExtension
 
 @JS('AudioBuffer')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AudioBuffer {
   external factory AudioBuffer(AudioBufferOptions options);
 }
@@ -347,6 +354,7 @@ extension AudioBufferOptionsExtension on AudioBufferOptions {
 
 @JS('AudioNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AudioNode implements EventTarget {}
 
 extension AudioNodeExtension on AudioNode {
@@ -393,6 +401,7 @@ extension AudioNodeOptionsExtension on AudioNodeOptions {
 
 @JS('AudioParam')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AudioParam {}
 
 extension AudioParamExtension on AudioParam {
@@ -431,6 +440,7 @@ extension AudioParamExtension on AudioParam {
 
 @JS('AudioScheduledSourceNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AudioScheduledSourceNode implements AudioNode {}
 
 extension AudioScheduledSourceNodeExtension on AudioScheduledSourceNode {
@@ -442,6 +452,7 @@ extension AudioScheduledSourceNodeExtension on AudioScheduledSourceNode {
 
 @JS('AnalyserNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AnalyserNode implements AudioNode {
   external factory AnalyserNode(
     BaseAudioContext context, [
@@ -490,6 +501,7 @@ extension AnalyserOptionsExtension on AnalyserOptions {
 
 @JS('AudioBufferSourceNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AudioBufferSourceNode implements AudioScheduledSourceNode {
   external factory AudioBufferSourceNode(
     BaseAudioContext context, [
@@ -546,6 +558,7 @@ extension AudioBufferSourceOptionsExtension on AudioBufferSourceOptions {
 
 @JS('AudioDestinationNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AudioDestinationNode implements AudioNode {}
 
 extension AudioDestinationNodeExtension on AudioDestinationNode {
@@ -554,6 +567,7 @@ extension AudioDestinationNodeExtension on AudioDestinationNode {
 
 @JS('AudioListener')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AudioListener {}
 
 extension AudioListenerExtension on AudioListener {
@@ -583,6 +597,7 @@ extension AudioListenerExtension on AudioListener {
 
 @JS('AudioProcessingEvent')
 @staticInterop
+@BcdStatus('standards-track, deprecated', browsers: 'chrome, firefox, safari')
 class AudioProcessingEvent implements Event {
   external factory AudioProcessingEvent(
     String type,
@@ -618,6 +633,7 @@ extension AudioProcessingEventInitExtension on AudioProcessingEventInit {
 
 @JS('BiquadFilterNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class BiquadFilterNode implements AudioNode {
   external factory BiquadFilterNode(
     BaseAudioContext context, [
@@ -667,6 +683,7 @@ extension BiquadFilterOptionsExtension on BiquadFilterOptions {
 
 @JS('ChannelMergerNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ChannelMergerNode implements AudioNode {
   external factory ChannelMergerNode(
     BaseAudioContext context, [
@@ -688,6 +705,7 @@ extension ChannelMergerOptionsExtension on ChannelMergerOptions {
 
 @JS('ChannelSplitterNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ChannelSplitterNode implements AudioNode {
   external factory ChannelSplitterNode(
     BaseAudioContext context, [
@@ -709,6 +727,7 @@ extension ChannelSplitterOptionsExtension on ChannelSplitterOptions {
 
 @JS('ConstantSourceNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ConstantSourceNode implements AudioScheduledSourceNode {
   external factory ConstantSourceNode(
     BaseAudioContext context, [
@@ -734,6 +753,7 @@ extension ConstantSourceOptionsExtension on ConstantSourceOptions {
 
 @JS('ConvolverNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ConvolverNode implements AudioNode {
   external factory ConvolverNode(
     BaseAudioContext context, [
@@ -767,6 +787,7 @@ extension ConvolverOptionsExtension on ConvolverOptions {
 
 @JS('DelayNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DelayNode implements AudioNode {
   external factory DelayNode(
     BaseAudioContext context, [
@@ -797,6 +818,7 @@ extension DelayOptionsExtension on DelayOptions {
 
 @JS('DynamicsCompressorNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DynamicsCompressorNode implements AudioNode {
   external factory DynamicsCompressorNode(
     BaseAudioContext context, [
@@ -841,6 +863,7 @@ extension DynamicsCompressorOptionsExtension on DynamicsCompressorOptions {
 
 @JS('GainNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class GainNode implements AudioNode {
   external factory GainNode(
     BaseAudioContext context, [
@@ -866,6 +889,7 @@ extension GainOptionsExtension on GainOptions {
 
 @JS('IIRFilterNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class IIRFilterNode implements AudioNode {
   external factory IIRFilterNode(
     BaseAudioContext context,
@@ -900,6 +924,7 @@ extension IIRFilterOptionsExtension on IIRFilterOptions {
 
 @JS('MediaElementAudioSourceNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaElementAudioSourceNode implements AudioNode {
   external factory MediaElementAudioSourceNode(
     AudioContext context,
@@ -927,6 +952,7 @@ extension MediaElementAudioSourceOptionsExtension
 
 @JS('MediaStreamAudioDestinationNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaStreamAudioDestinationNode implements AudioNode {
   external factory MediaStreamAudioDestinationNode(
     AudioContext context, [
@@ -941,6 +967,7 @@ extension MediaStreamAudioDestinationNodeExtension
 
 @JS('MediaStreamAudioSourceNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaStreamAudioSourceNode implements AudioNode {
   external factory MediaStreamAudioSourceNode(
     AudioContext context,
@@ -968,6 +995,7 @@ extension MediaStreamAudioSourceOptionsExtension
 
 @JS('MediaStreamTrackAudioSourceNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'firefox')
 class MediaStreamTrackAudioSourceNode implements AudioNode {
   external factory MediaStreamTrackAudioSourceNode(
     AudioContext context,
@@ -991,6 +1019,7 @@ extension MediaStreamTrackAudioSourceOptionsExtension
 
 @JS('OscillatorNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class OscillatorNode implements AudioScheduledSourceNode {
   external factory OscillatorNode(
     BaseAudioContext context, [
@@ -1031,6 +1060,7 @@ extension OscillatorOptionsExtension on OscillatorOptions {
 
 @JS('PannerNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PannerNode implements AudioNode {
   external factory PannerNode(
     BaseAudioContext context, [
@@ -1128,6 +1158,7 @@ extension PannerOptionsExtension on PannerOptions {
 
 @JS('PeriodicWave')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PeriodicWave {
   external factory PeriodicWave(
     BaseAudioContext context, [
@@ -1166,6 +1197,7 @@ extension PeriodicWaveOptionsExtension on PeriodicWaveOptions {
 
 @JS('ScriptProcessorNode')
 @staticInterop
+@BcdStatus('standards-track, deprecated', browsers: 'chrome, firefox, safari')
 class ScriptProcessorNode implements AudioNode {}
 
 extension ScriptProcessorNodeExtension on ScriptProcessorNode {
@@ -1176,6 +1208,7 @@ extension ScriptProcessorNodeExtension on ScriptProcessorNode {
 
 @JS('StereoPannerNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class StereoPannerNode implements AudioNode {
   external factory StereoPannerNode(
     BaseAudioContext context, [
@@ -1201,6 +1234,7 @@ extension StereoPannerOptionsExtension on StereoPannerOptions {
 
 @JS('WaveShaperNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WaveShaperNode implements AudioNode {
   external factory WaveShaperNode(
     BaseAudioContext context, [
@@ -1234,6 +1268,7 @@ extension WaveShaperOptionsExtension on WaveShaperOptions {
 
 @JS('AudioWorklet')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AudioWorklet implements Worklet {}
 
 extension AudioWorkletExtension on AudioWorklet {
@@ -1242,6 +1277,7 @@ extension AudioWorkletExtension on AudioWorklet {
 
 @JS('AudioWorkletGlobalScope')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AudioWorkletGlobalScope implements WorkletGlobalScope {}
 
 extension AudioWorkletGlobalScopeExtension on AudioWorkletGlobalScope {
@@ -1258,12 +1294,14 @@ extension AudioWorkletGlobalScopeExtension on AudioWorkletGlobalScope {
 
 @JS('AudioParamMap')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AudioParamMap {}
 
 extension AudioParamMapExtension on AudioParamMap {}
 
 @JS('AudioWorkletNode')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AudioWorkletNode implements AudioNode {
   external factory AudioWorkletNode(
     BaseAudioContext context,
@@ -1307,6 +1345,7 @@ extension AudioWorkletNodeOptionsExtension on AudioWorkletNodeOptions {
 
 @JS('AudioWorkletProcessor')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AudioWorkletProcessor {
   external factory AudioWorkletProcessor();
 }

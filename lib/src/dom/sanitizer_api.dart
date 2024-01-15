@@ -7,11 +7,13 @@
 import 'dart:js_interop';
 
 import 'dom.dart';
+import 'status.dart';
 
 typedef AttributeMatchList = JSAny;
 
 @JS('Sanitizer')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'firefox')
 class Sanitizer {
   external factory Sanitizer([SanitizerConfig config]);
 

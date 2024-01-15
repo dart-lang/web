@@ -9,15 +9,18 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'element_capture.dart';
 import 'mediacapture_streams.dart';
+import 'status.dart';
 
 @JS('CropTarget')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class CropTarget {
   external static JSPromise fromElement(Element element);
 }
 
 @JS('BrowserCaptureMediaStreamTrack')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class BrowserCaptureMediaStreamTrack implements MediaStreamTrack {}
 
 extension BrowserCaptureMediaStreamTrackExtension

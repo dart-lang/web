@@ -6,6 +6,9 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
+
 @JS('OES_element_index_uint')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class OES_element_index_uint {}

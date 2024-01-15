@@ -6,14 +6,17 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
 import 'webgl1.dart';
 
 @JS('WebGLVertexArrayObjectOES')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WebGLVertexArrayObjectOES implements WebGLObject {}
 
 @JS('OES_vertex_array_object')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class OES_vertex_array_object {
   external static GLenum get VERTEX_ARRAY_BINDING_OES;
 }

@@ -6,11 +6,14 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
+
 @JS()
 external $Console get console;
 
 @JS('console')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 abstract class $Console {}
 
 extension $ConsoleExtension on $Console {

@@ -6,6 +6,8 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
+
 @JS()
 @staticInterop
 @anonymous
@@ -89,6 +91,7 @@ extension UALowEntropyJSONExtension on UALowEntropyJSON {
 
 @JS('NavigatorUAData')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class NavigatorUAData {}
 
 extension NavigatorUADataExtension on NavigatorUAData {

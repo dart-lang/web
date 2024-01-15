@@ -6,11 +6,14 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
+
 typedef ReportList = JSArray;
 typedef ReportingObserverCallback = JSFunction;
 
 @JS('ReportBody')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class ReportBody {}
 
 extension ReportBodyExtension on ReportBody {
@@ -19,6 +22,7 @@ extension ReportBodyExtension on ReportBody {
 
 @JS('Report')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class Report {}
 
 extension ReportExtension on Report {
@@ -30,6 +34,7 @@ extension ReportExtension on Report {
 
 @JS('ReportingObserver')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class ReportingObserver {
   external factory ReportingObserver(
     ReportingObserverCallback callback, [

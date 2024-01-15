@@ -7,10 +7,12 @@
 import 'dart:js_interop';
 
 import 'mediacapture_streams.dart';
+import 'status.dart';
 import 'streams.dart';
 
 @JS('MediaStreamTrackProcessor')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class MediaStreamTrackProcessor {
   external factory MediaStreamTrackProcessor(
       MediaStreamTrackProcessorInit init);

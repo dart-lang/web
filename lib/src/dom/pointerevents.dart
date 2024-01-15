@@ -6,6 +6,7 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
 import 'uievents.dart';
 
 @JS()
@@ -63,6 +64,7 @@ extension PointerEventInitExtension on PointerEventInit {
 
 @JS('PointerEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PointerEvent implements MouseEvent {
   external factory PointerEvent(
     String type, [

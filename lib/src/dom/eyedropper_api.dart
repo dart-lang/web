@@ -7,6 +7,7 @@
 import 'dart:js_interop';
 
 import 'dom.dart';
+import 'status.dart';
 
 @JS()
 @staticInterop
@@ -34,6 +35,7 @@ extension ColorSelectionOptionsExtension on ColorSelectionOptions {
 
 @JS('EyeDropper')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class EyeDropper {
   external factory EyeDropper();
 }

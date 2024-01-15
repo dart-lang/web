@@ -8,11 +8,13 @@ import 'dart:js_interop';
 
 import 'hr_time.dart';
 import 'resource_timing.dart';
+import 'status.dart';
 
 typedef NavigationTimingType = String;
 
 @JS('PerformanceNavigationTiming')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PerformanceNavigationTiming implements PerformanceResourceTiming {}
 
 extension PerformanceNavigationTimingExtension on PerformanceNavigationTiming {
@@ -33,6 +35,7 @@ extension PerformanceNavigationTimingExtension on PerformanceNavigationTiming {
 
 @JS('PerformanceTiming')
 @staticInterop
+@BcdStatus('standards-track, deprecated', browsers: 'chrome, firefox, safari')
 class PerformanceTiming {}
 
 extension PerformanceTimingExtension on PerformanceTiming {
@@ -62,6 +65,7 @@ extension PerformanceTimingExtension on PerformanceTiming {
 
 @JS('PerformanceNavigation')
 @staticInterop
+@BcdStatus('standards-track, deprecated', browsers: 'chrome, firefox, safari')
 class PerformanceNavigation {
   external static int get TYPE_NAVIGATE;
   external static int get TYPE_RELOAD;

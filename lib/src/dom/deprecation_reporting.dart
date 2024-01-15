@@ -7,9 +7,11 @@
 import 'dart:js_interop';
 
 import 'reporting.dart';
+import 'status.dart';
 
 @JS('DeprecationReportBody')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class DeprecationReportBody implements ReportBody {}
 
 extension DeprecationReportBodyExtension on DeprecationReportBody {

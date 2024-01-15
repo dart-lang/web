@@ -7,9 +7,11 @@
 import 'dart:js_interop';
 
 import 'dom.dart';
+import 'status.dart';
 
 @JS('TransitionEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class TransitionEvent implements Event {
   external factory TransitionEvent(
     String type, [

@@ -7,9 +7,11 @@
 import 'dart:js_interop';
 
 import 'service_workers.dart';
+import 'status.dart';
 
 @JS('PeriodicSyncManager')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class PeriodicSyncManager {}
 
 extension PeriodicSyncManagerExtension on PeriodicSyncManager {
@@ -47,6 +49,7 @@ extension PeriodicSyncEventInitExtension on PeriodicSyncEventInit {
 
 @JS('PeriodicSyncEvent')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class PeriodicSyncEvent implements ExtendableEvent {
   external factory PeriodicSyncEvent(
     String type,

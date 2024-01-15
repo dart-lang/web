@@ -7,6 +7,7 @@
 import 'dart:js_interop';
 
 import 'dom.dart';
+import 'status.dart';
 import 'uievents.dart';
 
 typedef TouchType = String;
@@ -69,6 +70,7 @@ extension TouchInitExtension on TouchInit {
 
 @JS('Touch')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class Touch {
   external factory Touch(TouchInit touchInitDict);
 }
@@ -93,6 +95,7 @@ extension TouchExtension on Touch {
 
 @JS('TouchList')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class TouchList {}
 
 extension TouchListExtension on TouchList {
@@ -122,6 +125,7 @@ extension TouchEventInitExtension on TouchEventInit {
 
 @JS('TouchEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class TouchEvent implements UIEvent {
   external factory TouchEvent(
     String type, [

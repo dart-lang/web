@@ -6,10 +6,13 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
+
 typedef ContactProperty = String;
 
 @JS('ContactAddress')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: '')
 class ContactAddress {}
 
 extension ContactAddressExtension on ContactAddress {
@@ -66,6 +69,7 @@ extension ContactsSelectOptionsExtension on ContactsSelectOptions {
 
 @JS('ContactsManager')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: '')
 class ContactsManager {}
 
 extension ContactsManagerExtension on ContactsManager {

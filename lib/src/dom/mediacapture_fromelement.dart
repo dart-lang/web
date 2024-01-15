@@ -8,9 +8,11 @@ import 'dart:js_interop';
 
 import 'html.dart';
 import 'mediacapture_streams.dart';
+import 'status.dart';
 
 @JS('CanvasCaptureMediaStreamTrack')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CanvasCaptureMediaStreamTrack implements MediaStreamTrack {}
 
 extension CanvasCaptureMediaStreamTrackExtension

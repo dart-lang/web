@@ -6,6 +6,7 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
 import 'webgl1.dart';
 import 'webxr.dart';
 
@@ -31,6 +32,7 @@ extension XRDepthStateInitExtension on XRDepthStateInit {
 
 @JS('XRDepthInformation')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRDepthInformation {}
 
 extension XRDepthInformationExtension on XRDepthInformation {
@@ -42,6 +44,7 @@ extension XRDepthInformationExtension on XRDepthInformation {
 
 @JS('XRCPUDepthInformation')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRCPUDepthInformation implements XRDepthInformation {}
 
 extension XRCPUDepthInformationExtension on XRCPUDepthInformation {
@@ -54,6 +57,7 @@ extension XRCPUDepthInformationExtension on XRCPUDepthInformation {
 
 @JS('XRWebGLDepthInformation')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRWebGLDepthInformation implements XRDepthInformation {}
 
 extension XRWebGLDepthInformationExtension on XRWebGLDepthInformation {

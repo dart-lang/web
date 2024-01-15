@@ -6,10 +6,12 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
 import 'webgl1.dart';
 
 @JS('WEBGL_multi_draw')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class WEBGL_multi_draw {}
 
 extension WEBGLMultiDrawExtension on WEBGL_multi_draw {

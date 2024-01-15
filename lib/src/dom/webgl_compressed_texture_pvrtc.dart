@@ -6,10 +6,12 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
 import 'webgl1.dart';
 
 @JS('WEBGL_compressed_texture_pvrtc')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'safari')
 class WEBGL_compressed_texture_pvrtc {
   external static GLenum get COMPRESSED_RGB_PVRTC_4BPPV1_IMG;
   external static GLenum get COMPRESSED_RGB_PVRTC_2BPPV1_IMG;

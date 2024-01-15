@@ -9,6 +9,7 @@ import 'dart:js_interop';
 import 'attribution_reporting_api.dart';
 import 'dom.dart';
 import 'html.dart';
+import 'status.dart';
 import 'trust_token_api.dart';
 
 typedef FormDataEntryValue = JSAny;
@@ -16,6 +17,7 @@ typedef XMLHttpRequestResponseType = String;
 
 @JS('XMLHttpRequestEventTarget')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class XMLHttpRequestEventTarget implements EventTarget {}
 
 extension XMLHttpRequestEventTargetExtension on XMLHttpRequestEventTarget {
@@ -37,10 +39,12 @@ extension XMLHttpRequestEventTargetExtension on XMLHttpRequestEventTarget {
 
 @JS('XMLHttpRequestUpload')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class XMLHttpRequestUpload implements XMLHttpRequestEventTarget {}
 
 @JS('XMLHttpRequest')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class XMLHttpRequest implements XMLHttpRequestEventTarget {
   external factory XMLHttpRequest();
 
@@ -91,6 +95,7 @@ extension XMLHttpRequestExtension on XMLHttpRequest {
 
 @JS('FormData')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class FormData {
   external factory FormData([
     HTMLFormElement form,
@@ -117,6 +122,7 @@ extension FormDataExtension on FormData {
 
 @JS('ProgressEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ProgressEvent implements Event {
   external factory ProgressEvent(
     String type, [

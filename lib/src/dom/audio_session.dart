@@ -8,12 +8,14 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
+import 'status.dart';
 
 typedef AudioSessionState = String;
 typedef AudioSessionType = String;
 
 @JS('AudioSession')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'safari')
 class AudioSession implements EventTarget {}
 
 extension AudioSessionExtension on AudioSession {

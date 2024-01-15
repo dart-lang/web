@@ -6,6 +6,8 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
+
 typedef ErrorCallback = JSFunction;
 typedef FileSystemEntryCallback = JSFunction;
 typedef FileSystemEntriesCallback = JSFunction;
@@ -13,6 +15,7 @@ typedef FileCallback = JSFunction;
 
 @JS('FileSystemEntry')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class FileSystemEntry {}
 
 extension FileSystemEntryExtension on FileSystemEntry {
@@ -29,6 +32,7 @@ extension FileSystemEntryExtension on FileSystemEntry {
 
 @JS('FileSystemDirectoryEntry')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class FileSystemDirectoryEntry implements FileSystemEntry {}
 
 extension FileSystemDirectoryEntryExtension on FileSystemDirectoryEntry {
@@ -66,6 +70,7 @@ extension FileSystemFlagsExtension on FileSystemFlags {
 
 @JS('FileSystemDirectoryReader')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class FileSystemDirectoryReader {}
 
 extension FileSystemDirectoryReaderExtension on FileSystemDirectoryReader {
@@ -77,6 +82,7 @@ extension FileSystemDirectoryReaderExtension on FileSystemDirectoryReader {
 
 @JS('FileSystemFileEntry')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class FileSystemFileEntry implements FileSystemEntry {}
 
 extension FileSystemFileEntryExtension on FileSystemFileEntry {
@@ -88,6 +94,7 @@ extension FileSystemFileEntryExtension on FileSystemFileEntry {
 
 @JS('FileSystem')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class FileSystem {}
 
 extension FileSystemExtension on FileSystem {

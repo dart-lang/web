@@ -6,6 +6,8 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
+
 @JS()
 @staticInterop
 @anonymous
@@ -20,6 +22,7 @@ extension QueryOptionsExtension on QueryOptions {
 
 @JS('FontData')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class FontData {}
 
 extension FontDataExtension on FontData {

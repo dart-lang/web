@@ -9,6 +9,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
+import 'status.dart';
 
 typedef UnderlineStyle = String;
 typedef UnderlineThickness = String;
@@ -35,6 +36,7 @@ extension EditContextInitExtension on EditContextInit {
 
 @JS('EditContext')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class EditContext implements EventTarget {
   external factory EditContext([EditContextInit options]);
 }
@@ -112,6 +114,7 @@ extension TextUpdateEventInitExtension on TextUpdateEventInit {
 
 @JS('TextUpdateEvent')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class TextUpdateEvent implements Event {
   external factory TextUpdateEvent(
     String type, [
@@ -154,6 +157,7 @@ extension TextFormatInitExtension on TextFormatInit {
 
 @JS('TextFormat')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class TextFormat {
   external factory TextFormat([TextFormatInit options]);
 }
@@ -179,6 +183,7 @@ extension TextFormatUpdateEventInitExtension on TextFormatUpdateEventInit {
 
 @JS('TextFormatUpdateEvent')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class TextFormatUpdateEvent implements Event {
   external factory TextFormatUpdateEvent(
     String type, [
@@ -210,6 +215,7 @@ extension CharacterBoundsUpdateEventInitExtension
 
 @JS('CharacterBoundsUpdateEvent')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class CharacterBoundsUpdateEvent implements Event {
   external factory CharacterBoundsUpdateEvent(
     String type, [

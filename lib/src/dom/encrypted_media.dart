@@ -8,6 +8,7 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
+import 'status.dart';
 import 'webidl.dart';
 
 typedef MediaKeysRequirement = String;
@@ -71,6 +72,7 @@ extension MediaKeySystemMediaCapabilityExtension
 
 @JS('MediaKeySystemAccess')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaKeySystemAccess {}
 
 extension MediaKeySystemAccessExtension on MediaKeySystemAccess {
@@ -81,6 +83,7 @@ extension MediaKeySystemAccessExtension on MediaKeySystemAccess {
 
 @JS('MediaKeys')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaKeys {}
 
 extension MediaKeysExtension on MediaKeys {
@@ -90,6 +93,7 @@ extension MediaKeysExtension on MediaKeys {
 
 @JS('MediaKeySession')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaKeySession implements EventTarget {}
 
 extension MediaKeySessionExtension on MediaKeySession {
@@ -113,6 +117,7 @@ extension MediaKeySessionExtension on MediaKeySession {
 
 @JS('MediaKeyStatusMap')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaKeyStatusMap {}
 
 extension MediaKeyStatusMapExtension on MediaKeyStatusMap {
@@ -123,6 +128,7 @@ extension MediaKeyStatusMapExtension on MediaKeyStatusMap {
 
 @JS('MediaKeyMessageEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaKeyMessageEvent implements Event {
   external factory MediaKeyMessageEvent(
     String type,
@@ -154,6 +160,7 @@ extension MediaKeyMessageEventInitExtension on MediaKeyMessageEventInit {
 
 @JS('MediaEncryptedEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaEncryptedEvent implements Event {
   external factory MediaEncryptedEvent(
     String type, [

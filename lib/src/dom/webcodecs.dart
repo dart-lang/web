@@ -10,6 +10,7 @@ import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
 import 'mediastream_recording.dart';
+import 'status.dart';
 import 'webcodecs_aac_codec_registration.dart';
 import 'webcodecs_av1_codec_registration.dart';
 import 'webcodecs_avc_codec_registration.dart';
@@ -40,6 +41,7 @@ typedef VideoMatrixCoefficients = String;
 
 @JS('AudioDecoder')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class AudioDecoder implements EventTarget {
   external factory AudioDecoder(AudioDecoderInit init);
 
@@ -77,6 +79,7 @@ extension AudioDecoderInitExtension on AudioDecoderInit {
 
 @JS('VideoDecoder')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class VideoDecoder implements EventTarget {
   external factory VideoDecoder(VideoDecoderInit init);
 
@@ -114,6 +117,7 @@ extension VideoDecoderInitExtension on VideoDecoderInit {
 
 @JS('AudioEncoder')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class AudioEncoder implements EventTarget {
   external factory AudioEncoder(AudioEncoderInit init);
 
@@ -164,6 +168,7 @@ extension EncodedAudioChunkMetadataExtension on EncodedAudioChunkMetadata {
 
 @JS('VideoEncoder')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class VideoEncoder implements EventTarget {
   external factory VideoEncoder(VideoEncoderInit init);
 
@@ -482,6 +487,7 @@ extension VideoEncoderEncodeOptionsExtension on VideoEncoderEncodeOptions {
 
 @JS('EncodedAudioChunk')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class EncodedAudioChunk {
   external factory EncodedAudioChunk(EncodedAudioChunkInit init);
 }
@@ -519,6 +525,7 @@ extension EncodedAudioChunkInitExtension on EncodedAudioChunkInit {
 
 @JS('EncodedVideoChunk')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class EncodedVideoChunk {
   external factory EncodedVideoChunk(EncodedVideoChunkInit init);
 }
@@ -556,6 +563,7 @@ extension EncodedVideoChunkInitExtension on EncodedVideoChunkInit {
 
 @JS('AudioData')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class AudioData {
   external factory AudioData(AudioDataInit init);
 }
@@ -633,6 +641,7 @@ extension AudioDataCopyToOptionsExtension on AudioDataCopyToOptions {
 
 @JS('VideoFrame')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class VideoFrame {
   external factory VideoFrame(
     JSObject dataOrImage, [
@@ -780,6 +789,7 @@ extension PlaneLayoutExtension on PlaneLayout {
 
 @JS('VideoColorSpace')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class VideoColorSpace {
   external factory VideoColorSpace([VideoColorSpaceInit init]);
 }
@@ -817,6 +827,7 @@ extension VideoColorSpaceInitExtension on VideoColorSpaceInit {
 
 @JS('ImageDecoder')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class ImageDecoder {
   external factory ImageDecoder(ImageDecoderInit init);
 
@@ -901,6 +912,7 @@ extension ImageDecodeResultExtension on ImageDecodeResult {
 
 @JS('ImageTrackList')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class ImageTrackList {}
 
 extension ImageTrackListExtension on ImageTrackList {
@@ -912,6 +924,7 @@ extension ImageTrackListExtension on ImageTrackList {
 
 @JS('ImageTrack')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class ImageTrack {}
 
 extension ImageTrackExtension on ImageTrack {

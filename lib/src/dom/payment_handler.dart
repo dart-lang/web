@@ -8,12 +8,14 @@ import 'dart:js_interop';
 
 import 'payment_request.dart';
 import 'service_workers.dart';
+import 'status.dart';
 
 typedef PaymentDelegation = String;
 typedef PaymentShippingType = String;
 
 @JS('PaymentManager')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class PaymentManager {}
 
 extension PaymentManagerExtension on PaymentManager {
@@ -24,6 +26,7 @@ extension PaymentManagerExtension on PaymentManager {
 
 @JS('CanMakePaymentEvent')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class CanMakePaymentEvent implements ExtendableEvent {
   external factory CanMakePaymentEvent(String type);
 }
@@ -63,6 +66,7 @@ extension PaymentRequestDetailsUpdateExtension on PaymentRequestDetailsUpdate {
 
 @JS('PaymentRequestEvent')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class PaymentRequestEvent implements ExtendableEvent {
   external factory PaymentRequestEvent(
     String type, [

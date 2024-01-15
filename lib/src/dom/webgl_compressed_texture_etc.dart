@@ -6,10 +6,12 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
 import 'webgl1.dart';
 
 @JS('WEBGL_compressed_texture_etc')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class WEBGL_compressed_texture_etc {
   external static GLenum get COMPRESSED_R11_EAC;
   external static GLenum get COMPRESSED_SIGNED_R11_EAC;

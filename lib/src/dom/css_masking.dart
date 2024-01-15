@@ -6,10 +6,12 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
 import 'svg.dart';
 
 @JS('SVGClipPathElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGClipPathElement implements SVGElement {}
 
 extension SVGClipPathElementExtension on SVGClipPathElement {
@@ -19,6 +21,7 @@ extension SVGClipPathElementExtension on SVGClipPathElement {
 
 @JS('SVGMaskElement')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGMaskElement implements SVGElement {}
 
 extension SVGMaskElementExtension on SVGMaskElement {

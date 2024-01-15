@@ -8,6 +8,7 @@ import 'dart:js_interop';
 
 import 'hr_time.dart';
 import 'performance_timeline.dart';
+import 'status.dart';
 
 @JS()
 @staticInterop
@@ -51,6 +52,7 @@ extension PerformanceMeasureOptionsExtension on PerformanceMeasureOptions {
 
 @JS('PerformanceMark')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PerformanceMark implements PerformanceEntry {
   external factory PerformanceMark(
     String markName, [
@@ -64,6 +66,7 @@ extension PerformanceMarkExtension on PerformanceMark {
 
 @JS('PerformanceMeasure')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PerformanceMeasure implements PerformanceEntry {}
 
 extension PerformanceMeasureExtension on PerformanceMeasure {

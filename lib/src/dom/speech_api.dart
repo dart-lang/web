@@ -8,12 +8,14 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
+import 'status.dart';
 
 typedef SpeechRecognitionErrorCode = String;
 typedef SpeechSynthesisErrorCode = String;
 
 @JS('SpeechRecognition')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class SpeechRecognition implements EventTarget {
   external factory SpeechRecognition();
 }
@@ -58,6 +60,7 @@ extension SpeechRecognitionExtension on SpeechRecognition {
 
 @JS('SpeechRecognitionErrorEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class SpeechRecognitionErrorEvent implements Event {
   external factory SpeechRecognitionErrorEvent(
     String type,
@@ -90,6 +93,7 @@ extension SpeechRecognitionErrorEventInitExtension
 
 @JS('SpeechRecognitionAlternative')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class SpeechRecognitionAlternative {}
 
 extension SpeechRecognitionAlternativeExtension
@@ -100,6 +104,7 @@ extension SpeechRecognitionAlternativeExtension
 
 @JS('SpeechRecognitionResult')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class SpeechRecognitionResult {}
 
 extension SpeechRecognitionResultExtension on SpeechRecognitionResult {
@@ -110,6 +115,7 @@ extension SpeechRecognitionResultExtension on SpeechRecognitionResult {
 
 @JS('SpeechRecognitionResultList')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class SpeechRecognitionResultList {}
 
 extension SpeechRecognitionResultListExtension on SpeechRecognitionResultList {
@@ -119,6 +125,7 @@ extension SpeechRecognitionResultListExtension on SpeechRecognitionResultList {
 
 @JS('SpeechRecognitionEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class SpeechRecognitionEvent implements Event {
   external factory SpeechRecognitionEvent(
     String type,
@@ -150,6 +157,7 @@ extension SpeechRecognitionEventInitExtension on SpeechRecognitionEventInit {
 
 @JS('SpeechGrammar')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class SpeechGrammar {}
 
 extension SpeechGrammarExtension on SpeechGrammar {
@@ -161,6 +169,7 @@ extension SpeechGrammarExtension on SpeechGrammar {
 
 @JS('SpeechGrammarList')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class SpeechGrammarList {
   external factory SpeechGrammarList();
 }
@@ -180,6 +189,7 @@ extension SpeechGrammarListExtension on SpeechGrammarList {
 
 @JS('SpeechSynthesis')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SpeechSynthesis implements EventTarget {}
 
 extension SpeechSynthesisExtension on SpeechSynthesis {
@@ -197,6 +207,7 @@ extension SpeechSynthesisExtension on SpeechSynthesis {
 
 @JS('SpeechSynthesisUtterance')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SpeechSynthesisUtterance implements EventTarget {
   external factory SpeechSynthesisUtterance([String text]);
 }
@@ -232,6 +243,7 @@ extension SpeechSynthesisUtteranceExtension on SpeechSynthesisUtterance {
 
 @JS('SpeechSynthesisEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SpeechSynthesisEvent implements Event {
   external factory SpeechSynthesisEvent(
     String type,
@@ -275,6 +287,7 @@ extension SpeechSynthesisEventInitExtension on SpeechSynthesisEventInit {
 
 @JS('SpeechSynthesisErrorEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SpeechSynthesisErrorEvent implements SpeechSynthesisEvent {
   external factory SpeechSynthesisErrorEvent(
     String type,
@@ -302,6 +315,7 @@ extension SpeechSynthesisErrorEventInitExtension
 
 @JS('SpeechSynthesisVoice')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SpeechSynthesisVoice {}
 
 extension SpeechSynthesisVoiceExtension on SpeechSynthesisVoice {

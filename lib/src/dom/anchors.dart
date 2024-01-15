@@ -6,10 +6,12 @@
 
 import 'dart:js_interop';
 
+import 'status.dart';
 import 'webxr.dart';
 
 @JS('XRAnchor')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRAnchor {}
 
 extension XRAnchorExtension on XRAnchor {
@@ -20,6 +22,7 @@ extension XRAnchorExtension on XRAnchor {
 
 @JS('XRAnchorSet')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRAnchorSet {}
 
 extension XRAnchorSetExtension on XRAnchorSet {}

@@ -7,9 +7,11 @@
 import 'dart:js_interop';
 
 import 'dom.dart';
+import 'status.dart';
 
 @JS('XMLSerializer')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class XMLSerializer {
   external factory XMLSerializer();
 }

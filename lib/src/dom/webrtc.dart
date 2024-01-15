@@ -11,6 +11,7 @@ import 'hr_time.dart';
 import 'html.dart';
 import 'mediacapture_streams.dart';
 import 'mst_content_hint.dart';
+import 'status.dart';
 import 'webcryptoapi.dart';
 import 'webidl.dart';
 import 'webrtc_encoded_transform.dart';
@@ -132,6 +133,7 @@ class RTCAnswerOptions implements RTCOfferAnswerOptions {
 
 @JS('RTCPeerConnection')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class RTCPeerConnection implements EventTarget {
   external factory RTCPeerConnection([RTCConfiguration configuration]);
 
@@ -227,6 +229,7 @@ extension RTCPeerConnectionExtension on RTCPeerConnection {
 
 @JS('RTCSessionDescription')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class RTCSessionDescription {
   external factory RTCSessionDescription(
       RTCSessionDescriptionInit descriptionInitDict);
@@ -275,6 +278,7 @@ extension RTCLocalSessionDescriptionInitExtension
 
 @JS('RTCIceCandidate')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class RTCIceCandidate {
   external factory RTCIceCandidate([RTCIceCandidateInit candidateInitDict]);
 }
@@ -324,6 +328,7 @@ extension RTCIceCandidateInitExtension on RTCIceCandidateInit {
 
 @JS('RTCPeerConnectionIceEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class RTCPeerConnectionIceEvent implements Event {
   external factory RTCPeerConnectionIceEvent(
     String type, [
@@ -356,6 +361,7 @@ extension RTCPeerConnectionIceEventInitExtension
 
 @JS('RTCPeerConnectionIceErrorEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class RTCPeerConnectionIceErrorEvent implements Event {
   external factory RTCPeerConnectionIceErrorEvent(
     String type,
@@ -413,6 +419,7 @@ extension RTCCertificateExpirationExtension on RTCCertificateExpiration {
 
 @JS('RTCCertificate')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class RTCCertificate {}
 
 extension RTCCertificateExtension on RTCCertificate {
@@ -442,6 +449,7 @@ extension RTCRtpTransceiverInitExtension on RTCRtpTransceiverInit {
 
 @JS('RTCRtpSender')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class RTCRtpSender {
   external static RTCRtpCapabilities? getCapabilities(String kind);
 }
@@ -673,6 +681,7 @@ class RTCSetParameterOptions {
 
 @JS('RTCRtpReceiver')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class RTCRtpReceiver {
   external static RTCRtpCapabilities? getCapabilities(String kind);
 }
@@ -720,6 +729,7 @@ class RTCRtpSynchronizationSource implements RTCRtpContributingSource {
 
 @JS('RTCRtpTransceiver')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class RTCRtpTransceiver {}
 
 extension RTCRtpTransceiverExtension on RTCRtpTransceiver {
@@ -735,6 +745,7 @@ extension RTCRtpTransceiverExtension on RTCRtpTransceiver {
 
 @JS('RTCDtlsTransport')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class RTCDtlsTransport implements EventTarget {}
 
 extension RTCDtlsTransportExtension on RTCDtlsTransport {
@@ -766,6 +777,7 @@ extension RTCDtlsFingerprintExtension on RTCDtlsFingerprint {
 
 @JS('RTCIceTransport')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class RTCIceTransport implements EventTarget {
   external factory RTCIceTransport();
 }
@@ -838,6 +850,7 @@ extension RTCIceCandidatePairExtension on RTCIceCandidatePair {
 
 @JS('RTCTrackEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class RTCTrackEvent implements Event {
   external factory RTCTrackEvent(
     String type,
@@ -877,6 +890,7 @@ extension RTCTrackEventInitExtension on RTCTrackEventInit {
 
 @JS('RTCSctpTransport')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class RTCSctpTransport implements EventTarget {}
 
 extension RTCSctpTransportExtension on RTCSctpTransport {
@@ -890,6 +904,7 @@ extension RTCSctpTransportExtension on RTCSctpTransport {
 
 @JS('RTCDataChannel')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class RTCDataChannel implements EventTarget {}
 
 extension RTCDataChannelExtension on RTCDataChannel {
@@ -957,6 +972,7 @@ extension RTCDataChannelInitExtension on RTCDataChannelInit {
 
 @JS('RTCDataChannelEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class RTCDataChannelEvent implements Event {
   external factory RTCDataChannelEvent(
     String type,
@@ -982,6 +998,7 @@ extension RTCDataChannelEventInitExtension on RTCDataChannelEventInit {
 
 @JS('RTCDTMFSender')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class RTCDTMFSender implements EventTarget {}
 
 extension RTCDTMFSenderExtension on RTCDTMFSender {
@@ -998,6 +1015,7 @@ extension RTCDTMFSenderExtension on RTCDTMFSender {
 
 @JS('RTCDTMFToneChangeEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class RTCDTMFToneChangeEvent implements Event {
   external factory RTCDTMFToneChangeEvent(
     String type, [
@@ -1023,6 +1041,7 @@ extension RTCDTMFToneChangeEventInitExtension on RTCDTMFToneChangeEventInit {
 
 @JS('RTCStatsReport')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class RTCStatsReport {}
 
 extension RTCStatsReportExtension on RTCStatsReport {}
@@ -1049,6 +1068,7 @@ extension RTCStatsExtension on RTCStats {
 
 @JS('RTCError')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class RTCError implements DOMException {
   external factory RTCError(
     RTCErrorInit init, [
@@ -1096,6 +1116,7 @@ extension RTCErrorInitExtension on RTCErrorInit {
 
 @JS('RTCErrorEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, safari')
 class RTCErrorEvent implements Event {
   external factory RTCErrorEvent(
     String type,

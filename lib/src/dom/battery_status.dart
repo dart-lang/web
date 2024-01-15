@@ -8,9 +8,11 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
+import 'status.dart';
 
 @JS('BatteryManager')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome')
 class BatteryManager implements EventTarget {}
 
 extension BatteryManagerExtension on BatteryManager {

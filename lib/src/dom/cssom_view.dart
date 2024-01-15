@@ -10,6 +10,7 @@ import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
 import 'screen_orientation.dart';
+import 'status.dart';
 
 typedef GeometryNode = JSObject;
 typedef ScrollBehavior = String;
@@ -47,6 +48,7 @@ extension ScrollToOptionsExtension on ScrollToOptions {
 
 @JS('MediaQueryList')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaQueryList implements EventTarget {}
 
 extension MediaQueryListExtension on MediaQueryList {
@@ -60,6 +62,7 @@ extension MediaQueryListExtension on MediaQueryList {
 
 @JS('MediaQueryListEvent')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaQueryListEvent implements Event {
   external factory MediaQueryListEvent(
     String type, [
@@ -91,6 +94,7 @@ extension MediaQueryListEventInitExtension on MediaQueryListEventInit {
 
 @JS('Screen')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Screen {}
 
 extension ScreenExtension on Screen {
@@ -108,6 +112,7 @@ extension ScreenExtension on Screen {
 
 @JS('CaretPosition')
 @staticInterop
+@BcdStatus('standards-track, experimental', browsers: 'firefox')
 class CaretPosition {}
 
 extension CaretPositionExtension on CaretPosition {
@@ -186,6 +191,7 @@ extension ConvertCoordinateOptionsExtension on ConvertCoordinateOptions {
 
 @JS('VisualViewport')
 @staticInterop
+@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class VisualViewport implements EventTarget {}
 
 extension VisualViewportExtension on VisualViewport {

@@ -486,7 +486,7 @@ class Translator {
 
     // TODO: Use the info from the spec to skip generation of some libraries.
     // ignore: unused_local_variable
-    final spec = webSpecs.specFor(shortName)!;
+    // final spec = webSpecs.specFor(shortName)!;
 
     final library = _Library(this, '$packageRoot/$libraryPath');
     _libraries[libraryPath] = library;

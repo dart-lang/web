@@ -73,10 +73,22 @@ extension ClipboardItemOptionsExtension on ClipboardItemOptions {
 class Clipboard implements EventTarget {}
 
 extension ClipboardExtension on Clipboard {
-  external JSPromise read();
+  external JSPromise read([ClipboardUnsanitizedFormats formats]);
   external JSPromise readText();
   external JSPromise write(ClipboardItems data);
   external JSPromise writeText(String data);
+}
+
+@JS()
+@staticInterop
+@anonymous
+class ClipboardUnsanitizedFormats {
+  external factory ClipboardUnsanitizedFormats({JSArray unsanitized});
+}
+
+extension ClipboardUnsanitizedFormatsExtension on ClipboardUnsanitizedFormats {
+  external set unsanitized(JSArray value);
+  external JSArray get unsanitized;
 }
 
 @JS()

@@ -19,12 +19,41 @@ extension NavigatorLoginExtension on NavigatorLogin {
   external JSPromise setStatus(LoginStatus status);
 }
 
+@JS()
+@staticInterop
+@anonymous
+class IdentityCredentialDisconnectOptions implements IdentityProviderConfig {
+  external factory IdentityCredentialDisconnectOptions(
+      {required String accountHint});
+}
+
+extension IdentityCredentialDisconnectOptionsExtension
+    on IdentityCredentialDisconnectOptions {
+  external set accountHint(String value);
+  external String get accountHint;
+}
+
 @JS('IdentityCredential')
 @staticInterop
-class IdentityCredential implements Credential {}
+class IdentityCredential implements Credential {
+  external static JSPromise disconnect(
+      [IdentityCredentialDisconnectOptions options]);
+}
 
 extension IdentityCredentialExtension on IdentityCredential {
   external String? get token;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class DisconnectedAccount {
+  external factory DisconnectedAccount({required String account_id});
+}
+
+extension DisconnectedAccountExtension on DisconnectedAccount {
+  external set account_id(String value);
+  external String get account_id;
 }
 
 @JS()
@@ -52,8 +81,6 @@ class IdentityProviderConfig {
   external factory IdentityProviderConfig({
     required String configURL,
     required String clientId,
-    String nonce,
-    String loginHint,
   });
 }
 
@@ -62,6 +89,20 @@ extension IdentityProviderConfigExtension on IdentityProviderConfig {
   external String get configURL;
   external set clientId(String value);
   external String get clientId;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class IdentityProviderRequestOptions implements IdentityProviderConfig {
+  external factory IdentityProviderRequestOptions({
+    String nonce,
+    String loginHint,
+  });
+}
+
+extension IdentityProviderRequestOptionsExtension
+    on IdentityProviderRequestOptions {
   external set nonce(String value);
   external String get nonce;
   external set loginHint(String value);
@@ -129,6 +170,7 @@ class IdentityProviderAPIConfig {
     required String client_metadata_endpoint,
     required String id_assertion_endpoint,
     required String login_url,
+    String disconnect_endpoint,
     IdentityProviderBranding branding,
   });
 }
@@ -142,6 +184,8 @@ extension IdentityProviderAPIConfigExtension on IdentityProviderAPIConfig {
   external String get id_assertion_endpoint;
   external set login_url(String value);
   external String get login_url;
+  external set disconnect_endpoint(String value);
+  external String get disconnect_endpoint;
   external set branding(IdentityProviderBranding value);
   external IdentityProviderBranding get branding;
 }

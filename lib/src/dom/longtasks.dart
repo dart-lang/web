@@ -6,6 +6,7 @@
 
 import 'dart:js_interop';
 
+import 'hr_time.dart';
 import 'performance_timeline.dart';
 
 @JS('PerformanceLongTaskTiming')
@@ -27,4 +28,16 @@ extension TaskAttributionTimingExtension on TaskAttributionTiming {
   external String get containerSrc;
   external String get containerId;
   external String get containerName;
+}
+
+@JS('PerformanceLongAnimationFrameTiming')
+@staticInterop
+class PerformanceLongAnimationFrameTiming implements PerformanceEntry {}
+
+extension PerformanceLongAnimationFrameTimingExtension
+    on PerformanceLongAnimationFrameTiming {
+  external JSObject toJSON();
+  external DOMHighResTimeStamp get renderStart;
+  external DOMHighResTimeStamp get styleAndLayoutStart;
+  external DOMHighResTimeStamp get blockingDuration;
 }

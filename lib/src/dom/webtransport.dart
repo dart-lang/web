@@ -40,6 +40,8 @@ class WebTransport {
     String url, [
     WebTransportOptions options,
   ]);
+
+  external static bool get supportsReliableOnly;
 }
 
 extension WebTransportExtension on WebTransport {
@@ -124,6 +126,7 @@ class WebTransportSendStreamOptions {
   external factory WebTransportSendStreamOptions({
     WebTransportSendGroup? sendGroup,
     int sendOrder,
+    bool waitUntilAvailable,
   });
 }
 
@@ -133,6 +136,8 @@ extension WebTransportSendStreamOptionsExtension
   external WebTransportSendGroup? get sendGroup;
   external set sendOrder(int value);
   external int get sendOrder;
+  external set waitUntilAvailable(bool value);
+  external bool get waitUntilAvailable;
 }
 
 @JS()

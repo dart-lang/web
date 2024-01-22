@@ -996,6 +996,8 @@ class HTMLIFrameElement implements HTMLElement {
 
 extension HTMLIFrameElementExtension on HTMLIFrameElement {
   external Document? getSVGDocument();
+  external set credentialless(bool value);
+  external bool get credentialless;
   external set csp(String value);
   external String get csp;
   external set src(String value);
@@ -3556,6 +3558,7 @@ extension WindowExtension on Window {
   ]);
   external int requestAnimationFrame(FrameRequestCallback callback);
   external void cancelAnimationFrame(int handle);
+  external bool get credentialless;
   external int get orientation;
   external set onorientationchange(EventHandler value);
   external EventHandler get onorientationchange;

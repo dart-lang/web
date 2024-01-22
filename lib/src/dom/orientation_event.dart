@@ -16,7 +16,7 @@ class DeviceOrientationEvent implements Event {
     DeviceOrientationEventInit eventInitDict,
   ]);
 
-  external static JSPromise requestPermission();
+  external static JSPromise requestPermission([bool absolute]);
 }
 
 extension DeviceOrientationEventExtension on DeviceOrientationEvent {

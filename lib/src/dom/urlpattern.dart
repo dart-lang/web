@@ -7,6 +7,7 @@
 import 'dart:js_interop';
 
 typedef URLPatternInput = JSAny;
+typedef URLPatternCompatible = JSAny;
 
 @JS('URLPattern')
 @staticInterop
@@ -35,6 +36,7 @@ extension URLPatternExtension on URLPattern {
   external String get pathname;
   external String get search;
   external String get hash;
+  external bool get hasRegExpGroups;
 }
 
 @JS()

@@ -841,7 +841,7 @@ extension GPUPipelineDescriptorBaseExtension on GPUPipelineDescriptorBase {
 class GPUProgrammableStage {
   external factory GPUProgrammableStage({
     required GPUShaderModule module,
-    required String entryPoint,
+    String entryPoint,
     JSAny constants,
   });
 }

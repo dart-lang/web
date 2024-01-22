@@ -46,6 +46,8 @@ class ClipboardItem {
     JSAny items, [
     ClipboardItemOptions options,
   ]);
+
+  external static bool supports(String type);
 }
 
 extension ClipboardItemExtension on ClipboardItem {

@@ -17,6 +17,7 @@ class AuctionAd {
     JSAny? metadata,
     String buyerReportingId,
     String buyerAndSellerReportingId,
+    JSArray allowedReportingOrigins,
   });
 }
 
@@ -29,6 +30,8 @@ extension AuctionAdExtension on AuctionAd {
   external String get buyerReportingId;
   external set buyerAndSellerReportingId(String value);
   external String get buyerAndSellerReportingId;
+  external set allowedReportingOrigins(JSArray value);
+  external JSArray get allowedReportingOrigins;
 }
 
 @JS()
@@ -274,6 +277,10 @@ extension InterestGroupReportingScriptRunnerGlobalScopeExtension
     on InterestGroupReportingScriptRunnerGlobalScope {
   external void sendReportTo(String url);
   external void registerAdBeacon(JSAny map);
+  external void registerAdMacro(
+    String name,
+    String value,
+  );
 }
 
 @JS()

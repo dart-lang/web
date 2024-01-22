@@ -23,6 +23,7 @@ typedef TokenBindingStatus = String;
 typedef PublicKeyCredentialType = String;
 typedef AuthenticatorTransport = String;
 typedef UserVerificationRequirement = String;
+typedef PublicKeyCredentialHints = String;
 typedef LargeBlobSupport = String;
 
 @JS('PublicKeyCredential')
@@ -182,6 +183,7 @@ class PublicKeyCredentialCreationOptionsJSON {
     int timeout,
     JSArray excludeCredentials,
     AuthenticatorSelectionCriteria authenticatorSelection,
+    JSArray hints,
     String attestation,
     JSArray attestationFormats,
     AuthenticationExtensionsClientInputsJSON extensions,
@@ -204,6 +206,8 @@ extension PublicKeyCredentialCreationOptionsJSONExtension
   external JSArray get excludeCredentials;
   external set authenticatorSelection(AuthenticatorSelectionCriteria value);
   external AuthenticatorSelectionCriteria get authenticatorSelection;
+  external set hints(JSArray value);
+  external JSArray get hints;
   external set attestation(String value);
   external String get attestation;
   external set attestationFormats(JSArray value);
@@ -271,6 +275,7 @@ class PublicKeyCredentialRequestOptionsJSON {
     String rpId,
     JSArray allowCredentials,
     String userVerification,
+    JSArray hints,
     String attestation,
     JSArray attestationFormats,
     AuthenticationExtensionsClientInputsJSON extensions,
@@ -289,6 +294,8 @@ extension PublicKeyCredentialRequestOptionsJSONExtension
   external JSArray get allowCredentials;
   external set userVerification(String value);
   external String get userVerification;
+  external set hints(JSArray value);
+  external JSArray get hints;
   external set attestation(String value);
   external String get attestation;
   external set attestationFormats(JSArray value);
@@ -360,6 +367,7 @@ class PublicKeyCredentialCreationOptions {
     int timeout,
     JSArray excludeCredentials,
     AuthenticatorSelectionCriteria authenticatorSelection,
+    JSArray hints,
     String attestation,
     JSArray attestationFormats,
     AuthenticationExtensionsClientInputs extensions,
@@ -382,6 +390,8 @@ extension PublicKeyCredentialCreationOptionsExtension
   external JSArray get excludeCredentials;
   external set authenticatorSelection(AuthenticatorSelectionCriteria value);
   external AuthenticatorSelectionCriteria get authenticatorSelection;
+  external set hints(JSArray value);
+  external JSArray get hints;
   external set attestation(String value);
   external String get attestation;
   external set attestationFormats(JSArray value);
@@ -466,6 +476,7 @@ class PublicKeyCredentialRequestOptions {
     String rpId,
     JSArray allowCredentials,
     String userVerification,
+    JSArray hints,
     String attestation,
     JSArray attestationFormats,
     AuthenticationExtensionsClientInputs extensions,
@@ -484,6 +495,8 @@ extension PublicKeyCredentialRequestOptionsExtension
   external JSArray get allowCredentials;
   external set userVerification(String value);
   external String get userVerification;
+  external set hints(JSArray value);
+  external JSArray get hints;
   external set attestation(String value);
   external String get attestation;
   external set attestationFormats(JSArray value);

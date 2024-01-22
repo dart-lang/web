@@ -16,39 +16,39 @@ extension WEBGLMultiDrawExtension on WEBGL_multi_draw {
   external void multiDrawArraysWEBGL(
     GLenum mode,
     JSObject firstsList,
-    GLuint firstsOffset,
+    int firstsOffset,
     JSObject countsList,
-    GLuint countsOffset,
+    int countsOffset,
     GLsizei drawcount,
   );
   external void multiDrawElementsWEBGL(
     GLenum mode,
     JSObject countsList,
-    GLuint countsOffset,
+    int countsOffset,
     GLenum type,
     JSObject offsetsList,
-    GLuint offsetsOffset,
+    int offsetsOffset,
     GLsizei drawcount,
   );
   external void multiDrawArraysInstancedWEBGL(
     GLenum mode,
     JSObject firstsList,
-    GLuint firstsOffset,
+    int firstsOffset,
     JSObject countsList,
-    GLuint countsOffset,
+    int countsOffset,
     JSObject instanceCountsList,
-    GLuint instanceCountsOffset,
+    int instanceCountsOffset,
     GLsizei drawcount,
   );
   external void multiDrawElementsInstancedWEBGL(
     GLenum mode,
     JSObject countsList,
-    GLuint countsOffset,
+    int countsOffset,
     GLenum type,
     JSObject offsetsList,
-    GLuint offsetsOffset,
+    int offsetsOffset,
     JSObject instanceCountsList,
-    GLuint instanceCountsOffset,
+    int instanceCountsOffset,
     GLsizei drawcount,
   );
 }

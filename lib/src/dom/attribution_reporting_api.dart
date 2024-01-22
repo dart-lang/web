@@ -12,10 +12,7 @@ extension type AttributionReportingRequestOptions._(JSObject _)
     required bool eventSourceEligible,
     required bool triggerEligible,
   });
-}
 
-extension AttributionReportingRequestOptionsExtension
-    on AttributionReportingRequestOptions {
   external set eventSourceEligible(bool value);
   external bool get eventSourceEligible;
   external set triggerEligible(bool value);

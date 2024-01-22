@@ -10,9 +10,7 @@ import 'hr_time.dart';
 
 typedef PositionCallback = JSFunction;
 typedef PositionErrorCallback = JSFunction;
-extension type Geolocation._(JSObject _) implements JSObject {}
-
-extension GeolocationExtension on Geolocation {
+extension type Geolocation._(JSObject _) implements JSObject {
   external void getCurrentPosition(
     PositionCallback successCallback, [
     PositionErrorCallback? errorCallback,
@@ -25,16 +23,13 @@ extension GeolocationExtension on Geolocation {
   ]);
   external void clearWatch(int watchId);
 }
-
 extension type PositionOptions._(JSObject _) implements JSObject {
   external factory PositionOptions({
     bool enableHighAccuracy,
     int timeout,
     int maximumAge,
   });
-}
 
-extension PositionOptionsExtension on PositionOptions {
   external set enableHighAccuracy(bool value);
   external bool get enableHighAccuracy;
   external set timeout(int value);
@@ -42,17 +37,11 @@ extension PositionOptionsExtension on PositionOptions {
   external set maximumAge(int value);
   external int get maximumAge;
 }
-
-extension type GeolocationPosition._(JSObject _) implements JSObject {}
-
-extension GeolocationPositionExtension on GeolocationPosition {
+extension type GeolocationPosition._(JSObject _) implements JSObject {
   external GeolocationCoordinates get coords;
   external EpochTimeStamp get timestamp;
 }
-
-extension type GeolocationCoordinates._(JSObject _) implements JSObject {}
-
-extension GeolocationCoordinatesExtension on GeolocationCoordinates {
+extension type GeolocationCoordinates._(JSObject _) implements JSObject {
   external num get accuracy;
   external num get latitude;
   external num get longitude;
@@ -61,14 +50,10 @@ extension GeolocationCoordinatesExtension on GeolocationCoordinates {
   external num? get heading;
   external num? get speed;
 }
-
 extension type GeolocationPositionError._(JSObject _) implements JSObject {
   external static int get PERMISSION_DENIED;
   external static int get POSITION_UNAVAILABLE;
   external static int get TIMEOUT;
-}
-
-extension GeolocationPositionErrorExtension on GeolocationPositionError {
   external int get code;
   external String get message;
 }

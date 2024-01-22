@@ -12,10 +12,7 @@ extension type TopLevelStorageAccessPermissionDescriptor._(JSObject _)
     implements PermissionDescriptor, JSObject {
   external factory TopLevelStorageAccessPermissionDescriptor(
       {String requestedOrigin});
-}
 
-extension TopLevelStorageAccessPermissionDescriptorExtension
-    on TopLevelStorageAccessPermissionDescriptor {
   external set requestedOrigin(String value);
   external String get requestedOrigin;
 }

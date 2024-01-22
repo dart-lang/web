@@ -10,10 +10,7 @@ import 'html.dart';
 import 'mediacapture_streams.dart';
 
 extension type CanvasCaptureMediaStreamTrack._(JSObject _)
-    implements MediaStreamTrack, JSObject {}
-
-extension CanvasCaptureMediaStreamTrackExtension
-    on CanvasCaptureMediaStreamTrack {
+    implements MediaStreamTrack, JSObject {
   external void requestFrame();
   external HTMLCanvasElement get canvas;
 }

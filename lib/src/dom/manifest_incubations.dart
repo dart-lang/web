@@ -15,17 +15,12 @@ extension type BeforeInstallPromptEvent._(JSObject _)
     String type, [
     EventInit eventInitDict,
   ]);
-}
 
-extension BeforeInstallPromptEventExtension on BeforeInstallPromptEvent {
   external JSPromise prompt();
 }
-
 extension type PromptResponseObject._(JSObject _) implements JSObject {
   external factory PromptResponseObject({AppBannerPromptOutcome userChoice});
-}
 
-extension PromptResponseObjectExtension on PromptResponseObject {
   external set userChoice(AppBannerPromptOutcome value);
   external AppBannerPromptOutcome get userChoice;
 }

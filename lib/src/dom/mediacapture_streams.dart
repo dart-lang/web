@@ -29,9 +29,7 @@ typedef VideoResizeModeEnum = String;
 typedef MediaDeviceKind = String;
 extension type MediaStream._(JSObject _) implements EventTarget, JSObject {
   external factory MediaStream([JSObject streamOrTracks]);
-}
 
-extension MediaStreamExtension on MediaStream {
   external JSArray getAudioTracks();
   external JSArray getVideoTracks();
   external JSArray getTracks();
@@ -46,11 +44,7 @@ extension MediaStreamExtension on MediaStream {
   external set onremovetrack(EventHandler value);
   external EventHandler get onremovetrack;
 }
-
-extension type MediaStreamTrack._(JSObject _)
-    implements EventTarget, JSObject {}
-
-extension MediaStreamTrackExtension on MediaStreamTrack {
+extension type MediaStreamTrack._(JSObject _) implements EventTarget, JSObject {
   external CaptureHandle? getCaptureHandle();
   external JSArray getSupportedCaptureActions();
   external JSPromise sendCaptureAction(CaptureAction action);
@@ -81,7 +75,6 @@ extension MediaStreamTrackExtension on MediaStreamTrack {
   external set onisolationchange(EventHandler value);
   external EventHandler get onisolationchange;
 }
-
 extension type MediaTrackSupportedConstraints._(JSObject _)
     implements JSObject {
   external factory MediaTrackSupportedConstraints({
@@ -123,10 +116,7 @@ extension type MediaTrackSupportedConstraints._(JSObject _)
     bool restrictOwnAudio,
     bool suppressLocalAudioPlayback,
   });
-}
 
-extension MediaTrackSupportedConstraintsExtension
-    on MediaTrackSupportedConstraints {
   external set whiteBalanceMode(bool value);
   external bool get whiteBalanceMode;
   external set exposureMode(bool value);
@@ -202,7 +192,6 @@ extension MediaTrackSupportedConstraintsExtension
   external set suppressLocalAudioPlayback(bool value);
   external bool get suppressLocalAudioPlayback;
 }
-
 extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
   external factory MediaTrackCapabilities({
     JSArray whiteBalanceMode,
@@ -240,9 +229,7 @@ extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
     bool logicalSurface,
     JSArray cursor,
   });
-}
 
-extension MediaTrackCapabilitiesExtension on MediaTrackCapabilities {
   external set whiteBalanceMode(JSArray value);
   external JSArray get whiteBalanceMode;
   external set exposureMode(JSArray value);
@@ -312,17 +299,13 @@ extension MediaTrackCapabilitiesExtension on MediaTrackCapabilities {
   external set cursor(JSArray value);
   external JSArray get cursor;
 }
-
 extension type MediaTrackConstraints._(JSObject _)
     implements MediaTrackConstraintSet, JSObject {
   external factory MediaTrackConstraints({JSArray advanced});
-}
 
-extension MediaTrackConstraintsExtension on MediaTrackConstraints {
   external set advanced(JSArray value);
   external JSArray get advanced;
 }
-
 extension type MediaTrackConstraintSet._(JSObject _) implements JSObject {
   external factory MediaTrackConstraintSet({
     ConstrainDOMString whiteBalanceMode,
@@ -363,9 +346,7 @@ extension type MediaTrackConstraintSet._(JSObject _) implements JSObject {
     ConstrainBoolean restrictOwnAudio,
     ConstrainBoolean suppressLocalAudioPlayback,
   });
-}
 
-extension MediaTrackConstraintSetExtension on MediaTrackConstraintSet {
   external set whiteBalanceMode(ConstrainDOMString value);
   external ConstrainDOMString get whiteBalanceMode;
   external set exposureMode(ConstrainDOMString value);
@@ -441,7 +422,6 @@ extension MediaTrackConstraintSetExtension on MediaTrackConstraintSet {
   external set suppressLocalAudioPlayback(ConstrainBoolean value);
   external ConstrainBoolean get suppressLocalAudioPlayback;
 }
-
 extension type MediaTrackSettings._(JSObject _) implements JSObject {
   external factory MediaTrackSettings({
     String whiteBalanceMode,
@@ -482,9 +462,7 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
     bool restrictOwnAudio,
     bool suppressLocalAudioPlayback,
   });
-}
 
-extension MediaTrackSettingsExtension on MediaTrackSettings {
   external set whiteBalanceMode(String value);
   external String get whiteBalanceMode;
   external set exposureMode(String value);
@@ -560,43 +538,31 @@ extension MediaTrackSettingsExtension on MediaTrackSettings {
   external set suppressLocalAudioPlayback(bool value);
   external bool get suppressLocalAudioPlayback;
 }
-
 extension type MediaStreamTrackEvent._(JSObject _) implements Event, JSObject {
   external factory MediaStreamTrackEvent(
     String type,
     MediaStreamTrackEventInit eventInitDict,
   );
-}
 
-extension MediaStreamTrackEventExtension on MediaStreamTrackEvent {
   external MediaStreamTrack get track;
 }
-
 extension type MediaStreamTrackEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory MediaStreamTrackEventInit({required MediaStreamTrack track});
-}
 
-extension MediaStreamTrackEventInitExtension on MediaStreamTrackEventInit {
   external set track(MediaStreamTrack value);
   external MediaStreamTrack get track;
 }
-
 extension type OverconstrainedError._(JSObject _)
     implements DOMException, JSObject {
   external factory OverconstrainedError(
     String constraint, [
     String message,
   ]);
-}
 
-extension OverconstrainedErrorExtension on OverconstrainedError {
   external String get constraint;
 }
-
-extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {}
-
-extension MediaDevicesExtension on MediaDevices {
+extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {
   external JSPromise selectAudioOutput([AudioOutputOptions options]);
   external void setCaptureHandleConfig([CaptureHandleConfig config]);
   external void setSupportedCaptureActions(JSArray actions);
@@ -611,24 +577,17 @@ extension MediaDevicesExtension on MediaDevices {
   external set ondevicechange(EventHandler value);
   external EventHandler get ondevicechange;
 }
-
-extension type MediaDeviceInfo._(JSObject _) implements JSObject {}
-
-extension MediaDeviceInfoExtension on MediaDeviceInfo {
+extension type MediaDeviceInfo._(JSObject _) implements JSObject {
   external JSObject toJSON();
   external String get deviceId;
   external MediaDeviceKind get kind;
   external String get label;
   external String get groupId;
 }
-
 extension type InputDeviceInfo._(JSObject _)
-    implements MediaDeviceInfo, JSObject {}
-
-extension InputDeviceInfoExtension on InputDeviceInfo {
+    implements MediaDeviceInfo, JSObject {
   external MediaTrackCapabilities getCapabilities();
 }
-
 extension type MediaStreamConstraints._(JSObject _) implements JSObject {
   external factory MediaStreamConstraints({
     JSAny video,
@@ -636,9 +595,7 @@ extension type MediaStreamConstraints._(JSObject _) implements JSObject {
     bool preferCurrentTab,
     String peerIdentity,
   });
-}
 
-extension MediaStreamConstraintsExtension on MediaStreamConstraints {
   external set video(JSAny value);
   external JSAny get video;
   external set audio(JSAny value);
@@ -648,101 +605,78 @@ extension MediaStreamConstraintsExtension on MediaStreamConstraints {
   external set peerIdentity(String value);
   external String get peerIdentity;
 }
-
 extension type DoubleRange._(JSObject _) implements JSObject {
   external factory DoubleRange({
     num max,
     num min,
   });
-}
 
-extension DoubleRangeExtension on DoubleRange {
   external set max(num value);
   external num get max;
   external set min(num value);
   external num get min;
 }
-
 extension type ConstrainDoubleRange._(JSObject _)
     implements DoubleRange, JSObject {
   external factory ConstrainDoubleRange({
     num exact,
     num ideal,
   });
-}
 
-extension ConstrainDoubleRangeExtension on ConstrainDoubleRange {
   external set exact(num value);
   external num get exact;
   external set ideal(num value);
   external num get ideal;
 }
-
 extension type ULongRange._(JSObject _) implements JSObject {
   external factory ULongRange({
     int max,
     int min,
   });
-}
 
-extension ULongRangeExtension on ULongRange {
   external set max(int value);
   external int get max;
   external set min(int value);
   external int get min;
 }
-
 extension type ConstrainULongRange._(JSObject _)
     implements ULongRange, JSObject {
   external factory ConstrainULongRange({
     int exact,
     int ideal,
   });
-}
 
-extension ConstrainULongRangeExtension on ConstrainULongRange {
   external set exact(int value);
   external int get exact;
   external set ideal(int value);
   external int get ideal;
 }
-
 extension type ConstrainBooleanParameters._(JSObject _) implements JSObject {
   external factory ConstrainBooleanParameters({
     bool exact,
     bool ideal,
   });
-}
 
-extension ConstrainBooleanParametersExtension on ConstrainBooleanParameters {
   external set exact(bool value);
   external bool get exact;
   external set ideal(bool value);
   external bool get ideal;
 }
-
 extension type ConstrainDOMStringParameters._(JSObject _) implements JSObject {
   external factory ConstrainDOMStringParameters({
     JSAny exact,
     JSAny ideal,
   });
-}
 
-extension ConstrainDOMStringParametersExtension
-    on ConstrainDOMStringParameters {
   external set exact(JSAny value);
   external JSAny get exact;
   external set ideal(JSAny value);
   external JSAny get ideal;
 }
-
 extension type CameraDevicePermissionDescriptor._(JSObject _)
     implements PermissionDescriptor, JSObject {
   external factory CameraDevicePermissionDescriptor({bool panTiltZoom});
-}
 
-extension CameraDevicePermissionDescriptorExtension
-    on CameraDevicePermissionDescriptor {
   external set panTiltZoom(bool value);
   external bool get panTiltZoom;
 }

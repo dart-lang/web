@@ -11,9 +11,7 @@ extension type FlacEncoderConfig._(JSObject _) implements JSObject {
     int blockSize,
     int compressLevel,
   });
-}
 
-extension FlacEncoderConfigExtension on FlacEncoderConfig {
   external set blockSize(int value);
   external int get blockSize;
   external set compressLevel(int value);

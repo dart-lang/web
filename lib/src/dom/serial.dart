@@ -13,9 +13,7 @@ import 'web_bluetooth.dart';
 
 typedef ParityType = String;
 typedef FlowControlType = String;
-extension type Serial._(JSObject _) implements EventTarget, JSObject {}
-
-extension SerialExtension on Serial {
+extension type Serial._(JSObject _) implements EventTarget, JSObject {
   external JSPromise getPorts();
   external JSPromise requestPort([SerialPortRequestOptions options]);
   external set onconnect(EventHandler value);
@@ -23,30 +21,24 @@ extension SerialExtension on Serial {
   external set ondisconnect(EventHandler value);
   external EventHandler get ondisconnect;
 }
-
 extension type SerialPortRequestOptions._(JSObject _) implements JSObject {
   external factory SerialPortRequestOptions({
     JSArray filters,
     JSArray allowedBluetoothServiceClassIds,
   });
-}
 
-extension SerialPortRequestOptionsExtension on SerialPortRequestOptions {
   external set filters(JSArray value);
   external JSArray get filters;
   external set allowedBluetoothServiceClassIds(JSArray value);
   external JSArray get allowedBluetoothServiceClassIds;
 }
-
 extension type SerialPortFilter._(JSObject _) implements JSObject {
   external factory SerialPortFilter({
     int usbVendorId,
     int usbProductId,
     BluetoothServiceUUID bluetoothServiceClassId,
   });
-}
 
-extension SerialPortFilterExtension on SerialPortFilter {
   external set usbVendorId(int value);
   external int get usbVendorId;
   external set usbProductId(int value);
@@ -54,10 +46,7 @@ extension SerialPortFilterExtension on SerialPortFilter {
   external set bluetoothServiceClassId(BluetoothServiceUUID value);
   external BluetoothServiceUUID get bluetoothServiceClassId;
 }
-
-extension type SerialPort._(JSObject _) implements EventTarget, JSObject {}
-
-extension SerialPortExtension on SerialPort {
+extension type SerialPort._(JSObject _) implements EventTarget, JSObject {
   external SerialPortInfo getInfo();
   external JSPromise open(SerialOptions options);
   external JSPromise setSignals([SerialOutputSignals signals]);
@@ -71,16 +60,13 @@ extension SerialPortExtension on SerialPort {
   external ReadableStream get readable;
   external WritableStream get writable;
 }
-
 extension type SerialPortInfo._(JSObject _) implements JSObject {
   external factory SerialPortInfo({
     int usbVendorId,
     int usbProductId,
     BluetoothServiceUUID bluetoothServiceClassId,
   });
-}
 
-extension SerialPortInfoExtension on SerialPortInfo {
   external set usbVendorId(int value);
   external int get usbVendorId;
   external set usbProductId(int value);
@@ -88,7 +74,6 @@ extension SerialPortInfoExtension on SerialPortInfo {
   external set bluetoothServiceClassId(BluetoothServiceUUID value);
   external BluetoothServiceUUID get bluetoothServiceClassId;
 }
-
 extension type SerialOptions._(JSObject _) implements JSObject {
   external factory SerialOptions({
     required int baudRate,
@@ -98,9 +83,7 @@ extension type SerialOptions._(JSObject _) implements JSObject {
     int bufferSize,
     FlowControlType flowControl,
   });
-}
 
-extension SerialOptionsExtension on SerialOptions {
   external set baudRate(int value);
   external int get baudRate;
   external set dataBits(int value);
@@ -114,16 +97,13 @@ extension SerialOptionsExtension on SerialOptions {
   external set flowControl(FlowControlType value);
   external FlowControlType get flowControl;
 }
-
 extension type SerialOutputSignals._(JSObject _) implements JSObject {
   external factory SerialOutputSignals({
     bool dataTerminalReady,
     bool requestToSend,
     bool break_,
   });
-}
 
-extension SerialOutputSignalsExtension on SerialOutputSignals {
   external set dataTerminalReady(bool value);
   external bool get dataTerminalReady;
   external set requestToSend(bool value);
@@ -133,7 +113,6 @@ extension SerialOutputSignalsExtension on SerialOutputSignals {
   @JS('break')
   external bool get break_;
 }
-
 extension type SerialInputSignals._(JSObject _) implements JSObject {
   external factory SerialInputSignals({
     required bool dataCarrierDetect,
@@ -141,9 +120,7 @@ extension type SerialInputSignals._(JSObject _) implements JSObject {
     required bool ringIndicator,
     required bool dataSetReady,
   });
-}
 
-extension SerialInputSignalsExtension on SerialInputSignals {
   external set dataCarrierDetect(bool value);
   external bool get dataCarrierDetect;
   external set clearToSend(bool value);

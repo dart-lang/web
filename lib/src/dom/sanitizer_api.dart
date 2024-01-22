@@ -13,9 +13,6 @@ extension type Sanitizer._(JSObject _) implements JSObject {
   external factory Sanitizer([SanitizerConfig config]);
 
   external static SanitizerConfig getDefaultConfiguration();
-}
-
-extension SanitizerExtension on Sanitizer {
   external DocumentFragment sanitize(JSObject input);
   external Element? sanitizeFor(
     String element,
@@ -23,16 +20,12 @@ extension SanitizerExtension on Sanitizer {
   );
   external SanitizerConfig getConfiguration();
 }
-
 extension type SetHTMLOptions._(JSObject _) implements JSObject {
   external factory SetHTMLOptions({Sanitizer sanitizer});
-}
 
-extension SetHTMLOptionsExtension on SetHTMLOptions {
   external set sanitizer(Sanitizer value);
   external Sanitizer get sanitizer;
 }
-
 extension type SanitizerConfig._(JSObject _) implements JSObject {
   external factory SanitizerConfig({
     JSArray allowElements,
@@ -44,9 +37,7 @@ extension type SanitizerConfig._(JSObject _) implements JSObject {
     bool allowUnknownMarkup,
     bool allowComments,
   });
-}
 
-extension SanitizerConfigExtension on SanitizerConfig {
   external set allowElements(JSArray value);
   external JSArray get allowElements;
   external set blockElements(JSArray value);

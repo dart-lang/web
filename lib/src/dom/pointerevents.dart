@@ -26,9 +26,7 @@ extension type PointerEventInit._(JSObject _)
     JSArray coalescedEvents,
     JSArray predictedEvents,
   });
-}
 
-extension PointerEventInitExtension on PointerEventInit {
   external set pointerId(int value);
   external int get pointerId;
   external set width(num value);
@@ -58,15 +56,12 @@ extension PointerEventInitExtension on PointerEventInit {
   external set predictedEvents(JSArray value);
   external JSArray get predictedEvents;
 }
-
 extension type PointerEvent._(JSObject _) implements MouseEvent, JSObject {
   external factory PointerEvent(
     String type, [
     PointerEventInit eventInitDict,
   ]);
-}
 
-extension PointerEventExtension on PointerEvent {
   external JSArray getCoalescedEvents();
   external JSArray getPredictedEvents();
   external int get pointerId;

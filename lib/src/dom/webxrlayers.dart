@@ -18,9 +18,7 @@ import 'webxr_lighting_estimation.dart';
 typedef XRLayerLayout = String;
 typedef XRLayerQuality = String;
 typedef XRTextureType = String;
-extension type XRCompositionLayer._(JSObject _) implements XRLayer, JSObject {}
-
-extension XRCompositionLayerExtension on XRCompositionLayer {
+extension type XRCompositionLayer._(JSObject _) implements XRLayer, JSObject {
   external void destroy();
   external XRLayerLayout get layout;
   external set blendTextureSourceAlpha(bool value);
@@ -34,11 +32,8 @@ extension XRCompositionLayerExtension on XRCompositionLayer {
   external XRLayerQuality get quality;
   external bool get needsRedraw;
 }
-
 extension type XRProjectionLayer._(JSObject _)
-    implements XRCompositionLayer, JSObject {}
-
-extension XRProjectionLayerExtension on XRProjectionLayer {
+    implements XRCompositionLayer, JSObject {
   external int get textureWidth;
   external int get textureHeight;
   external int get textureArrayLength;
@@ -48,11 +43,8 @@ extension XRProjectionLayerExtension on XRProjectionLayer {
   external set deltaPose(XRRigidTransform? value);
   external XRRigidTransform? get deltaPose;
 }
-
 extension type XRQuadLayer._(JSObject _)
-    implements XRCompositionLayer, JSObject {}
-
-extension XRQuadLayerExtension on XRQuadLayer {
+    implements XRCompositionLayer, JSObject {
   external set space(XRSpace value);
   external XRSpace get space;
   external set transform(XRRigidTransform value);
@@ -64,11 +56,8 @@ extension XRQuadLayerExtension on XRQuadLayer {
   external set onredraw(EventHandler value);
   external EventHandler get onredraw;
 }
-
 extension type XRCylinderLayer._(JSObject _)
-    implements XRCompositionLayer, JSObject {}
-
-extension XRCylinderLayerExtension on XRCylinderLayer {
+    implements XRCompositionLayer, JSObject {
   external set space(XRSpace value);
   external XRSpace get space;
   external set transform(XRRigidTransform value);
@@ -82,11 +71,8 @@ extension XRCylinderLayerExtension on XRCylinderLayer {
   external set onredraw(EventHandler value);
   external EventHandler get onredraw;
 }
-
 extension type XREquirectLayer._(JSObject _)
-    implements XRCompositionLayer, JSObject {}
-
-extension XREquirectLayerExtension on XREquirectLayer {
+    implements XRCompositionLayer, JSObject {
   external set space(XRSpace value);
   external XRSpace get space;
   external set transform(XRRigidTransform value);
@@ -102,11 +88,8 @@ extension XREquirectLayerExtension on XREquirectLayer {
   external set onredraw(EventHandler value);
   external EventHandler get onredraw;
 }
-
 extension type XRCubeLayer._(JSObject _)
-    implements XRCompositionLayer, JSObject {}
-
-extension XRCubeLayerExtension on XRCubeLayer {
+    implements XRCompositionLayer, JSObject {
   external set space(XRSpace value);
   external XRSpace get space;
   external set orientation(DOMPointReadOnly value);
@@ -114,16 +97,10 @@ extension XRCubeLayerExtension on XRCubeLayer {
   external set onredraw(EventHandler value);
   external EventHandler get onredraw;
 }
-
-extension type XRSubImage._(JSObject _) implements JSObject {}
-
-extension XRSubImageExtension on XRSubImage {
+extension type XRSubImage._(JSObject _) implements JSObject {
   external XRViewport get viewport;
 }
-
-extension type XRWebGLSubImage._(JSObject _) implements XRSubImage, JSObject {}
-
-extension XRWebGLSubImageExtension on XRWebGLSubImage {
+extension type XRWebGLSubImage._(JSObject _) implements XRSubImage, JSObject {
   external WebGLTexture get colorTexture;
   external WebGLTexture? get depthStencilTexture;
   external WebGLTexture? get motionVectorTexture;
@@ -135,7 +112,6 @@ extension XRWebGLSubImageExtension on XRWebGLSubImage {
   external int? get motionVectorTextureWidth;
   external int? get motionVectorTextureHeight;
 }
-
 extension type XRProjectionLayerInit._(JSObject _) implements JSObject {
   external factory XRProjectionLayerInit({
     XRTextureType textureType,
@@ -144,9 +120,7 @@ extension type XRProjectionLayerInit._(JSObject _) implements JSObject {
     num scaleFactor,
     bool clearOnAccess,
   });
-}
 
-extension XRProjectionLayerInitExtension on XRProjectionLayerInit {
   external set textureType(XRTextureType value);
   external XRTextureType get textureType;
   external set colorFormat(GLenum value);
@@ -158,7 +132,6 @@ extension XRProjectionLayerInitExtension on XRProjectionLayerInit {
   external set clearOnAccess(bool value);
   external bool get clearOnAccess;
 }
-
 extension type XRLayerInit._(JSObject _) implements JSObject {
   external factory XRLayerInit({
     required XRSpace space,
@@ -171,9 +144,7 @@ extension type XRLayerInit._(JSObject _) implements JSObject {
     bool isStatic,
     bool clearOnAccess,
   });
-}
 
-extension XRLayerInitExtension on XRLayerInit {
   external set space(XRSpace value);
   external XRSpace get space;
   external set colorFormat(GLenum value);
@@ -193,7 +164,6 @@ extension XRLayerInitExtension on XRLayerInit {
   external set clearOnAccess(bool value);
   external bool get clearOnAccess;
 }
-
 extension type XRQuadLayerInit._(JSObject _) implements XRLayerInit, JSObject {
   external factory XRQuadLayerInit({
     XRTextureType textureType,
@@ -201,9 +171,7 @@ extension type XRQuadLayerInit._(JSObject _) implements XRLayerInit, JSObject {
     num width,
     num height,
   });
-}
 
-extension XRQuadLayerInitExtension on XRQuadLayerInit {
   external set textureType(XRTextureType value);
   external XRTextureType get textureType;
   external set transform(XRRigidTransform? value);
@@ -213,7 +181,6 @@ extension XRQuadLayerInitExtension on XRQuadLayerInit {
   external set height(num value);
   external num get height;
 }
-
 extension type XRCylinderLayerInit._(JSObject _)
     implements XRLayerInit, JSObject {
   external factory XRCylinderLayerInit({
@@ -223,9 +190,7 @@ extension type XRCylinderLayerInit._(JSObject _)
     num centralAngle,
     num aspectRatio,
   });
-}
 
-extension XRCylinderLayerInitExtension on XRCylinderLayerInit {
   external set textureType(XRTextureType value);
   external XRTextureType get textureType;
   external set transform(XRRigidTransform? value);
@@ -237,7 +202,6 @@ extension XRCylinderLayerInitExtension on XRCylinderLayerInit {
   external set aspectRatio(num value);
   external num get aspectRatio;
 }
-
 extension type XREquirectLayerInit._(JSObject _)
     implements XRLayerInit, JSObject {
   external factory XREquirectLayerInit({
@@ -248,9 +212,7 @@ extension type XREquirectLayerInit._(JSObject _)
     num upperVerticalAngle,
     num lowerVerticalAngle,
   });
-}
 
-extension XREquirectLayerInitExtension on XREquirectLayerInit {
   external set textureType(XRTextureType value);
   external XRTextureType get textureType;
   external set transform(XRRigidTransform? value);
@@ -264,24 +226,18 @@ extension XREquirectLayerInitExtension on XREquirectLayerInit {
   external set lowerVerticalAngle(num value);
   external num get lowerVerticalAngle;
 }
-
 extension type XRCubeLayerInit._(JSObject _) implements XRLayerInit, JSObject {
   external factory XRCubeLayerInit({DOMPointReadOnly? orientation});
-}
 
-extension XRCubeLayerInitExtension on XRCubeLayerInit {
   external set orientation(DOMPointReadOnly? value);
   external DOMPointReadOnly? get orientation;
 }
-
 extension type XRWebGLBinding._(JSObject _) implements JSObject {
   external factory XRWebGLBinding(
     XRSession session,
     XRWebGLRenderingContext context,
   );
-}
 
-extension XRWebGLBindingExtension on XRWebGLBinding {
   external WebGLTexture? getCameraImage(XRCamera camera);
   external XRWebGLDepthInformation? getDepthInformation(XRView view);
   external WebGLTexture? getReflectionCubeMap(XRLightProbe lightProbe);
@@ -303,16 +259,13 @@ extension XRWebGLBindingExtension on XRWebGLBinding {
   external num get nativeProjectionScaleFactor;
   external bool get usesDepthValues;
 }
-
 extension type XRMediaLayerInit._(JSObject _) implements JSObject {
   external factory XRMediaLayerInit({
     required XRSpace space,
     XRLayerLayout layout,
     bool invertStereo,
   });
-}
 
-extension XRMediaLayerInitExtension on XRMediaLayerInit {
   external set space(XRSpace value);
   external XRSpace get space;
   external set layout(XRLayerLayout value);
@@ -320,7 +273,6 @@ extension XRMediaLayerInitExtension on XRMediaLayerInit {
   external set invertStereo(bool value);
   external bool get invertStereo;
 }
-
 extension type XRMediaQuadLayerInit._(JSObject _)
     implements XRMediaLayerInit, JSObject {
   external factory XRMediaQuadLayerInit({
@@ -328,9 +280,7 @@ extension type XRMediaQuadLayerInit._(JSObject _)
     num? width,
     num? height,
   });
-}
 
-extension XRMediaQuadLayerInitExtension on XRMediaQuadLayerInit {
   external set transform(XRRigidTransform? value);
   external XRRigidTransform? get transform;
   external set width(num? value);
@@ -338,7 +288,6 @@ extension XRMediaQuadLayerInitExtension on XRMediaQuadLayerInit {
   external set height(num? value);
   external num? get height;
 }
-
 extension type XRMediaCylinderLayerInit._(JSObject _)
     implements XRMediaLayerInit, JSObject {
   external factory XRMediaCylinderLayerInit({
@@ -347,9 +296,7 @@ extension type XRMediaCylinderLayerInit._(JSObject _)
     num centralAngle,
     num? aspectRatio,
   });
-}
 
-extension XRMediaCylinderLayerInitExtension on XRMediaCylinderLayerInit {
   external set transform(XRRigidTransform? value);
   external XRRigidTransform? get transform;
   external set radius(num value);
@@ -359,7 +306,6 @@ extension XRMediaCylinderLayerInitExtension on XRMediaCylinderLayerInit {
   external set aspectRatio(num? value);
   external num? get aspectRatio;
 }
-
 extension type XRMediaEquirectLayerInit._(JSObject _)
     implements XRMediaLayerInit, JSObject {
   external factory XRMediaEquirectLayerInit({
@@ -369,9 +315,7 @@ extension type XRMediaEquirectLayerInit._(JSObject _)
     num upperVerticalAngle,
     num lowerVerticalAngle,
   });
-}
 
-extension XRMediaEquirectLayerInitExtension on XRMediaEquirectLayerInit {
   external set transform(XRRigidTransform? value);
   external XRRigidTransform? get transform;
   external set radius(num value);
@@ -383,12 +327,9 @@ extension XRMediaEquirectLayerInitExtension on XRMediaEquirectLayerInit {
   external set lowerVerticalAngle(num value);
   external num get lowerVerticalAngle;
 }
-
 extension type XRMediaBinding._(JSObject _) implements JSObject {
   external factory XRMediaBinding(XRSession session);
-}
 
-extension XRMediaBindingExtension on XRMediaBinding {
   external XRQuadLayer createQuadLayer(
     HTMLVideoElement video, [
     XRMediaQuadLayerInit init,
@@ -402,23 +343,17 @@ extension XRMediaBindingExtension on XRMediaBinding {
     XRMediaEquirectLayerInit init,
   ]);
 }
-
 extension type XRLayerEvent._(JSObject _) implements Event, JSObject {
   external factory XRLayerEvent(
     String type,
     XRLayerEventInit eventInitDict,
   );
-}
 
-extension XRLayerEventExtension on XRLayerEvent {
   external XRLayer get layer;
 }
-
 extension type XRLayerEventInit._(JSObject _) implements EventInit, JSObject {
   external factory XRLayerEventInit({required XRLayer layer});
-}
 
-extension XRLayerEventInitExtension on XRLayerEventInit {
   external set layer(XRLayer value);
   external XRLayer get layer;
 }

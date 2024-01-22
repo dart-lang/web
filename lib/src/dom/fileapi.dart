@@ -18,9 +18,7 @@ extension type Blob._(JSObject _) implements JSObject {
     JSArray blobParts,
     BlobPropertyBag options,
   ]);
-}
 
-extension BlobExtension on Blob {
   external Blob slice([
     int start,
     int end,
@@ -32,61 +30,45 @@ extension BlobExtension on Blob {
   external int get size;
   external String get type;
 }
-
 extension type BlobPropertyBag._(JSObject _) implements JSObject {
   external factory BlobPropertyBag({
     String type,
     EndingType endings,
   });
-}
 
-extension BlobPropertyBagExtension on BlobPropertyBag {
   external set type(String value);
   external String get type;
   external set endings(EndingType value);
   external EndingType get endings;
 }
-
 extension type File._(JSObject _) implements Blob, JSObject {
   external factory File(
     JSArray fileBits,
     String fileName, [
     FilePropertyBag options,
   ]);
-}
 
-extension FileExtension on File {
   external String get name;
   external int get lastModified;
   external String get webkitRelativePath;
 }
-
 extension type FilePropertyBag._(JSObject _)
     implements BlobPropertyBag, JSObject {
   external factory FilePropertyBag({int lastModified});
-}
 
-extension FilePropertyBagExtension on FilePropertyBag {
   external set lastModified(int value);
   external int get lastModified;
 }
-
-extension type FileList._(JSObject _) implements JSObject {}
-
-extension FileListExtension on FileList {
+extension type FileList._(JSObject _) implements JSObject {
   external File? item(int index);
   external int get length;
 }
-
 extension type FileReader._(JSObject _) implements EventTarget, JSObject {
   external factory FileReader();
 
   external static int get EMPTY;
   external static int get LOADING;
   external static int get DONE;
-}
-
-extension FileReaderExtension on FileReader {
   external void readAsArrayBuffer(Blob blob);
   external void readAsBinaryString(Blob blob);
   external void readAsText(
@@ -111,12 +93,9 @@ extension FileReaderExtension on FileReader {
   external set onloadend(EventHandler value);
   external EventHandler get onloadend;
 }
-
 extension type FileReaderSync._(JSObject _) implements JSObject {
   external factory FileReaderSync();
-}
 
-extension FileReaderSyncExtension on FileReaderSync {
   external JSArrayBuffer readAsArrayBuffer(Blob blob);
   external String readAsBinaryString(Blob blob);
   external String readAsText(

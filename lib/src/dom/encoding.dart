@@ -14,32 +14,24 @@ extension type TextDecoderOptions._(JSObject _) implements JSObject {
     bool fatal,
     bool ignoreBOM,
   });
-}
 
-extension TextDecoderOptionsExtension on TextDecoderOptions {
   external set fatal(bool value);
   external bool get fatal;
   external set ignoreBOM(bool value);
   external bool get ignoreBOM;
 }
-
 extension type TextDecodeOptions._(JSObject _) implements JSObject {
   external factory TextDecodeOptions({bool stream});
-}
 
-extension TextDecodeOptionsExtension on TextDecodeOptions {
   external set stream(bool value);
   external bool get stream;
 }
-
 extension type TextDecoder._(JSObject _) implements JSObject {
   external factory TextDecoder([
     String label,
     TextDecoderOptions options,
   ]);
-}
 
-extension TextDecoderExtension on TextDecoder {
   external String decode([
     AllowSharedBufferSource input,
     TextDecodeOptions options,
@@ -48,26 +40,20 @@ extension TextDecoderExtension on TextDecoder {
   external bool get fatal;
   external bool get ignoreBOM;
 }
-
 extension type TextEncoderEncodeIntoResult._(JSObject _) implements JSObject {
   external factory TextEncoderEncodeIntoResult({
     int read,
     int written,
   });
-}
 
-extension TextEncoderEncodeIntoResultExtension on TextEncoderEncodeIntoResult {
   external set read(int value);
   external int get read;
   external set written(int value);
   external int get written;
 }
-
 extension type TextEncoder._(JSObject _) implements JSObject {
   external factory TextEncoder();
-}
 
-extension TextEncoderExtension on TextEncoder {
   external JSUint8Array encode([String input]);
   external TextEncoderEncodeIntoResult encodeInto(
     String source,
@@ -75,27 +61,21 @@ extension TextEncoderExtension on TextEncoder {
   );
   external String get encoding;
 }
-
 extension type TextDecoderStream._(JSObject _) implements JSObject {
   external factory TextDecoderStream([
     String label,
     TextDecoderOptions options,
   ]);
-}
 
-extension TextDecoderStreamExtension on TextDecoderStream {
   external String get encoding;
   external bool get fatal;
   external bool get ignoreBOM;
   external ReadableStream get readable;
   external WritableStream get writable;
 }
-
 extension type TextEncoderStream._(JSObject _) implements JSObject {
   external factory TextEncoderStream();
-}
 
-extension TextEncoderStreamExtension on TextEncoderStream {
   external String get encoding;
   external ReadableStream get readable;
   external WritableStream get writable;

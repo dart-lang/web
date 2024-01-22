@@ -9,17 +9,12 @@ import 'dart:js_interop';
 import 'credential_management.dart';
 
 typedef OTPCredentialTransportType = String;
-extension type OTPCredential._(JSObject _) implements Credential, JSObject {}
-
-extension OTPCredentialExtension on OTPCredential {
+extension type OTPCredential._(JSObject _) implements Credential, JSObject {
   external String get code;
 }
-
 extension type OTPCredentialRequestOptions._(JSObject _) implements JSObject {
   external factory OTPCredentialRequestOptions({JSArray transport});
-}
 
-extension OTPCredentialRequestOptionsExtension on OTPCredentialRequestOptions {
   external set transport(JSArray value);
   external JSArray get transport;
 }

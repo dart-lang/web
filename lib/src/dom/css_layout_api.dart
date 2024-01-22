@@ -15,32 +15,24 @@ typedef LayoutSizingMode = String;
 typedef BlockFragmentationType = String;
 typedef BreakType = String;
 extension type LayoutWorkletGlobalScope._(JSObject _)
-    implements WorkletGlobalScope, JSObject {}
-
-extension LayoutWorkletGlobalScopeExtension on LayoutWorkletGlobalScope {
+    implements WorkletGlobalScope, JSObject {
   external void registerLayout(
     String name,
     VoidFunction layoutCtor,
   );
 }
-
 extension type LayoutOptions._(JSObject _) implements JSObject {
   external factory LayoutOptions({
     ChildDisplayType childDisplay,
     LayoutSizingMode sizing,
   });
-}
 
-extension LayoutOptionsExtension on LayoutOptions {
   external set childDisplay(ChildDisplayType value);
   external ChildDisplayType get childDisplay;
   external set sizing(LayoutSizingMode value);
   external LayoutSizingMode get sizing;
 }
-
-extension type LayoutChild._(JSObject _) implements JSObject {}
-
-extension LayoutChildExtension on LayoutChild {
+extension type LayoutChild._(JSObject _) implements JSObject {
   external JSPromise intrinsicSizes();
   external JSPromise layoutNextFragment(
     LayoutConstraintsOptions constraints,
@@ -48,10 +40,7 @@ extension LayoutChildExtension on LayoutChild {
   );
   external StylePropertyMapReadOnly get styleMap;
 }
-
-extension type LayoutFragment._(JSObject _) implements JSObject {}
-
-extension LayoutFragmentExtension on LayoutFragment {
+extension type LayoutFragment._(JSObject _) implements JSObject {
   external num get inlineSize;
   external num get blockSize;
   external set inlineOffset(num value);
@@ -61,17 +50,11 @@ extension LayoutFragmentExtension on LayoutFragment {
   external JSAny? get data;
   external ChildBreakToken? get breakToken;
 }
-
-extension type IntrinsicSizes._(JSObject _) implements JSObject {}
-
-extension IntrinsicSizesExtension on IntrinsicSizes {
+extension type IntrinsicSizes._(JSObject _) implements JSObject {
   external num get minContentSize;
   external num get maxContentSize;
 }
-
-extension type LayoutConstraints._(JSObject _) implements JSObject {}
-
-extension LayoutConstraintsExtension on LayoutConstraints {
+extension type LayoutConstraints._(JSObject _) implements JSObject {
   external num get availableInlineSize;
   external num get availableBlockSize;
   external num? get fixedInlineSize;
@@ -82,7 +65,6 @@ extension LayoutConstraintsExtension on LayoutConstraints {
   external BlockFragmentationType get blockFragmentationType;
   external JSAny? get data;
 }
-
 extension type LayoutConstraintsOptions._(JSObject _) implements JSObject {
   external factory LayoutConstraintsOptions({
     num availableInlineSize,
@@ -95,9 +77,7 @@ extension type LayoutConstraintsOptions._(JSObject _) implements JSObject {
     BlockFragmentationType blockFragmentationType,
     JSAny? data,
   });
-}
 
-extension LayoutConstraintsOptionsExtension on LayoutConstraintsOptions {
   external set availableInlineSize(num value);
   external num get availableInlineSize;
   external set availableBlockSize(num value);
@@ -117,38 +97,26 @@ extension LayoutConstraintsOptionsExtension on LayoutConstraintsOptions {
   external set data(JSAny? value);
   external JSAny? get data;
 }
-
-extension type ChildBreakToken._(JSObject _) implements JSObject {}
-
-extension ChildBreakTokenExtension on ChildBreakToken {
+extension type ChildBreakToken._(JSObject _) implements JSObject {
   external BreakType get breakType;
   external LayoutChild get child;
 }
-
-extension type BreakToken._(JSObject _) implements JSObject {}
-
-extension BreakTokenExtension on BreakToken {
+extension type BreakToken._(JSObject _) implements JSObject {
   external JSArray get childBreakTokens;
   external JSAny? get data;
 }
-
 extension type BreakTokenOptions._(JSObject _) implements JSObject {
   external factory BreakTokenOptions({
     JSArray childBreakTokens,
     JSAny? data,
   });
-}
 
-extension BreakTokenOptionsExtension on BreakTokenOptions {
   external set childBreakTokens(JSArray value);
   external JSArray get childBreakTokens;
   external set data(JSAny? value);
   external JSAny? get data;
 }
-
-extension type LayoutEdges._(JSObject _) implements JSObject {}
-
-extension LayoutEdgesExtension on LayoutEdges {
+extension type LayoutEdges._(JSObject _) implements JSObject {
   external num get inlineStart;
   external num get inlineEnd;
   external num get blockStart;
@@ -156,7 +124,6 @@ extension LayoutEdgesExtension on LayoutEdges {
   external num get inline;
   external num get block;
 }
-
 extension type FragmentResultOptions._(JSObject _) implements JSObject {
   external factory FragmentResultOptions({
     num inlineSize,
@@ -166,9 +133,7 @@ extension type FragmentResultOptions._(JSObject _) implements JSObject {
     JSAny? data,
     BreakTokenOptions breakToken,
   });
-}
 
-extension FragmentResultOptionsExtension on FragmentResultOptions {
   external set inlineSize(num value);
   external num get inlineSize;
   external set blockSize(num value);
@@ -182,24 +147,18 @@ extension FragmentResultOptionsExtension on FragmentResultOptions {
   external set breakToken(BreakTokenOptions value);
   external BreakTokenOptions get breakToken;
 }
-
 extension type FragmentResult._(JSObject _) implements JSObject {
   external factory FragmentResult([FragmentResultOptions options]);
-}
 
-extension FragmentResultExtension on FragmentResult {
   external num get inlineSize;
   external num get blockSize;
 }
-
 extension type IntrinsicSizesResultOptions._(JSObject _) implements JSObject {
   external factory IntrinsicSizesResultOptions({
     num maxContentSize,
     num minContentSize,
   });
-}
 
-extension IntrinsicSizesResultOptionsExtension on IntrinsicSizesResultOptions {
   external set maxContentSize(num value);
   external num get maxContentSize;
   external set minContentSize(num value);

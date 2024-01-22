@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'service_workers.dart';
 
-extension type PeriodicSyncManager._(JSObject _) implements JSObject {}
-
-extension PeriodicSyncManagerExtension on PeriodicSyncManager {
+extension type PeriodicSyncManager._(JSObject _) implements JSObject {
   external JSPromise register(
     String tag, [
     BackgroundSyncOptions options,
@@ -18,34 +16,25 @@ extension PeriodicSyncManagerExtension on PeriodicSyncManager {
   external JSPromise getTags();
   external JSPromise unregister(String tag);
 }
-
 extension type BackgroundSyncOptions._(JSObject _) implements JSObject {
   external factory BackgroundSyncOptions({int minInterval});
-}
 
-extension BackgroundSyncOptionsExtension on BackgroundSyncOptions {
   external set minInterval(int value);
   external int get minInterval;
 }
-
 extension type PeriodicSyncEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
   external factory PeriodicSyncEventInit({required String tag});
-}
 
-extension PeriodicSyncEventInitExtension on PeriodicSyncEventInit {
   external set tag(String value);
   external String get tag;
 }
-
 extension type PeriodicSyncEvent._(JSObject _)
     implements ExtendableEvent, JSObject {
   external factory PeriodicSyncEvent(
     String type,
     PeriodicSyncEventInit init,
   );
-}
 
-extension PeriodicSyncEventExtension on PeriodicSyncEvent {
   external String get tag;
 }

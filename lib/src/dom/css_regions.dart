@@ -9,12 +9,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 
 extension type NamedFlowMap._(JSObject _) implements JSObject {}
-
-extension NamedFlowMapExtension on NamedFlowMap {}
-
-extension type NamedFlow._(JSObject _) implements EventTarget, JSObject {}
-
-extension NamedFlowExtension on NamedFlow {
+extension type NamedFlow._(JSObject _) implements EventTarget, JSObject {
   external JSArray getRegions();
   external JSArray getContent();
   external JSArray getRegionsByContent(Node node);

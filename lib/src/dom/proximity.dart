@@ -10,23 +10,18 @@ import 'generic_sensor.dart';
 
 extension type ProximitySensor._(JSObject _) implements Sensor, JSObject {
   external factory ProximitySensor([SensorOptions sensorOptions]);
-}
 
-extension ProximitySensorExtension on ProximitySensor {
   external num? get distance;
   external num? get max;
   external bool? get near;
 }
-
 extension type ProximityReadingValues._(JSObject _) implements JSObject {
   external factory ProximityReadingValues({
     required num? distance,
     required num? max,
     required bool? near,
   });
-}
 
-extension ProximityReadingValuesExtension on ProximityReadingValues {
   external set distance(num? value);
   external num? get distance;
   external set max(num? value);

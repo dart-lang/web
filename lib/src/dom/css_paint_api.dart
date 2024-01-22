@@ -11,30 +11,21 @@ import 'html.dart';
 import 'webidl.dart';
 
 extension type PaintWorkletGlobalScope._(JSObject _)
-    implements WorkletGlobalScope, JSObject {}
-
-extension PaintWorkletGlobalScopeExtension on PaintWorkletGlobalScope {
+    implements WorkletGlobalScope, JSObject {
   external void registerPaint(
     String name,
     VoidFunction paintCtor,
   );
   external num get devicePixelRatio;
 }
-
 extension type PaintRenderingContext2DSettings._(JSObject _)
     implements JSObject {
   external factory PaintRenderingContext2DSettings({bool alpha});
-}
 
-extension PaintRenderingContext2DSettingsExtension
-    on PaintRenderingContext2DSettings {
   external set alpha(bool value);
   external bool get alpha;
 }
-
-extension type PaintRenderingContext2D._(JSObject _) implements JSObject {}
-
-extension PaintRenderingContext2DExtension on PaintRenderingContext2D {
+extension type PaintRenderingContext2D._(JSObject _) implements JSObject {
   external void save();
   external void restore();
   external void reset();
@@ -233,10 +224,7 @@ extension PaintRenderingContext2DExtension on PaintRenderingContext2D {
   external set lineDashOffset(num value);
   external num get lineDashOffset;
 }
-
-extension type PaintSize._(JSObject _) implements JSObject {}
-
-extension PaintSizeExtension on PaintSize {
+extension type PaintSize._(JSObject _) implements JSObject {
   external num get width;
   external num get height;
 }

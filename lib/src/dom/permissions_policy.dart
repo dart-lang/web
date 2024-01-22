@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'reporting.dart';
 
-extension type PermissionsPolicy._(JSObject _) implements JSObject {}
-
-extension PermissionsPolicyExtension on PermissionsPolicy {
+extension type PermissionsPolicy._(JSObject _) implements JSObject {
   external bool allowsFeature(
     String feature, [
     String origin,
@@ -19,12 +17,8 @@ extension PermissionsPolicyExtension on PermissionsPolicy {
   external JSArray allowedFeatures();
   external JSArray getAllowlistForFeature(String feature);
 }
-
 extension type PermissionsPolicyViolationReportBody._(JSObject _)
-    implements ReportBody, JSObject {}
-
-extension PermissionsPolicyViolationReportBodyExtension
-    on PermissionsPolicyViolationReportBody {
+    implements ReportBody, JSObject {
   external String get featureId;
   external String? get sourceFile;
   external int? get lineNumber;

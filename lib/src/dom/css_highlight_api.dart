@@ -11,15 +11,10 @@ import 'dom.dart';
 typedef HighlightType = String;
 extension type Highlight._(JSObject _) implements JSObject {
   external factory Highlight(AbstractRange initialRanges);
-}
 
-extension HighlightExtension on Highlight {
   external set priority(int value);
   external int get priority;
   external set type(HighlightType value);
   external HighlightType get type;
 }
-
 extension type HighlightRegistry._(JSObject _) implements JSObject {}
-
-extension HighlightRegistryExtension on HighlightRegistry {}

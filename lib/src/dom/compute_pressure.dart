@@ -18,29 +18,20 @@ extension type PressureObserver._(JSObject _) implements JSObject {
   ]);
 
   external static JSArray get supportedSources;
-}
-
-extension PressureObserverExtension on PressureObserver {
   external JSPromise observe(PressureSource source);
   external void unobserve(PressureSource source);
   external void disconnect();
   external JSArray takeRecords();
 }
-
-extension type PressureRecord._(JSObject _) implements JSObject {}
-
-extension PressureRecordExtension on PressureRecord {
+extension type PressureRecord._(JSObject _) implements JSObject {
   external JSObject toJSON();
   external PressureSource get source;
   external PressureState get state;
   external DOMHighResTimeStamp get time;
 }
-
 extension type PressureObserverOptions._(JSObject _) implements JSObject {
   external factory PressureObserverOptions({num sampleRate});
-}
 
-extension PressureObserverOptionsExtension on PressureObserverOptions {
   external set sampleRate(num value);
   external num get sampleRate;
 }

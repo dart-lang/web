@@ -28,19 +28,14 @@ extension type CSSStyleValue._(JSObject _) implements JSObject {
     String cssText,
   );
 }
-extension type StylePropertyMapReadOnly._(JSObject _) implements JSObject {}
-
-extension StylePropertyMapReadOnlyExtension on StylePropertyMapReadOnly {
+extension type StylePropertyMapReadOnly._(JSObject _) implements JSObject {
   external CSSStyleValue? get(String property);
   external JSArray getAll(String property);
   external bool has(String property);
   external int get size;
 }
-
 extension type StylePropertyMap._(JSObject _)
-    implements StylePropertyMapReadOnly, JSObject {}
-
-extension StylePropertyMapExtension on StylePropertyMap {
+    implements StylePropertyMapReadOnly, JSObject {
   external void set(
     String property,
     JSAny values,
@@ -52,39 +47,29 @@ extension StylePropertyMapExtension on StylePropertyMap {
   external void delete(String property);
   external void clear();
 }
-
 extension type CSSUnparsedValue._(JSObject _)
     implements CSSStyleValue, JSObject {
   external factory CSSUnparsedValue(JSArray members);
-}
 
-extension CSSUnparsedValueExtension on CSSUnparsedValue {
   external int get length;
 }
-
 extension type CSSVariableReferenceValue._(JSObject _) implements JSObject {
   external factory CSSVariableReferenceValue(
     String variable, [
     CSSUnparsedValue? fallback,
   ]);
-}
 
-extension CSSVariableReferenceValueExtension on CSSVariableReferenceValue {
   external set variable(String value);
   external String get variable;
   external CSSUnparsedValue? get fallback;
 }
-
 extension type CSSKeywordValue._(JSObject _)
     implements CSSStyleValue, JSObject {
   external factory CSSKeywordValue(String value);
-}
 
-extension CSSKeywordValueExtension on CSSKeywordValue {
   external set value(String value);
   external String get value;
 }
-
 extension type CSSNumericType._(JSObject _) implements JSObject {
   external factory CSSNumericType({
     int length,
@@ -96,9 +81,7 @@ extension type CSSNumericType._(JSObject _) implements JSObject {
     int percent,
     CSSNumericBaseType percentHint,
   });
-}
 
-extension CSSNumericTypeExtension on CSSNumericType {
   external set length(int value);
   external int get length;
   external set angle(int value);
@@ -116,13 +99,9 @@ extension CSSNumericTypeExtension on CSSNumericType {
   external set percentHint(CSSNumericBaseType value);
   external CSSNumericBaseType get percentHint;
 }
-
 extension type CSSNumericValue._(JSObject _)
     implements CSSStyleValue, JSObject {
   external static CSSNumericValue parse(String cssText);
-}
-
-extension CSSNumericValueExtension on CSSNumericValue {
   external CSSNumericValue add(CSSNumberish values);
   external CSSNumericValue sub(CSSNumberish values);
   external CSSNumericValue mul(CSSNumberish values);
@@ -134,114 +113,76 @@ extension CSSNumericValueExtension on CSSNumericValue {
   external CSSMathSum toSum(String units);
   external CSSNumericType type();
 }
-
 extension type CSSUnitValue._(JSObject _) implements CSSNumericValue, JSObject {
   external factory CSSUnitValue(
     num value,
     String unit,
   );
-}
 
-extension CSSUnitValueExtension on CSSUnitValue {
   external set value(num value);
   external num get value;
   external String get unit;
 }
-
-extension type CSSMathValue._(JSObject _)
-    implements CSSNumericValue, JSObject {}
-
-extension CSSMathValueExtension on CSSMathValue {
+extension type CSSMathValue._(JSObject _) implements CSSNumericValue, JSObject {
   external CSSMathOperator get operator;
 }
-
 extension type CSSMathSum._(JSObject _) implements CSSMathValue, JSObject {
   external factory CSSMathSum(CSSNumberish args);
-}
 
-extension CSSMathSumExtension on CSSMathSum {
   external CSSNumericArray get values;
 }
-
 extension type CSSMathProduct._(JSObject _) implements CSSMathValue, JSObject {
   external factory CSSMathProduct(CSSNumberish args);
-}
 
-extension CSSMathProductExtension on CSSMathProduct {
   external CSSNumericArray get values;
 }
-
 extension type CSSMathNegate._(JSObject _) implements CSSMathValue, JSObject {
   external factory CSSMathNegate(CSSNumberish arg);
-}
 
-extension CSSMathNegateExtension on CSSMathNegate {
   external CSSNumericValue get value;
 }
-
 extension type CSSMathInvert._(JSObject _) implements CSSMathValue, JSObject {
   external factory CSSMathInvert(CSSNumberish arg);
-}
 
-extension CSSMathInvertExtension on CSSMathInvert {
   external CSSNumericValue get value;
 }
-
 extension type CSSMathMin._(JSObject _) implements CSSMathValue, JSObject {
   external factory CSSMathMin(CSSNumberish args);
-}
 
-extension CSSMathMinExtension on CSSMathMin {
   external CSSNumericArray get values;
 }
-
 extension type CSSMathMax._(JSObject _) implements CSSMathValue, JSObject {
   external factory CSSMathMax(CSSNumberish args);
-}
 
-extension CSSMathMaxExtension on CSSMathMax {
   external CSSNumericArray get values;
 }
-
 extension type CSSMathClamp._(JSObject _) implements CSSMathValue, JSObject {
   external factory CSSMathClamp(
     CSSNumberish lower,
     CSSNumberish value,
     CSSNumberish upper,
   );
-}
 
-extension CSSMathClampExtension on CSSMathClamp {
   external CSSNumericValue get lower;
   external CSSNumericValue get value;
   external CSSNumericValue get upper;
 }
-
-extension type CSSNumericArray._(JSObject _) implements JSObject {}
-
-extension CSSNumericArrayExtension on CSSNumericArray {
+extension type CSSNumericArray._(JSObject _) implements JSObject {
   external int get length;
 }
-
 extension type CSSTransformValue._(JSObject _)
     implements CSSStyleValue, JSObject {
   external factory CSSTransformValue(JSArray transforms);
-}
 
-extension CSSTransformValueExtension on CSSTransformValue {
   external DOMMatrix toMatrix();
   external int get length;
   external bool get is2D;
 }
-
-extension type CSSTransformComponent._(JSObject _) implements JSObject {}
-
-extension CSSTransformComponentExtension on CSSTransformComponent {
+extension type CSSTransformComponent._(JSObject _) implements JSObject {
   external DOMMatrix toMatrix();
   external set is2D(bool value);
   external bool get is2D;
 }
-
 extension type CSSTranslate._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSTranslate(
@@ -249,9 +190,7 @@ extension type CSSTranslate._(JSObject _)
     CSSNumericValue y, [
     CSSNumericValue z,
   ]);
-}
 
-extension CSSTranslateExtension on CSSTranslate {
   external set x(CSSNumericValue value);
   external CSSNumericValue get x;
   external set y(CSSNumericValue value);
@@ -259,7 +198,6 @@ extension CSSTranslateExtension on CSSTranslate {
   external set z(CSSNumericValue value);
   external CSSNumericValue get z;
 }
-
 extension type CSSRotate._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSRotate(
@@ -268,9 +206,7 @@ extension type CSSRotate._(JSObject _)
     CSSNumberish z,
     CSSNumericValue angle,
   ]);
-}
 
-extension CSSRotateExtension on CSSRotate {
   external set x(CSSNumberish value);
   external CSSNumberish get x;
   external set y(CSSNumberish value);
@@ -280,7 +216,6 @@ extension CSSRotateExtension on CSSRotate {
   external set angle(CSSNumericValue value);
   external CSSNumericValue get angle;
 }
-
 extension type CSSScale._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSScale(
@@ -288,9 +223,7 @@ extension type CSSScale._(JSObject _)
     CSSNumberish y, [
     CSSNumberish z,
   ]);
-}
 
-extension CSSScaleExtension on CSSScale {
   external set x(CSSNumberish value);
   external CSSNumberish get x;
   external set y(CSSNumberish value);
@@ -298,74 +231,55 @@ extension CSSScaleExtension on CSSScale {
   external set z(CSSNumberish value);
   external CSSNumberish get z;
 }
-
 extension type CSSSkew._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSSkew(
     CSSNumericValue ax,
     CSSNumericValue ay,
   );
-}
 
-extension CSSSkewExtension on CSSSkew {
   external set ax(CSSNumericValue value);
   external CSSNumericValue get ax;
   external set ay(CSSNumericValue value);
   external CSSNumericValue get ay;
 }
-
 extension type CSSSkewX._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSSkewX(CSSNumericValue ax);
-}
 
-extension CSSSkewXExtension on CSSSkewX {
   external set ax(CSSNumericValue value);
   external CSSNumericValue get ax;
 }
-
 extension type CSSSkewY._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSSkewY(CSSNumericValue ay);
-}
 
-extension CSSSkewYExtension on CSSSkewY {
   external set ay(CSSNumericValue value);
   external CSSNumericValue get ay;
 }
-
 extension type CSSPerspective._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSPerspective(CSSPerspectiveValue length);
-}
 
-extension CSSPerspectiveExtension on CSSPerspective {
   external set length(CSSPerspectiveValue value);
   external CSSPerspectiveValue get length;
 }
-
 extension type CSSMatrixComponent._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSMatrixComponent(
     DOMMatrixReadOnly matrix, [
     CSSMatrixComponentOptions options,
   ]);
-}
 
-extension CSSMatrixComponentExtension on CSSMatrixComponent {
   external set matrix(DOMMatrix value);
   external DOMMatrix get matrix;
 }
-
 extension type CSSMatrixComponentOptions._(JSObject _) implements JSObject {
   external factory CSSMatrixComponentOptions({bool is2D});
-}
 
-extension CSSMatrixComponentOptionsExtension on CSSMatrixComponentOptions {
   external set is2D(bool value);
   external bool get is2D;
 }
-
 extension type CSSImageValue._(JSObject _) implements CSSStyleValue, JSObject {}
 extension type CSSColorValue._(JSObject _) implements CSSStyleValue, JSObject {
   external static JSObject parse(String cssText);
@@ -377,9 +291,7 @@ extension type CSSRGB._(JSObject _) implements CSSColorValue, JSObject {
     CSSColorRGBComp b, [
     CSSColorPercent alpha,
   ]);
-}
 
-extension CSSRGBExtension on CSSRGB {
   external set r(CSSColorRGBComp value);
   external CSSColorRGBComp get r;
   external set g(CSSColorRGBComp value);
@@ -389,7 +301,6 @@ extension CSSRGBExtension on CSSRGB {
   external set alpha(CSSColorPercent value);
   external CSSColorPercent get alpha;
 }
-
 extension type CSSHSL._(JSObject _) implements CSSColorValue, JSObject {
   external factory CSSHSL(
     CSSColorAngle h,
@@ -397,9 +308,7 @@ extension type CSSHSL._(JSObject _) implements CSSColorValue, JSObject {
     CSSColorPercent l, [
     CSSColorPercent alpha,
   ]);
-}
 
-extension CSSHSLExtension on CSSHSL {
   external set h(CSSColorAngle value);
   external CSSColorAngle get h;
   external set s(CSSColorPercent value);
@@ -409,7 +318,6 @@ extension CSSHSLExtension on CSSHSL {
   external set alpha(CSSColorPercent value);
   external CSSColorPercent get alpha;
 }
-
 extension type CSSHWB._(JSObject _) implements CSSColorValue, JSObject {
   external factory CSSHWB(
     CSSNumericValue h,
@@ -417,9 +325,7 @@ extension type CSSHWB._(JSObject _) implements CSSColorValue, JSObject {
     CSSNumberish b, [
     CSSNumberish alpha,
   ]);
-}
 
-extension CSSHWBExtension on CSSHWB {
   external set h(CSSNumericValue value);
   external CSSNumericValue get h;
   external set w(CSSNumberish value);
@@ -429,7 +335,6 @@ extension CSSHWBExtension on CSSHWB {
   external set alpha(CSSNumberish value);
   external CSSNumberish get alpha;
 }
-
 extension type CSSLab._(JSObject _) implements CSSColorValue, JSObject {
   external factory CSSLab(
     CSSColorPercent l,
@@ -437,9 +342,7 @@ extension type CSSLab._(JSObject _) implements CSSColorValue, JSObject {
     CSSColorNumber b, [
     CSSColorPercent alpha,
   ]);
-}
 
-extension CSSLabExtension on CSSLab {
   external set l(CSSColorPercent value);
   external CSSColorPercent get l;
   external set a(CSSColorNumber value);
@@ -449,7 +352,6 @@ extension CSSLabExtension on CSSLab {
   external set alpha(CSSColorPercent value);
   external CSSColorPercent get alpha;
 }
-
 extension type CSSLCH._(JSObject _) implements CSSColorValue, JSObject {
   external factory CSSLCH(
     CSSColorPercent l,
@@ -457,9 +359,7 @@ extension type CSSLCH._(JSObject _) implements CSSColorValue, JSObject {
     CSSColorAngle h, [
     CSSColorPercent alpha,
   ]);
-}
 
-extension CSSLCHExtension on CSSLCH {
   external set l(CSSColorPercent value);
   external CSSColorPercent get l;
   external set c(CSSColorPercent value);
@@ -469,7 +369,6 @@ extension CSSLCHExtension on CSSLCH {
   external set alpha(CSSColorPercent value);
   external CSSColorPercent get alpha;
 }
-
 extension type CSSOKLab._(JSObject _) implements CSSColorValue, JSObject {
   external factory CSSOKLab(
     CSSColorPercent l,
@@ -477,9 +376,7 @@ extension type CSSOKLab._(JSObject _) implements CSSColorValue, JSObject {
     CSSColorNumber b, [
     CSSColorPercent alpha,
   ]);
-}
 
-extension CSSOKLabExtension on CSSOKLab {
   external set l(CSSColorPercent value);
   external CSSColorPercent get l;
   external set a(CSSColorNumber value);
@@ -489,7 +386,6 @@ extension CSSOKLabExtension on CSSOKLab {
   external set alpha(CSSColorPercent value);
   external CSSColorPercent get alpha;
 }
-
 extension type CSSOKLCH._(JSObject _) implements CSSColorValue, JSObject {
   external factory CSSOKLCH(
     CSSColorPercent l,
@@ -497,9 +393,7 @@ extension type CSSOKLCH._(JSObject _) implements CSSColorValue, JSObject {
     CSSColorAngle h, [
     CSSColorPercent alpha,
   ]);
-}
 
-extension CSSOKLCHExtension on CSSOKLCH {
   external set l(CSSColorPercent value);
   external CSSColorPercent get l;
   external set c(CSSColorPercent value);
@@ -509,16 +403,13 @@ extension CSSOKLCHExtension on CSSOKLCH {
   external set alpha(CSSColorPercent value);
   external CSSColorPercent get alpha;
 }
-
 extension type CSSColor._(JSObject _) implements CSSColorValue, JSObject {
   external factory CSSColor(
     CSSKeywordish colorSpace,
     JSArray channels, [
     CSSNumberish alpha,
   ]);
-}
 
-extension CSSColorExtension on CSSColor {
   external set colorSpace(CSSKeywordish value);
   external CSSKeywordish get colorSpace;
   external set channels(JSArray value);

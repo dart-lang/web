@@ -10,24 +10,18 @@ import 'generic_sensor.dart';
 
 typedef RotationMatrixType = JSObject;
 typedef OrientationSensorLocalCoordinateSystem = String;
-extension type OrientationSensor._(JSObject _) implements Sensor, JSObject {}
-
-extension OrientationSensorExtension on OrientationSensor {
+extension type OrientationSensor._(JSObject _) implements Sensor, JSObject {
   external void populateMatrix(RotationMatrixType targetMatrix);
   external JSArray? get quaternion;
 }
-
 extension type OrientationSensorOptions._(JSObject _)
     implements SensorOptions, JSObject {
   external factory OrientationSensorOptions(
       {OrientationSensorLocalCoordinateSystem referenceFrame});
-}
 
-extension OrientationSensorOptionsExtension on OrientationSensorOptions {
   external set referenceFrame(OrientationSensorLocalCoordinateSystem value);
   external OrientationSensorLocalCoordinateSystem get referenceFrame;
 }
-
 extension type AbsoluteOrientationSensor._(JSObject _)
     implements OrientationSensor, JSObject {
   external factory AbsoluteOrientationSensor(
@@ -42,14 +36,10 @@ extension type AbsoluteOrientationReadingValues._(JSObject _)
     implements JSObject {
   external factory AbsoluteOrientationReadingValues(
       {required JSArray? quaternion});
-}
 
-extension AbsoluteOrientationReadingValuesExtension
-    on AbsoluteOrientationReadingValues {
   external set quaternion(JSArray? value);
   external JSArray? get quaternion;
 }
-
 extension type RelativeOrientationReadingValues._(JSObject _)
     implements AbsoluteOrientationReadingValues, JSObject {
   external factory RelativeOrientationReadingValues();

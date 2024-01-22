@@ -10,51 +10,37 @@ import 'dom.dart';
 import 'html.dart';
 
 extension type DocumentPictureInPicture._(JSObject _)
-    implements EventTarget, JSObject {}
-
-extension DocumentPictureInPictureExtension on DocumentPictureInPicture {
+    implements EventTarget, JSObject {
   external JSPromise requestWindow([DocumentPictureInPictureOptions options]);
   external Window get window;
   external set onenter(EventHandler value);
   external EventHandler get onenter;
 }
-
 extension type DocumentPictureInPictureOptions._(JSObject _)
     implements JSObject {
   external factory DocumentPictureInPictureOptions({
     int width,
     int height,
   });
-}
 
-extension DocumentPictureInPictureOptionsExtension
-    on DocumentPictureInPictureOptions {
   external set width(int value);
   external int get width;
   external set height(int value);
   external int get height;
 }
-
 extension type DocumentPictureInPictureEvent._(JSObject _)
     implements Event, JSObject {
   external factory DocumentPictureInPictureEvent(
     String type,
     DocumentPictureInPictureEventInit eventInitDict,
   );
-}
 
-extension DocumentPictureInPictureEventExtension
-    on DocumentPictureInPictureEvent {
   external Window get window;
 }
-
 extension type DocumentPictureInPictureEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory DocumentPictureInPictureEventInit({required Window window});
-}
 
-extension DocumentPictureInPictureEventInitExtension
-    on DocumentPictureInPictureEventInit {
   external set window(Window value);
   external Window get window;
 }

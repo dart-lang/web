@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'reporting.dart';
 
-extension type CrashReportBody._(JSObject _) implements ReportBody, JSObject {}
-
-extension CrashReportBodyExtension on CrashReportBody {
+extension type CrashReportBody._(JSObject _) implements ReportBody, JSObject {
   external JSObject toJSON();
   external String? get reason;
 }

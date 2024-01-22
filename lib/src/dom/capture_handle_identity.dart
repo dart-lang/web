@@ -12,9 +12,7 @@ extension type CaptureHandleConfig._(JSObject _) implements JSObject {
     String handle,
     JSArray permittedOrigins,
   });
-}
 
-extension CaptureHandleConfigExtension on CaptureHandleConfig {
   external set exposeOrigin(bool value);
   external bool get exposeOrigin;
   external set handle(String value);
@@ -22,15 +20,12 @@ extension CaptureHandleConfigExtension on CaptureHandleConfig {
   external set permittedOrigins(JSArray value);
   external JSArray get permittedOrigins;
 }
-
 extension type CaptureHandle._(JSObject _) implements JSObject {
   external factory CaptureHandle({
     String origin,
     String handle,
   });
-}
 
-extension CaptureHandleExtension on CaptureHandle {
   external set origin(String value);
   external String get origin;
   external set handle(String value);

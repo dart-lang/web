@@ -9,9 +9,7 @@ import 'dart:js_interop';
 typedef AacBitstreamFormat = String;
 extension type AacEncoderConfig._(JSObject _) implements JSObject {
   external factory AacEncoderConfig({AacBitstreamFormat format});
-}
 
-extension AacEncoderConfigExtension on AacEncoderConfig {
   external set format(AacBitstreamFormat value);
   external AacBitstreamFormat get format;
 }

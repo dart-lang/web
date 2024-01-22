@@ -16,9 +16,7 @@ extension type OpusEncoderConfig._(JSObject _) implements JSObject {
     bool useinbandfec,
     bool usedtx,
   });
-}
 
-extension OpusEncoderConfigExtension on OpusEncoderConfig {
   external set format(OpusBitstreamFormat value);
   external OpusBitstreamFormat get format;
   external set frameDuration(int value);

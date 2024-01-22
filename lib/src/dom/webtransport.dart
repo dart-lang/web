@@ -14,10 +14,7 @@ typedef WebTransportReliabilityMode = String;
 typedef WebTransportCongestionControl = String;
 typedef WebTransportErrorSource = String;
 extension type WebTransportDatagramDuplexStream._(JSObject _)
-    implements JSObject {}
-
-extension WebTransportDatagramDuplexStreamExtension
-    on WebTransportDatagramDuplexStream {
+    implements JSObject {
   external ReadableStream get readable;
   external WritableStream get writable;
   external int get maxDatagramSize;
@@ -30,15 +27,12 @@ extension WebTransportDatagramDuplexStreamExtension
   external set outgoingHighWaterMark(num value);
   external num get outgoingHighWaterMark;
 }
-
 extension type WebTransport._(JSObject _) implements JSObject {
   external factory WebTransport(
     String url, [
     WebTransportOptions options,
   ]);
-}
 
-extension WebTransportExtension on WebTransport {
   external JSPromise getStats();
   external void close([WebTransportCloseInfo closeInfo]);
   external JSPromise createBidirectionalStream(
@@ -54,21 +48,17 @@ extension WebTransportExtension on WebTransport {
   external ReadableStream get incomingBidirectionalStreams;
   external ReadableStream get incomingUnidirectionalStreams;
 }
-
 extension type WebTransportHash._(JSObject _) implements JSObject {
   external factory WebTransportHash({
     String algorithm,
     BufferSource value,
   });
-}
 
-extension WebTransportHashExtension on WebTransportHash {
   external set algorithm(String value);
   external String get algorithm;
   external set value(BufferSource value);
   external BufferSource get value;
 }
-
 extension type WebTransportOptions._(JSObject _) implements JSObject {
   external factory WebTransportOptions({
     bool allowPooling,
@@ -76,9 +66,7 @@ extension type WebTransportOptions._(JSObject _) implements JSObject {
     JSArray serverCertificateHashes,
     WebTransportCongestionControl congestionControl,
   });
-}
 
-extension WebTransportOptionsExtension on WebTransportOptions {
   external set allowPooling(bool value);
   external bool get allowPooling;
   external set requireUnreliable(bool value);
@@ -88,31 +76,23 @@ extension WebTransportOptionsExtension on WebTransportOptions {
   external set congestionControl(WebTransportCongestionControl value);
   external WebTransportCongestionControl get congestionControl;
 }
-
 extension type WebTransportCloseInfo._(JSObject _) implements JSObject {
   external factory WebTransportCloseInfo({
     int closeCode,
     String reason,
   });
-}
 
-extension WebTransportCloseInfoExtension on WebTransportCloseInfo {
   external set closeCode(int value);
   external int get closeCode;
   external set reason(String value);
   external String get reason;
 }
-
 extension type WebTransportSendStreamOptions._(JSObject _) implements JSObject {
   external factory WebTransportSendStreamOptions({int? sendOrder});
-}
 
-extension WebTransportSendStreamOptionsExtension
-    on WebTransportSendStreamOptions {
   external set sendOrder(int? value);
   external int? get sendOrder;
 }
-
 extension type WebTransportConnectionStats._(JSObject _) implements JSObject {
   external factory WebTransportConnectionStats({
     DOMHighResTimeStamp timestamp,
@@ -128,9 +108,7 @@ extension type WebTransportConnectionStats._(JSObject _) implements JSObject {
     WebTransportDatagramStats datagrams,
     int? estimatedSendRate,
   });
-}
 
-extension WebTransportConnectionStatsExtension on WebTransportConnectionStats {
   external set timestamp(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get timestamp;
   external set bytesSent(int value);
@@ -156,7 +134,6 @@ extension WebTransportConnectionStatsExtension on WebTransportConnectionStats {
   external set estimatedSendRate(int? value);
   external int? get estimatedSendRate;
 }
-
 extension type WebTransportDatagramStats._(JSObject _) implements JSObject {
   external factory WebTransportDatagramStats({
     DOMHighResTimeStamp timestamp,
@@ -164,9 +141,7 @@ extension type WebTransportDatagramStats._(JSObject _) implements JSObject {
     int droppedIncoming,
     int lostOutgoing,
   });
-}
 
-extension WebTransportDatagramStatsExtension on WebTransportDatagramStats {
   external set timestamp(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get timestamp;
   external set expiredOutgoing(int value);
@@ -176,16 +151,12 @@ extension WebTransportDatagramStatsExtension on WebTransportDatagramStats {
   external set lostOutgoing(int value);
   external int get lostOutgoing;
 }
-
 extension type WebTransportSendStream._(JSObject _)
-    implements WritableStream, JSObject {}
-
-extension WebTransportSendStreamExtension on WebTransportSendStream {
+    implements WritableStream, JSObject {
   external JSPromise getStats();
   external set sendOrder(int? value);
   external int? get sendOrder;
 }
-
 extension type WebTransportSendStreamStats._(JSObject _) implements JSObject {
   external factory WebTransportSendStreamStats({
     DOMHighResTimeStamp timestamp,
@@ -193,9 +164,7 @@ extension type WebTransportSendStreamStats._(JSObject _) implements JSObject {
     int bytesSent,
     int bytesAcknowledged,
   });
-}
 
-extension WebTransportSendStreamStatsExtension on WebTransportSendStreamStats {
   external set timestamp(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get timestamp;
   external set bytesWritten(int value);
@@ -205,14 +174,10 @@ extension WebTransportSendStreamStatsExtension on WebTransportSendStreamStats {
   external set bytesAcknowledged(int value);
   external int get bytesAcknowledged;
 }
-
 extension type WebTransportReceiveStream._(JSObject _)
-    implements ReadableStream, JSObject {}
-
-extension WebTransportReceiveStreamExtension on WebTransportReceiveStream {
+    implements ReadableStream, JSObject {
   external JSPromise getStats();
 }
-
 extension type WebTransportReceiveStreamStats._(JSObject _)
     implements JSObject {
   external factory WebTransportReceiveStreamStats({
@@ -220,10 +185,7 @@ extension type WebTransportReceiveStreamStats._(JSObject _)
     int bytesReceived,
     int bytesRead,
   });
-}
 
-extension WebTransportReceiveStreamStatsExtension
-    on WebTransportReceiveStreamStats {
   external set timestamp(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get timestamp;
   external set bytesReceived(int value);
@@ -231,37 +193,27 @@ extension WebTransportReceiveStreamStatsExtension
   external set bytesRead(int value);
   external int get bytesRead;
 }
-
 extension type WebTransportBidirectionalStream._(JSObject _)
-    implements JSObject {}
-
-extension WebTransportBidirectionalStreamExtension
-    on WebTransportBidirectionalStream {
+    implements JSObject {
   external WebTransportReceiveStream get readable;
   external WebTransportSendStream get writable;
 }
-
 extension type WebTransportError._(JSObject _)
     implements DOMException, JSObject {
   external factory WebTransportError([
     String message,
     WebTransportErrorOptions options,
   ]);
-}
 
-extension WebTransportErrorExtension on WebTransportError {
   external WebTransportErrorSource get source;
   external int? get streamErrorCode;
 }
-
 extension type WebTransportErrorOptions._(JSObject _) implements JSObject {
   external factory WebTransportErrorOptions({
     WebTransportErrorSource source,
     int? streamErrorCode,
   });
-}
 
-extension WebTransportErrorOptionsExtension on WebTransportErrorOptions {
   external set source(WebTransportErrorSource value);
   external WebTransportErrorSource get source;
   external set streamErrorCode(int? value);

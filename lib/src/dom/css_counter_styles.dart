@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'cssom.dart';
 
-extension type CSSCounterStyleRule._(JSObject _) implements CSSRule, JSObject {}
-
-extension CSSCounterStyleRuleExtension on CSSCounterStyleRule {
+extension type CSSCounterStyleRule._(JSObject _) implements CSSRule, JSObject {
   external set name(String value);
   external String get name;
   external set system(String value);

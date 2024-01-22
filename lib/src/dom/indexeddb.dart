@@ -14,9 +14,7 @@ typedef IDBRequestReadyState = String;
 typedef IDBTransactionDurability = String;
 typedef IDBCursorDirection = String;
 typedef IDBTransactionMode = String;
-extension type IDBRequest._(JSObject _) implements EventTarget, JSObject {}
-
-extension IDBRequestExtension on IDBRequest {
+extension type IDBRequest._(JSObject _) implements EventTarget, JSObject {
   external JSAny? get result;
   external DOMException? get error;
   external JSObject? get source;
@@ -27,46 +25,34 @@ extension IDBRequestExtension on IDBRequest {
   external set onerror(EventHandler value);
   external EventHandler get onerror;
 }
-
-extension type IDBOpenDBRequest._(JSObject _) implements IDBRequest, JSObject {}
-
-extension IDBOpenDBRequestExtension on IDBOpenDBRequest {
+extension type IDBOpenDBRequest._(JSObject _) implements IDBRequest, JSObject {
   external set onblocked(EventHandler value);
   external EventHandler get onblocked;
   external set onupgradeneeded(EventHandler value);
   external EventHandler get onupgradeneeded;
 }
-
 extension type IDBVersionChangeEvent._(JSObject _) implements Event, JSObject {
   external factory IDBVersionChangeEvent(
     String type, [
     IDBVersionChangeEventInit eventInitDict,
   ]);
-}
 
-extension IDBVersionChangeEventExtension on IDBVersionChangeEvent {
   external int get oldVersion;
   external int? get newVersion;
 }
-
 extension type IDBVersionChangeEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory IDBVersionChangeEventInit({
     int oldVersion,
     int? newVersion,
   });
-}
 
-extension IDBVersionChangeEventInitExtension on IDBVersionChangeEventInit {
   external set oldVersion(int value);
   external int get oldVersion;
   external set newVersion(int? value);
   external int? get newVersion;
 }
-
-extension type IDBFactory._(JSObject _) implements JSObject {}
-
-extension IDBFactoryExtension on IDBFactory {
+extension type IDBFactory._(JSObject _) implements JSObject {
   external IDBOpenDBRequest open(
     String name, [
     int version,
@@ -78,24 +64,18 @@ extension IDBFactoryExtension on IDBFactory {
     JSAny? second,
   );
 }
-
 extension type IDBDatabaseInfo._(JSObject _) implements JSObject {
   external factory IDBDatabaseInfo({
     String name,
     int version,
   });
-}
 
-extension IDBDatabaseInfoExtension on IDBDatabaseInfo {
   external set name(String value);
   external String get name;
   external set version(int value);
   external int get version;
 }
-
-extension type IDBDatabase._(JSObject _) implements EventTarget, JSObject {}
-
-extension IDBDatabaseExtension on IDBDatabase {
+extension type IDBDatabase._(JSObject _) implements EventTarget, JSObject {
   external IDBTransaction transaction(
     JSAny storeNames, [
     IDBTransactionMode mode,
@@ -119,33 +99,24 @@ extension IDBDatabaseExtension on IDBDatabase {
   external set onversionchange(EventHandler value);
   external EventHandler get onversionchange;
 }
-
 extension type IDBTransactionOptions._(JSObject _) implements JSObject {
   external factory IDBTransactionOptions({IDBTransactionDurability durability});
-}
 
-extension IDBTransactionOptionsExtension on IDBTransactionOptions {
   external set durability(IDBTransactionDurability value);
   external IDBTransactionDurability get durability;
 }
-
 extension type IDBObjectStoreParameters._(JSObject _) implements JSObject {
   external factory IDBObjectStoreParameters({
     JSAny? keyPath,
     bool autoIncrement,
   });
-}
 
-extension IDBObjectStoreParametersExtension on IDBObjectStoreParameters {
   external set keyPath(JSAny? value);
   external JSAny? get keyPath;
   external set autoIncrement(bool value);
   external bool get autoIncrement;
 }
-
-extension type IDBObjectStore._(JSObject _) implements JSObject {}
-
-extension IDBObjectStoreExtension on IDBObjectStore {
+extension type IDBObjectStore._(JSObject _) implements JSObject {
   external IDBRequest put(
     JSAny? value, [
     JSAny? key,
@@ -189,24 +160,18 @@ extension IDBObjectStoreExtension on IDBObjectStore {
   external IDBTransaction get transaction;
   external bool get autoIncrement;
 }
-
 extension type IDBIndexParameters._(JSObject _) implements JSObject {
   external factory IDBIndexParameters({
     bool unique,
     bool multiEntry,
   });
-}
 
-extension IDBIndexParametersExtension on IDBIndexParameters {
   external set unique(bool value);
   external bool get unique;
   external set multiEntry(bool value);
   external bool get multiEntry;
 }
-
-extension type IDBIndex._(JSObject _) implements JSObject {}
-
-extension IDBIndexExtension on IDBIndex {
+extension type IDBIndex._(JSObject _) implements JSObject {
   external IDBRequest get(JSAny? query);
   external IDBRequest getKey(JSAny? query);
   external IDBRequest getAll([
@@ -233,7 +198,6 @@ extension IDBIndexExtension on IDBIndex {
   external bool get multiEntry;
   external bool get unique;
 }
-
 extension type IDBKeyRange._(JSObject _) implements JSObject {
   external static IDBKeyRange only(JSAny? value);
   external static IDBKeyRange lowerBound(
@@ -250,19 +214,13 @@ extension type IDBKeyRange._(JSObject _) implements JSObject {
     bool lowerOpen,
     bool upperOpen,
   ]);
-}
-
-extension IDBKeyRangeExtension on IDBKeyRange {
   external bool includes(JSAny? key);
   external JSAny? get lower;
   external JSAny? get upper;
   external bool get lowerOpen;
   external bool get upperOpen;
 }
-
-extension type IDBCursor._(JSObject _) implements JSObject {}
-
-extension IDBCursorExtension on IDBCursor {
+extension type IDBCursor._(JSObject _) implements JSObject {
   external void advance(int count);
   @JS('continue')
   external void continue_([JSAny? key]);
@@ -278,17 +236,10 @@ extension IDBCursorExtension on IDBCursor {
   external JSAny? get primaryKey;
   external IDBRequest get request;
 }
-
-extension type IDBCursorWithValue._(JSObject _)
-    implements IDBCursor, JSObject {}
-
-extension IDBCursorWithValueExtension on IDBCursorWithValue {
+extension type IDBCursorWithValue._(JSObject _) implements IDBCursor, JSObject {
   external JSAny? get value;
 }
-
-extension type IDBTransaction._(JSObject _) implements EventTarget, JSObject {}
-
-extension IDBTransactionExtension on IDBTransaction {
+extension type IDBTransaction._(JSObject _) implements EventTarget, JSObject {
   external IDBObjectStore objectStore(String name);
   external void commit();
   external void abort();

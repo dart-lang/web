@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 extension type AudioOutputOptions._(JSObject _) implements JSObject {
   external factory AudioOutputOptions({String deviceId});
-}
 
-extension AudioOutputOptionsExtension on AudioOutputOptions {
   external set deviceId(String value);
   external String get deviceId;
 }

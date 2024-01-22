@@ -18,9 +18,7 @@ extension type EditContextInit._(JSObject _) implements JSObject {
     int selectionStart,
     int selectionEnd,
   });
-}
 
-extension EditContextInitExtension on EditContextInit {
   external set text(String value);
   external String get text;
   external set selectionStart(int value);
@@ -28,12 +26,9 @@ extension EditContextInitExtension on EditContextInit {
   external set selectionEnd(int value);
   external int get selectionEnd;
 }
-
 extension type EditContext._(JSObject _) implements EventTarget, JSObject {
   external factory EditContext([EditContextInit options]);
-}
 
-extension EditContextExtension on EditContext {
   external void updateText(
     int rangeStart,
     int rangeEnd,
@@ -71,7 +66,6 @@ extension EditContextExtension on EditContext {
   external set oncompositionend(EventHandler value);
   external EventHandler get oncompositionend;
 }
-
 extension type TextUpdateEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory TextUpdateEventInit({
@@ -83,9 +77,7 @@ extension type TextUpdateEventInit._(JSObject _)
     int compositionStart,
     int compositionEnd,
   });
-}
 
-extension TextUpdateEventInitExtension on TextUpdateEventInit {
   external set updateRangeStart(int value);
   external int get updateRangeStart;
   external set updateRangeEnd(int value);
@@ -101,15 +93,12 @@ extension TextUpdateEventInitExtension on TextUpdateEventInit {
   external set compositionEnd(int value);
   external int get compositionEnd;
 }
-
 extension type TextUpdateEvent._(JSObject _) implements Event, JSObject {
   external factory TextUpdateEvent(
     String type, [
     TextUpdateEventInit options,
   ]);
-}
 
-extension TextUpdateEventExtension on TextUpdateEvent {
   external int get updateRangeStart;
   external int get updateRangeEnd;
   external String get text;
@@ -118,7 +107,6 @@ extension TextUpdateEventExtension on TextUpdateEvent {
   external int get compositionStart;
   external int get compositionEnd;
 }
-
 extension type TextFormatInit._(JSObject _) implements JSObject {
   external factory TextFormatInit({
     int rangeStart,
@@ -126,9 +114,7 @@ extension type TextFormatInit._(JSObject _) implements JSObject {
     UnderlineStyle underlineStyle,
     UnderlineThickness underlineThickness,
   });
-}
 
-extension TextFormatInitExtension on TextFormatInit {
   external set rangeStart(int value);
   external int get rangeStart;
   external set rangeEnd(int value);
@@ -138,64 +124,48 @@ extension TextFormatInitExtension on TextFormatInit {
   external set underlineThickness(UnderlineThickness value);
   external UnderlineThickness get underlineThickness;
 }
-
 extension type TextFormat._(JSObject _) implements JSObject {
   external factory TextFormat([TextFormatInit options]);
-}
 
-extension TextFormatExtension on TextFormat {
   external int get rangeStart;
   external int get rangeEnd;
   external UnderlineStyle get underlineStyle;
   external UnderlineThickness get underlineThickness;
 }
-
 extension type TextFormatUpdateEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory TextFormatUpdateEventInit({JSArray textFormats});
-}
 
-extension TextFormatUpdateEventInitExtension on TextFormatUpdateEventInit {
   external set textFormats(JSArray value);
   external JSArray get textFormats;
 }
-
 extension type TextFormatUpdateEvent._(JSObject _) implements Event, JSObject {
   external factory TextFormatUpdateEvent(
     String type, [
     TextFormatUpdateEventInit options,
   ]);
-}
 
-extension TextFormatUpdateEventExtension on TextFormatUpdateEvent {
   external JSArray getTextFormats();
 }
-
 extension type CharacterBoundsUpdateEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory CharacterBoundsUpdateEventInit({
     int rangeStart,
     int rangeEnd,
   });
-}
 
-extension CharacterBoundsUpdateEventInitExtension
-    on CharacterBoundsUpdateEventInit {
   external set rangeStart(int value);
   external int get rangeStart;
   external set rangeEnd(int value);
   external int get rangeEnd;
 }
-
 extension type CharacterBoundsUpdateEvent._(JSObject _)
     implements Event, JSObject {
   external factory CharacterBoundsUpdateEvent(
     String type, [
     CharacterBoundsUpdateEventInit options,
   ]);
-}
 
-extension CharacterBoundsUpdateEventExtension on CharacterBoundsUpdateEvent {
   external int get rangeStart;
   external int get rangeEnd;
 }

@@ -31,42 +31,31 @@ extension type MLContextOptions._(JSObject _) implements JSObject {
     MLDeviceType deviceType,
     MLPowerPreference powerPreference,
   });
-}
 
-extension MLContextOptionsExtension on MLContextOptions {
   external set deviceType(MLDeviceType value);
   external MLDeviceType get deviceType;
   external set powerPreference(MLPowerPreference value);
   external MLPowerPreference get powerPreference;
 }
-
-extension type ML._(JSObject _) implements JSObject {}
-
-extension MLExtension on ML {
+extension type ML._(JSObject _) implements JSObject {
   external JSPromise createContext([JSObject gpuDeviceOrOptions]);
   external MLContext createContextSync([JSObject gpuDeviceOrOptions]);
 }
-
 extension type MLGraph._(JSObject _) implements JSObject {}
 extension type MLOperandDescriptor._(JSObject _) implements JSObject {
   external factory MLOperandDescriptor({
     required MLOperandType type,
     JSArray dimensions,
   });
-}
 
-extension MLOperandDescriptorExtension on MLOperandDescriptor {
   external set type(MLOperandType value);
   external MLOperandType get type;
   external set dimensions(JSArray value);
   external JSArray get dimensions;
 }
-
 extension type MLOperand._(JSObject _) implements JSObject {}
 extension type MLActivation._(JSObject _) implements JSObject {}
-extension type MLContext._(JSObject _) implements JSObject {}
-
-extension MLContextExtension on MLContext {
+extension type MLContext._(JSObject _) implements JSObject {
   external void computeSync(
     MLGraph graph,
     MLNamedArrayBufferViews inputs,
@@ -79,24 +68,18 @@ extension MLContextExtension on MLContext {
   );
   external MLCommandEncoder createCommandEncoder();
 }
-
 extension type MLComputeResult._(JSObject _) implements JSObject {
   external factory MLComputeResult({
     MLNamedArrayBufferViews inputs,
     MLNamedArrayBufferViews outputs,
   });
-}
 
-extension MLComputeResultExtension on MLComputeResult {
   external set inputs(MLNamedArrayBufferViews value);
   external MLNamedArrayBufferViews get inputs;
   external set outputs(MLNamedArrayBufferViews value);
   external MLNamedArrayBufferViews get outputs;
 }
-
-extension type MLCommandEncoder._(JSObject _) implements JSObject {}
-
-extension MLCommandEncoderExtension on MLCommandEncoder {
+extension type MLCommandEncoder._(JSObject _) implements JSObject {
   external void initializeGraph(MLGraph graph);
   external void dispatch(
     MLGraph graph,
@@ -105,16 +88,13 @@ extension MLCommandEncoderExtension on MLCommandEncoder {
   );
   external GPUCommandBuffer finish([GPUCommandBufferDescriptor descriptor]);
 }
-
 extension type MLBufferResourceView._(JSObject _) implements JSObject {
   external factory MLBufferResourceView({
     required GPUBuffer resource,
     int offset,
     int size,
   });
-}
 
-extension MLBufferResourceViewExtension on MLBufferResourceView {
   external set resource(GPUBuffer value);
   external GPUBuffer get resource;
   external set offset(int value);
@@ -122,12 +102,9 @@ extension MLBufferResourceViewExtension on MLBufferResourceView {
   external set size(int value);
   external int get size;
 }
-
 extension type MLGraphBuilder._(JSObject _) implements JSObject {
   external factory MLGraphBuilder(MLContext context);
-}
 
-extension MLGraphBuilderExtension on MLGraphBuilder {
   external MLOperand input(
     String name,
     MLOperandDescriptor descriptor,
@@ -360,7 +337,6 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
     MLTransposeOptions options,
   ]);
 }
-
 extension type MLBatchNormalizationOptions._(JSObject _) implements JSObject {
   external factory MLBatchNormalizationOptions({
     MLOperand scale,
@@ -369,9 +345,7 @@ extension type MLBatchNormalizationOptions._(JSObject _) implements JSObject {
     num epsilon,
     MLActivation activation,
   });
-}
 
-extension MLBatchNormalizationOptionsExtension on MLBatchNormalizationOptions {
   external set scale(MLOperand value);
   external MLOperand get scale;
   external set bias(MLOperand value);
@@ -383,21 +357,17 @@ extension MLBatchNormalizationOptionsExtension on MLBatchNormalizationOptions {
   external set activation(MLActivation value);
   external MLActivation get activation;
 }
-
 extension type MLClampOptions._(JSObject _) implements JSObject {
   external factory MLClampOptions({
     num minValue,
     num maxValue,
   });
-}
 
-extension MLClampOptionsExtension on MLClampOptions {
   external set minValue(num value);
   external num get minValue;
   external set maxValue(num value);
   external num get maxValue;
 }
-
 extension type MLConv2dOptions._(JSObject _) implements JSObject {
   external factory MLConv2dOptions({
     JSArray padding,
@@ -410,9 +380,7 @@ extension type MLConv2dOptions._(JSObject _) implements JSObject {
     MLOperand bias,
     MLActivation activation,
   });
-}
 
-extension MLConv2dOptionsExtension on MLConv2dOptions {
   external set padding(JSArray value);
   external JSArray get padding;
   external set strides(JSArray value);
@@ -432,7 +400,6 @@ extension MLConv2dOptionsExtension on MLConv2dOptions {
   external set activation(MLActivation value);
   external MLActivation get activation;
 }
-
 extension type MLConvTranspose2dOptions._(JSObject _) implements JSObject {
   external factory MLConvTranspose2dOptions({
     JSArray padding,
@@ -447,9 +414,7 @@ extension type MLConvTranspose2dOptions._(JSObject _) implements JSObject {
     MLOperand bias,
     MLActivation activation,
   });
-}
 
-extension MLConvTranspose2dOptionsExtension on MLConvTranspose2dOptions {
   external set padding(JSArray value);
   external JSArray get padding;
   external set strides(JSArray value);
@@ -473,16 +438,12 @@ extension MLConvTranspose2dOptionsExtension on MLConvTranspose2dOptions {
   external set activation(MLActivation value);
   external MLActivation get activation;
 }
-
 extension type MLEluOptions._(JSObject _) implements JSObject {
   external factory MLEluOptions({num alpha});
-}
 
-extension MLEluOptionsExtension on MLEluOptions {
   external set alpha(num value);
   external num get alpha;
 }
-
 extension type MLGemmOptions._(JSObject _) implements JSObject {
   external factory MLGemmOptions({
     MLOperand c,
@@ -491,9 +452,7 @@ extension type MLGemmOptions._(JSObject _) implements JSObject {
     bool aTranspose,
     bool bTranspose,
   });
-}
 
-extension MLGemmOptionsExtension on MLGemmOptions {
   external set c(MLOperand value);
   external MLOperand get c;
   external set alpha(num value);
@@ -505,7 +464,6 @@ extension MLGemmOptionsExtension on MLGemmOptions {
   external set bTranspose(bool value);
   external bool get bTranspose;
 }
-
 extension type MLGruOptions._(JSObject _) implements JSObject {
   external factory MLGruOptions({
     MLOperand bias,
@@ -517,9 +475,7 @@ extension type MLGruOptions._(JSObject _) implements JSObject {
     MLGruWeightLayout layout,
     JSArray activations,
   });
-}
 
-extension MLGruOptionsExtension on MLGruOptions {
   external set bias(MLOperand value);
   external MLOperand get bias;
   external set recurrentBias(MLOperand value);
@@ -537,7 +493,6 @@ extension MLGruOptionsExtension on MLGruOptions {
   external set activations(JSArray value);
   external JSArray get activations;
 }
-
 extension type MLGruCellOptions._(JSObject _) implements JSObject {
   external factory MLGruCellOptions({
     MLOperand bias,
@@ -546,9 +501,7 @@ extension type MLGruCellOptions._(JSObject _) implements JSObject {
     MLGruWeightLayout layout,
     JSArray activations,
   });
-}
 
-extension MLGruCellOptionsExtension on MLGruCellOptions {
   external set bias(MLOperand value);
   external MLOperand get bias;
   external set recurrentBias(MLOperand value);
@@ -560,21 +513,17 @@ extension MLGruCellOptionsExtension on MLGruCellOptions {
   external set activations(JSArray value);
   external JSArray get activations;
 }
-
 extension type MLHardSigmoidOptions._(JSObject _) implements JSObject {
   external factory MLHardSigmoidOptions({
     num alpha,
     num beta,
   });
-}
 
-extension MLHardSigmoidOptionsExtension on MLHardSigmoidOptions {
   external set alpha(num value);
   external num get alpha;
   external set beta(num value);
   external num get beta;
 }
-
 extension type MLInstanceNormalizationOptions._(JSObject _)
     implements JSObject {
   external factory MLInstanceNormalizationOptions({
@@ -583,10 +532,7 @@ extension type MLInstanceNormalizationOptions._(JSObject _)
     num epsilon,
     MLInputOperandLayout layout,
   });
-}
 
-extension MLInstanceNormalizationOptionsExtension
-    on MLInstanceNormalizationOptions {
   external set scale(MLOperand value);
   external MLOperand get scale;
   external set bias(MLOperand value);
@@ -596,30 +542,23 @@ extension MLInstanceNormalizationOptionsExtension
   external set layout(MLInputOperandLayout value);
   external MLInputOperandLayout get layout;
 }
-
 extension type MLLeakyReluOptions._(JSObject _) implements JSObject {
   external factory MLLeakyReluOptions({num alpha});
-}
 
-extension MLLeakyReluOptionsExtension on MLLeakyReluOptions {
   external set alpha(num value);
   external num get alpha;
 }
-
 extension type MLLinearOptions._(JSObject _) implements JSObject {
   external factory MLLinearOptions({
     num alpha,
     num beta,
   });
-}
 
-extension MLLinearOptionsExtension on MLLinearOptions {
   external set alpha(num value);
   external num get alpha;
   external set beta(num value);
   external num get beta;
 }
-
 extension type MLLstmOptions._(JSObject _) implements JSObject {
   external factory MLLstmOptions({
     MLOperand bias,
@@ -632,9 +571,7 @@ extension type MLLstmOptions._(JSObject _) implements JSObject {
     MLLstmWeightLayout layout,
     JSArray activations,
   });
-}
 
-extension MLLstmOptionsExtension on MLLstmOptions {
   external set bias(MLOperand value);
   external MLOperand get bias;
   external set recurrentBias(MLOperand value);
@@ -654,7 +591,6 @@ extension MLLstmOptionsExtension on MLLstmOptions {
   external set activations(JSArray value);
   external JSArray get activations;
 }
-
 extension type MLLstmCellOptions._(JSObject _) implements JSObject {
   external factory MLLstmCellOptions({
     MLOperand bias,
@@ -663,9 +599,7 @@ extension type MLLstmCellOptions._(JSObject _) implements JSObject {
     MLLstmWeightLayout layout,
     JSArray activations,
   });
-}
 
-extension MLLstmCellOptionsExtension on MLLstmCellOptions {
   external set bias(MLOperand value);
   external MLOperand get bias;
   external set recurrentBias(MLOperand value);
@@ -677,21 +611,17 @@ extension MLLstmCellOptionsExtension on MLLstmCellOptions {
   external set activations(JSArray value);
   external JSArray get activations;
 }
-
 extension type MLPadOptions._(JSObject _) implements JSObject {
   external factory MLPadOptions({
     MLPaddingMode mode,
     num value,
   });
-}
 
-extension MLPadOptionsExtension on MLPadOptions {
   external set mode(MLPaddingMode value);
   external MLPaddingMode get mode;
   external set value(num value);
   external num get value;
 }
-
 extension type MLPool2dOptions._(JSObject _) implements JSObject {
   external factory MLPool2dOptions({
     JSArray windowDimensions,
@@ -703,9 +633,7 @@ extension type MLPool2dOptions._(JSObject _) implements JSObject {
     MLRoundingType roundingType,
     JSArray outputSizes,
   });
-}
 
-extension MLPool2dOptionsExtension on MLPool2dOptions {
   external set windowDimensions(JSArray value);
   external JSArray get windowDimensions;
   external set padding(JSArray value);
@@ -723,21 +651,17 @@ extension MLPool2dOptionsExtension on MLPool2dOptions {
   external set outputSizes(JSArray value);
   external JSArray get outputSizes;
 }
-
 extension type MLReduceOptions._(JSObject _) implements JSObject {
   external factory MLReduceOptions({
     JSArray axes,
     bool keepDimensions,
   });
-}
 
-extension MLReduceOptionsExtension on MLReduceOptions {
   external set axes(JSArray value);
   external JSArray get axes;
   external set keepDimensions(bool value);
   external bool get keepDimensions;
 }
-
 extension type MLResample2dOptions._(JSObject _) implements JSObject {
   external factory MLResample2dOptions({
     MLInterpolationMode mode,
@@ -745,9 +669,7 @@ extension type MLResample2dOptions._(JSObject _) implements JSObject {
     JSArray sizes,
     JSArray axes,
   });
-}
 
-extension MLResample2dOptionsExtension on MLResample2dOptions {
   external set mode(MLInterpolationMode value);
   external MLInterpolationMode get mode;
   external set scales(JSArray value);
@@ -757,39 +679,27 @@ extension MLResample2dOptionsExtension on MLResample2dOptions {
   external set axes(JSArray value);
   external JSArray get axes;
 }
-
 extension type MLSoftplusOptions._(JSObject _) implements JSObject {
   external factory MLSoftplusOptions({num steepness});
-}
 
-extension MLSoftplusOptionsExtension on MLSoftplusOptions {
   external set steepness(num value);
   external num get steepness;
 }
-
 extension type MLSplitOptions._(JSObject _) implements JSObject {
   external factory MLSplitOptions({int axis});
-}
 
-extension MLSplitOptionsExtension on MLSplitOptions {
   external set axis(int value);
   external int get axis;
 }
-
 extension type MLSqueezeOptions._(JSObject _) implements JSObject {
   external factory MLSqueezeOptions({JSArray axes});
-}
 
-extension MLSqueezeOptionsExtension on MLSqueezeOptions {
   external set axes(JSArray value);
   external JSArray get axes;
 }
-
 extension type MLTransposeOptions._(JSObject _) implements JSObject {
   external factory MLTransposeOptions({JSArray permutation});
-}
 
-extension MLTransposeOptionsExtension on MLTransposeOptions {
   external set permutation(JSArray value);
   external JSArray get permutation;
 }

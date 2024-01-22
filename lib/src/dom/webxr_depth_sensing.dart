@@ -16,38 +16,27 @@ extension type XRDepthStateInit._(JSObject _) implements JSObject {
     required JSArray usagePreference,
     required JSArray dataFormatPreference,
   });
-}
 
-extension XRDepthStateInitExtension on XRDepthStateInit {
   external set usagePreference(JSArray value);
   external JSArray get usagePreference;
   external set dataFormatPreference(JSArray value);
   external JSArray get dataFormatPreference;
 }
-
-extension type XRDepthInformation._(JSObject _) implements JSObject {}
-
-extension XRDepthInformationExtension on XRDepthInformation {
+extension type XRDepthInformation._(JSObject _) implements JSObject {
   external int get width;
   external int get height;
   external XRRigidTransform get normDepthBufferFromNormView;
   external num get rawValueToMeters;
 }
-
 extension type XRCPUDepthInformation._(JSObject _)
-    implements XRDepthInformation, JSObject {}
-
-extension XRCPUDepthInformationExtension on XRCPUDepthInformation {
+    implements XRDepthInformation, JSObject {
   external num getDepthInMeters(
     num x,
     num y,
   );
   external JSArrayBuffer get data;
 }
-
 extension type XRWebGLDepthInformation._(JSObject _)
-    implements XRDepthInformation, JSObject {}
-
-extension XRWebGLDepthInformationExtension on XRWebGLDepthInformation {
+    implements XRDepthInformation, JSObject {
   external WebGLTexture get texture;
 }

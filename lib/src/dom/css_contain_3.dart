@@ -9,9 +9,7 @@ import 'dart:js_interop';
 import 'css_conditional.dart';
 
 extension type CSSContainerRule._(JSObject _)
-    implements CSSConditionRule, JSObject {}
-
-extension CSSContainerRuleExtension on CSSContainerRule {
+    implements CSSConditionRule, JSObject {
   external String get containerName;
   external String get containerQuery;
 }

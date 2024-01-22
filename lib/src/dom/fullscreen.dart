@@ -14,9 +14,7 @@ extension type FullscreenOptions._(JSObject _) implements JSObject {
     FullscreenNavigationUI navigationUI,
     ScreenDetailed screen,
   });
-}
 
-extension FullscreenOptionsExtension on FullscreenOptions {
   external set navigationUI(FullscreenNavigationUI value);
   external FullscreenNavigationUI get navigationUI;
   external set screen(ScreenDetailed value);

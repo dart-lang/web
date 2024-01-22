@@ -22,9 +22,7 @@ extension type VideoFrameCallbackMetadata._(JSObject _) implements JSObject {
     DOMHighResTimeStamp receiveTime,
     int rtpTimestamp,
   });
-}
 
-extension VideoFrameCallbackMetadataExtension on VideoFrameCallbackMetadata {
   external set presentationTime(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get presentationTime;
   external set expectedDisplayTime(DOMHighResTimeStamp value);

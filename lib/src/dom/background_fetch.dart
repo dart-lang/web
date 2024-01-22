@@ -13,9 +13,7 @@ import 'service_workers.dart';
 
 typedef BackgroundFetchResult = String;
 typedef BackgroundFetchFailureReason = String;
-extension type BackgroundFetchManager._(JSObject _) implements JSObject {}
-
-extension BackgroundFetchManagerExtension on BackgroundFetchManager {
+extension type BackgroundFetchManager._(JSObject _) implements JSObject {
   external JSPromise fetch(
     String id,
     JSAny requests, [
@@ -24,35 +22,26 @@ extension BackgroundFetchManagerExtension on BackgroundFetchManager {
   external JSPromise get(String id);
   external JSPromise getIds();
 }
-
 extension type BackgroundFetchUIOptions._(JSObject _) implements JSObject {
   external factory BackgroundFetchUIOptions({
     JSArray icons,
     String title,
   });
-}
 
-extension BackgroundFetchUIOptionsExtension on BackgroundFetchUIOptions {
   external set icons(JSArray value);
   external JSArray get icons;
   external set title(String value);
   external String get title;
 }
-
 extension type BackgroundFetchOptions._(JSObject _)
     implements BackgroundFetchUIOptions, JSObject {
   external factory BackgroundFetchOptions({int downloadTotal});
-}
 
-extension BackgroundFetchOptionsExtension on BackgroundFetchOptions {
   external set downloadTotal(int value);
   external int get downloadTotal;
 }
-
 extension type BackgroundFetchRegistration._(JSObject _)
-    implements EventTarget, JSObject {}
-
-extension BackgroundFetchRegistrationExtension on BackgroundFetchRegistration {
+    implements EventTarget, JSObject {
   external JSPromise abort();
   external JSPromise match(
     RequestInfo request, [
@@ -73,46 +62,33 @@ extension BackgroundFetchRegistrationExtension on BackgroundFetchRegistration {
   external set onprogress(EventHandler value);
   external EventHandler get onprogress;
 }
-
-extension type BackgroundFetchRecord._(JSObject _) implements JSObject {}
-
-extension BackgroundFetchRecordExtension on BackgroundFetchRecord {
+extension type BackgroundFetchRecord._(JSObject _) implements JSObject {
   external Request get request;
   external JSPromise get responseReady;
 }
-
 extension type BackgroundFetchEvent._(JSObject _)
     implements ExtendableEvent, JSObject {
   external factory BackgroundFetchEvent(
     String type,
     BackgroundFetchEventInit init,
   );
-}
 
-extension BackgroundFetchEventExtension on BackgroundFetchEvent {
   external BackgroundFetchRegistration get registration;
 }
-
 extension type BackgroundFetchEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
   external factory BackgroundFetchEventInit(
       {required BackgroundFetchRegistration registration});
-}
 
-extension BackgroundFetchEventInitExtension on BackgroundFetchEventInit {
   external set registration(BackgroundFetchRegistration value);
   external BackgroundFetchRegistration get registration;
 }
-
 extension type BackgroundFetchUpdateUIEvent._(JSObject _)
     implements BackgroundFetchEvent, JSObject {
   external factory BackgroundFetchUpdateUIEvent(
     String type,
     BackgroundFetchEventInit init,
   );
-}
 
-extension BackgroundFetchUpdateUIEventExtension
-    on BackgroundFetchUpdateUIEvent {
   external JSPromise updateUI([BackgroundFetchUIOptions options]);
 }

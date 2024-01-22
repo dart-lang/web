@@ -10,28 +10,21 @@ import 'credential_management.dart';
 
 typedef IdentityCredentialRequestOptionsContext = String;
 extension type IdentityCredential._(JSObject _)
-    implements Credential, JSObject {}
-
-extension IdentityCredentialExtension on IdentityCredential {
+    implements Credential, JSObject {
   external String? get token;
 }
-
 extension type IdentityCredentialRequestOptions._(JSObject _)
     implements JSObject {
   external factory IdentityCredentialRequestOptions({
     required JSArray providers,
     IdentityCredentialRequestOptionsContext context,
   });
-}
 
-extension IdentityCredentialRequestOptionsExtension
-    on IdentityCredentialRequestOptions {
   external set providers(JSArray value);
   external JSArray get providers;
   external set context(IdentityCredentialRequestOptionsContext value);
   external IdentityCredentialRequestOptionsContext get context;
 }
-
 extension type IdentityProviderConfig._(JSObject _) implements JSObject {
   external factory IdentityProviderConfig({
     required String configURL,
@@ -39,9 +32,7 @@ extension type IdentityProviderConfig._(JSObject _) implements JSObject {
     String nonce,
     String loginHint,
   });
-}
 
-extension IdentityProviderConfigExtension on IdentityProviderConfig {
   external set configURL(String value);
   external String get configURL;
   external set clientId(String value);
@@ -51,30 +42,23 @@ extension IdentityProviderConfigExtension on IdentityProviderConfig {
   external set loginHint(String value);
   external String get loginHint;
 }
-
 extension type IdentityProviderWellKnown._(JSObject _) implements JSObject {
   external factory IdentityProviderWellKnown({required JSArray provider_urls});
-}
 
-extension IdentityProviderWellKnownExtension on IdentityProviderWellKnown {
   external set provider_urls(JSArray value);
   external JSArray get provider_urls;
 }
-
 extension type IdentityProviderIcon._(JSObject _) implements JSObject {
   external factory IdentityProviderIcon({
     required String url,
     int size,
   });
-}
 
-extension IdentityProviderIconExtension on IdentityProviderIcon {
   external set url(String value);
   external String get url;
   external set size(int value);
   external int get size;
 }
-
 extension type IdentityProviderBranding._(JSObject _) implements JSObject {
   external factory IdentityProviderBranding({
     String background_color,
@@ -82,9 +66,7 @@ extension type IdentityProviderBranding._(JSObject _) implements JSObject {
     JSArray icons,
     String name,
   });
-}
 
-extension IdentityProviderBrandingExtension on IdentityProviderBranding {
   external set background_color(String value);
   external String get background_color;
   external set color(String value);
@@ -94,7 +76,6 @@ extension IdentityProviderBrandingExtension on IdentityProviderBranding {
   external set name(String value);
   external String get name;
 }
-
 extension type IdentityProviderAPIConfig._(JSObject _) implements JSObject {
   external factory IdentityProviderAPIConfig({
     required String accounts_endpoint,
@@ -102,9 +83,7 @@ extension type IdentityProviderAPIConfig._(JSObject _) implements JSObject {
     required String id_assertion_endpoint,
     IdentityProviderBranding branding,
   });
-}
 
-extension IdentityProviderAPIConfigExtension on IdentityProviderAPIConfig {
   external set accounts_endpoint(String value);
   external String get accounts_endpoint;
   external set client_metadata_endpoint(String value);
@@ -114,7 +93,6 @@ extension IdentityProviderAPIConfigExtension on IdentityProviderAPIConfig {
   external set branding(IdentityProviderBranding value);
   external IdentityProviderBranding get branding;
 }
-
 extension type IdentityProviderAccount._(JSObject _) implements JSObject {
   external factory IdentityProviderAccount({
     required String id,
@@ -125,9 +103,7 @@ extension type IdentityProviderAccount._(JSObject _) implements JSObject {
     JSArray approved_clients,
     JSArray login_hints,
   });
-}
 
-extension IdentityProviderAccountExtension on IdentityProviderAccount {
   external set id(String value);
   external String get id;
   external set name(String value);
@@ -143,41 +119,30 @@ extension IdentityProviderAccountExtension on IdentityProviderAccount {
   external set login_hints(JSArray value);
   external JSArray get login_hints;
 }
-
 extension type IdentityProviderAccountList._(JSObject _) implements JSObject {
   external factory IdentityProviderAccountList({JSArray accounts});
-}
 
-extension IdentityProviderAccountListExtension on IdentityProviderAccountList {
   external set accounts(JSArray value);
   external JSArray get accounts;
 }
-
 extension type IdentityProviderToken._(JSObject _) implements JSObject {
   external factory IdentityProviderToken({required String token});
-}
 
-extension IdentityProviderTokenExtension on IdentityProviderToken {
   external set token(String value);
   external String get token;
 }
-
 extension type IdentityProviderClientMetadata._(JSObject _)
     implements JSObject {
   external factory IdentityProviderClientMetadata({
     String privacy_policy_url,
     String terms_of_service_url,
   });
-}
 
-extension IdentityProviderClientMetadataExtension
-    on IdentityProviderClientMetadata {
   external set privacy_policy_url(String value);
   external String get privacy_policy_url;
   external set terms_of_service_url(String value);
   external String get terms_of_service_url;
 }
-
 extension type IdentityUserInfo._(JSObject _) implements JSObject {
   external factory IdentityUserInfo({
     String email,
@@ -185,9 +150,7 @@ extension type IdentityUserInfo._(JSObject _) implements JSObject {
     String givenName,
     String picture,
   });
-}
 
-extension IdentityUserInfoExtension on IdentityUserInfo {
   external set email(String value);
   external String get email;
   external set name(String value);
@@ -197,7 +160,6 @@ extension IdentityUserInfoExtension on IdentityUserInfo {
   external set picture(String value);
   external String get picture;
 }
-
 extension type IdentityProvider._(JSObject _) implements JSObject {
   external static JSPromise getUserInfo(IdentityProviderConfig config);
 }

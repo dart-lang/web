@@ -13,9 +13,7 @@ extension type RelatedApplication._(JSObject _) implements JSObject {
     String id,
     String version,
   });
-}
 
-extension RelatedApplicationExtension on RelatedApplication {
   external set platform(String value);
   external String get platform;
   external set url(String value);

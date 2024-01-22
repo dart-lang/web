@@ -11,8 +11,6 @@ import 'web_animations.dart';
 
 extension type CSSStartingStyleRule._(JSObject _)
     implements CSSGroupingRule, JSObject {}
-extension type CSSTransition._(JSObject _) implements Animation, JSObject {}
-
-extension CSSTransitionExtension on CSSTransition {
+extension type CSSTransition._(JSObject _) implements Animation, JSObject {
   external String get transitionProperty;
 }

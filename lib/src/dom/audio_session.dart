@@ -11,9 +11,7 @@ import 'html.dart';
 
 typedef AudioSessionState = String;
 typedef AudioSessionType = String;
-extension type AudioSession._(JSObject _) implements EventTarget, JSObject {}
-
-extension AudioSessionExtension on AudioSession {
+extension type AudioSession._(JSObject _) implements EventTarget, JSObject {
   external set type(AudioSessionType value);
   external AudioSessionType get type;
   external AudioSessionState get state;

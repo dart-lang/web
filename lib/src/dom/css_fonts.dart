@@ -8,16 +8,11 @@ import 'dart:js_interop';
 
 import 'cssom.dart';
 
-extension type CSSFontFaceRule._(JSObject _) implements CSSRule, JSObject {}
-
-extension CSSFontFaceRuleExtension on CSSFontFaceRule {
+extension type CSSFontFaceRule._(JSObject _) implements CSSRule, JSObject {
   external CSSStyleDeclaration get style;
 }
-
 extension type CSSFontFeatureValuesRule._(JSObject _)
-    implements CSSRule, JSObject {}
-
-extension CSSFontFeatureValuesRuleExtension on CSSFontFeatureValuesRule {
+    implements CSSRule, JSObject {
   external set fontFamily(String value);
   external String get fontFamily;
   external CSSFontFeatureValuesMap get annotation;
@@ -27,20 +22,14 @@ extension CSSFontFeatureValuesRuleExtension on CSSFontFeatureValuesRule {
   external CSSFontFeatureValuesMap get characterVariant;
   external CSSFontFeatureValuesMap get styleset;
 }
-
-extension type CSSFontFeatureValuesMap._(JSObject _) implements JSObject {}
-
-extension CSSFontFeatureValuesMapExtension on CSSFontFeatureValuesMap {
+extension type CSSFontFeatureValuesMap._(JSObject _) implements JSObject {
   external void set(
     String featureValueName,
     JSAny values,
   );
 }
-
 extension type CSSFontPaletteValuesRule._(JSObject _)
-    implements CSSRule, JSObject {}
-
-extension CSSFontPaletteValuesRuleExtension on CSSFontPaletteValuesRule {
+    implements CSSRule, JSObject {
   external String get name;
   external String get fontFamily;
   external String get basePalette;

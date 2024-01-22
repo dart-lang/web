@@ -43,8 +43,5 @@ extension type WEBGL_draw_buffers._(JSObject _) implements JSObject {
   external static GLenum get DRAW_BUFFER15_WEBGL;
   external static GLenum get MAX_COLOR_ATTACHMENTS_WEBGL;
   external static GLenum get MAX_DRAW_BUFFERS_WEBGL;
-}
-
-extension WEBGLDrawBuffersExtension on WEBGL_draw_buffers {
   external void drawBuffersWEBGL(JSArray buffers);
 }

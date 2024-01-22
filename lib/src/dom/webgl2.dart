@@ -580,9 +580,6 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   external static GLenum get TEXTURE_IMMUTABLE_LEVELS;
   external static GLint64 get TIMEOUT_IGNORED;
   external static GLenum get MAX_CLIENT_WAIT_TIMEOUT_WEBGL;
-}
-
-extension WebGL2RenderingContextExtension on WebGL2RenderingContext {
   external WebGLContextAttributes? getContextAttributes();
   external bool isContextLost();
   external JSArray? getSupportedExtensions();

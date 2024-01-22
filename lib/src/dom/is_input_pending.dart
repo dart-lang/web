@@ -8,15 +8,10 @@ import 'dart:js_interop';
 
 extension type IsInputPendingOptions._(JSObject _) implements JSObject {
   external factory IsInputPendingOptions({bool includeContinuous});
-}
 
-extension IsInputPendingOptionsExtension on IsInputPendingOptions {
   external set includeContinuous(bool value);
   external bool get includeContinuous;
 }
-
-extension type Scheduling._(JSObject _) implements JSObject {}
-
-extension SchedulingExtension on Scheduling {
+extension type Scheduling._(JSObject _) implements JSObject {
   external bool isInputPending([IsInputPendingOptions isInputPendingOptions]);
 }

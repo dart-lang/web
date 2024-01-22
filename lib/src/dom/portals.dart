@@ -12,9 +12,7 @@ import 'html.dart';
 extension type HTMLPortalElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLPortalElement();
-}
 
-extension HTMLPortalElementExtension on HTMLPortalElement {
   external JSPromise activate([PortalActivateOptions options]);
   external void postMessage(
     JSAny? message, [
@@ -29,20 +27,14 @@ extension HTMLPortalElementExtension on HTMLPortalElement {
   external set onmessageerror(EventHandler value);
   external EventHandler get onmessageerror;
 }
-
 extension type PortalActivateOptions._(JSObject _)
     implements StructuredSerializeOptions, JSObject {
   external factory PortalActivateOptions({JSAny? data});
-}
 
-extension PortalActivateOptionsExtension on PortalActivateOptions {
   external set data(JSAny? value);
   external JSAny? get data;
 }
-
-extension type PortalHost._(JSObject _) implements EventTarget, JSObject {}
-
-extension PortalHostExtension on PortalHost {
+extension type PortalHost._(JSObject _) implements EventTarget, JSObject {
   external void postMessage(
     JSAny? message, [
     StructuredSerializeOptions options,
@@ -52,25 +44,19 @@ extension PortalHostExtension on PortalHost {
   external set onmessageerror(EventHandler value);
   external EventHandler get onmessageerror;
 }
-
 extension type PortalActivateEvent._(JSObject _) implements Event, JSObject {
   external factory PortalActivateEvent(
     String type, [
     PortalActivateEventInit eventInitDict,
   ]);
-}
 
-extension PortalActivateEventExtension on PortalActivateEvent {
   external HTMLPortalElement adoptPredecessor();
   external JSAny? get data;
 }
-
 extension type PortalActivateEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory PortalActivateEventInit({JSAny? data});
-}
 
-extension PortalActivateEventInitExtension on PortalActivateEventInit {
   external set data(JSAny? value);
   external JSAny? get data;
 }

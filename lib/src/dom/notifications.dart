@@ -25,9 +25,6 @@ extension type Notification._(JSObject _) implements EventTarget, JSObject {
       [NotificationPermissionCallback deprecatedCallback]);
   external static NotificationPermission get permission;
   external static int get maxActions;
-}
-
-extension NotificationExtension on Notification {
   external void close();
   external set onclick(EventHandler value);
   external EventHandler get onclick;
@@ -53,7 +50,6 @@ extension NotificationExtension on Notification {
   external JSAny? get data;
   external JSArray get actions;
 }
-
 extension type NotificationOptions._(JSObject _) implements JSObject {
   external factory NotificationOptions({
     NotificationDirection dir,
@@ -71,9 +67,7 @@ extension type NotificationOptions._(JSObject _) implements JSObject {
     JSAny? data,
     JSArray actions,
   });
-}
 
-extension NotificationOptionsExtension on NotificationOptions {
   external set dir(NotificationDirection value);
   external NotificationDirection get dir;
   external set lang(String value);
@@ -103,16 +97,13 @@ extension NotificationOptionsExtension on NotificationOptions {
   external set actions(JSArray value);
   external JSArray get actions;
 }
-
 extension type NotificationAction._(JSObject _) implements JSObject {
   external factory NotificationAction({
     required String action,
     required String title,
     String icon,
   });
-}
 
-extension NotificationActionExtension on NotificationAction {
   external set action(String value);
   external String get action;
   external set title(String value);
@@ -120,38 +111,29 @@ extension NotificationActionExtension on NotificationAction {
   external set icon(String value);
   external String get icon;
 }
-
 extension type GetNotificationOptions._(JSObject _) implements JSObject {
   external factory GetNotificationOptions({String tag});
-}
 
-extension GetNotificationOptionsExtension on GetNotificationOptions {
   external set tag(String value);
   external String get tag;
 }
-
 extension type NotificationEvent._(JSObject _)
     implements ExtendableEvent, JSObject {
   external factory NotificationEvent(
     String type,
     NotificationEventInit eventInitDict,
   );
-}
 
-extension NotificationEventExtension on NotificationEvent {
   external Notification get notification;
   external String get action;
 }
-
 extension type NotificationEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
   external factory NotificationEventInit({
     required Notification notification,
     String action,
   });
-}
 
-extension NotificationEventInitExtension on NotificationEventInit {
   external set notification(Notification value);
   external Notification get notification;
   external set action(String value);

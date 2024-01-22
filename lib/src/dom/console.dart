@@ -9,9 +9,7 @@ import 'dart:js_interop';
 @JS()
 external $Console get console;
 @JS('console')
-extension type $Console._(JSObject _) implements JSObject {}
-
-extension $ConsoleExtension on $Console {
+extension type $Console._(JSObject _) implements JSObject {
   @JS('assert')
   external void assert_(
     JSAny? data, [

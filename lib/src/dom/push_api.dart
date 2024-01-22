@@ -16,47 +16,32 @@ typedef PushEncryptionKeyName = String;
 extension type PushPermissionDescriptor._(JSObject _)
     implements PermissionDescriptor, JSObject {
   external factory PushPermissionDescriptor({bool userVisibleOnly});
-}
 
-extension PushPermissionDescriptorExtension on PushPermissionDescriptor {
   external set userVisibleOnly(bool value);
   external bool get userVisibleOnly;
 }
-
 extension type PushManager._(JSObject _) implements JSObject {
   external static JSArray get supportedContentEncodings;
-}
-
-extension PushManagerExtension on PushManager {
   external JSPromise subscribe([PushSubscriptionOptionsInit options]);
   external JSPromise getSubscription();
   external JSPromise permissionState([PushSubscriptionOptionsInit options]);
 }
-
-extension type PushSubscriptionOptions._(JSObject _) implements JSObject {}
-
-extension PushSubscriptionOptionsExtension on PushSubscriptionOptions {
+extension type PushSubscriptionOptions._(JSObject _) implements JSObject {
   external bool get userVisibleOnly;
   external JSArrayBuffer? get applicationServerKey;
 }
-
 extension type PushSubscriptionOptionsInit._(JSObject _) implements JSObject {
   external factory PushSubscriptionOptionsInit({
     bool userVisibleOnly,
     JSAny? applicationServerKey,
   });
-}
 
-extension PushSubscriptionOptionsInitExtension on PushSubscriptionOptionsInit {
   external set userVisibleOnly(bool value);
   external bool get userVisibleOnly;
   external set applicationServerKey(JSAny? value);
   external JSAny? get applicationServerKey;
 }
-
-extension type PushSubscription._(JSObject _) implements JSObject {}
-
-extension PushSubscriptionExtension on PushSubscription {
+extension type PushSubscription._(JSObject _) implements JSObject {
   external JSArrayBuffer? getKey(PushEncryptionKeyName name);
   external JSPromise unsubscribe();
   external PushSubscriptionJSON toJSON();
@@ -64,16 +49,13 @@ extension PushSubscriptionExtension on PushSubscription {
   external EpochTimeStamp? get expirationTime;
   external PushSubscriptionOptions get options;
 }
-
 extension type PushSubscriptionJSON._(JSObject _) implements JSObject {
   external factory PushSubscriptionJSON({
     String endpoint,
     EpochTimeStamp? expirationTime,
     JSAny keys,
   });
-}
 
-extension PushSubscriptionJSONExtension on PushSubscriptionJSON {
   external set endpoint(String value);
   external String get endpoint;
   external set expirationTime(EpochTimeStamp? value);
@@ -81,60 +63,44 @@ extension PushSubscriptionJSONExtension on PushSubscriptionJSON {
   external set keys(JSAny value);
   external JSAny get keys;
 }
-
-extension type PushMessageData._(JSObject _) implements JSObject {}
-
-extension PushMessageDataExtension on PushMessageData {
+extension type PushMessageData._(JSObject _) implements JSObject {
   external JSArrayBuffer arrayBuffer();
   external Blob blob();
   external JSAny? json();
   external String text();
 }
-
 extension type PushEvent._(JSObject _) implements ExtendableEvent, JSObject {
   external factory PushEvent(
     String type, [
     PushEventInit eventInitDict,
   ]);
-}
 
-extension PushEventExtension on PushEvent {
   external PushMessageData? get data;
 }
-
 extension type PushEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
   external factory PushEventInit({PushMessageDataInit data});
-}
 
-extension PushEventInitExtension on PushEventInit {
   external set data(PushMessageDataInit value);
   external PushMessageDataInit get data;
 }
-
 extension type PushSubscriptionChangeEvent._(JSObject _)
     implements ExtendableEvent, JSObject {
   external factory PushSubscriptionChangeEvent(
     String type, [
     PushSubscriptionChangeEventInit eventInitDict,
   ]);
-}
 
-extension PushSubscriptionChangeEventExtension on PushSubscriptionChangeEvent {
   external PushSubscription? get newSubscription;
   external PushSubscription? get oldSubscription;
 }
-
 extension type PushSubscriptionChangeEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
   external factory PushSubscriptionChangeEventInit({
     PushSubscription newSubscription,
     PushSubscription oldSubscription,
   });
-}
 
-extension PushSubscriptionChangeEventInitExtension
-    on PushSubscriptionChangeEventInit {
   external set newSubscription(PushSubscription value);
   external PushSubscription get newSubscription;
   external set oldSubscription(PushSubscription value);

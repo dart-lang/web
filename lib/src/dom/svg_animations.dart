@@ -10,9 +10,7 @@ import 'dom.dart';
 import 'html.dart';
 import 'svg.dart';
 
-extension type TimeEvent._(JSObject _) implements Event, JSObject {}
-
-extension TimeEventExtension on TimeEvent {
+extension type TimeEvent._(JSObject _) implements Event, JSObject {
   external void initTimeEvent(
     String typeArg,
     Window? viewArg,
@@ -21,11 +19,8 @@ extension TimeEventExtension on TimeEvent {
   external Window? get view;
   external int get detail;
 }
-
 extension type SVGAnimationElement._(JSObject _)
-    implements SVGElement, JSObject {}
-
-extension SVGAnimationElementExtension on SVGAnimationElement {
+    implements SVGElement, JSObject {
   external num getStartTime();
   external num getCurrentTime();
   external num getSimpleDuration();
@@ -43,19 +38,15 @@ extension SVGAnimationElementExtension on SVGAnimationElement {
   external SVGStringList get requiredExtensions;
   external SVGStringList get systemLanguage;
 }
-
 extension type SVGAnimateElement._(JSObject _)
     implements SVGAnimationElement, JSObject {}
 extension type SVGSetElement._(JSObject _)
     implements SVGAnimationElement, JSObject {}
 extension type SVGAnimateMotionElement._(JSObject _)
     implements SVGAnimationElement, JSObject {}
-extension type SVGMPathElement._(JSObject _) implements SVGElement, JSObject {}
-
-extension SVGMPathElementExtension on SVGMPathElement {
+extension type SVGMPathElement._(JSObject _) implements SVGElement, JSObject {
   external SVGAnimatedString get href;
 }
-
 extension type SVGAnimateTransformElement._(JSObject _)
     implements SVGAnimationElement, JSObject {}
 extension type SVGDiscardElement._(JSObject _)

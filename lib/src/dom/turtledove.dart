@@ -16,9 +16,7 @@ extension type AuctionAd._(JSObject _) implements JSObject {
     String buyerAndSellerReportingId,
     JSArray allowedReportingOrigins,
   });
-}
 
-extension AuctionAdExtension on AuctionAd {
   external set renderURL(String value);
   external String get renderURL;
   external set metadata(JSAny? value);
@@ -30,7 +28,6 @@ extension AuctionAdExtension on AuctionAd {
   external set allowedReportingOrigins(JSArray value);
   external JSArray get allowedReportingOrigins;
 }
-
 extension type GenerateBidInterestGroup._(JSObject _) implements JSObject {
   external factory GenerateBidInterestGroup({
     required String owner,
@@ -48,9 +45,7 @@ extension type GenerateBidInterestGroup._(JSObject _) implements JSObject {
     JSArray ads,
     JSArray adComponents,
   });
-}
 
-extension GenerateBidInterestGroupExtension on GenerateBidInterestGroup {
   external set owner(String value);
   external String get owner;
   external set name(String value);
@@ -80,36 +75,29 @@ extension GenerateBidInterestGroupExtension on GenerateBidInterestGroup {
   external set adComponents(JSArray value);
   external JSArray get adComponents;
 }
-
 extension type AuctionAdInterestGroup._(JSObject _)
     implements GenerateBidInterestGroup, JSObject {
   external factory AuctionAdInterestGroup({
     num priority,
     JSAny prioritySignalsOverrides,
   });
-}
 
-extension AuctionAdInterestGroupExtension on AuctionAdInterestGroup {
   external set priority(num value);
   external num get priority;
   external set prioritySignalsOverrides(JSAny value);
   external JSAny get prioritySignalsOverrides;
 }
-
 extension type AuctionAdInterestGroupKey._(JSObject _) implements JSObject {
   external factory AuctionAdInterestGroupKey({
     required String owner,
     required String name,
   });
-}
 
-extension AuctionAdInterestGroupKeyExtension on AuctionAdInterestGroupKey {
   external set owner(String value);
   external String get owner;
   external set name(String value);
   external String get name;
 }
-
 extension type AuctionAdConfig._(JSObject _) implements JSObject {
   external factory AuctionAdConfig({
     required String seller,
@@ -132,9 +120,7 @@ extension type AuctionAdConfig._(JSObject _) implements JSObject {
     AbortSignal? signal,
     JSPromise resolveToConfig,
   });
-}
 
-extension AuctionAdConfigExtension on AuctionAdConfig {
   external set seller(String value);
   external String get seller;
   external set decisionLogicURL(String value);
@@ -174,14 +160,10 @@ extension AuctionAdConfigExtension on AuctionAdConfig {
   external set resolveToConfig(JSPromise value);
   external JSPromise get resolveToConfig;
 }
-
 extension type InterestGroupScriptRunnerGlobalScope._(JSObject _)
     implements JSObject {}
 extension type InterestGroupBiddingScriptRunnerGlobalScope._(JSObject _)
-    implements InterestGroupScriptRunnerGlobalScope, JSObject {}
-
-extension InterestGroupBiddingScriptRunnerGlobalScopeExtension
-    on InterestGroupBiddingScriptRunnerGlobalScope {
+    implements InterestGroupScriptRunnerGlobalScope, JSObject {
   external bool setBid([GenerateBidOutput generateBidOutput]);
   external void setPriority(num priority);
   external void setPrioritySignalsOverride(
@@ -189,16 +171,13 @@ extension InterestGroupBiddingScriptRunnerGlobalScopeExtension
     num? priority,
   ]);
 }
-
 extension type AdRender._(JSObject _) implements JSObject {
   external factory AdRender({
     required String url,
     String width,
     String height,
   });
-}
 
-extension AdRenderExtension on AdRender {
   external set url(String value);
   external String get url;
   external set width(String value);
@@ -206,7 +185,6 @@ extension AdRenderExtension on AdRender {
   external set height(String value);
   external String get height;
 }
-
 extension type GenerateBidOutput._(JSObject _) implements JSObject {
   external factory GenerateBidOutput({
     num bid,
@@ -218,9 +196,7 @@ extension type GenerateBidOutput._(JSObject _) implements JSObject {
     num modelingSignals,
     bool allowComponentAuction,
   });
-}
 
-extension GenerateBidOutputExtension on GenerateBidOutput {
   external set bid(num value);
   external num get bid;
   external set bidCurrency(String value);
@@ -238,14 +214,10 @@ extension GenerateBidOutputExtension on GenerateBidOutput {
   external set allowComponentAuction(bool value);
   external bool get allowComponentAuction;
 }
-
 extension type InterestGroupScoringScriptRunnerGlobalScope._(JSObject _)
     implements InterestGroupScriptRunnerGlobalScope, JSObject {}
 extension type InterestGroupReportingScriptRunnerGlobalScope._(JSObject _)
-    implements InterestGroupScriptRunnerGlobalScope, JSObject {}
-
-extension InterestGroupReportingScriptRunnerGlobalScopeExtension
-    on InterestGroupReportingScriptRunnerGlobalScope {
+    implements InterestGroupScriptRunnerGlobalScope, JSObject {
   external void sendReportTo(String url);
   external void registerAdBeacon(JSAny map);
   external void registerAdMacro(
@@ -253,21 +225,17 @@ extension InterestGroupReportingScriptRunnerGlobalScopeExtension
     String value,
   );
 }
-
 extension type PreviousWin._(JSObject _) implements JSObject {
   external factory PreviousWin({
     required int timeDelta,
     required String adJSON,
   });
-}
 
-extension PreviousWinExtension on PreviousWin {
   external set timeDelta(int value);
   external int get timeDelta;
   external set adJSON(String value);
   external String get adJSON;
 }
-
 extension type BiddingBrowserSignals._(JSObject _) implements JSObject {
   external factory BiddingBrowserSignals({
     required String topWindowHostname,
@@ -280,9 +248,7 @@ extension type BiddingBrowserSignals._(JSObject _) implements JSObject {
     JSObject wasmHelper,
     int dataVersion,
   });
-}
 
-extension BiddingBrowserSignalsExtension on BiddingBrowserSignals {
   external set topWindowHostname(String value);
   external String get topWindowHostname;
   external set seller(String value);
@@ -302,7 +268,6 @@ extension BiddingBrowserSignalsExtension on BiddingBrowserSignals {
   external set dataVersion(int value);
   external int get dataVersion;
 }
-
 extension type ScoringBrowserSignals._(JSObject _) implements JSObject {
   external factory ScoringBrowserSignals({
     required String topWindowHostname,
@@ -313,9 +278,7 @@ extension type ScoringBrowserSignals._(JSObject _) implements JSObject {
     int dataVersion,
     JSArray adComponents,
   });
-}
 
-extension ScoringBrowserSignalsExtension on ScoringBrowserSignals {
   external set topWindowHostname(String value);
   external String get topWindowHostname;
   external set interestGroupOwner(String value);
@@ -331,7 +294,6 @@ extension ScoringBrowserSignalsExtension on ScoringBrowserSignals {
   external set adComponents(JSArray value);
   external JSArray get adComponents;
 }
-
 extension type ReportingBrowserSignals._(JSObject _) implements JSObject {
   external factory ReportingBrowserSignals({
     required String topWindowHostname,
@@ -345,9 +307,7 @@ extension type ReportingBrowserSignals._(JSObject _) implements JSObject {
     String componentSeller,
     String buyerAndSellerReportingId,
   });
-}
 
-extension ReportingBrowserSignalsExtension on ReportingBrowserSignals {
   external set topWindowHostname(String value);
   external String get topWindowHostname;
   external set interestGroupOwner(String value);
@@ -369,7 +329,6 @@ extension ReportingBrowserSignalsExtension on ReportingBrowserSignals {
   external set buyerAndSellerReportingId(String value);
   external String get buyerAndSellerReportingId;
 }
-
 extension type ReportResultBrowserSignals._(JSObject _)
     implements ReportingBrowserSignals, JSObject {
   external factory ReportResultBrowserSignals({
@@ -378,9 +337,7 @@ extension type ReportResultBrowserSignals._(JSObject _)
     num modifiedBid,
     int dataVersion,
   });
-}
 
-extension ReportResultBrowserSignalsExtension on ReportResultBrowserSignals {
   external set desirability(num value);
   external num get desirability;
   external set topLevelSellerSignals(String value);
@@ -390,7 +347,6 @@ extension ReportResultBrowserSignalsExtension on ReportResultBrowserSignals {
   external set dataVersion(int value);
   external int get dataVersion;
 }
-
 extension type ReportWinBrowserSignals._(JSObject _)
     implements ReportingBrowserSignals, JSObject {
   external factory ReportWinBrowserSignals({
@@ -402,9 +358,7 @@ extension type ReportWinBrowserSignals._(JSObject _)
     int modelingSignals,
     int dataVersion,
   });
-}
 
-extension ReportWinBrowserSignalsExtension on ReportWinBrowserSignals {
   external set adCost(num value);
   external num get adCost;
   external set seller(String value);
@@ -420,7 +374,6 @@ extension ReportWinBrowserSignalsExtension on ReportWinBrowserSignals {
   external set dataVersion(int value);
   external int get dataVersion;
 }
-
 extension type ScoreAdOutput._(JSObject _) implements JSObject {
   external factory ScoreAdOutput({
     required num desirability,
@@ -429,9 +382,7 @@ extension type ScoreAdOutput._(JSObject _) implements JSObject {
     num incomingBidInSellerCurrency,
     bool allowComponentAuction,
   });
-}
 
-extension ScoreAdOutputExtension on ScoreAdOutput {
   external set desirability(num value);
   external num get desirability;
   external set bid(num value);

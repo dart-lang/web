@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'cssom.dart';
 
-extension type CSSColorProfileRule._(JSObject _) implements CSSRule, JSObject {}
-
-extension CSSColorProfileRuleExtension on CSSColorProfileRule {
+extension type CSSColorProfileRule._(JSObject _) implements CSSRule, JSObject {
   external String get name;
   external String get src;
   external String get renderingIntent;

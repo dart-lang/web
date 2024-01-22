@@ -11,9 +11,7 @@ import 'reporting.dart';
 
 typedef SecurityPolicyViolationEventDisposition = String;
 extension type CSPViolationReportBody._(JSObject _)
-    implements ReportBody, JSObject {}
-
-extension CSPViolationReportBodyExtension on CSPViolationReportBody {
+    implements ReportBody, JSObject {
   external JSObject toJSON();
   external String get documentURL;
   external String? get referrer;
@@ -27,17 +25,13 @@ extension CSPViolationReportBodyExtension on CSPViolationReportBody {
   external int? get lineNumber;
   external int? get columnNumber;
 }
-
 extension type SecurityPolicyViolationEvent._(JSObject _)
     implements Event, JSObject {
   external factory SecurityPolicyViolationEvent(
     String type, [
     SecurityPolicyViolationEventInit eventInitDict,
   ]);
-}
 
-extension SecurityPolicyViolationEventExtension
-    on SecurityPolicyViolationEvent {
   external String get documentURI;
   external String get referrer;
   external String get blockedURI;
@@ -51,7 +45,6 @@ extension SecurityPolicyViolationEventExtension
   external int get lineNumber;
   external int get columnNumber;
 }
-
 extension type SecurityPolicyViolationEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory SecurityPolicyViolationEventInit({
@@ -68,10 +61,7 @@ extension type SecurityPolicyViolationEventInit._(JSObject _)
     int lineNumber,
     int columnNumber,
   });
-}
 
-extension SecurityPolicyViolationEventInitExtension
-    on SecurityPolicyViolationEventInit {
   external set documentURI(String value);
   external String get documentURI;
   external set referrer(String value);

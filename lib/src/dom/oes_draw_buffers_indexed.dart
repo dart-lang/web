@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'webgl1.dart';
 
-extension type OES_draw_buffers_indexed._(JSObject _) implements JSObject {}
-
-extension OESDrawBuffersIndexedExtension on OES_draw_buffers_indexed {
+extension type OES_draw_buffers_indexed._(JSObject _) implements JSObject {
   external void enableiOES(
     GLenum target,
     GLuint index,

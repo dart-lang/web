@@ -20,39 +20,28 @@ extension type BluetoothDataFilterInit._(JSObject _) implements JSObject {
     BufferSource dataPrefix,
     BufferSource mask,
   });
-}
 
-extension BluetoothDataFilterInitExtension on BluetoothDataFilterInit {
   external set dataPrefix(BufferSource value);
   external BufferSource get dataPrefix;
   external set mask(BufferSource value);
   external BufferSource get mask;
 }
-
 extension type BluetoothManufacturerDataFilterInit._(JSObject _)
     implements BluetoothDataFilterInit, JSObject {
   external factory BluetoothManufacturerDataFilterInit(
       {required int companyIdentifier});
-}
 
-extension BluetoothManufacturerDataFilterInitExtension
-    on BluetoothManufacturerDataFilterInit {
   external set companyIdentifier(int value);
   external int get companyIdentifier;
 }
-
 extension type BluetoothServiceDataFilterInit._(JSObject _)
     implements BluetoothDataFilterInit, JSObject {
   external factory BluetoothServiceDataFilterInit(
       {required BluetoothServiceUUID service});
-}
 
-extension BluetoothServiceDataFilterInitExtension
-    on BluetoothServiceDataFilterInit {
   external set service(BluetoothServiceUUID value);
   external BluetoothServiceUUID get service;
 }
-
 extension type BluetoothLEScanFilterInit._(JSObject _) implements JSObject {
   external factory BluetoothLEScanFilterInit({
     JSArray services,
@@ -61,9 +50,7 @@ extension type BluetoothLEScanFilterInit._(JSObject _) implements JSObject {
     JSArray manufacturerData,
     JSArray serviceData,
   });
-}
 
-extension BluetoothLEScanFilterInitExtension on BluetoothLEScanFilterInit {
   external set services(JSArray value);
   external JSArray get services;
   external set name(String value);
@@ -75,7 +62,6 @@ extension BluetoothLEScanFilterInitExtension on BluetoothLEScanFilterInit {
   external set serviceData(JSArray value);
   external JSArray get serviceData;
 }
-
 extension type RequestDeviceOptions._(JSObject _) implements JSObject {
   external factory RequestDeviceOptions({
     JSArray filters,
@@ -84,9 +70,7 @@ extension type RequestDeviceOptions._(JSObject _) implements JSObject {
     JSArray optionalManufacturerData,
     bool acceptAllDevices,
   });
-}
 
-extension RequestDeviceOptionsExtension on RequestDeviceOptions {
   external set filters(JSArray value);
   external JSArray get filters;
   external set exclusionFilters(JSArray value);
@@ -98,10 +82,7 @@ extension RequestDeviceOptionsExtension on RequestDeviceOptions {
   external set acceptAllDevices(bool value);
   external bool get acceptAllDevices;
 }
-
-extension type Bluetooth._(JSObject _) implements EventTarget, JSObject {}
-
-extension BluetoothExtension on Bluetooth {
+extension type Bluetooth._(JSObject _) implements EventTarget, JSObject {
   external JSPromise getAvailability();
   external JSPromise getDevices();
   external JSPromise requestDevice([RequestDeviceOptions options]);
@@ -121,7 +102,6 @@ extension BluetoothExtension on Bluetooth {
   external set onserviceremoved(EventHandler value);
   external EventHandler get onserviceremoved;
 }
-
 extension type BluetoothPermissionDescriptor._(JSObject _)
     implements PermissionDescriptor, JSObject {
   external factory BluetoothPermissionDescriptor({
@@ -131,10 +111,7 @@ extension type BluetoothPermissionDescriptor._(JSObject _)
     JSArray optionalManufacturerData,
     bool acceptAllDevices,
   });
-}
 
-extension BluetoothPermissionDescriptorExtension
-    on BluetoothPermissionDescriptor {
   external set deviceId(String value);
   external String get deviceId;
   external set filters(JSArray value);
@@ -146,7 +123,6 @@ extension BluetoothPermissionDescriptorExtension
   external set acceptAllDevices(bool value);
   external bool get acceptAllDevices;
 }
-
 extension type AllowedBluetoothDevice._(JSObject _) implements JSObject {
   external factory AllowedBluetoothDevice({
     required String deviceId,
@@ -154,9 +130,7 @@ extension type AllowedBluetoothDevice._(JSObject _) implements JSObject {
     required JSAny allowedServices,
     required JSArray allowedManufacturerData,
   });
-}
 
-extension AllowedBluetoothDeviceExtension on AllowedBluetoothDevice {
   external set deviceId(String value);
   external String get deviceId;
   external set mayUseGATT(bool value);
@@ -166,48 +140,33 @@ extension AllowedBluetoothDeviceExtension on AllowedBluetoothDevice {
   external set allowedManufacturerData(JSArray value);
   external JSArray get allowedManufacturerData;
 }
-
 extension type BluetoothPermissionStorage._(JSObject _) implements JSObject {
   external factory BluetoothPermissionStorage(
       {required JSArray allowedDevices});
-}
 
-extension BluetoothPermissionStorageExtension on BluetoothPermissionStorage {
   external set allowedDevices(JSArray value);
   external JSArray get allowedDevices;
 }
-
 extension type BluetoothPermissionResult._(JSObject _)
-    implements PermissionStatus, JSObject {}
-
-extension BluetoothPermissionResultExtension on BluetoothPermissionResult {
+    implements PermissionStatus, JSObject {
   external set devices(JSArray value);
   external JSArray get devices;
 }
-
 extension type ValueEvent._(JSObject _) implements Event, JSObject {
   external factory ValueEvent(
     String type, [
     ValueEventInit initDict,
   ]);
-}
 
-extension ValueEventExtension on ValueEvent {
   external JSAny? get value;
 }
-
 extension type ValueEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ValueEventInit({JSAny? value});
-}
 
-extension ValueEventInitExtension on ValueEventInit {
   external set value(JSAny? value);
   external JSAny? get value;
 }
-
-extension type BluetoothDevice._(JSObject _) implements EventTarget, JSObject {}
-
-extension BluetoothDeviceExtension on BluetoothDevice {
+extension type BluetoothDevice._(JSObject _) implements EventTarget, JSObject {
   external JSPromise forget();
   external JSPromise watchAdvertisements([WatchAdvertisementsOptions options]);
   external String get id;
@@ -227,34 +186,21 @@ extension BluetoothDeviceExtension on BluetoothDevice {
   external set onserviceremoved(EventHandler value);
   external EventHandler get onserviceremoved;
 }
-
 extension type WatchAdvertisementsOptions._(JSObject _) implements JSObject {
   external factory WatchAdvertisementsOptions({AbortSignal signal});
-}
 
-extension WatchAdvertisementsOptionsExtension on WatchAdvertisementsOptions {
   external set signal(AbortSignal value);
   external AbortSignal get signal;
 }
-
 extension type BluetoothManufacturerDataMap._(JSObject _) implements JSObject {}
-
-extension BluetoothManufacturerDataMapExtension
-    on BluetoothManufacturerDataMap {}
-
 extension type BluetoothServiceDataMap._(JSObject _) implements JSObject {}
-
-extension BluetoothServiceDataMapExtension on BluetoothServiceDataMap {}
-
 extension type BluetoothAdvertisingEvent._(JSObject _)
     implements Event, JSObject {
   external factory BluetoothAdvertisingEvent(
     String type,
     BluetoothAdvertisingEventInit init,
   );
-}
 
-extension BluetoothAdvertisingEventExtension on BluetoothAdvertisingEvent {
   external BluetoothDevice get device;
   external JSArray get uuids;
   external String? get name;
@@ -264,7 +210,6 @@ extension BluetoothAdvertisingEventExtension on BluetoothAdvertisingEvent {
   external BluetoothManufacturerDataMap get manufacturerData;
   external BluetoothServiceDataMap get serviceData;
 }
-
 extension type BluetoothAdvertisingEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory BluetoothAdvertisingEventInit({
@@ -277,10 +222,7 @@ extension type BluetoothAdvertisingEventInit._(JSObject _)
     BluetoothManufacturerDataMap manufacturerData,
     BluetoothServiceDataMap serviceData,
   });
-}
 
-extension BluetoothAdvertisingEventInitExtension
-    on BluetoothAdvertisingEventInit {
   external set device(BluetoothDevice value);
   external BluetoothDevice get device;
   external set uuids(JSArray value);
@@ -298,10 +240,7 @@ extension BluetoothAdvertisingEventInitExtension
   external set serviceData(BluetoothServiceDataMap value);
   external BluetoothServiceDataMap get serviceData;
 }
-
-extension type BluetoothRemoteGATTServer._(JSObject _) implements JSObject {}
-
-extension BluetoothRemoteGATTServerExtension on BluetoothRemoteGATTServer {
+extension type BluetoothRemoteGATTServer._(JSObject _) implements JSObject {
   external JSPromise connect();
   external void disconnect();
   external JSPromise getPrimaryService(BluetoothServiceUUID service);
@@ -309,11 +248,8 @@ extension BluetoothRemoteGATTServerExtension on BluetoothRemoteGATTServer {
   external BluetoothDevice get device;
   external bool get connected;
 }
-
 extension type BluetoothRemoteGATTService._(JSObject _)
-    implements EventTarget, JSObject {}
-
-extension BluetoothRemoteGATTServiceExtension on BluetoothRemoteGATTService {
+    implements EventTarget, JSObject {
   external JSPromise getCharacteristic(
       BluetoothCharacteristicUUID characteristic);
   external JSPromise getCharacteristics(
@@ -332,12 +268,8 @@ extension BluetoothRemoteGATTServiceExtension on BluetoothRemoteGATTService {
   external set onserviceremoved(EventHandler value);
   external EventHandler get onserviceremoved;
 }
-
 extension type BluetoothRemoteGATTCharacteristic._(JSObject _)
-    implements EventTarget, JSObject {}
-
-extension BluetoothRemoteGATTCharacteristicExtension
-    on BluetoothRemoteGATTCharacteristic {
+    implements EventTarget, JSObject {
   external JSPromise getDescriptor(BluetoothDescriptorUUID descriptor);
   external JSPromise getDescriptors([BluetoothDescriptorUUID descriptor]);
   external JSPromise readValue();
@@ -353,12 +285,8 @@ extension BluetoothRemoteGATTCharacteristicExtension
   external set oncharacteristicvaluechanged(EventHandler value);
   external EventHandler get oncharacteristicvaluechanged;
 }
-
 extension type BluetoothCharacteristicProperties._(JSObject _)
-    implements JSObject {}
-
-extension BluetoothCharacteristicPropertiesExtension
-    on BluetoothCharacteristicProperties {
+    implements JSObject {
   external bool get broadcast;
   external bool get read;
   external bool get writeWithoutResponse;
@@ -369,19 +297,13 @@ extension BluetoothCharacteristicPropertiesExtension
   external bool get reliableWrite;
   external bool get writableAuxiliaries;
 }
-
-extension type BluetoothRemoteGATTDescriptor._(JSObject _)
-    implements JSObject {}
-
-extension BluetoothRemoteGATTDescriptorExtension
-    on BluetoothRemoteGATTDescriptor {
+extension type BluetoothRemoteGATTDescriptor._(JSObject _) implements JSObject {
   external JSPromise readValue();
   external JSPromise writeValue(BufferSource value);
   external BluetoothRemoteGATTCharacteristic get characteristic;
   external UUID get uuid;
   external JSDataView? get value;
 }
-
 extension type BluetoothUUID._(JSObject _) implements JSObject {
   external static UUID getService(JSAny name);
   external static UUID getCharacteristic(JSAny name);

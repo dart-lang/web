@@ -11,24 +11,19 @@ extension type MemoryMeasurement._(JSObject _) implements JSObject {
     int bytes,
     JSArray breakdown,
   });
-}
 
-extension MemoryMeasurementExtension on MemoryMeasurement {
   external set bytes(int value);
   external int get bytes;
   external set breakdown(JSArray value);
   external JSArray get breakdown;
 }
-
 extension type MemoryBreakdownEntry._(JSObject _) implements JSObject {
   external factory MemoryBreakdownEntry({
     int bytes,
     JSArray attribution,
     JSArray types,
   });
-}
 
-extension MemoryBreakdownEntryExtension on MemoryBreakdownEntry {
   external set bytes(int value);
   external int get bytes;
   external set attribution(JSArray value);
@@ -36,16 +31,13 @@ extension MemoryBreakdownEntryExtension on MemoryBreakdownEntry {
   external set types(JSArray value);
   external JSArray get types;
 }
-
 extension type MemoryAttribution._(JSObject _) implements JSObject {
   external factory MemoryAttribution({
     String url,
     MemoryAttributionContainer container,
     String scope,
   });
-}
 
-extension MemoryAttributionExtension on MemoryAttribution {
   external set url(String value);
   external String get url;
   external set container(MemoryAttributionContainer value);
@@ -53,15 +45,12 @@ extension MemoryAttributionExtension on MemoryAttribution {
   external set scope(String value);
   external String get scope;
 }
-
 extension type MemoryAttributionContainer._(JSObject _) implements JSObject {
   external factory MemoryAttributionContainer({
     String id,
     String src,
   });
-}
 
-extension MemoryAttributionContainerExtension on MemoryAttributionContainer {
   external set id(String value);
   external String get id;
   external set src(String value);

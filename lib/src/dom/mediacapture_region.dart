@@ -14,10 +14,7 @@ extension type CropTarget._(JSObject _) implements JSObject {
   external static JSPromise fromElement(Element element);
 }
 extension type BrowserCaptureMediaStreamTrack._(JSObject _)
-    implements MediaStreamTrack, JSObject {}
-
-extension BrowserCaptureMediaStreamTrackExtension
-    on BrowserCaptureMediaStreamTrack {
+    implements MediaStreamTrack, JSObject {
   external JSPromise restrictTo(RestrictionTarget? RestrictionTarget);
   external JSPromise cropTo(CropTarget? cropTarget);
   external BrowserCaptureMediaStreamTrack clone();

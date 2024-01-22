@@ -15,24 +15,18 @@ typedef ClipboardItems = JSArray;
 typedef PresentationStyle = String;
 extension type ClipboardEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ClipboardEventInit({DataTransfer? clipboardData});
-}
 
-extension ClipboardEventInitExtension on ClipboardEventInit {
   external set clipboardData(DataTransfer? value);
   external DataTransfer? get clipboardData;
 }
-
 extension type ClipboardEvent._(JSObject _) implements Event, JSObject {
   external factory ClipboardEvent(
     String type, [
     ClipboardEventInit eventInitDict,
   ]);
-}
 
-extension ClipboardEventExtension on ClipboardEvent {
   external DataTransfer? get clipboardData;
 }
-
 extension type ClipboardItem._(JSObject _) implements JSObject {
   external factory ClipboardItem(
     JSAny items, [
@@ -40,39 +34,26 @@ extension type ClipboardItem._(JSObject _) implements JSObject {
   ]);
 
   external static bool supports(String type);
-}
-
-extension ClipboardItemExtension on ClipboardItem {
   external JSPromise getType(String type);
   external PresentationStyle get presentationStyle;
   external JSArray get types;
 }
-
 extension type ClipboardItemOptions._(JSObject _) implements JSObject {
   external factory ClipboardItemOptions({PresentationStyle presentationStyle});
-}
 
-extension ClipboardItemOptionsExtension on ClipboardItemOptions {
   external set presentationStyle(PresentationStyle value);
   external PresentationStyle get presentationStyle;
 }
-
-extension type Clipboard._(JSObject _) implements EventTarget, JSObject {}
-
-extension ClipboardExtension on Clipboard {
+extension type Clipboard._(JSObject _) implements EventTarget, JSObject {
   external JSPromise read();
   external JSPromise readText();
   external JSPromise write(ClipboardItems data);
   external JSPromise writeText(String data);
 }
-
 extension type ClipboardPermissionDescriptor._(JSObject _)
     implements PermissionDescriptor, JSObject {
   external factory ClipboardPermissionDescriptor({bool allowWithoutGesture});
-}
 
-extension ClipboardPermissionDescriptorExtension
-    on ClipboardPermissionDescriptor {
   external set allowWithoutGesture(bool value);
   external bool get allowWithoutGesture;
 }

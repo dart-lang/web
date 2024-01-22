@@ -11,25 +11,19 @@ import 'generic_sensor.dart';
 typedef AccelerometerLocalCoordinateSystem = String;
 extension type Accelerometer._(JSObject _) implements Sensor, JSObject {
   external factory Accelerometer([AccelerometerSensorOptions options]);
-}
 
-extension AccelerometerExtension on Accelerometer {
   external num? get x;
   external num? get y;
   external num? get z;
 }
-
 extension type AccelerometerSensorOptions._(JSObject _)
     implements SensorOptions, JSObject {
   external factory AccelerometerSensorOptions(
       {AccelerometerLocalCoordinateSystem referenceFrame});
-}
 
-extension AccelerometerSensorOptionsExtension on AccelerometerSensorOptions {
   external set referenceFrame(AccelerometerLocalCoordinateSystem value);
   external AccelerometerLocalCoordinateSystem get referenceFrame;
 }
-
 extension type LinearAccelerationSensor._(JSObject _)
     implements Accelerometer, JSObject {
   external factory LinearAccelerationSensor(
@@ -44,9 +38,7 @@ extension type AccelerometerReadingValues._(JSObject _) implements JSObject {
     required num? y,
     required num? z,
   });
-}
 
-extension AccelerometerReadingValuesExtension on AccelerometerReadingValues {
   external set x(num? value);
   external num? get x;
   external set y(num? value);
@@ -54,7 +46,6 @@ extension AccelerometerReadingValuesExtension on AccelerometerReadingValues {
   external set z(num? value);
   external num? get z;
 }
-
 extension type LinearAccelerationReadingValues._(JSObject _)
     implements AccelerometerReadingValues, JSObject {
   external factory LinearAccelerationReadingValues();

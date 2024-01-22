@@ -9,17 +9,12 @@ import 'dart:js_interop';
 import 'performance_timeline.dart';
 
 extension type PerformanceLongTaskTiming._(JSObject _)
-    implements PerformanceEntry, JSObject {}
-
-extension PerformanceLongTaskTimingExtension on PerformanceLongTaskTiming {
+    implements PerformanceEntry, JSObject {
   external JSObject toJSON();
   external JSArray get attribution;
 }
-
 extension type TaskAttributionTiming._(JSObject _)
-    implements PerformanceEntry, JSObject {}
-
-extension TaskAttributionTimingExtension on TaskAttributionTiming {
+    implements PerformanceEntry, JSObject {
   external JSObject toJSON();
   external String get containerType;
   external String get containerSrc;

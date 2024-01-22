@@ -14,16 +14,13 @@ typedef FillLightMode = String;
 typedef MeteringMode = String;
 extension type ImageCapture._(JSObject _) implements JSObject {
   external factory ImageCapture(MediaStreamTrack videoTrack);
-}
 
-extension ImageCaptureExtension on ImageCapture {
   external JSPromise takePhoto([PhotoSettings photoSettings]);
   external JSPromise getPhotoCapabilities();
   external JSPromise getPhotoSettings();
   external JSPromise grabFrame();
   external MediaStreamTrack get track;
 }
-
 extension type PhotoCapabilities._(JSObject _) implements JSObject {
   external factory PhotoCapabilities({
     RedEyeReduction redEyeReduction,
@@ -31,9 +28,7 @@ extension type PhotoCapabilities._(JSObject _) implements JSObject {
     MediaSettingsRange imageWidth,
     JSArray fillLightMode,
   });
-}
 
-extension PhotoCapabilitiesExtension on PhotoCapabilities {
   external set redEyeReduction(RedEyeReduction value);
   external RedEyeReduction get redEyeReduction;
   external set imageHeight(MediaSettingsRange value);
@@ -43,7 +38,6 @@ extension PhotoCapabilitiesExtension on PhotoCapabilities {
   external set fillLightMode(JSArray value);
   external JSArray get fillLightMode;
 }
-
 extension type PhotoSettings._(JSObject _) implements JSObject {
   external factory PhotoSettings({
     FillLightMode fillLightMode,
@@ -51,9 +45,7 @@ extension type PhotoSettings._(JSObject _) implements JSObject {
     num imageWidth,
     bool redEyeReduction,
   });
-}
 
-extension PhotoSettingsExtension on PhotoSettings {
   external set fillLightMode(FillLightMode value);
   external FillLightMode get fillLightMode;
   external set imageHeight(num value);
@@ -63,16 +55,13 @@ extension PhotoSettingsExtension on PhotoSettings {
   external set redEyeReduction(bool value);
   external bool get redEyeReduction;
 }
-
 extension type MediaSettingsRange._(JSObject _) implements JSObject {
   external factory MediaSettingsRange({
     num max,
     num min,
     num step,
   });
-}
 
-extension MediaSettingsRangeExtension on MediaSettingsRange {
   external set max(num value);
   external num get max;
   external set min(num value);
@@ -80,29 +69,23 @@ extension MediaSettingsRangeExtension on MediaSettingsRange {
   external set step(num value);
   external num get step;
 }
-
 extension type ConstrainPoint2DParameters._(JSObject _) implements JSObject {
   external factory ConstrainPoint2DParameters({
     JSArray exact,
     JSArray ideal,
   });
-}
 
-extension ConstrainPoint2DParametersExtension on ConstrainPoint2DParameters {
   external set exact(JSArray value);
   external JSArray get exact;
   external set ideal(JSArray value);
   external JSArray get ideal;
 }
-
 extension type Point2D._(JSObject _) implements JSObject {
   external factory Point2D({
     num x,
     num y,
   });
-}
 
-extension Point2DExtension on Point2D {
   external set x(num value);
   external num get x;
   external set y(num value);

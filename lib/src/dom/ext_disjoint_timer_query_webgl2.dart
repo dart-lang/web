@@ -15,10 +15,6 @@ extension type EXT_disjoint_timer_query_webgl2._(JSObject _)
   external static GLenum get TIME_ELAPSED_EXT;
   external static GLenum get TIMESTAMP_EXT;
   external static GLenum get GPU_DISJOINT_EXT;
-}
-
-extension EXTDisjointTimerQueryWebgl2Extension
-    on EXT_disjoint_timer_query_webgl2 {
   external void queryCounterEXT(
     WebGLQuery query,
     GLenum target,

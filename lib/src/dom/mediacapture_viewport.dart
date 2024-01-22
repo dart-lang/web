@@ -12,10 +12,7 @@ extension type ViewportMediaStreamConstraints._(JSObject _)
     JSAny video,
     JSAny audio,
   });
-}
 
-extension ViewportMediaStreamConstraintsExtension
-    on ViewportMediaStreamConstraints {
   external set video(JSAny value);
   external JSAny get video;
   external set audio(JSAny value);

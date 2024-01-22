@@ -15,9 +15,7 @@ extension type DataCue._(JSObject _) implements TextTrackCue, JSObject {
     JSAny? value, [
     String type,
   ]);
-}
 
-extension DataCueExtension on DataCue {
   external set value(JSAny? value);
   external JSAny? get value;
   external String get type;

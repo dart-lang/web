@@ -9,16 +9,11 @@ import 'dart:js_interop';
 import 'svg.dart';
 
 extension type SVGClipPathElement._(JSObject _)
-    implements SVGElement, JSObject {}
-
-extension SVGClipPathElementExtension on SVGClipPathElement {
+    implements SVGElement, JSObject {
   external SVGAnimatedEnumeration get clipPathUnits;
   external SVGAnimatedTransformList get transform;
 }
-
-extension type SVGMaskElement._(JSObject _) implements SVGElement, JSObject {}
-
-extension SVGMaskElementExtension on SVGMaskElement {
+extension type SVGMaskElement._(JSObject _) implements SVGElement, JSObject {
   external SVGAnimatedEnumeration get maskUnits;
   external SVGAnimatedEnumeration get maskContentUnits;
   external SVGAnimatedLength get x;

@@ -14,15 +14,12 @@ extension type PerformanceMarkOptions._(JSObject _) implements JSObject {
     JSAny? detail,
     DOMHighResTimeStamp startTime,
   });
-}
 
-extension PerformanceMarkOptionsExtension on PerformanceMarkOptions {
   external set detail(JSAny? value);
   external JSAny? get detail;
   external set startTime(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get startTime;
 }
-
 extension type PerformanceMeasureOptions._(JSObject _) implements JSObject {
   external factory PerformanceMeasureOptions({
     JSAny? detail,
@@ -30,9 +27,7 @@ extension type PerformanceMeasureOptions._(JSObject _) implements JSObject {
     DOMHighResTimeStamp duration,
     JSAny end,
   });
-}
 
-extension PerformanceMeasureOptionsExtension on PerformanceMeasureOptions {
   external set detail(JSAny? value);
   external JSAny? get detail;
   external set start(JSAny value);
@@ -42,22 +37,16 @@ extension PerformanceMeasureOptionsExtension on PerformanceMeasureOptions {
   external set end(JSAny value);
   external JSAny get end;
 }
-
 extension type PerformanceMark._(JSObject _)
     implements PerformanceEntry, JSObject {
   external factory PerformanceMark(
     String markName, [
     PerformanceMarkOptions markOptions,
   ]);
-}
 
-extension PerformanceMarkExtension on PerformanceMark {
   external JSAny? get detail;
 }
-
 extension type PerformanceMeasure._(JSObject _)
-    implements PerformanceEntry, JSObject {}
-
-extension PerformanceMeasureExtension on PerformanceMeasure {
+    implements PerformanceEntry, JSObject {
   external JSAny? get detail;
 }

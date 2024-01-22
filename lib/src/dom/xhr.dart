@@ -14,9 +14,7 @@ import 'trust_token_api.dart';
 typedef FormDataEntryValue = JSAny;
 typedef XMLHttpRequestResponseType = String;
 extension type XMLHttpRequestEventTarget._(JSObject _)
-    implements EventTarget, JSObject {}
-
-extension XMLHttpRequestEventTargetExtension on XMLHttpRequestEventTarget {
+    implements EventTarget, JSObject {
   external set onloadstart(EventHandler value);
   external EventHandler get onloadstart;
   external set onprogress(EventHandler value);
@@ -32,7 +30,6 @@ extension XMLHttpRequestEventTargetExtension on XMLHttpRequestEventTarget {
   external set onloadend(EventHandler value);
   external EventHandler get onloadend;
 }
-
 extension type XMLHttpRequestUpload._(JSObject _)
     implements XMLHttpRequestEventTarget, JSObject {}
 extension type XMLHttpRequest._(JSObject _)
@@ -44,9 +41,6 @@ extension type XMLHttpRequest._(JSObject _)
   external static int get HEADERS_RECEIVED;
   external static int get LOADING;
   external static int get DONE;
-}
-
-extension XMLHttpRequestExtension on XMLHttpRequest {
   external void setAttributionReporting(
       AttributionReportingRequestOptions options);
   external void setPrivateToken(PrivateToken privateToken);
@@ -83,15 +77,12 @@ extension XMLHttpRequestExtension on XMLHttpRequest {
   external String get responseText;
   external Document? get responseXML;
 }
-
 extension type FormData._(JSObject _) implements JSObject {
   external factory FormData([
     HTMLFormElement form,
     HTMLElement? submitter,
   ]);
-}
 
-extension FormDataExtension on FormData {
   external void append(
     String name,
     JSAny blobValueOrValue, [
@@ -107,29 +98,23 @@ extension FormDataExtension on FormData {
     String filename,
   ]);
 }
-
 extension type ProgressEvent._(JSObject _) implements Event, JSObject {
   external factory ProgressEvent(
     String type, [
     ProgressEventInit eventInitDict,
   ]);
-}
 
-extension ProgressEventExtension on ProgressEvent {
   external bool get lengthComputable;
   external int get loaded;
   external int get total;
 }
-
 extension type ProgressEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ProgressEventInit({
     bool lengthComputable,
     int loaded,
     int total,
   });
-}
 
-extension ProgressEventInitExtension on ProgressEventInit {
   external set lengthComputable(bool value);
   external bool get lengthComputable;
   external set loaded(int value);

@@ -11,9 +11,7 @@ import 'performance_timeline.dart';
 
 typedef RenderBlockingStatusType = String;
 extension type PerformanceResourceTiming._(JSObject _)
-    implements PerformanceEntry, JSObject {}
-
-extension PerformanceResourceTimingExtension on PerformanceResourceTiming {
+    implements PerformanceEntry, JSObject {
   external JSObject toJSON();
   external String get initiatorType;
   external String get deliveryType;

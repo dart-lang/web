@@ -19,9 +19,6 @@ extension type EXT_disjoint_timer_query._(JSObject _) implements JSObject {
   external static GLenum get TIME_ELAPSED_EXT;
   external static GLenum get TIMESTAMP_EXT;
   external static GLenum get GPU_DISJOINT_EXT;
-}
-
-extension EXTDisjointTimerQueryExtension on EXT_disjoint_timer_query {
   external WebGLTimerQueryEXT? createQueryEXT();
   external void deleteQueryEXT(WebGLTimerQueryEXT? query);
   external bool isQueryEXT(WebGLTimerQueryEXT? query);

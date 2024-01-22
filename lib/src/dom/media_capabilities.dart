@@ -18,42 +18,33 @@ extension type MediaConfiguration._(JSObject _) implements JSObject {
     VideoConfiguration video,
     AudioConfiguration audio,
   });
-}
 
-extension MediaConfigurationExtension on MediaConfiguration {
   external set video(VideoConfiguration value);
   external VideoConfiguration get video;
   external set audio(AudioConfiguration value);
   external AudioConfiguration get audio;
 }
-
 extension type MediaDecodingConfiguration._(JSObject _)
     implements MediaConfiguration, JSObject {
   external factory MediaDecodingConfiguration({
     required MediaDecodingType type,
     MediaCapabilitiesKeySystemConfiguration keySystemConfiguration,
   });
-}
 
-extension MediaDecodingConfigurationExtension on MediaDecodingConfiguration {
   external set type(MediaDecodingType value);
   external MediaDecodingType get type;
   external set keySystemConfiguration(
       MediaCapabilitiesKeySystemConfiguration value);
   external MediaCapabilitiesKeySystemConfiguration get keySystemConfiguration;
 }
-
 extension type MediaEncodingConfiguration._(JSObject _)
     implements MediaConfiguration, JSObject {
   external factory MediaEncodingConfiguration(
       {required MediaEncodingType type});
-}
 
-extension MediaEncodingConfigurationExtension on MediaEncodingConfiguration {
   external set type(MediaEncodingType value);
   external MediaEncodingType get type;
 }
-
 extension type VideoConfiguration._(JSObject _) implements JSObject {
   external factory VideoConfiguration({
     required String contentType,
@@ -68,9 +59,7 @@ extension type VideoConfiguration._(JSObject _) implements JSObject {
     String scalabilityMode,
     bool spatialScalability,
   });
-}
 
-extension VideoConfigurationExtension on VideoConfiguration {
   external set contentType(String value);
   external String get contentType;
   external set width(int value);
@@ -94,7 +83,6 @@ extension VideoConfigurationExtension on VideoConfiguration {
   external set spatialScalability(bool value);
   external bool get spatialScalability;
 }
-
 extension type AudioConfiguration._(JSObject _) implements JSObject {
   external factory AudioConfiguration({
     required String contentType,
@@ -103,9 +91,7 @@ extension type AudioConfiguration._(JSObject _) implements JSObject {
     int samplerate,
     bool spatialRendering,
   });
-}
 
-extension AudioConfigurationExtension on AudioConfiguration {
   external set contentType(String value);
   external String get contentType;
   external set channels(String value);
@@ -117,7 +103,6 @@ extension AudioConfigurationExtension on AudioConfiguration {
   external set spatialRendering(bool value);
   external bool get spatialRendering;
 }
-
 extension type MediaCapabilitiesKeySystemConfiguration._(JSObject _)
     implements JSObject {
   external factory MediaCapabilitiesKeySystemConfiguration({
@@ -129,10 +114,7 @@ extension type MediaCapabilitiesKeySystemConfiguration._(JSObject _)
     KeySystemTrackConfiguration audio,
     KeySystemTrackConfiguration video,
   });
-}
 
-extension MediaCapabilitiesKeySystemConfigurationExtension
-    on MediaCapabilitiesKeySystemConfiguration {
   external set keySystem(String value);
   external String get keySystem;
   external set initDataType(String value);
@@ -148,30 +130,24 @@ extension MediaCapabilitiesKeySystemConfigurationExtension
   external set video(KeySystemTrackConfiguration value);
   external KeySystemTrackConfiguration get video;
 }
-
 extension type KeySystemTrackConfiguration._(JSObject _) implements JSObject {
   external factory KeySystemTrackConfiguration({
     String robustness,
     String? encryptionScheme,
   });
-}
 
-extension KeySystemTrackConfigurationExtension on KeySystemTrackConfiguration {
   external set robustness(String value);
   external String get robustness;
   external set encryptionScheme(String? value);
   external String? get encryptionScheme;
 }
-
 extension type MediaCapabilitiesInfo._(JSObject _) implements JSObject {
   external factory MediaCapabilitiesInfo({
     required bool supported,
     required bool smooth,
     required bool powerEfficient,
   });
-}
 
-extension MediaCapabilitiesInfoExtension on MediaCapabilitiesInfo {
   external set supported(bool value);
   external bool get supported;
   external set smooth(bool value);
@@ -179,38 +155,27 @@ extension MediaCapabilitiesInfoExtension on MediaCapabilitiesInfo {
   external set powerEfficient(bool value);
   external bool get powerEfficient;
 }
-
 extension type MediaCapabilitiesDecodingInfo._(JSObject _)
     implements MediaCapabilitiesInfo, JSObject {
   external factory MediaCapabilitiesDecodingInfo({
     required MediaKeySystemAccess keySystemAccess,
     MediaDecodingConfiguration configuration,
   });
-}
 
-extension MediaCapabilitiesDecodingInfoExtension
-    on MediaCapabilitiesDecodingInfo {
   external set keySystemAccess(MediaKeySystemAccess value);
   external MediaKeySystemAccess get keySystemAccess;
   external set configuration(MediaDecodingConfiguration value);
   external MediaDecodingConfiguration get configuration;
 }
-
 extension type MediaCapabilitiesEncodingInfo._(JSObject _)
     implements MediaCapabilitiesInfo, JSObject {
   external factory MediaCapabilitiesEncodingInfo(
       {MediaEncodingConfiguration configuration});
-}
 
-extension MediaCapabilitiesEncodingInfoExtension
-    on MediaCapabilitiesEncodingInfo {
   external set configuration(MediaEncodingConfiguration value);
   external MediaEncodingConfiguration get configuration;
 }
-
-extension type MediaCapabilities._(JSObject _) implements JSObject {}
-
-extension MediaCapabilitiesExtension on MediaCapabilities {
+extension type MediaCapabilities._(JSObject _) implements JSObject {
   external JSPromise decodingInfo(MediaDecodingConfiguration configuration);
   external JSPromise encodingInfo(MediaEncodingConfiguration configuration);
 }

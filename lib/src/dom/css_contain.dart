@@ -14,20 +14,13 @@ extension type ContentVisibilityAutoStateChangeEvent._(JSObject _)
     String type, [
     ContentVisibilityAutoStateChangeEventInit eventInitDict,
   ]);
-}
 
-extension ContentVisibilityAutoStateChangeEventExtension
-    on ContentVisibilityAutoStateChangeEvent {
   external bool get skipped;
 }
-
 extension type ContentVisibilityAutoStateChangeEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory ContentVisibilityAutoStateChangeEventInit({bool skipped});
-}
 
-extension ContentVisibilityAutoStateChangeEventInitExtension
-    on ContentVisibilityAutoStateChangeEventInit {
   external set skipped(bool value);
   external bool get skipped;
 }

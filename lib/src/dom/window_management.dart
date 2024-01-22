@@ -10,9 +10,7 @@ import 'cssom_view.dart';
 import 'dom.dart';
 import 'html.dart';
 
-extension type ScreenDetails._(JSObject _) implements EventTarget, JSObject {}
-
-extension ScreenDetailsExtension on ScreenDetails {
+extension type ScreenDetails._(JSObject _) implements EventTarget, JSObject {
   external JSArray get screens;
   external ScreenDetailed get currentScreen;
   external set onscreenschange(EventHandler value);
@@ -20,10 +18,7 @@ extension ScreenDetailsExtension on ScreenDetails {
   external set oncurrentscreenchange(EventHandler value);
   external EventHandler get oncurrentscreenchange;
 }
-
-extension type ScreenDetailed._(JSObject _) implements Screen, JSObject {}
-
-extension ScreenDetailedExtension on ScreenDetailed {
+extension type ScreenDetailed._(JSObject _) implements Screen, JSObject {
   external int get availLeft;
   external int get availTop;
   external int get left;

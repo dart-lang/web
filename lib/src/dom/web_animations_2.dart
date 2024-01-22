@@ -17,9 +17,7 @@ extension type GroupEffect._(JSObject _) implements JSObject {
     JSArray? children, [
     JSAny timing,
   ]);
-}
 
-extension GroupEffectExtension on GroupEffect {
   external GroupEffect clone();
   external void prepend(AnimationEffect effects);
   external void append(AnimationEffect effects);
@@ -27,60 +25,45 @@ extension GroupEffectExtension on GroupEffect {
   external AnimationEffect? get firstChild;
   external AnimationEffect? get lastChild;
 }
-
-extension type AnimationNodeList._(JSObject _) implements JSObject {}
-
-extension AnimationNodeListExtension on AnimationNodeList {
+extension type AnimationNodeList._(JSObject _) implements JSObject {
   external AnimationEffect? item(int index);
   external int get length;
 }
-
 extension type SequenceEffect._(JSObject _) implements GroupEffect, JSObject {
   external factory SequenceEffect(
     JSArray? children, [
     JSAny timing,
   ]);
-}
 
-extension SequenceEffectExtension on SequenceEffect {
   external SequenceEffect clone();
 }
-
 extension type TimelineRangeOffset._(JSObject _) implements JSObject {
   external factory TimelineRangeOffset({
     String? rangeName,
     CSSNumericValue offset,
   });
-}
 
-extension TimelineRangeOffsetExtension on TimelineRangeOffset {
   external set rangeName(String? value);
   external String? get rangeName;
   external set offset(CSSNumericValue value);
   external CSSNumericValue get offset;
 }
-
 extension type AnimationPlaybackEvent._(JSObject _) implements Event, JSObject {
   external factory AnimationPlaybackEvent(
     String type, [
     AnimationPlaybackEventInit eventInitDict,
   ]);
-}
 
-extension AnimationPlaybackEventExtension on AnimationPlaybackEvent {
   external CSSNumberish? get currentTime;
   external CSSNumberish? get timelineTime;
 }
-
 extension type AnimationPlaybackEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory AnimationPlaybackEventInit({
     CSSNumberish? currentTime,
     CSSNumberish? timelineTime,
   });
-}
 
-extension AnimationPlaybackEventInitExtension on AnimationPlaybackEventInit {
   external set currentTime(CSSNumberish? value);
   external CSSNumberish? get currentTime;
   external set timelineTime(CSSNumberish? value);

@@ -9,9 +9,7 @@ import 'dart:js_interop';
 import 'reporting.dart';
 
 extension type InterventionReportBody._(JSObject _)
-    implements ReportBody, JSObject {}
-
-extension InterventionReportBodyExtension on InterventionReportBody {
+    implements ReportBody, JSObject {
   external JSObject toJSON();
   external String get id;
   external String get message;

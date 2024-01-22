@@ -25,9 +25,7 @@ extension type USBDeviceFilter._(JSObject _) implements JSObject {
     int protocolCode,
     String serialNumber,
   });
-}
 
-extension USBDeviceFilterExtension on USBDeviceFilter {
   external set vendorId(int value);
   external int get vendorId;
   external set productId(int value);
@@ -41,24 +39,18 @@ extension USBDeviceFilterExtension on USBDeviceFilter {
   external set serialNumber(String value);
   external String get serialNumber;
 }
-
 extension type USBDeviceRequestOptions._(JSObject _) implements JSObject {
   external factory USBDeviceRequestOptions({
     required JSArray filters,
     JSArray exclusionFilters,
   });
-}
 
-extension USBDeviceRequestOptionsExtension on USBDeviceRequestOptions {
   external set filters(JSArray value);
   external JSArray get filters;
   external set exclusionFilters(JSArray value);
   external JSArray get exclusionFilters;
 }
-
-extension type USB._(JSObject _) implements EventTarget, JSObject {}
-
-extension USBExtension on USB {
+extension type USB._(JSObject _) implements EventTarget, JSObject {
   external JSPromise getDevices();
   external JSPromise requestDevice(USBDeviceRequestOptions options);
   external set onconnect(EventHandler value);
@@ -66,107 +58,76 @@ extension USBExtension on USB {
   external set ondisconnect(EventHandler value);
   external EventHandler get ondisconnect;
 }
-
 extension type USBConnectionEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory USBConnectionEventInit({required USBDevice device});
-}
 
-extension USBConnectionEventInitExtension on USBConnectionEventInit {
   external set device(USBDevice value);
   external USBDevice get device;
 }
-
 extension type USBConnectionEvent._(JSObject _) implements Event, JSObject {
   external factory USBConnectionEvent(
     String type,
     USBConnectionEventInit eventInitDict,
   );
-}
 
-extension USBConnectionEventExtension on USBConnectionEvent {
   external USBDevice get device;
 }
-
 extension type USBInTransferResult._(JSObject _) implements JSObject {
   external factory USBInTransferResult(
     USBTransferStatus status, [
     JSDataView? data,
   ]);
-}
 
-extension USBInTransferResultExtension on USBInTransferResult {
   external JSDataView? get data;
   external USBTransferStatus get status;
 }
-
 extension type USBOutTransferResult._(JSObject _) implements JSObject {
   external factory USBOutTransferResult(
     USBTransferStatus status, [
     int bytesWritten,
   ]);
-}
 
-extension USBOutTransferResultExtension on USBOutTransferResult {
   external int get bytesWritten;
   external USBTransferStatus get status;
 }
-
 extension type USBIsochronousInTransferPacket._(JSObject _)
     implements JSObject {
   external factory USBIsochronousInTransferPacket(
     USBTransferStatus status, [
     JSDataView? data,
   ]);
-}
 
-extension USBIsochronousInTransferPacketExtension
-    on USBIsochronousInTransferPacket {
   external JSDataView? get data;
   external USBTransferStatus get status;
 }
-
 extension type USBIsochronousInTransferResult._(JSObject _)
     implements JSObject {
   external factory USBIsochronousInTransferResult(
     JSArray packets, [
     JSDataView? data,
   ]);
-}
 
-extension USBIsochronousInTransferResultExtension
-    on USBIsochronousInTransferResult {
   external JSDataView? get data;
   external JSArray get packets;
 }
-
 extension type USBIsochronousOutTransferPacket._(JSObject _)
     implements JSObject {
   external factory USBIsochronousOutTransferPacket(
     USBTransferStatus status, [
     int bytesWritten,
   ]);
-}
 
-extension USBIsochronousOutTransferPacketExtension
-    on USBIsochronousOutTransferPacket {
   external int get bytesWritten;
   external USBTransferStatus get status;
 }
-
 extension type USBIsochronousOutTransferResult._(JSObject _)
     implements JSObject {
   external factory USBIsochronousOutTransferResult(JSArray packets);
-}
 
-extension USBIsochronousOutTransferResultExtension
-    on USBIsochronousOutTransferResult {
   external JSArray get packets;
 }
-
-extension type USBDevice._(JSObject _) implements JSObject {}
-
-extension USBDeviceExtension on USBDevice {
+extension type USBDevice._(JSObject _) implements JSObject {
   external JSPromise open();
   external JSPromise close();
   external JSPromise forget();
@@ -225,7 +186,6 @@ extension USBDeviceExtension on USBDevice {
   external JSArray get configurations;
   external bool get opened;
 }
-
 extension type USBControlTransferParameters._(JSObject _) implements JSObject {
   external factory USBControlTransferParameters({
     required USBRequestType requestType,
@@ -234,10 +194,7 @@ extension type USBControlTransferParameters._(JSObject _) implements JSObject {
     required int value,
     required int index,
   });
-}
 
-extension USBControlTransferParametersExtension
-    on USBControlTransferParameters {
   external set requestType(USBRequestType value);
   external USBRequestType get requestType;
   external set recipient(USBRecipient value);
@@ -249,42 +206,33 @@ extension USBControlTransferParametersExtension
   external set index(int value);
   external int get index;
 }
-
 extension type USBConfiguration._(JSObject _) implements JSObject {
   external factory USBConfiguration(
     USBDevice device,
     int configurationValue,
   );
-}
 
-extension USBConfigurationExtension on USBConfiguration {
   external int get configurationValue;
   external String? get configurationName;
   external JSArray get interfaces;
 }
-
 extension type USBInterface._(JSObject _) implements JSObject {
   external factory USBInterface(
     USBConfiguration configuration,
     int interfaceNumber,
   );
-}
 
-extension USBInterfaceExtension on USBInterface {
   external int get interfaceNumber;
   external USBAlternateInterface get alternate;
   external JSArray get alternates;
   external bool get claimed;
 }
-
 extension type USBAlternateInterface._(JSObject _) implements JSObject {
   external factory USBAlternateInterface(
     USBInterface deviceInterface,
     int alternateSetting,
   );
-}
 
-extension USBAlternateInterfaceExtension on USBAlternateInterface {
   external int get alternateSetting;
   external int get interfaceClass;
   external int get interfaceSubclass;
@@ -292,46 +240,37 @@ extension USBAlternateInterfaceExtension on USBAlternateInterface {
   external String? get interfaceName;
   external JSArray get endpoints;
 }
-
 extension type USBEndpoint._(JSObject _) implements JSObject {
   external factory USBEndpoint(
     USBAlternateInterface alternate,
     int endpointNumber,
     USBDirection direction,
   );
-}
 
-extension USBEndpointExtension on USBEndpoint {
   external int get endpointNumber;
   external USBDirection get direction;
   external USBEndpointType get type;
   external int get packetSize;
 }
-
 extension type USBPermissionDescriptor._(JSObject _)
     implements PermissionDescriptor, JSObject {
   external factory USBPermissionDescriptor({
     JSArray filters,
     JSArray exclusionFilters,
   });
-}
 
-extension USBPermissionDescriptorExtension on USBPermissionDescriptor {
   external set filters(JSArray value);
   external JSArray get filters;
   external set exclusionFilters(JSArray value);
   external JSArray get exclusionFilters;
 }
-
 extension type AllowedUSBDevice._(JSObject _) implements JSObject {
   external factory AllowedUSBDevice({
     required int vendorId,
     required int productId,
     String serialNumber,
   });
-}
 
-extension AllowedUSBDeviceExtension on AllowedUSBDevice {
   external set vendorId(int value);
   external int get vendorId;
   external set productId(int value);
@@ -339,20 +278,14 @@ extension AllowedUSBDeviceExtension on AllowedUSBDevice {
   external set serialNumber(String value);
   external String get serialNumber;
 }
-
 extension type USBPermissionStorage._(JSObject _) implements JSObject {
   external factory USBPermissionStorage({JSArray allowedDevices});
-}
 
-extension USBPermissionStorageExtension on USBPermissionStorage {
   external set allowedDevices(JSArray value);
   external JSArray get allowedDevices;
 }
-
 extension type USBPermissionResult._(JSObject _)
-    implements PermissionStatus, JSObject {}
-
-extension USBPermissionResultExtension on USBPermissionResult {
+    implements PermissionStatus, JSObject {
   external set devices(JSArray value);
   external JSArray get devices;
 }

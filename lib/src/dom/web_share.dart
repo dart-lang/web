@@ -13,9 +13,7 @@ extension type ShareData._(JSObject _) implements JSObject {
     String text,
     String url,
   });
-}
 
-extension ShareDataExtension on ShareData {
   external set files(JSArray value);
   external JSArray get files;
   external set title(String value);

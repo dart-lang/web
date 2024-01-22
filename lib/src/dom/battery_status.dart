@@ -9,9 +9,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
-extension type BatteryManager._(JSObject _) implements EventTarget, JSObject {}
-
-extension BatteryManagerExtension on BatteryManager {
+extension type BatteryManager._(JSObject _) implements EventTarget, JSObject {
   external bool get charging;
   external num get chargingTime;
   external num get dischargingTime;

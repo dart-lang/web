@@ -25,9 +25,7 @@ extension type FontFaceDescriptors._(JSObject _) implements JSObject {
     String descentOverride,
     String lineGapOverride,
   });
-}
 
-extension FontFaceDescriptorsExtension on FontFaceDescriptors {
   external set style(String value);
   external String get style;
   external set weight(String value);
@@ -49,16 +47,13 @@ extension FontFaceDescriptorsExtension on FontFaceDescriptors {
   external set lineGapOverride(String value);
   external String get lineGapOverride;
 }
-
 extension type FontFace._(JSObject _) implements JSObject {
   external factory FontFace(
     String family,
     JSAny source, [
     FontFaceDescriptors descriptors,
   ]);
-}
 
-extension FontFaceExtension on FontFace {
   external JSPromise load();
   external set family(String value);
   external String get family;
@@ -88,62 +83,41 @@ extension FontFaceExtension on FontFace {
   external FontFaceVariations get variations;
   external FontFacePalettes get palettes;
 }
-
 extension type FontFaceFeatures._(JSObject _) implements JSObject {}
-extension type FontFaceVariationAxis._(JSObject _) implements JSObject {}
-
-extension FontFaceVariationAxisExtension on FontFaceVariationAxis {
+extension type FontFaceVariationAxis._(JSObject _) implements JSObject {
   external String get name;
   external String get axisTag;
   external num get minimumValue;
   external num get maximumValue;
   external num get defaultValue;
 }
-
 extension type FontFaceVariations._(JSObject _) implements JSObject {}
-
-extension FontFaceVariationsExtension on FontFaceVariations {}
-
-extension type FontFacePalette._(JSObject _) implements JSObject {}
-
-extension FontFacePaletteExtension on FontFacePalette {
+extension type FontFacePalette._(JSObject _) implements JSObject {
   external int get length;
   external bool get usableWithLightBackground;
   external bool get usableWithDarkBackground;
 }
-
-extension type FontFacePalettes._(JSObject _) implements JSObject {}
-
-extension FontFacePalettesExtension on FontFacePalettes {
+extension type FontFacePalettes._(JSObject _) implements JSObject {
   external int get length;
 }
-
 extension type FontFaceSetLoadEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory FontFaceSetLoadEventInit({JSArray fontfaces});
-}
 
-extension FontFaceSetLoadEventInitExtension on FontFaceSetLoadEventInit {
   external set fontfaces(JSArray value);
   external JSArray get fontfaces;
 }
-
 extension type FontFaceSetLoadEvent._(JSObject _) implements Event, JSObject {
   external factory FontFaceSetLoadEvent(
     String type, [
     FontFaceSetLoadEventInit eventInitDict,
   ]);
-}
 
-extension FontFaceSetLoadEventExtension on FontFaceSetLoadEvent {
   external JSArray get fontfaces;
 }
-
 extension type FontFaceSet._(JSObject _) implements EventTarget, JSObject {
   external factory FontFaceSet(JSArray initialFaces);
-}
 
-extension FontFaceSetExtension on FontFaceSet {
   external FontFaceSet add(FontFace font);
   external bool delete(FontFace font);
   external void clear();

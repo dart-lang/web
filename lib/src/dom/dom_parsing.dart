@@ -10,8 +10,6 @@ import 'dom.dart';
 
 extension type XMLSerializer._(JSObject _) implements JSObject {
   external factory XMLSerializer();
-}
 
-extension XMLSerializerExtension on XMLSerializer {
   external String serializeToString(Node root);
 }

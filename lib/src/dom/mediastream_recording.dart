@@ -21,9 +21,6 @@ extension type MediaRecorder._(JSObject _) implements EventTarget, JSObject {
   ]);
 
   external static bool isTypeSupported(String type);
-}
-
-extension MediaRecorderExtension on MediaRecorder {
   external void start([int timeslice]);
   external void stop();
   external void pause();
@@ -48,7 +45,6 @@ extension MediaRecorderExtension on MediaRecorder {
   external int get audioBitsPerSecond;
   external BitrateMode get audioBitrateMode;
 }
-
 extension type MediaRecorderOptions._(JSObject _) implements JSObject {
   external factory MediaRecorderOptions({
     String mimeType,
@@ -59,9 +55,7 @@ extension type MediaRecorderOptions._(JSObject _) implements JSObject {
     DOMHighResTimeStamp videoKeyFrameIntervalDuration,
     int videoKeyFrameIntervalCount,
   });
-}
 
-extension MediaRecorderOptionsExtension on MediaRecorderOptions {
   external set mimeType(String value);
   external String get mimeType;
   external set audioBitsPerSecond(int value);
@@ -77,27 +71,21 @@ extension MediaRecorderOptionsExtension on MediaRecorderOptions {
   external set videoKeyFrameIntervalCount(int value);
   external int get videoKeyFrameIntervalCount;
 }
-
 extension type BlobEvent._(JSObject _) implements Event, JSObject {
   external factory BlobEvent(
     String type,
     BlobEventInit eventInitDict,
   );
-}
 
-extension BlobEventExtension on BlobEvent {
   external Blob get data;
   external DOMHighResTimeStamp get timecode;
 }
-
 extension type BlobEventInit._(JSObject _) implements JSObject {
   external factory BlobEventInit({
     required Blob data,
     DOMHighResTimeStamp timecode,
   });
-}
 
-extension BlobEventInitExtension on BlobEventInit {
   external set data(Blob value);
   external Blob get data;
   external set timecode(DOMHighResTimeStamp value);

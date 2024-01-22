@@ -15,9 +15,7 @@ extension type PropertyDefinition._(JSObject _) implements JSObject {
     required bool inherits,
     String initialValue,
   });
-}
 
-extension PropertyDefinitionExtension on PropertyDefinition {
   external set name(String value);
   external String get name;
   external set syntax(String value);
@@ -27,10 +25,7 @@ extension PropertyDefinitionExtension on PropertyDefinition {
   external set initialValue(String value);
   external String get initialValue;
 }
-
-extension type CSSPropertyRule._(JSObject _) implements CSSRule, JSObject {}
-
-extension CSSPropertyRuleExtension on CSSPropertyRule {
+extension type CSSPropertyRule._(JSObject _) implements CSSRule, JSObject {
   external String get name;
   external String get syntax;
   external bool get inherits;

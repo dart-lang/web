@@ -13,9 +13,7 @@ extension type ImageResource._(JSObject _) implements JSObject {
     String type,
     String label,
   });
-}
 
-extension ImageResourceExtension on ImageResource {
   external set src(String value);
   external String get src;
   external set sizes(String value);

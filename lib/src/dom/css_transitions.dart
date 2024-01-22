@@ -13,14 +13,11 @@ extension type TransitionEvent._(JSObject _) implements Event, JSObject {
     String type, [
     TransitionEventInit transitionEventInitDict,
   ]);
-}
 
-extension TransitionEventExtension on TransitionEvent {
   external String get propertyName;
   external num get elapsedTime;
   external String get pseudoElement;
 }
-
 extension type TransitionEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory TransitionEventInit({
@@ -28,9 +25,7 @@ extension type TransitionEventInit._(JSObject _)
     num elapsedTime,
     String pseudoElement,
   });
-}
 
-extension TransitionEventInitExtension on TransitionEventInit {
   external set propertyName(String value);
   external String get propertyName;
   external set elapsedTime(num value);

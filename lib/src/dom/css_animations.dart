@@ -14,23 +14,18 @@ extension type AnimationEvent._(JSObject _) implements Event, JSObject {
     String type, [
     AnimationEventInit animationEventInitDict,
   ]);
-}
 
-extension AnimationEventExtension on AnimationEvent {
   external String get animationName;
   external num get elapsedTime;
   external String get pseudoElement;
 }
-
 extension type AnimationEventInit._(JSObject _) implements EventInit, JSObject {
   external factory AnimationEventInit({
     String animationName,
     num elapsedTime,
     String pseudoElement,
   });
-}
 
-extension AnimationEventInitExtension on AnimationEventInit {
   external set animationName(String value);
   external String get animationName;
   external set elapsedTime(num value);
@@ -38,18 +33,12 @@ extension AnimationEventInitExtension on AnimationEventInit {
   external set pseudoElement(String value);
   external String get pseudoElement;
 }
-
-extension type CSSKeyframeRule._(JSObject _) implements CSSRule, JSObject {}
-
-extension CSSKeyframeRuleExtension on CSSKeyframeRule {
+extension type CSSKeyframeRule._(JSObject _) implements CSSRule, JSObject {
   external set keyText(String value);
   external String get keyText;
   external CSSStyleDeclaration get style;
 }
-
-extension type CSSKeyframesRule._(JSObject _) implements CSSRule, JSObject {}
-
-extension CSSKeyframesRuleExtension on CSSKeyframesRule {
+extension type CSSKeyframesRule._(JSObject _) implements CSSRule, JSObject {
   external void appendRule(String rule);
   external void deleteRule(String select);
   external CSSKeyframeRule? findRule(String select);

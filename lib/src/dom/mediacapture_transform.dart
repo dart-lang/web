@@ -12,33 +12,24 @@ import 'streams.dart';
 extension type MediaStreamTrackProcessor._(JSObject _) implements JSObject {
   external factory MediaStreamTrackProcessor(
       MediaStreamTrackProcessorInit init);
-}
 
-extension MediaStreamTrackProcessorExtension on MediaStreamTrackProcessor {
   external set readable(ReadableStream value);
   external ReadableStream get readable;
 }
-
 extension type MediaStreamTrackProcessorInit._(JSObject _) implements JSObject {
   external factory MediaStreamTrackProcessorInit({
     required MediaStreamTrack track,
     int maxBufferSize,
   });
-}
 
-extension MediaStreamTrackProcessorInitExtension
-    on MediaStreamTrackProcessorInit {
   external set track(MediaStreamTrack value);
   external MediaStreamTrack get track;
   external set maxBufferSize(int value);
   external int get maxBufferSize;
 }
-
 extension type VideoTrackGenerator._(JSObject _) implements JSObject {
   external factory VideoTrackGenerator();
-}
 
-extension VideoTrackGeneratorExtension on VideoTrackGenerator {
   external WritableStream get writable;
   external set muted(bool value);
   external bool get muted;

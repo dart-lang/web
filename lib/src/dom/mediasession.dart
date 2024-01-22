@@ -9,9 +9,7 @@ import 'dart:js_interop';
 typedef MediaSessionActionHandler = JSFunction;
 typedef MediaSessionPlaybackState = String;
 typedef MediaSessionAction = String;
-extension type MediaSession._(JSObject _) implements JSObject {}
-
-extension MediaSessionExtension on MediaSession {
+extension type MediaSession._(JSObject _) implements JSObject {
   external void setActionHandler(
     MediaSessionAction action,
     MediaSessionActionHandler? handler,
@@ -24,12 +22,9 @@ extension MediaSessionExtension on MediaSession {
   external set playbackState(MediaSessionPlaybackState value);
   external MediaSessionPlaybackState get playbackState;
 }
-
 extension type MediaMetadata._(JSObject _) implements JSObject {
   external factory MediaMetadata([MediaMetadataInit init]);
-}
 
-extension MediaMetadataExtension on MediaMetadata {
   external set title(String value);
   external String get title;
   external set artist(String value);
@@ -39,7 +34,6 @@ extension MediaMetadataExtension on MediaMetadata {
   external set artwork(JSArray value);
   external JSArray get artwork;
 }
-
 extension type MediaMetadataInit._(JSObject _) implements JSObject {
   external factory MediaMetadataInit({
     String title,
@@ -47,9 +41,7 @@ extension type MediaMetadataInit._(JSObject _) implements JSObject {
     String album,
     JSArray artwork,
   });
-}
 
-extension MediaMetadataInitExtension on MediaMetadataInit {
   external set title(String value);
   external String get title;
   external set artist(String value);
@@ -59,16 +51,13 @@ extension MediaMetadataInitExtension on MediaMetadataInit {
   external set artwork(JSArray value);
   external JSArray get artwork;
 }
-
 extension type MediaImage._(JSObject _) implements JSObject {
   external factory MediaImage({
     required String src,
     String sizes,
     String type,
   });
-}
 
-extension MediaImageExtension on MediaImage {
   external set src(String value);
   external String get src;
   external set sizes(String value);
@@ -76,16 +65,13 @@ extension MediaImageExtension on MediaImage {
   external set type(String value);
   external String get type;
 }
-
 extension type MediaPositionState._(JSObject _) implements JSObject {
   external factory MediaPositionState({
     num duration,
     num playbackRate,
     num position,
   });
-}
 
-extension MediaPositionStateExtension on MediaPositionState {
   external set duration(num value);
   external num get duration;
   external set playbackRate(num value);
@@ -93,7 +79,6 @@ extension MediaPositionStateExtension on MediaPositionState {
   external set position(num value);
   external num get position;
 }
-
 extension type MediaSessionActionDetails._(JSObject _) implements JSObject {
   external factory MediaSessionActionDetails({
     required MediaSessionAction action,
@@ -101,9 +86,7 @@ extension type MediaSessionActionDetails._(JSObject _) implements JSObject {
     num seekTime,
     bool fastSeek,
   });
-}
 
-extension MediaSessionActionDetailsExtension on MediaSessionActionDetails {
   external set action(MediaSessionAction value);
   external MediaSessionAction get action;
   external set seekOffset(num value);

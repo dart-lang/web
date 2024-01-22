@@ -41,9 +41,7 @@ extension type WebGLContextAttributes._(JSObject _) implements JSObject {
     bool desynchronized,
     bool xrCompatible,
   });
-}
 
-extension WebGLContextAttributesExtension on WebGLContextAttributes {
   external set alpha(bool value);
   external bool get alpha;
   external set depth(bool value);
@@ -65,7 +63,6 @@ extension WebGLContextAttributesExtension on WebGLContextAttributes {
   external set xrCompatible(bool value);
   external bool get xrCompatible;
 }
-
 extension type WebGLObject._(JSObject _) implements JSObject {}
 extension type WebGLBuffer._(JSObject _) implements WebGLObject, JSObject {}
 extension type WebGLFramebuffer._(JSObject _)
@@ -76,22 +73,16 @@ extension type WebGLRenderbuffer._(JSObject _)
 extension type WebGLShader._(JSObject _) implements WebGLObject, JSObject {}
 extension type WebGLTexture._(JSObject _) implements WebGLObject, JSObject {}
 extension type WebGLUniformLocation._(JSObject _) implements JSObject {}
-extension type WebGLActiveInfo._(JSObject _) implements JSObject {}
-
-extension WebGLActiveInfoExtension on WebGLActiveInfo {
+extension type WebGLActiveInfo._(JSObject _) implements JSObject {
   external GLint get size;
   external GLenum get type;
   external String get name;
 }
-
-extension type WebGLShaderPrecisionFormat._(JSObject _) implements JSObject {}
-
-extension WebGLShaderPrecisionFormatExtension on WebGLShaderPrecisionFormat {
+extension type WebGLShaderPrecisionFormat._(JSObject _) implements JSObject {
   external GLint get rangeMin;
   external GLint get rangeMax;
   external GLint get precision;
 }
-
 extension type WebGLRenderingContext._(JSObject _) implements JSObject {
   external static GLenum get DEPTH_BUFFER_BIT;
   external static GLenum get STENCIL_BUFFER_BIT;
@@ -389,9 +380,6 @@ extension type WebGLRenderingContext._(JSObject _) implements JSObject {
   external static GLenum get CONTEXT_LOST_WEBGL;
   external static GLenum get UNPACK_COLORSPACE_CONVERSION_WEBGL;
   external static GLenum get BROWSER_DEFAULT_WEBGL;
-}
-
-extension WebGLRenderingContextExtension on WebGLRenderingContext {
   external WebGLContextAttributes? getContextAttributes();
   external bool isContextLost();
   external JSArray? getSupportedExtensions();
@@ -890,24 +878,18 @@ extension WebGLRenderingContextExtension on WebGLRenderingContext {
   external set unpackColorSpace(PredefinedColorSpace value);
   external PredefinedColorSpace get unpackColorSpace;
 }
-
 extension type WebGLContextEvent._(JSObject _) implements Event, JSObject {
   external factory WebGLContextEvent(
     String type, [
     WebGLContextEventInit eventInit,
   ]);
-}
 
-extension WebGLContextEventExtension on WebGLContextEvent {
   external String get statusMessage;
 }
-
 extension type WebGLContextEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory WebGLContextEventInit({String statusMessage});
-}
 
-extension WebGLContextEventInitExtension on WebGLContextEventInit {
   external set statusMessage(String value);
   external String get statusMessage;
 }

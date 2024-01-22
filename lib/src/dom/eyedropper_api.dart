@@ -10,26 +10,18 @@ import 'dom.dart';
 
 extension type ColorSelectionResult._(JSObject _) implements JSObject {
   external factory ColorSelectionResult({String sRGBHex});
-}
 
-extension ColorSelectionResultExtension on ColorSelectionResult {
   external set sRGBHex(String value);
   external String get sRGBHex;
 }
-
 extension type ColorSelectionOptions._(JSObject _) implements JSObject {
   external factory ColorSelectionOptions({AbortSignal signal});
-}
 
-extension ColorSelectionOptionsExtension on ColorSelectionOptions {
   external set signal(AbortSignal value);
   external AbortSignal get signal;
 }
-
 extension type EyeDropper._(JSObject _) implements JSObject {
   external factory EyeDropper();
-}
 
-extension EyeDropperExtension on EyeDropper {
   external JSPromise open([ColorSelectionOptions options]);
 }

@@ -8,34 +8,26 @@ import 'dart:js_interop';
 
 import 'service_workers.dart';
 
-extension type SyncManager._(JSObject _) implements JSObject {}
-
-extension SyncManagerExtension on SyncManager {
+extension type SyncManager._(JSObject _) implements JSObject {
   external JSPromise register(String tag);
   external JSPromise getTags();
 }
-
 extension type SyncEvent._(JSObject _) implements ExtendableEvent, JSObject {
   external factory SyncEvent(
     String type,
     SyncEventInit init,
   );
-}
 
-extension SyncEventExtension on SyncEvent {
   external String get tag;
   external bool get lastChance;
 }
-
 extension type SyncEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
   external factory SyncEventInit({
     required String tag,
     bool lastChance,
   });
-}
 
-extension SyncEventInitExtension on SyncEventInit {
   external set tag(String value);
   external String get tag;
   external set lastChance(bool value);

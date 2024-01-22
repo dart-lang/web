@@ -25,9 +25,7 @@ extension type MediaKeySystemConfiguration._(JSObject _) implements JSObject {
     MediaKeysRequirement persistentState,
     JSArray sessionTypes,
   });
-}
 
-extension MediaKeySystemConfigurationExtension on MediaKeySystemConfiguration {
   external set label(String value);
   external String get label;
   external set initDataTypes(JSArray value);
@@ -43,17 +41,13 @@ extension MediaKeySystemConfigurationExtension on MediaKeySystemConfiguration {
   external set sessionTypes(JSArray value);
   external JSArray get sessionTypes;
 }
-
 extension type MediaKeySystemMediaCapability._(JSObject _) implements JSObject {
   external factory MediaKeySystemMediaCapability({
     String contentType,
     String? encryptionScheme,
     String robustness,
   });
-}
 
-extension MediaKeySystemMediaCapabilityExtension
-    on MediaKeySystemMediaCapability {
   external set contentType(String value);
   external String get contentType;
   external set encryptionScheme(String? value);
@@ -61,25 +55,16 @@ extension MediaKeySystemMediaCapabilityExtension
   external set robustness(String value);
   external String get robustness;
 }
-
-extension type MediaKeySystemAccess._(JSObject _) implements JSObject {}
-
-extension MediaKeySystemAccessExtension on MediaKeySystemAccess {
+extension type MediaKeySystemAccess._(JSObject _) implements JSObject {
   external MediaKeySystemConfiguration getConfiguration();
   external JSPromise createMediaKeys();
   external String get keySystem;
 }
-
-extension type MediaKeys._(JSObject _) implements JSObject {}
-
-extension MediaKeysExtension on MediaKeys {
+extension type MediaKeys._(JSObject _) implements JSObject {
   external MediaKeySession createSession([MediaKeySessionType sessionType]);
   external JSPromise setServerCertificate(BufferSource serverCertificate);
 }
-
-extension type MediaKeySession._(JSObject _) implements EventTarget, JSObject {}
-
-extension MediaKeySessionExtension on MediaKeySession {
+extension type MediaKeySession._(JSObject _) implements EventTarget, JSObject {
   external JSPromise generateRequest(
     String initDataType,
     BufferSource initData,
@@ -97,63 +82,48 @@ extension MediaKeySessionExtension on MediaKeySession {
   external set onmessage(EventHandler value);
   external EventHandler get onmessage;
 }
-
-extension type MediaKeyStatusMap._(JSObject _) implements JSObject {}
-
-extension MediaKeyStatusMapExtension on MediaKeyStatusMap {
+extension type MediaKeyStatusMap._(JSObject _) implements JSObject {
   external bool has(BufferSource keyId);
   external MediaKeyStatus? get(BufferSource keyId);
   external int get size;
 }
-
 extension type MediaKeyMessageEvent._(JSObject _) implements Event, JSObject {
   external factory MediaKeyMessageEvent(
     String type,
     MediaKeyMessageEventInit eventInitDict,
   );
-}
 
-extension MediaKeyMessageEventExtension on MediaKeyMessageEvent {
   external MediaKeyMessageType get messageType;
   external JSArrayBuffer get message;
 }
-
 extension type MediaKeyMessageEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory MediaKeyMessageEventInit({
     required MediaKeyMessageType messageType,
     required JSArrayBuffer message,
   });
-}
 
-extension MediaKeyMessageEventInitExtension on MediaKeyMessageEventInit {
   external set messageType(MediaKeyMessageType value);
   external MediaKeyMessageType get messageType;
   external set message(JSArrayBuffer value);
   external JSArrayBuffer get message;
 }
-
 extension type MediaEncryptedEvent._(JSObject _) implements Event, JSObject {
   external factory MediaEncryptedEvent(
     String type, [
     MediaEncryptedEventInit eventInitDict,
   ]);
-}
 
-extension MediaEncryptedEventExtension on MediaEncryptedEvent {
   external String get initDataType;
   external JSArrayBuffer? get initData;
 }
-
 extension type MediaEncryptedEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory MediaEncryptedEventInit({
     String initDataType,
     JSArrayBuffer? initData,
   });
-}
 
-extension MediaEncryptedEventInitExtension on MediaEncryptedEventInit {
   external set initDataType(String value);
   external String get initDataType;
   external set initData(JSArrayBuffer? value);

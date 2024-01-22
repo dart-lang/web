@@ -130,32 +130,21 @@ typedef PremultiplyAlpha = String;
 typedef ColorSpaceConversion = String;
 typedef ResizeQuality = String;
 typedef WorkerType = String;
-extension type HTMLAllCollection._(JSObject _) implements JSObject {}
-
-extension HTMLAllCollectionExtension on HTMLAllCollection {
+extension type HTMLAllCollection._(JSObject _) implements JSObject {
   external JSObject? namedItem(String name);
   external JSObject? item([String nameOrIndex]);
   external int get length;
 }
-
 extension type HTMLFormControlsCollection._(JSObject _)
-    implements HTMLCollection, JSObject {}
-
-extension HTMLFormControlsCollectionExtension on HTMLFormControlsCollection {
+    implements HTMLCollection, JSObject {
   external JSObject? namedItem(String name);
 }
-
-extension type RadioNodeList._(JSObject _) implements NodeList, JSObject {}
-
-extension RadioNodeListExtension on RadioNodeList {
+extension type RadioNodeList._(JSObject _) implements NodeList, JSObject {
   external set value(String value);
   external String get value;
 }
-
 extension type HTMLOptionsCollection._(JSObject _)
-    implements HTMLCollection, JSObject {}
-
-extension HTMLOptionsCollectionExtension on HTMLOptionsCollection {
+    implements HTMLCollection, JSObject {
   external void add(
     JSObject element, [
     JSAny? before,
@@ -166,20 +155,14 @@ extension HTMLOptionsCollectionExtension on HTMLOptionsCollection {
   external set selectedIndex(int value);
   external int get selectedIndex;
 }
-
-extension type DOMStringList._(JSObject _) implements JSObject {}
-
-extension DOMStringListExtension on DOMStringList {
+extension type DOMStringList._(JSObject _) implements JSObject {
   external String? item(int index);
   external bool contains(String string);
   external int get length;
 }
-
 extension type HTMLElement._(JSObject _) implements Element, JSObject {
   external factory HTMLElement();
-}
 
-extension HTMLElementExtension on HTMLElement {
   external void click();
   external ElementInternals attachInternals();
   external void showPopover();
@@ -442,47 +425,35 @@ extension HTMLElementExtension on HTMLElement {
   external set tabIndex(int value);
   external int get tabIndex;
 }
-
 extension type HTMLUnknownElement._(JSObject _)
     implements HTMLElement, JSObject {}
 extension type DOMStringMap._(JSObject _) implements JSObject {}
 extension type HTMLHtmlElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLHtmlElement();
-}
 
-extension HTMLHtmlElementExtension on HTMLHtmlElement {
   external set version(String value);
   external String get version;
 }
-
 extension type HTMLHeadElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLHeadElement();
 }
 extension type HTMLTitleElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLTitleElement();
-}
 
-extension HTMLTitleElementExtension on HTMLTitleElement {
   external set text(String value);
   external String get text;
 }
-
 extension type HTMLBaseElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLBaseElement();
-}
 
-extension HTMLBaseElementExtension on HTMLBaseElement {
   external set href(String value);
   external String get href;
   external set target(String value);
   external String get target;
 }
-
 extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLLinkElement();
-}
 
-extension HTMLLinkElementExtension on HTMLLinkElement {
   external set href(String value);
   external String get href;
   external set crossOrigin(String? value);
@@ -520,12 +491,9 @@ extension HTMLLinkElementExtension on HTMLLinkElement {
   external String get target;
   external CSSStyleSheet? get sheet;
 }
-
 extension type HTMLMetaElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLMetaElement();
-}
 
-extension HTMLMetaElementExtension on HTMLMetaElement {
   external set name(String value);
   external String get name;
   external set httpEquiv(String value);
@@ -537,12 +505,9 @@ extension HTMLMetaElementExtension on HTMLMetaElement {
   external set scheme(String value);
   external String get scheme;
 }
-
 extension type HTMLStyleElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLStyleElement();
-}
 
-extension HTMLStyleElementExtension on HTMLStyleElement {
   external set disabled(bool value);
   external bool get disabled;
   external set media(String value);
@@ -552,12 +517,9 @@ extension HTMLStyleElementExtension on HTMLStyleElement {
   external String get type;
   external CSSStyleSheet? get sheet;
 }
-
 extension type HTMLBodyElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLBodyElement();
-}
 
-extension HTMLBodyElementExtension on HTMLBodyElement {
   external set onorientationchange(EventHandler value);
   external EventHandler get onorientationchange;
   external set text(String value);
@@ -611,32 +573,23 @@ extension HTMLBodyElementExtension on HTMLBodyElement {
   external set onportalactivate(EventHandler value);
   external EventHandler get onportalactivate;
 }
-
 extension type HTMLHeadingElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLHeadingElement();
-}
 
-extension HTMLHeadingElementExtension on HTMLHeadingElement {
   external set align(String value);
   external String get align;
 }
-
 extension type HTMLParagraphElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLParagraphElement();
-}
 
-extension HTMLParagraphElementExtension on HTMLParagraphElement {
   external set align(String value);
   external String get align;
 }
-
 extension type HTMLHRElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLHRElement();
-}
 
-extension HTMLHRElementExtension on HTMLHRElement {
   external set align(String value);
   external String get align;
   external set color(String value);
@@ -648,30 +601,21 @@ extension HTMLHRElementExtension on HTMLHRElement {
   external set width(String value);
   external String get width;
 }
-
 extension type HTMLPreElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLPreElement();
-}
 
-extension HTMLPreElementExtension on HTMLPreElement {
   external set width(int value);
   external int get width;
 }
-
 extension type HTMLQuoteElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLQuoteElement();
-}
 
-extension HTMLQuoteElementExtension on HTMLQuoteElement {
   external set cite(String value);
   external String get cite;
 }
-
 extension type HTMLOListElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLOListElement();
-}
 
-extension HTMLOListElementExtension on HTMLOListElement {
   external set reversed(bool value);
   external bool get reversed;
   external set start(int value);
@@ -681,62 +625,44 @@ extension HTMLOListElementExtension on HTMLOListElement {
   external set compact(bool value);
   external bool get compact;
 }
-
 extension type HTMLUListElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLUListElement();
-}
 
-extension HTMLUListElementExtension on HTMLUListElement {
   external set compact(bool value);
   external bool get compact;
   external set type(String value);
   external String get type;
 }
-
 extension type HTMLMenuElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLMenuElement();
-}
 
-extension HTMLMenuElementExtension on HTMLMenuElement {
   external set compact(bool value);
   external bool get compact;
 }
-
 extension type HTMLLIElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLLIElement();
-}
 
-extension HTMLLIElementExtension on HTMLLIElement {
   external set value(int value);
   external int get value;
   external set type(String value);
   external String get type;
 }
-
 extension type HTMLDListElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLDListElement();
-}
 
-extension HTMLDListElementExtension on HTMLDListElement {
   external set compact(bool value);
   external bool get compact;
 }
-
 extension type HTMLDivElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLDivElement();
-}
 
-extension HTMLDivElementExtension on HTMLDivElement {
   external set align(String value);
   external String get align;
 }
-
 extension type HTMLAnchorElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLAnchorElement();
-}
 
-extension HTMLAnchorElementExtension on HTMLAnchorElement {
   external set target(String value);
   external String get target;
   external set download(String value);
@@ -790,48 +716,35 @@ extension HTMLAnchorElementExtension on HTMLAnchorElement {
   external set hash(String value);
   external String get hash;
 }
-
 extension type HTMLDataElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLDataElement();
-}
 
-extension HTMLDataElementExtension on HTMLDataElement {
   external set value(String value);
   external String get value;
 }
-
 extension type HTMLTimeElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLTimeElement();
-}
 
-extension HTMLTimeElementExtension on HTMLTimeElement {
   external set dateTime(String value);
   external String get dateTime;
 }
-
 extension type HTMLSpanElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLSpanElement();
 }
 extension type HTMLBRElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLBRElement();
-}
 
-extension HTMLBRElementExtension on HTMLBRElement {
   external set clear(String value);
   external String get clear;
 }
-
 extension type HTMLModElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLModElement();
-}
 
-extension HTMLModElementExtension on HTMLModElement {
   external set cite(String value);
   external String get cite;
   external set dateTime(String value);
   external String get dateTime;
 }
-
 extension type HTMLPictureElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLPictureElement();
@@ -839,9 +752,7 @@ extension type HTMLPictureElement._(JSObject _)
 extension type HTMLSourceElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLSourceElement();
-}
 
-extension HTMLSourceElementExtension on HTMLSourceElement {
   external set src(String value);
   external String get src;
   external set type(String value);
@@ -857,12 +768,9 @@ extension HTMLSourceElementExtension on HTMLSourceElement {
   external set height(int value);
   external int get height;
 }
-
 extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLImageElement();
-}
 
-extension HTMLImageElementExtension on HTMLImageElement {
   external JSPromise decode();
   external int get x;
   external int get y;
@@ -915,13 +823,10 @@ extension HTMLImageElementExtension on HTMLImageElement {
   external set sharedStorageWritable(bool value);
   external bool get sharedStorageWritable;
 }
-
 extension type HTMLIFrameElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLIFrameElement();
-}
 
-extension HTMLIFrameElementExtension on HTMLIFrameElement {
   external Document? getSVGDocument();
   external set csp(String value);
   external String get csp;
@@ -964,12 +869,9 @@ extension HTMLIFrameElementExtension on HTMLIFrameElement {
   external set sharedStorageWritable(bool value);
   external bool get sharedStorageWritable;
 }
-
 extension type HTMLEmbedElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLEmbedElement();
-}
 
-extension HTMLEmbedElementExtension on HTMLEmbedElement {
   external Document? getSVGDocument();
   external set src(String value);
   external String get src;
@@ -984,13 +886,10 @@ extension HTMLEmbedElementExtension on HTMLEmbedElement {
   external set name(String value);
   external String get name;
 }
-
 extension type HTMLObjectElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLObjectElement();
-}
 
-extension HTMLObjectElementExtension on HTMLObjectElement {
   external Document? getSVGDocument();
   external bool checkValidity();
   external bool reportValidity();
@@ -1034,13 +933,10 @@ extension HTMLObjectElementExtension on HTMLObjectElement {
   external set border(String value);
   external String get border;
 }
-
 extension type HTMLVideoElement._(JSObject _)
     implements HTMLMediaElement, JSObject {
   external factory HTMLVideoElement();
-}
 
-extension HTMLVideoElementExtension on HTMLVideoElement {
   external VideoPlaybackQuality getVideoPlaybackQuality();
   external JSPromise requestPictureInPicture();
   external int requestVideoFrameCallback(VideoFrameRequestCallback callback);
@@ -1062,7 +958,6 @@ extension HTMLVideoElementExtension on HTMLVideoElement {
   external set disablePictureInPicture(bool value);
   external bool get disablePictureInPicture;
 }
-
 extension type HTMLAudioElement._(JSObject _)
     implements HTMLMediaElement, JSObject {
   external factory HTMLAudioElement();
@@ -1074,9 +969,6 @@ extension type HTMLTrackElement._(JSObject _) implements HTMLElement, JSObject {
   external static int get LOADING;
   external static int get LOADED;
   external static int get ERROR;
-}
-
-extension HTMLTrackElementExtension on HTMLTrackElement {
   external set kind(String value);
   external String get kind;
   external set src(String value);
@@ -1092,7 +984,6 @@ extension HTMLTrackElementExtension on HTMLTrackElement {
   external int get readyState;
   external TextTrack get track;
 }
-
 extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   external static int get NETWORK_EMPTY;
   external static int get NETWORK_IDLE;
@@ -1103,9 +994,6 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   external static int get HAVE_CURRENT_DATA;
   external static int get HAVE_FUTURE_DATA;
   external static int get HAVE_ENOUGH_DATA;
-}
-
-extension HTMLMediaElementExtension on HTMLMediaElement {
   external JSPromise setSinkId(String sinkId);
   external JSPromise setMediaKeys(MediaKeys? mediaKeys);
   external void load();
@@ -1172,22 +1060,15 @@ extension HTMLMediaElementExtension on HTMLMediaElement {
   external set disableRemotePlayback(bool value);
   external bool get disableRemotePlayback;
 }
-
 extension type MediaError._(JSObject _) implements JSObject {
   external static int get MEDIA_ERR_ABORTED;
   external static int get MEDIA_ERR_NETWORK;
   external static int get MEDIA_ERR_DECODE;
   external static int get MEDIA_ERR_SRC_NOT_SUPPORTED;
-}
-
-extension MediaErrorExtension on MediaError {
   external int get code;
   external String get message;
 }
-
-extension type AudioTrackList._(JSObject _) implements EventTarget, JSObject {}
-
-extension AudioTrackListExtension on AudioTrackList {
+extension type AudioTrackList._(JSObject _) implements EventTarget, JSObject {
   external AudioTrack? getTrackById(String id);
   external int get length;
   external set onchange(EventHandler value);
@@ -1197,10 +1078,7 @@ extension AudioTrackListExtension on AudioTrackList {
   external set onremovetrack(EventHandler value);
   external EventHandler get onremovetrack;
 }
-
-extension type AudioTrack._(JSObject _) implements JSObject {}
-
-extension AudioTrackExtension on AudioTrack {
+extension type AudioTrack._(JSObject _) implements JSObject {
   external String get id;
   external String get kind;
   external String get label;
@@ -1209,10 +1087,7 @@ extension AudioTrackExtension on AudioTrack {
   external bool get enabled;
   external SourceBuffer? get sourceBuffer;
 }
-
-extension type VideoTrackList._(JSObject _) implements EventTarget, JSObject {}
-
-extension VideoTrackListExtension on VideoTrackList {
+extension type VideoTrackList._(JSObject _) implements EventTarget, JSObject {
   external VideoTrack? getTrackById(String id);
   external int get length;
   external int get selectedIndex;
@@ -1223,10 +1098,7 @@ extension VideoTrackListExtension on VideoTrackList {
   external set onremovetrack(EventHandler value);
   external EventHandler get onremovetrack;
 }
-
-extension type VideoTrack._(JSObject _) implements JSObject {}
-
-extension VideoTrackExtension on VideoTrack {
+extension type VideoTrack._(JSObject _) implements JSObject {
   external String get id;
   external String get kind;
   external String get label;
@@ -1235,10 +1107,7 @@ extension VideoTrackExtension on VideoTrack {
   external bool get selected;
   external SourceBuffer? get sourceBuffer;
 }
-
-extension type TextTrackList._(JSObject _) implements EventTarget, JSObject {}
-
-extension TextTrackListExtension on TextTrackList {
+extension type TextTrackList._(JSObject _) implements EventTarget, JSObject {
   external TextTrack? getTrackById(String id);
   external int get length;
   external set onchange(EventHandler value);
@@ -1248,10 +1117,7 @@ extension TextTrackListExtension on TextTrackList {
   external set onremovetrack(EventHandler value);
   external EventHandler get onremovetrack;
 }
-
-extension type TextTrack._(JSObject _) implements EventTarget, JSObject {}
-
-extension TextTrackExtension on TextTrack {
+extension type TextTrack._(JSObject _) implements EventTarget, JSObject {
   external void addCue(TextTrackCue cue);
   external void removeCue(TextTrackCue cue);
   external TextTrackKind get kind;
@@ -1267,17 +1133,11 @@ extension TextTrackExtension on TextTrack {
   external EventHandler get oncuechange;
   external SourceBuffer? get sourceBuffer;
 }
-
-extension type TextTrackCueList._(JSObject _) implements JSObject {}
-
-extension TextTrackCueListExtension on TextTrackCueList {
+extension type TextTrackCueList._(JSObject _) implements JSObject {
   external TextTrackCue? getCueById(String id);
   external int get length;
 }
-
-extension type TextTrackCue._(JSObject _) implements EventTarget, JSObject {}
-
-extension TextTrackCueExtension on TextTrackCue {
+extension type TextTrackCue._(JSObject _) implements EventTarget, JSObject {
   external TextTrack? get track;
   external set id(String value);
   external String get id;
@@ -1292,50 +1152,35 @@ extension TextTrackCueExtension on TextTrackCue {
   external set onexit(EventHandler value);
   external EventHandler get onexit;
 }
-
-extension type TimeRanges._(JSObject _) implements JSObject {}
-
-extension TimeRangesExtension on TimeRanges {
+extension type TimeRanges._(JSObject _) implements JSObject {
   external num start(int index);
   external num end(int index);
   external int get length;
 }
-
 extension type TrackEvent._(JSObject _) implements Event, JSObject {
   external factory TrackEvent(
     String type, [
     TrackEventInit eventInitDict,
   ]);
-}
 
-extension TrackEventExtension on TrackEvent {
   external JSObject? get track;
 }
-
 extension type TrackEventInit._(JSObject _) implements EventInit, JSObject {
   external factory TrackEventInit({JSObject? track});
-}
 
-extension TrackEventInitExtension on TrackEventInit {
   external set track(JSObject? value);
   external JSObject? get track;
 }
-
 extension type HTMLMapElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLMapElement();
-}
 
-extension HTMLMapElementExtension on HTMLMapElement {
   external set name(String value);
   external String get name;
   external HTMLCollection get areas;
 }
-
 extension type HTMLAreaElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLAreaElement();
-}
 
-extension HTMLAreaElementExtension on HTMLAreaElement {
   external set alt(String value);
   external String get alt;
   external set coords(String value);
@@ -1377,12 +1222,9 @@ extension HTMLAreaElementExtension on HTMLAreaElement {
   external set hash(String value);
   external String get hash;
 }
-
 extension type HTMLTableElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLTableElement();
-}
 
-extension HTMLTableElementExtension on HTMLTableElement {
   external HTMLTableCaptionElement createCaption();
   external void deleteCaption();
   external HTMLTableSectionElement createTHead();
@@ -1419,23 +1261,17 @@ extension HTMLTableElementExtension on HTMLTableElement {
   external set cellSpacing(String value);
   external String get cellSpacing;
 }
-
 extension type HTMLTableCaptionElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLTableCaptionElement();
-}
 
-extension HTMLTableCaptionElementExtension on HTMLTableCaptionElement {
   external set align(String value);
   external String get align;
 }
-
 extension type HTMLTableColElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLTableColElement();
-}
 
-extension HTMLTableColElementExtension on HTMLTableColElement {
   external set span(int value);
   external int get span;
   external set align(String value);
@@ -1449,13 +1285,10 @@ extension HTMLTableColElementExtension on HTMLTableColElement {
   external set width(String value);
   external String get width;
 }
-
 extension type HTMLTableSectionElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLTableSectionElement();
-}
 
-extension HTMLTableSectionElementExtension on HTMLTableSectionElement {
   external HTMLTableRowElement insertRow([int index]);
   external void deleteRow(int index);
   external HTMLCollection get rows;
@@ -1468,13 +1301,10 @@ extension HTMLTableSectionElementExtension on HTMLTableSectionElement {
   external set vAlign(String value);
   external String get vAlign;
 }
-
 extension type HTMLTableRowElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLTableRowElement();
-}
 
-extension HTMLTableRowElementExtension on HTMLTableRowElement {
   external HTMLTableCellElement insertCell([int index]);
   external void deleteCell(int index);
   external int get rowIndex;
@@ -1491,13 +1321,10 @@ extension HTMLTableRowElementExtension on HTMLTableRowElement {
   external set bgColor(String value);
   external String get bgColor;
 }
-
 extension type HTMLTableCellElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLTableCellElement();
-}
 
-extension HTMLTableCellElementExtension on HTMLTableCellElement {
   external set colSpan(int value);
   external int get colSpan;
   external set rowSpan(int value);
@@ -1528,12 +1355,9 @@ extension HTMLTableCellElementExtension on HTMLTableCellElement {
   external set bgColor(String value);
   external String get bgColor;
 }
-
 extension type HTMLFormElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLFormElement();
-}
 
-extension HTMLFormElementExtension on HTMLFormElement {
   external void submit();
   external void requestSubmit([HTMLElement? submitter]);
   external void reset();
@@ -1563,23 +1387,17 @@ extension HTMLFormElementExtension on HTMLFormElement {
   external HTMLFormControlsCollection get elements;
   external int get length;
 }
-
 extension type HTMLLabelElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLLabelElement();
-}
 
-extension HTMLLabelElementExtension on HTMLLabelElement {
   external HTMLFormElement? get form;
   external set htmlFor(String value);
   external String get htmlFor;
   external HTMLElement? get control;
 }
-
 extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLInputElement();
-}
 
-extension HTMLInputElementExtension on HTMLInputElement {
   external void stepUp([int n]);
   external void stepDown([int n]);
   external bool checkValidity();
@@ -1692,13 +1510,10 @@ extension HTMLInputElementExtension on HTMLInputElement {
   external set popoverTargetAction(String value);
   external String get popoverTargetAction;
 }
-
 extension type HTMLButtonElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLButtonElement();
-}
 
-extension HTMLButtonElementExtension on HTMLButtonElement {
   external bool checkValidity();
   external bool reportValidity();
   external void setCustomValidity(String error);
@@ -1730,13 +1545,10 @@ extension HTMLButtonElementExtension on HTMLButtonElement {
   external set popoverTargetAction(String value);
   external String get popoverTargetAction;
 }
-
 extension type HTMLSelectElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLSelectElement();
-}
 
-extension HTMLSelectElementExtension on HTMLSelectElement {
   external HTMLOptionElement? item(int index);
   external HTMLOptionElement? namedItem(String name);
   external void add(
@@ -1774,34 +1586,25 @@ extension HTMLSelectElementExtension on HTMLSelectElement {
   external String get validationMessage;
   external NodeList get labels;
 }
-
 extension type HTMLDataListElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLDataListElement();
-}
 
-extension HTMLDataListElementExtension on HTMLDataListElement {
   external HTMLCollection get options;
 }
-
 extension type HTMLOptGroupElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLOptGroupElement();
-}
 
-extension HTMLOptGroupElementExtension on HTMLOptGroupElement {
   external set disabled(bool value);
   external bool get disabled;
   external set label(String value);
   external String get label;
 }
-
 extension type HTMLOptionElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLOptionElement();
-}
 
-extension HTMLOptionElementExtension on HTMLOptionElement {
   external set disabled(bool value);
   external bool get disabled;
   external HTMLFormElement? get form;
@@ -1817,13 +1620,10 @@ extension HTMLOptionElementExtension on HTMLOptionElement {
   external String get text;
   external int get index;
 }
-
 extension type HTMLTextAreaElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLTextAreaElement();
-}
 
-extension HTMLTextAreaElementExtension on HTMLTextAreaElement {
   external bool checkValidity();
   external bool reportValidity();
   external void setCustomValidity(String error);
@@ -1881,13 +1681,10 @@ extension HTMLTextAreaElementExtension on HTMLTextAreaElement {
   external set selectionDirection(String value);
   external String get selectionDirection;
 }
-
 extension type HTMLOutputElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLOutputElement();
-}
 
-extension HTMLOutputElementExtension on HTMLOutputElement {
   external bool checkValidity();
   external bool reportValidity();
   external void setCustomValidity(String error);
@@ -1905,13 +1702,10 @@ extension HTMLOutputElementExtension on HTMLOutputElement {
   external String get validationMessage;
   external NodeList get labels;
 }
-
 extension type HTMLProgressElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLProgressElement();
-}
 
-extension HTMLProgressElementExtension on HTMLProgressElement {
   external set value(num value);
   external num get value;
   external set max(num value);
@@ -1919,12 +1713,9 @@ extension HTMLProgressElementExtension on HTMLProgressElement {
   external num get position;
   external NodeList get labels;
 }
-
 extension type HTMLMeterElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLMeterElement();
-}
 
-extension HTMLMeterElementExtension on HTMLMeterElement {
   external set value(num value);
   external num get value;
   external set min(num value);
@@ -1939,13 +1730,10 @@ extension HTMLMeterElementExtension on HTMLMeterElement {
   external num get optimum;
   external NodeList get labels;
 }
-
 extension type HTMLFieldSetElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLFieldSetElement();
-}
 
-extension HTMLFieldSetElementExtension on HTMLFieldSetElement {
   external bool checkValidity();
   external bool reportValidity();
   external void setCustomValidity(String error);
@@ -1960,21 +1748,15 @@ extension HTMLFieldSetElementExtension on HTMLFieldSetElement {
   external ValidityState get validity;
   external String get validationMessage;
 }
-
 extension type HTMLLegendElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLLegendElement();
-}
 
-extension HTMLLegendElementExtension on HTMLLegendElement {
   external HTMLFormElement? get form;
   external set align(String value);
   external String get align;
 }
-
-extension type ValidityState._(JSObject _) implements JSObject {}
-
-extension ValidityStateExtension on ValidityState {
+extension type ValidityState._(JSObject _) implements JSObject {
   external bool get valueMissing;
   external bool get typeMismatch;
   external bool get patternMismatch;
@@ -1987,65 +1769,47 @@ extension ValidityStateExtension on ValidityState {
   external bool get customError;
   external bool get valid;
 }
-
 extension type SubmitEvent._(JSObject _) implements Event, JSObject {
   external factory SubmitEvent(
     String type, [
     SubmitEventInit eventInitDict,
   ]);
-}
 
-extension SubmitEventExtension on SubmitEvent {
   external HTMLElement? get submitter;
 }
-
 extension type SubmitEventInit._(JSObject _) implements EventInit, JSObject {
   external factory SubmitEventInit({HTMLElement? submitter});
-}
 
-extension SubmitEventInitExtension on SubmitEventInit {
   external set submitter(HTMLElement? value);
   external HTMLElement? get submitter;
 }
-
 extension type FormDataEvent._(JSObject _) implements Event, JSObject {
   external factory FormDataEvent(
     String type,
     FormDataEventInit eventInitDict,
   );
-}
 
-extension FormDataEventExtension on FormDataEvent {
   external FormData get formData;
 }
-
 extension type FormDataEventInit._(JSObject _) implements EventInit, JSObject {
   external factory FormDataEventInit({required FormData formData});
-}
 
-extension FormDataEventInitExtension on FormDataEventInit {
   external set formData(FormData value);
   external FormData get formData;
 }
-
 extension type HTMLDetailsElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLDetailsElement();
-}
 
-extension HTMLDetailsElementExtension on HTMLDetailsElement {
   external set name(String value);
   external String get name;
   external set open(bool value);
   external bool get open;
 }
-
 extension type HTMLDialogElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLDialogElement();
-}
 
-extension HTMLDialogElementExtension on HTMLDialogElement {
   external void show();
   external void showModal();
   external void close([String returnValue]);
@@ -2054,15 +1818,11 @@ extension HTMLDialogElementExtension on HTMLDialogElement {
   external set returnValue(String value);
   external String get returnValue;
 }
-
 extension type HTMLScriptElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLScriptElement();
 
   external static bool supports(String type);
-}
-
-extension HTMLScriptElementExtension on HTMLScriptElement {
   external set src(String value);
   external String get src;
   external set type(String value);
@@ -2093,43 +1853,31 @@ extension HTMLScriptElementExtension on HTMLScriptElement {
   external set attributionSrc(String value);
   external String get attributionSrc;
 }
-
 extension type HTMLTemplateElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLTemplateElement();
-}
 
-extension HTMLTemplateElementExtension on HTMLTemplateElement {
   external DocumentFragment get content;
 }
-
 extension type HTMLSlotElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLSlotElement();
-}
 
-extension HTMLSlotElementExtension on HTMLSlotElement {
   external JSArray assignedNodes([AssignedNodesOptions options]);
   external JSArray assignedElements([AssignedNodesOptions options]);
   external void assign(JSObject nodes);
   external set name(String value);
   external String get name;
 }
-
 extension type AssignedNodesOptions._(JSObject _) implements JSObject {
   external factory AssignedNodesOptions({bool flatten});
-}
 
-extension AssignedNodesOptionsExtension on AssignedNodesOptions {
   external set flatten(bool value);
   external bool get flatten;
 }
-
 extension type HTMLCanvasElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLCanvasElement();
-}
 
-extension HTMLCanvasElementExtension on HTMLCanvasElement {
   external RenderingContext? getContext(
     String contextId, [
     JSAny? options,
@@ -2150,7 +1898,6 @@ extension HTMLCanvasElementExtension on HTMLCanvasElement {
   external set height(int value);
   external int get height;
 }
-
 extension type CanvasRenderingContext2DSettings._(JSObject _)
     implements JSObject {
   external factory CanvasRenderingContext2DSettings({
@@ -2159,10 +1906,7 @@ extension type CanvasRenderingContext2DSettings._(JSObject _)
     PredefinedColorSpace colorSpace,
     bool willReadFrequently,
   });
-}
 
-extension CanvasRenderingContext2DSettingsExtension
-    on CanvasRenderingContext2DSettings {
   external set alpha(bool value);
   external bool get alpha;
   external set desynchronized(bool value);
@@ -2172,10 +1916,7 @@ extension CanvasRenderingContext2DSettingsExtension
   external set willReadFrequently(bool value);
   external bool get willReadFrequently;
 }
-
-extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {}
-
-extension CanvasRenderingContext2DExtension on CanvasRenderingContext2D {
+extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   external CanvasRenderingContext2DSettings getContextAttributes();
   external void save();
   external void restore();
@@ -2437,25 +2178,16 @@ extension CanvasRenderingContext2DExtension on CanvasRenderingContext2D {
   external set wordSpacing(String value);
   external String get wordSpacing;
 }
-
-extension type CanvasGradient._(JSObject _) implements JSObject {}
-
-extension CanvasGradientExtension on CanvasGradient {
+extension type CanvasGradient._(JSObject _) implements JSObject {
   external void addColorStop(
     num offset,
     String color,
   );
 }
-
-extension type CanvasPattern._(JSObject _) implements JSObject {}
-
-extension CanvasPatternExtension on CanvasPattern {
+extension type CanvasPattern._(JSObject _) implements JSObject {
   external void setTransform([DOMMatrix2DInit transform]);
 }
-
-extension type TextMetrics._(JSObject _) implements JSObject {}
-
-extension TextMetricsExtension on TextMetrics {
+extension type TextMetrics._(JSObject _) implements JSObject {
   external num get width;
   external num get actualBoundingBoxLeft;
   external num get actualBoundingBoxRight;
@@ -2469,16 +2201,12 @@ extension TextMetricsExtension on TextMetrics {
   external num get alphabeticBaseline;
   external num get ideographicBaseline;
 }
-
 extension type ImageDataSettings._(JSObject _) implements JSObject {
   external factory ImageDataSettings({PredefinedColorSpace colorSpace});
-}
 
-extension ImageDataSettingsExtension on ImageDataSettings {
   external set colorSpace(PredefinedColorSpace value);
   external PredefinedColorSpace get colorSpace;
 }
-
 extension type ImageData._(JSObject _) implements JSObject {
   external factory ImageData(
     JSAny dataOrSw,
@@ -2486,20 +2214,15 @@ extension type ImageData._(JSObject _) implements JSObject {
     JSAny settingsOrSh,
     ImageDataSettings settings,
   ]);
-}
 
-extension ImageDataExtension on ImageData {
   external int get width;
   external int get height;
   external JSUint8ClampedArray get data;
   external PredefinedColorSpace get colorSpace;
 }
-
 extension type Path2D._(JSObject _) implements JSObject {
   external factory Path2D([JSAny path]);
-}
 
-extension Path2DExtension on Path2D {
   external void addPath(
     Path2D path, [
     DOMMatrix2DInit transform,
@@ -2566,47 +2289,34 @@ extension Path2DExtension on Path2D {
     bool counterclockwise,
   ]);
 }
-
-extension type ImageBitmapRenderingContext._(JSObject _) implements JSObject {}
-
-extension ImageBitmapRenderingContextExtension on ImageBitmapRenderingContext {
+extension type ImageBitmapRenderingContext._(JSObject _) implements JSObject {
   external void transferFromImageBitmap(ImageBitmap? bitmap);
   external JSObject get canvas;
 }
-
 extension type ImageBitmapRenderingContextSettings._(JSObject _)
     implements JSObject {
   external factory ImageBitmapRenderingContextSettings({bool alpha});
-}
 
-extension ImageBitmapRenderingContextSettingsExtension
-    on ImageBitmapRenderingContextSettings {
   external set alpha(bool value);
   external bool get alpha;
 }
-
 extension type ImageEncodeOptions._(JSObject _) implements JSObject {
   external factory ImageEncodeOptions({
     String type,
     num quality,
   });
-}
 
-extension ImageEncodeOptionsExtension on ImageEncodeOptions {
   external set type(String value);
   external String get type;
   external set quality(num value);
   external num get quality;
 }
-
 extension type OffscreenCanvas._(JSObject _) implements EventTarget, JSObject {
   external factory OffscreenCanvas(
     int width,
     int height,
   );
-}
 
-extension OffscreenCanvasExtension on OffscreenCanvas {
   external OffscreenRenderingContext? getContext(
     OffscreenRenderingContextId contextId, [
     JSAny? options,
@@ -2622,12 +2332,8 @@ extension OffscreenCanvasExtension on OffscreenCanvas {
   external set oncontextrestored(EventHandler value);
   external EventHandler get oncontextrestored;
 }
-
 extension type OffscreenCanvasRenderingContext2D._(JSObject _)
-    implements JSObject {}
-
-extension OffscreenCanvasRenderingContext2DExtension
-    on OffscreenCanvasRenderingContext2D {
+    implements JSObject {
   external void commit();
   external void save();
   external void restore();
@@ -2884,10 +2590,7 @@ extension OffscreenCanvasRenderingContext2DExtension
   external set wordSpacing(String value);
   external String get wordSpacing;
 }
-
-extension type CustomElementRegistry._(JSObject _) implements JSObject {}
-
-extension CustomElementRegistryExtension on CustomElementRegistry {
+extension type CustomElementRegistry._(JSObject _) implements JSObject {
   external void define(
     String name,
     CustomElementConstructor constructor, [
@@ -2898,21 +2601,15 @@ extension CustomElementRegistryExtension on CustomElementRegistry {
   external JSPromise whenDefined(String name);
   external void upgrade(Node root);
 }
-
 extension type ElementDefinitionOptions._(JSObject _) implements JSObject {
   external factory ElementDefinitionOptions({String extends_});
-}
 
-extension ElementDefinitionOptionsExtension on ElementDefinitionOptions {
   @JS('extends')
   external set extends_(String value);
   @JS('extends')
   external String get extends_;
 }
-
-extension type ElementInternals._(JSObject _) implements JSObject {}
-
-extension ElementInternalsExtension on ElementInternals {
+extension type ElementInternals._(JSObject _) implements JSObject {
   external void setFormValue(
     JSAny? value, [
     JSAny? state,
@@ -3030,7 +2727,6 @@ extension ElementInternalsExtension on ElementInternals {
   external set ariaValueText(String? value);
   external String? get ariaValueText;
 }
-
 extension type ValidityStateFlags._(JSObject _) implements JSObject {
   external factory ValidityStateFlags({
     bool valueMissing,
@@ -3044,9 +2740,7 @@ extension type ValidityStateFlags._(JSObject _) implements JSObject {
     bool badInput,
     bool customError,
   });
-}
 
-extension ValidityStateFlagsExtension on ValidityStateFlags {
   external set valueMissing(bool value);
   external bool get valueMissing;
   external set typeMismatch(bool value);
@@ -3068,69 +2762,51 @@ extension ValidityStateFlagsExtension on ValidityStateFlags {
   external set customError(bool value);
   external bool get customError;
 }
-
 extension type VisibilityStateEntry._(JSObject _)
-    implements PerformanceEntry, JSObject {}
-
-extension VisibilityStateEntryExtension on VisibilityStateEntry {
+    implements PerformanceEntry, JSObject {
   external String get name;
   external String get entryType;
   external DOMHighResTimeStamp get startTime;
   external int get duration;
 }
-
-extension type UserActivation._(JSObject _) implements JSObject {}
-
-extension UserActivationExtension on UserActivation {
+extension type UserActivation._(JSObject _) implements JSObject {
   external bool get hasBeenActive;
   external bool get isActive;
 }
-
 extension type ToggleEvent._(JSObject _) implements Event, JSObject {
   external factory ToggleEvent(
     String type, [
     ToggleEventInit eventInitDict,
   ]);
-}
 
-extension ToggleEventExtension on ToggleEvent {
   external String get oldState;
   external String get newState;
 }
-
 extension type ToggleEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ToggleEventInit({
     String oldState,
     String newState,
   });
-}
 
-extension ToggleEventInitExtension on ToggleEventInit {
   external set oldState(String value);
   external String get oldState;
   external set newState(String value);
   external String get newState;
 }
-
 extension type FocusOptions._(JSObject _) implements JSObject {
   external factory FocusOptions({
     bool preventScroll,
     bool focusVisible,
   });
-}
 
-extension FocusOptionsExtension on FocusOptions {
   external set preventScroll(bool value);
   external bool get preventScroll;
   external set focusVisible(bool value);
   external bool get focusVisible;
 }
-
 extension type DataTransfer._(JSObject _) implements JSObject {
   external factory DataTransfer();
-}
 
-extension DataTransferExtension on DataTransfer {
   external void setDragImage(
     Element image,
     int x,
@@ -3150,10 +2826,7 @@ extension DataTransferExtension on DataTransfer {
   external JSArray get types;
   external FileList get files;
 }
-
-extension type DataTransferItemList._(JSObject _) implements JSObject {}
-
-extension DataTransferItemListExtension on DataTransferItemList {
+extension type DataTransferItemList._(JSObject _) implements JSObject {
   external DataTransferItem? add(
     JSAny data, [
     String type,
@@ -3162,10 +2835,7 @@ extension DataTransferItemListExtension on DataTransferItemList {
   external void clear();
   external int get length;
 }
-
-extension type DataTransferItem._(JSObject _) implements JSObject {}
-
-extension DataTransferItemExtension on DataTransferItem {
+extension type DataTransferItem._(JSObject _) implements JSObject {
   external FileSystemEntry? webkitGetAsEntry();
   external JSPromise getAsFileSystemHandle();
   external void getAsString(FunctionStringCallback? callback);
@@ -3173,32 +2843,23 @@ extension DataTransferItemExtension on DataTransferItem {
   external String get kind;
   external String get type;
 }
-
 extension type DragEvent._(JSObject _) implements MouseEvent, JSObject {
   external factory DragEvent(
     String type, [
     DragEventInit eventInitDict,
   ]);
-}
 
-extension DragEventExtension on DragEvent {
   external DataTransfer? get dataTransfer;
 }
-
 extension type DragEventInit._(JSObject _) implements MouseEventInit, JSObject {
   external factory DragEventInit({DataTransfer? dataTransfer});
-}
 
-extension DragEventInitExtension on DragEventInit {
   external set dataTransfer(DataTransfer? value);
   external DataTransfer? get dataTransfer;
 }
-
 @JS()
 external Window get window;
-extension type Window._(JSObject _) implements EventTarget, JSObject {}
-
-extension WindowExtension on Window {
+extension type Window._(JSObject _) implements EventTarget, JSObject {
   external void navigate(SpatialNavigationDirection dir);
   external MediaQueryList matchMedia(String query);
   external void moveTo(
@@ -3619,26 +3280,17 @@ extension WindowExtension on Window {
   external Storage get sessionStorage;
   external Storage get localStorage;
 }
-
 extension type WindowPostMessageOptions._(JSObject _)
     implements StructuredSerializeOptions, JSObject {
   external factory WindowPostMessageOptions({String targetOrigin});
-}
 
-extension WindowPostMessageOptionsExtension on WindowPostMessageOptions {
   external set targetOrigin(String value);
   external String get targetOrigin;
 }
-
-extension type BarProp._(JSObject _) implements JSObject {}
-
-extension BarPropExtension on BarProp {
+extension type BarProp._(JSObject _) implements JSObject {
   external bool get visible;
 }
-
-extension type Location._(JSObject _) implements JSObject {}
-
-extension LocationExtension on Location {
+extension type Location._(JSObject _) implements JSObject {
   external void assign(String url);
   external void replace(String url);
   external void reload();
@@ -3661,10 +3313,7 @@ extension LocationExtension on Location {
   external String get hash;
   external DOMStringList get ancestorOrigins;
 }
-
-extension type History._(JSObject _) implements JSObject {}
-
-extension HistoryExtension on History {
+extension type History._(JSObject _) implements JSObject {
   external void go([int delta]);
   external void back();
   external void forward();
@@ -3683,10 +3332,7 @@ extension HistoryExtension on History {
   external ScrollRestoration get scrollRestoration;
   external JSAny? get state;
 }
-
-extension type Navigation._(JSObject _) implements EventTarget, JSObject {}
-
-extension NavigationExtension on Navigation {
+extension type Navigation._(JSObject _) implements EventTarget, JSObject {
   external JSArray entries();
   external void updateCurrentEntry(NavigationUpdateCurrentEntryOptions options);
   external NavigationResult navigate(
@@ -3713,70 +3359,51 @@ extension NavigationExtension on Navigation {
   external set oncurrententrychange(EventHandler value);
   external EventHandler get oncurrententrychange;
 }
-
 extension type NavigationUpdateCurrentEntryOptions._(JSObject _)
     implements JSObject {
   external factory NavigationUpdateCurrentEntryOptions({required JSAny? state});
-}
 
-extension NavigationUpdateCurrentEntryOptionsExtension
-    on NavigationUpdateCurrentEntryOptions {
   external set state(JSAny? value);
   external JSAny? get state;
 }
-
 extension type NavigationOptions._(JSObject _) implements JSObject {
   external factory NavigationOptions({JSAny? info});
-}
 
-extension NavigationOptionsExtension on NavigationOptions {
   external set info(JSAny? value);
   external JSAny? get info;
 }
-
 extension type NavigationNavigateOptions._(JSObject _)
     implements NavigationOptions, JSObject {
   external factory NavigationNavigateOptions({
     JSAny? state,
     NavigationHistoryBehavior history,
   });
-}
 
-extension NavigationNavigateOptionsExtension on NavigationNavigateOptions {
   external set state(JSAny? value);
   external JSAny? get state;
   external set history(NavigationHistoryBehavior value);
   external NavigationHistoryBehavior get history;
 }
-
 extension type NavigationReloadOptions._(JSObject _)
     implements NavigationOptions, JSObject {
   external factory NavigationReloadOptions({JSAny? state});
-}
 
-extension NavigationReloadOptionsExtension on NavigationReloadOptions {
   external set state(JSAny? value);
   external JSAny? get state;
 }
-
 extension type NavigationResult._(JSObject _) implements JSObject {
   external factory NavigationResult({
     JSPromise committed,
     JSPromise finished,
   });
-}
 
-extension NavigationResultExtension on NavigationResult {
   external set committed(JSPromise value);
   external JSPromise get committed;
   external set finished(JSPromise value);
   external JSPromise get finished;
 }
-
 extension type NavigationHistoryEntry._(JSObject _)
-    implements EventTarget, JSObject {}
-
-extension NavigationHistoryEntryExtension on NavigationHistoryEntry {
+    implements EventTarget, JSObject {
   external JSAny? getState();
   external String? get url;
   external String get key;
@@ -3786,23 +3413,17 @@ extension NavigationHistoryEntryExtension on NavigationHistoryEntry {
   external set ondispose(EventHandler value);
   external EventHandler get ondispose;
 }
-
-extension type NavigationTransition._(JSObject _) implements JSObject {}
-
-extension NavigationTransitionExtension on NavigationTransition {
+extension type NavigationTransition._(JSObject _) implements JSObject {
   external NavigationType get navigationType;
   external NavigationHistoryEntry get from;
   external JSPromise get finished;
 }
-
 extension type NavigateEvent._(JSObject _) implements Event, JSObject {
   external factory NavigateEvent(
     String type,
     NavigateEventInit eventInitDict,
   );
-}
 
-extension NavigateEventExtension on NavigateEvent {
   external void intercept([NavigationInterceptOptions options]);
   external void scroll();
   external NavigationType get navigationType;
@@ -3816,7 +3437,6 @@ extension NavigateEventExtension on NavigateEvent {
   external JSAny? get info;
   external bool get hasUAVisualTransition;
 }
-
 extension type NavigateEventInit._(JSObject _) implements EventInit, JSObject {
   external factory NavigateEventInit({
     NavigationType navigationType,
@@ -3830,9 +3450,7 @@ extension type NavigateEventInit._(JSObject _) implements EventInit, JSObject {
     JSAny? info,
     bool hasUAVisualTransition,
   });
-}
 
-extension NavigateEventInitExtension on NavigateEventInit {
   external set navigationType(NavigationType value);
   external NavigationType get navigationType;
   external set destination(NavigationDestination value);
@@ -3854,16 +3472,13 @@ extension NavigateEventInitExtension on NavigateEventInit {
   external set hasUAVisualTransition(bool value);
   external bool get hasUAVisualTransition;
 }
-
 extension type NavigationInterceptOptions._(JSObject _) implements JSObject {
   external factory NavigationInterceptOptions({
     NavigationInterceptHandler handler,
     NavigationFocusReset focusReset,
     NavigationScrollBehavior scroll,
   });
-}
 
-extension NavigationInterceptOptionsExtension on NavigationInterceptOptions {
   external set handler(NavigationInterceptHandler value);
   external NavigationInterceptHandler get handler;
   external set focusReset(NavigationFocusReset value);
@@ -3871,10 +3486,7 @@ extension NavigationInterceptOptionsExtension on NavigationInterceptOptions {
   external set scroll(NavigationScrollBehavior value);
   external NavigationScrollBehavior get scroll;
 }
-
-extension type NavigationDestination._(JSObject _) implements JSObject {}
-
-extension NavigationDestinationExtension on NavigationDestination {
+extension type NavigationDestination._(JSObject _) implements JSObject {
   external JSAny? getState();
   external String get url;
   external String get key;
@@ -3882,133 +3494,100 @@ extension NavigationDestinationExtension on NavigationDestination {
   external int get index;
   external bool get sameDocument;
 }
-
 extension type NavigationCurrentEntryChangeEvent._(JSObject _)
     implements Event, JSObject {
   external factory NavigationCurrentEntryChangeEvent(
     String type,
     NavigationCurrentEntryChangeEventInit eventInitDict,
   );
-}
 
-extension NavigationCurrentEntryChangeEventExtension
-    on NavigationCurrentEntryChangeEvent {
   external NavigationType? get navigationType;
   external NavigationHistoryEntry get from;
 }
-
 extension type NavigationCurrentEntryChangeEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory NavigationCurrentEntryChangeEventInit({
     NavigationType? navigationType,
     required NavigationHistoryEntry from,
   });
-}
 
-extension NavigationCurrentEntryChangeEventInitExtension
-    on NavigationCurrentEntryChangeEventInit {
   external set navigationType(NavigationType? value);
   external NavigationType? get navigationType;
   external set from(NavigationHistoryEntry value);
   external NavigationHistoryEntry get from;
 }
-
 extension type PopStateEvent._(JSObject _) implements Event, JSObject {
   external factory PopStateEvent(
     String type, [
     PopStateEventInit eventInitDict,
   ]);
-}
 
-extension PopStateEventExtension on PopStateEvent {
   external JSAny? get state;
   external bool get hasUAVisualTransition;
 }
-
 extension type PopStateEventInit._(JSObject _) implements EventInit, JSObject {
   external factory PopStateEventInit({
     JSAny? state,
     bool hasUAVisualTransition,
   });
-}
 
-extension PopStateEventInitExtension on PopStateEventInit {
   external set state(JSAny? value);
   external JSAny? get state;
   external set hasUAVisualTransition(bool value);
   external bool get hasUAVisualTransition;
 }
-
 extension type HashChangeEvent._(JSObject _) implements Event, JSObject {
   external factory HashChangeEvent(
     String type, [
     HashChangeEventInit eventInitDict,
   ]);
-}
 
-extension HashChangeEventExtension on HashChangeEvent {
   external String get oldURL;
   external String get newURL;
 }
-
 extension type HashChangeEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory HashChangeEventInit({
     String oldURL,
     String newURL,
   });
-}
 
-extension HashChangeEventInitExtension on HashChangeEventInit {
   external set oldURL(String value);
   external String get oldURL;
   external set newURL(String value);
   external String get newURL;
 }
-
 extension type PageTransitionEvent._(JSObject _) implements Event, JSObject {
   external factory PageTransitionEvent(
     String type, [
     PageTransitionEventInit eventInitDict,
   ]);
-}
 
-extension PageTransitionEventExtension on PageTransitionEvent {
   external bool get persisted;
 }
-
 extension type PageTransitionEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory PageTransitionEventInit({bool persisted});
-}
 
-extension PageTransitionEventInitExtension on PageTransitionEventInit {
   external set persisted(bool value);
   external bool get persisted;
 }
-
-extension type BeforeUnloadEvent._(JSObject _) implements Event, JSObject {}
-
-extension BeforeUnloadEventExtension on BeforeUnloadEvent {
+extension type BeforeUnloadEvent._(JSObject _) implements Event, JSObject {
   external set returnValue(String value);
   external String get returnValue;
 }
-
 extension type ErrorEvent._(JSObject _) implements Event, JSObject {
   external factory ErrorEvent(
     String type, [
     ErrorEventInit eventInitDict,
   ]);
-}
 
-extension ErrorEventExtension on ErrorEvent {
   external String get message;
   external String get filename;
   external int get lineno;
   external int get colno;
   external JSAny? get error;
 }
-
 extension type ErrorEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ErrorEventInit({
     String message,
@@ -4017,9 +3596,7 @@ extension type ErrorEventInit._(JSObject _) implements EventInit, JSObject {
     int colno,
     JSAny? error,
   });
-}
 
-extension ErrorEventInitExtension on ErrorEventInit {
   external set message(String value);
   external String get message;
   external set filename(String value);
@@ -4031,48 +3608,36 @@ extension ErrorEventInitExtension on ErrorEventInit {
   external set error(JSAny? value);
   external JSAny? get error;
 }
-
 extension type PromiseRejectionEvent._(JSObject _) implements Event, JSObject {
   external factory PromiseRejectionEvent(
     String type,
     PromiseRejectionEventInit eventInitDict,
   );
-}
 
-extension PromiseRejectionEventExtension on PromiseRejectionEvent {
   external JSPromise get promise;
   external JSAny? get reason;
 }
-
 extension type PromiseRejectionEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory PromiseRejectionEventInit({
     required JSPromise promise,
     JSAny? reason,
   });
-}
 
-extension PromiseRejectionEventInitExtension on PromiseRejectionEventInit {
   external set promise(JSPromise value);
   external JSPromise get promise;
   external set reason(JSAny? value);
   external JSAny? get reason;
 }
-
 extension type DOMParser._(JSObject _) implements JSObject {
   external factory DOMParser();
-}
 
-extension DOMParserExtension on DOMParser {
   external Document parseFromString(
     String string,
     DOMParserSupportedType type,
   );
 }
-
-extension type Navigator._(JSObject _) implements JSObject {}
-
-extension NavigatorExtension on Navigator {
+extension type Navigator._(JSObject _) implements JSObject {
   external AutoplayPolicy getAutoplayPolicy(JSAny contextOrElementOrType);
   external JSPromise getBattery();
   external bool sendBeacon(
@@ -4167,27 +3732,18 @@ extension NavigatorExtension on Navigator {
   external GPU get gpu;
   external ML get ml;
 }
-
-extension type PluginArray._(JSObject _) implements JSObject {}
-
-extension PluginArrayExtension on PluginArray {
+extension type PluginArray._(JSObject _) implements JSObject {
   external void refresh();
   external Plugin? item(int index);
   external Plugin? namedItem(String name);
   external int get length;
 }
-
-extension type MimeTypeArray._(JSObject _) implements JSObject {}
-
-extension MimeTypeArrayExtension on MimeTypeArray {
+extension type MimeTypeArray._(JSObject _) implements JSObject {
   external MimeType? item(int index);
   external MimeType? namedItem(String name);
   external int get length;
 }
-
-extension type Plugin._(JSObject _) implements JSObject {}
-
-extension PluginExtension on Plugin {
+extension type Plugin._(JSObject _) implements JSObject {
   external MimeType? item(int index);
   external MimeType? namedItem(String name);
   external String get name;
@@ -4195,24 +3751,17 @@ extension PluginExtension on Plugin {
   external String get filename;
   external int get length;
 }
-
-extension type MimeType._(JSObject _) implements JSObject {}
-
-extension MimeTypeExtension on MimeType {
+extension type MimeType._(JSObject _) implements JSObject {
   external String get type;
   external String get description;
   external String get suffixes;
   external Plugin get enabledPlugin;
 }
-
-extension type ImageBitmap._(JSObject _) implements JSObject {}
-
-extension ImageBitmapExtension on ImageBitmap {
+extension type ImageBitmap._(JSObject _) implements JSObject {
   external void close();
   external int get width;
   external int get height;
 }
-
 extension type ImageBitmapOptions._(JSObject _) implements JSObject {
   external factory ImageBitmapOptions({
     ImageOrientation imageOrientation,
@@ -4222,9 +3771,7 @@ extension type ImageBitmapOptions._(JSObject _) implements JSObject {
     int resizeHeight,
     ResizeQuality resizeQuality,
   });
-}
 
-extension ImageBitmapOptionsExtension on ImageBitmapOptions {
   external set imageOrientation(ImageOrientation value);
   external ImageOrientation get imageOrientation;
   external set premultiplyAlpha(PremultiplyAlpha value);
@@ -4238,15 +3785,12 @@ extension ImageBitmapOptionsExtension on ImageBitmapOptions {
   external set resizeQuality(ResizeQuality value);
   external ResizeQuality get resizeQuality;
 }
-
 extension type MessageEvent._(JSObject _) implements Event, JSObject {
   external factory MessageEvent(
     String type, [
     MessageEventInit eventInitDict,
   ]);
-}
 
-extension MessageEventExtension on MessageEvent {
   external void initMessageEvent(
     String type, [
     bool bubbles,
@@ -4263,7 +3807,6 @@ extension MessageEventExtension on MessageEvent {
   external MessageEventSource? get source;
   external JSArray get ports;
 }
-
 extension type MessageEventInit._(JSObject _) implements EventInit, JSObject {
   external factory MessageEventInit({
     JSAny? data,
@@ -4272,9 +3815,7 @@ extension type MessageEventInit._(JSObject _) implements EventInit, JSObject {
     MessageEventSource? source,
     JSArray ports,
   });
-}
 
-extension MessageEventInitExtension on MessageEventInit {
   external set data(JSAny? value);
   external JSAny? get data;
   external set origin(String value);
@@ -4286,7 +3827,6 @@ extension MessageEventInitExtension on MessageEventInit {
   external set ports(JSArray value);
   external JSArray get ports;
 }
-
 extension type EventSource._(JSObject _) implements EventTarget, JSObject {
   external factory EventSource(
     String url, [
@@ -4296,9 +3836,6 @@ extension type EventSource._(JSObject _) implements EventTarget, JSObject {
   external static int get CONNECTING;
   external static int get OPEN;
   external static int get CLOSED;
-}
-
-extension EventSourceExtension on EventSource {
   external void close();
   external String get url;
   external bool get withCredentials;
@@ -4310,28 +3847,19 @@ extension EventSourceExtension on EventSource {
   external set onerror(EventHandler value);
   external EventHandler get onerror;
 }
-
 extension type EventSourceInit._(JSObject _) implements JSObject {
   external factory EventSourceInit({bool withCredentials});
-}
 
-extension EventSourceInitExtension on EventSourceInit {
   external set withCredentials(bool value);
   external bool get withCredentials;
 }
-
 extension type MessageChannel._(JSObject _) implements JSObject {
   external factory MessageChannel();
-}
 
-extension MessageChannelExtension on MessageChannel {
   external MessagePort get port1;
   external MessagePort get port2;
 }
-
-extension type MessagePort._(JSObject _) implements EventTarget, JSObject {}
-
-extension MessagePortExtension on MessagePort {
+extension type MessagePort._(JSObject _) implements EventTarget, JSObject {
   external void postMessage(
     JSAny? message, [
     JSObject optionsOrTransfer,
@@ -4343,21 +3871,15 @@ extension MessagePortExtension on MessagePort {
   external set onmessageerror(EventHandler value);
   external EventHandler get onmessageerror;
 }
-
 extension type StructuredSerializeOptions._(JSObject _) implements JSObject {
   external factory StructuredSerializeOptions({JSArray transfer});
-}
 
-extension StructuredSerializeOptionsExtension on StructuredSerializeOptions {
   external set transfer(JSArray value);
   external JSArray get transfer;
 }
-
 extension type BroadcastChannel._(JSObject _) implements EventTarget, JSObject {
   external factory BroadcastChannel(String name);
-}
 
-extension BroadcastChannelExtension on BroadcastChannel {
   external void postMessage(JSAny? message);
   external void close();
   external String get name;
@@ -4366,11 +3888,8 @@ extension BroadcastChannelExtension on BroadcastChannel {
   external set onmessageerror(EventHandler value);
   external EventHandler get onmessageerror;
 }
-
 extension type WorkerGlobalScope._(JSObject _)
-    implements EventTarget, JSObject {}
-
-extension WorkerGlobalScopeExtension on WorkerGlobalScope {
+    implements EventTarget, JSObject {
   external void importScripts(String urls);
   external JSPromise fetch(
     RequestInfo input, [
@@ -4430,11 +3949,8 @@ extension WorkerGlobalScopeExtension on WorkerGlobalScope {
   external CacheStorage get caches;
   external TrustedTypePolicyFactory get trustedTypes;
 }
-
 extension type DedicatedWorkerGlobalScope._(JSObject _)
-    implements WorkerGlobalScope, JSObject {}
-
-extension DedicatedWorkerGlobalScopeExtension on DedicatedWorkerGlobalScope {
+    implements WorkerGlobalScope, JSObject {
   external void postMessage(
     JSAny? message, [
     JSObject optionsOrTransfer,
@@ -4450,25 +3966,19 @@ extension DedicatedWorkerGlobalScopeExtension on DedicatedWorkerGlobalScope {
   external set onrtctransform(EventHandler value);
   external EventHandler get onrtctransform;
 }
-
 extension type SharedWorkerGlobalScope._(JSObject _)
-    implements WorkerGlobalScope, JSObject {}
-
-extension SharedWorkerGlobalScopeExtension on SharedWorkerGlobalScope {
+    implements WorkerGlobalScope, JSObject {
   external void close();
   external String get name;
   external set onconnect(EventHandler value);
   external EventHandler get onconnect;
 }
-
 extension type Worker._(JSObject _) implements EventTarget, JSObject {
   external factory Worker(
     String scriptURL, [
     WorkerOptions options,
   ]);
-}
 
-extension WorkerExtension on Worker {
   external void terminate();
   external void postMessage(
     JSAny? message, [
@@ -4481,16 +3991,13 @@ extension WorkerExtension on Worker {
   external set onerror(EventHandler value);
   external EventHandler get onerror;
 }
-
 extension type WorkerOptions._(JSObject _) implements JSObject {
   external factory WorkerOptions({
     WorkerType type,
     RequestCredentials credentials,
     String name,
   });
-}
 
-extension WorkerOptionsExtension on WorkerOptions {
   external set type(WorkerType value);
   external WorkerType get type;
   external set credentials(RequestCredentials value);
@@ -4498,23 +4005,17 @@ extension WorkerOptionsExtension on WorkerOptions {
   external set name(String value);
   external String get name;
 }
-
 extension type SharedWorker._(JSObject _) implements EventTarget, JSObject {
   external factory SharedWorker(
     String scriptURL, [
     JSAny options,
   ]);
-}
 
-extension SharedWorkerExtension on SharedWorker {
   external MessagePort get port;
   external set onerror(EventHandler value);
   external EventHandler get onerror;
 }
-
-extension type WorkerNavigator._(JSObject _) implements JSObject {}
-
-extension WorkerNavigatorExtension on WorkerNavigator {
+extension type WorkerNavigator._(JSObject _) implements JSObject {
   external JSPromise setAppBadge([int contents]);
   external JSPromise clearAppBadge();
   external bool taintEnabled();
@@ -4547,10 +4048,7 @@ extension WorkerNavigatorExtension on WorkerNavigator {
   external GPU get gpu;
   external ML get ml;
 }
-
-extension type WorkerLocation._(JSObject _) implements JSObject {}
-
-extension WorkerLocationExtension on WorkerLocation {
+extension type WorkerLocation._(JSObject _) implements JSObject {
   external String get href;
   external String get origin;
   external String get protocol;
@@ -4561,29 +4059,20 @@ extension WorkerLocationExtension on WorkerLocation {
   external String get search;
   external String get hash;
 }
-
 extension type WorkletGlobalScope._(JSObject _) implements JSObject {}
-extension type Worklet._(JSObject _) implements JSObject {}
-
-extension WorkletExtension on Worklet {
+extension type Worklet._(JSObject _) implements JSObject {
   external JSPromise addModule(
     String moduleURL, [
     WorkletOptions options,
   ]);
 }
-
 extension type WorkletOptions._(JSObject _) implements JSObject {
   external factory WorkletOptions({RequestCredentials credentials});
-}
 
-extension WorkletOptionsExtension on WorkletOptions {
   external set credentials(RequestCredentials value);
   external RequestCredentials get credentials;
 }
-
-extension type Storage._(JSObject _) implements JSObject {}
-
-extension StorageExtension on Storage {
+extension type Storage._(JSObject _) implements JSObject {
   external String? key(int index);
   external String? getItem(String key);
   external void setItem(
@@ -4594,15 +4083,12 @@ extension StorageExtension on Storage {
   external void clear();
   external int get length;
 }
-
 extension type StorageEvent._(JSObject _) implements Event, JSObject {
   external factory StorageEvent(
     String type, [
     StorageEventInit eventInitDict,
   ]);
-}
 
-extension StorageEventExtension on StorageEvent {
   external void initStorageEvent(
     String type, [
     bool bubbles,
@@ -4619,7 +4105,6 @@ extension StorageEventExtension on StorageEvent {
   external String get url;
   external Storage? get storageArea;
 }
-
 extension type StorageEventInit._(JSObject _) implements EventInit, JSObject {
   external factory StorageEventInit({
     String? key,
@@ -4628,9 +4113,7 @@ extension type StorageEventInit._(JSObject _) implements EventInit, JSObject {
     String url,
     Storage? storageArea,
   });
-}
 
-extension StorageEventInitExtension on StorageEventInit {
   external set key(String? value);
   external String? get key;
   external set oldValue(String? value);
@@ -4642,13 +4125,10 @@ extension StorageEventInitExtension on StorageEventInit {
   external set storageArea(Storage? value);
   external Storage? get storageArea;
 }
-
 extension type HTMLMarqueeElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLMarqueeElement();
-}
 
-extension HTMLMarqueeElementExtension on HTMLMarqueeElement {
   external void start();
   external void stop();
   external set behavior(String value);
@@ -4674,13 +4154,10 @@ extension HTMLMarqueeElementExtension on HTMLMarqueeElement {
   external set width(String value);
   external String get width;
 }
-
 extension type HTMLFrameSetElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLFrameSetElement();
-}
 
-extension HTMLFrameSetElementExtension on HTMLFrameSetElement {
   external set cols(String value);
   external String get cols;
   external set rows(String value);
@@ -4724,12 +4201,9 @@ extension HTMLFrameSetElementExtension on HTMLFrameSetElement {
   external set onportalactivate(EventHandler value);
   external EventHandler get onportalactivate;
 }
-
 extension type HTMLFrameElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLFrameElement();
-}
 
-extension HTMLFrameElementExtension on HTMLFrameElement {
   external set name(String value);
   external String get name;
   external set scrolling(String value);
@@ -4749,22 +4223,16 @@ extension HTMLFrameElementExtension on HTMLFrameElement {
   external set marginWidth(String value);
   external String get marginWidth;
 }
-
 extension type HTMLDirectoryElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLDirectoryElement();
-}
 
-extension HTMLDirectoryElementExtension on HTMLDirectoryElement {
   external set compact(bool value);
   external bool get compact;
 }
-
 extension type HTMLFontElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLFontElement();
-}
 
-extension HTMLFontElementExtension on HTMLFontElement {
   external set color(String value);
   external String get color;
   external set face(String value);
@@ -4772,12 +4240,9 @@ extension HTMLFontElementExtension on HTMLFontElement {
   external set size(String value);
   external String get size;
 }
-
 extension type HTMLParamElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLParamElement();
-}
 
-extension HTMLParamElementExtension on HTMLParamElement {
   external set name(String value);
   external String get name;
   external set value(String value);
@@ -4787,10 +4252,7 @@ extension HTMLParamElementExtension on HTMLParamElement {
   external set valueType(String value);
   external String get valueType;
 }
-
-extension type External._(JSObject _) implements JSObject {}
-
-extension ExternalExtension on External {
+extension type External._(JSObject _) implements JSObject {
   external void AddSearchProvider();
   external void IsSearchProviderInstalled();
 }

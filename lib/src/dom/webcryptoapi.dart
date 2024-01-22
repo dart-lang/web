@@ -15,44 +15,30 @@ typedef NamedCurve = String;
 typedef KeyType = String;
 typedef KeyUsage = String;
 typedef KeyFormat = String;
-extension type Crypto._(JSObject _) implements JSObject {}
-
-extension CryptoExtension on Crypto {
+extension type Crypto._(JSObject _) implements JSObject {
   external ArrayBufferView getRandomValues(ArrayBufferView array);
   external String randomUUID();
   external SubtleCrypto get subtle;
 }
-
 extension type Algorithm._(JSObject _) implements JSObject {
   external factory Algorithm({required String name});
-}
 
-extension AlgorithmExtension on Algorithm {
   external set name(String value);
   external String get name;
 }
-
 extension type KeyAlgorithm._(JSObject _) implements JSObject {
   external factory KeyAlgorithm({required String name});
-}
 
-extension KeyAlgorithmExtension on KeyAlgorithm {
   external set name(String value);
   external String get name;
 }
-
-extension type CryptoKey._(JSObject _) implements JSObject {}
-
-extension CryptoKeyExtension on CryptoKey {
+extension type CryptoKey._(JSObject _) implements JSObject {
   external KeyType get type;
   external bool get extractable;
   external JSObject get algorithm;
   external JSObject get usages;
 }
-
-extension type SubtleCrypto._(JSObject _) implements JSObject {}
-
-extension SubtleCryptoExtension on SubtleCrypto {
+extension type SubtleCrypto._(JSObject _) implements JSObject {
   external JSPromise encrypt(
     AlgorithmIdentifier algorithm,
     CryptoKey key,
@@ -122,16 +108,13 @@ extension SubtleCryptoExtension on SubtleCrypto {
     JSArray keyUsages,
   );
 }
-
 extension type RsaOtherPrimesInfo._(JSObject _) implements JSObject {
   external factory RsaOtherPrimesInfo({
     String r,
     String d,
     String t,
   });
-}
 
-extension RsaOtherPrimesInfoExtension on RsaOtherPrimesInfo {
   external set r(String value);
   external String get r;
   external set d(String value);
@@ -139,7 +122,6 @@ extension RsaOtherPrimesInfoExtension on RsaOtherPrimesInfo {
   external set t(String value);
   external String get t;
 }
-
 extension type JsonWebKey._(JSObject _) implements JSObject {
   external factory JsonWebKey({
     String kty,
@@ -161,9 +143,7 @@ extension type JsonWebKey._(JSObject _) implements JSObject {
     JSArray oth,
     String k,
   });
-}
 
-extension JsonWebKeyExtension on JsonWebKey {
   external set kty(String value);
   external String get kty;
   external set use(String value);
@@ -201,205 +181,148 @@ extension JsonWebKeyExtension on JsonWebKey {
   external set k(String value);
   external String get k;
 }
-
 extension type CryptoKeyPair._(JSObject _) implements JSObject {
   external factory CryptoKeyPair({
     CryptoKey publicKey,
     CryptoKey privateKey,
   });
-}
 
-extension CryptoKeyPairExtension on CryptoKeyPair {
   external set publicKey(CryptoKey value);
   external CryptoKey get publicKey;
   external set privateKey(CryptoKey value);
   external CryptoKey get privateKey;
 }
-
 extension type RsaKeyGenParams._(JSObject _) implements Algorithm, JSObject {
   external factory RsaKeyGenParams({
     required int modulusLength,
     required BigInteger publicExponent,
   });
-}
 
-extension RsaKeyGenParamsExtension on RsaKeyGenParams {
   external set modulusLength(int value);
   external int get modulusLength;
   external set publicExponent(BigInteger value);
   external BigInteger get publicExponent;
 }
-
 extension type RsaHashedKeyGenParams._(JSObject _)
     implements RsaKeyGenParams, JSObject {
   external factory RsaHashedKeyGenParams(
       {required HashAlgorithmIdentifier hash});
-}
 
-extension RsaHashedKeyGenParamsExtension on RsaHashedKeyGenParams {
   external set hash(HashAlgorithmIdentifier value);
   external HashAlgorithmIdentifier get hash;
 }
-
 extension type RsaKeyAlgorithm._(JSObject _) implements KeyAlgorithm, JSObject {
   external factory RsaKeyAlgorithm({
     required int modulusLength,
     required BigInteger publicExponent,
   });
-}
 
-extension RsaKeyAlgorithmExtension on RsaKeyAlgorithm {
   external set modulusLength(int value);
   external int get modulusLength;
   external set publicExponent(BigInteger value);
   external BigInteger get publicExponent;
 }
-
 extension type RsaHashedKeyAlgorithm._(JSObject _)
     implements RsaKeyAlgorithm, JSObject {
   external factory RsaHashedKeyAlgorithm({required KeyAlgorithm hash});
-}
 
-extension RsaHashedKeyAlgorithmExtension on RsaHashedKeyAlgorithm {
   external set hash(KeyAlgorithm value);
   external KeyAlgorithm get hash;
 }
-
 extension type RsaHashedImportParams._(JSObject _)
     implements Algorithm, JSObject {
   external factory RsaHashedImportParams(
       {required HashAlgorithmIdentifier hash});
-}
 
-extension RsaHashedImportParamsExtension on RsaHashedImportParams {
   external set hash(HashAlgorithmIdentifier value);
   external HashAlgorithmIdentifier get hash;
 }
-
 extension type RsaPssParams._(JSObject _) implements Algorithm, JSObject {
   external factory RsaPssParams({required int saltLength});
-}
 
-extension RsaPssParamsExtension on RsaPssParams {
   external set saltLength(int value);
   external int get saltLength;
 }
-
 extension type RsaOaepParams._(JSObject _) implements Algorithm, JSObject {
   external factory RsaOaepParams({BufferSource label});
-}
 
-extension RsaOaepParamsExtension on RsaOaepParams {
   external set label(BufferSource value);
   external BufferSource get label;
 }
-
 extension type EcdsaParams._(JSObject _) implements Algorithm, JSObject {
   external factory EcdsaParams({required HashAlgorithmIdentifier hash});
-}
 
-extension EcdsaParamsExtension on EcdsaParams {
   external set hash(HashAlgorithmIdentifier value);
   external HashAlgorithmIdentifier get hash;
 }
-
 extension type EcKeyGenParams._(JSObject _) implements Algorithm, JSObject {
   external factory EcKeyGenParams({required NamedCurve namedCurve});
-}
 
-extension EcKeyGenParamsExtension on EcKeyGenParams {
   external set namedCurve(NamedCurve value);
   external NamedCurve get namedCurve;
 }
-
 extension type EcKeyAlgorithm._(JSObject _) implements KeyAlgorithm, JSObject {
   external factory EcKeyAlgorithm({required NamedCurve namedCurve});
-}
 
-extension EcKeyAlgorithmExtension on EcKeyAlgorithm {
   external set namedCurve(NamedCurve value);
   external NamedCurve get namedCurve;
 }
-
 extension type EcKeyImportParams._(JSObject _) implements Algorithm, JSObject {
   external factory EcKeyImportParams({required NamedCurve namedCurve});
-}
 
-extension EcKeyImportParamsExtension on EcKeyImportParams {
   external set namedCurve(NamedCurve value);
   external NamedCurve get namedCurve;
 }
-
 extension type EcdhKeyDeriveParams._(JSObject _)
     implements Algorithm, JSObject {
   external factory EcdhKeyDeriveParams({required CryptoKey public});
-}
 
-extension EcdhKeyDeriveParamsExtension on EcdhKeyDeriveParams {
   external set public(CryptoKey value);
   external CryptoKey get public;
 }
-
 extension type AesCtrParams._(JSObject _) implements Algorithm, JSObject {
   external factory AesCtrParams({
     required BufferSource counter,
     required int length,
   });
-}
 
-extension AesCtrParamsExtension on AesCtrParams {
   external set counter(BufferSource value);
   external BufferSource get counter;
   external set length(int value);
   external int get length;
 }
-
 extension type AesKeyAlgorithm._(JSObject _) implements KeyAlgorithm, JSObject {
   external factory AesKeyAlgorithm({required int length});
-}
 
-extension AesKeyAlgorithmExtension on AesKeyAlgorithm {
   external set length(int value);
   external int get length;
 }
-
 extension type AesKeyGenParams._(JSObject _) implements Algorithm, JSObject {
   external factory AesKeyGenParams({required int length});
-}
 
-extension AesKeyGenParamsExtension on AesKeyGenParams {
   external set length(int value);
   external int get length;
 }
-
 extension type AesDerivedKeyParams._(JSObject _)
     implements Algorithm, JSObject {
   external factory AesDerivedKeyParams({required int length});
-}
 
-extension AesDerivedKeyParamsExtension on AesDerivedKeyParams {
   external set length(int value);
   external int get length;
 }
-
 extension type AesCbcParams._(JSObject _) implements Algorithm, JSObject {
   external factory AesCbcParams({required BufferSource iv});
-}
 
-extension AesCbcParamsExtension on AesCbcParams {
   external set iv(BufferSource value);
   external BufferSource get iv;
 }
-
 extension type AesGcmParams._(JSObject _) implements Algorithm, JSObject {
   external factory AesGcmParams({
     required BufferSource iv,
     BufferSource additionalData,
     int tagLength,
   });
-}
 
-extension AesGcmParamsExtension on AesGcmParams {
   external set iv(BufferSource value);
   external BufferSource get iv;
   external set additionalData(BufferSource value);
@@ -407,59 +330,47 @@ extension AesGcmParamsExtension on AesGcmParams {
   external set tagLength(int value);
   external int get tagLength;
 }
-
 extension type HmacImportParams._(JSObject _) implements Algorithm, JSObject {
   external factory HmacImportParams({
     required HashAlgorithmIdentifier hash,
     int length,
   });
-}
 
-extension HmacImportParamsExtension on HmacImportParams {
   external set hash(HashAlgorithmIdentifier value);
   external HashAlgorithmIdentifier get hash;
   external set length(int value);
   external int get length;
 }
-
 extension type HmacKeyAlgorithm._(JSObject _)
     implements KeyAlgorithm, JSObject {
   external factory HmacKeyAlgorithm({
     required KeyAlgorithm hash,
     required int length,
   });
-}
 
-extension HmacKeyAlgorithmExtension on HmacKeyAlgorithm {
   external set hash(KeyAlgorithm value);
   external KeyAlgorithm get hash;
   external set length(int value);
   external int get length;
 }
-
 extension type HmacKeyGenParams._(JSObject _) implements Algorithm, JSObject {
   external factory HmacKeyGenParams({
     required HashAlgorithmIdentifier hash,
     int length,
   });
-}
 
-extension HmacKeyGenParamsExtension on HmacKeyGenParams {
   external set hash(HashAlgorithmIdentifier value);
   external HashAlgorithmIdentifier get hash;
   external set length(int value);
   external int get length;
 }
-
 extension type HkdfParams._(JSObject _) implements Algorithm, JSObject {
   external factory HkdfParams({
     required HashAlgorithmIdentifier hash,
     required BufferSource salt,
     required BufferSource info,
   });
-}
 
-extension HkdfParamsExtension on HkdfParams {
   external set hash(HashAlgorithmIdentifier value);
   external HashAlgorithmIdentifier get hash;
   external set salt(BufferSource value);
@@ -467,16 +378,13 @@ extension HkdfParamsExtension on HkdfParams {
   external set info(BufferSource value);
   external BufferSource get info;
 }
-
 extension type Pbkdf2Params._(JSObject _) implements Algorithm, JSObject {
   external factory Pbkdf2Params({
     required BufferSource salt,
     required int iterations,
     required HashAlgorithmIdentifier hash,
   });
-}
 
-extension Pbkdf2ParamsExtension on Pbkdf2Params {
   external set salt(BufferSource value);
   external BufferSource get salt;
   external set iterations(int value);

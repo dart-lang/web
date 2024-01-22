@@ -16,9 +16,7 @@ extension type PrivateToken._(JSObject _) implements JSObject {
     RefreshPolicy refreshPolicy,
     JSArray issuers,
   });
-}
 
-extension PrivateTokenExtension on PrivateToken {
   external set version(TokenVersion value);
   external TokenVersion get version;
   external set operation(OperationType value);

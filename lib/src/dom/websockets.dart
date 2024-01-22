@@ -20,9 +20,6 @@ extension type WebSocket._(JSObject _) implements EventTarget, JSObject {
   external static int get OPEN;
   external static int get CLOSING;
   external static int get CLOSED;
-}
-
-extension WebSocketExtension on WebSocket {
   external void close([
     int code,
     String reason,
@@ -44,29 +41,23 @@ extension WebSocketExtension on WebSocket {
   external set binaryType(BinaryType value);
   external BinaryType get binaryType;
 }
-
 extension type CloseEvent._(JSObject _) implements Event, JSObject {
   external factory CloseEvent(
     String type, [
     CloseEventInit eventInitDict,
   ]);
-}
 
-extension CloseEventExtension on CloseEvent {
   external bool get wasClean;
   external int get code;
   external String get reason;
 }
-
 extension type CloseEventInit._(JSObject _) implements EventInit, JSObject {
   external factory CloseEventInit({
     bool wasClean,
     int code,
     String reason,
   });
-}
 
-extension CloseEventInitExtension on CloseEventInit {
   external set wasClean(bool value);
   external bool get wasClean;
   external set code(int value);

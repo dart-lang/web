@@ -12,14 +12,11 @@ import 'hr_time.dart';
 typedef ProfilerResource = String;
 extension type Profiler._(JSObject _) implements EventTarget, JSObject {
   external factory Profiler(ProfilerInitOptions options);
-}
 
-extension ProfilerExtension on Profiler {
   external JSPromise stop();
   external DOMHighResTimeStamp get sampleInterval;
   external bool get stopped;
 }
-
 extension type ProfilerTrace._(JSObject _) implements JSObject {
   external factory ProfilerTrace({
     required JSArray resources,
@@ -27,9 +24,7 @@ extension type ProfilerTrace._(JSObject _) implements JSObject {
     required JSArray stacks,
     required JSArray samples,
   });
-}
 
-extension ProfilerTraceExtension on ProfilerTrace {
   external set resources(JSArray value);
   external JSArray get resources;
   external set frames(JSArray value);
@@ -39,35 +34,28 @@ extension ProfilerTraceExtension on ProfilerTrace {
   external set samples(JSArray value);
   external JSArray get samples;
 }
-
 extension type ProfilerSample._(JSObject _) implements JSObject {
   external factory ProfilerSample({
     required DOMHighResTimeStamp timestamp,
     int stackId,
   });
-}
 
-extension ProfilerSampleExtension on ProfilerSample {
   external set timestamp(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get timestamp;
   external set stackId(int value);
   external int get stackId;
 }
-
 extension type ProfilerStack._(JSObject _) implements JSObject {
   external factory ProfilerStack({
     int parentId,
     required int frameId,
   });
-}
 
-extension ProfilerStackExtension on ProfilerStack {
   external set parentId(int value);
   external int get parentId;
   external set frameId(int value);
   external int get frameId;
 }
-
 extension type ProfilerFrame._(JSObject _) implements JSObject {
   external factory ProfilerFrame({
     required String name,
@@ -75,9 +63,7 @@ extension type ProfilerFrame._(JSObject _) implements JSObject {
     int line,
     int column,
   });
-}
 
-extension ProfilerFrameExtension on ProfilerFrame {
   external set name(String value);
   external String get name;
   external set resourceId(int value);
@@ -87,15 +73,12 @@ extension ProfilerFrameExtension on ProfilerFrame {
   external set column(int value);
   external int get column;
 }
-
 extension type ProfilerInitOptions._(JSObject _) implements JSObject {
   external factory ProfilerInitOptions({
     required DOMHighResTimeStamp sampleInterval,
     required int maxBufferSize,
   });
-}
 
-extension ProfilerInitOptionsExtension on ProfilerInitOptions {
   external set sampleInterval(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get sampleInterval;
   external set maxBufferSize(int value);

@@ -7,5 +7,3 @@
 import 'dart:js_interop';
 
 extension type KeyboardLayoutMap._(JSObject _) implements JSObject {}
-
-extension KeyboardLayoutMapExtension on KeyboardLayoutMap {}

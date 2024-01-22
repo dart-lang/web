@@ -22,9 +22,7 @@ extension type VTTCue._(JSObject _) implements TextTrackCue, JSObject {
     num endTime,
     String text,
   );
-}
 
-extension VTTCueExtension on VTTCue {
   external DocumentFragment getCueAsHTML();
   external set region(VTTRegion? value);
   external VTTRegion? get region;
@@ -47,12 +45,9 @@ extension VTTCueExtension on VTTCue {
   external set text(String value);
   external String get text;
 }
-
 extension type VTTRegion._(JSObject _) implements JSObject {
   external factory VTTRegion();
-}
 
-extension VTTRegionExtension on VTTRegion {
   external set id(String value);
   external String get id;
   external set width(num value);

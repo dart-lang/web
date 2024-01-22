@@ -42,9 +42,6 @@ extension type Event._(JSObject _) implements JSObject {
   external static int get CAPTURING_PHASE;
   external static int get AT_TARGET;
   external static int get BUBBLING_PHASE;
-}
-
-extension EventExtension on Event {
   external JSArray composedPath();
   external void stopPropagation();
   external void stopImmediatePropagation();
@@ -70,16 +67,13 @@ extension EventExtension on Event {
   external bool get isTrusted;
   external DOMHighResTimeStamp get timeStamp;
 }
-
 extension type EventInit._(JSObject _) implements JSObject {
   external factory EventInit({
     bool bubbles,
     bool cancelable,
     bool composed,
   });
-}
 
-extension EventInitExtension on EventInit {
   external set bubbles(bool value);
   external bool get bubbles;
   external set cancelable(bool value);
@@ -87,15 +81,12 @@ extension EventInitExtension on EventInit {
   external set composed(bool value);
   external bool get composed;
 }
-
 extension type CustomEvent._(JSObject _) implements Event, JSObject {
   external factory CustomEvent(
     String type, [
     CustomEventInit eventInitDict,
   ]);
-}
 
-extension CustomEventExtension on CustomEvent {
   external void initCustomEvent(
     String type, [
     bool bubbles,
@@ -104,21 +95,15 @@ extension CustomEventExtension on CustomEvent {
   ]);
   external JSAny? get detail;
 }
-
 extension type CustomEventInit._(JSObject _) implements EventInit, JSObject {
   external factory CustomEventInit({JSAny? detail});
-}
 
-extension CustomEventInitExtension on CustomEventInit {
   external set detail(JSAny? value);
   external JSAny? get detail;
 }
-
 extension type EventTarget._(JSObject _) implements JSObject {
   external factory EventTarget();
-}
 
-extension EventTargetExtension on EventTarget {
   external void addEventListener(
     String type,
     EventListener? callback, [
@@ -131,16 +116,12 @@ extension EventTargetExtension on EventTarget {
   ]);
   external bool dispatchEvent(Event event);
 }
-
 extension type EventListenerOptions._(JSObject _) implements JSObject {
   external factory EventListenerOptions({bool capture});
-}
 
-extension EventListenerOptionsExtension on EventListenerOptions {
   external set capture(bool value);
   external bool get capture;
 }
-
 extension type AddEventListenerOptions._(JSObject _)
     implements EventListenerOptions, JSObject {
   external factory AddEventListenerOptions({
@@ -148,9 +129,7 @@ extension type AddEventListenerOptions._(JSObject _)
     bool once,
     AbortSignal signal,
   });
-}
 
-extension AddEventListenerOptionsExtension on AddEventListenerOptions {
   external set passive(bool value);
   external bool get passive;
   external set once(bool value);
@@ -158,50 +137,34 @@ extension AddEventListenerOptionsExtension on AddEventListenerOptions {
   external set signal(AbortSignal value);
   external AbortSignal get signal;
 }
-
 extension type AbortController._(JSObject _) implements JSObject {
   external factory AbortController();
-}
 
-extension AbortControllerExtension on AbortController {
   external void abort([JSAny? reason]);
   external AbortSignal get signal;
 }
-
 extension type AbortSignal._(JSObject _) implements EventTarget, JSObject {
   external static AbortSignal abort([JSAny? reason]);
   external static AbortSignal timeout(int milliseconds);
   external static AbortSignal any(JSArray signals);
-}
-
-extension AbortSignalExtension on AbortSignal {
   external void throwIfAborted();
   external bool get aborted;
   external JSAny? get reason;
   external set onabort(EventHandler value);
   external EventHandler get onabort;
 }
-
-extension type NodeList._(JSObject _) implements JSObject {}
-
-extension NodeListExtension on NodeList {
+extension type NodeList._(JSObject _) implements JSObject {
   external Node? item(int index);
   external int get length;
 }
-
-extension type HTMLCollection._(JSObject _) implements JSObject {}
-
-extension HTMLCollectionExtension on HTMLCollection {
+extension type HTMLCollection._(JSObject _) implements JSObject {
   external Element? item(int index);
   external Element? namedItem(String name);
   external int get length;
 }
-
 extension type MutationObserver._(JSObject _) implements JSObject {
   external factory MutationObserver(MutationCallback callback);
-}
 
-extension MutationObserverExtension on MutationObserver {
   external void observe(
     Node target, [
     MutationObserverInit options,
@@ -209,7 +172,6 @@ extension MutationObserverExtension on MutationObserver {
   external void disconnect();
   external JSArray takeRecords();
 }
-
 extension type MutationObserverInit._(JSObject _) implements JSObject {
   external factory MutationObserverInit({
     bool childList,
@@ -220,9 +182,7 @@ extension type MutationObserverInit._(JSObject _) implements JSObject {
     bool characterDataOldValue,
     JSArray attributeFilter,
   });
-}
 
-extension MutationObserverInitExtension on MutationObserverInit {
   external set childList(bool value);
   external bool get childList;
   external set attributes(bool value);
@@ -238,10 +198,7 @@ extension MutationObserverInitExtension on MutationObserverInit {
   external set attributeFilter(JSArray value);
   external JSArray get attributeFilter;
 }
-
-extension type MutationRecord._(JSObject _) implements JSObject {}
-
-extension MutationRecordExtension on MutationRecord {
+extension type MutationRecord._(JSObject _) implements JSObject {
   external String get type;
   external Node get target;
   external NodeList get addedNodes;
@@ -252,7 +209,6 @@ extension MutationRecordExtension on MutationRecord {
   external String? get attributeNamespace;
   external String? get oldValue;
 }
-
 extension type Node._(JSObject _) implements EventTarget, JSObject {
   external static int get ELEMENT_NODE;
   external static int get ATTRIBUTE_NODE;
@@ -272,9 +228,6 @@ extension type Node._(JSObject _) implements EventTarget, JSObject {
   external static int get DOCUMENT_POSITION_CONTAINS;
   external static int get DOCUMENT_POSITION_CONTAINED_BY;
   external static int get DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
-}
-
-extension NodeExtension on Node {
   external Node getRootNode([GetRootNodeOptions options]);
   external bool hasChildNodes();
   external void normalize();
@@ -313,23 +266,17 @@ extension NodeExtension on Node {
   external set textContent(String? value);
   external String? get textContent;
 }
-
 extension type GetRootNodeOptions._(JSObject _) implements JSObject {
   external factory GetRootNodeOptions({bool composed});
-}
 
-extension GetRootNodeOptionsExtension on GetRootNodeOptions {
   external set composed(bool value);
   external bool get composed;
 }
-
 @JS()
 external Document get document;
 extension type Document._(JSObject _) implements Node, JSObject {
   external factory Document();
-}
 
-extension DocumentExtension on Document {
   external ViewTransition startViewTransition([UpdateCallback? updateCallback]);
   external Element? elementFromPoint(
     num x,
@@ -754,22 +701,16 @@ extension DocumentExtension on Document {
   external set onbeforexrselect(EventHandler value);
   external EventHandler get onbeforexrselect;
 }
-
 extension type XMLDocument._(JSObject _) implements Document, JSObject {}
 extension type ElementCreationOptions._(JSObject _) implements JSObject {
   external factory ElementCreationOptions({String is_});
-}
 
-extension ElementCreationOptionsExtension on ElementCreationOptions {
   @JS('is')
   external set is_(String value);
   @JS('is')
   external String get is_;
 }
-
-extension type DOMImplementation._(JSObject _) implements JSObject {}
-
-extension DOMImplementationExtension on DOMImplementation {
+extension type DOMImplementation._(JSObject _) implements JSObject {
   external DocumentType createDocumentType(
     String qualifiedName,
     String publicId,
@@ -783,10 +724,7 @@ extension DOMImplementationExtension on DOMImplementation {
   external Document createHTMLDocument([String title]);
   external bool hasFeature();
 }
-
-extension type DocumentType._(JSObject _) implements Node, JSObject {}
-
-extension DocumentTypeExtension on DocumentType {
+extension type DocumentType._(JSObject _) implements Node, JSObject {
   external void before(JSAny nodes);
   external void after(JSAny nodes);
   external void replaceWith(JSAny nodes);
@@ -795,12 +733,9 @@ extension DocumentTypeExtension on DocumentType {
   external String get publicId;
   external String get systemId;
 }
-
 extension type DocumentFragment._(JSObject _) implements Node, JSObject {
   external factory DocumentFragment();
-}
 
-extension DocumentFragmentExtension on DocumentFragment {
   external Element? getElementById(String elementId);
   external void prepend(JSAny nodes);
   external void append(JSAny nodes);
@@ -812,10 +747,7 @@ extension DocumentFragmentExtension on DocumentFragment {
   external Element? get lastElementChild;
   external int get childElementCount;
 }
-
-extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {}
-
-extension ShadowRootExtension on ShadowRoot {
+extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   external JSArray getAnimations();
   external ShadowRootMode get mode;
   external bool get delegatesFocus;
@@ -833,10 +765,7 @@ extension ShadowRootExtension on ShadowRoot {
   external Element? get pictureInPictureElement;
   external Element? get pointerLockElement;
 }
-
-extension type Element._(JSObject _) implements Node, JSObject {}
-
-extension ElementExtension on Element {
+extension type Element._(JSObject _) implements Node, JSObject {
   external void insertAdjacentHTML(
     String position,
     String text,
@@ -1102,16 +1031,13 @@ extension ElementExtension on Element {
   external set ariaValueText(String? value);
   external String? get ariaValueText;
 }
-
 extension type ShadowRootInit._(JSObject _) implements JSObject {
   external factory ShadowRootInit({
     required ShadowRootMode mode,
     bool delegatesFocus,
     SlotAssignmentMode slotAssignment,
   });
-}
 
-extension ShadowRootInitExtension on ShadowRootInit {
   external set mode(ShadowRootMode value);
   external ShadowRootMode get mode;
   external set delegatesFocus(bool value);
@@ -1119,10 +1045,7 @@ extension ShadowRootInitExtension on ShadowRootInit {
   external set slotAssignment(SlotAssignmentMode value);
   external SlotAssignmentMode get slotAssignment;
 }
-
-extension type NamedNodeMap._(JSObject _) implements JSObject {}
-
-extension NamedNodeMapExtension on NamedNodeMap {
+extension type NamedNodeMap._(JSObject _) implements JSObject {
   external Attr? item(int index);
   external Attr? getNamedItem(String qualifiedName);
   external Attr? getNamedItemNS(
@@ -1138,10 +1061,7 @@ extension NamedNodeMapExtension on NamedNodeMap {
   );
   external int get length;
 }
-
-extension type Attr._(JSObject _) implements Node, JSObject {}
-
-extension AttrExtension on Attr {
+extension type Attr._(JSObject _) implements Node, JSObject {
   external String? get namespaceURI;
   external String? get prefix;
   external String get localName;
@@ -1151,10 +1071,7 @@ extension AttrExtension on Attr {
   external Element? get ownerElement;
   external bool get specified;
 }
-
-extension type CharacterData._(JSObject _) implements Node, JSObject {}
-
-extension CharacterDataExtension on CharacterData {
+extension type CharacterData._(JSObject _) implements Node, JSObject {
   external String substringData(
     int offset,
     int count,
@@ -1183,12 +1100,9 @@ extension CharacterDataExtension on CharacterData {
   external Element? get previousElementSibling;
   external Element? get nextElementSibling;
 }
-
 extension type Text._(JSObject _) implements CharacterData, JSObject {
   external factory Text([String data]);
-}
 
-extension TextExtension on Text {
   external Text splitText(int offset);
   external JSArray getBoxQuads([BoxQuadOptions options]);
   external DOMQuad convertQuadFromNode(
@@ -1209,29 +1123,22 @@ extension TextExtension on Text {
   external String get wholeText;
   external HTMLSlotElement? get assignedSlot;
 }
-
 extension type CDATASection._(JSObject _) implements Text, JSObject {}
 extension type ProcessingInstruction._(JSObject _)
-    implements CharacterData, JSObject {}
-
-extension ProcessingInstructionExtension on ProcessingInstruction {
+    implements CharacterData, JSObject {
   external String get target;
   external CSSStyleSheet? get sheet;
 }
-
 extension type Comment._(JSObject _) implements CharacterData, JSObject {
   external factory Comment([String data]);
 }
-extension type AbstractRange._(JSObject _) implements JSObject {}
-
-extension AbstractRangeExtension on AbstractRange {
+extension type AbstractRange._(JSObject _) implements JSObject {
   external Node get startContainer;
   external int get startOffset;
   external Node get endContainer;
   external int get endOffset;
   external bool get collapsed;
 }
-
 extension type StaticRangeInit._(JSObject _) implements JSObject {
   external factory StaticRangeInit({
     required Node startContainer,
@@ -1239,9 +1146,7 @@ extension type StaticRangeInit._(JSObject _) implements JSObject {
     required Node endContainer,
     required int endOffset,
   });
-}
 
-extension StaticRangeInitExtension on StaticRangeInit {
   external set startContainer(Node value);
   external Node get startContainer;
   external set startOffset(int value);
@@ -1251,7 +1156,6 @@ extension StaticRangeInitExtension on StaticRangeInit {
   external set endOffset(int value);
   external int get endOffset;
 }
-
 extension type StaticRange._(JSObject _) implements AbstractRange, JSObject {
   external factory StaticRange(StaticRangeInit init);
 }
@@ -1262,9 +1166,6 @@ extension type Range._(JSObject _) implements AbstractRange, JSObject {
   external static int get START_TO_END;
   external static int get END_TO_END;
   external static int get END_TO_START;
-}
-
-extension RangeExtension on Range {
   external DocumentFragment createContextualFragment(String fragment);
   external DOMRectList getClientRects();
   external DOMRect getBoundingClientRect();
@@ -1305,10 +1206,7 @@ extension RangeExtension on Range {
   external bool intersectsNode(Node node);
   external Node get commonAncestorContainer;
 }
-
-extension type NodeIterator._(JSObject _) implements JSObject {}
-
-extension NodeIteratorExtension on NodeIterator {
+extension type NodeIterator._(JSObject _) implements JSObject {
   external Node? nextNode();
   external Node? previousNode();
   external void detach();
@@ -1318,10 +1216,7 @@ extension NodeIteratorExtension on NodeIterator {
   external int get whatToShow;
   external NodeFilter? get filter;
 }
-
-extension type TreeWalker._(JSObject _) implements JSObject {}
-
-extension TreeWalkerExtension on TreeWalker {
+extension type TreeWalker._(JSObject _) implements JSObject {
   external Node? parentNode();
   external Node? firstChild();
   external Node? lastChild();
@@ -1335,10 +1230,7 @@ extension TreeWalkerExtension on TreeWalker {
   external set currentNode(Node value);
   external Node get currentNode;
 }
-
-extension type DOMTokenList._(JSObject _) implements JSObject {}
-
-extension DOMTokenListExtension on DOMTokenList {
+extension type DOMTokenList._(JSObject _) implements JSObject {
   external String? item(int index);
   external bool contains(String token);
   external void add(String tokens);
@@ -1356,7 +1248,6 @@ extension DOMTokenListExtension on DOMTokenList {
   external set value(String value);
   external String get value;
 }
-
 extension type XPathResult._(JSObject _) implements JSObject {
   external static int get ANY_TYPE;
   external static int get NUMBER_TYPE;
@@ -1368,9 +1259,6 @@ extension type XPathResult._(JSObject _) implements JSObject {
   external static int get ORDERED_NODE_SNAPSHOT_TYPE;
   external static int get ANY_UNORDERED_NODE_TYPE;
   external static int get FIRST_ORDERED_NODE_TYPE;
-}
-
-extension XPathResultExtension on XPathResult {
   external Node? iterateNext();
   external Node? snapshotItem(int index);
   external int get resultType;
@@ -1381,22 +1269,16 @@ extension XPathResultExtension on XPathResult {
   external bool get invalidIteratorState;
   external int get snapshotLength;
 }
-
-extension type XPathExpression._(JSObject _) implements JSObject {}
-
-extension XPathExpressionExtension on XPathExpression {
+extension type XPathExpression._(JSObject _) implements JSObject {
   external XPathResult evaluate(
     Node contextNode, [
     int type,
     XPathResult? result,
   ]);
 }
-
 extension type XPathEvaluator._(JSObject _) implements JSObject {
   external factory XPathEvaluator();
-}
 
-extension XPathEvaluatorExtension on XPathEvaluator {
   external XPathExpression createExpression(
     String expression, [
     XPathNSResolver? resolver,
@@ -1410,12 +1292,9 @@ extension XPathEvaluatorExtension on XPathEvaluator {
     XPathResult? result,
   ]);
 }
-
 extension type XSLTProcessor._(JSObject _) implements JSObject {
   external factory XSLTProcessor();
-}
 
-extension XSLTProcessorExtension on XSLTProcessor {
   external void importStylesheet(Node style);
   external DocumentFragment transformToFragment(
     Node source,

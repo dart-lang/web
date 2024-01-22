@@ -11,9 +11,7 @@ import 'hr_time.dart';
 import 'performance_timeline.dart';
 
 extension type LargestContentfulPaint._(JSObject _)
-    implements PerformanceEntry, JSObject {}
-
-extension LargestContentfulPaintExtension on LargestContentfulPaint {
+    implements PerformanceEntry, JSObject {
   external JSObject toJSON();
   external DOMHighResTimeStamp get renderTime;
   external DOMHighResTimeStamp get loadTime;

@@ -16,22 +16,16 @@ extension type IdleOptions._(JSObject _) implements JSObject {
     int threshold,
     AbortSignal signal,
   });
-}
 
-extension IdleOptionsExtension on IdleOptions {
   external set threshold(int value);
   external int get threshold;
   external set signal(AbortSignal value);
   external AbortSignal get signal;
 }
-
 extension type IdleDetector._(JSObject _) implements EventTarget, JSObject {
   external factory IdleDetector();
 
   external static JSPromise requestPermission();
-}
-
-extension IdleDetectorExtension on IdleDetector {
   external JSPromise start([IdleOptions options]);
   external UserIdleState? get userState;
   external ScreenIdleState? get screenState;

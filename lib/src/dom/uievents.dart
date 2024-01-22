@@ -15,9 +15,7 @@ extension type UIEvent._(JSObject _) implements Event, JSObject {
     String type, [
     UIEventInit eventInitDict,
   ]);
-}
 
-extension UIEventExtension on UIEvent {
   external void initUIEvent(
     String typeArg, [
     bool bubblesArg,
@@ -30,7 +28,6 @@ extension UIEventExtension on UIEvent {
   external int get detail;
   external int get which;
 }
-
 extension type UIEventInit._(JSObject _) implements EventInit, JSObject {
   external factory UIEventInit({
     InputDeviceCapabilities? sourceCapabilities,
@@ -38,9 +35,7 @@ extension type UIEventInit._(JSObject _) implements EventInit, JSObject {
     int detail,
     int which,
   });
-}
 
-extension UIEventInitExtension on UIEventInit {
   external set sourceCapabilities(InputDeviceCapabilities? value);
   external InputDeviceCapabilities? get sourceCapabilities;
   external set view(Window? value);
@@ -50,35 +45,26 @@ extension UIEventInitExtension on UIEventInit {
   external set which(int value);
   external int get which;
 }
-
 extension type FocusEvent._(JSObject _) implements UIEvent, JSObject {
   external factory FocusEvent(
     String type, [
     FocusEventInit eventInitDict,
   ]);
-}
 
-extension FocusEventExtension on FocusEvent {
   external EventTarget? get relatedTarget;
 }
-
 extension type FocusEventInit._(JSObject _) implements UIEventInit, JSObject {
   external factory FocusEventInit({EventTarget? relatedTarget});
-}
 
-extension FocusEventInitExtension on FocusEventInit {
   external set relatedTarget(EventTarget? value);
   external EventTarget? get relatedTarget;
 }
-
 extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   external factory MouseEvent(
     String type, [
     MouseEventInit eventInitDict,
   ]);
-}
 
-extension MouseEventExtension on MouseEvent {
   external bool getModifierState(String keyArg);
   external void initMouseEvent(
     String typeArg, [
@@ -119,7 +105,6 @@ extension MouseEventExtension on MouseEvent {
   external int get buttons;
   external EventTarget? get relatedTarget;
 }
-
 extension type MouseEventInit._(JSObject _)
     implements EventModifierInit, JSObject {
   external factory MouseEventInit({
@@ -133,9 +118,7 @@ extension type MouseEventInit._(JSObject _)
     int buttons,
     EventTarget? relatedTarget,
   });
-}
 
-extension MouseEventInitExtension on MouseEventInit {
   external set movementX(num value);
   external num get movementX;
   external set movementY(num value);
@@ -155,7 +138,6 @@ extension MouseEventInitExtension on MouseEventInit {
   external set relatedTarget(EventTarget? value);
   external EventTarget? get relatedTarget;
 }
-
 extension type EventModifierInit._(JSObject _)
     implements UIEventInit, JSObject {
   external factory EventModifierInit({
@@ -174,9 +156,7 @@ extension type EventModifierInit._(JSObject _)
     bool modifierSymbol,
     bool modifierSymbolLock,
   });
-}
 
-extension EventModifierInitExtension on EventModifierInit {
   external set ctrlKey(bool value);
   external bool get ctrlKey;
   external set shiftKey(bool value);
@@ -206,7 +186,6 @@ extension EventModifierInitExtension on EventModifierInit {
   external set modifierSymbolLock(bool value);
   external bool get modifierSymbolLock;
 }
-
 extension type WheelEvent._(JSObject _) implements MouseEvent, JSObject {
   external factory WheelEvent(
     String type, [
@@ -216,15 +195,11 @@ extension type WheelEvent._(JSObject _) implements MouseEvent, JSObject {
   external static int get DOM_DELTA_PIXEL;
   external static int get DOM_DELTA_LINE;
   external static int get DOM_DELTA_PAGE;
-}
-
-extension WheelEventExtension on WheelEvent {
   external num get deltaX;
   external num get deltaY;
   external num get deltaZ;
   external int get deltaMode;
 }
-
 extension type WheelEventInit._(JSObject _)
     implements MouseEventInit, JSObject {
   external factory WheelEventInit({
@@ -233,9 +208,7 @@ extension type WheelEventInit._(JSObject _)
     num deltaZ,
     int deltaMode,
   });
-}
 
-extension WheelEventInitExtension on WheelEventInit {
   external set deltaX(num value);
   external num get deltaX;
   external set deltaY(num value);
@@ -245,22 +218,18 @@ extension WheelEventInitExtension on WheelEventInit {
   external set deltaMode(int value);
   external int get deltaMode;
 }
-
 extension type InputEvent._(JSObject _) implements UIEvent, JSObject {
   external factory InputEvent(
     String type, [
     InputEventInit eventInitDict,
   ]);
-}
 
-extension InputEventExtension on InputEvent {
   external JSArray getTargetRanges();
   external DataTransfer? get dataTransfer;
   external String? get data;
   external bool get isComposing;
   external String get inputType;
 }
-
 extension type InputEventInit._(JSObject _) implements UIEventInit, JSObject {
   external factory InputEventInit({
     DataTransfer? dataTransfer,
@@ -269,9 +238,7 @@ extension type InputEventInit._(JSObject _) implements UIEventInit, JSObject {
     bool isComposing,
     String inputType,
   });
-}
 
-extension InputEventInitExtension on InputEventInit {
   external set dataTransfer(DataTransfer? value);
   external DataTransfer? get dataTransfer;
   external set targetRanges(JSArray value);
@@ -283,7 +250,6 @@ extension InputEventInitExtension on InputEventInit {
   external set inputType(String value);
   external String get inputType;
 }
-
 extension type KeyboardEvent._(JSObject _) implements UIEvent, JSObject {
   external factory KeyboardEvent(
     String type, [
@@ -294,9 +260,6 @@ extension type KeyboardEvent._(JSObject _) implements UIEvent, JSObject {
   external static int get DOM_KEY_LOCATION_LEFT;
   external static int get DOM_KEY_LOCATION_RIGHT;
   external static int get DOM_KEY_LOCATION_NUMPAD;
-}
-
-extension KeyboardEventExtension on KeyboardEvent {
   external bool getModifierState(String keyArg);
   external void initKeyboardEvent(
     String typeArg, [
@@ -322,7 +285,6 @@ extension KeyboardEventExtension on KeyboardEvent {
   external int get charCode;
   external int get keyCode;
 }
-
 extension type KeyboardEventInit._(JSObject _)
     implements EventModifierInit, JSObject {
   external factory KeyboardEventInit({
@@ -334,9 +296,7 @@ extension type KeyboardEventInit._(JSObject _)
     int charCode,
     int keyCode,
   });
-}
 
-extension KeyboardEventInitExtension on KeyboardEventInit {
   external set key(String value);
   external String get key;
   external set code(String value);
@@ -352,15 +312,12 @@ extension KeyboardEventInitExtension on KeyboardEventInit {
   external set keyCode(int value);
   external int get keyCode;
 }
-
 extension type CompositionEvent._(JSObject _) implements UIEvent, JSObject {
   external factory CompositionEvent(
     String type, [
     CompositionEventInit eventInitDict,
   ]);
-}
 
-extension CompositionEventExtension on CompositionEvent {
   external void initCompositionEvent(
     String typeArg, [
     bool bubblesArg,
@@ -370,24 +327,17 @@ extension CompositionEventExtension on CompositionEvent {
   ]);
   external String get data;
 }
-
 extension type CompositionEventInit._(JSObject _)
     implements UIEventInit, JSObject {
   external factory CompositionEventInit({String data});
-}
 
-extension CompositionEventInitExtension on CompositionEventInit {
   external set data(String value);
   external String get data;
 }
-
 extension type MutationEvent._(JSObject _) implements Event, JSObject {
   external static int get MODIFICATION;
   external static int get ADDITION;
   external static int get REMOVAL;
-}
-
-extension MutationEventExtension on MutationEvent {
   external void initMutationEvent(
     String typeArg, [
     bool bubblesArg,

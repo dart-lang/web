@@ -13,9 +13,7 @@ extension type RTCIceGatherOptions._(JSObject _) implements JSObject {
     RTCIceTransportPolicy gatherPolicy,
     JSArray iceServers,
   });
-}
 
-extension RTCIceGatherOptionsExtension on RTCIceGatherOptions {
   external set gatherPolicy(RTCIceTransportPolicy value);
   external RTCIceTransportPolicy get gatherPolicy;
   external set iceServers(JSArray value);

@@ -15,9 +15,6 @@ extension type DOMPointReadOnly._(JSObject _) implements JSObject {
   ]);
 
   external static DOMPointReadOnly fromPoint([DOMPointInit other]);
-}
-
-extension DOMPointReadOnlyExtension on DOMPointReadOnly {
   external DOMPoint matrixTransform([DOMMatrixInit matrix]);
   external JSObject toJSON();
   external num get x;
@@ -25,7 +22,6 @@ extension DOMPointReadOnlyExtension on DOMPointReadOnly {
   external num get z;
   external num get w;
 }
-
 extension type DOMPoint._(JSObject _) implements DOMPointReadOnly, JSObject {
   external factory DOMPoint([
     num x,
@@ -35,9 +31,6 @@ extension type DOMPoint._(JSObject _) implements DOMPointReadOnly, JSObject {
   ]);
 
   external static DOMPoint fromPoint([DOMPointInit other]);
-}
-
-extension DOMPointExtension on DOMPoint {
   external set x(num value);
   external num get x;
   external set y(num value);
@@ -47,7 +40,6 @@ extension DOMPointExtension on DOMPoint {
   external set w(num value);
   external num get w;
 }
-
 extension type DOMPointInit._(JSObject _) implements JSObject {
   external factory DOMPointInit({
     num x,
@@ -55,9 +47,7 @@ extension type DOMPointInit._(JSObject _) implements JSObject {
     num z,
     num w,
   });
-}
 
-extension DOMPointInitExtension on DOMPointInit {
   external set x(num value);
   external num get x;
   external set y(num value);
@@ -67,7 +57,6 @@ extension DOMPointInitExtension on DOMPointInit {
   external set w(num value);
   external num get w;
 }
-
 extension type DOMRectReadOnly._(JSObject _) implements JSObject {
   external factory DOMRectReadOnly([
     num x,
@@ -77,9 +66,6 @@ extension type DOMRectReadOnly._(JSObject _) implements JSObject {
   ]);
 
   external static DOMRectReadOnly fromRect([DOMRectInit other]);
-}
-
-extension DOMRectReadOnlyExtension on DOMRectReadOnly {
   external JSObject toJSON();
   external num get x;
   external num get y;
@@ -90,7 +76,6 @@ extension DOMRectReadOnlyExtension on DOMRectReadOnly {
   external num get bottom;
   external num get left;
 }
-
 extension type DOMRect._(JSObject _) implements DOMRectReadOnly, JSObject {
   external factory DOMRect([
     num x,
@@ -100,9 +85,6 @@ extension type DOMRect._(JSObject _) implements DOMRectReadOnly, JSObject {
   ]);
 
   external static DOMRect fromRect([DOMRectInit other]);
-}
-
-extension DOMRectExtension on DOMRect {
   external set x(num value);
   external num get x;
   external set y(num value);
@@ -112,7 +94,6 @@ extension DOMRectExtension on DOMRect {
   external set height(num value);
   external num get height;
 }
-
 extension type DOMRectInit._(JSObject _) implements JSObject {
   external factory DOMRectInit({
     num x,
@@ -120,9 +101,7 @@ extension type DOMRectInit._(JSObject _) implements JSObject {
     num width,
     num height,
   });
-}
 
-extension DOMRectInitExtension on DOMRectInit {
   external set x(num value);
   external num get x;
   external set y(num value);
@@ -132,14 +111,10 @@ extension DOMRectInitExtension on DOMRectInit {
   external set height(num value);
   external num get height;
 }
-
-extension type DOMRectList._(JSObject _) implements JSObject {}
-
-extension DOMRectListExtension on DOMRectList {
+extension type DOMRectList._(JSObject _) implements JSObject {
   external DOMRect? item(int index);
   external int get length;
 }
-
 extension type DOMQuad._(JSObject _) implements JSObject {
   external factory DOMQuad([
     DOMPointInit p1,
@@ -150,9 +125,6 @@ extension type DOMQuad._(JSObject _) implements JSObject {
 
   external static DOMQuad fromRect([DOMRectInit other]);
   external static DOMQuad fromQuad([DOMQuadInit other]);
-}
-
-extension DOMQuadExtension on DOMQuad {
   external DOMRect getBounds();
   external JSObject toJSON();
   external DOMPoint get p1;
@@ -160,7 +132,6 @@ extension DOMQuadExtension on DOMQuad {
   external DOMPoint get p3;
   external DOMPoint get p4;
 }
-
 extension type DOMQuadInit._(JSObject _) implements JSObject {
   external factory DOMQuadInit({
     DOMPointInit p1,
@@ -168,9 +139,7 @@ extension type DOMQuadInit._(JSObject _) implements JSObject {
     DOMPointInit p3,
     DOMPointInit p4,
   });
-}
 
-extension DOMQuadInitExtension on DOMQuadInit {
   external set p1(DOMPointInit value);
   external DOMPointInit get p1;
   external set p2(DOMPointInit value);
@@ -180,16 +149,12 @@ extension DOMQuadInitExtension on DOMQuadInit {
   external set p4(DOMPointInit value);
   external DOMPointInit get p4;
 }
-
 extension type DOMMatrixReadOnly._(JSObject _) implements JSObject {
   external factory DOMMatrixReadOnly([JSAny init]);
 
   external static DOMMatrixReadOnly fromMatrix([DOMMatrixInit other]);
   external static DOMMatrixReadOnly fromFloat32Array(JSFloat32Array array32);
   external static DOMMatrixReadOnly fromFloat64Array(JSFloat64Array array64);
-}
-
-extension DOMMatrixReadOnlyExtension on DOMMatrixReadOnly {
   external DOMMatrix translate([
     num tx,
     num ty,
@@ -263,16 +228,12 @@ extension DOMMatrixReadOnlyExtension on DOMMatrixReadOnly {
   external bool get is2D;
   external bool get isIdentity;
 }
-
 extension type DOMMatrix._(JSObject _) implements DOMMatrixReadOnly, JSObject {
   external factory DOMMatrix([JSAny init]);
 
   external static DOMMatrix fromMatrix([DOMMatrixInit other]);
   external static DOMMatrix fromFloat32Array(JSFloat32Array array32);
   external static DOMMatrix fromFloat64Array(JSFloat64Array array64);
-}
-
-extension DOMMatrixExtension on DOMMatrix {
   external DOMMatrix multiplySelf([DOMMatrixInit other]);
   external DOMMatrix preMultiplySelf([DOMMatrixInit other]);
   external DOMMatrix translateSelf([
@@ -358,7 +319,6 @@ extension DOMMatrixExtension on DOMMatrix {
   external set m44(num value);
   external num get m44;
 }
-
 extension type DOMMatrix2DInit._(JSObject _) implements JSObject {
   external factory DOMMatrix2DInit({
     num a,
@@ -374,9 +334,7 @@ extension type DOMMatrix2DInit._(JSObject _) implements JSObject {
     num m41,
     num m42,
   });
-}
 
-extension DOMMatrix2DInitExtension on DOMMatrix2DInit {
   external set a(num value);
   external num get a;
   external set b(num value);
@@ -402,7 +360,6 @@ extension DOMMatrix2DInitExtension on DOMMatrix2DInit {
   external set m42(num value);
   external num get m42;
 }
-
 extension type DOMMatrixInit._(JSObject _)
     implements DOMMatrix2DInit, JSObject {
   external factory DOMMatrixInit({
@@ -418,9 +375,7 @@ extension type DOMMatrixInit._(JSObject _)
     num m44,
     bool is2D,
   });
-}
 
-extension DOMMatrixInitExtension on DOMMatrixInit {
   external set m13(num value);
   external num get m13;
   external set m14(num value);

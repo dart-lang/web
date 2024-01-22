@@ -19,14 +19,11 @@ typedef CursorCaptureConstraint = String;
 extension type CaptureController._(JSObject _)
     implements EventTarget, JSObject {
   external factory CaptureController();
-}
 
-extension CaptureControllerExtension on CaptureController {
   external void setFocusBehavior(CaptureStartFocusBehavior focusBehavior);
   external set oncapturedmousechange(EventHandler value);
   external EventHandler get oncapturedmousechange;
 }
-
 extension type DisplayMediaStreamOptions._(JSObject _) implements JSObject {
   external factory DisplayMediaStreamOptions({
     JSAny video,
@@ -37,9 +34,7 @@ extension type DisplayMediaStreamOptions._(JSObject _) implements JSObject {
     SurfaceSwitchingPreferenceEnum surfaceSwitching,
     MonitorTypeSurfacesEnum monitorTypeSurfaces,
   });
-}
 
-extension DisplayMediaStreamOptionsExtension on DisplayMediaStreamOptions {
   external set video(JSAny value);
   external JSAny get video;
   external set audio(JSAny value);

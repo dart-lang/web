@@ -11,20 +11,14 @@ import 'geometry.dart';
 import 'hr_time.dart';
 import 'performance_timeline.dart';
 
-extension type LayoutShift._(JSObject _)
-    implements PerformanceEntry, JSObject {}
-
-extension LayoutShiftExtension on LayoutShift {
+extension type LayoutShift._(JSObject _) implements PerformanceEntry, JSObject {
   external JSObject toJSON();
   external num get value;
   external bool get hadRecentInput;
   external DOMHighResTimeStamp get lastInputTime;
   external JSArray get sources;
 }
-
-extension type LayoutShiftAttribution._(JSObject _) implements JSObject {}
-
-extension LayoutShiftAttributionExtension on LayoutShiftAttribution {
+extension type LayoutShiftAttribution._(JSObject _) implements JSObject {
   external Node? get node;
   external DOMRectReadOnly get previousRect;
   external DOMRectReadOnly get currentRect;

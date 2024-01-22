@@ -35,16 +35,12 @@ extension type PublicKeyCredential._(JSObject _)
           PublicKeyCredentialCreationOptionsJSON options);
   external static PublicKeyCredentialRequestOptions parseRequestOptionsFromJSON(
       PublicKeyCredentialRequestOptionsJSON options);
-}
-
-extension PublicKeyCredentialExtension on PublicKeyCredential {
   external AuthenticationExtensionsClientOutputs getClientExtensionResults();
   external PublicKeyCredentialJSON toJSON();
   external JSArrayBuffer get rawId;
   external AuthenticatorResponse get response;
   external String? get authenticatorAttachment;
 }
-
 extension type RegistrationResponseJSON._(JSObject _) implements JSObject {
   external factory RegistrationResponseJSON({
     required Base64URLString id,
@@ -54,9 +50,7 @@ extension type RegistrationResponseJSON._(JSObject _) implements JSObject {
     required AuthenticationExtensionsClientOutputsJSON clientExtensionResults,
     required String type,
   });
-}
 
-extension RegistrationResponseJSONExtension on RegistrationResponseJSON {
   external set id(Base64URLString value);
   external Base64URLString get id;
   external set rawId(Base64URLString value);
@@ -71,7 +65,6 @@ extension RegistrationResponseJSONExtension on RegistrationResponseJSON {
   external set type(String value);
   external String get type;
 }
-
 extension type AuthenticatorAttestationResponseJSON._(JSObject _)
     implements JSObject {
   external factory AuthenticatorAttestationResponseJSON({
@@ -82,10 +75,7 @@ extension type AuthenticatorAttestationResponseJSON._(JSObject _)
     required int publicKeyAlgorithm,
     required Base64URLString attestationObject,
   });
-}
 
-extension AuthenticatorAttestationResponseJSONExtension
-    on AuthenticatorAttestationResponseJSON {
   external set clientDataJSON(Base64URLString value);
   external Base64URLString get clientDataJSON;
   external set authenticatorData(Base64URLString value);
@@ -99,7 +89,6 @@ extension AuthenticatorAttestationResponseJSONExtension
   external set attestationObject(Base64URLString value);
   external Base64URLString get attestationObject;
 }
-
 extension type AuthenticationResponseJSON._(JSObject _) implements JSObject {
   external factory AuthenticationResponseJSON({
     required Base64URLString id,
@@ -109,9 +98,7 @@ extension type AuthenticationResponseJSON._(JSObject _) implements JSObject {
     required AuthenticationExtensionsClientOutputsJSON clientExtensionResults,
     required String type,
   });
-}
 
-extension AuthenticationResponseJSONExtension on AuthenticationResponseJSON {
   external set id(Base64URLString value);
   external Base64URLString get id;
   external set rawId(Base64URLString value);
@@ -126,7 +113,6 @@ extension AuthenticationResponseJSONExtension on AuthenticationResponseJSON {
   external set type(String value);
   external String get type;
 }
-
 extension type AuthenticatorAssertionResponseJSON._(JSObject _)
     implements JSObject {
   external factory AuthenticatorAssertionResponseJSON({
@@ -136,10 +122,7 @@ extension type AuthenticatorAssertionResponseJSON._(JSObject _)
     Base64URLString userHandle,
     Base64URLString attestationObject,
   });
-}
 
-extension AuthenticatorAssertionResponseJSONExtension
-    on AuthenticatorAssertionResponseJSON {
   external set clientDataJSON(Base64URLString value);
   external Base64URLString get clientDataJSON;
   external set authenticatorData(Base64URLString value);
@@ -151,7 +134,6 @@ extension AuthenticatorAssertionResponseJSONExtension
   external set attestationObject(Base64URLString value);
   external Base64URLString get attestationObject;
 }
-
 extension type AuthenticationExtensionsClientOutputsJSON._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsClientOutputsJSON();
@@ -171,10 +153,7 @@ extension type PublicKeyCredentialCreationOptionsJSON._(JSObject _)
     JSArray attestationFormats,
     AuthenticationExtensionsClientInputsJSON extensions,
   });
-}
 
-extension PublicKeyCredentialCreationOptionsJSONExtension
-    on PublicKeyCredentialCreationOptionsJSON {
   external set rp(PublicKeyCredentialRpEntity value);
   external PublicKeyCredentialRpEntity get rp;
   external set user(PublicKeyCredentialUserEntityJSON value);
@@ -198,7 +177,6 @@ extension PublicKeyCredentialCreationOptionsJSONExtension
   external set extensions(AuthenticationExtensionsClientInputsJSON value);
   external AuthenticationExtensionsClientInputsJSON get extensions;
 }
-
 extension type PublicKeyCredentialUserEntityJSON._(JSObject _)
     implements JSObject {
   external factory PublicKeyCredentialUserEntityJSON({
@@ -206,10 +184,7 @@ extension type PublicKeyCredentialUserEntityJSON._(JSObject _)
     required String name,
     required String displayName,
   });
-}
 
-extension PublicKeyCredentialUserEntityJSONExtension
-    on PublicKeyCredentialUserEntityJSON {
   external set id(Base64URLString value);
   external Base64URLString get id;
   external set name(String value);
@@ -217,7 +192,6 @@ extension PublicKeyCredentialUserEntityJSONExtension
   external set displayName(String value);
   external String get displayName;
 }
-
 extension type PublicKeyCredentialDescriptorJSON._(JSObject _)
     implements JSObject {
   external factory PublicKeyCredentialDescriptorJSON({
@@ -225,10 +199,7 @@ extension type PublicKeyCredentialDescriptorJSON._(JSObject _)
     required String type,
     JSArray transports,
   });
-}
 
-extension PublicKeyCredentialDescriptorJSONExtension
-    on PublicKeyCredentialDescriptorJSON {
   external set id(Base64URLString value);
   external Base64URLString get id;
   external set type(String value);
@@ -236,7 +207,6 @@ extension PublicKeyCredentialDescriptorJSONExtension
   external set transports(JSArray value);
   external JSArray get transports;
 }
-
 extension type AuthenticationExtensionsClientInputsJSON._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsClientInputsJSON();
@@ -254,10 +224,7 @@ extension type PublicKeyCredentialRequestOptionsJSON._(JSObject _)
     JSArray attestationFormats,
     AuthenticationExtensionsClientInputsJSON extensions,
   });
-}
 
-extension PublicKeyCredentialRequestOptionsJSONExtension
-    on PublicKeyCredentialRequestOptionsJSON {
   external set challenge(Base64URLString value);
   external Base64URLString get challenge;
   external set timeout(int value);
@@ -277,51 +244,35 @@ extension PublicKeyCredentialRequestOptionsJSONExtension
   external set extensions(AuthenticationExtensionsClientInputsJSON value);
   external AuthenticationExtensionsClientInputsJSON get extensions;
 }
-
-extension type AuthenticatorResponse._(JSObject _) implements JSObject {}
-
-extension AuthenticatorResponseExtension on AuthenticatorResponse {
+extension type AuthenticatorResponse._(JSObject _) implements JSObject {
   external JSArrayBuffer get clientDataJSON;
 }
-
 extension type AuthenticatorAttestationResponse._(JSObject _)
-    implements AuthenticatorResponse, JSObject {}
-
-extension AuthenticatorAttestationResponseExtension
-    on AuthenticatorAttestationResponse {
+    implements AuthenticatorResponse, JSObject {
   external JSArray getTransports();
   external JSArrayBuffer getAuthenticatorData();
   external JSArrayBuffer? getPublicKey();
   external COSEAlgorithmIdentifier getPublicKeyAlgorithm();
   external JSArrayBuffer get attestationObject;
 }
-
 extension type AuthenticatorAssertionResponse._(JSObject _)
-    implements AuthenticatorResponse, JSObject {}
-
-extension AuthenticatorAssertionResponseExtension
-    on AuthenticatorAssertionResponse {
+    implements AuthenticatorResponse, JSObject {
   external JSArrayBuffer get authenticatorData;
   external JSArrayBuffer get signature;
   external JSArrayBuffer? get userHandle;
   external JSArrayBuffer? get attestationObject;
 }
-
 extension type PublicKeyCredentialParameters._(JSObject _) implements JSObject {
   external factory PublicKeyCredentialParameters({
     required String type,
     required COSEAlgorithmIdentifier alg,
   });
-}
 
-extension PublicKeyCredentialParametersExtension
-    on PublicKeyCredentialParameters {
   external set type(String value);
   external String get type;
   external set alg(COSEAlgorithmIdentifier value);
   external COSEAlgorithmIdentifier get alg;
 }
-
 extension type PublicKeyCredentialCreationOptions._(JSObject _)
     implements JSObject {
   external factory PublicKeyCredentialCreationOptions({
@@ -337,10 +288,7 @@ extension type PublicKeyCredentialCreationOptions._(JSObject _)
     JSArray attestationFormats,
     AuthenticationExtensionsClientInputs extensions,
   });
-}
 
-extension PublicKeyCredentialCreationOptionsExtension
-    on PublicKeyCredentialCreationOptions {
   external set rp(PublicKeyCredentialRpEntity value);
   external PublicKeyCredentialRpEntity get rp;
   external set user(PublicKeyCredentialUserEntity value);
@@ -364,42 +312,31 @@ extension PublicKeyCredentialCreationOptionsExtension
   external set extensions(AuthenticationExtensionsClientInputs value);
   external AuthenticationExtensionsClientInputs get extensions;
 }
-
 extension type PublicKeyCredentialEntity._(JSObject _) implements JSObject {
   external factory PublicKeyCredentialEntity({required String name});
-}
 
-extension PublicKeyCredentialEntityExtension on PublicKeyCredentialEntity {
   external set name(String value);
   external String get name;
 }
-
 extension type PublicKeyCredentialRpEntity._(JSObject _)
     implements PublicKeyCredentialEntity, JSObject {
   external factory PublicKeyCredentialRpEntity({String id});
-}
 
-extension PublicKeyCredentialRpEntityExtension on PublicKeyCredentialRpEntity {
   external set id(String value);
   external String get id;
 }
-
 extension type PublicKeyCredentialUserEntity._(JSObject _)
     implements PublicKeyCredentialEntity, JSObject {
   external factory PublicKeyCredentialUserEntity({
     required BufferSource id,
     required String displayName,
   });
-}
 
-extension PublicKeyCredentialUserEntityExtension
-    on PublicKeyCredentialUserEntity {
   external set id(BufferSource value);
   external BufferSource get id;
   external set displayName(String value);
   external String get displayName;
 }
-
 extension type AuthenticatorSelectionCriteria._(JSObject _)
     implements JSObject {
   external factory AuthenticatorSelectionCriteria({
@@ -408,10 +345,7 @@ extension type AuthenticatorSelectionCriteria._(JSObject _)
     bool requireResidentKey,
     String userVerification,
   });
-}
 
-extension AuthenticatorSelectionCriteriaExtension
-    on AuthenticatorSelectionCriteria {
   external set authenticatorAttachment(String value);
   external String get authenticatorAttachment;
   external set residentKey(String value);
@@ -421,7 +355,6 @@ extension AuthenticatorSelectionCriteriaExtension
   external set userVerification(String value);
   external String get userVerification;
 }
-
 extension type PublicKeyCredentialRequestOptions._(JSObject _)
     implements JSObject {
   external factory PublicKeyCredentialRequestOptions({
@@ -435,10 +368,7 @@ extension type PublicKeyCredentialRequestOptions._(JSObject _)
     JSArray attestationFormats,
     AuthenticationExtensionsClientInputs extensions,
   });
-}
 
-extension PublicKeyCredentialRequestOptionsExtension
-    on PublicKeyCredentialRequestOptions {
   external set challenge(BufferSource value);
   external BufferSource get challenge;
   external set timeout(int value);
@@ -458,7 +388,6 @@ extension PublicKeyCredentialRequestOptionsExtension
   external set extensions(AuthenticationExtensionsClientInputs value);
   external AuthenticationExtensionsClientInputs get extensions;
 }
-
 extension type AuthenticationExtensionsClientInputs._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsClientInputs({
@@ -478,10 +407,7 @@ extension type AuthenticationExtensionsClientInputs._(JSObject _)
     bool uvm,
     AuthenticationExtensionsDevicePublicKeyInputs devicePubKey,
   });
-}
 
-extension AuthenticationExtensionsClientInputsExtension
-    on AuthenticationExtensionsClientInputs {
   external set credentialProtectionPolicy(String value);
   external String get credentialProtectionPolicy;
   external set enforceCredentialProtectionPolicy(bool value);
@@ -514,7 +440,6 @@ extension AuthenticationExtensionsClientInputsExtension
       AuthenticationExtensionsDevicePublicKeyInputs value);
   external AuthenticationExtensionsDevicePublicKeyInputs get devicePubKey;
 }
-
 extension type AuthenticationExtensionsClientOutputs._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsClientOutputs({
@@ -528,10 +453,7 @@ extension type AuthenticationExtensionsClientOutputs._(JSObject _)
     UvmEntries uvm,
     AuthenticationExtensionsDevicePublicKeyOutputs devicePubKey,
   });
-}
 
-extension AuthenticationExtensionsClientOutputsExtension
-    on AuthenticationExtensionsClientOutputs {
   external set hmacCreateSecret(bool value);
   external bool get hmacCreateSecret;
   external set hmacGetSecret(HMACGetSecretOutput value);
@@ -552,7 +474,6 @@ extension AuthenticationExtensionsClientOutputsExtension
       AuthenticationExtensionsDevicePublicKeyOutputs value);
   external AuthenticationExtensionsDevicePublicKeyOutputs get devicePubKey;
 }
-
 extension type CollectedClientData._(JSObject _) implements JSObject {
   external factory CollectedClientData({
     required String type,
@@ -561,9 +482,7 @@ extension type CollectedClientData._(JSObject _) implements JSObject {
     String topOrigin,
     bool crossOrigin,
   });
-}
 
-extension CollectedClientDataExtension on CollectedClientData {
   external set type(String value);
   external String get type;
   external set challenge(String value);
@@ -575,31 +494,24 @@ extension CollectedClientDataExtension on CollectedClientData {
   external set crossOrigin(bool value);
   external bool get crossOrigin;
 }
-
 extension type TokenBinding._(JSObject _) implements JSObject {
   external factory TokenBinding({
     required String status,
     String id,
   });
-}
 
-extension TokenBindingExtension on TokenBinding {
   external set status(String value);
   external String get status;
   external set id(String value);
   external String get id;
 }
-
 extension type PublicKeyCredentialDescriptor._(JSObject _) implements JSObject {
   external factory PublicKeyCredentialDescriptor({
     required String type,
     required BufferSource id,
     JSArray transports,
   });
-}
 
-extension PublicKeyCredentialDescriptorExtension
-    on PublicKeyCredentialDescriptor {
   external set type(String value);
   external String get type;
   external set id(BufferSource value);
@@ -607,64 +519,48 @@ extension PublicKeyCredentialDescriptorExtension
   external set transports(JSArray value);
   external JSArray get transports;
 }
-
 extension type CredentialPropertiesOutput._(JSObject _) implements JSObject {
   external factory CredentialPropertiesOutput({bool rk});
-}
 
-extension CredentialPropertiesOutputExtension on CredentialPropertiesOutput {
   external set rk(bool value);
   external bool get rk;
 }
-
 extension type AuthenticationExtensionsPRFValues._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsPRFValues({
     required BufferSource first,
     BufferSource second,
   });
-}
 
-extension AuthenticationExtensionsPRFValuesExtension
-    on AuthenticationExtensionsPRFValues {
   external set first(BufferSource value);
   external BufferSource get first;
   external set second(BufferSource value);
   external BufferSource get second;
 }
-
 extension type AuthenticationExtensionsPRFInputs._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsPRFInputs({
     AuthenticationExtensionsPRFValues eval,
     JSAny evalByCredential,
   });
-}
 
-extension AuthenticationExtensionsPRFInputsExtension
-    on AuthenticationExtensionsPRFInputs {
   external set eval(AuthenticationExtensionsPRFValues value);
   external AuthenticationExtensionsPRFValues get eval;
   external set evalByCredential(JSAny value);
   external JSAny get evalByCredential;
 }
-
 extension type AuthenticationExtensionsPRFOutputs._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsPRFOutputs({
     bool enabled,
     AuthenticationExtensionsPRFValues results,
   });
-}
 
-extension AuthenticationExtensionsPRFOutputsExtension
-    on AuthenticationExtensionsPRFOutputs {
   external set enabled(bool value);
   external bool get enabled;
   external set results(AuthenticationExtensionsPRFValues value);
   external AuthenticationExtensionsPRFValues get results;
 }
-
 extension type AuthenticationExtensionsLargeBlobInputs._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsLargeBlobInputs({
@@ -672,10 +568,7 @@ extension type AuthenticationExtensionsLargeBlobInputs._(JSObject _)
     bool read,
     BufferSource write,
   });
-}
 
-extension AuthenticationExtensionsLargeBlobInputsExtension
-    on AuthenticationExtensionsLargeBlobInputs {
   external set support(String value);
   external String get support;
   external set read(bool value);
@@ -683,7 +576,6 @@ extension AuthenticationExtensionsLargeBlobInputsExtension
   external set write(BufferSource value);
   external BufferSource get write;
 }
-
 extension type AuthenticationExtensionsLargeBlobOutputs._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsLargeBlobOutputs({
@@ -691,10 +583,7 @@ extension type AuthenticationExtensionsLargeBlobOutputs._(JSObject _)
     JSArrayBuffer blob,
     bool written,
   });
-}
 
-extension AuthenticationExtensionsLargeBlobOutputsExtension
-    on AuthenticationExtensionsLargeBlobOutputs {
   external set supported(bool value);
   external bool get supported;
   external set blob(JSArrayBuffer value);
@@ -702,31 +591,23 @@ extension AuthenticationExtensionsLargeBlobOutputsExtension
   external set written(bool value);
   external bool get written;
 }
-
 extension type AuthenticationExtensionsDevicePublicKeyInputs._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsDevicePublicKeyInputs({
     String attestation,
     JSArray attestationFormats,
   });
-}
 
-extension AuthenticationExtensionsDevicePublicKeyInputsExtension
-    on AuthenticationExtensionsDevicePublicKeyInputs {
   external set attestation(String value);
   external String get attestation;
   external set attestationFormats(JSArray value);
   external JSArray get attestationFormats;
 }
-
 extension type AuthenticationExtensionsDevicePublicKeyOutputs._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsDevicePublicKeyOutputs(
       {JSArrayBuffer signature});
-}
 
-extension AuthenticationExtensionsDevicePublicKeyOutputsExtension
-    on AuthenticationExtensionsDevicePublicKeyOutputs {
   external set signature(JSArrayBuffer value);
   external JSArrayBuffer get signature;
 }

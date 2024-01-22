@@ -14,9 +14,7 @@ typedef Millisecond = int;
 typedef ConnectionType = String;
 typedef EffectiveConnectionType = String;
 extension type NetworkInformation._(JSObject _)
-    implements EventTarget, JSObject {}
-
-extension NetworkInformationExtension on NetworkInformation {
+    implements EventTarget, JSObject {
   external ConnectionType get type;
   external EffectiveConnectionType get effectiveType;
   external Megabit get downlinkMax;

@@ -27,9 +27,7 @@ typedef RequestPriority = String;
 typedef ResponseType = String;
 extension type Headers._(JSObject _) implements JSObject {
   external factory Headers([HeadersInit init]);
-}
 
-extension HeadersExtension on Headers {
   external void append(
     String name,
     String value,
@@ -43,15 +41,12 @@ extension HeadersExtension on Headers {
     String value,
   );
 }
-
 extension type Request._(JSObject _) implements JSObject {
   external factory Request(
     RequestInfo input, [
     RequestInit init,
   ]);
-}
 
-extension RequestExtension on Request {
   external Request clone();
   external JSPromise arrayBuffer();
   external JSPromise blob();
@@ -77,7 +72,6 @@ extension RequestExtension on Request {
   external ReadableStream? get body;
   external bool get bodyUsed;
 }
-
 extension type RequestInit._(JSObject _) implements JSObject {
   external factory RequestInit({
     AttributionReportingRequestOptions attributionReporting,
@@ -100,9 +94,7 @@ extension type RequestInit._(JSObject _) implements JSObject {
     bool sharedStorageWritable,
     PrivateToken privateToken,
   });
-}
 
-extension RequestInitExtension on RequestInit {
   external set attributionReporting(AttributionReportingRequestOptions value);
   external AttributionReportingRequestOptions get attributionReporting;
   external set method(String value);
@@ -142,7 +134,6 @@ extension RequestInitExtension on RequestInit {
   external set privateToken(PrivateToken value);
   external PrivateToken get privateToken;
 }
-
 extension type Response._(JSObject _) implements JSObject {
   external factory Response([
     BodyInit? body,
@@ -159,9 +150,6 @@ extension type Response._(JSObject _) implements JSObject {
     JSAny? data, [
     ResponseInit init,
   ]);
-}
-
-extension ResponseExtension on Response {
   external Response clone();
   external JSPromise arrayBuffer();
   external JSPromise blob();
@@ -178,16 +166,13 @@ extension ResponseExtension on Response {
   external ReadableStream? get body;
   external bool get bodyUsed;
 }
-
 extension type ResponseInit._(JSObject _) implements JSObject {
   external factory ResponseInit({
     int status,
     String statusText,
     HeadersInit headers,
   });
-}
 
-extension ResponseInitExtension on ResponseInit {
   external set status(int value);
   external int get status;
   external set statusText(String value);

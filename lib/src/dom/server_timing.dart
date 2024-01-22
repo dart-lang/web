@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'hr_time.dart';
 
-extension type PerformanceServerTiming._(JSObject _) implements JSObject {}
-
-extension PerformanceServerTimingExtension on PerformanceServerTiming {
+extension type PerformanceServerTiming._(JSObject _) implements JSObject {
   external JSObject toJSON();
   external String get name;
   external DOMHighResTimeStamp get duration;

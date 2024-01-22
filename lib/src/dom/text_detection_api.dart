@@ -11,21 +11,16 @@ import 'html.dart';
 
 extension type TextDetector._(JSObject _) implements JSObject {
   external factory TextDetector();
-}
 
-extension TextDetectorExtension on TextDetector {
   external JSPromise detect(ImageBitmapSource image);
 }
-
 extension type DetectedText._(JSObject _) implements JSObject {
   external factory DetectedText({
     required DOMRectReadOnly boundingBox,
     required String rawValue,
     required JSArray cornerPoints,
   });
-}
 
-extension DetectedTextExtension on DetectedText {
   external set boundingBox(DOMRectReadOnly value);
   external DOMRectReadOnly get boundingBox;
   external set rawValue(String value);

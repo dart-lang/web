@@ -34,23 +34,3 @@ extension GyroscopeSensorOptionsExtension on GyroscopeSensorOptions {
   external set referenceFrame(GyroscopeLocalCoordinateSystem value);
   external GyroscopeLocalCoordinateSystem get referenceFrame;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class GyroscopeReadingValues {
-  external factory GyroscopeReadingValues({
-    required num? x,
-    required num? y,
-    required num? z,
-  });
-}
-
-extension GyroscopeReadingValuesExtension on GyroscopeReadingValues {
-  external set x(num? value);
-  external num? get x;
-  external set y(num? value);
-  external num? get y;
-  external set z(num? value);
-  external num? get z;
-}

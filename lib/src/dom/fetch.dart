@@ -107,6 +107,7 @@ class RequestInit {
     RequestTargetAddressSpace targetAddressSpace,
     bool sharedStorageWritable,
     PrivateToken privateToken,
+    bool adAuctionHeaders,
   });
 }
 
@@ -149,6 +150,8 @@ extension RequestInitExtension on RequestInit {
   external bool get sharedStorageWritable;
   external set privateToken(PrivateToken value);
   external PrivateToken get privateToken;
+  external set adAuctionHeaders(bool value);
+  external bool get adAuctionHeaders;
 }
 
 @JS('Response')

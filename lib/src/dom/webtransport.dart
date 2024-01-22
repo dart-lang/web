@@ -23,10 +23,10 @@ extension WebTransportDatagramDuplexStreamExtension
   external ReadableStream get readable;
   external WritableStream get writable;
   external int get maxDatagramSize;
-  external set incomingMaxAge(num value);
-  external num get incomingMaxAge;
-  external set outgoingMaxAge(num value);
-  external num get outgoingMaxAge;
+  external set incomingMaxAge(num? value);
+  external num? get incomingMaxAge;
+  external set outgoingMaxAge(num? value);
+  external num? get outgoingMaxAge;
   external set incomingHighWaterMark(num value);
   external num get incomingHighWaterMark;
   external set outgoingHighWaterMark(num value);
@@ -49,6 +49,7 @@ extension WebTransportExtension on WebTransport {
       [WebTransportSendStreamOptions options]);
   external JSPromise createUnidirectionalStream(
       [WebTransportSendStreamOptions options]);
+  external WebTransportSendGroup createSendGroup();
   external JSPromise get ready;
   external WebTransportReliabilityMode get reliability;
   external WebTransportCongestionControl get congestionControl;
@@ -120,13 +121,18 @@ extension WebTransportCloseInfoExtension on WebTransportCloseInfo {
 @staticInterop
 @anonymous
 class WebTransportSendStreamOptions {
-  external factory WebTransportSendStreamOptions({int? sendOrder});
+  external factory WebTransportSendStreamOptions({
+    WebTransportSendGroup? sendGroup,
+    int sendOrder,
+  });
 }
 
 extension WebTransportSendStreamOptionsExtension
     on WebTransportSendStreamOptions {
-  external set sendOrder(int? value);
-  external int? get sendOrder;
+  external set sendGroup(WebTransportSendGroup? value);
+  external WebTransportSendGroup? get sendGroup;
+  external set sendOrder(int value);
+  external int get sendOrder;
 }
 
 @JS()
@@ -134,7 +140,6 @@ extension WebTransportSendStreamOptionsExtension
 @anonymous
 class WebTransportConnectionStats {
   external factory WebTransportConnectionStats({
-    DOMHighResTimeStamp timestamp,
     int bytesSent,
     int packetsSent,
     int bytesLost,
@@ -150,8 +155,6 @@ class WebTransportConnectionStats {
 }
 
 extension WebTransportConnectionStatsExtension on WebTransportConnectionStats {
-  external set timestamp(DOMHighResTimeStamp value);
-  external DOMHighResTimeStamp get timestamp;
   external set bytesSent(int value);
   external int get bytesSent;
   external set packetsSent(int value);
@@ -181,7 +184,6 @@ extension WebTransportConnectionStatsExtension on WebTransportConnectionStats {
 @anonymous
 class WebTransportDatagramStats {
   external factory WebTransportDatagramStats({
-    DOMHighResTimeStamp timestamp,
     int expiredOutgoing,
     int droppedIncoming,
     int lostOutgoing,
@@ -189,8 +191,6 @@ class WebTransportDatagramStats {
 }
 
 extension WebTransportDatagramStatsExtension on WebTransportDatagramStats {
-  external set timestamp(DOMHighResTimeStamp value);
-  external DOMHighResTimeStamp get timestamp;
   external set expiredOutgoing(int value);
   external int get expiredOutgoing;
   external set droppedIncoming(int value);
@@ -205,8 +205,10 @@ class WebTransportSendStream implements WritableStream {}
 
 extension WebTransportSendStreamExtension on WebTransportSendStream {
   external JSPromise getStats();
-  external set sendOrder(int? value);
-  external int? get sendOrder;
+  external set sendGroup(WebTransportSendGroup? value);
+  external WebTransportSendGroup? get sendGroup;
+  external set sendOrder(int value);
+  external int get sendOrder;
 }
 
 @JS()
@@ -214,7 +216,6 @@ extension WebTransportSendStreamExtension on WebTransportSendStream {
 @anonymous
 class WebTransportSendStreamStats {
   external factory WebTransportSendStreamStats({
-    DOMHighResTimeStamp timestamp,
     int bytesWritten,
     int bytesSent,
     int bytesAcknowledged,
@@ -222,14 +223,20 @@ class WebTransportSendStreamStats {
 }
 
 extension WebTransportSendStreamStatsExtension on WebTransportSendStreamStats {
-  external set timestamp(DOMHighResTimeStamp value);
-  external DOMHighResTimeStamp get timestamp;
   external set bytesWritten(int value);
   external int get bytesWritten;
   external set bytesSent(int value);
   external int get bytesSent;
   external set bytesAcknowledged(int value);
   external int get bytesAcknowledged;
+}
+
+@JS('WebTransportSendGroup')
+@staticInterop
+class WebTransportSendGroup {}
+
+extension WebTransportSendGroupExtension on WebTransportSendGroup {
+  external JSPromise getStats();
 }
 
 @JS('WebTransportReceiveStream')
@@ -245,7 +252,6 @@ extension WebTransportReceiveStreamExtension on WebTransportReceiveStream {
 @anonymous
 class WebTransportReceiveStreamStats {
   external factory WebTransportReceiveStreamStats({
-    DOMHighResTimeStamp timestamp,
     int bytesReceived,
     int bytesRead,
   });
@@ -253,8 +259,6 @@ class WebTransportReceiveStreamStats {
 
 extension WebTransportReceiveStreamStatsExtension
     on WebTransportReceiveStreamStats {
-  external set timestamp(DOMHighResTimeStamp value);
-  external DOMHighResTimeStamp get timestamp;
   external set bytesReceived(int value);
   external int get bytesReceived;
   external set bytesRead(int value);

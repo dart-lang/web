@@ -671,12 +671,17 @@ extension PublicKeyCredentialDescriptorExtension
 @staticInterop
 @anonymous
 class CredentialPropertiesOutput {
-  external factory CredentialPropertiesOutput({bool rk});
+  external factory CredentialPropertiesOutput({
+    bool rk,
+    String authenticatorDisplayName,
+  });
 }
 
 extension CredentialPropertiesOutputExtension on CredentialPropertiesOutput {
   external set rk(bool value);
   external bool get rk;
+  external set authenticatorDisplayName(String value);
+  external String get authenticatorDisplayName;
 }
 
 @JS()

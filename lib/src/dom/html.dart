@@ -24,6 +24,7 @@ import 'dom.dart';
 import 'edit_context.dart';
 import 'encrypted_media.dart';
 import 'entries_api.dart';
+import 'fedcm.dart';
 import 'fenced_frame.dart';
 import 'fetch.dart';
 import 'file_system_access.dart';
@@ -36,6 +37,7 @@ import 'ink_enhancement.dart';
 import 'is_input_pending.dart';
 import 'keyboard_lock.dart';
 import 'local_font_access.dart';
+import 'managed_configuration.dart';
 import 'media_capabilities.dart';
 import 'media_playback_quality.dart';
 import 'media_source.dart';
@@ -2182,6 +2184,8 @@ class HTMLDetailsElement implements HTMLElement {
 }
 
 extension HTMLDetailsElementExtension on HTMLDetailsElement {
+  external set name(String value);
+  external String get name;
   external set open(bool value);
   external bool get open;
 }
@@ -2250,6 +2254,10 @@ class HTMLTemplateElement implements HTMLElement {
 
 extension HTMLTemplateElementExtension on HTMLTemplateElement {
   external DocumentFragment get content;
+  external set shadowRootMode(String value);
+  external String get shadowRootMode;
+  external set shadowRootDelegatesFocus(bool value);
+  external bool get shadowRootDelegatesFocus;
 }
 
 @JS('HTMLSlotElement')
@@ -3329,6 +3337,34 @@ extension FocusOptionsExtension on FocusOptions {
   external bool get focusVisible;
 }
 
+@JS('CloseWatcher')
+@staticInterop
+class CloseWatcher implements EventTarget {
+  external factory CloseWatcher([CloseWatcherOptions options]);
+}
+
+extension CloseWatcherExtension on CloseWatcher {
+  external void requestClose();
+  external void close();
+  external void destroy();
+  external set oncancel(EventHandler value);
+  external EventHandler get oncancel;
+  external set onclose(EventHandler value);
+  external EventHandler get onclose;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class CloseWatcherOptions {
+  external factory CloseWatcherOptions({AbortSignal signal});
+}
+
+extension CloseWatcherOptionsExtension on CloseWatcherOptions {
+  external set signal(AbortSignal value);
+  external AbortSignal get signal;
+}
+
 @JS('DataTransfer')
 @staticInterop
 class DataTransfer {
@@ -4379,7 +4415,12 @@ extension NavigatorExtension on Navigator {
   );
   external JSPromise joinAdInterestGroup(AuctionAdInterestGroup group);
   external JSPromise leaveAdInterestGroup([AuctionAdInterestGroupKey group]);
+  external JSPromise clearOriginJoinedAdInterestGroups(
+    String owner, [
+    JSArray interestGroupsToKeep,
+  ]);
   external JSPromise runAdAuction(AuctionAdConfig config);
+  external JSPromise createAuctionNonce();
   external void updateAdInterestGroups();
   external bool vibrate(VibratePattern pattern);
   external JSPromise share([ShareData data]);
@@ -4397,6 +4438,7 @@ extension NavigatorExtension on Navigator {
     String url,
   );
   external bool javaEnabled();
+  external NavigatorLogin get login;
   external AudioSession get audioSession;
   external Clipboard get clipboard;
   external ContactsManager get contacts;
@@ -4407,6 +4449,7 @@ extension NavigatorExtension on Navigator {
   external Ink get ink;
   external Scheduling get scheduling;
   external Keyboard get keyboard;
+  external NavigatorManagedData get managed;
   external MediaCapabilities get mediaCapabilities;
   external MediaDevices get mediaDevices;
   external MediaSession get mediaSession;

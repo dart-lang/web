@@ -111,6 +111,7 @@ class CSSRule {
   external static int get SUPPORTS_RULE;
   external static int get COUNTER_STYLE_RULE;
   external static int get FONT_FEATURE_VALUES_RULE;
+  external static int get VIEW_TRANSITION_RULE;
   external static int get STYLE_RULE;
   external static int get CHARSET_RULE;
   external static int get IMPORT_RULE;

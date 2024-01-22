@@ -16,7 +16,7 @@ typedef MLBufferView = JSObject;
 typedef MLDeviceType = String;
 typedef MLPowerPreference = String;
 typedef MLInputOperandLayout = String;
-typedef MLOperandType = String;
+typedef MLOperandDataType = String;
 typedef MLConv2dFilterOperandLayout = String;
 typedef MLAutoPad = String;
 typedef MLConvTranspose2dFilterOperandLayout = String;
@@ -62,14 +62,14 @@ class MLGraph {}
 @anonymous
 class MLOperandDescriptor {
   external factory MLOperandDescriptor({
-    required MLOperandType type,
+    required MLOperandDataType dataType,
     JSArray dimensions,
   });
 }
 
 extension MLOperandDescriptorExtension on MLOperandDescriptor {
-  external set type(MLOperandType value);
-  external MLOperandType get type;
+  external set dataType(MLOperandDataType value);
+  external MLOperandDataType get dataType;
   external set dimensions(JSArray value);
   external JSArray get dimensions;
 }
@@ -164,7 +164,7 @@ extension MLGraphBuilderExtension on MLGraphBuilder {
   );
   external MLOperand constant(
     JSAny descriptorOrValue, [
-    JSAny bufferViewOrType,
+    JSAny bufferViewOrDataType,
   ]);
   external JSPromise build(MLNamedOperands outputs);
   external MLGraph buildSync(MLNamedOperands outputs);

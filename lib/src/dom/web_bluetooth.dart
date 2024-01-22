@@ -9,6 +9,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 import 'permissions.dart';
+import 'web_bluetooth_scanning.dart';
 import 'webidl.dart';
 
 typedef UUID = String;
@@ -118,6 +119,7 @@ extension RequestDeviceOptionsExtension on RequestDeviceOptions {
 class Bluetooth implements EventTarget {}
 
 extension BluetoothExtension on Bluetooth {
+  external JSPromise requestLEScan([BluetoothLEScanOptions options]);
   external JSPromise getAvailability();
   external JSPromise getDevices();
   external JSPromise requestDevice([RequestDeviceOptions options]);

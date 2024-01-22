@@ -368,10 +368,12 @@ external Document get document;
 @staticInterop
 class Document implements Node {
   external factory Document();
+
+  external static Document parseHTMLUnsafe(String html);
 }
 
 extension DocumentExtension on Document {
-  external ViewTransition startViewTransition([UpdateCallback? updateCallback]);
+  external ViewTransition startViewTransition([JSObject callbackOptions]);
   external Element? elementFromPoint(
     num x,
     num y,
@@ -871,6 +873,7 @@ extension DocumentFragmentExtension on DocumentFragment {
 class ShadowRoot implements DocumentFragment {}
 
 extension ShadowRootExtension on ShadowRoot {
+  external void setHTMLUnsafe(String html);
   external JSArray getAnimations();
   external ShadowRootMode get mode;
   external bool get delegatesFocus;
@@ -979,6 +982,7 @@ extension ElementExtension on Element {
     String data,
   );
   external JSPromise requestFullscreen([FullscreenOptions options]);
+  external void setHTMLUnsafe(String html);
   external void setPointerCapture(int pointerId);
   external void releasePointerCapture(int pointerId);
   external bool hasPointerCapture(int pointerId);
@@ -1168,6 +1172,7 @@ class ShadowRootInit {
     required ShadowRootMode mode,
     bool delegatesFocus,
     SlotAssignmentMode slotAssignment,
+    bool clonable,
   });
 }
 
@@ -1178,6 +1183,8 @@ extension ShadowRootInitExtension on ShadowRootInit {
   external bool get delegatesFocus;
   external set slotAssignment(SlotAssignmentMode value);
   external SlotAssignmentMode get slotAssignment;
+  external set clonable(bool value);
+  external bool get clonable;
 }
 
 @JS('NamedNodeMap')

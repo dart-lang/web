@@ -60,11 +60,6 @@ extension EditContextExtension on EditContext {
   external String get text;
   external int get selectionStart;
   external int get selectionEnd;
-  external int get compositionRangeStart;
-  external int get compositionRangeEnd;
-  external bool get isComposing;
-  external DOMRect get controlBounds;
-  external DOMRect get selectionBounds;
   external int get characterBoundsRangeStart;
   external set ontextupdate(EventHandler value);
   external EventHandler get ontextupdate;
@@ -125,8 +120,6 @@ extension TextUpdateEventExtension on TextUpdateEvent {
   external String get text;
   external int get selectionStart;
   external int get selectionEnd;
-  external int get compositionStart;
-  external int get compositionEnd;
 }
 
 @JS()

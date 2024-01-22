@@ -81,35 +81,3 @@ extension GeolocationSensorReadingExtension on GeolocationSensorReading {
   external set speed(num? value);
   external num? get speed;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class GeolocationReadingValues {
-  external factory GeolocationReadingValues({
-    required num? latitude,
-    required num? longitude,
-    required num? altitude,
-    required num? accuracy,
-    required num? altitudeAccuracy,
-    required num? heading,
-    required num? speed,
-  });
-}
-
-extension GeolocationReadingValuesExtension on GeolocationReadingValues {
-  external set latitude(num? value);
-  external num? get latitude;
-  external set longitude(num? value);
-  external num? get longitude;
-  external set altitude(num? value);
-  external num? get altitude;
-  external set accuracy(num? value);
-  external num? get accuracy;
-  external set altitudeAccuracy(num? value);
-  external num? get altitudeAccuracy;
-  external set heading(num? value);
-  external num? get heading;
-  external set speed(num? value);
-  external num? get speed;
-}

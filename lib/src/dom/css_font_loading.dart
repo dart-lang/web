@@ -22,7 +22,6 @@ class FontFaceDescriptors {
     String weight,
     String stretch,
     String unicodeRange,
-    String variant,
     String featureSettings,
     String variationSettings,
     String display,
@@ -41,8 +40,6 @@ extension FontFaceDescriptorsExtension on FontFaceDescriptors {
   external String get stretch;
   external set unicodeRange(String value);
   external String get unicodeRange;
-  external set variant(String value);
-  external String get variant;
   external set featureSettings(String value);
   external String get featureSettings;
   external set variationSettings(String value);
@@ -79,8 +76,6 @@ extension FontFaceExtension on FontFace {
   external String get stretch;
   external set unicodeRange(String value);
   external String get unicodeRange;
-  external set variant(String value);
-  external String get variant;
   external set featureSettings(String value);
   external String get featureSettings;
   external set variationSettings(String value);

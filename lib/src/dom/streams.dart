@@ -21,6 +21,7 @@ typedef UnderlyingSinkAbortCallback = JSFunction;
 typedef TransformerStartCallback = JSFunction;
 typedef TransformerFlushCallback = JSFunction;
 typedef TransformerTransformCallback = JSFunction;
+typedef TransformerCancelCallback = JSFunction;
 typedef QueuingStrategySize = JSFunction;
 typedef ReadableStreamReaderMode = String;
 typedef ReadableStreamType = String;
@@ -314,6 +315,7 @@ class Transformer {
     TransformerStartCallback start,
     TransformerTransformCallback transform,
     TransformerFlushCallback flush,
+    TransformerCancelCallback cancel,
     JSAny? readableType,
     JSAny? writableType,
   });
@@ -326,6 +328,8 @@ extension TransformerExtension on Transformer {
   external TransformerTransformCallback get transform;
   external set flush(TransformerFlushCallback value);
   external TransformerFlushCallback get flush;
+  external set cancel(TransformerCancelCallback value);
+  external TransformerCancelCallback get cancel;
   external set readableType(JSAny? value);
   external JSAny? get readableType;
   external set writableType(JSAny? value);

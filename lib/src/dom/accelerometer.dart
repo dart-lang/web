@@ -47,37 +47,3 @@ class LinearAccelerationSensor implements Accelerometer {
 class GravitySensor implements Accelerometer {
   external factory GravitySensor([AccelerometerSensorOptions options]);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AccelerometerReadingValues {
-  external factory AccelerometerReadingValues({
-    required num? x,
-    required num? y,
-    required num? z,
-  });
-}
-
-extension AccelerometerReadingValuesExtension on AccelerometerReadingValues {
-  external set x(num? value);
-  external num? get x;
-  external set y(num? value);
-  external num? get y;
-  external set z(num? value);
-  external num? get z;
-}
-
-@JS()
-@staticInterop
-@anonymous
-class LinearAccelerationReadingValues implements AccelerometerReadingValues {
-  external factory LinearAccelerationReadingValues();
-}
-
-@JS()
-@staticInterop
-@anonymous
-class GravityReadingValues implements AccelerometerReadingValues {
-  external factory GravityReadingValues();
-}

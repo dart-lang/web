@@ -11,8 +11,6 @@ import 'hr_time.dart';
 import 'html.dart';
 import 'webidl.dart';
 
-typedef MockSensorType = String;
-
 @JS('Sensor')
 @staticInterop
 class Sensor implements EventTarget {}
@@ -66,54 +64,4 @@ class SensorErrorEventInit implements EventInit {
 extension SensorErrorEventInitExtension on SensorErrorEventInit {
   external set error(DOMException value);
   external DOMException get error;
-}
-
-@JS()
-@staticInterop
-@anonymous
-class MockSensorConfiguration {
-  external factory MockSensorConfiguration({
-    required MockSensorType mockSensorType,
-    bool connected,
-    num? maxSamplingFrequency,
-    num? minSamplingFrequency,
-  });
-}
-
-extension MockSensorConfigurationExtension on MockSensorConfiguration {
-  external set mockSensorType(MockSensorType value);
-  external MockSensorType get mockSensorType;
-  external set connected(bool value);
-  external bool get connected;
-  external set maxSamplingFrequency(num? value);
-  external num? get maxSamplingFrequency;
-  external set minSamplingFrequency(num? value);
-  external num? get minSamplingFrequency;
-}
-
-@JS()
-@staticInterop
-@anonymous
-class MockSensor {
-  external factory MockSensor({
-    num maxSamplingFrequency,
-    num minSamplingFrequency,
-    num requestedSamplingFrequency,
-  });
-}
-
-extension MockSensorExtension on MockSensor {
-  external set maxSamplingFrequency(num value);
-  external num get maxSamplingFrequency;
-  external set minSamplingFrequency(num value);
-  external num get minSamplingFrequency;
-  external set requestedSamplingFrequency(num value);
-  external num get requestedSamplingFrequency;
-}
-
-@JS()
-@staticInterop
-@anonymous
-class MockSensorReadingValues {
-  external factory MockSensorReadingValues();
 }

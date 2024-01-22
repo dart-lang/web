@@ -117,7 +117,7 @@ class MIDIMessageEvent implements Event {
 }
 
 extension MIDIMessageEventExtension on MIDIMessageEvent {
-  external JSUint8Array get data;
+  external JSUint8Array? get data;
 }
 
 @JS()
@@ -142,7 +142,7 @@ class MIDIConnectionEvent implements Event {
 }
 
 extension MIDIConnectionEventExtension on MIDIConnectionEvent {
-  external MIDIPort get port;
+  external MIDIPort? get port;
 }
 
 @JS()

@@ -176,7 +176,7 @@ class GPUAdapter {}
 
 extension GPUAdapterExtension on GPUAdapter {
   external JSPromise requestDevice([GPUDeviceDescriptor descriptor]);
-  external JSPromise requestAdapterInfo([JSArray unmaskHints]);
+  external JSPromise requestAdapterInfo();
   external GPUSupportedFeatures get features;
   external GPUSupportedLimits get limits;
   external bool get isFallbackAdapter;
@@ -745,7 +745,7 @@ class GPUShaderModuleDescriptor implements GPUObjectDescriptorBase {
   external factory GPUShaderModuleDescriptor({
     required String code,
     JSObject sourceMap,
-    JSAny hints,
+    JSArray compilationHints,
   });
 }
 
@@ -754,19 +754,24 @@ extension GPUShaderModuleDescriptorExtension on GPUShaderModuleDescriptor {
   external String get code;
   external set sourceMap(JSObject value);
   external JSObject get sourceMap;
-  external set hints(JSAny value);
-  external JSAny get hints;
+  external set compilationHints(JSArray value);
+  external JSArray get compilationHints;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class GPUShaderModuleCompilationHint {
-  external factory GPUShaderModuleCompilationHint({JSAny layout});
+  external factory GPUShaderModuleCompilationHint({
+    required String entryPoint,
+    JSAny layout,
+  });
 }
 
 extension GPUShaderModuleCompilationHintExtension
     on GPUShaderModuleCompilationHint {
+  external set entryPoint(String value);
+  external String get entryPoint;
   external set layout(JSAny value);
   external JSAny get layout;
 }
@@ -1044,8 +1049,8 @@ extension GPUBlendComponentExtension on GPUBlendComponent {
 class GPUDepthStencilState {
   external factory GPUDepthStencilState({
     required GPUTextureFormat format,
-    required bool depthWriteEnabled,
-    required GPUCompareFunction depthCompare,
+    bool depthWriteEnabled,
+    GPUCompareFunction depthCompare,
     GPUStencilFaceState stencilFront,
     GPUStencilFaceState stencilBack,
     GPUStencilValue stencilReadMask,
@@ -1515,6 +1520,7 @@ extension GPURenderPassDescriptorExtension on GPURenderPassDescriptor {
 class GPURenderPassColorAttachment {
   external factory GPURenderPassColorAttachment({
     required GPUTextureView view,
+    GPUIntegerCoordinate depthSlice,
     GPUTextureView resolveTarget,
     GPUColor clearValue,
     required GPULoadOp loadOp,
@@ -1526,6 +1532,8 @@ extension GPURenderPassColorAttachmentExtension
     on GPURenderPassColorAttachment {
   external set view(GPUTextureView value);
   external GPUTextureView get view;
+  external set depthSlice(GPUIntegerCoordinate value);
+  external GPUIntegerCoordinate get depthSlice;
   external set resolveTarget(GPUTextureView value);
   external GPUTextureView get resolveTarget;
   external set clearValue(GPUColor value);

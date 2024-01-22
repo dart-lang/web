@@ -8,6 +8,8 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 
+typedef KAnonStatus = String;
+
 @JS()
 @staticInterop
 @anonymous
@@ -94,6 +96,7 @@ class AuctionAdInterestGroup implements GenerateBidInterestGroup {
   external factory AuctionAdInterestGroup({
     num priority,
     JSAny prioritySignalsOverrides,
+    String additionalBidKey,
   });
 }
 
@@ -102,6 +105,8 @@ extension AuctionAdInterestGroupExtension on AuctionAdInterestGroup {
   external num get priority;
   external set prioritySignalsOverrides(JSAny value);
   external JSAny get prioritySignalsOverrides;
+  external set additionalBidKey(String value);
+  external String get additionalBidKey;
 }
 
 @JS()
@@ -132,17 +137,20 @@ class AuctionAdConfig {
     JSArray interestGroupBuyers,
     JSPromise auctionSignals,
     JSPromise sellerSignals,
-    JSPromise directFromSellerSignals,
+    JSPromise directFromSellerSignalsHeaderAdSlot,
     int sellerTimeout,
     int sellerExperimentGroupId,
     String sellerCurrency,
     JSPromise perBuyerSignals,
     JSPromise perBuyerTimeouts,
+    JSPromise perBuyerCumulativeTimeouts,
     JSAny perBuyerGroupLimits,
     JSAny perBuyerExperimentGroupIds,
     JSAny perBuyerPrioritySignals,
     JSPromise perBuyerCurrencies,
     JSArray componentAuctions,
+    JSPromise additionalBids,
+    String auctionNonce,
     AbortSignal? signal,
     JSPromise resolveToConfig,
   });
@@ -161,8 +169,8 @@ extension AuctionAdConfigExtension on AuctionAdConfig {
   external JSPromise get auctionSignals;
   external set sellerSignals(JSPromise value);
   external JSPromise get sellerSignals;
-  external set directFromSellerSignals(JSPromise value);
-  external JSPromise get directFromSellerSignals;
+  external set directFromSellerSignalsHeaderAdSlot(JSPromise value);
+  external JSPromise get directFromSellerSignalsHeaderAdSlot;
   external set sellerTimeout(int value);
   external int get sellerTimeout;
   external set sellerExperimentGroupId(int value);
@@ -173,6 +181,8 @@ extension AuctionAdConfigExtension on AuctionAdConfig {
   external JSPromise get perBuyerSignals;
   external set perBuyerTimeouts(JSPromise value);
   external JSPromise get perBuyerTimeouts;
+  external set perBuyerCumulativeTimeouts(JSPromise value);
+  external JSPromise get perBuyerCumulativeTimeouts;
   external set perBuyerGroupLimits(JSAny value);
   external JSAny get perBuyerGroupLimits;
   external set perBuyerExperimentGroupIds(JSAny value);
@@ -183,6 +193,10 @@ extension AuctionAdConfigExtension on AuctionAdConfig {
   external JSPromise get perBuyerCurrencies;
   external set componentAuctions(JSArray value);
   external JSArray get componentAuctions;
+  external set additionalBids(JSPromise value);
+  external JSPromise get additionalBids;
+  external set auctionNonce(String value);
+  external String get auctionNonce;
   external set signal(AbortSignal? value);
   external AbortSignal? get signal;
   external set resolveToConfig(JSPromise value);
@@ -446,6 +460,7 @@ class ReportWinBrowserSignals implements ReportingBrowserSignals {
     String buyerReportingId,
     int modelingSignals,
     int dataVersion,
+    KAnonStatus kAnonStatus,
   });
 }
 
@@ -464,6 +479,44 @@ extension ReportWinBrowserSignalsExtension on ReportWinBrowserSignals {
   external int get modelingSignals;
   external set dataVersion(int value);
   external int get dataVersion;
+  external set kAnonStatus(KAnonStatus value);
+  external KAnonStatus get kAnonStatus;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class DirectFromSellerSignalsForBuyer {
+  external factory DirectFromSellerSignalsForBuyer({
+    JSAny? auctionSignals,
+    JSAny? perBuyerSignals,
+  });
+}
+
+extension DirectFromSellerSignalsForBuyerExtension
+    on DirectFromSellerSignalsForBuyer {
+  external set auctionSignals(JSAny? value);
+  external JSAny? get auctionSignals;
+  external set perBuyerSignals(JSAny? value);
+  external JSAny? get perBuyerSignals;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class DirectFromSellerSignalsForSeller {
+  external factory DirectFromSellerSignalsForSeller({
+    JSAny? auctionSignals,
+    JSAny? sellerSignals,
+  });
+}
+
+extension DirectFromSellerSignalsForSellerExtension
+    on DirectFromSellerSignalsForSeller {
+  external set auctionSignals(JSAny? value);
+  external JSAny? get auctionSignals;
+  external set sellerSignals(JSAny? value);
+  external JSAny? get sellerSignals;
 }
 
 @JS()

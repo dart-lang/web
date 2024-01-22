@@ -8,7 +8,16 @@ import 'dart:js_interop';
 
 import 'credential_management.dart';
 
+typedef LoginStatus = String;
 typedef IdentityCredentialRequestOptionsContext = String;
+
+@JS('NavigatorLogin')
+@staticInterop
+class NavigatorLogin {}
+
+extension NavigatorLoginExtension on NavigatorLogin {
+  external JSPromise setStatus(LoginStatus status);
+}
 
 @JS('IdentityCredential')
 @staticInterop
@@ -119,6 +128,7 @@ class IdentityProviderAPIConfig {
     required String accounts_endpoint,
     required String client_metadata_endpoint,
     required String id_assertion_endpoint,
+    required String login_url,
     IdentityProviderBranding branding,
   });
 }
@@ -130,6 +140,8 @@ extension IdentityProviderAPIConfigExtension on IdentityProviderAPIConfig {
   external String get client_metadata_endpoint;
   external set id_assertion_endpoint(String value);
   external String get id_assertion_endpoint;
+  external set login_url(String value);
+  external String get login_url;
   external set branding(IdentityProviderBranding value);
   external IdentityProviderBranding get branding;
 }
@@ -234,5 +246,6 @@ extension IdentityUserInfoExtension on IdentityUserInfo {
 @JS('IdentityProvider')
 @staticInterop
 class IdentityProvider {
+  external static void close();
   external static JSPromise getUserInfo(IdentityProviderConfig config);
 }

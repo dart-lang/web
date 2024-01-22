@@ -418,6 +418,7 @@ class VideoEncoderConfig {
     String scalabilityMode,
     VideoEncoderBitrateMode bitrateMode,
     LatencyMode latencyMode,
+    String contentHint,
   });
 }
 
@@ -452,6 +453,8 @@ extension VideoEncoderConfigExtension on VideoEncoderConfig {
   external VideoEncoderBitrateMode get bitrateMode;
   external set latencyMode(LatencyMode value);
   external LatencyMode get latencyMode;
+  external set contentHint(String value);
+  external String get contentHint;
 }
 
 @JS()
@@ -503,6 +506,7 @@ class EncodedAudioChunkInit {
     required int timestamp,
     int duration,
     required BufferSource data,
+    JSArray transfer,
   });
 }
 
@@ -515,6 +519,8 @@ extension EncodedAudioChunkInitExtension on EncodedAudioChunkInit {
   external int get duration;
   external set data(BufferSource value);
   external BufferSource get data;
+  external set transfer(JSArray value);
+  external JSArray get transfer;
 }
 
 @JS('EncodedVideoChunk')
@@ -540,6 +546,7 @@ class EncodedVideoChunkInit {
     required int timestamp,
     int duration,
     required AllowSharedBufferSource data,
+    JSArray transfer,
   });
 }
 
@@ -552,6 +559,8 @@ extension EncodedVideoChunkInitExtension on EncodedVideoChunkInit {
   external int get duration;
   external set data(AllowSharedBufferSource value);
   external AllowSharedBufferSource get data;
+  external set transfer(JSArray value);
+  external JSArray get transfer;
 }
 
 @JS('AudioData')

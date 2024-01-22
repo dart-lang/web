@@ -17,10 +17,12 @@ class PerformanceEntry {}
 
 extension PerformanceEntryExtension on PerformanceEntry {
   external JSObject toJSON();
+  external int get id;
   external String get name;
   external String get entryType;
   external DOMHighResTimeStamp get startTime;
   external DOMHighResTimeStamp get duration;
+  external int get navigationId;
 }
 
 @JS('PerformanceObserver')

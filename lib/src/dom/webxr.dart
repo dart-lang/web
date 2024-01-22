@@ -22,6 +22,7 @@ import 'webxr_dom_overlays.dart';
 import 'webxr_hand_input.dart';
 import 'webxr_hit_test.dart';
 import 'webxr_lighting_estimation.dart';
+import 'webxr_plane_detection.dart';
 
 typedef XRWebGLRenderingContext = JSObject;
 typedef XRFrameRequestCallback = JSFunction;
@@ -80,6 +81,7 @@ extension XRSessionExtension on XRSession {
   external JSPromise requestHitTestSourceForTransientInput(
       XRTransientInputHitTestOptionsInit options);
   external JSPromise requestLightProbe([XRLightProbeInit options]);
+  external JSPromise initiateRoomCapture();
   external void updateRenderState([XRRenderStateInit state]);
   external JSPromise updateTargetFrameRate(num rate);
   external JSPromise requestReferenceSpace(XRReferenceSpaceType type);
@@ -194,6 +196,7 @@ extension XRFrameExtension on XRFrame {
   );
   external XRAnchorSet get trackedAnchors;
   external XRMeshSet get detectedMeshes;
+  external XRPlaneSet get detectedPlanes;
   external XRSession get session;
   external DOMHighResTimeStamp get predictedDisplayTime;
 }

@@ -229,7 +229,7 @@ class MediaTrackCapabilities {
     MediaSettingsRange pan,
     MediaSettingsRange tilt,
     MediaSettingsRange zoom,
-    bool torch,
+    JSArray torch,
     ULongRange width,
     ULongRange height,
     DoubleRange aspectRatio,
@@ -282,8 +282,8 @@ extension MediaTrackCapabilitiesExtension on MediaTrackCapabilities {
   external MediaSettingsRange get tilt;
   external set zoom(MediaSettingsRange value);
   external MediaSettingsRange get zoom;
-  external set torch(bool value);
-  external bool get torch;
+  external set torch(JSArray value);
+  external JSArray get torch;
   external set width(ULongRange value);
   external ULongRange get width;
   external set height(ULongRange value);

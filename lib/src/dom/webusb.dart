@@ -345,6 +345,26 @@ extension USBEndpointExtension on USBEndpoint {
 @JS()
 @staticInterop
 @anonymous
+class USBBlocklistEntry {
+  external factory USBBlocklistEntry({
+    required int idVendor,
+    required int idProduct,
+    required int bcdDevice,
+  });
+}
+
+extension USBBlocklistEntryExtension on USBBlocklistEntry {
+  external set idVendor(int value);
+  external int get idVendor;
+  external set idProduct(int value);
+  external int get idProduct;
+  external set bcdDevice(int value);
+  external int get bcdDevice;
+}
+
+@JS()
+@staticInterop
+@anonymous
 class USBPermissionDescriptor implements PermissionDescriptor {
   external factory USBPermissionDescriptor({
     JSArray filters,

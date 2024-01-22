@@ -46,25 +46,3 @@ class RelativeOrientationSensor implements OrientationSensor {
   external factory RelativeOrientationSensor(
       [OrientationSensorOptions sensorOptions]);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AbsoluteOrientationReadingValues {
-  external factory AbsoluteOrientationReadingValues(
-      {required JSArray? quaternion});
-}
-
-extension AbsoluteOrientationReadingValuesExtension
-    on AbsoluteOrientationReadingValues {
-  external set quaternion(JSArray? value);
-  external JSArray? get quaternion;
-}
-
-@JS()
-@staticInterop
-@anonymous
-class RelativeOrientationReadingValues
-    implements AbsoluteOrientationReadingValues {
-  external factory RelativeOrientationReadingValues();
-}

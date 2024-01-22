@@ -7,7 +7,10 @@
 import 'dart:js_interop';
 
 import 'css_view_transitions.dart';
+import 'cssom.dart';
 import 'dom.dart';
+
+typedef ViewTransitionNavigation = String;
 
 @JS('PageRevealEvent')
 @staticInterop
@@ -15,4 +18,32 @@ class PageRevealEvent implements Event {}
 
 extension PageRevealEventExtension on PageRevealEvent {
   external ViewTransition? get viewTransition;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class StartViewTransitionOptions {
+  external factory StartViewTransitionOptions({
+    UpdateCallback? update,
+    JSArray? type,
+  });
+}
+
+extension StartViewTransitionOptionsExtension on StartViewTransitionOptions {
+  external set update(UpdateCallback? value);
+  external UpdateCallback? get update;
+  external set type(JSArray? value);
+  external JSArray? get type;
+}
+
+@JS('CSSViewTransitionRule')
+@staticInterop
+class CSSViewTransitionRule implements CSSRule {}
+
+extension CSSViewTransitionRuleExtension on CSSViewTransitionRule {
+  external set navigation(ViewTransitionNavigation value);
+  external ViewTransitionNavigation get navigation;
+  external set type(DOMTokenList value);
+  external DOMTokenList get type;
 }

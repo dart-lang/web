@@ -19,16 +19,3 @@ extension HevcEncoderConfigExtension on HevcEncoderConfig {
   external set format(HevcBitstreamFormat value);
   external HevcBitstreamFormat get format;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class VideoEncoderEncodeOptionsForHevc {
-  external factory VideoEncoderEncodeOptionsForHevc({int? quantizer});
-}
-
-extension VideoEncoderEncodeOptionsForHevcExtension
-    on VideoEncoderEncodeOptionsForHevc {
-  external set quantizer(int? value);
-  external int? get quantizer;
-}

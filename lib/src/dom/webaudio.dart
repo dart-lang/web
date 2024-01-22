@@ -16,7 +16,6 @@ typedef DecodeSuccessCallback = JSFunction;
 typedef AudioWorkletProcessorConstructor = JSFunction;
 typedef AudioWorkletProcessCallback = JSFunction;
 typedef AudioContextState = String;
-typedef AudioContextRenderSizeCategory = String;
 typedef AudioContextLatencyCategory = String;
 typedef AudioSinkType = String;
 typedef ChannelCountMode = String;
@@ -76,7 +75,6 @@ extension BaseAudioContextExtension on BaseAudioContext {
   external num get currentTime;
   external AudioListener get listener;
   external AudioContextState get state;
-  external int get renderQuantumSize;
   external AudioWorklet get audioWorklet;
   external set onstatechange(EventHandler value);
   external EventHandler get onstatechange;
@@ -117,7 +115,6 @@ class AudioContextOptions {
     JSAny latencyHint,
     num sampleRate,
     JSAny sinkId,
-    JSAny renderSizeHint,
   });
 }
 
@@ -128,8 +125,6 @@ extension AudioContextOptionsExtension on AudioContextOptions {
   external num get sampleRate;
   external set sinkId(JSAny value);
   external JSAny get sinkId;
-  external set renderSizeHint(JSAny value);
-  external JSAny get renderSizeHint;
 }
 
 @JS()
@@ -259,7 +254,6 @@ class OfflineAudioContextOptions {
     int numberOfChannels,
     required int length,
     required num sampleRate,
-    JSAny renderSizeHint,
   });
 }
 
@@ -270,8 +264,6 @@ extension OfflineAudioContextOptionsExtension on OfflineAudioContextOptions {
   external int get length;
   external set sampleRate(num value);
   external num get sampleRate;
-  external set renderSizeHint(JSAny value);
-  external JSAny get renderSizeHint;
 }
 
 @JS('OfflineAudioCompletionEvent')
@@ -1252,7 +1244,6 @@ extension AudioWorkletGlobalScopeExtension on AudioWorkletGlobalScope {
   external int get currentFrame;
   external num get currentTime;
   external num get sampleRate;
-  external int get renderQuantumSize;
   external MessagePort get port;
 }
 

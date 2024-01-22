@@ -131,9 +131,15 @@ extension CSSRuleExtension on CSSRule {
 
 @JS('CSSStyleRule')
 @staticInterop
-class CSSStyleRule implements CSSGroupingRule {}
+class CSSStyleRule implements CSSRule {}
 
 extension CSSStyleRuleExtension on CSSStyleRule {
+  external int insertRule(
+    String rule, [
+    int index,
+  ]);
+  external void deleteRule(int index);
+  external CSSRuleList get cssRules;
   external StylePropertyMap get styleMap;
   external set selectorText(String value);
   external String get selectorText;
@@ -1511,17 +1517,12 @@ extension $CSSExtension on $CSS {
   external void registerProperty(PropertyDefinition definition);
   external CSSUnitValue number(num value);
   external CSSUnitValue percent(num value);
-  external CSSUnitValue cap(num value);
-  external CSSUnitValue ch(num value);
   external CSSUnitValue em(num value);
   external CSSUnitValue ex(num value);
+  external CSSUnitValue ch(num value);
   external CSSUnitValue ic(num value);
-  external CSSUnitValue lh(num value);
-  external CSSUnitValue rcap(num value);
-  external CSSUnitValue rch(num value);
   external CSSUnitValue rem(num value);
-  external CSSUnitValue rex(num value);
-  external CSSUnitValue ric(num value);
+  external CSSUnitValue lh(num value);
   external CSSUnitValue rlh(num value);
   external CSSUnitValue vw(num value);
   external CSSUnitValue vh(num value);

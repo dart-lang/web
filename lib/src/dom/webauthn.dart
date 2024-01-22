@@ -23,7 +23,6 @@ typedef TokenBindingStatus = String;
 typedef PublicKeyCredentialType = String;
 typedef AuthenticatorTransport = String;
 typedef UserVerificationRequirement = String;
-typedef PublicKeyCredentialHints = String;
 typedef LargeBlobSupport = String;
 
 @JS('PublicKeyCredential')
@@ -31,7 +30,6 @@ typedef LargeBlobSupport = String;
 class PublicKeyCredential implements Credential {
   external static JSPromise isConditionalMediationAvailable();
   external static JSPromise isUserVerifyingPlatformAuthenticatorAvailable();
-  external static JSPromise isPasskeyPlatformAuthenticatorAvailable();
   external static PublicKeyCredentialCreationOptions
       parseCreationOptionsFromJSON(
           PublicKeyCredentialCreationOptionsJSON options);
@@ -146,7 +144,6 @@ class AuthenticatorAssertionResponseJSON {
     required Base64URLString authenticatorData,
     required Base64URLString signature,
     Base64URLString userHandle,
-    Base64URLString attestationObject,
   });
 }
 
@@ -160,8 +157,6 @@ extension AuthenticatorAssertionResponseJSONExtension
   external Base64URLString get signature;
   external set userHandle(Base64URLString value);
   external Base64URLString get userHandle;
-  external set attestationObject(Base64URLString value);
-  external Base64URLString get attestationObject;
 }
 
 @JS()
@@ -183,9 +178,7 @@ class PublicKeyCredentialCreationOptionsJSON {
     int timeout,
     JSArray excludeCredentials,
     AuthenticatorSelectionCriteria authenticatorSelection,
-    JSArray hints,
     String attestation,
-    JSArray attestationFormats,
     AuthenticationExtensionsClientInputsJSON extensions,
   });
 }
@@ -206,12 +199,8 @@ extension PublicKeyCredentialCreationOptionsJSONExtension
   external JSArray get excludeCredentials;
   external set authenticatorSelection(AuthenticatorSelectionCriteria value);
   external AuthenticatorSelectionCriteria get authenticatorSelection;
-  external set hints(JSArray value);
-  external JSArray get hints;
   external set attestation(String value);
   external String get attestation;
-  external set attestationFormats(JSArray value);
-  external JSArray get attestationFormats;
   external set extensions(AuthenticationExtensionsClientInputsJSON value);
   external AuthenticationExtensionsClientInputsJSON get extensions;
 }
@@ -275,9 +264,6 @@ class PublicKeyCredentialRequestOptionsJSON {
     String rpId,
     JSArray allowCredentials,
     String userVerification,
-    JSArray hints,
-    String attestation,
-    JSArray attestationFormats,
     AuthenticationExtensionsClientInputsJSON extensions,
   });
 }
@@ -294,12 +280,6 @@ extension PublicKeyCredentialRequestOptionsJSONExtension
   external JSArray get allowCredentials;
   external set userVerification(String value);
   external String get userVerification;
-  external set hints(JSArray value);
-  external JSArray get hints;
-  external set attestation(String value);
-  external String get attestation;
-  external set attestationFormats(JSArray value);
-  external JSArray get attestationFormats;
   external set extensions(AuthenticationExtensionsClientInputsJSON value);
   external AuthenticationExtensionsClientInputsJSON get extensions;
 }
@@ -367,7 +347,6 @@ class PublicKeyCredentialCreationOptions {
     int timeout,
     JSArray excludeCredentials,
     AuthenticatorSelectionCriteria authenticatorSelection,
-    JSArray hints,
     String attestation,
     JSArray attestationFormats,
     AuthenticationExtensionsClientInputs extensions,
@@ -390,8 +369,6 @@ extension PublicKeyCredentialCreationOptionsExtension
   external JSArray get excludeCredentials;
   external set authenticatorSelection(AuthenticatorSelectionCriteria value);
   external AuthenticatorSelectionCriteria get authenticatorSelection;
-  external set hints(JSArray value);
-  external JSArray get hints;
   external set attestation(String value);
   external String get attestation;
   external set attestationFormats(JSArray value);
@@ -476,7 +453,6 @@ class PublicKeyCredentialRequestOptions {
     String rpId,
     JSArray allowCredentials,
     String userVerification,
-    JSArray hints,
     String attestation,
     JSArray attestationFormats,
     AuthenticationExtensionsClientInputs extensions,
@@ -495,8 +471,6 @@ extension PublicKeyCredentialRequestOptionsExtension
   external JSArray get allowCredentials;
   external set userVerification(String value);
   external String get userVerification;
-  external set hints(JSArray value);
-  external JSArray get hints;
   external set attestation(String value);
   external String get attestation;
   external set attestationFormats(JSArray value);

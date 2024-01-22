@@ -28,7 +28,6 @@ extension IntersectionObserverExtension on IntersectionObserver {
   external JSArray takeRecords();
   external JSObject? get root;
   external String get rootMargin;
-  external String get scrollMargin;
   external JSArray get thresholds;
 }
 
@@ -89,7 +88,6 @@ class IntersectionObserverInit {
   external factory IntersectionObserverInit({
     JSObject? root,
     String rootMargin,
-    String scrollMargin,
     JSAny threshold,
   });
 }
@@ -99,8 +97,6 @@ extension IntersectionObserverInitExtension on IntersectionObserverInit {
   external JSObject? get root;
   external set rootMargin(String value);
   external String get rootMargin;
-  external set scrollMargin(String value);
-  external String get scrollMargin;
   external set threshold(JSAny value);
   external JSAny get threshold;
 }

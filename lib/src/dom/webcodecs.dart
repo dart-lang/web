@@ -461,7 +461,6 @@ class VideoEncoderEncodeOptions {
   external factory VideoEncoderEncodeOptions({
     VideoEncoderEncodeOptionsForAv1 av1,
     VideoEncoderEncodeOptionsForAvc avc,
-    VideoEncoderEncodeOptionsForHevc hevc,
     VideoEncoderEncodeOptionsForVp9 vp9,
     bool keyFrame,
   });
@@ -472,8 +471,6 @@ extension VideoEncoderEncodeOptionsExtension on VideoEncoderEncodeOptions {
   external VideoEncoderEncodeOptionsForAv1 get av1;
   external set avc(VideoEncoderEncodeOptionsForAvc value);
   external VideoEncoderEncodeOptionsForAvc get avc;
-  external set hevc(VideoEncoderEncodeOptionsForHevc value);
-  external VideoEncoderEncodeOptionsForHevc get hevc;
   external set vp9(VideoEncoderEncodeOptionsForVp9 value);
   external VideoEncoderEncodeOptionsForVp9 get vp9;
   external set keyFrame(bool value);

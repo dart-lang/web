@@ -15,9 +15,6 @@ class AuctionAd {
   external factory AuctionAd({
     required String renderURL,
     JSAny? metadata,
-    String buyerReportingId,
-    String buyerAndSellerReportingId,
-    JSArray allowedReportingOrigins,
   });
 }
 
@@ -26,12 +23,6 @@ extension AuctionAdExtension on AuctionAd {
   external String get renderURL;
   external set metadata(JSAny? value);
   external JSAny? get metadata;
-  external set buyerReportingId(String value);
-  external String get buyerReportingId;
-  external set buyerAndSellerReportingId(String value);
-  external String get buyerAndSellerReportingId;
-  external set allowedReportingOrigins(JSArray value);
-  external JSArray get allowedReportingOrigins;
 }
 
 @JS()
@@ -203,9 +194,9 @@ extension InterestGroupBiddingScriptRunnerGlobalScopeExtension
   external bool setBid([GenerateBidOutput generateBidOutput]);
   external void setPriority(num priority);
   external void setPrioritySignalsOverride(
-    String key, [
-    num? priority,
-  ]);
+    String key,
+    num priority,
+  );
 }
 
 @JS()
@@ -214,8 +205,8 @@ extension InterestGroupBiddingScriptRunnerGlobalScopeExtension
 class AdRender {
   external factory AdRender({
     required String url,
-    String width,
-    String height,
+    required String width,
+    required String height,
   });
 }
 
@@ -233,9 +224,9 @@ extension AdRenderExtension on AdRender {
 @anonymous
 class GenerateBidOutput {
   external factory GenerateBidOutput({
-    num bid,
+    required num bid,
     String bidCurrency,
-    JSAny render,
+    required JSAny render,
     JSAny? ad,
     JSArray adComponents,
     num adCost,
@@ -277,10 +268,6 @@ extension InterestGroupReportingScriptRunnerGlobalScopeExtension
     on InterestGroupReportingScriptRunnerGlobalScope {
   external void sendReportTo(String url);
   external void registerAdBeacon(JSAny map);
-  external void registerAdMacro(
-    String name,
-    String value,
-  );
 }
 
 @JS()
@@ -309,7 +296,6 @@ class BiddingBrowserSignals {
     required String seller,
     required int joinCount,
     required int bidCount,
-    required int recency,
     String topLevelSeller,
     JSArray prevWinsMs,
     JSObject wasmHelper,
@@ -326,8 +312,6 @@ extension BiddingBrowserSignalsExtension on BiddingBrowserSignals {
   external int get joinCount;
   external set bidCount(int value);
   external int get bidCount;
-  external set recency(int value);
-  external int get recency;
   external set topLevelSeller(String value);
   external String get topLevelSeller;
   external set prevWinsMs(JSArray value);
@@ -368,102 +352,6 @@ extension ScoringBrowserSignalsExtension on ScoringBrowserSignals {
   external int get dataVersion;
   external set adComponents(JSArray value);
   external JSArray get adComponents;
-}
-
-@JS()
-@staticInterop
-@anonymous
-class ReportingBrowserSignals {
-  external factory ReportingBrowserSignals({
-    required String topWindowHostname,
-    required String interestGroupOwner,
-    required String renderURL,
-    required num bid,
-    required num highestScoringOtherBid,
-    String bidCurrency,
-    String highestScoringOtherBidCurrency,
-    String topLevelSeller,
-    String componentSeller,
-    String buyerAndSellerReportingId,
-  });
-}
-
-extension ReportingBrowserSignalsExtension on ReportingBrowserSignals {
-  external set topWindowHostname(String value);
-  external String get topWindowHostname;
-  external set interestGroupOwner(String value);
-  external String get interestGroupOwner;
-  external set renderURL(String value);
-  external String get renderURL;
-  external set bid(num value);
-  external num get bid;
-  external set highestScoringOtherBid(num value);
-  external num get highestScoringOtherBid;
-  external set bidCurrency(String value);
-  external String get bidCurrency;
-  external set highestScoringOtherBidCurrency(String value);
-  external String get highestScoringOtherBidCurrency;
-  external set topLevelSeller(String value);
-  external String get topLevelSeller;
-  external set componentSeller(String value);
-  external String get componentSeller;
-  external set buyerAndSellerReportingId(String value);
-  external String get buyerAndSellerReportingId;
-}
-
-@JS()
-@staticInterop
-@anonymous
-class ReportResultBrowserSignals implements ReportingBrowserSignals {
-  external factory ReportResultBrowserSignals({
-    required num desirability,
-    String topLevelSellerSignals,
-    num modifiedBid,
-    int dataVersion,
-  });
-}
-
-extension ReportResultBrowserSignalsExtension on ReportResultBrowserSignals {
-  external set desirability(num value);
-  external num get desirability;
-  external set topLevelSellerSignals(String value);
-  external String get topLevelSellerSignals;
-  external set modifiedBid(num value);
-  external num get modifiedBid;
-  external set dataVersion(int value);
-  external int get dataVersion;
-}
-
-@JS()
-@staticInterop
-@anonymous
-class ReportWinBrowserSignals implements ReportingBrowserSignals {
-  external factory ReportWinBrowserSignals({
-    num adCost,
-    String seller,
-    bool madeHighestScoringOtherBid,
-    String interestGroupName,
-    String buyerReportingId,
-    int modelingSignals,
-    int dataVersion,
-  });
-}
-
-extension ReportWinBrowserSignalsExtension on ReportWinBrowserSignals {
-  external set adCost(num value);
-  external num get adCost;
-  external set seller(String value);
-  external String get seller;
-  external set madeHighestScoringOtherBid(bool value);
-  external bool get madeHighestScoringOtherBid;
-  external set interestGroupName(String value);
-  external String get interestGroupName;
-  external set buyerReportingId(String value);
-  external String get buyerReportingId;
-  external set modelingSignals(int value);
-  external int get modelingSignals;
-  external set dataVersion(int value);
-  external int get dataVersion;
 }
 
 @JS()

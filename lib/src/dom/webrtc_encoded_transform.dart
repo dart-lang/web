@@ -98,7 +98,6 @@ class RTCEncodedVideoFrameMetadata {
     int payloadType,
     JSArray contributingSources,
     int timestamp,
-    int rtpTimestamp,
   });
 }
 
@@ -124,8 +123,6 @@ extension RTCEncodedVideoFrameMetadataExtension
   external JSArray get contributingSources;
   external set timestamp(int value);
   external int get timestamp;
-  external set rtpTimestamp(int value);
-  external int get rtpTimestamp;
 }
 
 @JS('RTCEncodedVideoFrame')
@@ -135,6 +132,7 @@ class RTCEncodedVideoFrame {}
 extension RTCEncodedVideoFrameExtension on RTCEncodedVideoFrame {
   external RTCEncodedVideoFrameMetadata getMetadata();
   external RTCEncodedVideoFrameType get type;
+  external int get timestamp;
   external set data(JSArrayBuffer value);
   external JSArrayBuffer get data;
 }
@@ -148,7 +146,6 @@ class RTCEncodedAudioFrameMetadata {
     int payloadType,
     JSArray contributingSources,
     int sequenceNumber,
-    int rtpTimestamp,
   });
 }
 
@@ -162,8 +159,6 @@ extension RTCEncodedAudioFrameMetadataExtension
   external JSArray get contributingSources;
   external set sequenceNumber(int value);
   external int get sequenceNumber;
-  external set rtpTimestamp(int value);
-  external int get rtpTimestamp;
 }
 
 @JS('RTCEncodedAudioFrame')
@@ -172,6 +167,7 @@ class RTCEncodedAudioFrame {}
 
 extension RTCEncodedAudioFrameExtension on RTCEncodedAudioFrame {
   external RTCEncodedAudioFrameMetadata getMetadata();
+  external int get timestamp;
   external set data(JSArrayBuffer value);
   external JSArrayBuffer get data;
 }

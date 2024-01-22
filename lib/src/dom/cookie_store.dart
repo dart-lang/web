@@ -58,7 +58,6 @@ class CookieInit {
     String? domain,
     String path,
     CookieSameSite sameSite,
-    bool partitioned,
   });
 }
 
@@ -75,8 +74,6 @@ extension CookieInitExtension on CookieInit {
   external String get path;
   external set sameSite(CookieSameSite value);
   external CookieSameSite get sameSite;
-  external set partitioned(bool value);
-  external bool get partitioned;
 }
 
 @JS()
@@ -87,7 +84,6 @@ class CookieStoreDeleteOptions {
     required String name,
     String? domain,
     String path,
-    bool partitioned,
   });
 }
 
@@ -98,8 +94,6 @@ extension CookieStoreDeleteOptionsExtension on CookieStoreDeleteOptions {
   external String? get domain;
   external set path(String value);
   external String get path;
-  external set partitioned(bool value);
-  external bool get partitioned;
 }
 
 @JS()
@@ -114,7 +108,6 @@ class CookieListItem {
     DOMHighResTimeStamp? expires,
     bool secure,
     CookieSameSite sameSite,
-    bool partitioned,
   });
 }
 
@@ -133,8 +126,6 @@ extension CookieListItemExtension on CookieListItem {
   external bool get secure;
   external set sameSite(CookieSameSite value);
   external CookieSameSite get sameSite;
-  external set partitioned(bool value);
-  external bool get partitioned;
 }
 
 @JS('CookieStoreManager')

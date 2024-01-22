@@ -10,7 +10,6 @@ import 'html.dart';
 
 typedef FencedFrameConfigSize = JSAny;
 typedef FencedFrameConfigURL = String;
-typedef UrnOrConfig = JSAny;
 typedef ReportEventType = JSAny;
 typedef OpaqueProperty = String;
 typedef FenceReportingDestination = String;
@@ -49,11 +48,9 @@ extension FencedFrameConfigExtension on FencedFrameConfig {
 @anonymous
 class FenceEvent {
   external factory FenceEvent({
-    String eventType,
-    String eventData,
-    JSArray destination,
-    bool once,
-    String destinationURL,
+    required String eventType,
+    required String eventData,
+    required JSArray destination,
   });
 }
 
@@ -64,10 +61,6 @@ extension FenceEventExtension on FenceEvent {
   external String get eventData;
   external set destination(JSArray value);
   external JSArray get destination;
-  external set once(bool value);
-  external bool get once;
-  external set destinationURL(String value);
-  external String get destinationURL;
 }
 
 @JS('Fence')
@@ -75,7 +68,7 @@ extension FenceEventExtension on FenceEvent {
 class Fence {}
 
 extension FenceExtension on Fence {
-  external void reportEvent([ReportEventType event]);
-  external void setReportEventDataForAutomaticBeacons([FenceEvent event]);
+  external void reportEvent(ReportEventType event);
+  external void setReportEventDataForAutomaticBeacons(FenceEvent event);
   external JSArray getNestedConfigs();
 }

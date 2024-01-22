@@ -25,7 +25,6 @@ extension SharedStorageWorkletGlobalScopeExtension
     String name,
     SharedStorageOperationConstructor operationCtor,
   );
-  external WorkletSharedStorage get sharedStorage;
 }
 
 @JS('SharedStorageOperation')

@@ -8,7 +8,6 @@ import 'dart:js_interop';
 
 import 'attribution_reporting_api.dart';
 import 'dom.dart';
-import 'private_network_access.dart';
 import 'referrer_policy.dart';
 import 'streams.dart';
 import 'trust_token_api.dart';
@@ -104,8 +103,6 @@ class RequestInit {
     RequestDuplex duplex,
     RequestPriority priority,
     JSAny? window,
-    RequestTargetAddressSpace targetAddressSpace,
-    bool sharedStorageWritable,
     PrivateToken privateToken,
   });
 }
@@ -143,10 +140,6 @@ extension RequestInitExtension on RequestInit {
   external RequestPriority get priority;
   external set window(JSAny? value);
   external JSAny? get window;
-  external set targetAddressSpace(RequestTargetAddressSpace value);
-  external RequestTargetAddressSpace get targetAddressSpace;
-  external set sharedStorageWritable(bool value);
-  external bool get sharedStorageWritable;
   external set privateToken(PrivateToken value);
   external PrivateToken get privateToken;
 }

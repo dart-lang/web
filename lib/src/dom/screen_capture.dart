@@ -13,7 +13,6 @@ typedef CaptureStartFocusBehavior = String;
 typedef SelfCapturePreferenceEnum = String;
 typedef SystemAudioPreferenceEnum = String;
 typedef SurfaceSwitchingPreferenceEnum = String;
-typedef MonitorTypeSurfacesEnum = String;
 typedef DisplayCaptureSurfaceType = String;
 typedef CursorCaptureConstraint = String;
 
@@ -40,7 +39,6 @@ class DisplayMediaStreamOptions {
     SelfCapturePreferenceEnum selfBrowserSurface,
     SystemAudioPreferenceEnum systemAudio,
     SurfaceSwitchingPreferenceEnum surfaceSwitching,
-    MonitorTypeSurfacesEnum monitorTypeSurfaces,
   });
 }
 
@@ -57,6 +55,4 @@ extension DisplayMediaStreamOptionsExtension on DisplayMediaStreamOptions {
   external SystemAudioPreferenceEnum get systemAudio;
   external set surfaceSwitching(SurfaceSwitchingPreferenceEnum value);
   external SurfaceSwitchingPreferenceEnum get surfaceSwitching;
-  external set monitorTypeSurfaces(MonitorTypeSurfacesEnum value);
-  external MonitorTypeSurfacesEnum get monitorTypeSurfaces;
 }

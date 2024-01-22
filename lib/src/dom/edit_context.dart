@@ -10,9 +10,6 @@ import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
 
-typedef UnderlineStyle = String;
-typedef UnderlineThickness = String;
-
 @JS()
 @staticInterop
 @anonymous
@@ -136,8 +133,11 @@ class TextFormatInit {
   external factory TextFormatInit({
     int rangeStart,
     int rangeEnd,
-    UnderlineStyle underlineStyle,
-    UnderlineThickness underlineThickness,
+    String textColor,
+    String backgroundColor,
+    String underlineStyle,
+    String underlineThickness,
+    String underlineColor,
   });
 }
 
@@ -146,10 +146,16 @@ extension TextFormatInitExtension on TextFormatInit {
   external int get rangeStart;
   external set rangeEnd(int value);
   external int get rangeEnd;
-  external set underlineStyle(UnderlineStyle value);
-  external UnderlineStyle get underlineStyle;
-  external set underlineThickness(UnderlineThickness value);
-  external UnderlineThickness get underlineThickness;
+  external set textColor(String value);
+  external String get textColor;
+  external set backgroundColor(String value);
+  external String get backgroundColor;
+  external set underlineStyle(String value);
+  external String get underlineStyle;
+  external set underlineThickness(String value);
+  external String get underlineThickness;
+  external set underlineColor(String value);
+  external String get underlineColor;
 }
 
 @JS('TextFormat')
@@ -161,8 +167,11 @@ class TextFormat {
 extension TextFormatExtension on TextFormat {
   external int get rangeStart;
   external int get rangeEnd;
-  external UnderlineStyle get underlineStyle;
-  external UnderlineThickness get underlineThickness;
+  external String get textColor;
+  external String get backgroundColor;
+  external String get underlineStyle;
+  external String get underlineThickness;
+  external String get underlineColor;
 }
 
 @JS()

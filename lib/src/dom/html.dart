@@ -6,7 +6,6 @@
 
 import 'dart:js_interop';
 
-import 'audio_session.dart';
 import 'autoplay_detection.dart';
 import 'clipboard_apis.dart';
 import 'contact_picker.dart';
@@ -54,7 +53,6 @@ import 'screen_wake_lock.dart';
 import 'selection_api.dart';
 import 'serial.dart';
 import 'service_workers.dart';
-import 'shared_storage.dart';
 import 'speech_api.dart';
 import 'storage.dart';
 import 'storage_buckets.dart';
@@ -982,8 +980,6 @@ extension HTMLImageElementExtension on HTMLImageElement {
   external String get border;
   external set attributionSrc(String value);
   external String get attributionSrc;
-  external set sharedStorageWritable(bool value);
-  external bool get sharedStorageWritable;
 }
 
 @JS('HTMLIFrameElement')
@@ -1030,10 +1026,6 @@ extension HTMLIFrameElementExtension on HTMLIFrameElement {
   external set marginWidth(String value);
   external String get marginWidth;
   external PermissionsPolicy get permissionsPolicy;
-  external set privateToken(String value);
-  external String get privateToken;
-  external set sharedStorageWritable(bool value);
-  external bool get sharedStorageWritable;
 }
 
 @JS('HTMLEmbedElement')
@@ -2182,8 +2174,6 @@ class HTMLDetailsElement implements HTMLElement {
 }
 
 extension HTMLDetailsElementExtension on HTMLDetailsElement {
-  external set name(String value);
-  external String get name;
   external set open(bool value);
   external bool get open;
 }
@@ -3283,37 +3273,6 @@ extension UserActivationExtension on UserActivation {
   external bool get isActive;
 }
 
-@JS('ToggleEvent')
-@staticInterop
-class ToggleEvent implements Event {
-  external factory ToggleEvent(
-    String type, [
-    ToggleEventInit eventInitDict,
-  ]);
-}
-
-extension ToggleEventExtension on ToggleEvent {
-  external String get oldState;
-  external String get newState;
-}
-
-@JS()
-@staticInterop
-@anonymous
-class ToggleEventInit implements EventInit {
-  external factory ToggleEventInit({
-    String oldState,
-    String newState,
-  });
-}
-
-extension ToggleEventInitExtension on ToggleEventInit {
-  external set oldState(String value);
-  external String get oldState;
-  external set newState(String value);
-  external String get newState;
-}
-
 @JS()
 @staticInterop
 @anonymous
@@ -3408,6 +3367,37 @@ class DragEventInit implements MouseEventInit {
 extension DragEventInitExtension on DragEventInit {
   external set dataTransfer(DataTransfer? value);
   external DataTransfer? get dataTransfer;
+}
+
+@JS('ToggleEvent')
+@staticInterop
+class ToggleEvent implements Event {
+  external factory ToggleEvent(
+    String type, [
+    ToggleEventInit eventInitDict,
+  ]);
+}
+
+extension ToggleEventExtension on ToggleEvent {
+  external String get oldState;
+  external String get newState;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class ToggleEventInit implements EventInit {
+  external factory ToggleEventInit({
+    String oldState,
+    String newState,
+  });
+}
+
+extension ToggleEventInitExtension on ToggleEventInit {
+  external set oldState(String value);
+  external String get oldState;
+  external set newState(String value);
+  external String get newState;
 }
 
 @JS()
@@ -3583,7 +3573,6 @@ extension WindowExtension on Window {
   external set ondevicemotion(EventHandler value);
   external EventHandler get ondevicemotion;
   external PortalHost? get portalHost;
-  external WindowSharedStorage? get sharedStorage;
   external SpeechSynthesis get speechSynthesis;
   external LaunchQueue get launchQueue;
   external set onanimationstart(EventHandler value);
@@ -4060,7 +4049,6 @@ extension NavigateEventExtension on NavigateEvent {
   external FormData? get formData;
   external String? get downloadRequest;
   external JSAny? get info;
-  external bool get hasUAVisualTransition;
 }
 
 @JS()
@@ -4077,7 +4065,6 @@ class NavigateEventInit implements EventInit {
     FormData? formData,
     String? downloadRequest,
     JSAny? info,
-    bool hasUAVisualTransition,
   });
 }
 
@@ -4100,8 +4087,6 @@ extension NavigateEventInitExtension on NavigateEventInit {
   external String? get downloadRequest;
   external set info(JSAny? value);
   external JSAny? get info;
-  external set hasUAVisualTransition(bool value);
-  external bool get hasUAVisualTransition;
 }
 
 @JS()
@@ -4181,24 +4166,18 @@ class PopStateEvent implements Event {
 
 extension PopStateEventExtension on PopStateEvent {
   external JSAny? get state;
-  external bool get hasUAVisualTransition;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class PopStateEventInit implements EventInit {
-  external factory PopStateEventInit({
-    JSAny? state,
-    bool hasUAVisualTransition,
-  });
+  external factory PopStateEventInit({JSAny? state});
 }
 
 extension PopStateEventInitExtension on PopStateEventInit {
   external set state(JSAny? value);
   external JSAny? get state;
-  external set hasUAVisualTransition(bool value);
-  external bool get hasUAVisualTransition;
 }
 
 @JS('HashChangeEvent')
@@ -4368,10 +4347,6 @@ extension NavigatorExtension on Navigator {
     String keySystem,
     JSArray supportedConfigurations,
   );
-  external JSPromise deprecatedReplaceInURN(
-    UrnOrConfig urnOrConfig,
-    JSAny replacements,
-  );
   external JSArray getGamepads();
   external JSPromise getInstalledRelatedApps();
   external void getUserMedia(
@@ -4399,7 +4374,6 @@ extension NavigatorExtension on Navigator {
     String url,
   );
   external bool javaEnabled();
-  external AudioSession get audioSession;
   external Clipboard get clipboard;
   external ContactsManager get contacts;
   external CredentialsContainer get credentials;
@@ -4425,6 +4399,7 @@ extension NavigatorExtension on Navigator {
   external XRSystem get xr;
   external WindowControlsOverlay get windowControlsOverlay;
   external num get deviceMemory;
+  external bool get globalPrivacyControl;
   external String get appCodeName;
   external String get appName;
   external String get appVersion;
@@ -4854,6 +4829,7 @@ extension WorkerNavigatorExtension on WorkerNavigator {
   external HID get hid;
   external USB get usb;
   external num get deviceMemory;
+  external bool get globalPrivacyControl;
   external String get appCodeName;
   external String get appName;
   external String get appVersion;

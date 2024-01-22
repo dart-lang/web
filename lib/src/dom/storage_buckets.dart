@@ -10,6 +10,8 @@ import 'hr_time.dart';
 import 'indexeddb.dart';
 import 'service_workers.dart';
 
+typedef StorageBucketDurability = String;
+
 @JS('StorageBucketManager')
 @staticInterop
 class StorageBucketManager {}
@@ -28,15 +30,18 @@ extension StorageBucketManagerExtension on StorageBucketManager {
 @anonymous
 class StorageBucketOptions {
   external factory StorageBucketOptions({
-    bool persisted,
+    bool? persisted,
+    StorageBucketDurability? durability,
     int? quota,
     DOMHighResTimeStamp? expires,
   });
 }
 
 extension StorageBucketOptionsExtension on StorageBucketOptions {
-  external set persisted(bool value);
-  external bool get persisted;
+  external set persisted(bool? value);
+  external bool? get persisted;
+  external set durability(StorageBucketDurability? value);
+  external StorageBucketDurability? get durability;
   external set quota(int? value);
   external int? get quota;
   external set expires(DOMHighResTimeStamp? value);
@@ -51,6 +56,7 @@ extension StorageBucketExtension on StorageBucket {
   external JSPromise persist();
   external JSPromise persisted();
   external JSPromise estimate();
+  external JSPromise durability();
   external JSPromise setExpires(DOMHighResTimeStamp expires);
   external JSPromise expires();
   external JSPromise getDirectory();

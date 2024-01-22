@@ -10,7 +10,7 @@
   "license": "BSD 3",
   "dependencies": {
     "@webref/css": "^6.10.0",
-    "@webref/idl": "^3.23.0"
+    "@webref/idl": "3.37.0"
   },
   "devDependencies": {
     "web-specs": "^2.74.1",

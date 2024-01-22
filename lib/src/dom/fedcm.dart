@@ -23,7 +23,7 @@ extension IdentityCredentialExtension on IdentityCredential {
 @anonymous
 class IdentityCredentialRequestOptions {
   external factory IdentityCredentialRequestOptions({
-    required JSArray providers,
+    JSArray providers,
     IdentityCredentialRequestOptionsContext context,
   });
 }

@@ -731,17 +731,6 @@ class Translator {
   List<code.Method> _operations(List<_OverridableOperation> operations) =>
       [for (final operation in operations) _operation(operation)];
 
-  code.Extension _extension(_RawType type,
-          List<_OverridableOperation> operations, List<idl.Member> members) =>
-      code.Extension((b) => b
-        ..name = '${type.type.snakeToPascal}Extension'
-        ..on = _typeReference(type)
-        ..methods.addAll(_operations(operations)
-            .followedBy(_members(members))
-            .followedBy(type.type == 'CSSStyleDeclaration'
-                ? _cssStyleDeclarationProperties()
-                : [])));
-
   List<code.Method> _cssStyleDeclarationProperties() => [
         for (final style in _cssStyleDeclarations)
           ..._getterSetter(
@@ -756,6 +745,7 @@ class Translator {
     required String dartClassName,
     required List<String> implements,
     required _OverridableConstructor? constructor,
+    required List<_OverridableOperation> operations,
     required List<_OverridableOperation> staticOperations,
     required List<idl.Member> members,
     required List<idl.Member> staticMembers,
@@ -771,15 +761,20 @@ class Translator {
         ..name = '_'
         ..declaredRepresentationType = jsObject)
       ..implements.addAll(implements
-          .map((interface) => _typeReference(_RawType(interface, false))))
-      ..implements.add(jsObject)
+          .map((interface) => _typeReference(_RawType(interface, false)))
+          .followedBy([jsObject]))
       ..constructors.addAll(isObjectLiteral
           ? [_objectLiteral(members)]
           : constructor != null
               ? [_constructor(constructor)]
               : [])
-      ..methods.addAll(
-          _operations(staticOperations).followedBy(_members(staticMembers))));
+      ..methods.addAll(_operations(staticOperations)
+          .followedBy(_members(staticMembers))
+          .followedBy(_operations(operations))
+          .followedBy(_members(members))
+          .followedBy(dartClassName == 'CSSStyleDeclaration'
+              ? _cssStyleDeclarationProperties()
+              : [])));
   }
 
   List<code.Spec> _interfacelike(idl.Interfacelike idlInterfacelike) {
@@ -812,12 +807,11 @@ class Translator {
           dartClassName: dartClassName,
           implements: implements,
           constructor: interfacelike.constructor,
+          operations: operations,
           staticOperations: staticOperations,
-          members: interfacelike.members,
+          members: members,
           staticMembers: interfacelike.staticMembers,
           isObjectLiteral: isDictionary),
-      if (operations.isNotEmpty || members.isNotEmpty)
-        _extension(_RawType(dartClassName, false), operations, members)
     ];
   }
 

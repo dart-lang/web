@@ -1874,6 +1874,7 @@ extension HTMLSelectElementExtension on HTMLSelectElement {
   external bool checkValidity();
   external bool reportValidity();
   external void setCustomValidity(String error);
+  external void showPicker();
   external set autocomplete(String value);
   external String get autocomplete;
   external set disabled(bool value);

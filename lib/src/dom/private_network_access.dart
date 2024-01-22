@@ -8,7 +8,7 @@ import 'dart:js_interop';
 
 import 'permissions.dart';
 
-typedef RequestTargetAddressSpace = String;
+typedef IPAddressSpace = String;
 
 @JS()
 @staticInterop

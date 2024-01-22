@@ -183,10 +183,26 @@ class ReadableStreamBYOBReader {
 }
 
 extension ReadableStreamBYOBReaderExtension on ReadableStreamBYOBReader {
-  external JSPromise read(ArrayBufferView view);
+  external JSPromise read(
+    ArrayBufferView view, [
+    ReadableStreamBYOBReaderReadOptions options,
+  ]);
   external void releaseLock();
   external JSPromise cancel([JSAny? reason]);
   external JSPromise get closed;
+}
+
+@JS()
+@staticInterop
+@anonymous
+class ReadableStreamBYOBReaderReadOptions {
+  external factory ReadableStreamBYOBReaderReadOptions({int min});
+}
+
+extension ReadableStreamBYOBReaderReadOptionsExtension
+    on ReadableStreamBYOBReaderReadOptions {
+  external set min(int value);
+  external int get min;
 }
 
 @JS('ReadableStreamDefaultController')

@@ -1303,10 +1303,6 @@ extension GPUCommandEncoderExtension on GPUCommandEncoder {
     GPUSize64 offset,
     GPUSize64 size,
   ]);
-  external void writeTimestamp(
-    GPUQuerySet querySet,
-    GPUSize32 queryIndex,
-  );
   external void resolveQuerySet(
     GPUQuerySet querySet,
     GPUSize32 firstQuery,

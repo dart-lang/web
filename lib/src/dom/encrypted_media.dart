@@ -12,6 +12,7 @@ import 'webidl.dart';
 
 typedef MediaKeysRequirement = String;
 typedef MediaKeySessionType = String;
+typedef HDCPVersion = String;
 typedef MediaKeySessionClosedReason = String;
 typedef MediaKeyStatus = String;
 typedef MediaKeyMessageType = String;
@@ -85,7 +86,20 @@ class MediaKeys {}
 
 extension MediaKeysExtension on MediaKeys {
   external MediaKeySession createSession([MediaKeySessionType sessionType]);
+  external JSPromise getStatusForPolicy([MediaKeysPolicy policy]);
   external JSPromise setServerCertificate(BufferSource serverCertificate);
+}
+
+@JS()
+@staticInterop
+@anonymous
+class MediaKeysPolicy {
+  external factory MediaKeysPolicy({HDCPVersion minHdcpVersion});
+}
+
+extension MediaKeysPolicyExtension on MediaKeysPolicy {
+  external set minHdcpVersion(HDCPVersion value);
+  external HDCPVersion get minHdcpVersion;
 }
 
 @JS('MediaKeySession')

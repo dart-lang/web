@@ -524,7 +524,7 @@ class AuthenticationExtensionsClientInputs {
     AuthenticationExtensionsPRFInputs prf,
     AuthenticationExtensionsLargeBlobInputs largeBlob,
     bool uvm,
-    AuthenticationExtensionsDevicePublicKeyInputs devicePubKey,
+    AuthenticationExtensionsSupplementalPubKeysInputs supplementalPubKeys,
   });
 }
 
@@ -558,9 +558,10 @@ extension AuthenticationExtensionsClientInputsExtension
   external AuthenticationExtensionsLargeBlobInputs get largeBlob;
   external set uvm(bool value);
   external bool get uvm;
-  external set devicePubKey(
-      AuthenticationExtensionsDevicePublicKeyInputs value);
-  external AuthenticationExtensionsDevicePublicKeyInputs get devicePubKey;
+  external set supplementalPubKeys(
+      AuthenticationExtensionsSupplementalPubKeysInputs value);
+  external AuthenticationExtensionsSupplementalPubKeysInputs
+      get supplementalPubKeys;
 }
 
 @JS()
@@ -576,7 +577,7 @@ class AuthenticationExtensionsClientOutputs {
     AuthenticationExtensionsPRFOutputs prf,
     AuthenticationExtensionsLargeBlobOutputs largeBlob,
     UvmEntries uvm,
-    AuthenticationExtensionsDevicePublicKeyOutputs devicePubKey,
+    AuthenticationExtensionsSupplementalPubKeysOutputs supplementalPubKeys,
   });
 }
 
@@ -598,9 +599,10 @@ extension AuthenticationExtensionsClientOutputsExtension
   external AuthenticationExtensionsLargeBlobOutputs get largeBlob;
   external set uvm(UvmEntries value);
   external UvmEntries get uvm;
-  external set devicePubKey(
-      AuthenticationExtensionsDevicePublicKeyOutputs value);
-  external AuthenticationExtensionsDevicePublicKeyOutputs get devicePubKey;
+  external set supplementalPubKeys(
+      AuthenticationExtensionsSupplementalPubKeysOutputs value);
+  external AuthenticationExtensionsSupplementalPubKeysOutputs
+      get supplementalPubKeys;
 }
 
 @JS()
@@ -783,15 +785,18 @@ extension AuthenticationExtensionsLargeBlobOutputsExtension
 @JS()
 @staticInterop
 @anonymous
-class AuthenticationExtensionsDevicePublicKeyInputs {
-  external factory AuthenticationExtensionsDevicePublicKeyInputs({
+class AuthenticationExtensionsSupplementalPubKeysInputs {
+  external factory AuthenticationExtensionsSupplementalPubKeysInputs({
+    required JSArray scopes,
     String attestation,
     JSArray attestationFormats,
   });
 }
 
-extension AuthenticationExtensionsDevicePublicKeyInputsExtension
-    on AuthenticationExtensionsDevicePublicKeyInputs {
+extension AuthenticationExtensionsSupplementalPubKeysInputsExtension
+    on AuthenticationExtensionsSupplementalPubKeysInputs {
+  external set scopes(JSArray value);
+  external JSArray get scopes;
   external set attestation(String value);
   external String get attestation;
   external set attestationFormats(JSArray value);
@@ -801,13 +806,13 @@ extension AuthenticationExtensionsDevicePublicKeyInputsExtension
 @JS()
 @staticInterop
 @anonymous
-class AuthenticationExtensionsDevicePublicKeyOutputs {
-  external factory AuthenticationExtensionsDevicePublicKeyOutputs(
-      {JSArrayBuffer signature});
+class AuthenticationExtensionsSupplementalPubKeysOutputs {
+  external factory AuthenticationExtensionsSupplementalPubKeysOutputs(
+      {JSArray signatures});
 }
 
-extension AuthenticationExtensionsDevicePublicKeyOutputsExtension
-    on AuthenticationExtensionsDevicePublicKeyOutputs {
-  external set signature(JSArrayBuffer value);
-  external JSArrayBuffer get signature;
+extension AuthenticationExtensionsSupplementalPubKeysOutputsExtension
+    on AuthenticationExtensionsSupplementalPubKeysOutputs {
+  external set signatures(JSArray value);
+  external JSArray get signatures;
 }

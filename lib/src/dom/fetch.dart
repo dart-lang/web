@@ -79,6 +79,7 @@ extension RequestExtension on Request {
   external bool get isHistoryNavigation;
   external AbortSignal get signal;
   external RequestDuplex get duplex;
+  external IPAddressSpace get targetAddressSpace;
   external ReadableStream? get body;
   external bool get bodyUsed;
 }
@@ -104,7 +105,7 @@ class RequestInit {
     RequestDuplex duplex,
     RequestPriority priority,
     JSAny? window,
-    RequestTargetAddressSpace targetAddressSpace,
+    IPAddressSpace targetAddressSpace,
     bool sharedStorageWritable,
     PrivateToken privateToken,
     bool adAuctionHeaders,
@@ -144,8 +145,8 @@ extension RequestInitExtension on RequestInit {
   external RequestPriority get priority;
   external set window(JSAny? value);
   external JSAny? get window;
-  external set targetAddressSpace(RequestTargetAddressSpace value);
-  external RequestTargetAddressSpace get targetAddressSpace;
+  external set targetAddressSpace(IPAddressSpace value);
+  external IPAddressSpace get targetAddressSpace;
   external set sharedStorageWritable(bool value);
   external bool get sharedStorageWritable;
   external set privateToken(PrivateToken value);

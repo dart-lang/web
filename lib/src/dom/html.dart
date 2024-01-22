@@ -53,6 +53,7 @@ import 'screen_wake_lock.dart';
 import 'selection_api.dart';
 import 'serial.dart';
 import 'service_workers.dart';
+import 'shared_storage.dart';
 import 'speech_api.dart';
 import 'storage.dart';
 import 'storage_buckets.dart';
@@ -1026,6 +1027,8 @@ extension HTMLIFrameElementExtension on HTMLIFrameElement {
   external set marginWidth(String value);
   external String get marginWidth;
   external PermissionsPolicy get permissionsPolicy;
+  external set privateToken(String value);
+  external String get privateToken;
 }
 
 @JS('HTMLEmbedElement')
@@ -3573,6 +3576,7 @@ extension WindowExtension on Window {
   external set ondevicemotion(EventHandler value);
   external EventHandler get ondevicemotion;
   external PortalHost? get portalHost;
+  external WindowSharedStorage? get sharedStorage;
   external SpeechSynthesis get speechSynthesis;
   external LaunchQueue get launchQueue;
   external set onanimationstart(EventHandler value);
@@ -4049,6 +4053,7 @@ extension NavigateEventExtension on NavigateEvent {
   external FormData? get formData;
   external String? get downloadRequest;
   external JSAny? get info;
+  external bool get hasUAVisualTransition;
 }
 
 @JS()
@@ -4065,6 +4070,7 @@ class NavigateEventInit implements EventInit {
     FormData? formData,
     String? downloadRequest,
     JSAny? info,
+    bool hasUAVisualTransition,
   });
 }
 
@@ -4087,6 +4093,8 @@ extension NavigateEventInitExtension on NavigateEventInit {
   external String? get downloadRequest;
   external set info(JSAny? value);
   external JSAny? get info;
+  external set hasUAVisualTransition(bool value);
+  external bool get hasUAVisualTransition;
 }
 
 @JS()
@@ -4166,18 +4174,24 @@ class PopStateEvent implements Event {
 
 extension PopStateEventExtension on PopStateEvent {
   external JSAny? get state;
+  external bool get hasUAVisualTransition;
 }
 
 @JS()
 @staticInterop
 @anonymous
 class PopStateEventInit implements EventInit {
-  external factory PopStateEventInit({JSAny? state});
+  external factory PopStateEventInit({
+    JSAny? state,
+    bool hasUAVisualTransition,
+  });
 }
 
 extension PopStateEventInitExtension on PopStateEventInit {
   external set state(JSAny? value);
   external JSAny? get state;
+  external set hasUAVisualTransition(bool value);
+  external bool get hasUAVisualTransition;
 }
 
 @JS('HashChangeEvent')
@@ -4399,7 +4413,6 @@ extension NavigatorExtension on Navigator {
   external XRSystem get xr;
   external WindowControlsOverlay get windowControlsOverlay;
   external num get deviceMemory;
-  external bool get globalPrivacyControl;
   external String get appCodeName;
   external String get appName;
   external String get appVersion;
@@ -4829,7 +4842,6 @@ extension WorkerNavigatorExtension on WorkerNavigator {
   external HID get hid;
   external USB get usb;
   external num get deviceMemory;
-  external bool get globalPrivacyControl;
   external String get appCodeName;
   external String get appName;
   external String get appVersion;

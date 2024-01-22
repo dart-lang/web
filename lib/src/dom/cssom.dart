@@ -131,15 +131,9 @@ extension CSSRuleExtension on CSSRule {
 
 @JS('CSSStyleRule')
 @staticInterop
-class CSSStyleRule implements CSSRule {}
+class CSSStyleRule implements CSSGroupingRule {}
 
 extension CSSStyleRuleExtension on CSSStyleRule {
-  external int insertRule(
-    String rule, [
-    int index,
-  ]);
-  external void deleteRule(int index);
-  external CSSRuleList get cssRules;
   external StylePropertyMap get styleMap;
   external set selectorText(String value);
   external String get selectorText;

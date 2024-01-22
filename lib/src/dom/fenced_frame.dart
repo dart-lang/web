@@ -51,6 +51,7 @@ class FenceEvent {
     required String eventType,
     required String eventData,
     required JSArray destination,
+    bool once,
   });
 }
 
@@ -61,6 +62,8 @@ extension FenceEventExtension on FenceEvent {
   external String get eventData;
   external set destination(JSArray value);
   external JSArray get destination;
+  external set once(bool value);
+  external bool get once;
 }
 
 @JS('Fence')

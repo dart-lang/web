@@ -193,7 +193,7 @@ extension XRFrameExtension on XRFrame {
     XRSpace baseSpace,
   );
   external XRAnchorSet get trackedAnchors;
-  external XRMeshSet get detectedMeshs;
+  external XRMeshSet get detectedMeshes;
   external XRSession get session;
   external DOMHighResTimeStamp get predictedDisplayTime;
 }

@@ -36,7 +36,7 @@ void main() {
 Based on:
 
 <!-- START updated by tool/update_bindings.dart. Do not modify by hand -->
-- @webref/idl [3.37.0](https://www.npmjs.com/package/@webref/idl/v/3.37.0)
+- @webref/idl [3.38.1](https://www.npmjs.com/package/@webref/idl/v/3.38.1)
 - @webref/css [6.10.0](https://www.npmjs.com/package/@webref/css/v/6.10.0)
 <!-- END updated by tool/update_bindings.dart. Do not modify by hand -->
 

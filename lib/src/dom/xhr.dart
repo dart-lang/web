@@ -9,6 +9,7 @@ import 'dart:js_interop';
 import 'attribution_reporting_api.dart';
 import 'dom.dart';
 import 'html.dart';
+import 'trust_token_api.dart';
 
 typedef FormDataEntryValue = JSAny;
 typedef XMLHttpRequestResponseType = String;
@@ -53,6 +54,7 @@ class XMLHttpRequest implements XMLHttpRequestEventTarget {
 extension XMLHttpRequestExtension on XMLHttpRequest {
   external void setAttributionReporting(
       AttributionReportingRequestOptions options);
+  external void setPrivateToken(PrivateToken privateToken);
   external void open(
     String method,
     String url, [

@@ -16,7 +16,6 @@ import 'web_animations.dart';
 extension type SVGElement._(JSObject _) implements Element, JSObject {
   external void focus([FocusOptions options]);
   external void blur();
-  external SVGAnimatedString get className;
   external SVGSVGElement? get ownerSVGElement;
   external SVGElement? get viewportElement;
   external set onanimationstart(EventHandler value);
@@ -233,6 +232,11 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external StylePropertyMap get attributeStyleMap;
   external CSSStyleDeclaration get style;
 }
+
+extension SVGElementExtension on SVGElement {
+  external SVGAnimatedString get className;
+}
+
 extension type SVGBoundingBoxOptions._(JSObject _) implements JSObject {
   external factory SVGBoundingBoxOptions({
     bool fill,

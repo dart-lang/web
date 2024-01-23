@@ -312,6 +312,7 @@ class _PartialInterfacelike {
   final Map<String, _OverridableOperation> staticOperations = {};
   final List<idl.Member> members = [];
   final List<idl.Member> staticMembers = [];
+  final List<idl.Member> extensionMembers = [];
   _OverridableConstructor? constructor;
 
   _PartialInterfacelike._(this.name, this.type, this.inheritance);
@@ -344,7 +345,17 @@ class _PartialInterfacelike {
           if (attribute.special == 'static') {
             staticMembers.add(member);
           } else {
-            members.add(member);
+            if (name == 'SVGElement' && attribute.name == 'className') {
+              // `SVGElement.className` returns an `SVGAnimatedString`, but its
+              // corresponding setter `Element.className` takes a `String`. As
+              // these two types are incompatible, we need to move this member
+              // to an extension instead. As it shares the same name as the
+              // getter `Element.className`, users will need to apply the
+              // extension explicitly.
+              extensionMembers.add(member);
+            } else {
+              members.add(member);
+            }
           }
           break;
         case 'operation':
@@ -740,6 +751,14 @@ class Translator {
               readOnly: false),
       ];
 
+  code.Extension _extension(
+          {required _RawType type,
+          required List<idl.Member> extensionMembers}) =>
+      code.Extension((b) => b
+        ..name = '${type.type.snakeToPascal}Extension'
+        ..on = _typeReference(type)
+        ..methods.addAll(_members(extensionMembers)));
+
   code.ExtensionType _extensionType({
     required String jsName,
     required String dartClassName,
@@ -795,13 +814,15 @@ class Translator {
     final operations = interfacelike.operations.values.toList();
     final staticOperations = interfacelike.staticOperations.values.toList();
     final members = interfacelike.members;
+    final extensionMembers = interfacelike.extensionMembers;
     final implements = [
       if (interfacelike.inheritance != null) interfacelike.inheritance!
     ];
 
+    final rawType = _RawType(dartClassName, false);
+
     return [
-      if (getterName != null)
-        _topLevelGetter(_RawType(dartClassName, false), getterName),
+      if (getterName != null) _topLevelGetter(rawType, getterName),
       _extensionType(
           jsName: jsName,
           dartClassName: dartClassName,
@@ -812,6 +833,8 @@ class Translator {
           members: members,
           staticMembers: interfacelike.staticMembers,
           isObjectLiteral: isDictionary),
+      if (extensionMembers.isNotEmpty)
+        _extension(type: rawType, extensionMembers: extensionMembers)
     ];
   }
 

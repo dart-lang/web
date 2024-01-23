@@ -4,7 +4,7 @@ description: Lightweight browser API bindings built around JS static interop.
 repository: https://github.com/dart-lang/web
 
 environment:
-  sdk: ^3.3.0-214.0.dev
+  sdk: ^3.3.0-76.0.dev
 
 dev_dependencies:
   analyzer: ^6.3.0

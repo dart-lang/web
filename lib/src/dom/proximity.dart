@@ -8,30 +8,20 @@ import 'dart:js_interop';
 
 import 'generic_sensor.dart';
 
-@JS('ProximitySensor')
-@staticInterop
-class ProximitySensor implements Sensor {
+extension type ProximitySensor._(JSObject _) implements Sensor, JSObject {
   external factory ProximitySensor([SensorOptions sensorOptions]);
-}
 
-extension ProximitySensorExtension on ProximitySensor {
   external num? get distance;
   external num? get max;
   external bool? get near;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ProximityReadingValues {
+extension type ProximityReadingValues._(JSObject _) implements JSObject {
   external factory ProximityReadingValues({
     required num? distance,
     required num? max,
     required bool? near,
   });
-}
 
-extension ProximityReadingValuesExtension on ProximityReadingValues {
   external set distance(num? value);
   external num? get distance;
   external set max(num? value);

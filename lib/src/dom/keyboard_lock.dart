@@ -9,11 +9,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
-@JS('Keyboard')
-@staticInterop
-class Keyboard implements EventTarget {}
-
-extension KeyboardExtension on Keyboard {
+extension type Keyboard._(JSObject _) implements EventTarget, JSObject {
   external JSPromise lock([JSArray keyCodes]);
   external void unlock();
   external JSPromise getLayoutMap();

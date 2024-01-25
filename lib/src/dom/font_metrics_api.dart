@@ -6,11 +6,7 @@
 
 import 'dart:js_interop';
 
-@JS('FontMetrics')
-@staticInterop
-class FontMetrics {}
-
-extension FontMetricsExtension on FontMetrics {
+extension type FontMetrics._(JSObject _) implements JSObject {
   external num get width;
   external JSArray get advances;
   external num get boundingBoxLeft;
@@ -26,21 +22,11 @@ extension FontMetricsExtension on FontMetrics {
   external JSArray get baselines;
   external JSArray get fonts;
 }
-
-@JS('Baseline')
-@staticInterop
-class Baseline {}
-
-extension BaselineExtension on Baseline {
+extension type Baseline._(JSObject _) implements JSObject {
   external String get name;
   external num get value;
 }
-
-@JS('Font')
-@staticInterop
-class Font {}
-
-extension FontExtension on Font {
+extension type Font._(JSObject _) implements JSObject {
   external String get name;
   external int get glyphsRendered;
 }

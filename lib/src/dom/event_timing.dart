@@ -10,11 +10,8 @@ import 'dom.dart';
 import 'hr_time.dart';
 import 'performance_timeline.dart';
 
-@JS('PerformanceEventTiming')
-@staticInterop
-class PerformanceEventTiming implements PerformanceEntry {}
-
-extension PerformanceEventTimingExtension on PerformanceEventTiming {
+extension type PerformanceEventTiming._(JSObject _)
+    implements PerformanceEntry, JSObject {
   external JSObject toJSON();
   external DOMHighResTimeStamp get processingStart;
   external DOMHighResTimeStamp get processingEnd;
@@ -22,9 +19,4 @@ extension PerformanceEventTimingExtension on PerformanceEventTiming {
   external Node? get target;
   external int get interactionId;
 }
-
-@JS('EventCounts')
-@staticInterop
-class EventCounts {}
-
-extension EventCountsExtension on EventCounts {}
+extension type EventCounts._(JSObject _) implements JSObject {}

@@ -10,12 +10,7 @@ typedef GamepadHand = String;
 typedef GamepadHapticsResult = String;
 typedef GamepadHapticActuatorType = String;
 typedef GamepadHapticEffectType = String;
-
-@JS('GamepadHapticActuator')
-@staticInterop
-class GamepadHapticActuator {}
-
-extension GamepadHapticActuatorExtension on GamepadHapticActuator {
+extension type GamepadHapticActuator._(JSObject _) implements JSObject {
   external bool canPlayEffectType(GamepadHapticEffectType type);
   external JSPromise playEffect(
     GamepadHapticEffectType type, [
@@ -28,20 +23,14 @@ extension GamepadHapticActuatorExtension on GamepadHapticActuator {
   external JSPromise reset();
   external GamepadHapticActuatorType get type;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class GamepadEffectParameters {
+extension type GamepadEffectParameters._(JSObject _) implements JSObject {
   external factory GamepadEffectParameters({
     num duration,
     num startDelay,
     num strongMagnitude,
     num weakMagnitude,
   });
-}
 
-extension GamepadEffectParametersExtension on GamepadEffectParameters {
   external set duration(num value);
   external num get duration;
   external set startDelay(num value);
@@ -51,12 +40,7 @@ extension GamepadEffectParametersExtension on GamepadEffectParameters {
   external set weakMagnitude(num value);
   external num get weakMagnitude;
 }
-
-@JS('GamepadPose')
-@staticInterop
-class GamepadPose {}
-
-extension GamepadPoseExtension on GamepadPose {
+extension type GamepadPose._(JSObject _) implements JSObject {
   external bool get hasOrientation;
   external bool get hasPosition;
   external JSFloat32Array? get position;
@@ -66,12 +50,7 @@ extension GamepadPoseExtension on GamepadPose {
   external JSFloat32Array? get angularVelocity;
   external JSFloat32Array? get angularAcceleration;
 }
-
-@JS('GamepadTouch')
-@staticInterop
-class GamepadTouch {}
-
-extension GamepadTouchExtension on GamepadTouch {
+extension type GamepadTouch._(JSObject _) implements JSObject {
   external int get touchId;
   external int get surfaceId;
   external JSFloat32Array get position;

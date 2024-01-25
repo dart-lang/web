@@ -9,22 +9,13 @@ import 'dart:js_interop';
 import 'payment_request.dart';
 
 typedef ItemType = String;
-
-@JS('DigitalGoodsService')
-@staticInterop
-class DigitalGoodsService {}
-
-extension DigitalGoodsServiceExtension on DigitalGoodsService {
+extension type DigitalGoodsService._(JSObject _) implements JSObject {
   external JSPromise getDetails(JSArray itemIds);
   external JSPromise listPurchases();
   external JSPromise listPurchaseHistory();
   external JSPromise consume(String purchaseToken);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ItemDetails {
+extension type ItemDetails._(JSObject _) implements JSObject {
   external factory ItemDetails({
     required String itemId,
     required String title,
@@ -38,9 +29,7 @@ class ItemDetails {
     String introductoryPricePeriod,
     int introductoryPriceCycles,
   });
-}
 
-extension ItemDetailsExtension on ItemDetails {
   external set itemId(String value);
   external String get itemId;
   external set title(String value);
@@ -64,18 +53,12 @@ extension ItemDetailsExtension on ItemDetails {
   external set introductoryPriceCycles(int value);
   external int get introductoryPriceCycles;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PurchaseDetails {
+extension type PurchaseDetails._(JSObject _) implements JSObject {
   external factory PurchaseDetails({
     required String itemId,
     required String purchaseToken,
   });
-}
 
-extension PurchaseDetailsExtension on PurchaseDetails {
   external set itemId(String value);
   external String get itemId;
   external set purchaseToken(String value);

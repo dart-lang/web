@@ -289,7 +289,8 @@ class _OverridableOperation extends _OverridableMember {
           _getRawType(operation.idlType), operation.arguments);
 
   void update(idl.Operation that) {
-    final thisName = name.jsOverride ?? name.name;
+    final jsOverride = name.jsOverride;
+    final thisName = jsOverride.isNotEmpty ? jsOverride : name.name;
     assert(thisName == that.name && isStatic == (that.special == 'static'));
     returnType.update(that.idlType);
     _processParameters(that.arguments);
@@ -311,6 +312,7 @@ class _PartialInterfacelike {
   final Map<String, _OverridableOperation> staticOperations = {};
   final List<idl.Member> members = [];
   final List<idl.Member> staticMembers = [];
+  final List<idl.Member> extensionMembers = [];
   _OverridableConstructor? constructor;
 
   _PartialInterfacelike._(this.name, this.type, this.inheritance);
@@ -343,7 +345,17 @@ class _PartialInterfacelike {
           if (attribute.special == 'static') {
             staticMembers.add(member);
           } else {
-            members.add(member);
+            if (name == 'SVGElement' && attribute.name == 'className') {
+              // `SVGElement.className` returns an `SVGAnimatedString`, but its
+              // corresponding setter `Element.className` takes a `String`. As
+              // these two types are incompatible, we need to move this member
+              // to an extension instead. As it shares the same name as the
+              // getter `Element.className`, users will need to apply the
+              // extension explicitly.
+              extensionMembers.add(member);
+            } else {
+              members.add(member);
+            }
           }
           break;
         case 'operation':
@@ -406,13 +418,13 @@ class _PartialInterfacelike {
 
 class _MemberName {
   final String name;
-  final String? jsOverride;
+  final String jsOverride;
 
   _MemberName._(this.name, this.jsOverride);
 
-  factory _MemberName(String name, [String? jsOverride]) {
+  factory _MemberName(String name, [String jsOverride = '']) {
     if (bannedNames.contains(name)) {
-      jsOverride ??= name;
+      if (jsOverride.isEmpty) jsOverride = name;
       name = '${name}_';
     }
     return _MemberName._(name, jsOverride);
@@ -502,7 +514,7 @@ class Translator {
 
   code.Method _topLevelGetter(_RawType type, String getterName) =>
       code.Method((b) => b
-        ..annotations.addAll(_jsOverride(''))
+        ..annotations.addAll(_jsOverride('', alwaysEmit: true))
         ..external = true
         ..returns = _typeReference(type)
         ..name = getterName
@@ -585,6 +597,9 @@ class Translator {
           constructor,
           (requiredParameters, optionalParameters) => code.Constructor((b) => b
             ..external = true
+            // TODO(srujzs): Should we generate generative or factory
+            // constructors? With `@staticInterop`, factories were needed, but
+            // extension types have no such limitation.
             ..factory = true
             ..requiredParameters.addAll(requiredParameters)
             ..optionalParameters.addAll(optionalParameters)));
@@ -607,18 +622,24 @@ class Translator {
     return code.Constructor((b) => b
       ..optionalParameters.addAll(optionalParameters)
       ..external = true
+      // TODO(srujzs): Should we generate generative or factory constructors?
+      // With `@staticInterop`, factories were needed, but extension types have
+      // no such limitation.
       ..factory = true);
   }
 
-  List<code.Expression> _jsOverride(String? jsOverride,
-          {bool staticInterop = false, bool objectLiteral = false}) =>
+  // Generates an `@JS` annotation if the given [jsOverride] is not empty or if
+  // [alwaysEmit] is true.
+  //
+  // The value of the annotation is either omitted or [jsOverride] if it isn't
+  // empty.
+  List<code.Expression> _jsOverride(String jsOverride,
+          {bool alwaysEmit = false}) =>
       [
-        if (jsOverride != null)
+        if (jsOverride.isNotEmpty || alwaysEmit)
           code.refer('JS', 'dart:js_interop').call([
             if (jsOverride.isNotEmpty) code.literalString(jsOverride),
           ]),
-        if (staticInterop) code.refer('staticInterop'),
-        if (objectLiteral) code.refer('anonymous'),
       ];
 
   code.Method _operation(_OverridableOperation operation) {
@@ -721,17 +742,6 @@ class Translator {
   List<code.Method> _operations(List<_OverridableOperation> operations) =>
       [for (final operation in operations) _operation(operation)];
 
-  code.Extension _extension(_RawType type,
-          List<_OverridableOperation> operations, List<idl.Member> members) =>
-      code.Extension((b) => b
-        ..name = '${type.type.snakeToPascal}Extension'
-        ..on = _typeReference(type)
-        ..methods.addAll(_operations(operations)
-            .followedBy(_members(members))
-            .followedBy(type.type == 'CSSStyleDeclaration'
-                ? _cssStyleDeclarationProperties()
-                : [])));
-
   List<code.Method> _cssStyleDeclarationProperties() => [
         for (final style in _cssStyleDeclarations)
           ..._getterSetter(
@@ -741,33 +751,50 @@ class Translator {
               readOnly: false),
       ];
 
-  code.Class _class({
+  code.Extension _extension(
+          {required _RawType type,
+          required List<idl.Member> extensionMembers}) =>
+      code.Extension((b) => b
+        ..name = '${type.type.snakeToPascal}Extension'
+        ..on = _typeReference(type)
+        ..methods.addAll(_members(extensionMembers)));
+
+  code.ExtensionType _extensionType({
     required String jsName,
     required String dartClassName,
     required List<String> implements,
     required _OverridableConstructor? constructor,
+    required List<_OverridableOperation> operations,
     required List<_OverridableOperation> staticOperations,
     required List<idl.Member> members,
     required List<idl.Member> staticMembers,
-    required bool isAbstract,
     required bool isObjectLiteral,
-  }) =>
-      code.Class(
-        (b) => b
-          ..annotations.addAll(_jsOverride(isObjectLiteral ? '' : jsName,
-              staticInterop: true, objectLiteral: isObjectLiteral))
-          ..name = dartClassName
-          ..implements.addAll(implements
-              .map((interface) => _typeReference(_RawType(interface, false))))
-          ..constructors.addAll(isObjectLiteral
-              ? [_objectLiteral(members)]
-              : constructor != null
-                  ? [_constructor(constructor)]
-                  : [])
-          ..methods.addAll(
-              _operations(staticOperations).followedBy(_members(staticMembers)))
-          ..abstract = isAbstract,
-      );
+  }) {
+    final jsObject = _typeReference(_RawType('JSObject', false));
+    return code.ExtensionType((b) => b
+      ..annotations.addAll(
+          _jsOverride(isObjectLiteral || jsName == dartClassName ? '' : jsName))
+      ..name = dartClassName
+      ..primaryConstructorName = '_'
+      ..representationDeclaration = code.RepresentationDeclaration((b) => b
+        ..name = '_'
+        ..declaredRepresentationType = jsObject)
+      ..implements.addAll(implements
+          .map((interface) => _typeReference(_RawType(interface, false)))
+          .followedBy([jsObject]))
+      ..constructors.addAll(isObjectLiteral
+          ? [_objectLiteral(members)]
+          : constructor != null
+              ? [_constructor(constructor)]
+              : [])
+      ..methods.addAll(_operations(staticOperations)
+          .followedBy(_members(staticMembers))
+          .followedBy(_operations(operations))
+          .followedBy(_members(members))
+          .followedBy(dartClassName == 'CSSStyleDeclaration'
+              ? _cssStyleDeclarationProperties()
+              : [])));
+  }
 
   List<code.Spec> _interfacelike(idl.Interfacelike idlInterfacelike) {
     final name = idlInterfacelike.name;
@@ -787,32 +814,27 @@ class Translator {
     final operations = interfacelike.operations.values.toList();
     final staticOperations = interfacelike.staticOperations.values.toList();
     final members = interfacelike.members;
+    final extensionMembers = interfacelike.extensionMembers;
     final implements = [
       if (interfacelike.inheritance != null) interfacelike.inheritance!
     ];
 
-    // TODO(srujzs): Add back implements clause once we move to extension types.
-    // For now, we don't emit this so that `dart:js_interop` can move to
-    // extension types.
-    // // All non-namespace root classes must inherit from `JSObject`.
-    // if (implements.isEmpty && !isNamespace) {
-    //   implements.add('JSObject');
-    // }
+    final rawType = _RawType(dartClassName, false);
+
     return [
-      if (getterName != null)
-        _topLevelGetter(_RawType(dartClassName, false), getterName),
-      _class(
+      if (getterName != null) _topLevelGetter(rawType, getterName),
+      _extensionType(
           jsName: jsName,
           dartClassName: dartClassName,
           implements: implements,
           constructor: interfacelike.constructor,
+          operations: operations,
           staticOperations: staticOperations,
-          members: interfacelike.members,
+          members: members,
           staticMembers: interfacelike.staticMembers,
-          isAbstract: isNamespace,
           isObjectLiteral: isDictionary),
-      if (operations.isNotEmpty || members.isNotEmpty)
-        _extension(_RawType(dartClassName, false), operations, members)
+      if (extensionMembers.isNotEmpty)
+        _extension(type: rawType, extensionMembers: extensionMembers)
     ];
   }
 

@@ -8,19 +8,14 @@ import 'dart:js_interop';
 
 import 'cssom.dart';
 
-@JS()
-@staticInterop
-@anonymous
-class PropertyDefinition {
+extension type PropertyDefinition._(JSObject _) implements JSObject {
   external factory PropertyDefinition({
     required String name,
     String syntax,
     required bool inherits,
     String initialValue,
   });
-}
 
-extension PropertyDefinitionExtension on PropertyDefinition {
   external set name(String value);
   external String get name;
   external set syntax(String value);
@@ -30,12 +25,7 @@ extension PropertyDefinitionExtension on PropertyDefinition {
   external set initialValue(String value);
   external String get initialValue;
 }
-
-@JS('CSSPropertyRule')
-@staticInterop
-class CSSPropertyRule implements CSSRule {}
-
-extension CSSPropertyRuleExtension on CSSPropertyRule {
+extension type CSSPropertyRule._(JSObject _) implements CSSRule, JSObject {
   external String get name;
   external String get syntax;
   external bool get inherits;

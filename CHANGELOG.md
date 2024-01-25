@@ -5,6 +5,7 @@
   `package:web` classes.
 - Contribute a markdown file for the renamed classes from `dart:html` to
   `package:web` (see [renames.md](tool/renames.md)).
+- Migrate classes to use interop extension types that implement `JSObject`.
 
 ## 0.4.2
 

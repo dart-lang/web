@@ -9,14 +9,9 @@ import 'dart:js_interop';
 import 'webgl1.dart';
 
 typedef GLuint64EXT = int;
-
-@JS('WebGLTimerQueryEXT')
-@staticInterop
-class WebGLTimerQueryEXT implements WebGLObject {}
-
-@JS('EXT_disjoint_timer_query')
-@staticInterop
-class EXT_disjoint_timer_query {
+extension type WebGLTimerQueryEXT._(JSObject _)
+    implements WebGLObject, JSObject {}
+extension type EXT_disjoint_timer_query._(JSObject _) implements JSObject {
   external static GLenum get QUERY_COUNTER_BITS_EXT;
   external static GLenum get CURRENT_QUERY_EXT;
   external static GLenum get QUERY_RESULT_EXT;
@@ -24,9 +19,6 @@ class EXT_disjoint_timer_query {
   external static GLenum get TIME_ELAPSED_EXT;
   external static GLenum get TIMESTAMP_EXT;
   external static GLenum get GPU_DISJOINT_EXT;
-}
-
-extension EXTDisjointTimerQueryExtension on EXT_disjoint_timer_query {
   external WebGLTimerQueryEXT? createQueryEXT();
   external void deleteQueryEXT(WebGLTimerQueryEXT? query);
   external bool isQueryEXT(WebGLTimerQueryEXT? query);

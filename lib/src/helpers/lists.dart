@@ -4,7 +4,7 @@
 
 import 'dart:collection';
 
-import '../../web.dart' show Touch, TouchList, TouchListExtension;
+import '../../web.dart' show Touch, TouchList;
 
 /// A wrapper to present a [TouchList] as a `List<Touch>`.
 class TouchListWrapper extends Object

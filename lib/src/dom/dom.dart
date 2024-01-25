@@ -32,10 +32,7 @@ typedef NodeFilter = JSFunction;
 typedef XPathNSResolver = JSFunction;
 typedef ShadowRootMode = String;
 typedef SlotAssignmentMode = String;
-
-@JS('Event')
-@staticInterop
-class Event {
+extension type Event._(JSObject _) implements JSObject {
   external factory Event(
     String type, [
     EventInit eventInitDict,
@@ -45,9 +42,6 @@ class Event {
   external static int get CAPTURING_PHASE;
   external static int get AT_TARGET;
   external static int get BUBBLING_PHASE;
-}
-
-extension EventExtension on Event {
   external JSArray composedPath();
   external void stopPropagation();
   external void stopImmediatePropagation();
@@ -73,19 +67,13 @@ extension EventExtension on Event {
   external bool get isTrusted;
   external DOMHighResTimeStamp get timeStamp;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class EventInit {
+extension type EventInit._(JSObject _) implements JSObject {
   external factory EventInit({
     bool bubbles,
     bool cancelable,
     bool composed,
   });
-}
 
-extension EventInitExtension on EventInit {
   external set bubbles(bool value);
   external bool get bubbles;
   external set cancelable(bool value);
@@ -93,17 +81,12 @@ extension EventInitExtension on EventInit {
   external set composed(bool value);
   external bool get composed;
 }
-
-@JS('CustomEvent')
-@staticInterop
-class CustomEvent implements Event {
+extension type CustomEvent._(JSObject _) implements Event, JSObject {
   external factory CustomEvent(
     String type, [
     CustomEventInit eventInitDict,
   ]);
-}
 
-extension CustomEventExtension on CustomEvent {
   external void initCustomEvent(
     String type, [
     bool bubbles,
@@ -112,26 +95,15 @@ extension CustomEventExtension on CustomEvent {
   ]);
   external JSAny? get detail;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class CustomEventInit implements EventInit {
+extension type CustomEventInit._(JSObject _) implements EventInit, JSObject {
   external factory CustomEventInit({JSAny? detail});
-}
 
-extension CustomEventInitExtension on CustomEventInit {
   external set detail(JSAny? value);
   external JSAny? get detail;
 }
-
-@JS('EventTarget')
-@staticInterop
-class EventTarget {
+extension type EventTarget._(JSObject _) implements JSObject {
   external factory EventTarget();
-}
 
-extension EventTargetExtension on EventTarget {
   external void addEventListener(
     String type,
     EventListener? callback, [
@@ -144,31 +116,20 @@ extension EventTargetExtension on EventTarget {
   ]);
   external bool dispatchEvent(Event event);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class EventListenerOptions {
+extension type EventListenerOptions._(JSObject _) implements JSObject {
   external factory EventListenerOptions({bool capture});
-}
 
-extension EventListenerOptionsExtension on EventListenerOptions {
   external set capture(bool value);
   external bool get capture;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AddEventListenerOptions implements EventListenerOptions {
+extension type AddEventListenerOptions._(JSObject _)
+    implements EventListenerOptions, JSObject {
   external factory AddEventListenerOptions({
     bool passive,
     bool once,
     AbortSignal signal,
   });
-}
 
-extension AddEventListenerOptionsExtension on AddEventListenerOptions {
   external set passive(bool value);
   external bool get passive;
   external set once(bool value);
@@ -176,60 +137,34 @@ extension AddEventListenerOptionsExtension on AddEventListenerOptions {
   external set signal(AbortSignal value);
   external AbortSignal get signal;
 }
-
-@JS('AbortController')
-@staticInterop
-class AbortController {
+extension type AbortController._(JSObject _) implements JSObject {
   external factory AbortController();
-}
 
-extension AbortControllerExtension on AbortController {
   external void abort([JSAny? reason]);
   external AbortSignal get signal;
 }
-
-@JS('AbortSignal')
-@staticInterop
-class AbortSignal implements EventTarget {
+extension type AbortSignal._(JSObject _) implements EventTarget, JSObject {
   external static AbortSignal abort([JSAny? reason]);
   external static AbortSignal timeout(int milliseconds);
   external static AbortSignal any(JSArray signals);
-}
-
-extension AbortSignalExtension on AbortSignal {
   external void throwIfAborted();
   external bool get aborted;
   external JSAny? get reason;
   external set onabort(EventHandler value);
   external EventHandler get onabort;
 }
-
-@JS('NodeList')
-@staticInterop
-class NodeList {}
-
-extension NodeListExtension on NodeList {
+extension type NodeList._(JSObject _) implements JSObject {
   external Node? item(int index);
   external int get length;
 }
-
-@JS('HTMLCollection')
-@staticInterop
-class HTMLCollection {}
-
-extension HTMLCollectionExtension on HTMLCollection {
+extension type HTMLCollection._(JSObject _) implements JSObject {
   external Element? item(int index);
   external Element? namedItem(String name);
   external int get length;
 }
-
-@JS('MutationObserver')
-@staticInterop
-class MutationObserver {
+extension type MutationObserver._(JSObject _) implements JSObject {
   external factory MutationObserver(MutationCallback callback);
-}
 
-extension MutationObserverExtension on MutationObserver {
   external void observe(
     Node target, [
     MutationObserverInit options,
@@ -237,11 +172,7 @@ extension MutationObserverExtension on MutationObserver {
   external void disconnect();
   external JSArray takeRecords();
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MutationObserverInit {
+extension type MutationObserverInit._(JSObject _) implements JSObject {
   external factory MutationObserverInit({
     bool childList,
     bool attributes,
@@ -251,9 +182,7 @@ class MutationObserverInit {
     bool characterDataOldValue,
     JSArray attributeFilter,
   });
-}
 
-extension MutationObserverInitExtension on MutationObserverInit {
   external set childList(bool value);
   external bool get childList;
   external set attributes(bool value);
@@ -269,12 +198,7 @@ extension MutationObserverInitExtension on MutationObserverInit {
   external set attributeFilter(JSArray value);
   external JSArray get attributeFilter;
 }
-
-@JS('MutationRecord')
-@staticInterop
-class MutationRecord {}
-
-extension MutationRecordExtension on MutationRecord {
+extension type MutationRecord._(JSObject _) implements JSObject {
   external String get type;
   external Node get target;
   external NodeList get addedNodes;
@@ -285,10 +209,7 @@ extension MutationRecordExtension on MutationRecord {
   external String? get attributeNamespace;
   external String? get oldValue;
 }
-
-@JS('Node')
-@staticInterop
-class Node implements EventTarget {
+extension type Node._(JSObject _) implements EventTarget, JSObject {
   external static int get ELEMENT_NODE;
   external static int get ATTRIBUTE_NODE;
   external static int get TEXT_NODE;
@@ -307,9 +228,6 @@ class Node implements EventTarget {
   external static int get DOCUMENT_POSITION_CONTAINS;
   external static int get DOCUMENT_POSITION_CONTAINED_BY;
   external static int get DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
-}
-
-extension NodeExtension on Node {
   external Node getRootNode([GetRootNodeOptions options]);
   external bool hasChildNodes();
   external void normalize();
@@ -348,29 +266,17 @@ extension NodeExtension on Node {
   external set textContent(String? value);
   external String? get textContent;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class GetRootNodeOptions {
+extension type GetRootNodeOptions._(JSObject _) implements JSObject {
   external factory GetRootNodeOptions({bool composed});
-}
 
-extension GetRootNodeOptionsExtension on GetRootNodeOptions {
   external set composed(bool value);
   external bool get composed;
 }
-
 @JS()
 external Document get document;
-
-@JS('Document')
-@staticInterop
-class Document implements Node {
+extension type Document._(JSObject _) implements Node, JSObject {
   external factory Document();
-}
 
-extension DocumentExtension on Document {
   external ViewTransition startViewTransition([UpdateCallback? updateCallback]);
   external Element? elementFromPoint(
     num x,
@@ -795,30 +701,16 @@ extension DocumentExtension on Document {
   external set onbeforexrselect(EventHandler value);
   external EventHandler get onbeforexrselect;
 }
-
-@JS('XMLDocument')
-@staticInterop
-class XMLDocument implements Document {}
-
-@JS()
-@staticInterop
-@anonymous
-class ElementCreationOptions {
+extension type XMLDocument._(JSObject _) implements Document, JSObject {}
+extension type ElementCreationOptions._(JSObject _) implements JSObject {
   external factory ElementCreationOptions({String is_});
-}
 
-extension ElementCreationOptionsExtension on ElementCreationOptions {
   @JS('is')
   external set is_(String value);
   @JS('is')
   external String get is_;
 }
-
-@JS('DOMImplementation')
-@staticInterop
-class DOMImplementation {}
-
-extension DOMImplementationExtension on DOMImplementation {
+extension type DOMImplementation._(JSObject _) implements JSObject {
   external DocumentType createDocumentType(
     String qualifiedName,
     String publicId,
@@ -832,12 +724,7 @@ extension DOMImplementationExtension on DOMImplementation {
   external Document createHTMLDocument([String title]);
   external bool hasFeature();
 }
-
-@JS('DocumentType')
-@staticInterop
-class DocumentType implements Node {}
-
-extension DocumentTypeExtension on DocumentType {
+extension type DocumentType._(JSObject _) implements Node, JSObject {
   external void before(JSAny nodes);
   external void after(JSAny nodes);
   external void replaceWith(JSAny nodes);
@@ -846,14 +733,9 @@ extension DocumentTypeExtension on DocumentType {
   external String get publicId;
   external String get systemId;
 }
-
-@JS('DocumentFragment')
-@staticInterop
-class DocumentFragment implements Node {
+extension type DocumentFragment._(JSObject _) implements Node, JSObject {
   external factory DocumentFragment();
-}
 
-extension DocumentFragmentExtension on DocumentFragment {
   external Element? getElementById(String elementId);
   external void prepend(JSAny nodes);
   external void append(JSAny nodes);
@@ -865,12 +747,7 @@ extension DocumentFragmentExtension on DocumentFragment {
   external Element? get lastElementChild;
   external int get childElementCount;
 }
-
-@JS('ShadowRoot')
-@staticInterop
-class ShadowRoot implements DocumentFragment {}
-
-extension ShadowRootExtension on ShadowRoot {
+extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   external JSArray getAnimations();
   external ShadowRootMode get mode;
   external bool get delegatesFocus;
@@ -888,12 +765,7 @@ extension ShadowRootExtension on ShadowRoot {
   external Element? get pictureInPictureElement;
   external Element? get pointerLockElement;
 }
-
-@JS('Element')
-@staticInterop
-class Element implements Node {}
-
-extension ElementExtension on Element {
+extension type Element._(JSObject _) implements Node, JSObject {
   external void insertAdjacentHTML(
     String position,
     String text,
@@ -1159,19 +1031,13 @@ extension ElementExtension on Element {
   external set ariaValueText(String? value);
   external String? get ariaValueText;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ShadowRootInit {
+extension type ShadowRootInit._(JSObject _) implements JSObject {
   external factory ShadowRootInit({
     required ShadowRootMode mode,
     bool delegatesFocus,
     SlotAssignmentMode slotAssignment,
   });
-}
 
-extension ShadowRootInitExtension on ShadowRootInit {
   external set mode(ShadowRootMode value);
   external ShadowRootMode get mode;
   external set delegatesFocus(bool value);
@@ -1179,12 +1045,7 @@ extension ShadowRootInitExtension on ShadowRootInit {
   external set slotAssignment(SlotAssignmentMode value);
   external SlotAssignmentMode get slotAssignment;
 }
-
-@JS('NamedNodeMap')
-@staticInterop
-class NamedNodeMap {}
-
-extension NamedNodeMapExtension on NamedNodeMap {
+extension type NamedNodeMap._(JSObject _) implements JSObject {
   external Attr? item(int index);
   external Attr? getNamedItem(String qualifiedName);
   external Attr? getNamedItemNS(
@@ -1200,12 +1061,7 @@ extension NamedNodeMapExtension on NamedNodeMap {
   );
   external int get length;
 }
-
-@JS('Attr')
-@staticInterop
-class Attr implements Node {}
-
-extension AttrExtension on Attr {
+extension type Attr._(JSObject _) implements Node, JSObject {
   external String? get namespaceURI;
   external String? get prefix;
   external String get localName;
@@ -1215,12 +1071,7 @@ extension AttrExtension on Attr {
   external Element? get ownerElement;
   external bool get specified;
 }
-
-@JS('CharacterData')
-@staticInterop
-class CharacterData implements Node {}
-
-extension CharacterDataExtension on CharacterData {
+extension type CharacterData._(JSObject _) implements Node, JSObject {
   external String substringData(
     int offset,
     int count,
@@ -1249,14 +1100,9 @@ extension CharacterDataExtension on CharacterData {
   external Element? get previousElementSibling;
   external Element? get nextElementSibling;
 }
-
-@JS('Text')
-@staticInterop
-class Text implements CharacterData {
+extension type Text._(JSObject _) implements CharacterData, JSObject {
   external factory Text([String data]);
-}
 
-extension TextExtension on Text {
   external Text splitText(int offset);
   external JSArray getBoxQuads([BoxQuadOptions options]);
   external DOMQuad convertQuadFromNode(
@@ -1277,51 +1123,30 @@ extension TextExtension on Text {
   external String get wholeText;
   external HTMLSlotElement? get assignedSlot;
 }
-
-@JS('CDATASection')
-@staticInterop
-class CDATASection implements Text {}
-
-@JS('ProcessingInstruction')
-@staticInterop
-class ProcessingInstruction implements CharacterData {}
-
-extension ProcessingInstructionExtension on ProcessingInstruction {
+extension type CDATASection._(JSObject _) implements Text, JSObject {}
+extension type ProcessingInstruction._(JSObject _)
+    implements CharacterData, JSObject {
   external String get target;
   external CSSStyleSheet? get sheet;
 }
-
-@JS('Comment')
-@staticInterop
-class Comment implements CharacterData {
+extension type Comment._(JSObject _) implements CharacterData, JSObject {
   external factory Comment([String data]);
 }
-
-@JS('AbstractRange')
-@staticInterop
-class AbstractRange {}
-
-extension AbstractRangeExtension on AbstractRange {
+extension type AbstractRange._(JSObject _) implements JSObject {
   external Node get startContainer;
   external int get startOffset;
   external Node get endContainer;
   external int get endOffset;
   external bool get collapsed;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class StaticRangeInit {
+extension type StaticRangeInit._(JSObject _) implements JSObject {
   external factory StaticRangeInit({
     required Node startContainer,
     required int startOffset,
     required Node endContainer,
     required int endOffset,
   });
-}
 
-extension StaticRangeInitExtension on StaticRangeInit {
   external set startContainer(Node value);
   external Node get startContainer;
   external set startOffset(int value);
@@ -1331,25 +1156,16 @@ extension StaticRangeInitExtension on StaticRangeInit {
   external set endOffset(int value);
   external int get endOffset;
 }
-
-@JS('StaticRange')
-@staticInterop
-class StaticRange implements AbstractRange {
+extension type StaticRange._(JSObject _) implements AbstractRange, JSObject {
   external factory StaticRange(StaticRangeInit init);
 }
-
-@JS('Range')
-@staticInterop
-class Range implements AbstractRange {
+extension type Range._(JSObject _) implements AbstractRange, JSObject {
   external factory Range();
 
   external static int get START_TO_START;
   external static int get START_TO_END;
   external static int get END_TO_END;
   external static int get END_TO_START;
-}
-
-extension RangeExtension on Range {
   external DocumentFragment createContextualFragment(String fragment);
   external DOMRectList getClientRects();
   external DOMRect getBoundingClientRect();
@@ -1390,12 +1206,7 @@ extension RangeExtension on Range {
   external bool intersectsNode(Node node);
   external Node get commonAncestorContainer;
 }
-
-@JS('NodeIterator')
-@staticInterop
-class NodeIterator {}
-
-extension NodeIteratorExtension on NodeIterator {
+extension type NodeIterator._(JSObject _) implements JSObject {
   external Node? nextNode();
   external Node? previousNode();
   external void detach();
@@ -1405,12 +1216,7 @@ extension NodeIteratorExtension on NodeIterator {
   external int get whatToShow;
   external NodeFilter? get filter;
 }
-
-@JS('TreeWalker')
-@staticInterop
-class TreeWalker {}
-
-extension TreeWalkerExtension on TreeWalker {
+extension type TreeWalker._(JSObject _) implements JSObject {
   external Node? parentNode();
   external Node? firstChild();
   external Node? lastChild();
@@ -1424,12 +1230,7 @@ extension TreeWalkerExtension on TreeWalker {
   external set currentNode(Node value);
   external Node get currentNode;
 }
-
-@JS('DOMTokenList')
-@staticInterop
-class DOMTokenList {}
-
-extension DOMTokenListExtension on DOMTokenList {
+extension type DOMTokenList._(JSObject _) implements JSObject {
   external String? item(int index);
   external bool contains(String token);
   external void add(String tokens);
@@ -1447,10 +1248,7 @@ extension DOMTokenListExtension on DOMTokenList {
   external set value(String value);
   external String get value;
 }
-
-@JS('XPathResult')
-@staticInterop
-class XPathResult {
+extension type XPathResult._(JSObject _) implements JSObject {
   external static int get ANY_TYPE;
   external static int get NUMBER_TYPE;
   external static int get STRING_TYPE;
@@ -1461,9 +1259,6 @@ class XPathResult {
   external static int get ORDERED_NODE_SNAPSHOT_TYPE;
   external static int get ANY_UNORDERED_NODE_TYPE;
   external static int get FIRST_ORDERED_NODE_TYPE;
-}
-
-extension XPathResultExtension on XPathResult {
   external Node? iterateNext();
   external Node? snapshotItem(int index);
   external int get resultType;
@@ -1474,26 +1269,16 @@ extension XPathResultExtension on XPathResult {
   external bool get invalidIteratorState;
   external int get snapshotLength;
 }
-
-@JS('XPathExpression')
-@staticInterop
-class XPathExpression {}
-
-extension XPathExpressionExtension on XPathExpression {
+extension type XPathExpression._(JSObject _) implements JSObject {
   external XPathResult evaluate(
     Node contextNode, [
     int type,
     XPathResult? result,
   ]);
 }
-
-@JS('XPathEvaluator')
-@staticInterop
-class XPathEvaluator {
+extension type XPathEvaluator._(JSObject _) implements JSObject {
   external factory XPathEvaluator();
-}
 
-extension XPathEvaluatorExtension on XPathEvaluator {
   external XPathExpression createExpression(
     String expression, [
     XPathNSResolver? resolver,
@@ -1507,14 +1292,9 @@ extension XPathEvaluatorExtension on XPathEvaluator {
     XPathResult? result,
   ]);
 }
-
-@JS('XSLTProcessor')
-@staticInterop
-class XSLTProcessor {
+extension type XSLTProcessor._(JSObject _) implements JSObject {
   external factory XSLTProcessor();
-}
 
-extension XSLTProcessorExtension on XSLTProcessor {
   external void importStylesheet(Node style);
   external DocumentFragment transformToFragment(
     Node source,

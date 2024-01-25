@@ -13,12 +13,7 @@ import 'webidl.dart';
 typedef FileSystemWriteChunkType = JSAny;
 typedef FileSystemHandleKind = String;
 typedef WriteCommandType = String;
-
-@JS('FileSystemHandle')
-@staticInterop
-class FileSystemHandle {}
-
-extension FileSystemHandleExtension on FileSystemHandle {
+extension type FileSystemHandle._(JSObject _) implements JSObject {
   external JSPromise queryPermission(
       [FileSystemHandlePermissionDescriptor descriptor]);
   external JSPromise requestPermission(
@@ -27,72 +22,39 @@ extension FileSystemHandleExtension on FileSystemHandle {
   external FileSystemHandleKind get kind;
   external String get name;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class FileSystemCreateWritableOptions {
+extension type FileSystemCreateWritableOptions._(JSObject _)
+    implements JSObject {
   external factory FileSystemCreateWritableOptions({bool keepExistingData});
-}
 
-extension FileSystemCreateWritableOptionsExtension
-    on FileSystemCreateWritableOptions {
   external set keepExistingData(bool value);
   external bool get keepExistingData;
 }
-
-@JS('FileSystemFileHandle')
-@staticInterop
-class FileSystemFileHandle implements FileSystemHandle {}
-
-extension FileSystemFileHandleExtension on FileSystemFileHandle {
+extension type FileSystemFileHandle._(JSObject _)
+    implements FileSystemHandle, JSObject {
   external JSPromise getFile();
   external JSPromise createWritable([FileSystemCreateWritableOptions options]);
   external JSPromise createSyncAccessHandle();
 }
-
-@JS()
-@staticInterop
-@anonymous
-class FileSystemGetFileOptions {
+extension type FileSystemGetFileOptions._(JSObject _) implements JSObject {
   external factory FileSystemGetFileOptions({bool create});
-}
 
-extension FileSystemGetFileOptionsExtension on FileSystemGetFileOptions {
   external set create(bool value);
   external bool get create;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class FileSystemGetDirectoryOptions {
+extension type FileSystemGetDirectoryOptions._(JSObject _) implements JSObject {
   external factory FileSystemGetDirectoryOptions({bool create});
-}
 
-extension FileSystemGetDirectoryOptionsExtension
-    on FileSystemGetDirectoryOptions {
   external set create(bool value);
   external bool get create;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class FileSystemRemoveOptions {
+extension type FileSystemRemoveOptions._(JSObject _) implements JSObject {
   external factory FileSystemRemoveOptions({bool recursive});
-}
 
-extension FileSystemRemoveOptionsExtension on FileSystemRemoveOptions {
   external set recursive(bool value);
   external bool get recursive;
 }
-
-@JS('FileSystemDirectoryHandle')
-@staticInterop
-class FileSystemDirectoryHandle implements FileSystemHandle {}
-
-extension FileSystemDirectoryHandleExtension on FileSystemDirectoryHandle {
+extension type FileSystemDirectoryHandle._(JSObject _)
+    implements FileSystemHandle, JSObject {
   external JSPromise getFileHandle(
     String name, [
     FileSystemGetFileOptions options,
@@ -107,20 +69,14 @@ extension FileSystemDirectoryHandleExtension on FileSystemDirectoryHandle {
   ]);
   external JSPromise resolve(FileSystemHandle possibleDescendant);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class WriteParams {
+extension type WriteParams._(JSObject _) implements JSObject {
   external factory WriteParams({
     required WriteCommandType type,
     int? size,
     int? position,
     JSAny? data,
   });
-}
 
-extension WriteParamsExtension on WriteParams {
   external set type(WriteCommandType value);
   external WriteCommandType get type;
   external set size(int? value);
@@ -130,35 +86,19 @@ extension WriteParamsExtension on WriteParams {
   external set data(JSAny? value);
   external JSAny? get data;
 }
-
-@JS('FileSystemWritableFileStream')
-@staticInterop
-class FileSystemWritableFileStream implements WritableStream {}
-
-extension FileSystemWritableFileStreamExtension
-    on FileSystemWritableFileStream {
+extension type FileSystemWritableFileStream._(JSObject _)
+    implements WritableStream, JSObject {
   external JSPromise write(FileSystemWriteChunkType data);
   external JSPromise seek(int position);
   external JSPromise truncate(int size);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class FileSystemReadWriteOptions {
+extension type FileSystemReadWriteOptions._(JSObject _) implements JSObject {
   external factory FileSystemReadWriteOptions({int at});
-}
 
-extension FileSystemReadWriteOptionsExtension on FileSystemReadWriteOptions {
   external set at(int value);
   external int get at;
 }
-
-@JS('FileSystemSyncAccessHandle')
-@staticInterop
-class FileSystemSyncAccessHandle {}
-
-extension FileSystemSyncAccessHandleExtension on FileSystemSyncAccessHandle {
+extension type FileSystemSyncAccessHandle._(JSObject _) implements JSObject {
   external int read(
     AllowSharedBufferSource buffer, [
     FileSystemReadWriteOptions options,

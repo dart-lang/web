@@ -10,10 +10,8 @@ import 'payment_request.dart';
 import 'webauthn.dart';
 import 'webidl.dart';
 
-@JS()
-@staticInterop
-@anonymous
-class SecurePaymentConfirmationRequest {
+extension type SecurePaymentConfirmationRequest._(JSObject _)
+    implements JSObject {
   external factory SecurePaymentConfirmationRequest({
     required BufferSource challenge,
     required String rpId,
@@ -26,10 +24,7 @@ class SecurePaymentConfirmationRequest {
     JSArray locale,
     bool showOptOut,
   });
-}
 
-extension SecurePaymentConfirmationRequestExtension
-    on SecurePaymentConfirmationRequest {
   external set challenge(BufferSource value);
   external BufferSource get challenge;
   external set rpId(String value);
@@ -51,11 +46,8 @@ extension SecurePaymentConfirmationRequestExtension
   external set showOptOut(bool value);
   external bool get showOptOut;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AuthenticationExtensionsPaymentInputs {
+extension type AuthenticationExtensionsPaymentInputs._(JSObject _)
+    implements JSObject {
   external factory AuthenticationExtensionsPaymentInputs({
     bool isPayment,
     String rpId,
@@ -65,10 +57,7 @@ class AuthenticationExtensionsPaymentInputs {
     PaymentCurrencyAmount total,
     PaymentCredentialInstrument instrument,
   });
-}
 
-extension AuthenticationExtensionsPaymentInputsExtension
-    on AuthenticationExtensionsPaymentInputs {
   external set isPayment(bool value);
   external bool get isPayment;
   external set rpId(String value);
@@ -84,24 +73,16 @@ extension AuthenticationExtensionsPaymentInputsExtension
   external set instrument(PaymentCredentialInstrument value);
   external PaymentCredentialInstrument get instrument;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class CollectedClientPaymentData implements CollectedClientData {
+extension type CollectedClientPaymentData._(JSObject _)
+    implements CollectedClientData, JSObject {
   external factory CollectedClientPaymentData(
       {required CollectedClientAdditionalPaymentData payment});
-}
 
-extension CollectedClientPaymentDataExtension on CollectedClientPaymentData {
   external set payment(CollectedClientAdditionalPaymentData value);
   external CollectedClientAdditionalPaymentData get payment;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class CollectedClientAdditionalPaymentData {
+extension type CollectedClientAdditionalPaymentData._(JSObject _)
+    implements JSObject {
   external factory CollectedClientAdditionalPaymentData({
     required String rpId,
     required String topOrigin,
@@ -110,10 +91,7 @@ class CollectedClientAdditionalPaymentData {
     required PaymentCurrencyAmount total,
     required PaymentCredentialInstrument instrument,
   });
-}
 
-extension CollectedClientAdditionalPaymentDataExtension
-    on CollectedClientAdditionalPaymentData {
   external set rpId(String value);
   external String get rpId;
   external set topOrigin(String value);
@@ -127,19 +105,13 @@ extension CollectedClientAdditionalPaymentDataExtension
   external set instrument(PaymentCredentialInstrument value);
   external PaymentCredentialInstrument get instrument;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PaymentCredentialInstrument {
+extension type PaymentCredentialInstrument._(JSObject _) implements JSObject {
   external factory PaymentCredentialInstrument({
     required String displayName,
     required String icon,
     bool iconMustBeShown,
   });
-}
 
-extension PaymentCredentialInstrumentExtension on PaymentCredentialInstrument {
   external set displayName(String value);
   external String get displayName;
   external set icon(String value);

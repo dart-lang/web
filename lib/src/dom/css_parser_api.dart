@@ -8,95 +8,63 @@ import 'dart:js_interop';
 
 typedef CSSStringSource = JSAny;
 typedef CSSToken = JSAny;
-
-@JS()
-@staticInterop
-@anonymous
-class CSSParserOptions {
+extension type CSSParserOptions._(JSObject _) implements JSObject {
   external factory CSSParserOptions({JSObject atRules});
-}
 
-extension CSSParserOptionsExtension on CSSParserOptions {
   external set atRules(JSObject value);
   external JSObject get atRules;
 }
-
-@JS('CSSParserRule')
-@staticInterop
-class CSSParserRule {}
-
-@JS('CSSParserAtRule')
-@staticInterop
-class CSSParserAtRule implements CSSParserRule {
+extension type CSSParserRule._(JSObject _) implements JSObject {}
+extension type CSSParserAtRule._(JSObject _)
+    implements CSSParserRule, JSObject {
   external factory CSSParserAtRule(
     String name,
     JSArray prelude, [
     JSArray? body,
   ]);
-}
 
-extension CSSParserAtRuleExtension on CSSParserAtRule {
   external String get name;
   external JSArray get prelude;
   external JSArray? get body;
 }
-
-@JS('CSSParserQualifiedRule')
-@staticInterop
-class CSSParserQualifiedRule implements CSSParserRule {
+extension type CSSParserQualifiedRule._(JSObject _)
+    implements CSSParserRule, JSObject {
   external factory CSSParserQualifiedRule(
     JSArray prelude, [
     JSArray? body,
   ]);
-}
 
-extension CSSParserQualifiedRuleExtension on CSSParserQualifiedRule {
   external JSArray get prelude;
   external JSArray get body;
 }
-
-@JS('CSSParserDeclaration')
-@staticInterop
-class CSSParserDeclaration implements CSSParserRule {
+extension type CSSParserDeclaration._(JSObject _)
+    implements CSSParserRule, JSObject {
   external factory CSSParserDeclaration(
     String name, [
     JSArray body,
   ]);
-}
 
-extension CSSParserDeclarationExtension on CSSParserDeclaration {
   external String get name;
   external JSArray get body;
 }
-
-@JS('CSSParserValue')
-@staticInterop
-class CSSParserValue {}
-
-@JS('CSSParserBlock')
-@staticInterop
-class CSSParserBlock implements CSSParserValue {
+extension type CSSParserValue._(JSObject _) implements JSObject {}
+extension type CSSParserBlock._(JSObject _)
+    implements CSSParserValue, JSObject {
   external factory CSSParserBlock(
     String name,
     JSArray body,
   );
-}
 
-extension CSSParserBlockExtension on CSSParserBlock {
   external String get name;
   external JSArray get body;
 }
-
-@JS('CSSParserFunction')
-@staticInterop
-class CSSParserFunction implements CSSParserValue {
+extension type CSSParserFunction._(JSObject _)
+    implements CSSParserValue, JSObject {
   external factory CSSParserFunction(
     String name,
     JSArray args,
   );
-}
 
-extension CSSParserFunctionExtension on CSSParserFunction {
   external String get name;
   external JSArray get args;
 }

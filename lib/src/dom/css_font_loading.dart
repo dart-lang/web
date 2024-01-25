@@ -12,11 +12,7 @@ import 'html.dart';
 typedef BinaryData = JSObject;
 typedef FontFaceLoadStatus = String;
 typedef FontFaceSetLoadStatus = String;
-
-@JS()
-@staticInterop
-@anonymous
-class FontFaceDescriptors {
+extension type FontFaceDescriptors._(JSObject _) implements JSObject {
   external factory FontFaceDescriptors({
     String style,
     String weight,
@@ -29,9 +25,7 @@ class FontFaceDescriptors {
     String descentOverride,
     String lineGapOverride,
   });
-}
 
-extension FontFaceDescriptorsExtension on FontFaceDescriptors {
   external set style(String value);
   external String get style;
   external set weight(String value);
@@ -53,18 +47,13 @@ extension FontFaceDescriptorsExtension on FontFaceDescriptors {
   external set lineGapOverride(String value);
   external String get lineGapOverride;
 }
-
-@JS('FontFace')
-@staticInterop
-class FontFace {
+extension type FontFace._(JSObject _) implements JSObject {
   external factory FontFace(
     String family,
     JSAny source, [
     FontFaceDescriptors descriptors,
   ]);
-}
 
-extension FontFaceExtension on FontFace {
   external JSPromise load();
   external set family(String value);
   external String get family;
@@ -94,79 +83,41 @@ extension FontFaceExtension on FontFace {
   external FontFaceVariations get variations;
   external FontFacePalettes get palettes;
 }
-
-@JS('FontFaceFeatures')
-@staticInterop
-class FontFaceFeatures {}
-
-@JS('FontFaceVariationAxis')
-@staticInterop
-class FontFaceVariationAxis {}
-
-extension FontFaceVariationAxisExtension on FontFaceVariationAxis {
+extension type FontFaceFeatures._(JSObject _) implements JSObject {}
+extension type FontFaceVariationAxis._(JSObject _) implements JSObject {
   external String get name;
   external String get axisTag;
   external num get minimumValue;
   external num get maximumValue;
   external num get defaultValue;
 }
-
-@JS('FontFaceVariations')
-@staticInterop
-class FontFaceVariations {}
-
-extension FontFaceVariationsExtension on FontFaceVariations {}
-
-@JS('FontFacePalette')
-@staticInterop
-class FontFacePalette {}
-
-extension FontFacePaletteExtension on FontFacePalette {
+extension type FontFaceVariations._(JSObject _) implements JSObject {}
+extension type FontFacePalette._(JSObject _) implements JSObject {
   external int get length;
   external bool get usableWithLightBackground;
   external bool get usableWithDarkBackground;
 }
-
-@JS('FontFacePalettes')
-@staticInterop
-class FontFacePalettes {}
-
-extension FontFacePalettesExtension on FontFacePalettes {
+extension type FontFacePalettes._(JSObject _) implements JSObject {
   external int get length;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class FontFaceSetLoadEventInit implements EventInit {
+extension type FontFaceSetLoadEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory FontFaceSetLoadEventInit({JSArray fontfaces});
-}
 
-extension FontFaceSetLoadEventInitExtension on FontFaceSetLoadEventInit {
   external set fontfaces(JSArray value);
   external JSArray get fontfaces;
 }
-
-@JS('FontFaceSetLoadEvent')
-@staticInterop
-class FontFaceSetLoadEvent implements Event {
+extension type FontFaceSetLoadEvent._(JSObject _) implements Event, JSObject {
   external factory FontFaceSetLoadEvent(
     String type, [
     FontFaceSetLoadEventInit eventInitDict,
   ]);
-}
 
-extension FontFaceSetLoadEventExtension on FontFaceSetLoadEvent {
   external JSArray get fontfaces;
 }
-
-@JS('FontFaceSet')
-@staticInterop
-class FontFaceSet implements EventTarget {
+extension type FontFaceSet._(JSObject _) implements EventTarget, JSObject {
   external factory FontFaceSet(JSArray initialFaces);
-}
 
-extension FontFaceSetExtension on FontFaceSet {
   external FontFaceSet add(FontFace font);
   external bool delete(FontFace font);
   external void clear();

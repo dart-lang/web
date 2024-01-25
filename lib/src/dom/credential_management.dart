@@ -13,45 +13,24 @@ import 'webauthn.dart';
 
 typedef PasswordCredentialInit = JSObject;
 typedef CredentialMediationRequirement = String;
-
-@JS('Credential')
-@staticInterop
-class Credential {
+extension type Credential._(JSObject _) implements JSObject {
   external static JSPromise isConditionalMediationAvailable();
-}
-
-extension CredentialExtension on Credential {
   external String get id;
   external String get type;
 }
-
-@JS('CredentialsContainer')
-@staticInterop
-class CredentialsContainer {}
-
-extension CredentialsContainerExtension on CredentialsContainer {
+extension type CredentialsContainer._(JSObject _) implements JSObject {
   external JSPromise get([CredentialRequestOptions options]);
   external JSPromise store(Credential credential);
   external JSPromise create([CredentialCreationOptions options]);
   external JSPromise preventSilentAccess();
 }
-
-@JS()
-@staticInterop
-@anonymous
-class CredentialData {
+extension type CredentialData._(JSObject _) implements JSObject {
   external factory CredentialData({required String id});
-}
 
-extension CredentialDataExtension on CredentialData {
   external set id(String value);
   external String get id;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class CredentialRequestOptions {
+extension type CredentialRequestOptions._(JSObject _) implements JSObject {
   external factory CredentialRequestOptions({
     IdentityCredentialRequestOptions identity,
     CredentialMediationRequirement mediation,
@@ -61,9 +40,7 @@ class CredentialRequestOptions {
     OTPCredentialRequestOptions otp,
     PublicKeyCredentialRequestOptions publicKey,
   });
-}
 
-extension CredentialRequestOptionsExtension on CredentialRequestOptions {
   external set identity(IdentityCredentialRequestOptions value);
   external IdentityCredentialRequestOptions get identity;
   external set mediation(CredentialMediationRequirement value);
@@ -79,20 +56,14 @@ extension CredentialRequestOptionsExtension on CredentialRequestOptions {
   external set publicKey(PublicKeyCredentialRequestOptions value);
   external PublicKeyCredentialRequestOptions get publicKey;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class CredentialCreationOptions {
+extension type CredentialCreationOptions._(JSObject _) implements JSObject {
   external factory CredentialCreationOptions({
     AbortSignal signal,
     PasswordCredentialInit password,
     FederatedCredentialInit federated,
     PublicKeyCredentialCreationOptions publicKey,
   });
-}
 
-extension CredentialCreationOptionsExtension on CredentialCreationOptions {
   external set signal(AbortSignal value);
   external AbortSignal get signal;
   external set password(PasswordCredentialInit value);
@@ -102,32 +73,23 @@ extension CredentialCreationOptionsExtension on CredentialCreationOptions {
   external set publicKey(PublicKeyCredentialCreationOptions value);
   external PublicKeyCredentialCreationOptions get publicKey;
 }
-
-@JS('PasswordCredential')
-@staticInterop
-class PasswordCredential implements Credential {
+extension type PasswordCredential._(JSObject _)
+    implements Credential, JSObject {
   external factory PasswordCredential(JSObject dataOrForm);
-}
 
-extension PasswordCredentialExtension on PasswordCredential {
   external String get password;
   external String get name;
   external String get iconURL;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PasswordCredentialData implements CredentialData {
+extension type PasswordCredentialData._(JSObject _)
+    implements CredentialData, JSObject {
   external factory PasswordCredentialData({
     String name,
     String iconURL,
     required String origin,
     required String password,
   });
-}
 
-extension PasswordCredentialDataExtension on PasswordCredentialData {
   external set name(String value);
   external String get name;
   external set iconURL(String value);
@@ -137,42 +99,29 @@ extension PasswordCredentialDataExtension on PasswordCredentialData {
   external set password(String value);
   external String get password;
 }
-
-@JS('FederatedCredential')
-@staticInterop
-class FederatedCredential implements Credential {
+extension type FederatedCredential._(JSObject _)
+    implements Credential, JSObject {
   external factory FederatedCredential(FederatedCredentialInit data);
-}
 
-extension FederatedCredentialExtension on FederatedCredential {
   external String get provider;
   external String? get protocol;
   external String get name;
   external String get iconURL;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class FederatedCredentialRequestOptions {
+extension type FederatedCredentialRequestOptions._(JSObject _)
+    implements JSObject {
   external factory FederatedCredentialRequestOptions({
     JSArray providers,
     JSArray protocols,
   });
-}
 
-extension FederatedCredentialRequestOptionsExtension
-    on FederatedCredentialRequestOptions {
   external set providers(JSArray value);
   external JSArray get providers;
   external set protocols(JSArray value);
   external JSArray get protocols;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class FederatedCredentialInit implements CredentialData {
+extension type FederatedCredentialInit._(JSObject _)
+    implements CredentialData, JSObject {
   external factory FederatedCredentialInit({
     String name,
     String iconURL,
@@ -180,9 +129,7 @@ class FederatedCredentialInit implements CredentialData {
     required String provider,
     String protocol,
   });
-}
 
-extension FederatedCredentialInitExtension on FederatedCredentialInit {
   external set name(String value);
   external String get name;
   external set iconURL(String value);

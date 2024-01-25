@@ -10,61 +10,37 @@ import 'generic_sensor.dart';
 
 typedef RotationMatrixType = JSObject;
 typedef OrientationSensorLocalCoordinateSystem = String;
-
-@JS('OrientationSensor')
-@staticInterop
-class OrientationSensor implements Sensor {}
-
-extension OrientationSensorExtension on OrientationSensor {
+extension type OrientationSensor._(JSObject _) implements Sensor, JSObject {
   external void populateMatrix(RotationMatrixType targetMatrix);
   external JSArray? get quaternion;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class OrientationSensorOptions implements SensorOptions {
+extension type OrientationSensorOptions._(JSObject _)
+    implements SensorOptions, JSObject {
   external factory OrientationSensorOptions(
       {OrientationSensorLocalCoordinateSystem referenceFrame});
-}
 
-extension OrientationSensorOptionsExtension on OrientationSensorOptions {
   external set referenceFrame(OrientationSensorLocalCoordinateSystem value);
   external OrientationSensorLocalCoordinateSystem get referenceFrame;
 }
-
-@JS('AbsoluteOrientationSensor')
-@staticInterop
-class AbsoluteOrientationSensor implements OrientationSensor {
+extension type AbsoluteOrientationSensor._(JSObject _)
+    implements OrientationSensor, JSObject {
   external factory AbsoluteOrientationSensor(
       [OrientationSensorOptions sensorOptions]);
 }
-
-@JS('RelativeOrientationSensor')
-@staticInterop
-class RelativeOrientationSensor implements OrientationSensor {
+extension type RelativeOrientationSensor._(JSObject _)
+    implements OrientationSensor, JSObject {
   external factory RelativeOrientationSensor(
       [OrientationSensorOptions sensorOptions]);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AbsoluteOrientationReadingValues {
+extension type AbsoluteOrientationReadingValues._(JSObject _)
+    implements JSObject {
   external factory AbsoluteOrientationReadingValues(
       {required JSArray? quaternion});
-}
 
-extension AbsoluteOrientationReadingValuesExtension
-    on AbsoluteOrientationReadingValues {
   external set quaternion(JSArray? value);
   external JSArray? get quaternion;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RelativeOrientationReadingValues
-    implements AbsoluteOrientationReadingValues {
+extension type RelativeOrientationReadingValues._(JSObject _)
+    implements AbsoluteOrientationReadingValues, JSObject {
   external factory RelativeOrientationReadingValues();
 }

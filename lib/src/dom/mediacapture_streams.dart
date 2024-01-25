@@ -27,14 +27,9 @@ typedef MediaStreamTrackState = String;
 typedef VideoFacingModeEnum = String;
 typedef VideoResizeModeEnum = String;
 typedef MediaDeviceKind = String;
-
-@JS('MediaStream')
-@staticInterop
-class MediaStream implements EventTarget {
+extension type MediaStream._(JSObject _) implements EventTarget, JSObject {
   external factory MediaStream([JSObject streamOrTracks]);
-}
 
-extension MediaStreamExtension on MediaStream {
   external JSArray getAudioTracks();
   external JSArray getVideoTracks();
   external JSArray getTracks();
@@ -49,12 +44,7 @@ extension MediaStreamExtension on MediaStream {
   external set onremovetrack(EventHandler value);
   external EventHandler get onremovetrack;
 }
-
-@JS('MediaStreamTrack')
-@staticInterop
-class MediaStreamTrack implements EventTarget {}
-
-extension MediaStreamTrackExtension on MediaStreamTrack {
+extension type MediaStreamTrack._(JSObject _) implements EventTarget, JSObject {
   external CaptureHandle? getCaptureHandle();
   external JSArray getSupportedCaptureActions();
   external JSPromise sendCaptureAction(CaptureAction action);
@@ -85,11 +75,8 @@ extension MediaStreamTrackExtension on MediaStreamTrack {
   external set onisolationchange(EventHandler value);
   external EventHandler get onisolationchange;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaTrackSupportedConstraints {
+extension type MediaTrackSupportedConstraints._(JSObject _)
+    implements JSObject {
   external factory MediaTrackSupportedConstraints({
     bool whiteBalanceMode,
     bool exposureMode,
@@ -129,10 +116,7 @@ class MediaTrackSupportedConstraints {
     bool restrictOwnAudio,
     bool suppressLocalAudioPlayback,
   });
-}
 
-extension MediaTrackSupportedConstraintsExtension
-    on MediaTrackSupportedConstraints {
   external set whiteBalanceMode(bool value);
   external bool get whiteBalanceMode;
   external set exposureMode(bool value);
@@ -208,11 +192,7 @@ extension MediaTrackSupportedConstraintsExtension
   external set suppressLocalAudioPlayback(bool value);
   external bool get suppressLocalAudioPlayback;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaTrackCapabilities {
+extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
   external factory MediaTrackCapabilities({
     JSArray whiteBalanceMode,
     JSArray exposureMode,
@@ -249,9 +229,7 @@ class MediaTrackCapabilities {
     bool logicalSurface,
     JSArray cursor,
   });
-}
 
-extension MediaTrackCapabilitiesExtension on MediaTrackCapabilities {
   external set whiteBalanceMode(JSArray value);
   external JSArray get whiteBalanceMode;
   external set exposureMode(JSArray value);
@@ -321,23 +299,14 @@ extension MediaTrackCapabilitiesExtension on MediaTrackCapabilities {
   external set cursor(JSArray value);
   external JSArray get cursor;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaTrackConstraints implements MediaTrackConstraintSet {
+extension type MediaTrackConstraints._(JSObject _)
+    implements MediaTrackConstraintSet, JSObject {
   external factory MediaTrackConstraints({JSArray advanced});
-}
 
-extension MediaTrackConstraintsExtension on MediaTrackConstraints {
   external set advanced(JSArray value);
   external JSArray get advanced;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaTrackConstraintSet {
+extension type MediaTrackConstraintSet._(JSObject _) implements JSObject {
   external factory MediaTrackConstraintSet({
     ConstrainDOMString whiteBalanceMode,
     ConstrainDOMString exposureMode,
@@ -377,9 +346,7 @@ class MediaTrackConstraintSet {
     ConstrainBoolean restrictOwnAudio,
     ConstrainBoolean suppressLocalAudioPlayback,
   });
-}
 
-extension MediaTrackConstraintSetExtension on MediaTrackConstraintSet {
   external set whiteBalanceMode(ConstrainDOMString value);
   external ConstrainDOMString get whiteBalanceMode;
   external set exposureMode(ConstrainDOMString value);
@@ -455,11 +422,7 @@ extension MediaTrackConstraintSetExtension on MediaTrackConstraintSet {
   external set suppressLocalAudioPlayback(ConstrainBoolean value);
   external ConstrainBoolean get suppressLocalAudioPlayback;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaTrackSettings {
+extension type MediaTrackSettings._(JSObject _) implements JSObject {
   external factory MediaTrackSettings({
     String whiteBalanceMode,
     String exposureMode,
@@ -499,9 +462,7 @@ class MediaTrackSettings {
     bool restrictOwnAudio,
     bool suppressLocalAudioPlayback,
   });
-}
 
-extension MediaTrackSettingsExtension on MediaTrackSettings {
   external set whiteBalanceMode(String value);
   external String get whiteBalanceMode;
   external set exposureMode(String value);
@@ -577,50 +538,31 @@ extension MediaTrackSettingsExtension on MediaTrackSettings {
   external set suppressLocalAudioPlayback(bool value);
   external bool get suppressLocalAudioPlayback;
 }
-
-@JS('MediaStreamTrackEvent')
-@staticInterop
-class MediaStreamTrackEvent implements Event {
+extension type MediaStreamTrackEvent._(JSObject _) implements Event, JSObject {
   external factory MediaStreamTrackEvent(
     String type,
     MediaStreamTrackEventInit eventInitDict,
   );
-}
 
-extension MediaStreamTrackEventExtension on MediaStreamTrackEvent {
   external MediaStreamTrack get track;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaStreamTrackEventInit implements EventInit {
+extension type MediaStreamTrackEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory MediaStreamTrackEventInit({required MediaStreamTrack track});
-}
 
-extension MediaStreamTrackEventInitExtension on MediaStreamTrackEventInit {
   external set track(MediaStreamTrack value);
   external MediaStreamTrack get track;
 }
-
-@JS('OverconstrainedError')
-@staticInterop
-class OverconstrainedError implements DOMException {
+extension type OverconstrainedError._(JSObject _)
+    implements DOMException, JSObject {
   external factory OverconstrainedError(
     String constraint, [
     String message,
   ]);
-}
 
-extension OverconstrainedErrorExtension on OverconstrainedError {
   external String get constraint;
 }
-
-@JS('MediaDevices')
-@staticInterop
-class MediaDevices implements EventTarget {}
-
-extension MediaDevicesExtension on MediaDevices {
+extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {
   external JSPromise selectAudioOutput([AudioOutputOptions options]);
   external void setCaptureHandleConfig([CaptureHandleConfig config]);
   external void setSupportedCaptureActions(JSArray actions);
@@ -635,40 +577,25 @@ extension MediaDevicesExtension on MediaDevices {
   external set ondevicechange(EventHandler value);
   external EventHandler get ondevicechange;
 }
-
-@JS('MediaDeviceInfo')
-@staticInterop
-class MediaDeviceInfo {}
-
-extension MediaDeviceInfoExtension on MediaDeviceInfo {
+extension type MediaDeviceInfo._(JSObject _) implements JSObject {
   external JSObject toJSON();
   external String get deviceId;
   external MediaDeviceKind get kind;
   external String get label;
   external String get groupId;
 }
-
-@JS('InputDeviceInfo')
-@staticInterop
-class InputDeviceInfo implements MediaDeviceInfo {}
-
-extension InputDeviceInfoExtension on InputDeviceInfo {
+extension type InputDeviceInfo._(JSObject _)
+    implements MediaDeviceInfo, JSObject {
   external MediaTrackCapabilities getCapabilities();
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaStreamConstraints {
+extension type MediaStreamConstraints._(JSObject _) implements JSObject {
   external factory MediaStreamConstraints({
     JSAny video,
     JSAny audio,
     bool preferCurrentTab,
     String peerIdentity,
   });
-}
 
-extension MediaStreamConstraintsExtension on MediaStreamConstraints {
   external set video(JSAny value);
   external JSAny get video;
   external set audio(JSAny value);
@@ -678,119 +605,78 @@ extension MediaStreamConstraintsExtension on MediaStreamConstraints {
   external set peerIdentity(String value);
   external String get peerIdentity;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class DoubleRange {
+extension type DoubleRange._(JSObject _) implements JSObject {
   external factory DoubleRange({
     num max,
     num min,
   });
-}
 
-extension DoubleRangeExtension on DoubleRange {
   external set max(num value);
   external num get max;
   external set min(num value);
   external num get min;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ConstrainDoubleRange implements DoubleRange {
+extension type ConstrainDoubleRange._(JSObject _)
+    implements DoubleRange, JSObject {
   external factory ConstrainDoubleRange({
     num exact,
     num ideal,
   });
-}
 
-extension ConstrainDoubleRangeExtension on ConstrainDoubleRange {
   external set exact(num value);
   external num get exact;
   external set ideal(num value);
   external num get ideal;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ULongRange {
+extension type ULongRange._(JSObject _) implements JSObject {
   external factory ULongRange({
     int max,
     int min,
   });
-}
 
-extension ULongRangeExtension on ULongRange {
   external set max(int value);
   external int get max;
   external set min(int value);
   external int get min;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ConstrainULongRange implements ULongRange {
+extension type ConstrainULongRange._(JSObject _)
+    implements ULongRange, JSObject {
   external factory ConstrainULongRange({
     int exact,
     int ideal,
   });
-}
 
-extension ConstrainULongRangeExtension on ConstrainULongRange {
   external set exact(int value);
   external int get exact;
   external set ideal(int value);
   external int get ideal;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ConstrainBooleanParameters {
+extension type ConstrainBooleanParameters._(JSObject _) implements JSObject {
   external factory ConstrainBooleanParameters({
     bool exact,
     bool ideal,
   });
-}
 
-extension ConstrainBooleanParametersExtension on ConstrainBooleanParameters {
   external set exact(bool value);
   external bool get exact;
   external set ideal(bool value);
   external bool get ideal;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ConstrainDOMStringParameters {
+extension type ConstrainDOMStringParameters._(JSObject _) implements JSObject {
   external factory ConstrainDOMStringParameters({
     JSAny exact,
     JSAny ideal,
   });
-}
 
-extension ConstrainDOMStringParametersExtension
-    on ConstrainDOMStringParameters {
   external set exact(JSAny value);
   external JSAny get exact;
   external set ideal(JSAny value);
   external JSAny get ideal;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class CameraDevicePermissionDescriptor implements PermissionDescriptor {
+extension type CameraDevicePermissionDescriptor._(JSObject _)
+    implements PermissionDescriptor, JSObject {
   external factory CameraDevicePermissionDescriptor({bool panTiltZoom});
-}
 
-extension CameraDevicePermissionDescriptorExtension
-    on CameraDevicePermissionDescriptor {
   external set panTiltZoom(bool value);
   external bool get panTiltZoom;
 }

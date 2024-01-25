@@ -8,70 +8,42 @@ import 'dart:js_interop';
 
 typedef ReportList = JSArray;
 typedef ReportingObserverCallback = JSFunction;
-
-@JS('ReportBody')
-@staticInterop
-class ReportBody {}
-
-extension ReportBodyExtension on ReportBody {
+extension type ReportBody._(JSObject _) implements JSObject {
   external JSObject toJSON();
 }
-
-@JS('Report')
-@staticInterop
-class Report {}
-
-extension ReportExtension on Report {
+extension type Report._(JSObject _) implements JSObject {
   external JSObject toJSON();
   external String get type;
   external String get url;
   external ReportBody? get body;
 }
-
-@JS('ReportingObserver')
-@staticInterop
-class ReportingObserver {
+extension type ReportingObserver._(JSObject _) implements JSObject {
   external factory ReportingObserver(
     ReportingObserverCallback callback, [
     ReportingObserverOptions options,
   ]);
-}
 
-extension ReportingObserverExtension on ReportingObserver {
   external void observe();
   external void disconnect();
   external ReportList takeRecords();
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ReportingObserverOptions {
+extension type ReportingObserverOptions._(JSObject _) implements JSObject {
   external factory ReportingObserverOptions({
     JSArray types,
     bool buffered,
   });
-}
 
-extension ReportingObserverOptionsExtension on ReportingObserverOptions {
   external set types(JSArray value);
   external JSArray get types;
   external set buffered(bool value);
   external bool get buffered;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class GenerateTestReportParameters {
+extension type GenerateTestReportParameters._(JSObject _) implements JSObject {
   external factory GenerateTestReportParameters({
     required String message,
     String group,
   });
-}
 
-extension GenerateTestReportParametersExtension
-    on GenerateTestReportParameters {
   external set message(String value);
   external String get message;
   external set group(String value);

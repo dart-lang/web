@@ -9,14 +9,9 @@ import 'dart:js_interop';
 import 'webcryptoapi.dart';
 import 'webidl.dart';
 
-@JS()
-@staticInterop
-@anonymous
-class Ed448Params implements Algorithm {
+extension type Ed448Params._(JSObject _) implements Algorithm, JSObject {
   external factory Ed448Params({BufferSource context});
-}
 
-extension Ed448ParamsExtension on Ed448Params {
   external set context(BufferSource value);
   external BufferSource get context;
 }

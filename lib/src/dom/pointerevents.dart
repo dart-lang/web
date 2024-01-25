@@ -8,10 +8,8 @@ import 'dart:js_interop';
 
 import 'uievents.dart';
 
-@JS()
-@staticInterop
-@anonymous
-class PointerEventInit implements MouseEventInit {
+extension type PointerEventInit._(JSObject _)
+    implements MouseEventInit, JSObject {
   external factory PointerEventInit({
     int pointerId,
     num width,
@@ -28,9 +26,7 @@ class PointerEventInit implements MouseEventInit {
     JSArray coalescedEvents,
     JSArray predictedEvents,
   });
-}
 
-extension PointerEventInitExtension on PointerEventInit {
   external set pointerId(int value);
   external int get pointerId;
   external set width(num value);
@@ -60,17 +56,12 @@ extension PointerEventInitExtension on PointerEventInit {
   external set predictedEvents(JSArray value);
   external JSArray get predictedEvents;
 }
-
-@JS('PointerEvent')
-@staticInterop
-class PointerEvent implements MouseEvent {
+extension type PointerEvent._(JSObject _) implements MouseEvent, JSObject {
   external factory PointerEvent(
     String type, [
     PointerEventInit eventInitDict,
   ]);
-}
 
-extension PointerEventExtension on PointerEvent {
   external JSArray getCoalescedEvents();
   external JSArray getPredictedEvents();
   external int get pointerId;

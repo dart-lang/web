@@ -27,12 +27,7 @@ typedef OscillatorType = String;
 typedef PanningModelType = String;
 typedef DistanceModelType = String;
 typedef OverSampleType = String;
-
-@JS('BaseAudioContext')
-@staticInterop
-class BaseAudioContext implements EventTarget {}
-
-extension BaseAudioContextExtension on BaseAudioContext {
+extension type BaseAudioContext._(JSObject _) implements EventTarget, JSObject {
   external AnalyserNode createAnalyser();
   external BiquadFilterNode createBiquadFilter();
   external AudioBuffer createBuffer(
@@ -81,14 +76,10 @@ extension BaseAudioContextExtension on BaseAudioContext {
   external set onstatechange(EventHandler value);
   external EventHandler get onstatechange;
 }
-
-@JS('AudioContext')
-@staticInterop
-class AudioContext implements BaseAudioContext {
+extension type AudioContext._(JSObject _)
+    implements BaseAudioContext, JSObject {
   external factory AudioContext([AudioContextOptions contextOptions]);
-}
 
-extension AudioContextExtension on AudioContext {
   external AudioTimestamp getOutputTimestamp();
   external JSPromise resume();
   external JSPromise suspend();
@@ -108,20 +99,14 @@ extension AudioContextExtension on AudioContext {
   external set onsinkchange(EventHandler value);
   external EventHandler get onsinkchange;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AudioContextOptions {
+extension type AudioContextOptions._(JSObject _) implements JSObject {
   external factory AudioContextOptions({
     JSAny latencyHint,
     num sampleRate,
     JSAny sinkId,
     JSAny renderSizeHint,
   });
-}
 
-extension AudioContextOptionsExtension on AudioContextOptions {
   external set latencyHint(JSAny value);
   external JSAny get latencyHint;
   external set sampleRate(num value);
@@ -131,97 +116,60 @@ extension AudioContextOptionsExtension on AudioContextOptions {
   external set renderSizeHint(JSAny value);
   external JSAny get renderSizeHint;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AudioSinkOptions {
+extension type AudioSinkOptions._(JSObject _) implements JSObject {
   external factory AudioSinkOptions({required AudioSinkType type});
-}
 
-extension AudioSinkOptionsExtension on AudioSinkOptions {
   external set type(AudioSinkType value);
   external AudioSinkType get type;
 }
-
-@JS('AudioSinkInfo')
-@staticInterop
-class AudioSinkInfo {}
-
-extension AudioSinkInfoExtension on AudioSinkInfo {
+extension type AudioSinkInfo._(JSObject _) implements JSObject {
   external AudioSinkType get type;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AudioTimestamp {
+extension type AudioTimestamp._(JSObject _) implements JSObject {
   external factory AudioTimestamp({
     num contextTime,
     DOMHighResTimeStamp performanceTime,
   });
-}
 
-extension AudioTimestampExtension on AudioTimestamp {
   external set contextTime(num value);
   external num get contextTime;
   external set performanceTime(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get performanceTime;
 }
-
-@JS('AudioRenderCapacity')
-@staticInterop
-class AudioRenderCapacity implements EventTarget {}
-
-extension AudioRenderCapacityExtension on AudioRenderCapacity {
+extension type AudioRenderCapacity._(JSObject _)
+    implements EventTarget, JSObject {
   external void start([AudioRenderCapacityOptions options]);
   external void stop();
   external set onupdate(EventHandler value);
   external EventHandler get onupdate;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AudioRenderCapacityOptions {
+extension type AudioRenderCapacityOptions._(JSObject _) implements JSObject {
   external factory AudioRenderCapacityOptions({num updateInterval});
-}
 
-extension AudioRenderCapacityOptionsExtension on AudioRenderCapacityOptions {
   external set updateInterval(num value);
   external num get updateInterval;
 }
-
-@JS('AudioRenderCapacityEvent')
-@staticInterop
-class AudioRenderCapacityEvent implements Event {
+extension type AudioRenderCapacityEvent._(JSObject _)
+    implements Event, JSObject {
   external factory AudioRenderCapacityEvent(
     String type, [
     AudioRenderCapacityEventInit eventInitDict,
   ]);
-}
 
-extension AudioRenderCapacityEventExtension on AudioRenderCapacityEvent {
   external num get timestamp;
   external num get averageLoad;
   external num get peakLoad;
   external num get underrunRatio;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AudioRenderCapacityEventInit implements EventInit {
+extension type AudioRenderCapacityEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory AudioRenderCapacityEventInit({
     num timestamp,
     num averageLoad,
     num peakLoad,
     num underrunRatio,
   });
-}
 
-extension AudioRenderCapacityEventInitExtension
-    on AudioRenderCapacityEventInit {
   external set timestamp(num value);
   external num get timestamp;
   external set averageLoad(num value);
@@ -231,18 +179,14 @@ extension AudioRenderCapacityEventInitExtension
   external set underrunRatio(num value);
   external num get underrunRatio;
 }
-
-@JS('OfflineAudioContext')
-@staticInterop
-class OfflineAudioContext implements BaseAudioContext {
+extension type OfflineAudioContext._(JSObject _)
+    implements BaseAudioContext, JSObject {
   external factory OfflineAudioContext(
     JSAny contextOptionsOrNumberOfChannels, [
     int length,
     num sampleRate,
   ]);
-}
 
-extension OfflineAudioContextExtension on OfflineAudioContext {
   external JSPromise startRendering();
   external JSPromise resume();
   external JSPromise suspend(num suspendTime);
@@ -250,20 +194,14 @@ extension OfflineAudioContextExtension on OfflineAudioContext {
   external set oncomplete(EventHandler value);
   external EventHandler get oncomplete;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class OfflineAudioContextOptions {
+extension type OfflineAudioContextOptions._(JSObject _) implements JSObject {
   external factory OfflineAudioContextOptions({
     int numberOfChannels,
     required int length,
     required num sampleRate,
     JSAny renderSizeHint,
   });
-}
 
-extension OfflineAudioContextOptionsExtension on OfflineAudioContextOptions {
   external set numberOfChannels(int value);
   external int get numberOfChannels;
   external set length(int value);
@@ -273,41 +211,26 @@ extension OfflineAudioContextOptionsExtension on OfflineAudioContextOptions {
   external set renderSizeHint(JSAny value);
   external JSAny get renderSizeHint;
 }
-
-@JS('OfflineAudioCompletionEvent')
-@staticInterop
-class OfflineAudioCompletionEvent implements Event {
+extension type OfflineAudioCompletionEvent._(JSObject _)
+    implements Event, JSObject {
   external factory OfflineAudioCompletionEvent(
     String type,
     OfflineAudioCompletionEventInit eventInitDict,
   );
-}
 
-extension OfflineAudioCompletionEventExtension on OfflineAudioCompletionEvent {
   external AudioBuffer get renderedBuffer;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class OfflineAudioCompletionEventInit implements EventInit {
+extension type OfflineAudioCompletionEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory OfflineAudioCompletionEventInit(
       {required AudioBuffer renderedBuffer});
-}
 
-extension OfflineAudioCompletionEventInitExtension
-    on OfflineAudioCompletionEventInit {
   external set renderedBuffer(AudioBuffer value);
   external AudioBuffer get renderedBuffer;
 }
-
-@JS('AudioBuffer')
-@staticInterop
-class AudioBuffer {
+extension type AudioBuffer._(JSObject _) implements JSObject {
   external factory AudioBuffer(AudioBufferOptions options);
-}
 
-extension AudioBufferExtension on AudioBuffer {
   external JSFloat32Array getChannelData(int channel);
   external void copyFromChannel(
     JSFloat32Array destination,
@@ -324,19 +247,13 @@ extension AudioBufferExtension on AudioBuffer {
   external num get duration;
   external int get numberOfChannels;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AudioBufferOptions {
+extension type AudioBufferOptions._(JSObject _) implements JSObject {
   external factory AudioBufferOptions({
     int numberOfChannels,
     required int length,
     required num sampleRate,
   });
-}
 
-extension AudioBufferOptionsExtension on AudioBufferOptions {
   external set numberOfChannels(int value);
   external int get numberOfChannels;
   external set length(int value);
@@ -344,12 +261,7 @@ extension AudioBufferOptionsExtension on AudioBufferOptions {
   external set sampleRate(num value);
   external num get sampleRate;
 }
-
-@JS('AudioNode')
-@staticInterop
-class AudioNode implements EventTarget {}
-
-extension AudioNodeExtension on AudioNode {
+extension type AudioNode._(JSObject _) implements EventTarget, JSObject {
   external AudioNode? connect(
     JSObject destinationNodeOrDestinationParam, [
     int output,
@@ -370,19 +282,13 @@ extension AudioNodeExtension on AudioNode {
   external set channelInterpretation(ChannelInterpretation value);
   external ChannelInterpretation get channelInterpretation;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AudioNodeOptions {
+extension type AudioNodeOptions._(JSObject _) implements JSObject {
   external factory AudioNodeOptions({
     int channelCount,
     ChannelCountMode channelCountMode,
     ChannelInterpretation channelInterpretation,
   });
-}
 
-extension AudioNodeOptionsExtension on AudioNodeOptions {
   external set channelCount(int value);
   external int get channelCount;
   external set channelCountMode(ChannelCountMode value);
@@ -390,12 +296,7 @@ extension AudioNodeOptionsExtension on AudioNodeOptions {
   external set channelInterpretation(ChannelInterpretation value);
   external ChannelInterpretation get channelInterpretation;
 }
-
-@JS('AudioParam')
-@staticInterop
-class AudioParam {}
-
-extension AudioParamExtension on AudioParam {
+extension type AudioParam._(JSObject _) implements JSObject {
   external AudioParam setValueAtTime(
     num value,
     num startTime,
@@ -428,28 +329,19 @@ extension AudioParamExtension on AudioParam {
   external num get minValue;
   external num get maxValue;
 }
-
-@JS('AudioScheduledSourceNode')
-@staticInterop
-class AudioScheduledSourceNode implements AudioNode {}
-
-extension AudioScheduledSourceNodeExtension on AudioScheduledSourceNode {
+extension type AudioScheduledSourceNode._(JSObject _)
+    implements AudioNode, JSObject {
   external void start([num when]);
   external void stop([num when]);
   external set onended(EventHandler value);
   external EventHandler get onended;
 }
-
-@JS('AnalyserNode')
-@staticInterop
-class AnalyserNode implements AudioNode {
+extension type AnalyserNode._(JSObject _) implements AudioNode, JSObject {
   external factory AnalyserNode(
     BaseAudioContext context, [
     AnalyserOptions options,
   ]);
-}
 
-extension AnalyserNodeExtension on AnalyserNode {
   external void getFloatFrequencyData(JSFloat32Array array);
   external void getByteFrequencyData(JSUint8Array array);
   external void getFloatTimeDomainData(JSFloat32Array array);
@@ -464,20 +356,15 @@ extension AnalyserNodeExtension on AnalyserNode {
   external set smoothingTimeConstant(num value);
   external num get smoothingTimeConstant;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AnalyserOptions implements AudioNodeOptions {
+extension type AnalyserOptions._(JSObject _)
+    implements AudioNodeOptions, JSObject {
   external factory AnalyserOptions({
     int fftSize,
     num maxDecibels,
     num minDecibels,
     num smoothingTimeConstant,
   });
-}
 
-extension AnalyserOptionsExtension on AnalyserOptions {
   external set fftSize(int value);
   external int get fftSize;
   external set maxDecibels(num value);
@@ -487,17 +374,13 @@ extension AnalyserOptionsExtension on AnalyserOptions {
   external set smoothingTimeConstant(num value);
   external num get smoothingTimeConstant;
 }
-
-@JS('AudioBufferSourceNode')
-@staticInterop
-class AudioBufferSourceNode implements AudioScheduledSourceNode {
+extension type AudioBufferSourceNode._(JSObject _)
+    implements AudioScheduledSourceNode, JSObject {
   external factory AudioBufferSourceNode(
     BaseAudioContext context, [
     AudioBufferSourceOptions options,
   ]);
-}
 
-extension AudioBufferSourceNodeExtension on AudioBufferSourceNode {
   external void start([
     num when,
     num offset,
@@ -514,11 +397,7 @@ extension AudioBufferSourceNodeExtension on AudioBufferSourceNode {
   external set loopEnd(num value);
   external num get loopEnd;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AudioBufferSourceOptions {
+extension type AudioBufferSourceOptions._(JSObject _) implements JSObject {
   external factory AudioBufferSourceOptions({
     AudioBuffer? buffer,
     num detune,
@@ -527,9 +406,7 @@ class AudioBufferSourceOptions {
     num loopStart,
     num playbackRate,
   });
-}
 
-extension AudioBufferSourceOptionsExtension on AudioBufferSourceOptions {
   external set buffer(AudioBuffer? value);
   external AudioBuffer? get buffer;
   external set detune(num value);
@@ -543,20 +420,11 @@ extension AudioBufferSourceOptionsExtension on AudioBufferSourceOptions {
   external set playbackRate(num value);
   external num get playbackRate;
 }
-
-@JS('AudioDestinationNode')
-@staticInterop
-class AudioDestinationNode implements AudioNode {}
-
-extension AudioDestinationNodeExtension on AudioDestinationNode {
+extension type AudioDestinationNode._(JSObject _)
+    implements AudioNode, JSObject {
   external int get maxChannelCount;
 }
-
-@JS('AudioListener')
-@staticInterop
-class AudioListener {}
-
-extension AudioListenerExtension on AudioListener {
+extension type AudioListener._(JSObject _) implements JSObject {
   external void setPosition(
     num x,
     num y,
@@ -580,34 +448,24 @@ extension AudioListenerExtension on AudioListener {
   external AudioParam get upY;
   external AudioParam get upZ;
 }
-
-@JS('AudioProcessingEvent')
-@staticInterop
-class AudioProcessingEvent implements Event {
+extension type AudioProcessingEvent._(JSObject _) implements Event, JSObject {
   external factory AudioProcessingEvent(
     String type,
     AudioProcessingEventInit eventInitDict,
   );
-}
 
-extension AudioProcessingEventExtension on AudioProcessingEvent {
   external num get playbackTime;
   external AudioBuffer get inputBuffer;
   external AudioBuffer get outputBuffer;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AudioProcessingEventInit implements EventInit {
+extension type AudioProcessingEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory AudioProcessingEventInit({
     required num playbackTime,
     required AudioBuffer inputBuffer,
     required AudioBuffer outputBuffer,
   });
-}
 
-extension AudioProcessingEventInitExtension on AudioProcessingEventInit {
   external set playbackTime(num value);
   external num get playbackTime;
   external set inputBuffer(AudioBuffer value);
@@ -615,17 +473,12 @@ extension AudioProcessingEventInitExtension on AudioProcessingEventInit {
   external set outputBuffer(AudioBuffer value);
   external AudioBuffer get outputBuffer;
 }
-
-@JS('BiquadFilterNode')
-@staticInterop
-class BiquadFilterNode implements AudioNode {
+extension type BiquadFilterNode._(JSObject _) implements AudioNode, JSObject {
   external factory BiquadFilterNode(
     BaseAudioContext context, [
     BiquadFilterOptions options,
   ]);
-}
 
-extension BiquadFilterNodeExtension on BiquadFilterNode {
   external void getFrequencyResponse(
     JSFloat32Array frequencyHz,
     JSFloat32Array magResponse,
@@ -638,11 +491,8 @@ extension BiquadFilterNodeExtension on BiquadFilterNode {
   external AudioParam get Q;
   external AudioParam get gain;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class BiquadFilterOptions implements AudioNodeOptions {
+extension type BiquadFilterOptions._(JSObject _)
+    implements AudioNodeOptions, JSObject {
   external factory BiquadFilterOptions({
     BiquadFilterType type,
     num Q,
@@ -650,9 +500,7 @@ class BiquadFilterOptions implements AudioNodeOptions {
     num frequency,
     num gain,
   });
-}
 
-extension BiquadFilterOptionsExtension on BiquadFilterOptions {
   external set type(BiquadFilterType value);
   external BiquadFilterType get type;
   external set Q(num value);
@@ -664,147 +512,98 @@ extension BiquadFilterOptionsExtension on BiquadFilterOptions {
   external set gain(num value);
   external num get gain;
 }
-
-@JS('ChannelMergerNode')
-@staticInterop
-class ChannelMergerNode implements AudioNode {
+extension type ChannelMergerNode._(JSObject _) implements AudioNode, JSObject {
   external factory ChannelMergerNode(
     BaseAudioContext context, [
     ChannelMergerOptions options,
   ]);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ChannelMergerOptions implements AudioNodeOptions {
+extension type ChannelMergerOptions._(JSObject _)
+    implements AudioNodeOptions, JSObject {
   external factory ChannelMergerOptions({int numberOfInputs});
-}
 
-extension ChannelMergerOptionsExtension on ChannelMergerOptions {
   external set numberOfInputs(int value);
   external int get numberOfInputs;
 }
-
-@JS('ChannelSplitterNode')
-@staticInterop
-class ChannelSplitterNode implements AudioNode {
+extension type ChannelSplitterNode._(JSObject _)
+    implements AudioNode, JSObject {
   external factory ChannelSplitterNode(
     BaseAudioContext context, [
     ChannelSplitterOptions options,
   ]);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ChannelSplitterOptions implements AudioNodeOptions {
+extension type ChannelSplitterOptions._(JSObject _)
+    implements AudioNodeOptions, JSObject {
   external factory ChannelSplitterOptions({int numberOfOutputs});
-}
 
-extension ChannelSplitterOptionsExtension on ChannelSplitterOptions {
   external set numberOfOutputs(int value);
   external int get numberOfOutputs;
 }
-
-@JS('ConstantSourceNode')
-@staticInterop
-class ConstantSourceNode implements AudioScheduledSourceNode {
+extension type ConstantSourceNode._(JSObject _)
+    implements AudioScheduledSourceNode, JSObject {
   external factory ConstantSourceNode(
     BaseAudioContext context, [
     ConstantSourceOptions options,
   ]);
-}
 
-extension ConstantSourceNodeExtension on ConstantSourceNode {
   external AudioParam get offset;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ConstantSourceOptions {
+extension type ConstantSourceOptions._(JSObject _) implements JSObject {
   external factory ConstantSourceOptions({num offset});
-}
 
-extension ConstantSourceOptionsExtension on ConstantSourceOptions {
   external set offset(num value);
   external num get offset;
 }
-
-@JS('ConvolverNode')
-@staticInterop
-class ConvolverNode implements AudioNode {
+extension type ConvolverNode._(JSObject _) implements AudioNode, JSObject {
   external factory ConvolverNode(
     BaseAudioContext context, [
     ConvolverOptions options,
   ]);
-}
 
-extension ConvolverNodeExtension on ConvolverNode {
   external set buffer(AudioBuffer? value);
   external AudioBuffer? get buffer;
   external set normalize(bool value);
   external bool get normalize;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ConvolverOptions implements AudioNodeOptions {
+extension type ConvolverOptions._(JSObject _)
+    implements AudioNodeOptions, JSObject {
   external factory ConvolverOptions({
     AudioBuffer? buffer,
     bool disableNormalization,
   });
-}
 
-extension ConvolverOptionsExtension on ConvolverOptions {
   external set buffer(AudioBuffer? value);
   external AudioBuffer? get buffer;
   external set disableNormalization(bool value);
   external bool get disableNormalization;
 }
-
-@JS('DelayNode')
-@staticInterop
-class DelayNode implements AudioNode {
+extension type DelayNode._(JSObject _) implements AudioNode, JSObject {
   external factory DelayNode(
     BaseAudioContext context, [
     DelayOptions options,
   ]);
-}
 
-extension DelayNodeExtension on DelayNode {
   external AudioParam get delayTime;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class DelayOptions implements AudioNodeOptions {
+extension type DelayOptions._(JSObject _)
+    implements AudioNodeOptions, JSObject {
   external factory DelayOptions({
     num maxDelayTime,
     num delayTime,
   });
-}
 
-extension DelayOptionsExtension on DelayOptions {
   external set maxDelayTime(num value);
   external num get maxDelayTime;
   external set delayTime(num value);
   external num get delayTime;
 }
-
-@JS('DynamicsCompressorNode')
-@staticInterop
-class DynamicsCompressorNode implements AudioNode {
+extension type DynamicsCompressorNode._(JSObject _)
+    implements AudioNode, JSObject {
   external factory DynamicsCompressorNode(
     BaseAudioContext context, [
     DynamicsCompressorOptions options,
   ]);
-}
 
-extension DynamicsCompressorNodeExtension on DynamicsCompressorNode {
   external AudioParam get threshold;
   external AudioParam get knee;
   external AudioParam get ratio;
@@ -812,11 +611,8 @@ extension DynamicsCompressorNodeExtension on DynamicsCompressorNode {
   external AudioParam get attack;
   external AudioParam get release;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class DynamicsCompressorOptions implements AudioNodeOptions {
+extension type DynamicsCompressorOptions._(JSObject _)
+    implements AudioNodeOptions, JSObject {
   external factory DynamicsCompressorOptions({
     num attack,
     num knee,
@@ -824,9 +620,7 @@ class DynamicsCompressorOptions implements AudioNodeOptions {
     num release,
     num threshold,
   });
-}
 
-extension DynamicsCompressorOptionsExtension on DynamicsCompressorOptions {
   external set attack(num value);
   external num get attack;
   external set knee(num value);
@@ -838,187 +632,123 @@ extension DynamicsCompressorOptionsExtension on DynamicsCompressorOptions {
   external set threshold(num value);
   external num get threshold;
 }
-
-@JS('GainNode')
-@staticInterop
-class GainNode implements AudioNode {
+extension type GainNode._(JSObject _) implements AudioNode, JSObject {
   external factory GainNode(
     BaseAudioContext context, [
     GainOptions options,
   ]);
-}
 
-extension GainNodeExtension on GainNode {
   external AudioParam get gain;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class GainOptions implements AudioNodeOptions {
+extension type GainOptions._(JSObject _) implements AudioNodeOptions, JSObject {
   external factory GainOptions({num gain});
-}
 
-extension GainOptionsExtension on GainOptions {
   external set gain(num value);
   external num get gain;
 }
-
-@JS('IIRFilterNode')
-@staticInterop
-class IIRFilterNode implements AudioNode {
+extension type IIRFilterNode._(JSObject _) implements AudioNode, JSObject {
   external factory IIRFilterNode(
     BaseAudioContext context,
     IIRFilterOptions options,
   );
-}
 
-extension IIRFilterNodeExtension on IIRFilterNode {
   external void getFrequencyResponse(
     JSFloat32Array frequencyHz,
     JSFloat32Array magResponse,
     JSFloat32Array phaseResponse,
   );
 }
-
-@JS()
-@staticInterop
-@anonymous
-class IIRFilterOptions implements AudioNodeOptions {
+extension type IIRFilterOptions._(JSObject _)
+    implements AudioNodeOptions, JSObject {
   external factory IIRFilterOptions({
     required JSArray feedforward,
     required JSArray feedback,
   });
-}
 
-extension IIRFilterOptionsExtension on IIRFilterOptions {
   external set feedforward(JSArray value);
   external JSArray get feedforward;
   external set feedback(JSArray value);
   external JSArray get feedback;
 }
-
-@JS('MediaElementAudioSourceNode')
-@staticInterop
-class MediaElementAudioSourceNode implements AudioNode {
+extension type MediaElementAudioSourceNode._(JSObject _)
+    implements AudioNode, JSObject {
   external factory MediaElementAudioSourceNode(
     AudioContext context,
     MediaElementAudioSourceOptions options,
   );
-}
 
-extension MediaElementAudioSourceNodeExtension on MediaElementAudioSourceNode {
   external HTMLMediaElement get mediaElement;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaElementAudioSourceOptions {
+extension type MediaElementAudioSourceOptions._(JSObject _)
+    implements JSObject {
   external factory MediaElementAudioSourceOptions(
       {required HTMLMediaElement mediaElement});
-}
 
-extension MediaElementAudioSourceOptionsExtension
-    on MediaElementAudioSourceOptions {
   external set mediaElement(HTMLMediaElement value);
   external HTMLMediaElement get mediaElement;
 }
-
-@JS('MediaStreamAudioDestinationNode')
-@staticInterop
-class MediaStreamAudioDestinationNode implements AudioNode {
+extension type MediaStreamAudioDestinationNode._(JSObject _)
+    implements AudioNode, JSObject {
   external factory MediaStreamAudioDestinationNode(
     AudioContext context, [
     AudioNodeOptions options,
   ]);
-}
 
-extension MediaStreamAudioDestinationNodeExtension
-    on MediaStreamAudioDestinationNode {
   external MediaStream get stream;
 }
-
-@JS('MediaStreamAudioSourceNode')
-@staticInterop
-class MediaStreamAudioSourceNode implements AudioNode {
+extension type MediaStreamAudioSourceNode._(JSObject _)
+    implements AudioNode, JSObject {
   external factory MediaStreamAudioSourceNode(
     AudioContext context,
     MediaStreamAudioSourceOptions options,
   );
-}
 
-extension MediaStreamAudioSourceNodeExtension on MediaStreamAudioSourceNode {
   external MediaStream get mediaStream;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaStreamAudioSourceOptions {
+extension type MediaStreamAudioSourceOptions._(JSObject _) implements JSObject {
   external factory MediaStreamAudioSourceOptions(
       {required MediaStream mediaStream});
-}
 
-extension MediaStreamAudioSourceOptionsExtension
-    on MediaStreamAudioSourceOptions {
   external set mediaStream(MediaStream value);
   external MediaStream get mediaStream;
 }
-
-@JS('MediaStreamTrackAudioSourceNode')
-@staticInterop
-class MediaStreamTrackAudioSourceNode implements AudioNode {
+extension type MediaStreamTrackAudioSourceNode._(JSObject _)
+    implements AudioNode, JSObject {
   external factory MediaStreamTrackAudioSourceNode(
     AudioContext context,
     MediaStreamTrackAudioSourceOptions options,
   );
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaStreamTrackAudioSourceOptions {
+extension type MediaStreamTrackAudioSourceOptions._(JSObject _)
+    implements JSObject {
   external factory MediaStreamTrackAudioSourceOptions(
       {required MediaStreamTrack mediaStreamTrack});
-}
 
-extension MediaStreamTrackAudioSourceOptionsExtension
-    on MediaStreamTrackAudioSourceOptions {
   external set mediaStreamTrack(MediaStreamTrack value);
   external MediaStreamTrack get mediaStreamTrack;
 }
-
-@JS('OscillatorNode')
-@staticInterop
-class OscillatorNode implements AudioScheduledSourceNode {
+extension type OscillatorNode._(JSObject _)
+    implements AudioScheduledSourceNode, JSObject {
   external factory OscillatorNode(
     BaseAudioContext context, [
     OscillatorOptions options,
   ]);
-}
 
-extension OscillatorNodeExtension on OscillatorNode {
   external void setPeriodicWave(PeriodicWave periodicWave);
   external set type(OscillatorType value);
   external OscillatorType get type;
   external AudioParam get frequency;
   external AudioParam get detune;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class OscillatorOptions implements AudioNodeOptions {
+extension type OscillatorOptions._(JSObject _)
+    implements AudioNodeOptions, JSObject {
   external factory OscillatorOptions({
     OscillatorType type,
     num frequency,
     num detune,
     PeriodicWave periodicWave,
   });
-}
 
-extension OscillatorOptionsExtension on OscillatorOptions {
   external set type(OscillatorType value);
   external OscillatorType get type;
   external set frequency(num value);
@@ -1028,17 +758,12 @@ extension OscillatorOptionsExtension on OscillatorOptions {
   external set periodicWave(PeriodicWave value);
   external PeriodicWave get periodicWave;
 }
-
-@JS('PannerNode')
-@staticInterop
-class PannerNode implements AudioNode {
+extension type PannerNode._(JSObject _) implements AudioNode, JSObject {
   external factory PannerNode(
     BaseAudioContext context, [
     PannerOptions options,
   ]);
-}
 
-extension PannerNodeExtension on PannerNode {
   external void setPosition(
     num x,
     num y,
@@ -1072,11 +797,8 @@ extension PannerNodeExtension on PannerNode {
   external set coneOuterGain(num value);
   external num get coneOuterGain;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PannerOptions implements AudioNodeOptions {
+extension type PannerOptions._(JSObject _)
+    implements AudioNodeOptions, JSObject {
   external factory PannerOptions({
     PanningModelType panningModel,
     DistanceModelType distanceModel,
@@ -1093,9 +815,7 @@ class PannerOptions implements AudioNodeOptions {
     num coneOuterAngle,
     num coneOuterGain,
   });
-}
 
-extension PannerOptionsExtension on PannerOptions {
   external set panningModel(PanningModelType value);
   external PanningModelType get panningModel;
   external set distanceModel(DistanceModelType value);
@@ -1125,126 +845,79 @@ extension PannerOptionsExtension on PannerOptions {
   external set coneOuterGain(num value);
   external num get coneOuterGain;
 }
-
-@JS('PeriodicWave')
-@staticInterop
-class PeriodicWave {
+extension type PeriodicWave._(JSObject _) implements JSObject {
   external factory PeriodicWave(
     BaseAudioContext context, [
     PeriodicWaveOptions options,
   ]);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PeriodicWaveConstraints {
+extension type PeriodicWaveConstraints._(JSObject _) implements JSObject {
   external factory PeriodicWaveConstraints({bool disableNormalization});
-}
 
-extension PeriodicWaveConstraintsExtension on PeriodicWaveConstraints {
   external set disableNormalization(bool value);
   external bool get disableNormalization;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PeriodicWaveOptions implements PeriodicWaveConstraints {
+extension type PeriodicWaveOptions._(JSObject _)
+    implements PeriodicWaveConstraints, JSObject {
   external factory PeriodicWaveOptions({
     JSArray real,
     JSArray imag,
   });
-}
 
-extension PeriodicWaveOptionsExtension on PeriodicWaveOptions {
   external set real(JSArray value);
   external JSArray get real;
   external set imag(JSArray value);
   external JSArray get imag;
 }
-
-@JS('ScriptProcessorNode')
-@staticInterop
-class ScriptProcessorNode implements AudioNode {}
-
-extension ScriptProcessorNodeExtension on ScriptProcessorNode {
+extension type ScriptProcessorNode._(JSObject _)
+    implements AudioNode, JSObject {
   external set onaudioprocess(EventHandler value);
   external EventHandler get onaudioprocess;
   external int get bufferSize;
 }
-
-@JS('StereoPannerNode')
-@staticInterop
-class StereoPannerNode implements AudioNode {
+extension type StereoPannerNode._(JSObject _) implements AudioNode, JSObject {
   external factory StereoPannerNode(
     BaseAudioContext context, [
     StereoPannerOptions options,
   ]);
-}
 
-extension StereoPannerNodeExtension on StereoPannerNode {
   external AudioParam get pan;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class StereoPannerOptions implements AudioNodeOptions {
+extension type StereoPannerOptions._(JSObject _)
+    implements AudioNodeOptions, JSObject {
   external factory StereoPannerOptions({num pan});
-}
 
-extension StereoPannerOptionsExtension on StereoPannerOptions {
   external set pan(num value);
   external num get pan;
 }
-
-@JS('WaveShaperNode')
-@staticInterop
-class WaveShaperNode implements AudioNode {
+extension type WaveShaperNode._(JSObject _) implements AudioNode, JSObject {
   external factory WaveShaperNode(
     BaseAudioContext context, [
     WaveShaperOptions options,
   ]);
-}
 
-extension WaveShaperNodeExtension on WaveShaperNode {
   external set curve(JSFloat32Array? value);
   external JSFloat32Array? get curve;
   external set oversample(OverSampleType value);
   external OverSampleType get oversample;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class WaveShaperOptions implements AudioNodeOptions {
+extension type WaveShaperOptions._(JSObject _)
+    implements AudioNodeOptions, JSObject {
   external factory WaveShaperOptions({
     JSArray curve,
     OverSampleType oversample,
   });
-}
 
-extension WaveShaperOptionsExtension on WaveShaperOptions {
   external set curve(JSArray value);
   external JSArray get curve;
   external set oversample(OverSampleType value);
   external OverSampleType get oversample;
 }
-
-@JS('AudioWorklet')
-@staticInterop
-class AudioWorklet implements Worklet {}
-
-extension AudioWorkletExtension on AudioWorklet {
+extension type AudioWorklet._(JSObject _) implements Worklet, JSObject {
   external MessagePort get port;
 }
-
-@JS('AudioWorkletGlobalScope')
-@staticInterop
-class AudioWorkletGlobalScope implements WorkletGlobalScope {}
-
-extension AudioWorkletGlobalScopeExtension on AudioWorkletGlobalScope {
+extension type AudioWorkletGlobalScope._(JSObject _)
+    implements WorkletGlobalScope, JSObject {
   external void registerProcessor(
     String name,
     AudioWorkletProcessorConstructor processorCtor,
@@ -1255,34 +928,21 @@ extension AudioWorkletGlobalScopeExtension on AudioWorkletGlobalScope {
   external int get renderQuantumSize;
   external MessagePort get port;
 }
-
-@JS('AudioParamMap')
-@staticInterop
-class AudioParamMap {}
-
-extension AudioParamMapExtension on AudioParamMap {}
-
-@JS('AudioWorkletNode')
-@staticInterop
-class AudioWorkletNode implements AudioNode {
+extension type AudioParamMap._(JSObject _) implements JSObject {}
+extension type AudioWorkletNode._(JSObject _) implements AudioNode, JSObject {
   external factory AudioWorkletNode(
     BaseAudioContext context,
     String name, [
     AudioWorkletNodeOptions options,
   ]);
-}
 
-extension AudioWorkletNodeExtension on AudioWorkletNode {
   external AudioParamMap get parameters;
   external MessagePort get port;
   external set onprocessorerror(EventHandler value);
   external EventHandler get onprocessorerror;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AudioWorkletNodeOptions implements AudioNodeOptions {
+extension type AudioWorkletNodeOptions._(JSObject _)
+    implements AudioNodeOptions, JSObject {
   external factory AudioWorkletNodeOptions({
     int numberOfInputs,
     int numberOfOutputs,
@@ -1290,9 +950,7 @@ class AudioWorkletNodeOptions implements AudioNodeOptions {
     JSAny parameterData,
     JSObject processorOptions,
   });
-}
 
-extension AudioWorkletNodeOptionsExtension on AudioWorkletNodeOptions {
   external set numberOfInputs(int value);
   external int get numberOfInputs;
   external set numberOfOutputs(int value);
@@ -1304,21 +962,12 @@ extension AudioWorkletNodeOptionsExtension on AudioWorkletNodeOptions {
   external set processorOptions(JSObject value);
   external JSObject get processorOptions;
 }
-
-@JS('AudioWorkletProcessor')
-@staticInterop
-class AudioWorkletProcessor {
+extension type AudioWorkletProcessor._(JSObject _) implements JSObject {
   external factory AudioWorkletProcessor();
-}
 
-extension AudioWorkletProcessorExtension on AudioWorkletProcessor {
   external MessagePort get port;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AudioParamDescriptor {
+extension type AudioParamDescriptor._(JSObject _) implements JSObject {
   external factory AudioParamDescriptor({
     required String name,
     num defaultValue,
@@ -1326,9 +975,7 @@ class AudioParamDescriptor {
     num maxValue,
     AutomationRate automationRate,
   });
-}
 
-extension AudioParamDescriptorExtension on AudioParamDescriptor {
   external set name(String value);
   external String get name;
   external set defaultValue(num value);

@@ -12,35 +12,19 @@ import 'html.dart';
 import 'webxr.dart';
 
 typedef XRReflectionFormat = String;
-
-@JS('XRLightProbe')
-@staticInterop
-class XRLightProbe implements EventTarget {}
-
-extension XRLightProbeExtension on XRLightProbe {
+extension type XRLightProbe._(JSObject _) implements EventTarget, JSObject {
   external XRSpace get probeSpace;
   external set onreflectionchange(EventHandler value);
   external EventHandler get onreflectionchange;
 }
-
-@JS('XRLightEstimate')
-@staticInterop
-class XRLightEstimate {}
-
-extension XRLightEstimateExtension on XRLightEstimate {
+extension type XRLightEstimate._(JSObject _) implements JSObject {
   external JSFloat32Array get sphericalHarmonicsCoefficients;
   external DOMPointReadOnly get primaryLightDirection;
   external DOMPointReadOnly get primaryLightIntensity;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class XRLightProbeInit {
+extension type XRLightProbeInit._(JSObject _) implements JSObject {
   external factory XRLightProbeInit({XRReflectionFormat reflectionFormat});
-}
 
-extension XRLightProbeInitExtension on XRLightProbeInit {
   external set reflectionFormat(XRReflectionFormat value);
   external XRReflectionFormat get reflectionFormat;
 }

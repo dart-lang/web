@@ -9,40 +9,26 @@ import 'dart:js_interop';
 import 'generic_sensor.dart';
 
 typedef MagnetometerLocalCoordinateSystem = String;
-
-@JS('Magnetometer')
-@staticInterop
-class Magnetometer implements Sensor {
+extension type Magnetometer._(JSObject _) implements Sensor, JSObject {
   external factory Magnetometer([MagnetometerSensorOptions sensorOptions]);
-}
 
-extension MagnetometerExtension on Magnetometer {
   external num? get x;
   external num? get y;
   external num? get z;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MagnetometerSensorOptions implements SensorOptions {
+extension type MagnetometerSensorOptions._(JSObject _)
+    implements SensorOptions, JSObject {
   external factory MagnetometerSensorOptions(
       {MagnetometerLocalCoordinateSystem referenceFrame});
-}
 
-extension MagnetometerSensorOptionsExtension on MagnetometerSensorOptions {
   external set referenceFrame(MagnetometerLocalCoordinateSystem value);
   external MagnetometerLocalCoordinateSystem get referenceFrame;
 }
-
-@JS('UncalibratedMagnetometer')
-@staticInterop
-class UncalibratedMagnetometer implements Sensor {
+extension type UncalibratedMagnetometer._(JSObject _)
+    implements Sensor, JSObject {
   external factory UncalibratedMagnetometer(
       [MagnetometerSensorOptions sensorOptions]);
-}
 
-extension UncalibratedMagnetometerExtension on UncalibratedMagnetometer {
   external num? get x;
   external num? get y;
   external num? get z;
@@ -50,19 +36,13 @@ extension UncalibratedMagnetometerExtension on UncalibratedMagnetometer {
   external num? get yBias;
   external num? get zBias;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MagnetometerReadingValues {
+extension type MagnetometerReadingValues._(JSObject _) implements JSObject {
   external factory MagnetometerReadingValues({
     required num? x,
     required num? y,
     required num? z,
   });
-}
 
-extension MagnetometerReadingValuesExtension on MagnetometerReadingValues {
   external set x(num? value);
   external num? get x;
   external set y(num? value);
@@ -70,11 +50,8 @@ extension MagnetometerReadingValuesExtension on MagnetometerReadingValues {
   external set z(num? value);
   external num? get z;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class UncalibratedMagnetometerReadingValues {
+extension type UncalibratedMagnetometerReadingValues._(JSObject _)
+    implements JSObject {
   external factory UncalibratedMagnetometerReadingValues({
     required num? x,
     required num? y,
@@ -83,10 +60,7 @@ class UncalibratedMagnetometerReadingValues {
     required num? yBias,
     required num? zBias,
   });
-}
 
-extension UncalibratedMagnetometerReadingValuesExtension
-    on UncalibratedMagnetometerReadingValues {
   external set x(num? value);
   external num? get x;
   external set y(num? value);

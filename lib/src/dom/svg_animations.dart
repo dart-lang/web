@@ -10,11 +10,7 @@ import 'dom.dart';
 import 'html.dart';
 import 'svg.dart';
 
-@JS('TimeEvent')
-@staticInterop
-class TimeEvent implements Event {}
-
-extension TimeEventExtension on TimeEvent {
+extension type TimeEvent._(JSObject _) implements Event, JSObject {
   external void initTimeEvent(
     String typeArg,
     Window? viewArg,
@@ -23,12 +19,8 @@ extension TimeEventExtension on TimeEvent {
   external Window? get view;
   external int get detail;
 }
-
-@JS('SVGAnimationElement')
-@staticInterop
-class SVGAnimationElement implements SVGElement {}
-
-extension SVGAnimationElementExtension on SVGAnimationElement {
+extension type SVGAnimationElement._(JSObject _)
+    implements SVGElement, JSObject {
   external num getStartTime();
   external num getCurrentTime();
   external num getSimpleDuration();
@@ -46,31 +38,16 @@ extension SVGAnimationElementExtension on SVGAnimationElement {
   external SVGStringList get requiredExtensions;
   external SVGStringList get systemLanguage;
 }
-
-@JS('SVGAnimateElement')
-@staticInterop
-class SVGAnimateElement implements SVGAnimationElement {}
-
-@JS('SVGSetElement')
-@staticInterop
-class SVGSetElement implements SVGAnimationElement {}
-
-@JS('SVGAnimateMotionElement')
-@staticInterop
-class SVGAnimateMotionElement implements SVGAnimationElement {}
-
-@JS('SVGMPathElement')
-@staticInterop
-class SVGMPathElement implements SVGElement {}
-
-extension SVGMPathElementExtension on SVGMPathElement {
+extension type SVGAnimateElement._(JSObject _)
+    implements SVGAnimationElement, JSObject {}
+extension type SVGSetElement._(JSObject _)
+    implements SVGAnimationElement, JSObject {}
+extension type SVGAnimateMotionElement._(JSObject _)
+    implements SVGAnimationElement, JSObject {}
+extension type SVGMPathElement._(JSObject _) implements SVGElement, JSObject {
   external SVGAnimatedString get href;
 }
-
-@JS('SVGAnimateTransformElement')
-@staticInterop
-class SVGAnimateTransformElement implements SVGAnimationElement {}
-
-@JS('SVGDiscardElement')
-@staticInterop
-class SVGDiscardElement implements SVGAnimationElement {}
+extension type SVGAnimateTransformElement._(JSObject _)
+    implements SVGAnimationElement, JSObject {}
+extension type SVGDiscardElement._(JSObject _)
+    implements SVGAnimationElement, JSObject {}

@@ -12,19 +12,13 @@ import 'html.dart';
 
 typedef UnderlineStyle = String;
 typedef UnderlineThickness = String;
-
-@JS()
-@staticInterop
-@anonymous
-class EditContextInit {
+extension type EditContextInit._(JSObject _) implements JSObject {
   external factory EditContextInit({
     String text,
     int selectionStart,
     int selectionEnd,
   });
-}
 
-extension EditContextInitExtension on EditContextInit {
   external set text(String value);
   external String get text;
   external set selectionStart(int value);
@@ -32,14 +26,9 @@ extension EditContextInitExtension on EditContextInit {
   external set selectionEnd(int value);
   external int get selectionEnd;
 }
-
-@JS('EditContext')
-@staticInterop
-class EditContext implements EventTarget {
+extension type EditContext._(JSObject _) implements EventTarget, JSObject {
   external factory EditContext([EditContextInit options]);
-}
 
-extension EditContextExtension on EditContext {
   external void updateText(
     int rangeStart,
     int rangeEnd,
@@ -77,11 +66,8 @@ extension EditContextExtension on EditContext {
   external set oncompositionend(EventHandler value);
   external EventHandler get oncompositionend;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class TextUpdateEventInit implements EventInit {
+extension type TextUpdateEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory TextUpdateEventInit({
     int updateRangeStart,
     int updateRangeEnd,
@@ -91,9 +77,7 @@ class TextUpdateEventInit implements EventInit {
     int compositionStart,
     int compositionEnd,
   });
-}
 
-extension TextUpdateEventInitExtension on TextUpdateEventInit {
   external set updateRangeStart(int value);
   external int get updateRangeStart;
   external set updateRangeEnd(int value);
@@ -109,17 +93,12 @@ extension TextUpdateEventInitExtension on TextUpdateEventInit {
   external set compositionEnd(int value);
   external int get compositionEnd;
 }
-
-@JS('TextUpdateEvent')
-@staticInterop
-class TextUpdateEvent implements Event {
+extension type TextUpdateEvent._(JSObject _) implements Event, JSObject {
   external factory TextUpdateEvent(
     String type, [
     TextUpdateEventInit options,
   ]);
-}
 
-extension TextUpdateEventExtension on TextUpdateEvent {
   external int get updateRangeStart;
   external int get updateRangeEnd;
   external String get text;
@@ -128,20 +107,14 @@ extension TextUpdateEventExtension on TextUpdateEvent {
   external int get compositionStart;
   external int get compositionEnd;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class TextFormatInit {
+extension type TextFormatInit._(JSObject _) implements JSObject {
   external factory TextFormatInit({
     int rangeStart,
     int rangeEnd,
     UnderlineStyle underlineStyle,
     UnderlineThickness underlineThickness,
   });
-}
 
-extension TextFormatInitExtension on TextFormatInit {
   external set rangeStart(int value);
   external int get rangeStart;
   external set rangeEnd(int value);
@@ -151,73 +124,48 @@ extension TextFormatInitExtension on TextFormatInit {
   external set underlineThickness(UnderlineThickness value);
   external UnderlineThickness get underlineThickness;
 }
-
-@JS('TextFormat')
-@staticInterop
-class TextFormat {
+extension type TextFormat._(JSObject _) implements JSObject {
   external factory TextFormat([TextFormatInit options]);
-}
 
-extension TextFormatExtension on TextFormat {
   external int get rangeStart;
   external int get rangeEnd;
   external UnderlineStyle get underlineStyle;
   external UnderlineThickness get underlineThickness;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class TextFormatUpdateEventInit implements EventInit {
+extension type TextFormatUpdateEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory TextFormatUpdateEventInit({JSArray textFormats});
-}
 
-extension TextFormatUpdateEventInitExtension on TextFormatUpdateEventInit {
   external set textFormats(JSArray value);
   external JSArray get textFormats;
 }
-
-@JS('TextFormatUpdateEvent')
-@staticInterop
-class TextFormatUpdateEvent implements Event {
+extension type TextFormatUpdateEvent._(JSObject _) implements Event, JSObject {
   external factory TextFormatUpdateEvent(
     String type, [
     TextFormatUpdateEventInit options,
   ]);
-}
 
-extension TextFormatUpdateEventExtension on TextFormatUpdateEvent {
   external JSArray getTextFormats();
 }
-
-@JS()
-@staticInterop
-@anonymous
-class CharacterBoundsUpdateEventInit implements EventInit {
+extension type CharacterBoundsUpdateEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory CharacterBoundsUpdateEventInit({
     int rangeStart,
     int rangeEnd,
   });
-}
 
-extension CharacterBoundsUpdateEventInitExtension
-    on CharacterBoundsUpdateEventInit {
   external set rangeStart(int value);
   external int get rangeStart;
   external set rangeEnd(int value);
   external int get rangeEnd;
 }
-
-@JS('CharacterBoundsUpdateEvent')
-@staticInterop
-class CharacterBoundsUpdateEvent implements Event {
+extension type CharacterBoundsUpdateEvent._(JSObject _)
+    implements Event, JSObject {
   external factory CharacterBoundsUpdateEvent(
     String type, [
     CharacterBoundsUpdateEventInit options,
   ]);
-}
 
-extension CharacterBoundsUpdateEventExtension on CharacterBoundsUpdateEvent {
   external int get rangeStart;
   external int get rangeEnd;
 }

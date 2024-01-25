@@ -8,8 +8,6 @@ import 'dart:js_interop';
 
 import 'webgl1.dart';
 
-@JS('KHR_parallel_shader_compile')
-@staticInterop
-class KHR_parallel_shader_compile {
+extension type KHR_parallel_shader_compile._(JSObject _) implements JSObject {
   external static GLenum get COMPLETION_STATUS_KHR;
 }

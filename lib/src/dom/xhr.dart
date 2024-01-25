@@ -13,12 +13,8 @@ import 'trust_token_api.dart';
 
 typedef FormDataEntryValue = JSAny;
 typedef XMLHttpRequestResponseType = String;
-
-@JS('XMLHttpRequestEventTarget')
-@staticInterop
-class XMLHttpRequestEventTarget implements EventTarget {}
-
-extension XMLHttpRequestEventTargetExtension on XMLHttpRequestEventTarget {
+extension type XMLHttpRequestEventTarget._(JSObject _)
+    implements EventTarget, JSObject {
   external set onloadstart(EventHandler value);
   external EventHandler get onloadstart;
   external set onprogress(EventHandler value);
@@ -34,14 +30,10 @@ extension XMLHttpRequestEventTargetExtension on XMLHttpRequestEventTarget {
   external set onloadend(EventHandler value);
   external EventHandler get onloadend;
 }
-
-@JS('XMLHttpRequestUpload')
-@staticInterop
-class XMLHttpRequestUpload implements XMLHttpRequestEventTarget {}
-
-@JS('XMLHttpRequest')
-@staticInterop
-class XMLHttpRequest implements XMLHttpRequestEventTarget {
+extension type XMLHttpRequestUpload._(JSObject _)
+    implements XMLHttpRequestEventTarget, JSObject {}
+extension type XMLHttpRequest._(JSObject _)
+    implements XMLHttpRequestEventTarget, JSObject {
   external factory XMLHttpRequest();
 
   external static int get UNSENT;
@@ -49,9 +41,6 @@ class XMLHttpRequest implements XMLHttpRequestEventTarget {
   external static int get HEADERS_RECEIVED;
   external static int get LOADING;
   external static int get DONE;
-}
-
-extension XMLHttpRequestExtension on XMLHttpRequest {
   external void setAttributionReporting(
       AttributionReportingRequestOptions options);
   external void setPrivateToken(PrivateToken privateToken);
@@ -88,17 +77,12 @@ extension XMLHttpRequestExtension on XMLHttpRequest {
   external String get responseText;
   external Document? get responseXML;
 }
-
-@JS('FormData')
-@staticInterop
-class FormData {
+extension type FormData._(JSObject _) implements JSObject {
   external factory FormData([
     HTMLFormElement form,
     HTMLElement? submitter,
   ]);
-}
 
-extension FormDataExtension on FormData {
   external void append(
     String name,
     JSAny blobValueOrValue, [
@@ -114,34 +98,23 @@ extension FormDataExtension on FormData {
     String filename,
   ]);
 }
-
-@JS('ProgressEvent')
-@staticInterop
-class ProgressEvent implements Event {
+extension type ProgressEvent._(JSObject _) implements Event, JSObject {
   external factory ProgressEvent(
     String type, [
     ProgressEventInit eventInitDict,
   ]);
-}
 
-extension ProgressEventExtension on ProgressEvent {
   external bool get lengthComputable;
   external int get loaded;
   external int get total;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ProgressEventInit implements EventInit {
+extension type ProgressEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ProgressEventInit({
     bool lengthComputable,
     int loaded,
     int total,
   });
-}
 
-extension ProgressEventInitExtension on ProgressEventInit {
   external set lengthComputable(bool value);
   external bool get lengthComputable;
   external set loaded(int value);

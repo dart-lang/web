@@ -16,23 +16,15 @@ typedef SurfaceSwitchingPreferenceEnum = String;
 typedef MonitorTypeSurfacesEnum = String;
 typedef DisplayCaptureSurfaceType = String;
 typedef CursorCaptureConstraint = String;
-
-@JS('CaptureController')
-@staticInterop
-class CaptureController implements EventTarget {
+extension type CaptureController._(JSObject _)
+    implements EventTarget, JSObject {
   external factory CaptureController();
-}
 
-extension CaptureControllerExtension on CaptureController {
   external void setFocusBehavior(CaptureStartFocusBehavior focusBehavior);
   external set oncapturedmousechange(EventHandler value);
   external EventHandler get oncapturedmousechange;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class DisplayMediaStreamOptions {
+extension type DisplayMediaStreamOptions._(JSObject _) implements JSObject {
   external factory DisplayMediaStreamOptions({
     JSAny video,
     JSAny audio,
@@ -42,9 +34,7 @@ class DisplayMediaStreamOptions {
     SurfaceSwitchingPreferenceEnum surfaceSwitching,
     MonitorTypeSurfacesEnum monitorTypeSurfaces,
   });
-}
 
-extension DisplayMediaStreamOptionsExtension on DisplayMediaStreamOptions {
   external set video(JSAny value);
   external JSAny get video;
   external set audio(JSAny value);

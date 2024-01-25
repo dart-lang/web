@@ -10,12 +10,7 @@ typedef ErrorCallback = JSFunction;
 typedef FileSystemEntryCallback = JSFunction;
 typedef FileSystemEntriesCallback = JSFunction;
 typedef FileCallback = JSFunction;
-
-@JS('FileSystemEntry')
-@staticInterop
-class FileSystemEntry {}
-
-extension FileSystemEntryExtension on FileSystemEntry {
+extension type FileSystemEntry._(JSObject _) implements JSObject {
   external void getParent([
     FileSystemEntryCallback successCallback,
     ErrorCallback errorCallback,
@@ -26,12 +21,8 @@ extension FileSystemEntryExtension on FileSystemEntry {
   external String get fullPath;
   external FileSystem get filesystem;
 }
-
-@JS('FileSystemDirectoryEntry')
-@staticInterop
-class FileSystemDirectoryEntry implements FileSystemEntry {}
-
-extension FileSystemDirectoryEntryExtension on FileSystemDirectoryEntry {
+extension type FileSystemDirectoryEntry._(JSObject _)
+    implements FileSystemEntry, JSObject {
   external FileSystemDirectoryReader createReader();
   external void getFile([
     String? path,
@@ -46,51 +37,31 @@ extension FileSystemDirectoryEntryExtension on FileSystemDirectoryEntry {
     ErrorCallback errorCallback,
   ]);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class FileSystemFlags {
+extension type FileSystemFlags._(JSObject _) implements JSObject {
   external factory FileSystemFlags({
     bool create,
     bool exclusive,
   });
-}
 
-extension FileSystemFlagsExtension on FileSystemFlags {
   external set create(bool value);
   external bool get create;
   external set exclusive(bool value);
   external bool get exclusive;
 }
-
-@JS('FileSystemDirectoryReader')
-@staticInterop
-class FileSystemDirectoryReader {}
-
-extension FileSystemDirectoryReaderExtension on FileSystemDirectoryReader {
+extension type FileSystemDirectoryReader._(JSObject _) implements JSObject {
   external void readEntries(
     FileSystemEntriesCallback successCallback, [
     ErrorCallback errorCallback,
   ]);
 }
-
-@JS('FileSystemFileEntry')
-@staticInterop
-class FileSystemFileEntry implements FileSystemEntry {}
-
-extension FileSystemFileEntryExtension on FileSystemFileEntry {
+extension type FileSystemFileEntry._(JSObject _)
+    implements FileSystemEntry, JSObject {
   external void file(
     FileCallback successCallback, [
     ErrorCallback errorCallback,
   ]);
 }
-
-@JS('FileSystem')
-@staticInterop
-class FileSystem {}
-
-extension FileSystemExtension on FileSystem {
+extension type FileSystem._(JSObject _) implements JSObject {
   external String get name;
   external FileSystemDirectoryEntry get root;
 }

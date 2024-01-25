@@ -16,18 +16,13 @@ typedef LineAlignSetting = String;
 typedef PositionAlignSetting = String;
 typedef AlignSetting = String;
 typedef ScrollSetting = String;
-
-@JS('VTTCue')
-@staticInterop
-class VTTCue implements TextTrackCue {
+extension type VTTCue._(JSObject _) implements TextTrackCue, JSObject {
   external factory VTTCue(
     num startTime,
     num endTime,
     String text,
   );
-}
 
-extension VTTCueExtension on VTTCue {
   external DocumentFragment getCueAsHTML();
   external set region(VTTRegion? value);
   external VTTRegion? get region;
@@ -50,14 +45,9 @@ extension VTTCueExtension on VTTCue {
   external set text(String value);
   external String get text;
 }
-
-@JS('VTTRegion')
-@staticInterop
-class VTTRegion {
+extension type VTTRegion._(JSObject _) implements JSObject {
   external factory VTTRegion();
-}
 
-extension VTTRegionExtension on VTTRegion {
   external set id(String value);
   external String get id;
   external set width(num value);

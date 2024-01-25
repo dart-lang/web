@@ -10,11 +10,7 @@ import 'cssom_view.dart';
 import 'dom.dart';
 import 'geometry.dart';
 
-@JS('CSSPseudoElement')
-@staticInterop
-class CSSPseudoElement implements EventTarget {}
-
-extension CSSPseudoElementExtension on CSSPseudoElement {
+extension type CSSPseudoElement._(JSObject _) implements EventTarget, JSObject {
   external CSSPseudoElement? pseudo(String type);
   external JSArray getBoxQuads([BoxQuadOptions options]);
   external DOMQuad convertQuadFromNode(

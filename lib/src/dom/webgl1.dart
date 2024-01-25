@@ -28,11 +28,7 @@ typedef TexImageSource = JSObject;
 typedef Float32List = JSObject;
 typedef Int32List = JSObject;
 typedef WebGLPowerPreference = String;
-
-@JS()
-@staticInterop
-@anonymous
-class WebGLContextAttributes {
+extension type WebGLContextAttributes._(JSObject _) implements JSObject {
   external factory WebGLContextAttributes({
     bool alpha,
     bool depth,
@@ -45,9 +41,7 @@ class WebGLContextAttributes {
     bool desynchronized,
     bool xrCompatible,
   });
-}
 
-extension WebGLContextAttributesExtension on WebGLContextAttributes {
   external set alpha(bool value);
   external bool get alpha;
   external set depth(bool value);
@@ -69,62 +63,27 @@ extension WebGLContextAttributesExtension on WebGLContextAttributes {
   external set xrCompatible(bool value);
   external bool get xrCompatible;
 }
-
-@JS('WebGLObject')
-@staticInterop
-class WebGLObject {}
-
-@JS('WebGLBuffer')
-@staticInterop
-class WebGLBuffer implements WebGLObject {}
-
-@JS('WebGLFramebuffer')
-@staticInterop
-class WebGLFramebuffer implements WebGLObject {}
-
-@JS('WebGLProgram')
-@staticInterop
-class WebGLProgram implements WebGLObject {}
-
-@JS('WebGLRenderbuffer')
-@staticInterop
-class WebGLRenderbuffer implements WebGLObject {}
-
-@JS('WebGLShader')
-@staticInterop
-class WebGLShader implements WebGLObject {}
-
-@JS('WebGLTexture')
-@staticInterop
-class WebGLTexture implements WebGLObject {}
-
-@JS('WebGLUniformLocation')
-@staticInterop
-class WebGLUniformLocation {}
-
-@JS('WebGLActiveInfo')
-@staticInterop
-class WebGLActiveInfo {}
-
-extension WebGLActiveInfoExtension on WebGLActiveInfo {
+extension type WebGLObject._(JSObject _) implements JSObject {}
+extension type WebGLBuffer._(JSObject _) implements WebGLObject, JSObject {}
+extension type WebGLFramebuffer._(JSObject _)
+    implements WebGLObject, JSObject {}
+extension type WebGLProgram._(JSObject _) implements WebGLObject, JSObject {}
+extension type WebGLRenderbuffer._(JSObject _)
+    implements WebGLObject, JSObject {}
+extension type WebGLShader._(JSObject _) implements WebGLObject, JSObject {}
+extension type WebGLTexture._(JSObject _) implements WebGLObject, JSObject {}
+extension type WebGLUniformLocation._(JSObject _) implements JSObject {}
+extension type WebGLActiveInfo._(JSObject _) implements JSObject {
   external GLint get size;
   external GLenum get type;
   external String get name;
 }
-
-@JS('WebGLShaderPrecisionFormat')
-@staticInterop
-class WebGLShaderPrecisionFormat {}
-
-extension WebGLShaderPrecisionFormatExtension on WebGLShaderPrecisionFormat {
+extension type WebGLShaderPrecisionFormat._(JSObject _) implements JSObject {
   external GLint get rangeMin;
   external GLint get rangeMax;
   external GLint get precision;
 }
-
-@JS('WebGLRenderingContext')
-@staticInterop
-class WebGLRenderingContext {
+extension type WebGLRenderingContext._(JSObject _) implements JSObject {
   external static GLenum get DEPTH_BUFFER_BIT;
   external static GLenum get STENCIL_BUFFER_BIT;
   external static GLenum get COLOR_BUFFER_BIT;
@@ -421,9 +380,6 @@ class WebGLRenderingContext {
   external static GLenum get CONTEXT_LOST_WEBGL;
   external static GLenum get UNPACK_COLORSPACE_CONVERSION_WEBGL;
   external static GLenum get BROWSER_DEFAULT_WEBGL;
-}
-
-extension WebGLRenderingContextExtension on WebGLRenderingContext {
   external WebGLContextAttributes? getContextAttributes();
   external bool isContextLost();
   external JSArray? getSupportedExtensions();
@@ -922,28 +878,18 @@ extension WebGLRenderingContextExtension on WebGLRenderingContext {
   external set unpackColorSpace(PredefinedColorSpace value);
   external PredefinedColorSpace get unpackColorSpace;
 }
-
-@JS('WebGLContextEvent')
-@staticInterop
-class WebGLContextEvent implements Event {
+extension type WebGLContextEvent._(JSObject _) implements Event, JSObject {
   external factory WebGLContextEvent(
     String type, [
     WebGLContextEventInit eventInit,
   ]);
-}
 
-extension WebGLContextEventExtension on WebGLContextEvent {
   external String get statusMessage;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class WebGLContextEventInit implements EventInit {
+extension type WebGLContextEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory WebGLContextEventInit({String statusMessage});
-}
 
-extension WebGLContextEventInitExtension on WebGLContextEventInit {
   external set statusMessage(String value);
   external String get statusMessage;
 }

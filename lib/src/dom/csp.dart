@@ -10,12 +10,8 @@ import 'dom.dart';
 import 'reporting.dart';
 
 typedef SecurityPolicyViolationEventDisposition = String;
-
-@JS('CSPViolationReportBody')
-@staticInterop
-class CSPViolationReportBody implements ReportBody {}
-
-extension CSPViolationReportBodyExtension on CSPViolationReportBody {
+extension type CSPViolationReportBody._(JSObject _)
+    implements ReportBody, JSObject {
   external JSObject toJSON();
   external String get documentURL;
   external String? get referrer;
@@ -29,18 +25,13 @@ extension CSPViolationReportBodyExtension on CSPViolationReportBody {
   external int? get lineNumber;
   external int? get columnNumber;
 }
-
-@JS('SecurityPolicyViolationEvent')
-@staticInterop
-class SecurityPolicyViolationEvent implements Event {
+extension type SecurityPolicyViolationEvent._(JSObject _)
+    implements Event, JSObject {
   external factory SecurityPolicyViolationEvent(
     String type, [
     SecurityPolicyViolationEventInit eventInitDict,
   ]);
-}
 
-extension SecurityPolicyViolationEventExtension
-    on SecurityPolicyViolationEvent {
   external String get documentURI;
   external String get referrer;
   external String get blockedURI;
@@ -54,11 +45,8 @@ extension SecurityPolicyViolationEventExtension
   external int get lineNumber;
   external int get columnNumber;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class SecurityPolicyViolationEventInit implements EventInit {
+extension type SecurityPolicyViolationEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory SecurityPolicyViolationEventInit({
     required String documentURI,
     String referrer,
@@ -73,10 +61,7 @@ class SecurityPolicyViolationEventInit implements EventInit {
     int lineNumber,
     int columnNumber,
   });
-}
 
-extension SecurityPolicyViolationEventInitExtension
-    on SecurityPolicyViolationEventInit {
   external set documentURI(String value);
   external String get documentURI;
   external set referrer(String value);

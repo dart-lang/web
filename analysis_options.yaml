@@ -12,7 +12,7 @@ analyzer:
   errors:
     # 43 instances in generated code.
     camel_case_types: ignore
-    # 1,481 instances in the MDN docs.
+    # 420 instances in the MDN docs.
     comment_references: ignore
     # 14 instances in the MDN docs.
     lines_longer_than_80_chars: ignore

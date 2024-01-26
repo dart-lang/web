@@ -7,10 +7,11 @@
   `package:web` (see [renames.md](tool/renames.md)).
 - Migrate classes to use interop extension types that implement `JSObject`.
 - Include MDN API documentation as class and member dartdoc comments.
-  - Documentation text from the MDN Web Docs project
-    (https://developer.mozilla.org/en-US/docs/Web); attributions and copyright
-    licensing by Mozilla Contributors is licensed under CC-BY-SA 2.5
-    (https://creativecommons.org/licenses/by-sa/2.5/).
+  - Docs sourced from the [MDN Web Docs][] project; attributions and copyright
+    licensing by Mozilla Contributors is licensed under [CC-BY-SA 2.5][].
+
+[MDN Web Docs]: https://developer.mozilla.org/en-US/docs/Web
+[CC-BY-SA 2.5]: https://creativecommons.org/licenses/by-sa/2.5/
 
 ## 0.4.2
 

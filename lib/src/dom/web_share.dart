@@ -10,19 +10,14 @@
 
 import 'dart:js_interop';
 
-@JS()
-@staticInterop
-@anonymous
-class ShareData {
+extension type ShareData._(JSObject _) implements JSObject {
   external factory ShareData({
     JSArray files,
     String title,
     String text,
     String url,
   });
-}
 
-extension ShareDataExtension on ShareData {
   external set files(JSArray value);
   external JSArray get files;
   external set title(String value);

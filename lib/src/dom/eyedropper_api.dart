@@ -12,39 +12,21 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 
-@JS()
-@staticInterop
-@anonymous
-class ColorSelectionResult {
+extension type ColorSelectionResult._(JSObject _) implements JSObject {
   external factory ColorSelectionResult({String sRGBHex});
-}
 
-extension ColorSelectionResultExtension on ColorSelectionResult {
   external set sRGBHex(String value);
   external String get sRGBHex;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ColorSelectionOptions {
+extension type ColorSelectionOptions._(JSObject _) implements JSObject {
   external factory ColorSelectionOptions({AbortSignal signal});
-}
 
-extension ColorSelectionOptionsExtension on ColorSelectionOptions {
   external set signal(AbortSignal value);
   external AbortSignal get signal;
 }
-
-/// The **`EyeDropper`** interface represents an instance of an eyedropper tool
-/// that can be opened and used by the user to select colors from the screen.
-@JS('EyeDropper')
-@staticInterop
-class EyeDropper {
+extension type EyeDropper._(JSObject _) implements JSObject {
   external factory EyeDropper();
-}
 
-extension EyeDropperExtension on EyeDropper {
   /// The **`EyeDropper.open()`** method starts the eyedropper mode, returning a
   /// promise which is fulfilled once the user has selected a color and exited
   /// the eyedropper mode.

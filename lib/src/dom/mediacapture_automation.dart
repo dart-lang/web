@@ -11,38 +11,26 @@
 import 'dart:js_interop';
 
 typedef MockCapturePromptResult = String;
-
-@JS()
-@staticInterop
-@anonymous
-class MockCapturePromptResultConfiguration {
+extension type MockCapturePromptResultConfiguration._(JSObject _)
+    implements JSObject {
   external factory MockCapturePromptResultConfiguration({
     MockCapturePromptResult getUserMedia,
     MockCapturePromptResult getDisplayMedia,
   });
-}
 
-extension MockCapturePromptResultConfigurationExtension
-    on MockCapturePromptResultConfiguration {
   external set getUserMedia(MockCapturePromptResult value);
   external MockCapturePromptResult get getUserMedia;
   external set getDisplayMedia(MockCapturePromptResult value);
   external MockCapturePromptResult get getDisplayMedia;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MockCaptureDeviceConfiguration {
+extension type MockCaptureDeviceConfiguration._(JSObject _)
+    implements JSObject {
   external factory MockCaptureDeviceConfiguration({
     String label,
     String deviceId,
     String groupId,
   });
-}
 
-extension MockCaptureDeviceConfigurationExtension
-    on MockCaptureDeviceConfiguration {
   external set label(String value);
   external String get label;
   external set deviceId(String value);
@@ -50,32 +38,22 @@ extension MockCaptureDeviceConfigurationExtension
   external set groupId(String value);
   external String get groupId;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MockCameraConfiguration implements MockCaptureDeviceConfiguration {
+extension type MockCameraConfiguration._(JSObject _)
+    implements MockCaptureDeviceConfiguration, JSObject {
   external factory MockCameraConfiguration({
     num defaultFrameRate,
     String facingMode,
   });
-}
 
-extension MockCameraConfigurationExtension on MockCameraConfiguration {
   external set defaultFrameRate(num value);
   external num get defaultFrameRate;
   external set facingMode(String value);
   external String get facingMode;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MockMicrophoneConfiguration implements MockCaptureDeviceConfiguration {
+extension type MockMicrophoneConfiguration._(JSObject _)
+    implements MockCaptureDeviceConfiguration, JSObject {
   external factory MockMicrophoneConfiguration({int defaultSampleRate});
-}
 
-extension MockMicrophoneConfigurationExtension on MockMicrophoneConfiguration {
   external set defaultSampleRate(int value);
   external int get defaultSampleRate;
 }

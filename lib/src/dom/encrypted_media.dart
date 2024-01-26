@@ -19,11 +19,7 @@ typedef MediaKeySessionType = String;
 typedef MediaKeySessionClosedReason = String;
 typedef MediaKeyStatus = String;
 typedef MediaKeyMessageType = String;
-
-@JS()
-@staticInterop
-@anonymous
-class MediaKeySystemConfiguration {
+extension type MediaKeySystemConfiguration._(JSObject _) implements JSObject {
   external factory MediaKeySystemConfiguration({
     String label,
     JSArray initDataTypes,
@@ -33,9 +29,7 @@ class MediaKeySystemConfiguration {
     MediaKeysRequirement persistentState,
     JSArray sessionTypes,
   });
-}
 
-extension MediaKeySystemConfigurationExtension on MediaKeySystemConfiguration {
   external set label(String value);
   external String get label;
   external set initDataTypes(JSArray value);
@@ -51,20 +45,13 @@ extension MediaKeySystemConfigurationExtension on MediaKeySystemConfiguration {
   external set sessionTypes(JSArray value);
   external JSArray get sessionTypes;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaKeySystemMediaCapability {
+extension type MediaKeySystemMediaCapability._(JSObject _) implements JSObject {
   external factory MediaKeySystemMediaCapability({
     String contentType,
     String? encryptionScheme,
     String robustness,
   });
-}
 
-extension MediaKeySystemMediaCapabilityExtension
-    on MediaKeySystemMediaCapability {
   external set contentType(String value);
   external String get contentType;
   external set encryptionScheme(String? value);
@@ -72,17 +59,7 @@ extension MediaKeySystemMediaCapabilityExtension
   external set robustness(String value);
   external String get robustness;
 }
-
-/// The **`MediaKeySystemAccess`** interface of the
-/// [Encrypted Media Extensions API](https://developer.mozilla.org/en-US/docs/Web/API/Encrypted_Media_Extensions_API)
-/// provides access to a Key System for decryption and/or a content protection
-/// provider. You can request an instance of this object using the
-/// [Navigator.requestMediaKeySystemAccess] method.
-@JS('MediaKeySystemAccess')
-@staticInterop
-class MediaKeySystemAccess {}
-
-extension MediaKeySystemAccessExtension on MediaKeySystemAccess {
+extension type MediaKeySystemAccess._(JSObject _) implements JSObject {
   /// The `MediaKeySystemAccess.getConfiguration()` method returns an object
   /// with the supported combination of
   /// the following configuration options:
@@ -104,16 +81,7 @@ extension MediaKeySystemAccessExtension on MediaKeySystemAccess {
   external JSPromise createMediaKeys();
   external String get keySystem;
 }
-
-/// The **`MediaKeys`** interface of
-/// [Encrypted Media Extensions API](https://developer.mozilla.org/en-US/docs/Web/API/Encrypted_Media_Extensions_API)
-/// represents a set of keys that an associated [HTMLMediaElement] can use for
-/// decryption of media data during playback.
-@JS('MediaKeys')
-@staticInterop
-class MediaKeys {}
-
-extension MediaKeysExtension on MediaKeys {
+extension type MediaKeys._(JSObject _) implements JSObject {
   /// The `MediaKeys.createSession()` method returns a new
   /// [MediaKeySession] object, which represents a context for message exchange
   /// with a content decryption module (CDM).
@@ -123,16 +91,7 @@ extension MediaKeysExtension on MediaKeys {
   /// server certificate to be used to encrypt messages to the license server.
   external JSPromise setServerCertificate(BufferSource serverCertificate);
 }
-
-/// The **`MediaKeySession`** interface of the
-/// [Encrypted Media Extensions API](https://developer.mozilla.org/en-US/docs/Web/API/Encrypted_Media_Extensions_API)
-/// represents a context for message exchange with a content decryption module
-/// (CDM).
-@JS('MediaKeySession')
-@staticInterop
-class MediaKeySession implements EventTarget {}
-
-extension MediaKeySessionExtension on MediaKeySession {
+extension type MediaKeySession._(JSObject _) implements EventTarget, JSObject {
   /// The `MediaKeySession.generateRequest()` method returns a
   /// `Promise` after generating a media request based on initialization data.
   external JSPromise generateRequest(
@@ -168,15 +127,7 @@ extension MediaKeySessionExtension on MediaKeySession {
   external set onmessage(EventHandler value);
   external EventHandler get onmessage;
 }
-
-/// The **`MediaKeyStatusMap`** interface of the
-/// [Encrypted Media Extensions API](https://developer.mozilla.org/en-US/docs/Web/API/Encrypted_Media_Extensions_API)
-/// is a read-only map of media key statuses by key IDs.
-@JS('MediaKeyStatusMap')
-@staticInterop
-class MediaKeyStatusMap {}
-
-extension MediaKeyStatusMapExtension on MediaKeyStatusMap {
+extension type MediaKeyStatusMap._(JSObject _) implements JSObject {
   /// The **`has`** property of the
   /// [MediaKeyStatusMap] interface returns a `Boolean`, asserting
   /// whether a value has been associated with the given key.
@@ -188,72 +139,43 @@ extension MediaKeyStatusMapExtension on MediaKeyStatusMap {
   external MediaKeyStatus? get(BufferSource keyId);
   external int get size;
 }
-
-/// The **`MediaKeyMessageEvent`** interface of the
-/// [Encrypted Media Extensions API](https://developer.mozilla.org/en-US/docs/Web/API/Encrypted_Media_Extensions_API)
-/// contains the content and related data when the content decryption module
-/// generates a message for the session.
-@JS('MediaKeyMessageEvent')
-@staticInterop
-class MediaKeyMessageEvent implements Event {
+extension type MediaKeyMessageEvent._(JSObject _) implements Event, JSObject {
   external factory MediaKeyMessageEvent(
     String type,
     MediaKeyMessageEventInit eventInitDict,
   );
-}
 
-extension MediaKeyMessageEventExtension on MediaKeyMessageEvent {
   external MediaKeyMessageType get messageType;
   external JSArrayBuffer get message;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaKeyMessageEventInit implements EventInit {
+extension type MediaKeyMessageEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory MediaKeyMessageEventInit({
     required MediaKeyMessageType messageType,
     required JSArrayBuffer message,
   });
-}
 
-extension MediaKeyMessageEventInitExtension on MediaKeyMessageEventInit {
   external set messageType(MediaKeyMessageType value);
   external MediaKeyMessageType get messageType;
   external set message(JSArrayBuffer value);
   external JSArrayBuffer get message;
 }
-
-/// The **`MediaEncryptedEvent`** interface of the
-/// [Encrypted Media Extensions API](https://developer.mozilla.org/en-US/docs/Web/API/Encrypted_Media_Extensions_API)
-/// contains the information associated with an
-/// [HTMLMediaElement/encrypted_event] event sent to a [HTMLMediaElement] when
-/// some initialization data is encountered in the media.
-@JS('MediaEncryptedEvent')
-@staticInterop
-class MediaEncryptedEvent implements Event {
+extension type MediaEncryptedEvent._(JSObject _) implements Event, JSObject {
   external factory MediaEncryptedEvent(
     String type, [
     MediaEncryptedEventInit eventInitDict,
   ]);
-}
 
-extension MediaEncryptedEventExtension on MediaEncryptedEvent {
   external String get initDataType;
   external JSArrayBuffer? get initData;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaEncryptedEventInit implements EventInit {
+extension type MediaEncryptedEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory MediaEncryptedEventInit({
     String initDataType,
     JSArrayBuffer? initData,
   });
-}
 
-extension MediaEncryptedEventInitExtension on MediaEncryptedEventInit {
   external set initDataType(String value);
   external String get initDataType;
   external set initData(JSArrayBuffer? value);

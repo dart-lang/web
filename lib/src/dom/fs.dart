@@ -17,17 +17,7 @@ import 'webidl.dart';
 typedef FileSystemWriteChunkType = JSAny;
 typedef FileSystemHandleKind = String;
 typedef WriteCommandType = String;
-
-/// The **`FileSystemHandle`** interface of the [File System API] is an object
-/// which represents a file or directory entry. Multiple handles can represent
-/// the same entry. For the most part you do not work with `FileSystemHandle`
-/// directly but rather its child interfaces [FileSystemFileHandle] and
-/// [FileSystemDirectoryHandle].
-@JS('FileSystemHandle')
-@staticInterop
-class FileSystemHandle {}
-
-extension FileSystemHandleExtension on FileSystemHandle {
+extension type FileSystemHandle._(JSObject _) implements JSObject {
   /// The **`queryPermission()`** method of the
   /// [FileSystemHandle] interface queries the current permission state of the
   /// current handle.
@@ -48,34 +38,15 @@ extension FileSystemHandleExtension on FileSystemHandle {
   external FileSystemHandleKind get kind;
   external String get name;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class FileSystemCreateWritableOptions {
+extension type FileSystemCreateWritableOptions._(JSObject _)
+    implements JSObject {
   external factory FileSystemCreateWritableOptions({bool keepExistingData});
-}
 
-extension FileSystemCreateWritableOptionsExtension
-    on FileSystemCreateWritableOptions {
   external set keepExistingData(bool value);
   external bool get keepExistingData;
 }
-
-/// The **`FileSystemFileHandle`** interface of the [File System API] represents
-/// a handle to a file system entry. The interface is accessed through the
-/// [window.showOpenFilePicker] method.
-///
-/// Note that read and write operations depend on file-access permissions that
-/// do not persist after a page refresh if no other tabs for that origin remain
-/// open. The [FileSystemHandle.queryPermission] method of the
-/// [FileSystemHandle] interface can be used to verify permission state before
-/// accessing a file.
-@JS('FileSystemFileHandle')
-@staticInterop
-class FileSystemFileHandle implements FileSystemHandle {}
-
-extension FileSystemFileHandleExtension on FileSystemFileHandle {
+extension type FileSystemFileHandle._(JSObject _)
+    implements FileSystemHandle, JSObject {
   /// The **`getFile()`** method of the
   /// [FileSystemFileHandle] interface returns a `Promise` which resolves to a
   /// [File] object representing the state on disk of the entry represented by
@@ -114,55 +85,26 @@ extension FileSystemFileHandleExtension on FileSystemFileHandle {
   /// for the file until the existing access handle is closed.
   external JSPromise createSyncAccessHandle();
 }
-
-@JS()
-@staticInterop
-@anonymous
-class FileSystemGetFileOptions {
+extension type FileSystemGetFileOptions._(JSObject _) implements JSObject {
   external factory FileSystemGetFileOptions({bool create});
-}
 
-extension FileSystemGetFileOptionsExtension on FileSystemGetFileOptions {
   external set create(bool value);
   external bool get create;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class FileSystemGetDirectoryOptions {
+extension type FileSystemGetDirectoryOptions._(JSObject _) implements JSObject {
   external factory FileSystemGetDirectoryOptions({bool create});
-}
 
-extension FileSystemGetDirectoryOptionsExtension
-    on FileSystemGetDirectoryOptions {
   external set create(bool value);
   external bool get create;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class FileSystemRemoveOptions {
+extension type FileSystemRemoveOptions._(JSObject _) implements JSObject {
   external factory FileSystemRemoveOptions({bool recursive});
-}
 
-extension FileSystemRemoveOptionsExtension on FileSystemRemoveOptions {
   external set recursive(bool value);
   external bool get recursive;
 }
-
-/// The **`FileSystemDirectoryHandle`** interface of the [File System API]
-/// provides a handle to a file system directory.
-///
-/// The interface can be accessed via the [window.showDirectoryPicker],
-/// [StorageManager.getDirectory], [DataTransferItem.getAsFileSystemHandle], and
-/// [FileSystemDirectoryHandle.getDirectoryHandle] methods.
-@JS('FileSystemDirectoryHandle')
-@staticInterop
-class FileSystemDirectoryHandle implements FileSystemHandle {}
-
-extension FileSystemDirectoryHandleExtension on FileSystemDirectoryHandle {
+extension type FileSystemDirectoryHandle._(JSObject _)
+    implements FileSystemHandle, JSObject {
   /// The **`getFileHandle()`** method of the
   /// [FileSystemDirectoryHandle] interface returns a
   /// [FileSystemFileHandle] for a file with the specified name, within the
@@ -196,20 +138,14 @@ extension FileSystemDirectoryHandleExtension on FileSystemDirectoryHandle {
   /// the child entry as the last array item.
   external JSPromise resolve(FileSystemHandle possibleDescendant);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class WriteParams {
+extension type WriteParams._(JSObject _) implements JSObject {
   external factory WriteParams({
     required WriteCommandType type,
     int? size,
     int? position,
     JSAny? data,
   });
-}
 
-extension WriteParamsExtension on WriteParams {
   external set type(WriteCommandType value);
   external WriteCommandType get type;
   external set size(int? value);
@@ -219,17 +155,8 @@ extension WriteParamsExtension on WriteParams {
   external set data(JSAny? value);
   external JSAny? get data;
 }
-
-/// The **`FileSystemWritableFileStream`** interface of the [File System API] is
-/// a [WritableStream] object with additional convenience methods, which
-/// operates on a single file on disk. The interface is accessed through the
-/// [FileSystemFileHandle.createWritable] method.
-@JS('FileSystemWritableFileStream')
-@staticInterop
-class FileSystemWritableFileStream implements WritableStream {}
-
-extension FileSystemWritableFileStreamExtension
-    on FileSystemWritableFileStream {
+extension type FileSystemWritableFileStream._(JSObject _)
+    implements WritableStream, JSObject {
   /// The **`write()`** method of the [FileSystemWritableFileStream] interface
   /// writes content into the file the method is called on, at the current file
   /// cursor offset.
@@ -263,50 +190,13 @@ extension FileSystemWritableFileStreamExtension
   /// Changes are typically written to a temporary file instead.
   external JSPromise truncate(int size);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class FileSystemReadWriteOptions {
+extension type FileSystemReadWriteOptions._(JSObject _) implements JSObject {
   external factory FileSystemReadWriteOptions({int at});
-}
 
-extension FileSystemReadWriteOptionsExtension on FileSystemReadWriteOptions {
   external set at(int value);
   external int get at;
 }
-
-/// The **`FileSystemSyncAccessHandle`** interface of the [File System API]
-/// represents a synchronous handle to a file system entry.
-///
-/// This class is only accessible inside dedicated
-/// [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)
-/// (so that its methods do not block execution on the main thread) for files
-/// within the
-/// [origin private file system](https://developer.mozilla.org/en-US/docs/Web/API/File_System_API/Origin_private_file_system),
-/// which is not visible to end-users.
-///
-/// As a result, its methods are not subject to the same security checks as
-/// methods running on files within the user-visible file system, and so are
-/// much more performant. This makes them suitable for significant, large-scale
-/// file updates such as [SQLite](https://www.sqlite.org/wasm) database
-/// modifications.
-///
-/// The interface is accessed through the
-/// [FileSystemFileHandle.createSyncAccessHandle] method.
-///
-/// > **Note:** In earlier versions of the spec,
-/// > [FileSystemSyncAccessHandle.close], [FileSystemSyncAccessHandle.flush],
-/// > [FileSystemSyncAccessHandle.getSize], and
-/// > [FileSystemSyncAccessHandle.truncate] were wrongly specified as
-/// > asynchronous methods, and older versions of some browsers implement them
-/// > in this way. However, all current browsers that support these methods
-/// > implement them as synchronous methods.
-@JS('FileSystemSyncAccessHandle')
-@staticInterop
-class FileSystemSyncAccessHandle {}
-
-extension FileSystemSyncAccessHandleExtension on FileSystemSyncAccessHandle {
+extension type FileSystemSyncAccessHandle._(JSObject _) implements JSObject {
   /// The **`read()`** method of the
   /// [FileSystemSyncAccessHandle] interface reads the content of the file
   /// associated with the handle into a specified buffer, optionally at a given

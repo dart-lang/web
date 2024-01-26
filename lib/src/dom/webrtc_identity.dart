@@ -15,105 +15,64 @@ import 'html.dart';
 typedef GenerateAssertionCallback = JSFunction;
 typedef ValidateAssertionCallback = JSFunction;
 typedef RTCErrorDetailTypeIdp = String;
-
-@JS('RTCIdentityProviderGlobalScope')
-@staticInterop
-class RTCIdentityProviderGlobalScope implements WorkerGlobalScope {}
-
-extension RTCIdentityProviderGlobalScopeExtension
-    on RTCIdentityProviderGlobalScope {
+extension type RTCIdentityProviderGlobalScope._(JSObject _)
+    implements WorkerGlobalScope, JSObject {
   external RTCIdentityProviderRegistrar get rtcIdentityProvider;
 }
-
-@JS('RTCIdentityProviderRegistrar')
-@staticInterop
-class RTCIdentityProviderRegistrar {}
-
-extension RTCIdentityProviderRegistrarExtension
-    on RTCIdentityProviderRegistrar {
+extension type RTCIdentityProviderRegistrar._(JSObject _) implements JSObject {
   external void register(RTCIdentityProvider idp);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCIdentityProvider {
+extension type RTCIdentityProvider._(JSObject _) implements JSObject {
   external factory RTCIdentityProvider({
     required GenerateAssertionCallback generateAssertion,
     required ValidateAssertionCallback validateAssertion,
   });
-}
 
-extension RTCIdentityProviderExtension on RTCIdentityProvider {
   external set generateAssertion(GenerateAssertionCallback value);
   external GenerateAssertionCallback get generateAssertion;
   external set validateAssertion(ValidateAssertionCallback value);
   external ValidateAssertionCallback get validateAssertion;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCIdentityAssertionResult {
+extension type RTCIdentityAssertionResult._(JSObject _) implements JSObject {
   external factory RTCIdentityAssertionResult({
     required RTCIdentityProviderDetails idp,
     required String assertion,
   });
-}
 
-extension RTCIdentityAssertionResultExtension on RTCIdentityAssertionResult {
   external set idp(RTCIdentityProviderDetails value);
   external RTCIdentityProviderDetails get idp;
   external set assertion(String value);
   external String get assertion;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCIdentityProviderDetails {
+extension type RTCIdentityProviderDetails._(JSObject _) implements JSObject {
   external factory RTCIdentityProviderDetails({
     required String domain,
     String protocol,
   });
-}
 
-extension RTCIdentityProviderDetailsExtension on RTCIdentityProviderDetails {
   external set domain(String value);
   external String get domain;
   external set protocol(String value);
   external String get protocol;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCIdentityValidationResult {
+extension type RTCIdentityValidationResult._(JSObject _) implements JSObject {
   external factory RTCIdentityValidationResult({
     required String identity,
     required String contents,
   });
-}
 
-extension RTCIdentityValidationResultExtension on RTCIdentityValidationResult {
   external set identity(String value);
   external String get identity;
   external set contents(String value);
   external String get contents;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCIdentityProviderOptions {
+extension type RTCIdentityProviderOptions._(JSObject _) implements JSObject {
   external factory RTCIdentityProviderOptions({
     String protocol,
     String usernameHint,
     String peerIdentity,
   });
-}
 
-extension RTCIdentityProviderOptionsExtension on RTCIdentityProviderOptions {
   external set protocol(String value);
   external String get protocol;
   external set usernameHint(String value);
@@ -121,22 +80,12 @@ extension RTCIdentityProviderOptionsExtension on RTCIdentityProviderOptions {
   external set peerIdentity(String value);
   external String get peerIdentity;
 }
-
-/// The **`RTCIdentityAssertion`** interface of the
-/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
-/// represents the identity of a remote peer of the current connection. If no
-/// peer has yet been set and verified, then this interface returns `null`. Once
-/// set it can't be changed.
-@JS('RTCIdentityAssertion')
-@staticInterop
-class RTCIdentityAssertion {
+extension type RTCIdentityAssertion._(JSObject _) implements JSObject {
   external factory RTCIdentityAssertion(
     String idp,
     String name,
   );
-}
 
-extension RTCIdentityAssertionExtension on RTCIdentityAssertion {
   external set idp(String value);
   external String get idp;
   external set name(String value);

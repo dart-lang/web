@@ -14,17 +14,8 @@ import 'hr_time.dart';
 import 'performance_timeline.dart';
 
 typedef RenderBlockingStatusType = String;
-
-/// The **`PerformanceResourceTiming`** interface enables retrieval and analysis
-/// of detailed network timing data regarding the loading of an application's
-/// resources. An application can use the timing metrics to determine, for
-/// example, the length of time it takes to fetch a specific resource, such as
-/// an [XMLHttpRequest], , image, or script.
-@JS('PerformanceResourceTiming')
-@staticInterop
-class PerformanceResourceTiming implements PerformanceEntry {}
-
-extension PerformanceResourceTimingExtension on PerformanceResourceTiming {
+extension type PerformanceResourceTiming._(JSObject _)
+    implements PerformanceEntry, JSObject {
   /// The **`toJSON()`** method of the [PerformanceResourceTiming] interface is
   /// a ; it returns a JSON representation of the [PerformanceResourceTiming]
   /// object.

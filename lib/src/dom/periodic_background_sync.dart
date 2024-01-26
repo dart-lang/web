@@ -12,17 +12,7 @@ import 'dart:js_interop';
 
 import 'service_workers.dart';
 
-/// The **`PeriodicSyncManager`** interface of the
-/// [Web Periodic Background Synchronization API] provides a way to register
-/// tasks to be run in a service worker at periodic intervals with network
-/// connectivity. These tasks are referred to as periodic background sync
-/// requests. Access `PeriodicSyncManager` through the
-/// [ServiceWorkerRegistration.periodicSync].
-@JS('PeriodicSyncManager')
-@staticInterop
-class PeriodicSyncManager {}
-
-extension PeriodicSyncManagerExtension on PeriodicSyncManager {
+extension type PeriodicSyncManager._(JSObject _) implements JSObject {
   /// The **`register()`** method of the
   /// [PeriodicSyncManager] interface registers a periodic sync request with the
   /// browser with the specified tag and options. It returns a `Promise` that
@@ -44,49 +34,25 @@ extension PeriodicSyncManagerExtension on PeriodicSyncManager {
   /// when unregistration completes.
   external JSPromise unregister(String tag);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class BackgroundSyncOptions {
+extension type BackgroundSyncOptions._(JSObject _) implements JSObject {
   external factory BackgroundSyncOptions({int minInterval});
-}
 
-extension BackgroundSyncOptionsExtension on BackgroundSyncOptions {
   external set minInterval(int value);
   external int get minInterval;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PeriodicSyncEventInit implements ExtendableEventInit {
+extension type PeriodicSyncEventInit._(JSObject _)
+    implements ExtendableEventInit, JSObject {
   external factory PeriodicSyncEventInit({required String tag});
-}
 
-extension PeriodicSyncEventInitExtension on PeriodicSyncEventInit {
   external set tag(String value);
   external String get tag;
 }
-
-/// The **`PeriodicSyncEvent`** interface of the
-/// [Web Periodic Background Synchronization API] provides a way to run tasks in
-/// the service worker with network connectivity.
-///
-/// An instance of this event is passed to the
-/// [ServiceWorkerGlobalScope.periodicsync_event] handler. This happens
-/// periodically, at an interval greater than or equal to that set in the
-/// [PeriodicSyncManager.register] method. Other implementation-specific factors
-/// such as the user's engagement with the site decide the actual interval.
-@JS('PeriodicSyncEvent')
-@staticInterop
-class PeriodicSyncEvent implements ExtendableEvent {
+extension type PeriodicSyncEvent._(JSObject _)
+    implements ExtendableEvent, JSObject {
   external factory PeriodicSyncEvent(
     String type,
     PeriodicSyncEventInit init,
   );
-}
 
-extension PeriodicSyncEventExtension on PeriodicSyncEvent {
   external String get tag;
 }

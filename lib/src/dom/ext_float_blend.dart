@@ -10,6 +10,4 @@
 
 import 'dart:js_interop';
 
-@JS('EXT_float_blend')
-@staticInterop
-class EXT_float_blend {}
+extension type EXT_float_blend._(JSObject _) implements JSObject {}

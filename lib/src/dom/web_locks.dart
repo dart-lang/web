@@ -14,17 +14,7 @@ import 'dom.dart';
 
 typedef LockGrantedCallback = JSFunction;
 typedef LockMode = String;
-
-/// The **`LockManager`** interface of the
-/// [Web Locks API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Locks_API)
-/// provides methods for requesting a new [Lock] object and querying for an
-/// existing `Lock` object. To get an instance of `LockManager`, call
-/// [navigator.locks].
-@JS('LockManager')
-@staticInterop
-class LockManager {}
-
-extension LockManagerExtension on LockManager {
+extension type LockManager._(JSObject _) implements JSObject {
   /// The **`request()`** method of the [LockManager] interface requests a
   /// [Lock] object with parameters specifying its name and characteristics.
   /// The requested `Lock` is passed to a callback, while the function itself
@@ -67,20 +57,14 @@ extension LockManagerExtension on LockManager {
   /// and pending locks.
   external JSPromise query();
 }
-
-@JS()
-@staticInterop
-@anonymous
-class LockOptions {
+extension type LockOptions._(JSObject _) implements JSObject {
   external factory LockOptions({
     LockMode mode,
     bool ifAvailable,
     bool steal,
     AbortSignal signal,
   });
-}
 
-extension LockOptionsExtension on LockOptions {
   external set mode(LockMode value);
   external LockMode get mode;
   external set ifAvailable(bool value);
@@ -90,36 +74,24 @@ extension LockOptionsExtension on LockOptions {
   external set signal(AbortSignal value);
   external AbortSignal get signal;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class LockManagerSnapshot {
+extension type LockManagerSnapshot._(JSObject _) implements JSObject {
   external factory LockManagerSnapshot({
     JSArray held,
     JSArray pending,
   });
-}
 
-extension LockManagerSnapshotExtension on LockManagerSnapshot {
   external set held(JSArray value);
   external JSArray get held;
   external set pending(JSArray value);
   external JSArray get pending;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class LockInfo {
+extension type LockInfo._(JSObject _) implements JSObject {
   external factory LockInfo({
     String name,
     LockMode mode,
     String clientId,
   });
-}
 
-extension LockInfoExtension on LockInfo {
   external set name(String value);
   external String get name;
   external set mode(LockMode value);
@@ -127,18 +99,7 @@ extension LockInfoExtension on LockInfo {
   external set clientId(String value);
   external String get clientId;
 }
-
-/// The **`Lock`** interface of the
-/// [Web Locks API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Locks_API)
-/// provides the name and mode of a lock.
-/// This may be a newly requested lock that is received in the callback to
-/// [LockManager.request], or a record of an active or queued lock returned by
-/// [LockManager.query].
-@JS('Lock')
-@staticInterop
-class Lock {}
-
-extension LockExtension on Lock {
+extension type Lock._(JSObject _) implements JSObject {
   external String get name;
   external LockMode get mode;
 }

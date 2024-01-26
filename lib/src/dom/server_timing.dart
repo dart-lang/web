@@ -12,18 +12,7 @@ import 'dart:js_interop';
 
 import 'hr_time.dart';
 
-/// The **`PerformanceServerTiming`** interface surfaces server metrics that are
-/// sent with the response in the  HTTP header.
-///
-/// This interface is restricted to the same origin, but you can use the  header
-/// to specify the domains that are allowed to access the server metrics. Note
-/// that this interface is only available in secure contexts (HTTPS) in some
-/// browsers.
-@JS('PerformanceServerTiming')
-@staticInterop
-class PerformanceServerTiming {}
-
-extension PerformanceServerTimingExtension on PerformanceServerTiming {
+extension type PerformanceServerTiming._(JSObject _) implements JSObject {
   /// The **`toJSON()`** method of the [PerformanceServerTiming] interface is a
   /// ; it returns a JSON representation of the [PerformanceServerTiming]
   /// object.

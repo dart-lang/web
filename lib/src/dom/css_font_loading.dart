@@ -16,11 +16,7 @@ import 'html.dart';
 typedef BinaryData = JSObject;
 typedef FontFaceLoadStatus = String;
 typedef FontFaceSetLoadStatus = String;
-
-@JS()
-@staticInterop
-@anonymous
-class FontFaceDescriptors {
+extension type FontFaceDescriptors._(JSObject _) implements JSObject {
   external factory FontFaceDescriptors({
     String style,
     String weight,
@@ -33,9 +29,7 @@ class FontFaceDescriptors {
     String descentOverride,
     String lineGapOverride,
   });
-}
 
-extension FontFaceDescriptorsExtension on FontFaceDescriptors {
   external set style(String value);
   external String get style;
   external set weight(String value);
@@ -57,27 +51,13 @@ extension FontFaceDescriptorsExtension on FontFaceDescriptors {
   external set lineGapOverride(String value);
   external String get lineGapOverride;
 }
-
-/// The **`FontFace`** interface of the
-/// [CSS Font Loading API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Font_Loading_API)
-/// represents a single usable font face.
-///
-/// This interface defines the source of a font face, either a URL to an
-/// external resource or a buffer, and font properties such as `style`,
-/// `weight`, and so on.
-/// For URL font sources it allows authors to trigger when the remote font is
-/// fetched and loaded, and to track loading status.
-@JS('FontFace')
-@staticInterop
-class FontFace {
+extension type FontFace._(JSObject _) implements JSObject {
   external factory FontFace(
     String family,
     JSAny source, [
     FontFaceDescriptors descriptors,
   ]);
-}
 
-extension FontFaceExtension on FontFace {
   /// The **`load()`** method of the [FontFace] interface requests and loads a
   /// font whose `source` was specified as a URL. It returns a `Promise` that
   /// resolves with the current `FontFace` object.
@@ -114,100 +94,41 @@ extension FontFaceExtension on FontFace {
   external FontFaceVariations get variations;
   external FontFacePalettes get palettes;
 }
-
-@JS('FontFaceFeatures')
-@staticInterop
-class FontFaceFeatures {}
-
-@JS('FontFaceVariationAxis')
-@staticInterop
-class FontFaceVariationAxis {}
-
-extension FontFaceVariationAxisExtension on FontFaceVariationAxis {
+extension type FontFaceFeatures._(JSObject _) implements JSObject {}
+extension type FontFaceVariationAxis._(JSObject _) implements JSObject {
   external String get name;
   external String get axisTag;
   external num get minimumValue;
   external num get maximumValue;
   external num get defaultValue;
 }
-
-@JS('FontFaceVariations')
-@staticInterop
-class FontFaceVariations {}
-
-extension FontFaceVariationsExtension on FontFaceVariations {}
-
-@JS('FontFacePalette')
-@staticInterop
-class FontFacePalette {}
-
-extension FontFacePaletteExtension on FontFacePalette {
+extension type FontFaceVariations._(JSObject _) implements JSObject {}
+extension type FontFacePalette._(JSObject _) implements JSObject {
   external int get length;
   external bool get usableWithLightBackground;
   external bool get usableWithDarkBackground;
 }
-
-@JS('FontFacePalettes')
-@staticInterop
-class FontFacePalettes {}
-
-extension FontFacePalettesExtension on FontFacePalettes {
+extension type FontFacePalettes._(JSObject _) implements JSObject {
   external int get length;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class FontFaceSetLoadEventInit implements EventInit {
+extension type FontFaceSetLoadEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory FontFaceSetLoadEventInit({JSArray fontfaces});
-}
 
-extension FontFaceSetLoadEventInitExtension on FontFaceSetLoadEventInit {
   external set fontfaces(JSArray value);
   external JSArray get fontfaces;
 }
-
-/// The **`FontFaceSetLoadEvent`** interface of the
-/// [CSS Font Loading API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Font_Loading_API)
-/// represents events fired at a [FontFaceSet] after it starts loading font
-/// faces.
-///
-/// Events are fired when font loading starts
-/// ([`loading`](https://developer.mozilla.org/en-US/docs/Web/API/FontFaceSet/loading_event)),
-/// loading completes
-/// ([`loadingdone`](https://developer.mozilla.org/en-US/docs/Web/API/FontFaceSet/loadingdone_event))
-/// or there is an error loading one of the fonts
-/// ([`loadingerror`](https://developer.mozilla.org/en-US/docs/Web/API/FontFaceSet/loadingerror_event)).
-@JS('FontFaceSetLoadEvent')
-@staticInterop
-class FontFaceSetLoadEvent implements Event {
+extension type FontFaceSetLoadEvent._(JSObject _) implements Event, JSObject {
   external factory FontFaceSetLoadEvent(
     String type, [
     FontFaceSetLoadEventInit eventInitDict,
   ]);
-}
 
-extension FontFaceSetLoadEventExtension on FontFaceSetLoadEvent {
   external JSArray get fontfaces;
 }
-
-/// The **`FontFaceSet`** interface of the
-/// [CSS Font Loading API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Font_Loading_API)
-/// manages the loading of font-faces and querying of their download status.
-///
-/// A `FontFaceSet` instance is a
-/// [`Set`-like object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set#set-like_browser_apis)
-/// that can hold an ordered set of [FontFace] objects.
-///
-/// This property is available as [Document.fonts], or `self.fonts` in
-/// [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
-@JS('FontFaceSet')
-@staticInterop
-class FontFaceSet implements EventTarget {
+extension type FontFaceSet._(JSObject _) implements EventTarget, JSObject {
   external factory FontFaceSet(JSArray initialFaces);
-}
 
-extension FontFaceSetExtension on FontFaceSet {
   /// The **`add()`** method of the [FontFaceSet] interface adds a new font to
   /// the set.
   external FontFaceSet add(FontFace font);

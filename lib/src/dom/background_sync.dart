@@ -12,14 +12,7 @@ import 'dart:js_interop';
 
 import 'service_workers.dart';
 
-/// The **`SyncManager`** interface of the
-/// [ServiceWorker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
-/// provides an interface for registering and listing sync registrations.
-@JS('SyncManager')
-@staticInterop
-class SyncManager {}
-
-extension SyncManagerExtension on SyncManager {
+extension type SyncManager._(JSObject _) implements JSObject {
   /// The **`SyncManager.register`** method of the [SyncManager] interface
   /// registers a synchronization event, triggering a
   /// [ServiceWorkerGlobalScope.sync_event] event inside the associated service
@@ -32,36 +25,22 @@ extension SyncManagerExtension on SyncManager {
   /// `SyncManager` registrations.
   external JSPromise getTags();
 }
-
-/// The **`SyncEvent`** interface represents a sync action that is dispatched on
-/// the [ServiceWorkerGlobalScope] of a ServiceWorker.
-///
-/// This interface inherits from the [ExtendableEvent] interface.
-@JS('SyncEvent')
-@staticInterop
-class SyncEvent implements ExtendableEvent {
+extension type SyncEvent._(JSObject _) implements ExtendableEvent, JSObject {
   external factory SyncEvent(
     String type,
     SyncEventInit init,
   );
-}
 
-extension SyncEventExtension on SyncEvent {
   external String get tag;
   external bool get lastChance;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class SyncEventInit implements ExtendableEventInit {
+extension type SyncEventInit._(JSObject _)
+    implements ExtendableEventInit, JSObject {
   external factory SyncEventInit({
     required String tag,
     bool lastChance,
   });
-}
 
-extension SyncEventInitExtension on SyncEventInit {
   external set tag(String value);
   external String get tag;
   external set lastChance(bool value);

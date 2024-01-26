@@ -13,36 +13,13 @@ import 'dart:js_interop';
 import 'webxr.dart';
 
 typedef XRHandJoint = String;
-
-/// The **`XRHand`** interface is pair iterator (an ordered map) with the key
-/// being the hand joints and the value being an [XRJointSpace].
-///
-/// `XRHand` is returned by [XRInputSource.hand].
-@JS('XRHand')
-@staticInterop
-class XRHand {}
-
-extension XRHandExtension on XRHand {
+extension type XRHand._(JSObject _) implements JSObject {
   external XRJointSpace get(XRHandJoint key);
   external int get size;
 }
-
-/// The **`XRJointSpace`** interface is an [XRSpace] and represents the position
-/// and orientation of an [XRHand] joint.
-@JS('XRJointSpace')
-@staticInterop
-class XRJointSpace implements XRSpace {}
-
-extension XRJointSpaceExtension on XRJointSpace {
+extension type XRJointSpace._(JSObject _) implements XRSpace, JSObject {
   external XRHandJoint get jointName;
 }
-
-/// The **`XRJointPose`** interface is an [XRPose] with additional information
-/// about the size of the skeleton joint it represents.
-@JS('XRJointPose')
-@staticInterop
-class XRJointPose implements XRPose {}
-
-extension XRJointPoseExtension on XRJointPose {
+extension type XRJointPose._(JSObject _) implements XRPose, JSObject {
   external num get radius;
 }

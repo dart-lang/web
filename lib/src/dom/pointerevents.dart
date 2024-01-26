@@ -12,10 +12,8 @@ import 'dart:js_interop';
 
 import 'uievents.dart';
 
-@JS()
-@staticInterop
-@anonymous
-class PointerEventInit implements MouseEventInit {
+extension type PointerEventInit._(JSObject _)
+    implements MouseEventInit, JSObject {
   external factory PointerEventInit({
     int pointerId,
     num width,
@@ -32,9 +30,7 @@ class PointerEventInit implements MouseEventInit {
     JSArray coalescedEvents,
     JSArray predictedEvents,
   });
-}
 
-extension PointerEventInitExtension on PointerEventInit {
   external set pointerId(int value);
   external int get pointerId;
   external set width(num value);
@@ -64,31 +60,12 @@ extension PointerEventInitExtension on PointerEventInit {
   external set predictedEvents(JSArray value);
   external JSArray get predictedEvents;
 }
-
-/// The **`PointerEvent`** interface represents the state of a DOM event
-/// produced by a pointer such as the geometry of the contact point, the device
-/// type that generated the event, the amount of pressure that was applied on
-/// the contact surface, etc.
-///
-/// A _pointer_ is a hardware agnostic representation of input devices (such as
-/// a mouse, pen or contact point on a touch-enable surface). The pointer can
-/// target a specific coordinate (or set of coordinates) on the contact surface
-/// such as a screen.
-///
-/// A pointer's _hit test_ is the process a browser uses to determine the target
-/// element for a pointer event. Typically, this is determined by considering
-/// the pointer's location and also the visual layout of elements in a document
-/// on screen media.
-@JS('PointerEvent')
-@staticInterop
-class PointerEvent implements MouseEvent {
+extension type PointerEvent._(JSObject _) implements MouseEvent, JSObject {
   external factory PointerEvent(
     String type, [
     PointerEventInit eventInitDict,
   ]);
-}
 
-extension PointerEventExtension on PointerEvent {
   /// The **`getCoalescedEvents()`** method of the [PointerEvent] interface
   /// returns a sequence of `PointerEvent` instances that were coalesced
   /// (merged) into a single [Element/pointermove_event] or

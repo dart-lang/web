@@ -15,111 +15,69 @@ import 'html.dart';
 
 typedef LandmarkType = String;
 typedef BarcodeFormat = String;
-
-@JS('FaceDetector')
-@staticInterop
-class FaceDetector {
+extension type FaceDetector._(JSObject _) implements JSObject {
   external factory FaceDetector([FaceDetectorOptions faceDetectorOptions]);
-}
 
-extension FaceDetectorExtension on FaceDetector {
   external JSPromise detect(ImageBitmapSource image);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class FaceDetectorOptions {
+extension type FaceDetectorOptions._(JSObject _) implements JSObject {
   external factory FaceDetectorOptions({
     int maxDetectedFaces,
     bool fastMode,
   });
-}
 
-extension FaceDetectorOptionsExtension on FaceDetectorOptions {
   external set maxDetectedFaces(int value);
   external int get maxDetectedFaces;
   external set fastMode(bool value);
   external bool get fastMode;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class DetectedFace {
+extension type DetectedFace._(JSObject _) implements JSObject {
   external factory DetectedFace({
     required DOMRectReadOnly boundingBox,
     required JSArray? landmarks,
   });
-}
 
-extension DetectedFaceExtension on DetectedFace {
   external set boundingBox(DOMRectReadOnly value);
   external DOMRectReadOnly get boundingBox;
   external set landmarks(JSArray? value);
   external JSArray? get landmarks;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class Landmark {
+extension type Landmark._(JSObject _) implements JSObject {
   external factory Landmark({
     required JSArray locations,
     LandmarkType type,
   });
-}
 
-extension LandmarkExtension on Landmark {
   external set locations(JSArray value);
   external JSArray get locations;
   external set type(LandmarkType value);
   external LandmarkType get type;
 }
-
-/// The **`BarcodeDetector`** interface of the [Barcode Detection API] allows
-/// detection of linear and two dimensional barcodes in images.
-@JS('BarcodeDetector')
-@staticInterop
-class BarcodeDetector {
+extension type BarcodeDetector._(JSObject _) implements JSObject {
   external factory BarcodeDetector(
       [BarcodeDetectorOptions barcodeDetectorOptions]);
 
   external static JSPromise getSupportedFormats();
-}
 
-extension BarcodeDetectorExtension on BarcodeDetector {
   /// The **`detect()`** method of the
   /// [BarcodeDetector] interface returns a `Promise` which fulfills
   /// with an `Array` of detected barcodes within an image.
   external JSPromise detect(ImageBitmapSource image);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class BarcodeDetectorOptions {
+extension type BarcodeDetectorOptions._(JSObject _) implements JSObject {
   external factory BarcodeDetectorOptions({JSArray formats});
-}
 
-extension BarcodeDetectorOptionsExtension on BarcodeDetectorOptions {
   external set formats(JSArray value);
   external JSArray get formats;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class DetectedBarcode {
+extension type DetectedBarcode._(JSObject _) implements JSObject {
   external factory DetectedBarcode({
     required DOMRectReadOnly boundingBox,
     required String rawValue,
     required BarcodeFormat format,
     required JSArray cornerPoints,
   });
-}
 
-extension DetectedBarcodeExtension on DetectedBarcode {
   external set boundingBox(DOMRectReadOnly value);
   external DOMRectReadOnly get boundingBox;
   external set rawValue(String value);

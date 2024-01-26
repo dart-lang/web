@@ -12,27 +12,8 @@ import 'dart:js_interop';
 
 import 'reporting.dart';
 
-/// The `InterventionReportBody` interface of the
-/// [Reporting API](https://developer.mozilla.org/en-US/docs/Web/API/Reporting_API)
-/// represents the body of an intervention report.
-///
-/// An intervention report is generated when usage of a feature in a web
-/// document has been blocked by the browser for reasons such as security,
-/// performance, or user annoyance. So for example, a script was been stopped
-/// because it was significantly slowing down the browser, or the browser's
-/// autoplay policy blocked audio from playing without a user gesture to trigger
-/// it.
-///
-/// A deprecation report is generated when a deprecated feature (for example a
-/// deprecated API method) is used on a document being observed by a
-/// [ReportingObserver]. In addition to the support of this API, receiving
-/// useful intervention warnings relies on browser vendors adding these warnings
-/// for the relevant features.
-@JS('InterventionReportBody')
-@staticInterop
-class InterventionReportBody implements ReportBody {}
-
-extension InterventionReportBodyExtension on InterventionReportBody {
+extension type InterventionReportBody._(JSObject _)
+    implements ReportBody, JSObject {
   /// The **`toJSON()`** method of the [InterventionReportBody] interface is a
   /// _serializer_, and returns a JSON representation of the
   /// `InterventionReportBody` object.

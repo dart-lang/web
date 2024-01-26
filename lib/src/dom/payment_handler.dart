@@ -15,16 +15,7 @@ import 'service_workers.dart';
 
 typedef PaymentDelegation = String;
 typedef PaymentShippingType = String;
-
-/// The **`PaymentManager`** interface of the [Payment Handler API] is used to
-/// manage various aspects of payment app functionality.
-///
-/// It is accessed via the [ServiceWorkerRegistration.paymentManager] property.
-@JS('PaymentManager')
-@staticInterop
-class PaymentManager {}
-
-extension PaymentManagerExtension on PaymentManager {
+extension type PaymentManager._(JSObject _) implements JSObject {
   /// The **`enableDelegations()`** method of the [PaymentManager] interface
   /// delegates responsibility for providing various parts of the required
   /// payment information to the payment app rather than collecting it from the
@@ -41,29 +32,16 @@ extension PaymentManagerExtension on PaymentManager {
   external set userHint(String value);
   external String get userHint;
 }
-
-/// The **`CanMakePaymentEvent`** interface of the [Payment Handler API] is the
-/// event object for the [ServiceWorkerGlobalScope.canmakepayment_event] event,
-/// fired on a payment app's service worker to check whether it is ready to
-/// handle a payment. Specifically, it is fired when the merchant website calls
-/// [PaymentRequest.PaymentRequest].
-@JS('CanMakePaymentEvent')
-@staticInterop
-class CanMakePaymentEvent implements ExtendableEvent {
+extension type CanMakePaymentEvent._(JSObject _)
+    implements ExtendableEvent, JSObject {
   external factory CanMakePaymentEvent(String type);
-}
 
-extension CanMakePaymentEventExtension on CanMakePaymentEvent {
   /// The **`respondWith()`** method of the [CanMakePaymentEvent] interface
   /// enables the service worker to respond appropriately to signal whether it
   /// is ready to handle payments.
   external void respondWith(JSPromise canMakePaymentResponse);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PaymentRequestDetailsUpdate {
+extension type PaymentRequestDetailsUpdate._(JSObject _) implements JSObject {
   external factory PaymentRequestDetailsUpdate({
     String error,
     PaymentCurrencyAmount total,
@@ -72,9 +50,7 @@ class PaymentRequestDetailsUpdate {
     JSObject paymentMethodErrors,
     AddressErrors shippingAddressErrors,
   });
-}
 
-extension PaymentRequestDetailsUpdateExtension on PaymentRequestDetailsUpdate {
   external set error(String value);
   external String get error;
   external set total(PaymentCurrencyAmount value);
@@ -88,19 +64,13 @@ extension PaymentRequestDetailsUpdateExtension on PaymentRequestDetailsUpdate {
   external set shippingAddressErrors(AddressErrors value);
   external AddressErrors get shippingAddressErrors;
 }
-
-/// The **`PaymentRequestEvent`** interface of the [Payment Handler API] is the
-/// object passed to a payment handler when a [PaymentRequest] is made.
-@JS('PaymentRequestEvent')
-@staticInterop
-class PaymentRequestEvent implements ExtendableEvent {
+extension type PaymentRequestEvent._(JSObject _)
+    implements ExtendableEvent, JSObject {
   external factory PaymentRequestEvent(
     String type, [
     PaymentRequestEventInit eventInitDict,
   ]);
-}
 
-extension PaymentRequestEventExtension on PaymentRequestEvent {
   /// The **`openWindow()`** method of the [PaymentRequestEvent] interface opens
   /// the specified URL in a new window, only if the given URL is on the same
   /// origin as the calling page. It returns a `Promise` that resolves with a
@@ -132,11 +102,8 @@ extension PaymentRequestEventExtension on PaymentRequestEvent {
   external JSObject? get paymentOptions;
   external JSArray? get shippingOptions;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PaymentRequestEventInit implements ExtendableEventInit {
+extension type PaymentRequestEventInit._(JSObject _)
+    implements ExtendableEventInit, JSObject {
   external factory PaymentRequestEventInit({
     String topOrigin,
     String paymentRequestOrigin,
@@ -147,9 +114,7 @@ class PaymentRequestEventInit implements ExtendableEventInit {
     PaymentOptions paymentOptions,
     JSArray shippingOptions,
   });
-}
 
-extension PaymentRequestEventInitExtension on PaymentRequestEventInit {
   external set topOrigin(String value);
   external String get topOrigin;
   external set paymentRequestOrigin(String value);
@@ -167,11 +132,7 @@ extension PaymentRequestEventInitExtension on PaymentRequestEventInit {
   external set shippingOptions(JSArray value);
   external JSArray get shippingOptions;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PaymentHandlerResponse {
+extension type PaymentHandlerResponse._(JSObject _) implements JSObject {
   external factory PaymentHandlerResponse({
     String methodName,
     JSObject details,
@@ -181,9 +142,7 @@ class PaymentHandlerResponse {
     AddressInit shippingAddress,
     String? shippingOption,
   });
-}
 
-extension PaymentHandlerResponseExtension on PaymentHandlerResponse {
   external set methodName(String value);
   external String get methodName;
   external set details(JSObject value);
@@ -199,11 +158,7 @@ extension PaymentHandlerResponseExtension on PaymentHandlerResponse {
   external set shippingOption(String? value);
   external String? get shippingOption;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AddressInit {
+extension type AddressInit._(JSObject _) implements JSObject {
   external factory AddressInit({
     String country,
     JSArray addressLine,
@@ -216,9 +171,7 @@ class AddressInit {
     String recipient,
     String phone,
   });
-}
 
-extension AddressInitExtension on AddressInit {
   external set country(String value);
   external String get country;
   external set addressLine(JSArray value);
@@ -240,11 +193,7 @@ extension AddressInitExtension on AddressInit {
   external set phone(String value);
   external String get phone;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PaymentOptions {
+extension type PaymentOptions._(JSObject _) implements JSObject {
   external factory PaymentOptions({
     bool requestPayerName,
     bool requestBillingAddress,
@@ -253,9 +202,7 @@ class PaymentOptions {
     bool requestShipping,
     PaymentShippingType shippingType,
   });
-}
 
-extension PaymentOptionsExtension on PaymentOptions {
   external set requestPayerName(bool value);
   external bool get requestPayerName;
   external set requestBillingAddress(bool value);
@@ -269,20 +216,14 @@ extension PaymentOptionsExtension on PaymentOptions {
   external set shippingType(PaymentShippingType value);
   external PaymentShippingType get shippingType;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PaymentShippingOption {
+extension type PaymentShippingOption._(JSObject _) implements JSObject {
   external factory PaymentShippingOption({
     required String id,
     required String label,
     required PaymentCurrencyAmount amount,
     bool selected,
   });
-}
 
-extension PaymentShippingOptionExtension on PaymentShippingOption {
   external set id(String value);
   external String get id;
   external set label(String value);
@@ -292,11 +233,7 @@ extension PaymentShippingOptionExtension on PaymentShippingOption {
   external set selected(bool value);
   external bool get selected;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AddressErrors {
+extension type AddressErrors._(JSObject _) implements JSObject {
   external factory AddressErrors({
     String addressLine,
     String city,
@@ -309,9 +246,7 @@ class AddressErrors {
     String region,
     String sortingCode,
   });
-}
 
-extension AddressErrorsExtension on AddressErrors {
   external set addressLine(String value);
   external String get addressLine;
   external set city(String value);

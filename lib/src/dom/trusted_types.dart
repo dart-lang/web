@@ -17,89 +17,34 @@ typedef TrustedType = JSObject;
 typedef CreateHTMLCallback = JSFunction;
 typedef CreateScriptCallback = JSFunction;
 typedef CreateScriptURLCallback = JSFunction;
-
-/// `Trusted Types API`
-///
-/// The **`TrustedHTML`** interface of the [Trusted Types API] represents a
-/// string that a developer can insert into an
-/// [injection sink](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API#injection_sinks)
-/// that will render it as HTML. These objects are created via
-/// [TrustedTypePolicy.createHTML] and therefore have no constructor.
-///
-/// The value of a **TrustedHTML** object is set when the object is created and
-/// cannot be changed by JavaScript as there is no setter exposed.
-@JS('TrustedHTML')
-@staticInterop
-class TrustedHTML {
+extension type TrustedHTML._(JSObject _) implements JSObject {
   external static TrustedHTML fromLiteral(JSObject templateStringsArray);
-}
 
-extension TrustedHTMLExtension on TrustedHTML {
   /// `Trusted Types API`
   ///
   /// The **`toJSON()`** method of the [TrustedHTML] interface returns a JSON
   /// representation of the stored data.
   external String toJSON();
 }
-
-/// `Trusted Types API`
-///
-/// The **`TrustedScript`** interface of the [Trusted Types API] represents a
-/// string with an uncompiled script body that a developer can insert into an
-/// [injection sink](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API#injection_sinks)
-/// that might execute the script. These objects are created via
-/// [TrustedTypePolicy.createScript] and therefore have no constructor.
-///
-/// The value of a **TrustedScript** object is set when the object is created
-/// and cannot be changed by JavaScript as there is no setter exposed.
-@JS('TrustedScript')
-@staticInterop
-class TrustedScript {
+extension type TrustedScript._(JSObject _) implements JSObject {
   external static TrustedScript fromLiteral(JSObject templateStringsArray);
-}
 
-extension TrustedScriptExtension on TrustedScript {
   /// `Trusted Types API`
   ///
   /// The **`toJSON()`** method of the [TrustedScript] interface returns a JSON
   /// representation of the stored data.
   external String toJSON();
 }
-
-/// `Trusted Types API`
-///
-/// The **`TrustedScriptURL`** interface of the [Trusted Types API] represents a
-/// string that a developer can insert into an
-/// [injection sink](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API#injection_sinks)
-/// that will parse it as a URL of an external script. These objects are created
-/// via [TrustedTypePolicy.createScriptURL] and therefore have no constructor.
-///
-/// The value of a **TrustedScriptURL** object is set when the object is created
-/// and cannot be changed by JavaScript as there is no setter exposed.
-@JS('TrustedScriptURL')
-@staticInterop
-class TrustedScriptURL {
+extension type TrustedScriptURL._(JSObject _) implements JSObject {
   external static TrustedScriptURL fromLiteral(JSObject templateStringsArray);
-}
 
-extension TrustedScriptURLExtension on TrustedScriptURL {
   /// `Trusted Types API`
   ///
   /// The **`toJSON()`** method of the [TrustedScriptURL] interface returns a
   /// JSON representation of the stored data.
   external String toJSON();
 }
-
-/// `Trusted Types API`
-///
-/// The **`TrustedTypePolicyFactory`** interface of the [Trusted Types API]
-/// creates policies and allows the verification of Trusted Type objects against
-/// created policies.
-@JS('TrustedTypePolicyFactory')
-@staticInterop
-class TrustedTypePolicyFactory {}
-
-extension TrustedTypePolicyFactoryExtension on TrustedTypePolicyFactory {
+extension type TrustedTypePolicyFactory._(JSObject _) implements JSObject {
   /// `Trusted Types API`
   ///
   /// The **`createPolicy()`** method of the [TrustedTypePolicyFactory]
@@ -183,20 +128,7 @@ extension TrustedTypePolicyFactoryExtension on TrustedTypePolicyFactory {
   external TrustedScript get emptyScript;
   external TrustedTypePolicy? get defaultPolicy;
 }
-
-/// `Trusted Types API`
-///
-/// The **`TrustedTypePolicy`** interface of the [Trusted Types API] defines a
-/// group of functions which create [TrustedType] objects.
-///
-/// A `TrustedTypePolicy` object is created by
-/// [TrustedTypePolicyFactory.createPolicy] to define a policy for enforcing
-/// security rules on input. Therefore, `TrustedTypePolicy` has no constructor.
-@JS('TrustedTypePolicy')
-@staticInterop
-class TrustedTypePolicy {}
-
-extension TrustedTypePolicyExtension on TrustedTypePolicy {
+extension type TrustedTypePolicy._(JSObject _) implements JSObject {
   /// `Trusted Types API`
   ///
   /// The **`createHTML()`** method of the [TrustedTypePolicy] interface creates
@@ -228,19 +160,13 @@ extension TrustedTypePolicyExtension on TrustedTypePolicy {
   );
   external String get name;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class TrustedTypePolicyOptions {
+extension type TrustedTypePolicyOptions._(JSObject _) implements JSObject {
   external factory TrustedTypePolicyOptions({
     CreateHTMLCallback? createHTML,
     CreateScriptCallback? createScript,
     CreateScriptURLCallback? createScriptURL,
   });
-}
 
-extension TrustedTypePolicyOptionsExtension on TrustedTypePolicyOptions {
   external set createHTML(CreateHTMLCallback? value);
   external CreateHTMLCallback? get createHTML;
   external set createScript(CreateScriptCallback? value);

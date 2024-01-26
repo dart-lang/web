@@ -17,33 +17,16 @@ import 'service_workers.dart';
 
 typedef PushMessageDataInit = JSAny;
 typedef PushEncryptionKeyName = String;
-
-@JS()
-@staticInterop
-@anonymous
-class PushPermissionDescriptor implements PermissionDescriptor {
+extension type PushPermissionDescriptor._(JSObject _)
+    implements PermissionDescriptor, JSObject {
   external factory PushPermissionDescriptor({bool userVisibleOnly});
-}
 
-extension PushPermissionDescriptorExtension on PushPermissionDescriptor {
   external set userVisibleOnly(bool value);
   external bool get userVisibleOnly;
 }
-
-/// The **`PushManager`** interface of the
-/// [Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API)
-/// provides a way to receive notifications from third-party servers as well as
-/// request URLs for push notifications.
-///
-/// This interface is accessed via the [ServiceWorkerRegistration.pushManager]
-/// property.
-@JS('PushManager')
-@staticInterop
-class PushManager {
+extension type PushManager._(JSObject _) implements JSObject {
   external static JSArray get supportedContentEncodings;
-}
 
-extension PushManagerExtension on PushManager {
   /// The **`subscribe()`** method of the [PushManager]
   /// interface subscribes to a push service.
   ///
@@ -73,52 +56,22 @@ extension PushManagerExtension on PushManager {
   /// > granted for notifications, push will also be enabled.
   external JSPromise permissionState([PushSubscriptionOptionsInit options]);
 }
-
-/// `Push API`
-///
-/// The **`PushSubscriptionOptions`** interface of the [Push API] represents the
-/// options associated with a push subscription.
-///
-/// The read-only `PushSubscriptionOptions` object is returned by calling
-/// [PushSubscription.options] on a [PushSubscription]. This interface has no
-/// constructor of its own.
-@JS('PushSubscriptionOptions')
-@staticInterop
-class PushSubscriptionOptions {}
-
-extension PushSubscriptionOptionsExtension on PushSubscriptionOptions {
+extension type PushSubscriptionOptions._(JSObject _) implements JSObject {
   external bool get userVisibleOnly;
   external JSArrayBuffer? get applicationServerKey;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PushSubscriptionOptionsInit {
+extension type PushSubscriptionOptionsInit._(JSObject _) implements JSObject {
   external factory PushSubscriptionOptionsInit({
     bool userVisibleOnly,
     JSAny? applicationServerKey,
   });
-}
 
-extension PushSubscriptionOptionsInitExtension on PushSubscriptionOptionsInit {
   external set userVisibleOnly(bool value);
   external bool get userVisibleOnly;
   external set applicationServerKey(JSAny? value);
   external JSAny? get applicationServerKey;
 }
-
-/// The `PushSubscription` interface of the
-/// [Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API)
-/// provides a subscription's URL endpoint and allows unsubscribing from a push
-/// service.
-///
-/// An instance of this interface can be serialized.
-@JS('PushSubscription')
-@staticInterop
-class PushSubscription {}
-
-extension PushSubscriptionExtension on PushSubscription {
+extension type PushSubscription._(JSObject _) implements JSObject {
   /// The `getKey()` method of the [PushSubscription] interface
   /// returns an `ArrayBuffer` representing a client public key, which can then
   /// be sent to a server and used in encrypting push message data.
@@ -138,19 +91,13 @@ extension PushSubscriptionExtension on PushSubscription {
   external EpochTimeStamp? get expirationTime;
   external PushSubscriptionOptions get options;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PushSubscriptionJSON {
+extension type PushSubscriptionJSON._(JSObject _) implements JSObject {
   external factory PushSubscriptionJSON({
     String endpoint,
     EpochTimeStamp? expirationTime,
     JSAny keys,
   });
-}
 
-extension PushSubscriptionJSONExtension on PushSubscriptionJSON {
   external set endpoint(String value);
   external String get endpoint;
   external set expirationTime(EpochTimeStamp? value);
@@ -158,25 +105,7 @@ extension PushSubscriptionJSONExtension on PushSubscriptionJSON {
   external set keys(JSAny value);
   external JSAny get keys;
 }
-
-/// The **`PushMessageData`** interface of the
-/// [Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API)
-/// provides methods which let you retrieve the push data sent by a server in
-/// various formats.
-///
-/// Unlike the similar methods in the
-/// [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API),
-/// which only allow the method to be invoked once, these methods can be called
-/// multiple times.
-///
-/// Messages received through the Push API are sent encrypted by push services
-/// and then automatically decrypted by browsers before they are made accessible
-/// through the methods of the `PushMessageData` interface.
-@JS('PushMessageData')
-@staticInterop
-class PushMessageData {}
-
-extension PushMessageDataExtension on PushMessageData {
+extension type PushMessageData._(JSObject _) implements JSObject {
   /// The **`arrayBuffer()`** method of the [PushMessageData] interface extracts
   /// push message data as an `ArrayBuffer` object.
   external JSArrayBuffer arrayBuffer();
@@ -195,64 +124,38 @@ extension PushMessageDataExtension on PushMessageData {
   /// message data as a plain text string.
   external String text();
 }
-
-/// The **`PushEvent`** interface of the
-/// [Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API)
-/// represents a push message that has been received. This event is sent to the
-/// [global scope](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope)
-/// of a [ServiceWorker]. It contains the information sent from an application
-/// server to a [PushSubscription].
-@JS('PushEvent')
-@staticInterop
-class PushEvent implements ExtendableEvent {
+extension type PushEvent._(JSObject _) implements ExtendableEvent, JSObject {
   external factory PushEvent(
     String type, [
     PushEventInit eventInitDict,
   ]);
-}
 
-extension PushEventExtension on PushEvent {
   external PushMessageData? get data;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PushEventInit implements ExtendableEventInit {
+extension type PushEventInit._(JSObject _)
+    implements ExtendableEventInit, JSObject {
   external factory PushEventInit({PushMessageDataInit data});
-}
 
-extension PushEventInitExtension on PushEventInit {
   external set data(PushMessageDataInit value);
   external PushMessageDataInit get data;
 }
-
-@JS('PushSubscriptionChangeEvent')
-@staticInterop
-class PushSubscriptionChangeEvent implements ExtendableEvent {
+extension type PushSubscriptionChangeEvent._(JSObject _)
+    implements ExtendableEvent, JSObject {
   external factory PushSubscriptionChangeEvent(
     String type, [
     PushSubscriptionChangeEventInit eventInitDict,
   ]);
-}
 
-extension PushSubscriptionChangeEventExtension on PushSubscriptionChangeEvent {
   external PushSubscription? get newSubscription;
   external PushSubscription? get oldSubscription;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PushSubscriptionChangeEventInit implements ExtendableEventInit {
+extension type PushSubscriptionChangeEventInit._(JSObject _)
+    implements ExtendableEventInit, JSObject {
   external factory PushSubscriptionChangeEventInit({
     PushSubscription newSubscription,
     PushSubscription oldSubscription,
   });
-}
 
-extension PushSubscriptionChangeEventInitExtension
-    on PushSubscriptionChangeEventInit {
   external set newSubscription(PushSubscription value);
   external PushSubscription get newSubscription;
   external set oldSubscription(PushSubscription value);

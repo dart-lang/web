@@ -15,22 +15,10 @@ import 'html.dart';
 
 typedef SpeechRecognitionErrorCode = String;
 typedef SpeechSynthesisErrorCode = String;
-
-/// The **`SpeechRecognition`** interface of the
-/// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
-/// is the controller interface for the recognition service; this also handles
-/// the [SpeechRecognitionEvent] sent from the recognition service.
-///
-/// > **Note:** On some browsers, like Chrome, using Speech Recognition on a web
-/// > page involves a server-based recognition engine. Your audio is sent to a
-/// > web service for recognition processing, so it won't work offline.
-@JS('SpeechRecognition')
-@staticInterop
-class SpeechRecognition implements EventTarget {
+extension type SpeechRecognition._(JSObject _)
+    implements EventTarget, JSObject {
   external factory SpeechRecognition();
-}
 
-extension SpeechRecognitionExtension on SpeechRecognition {
   /// The **`start()`** method of the
   /// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
   /// starts the speech
@@ -87,65 +75,33 @@ extension SpeechRecognitionExtension on SpeechRecognition {
   external set onend(EventHandler value);
   external EventHandler get onend;
 }
-
-/// The **`SpeechRecognitionErrorEvent`** interface of the
-/// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
-/// represents error messages from the recognition service.
-@JS('SpeechRecognitionErrorEvent')
-@staticInterop
-class SpeechRecognitionErrorEvent implements Event {
+extension type SpeechRecognitionErrorEvent._(JSObject _)
+    implements Event, JSObject {
   external factory SpeechRecognitionErrorEvent(
     String type,
     SpeechRecognitionErrorEventInit eventInitDict,
   );
-}
 
-extension SpeechRecognitionErrorEventExtension on SpeechRecognitionErrorEvent {
   external SpeechRecognitionErrorCode get error;
   external String get message;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class SpeechRecognitionErrorEventInit implements EventInit {
+extension type SpeechRecognitionErrorEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory SpeechRecognitionErrorEventInit({
     required SpeechRecognitionErrorCode error,
     String message,
   });
-}
 
-extension SpeechRecognitionErrorEventInitExtension
-    on SpeechRecognitionErrorEventInit {
   external set error(SpeechRecognitionErrorCode value);
   external SpeechRecognitionErrorCode get error;
   external set message(String value);
   external String get message;
 }
-
-/// The **`SpeechRecognitionAlternative`** interface of the
-/// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
-/// represents a single word that has been recognized by the speech recognition
-/// service.
-@JS('SpeechRecognitionAlternative')
-@staticInterop
-class SpeechRecognitionAlternative {}
-
-extension SpeechRecognitionAlternativeExtension
-    on SpeechRecognitionAlternative {
+extension type SpeechRecognitionAlternative._(JSObject _) implements JSObject {
   external String get transcript;
   external num get confidence;
 }
-
-/// The **`SpeechRecognitionResult`** interface of the
-/// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
-/// represents a single recognition match, which may contain multiple
-/// [SpeechRecognitionAlternative] objects.
-@JS('SpeechRecognitionResult')
-@staticInterop
-class SpeechRecognitionResult {}
-
-extension SpeechRecognitionResultExtension on SpeechRecognitionResult {
+extension type SpeechRecognitionResult._(JSObject _) implements JSObject {
   /// The **`item`** getter of the
   /// [SpeechRecognitionResult] interface is a standard getter that allows
   /// [SpeechRecognitionAlternative] objects within the result to be accessed
@@ -155,16 +111,7 @@ extension SpeechRecognitionResultExtension on SpeechRecognitionResult {
   external int get length;
   external bool get isFinal;
 }
-
-/// The **`SpeechRecognitionResultList`** interface of the
-/// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
-/// represents a list of [SpeechRecognitionResult] objects, or a single one if
-/// results are being captured in  mode.
-@JS('SpeechRecognitionResultList')
-@staticInterop
-class SpeechRecognitionResultList {}
-
-extension SpeechRecognitionResultListExtension on SpeechRecognitionResultList {
+extension type SpeechRecognitionResultList._(JSObject _) implements JSObject {
   /// The **`item`** getter of the
   /// [SpeechRecognitionResultList] interface is a standard getter — it allows
   /// [SpeechRecognitionResult] objects in the list to be accessed via array
@@ -172,77 +119,36 @@ extension SpeechRecognitionResultListExtension on SpeechRecognitionResultList {
   external SpeechRecognitionResult item(int index);
   external int get length;
 }
-
-/// The **`SpeechRecognitionEvent`** interface of the
-/// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
-/// represents the event object for the [SpeechRecognition.result_event] and
-/// [SpeechRecognition.nomatch_event] events, and contains all the data
-/// associated with an interim or final speech recognition result.
-@JS('SpeechRecognitionEvent')
-@staticInterop
-class SpeechRecognitionEvent implements Event {
+extension type SpeechRecognitionEvent._(JSObject _) implements Event, JSObject {
   external factory SpeechRecognitionEvent(
     String type,
     SpeechRecognitionEventInit eventInitDict,
   );
-}
 
-extension SpeechRecognitionEventExtension on SpeechRecognitionEvent {
   external int get resultIndex;
   external SpeechRecognitionResultList get results;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class SpeechRecognitionEventInit implements EventInit {
+extension type SpeechRecognitionEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory SpeechRecognitionEventInit({
     int resultIndex,
     required SpeechRecognitionResultList results,
   });
-}
 
-extension SpeechRecognitionEventInitExtension on SpeechRecognitionEventInit {
   external set resultIndex(int value);
   external int get resultIndex;
   external set results(SpeechRecognitionResultList value);
   external SpeechRecognitionResultList get results;
 }
-
-/// The **`SpeechGrammar`** interface of the
-/// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
-/// represents a set of words or patterns of words that we want the recognition
-/// service to recognize.
-///
-/// Grammar is defined using
-/// [JSpeech Grammar Format](https://www.w3.org/TR/jsgf/) (**JSGF**.) Other
-/// formats may also be supported in the future.
-@JS('SpeechGrammar')
-@staticInterop
-class SpeechGrammar {}
-
-extension SpeechGrammarExtension on SpeechGrammar {
+extension type SpeechGrammar._(JSObject _) implements JSObject {
   external set src(String value);
   external String get src;
   external set weight(num value);
   external num get weight;
 }
-
-/// The **`SpeechGrammarList`** interface of the
-/// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
-/// represents a list of [SpeechGrammar] objects containing words or patterns of
-/// words that we want the recognition service to recognize.
-///
-/// Grammar is defined using
-/// [JSpeech Grammar Format](https://www.w3.org/TR/jsgf/) (**JSGF**.) Other
-/// formats may also be supported in the future.
-@JS('SpeechGrammarList')
-@staticInterop
-class SpeechGrammarList {
+extension type SpeechGrammarList._(JSObject _) implements JSObject {
   external factory SpeechGrammarList();
-}
 
-extension SpeechGrammarListExtension on SpeechGrammarList {
   /// The **`item`** getter of the [SpeechGrammarList]
   /// interface is a standard getter — it allows individual [SpeechGrammar]
   /// objects to be retrieved from the `SpeechGrammarList` using array syntax.
@@ -272,17 +178,7 @@ extension SpeechGrammarListExtension on SpeechGrammarList {
   ]);
   external int get length;
 }
-
-/// The **`SpeechSynthesis`** interface of the
-/// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
-/// is the controller interface for the speech service; this can be used to
-/// retrieve information about the synthesis voices available on the device,
-/// start and pause speech, and other commands besides.
-@JS('SpeechSynthesis')
-@staticInterop
-class SpeechSynthesis implements EventTarget {}
-
-extension SpeechSynthesisExtension on SpeechSynthesis {
+extension type SpeechSynthesis._(JSObject _) implements EventTarget, JSObject {
   /// The **`speak()`** method of the [SpeechSynthesis]
   /// interface adds an [SpeechSynthesisUtterance] to the utterance
   /// queue; it will be spoken when any other utterances queued before it have
@@ -316,19 +212,10 @@ extension SpeechSynthesisExtension on SpeechSynthesis {
   external set onvoiceschanged(EventHandler value);
   external EventHandler get onvoiceschanged;
 }
-
-/// The **`SpeechSynthesisUtterance`** interface of the
-/// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
-/// represents a speech request.
-/// It contains the content the speech service should read and information about
-/// how to read it (e.g. language, pitch and volume.)
-@JS('SpeechSynthesisUtterance')
-@staticInterop
-class SpeechSynthesisUtterance implements EventTarget {
+extension type SpeechSynthesisUtterance._(JSObject _)
+    implements EventTarget, JSObject {
   external factory SpeechSynthesisUtterance([String text]);
-}
 
-extension SpeechSynthesisUtteranceExtension on SpeechSynthesisUtterance {
   external set text(String value);
   external String get text;
   external set lang(String value);
@@ -356,32 +243,20 @@ extension SpeechSynthesisUtteranceExtension on SpeechSynthesisUtterance {
   external set onboundary(EventHandler value);
   external EventHandler get onboundary;
 }
-
-/// The **`SpeechSynthesisEvent`** interface of the
-/// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
-/// contains information about the current state of [SpeechSynthesisUtterance]
-/// objects that have been processed in the speech service.
-@JS('SpeechSynthesisEvent')
-@staticInterop
-class SpeechSynthesisEvent implements Event {
+extension type SpeechSynthesisEvent._(JSObject _) implements Event, JSObject {
   external factory SpeechSynthesisEvent(
     String type,
     SpeechSynthesisEventInit eventInitDict,
   );
-}
 
-extension SpeechSynthesisEventExtension on SpeechSynthesisEvent {
   external SpeechSynthesisUtterance get utterance;
   external int get charIndex;
   external int get charLength;
   external num get elapsedTime;
   external String get name;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class SpeechSynthesisEventInit implements EventInit {
+extension type SpeechSynthesisEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory SpeechSynthesisEventInit({
     required SpeechSynthesisUtterance utterance,
     int charIndex,
@@ -389,9 +264,7 @@ class SpeechSynthesisEventInit implements EventInit {
     num elapsedTime,
     String name,
   });
-}
 
-extension SpeechSynthesisEventInitExtension on SpeechSynthesisEventInit {
   external set utterance(SpeechSynthesisUtterance value);
   external SpeechSynthesisUtterance get utterance;
   external set charIndex(int value);
@@ -403,48 +276,24 @@ extension SpeechSynthesisEventInitExtension on SpeechSynthesisEventInit {
   external set name(String value);
   external String get name;
 }
-
-/// The **`SpeechSynthesisErrorEvent`** interface of the
-/// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
-/// contains information about any errors that occur while processing
-/// [SpeechSynthesisUtterance] objects in the speech service.
-@JS('SpeechSynthesisErrorEvent')
-@staticInterop
-class SpeechSynthesisErrorEvent implements SpeechSynthesisEvent {
+extension type SpeechSynthesisErrorEvent._(JSObject _)
+    implements SpeechSynthesisEvent, JSObject {
   external factory SpeechSynthesisErrorEvent(
     String type,
     SpeechSynthesisErrorEventInit eventInitDict,
   );
-}
 
-extension SpeechSynthesisErrorEventExtension on SpeechSynthesisErrorEvent {
   external SpeechSynthesisErrorCode get error;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class SpeechSynthesisErrorEventInit implements SpeechSynthesisEventInit {
+extension type SpeechSynthesisErrorEventInit._(JSObject _)
+    implements SpeechSynthesisEventInit, JSObject {
   external factory SpeechSynthesisErrorEventInit(
       {required SpeechSynthesisErrorCode error});
-}
 
-extension SpeechSynthesisErrorEventInitExtension
-    on SpeechSynthesisErrorEventInit {
   external set error(SpeechSynthesisErrorCode value);
   external SpeechSynthesisErrorCode get error;
 }
-
-/// The **`SpeechSynthesisVoice`** interface of the
-/// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
-/// represents a voice that the system supports.
-/// Every `SpeechSynthesisVoice` has its own relative speech service including
-/// information about language, name and URI.
-@JS('SpeechSynthesisVoice')
-@staticInterop
-class SpeechSynthesisVoice {}
-
-extension SpeechSynthesisVoiceExtension on SpeechSynthesisVoice {
+extension type SpeechSynthesisVoice._(JSObject _) implements JSObject {
   external String get voiceURI;
   external String get name;
   external String get lang;

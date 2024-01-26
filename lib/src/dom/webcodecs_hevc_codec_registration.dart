@@ -11,28 +11,16 @@
 import 'dart:js_interop';
 
 typedef HevcBitstreamFormat = String;
-
-@JS()
-@staticInterop
-@anonymous
-class HevcEncoderConfig {
+extension type HevcEncoderConfig._(JSObject _) implements JSObject {
   external factory HevcEncoderConfig({HevcBitstreamFormat format});
-}
 
-extension HevcEncoderConfigExtension on HevcEncoderConfig {
   external set format(HevcBitstreamFormat value);
   external HevcBitstreamFormat get format;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class VideoEncoderEncodeOptionsForHevc {
+extension type VideoEncoderEncodeOptionsForHevc._(JSObject _)
+    implements JSObject {
   external factory VideoEncoderEncodeOptionsForHevc({int? quantizer});
-}
 
-extension VideoEncoderEncodeOptionsForHevcExtension
-    on VideoEncoderEncodeOptionsForHevc {
   external set quantizer(int? value);
   external int? get quantizer;
 }

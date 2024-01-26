@@ -15,57 +15,25 @@ import 'webxr.dart';
 
 typedef XRDepthUsage = String;
 typedef XRDepthDataFormat = String;
-
-@JS()
-@staticInterop
-@anonymous
-class XRDepthStateInit {
+extension type XRDepthStateInit._(JSObject _) implements JSObject {
   external factory XRDepthStateInit({
     required JSArray usagePreference,
     required JSArray dataFormatPreference,
   });
-}
 
-extension XRDepthStateInitExtension on XRDepthStateInit {
   external set usagePreference(JSArray value);
   external JSArray get usagePreference;
   external set dataFormatPreference(JSArray value);
   external JSArray get dataFormatPreference;
 }
-
-/// The **`XRDepthInformation`** interface contains information about the
-/// distance from the user's device to the real-world geometry in the user's
-/// environment.
-///
-/// This interface is the parent of:
-///
-/// - [XRCPUDepthInformation]
-///   - : Depth information from the CPU (returned by [XRFrame.getDepthInformation]).
-/// - [XRWebGLDepthInformation]
-///   - : Depth information from WebGL (returned by [XRWebGLBinding.getDepthInformation]).
-///
-/// You will usually interact with these child interfaces. However,
-/// `XRDepthInformation` provides some useful properties that are inherited:
-@JS('XRDepthInformation')
-@staticInterop
-class XRDepthInformation {}
-
-extension XRDepthInformationExtension on XRDepthInformation {
+extension type XRDepthInformation._(JSObject _) implements JSObject {
   external int get width;
   external int get height;
   external XRRigidTransform get normDepthBufferFromNormView;
   external num get rawValueToMeters;
 }
-
-/// The **`XRCPUDepthInformation`** interface contains depth information from
-/// the CPU (returned by [XRFrame.getDepthInformation]).
-///
-/// This interface inherits properties from its parent, [XRDepthInformation].
-@JS('XRCPUDepthInformation')
-@staticInterop
-class XRCPUDepthInformation implements XRDepthInformation {}
-
-extension XRCPUDepthInformationExtension on XRCPUDepthInformation {
+extension type XRCPUDepthInformation._(JSObject _)
+    implements XRDepthInformation, JSObject {
   /// The **`getDepthInMeters()`** method of the [XRCPUDepthInformation]
   /// interface returns the depth in meters at (x, y) in normalized view
   /// coordinates (origin in the top left corner).
@@ -75,15 +43,7 @@ extension XRCPUDepthInformationExtension on XRCPUDepthInformation {
   );
   external JSArrayBuffer get data;
 }
-
-/// The **`XRWebGLDepthInformation`** interface contains depth information from
-/// the GPU/WebGL (returned by [XRWebGLBinding.getDepthInformation]).
-///
-/// This interface inherits properties from its parent, [XRDepthInformation].
-@JS('XRWebGLDepthInformation')
-@staticInterop
-class XRWebGLDepthInformation implements XRDepthInformation {}
-
-extension XRWebGLDepthInformationExtension on XRWebGLDepthInformation {
+extension type XRWebGLDepthInformation._(JSObject _)
+    implements XRDepthInformation, JSObject {
   external WebGLTexture get texture;
 }

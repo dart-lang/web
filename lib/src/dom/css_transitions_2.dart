@@ -13,20 +13,8 @@ import 'dart:js_interop';
 import 'cssom.dart';
 import 'web_animations.dart';
 
-/// The **`CSSStartingStyleRule`** interface of the
-/// [CSS Object Model](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
-/// represents a CSS  at-rule.
-@JS('CSSStartingStyleRule')
-@staticInterop
-class CSSStartingStyleRule implements CSSGroupingRule {}
-
-/// The **`CSSTransition`** interface of the [Web Animations API] represents an
-/// [Animation] object used for a
-/// [CSS Transition](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transitions).
-@JS('CSSTransition')
-@staticInterop
-class CSSTransition implements Animation {}
-
-extension CSSTransitionExtension on CSSTransition {
+extension type CSSStartingStyleRule._(JSObject _)
+    implements CSSGroupingRule, JSObject {}
+extension type CSSTransition._(JSObject _) implements Animation, JSObject {
   external String get transitionProperty;
 }

@@ -12,31 +12,22 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 
-@JS('CapturedMouseEvent')
-@staticInterop
-class CapturedMouseEvent implements Event {
+extension type CapturedMouseEvent._(JSObject _) implements Event, JSObject {
   external factory CapturedMouseEvent(
     String type, [
     CapturedMouseEventInit eventInitDict,
   ]);
-}
 
-extension CapturedMouseEventExtension on CapturedMouseEvent {
   external int get surfaceX;
   external int get surfaceY;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class CapturedMouseEventInit implements EventInit {
+extension type CapturedMouseEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory CapturedMouseEventInit({
     int surfaceX,
     int surfaceY,
   });
-}
 
-extension CapturedMouseEventInitExtension on CapturedMouseEventInit {
   external set surfaceX(int value);
   external int get surfaceX;
   external set surfaceY(int value);

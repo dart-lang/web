@@ -18,92 +18,34 @@ import 'permissions.dart';
 typedef MIDIPortType = String;
 typedef MIDIPortDeviceState = String;
 typedef MIDIPortConnectionState = String;
-
-@JS()
-@staticInterop
-@anonymous
-class MidiPermissionDescriptor implements PermissionDescriptor {
+extension type MidiPermissionDescriptor._(JSObject _)
+    implements PermissionDescriptor, JSObject {
   external factory MidiPermissionDescriptor({bool sysex});
-}
 
-extension MidiPermissionDescriptorExtension on MidiPermissionDescriptor {
   external set sysex(bool value);
   external bool get sysex;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MIDIOptions {
+extension type MIDIOptions._(JSObject _) implements JSObject {
   external factory MIDIOptions({
     bool sysex,
     bool software,
   });
-}
 
-extension MIDIOptionsExtension on MIDIOptions {
   external set sysex(bool value);
   external bool get sysex;
   external set software(bool value);
   external bool get software;
 }
-
-/// The **`MIDIInputMap`** read-only interface of the
-/// [Web MIDI API](https://developer.mozilla.org/en-US/docs/Web/API/Web_MIDI_API)
-/// provides the set of MIDI input ports that are currently available.
-///
-/// A `MIDIInputMap` instance is a read-only
-/// [`Map`-like object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map#map-like_browser_apis),
-/// in which each key is the ID string for MIDI input, and the associated value
-/// is the corresponding [MIDIInput] object.
-@JS('MIDIInputMap')
-@staticInterop
-class MIDIInputMap {}
-
-extension MIDIInputMapExtension on MIDIInputMap {}
-
-/// The **`MIDIOutputMap`** read-only interface of the
-/// [Web MIDI API](https://developer.mozilla.org/en-US/docs/Web/API/Web_MIDI_API)
-/// provides the set of MIDI output ports that are currently available.
-///
-/// A `MIDIOutputMap` instance is a read-only
-/// [`Map`-like object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map#map-like_browser_apis),
-/// in which each key is the ID string for MIDI output, and the associated value
-/// is the corresponding [MIDIOutput] object.
-@JS('MIDIOutputMap')
-@staticInterop
-class MIDIOutputMap {}
-
-extension MIDIOutputMapExtension on MIDIOutputMap {}
-
-/// The **`MIDIAccess`** interface of the
-/// [Web MIDI API](https://developer.mozilla.org/en-US/docs/Web/API/Web_MIDI_API)
-/// provides methods for listing MIDI input and output devices, and obtaining
-/// access to those devices.
-@JS('MIDIAccess')
-@staticInterop
-class MIDIAccess implements EventTarget {}
-
-extension MIDIAccessExtension on MIDIAccess {
+extension type MIDIInputMap._(JSObject _) implements JSObject {}
+extension type MIDIOutputMap._(JSObject _) implements JSObject {}
+extension type MIDIAccess._(JSObject _) implements EventTarget, JSObject {
   external MIDIInputMap get inputs;
   external MIDIOutputMap get outputs;
   external set onstatechange(EventHandler value);
   external EventHandler get onstatechange;
   external bool get sysexEnabled;
 }
-
-/// `Web MIDI API`
-///
-/// The **`MIDIPort`** interface of the [Web MIDI API] represents a MIDI input
-/// or output port.
-///
-/// A `MIDIPort` instance is created when a new MIDI device is connected.
-/// Therefore it has no constructor.
-@JS('MIDIPort')
-@staticInterop
-class MIDIPort implements EventTarget {}
-
-extension MIDIPortExtension on MIDIPort {
+extension type MIDIPort._(JSObject _) implements EventTarget, JSObject {
   /// `Web MIDI API`
   ///
   /// The **`open()`** method of the [MIDIPort] interface makes the MIDI device
@@ -136,27 +78,11 @@ extension MIDIPortExtension on MIDIPort {
   external set onstatechange(EventHandler value);
   external EventHandler get onstatechange;
 }
-
-/// The **`MIDIInput`** interface of the
-/// [Web MIDI API](https://developer.mozilla.org/en-US/docs/Web/API/Web_MIDI_API)
-/// receives messages from a MIDI input port.
-@JS('MIDIInput')
-@staticInterop
-class MIDIInput implements MIDIPort {}
-
-extension MIDIInputExtension on MIDIInput {
+extension type MIDIInput._(JSObject _) implements MIDIPort, JSObject {
   external set onmidimessage(EventHandler value);
   external EventHandler get onmidimessage;
 }
-
-/// The **`MIDIOutput`** interface of the [Web MIDI API] provides methods to add
-/// messages to the queue of an output device, and to clear the queue of
-/// messages.
-@JS('MIDIOutput')
-@staticInterop
-class MIDIOutput implements MIDIPort {}
-
-extension MIDIOutputExtension on MIDIOutput {
+extension type MIDIOutput._(JSObject _) implements MIDIPort, JSObject {
   /// The **`send()`** method of the [MIDIOutput] interface queues messages for
   /// the corresponding MIDI port. The message can be sent immediately, or with
   /// an optional timestamp to delay sending.
@@ -169,67 +95,33 @@ extension MIDIOutputExtension on MIDIOutput {
   /// messages being sent to the output device.
   external void clear();
 }
-
-/// The **`MIDIMessageEvent`** interface of the
-/// [Web MIDI API](https://developer.mozilla.org/en-US/docs/Web/API/Web_MIDI_API)
-/// represents the event passed to the [MIDIInput.midimessage_event] event of
-/// the [MIDIInput] interface. A `midimessage` event is fired every time a MIDI
-/// message is sent from a device represented by a [MIDIInput], for example when
-/// a MIDI keyboard key is pressed, a knob is tweaked, or a slider is moved.
-@JS('MIDIMessageEvent')
-@staticInterop
-class MIDIMessageEvent implements Event {
+extension type MIDIMessageEvent._(JSObject _) implements Event, JSObject {
   external factory MIDIMessageEvent(
     String type, [
     MIDIMessageEventInit eventInitDict,
   ]);
-}
 
-extension MIDIMessageEventExtension on MIDIMessageEvent {
   external JSUint8Array get data;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MIDIMessageEventInit implements EventInit {
+extension type MIDIMessageEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory MIDIMessageEventInit({JSUint8Array data});
-}
 
-extension MIDIMessageEventInitExtension on MIDIMessageEventInit {
   external set data(JSUint8Array value);
   external JSUint8Array get data;
 }
-
-/// The **`MIDIConnectionEvent`** interface of the
-/// [Web MIDI API](https://developer.mozilla.org/en-US/docs/Web/API/Web_MIDI_API)
-/// is the event passed to the [MIDIAccess.statechange_event] event of the
-/// [MIDIAccess] interface and the [MIDIPort.statechange_event] event of the
-/// [MIDIPort] interface. This occurs any time a new port becomes available, or
-/// when a previously available port becomes unavailable. For example, this
-/// event is fired whenever a MIDI device is either plugged in to or unplugged
-/// from a computer.
-@JS('MIDIConnectionEvent')
-@staticInterop
-class MIDIConnectionEvent implements Event {
+extension type MIDIConnectionEvent._(JSObject _) implements Event, JSObject {
   external factory MIDIConnectionEvent(
     String type, [
     MIDIConnectionEventInit eventInitDict,
   ]);
-}
 
-extension MIDIConnectionEventExtension on MIDIConnectionEvent {
   external MIDIPort get port;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MIDIConnectionEventInit implements EventInit {
+extension type MIDIConnectionEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory MIDIConnectionEventInit({MIDIPort port});
-}
 
-extension MIDIConnectionEventInitExtension on MIDIConnectionEventInit {
   external set port(MIDIPort value);
   external MIDIPort get port;
 }

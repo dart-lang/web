@@ -12,32 +12,13 @@ import 'dart:js_interop';
 
 import 'cssom.dart';
 
-/// An object implementing the **`CSSConditionRule`** interface represents a
-/// single condition CSS
-/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule), which
-/// consists of a condition and a statement block.
-///
-/// Three objects derive from `CSSConditionRule`: [CSSMediaRule],
-/// [CSSContainerRule] and [CSSSupportsRule].
-@JS('CSSConditionRule')
-@staticInterop
-class CSSConditionRule implements CSSGroupingRule {}
-
-extension CSSConditionRuleExtension on CSSConditionRule {
+extension type CSSConditionRule._(JSObject _)
+    implements CSSGroupingRule, JSObject {
   external String get conditionText;
 }
-
-/// The **`CSSMediaRule`** interface represents a single CSS  rule.
-@JS('CSSMediaRule')
-@staticInterop
-class CSSMediaRule implements CSSConditionRule {}
-
-extension CSSMediaRuleExtension on CSSMediaRule {
+extension type CSSMediaRule._(JSObject _)
+    implements CSSConditionRule, JSObject {
   external MediaList get media;
 }
-
-/// The **`CSSSupportsRule`** interface represents a single CSS
-/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
-@JS('CSSSupportsRule')
-@staticInterop
-class CSSSupportsRule implements CSSConditionRule {}
+extension type CSSSupportsRule._(JSObject _)
+    implements CSSConditionRule, JSObject {}

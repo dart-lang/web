@@ -10,25 +10,13 @@
 
 import 'dart:js_interop';
 
-@JS()
-@staticInterop
-@anonymous
-class IsInputPendingOptions {
+extension type IsInputPendingOptions._(JSObject _) implements JSObject {
   external factory IsInputPendingOptions({bool includeContinuous});
-}
 
-extension IsInputPendingOptionsExtension on IsInputPendingOptions {
   external set includeContinuous(bool value);
   external bool get includeContinuous;
 }
-
-/// The **`Scheduling`** object provides methods and properties to control
-/// scheduling tasks within the current document.
-@JS('Scheduling')
-@staticInterop
-class Scheduling {}
-
-extension SchedulingExtension on Scheduling {
+extension type Scheduling._(JSObject _) implements JSObject {
   /// The **`isInputPending()`** method of the [Scheduling] interface allows you
   /// to check whether there are pending input events in the event queue,
   /// indicating that the user is attempting to interact with the page.

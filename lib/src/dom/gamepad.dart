@@ -15,21 +15,7 @@ import 'gamepad_extensions.dart';
 import 'hr_time.dart';
 
 typedef GamepadMappingType = String;
-
-/// The **`Gamepad`** interface of the
-/// [Gamepad API](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API)
-/// defines an individual gamepad or other controller, allowing access to
-/// information such as button presses, axis positions, and id.
-///
-/// A Gamepad object can be returned in one of two ways: via the `gamepad`
-/// property of the [Window.gamepadconnected_event] and
-/// [Window.gamepaddisconnected_event] events, or by grabbing any position in
-/// the array returned by the [Navigator.getGamepads] method.
-@JS('Gamepad')
-@staticInterop
-class Gamepad {}
-
-extension GamepadExtension on Gamepad {
+extension type Gamepad._(JSObject _) implements JSObject {
   external GamepadHand get hand;
   external JSArray get hapticActuators;
   external GamepadPose? get pose;
@@ -43,48 +29,22 @@ extension GamepadExtension on Gamepad {
   external JSArray get axes;
   external JSArray get buttons;
 }
-
-/// The **`GamepadButton`** interface defines an individual button of a gamepad
-/// or other controller, allowing access to the current state of different types
-/// of buttons available on the control device.
-///
-/// A `GamepadButton` object is returned by querying any value of the array
-/// returned by the `buttons` property of the [Gamepad] interface.
-@JS('GamepadButton')
-@staticInterop
-class GamepadButton {}
-
-extension GamepadButtonExtension on GamepadButton {
+extension type GamepadButton._(JSObject _) implements JSObject {
   external bool get pressed;
   external bool get touched;
   external num get value;
 }
-
-/// The GamepadEvent interface of the Gamepad API contains references to
-/// gamepads connected to the system, which is what the gamepad events
-/// [Window.gamepadconnected_event] and [Window.gamepaddisconnected_event] are
-/// fired in response to.
-@JS('GamepadEvent')
-@staticInterop
-class GamepadEvent implements Event {
+extension type GamepadEvent._(JSObject _) implements Event, JSObject {
   external factory GamepadEvent(
     String type,
     GamepadEventInit eventInitDict,
   );
-}
 
-extension GamepadEventExtension on GamepadEvent {
   external Gamepad get gamepad;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class GamepadEventInit implements EventInit {
+extension type GamepadEventInit._(JSObject _) implements EventInit, JSObject {
   external factory GamepadEventInit({required Gamepad gamepad});
-}
 
-extension GamepadEventInitExtension on GamepadEventInit {
   external set gamepad(Gamepad value);
   external Gamepad get gamepad;
 }

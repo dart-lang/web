@@ -12,31 +12,11 @@ import 'dart:js_interop';
 
 import 'cssom.dart';
 
-/// The **`CSSLayerBlockRule`** represents a  block rule. It is a grouping
-/// at-rule meaning that it can contain other rules, and is associated to a
-/// given cascade layer, identified by its _name_.
-@JS('CSSLayerBlockRule')
-@staticInterop
-class CSSLayerBlockRule implements CSSGroupingRule {}
-
-extension CSSLayerBlockRuleExtension on CSSLayerBlockRule {
+extension type CSSLayerBlockRule._(JSObject _)
+    implements CSSGroupingRule, JSObject {
   external String get name;
 }
-
-/// The **`CSSLayerStatementRule`** represents a  statement rule. Unlike
-/// [CSSLayerBlockRule], it doesn't contain other rules and merely defines one
-/// or several layers by providing their names.
-///
-/// This rule allows to explicitly declare the ordering layer that is in an
-/// apparent way at the beginning of a CSS file: the layer order is defined by
-/// the order of first occurrence of each layer name. Declaring them with a
-/// statement allows the reader to understand the layer order. It also allows
-/// inline and imported layers to be interleaved, which is not possible when
-/// using the `CSSLayerBlockRule` syntax.
-@JS('CSSLayerStatementRule')
-@staticInterop
-class CSSLayerStatementRule implements CSSRule {}
-
-extension CSSLayerStatementRuleExtension on CSSLayerStatementRule {
+extension type CSSLayerStatementRule._(JSObject _)
+    implements CSSRule, JSObject {
   external JSArray get nameList;
 }

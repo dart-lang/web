@@ -31,23 +31,9 @@ typedef MediaStreamTrackState = String;
 typedef VideoFacingModeEnum = String;
 typedef VideoResizeModeEnum = String;
 typedef MediaDeviceKind = String;
-
-/// The **`MediaStream`** interface of the [Media Capture and Streams API]
-/// represents a stream of media content. A stream consists of several
-/// **tracks**, such as video or audio tracks. Each track is specified as an
-/// instance of [MediaStreamTrack].
-///
-/// You can obtain a `MediaStream` object either by using the constructor or by
-/// calling functions such as [MediaDevices.getUserMedia],
-/// [MediaDevices.getDisplayMedia], or [HTMLCanvasElement.captureStream] and
-/// [HTMLMediaElement.captureStream].
-@JS('MediaStream')
-@staticInterop
-class MediaStream implements EventTarget {
+extension type MediaStream._(JSObject _) implements EventTarget, JSObject {
   external factory MediaStream([JSObject streamOrTracks]);
-}
 
-extension MediaStreamExtension on MediaStream {
   /// The **`getAudioTracks()`** method of the
   /// [MediaStream] interface returns a sequence that represents all the
   /// [MediaStreamTrack] objects in this
@@ -103,18 +89,7 @@ extension MediaStreamExtension on MediaStream {
   external set onremovetrack(EventHandler value);
   external EventHandler get onremovetrack;
 }
-
-/// The **`MediaStreamTrack`** interface of the [Media Capture and Streams API]
-/// represents a single media track within a stream; typically, these are audio
-/// or video tracks, but other track types may exist as well.
-///
-/// Some user agents subclass this interface to provide more precise information
-/// or functionality, such as [CanvasCaptureMediaStreamTrack].
-@JS('MediaStreamTrack')
-@staticInterop
-class MediaStreamTrack implements EventTarget {}
-
-extension MediaStreamTrackExtension on MediaStreamTrack {
+extension type MediaStreamTrack._(JSObject _) implements EventTarget, JSObject {
   external CaptureHandle? getCaptureHandle();
   external JSArray getSupportedCaptureActions();
   external JSPromise sendCaptureAction(CaptureAction action);
@@ -215,31 +190,8 @@ extension MediaStreamTrackExtension on MediaStreamTrack {
   external set onisolationchange(EventHandler value);
   external EventHandler get onisolationchange;
 }
-
-/// The **`MediaTrackSupportedConstraints`** dictionary establishes the list of
-/// constrainable properties recognized by the  or browser in its implementation
-/// of the [MediaStreamTrack] object. An object conforming to
-/// `MediaTrackSupportedConstraints` is returned by
-/// [MediaDevices.getSupportedConstraints].
-///
-/// Because of the way interface definitions in WebIDL work, if a constraint is
-/// requested but not supported, no error will occur. Instead, the specified
-/// constraints will be applied, with any unrecognized constraints stripped from
-/// the request. That can lead to confusing and hard to debug errors, so be sure
-/// to use `getSupportedConstraints()` to retrieve this information before
-/// attempting to establish constraints if you need to know the difference
-/// between silently ignoring a constraint and a constraint being accepted.
-///
-/// An actual constraint set is described using an object based on the
-/// [MediaTrackConstraints] dictionary.
-///
-/// To learn more about how constraints work, see [Capabilities, constraints,
-/// and
-/// settings](/en-US/docs/Web/API/Media_Capture_and_Streams_API/Constraints).
-@JS()
-@staticInterop
-@anonymous
-class MediaTrackSupportedConstraints {
+extension type MediaTrackSupportedConstraints._(JSObject _)
+    implements JSObject {
   external factory MediaTrackSupportedConstraints({
     bool whiteBalanceMode,
     bool exposureMode,
@@ -279,10 +231,7 @@ class MediaTrackSupportedConstraints {
     bool restrictOwnAudio,
     bool suppressLocalAudioPlayback,
   });
-}
 
-extension MediaTrackSupportedConstraintsExtension
-    on MediaTrackSupportedConstraints {
   external set whiteBalanceMode(bool value);
   external bool get whiteBalanceMode;
   external set exposureMode(bool value);
@@ -358,11 +307,7 @@ extension MediaTrackSupportedConstraintsExtension
   external set suppressLocalAudioPlayback(bool value);
   external bool get suppressLocalAudioPlayback;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaTrackCapabilities {
+extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
   external factory MediaTrackCapabilities({
     JSArray whiteBalanceMode,
     JSArray exposureMode,
@@ -399,9 +344,7 @@ class MediaTrackCapabilities {
     bool logicalSurface,
     JSArray cursor,
   });
-}
 
-extension MediaTrackCapabilitiesExtension on MediaTrackCapabilities {
   external set whiteBalanceMode(JSArray value);
   external JSArray get whiteBalanceMode;
   external set exposureMode(JSArray value);
@@ -471,30 +414,14 @@ extension MediaTrackCapabilitiesExtension on MediaTrackCapabilities {
   external set cursor(JSArray value);
   external JSArray get cursor;
 }
-
-/// The **`MediaTrackConstraints`** dictionary is used to describe a set of
-/// capabilities and the value or values each can take on. A constraints
-/// dictionary is passed into [MediaStreamTrack.applyConstraints] to allow a
-/// script to establish a set of exact (required) values or ranges and/or
-/// preferred values or ranges of values for the track, and the most
-/// recently-requested set of custom constraints can be retrieved by calling
-/// [MediaStreamTrack.getConstraints].
-@JS()
-@staticInterop
-@anonymous
-class MediaTrackConstraints implements MediaTrackConstraintSet {
+extension type MediaTrackConstraints._(JSObject _)
+    implements MediaTrackConstraintSet, JSObject {
   external factory MediaTrackConstraints({JSArray advanced});
-}
 
-extension MediaTrackConstraintsExtension on MediaTrackConstraints {
   external set advanced(JSArray value);
   external JSArray get advanced;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaTrackConstraintSet {
+extension type MediaTrackConstraintSet._(JSObject _) implements JSObject {
   external factory MediaTrackConstraintSet({
     ConstrainDOMString whiteBalanceMode,
     ConstrainDOMString exposureMode,
@@ -534,9 +461,7 @@ class MediaTrackConstraintSet {
     ConstrainBoolean restrictOwnAudio,
     ConstrainBoolean suppressLocalAudioPlayback,
   });
-}
 
-extension MediaTrackConstraintSetExtension on MediaTrackConstraintSet {
   external set whiteBalanceMode(ConstrainDOMString value);
   external ConstrainDOMString get whiteBalanceMode;
   external set exposureMode(ConstrainDOMString value);
@@ -612,22 +537,7 @@ extension MediaTrackConstraintSetExtension on MediaTrackConstraintSet {
   external set suppressLocalAudioPlayback(ConstrainBoolean value);
   external ConstrainBoolean get suppressLocalAudioPlayback;
 }
-
-/// The **`MediaTrackSettings`** dictionary is used to return the current values
-/// configured for each of a [MediaStreamTrack]'s settings. These values will
-/// adhere as closely as possible to any constraints previously described using
-/// a [MediaTrackConstraints] object and set using
-/// [MediaStreamTrack.applyConstraints], and will adhere to the default
-/// constraints for any properties whose constraints haven't been changed, or
-/// whose customized constraints couldn't be matched.
-///
-/// To learn more about how constraints and settings work, see [Capabilities,
-/// constraints, and
-/// settings](/en-US/docs/Web/API/Media_Capture_and_Streams_API/Constraints).
-@JS()
-@staticInterop
-@anonymous
-class MediaTrackSettings {
+extension type MediaTrackSettings._(JSObject _) implements JSObject {
   external factory MediaTrackSettings({
     String whiteBalanceMode,
     String exposureMode,
@@ -667,9 +577,7 @@ class MediaTrackSettings {
     bool restrictOwnAudio,
     bool suppressLocalAudioPlayback,
   });
-}
 
-extension MediaTrackSettingsExtension on MediaTrackSettings {
   external set whiteBalanceMode(String value);
   external String get whiteBalanceMode;
   external set exposureMode(String value);
@@ -745,68 +653,31 @@ extension MediaTrackSettingsExtension on MediaTrackSettings {
   external set suppressLocalAudioPlayback(bool value);
   external bool get suppressLocalAudioPlayback;
 }
-
-/// The **`MediaStreamTrackEvent`** interface of the
-/// [Media Capture and Streams API] represents events which indicate that a
-/// [MediaStream] has had tracks added to or removed from the stream through
-/// calls to
-/// [Media Capture and Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API)
-/// methods. These events are sent to the stream when these changes occur.
-///
-/// The events based on this interface are [MediaStream/addtrack_event] and
-/// [MediaStream/removetrack_event].
-@JS('MediaStreamTrackEvent')
-@staticInterop
-class MediaStreamTrackEvent implements Event {
+extension type MediaStreamTrackEvent._(JSObject _) implements Event, JSObject {
   external factory MediaStreamTrackEvent(
     String type,
     MediaStreamTrackEventInit eventInitDict,
   );
-}
 
-extension MediaStreamTrackEventExtension on MediaStreamTrackEvent {
   external MediaStreamTrack get track;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaStreamTrackEventInit implements EventInit {
+extension type MediaStreamTrackEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory MediaStreamTrackEventInit({required MediaStreamTrack track});
-}
 
-extension MediaStreamTrackEventInitExtension on MediaStreamTrackEventInit {
   external set track(MediaStreamTrack value);
   external MediaStreamTrack get track;
 }
-
-/// The **`OverconstrainedError`** interface of the
-/// [Media Capture and Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API)
-/// indicates that the set of desired capabilities for the current
-/// [MediaStreamTrack] cannot currently be met. When this event is thrown on a
-/// MediaStreamTrack, it is muted until either the current constraints can be
-/// established or until satisfiable constraints are applied.
-@JS('OverconstrainedError')
-@staticInterop
-class OverconstrainedError implements DOMException {
+extension type OverconstrainedError._(JSObject _)
+    implements DOMException, JSObject {
   external factory OverconstrainedError(
     String constraint, [
     String message,
   ]);
-}
 
-extension OverconstrainedErrorExtension on OverconstrainedError {
   external String get constraint;
 }
-
-/// The **`MediaDevices`** interface provides access to connected media input
-/// devices like cameras and microphones, as well as screen sharing. In essence,
-/// it lets you obtain access to any hardware source of media data.
-@JS('MediaDevices')
-@staticInterop
-class MediaDevices implements EventTarget {}
-
-extension MediaDevicesExtension on MediaDevices {
+extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {
   /// The **`MediaDevices.selectAudioOutput()`** method of the
   /// [Audio Output Devices API](https://developer.mozilla.org/en-US/docs/Web/API/Audio_Output_Devices_API)
   /// prompts the user to select an audio output device, such as a speaker or
@@ -891,17 +762,7 @@ extension MediaDevicesExtension on MediaDevices {
   external set ondevicechange(EventHandler value);
   external EventHandler get ondevicechange;
 }
-
-/// The **`MediaDeviceInfo`** interface of the [Media Capture and Streams API]
-/// contains information that describes a single media input or output device.
-///
-/// The list of devices obtained by calling [MediaDevices.enumerateDevices] is
-/// an array of `MediaDeviceInfo` objects, one per media device.
-@JS('MediaDeviceInfo')
-@staticInterop
-class MediaDeviceInfo {}
-
-extension MediaDeviceInfoExtension on MediaDeviceInfo {
+extension type MediaDeviceInfo._(JSObject _) implements JSObject {
   /// The **`toJSON()`** method of the [MediaDeviceInfo] interface is a ; it
   /// returns a JSON representation of the [MediaDeviceInfo] object.
   external JSObject toJSON();
@@ -910,36 +771,21 @@ extension MediaDeviceInfoExtension on MediaDeviceInfo {
   external String get label;
   external String get groupId;
 }
-
-/// The **`InputDeviceInfo`** interface of the [Media Capture and Streams API]
-/// gives access to the capabilities of the input device that it represents.
-///
-/// `InputDeviceInfo` objects are returned by [MediaDevices.enumerateDevices] if
-/// the returned device is an audio or video input device.
-@JS('InputDeviceInfo')
-@staticInterop
-class InputDeviceInfo implements MediaDeviceInfo {}
-
-extension InputDeviceInfoExtension on InputDeviceInfo {
+extension type InputDeviceInfo._(JSObject _)
+    implements MediaDeviceInfo, JSObject {
   /// The **`getCapabilities()`** method of the [InputDeviceInfo] interface
   /// returns a `MediaTrackCapabilities` object describing the primary audio or
   /// video track of the device's [MediaStream].
   external MediaTrackCapabilities getCapabilities();
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaStreamConstraints {
+extension type MediaStreamConstraints._(JSObject _) implements JSObject {
   external factory MediaStreamConstraints({
     JSAny video,
     JSAny audio,
     bool preferCurrentTab,
     String peerIdentity,
   });
-}
 
-extension MediaStreamConstraintsExtension on MediaStreamConstraints {
   external set video(JSAny value);
   external JSAny get video;
   external set audio(JSAny value);
@@ -949,119 +795,78 @@ extension MediaStreamConstraintsExtension on MediaStreamConstraints {
   external set peerIdentity(String value);
   external String get peerIdentity;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class DoubleRange {
+extension type DoubleRange._(JSObject _) implements JSObject {
   external factory DoubleRange({
     num max,
     num min,
   });
-}
 
-extension DoubleRangeExtension on DoubleRange {
   external set max(num value);
   external num get max;
   external set min(num value);
   external num get min;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ConstrainDoubleRange implements DoubleRange {
+extension type ConstrainDoubleRange._(JSObject _)
+    implements DoubleRange, JSObject {
   external factory ConstrainDoubleRange({
     num exact,
     num ideal,
   });
-}
 
-extension ConstrainDoubleRangeExtension on ConstrainDoubleRange {
   external set exact(num value);
   external num get exact;
   external set ideal(num value);
   external num get ideal;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ULongRange {
+extension type ULongRange._(JSObject _) implements JSObject {
   external factory ULongRange({
     int max,
     int min,
   });
-}
 
-extension ULongRangeExtension on ULongRange {
   external set max(int value);
   external int get max;
   external set min(int value);
   external int get min;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ConstrainULongRange implements ULongRange {
+extension type ConstrainULongRange._(JSObject _)
+    implements ULongRange, JSObject {
   external factory ConstrainULongRange({
     int exact,
     int ideal,
   });
-}
 
-extension ConstrainULongRangeExtension on ConstrainULongRange {
   external set exact(int value);
   external int get exact;
   external set ideal(int value);
   external int get ideal;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ConstrainBooleanParameters {
+extension type ConstrainBooleanParameters._(JSObject _) implements JSObject {
   external factory ConstrainBooleanParameters({
     bool exact,
     bool ideal,
   });
-}
 
-extension ConstrainBooleanParametersExtension on ConstrainBooleanParameters {
   external set exact(bool value);
   external bool get exact;
   external set ideal(bool value);
   external bool get ideal;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ConstrainDOMStringParameters {
+extension type ConstrainDOMStringParameters._(JSObject _) implements JSObject {
   external factory ConstrainDOMStringParameters({
     JSAny exact,
     JSAny ideal,
   });
-}
 
-extension ConstrainDOMStringParametersExtension
-    on ConstrainDOMStringParameters {
   external set exact(JSAny value);
   external JSAny get exact;
   external set ideal(JSAny value);
   external JSAny get ideal;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class CameraDevicePermissionDescriptor implements PermissionDescriptor {
+extension type CameraDevicePermissionDescriptor._(JSObject _)
+    implements PermissionDescriptor, JSObject {
   external factory CameraDevicePermissionDescriptor({bool panTiltZoom});
-}
 
-extension CameraDevicePermissionDescriptorExtension
-    on CameraDevicePermissionDescriptor {
   external set panTiltZoom(bool value);
   external bool get panTiltZoom;
 }

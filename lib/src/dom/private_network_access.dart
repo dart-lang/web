@@ -13,16 +13,10 @@ import 'dart:js_interop';
 import 'permissions.dart';
 
 typedef RequestTargetAddressSpace = String;
-
-@JS()
-@staticInterop
-@anonymous
-class PrivateNetworkAccessPermissionDescriptor implements PermissionDescriptor {
+extension type PrivateNetworkAccessPermissionDescriptor._(JSObject _)
+    implements PermissionDescriptor, JSObject {
   external factory PrivateNetworkAccessPermissionDescriptor({String id});
-}
 
-extension PrivateNetworkAccessPermissionDescriptorExtension
-    on PrivateNetworkAccessPermissionDescriptor {
   external set id(String value);
   external String get id;
 }

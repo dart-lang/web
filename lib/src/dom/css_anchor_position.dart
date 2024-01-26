@@ -12,18 +12,10 @@ import 'dart:js_interop';
 
 import 'cssom.dart';
 
-@JS('CSSPositionFallbackRule')
-@staticInterop
-class CSSPositionFallbackRule implements CSSGroupingRule {}
-
-extension CSSPositionFallbackRuleExtension on CSSPositionFallbackRule {
+extension type CSSPositionFallbackRule._(JSObject _)
+    implements CSSGroupingRule, JSObject {
   external String get name;
 }
-
-@JS('CSSTryRule')
-@staticInterop
-class CSSTryRule implements CSSRule {}
-
-extension CSSTryRuleExtension on CSSTryRule {
+extension type CSSTryRule._(JSObject _) implements CSSRule, JSObject {
   external CSSStyleDeclaration get style;
 }

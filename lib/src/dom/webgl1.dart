@@ -32,11 +32,7 @@ typedef TexImageSource = JSObject;
 typedef Float32List = JSObject;
 typedef Int32List = JSObject;
 typedef WebGLPowerPreference = String;
-
-@JS()
-@staticInterop
-@anonymous
-class WebGLContextAttributes {
+extension type WebGLContextAttributes._(JSObject _) implements JSObject {
   external factory WebGLContextAttributes({
     bool alpha,
     bool depth,
@@ -49,9 +45,7 @@ class WebGLContextAttributes {
     bool desynchronized,
     bool xrCompatible,
   });
-}
 
-extension WebGLContextAttributesExtension on WebGLContextAttributes {
   external set alpha(bool value);
   external bool get alpha;
   external set depth(bool value);
@@ -73,148 +67,27 @@ extension WebGLContextAttributesExtension on WebGLContextAttributes {
   external set xrCompatible(bool value);
   external bool get xrCompatible;
 }
-
-/// The **`WebGLObject`** is part of the
-/// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
-/// is the parent interface for all WebGL objects.
-///
-/// This object has no public properties or methods on its own.
-///
-/// If the WebGL context is lost, the internal _invalidated_ flag of all
-/// `WebGLObject` instances is set to `true`.
-@JS('WebGLObject')
-@staticInterop
-class WebGLObject {}
-
-/// The **WebGLBuffer** interface is part of the
-/// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
-/// represents an opaque buffer object storing data such as vertices or colors.
-@JS('WebGLBuffer')
-@staticInterop
-class WebGLBuffer implements WebGLObject {}
-
-/// The **WebGLFramebuffer** interface is part of the
-/// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
-/// represents a collection of buffers that serve as a rendering destination.
-@JS('WebGLFramebuffer')
-@staticInterop
-class WebGLFramebuffer implements WebGLObject {}
-
-/// The **`WebGLProgram`** is part of the
-/// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
-/// is a combination of two compiled [WebGLShader]s consisting of a vertex
-/// shader and a fragment shader (both written in GLSL).
-///
-/// To create a `WebGLProgram`, call the GL context's
-/// [WebGLRenderingContext.createProgram] function. After attaching the shader
-/// programs using [WebGLRenderingContext.attachShader], you link them into a
-/// usable program. This is shown in the code below.
-///
-/// ```js
-/// const program = gl.createProgram();
-///
-/// // Attach pre-existing shaders
-/// gl.attachShader(program, vertexShader);
-/// gl.attachShader(program, fragmentShader);
-///
-/// gl.linkProgram(program);
-///
-/// if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-///   const info = gl.getProgramInfoLog(program);
-///   throw `Could not compile WebGL program. \n\n${info}`;
-/// }
-/// ```
-///
-/// See [WebGLShader] for information on creating the `vertexShader` and
-/// `fragmentShader` in the above example.
-@JS('WebGLProgram')
-@staticInterop
-class WebGLProgram implements WebGLObject {}
-
-/// The **WebGLRenderbuffer** interface is part of the
-/// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
-/// represents a buffer that can contain an image, or that can be a source or
-/// target of a rendering operation.
-@JS('WebGLRenderbuffer')
-@staticInterop
-class WebGLRenderbuffer implements WebGLObject {}
-
-/// The **WebGLShader** is part of the
-/// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
-/// can either be a vertex or a fragment shader. A [WebGLProgram] requires both
-/// types of shaders.
-@JS('WebGLShader')
-@staticInterop
-class WebGLShader implements WebGLObject {}
-
-/// The **WebGLTexture** interface is part of the
-/// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
-/// represents an opaque texture object providing storage and state for
-/// texturing operations.
-@JS('WebGLTexture')
-@staticInterop
-class WebGLTexture implements WebGLObject {}
-
-/// The **WebGLUniformLocation** interface is part of the
-/// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
-/// represents the location of a uniform variable in a shader program.
-@JS('WebGLUniformLocation')
-@staticInterop
-class WebGLUniformLocation {}
-
-/// The **WebGLActiveInfo** interface is part of the
-/// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
-/// represents the information returned by calling the
-/// [WebGLRenderingContext.getActiveAttrib] and
-/// [WebGLRenderingContext.getActiveUniform] methods.
-@JS('WebGLActiveInfo')
-@staticInterop
-class WebGLActiveInfo {}
-
-extension WebGLActiveInfoExtension on WebGLActiveInfo {
+extension type WebGLObject._(JSObject _) implements JSObject {}
+extension type WebGLBuffer._(JSObject _) implements WebGLObject, JSObject {}
+extension type WebGLFramebuffer._(JSObject _)
+    implements WebGLObject, JSObject {}
+extension type WebGLProgram._(JSObject _) implements WebGLObject, JSObject {}
+extension type WebGLRenderbuffer._(JSObject _)
+    implements WebGLObject, JSObject {}
+extension type WebGLShader._(JSObject _) implements WebGLObject, JSObject {}
+extension type WebGLTexture._(JSObject _) implements WebGLObject, JSObject {}
+extension type WebGLUniformLocation._(JSObject _) implements JSObject {}
+extension type WebGLActiveInfo._(JSObject _) implements JSObject {
   external GLint get size;
   external GLenum get type;
   external String get name;
 }
-
-/// The **WebGLShaderPrecisionFormat** interface is part of the
-/// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
-/// represents the information returned by calling the
-/// [WebGLRenderingContext.getShaderPrecisionFormat] method.
-@JS('WebGLShaderPrecisionFormat')
-@staticInterop
-class WebGLShaderPrecisionFormat {}
-
-extension WebGLShaderPrecisionFormatExtension on WebGLShaderPrecisionFormat {
+extension type WebGLShaderPrecisionFormat._(JSObject _) implements JSObject {
   external GLint get rangeMin;
   external GLint get rangeMax;
   external GLint get precision;
 }
-
-/// The **`WebGLRenderingContext`** interface provides an interface to the
-/// OpenGL ES 2.0 graphics rendering context for the drawing surface of an HTML
-/// `canvas` element.
-///
-/// To get an access to a WebGL context for 2D and/or 3D graphics rendering,
-/// call [HTMLCanvasElement.getContext] on a `<canvas>` element, supplying
-/// "webgl" as the argument:
-///
-/// ```js
-/// const canvas = document.getElementById("myCanvas");
-/// const gl = canvas.getContext("webgl");
-/// ```
-///
-/// Once you have the WebGL rendering context for a canvas, you can render
-/// within it. The
-/// [WebGL tutorial](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial)
-/// has more information, examples, and resources on how to get started with
-/// WebGL.
-///
-/// If you require a WebGL 2.0 context, see [WebGL2RenderingContext]; this
-/// supplies access to an implementation of OpenGL ES 3.0 graphics.
-@JS('WebGLRenderingContext')
-@staticInterop
-class WebGLRenderingContext {
+extension type WebGLRenderingContext._(JSObject _) implements JSObject {
   external static GLenum get DEPTH_BUFFER_BIT;
   external static GLenum get STENCIL_BUFFER_BIT;
   external static GLenum get COLOR_BUFFER_BIT;
@@ -511,9 +384,7 @@ class WebGLRenderingContext {
   external static GLenum get CONTEXT_LOST_WEBGL;
   external static GLenum get UNPACK_COLORSPACE_CONVERSION_WEBGL;
   external static GLenum get BROWSER_DEFAULT_WEBGL;
-}
 
-extension WebGLRenderingContextExtension on WebGLRenderingContext {
   /// The **`WebGLRenderingContext.getContextAttributes()`** method
   /// returns a `WebGLContextAttributes` object that contains the actual context
   /// parameters. Might return
@@ -1755,32 +1626,18 @@ extension WebGLRenderingContextExtension on WebGLRenderingContext {
   external set unpackColorSpace(PredefinedColorSpace value);
   external PredefinedColorSpace get unpackColorSpace;
 }
-
-/// The **WebContextEvent** interface is part of the
-/// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
-/// is an interface for an event that is generated in response to a status
-/// change to the WebGL rendering context.
-@JS('WebGLContextEvent')
-@staticInterop
-class WebGLContextEvent implements Event {
+extension type WebGLContextEvent._(JSObject _) implements Event, JSObject {
   external factory WebGLContextEvent(
     String type, [
     WebGLContextEventInit eventInit,
   ]);
-}
 
-extension WebGLContextEventExtension on WebGLContextEvent {
   external String get statusMessage;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class WebGLContextEventInit implements EventInit {
+extension type WebGLContextEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory WebGLContextEventInit({String statusMessage});
-}
 
-extension WebGLContextEventInitExtension on WebGLContextEventInit {
   external set statusMessage(String value);
   external String get statusMessage;
 }

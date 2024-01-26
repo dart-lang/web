@@ -12,15 +12,9 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 
-/// The `XMLSerializer` interface provides the [XMLSerializer.serializeToString]
-/// method to construct an XML string representing a  tree.
-@JS('XMLSerializer')
-@staticInterop
-class XMLSerializer {
+extension type XMLSerializer._(JSObject _) implements JSObject {
   external factory XMLSerializer();
-}
 
-extension XMLSerializerExtension on XMLSerializer {
   /// The [XMLSerializer] method
   /// **`serializeToString()`** constructs a string representing the
   /// specified  tree in  form.

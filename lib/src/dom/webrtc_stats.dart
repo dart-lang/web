@@ -17,36 +17,14 @@ typedef RTCStatsType = String;
 typedef RTCQualityLimitationReason = String;
 typedef RTCDtlsRole = String;
 typedef RTCStatsIceCandidatePairState = String;
-
-/// The [RTCRtpStreamStats] dictionary is returned by the
-/// [RTCPeerConnection.getStats], [RTCRtpSender.getStats], and
-/// [RTCRtpReceiver.getStats] methods to provide detailed statistics about
-/// WebRTC connectivity.
-///
-/// While the dictionary has a base set of properties that are present in each
-/// of these cases, there are also additional properties added depending on
-/// which interface the method is called on.
-///
-/// `RTCRtpStreamStats` is the base class for all RTP-related statistics
-/// reports.
-///
-/// > **Note:** This interface was called `RTCRTPStreamStats` until a
-/// > specification update in the spring of 2017.
-/// > Check the [Browser compatibility](#browser_compatibility) table to know if
-/// > and when the name change was implemented in specific browsers.
-@JS()
-@staticInterop
-@anonymous
-class RTCRtpStreamStats implements RTCStats {
+extension type RTCRtpStreamStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCRtpStreamStats({
     required int ssrc,
     required String kind,
     String transportId,
     String codecId,
   });
-}
 
-extension RTCRtpStreamStatsExtension on RTCRtpStreamStats {
   external set ssrc(int value);
   external int get ssrc;
   external set kind(String value);
@@ -56,11 +34,7 @@ extension RTCRtpStreamStatsExtension on RTCRtpStreamStats {
   external set codecId(String value);
   external String get codecId;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCCodecStats implements RTCStats {
+extension type RTCCodecStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCCodecStats({
     required int payloadType,
     required String transportId,
@@ -69,9 +43,7 @@ class RTCCodecStats implements RTCStats {
     int channels,
     String sdpFmtpLine,
   });
-}
 
-extension RTCCodecStatsExtension on RTCCodecStats {
   external set payloadType(int value);
   external int get payloadType;
   external set transportId(String value);
@@ -85,19 +57,14 @@ extension RTCCodecStatsExtension on RTCCodecStats {
   external set sdpFmtpLine(String value);
   external String get sdpFmtpLine;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCReceivedRtpStreamStats implements RTCRtpStreamStats {
+extension type RTCReceivedRtpStreamStats._(JSObject _)
+    implements RTCRtpStreamStats, JSObject {
   external factory RTCReceivedRtpStreamStats({
     int packetsReceived,
     int packetsLost,
     num jitter,
   });
-}
 
-extension RTCReceivedRtpStreamStatsExtension on RTCReceivedRtpStreamStats {
   external set packetsReceived(int value);
   external int get packetsReceived;
   external set packetsLost(int value);
@@ -105,19 +72,8 @@ extension RTCReceivedRtpStreamStatsExtension on RTCReceivedRtpStreamStats {
   external set jitter(num value);
   external num get jitter;
 }
-
-/// The **`RTCInboundRtpStreamStats`** dictionary of the
-/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API) is
-/// used to report statistics related to the receiving end of an RTP stream on
-/// the local end of the [RTCPeerConnection].
-///
-/// The statistics can be obtained by iterating the [RTCStatsReport] returned by
-/// [RTCPeerConnection.getStats] or [RTCRtpReceiver.getStats] until you find a
-/// report with the [`type`](#type) of `inbound-rtp`.
-@JS()
-@staticInterop
-@anonymous
-class RTCInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
+extension type RTCInboundRtpStreamStats._(JSObject _)
+    implements RTCReceivedRtpStreamStats, JSObject {
   external factory RTCInboundRtpStreamStats({
     required String trackIdentifier,
     String mid,
@@ -173,9 +129,7 @@ class RTCInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
     int rtxSsrc,
     int fecSsrc,
   });
-}
 
-extension RTCInboundRtpStreamStatsExtension on RTCInboundRtpStreamStats {
   external set trackIdentifier(String value);
   external String get trackIdentifier;
   external set mid(String value);
@@ -283,11 +237,8 @@ extension RTCInboundRtpStreamStatsExtension on RTCInboundRtpStreamStats {
   external set fecSsrc(int value);
   external int get fecSsrc;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCRemoteInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
+extension type RTCRemoteInboundRtpStreamStats._(JSObject _)
+    implements RTCReceivedRtpStreamStats, JSObject {
   external factory RTCRemoteInboundRtpStreamStats({
     String localId,
     num roundTripTime,
@@ -295,10 +246,7 @@ class RTCRemoteInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
     num fractionLost,
     int roundTripTimeMeasurements,
   });
-}
 
-extension RTCRemoteInboundRtpStreamStatsExtension
-    on RTCRemoteInboundRtpStreamStats {
   external set localId(String value);
   external String get localId;
   external set roundTripTime(num value);
@@ -310,36 +258,20 @@ extension RTCRemoteInboundRtpStreamStatsExtension
   external set roundTripTimeMeasurements(int value);
   external int get roundTripTimeMeasurements;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCSentRtpStreamStats implements RTCRtpStreamStats {
+extension type RTCSentRtpStreamStats._(JSObject _)
+    implements RTCRtpStreamStats, JSObject {
   external factory RTCSentRtpStreamStats({
     int packetsSent,
     int bytesSent,
   });
-}
 
-extension RTCSentRtpStreamStatsExtension on RTCSentRtpStreamStats {
   external set packetsSent(int value);
   external int get packetsSent;
   external set bytesSent(int value);
   external int get bytesSent;
 }
-
-/// The **`RTCOutboundRtpStreamStats`** dictionary of the
-/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API) is
-/// used to report metrics and statistics related to an outbound  stream being
-/// sent by an [RTCRtpSender].
-///
-/// The statistics can be obtained by iterating the [RTCStatsReport] returned by
-/// [RTCPeerConnection.getStats] or [RTCRtpSender.getStats] until you find a
-/// report with the [`type`](#type) of `outbound-rtp`.
-@JS()
-@staticInterop
-@anonymous
-class RTCOutboundRtpStreamStats implements RTCSentRtpStreamStats {
+extension type RTCOutboundRtpStreamStats._(JSObject _)
+    implements RTCSentRtpStreamStats, JSObject {
   external factory RTCOutboundRtpStreamStats({
     String mid,
     String mediaSourceId,
@@ -372,9 +304,7 @@ class RTCOutboundRtpStreamStats implements RTCSentRtpStreamStats {
     bool active,
     String scalabilityMode,
   });
-}
 
-extension RTCOutboundRtpStreamStatsExtension on RTCOutboundRtpStreamStats {
   external set mid(String value);
   external String get mid;
   external set mediaSourceId(String value);
@@ -436,20 +366,8 @@ extension RTCOutboundRtpStreamStatsExtension on RTCOutboundRtpStreamStats {
   external set scalabilityMode(String value);
   external String get scalabilityMode;
 }
-
-/// The **`RTCRemoteOutboundRtpStreamStats`** dictionary of the
-/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API) is
-/// used to report statistics from remote endpoint of its outbound RTP stream,
-/// which corresponds to an inbound stream that is currently received by an
-/// [RTCPeerConnection] object.
-///
-/// The statistics can be obtained by iterating the [RTCStatsReport] returned by
-/// [RTCPeerConnection.getStats] until you find a report with the
-/// [`type`](#type) of `remote-outbound-rtp`.
-@JS()
-@staticInterop
-@anonymous
-class RTCRemoteOutboundRtpStreamStats implements RTCSentRtpStreamStats {
+extension type RTCRemoteOutboundRtpStreamStats._(JSObject _)
+    implements RTCSentRtpStreamStats, JSObject {
   external factory RTCRemoteOutboundRtpStreamStats({
     String localId,
     DOMHighResTimeStamp remoteTimestamp,
@@ -458,10 +376,7 @@ class RTCRemoteOutboundRtpStreamStats implements RTCSentRtpStreamStats {
     num totalRoundTripTime,
     int roundTripTimeMeasurements,
   });
-}
 
-extension RTCRemoteOutboundRtpStreamStatsExtension
-    on RTCRemoteOutboundRtpStreamStats {
   external set localId(String value);
   external String get localId;
   external set remoteTimestamp(DOMHighResTimeStamp value);
@@ -475,40 +390,19 @@ extension RTCRemoteOutboundRtpStreamStatsExtension
   external set roundTripTimeMeasurements(int value);
   external int get roundTripTimeMeasurements;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCMediaSourceStats implements RTCStats {
+extension type RTCMediaSourceStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCMediaSourceStats({
     required String trackIdentifier,
     required String kind,
   });
-}
 
-extension RTCMediaSourceStatsExtension on RTCMediaSourceStats {
   external set trackIdentifier(String value);
   external String get trackIdentifier;
   external set kind(String value);
   external String get kind;
 }
-
-/// The
-/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)'s
-/// **`RTCAudioSourceStats`** dictionary provides information about an audio
-/// track that is attached to one or more senders.
-///
-/// These statistics can be obtained by iterating the [RTCStatsReport] returned
-/// by [RTCRtpSender.getStats] or [RTCPeerConnection.getStats] until you find a
-/// report with the [`type`](#type) of `media-source` and a [`kind`](#kind) of
-/// `audio`.
-///
-/// > **Note:** For audio information about remotely sourced tracks (that are
-/// > being received), see [RTCInboundRtpStreamStats].
-@JS()
-@staticInterop
-@anonymous
-class RTCAudioSourceStats implements RTCMediaSourceStats {
+extension type RTCAudioSourceStats._(JSObject _)
+    implements RTCMediaSourceStats, JSObject {
   external factory RTCAudioSourceStats({
     num audioLevel,
     num totalAudioEnergy,
@@ -520,9 +414,7 @@ class RTCAudioSourceStats implements RTCMediaSourceStats {
     num totalCaptureDelay,
     int totalSamplesCaptured,
   });
-}
 
-extension RTCAudioSourceStatsExtension on RTCAudioSourceStats {
   external set audioLevel(num value);
   external num get audioLevel;
   external set totalAudioEnergy(num value);
@@ -542,20 +434,15 @@ extension RTCAudioSourceStatsExtension on RTCAudioSourceStats {
   external set totalSamplesCaptured(int value);
   external int get totalSamplesCaptured;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCVideoSourceStats implements RTCMediaSourceStats {
+extension type RTCVideoSourceStats._(JSObject _)
+    implements RTCMediaSourceStats, JSObject {
   external factory RTCVideoSourceStats({
     int width,
     int height,
     int frames,
     num framesPerSecond,
   });
-}
 
-extension RTCVideoSourceStatsExtension on RTCVideoSourceStats {
   external set width(int value);
   external int get width;
   external set height(int value);
@@ -565,11 +452,8 @@ extension RTCVideoSourceStatsExtension on RTCVideoSourceStats {
   external set framesPerSecond(num value);
   external num get framesPerSecond;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCAudioPlayoutStats implements RTCStats {
+extension type RTCAudioPlayoutStats._(JSObject _)
+    implements RTCStats, JSObject {
   external factory RTCAudioPlayoutStats({
     required String kind,
     num synthesizedSamplesDuration,
@@ -578,9 +462,7 @@ class RTCAudioPlayoutStats implements RTCStats {
     num totalPlayoutDelay,
     int totalSamplesCount,
   });
-}
 
-extension RTCAudioPlayoutStatsExtension on RTCAudioPlayoutStats {
   external set kind(String value);
   external String get kind;
   external set synthesizedSamplesDuration(num value);
@@ -594,40 +476,19 @@ extension RTCAudioPlayoutStatsExtension on RTCAudioPlayoutStats {
   external set totalSamplesCount(int value);
   external int get totalSamplesCount;
 }
-
-/// The **`RTCPeerConnectionStats`** dictionary of the
-/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
-/// provides information about the high level peer connection
-/// ([RTCPeerConnection]).
-///
-/// In particular, it provides the number of unique data channels that have been
-/// opened, and the number of opened channels that have been closed.
-/// This allows the current number of open channels to be calculated.
-///
-/// These statistics can be obtained by iterating the [RTCStatsReport] returned
-/// by [RTCPeerConnection.getStats] until you find a report with the
-/// [`type`](#type) of `peer-connection`.
-@JS()
-@staticInterop
-@anonymous
-class RTCPeerConnectionStats implements RTCStats {
+extension type RTCPeerConnectionStats._(JSObject _)
+    implements RTCStats, JSObject {
   external factory RTCPeerConnectionStats({
     int dataChannelsOpened,
     int dataChannelsClosed,
   });
-}
 
-extension RTCPeerConnectionStatsExtension on RTCPeerConnectionStats {
   external set dataChannelsOpened(int value);
   external int get dataChannelsOpened;
   external set dataChannelsClosed(int value);
   external int get dataChannelsClosed;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCDataChannelStats implements RTCStats {
+extension type RTCDataChannelStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCDataChannelStats({
     String label,
     String protocol,
@@ -638,9 +499,7 @@ class RTCDataChannelStats implements RTCStats {
     int messagesReceived,
     int bytesReceived,
   });
-}
 
-extension RTCDataChannelStatsExtension on RTCDataChannelStats {
   external set label(String value);
   external String get label;
   external set protocol(String value);
@@ -658,31 +517,7 @@ extension RTCDataChannelStatsExtension on RTCDataChannelStats {
   external set bytesReceived(int value);
   external int get bytesReceived;
 }
-
-/// The **`RTCTransportStats`** dictionary of the
-/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
-/// provides information about the transport ([RTCDtlsTransport] and its
-/// underlying [RTCIceTransport]) used by a particular candidate pair.
-///
-/// The _BUNDLE_ feature is an SDP extension that allows negotiation to use a
-/// single transport for sending and receiving media described by multiple SDP
-/// media descriptions.
-/// If the remote endpoint is aware of this feature, all [MediaStreamTrack] and
-/// data channels are bundled onto a single transport at the completion of
-/// negotiation.
-/// This is true for current browsers, but if connecting to an older endpoint
-/// that is not BUNDLE-aware, then separate transports might be used for
-/// different media.
-/// The policy to use in the negotiation is configured in the
-/// [`RTCPeerConnection` constructor](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection).
-///
-/// These statistics can be obtained by iterating the [RTCStatsReport] returned
-/// by [RTCPeerConnection.getStats] until you find a report with the
-/// [`type`](#type) of `transport`.
-@JS()
-@staticInterop
-@anonymous
-class RTCTransportStats implements RTCStats {
+extension type RTCTransportStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCTransportStats({
     int packetsSent,
     int packetsReceived,
@@ -701,9 +536,7 @@ class RTCTransportStats implements RTCStats {
     String srtpCipher,
     int selectedCandidatePairChanges,
   });
-}
 
-extension RTCTransportStatsExtension on RTCTransportStats {
   external set packetsSent(int value);
   external int get packetsSent;
   external set packetsReceived(int value);
@@ -737,18 +570,8 @@ extension RTCTransportStatsExtension on RTCTransportStats {
   external set selectedCandidatePairChanges(int value);
   external int get selectedCandidatePairChanges;
 }
-
-/// The **`RTCIceCandidateStats`** dictionary of the
-/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API) is
-/// used to report statistics related to an [RTCIceCandidate].
-///
-/// The statistics can be obtained by iterating the [RTCStatsReport] returned by
-/// [RTCPeerConnection.getStats] until you find a report with the
-/// [`type`](#type) of `local-candidate`.
-@JS()
-@staticInterop
-@anonymous
-class RTCIceCandidateStats implements RTCStats {
+extension type RTCIceCandidateStats._(JSObject _)
+    implements RTCStats, JSObject {
   external factory RTCIceCandidateStats({
     required String transportId,
     String? address,
@@ -764,9 +587,7 @@ class RTCIceCandidateStats implements RTCStats {
     String usernameFragment,
     RTCIceTcpCandidateType tcpType,
   });
-}
 
-extension RTCIceCandidateStatsExtension on RTCIceCandidateStats {
   external set transportId(String value);
   external String get transportId;
   external set address(String? value);
@@ -794,20 +615,8 @@ extension RTCIceCandidateStatsExtension on RTCIceCandidateStats {
   external set tcpType(RTCIceTcpCandidateType value);
   external RTCIceTcpCandidateType get tcpType;
 }
-
-/// The **`RTCIceCandidatePairStats`** dictionary of the
-/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API) is
-/// used to report statistics that provide insight into the quality and
-/// performance of an [RTCPeerConnection] while connected and configured as
-/// described by the specified pair of  candidates.
-///
-/// The statistics can be obtained by iterating the [RTCStatsReport] returned by
-/// [RTCPeerConnection.getStats] until you find an entry with the
-/// [`type`](#type) of `"candidate-pair"`.
-@JS()
-@staticInterop
-@anonymous
-class RTCIceCandidatePairStats implements RTCStats {
+extension type RTCIceCandidatePairStats._(JSObject _)
+    implements RTCStats, JSObject {
   external factory RTCIceCandidatePairStats({
     required String transportId,
     required String localCandidateId,
@@ -832,9 +641,7 @@ class RTCIceCandidatePairStats implements RTCStats {
     int packetsDiscardedOnSend,
     int bytesDiscardedOnSend,
   });
-}
 
-extension RTCIceCandidatePairStatsExtension on RTCIceCandidatePairStats {
   external set transportId(String value);
   external String get transportId;
   external set localCandidateId(String value);
@@ -880,30 +687,14 @@ extension RTCIceCandidatePairStatsExtension on RTCIceCandidatePairStats {
   external set bytesDiscardedOnSend(int value);
   external int get bytesDiscardedOnSend;
 }
-
-/// `WebRTC`
-///
-/// The **`RTCCertificateStats`** dictionary of the
-/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API) is
-/// used to report information about a certificate used by an [RTCDtlsTransport]
-/// and its underlying [RTCIceTransport].
-///
-/// The report can be obtained by iterating the [RTCStatsReport] returned by
-/// [RTCPeerConnection.getStats] until you find an entry with the
-/// [`type`](#type) of `certificate`.
-@JS()
-@staticInterop
-@anonymous
-class RTCCertificateStats implements RTCStats {
+extension type RTCCertificateStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCCertificateStats({
     required String fingerprint,
     required String fingerprintAlgorithm,
     required String base64Certificate,
     String issuerCertificateId,
   });
-}
 
-extension RTCCertificateStatsExtension on RTCCertificateStats {
   external set fingerprint(String value);
   external String get fingerprint;
   external set fingerprintAlgorithm(String value);

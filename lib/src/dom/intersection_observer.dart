@@ -15,29 +15,12 @@ import 'geometry.dart';
 import 'hr_time.dart';
 
 typedef IntersectionObserverCallback = JSFunction;
-
-/// The **`IntersectionObserver`** interface of the
-/// [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
-/// provides a way to asynchronously observe changes in the intersection of a
-/// target element with an ancestor element or with a top-level document's . The
-/// ancestor element or viewport is referred to as the root.
-///
-/// When an `IntersectionObserver` is created, it's configured to watch for
-/// given ratios of visibility within the root. The configuration cannot be
-/// changed once the `IntersectionObserver` is created, so a given observer
-/// object is only useful for watching for specific changes in degree of
-/// visibility; however, you can watch multiple target elements with the same
-/// observer.
-@JS('IntersectionObserver')
-@staticInterop
-class IntersectionObserver {
+extension type IntersectionObserver._(JSObject _) implements JSObject {
   external factory IntersectionObserver(
     IntersectionObserverCallback callback, [
     IntersectionObserverInit options,
   ]);
-}
 
-extension IntersectionObserverExtension on IntersectionObserver {
   /// The [IntersectionObserver] method
   /// **`observe()`** adds an element to the set of target elements
   /// being watched by the `IntersectionObserver`. One observer has one set of
@@ -105,23 +88,10 @@ extension IntersectionObserverExtension on IntersectionObserver {
   external String get scrollMargin;
   external JSArray get thresholds;
 }
-
-/// The **`IntersectionObserverEntry`** interface of the
-/// [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
-/// describes the intersection between the target element and its root container
-/// at a specific moment of transition.
-///
-/// Instances of `IntersectionObserverEntry` are delivered to an
-/// [IntersectionObserver] callback in its `entries` parameter; otherwise, these
-/// objects can only be obtained by calling [IntersectionObserver.takeRecords].
-@JS('IntersectionObserverEntry')
-@staticInterop
-class IntersectionObserverEntry {
+extension type IntersectionObserverEntry._(JSObject _) implements JSObject {
   external factory IntersectionObserverEntry(
       IntersectionObserverEntryInit intersectionObserverEntryInit);
-}
 
-extension IntersectionObserverEntryExtension on IntersectionObserverEntry {
   external DOMHighResTimeStamp get time;
   external DOMRectReadOnly? get rootBounds;
   external DOMRectReadOnly get boundingClientRect;
@@ -130,11 +100,7 @@ extension IntersectionObserverEntryExtension on IntersectionObserverEntry {
   external num get intersectionRatio;
   external Element get target;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class IntersectionObserverEntryInit {
+extension type IntersectionObserverEntryInit._(JSObject _) implements JSObject {
   external factory IntersectionObserverEntryInit({
     required DOMHighResTimeStamp time,
     required DOMRectInit? rootBounds,
@@ -144,10 +110,7 @@ class IntersectionObserverEntryInit {
     required num intersectionRatio,
     required Element target,
   });
-}
 
-extension IntersectionObserverEntryInitExtension
-    on IntersectionObserverEntryInit {
   external set time(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get time;
   external set rootBounds(DOMRectInit? value);
@@ -163,20 +126,14 @@ extension IntersectionObserverEntryInitExtension
   external set target(Element value);
   external Element get target;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class IntersectionObserverInit {
+extension type IntersectionObserverInit._(JSObject _) implements JSObject {
   external factory IntersectionObserverInit({
     JSObject? root,
     String rootMargin,
     String scrollMargin,
     JSAny threshold,
   });
-}
 
-extension IntersectionObserverInitExtension on IntersectionObserverInit {
   external set root(JSObject? value);
   external JSObject? get root;
   external set rootMargin(String value);

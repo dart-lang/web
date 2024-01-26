@@ -14,17 +14,7 @@ import 'dom.dart';
 import 'html.dart';
 
 typedef BinaryType = String;
-
-/// The `WebSocket` object provides the API for creating and managing a
-/// [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
-/// connection to a server, as well as for sending and receiving data on the
-/// connection.
-///
-/// To construct a `WebSocket`, use the
-/// [`WebSocket()`](/en-US/docs/Web/API/WebSocket/WebSocket) constructor.
-@JS('WebSocket')
-@staticInterop
-class WebSocket implements EventTarget {
+extension type WebSocket._(JSObject _) implements EventTarget, JSObject {
   external factory WebSocket(
     String url, [
     JSAny protocols,
@@ -34,9 +24,7 @@ class WebSocket implements EventTarget {
   external static int get OPEN;
   external static int get CLOSING;
   external static int get CLOSED;
-}
 
-extension WebSocketExtension on WebSocket {
   /// The **`WebSocket.close()`** method closes the
   /// [WebSocket] connection or connection attempt, if any. If the connection is
   /// already `CLOSED`, this method does nothing.
@@ -80,37 +68,23 @@ extension WebSocketExtension on WebSocket {
   external set binaryType(BinaryType value);
   external BinaryType get binaryType;
 }
-
-/// A `CloseEvent` is sent to clients using  when the connection is closed. This
-/// is delivered to the listener indicated by the `WebSocket` object's `onclose`
-/// attribute.
-@JS('CloseEvent')
-@staticInterop
-class CloseEvent implements Event {
+extension type CloseEvent._(JSObject _) implements Event, JSObject {
   external factory CloseEvent(
     String type, [
     CloseEventInit eventInitDict,
   ]);
-}
 
-extension CloseEventExtension on CloseEvent {
   external bool get wasClean;
   external int get code;
   external String get reason;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class CloseEventInit implements EventInit {
+extension type CloseEventInit._(JSObject _) implements EventInit, JSObject {
   external factory CloseEventInit({
     bool wasClean,
     int code,
     String reason,
   });
-}
 
-extension CloseEventInitExtension on CloseEventInit {
   external set wasClean(bool value);
   external bool get wasClean;
   external set code(int value);

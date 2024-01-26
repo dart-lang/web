@@ -14,24 +14,7 @@ import 'hr_time.dart';
 
 typedef PositionCallback = JSFunction;
 typedef PositionErrorCallback = JSFunction;
-
-/// The **`Geolocation`** interface represents an object able to obtain the
-/// position of the device programmatically. It gives Web content access to the
-/// location of the device. This allows a website or app to offer customized
-/// results based on the user's location.
-///
-/// An object with this interface is obtained using the [navigator.geolocation]
-/// property implemented by the [Navigator] object.
-///
-/// > **Note:** For security reasons, when a web page tries to access location
-/// > information, the user is notified and asked to grant permission. Be aware
-/// > that each browser has its own policies and methods for requesting this
-/// > permission.
-@JS('Geolocation')
-@staticInterop
-class Geolocation {}
-
-extension GeolocationExtension on Geolocation {
+extension type Geolocation._(JSObject _) implements JSObject {
   /// The **`getCurrentPosition()`** method of the [Geolocation] interface is
   /// used to get the current position of the device.
   external void getCurrentPosition(
@@ -55,19 +38,13 @@ extension GeolocationExtension on Geolocation {
   /// [Geolocation.watchPosition].
   external void clearWatch(int watchId);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PositionOptions {
+extension type PositionOptions._(JSObject _) implements JSObject {
   external factory PositionOptions({
     bool enableHighAccuracy,
     int timeout,
     int maximumAge,
   });
-}
 
-extension PositionOptionsExtension on PositionOptions {
   external set enableHighAccuracy(bool value);
   external bool get enableHighAccuracy;
   external set timeout(int value);
@@ -75,30 +52,11 @@ extension PositionOptionsExtension on PositionOptions {
   external set maximumAge(int value);
   external int get maximumAge;
 }
-
-/// The **`GeolocationPosition`** interface represents the position of the
-/// concerned device at a given time. The position, represented by a
-/// [GeolocationCoordinates] object, comprehends the 2D position of the device,
-/// on a spheroid representing the Earth, but also its altitude and its speed.
-@JS('GeolocationPosition')
-@staticInterop
-class GeolocationPosition {}
-
-extension GeolocationPositionExtension on GeolocationPosition {
+extension type GeolocationPosition._(JSObject _) implements JSObject {
   external GeolocationCoordinates get coords;
   external EpochTimeStamp get timestamp;
 }
-
-/// The **`GeolocationCoordinates`** interface represents the position and
-/// altitude of the device on Earth, as well as the accuracy with which these
-/// properties are calculated.
-/// The geographic position information is provided in terms of World Geodetic
-/// System coordinates (WGS84).
-@JS('GeolocationCoordinates')
-@staticInterop
-class GeolocationCoordinates {}
-
-extension GeolocationCoordinatesExtension on GeolocationCoordinates {
+extension type GeolocationCoordinates._(JSObject _) implements JSObject {
   external num get accuracy;
   external num get latitude;
   external num get longitude;
@@ -107,18 +65,10 @@ extension GeolocationCoordinatesExtension on GeolocationCoordinates {
   external num? get heading;
   external num? get speed;
 }
-
-/// The **`GeolocationPositionError`** interface represents the reason of an
-/// error occurring when using the geolocating device.
-@JS('GeolocationPositionError')
-@staticInterop
-class GeolocationPositionError {
+extension type GeolocationPositionError._(JSObject _) implements JSObject {
   external static int get PERMISSION_DENIED;
   external static int get POSITION_UNAVAILABLE;
   external static int get TIMEOUT;
-}
-
-extension GeolocationPositionErrorExtension on GeolocationPositionError {
   external int get code;
   external String get message;
 }

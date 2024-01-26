@@ -10,16 +10,7 @@
 
 import 'dart:js_interop';
 
-/// The **`StorageManager`** interface of the
-/// [Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Storage_API)
-/// provides an interface for managing persistence permissions and estimating
-/// available storage. You can get a reference to this interface using either
-/// [navigator.storage] or [WorkerNavigator.storage].
-@JS('StorageManager')
-@staticInterop
-class StorageManager {}
-
-extension StorageManagerExtension on StorageManager {
+extension type StorageManager._(JSObject _) implements JSObject {
   /// The **`getDirectory()`** method of the [StorageManager] interface is used
   /// to obtain a reference to a [FileSystemDirectoryHandle] object allowing
   /// access to a directory and its contents, stored in the
@@ -52,18 +43,12 @@ extension StorageManagerExtension on StorageManager {
   /// handler is called with an object containing the usage and quota data.
   external JSPromise estimate();
 }
-
-@JS()
-@staticInterop
-@anonymous
-class StorageEstimate {
+extension type StorageEstimate._(JSObject _) implements JSObject {
   external factory StorageEstimate({
     int usage,
     int quota,
   });
-}
 
-extension StorageEstimateExtension on StorageEstimate {
   external set usage(int value);
   external int get usage;
   external set quota(int value);

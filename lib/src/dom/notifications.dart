@@ -19,16 +19,7 @@ import 'vibration.dart';
 typedef NotificationPermissionCallback = JSFunction;
 typedef NotificationPermission = String;
 typedef NotificationDirection = String;
-
-/// The **`Notification`** interface of the [Notifications API] is used to
-/// configure and display desktop notifications to the user.
-///
-/// These notifications' appearance and specific functionality vary across
-/// platforms but generally they provide a way to asynchronously provide
-/// information to the user.
-@JS('Notification')
-@staticInterop
-class Notification implements EventTarget {
+extension type Notification._(JSObject _) implements EventTarget, JSObject {
   external factory Notification(
     String title, [
     NotificationOptions options,
@@ -38,9 +29,7 @@ class Notification implements EventTarget {
       [NotificationPermissionCallback deprecatedCallback]);
   external static NotificationPermission get permission;
   external static int get maxActions;
-}
 
-extension NotificationExtension on Notification {
   /// The **`close()`** method of the [Notification] interface is used to
   /// close/remove a previously displayed notification.
   ///
@@ -81,11 +70,7 @@ extension NotificationExtension on Notification {
   external JSAny? get data;
   external JSArray get actions;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class NotificationOptions {
+extension type NotificationOptions._(JSObject _) implements JSObject {
   external factory NotificationOptions({
     NotificationDirection dir,
     String lang,
@@ -102,9 +87,7 @@ class NotificationOptions {
     JSAny? data,
     JSArray actions,
   });
-}
 
-extension NotificationOptionsExtension on NotificationOptions {
   external set dir(NotificationDirection value);
   external NotificationDirection get dir;
   external set lang(String value);
@@ -134,19 +117,13 @@ extension NotificationOptionsExtension on NotificationOptions {
   external set actions(JSArray value);
   external JSArray get actions;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class NotificationAction {
+extension type NotificationAction._(JSObject _) implements JSObject {
   external factory NotificationAction({
     required String action,
     required String title,
     String icon,
   });
-}
 
-extension NotificationActionExtension on NotificationAction {
   external set action(String value);
   external String get action;
   external set title(String value);
@@ -154,54 +131,29 @@ extension NotificationActionExtension on NotificationAction {
   external set icon(String value);
   external String get icon;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class GetNotificationOptions {
+extension type GetNotificationOptions._(JSObject _) implements JSObject {
   external factory GetNotificationOptions({String tag});
-}
 
-extension GetNotificationOptionsExtension on GetNotificationOptions {
   external set tag(String value);
   external String get tag;
 }
-
-/// The **`NotificationEvent`** interface of the [Notifications API] represents
-/// a notification event dispatched on the [ServiceWorkerGlobalScope] of a
-/// [ServiceWorker].
-///
-/// This interface inherits from the [ExtendableEvent] interface.
-///
-/// > **Note**: Only persistent notification events, fired at the
-/// > [ServiceWorkerGlobalScope] object, implement the `NotificationEvent`
-/// > interface. Non-persistent notification events, fired at the [Notification]
-/// > object, implement the `Event` interface.
-@JS('NotificationEvent')
-@staticInterop
-class NotificationEvent implements ExtendableEvent {
+extension type NotificationEvent._(JSObject _)
+    implements ExtendableEvent, JSObject {
   external factory NotificationEvent(
     String type,
     NotificationEventInit eventInitDict,
   );
-}
 
-extension NotificationEventExtension on NotificationEvent {
   external Notification get notification;
   external String get action;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class NotificationEventInit implements ExtendableEventInit {
+extension type NotificationEventInit._(JSObject _)
+    implements ExtendableEventInit, JSObject {
   external factory NotificationEventInit({
     required Notification notification,
     String action,
   });
-}
 
-extension NotificationEventInitExtension on NotificationEventInit {
   external set notification(Notification value);
   external Notification get notification;
   external set action(String value);

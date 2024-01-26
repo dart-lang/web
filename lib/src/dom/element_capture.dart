@@ -12,8 +12,6 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 
-@JS('RestrictionTarget')
-@staticInterop
-class RestrictionTarget {
+extension type RestrictionTarget._(JSObject _) implements JSObject {
   external static JSPromise fromElement(Element element);
 }

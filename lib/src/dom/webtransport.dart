@@ -17,27 +17,8 @@ import 'webidl.dart';
 typedef WebTransportReliabilityMode = String;
 typedef WebTransportCongestionControl = String;
 typedef WebTransportErrorSource = String;
-
-/// The **`WebTransportDatagramDuplexStream`** interface of the
-/// [WebTransport API] represents a duplex stream that can be used for
-/// unreliable transport of datagrams between client and server. Provides access
-/// to a [ReadableStream] for reading incoming datagrams, a [WritableStream] for
-/// writing outgoing datagrams, and various settings and statistics related to
-/// the stream.
-///
-/// This is accessed via the [WebTransport.datagrams] property.
-///
-/// "Unreliable" means that transmission of data is not guaranteed, nor is
-/// arrival in a specific order. This is fine in some situations and provides
-/// very fast delivery. For example, you might want to transmit regular game
-/// state updates where each message supersedes the last one that arrives, and
-/// order is not important.
-@JS('WebTransportDatagramDuplexStream')
-@staticInterop
-class WebTransportDatagramDuplexStream {}
-
-extension WebTransportDatagramDuplexStreamExtension
-    on WebTransportDatagramDuplexStream {
+extension type WebTransportDatagramDuplexStream._(JSObject _)
+    implements JSObject {
   external ReadableStream get readable;
   external WritableStream get writable;
   external int get maxDatagramSize;
@@ -50,21 +31,12 @@ extension WebTransportDatagramDuplexStreamExtension
   external set outgoingHighWaterMark(num value);
   external num get outgoingHighWaterMark;
 }
-
-/// The **`WebTransport`** interface of the [WebTransport API] provides
-/// functionality to enable a user agent to connect to an HTTP/3 server,
-/// initiate reliable and unreliable transport in either or both directions, and
-/// close the connection once it is no longer needed.
-@JS('WebTransport')
-@staticInterop
-class WebTransport {
+extension type WebTransport._(JSObject _) implements JSObject {
   external factory WebTransport(
     String url, [
     WebTransportOptions options,
   ]);
-}
 
-extension WebTransportExtension on WebTransport {
   /// The **`getStats()`** method of the [WebTransport] interface asynchronously
   /// returns an object containing HTTP/3 connection statistics.
   external JSPromise getStats();
@@ -128,37 +100,25 @@ extension WebTransportExtension on WebTransport {
   external ReadableStream get incomingBidirectionalStreams;
   external ReadableStream get incomingUnidirectionalStreams;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class WebTransportHash {
+extension type WebTransportHash._(JSObject _) implements JSObject {
   external factory WebTransportHash({
     String algorithm,
     BufferSource value,
   });
-}
 
-extension WebTransportHashExtension on WebTransportHash {
   external set algorithm(String value);
   external String get algorithm;
   external set value(BufferSource value);
   external BufferSource get value;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class WebTransportOptions {
+extension type WebTransportOptions._(JSObject _) implements JSObject {
   external factory WebTransportOptions({
     bool allowPooling,
     bool requireUnreliable,
     JSArray serverCertificateHashes,
     WebTransportCongestionControl congestionControl,
   });
-}
 
-extension WebTransportOptionsExtension on WebTransportOptions {
   external set allowPooling(bool value);
   external bool get allowPooling;
   external set requireUnreliable(bool value);
@@ -168,41 +128,24 @@ extension WebTransportOptionsExtension on WebTransportOptions {
   external set congestionControl(WebTransportCongestionControl value);
   external WebTransportCongestionControl get congestionControl;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class WebTransportCloseInfo {
+extension type WebTransportCloseInfo._(JSObject _) implements JSObject {
   external factory WebTransportCloseInfo({
     int closeCode,
     String reason,
   });
-}
 
-extension WebTransportCloseInfoExtension on WebTransportCloseInfo {
   external set closeCode(int value);
   external int get closeCode;
   external set reason(String value);
   external String get reason;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class WebTransportSendStreamOptions {
+extension type WebTransportSendStreamOptions._(JSObject _) implements JSObject {
   external factory WebTransportSendStreamOptions({int? sendOrder});
-}
 
-extension WebTransportSendStreamOptionsExtension
-    on WebTransportSendStreamOptions {
   external set sendOrder(int? value);
   external int? get sendOrder;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class WebTransportConnectionStats {
+extension type WebTransportConnectionStats._(JSObject _) implements JSObject {
   external factory WebTransportConnectionStats({
     DOMHighResTimeStamp timestamp,
     int bytesSent,
@@ -217,9 +160,7 @@ class WebTransportConnectionStats {
     WebTransportDatagramStats datagrams,
     int? estimatedSendRate,
   });
-}
 
-extension WebTransportConnectionStatsExtension on WebTransportConnectionStats {
   external set timestamp(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get timestamp;
   external set bytesSent(int value);
@@ -245,20 +186,14 @@ extension WebTransportConnectionStatsExtension on WebTransportConnectionStats {
   external set estimatedSendRate(int? value);
   external int? get estimatedSendRate;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class WebTransportDatagramStats {
+extension type WebTransportDatagramStats._(JSObject _) implements JSObject {
   external factory WebTransportDatagramStats({
     DOMHighResTimeStamp timestamp,
     int expiredOutgoing,
     int droppedIncoming,
     int lostOutgoing,
   });
-}
 
-extension WebTransportDatagramStatsExtension on WebTransportDatagramStats {
   external set timestamp(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get timestamp;
   external set expiredOutgoing(int value);
@@ -268,38 +203,8 @@ extension WebTransportDatagramStatsExtension on WebTransportDatagramStats {
   external set lostOutgoing(int value);
   external int get lostOutgoing;
 }
-
-/// The `WebTransportSendStream` interface of the [WebTransport API] is a
-/// specialized [WritableStream] that is used to send outbound data in both
-/// unidirectional or bidirectional [WebTransport] streams.
-///
-/// The send stream is a
-/// [writable stream](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_writable_streams)
-/// of
-/// [`Uint8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array),
-/// that can be written to in order to send data to a server.
-/// It additionally provides streaming features such as setting the send order,
-/// and getting stream statistics.
-///
-/// Objects of this type are not constructed directly.
-/// When creating a unidirectional stream the
-/// [WebTransport.createUnidirectionalStream] returns an object of this type for
-/// sending data.
-/// When creating a bidirectional stream using
-/// [WebTransport.createBidirectionalStream], the method returns a
-/// [WebTransportBidirectionalStream], and the send stream object can be
-/// obtained from its [WebTransportBidirectionalStream.writable] property.
-/// When a bidirectional stream is initiated by the remote end, an object of
-/// this type can similarly be obtained using
-/// [WebTransport.incomingBidirectionalStreams].
-///
-/// `WebTransportSendStream` is a
-/// [transferable object](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
-@JS('WebTransportSendStream')
-@staticInterop
-class WebTransportSendStream implements WritableStream {}
-
-extension WebTransportSendStreamExtension on WebTransportSendStream {
+extension type WebTransportSendStream._(JSObject _)
+    implements WritableStream, JSObject {
   /// The **`getStats()`** method of the [WebTransportSendStream] interface
   /// asynchronously returns an object containing statistics for the current
   /// stream.
@@ -315,20 +220,14 @@ extension WebTransportSendStreamExtension on WebTransportSendStream {
   external set sendOrder(int? value);
   external int? get sendOrder;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class WebTransportSendStreamStats {
+extension type WebTransportSendStreamStats._(JSObject _) implements JSObject {
   external factory WebTransportSendStreamStats({
     DOMHighResTimeStamp timestamp,
     int bytesWritten,
     int bytesSent,
     int bytesAcknowledged,
   });
-}
 
-extension WebTransportSendStreamStatsExtension on WebTransportSendStreamStats {
   external set timestamp(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get timestamp;
   external set bytesWritten(int value);
@@ -338,32 +237,8 @@ extension WebTransportSendStreamStatsExtension on WebTransportSendStreamStats {
   external set bytesAcknowledged(int value);
   external int get bytesAcknowledged;
 }
-
-/// The `WebTransportReceiveStream` interface of the [WebTransport API] is a
-/// [ReadableStream] that can be used to read from an incoming unidirectional or
-/// bidirectional [WebTransport] stream.
-///
-/// The stream is a
-/// [readable byte stream](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_byte_streams)
-/// of
-/// [`Uint8Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array),
-/// and can be consumed using either a BYOB reader
-/// ([`ReadableStreamBYOBReader`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStreamBYOBReader))
-/// or the default reader
-/// ([`ReadableStreamDefaultReader`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStreamDefaultReader)).
-///
-/// Objects of this type are not constructed directly.
-/// Instead they are obtained using the
-/// [`WebTransport.incomingUnidirectionalStream`](/en-US/docs/Web/API/WebTransport/incomingUnidirectionalStreams)
-/// property.
-///
-/// `WebTransportReceiveStream` is a
-/// [transferable object](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
-@JS('WebTransportReceiveStream')
-@staticInterop
-class WebTransportReceiveStream implements ReadableStream {}
-
-extension WebTransportReceiveStreamExtension on WebTransportReceiveStream {
+extension type WebTransportReceiveStream._(JSObject _)
+    implements ReadableStream, JSObject {
   /// The **`getStats()`** method of the [WebTransportReceiveStream] interface
   /// asynchronously returns an object containing statistics for the current
   /// stream.
@@ -375,20 +250,14 @@ extension WebTransportReceiveStreamExtension on WebTransportReceiveStream {
   /// consuming bytes from the server on this particular stream.
   external JSPromise getStats();
 }
-
-@JS()
-@staticInterop
-@anonymous
-class WebTransportReceiveStreamStats {
+extension type WebTransportReceiveStreamStats._(JSObject _)
+    implements JSObject {
   external factory WebTransportReceiveStreamStats({
     DOMHighResTimeStamp timestamp,
     int bytesReceived,
     int bytesRead,
   });
-}
 
-extension WebTransportReceiveStreamStatsExtension
-    on WebTransportReceiveStreamStats {
   external set timestamp(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get timestamp;
   external set bytesReceived(int value);
@@ -396,51 +265,27 @@ extension WebTransportReceiveStreamStatsExtension
   external set bytesRead(int value);
   external int get bytesRead;
 }
-
-/// The **`WebTransportBidirectionalStream`** interface of the
-/// [WebTransport API] represents a bidirectional stream created by a server or
-/// a client that can be used for reliable transport. Provides access to a
-/// [WebTransportReceiveStream] for reading incoming data, and a
-/// [WebTransportSendStream] for writing outgoing data.
-@JS('WebTransportBidirectionalStream')
-@staticInterop
-class WebTransportBidirectionalStream {}
-
-extension WebTransportBidirectionalStreamExtension
-    on WebTransportBidirectionalStream {
+extension type WebTransportBidirectionalStream._(JSObject _)
+    implements JSObject {
   external WebTransportReceiveStream get readable;
   external WebTransportSendStream get writable;
 }
-
-/// The **`WebTransportError`** interface of the [WebTransport API] represents
-/// an error related to the API, which can arise from server errors, network
-/// connection problems, or client-initiated abort operations (for example,
-/// arising from a [WritableStream.abort] call).
-@JS('WebTransportError')
-@staticInterop
-class WebTransportError implements DOMException {
+extension type WebTransportError._(JSObject _)
+    implements DOMException, JSObject {
   external factory WebTransportError([
     String message,
     WebTransportErrorOptions options,
   ]);
-}
 
-extension WebTransportErrorExtension on WebTransportError {
   external WebTransportErrorSource get source;
   external int? get streamErrorCode;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class WebTransportErrorOptions {
+extension type WebTransportErrorOptions._(JSObject _) implements JSObject {
   external factory WebTransportErrorOptions({
     WebTransportErrorSource source,
     int? streamErrorCode,
   });
-}
 
-extension WebTransportErrorOptionsExtension on WebTransportErrorOptions {
   external set source(WebTransportErrorSource value);
   external WebTransportErrorSource get source;
   external set streamErrorCode(int? value);

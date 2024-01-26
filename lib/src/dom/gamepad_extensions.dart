@@ -14,18 +14,7 @@ typedef GamepadHand = String;
 typedef GamepadHapticsResult = String;
 typedef GamepadHapticActuatorType = String;
 typedef GamepadHapticEffectType = String;
-
-/// The **`GamepadHapticActuator`** interface of the
-/// [Gamepad API](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API)
-/// represents hardware in the controller designed to provide haptic feedback to
-/// the user (if available), most commonly vibration hardware.
-///
-/// This interface is accessible through the [Gamepad.hapticActuators] property.
-@JS('GamepadHapticActuator')
-@staticInterop
-class GamepadHapticActuator {}
-
-extension GamepadHapticActuatorExtension on GamepadHapticActuator {
+extension type GamepadHapticActuator._(JSObject _) implements JSObject {
   external bool canPlayEffectType(GamepadHapticEffectType type);
 
   /// The **`playEffect()`** method of the [GamepadHapticActuator] interface
@@ -44,20 +33,14 @@ extension GamepadHapticActuatorExtension on GamepadHapticActuator {
   external JSPromise reset();
   external GamepadHapticActuatorType get type;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class GamepadEffectParameters {
+extension type GamepadEffectParameters._(JSObject _) implements JSObject {
   external factory GamepadEffectParameters({
     num duration,
     num startDelay,
     num strongMagnitude,
     num weakMagnitude,
   });
-}
 
-extension GamepadEffectParametersExtension on GamepadEffectParameters {
   external set duration(num value);
   external num get duration;
   external set startDelay(num value);
@@ -67,20 +50,7 @@ extension GamepadEffectParametersExtension on GamepadEffectParameters {
   external set weakMagnitude(num value);
   external num get weakMagnitude;
 }
-
-/// The **`GamepadPose`** interface of the
-/// [Gamepad API](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API)
-/// represents the pose of a
-/// [WebVR](https://developer.mozilla.org/en-US/docs/Web/API/WebVR_API)
-/// controller at a given timestamp (which includes orientation, position,
-/// velocity, and acceleration information).
-///
-/// This interface is accessible through the [Gamepad.pose] property.
-@JS('GamepadPose')
-@staticInterop
-class GamepadPose {}
-
-extension GamepadPoseExtension on GamepadPose {
+extension type GamepadPose._(JSObject _) implements JSObject {
   external bool get hasOrientation;
   external bool get hasPosition;
   external JSFloat32Array? get position;
@@ -90,12 +60,7 @@ extension GamepadPoseExtension on GamepadPose {
   external JSFloat32Array? get angularVelocity;
   external JSFloat32Array? get angularAcceleration;
 }
-
-@JS('GamepadTouch')
-@staticInterop
-class GamepadTouch {}
-
-extension GamepadTouchExtension on GamepadTouch {
+extension type GamepadTouch._(JSObject _) implements JSObject {
   external int get touchId;
   external int get surfaceId;
   external JSFloat32Array get position;

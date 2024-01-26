@@ -12,9 +12,7 @@ import 'dart:js_interop';
 
 import 'webgl1.dart';
 
-@JS('EXT_blend_minmax')
-@staticInterop
-class EXT_blend_minmax {
+extension type EXT_blend_minmax._(JSObject _) implements JSObject {
   external static GLenum get MIN_EXT;
   external static GLenum get MAX_EXT;
 }

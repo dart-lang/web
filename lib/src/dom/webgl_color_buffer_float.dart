@@ -12,9 +12,7 @@ import 'dart:js_interop';
 
 import 'webgl1.dart';
 
-@JS('WEBGL_color_buffer_float')
-@staticInterop
-class WEBGL_color_buffer_float {
+extension type WEBGL_color_buffer_float._(JSObject _) implements JSObject {
   external static GLenum get RGBA32F_EXT;
   external static GLenum get FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT;
   external static GLenum get UNSIGNED_NORMALIZED_EXT;

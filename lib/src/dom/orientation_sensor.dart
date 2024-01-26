@@ -14,21 +14,7 @@ import 'generic_sensor.dart';
 
 typedef RotationMatrixType = JSObject;
 typedef OrientationSensorLocalCoordinateSystem = String;
-
-/// The **`OrientationSensor`** interface of the
-/// [Sensor APIs](https://developer.mozilla.org/en-US/docs/Web/API/Sensor_APIs)
-/// is the base class for orientation sensors. This interface cannot be used
-/// directly. Instead it provides properties and methods accessed by interfaces
-/// that inherit from it.
-///
-/// This feature may be blocked by a
-/// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy)
-/// set on your server.
-@JS('OrientationSensor')
-@staticInterop
-class OrientationSensor implements Sensor {}
-
-extension OrientationSensorExtension on OrientationSensor {
+extension type OrientationSensor._(JSObject _) implements Sensor, JSObject {
   /// The **`populateMatrix`** method of the
   /// [OrientationSensor] interface populates the given target matrix with the
   /// rotation matrix based on the latest sensor reading. The rotation matrix is
@@ -47,75 +33,33 @@ extension OrientationSensorExtension on OrientationSensor {
   external void populateMatrix(RotationMatrixType targetMatrix);
   external JSArray? get quaternion;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class OrientationSensorOptions implements SensorOptions {
+extension type OrientationSensorOptions._(JSObject _)
+    implements SensorOptions, JSObject {
   external factory OrientationSensorOptions(
       {OrientationSensorLocalCoordinateSystem referenceFrame});
-}
 
-extension OrientationSensorOptionsExtension on OrientationSensorOptions {
   external set referenceFrame(OrientationSensorLocalCoordinateSystem value);
   external OrientationSensorLocalCoordinateSystem get referenceFrame;
 }
-
-/// The **`AbsoluteOrientationSensor`** interface of the
-/// [Sensor APIs](https://developer.mozilla.org/en-US/docs/Web/API/Sensor_APIs)
-/// describes the device's physical orientation in relation to the Earth's
-/// reference coordinate system.
-///
-/// To use this sensor, the user must grant permission to the `'accelerometer'`,
-/// `'gyroscope'`, and `'magnetometer'` device sensors through the
-/// [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API).
-///
-/// This feature may be blocked by a
-/// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy)
-/// set on your server.
-@JS('AbsoluteOrientationSensor')
-@staticInterop
-class AbsoluteOrientationSensor implements OrientationSensor {
+extension type AbsoluteOrientationSensor._(JSObject _)
+    implements OrientationSensor, JSObject {
   external factory AbsoluteOrientationSensor(
       [OrientationSensorOptions sensorOptions]);
 }
-
-/// The **`RelativeOrientationSensor`** interface of the
-/// [Sensor APIs](https://developer.mozilla.org/en-US/docs/Web/API/Sensor_APIs)
-/// describes the device's physical orientation without regard to the Earth's
-/// reference coordinate system.
-///
-/// To use this sensor, the user must grant permission to the `'accelerometer'`,
-/// and `'gyroscope'` device sensors through the
-/// [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API).
-/// In addition, this feature may be blocked by a
-/// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy)
-/// set on your server.
-@JS('RelativeOrientationSensor')
-@staticInterop
-class RelativeOrientationSensor implements OrientationSensor {
+extension type RelativeOrientationSensor._(JSObject _)
+    implements OrientationSensor, JSObject {
   external factory RelativeOrientationSensor(
       [OrientationSensorOptions sensorOptions]);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AbsoluteOrientationReadingValues {
+extension type AbsoluteOrientationReadingValues._(JSObject _)
+    implements JSObject {
   external factory AbsoluteOrientationReadingValues(
       {required JSArray? quaternion});
-}
 
-extension AbsoluteOrientationReadingValuesExtension
-    on AbsoluteOrientationReadingValues {
   external set quaternion(JSArray? value);
   external JSArray? get quaternion;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RelativeOrientationReadingValues
-    implements AbsoluteOrientationReadingValues {
+extension type RelativeOrientationReadingValues._(JSObject _)
+    implements AbsoluteOrientationReadingValues, JSObject {
   external factory RelativeOrientationReadingValues();
 }

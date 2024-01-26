@@ -10,25 +10,13 @@
 
 import 'dart:js_interop';
 
-@JS()
-@staticInterop
-@anonymous
-class QueryOptions {
+extension type QueryOptions._(JSObject _) implements JSObject {
   external factory QueryOptions({JSArray postscriptNames});
-}
 
-extension QueryOptionsExtension on QueryOptions {
   external set postscriptNames(JSArray value);
   external JSArray get postscriptNames;
 }
-
-/// The **`FontData`** interface of the [Local Font Access API] represents a
-/// single local font face.
-@JS('FontData')
-@staticInterop
-class FontData {}
-
-extension FontDataExtension on FontData {
+extension type FontData._(JSObject _) implements JSObject {
   /// The **`blob()`** method of the [FontData] interface returns a `Promise`
   /// that fulfills with a [Blob] containing the raw bytes of the underlying
   /// font file.

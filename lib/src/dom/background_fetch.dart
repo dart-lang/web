@@ -17,15 +17,7 @@ import 'service_workers.dart';
 
 typedef BackgroundFetchResult = String;
 typedef BackgroundFetchFailureReason = String;
-
-/// The **`BackgroundFetchManager`** interface of the [Background Fetch API] is
-/// a map where the keys are background fetch IDs and the values are
-/// [BackgroundFetchRegistration] objects.
-@JS('BackgroundFetchManager')
-@staticInterop
-class BackgroundFetchManager {}
-
-extension BackgroundFetchManagerExtension on BackgroundFetchManager {
+extension type BackgroundFetchManager._(JSObject _) implements JSObject {
   /// The **`fetch()`** method of the [BackgroundFetchManager] interface
   /// initiates a background fetch operation, given one or more URLs or
   /// [Request] objects.
@@ -44,47 +36,26 @@ extension BackgroundFetchManagerExtension on BackgroundFetchManager {
   /// returns the IDs of all registered background fetches.
   external JSPromise getIds();
 }
-
-@JS()
-@staticInterop
-@anonymous
-class BackgroundFetchUIOptions {
+extension type BackgroundFetchUIOptions._(JSObject _) implements JSObject {
   external factory BackgroundFetchUIOptions({
     JSArray icons,
     String title,
   });
-}
 
-extension BackgroundFetchUIOptionsExtension on BackgroundFetchUIOptions {
   external set icons(JSArray value);
   external JSArray get icons;
   external set title(String value);
   external String get title;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class BackgroundFetchOptions implements BackgroundFetchUIOptions {
+extension type BackgroundFetchOptions._(JSObject _)
+    implements BackgroundFetchUIOptions, JSObject {
   external factory BackgroundFetchOptions({int downloadTotal});
-}
 
-extension BackgroundFetchOptionsExtension on BackgroundFetchOptions {
   external set downloadTotal(int value);
   external int get downloadTotal;
 }
-
-/// The **`BackgroundFetchRegistration`** interface of the
-/// [Background Fetch API] represents an individual background fetch.
-///
-/// A `BackgroundFetchRegistration` instance is returned by the
-/// [BackgroundFetchManager.fetch] or [BackgroundFetchManager.get] methods, and
-/// therefore there has no constructor.
-@JS('BackgroundFetchRegistration')
-@staticInterop
-class BackgroundFetchRegistration implements EventTarget {}
-
-extension BackgroundFetchRegistrationExtension on BackgroundFetchRegistration {
+extension type BackgroundFetchRegistration._(JSObject _)
+    implements EventTarget, JSObject {
   /// The **`abort()`** method of the [BackgroundFetchRegistration] interface
   /// aborts an active background fetch.
   external JSPromise abort();
@@ -113,74 +84,34 @@ extension BackgroundFetchRegistrationExtension on BackgroundFetchRegistration {
   external set onprogress(EventHandler value);
   external EventHandler get onprogress;
 }
-
-/// The **`BackgroundFetchRecord`** interface of the [Background Fetch API]
-/// represents an individual request and response.
-///
-/// A `BackgroundFetchRecord` is created by the
-/// [BackgroundFetchRegistration.match] method, therefore there is no
-/// constructor for this interface.
-///
-/// There will be one `BackgroundFetchRecord` for each resource requested by
-/// `fetch()`.
-@JS('BackgroundFetchRecord')
-@staticInterop
-class BackgroundFetchRecord {}
-
-extension BackgroundFetchRecordExtension on BackgroundFetchRecord {
+extension type BackgroundFetchRecord._(JSObject _) implements JSObject {
   external Request get request;
   external JSPromise get responseReady;
 }
-
-/// The **`BackgroundFetchEvent`** interface of the [Background Fetch API] is
-/// the event type for background fetch events dispatched on the
-/// [ServiceWorkerGlobalScope].
-///
-/// It is the event type passed to `onbackgroundfetchabort` and
-/// `onbackgroundfetchclick`.
-@JS('BackgroundFetchEvent')
-@staticInterop
-class BackgroundFetchEvent implements ExtendableEvent {
+extension type BackgroundFetchEvent._(JSObject _)
+    implements ExtendableEvent, JSObject {
   external factory BackgroundFetchEvent(
     String type,
     BackgroundFetchEventInit init,
   );
-}
 
-extension BackgroundFetchEventExtension on BackgroundFetchEvent {
   external BackgroundFetchRegistration get registration;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class BackgroundFetchEventInit implements ExtendableEventInit {
+extension type BackgroundFetchEventInit._(JSObject _)
+    implements ExtendableEventInit, JSObject {
   external factory BackgroundFetchEventInit(
       {required BackgroundFetchRegistration registration});
-}
 
-extension BackgroundFetchEventInitExtension on BackgroundFetchEventInit {
   external set registration(BackgroundFetchRegistration value);
   external BackgroundFetchRegistration get registration;
 }
-
-/// The **`BackgroundFetchUpdateUIEvent`** interface of the
-/// [Background Fetch API] is an event type for the
-/// [ServiceWorkerGlobalScope.backgroundfetchsuccess_event] and
-/// [ServiceWorkerGlobalScope.backgroundfetchfail_event] events, and provides a
-/// method for updating the title and icon of the app to inform a user of the
-/// success or failure of a background fetch.
-@JS('BackgroundFetchUpdateUIEvent')
-@staticInterop
-class BackgroundFetchUpdateUIEvent implements BackgroundFetchEvent {
+extension type BackgroundFetchUpdateUIEvent._(JSObject _)
+    implements BackgroundFetchEvent, JSObject {
   external factory BackgroundFetchUpdateUIEvent(
     String type,
     BackgroundFetchEventInit init,
   );
-}
 
-extension BackgroundFetchUpdateUIEventExtension
-    on BackgroundFetchUpdateUIEvent {
   /// The **`updateUI()`** method of the [BackgroundFetchUpdateUIEvent]
   /// interface updates the title and icon in the user interface to show the
   /// status of a background fetch.

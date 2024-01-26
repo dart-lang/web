@@ -13,22 +13,13 @@ import 'dart:js_interop';
 import 'dom.dart';
 
 typedef AppBannerPromptOutcome = String;
-
-/// The **`BeforeInstallPromptEvent`** is the interface of the
-/// [Window.beforeinstallprompt_event] event fired at the [Window] object before
-/// a user is prompted to "install" a website to a home screen on mobile.
-///
-/// This interface inherits from the [Event] interface.
-@JS('BeforeInstallPromptEvent')
-@staticInterop
-class BeforeInstallPromptEvent implements Event {
+extension type BeforeInstallPromptEvent._(JSObject _)
+    implements Event, JSObject {
   external factory BeforeInstallPromptEvent(
     String type, [
     EventInit eventInitDict,
   ]);
-}
 
-extension BeforeInstallPromptEventExtension on BeforeInstallPromptEvent {
   /// The **`prompt()`** method of the [BeforeInstallPromptEvent] interface
   /// allows a developer to show the
   /// install prompt at a time of their own choosing. Typically this will be
@@ -39,15 +30,9 @@ extension BeforeInstallPromptEventExtension on BeforeInstallPromptEvent {
   /// `BeforeInstallPromptEvent` instance.
   external JSPromise prompt();
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PromptResponseObject {
+extension type PromptResponseObject._(JSObject _) implements JSObject {
   external factory PromptResponseObject({AppBannerPromptOutcome userChoice});
-}
 
-extension PromptResponseObjectExtension on PromptResponseObject {
   external set userChoice(AppBannerPromptOutcome value);
   external AppBannerPromptOutcome get userChoice;
 }

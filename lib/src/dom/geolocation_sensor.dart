@@ -14,15 +14,10 @@ import 'dom.dart';
 import 'generic_sensor.dart';
 import 'hr_time.dart';
 
-@JS('GeolocationSensor')
-@staticInterop
-class GeolocationSensor implements Sensor {
+extension type GeolocationSensor._(JSObject _) implements Sensor, JSObject {
   external factory GeolocationSensor([GeolocationSensorOptions options]);
 
   external static JSPromise read([ReadOptions readOptions]);
-}
-
-extension GeolocationSensorExtension on GeolocationSensor {
   external num? get latitude;
   external num? get longitude;
   external num? get altitude;
@@ -31,30 +26,18 @@ extension GeolocationSensorExtension on GeolocationSensor {
   external num? get heading;
   external num? get speed;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class GeolocationSensorOptions implements SensorOptions {
+extension type GeolocationSensorOptions._(JSObject _)
+    implements SensorOptions, JSObject {
   external factory GeolocationSensorOptions();
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ReadOptions implements GeolocationSensorOptions {
+extension type ReadOptions._(JSObject _)
+    implements GeolocationSensorOptions, JSObject {
   external factory ReadOptions({AbortSignal? signal});
-}
 
-extension ReadOptionsExtension on ReadOptions {
   external set signal(AbortSignal? value);
   external AbortSignal? get signal;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class GeolocationSensorReading {
+extension type GeolocationSensorReading._(JSObject _) implements JSObject {
   external factory GeolocationSensorReading({
     DOMHighResTimeStamp? timestamp,
     num? latitude,
@@ -65,9 +48,7 @@ class GeolocationSensorReading {
     num? heading,
     num? speed,
   });
-}
 
-extension GeolocationSensorReadingExtension on GeolocationSensorReading {
   external set timestamp(DOMHighResTimeStamp? value);
   external DOMHighResTimeStamp? get timestamp;
   external set latitude(num? value);
@@ -85,11 +66,7 @@ extension GeolocationSensorReadingExtension on GeolocationSensorReading {
   external set speed(num? value);
   external num? get speed;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class GeolocationReadingValues {
+extension type GeolocationReadingValues._(JSObject _) implements JSObject {
   external factory GeolocationReadingValues({
     required num? latitude,
     required num? longitude,
@@ -99,9 +76,7 @@ class GeolocationReadingValues {
     required num? heading,
     required num? speed,
   });
-}
 
-extension GeolocationReadingValuesExtension on GeolocationReadingValues {
   external set latitude(num? value);
   external num? get latitude;
   external set longitude(num? value);

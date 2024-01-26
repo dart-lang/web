@@ -14,23 +14,14 @@ import 'dom.dart';
 import 'html.dart';
 
 typedef PaymentComplete = String;
-
-/// The [Payment Request API's](/en-US/docs/Web/API/Payment_Request_API)
-/// **`PaymentRequest`** interface is the primary access point into the API, and
-/// lets web content and apps accept payments from the end user on behalf of the
-/// operator of the site or the publisher of the app.
-@JS('PaymentRequest')
-@staticInterop
-class PaymentRequest implements EventTarget {
+extension type PaymentRequest._(JSObject _) implements EventTarget, JSObject {
   external factory PaymentRequest(
     JSArray methodData,
     PaymentDetailsInit details,
   );
 
   external static JSPromise isSecurePaymentConfirmationAvailable();
-}
 
-extension PaymentRequestExtension on PaymentRequest {
   /// The **[PaymentRequest]** interface's
   /// **`show()`** method instructs the user agent to begin the
   /// process of showing and handling the user interface for the payment request
@@ -100,105 +91,71 @@ extension PaymentRequestExtension on PaymentRequest {
   external set onpaymentmethodchange(EventHandler value);
   external EventHandler get onpaymentmethodchange;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PaymentMethodData {
+extension type PaymentMethodData._(JSObject _) implements JSObject {
   external factory PaymentMethodData({
     required String supportedMethods,
     JSObject data,
   });
-}
 
-extension PaymentMethodDataExtension on PaymentMethodData {
   external set supportedMethods(String value);
   external String get supportedMethods;
   external set data(JSObject value);
   external JSObject get data;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PaymentCurrencyAmount {
+extension type PaymentCurrencyAmount._(JSObject _) implements JSObject {
   external factory PaymentCurrencyAmount({
     required String currency,
     required String value,
   });
-}
 
-extension PaymentCurrencyAmountExtension on PaymentCurrencyAmount {
   external set currency(String value);
   external String get currency;
   external set value(String value);
   external String get value;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PaymentDetailsBase {
+extension type PaymentDetailsBase._(JSObject _) implements JSObject {
   external factory PaymentDetailsBase({
     JSArray displayItems,
     JSArray modifiers,
   });
-}
 
-extension PaymentDetailsBaseExtension on PaymentDetailsBase {
   external set displayItems(JSArray value);
   external JSArray get displayItems;
   external set modifiers(JSArray value);
   external JSArray get modifiers;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PaymentDetailsInit implements PaymentDetailsBase {
+extension type PaymentDetailsInit._(JSObject _)
+    implements PaymentDetailsBase, JSObject {
   external factory PaymentDetailsInit({
     String id,
     required PaymentItem total,
   });
-}
 
-extension PaymentDetailsInitExtension on PaymentDetailsInit {
   external set id(String value);
   external String get id;
   external set total(PaymentItem value);
   external PaymentItem get total;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PaymentDetailsUpdate implements PaymentDetailsBase {
+extension type PaymentDetailsUpdate._(JSObject _)
+    implements PaymentDetailsBase, JSObject {
   external factory PaymentDetailsUpdate({
     PaymentItem total,
     JSObject paymentMethodErrors,
   });
-}
 
-extension PaymentDetailsUpdateExtension on PaymentDetailsUpdate {
   external set total(PaymentItem value);
   external PaymentItem get total;
   external set paymentMethodErrors(JSObject value);
   external JSObject get paymentMethodErrors;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PaymentDetailsModifier {
+extension type PaymentDetailsModifier._(JSObject _) implements JSObject {
   external factory PaymentDetailsModifier({
     required String supportedMethods,
     PaymentItem total,
     JSArray additionalDisplayItems,
     JSObject data,
   });
-}
 
-extension PaymentDetailsModifierExtension on PaymentDetailsModifier {
   external set supportedMethods(String value);
   external String get supportedMethods;
   external set total(PaymentItem value);
@@ -208,19 +165,13 @@ extension PaymentDetailsModifierExtension on PaymentDetailsModifier {
   external set data(JSObject value);
   external JSObject get data;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PaymentItem {
+extension type PaymentItem._(JSObject _) implements JSObject {
   external factory PaymentItem({
     required String label,
     required PaymentCurrencyAmount amount,
     bool pending,
   });
-}
 
-extension PaymentItemExtension on PaymentItem {
   external set label(String value);
   external String get label;
   external set amount(PaymentCurrencyAmount value);
@@ -228,28 +179,13 @@ extension PaymentItemExtension on PaymentItem {
   external set pending(bool value);
   external bool get pending;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PaymentCompleteDetails {
+extension type PaymentCompleteDetails._(JSObject _) implements JSObject {
   external factory PaymentCompleteDetails({JSObject? data});
-}
 
-extension PaymentCompleteDetailsExtension on PaymentCompleteDetails {
   external set data(JSObject? value);
   external JSObject? get data;
 }
-
-/// The **`PaymentResponse`** interface of the
-/// [Payment Request API](https://developer.mozilla.org/en-US/docs/Web/API/Payment_Request_API)
-/// is returned after a user selects a payment method and approves a payment
-/// request.
-@JS('PaymentResponse')
-@staticInterop
-class PaymentResponse implements EventTarget {}
-
-extension PaymentResponseExtension on PaymentResponse {
+extension type PaymentResponse._(JSObject _) implements EventTarget, JSObject {
   /// The **`toJSON()`** method of the [PaymentResponse] interface is a ; it
   /// returns a JSON representation of the [PaymentResponse] object.
   external JSObject toJSON();
@@ -282,89 +218,52 @@ extension PaymentResponseExtension on PaymentResponse {
   external String get methodName;
   external JSObject get details;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PaymentValidationErrors {
+extension type PaymentValidationErrors._(JSObject _) implements JSObject {
   external factory PaymentValidationErrors({
     String error,
     JSObject paymentMethod,
   });
-}
 
-extension PaymentValidationErrorsExtension on PaymentValidationErrors {
   external set error(String value);
   external String get error;
   external set paymentMethod(JSObject value);
   external JSObject get paymentMethod;
 }
-
-/// The **`PaymentMethodChangeEvent`** interface of the
-/// [Payment Request API](https://developer.mozilla.org/en-US/docs/Web/API/Payment_Request_API)
-/// describes the [PaymentRequest/paymentmethodchange_event] event which is
-/// fired by some payment handlers when the user switches payment instruments
-/// (e.g., a user selects a "store" card to make a purchase while using Apple
-/// Pay).
-@JS('PaymentMethodChangeEvent')
-@staticInterop
-class PaymentMethodChangeEvent implements PaymentRequestUpdateEvent {
+extension type PaymentMethodChangeEvent._(JSObject _)
+    implements PaymentRequestUpdateEvent, JSObject {
   external factory PaymentMethodChangeEvent(
     String type, [
     PaymentMethodChangeEventInit eventInitDict,
   ]);
-}
 
-extension PaymentMethodChangeEventExtension on PaymentMethodChangeEvent {
   external String get methodName;
   external JSObject? get methodDetails;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PaymentMethodChangeEventInit implements PaymentRequestUpdateEventInit {
+extension type PaymentMethodChangeEventInit._(JSObject _)
+    implements PaymentRequestUpdateEventInit, JSObject {
   external factory PaymentMethodChangeEventInit({
     String methodName,
     JSObject? methodDetails,
   });
-}
 
-extension PaymentMethodChangeEventInitExtension
-    on PaymentMethodChangeEventInit {
   external set methodName(String value);
   external String get methodName;
   external set methodDetails(JSObject? value);
   external JSObject? get methodDetails;
 }
-
-/// The **`PaymentRequestUpdateEvent`** interface is used for events sent to a
-/// [PaymentRequest] instance when changes are made to shipping-related
-/// information for a pending [PaymentRequest]. Those events are:
-///
-/// - [PaymentRequest.shippingaddresschange_event]
-///   - : Dispatched whenever the user changes their shipping address.
-/// - [PaymentRequest.shippingoptionchange_event]
-///   - : Dispatched whenever the user changes a shipping option.
-@JS('PaymentRequestUpdateEvent')
-@staticInterop
-class PaymentRequestUpdateEvent implements Event {
+extension type PaymentRequestUpdateEvent._(JSObject _)
+    implements Event, JSObject {
   external factory PaymentRequestUpdateEvent(
     String type, [
     PaymentRequestUpdateEventInit eventInitDict,
   ]);
-}
 
-extension PaymentRequestUpdateEventExtension on PaymentRequestUpdateEvent {
   /// The **`updateWith()`** method of the
   /// [PaymentRequestUpdateEvent] interface updates the details of an existing
   /// [PaymentRequest].
   external void updateWith(JSPromise detailsPromise);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PaymentRequestUpdateEventInit implements EventInit {
+extension type PaymentRequestUpdateEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory PaymentRequestUpdateEventInit();
 }

@@ -14,38 +14,7 @@ import 'hr_time.dart';
 
 typedef PerformanceEntryList = JSArray;
 typedef PerformanceObserverCallback = JSFunction;
-
-/// The **`PerformanceEntry`** object encapsulates a single performance metric
-/// that is part of the browser's performance timeline.
-///
-/// The Performance API offers built-in metrics which are specialized subclasses
-/// of `PerformanceEntry`. This includes entries for resource loading, event
-/// timing,  (FID), and more.
-///
-/// A performance entry can also be created by calling the [Performance.mark] or
-/// [Performance.measure] methods at an explicit point in an application. This
-/// allows you to add your own metrics to the performance timeline.
-///
-/// The `PerformanceEntry` instances will always be one of the following
-/// subclasses:
-///
-/// - [LargestContentfulPaint]
-/// - [LayoutShift]
-/// - [PerformanceEventTiming]
-/// - [PerformanceLongTaskTiming]
-/// - [PerformanceMark]
-/// - [PerformanceMeasure]
-/// - [PerformanceNavigationTiming]
-/// - [PerformancePaintTiming]
-/// - [PerformanceResourceTiming]
-/// - [PerformanceServerTiming]
-/// - [TaskAttributionTiming]
-/// - [VisibilityStateEntry]
-@JS('PerformanceEntry')
-@staticInterop
-class PerformanceEntry {}
-
-extension PerformanceEntryExtension on PerformanceEntry {
+extension type PerformanceEntry._(JSObject _) implements JSObject {
   /// The **`toJSON()`** method is a ; it returns a JSON representation of the
   /// [PerformanceEntry] object.
   external JSObject toJSON();
@@ -54,19 +23,11 @@ extension PerformanceEntryExtension on PerformanceEntry {
   external DOMHighResTimeStamp get startTime;
   external DOMHighResTimeStamp get duration;
 }
-
-/// The **`PerformanceObserver`** interface is used to observe performance
-/// measurement events and be notified of new [PerformanceEntry] as they are
-/// recorded in the browser's _performance timeline_.
-@JS('PerformanceObserver')
-@staticInterop
-class PerformanceObserver {
+extension type PerformanceObserver._(JSObject _) implements JSObject {
   external factory PerformanceObserver(PerformanceObserverCallback callback);
 
   external static JSArray get supportedEntryTypes;
-}
 
-extension PerformanceObserverExtension on PerformanceObserver {
   /// The **`observe()`** method of the **[PerformanceObserver]** interface is
   /// used to specify the set of performance entry types to observe.
   ///
@@ -88,34 +49,22 @@ extension PerformanceObserverExtension on PerformanceObserver {
   /// observer, emptying it out.
   external PerformanceEntryList takeRecords();
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PerformanceObserverCallbackOptions {
+extension type PerformanceObserverCallbackOptions._(JSObject _)
+    implements JSObject {
   external factory PerformanceObserverCallbackOptions(
       {int droppedEntriesCount});
-}
 
-extension PerformanceObserverCallbackOptionsExtension
-    on PerformanceObserverCallbackOptions {
   external set droppedEntriesCount(int value);
   external int get droppedEntriesCount;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PerformanceObserverInit {
+extension type PerformanceObserverInit._(JSObject _) implements JSObject {
   external factory PerformanceObserverInit({
     DOMHighResTimeStamp durationThreshold,
     JSArray entryTypes,
     String type,
     bool buffered,
   });
-}
 
-extension PerformanceObserverInitExtension on PerformanceObserverInit {
   external set durationThreshold(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get durationThreshold;
   external set entryTypes(JSArray value);
@@ -125,16 +74,7 @@ extension PerformanceObserverInitExtension on PerformanceObserverInit {
   external set buffered(bool value);
   external bool get buffered;
 }
-
-/// The **`PerformanceObserverEntryList`** interface is a list of
-/// [PerformanceEntry] that were explicitly observed via the
-/// [PerformanceObserver.observe] method.
-@JS('PerformanceObserverEntryList')
-@staticInterop
-class PerformanceObserverEntryList {}
-
-extension PerformanceObserverEntryListExtension
-    on PerformanceObserverEntryList {
+extension type PerformanceObserverEntryList._(JSObject _) implements JSObject {
   /// The **`getEntries()`** method of the [PerformanceObserverEntryList]
   /// interface returns a list of explicitly observed [PerformanceEntry]
   /// objects. The list's members are determined by the set of

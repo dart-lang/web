@@ -13,42 +13,19 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'pointerevents.dart';
 
-/// The **`Ink`** interface of the
-/// [Ink API](https://developer.mozilla.org/en-US/docs/Web/API/Ink_API) provides
-/// access to [InkPresenter] objects for the application to use to render ink
-/// strokes.
-@JS('Ink')
-@staticInterop
-class Ink {}
-
-extension InkExtension on Ink {
+extension type Ink._(JSObject _) implements JSObject {
   /// The **`requestPresenter()`** method of the [Ink] interface returns a
   /// `Promise` that fulfills with an [InkPresenter] object to handle rendering
   /// strokes.
   external JSPromise requestPresenter([InkPresenterParam param]);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class InkPresenterParam {
+extension type InkPresenterParam._(JSObject _) implements JSObject {
   external factory InkPresenterParam({Element? presentationArea});
-}
 
-extension InkPresenterParamExtension on InkPresenterParam {
   external set presentationArea(Element? value);
   external Element? get presentationArea;
 }
-
-/// The **`InkPresenter`** interface of the
-/// [Ink API](https://developer.mozilla.org/en-US/docs/Web/API/Ink_API) provides
-/// the ability to instruct the OS-level compositor to render ink strokes
-/// between pointer event dispatches.
-@JS('InkPresenter')
-@staticInterop
-class InkPresenter {}
-
-extension InkPresenterExtension on InkPresenter {
+extension type InkPresenter._(JSObject _) implements JSObject {
   /// The **`updateInkTrailStartPoint()`** method of the [InkPresenter]
   /// interface indicates which [PointerEvent] was used as the last rendering
   /// point for the current frame, allowing the OS-level compositor to render a
@@ -60,18 +37,12 @@ extension InkPresenterExtension on InkPresenter {
   external Element? get presentationArea;
   external int get expectedImprovement;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class InkTrailStyle {
+extension type InkTrailStyle._(JSObject _) implements JSObject {
   external factory InkTrailStyle({
     required String color,
     required num diameter,
   });
-}
 
-extension InkTrailStyleExtension on InkTrailStyle {
   external set color(String value);
   external String get color;
   external set diameter(num value);

@@ -13,52 +13,30 @@ import 'dart:js_interop';
 import 'credential_management.dart';
 
 typedef IdentityCredentialRequestOptionsContext = String;
-
-/// The **`IdentityCredential`** interface of the [Federated Credential
-/// Management API (FedCM)](/en-US/docs/Web/API/FedCM_API) represents a user
-/// identity credential arising from a successful federated sign-in.
-///
-/// A successful [CredentialsContainer.get] call that includes an `identity`
-/// option fulfills with an `IdentityCredential` instance.
-@JS('IdentityCredential')
-@staticInterop
-class IdentityCredential implements Credential {}
-
-extension IdentityCredentialExtension on IdentityCredential {
+extension type IdentityCredential._(JSObject _)
+    implements Credential, JSObject {
   external String? get token;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class IdentityCredentialRequestOptions {
+extension type IdentityCredentialRequestOptions._(JSObject _)
+    implements JSObject {
   external factory IdentityCredentialRequestOptions({
     required JSArray providers,
     IdentityCredentialRequestOptionsContext context,
   });
-}
 
-extension IdentityCredentialRequestOptionsExtension
-    on IdentityCredentialRequestOptions {
   external set providers(JSArray value);
   external JSArray get providers;
   external set context(IdentityCredentialRequestOptionsContext value);
   external IdentityCredentialRequestOptionsContext get context;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class IdentityProviderConfig {
+extension type IdentityProviderConfig._(JSObject _) implements JSObject {
   external factory IdentityProviderConfig({
     required String configURL,
     required String clientId,
     String nonce,
     String loginHint,
   });
-}
 
-extension IdentityProviderConfigExtension on IdentityProviderConfig {
   external set configURL(String value);
   external String get configURL;
   external set clientId(String value);
@@ -68,49 +46,31 @@ extension IdentityProviderConfigExtension on IdentityProviderConfig {
   external set loginHint(String value);
   external String get loginHint;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class IdentityProviderWellKnown {
+extension type IdentityProviderWellKnown._(JSObject _) implements JSObject {
   external factory IdentityProviderWellKnown({required JSArray provider_urls});
-}
 
-extension IdentityProviderWellKnownExtension on IdentityProviderWellKnown {
   external set provider_urls(JSArray value);
   external JSArray get provider_urls;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class IdentityProviderIcon {
+extension type IdentityProviderIcon._(JSObject _) implements JSObject {
   external factory IdentityProviderIcon({
     required String url,
     int size,
   });
-}
 
-extension IdentityProviderIconExtension on IdentityProviderIcon {
   external set url(String value);
   external String get url;
   external set size(int value);
   external int get size;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class IdentityProviderBranding {
+extension type IdentityProviderBranding._(JSObject _) implements JSObject {
   external factory IdentityProviderBranding({
     String background_color,
     String color,
     JSArray icons,
     String name,
   });
-}
 
-extension IdentityProviderBrandingExtension on IdentityProviderBranding {
   external set background_color(String value);
   external String get background_color;
   external set color(String value);
@@ -120,20 +80,14 @@ extension IdentityProviderBrandingExtension on IdentityProviderBranding {
   external set name(String value);
   external String get name;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class IdentityProviderAPIConfig {
+extension type IdentityProviderAPIConfig._(JSObject _) implements JSObject {
   external factory IdentityProviderAPIConfig({
     required String accounts_endpoint,
     required String client_metadata_endpoint,
     required String id_assertion_endpoint,
     IdentityProviderBranding branding,
   });
-}
 
-extension IdentityProviderAPIConfigExtension on IdentityProviderAPIConfig {
   external set accounts_endpoint(String value);
   external String get accounts_endpoint;
   external set client_metadata_endpoint(String value);
@@ -143,11 +97,7 @@ extension IdentityProviderAPIConfigExtension on IdentityProviderAPIConfig {
   external set branding(IdentityProviderBranding value);
   external IdentityProviderBranding get branding;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class IdentityProviderAccount {
+extension type IdentityProviderAccount._(JSObject _) implements JSObject {
   external factory IdentityProviderAccount({
     required String id,
     required String name,
@@ -157,9 +107,7 @@ class IdentityProviderAccount {
     JSArray approved_clients,
     JSArray login_hints,
   });
-}
 
-extension IdentityProviderAccountExtension on IdentityProviderAccount {
   external set id(String value);
   external String get id;
   external set name(String value);
@@ -175,62 +123,38 @@ extension IdentityProviderAccountExtension on IdentityProviderAccount {
   external set login_hints(JSArray value);
   external JSArray get login_hints;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class IdentityProviderAccountList {
+extension type IdentityProviderAccountList._(JSObject _) implements JSObject {
   external factory IdentityProviderAccountList({JSArray accounts});
-}
 
-extension IdentityProviderAccountListExtension on IdentityProviderAccountList {
   external set accounts(JSArray value);
   external JSArray get accounts;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class IdentityProviderToken {
+extension type IdentityProviderToken._(JSObject _) implements JSObject {
   external factory IdentityProviderToken({required String token});
-}
 
-extension IdentityProviderTokenExtension on IdentityProviderToken {
   external set token(String value);
   external String get token;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class IdentityProviderClientMetadata {
+extension type IdentityProviderClientMetadata._(JSObject _)
+    implements JSObject {
   external factory IdentityProviderClientMetadata({
     String privacy_policy_url,
     String terms_of_service_url,
   });
-}
 
-extension IdentityProviderClientMetadataExtension
-    on IdentityProviderClientMetadata {
   external set privacy_policy_url(String value);
   external String get privacy_policy_url;
   external set terms_of_service_url(String value);
   external String get terms_of_service_url;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class IdentityUserInfo {
+extension type IdentityUserInfo._(JSObject _) implements JSObject {
   external factory IdentityUserInfo({
     String email,
     String name,
     String givenName,
     String picture,
   });
-}
 
-extension IdentityUserInfoExtension on IdentityUserInfo {
   external set email(String value);
   external String get email;
   external set name(String value);
@@ -240,12 +164,6 @@ extension IdentityUserInfoExtension on IdentityUserInfo {
   external set picture(String value);
   external String get picture;
 }
-
-/// The **`IdentityProvider`** interface of the [Federated Credential Management
-/// (FedCM) API](/en-US/docs/Web/API/FedCM_API) represents an identity provider
-/// (IdP) and provides access to related information.
-@JS('IdentityProvider')
-@staticInterop
-class IdentityProvider {
+extension type IdentityProvider._(JSObject _) implements JSObject {
   external static JSPromise getUserInfo(IdentityProviderConfig config);
 }

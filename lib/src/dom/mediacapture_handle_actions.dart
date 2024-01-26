@@ -13,25 +13,15 @@ import 'dart:js_interop';
 import 'dom.dart';
 
 typedef CaptureAction = String;
-
-@JS('CaptureActionEvent')
-@staticInterop
-class CaptureActionEvent implements Event {
+extension type CaptureActionEvent._(JSObject _) implements Event, JSObject {
   external factory CaptureActionEvent([CaptureActionEventInit init]);
-}
 
-extension CaptureActionEventExtension on CaptureActionEvent {
   external CaptureAction get action;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class CaptureActionEventInit implements EventInit {
+extension type CaptureActionEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory CaptureActionEventInit({String action});
-}
 
-extension CaptureActionEventInitExtension on CaptureActionEventInit {
   external set action(String value);
   external String get action;
 }

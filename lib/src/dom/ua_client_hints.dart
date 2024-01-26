@@ -10,27 +10,18 @@
 
 import 'dart:js_interop';
 
-@JS()
-@staticInterop
-@anonymous
-class NavigatorUABrandVersion {
+extension type NavigatorUABrandVersion._(JSObject _) implements JSObject {
   external factory NavigatorUABrandVersion({
     String brand,
     String version,
   });
-}
 
-extension NavigatorUABrandVersionExtension on NavigatorUABrandVersion {
   external set brand(String value);
   external String get brand;
   external set version(String value);
   external String get version;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class UADataValues {
+extension type UADataValues._(JSObject _) implements JSObject {
   external factory UADataValues({
     String architecture,
     String bitness,
@@ -44,9 +35,7 @@ class UADataValues {
     String uaFullVersion,
     bool wow64,
   });
-}
 
-extension UADataValuesExtension on UADataValues {
   external set architecture(String value);
   external String get architecture;
   external set bitness(String value);
@@ -70,19 +59,13 @@ extension UADataValuesExtension on UADataValues {
   external set wow64(bool value);
   external bool get wow64;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class UALowEntropyJSON {
+extension type UALowEntropyJSON._(JSObject _) implements JSObject {
   external factory UALowEntropyJSON({
     JSArray brands,
     bool mobile,
     String platform,
   });
-}
 
-extension UALowEntropyJSONExtension on UALowEntropyJSON {
   external set brands(JSArray value);
   external JSArray get brands;
   external set mobile(bool value);
@@ -90,25 +73,7 @@ extension UALowEntropyJSONExtension on UALowEntropyJSON {
   external set platform(String value);
   external String get platform;
 }
-
-/// The **`NavigatorUAData`** interface of the  returns information about the
-/// browser and operating system of a user.
-///
-/// An instance of this object is returned by calling [Navigator.userAgentData].
-/// Therefore, this interface has no constructor.
-///
-/// > **Note:** The terms _high entropy_ and _low entropy_ refer to the amount
-/// > of information these values reveal about the browser. The values returned
-/// > as properties are deemed low entropy, and unlikely to identify a user. The
-/// > values returned by [NavigatorUAData.getHighEntropyValues] could
-/// > potentially reveal more information. These values are therefore retrieved
-/// > via a `Promise`, allowing time for the browser to request user permission,
-/// > or make other checks.
-@JS('NavigatorUAData')
-@staticInterop
-class NavigatorUAData {}
-
-extension NavigatorUADataExtension on NavigatorUAData {
+extension type NavigatorUAData._(JSObject _) implements JSObject {
   /// The **`getHighEntropyValues()`** method of the [NavigatorUAData] interface
   /// is a `Promise` that resolves with a dictionary object containing the _high
   /// entropy_ values the user-agent returns.

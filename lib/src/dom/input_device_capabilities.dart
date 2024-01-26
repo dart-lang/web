@@ -10,41 +10,19 @@
 
 import 'dart:js_interop';
 
-/// The **`InputDeviceCapabilities`** interface of the
-/// [InputDeviceCapabilities API] provides information about the physical device
-/// or a group of related devices responsible for generating input events.
-/// Events caused by the same physical input device get the same instance of
-/// this object, but the converse isn't true. For example, two mice with the
-/// same capabilities in a system may appear as a single
-/// `InputDeviceCapabilities` instance.
-///
-/// In some instances, `InputDeviceCapabilities` represents the capabilities of
-/// logical devices rather than physical devices. This allows, for example,
-/// touchscreen keyboards and physical keyboards to be represented the same way
-/// when they produce the same input.
-@JS('InputDeviceCapabilities')
-@staticInterop
-class InputDeviceCapabilities {
+extension type InputDeviceCapabilities._(JSObject _) implements JSObject {
   external factory InputDeviceCapabilities(
       [InputDeviceCapabilitiesInit deviceInitDict]);
-}
 
-extension InputDeviceCapabilitiesExtension on InputDeviceCapabilities {
   external bool get firesTouchEvents;
   external bool get pointerMovementScrolls;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class InputDeviceCapabilitiesInit {
+extension type InputDeviceCapabilitiesInit._(JSObject _) implements JSObject {
   external factory InputDeviceCapabilitiesInit({
     bool firesTouchEvents,
     bool pointerMovementScrolls,
   });
-}
 
-extension InputDeviceCapabilitiesInitExtension on InputDeviceCapabilitiesInit {
   external set firesTouchEvents(bool value);
   external bool get firesTouchEvents;
   external set pointerMovementScrolls(bool value);

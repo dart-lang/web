@@ -14,11 +14,7 @@ import 'hr_time.dart';
 import 'indexeddb.dart';
 import 'service_workers.dart';
 
-@JS('StorageBucketManager')
-@staticInterop
-class StorageBucketManager {}
-
-extension StorageBucketManagerExtension on StorageBucketManager {
+extension type StorageBucketManager._(JSObject _) implements JSObject {
   external JSPromise open(
     String name, [
     StorageBucketOptions options,
@@ -26,19 +22,13 @@ extension StorageBucketManagerExtension on StorageBucketManager {
   external JSPromise keys();
   external JSPromise delete(String name);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class StorageBucketOptions {
+extension type StorageBucketOptions._(JSObject _) implements JSObject {
   external factory StorageBucketOptions({
     bool persisted,
     int? quota,
     DOMHighResTimeStamp? expires,
   });
-}
 
-extension StorageBucketOptionsExtension on StorageBucketOptions {
   external set persisted(bool value);
   external bool get persisted;
   external set quota(int? value);
@@ -46,12 +36,7 @@ extension StorageBucketOptionsExtension on StorageBucketOptions {
   external set expires(DOMHighResTimeStamp? value);
   external DOMHighResTimeStamp? get expires;
 }
-
-@JS('StorageBucket')
-@staticInterop
-class StorageBucket {}
-
-extension StorageBucketExtension on StorageBucket {
+extension type StorageBucket._(JSObject _) implements JSObject {
   external JSPromise persist();
   external JSPromise persisted();
   external JSPromise estimate();

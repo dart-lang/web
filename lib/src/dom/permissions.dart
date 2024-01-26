@@ -14,16 +14,7 @@ import 'dom.dart';
 import 'html.dart';
 
 typedef PermissionState = String;
-
-/// The Permissions interface of the
-/// [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API)
-/// provides the core Permission API functionality, such as methods for querying
-/// and revoking permissions
-@JS('Permissions')
-@staticInterop
-class Permissions {}
-
-extension PermissionsExtension on Permissions {
+extension type Permissions._(JSObject _) implements JSObject {
   external JSPromise request(JSObject permissionDesc);
 
   /// The **`Permissions.revoke()`** method of the
@@ -37,45 +28,24 @@ extension PermissionsExtension on Permissions {
   /// returns the state of a user permission on the global scope.
   external JSPromise query(JSObject permissionDesc);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PermissionDescriptor {
+extension type PermissionDescriptor._(JSObject _) implements JSObject {
   external factory PermissionDescriptor({required String name});
-}
 
-extension PermissionDescriptorExtension on PermissionDescriptor {
   external set name(String value);
   external String get name;
 }
-
-/// The **`PermissionStatus`** interface of the
-/// [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API)
-/// provides the state of an object and an event handler for monitoring changes
-/// to said state.
-@JS('PermissionStatus')
-@staticInterop
-class PermissionStatus implements EventTarget {}
-
-extension PermissionStatusExtension on PermissionStatus {
+extension type PermissionStatus._(JSObject _) implements EventTarget, JSObject {
   external PermissionState get state;
   external String get name;
   external set onchange(EventHandler value);
   external EventHandler get onchange;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PermissionSetParameters {
+extension type PermissionSetParameters._(JSObject _) implements JSObject {
   external factory PermissionSetParameters({
     required PermissionDescriptor descriptor,
     required PermissionState state,
   });
-}
 
-extension PermissionSetParametersExtension on PermissionSetParameters {
   external set descriptor(PermissionDescriptor value);
   external PermissionDescriptor get descriptor;
   external set state(PermissionState value);

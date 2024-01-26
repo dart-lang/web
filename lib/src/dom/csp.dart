@@ -14,24 +14,8 @@ import 'dom.dart';
 import 'reporting.dart';
 
 typedef SecurityPolicyViolationEventDisposition = String;
-
-/// The `CSPViolationReportBody` interface contains the report data for a
-/// Content Security Policy (CSP) violation. CSP violations are thrown when the
-/// webpage attempts to load a resource that violates the CSP set by the  HTTP
-/// header.
-///
-/// > **Note:** this interface is similar, but not identical to, the
-/// > [JSON objects](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP#violation_report_syntax)
-/// > sent back to the
-/// > [`report-uri`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/report-uri)
-/// > or
-/// > [`report-to`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/report-to)
-/// > policy directive of the  header.
-@JS('CSPViolationReportBody')
-@staticInterop
-class CSPViolationReportBody implements ReportBody {}
-
-extension CSPViolationReportBodyExtension on CSPViolationReportBody {
+extension type CSPViolationReportBody._(JSObject _)
+    implements ReportBody, JSObject {
   external JSObject toJSON();
   external String get documentURL;
   external String? get referrer;
@@ -45,21 +29,13 @@ extension CSPViolationReportBodyExtension on CSPViolationReportBody {
   external int? get lineNumber;
   external int? get columnNumber;
 }
-
-/// The **`SecurityPolicyViolationEvent`** interface inherits from [Event], and
-/// represents the event object of an event sent on a document or worker when
-/// its content security policy is violated.
-@JS('SecurityPolicyViolationEvent')
-@staticInterop
-class SecurityPolicyViolationEvent implements Event {
+extension type SecurityPolicyViolationEvent._(JSObject _)
+    implements Event, JSObject {
   external factory SecurityPolicyViolationEvent(
     String type, [
     SecurityPolicyViolationEventInit eventInitDict,
   ]);
-}
 
-extension SecurityPolicyViolationEventExtension
-    on SecurityPolicyViolationEvent {
   external String get documentURI;
   external String get referrer;
   external String get blockedURI;
@@ -73,11 +49,8 @@ extension SecurityPolicyViolationEventExtension
   external int get lineNumber;
   external int get columnNumber;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class SecurityPolicyViolationEventInit implements EventInit {
+extension type SecurityPolicyViolationEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory SecurityPolicyViolationEventInit({
     required String documentURI,
     String referrer,
@@ -92,10 +65,7 @@ class SecurityPolicyViolationEventInit implements EventInit {
     int lineNumber,
     int columnNumber,
   });
-}
 
-extension SecurityPolicyViolationEventInitExtension
-    on SecurityPolicyViolationEventInit {
   external set documentURI(String value);
   external String get documentURI;
   external set referrer(String value);

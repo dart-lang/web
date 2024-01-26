@@ -12,9 +12,8 @@ import 'dart:js_interop';
 
 import 'webgl1.dart';
 
-@JS('WEBGL_blend_equation_advanced_coherent')
-@staticInterop
-class WEBGL_blend_equation_advanced_coherent {
+extension type WEBGL_blend_equation_advanced_coherent._(JSObject _)
+    implements JSObject {
   external static GLenum get MULTIPLY;
   external static GLenum get SCREEN;
   external static GLenum get OVERLAY;

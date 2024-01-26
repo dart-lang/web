@@ -10,34 +10,7 @@
 
 import 'dart:js_interop';
 
-/// The **`DOMPointReadOnly`** interface specifies the coordinate and
-/// perspective fields used by [DOMPoint] to define a 2D or 3D point in a
-/// coordinate system.
-///
-/// There are two ways to create a new `DOMPointReadOnly` instance. First, you
-/// can use its constructor, passing in the values of the parameters for each
-/// dimension and, optionally, the perspective:
-///
-/// ```js
-/// /* 2D */
-/// const point2D = new DOMPointReadOnly(50, 50);
-///
-/// /* 3D */
-/// const point3D = new DOMPointReadOnly(50, 50, 25);
-///
-/// /* 3D with perspective */
-/// const point3DPerspective = new DOMPointReadOnly(100, 100, 100, 1.0);
-/// ```
-///
-/// The other option is to use the static [DOMPointReadOnly.fromPoint_static]
-/// method:
-///
-/// ```js
-/// const point = DOMPointReadOnly.fromPoint({ x: 100, y: 100, z: 50, w: 1.0 });
-/// ```
-@JS('DOMPointReadOnly')
-@staticInterop
-class DOMPointReadOnly {
+extension type DOMPointReadOnly._(JSObject _) implements JSObject {
   external factory DOMPointReadOnly([
     num x,
     num y,
@@ -46,9 +19,6 @@ class DOMPointReadOnly {
   ]);
 
   external static DOMPointReadOnly fromPoint([DOMPointInit other]);
-}
-
-extension DOMPointReadOnlyExtension on DOMPointReadOnly {
   external DOMPoint matrixTransform([DOMMatrixInit matrix]);
 
   /// The [DOMPointReadOnly] method
@@ -60,19 +30,7 @@ extension DOMPointReadOnlyExtension on DOMPointReadOnly {
   external num get z;
   external num get w;
 }
-
-/// A **`DOMPoint`** object represents a 2D or 3D point in a coordinate system;
-/// it includes values for the coordinates in up to three dimensions, as well as
-/// an optional perspective value. `DOMPoint` is based on [DOMPointReadOnly] but
-/// allows its properties' values to be changed.
-///
-/// In general, a positive `x` component represents a position to the right of
-/// the origin, a positive `y` component is downward from the origin, and a
-/// positive `z` component extends outward from the screen (in other words,
-/// toward the user).
-@JS('DOMPoint')
-@staticInterop
-class DOMPoint implements DOMPointReadOnly {
+extension type DOMPoint._(JSObject _) implements DOMPointReadOnly, JSObject {
   external factory DOMPoint([
     num x,
     num y,
@@ -81,9 +39,6 @@ class DOMPoint implements DOMPointReadOnly {
   ]);
 
   external static DOMPoint fromPoint([DOMPointInit other]);
-}
-
-extension DOMPointExtension on DOMPoint {
   external set x(num value);
   external num get x;
   external set y(num value);
@@ -93,20 +48,14 @@ extension DOMPointExtension on DOMPoint {
   external set w(num value);
   external num get w;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class DOMPointInit {
+extension type DOMPointInit._(JSObject _) implements JSObject {
   external factory DOMPointInit({
     num x,
     num y,
     num z,
     num w,
   });
-}
 
-extension DOMPointInitExtension on DOMPointInit {
   external set x(num value);
   external num get x;
   external set y(num value);
@@ -116,12 +65,7 @@ extension DOMPointInitExtension on DOMPointInit {
   external set w(num value);
   external num get w;
 }
-
-/// The **`DOMRectReadOnly`** interface specifies the standard properties (also
-/// used by [DOMRect]) to define a rectangle whose properties are immutable.
-@JS('DOMRectReadOnly')
-@staticInterop
-class DOMRectReadOnly {
+extension type DOMRectReadOnly._(JSObject _) implements JSObject {
   external factory DOMRectReadOnly([
     num x,
     num y,
@@ -130,9 +74,6 @@ class DOMRectReadOnly {
   ]);
 
   external static DOMRectReadOnly fromRect([DOMRectInit other]);
-}
-
-extension DOMRectReadOnlyExtension on DOMRectReadOnly {
   external JSObject toJSON();
   external num get x;
   external num get y;
@@ -143,18 +84,7 @@ extension DOMRectReadOnlyExtension on DOMRectReadOnly {
   external num get bottom;
   external num get left;
 }
-
-/// A **`DOMRect`** describes the size and position of a rectangle.
-///
-/// The type of box represented by the `DOMRect` is specified by the method or
-/// property that returned it. For example, [Range.getBoundingClientRect]
-/// specifies the rectangle that bounds the content of the range using such
-/// objects.
-///
-/// It inherits from its parent, [DOMRectReadOnly].
-@JS('DOMRect')
-@staticInterop
-class DOMRect implements DOMRectReadOnly {
+extension type DOMRect._(JSObject _) implements DOMRectReadOnly, JSObject {
   external factory DOMRect([
     num x,
     num y,
@@ -163,9 +93,6 @@ class DOMRect implements DOMRectReadOnly {
   ]);
 
   external static DOMRect fromRect([DOMRectInit other]);
-}
-
-extension DOMRectExtension on DOMRect {
   external set x(num value);
   external num get x;
   external set y(num value);
@@ -175,20 +102,14 @@ extension DOMRectExtension on DOMRect {
   external set height(num value);
   external num get height;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class DOMRectInit {
+extension type DOMRectInit._(JSObject _) implements JSObject {
   external factory DOMRectInit({
     num x,
     num y,
     num width,
     num height,
   });
-}
 
-extension DOMRectInitExtension on DOMRectInit {
   external set x(num value);
   external num get x;
   external set y(num value);
@@ -198,24 +119,11 @@ extension DOMRectInitExtension on DOMRectInit {
   external set height(num value);
   external num get height;
 }
-
-@JS('DOMRectList')
-@staticInterop
-class DOMRectList {}
-
-extension DOMRectListExtension on DOMRectList {
+extension type DOMRectList._(JSObject _) implements JSObject {
   external DOMRect? item(int index);
   external int get length;
 }
-
-/// A `DOMQuad` is a collection of four `DOMPoint`s defining the corners of an
-/// arbitrary quadrilateral. Returning `DOMQuad`s lets `getBoxQuads()` return
-/// accurate information even when arbitrary 2D or 3D transforms are present. It
-/// has a handy `bounds` attribute returning a `DOMRectReadOnly` for those cases
-/// where you just want an axis-aligned bounding rectangle.
-@JS('DOMQuad')
-@staticInterop
-class DOMQuad {
+extension type DOMQuad._(JSObject _) implements JSObject {
   external factory DOMQuad([
     DOMPointInit p1,
     DOMPointInit p2,
@@ -225,9 +133,6 @@ class DOMQuad {
 
   external static DOMQuad fromRect([DOMRectInit other]);
   external static DOMQuad fromQuad([DOMQuadInit other]);
-}
-
-extension DOMQuadExtension on DOMQuad {
   external DOMRect getBounds();
   external JSObject toJSON();
   external DOMPoint get p1;
@@ -235,20 +140,14 @@ extension DOMQuadExtension on DOMQuad {
   external DOMPoint get p3;
   external DOMPoint get p4;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class DOMQuadInit {
+extension type DOMQuadInit._(JSObject _) implements JSObject {
   external factory DOMQuadInit({
     DOMPointInit p1,
     DOMPointInit p2,
     DOMPointInit p3,
     DOMPointInit p4,
   });
-}
 
-extension DOMQuadInitExtension on DOMQuadInit {
   external set p1(DOMPointInit value);
   external DOMPointInit get p1;
   external set p2(DOMPointInit value);
@@ -258,27 +157,13 @@ extension DOMQuadInitExtension on DOMQuadInit {
   external set p4(DOMPointInit value);
   external DOMPointInit get p4;
 }
-
-/// The **`DOMMatrixReadOnly`** interface represents a read-only 4×4 matrix,
-/// suitable for 2D and 3D operations. The [DOMMatrix] interface — which is
-/// based upon `DOMMatrixReadOnly`—adds
-/// [mutability](https://en.wikipedia.org/wiki/Immutable_object), allowing you
-/// to alter the matrix after creating it.
-///
-/// This interface should be available inside
-/// [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API),
-/// though some implementations doesn't allow it yet.
-@JS('DOMMatrixReadOnly')
-@staticInterop
-class DOMMatrixReadOnly {
+extension type DOMMatrixReadOnly._(JSObject _) implements JSObject {
   external factory DOMMatrixReadOnly([JSAny init]);
 
   external static DOMMatrixReadOnly fromMatrix([DOMMatrixInit other]);
   external static DOMMatrixReadOnly fromFloat32Array(JSFloat32Array array32);
   external static DOMMatrixReadOnly fromFloat64Array(JSFloat64Array array64);
-}
 
-extension DOMMatrixReadOnlyExtension on DOMMatrixReadOnly {
   /// The `translate()` method of the [DOMMatrixReadOnly] interface
   /// creates a new matrix being the result of the original matrix with a
   /// translation applied.
@@ -362,27 +247,12 @@ extension DOMMatrixReadOnlyExtension on DOMMatrixReadOnly {
   external bool get is2D;
   external bool get isIdentity;
 }
-
-/// The **`DOMMatrix`** interface represents 4×4 matrices, suitable for 2D and
-/// 3D operations including rotation and translation. It is a mutable version of
-/// the [DOMMatrixReadOnly] interface.
-///
-/// **`WebKitCSSMatrix`** and **`SVGMatrix`** are aliases to **`DOMMatrix`**.
-///
-/// This interface should be available inside
-/// [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API),
-/// though some implementations don't allow it yet.
-@JS('DOMMatrix')
-@staticInterop
-class DOMMatrix implements DOMMatrixReadOnly {
+extension type DOMMatrix._(JSObject _) implements DOMMatrixReadOnly, JSObject {
   external factory DOMMatrix([JSAny init]);
 
   external static DOMMatrix fromMatrix([DOMMatrixInit other]);
   external static DOMMatrix fromFloat32Array(JSFloat32Array array32);
   external static DOMMatrix fromFloat64Array(JSFloat64Array array64);
-}
-
-extension DOMMatrixExtension on DOMMatrix {
   external DOMMatrix multiplySelf([DOMMatrixInit other]);
   external DOMMatrix preMultiplySelf([DOMMatrixInit other]);
   external DOMMatrix translateSelf([
@@ -468,11 +338,7 @@ extension DOMMatrixExtension on DOMMatrix {
   external set m44(num value);
   external num get m44;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class DOMMatrix2DInit {
+extension type DOMMatrix2DInit._(JSObject _) implements JSObject {
   external factory DOMMatrix2DInit({
     num a,
     num b,
@@ -487,9 +353,7 @@ class DOMMatrix2DInit {
     num m41,
     num m42,
   });
-}
 
-extension DOMMatrix2DInitExtension on DOMMatrix2DInit {
   external set a(num value);
   external num get a;
   external set b(num value);
@@ -515,11 +379,8 @@ extension DOMMatrix2DInitExtension on DOMMatrix2DInit {
   external set m42(num value);
   external num get m42;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class DOMMatrixInit implements DOMMatrix2DInit {
+extension type DOMMatrixInit._(JSObject _)
+    implements DOMMatrix2DInit, JSObject {
   external factory DOMMatrixInit({
     num m13,
     num m14,
@@ -533,9 +394,7 @@ class DOMMatrixInit implements DOMMatrix2DInit {
     num m44,
     bool is2D,
   });
-}
 
-extension DOMMatrixInitExtension on DOMMatrixInit {
   external set m13(num value);
   external num get m13;
   external set m14(num value);

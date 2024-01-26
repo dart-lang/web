@@ -18,23 +18,14 @@ import 'mediacapture_streams.dart';
 
 typedef BitrateMode = String;
 typedef RecordingState = String;
-
-/// The **`MediaRecorder`** interface of the
-/// [MediaStream Recording API](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API)
-/// provides functionality to easily record media. It is created using the
-/// [MediaRecorder.MediaRecorder] constructor.
-@JS('MediaRecorder')
-@staticInterop
-class MediaRecorder implements EventTarget {
+extension type MediaRecorder._(JSObject _) implements EventTarget, JSObject {
   external factory MediaRecorder(
     MediaStream stream, [
     MediaRecorderOptions options,
   ]);
 
   external static bool isTypeSupported(String type);
-}
 
-extension MediaRecorderExtension on MediaRecorder {
   /// The [MediaRecorder] method
   /// **`start()`**, which is part of the MediaStream Recording API,
   /// begins recording media into one or more [Blob] objects.
@@ -163,11 +154,7 @@ extension MediaRecorderExtension on MediaRecorder {
   external int get audioBitsPerSecond;
   external BitrateMode get audioBitrateMode;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaRecorderOptions {
+extension type MediaRecorderOptions._(JSObject _) implements JSObject {
   external factory MediaRecorderOptions({
     String mimeType,
     int audioBitsPerSecond,
@@ -177,9 +164,7 @@ class MediaRecorderOptions {
     DOMHighResTimeStamp videoKeyFrameIntervalDuration,
     int videoKeyFrameIntervalCount,
   });
-}
 
-extension MediaRecorderOptionsExtension on MediaRecorderOptions {
   external set mimeType(String value);
   external String get mimeType;
   external set audioBitsPerSecond(int value);
@@ -195,36 +180,21 @@ extension MediaRecorderOptionsExtension on MediaRecorderOptions {
   external set videoKeyFrameIntervalCount(int value);
   external int get videoKeyFrameIntervalCount;
 }
-
-/// The **`BlobEvent`** interface of the
-/// [MediaStream Recording API](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API)
-/// represents events associated with a [Blob]. These blobs are typically, but
-/// not necessarily, associated with media content.
-@JS('BlobEvent')
-@staticInterop
-class BlobEvent implements Event {
+extension type BlobEvent._(JSObject _) implements Event, JSObject {
   external factory BlobEvent(
     String type,
     BlobEventInit eventInitDict,
   );
-}
 
-extension BlobEventExtension on BlobEvent {
   external Blob get data;
   external DOMHighResTimeStamp get timecode;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class BlobEventInit {
+extension type BlobEventInit._(JSObject _) implements JSObject {
   external factory BlobEventInit({
     required Blob data,
     DOMHighResTimeStamp timecode,
   });
-}
 
-extension BlobEventInitExtension on BlobEventInit {
   external set data(Blob value);
   external Blob get data;
   external set timecode(DOMHighResTimeStamp value);

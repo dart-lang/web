@@ -11,11 +11,7 @@
 import 'dart:js_interop';
 
 typedef OpusBitstreamFormat = String;
-
-@JS()
-@staticInterop
-@anonymous
-class OpusEncoderConfig {
+extension type OpusEncoderConfig._(JSObject _) implements JSObject {
   external factory OpusEncoderConfig({
     OpusBitstreamFormat format,
     int frameDuration,
@@ -24,9 +20,7 @@ class OpusEncoderConfig {
     bool useinbandfec,
     bool usedtx,
   });
-}
 
-extension OpusEncoderConfigExtension on OpusEncoderConfig {
   external set format(OpusBitstreamFormat value);
   external OpusBitstreamFormat get format;
   external set frameDuration(int value);

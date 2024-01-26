@@ -13,21 +13,7 @@ import 'dart:js_interop';
 typedef MediaSessionActionHandler = JSFunction;
 typedef MediaSessionPlaybackState = String;
 typedef MediaSessionAction = String;
-
-/// The **`MediaSession`** interface of the [Media Session API] allows a web
-/// page to provide custom behaviors for standard media playback interactions,
-/// and to report metadata that can be sent by the user agent to the device or
-/// operating system for presentation in standardized user interface elements.
-///
-/// For example, a smartphone might have a standard panel in its lock screen
-/// that provides controls for media playback and information display. A browser
-/// on the device can use `MediaSession` to make browser playback controllable
-/// from that standard/global user interface.
-@JS('MediaSession')
-@staticInterop
-class MediaSession {}
-
-extension MediaSessionExtension on MediaSession {
+extension type MediaSession._(JSObject _) implements JSObject {
   /// The **`setActionHandler()`** method of the [MediaSession] interface sets a
   /// handler for a media session action.
   /// These actions let a web app receive notifications when the user engages a
@@ -77,16 +63,9 @@ extension MediaSessionExtension on MediaSession {
   external set playbackState(MediaSessionPlaybackState value);
   external MediaSessionPlaybackState get playbackState;
 }
-
-/// The **`MediaMetadata`** interface of the [Media Session API] allows a web
-/// page to provide rich media metadata for display in a platform UI.
-@JS('MediaMetadata')
-@staticInterop
-class MediaMetadata {
+extension type MediaMetadata._(JSObject _) implements JSObject {
   external factory MediaMetadata([MediaMetadataInit init]);
-}
 
-extension MediaMetadataExtension on MediaMetadata {
   external set title(String value);
   external String get title;
   external set artist(String value);
@@ -96,20 +75,14 @@ extension MediaMetadataExtension on MediaMetadata {
   external set artwork(JSArray value);
   external JSArray get artwork;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaMetadataInit {
+extension type MediaMetadataInit._(JSObject _) implements JSObject {
   external factory MediaMetadataInit({
     String title,
     String artist,
     String album,
     JSArray artwork,
   });
-}
 
-extension MediaMetadataInitExtension on MediaMetadataInit {
   external set title(String value);
   external String get title;
   external set artist(String value);
@@ -119,19 +92,13 @@ extension MediaMetadataInitExtension on MediaMetadataInit {
   external set artwork(JSArray value);
   external JSArray get artwork;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaImage {
+extension type MediaImage._(JSObject _) implements JSObject {
   external factory MediaImage({
     required String src,
     String sizes,
     String type,
   });
-}
 
-extension MediaImageExtension on MediaImage {
   external set src(String value);
   external String get src;
   external set sizes(String value);
@@ -139,19 +106,13 @@ extension MediaImageExtension on MediaImage {
   external set type(String value);
   external String get type;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaPositionState {
+extension type MediaPositionState._(JSObject _) implements JSObject {
   external factory MediaPositionState({
     num duration,
     num playbackRate,
     num position,
   });
-}
 
-extension MediaPositionStateExtension on MediaPositionState {
   external set duration(num value);
   external num get duration;
   external set playbackRate(num value);
@@ -159,20 +120,14 @@ extension MediaPositionStateExtension on MediaPositionState {
   external set position(num value);
   external num get position;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaSessionActionDetails {
+extension type MediaSessionActionDetails._(JSObject _) implements JSObject {
   external factory MediaSessionActionDetails({
     required MediaSessionAction action,
     num seekOffset,
     num seekTime,
     bool fastSeek,
   });
-}
 
-extension MediaSessionActionDetailsExtension on MediaSessionActionDetails {
   external set action(MediaSessionAction value);
   external MediaSessionAction get action;
   external set seekOffset(num value);

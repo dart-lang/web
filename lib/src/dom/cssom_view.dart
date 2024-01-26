@@ -19,55 +19,25 @@ typedef GeometryNode = JSObject;
 typedef ScrollBehavior = String;
 typedef ScrollLogicalPosition = String;
 typedef CSSBoxType = String;
-
-@JS()
-@staticInterop
-@anonymous
-class ScrollOptions {
+extension type ScrollOptions._(JSObject _) implements JSObject {
   external factory ScrollOptions({ScrollBehavior behavior});
-}
 
-extension ScrollOptionsExtension on ScrollOptions {
   external set behavior(ScrollBehavior value);
   external ScrollBehavior get behavior;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ScrollToOptions implements ScrollOptions {
+extension type ScrollToOptions._(JSObject _)
+    implements ScrollOptions, JSObject {
   external factory ScrollToOptions({
     num left,
     num top,
   });
-}
 
-extension ScrollToOptionsExtension on ScrollToOptions {
   external set left(num value);
   external num get left;
   external set top(num value);
   external num get top;
 }
-
-/// A **`MediaQueryList`** object stores information on a
-/// [media query](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries)
-/// applied to a document, with support for both immediate and event-driven
-/// matching against the state of the document.
-///
-/// You can create a `MediaQueryList` by calling [Window.matchMedia] on the
-/// [window] object. The resulting object handles sending notifications to
-/// listeners when the media query state changes (i.e. when the media query test
-/// starts or stops evaluating to `true`).
-///
-/// This is very useful for adaptive design, since this makes it possible to
-/// observe a document to detect when its media queries change, instead of
-/// polling the values periodically, and allows you to programmatically make
-/// changes to a document based on media query status.
-@JS('MediaQueryList')
-@staticInterop
-class MediaQueryList implements EventTarget {}
-
-extension MediaQueryListExtension on MediaQueryList {
+extension type MediaQueryList._(JSObject _) implements EventTarget, JSObject {
   /// The deprecated **`addListener()`** method of the
   /// [MediaQueryList] interface adds a listener to the
   /// `MediaQueryListener` that will run a custom callback function in response
@@ -95,51 +65,28 @@ extension MediaQueryListExtension on MediaQueryList {
   external set onchange(EventHandler value);
   external EventHandler get onchange;
 }
-
-/// The `MediaQueryListEvent` object stores information on the changes that have
-/// happened to a [MediaQueryList] object — instances are available as the event
-/// object on a function referenced by a [MediaQueryList.change_event] event.
-@JS('MediaQueryListEvent')
-@staticInterop
-class MediaQueryListEvent implements Event {
+extension type MediaQueryListEvent._(JSObject _) implements Event, JSObject {
   external factory MediaQueryListEvent(
     String type, [
     MediaQueryListEventInit eventInitDict,
   ]);
-}
 
-extension MediaQueryListEventExtension on MediaQueryListEvent {
   external String get media;
   external bool get matches;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaQueryListEventInit implements EventInit {
+extension type MediaQueryListEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory MediaQueryListEventInit({
     String media,
     bool matches,
   });
-}
 
-extension MediaQueryListEventInitExtension on MediaQueryListEventInit {
   external set media(String value);
   external String get media;
   external set matches(bool value);
   external bool get matches;
 }
-
-/// The `Screen` interface represents a screen, usually the one on which the
-/// current window is being rendered, and is obtained using [window.screen].
-///
-/// Note that browsers determine which screen to report as current by detecting
-/// which screen has the center of the browser window.
-@JS('Screen')
-@staticInterop
-class Screen {}
-
-extension ScreenExtension on Screen {
+extension type Screen._(JSObject _) implements JSObject {
   external int get availWidth;
   external int get availHeight;
   external int get width;
@@ -151,106 +98,57 @@ extension ScreenExtension on Screen {
   external set onchange(EventHandler value);
   external EventHandler get onchange;
 }
-
-/// The `CaretPosition` interface represents the caret position, an indicator
-/// for the text insertion point. You can get a `CaretPosition` using the
-/// [Document.caretPositionFromPoint] method.
-@JS('CaretPosition')
-@staticInterop
-class CaretPosition {}
-
-extension CaretPositionExtension on CaretPosition {
+extension type CaretPosition._(JSObject _) implements JSObject {
   external DOMRect? getClientRect();
   external Node get offsetNode;
   external int get offset;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ScrollIntoViewOptions implements ScrollOptions {
+extension type ScrollIntoViewOptions._(JSObject _)
+    implements ScrollOptions, JSObject {
   external factory ScrollIntoViewOptions({
     ScrollLogicalPosition block,
     ScrollLogicalPosition inline,
   });
-}
 
-extension ScrollIntoViewOptionsExtension on ScrollIntoViewOptions {
   external set block(ScrollLogicalPosition value);
   external ScrollLogicalPosition get block;
   external set inline(ScrollLogicalPosition value);
   external ScrollLogicalPosition get inline;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class CheckVisibilityOptions {
+extension type CheckVisibilityOptions._(JSObject _) implements JSObject {
   external factory CheckVisibilityOptions({
     bool checkOpacity,
     bool checkVisibilityCSS,
   });
-}
 
-extension CheckVisibilityOptionsExtension on CheckVisibilityOptions {
   external set checkOpacity(bool value);
   external bool get checkOpacity;
   external set checkVisibilityCSS(bool value);
   external bool get checkVisibilityCSS;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class BoxQuadOptions {
+extension type BoxQuadOptions._(JSObject _) implements JSObject {
   external factory BoxQuadOptions({
     CSSBoxType box,
     GeometryNode relativeTo,
   });
-}
 
-extension BoxQuadOptionsExtension on BoxQuadOptions {
   external set box(CSSBoxType value);
   external CSSBoxType get box;
   external set relativeTo(GeometryNode value);
   external GeometryNode get relativeTo;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ConvertCoordinateOptions {
+extension type ConvertCoordinateOptions._(JSObject _) implements JSObject {
   external factory ConvertCoordinateOptions({
     CSSBoxType fromBox,
     CSSBoxType toBox,
   });
-}
 
-extension ConvertCoordinateOptionsExtension on ConvertCoordinateOptions {
   external set fromBox(CSSBoxType value);
   external CSSBoxType get fromBox;
   external set toBox(CSSBoxType value);
   external CSSBoxType get toBox;
 }
-
-/// The **`VisualViewport`** interface of the [Visual Viewport API] represents
-/// the visual viewport for a given window. For a page containing iframes, each
-/// iframe, as well as the containing page, will have a unique window object.
-/// Each window on a page will have a unique `VisualViewport` representing the
-/// properties associated with that window.
-///
-/// You can get a window's visual viewport using [Window.visualViewport].
-///
-/// > **Note:** Only the top-level window has a visual viewport that's distinct
-/// > from the layout viewport. Therefore, it's generally only the
-/// > `VisualViewport` object of the top-level window that's useful. For an
-/// > `iframe`, visual viewport metrics like [VisualViewport.width] always
-/// > correspond to layout viewport metrics like [Element.clientWidth].
-@JS('VisualViewport')
-@staticInterop
-class VisualViewport implements EventTarget {}
-
-extension VisualViewportExtension on VisualViewport {
+extension type VisualViewport._(JSObject _) implements EventTarget, JSObject {
   external num get offsetLeft;
   external num get offsetTop;
   external num get pageLeft;

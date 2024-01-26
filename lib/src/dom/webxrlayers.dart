@@ -22,27 +22,7 @@ import 'webxr_lighting_estimation.dart';
 typedef XRLayerLayout = String;
 typedef XRLayerQuality = String;
 typedef XRTextureType = String;
-
-/// The **`XRCompositionLayer`** interface of the
-/// [WebXR Device API](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API)
-/// is a base class that defines a set of common properties and behaviors for
-/// WebXR layer types. It is not constructable on its own.
-///
-/// Several layer types inherit from `XRCompositionLayer`:
-///
-/// - [XREquirectLayer]
-/// - [XRCubeLayer]
-/// - [XRCylinderLayer]
-/// - [XRProjectionLayer]
-/// - [XRQuadLayer]
-///
-/// `XRCompositionLayer` itself inherits from the general [XRLayer] class (which
-/// inherits from [EventTarget]).
-@JS('XRCompositionLayer')
-@staticInterop
-class XRCompositionLayer implements XRLayer {}
-
-extension XRCompositionLayerExtension on XRCompositionLayer {
+extension type XRCompositionLayer._(JSObject _) implements XRLayer, JSObject {
   /// The **`destroy()`** method of the [XRCompositionLayer] interface deletes
   /// the references to the underlying graphics library for the layer. It also
   /// sets the color textures and depth stencil texture arrays to an empty
@@ -60,27 +40,8 @@ extension XRCompositionLayerExtension on XRCompositionLayer {
   external XRLayerQuality get quality;
   external bool get needsRedraw;
 }
-
-/// The **`XRProjectionLayer`** interface of the
-/// [WebXR Device API](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API)
-/// is a layer that fills the entire view of the observer and is refreshed close
-/// to the device's native frame rate.
-///
-/// `XRProjectionLayer` is supported by all [XRSession] objects (no `layers`
-/// feature descriptor is needed).
-///
-/// To create a new `XRProjectionLayer`, call
-/// [XRWebGLBinding.createProjectionLayer].
-/// To present layers to the XR device, add them to the `layers` render state
-/// using [XRSession.updateRenderState].
-///
-/// `XRProjectionLayer` objects don't have an associated [XRSpace], because they
-/// render to the full frame.
-@JS('XRProjectionLayer')
-@staticInterop
-class XRProjectionLayer implements XRCompositionLayer {}
-
-extension XRProjectionLayerExtension on XRProjectionLayer {
+extension type XRProjectionLayer._(JSObject _)
+    implements XRCompositionLayer, JSObject {
   external int get textureWidth;
   external int get textureHeight;
   external int get textureArrayLength;
@@ -90,29 +51,8 @@ extension XRProjectionLayerExtension on XRProjectionLayer {
   external set deltaPose(XRRigidTransform? value);
   external XRRigidTransform? get deltaPose;
 }
-
-/// The **`XRQuadLayer`** interface of the
-/// [WebXR Device API](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API)
-/// is a layer that takes up a flat rectangular space in the virtual
-/// environment. An `XRQuadLayer` has no thickness. It is a two-dimensional
-/// object positioned and oriented in 3D space. The position of a quad refers to
-/// the center of the quad. Only the front of the layer is visible.
-///
-/// `XRQuadLayer` requires the `layers` feature to be enabled for the
-/// [XRSession]. You can request it in [XRSystem.requestSession].
-///
-/// To create a new `XRQuadLayer`, call either:
-///
-/// - [XRWebGLBinding.createQuadLayer] for a WebGL opaque texture quad layer, or
-/// - [XRMediaBinding.createQuadLayer] for an HTML `video` playback quad layer.
-///
-/// To present layers to the XR device, add them to the `layers` render state
-/// using [XRSession.updateRenderState].
-@JS('XRQuadLayer')
-@staticInterop
-class XRQuadLayer implements XRCompositionLayer {}
-
-extension XRQuadLayerExtension on XRQuadLayer {
+extension type XRQuadLayer._(JSObject _)
+    implements XRCompositionLayer, JSObject {
   external set space(XRSpace value);
   external XRSpace get space;
   external set transform(XRRigidTransform value);
@@ -124,27 +64,8 @@ extension XRQuadLayerExtension on XRQuadLayer {
   external set onredraw(EventHandler value);
   external EventHandler get onredraw;
 }
-
-/// The **`XRCylinderLayer`** interface of the
-/// [WebXR Device API](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API)
-/// is a layer that takes up a curved rectangular space in the virtual
-/// environment. Only the front of the layer is visible.
-///
-/// `XRCylinderLayer` requires the `layers` feature to be enabled for the
-/// [XRSession]. You can request it in [XRSystem.requestSession].
-///
-/// To create a new `XRCylinderLayer`, call either:
-///
-/// - [XRWebGLBinding.createCylinderLayer] for a WebGL opaque texture layer, or
-/// - [XRMediaBinding.createCylinderLayer] for an HTML `video` playback layer.
-///
-/// To present layers to the XR device, add them to the `layers` render state
-/// using [XRSession.updateRenderState].
-@JS('XRCylinderLayer')
-@staticInterop
-class XRCylinderLayer implements XRCompositionLayer {}
-
-extension XRCylinderLayerExtension on XRCylinderLayer {
+extension type XRCylinderLayer._(JSObject _)
+    implements XRCompositionLayer, JSObject {
   external set space(XRSpace value);
   external XRSpace get space;
   external set transform(XRRigidTransform value);
@@ -158,28 +79,8 @@ extension XRCylinderLayerExtension on XRCylinderLayer {
   external set onredraw(EventHandler value);
   external EventHandler get onredraw;
 }
-
-/// The **`XREquirectLayer`** interface of the
-/// [WebXR Device API](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API)
-/// is a layer that maps
-/// [equirectangular](https://en.wikipedia.org/wiki/Equirectangular_projection)
-/// coded data onto the inside of a sphere.
-///
-/// `XREquirectLayer` requires the `layers` feature to be enabled for the
-/// [XRSession]. You can request it in [XRSystem.requestSession].
-///
-/// To create a new `XREquirectLayer`, call either:
-///
-/// - [XRWebGLBinding.createEquirectLayer] for a WebGL opaque texture layer, or
-/// - [XRMediaBinding.createEquirectLayer] for an HTML `video` playback layer.
-///
-/// To present layers to the XR device, add them to the `layers` render state
-/// using [XRSession.updateRenderState].
-@JS('XREquirectLayer')
-@staticInterop
-class XREquirectLayer implements XRCompositionLayer {}
-
-extension XREquirectLayerExtension on XREquirectLayer {
+extension type XREquirectLayer._(JSObject _)
+    implements XRCompositionLayer, JSObject {
   external set space(XRSpace value);
   external XRSpace get space;
   external set transform(XRRigidTransform value);
@@ -195,25 +96,8 @@ extension XREquirectLayerExtension on XREquirectLayer {
   external set onredraw(EventHandler value);
   external EventHandler get onredraw;
 }
-
-/// The **`XRCubeLayer`** interface of the
-/// [WebXR Device API](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API)
-/// is a layer that renders directly from a
-/// [cubemap](https://en.wikipedia.org/wiki/Cube_mapping) and projects it onto
-/// the inside faces of a cube.
-///
-/// `XRCubeLayer` requires the `layers` feature to be enabled for the
-/// [XRSession]. You can request it in [XRSystem.requestSession].
-///
-/// To create a new `XRCubeLayer`, call [XRWebGLBinding.createCubeLayer].
-///
-/// To present layers to the XR device, add them to the `layers` render state
-/// using [XRSession.updateRenderState].
-@JS('XRCubeLayer')
-@staticInterop
-class XRCubeLayer implements XRCompositionLayer {}
-
-extension XRCubeLayerExtension on XRCubeLayer {
+extension type XRCubeLayer._(JSObject _)
+    implements XRCompositionLayer, JSObject {
   external set space(XRSpace value);
   external XRSpace get space;
   external set orientation(DOMPointReadOnly value);
@@ -221,25 +105,10 @@ extension XRCubeLayerExtension on XRCubeLayer {
   external set onredraw(EventHandler value);
   external EventHandler get onredraw;
 }
-
-/// The **`XRSubImage`** interface of the
-/// [WebXR Device API](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API)
-/// represents what viewport of the GPU texture to use for rendering.
-@JS('XRSubImage')
-@staticInterop
-class XRSubImage {}
-
-extension XRSubImageExtension on XRSubImage {
+extension type XRSubImage._(JSObject _) implements JSObject {
   external XRViewport get viewport;
 }
-
-/// The **`XRWebGLSubImage`** interface is used during rendering of WebGL
-/// layers.
-@JS('XRWebGLSubImage')
-@staticInterop
-class XRWebGLSubImage implements XRSubImage {}
-
-extension XRWebGLSubImageExtension on XRWebGLSubImage {
+extension type XRWebGLSubImage._(JSObject _) implements XRSubImage, JSObject {
   external WebGLTexture get colorTexture;
   external WebGLTexture? get depthStencilTexture;
   external WebGLTexture? get motionVectorTexture;
@@ -251,11 +120,7 @@ extension XRWebGLSubImageExtension on XRWebGLSubImage {
   external int? get motionVectorTextureWidth;
   external int? get motionVectorTextureHeight;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class XRProjectionLayerInit {
+extension type XRProjectionLayerInit._(JSObject _) implements JSObject {
   external factory XRProjectionLayerInit({
     XRTextureType textureType,
     GLenum colorFormat,
@@ -263,9 +128,7 @@ class XRProjectionLayerInit {
     num scaleFactor,
     bool clearOnAccess,
   });
-}
 
-extension XRProjectionLayerInitExtension on XRProjectionLayerInit {
   external set textureType(XRTextureType value);
   external XRTextureType get textureType;
   external set colorFormat(GLenum value);
@@ -277,11 +140,7 @@ extension XRProjectionLayerInitExtension on XRProjectionLayerInit {
   external set clearOnAccess(bool value);
   external bool get clearOnAccess;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class XRLayerInit {
+extension type XRLayerInit._(JSObject _) implements JSObject {
   external factory XRLayerInit({
     required XRSpace space,
     GLenum colorFormat,
@@ -293,9 +152,7 @@ class XRLayerInit {
     bool isStatic,
     bool clearOnAccess,
   });
-}
 
-extension XRLayerInitExtension on XRLayerInit {
   external set space(XRSpace value);
   external XRSpace get space;
   external set colorFormat(GLenum value);
@@ -315,20 +172,14 @@ extension XRLayerInitExtension on XRLayerInit {
   external set clearOnAccess(bool value);
   external bool get clearOnAccess;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class XRQuadLayerInit implements XRLayerInit {
+extension type XRQuadLayerInit._(JSObject _) implements XRLayerInit, JSObject {
   external factory XRQuadLayerInit({
     XRTextureType textureType,
     XRRigidTransform? transform,
     num width,
     num height,
   });
-}
 
-extension XRQuadLayerInitExtension on XRQuadLayerInit {
   external set textureType(XRTextureType value);
   external XRTextureType get textureType;
   external set transform(XRRigidTransform? value);
@@ -338,11 +189,8 @@ extension XRQuadLayerInitExtension on XRQuadLayerInit {
   external set height(num value);
   external num get height;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class XRCylinderLayerInit implements XRLayerInit {
+extension type XRCylinderLayerInit._(JSObject _)
+    implements XRLayerInit, JSObject {
   external factory XRCylinderLayerInit({
     XRTextureType textureType,
     XRRigidTransform? transform,
@@ -350,9 +198,7 @@ class XRCylinderLayerInit implements XRLayerInit {
     num centralAngle,
     num aspectRatio,
   });
-}
 
-extension XRCylinderLayerInitExtension on XRCylinderLayerInit {
   external set textureType(XRTextureType value);
   external XRTextureType get textureType;
   external set transform(XRRigidTransform? value);
@@ -364,11 +210,8 @@ extension XRCylinderLayerInitExtension on XRCylinderLayerInit {
   external set aspectRatio(num value);
   external num get aspectRatio;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class XREquirectLayerInit implements XRLayerInit {
+extension type XREquirectLayerInit._(JSObject _)
+    implements XRLayerInit, JSObject {
   external factory XREquirectLayerInit({
     XRTextureType textureType,
     XRRigidTransform? transform,
@@ -377,9 +220,7 @@ class XREquirectLayerInit implements XRLayerInit {
     num upperVerticalAngle,
     num lowerVerticalAngle,
   });
-}
 
-extension XREquirectLayerInitExtension on XREquirectLayerInit {
   external set textureType(XRTextureType value);
   external XRTextureType get textureType;
   external set transform(XRRigidTransform? value);
@@ -393,31 +234,18 @@ extension XREquirectLayerInitExtension on XREquirectLayerInit {
   external set lowerVerticalAngle(num value);
   external num get lowerVerticalAngle;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class XRCubeLayerInit implements XRLayerInit {
+extension type XRCubeLayerInit._(JSObject _) implements XRLayerInit, JSObject {
   external factory XRCubeLayerInit({DOMPointReadOnly? orientation});
-}
 
-extension XRCubeLayerInitExtension on XRCubeLayerInit {
   external set orientation(DOMPointReadOnly? value);
   external DOMPointReadOnly? get orientation;
 }
-
-/// The **`XRWebGLBinding`** interface is used to create layers that have a GPU
-/// backend.
-@JS('XRWebGLBinding')
-@staticInterop
-class XRWebGLBinding {
+extension type XRWebGLBinding._(JSObject _) implements JSObject {
   external factory XRWebGLBinding(
     XRSession session,
     XRWebGLRenderingContext context,
   );
-}
 
-extension XRWebGLBindingExtension on XRWebGLBinding {
   external WebGLTexture? getCameraImage(XRCamera camera);
 
   /// The **`getDepthInformation()`** method of the [XRWebGLBinding] interface
@@ -483,19 +311,13 @@ extension XRWebGLBindingExtension on XRWebGLBinding {
   external num get nativeProjectionScaleFactor;
   external bool get usesDepthValues;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class XRMediaLayerInit {
+extension type XRMediaLayerInit._(JSObject _) implements JSObject {
   external factory XRMediaLayerInit({
     required XRSpace space,
     XRLayerLayout layout,
     bool invertStereo,
   });
-}
 
-extension XRMediaLayerInitExtension on XRMediaLayerInit {
   external set space(XRSpace value);
   external XRSpace get space;
   external set layout(XRLayerLayout value);
@@ -503,19 +325,14 @@ extension XRMediaLayerInitExtension on XRMediaLayerInit {
   external set invertStereo(bool value);
   external bool get invertStereo;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class XRMediaQuadLayerInit implements XRMediaLayerInit {
+extension type XRMediaQuadLayerInit._(JSObject _)
+    implements XRMediaLayerInit, JSObject {
   external factory XRMediaQuadLayerInit({
     XRRigidTransform? transform,
     num? width,
     num? height,
   });
-}
 
-extension XRMediaQuadLayerInitExtension on XRMediaQuadLayerInit {
   external set transform(XRRigidTransform? value);
   external XRRigidTransform? get transform;
   external set width(num? value);
@@ -523,20 +340,15 @@ extension XRMediaQuadLayerInitExtension on XRMediaQuadLayerInit {
   external set height(num? value);
   external num? get height;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class XRMediaCylinderLayerInit implements XRMediaLayerInit {
+extension type XRMediaCylinderLayerInit._(JSObject _)
+    implements XRMediaLayerInit, JSObject {
   external factory XRMediaCylinderLayerInit({
     XRRigidTransform? transform,
     num radius,
     num centralAngle,
     num? aspectRatio,
   });
-}
 
-extension XRMediaCylinderLayerInitExtension on XRMediaCylinderLayerInit {
   external set transform(XRRigidTransform? value);
   external XRRigidTransform? get transform;
   external set radius(num value);
@@ -546,11 +358,8 @@ extension XRMediaCylinderLayerInitExtension on XRMediaCylinderLayerInit {
   external set aspectRatio(num? value);
   external num? get aspectRatio;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class XRMediaEquirectLayerInit implements XRMediaLayerInit {
+extension type XRMediaEquirectLayerInit._(JSObject _)
+    implements XRMediaLayerInit, JSObject {
   external factory XRMediaEquirectLayerInit({
     XRRigidTransform? transform,
     num radius,
@@ -558,9 +367,7 @@ class XRMediaEquirectLayerInit implements XRMediaLayerInit {
     num upperVerticalAngle,
     num lowerVerticalAngle,
   });
-}
 
-extension XRMediaEquirectLayerInitExtension on XRMediaEquirectLayerInit {
   external set transform(XRRigidTransform? value);
   external XRRigidTransform? get transform;
   external set radius(num value);
@@ -572,20 +379,9 @@ extension XRMediaEquirectLayerInitExtension on XRMediaEquirectLayerInit {
   external set lowerVerticalAngle(num value);
   external num get lowerVerticalAngle;
 }
-
-/// The **`XRMediaBinding`** interface is used to create layers that display the
-/// content of an [HTMLVideoElement].
-///
-/// > **Note:**
-/// > Only the video frames will be displayed in the layer. Video controls need
-/// > to be implemented separately and must be drawn in another layer.
-@JS('XRMediaBinding')
-@staticInterop
-class XRMediaBinding {
+extension type XRMediaBinding._(JSObject _) implements JSObject {
   external factory XRMediaBinding(XRSession session);
-}
 
-extension XRMediaBindingExtension on XRMediaBinding {
   /// The **`createQuadLayer()`** method of the [XRMediaBinding] interface
   /// returns an [XRQuadLayer] object which is a layer that takes up a flat
   /// rectangular space in the virtual environment.
@@ -610,32 +406,17 @@ extension XRMediaBindingExtension on XRMediaBinding {
     XRMediaEquirectLayerInit init,
   ]);
 }
-
-/// The **`XRLayerEvent`** interface of the
-/// [WebXR Device API](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API)
-/// is the event type for events related to a change of state of an [XRLayer]
-/// object. These events occur, for example, when the layer needs to be redrawn.
-@JS('XRLayerEvent')
-@staticInterop
-class XRLayerEvent implements Event {
+extension type XRLayerEvent._(JSObject _) implements Event, JSObject {
   external factory XRLayerEvent(
     String type,
     XRLayerEventInit eventInitDict,
   );
-}
 
-extension XRLayerEventExtension on XRLayerEvent {
   external XRLayer get layer;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class XRLayerEventInit implements EventInit {
+extension type XRLayerEventInit._(JSObject _) implements EventInit, JSObject {
   external factory XRLayerEventInit({required XRLayer layer});
-}
 
-extension XRLayerEventInitExtension on XRLayerEventInit {
   external set layer(XRLayer value);
   external XRLayer get layer;
 }

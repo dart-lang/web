@@ -134,22 +134,7 @@ typedef PremultiplyAlpha = String;
 typedef ColorSpaceConversion = String;
 typedef ResizeQuality = String;
 typedef WorkerType = String;
-
-/// The **`HTMLAllCollection`** interface represents a collection of _all_ of
-/// the document's elements, accessible by index (like an array) and by the
-/// element's
-/// [`id`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id).
-/// It is returned by the [document.all] property.
-///
-/// `HTMLAllCollection` has a very similar shape to [HTMLCollection], but there
-/// are many subtle behavior differences — for example, `HTMLAllCollection` can
-/// be called as a function, and its `item()` method can be called with a string
-/// representing an element's `id` or `name` attribute.
-@JS('HTMLAllCollection')
-@staticInterop
-class HTMLAllCollection {}
-
-extension HTMLAllCollectionExtension on HTMLAllCollection {
+extension type HTMLAllCollection._(JSObject _) implements JSObject {
   /// The **`namedItem()`** method of the [HTMLAllCollection] interface returns
   /// the first [Element] in the collection whose `id` or `name` attribute
   /// matches the specified name, or `null` if no element matches.
@@ -161,18 +146,8 @@ extension HTMLAllCollectionExtension on HTMLAllCollection {
   external JSObject? item([String nameOrIndex]);
   external int get length;
 }
-
-/// The **`HTMLFormControlsCollection`** interface represents a _collection_ of
-/// HTML _form control elements_, returned by the [HTMLFormElement] interface's
-/// [HTMLFormElement.elements] property.
-///
-/// This interface replaces one method from [HTMLCollection], on which it is
-/// based.
-@JS('HTMLFormControlsCollection')
-@staticInterop
-class HTMLFormControlsCollection implements HTMLCollection {}
-
-extension HTMLFormControlsCollectionExtension on HTMLFormControlsCollection {
+extension type HTMLFormControlsCollection._(JSObject _)
+    implements HTMLCollection, JSObject {
   /// The **`HTMLFormControlsCollection.namedItem()`** method returns
   /// the [RadioNodeList] or the [Element] in the collection whose
   /// `name` or `id` match the specified name, or `null` if
@@ -184,30 +159,12 @@ extension HTMLFormControlsCollectionExtension on HTMLFormControlsCollection {
   /// equivalent to `collection.namedItem("value")`.
   external JSObject? namedItem(String name);
 }
-
-/// The **`RadioNodeList`** interface represents a collection of elements in a
-/// `form` or a `fieldset` element, returned by a call to
-/// [HTMLFormControlsCollection.namedItem].
-@JS('RadioNodeList')
-@staticInterop
-class RadioNodeList implements NodeList {}
-
-extension RadioNodeListExtension on RadioNodeList {
+extension type RadioNodeList._(JSObject _) implements NodeList, JSObject {
   external set value(String value);
   external String get value;
 }
-
-/// The **`HTMLOptionsCollection`** interface represents a collection of
-/// [`<option>`](/en-US/docs/Web/HTML/Element/option) HTML elements (in document
-/// order) and offers methods and properties for selecting from the list as well
-/// as optionally altering its items. This object is returned only by the
-/// `options` property of
-/// [select](https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement).
-@JS('HTMLOptionsCollection')
-@staticInterop
-class HTMLOptionsCollection implements HTMLCollection {}
-
-extension HTMLOptionsCollectionExtension on HTMLOptionsCollection {
+extension type HTMLOptionsCollection._(JSObject _)
+    implements HTMLCollection, JSObject {
   external void add(
     JSObject element, [
     JSAny? before,
@@ -218,23 +175,7 @@ extension HTMLOptionsCollectionExtension on HTMLOptionsCollection {
   external set selectedIndex(int value);
   external int get selectedIndex;
 }
-
-/// The **`DOMString`** interface is a legacy type returned by some APIs and
-/// represents a non-modifiable list of strings (`DOMString`). Modern APIs use
-/// `Array` objects (in WebIDL: `sequence<DOMString>`) instead.
-///
-/// This interface is used in
-/// [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
-/// and in the [Location] API:
-///
-/// - [IDBDatabase.objectStoreNames]
-/// - [IDBObjectStore.indexNames]
-/// - [Location.ancestorOrigins]
-@JS('DOMStringList')
-@staticInterop
-class DOMStringList {}
-
-extension DOMStringListExtension on DOMStringList {
+extension type DOMStringList._(JSObject _) implements JSObject {
   /// The **`item()`** method returns a string from a
   /// [`DOMStringList`](https://developer.mozilla.org/en-US/docs/Web/API/DOMStringList)
   /// by index.
@@ -245,18 +186,9 @@ extension DOMStringListExtension on DOMStringList {
   external bool contains(String string);
   external int get length;
 }
-
-/// The **`HTMLElement`** interface represents any
-/// [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) element. Some
-/// elements directly implement this interface, while others implement it via an
-/// interface that inherits it.
-@JS('HTMLElement')
-@staticInterop
-class HTMLElement implements Element {
+extension type HTMLElement._(JSObject _) implements Element, JSObject {
   external factory HTMLElement();
-}
 
-extension HTMLElementExtension on HTMLElement {
   /// The **`HTMLElement.click()`** method simulates a mouse click on
   /// an element.
   ///
@@ -591,91 +523,35 @@ extension HTMLElementExtension on HTMLElement {
   external set tabIndex(int value);
   external int get tabIndex;
 }
-
-/// The **`HTMLUnknownElement`** interface represents an invalid HTML element
-/// and derives from the [HTMLElement] interface, but without implementing any
-/// additional properties or methods.
-@JS('HTMLUnknownElement')
-@staticInterop
-class HTMLUnknownElement implements HTMLElement {}
-
-/// The **`DOMStringMap`** interface is used for the [HTMLElement.dataset]
-/// attribute, to represent data for custom attributes added to elements.
-@JS('DOMStringMap')
-@staticInterop
-class DOMStringMap {}
-
-/// The **`HTMLHtmlElement`** interface serves as the root node for a given HTML
-/// document. This object inherits the properties and methods described in the
-/// [HTMLElement] interface.
-///
-/// You can retrieve the `HTMLHtmlElement` object for a given document by
-/// reading the value of the [document.documentElement] property.
-@JS('HTMLHtmlElement')
-@staticInterop
-class HTMLHtmlElement implements HTMLElement {
+extension type HTMLUnknownElement._(JSObject _)
+    implements HTMLElement, JSObject {}
+extension type DOMStringMap._(JSObject _) implements JSObject {}
+extension type HTMLHtmlElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLHtmlElement();
-}
 
-extension HTMLHtmlElementExtension on HTMLHtmlElement {
   external set version(String value);
   external String get version;
 }
-
-/// The **`HTMLHeadElement`** interface contains the descriptive information, or
-/// metadata, for a document. This object inherits all of the properties and
-/// methods described in the [HTMLElement] interface.
-@JS('HTMLHeadElement')
-@staticInterop
-class HTMLHeadElement implements HTMLElement {
+extension type HTMLHeadElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLHeadElement();
 }
-
-/// The **`HTMLTitleElement`** interface is implemented by a document's `title`.
-/// This element inherits all of the properties and methods of the [HTMLElement]
-/// interface.
-@JS('HTMLTitleElement')
-@staticInterop
-class HTMLTitleElement implements HTMLElement {
+extension type HTMLTitleElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLTitleElement();
-}
 
-extension HTMLTitleElementExtension on HTMLTitleElement {
   external set text(String value);
   external String get text;
 }
-
-/// The **`HTMLBaseElement`** interface contains the base URI for a document.
-/// This object inherits all of the properties and methods as described in the
-/// [HTMLElement] interface.
-@JS('HTMLBaseElement')
-@staticInterop
-class HTMLBaseElement implements HTMLElement {
+extension type HTMLBaseElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLBaseElement();
-}
 
-extension HTMLBaseElementExtension on HTMLBaseElement {
   external set href(String value);
   external String get href;
   external set target(String value);
   external String get target;
 }
-
-/// The **`HTMLLinkElement`** interface represents reference information for
-/// external resources and the relationship of those resources to a document and
-/// vice versa (corresponds to [`<link>`](/en-US/docs/Web/HTML/Element/link)
-/// element; not to be confused with [`<a>`](/en-US/docs/Web/HTML/Element/a),
-/// which is represented by
-/// [`HTMLAnchorElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLAnchorElement)).
-/// This object inherits all of the properties and methods of the [HTMLElement]
-/// interface.
-@JS('HTMLLinkElement')
-@staticInterop
-class HTMLLinkElement implements HTMLElement {
+extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLLinkElement();
-}
 
-extension HTMLLinkElementExtension on HTMLLinkElement {
   external set href(String value);
   external String get href;
   external set crossOrigin(String? value);
@@ -713,19 +589,9 @@ extension HTMLLinkElementExtension on HTMLLinkElement {
   external String get target;
   external CSSStyleSheet? get sheet;
 }
-
-/// The **`HTMLMetaElement`** interface contains descriptive metadata about a
-/// document provided in HTML as [`<meta>`](/en-US/docs/Web/HTML/Element/meta)
-/// elements.
-/// This interface inherits all of the properties and methods described in the
-/// [HTMLElement] interface.
-@JS('HTMLMetaElement')
-@staticInterop
-class HTMLMetaElement implements HTMLElement {
+extension type HTMLMetaElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLMetaElement();
-}
 
-extension HTMLMetaElementExtension on HTMLMetaElement {
   external set name(String value);
   external String get name;
   external set httpEquiv(String value);
@@ -737,22 +603,9 @@ extension HTMLMetaElementExtension on HTMLMetaElement {
   external set scheme(String value);
   external String get scheme;
 }
-
-/// The **`HTMLStyleElement`** interface represents a `style` element. It
-/// inherits properties and methods from its parent, [HTMLElement].
-///
-/// This interface doesn't allow to manipulate the CSS it contains (in most
-/// case). To manipulate CSS, see
-/// [Using dynamic styling information](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model/Using_dynamic_styling_information)
-/// for an overview of the objects used to manipulate specified CSS properties
-/// using the DOM.
-@JS('HTMLStyleElement')
-@staticInterop
-class HTMLStyleElement implements HTMLElement {
+extension type HTMLStyleElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLStyleElement();
-}
 
-extension HTMLStyleElementExtension on HTMLStyleElement {
   external set disabled(bool value);
   external bool get disabled;
   external set media(String value);
@@ -762,17 +615,9 @@ extension HTMLStyleElementExtension on HTMLStyleElement {
   external String get type;
   external CSSStyleSheet? get sheet;
 }
-
-/// The **`HTMLBodyElement`** interface provides special properties (beyond
-/// those inherited from the regular [HTMLElement] interface) for manipulating
-/// `body` elements.
-@JS('HTMLBodyElement')
-@staticInterop
-class HTMLBodyElement implements HTMLElement {
+extension type HTMLBodyElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLBodyElement();
-}
 
-extension HTMLBodyElementExtension on HTMLBodyElement {
   external set onorientationchange(EventHandler value);
   external EventHandler get onorientationchange;
   external set text(String value);
@@ -826,46 +671,23 @@ extension HTMLBodyElementExtension on HTMLBodyElement {
   external set onportalactivate(EventHandler value);
   external EventHandler get onportalactivate;
 }
-
-/// The **`HTMLHeadingElement`** interface represents the different heading
-/// elements, [`<h1>` through
-/// `<h6>`](/en-US/docs/Web/HTML/Element/Heading_Elements). It inherits methods
-/// and properties from the [HTMLElement] interface.
-@JS('HTMLHeadingElement')
-@staticInterop
-class HTMLHeadingElement implements HTMLElement {
+extension type HTMLHeadingElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLHeadingElement();
-}
 
-extension HTMLHeadingElementExtension on HTMLHeadingElement {
   external set align(String value);
   external String get align;
 }
-
-/// The **`HTMLParagraphElement`** interface provides special properties (beyond
-/// those of the regular [HTMLElement] object interface it inherits) for
-/// manipulating `p` elements.
-@JS('HTMLParagraphElement')
-@staticInterop
-class HTMLParagraphElement implements HTMLElement {
+extension type HTMLParagraphElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLParagraphElement();
-}
 
-extension HTMLParagraphElementExtension on HTMLParagraphElement {
   external set align(String value);
   external String get align;
 }
-
-/// The **`HTMLHRElement`** interface provides special properties (beyond those
-/// of the [HTMLElement] interface it also has available to it by inheritance)
-/// for manipulating `hr` elements.
-@JS('HTMLHRElement')
-@staticInterop
-class HTMLHRElement implements HTMLElement {
+extension type HTMLHRElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLHRElement();
-}
 
-extension HTMLHRElementExtension on HTMLHRElement {
   external set align(String value);
   external String get align;
   external set color(String value);
@@ -877,46 +699,21 @@ extension HTMLHRElementExtension on HTMLHRElement {
   external set width(String value);
   external String get width;
 }
-
-/// The **`HTMLPreElement`** interface exposes specific properties and methods
-/// (beyond those of the [HTMLElement] interface it also has available to it by
-/// inheritance) for manipulating a block of preformatted text (`pre`).
-@JS('HTMLPreElement')
-@staticInterop
-class HTMLPreElement implements HTMLElement {
+extension type HTMLPreElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLPreElement();
-}
 
-extension HTMLPreElementExtension on HTMLPreElement {
   external set width(int value);
   external int get width;
 }
-
-/// The **`HTMLQuoteElement`** interface provides special properties and methods
-/// (beyond the regular [HTMLElement] interface it also has available to it by
-/// inheritance) for manipulating quoting elements, like `blockquote` and `q`,
-/// but not the `cite` element.
-@JS('HTMLQuoteElement')
-@staticInterop
-class HTMLQuoteElement implements HTMLElement {
+extension type HTMLQuoteElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLQuoteElement();
-}
 
-extension HTMLQuoteElementExtension on HTMLQuoteElement {
   external set cite(String value);
   external String get cite;
 }
-
-/// The **`HTMLOListElement`** interface provides special properties (beyond
-/// those defined on the regular [HTMLElement] interface it also has available
-/// to it by inheritance) for manipulating ordered list elements.
-@JS('HTMLOListElement')
-@staticInterop
-class HTMLOListElement implements HTMLElement {
+extension type HTMLOListElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLOListElement();
-}
 
-extension HTMLOListElementExtension on HTMLOListElement {
   external set reversed(bool value);
   external bool get reversed;
   external set start(int value);
@@ -926,96 +723,44 @@ extension HTMLOListElementExtension on HTMLOListElement {
   external set compact(bool value);
   external bool get compact;
 }
-
-/// The **`HTMLUListElement`** interface provides special properties (beyond
-/// those defined on the regular [HTMLElement] interface it also has available
-/// to it by inheritance) for manipulating unordered list (`ul`) elements.
-@JS('HTMLUListElement')
-@staticInterop
-class HTMLUListElement implements HTMLElement {
+extension type HTMLUListElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLUListElement();
-}
 
-extension HTMLUListElementExtension on HTMLUListElement {
   external set compact(bool value);
   external bool get compact;
   external set type(String value);
   external String get type;
 }
-
-/// The **`HTMLMenuElement`** interface provides additional properties (beyond
-/// those inherited from the [HTMLElement] interface) for manipulating a `menu`
-/// element.
-/// `<menu>` is a semantic alternative to the `ul` element.
-@JS('HTMLMenuElement')
-@staticInterop
-class HTMLMenuElement implements HTMLElement {
+extension type HTMLMenuElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLMenuElement();
-}
 
-extension HTMLMenuElementExtension on HTMLMenuElement {
   external set compact(bool value);
   external bool get compact;
 }
-
-/// The **`HTMLLIElement`** interface exposes specific properties and methods
-/// (beyond those defined by regular [HTMLElement] interface it also has
-/// available to it by inheritance) for manipulating list elements.
-@JS('HTMLLIElement')
-@staticInterop
-class HTMLLIElement implements HTMLElement {
+extension type HTMLLIElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLLIElement();
-}
 
-extension HTMLLIElementExtension on HTMLLIElement {
   external set value(int value);
   external int get value;
   external set type(String value);
   external String get type;
 }
-
-/// The **`HTMLDListElement`** interface provides special properties (beyond
-/// those of the regular [HTMLElement] interface it also has available to it by
-/// inheritance) for manipulating definition list (`dl`) elements.
-@JS('HTMLDListElement')
-@staticInterop
-class HTMLDListElement implements HTMLElement {
+extension type HTMLDListElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLDListElement();
-}
 
-extension HTMLDListElementExtension on HTMLDListElement {
   external set compact(bool value);
   external bool get compact;
 }
-
-/// The **`HTMLDivElement`** interface provides special properties (beyond the
-/// regular [HTMLElement] interface it also has available to it by inheritance)
-/// for manipulating `div` elements.
-@JS('HTMLDivElement')
-@staticInterop
-class HTMLDivElement implements HTMLElement {
+extension type HTMLDivElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLDivElement();
-}
 
-extension HTMLDivElementExtension on HTMLDivElement {
   external set align(String value);
   external String get align;
 }
-
-/// The **`HTMLAnchorElement`** interface represents hyperlink elements and
-/// provides special properties and methods (beyond those of the regular
-/// [HTMLElement] object interface that they inherit from) for manipulating the
-/// layout and presentation of such elements. This interface corresponds to
-/// [`<a>`](/en-US/docs/Web/HTML/Element/a) element; not to be confused with
-/// [`<link>`](/en-US/docs/Web/HTML/Element/link), which is represented by
-/// [`HTMLLinkElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLLinkElement).
-@JS('HTMLAnchorElement')
-@staticInterop
-class HTMLAnchorElement implements HTMLElement {
+extension type HTMLAnchorElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLAnchorElement();
-}
 
-extension HTMLAnchorElementExtension on HTMLAnchorElement {
   external set target(String value);
   external String get target;
   external set download(String value);
@@ -1069,92 +814,43 @@ extension HTMLAnchorElementExtension on HTMLAnchorElement {
   external set hash(String value);
   external String get hash;
 }
-
-/// The **`HTMLDataElement`** interface provides special properties (beyond the
-/// regular [HTMLElement] interface it also has available to it by inheritance)
-/// for manipulating `data` elements.
-@JS('HTMLDataElement')
-@staticInterop
-class HTMLDataElement implements HTMLElement {
+extension type HTMLDataElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLDataElement();
-}
 
-extension HTMLDataElementExtension on HTMLDataElement {
   external set value(String value);
   external String get value;
 }
-
-/// The **`HTMLTimeElement`** interface provides special properties (beyond the
-/// regular [HTMLElement] interface it also has available to it by inheritance)
-/// for manipulating `time` elements.
-@JS('HTMLTimeElement')
-@staticInterop
-class HTMLTimeElement implements HTMLElement {
+extension type HTMLTimeElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLTimeElement();
-}
 
-extension HTMLTimeElementExtension on HTMLTimeElement {
   external set dateTime(String value);
   external String get dateTime;
 }
-
-/// The **`HTMLSpanElement`** interface represents a `span` element and derives
-/// from the [HTMLElement] interface, but without implementing any additional
-/// properties or methods.
-@JS('HTMLSpanElement')
-@staticInterop
-class HTMLSpanElement implements HTMLElement {
+extension type HTMLSpanElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLSpanElement();
 }
-
-/// The **`HTMLBRElement`** interface represents an HTML line break element
-/// (`br`). It inherits from [HTMLElement].
-@JS('HTMLBRElement')
-@staticInterop
-class HTMLBRElement implements HTMLElement {
+extension type HTMLBRElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLBRElement();
-}
 
-extension HTMLBRElementExtension on HTMLBRElement {
   external set clear(String value);
   external String get clear;
 }
-
-/// The **`HTMLModElement`** interface provides special properties (beyond the
-/// regular methods and properties available through the [HTMLElement] interface
-/// they also have available to them by inheritance) for manipulating
-/// modification elements, that is `del` and `ins`.
-@JS('HTMLModElement')
-@staticInterop
-class HTMLModElement implements HTMLElement {
+extension type HTMLModElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLModElement();
-}
 
-extension HTMLModElementExtension on HTMLModElement {
   external set cite(String value);
   external String get cite;
   external set dateTime(String value);
   external String get dateTime;
 }
-
-/// The **`HTMLPictureElement`** interface represents a `picture` HTML element.
-/// It doesn't implement specific properties or methods.
-@JS('HTMLPictureElement')
-@staticInterop
-class HTMLPictureElement implements HTMLElement {
+extension type HTMLPictureElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLPictureElement();
 }
-
-/// The **`HTMLSourceElement`** interface provides special properties (beyond
-/// the regular [HTMLElement] object interface it also has available to it by
-/// inheritance) for manipulating `source` elements.
-@JS('HTMLSourceElement')
-@staticInterop
-class HTMLSourceElement implements HTMLElement {
+extension type HTMLSourceElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLSourceElement();
-}
 
-extension HTMLSourceElementExtension on HTMLSourceElement {
   external set src(String value);
   external String get src;
   external set type(String value);
@@ -1170,16 +866,9 @@ extension HTMLSourceElementExtension on HTMLSourceElement {
   external set height(int value);
   external int get height;
 }
-
-/// The **`HTMLImageElement`** interface represents an HTML `img` element,
-/// providing the properties and methods used to manipulate image elements.
-@JS('HTMLImageElement')
-@staticInterop
-class HTMLImageElement implements HTMLElement {
+extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLImageElement();
-}
 
-extension HTMLImageElementExtension on HTMLImageElement {
   /// The **`decode()`**
   /// method of the [HTMLImageElement] interface returns a
   /// `Promise` that resolves once the image is decoded and it is safe to append
@@ -1245,18 +934,10 @@ extension HTMLImageElementExtension on HTMLImageElement {
   external set sharedStorageWritable(bool value);
   external bool get sharedStorageWritable;
 }
-
-/// The **`HTMLIFrameElement`** interface provides special properties and
-/// methods (beyond those of the [HTMLElement] interface it also has available
-/// to it by inheritance) for manipulating the layout and presentation of inline
-/// frame elements.
-@JS('HTMLIFrameElement')
-@staticInterop
-class HTMLIFrameElement implements HTMLElement {
+extension type HTMLIFrameElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLIFrameElement();
-}
 
-extension HTMLIFrameElementExtension on HTMLIFrameElement {
   external Document? getSVGDocument();
   external set csp(String value);
   external String get csp;
@@ -1299,21 +980,9 @@ extension HTMLIFrameElementExtension on HTMLIFrameElement {
   external set sharedStorageWritable(bool value);
   external bool get sharedStorageWritable;
 }
-
-/// The **`HTMLEmbedElement`** interface provides special properties (beyond the
-/// regular [HTMLElement] interface it also has available to it by inheritance)
-/// for manipulating `embed` elements.
-///
-/// > **Note:** This topic describes the `HTMLEmbedElement` interface as defined
-/// > in the standard. It does not address earlier, non-standardized version of
-/// > the interface.
-@JS('HTMLEmbedElement')
-@staticInterop
-class HTMLEmbedElement implements HTMLElement {
+extension type HTMLEmbedElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLEmbedElement();
-}
 
-extension HTMLEmbedElementExtension on HTMLEmbedElement {
   external Document? getSVGDocument();
   external set src(String value);
   external String get src;
@@ -1328,18 +997,10 @@ extension HTMLEmbedElementExtension on HTMLEmbedElement {
   external set name(String value);
   external String get name;
 }
-
-/// The **`HTMLObjectElement`** interface provides special properties and
-/// methods (beyond those on the [HTMLElement] interface it also has available
-/// to it by inheritance) for manipulating the layout and presentation of
-/// `object` element, representing external resources.
-@JS('HTMLObjectElement')
-@staticInterop
-class HTMLObjectElement implements HTMLElement {
+extension type HTMLObjectElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLObjectElement();
-}
 
-extension HTMLObjectElementExtension on HTMLObjectElement {
   external Document? getSVGDocument();
 
   /// The **`checkValidity()`** method of the
@@ -1392,25 +1053,10 @@ extension HTMLObjectElementExtension on HTMLObjectElement {
   external set border(String value);
   external String get border;
 }
-
-/// Implemented by the `video` element, the **`HTMLVideoElement`** interface
-/// provides special properties and methods for manipulating video objects. It
-/// also inherits properties and methods of [HTMLMediaElement] and
-/// [HTMLElement].
-///
-/// The list of
-/// [supported media formats](https://developer.mozilla.org/en-US/docs/Web/Media/Formats)
-/// varies from one browser to the other. You should either provide your video
-/// in a single format that all the relevant browsers supports, or provide
-/// multiple video sources in enough different formats that all the browsers you
-/// need to support are covered.
-@JS('HTMLVideoElement')
-@staticInterop
-class HTMLVideoElement implements HTMLMediaElement {
+extension type HTMLVideoElement._(JSObject _)
+    implements HTMLMediaElement, JSObject {
   external factory HTMLVideoElement();
-}
 
-extension HTMLVideoElementExtension on HTMLVideoElement {
   /// The **[HTMLVideoElement]** method
   /// **`getVideoPlaybackQuality()`** creates and returns a
   /// [VideoPlaybackQuality] object containing metrics including how many
@@ -1448,34 +1094,17 @@ extension HTMLVideoElementExtension on HTMLVideoElement {
   external set disablePictureInPicture(bool value);
   external bool get disablePictureInPicture;
 }
-
-/// The **`HTMLAudioElement`** interface provides access to the properties of
-/// `audio` elements, as well as methods to manipulate them.
-///
-/// This element is based on, and inherits properties and methods from, the
-/// [HTMLMediaElement] interface.
-@JS('HTMLAudioElement')
-@staticInterop
-class HTMLAudioElement implements HTMLMediaElement {
+extension type HTMLAudioElement._(JSObject _)
+    implements HTMLMediaElement, JSObject {
   external factory HTMLAudioElement();
 }
-
-/// The **`HTMLTrackElement`** interface represents an  `track` element within
-/// the . This element can be used as a child of either `audio` or `video` to
-/// specify a text track containing information such as closed captions or
-/// subtitles.
-@JS('HTMLTrackElement')
-@staticInterop
-class HTMLTrackElement implements HTMLElement {
+extension type HTMLTrackElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLTrackElement();
 
   external static int get NONE;
   external static int get LOADING;
   external static int get LOADED;
   external static int get ERROR;
-}
-
-extension HTMLTrackElementExtension on HTMLTrackElement {
   external set kind(String value);
   external String get kind;
   external set src(String value);
@@ -1491,16 +1120,7 @@ extension HTMLTrackElementExtension on HTMLTrackElement {
   external int get readyState;
   external TextTrack get track;
 }
-
-/// The **`HTMLMediaElement`** interface adds to [HTMLElement] the properties
-/// and methods needed to support basic media-related capabilities that are
-/// common to audio and video.
-///
-/// The [HTMLVideoElement] and [HTMLAudioElement] elements both inherit this
-/// interface.
-@JS('HTMLMediaElement')
-@staticInterop
-class HTMLMediaElement implements HTMLElement {
+extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   external static int get NETWORK_EMPTY;
   external static int get NETWORK_IDLE;
   external static int get NETWORK_LOADING;
@@ -1510,9 +1130,7 @@ class HTMLMediaElement implements HTMLElement {
   external static int get HAVE_CURRENT_DATA;
   external static int get HAVE_FUTURE_DATA;
   external static int get HAVE_ENOUGH_DATA;
-}
 
-extension HTMLMediaElementExtension on HTMLMediaElement {
   /// The **`HTMLMediaElement.setSinkId()`** method of the
   /// [Audio Output Devices API](https://developer.mozilla.org/en-US/docs/Web/API/Audio_Output_Devices_API)
   /// sets the ID of the audio device to use for output and returns a `Promise`.
@@ -1645,39 +1263,15 @@ extension HTMLMediaElementExtension on HTMLMediaElement {
   external set disableRemotePlayback(bool value);
   external bool get disableRemotePlayback;
 }
-
-/// The **`MediaError`** interface represents an error which occurred while
-/// handling media in an HTML media element based on [HTMLMediaElement], such as
-/// `audio` or `video`.
-///
-/// A `MediaError` object describes the error in general terms using a numeric
-/// `code` categorizing the kind of error, and a `message`, which provides
-/// specific diagnostics about what went wrong.
-@JS('MediaError')
-@staticInterop
-class MediaError {
+extension type MediaError._(JSObject _) implements JSObject {
   external static int get MEDIA_ERR_ABORTED;
   external static int get MEDIA_ERR_NETWORK;
   external static int get MEDIA_ERR_DECODE;
   external static int get MEDIA_ERR_SRC_NOT_SUPPORTED;
-}
-
-extension MediaErrorExtension on MediaError {
   external int get code;
   external String get message;
 }
-
-/// The **`AudioTrackList`** interface is used to represent a list of the audio
-/// tracks contained within a given HTML media element, with each track
-/// represented by a separate [AudioTrack] object in the list.
-///
-/// Retrieve an instance of this object with [HTMLMediaElement.audioTracks]. The
-/// individual tracks can be accessed using array syntax.
-@JS('AudioTrackList')
-@staticInterop
-class AudioTrackList implements EventTarget {}
-
-extension AudioTrackListExtension on AudioTrackList {
+extension type AudioTrackList._(JSObject _) implements EventTarget, JSObject {
   /// The **[AudioTrackList]** method
   /// **`getTrackById()`** returns the first
   /// [AudioTrack] object from the track list whose [AudioTrack.id] matches the
@@ -1692,17 +1286,7 @@ extension AudioTrackListExtension on AudioTrackList {
   external set onremovetrack(EventHandler value);
   external EventHandler get onremovetrack;
 }
-
-/// The **`AudioTrack`** interface represents a single audio track from one of
-/// the HTML media elements, `audio` or `video`.
-///
-/// The most common use for accessing an `AudioTrack` object is to toggle its
-/// [AudioTrack.enabled] property in order to mute and unmute the track.
-@JS('AudioTrack')
-@staticInterop
-class AudioTrack {}
-
-extension AudioTrackExtension on AudioTrack {
+extension type AudioTrack._(JSObject _) implements JSObject {
   external String get id;
   external String get kind;
   external String get label;
@@ -1711,19 +1295,7 @@ extension AudioTrackExtension on AudioTrack {
   external bool get enabled;
   external SourceBuffer? get sourceBuffer;
 }
-
-/// The **`VideoTrackList`** interface is used to represent a list of the video
-/// tracks contained within a `video` element, with each track represented by a
-/// separate [VideoTrack] object in the list.
-///
-/// Retrieve an instance of this object with [HTMLMediaElement.videoTracks]. The
-/// individual tracks can be accessed using array syntax or functions such as
-/// `forEach()` for example.
-@JS('VideoTrackList')
-@staticInterop
-class VideoTrackList implements EventTarget {}
-
-extension VideoTrackListExtension on VideoTrackList {
+extension type VideoTrackList._(JSObject _) implements EventTarget, JSObject {
   /// The **[VideoTrackList]** method
   /// **`getTrackById()`** returns the first
   /// [VideoTrack] object from the track list whose [VideoTrack.id] matches the
@@ -1741,18 +1313,7 @@ extension VideoTrackListExtension on VideoTrackList {
   external set onremovetrack(EventHandler value);
   external EventHandler get onremovetrack;
 }
-
-/// The [VideoTrack] interface represents a single video track from a `video`
-/// element.
-///
-/// The most common use for accessing a `VideoTrack` object is to toggle its
-/// [VideoTrack.selected] property in order to make it the active video track
-/// for its `video` element.
-@JS('VideoTrack')
-@staticInterop
-class VideoTrack {}
-
-extension VideoTrackExtension on VideoTrack {
+extension type VideoTrack._(JSObject _) implements JSObject {
   external String get id;
   external String get kind;
   external String get label;
@@ -1761,28 +1322,7 @@ extension VideoTrackExtension on VideoTrack {
   external bool get selected;
   external SourceBuffer? get sourceBuffer;
 }
-
-/// The **`TextTrackList`** interface is used to represent a list of the text
-/// tracks defined by the `track` element, with each track represented by a
-/// separate [textTrack] object in the list.
-///
-/// Retrieve an instance of this object with the [HTMLMediaElement.textTracks]
-/// property of an [HTMLMediaElement] object.
-///
-/// For a given [HTMLMediaElement] object _media_, the individual tracks can be
-/// accessed using:
-///
-/// - `media.TextTracks[n]`, to get the n-th text track from the object's list
-///   of text tracks
-///
-/// - the
-///   `media.textTracks`.[`getTrackById()`](/en-US/docs/Web/API/TextTrackList/getTrackById)
-///   method
-@JS('TextTrackList')
-@staticInterop
-class TextTrackList implements EventTarget {}
-
-extension TextTrackListExtension on TextTrackList {
+extension type TextTrackList._(JSObject _) implements EventTarget, JSObject {
   /// The **[TextTrackList]** method
   /// **`getTrackById()`** returns the first
   /// [TextTrack] object from the track list whose
@@ -1799,15 +1339,7 @@ extension TextTrackListExtension on TextTrackList {
   external set onremovetrack(EventHandler value);
   external EventHandler get onremovetrack;
 }
-
-/// The `TextTrack` interface—part of the API for handling WebVTT (text tracks
-/// on media presentations)—describes and controls the text track associated
-/// with a particular `track` element.
-@JS('TextTrack')
-@staticInterop
-class TextTrack implements EventTarget {}
-
-extension TextTrackExtension on TextTrack {
+extension type TextTrack._(JSObject _) implements EventTarget, JSObject {
   /// The **`addCue()`** method of the [TextTrack] interface adds a new cue to
   /// the list of cues.
   external void addCue(TextTrackCue cue);
@@ -1828,36 +1360,14 @@ extension TextTrackExtension on TextTrack {
   external EventHandler get oncuechange;
   external SourceBuffer? get sourceBuffer;
 }
-
-/// The **`TextTrackCueList`** array-like object represents a dynamically
-/// updating list of [TextTrackCue] objects.
-///
-/// This interface has no constructor. Retrieve an instance of this object with
-/// [TextTrack.cues] which returns all of the cues in a [TextTrack] object.
-@JS('TextTrackCueList')
-@staticInterop
-class TextTrackCueList {}
-
-extension TextTrackCueListExtension on TextTrackCueList {
+extension type TextTrackCueList._(JSObject _) implements JSObject {
   /// The **`getCueById()`** method of the [TextTrackCueList] interface returns
   /// the first [VTTCue] in the list represented by the `TextTrackCueList`
   /// object whose identifier matches the value of `id`.
   external TextTrackCue? getCueById(String id);
   external int get length;
 }
-
-/// **`TextTrackCue`** is an abstract class which is used as the basis for the
-/// various derived cue types, such as [VTTCue]; you will instead work with
-/// those derived types. These cues represent strings of text presented for some
-/// duration of time during the performance of a [TextTrack]. The cue includes
-/// the start time (the time at which the text will be displayed) and the end
-/// time (the time at which it will be removed from the display), as well as
-/// other information.
-@JS('TextTrackCue')
-@staticInterop
-class TextTrackCue implements EventTarget {}
-
-extension TextTrackCueExtension on TextTrackCue {
+extension type TextTrackCue._(JSObject _) implements EventTarget, JSObject {
   external TextTrack? get track;
   external set id(String value);
   external String get id;
@@ -1872,21 +1382,7 @@ extension TextTrackCueExtension on TextTrackCue {
   external set onexit(EventHandler value);
   external EventHandler get onexit;
 }
-
-/// When loading a media resource for use by an `audio` or `video` element, the
-/// **`TimeRanges`** interface is used for representing the time ranges of the
-/// media resource that have been buffered, the time ranges that have been
-/// played, and the time ranges that are seekable.
-///
-/// A `TimeRanges` object includes one or more ranges of time, each specified by
-/// a starting time offset and an ending time offset. You reference each time
-/// range by using the `start()` and `end()` methods, passing the index number
-/// of the time range you want to retrieve.
-@JS('TimeRanges')
-@staticInterop
-class TimeRanges {}
-
-extension TimeRangesExtension on TimeRanges {
+extension type TimeRanges._(JSObject _) implements JSObject {
   /// The **`start()`** method of the [TimeRanges] interface returns the time
   /// offset at which a specified time range begins.
   external num start(int index);
@@ -1896,76 +1392,30 @@ extension TimeRangesExtension on TimeRanges {
   external num end(int index);
   external int get length;
 }
-
-/// The **`TrackEvent`** interface, which is part of the HTML DOM specification,
-/// is used for events which represent changes to a set of available tracks on
-/// an HTML media element; these events are `addtrack` and `removetrack`.
-///
-/// It's important not to confuse `TrackEvent` with the [RTCTrackEvent]
-/// interface, which is used for tracks which are part of an
-/// [RTCPeerConnection].
-///
-/// Events based on `TrackEvent` are always sent to one of the media track list
-/// types:
-///
-/// - Events involving video tracks are always sent to the [VideoTrackList]
-///   found in [HTMLMediaElement.videoTracks]
-/// - Events involving audio tracks are always sent to the [AudioTrackList]
-///   specified in [HTMLMediaElement.audioTracks]
-/// - Events affecting text tracks are sent to the [TextTrackList] object
-///   indicated by [HTMLMediaElement.textTracks].
-@JS('TrackEvent')
-@staticInterop
-class TrackEvent implements Event {
+extension type TrackEvent._(JSObject _) implements Event, JSObject {
   external factory TrackEvent(
     String type, [
     TrackEventInit eventInitDict,
   ]);
-}
 
-extension TrackEventExtension on TrackEvent {
   external JSObject? get track;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class TrackEventInit implements EventInit {
+extension type TrackEventInit._(JSObject _) implements EventInit, JSObject {
   external factory TrackEventInit({JSObject? track});
-}
 
-extension TrackEventInitExtension on TrackEventInit {
   external set track(JSObject? value);
   external JSObject? get track;
 }
-
-/// The **`HTMLMapElement`** interface provides special properties and methods
-/// (beyond those of the regular object [HTMLElement] interface it also has
-/// available to it by inheritance) for manipulating the layout and presentation
-/// of map elements.
-@JS('HTMLMapElement')
-@staticInterop
-class HTMLMapElement implements HTMLElement {
+extension type HTMLMapElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLMapElement();
-}
 
-extension HTMLMapElementExtension on HTMLMapElement {
   external set name(String value);
   external String get name;
   external HTMLCollection get areas;
 }
-
-/// The **`HTMLAreaElement`** interface provides special properties and methods
-/// (beyond those of the regular object [HTMLElement] interface it also has
-/// available to it by inheritance) for manipulating the layout and presentation
-/// of `area` elements.
-@JS('HTMLAreaElement')
-@staticInterop
-class HTMLAreaElement implements HTMLElement {
+extension type HTMLAreaElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLAreaElement();
-}
 
-extension HTMLAreaElementExtension on HTMLAreaElement {
   external set alt(String value);
   external String get alt;
   external set coords(String value);
@@ -2007,18 +1457,9 @@ extension HTMLAreaElementExtension on HTMLAreaElement {
   external set hash(String value);
   external String get hash;
 }
-
-/// The **`HTMLTableElement`** interface provides special properties and methods
-/// (beyond the regular [HTMLElement] object interface it also has available to
-/// it by inheritance) for manipulating the layout and presentation of tables in
-/// an HTML document.
-@JS('HTMLTableElement')
-@staticInterop
-class HTMLTableElement implements HTMLElement {
+extension type HTMLTableElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLTableElement();
-}
 
-extension HTMLTableElementExtension on HTMLTableElement {
   /// The **`HTMLTableElement.createCaption()`** method returns the
   /// `caption` element associated with a given `table`.
   /// If no `<caption>` element exists on the table, this method creates
@@ -2131,30 +1572,17 @@ extension HTMLTableElementExtension on HTMLTableElement {
   external set cellSpacing(String value);
   external String get cellSpacing;
 }
-
-/// The **`HTMLTableCaptionElement`** interface provides special properties
-/// (beyond the regular [HTMLElement] interface it also has available to it by
-/// inheritance) for manipulating table `caption` elements.
-@JS('HTMLTableCaptionElement')
-@staticInterop
-class HTMLTableCaptionElement implements HTMLElement {
+extension type HTMLTableCaptionElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLTableCaptionElement();
-}
 
-extension HTMLTableCaptionElementExtension on HTMLTableCaptionElement {
   external set align(String value);
   external String get align;
 }
-
-/// The **`HTMLTableColElement`** interface provides properties for manipulating
-/// single or grouped table column elements.
-@JS('HTMLTableColElement')
-@staticInterop
-class HTMLTableColElement implements HTMLElement {
+extension type HTMLTableColElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLTableColElement();
-}
 
-extension HTMLTableColElementExtension on HTMLTableColElement {
   external set span(int value);
   external int get span;
   external set align(String value);
@@ -2168,19 +1596,10 @@ extension HTMLTableColElementExtension on HTMLTableColElement {
   external set width(String value);
   external String get width;
 }
-
-/// The **`HTMLTableSectionElement`** interface provides special properties and
-/// methods (beyond the [HTMLElement] interface it also has available to it by
-/// inheritance) for manipulating the layout and presentation of sections, that
-/// is headers, footers and bodies (`thead`, `tfoot`, and `tbody`, respectively)
-/// in an HTML table.
-@JS('HTMLTableSectionElement')
-@staticInterop
-class HTMLTableSectionElement implements HTMLElement {
+extension type HTMLTableSectionElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLTableSectionElement();
-}
 
-extension HTMLTableSectionElementExtension on HTMLTableSectionElement {
   external HTMLTableRowElement insertRow([int index]);
   external void deleteRow(int index);
   external HTMLCollection get rows;
@@ -2193,18 +1612,10 @@ extension HTMLTableSectionElementExtension on HTMLTableSectionElement {
   external set vAlign(String value);
   external String get vAlign;
 }
-
-/// The **`HTMLTableRowElement`** interface provides special properties and
-/// methods (beyond the [HTMLElement] interface it also has available to it by
-/// inheritance) for manipulating the layout and presentation of rows in an HTML
-/// table.
-@JS('HTMLTableRowElement')
-@staticInterop
-class HTMLTableRowElement implements HTMLElement {
+extension type HTMLTableRowElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLTableRowElement();
-}
 
-extension HTMLTableRowElementExtension on HTMLTableRowElement {
   /// The **`HTMLTableRowElement.insertCell()`** method inserts a new
   /// cell (`td`) into a table row (`tr`) and returns a
   /// reference to the cell.
@@ -2233,19 +1644,10 @@ extension HTMLTableRowElementExtension on HTMLTableRowElement {
   external set bgColor(String value);
   external String get bgColor;
 }
-
-/// The **`HTMLTableCellElement`** interface provides special properties and
-/// methods (beyond the regular [HTMLElement] interface it also has available to
-/// it by inheritance) for manipulating the layout and presentation of table
-/// cells, either header cells (`th`)) or data cells (`td`), in an HTML
-/// document.
-@JS('HTMLTableCellElement')
-@staticInterop
-class HTMLTableCellElement implements HTMLElement {
+extension type HTMLTableCellElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLTableCellElement();
-}
 
-extension HTMLTableCellElementExtension on HTMLTableCellElement {
   external set colSpan(int value);
   external int get colSpan;
   external set rowSpan(int value);
@@ -2276,17 +1678,9 @@ extension HTMLTableCellElementExtension on HTMLTableCellElement {
   external set bgColor(String value);
   external String get bgColor;
 }
-
-/// The **`HTMLFormElement`** interface represents a `form` element in the DOM.
-/// It allows access to—and, in some cases, modification of—aspects of the form,
-/// as well as access to its component elements.
-@JS('HTMLFormElement')
-@staticInterop
-class HTMLFormElement implements HTMLElement {
+extension type HTMLFormElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLFormElement();
-}
 
-extension HTMLFormElementExtension on HTMLFormElement {
   /// The **`HTMLFormElement.submit()`** method submits a given
   /// `form`.
   ///
@@ -2367,32 +1761,17 @@ extension HTMLFormElementExtension on HTMLFormElement {
   external HTMLFormControlsCollection get elements;
   external int get length;
 }
-
-/// The **`HTMLLabelElement`** interface gives access to properties specific to
-/// `label` elements. It inherits methods and properties from the base
-/// [HTMLElement] interface.
-@JS('HTMLLabelElement')
-@staticInterop
-class HTMLLabelElement implements HTMLElement {
+extension type HTMLLabelElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLLabelElement();
-}
 
-extension HTMLLabelElementExtension on HTMLLabelElement {
   external HTMLFormElement? get form;
   external set htmlFor(String value);
   external String get htmlFor;
   external HTMLElement? get control;
 }
-
-/// The **`HTMLInputElement`** interface provides special properties and methods
-/// for manipulating the options, layout, and presentation of `input` elements.
-@JS('HTMLInputElement')
-@staticInterop
-class HTMLInputElement implements HTMLElement {
+extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLInputElement();
-}
 
-extension HTMLInputElementExtension on HTMLInputElement {
   /// The **`HTMLInputElement.stepUp()`** method increments the value
   /// of a numeric type of `input` element by the value of the
   /// [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/step)
@@ -2800,17 +2179,10 @@ extension HTMLInputElementExtension on HTMLInputElement {
   external set popoverTargetAction(String value);
   external String get popoverTargetAction;
 }
-
-/// The **`HTMLButtonElement`** interface provides properties and methods
-/// (beyond the regular [HTMLElement] interface it also has available to it by
-/// inheritance) for manipulating `button` elements.
-@JS('HTMLButtonElement')
-@staticInterop
-class HTMLButtonElement implements HTMLElement {
+extension type HTMLButtonElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLButtonElement();
-}
 
-extension HTMLButtonElementExtension on HTMLButtonElement {
   external bool checkValidity();
   external bool reportValidity();
   external void setCustomValidity(String error);
@@ -2842,17 +2214,10 @@ extension HTMLButtonElementExtension on HTMLButtonElement {
   external set popoverTargetAction(String value);
   external String get popoverTargetAction;
 }
-
-/// The **`HTMLSelectElement`** interface represents a `select` HTML Element.
-/// These elements also share all of the properties and methods of other HTML
-/// elements via the [HTMLElement] interface.
-@JS('HTMLSelectElement')
-@staticInterop
-class HTMLSelectElement implements HTMLElement {
+extension type HTMLSelectElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLSelectElement();
-}
 
-extension HTMLSelectElementExtension on HTMLSelectElement {
   /// The **`HTMLSelectElement.item()`** method returns the
   /// [Element] corresponding to the [HTMLOptionElement] whose
   /// position in the options list corresponds to the index given in the
@@ -2929,46 +2294,25 @@ extension HTMLSelectElementExtension on HTMLSelectElement {
   external String get validationMessage;
   external NodeList get labels;
 }
-
-/// The **`HTMLDataListElement`** interface provides special properties (beyond
-/// the [HTMLElement] object interface it also has available to it by
-/// inheritance) to manipulate `datalist` elements and their content.
-@JS('HTMLDataListElement')
-@staticInterop
-class HTMLDataListElement implements HTMLElement {
+extension type HTMLDataListElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLDataListElement();
-}
 
-extension HTMLDataListElementExtension on HTMLDataListElement {
   external HTMLCollection get options;
 }
-
-/// The **`HTMLOptGroupElement`** interface provides special properties and
-/// methods (beyond the regular [HTMLElement] object interface they also have
-/// available to them by inheritance) for manipulating the layout and
-/// presentation of `optgroup` elements.
-@JS('HTMLOptGroupElement')
-@staticInterop
-class HTMLOptGroupElement implements HTMLElement {
+extension type HTMLOptGroupElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLOptGroupElement();
-}
 
-extension HTMLOptGroupElementExtension on HTMLOptGroupElement {
   external set disabled(bool value);
   external bool get disabled;
   external set label(String value);
   external String get label;
 }
-
-/// The **`HTMLOptionElement`** interface represents `option` elements and
-/// inherits all properties and methods of the [HTMLElement] interface.
-@JS('HTMLOptionElement')
-@staticInterop
-class HTMLOptionElement implements HTMLElement {
+extension type HTMLOptionElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLOptionElement();
-}
 
-extension HTMLOptionElementExtension on HTMLOptionElement {
   external set disabled(bool value);
   external bool get disabled;
   external HTMLFormElement? get form;
@@ -2984,16 +2328,10 @@ extension HTMLOptionElementExtension on HTMLOptionElement {
   external String get text;
   external int get index;
 }
-
-/// The **`HTMLTextAreaElement`** interface provides special properties and
-/// methods for manipulating the layout and presentation of `textarea` elements.
-@JS('HTMLTextAreaElement')
-@staticInterop
-class HTMLTextAreaElement implements HTMLElement {
+extension type HTMLTextAreaElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLTextAreaElement();
-}
 
-extension HTMLTextAreaElementExtension on HTMLTextAreaElement {
   external bool checkValidity();
   external bool reportValidity();
   external void setCustomValidity(String error);
@@ -3051,17 +2389,10 @@ extension HTMLTextAreaElementExtension on HTMLTextAreaElement {
   external set selectionDirection(String value);
   external String get selectionDirection;
 }
-
-/// The **`HTMLOutputElement`** interface provides properties and methods
-/// (beyond those inherited from [HTMLElement]) for manipulating the layout and
-/// presentation of `output` elements.
-@JS('HTMLOutputElement')
-@staticInterop
-class HTMLOutputElement implements HTMLElement {
+extension type HTMLOutputElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLOutputElement();
-}
 
-extension HTMLOutputElementExtension on HTMLOutputElement {
   external bool checkValidity();
   external bool reportValidity();
   external void setCustomValidity(String error);
@@ -3079,18 +2410,10 @@ extension HTMLOutputElementExtension on HTMLOutputElement {
   external String get validationMessage;
   external NodeList get labels;
 }
-
-/// The **`HTMLProgressElement`** interface provides special properties and
-/// methods (beyond the regular [HTMLElement] interface it also has available to
-/// it by inheritance) for manipulating the layout and presentation of
-/// `progress` elements.
-@JS('HTMLProgressElement')
-@staticInterop
-class HTMLProgressElement implements HTMLElement {
+extension type HTMLProgressElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLProgressElement();
-}
 
-extension HTMLProgressElementExtension on HTMLProgressElement {
   external set value(num value);
   external num get value;
   external set max(num value);
@@ -3098,18 +2421,9 @@ extension HTMLProgressElementExtension on HTMLProgressElement {
   external num get position;
   external NodeList get labels;
 }
-
-/// The HTML `meter` elements expose the **`HTMLMeterElement`** interface, which
-/// provides special properties and methods (beyond the [HTMLElement] object
-/// interface they also have available to them by inheritance) for manipulating
-/// the layout and presentation of `meter` elements.
-@JS('HTMLMeterElement')
-@staticInterop
-class HTMLMeterElement implements HTMLElement {
+extension type HTMLMeterElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLMeterElement();
-}
 
-extension HTMLMeterElementExtension on HTMLMeterElement {
   external set value(num value);
   external num get value;
   external set min(num value);
@@ -3124,18 +2438,10 @@ extension HTMLMeterElementExtension on HTMLMeterElement {
   external num get optimum;
   external NodeList get labels;
 }
-
-/// The **`HTMLFieldSetElement`** interface provides special properties and
-/// methods (beyond the regular [HTMLElement] interface it also has available to
-/// it by inheritance) for manipulating the layout and presentation of
-/// `fieldset` elements.
-@JS('HTMLFieldSetElement')
-@staticInterop
-class HTMLFieldSetElement implements HTMLElement {
+extension type HTMLFieldSetElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLFieldSetElement();
-}
 
-extension HTMLFieldSetElementExtension on HTMLFieldSetElement {
   external bool checkValidity();
   external bool reportValidity();
   external void setCustomValidity(String error);
@@ -3150,30 +2456,15 @@ extension HTMLFieldSetElementExtension on HTMLFieldSetElement {
   external ValidityState get validity;
   external String get validationMessage;
 }
-
-/// The **`HTMLLegendElement`** is an interface allowing to access properties of
-/// the `legend` elements. It inherits properties and methods from the
-/// [HTMLElement] interface.
-@JS('HTMLLegendElement')
-@staticInterop
-class HTMLLegendElement implements HTMLElement {
+extension type HTMLLegendElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLLegendElement();
-}
 
-extension HTMLLegendElementExtension on HTMLLegendElement {
   external HTMLFormElement? get form;
   external set align(String value);
   external String get align;
 }
-
-/// The **`ValidityState`** interface represents the _validity states_ that an
-/// element can be in, with respect to constraint validation. Together, they
-/// help explain why an element's value fails to validate, if it's not valid.
-@JS('ValidityState')
-@staticInterop
-class ValidityState {}
-
-extension ValidityStateExtension on ValidityState {
+extension type ValidityState._(JSObject _) implements JSObject {
   external bool get valueMissing;
   external bool get typeMismatch;
   external bool get patternMismatch;
@@ -3186,97 +2477,47 @@ extension ValidityStateExtension on ValidityState {
   external bool get customError;
   external bool get valid;
 }
-
-/// The **`SubmitEvent`** interface defines the object used to represent an
-/// form's [HTMLFormElement.submit_event] event. This event is fired at the
-/// `form` when the form's submit action is invoked.
-@JS('SubmitEvent')
-@staticInterop
-class SubmitEvent implements Event {
+extension type SubmitEvent._(JSObject _) implements Event, JSObject {
   external factory SubmitEvent(
     String type, [
     SubmitEventInit eventInitDict,
   ]);
-}
 
-extension SubmitEventExtension on SubmitEvent {
   external HTMLElement? get submitter;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class SubmitEventInit implements EventInit {
+extension type SubmitEventInit._(JSObject _) implements EventInit, JSObject {
   external factory SubmitEventInit({HTMLElement? submitter});
-}
 
-extension SubmitEventInitExtension on SubmitEventInit {
   external set submitter(HTMLElement? value);
   external HTMLElement? get submitter;
 }
-
-/// The **`FormDataEvent`** interface represents a
-/// [`formdata` event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/formdata_event)
-/// — such an event is fired on an [HTMLFormElement] object after the entry list
-/// representing the form's data is constructed. This happens when the form is
-/// submitted, but can also be triggered by the invocation of a
-/// [FormData.FormData] constructor.
-///
-/// This allows a [FormData] object to be quickly obtained in response to a
-/// `formdata` event firing, rather than needing to put it together yourself
-/// when you wish to submit form data via a method like [fetch] (see
-/// [Using FormData objects](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest_API/Using_FormData_Objects)).
-@JS('FormDataEvent')
-@staticInterop
-class FormDataEvent implements Event {
+extension type FormDataEvent._(JSObject _) implements Event, JSObject {
   external factory FormDataEvent(
     String type,
     FormDataEventInit eventInitDict,
   );
-}
 
-extension FormDataEventExtension on FormDataEvent {
   external FormData get formData;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class FormDataEventInit implements EventInit {
+extension type FormDataEventInit._(JSObject _) implements EventInit, JSObject {
   external factory FormDataEventInit({required FormData formData});
-}
 
-extension FormDataEventInitExtension on FormDataEventInit {
   external set formData(FormData value);
   external FormData get formData;
 }
-
-/// The **`HTMLDetailsElement`** interface provides special properties (beyond
-/// the regular [HTMLElement] interface it also has available to it by
-/// inheritance) for manipulating `details` elements.
-@JS('HTMLDetailsElement')
-@staticInterop
-class HTMLDetailsElement implements HTMLElement {
+extension type HTMLDetailsElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLDetailsElement();
-}
 
-extension HTMLDetailsElementExtension on HTMLDetailsElement {
   external set name(String value);
   external String get name;
   external set open(bool value);
   external bool get open;
 }
-
-/// The **`HTMLDialogElement`** interface provides methods to manipulate
-/// `dialog` elements. It inherits properties and methods from the [HTMLElement]
-/// interface.
-@JS('HTMLDialogElement')
-@staticInterop
-class HTMLDialogElement implements HTMLElement {
+extension type HTMLDialogElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLDialogElement();
-}
 
-extension HTMLDialogElementExtension on HTMLDialogElement {
   /// The **`show()`** method of the [HTMLDialogElement]
   /// interface displays the dialog modelessly, i.e. still allowing interaction
   /// with content
@@ -3301,28 +2542,11 @@ extension HTMLDialogElementExtension on HTMLDialogElement {
   external set returnValue(String value);
   external String get returnValue;
 }
-
-/// HTML `script` elements expose the **`HTMLScriptElement`** interface, which
-/// provides special properties and methods for manipulating the behavior and
-/// execution of `<script>` elements (beyond the inherited [HTMLElement]
-/// interface).
-///
-/// JavaScript files should be served with the `text/javascript`
-/// [MIME type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types),
-/// but browsers are lenient and block them only if the script is served with an
-/// image type (`image/*`), video type (`video/*`), audio type (`audio/*`), or
-/// `text/csv`. If the script is blocked, its element receives an
-/// [HTMLElement/error_event] event; otherwise, it receives a
-/// [Window/load_event] event.
-@JS('HTMLScriptElement')
-@staticInterop
-class HTMLScriptElement implements HTMLElement {
+extension type HTMLScriptElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLScriptElement();
 
   external static bool supports(String type);
-}
-
-extension HTMLScriptElementExtension on HTMLScriptElement {
   external set src(String value);
   external String get src;
   external set type(String value);
@@ -3353,29 +2577,15 @@ extension HTMLScriptElementExtension on HTMLScriptElement {
   external set attributionSrc(String value);
   external String get attributionSrc;
 }
-
-/// The **`HTMLTemplateElement`** interface enables access to the contents of an
-/// HTML `template` element.
-@JS('HTMLTemplateElement')
-@staticInterop
-class HTMLTemplateElement implements HTMLElement {
+extension type HTMLTemplateElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLTemplateElement();
-}
 
-extension HTMLTemplateElementExtension on HTMLTemplateElement {
   external DocumentFragment get content;
 }
-
-/// The **`HTMLSlotElement`** interface of the
-/// [Shadow DOM API](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM)
-/// enables access to the name and assigned nodes of an HTML `slot` element.
-@JS('HTMLSlotElement')
-@staticInterop
-class HTMLSlotElement implements HTMLElement {
+extension type HTMLSlotElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLSlotElement();
-}
 
-extension HTMLSlotElementExtension on HTMLSlotElement {
   /// The **`assignedNodes()`** method of the [HTMLSlotElement] interface
   /// returns a sequence of the nodes assigned to this slot.
   ///
@@ -3409,30 +2619,16 @@ extension HTMLSlotElementExtension on HTMLSlotElement {
   external set name(String value);
   external String get name;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AssignedNodesOptions {
+extension type AssignedNodesOptions._(JSObject _) implements JSObject {
   external factory AssignedNodesOptions({bool flatten});
-}
 
-extension AssignedNodesOptionsExtension on AssignedNodesOptions {
   external set flatten(bool value);
   external bool get flatten;
 }
-
-/// The **`HTMLCanvasElement`** interface provides properties and methods for
-/// manipulating the layout and presentation of `canvas` elements. The
-/// `HTMLCanvasElement` interface also inherits the properties and methods of
-/// the [HTMLElement] interface.
-@JS('HTMLCanvasElement')
-@staticInterop
-class HTMLCanvasElement implements HTMLElement {
+extension type HTMLCanvasElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLCanvasElement();
-}
 
-extension HTMLCanvasElementExtension on HTMLCanvasElement {
   /// The
   /// **`HTMLCanvasElement.getContext()`** method returns a drawing
   /// context on the canvas, or
@@ -3506,21 +2702,15 @@ extension HTMLCanvasElementExtension on HTMLCanvasElement {
   external set height(int value);
   external int get height;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class CanvasRenderingContext2DSettings {
+extension type CanvasRenderingContext2DSettings._(JSObject _)
+    implements JSObject {
   external factory CanvasRenderingContext2DSettings({
     bool alpha,
     bool desynchronized,
     PredefinedColorSpace colorSpace,
     bool willReadFrequently,
   });
-}
 
-extension CanvasRenderingContext2DSettingsExtension
-    on CanvasRenderingContext2DSettings {
   external set alpha(bool value);
   external bool get alpha;
   external set desynchronized(bool value);
@@ -3530,30 +2720,7 @@ extension CanvasRenderingContext2DSettingsExtension
   external set willReadFrequently(bool value);
   external bool get willReadFrequently;
 }
-
-/// The **`CanvasRenderingContext2D`** interface, part of the
-/// [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API),
-/// provides the 2D rendering context for the drawing surface of a `canvas`
-/// element.
-/// It is used for drawing shapes, text, images, and other objects.
-///
-/// The interface's properties and methods are described in the reference
-/// section of this page.
-/// The
-/// [Canvas tutorial](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial)
-/// has more explanation, examples, and resources, as well.
-///
-/// For
-/// [`OffscreenCanvas`](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas),
-/// there is an equivalent interface that provides the rendering context.
-/// The offscreen rendering context inherits most of the same properties and
-/// methods as the `CanvasRenderingContext2D` and is described in more detail in
-/// the [OffscreenCanvasRenderingContext2D] reference page.
-@JS('CanvasRenderingContext2D')
-@staticInterop
-class CanvasRenderingContext2D {}
-
-extension CanvasRenderingContext2DExtension on CanvasRenderingContext2D {
+extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// The **`CanvasRenderingContext2D.getContextAttributes()`** method returns
   /// an object that contains attributes used by the context.
   ///
@@ -4347,21 +3514,7 @@ extension CanvasRenderingContext2DExtension on CanvasRenderingContext2D {
   external set wordSpacing(String value);
   external String get wordSpacing;
 }
-
-/// The **`CanvasGradient`** interface represents an
-/// [opaque object](https://en.wikipedia.org/wiki/Opaque_data_type) describing a
-/// gradient. It is returned by the methods
-/// [CanvasRenderingContext2D.createLinearGradient],
-/// [CanvasRenderingContext2D.createConicGradient] or
-/// [CanvasRenderingContext2D.createRadialGradient].
-///
-/// It can be used as a [CanvasRenderingContext2D.fillStyle] or
-/// [CanvasRenderingContext2D.strokeStyle].
-@JS('CanvasGradient')
-@staticInterop
-class CanvasGradient {}
-
-extension CanvasGradientExtension on CanvasGradient {
+extension type CanvasGradient._(JSObject _) implements JSObject {
   /// The **`CanvasGradient.addColorStop()`** method adds a new color stop,
   /// defined by an `offset` and a `color`, to a given canvas gradient.
   external void addColorStop(
@@ -4369,32 +3522,12 @@ extension CanvasGradientExtension on CanvasGradient {
     String color,
   );
 }
-
-/// The **`CanvasPattern`** interface represents an
-/// [opaque object](https://en.wikipedia.org/wiki/Opaque_data_type) describing a
-/// pattern, based on an image, a canvas, or a video, created by the
-/// [CanvasRenderingContext2D.createPattern] method.
-///
-/// It can be used as a [CanvasRenderingContext2D.fillStyle] or
-/// [CanvasRenderingContext2D.strokeStyle].
-@JS('CanvasPattern')
-@staticInterop
-class CanvasPattern {}
-
-extension CanvasPatternExtension on CanvasPattern {
+extension type CanvasPattern._(JSObject _) implements JSObject {
   /// The **`CanvasPattern.setTransform()`** method uses a [DOMMatrix] object as
   /// the pattern's transformation matrix and invokes it on the pattern.
   external void setTransform([DOMMatrix2DInit transform]);
 }
-
-/// The **`TextMetrics`** interface represents the dimensions of a piece of text
-/// in the canvas; a `TextMetrics` instance can be retrieved using the
-/// [CanvasRenderingContext2D.measureText] method.
-@JS('TextMetrics')
-@staticInterop
-class TextMetrics {}
-
-extension TextMetricsExtension on TextMetrics {
+extension type TextMetrics._(JSObject _) implements JSObject {
   external num get width;
   external num get actualBoundingBoxLeft;
   external num get actualBoundingBoxRight;
@@ -4408,58 +3541,28 @@ extension TextMetricsExtension on TextMetrics {
   external num get alphabeticBaseline;
   external num get ideographicBaseline;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ImageDataSettings {
+extension type ImageDataSettings._(JSObject _) implements JSObject {
   external factory ImageDataSettings({PredefinedColorSpace colorSpace});
-}
 
-extension ImageDataSettingsExtension on ImageDataSettings {
   external set colorSpace(PredefinedColorSpace value);
   external PredefinedColorSpace get colorSpace;
 }
-
-/// The **`ImageData`** interface represents the underlying pixel data of an
-/// area of a `canvas` element.
-///
-/// It is created using the [ImageData.ImageData] constructor or creator methods
-/// on the [CanvasRenderingContext2D] object associated with a canvas:
-/// [CanvasRenderingContext2D.createImageData] and
-/// [CanvasRenderingContext2D.getImageData]. It can also be used to set a part
-/// of the canvas by using [CanvasRenderingContext2D.putImageData].
-@JS('ImageData')
-@staticInterop
-class ImageData {
+extension type ImageData._(JSObject _) implements JSObject {
   external factory ImageData(
     JSAny dataOrSw,
     int shOrSw, [
     JSAny settingsOrSh,
     ImageDataSettings settings,
   ]);
-}
 
-extension ImageDataExtension on ImageData {
   external int get width;
   external int get height;
   external JSUint8ClampedArray get data;
   external PredefinedColorSpace get colorSpace;
 }
-
-/// The **`Path2D`** interface of the Canvas 2D API is used to declare a path
-/// that can then be used on a [CanvasRenderingContext2D] object. The
-/// [path methods](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D#paths)
-/// of the `CanvasRenderingContext2D` interface are also present on this
-/// interface, which gives you the convenience of being able to retain and
-/// replay your path whenever desired.
-@JS('Path2D')
-@staticInterop
-class Path2D {
+extension type Path2D._(JSObject _) implements JSObject {
   external factory Path2D([JSAny path]);
-}
 
-extension Path2DExtension on Path2D {
   /// The **`Path2D.addPath()`** method
   /// of the Canvas 2D API adds one [Path2D] object to another
   /// `Path2D` object.
@@ -4529,21 +3632,7 @@ extension Path2DExtension on Path2D {
     bool counterclockwise,
   ]);
 }
-
-/// The **`ImageBitmapRenderingContext`** interface is a canvas rendering
-/// context that provides the functionality to replace the canvas's contents
-/// with the given [ImageBitmap]. Its context id (the first argument to
-/// [HTMLCanvasElement.getContext] or [OffscreenCanvas.getContext]) is
-/// `"bitmaprenderer"`.
-///
-/// This interface is available in both the window and the
-/// [worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)
-/// context.
-@JS('ImageBitmapRenderingContext')
-@staticInterop
-class ImageBitmapRenderingContext {}
-
-extension ImageBitmapRenderingContextExtension on ImageBitmapRenderingContext {
+extension type ImageBitmapRenderingContext._(JSObject _) implements JSObject {
   /// The **`ImageBitmapRenderingContext.transferFromImageBitmap()`**
   /// method displays the given [ImageBitmap] in the canvas associated with this
   /// rendering context. The ownership of the `ImageBitmap` is transferred to
@@ -4557,64 +3646,30 @@ extension ImageBitmapRenderingContextExtension on ImageBitmapRenderingContext {
   external void transferFromImageBitmap(ImageBitmap? bitmap);
   external JSObject get canvas;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ImageBitmapRenderingContextSettings {
+extension type ImageBitmapRenderingContextSettings._(JSObject _)
+    implements JSObject {
   external factory ImageBitmapRenderingContextSettings({bool alpha});
-}
 
-extension ImageBitmapRenderingContextSettingsExtension
-    on ImageBitmapRenderingContextSettings {
   external set alpha(bool value);
   external bool get alpha;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ImageEncodeOptions {
+extension type ImageEncodeOptions._(JSObject _) implements JSObject {
   external factory ImageEncodeOptions({
     String type,
     num quality,
   });
-}
 
-extension ImageEncodeOptionsExtension on ImageEncodeOptions {
   external set type(String value);
   external String get type;
   external set quality(num value);
   external num get quality;
 }
-
-/// When using the `canvas` element or the
-/// [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API),
-/// rendering, animation, and user interaction usually happen on the main
-/// execution thread of a web application.
-/// The computation relating to canvas animations and rendering can have a
-/// significant impact on application performance.
-///
-/// The **`OffscreenCanvas`** interface provides a canvas that can be rendered
-/// off screen, decoupling the DOM and the Canvas API so that the `canvas`
-/// element is no longer entirely dependent on the DOM.
-/// Rendering operations can also be run inside a
-/// [worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)
-/// context, allowing you to run some tasks in a separate thread and avoid heavy
-/// work on the main thread.
-///
-/// `OffscreenCanvas` is a
-/// [transferable object](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
-@JS('OffscreenCanvas')
-@staticInterop
-class OffscreenCanvas implements EventTarget {
+extension type OffscreenCanvas._(JSObject _) implements EventTarget, JSObject {
   external factory OffscreenCanvas(
     int width,
     int height,
   );
-}
 
-extension OffscreenCanvasExtension on OffscreenCanvas {
   /// The **`OffscreenCanvas.getContext()`** method returns a drawing context
   /// for an offscreen canvas, or
   /// [`null`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/null)
@@ -4651,25 +3706,8 @@ extension OffscreenCanvasExtension on OffscreenCanvas {
   external set oncontextrestored(EventHandler value);
   external EventHandler get oncontextrestored;
 }
-
-/// The **`OffscreenCanvasRenderingContext2D`** interface is a
-/// [CanvasRenderingContext2D] rendering context for drawing to the bitmap of an
-/// `OffscreenCanvas` object.
-/// It is similar to the `CanvasRenderingContext2D` object, with the following
-/// differences:
-///
-/// - there is no support for user-interface features (`drawFocusIfNeeded`, and
-///   `scrollPathIntoView`)
-/// - its `canvas` attribute refers to an `OffscreenCanvas` object rather than a
-///   `canvas` element
-/// - it has a `commit()` method for pushing rendered images to the context's
-///   `OffscreenCanvas` object's placeholder `canvas` element
-@JS('OffscreenCanvasRenderingContext2D')
-@staticInterop
-class OffscreenCanvasRenderingContext2D {}
-
-extension OffscreenCanvasRenderingContext2DExtension
-    on OffscreenCanvasRenderingContext2D {
+extension type OffscreenCanvasRenderingContext2D._(JSObject _)
+    implements JSObject {
   /// The
   /// **`OffscreenCanvasRenderingContext2D.commit()`**
   /// method of the
@@ -4935,15 +3973,7 @@ extension OffscreenCanvasRenderingContext2DExtension
   external set wordSpacing(String value);
   external String get wordSpacing;
 }
-
-/// The **`CustomElementRegistry`** interface provides methods for registering
-/// custom elements and querying registered elements. To get an instance of it,
-/// use the [window.customElements] property.
-@JS('CustomElementRegistry')
-@staticInterop
-class CustomElementRegistry {}
-
-extension CustomElementRegistryExtension on CustomElementRegistry {
+extension type CustomElementRegistry._(JSObject _) implements JSObject {
   /// The **`define()`** method of the [CustomElementRegistry] interface adds a
   /// definition for a custom element to the custom element registry, mapping
   /// its name to the constructor which will be used to create it.
@@ -4974,34 +4004,15 @@ extension CustomElementRegistryExtension on CustomElementRegistry {
   /// document.
   external void upgrade(Node root);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ElementDefinitionOptions {
+extension type ElementDefinitionOptions._(JSObject _) implements JSObject {
   external factory ElementDefinitionOptions({String extends_});
-}
 
-extension ElementDefinitionOptionsExtension on ElementDefinitionOptions {
   @JS('extends')
   external set extends_(String value);
   @JS('extends')
   external String get extends_;
 }
-
-/// The **`ElementInternals`** interface of the
-/// [Document Object Model](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)
-/// gives web developers a way to allow custom elements to fully participate in
-/// HTML forms. It provides utilities for working with these elements in the
-/// same way you would work with any standard HTML form element, and also
-/// exposes the
-/// [Accessibility Object Model](https://wicg.github.io/aom/explainer.html) to
-/// the element.
-@JS('ElementInternals')
-@staticInterop
-class ElementInternals {}
-
-extension ElementInternalsExtension on ElementInternals {
+extension type ElementInternals._(JSObject _) implements JSObject {
   /// The **`setFormValue()`** method of the [ElementInternals] interface sets
   /// the element's submission value and state, communicating these to the user
   /// agent.
@@ -5147,11 +4158,7 @@ extension ElementInternalsExtension on ElementInternals {
   external set ariaValueText(String? value);
   external String? get ariaValueText;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ValidityStateFlags {
+extension type ValidityStateFlags._(JSObject _) implements JSObject {
   external factory ValidityStateFlags({
     bool valueMissing,
     bool typeMismatch,
@@ -5164,9 +4171,7 @@ class ValidityStateFlags {
     bool badInput,
     bool customError,
   });
-}
 
-extension ValidityStateFlagsExtension on ValidityStateFlags {
   external set valueMissing(bool value);
   external bool get valueMissing;
   external set typeMismatch(bool value);
@@ -5188,129 +4193,51 @@ extension ValidityStateFlagsExtension on ValidityStateFlags {
   external set customError(bool value);
   external bool get customError;
 }
-
-/// The **`VisibilityStateEntry`** interface provides timings of page visibility
-/// state changes, i.e., when a tab changes from the foreground to the
-/// background or vice versa.
-///
-/// This can be used to pinpoint visibility changes on the performance timeline,
-/// and cross-reference them against other performance entries such as
-/// "first-contentful-paint" (see [PerformancePaintTiming]).
-///
-/// There are two key visibility state change times that this API reports on:
-///
-/// - `visible`: The time when the page becomes visible (i.e. when its tab moves
-///   into the foreground).
-/// - `hidden`: The time when the pages become hidden (i.e. when its tab moves
-///   into the background).
-///
-/// The performance timeline will always have a "`visibility-state`" entry with
-/// a `startTime` of `0` and a `name` representing the initial page visibility
-/// state.
-///
-/// > **Note:** Like other Performance APIs, this API extends
-/// > [PerformanceEntry].
-@JS('VisibilityStateEntry')
-@staticInterop
-class VisibilityStateEntry implements PerformanceEntry {}
-
-extension VisibilityStateEntryExtension on VisibilityStateEntry {
+extension type VisibilityStateEntry._(JSObject _)
+    implements PerformanceEntry, JSObject {
   external String get name;
   external String get entryType;
   external DOMHighResTimeStamp get startTime;
   external int get duration;
 }
-
-/// The **`UserActivation`** interface provides information about whether a user
-/// is currently interacting with the page, or has completed an interaction
-/// since page load.
-///
-/// This API is only available in the window context and not exposed to workers.
-@JS('UserActivation')
-@staticInterop
-class UserActivation {}
-
-extension UserActivationExtension on UserActivation {
+extension type UserActivation._(JSObject _) implements JSObject {
   external bool get hasBeenActive;
   external bool get isActive;
 }
-
-/// The **`ToggleEvent`** interface represents an event notifying the user when
-/// a
-/// [popover element](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API)'s
-/// state toggles between showing and hidden.
-///
-/// It is the event object for the `HTMLElement`
-/// [HTMLElement.beforetoggle_event] and [HTMLElement.toggle_event] events,
-/// which fire on popovers when they transition between showing and hidden
-/// (before and after, respectively).
-///
-/// > **Note:** `ToggleEvent` is unrelated to the `HTMLDetailsElement`
-/// > [HTMLDetailsElement.toggle_event] event, which fires on a `details`
-/// > element when its `open`/`closed` state is toggled. Its event object is a
-/// > generic [Event].
-@JS('ToggleEvent')
-@staticInterop
-class ToggleEvent implements Event {
+extension type ToggleEvent._(JSObject _) implements Event, JSObject {
   external factory ToggleEvent(
     String type, [
     ToggleEventInit eventInitDict,
   ]);
-}
 
-extension ToggleEventExtension on ToggleEvent {
   external String get oldState;
   external String get newState;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ToggleEventInit implements EventInit {
+extension type ToggleEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ToggleEventInit({
     String oldState,
     String newState,
   });
-}
 
-extension ToggleEventInitExtension on ToggleEventInit {
   external set oldState(String value);
   external String get oldState;
   external set newState(String value);
   external String get newState;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class FocusOptions {
+extension type FocusOptions._(JSObject _) implements JSObject {
   external factory FocusOptions({
     bool preventScroll,
     bool focusVisible,
   });
-}
 
-extension FocusOptionsExtension on FocusOptions {
   external set preventScroll(bool value);
   external bool get preventScroll;
   external set focusVisible(bool value);
   external bool get focusVisible;
 }
-
-/// The **`DataTransfer`** object is used to hold the data that is being dragged
-/// during a drag and drop operation. It may hold one or more data items, each
-/// of one or more data types. For more information about drag and drop, see
-/// [HTML Drag and Drop API](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API).
-///
-/// This object is available from the [DragEvent.dataTransfer] property of all
-/// [DragEvent].
-@JS('DataTransfer')
-@staticInterop
-class DataTransfer {
+extension type DataTransfer._(JSObject _) implements JSObject {
   external factory DataTransfer();
-}
 
-extension DataTransferExtension on DataTransfer {
   /// When a drag occurs, a translucent image is generated from the drag target
   /// (the element
   /// the [HTMLElement/dragstart_event] event is fired at), and follows the
@@ -5389,22 +4316,7 @@ extension DataTransferExtension on DataTransfer {
   external JSArray get types;
   external FileList get files;
 }
-
-/// The **`DataTransferItemList`** object is a list of [DataTransferItem]
-/// objects representing items being dragged. During a _drag operation_, each
-/// [DragEvent] has a [DragEvent.dataTransfer] property and that property is a
-/// `DataTransferItemList`.
-///
-/// The individual items can be accessed using the
-/// [bracket notation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_accessors#bracket_notation)
-/// `[]`.
-///
-/// This interface has no constructor.
-@JS('DataTransferItemList')
-@staticInterop
-class DataTransferItemList {}
-
-extension DataTransferItemListExtension on DataTransferItemList {
+extension type DataTransferItemList._(JSObject _) implements JSObject {
   /// The **`DataTransferItemList.add()`** method creates a new
   /// [DataTransferItem] using the specified data and adds it to the drag data
   /// list. The item may be a [File] or a string of a
@@ -5436,18 +4348,7 @@ extension DataTransferItemListExtension on DataTransferItemList {
   external void clear();
   external int get length;
 }
-
-/// The **`DataTransferItem`** object represents one drag data item. During a
-/// _drag operation_, each [DragEvent] has a [DragEvent.dataTransfer] property
-/// which contains a [DataTransferItemList] of drag data items. Each item in the
-/// list is a `DataTransferItem` object.
-///
-/// This interface has no constructor.
-@JS('DataTransferItem')
-@staticInterop
-class DataTransferItem {}
-
-extension DataTransferItemExtension on DataTransferItem {
+extension type DataTransferItem._(JSObject _) implements JSObject {
   /// If the item described by the [DataTransferItem] is a file,
   /// `webkitGetAsEntry()` returns a [FileSystemFileEntry] or
   /// [FileSystemDirectoryEntry] representing it. If the item isn't a file,
@@ -5478,74 +4379,23 @@ extension DataTransferItemExtension on DataTransferItem {
   external String get kind;
   external String get type;
 }
-
-/// The **`DragEvent`** interface is a [Event] that represents a drag and drop
-/// interaction. The user initiates a drag by placing a pointer device (such as
-/// a mouse) on the touch surface and then dragging the pointer to a new
-/// location (such as another DOM element). Applications are free to interpret a
-/// drag and drop interaction in an application-specific way.
-///
-/// This interface inherits properties from [MouseEvent] and [Event].
-@JS('DragEvent')
-@staticInterop
-class DragEvent implements MouseEvent {
+extension type DragEvent._(JSObject _) implements MouseEvent, JSObject {
   external factory DragEvent(
     String type, [
     DragEventInit eventInitDict,
   ]);
-}
 
-extension DragEventExtension on DragEvent {
   external DataTransfer? get dataTransfer;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class DragEventInit implements MouseEventInit {
+extension type DragEventInit._(JSObject _) implements MouseEventInit, JSObject {
   external factory DragEventInit({DataTransfer? dataTransfer});
-}
 
-extension DragEventInitExtension on DragEventInit {
   external set dataTransfer(DataTransfer? value);
   external DataTransfer? get dataTransfer;
 }
-
 @JS()
 external Window get window;
-
-/// The **`Window`** interface represents a window containing a  document; the
-/// `document` property points to the
-/// [DOM document](https://developer.mozilla.org/en-US/docs/Web/API/Document)
-/// loaded in that window.
-///
-/// A window for a given document can be obtained using the
-/// [document.defaultView] property.
-///
-/// A global variable, `window`, representing the window in which the script is
-/// running, is exposed to JavaScript code.
-///
-/// The `Window` interface is home to a variety of functions, namespaces,
-/// objects, and constructors which are not necessarily directly associated with
-/// the concept of a user interface window. However, the `Window` interface is a
-/// suitable place to include these items that need to be globally available.
-/// Many of these are documented in the
-/// [JavaScript Reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference)
-/// and the
-/// [DOM Reference](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model).
-///
-/// In a tabbed browser, each tab is represented by its own `Window` object; the
-/// global `window` seen by JavaScript code running within a given tab always
-/// represents the tab in which the code is running. That said, even in a tabbed
-/// browser, some properties and methods still apply to the overall window that
-/// contains the tab, such as [Window.resizeTo] and [Window.innerHeight].
-/// Generally, anything that can't reasonably pertain to a tab pertains to the
-/// window instead.
-@JS('Window')
-@staticInterop
-class Window implements EventTarget {}
-
-extension WindowExtension on Window {
+extension type Window._(JSObject _) implements EventTarget, JSObject {
   external void navigate(SpatialNavigationDirection dir);
 
   /// The [Window] interface's **`matchMedia()`** method
@@ -6198,56 +5048,17 @@ extension WindowExtension on Window {
   external Storage get sessionStorage;
   external Storage get localStorage;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class WindowPostMessageOptions implements StructuredSerializeOptions {
+extension type WindowPostMessageOptions._(JSObject _)
+    implements StructuredSerializeOptions, JSObject {
   external factory WindowPostMessageOptions({String targetOrigin});
-}
 
-extension WindowPostMessageOptionsExtension on WindowPostMessageOptions {
   external set targetOrigin(String value);
   external String get targetOrigin;
 }
-
-/// The **`BarProp`** interface of the [Document Object Model] represents the
-/// web browser user interface elements that are exposed to scripts in web
-/// pages. Each of the following interface elements are represented by a
-/// `BarProp` object.
-///
-/// - [Window.locationbar]
-///   - : The browser location bar.
-/// - [Window.menubar]
-///   - : The browser menu bar.
-/// - [Window.personalbar]
-///   - : The browser personal bar.
-/// - [Window.scrollbars]
-///   - : The browser scrollbars.
-/// - [Window.statusbar]
-///   - : The browser status bar.
-/// - [Window.toolbar]
-///   - : The browser toolbar.
-///
-/// The `BarProp` interface is not accessed directly, but via one of these
-/// elements.
-@JS('BarProp')
-@staticInterop
-class BarProp {}
-
-extension BarPropExtension on BarProp {
+extension type BarProp._(JSObject _) implements JSObject {
   external bool get visible;
 }
-
-/// The **`Location`** interface represents the location (URL) of the object it
-/// is linked to. Changes done on it are reflected on the object it relates to.
-/// Both the [Document] and [Window] interface have such a linked `Location`,
-/// accessible via [Document.location] and [Window.location] respectively.
-@JS('Location')
-@staticInterop
-class Location {}
-
-extension LocationExtension on Location {
+extension type Location._(JSObject _) implements JSObject {
   /// The **`Location.assign()`** method causes the window to load
   /// and display the document at the URL specified. After the navigation
   /// occurs, the user can
@@ -6314,21 +5125,7 @@ extension LocationExtension on Location {
   external String get hash;
   external DOMStringList get ancestorOrigins;
 }
-
-/// The **`History`** interface of the [History API] allows manipulation of the
-/// browser _session history_, that is the pages visited in the tab or frame
-/// that the current page is loaded in.
-///
-/// There is only one instance of `history` (It is a _singleton_.) accessible
-/// via the global object [Window.history].
-///
-/// > **Note:** This interface is only available on the main thread ([Window]).
-/// > It cannot be accessed in [Worker] or [Worklet] contexts.
-@JS('History')
-@staticInterop
-class History {}
-
-extension HistoryExtension on History {
+extension type History._(JSObject _) implements JSObject {
   /// The **`go()`** method of the [History] interface loads a specific page
   /// from the
   /// session history. You can use it to move forwards and backwards through the
@@ -6387,25 +5184,7 @@ extension HistoryExtension on History {
   external ScrollRestoration get scrollRestoration;
   external JSAny? get state;
 }
-
-/// The **`Navigation`** interface of the [Navigation API] allows control over
-/// all navigation actions for the current `window` in one central place,
-/// including initiating navigations programmatically, examining navigation
-/// history entries, and managing navigations as they happen.
-///
-/// It is accessed via the [Window.navigation] property.
-///
-/// The Navigation API only exposes history entries created in the current
-/// browsing context that have the same origin as the current page (e.g. not
-/// navigations inside embedded `iframe`s, or cross-origin navigations),
-/// providing an accurate list of all previous history entries just for your
-/// app. This makes traversing the history a much less fragile proposition than
-/// with the older [History API].
-@JS('Navigation')
-@staticInterop
-class Navigation implements EventTarget {}
-
-extension NavigationExtension on Navigation {
+extension type Navigation._(JSObject _) implements EventTarget, JSObject {
   /// The **`entries()`** method of the
   /// [Navigation] interface returns an array of [NavigationHistoryEntry]
   /// objects representing all existing history entries.
@@ -6459,95 +5238,51 @@ extension NavigationExtension on Navigation {
   external set oncurrententrychange(EventHandler value);
   external EventHandler get oncurrententrychange;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class NavigationUpdateCurrentEntryOptions {
+extension type NavigationUpdateCurrentEntryOptions._(JSObject _)
+    implements JSObject {
   external factory NavigationUpdateCurrentEntryOptions({required JSAny? state});
-}
 
-extension NavigationUpdateCurrentEntryOptionsExtension
-    on NavigationUpdateCurrentEntryOptions {
   external set state(JSAny? value);
   external JSAny? get state;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class NavigationOptions {
+extension type NavigationOptions._(JSObject _) implements JSObject {
   external factory NavigationOptions({JSAny? info});
-}
 
-extension NavigationOptionsExtension on NavigationOptions {
   external set info(JSAny? value);
   external JSAny? get info;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class NavigationNavigateOptions implements NavigationOptions {
+extension type NavigationNavigateOptions._(JSObject _)
+    implements NavigationOptions, JSObject {
   external factory NavigationNavigateOptions({
     JSAny? state,
     NavigationHistoryBehavior history,
   });
-}
 
-extension NavigationNavigateOptionsExtension on NavigationNavigateOptions {
   external set state(JSAny? value);
   external JSAny? get state;
   external set history(NavigationHistoryBehavior value);
   external NavigationHistoryBehavior get history;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class NavigationReloadOptions implements NavigationOptions {
+extension type NavigationReloadOptions._(JSObject _)
+    implements NavigationOptions, JSObject {
   external factory NavigationReloadOptions({JSAny? state});
-}
 
-extension NavigationReloadOptionsExtension on NavigationReloadOptions {
   external set state(JSAny? value);
   external JSAny? get state;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class NavigationResult {
+extension type NavigationResult._(JSObject _) implements JSObject {
   external factory NavigationResult({
     JSPromise committed,
     JSPromise finished,
   });
-}
 
-extension NavigationResultExtension on NavigationResult {
   external set committed(JSPromise value);
   external JSPromise get committed;
   external set finished(JSPromise value);
   external JSPromise get finished;
 }
-
-/// The **`NavigationHistoryEntry`** interface of the [Navigation API]
-/// represents a single navigation history entry.
-///
-/// These objects are commonly accessed via the [Navigation.currentEntry]
-/// property and [Navigation.entries] method.
-///
-/// The Navigation API only exposes history entries created in the current
-/// browsing context that have the same origin as the current page (e.g. not
-/// navigations inside embedded `iframe`s, or cross-origin navigations),
-/// providing an accurate list of all previous history entries just for your
-/// app. This makes traversing the history a much less fragile proposition than
-/// with the older [History API].
-@JS('NavigationHistoryEntry')
-@staticInterop
-class NavigationHistoryEntry implements EventTarget {}
-
-extension NavigationHistoryEntryExtension on NavigationHistoryEntry {
+extension type NavigationHistoryEntry._(JSObject _)
+    implements EventTarget, JSObject {
   /// The **`getState()`** method of the [NavigationHistoryEntry] interface
   /// returns a clone of the developer-supplied state associated with this
   /// history entry.
@@ -6560,40 +5295,17 @@ extension NavigationHistoryEntryExtension on NavigationHistoryEntry {
   external set ondispose(EventHandler value);
   external EventHandler get ondispose;
 }
-
-/// The **`NavigationTransition`** interface of the [Navigation API] represents
-/// an ongoing navigation, that is, a navigation that hasn't yet reached the
-/// [Navigation/navigatesuccess_event] or [Navigation/navigateerror_event]
-/// stage.
-///
-/// It is accessed via the [Navigation.transition] property.
-@JS('NavigationTransition')
-@staticInterop
-class NavigationTransition {}
-
-extension NavigationTransitionExtension on NavigationTransition {
+extension type NavigationTransition._(JSObject _) implements JSObject {
   external NavigationType get navigationType;
   external NavigationHistoryEntry get from;
   external JSPromise get finished;
 }
-
-/// The **`NavigateEvent`** interface of the [Navigation API] is the event
-/// object for the [Navigation/navigate_event] event, which fires when
-/// [any type of navigation](https://github.com/WICG/navigation-api#appendix-types-of-navigations)
-/// is initiated (this includes usage of [History API] features like
-/// [History.go]). `NavigateEvent` provides access to information about that
-/// navigation, and allows developers to intercept and control the navigation
-/// handling.
-@JS('NavigateEvent')
-@staticInterop
-class NavigateEvent implements Event {
+extension type NavigateEvent._(JSObject _) implements Event, JSObject {
   external factory NavigateEvent(
     String type,
     NavigateEventInit eventInitDict,
   );
-}
 
-extension NavigateEventExtension on NavigateEvent {
   /// The **`intercept()`** method of the
   /// [NavigateEvent] interface intercepts this navigation, turning it into a
   /// same-document navigation to the [NavigationDestination.url] URL.
@@ -6616,11 +5328,7 @@ extension NavigateEventExtension on NavigateEvent {
   external JSAny? get info;
   external bool get hasUAVisualTransition;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class NavigateEventInit implements EventInit {
+extension type NavigateEventInit._(JSObject _) implements EventInit, JSObject {
   external factory NavigateEventInit({
     NavigationType navigationType,
     required NavigationDestination destination,
@@ -6633,9 +5341,7 @@ class NavigateEventInit implements EventInit {
     JSAny? info,
     bool hasUAVisualTransition,
   });
-}
 
-extension NavigateEventInitExtension on NavigateEventInit {
   external set navigationType(NavigationType value);
   external NavigationType get navigationType;
   external set destination(NavigationDestination value);
@@ -6657,19 +5363,13 @@ extension NavigateEventInitExtension on NavigateEventInit {
   external set hasUAVisualTransition(bool value);
   external bool get hasUAVisualTransition;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class NavigationInterceptOptions {
+extension type NavigationInterceptOptions._(JSObject _) implements JSObject {
   external factory NavigationInterceptOptions({
     NavigationInterceptHandler handler,
     NavigationFocusReset focusReset,
     NavigationScrollBehavior scroll,
   });
-}
 
-extension NavigationInterceptOptionsExtension on NavigationInterceptOptions {
   external set handler(NavigationInterceptHandler value);
   external NavigationInterceptHandler get handler;
   external set focusReset(NavigationFocusReset value);
@@ -6677,16 +5377,7 @@ extension NavigationInterceptOptionsExtension on NavigationInterceptOptions {
   external set scroll(NavigationScrollBehavior value);
   external NavigationScrollBehavior get scroll;
 }
-
-/// The **`NavigationDestination`** interface of the [Navigation API] represents
-/// the destination being navigated to in the current navigation.
-///
-/// It is accessed via the [NavigateEvent.destination] property.
-@JS('NavigationDestination')
-@staticInterop
-class NavigationDestination {}
-
-extension NavigationDestinationExtension on NavigationDestination {
+extension type NavigationDestination._(JSObject _) implements JSObject {
   /// The **`getState()`** method of the
   /// [NavigationDestination] interface returns a clone of the
   /// developer-supplied state associated with the destination
@@ -6699,202 +5390,101 @@ extension NavigationDestinationExtension on NavigationDestination {
   external int get index;
   external bool get sameDocument;
 }
-
-/// The **`NavigationCurrentEntryChangeEvent`** interface of the
-/// [Navigation API] is the event object for the
-/// [Navigation/currententrychange_event] event, which fires when the
-/// [Navigation.currentEntry] has changed.
-///
-/// This event will fire for same-document navigations (e.g. [Navigation.back]
-/// or [Navigation.traverseTo]), replacements (i.e. a [Navigation.navigate] call
-/// with `history` set to `replace`), or other calls that change the entry's
-/// state (e.g. [Navigation.updateCurrentEntry], or the [History API]'s
-/// [History.replaceState]).
-///
-/// This event fires after the navigation is committed, meaning that the visible
-/// URL has changed and the [NavigationHistoryEntry] update has occurred. It is
-/// useful for migrating from usage of older API features like the
-/// [Window/hashchange_event] or [Window/popstate_event] events.
-@JS('NavigationCurrentEntryChangeEvent')
-@staticInterop
-class NavigationCurrentEntryChangeEvent implements Event {
+extension type NavigationCurrentEntryChangeEvent._(JSObject _)
+    implements Event, JSObject {
   external factory NavigationCurrentEntryChangeEvent(
     String type,
     NavigationCurrentEntryChangeEventInit eventInitDict,
   );
-}
 
-extension NavigationCurrentEntryChangeEventExtension
-    on NavigationCurrentEntryChangeEvent {
   external NavigationType? get navigationType;
   external NavigationHistoryEntry get from;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class NavigationCurrentEntryChangeEventInit implements EventInit {
+extension type NavigationCurrentEntryChangeEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory NavigationCurrentEntryChangeEventInit({
     NavigationType? navigationType,
     required NavigationHistoryEntry from,
   });
-}
 
-extension NavigationCurrentEntryChangeEventInitExtension
-    on NavigationCurrentEntryChangeEventInit {
   external set navigationType(NavigationType? value);
   external NavigationType? get navigationType;
   external set from(NavigationHistoryEntry value);
   external NavigationHistoryEntry get from;
 }
-
-/// **`PopStateEvent`** is an interface for the
-/// [`popstate`](https://developer.mozilla.org/en-US/docs/Web/API/Window/popstate_event)
-/// event.
-///
-/// A `popstate` event is dispatched to the window every time the active history
-/// entry changes between two history entries for the same document. If the
-/// history entry
-/// being activated was created by a call to `history.pushState()` or was
-/// affected by a call to `history.replaceState()`, the `popstate`
-/// event's `state` property contains a copy of the history entry's state
-/// object.
-@JS('PopStateEvent')
-@staticInterop
-class PopStateEvent implements Event {
+extension type PopStateEvent._(JSObject _) implements Event, JSObject {
   external factory PopStateEvent(
     String type, [
     PopStateEventInit eventInitDict,
   ]);
-}
 
-extension PopStateEventExtension on PopStateEvent {
   external JSAny? get state;
   external bool get hasUAVisualTransition;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PopStateEventInit implements EventInit {
+extension type PopStateEventInit._(JSObject _) implements EventInit, JSObject {
   external factory PopStateEventInit({
     JSAny? state,
     bool hasUAVisualTransition,
   });
-}
 
-extension PopStateEventInitExtension on PopStateEventInit {
   external set state(JSAny? value);
   external JSAny? get state;
   external set hasUAVisualTransition(bool value);
   external bool get hasUAVisualTransition;
 }
-
-/// The **`HashChangeEvent`** interface represents events that fire when the
-/// fragment identifier of the URL has changed.
-///
-/// The fragment identifier is the part of the URL that follows (and includes)
-/// the `#` symbol.
-@JS('HashChangeEvent')
-@staticInterop
-class HashChangeEvent implements Event {
+extension type HashChangeEvent._(JSObject _) implements Event, JSObject {
   external factory HashChangeEvent(
     String type, [
     HashChangeEventInit eventInitDict,
   ]);
-}
 
-extension HashChangeEventExtension on HashChangeEvent {
   external String get oldURL;
   external String get newURL;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class HashChangeEventInit implements EventInit {
+extension type HashChangeEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory HashChangeEventInit({
     String oldURL,
     String newURL,
   });
-}
 
-extension HashChangeEventInitExtension on HashChangeEventInit {
   external set oldURL(String value);
   external String get oldURL;
   external set newURL(String value);
   external String get newURL;
 }
-
-/// The **`PageTransitionEvent`** event object is available inside handler
-/// functions for the
-/// [`pageshow`](https://developer.mozilla.org/en-US/docs/Web/API/Window/pageshow_event)
-/// and
-/// [`pagehide`](https://developer.mozilla.org/en-US/docs/Web/API/Window/pagehide_event)
-/// events, fired when a document is being loaded or unloaded.
-@JS('PageTransitionEvent')
-@staticInterop
-class PageTransitionEvent implements Event {
+extension type PageTransitionEvent._(JSObject _) implements Event, JSObject {
   external factory PageTransitionEvent(
     String type, [
     PageTransitionEventInit eventInitDict,
   ]);
-}
 
-extension PageTransitionEventExtension on PageTransitionEvent {
   external bool get persisted;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PageTransitionEventInit implements EventInit {
+extension type PageTransitionEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory PageTransitionEventInit({bool persisted});
-}
 
-extension PageTransitionEventInitExtension on PageTransitionEventInit {
   external set persisted(bool value);
   external bool get persisted;
 }
-
-/// The **`BeforeUnloadEvent`** interface represents the event object for the
-/// [Window/beforeunload_event] event, which is fired when the current window,
-/// contained document, and associated resources are about to be unloaded.
-///
-/// See the [Window/beforeunload_event] event reference for detailed guidance on
-/// using this event.
-@JS('BeforeUnloadEvent')
-@staticInterop
-class BeforeUnloadEvent implements Event {}
-
-extension BeforeUnloadEventExtension on BeforeUnloadEvent {
+extension type BeforeUnloadEvent._(JSObject _) implements Event, JSObject {
   external set returnValue(String value);
   external String get returnValue;
 }
-
-/// The **`ErrorEvent`** interface represents events providing information
-/// related to errors in scripts or in files.
-@JS('ErrorEvent')
-@staticInterop
-class ErrorEvent implements Event {
+extension type ErrorEvent._(JSObject _) implements Event, JSObject {
   external factory ErrorEvent(
     String type, [
     ErrorEventInit eventInitDict,
   ]);
-}
 
-extension ErrorEventExtension on ErrorEvent {
   external String get message;
   external String get filename;
   external int get lineno;
   external int get colno;
   external JSAny? get error;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ErrorEventInit implements EventInit {
+extension type ErrorEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ErrorEventInit({
     String message,
     String filename,
@@ -6902,9 +5492,7 @@ class ErrorEventInit implements EventInit {
     int colno,
     JSAny? error,
   });
-}
 
-extension ErrorEventInitExtension on ErrorEventInit {
   external set message(String value);
   external String get message;
   external set filename(String value);
@@ -6916,74 +5504,30 @@ extension ErrorEventInitExtension on ErrorEventInit {
   external set error(JSAny? value);
   external JSAny? get error;
 }
-
-/// The **`PromiseRejectionEvent`** interface represents events which are sent
-/// to the global script context when JavaScript `Promise`s are rejected. These
-/// events are particularly useful for telemetry and debugging purposes.
-///
-/// For details, see
-/// [Promise rejection events](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises#promise_rejection_events).
-@JS('PromiseRejectionEvent')
-@staticInterop
-class PromiseRejectionEvent implements Event {
+extension type PromiseRejectionEvent._(JSObject _) implements Event, JSObject {
   external factory PromiseRejectionEvent(
     String type,
     PromiseRejectionEventInit eventInitDict,
   );
-}
 
-extension PromiseRejectionEventExtension on PromiseRejectionEvent {
   external JSPromise get promise;
   external JSAny? get reason;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PromiseRejectionEventInit implements EventInit {
+extension type PromiseRejectionEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory PromiseRejectionEventInit({
     required JSPromise promise,
     JSAny? reason,
   });
-}
 
-extension PromiseRejectionEventInitExtension on PromiseRejectionEventInit {
   external set promise(JSPromise value);
   external JSPromise get promise;
   external set reason(JSAny? value);
   external JSAny? get reason;
 }
-
-/// The **`DOMParser`** interface provides
-/// the ability to parse  or  source code from a
-/// string into a DOM [Document].
-///
-/// You can perform the opposite operation—converting a DOM tree into XML or
-/// HTML
-/// source—using the [XMLSerializer] interface.
-///
-/// In the case of an HTML document, you can also replace portions of the DOM
-/// with new DOM
-/// trees built from HTML by setting the value of the [Element.innerHTML] and
-/// [Element.outerHTML] properties. These properties can also be
-/// read to fetch HTML fragments corresponding to the corresponding DOM subtree.
-///
-/// Note that [XMLHttpRequest] can parse XML and HTML directly
-/// from a URL-addressable resource, returning a `Document` in its
-/// [XMLHttpRequest.response] property.
-///
-/// > **Note:** Be aware that
-/// > [block-level elements](https://developer.mozilla.org/en-US/docs/Glossary/Block-level_content)
-/// > like `<p>` will be automatically closed if another
-/// > block-level element is nested inside and therefore parsed before the
-/// > closing `</p>` tag.
-@JS('DOMParser')
-@staticInterop
-class DOMParser {
+extension type DOMParser._(JSObject _) implements JSObject {
   external factory DOMParser();
-}
 
-extension DOMParserExtension on DOMParser {
   /// The **`parseFromString()`** method of the [DOMParser] interface parses a
   /// string containing either HTML or XML, returning an [HTMLDocument] or an
   /// [XMLDocument].
@@ -6992,18 +5536,7 @@ extension DOMParserExtension on DOMParser {
     DOMParserSupportedType type,
   );
 }
-
-/// The **`Navigator`** interface represents the state and the identity of the
-/// user agent. It allows scripts to query it and to register themselves to
-/// carry on some activities.
-///
-/// A `Navigator` object can be retrieved using the read-only [window.navigator]
-/// property.
-@JS('Navigator')
-@staticInterop
-class Navigator {}
-
-extension NavigatorExtension on Navigator {
+extension type Navigator._(JSObject _) implements JSObject {
   /// The **`getAutoplayPolicy()`** method of the _Autoplay Policy Detection
   /// API_ provides information about whether
   /// [autoplay](https://developer.mozilla.org/en-US/docs/Web/Media/Autoplay_guide)
@@ -7299,58 +5832,18 @@ extension NavigatorExtension on Navigator {
   external GPU get gpu;
   external ML get ml;
 }
-
-/// The `PluginArray` interface is used to store a list of [Plugin] objects
-/// describing the available
-/// [plugins](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/Plugins);
-/// it's returned by the [Navigator.plugins] property. The `PluginArray` is not
-/// a JavaScript array, but has the `length` property and supports accessing
-/// individual items using bracket notation (`plugins[2]`), as well as via
-/// `item(index)` and `namedItem("name")` methods.
-///
-/// > **Note:** Own properties of `PluginArray` objects are no longer enumerable
-/// > in the latest browser versions.
-@JS('PluginArray')
-@staticInterop
-class PluginArray {}
-
-extension PluginArrayExtension on PluginArray {
+extension type PluginArray._(JSObject _) implements JSObject {
   external void refresh();
   external Plugin? item(int index);
   external Plugin? namedItem(String name);
   external int get length;
 }
-
-/// The **`MimeTypeArray`** interface returns an array of [MimeType] instances,
-/// each of which contains information about a supported browser plugins. This
-/// object is returned by [Navigator.mimeTypes].
-///
-/// > **Note:** This interface was an
-/// > [attempt to create an unmodifiable list](https://stackoverflow.com/questions/74630989/why-use-domstringlist-rather-than-an-array/74641156#74641156)
-/// > and only continues to be supported to not break code that's already using
-/// > it. Modern APIs use types that wrap around ECMAScript array types instead,
-/// > so you can treat them like ECMAScript arrays, and at the same time impose
-/// > additional semantics on their usage (such as making their items
-/// > read-only).
-@JS('MimeTypeArray')
-@staticInterop
-class MimeTypeArray {}
-
-extension MimeTypeArrayExtension on MimeTypeArray {
+extension type MimeTypeArray._(JSObject _) implements JSObject {
   external MimeType? item(int index);
   external MimeType? namedItem(String name);
   external int get length;
 }
-
-/// The `Plugin` interface provides information about a browser plugin.
-///
-/// > **Note:** Own properties of `Plugin` objects are no longer enumerable in
-/// > the latest browser versions.
-@JS('Plugin')
-@staticInterop
-class Plugin {}
-
-extension PluginExtension on Plugin {
+extension type Plugin._(JSObject _) implements JSObject {
   external MimeType? item(int index);
   external MimeType? namedItem(String name);
   external String get name;
@@ -7358,34 +5851,13 @@ extension PluginExtension on Plugin {
   external String get filename;
   external int get length;
 }
-
-/// The **`MimeType`** interface provides contains information about a MIME type
-/// associated with a particular plugin. [Navigator.mimeTypes] returns an array
-/// of this object.
-@JS('MimeType')
-@staticInterop
-class MimeType {}
-
-extension MimeTypeExtension on MimeType {
+extension type MimeType._(JSObject _) implements JSObject {
   external String get type;
   external String get description;
   external String get suffixes;
   external Plugin get enabledPlugin;
 }
-
-/// The **`ImageBitmap`** interface represents a bitmap image which can be drawn
-/// to a `canvas` without undue latency. It can be created from a variety of
-/// source objects using the [createImageBitmap] factory method. `ImageBitmap`
-/// provides an asynchronous and resource efficient pathway to prepare textures
-/// for rendering in WebGL.
-///
-/// `ImageBitmap` is a
-/// [transferable object](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
-@JS('ImageBitmap')
-@staticInterop
-class ImageBitmap {}
-
-extension ImageBitmapExtension on ImageBitmap {
+extension type ImageBitmap._(JSObject _) implements JSObject {
   /// The **`ImageBitmap.close()`**
   /// method disposes of all graphical resources associated with an
   /// `ImageBitmap`.
@@ -7393,11 +5865,7 @@ extension ImageBitmapExtension on ImageBitmap {
   external int get width;
   external int get height;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ImageBitmapOptions {
+extension type ImageBitmapOptions._(JSObject _) implements JSObject {
   external factory ImageBitmapOptions({
     ImageOrientation imageOrientation,
     PremultiplyAlpha premultiplyAlpha,
@@ -7406,9 +5874,7 @@ class ImageBitmapOptions {
     int resizeHeight,
     ResizeQuality resizeQuality,
   });
-}
 
-extension ImageBitmapOptionsExtension on ImageBitmapOptions {
   external set imageOrientation(ImageOrientation value);
   external ImageOrientation get imageOrientation;
   external set premultiplyAlpha(PremultiplyAlpha value);
@@ -7422,43 +5888,12 @@ extension ImageBitmapOptionsExtension on ImageBitmapOptions {
   external set resizeQuality(ResizeQuality value);
   external ResizeQuality get resizeQuality;
 }
-
-/// The **`MessageEvent`** interface represents a message received by a target
-/// object.
-///
-/// This is used to represent messages in:
-///
-/// - [Server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events)
-///   (see [EventSource.message_event]).
-/// - [Web sockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
-///   (see the `onmessage` property of the
-///   [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket)
-///   interface).
-/// - Cross-document messaging (see [Window.postMessage] and
-///   [Window.message_event]).
-/// - [Channel messaging](https://developer.mozilla.org/en-US/docs/Web/API/Channel_Messaging_API)
-///   (see [MessagePort.postMessage] and [MessagePort.message_event]).
-/// - Cross-worker/document messaging (see the above two entries, but also
-///   [Worker.postMessage], [Worker.message_event],
-///   [ServiceWorkerGlobalScope.message_event], etc.)
-/// - [Broadcast channels](https://developer.mozilla.org/en-US/docs/Web/API/Broadcast_Channel_API)
-///   (see [BroadcastChannel.postMessage]) and
-///   [BroadcastChannel.message_event]).
-/// - WebRTC data channels (see [RTCDataChannel.message_event]).
-///
-/// The action triggered by this event is defined in a function set as the event
-/// handler for the relevant `message` event (e.g. using an `onmessage` handler
-/// as listed above).
-@JS('MessageEvent')
-@staticInterop
-class MessageEvent implements Event {
+extension type MessageEvent._(JSObject _) implements Event, JSObject {
   external factory MessageEvent(
     String type, [
     MessageEventInit eventInitDict,
   ]);
-}
 
-extension MessageEventExtension on MessageEvent {
   external void initMessageEvent(
     String type, [
     bool bubbles,
@@ -7475,11 +5910,7 @@ extension MessageEventExtension on MessageEvent {
   external MessageEventSource? get source;
   external JSArray get ports;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MessageEventInit implements EventInit {
+extension type MessageEventInit._(JSObject _) implements EventInit, JSObject {
   external factory MessageEventInit({
     JSAny? data,
     String origin,
@@ -7487,9 +5918,7 @@ class MessageEventInit implements EventInit {
     MessageEventSource? source,
     JSArray ports,
   });
-}
 
-extension MessageEventInitExtension on MessageEventInit {
   external set data(JSAny? value);
   external JSAny? get data;
   external set origin(String value);
@@ -7501,52 +5930,7 @@ extension MessageEventInitExtension on MessageEventInit {
   external set ports(JSArray value);
   external JSArray get ports;
 }
-
-/// The **`EventSource`** interface is web content's interface to
-/// [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events).
-///
-/// An `EventSource` instance opens a persistent connection to an
-/// [HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP) server, which
-/// sends
-/// [events](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events)
-/// in `text/event-stream` format. The connection remains open until closed by
-/// calling [EventSource.close].
-///
-/// Once the connection is opened, incoming messages from the server are
-/// delivered to your code in the form of events. If there is an event field in
-/// the incoming message, the triggered event is the same as the event field
-/// value. If no event field is present, then a generic
-/// [EventSource/message_event] event is fired.
-///
-/// Unlike
-/// [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API),
-/// server-sent events are unidirectional; that is, data messages are delivered
-/// in one direction, from the server to the client (such as a user's web
-/// browser). That makes them an excellent choice when there's no need to send
-/// data from the client to the server in message form. For example,
-/// `EventSource` is a useful approach for handling things like social media
-/// status updates, news feeds, or delivering data into a
-/// [client-side storage](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Client-side_storage)
-/// mechanism like
-/// [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
-/// or
-/// [web storage](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API).
-///
-/// > **Warning:** When **not used over HTTP/2**, SSE suffers from a limitation
-/// > to the maximum number of open connections, which can be specially painful
-/// > when opening various tabs as the limit is _per browser_ and set to a very
-/// > low number (6). The issue has been marked as "Won't fix" in
-/// > [Chrome](https://crbug.com/275955) and
-/// > [Firefox](https://bugzil.la/906896). This limit is per browser + domain,
-/// > so that means that you can open 6 SSE connections across all of the tabs
-/// > to `www.example1.com` and another 6 SSE connections to `www.example2.com`.
-/// > (from
-/// > [Stackoverflow](https://stackoverflow.com/questions/5195452/websockets-vs-server-sent-events-eventsource/5326159)).
-/// > When using HTTP/2, the maximum number of simultaneous _HTTP streams_ is
-/// > negotiated between the server and the client (defaults to 100).
-@JS('EventSource')
-@staticInterop
-class EventSource implements EventTarget {
+extension type EventSource._(JSObject _) implements EventTarget, JSObject {
   external factory EventSource(
     String url, [
     EventSourceInit eventSourceInitDict,
@@ -7555,9 +5939,7 @@ class EventSource implements EventTarget {
   external static int get CONNECTING;
   external static int get OPEN;
   external static int get CLOSED;
-}
 
-extension EventSourceExtension on EventSource {
   /// The **`close()`** method of the [EventSource]
   /// interface closes the connection, if one is made, and sets the
   /// [EventSource.readyState] attribute to `2` (closed).
@@ -7574,46 +5956,19 @@ extension EventSourceExtension on EventSource {
   external set onerror(EventHandler value);
   external EventHandler get onerror;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class EventSourceInit {
+extension type EventSourceInit._(JSObject _) implements JSObject {
   external factory EventSourceInit({bool withCredentials});
-}
 
-extension EventSourceInitExtension on EventSourceInit {
   external set withCredentials(bool value);
   external bool get withCredentials;
 }
-
-/// The **`MessageChannel`** interface of the
-/// [Channel Messaging API](https://developer.mozilla.org/en-US/docs/Web/API/Channel_Messaging_API)
-/// allows us to create a new message channel and send data through it via its
-/// two [MessagePort] properties.
-@JS('MessageChannel')
-@staticInterop
-class MessageChannel {
+extension type MessageChannel._(JSObject _) implements JSObject {
   external factory MessageChannel();
-}
 
-extension MessageChannelExtension on MessageChannel {
   external MessagePort get port1;
   external MessagePort get port2;
 }
-
-/// The **`MessagePort`** interface of the
-/// [Channel Messaging API](https://developer.mozilla.org/en-US/docs/Web/API/Channel_Messaging_API)
-/// represents one of the two ports of a [MessageChannel], allowing messages to
-/// be sent from one port and listening out for them arriving at the other.
-///
-/// `MessagePort` is a
-/// [transferable object](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
-@JS('MessagePort')
-@staticInterop
-class MessagePort implements EventTarget {}
-
-extension MessagePortExtension on MessagePort {
+extension type MessagePort._(JSObject _) implements EventTarget, JSObject {
   /// The **`postMessage()`** method of the
   /// [MessagePort] interface sends a message from the port, and optionally,
   /// transfers ownership of objects to other browsing contexts.
@@ -7639,32 +5994,15 @@ extension MessagePortExtension on MessagePort {
   external set onmessageerror(EventHandler value);
   external EventHandler get onmessageerror;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class StructuredSerializeOptions {
+extension type StructuredSerializeOptions._(JSObject _) implements JSObject {
   external factory StructuredSerializeOptions({JSArray transfer});
-}
 
-extension StructuredSerializeOptionsExtension on StructuredSerializeOptions {
   external set transfer(JSArray value);
   external JSArray get transfer;
 }
-
-/// The **`BroadcastChannel`** interface represents a named channel that any  of
-/// a given  can subscribe to. It allows communication between different
-/// documents (in different windows, tabs, frames or iframes) of the same
-/// origin. Messages are broadcasted via a [BroadcastChannel/message_event]
-/// event fired at all `BroadcastChannel` objects listening to the channel,
-/// except the object that sent the message.
-@JS('BroadcastChannel')
-@staticInterop
-class BroadcastChannel implements EventTarget {
+extension type BroadcastChannel._(JSObject _) implements EventTarget, JSObject {
   external factory BroadcastChannel(String name);
-}
 
-extension BroadcastChannelExtension on BroadcastChannel {
   /// The **`BroadcastChannel.postMessage()`** sends a message,
   /// which can be of any kind of `Object`,
   /// to each listener in any  with the same .
@@ -7685,26 +6023,8 @@ extension BroadcastChannelExtension on BroadcastChannel {
   external set onmessageerror(EventHandler value);
   external EventHandler get onmessageerror;
 }
-
-/// The **`WorkerGlobalScope`** interface of the
-/// [Web Workers API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)
-/// is an interface representing the scope of any worker. Workers have no
-/// browsing context; this scope contains the information usually conveyed by
-/// [Window] objects — in this case event handlers, the console or the
-/// associated [WorkerNavigator] object. Each `WorkerGlobalScope` has its own
-/// event loop.
-///
-/// This interface is usually specialized by each worker type:
-/// [DedicatedWorkerGlobalScope] for dedicated workers,
-/// [SharedWorkerGlobalScope] for shared workers, and [ServiceWorkerGlobalScope]
-/// for
-/// [ServiceWorker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
-/// The `self` property returns the specialized scope for each context.
-@JS('WorkerGlobalScope')
-@staticInterop
-class WorkerGlobalScope implements EventTarget {}
-
-extension WorkerGlobalScopeExtension on WorkerGlobalScope {
+extension type WorkerGlobalScope._(JSObject _)
+    implements EventTarget, JSObject {
   /// The **`importScripts()`** method of the [WorkerGlobalScope] interface
   /// synchronously imports one or more scripts into the worker's scope.
   external void importScripts(String urls);
@@ -7766,20 +6086,8 @@ extension WorkerGlobalScopeExtension on WorkerGlobalScope {
   external CacheStorage get caches;
   external TrustedTypePolicyFactory get trustedTypes;
 }
-
-/// The **`DedicatedWorkerGlobalScope`** object (the [Worker] global scope) is
-/// accessible through the [WorkerGlobalScope.self] keyword. Some additional
-/// global functions, namespaces objects, and constructors, not typically
-/// associated with the worker global scope, but available on it, are listed in
-/// the
-/// [JavaScript Reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference).
-/// See also:
-/// [Functions available to workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Functions_and_classes_available_to_workers).
-@JS('DedicatedWorkerGlobalScope')
-@staticInterop
-class DedicatedWorkerGlobalScope implements WorkerGlobalScope {}
-
-extension DedicatedWorkerGlobalScopeExtension on DedicatedWorkerGlobalScope {
+extension type DedicatedWorkerGlobalScope._(JSObject _)
+    implements WorkerGlobalScope, JSObject {
   /// The **`postMessage()`** method of the [DedicatedWorkerGlobalScope]
   /// interface sends a message to the main thread that spawned it.
   ///
@@ -7855,19 +6163,8 @@ extension DedicatedWorkerGlobalScopeExtension on DedicatedWorkerGlobalScope {
   external set onrtctransform(EventHandler value);
   external EventHandler get onrtctransform;
 }
-
-/// The **`SharedWorkerGlobalScope`** object (the [SharedWorker] global scope)
-/// is accessible through the [window.self] keyword. Some additional global
-/// functions, namespaces objects, and constructors, not typically associated
-/// with the worker global scope, but available on it, are listed in the
-/// [JavaScript Reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference).
-/// See the complete list of
-/// [functions available to workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Functions_and_classes_available_to_workers).
-@JS('SharedWorkerGlobalScope')
-@staticInterop
-class SharedWorkerGlobalScope implements WorkerGlobalScope {}
-
-extension SharedWorkerGlobalScopeExtension on SharedWorkerGlobalScope {
+extension type SharedWorkerGlobalScope._(JSObject _)
+    implements WorkerGlobalScope, JSObject {
   /// The **`close()`** method of the [SharedWorkerGlobalScope] interface
   /// discards any tasks queued in the `SharedWorkerGlobalScope`'s event loop,
   /// effectively closing this particular scope.
@@ -7876,33 +6173,12 @@ extension SharedWorkerGlobalScopeExtension on SharedWorkerGlobalScope {
   external set onconnect(EventHandler value);
   external EventHandler get onconnect;
 }
-
-/// The **`Worker`** interface of the
-/// [Web Workers API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)
-/// represents a background task that can be created via script, which can send
-/// messages back to its creator.
-///
-/// Creating a worker is done by calling the `Worker("path/to/worker/script")`
-/// constructor.
-///
-/// Workers may themselves spawn new workers, as long as those workers are
-/// hosted at the same
-/// [origin](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)
-/// as the parent page.
-///
-/// Note that not all interfaces and functions are available to web workers. See
-/// [Functions and classes available to Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Functions_and_classes_available_to_workers)
-/// for details.
-@JS('Worker')
-@staticInterop
-class Worker implements EventTarget {
+extension type Worker._(JSObject _) implements EventTarget, JSObject {
   external factory Worker(
     String scriptURL, [
     WorkerOptions options,
   ]);
-}
 
-extension WorkerExtension on Worker {
   /// The **`terminate()`** method of the [Worker] interface immediately
   /// terminates the [Worker]. This does not offer the worker an opportunity to
   /// finish its operations; it is stopped at once.
@@ -7930,19 +6206,13 @@ extension WorkerExtension on Worker {
   external set onerror(EventHandler value);
   external EventHandler get onerror;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class WorkerOptions {
+extension type WorkerOptions._(JSObject _) implements JSObject {
   external factory WorkerOptions({
     WorkerType type,
     RequestCredentials credentials,
     String name,
   });
-}
 
-extension WorkerOptionsExtension on WorkerOptions {
   external set type(WorkerType value);
   external WorkerType get type;
   external set credentials(RequestCredentials value);
@@ -7950,40 +6220,17 @@ extension WorkerOptionsExtension on WorkerOptions {
   external set name(String value);
   external String get name;
 }
-
-/// The **`SharedWorker`** interface represents a specific kind of worker that
-/// can be _accessed_ from several browsing contexts, such as several windows,
-/// iframes or even workers. They implement an interface different than
-/// dedicated workers and have a different global scope,
-/// [SharedWorkerGlobalScope].
-///
-/// > **Note:** If SharedWorker can be accessed from several browsing contexts,
-/// > all those browsing contexts must share the exact same origin (same
-/// > protocol, host and port).
-@JS('SharedWorker')
-@staticInterop
-class SharedWorker implements EventTarget {
+extension type SharedWorker._(JSObject _) implements EventTarget, JSObject {
   external factory SharedWorker(
     String scriptURL, [
     JSAny options,
   ]);
-}
 
-extension SharedWorkerExtension on SharedWorker {
   external MessagePort get port;
   external set onerror(EventHandler value);
   external EventHandler get onerror;
 }
-
-/// The **`WorkerNavigator`** interface represents a subset of the [Navigator]
-/// interface allowed to be accessed from a [Worker]. Such an object is
-/// initialized for each worker and is available via the
-/// [WorkerGlobalScope.navigator] property.
-@JS('WorkerNavigator')
-@staticInterop
-class WorkerNavigator {}
-
-extension WorkerNavigatorExtension on WorkerNavigator {
+extension type WorkerNavigator._(JSObject _) implements JSObject {
   /// The **`setAppBadge()`** method of the [WorkerNavigator] interface sets a
   /// badge on the icon associated with this app. If a value is passed to the
   /// method, this will be set as the value of the badge. Otherwise the badge
@@ -8025,19 +6272,7 @@ extension WorkerNavigatorExtension on WorkerNavigator {
   external GPU get gpu;
   external ML get ml;
 }
-
-/// The **`WorkerLocation`** interface defines the absolute location of the
-/// script executed by the [Worker]. Such an object is initialized for each
-/// worker and is available via the [WorkerGlobalScope.location] property
-/// obtained by calling `self.location`.
-///
-/// This interface is only visible from inside a JavaScript script executed in
-/// the context of a Web worker.
-@JS('WorkerLocation')
-@staticInterop
-class WorkerLocation {}
-
-extension WorkerLocationExtension on WorkerLocation {
+extension type WorkerLocation._(JSObject _) implements JSObject {
   external String get href;
   external String get origin;
   external String get protocol;
@@ -8048,39 +6283,8 @@ extension WorkerLocationExtension on WorkerLocation {
   external String get search;
   external String get hash;
 }
-
-/// The **`WorkletGlobalScope`** interface is an abstract class that specific
-/// worklet scope classes inherit from. Each `WorkletGlobalScope` defines a new
-/// global environment.
-///
-/// > **Note:** You don't normally need to interact with this interface. It is a
-/// > base interface intended to be subclassed. You will encounter the
-/// > subclasses [AudioWorkletGlobalScope] inside [AudioWorklet] objects, or
-/// > [PaintWorkletGlobalScope] inside CSS paint [Worklet] objects.
-@JS('WorkletGlobalScope')
-@staticInterop
-class WorkletGlobalScope {}
-
-/// The **`Worklet`** interface is a lightweight version of [Worker] and gives
-/// developers access to low-level parts of the rendering pipeline.
-///
-/// With Worklets, you can run JavaScript and
-/// [WebAssembly](https://developer.mozilla.org/en-US/docs/WebAssembly) code to
-/// do graphics rendering or audio processing where high performance is
-/// required.
-///
-/// Worklets allow static import of
-/// [ECMAScript modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules),
-/// if supported, using
-/// [`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import).
-/// Dynamic import is disallowed by the specification — calling
-/// [`import()`](/en-US/docs/Web/JavaScript/Reference/Operators/import) will
-/// throw.
-@JS('Worklet')
-@staticInterop
-class Worklet {}
-
-extension WorkletExtension on Worklet {
+extension type WorkletGlobalScope._(JSObject _) implements JSObject {}
+extension type Worklet._(JSObject _) implements JSObject {
   /// The **`addModule()`** method of the
   /// [Worklet] interface loads the module in the given JavaScript file and
   /// adds it to the current `Worklet`.
@@ -8089,33 +6293,13 @@ extension WorkletExtension on Worklet {
     WorkletOptions options,
   ]);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class WorkletOptions {
+extension type WorkletOptions._(JSObject _) implements JSObject {
   external factory WorkletOptions({RequestCredentials credentials});
-}
 
-extension WorkletOptionsExtension on WorkletOptions {
   external set credentials(RequestCredentials value);
   external RequestCredentials get credentials;
 }
-
-/// The **`Storage`** interface of the
-/// [Web Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API)
-/// provides access to a particular domain's session or local storage. It
-/// allows, for example, the addition, modification, or deletion of stored data
-/// items.
-///
-/// To manipulate, for instance, the session storage for a domain, a call to
-/// [Window.sessionStorage] is made; whereas for local storage the call is made
-/// to [Window.localStorage].
-@JS('Storage')
-@staticInterop
-class Storage {}
-
-extension StorageExtension on Storage {
+extension type Storage._(JSObject _) implements JSObject {
   /// The **`key()`** method of the [Storage] interface,
   /// when passed a number n, returns the name of the nth key in a given
   /// `Storage`
@@ -8155,22 +6339,12 @@ extension StorageExtension on Storage {
   external void clear();
   external int get length;
 }
-
-/// The **`StorageEvent`** interface is implemented by the
-/// [Window/storage_event] event, which is
-/// sent to a window
-/// when a storage area the window has access to is changed within the context
-/// of another document.
-@JS('StorageEvent')
-@staticInterop
-class StorageEvent implements Event {
+extension type StorageEvent._(JSObject _) implements Event, JSObject {
   external factory StorageEvent(
     String type, [
     StorageEventInit eventInitDict,
   ]);
-}
 
-extension StorageEventExtension on StorageEvent {
   /// The **`StorageEvent.initStorageEvent()`** method is used to initialize the
   /// value of a [StorageEvent].
   external void initStorageEvent(
@@ -8189,11 +6363,7 @@ extension StorageEventExtension on StorageEvent {
   external String get url;
   external Storage? get storageArea;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class StorageEventInit implements EventInit {
+extension type StorageEventInit._(JSObject _) implements EventInit, JSObject {
   external factory StorageEventInit({
     String? key,
     String? oldValue,
@@ -8201,9 +6371,7 @@ class StorageEventInit implements EventInit {
     String url,
     Storage? storageArea,
   });
-}
 
-extension StorageEventInitExtension on StorageEventInit {
   external set key(String? value);
   external String? get key;
   external set oldValue(String? value);
@@ -8215,18 +6383,10 @@ extension StorageEventInitExtension on StorageEventInit {
   external set storageArea(Storage? value);
   external Storage? get storageArea;
 }
-
-/// The **`HTMLMarqueeElement`** interface provides methods to manipulate
-/// `marquee` elements.
-///
-/// It inherits properties and methods from the [HTMLElement] interface.
-@JS('HTMLMarqueeElement')
-@staticInterop
-class HTMLMarqueeElement implements HTMLElement {
+extension type HTMLMarqueeElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLMarqueeElement();
-}
 
-extension HTMLMarqueeElementExtension on HTMLMarqueeElement {
   external void start();
   external void stop();
   external set behavior(String value);
@@ -8252,17 +6412,10 @@ extension HTMLMarqueeElementExtension on HTMLMarqueeElement {
   external set width(String value);
   external String get width;
 }
-
-/// The **`HTMLFrameSetElement`** interface provides special properties (beyond
-/// those of the regular [HTMLElement] interface they also inherit) for
-/// manipulating `frameset` elements.
-@JS('HTMLFrameSetElement')
-@staticInterop
-class HTMLFrameSetElement implements HTMLElement {
+extension type HTMLFrameSetElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLFrameSetElement();
-}
 
-extension HTMLFrameSetElementExtension on HTMLFrameSetElement {
   external set cols(String value);
   external String get cols;
   external set rows(String value);
@@ -8306,14 +6459,9 @@ extension HTMLFrameSetElementExtension on HTMLFrameSetElement {
   external set onportalactivate(EventHandler value);
   external EventHandler get onportalactivate;
 }
-
-@JS('HTMLFrameElement')
-@staticInterop
-class HTMLFrameElement implements HTMLElement {
+extension type HTMLFrameElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLFrameElement();
-}
 
-extension HTMLFrameElementExtension on HTMLFrameElement {
   external set name(String value);
   external String get name;
   external set scrolling(String value);
@@ -8333,28 +6481,16 @@ extension HTMLFrameElementExtension on HTMLFrameElement {
   external set marginWidth(String value);
   external String get marginWidth;
 }
-
-@JS('HTMLDirectoryElement')
-@staticInterop
-class HTMLDirectoryElement implements HTMLElement {
+extension type HTMLDirectoryElement._(JSObject _)
+    implements HTMLElement, JSObject {
   external factory HTMLDirectoryElement();
-}
 
-extension HTMLDirectoryElementExtension on HTMLDirectoryElement {
   external set compact(bool value);
   external bool get compact;
 }
-
-/// Implements the document object model (DOM) representation of the font
-/// element. The HTML Font Element `font` defines the font size, font face and
-/// color of text.
-@JS('HTMLFontElement')
-@staticInterop
-class HTMLFontElement implements HTMLElement {
+extension type HTMLFontElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLFontElement();
-}
 
-extension HTMLFontElementExtension on HTMLFontElement {
   external set color(String value);
   external String get color;
   external set face(String value);
@@ -8362,18 +6498,9 @@ extension HTMLFontElementExtension on HTMLFontElement {
   external set size(String value);
   external String get size;
 }
-
-/// The **`HTMLParamElement`** interface provides special properties (beyond
-/// those of the regular [HTMLElement] object interface it inherits) for
-/// manipulating `param` elements, representing a pair of a key and a value that
-/// acts as a parameter for an `object` element.
-@JS('HTMLParamElement')
-@staticInterop
-class HTMLParamElement implements HTMLElement {
+extension type HTMLParamElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLParamElement();
-}
 
-extension HTMLParamElementExtension on HTMLParamElement {
   external set name(String value);
   external String get name;
   external set value(String value);
@@ -8383,12 +6510,7 @@ extension HTMLParamElementExtension on HTMLParamElement {
   external set valueType(String value);
   external String get valueType;
 }
-
-@JS('External')
-@staticInterop
-class External {}
-
-extension ExternalExtension on External {
+extension type External._(JSObject _) implements JSObject {
   external void AddSearchProvider();
   external void IsSearchProviderInstalled();
 }

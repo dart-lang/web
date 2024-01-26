@@ -10,10 +10,4 @@
 
 import 'dart:js_interop';
 
-/// The **`FragmentDirective`** interface is an object exposed for feature
-/// detectability, that is, whether or not a browser supports text fragments.
-///
-/// It is accessed via the [Document.fragmentDirective] property.
-@JS('FragmentDirective')
-@staticInterop
-class FragmentDirective {}
+extension type FragmentDirective._(JSObject _) implements JSObject {}

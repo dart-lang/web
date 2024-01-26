@@ -20,21 +20,10 @@ typedef SurfaceSwitchingPreferenceEnum = String;
 typedef MonitorTypeSurfacesEnum = String;
 typedef DisplayCaptureSurfaceType = String;
 typedef CursorCaptureConstraint = String;
-
-/// The **`CaptureController`** interface provides methods that can be used to
-/// further manipulate a capture session separate from its initiation via
-/// [MediaDevices.getDisplayMedia].
-///
-/// A `CaptureController` object is associated with a capture session by passing
-/// it into a [MediaDevices.getDisplayMedia] call as the value of the options
-/// object's `controller` property.
-@JS('CaptureController')
-@staticInterop
-class CaptureController implements EventTarget {
+extension type CaptureController._(JSObject _)
+    implements EventTarget, JSObject {
   external factory CaptureController();
-}
 
-extension CaptureControllerExtension on CaptureController {
   /// The [CaptureController] interface's **`setFocusBehavior()`** method
   /// controls whether the captured tab or window will be focused when an
   /// associated [MediaDevices.getDisplayMedia] `Promise` fulfills, or whether
@@ -48,11 +37,7 @@ extension CaptureControllerExtension on CaptureController {
   external set oncapturedmousechange(EventHandler value);
   external EventHandler get oncapturedmousechange;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class DisplayMediaStreamOptions {
+extension type DisplayMediaStreamOptions._(JSObject _) implements JSObject {
   external factory DisplayMediaStreamOptions({
     JSAny video,
     JSAny audio,
@@ -62,9 +47,7 @@ class DisplayMediaStreamOptions {
     SurfaceSwitchingPreferenceEnum surfaceSwitching,
     MonitorTypeSurfacesEnum monitorTypeSurfaces,
   });
-}
 
-extension DisplayMediaStreamOptionsExtension on DisplayMediaStreamOptions {
   external set video(JSAny value);
   external JSAny get video;
   external set audio(JSAny value);

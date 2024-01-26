@@ -12,17 +12,10 @@ import 'dart:js_interop';
 
 import 'webgl1.dart';
 
-@JS('WebGLVertexArrayObjectOES')
-@staticInterop
-class WebGLVertexArrayObjectOES implements WebGLObject {}
-
-@JS('OES_vertex_array_object')
-@staticInterop
-class OES_vertex_array_object {
+extension type WebGLVertexArrayObjectOES._(JSObject _)
+    implements WebGLObject, JSObject {}
+extension type OES_vertex_array_object._(JSObject _) implements JSObject {
   external static GLenum get VERTEX_ARRAY_BINDING_OES;
-}
-
-extension OESVertexArrayObjectExtension on OES_vertex_array_object {
   external WebGLVertexArrayObjectOES? createVertexArrayOES();
   external void deleteVertexArrayOES(WebGLVertexArrayObjectOES? arrayObject);
   external GLboolean isVertexArrayOES(WebGLVertexArrayObjectOES? arrayObject);

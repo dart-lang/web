@@ -13,11 +13,7 @@ import 'dart:js_interop';
 import 'service_workers.dart';
 
 typedef ContentCategory = String;
-
-@JS()
-@staticInterop
-@anonymous
-class ContentDescription {
+extension type ContentDescription._(JSObject _) implements JSObject {
   external factory ContentDescription({
     required String id,
     required String title,
@@ -26,9 +22,7 @@ class ContentDescription {
     JSArray icons,
     required String url,
   });
-}
 
-extension ContentDescriptionExtension on ContentDescription {
   external set id(String value);
   external String get id;
   external set title(String value);
@@ -42,16 +36,7 @@ extension ContentDescriptionExtension on ContentDescription {
   external set url(String value);
   external String get url;
 }
-
-/// The **`ContentIndex`** interface of the
-/// [Content Index API](https://developer.mozilla.org/en-US/docs/Web/API/Content_Index_API)
-/// allows developers to register their offline enabled content with the
-/// browser.
-@JS('ContentIndex')
-@staticInterop
-class ContentIndex {}
-
-extension ContentIndexExtension on ContentIndex {
+extension type ContentIndex._(JSObject _) implements JSObject {
   /// The **`add()`** method of the
   /// [ContentIndex] interface registers an item with the
   /// [content index](https://developer.mozilla.org/en-US/docs/Web/API/Content_Index_API).
@@ -71,41 +56,19 @@ extension ContentIndexExtension on ContentIndex {
   /// an iterable list of content index entries.
   external JSPromise getAll();
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ContentIndexEventInit implements ExtendableEventInit {
+extension type ContentIndexEventInit._(JSObject _)
+    implements ExtendableEventInit, JSObject {
   external factory ContentIndexEventInit({required String id});
-}
 
-extension ContentIndexEventInitExtension on ContentIndexEventInit {
   external set id(String value);
   external String get id;
 }
-
-/// The **`ContentIndexEvent`** interface of the
-/// [content index](https://developer.mozilla.org/en-US/docs/Web/API/Content_Index_API)
-/// defines the object used to represent the
-/// [ServiceWorkerGlobalScope.contentdelete_event] event.
-///
-/// This event is sent to the
-/// [global scope](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope)
-/// of a [ServiceWorker]. It contains the id of the indexed content to be
-/// removed.
-///
-/// The [ServiceWorkerGlobalScope.contentdelete_event] event is only fired when
-/// the deletion happens due to interaction with the browser's built-in user
-/// interface. It is not fired when the [ContentIndex.delete] method is called.
-@JS('ContentIndexEvent')
-@staticInterop
-class ContentIndexEvent implements ExtendableEvent {
+extension type ContentIndexEvent._(JSObject _)
+    implements ExtendableEvent, JSObject {
   external factory ContentIndexEvent(
     String type,
     ContentIndexEventInit init,
   );
-}
 
-extension ContentIndexEventExtension on ContentIndexEvent {
   external String get id;
 }

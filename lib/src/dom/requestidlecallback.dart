@@ -13,33 +13,13 @@ import 'dart:js_interop';
 import 'hr_time.dart';
 
 typedef IdleRequestCallback = JSFunction;
-
-@JS()
-@staticInterop
-@anonymous
-class IdleRequestOptions {
+extension type IdleRequestOptions._(JSObject _) implements JSObject {
   external factory IdleRequestOptions({int timeout});
-}
 
-extension IdleRequestOptionsExtension on IdleRequestOptions {
   external set timeout(int value);
   external int get timeout;
 }
-
-/// The `IdleDeadline` interface is used as the data type of the input parameter
-/// to idle callbacks established by calling [Window.requestIdleCallback]. It
-/// offers a method, [IdleDeadline.timeRemaining], which lets you determine how
-/// much longer the user agent estimates it will remain idle and a property,
-/// [IdleDeadline.didTimeout], which lets you determine if your callback is
-/// executing because its timeout duration expired.
-///
-/// To learn more about how request callbacks work, see
-/// [Collaborative Scheduling of Background Tasks](https://developer.mozilla.org/en-US/docs/Web/API/Background_Tasks_API).
-@JS('IdleDeadline')
-@staticInterop
-class IdleDeadline {}
-
-extension IdleDeadlineExtension on IdleDeadline {
+extension type IdleDeadline._(JSObject _) implements JSObject {
   /// The **`timeRemaining()`** method
   /// on the [IdleDeadline] interface returns the estimated number of
   /// milliseconds remaining in the current idle period. The callback can call

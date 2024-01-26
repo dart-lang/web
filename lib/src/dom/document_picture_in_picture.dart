@@ -13,15 +13,8 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
-/// The **`DocumentPictureInPicture`** interface of the  is the entry point for
-/// creating and handling document picture-in-picture windows.
-///
-/// It is accessed via the [Window.documentPictureInPicture] property.
-@JS('DocumentPictureInPicture')
-@staticInterop
-class DocumentPictureInPicture implements EventTarget {}
-
-extension DocumentPictureInPictureExtension on DocumentPictureInPicture {
+extension type DocumentPictureInPicture._(JSObject _)
+    implements EventTarget, JSObject {
   /// The **`requestWindow()`** method of the
   /// [DocumentPictureInPicture] interface opens the Picture-in-Picture window
   /// for the current main browsing context. It returns a `Promise` that
@@ -37,51 +30,31 @@ extension DocumentPictureInPictureExtension on DocumentPictureInPicture {
   external set onenter(EventHandler value);
   external EventHandler get onenter;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class DocumentPictureInPictureOptions {
+extension type DocumentPictureInPictureOptions._(JSObject _)
+    implements JSObject {
   external factory DocumentPictureInPictureOptions({
     int width,
     int height,
   });
-}
 
-extension DocumentPictureInPictureOptionsExtension
-    on DocumentPictureInPictureOptions {
   external set width(int value);
   external int get width;
   external set height(int value);
   external int get height;
 }
-
-/// The **`DocumentPictureInPictureEvent`** interface of the  is the event
-/// object for the [DocumentPictureInPicture/enter_event] event, which fires
-/// when the Picture-in-Picture window is opened.
-@JS('DocumentPictureInPictureEvent')
-@staticInterop
-class DocumentPictureInPictureEvent implements Event {
+extension type DocumentPictureInPictureEvent._(JSObject _)
+    implements Event, JSObject {
   external factory DocumentPictureInPictureEvent(
     String type,
     DocumentPictureInPictureEventInit eventInitDict,
   );
-}
 
-extension DocumentPictureInPictureEventExtension
-    on DocumentPictureInPictureEvent {
   external Window get window;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class DocumentPictureInPictureEventInit implements EventInit {
+extension type DocumentPictureInPictureEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory DocumentPictureInPictureEventInit({required Window window});
-}
 
-extension DocumentPictureInPictureEventInitExtension
-    on DocumentPictureInPictureEventInit {
   external set window(Window value);
   external Window get window;
 }

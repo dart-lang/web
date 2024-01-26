@@ -12,17 +12,12 @@ import 'dart:js_interop';
 
 import 'webrtc.dart';
 
-@JS()
-@staticInterop
-@anonymous
-class RTCIceGatherOptions {
+extension type RTCIceGatherOptions._(JSObject _) implements JSObject {
   external factory RTCIceGatherOptions({
     RTCIceTransportPolicy gatherPolicy,
     JSArray iceServers,
   });
-}
 
-extension RTCIceGatherOptionsExtension on RTCIceGatherOptions {
   external set gatherPolicy(RTCIceTransportPolicy value);
   external RTCIceTransportPolicy get gatherPolicy;
   external set iceServers(JSArray value);

@@ -12,24 +12,7 @@ import 'dart:js_interop';
 
 import 'webgl1.dart';
 
-/// The **`OES_draw_buffers_indexed`** extension is part of the
-/// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
-/// enables the use of different blend options when writing to multiple color
-/// buffers simultaneously.
-///
-/// WebGL extensions are available using the
-/// [WebGLRenderingContext.getExtension] method. For more information, see also
-/// [Using Extensions](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Using_Extensions)
-/// in the
-/// [WebGL tutorial](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial).
-///
-/// > **Note:** This extension is only available to [WebGL2RenderingContext]
-/// > contexts.
-@JS('OES_draw_buffers_indexed')
-@staticInterop
-class OES_draw_buffers_indexed {}
-
-extension OESDrawBuffersIndexedExtension on OES_draw_buffers_indexed {
+extension type OES_draw_buffers_indexed._(JSObject _) implements JSObject {
   /// The `enableiOES()` method of the [OES_draw_buffers_indexed] WebGL
   /// extension enables blending for a particular draw buffer.
   external void enableiOES(

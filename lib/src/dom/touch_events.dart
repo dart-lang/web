@@ -14,11 +14,7 @@ import 'dom.dart';
 import 'uievents.dart';
 
 typedef TouchType = String;
-
-@JS()
-@staticInterop
-@anonymous
-class TouchInit {
+extension type TouchInit._(JSObject _) implements JSObject {
   external factory TouchInit({
     required int identifier,
     required EventTarget target,
@@ -36,9 +32,7 @@ class TouchInit {
     num azimuthAngle,
     TouchType touchType,
   });
-}
 
-extension TouchInitExtension on TouchInit {
   external set identifier(int value);
   external int get identifier;
   external set target(EventTarget value);
@@ -70,29 +64,9 @@ extension TouchInitExtension on TouchInit {
   external set touchType(TouchType value);
   external TouchType get touchType;
 }
-
-/// The **`Touch`** interface represents a single contact point on a
-/// touch-sensitive device. The contact point is commonly a finger or stylus and
-/// the device may be a touchscreen or trackpad.
-///
-/// The [Touch.radiusX], [Touch.radiusY], and [Touch.rotationAngle] describe the
-/// area of contact between the user and the screen, the _touch area_. This can
-/// be helpful when dealing with imprecise pointing devices such as fingers.
-/// These values are set to describe an ellipse that as closely as possible
-/// matches the entire area of contact (such as the user's fingertip).
-///
-/// > **Note:** Many of the properties' values are hardware-dependent; for
-/// > example, if the device doesn't have a way to detect the amount of pressure
-/// > placed on the surface, the `force` value will always be 0. This may also
-/// > be the case for `radiusX` and `radiusY`; if the hardware reports only a
-/// > single point, these values will be 1.
-@JS('Touch')
-@staticInterop
-class Touch {
+extension type Touch._(JSObject _) implements JSObject {
   external factory Touch(TouchInit touchInitDict);
-}
 
-extension TouchExtension on Touch {
   external int get identifier;
   external EventTarget get target;
   external num get screenX;
@@ -109,42 +83,20 @@ extension TouchExtension on Touch {
   external num get azimuthAngle;
   external TouchType get touchType;
 }
-
-/// The **`TouchList`** interface represents a list of contact points on a touch
-/// surface. For example, if the user has three fingers on the touch surface
-/// (such as a screen or trackpad), the corresponding `TouchList` object would
-/// have one [Touch] object for each finger, for a total of three entries.
-///
-/// > **Note:** This interface was an
-/// > [attempt to create an unmodifiable list](https://stackoverflow.com/questions/74630989/why-use-domstringlist-rather-than-an-array/74641156#74641156)
-/// > and only continues to be supported to not break code that's already using
-/// > it. Modern APIs use types that wrap around ECMAScript array types instead,
-/// > so you can treat them like ECMAScript arrays, and at the same time impose
-/// > additional semantics on their usage (such as making their items
-/// > read-only).
-@JS('TouchList')
-@staticInterop
-class TouchList {}
-
-extension TouchListExtension on TouchList {
+extension type TouchList._(JSObject _) implements JSObject {
   /// The **`item()`** method returns the [Touch]
   /// object at the specified index in the [TouchList].
   external Touch? item(int index);
   external int get length;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class TouchEventInit implements EventModifierInit {
+extension type TouchEventInit._(JSObject _)
+    implements EventModifierInit, JSObject {
   external factory TouchEventInit({
     JSArray touches,
     JSArray targetTouches,
     JSArray changedTouches,
   });
-}
 
-extension TouchEventInitExtension on TouchEventInit {
   external set touches(JSArray value);
   external JSArray get touches;
   external set targetTouches(JSArray value);
@@ -152,26 +104,12 @@ extension TouchEventInitExtension on TouchEventInit {
   external set changedTouches(JSArray value);
   external JSArray get changedTouches;
 }
-
-/// The **`TouchEvent`** interface represents an [UIEvent] which is sent when
-/// the state of contacts with a touch-sensitive surface changes. This surface
-/// can be a touch screen or trackpad, for example. The event can describe one
-/// or more points of contact with the screen and includes support for detecting
-/// movement, addition and removal of contact points, and so forth.
-///
-/// Touches are represented by the [Touch] object; each touch is described by a
-/// position, size and shape, amount of pressure, and target element. Lists of
-/// touches are represented by [TouchList] objects.
-@JS('TouchEvent')
-@staticInterop
-class TouchEvent implements UIEvent {
+extension type TouchEvent._(JSObject _) implements UIEvent, JSObject {
   external factory TouchEvent(
     String type, [
     TouchEventInit eventInitDict,
   ]);
-}
 
-extension TouchEventExtension on TouchEvent {
   external bool getModifierState(String keyArg);
   external TouchList get touches;
   external TouchList get targetTouches;

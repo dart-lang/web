@@ -12,9 +12,7 @@ import 'dart:js_interop';
 
 import 'webgl1.dart';
 
-@JS('WEBGL_clip_cull_distance')
-@staticInterop
-class WEBGL_clip_cull_distance {
+extension type WEBGL_clip_cull_distance._(JSObject _) implements JSObject {
   external static GLenum get MAX_CLIP_DISTANCES_WEBGL;
   external static GLenum get MAX_CULL_DISTANCES_WEBGL;
   external static GLenum get MAX_COMBINED_CLIP_AND_CULL_DISTANCES_WEBGL;

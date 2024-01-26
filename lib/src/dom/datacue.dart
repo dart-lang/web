@@ -12,18 +12,14 @@ import 'dart:js_interop';
 
 import 'html.dart';
 
-@JS('DataCue')
-@staticInterop
-class DataCue implements TextTrackCue {
+extension type DataCue._(JSObject _) implements TextTrackCue, JSObject {
   external factory DataCue(
     num startTime,
     num endTime,
     JSAny? value, [
     String type,
   ]);
-}
 
-extension DataCueExtension on DataCue {
   external set value(JSAny? value);
   external JSAny? get value;
   external String get type;

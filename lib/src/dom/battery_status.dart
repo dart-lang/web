@@ -13,18 +13,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
-/// The `BatteryManager` interface of the [Battery Status API] provides
-/// information about the system's battery charge level. The
-/// [navigator.getBattery] method returns a promise that resolves with a
-/// `BatteryManager` interface.
-///
-/// Since Chrome 103, the `BatteryManager` interface of [Battery Status API]
-/// only expose to secure context.
-@JS('BatteryManager')
-@staticInterop
-class BatteryManager implements EventTarget {}
-
-extension BatteryManagerExtension on BatteryManager {
+extension type BatteryManager._(JSObject _) implements EventTarget, JSObject {
   external bool get charging;
   external num get chargingTime;
   external num get dischargingTime;

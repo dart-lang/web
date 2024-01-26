@@ -12,8 +12,6 @@ import 'dart:js_interop';
 
 import 'webgl1.dart';
 
-@JS('WEBGL_depth_texture')
-@staticInterop
-class WEBGL_depth_texture {
+extension type WEBGL_depth_texture._(JSObject _) implements JSObject {
   external static GLenum get UNSIGNED_INT_24_8_WEBGL;
 }

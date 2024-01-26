@@ -12,34 +12,16 @@ import 'dart:js_interop';
 
 import 'performance_timeline.dart';
 
-/// The **`PerformanceLongTaskTiming`** interface provides information about
-/// tasks that occupy the UI thread for 50 milliseconds or more.
-@JS('PerformanceLongTaskTiming')
-@staticInterop
-class PerformanceLongTaskTiming implements PerformanceEntry {}
-
-extension PerformanceLongTaskTimingExtension on PerformanceLongTaskTiming {
+extension type PerformanceLongTaskTiming._(JSObject _)
+    implements PerformanceEntry, JSObject {
   /// The **`toJSON()`** method of the [PerformanceLongTaskTiming] interface is
   /// a ; it returns a JSON representation of the [PerformanceLongTaskTiming]
   /// object.
   external JSObject toJSON();
   external JSArray get attribution;
 }
-
-/// The **`TaskAttributionTiming`** interface returns information about the work
-/// involved in a long task and its associate frame context. The frame context,
-/// also called the container, is the iframe, embed or object that is being
-/// implicated, on the whole, for a long task.
-///
-/// You usually work with `TaskAttributionTiming` objects when observing
-/// [long tasks](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceLongTaskTiming).
-///
-/// `TaskAttributionTiming` inherits from [PerformanceEntry].
-@JS('TaskAttributionTiming')
-@staticInterop
-class TaskAttributionTiming implements PerformanceEntry {}
-
-extension TaskAttributionTimingExtension on TaskAttributionTiming {
+extension type TaskAttributionTiming._(JSObject _)
+    implements PerformanceEntry, JSObject {
   /// The **`toJSON()`** method of the [TaskAttributionTiming] interface is a ;
   /// it returns a JSON representation of the [TaskAttributionTiming] object.
   external JSObject toJSON();

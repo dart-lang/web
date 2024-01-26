@@ -15,13 +15,7 @@ import 'cssom.dart';
 import 'dom.dart';
 import 'html.dart';
 
-/// The **`MathMLElement`** interface represents any
-/// [MathML](https://developer.mozilla.org/en-US/docs/Web/MathML) element.
-@JS('MathMLElement')
-@staticInterop
-class MathMLElement implements Element {}
-
-extension MathMLElementExtension on MathMLElement {
+extension type MathMLElement._(JSObject _) implements Element, JSObject {
   external void focus([FocusOptions options]);
   external void blur();
   external StylePropertyMap get attributeStyleMap;

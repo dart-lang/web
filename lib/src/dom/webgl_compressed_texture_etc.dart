@@ -12,9 +12,7 @@ import 'dart:js_interop';
 
 import 'webgl1.dart';
 
-@JS('WEBGL_compressed_texture_etc')
-@staticInterop
-class WEBGL_compressed_texture_etc {
+extension type WEBGL_compressed_texture_etc._(JSObject _) implements JSObject {
   external static GLenum get COMPRESSED_R11_EAC;
   external static GLenum get COMPRESSED_SIGNED_R11_EAC;
   external static GLenum get COMPRESSED_RG11_EAC;

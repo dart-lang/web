@@ -17,59 +17,39 @@ typedef MediaEncodingType = String;
 typedef HdrMetadataType = String;
 typedef ColorGamut = String;
 typedef TransferFunction = String;
-
-@JS()
-@staticInterop
-@anonymous
-class MediaConfiguration {
+extension type MediaConfiguration._(JSObject _) implements JSObject {
   external factory MediaConfiguration({
     VideoConfiguration video,
     AudioConfiguration audio,
   });
-}
 
-extension MediaConfigurationExtension on MediaConfiguration {
   external set video(VideoConfiguration value);
   external VideoConfiguration get video;
   external set audio(AudioConfiguration value);
   external AudioConfiguration get audio;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaDecodingConfiguration implements MediaConfiguration {
+extension type MediaDecodingConfiguration._(JSObject _)
+    implements MediaConfiguration, JSObject {
   external factory MediaDecodingConfiguration({
     required MediaDecodingType type,
     MediaCapabilitiesKeySystemConfiguration keySystemConfiguration,
   });
-}
 
-extension MediaDecodingConfigurationExtension on MediaDecodingConfiguration {
   external set type(MediaDecodingType value);
   external MediaDecodingType get type;
   external set keySystemConfiguration(
       MediaCapabilitiesKeySystemConfiguration value);
   external MediaCapabilitiesKeySystemConfiguration get keySystemConfiguration;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaEncodingConfiguration implements MediaConfiguration {
+extension type MediaEncodingConfiguration._(JSObject _)
+    implements MediaConfiguration, JSObject {
   external factory MediaEncodingConfiguration(
       {required MediaEncodingType type});
-}
 
-extension MediaEncodingConfigurationExtension on MediaEncodingConfiguration {
   external set type(MediaEncodingType value);
   external MediaEncodingType get type;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class VideoConfiguration {
+extension type VideoConfiguration._(JSObject _) implements JSObject {
   external factory VideoConfiguration({
     required String contentType,
     required int width,
@@ -83,9 +63,7 @@ class VideoConfiguration {
     String scalabilityMode,
     bool spatialScalability,
   });
-}
 
-extension VideoConfigurationExtension on VideoConfiguration {
   external set contentType(String value);
   external String get contentType;
   external set width(int value);
@@ -109,11 +87,7 @@ extension VideoConfigurationExtension on VideoConfiguration {
   external set spatialScalability(bool value);
   external bool get spatialScalability;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AudioConfiguration {
+extension type AudioConfiguration._(JSObject _) implements JSObject {
   external factory AudioConfiguration({
     required String contentType,
     String channels,
@@ -121,9 +95,7 @@ class AudioConfiguration {
     int samplerate,
     bool spatialRendering,
   });
-}
 
-extension AudioConfigurationExtension on AudioConfiguration {
   external set contentType(String value);
   external String get contentType;
   external set channels(String value);
@@ -135,11 +107,8 @@ extension AudioConfigurationExtension on AudioConfiguration {
   external set spatialRendering(bool value);
   external bool get spatialRendering;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaCapabilitiesKeySystemConfiguration {
+extension type MediaCapabilitiesKeySystemConfiguration._(JSObject _)
+    implements JSObject {
   external factory MediaCapabilitiesKeySystemConfiguration({
     required String keySystem,
     String initDataType,
@@ -149,10 +118,7 @@ class MediaCapabilitiesKeySystemConfiguration {
     KeySystemTrackConfiguration audio,
     KeySystemTrackConfiguration video,
   });
-}
 
-extension MediaCapabilitiesKeySystemConfigurationExtension
-    on MediaCapabilitiesKeySystemConfiguration {
   external set keySystem(String value);
   external String get keySystem;
   external set initDataType(String value);
@@ -168,36 +134,24 @@ extension MediaCapabilitiesKeySystemConfigurationExtension
   external set video(KeySystemTrackConfiguration value);
   external KeySystemTrackConfiguration get video;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class KeySystemTrackConfiguration {
+extension type KeySystemTrackConfiguration._(JSObject _) implements JSObject {
   external factory KeySystemTrackConfiguration({
     String robustness,
     String? encryptionScheme,
   });
-}
 
-extension KeySystemTrackConfigurationExtension on KeySystemTrackConfiguration {
   external set robustness(String value);
   external String get robustness;
   external set encryptionScheme(String? value);
   external String? get encryptionScheme;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaCapabilitiesInfo {
+extension type MediaCapabilitiesInfo._(JSObject _) implements JSObject {
   external factory MediaCapabilitiesInfo({
     required bool supported,
     required bool smooth,
     required bool powerEfficient,
   });
-}
 
-extension MediaCapabilitiesInfoExtension on MediaCapabilitiesInfo {
   external set supported(bool value);
   external bool get supported;
   external set smooth(bool value);
@@ -205,54 +159,27 @@ extension MediaCapabilitiesInfoExtension on MediaCapabilitiesInfo {
   external set powerEfficient(bool value);
   external bool get powerEfficient;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaCapabilitiesDecodingInfo implements MediaCapabilitiesInfo {
+extension type MediaCapabilitiesDecodingInfo._(JSObject _)
+    implements MediaCapabilitiesInfo, JSObject {
   external factory MediaCapabilitiesDecodingInfo({
     required MediaKeySystemAccess keySystemAccess,
     MediaDecodingConfiguration configuration,
   });
-}
 
-extension MediaCapabilitiesDecodingInfoExtension
-    on MediaCapabilitiesDecodingInfo {
   external set keySystemAccess(MediaKeySystemAccess value);
   external MediaKeySystemAccess get keySystemAccess;
   external set configuration(MediaDecodingConfiguration value);
   external MediaDecodingConfiguration get configuration;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaCapabilitiesEncodingInfo implements MediaCapabilitiesInfo {
+extension type MediaCapabilitiesEncodingInfo._(JSObject _)
+    implements MediaCapabilitiesInfo, JSObject {
   external factory MediaCapabilitiesEncodingInfo(
       {MediaEncodingConfiguration configuration});
-}
 
-extension MediaCapabilitiesEncodingInfoExtension
-    on MediaCapabilitiesEncodingInfo {
   external set configuration(MediaEncodingConfiguration value);
   external MediaEncodingConfiguration get configuration;
 }
-
-/// The **`MediaCapabilities`** interface of the
-/// [Media Capabilities API](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capabilities_API)
-/// provides information about the decoding abilities of the device, system and
-/// browser. The API can be used to query the browser about the decoding
-/// abilities of the device based on codecs, profile, resolution, and bitrates.
-/// The information can be used to serve optimal media streams to the user and
-/// determine if playback should be smooth and power efficient.
-///
-/// The information is accessed through the **`mediaCapabilities`** property of
-/// the [Navigator] interface.
-@JS('MediaCapabilities')
-@staticInterop
-class MediaCapabilities {}
-
-extension MediaCapabilitiesExtension on MediaCapabilities {
+extension type MediaCapabilities._(JSObject _) implements JSObject {
   /// The **`MediaCapabilities.decodingInfo()`** method, part of the
   /// [Media Capabilities API](https://developer.mozilla.org/en-US/docs/Web/API/MediaCapabilities),
   /// returns a promise with the tested media configuration's capabilities info.

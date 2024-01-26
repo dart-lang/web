@@ -20,21 +20,13 @@ typedef LineAlignSetting = String;
 typedef PositionAlignSetting = String;
 typedef AlignSetting = String;
 typedef ScrollSetting = String;
-
-/// The `VTTCue` interface—part of the API for handling WebVTT (text tracks on
-/// media presentations)—describes and controls the text track associated with a
-/// particular `track` element.
-@JS('VTTCue')
-@staticInterop
-class VTTCue implements TextTrackCue {
+extension type VTTCue._(JSObject _) implements TextTrackCue, JSObject {
   external factory VTTCue(
     num startTime,
     num endTime,
     String text,
   );
-}
 
-extension VTTCueExtension on VTTCue {
   /// The **`getCueAsHTML()`** method of the [VTTCue] interface returns a
   /// [DocumentFragment] containing the cue content.
   external DocumentFragment getCueAsHTML();
@@ -59,17 +51,9 @@ extension VTTCueExtension on VTTCue {
   external set text(String value);
   external String get text;
 }
-
-/// The `VTTRegion` interface—part of the API for handling WebVTT (text tracks
-/// on media presentations)—describes a portion of the video to render a
-/// [VTTCue] onto.
-@JS('VTTRegion')
-@staticInterop
-class VTTRegion {
+extension type VTTRegion._(JSObject _) implements JSObject {
   external factory VTTRegion();
-}
 
-extension VTTRegionExtension on VTTRegion {
   external set id(String value);
   external String get id;
   external set width(num value);

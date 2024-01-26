@@ -12,20 +12,8 @@ import 'dart:js_interop';
 
 import 'reporting.dart';
 
-/// The `DeprecationReportBody` interface of the
-/// [Reporting API](https://developer.mozilla.org/en-US/docs/Web/API/Reporting_API)
-/// represents the body of a deprecation report.
-///
-/// A deprecation report is generated when a deprecated feature (for example a
-/// deprecated API method) is used on a document being observed by a
-/// [ReportingObserver]. In addition to the support of this API, receiving
-/// useful deprecation warnings relies on browser vendors adding these warnings
-/// for deprecated features.
-@JS('DeprecationReportBody')
-@staticInterop
-class DeprecationReportBody implements ReportBody {}
-
-extension DeprecationReportBodyExtension on DeprecationReportBody {
+extension type DeprecationReportBody._(JSObject _)
+    implements ReportBody, JSObject {
   /// The **`toJSON()`** method of the [DeprecationReportBody] interface is a
   /// _serializer_, and returns a JSON representation of the
   /// `InterventionReportBody` object.

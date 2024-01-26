@@ -19,6 +19,16 @@ typedef NamedCurve = String;
 typedef KeyType = String;
 typedef KeyUsage = String;
 typedef KeyFormat = String;
+
+/// The **`Crypto`** interface represents basic cryptography features available
+/// in the current context.
+/// It allows access to a cryptographically strong random number generator and
+/// to cryptographic primitives.
+///
+/// The
+/// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
+/// is accessed through the global [crypto_property] property, which is a
+/// `Crypto` object.
 extension type Crypto._(JSObject _) implements JSObject {
   /// The **`Crypto.getRandomValues()`** method lets you get cryptographically
   /// strong random values.
@@ -52,12 +62,44 @@ extension type KeyAlgorithm._(JSObject _) implements JSObject {
   external set name(String value);
   external String get name;
 }
+
+/// The **`CryptoKey`** interface of the
+/// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
+/// represents a cryptographic  obtained from one of the [SubtleCrypto] methods
+/// [SubtleCrypto.generateKey], [SubtleCrypto.deriveKey],
+/// [SubtleCrypto.importKey], or [SubtleCrypto.unwrapKey].
+///
+/// For security reasons, the `CryptoKey` interface can only be used in a
+/// [secure context](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts).
 extension type CryptoKey._(JSObject _) implements JSObject {
   external KeyType get type;
   external bool get extractable;
   external JSObject get algorithm;
   external JSObject get usages;
 }
+
+/// The **`SubtleCrypto`** interface of the
+/// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
+/// provides a number of low-level cryptographic functions. Access to the
+/// features of `SubtleCrypto` is obtained through the [Crypto.subtle] property
+/// of the [Crypto] object you get from the [crypto_property] property.
+///
+/// > **Warning:** This API provides a number of low-level cryptographic
+/// > primitives. It's very easy to misuse them, and the pitfalls involved can
+/// > be very subtle.
+/// >
+/// > Even assuming you use the basic cryptographic functions correctly, secure
+/// > key management and overall security system design are extremely hard to
+/// > get right, and are generally the domain of specialist security experts.
+/// >
+/// > Errors in security system design and implementation can make the security
+/// > of the system completely ineffective.
+/// >
+/// > Please learn and experiment, but don't guarantee or imply the security of
+/// > your work before an individual knowledgeable in this subject matter
+/// > thoroughly reviews it. The [Crypto 101 Course](https://www.crypto101.io/)
+/// > can be a great place to start learning about the design and implementation
+/// > of secure systems.
 extension type SubtleCrypto._(JSObject _) implements JSObject {
   /// The **`encrypt()`** method of the [SubtleCrypto] interface encrypts data.
   ///
@@ -365,6 +407,20 @@ extension type JsonWebKey._(JSObject _) implements JSObject {
   external set k(String value);
   external String get k;
 }
+
+/// The **`CryptoKeyPair`** dictionary of the
+/// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
+/// represents a key pair for an asymmetric cryptography algorithm, also known
+/// as a public-key algorithm.
+///
+/// A `CryptoKeyPair` object can be obtained using [SubtleCrypto.generateKey],
+/// when the selected algorithm is one of the asymmetric algorithms:
+/// RSASSA-PKCS1-v1_5, RSA-PSS, RSA-OAEP, ECDSA, or ECDH.
+///
+/// It contains two properties, which are both
+/// [`CryptoKey`](https://developer.mozilla.org/en-US/docs/Web/API/CryptoKey)
+/// objects: a `privateKey` property containing the private key and a
+/// `publicKey` property containing the public key.
 extension type CryptoKeyPair._(JSObject _) implements JSObject {
   external factory CryptoKeyPair({
     CryptoKey publicKey,
@@ -387,6 +443,16 @@ extension type RsaKeyGenParams._(JSObject _) implements Algorithm, JSObject {
   external set publicExponent(BigInteger value);
   external BigInteger get publicExponent;
 }
+
+/// The **`RsaHashedKeyGenParams`** dictionary of the
+/// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
+/// represents the object that should be passed as the `algorithm` parameter
+/// into [SubtleCrypto.generateKey], when generating any RSA-based key pair:
+/// that is, when the algorithm is identified as any of
+/// [RSASSA-PKCS1-v1_5](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign#rsassa-pkcs1-v1_5),
+/// [RSA-PSS](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign#rsa-pss),
+/// or
+/// [RSA-OAEP](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt#rsa-oaep).
 extension type RsaHashedKeyGenParams._(JSObject _)
     implements RsaKeyGenParams, JSObject {
   external factory RsaHashedKeyGenParams(
@@ -413,6 +479,16 @@ extension type RsaHashedKeyAlgorithm._(JSObject _)
   external set hash(KeyAlgorithm value);
   external KeyAlgorithm get hash;
 }
+
+/// The **`RsaHashedImportParams`** dictionary of the
+/// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
+/// represents the object that should be passed as the `algorithm` parameter
+/// into [SubtleCrypto.importKey] or [SubtleCrypto.unwrapKey], when importing
+/// any RSA-based key pair: that is, when the algorithm is identified as any of
+/// [RSASSA-PKCS1-v1_5](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign#rsassa-pkcs1-v1_5),
+/// [RSA-PSS](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign#rsa-pss),
+/// or
+/// [RSA-OAEP](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt#rsa-oaep).
 extension type RsaHashedImportParams._(JSObject _)
     implements Algorithm, JSObject {
   external factory RsaHashedImportParams(
@@ -421,24 +497,55 @@ extension type RsaHashedImportParams._(JSObject _)
   external set hash(HashAlgorithmIdentifier value);
   external HashAlgorithmIdentifier get hash;
 }
+
+/// The **`RsaPssParams`** dictionary of the
+/// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
+/// represents the object that should be passed as the `algorithm` parameter
+/// into [SubtleCrypto.sign] or [SubtleCrypto.verify], when using the
+/// [RSA-PSS](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign#rsa-pss)
+/// algorithm.
 extension type RsaPssParams._(JSObject _) implements Algorithm, JSObject {
   external factory RsaPssParams({required int saltLength});
 
   external set saltLength(int value);
   external int get saltLength;
 }
+
+/// The **`RsaOaepParams`** dictionary of the
+/// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
+/// represents the object that should be passed as the `algorithm` parameter
+/// into [SubtleCrypto.encrypt], [SubtleCrypto.decrypt], [SubtleCrypto.wrapKey],
+/// or [SubtleCrypto.unwrapKey], when using the
+/// [RSA_OAEP](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt#rsa-oaep)
+/// algorithm.
 extension type RsaOaepParams._(JSObject _) implements Algorithm, JSObject {
   external factory RsaOaepParams({BufferSource label});
 
   external set label(BufferSource value);
   external BufferSource get label;
 }
+
+/// The **`EcdsaParams`** dictionary of the
+/// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
+/// represents the object that should be passed as the `algorithm` parameter
+/// into [SubtleCrypto.sign] or [SubtleCrypto.verify] when using the
+/// [ECDSA](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign#ecdsa)
+/// algorithm.
 extension type EcdsaParams._(JSObject _) implements Algorithm, JSObject {
   external factory EcdsaParams({required HashAlgorithmIdentifier hash});
 
   external set hash(HashAlgorithmIdentifier value);
   external HashAlgorithmIdentifier get hash;
 }
+
+/// The **`EcKeyGenParams`** dictionary of the
+/// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
+/// represents the object that should be passed as the `algorithm` parameter
+/// into [SubtleCrypto.generateKey], when generating any elliptic-curve-based
+/// key pair: that is, when the algorithm is identified as either of
+/// [ECDSA](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign#ecdsa)
+/// or
+/// [ECDH](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/deriveKey#ecdh).
 extension type EcKeyGenParams._(JSObject _) implements Algorithm, JSObject {
   external factory EcKeyGenParams({required NamedCurve namedCurve});
 
@@ -451,12 +558,38 @@ extension type EcKeyAlgorithm._(JSObject _) implements KeyAlgorithm, JSObject {
   external set namedCurve(NamedCurve value);
   external NamedCurve get namedCurve;
 }
+
+/// The **`EcKeyImportParams`** dictionary of the
+/// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
+/// represents the object that should be passed as the `algorithm` parameter
+/// into [SubtleCrypto.importKey] or [SubtleCrypto.unwrapKey], when generating
+/// any elliptic-curve-based key pair: that is, when the algorithm is identified
+/// as either of
+/// [ECDSA](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign#ecdsa)
+/// or
+/// [ECDH](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/deriveKey#ecdh).
 extension type EcKeyImportParams._(JSObject _) implements Algorithm, JSObject {
   external factory EcKeyImportParams({required NamedCurve namedCurve});
 
   external set namedCurve(NamedCurve value);
   external NamedCurve get namedCurve;
 }
+
+/// The **`EcdhKeyDeriveParams`** dictionary of the
+/// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
+/// represents the object that should be passed as the `algorithm` parameter
+/// into [SubtleCrypto.deriveKey], when using the
+/// [ECDH](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/deriveKey#ecdh)
+/// algorithm.
+///
+/// ECDH enables two people who each have a key pair consisting of a public and
+/// a private key to derive a shared secret. They exchange public keys and use
+/// the combination of their private key and the other entity's public key to
+/// derive a secret key that they — and no one else — share.
+///
+/// The parameters for ECDH `deriveKey()` therefore include the other entity's
+/// public key, which is combined with this entity's private key to derive the
+/// shared secret.
 extension type EcdhKeyDeriveParams._(JSObject _)
     implements Algorithm, JSObject {
   external factory EcdhKeyDeriveParams({required CryptoKey public});
@@ -464,6 +597,46 @@ extension type EcdhKeyDeriveParams._(JSObject _)
   external set public(CryptoKey value);
   external CryptoKey get public;
 }
+
+/// The **`AesCtrParams`** dictionary of the
+/// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
+/// represents the object that should be passed as the `algorithm` parameter
+/// into [SubtleCrypto.encrypt], [SubtleCrypto.decrypt], [SubtleCrypto.wrapKey],
+/// or [SubtleCrypto.unwrapKey], when using the
+/// [AES-CTR](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt#aes-ctr)
+/// algorithm.
+///
+/// AES is a block cipher, meaning that it splits the message into blocks and
+/// encrypts it a block at a time. In CTR mode, every time a block of the
+/// message is encrypted, an extra block of data is mixed in. This extra block
+/// is called the "counter block".
+///
+/// A given counter block value must never be used more than once with the same
+/// key:
+///
+/// - Given a message _n_ blocks long, a different counter block must be used
+///   for every block.
+/// - If the same key is used to encrypt more than one message, a different
+///   counter block must be used for all blocks across all messages.
+///
+/// Typically this is achieved by splitting the initial counter block value into
+/// two concatenated parts:
+///
+/// - A [nonce](https://en.wikipedia.org/wiki/Cryptographic_nonce) (that is, a
+///   number that may only be used once). The nonce part of the block stays the
+///   same for every block in the message. Each time a new message is to be
+///   encrypted, a new nonce is chosen. Nonces don't have to be secret, but they
+///   must not be reused with the same key.
+/// - A counter. This part of the block gets incremented each time a block is
+///   encrypted.
+///
+/// Essentially: the nonce should ensure that counter blocks are not reused from
+/// one message to the next, while the counter should ensure that counter blocks
+/// are not reused within a single message.
+///
+/// > **Note:** See
+/// > [Appendix B of the NIST SP800-38A standard](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38a.pdf#%5B%7B%22num%22%3A70%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22Fit%22%7D%5D)
+/// > for more information.
 extension type AesCtrParams._(JSObject _) implements Algorithm, JSObject {
   external factory AesCtrParams({
     required BufferSource counter,
@@ -481,6 +654,17 @@ extension type AesKeyAlgorithm._(JSObject _) implements KeyAlgorithm, JSObject {
   external set length(int value);
   external int get length;
 }
+
+/// The **`AesKeyGenParams`** dictionary of the
+/// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
+/// represents the object that should be passed as the `algorithm` parameter
+/// into [SubtleCrypto.generateKey], when generating an AES key: that is, when
+/// the algorithm is identified as any of
+/// [AES-CBC](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt#aes-cbc),
+/// [AES-CTR](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt#aes-ctr),
+/// [AES-GCM](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt#aes-gcm),
+/// or
+/// [AES-KW](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/wrapKey#aes-kw).
 extension type AesKeyGenParams._(JSObject _) implements Algorithm, JSObject {
   external factory AesKeyGenParams({required int length});
 
@@ -494,12 +678,33 @@ extension type AesDerivedKeyParams._(JSObject _)
   external set length(int value);
   external int get length;
 }
+
+/// The **`AesCbcParams`** dictionary of the
+/// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
+/// represents the object that should be passed as the `algorithm` parameter
+/// into [SubtleCrypto.encrypt], [SubtleCrypto.decrypt], [SubtleCrypto.wrapKey],
+/// or [SubtleCrypto.unwrapKey], when using the
+/// [AES-CBC](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt#aes-cbc)
+/// algorithm.
 extension type AesCbcParams._(JSObject _) implements Algorithm, JSObject {
   external factory AesCbcParams({required BufferSource iv});
 
   external set iv(BufferSource value);
   external BufferSource get iv;
 }
+
+/// The **`AesGcmParams`** dictionary of the
+/// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
+/// represents the object that should be passed as the `algorithm` parameter
+/// into [SubtleCrypto.encrypt], [SubtleCrypto.decrypt], [SubtleCrypto.wrapKey],
+/// or [SubtleCrypto.unwrapKey], when using the
+/// [AES-GCM](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt#aes-gcm)
+/// algorithm.
+///
+/// For details of how to supply appropriate values for this parameter, see the
+/// specification for AES-GCM:
+/// [NIST SP800-38D](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38d.pdf),
+/// in particular section 5.2.1.1 on Input Data.
 extension type AesGcmParams._(JSObject _) implements Algorithm, JSObject {
   external factory AesGcmParams({
     required BufferSource iv,
@@ -514,6 +719,14 @@ extension type AesGcmParams._(JSObject _) implements Algorithm, JSObject {
   external set tagLength(int value);
   external int get tagLength;
 }
+
+/// The **`HmacImportParams`** dictionary of the
+/// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
+/// represents the object that should be passed as the `algorithm` parameter
+/// into [SubtleCrypto.importKey] or [SubtleCrypto.unwrapKey], when generating a
+/// key for the
+/// [HMAC](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign#hmac)
+/// algorithm.
 extension type HmacImportParams._(JSObject _) implements Algorithm, JSObject {
   external factory HmacImportParams({
     required HashAlgorithmIdentifier hash,
@@ -537,6 +750,13 @@ extension type HmacKeyAlgorithm._(JSObject _)
   external set length(int value);
   external int get length;
 }
+
+/// The **`HmacKeyGenParams`** dictionary of the
+/// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
+/// represents the object that should be passed as the `algorithm` parameter
+/// into [SubtleCrypto.generateKey], when generating a key for the
+/// [HMAC](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign#hmac)
+/// algorithm.
 extension type HmacKeyGenParams._(JSObject _) implements Algorithm, JSObject {
   external factory HmacKeyGenParams({
     required HashAlgorithmIdentifier hash,
@@ -548,6 +768,13 @@ extension type HmacKeyGenParams._(JSObject _) implements Algorithm, JSObject {
   external set length(int value);
   external int get length;
 }
+
+/// The **`HkdfParams`** dictionary of the
+/// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
+/// represents the object that should be passed as the `algorithm` parameter
+/// into [SubtleCrypto.deriveKey], when using the
+/// [HKDF](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/deriveKey#hkdf)
+/// algorithm.
 extension type HkdfParams._(JSObject _) implements Algorithm, JSObject {
   external factory HkdfParams({
     required HashAlgorithmIdentifier hash,
@@ -562,6 +789,13 @@ extension type HkdfParams._(JSObject _) implements Algorithm, JSObject {
   external set info(BufferSource value);
   external BufferSource get info;
 }
+
+/// The **`Pbkdf2Params`** dictionary of the
+/// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
+/// represents the object that should be passed as the `algorithm` parameter
+/// into [SubtleCrypto.deriveKey], when using the
+/// [PBKDF2](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/deriveKey#pbkdf2)
+/// algorithm.
 extension type Pbkdf2Params._(JSObject _) implements Algorithm, JSObject {
   external factory Pbkdf2Params({
     required BufferSource salt,

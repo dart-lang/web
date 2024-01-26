@@ -53,6 +53,9 @@ extension type Landmark._(JSObject _) implements JSObject {
   external set type(LandmarkType value);
   external LandmarkType get type;
 }
+
+/// The **`BarcodeDetector`** interface of the [Barcode Detection API] allows
+/// detection of linear and two dimensional barcodes in images.
 extension type BarcodeDetector._(JSObject _) implements JSObject {
   external factory BarcodeDetector(
       [BarcodeDetectorOptions barcodeDetectorOptions]);

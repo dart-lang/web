@@ -15,6 +15,10 @@ import 'geometry.dart';
 import 'hr_time.dart';
 import 'performance_timeline.dart';
 
+/// The **`PerformanceElementTiming`** interface contains render timing
+/// information for image and text node elements the developer annotated with an
+/// [`elementtiming`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/elementtiming)
+/// attribute for observation.
 extension type PerformanceElementTiming._(JSObject _)
     implements PerformanceEntry, JSObject {
   /// The **`toJSON()`** method of the [PerformanceElementTiming] interface is a

@@ -19,6 +19,16 @@ import 'user_timing.dart';
 
 typedef DOMHighResTimeStamp = num;
 typedef EpochTimeStamp = int;
+
+/// The **`Performance`** interface provides access to performance-related
+/// information for the current page.
+///
+/// An object of this type can be obtained by calling `window.performance` or
+/// `self.performance` in workers. Note that Performance entries are per
+/// context. If you create a mark on the main thread (or other worker), you
+/// cannot see it in a worker thread, and vice versa. See
+/// [`self.performance`](/en-US/docs/Web/API/performance_property) for which
+/// APIs are available in window and worker contexts.
 extension type Performance._(JSObject _) implements EventTarget, JSObject {
   /// The **`performance.now()`** method returns a high resolution timestamp in
   /// milliseconds. It represents the time elapsed since

@@ -29,6 +29,16 @@ typedef TransformerCancelCallback = JSFunction;
 typedef QueuingStrategySize = JSFunction;
 typedef ReadableStreamReaderMode = String;
 typedef ReadableStreamType = String;
+
+/// The `ReadableStream` interface of the
+/// [Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)
+/// represents a readable stream of byte data. The
+/// [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+/// offers a concrete instance of a `ReadableStream` through the [Response.body]
+/// property of a [Response] object.
+///
+/// `ReadableStream` is a
+/// [transferable object](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
 extension type ReadableStream._(JSObject _) implements JSObject {
   external factory ReadableStream([
     JSObject underlyingSource,
@@ -190,6 +200,26 @@ extension type UnderlyingSource._(JSObject _) implements JSObject {
   external set autoAllocateChunkSize(int value);
   external int get autoAllocateChunkSize;
 }
+
+/// The **`ReadableStreamDefaultReader`** interface of the
+/// [Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)
+/// represents a default reader that can be used to read stream data supplied
+/// from a network (such as a fetch request).
+///
+/// A `ReadableStreamDefaultReader` can be used to read from a [ReadableStream]
+/// that has an underlying source of any type (unlike a
+/// [ReadableStreamBYOBReader], which can only be used with readable streams
+/// that have an _underlying byte source_).
+///
+/// Note however that zero-copy transfer from an underlying source is only
+/// supported for underlying byte sources that autoallocate buffers.
+/// In other words, the stream must have been
+/// [constructed](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream/ReadableStream)
+/// specifying both
+/// [`type="bytes"`](/en-US/docs/Web/API/ReadableStream/ReadableStream#type) and
+/// [`autoAllocateChunkSize`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream/ReadableStream#autoallocatechunksize).
+/// For any other underlying source, the stream will always satisfy read
+/// requests with data from internal queues.
 extension type ReadableStreamDefaultReader._(JSObject _) implements JSObject {
   external factory ReadableStreamDefaultReader(ReadableStream stream);
 
@@ -244,6 +274,34 @@ extension type ReadableStreamReadResult._(JSObject _) implements JSObject {
   external set done(bool value);
   external bool get done;
 }
+
+/// The `ReadableStreamBYOBReader` interface of the
+/// [Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)
+/// defines a reader for a [ReadableStream] that supports zero-copy reading from
+/// an underlying byte source.
+/// It is used for efficient copying from underlying sources where the data is
+/// delivered as an "anonymous" sequence of bytes, such as files.
+///
+/// An instance of this reader type should usually be obtained by calling
+/// [ReadableStream.getReader] on the stream, specifying `mode: "byob"` in the
+/// options parameter.
+/// The readable stream must have an _underlying byte source_. In other words,
+/// it must have been
+/// [constructed](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream/ReadableStream)
+/// specifying an underlying source with [`type:
+/// "bytes"`](/en-US/docs/Web/API/ReadableStream/ReadableStream#type)).
+///
+/// Using this kind of reader, a [`read()`](#readablestreambyobreader.read)
+/// request when the readable stream's internal queues are empty will result in
+/// a zero copy transfer from the underlying source (bypassing the stream's
+/// internal queues).
+/// If the internal queues are not empty, a `read()` will satisfy the request
+/// from the buffered data.
+///
+/// Note that the methods and properties are similar to those for the default
+/// reader ([ReadableStreamDefaultReader]).
+/// The `read()` method differs in that it provide a view into which data should
+/// be written.
 extension type ReadableStreamBYOBReader._(JSObject _) implements JSObject {
   external factory ReadableStreamBYOBReader(ReadableStream stream);
 
@@ -304,6 +362,12 @@ extension type ReadableStreamBYOBReader._(JSObject _) implements JSObject {
   external JSPromise cancel([JSAny? reason]);
   external JSPromise get closed;
 }
+
+/// The **`ReadableStreamDefaultController`** interface of the
+/// [Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)
+/// represents a controller allowing control of a [ReadableStream]'s state and
+/// internal queue. Default controllers are for streams that are not byte
+/// streams.
 extension type ReadableStreamDefaultController._(JSObject _)
     implements JSObject {
   /// The **`close()`** method of the
@@ -332,6 +396,64 @@ extension type ReadableStreamDefaultController._(JSObject _)
   external void error([JSAny? e]);
   external num? get desiredSize;
 }
+
+/// The **`ReadableByteStreamController`** interface of the
+/// [Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)
+/// represents a controller for a
+/// [readable byte stream](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_byte_streams).
+/// It allows control of the state and internal queue of a [ReadableStream] with
+/// an underlying byte source, and enables efficient zero-copy transfer of data
+/// from the underlying source to a consumer when the stream's internal queue is
+/// empty.
+///
+/// An instance of this controller type is created if an `underlyingSource`
+/// object with the property `type="bytes"` is passed as an argument to the
+/// [`ReadableStream()`
+/// constructor](/en-US/docs/Web/API/ReadableStream/ReadableStream#type).
+/// The `underlyingSource` object may also define
+/// [`start()`](/en-US/docs/Web/API/ReadableStream/ReadableStream#start) and
+/// [`pull()`](/en-US/docs/Web/API/ReadableStream/ReadableStream#pull) callback
+/// functions.
+/// These are called with the controller as a parameter, in order to set up the
+/// underlying source, and request data when needed.
+///
+/// The underlying source uses the controller to supply data to the stream via
+/// its [`byobRequest`](#readablebytestreamcontroller.byobrequest) property or
+/// [`enqueue()`](#readablebytestreamcontroller.enqueue) method.
+/// [`byobRequest`](#readablebytestreamcontroller.byobrequest) is a
+/// [ReadableStreamBYOBRequest] object that represents a pending request from a
+/// consumer to make a zero-copy transfer of data direct to a consumer.
+/// `byobRequest` must be used to copy data if it exists (do not use `enqueue()`
+/// in this case)!
+/// If the underlying source needs to pass data to the stream and `byobRequest`
+/// is `null` then the source can call
+/// [`enqueue()`](#readablebytestreamcontroller.enqueue) to add the data to the
+/// stream's internal queues.
+///
+/// Note that the [`byobRequest`](#readablebytestreamcontroller.byobrequest) is
+/// only created in "BYOB mode" when there is a request from a reader and the
+/// stream's internal queue is empty.
+/// "BYOB mode" is enabled when using a [ReadableStreamBYOBReader] (typically
+/// constructed by calling [ReadableStream.getReader] with the argument `{ mode:
+/// 'byob' }`).
+/// It is also enabled when using a default reader and
+/// [`autoAllocateChunkSize`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream/ReadableStream#autoallocatechunksize)
+/// is specified in the [`ReadableController()`
+/// constructor](/en-US/docs/Web/API/ReadableStream/ReadableStream#autoallocatechunksize).
+///
+/// An underlying byte source can also use the controller to
+/// [`close()`](#readablebytestreamcontroller.close) the stream when all the
+/// data has been sent and report errors from the underlying source using
+/// [`error()`](#readablebytestreamcontroller.error).
+/// The controller's [`desiredSize`](#readablebytestreamcontroller.desiredsize)
+/// property is used to apply "backpressure", informing the underlying source of
+/// the size of the internal queue (small values indicate that the queue is
+/// filling up, hinting to the underlying source that it is be desirable to
+/// pause or throttle the inflow).
+///
+/// Note that even though the controller is primarily used by the underlying
+/// byte source, there is no reason it cannot be stored used by other parts of
+/// the system to signal the stream.
 extension type ReadableByteStreamController._(JSObject _) implements JSObject {
   /// The **`close()`** method of the [ReadableByteStreamController] interface
   /// closes the associated stream.
@@ -368,6 +490,51 @@ extension type ReadableByteStreamController._(JSObject _) implements JSObject {
   external ReadableStreamBYOBRequest? get byobRequest;
   external num? get desiredSize;
 }
+
+/// The **`ReadableStreamBYOBRequest`** interface of the
+/// [Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)
+/// represents a "pull request" for data from an underlying source that will
+/// made as a zero-copy transfer to a consumer (bypassing the stream's internal
+/// queues).
+///
+/// `ReadableStreamBYOBRequest` objects are created in "BYOB mode" when a
+/// consumer makes a request for data and the stream's internal queue is
+/// _empty_.
+/// (The stream will resolve the consumer's request directly if it already has
+/// buffered data).
+/// An underlying byte source can access active BYOB requests through its
+/// controller's [ReadableByteStreamController.byobRequest] property, which will
+/// be set to `null` if there is no outstanding request.
+///
+/// An underlying source that supports "BYOB mode" should check for
+/// [ReadableByteStreamController.byobRequest] and must use it for transferring
+/// data, if present.
+/// If data arrives from the underlying source when
+/// [ReadableByteStreamController.byobRequest] is `null`, it can be queued using
+/// [ReadableByteStreamController.enqueue].
+/// This might happen when an underlying push source receives new data when the
+/// stream's internal buffers are not empty.
+///
+/// An underlying source uses the request by writing data to the BYOB request's
+/// [`view`](#readablestreambyobrequest.view) and then calling
+/// [`respond()`](#readablestreambyobrequest.respond), or by calling
+/// [`respondWithNewView()`](#readablestreambyobrequest.respondwithnewview) and
+/// passing a new view as an argument.
+/// Note that the "new view" must actually be a view over the _same_ buffer as
+/// the original `view`, starting at the same offset.
+/// This might be used to return a shorter buffer if the underlying source is
+/// unable to fill the entire original view.
+///
+/// Note that a [ReadableByteStreamController] is only created for underlying
+/// sources when `type="bytes"` is specified for the source in the
+/// [`ReadableStream()`
+/// constructor](/en-US/docs/Web/API/ReadableStream/ReadableStream#type).
+/// "BYOB mode" is enabled when either
+/// [`autoAllocateChunkSize`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream/ReadableStream#autoallocatechunksize)
+/// is specified in the [`ReadableController()`
+/// constructor](/en-US/docs/Web/API/ReadableStream/ReadableStream#autoallocatechunksize)
+/// or when using a [ReadableStreamBYOBReader] (typically constructed by calling
+/// [ReadableStream.getReader] with the argument `{ mode: 'byob' }`).
 extension type ReadableStreamBYOBRequest._(JSObject _) implements JSObject {
   /// The **`respond()`** method of the [ReadableStreamBYOBRequest] interface is
   /// used to signal to the associated
@@ -397,6 +564,15 @@ extension type ReadableStreamBYOBRequest._(JSObject _) implements JSObject {
   external void respondWithNewView(ArrayBufferView view);
   external ArrayBufferView? get view;
 }
+
+/// The **`WritableStream`** interface of the
+/// [Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)
+/// provides a standard abstraction for writing streaming data to a destination,
+/// known as a sink.
+/// This object comes with built-in backpressure and queuing.
+///
+/// `WritableStream` is a
+/// [transferable object](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
 extension type WritableStream._(JSObject _) implements JSObject {
   external factory WritableStream([
     JSObject underlyingSink,
@@ -446,6 +622,12 @@ extension type UnderlyingSink._(JSObject _) implements JSObject {
   external set type(JSAny? value);
   external JSAny? get type;
 }
+
+/// The **`WritableStreamDefaultWriter`** interface of the
+/// [Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)
+/// is the object returned by [WritableStream.getWriter] and once created locks
+/// the writer to the `WritableStream` ensuring that no other streams can write
+/// to the underlying sink.
 extension type WritableStreamDefaultWriter._(JSObject _) implements JSObject {
   external factory WritableStreamDefaultWriter(WritableStream stream);
 
@@ -496,6 +678,12 @@ extension type WritableStreamDefaultWriter._(JSObject _) implements JSObject {
   external num? get desiredSize;
   external JSPromise get ready;
 }
+
+/// The **`WritableStreamDefaultController`** interface of the
+/// [Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)
+/// represents a controller allowing control of a [WritableStream]'s state. When
+/// constructing a `WritableStream`, the underlying sink is given a
+/// corresponding `WritableStreamDefaultController` instance to manipulate.
 extension type WritableStreamDefaultController._(JSObject _)
     implements JSObject {
   /// The **`error()`** method of the
@@ -512,6 +700,24 @@ extension type WritableStreamDefaultController._(JSObject _)
   external void error([JSAny? e]);
   external AbortSignal get signal;
 }
+
+/// The **`TransformStream`** interface of the
+/// [Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)
+/// represents a concrete implementation of the
+/// [pipe chain](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Concepts#pipe_chains)
+/// _transform stream_ concept.
+///
+/// It may be passed to the [ReadableStream.pipeThrough] method in order to
+/// transform a stream of data from one format into another.
+/// For example, it might be used to decode (or encode) video frames, decompress
+/// data, or convert the stream from XML to JSON.
+///
+/// A transformation algorithm may be provided as an optional argument to the
+/// object constructor.
+/// If not supplied, data is not modified when piped through the stream.
+///
+/// `TransformStream` is a
+/// [transferable object](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
 extension type TransformStream._(JSObject _) implements JSObject {
   external factory TransformStream([
     JSObject transformer,
@@ -545,6 +751,17 @@ extension type Transformer._(JSObject _) implements JSObject {
   external set writableType(JSAny? value);
   external JSAny? get writableType;
 }
+
+/// The **`TransformStreamDefaultController`** interface of the
+/// [Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)
+/// provides methods to manipulate the associated [ReadableStream] and
+/// [WritableStream].
+///
+/// When constructing a [TransformStream], the
+/// `TransformStreamDefaultController` is created. It therefore has no
+/// constructor. The way to get an instance of
+/// `TransformStreamDefaultController` is via the callback methods of
+/// [TransformStream.TransformStream].
 extension type TransformStreamDefaultController._(JSObject _)
     implements JSObject {
   /// `Streams API`
@@ -589,12 +806,22 @@ extension type QueuingStrategyInit._(JSObject _) implements JSObject {
   external set highWaterMark(num value);
   external num get highWaterMark;
 }
+
+/// The **`ByteLengthQueuingStrategy`** interface of the
+/// [Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)
+/// provides a built-in byte length queuing strategy that can be used when
+/// constructing streams.
 extension type ByteLengthQueuingStrategy._(JSObject _) implements JSObject {
   external factory ByteLengthQueuingStrategy(QueuingStrategyInit init);
 
   external num get highWaterMark;
   external JSFunction get size;
 }
+
+/// The **`CountQueuingStrategy`** interface of the
+/// [Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)
+/// provides a built-in chunk counting queuing strategy that can be used when
+/// constructing streams.
 extension type CountQueuingStrategy._(JSObject _) implements JSObject {
   external factory CountQueuingStrategy(QueuingStrategyInit init);
 

@@ -12,6 +12,9 @@ import 'dart:js_interop';
 
 import 'cssom.dart';
 
+/// The **`CSSScopeRule`** interface of the
+/// [CSS Object Model](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// represents a CSS  at-rule.
 extension type CSSScopeRule._(JSObject _) implements CSSGroupingRule, JSObject {
   external String? get start;
   external String? get end;

@@ -51,6 +51,16 @@ extension type FontFaceDescriptors._(JSObject _) implements JSObject {
   external set lineGapOverride(String value);
   external String get lineGapOverride;
 }
+
+/// The **`FontFace`** interface of the
+/// [CSS Font Loading API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Font_Loading_API)
+/// represents a single usable font face.
+///
+/// This interface defines the source of a font face, either a URL to an
+/// external resource or a buffer, and font properties such as `style`,
+/// `weight`, and so on.
+/// For URL font sources it allows authors to trigger when the remote font is
+/// fetched and loaded, and to track loading status.
 extension type FontFace._(JSObject _) implements JSObject {
   external factory FontFace(
     String family,
@@ -118,6 +128,18 @@ extension type FontFaceSetLoadEventInit._(JSObject _)
   external set fontfaces(JSArray value);
   external JSArray get fontfaces;
 }
+
+/// The **`FontFaceSetLoadEvent`** interface of the
+/// [CSS Font Loading API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Font_Loading_API)
+/// represents events fired at a [FontFaceSet] after it starts loading font
+/// faces.
+///
+/// Events are fired when font loading starts
+/// ([`loading`](https://developer.mozilla.org/en-US/docs/Web/API/FontFaceSet/loading_event)),
+/// loading completes
+/// ([`loadingdone`](https://developer.mozilla.org/en-US/docs/Web/API/FontFaceSet/loadingdone_event))
+/// or there is an error loading one of the fonts
+/// ([`loadingerror`](https://developer.mozilla.org/en-US/docs/Web/API/FontFaceSet/loadingerror_event)).
 extension type FontFaceSetLoadEvent._(JSObject _) implements Event, JSObject {
   external factory FontFaceSetLoadEvent(
     String type, [
@@ -126,6 +148,17 @@ extension type FontFaceSetLoadEvent._(JSObject _) implements Event, JSObject {
 
   external JSArray get fontfaces;
 }
+
+/// The **`FontFaceSet`** interface of the
+/// [CSS Font Loading API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Font_Loading_API)
+/// manages the loading of font-faces and querying of their download status.
+///
+/// A `FontFaceSet` instance is a
+/// [`Set`-like object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set#set-like_browser_apis)
+/// that can hold an ordered set of [FontFace] objects.
+///
+/// This property is available as [Document.fonts], or `self.fonts` in
+/// [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
 extension type FontFaceSet._(JSObject _) implements EventTarget, JSObject {
   external factory FontFaceSet(JSArray initialFaces);
 

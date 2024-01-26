@@ -26,6 +26,15 @@ extension type ScrollTimelineOptions._(JSObject _) implements JSObject {
   external set axis(ScrollAxis value);
   external ScrollAxis get axis;
 }
+
+/// The **`ScrollTimeline`** interface of the [Web Animations API] represents a
+/// scroll progress timeline (see
+/// [CSS scroll-driven animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations)
+/// for more details).
+///
+/// Pass a `ScrollTimeline` instance to the [Animation.Animation] constructor or
+/// the [Element.animate] method to specify it as the timeline that will control
+/// the progress of the animation.
 extension type ScrollTimeline._(JSObject _)
     implements AnimationTimeline, JSObject {
   external factory ScrollTimeline([ScrollTimelineOptions options]);
@@ -47,6 +56,15 @@ extension type ViewTimelineOptions._(JSObject _) implements JSObject {
   external set inset(JSAny value);
   external JSAny get inset;
 }
+
+/// The **`ViewTimeline`** interface of the [Web Animations API] represents a
+/// view progress timeline (see
+/// [CSS scroll-driven animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations)
+/// for more details).
+///
+/// Pass a `ViewTimeline` instance to the [Animation.Animation] constructor or
+/// the [Element.animate] method to specify it as the timeline that will control
+/// the progress of the animation.
 extension type ViewTimeline._(JSObject _) implements ScrollTimeline, JSObject {
   external factory ViewTimeline([ViewTimelineOptions options]);
 

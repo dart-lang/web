@@ -13,6 +13,9 @@ import 'dart:js_interop';
 import 'mediacapture_streams.dart';
 import 'streams.dart';
 
+/// The **`MediaStreamTrackProcessor`** interface of the
+/// [Insertable Streams for MediaStreamTrack API] consumes a [MediaStreamTrack]
+/// object's source and generates a stream of media frames.
 extension type MediaStreamTrackProcessor._(JSObject _) implements JSObject {
   external factory MediaStreamTrackProcessor(
       MediaStreamTrackProcessorInit init);

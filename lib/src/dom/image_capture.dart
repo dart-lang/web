@@ -16,6 +16,12 @@ typedef ConstrainPoint2D = JSObject;
 typedef RedEyeReduction = String;
 typedef FillLightMode = String;
 typedef MeteringMode = String;
+
+/// The **`ImageCapture`** interface of the
+/// [MediaStream Image Capture API](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Image_Capture_API)
+/// provides methods to enable the capture of images or photos from a camera or
+/// other photographic device. It provides an interface for capturing images
+/// from a photographic device referenced through a valid [MediaStreamTrack].
 extension type ImageCapture._(JSObject _) implements JSObject {
   external factory ImageCapture(MediaStreamTrack videoTrack);
 

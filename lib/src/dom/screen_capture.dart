@@ -20,6 +20,14 @@ typedef SurfaceSwitchingPreferenceEnum = String;
 typedef MonitorTypeSurfacesEnum = String;
 typedef DisplayCaptureSurfaceType = String;
 typedef CursorCaptureConstraint = String;
+
+/// The **`CaptureController`** interface provides methods that can be used to
+/// further manipulate a capture session separate from its initiation via
+/// [MediaDevices.getDisplayMedia].
+///
+/// A `CaptureController` object is associated with a capture session by passing
+/// it into a [MediaDevices.getDisplayMedia] call as the value of the options
+/// object's `controller` property.
 extension type CaptureController._(JSObject _)
     implements EventTarget, JSObject {
   external factory CaptureController();

@@ -31,6 +31,16 @@ typedef OscillatorType = String;
 typedef PanningModelType = String;
 typedef DistanceModelType = String;
 typedef OverSampleType = String;
+
+/// The `BaseAudioContext` interface of the
+/// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
+/// acts as a base definition for online and offline audio-processing graphs, as
+/// represented by [AudioContext] and [OfflineAudioContext] respectively. You
+/// wouldn't use `BaseAudioContext` directly — you'd use its features via one of
+/// these two inheriting interfaces.
+///
+/// A `BaseAudioContext` can be a target of events, therefore it implements the
+/// [EventTarget] interface.
 extension type BaseAudioContext._(JSObject _) implements EventTarget, JSObject {
   /// The `createAnalyser()` method of the
   /// [BaseAudioContext] interface creates an [AnalyserNode], which
@@ -291,6 +301,16 @@ extension type BaseAudioContext._(JSObject _) implements EventTarget, JSObject {
   external set onstatechange(EventHandler value);
   external EventHandler get onstatechange;
 }
+
+/// The `AudioContext` interface represents an audio-processing graph built from
+/// audio modules linked together, each represented by an [AudioNode].
+///
+/// An audio context controls both the creation of the nodes it contains and the
+/// execution of the audio processing, or decoding. You need to create an
+/// `AudioContext` before you do anything else, as everything happens inside a
+/// context. It's recommended to create one AudioContext and reuse it instead of
+/// initializing a new one each time, and it's OK to use a single `AudioContext`
+/// for several different audio sources and pipeline concurrently.
 extension type AudioContext._(JSObject _)
     implements BaseAudioContext, JSObject {
   external factory AudioContext([AudioContextOptions contextOptions]);
@@ -440,6 +460,10 @@ extension type AudioSinkOptions._(JSObject _) implements JSObject {
   external set type(AudioSinkType value);
   external AudioSinkType get type;
 }
+
+/// The **`AudioSinkInfo`** interface of the [Web Audio API] represents
+/// information describing an [AudioContext]'s sink ID, retrieved via
+/// [AudioContext.sinkId].
 extension type AudioSinkInfo._(JSObject _) implements JSObject {
   external AudioSinkType get type;
 }
@@ -497,6 +521,13 @@ extension type AudioRenderCapacityEventInit._(JSObject _)
   external set underrunRatio(num value);
   external num get underrunRatio;
 }
+
+/// The `OfflineAudioContext` interface is an [AudioContext] interface
+/// representing an audio-processing graph built from linked together
+/// [AudioNode]s. In contrast with a standard [AudioContext], an
+/// `OfflineAudioContext` doesn't render the audio to the device hardware;
+/// instead, it generates it, as fast as it can, and outputs the result to an
+/// [AudioBuffer].
 extension type OfflineAudioContext._(JSObject _)
     implements BaseAudioContext, JSObject {
   external factory OfflineAudioContext(
@@ -566,6 +597,17 @@ extension type OfflineAudioContextOptions._(JSObject _) implements JSObject {
   external set renderSizeHint(JSAny value);
   external JSAny get renderSizeHint;
 }
+
+/// The
+/// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
+/// `OfflineAudioCompletionEvent` interface represents events that occur when
+/// the processing of an [OfflineAudioContext] is terminated. The
+/// [OfflineAudioContext/complete_event] event uses this interface.
+///
+/// > **Note:** This interface is marked as deprecated; it is still supported
+/// > for legacy reasons, but it will soon be superseded when the promise
+/// > version of [OfflineAudioContext.startRendering] is supported in browsers,
+/// > which will no longer need it.
 extension type OfflineAudioCompletionEvent._(JSObject _)
     implements Event, JSObject {
   external factory OfflineAudioCompletionEvent(
@@ -583,6 +625,21 @@ extension type OfflineAudioCompletionEventInit._(JSObject _)
   external set renderedBuffer(AudioBuffer value);
   external AudioBuffer get renderedBuffer;
 }
+
+/// The **`AudioBuffer`** interface represents a short audio asset residing in
+/// memory, created from an audio file using the
+/// [BaseAudioContext/decodeAudioData] method, or from raw data using
+/// [BaseAudioContext/createBuffer]. Once put into an AudioBuffer, the audio can
+/// then be played by being passed into an [AudioBufferSourceNode].
+///
+/// Objects of these types are designed to hold small audio snippets, typically
+/// less than 45 s. For longer sounds, objects implementing the
+/// [MediaElementAudioSourceNode] are more suitable. The buffer contains the
+/// audio signal waveform encoded as a series of amplitudes in the following
+/// format: non-interleaved IEEE754 32-bit linear PCM with a nominal range
+/// between `-1` and `+1`, that is, a 32-bit floating point buffer, with each
+/// sample between -1.0 and 1.0. If the [AudioBuffer] has multiple channels,
+/// they are stored in separate buffers.
 extension type AudioBuffer._(JSObject _) implements JSObject {
   external factory AudioBuffer(AudioBufferOptions options);
 
@@ -629,6 +686,21 @@ extension type AudioBufferOptions._(JSObject _) implements JSObject {
   external set sampleRate(num value);
   external num get sampleRate;
 }
+
+/// The **`AudioNode`** interface is a generic interface for representing an
+/// audio processing module.
+///
+/// Examples include:
+///
+/// - an audio source (e.g. an HTML `audio` or `video` element, an
+///   [OscillatorNode], etc.),
+/// - the audio destination,
+/// - intermediate processing module (e.g. a filter like [BiquadFilterNode] or
+///   [ConvolverNode]), or
+/// - volume control (like [GainNode])
+///
+/// > **Note:** An `AudioNode` can be target of events, therefore it implements
+/// > the [EventTarget] interface.
 extension type AudioNode._(JSObject _) implements EventTarget, JSObject {
   /// The `connect()` method of the [AudioNode] interface lets
   /// you connect one of the node's outputs to a target, which may be either
@@ -673,6 +745,19 @@ extension type AudioNodeOptions._(JSObject _) implements JSObject {
   external set channelInterpretation(ChannelInterpretation value);
   external ChannelInterpretation get channelInterpretation;
 }
+
+/// The Web Audio API's `AudioParam` interface represents an audio-related
+/// parameter, usually a parameter of an [AudioNode] (such as [GainNode.gain]).
+///
+/// An `AudioParam` can be set to a specific value or a change in value, and can
+/// be scheduled to happen at a specific time and following a specific pattern.
+///
+/// Each `AudioParam` has a list of events, initially empty, that define when
+/// and how values change. When this list is not empty, changes using the
+/// `AudioParam.value` attributes are ignored. This list of events allows us to
+/// schedule changes that have to happen at very precise times, using arbitrary
+/// timeline-based automation curves. The time used is the one defined in
+/// [BaseAudioContext/currentTime].
 extension type AudioParam._(JSObject _) implements JSObject {
   /// The `setValueAtTime()` method of the
   /// [AudioParam] interface schedules an instant change to the
@@ -755,6 +840,22 @@ extension type AudioParam._(JSObject _) implements JSObject {
   external num get minValue;
   external num get maxValue;
 }
+
+/// The `AudioScheduledSourceNode` interface—part of the Web Audio API—is a
+/// parent interface for several types of audio source node interfaces which
+/// share the ability to be started and stopped, optionally at specified times.
+/// Specifically, this interface defines the [AudioScheduledSourceNode.start]
+/// and [AudioScheduledSourceNode.stop] methods, as well as the
+/// [AudioScheduledSourceNode.ended_event] event.
+///
+/// > **Note:** You can't create an `AudioScheduledSourceNode` object directly.
+/// > Instead, use an interface which extends it, such as
+/// > [AudioBufferSourceNode], [OscillatorNode] or [ConstantSourceNode].
+///
+/// Unless stated otherwise, nodes based upon `AudioScheduledSourceNode` output
+/// silence when not playing (that is, before `start()` is called and after
+/// `stop()` is called). Silence is represented, as always, by a stream of
+/// samples with the value zero (0).
 extension type AudioScheduledSourceNode._(JSObject _)
     implements AudioNode, JSObject {
   /// The `start()` method on
@@ -779,6 +880,42 @@ extension type AudioScheduledSourceNode._(JSObject _)
   external set onended(EventHandler value);
   external EventHandler get onended;
 }
+
+/// The **`AnalyserNode`** interface represents a node able to provide real-time
+/// frequency and time-domain analysis information. It is an [AudioNode] that
+/// passes the audio stream unchanged from the input to the output, but allows
+/// you to take the generated data, process it, and create audio visualizations.
+///
+/// An `AnalyserNode` has exactly one input and one output. The node works even
+/// if the output is not connected.
+///
+/// ![Without modifying the audio stream, the node allows to get the frequency
+/// and time-domain data associated to it, using a FFT.](fttaudiodata_en.svg)
+///
+/// <table class="properties">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Number of inputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Number of outputs</th>
+///       <td><code>1</code> (but may be left unconnected)</td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count mode</th>
+///       <td><code>"max"</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count</th>
+///       <td><code>2</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel interpretation</th>
+///       <td><code>"speakers"</code></td>
+///     </tr>
+///   </tbody>
+/// </table>
 extension type AnalyserNode._(JSObject _) implements AudioNode, JSObject {
   external factory AnalyserNode(
     BaseAudioContext context, [
@@ -858,6 +995,56 @@ extension type AnalyserOptions._(JSObject _)
   external set smoothingTimeConstant(num value);
   external num get smoothingTimeConstant;
 }
+
+/// The **`AudioBufferSourceNode`** interface is an [AudioScheduledSourceNode]
+/// which represents an audio source consisting of in-memory audio data, stored
+/// in an [AudioBuffer].
+///
+/// This interface is especially useful for playing back audio which has
+/// particularly stringent timing accuracy requirements, such as for sounds that
+/// must match a specific rhythm and can be kept in memory rather than being
+/// played from disk or the network. To play sounds which require accurate
+/// timing but must be streamed from the network or played from disk, use a
+/// [AudioWorkletNode] to implement its playback.
+///
+/// An `AudioBufferSourceNode` has no inputs and exactly one output, which has
+/// the same number of channels as the `AudioBuffer` indicated by its
+/// [AudioBufferSourceNode.buffer] property. If there's no buffer set—that is,
+/// if `buffer` is `null`—the output contains a single channel of silence (every
+/// sample is 0).
+///
+/// An `AudioBufferSourceNode` can only be played once; after each call to
+/// [AudioBufferSourceNode.start], you have to create a new node if you want to
+/// play the same sound again. Fortunately, these nodes are very inexpensive to
+/// create, and the actual `AudioBuffer`s can be reused for multiple plays of
+/// the sound. Indeed, you can use these nodes in a "fire and forget" manner:
+/// create the node, call `start()` to begin playing the sound, and don't even
+/// bother to hold a reference to it. It will automatically be garbage-collected
+/// at an appropriate time, which won't be until sometime after the sound has
+/// finished playing.
+///
+/// Multiple calls to [AudioScheduledSourceNode/stop] are allowed. The most
+/// recent call replaces the previous one, if the `AudioBufferSourceNode` has
+/// not already reached the end of the buffer.
+///
+/// ![The AudioBufferSourceNode takes the content of an AudioBuffer and m](webaudioaudiobuffersourcenode.png)
+///
+/// <table class="properties">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Number of inputs</th>
+///       <td><code>0</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Number of outputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count</th>
+///       <td>defined by the associated [AudioBuffer]</td>
+///     </tr>
+///   </tbody>
+/// </table>
 extension type AudioBufferSourceNode._(JSObject _)
     implements AudioScheduledSourceNode, JSObject {
   external factory AudioBufferSourceNode(
@@ -908,10 +1095,60 @@ extension type AudioBufferSourceOptions._(JSObject _) implements JSObject {
   external set playbackRate(num value);
   external num get playbackRate;
 }
+
+/// The `AudioDestinationNode` interface represents the end destination of an
+/// audio graph in a given context — usually the speakers of your device. It can
+/// also be the node that will "record" the audio data when used with an
+/// `OfflineAudioContext`.
+///
+/// `AudioDestinationNode` has no output (as it _is_ the output, no more
+/// `AudioNode` can be linked after it in the audio graph) and one input. The
+/// number of channels in the input must be between `0` and the
+/// `maxChannelCount` value or an exception is raised.
+///
+/// The `AudioDestinationNode` of a given `AudioContext` can be retrieved using
+/// the [BaseAudioContext/destination] property.
+///
+/// <table class="properties">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Number of inputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Number of outputs</th>
+///       <td><code>0</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count mode</th>
+///       <td><code>"explicit"</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count</th>
+///       <td><code>2</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel interpretation</th>
+///       <td><code>"speakers"</code></td>
+///     </tr>
+///   </tbody>
+/// </table>
 extension type AudioDestinationNode._(JSObject _)
     implements AudioNode, JSObject {
   external int get maxChannelCount;
 }
+
+/// The `AudioListener` interface represents the position and orientation of the
+/// unique person listening to the audio scene, and is used in
+/// [audio spatialization](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Web_audio_spatialization_basics).
+/// All [PannerNode]s spatialize in relation to the `AudioListener` stored in
+/// the [BaseAudioContext.listener] attribute.
+///
+/// It is important to note that there is only one listener per context and that
+/// it isn't an [AudioNode].
+///
+/// ![We see the position, up and front vectors of an AudioListener, with the up
+/// and front vectors at 90° from the other.](webaudiolistenerreduced.png)
 extension type AudioListener._(JSObject _) implements JSObject {
   /// The `setPosition()` method of the [AudioListener] Interface defines the
   /// position of the listener.
@@ -965,6 +1202,19 @@ extension type AudioListener._(JSObject _) implements JSObject {
   external AudioParam get upY;
   external AudioParam get upZ;
 }
+
+/// The `AudioProcessingEvent` interface of the
+/// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
+/// represents events that occur when a [ScriptProcessorNode] input buffer is
+/// ready to be processed.
+///
+/// An `audioprocess` event with this interface is fired on a
+/// [ScriptProcessorNode] when audio processing is required. During audio
+/// processing, the input buffer is read and processed to produce output audio
+/// data, which is then written to the output buffer.
+///
+/// > **Warning:** This feature has been deprecated and should be replaced by an
+/// > [`AudioWorklet`](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet).
 extension type AudioProcessingEvent._(JSObject _) implements Event, JSObject {
   external factory AudioProcessingEvent(
     String type,
@@ -990,6 +1240,37 @@ extension type AudioProcessingEventInit._(JSObject _)
   external set outputBuffer(AudioBuffer value);
   external AudioBuffer get outputBuffer;
 }
+
+/// The `BiquadFilterNode` interface represents a simple low-order filter, and
+/// is created using the [BaseAudioContext/createBiquadFilter] method. It is an
+/// [AudioNode] that can represent different kinds of filters, tone control
+/// devices, and graphic equalizers. A `BiquadFilterNode` always has exactly one
+/// input and one output.
+///
+/// <table class="properties">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Number of inputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Number of outputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count mode</th>
+///       <td><code>"max"</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count</th>
+///       <td><code>2</code> (not used in the default count mode)</td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel interpretation</th>
+///       <td><code>"speakers"</code></td>
+///     </tr>
+///   </tbody>
+/// </table>
 extension type BiquadFilterNode._(JSObject _) implements AudioNode, JSObject {
   external factory BiquadFilterNode(
     BaseAudioContext context, [
@@ -1038,6 +1319,50 @@ extension type BiquadFilterOptions._(JSObject _)
   external set gain(num value);
   external num get gain;
 }
+
+/// The `ChannelMergerNode` interface, often used in conjunction with its
+/// opposite, [ChannelSplitterNode], reunites different mono inputs into a
+/// single output. Each input is used to fill a channel of the output. This is
+/// useful for accessing each channels separately, e.g. for performing channel
+/// mixing where gain must be separately controlled on each channel.
+///
+/// ![Default channel merger node with six mono inputs combining to form a
+/// single output.](webaudiomerger.png)
+///
+/// If `ChannelMergerNode` has one single output, but as many inputs as there
+/// are channels to merge; the number of inputs is defined as a parameter of its
+/// constructor and the call to [BaseAudioContext/createChannelMerger]. In the
+/// case that no value is given, it will default to `6`.
+///
+/// Using a `ChannelMergerNode`, it is possible to create outputs with more
+/// channels than the rendering hardware is able to process. In that case, when
+/// the signal is sent to the [BaseAudioContext/listener] object, supernumerary
+/// channels will be ignored.
+///
+/// <table class="properties">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Number of inputs</th>
+///       <td>variable; default to <code>6</code>.</td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Number of outputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count mode</th>
+///       <td><code>"explicit"</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count</th>
+///       <td><code>2 </code>(not used in the default count mode)</td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel interpretation</th>
+///       <td><code>"speakers"</code></td>
+///     </tr>
+///   </tbody>
+/// </table>
 extension type ChannelMergerNode._(JSObject _) implements AudioNode, JSObject {
   external factory ChannelMergerNode(
     BaseAudioContext context, [
@@ -1051,6 +1376,53 @@ extension type ChannelMergerOptions._(JSObject _)
   external set numberOfInputs(int value);
   external int get numberOfInputs;
 }
+
+/// The `ChannelSplitterNode` interface, often used in conjunction with its
+/// opposite, [ChannelMergerNode], separates the different channels of an audio
+/// source into a set of mono outputs. This is useful for accessing each channel
+/// separately, e.g. for performing channel mixing where gain must be separately
+/// controlled on each channel.
+///
+/// ![Default channel splitter node with a single input splitting to form 6 mono
+/// outputs.](webaudiosplitter.png)
+///
+/// If your `ChannelSplitterNode` always has one single input, the amount of
+/// outputs is defined by a parameter on its constructor and the call to
+/// [BaseAudioContext/createChannelSplitter]. In the case that no value is
+/// given, it will default to `6`. If there are fewer channels in the input than
+/// there are outputs, supernumerary outputs are silent.
+///
+/// <table class="properties">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Number of inputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Number of outputs</th>
+///       <td>variable; default to <code>6</code>.</td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count mode</th>
+///       <td>
+///         <code>"explicit"</code> Older implementations, as per earlier versions
+/// of the spec use <code>"max"</code>.
+///       </td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count</th>
+///       <td>
+/// Fixed to the number of outputs. Older implementations, as per earlier
+/// versions of the spec use <code>2 </code>(not used in the default count
+/// mode).
+///       </td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel interpretation</th>
+///       <td><code>"discrete"</code></td>
+///     </tr>
+///   </tbody>
+/// </table>
 extension type ChannelSplitterNode._(JSObject _)
     implements AudioNode, JSObject {
   external factory ChannelSplitterNode(
@@ -1065,6 +1437,31 @@ extension type ChannelSplitterOptions._(JSObject _)
   external set numberOfOutputs(int value);
   external int get numberOfOutputs;
 }
+
+/// The `ConstantSourceNode` interface—part of the Web Audio API—represents an
+/// audio source (based upon [AudioScheduledSourceNode]) whose output is single
+/// unchanging value. This makes it useful for cases in which you need a
+/// constant value coming in from an audio source. In addition, it can be used
+/// like a constructible [AudioParam] by automating the value of its
+/// [ConstantSourceNode.offset] or by connecting another node to it; see
+/// [Controlling multiple parameters with ConstantSourceNode](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Controlling_multiple_parameters_with_ConstantSourceNode).
+///
+/// A `ConstantSourceNode` has no inputs and exactly one monaural (one-channel)
+/// output. The output's value is always the same as the value of the
+/// [ConstantSourceNode.offset] parameter.
+///
+/// <table class="properties">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Number of inputs</th>
+///       <td><code>0</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Number of outputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///   </tbody>
+/// </table>
 extension type ConstantSourceNode._(JSObject _)
     implements AudioScheduledSourceNode, JSObject {
   external factory ConstantSourceNode(
@@ -1080,6 +1477,39 @@ extension type ConstantSourceOptions._(JSObject _) implements JSObject {
   external set offset(num value);
   external num get offset;
 }
+
+/// The `ConvolverNode` interface is an [AudioNode] that performs a Linear
+/// Convolution on a given [AudioBuffer], often used to achieve a reverb effect.
+/// A `ConvolverNode` always has exactly one input and one output.
+///
+/// > **Note:** For more information on the theory behind Linear Convolution,
+/// > see the
+/// > [Convolution article on Wikipedia](https://en.wikipedia.org/wiki/Convolution).
+///
+/// <table class="properties">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Number of inputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Number of outputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count mode</th>
+///       <td><code>"clamped-max"</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count</th>
+///       <td><code>1</code>, <code>2</code>, or <code>4</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel interpretation</th>
+///       <td><code>"speakers"</code></td>
+///     </tr>
+///   </tbody>
+/// </table>
 extension type ConvolverNode._(JSObject _) implements AudioNode, JSObject {
   external factory ConvolverNode(
     BaseAudioContext context, [
@@ -1103,6 +1533,46 @@ extension type ConvolverOptions._(JSObject _)
   external set disableNormalization(bool value);
   external bool get disableNormalization;
 }
+
+/// The **`DelayNode`** interface represents a
+/// [delay-line](https://en.wikipedia.org/wiki/Digital_delay_line); an
+/// [AudioNode] audio-processing module that causes a delay between the arrival
+/// of an input data and its propagation to the output.
+///
+/// A `DelayNode` always has exactly one input and one output, both with the
+/// same amount of channels.
+///
+/// ![The DelayNode acts as a delay-line, here with a value of
+/// 1s.](webaudiodelaynode.png)
+///
+/// When creating a graph that has a cycle, it is mandatory to have at least one
+/// `DelayNode` in the cycle, or the nodes taking part in the cycle will be
+/// muted.
+///
+/// <table class="properties">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Number of inputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Number of outputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count mode</th>
+///       <td><code>"max"</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count</th>
+///       <td><code>2</code> (not used in the default count mode)</td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel interpretation</th>
+///       <td><code>"speakers"</code></td>
+///     </tr>
+///   </tbody>
+/// </table>
 extension type DelayNode._(JSObject _) implements AudioNode, JSObject {
   external factory DelayNode(
     BaseAudioContext context, [
@@ -1123,6 +1593,38 @@ extension type DelayOptions._(JSObject _)
   external set delayTime(num value);
   external num get delayTime;
 }
+
+/// The `DynamicsCompressorNode` interface provides a compression effect, which
+/// lowers the volume of the loudest parts of the signal in order to help
+/// prevent clipping and distortion that can occur when multiple sounds are
+/// played and multiplexed together at once. This is often used in musical
+/// production and game audio. `DynamicsCompressorNode` is an [AudioNode] that
+/// has exactly one input and one output.
+///
+/// <table class="properties">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Number of inputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Number of outputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count mode</th>
+///       <td><code>"clamped-max"</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count</th>
+///       <td><code>2</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel interpretation</th>
+///       <td><code>"speakers"</code></td>
+///     </tr>
+///   </tbody>
+/// </table>
 extension type DynamicsCompressorNode._(JSObject _)
     implements AudioNode, JSObject {
   external factory DynamicsCompressorNode(
@@ -1158,6 +1660,44 @@ extension type DynamicsCompressorOptions._(JSObject _)
   external set threshold(num value);
   external num get threshold;
 }
+
+/// The `GainNode` interface represents a change in volume. It is an [AudioNode]
+/// audio-processing module that causes a given gain to be applied to the input
+/// data before its propagation to the output. A `GainNode` always has exactly
+/// one input and one output, both with the same number of channels.
+///
+/// The gain is a unitless value, changing with time, that is multiplied to each
+/// corresponding sample of all input channels. If modified, the new gain is
+/// instantly applied, causing unaesthetic 'clicks' in the resulting audio. To
+/// prevent this from happening, never change the value directly but use the
+/// exponential interpolation methods on the [AudioParam] interface.
+///
+/// ![The GainNode is increasing the gain of the output.](webaudiogainnode.png)
+///
+/// <table class="properties">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Number of inputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Number of outputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count mode</th>
+///       <td><code>"max"</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count</th>
+///       <td><code>2</code> (not used in the default count mode)</td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel interpretation</th>
+///       <td><code>"speakers"</code></td>
+///     </tr>
+///   </tbody>
+/// </table>
 extension type GainNode._(JSObject _) implements AudioNode, JSObject {
   external factory GainNode(
     BaseAudioContext context, [
@@ -1172,6 +1712,59 @@ extension type GainOptions._(JSObject _) implements AudioNodeOptions, JSObject {
   external set gain(num value);
   external num get gain;
 }
+
+/// The **`IIRFilterNode`** interface of the
+/// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
+/// is a [AudioNode] processor which implements a general
+/// **[infinite impulse response](https://en.wikipedia.org/wiki/Infinite_impulse_response)**
+/// (IIR) filter; this type of filter can be used to implement tone control
+/// devices and graphic equalizers as well. It lets the parameters of the filter
+/// response be specified, so that it can be tuned as needed.
+///
+/// <table class="properties">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Number of inputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Number of outputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count mode</th>
+///       <td><code>"max"</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count</th>
+///       <td>Same as on the input</td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel interpretation</th>
+///       <td><code>"speakers"</code></td>
+///     </tr>
+///   </tbody>
+/// </table>
+///
+/// Typically, it's best to use the [BiquadFilterNode] interface to implement
+/// higher-order filters. There are several reasons why:
+///
+/// - Biquad filters are typically less sensitive to numeric quirks.
+/// - The filter parameters of biquad filters can be automated.
+/// - All even-ordered IIR filters can be created using [BiquadFilterNode].
+///
+/// However, if you need to create an odd-ordered IIR filter, you'll need to use
+/// `IIRFilterNode`. You may also find this interface useful if you don't need
+/// automation, or for other reasons.
+///
+/// > **Note:** Once the node has been created, you can't change its
+/// > coefficients.
+///
+/// `IIRFilterNode`s have a tail-time reference; they continue to output
+/// non-silent audio with zero input. As an IIR filter, the non-zero input
+/// continues forever, but this can be limited after some finite time in
+/// practice, when the output has approached zero closely enough. The actual
+/// time that takes depends on the filter coefficients provided.
 extension type IIRFilterNode._(JSObject _) implements AudioNode, JSObject {
   external factory IIRFilterNode(
     BaseAudioContext context,
@@ -1206,6 +1799,37 @@ extension type IIRFilterOptions._(JSObject _)
   external set feedback(JSArray value);
   external JSArray get feedback;
 }
+
+/// The `MediaElementAudioSourceNode` interface represents an audio source
+/// consisting of an HTML `audio` or `video` element. It is an [AudioNode] that
+/// acts as an audio source.
+///
+/// A `MediaElementAudioSourceNode` has no inputs and exactly one output, and is
+/// created using the [AudioContext.createMediaElementSource] method. The number
+/// of channels in the output equals the number of channels of the audio
+/// referenced by the [HTMLMediaElement] used in the creation of the node, or is
+/// 1 if the [HTMLMediaElement] has no audio.
+///
+/// <table class="properties">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Number of inputs</th>
+///       <td><code>0</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Number of outputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count</th>
+///       <td>
+/// 2 (but note that [AudioNode.channelCount] is only used for up-mixing and
+/// down-mixing [AudioNode] inputs, and [MediaElementAudioSourceNode] doesn't
+/// have any input)
+///       </td>
+///     </tr>
+///   </tbody>
+/// </table>
 extension type MediaElementAudioSourceNode._(JSObject _)
     implements AudioNode, JSObject {
   external factory MediaElementAudioSourceNode(
@@ -1223,6 +1847,40 @@ extension type MediaElementAudioSourceOptions._(JSObject _)
   external set mediaElement(HTMLMediaElement value);
   external HTMLMediaElement get mediaElement;
 }
+
+/// The `MediaStreamAudioDestinationNode` interface represents an audio
+/// destination consisting of a
+/// [WebRTC](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
+/// [MediaStream] with a single `AudioMediaStreamTrack`, which can be used in a
+/// similar way to a `MediaStream` obtained from [MediaDevices.getUserMedia].
+///
+/// It is an [AudioNode] that acts as an audio destination, created using the
+/// [AudioContext.createMediaStreamDestination] method.
+///
+/// <table class="properties">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Number of inputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Number of outputs</th>
+///       <td><code>0</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count</th>
+///       <td><code>2</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count mode</th>
+///       <td><code>"explicit"</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count interpretation</th>
+///       <td><code>"speakers"</code></td>
+///     </tr>
+///   </tbody>
+/// </table>
 extension type MediaStreamAudioDestinationNode._(JSObject _)
     implements AudioNode, JSObject {
   external factory MediaStreamAudioDestinationNode(
@@ -1232,6 +1890,46 @@ extension type MediaStreamAudioDestinationNode._(JSObject _)
 
   external MediaStream get stream;
 }
+
+/// The **`MediaStreamAudioSourceNode`** interface is a type of [AudioNode]
+/// which operates as an audio source whose media is received from a
+/// [MediaStream] obtained using the WebRTC or Media Capture and Streams APIs.
+///
+/// This media could be from a microphone (through [MediaDevices.getUserMedia])
+/// or from a remote peer on a WebRTC call (using the [RTCPeerConnection]'s
+/// audio tracks).
+///
+/// A `MediaStreamAudioSourceNode` has no inputs and exactly one output, and is
+/// created using the [AudioContext.createMediaStreamSource] method.
+///
+/// The `MediaStreamAudioSourceNode` takes the audio from the _first_
+/// [MediaStreamTrack] whose [MediaStreamTrack.kind] attribute's value is
+/// `audio`. See [Track ordering](#track_ordering) for more information about
+/// the order of tracks.
+///
+/// The number of channels output by the node matches the number of tracks found
+/// in the selected audio track.
+///
+/// <table class="properties">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Number of inputs</th>
+///       <td><code>0</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Number of outputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count</th>
+///       <td>
+/// 2 (but note that [AudioNode.channelCount] is only used for up-mixing and
+/// down-mixing [AudioNode] inputs, and [MediaStreamAudioSourceNode] doesn't
+/// have any input)
+///       </td>
+///     </tr>
+///   </tbody>
+/// </table>
 extension type MediaStreamAudioSourceNode._(JSObject _)
     implements AudioNode, JSObject {
   external factory MediaStreamAudioSourceNode(
@@ -1248,6 +1946,45 @@ extension type MediaStreamAudioSourceOptions._(JSObject _) implements JSObject {
   external set mediaStream(MediaStream value);
   external MediaStream get mediaStream;
 }
+
+/// The **`MediaStreamTrackAudioSourceNode`** interface is a type of [AudioNode]
+/// which represents a source of audio data taken from a specific
+/// [MediaStreamTrack] obtained through the
+/// [WebRTC](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API) or
+/// [Media Capture and Streams](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API)
+/// APIs.
+///
+/// The audio itself might be input from a microphone or other audio sampling
+/// device, or might be received through a [RTCPeerConnection], among other
+/// possible options.
+///
+/// A `MediaStreamTrackAudioSourceNode` has no inputs and exactly one output,
+/// and is created using the [AudioContext.createMediaStreamTrackSource] method.
+/// This interface is similar to [MediaStreamAudioSourceNode], except it lets
+/// you specifically state the track to use, rather than assuming the first
+/// audio track on a stream.
+///
+/// <table class="properties">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Number of inputs</th>
+///       <td><code>0</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Number of outputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count</th>
+///       <td>
+/// defined by the first audio [MediaStreamTrack]
+/// passed to the
+/// [AudioContext.createMediaStreamTrackSource]
+/// method that created it.
+///       </td>
+///     </tr>
+///   </tbody>
+/// </table>
 extension type MediaStreamTrackAudioSourceNode._(JSObject _)
     implements AudioNode, JSObject {
   external factory MediaStreamTrackAudioSourceNode(
@@ -1263,6 +2000,36 @@ extension type MediaStreamTrackAudioSourceOptions._(JSObject _)
   external set mediaStreamTrack(MediaStreamTrack value);
   external MediaStreamTrack get mediaStreamTrack;
 }
+
+/// The **`OscillatorNode`** interface represents a periodic waveform, such as a
+/// sine wave. It is an [AudioScheduledSourceNode] audio-processing module that
+/// causes a specified frequency of a given wave to be created—in effect, a
+/// constant tone.
+///
+/// <table class="properties">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Number of inputs</th>
+///       <td><code>0</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Number of outputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count mode</th>
+///       <td><code>max</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count</th>
+///       <td><code>2</code> (not used in the default count mode)</td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel interpretation</th>
+///       <td><code>speakers</code></td>
+///     </tr>
+///   </tbody>
+/// </table>
 extension type OscillatorNode._(JSObject _)
     implements AudioScheduledSourceNode, JSObject {
   external factory OscillatorNode(
@@ -1299,6 +2066,44 @@ extension type OscillatorOptions._(JSObject _)
   external set periodicWave(PeriodicWave value);
   external PeriodicWave get periodicWave;
 }
+
+/// The `PannerNode` interface defines an audio-processing object that
+/// represents the location, direction, and behavior of an audio source signal
+/// in a simulated physical space. This [AudioNode] uses right-hand Cartesian
+/// coordinates to describe the source's _position_ as a vector and its
+/// _orientation_ as a 3D directional cone.
+///
+/// A `PannerNode` always has exactly one input and one output: the input can be
+/// _mono_ or _stereo_ but the output is always _stereo_ (2 channels); you can't
+/// have panning effects without at least two audio channels!
+///
+/// ![The PannerNode defines a spatial position and direction for a given
+/// signal.](webaudiopannernode.png)
+///
+/// <table class="properties">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Number of inputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Number of outputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count mode</th>
+///       <td><code>"clamped-max"</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count</th>
+///       <td><code>2</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel interpretation</th>
+///       <td><code>"speakers"</code></td>
+///     </tr>
+///   </tbody>
+/// </table>
 extension type PannerNode._(JSObject _) implements AudioNode, JSObject {
   external factory PannerNode(
     BaseAudioContext context, [
@@ -1423,6 +2228,14 @@ extension type PannerOptions._(JSObject _)
   external set coneOuterGain(num value);
   external num get coneOuterGain;
 }
+
+/// The **`PeriodicWave`** interface defines a periodic waveform that can be
+/// used to shape the output of an [OscillatorNode].
+///
+/// `PeriodicWave` has no inputs or outputs; it is used to define custom
+/// oscillators when calling [OscillatorNode.setPeriodicWave]. The
+/// `PeriodicWave` itself is created/returned by
+/// [BaseAudioContext.createPeriodicWave].
 extension type PeriodicWave._(JSObject _) implements JSObject {
   external factory PeriodicWave(
     BaseAudioContext context, [
@@ -1447,12 +2260,108 @@ extension type PeriodicWaveOptions._(JSObject _)
   external set imag(JSArray value);
   external JSArray get imag;
 }
+
+/// The `ScriptProcessorNode` interface allows the generation, processing, or
+/// analyzing of audio using JavaScript.
+///
+/// > **Note:** This feature was replaced by
+/// > [AudioWorklets](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet)
+/// > and the [AudioWorkletNode] interface.
+///
+/// The `ScriptProcessorNode` interface is an [AudioNode] audio-processing
+/// module that is linked to two buffers, one containing the input audio data,
+/// one containing the processed output audio data. An event, implementing the
+/// [AudioProcessingEvent] interface, is sent to the object each time the input
+/// buffer contains new data, and the event handler terminates when it has
+/// filled the output buffer with data.
+///
+/// ![The ScriptProcessorNode stores the input in a buffer, send the
+/// audioprocess event. The EventHandler takes the input buffer and fill the
+/// output buffer which is sent to the output by the
+/// ScriptProcessorNode.](webaudioscriptprocessingnode.png)
+///
+/// The size of the input and output buffer are defined at the creation time,
+/// when the [BaseAudioContext.createScriptProcessor] method is called (both are
+/// defined by [BaseAudioContext.createScriptProcessor]'s `bufferSize`
+/// parameter). The buffer size must be a power of 2 between `256` and `16384`,
+/// that is `256`, `512`, `1024`, `2048`, `4096`, `8192` or `16384`. Small
+/// numbers lower the _latency_, but large number may be necessary to avoid
+/// audio breakup and glitches.
+///
+/// If the buffer size is not defined, which is recommended, the browser will
+/// pick one that its heuristic deems appropriate.
+///
+/// <table class="properties">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Number of inputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Number of outputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count mode</th>
+///       <td><code>"max"</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count</th>
+///       <td><code>2</code> (not used in the default count mode)</td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel interpretation</th>
+///       <td><code>"speakers"</code></td>
+///     </tr>
+///   </tbody>
+/// </table>
 extension type ScriptProcessorNode._(JSObject _)
     implements AudioNode, JSObject {
   external set onaudioprocess(EventHandler value);
   external EventHandler get onaudioprocess;
   external int get bufferSize;
 }
+
+/// The `StereoPannerNode` interface of the
+/// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
+/// represents a simple stereo panner node that can be used to pan an audio
+/// stream left or right. It is an [AudioNode] audio-processing module that
+/// positions an incoming audio stream in a stereo image using a low-cost
+/// equal-power
+/// [panning algorithm](https://webaudio.github.io/web-audio-api/#panning-algorithm).
+///
+/// The [StereoPannerNode.pan] property takes a unitless value between `-1`
+/// (full left pan) and `1` (full right pan). This interface was introduced as a
+/// much simpler way to apply a simple panning effect than having to use a full
+/// [PannerNode].
+///
+/// ![The Stereo Panner Node moved the sound's position from the center of two
+/// speakers to the left.](stereopannernode.png)
+///
+/// <table class="properties">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Number of inputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Number of outputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count mode</th>
+///       <td><code>"clamped-max"</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count</th>
+///       <td><code>2</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel interpretation</th>
+///       <td><code>"speakers"</code></td>
+///     </tr>
+///   </tbody>
+/// </table>
 extension type StereoPannerNode._(JSObject _) implements AudioNode, JSObject {
   external factory StereoPannerNode(
     BaseAudioContext context, [
@@ -1468,6 +2377,39 @@ extension type StereoPannerOptions._(JSObject _)
   external set pan(num value);
   external num get pan;
 }
+
+/// The **`WaveShaperNode`** interface represents a non-linear distorter.
+///
+/// It is an [AudioNode] that uses a curve to apply a wave shaping distortion to
+/// the signal. Beside obvious distortion effects, it is often used to add a
+/// warm feeling to the signal.
+///
+/// A `WaveShaperNode` always has exactly one input and one output.
+///
+/// <table class="properties">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Number of inputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Number of outputs</th>
+///       <td><code>1</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count mode</th>
+///       <td><code>"max"</code></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel count</th>
+///       <td><code>2</code> (not used in the default count mode)</td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Channel interpretation</th>
+///       <td><code>"speakers"</code></td>
+///     </tr>
+///   </tbody>
+/// </table>
 extension type WaveShaperNode._(JSObject _) implements AudioNode, JSObject {
   external factory WaveShaperNode(
     BaseAudioContext context, [
@@ -1491,9 +2433,35 @@ extension type WaveShaperOptions._(JSObject _)
   external set oversample(OverSampleType value);
   external OverSampleType get oversample;
 }
+
+/// The **`AudioWorklet`** interface of the
+/// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
+/// is used to supply custom audio processing scripts that execute in a separate
+/// thread to provide very low latency audio processing.
+///
+/// The worklet's code is run in the [AudioWorkletGlobalScope] global execution
+/// context, using a separate Web Audio thread which is shared by the worklet
+/// and other audio nodes.
+///
+/// Access the audio context's instance of `AudioWorklet` through the
+/// [BaseAudioContext.audioWorklet] property.
 extension type AudioWorklet._(JSObject _) implements Worklet, JSObject {
   external MessagePort get port;
 }
+
+/// The **`AudioWorkletGlobalScope`** interface of the
+/// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
+/// represents a global execution context for user-supplied code, which defines
+/// custom [AudioWorkletProcessor]-derived classes.
+///
+/// Each [BaseAudioContext] has a single [AudioWorklet] available under the
+/// [BaseAudioContext.audioWorklet] property, which runs its code in a single
+/// `AudioWorkletGlobalScope`.
+///
+/// As the global execution context is shared across the current
+/// `BaseAudioContext`, it's possible to define any other variables and perform
+/// any actions allowed in worklets — apart from defining
+/// `AudioWorkletProcessor` derived classes.
 extension type AudioWorkletGlobalScope._(JSObject _)
     implements WorkletGlobalScope, JSObject {
   /// The **`registerProcessor`** method of the
@@ -1509,7 +2477,28 @@ extension type AudioWorkletGlobalScope._(JSObject _)
   external int get renderQuantumSize;
   external MessagePort get port;
 }
+
+/// The **`AudioParamMap`** interface of the
+/// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
+/// represents an iterable and read-only set of multiple audio parameters.
+///
+/// An `AudioParamMap` instance is a read-only
+/// [`Map`-like object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map#map-like_browser_apis),
+/// in which each key is the name string for a parameter, and the corresponding
+/// value is an [AudioParam] containing the value of that parameter.
 extension type AudioParamMap._(JSObject _) implements JSObject {}
+
+/// > **Note:** Although the interface is available outside
+/// > [secure contexts](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts),
+/// > the [BaseAudioContext.audioWorklet] property is not, thus custom
+/// > [AudioWorkletProcessor]s cannot be defined outside them.
+///
+/// The **`AudioWorkletNode`** interface of the
+/// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
+/// represents a base class for a user-defined [AudioNode], which can be
+/// connected to an audio routing graph along with other nodes. It has an
+/// associated [AudioWorkletProcessor], which does the actual audio processing
+/// in a Web Audio rendering thread.
 extension type AudioWorkletNode._(JSObject _) implements AudioNode, JSObject {
   external factory AudioWorkletNode(
     BaseAudioContext context,
@@ -1543,11 +2532,28 @@ extension type AudioWorkletNodeOptions._(JSObject _)
   external set processorOptions(JSObject value);
   external JSObject get processorOptions;
 }
+
+/// The **`AudioWorkletProcessor`** interface of the
+/// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
+/// represents an audio processing code behind a custom [AudioWorkletNode]. It
+/// lives in the [AudioWorkletGlobalScope] and runs on the Web Audio rendering
+/// thread. In turn, an [AudioWorkletNode] based on it runs on the main thread.
 extension type AudioWorkletProcessor._(JSObject _) implements JSObject {
   external factory AudioWorkletProcessor();
 
   external MessagePort get port;
 }
+
+/// The **`AudioParamDescriptor`** dictionary of the
+/// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
+/// specifies properties for [AudioParam] objects.
+///
+/// It is used to create custom `AudioParam`s on an [AudioWorkletNode]. If the
+/// underlying [AudioWorkletProcessor] has a
+/// [AudioWorkletProcessor.parameterDescriptors] static getter, then the
+/// returned array of objects based on this dictionary is used internally by
+/// `AudioWorkletNode` constructor to populate its [AudioWorkletNode.parameters]
+/// property accordingly.
 extension type AudioParamDescriptor._(JSObject _) implements JSObject {
   external factory AudioParamDescriptor({
     required String name,

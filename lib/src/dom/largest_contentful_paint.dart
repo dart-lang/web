@@ -14,6 +14,8 @@ import 'dom.dart';
 import 'hr_time.dart';
 import 'performance_timeline.dart';
 
+/// The `LargestContentfulPaint` interface provides timing information about the
+/// largest image or text paint before user input on a web page.
 extension type LargestContentfulPaint._(JSObject _)
     implements PerformanceEntry, JSObject {
   /// The **`toJSON()`** method of the [LargestContentfulPaint] interface is a ;

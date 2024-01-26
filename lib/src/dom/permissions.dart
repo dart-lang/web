@@ -14,6 +14,11 @@ import 'dom.dart';
 import 'html.dart';
 
 typedef PermissionState = String;
+
+/// The Permissions interface of the
+/// [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API)
+/// provides the core Permission API functionality, such as methods for querying
+/// and revoking permissions
 extension type Permissions._(JSObject _) implements JSObject {
   external JSPromise request(JSObject permissionDesc);
 
@@ -34,6 +39,11 @@ extension type PermissionDescriptor._(JSObject _) implements JSObject {
   external set name(String value);
   external String get name;
 }
+
+/// The **`PermissionStatus`** interface of the
+/// [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API)
+/// provides the state of an object and an event handler for monitoring changes
+/// to said state.
 extension type PermissionStatus._(JSObject _) implements EventTarget, JSObject {
   external PermissionState get state;
   external String get name;

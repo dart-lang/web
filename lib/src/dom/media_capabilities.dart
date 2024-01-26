@@ -179,6 +179,17 @@ extension type MediaCapabilitiesEncodingInfo._(JSObject _)
   external set configuration(MediaEncodingConfiguration value);
   external MediaEncodingConfiguration get configuration;
 }
+
+/// The **`MediaCapabilities`** interface of the
+/// [Media Capabilities API](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capabilities_API)
+/// provides information about the decoding abilities of the device, system and
+/// browser. The API can be used to query the browser about the decoding
+/// abilities of the device based on codecs, profile, resolution, and bitrates.
+/// The information can be used to serve optimal media streams to the user and
+/// determine if playback should be smooth and power efficient.
+///
+/// The information is accessed through the **`mediaCapabilities`** property of
+/// the [Navigator] interface.
 extension type MediaCapabilities._(JSObject _) implements JSObject {
   /// The **`MediaCapabilities.decodingInfo()`** method, part of the
   /// [Media Capabilities API](https://developer.mozilla.org/en-US/docs/Web/API/MediaCapabilities),

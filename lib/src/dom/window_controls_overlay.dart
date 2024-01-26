@@ -14,6 +14,12 @@ import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
 
+/// The **`WindowControlsOverlay`** interface of the
+/// [Window Controls Overlay API](https://developer.mozilla.org/en-US/docs/Web/API/Window_Controls_Overlay_API)
+/// exposes information about the geometry
+/// of the title bar area in desktop Progressive Web Apps, and an event to know
+/// whenever it changes. This interface is accessible from
+/// [Navigator.windowControlsOverlay].
 extension type WindowControlsOverlay._(JSObject _)
     implements EventTarget, JSObject {
   /// The **`getTitlebarAreaRect()`** method of the [WindowControlsOverlay]
@@ -28,6 +34,11 @@ extension type WindowControlsOverlay._(JSObject _)
   external set ongeometrychange(EventHandler value);
   external EventHandler get ongeometrychange;
 }
+
+/// The **`WindowControlsOverlayGeometryChangeEvent`** interface of the
+/// [Window Controls Overlay API](https://developer.mozilla.org/en-US/docs/Web/API/Window_Controls_Overlay_API)
+/// is passed to [WindowControlsOverlay/geometrychange_event] when the size or
+/// visibility of a desktop Progress Web App's title bar region changes.
 extension type WindowControlsOverlayGeometryChangeEvent._(JSObject _)
     implements Event, JSObject {
   external factory WindowControlsOverlayGeometryChangeEvent(

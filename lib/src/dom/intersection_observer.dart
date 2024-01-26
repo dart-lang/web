@@ -15,6 +15,19 @@ import 'geometry.dart';
 import 'hr_time.dart';
 
 typedef IntersectionObserverCallback = JSFunction;
+
+/// The **`IntersectionObserver`** interface of the
+/// [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
+/// provides a way to asynchronously observe changes in the intersection of a
+/// target element with an ancestor element or with a top-level document's . The
+/// ancestor element or viewport is referred to as the root.
+///
+/// When an `IntersectionObserver` is created, it's configured to watch for
+/// given ratios of visibility within the root. The configuration cannot be
+/// changed once the `IntersectionObserver` is created, so a given observer
+/// object is only useful for watching for specific changes in degree of
+/// visibility; however, you can watch multiple target elements with the same
+/// observer.
 extension type IntersectionObserver._(JSObject _) implements JSObject {
   external factory IntersectionObserver(
     IntersectionObserverCallback callback, [
@@ -88,6 +101,15 @@ extension type IntersectionObserver._(JSObject _) implements JSObject {
   external String get scrollMargin;
   external JSArray get thresholds;
 }
+
+/// The **`IntersectionObserverEntry`** interface of the
+/// [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API)
+/// describes the intersection between the target element and its root container
+/// at a specific moment of transition.
+///
+/// Instances of `IntersectionObserverEntry` are delivered to an
+/// [IntersectionObserver] callback in its `entries` parameter; otherwise, these
+/// objects can only be obtained by calling [IntersectionObserver.takeRecords].
 extension type IntersectionObserverEntry._(JSObject _) implements JSObject {
   external factory IntersectionObserverEntry(
       IntersectionObserverEntryInit intersectionObserverEntryInit);

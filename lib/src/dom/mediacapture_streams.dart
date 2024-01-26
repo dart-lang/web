@@ -31,6 +31,16 @@ typedef MediaStreamTrackState = String;
 typedef VideoFacingModeEnum = String;
 typedef VideoResizeModeEnum = String;
 typedef MediaDeviceKind = String;
+
+/// The **`MediaStream`** interface of the [Media Capture and Streams API]
+/// represents a stream of media content. A stream consists of several
+/// **tracks**, such as video or audio tracks. Each track is specified as an
+/// instance of [MediaStreamTrack].
+///
+/// You can obtain a `MediaStream` object either by using the constructor or by
+/// calling functions such as [MediaDevices.getUserMedia],
+/// [MediaDevices.getDisplayMedia], or [HTMLCanvasElement.captureStream] and
+/// [HTMLMediaElement.captureStream].
 extension type MediaStream._(JSObject _) implements EventTarget, JSObject {
   external factory MediaStream([JSObject streamOrTracks]);
 
@@ -89,6 +99,13 @@ extension type MediaStream._(JSObject _) implements EventTarget, JSObject {
   external set onremovetrack(EventHandler value);
   external EventHandler get onremovetrack;
 }
+
+/// The **`MediaStreamTrack`** interface of the [Media Capture and Streams API]
+/// represents a single media track within a stream; typically, these are audio
+/// or video tracks, but other track types may exist as well.
+///
+/// Some user agents subclass this interface to provide more precise information
+/// or functionality, such as [CanvasCaptureMediaStreamTrack].
 extension type MediaStreamTrack._(JSObject _) implements EventTarget, JSObject {
   external CaptureHandle? getCaptureHandle();
   external JSArray getSupportedCaptureActions();
@@ -190,6 +207,27 @@ extension type MediaStreamTrack._(JSObject _) implements EventTarget, JSObject {
   external set onisolationchange(EventHandler value);
   external EventHandler get onisolationchange;
 }
+
+/// The **`MediaTrackSupportedConstraints`** dictionary establishes the list of
+/// constrainable properties recognized by the  or browser in its implementation
+/// of the [MediaStreamTrack] object. An object conforming to
+/// `MediaTrackSupportedConstraints` is returned by
+/// [MediaDevices.getSupportedConstraints].
+///
+/// Because of the way interface definitions in WebIDL work, if a constraint is
+/// requested but not supported, no error will occur. Instead, the specified
+/// constraints will be applied, with any unrecognized constraints stripped from
+/// the request. That can lead to confusing and hard to debug errors, so be sure
+/// to use `getSupportedConstraints()` to retrieve this information before
+/// attempting to establish constraints if you need to know the difference
+/// between silently ignoring a constraint and a constraint being accepted.
+///
+/// An actual constraint set is described using an object based on the
+/// [MediaTrackConstraints] dictionary.
+///
+/// To learn more about how constraints work, see [Capabilities, constraints,
+/// and
+/// settings](/en-US/docs/Web/API/Media_Capture_and_Streams_API/Constraints).
 extension type MediaTrackSupportedConstraints._(JSObject _)
     implements JSObject {
   external factory MediaTrackSupportedConstraints({
@@ -414,6 +452,14 @@ extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
   external set cursor(JSArray value);
   external JSArray get cursor;
 }
+
+/// The **`MediaTrackConstraints`** dictionary is used to describe a set of
+/// capabilities and the value or values each can take on. A constraints
+/// dictionary is passed into [MediaStreamTrack.applyConstraints] to allow a
+/// script to establish a set of exact (required) values or ranges and/or
+/// preferred values or ranges of values for the track, and the most
+/// recently-requested set of custom constraints can be retrieved by calling
+/// [MediaStreamTrack.getConstraints].
 extension type MediaTrackConstraints._(JSObject _)
     implements MediaTrackConstraintSet, JSObject {
   external factory MediaTrackConstraints({JSArray advanced});
@@ -537,6 +583,18 @@ extension type MediaTrackConstraintSet._(JSObject _) implements JSObject {
   external set suppressLocalAudioPlayback(ConstrainBoolean value);
   external ConstrainBoolean get suppressLocalAudioPlayback;
 }
+
+/// The **`MediaTrackSettings`** dictionary is used to return the current values
+/// configured for each of a [MediaStreamTrack]'s settings. These values will
+/// adhere as closely as possible to any constraints previously described using
+/// a [MediaTrackConstraints] object and set using
+/// [MediaStreamTrack.applyConstraints], and will adhere to the default
+/// constraints for any properties whose constraints haven't been changed, or
+/// whose customized constraints couldn't be matched.
+///
+/// To learn more about how constraints and settings work, see [Capabilities,
+/// constraints, and
+/// settings](/en-US/docs/Web/API/Media_Capture_and_Streams_API/Constraints).
 extension type MediaTrackSettings._(JSObject _) implements JSObject {
   external factory MediaTrackSettings({
     String whiteBalanceMode,
@@ -653,6 +711,16 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
   external set suppressLocalAudioPlayback(bool value);
   external bool get suppressLocalAudioPlayback;
 }
+
+/// The **`MediaStreamTrackEvent`** interface of the
+/// [Media Capture and Streams API] represents events which indicate that a
+/// [MediaStream] has had tracks added to or removed from the stream through
+/// calls to
+/// [Media Capture and Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API)
+/// methods. These events are sent to the stream when these changes occur.
+///
+/// The events based on this interface are [MediaStream/addtrack_event] and
+/// [MediaStream/removetrack_event].
 extension type MediaStreamTrackEvent._(JSObject _) implements Event, JSObject {
   external factory MediaStreamTrackEvent(
     String type,
@@ -668,6 +736,13 @@ extension type MediaStreamTrackEventInit._(JSObject _)
   external set track(MediaStreamTrack value);
   external MediaStreamTrack get track;
 }
+
+/// The **`OverconstrainedError`** interface of the
+/// [Media Capture and Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API)
+/// indicates that the set of desired capabilities for the current
+/// [MediaStreamTrack] cannot currently be met. When this event is thrown on a
+/// MediaStreamTrack, it is muted until either the current constraints can be
+/// established or until satisfiable constraints are applied.
 extension type OverconstrainedError._(JSObject _)
     implements DOMException, JSObject {
   external factory OverconstrainedError(
@@ -677,6 +752,10 @@ extension type OverconstrainedError._(JSObject _)
 
   external String get constraint;
 }
+
+/// The **`MediaDevices`** interface provides access to connected media input
+/// devices like cameras and microphones, as well as screen sharing. In essence,
+/// it lets you obtain access to any hardware source of media data.
 extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {
   /// The **`MediaDevices.selectAudioOutput()`** method of the
   /// [Audio Output Devices API](https://developer.mozilla.org/en-US/docs/Web/API/Audio_Output_Devices_API)
@@ -762,6 +841,12 @@ extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {
   external set ondevicechange(EventHandler value);
   external EventHandler get ondevicechange;
 }
+
+/// The **`MediaDeviceInfo`** interface of the [Media Capture and Streams API]
+/// contains information that describes a single media input or output device.
+///
+/// The list of devices obtained by calling [MediaDevices.enumerateDevices] is
+/// an array of `MediaDeviceInfo` objects, one per media device.
 extension type MediaDeviceInfo._(JSObject _) implements JSObject {
   /// The **`toJSON()`** method of the [MediaDeviceInfo] interface is a ; it
   /// returns a JSON representation of the [MediaDeviceInfo] object.
@@ -771,6 +856,12 @@ extension type MediaDeviceInfo._(JSObject _) implements JSObject {
   external String get label;
   external String get groupId;
 }
+
+/// The **`InputDeviceInfo`** interface of the [Media Capture and Streams API]
+/// gives access to the capabilities of the input device that it represents.
+///
+/// `InputDeviceInfo` objects are returned by [MediaDevices.enumerateDevices] if
+/// the returned device is an audio or video input device.
 extension type InputDeviceInfo._(JSObject _)
     implements MediaDeviceInfo, JSObject {
   /// The **`getCapabilities()`** method of the [InputDeviceInfo] interface

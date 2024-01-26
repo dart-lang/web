@@ -12,11 +12,16 @@ import 'dart:js_interop';
 
 import 'svg.dart';
 
+/// The **`SVGClipPathElement`** interface provides access to the properties of
+/// elements, as well as methods to manipulate them.
 extension type SVGClipPathElement._(JSObject _)
     implements SVGElement, JSObject {
   external SVGAnimatedEnumeration get clipPathUnits;
   external SVGAnimatedTransformList get transform;
 }
+
+/// The **`SVGMaskElement`** interface provides access to the properties of
+/// elements, as well as methods to manipulate them.
 extension type SVGMaskElement._(JSObject _) implements SVGElement, JSObject {
   external SVGAnimatedEnumeration get maskUnits;
   external SVGAnimatedEnumeration get maskContentUnits;

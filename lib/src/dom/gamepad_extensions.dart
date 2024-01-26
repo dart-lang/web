@@ -14,6 +14,13 @@ typedef GamepadHand = String;
 typedef GamepadHapticsResult = String;
 typedef GamepadHapticActuatorType = String;
 typedef GamepadHapticEffectType = String;
+
+/// The **`GamepadHapticActuator`** interface of the
+/// [Gamepad API](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API)
+/// represents hardware in the controller designed to provide haptic feedback to
+/// the user (if available), most commonly vibration hardware.
+///
+/// This interface is accessible through the [Gamepad.hapticActuators] property.
 extension type GamepadHapticActuator._(JSObject _) implements JSObject {
   external bool canPlayEffectType(GamepadHapticEffectType type);
 
@@ -50,6 +57,15 @@ extension type GamepadEffectParameters._(JSObject _) implements JSObject {
   external set weakMagnitude(num value);
   external num get weakMagnitude;
 }
+
+/// The **`GamepadPose`** interface of the
+/// [Gamepad API](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API)
+/// represents the pose of a
+/// [WebVR](https://developer.mozilla.org/en-US/docs/Web/API/WebVR_API)
+/// controller at a given timestamp (which includes orientation, position,
+/// velocity, and acceleration information).
+///
+/// This interface is accessible through the [Gamepad.pose] property.
 extension type GamepadPose._(JSObject _) implements JSObject {
   external bool get hasOrientation;
   external bool get hasPosition;

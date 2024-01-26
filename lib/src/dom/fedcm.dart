@@ -13,6 +13,13 @@ import 'dart:js_interop';
 import 'credential_management.dart';
 
 typedef IdentityCredentialRequestOptionsContext = String;
+
+/// The **`IdentityCredential`** interface of the [Federated Credential
+/// Management API (FedCM)](/en-US/docs/Web/API/FedCM_API) represents a user
+/// identity credential arising from a successful federated sign-in.
+///
+/// A successful [CredentialsContainer.get] call that includes an `identity`
+/// option fulfills with an `IdentityCredential` instance.
 extension type IdentityCredential._(JSObject _)
     implements Credential, JSObject {
   external String? get token;
@@ -164,6 +171,10 @@ extension type IdentityUserInfo._(JSObject _) implements JSObject {
   external set picture(String value);
   external String get picture;
 }
+
+/// The **`IdentityProvider`** interface of the [Federated Credential Management
+/// (FedCM) API](/en-US/docs/Web/API/FedCM_API) represents an identity provider
+/// (IdP) and provides access to related information.
 extension type IdentityProvider._(JSObject _) implements JSObject {
   external static JSPromise getUserInfo(IdentityProviderConfig config);
 }

@@ -16,6 +16,26 @@ import 'html.dart';
 import 'webidl.dart';
 
 typedef MockSensorType = String;
+
+/// The **`Sensor`** interface of the
+/// [Sensor APIs](https://developer.mozilla.org/en-US/docs/Web/API/Sensor_APIs)
+/// is the base class for all the other sensor interfaces. This interface cannot
+/// be used directly. Instead it provides properties, event handlers, and
+/// methods accessed by interfaces that inherit from it.
+///
+/// This feature may be blocked by a
+/// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy)
+/// set on your server.
+///
+/// When initially created, the `Sensor` object is _idle_, meaning it does not
+/// take measures. Once the [Sensor.start] method is called, it prepares itself
+/// to read data and, once ready, the [Sensor/activate_event] event is sent and
+/// the sensor becomes _activated_. It then sends a [Sensor/reading_event] event
+/// each time new data is available.
+///
+/// In case of an error, the [Sensor/error_event] event is sent, reading stops,
+/// and the `Sensor` object becomes _idle_ again. The [Sensor.start] method
+/// needs to be called again before it can read further data.
 extension type Sensor._(JSObject _) implements EventTarget, JSObject {
   /// The **`start`** method activates one
   /// of the sensors based on `Sensor`.
@@ -40,6 +60,10 @@ extension type SensorOptions._(JSObject _) implements JSObject {
   external set frequency(num value);
   external num get frequency;
 }
+
+/// The **`SensorErrorEvent`** interface of the
+/// [Sensor APIs](https://developer.mozilla.org/en-US/docs/Web/API/Sensor_APIs)
+/// provides information about errors thrown by a [Sensor] or derived interface.
 extension type SensorErrorEvent._(JSObject _) implements Event, JSObject {
   external factory SensorErrorEvent(
     String type,

@@ -13,6 +13,11 @@ import 'dart:js_interop';
 import 'credential_management.dart';
 
 typedef OTPCredentialTransportType = String;
+
+/// The **`OTPCredential`** interface of the [WebOTP API] is returned when a
+/// WebOTP [CredentialsContainer.get] call (i.e. invoked with an `otp` option)
+/// fulfills. It includes a `code` property that contains the retrieved one-time
+/// password (OTP).
 extension type OTPCredential._(JSObject _) implements Credential, JSObject {
   external String get code;
 }

@@ -12,6 +12,9 @@ import 'dart:js_interop';
 
 import 'service_workers.dart';
 
+/// The **`SyncManager`** interface of the
+/// [ServiceWorker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
+/// provides an interface for registering and listing sync registrations.
 extension type SyncManager._(JSObject _) implements JSObject {
   /// The **`SyncManager.register`** method of the [SyncManager] interface
   /// registers a synchronization event, triggering a
@@ -25,6 +28,11 @@ extension type SyncManager._(JSObject _) implements JSObject {
   /// `SyncManager` registrations.
   external JSPromise getTags();
 }
+
+/// The **`SyncEvent`** interface represents a sync action that is dispatched on
+/// the [ServiceWorkerGlobalScope] of a ServiceWorker.
+///
+/// This interface inherits from the [ExtendableEvent] interface.
 extension type SyncEvent._(JSObject _) implements ExtendableEvent, JSObject {
   external factory SyncEvent(
     String type,

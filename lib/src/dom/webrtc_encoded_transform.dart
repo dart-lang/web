@@ -103,6 +103,15 @@ extension type RTCEncodedVideoFrameMetadata._(JSObject _) implements JSObject {
   external set rtpTimestamp(int value);
   external int get rtpTimestamp;
 }
+
+/// The **`RTCEncodedVideoFrame`** of the
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
+/// represents an encoded video frame in the WebRTC receiver or sender pipeline,
+/// which may be modified using a
+/// [WebRTC Encoded Transform](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Using_Encoded_Transforms).
+///
+/// > **Note:** This feature is available in
+/// > [_Dedicated_ Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API#worker_types).
 extension type RTCEncodedVideoFrame._(JSObject _) implements JSObject {
   /// The **`getMetadata()`** method of the [RTCEncodedVideoFrame] interface
   /// returns an object containing the metadata associated with the frame.
@@ -135,6 +144,21 @@ extension type RTCEncodedAudioFrameMetadata._(JSObject _) implements JSObject {
   external set rtpTimestamp(int value);
   external int get rtpTimestamp;
 }
+
+/// The **`RTCEncodedAudioFrame`** of the
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
+/// represents an encoded audio frame in the WebRTC receiver or sender pipeline,
+/// which may be modified using a
+/// [WebRTC Encoded Transform](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Using_Encoded_Transforms).
+///
+/// The interface provides methods and properties to get metadata about the
+/// frame, allowing its format and order in the sequence of frames to be
+/// determined.
+/// The `data` property gives access to the encoded frame data as a buffer,
+/// which might be encrypted, or otherwise modified by a transform.
+///
+/// > **Note:** This feature is available in
+/// > [_Dedicated_ Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API#worker_types).
 extension type RTCEncodedAudioFrame._(JSObject _) implements JSObject {
   /// The **`getMetadata()`** method of the [RTCEncodedAudioFrame] interface
   /// returns an object containing the metadata associated with the frame.
@@ -146,9 +170,36 @@ extension type RTCEncodedAudioFrame._(JSObject _) implements JSObject {
   external set data(JSArrayBuffer value);
   external JSArrayBuffer get data;
 }
+
+/// The **`RTCTransformEvent`** of the
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
+/// represent an event that is fired in a dedicated worker when an encoded frame
+/// has been queued for processing by a
+/// [WebRTC Encoded Transform](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Using_Encoded_Transforms).
+///
+/// The interface has a [RTCTransformEvent.transformer] property that exposes a
+/// readable stream and a writable stream.
+/// A worker should read encoded frames from `transformer.readable`, modify them
+/// as needed, and write them to `transformer.writable` in the same order and
+/// without any duplication.
+///
+/// At time of writing there is just one event based on `RTCTransformEvent`:
+/// [DedicatedWorkerGlobalScope.rtctransform_event].
 extension type RTCTransformEvent._(JSObject _) implements Event, JSObject {
   external RTCRtpScriptTransformer get transformer;
 }
+
+/// The **`RTCRtpScriptTransformer`** interface of the
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
+/// provides a worker-side
+/// [Stream API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)
+/// interface that a
+/// [WebRTC Encoded Transform](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Using_Encoded_Transforms)
+/// can use to modify encoded media frames in the incoming and outgoing WebRTC
+/// pipelines.
+///
+/// > **Note:** This feature is available in
+/// > [_Dedicated_ Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API#worker_types).
 extension type RTCRtpScriptTransformer._(JSObject _) implements JSObject {
   /// The **`generateKeyFrame()`** method of the [RTCRtpScriptTransformer]
   /// interface causes a video encoder to generate a key frame.
@@ -178,6 +229,13 @@ extension type RTCRtpScriptTransformer._(JSObject _) implements JSObject {
   external WritableStream get writable;
   external JSAny? get options;
 }
+
+/// The **`RTCRtpScriptTransform`** interface of the
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API) is
+/// used to insert a
+/// [WebRTC Encoded Transform](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Using_Encoded_Transforms)
+/// (a [TransformStream] running in a worker thread) into the WebRTC sender and
+/// receiver pipelines.
 extension type RTCRtpScriptTransform._(JSObject _) implements JSObject {
   external factory RTCRtpScriptTransform(
     Worker worker, [

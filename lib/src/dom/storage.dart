@@ -10,6 +10,11 @@
 
 import 'dart:js_interop';
 
+/// The **`StorageManager`** interface of the
+/// [Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Storage_API)
+/// provides an interface for managing persistence permissions and estimating
+/// available storage. You can get a reference to this interface using either
+/// [navigator.storage] or [WorkerNavigator.storage].
 extension type StorageManager._(JSObject _) implements JSObject {
   /// The **`getDirectory()`** method of the [StorageManager] interface is used
   /// to obtain a reference to a [FileSystemDirectoryHandle] object allowing

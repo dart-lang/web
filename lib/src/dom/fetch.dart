@@ -29,6 +29,38 @@ typedef RequestRedirect = String;
 typedef RequestDuplex = String;
 typedef RequestPriority = String;
 typedef ResponseType = String;
+
+/// The **`Headers`** interface of the
+/// [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+/// allows you to perform various actions on
+/// [HTTP request and response headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers).
+/// These actions include retrieving, setting, adding to, and removing headers
+/// from the list of the request's headers.
+///
+/// A `Headers` object has an associated header list, which is initially empty
+/// and consists of zero or more name and value pairs. You can add to this using
+/// methods like [Headers.append] (see [Examples](#examples).) In all methods of
+/// this interface, header names are matched by case-insensitive byte sequence.
+///
+/// For security reasons, some headers can only be controlled by the user agent.
+/// These headers include the  and .
+///
+/// A Headers object also has an associated guard, which takes a value of
+/// `immutable`, `request`, `request-no-cors`, `response`, or `none`. This
+/// affects whether the [Headers.set], [Headers.delete], and [Headers.append]
+/// methods will mutate the header. For more information see .
+///
+/// You can retrieve a `Headers` object via the [Request.headers] and
+/// [Response.headers] properties, and create a new `Headers` object using the
+/// [Headers.Headers] constructor.
+///
+/// An object implementing `Headers` can directly be used in a `for...of`
+/// structure, instead of [Headers.entries]: `for (const p of myHeaders)` is
+/// equivalent to `for (const p of myHeaders.entries())`.
+///
+/// > **Note:** you can find out more about the available headers by reading our
+/// > [HTTP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers)
+/// > reference.
 extension type Headers._(JSObject _) implements JSObject {
   external factory Headers([HeadersInit init]);
 
@@ -118,6 +150,15 @@ extension type Headers._(JSObject _) implements JSObject {
     String value,
   );
 }
+
+/// The **`Request`** interface of the
+/// [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+/// represents a resource request.
+///
+/// You can create a new `Request` object using the [Request.Request]
+/// constructor, but you are more likely to encounter a `Request` object being
+/// returned as the result of another API operation, such as a service worker
+/// [FetchEvent.request].
 extension type Request._(JSObject _) implements JSObject {
   external factory Request(
     RequestInfo input, [
@@ -253,6 +294,15 @@ extension type RequestInit._(JSObject _) implements JSObject {
   external set privateToken(PrivateToken value);
   external PrivateToken get privateToken;
 }
+
+/// The **`Response`** interface of the
+/// [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+/// represents the response to a request.
+///
+/// You can create a new `Response` object using the [Response.Response]
+/// constructor, but you are more likely to encounter a `Response` object being
+/// returned as the result of another API operation—for example, a service
+/// worker [FetchEvent.respondWith], or a simple [fetch].
 extension type Response._(JSObject _) implements JSObject {
   external factory Response([
     BodyInit? body,

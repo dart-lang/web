@@ -15,6 +15,10 @@ import 'html.dart';
 
 typedef RemotePlaybackAvailabilityCallback = JSFunction;
 typedef RemotePlaybackState = String;
+
+/// The **`RemotePlayback`** interface of the [Remote Playback API] allows the
+/// page to detect availability of remote playback devices, then connect to and
+/// control playing on these devices.
 extension type RemotePlayback._(JSObject _) implements EventTarget, JSObject {
   /// The **`watchAvailability()`** method of the [RemotePlayback] interface
   /// watches the list of available remote playback devices and returns a

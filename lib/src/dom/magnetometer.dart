@@ -13,6 +13,18 @@ import 'dart:js_interop';
 import 'generic_sensor.dart';
 
 typedef MagnetometerLocalCoordinateSystem = String;
+
+/// The **`Magnetometer`** interface of the
+/// [Sensor APIs](https://developer.mozilla.org/en-US/docs/Web/API/Sensor_APIs)
+/// provides information about the magnetic field as detected by the device's
+/// primary magnetometer sensor.
+///
+/// To use this sensor, the user must grant permission to the `'magnetometer'`
+/// device sensor through the
+/// [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API).
+/// In addition, this feature may be blocked by a
+/// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy)
+/// set on your server.
 extension type Magnetometer._(JSObject _) implements Sensor, JSObject {
   external factory Magnetometer([MagnetometerSensorOptions sensorOptions]);
 

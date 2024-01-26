@@ -16,11 +16,29 @@ import 'html.dart';
 import 'webxr.dart';
 
 typedef XRReflectionFormat = String;
+
+/// The **`XRLightProbe`** interface of the
+/// [WebXR Device API](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API)
+/// contains lighting information at a given point in the user's environment.
+/// You can get an `XRLighting` object using the [XRSession.requestLightProbe]
+/// method.
+///
+/// This object doesn't itself contain lighting values, but it is used to
+/// collect lighting states for each [XRFrame]. See [XRLightEstimate] for the
+/// estimated lighting values for an `XRLightProbe`.
 extension type XRLightProbe._(JSObject _) implements EventTarget, JSObject {
   external XRSpace get probeSpace;
   external set onreflectionchange(EventHandler value);
   external EventHandler get onreflectionchange;
 }
+
+/// The **`XRLightEstimate`** interface of the
+/// [WebXR Device API](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API)
+/// provides the estimated lighting values for an [XRLightProbe] at the time
+/// represented by an [XRFrame].
+///
+/// To get an `XRLightEstimate` object, call the [XRFrame.getLightEstimate]
+/// method.
 extension type XRLightEstimate._(JSObject _) implements JSObject {
   external JSFloat32Array get sphericalHarmonicsCoefficients;
   external DOMPointReadOnly get primaryLightDirection;

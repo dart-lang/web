@@ -16,11 +16,32 @@ import 'websockets.dart';
 
 typedef PresentationConnectionState = String;
 typedef PresentationConnectionCloseReason = String;
+
+/// The **`Presentation`** can be defined as two possible user agents in the
+/// context: _Controlling user agent_ and _Receiving user agent_.
+///
+/// In controlling browsing context, the `Presentation` interface provides a
+/// mechanism to override the browser default behavior of launching presentation
+/// to external screen. In receiving browsing context, `Presentation` interface
+/// provides the access to the available presentation connections.
 extension type Presentation._(JSObject _) implements JSObject {
   external set defaultRequest(PresentationRequest? value);
   external PresentationRequest? get defaultRequest;
   external PresentationReceiver? get receiver;
 }
+
+/// A `PresentationRequest` object is used to initiate or reconnect to a
+/// presentation made by a
+/// [controlling browsing context](https://www.w3.org/TR/presentation-api/#dfn-controlling-browsing-context).
+/// The `PresentationRequest` object _MUST_ be implemented in a
+/// [controlling browsing context](https://www.w3.org/TR/presentation-api/#dfn-controlling-browsing-context)
+/// provided by a
+/// [controlling user agent](https://www.w3.org/TR/presentation-api/#dfn-controlling-user-agent).
+///
+/// When a `PresentationRequest` is constructed, the given `urls` _MUST_ be used
+/// as the list of _presentation request URLs_ which are each a possible
+/// [presentation URL](https://www.w3.org/TR/presentation-api/#dfn-presentation-url)
+/// for the `PresentationRequest` instance.
 extension type PresentationRequest._(JSObject _)
     implements EventTarget, JSObject {
   external factory PresentationRequest(JSAny urlOrUrls);
@@ -117,12 +138,63 @@ extension type PresentationRequest._(JSObject _)
   external set onconnectionavailable(EventHandler value);
   external EventHandler get onconnectionavailable;
 }
+
+/// A **`PresentationAvailability`** object is associated with available
+/// [presentation displays](https://www.w3.org/TR/presentation-api/#dfn-presentation-display)
+/// and represents the _presentation display availability_ for a presentation
+/// request. If the
+/// [controlling user agent](https://www.w3.org/TR/presentation-api/#dfn-controlling-user-agent)
+/// can
+/// [monitor the list of available presentation displays](https://www.w3.org/TR/presentation-api/#dfn-monitor-the-list-of-available-presentation-displays)
+/// in the background (without a pending request to `start()`), the
+/// `PresentationAvailability` object _MUST_ be implemented in a
+/// [controlling browsing context](https://www.w3.org/TR/presentation-api/#dfn-controlling-browsing-context).
+///
+/// The `value` attribute _MUST_ return the last value it was set to. The value
+/// is updated by the
+/// [monitor the list of available presentation displays](https://www.w3.org/TR/presentation-api/#dfn-monitor-the-list-of-available-presentation-displays)
+/// algorithm.
+///
+/// The `onchange` attribute is an
+/// [event handler](https://www.w3.org/TR/presentation-api/#dfn-event-handler)
+/// whose corresponding
+/// [event handler event type](https://www.w3.org/TR/presentation-api/#dfn-event-handler-event-type)
+/// is `change`.
 extension type PresentationAvailability._(JSObject _)
     implements EventTarget, JSObject {
   external bool get value;
   external set onchange(EventHandler value);
   external EventHandler get onchange;
 }
+
+/// The **`PresentationConnectionAvailableEvent`** interface of the
+/// [Presentation API](https://developer.mozilla.org/en-US/docs/Web/API/Presentation_API)
+/// is fired on a [PresentationRequest] when a connection associated with the
+/// object is created.
+///
+/// A
+/// [controlling user agent](https://www.w3.org/TR/presentation-api/#dfn-controlling-user-agent)
+/// [fires](https://www.w3.org/TR/presentation-api/#dfn-firing-an-event) a
+/// [trusted event](https://www.w3.org/TR/presentation-api/#dfn-trusted-event)
+/// named
+/// [`connectionavailable`](https://www.w3.org/TR/presentation-api/#dfn-connectionavailable)
+/// on a
+/// [`PresentationRequest`](https://www.w3.org/TR/presentation-api/#idl-def-presentationrequest)
+/// when a connection associated with the object is created. It is fired at the
+/// `PresentationRequest` instance, using the
+/// [`PresentationConnectionAvailableEvent`](https://www.w3.org/TR/presentation-api/#idl-def-presentationconnectionavailableevent)
+/// interface, with the
+/// [`connection`](https://www.w3.org/TR/presentation-api/#idl-def-presentationconnectionavailableevent-connection)
+/// attribute set to the
+/// [`PresentationConnection`](https://www.w3.org/TR/presentation-api/#idl-def-presentationconnection)
+/// object that was created. The event is fired for each connection that is
+/// created for the
+/// [controller](https://www.w3.org/TR/presentation-api/#dfn-controller), either
+/// by the [controller](https://www.w3.org/TR/presentation-api/#dfn-controller)
+/// calling `start()` or `reconnect()`, or by the
+/// [controlling user agent](https://www.w3.org/TR/presentation-api/#dfn-controlling-user-agent)
+/// creating a connection on the controller's behalf via
+/// [`defaultRequest`](https://www.w3.org/TR/presentation-api/#dom-presentation-defaultrequest).
 extension type PresentationConnectionAvailableEvent._(JSObject _)
     implements Event, JSObject {
   external factory PresentationConnectionAvailableEvent(
@@ -140,6 +212,16 @@ extension type PresentationConnectionAvailableEventInit._(JSObject _)
   external set connection(PresentationConnection value);
   external PresentationConnection get connection;
 }
+
+/// The **`PresentationConnection`** interface of the
+/// [Presentation API](https://developer.mozilla.org/en-US/docs/Web/API/Presentation_API)
+/// provides methods and properties for managing a single presentation. Each
+/// [presentation connection](https://www.w3.org/TR/presentation-api/#dfn-presentation-connection)
+/// is represented by a `PresentationConnection` object. Both the
+/// [controlling user agent](https://www.w3.org/TR/presentation-api/#dfn-controlling-user-agent)
+/// and
+/// [receiving user agent](https://www.w3.org/TR/presentation-api/#dfn-receiving-user-agent)
+/// _MUST_ implement `PresentationConnection`.
 extension type PresentationConnection._(JSObject _)
     implements EventTarget, JSObject {
   /// When the `close()` method is called on a [PresentationConnection], the
@@ -171,6 +253,10 @@ extension type PresentationConnection._(JSObject _)
   external set onmessage(EventHandler value);
   external EventHandler get onmessage;
 }
+
+/// The **`PresentationConnectionCloseEvent`** interface of the
+/// [Presentation API](https://developer.mozilla.org/en-US/docs/Web/API/Presentation_API)
+/// is fired on a [PresentationConnection] when it is closed.
 extension type PresentationConnectionCloseEvent._(JSObject _)
     implements Event, JSObject {
   external factory PresentationConnectionCloseEvent(
@@ -193,9 +279,17 @@ extension type PresentationConnectionCloseEventInit._(JSObject _)
   external set message(String value);
   external String get message;
 }
+
+/// The **`PresentationReceiver`** interface of the
+/// [Presentation API](https://developer.mozilla.org/en-US/docs/Web/API/Presentation_API)
+/// provides a means for a receiving browsing context to access controlling
+/// browsing contexts and communicate with them.
 extension type PresentationReceiver._(JSObject _) implements JSObject {
   external JSPromise get connectionList;
 }
+
+/// `PresentationConnectionList` is the collection of incoming presentation
+/// connections.
 extension type PresentationConnectionList._(JSObject _)
     implements EventTarget, JSObject {
   external JSArray get connections;

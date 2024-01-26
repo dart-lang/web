@@ -13,6 +13,10 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'pointerevents.dart';
 
+/// The **`Ink`** interface of the
+/// [Ink API](https://developer.mozilla.org/en-US/docs/Web/API/Ink_API) provides
+/// access to [InkPresenter] objects for the application to use to render ink
+/// strokes.
 extension type Ink._(JSObject _) implements JSObject {
   /// The **`requestPresenter()`** method of the [Ink] interface returns a
   /// `Promise` that fulfills with an [InkPresenter] object to handle rendering
@@ -25,6 +29,11 @@ extension type InkPresenterParam._(JSObject _) implements JSObject {
   external set presentationArea(Element? value);
   external Element? get presentationArea;
 }
+
+/// The **`InkPresenter`** interface of the
+/// [Ink API](https://developer.mozilla.org/en-US/docs/Web/API/Ink_API) provides
+/// the ability to instruct the OS-level compositor to render ink strokes
+/// between pointer event dispatches.
 extension type InkPresenter._(JSObject _) implements JSObject {
   /// The **`updateInkTrailStartPoint()`** method of the [InkPresenter]
   /// interface indicates which [PointerEvent] was used as the last rendering

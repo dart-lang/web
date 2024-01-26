@@ -21,6 +21,15 @@ extension type ResizeObserverOptions._(JSObject _) implements JSObject {
   external set box(ResizeObserverBoxOptions value);
   external ResizeObserverBoxOptions get box;
 }
+
+/// The **`ResizeObserver`** interface reports changes to the dimensions of an
+/// [Element]'s content or border box, or the bounding box of an [SVGElement].
+///
+/// > **Note:** The content box is the box in which content can be placed,
+/// > meaning the border box minus the padding and border width. The border box
+/// > encompasses the content, padding, and border. See
+/// > [The box model](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model)
+/// > for further explanation.
 extension type ResizeObserver._(JSObject _) implements JSObject {
   external factory ResizeObserver(ResizeObserverCallback callback);
 
@@ -42,6 +51,11 @@ extension type ResizeObserver._(JSObject _) implements JSObject {
   /// or [SVGElement] targets.
   external void disconnect();
 }
+
+/// The **`ResizeObserverEntry`** interface represents the object passed to the
+/// [ResizeObserver.ResizeObserver] constructor's callback function, which
+/// allows you to access the new dimensions of the [Element] or [SVGElement]
+/// being observed.
 extension type ResizeObserverEntry._(JSObject _) implements JSObject {
   external Element get target;
   external DOMRectReadOnly get contentRect;
@@ -49,6 +63,17 @@ extension type ResizeObserverEntry._(JSObject _) implements JSObject {
   external JSArray get contentBoxSize;
   external JSArray get devicePixelContentBoxSize;
 }
+
+/// `Resize Observer API`
+///
+/// The **`ResizeObserverSize`** interface of the [Resize Observer API] is used
+/// by the [ResizeObserverEntry] interface to access the box sizing properties
+/// of the element being observed.
+///
+/// > **Note:** In
+/// > [multi-column layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_multicol_layout),
+/// > which is a fragmented context, the sizing returned by `ResizeObserverSize`
+/// > will be the size of the first column.
 extension type ResizeObserverSize._(JSObject _) implements JSObject {
   external num get inlineSize;
   external num get blockSize;

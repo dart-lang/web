@@ -15,6 +15,9 @@ import 'html.dart';
 import 'webidl.dart';
 
 typedef HIDUnitSystem = String;
+
+/// The **`HID`** interface provides methods for connecting to _HID devices_,
+/// listing attached HID devices and event handlers for connected HID devices.
 extension type HID._(JSObject _) implements EventTarget, JSObject {
   /// The **`getDevices()`** method of the [HID] interface gets a list of the
   /// connected HID devices that the user has previously been granted access to
@@ -61,6 +64,11 @@ extension type HIDDeviceFilter._(JSObject _) implements JSObject {
   external set usage(int value);
   external int get usage;
 }
+
+/// The **`HIDDevice`** interface of the [WebHID API] represents a HID Device.
+/// It provides properties for accessing information about the device, methods
+/// for opening and closing the connection, and the sending and receiving of
+/// reports.
 extension type HIDDevice._(JSObject _) implements EventTarget, JSObject {
   /// The **`open()`** method of the [HIDDevice] interface requests that the
   /// operating system opens the HID device.
@@ -114,6 +122,10 @@ extension type HIDDevice._(JSObject _) implements EventTarget, JSObject {
   external String get productName;
   external JSArray get collections;
 }
+
+/// The **`HIDConnectionEvent`** interface of the [WebHID API] represents HID
+/// connection events, and is the event type passed to [HID/connect_event] and
+/// [HID/disconnect_event] event handlers when an input report is received.
 extension type HIDConnectionEvent._(JSObject _) implements Event, JSObject {
   external factory HIDConnectionEvent(
     String type,
@@ -129,6 +141,10 @@ extension type HIDConnectionEventInit._(JSObject _)
   external set device(HIDDevice value);
   external HIDDevice get device;
 }
+
+/// The **`HIDInputReportEvent`** interface of the [WebHID API] is passed to
+/// [HIDDevice.inputreport_event] when an input report is received from any
+/// associated HID device.
 extension type HIDInputReportEvent._(JSObject _) implements Event, JSObject {
   external factory HIDInputReportEvent(
     String type,

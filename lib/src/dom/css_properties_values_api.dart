@@ -29,6 +29,10 @@ extension type PropertyDefinition._(JSObject _) implements JSObject {
   external set initialValue(String value);
   external String get initialValue;
 }
+
+/// The **`CSSPropertyRule`** interface of the
+/// [CSS Properties and Values API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Properties_and_Values_API)
+/// represents a single CSS  rule.
 extension type CSSPropertyRule._(JSObject _) implements CSSRule, JSObject {
   external String get name;
   external String get syntax;

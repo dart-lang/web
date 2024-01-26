@@ -11,6 +11,14 @@
 import 'dart:js_interop';
 
 typedef URLPatternInput = JSAny;
+
+/// The **`URLPattern`** interface of the [URL Pattern API] matches URLs or
+/// parts of URLs against a pattern. The pattern can contain capturing groups
+/// that extract parts of the matched URL.
+///
+/// More information about the syntax of patterns can be found on the API
+/// overview
+/// page: [URL Pattern API].
 extension type URLPattern._(JSObject _) implements JSObject {
   external factory URLPattern([
     URLPatternInput input,

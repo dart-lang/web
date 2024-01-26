@@ -14,6 +14,11 @@ import 'dom.dart';
 import 'html.dart';
 
 typedef PaymentComplete = String;
+
+/// The [Payment Request API's](/en-US/docs/Web/API/Payment_Request_API)
+/// **`PaymentRequest`** interface is the primary access point into the API, and
+/// lets web content and apps accept payments from the end user on behalf of the
+/// operator of the site or the publisher of the app.
 extension type PaymentRequest._(JSObject _) implements EventTarget, JSObject {
   external factory PaymentRequest(
     JSArray methodData,
@@ -185,6 +190,11 @@ extension type PaymentCompleteDetails._(JSObject _) implements JSObject {
   external set data(JSObject? value);
   external JSObject? get data;
 }
+
+/// The **`PaymentResponse`** interface of the
+/// [Payment Request API](https://developer.mozilla.org/en-US/docs/Web/API/Payment_Request_API)
+/// is returned after a user selects a payment method and approves a payment
+/// request.
 extension type PaymentResponse._(JSObject _) implements EventTarget, JSObject {
   /// The **`toJSON()`** method of the [PaymentResponse] interface is a ; it
   /// returns a JSON representation of the [PaymentResponse] object.
@@ -229,6 +239,13 @@ extension type PaymentValidationErrors._(JSObject _) implements JSObject {
   external set paymentMethod(JSObject value);
   external JSObject get paymentMethod;
 }
+
+/// The **`PaymentMethodChangeEvent`** interface of the
+/// [Payment Request API](https://developer.mozilla.org/en-US/docs/Web/API/Payment_Request_API)
+/// describes the [PaymentRequest/paymentmethodchange_event] event which is
+/// fired by some payment handlers when the user switches payment instruments
+/// (e.g., a user selects a "store" card to make a purchase while using Apple
+/// Pay).
 extension type PaymentMethodChangeEvent._(JSObject _)
     implements PaymentRequestUpdateEvent, JSObject {
   external factory PaymentMethodChangeEvent(
@@ -251,6 +268,15 @@ extension type PaymentMethodChangeEventInit._(JSObject _)
   external set methodDetails(JSObject? value);
   external JSObject? get methodDetails;
 }
+
+/// The **`PaymentRequestUpdateEvent`** interface is used for events sent to a
+/// [PaymentRequest] instance when changes are made to shipping-related
+/// information for a pending [PaymentRequest]. Those events are:
+///
+/// - [PaymentRequest.shippingaddresschange_event]
+///   - : Dispatched whenever the user changes their shipping address.
+/// - [PaymentRequest.shippingoptionchange_event]
+///   - : Dispatched whenever the user changes a shipping option.
 extension type PaymentRequestUpdateEvent._(JSObject _)
     implements Event, JSObject {
   external factory PaymentRequestUpdateEvent(

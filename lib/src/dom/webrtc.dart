@@ -109,6 +109,11 @@ extension type RTCAnswerOptions._(JSObject _)
     implements RTCOfferAnswerOptions, JSObject {
   external factory RTCAnswerOptions();
 }
+
+/// The **`RTCPeerConnection`** interface represents a WebRTC connection between
+/// the local computer and a remote peer.
+/// It provides methods to connect to a remote peer, maintain and monitor the
+/// connection, and close the connection once it's no longer needed.
 extension type RTCPeerConnection._(JSObject _)
     implements EventTarget, JSObject {
   external factory RTCPeerConnection([RTCConfiguration configuration]);
@@ -472,6 +477,18 @@ extension type RTCPeerConnection._(JSObject _)
   external set ondatachannel(EventHandler value);
   external EventHandler get ondatachannel;
 }
+
+/// The **`RTCSessionDescription`** interface describes one end of a
+/// connection—or potential connection—and how it's configured. Each
+/// `RTCSessionDescription` consists of a description
+/// [RTCSessionDescription.type] indicating which part of the offer/answer
+/// negotiation process it describes and of the  descriptor of the session.
+///
+/// The process of negotiating a connection between two peers involves
+/// exchanging `RTCSessionDescription` objects back and forth, with each
+/// description suggesting one combination of connection configuration options
+/// that the sender of the description supports. Once the two peers agree upon a
+/// configuration for the connection, negotiation is complete.
 extension type RTCSessionDescription._(JSObject _) implements JSObject {
   external factory RTCSessionDescription(
       RTCSessionDescriptionInit descriptionInitDict);
@@ -507,6 +524,24 @@ extension type RTCLocalSessionDescriptionInit._(JSObject _)
   external set sdp(String value);
   external String get sdp;
 }
+
+/// The **`RTCIceCandidate`** interface—part of the
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)—represents
+/// a candidate Interactive Connectivity Establishment () configuration which
+/// may be used to establish an [RTCPeerConnection].
+///
+/// An ICE candidate describes the protocols and routing needed for WebRTC to be
+/// able to communicate with a remote device. When starting a WebRTC peer
+/// connection, typically a number of candidates are proposed by each end of the
+/// connection, until they mutually agree upon one which describes the
+/// connection they decide will be best. WebRTC then uses that candidate's
+/// details to initiate the connection.
+///
+/// For details on how the ICE process works, see
+/// [Lifetime of a WebRTC session](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Session_lifetime).
+/// The article
+/// [WebRTC connectivity](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity)
+/// provides additional useful details.
 extension type RTCIceCandidate._(JSObject _) implements JSObject {
   external factory RTCIceCandidate([RTCIceCandidateInit candidateInitDict]);
 
@@ -550,6 +585,11 @@ extension type RTCIceCandidateInit._(JSObject _) implements JSObject {
   external set usernameFragment(String? value);
   external String? get usernameFragment;
 }
+
+/// The **`RTCPeerConnectionIceEvent`** interface represents events that occur
+/// in relation to  candidates with the target, usually an [RTCPeerConnection].
+///
+/// Only one event is of this type: [RTCPeerConnection.icecandidate_event].
 extension type RTCPeerConnectionIceEvent._(JSObject _)
     implements Event, JSObject {
   external factory RTCPeerConnectionIceEvent(
@@ -572,6 +612,13 @@ extension type RTCPeerConnectionIceEventInit._(JSObject _)
   external set url(String? value);
   external String? get url;
 }
+
+/// `WebRTC API`
+///
+/// The **`RTCPeerConnectionIceErrorEvent`** interface—based upon the [Event]
+/// interface—provides details pertaining to an  error announced by sending an
+/// [RTCPeerConnection.icecandidateerror_event] event to the [RTCPeerConnection]
+/// object.
 extension type RTCPeerConnectionIceErrorEvent._(JSObject _)
     implements Event, JSObject {
   external factory RTCPeerConnectionIceErrorEvent(
@@ -612,6 +659,15 @@ extension type RTCCertificateExpiration._(JSObject _) implements JSObject {
   external set expires(int value);
   external int get expires;
 }
+
+/// The **`RTCCertificate`** interface of the
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
+/// provides an object representing a certificate that an [RTCPeerConnection]
+/// uses to authenticate.
+///
+/// `RTCCertificate` is a , so it can be cloned with [structuredClone] or copied
+/// between [Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker)
+/// using [Worker/postMessage].
 extension type RTCCertificate._(JSObject _) implements JSObject {
   /// The **`getFingerprints()`** method of the **[RTCCertificate]** interface
   /// is used to get an array of certificate fingerprints.
@@ -638,6 +694,16 @@ extension type RTCRtpTransceiverInit._(JSObject _) implements JSObject {
   external set sendEncodings(JSArray value);
   external JSArray get sendEncodings;
 }
+
+/// The **`RTCRtpSender`** interface provides the ability to control and obtain
+/// details about how a particular [MediaStreamTrack] is encoded and sent to a
+/// remote peer.
+///
+/// With it, you can configure the encoding used for the corresponding track,
+/// get information about the device's media capabilities, and so forth. You can
+/// also obtain access to an [RTCDTMFSender] which can be used to send  codes
+/// (to simulate the user pressing buttons on a telephone's dial pad) to the
+/// remote peer.
 extension type RTCRtpSender._(JSObject _) implements JSObject {
   external static RTCRtpCapabilities? getCapabilities(String kind);
   external JSPromise generateKeyFrame([JSArray rids]);
@@ -807,6 +873,20 @@ extension type RTCRtpCodec._(JSObject _) implements JSObject {
   external set sdpFmtpLine(String value);
   external String get sdpFmtpLine;
 }
+
+/// The [RTCRtpCodecParameters] dictionary, part of the WebRTC API, is used to
+/// describe the configuration parameters for a single media .
+///
+/// It's used in [RTCRtpSender.getParameters], [RTCRtpSender.setParameters] and
+/// [RTCRtpReceiver.getParameters].
+/// Its also use used when calling [RTCRtpTransceiver.setCodecPreferences] to
+/// configure a transceiver's codecs before beginning the offer/answer process
+/// to establish a WebRTC peer connection.
+///
+/// Most of the fields in this property take values which are defined and
+/// maintained by the Internet Assigned Numbers Authority (IANA). References to
+/// relevant IANA documents are provided in the [see also](#see_also) section at
+/// the end of this article.
 extension type RTCRtpCodecParameters._(JSObject _)
     implements RTCRtpCodec, JSObject {
   external factory RTCRtpCodecParameters({required int payloadType});
@@ -839,6 +919,11 @@ extension type RTCRtpHeaderExtensionCapability._(JSObject _)
 extension type RTCSetParameterOptions._(JSObject _) implements JSObject {
   external factory RTCSetParameterOptions();
 }
+
+/// The **`RTCRtpReceiver`** interface of the
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
+/// manages the reception and decoding of data for a [MediaStreamTrack] on an
+/// [RTCPeerConnection].
 extension type RTCRtpReceiver._(JSObject _) implements JSObject {
   external static RTCRtpCapabilities? getCapabilities(String kind);
 
@@ -890,6 +975,23 @@ extension type RTCRtpSynchronizationSource._(JSObject _)
     implements RTCRtpContributingSource, JSObject {
   external factory RTCRtpSynchronizationSource();
 }
+
+/// The WebRTC interface **`RTCRtpTransceiver`** describes a permanent pairing
+/// of an [RTCRtpSender] and an [RTCRtpReceiver], along with some shared state.
+///
+/// Each  media section describes one bidirectional SRTP ("Secure Real Time
+/// Protocol") stream (excepting the media section for [RTCDataChannel], if
+/// present).
+/// This pairing of send and receive SRTP streams is significant for some
+/// applications, so `RTCRtpTransceiver` is used to represent this pairing,
+/// along with other important state from the media section.
+/// Each non-disabled SRTP media section is always represented by exactly one
+/// transceiver.
+///
+/// A transceiver is uniquely identified using its [RTCRtpTransceiver.mid]
+/// property, which is the same as the media ID (`mid`) of its corresponding
+/// m-line. An `RTCRtpTransceiver` is **associated** with an m-line if its `mid`
+/// is non-null; otherwise it's considered disassociated.
 extension type RTCRtpTransceiver._(JSObject _) implements JSObject {
   /// The **`stop()`** method in the [RTCRtpTransceiver] interface permanently
   /// stops the transceiver by stopping both the associated [RTCRtpSender] and
@@ -918,6 +1020,20 @@ extension type RTCRtpTransceiver._(JSObject _) implements JSObject {
   external RTCRtpTransceiverDirection get direction;
   external RTCRtpTransceiverDirection? get currentDirection;
 }
+
+/// The **`RTCDtlsTransport`** interface provides access to information about
+/// the Datagram Transport Layer Security (****) transport over which a
+/// [RTCPeerConnection]'s  and  packets are sent and received by its
+/// [RTCRtpSender] and [RTCRtpReceiver] objects.
+///
+/// A `RTCDtlsTransport` object is also used to provide information about
+/// packets transmitted and received by a connection's
+/// [data channels](https://developer.mozilla.org/en-US/docs/Web/API/RTCDataChannel).
+///
+/// Features of the DTLS transport include the addition of security to the
+/// underlying transport; the `RTCDtlsTransport` interface can be used to obtain
+/// information about the underlying transport and the security added to it by
+/// the DTLS layer.
 extension type RTCDtlsTransport._(JSObject _) implements EventTarget, JSObject {
   external JSArray getRemoteCertificates();
   external RTCIceTransport get iceTransport;
@@ -938,6 +1054,11 @@ extension type RTCDtlsFingerprint._(JSObject _) implements JSObject {
   external set value(String value);
   external String get value;
 }
+
+/// The **`RTCIceTransport`** interface provides access to information about the
+/// transport layer over which the data is being sent and received.
+/// This is particularly useful if you need to access state information about
+/// the connection.
 extension type RTCIceTransport._(JSObject _) implements EventTarget, JSObject {
   external factory RTCIceTransport();
 
@@ -1016,6 +1137,15 @@ extension type RTCIceTransport._(JSObject _) implements EventTarget, JSObject {
   external set onselectedcandidatepairchange(EventHandler value);
   external EventHandler get onselectedcandidatepairchange;
 }
+
+/// The **`RTCIceParameters`** dictionary specifies the username fragment and
+/// password assigned to an  session.
+///
+/// During ICE negotiation, each peer's username fragment and password are
+/// recorded in an `RTCIceParameters` object, which can be obtained from the
+/// [RTCIceTransport] by calling its [RTCIceTransport.getLocalParameters] or
+/// [RTCIceTransport.getRemoteParameters] method, depending on which end
+/// interests you.
 extension type RTCIceParameters._(JSObject _) implements JSObject {
   external factory RTCIceParameters({
     bool iceLite,
@@ -1030,6 +1160,12 @@ extension type RTCIceParameters._(JSObject _) implements JSObject {
   external set password(String value);
   external String get password;
 }
+
+/// The **`RTCIceCandidatePair`** dictionary describes a pair of ICE candidates
+/// which together comprise a description of a viable connection between two
+/// WebRTC endpoints. It is used as the return value from
+/// [RTCIceTransport.getSelectedCandidatePair] to identify the
+/// currently-selected candidate pair identified by the ICE agent.
 extension type RTCIceCandidatePair._(JSObject _) implements JSObject {
   external factory RTCIceCandidatePair({
     RTCIceCandidate local,
@@ -1041,6 +1177,18 @@ extension type RTCIceCandidatePair._(JSObject _) implements JSObject {
   external set remote(RTCIceCandidate value);
   external RTCIceCandidate get remote;
 }
+
+/// The
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
+/// interface **`RTCTrackEvent`** represents the [RTCPeerConnection.track_event]
+/// event, which is sent when a new [MediaStreamTrack] is added to an
+/// [RTCRtpReceiver] which is part of the [RTCPeerConnection].
+///
+/// The target is the `RTCPeerConnection` object to which the track is being
+/// added.
+///
+/// This event is sent by the WebRTC layer to the website or application, so you
+/// will not typically need to instantiate an `RTCTrackEvent` yourself.
 extension type RTCTrackEvent._(JSObject _) implements Event, JSObject {
   external factory RTCTrackEvent(
     String type,
@@ -1069,6 +1217,22 @@ extension type RTCTrackEventInit._(JSObject _) implements EventInit, JSObject {
   external set transceiver(RTCRtpTransceiver value);
   external RTCRtpTransceiver get transceiver;
 }
+
+/// The **`RTCSctpTransport`** interface provides information which describes a
+/// Stream Control Transmission Protocol (****) transport. This provides
+/// information about limitations of the transport, but also provides a way to
+/// access the underlying Datagram Transport Layer Security (****) transport
+/// over which SCTP packets for all of an [RTCPeerConnection]'s data channels
+/// are sent and received.
+///
+/// You don't create [RTCSctpTransport] objects yourself; instead, you get
+/// access to the `RTCSctpTransport` for a given `RTCPeerConnection` through its
+/// **[RTCPeerConnection.sctp]** property.
+///
+/// Possibly the most useful property on this interface is its
+/// [`maxMessageSize`](#rtcsctptransport.maxmessagesize) property, which you can
+/// use to determine the upper limit on the size of messages you can send over a
+/// data channel on the peer connection.
 extension type RTCSctpTransport._(JSObject _) implements EventTarget, JSObject {
   external RTCDtlsTransport get transport;
   external RTCSctpTransportState get state;
@@ -1077,6 +1241,22 @@ extension type RTCSctpTransport._(JSObject _) implements EventTarget, JSObject {
   external set onstatechange(EventHandler value);
   external EventHandler get onstatechange;
 }
+
+/// The **`RTCDataChannel`** interface represents a network channel which can be
+/// used for bidirectional peer-to-peer transfers of arbitrary data. Every data
+/// channel is associated with an [RTCPeerConnection], and each peer connection
+/// can have up to a theoretical maximum of 65,534 data channels (the actual
+/// limit may vary from browser to browser).
+///
+/// To create a data channel and ask a remote peer to join you, call the
+/// [RTCPeerConnection]'s [RTCPeerConnection.createDataChannel] method. The peer
+/// being invited to exchange data receives a
+/// [RTCPeerConnection.datachannel_event] event (which has type
+/// [RTCDataChannelEvent]) to let it know the data channel has been added to the
+/// connection.
+///
+/// `RTCDataChannel` is a
+/// [transferable object](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
 extension type RTCDataChannel._(JSObject _) implements EventTarget, JSObject {
   /// The **`RTCDataChannel.close()`** method closes the
   /// [RTCDataChannel]. Either peer is permitted to call this method to initiate
@@ -1183,6 +1363,9 @@ extension type RTCDataChannelInit._(JSObject _) implements JSObject {
   external set id(int value);
   external int get id;
 }
+
+/// The **`RTCDataChannelEvent`** interface
+/// represents an event related to a specific [RTCDataChannel].
 extension type RTCDataChannelEvent._(JSObject _) implements Event, JSObject {
   external factory RTCDataChannelEvent(
     String type,
@@ -1198,6 +1381,22 @@ extension type RTCDataChannelEventInit._(JSObject _)
   external set channel(RTCDataChannel value);
   external RTCDataChannel get channel;
 }
+
+/// The **`RTCDTMFSender`** interface provides a mechanism for transmitting
+/// codes on a
+/// [WebRTC](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
+/// [RTCPeerConnection]. You gain access to the connection's `RTCDTMFSender`
+/// through the [RTCRtpSender.dtmf] property on the audio track you wish to send
+/// DTMF with.
+///
+/// The primary purpose for WebRTC's DTMF support is to allow WebRTC-based
+/// communication clients to be connected to a [public-switched telephone
+/// network
+/// (PSTN)](https://en.wikipedia.org/wiki/Public_switched_telephone_network) or
+/// other legacy telephone service, including extant voice over IP (VoIP)
+/// services. For that reason, DTMF can't be used between two WebRTC-based
+/// devices, because there is no mechanism provided by WebRTC for receiving DTMF
+/// codes.
 extension type RTCDTMFSender._(JSObject _) implements EventTarget, JSObject {
   /// The **`insertDTMF()`** method on the [RTCDTMFSender] interface
   /// starts sending  tones to the remote peer over the
@@ -1228,6 +1427,12 @@ extension type RTCDTMFSender._(JSObject _) implements EventTarget, JSObject {
   external bool get canInsertDTMF;
   external String get toneBuffer;
 }
+
+/// The **`RTCDTMFToneChangeEvent`** interface represents events sent to
+/// indicate that  tones have started or finished playing. This interface is
+/// used by the
+/// [`tonechange`](https://developer.mozilla.org/en-US/docs/Web/API/RTCDTMFSender/tonechange_event)
+/// event.
 extension type RTCDTMFToneChangeEvent._(JSObject _) implements Event, JSObject {
   external factory RTCDTMFToneChangeEvent(
     String type, [
@@ -1243,6 +1448,17 @@ extension type RTCDTMFToneChangeEventInit._(JSObject _)
   external set tone(String value);
   external String get tone;
 }
+
+/// The **`RTCStatsReport`** interface of the
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
+/// provides a statistics report for a [RTCPeerConnection], [RTCRtpSender], or
+/// [RTCRtpReceiver].
+///
+/// An `RTCStatsReport` instance is a read-only
+/// [`Map`-like object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map#map-like_browser_apis),
+/// in which each key is an identifier for an object for which statistics are
+/// being reported, and the corresponding value is a dictionary object providing
+/// the statistics.
 extension type RTCStatsReport._(JSObject _) implements JSObject {}
 extension type RTCStats._(JSObject _) implements JSObject {
   external factory RTCStats({
@@ -1258,6 +1474,14 @@ extension type RTCStats._(JSObject _) implements JSObject {
   external set id(String value);
   external String get id;
 }
+
+/// `WebRTC`
+///
+/// The **`RTCError`** interface describes an error which has occurred while
+/// handling
+/// [WebRTC](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
+/// operations. It's based upon the standard [DOMException] interface that
+/// describes general DOM errors.
 extension type RTCError._(JSObject _) implements DOMException, JSObject {
   external factory RTCError(
     RTCErrorInit init, [
@@ -1294,6 +1518,12 @@ extension type RTCErrorInit._(JSObject _) implements JSObject {
   external set sentAlert(int value);
   external int get sentAlert;
 }
+
+/// `WebRTC`
+///
+/// The WebRTC API's **`RTCErrorEvent`** interface represents an error sent to a
+/// WebRTC object. It's based on the standard [Event] interface, but adds
+/// RTC-specific information describing the error, as shown below.
 extension type RTCErrorEvent._(JSObject _) implements Event, JSObject {
   external factory RTCErrorEvent(
     String type,

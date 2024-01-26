@@ -11,6 +11,17 @@
 import 'dart:js_interop';
 
 typedef UpdateCallback = JSFunction;
+
+/// The **`ViewTransition`** interface of the [View Transitions API] represents
+/// a view transition, and provides functionality to react to the transition
+/// reaching different states (e.g. ready to run the animation, or animation
+/// finished) or skip the transition altogether.
+///
+/// This object type is returned by the [Document.startViewTransition] method.
+/// When `startViewTransition()` is invoked, a sequence of steps is followed as
+/// explained in
+/// [The view transition process](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API#the_view_transition_process).
+/// This also explains when the different promises fulfill.
 extension type ViewTransition._(JSObject _) implements JSObject {
   /// The **`skipTransition()`** method of the
   /// [ViewTransition] interface skips the animation part of the view

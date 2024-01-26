@@ -26,6 +26,11 @@ extension type IdleOptions._(JSObject _) implements JSObject {
   external set signal(AbortSignal value);
   external AbortSignal get signal;
 }
+
+/// The **`IdleDetector`** interface of the [idle_detection_api] provides
+/// methods and events for detecting user activity on a device or screen.
+///
+/// This interface requires a secure context.
 extension type IdleDetector._(JSObject _) implements EventTarget, JSObject {
   external factory IdleDetector();
 

@@ -13,12 +13,18 @@ import 'dart:js_interop';
 import 'streams.dart';
 
 typedef CompressionFormat = String;
+
+/// The **`CompressionStream`** interface of the [Compression Streams API] is an
+/// API for compressing a stream of data.
 extension type CompressionStream._(JSObject _) implements JSObject {
   external factory CompressionStream(CompressionFormat format);
 
   external ReadableStream get readable;
   external WritableStream get writable;
 }
+
+/// The **`DecompressionStream`** interface of the [Compression Streams API] is
+/// an API for decompressing a stream of data.
 extension type DecompressionStream._(JSObject _) implements JSObject {
   external factory DecompressionStream(CompressionFormat format);
 

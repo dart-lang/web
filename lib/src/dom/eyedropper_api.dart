@@ -24,6 +24,9 @@ extension type ColorSelectionOptions._(JSObject _) implements JSObject {
   external set signal(AbortSignal value);
   external AbortSignal get signal;
 }
+
+/// The **`EyeDropper`** interface represents an instance of an eyedropper tool
+/// that can be opened and used by the user to select colors from the screen.
 extension type EyeDropper._(JSObject _) implements JSObject {
   external factory EyeDropper();
 

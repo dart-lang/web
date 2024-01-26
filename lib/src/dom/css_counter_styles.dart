@@ -12,6 +12,8 @@ import 'dart:js_interop';
 
 import 'cssom.dart';
 
+/// The **`CSSCounterStyleRule`** interface represents an
+/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
 extension type CSSCounterStyleRule._(JSObject _) implements CSSRule, JSObject {
   external set name(String value);
   external String get name;

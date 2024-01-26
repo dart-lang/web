@@ -14,6 +14,17 @@ import 'payment_request.dart';
 import 'webauthn.dart';
 import 'webidl.dart';
 
+/// The **`SecurePaymentConfirmationRequest`** dictionary describes input to the
+/// [Payment Request API](https://developer.mozilla.org/en-US/docs/Web/API/Payment_Request_API)
+/// when used to authenticate a user during an e-commerce transaction
+/// [using SPC with Payment Request API](https://developer.mozilla.org/en-US/docs/Web/API/Payment_Request_API/Using_secure_payment_confirmation).
+///
+/// An instance of this dictionary must be passed into the
+/// [PaymentRequest.PaymentRequest] constructor as the value of the
+/// [`data`](https://developer.mozilla.org/en-US/docs/Web/API/PaymentRequest/PaymentRequest#data)
+/// field corresponding to a
+/// [`supportedMethods`](https://developer.mozilla.org/en-US/docs/Web/API/PaymentRequest/PaymentRequest#supportedmethods)
+/// value of `"secure-payment-confirmation"`.
 extension type SecurePaymentConfirmationRequest._(JSObject _)
     implements JSObject {
   external factory SecurePaymentConfirmationRequest({

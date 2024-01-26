@@ -14,6 +14,13 @@ import 'dom.dart';
 import 'html.dart';
 
 typedef NDEFMessageSource = JSAny;
+
+/// The **`NDEFMessage`** interface of the
+/// [Web NFC API](https://developer.mozilla.org/en-US/docs/Web/API/Web_NFC_API)
+/// represents the content of an NDEF message that has been read from or could
+/// be written to an NFC tag. An instance is acquired by calling the
+/// `NDEFMessage()` constructor or from the [NDEFReadingEvent.message] property,
+/// which is passed to the [NDEFReader.reading_event] event.
 extension type NDEFMessage._(JSObject _) implements JSObject {
   external factory NDEFMessage(NDEFMessageInit messageInit);
 
@@ -25,6 +32,11 @@ extension type NDEFMessageInit._(JSObject _) implements JSObject {
   external set records(JSArray value);
   external JSArray get records;
 }
+
+/// The **`NDEFRecord`** interface of the
+/// [Web NFC API](https://developer.mozilla.org/en-US/docs/Web/API/Web_NFC_API)
+/// provides data that can be read from, or written to, compatible NFC devices,
+/// e.g. NFC tags supporting NDEF.
 extension type NDEFRecord._(JSObject _) implements JSObject {
   external factory NDEFRecord(NDEFRecordInit recordInit);
 
@@ -66,6 +78,12 @@ extension type NDEFRecordInit._(JSObject _) implements JSObject {
   external set data(JSAny? value);
   external JSAny? get data;
 }
+
+/// The **`NDEFReader`** interface of the
+/// [Web NFC API](https://developer.mozilla.org/en-US/docs/Web/API/Web_NFC_API)
+/// is used to read from and write data to compatible NFC devices, e.g. NFC tags
+/// supporting NDEF, when these devices are within the reader's magnetic
+/// induction field.
 extension type NDEFReader._(JSObject _) implements EventTarget, JSObject {
   external factory NDEFReader();
 
@@ -91,6 +109,10 @@ extension type NDEFReader._(JSObject _) implements EventTarget, JSObject {
   external set onreadingerror(EventHandler value);
   external EventHandler get onreadingerror;
 }
+
+/// The **`NDEFReadingEvent`** interface of the
+/// [Web NFC API](https://developer.mozilla.org/en-US/docs/Web/API/Web_NFC_API)
+/// represents events dispatched on new NFC readings obtained by [NDEFReader].
 extension type NDEFReadingEvent._(JSObject _) implements Event, JSObject {
   external factory NDEFReadingEvent(
     String type,

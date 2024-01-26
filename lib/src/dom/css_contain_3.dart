@@ -12,6 +12,12 @@ import 'dart:js_interop';
 
 import 'css_conditional.dart';
 
+/// The **`CSSContainerRule`** interface represents a single CSS  rule.
+///
+/// An object of this type can be used to get the query conditions for the ,
+/// along with the container name if one is defined.
+/// Note that the container name and query together define the "condition text",
+/// which can be obtained using [CSSConditionRule.conditionText].
 extension type CSSContainerRule._(JSObject _)
     implements CSSConditionRule, JSObject {
   external String get containerName;

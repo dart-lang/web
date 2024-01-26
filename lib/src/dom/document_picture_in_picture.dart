@@ -13,6 +13,10 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
+/// The **`DocumentPictureInPicture`** interface of the  is the entry point for
+/// creating and handling document picture-in-picture windows.
+///
+/// It is accessed via the [Window.documentPictureInPicture] property.
 extension type DocumentPictureInPicture._(JSObject _)
     implements EventTarget, JSObject {
   /// The **`requestWindow()`** method of the
@@ -42,6 +46,10 @@ extension type DocumentPictureInPictureOptions._(JSObject _)
   external set height(int value);
   external int get height;
 }
+
+/// The **`DocumentPictureInPictureEvent`** interface of the  is the event
+/// object for the [DocumentPictureInPicture/enter_event] event, which fires
+/// when the Picture-in-Picture window is opened.
 extension type DocumentPictureInPictureEvent._(JSObject _)
     implements Event, JSObject {
   external factory DocumentPictureInPictureEvent(

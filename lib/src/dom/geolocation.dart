@@ -14,6 +14,19 @@ import 'hr_time.dart';
 
 typedef PositionCallback = JSFunction;
 typedef PositionErrorCallback = JSFunction;
+
+/// The **`Geolocation`** interface represents an object able to obtain the
+/// position of the device programmatically. It gives Web content access to the
+/// location of the device. This allows a website or app to offer customized
+/// results based on the user's location.
+///
+/// An object with this interface is obtained using the [navigator.geolocation]
+/// property implemented by the [Navigator] object.
+///
+/// > **Note:** For security reasons, when a web page tries to access location
+/// > information, the user is notified and asked to grant permission. Be aware
+/// > that each browser has its own policies and methods for requesting this
+/// > permission.
 extension type Geolocation._(JSObject _) implements JSObject {
   /// The **`getCurrentPosition()`** method of the [Geolocation] interface is
   /// used to get the current position of the device.
@@ -52,10 +65,21 @@ extension type PositionOptions._(JSObject _) implements JSObject {
   external set maximumAge(int value);
   external int get maximumAge;
 }
+
+/// The **`GeolocationPosition`** interface represents the position of the
+/// concerned device at a given time. The position, represented by a
+/// [GeolocationCoordinates] object, comprehends the 2D position of the device,
+/// on a spheroid representing the Earth, but also its altitude and its speed.
 extension type GeolocationPosition._(JSObject _) implements JSObject {
   external GeolocationCoordinates get coords;
   external EpochTimeStamp get timestamp;
 }
+
+/// The **`GeolocationCoordinates`** interface represents the position and
+/// altitude of the device on Earth, as well as the accuracy with which these
+/// properties are calculated.
+/// The geographic position information is provided in terms of World Geodetic
+/// System coordinates (WGS84).
 extension type GeolocationCoordinates._(JSObject _) implements JSObject {
   external num get accuracy;
   external num get latitude;
@@ -65,6 +89,9 @@ extension type GeolocationCoordinates._(JSObject _) implements JSObject {
   external num? get heading;
   external num? get speed;
 }
+
+/// The **`GeolocationPositionError`** interface represents the reason of an
+/// error occurring when using the geolocating device.
 extension type GeolocationPositionError._(JSObject _) implements JSObject {
   external static int get PERMISSION_DENIED;
   external static int get POSITION_UNAVAILABLE;

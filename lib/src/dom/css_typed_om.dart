@@ -22,6 +22,11 @@ typedef CSSColorNumber = JSAny;
 typedef CSSColorAngle = JSAny;
 typedef CSSNumericBaseType = String;
 typedef CSSMathOperator = String;
+
+/// The **`CSSStyleValue`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model#css_typed_object_model)
+/// is the base class of all CSS values accessible through the Typed OM API. An
+/// instance of this class may be used anywhere a string is expected.
 extension type CSSStyleValue._(JSObject _) implements JSObject {
   external static CSSStyleValue parse(
     String property,
@@ -32,6 +37,12 @@ extension type CSSStyleValue._(JSObject _) implements JSObject {
     String cssText,
   );
 }
+
+/// The **`StylePropertyMapReadOnly`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model#css_typed_object_model)
+/// provides a read-only representation of a CSS declaration block that is an
+/// alternative to [CSSStyleDeclaration]. Retrieve an instance of this interface
+/// using [Element.computedStyleMap].
 extension type StylePropertyMapReadOnly._(JSObject _) implements JSObject {
   /// The **`get()`** method of the
   /// [StylePropertyMapReadOnly] interface returns a [CSSStyleValue]
@@ -49,6 +60,11 @@ extension type StylePropertyMapReadOnly._(JSObject _) implements JSObject {
   external bool has(String property);
   external int get size;
 }
+
+/// The **`StylePropertyMap`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model#css_typed_object_model_experimental)
+/// provides a representation of a CSS declaration block that is an alternative
+/// to [CSSStyleDeclaration].
 extension type StylePropertyMap._(JSObject _)
     implements StylePropertyMapReadOnly, JSObject {
   /// The **`set()`** method of the [StylePropertyMap]
@@ -75,12 +91,25 @@ extension type StylePropertyMap._(JSObject _)
   /// interface removes all declarations in the `StylePropertyMap`.
   external void clear();
 }
+
+/// The **`CSSUnparsedValue`** interface of the  represents property values that
+/// reference
+/// [custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascading_variables).
+/// It consists of a list of string fragments and variable references.
+///
+/// Custom properties are represented by `CSSUnparsedValue` and `var()`
+/// references are represented using [CSSVariableReferenceValue].
 extension type CSSUnparsedValue._(JSObject _)
     implements CSSStyleValue, JSObject {
   external factory CSSUnparsedValue(JSArray members);
 
   external int get length;
 }
+
+/// The **`CSSVariableReferenceValue`** interface of the  allows you to create a
+/// custom name for a built-in CSS value. This object functionality is sometimes
+/// called a "CSS variable" and serves the same purpose as the `var()` function.
+/// The custom name must begin with two dashes.
 extension type CSSVariableReferenceValue._(JSObject _) implements JSObject {
   external factory CSSVariableReferenceValue(
     String variable, [
@@ -91,6 +120,13 @@ extension type CSSVariableReferenceValue._(JSObject _) implements JSObject {
   external String get variable;
   external CSSUnparsedValue? get fallback;
 }
+
+/// The **`CSSKeywordValue`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model#css_typed_object_model)
+/// creates an object to represent CSS keywords and other identifiers.
+///
+/// The interface instance name is a  meaning that when used anywhere a string
+/// is expected it will return the value of `CSSKeyword.value`.
 extension type CSSKeywordValue._(JSObject _)
     implements CSSStyleValue, JSObject {
   external factory CSSKeywordValue(String value);
@@ -127,6 +163,10 @@ extension type CSSNumericType._(JSObject _) implements JSObject {
   external set percentHint(CSSNumericBaseType value);
   external CSSNumericBaseType get percentHint;
 }
+
+/// The **`CSSNumericValue`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model#css_typed_object_model)
+/// represents operations that all numeric values can perform.
 extension type CSSNumericValue._(JSObject _)
     implements CSSStyleValue, JSObject {
   external static CSSNumericValue parse(String cssText);
@@ -189,6 +229,10 @@ extension type CSSNumericValue._(JSObject _)
   /// `percent`, `percentHint`, or `time`.
   external CSSNumericType type();
 }
+
+/// The **`CSSUnitValue`** interface of the  represents values that contain a
+/// single unit type. For example, "42px" would be represented by a
+/// `CSSNumericValue`.
 extension type CSSUnitValue._(JSObject _) implements CSSNumericValue, JSObject {
   external factory CSSUnitValue(
     num value,
@@ -199,34 +243,64 @@ extension type CSSUnitValue._(JSObject _) implements CSSNumericValue, JSObject {
   external num get value;
   external String get unit;
 }
+
+/// The **`CSSMathValue`** interface of the  a base class for classes
+/// representing complex numeric values.
 extension type CSSMathValue._(JSObject _) implements CSSNumericValue, JSObject {
   external CSSMathOperator get operator;
 }
+
+/// The **`CSSMathSum`** interface of the  represents the result obtained by
+/// calling [CSSNumericValue.add], [CSSNumericValue.sub], or
+/// [CSSNumericValue.toSum] on [CSSNumericValue].
+///
+/// A CSSMathSum is the object type returned when the
+/// [`StylePropertyMapReadOnly.get()`](/en-US/docs/Web/API/StylePropertyMapReadOnly/get)
+/// method is used on a CSS property whose value is created with a
+/// [`calc()`](/en-US/docs/Web/CSS/calc) function.
 extension type CSSMathSum._(JSObject _) implements CSSMathValue, JSObject {
   external factory CSSMathSum(CSSNumberish args);
 
   external CSSNumericArray get values;
 }
+
+/// The **`CSSMathProduct`** interface of the  represents the result obtained by
+/// calling [CSSNumericValue.add], [CSSNumericValue.sub], or
+/// [CSSNumericValue.toSum] on [CSSNumericValue]. It inherits properties and
+/// methods from its parent [CSSNumericValue].
 extension type CSSMathProduct._(JSObject _) implements CSSMathValue, JSObject {
   external factory CSSMathProduct(CSSNumberish args);
 
   external CSSNumericArray get values;
 }
+
+/// The **`CSSMathNegate`** interface of the  negates the value passed into it.
+/// It inherits properties and methods from its parent [CSSNumericValue].
 extension type CSSMathNegate._(JSObject _) implements CSSMathValue, JSObject {
   external factory CSSMathNegate(CSSNumberish arg);
 
   external CSSNumericValue get value;
 }
+
+/// The **`CSSMathInvert`** interface of the  represents a CSS `calc()` used as
+/// `calc(1 / <value>).` It inherits properties and methods from its parent
+/// [CSSNumericValue].
 extension type CSSMathInvert._(JSObject _) implements CSSMathValue, JSObject {
   external factory CSSMathInvert(CSSNumberish arg);
 
   external CSSNumericValue get value;
 }
+
+/// The **`CSSMathMin`** interface of the  represents the CSS `min()` function.
+/// It inherits properties and methods from its parent [CSSNumericValue].
 extension type CSSMathMin._(JSObject _) implements CSSMathValue, JSObject {
   external factory CSSMathMin(CSSNumberish args);
 
   external CSSNumericArray get values;
 }
+
+/// The **`CSSMathMax`** interface of the  represents the CSS `max()` function.
+/// It inherits properties and methods from its parent [CSSNumericValue].
 extension type CSSMathMax._(JSObject _) implements CSSMathValue, JSObject {
   external factory CSSMathMax(CSSNumberish args);
 
@@ -243,9 +317,15 @@ extension type CSSMathClamp._(JSObject _) implements CSSMathValue, JSObject {
   external CSSNumericValue get value;
   external CSSNumericValue get upper;
 }
+
+/// The **`CSSNumericArray`** interface of the  contains a list of
+/// [CSSNumericValue] objects.
 extension type CSSNumericArray._(JSObject _) implements JSObject {
   external int get length;
 }
+
+/// The **`CSSTransformValue`** interface of the  represents `transform-list`
+/// values as used by the CSS `transform` property.
 extension type CSSTransformValue._(JSObject _)
     implements CSSStyleValue, JSObject {
   external factory CSSTransformValue(JSArray transforms);
@@ -256,6 +336,9 @@ extension type CSSTransformValue._(JSObject _)
   external int get length;
   external bool get is2D;
 }
+
+/// The **`CSSTransformComponent`** interface of the  is part of the
+/// [CSSTransformValue] interface.
 extension type CSSTransformComponent._(JSObject _) implements JSObject {
   /// The **`toMatrix()`** method of the
   /// [CSSTransformComponent] interface returns a [DOMMatrix]
@@ -274,6 +357,11 @@ extension type CSSTransformComponent._(JSObject _) implements JSObject {
   external set is2D(bool value);
   external bool get is2D;
 }
+
+/// The **`CSSTranslate`** interface of the  represents the
+/// [translate()](/en-US/docs/Web/CSS/transform-function/translate) value of the
+/// individual `transform` property in CSS. It inherits properties and methods
+/// from its parent [CSSTransformValue].
 extension type CSSTranslate._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSTranslate(
@@ -289,6 +377,10 @@ extension type CSSTranslate._(JSObject _)
   external set z(CSSNumericValue value);
   external CSSNumericValue get z;
 }
+
+/// The **`CSSRotate`** interface of the  represents the rotate value of the
+/// individual `transform` property in CSS. It inherits properties and methods
+/// from its parent [CSSTransformValue].
 extension type CSSRotate._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSRotate(
@@ -307,6 +399,12 @@ extension type CSSRotate._(JSObject _)
   external set angle(CSSNumericValue value);
   external CSSNumericValue get angle;
 }
+
+/// The **`CSSScale`** interface of the  represents the
+/// [scale()](/en-US/docs/Web/CSS/transform-function/scale) and
+/// [scale3d()](/en-US/docs/Web/CSS/transform-function/scale3d) values of the
+/// individual `transform` property in CSS. It inherits properties and methods
+/// from its parent [CSSTransformValue].
 extension type CSSScale._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSScale(
@@ -322,6 +420,11 @@ extension type CSSScale._(JSObject _)
   external set z(CSSNumberish value);
   external CSSNumberish get z;
 }
+
+/// The **`CSSSkew`** interface of the  is part of the [CSSTransformValue]
+/// interface. It represents the
+/// [`skew()`](/en-US/docs/Web/CSS/transform-function/skew) value of the
+/// individual `transform` property in CSS.
 extension type CSSSkew._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSSkew(
@@ -334,6 +437,11 @@ extension type CSSSkew._(JSObject _)
   external set ay(CSSNumericValue value);
   external CSSNumericValue get ay;
 }
+
+/// The **`CSSSkewX`** interface of the  represents the
+/// [`skewX()`](/en-US/docs/Web/CSS/transform-function/skewX) value of the
+/// individual `transform` property in CSS. It inherits properties and methods
+/// from its parent [CSSTransformValue].
 extension type CSSSkewX._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSSkewX(CSSNumericValue ax);
@@ -341,6 +449,11 @@ extension type CSSSkewX._(JSObject _)
   external set ax(CSSNumericValue value);
   external CSSNumericValue get ax;
 }
+
+/// The **`CSSSkewY`** interface of the  represents the
+/// [`skewY()`](/en-US/docs/Web/CSS/transform-function/skewY) value of the
+/// individual `transform` property in CSS. It inherits properties and methods
+/// from its parent [CSSTransformValue].
 extension type CSSSkewY._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSSkewY(CSSNumericValue ay);
@@ -348,6 +461,11 @@ extension type CSSSkewY._(JSObject _)
   external set ay(CSSNumericValue value);
   external CSSNumericValue get ay;
 }
+
+/// The **`CSSPerspective`** interface of the  represents the
+/// [perspective()](/en-US/docs/Web/CSS/transform-function/perspective) value of
+/// the individual `transform` property in CSS. It inherits properties and
+/// methods from its parent [CSSTransformValue].
 extension type CSSPerspective._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSPerspective(CSSPerspectiveValue length);
@@ -355,6 +473,12 @@ extension type CSSPerspective._(JSObject _)
   external set length(CSSPerspectiveValue value);
   external CSSPerspectiveValue get length;
 }
+
+/// The **`CSSMatrixComponent`** interface of the  represents the
+/// [matrix()](/en-US/docs/Web/CSS/transform-function/matrix) and
+/// [matrix3d()](/en-US/docs/Web/CSS/transform-function/matrix3d) values of the
+/// individual `transform` property in CSS. It inherits properties and methods
+/// from its parent [CSSTransformValue].
 extension type CSSMatrixComponent._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSMatrixComponent(
@@ -371,6 +495,17 @@ extension type CSSMatrixComponentOptions._(JSObject _) implements JSObject {
   external set is2D(bool value);
   external bool get is2D;
 }
+
+/// The **`CSSImageValue`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model#css_typed_object_model)
+/// represents values for properties that take an image, for example , , or .
+///
+/// The CSSImageValue object represents an
+/// [`<image>`](/en-US/docs/Web/CSS/image) that involves a URL, such as
+/// [`url()`](/en-US/docs/Web/CSS/url) or
+/// [`image()`](/en-US/docs/Web/CSS/image), but not
+/// [`linear-gradient()`](/en-US/docs/Web/CSS/gradient/linear-gradient) or
+/// [`element()`](/en-US/docs/Web/CSS/element).
 extension type CSSImageValue._(JSObject _) implements CSSStyleValue, JSObject {}
 extension type CSSColorValue._(JSObject _) implements CSSStyleValue, JSObject {
   external static JSObject parse(String cssText);

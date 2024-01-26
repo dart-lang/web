@@ -86,6 +86,12 @@ extension type RequestDeviceOptions._(JSObject _) implements JSObject {
   external set acceptAllDevices(bool value);
   external bool get acceptAllDevices;
 }
+
+/// The **`Bluetooth`** interface of the
+/// [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API)
+/// returns a
+/// `Promise` to a [BluetoothDevice] object with the specified
+/// options.
 extension type Bluetooth._(JSObject _) implements EventTarget, JSObject {
   /// The **`getAvailability()`** method of the [Bluetooth] interface returns
   /// `true` if the device has a Bluetooth adapter, and false otherwise (unless
@@ -198,6 +204,11 @@ extension type ValueEventInit._(JSObject _) implements EventInit, JSObject {
   external set value(JSAny? value);
   external JSAny? get value;
 }
+
+/// The BluetoothDevice interface of the
+/// [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API)
+/// represents a Bluetooth device inside a particular script execution
+/// environment.
 extension type BluetoothDevice._(JSObject _) implements EventTarget, JSObject {
   external JSPromise forget();
   external JSPromise watchAdvertisements([WatchAdvertisementsOptions options]);
@@ -272,6 +283,11 @@ extension type BluetoothAdvertisingEventInit._(JSObject _)
   external set serviceData(BluetoothServiceDataMap value);
   external BluetoothServiceDataMap get serviceData;
 }
+
+/// The **`BluetoothRemoteGATTServer`** interface of the
+/// [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API)
+/// represents a GATT
+/// Server on a remote device.
 extension type BluetoothRemoteGATTServer._(JSObject _) implements JSObject {
   /// The
   /// **`BluetoothRemoteGATTServer.connect()`** method causes the
@@ -296,6 +312,13 @@ extension type BluetoothRemoteGATTServer._(JSObject _) implements JSObject {
   external BluetoothDevice get device;
   external bool get connected;
 }
+
+/// The `BluetoothRemoteGATTService` interface of the
+/// [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API)
+/// represents a
+/// service provided by a GATT server, including a device, a list of referenced
+/// services,
+/// and a list of the characteristics of this service.
 extension type BluetoothRemoteGATTService._(JSObject _)
     implements EventTarget, JSObject {
   /// The **`BluetoothGATTService.getCharacteristic()`** method
@@ -325,6 +348,11 @@ extension type BluetoothRemoteGATTService._(JSObject _)
   external set onserviceremoved(EventHandler value);
   external EventHandler get onserviceremoved;
 }
+
+/// The `BluetoothRemoteGattCharacteristic` interface of the
+/// [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API)
+/// represents a GATT Characteristic, which is a basic data element that
+/// provides further information about a peripheral's service.
 extension type BluetoothRemoteGATTCharacteristic._(JSObject _)
     implements EventTarget, JSObject {
   /// The **`BluetoothRemoteGATTCharacteristic.getDescriptor()`** method
@@ -387,6 +415,14 @@ extension type BluetoothRemoteGATTCharacteristic._(JSObject _)
   external set oncharacteristicvaluechanged(EventHandler value);
   external EventHandler get oncharacteristicvaluechanged;
 }
+
+/// The **`BluetoothCharacteristicProperties`** interface of the
+/// [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API)
+/// provides the operations that are valid on the given
+/// [BluetoothRemoteGATTCharacteristic].
+///
+/// This interface is returned by calling
+/// [BluetoothRemoteGATTCharacteristic.properties].
 extension type BluetoothCharacteristicProperties._(JSObject _)
     implements JSObject {
   external bool get broadcast;
@@ -399,6 +435,11 @@ extension type BluetoothCharacteristicProperties._(JSObject _)
   external bool get reliableWrite;
   external bool get writableAuxiliaries;
 }
+
+/// The `BluetoothRemoteGATTDescriptor` interface of the
+/// [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API)
+/// provides a GATT Descriptor,
+/// which provides further information about a characteristic's value.
 extension type BluetoothRemoteGATTDescriptor._(JSObject _) implements JSObject {
   /// The
   /// **`BluetoothRemoteGATTDescriptor.readValue()`**
@@ -415,6 +456,11 @@ extension type BluetoothRemoteGATTDescriptor._(JSObject _) implements JSObject {
   external UUID get uuid;
   external JSDataView? get value;
 }
+
+/// The **`BluetoothUUID`** interface of the [Web Bluetooth API] provides a way
+/// to look up Universally Unique Identifier (UUID) values by name in the
+/// [registry](https://www.bluetooth.com/specifications/assigned-numbers/)
+/// maintained by the Bluetooth SIG.
 extension type BluetoothUUID._(JSObject _) implements JSObject {
   external static UUID getService(JSAny name);
   external static UUID getCharacteristic(JSAny name);

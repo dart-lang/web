@@ -17,6 +17,12 @@ import 'trust_token_api.dart';
 
 typedef FormDataEntryValue = JSAny;
 typedef XMLHttpRequestResponseType = String;
+
+/// `XMLHttpRequestEventTarget` is the interface that describes the event
+/// handlers shared on [XMLHttpRequest] and [XMLHttpRequestUpload].
+///
+/// You don't use `XMLHttpRequestEventTarget` directly; instead you interact
+/// with the sub classes.
 extension type XMLHttpRequestEventTarget._(JSObject _)
     implements EventTarget, JSObject {
   external set onloadstart(EventHandler value);
@@ -34,8 +40,33 @@ extension type XMLHttpRequestEventTarget._(JSObject _)
   external set onloadend(EventHandler value);
   external EventHandler get onloadend;
 }
+
+/// The **`XMLHttpRequestUpload`** interface represents the upload process for a
+/// specific [XMLHttpRequest]. It is an _opaque_ object that represents the
+/// underlying, browser-dependent, upload process. It is an
+/// [XMLHttpRequestEventTarget] and can be obtained by calling
+/// [XMLHttpRequest.upload].
+///
+/// @AvailableInWorkers("notservice")
 extension type XMLHttpRequestUpload._(JSObject _)
     implements XMLHttpRequestEventTarget, JSObject {}
+
+/// `XMLHttpRequest` (XHR) objects are used to interact with servers. You can
+/// retrieve data from a URL without having to do a full page refresh. This
+/// enables a Web page to update just part of a page without disrupting what the
+/// user is doing.
+///
+/// Despite its name, `XMLHttpRequest` can be used to retrieve any type of data,
+/// not just XML.
+///
+/// If your communication needs to involve receiving event data or message data
+/// from a server, consider using
+/// [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events)
+/// through the [EventSource] interface. For full-duplex communication,
+/// [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
+/// may be a better choice.
+///
+/// @AvailableInWorkers("notservice")
 extension type XMLHttpRequest._(JSObject _)
     implements XMLHttpRequestEventTarget, JSObject {
   external factory XMLHttpRequest();
@@ -184,6 +215,23 @@ extension type XMLHttpRequest._(JSObject _)
   external String get responseText;
   external Document? get responseXML;
 }
+
+/// The **`FormData`** interface provides a way to construct a set of key/value
+/// pairs representing form fields and their values, which can be sent using the
+/// [fetch], [XMLHttpRequest.send] or [navigator.sendBeacon] methods. It uses
+/// the same format a form would use if the encoding type were set to
+/// `"multipart/form-data"`.
+///
+/// You can also pass it directly to the [URLSearchParams] constructor if you
+/// want to generate query parameters in the way a `form` would do if it were
+/// using simple `GET` submission.
+///
+/// An object implementing `FormData` can directly be used in a `for...of`
+/// structure, instead of [FormData.entries]: `for (const p of myFormData)` is
+/// equivalent to `for (const p of myFormData.entries())`.
+///
+/// > **Note:** This feature is available in
+/// > [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
 extension type FormData._(JSObject _) implements JSObject {
   external factory FormData([
     HTMLFormElement form,
@@ -255,6 +303,11 @@ extension type FormData._(JSObject _) implements JSObject {
     String filename,
   ]);
 }
+
+/// The **`ProgressEvent`** interface represents events measuring progress of an
+/// underlying process, like an HTTP request (for an `XMLHttpRequest`, or the
+/// loading of the underlying resource of an `img`, `audio`, `video`, `style` or
+/// `link`).
 extension type ProgressEvent._(JSObject _) implements Event, JSObject {
   external factory ProgressEvent(
     String type, [

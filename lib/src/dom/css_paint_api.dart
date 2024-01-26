@@ -14,6 +14,9 @@ import 'geometry.dart';
 import 'html.dart';
 import 'webidl.dart';
 
+/// The **`PaintWorkletGlobalScope`** interface of the
+/// [CSS Painting API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Painting_API)
+/// represents the global object available inside a paint [Worklet].
 extension type PaintWorkletGlobalScope._(JSObject _)
     implements WorkletGlobalScope, JSObject {
   /// The **`registerPaint()`** method of the

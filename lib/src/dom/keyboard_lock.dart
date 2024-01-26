@@ -13,6 +13,13 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
+/// The **`Keyboard`** interface of the [Keyboard API] provides functions that
+/// retrieve keyboard layout maps and toggle capturing of key presses from the
+/// physical keyboard.
+///
+/// A list of valid code values is found in the
+/// [UI Events KeyboardEvent code Values](https://www.w3.org/TR/uievents-code/#key-alphanumeric-writing-system)
+/// spec.
 extension type Keyboard._(JSObject _) implements EventTarget, JSObject {
   /// The **`lock()`** method of the
   /// [Keyboard] interface returns a `Promise` after enabling the

@@ -13,6 +13,10 @@ import 'dart:js_interop';
 import 'html.dart';
 import 'mediacapture_streams.dart';
 
+/// The **`CanvasCaptureMediaStreamTrack`** interface of the
+/// [Media Capture and Streams API] represents the video track contained in a
+/// [MediaStream] being generated from a `canvas` following a call to
+/// [HTMLCanvasElement.captureStream].
 extension type CanvasCaptureMediaStreamTrack._(JSObject _)
     implements MediaStreamTrack, JSObject {
   /// The **`requestFrame()`** method of the [CanvasCaptureMediaStreamTrack]

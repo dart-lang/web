@@ -14,6 +14,21 @@ import 'hr_time.dart';
 import 'resource_timing.dart';
 
 typedef NavigationTimingType = String;
+
+/// The **`PerformanceNavigationTiming`** interface provides methods and
+/// properties to store and retrieve metrics regarding the browser's document
+/// navigation events. For example, this interface can be used to determine how
+/// much time it takes to load or unload a document.
+///
+/// Only the current document is included in the performance timeline, so there
+/// is only one `PerformanceNavigationTiming` object in the performance
+/// timeline. It inherits all of the properties and methods of
+/// [PerformanceResourceTiming] and [PerformanceEntry].
+///
+/// The following diagram shows all of the timestamp properties defined in
+/// `PerformanceNavigationTiming`.
+///
+/// ![Timestamp diagram listing timestamps in the order in which they are recorded for the fetching of a document](timestamp-diagram.svg)
 extension type PerformanceNavigationTiming._(JSObject _)
     implements PerformanceResourceTiming, JSObject {
   /// The **`toJSON()`** method of the [PerformanceNavigationTiming] interface
@@ -33,6 +48,16 @@ extension type PerformanceNavigationTiming._(JSObject _)
   external DOMHighResTimeStamp get criticalCHRestart;
   external DOMHighResTimeStamp get activationStart;
 }
+
+/// > **Warning:** This interface is deprecated in the
+/// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
+/// > Please use the [PerformanceNavigationTiming] interface instead.
+///
+/// The **`PerformanceTiming`** interface is a legacy interface kept for
+/// backwards compatibility and contains properties that offer performance
+/// timing information for various events which occur during the loading and use
+/// of the current page. You get a `PerformanceTiming` object describing your
+/// page using the [Performance.timing] property.
 extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// > **Warning:** This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
@@ -64,6 +89,16 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   external int get loadEventStart;
   external int get loadEventEnd;
 }
+
+/// The legacy **`PerformanceNavigation`** interface represents information
+/// about how the navigation to the current document was done.
+///
+/// > **Warning:** This interface is deprecated in the
+/// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
+/// > Please use the [PerformanceNavigationTiming] interface instead.
+///
+/// An object of this type can be obtained by calling the
+/// [Performance.navigation] read-only attribute.
 extension type PerformanceNavigation._(JSObject _) implements JSObject {
   external static int get TYPE_NAVIGATE;
   external static int get TYPE_RELOAD;

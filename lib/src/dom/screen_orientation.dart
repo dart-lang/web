@@ -15,6 +15,13 @@ import 'html.dart';
 
 typedef OrientationLockType = String;
 typedef OrientationType = String;
+
+/// The **`ScreenOrientation`** interface of the
+/// [Screen Orientation API](https://developer.mozilla.org/en-US/docs/Web/API/Screen_Orientation_API)
+/// provides information about the current orientation of the document.
+///
+/// A **`ScreenOrientation`** instance object can be retrieved using the
+/// [screen.orientation] property.
 extension type ScreenOrientation._(JSObject _)
     implements EventTarget, JSObject {
   /// The **`lock()`** property of the [ScreenOrientation] interface locks the

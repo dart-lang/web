@@ -19,6 +19,13 @@ import 'vibration.dart';
 typedef NotificationPermissionCallback = JSFunction;
 typedef NotificationPermission = String;
 typedef NotificationDirection = String;
+
+/// The **`Notification`** interface of the [Notifications API] is used to
+/// configure and display desktop notifications to the user.
+///
+/// These notifications' appearance and specific functionality vary across
+/// platforms but generally they provide a way to asynchronously provide
+/// information to the user.
 extension type Notification._(JSObject _) implements EventTarget, JSObject {
   external factory Notification(
     String title, [
@@ -137,6 +144,17 @@ extension type GetNotificationOptions._(JSObject _) implements JSObject {
   external set tag(String value);
   external String get tag;
 }
+
+/// The **`NotificationEvent`** interface of the [Notifications API] represents
+/// a notification event dispatched on the [ServiceWorkerGlobalScope] of a
+/// [ServiceWorker].
+///
+/// This interface inherits from the [ExtendableEvent] interface.
+///
+/// > **Note**: Only persistent notification events, fired at the
+/// > [ServiceWorkerGlobalScope] object, implement the `NotificationEvent`
+/// > interface. Non-persistent notification events, fired at the [Notification]
+/// > object, implement the `Event` interface.
 extension type NotificationEvent._(JSObject _)
     implements ExtendableEvent, JSObject {
   external factory NotificationEvent(

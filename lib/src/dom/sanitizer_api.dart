@@ -13,6 +13,20 @@ import 'dart:js_interop';
 import 'dom.dart';
 
 typedef AttributeMatchList = JSAny;
+
+/// The **`Sanitizer`** interface of the [HTML Sanitizer API] is used to
+/// sanitize untrusted strings of HTML, [Document] and [DocumentFragment]
+/// objects.
+/// After sanitization, unwanted elements or attributes are removed, and the
+/// returned objects can safely be inserted into a document's DOM.
+///
+/// A **`Sanitizer`** object is also used by the [Element.setHTML] method to
+/// parse and sanitize a string of HTML, and immediately insert it into an
+/// element.
+///
+/// The default configuration strips out XSS-relevant input by default,
+/// including `script` tags, custom elements, and comments.
+/// This configuration may be customized using constructor options.
 extension type Sanitizer._(JSObject _) implements JSObject {
   external factory Sanitizer([SanitizerConfig config]);
 

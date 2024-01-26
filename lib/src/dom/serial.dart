@@ -17,6 +17,9 @@ import 'web_bluetooth.dart';
 
 typedef ParityType = String;
 typedef FlowControlType = String;
+
+/// The `Serial` interface of the [Web_Serial_API] provides attributes and
+/// methods for finding and connecting to serial ports from a web page.
 extension type Serial._(JSObject _) implements EventTarget, JSObject {
   /// The **`getPorts()`** method of the [Serial] interface returns a `Promise`
   /// that resolves with an array of [SerialPort] objects representing serial
@@ -57,6 +60,9 @@ extension type SerialPortFilter._(JSObject _) implements JSObject {
   external set bluetoothServiceClassId(BluetoothServiceUUID value);
   external BluetoothServiceUUID get bluetoothServiceClassId;
 }
+
+/// The `SerialPort` interface of the [Web_Serial_API] provides access to a
+/// serial port on the host device.
 extension type SerialPort._(JSObject _) implements EventTarget, JSObject {
   /// The **`getInfo()`** method of the [SerialPort] interface returns an object
   /// whose properties are the vendor ID and product ID of the device.

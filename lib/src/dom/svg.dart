@@ -17,6 +17,8 @@ import 'geometry.dart';
 import 'html.dart';
 import 'web_animations.dart';
 
+/// All of the SVG DOM interfaces that correspond directly to elements in the
+/// SVG language derive from the `SVGElement` interface.
 extension type SVGElement._(JSObject _) implements Element, JSObject {
   external void focus([FocusOptions options]);
   external void blur();
@@ -258,6 +260,9 @@ extension type SVGBoundingBoxOptions._(JSObject _) implements JSObject {
   external set clipped(bool value);
   external bool get clipped;
 }
+
+/// The **`SVGGraphicsElement`** interface represents SVG elements whose primary
+/// purpose is to directly render graphics into a group.
 extension type SVGGraphicsElement._(JSObject _)
     implements SVGElement, JSObject {
   /// The **`SVGGraphicsElement.getBBox()`** method allows us to determine
@@ -283,6 +288,10 @@ extension type SVGGraphicsElement._(JSObject _)
   external SVGStringList get requiredExtensions;
   external SVGStringList get systemLanguage;
 }
+
+/// The `SVGGeometryElement` interface represents SVG elements whose rendering
+/// is defined by geometry with an equivalent path, and which can be filled and
+/// stroked. This includes paths and the basic shapes.
 extension type SVGGeometryElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
   /// The **`SVGGeometryElement.isPointInFill()`** method determines
@@ -316,10 +325,17 @@ extension type SVGGeometryElement._(JSObject _)
   external DOMPoint getPointAtLength(num distance);
   external SVGAnimatedNumber get pathLength;
 }
+
+/// The **`SVGNumber`** interface corresponds to the  basic data type.
+///
+/// An `SVGNumber` object can be designated as read only, which means that
+/// attempts to modify the object will result in an exception being thrown.
 extension type SVGNumber._(JSObject _) implements JSObject {
   external set value(num value);
   external num get value;
 }
+
+///
 extension type SVGLength._(JSObject _) implements JSObject {
   external static int get SVG_LENGTHTYPE_UNKNOWN;
   external static int get SVG_LENGTHTYPE_NUMBER;
@@ -345,6 +361,25 @@ extension type SVGLength._(JSObject _) implements JSObject {
   external set valueAsString(String value);
   external String get valueAsString;
 }
+
+/// The `SVGAngle` interface is used to represent a value that can be an  or
+/// value. An `SVGAngle` reflected through the `animVal` attribute is always
+/// read only.
+///
+/// An `SVGAngle` object can be designated as read only, which means that
+/// attempts to modify the object will result in an exception being thrown.
+///
+/// An `SVGAngle` object can be associated with a particular element. The
+/// associated element is used to determine which element's content attribute to
+/// update if the object reflects an attribute. Unless otherwise described, an
+/// `SVGAngle` object is not associated with any element.
+///
+/// Every `SVGAngle` object operates in one of two modes:
+///
+/// 1. **_Reflect the base value_** of a reflected animatable attribute (being
+/// exposed through the `baseVal` member of an [SVGAnimatedAngle]),
+/// 2. **_Be detached_,** which is the case for `SVGAngle` objects created with
+/// [SVGSVGElement.createSVGAngle].
 extension type SVGAngle._(JSObject _) implements JSObject {
   external static int get SVG_ANGLETYPE_UNKNOWN;
   external static int get SVG_ANGLETYPE_UNSPECIFIED;
@@ -364,6 +399,8 @@ extension type SVGAngle._(JSObject _) implements JSObject {
   external set valueAsString(String value);
   external String get valueAsString;
 }
+
+///
 extension type SVGNumberList._(JSObject _) implements JSObject {
   external void clear();
   external SVGNumber initialize(SVGNumber newItem);
@@ -381,6 +418,8 @@ extension type SVGNumberList._(JSObject _) implements JSObject {
   external int get length;
   external int get numberOfItems;
 }
+
+///
 extension type SVGLengthList._(JSObject _) implements JSObject {
   external void clear();
   external SVGLength initialize(SVGLength newItem);
@@ -398,6 +437,8 @@ extension type SVGLengthList._(JSObject _) implements JSObject {
   external int get length;
   external int get numberOfItems;
 }
+
+///
 extension type SVGStringList._(JSObject _) implements JSObject {
   external void clear();
   external String initialize(String newItem);
@@ -415,56 +456,128 @@ extension type SVGStringList._(JSObject _) implements JSObject {
   external int get length;
   external int get numberOfItems;
 }
+
+///
 extension type SVGAnimatedBoolean._(JSObject _) implements JSObject {
   external set baseVal(bool value);
   external bool get baseVal;
   external bool get animVal;
 }
+
+/// The **`SVGAnimatedEnumeration`** interface describes attribute values which
+/// are constants from a particular enumeration and which can be animated.
 extension type SVGAnimatedEnumeration._(JSObject _) implements JSObject {
   external set baseVal(int value);
   external int get baseVal;
   external int get animVal;
 }
+
+///
 extension type SVGAnimatedInteger._(JSObject _) implements JSObject {
   external set baseVal(int value);
   external int get baseVal;
   external int get animVal;
 }
+
+///
 extension type SVGAnimatedNumber._(JSObject _) implements JSObject {
   external set baseVal(num value);
   external num get baseVal;
   external num get animVal;
 }
+
+/// The **`SVGAnimatedLength`** interface represents attributes of type
+/// [\<length>](/en-US/docs/Web/SVG/Content_type#length) which can be animated.
 extension type SVGAnimatedLength._(JSObject _) implements JSObject {
   external SVGLength get baseVal;
   external SVGLength get animVal;
 }
+
+///
 extension type SVGAnimatedAngle._(JSObject _) implements JSObject {
   external SVGAngle get baseVal;
   external SVGAngle get animVal;
 }
+
+/// The **`SVGAnimatedString`** interface represents string attributes which can
+/// be animated from each SVG declaration. You need to create SVG attribute
+/// before doing anything else, everything should be declared inside this.
 extension type SVGAnimatedString._(JSObject _) implements JSObject {
   external set baseVal(String value);
   external String get baseVal;
   external String get animVal;
 }
+
+/// The `SVGAnimatedRect` interface is used for attributes of basic [SVGRect]
+/// which can be animated.
+///
+/// ### Interface overview
+///
+/// <table class="no-markdown">
+///   <tbody>
+///     <tr>
+///       <th scope="row">Also implement</th>
+///       <td><em>None</em></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Methods</th>
+///       <td><em>None</em></td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Properties</th>
+///       <td>
+///         <ul>
+///           <li>
+/// readonly [SVGRect] <code>baseVal</code>
+///           </li>
+///           <li>
+/// readonly [SVGRect] <code>animVal</code>
+///           </li>
+///         </ul>
+///       </td>
+///     </tr>
+///     <tr>
+///       <th scope="row">Normative document</th>
+///       <td>
+///         <a
+/// href="https://www.w3.org/TR/SVG11/types.html#InterfaceSVGAnimatedRect"
+/// >SVG 1.1 (2nd Edition)</a
+/// >
+///       </td>
+///     </tr>
+///   </tbody>
+/// </table>
 extension type SVGAnimatedRect._(JSObject _) implements JSObject {
   external DOMRect get baseVal;
   external DOMRectReadOnly get animVal;
 }
+
+///
 extension type SVGAnimatedNumberList._(JSObject _) implements JSObject {
   external SVGNumberList get baseVal;
   external SVGNumberList get animVal;
 }
+
+///
 extension type SVGAnimatedLengthList._(JSObject _) implements JSObject {
   external SVGLengthList get baseVal;
   external SVGLengthList get animVal;
 }
+
+/// The **`SVGUnitTypes`** interface defines a commonly used set of constants
+/// used for reflecting `gradientUnits`, `patternContentUnits` and other similar
+/// attributes.
 extension type SVGUnitTypes._(JSObject _) implements JSObject {
   external static int get SVG_UNIT_TYPE_UNKNOWN;
   external static int get SVG_UNIT_TYPE_USERSPACEONUSE;
   external static int get SVG_UNIT_TYPE_OBJECTBOUNDINGBOX;
 }
+
+/// The **`SVGSVGElement`** interface provides access to the properties of
+/// elements, as well as methods to manipulate them. This interface contains
+/// also various miscellaneous commonly-used utility methods, such as matrix
+/// operations and the ability to control the time of redraw on visual rendering
+/// devices.
 extension type SVGSVGElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
   external NodeList getIntersectionList(
@@ -550,19 +663,33 @@ extension type SVGSVGElement._(JSObject _)
   external set onportalactivate(EventHandler value);
   external EventHandler get onportalactivate;
 }
+
+/// The **`SVGGElement`** interface corresponds to the  element.
 extension type SVGGElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {}
+
+/// The **`SVGDefsElement`** interface corresponds to the  element.
 extension type SVGDefsElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {}
+
+/// The **`SVGDescElement`** interface corresponds to the  element.
 extension type SVGDescElement._(JSObject _) implements SVGElement, JSObject {}
+
+/// The **`SVGMetadataElement`** interface corresponds to the  element.
 extension type SVGMetadataElement._(JSObject _)
     implements SVGElement, JSObject {}
+
+/// The **`SVGTitleElement`** interface corresponds to the  element.
 extension type SVGTitleElement._(JSObject _) implements SVGElement, JSObject {}
+
+/// The **`SVGSymbolElement`** interface corresponds to the  element.
 extension type SVGSymbolElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
   external SVGAnimatedRect get viewBox;
   external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
 }
+
+///
 extension type SVGUseElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
   external SVGAnimatedLength get x;
@@ -583,8 +710,12 @@ extension type ShadowAnimation._(JSObject _) implements Animation, JSObject {
 
   external Animation get sourceAnimation;
 }
+
+/// The **`SVGSwitchElement`** interface corresponds to the  element.
 extension type SVGSwitchElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {}
+
+/// The **`SVGStyleElement`** interface corresponds to the SVG  element.
 extension type SVGStyleElement._(JSObject _) implements SVGElement, JSObject {
   external set type(String value);
   external String get type;
@@ -594,6 +725,8 @@ extension type SVGStyleElement._(JSObject _) implements SVGElement, JSObject {
   external String get title;
   external CSSStyleSheet? get sheet;
 }
+
+///
 extension type SVGTransform._(JSObject _) implements JSObject {
   external static int get SVG_TRANSFORM_UNKNOWN;
   external static int get SVG_TRANSFORM_MATRIX;
@@ -622,6 +755,8 @@ extension type SVGTransform._(JSObject _) implements JSObject {
   external DOMMatrix get matrix;
   external num get angle;
 }
+
+///
 extension type SVGTransformList._(JSObject _) implements JSObject {
   external void clear();
   external SVGTransform initialize(SVGTransform newItem);
@@ -641,10 +776,14 @@ extension type SVGTransformList._(JSObject _) implements JSObject {
   external int get length;
   external int get numberOfItems;
 }
+
+///
 extension type SVGAnimatedTransformList._(JSObject _) implements JSObject {
   external SVGTransformList get baseVal;
   external SVGTransformList get animVal;
 }
+
+///
 extension type SVGPreserveAspectRatio._(JSObject _) implements JSObject {
   external static int get SVG_PRESERVEASPECTRATIO_UNKNOWN;
   external static int get SVG_PRESERVEASPECTRATIO_NONE;
@@ -665,13 +804,25 @@ extension type SVGPreserveAspectRatio._(JSObject _) implements JSObject {
   external set meetOrSlice(int value);
   external int get meetOrSlice;
 }
+
+///
 extension type SVGAnimatedPreserveAspectRatio._(JSObject _)
     implements JSObject {
   external SVGPreserveAspectRatio get baseVal;
   external SVGPreserveAspectRatio get animVal;
 }
+
+/// The **`SVGPathElement`** interface corresponds to the  element.
+///
+/// > **Note:** In SVG 2 the `getPathSegAtLength()` and `createSVGPathSeg*`
+/// > methods were removed and the `pathLength` property and the
+/// > `getTotalLength()` and `getPointAtLength()` methods were moved to
+/// > [SVGGeometryElement].
 extension type SVGPathElement._(JSObject _)
     implements SVGGeometryElement, JSObject {}
+
+/// The `SVGRectElement` interface provides access to the properties of
+/// elements, as well as methods to manipulate them.
 extension type SVGRectElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
   external SVGAnimatedLength get x;
@@ -681,12 +832,17 @@ extension type SVGRectElement._(JSObject _)
   external SVGAnimatedLength get rx;
   external SVGAnimatedLength get ry;
 }
+
+/// The **`SVGCircleElement`** interface is an interface for the  element.
 extension type SVGCircleElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
   external SVGAnimatedLength get cx;
   external SVGAnimatedLength get cy;
   external SVGAnimatedLength get r;
 }
+
+/// The **`SVGEllipseElement`** interface provides access to the properties of
+/// elements.
 extension type SVGEllipseElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
   external SVGAnimatedLength get cx;
@@ -694,6 +850,9 @@ extension type SVGEllipseElement._(JSObject _)
   external SVGAnimatedLength get rx;
   external SVGAnimatedLength get ry;
 }
+
+/// The **`SVGLineElement`** interface provides access to the properties of
+/// elements, as well as methods to manipulate them.
 extension type SVGLineElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
   external SVGAnimatedLength get x1;
@@ -701,6 +860,11 @@ extension type SVGLineElement._(JSObject _)
   external SVGAnimatedLength get x2;
   external SVGAnimatedLength get y2;
 }
+
+/// The **`SVGPointList`** interface represents a list of [SVGPoint] objects.
+///
+/// An `SVGPointList` can be designated as read-only, which means that attempts
+/// to modify the object will result in an exception being thrown.
 extension type SVGPointList._(JSObject _) implements JSObject {
   /// The **`clear()`** method of the [SVGPointList] interface removes all items
   /// from the list.
@@ -738,16 +902,27 @@ extension type SVGPointList._(JSObject _) implements JSObject {
   external int get length;
   external int get numberOfItems;
 }
+
+/// The **`SVGPolylineElement`** interface provides access to the properties of
+/// elements, as well as methods to manipulate them.
 extension type SVGPolylineElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
   external SVGPointList get points;
   external SVGPointList get animatedPoints;
 }
+
+/// The **`SVGPolygonElement`** interface provides access to the properties of
+/// elements, as well as methods to manipulate them.
 extension type SVGPolygonElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
   external SVGPointList get points;
   external SVGPointList get animatedPoints;
 }
+
+/// The **`SVGTextContentElement`** interface is implemented by elements that
+/// support rendering child text content. It is inherited by various
+/// text-related interfaces, such as [SVGTextElement], [SVGTSpanElement],
+/// [SVGTRefElement], and [SVGTextPathElement].
 extension type SVGTextContentElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
   external static int get LENGTHADJUST_UNKNOWN;
@@ -771,6 +946,10 @@ extension type SVGTextContentElement._(JSObject _)
   external SVGAnimatedLength get textLength;
   external SVGAnimatedEnumeration get lengthAdjust;
 }
+
+/// The **`SVGTextPositioningElement`** interface is implemented by elements
+/// that support attributes that position individual text glyphs. It is
+/// inherited by [SVGTextElement], [SVGTSpanElement], and [SVGTRefElement].
 extension type SVGTextPositioningElement._(JSObject _)
     implements SVGTextContentElement, JSObject {
   external SVGAnimatedLengthList get x;
@@ -779,10 +958,16 @@ extension type SVGTextPositioningElement._(JSObject _)
   external SVGAnimatedLengthList get dy;
   external SVGAnimatedNumberList get rotate;
 }
+
+/// The **`SVGTextElement`** interface corresponds to the  elements.
 extension type SVGTextElement._(JSObject _)
     implements SVGTextPositioningElement, JSObject {}
+
+/// The **`SVGTSpanElement`** interface represents a  element.
 extension type SVGTSpanElement._(JSObject _)
     implements SVGTextPositioningElement, JSObject {}
+
+/// The **`SVGTextPathElement`** interface corresponds to the  element.
 extension type SVGTextPathElement._(JSObject _)
     implements SVGTextContentElement, JSObject {
   external static int get TEXTPATH_METHODTYPE_UNKNOWN;
@@ -796,6 +981,8 @@ extension type SVGTextPathElement._(JSObject _)
   external SVGAnimatedEnumeration get spacing;
   external SVGAnimatedString get href;
 }
+
+/// The **`SVGImageElement`** interface corresponds to the  element.
 extension type SVGImageElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
   external SVGAnimatedLength get x;
@@ -807,6 +994,9 @@ extension type SVGImageElement._(JSObject _)
   external String? get crossOrigin;
   external SVGAnimatedString get href;
 }
+
+/// The **`SVGForeignObjectElement`** interface provides access to the
+/// properties of  elements, as well as methods to manipulate them.
 extension type SVGForeignObjectElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
   external SVGAnimatedLength get x;
@@ -814,6 +1004,13 @@ extension type SVGForeignObjectElement._(JSObject _)
   external SVGAnimatedLength get width;
   external SVGAnimatedLength get height;
 }
+
+/// The **`SVGMarkerElement`** interface provides access to the properties of
+/// elements, as well as methods to manipulate them. The  element defines the
+/// graphics used for drawing marks on a shape.
+///
+/// The following properties and methods all return, or act on the attributes of
+/// the  element represented by `SVGMarkerElement`.
 extension type SVGMarkerElement._(JSObject _) implements SVGElement, JSObject {
   external static int get SVG_MARKERUNITS_UNKNOWN;
   external static int get SVG_MARKERUNITS_USERSPACEONUSE;
@@ -842,6 +1039,9 @@ extension type SVGMarkerElement._(JSObject _) implements SVGElement, JSObject {
   external SVGAnimatedRect get viewBox;
   external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
 }
+
+/// The **`SVGGradient`** interface is a base interface used by
+/// [SVGLinearGradientElement] and [SVGRadialGradientElement].
 extension type SVGGradientElement._(JSObject _)
     implements SVGElement, JSObject {
   external static int get SVG_SPREADMETHOD_UNKNOWN;
@@ -853,6 +1053,8 @@ extension type SVGGradientElement._(JSObject _)
   external SVGAnimatedEnumeration get spreadMethod;
   external SVGAnimatedString get href;
 }
+
+/// The **`SVGLinearGradientElement`** interface corresponds to the  element.
 extension type SVGLinearGradientElement._(JSObject _)
     implements SVGGradientElement, JSObject {
   external SVGAnimatedLength get x1;
@@ -860,6 +1062,8 @@ extension type SVGLinearGradientElement._(JSObject _)
   external SVGAnimatedLength get x2;
   external SVGAnimatedLength get y2;
 }
+
+/// The **`SVGRadialGradientElement`** interface corresponds to the  element.
 extension type SVGRadialGradientElement._(JSObject _)
     implements SVGGradientElement, JSObject {
   external SVGAnimatedLength get cx;
@@ -869,9 +1073,13 @@ extension type SVGRadialGradientElement._(JSObject _)
   external SVGAnimatedLength get fy;
   external SVGAnimatedLength get fr;
 }
+
+/// The **`SVGStopElement`** interface corresponds to the  element.
 extension type SVGStopElement._(JSObject _) implements SVGElement, JSObject {
   external SVGAnimatedNumber get offset;
 }
+
+/// The **`SVGPatternElement`** interface corresponds to the  element.
 extension type SVGPatternElement._(JSObject _) implements SVGElement, JSObject {
   external SVGAnimatedEnumeration get patternUnits;
   external SVGAnimatedEnumeration get patternContentUnits;
@@ -884,6 +1092,8 @@ extension type SVGPatternElement._(JSObject _) implements SVGElement, JSObject {
   external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
   external SVGAnimatedString get href;
 }
+
+/// The **`SVGScriptElement`** interface corresponds to the SVG  element.
 extension type SVGScriptElement._(JSObject _) implements SVGElement, JSObject {
   external set type(String value);
   external String get type;
@@ -891,6 +1101,9 @@ extension type SVGScriptElement._(JSObject _) implements SVGElement, JSObject {
   external String? get crossOrigin;
   external SVGAnimatedString get href;
 }
+
+/// The **`SVGAElement`** interface provides access to the properties of an
+/// element, as well as methods to manipulate them.
 extension type SVGAElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
   external SVGAnimatedString get target;
@@ -930,6 +1143,9 @@ extension type SVGAElement._(JSObject _)
   external String get hash;
   external SVGAnimatedString get href;
 }
+
+/// The **`SVGViewElement`** interface provides access to the properties of
+/// elements, as well as methods to manipulate them.
 extension type SVGViewElement._(JSObject _) implements SVGElement, JSObject {
   external SVGAnimatedRect get viewBox;
   external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;

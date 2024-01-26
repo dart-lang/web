@@ -41,6 +41,14 @@ extension type PerformanceMeasureOptions._(JSObject _) implements JSObject {
   external set end(JSAny value);
   external JSAny get end;
 }
+
+/// **`PerformanceMark`** is an interface for [PerformanceEntry] objects with an
+/// [PerformanceEntry.entryType] of "`mark`".
+///
+/// Entries of this type are typically created by calling [Performance.mark] to
+/// add a _named_ [DOMHighResTimeStamp] (the _mark_) to the browser's
+/// performance timeline. To create a performance mark that isn't added to the
+/// browser's performance timeline, use the constructor.
 extension type PerformanceMark._(JSObject _)
     implements PerformanceEntry, JSObject {
   external factory PerformanceMark(
@@ -50,6 +58,12 @@ extension type PerformanceMark._(JSObject _)
 
   external JSAny? get detail;
 }
+
+/// **`PerformanceMeasure`** is an _abstract_ interface for [PerformanceEntry]
+/// objects with an [PerformanceEntry.entryType] of "`measure`". Entries of this
+/// type are created by calling [Performance.measure] to add a _named_
+/// [DOMHighResTimeStamp] (the _measure_) between two _marks_ to the browser's
+/// _performance timeline_.
 extension type PerformanceMeasure._(JSObject _)
     implements PerformanceEntry, JSObject {
   external JSAny? get detail;

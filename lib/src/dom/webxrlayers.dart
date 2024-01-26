@@ -22,6 +22,22 @@ import 'webxr_lighting_estimation.dart';
 typedef XRLayerLayout = String;
 typedef XRLayerQuality = String;
 typedef XRTextureType = String;
+
+/// The **`XRCompositionLayer`** interface of the
+/// [WebXR Device API](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API)
+/// is a base class that defines a set of common properties and behaviors for
+/// WebXR layer types. It is not constructable on its own.
+///
+/// Several layer types inherit from `XRCompositionLayer`:
+///
+/// - [XREquirectLayer]
+/// - [XRCubeLayer]
+/// - [XRCylinderLayer]
+/// - [XRProjectionLayer]
+/// - [XRQuadLayer]
+///
+/// `XRCompositionLayer` itself inherits from the general [XRLayer] class (which
+/// inherits from [EventTarget]).
 extension type XRCompositionLayer._(JSObject _) implements XRLayer, JSObject {
   /// The **`destroy()`** method of the [XRCompositionLayer] interface deletes
   /// the references to the underlying graphics library for the layer. It also
@@ -40,6 +56,22 @@ extension type XRCompositionLayer._(JSObject _) implements XRLayer, JSObject {
   external XRLayerQuality get quality;
   external bool get needsRedraw;
 }
+
+/// The **`XRProjectionLayer`** interface of the
+/// [WebXR Device API](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API)
+/// is a layer that fills the entire view of the observer and is refreshed close
+/// to the device's native frame rate.
+///
+/// `XRProjectionLayer` is supported by all [XRSession] objects (no `layers`
+/// feature descriptor is needed).
+///
+/// To create a new `XRProjectionLayer`, call
+/// [XRWebGLBinding.createProjectionLayer].
+/// To present layers to the XR device, add them to the `layers` render state
+/// using [XRSession.updateRenderState].
+///
+/// `XRProjectionLayer` objects don't have an associated [XRSpace], because they
+/// render to the full frame.
 extension type XRProjectionLayer._(JSObject _)
     implements XRCompositionLayer, JSObject {
   external int get textureWidth;
@@ -51,6 +83,24 @@ extension type XRProjectionLayer._(JSObject _)
   external set deltaPose(XRRigidTransform? value);
   external XRRigidTransform? get deltaPose;
 }
+
+/// The **`XRQuadLayer`** interface of the
+/// [WebXR Device API](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API)
+/// is a layer that takes up a flat rectangular space in the virtual
+/// environment. An `XRQuadLayer` has no thickness. It is a two-dimensional
+/// object positioned and oriented in 3D space. The position of a quad refers to
+/// the center of the quad. Only the front of the layer is visible.
+///
+/// `XRQuadLayer` requires the `layers` feature to be enabled for the
+/// [XRSession]. You can request it in [XRSystem.requestSession].
+///
+/// To create a new `XRQuadLayer`, call either:
+///
+/// - [XRWebGLBinding.createQuadLayer] for a WebGL opaque texture quad layer, or
+/// - [XRMediaBinding.createQuadLayer] for an HTML `video` playback quad layer.
+///
+/// To present layers to the XR device, add them to the `layers` render state
+/// using [XRSession.updateRenderState].
 extension type XRQuadLayer._(JSObject _)
     implements XRCompositionLayer, JSObject {
   external set space(XRSpace value);
@@ -64,6 +114,22 @@ extension type XRQuadLayer._(JSObject _)
   external set onredraw(EventHandler value);
   external EventHandler get onredraw;
 }
+
+/// The **`XRCylinderLayer`** interface of the
+/// [WebXR Device API](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API)
+/// is a layer that takes up a curved rectangular space in the virtual
+/// environment. Only the front of the layer is visible.
+///
+/// `XRCylinderLayer` requires the `layers` feature to be enabled for the
+/// [XRSession]. You can request it in [XRSystem.requestSession].
+///
+/// To create a new `XRCylinderLayer`, call either:
+///
+/// - [XRWebGLBinding.createCylinderLayer] for a WebGL opaque texture layer, or
+/// - [XRMediaBinding.createCylinderLayer] for an HTML `video` playback layer.
+///
+/// To present layers to the XR device, add them to the `layers` render state
+/// using [XRSession.updateRenderState].
 extension type XRCylinderLayer._(JSObject _)
     implements XRCompositionLayer, JSObject {
   external set space(XRSpace value);
@@ -79,6 +145,23 @@ extension type XRCylinderLayer._(JSObject _)
   external set onredraw(EventHandler value);
   external EventHandler get onredraw;
 }
+
+/// The **`XREquirectLayer`** interface of the
+/// [WebXR Device API](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API)
+/// is a layer that maps
+/// [equirectangular](https://en.wikipedia.org/wiki/Equirectangular_projection)
+/// coded data onto the inside of a sphere.
+///
+/// `XREquirectLayer` requires the `layers` feature to be enabled for the
+/// [XRSession]. You can request it in [XRSystem.requestSession].
+///
+/// To create a new `XREquirectLayer`, call either:
+///
+/// - [XRWebGLBinding.createEquirectLayer] for a WebGL opaque texture layer, or
+/// - [XRMediaBinding.createEquirectLayer] for an HTML `video` playback layer.
+///
+/// To present layers to the XR device, add them to the `layers` render state
+/// using [XRSession.updateRenderState].
 extension type XREquirectLayer._(JSObject _)
     implements XRCompositionLayer, JSObject {
   external set space(XRSpace value);
@@ -96,6 +179,20 @@ extension type XREquirectLayer._(JSObject _)
   external set onredraw(EventHandler value);
   external EventHandler get onredraw;
 }
+
+/// The **`XRCubeLayer`** interface of the
+/// [WebXR Device API](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API)
+/// is a layer that renders directly from a
+/// [cubemap](https://en.wikipedia.org/wiki/Cube_mapping) and projects it onto
+/// the inside faces of a cube.
+///
+/// `XRCubeLayer` requires the `layers` feature to be enabled for the
+/// [XRSession]. You can request it in [XRSystem.requestSession].
+///
+/// To create a new `XRCubeLayer`, call [XRWebGLBinding.createCubeLayer].
+///
+/// To present layers to the XR device, add them to the `layers` render state
+/// using [XRSession.updateRenderState].
 extension type XRCubeLayer._(JSObject _)
     implements XRCompositionLayer, JSObject {
   external set space(XRSpace value);
@@ -105,9 +202,16 @@ extension type XRCubeLayer._(JSObject _)
   external set onredraw(EventHandler value);
   external EventHandler get onredraw;
 }
+
+/// The **`XRSubImage`** interface of the
+/// [WebXR Device API](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API)
+/// represents what viewport of the GPU texture to use for rendering.
 extension type XRSubImage._(JSObject _) implements JSObject {
   external XRViewport get viewport;
 }
+
+/// The **`XRWebGLSubImage`** interface is used during rendering of WebGL
+/// layers.
 extension type XRWebGLSubImage._(JSObject _) implements XRSubImage, JSObject {
   external WebGLTexture get colorTexture;
   external WebGLTexture? get depthStencilTexture;
@@ -240,6 +344,9 @@ extension type XRCubeLayerInit._(JSObject _) implements XRLayerInit, JSObject {
   external set orientation(DOMPointReadOnly? value);
   external DOMPointReadOnly? get orientation;
 }
+
+/// The **`XRWebGLBinding`** interface is used to create layers that have a GPU
+/// backend.
 extension type XRWebGLBinding._(JSObject _) implements JSObject {
   external factory XRWebGLBinding(
     XRSession session,
@@ -379,6 +486,13 @@ extension type XRMediaEquirectLayerInit._(JSObject _)
   external set lowerVerticalAngle(num value);
   external num get lowerVerticalAngle;
 }
+
+/// The **`XRMediaBinding`** interface is used to create layers that display the
+/// content of an [HTMLVideoElement].
+///
+/// > **Note:**
+/// > Only the video frames will be displayed in the layer. Video controls need
+/// > to be implemented separately and must be drawn in another layer.
 extension type XRMediaBinding._(JSObject _) implements JSObject {
   external factory XRMediaBinding(XRSession session);
 
@@ -406,6 +520,11 @@ extension type XRMediaBinding._(JSObject _) implements JSObject {
     XRMediaEquirectLayerInit init,
   ]);
 }
+
+/// The **`XRLayerEvent`** interface of the
+/// [WebXR Device API](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API)
+/// is the event type for events related to a change of state of an [XRLayer]
+/// object. These events occur, for example, when the layer needs to be redrawn.
 extension type XRLayerEvent._(JSObject _) implements Event, JSObject {
   external factory XRLayerEvent(
     String type,

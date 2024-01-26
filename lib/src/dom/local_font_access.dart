@@ -16,6 +16,9 @@ extension type QueryOptions._(JSObject _) implements JSObject {
   external set postscriptNames(JSArray value);
   external JSArray get postscriptNames;
 }
+
+/// The **`FontData`** interface of the [Local Font Access API] represents a
+/// single local font face.
 extension type FontData._(JSObject _) implements JSObject {
   /// The **`blob()`** method of the [FontData] interface returns a `Promise`
   /// that fulfills with a [Blob] containing the raw bytes of the underlying

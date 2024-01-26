@@ -14,6 +14,13 @@ typedef ErrorCallback = JSFunction;
 typedef FileSystemEntryCallback = JSFunction;
 typedef FileSystemEntriesCallback = JSFunction;
 typedef FileCallback = JSFunction;
+
+/// The **`FileSystemEntry`** interface of the File and Directory Entries API
+/// represents a single entry in a file system. The entry can be a file or a
+/// directory (directories are represented by the [FileSystemDirectoryEntry]
+/// interface). It includes methods for working with files—including copying,
+/// moving, removing, and reading files—as well as information about a file it
+/// points to—including the file name and its path from the root to the entry.
 extension type FileSystemEntry._(JSObject _) implements JSObject {
   /// The [FileSystemEntry] interface's method
   /// **`getParent()`** obtains a
@@ -28,6 +35,12 @@ extension type FileSystemEntry._(JSObject _) implements JSObject {
   external String get fullPath;
   external FileSystem get filesystem;
 }
+
+/// The **`FileSystemDirectoryEntry`** interface of the
+/// [File and Directory Entries API](https://developer.mozilla.org/en-US/docs/Web/API/File_and_Directory_Entries_API)
+/// represents a directory in a file system. It provides methods which make it
+/// possible to access and manipulate the files in a directory, as well as to
+/// access the entries within the directory.
 extension type FileSystemDirectoryEntry._(JSObject _)
     implements FileSystemEntry, JSObject {
   /// The [FileSystemDirectoryEntry] interface's method
@@ -71,6 +84,12 @@ extension type FileSystemFlags._(JSObject _) implements JSObject {
   external set exclusive(bool value);
   external bool get exclusive;
 }
+
+/// The `FileSystemDirectoryReader` interface of the
+/// [File and Directory Entries API](https://developer.mozilla.org/en-US/docs/Web/API/File_and_Directory_Entries_API)
+/// lets you access the [FileSystemFileEntry]-based objects (generally
+/// [FileSystemFileEntry] or [FileSystemDirectoryEntry]) representing each entry
+/// in a directory.
 extension type FileSystemDirectoryReader._(JSObject _) implements JSObject {
   /// The [FileSystemDirectoryReader] interface's **`readEntries()`** method
   /// retrieves the directory entries
@@ -86,6 +105,12 @@ extension type FileSystemDirectoryReader._(JSObject _) implements JSObject {
     ErrorCallback errorCallback,
   ]);
 }
+
+/// The **`FileSystemFileEntry`** interface of the
+/// [File and Directory Entries API](https://developer.mozilla.org/en-US/docs/Web/API/File_and_Directory_Entries_API/Introduction)
+/// represents a file in a file system. It offers properties describing the
+/// file's attributes, as well as the [FileSystemFileEntry.file] method, which
+/// creates a [File] object that can be used to read the file.
 extension type FileSystemFileEntry._(JSObject _)
     implements FileSystemEntry, JSObject {
   /// The [FileSystemFileEntry] interface's method
@@ -97,6 +122,19 @@ extension type FileSystemFileEntry._(JSObject _)
     ErrorCallback errorCallback,
   ]);
 }
+
+/// The File and Directory Entries API interface **`FileSystem`** is used to
+/// represent a file system. These objects can be obtained from the
+/// [FileSystemEntry.filesystem] property on any file system entry. Some
+/// browsers offer additional APIs to create and manage file systems, such as
+/// Chrome's [Window.requestFileSystem] method.
+///
+/// This interface will not grant you access to the users' filesystem. Instead,
+/// you will have a "virtual drive" within the browser sandbox if you want to
+/// gain access to the users' file system, you need to invoke the user, for
+/// example by installing a Chrome extension. The relevant Chrome API can be
+/// found
+/// [here](https://developer.chrome.com/docs/extensions/reference/fileSystem/).
 extension type FileSystem._(JSObject _) implements JSObject {
   external String get name;
   external FileSystemDirectoryEntry get root;

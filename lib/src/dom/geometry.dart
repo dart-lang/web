@@ -10,6 +10,31 @@
 
 import 'dart:js_interop';
 
+/// The **`DOMPointReadOnly`** interface specifies the coordinate and
+/// perspective fields used by [DOMPoint] to define a 2D or 3D point in a
+/// coordinate system.
+///
+/// There are two ways to create a new `DOMPointReadOnly` instance. First, you
+/// can use its constructor, passing in the values of the parameters for each
+/// dimension and, optionally, the perspective:
+///
+/// ```js
+/// /* 2D */
+/// const point2D = new DOMPointReadOnly(50, 50);
+///
+/// /* 3D */
+/// const point3D = new DOMPointReadOnly(50, 50, 25);
+///
+/// /* 3D with perspective */
+/// const point3DPerspective = new DOMPointReadOnly(100, 100, 100, 1.0);
+/// ```
+///
+/// The other option is to use the static [DOMPointReadOnly.fromPoint_static]
+/// method:
+///
+/// ```js
+/// const point = DOMPointReadOnly.fromPoint({ x: 100, y: 100, z: 50, w: 1.0 });
+/// ```
 extension type DOMPointReadOnly._(JSObject _) implements JSObject {
   external factory DOMPointReadOnly([
     num x,
@@ -30,6 +55,16 @@ extension type DOMPointReadOnly._(JSObject _) implements JSObject {
   external num get z;
   external num get w;
 }
+
+/// A **`DOMPoint`** object represents a 2D or 3D point in a coordinate system;
+/// it includes values for the coordinates in up to three dimensions, as well as
+/// an optional perspective value. `DOMPoint` is based on [DOMPointReadOnly] but
+/// allows its properties' values to be changed.
+///
+/// In general, a positive `x` component represents a position to the right of
+/// the origin, a positive `y` component is downward from the origin, and a
+/// positive `z` component extends outward from the screen (in other words,
+/// toward the user).
 extension type DOMPoint._(JSObject _) implements DOMPointReadOnly, JSObject {
   external factory DOMPoint([
     num x,
@@ -65,6 +100,9 @@ extension type DOMPointInit._(JSObject _) implements JSObject {
   external set w(num value);
   external num get w;
 }
+
+/// The **`DOMRectReadOnly`** interface specifies the standard properties (also
+/// used by [DOMRect]) to define a rectangle whose properties are immutable.
 extension type DOMRectReadOnly._(JSObject _) implements JSObject {
   external factory DOMRectReadOnly([
     num x,
@@ -84,6 +122,15 @@ extension type DOMRectReadOnly._(JSObject _) implements JSObject {
   external num get bottom;
   external num get left;
 }
+
+/// A **`DOMRect`** describes the size and position of a rectangle.
+///
+/// The type of box represented by the `DOMRect` is specified by the method or
+/// property that returned it. For example, [Range.getBoundingClientRect]
+/// specifies the rectangle that bounds the content of the range using such
+/// objects.
+///
+/// It inherits from its parent, [DOMRectReadOnly].
 extension type DOMRect._(JSObject _) implements DOMRectReadOnly, JSObject {
   external factory DOMRect([
     num x,
@@ -123,6 +170,12 @@ extension type DOMRectList._(JSObject _) implements JSObject {
   external DOMRect? item(int index);
   external int get length;
 }
+
+/// A `DOMQuad` is a collection of four `DOMPoint`s defining the corners of an
+/// arbitrary quadrilateral. Returning `DOMQuad`s lets `getBoxQuads()` return
+/// accurate information even when arbitrary 2D or 3D transforms are present. It
+/// has a handy `bounds` attribute returning a `DOMRectReadOnly` for those cases
+/// where you just want an axis-aligned bounding rectangle.
 extension type DOMQuad._(JSObject _) implements JSObject {
   external factory DOMQuad([
     DOMPointInit p1,
@@ -157,6 +210,16 @@ extension type DOMQuadInit._(JSObject _) implements JSObject {
   external set p4(DOMPointInit value);
   external DOMPointInit get p4;
 }
+
+/// The **`DOMMatrixReadOnly`** interface represents a read-only 4×4 matrix,
+/// suitable for 2D and 3D operations. The [DOMMatrix] interface — which is
+/// based upon `DOMMatrixReadOnly`—adds
+/// [mutability](https://en.wikipedia.org/wiki/Immutable_object), allowing you
+/// to alter the matrix after creating it.
+///
+/// This interface should be available inside
+/// [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API),
+/// though some implementations doesn't allow it yet.
 extension type DOMMatrixReadOnly._(JSObject _) implements JSObject {
   external factory DOMMatrixReadOnly([JSAny init]);
 
@@ -247,6 +310,16 @@ extension type DOMMatrixReadOnly._(JSObject _) implements JSObject {
   external bool get is2D;
   external bool get isIdentity;
 }
+
+/// The **`DOMMatrix`** interface represents 4×4 matrices, suitable for 2D and
+/// 3D operations including rotation and translation. It is a mutable version of
+/// the [DOMMatrixReadOnly] interface.
+///
+/// **`WebKitCSSMatrix`** and **`SVGMatrix`** are aliases to **`DOMMatrix`**.
+///
+/// This interface should be available inside
+/// [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API),
+/// though some implementations don't allow it yet.
 extension type DOMMatrix._(JSObject _) implements DOMMatrixReadOnly, JSObject {
   external factory DOMMatrix([JSAny init]);
 

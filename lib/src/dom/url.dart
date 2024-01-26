@@ -10,6 +10,18 @@
 
 import 'dart:js_interop';
 
+/// The **`URL`** interface is used to parse, construct, normalize, and encode .
+/// It works by providing properties which allow you to easily read and modify
+/// the components of a URL.
+///
+/// You normally create a new `URL` object by specifying the URL as a string
+/// when calling its constructor, or by providing a relative URL and a base URL.
+/// You can then easily read the parsed components of the URL or make changes to
+/// the URL.
+///
+/// If a browser doesn't yet support the [URL.URL] constructor, you can access a
+/// URL object using the [Window] interface's [URL] property. Be sure to check
+/// to see if any of your target browsers require this to be prefixed.
 extension type URL._(JSObject _) implements JSObject {
   external factory URL(
     String url, [
@@ -51,6 +63,21 @@ extension type URL._(JSObject _) implements JSObject {
   external set hash(String value);
   external String get hash;
 }
+
+/// The **`URLSearchParams`** interface defines utility methods to work with the
+/// query string of a URL.
+///
+/// An object implementing `URLSearchParams` can directly be used in a
+/// `for...of` structure to iterate over key/value pairs in the same order as
+/// they appear in the query string, for example the following two lines are
+/// equivalent:
+///
+/// ```js
+/// for (const [key, value] of mySearchParams) {
+/// }
+/// for (const [key, value] of mySearchParams.entries()) {
+/// }
+/// ```
 extension type URLSearchParams._(JSObject _) implements JSObject {
   external factory URLSearchParams([JSAny init]);
 

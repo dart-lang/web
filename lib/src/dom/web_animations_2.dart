@@ -52,6 +52,13 @@ extension type TimelineRangeOffset._(JSObject _) implements JSObject {
   external set offset(CSSNumericValue value);
   external CSSNumericValue get offset;
 }
+
+/// The AnimationPlaybackEvent interface of the
+/// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+/// represents animation events.
+///
+/// As animations play, they report changes to their [Animation.playState]
+/// through animation events.
 extension type AnimationPlaybackEvent._(JSObject _) implements Event, JSObject {
   external factory AnimationPlaybackEvent(
     String type, [

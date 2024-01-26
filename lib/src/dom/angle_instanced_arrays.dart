@@ -12,6 +12,26 @@ import 'dart:js_interop';
 
 import 'webgl1.dart';
 
+/// The **`ANGLE_instanced_arrays`** extension is part of the
+/// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
+/// allows to draw the same object, or groups of similar objects multiple times,
+/// if they share the same vertex data, primitive count and type.
+///
+/// WebGL extensions are available using the
+/// [WebGLRenderingContext.getExtension] method. For more information, see also
+/// [Using Extensions](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Using_Extensions)
+/// in the
+/// [WebGL tutorial](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial).
+///
+/// > **Note:** This extension is only available to [WebGLRenderingContext]
+/// > contexts. In [WebGL2RenderingContext], the functionality of this extension
+/// > is available on the WebGL2 context by default and the constants and
+/// > methods are available without the "`ANGLE`" suffix.
+/// >
+/// > Despite the name "ANGLE", this extension works on any device if the
+/// > hardware supports it and not just on Windows when using the ANGLE library.
+/// > "ANGLE" just indicates that this extension has been written by the ANGLE
+/// > library authors.
 extension type ANGLE_instanced_arrays._(JSObject _) implements JSObject {
   external static GLenum get VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE;
 

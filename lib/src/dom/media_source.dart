@@ -17,6 +17,11 @@ import 'webidl.dart';
 typedef ReadyState = String;
 typedef EndOfStreamError = String;
 typedef AppendMode = String;
+
+/// The **`MediaSource`** interface of the [Media Source Extensions API]
+/// represents a source of media data for an [HTMLMediaElement] object. A
+/// `MediaSource` object can be attached to a [HTMLMediaElement] to be played in
+/// the user agent.
 extension type MediaSource._(JSObject _) implements EventTarget, JSObject {
   external factory MediaSource();
 
@@ -64,7 +69,28 @@ extension type MediaSource._(JSObject _) implements EventTarget, JSObject {
   external set onsourceclose(EventHandler value);
   external EventHandler get onsourceclose;
 }
+
+/// The **`MediaSourceHandle`** interface of the [Media Source Extensions API]
+/// is a proxy for a [MediaSource] that can be transferred from a dedicated
+/// worker back to the main thread and attached to a media element via its
+/// [HTMLMediaElement.srcObject] property. `MediaSource` objects are not
+/// transferable because they are event targets, hence the need for
+/// `MediaSourceHandle`s.
+///
+/// It can be accessed via the [MediaSource.handle] property.
+///
+/// Each `MediaSource` object created inside a dedicated worker has its own
+/// distinct `MediaSourceHandle`. The `MediaSource.handle` getter will always
+/// return the `MediaSourceHandle` instance specific to the associated dedicated
+/// worker `MediaSource` instance. If the handle has already been transferred to
+/// the main thread using [DedicatedWorkerGlobalScope.postMessage], the handle
+/// instance in the worker is technically detached and can't be transferred
+/// again.
 extension type MediaSourceHandle._(JSObject _) implements JSObject {}
+
+/// The **`SourceBuffer`** interface represents a chunk of media to be passed
+/// into an [HTMLMediaElement] and played, via a [MediaSource] object. This can
+/// be made up of one or several media segments.
 extension type SourceBuffer._(JSObject _) implements EventTarget, JSObject {
   /// The **`appendBuffer()`** method of the
   /// [SourceBuffer] interface appends media segment data from an
@@ -124,6 +150,17 @@ extension type SourceBuffer._(JSObject _) implements EventTarget, JSObject {
   external set onabort(EventHandler value);
   external EventHandler get onabort;
 }
+
+/// The **`SourceBufferList`** interface represents a simple container list for
+/// multiple [SourceBuffer] objects.
+///
+/// The source buffer list containing the `SourceBuffer`s appended to a
+/// particular `MediaSource` can be retrieved using the
+/// [MediaSource.sourceBuffers] property.
+///
+/// The individual source buffers can be accessed using the
+/// [bracket notation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_accessors#bracket_notation)
+/// `[]`.
 extension type SourceBufferList._(JSObject _) implements EventTarget, JSObject {
   external int get length;
   external set onaddsourcebuffer(EventHandler value);

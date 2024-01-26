@@ -14,6 +14,12 @@ import 'dom.dart';
 
 typedef LockGrantedCallback = JSFunction;
 typedef LockMode = String;
+
+/// The **`LockManager`** interface of the
+/// [Web Locks API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Locks_API)
+/// provides methods for requesting a new [Lock] object and querying for an
+/// existing `Lock` object. To get an instance of `LockManager`, call
+/// [navigator.locks].
 extension type LockManager._(JSObject _) implements JSObject {
   /// The **`request()`** method of the [LockManager] interface requests a
   /// [Lock] object with parameters specifying its name and characteristics.
@@ -99,6 +105,13 @@ extension type LockInfo._(JSObject _) implements JSObject {
   external set clientId(String value);
   external String get clientId;
 }
+
+/// The **`Lock`** interface of the
+/// [Web Locks API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Locks_API)
+/// provides the name and mode of a lock.
+/// This may be a newly requested lock that is received in the callback to
+/// [LockManager.request], or a record of an active or queued lock returned by
+/// [LockManager.query].
 extension type Lock._(JSObject _) implements JSObject {
   external String get name;
   external LockMode get mode;

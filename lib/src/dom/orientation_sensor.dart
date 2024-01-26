@@ -14,6 +14,16 @@ import 'generic_sensor.dart';
 
 typedef RotationMatrixType = JSObject;
 typedef OrientationSensorLocalCoordinateSystem = String;
+
+/// The **`OrientationSensor`** interface of the
+/// [Sensor APIs](https://developer.mozilla.org/en-US/docs/Web/API/Sensor_APIs)
+/// is the base class for orientation sensors. This interface cannot be used
+/// directly. Instead it provides properties and methods accessed by interfaces
+/// that inherit from it.
+///
+/// This feature may be blocked by a
+/// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy)
+/// set on your server.
 extension type OrientationSensor._(JSObject _) implements Sensor, JSObject {
   /// The **`populateMatrix`** method of the
   /// [OrientationSensor] interface populates the given target matrix with the
@@ -41,11 +51,36 @@ extension type OrientationSensorOptions._(JSObject _)
   external set referenceFrame(OrientationSensorLocalCoordinateSystem value);
   external OrientationSensorLocalCoordinateSystem get referenceFrame;
 }
+
+/// The **`AbsoluteOrientationSensor`** interface of the
+/// [Sensor APIs](https://developer.mozilla.org/en-US/docs/Web/API/Sensor_APIs)
+/// describes the device's physical orientation in relation to the Earth's
+/// reference coordinate system.
+///
+/// To use this sensor, the user must grant permission to the `'accelerometer'`,
+/// `'gyroscope'`, and `'magnetometer'` device sensors through the
+/// [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API).
+///
+/// This feature may be blocked by a
+/// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy)
+/// set on your server.
 extension type AbsoluteOrientationSensor._(JSObject _)
     implements OrientationSensor, JSObject {
   external factory AbsoluteOrientationSensor(
       [OrientationSensorOptions sensorOptions]);
 }
+
+/// The **`RelativeOrientationSensor`** interface of the
+/// [Sensor APIs](https://developer.mozilla.org/en-US/docs/Web/API/Sensor_APIs)
+/// describes the device's physical orientation without regard to the Earth's
+/// reference coordinate system.
+///
+/// To use this sensor, the user must grant permission to the `'accelerometer'`,
+/// and `'gyroscope'` device sensors through the
+/// [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API).
+/// In addition, this feature may be blocked by a
+/// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy)
+/// set on your server.
 extension type RelativeOrientationSensor._(JSObject _)
     implements OrientationSensor, JSObject {
   external factory RelativeOrientationSensor(

@@ -12,6 +12,18 @@ import 'dart:js_interop';
 
 import 'generic_sensor.dart';
 
+/// The **`AmbientLightSensor`** interface of the
+/// [Sensor APIs](https://developer.mozilla.org/en-US/docs/Web/API/Sensor_APIs)
+/// returns the current light level or illuminance of the ambient light around
+/// the hosting device.
+///
+/// To use this sensor, the user must grant permission to the
+/// `'ambient-light-sensor'` device sensor through the
+/// [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API).
+///
+/// This feature may be blocked by a
+/// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy)
+/// set on your server.
 extension type AmbientLightSensor._(JSObject _) implements Sensor, JSObject {
   external factory AmbientLightSensor([SensorOptions sensorOptions]);
 

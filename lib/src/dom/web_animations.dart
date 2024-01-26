@@ -22,6 +22,15 @@ typedef FillMode = String;
 typedef PlaybackDirection = String;
 typedef CompositeOperation = String;
 typedef CompositeOperationOrAuto = String;
+
+/// The `AnimationTimeline` interface of the
+/// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+/// represents the timeline of an animation. This interface exists to define
+/// timeline features, inherited by other timeline types:
+///
+/// - [DocumentTimeline]
+/// - [ScrollTimeline]
+/// - [ViewTimeline]
 extension type AnimationTimeline._(JSObject _) implements JSObject {
   external Animation play([AnimationEffect? effect]);
   external CSSNumberish? get currentTime;
@@ -33,10 +42,20 @@ extension type DocumentTimelineOptions._(JSObject _) implements JSObject {
   external set originTime(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get originTime;
 }
+
+/// The **`DocumentTimeline`** interface of the
+/// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+/// represents animation timelines, including the default document timeline
+/// (accessed via [Document.timeline]).
 extension type DocumentTimeline._(JSObject _)
     implements AnimationTimeline, JSObject {
   external factory DocumentTimeline([DocumentTimelineOptions options]);
 }
+
+/// The **`Animation`** interface of the
+/// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+/// represents a single animation player and provides playback controls and a
+/// timeline for an animation node or source.
 extension type Animation._(JSObject _) implements EventTarget, JSObject {
   external factory Animation([
     AnimationEffect? effect,
@@ -159,6 +178,18 @@ extension type Animation._(JSObject _) implements EventTarget, JSObject {
   external set onremove(EventHandler value);
   external EventHandler get onremove;
 }
+
+/// The `AnimationEffect` interface of the
+/// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+/// is an interface representing animation effects.
+///
+/// `AnimationEffect` is an abstract interface and so isn't directly
+/// instantiable. However, concrete interfaces such as [KeyframeEffect] inherit
+/// from it, and instances of these interfaces can be passed to [Animation]
+/// objects for playing, and may also be used by
+/// [CSS Animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animations)
+/// and
+/// [Transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transitions).
 extension type AnimationEffect._(JSObject _) implements JSObject {
   external void before(AnimationEffect effects);
   external void after(AnimationEffect effects);
@@ -281,6 +312,12 @@ extension type ComputedEffectTiming._(JSObject _)
   external set currentIteration(num? value);
   external num? get currentIteration;
 }
+
+/// The **`KeyframeEffect`** interface of the
+/// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+/// lets us create sets of animatable properties and values, called
+/// **keyframes.** These can then be played using the [Animation.Animation]
+/// constructor.
 extension type KeyframeEffect._(JSObject _)
     implements AnimationEffect, JSObject {
   external factory KeyframeEffect(

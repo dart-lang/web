@@ -14,6 +14,16 @@ import 'cssom_view.dart';
 import 'dom.dart';
 import 'html.dart';
 
+/// The **`ScreenDetails`** interface of the
+/// [Window Management API](https://developer.mozilla.org/en-US/docs/Web/API/Window_Management_API)
+/// represents the details of all the screens available to the user's device.
+///
+/// This information is accessed via the [Window.getScreenDetails] method.
+///
+/// > **Note:** `ScreenDetails` is a live object, meaning that it updates as the
+/// > available screens change. You can therefore keep querying the same object
+/// > to get updated values, rather than repeatedly calling
+/// > `getScreenDetails()`.
 extension type ScreenDetails._(JSObject _) implements EventTarget, JSObject {
   external JSArray get screens;
   external ScreenDetailed get currentScreen;
@@ -22,6 +32,14 @@ extension type ScreenDetails._(JSObject _) implements EventTarget, JSObject {
   external set oncurrentscreenchange(EventHandler value);
   external EventHandler get oncurrentscreenchange;
 }
+
+/// The **`ScreenDetailed`** interface of the
+/// [Window Management API](https://developer.mozilla.org/en-US/docs/Web/API/Window_Management_API)
+/// represents detailed information about one specific screen available to the
+/// user's device.
+///
+/// `ScreenDetailed` objects can be accessed via the [ScreenDetails.screens] and
+/// [ScreenDetails.currentScreen] properties.
 extension type ScreenDetailed._(JSObject _) implements Screen, JSObject {
   external int get availLeft;
   external int get availTop;

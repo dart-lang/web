@@ -27,6 +27,36 @@ typedef ServiceWorkerState = String;
 typedef ServiceWorkerUpdateViaCache = String;
 typedef FrameType = String;
 typedef ClientType = String;
+
+/// The **`ServiceWorker`** interface of the
+/// [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
+/// provides a reference to a service worker. Multiple  (e.g. pages, workers,
+/// etc.) can be associated with the same service worker, each through a unique
+/// `ServiceWorker` object.
+///
+/// A `ServiceWorker` object is available via a number of properties:
+///
+/// - [ServiceWorkerRegistration.active]
+/// - [ServiceWorkerGlobalScope.serviceWorker]
+/// - [ServiceWorkerContainer.controller] — when the service worker is in
+///   `activating` or `activated` state
+/// - [ServiceWorkerRegistration.installing] — when the service worker is in
+///   `installing` state
+/// - [ServiceWorkerRegistration.waiting] — when the service worker is in
+///   `installed` state
+///
+/// The `ServiceWorker` interface is dispatched a set of lifecycle events —
+/// `install` and `activate` — and functional events including `fetch`. A
+/// `ServiceWorker` object has an associated [ServiceWorker.state], related to
+/// its lifecycle.
+///
+/// Service workers allow static import of
+/// [ECMAScript modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules),
+/// if supported, using
+/// [`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import).
+/// Dynamic import is disallowed by the specification — calling
+/// [`import()`](/en-US/docs/Web/JavaScript/Reference/Operators/import) will
+/// throw.
 extension type ServiceWorker._(JSObject _) implements EventTarget, JSObject {
   /// The **`postMessage()`** method of the [ServiceWorker] interface sends a
   /// message to the worker. This accepts a single parameter, which is the data
@@ -49,6 +79,19 @@ extension type ServiceWorker._(JSObject _) implements EventTarget, JSObject {
   external set onerror(EventHandler value);
   external EventHandler get onerror;
 }
+
+/// The **`ServiceWorkerRegistration`** interface of the
+/// [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
+/// represents the service worker registration. You register a service worker to
+/// control one or more pages that share the same origin.
+///
+/// The lifetime of a service worker registration is beyond that of the
+/// `ServiceWorkerRegistration` objects that represent them within the lifetime
+/// of their corresponding service worker clients. The browser maintains a
+/// persistent list of active `ServiceWorkerRegistration` objects.
+///
+/// > **Note:** This feature is available in
+/// > [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
 extension type ServiceWorkerRegistration._(JSObject _)
     implements EventTarget, JSObject {
   /// The **`showNotification()`** method of the
@@ -116,6 +159,18 @@ extension type ServiceWorkerRegistration._(JSObject _)
   external set onupdatefound(EventHandler value);
   external EventHandler get onupdatefound;
 }
+
+/// The **`ServiceWorkerContainer`** interface of the
+/// [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
+/// provides an object representing the service worker as an overall unit in the
+/// network ecosystem, including facilities to register, unregister and update
+/// service workers, and access the state of service workers and their
+/// registrations.
+///
+/// Most importantly, it exposes the [ServiceWorkerContainer.register] method
+/// used to register service workers, and the
+/// [ServiceWorkerContainer.controller] property used to determine whether or
+/// not the current page is actively controlled.
 extension type ServiceWorkerContainer._(JSObject _)
     implements EventTarget, JSObject {
   /// The **`register()`** method of the
@@ -185,6 +240,16 @@ extension type RegistrationOptions._(JSObject _) implements JSObject {
   external set updateViaCache(ServiceWorkerUpdateViaCache value);
   external ServiceWorkerUpdateViaCache get updateViaCache;
 }
+
+/// The **`NavigationPreloadManager`** interface of the
+/// [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
+/// provides methods for managing the preloading of resources in parallel with
+/// service worker bootup.
+///
+/// If supported, an object of this type is returned by
+/// [ServiceWorkerRegistration.navigationPreload].
+/// The result of a preload fetch request is waited on using the promise
+/// returned by [FetchEvent.preloadResponse].
 extension type NavigationPreloadManager._(JSObject _) implements JSObject {
   /// The **`enable()`** method of the [NavigationPreloadManager] interface is
   /// used to enable preloading of resources managed by the service worker.
@@ -238,6 +303,27 @@ extension type NavigationPreloadState._(JSObject _) implements JSObject {
   external set headerValue(String value);
   external String get headerValue;
 }
+
+/// The **`ServiceWorkerGlobalScope`** interface of the
+/// [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
+/// represents the global execution context of a service worker.
+///
+/// Developers should keep in mind that the ServiceWorker state is not persisted
+/// across the termination/restart cycle, so each event handler should assume
+/// it's being invoked with a bare, default global state.
+///
+/// Once successfully registered, a service worker can and will be terminated
+/// when idle to conserve memory and processor power. An active service worker
+/// is automatically restarted to respond to events, such as
+/// [ServiceWorkerGlobalScope.fetch_event] or
+/// [ServiceWorkerGlobalScope.message_event].
+///
+/// Additionally, synchronous requests are not allowed from within a service
+/// worker — only asynchronous requests, like those initiated via the [fetch]
+/// method, can be used.
+///
+/// This interface inherits from the [WorkerGlobalScope] interface, and its
+/// parent [EventTarget].
 extension type ServiceWorkerGlobalScope._(JSObject _)
     implements WorkerGlobalScope, JSObject {
   /// The **`ServiceWorkerGlobalScope.skipWaiting()`** method of the
@@ -291,6 +377,11 @@ extension type ServiceWorkerGlobalScope._(JSObject _)
   external set onmessageerror(EventHandler value);
   external EventHandler get onmessageerror;
 }
+
+/// The `Client` interface represents an executable context such as a [Worker],
+/// or a [SharedWorker]. [Window] clients are represented by the more-specific
+/// [WindowClient]. You can get `Client`/`WindowClient` objects from methods
+/// such as [Clients.matchAll] and [Clients.get].
 extension type Client._(JSObject _) implements JSObject {
   /// The **`postMessage()`** method of the
   /// [Client] interface allows a service worker to send a message to a client
@@ -307,6 +398,13 @@ extension type Client._(JSObject _) implements JSObject {
   external String get id;
   external ClientType get type;
 }
+
+/// The `WindowClient` interface of the
+/// [ServiceWorker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
+/// represents the scope of a service worker client that is a document in a
+/// browsing context, controlled by an active worker. The service worker client
+/// independently selects and uses a service worker for its own loading and
+/// sub-resources.
 extension type WindowClient._(JSObject _) implements Client, JSObject {
   /// The **`focus()`** method of the [WindowClient]
   /// interface gives user input focus to the current client and returns a
@@ -323,6 +421,10 @@ extension type WindowClient._(JSObject _) implements Client, JSObject {
   external bool get focused;
   external JSArray get ancestorOrigins;
 }
+
+/// The `Clients` interface provides access to [Client] objects. Access it via
+/// `[ServiceWorkerGlobalScope].clients` within a
+/// [service worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
 extension type Clients._(JSObject _) implements JSObject {
   /// The **`get()`** method of the
   /// [Clients] interface gets a service worker client matching a given
@@ -386,6 +488,30 @@ extension type ClientQueryOptions._(JSObject _) implements JSObject {
   external set type(ClientType value);
   external ClientType get type;
 }
+
+/// The **`ExtendableEvent`** interface extends the lifetime of the
+/// [`install`](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope/install_event)
+/// and
+/// [`activate`](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope/activate_event)
+/// events dispatched on the global scope as part of the service worker
+/// lifecycle. This ensures that any functional events (like [FetchEvent]) are
+/// not dispatched until it upgrades database schemas and deletes the outdated
+/// cache entries.
+///
+/// If [ExtendableEvent.waitUntil] is called outside of the `ExtendableEvent`
+/// handler, the browser should throw an `InvalidStateError`; note also that
+/// multiple calls will stack up, and the resulting promises will be added to
+/// the list of
+/// [extend lifetime promises](https://w3c.github.io/ServiceWorker/#extendableevent-extend-lifetime-promises).
+///
+/// > **Note:** The behavior described in the above paragraph was fixed in
+/// > Firefox 43 (see [Firefox bug 1180274](https://bugzil.la/1180274).)
+///
+/// This interface inherits from the [Event] interface.
+///
+/// > **Note:** This interface is only available when the global scope is a
+/// > [ServiceWorkerGlobalScope]. It is not available when it is a [Window], or
+/// > the scope of another kind of worker.
 extension type ExtendableEvent._(JSObject _) implements Event, JSObject {
   external factory ExtendableEvent(
     String type, [
@@ -435,6 +561,12 @@ extension type ExtendableEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory ExtendableEventInit();
 }
+
+/// This is the event type for `fetch` events dispatched on the
+/// [ServiceWorkerGlobalScope]. It contains information about the fetch,
+/// including the request and how the receiver will treat the response. It
+/// provides the [FetchEvent.respondWith] method, which allows us to provide a
+/// response to this fetch.
 extension type FetchEvent._(JSObject _) implements ExtendableEvent, JSObject {
   external factory FetchEvent(
     String type,
@@ -536,6 +668,15 @@ extension type FetchEventInit._(JSObject _)
   external set handled(JSPromise value);
   external JSPromise get handled;
 }
+
+/// The **`ExtendableMessageEvent`** interface of the
+/// [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
+/// represents the event object of a [ServiceWorkerGlobalScope/message_event]
+/// event fired on a service worker (when a message is received on the
+/// [ServiceWorkerGlobalScope] from another context) — extends the lifetime of
+/// such events.
+///
+/// This interface inherits from the [ExtendableEvent] interface.
 extension type ExtendableMessageEvent._(JSObject _)
     implements ExtendableEvent, JSObject {
   external factory ExtendableMessageEvent(
@@ -570,6 +711,39 @@ extension type ExtendableMessageEventInit._(JSObject _)
   external set ports(JSArray value);
   external JSArray get ports;
 }
+
+/// The **`Cache`** interface provides a persistent storage mechanism for
+/// [Request] / [Response] object pairs that are cached in long lived memory.
+/// How long a `Cache` object lives is browser dependent, but a single origin's
+/// scripts can typically rely on the presence of a previously populated `Cache`
+/// object. Note that the `Cache` interface is exposed to windowed scopes as
+/// well as workers. You don't have to use it in conjunction with service
+/// workers, even though it is defined in the service worker spec.
+///
+/// An origin can have multiple, named `Cache` objects. You are responsible for
+/// implementing how your script (e.g. in a [ServiceWorker]) handles `Cache`
+/// updates. Items in a `Cache` do not get updated unless explicitly requested;
+/// they don't expire unless deleted. Use [CacheStorage.open] to open a specific
+/// named `Cache` object and then call any of the `Cache` methods to maintain
+/// the `Cache`.
+///
+/// You are also responsible for periodically purging cache entries. Each
+/// browser has a hard limit on the amount of cache storage that a given origin
+/// can use. `Cache` quota usage estimates are available via the
+/// [StorageManager.estimate] method. The browser does its best to manage disk
+/// space, but it may delete the `Cache` storage for an origin. The browser will
+/// generally delete all of the data for an origin or none of the data for an
+/// origin. Make sure to version caches by name and use the caches only from the
+/// version of the script that they can safely operate on. See
+/// [Deleting old caches](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers#deleting_old_caches)
+/// for more information.
+///
+/// > **Note:** The key matching algorithm depends on the
+/// > [VARY header](https://www.fastly.com/blog/best-practices-using-vary-header)
+/// > in the value. So matching a new key requires looking at both key and value
+/// > for entries in the `Cache` object.
+///
+/// > **Note:** The caching API doesn't honor HTTP caching headers.
 extension type Cache._(JSObject _) implements JSObject {
   /// The **`match()`** method of the [Cache] interface returns a `Promise` that
   /// resolves to the [Response] associated with the first matching request in
@@ -690,6 +864,35 @@ extension type CacheQueryOptions._(JSObject _) implements JSObject {
   external set ignoreVary(bool value);
   external bool get ignoreVary;
 }
+
+/// The **`CacheStorage`** interface represents the storage for [Cache] objects.
+///
+/// The interface:
+///
+/// - Provides a master directory of all the named caches that can be accessed
+///   by a [ServiceWorker] or other type of worker or [window] scope (you're not
+///   limited to only using it with service workers).
+/// - Maintains a mapping of string names to corresponding [Cache] objects.
+///
+/// Use [CacheStorage.open] to obtain a [Cache] instance.
+///
+/// Use [CacheStorage.match] to check if a given [Request] is a key in any of
+/// the [Cache] objects that the `CacheStorage` object tracks.
+///
+/// You can access `CacheStorage` through the global [caches] property.
+///
+/// > **Note:** `CacheStorage` always rejects with a `SecurityError` on
+/// > untrusted origins (i.e. those that aren't using HTTPS, although this
+/// > definition will likely become more complex in the future.) When testing on
+/// > Firefox, you can get around this by checking the **Enable Service Workers
+/// > over HTTP (when toolbox is open)** option in the Firefox Devtools
+/// > options/gear menu. Furthermore, because `CacheStorage` requires
+/// > file-system access, it may be unavailable in private mode in Firefox.
+///
+/// > **Note:** [CacheStorage.match] is a convenience method. Equivalent
+/// > functionality to match a cache entry can be implemented by returning an
+/// > array of cache names from [CacheStorage.keys], opening each cache with
+/// > [CacheStorage.open], and matching the one you want with [Cache.match].
 extension type CacheStorage._(JSObject _) implements JSObject {
   /// The **`match()`** method of the [CacheStorage] interface checks if a given
   /// [Request] or URL string is a key for a stored [Response].

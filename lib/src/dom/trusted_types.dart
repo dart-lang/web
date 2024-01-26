@@ -17,6 +17,17 @@ typedef TrustedType = JSObject;
 typedef CreateHTMLCallback = JSFunction;
 typedef CreateScriptCallback = JSFunction;
 typedef CreateScriptURLCallback = JSFunction;
+
+/// `Trusted Types API`
+///
+/// The **`TrustedHTML`** interface of the [Trusted Types API] represents a
+/// string that a developer can insert into an
+/// [injection sink](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API#injection_sinks)
+/// that will render it as HTML. These objects are created via
+/// [TrustedTypePolicy.createHTML] and therefore have no constructor.
+///
+/// The value of a **TrustedHTML** object is set when the object is created and
+/// cannot be changed by JavaScript as there is no setter exposed.
 extension type TrustedHTML._(JSObject _) implements JSObject {
   external static TrustedHTML fromLiteral(JSObject templateStringsArray);
 
@@ -26,6 +37,17 @@ extension type TrustedHTML._(JSObject _) implements JSObject {
   /// representation of the stored data.
   external String toJSON();
 }
+
+/// `Trusted Types API`
+///
+/// The **`TrustedScript`** interface of the [Trusted Types API] represents a
+/// string with an uncompiled script body that a developer can insert into an
+/// [injection sink](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API#injection_sinks)
+/// that might execute the script. These objects are created via
+/// [TrustedTypePolicy.createScript] and therefore have no constructor.
+///
+/// The value of a **TrustedScript** object is set when the object is created
+/// and cannot be changed by JavaScript as there is no setter exposed.
 extension type TrustedScript._(JSObject _) implements JSObject {
   external static TrustedScript fromLiteral(JSObject templateStringsArray);
 
@@ -35,6 +57,17 @@ extension type TrustedScript._(JSObject _) implements JSObject {
   /// representation of the stored data.
   external String toJSON();
 }
+
+/// `Trusted Types API`
+///
+/// The **`TrustedScriptURL`** interface of the [Trusted Types API] represents a
+/// string that a developer can insert into an
+/// [injection sink](https://developer.mozilla.org/en-US/docs/Web/API/Trusted_Types_API#injection_sinks)
+/// that will parse it as a URL of an external script. These objects are created
+/// via [TrustedTypePolicy.createScriptURL] and therefore have no constructor.
+///
+/// The value of a **TrustedScriptURL** object is set when the object is created
+/// and cannot be changed by JavaScript as there is no setter exposed.
 extension type TrustedScriptURL._(JSObject _) implements JSObject {
   external static TrustedScriptURL fromLiteral(JSObject templateStringsArray);
 
@@ -44,6 +77,12 @@ extension type TrustedScriptURL._(JSObject _) implements JSObject {
   /// JSON representation of the stored data.
   external String toJSON();
 }
+
+/// `Trusted Types API`
+///
+/// The **`TrustedTypePolicyFactory`** interface of the [Trusted Types API]
+/// creates policies and allows the verification of Trusted Type objects against
+/// created policies.
 extension type TrustedTypePolicyFactory._(JSObject _) implements JSObject {
   /// `Trusted Types API`
   ///
@@ -128,6 +167,15 @@ extension type TrustedTypePolicyFactory._(JSObject _) implements JSObject {
   external TrustedScript get emptyScript;
   external TrustedTypePolicy? get defaultPolicy;
 }
+
+/// `Trusted Types API`
+///
+/// The **`TrustedTypePolicy`** interface of the [Trusted Types API] defines a
+/// group of functions which create [TrustedType] objects.
+///
+/// A `TrustedTypePolicy` object is created by
+/// [TrustedTypePolicyFactory.createPolicy] to define a policy for enforcing
+/// security rules on input. Therefore, `TrustedTypePolicy` has no constructor.
 extension type TrustedTypePolicy._(JSObject _) implements JSObject {
   /// `Trusted Types API`
   ///

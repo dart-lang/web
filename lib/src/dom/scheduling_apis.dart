@@ -29,6 +29,14 @@ extension type SchedulerPostTaskOptions._(JSObject _) implements JSObject {
   external set delay(int value);
   external int get delay;
 }
+
+/// The **`Scheduler`** interface of the
+/// [Prioritized Task Scheduling API](https://developer.mozilla.org/en-US/docs/Web/API/Prioritized_Task_Scheduling_API)
+/// provides the [Scheduler.postTask] method that can be used for adding
+/// prioritized tasks to be scheduled.
+///
+/// A `Scheduler` can be accessed from the global object [Window] or
+/// [WorkerGlobalScope] (`this.scheduler`).
 extension type Scheduler._(JSObject _) implements JSObject {
   /// The **`postTask()`** method of the [Scheduler] interface is used for
   /// adding tasks to be
@@ -69,6 +77,10 @@ extension type Scheduler._(JSObject _) implements JSObject {
     SchedulerPostTaskOptions options,
   ]);
 }
+
+/// The **`TaskPriorityChangeEvent`** is the interface for the
+/// [`prioritychange`](https://developer.mozilla.org/en-US/docs/Web/API/TaskSignal/prioritychange_event)
+/// event.
 extension type TaskPriorityChangeEvent._(JSObject _)
     implements Event, JSObject {
   external factory TaskPriorityChangeEvent(
@@ -92,6 +104,33 @@ extension type TaskControllerInit._(JSObject _) implements JSObject {
   external set priority(TaskPriority value);
   external TaskPriority get priority;
 }
+
+/// The **`TaskController`** interface of the
+/// [Prioritized Task Scheduling API](https://developer.mozilla.org/en-US/docs/Web/API/Prioritized_Task_Scheduling_API)
+/// represents a controller object that can be used to both abort and change the
+/// [priority](https://developer.mozilla.org/en-US/docs/Web/API/Prioritized_Task_Scheduling_API#task_priorities)
+/// of one or more prioritized tasks.
+/// If there is no need to change task priorities, then [AbortController] can be
+/// used instead.
+///
+/// A new `TaskController` instance is created using the
+/// [TaskController.TaskController] constructor, optionally specifying a
+/// [priority](https://developer.mozilla.org/en-US/docs/Web/API/Prioritized_Task_Scheduling_API#task_priorities)
+/// for its associated signal (a [TaskSignal]).
+/// If not specified, the signal will have a priority of
+/// [`"user-visible"`](/en-US/docs/Web/API/Prioritized_Task_Scheduling_API#user-visible)
+/// by default.
+///
+/// The controller's signal can be passed as an argument to the
+/// [Scheduler.postTask] method for one or more tasks.
+/// For
+/// [mutable tasks](https://developer.mozilla.org/en-US/docs/Web/API/Prioritized_Task_Scheduling_API#mutable_and_immutable_task_priority)
+/// (only) the task is initialized with the signal priority, and can later be
+/// changed by calling [TaskController.setPriority].
+/// For immutable tasks, any priority initialized or set by the controller is
+/// ignored.
+///
+/// Tasks can be aborted by calling [AbortController.abort] on the controller.
 extension type TaskController._(JSObject _)
     implements AbortController, JSObject {
   external factory TaskController([TaskControllerInit init]);
@@ -122,6 +161,29 @@ extension type TaskSignalAnyInit._(JSObject _) implements JSObject {
   external set priority(JSAny value);
   external JSAny get priority;
 }
+
+/// The **`TaskSignal`** interface of the
+/// [Prioritized Task Scheduling API](https://developer.mozilla.org/en-US/docs/Web/API/Prioritized_Task_Scheduling_API)
+/// represents a signal object that allows you to communicate with a prioritized
+/// task, and abort it or change the
+/// [priority](https://developer.mozilla.org/en-US/docs/Web/API/Prioritized_Task_Scheduling_API#task_priorities)
+/// (if required) via a [TaskController] object.
+///
+/// An object of this type is created, and associated with, a [TaskController].
+/// The initial priority of the signal may be set by specifying it as an
+/// argument to the [TaskController.TaskController] constructor (by default it
+/// is `"user-visible"`).
+/// The priority can be changed by calling [TaskController.setPriority] on the
+/// controller.
+///
+/// The signal may be passed as the `options.signal` argument in
+/// [Scheduler.postTask], after which it's associated controller can be used to
+/// abort the task.
+/// If the
+/// [task priority is mutable](https://developer.mozilla.org/en-US/docs/Web/API/Prioritized_Task_Scheduling_API#mutable_and_immutable_task_priority),
+/// the controller can also be used to change the task's priority.
+/// Abortable tasks that do not need the priority to change may instead specify
+/// an [AbortSignal] as the `options.signal` argument.
 extension type TaskSignal._(JSObject _) implements AbortSignal, JSObject {
   external static TaskSignal any(
     JSArray signals, [

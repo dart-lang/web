@@ -80,6 +80,12 @@ extension type RTCIdentityProviderOptions._(JSObject _) implements JSObject {
   external set peerIdentity(String value);
   external String get peerIdentity;
 }
+
+/// The **`RTCIdentityAssertion`** interface of the
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
+/// represents the identity of a remote peer of the current connection. If no
+/// peer has yet been set and verified, then this interface returns `null`. Once
+/// set it can't be changed.
 extension type RTCIdentityAssertion._(JSObject _) implements JSObject {
   external factory RTCIdentityAssertion(
     String idp,

@@ -36,6 +36,11 @@ extension type ContentDescription._(JSObject _) implements JSObject {
   external set url(String value);
   external String get url;
 }
+
+/// The **`ContentIndex`** interface of the
+/// [Content Index API](https://developer.mozilla.org/en-US/docs/Web/API/Content_Index_API)
+/// allows developers to register their offline enabled content with the
+/// browser.
 extension type ContentIndex._(JSObject _) implements JSObject {
   /// The **`add()`** method of the
   /// [ContentIndex] interface registers an item with the
@@ -63,6 +68,20 @@ extension type ContentIndexEventInit._(JSObject _)
   external set id(String value);
   external String get id;
 }
+
+/// The **`ContentIndexEvent`** interface of the
+/// [content index](https://developer.mozilla.org/en-US/docs/Web/API/Content_Index_API)
+/// defines the object used to represent the
+/// [ServiceWorkerGlobalScope.contentdelete_event] event.
+///
+/// This event is sent to the
+/// [global scope](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope)
+/// of a [ServiceWorker]. It contains the id of the indexed content to be
+/// removed.
+///
+/// The [ServiceWorkerGlobalScope.contentdelete_event] event is only fired when
+/// the deletion happens due to interaction with the browser's built-in user
+/// interface. It is not fired when the [ContentIndex.delete] method is called.
 extension type ContentIndexEvent._(JSObject _)
     implements ExtendableEvent, JSObject {
   external factory ContentIndexEvent(

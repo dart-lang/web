@@ -41,6 +41,9 @@ typedef VideoPixelFormat = String;
 typedef VideoColorPrimaries = String;
 typedef VideoTransferCharacteristics = String;
 typedef VideoMatrixCoefficients = String;
+
+/// The **`AudioDecoder`** interface of the [WebCodecs API] decodes chunks of
+/// audio.
 extension type AudioDecoder._(JSObject _) implements EventTarget, JSObject {
   external factory AudioDecoder(AudioDecoderInit init);
 
@@ -82,6 +85,9 @@ extension type AudioDecoderInit._(JSObject _) implements JSObject {
   external set error(WebCodecsErrorCallback value);
   external WebCodecsErrorCallback get error;
 }
+
+/// The **`VideoDecoder`** interface of the [WebCodecs API] decodes chunks of
+/// video.
 extension type VideoDecoder._(JSObject _) implements EventTarget, JSObject {
   external factory VideoDecoder(VideoDecoderInit init);
 
@@ -123,6 +129,10 @@ extension type VideoDecoderInit._(JSObject _) implements JSObject {
   external set error(WebCodecsErrorCallback value);
   external WebCodecsErrorCallback get error;
 }
+
+/// The **`AudioEncoder`** interface of the
+/// [WebCodecs API](https://developer.mozilla.org/en-US/docs/Web/API/WebCodecs_API)
+/// encodes [AudioData] objects.
 extension type AudioEncoder._(JSObject _) implements EventTarget, JSObject {
   external factory AudioEncoder(AudioEncoderInit init);
 
@@ -171,6 +181,9 @@ extension type EncodedAudioChunkMetadata._(JSObject _) implements JSObject {
   external set decoderConfig(AudioDecoderConfig value);
   external AudioDecoderConfig get decoderConfig;
 }
+
+/// The **`VideoEncoder`** interface of the [WebCodecs API] encodes [VideoFrame]
+/// objects into [EncodedVideoChunk]s.
 extension type VideoEncoder._(JSObject _) implements EventTarget, JSObject {
   external factory VideoEncoder(VideoEncoderInit init);
 
@@ -443,6 +456,9 @@ extension type VideoEncoderEncodeOptions._(JSObject _) implements JSObject {
   external set keyFrame(bool value);
   external bool get keyFrame;
 }
+
+/// The **`EncodedAudioChunk`** interface of the [WebCodecs API] represents a
+/// chunk of encoded audio data.
 extension type EncodedAudioChunk._(JSObject _) implements JSObject {
   external factory EncodedAudioChunk(EncodedAudioChunkInit init);
 
@@ -471,6 +487,9 @@ extension type EncodedAudioChunkInit._(JSObject _) implements JSObject {
   external set data(BufferSource value);
   external BufferSource get data;
 }
+
+/// The **`EncodedVideoChunk`** interface of the [WebCodecs API] represents a
+/// chunk of encoded video data.
 extension type EncodedVideoChunk._(JSObject _) implements JSObject {
   external factory EncodedVideoChunk(EncodedVideoChunkInit init);
 
@@ -499,6 +518,13 @@ extension type EncodedVideoChunkInit._(JSObject _) implements JSObject {
   external set data(AllowSharedBufferSource value);
   external AllowSharedBufferSource get data;
 }
+
+/// The **`AudioData`** interface of the
+/// [WebCodecs API](https://developer.mozilla.org/en-US/docs/Web/API/WebCodecs_API)
+/// represents an audio sample.
+///
+/// `AudioData` is a
+/// [transferable object](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
 extension type AudioData._(JSObject _) implements JSObject {
   external factory AudioData(AudioDataInit init);
 
@@ -572,6 +598,13 @@ extension type AudioDataCopyToOptions._(JSObject _) implements JSObject {
   external set format(AudioSampleFormat value);
   external AudioSampleFormat get format;
 }
+
+/// The **`VideoFrame`** interface of the
+/// [Web Codecs API](https://developer.mozilla.org/en-US/docs/Web/API/WebCodecs_API)
+/// represents a frame of a video.
+///
+/// `VideoFrame` is a
+/// [transferable object](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
 extension type VideoFrame._(JSObject _) implements JSObject {
   external factory VideoFrame(
     JSObject dataOrImage, [
@@ -699,6 +732,9 @@ extension type PlaneLayout._(JSObject _) implements JSObject {
   external set stride(int value);
   external int get stride;
 }
+
+/// The **`VideoColorSpace`** interface of the [WebCodecs API] represents the
+/// color space of a video.
 extension type VideoColorSpace._(JSObject _) implements JSObject {
   external factory VideoColorSpace([VideoColorSpaceInit init]);
 
@@ -730,6 +766,9 @@ extension type VideoColorSpaceInit._(JSObject _) implements JSObject {
   external set fullRange(bool? value);
   external bool? get fullRange;
 }
+
+/// The **`ImageDecoder`** interface of the [WebCodecs API] provides a way to
+/// unpack and decode encoded image data.
 extension type ImageDecoder._(JSObject _) implements JSObject {
   external factory ImageDecoder(ImageDecoderInit init);
 
@@ -801,12 +840,18 @@ extension type ImageDecodeResult._(JSObject _) implements JSObject {
   external set complete(bool value);
   external bool get complete;
 }
+
+/// The **`ImageTrackList`** interface of the [WebCodecs API] represents a list
+/// of image tracks.
 extension type ImageTrackList._(JSObject _) implements JSObject {
   external JSPromise get ready;
   external int get length;
   external int get selectedIndex;
   external ImageTrack? get selectedTrack;
 }
+
+/// The **`ImageTrack`** interface of the [WebCodecs API] represents an
+/// individual image track.
 extension type ImageTrack._(JSObject _) implements JSObject {
   external bool get animated;
   external int get frameCount;

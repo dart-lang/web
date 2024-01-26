@@ -12,6 +12,8 @@ import 'dart:js_interop';
 
 import 'svg.dart';
 
+/// The **`SVGFilterElement`** interface provides access to the properties of
+/// elements, as well as methods to manipulate them.
 extension type SVGFilterElement._(JSObject _) implements SVGElement, JSObject {
   external SVGAnimatedEnumeration get filterUnits;
   external SVGAnimatedEnumeration get primitiveUnits;
@@ -21,6 +23,8 @@ extension type SVGFilterElement._(JSObject _) implements SVGElement, JSObject {
   external SVGAnimatedLength get height;
   external SVGAnimatedString get href;
 }
+
+/// The **`SVGFEBlendElement`** interface corresponds to the  element.
 extension type SVGFEBlendElement._(JSObject _) implements SVGElement, JSObject {
   external static int get SVG_FEBLEND_MODE_UNKNOWN;
   external static int get SVG_FEBLEND_MODE_NORMAL;
@@ -48,6 +52,8 @@ extension type SVGFEBlendElement._(JSObject _) implements SVGElement, JSObject {
   external SVGAnimatedLength get height;
   external SVGAnimatedString get result;
 }
+
+/// The **`SVGFEColorMatrixElement`** interface corresponds to the  element.
 extension type SVGFEColorMatrixElement._(JSObject _)
     implements SVGElement, JSObject {
   external static int get SVG_FECOLORMATRIX_TYPE_UNKNOWN;
@@ -64,6 +70,9 @@ extension type SVGFEColorMatrixElement._(JSObject _)
   external SVGAnimatedLength get height;
   external SVGAnimatedString get result;
 }
+
+/// The **`SVGFEComponentTransferElement`** interface corresponds to the
+/// element.
 extension type SVGFEComponentTransferElement._(JSObject _)
     implements SVGElement, JSObject {
   external SVGAnimatedString get in1;
@@ -73,6 +82,9 @@ extension type SVGFEComponentTransferElement._(JSObject _)
   external SVGAnimatedLength get height;
   external SVGAnimatedString get result;
 }
+
+/// The **`SVGComponentTransferFunctionElement`** interface defines a base
+/// interface used by the component transfer function interfaces.
 extension type SVGComponentTransferFunctionElement._(JSObject _)
     implements SVGElement, JSObject {
   external static int get SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN;
@@ -89,14 +101,24 @@ extension type SVGComponentTransferFunctionElement._(JSObject _)
   external SVGAnimatedNumber get exponent;
   external SVGAnimatedNumber get offset;
 }
+
+/// The **`SVGFEFuncRElement`** interface corresponds to the  element.
 extension type SVGFEFuncRElement._(JSObject _)
     implements SVGComponentTransferFunctionElement, JSObject {}
+
+/// The **`SVGFEFuncGElement`** interface corresponds to the  element.
 extension type SVGFEFuncGElement._(JSObject _)
     implements SVGComponentTransferFunctionElement, JSObject {}
+
+/// The **`SVGFEFuncBElement`** interface corresponds to the  element.
 extension type SVGFEFuncBElement._(JSObject _)
     implements SVGComponentTransferFunctionElement, JSObject {}
+
+/// The **`SVGFEFuncAElement`** interface corresponds to the  element.
 extension type SVGFEFuncAElement._(JSObject _)
     implements SVGComponentTransferFunctionElement, JSObject {}
+
+/// The **`SVGFECompositeElement`** interface corresponds to the  element.
 extension type SVGFECompositeElement._(JSObject _)
     implements SVGElement, JSObject {
   external static int get SVG_FECOMPOSITE_OPERATOR_UNKNOWN;
@@ -119,6 +141,8 @@ extension type SVGFECompositeElement._(JSObject _)
   external SVGAnimatedLength get height;
   external SVGAnimatedString get result;
 }
+
+/// The **`SVGFEConvolveMatrixElement`** interface corresponds to the  element.
 extension type SVGFEConvolveMatrixElement._(JSObject _)
     implements SVGElement, JSObject {
   external static int get SVG_EDGEMODE_UNKNOWN;
@@ -143,6 +167,8 @@ extension type SVGFEConvolveMatrixElement._(JSObject _)
   external SVGAnimatedLength get height;
   external SVGAnimatedString get result;
 }
+
+/// The **`SVGFEDiffuseLightingElement`** interface corresponds to the  element.
 extension type SVGFEDiffuseLightingElement._(JSObject _)
     implements SVGElement, JSObject {
   external SVGAnimatedString get in1;
@@ -156,17 +182,23 @@ extension type SVGFEDiffuseLightingElement._(JSObject _)
   external SVGAnimatedLength get height;
   external SVGAnimatedString get result;
 }
+
+/// The **`SVGFEDistantLightElement`** interface corresponds to the  element.
 extension type SVGFEDistantLightElement._(JSObject _)
     implements SVGElement, JSObject {
   external SVGAnimatedNumber get azimuth;
   external SVGAnimatedNumber get elevation;
 }
+
+/// The **`SVGFEPointLightElement`** interface corresponds to the  element.
 extension type SVGFEPointLightElement._(JSObject _)
     implements SVGElement, JSObject {
   external SVGAnimatedNumber get x;
   external SVGAnimatedNumber get y;
   external SVGAnimatedNumber get z;
 }
+
+/// The **`SVGFESpotLightElement`** interface corresponds to the  element.
 extension type SVGFESpotLightElement._(JSObject _)
     implements SVGElement, JSObject {
   external SVGAnimatedNumber get x;
@@ -178,6 +210,8 @@ extension type SVGFESpotLightElement._(JSObject _)
   external SVGAnimatedNumber get specularExponent;
   external SVGAnimatedNumber get limitingConeAngle;
 }
+
+/// The **`SVGFEDisplacementMapElement`** interface corresponds to the  element.
 extension type SVGFEDisplacementMapElement._(JSObject _)
     implements SVGElement, JSObject {
   external static int get SVG_CHANNEL_UNKNOWN;
@@ -196,6 +230,8 @@ extension type SVGFEDisplacementMapElement._(JSObject _)
   external SVGAnimatedLength get height;
   external SVGAnimatedString get result;
 }
+
+/// The **`SVGFEDropShadowElement`** interface corresponds to the  element.
 extension type SVGFEDropShadowElement._(JSObject _)
     implements SVGElement, JSObject {
   external void setStdDeviation(
@@ -213,6 +249,8 @@ extension type SVGFEDropShadowElement._(JSObject _)
   external SVGAnimatedLength get height;
   external SVGAnimatedString get result;
 }
+
+/// The **`SVGFEFloodElement`** interface corresponds to the  element.
 extension type SVGFEFloodElement._(JSObject _) implements SVGElement, JSObject {
   external SVGAnimatedLength get x;
   external SVGAnimatedLength get y;
@@ -220,6 +258,8 @@ extension type SVGFEFloodElement._(JSObject _) implements SVGElement, JSObject {
   external SVGAnimatedLength get height;
   external SVGAnimatedString get result;
 }
+
+/// The **`SVGFEGaussianBlurElement`** interface corresponds to the  element.
 extension type SVGFEGaussianBlurElement._(JSObject _)
     implements SVGElement, JSObject {
   external static int get SVG_EDGEMODE_UNKNOWN;
@@ -240,6 +280,8 @@ extension type SVGFEGaussianBlurElement._(JSObject _)
   external SVGAnimatedLength get height;
   external SVGAnimatedString get result;
 }
+
+/// The **`SVGFEImageElement`** interface corresponds to the  element.
 extension type SVGFEImageElement._(JSObject _) implements SVGElement, JSObject {
   external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
   external SVGAnimatedString get crossOrigin;
@@ -250,6 +292,8 @@ extension type SVGFEImageElement._(JSObject _) implements SVGElement, JSObject {
   external SVGAnimatedString get result;
   external SVGAnimatedString get href;
 }
+
+/// The **`SVGFEMergeElement`** interface corresponds to the  element.
 extension type SVGFEMergeElement._(JSObject _) implements SVGElement, JSObject {
   external SVGAnimatedLength get x;
   external SVGAnimatedLength get y;
@@ -257,10 +301,14 @@ extension type SVGFEMergeElement._(JSObject _) implements SVGElement, JSObject {
   external SVGAnimatedLength get height;
   external SVGAnimatedString get result;
 }
+
+/// The **`SVGFEMergeNodeElement`** interface corresponds to the  element.
 extension type SVGFEMergeNodeElement._(JSObject _)
     implements SVGElement, JSObject {
   external SVGAnimatedString get in1;
 }
+
+/// The **`SVGFEMorphologyElement`** interface corresponds to the  element.
 extension type SVGFEMorphologyElement._(JSObject _)
     implements SVGElement, JSObject {
   external static int get SVG_MORPHOLOGY_OPERATOR_UNKNOWN;
@@ -276,6 +324,8 @@ extension type SVGFEMorphologyElement._(JSObject _)
   external SVGAnimatedLength get height;
   external SVGAnimatedString get result;
 }
+
+/// The **`SVGFEOffsetElement`** interface corresponds to the  element.
 extension type SVGFEOffsetElement._(JSObject _)
     implements SVGElement, JSObject {
   external SVGAnimatedString get in1;
@@ -287,6 +337,9 @@ extension type SVGFEOffsetElement._(JSObject _)
   external SVGAnimatedLength get height;
   external SVGAnimatedString get result;
 }
+
+/// The **`SVGFESpecularLightingElement`** interface corresponds to the
+/// element.
 extension type SVGFESpecularLightingElement._(JSObject _)
     implements SVGElement, JSObject {
   external SVGAnimatedString get in1;
@@ -301,6 +354,8 @@ extension type SVGFESpecularLightingElement._(JSObject _)
   external SVGAnimatedLength get height;
   external SVGAnimatedString get result;
 }
+
+/// The **`SVGFETileElement`** interface corresponds to the  element.
 extension type SVGFETileElement._(JSObject _) implements SVGElement, JSObject {
   external SVGAnimatedString get in1;
   external SVGAnimatedLength get x;
@@ -309,6 +364,8 @@ extension type SVGFETileElement._(JSObject _) implements SVGElement, JSObject {
   external SVGAnimatedLength get height;
   external SVGAnimatedString get result;
 }
+
+/// The **`SVGFETurbulenceElement`** interface corresponds to the  element.
 extension type SVGFETurbulenceElement._(JSObject _)
     implements SVGElement, JSObject {
   external static int get SVG_TURBULENCE_TYPE_UNKNOWN;

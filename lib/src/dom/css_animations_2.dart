@@ -12,6 +12,8 @@ import 'dart:js_interop';
 
 import 'web_animations.dart';
 
+/// The **`CSSAnimation`** interface of the [Web Animations API] represents an
+/// [Animation] object.
 extension type CSSAnimation._(JSObject _) implements Animation, JSObject {
   external String get animationName;
 }

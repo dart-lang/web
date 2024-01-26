@@ -29,6 +29,17 @@ typedef AuthenticatorTransport = String;
 typedef UserVerificationRequirement = String;
 typedef PublicKeyCredentialHints = String;
 typedef LargeBlobSupport = String;
+
+/// The **`PublicKeyCredential`** interface provides information about a public
+/// key / private key pair, which is a credential for logging in to a service
+/// using an un-phishable and data-breach resistant asymmetric key pair instead
+/// of a password. It inherits from [Credential], and is part of the
+/// [Web Authentication API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API)
+/// extension to the
+/// [Credential Management API](https://developer.mozilla.org/en-US/docs/Web/API/Credential_Management_API).
+///
+/// > **Note:** This API is restricted to top-level contexts. Use from within an
+/// > `iframe` element will not have any effect.
 extension type PublicKeyCredential._(JSObject _)
     implements Credential, JSObject {
   /// The **`isConditionalMediationAvailable()`** static method of the
@@ -317,9 +328,31 @@ extension type PublicKeyCredentialRequestOptionsJSON._(JSObject _)
   external set extensions(AuthenticationExtensionsClientInputsJSON value);
   external AuthenticationExtensionsClientInputsJSON get extensions;
 }
+
+/// The **`AuthenticatorResponse`** interface of the
+/// [Web Authentication API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API)
+/// is the base interface for interfaces that provide a cryptographic root of
+/// trust for a key pair. The child interfaces include information from the
+/// browser such as the challenge origin and either may be returned from
+/// [PublicKeyCredential.response].
 extension type AuthenticatorResponse._(JSObject _) implements JSObject {
   external JSArrayBuffer get clientDataJSON;
 }
+
+/// The **`AuthenticatorAttestationResponse`** interface of the
+/// [Web Authentication API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API)
+/// is the result of a WebAuthn credential registration. It contains information
+/// about the credential that the server needs to perform WebAuthn assertions,
+/// such as its credential ID and public key.
+///
+/// An `AuthenticatorAttestationResponse` object instance is available in the
+/// [PublicKeyCredential.response] property of a [PublicKeyCredential] object
+/// returned by a successful [CredentialsContainer.create] call.
+///
+/// This interface inherits from [AuthenticatorResponse].
+///
+/// > **Note:** This interface is restricted to top-level contexts. Use of its
+/// > features from within an `iframe` element will not have any effect.
 extension type AuthenticatorAttestationResponse._(JSObject _)
     implements AuthenticatorResponse, JSObject {
   /// The **`getTransports()`** method of the [AuthenticatorAttestationResponse]
@@ -369,6 +402,23 @@ extension type AuthenticatorAttestationResponse._(JSObject _)
   external COSEAlgorithmIdentifier getPublicKeyAlgorithm();
   external JSArrayBuffer get attestationObject;
 }
+
+/// The **`AuthenticatorAssertionResponse`** interface of the
+/// [Web Authentication API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API)
+/// contains a
+/// [digital signature](https://developer.mozilla.org/en-US/docs/Glossary/Signature/Security)
+/// from the private key of a particular WebAuthn credential. The relying
+/// party's server can verify this signature to authenticate a user, for example
+/// when they sign in.
+///
+/// An `AuthenticatorAssertionResponse` object instance is available in the
+/// [PublicKeyCredential.response] property of a [PublicKeyCredential] object
+/// returned by a successful [CredentialsContainer.get] call.
+///
+/// This interface inherits from [AuthenticatorResponse].
+///
+/// > **Note:** This interface is restricted to top-level contexts. Use from
+/// > within an `iframe` element will not have any effect.
 extension type AuthenticatorAssertionResponse._(JSObject _)
     implements AuthenticatorResponse, JSObject {
   external JSArrayBuffer get authenticatorData;

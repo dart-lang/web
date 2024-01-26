@@ -18,6 +18,33 @@ typedef IDBRequestReadyState = String;
 typedef IDBTransactionDurability = String;
 typedef IDBCursorDirection = String;
 typedef IDBTransactionMode = String;
+
+/// The **`IDBRequest`** interface of the IndexedDB API provides access to
+/// results of asynchronous requests to databases and database objects using
+/// event handler attributes. Each reading and writing operation on a database
+/// is done using a request.
+///
+/// The request object does not initially contain any information about the
+/// result of the operation, but once information becomes available, an event is
+/// fired on the request, and the information becomes available through the
+/// properties of the `IDBRequest` instance.
+///
+/// All asynchronous operations immediately return an [IDBRequest] instance.
+/// Each request has a `readyState` that is set to the `'pending'` state; this
+/// changes to `'done'` when the request is completed or fails. When the state
+/// is set to `done`, every request returns a `result` and an `error`, and an
+/// event is fired on the request. When the state is still `pending`, any
+/// attempt to access the `result` or `error` raises an `InvalidStateError`
+/// exception.
+///
+/// In plain words, all asynchronous methods return a request object. If the
+/// request has been completed successfully, the result is made available
+/// through the `result` property and an event indicating success is fired at
+/// the request ([IDBRequest.success_event]). If an error occurs while
+/// performing the operation, the exception is made available through the
+/// `error` property and an error event is fired ([IDBRequest.error_event]).
+///
+/// The interface [IDBOpenDBRequest] is derived from `IDBRequest`.
 extension type IDBRequest._(JSObject _) implements EventTarget, JSObject {
   external JSAny? get result;
   external DOMException? get error;
@@ -29,12 +56,22 @@ extension type IDBRequest._(JSObject _) implements EventTarget, JSObject {
   external set onerror(EventHandler value);
   external EventHandler get onerror;
 }
+
+/// The **`IDBOpenDBRequest`** interface of the IndexedDB API provides access to
+/// the results of requests to open or delete databases (performed using
+/// [IDBFactory.open] and [IDBFactory.deleteDatabase]), using specific event
+/// handler attributes.
 extension type IDBOpenDBRequest._(JSObject _) implements IDBRequest, JSObject {
   external set onblocked(EventHandler value);
   external EventHandler get onblocked;
   external set onupgradeneeded(EventHandler value);
   external EventHandler get onupgradeneeded;
 }
+
+/// The **`IDBVersionChangeEvent`** interface of the
+/// [IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
+/// indicates that the version of the database has changed, as the result of an
+/// [IDBOpenDBRequest.upgradeneeded_event] event handler function.
 extension type IDBVersionChangeEvent._(JSObject _) implements Event, JSObject {
   external factory IDBVersionChangeEvent(
     String type, [
@@ -56,6 +93,13 @@ extension type IDBVersionChangeEventInit._(JSObject _)
   external set newVersion(int? value);
   external int? get newVersion;
 }
+
+/// The **`IDBFactory`** interface of the
+/// [IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
+/// lets applications asynchronously access the indexed databases. The object
+/// that implements the interface is `window.indexedDB`. You open — that is,
+/// create and access — and delete a database with this object, and not directly
+/// with `IDBFactory`.
 extension type IDBFactory._(JSObject _) implements JSObject {
   /// The **`open()`** method of the [IDBFactory] interface requests opening a
   /// [connection to a database](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Basic_Terminology#database_connection).
@@ -131,6 +175,22 @@ extension type IDBDatabaseInfo._(JSObject _) implements JSObject {
   external set version(int value);
   external int get version;
 }
+
+/// The **`IDBDatabase`** interface of the IndexedDB API provides a
+/// [connection to a database](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API#database_connection);
+/// you can use an `IDBDatabase` object to open a
+/// [transaction](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Basic_Terminology#transaction)
+/// on your database then create, manipulate, and delete objects (data) in that
+/// database. The interface provides the only way to get and manage versions of
+/// the database.
+///
+/// > **Note:** Everything you do in IndexedDB always happens in the context of
+/// > a
+/// > [transaction](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Basic_Terminology#transaction),
+/// > representing interactions with data in the database. All objects in
+/// > IndexedDB — including object stores, indexes, and cursors — are tied to a
+/// > particular transaction. Thus, you cannot execute commands, access data, or
+/// > open anything outside of a transaction.
 extension type IDBDatabase._(JSObject _) implements EventTarget, JSObject {
   /// The **`transaction`** method of the [IDBDatabase] interface immediately
   /// returns a transaction object ([IDBTransaction]) containing the
@@ -212,6 +272,12 @@ extension type IDBObjectStoreParameters._(JSObject _) implements JSObject {
   external set autoIncrement(bool value);
   external bool get autoIncrement;
 }
+
+/// The **`IDBObjectStore`** interface of the
+/// [IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
+/// represents an object store in a database. Records within an object store are
+/// sorted according to their keys. This sorting enables fast insertion,
+/// look-up, and ordered retrieval.
 extension type IDBObjectStore._(JSObject _) implements JSObject {
   /// The **`put()`** method of the [IDBObjectStore] interface updates a given
   /// record in a database, or inserts a new record if the given item does not
@@ -463,6 +529,30 @@ extension type IDBIndexParameters._(JSObject _) implements JSObject {
   external set multiEntry(bool value);
   external bool get multiEntry;
 }
+
+/// `IDBIndex` interface of the
+/// [IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
+/// provides asynchronous access to an
+/// [index](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Basic_Terminology#index)
+/// in a database. An index is a kind of object store for looking up records in
+/// another object store, called the referenced object store. You use this
+/// interface to retrieve data.
+///
+/// You can retrieve records in an object store through the primary key or by
+/// using an index. An index lets you look up records in an object store using
+/// properties of the values in the object stores records other than the primary
+/// key
+///
+/// The index is a persistent key-value storage where the value part of its
+/// records is the key part of a record in the referenced object store. The
+/// records in an index are automatically populated whenever records in the
+/// referenced object store are inserted, updated, or deleted. Each record in an
+/// index can point to only one record in its referenced object store, but
+/// several indexes can reference the same object store. When the object store
+/// changes, all indexes that refers to the object store are automatically
+/// updated.
+///
+/// You can grab a set of keys within a range. To learn more, see [IDBKeyRange].
 extension type IDBIndex._(JSObject _) implements JSObject {
   /// The **`get()`** method of the [IDBIndex]
   /// interface returns an [IDBRequest] object, and, in a separate thread,
@@ -569,6 +659,47 @@ extension type IDBIndex._(JSObject _) implements JSObject {
   external bool get multiEntry;
   external bool get unique;
 }
+
+/// The **`IDBKeyRange`** interface of the
+/// [IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
+/// represents a continuous interval over some data type that is used for keys.
+/// Records can be retrieved from [IDBObjectStore] and [IDBIndex] objects using
+/// keys or a range of keys. You can limit the range using lower and upper
+/// bounds. For example, you can iterate over all values of a key in the value
+/// range A–Z.
+///
+/// A key range can be a single value or a range with upper and lower bounds or
+/// endpoints. If the key range has both upper and lower bounds, then it is
+/// _bounded_; if it has no bounds, it is _unbounded_. A bounded key range can
+/// either be open (the endpoints are excluded) or closed (the endpoints are
+/// included). To retrieve all keys within a certain range, you can use the
+/// following code constructs:
+///
+/// | Range                       | Code                                   |
+/// | --------------------------- | -------------------------------------- |
+/// | All keys ≥ **x**            | `IDBKeyRange.lowerBound(x)`            |
+/// | All keys > **x**            | `IDBKeyRange.lowerBound(x, true)`      |
+/// | All keys ≤ **y**            | `IDBKeyRange.upperBound(y)`            |
+/// | All keys < **y**            | `IDBKeyRange.upperBound(y, true)`      |
+/// | All keys ≥ **x** && ≤ **y** | `IDBKeyRange.bound(x, y)`              |
+/// | All keys > **x** &&< **y**  | `IDBKeyRange.bound(x, y, true, true)`  |
+/// | All keys > **x** && ≤ **y** | `IDBKeyRange.bound(x, y, true, false)` |
+/// | All keys ≥ **x** &&< **y**  | `IDBKeyRange.bound(x, y, false, true)` |
+/// | The key = **z**             | `IDBKeyRange.only(z)`                  |
+///
+/// A key is in a key range if the following conditions are true:
+///
+/// - The lower value of the key range is one of the following:
+///
+///   - `undefined`
+///   - Less than key value
+///   - Equal to key value if `lowerOpen` is `false`.
+///
+/// - The upper value of the key range is one of the following:
+///
+///   - `undefined`
+///   - Greater than key value
+///   - Equal to key value if `upperOpen` is `false`.
 extension type IDBKeyRange._(JSObject _) implements JSObject {
   external static IDBKeyRange only(JSAny? value);
   external static IDBKeyRange lowerBound(
@@ -596,6 +727,25 @@ extension type IDBKeyRange._(JSObject _) implements JSObject {
   external bool get lowerOpen;
   external bool get upperOpen;
 }
+
+/// > **Note:** Not to be confused with [IDBCursorWithValue] which is just an
+/// > **`IDBCursor`** interface with an additional **`value`** property.
+///
+/// The **`IDBCursor`** interface of the
+/// [IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
+/// represents a
+/// [cursor](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Basic_Terminology#cursor)
+/// for traversing or iterating over multiple records in a database.
+///
+/// The cursor has a source that indicates which index or object store it is
+/// iterating over. It has a position within the range, and moves in a direction
+/// that is increasing or decreasing in the order of record keys. The cursor
+/// enables an application to asynchronously process all the records in the
+/// cursor's range.
+///
+/// You can have an unlimited number of cursors at the same time. You always get
+/// the same `IDBCursor` object representing a given cursor. Operations are
+/// performed on the underlying index or object store.
 extension type IDBCursor._(JSObject _) implements JSObject {
   /// The **`advance()`** method of the [IDBCursor]
   /// interface sets the number of times a cursor should move
@@ -667,9 +817,50 @@ extension type IDBCursor._(JSObject _) implements JSObject {
   external JSAny? get primaryKey;
   external IDBRequest get request;
 }
+
+/// The **`IDBCursorWithValue`** interface of the
+/// [IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
+/// represents a
+/// [cursor](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Basic_Terminology#cursor)
+/// for traversing or iterating over multiple records in a database. It is the
+/// same as the [IDBCursor], except that it includes the `value` property.
+///
+/// The cursor has a source that indicates which index or object store it is
+/// iterating over. It has a position within the range, and moves in a direction
+/// that is increasing or decreasing in the order of record keys. The cursor
+/// enables an application to asynchronously process all the records in the
+/// cursor's range.
+///
+/// You can have an unlimited number of cursors at the same time. You always get
+/// the same `IDBCursorWithValue` object representing a given cursor. Operations
+/// are performed on the underlying index or object store.
 extension type IDBCursorWithValue._(JSObject _) implements IDBCursor, JSObject {
   external JSAny? get value;
 }
+
+/// The **`IDBTransaction`** interface of the
+/// [IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
+/// provides a static, asynchronous transaction on a database using event
+/// handler attributes. All reading and writing of data is done within
+/// transactions. You use [IDBDatabase] to start transactions, [IDBTransaction]
+/// to set the mode of the transaction (e.g. is it `readonly` or `readwrite`),
+/// and you access an [IDBObjectStore] to make a request. You can also use an
+/// `IDBTransaction` object to abort transactions.
+///
+/// Transactions are started when the transaction is created, not when the first
+/// request is placed; for example consider this:
+///
+/// ```js
+/// const trans1 = db.transaction("foo", "readwrite");
+/// const trans2 = db.transaction("foo", "readwrite");
+/// const objectStore2 = trans2.objectStore("foo");
+/// const objectStore1 = trans1.objectStore("foo");
+/// objectStore2.put("2", "key");
+/// objectStore1.put("1", "key");
+/// ```
+///
+/// After the code is executed the object store should contain the value "2",
+/// since `trans2` should run after `trans1`.
 extension type IDBTransaction._(JSObject _) implements EventTarget, JSObject {
   /// The **`objectStore()`** method of the
   /// [IDBTransaction] interface returns an object store that has already been

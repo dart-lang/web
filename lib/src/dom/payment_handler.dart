@@ -15,6 +15,11 @@ import 'service_workers.dart';
 
 typedef PaymentDelegation = String;
 typedef PaymentShippingType = String;
+
+/// The **`PaymentManager`** interface of the [Payment Handler API] is used to
+/// manage various aspects of payment app functionality.
+///
+/// It is accessed via the [ServiceWorkerRegistration.paymentManager] property.
 extension type PaymentManager._(JSObject _) implements JSObject {
   /// The **`enableDelegations()`** method of the [PaymentManager] interface
   /// delegates responsibility for providing various parts of the required
@@ -32,6 +37,12 @@ extension type PaymentManager._(JSObject _) implements JSObject {
   external set userHint(String value);
   external String get userHint;
 }
+
+/// The **`CanMakePaymentEvent`** interface of the [Payment Handler API] is the
+/// event object for the [ServiceWorkerGlobalScope.canmakepayment_event] event,
+/// fired on a payment app's service worker to check whether it is ready to
+/// handle a payment. Specifically, it is fired when the merchant website calls
+/// [PaymentRequest.PaymentRequest].
 extension type CanMakePaymentEvent._(JSObject _)
     implements ExtendableEvent, JSObject {
   external factory CanMakePaymentEvent(String type);
@@ -64,6 +75,9 @@ extension type PaymentRequestDetailsUpdate._(JSObject _) implements JSObject {
   external set shippingAddressErrors(AddressErrors value);
   external AddressErrors get shippingAddressErrors;
 }
+
+/// The **`PaymentRequestEvent`** interface of the [Payment Handler API] is the
+/// object passed to a payment handler when a [PaymentRequest] is made.
 extension type PaymentRequestEvent._(JSObject _)
     implements ExtendableEvent, JSObject {
   external factory PaymentRequestEvent(

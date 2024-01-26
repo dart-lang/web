@@ -15,6 +15,10 @@ import 'geometry.dart';
 import 'hr_time.dart';
 import 'performance_timeline.dart';
 
+/// The `LayoutShift` interface of the
+/// [Performance API](https://developer.mozilla.org/en-US/docs/Web/API/Performance_API)
+/// provides insights into the layout stability of web pages based on movements
+/// of the elements on the page.
 extension type LayoutShift._(JSObject _) implements PerformanceEntry, JSObject {
   /// The **`toJSON()`** method of the [LayoutShift] interface is a ; it returns
   /// a JSON representation of the [LayoutShift] object.
@@ -24,6 +28,12 @@ extension type LayoutShift._(JSObject _) implements PerformanceEntry, JSObject {
   external DOMHighResTimeStamp get lastInputTime;
   external JSArray get sources;
 }
+
+/// The `LayoutShiftAttribution` interface provides debugging information about
+/// elements which have shifted.
+///
+/// Instances of `LayoutShiftAttribution` are returned in an array by calling
+/// [LayoutShift.sources].
 extension type LayoutShiftAttribution._(JSObject _) implements JSObject {
   external Node? get node;
   external DOMRectReadOnly get previousRect;

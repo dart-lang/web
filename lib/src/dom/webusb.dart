@@ -54,6 +54,15 @@ extension type USBDeviceRequestOptions._(JSObject _) implements JSObject {
   external set exclusionFilters(JSArray value);
   external JSArray get exclusionFilters;
 }
+
+/// The **`USB`** interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)
+/// provides attributes and methods for finding and connecting USB devices from
+/// a web page.
+///
+/// Use [navigator.usb] to get access to the `USB` object.
+///
+/// The USB interface inherits from [EventTarget].
 extension type USB._(JSObject _) implements EventTarget, JSObject {
   /// The **`getDevices`** method of the [USB] interface
   /// returns a `Promise` that resolves with an array of [USBDevice]
@@ -79,6 +88,11 @@ extension type USBConnectionEventInit._(JSObject _)
   external set device(USBDevice value);
   external USBDevice get device;
 }
+
+/// The **`USBConnectionEvent`** interface of the [WebUSB API] is the event type
+/// passed to `USB` [USB.connect_event] and [USB.disconnect_event] events when
+/// the user agent detects that a new USB device has been connected or
+/// disconnected.
 extension type USBConnectionEvent._(JSObject _) implements Event, JSObject {
   external factory USBConnectionEvent(
     String type,
@@ -87,6 +101,13 @@ extension type USBConnectionEvent._(JSObject _) implements Event, JSObject {
 
   external USBDevice get device;
 }
+
+/// The `USBInTransferResult` interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)
+/// provides the result from a call to the `transferIn()` and
+/// `controlTransferIn()` methods of the `USBDevice` interface. It represents
+/// the result from requesting a transfer of data from the USB device to the USB
+/// host.
 extension type USBInTransferResult._(JSObject _) implements JSObject {
   external factory USBInTransferResult(
     USBTransferStatus status, [
@@ -96,6 +117,13 @@ extension type USBInTransferResult._(JSObject _) implements JSObject {
   external JSDataView? get data;
   external USBTransferStatus get status;
 }
+
+/// The `USBOutTransferResult` interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)
+/// provides the result from a call to the `transferOut()` and
+/// `controlTransferOut()` methods of the `USBDevice` interface. It represents
+/// the result from requesting a transfer of data from the USB host to the USB
+/// device.
 extension type USBOutTransferResult._(JSObject _) implements JSObject {
   external factory USBOutTransferResult(
     USBTransferStatus status, [
@@ -105,6 +133,13 @@ extension type USBOutTransferResult._(JSObject _) implements JSObject {
   external int get bytesWritten;
   external USBTransferStatus get status;
 }
+
+/// The `USBIsochronousInTransferPacket` interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API) is
+/// part of the response from a call to the `isochronousTransferIn()` method of
+/// the `USBDevice` interface. It represents the status of an individual packet
+/// from a request to transfer data from the USB device to the USB host over an
+/// isochronous endpoint.
 extension type USBIsochronousInTransferPacket._(JSObject _)
     implements JSObject {
   external factory USBIsochronousInTransferPacket(
@@ -115,6 +150,12 @@ extension type USBIsochronousInTransferPacket._(JSObject _)
   external JSDataView? get data;
   external USBTransferStatus get status;
 }
+
+/// The `USBIsochronousInTransferResult` interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)
+/// provides the result from a call to the `isochronousTransferIn()` method of
+/// the `USBDevice` interface. It represents the result from requesting a
+/// transfer of data from the USB device to the USB host.
 extension type USBIsochronousInTransferResult._(JSObject _)
     implements JSObject {
   external factory USBIsochronousInTransferResult(
@@ -125,6 +166,13 @@ extension type USBIsochronousInTransferResult._(JSObject _)
   external JSDataView? get data;
   external JSArray get packets;
 }
+
+/// The `USBIsochronousOutTransferPacket` interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API) is
+/// part of the response from a call to the `isochronousTransferOut()` method of
+/// the `USBDevice` interface. It represents the status of an individual packet
+/// from a request to transfer data from the USB host to the USB device over an
+/// isochronous endpoint.
 extension type USBIsochronousOutTransferPacket._(JSObject _)
     implements JSObject {
   external factory USBIsochronousOutTransferPacket(
@@ -135,12 +183,23 @@ extension type USBIsochronousOutTransferPacket._(JSObject _)
   external int get bytesWritten;
   external USBTransferStatus get status;
 }
+
+/// The `USBIsochronousOutTransferResult` interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)
+/// provides the result from a call to the `isochronousTransferOut()` method of
+/// the `USBDevice` interface. It represents the result from requesting a
+/// transfer of data from the USB host to the USB device.
 extension type USBIsochronousOutTransferResult._(JSObject _)
     implements JSObject {
   external factory USBIsochronousOutTransferResult(JSArray packets);
 
   external JSArray get packets;
 }
+
+/// The **`USBDevice`** interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)
+/// provides access to metadata about a paired USB device and methods for
+/// controlling it.
 extension type USBDevice._(JSObject _) implements JSObject {
   /// The **`open()`** method of the [USBDevice]
   /// interface returns a `promise` that resolves when a device session has
@@ -287,6 +346,11 @@ extension type USBControlTransferParameters._(JSObject _) implements JSObject {
   external set index(int value);
   external int get index;
 }
+
+/// The `USBConfiguration` interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)
+/// provides information about a particular configuration of a USB device and
+/// the interfaces that it supports.
 extension type USBConfiguration._(JSObject _) implements JSObject {
   external factory USBConfiguration(
     USBDevice device,
@@ -297,6 +361,12 @@ extension type USBConfiguration._(JSObject _) implements JSObject {
   external String? get configurationName;
   external JSArray get interfaces;
 }
+
+/// The `USBInterface` interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)
+/// provides information about an interface provided by the USB device. An
+/// interface represents a feature of the device which implements a particular
+/// protocol and may contain endpoints for bidirectional communication.
 extension type USBInterface._(JSObject _) implements JSObject {
   external factory USBInterface(
     USBConfiguration configuration,
@@ -308,6 +378,13 @@ extension type USBInterface._(JSObject _) implements JSObject {
   external JSArray get alternates;
   external bool get claimed;
 }
+
+/// The `USBAlternateInterface` interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)
+/// provides information about a particular configuration of an interface
+/// provided by the USB device. An interface includes one or more alternate
+/// settings which can configure a set of endpoints based on the operating mode
+/// of the device.
 extension type USBAlternateInterface._(JSObject _) implements JSObject {
   external factory USBAlternateInterface(
     USBInterface deviceInterface,
@@ -321,6 +398,11 @@ extension type USBAlternateInterface._(JSObject _) implements JSObject {
   external String? get interfaceName;
   external JSArray get endpoints;
 }
+
+/// The `USBEndpoint` interface of the
+/// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)
+/// provides information about an endpoint provided by the USB device. An
+/// endpoint represents a unidirectional data stream into or out of a device.
 extension type USBEndpoint._(JSObject _) implements JSObject {
   external factory USBEndpoint(
     USBAlternateInterface alternate,

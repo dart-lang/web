@@ -14,8 +14,30 @@ import 'html.dart';
 
 typedef SharedStorageResponse = JSAny;
 typedef SharedStorageOperationConstructor = JSFunction;
+
+/// The **`SharedStorageWorklet`** interface of the [Shared Storage API]
+/// represents the shared storage worklet for the current origin.
+///
+/// `SharedStorageWorklet` does not have its own properties or methods. Rather,
+/// it inherits the [Worklet.addModule] method from the [Worklet] interface.
+/// This method is used for adding a module.
+///
+/// Unlike a regular [Worklet]:
+///
+/// - If the calling site has not included the Shared Storage API in a
+///   [privacy sandbox enrollment process](https://developer.mozilla.org/en-US/docs/Web/Privacy/Privacy_sandbox/Enrollment),
+///   calls to `sharedStorageWorklet.addModule()` will be rejected.
+/// - `SharedStorageWorklet` allows only a single module to be added, for
+///   privacy reasons. Even with a successful enrollment, repeated calls to
+///   `addModule()` on the same shared storage worklet will be rejected.
+///
+/// `SharedStorageWorklet` is accessed via [WindowSharedStorage.worklet].
 extension type SharedStorageWorklet._(JSObject _)
     implements Worklet, JSObject {}
+
+/// The **`SharedStorageWorkletGlobalScope`** interface of the
+/// [Shared Storage API] represents the global scope of a [SharedStorageWorklet]
+/// module.
 extension type SharedStorageWorkletGlobalScope._(JSObject _)
     implements WorkletGlobalScope, JSObject {
   /// The **`register()`** method of the
@@ -27,6 +49,36 @@ extension type SharedStorageWorkletGlobalScope._(JSObject _)
   );
   external WorkletSharedStorage get sharedStorage;
 }
+
+/// The **`SharedStorageOperation`** interface of the [Shared Storage API]
+/// represents the base class for all output gate operation types.
+///
+/// The output gate types are detailed below:
+///
+/// <table class="no-markdown">
+///   <thead>
+///     <tr>
+///       <th>Name</th>
+///       <th>Description</th>
+///       <th>Defined by</th>
+///       <th>Invoked by</th>
+///     </tr>
+///   </thead>
+///   <tbody>
+///     <tr>
+///       <td>URL Selection</td>
+///       <td>Used to select a URL to display to the user based on shared storage data.</td>
+///       <td>[SharedStorageSelectURLOperation]</td>
+///       <td>[WindowSharedStorage.selectURL]</td>
+///     </tr>
+///     <tr>
+///       <td>Run</td>
+///       <td>A generic way to process some shared storage data. Used, for example, by the <a href="https://developer.chrome.com/docs/privacy-sandbox/private-aggregation/">Private Aggregation API</a> to process shared storage data and generate aggregated reports. </td>
+///       <td>[SharedStorageRunOperation]</td>
+///       <td>[WindowSharedStorage.run]</td>
+///     </tr>
+///   </tbody>
+/// </table>
 extension type SharedStorageOperation._(JSObject _) implements JSObject {}
 extension type SharedStorageRunOperationMethodOptions._(JSObject _)
     implements JSObject {
@@ -43,6 +95,11 @@ extension type SharedStorageRunOperationMethodOptions._(JSObject _)
   external set keepAlive(bool value);
   external bool get keepAlive;
 }
+
+/// The **`SharedStorageRunOperation`** interface of the [Shared Storage API]
+/// represents a
+/// [Run output gate](https://developer.mozilla.org/en-US/docs/Web/API/Shared_Storage_API#run)
+/// operation.
 extension type SharedStorageRunOperation._(JSObject _)
     implements SharedStorageOperation, JSObject {
   /// The **`run()`** method of the
@@ -50,6 +107,11 @@ extension type SharedStorageRunOperation._(JSObject _)
   /// `run()` method defined inside a Run output gate operation should conform.
   external JSPromise run(JSObject data);
 }
+
+/// The **`SharedStorageSelectURLOperation`** interface of the
+/// [Shared Storage API] represents a
+/// [URL Selection output gate](https://developer.mozilla.org/en-US/docs/Web/API/Shared_Storage_API#url_selection)
+/// operation.
 extension type SharedStorageSelectURLOperation._(JSObject _)
     implements SharedStorageOperation, JSObject {
   /// The **`run()`** method of the [SharedStorageSelectURLOperation] interface
@@ -60,6 +122,16 @@ extension type SharedStorageSelectURLOperation._(JSObject _)
     JSArray urls,
   );
 }
+
+/// The **`SharedStorage`** interface of the [Shared Storage API] represents the
+/// shared storage for a particular origin, defining methods to write data to
+/// the shared storage.
+///
+/// `SharedStorage` is the base class for:
+///
+/// - [WindowSharedStorage], accessed via [Window.sharedStorage].
+/// - [WorkletSharedStorage], accessed via
+///   [SharedStorageWorkletGlobalScope.sharedStorage].
 extension type SharedStorage._(JSObject _) implements JSObject {
   /// The **`set()`** method of the [SharedStorage] interface either stores a
   /// new key-value pair in the current origin's shared storage or updates an
@@ -92,6 +164,12 @@ extension type SharedStorageSetMethodOptions._(JSObject _) implements JSObject {
   external set ignoreIfPresent(bool value);
   external bool get ignoreIfPresent;
 }
+
+/// The **`WindowSharedStorage`** interface of the [Shared Storage API]
+/// represents the shared storage for a particular origin within a standard
+/// browsing context.
+///
+/// `WindowSharedStorage` is accessed via [Window.sharedStorage].
 extension type WindowSharedStorage._(JSObject _)
     implements SharedStorage, JSObject {
   /// The **`run()`** method of the
@@ -136,6 +214,13 @@ extension type SharedStorageUrlWithMetadata._(JSObject _) implements JSObject {
   external set reportingMetadata(JSObject value);
   external JSObject get reportingMetadata;
 }
+
+/// The **`WorkletSharedStorage`** interface of the [Shared Storage API]
+/// represents the shared storage for a particular origin within a worklet
+/// context.
+///
+/// `WorkletSharedStorage` is accessed via
+/// [SharedStorageWorkletGlobalScope.sharedStorage].
 extension type WorkletSharedStorage._(JSObject _)
     implements SharedStorage, JSObject {
   /// The **`get()`** method of the

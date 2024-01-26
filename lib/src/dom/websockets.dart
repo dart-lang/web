@@ -14,6 +14,14 @@ import 'dom.dart';
 import 'html.dart';
 
 typedef BinaryType = String;
+
+/// The `WebSocket` object provides the API for creating and managing a
+/// [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
+/// connection to a server, as well as for sending and receiving data on the
+/// connection.
+///
+/// To construct a `WebSocket`, use the
+/// [`WebSocket()`](/en-US/docs/Web/API/WebSocket/WebSocket) constructor.
 extension type WebSocket._(JSObject _) implements EventTarget, JSObject {
   external factory WebSocket(
     String url, [
@@ -68,6 +76,10 @@ extension type WebSocket._(JSObject _) implements EventTarget, JSObject {
   external set binaryType(BinaryType value);
   external BinaryType get binaryType;
 }
+
+/// A `CloseEvent` is sent to clients using  when the connection is closed. This
+/// is delivered to the listener indicated by the `WebSocket` object's `onclose`
+/// attribute.
 extension type CloseEvent._(JSObject _) implements Event, JSObject {
   external factory CloseEvent(
     String type, [

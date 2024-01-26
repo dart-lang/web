@@ -16,6 +16,12 @@ import 'css_properties_values_api.dart';
 import 'css_typed_om.dart';
 import 'html.dart';
 
+/// The **`MediaList`** interface represents the media queries of a stylesheet,
+/// e.g. those set using a `link` element's `media` attribute.
+///
+/// > **Note:** `MediaList` is a live list; updating the list using properties
+/// > or methods listed below will immediately update the behavior of the
+/// > document.
 extension type MediaList._(JSObject _) implements JSObject {
   /// The **`item()`** method of the [MediaList] interface returns the media
   /// query at the specified `index`, or `null` if the specified `index` doesn't
@@ -34,6 +40,10 @@ extension type MediaList._(JSObject _) implements JSObject {
   external String get mediaText;
   external int get length;
 }
+
+/// An object implementing the `StyleSheet` interface represents a single style
+/// sheet. CSS style sheets will further implement the more specialized
+/// [CSSStyleSheet] interface.
 extension type StyleSheet._(JSObject _) implements JSObject {
   external String get type;
   external String? get href;
@@ -44,6 +54,34 @@ extension type StyleSheet._(JSObject _) implements JSObject {
   external set disabled(bool value);
   external bool get disabled;
 }
+
+/// The **`CSSStyleSheet`** interface represents a single
+/// [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) stylesheet, and lets
+/// you inspect and modify the list of rules contained in the stylesheet. It
+/// inherits properties and methods from its parent, [StyleSheet].
+///
+/// A stylesheet consists of a collection of [CSSRule] objects representing each
+/// of the rules in the stylesheet. The rules are contained in a [CSSRuleList],
+/// which can be obtained from the stylesheet's [CSSStyleSheet.cssRules]
+/// property.
+///
+/// For example, one rule might be a [CSSStyleRule] object containing a style
+/// such as:
+///
+/// ```css
+/// h1,
+/// h2 {
+///   font-size: 16pt;
+/// }
+/// ```
+///
+/// Another rule might be an _at-rule_ such as  or , and so forth.
+///
+/// See the [Obtaining a StyleSheet](#obtaining_a_stylesheet) section for the
+/// various ways a `CSSStyleSheet` object can be obtained. A `CSSStyleSheet`
+/// object can also be directly constructed. The constructor, and the
+/// [CSSStyleSheet.replace], and [CSSStyleSheet.replaceSync] methods are newer
+/// additions to the specification, enabling _Constructable Stylesheets_.
 extension type CSSStyleSheet._(JSObject _) implements StyleSheet, JSObject {
   external factory CSSStyleSheet([CSSStyleSheetInit options]);
 
@@ -124,12 +162,49 @@ extension type CSSStyleSheetInit._(JSObject _) implements JSObject {
   external set disabled(bool value);
   external bool get disabled;
 }
+
+/// The `StyleSheetList` interface represents a list of [CSSStyleSheet] objects.
+/// An instance of this object can be returned by [Document.styleSheets].
+///
+/// It is an array-like object but can't be iterated over using `Array` methods.
+/// However it can be iterated over in a standard `for` loop over its indices,
+/// or converted to an `Array`.
+///
+/// > **Note:** This interface was an
+/// > [attempt to create an unmodifiable list](https://stackoverflow.com/questions/74630989/why-use-domstringlist-rather-than-an-array/74641156#74641156)
+/// > and only continues to be supported to not break code that's already using
+/// > it. Modern APIs use types that wrap around ECMAScript array types instead,
+/// > so you can treat them like ECMAScript arrays, and at the same time impose
+/// > additional semantics on their usage (such as making their items
+/// > read-only).
 extension type StyleSheetList._(JSObject _) implements JSObject {
   /// The **`item()`** method of the [StyleSheetList] interface returns a single
   /// [CSSStyleSheet] object.
   external CSSStyleSheet? item(int index);
   external int get length;
 }
+
+/// A `CSSRuleList` represents an ordered collection of read-only [CSSRule]
+/// objects.
+///
+/// While the `CSSRuleList` object is read-only, and cannot be directly
+/// modified, it is considered a `live` object, as the content can change over
+/// time.
+///
+/// To edit the underlying rules returned by `CSSRule` objects, use
+/// [CSSStyleSheet.insertRule] and [CSSStyleSheet.deleteRule], which are methods
+/// of [CSSStyleSheet].
+///
+/// The interface has no constructor. An instance of `CSSRuleList` is returned
+/// by [CSSStyleSheet.cssRules] and [CSSKeyframesRule.cssRules].
+///
+/// > **Note:** This interface was an
+/// > [attempt to create an unmodifiable list](https://stackoverflow.com/questions/74630989/why-use-domstringlist-rather-than-an-array/74641156#74641156)
+/// > and only continues to be supported to not break code that's already using
+/// > it. Modern APIs use types that wrap around ECMAScript array types instead,
+/// > so you can treat them like ECMAScript arrays, and at the same time impose
+/// > additional semantics on their usage (such as making their items
+/// > read-only).
 extension type CSSRuleList._(JSObject _) implements JSObject {
   /// The **`item()`** method of the [CSSRuleList] interface returns the
   /// [CSSRule] object at the specified `index` or `null` if the specified
@@ -137,6 +212,26 @@ extension type CSSRuleList._(JSObject _) implements JSObject {
   external CSSRule? item(int index);
   external int get length;
 }
+
+/// The **`CSSRule`** interface represents a single CSS rule. There are several
+/// types of rules which inherit properties from `CSSRule`.
+///
+/// - [CSSGroupingRule]
+/// - [CSSStyleRule]
+/// - [CSSImportRule]
+/// - [CSSMediaRule]
+/// - [CSSFontFaceRule]
+/// - [CSSPageRule]
+/// - [CSSNamespaceRule]
+/// - [CSSKeyframesRule]
+/// - [CSSKeyframeRule]
+/// - [CSSCounterStyleRule]
+/// - [CSSSupportsRule]
+/// - [CSSFontFeatureValuesRule]
+/// - [CSSFontPaletteValuesRule]
+/// - [CSSLayerBlockRule]
+/// - [CSSLayerStatementRule]
+/// - [CSSPropertyRule]
 extension type CSSRule._(JSObject _) implements JSObject {
   external static int get KEYFRAMES_RULE;
   external static int get KEYFRAME_RULE;
@@ -157,12 +252,17 @@ extension type CSSRule._(JSObject _) implements JSObject {
   external CSSStyleSheet? get parentStyleSheet;
   external int get type;
 }
+
+/// The **`CSSStyleRule`** interface represents a single CSS style rule.
 extension type CSSStyleRule._(JSObject _) implements CSSGroupingRule, JSObject {
   external StylePropertyMap get styleMap;
   external set selectorText(String value);
   external String get selectorText;
   external CSSStyleDeclaration get style;
 }
+
+/// The **`CSSImportRule`** interface represents an
+/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
 extension type CSSImportRule._(JSObject _) implements CSSRule, JSObject {
   external String get href;
   external MediaList get media;
@@ -170,6 +270,12 @@ extension type CSSImportRule._(JSObject _) implements CSSRule, JSObject {
   external String? get layerName;
   external String? get supportsText;
 }
+
+/// The **`CSSGroupingRule`** interface of the
+/// [CSS Object Model](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// represents any CSS
+/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule) that
+/// contains other rules nested within it.
 extension type CSSGroupingRule._(JSObject _) implements CSSRule, JSObject {
   /// The **`insertRule()`** method of the
   /// [CSSGroupingRule] interface adds a new CSS rule to a list of CSS rules.
@@ -184,6 +290,8 @@ extension type CSSGroupingRule._(JSObject _) implements CSSRule, JSObject {
   external void deleteRule(int index);
   external CSSRuleList get cssRules;
 }
+
+/// **`CSSPageRule`** represents a single CSS  rule.
 extension type CSSPageRule._(JSObject _) implements CSSGroupingRule, JSObject {
   external set selectorText(String value);
   external String get selectorText;
@@ -193,10 +301,29 @@ extension type CSSMarginRule._(JSObject _) implements CSSRule, JSObject {
   external String get name;
   external CSSStyleDeclaration get style;
 }
+
+/// The **`CSSNamespaceRule`** interface describes an object representing a
+/// single CSS
+/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
 extension type CSSNamespaceRule._(JSObject _) implements CSSRule, JSObject {
   external String get namespaceURI;
   external String get prefix;
 }
+
+/// The **`CSSStyleDeclaration`** interface represents an object that is a CSS
+/// declaration block, and exposes style information and various style-related
+/// methods and properties.
+///
+/// A `CSSStyleDeclaration` object can be exposed using three different APIs:
+///
+/// - Via [HTMLElement.style], which deals with the inline styles of a single
+///   element (e.g., `<div style="…">`).
+/// - Via the [CSSStyleSheet] API. For example,
+///   `document.styleSheets[0].cssRules[0].style` returns a
+///   `CSSStyleDeclaration` object on the first CSS rule in the document's first
+///   stylesheet.
+/// - Via [Window.getComputedStyle], which exposes the `CSSStyleDeclaration`
+///   object as a **read-only** interface.
 extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   /// The `CSSStyleDeclaration.item()`
   /// method interface returns a CSS property name from a [CSSStyleDeclaration]
@@ -1495,6 +1622,10 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
 }
 @JS()
 external $CSS get CSS;
+
+/// The **`CSS`** interface holds useful CSS-related methods. No objects with
+/// this interface are implemented: it contains only static methods and is
+/// therefore a utilitarian interface.
 @JS('CSS')
 extension type $CSS._(JSObject _) implements JSObject {
   external bool supports(

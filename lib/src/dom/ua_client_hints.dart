@@ -73,6 +73,20 @@ extension type UALowEntropyJSON._(JSObject _) implements JSObject {
   external set platform(String value);
   external String get platform;
 }
+
+/// The **`NavigatorUAData`** interface of the  returns information about the
+/// browser and operating system of a user.
+///
+/// An instance of this object is returned by calling [Navigator.userAgentData].
+/// Therefore, this interface has no constructor.
+///
+/// > **Note:** The terms _high entropy_ and _low entropy_ refer to the amount
+/// > of information these values reveal about the browser. The values returned
+/// > as properties are deemed low entropy, and unlikely to identify a user. The
+/// > values returned by [NavigatorUAData.getHighEntropyValues] could
+/// > potentially reveal more information. These values are therefore retrieved
+/// > via a `Promise`, allowing time for the browser to request user permission,
+/// > or make other checks.
 extension type NavigatorUAData._(JSObject _) implements JSObject {
   /// The **`getHighEntropyValues()`** method of the [NavigatorUAData] interface
   /// is a `Promise` that resolves with a dictionary object containing the _high

@@ -16,11 +16,7 @@ typedef USBRequestType = String;
 typedef USBRecipient = String;
 typedef USBDirection = String;
 typedef USBEndpointType = String;
-
-@JS()
-@staticInterop
-@anonymous
-class USBDeviceFilter {
+extension type USBDeviceFilter._(JSObject _) implements JSObject {
   external factory USBDeviceFilter({
     int vendorId,
     int productId,
@@ -29,9 +25,7 @@ class USBDeviceFilter {
     int protocolCode,
     String serialNumber,
   });
-}
 
-extension USBDeviceFilterExtension on USBDeviceFilter {
   external set vendorId(int value);
   external int get vendorId;
   external set productId(int value);
@@ -45,29 +39,18 @@ extension USBDeviceFilterExtension on USBDeviceFilter {
   external set serialNumber(String value);
   external String get serialNumber;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class USBDeviceRequestOptions {
+extension type USBDeviceRequestOptions._(JSObject _) implements JSObject {
   external factory USBDeviceRequestOptions({
     required JSArray filters,
     JSArray exclusionFilters,
   });
-}
 
-extension USBDeviceRequestOptionsExtension on USBDeviceRequestOptions {
   external set filters(JSArray value);
   external JSArray get filters;
   external set exclusionFilters(JSArray value);
   external JSArray get exclusionFilters;
 }
-
-@JS('USB')
-@staticInterop
-class USB implements EventTarget {}
-
-extension USBExtension on USB {
+extension type USB._(JSObject _) implements EventTarget, JSObject {
   external JSPromise getDevices();
   external JSPromise requestDevice(USBDeviceRequestOptions options);
   external set onconnect(EventHandler value);
@@ -75,121 +58,76 @@ extension USBExtension on USB {
   external set ondisconnect(EventHandler value);
   external EventHandler get ondisconnect;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class USBConnectionEventInit implements EventInit {
+extension type USBConnectionEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory USBConnectionEventInit({required USBDevice device});
-}
 
-extension USBConnectionEventInitExtension on USBConnectionEventInit {
   external set device(USBDevice value);
   external USBDevice get device;
 }
-
-@JS('USBConnectionEvent')
-@staticInterop
-class USBConnectionEvent implements Event {
+extension type USBConnectionEvent._(JSObject _) implements Event, JSObject {
   external factory USBConnectionEvent(
     String type,
     USBConnectionEventInit eventInitDict,
   );
-}
 
-extension USBConnectionEventExtension on USBConnectionEvent {
   external USBDevice get device;
 }
-
-@JS('USBInTransferResult')
-@staticInterop
-class USBInTransferResult {
+extension type USBInTransferResult._(JSObject _) implements JSObject {
   external factory USBInTransferResult(
     USBTransferStatus status, [
     JSDataView? data,
   ]);
-}
 
-extension USBInTransferResultExtension on USBInTransferResult {
   external JSDataView? get data;
   external USBTransferStatus get status;
 }
-
-@JS('USBOutTransferResult')
-@staticInterop
-class USBOutTransferResult {
+extension type USBOutTransferResult._(JSObject _) implements JSObject {
   external factory USBOutTransferResult(
     USBTransferStatus status, [
     int bytesWritten,
   ]);
-}
 
-extension USBOutTransferResultExtension on USBOutTransferResult {
   external int get bytesWritten;
   external USBTransferStatus get status;
 }
-
-@JS('USBIsochronousInTransferPacket')
-@staticInterop
-class USBIsochronousInTransferPacket {
+extension type USBIsochronousInTransferPacket._(JSObject _)
+    implements JSObject {
   external factory USBIsochronousInTransferPacket(
     USBTransferStatus status, [
     JSDataView? data,
   ]);
-}
 
-extension USBIsochronousInTransferPacketExtension
-    on USBIsochronousInTransferPacket {
   external JSDataView? get data;
   external USBTransferStatus get status;
 }
-
-@JS('USBIsochronousInTransferResult')
-@staticInterop
-class USBIsochronousInTransferResult {
+extension type USBIsochronousInTransferResult._(JSObject _)
+    implements JSObject {
   external factory USBIsochronousInTransferResult(
     JSArray packets, [
     JSDataView? data,
   ]);
-}
 
-extension USBIsochronousInTransferResultExtension
-    on USBIsochronousInTransferResult {
   external JSDataView? get data;
   external JSArray get packets;
 }
-
-@JS('USBIsochronousOutTransferPacket')
-@staticInterop
-class USBIsochronousOutTransferPacket {
+extension type USBIsochronousOutTransferPacket._(JSObject _)
+    implements JSObject {
   external factory USBIsochronousOutTransferPacket(
     USBTransferStatus status, [
     int bytesWritten,
   ]);
-}
 
-extension USBIsochronousOutTransferPacketExtension
-    on USBIsochronousOutTransferPacket {
   external int get bytesWritten;
   external USBTransferStatus get status;
 }
-
-@JS('USBIsochronousOutTransferResult')
-@staticInterop
-class USBIsochronousOutTransferResult {
+extension type USBIsochronousOutTransferResult._(JSObject _)
+    implements JSObject {
   external factory USBIsochronousOutTransferResult(JSArray packets);
-}
 
-extension USBIsochronousOutTransferResultExtension
-    on USBIsochronousOutTransferResult {
   external JSArray get packets;
 }
-
-@JS('USBDevice')
-@staticInterop
-class USBDevice {}
-
-extension USBDeviceExtension on USBDevice {
+extension type USBDevice._(JSObject _) implements JSObject {
   external JSPromise open();
   external JSPromise close();
   external JSPromise forget();
@@ -248,11 +186,7 @@ extension USBDeviceExtension on USBDevice {
   external JSArray get configurations;
   external bool get opened;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class USBControlTransferParameters {
+extension type USBControlTransferParameters._(JSObject _) implements JSObject {
   external factory USBControlTransferParameters({
     required USBRequestType requestType,
     required USBRecipient recipient,
@@ -260,10 +194,7 @@ class USBControlTransferParameters {
     required int value,
     required int index,
   });
-}
 
-extension USBControlTransferParametersExtension
-    on USBControlTransferParameters {
   external set requestType(USBRequestType value);
   external USBRequestType get requestType;
   external set recipient(USBRecipient value);
@@ -275,48 +206,33 @@ extension USBControlTransferParametersExtension
   external set index(int value);
   external int get index;
 }
-
-@JS('USBConfiguration')
-@staticInterop
-class USBConfiguration {
+extension type USBConfiguration._(JSObject _) implements JSObject {
   external factory USBConfiguration(
     USBDevice device,
     int configurationValue,
   );
-}
 
-extension USBConfigurationExtension on USBConfiguration {
   external int get configurationValue;
   external String? get configurationName;
   external JSArray get interfaces;
 }
-
-@JS('USBInterface')
-@staticInterop
-class USBInterface {
+extension type USBInterface._(JSObject _) implements JSObject {
   external factory USBInterface(
     USBConfiguration configuration,
     int interfaceNumber,
   );
-}
 
-extension USBInterfaceExtension on USBInterface {
   external int get interfaceNumber;
   external USBAlternateInterface get alternate;
   external JSArray get alternates;
   external bool get claimed;
 }
-
-@JS('USBAlternateInterface')
-@staticInterop
-class USBAlternateInterface {
+extension type USBAlternateInterface._(JSObject _) implements JSObject {
   external factory USBAlternateInterface(
     USBInterface deviceInterface,
     int alternateSetting,
   );
-}
 
-extension USBAlternateInterfaceExtension on USBAlternateInterface {
   external int get alternateSetting;
   external int get interfaceClass;
   external int get interfaceSubclass;
@@ -324,53 +240,37 @@ extension USBAlternateInterfaceExtension on USBAlternateInterface {
   external String? get interfaceName;
   external JSArray get endpoints;
 }
-
-@JS('USBEndpoint')
-@staticInterop
-class USBEndpoint {
+extension type USBEndpoint._(JSObject _) implements JSObject {
   external factory USBEndpoint(
     USBAlternateInterface alternate,
     int endpointNumber,
     USBDirection direction,
   );
-}
 
-extension USBEndpointExtension on USBEndpoint {
   external int get endpointNumber;
   external USBDirection get direction;
   external USBEndpointType get type;
   external int get packetSize;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class USBPermissionDescriptor implements PermissionDescriptor {
+extension type USBPermissionDescriptor._(JSObject _)
+    implements PermissionDescriptor, JSObject {
   external factory USBPermissionDescriptor({
     JSArray filters,
     JSArray exclusionFilters,
   });
-}
 
-extension USBPermissionDescriptorExtension on USBPermissionDescriptor {
   external set filters(JSArray value);
   external JSArray get filters;
   external set exclusionFilters(JSArray value);
   external JSArray get exclusionFilters;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AllowedUSBDevice {
+extension type AllowedUSBDevice._(JSObject _) implements JSObject {
   external factory AllowedUSBDevice({
     required int vendorId,
     required int productId,
     String serialNumber,
   });
-}
 
-extension AllowedUSBDeviceExtension on AllowedUSBDevice {
   external set vendorId(int value);
   external int get vendorId;
   external set productId(int value);
@@ -378,24 +278,14 @@ extension AllowedUSBDeviceExtension on AllowedUSBDevice {
   external set serialNumber(String value);
   external String get serialNumber;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class USBPermissionStorage {
+extension type USBPermissionStorage._(JSObject _) implements JSObject {
   external factory USBPermissionStorage({JSArray allowedDevices});
-}
 
-extension USBPermissionStorageExtension on USBPermissionStorage {
   external set allowedDevices(JSArray value);
   external JSArray get allowedDevices;
 }
-
-@JS('USBPermissionResult')
-@staticInterop
-class USBPermissionResult implements PermissionStatus {}
-
-extension USBPermissionResultExtension on USBPermissionResult {
+extension type USBPermissionResult._(JSObject _)
+    implements PermissionStatus, JSObject {
   external set devices(JSArray value);
   external JSArray get devices;
 }

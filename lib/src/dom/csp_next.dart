@@ -9,12 +9,8 @@ import 'dart:js_interop';
 import 'reporting.dart';
 
 typedef ScriptingPolicyViolationType = String;
-
-@JS('ScriptingPolicyReportBody')
-@staticInterop
-class ScriptingPolicyReportBody implements ReportBody {}
-
-extension ScriptingPolicyReportBodyExtension on ScriptingPolicyReportBody {
+extension type ScriptingPolicyReportBody._(JSObject _)
+    implements ReportBody, JSObject {
   external JSObject toJSON();
   external String get violationType;
   external String? get violationURL;

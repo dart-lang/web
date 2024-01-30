@@ -10,48 +10,29 @@ import 'html.dart';
 import 'web_animations.dart';
 
 typedef AnimatorInstanceConstructor = JSFunction;
-
-@JS('AnimationWorkletGlobalScope')
-@staticInterop
-class AnimationWorkletGlobalScope implements WorkletGlobalScope {}
-
-extension AnimationWorkletGlobalScopeExtension on AnimationWorkletGlobalScope {
+extension type AnimationWorkletGlobalScope._(JSObject _)
+    implements WorkletGlobalScope, JSObject {
   external void registerAnimator(
     String name,
     AnimatorInstanceConstructor animatorCtor,
   );
 }
-
-@JS('WorkletAnimationEffect')
-@staticInterop
-class WorkletAnimationEffect {}
-
-extension WorkletAnimationEffectExtension on WorkletAnimationEffect {
+extension type WorkletAnimationEffect._(JSObject _) implements JSObject {
   external EffectTiming getTiming();
   external ComputedEffectTiming getComputedTiming();
   external set localTime(num? value);
   external num? get localTime;
 }
-
-@JS('WorkletAnimation')
-@staticInterop
-class WorkletAnimation implements Animation {
+extension type WorkletAnimation._(JSObject _) implements Animation, JSObject {
   external factory WorkletAnimation(
     String animatorName, [
     JSObject? effects,
     AnimationTimeline? timeline,
     JSAny? options,
   ]);
-}
 
-extension WorkletAnimationExtension on WorkletAnimation {
   external String get animatorName;
 }
-
-@JS('WorkletGroupEffect')
-@staticInterop
-class WorkletGroupEffect {}
-
-extension WorkletGroupEffectExtension on WorkletGroupEffect {
+extension type WorkletGroupEffect._(JSObject _) implements JSObject {
   external JSArray getChildren();
 }

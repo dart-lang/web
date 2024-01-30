@@ -13,20 +13,14 @@ typedef RTCStatsType = String;
 typedef RTCQualityLimitationReason = String;
 typedef RTCDtlsRole = String;
 typedef RTCStatsIceCandidatePairState = String;
-
-@JS()
-@staticInterop
-@anonymous
-class RTCRtpStreamStats implements RTCStats {
+extension type RTCRtpStreamStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCRtpStreamStats({
     required int ssrc,
     required String kind,
     String transportId,
     String codecId,
   });
-}
 
-extension RTCRtpStreamStatsExtension on RTCRtpStreamStats {
   external set ssrc(int value);
   external int get ssrc;
   external set kind(String value);
@@ -36,11 +30,7 @@ extension RTCRtpStreamStatsExtension on RTCRtpStreamStats {
   external set codecId(String value);
   external String get codecId;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCCodecStats implements RTCStats {
+extension type RTCCodecStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCCodecStats({
     required int payloadType,
     required String transportId,
@@ -49,9 +39,7 @@ class RTCCodecStats implements RTCStats {
     int channels,
     String sdpFmtpLine,
   });
-}
 
-extension RTCCodecStatsExtension on RTCCodecStats {
   external set payloadType(int value);
   external int get payloadType;
   external set transportId(String value);
@@ -65,19 +53,14 @@ extension RTCCodecStatsExtension on RTCCodecStats {
   external set sdpFmtpLine(String value);
   external String get sdpFmtpLine;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCReceivedRtpStreamStats implements RTCRtpStreamStats {
+extension type RTCReceivedRtpStreamStats._(JSObject _)
+    implements RTCRtpStreamStats, JSObject {
   external factory RTCReceivedRtpStreamStats({
     int packetsReceived,
     int packetsLost,
     num jitter,
   });
-}
 
-extension RTCReceivedRtpStreamStatsExtension on RTCReceivedRtpStreamStats {
   external set packetsReceived(int value);
   external int get packetsReceived;
   external set packetsLost(int value);
@@ -85,11 +68,8 @@ extension RTCReceivedRtpStreamStatsExtension on RTCReceivedRtpStreamStats {
   external set jitter(num value);
   external num get jitter;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
+extension type RTCInboundRtpStreamStats._(JSObject _)
+    implements RTCReceivedRtpStreamStats, JSObject {
   external factory RTCInboundRtpStreamStats({
     required String trackIdentifier,
     String mid,
@@ -145,9 +125,7 @@ class RTCInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
     int rtxSsrc,
     int fecSsrc,
   });
-}
 
-extension RTCInboundRtpStreamStatsExtension on RTCInboundRtpStreamStats {
   external set trackIdentifier(String value);
   external String get trackIdentifier;
   external set mid(String value);
@@ -255,11 +233,8 @@ extension RTCInboundRtpStreamStatsExtension on RTCInboundRtpStreamStats {
   external set fecSsrc(int value);
   external int get fecSsrc;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCRemoteInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
+extension type RTCRemoteInboundRtpStreamStats._(JSObject _)
+    implements RTCReceivedRtpStreamStats, JSObject {
   external factory RTCRemoteInboundRtpStreamStats({
     String localId,
     num roundTripTime,
@@ -267,10 +242,7 @@ class RTCRemoteInboundRtpStreamStats implements RTCReceivedRtpStreamStats {
     num fractionLost,
     int roundTripTimeMeasurements,
   });
-}
 
-extension RTCRemoteInboundRtpStreamStatsExtension
-    on RTCRemoteInboundRtpStreamStats {
   external set localId(String value);
   external String get localId;
   external set roundTripTime(num value);
@@ -282,28 +254,20 @@ extension RTCRemoteInboundRtpStreamStatsExtension
   external set roundTripTimeMeasurements(int value);
   external int get roundTripTimeMeasurements;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCSentRtpStreamStats implements RTCRtpStreamStats {
+extension type RTCSentRtpStreamStats._(JSObject _)
+    implements RTCRtpStreamStats, JSObject {
   external factory RTCSentRtpStreamStats({
     int packetsSent,
     int bytesSent,
   });
-}
 
-extension RTCSentRtpStreamStatsExtension on RTCSentRtpStreamStats {
   external set packetsSent(int value);
   external int get packetsSent;
   external set bytesSent(int value);
   external int get bytesSent;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCOutboundRtpStreamStats implements RTCSentRtpStreamStats {
+extension type RTCOutboundRtpStreamStats._(JSObject _)
+    implements RTCSentRtpStreamStats, JSObject {
   external factory RTCOutboundRtpStreamStats({
     String mid,
     String mediaSourceId,
@@ -336,9 +300,7 @@ class RTCOutboundRtpStreamStats implements RTCSentRtpStreamStats {
     bool active,
     String scalabilityMode,
   });
-}
 
-extension RTCOutboundRtpStreamStatsExtension on RTCOutboundRtpStreamStats {
   external set mid(String value);
   external String get mid;
   external set mediaSourceId(String value);
@@ -400,11 +362,8 @@ extension RTCOutboundRtpStreamStatsExtension on RTCOutboundRtpStreamStats {
   external set scalabilityMode(String value);
   external String get scalabilityMode;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCRemoteOutboundRtpStreamStats implements RTCSentRtpStreamStats {
+extension type RTCRemoteOutboundRtpStreamStats._(JSObject _)
+    implements RTCSentRtpStreamStats, JSObject {
   external factory RTCRemoteOutboundRtpStreamStats({
     String localId,
     DOMHighResTimeStamp remoteTimestamp,
@@ -413,10 +372,7 @@ class RTCRemoteOutboundRtpStreamStats implements RTCSentRtpStreamStats {
     num totalRoundTripTime,
     int roundTripTimeMeasurements,
   });
-}
 
-extension RTCRemoteOutboundRtpStreamStatsExtension
-    on RTCRemoteOutboundRtpStreamStats {
   external set localId(String value);
   external String get localId;
   external set remoteTimestamp(DOMHighResTimeStamp value);
@@ -430,28 +386,19 @@ extension RTCRemoteOutboundRtpStreamStatsExtension
   external set roundTripTimeMeasurements(int value);
   external int get roundTripTimeMeasurements;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCMediaSourceStats implements RTCStats {
+extension type RTCMediaSourceStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCMediaSourceStats({
     required String trackIdentifier,
     required String kind,
   });
-}
 
-extension RTCMediaSourceStatsExtension on RTCMediaSourceStats {
   external set trackIdentifier(String value);
   external String get trackIdentifier;
   external set kind(String value);
   external String get kind;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCAudioSourceStats implements RTCMediaSourceStats {
+extension type RTCAudioSourceStats._(JSObject _)
+    implements RTCMediaSourceStats, JSObject {
   external factory RTCAudioSourceStats({
     num audioLevel,
     num totalAudioEnergy,
@@ -463,9 +410,7 @@ class RTCAudioSourceStats implements RTCMediaSourceStats {
     num totalCaptureDelay,
     int totalSamplesCaptured,
   });
-}
 
-extension RTCAudioSourceStatsExtension on RTCAudioSourceStats {
   external set audioLevel(num value);
   external num get audioLevel;
   external set totalAudioEnergy(num value);
@@ -485,20 +430,15 @@ extension RTCAudioSourceStatsExtension on RTCAudioSourceStats {
   external set totalSamplesCaptured(int value);
   external int get totalSamplesCaptured;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCVideoSourceStats implements RTCMediaSourceStats {
+extension type RTCVideoSourceStats._(JSObject _)
+    implements RTCMediaSourceStats, JSObject {
   external factory RTCVideoSourceStats({
     int width,
     int height,
     int frames,
     num framesPerSecond,
   });
-}
 
-extension RTCVideoSourceStatsExtension on RTCVideoSourceStats {
   external set width(int value);
   external int get width;
   external set height(int value);
@@ -508,11 +448,8 @@ extension RTCVideoSourceStatsExtension on RTCVideoSourceStats {
   external set framesPerSecond(num value);
   external num get framesPerSecond;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCAudioPlayoutStats implements RTCStats {
+extension type RTCAudioPlayoutStats._(JSObject _)
+    implements RTCStats, JSObject {
   external factory RTCAudioPlayoutStats({
     required String kind,
     num synthesizedSamplesDuration,
@@ -521,9 +458,7 @@ class RTCAudioPlayoutStats implements RTCStats {
     num totalPlayoutDelay,
     int totalSamplesCount,
   });
-}
 
-extension RTCAudioPlayoutStatsExtension on RTCAudioPlayoutStats {
   external set kind(String value);
   external String get kind;
   external set synthesizedSamplesDuration(num value);
@@ -537,28 +472,19 @@ extension RTCAudioPlayoutStatsExtension on RTCAudioPlayoutStats {
   external set totalSamplesCount(int value);
   external int get totalSamplesCount;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCPeerConnectionStats implements RTCStats {
+extension type RTCPeerConnectionStats._(JSObject _)
+    implements RTCStats, JSObject {
   external factory RTCPeerConnectionStats({
     int dataChannelsOpened,
     int dataChannelsClosed,
   });
-}
 
-extension RTCPeerConnectionStatsExtension on RTCPeerConnectionStats {
   external set dataChannelsOpened(int value);
   external int get dataChannelsOpened;
   external set dataChannelsClosed(int value);
   external int get dataChannelsClosed;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCDataChannelStats implements RTCStats {
+extension type RTCDataChannelStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCDataChannelStats({
     String label,
     String protocol,
@@ -569,9 +495,7 @@ class RTCDataChannelStats implements RTCStats {
     int messagesReceived,
     int bytesReceived,
   });
-}
 
-extension RTCDataChannelStatsExtension on RTCDataChannelStats {
   external set label(String value);
   external String get label;
   external set protocol(String value);
@@ -589,11 +513,7 @@ extension RTCDataChannelStatsExtension on RTCDataChannelStats {
   external set bytesReceived(int value);
   external int get bytesReceived;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCTransportStats implements RTCStats {
+extension type RTCTransportStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCTransportStats({
     int packetsSent,
     int packetsReceived,
@@ -612,9 +532,7 @@ class RTCTransportStats implements RTCStats {
     String srtpCipher,
     int selectedCandidatePairChanges,
   });
-}
 
-extension RTCTransportStatsExtension on RTCTransportStats {
   external set packetsSent(int value);
   external int get packetsSent;
   external set packetsReceived(int value);
@@ -648,11 +566,8 @@ extension RTCTransportStatsExtension on RTCTransportStats {
   external set selectedCandidatePairChanges(int value);
   external int get selectedCandidatePairChanges;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCIceCandidateStats implements RTCStats {
+extension type RTCIceCandidateStats._(JSObject _)
+    implements RTCStats, JSObject {
   external factory RTCIceCandidateStats({
     required String transportId,
     String? address,
@@ -668,9 +583,7 @@ class RTCIceCandidateStats implements RTCStats {
     String usernameFragment,
     RTCIceTcpCandidateType tcpType,
   });
-}
 
-extension RTCIceCandidateStatsExtension on RTCIceCandidateStats {
   external set transportId(String value);
   external String get transportId;
   external set address(String? value);
@@ -698,11 +611,8 @@ extension RTCIceCandidateStatsExtension on RTCIceCandidateStats {
   external set tcpType(RTCIceTcpCandidateType value);
   external RTCIceTcpCandidateType get tcpType;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCIceCandidatePairStats implements RTCStats {
+extension type RTCIceCandidatePairStats._(JSObject _)
+    implements RTCStats, JSObject {
   external factory RTCIceCandidatePairStats({
     required String transportId,
     required String localCandidateId,
@@ -727,9 +637,7 @@ class RTCIceCandidatePairStats implements RTCStats {
     int packetsDiscardedOnSend,
     int bytesDiscardedOnSend,
   });
-}
 
-extension RTCIceCandidatePairStatsExtension on RTCIceCandidatePairStats {
   external set transportId(String value);
   external String get transportId;
   external set localCandidateId(String value);
@@ -775,20 +683,14 @@ extension RTCIceCandidatePairStatsExtension on RTCIceCandidatePairStats {
   external set bytesDiscardedOnSend(int value);
   external int get bytesDiscardedOnSend;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RTCCertificateStats implements RTCStats {
+extension type RTCCertificateStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCCertificateStats({
     required String fingerprint,
     required String fingerprintAlgorithm,
     required String base64Certificate,
     String issuerCertificateId,
   });
-}
 
-extension RTCCertificateStatsExtension on RTCCertificateStats {
   external set fingerprint(String value);
   external String get fingerprint;
   external set fingerprintAlgorithm(String value);

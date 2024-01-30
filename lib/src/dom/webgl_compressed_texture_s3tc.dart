@@ -8,9 +8,7 @@ import 'dart:js_interop';
 
 import 'webgl1.dart';
 
-@JS('WEBGL_compressed_texture_s3tc')
-@staticInterop
-class WEBGL_compressed_texture_s3tc {
+extension type WEBGL_compressed_texture_s3tc._(JSObject _) implements JSObject {
   external static GLenum get COMPRESSED_RGB_S3TC_DXT1_EXT;
   external static GLenum get COMPRESSED_RGBA_S3TC_DXT1_EXT;
   external static GLenum get COMPRESSED_RGBA_S3TC_DXT3_EXT;

@@ -44,5 +44,6 @@ String _emitLibrary(code.Library library) {
   );
 
   final source = library.accept(emitter);
-  return DartFormatter().format(source.toString());
+  return DartFormatter(experimentFlags: [inlineClassExperimentFlag])
+      .format(source.toString());
 }

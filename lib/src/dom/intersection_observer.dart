@@ -11,17 +11,12 @@ import 'geometry.dart';
 import 'hr_time.dart';
 
 typedef IntersectionObserverCallback = JSFunction;
-
-@JS('IntersectionObserver')
-@staticInterop
-class IntersectionObserver {
+extension type IntersectionObserver._(JSObject _) implements JSObject {
   external factory IntersectionObserver(
     IntersectionObserverCallback callback, [
     IntersectionObserverInit options,
   ]);
-}
 
-extension IntersectionObserverExtension on IntersectionObserver {
   external void observe(Element target);
   external void unobserve(Element target);
   external void disconnect();
@@ -31,15 +26,10 @@ extension IntersectionObserverExtension on IntersectionObserver {
   external String get scrollMargin;
   external JSArray get thresholds;
 }
-
-@JS('IntersectionObserverEntry')
-@staticInterop
-class IntersectionObserverEntry {
+extension type IntersectionObserverEntry._(JSObject _) implements JSObject {
   external factory IntersectionObserverEntry(
       IntersectionObserverEntryInit intersectionObserverEntryInit);
-}
 
-extension IntersectionObserverEntryExtension on IntersectionObserverEntry {
   external DOMHighResTimeStamp get time;
   external DOMRectReadOnly? get rootBounds;
   external DOMRectReadOnly get boundingClientRect;
@@ -48,11 +38,7 @@ extension IntersectionObserverEntryExtension on IntersectionObserverEntry {
   external num get intersectionRatio;
   external Element get target;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class IntersectionObserverEntryInit {
+extension type IntersectionObserverEntryInit._(JSObject _) implements JSObject {
   external factory IntersectionObserverEntryInit({
     required DOMHighResTimeStamp time,
     required DOMRectInit? rootBounds,
@@ -62,10 +48,7 @@ class IntersectionObserverEntryInit {
     required num intersectionRatio,
     required Element target,
   });
-}
 
-extension IntersectionObserverEntryInitExtension
-    on IntersectionObserverEntryInit {
   external set time(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get time;
   external set rootBounds(DOMRectInit? value);
@@ -81,20 +64,14 @@ extension IntersectionObserverEntryInitExtension
   external set target(Element value);
   external Element get target;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class IntersectionObserverInit {
+extension type IntersectionObserverInit._(JSObject _) implements JSObject {
   external factory IntersectionObserverInit({
     JSObject? root,
     String rootMargin,
     String scrollMargin,
     JSAny threshold,
   });
-}
 
-extension IntersectionObserverInitExtension on IntersectionObserverInit {
   external set root(JSObject? value);
   external JSObject? get root;
   external set rootMargin(String value);

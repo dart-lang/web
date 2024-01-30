@@ -10,11 +10,7 @@ import 'dom.dart';
 import 'uievents.dart';
 
 typedef TouchType = String;
-
-@JS()
-@staticInterop
-@anonymous
-class TouchInit {
+extension type TouchInit._(JSObject _) implements JSObject {
   external factory TouchInit({
     required int identifier,
     required EventTarget target,
@@ -32,9 +28,7 @@ class TouchInit {
     num azimuthAngle,
     TouchType touchType,
   });
-}
 
-extension TouchInitExtension on TouchInit {
   external set identifier(int value);
   external int get identifier;
   external set target(EventTarget value);
@@ -66,14 +60,9 @@ extension TouchInitExtension on TouchInit {
   external set touchType(TouchType value);
   external TouchType get touchType;
 }
-
-@JS('Touch')
-@staticInterop
-class Touch {
+extension type Touch._(JSObject _) implements JSObject {
   external factory Touch(TouchInit touchInitDict);
-}
 
-extension TouchExtension on Touch {
   external int get identifier;
   external EventTarget get target;
   external num get screenX;
@@ -90,28 +79,18 @@ extension TouchExtension on Touch {
   external num get azimuthAngle;
   external TouchType get touchType;
 }
-
-@JS('TouchList')
-@staticInterop
-class TouchList {}
-
-extension TouchListExtension on TouchList {
+extension type TouchList._(JSObject _) implements JSObject {
   external Touch? item(int index);
   external int get length;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class TouchEventInit implements EventModifierInit {
+extension type TouchEventInit._(JSObject _)
+    implements EventModifierInit, JSObject {
   external factory TouchEventInit({
     JSArray touches,
     JSArray targetTouches,
     JSArray changedTouches,
   });
-}
 
-extension TouchEventInitExtension on TouchEventInit {
   external set touches(JSArray value);
   external JSArray get touches;
   external set targetTouches(JSArray value);
@@ -119,17 +98,12 @@ extension TouchEventInitExtension on TouchEventInit {
   external set changedTouches(JSArray value);
   external JSArray get changedTouches;
 }
-
-@JS('TouchEvent')
-@staticInterop
-class TouchEvent implements UIEvent {
+extension type TouchEvent._(JSObject _) implements UIEvent, JSObject {
   external factory TouchEvent(
     String type, [
     TouchEventInit eventInitDict,
   ]);
-}
 
-extension TouchEventExtension on TouchEvent {
   external bool getModifierState(String keyArg);
   external TouchList get touches;
   external TouchList get targetTouches;

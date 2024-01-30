@@ -8,11 +8,7 @@ import 'dart:js_interop';
 
 @JS()
 external $TestUtils get TestUtils;
-
 @JS('TestUtils')
-@staticInterop
-abstract class $TestUtils {}
-
-extension $TestUtilsExtension on $TestUtils {
+extension type $TestUtils._(JSObject _) implements JSObject {
   external JSPromise gc();
 }

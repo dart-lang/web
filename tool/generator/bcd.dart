@@ -25,40 +25,40 @@ class BrowserCompatData {
     final api = (jsonDecode(content) as Map)['api'] as Map<String, dynamic>;
     final interfaces = api.keys
         .where((key) => !key.startsWith('_'))
-        .map((key) => InterfaceStatus(key, api[key] as Map<String, dynamic>))
+        .map((key) => BCDInterfaceStatus(key, api[key] as Map<String, dynamic>))
         .toList();
     return BrowserCompatData(Map.fromIterable(
       interfaces,
-      key: (i) => (i as InterfaceStatus).name,
+      key: (i) => (i as BCDInterfaceStatus).name,
     ));
   }
 
-  final Map<String, InterfaceStatus> interfaces;
+  final Map<String, BCDInterfaceStatus> interfaces;
 
   BrowserCompatData(this.interfaces);
 
-  InterfaceStatus? interfaceFor(String name) => interfaces[name];
+  BCDInterfaceStatus? interfaceFor(String name) => interfaces[name];
 }
 
-class InterfaceStatus extends BCDItem {
-  late final Map<String, PropertyStatus> properties;
+class BCDInterfaceStatus extends BCDItem {
+  late final Map<String, BCDPropertyStatus> properties;
 
-  InterfaceStatus(super.name, super.json) {
+  BCDInterfaceStatus(super.name, super.json) {
     final names = json.keys.where((key) => !key.startsWith('_'));
     properties = Map.fromIterable(
       names,
-      value: (key) => PropertyStatus(
+      value: (key) => BCDPropertyStatus(
           key as String, json[key] as Map<String, dynamic>, this),
     );
   }
 
-  PropertyStatus? propertyFor(String name) => properties[name];
+  BCDPropertyStatus? propertyFor(String name) => properties[name];
 }
 
-class PropertyStatus extends BCDItem {
-  final InterfaceStatus parent;
+class BCDPropertyStatus extends BCDItem {
+  final BCDInterfaceStatus parent;
 
-  PropertyStatus(super.name, super.json, this.parent);
+  BCDPropertyStatus(super.name, super.json, this.parent);
 
   bool get statusDifferentFromParent =>
       parent.statusDescription != statusDescription;

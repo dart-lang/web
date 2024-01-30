@@ -13,30 +13,14 @@ import 'webidl.dart';
 typedef GLint64 = int;
 typedef GLuint64 = int;
 typedef Uint32List = JSObject;
-
-@JS('WebGLQuery')
-@staticInterop
-class WebGLQuery implements WebGLObject {}
-
-@JS('WebGLSampler')
-@staticInterop
-class WebGLSampler implements WebGLObject {}
-
-@JS('WebGLSync')
-@staticInterop
-class WebGLSync implements WebGLObject {}
-
-@JS('WebGLTransformFeedback')
-@staticInterop
-class WebGLTransformFeedback implements WebGLObject {}
-
-@JS('WebGLVertexArrayObject')
-@staticInterop
-class WebGLVertexArrayObject implements WebGLObject {}
-
-@JS('WebGL2RenderingContext')
-@staticInterop
-class WebGL2RenderingContext {
+extension type WebGLQuery._(JSObject _) implements WebGLObject, JSObject {}
+extension type WebGLSampler._(JSObject _) implements WebGLObject, JSObject {}
+extension type WebGLSync._(JSObject _) implements WebGLObject, JSObject {}
+extension type WebGLTransformFeedback._(JSObject _)
+    implements WebGLObject, JSObject {}
+extension type WebGLVertexArrayObject._(JSObject _)
+    implements WebGLObject, JSObject {}
+extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   external static GLenum get DEPTH_BUFFER_BIT;
   external static GLenum get STENCIL_BUFFER_BIT;
   external static GLenum get COLOR_BUFFER_BIT;
@@ -596,9 +580,6 @@ class WebGL2RenderingContext {
   external static GLenum get TEXTURE_IMMUTABLE_LEVELS;
   external static GLint64 get TIMEOUT_IGNORED;
   external static GLenum get MAX_CLIENT_WAIT_TIMEOUT_WEBGL;
-}
-
-extension WebGL2RenderingContextExtension on WebGL2RenderingContext {
   external WebGLContextAttributes? getContextAttributes();
   external bool isContextLost();
   external JSArray? getSupportedExtensions();

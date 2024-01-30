@@ -11,12 +11,7 @@ import 'gamepad_extensions.dart';
 import 'hr_time.dart';
 
 typedef GamepadMappingType = String;
-
-@JS('Gamepad')
-@staticInterop
-class Gamepad {}
-
-extension GamepadExtension on Gamepad {
+extension type Gamepad._(JSObject _) implements JSObject {
   external GamepadHand get hand;
   external JSArray get hapticActuators;
   external GamepadPose? get pose;
@@ -30,38 +25,22 @@ extension GamepadExtension on Gamepad {
   external JSArray get axes;
   external JSArray get buttons;
 }
-
-@JS('GamepadButton')
-@staticInterop
-class GamepadButton {}
-
-extension GamepadButtonExtension on GamepadButton {
+extension type GamepadButton._(JSObject _) implements JSObject {
   external bool get pressed;
   external bool get touched;
   external num get value;
 }
-
-@JS('GamepadEvent')
-@staticInterop
-class GamepadEvent implements Event {
+extension type GamepadEvent._(JSObject _) implements Event, JSObject {
   external factory GamepadEvent(
     String type,
     GamepadEventInit eventInitDict,
   );
-}
 
-extension GamepadEventExtension on GamepadEvent {
   external Gamepad get gamepad;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class GamepadEventInit implements EventInit {
+extension type GamepadEventInit._(JSObject _) implements EventInit, JSObject {
   external factory GamepadEventInit({required Gamepad gamepad});
-}
 
-extension GamepadEventInitExtension on GamepadEventInit {
   external set gamepad(Gamepad value);
   external Gamepad get gamepad;
 }

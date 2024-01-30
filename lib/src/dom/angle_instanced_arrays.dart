@@ -8,13 +8,8 @@ import 'dart:js_interop';
 
 import 'webgl1.dart';
 
-@JS('ANGLE_instanced_arrays')
-@staticInterop
-class ANGLE_instanced_arrays {
+extension type ANGLE_instanced_arrays._(JSObject _) implements JSObject {
   external static GLenum get VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE;
-}
-
-extension ANGLEInstancedArraysExtension on ANGLE_instanced_arrays {
   external void drawArraysInstancedANGLE(
     GLenum mode,
     GLint first,

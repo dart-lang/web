@@ -9,14 +9,8 @@ import 'dart:js_interop';
 import 'cssom.dart';
 import 'web_animations.dart';
 
-@JS('CSSStartingStyleRule')
-@staticInterop
-class CSSStartingStyleRule implements CSSGroupingRule {}
-
-@JS('CSSTransition')
-@staticInterop
-class CSSTransition implements Animation {}
-
-extension CSSTransitionExtension on CSSTransition {
+extension type CSSStartingStyleRule._(JSObject _)
+    implements CSSGroupingRule, JSObject {}
+extension type CSSTransition._(JSObject _) implements Animation, JSObject {
   external String get transitionProperty;
 }

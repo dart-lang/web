@@ -11,11 +11,7 @@ import 'cssom.dart';
 import 'dom.dart';
 import 'html.dart';
 
-@JS('MathMLElement')
-@staticInterop
-class MathMLElement implements Element {}
-
-extension MathMLElementExtension on MathMLElement {
+extension type MathMLElement._(JSObject _) implements Element, JSObject {
   external void focus([FocusOptions options]);
   external void blur();
   external StylePropertyMap get attributeStyleMap;

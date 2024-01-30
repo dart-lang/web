@@ -8,18 +8,11 @@ import 'dart:js_interop';
 
 import 'cssom.dart';
 
-@JS('CSSLayerBlockRule')
-@staticInterop
-class CSSLayerBlockRule implements CSSGroupingRule {}
-
-extension CSSLayerBlockRuleExtension on CSSLayerBlockRule {
+extension type CSSLayerBlockRule._(JSObject _)
+    implements CSSGroupingRule, JSObject {
   external String get name;
 }
-
-@JS('CSSLayerStatementRule')
-@staticInterop
-class CSSLayerStatementRule implements CSSRule {}
-
-extension CSSLayerStatementRuleExtension on CSSLayerStatementRule {
+extension type CSSLayerStatementRule._(JSObject _)
+    implements CSSRule, JSObject {
   external JSArray get nameList;
 }

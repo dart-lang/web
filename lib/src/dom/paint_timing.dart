@@ -8,6 +8,5 @@ import 'dart:js_interop';
 
 import 'performance_timeline.dart';
 
-@JS('PerformancePaintTiming')
-@staticInterop
-class PerformancePaintTiming implements PerformanceEntry {}
+extension type PerformancePaintTiming._(JSObject _)
+    implements PerformanceEntry, JSObject {}

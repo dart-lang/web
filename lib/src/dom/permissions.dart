@@ -10,51 +10,29 @@ import 'dom.dart';
 import 'html.dart';
 
 typedef PermissionState = String;
-
-@JS('Permissions')
-@staticInterop
-class Permissions {}
-
-extension PermissionsExtension on Permissions {
+extension type Permissions._(JSObject _) implements JSObject {
   external JSPromise request(JSObject permissionDesc);
   external JSPromise revoke(JSObject permissionDesc);
   external JSPromise query(JSObject permissionDesc);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PermissionDescriptor {
+extension type PermissionDescriptor._(JSObject _) implements JSObject {
   external factory PermissionDescriptor({required String name});
-}
 
-extension PermissionDescriptorExtension on PermissionDescriptor {
   external set name(String value);
   external String get name;
 }
-
-@JS('PermissionStatus')
-@staticInterop
-class PermissionStatus implements EventTarget {}
-
-extension PermissionStatusExtension on PermissionStatus {
+extension type PermissionStatus._(JSObject _) implements EventTarget, JSObject {
   external PermissionState get state;
   external String get name;
   external set onchange(EventHandler value);
   external EventHandler get onchange;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PermissionSetParameters {
+extension type PermissionSetParameters._(JSObject _) implements JSObject {
   external factory PermissionSetParameters({
     required PermissionDescriptor descriptor,
     required PermissionState state,
   });
-}
 
-extension PermissionSetParametersExtension on PermissionSetParameters {
   external set descriptor(PermissionDescriptor value);
   external PermissionDescriptor get descriptor;
   external set state(PermissionState value);

@@ -12,11 +12,7 @@ import 'css_properties_values_api.dart';
 import 'css_typed_om.dart';
 import 'html.dart';
 
-@JS('MediaList')
-@staticInterop
-class MediaList {}
-
-extension MediaListExtension on MediaList {
+extension type MediaList._(JSObject _) implements JSObject {
   external String? item(int index);
   external void appendMedium(String medium);
   external void deleteMedium(String medium);
@@ -24,12 +20,7 @@ extension MediaListExtension on MediaList {
   external String get mediaText;
   external int get length;
 }
-
-@JS('StyleSheet')
-@staticInterop
-class StyleSheet {}
-
-extension StyleSheetExtension on StyleSheet {
+extension type StyleSheet._(JSObject _) implements JSObject {
   external String get type;
   external String? get href;
   external JSObject? get ownerNode;
@@ -39,14 +30,9 @@ extension StyleSheetExtension on StyleSheet {
   external set disabled(bool value);
   external bool get disabled;
 }
-
-@JS('CSSStyleSheet')
-@staticInterop
-class CSSStyleSheet implements StyleSheet {
+extension type CSSStyleSheet._(JSObject _) implements StyleSheet, JSObject {
   external factory CSSStyleSheet([CSSStyleSheetInit options]);
-}
 
-extension CSSStyleSheetExtension on CSSStyleSheet {
   external int insertRule(
     String rule, [
     int index,
@@ -64,19 +50,13 @@ extension CSSStyleSheetExtension on CSSStyleSheet {
   external CSSRuleList get cssRules;
   external CSSRuleList get rules;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class CSSStyleSheetInit {
+extension type CSSStyleSheetInit._(JSObject _) implements JSObject {
   external factory CSSStyleSheetInit({
     String baseURL,
     JSAny media,
     bool disabled,
   });
-}
 
-extension CSSStyleSheetInitExtension on CSSStyleSheetInit {
   external set baseURL(String value);
   external String get baseURL;
   external set media(JSAny value);
@@ -84,28 +64,15 @@ extension CSSStyleSheetInitExtension on CSSStyleSheetInit {
   external set disabled(bool value);
   external bool get disabled;
 }
-
-@JS('StyleSheetList')
-@staticInterop
-class StyleSheetList {}
-
-extension StyleSheetListExtension on StyleSheetList {
+extension type StyleSheetList._(JSObject _) implements JSObject {
   external CSSStyleSheet? item(int index);
   external int get length;
 }
-
-@JS('CSSRuleList')
-@staticInterop
-class CSSRuleList {}
-
-extension CSSRuleListExtension on CSSRuleList {
+extension type CSSRuleList._(JSObject _) implements JSObject {
   external CSSRule? item(int index);
   external int get length;
 }
-
-@JS('CSSRule')
-@staticInterop
-class CSSRule {
+extension type CSSRule._(JSObject _) implements JSObject {
   external static int get KEYFRAMES_RULE;
   external static int get KEYFRAME_RULE;
   external static int get SUPPORTS_RULE;
@@ -119,44 +86,26 @@ class CSSRule {
   external static int get PAGE_RULE;
   external static int get MARGIN_RULE;
   external static int get NAMESPACE_RULE;
-}
-
-extension CSSRuleExtension on CSSRule {
   external set cssText(String value);
   external String get cssText;
   external CSSRule? get parentRule;
   external CSSStyleSheet? get parentStyleSheet;
   external int get type;
 }
-
-@JS('CSSStyleRule')
-@staticInterop
-class CSSStyleRule implements CSSGroupingRule {}
-
-extension CSSStyleRuleExtension on CSSStyleRule {
+extension type CSSStyleRule._(JSObject _) implements CSSGroupingRule, JSObject {
   external StylePropertyMap get styleMap;
   external set selectorText(String value);
   external String get selectorText;
   external CSSStyleDeclaration get style;
 }
-
-@JS('CSSImportRule')
-@staticInterop
-class CSSImportRule implements CSSRule {}
-
-extension CSSImportRuleExtension on CSSImportRule {
+extension type CSSImportRule._(JSObject _) implements CSSRule, JSObject {
   external String get href;
   external MediaList get media;
   external CSSStyleSheet? get styleSheet;
   external String? get layerName;
   external String? get supportsText;
 }
-
-@JS('CSSGroupingRule')
-@staticInterop
-class CSSGroupingRule implements CSSRule {}
-
-extension CSSGroupingRuleExtension on CSSGroupingRule {
+extension type CSSGroupingRule._(JSObject _) implements CSSRule, JSObject {
   external int insertRule(
     String rule, [
     int index,
@@ -164,40 +113,20 @@ extension CSSGroupingRuleExtension on CSSGroupingRule {
   external void deleteRule(int index);
   external CSSRuleList get cssRules;
 }
-
-@JS('CSSPageRule')
-@staticInterop
-class CSSPageRule implements CSSGroupingRule {}
-
-extension CSSPageRuleExtension on CSSPageRule {
+extension type CSSPageRule._(JSObject _) implements CSSGroupingRule, JSObject {
   external set selectorText(String value);
   external String get selectorText;
   external CSSStyleDeclaration get style;
 }
-
-@JS('CSSMarginRule')
-@staticInterop
-class CSSMarginRule implements CSSRule {}
-
-extension CSSMarginRuleExtension on CSSMarginRule {
+extension type CSSMarginRule._(JSObject _) implements CSSRule, JSObject {
   external String get name;
   external CSSStyleDeclaration get style;
 }
-
-@JS('CSSNamespaceRule')
-@staticInterop
-class CSSNamespaceRule implements CSSRule {}
-
-extension CSSNamespaceRuleExtension on CSSNamespaceRule {
+extension type CSSNamespaceRule._(JSObject _) implements CSSRule, JSObject {
   external String get namespaceURI;
   external String get prefix;
 }
-
-@JS('CSSStyleDeclaration')
-@staticInterop
-class CSSStyleDeclaration {}
-
-extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
+extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external String item(int index);
   external String getPropertyValue(String property);
   external String getPropertyPriority(String property);
@@ -1472,15 +1401,10 @@ extension CSSStyleDeclarationExtension on CSSStyleDeclaration {
   external set zIndex(String value);
   external String get zIndex;
 }
-
 @JS()
 external $CSS get CSS;
-
 @JS('CSS')
-@staticInterop
-abstract class $CSS {}
-
-extension $CSSExtension on $CSS {
+extension type $CSS._(JSObject _) implements JSObject {
   external bool supports(
     String conditionTextOrProperty, [
     String value,

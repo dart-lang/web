@@ -14,65 +14,34 @@ import 'permissions.dart';
 typedef MIDIPortType = String;
 typedef MIDIPortDeviceState = String;
 typedef MIDIPortConnectionState = String;
-
-@JS()
-@staticInterop
-@anonymous
-class MidiPermissionDescriptor implements PermissionDescriptor {
+extension type MidiPermissionDescriptor._(JSObject _)
+    implements PermissionDescriptor, JSObject {
   external factory MidiPermissionDescriptor({bool sysex});
-}
 
-extension MidiPermissionDescriptorExtension on MidiPermissionDescriptor {
   external set sysex(bool value);
   external bool get sysex;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MIDIOptions {
+extension type MIDIOptions._(JSObject _) implements JSObject {
   external factory MIDIOptions({
     bool sysex,
     bool software,
   });
-}
 
-extension MIDIOptionsExtension on MIDIOptions {
   external set sysex(bool value);
   external bool get sysex;
   external set software(bool value);
   external bool get software;
 }
-
-@JS('MIDIInputMap')
-@staticInterop
-class MIDIInputMap {}
-
-extension MIDIInputMapExtension on MIDIInputMap {}
-
-@JS('MIDIOutputMap')
-@staticInterop
-class MIDIOutputMap {}
-
-extension MIDIOutputMapExtension on MIDIOutputMap {}
-
-@JS('MIDIAccess')
-@staticInterop
-class MIDIAccess implements EventTarget {}
-
-extension MIDIAccessExtension on MIDIAccess {
+extension type MIDIInputMap._(JSObject _) implements JSObject {}
+extension type MIDIOutputMap._(JSObject _) implements JSObject {}
+extension type MIDIAccess._(JSObject _) implements EventTarget, JSObject {
   external MIDIInputMap get inputs;
   external MIDIOutputMap get outputs;
   external set onstatechange(EventHandler value);
   external EventHandler get onstatechange;
   external bool get sysexEnabled;
 }
-
-@JS('MIDIPort')
-@staticInterop
-class MIDIPort implements EventTarget {}
-
-extension MIDIPortExtension on MIDIPort {
+extension type MIDIPort._(JSObject _) implements EventTarget, JSObject {
   external JSPromise open();
   external JSPromise close();
   external String get id;
@@ -85,74 +54,44 @@ extension MIDIPortExtension on MIDIPort {
   external set onstatechange(EventHandler value);
   external EventHandler get onstatechange;
 }
-
-@JS('MIDIInput')
-@staticInterop
-class MIDIInput implements MIDIPort {}
-
-extension MIDIInputExtension on MIDIInput {
+extension type MIDIInput._(JSObject _) implements MIDIPort, JSObject {
   external set onmidimessage(EventHandler value);
   external EventHandler get onmidimessage;
 }
-
-@JS('MIDIOutput')
-@staticInterop
-class MIDIOutput implements MIDIPort {}
-
-extension MIDIOutputExtension on MIDIOutput {
+extension type MIDIOutput._(JSObject _) implements MIDIPort, JSObject {
   external void send(
     JSArray data, [
     DOMHighResTimeStamp timestamp,
   ]);
   external void clear();
 }
-
-@JS('MIDIMessageEvent')
-@staticInterop
-class MIDIMessageEvent implements Event {
+extension type MIDIMessageEvent._(JSObject _) implements Event, JSObject {
   external factory MIDIMessageEvent(
     String type, [
     MIDIMessageEventInit eventInitDict,
   ]);
-}
 
-extension MIDIMessageEventExtension on MIDIMessageEvent {
   external JSUint8Array get data;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MIDIMessageEventInit implements EventInit {
+extension type MIDIMessageEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory MIDIMessageEventInit({JSUint8Array data});
-}
 
-extension MIDIMessageEventInitExtension on MIDIMessageEventInit {
   external set data(JSUint8Array value);
   external JSUint8Array get data;
 }
-
-@JS('MIDIConnectionEvent')
-@staticInterop
-class MIDIConnectionEvent implements Event {
+extension type MIDIConnectionEvent._(JSObject _) implements Event, JSObject {
   external factory MIDIConnectionEvent(
     String type, [
     MIDIConnectionEventInit eventInitDict,
   ]);
-}
 
-extension MIDIConnectionEventExtension on MIDIConnectionEvent {
   external MIDIPort get port;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MIDIConnectionEventInit implements EventInit {
+extension type MIDIConnectionEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory MIDIConnectionEventInit({MIDIPort port});
-}
 
-extension MIDIConnectionEventInitExtension on MIDIConnectionEventInit {
   external set port(MIDIPort value);
   external MIDIPort get port;
 }

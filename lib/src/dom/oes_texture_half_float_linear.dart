@@ -6,6 +6,5 @@
 
 import 'dart:js_interop';
 
-@JS('OES_texture_half_float_linear')
-@staticInterop
-class OES_texture_half_float_linear {}
+extension type OES_texture_half_float_linear._(JSObject _)
+    implements JSObject {}

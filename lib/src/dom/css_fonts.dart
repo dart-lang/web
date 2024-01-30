@@ -8,19 +8,11 @@ import 'dart:js_interop';
 
 import 'cssom.dart';
 
-@JS('CSSFontFaceRule')
-@staticInterop
-class CSSFontFaceRule implements CSSRule {}
-
-extension CSSFontFaceRuleExtension on CSSFontFaceRule {
+extension type CSSFontFaceRule._(JSObject _) implements CSSRule, JSObject {
   external CSSStyleDeclaration get style;
 }
-
-@JS('CSSFontFeatureValuesRule')
-@staticInterop
-class CSSFontFeatureValuesRule implements CSSRule {}
-
-extension CSSFontFeatureValuesRuleExtension on CSSFontFeatureValuesRule {
+extension type CSSFontFeatureValuesRule._(JSObject _)
+    implements CSSRule, JSObject {
   external set fontFamily(String value);
   external String get fontFamily;
   external CSSFontFeatureValuesMap get annotation;
@@ -30,23 +22,14 @@ extension CSSFontFeatureValuesRuleExtension on CSSFontFeatureValuesRule {
   external CSSFontFeatureValuesMap get characterVariant;
   external CSSFontFeatureValuesMap get styleset;
 }
-
-@JS('CSSFontFeatureValuesMap')
-@staticInterop
-class CSSFontFeatureValuesMap {}
-
-extension CSSFontFeatureValuesMapExtension on CSSFontFeatureValuesMap {
+extension type CSSFontFeatureValuesMap._(JSObject _) implements JSObject {
   external void set(
     String featureValueName,
     JSAny values,
   );
 }
-
-@JS('CSSFontPaletteValuesRule')
-@staticInterop
-class CSSFontPaletteValuesRule implements CSSRule {}
-
-extension CSSFontPaletteValuesRuleExtension on CSSFontPaletteValuesRule {
+extension type CSSFontPaletteValuesRule._(JSObject _)
+    implements CSSRule, JSObject {
   external String get name;
   external String get fontFamily;
   external String get basePalette;

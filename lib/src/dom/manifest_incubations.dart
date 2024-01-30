@@ -9,28 +9,18 @@ import 'dart:js_interop';
 import 'dom.dart';
 
 typedef AppBannerPromptOutcome = String;
-
-@JS('BeforeInstallPromptEvent')
-@staticInterop
-class BeforeInstallPromptEvent implements Event {
+extension type BeforeInstallPromptEvent._(JSObject _)
+    implements Event, JSObject {
   external factory BeforeInstallPromptEvent(
     String type, [
     EventInit eventInitDict,
   ]);
-}
 
-extension BeforeInstallPromptEventExtension on BeforeInstallPromptEvent {
   external JSPromise prompt();
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PromptResponseObject {
+extension type PromptResponseObject._(JSObject _) implements JSObject {
   external factory PromptResponseObject({AppBannerPromptOutcome userChoice});
-}
 
-extension PromptResponseObjectExtension on PromptResponseObject {
   external set userChoice(AppBannerPromptOutcome value);
   external AppBannerPromptOutcome get userChoice;
 }

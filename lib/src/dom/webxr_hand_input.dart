@@ -9,28 +9,13 @@ import 'dart:js_interop';
 import 'webxr.dart';
 
 typedef XRHandJoint = String;
-
-@JS('XRHand')
-@staticInterop
-class XRHand {}
-
-extension XRHandExtension on XRHand {
+extension type XRHand._(JSObject _) implements JSObject {
   external XRJointSpace get(XRHandJoint key);
   external int get size;
 }
-
-@JS('XRJointSpace')
-@staticInterop
-class XRJointSpace implements XRSpace {}
-
-extension XRJointSpaceExtension on XRJointSpace {
+extension type XRJointSpace._(JSObject _) implements XRSpace, JSObject {
   external XRHandJoint get jointName;
 }
-
-@JS('XRJointPose')
-@staticInterop
-class XRJointPose implements XRPose {}
-
-extension XRJointPoseExtension on XRJointPose {
+extension type XRJointPose._(JSObject _) implements XRPose, JSObject {
   external num get radius;
 }

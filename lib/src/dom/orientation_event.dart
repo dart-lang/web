@@ -8,37 +8,27 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 
-@JS('DeviceOrientationEvent')
-@staticInterop
-class DeviceOrientationEvent implements Event {
+extension type DeviceOrientationEvent._(JSObject _) implements Event, JSObject {
   external factory DeviceOrientationEvent(
     String type, [
     DeviceOrientationEventInit eventInitDict,
   ]);
 
   external static JSPromise requestPermission();
-}
-
-extension DeviceOrientationEventExtension on DeviceOrientationEvent {
   external num? get alpha;
   external num? get beta;
   external num? get gamma;
   external bool get absolute;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class DeviceOrientationEventInit implements EventInit {
+extension type DeviceOrientationEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory DeviceOrientationEventInit({
     num? alpha,
     num? beta,
     num? gamma,
     bool absolute,
   });
-}
 
-extension DeviceOrientationEventInitExtension on DeviceOrientationEventInit {
   external set alpha(num? value);
   external num? get alpha;
   external set beta(num? value);
@@ -48,60 +38,36 @@ extension DeviceOrientationEventInitExtension on DeviceOrientationEventInit {
   external set absolute(bool value);
   external bool get absolute;
 }
-
-@JS('DeviceMotionEventAcceleration')
-@staticInterop
-class DeviceMotionEventAcceleration {}
-
-extension DeviceMotionEventAccelerationExtension
-    on DeviceMotionEventAcceleration {
+extension type DeviceMotionEventAcceleration._(JSObject _) implements JSObject {
   external num? get x;
   external num? get y;
   external num? get z;
 }
-
-@JS('DeviceMotionEventRotationRate')
-@staticInterop
-class DeviceMotionEventRotationRate {}
-
-extension DeviceMotionEventRotationRateExtension
-    on DeviceMotionEventRotationRate {
+extension type DeviceMotionEventRotationRate._(JSObject _) implements JSObject {
   external num? get alpha;
   external num? get beta;
   external num? get gamma;
 }
-
-@JS('DeviceMotionEvent')
-@staticInterop
-class DeviceMotionEvent implements Event {
+extension type DeviceMotionEvent._(JSObject _) implements Event, JSObject {
   external factory DeviceMotionEvent(
     String type, [
     DeviceMotionEventInit eventInitDict,
   ]);
 
   external static JSPromise requestPermission();
-}
-
-extension DeviceMotionEventExtension on DeviceMotionEvent {
   external DeviceMotionEventAcceleration? get acceleration;
   external DeviceMotionEventAcceleration? get accelerationIncludingGravity;
   external DeviceMotionEventRotationRate? get rotationRate;
   external num get interval;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class DeviceMotionEventAccelerationInit {
+extension type DeviceMotionEventAccelerationInit._(JSObject _)
+    implements JSObject {
   external factory DeviceMotionEventAccelerationInit({
     num? x,
     num? y,
     num? z,
   });
-}
 
-extension DeviceMotionEventAccelerationInitExtension
-    on DeviceMotionEventAccelerationInit {
   external set x(num? value);
   external num? get x;
   external set y(num? value);
@@ -109,20 +75,14 @@ extension DeviceMotionEventAccelerationInitExtension
   external set z(num? value);
   external num? get z;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class DeviceMotionEventRotationRateInit {
+extension type DeviceMotionEventRotationRateInit._(JSObject _)
+    implements JSObject {
   external factory DeviceMotionEventRotationRateInit({
     num? alpha,
     num? beta,
     num? gamma,
   });
-}
 
-extension DeviceMotionEventRotationRateInitExtension
-    on DeviceMotionEventRotationRateInit {
   external set alpha(num? value);
   external num? get alpha;
   external set beta(num? value);
@@ -130,20 +90,15 @@ extension DeviceMotionEventRotationRateInitExtension
   external set gamma(num? value);
   external num? get gamma;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class DeviceMotionEventInit implements EventInit {
+extension type DeviceMotionEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory DeviceMotionEventInit({
     DeviceMotionEventAccelerationInit acceleration,
     DeviceMotionEventAccelerationInit accelerationIncludingGravity,
     DeviceMotionEventRotationRateInit rotationRate,
     num interval,
   });
-}
 
-extension DeviceMotionEventInitExtension on DeviceMotionEventInit {
   external set acceleration(DeviceMotionEventAccelerationInit value);
   external DeviceMotionEventAccelerationInit get acceleration;
   external set accelerationIncludingGravity(

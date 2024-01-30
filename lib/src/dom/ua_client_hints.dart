@@ -6,27 +6,18 @@
 
 import 'dart:js_interop';
 
-@JS()
-@staticInterop
-@anonymous
-class NavigatorUABrandVersion {
+extension type NavigatorUABrandVersion._(JSObject _) implements JSObject {
   external factory NavigatorUABrandVersion({
     String brand,
     String version,
   });
-}
 
-extension NavigatorUABrandVersionExtension on NavigatorUABrandVersion {
   external set brand(String value);
   external String get brand;
   external set version(String value);
   external String get version;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class UADataValues {
+extension type UADataValues._(JSObject _) implements JSObject {
   external factory UADataValues({
     String architecture,
     String bitness,
@@ -40,9 +31,7 @@ class UADataValues {
     String uaFullVersion,
     bool wow64,
   });
-}
 
-extension UADataValuesExtension on UADataValues {
   external set architecture(String value);
   external String get architecture;
   external set bitness(String value);
@@ -66,19 +55,13 @@ extension UADataValuesExtension on UADataValues {
   external set wow64(bool value);
   external bool get wow64;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class UALowEntropyJSON {
+extension type UALowEntropyJSON._(JSObject _) implements JSObject {
   external factory UALowEntropyJSON({
     JSArray brands,
     bool mobile,
     String platform,
   });
-}
 
-extension UALowEntropyJSONExtension on UALowEntropyJSON {
   external set brands(JSArray value);
   external JSArray get brands;
   external set mobile(bool value);
@@ -86,12 +69,7 @@ extension UALowEntropyJSONExtension on UALowEntropyJSON {
   external set platform(String value);
   external String get platform;
 }
-
-@JS('NavigatorUAData')
-@staticInterop
-class NavigatorUAData {}
-
-extension NavigatorUADataExtension on NavigatorUAData {
+extension type NavigatorUAData._(JSObject _) implements JSObject {
   external JSPromise getHighEntropyValues(JSArray hints);
   external UALowEntropyJSON toJSON();
   external JSArray get brands;

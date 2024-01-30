@@ -7,18 +7,13 @@
 import 'dart:js_interop';
 
 typedef URLPatternInput = JSAny;
-
-@JS('URLPattern')
-@staticInterop
-class URLPattern {
+extension type URLPattern._(JSObject _) implements JSObject {
   external factory URLPattern([
     URLPatternInput input,
     JSAny baseURLOrOptions,
     URLPatternOptions options,
   ]);
-}
 
-extension URLPatternExtension on URLPattern {
   external bool test([
     URLPatternInput input,
     String baseURL,
@@ -36,11 +31,7 @@ extension URLPatternExtension on URLPattern {
   external String get search;
   external String get hash;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class URLPatternInit {
+extension type URLPatternInit._(JSObject _) implements JSObject {
   external factory URLPatternInit({
     String protocol,
     String username,
@@ -52,9 +43,7 @@ class URLPatternInit {
     String hash,
     String baseURL,
   });
-}
 
-extension URLPatternInitExtension on URLPatternInit {
   external set protocol(String value);
   external String get protocol;
   external set username(String value);
@@ -74,23 +63,13 @@ extension URLPatternInitExtension on URLPatternInit {
   external set baseURL(String value);
   external String get baseURL;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class URLPatternOptions {
+extension type URLPatternOptions._(JSObject _) implements JSObject {
   external factory URLPatternOptions({bool ignoreCase});
-}
 
-extension URLPatternOptionsExtension on URLPatternOptions {
   external set ignoreCase(bool value);
   external bool get ignoreCase;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class URLPatternResult {
+extension type URLPatternResult._(JSObject _) implements JSObject {
   external factory URLPatternResult({
     JSArray inputs,
     URLPatternComponentResult protocol,
@@ -102,9 +81,7 @@ class URLPatternResult {
     URLPatternComponentResult search,
     URLPatternComponentResult hash,
   });
-}
 
-extension URLPatternResultExtension on URLPatternResult {
   external set inputs(JSArray value);
   external JSArray get inputs;
   external set protocol(URLPatternComponentResult value);
@@ -124,18 +101,12 @@ extension URLPatternResultExtension on URLPatternResult {
   external set hash(URLPatternComponentResult value);
   external URLPatternComponentResult get hash;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class URLPatternComponentResult {
+extension type URLPatternComponentResult._(JSObject _) implements JSObject {
   external factory URLPatternComponentResult({
     String input,
     JSAny groups,
   });
-}
 
-extension URLPatternComponentResultExtension on URLPatternComponentResult {
   external set input(String value);
   external String get input;
   external set groups(JSAny value);

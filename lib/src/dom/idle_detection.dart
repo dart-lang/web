@@ -11,33 +11,21 @@ import 'html.dart';
 
 typedef UserIdleState = String;
 typedef ScreenIdleState = String;
-
-@JS()
-@staticInterop
-@anonymous
-class IdleOptions {
+extension type IdleOptions._(JSObject _) implements JSObject {
   external factory IdleOptions({
     int threshold,
     AbortSignal signal,
   });
-}
 
-extension IdleOptionsExtension on IdleOptions {
   external set threshold(int value);
   external int get threshold;
   external set signal(AbortSignal value);
   external AbortSignal get signal;
 }
-
-@JS('IdleDetector')
-@staticInterop
-class IdleDetector implements EventTarget {
+extension type IdleDetector._(JSObject _) implements EventTarget, JSObject {
   external factory IdleDetector();
 
   external static JSPromise requestPermission();
-}
-
-extension IdleDetectorExtension on IdleDetector {
   external JSPromise start([IdleOptions options]);
   external UserIdleState? get userState;
   external ScreenIdleState? get screenState;

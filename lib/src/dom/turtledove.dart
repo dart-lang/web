@@ -8,10 +8,7 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 
-@JS()
-@staticInterop
-@anonymous
-class AuctionAd {
+extension type AuctionAd._(JSObject _) implements JSObject {
   external factory AuctionAd({
     required String renderURL,
     JSAny? metadata,
@@ -19,9 +16,7 @@ class AuctionAd {
     String buyerAndSellerReportingId,
     JSArray allowedReportingOrigins,
   });
-}
 
-extension AuctionAdExtension on AuctionAd {
   external set renderURL(String value);
   external String get renderURL;
   external set metadata(JSAny? value);
@@ -33,11 +28,7 @@ extension AuctionAdExtension on AuctionAd {
   external set allowedReportingOrigins(JSArray value);
   external JSArray get allowedReportingOrigins;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class GenerateBidInterestGroup {
+extension type GenerateBidInterestGroup._(JSObject _) implements JSObject {
   external factory GenerateBidInterestGroup({
     required String owner,
     required String name,
@@ -54,9 +45,7 @@ class GenerateBidInterestGroup {
     JSArray ads,
     JSArray adComponents,
   });
-}
 
-extension GenerateBidInterestGroupExtension on GenerateBidInterestGroup {
   external set owner(String value);
   external String get owner;
   external set name(String value);
@@ -86,45 +75,30 @@ extension GenerateBidInterestGroupExtension on GenerateBidInterestGroup {
   external set adComponents(JSArray value);
   external JSArray get adComponents;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AuctionAdInterestGroup implements GenerateBidInterestGroup {
+extension type AuctionAdInterestGroup._(JSObject _)
+    implements GenerateBidInterestGroup, JSObject {
   external factory AuctionAdInterestGroup({
     num priority,
     JSAny prioritySignalsOverrides,
   });
-}
 
-extension AuctionAdInterestGroupExtension on AuctionAdInterestGroup {
   external set priority(num value);
   external num get priority;
   external set prioritySignalsOverrides(JSAny value);
   external JSAny get prioritySignalsOverrides;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AuctionAdInterestGroupKey {
+extension type AuctionAdInterestGroupKey._(JSObject _) implements JSObject {
   external factory AuctionAdInterestGroupKey({
     required String owner,
     required String name,
   });
-}
 
-extension AuctionAdInterestGroupKeyExtension on AuctionAdInterestGroupKey {
   external set owner(String value);
   external String get owner;
   external set name(String value);
   external String get name;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AuctionAdConfig {
+extension type AuctionAdConfig._(JSObject _) implements JSObject {
   external factory AuctionAdConfig({
     required String seller,
     required String decisionLogicURL,
@@ -146,9 +120,7 @@ class AuctionAdConfig {
     AbortSignal? signal,
     JSPromise resolveToConfig,
   });
-}
 
-extension AuctionAdConfigExtension on AuctionAdConfig {
   external set seller(String value);
   external String get seller;
   external set decisionLogicURL(String value);
@@ -188,18 +160,10 @@ extension AuctionAdConfigExtension on AuctionAdConfig {
   external set resolveToConfig(JSPromise value);
   external JSPromise get resolveToConfig;
 }
-
-@JS('InterestGroupScriptRunnerGlobalScope')
-@staticInterop
-class InterestGroupScriptRunnerGlobalScope {}
-
-@JS('InterestGroupBiddingScriptRunnerGlobalScope')
-@staticInterop
-class InterestGroupBiddingScriptRunnerGlobalScope
-    implements InterestGroupScriptRunnerGlobalScope {}
-
-extension InterestGroupBiddingScriptRunnerGlobalScopeExtension
-    on InterestGroupBiddingScriptRunnerGlobalScope {
+extension type InterestGroupScriptRunnerGlobalScope._(JSObject _)
+    implements JSObject {}
+extension type InterestGroupBiddingScriptRunnerGlobalScope._(JSObject _)
+    implements InterestGroupScriptRunnerGlobalScope, JSObject {
   external bool setBid([GenerateBidOutput generateBidOutput]);
   external void setPriority(num priority);
   external void setPrioritySignalsOverride(
@@ -207,19 +171,13 @@ extension InterestGroupBiddingScriptRunnerGlobalScopeExtension
     num? priority,
   ]);
 }
-
-@JS()
-@staticInterop
-@anonymous
-class AdRender {
+extension type AdRender._(JSObject _) implements JSObject {
   external factory AdRender({
     required String url,
     String width,
     String height,
   });
-}
 
-extension AdRenderExtension on AdRender {
   external set url(String value);
   external String get url;
   external set width(String value);
@@ -227,11 +185,7 @@ extension AdRenderExtension on AdRender {
   external set height(String value);
   external String get height;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class GenerateBidOutput {
+extension type GenerateBidOutput._(JSObject _) implements JSObject {
   external factory GenerateBidOutput({
     num bid,
     String bidCurrency,
@@ -242,9 +196,7 @@ class GenerateBidOutput {
     num modelingSignals,
     bool allowComponentAuction,
   });
-}
 
-extension GenerateBidOutputExtension on GenerateBidOutput {
   external set bid(num value);
   external num get bid;
   external set bidCurrency(String value);
@@ -262,19 +214,10 @@ extension GenerateBidOutputExtension on GenerateBidOutput {
   external set allowComponentAuction(bool value);
   external bool get allowComponentAuction;
 }
-
-@JS('InterestGroupScoringScriptRunnerGlobalScope')
-@staticInterop
-class InterestGroupScoringScriptRunnerGlobalScope
-    implements InterestGroupScriptRunnerGlobalScope {}
-
-@JS('InterestGroupReportingScriptRunnerGlobalScope')
-@staticInterop
-class InterestGroupReportingScriptRunnerGlobalScope
-    implements InterestGroupScriptRunnerGlobalScope {}
-
-extension InterestGroupReportingScriptRunnerGlobalScopeExtension
-    on InterestGroupReportingScriptRunnerGlobalScope {
+extension type InterestGroupScoringScriptRunnerGlobalScope._(JSObject _)
+    implements InterestGroupScriptRunnerGlobalScope, JSObject {}
+extension type InterestGroupReportingScriptRunnerGlobalScope._(JSObject _)
+    implements InterestGroupScriptRunnerGlobalScope, JSObject {
   external void sendReportTo(String url);
   external void registerAdBeacon(JSAny map);
   external void registerAdMacro(
@@ -282,28 +225,18 @@ extension InterestGroupReportingScriptRunnerGlobalScopeExtension
     String value,
   );
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PreviousWin {
+extension type PreviousWin._(JSObject _) implements JSObject {
   external factory PreviousWin({
     required int timeDelta,
     required String adJSON,
   });
-}
 
-extension PreviousWinExtension on PreviousWin {
   external set timeDelta(int value);
   external int get timeDelta;
   external set adJSON(String value);
   external String get adJSON;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class BiddingBrowserSignals {
+extension type BiddingBrowserSignals._(JSObject _) implements JSObject {
   external factory BiddingBrowserSignals({
     required String topWindowHostname,
     required String seller,
@@ -315,9 +248,7 @@ class BiddingBrowserSignals {
     JSObject wasmHelper,
     int dataVersion,
   });
-}
 
-extension BiddingBrowserSignalsExtension on BiddingBrowserSignals {
   external set topWindowHostname(String value);
   external String get topWindowHostname;
   external set seller(String value);
@@ -337,11 +268,7 @@ extension BiddingBrowserSignalsExtension on BiddingBrowserSignals {
   external set dataVersion(int value);
   external int get dataVersion;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ScoringBrowserSignals {
+extension type ScoringBrowserSignals._(JSObject _) implements JSObject {
   external factory ScoringBrowserSignals({
     required String topWindowHostname,
     required String interestGroupOwner,
@@ -351,9 +278,7 @@ class ScoringBrowserSignals {
     int dataVersion,
     JSArray adComponents,
   });
-}
 
-extension ScoringBrowserSignalsExtension on ScoringBrowserSignals {
   external set topWindowHostname(String value);
   external String get topWindowHostname;
   external set interestGroupOwner(String value);
@@ -369,11 +294,7 @@ extension ScoringBrowserSignalsExtension on ScoringBrowserSignals {
   external set adComponents(JSArray value);
   external JSArray get adComponents;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ReportingBrowserSignals {
+extension type ReportingBrowserSignals._(JSObject _) implements JSObject {
   external factory ReportingBrowserSignals({
     required String topWindowHostname,
     required String interestGroupOwner,
@@ -386,9 +307,7 @@ class ReportingBrowserSignals {
     String componentSeller,
     String buyerAndSellerReportingId,
   });
-}
 
-extension ReportingBrowserSignalsExtension on ReportingBrowserSignals {
   external set topWindowHostname(String value);
   external String get topWindowHostname;
   external set interestGroupOwner(String value);
@@ -410,20 +329,15 @@ extension ReportingBrowserSignalsExtension on ReportingBrowserSignals {
   external set buyerAndSellerReportingId(String value);
   external String get buyerAndSellerReportingId;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ReportResultBrowserSignals implements ReportingBrowserSignals {
+extension type ReportResultBrowserSignals._(JSObject _)
+    implements ReportingBrowserSignals, JSObject {
   external factory ReportResultBrowserSignals({
     required num desirability,
     String topLevelSellerSignals,
     num modifiedBid,
     int dataVersion,
   });
-}
 
-extension ReportResultBrowserSignalsExtension on ReportResultBrowserSignals {
   external set desirability(num value);
   external num get desirability;
   external set topLevelSellerSignals(String value);
@@ -433,11 +347,8 @@ extension ReportResultBrowserSignalsExtension on ReportResultBrowserSignals {
   external set dataVersion(int value);
   external int get dataVersion;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ReportWinBrowserSignals implements ReportingBrowserSignals {
+extension type ReportWinBrowserSignals._(JSObject _)
+    implements ReportingBrowserSignals, JSObject {
   external factory ReportWinBrowserSignals({
     num adCost,
     String seller,
@@ -447,9 +358,7 @@ class ReportWinBrowserSignals implements ReportingBrowserSignals {
     int modelingSignals,
     int dataVersion,
   });
-}
 
-extension ReportWinBrowserSignalsExtension on ReportWinBrowserSignals {
   external set adCost(num value);
   external num get adCost;
   external set seller(String value);
@@ -465,11 +374,7 @@ extension ReportWinBrowserSignalsExtension on ReportWinBrowserSignals {
   external set dataVersion(int value);
   external int get dataVersion;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ScoreAdOutput {
+extension type ScoreAdOutput._(JSObject _) implements JSObject {
   external factory ScoreAdOutput({
     required num desirability,
     num bid,
@@ -477,9 +382,7 @@ class ScoreAdOutput {
     num incomingBidInSellerCurrency,
     bool allowComponentAuction,
   });
-}
 
-extension ScoreAdOutputExtension on ScoreAdOutput {
   external set desirability(num value);
   external num get desirability;
   external set bid(num value);

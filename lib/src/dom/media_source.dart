@@ -13,17 +13,11 @@ import 'webidl.dart';
 typedef ReadyState = String;
 typedef EndOfStreamError = String;
 typedef AppendMode = String;
-
-@JS('MediaSource')
-@staticInterop
-class MediaSource implements EventTarget {
+extension type MediaSource._(JSObject _) implements EventTarget, JSObject {
   external factory MediaSource();
 
   external static bool isTypeSupported(String type);
   external static bool get canConstructInDedicatedWorker;
-}
-
-extension MediaSourceExtension on MediaSource {
   external SourceBuffer addSourceBuffer(String type);
   external void removeSourceBuffer(SourceBuffer sourceBuffer);
   external void endOfStream([EndOfStreamError error]);
@@ -45,16 +39,8 @@ extension MediaSourceExtension on MediaSource {
   external set onsourceclose(EventHandler value);
   external EventHandler get onsourceclose;
 }
-
-@JS('MediaSourceHandle')
-@staticInterop
-class MediaSourceHandle {}
-
-@JS('SourceBuffer')
-@staticInterop
-class SourceBuffer implements EventTarget {}
-
-extension SourceBufferExtension on SourceBuffer {
+extension type MediaSourceHandle._(JSObject _) implements JSObject {}
+extension type SourceBuffer._(JSObject _) implements EventTarget, JSObject {
   external void appendBuffer(BufferSource data);
   external void abort();
   external void changeType(String type);
@@ -86,12 +72,7 @@ extension SourceBufferExtension on SourceBuffer {
   external set onabort(EventHandler value);
   external EventHandler get onabort;
 }
-
-@JS('SourceBufferList')
-@staticInterop
-class SourceBufferList implements EventTarget {}
-
-extension SourceBufferListExtension on SourceBufferList {
+extension type SourceBufferList._(JSObject _) implements EventTarget, JSObject {
   external int get length;
   external set onaddsourcebuffer(EventHandler value);
   external EventHandler get onaddsourcebuffer;

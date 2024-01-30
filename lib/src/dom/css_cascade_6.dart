@@ -8,11 +8,7 @@ import 'dart:js_interop';
 
 import 'cssom.dart';
 
-@JS('CSSScopeRule')
-@staticInterop
-class CSSScopeRule implements CSSGroupingRule {}
-
-extension CSSScopeRuleExtension on CSSScopeRule {
+extension type CSSScopeRule._(JSObject _) implements CSSGroupingRule, JSObject {
   external String? get start;
   external String? get end;
 }

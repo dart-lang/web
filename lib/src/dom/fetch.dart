@@ -25,14 +25,9 @@ typedef RequestRedirect = String;
 typedef RequestDuplex = String;
 typedef RequestPriority = String;
 typedef ResponseType = String;
-
-@JS('Headers')
-@staticInterop
-class Headers {
+extension type Headers._(JSObject _) implements JSObject {
   external factory Headers([HeadersInit init]);
-}
 
-extension HeadersExtension on Headers {
   external void append(
     String name,
     String value,
@@ -46,17 +41,12 @@ extension HeadersExtension on Headers {
     String value,
   );
 }
-
-@JS('Request')
-@staticInterop
-class Request {
+extension type Request._(JSObject _) implements JSObject {
   external factory Request(
     RequestInfo input, [
     RequestInit init,
   ]);
-}
 
-extension RequestExtension on Request {
   external Request clone();
   external JSPromise arrayBuffer();
   external JSPromise blob();
@@ -82,11 +72,7 @@ extension RequestExtension on Request {
   external ReadableStream? get body;
   external bool get bodyUsed;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class RequestInit {
+extension type RequestInit._(JSObject _) implements JSObject {
   external factory RequestInit({
     AttributionReportingRequestOptions attributionReporting,
     String method,
@@ -108,9 +94,7 @@ class RequestInit {
     bool sharedStorageWritable,
     PrivateToken privateToken,
   });
-}
 
-extension RequestInitExtension on RequestInit {
   external set attributionReporting(AttributionReportingRequestOptions value);
   external AttributionReportingRequestOptions get attributionReporting;
   external set method(String value);
@@ -150,10 +134,7 @@ extension RequestInitExtension on RequestInit {
   external set privateToken(PrivateToken value);
   external PrivateToken get privateToken;
 }
-
-@JS('Response')
-@staticInterop
-class Response {
+extension type Response._(JSObject _) implements JSObject {
   external factory Response([
     BodyInit? body,
     ResponseInit init,
@@ -169,9 +150,6 @@ class Response {
     JSAny? data, [
     ResponseInit init,
   ]);
-}
-
-extension ResponseExtension on Response {
   external Response clone();
   external JSPromise arrayBuffer();
   external JSPromise blob();
@@ -188,19 +166,13 @@ extension ResponseExtension on Response {
   external ReadableStream? get body;
   external bool get bodyUsed;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ResponseInit {
+extension type ResponseInit._(JSObject _) implements JSObject {
   external factory ResponseInit({
     int status,
     String statusText,
     HeadersInit headers,
   });
-}
 
-extension ResponseInitExtension on ResponseInit {
   external set status(int value);
   external int get status;
   external set statusText(String value);

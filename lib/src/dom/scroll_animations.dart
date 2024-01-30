@@ -11,47 +11,31 @@ import 'dom.dart';
 import 'web_animations.dart';
 
 typedef ScrollAxis = String;
-
-@JS()
-@staticInterop
-@anonymous
-class ScrollTimelineOptions {
+extension type ScrollTimelineOptions._(JSObject _) implements JSObject {
   external factory ScrollTimelineOptions({
     Element? source,
     ScrollAxis axis,
   });
-}
 
-extension ScrollTimelineOptionsExtension on ScrollTimelineOptions {
   external set source(Element? value);
   external Element? get source;
   external set axis(ScrollAxis value);
   external ScrollAxis get axis;
 }
-
-@JS('ScrollTimeline')
-@staticInterop
-class ScrollTimeline implements AnimationTimeline {
+extension type ScrollTimeline._(JSObject _)
+    implements AnimationTimeline, JSObject {
   external factory ScrollTimeline([ScrollTimelineOptions options]);
-}
 
-extension ScrollTimelineExtension on ScrollTimeline {
   external Element? get source;
   external ScrollAxis get axis;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ViewTimelineOptions {
+extension type ViewTimelineOptions._(JSObject _) implements JSObject {
   external factory ViewTimelineOptions({
     Element subject,
     ScrollAxis axis,
     JSAny inset,
   });
-}
 
-extension ViewTimelineOptionsExtension on ViewTimelineOptions {
   external set subject(Element value);
   external Element get subject;
   external set axis(ScrollAxis value);
@@ -59,14 +43,9 @@ extension ViewTimelineOptionsExtension on ViewTimelineOptions {
   external set inset(JSAny value);
   external JSAny get inset;
 }
-
-@JS('ViewTimeline')
-@staticInterop
-class ViewTimeline implements ScrollTimeline {
+extension type ViewTimeline._(JSObject _) implements ScrollTimeline, JSObject {
   external factory ViewTimeline([ViewTimelineOptions options]);
-}
 
-extension ViewTimelineExtension on ViewTimeline {
   external Element get subject;
   external CSSNumericValue get startOffset;
   external CSSNumericValue get endOffset;

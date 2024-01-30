@@ -10,60 +10,37 @@ import 'hr_time.dart';
 
 typedef PerformanceEntryList = JSArray;
 typedef PerformanceObserverCallback = JSFunction;
-
-@JS('PerformanceEntry')
-@staticInterop
-class PerformanceEntry {}
-
-extension PerformanceEntryExtension on PerformanceEntry {
+extension type PerformanceEntry._(JSObject _) implements JSObject {
   external JSObject toJSON();
   external String get name;
   external String get entryType;
   external DOMHighResTimeStamp get startTime;
   external DOMHighResTimeStamp get duration;
 }
-
-@JS('PerformanceObserver')
-@staticInterop
-class PerformanceObserver {
+extension type PerformanceObserver._(JSObject _) implements JSObject {
   external factory PerformanceObserver(PerformanceObserverCallback callback);
 
   external static JSArray get supportedEntryTypes;
-}
-
-extension PerformanceObserverExtension on PerformanceObserver {
   external void observe([PerformanceObserverInit options]);
   external void disconnect();
   external PerformanceEntryList takeRecords();
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PerformanceObserverCallbackOptions {
+extension type PerformanceObserverCallbackOptions._(JSObject _)
+    implements JSObject {
   external factory PerformanceObserverCallbackOptions(
       {int droppedEntriesCount});
-}
 
-extension PerformanceObserverCallbackOptionsExtension
-    on PerformanceObserverCallbackOptions {
   external set droppedEntriesCount(int value);
   external int get droppedEntriesCount;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PerformanceObserverInit {
+extension type PerformanceObserverInit._(JSObject _) implements JSObject {
   external factory PerformanceObserverInit({
     DOMHighResTimeStamp durationThreshold,
     JSArray entryTypes,
     String type,
     bool buffered,
   });
-}
 
-extension PerformanceObserverInitExtension on PerformanceObserverInit {
   external set durationThreshold(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get durationThreshold;
   external set entryTypes(JSArray value);
@@ -73,13 +50,7 @@ extension PerformanceObserverInitExtension on PerformanceObserverInit {
   external set buffered(bool value);
   external bool get buffered;
 }
-
-@JS('PerformanceObserverEntryList')
-@staticInterop
-class PerformanceObserverEntryList {}
-
-extension PerformanceObserverEntryListExtension
-    on PerformanceObserverEntryList {
+extension type PerformanceObserverEntryList._(JSObject _) implements JSObject {
   external PerformanceEntryList getEntries();
   external PerformanceEntryList getEntriesByType(String type);
   external PerformanceEntryList getEntriesByName(

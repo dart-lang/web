@@ -12,74 +12,46 @@ import 'websockets.dart';
 
 typedef PresentationConnectionState = String;
 typedef PresentationConnectionCloseReason = String;
-
-@JS('Presentation')
-@staticInterop
-class Presentation {}
-
-extension PresentationExtension on Presentation {
+extension type Presentation._(JSObject _) implements JSObject {
   external set defaultRequest(PresentationRequest? value);
   external PresentationRequest? get defaultRequest;
   external PresentationReceiver? get receiver;
 }
-
-@JS('PresentationRequest')
-@staticInterop
-class PresentationRequest implements EventTarget {
+extension type PresentationRequest._(JSObject _)
+    implements EventTarget, JSObject {
   external factory PresentationRequest(JSAny urlOrUrls);
-}
 
-extension PresentationRequestExtension on PresentationRequest {
   external JSPromise start();
   external JSPromise reconnect(String presentationId);
   external JSPromise getAvailability();
   external set onconnectionavailable(EventHandler value);
   external EventHandler get onconnectionavailable;
 }
-
-@JS('PresentationAvailability')
-@staticInterop
-class PresentationAvailability implements EventTarget {}
-
-extension PresentationAvailabilityExtension on PresentationAvailability {
+extension type PresentationAvailability._(JSObject _)
+    implements EventTarget, JSObject {
   external bool get value;
   external set onchange(EventHandler value);
   external EventHandler get onchange;
 }
-
-@JS('PresentationConnectionAvailableEvent')
-@staticInterop
-class PresentationConnectionAvailableEvent implements Event {
+extension type PresentationConnectionAvailableEvent._(JSObject _)
+    implements Event, JSObject {
   external factory PresentationConnectionAvailableEvent(
     String type,
     PresentationConnectionAvailableEventInit eventInitDict,
   );
-}
 
-extension PresentationConnectionAvailableEventExtension
-    on PresentationConnectionAvailableEvent {
   external PresentationConnection get connection;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PresentationConnectionAvailableEventInit implements EventInit {
+extension type PresentationConnectionAvailableEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory PresentationConnectionAvailableEventInit(
       {required PresentationConnection connection});
-}
 
-extension PresentationConnectionAvailableEventInitExtension
-    on PresentationConnectionAvailableEventInit {
   external set connection(PresentationConnection value);
   external PresentationConnection get connection;
 }
-
-@JS('PresentationConnection')
-@staticInterop
-class PresentationConnection implements EventTarget {}
-
-extension PresentationConnectionExtension on PresentationConnection {
+extension type PresentationConnection._(JSObject _)
+    implements EventTarget, JSObject {
   external void close();
   external void terminate();
   external void send(JSAny dataOrMessage);
@@ -97,53 +69,33 @@ extension PresentationConnectionExtension on PresentationConnection {
   external set onmessage(EventHandler value);
   external EventHandler get onmessage;
 }
-
-@JS('PresentationConnectionCloseEvent')
-@staticInterop
-class PresentationConnectionCloseEvent implements Event {
+extension type PresentationConnectionCloseEvent._(JSObject _)
+    implements Event, JSObject {
   external factory PresentationConnectionCloseEvent(
     String type,
     PresentationConnectionCloseEventInit eventInitDict,
   );
-}
 
-extension PresentationConnectionCloseEventExtension
-    on PresentationConnectionCloseEvent {
   external PresentationConnectionCloseReason get reason;
   external String get message;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class PresentationConnectionCloseEventInit implements EventInit {
+extension type PresentationConnectionCloseEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory PresentationConnectionCloseEventInit({
     required PresentationConnectionCloseReason reason,
     String message,
   });
-}
 
-extension PresentationConnectionCloseEventInitExtension
-    on PresentationConnectionCloseEventInit {
   external set reason(PresentationConnectionCloseReason value);
   external PresentationConnectionCloseReason get reason;
   external set message(String value);
   external String get message;
 }
-
-@JS('PresentationReceiver')
-@staticInterop
-class PresentationReceiver {}
-
-extension PresentationReceiverExtension on PresentationReceiver {
+extension type PresentationReceiver._(JSObject _) implements JSObject {
   external JSPromise get connectionList;
 }
-
-@JS('PresentationConnectionList')
-@staticInterop
-class PresentationConnectionList implements EventTarget {}
-
-extension PresentationConnectionListExtension on PresentationConnectionList {
+extension type PresentationConnectionList._(JSObject _)
+    implements EventTarget, JSObject {
   external JSArray get connections;
   external set onconnectionavailable(EventHandler value);
   external EventHandler get onconnectionavailable;

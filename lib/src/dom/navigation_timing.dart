@@ -10,12 +10,8 @@ import 'hr_time.dart';
 import 'resource_timing.dart';
 
 typedef NavigationTimingType = String;
-
-@JS('PerformanceNavigationTiming')
-@staticInterop
-class PerformanceNavigationTiming implements PerformanceResourceTiming {}
-
-extension PerformanceNavigationTimingExtension on PerformanceNavigationTiming {
+extension type PerformanceNavigationTiming._(JSObject _)
+    implements PerformanceResourceTiming, JSObject {
   external JSObject toJSON();
   external DOMHighResTimeStamp get unloadEventStart;
   external DOMHighResTimeStamp get unloadEventEnd;
@@ -30,12 +26,7 @@ extension PerformanceNavigationTimingExtension on PerformanceNavigationTiming {
   external DOMHighResTimeStamp get criticalCHRestart;
   external DOMHighResTimeStamp get activationStart;
 }
-
-@JS('PerformanceTiming')
-@staticInterop
-class PerformanceTiming {}
-
-extension PerformanceTimingExtension on PerformanceTiming {
+extension type PerformanceTiming._(JSObject _) implements JSObject {
   external JSObject toJSON();
   external int get navigationStart;
   external int get unloadEventStart;
@@ -59,17 +50,11 @@ extension PerformanceTimingExtension on PerformanceTiming {
   external int get loadEventStart;
   external int get loadEventEnd;
 }
-
-@JS('PerformanceNavigation')
-@staticInterop
-class PerformanceNavigation {
+extension type PerformanceNavigation._(JSObject _) implements JSObject {
   external static int get TYPE_NAVIGATE;
   external static int get TYPE_RELOAD;
   external static int get TYPE_BACK_FORWARD;
   external static int get TYPE_RESERVED;
-}
-
-extension PerformanceNavigationExtension on PerformanceNavigation {
   external JSObject toJSON();
   external int get type;
   external int get redirectCount;

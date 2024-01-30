@@ -15,41 +15,25 @@ typedef GeometryNode = JSObject;
 typedef ScrollBehavior = String;
 typedef ScrollLogicalPosition = String;
 typedef CSSBoxType = String;
-
-@JS()
-@staticInterop
-@anonymous
-class ScrollOptions {
+extension type ScrollOptions._(JSObject _) implements JSObject {
   external factory ScrollOptions({ScrollBehavior behavior});
-}
 
-extension ScrollOptionsExtension on ScrollOptions {
   external set behavior(ScrollBehavior value);
   external ScrollBehavior get behavior;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ScrollToOptions implements ScrollOptions {
+extension type ScrollToOptions._(JSObject _)
+    implements ScrollOptions, JSObject {
   external factory ScrollToOptions({
     num left,
     num top,
   });
-}
 
-extension ScrollToOptionsExtension on ScrollToOptions {
   external set left(num value);
   external num get left;
   external set top(num value);
   external num get top;
 }
-
-@JS('MediaQueryList')
-@staticInterop
-class MediaQueryList implements EventTarget {}
-
-extension MediaQueryListExtension on MediaQueryList {
+extension type MediaQueryList._(JSObject _) implements EventTarget, JSObject {
   external void addListener(EventListener? callback);
   external void removeListener(EventListener? callback);
   external String get media;
@@ -57,43 +41,28 @@ extension MediaQueryListExtension on MediaQueryList {
   external set onchange(EventHandler value);
   external EventHandler get onchange;
 }
-
-@JS('MediaQueryListEvent')
-@staticInterop
-class MediaQueryListEvent implements Event {
+extension type MediaQueryListEvent._(JSObject _) implements Event, JSObject {
   external factory MediaQueryListEvent(
     String type, [
     MediaQueryListEventInit eventInitDict,
   ]);
-}
 
-extension MediaQueryListEventExtension on MediaQueryListEvent {
   external String get media;
   external bool get matches;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class MediaQueryListEventInit implements EventInit {
+extension type MediaQueryListEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory MediaQueryListEventInit({
     String media,
     bool matches,
   });
-}
 
-extension MediaQueryListEventInitExtension on MediaQueryListEventInit {
   external set media(String value);
   external String get media;
   external set matches(bool value);
   external bool get matches;
 }
-
-@JS('Screen')
-@staticInterop
-class Screen {}
-
-extension ScreenExtension on Screen {
+extension type Screen._(JSObject _) implements JSObject {
   external int get availWidth;
   external int get availHeight;
   external int get width;
@@ -105,90 +74,57 @@ extension ScreenExtension on Screen {
   external set onchange(EventHandler value);
   external EventHandler get onchange;
 }
-
-@JS('CaretPosition')
-@staticInterop
-class CaretPosition {}
-
-extension CaretPositionExtension on CaretPosition {
+extension type CaretPosition._(JSObject _) implements JSObject {
   external DOMRect? getClientRect();
   external Node get offsetNode;
   external int get offset;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ScrollIntoViewOptions implements ScrollOptions {
+extension type ScrollIntoViewOptions._(JSObject _)
+    implements ScrollOptions, JSObject {
   external factory ScrollIntoViewOptions({
     ScrollLogicalPosition block,
     ScrollLogicalPosition inline,
   });
-}
 
-extension ScrollIntoViewOptionsExtension on ScrollIntoViewOptions {
   external set block(ScrollLogicalPosition value);
   external ScrollLogicalPosition get block;
   external set inline(ScrollLogicalPosition value);
   external ScrollLogicalPosition get inline;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class CheckVisibilityOptions {
+extension type CheckVisibilityOptions._(JSObject _) implements JSObject {
   external factory CheckVisibilityOptions({
     bool checkOpacity,
     bool checkVisibilityCSS,
   });
-}
 
-extension CheckVisibilityOptionsExtension on CheckVisibilityOptions {
   external set checkOpacity(bool value);
   external bool get checkOpacity;
   external set checkVisibilityCSS(bool value);
   external bool get checkVisibilityCSS;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class BoxQuadOptions {
+extension type BoxQuadOptions._(JSObject _) implements JSObject {
   external factory BoxQuadOptions({
     CSSBoxType box,
     GeometryNode relativeTo,
   });
-}
 
-extension BoxQuadOptionsExtension on BoxQuadOptions {
   external set box(CSSBoxType value);
   external CSSBoxType get box;
   external set relativeTo(GeometryNode value);
   external GeometryNode get relativeTo;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class ConvertCoordinateOptions {
+extension type ConvertCoordinateOptions._(JSObject _) implements JSObject {
   external factory ConvertCoordinateOptions({
     CSSBoxType fromBox,
     CSSBoxType toBox,
   });
-}
 
-extension ConvertCoordinateOptionsExtension on ConvertCoordinateOptions {
   external set fromBox(CSSBoxType value);
   external CSSBoxType get fromBox;
   external set toBox(CSSBoxType value);
   external CSSBoxType get toBox;
 }
-
-@JS('VisualViewport')
-@staticInterop
-class VisualViewport implements EventTarget {}
-
-extension VisualViewportExtension on VisualViewport {
+extension type VisualViewport._(JSObject _) implements EventTarget, JSObject {
   external num get offsetLeft;
   external num get offsetTop;
   external num get pageLeft;

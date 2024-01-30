@@ -11,11 +11,8 @@ import 'geometry.dart';
 import 'hr_time.dart';
 import 'performance_timeline.dart';
 
-@JS('PerformanceElementTiming')
-@staticInterop
-class PerformanceElementTiming implements PerformanceEntry {}
-
-extension PerformanceElementTimingExtension on PerformanceElementTiming {
+extension type PerformanceElementTiming._(JSObject _)
+    implements PerformanceEntry, JSObject {
   external JSObject toJSON();
   external DOMHighResTimeStamp get renderTime;
   external DOMHighResTimeStamp get loadTime;

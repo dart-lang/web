@@ -9,22 +9,12 @@ import 'dart:js_interop';
 import 'dom.dart';
 
 typedef HighlightType = String;
-
-@JS('Highlight')
-@staticInterop
-class Highlight {
+extension type Highlight._(JSObject _) implements JSObject {
   external factory Highlight(AbstractRange initialRanges);
-}
 
-extension HighlightExtension on Highlight {
   external set priority(int value);
   external int get priority;
   external set type(HighlightType value);
   external HighlightType get type;
 }
-
-@JS('HighlightRegistry')
-@staticInterop
-class HighlightRegistry {}
-
-extension HighlightRegistryExtension on HighlightRegistry {}
+extension type HighlightRegistry._(JSObject _) implements JSObject {}

@@ -9,24 +9,13 @@ import 'dart:js_interop';
 import 'hr_time.dart';
 
 typedef IdleRequestCallback = JSFunction;
-
-@JS()
-@staticInterop
-@anonymous
-class IdleRequestOptions {
+extension type IdleRequestOptions._(JSObject _) implements JSObject {
   external factory IdleRequestOptions({int timeout});
-}
 
-extension IdleRequestOptionsExtension on IdleRequestOptions {
   external set timeout(int value);
   external int get timeout;
 }
-
-@JS('IdleDeadline')
-@staticInterop
-class IdleDeadline {}
-
-extension IdleDeadlineExtension on IdleDeadline {
+extension type IdleDeadline._(JSObject _) implements JSObject {
   external DOMHighResTimeStamp timeRemaining();
   external bool get didTimeout;
 }

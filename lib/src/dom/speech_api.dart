@@ -11,14 +11,10 @@ import 'html.dart';
 
 typedef SpeechRecognitionErrorCode = String;
 typedef SpeechSynthesisErrorCode = String;
-
-@JS('SpeechRecognition')
-@staticInterop
-class SpeechRecognition implements EventTarget {
+extension type SpeechRecognition._(JSObject _)
+    implements EventTarget, JSObject {
   external factory SpeechRecognition();
-}
 
-extension SpeechRecognitionExtension on SpeechRecognition {
   external void start();
   external void stop();
   external void abort();
@@ -55,117 +51,71 @@ extension SpeechRecognitionExtension on SpeechRecognition {
   external set onend(EventHandler value);
   external EventHandler get onend;
 }
-
-@JS('SpeechRecognitionErrorEvent')
-@staticInterop
-class SpeechRecognitionErrorEvent implements Event {
+extension type SpeechRecognitionErrorEvent._(JSObject _)
+    implements Event, JSObject {
   external factory SpeechRecognitionErrorEvent(
     String type,
     SpeechRecognitionErrorEventInit eventInitDict,
   );
-}
 
-extension SpeechRecognitionErrorEventExtension on SpeechRecognitionErrorEvent {
   external SpeechRecognitionErrorCode get error;
   external String get message;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class SpeechRecognitionErrorEventInit implements EventInit {
+extension type SpeechRecognitionErrorEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory SpeechRecognitionErrorEventInit({
     required SpeechRecognitionErrorCode error,
     String message,
   });
-}
 
-extension SpeechRecognitionErrorEventInitExtension
-    on SpeechRecognitionErrorEventInit {
   external set error(SpeechRecognitionErrorCode value);
   external SpeechRecognitionErrorCode get error;
   external set message(String value);
   external String get message;
 }
-
-@JS('SpeechRecognitionAlternative')
-@staticInterop
-class SpeechRecognitionAlternative {}
-
-extension SpeechRecognitionAlternativeExtension
-    on SpeechRecognitionAlternative {
+extension type SpeechRecognitionAlternative._(JSObject _) implements JSObject {
   external String get transcript;
   external num get confidence;
 }
-
-@JS('SpeechRecognitionResult')
-@staticInterop
-class SpeechRecognitionResult {}
-
-extension SpeechRecognitionResultExtension on SpeechRecognitionResult {
+extension type SpeechRecognitionResult._(JSObject _) implements JSObject {
   external SpeechRecognitionAlternative item(int index);
   external int get length;
   external bool get isFinal;
 }
-
-@JS('SpeechRecognitionResultList')
-@staticInterop
-class SpeechRecognitionResultList {}
-
-extension SpeechRecognitionResultListExtension on SpeechRecognitionResultList {
+extension type SpeechRecognitionResultList._(JSObject _) implements JSObject {
   external SpeechRecognitionResult item(int index);
   external int get length;
 }
-
-@JS('SpeechRecognitionEvent')
-@staticInterop
-class SpeechRecognitionEvent implements Event {
+extension type SpeechRecognitionEvent._(JSObject _) implements Event, JSObject {
   external factory SpeechRecognitionEvent(
     String type,
     SpeechRecognitionEventInit eventInitDict,
   );
-}
 
-extension SpeechRecognitionEventExtension on SpeechRecognitionEvent {
   external int get resultIndex;
   external SpeechRecognitionResultList get results;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class SpeechRecognitionEventInit implements EventInit {
+extension type SpeechRecognitionEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory SpeechRecognitionEventInit({
     int resultIndex,
     required SpeechRecognitionResultList results,
   });
-}
 
-extension SpeechRecognitionEventInitExtension on SpeechRecognitionEventInit {
   external set resultIndex(int value);
   external int get resultIndex;
   external set results(SpeechRecognitionResultList value);
   external SpeechRecognitionResultList get results;
 }
-
-@JS('SpeechGrammar')
-@staticInterop
-class SpeechGrammar {}
-
-extension SpeechGrammarExtension on SpeechGrammar {
+extension type SpeechGrammar._(JSObject _) implements JSObject {
   external set src(String value);
   external String get src;
   external set weight(num value);
   external num get weight;
 }
-
-@JS('SpeechGrammarList')
-@staticInterop
-class SpeechGrammarList {
+extension type SpeechGrammarList._(JSObject _) implements JSObject {
   external factory SpeechGrammarList();
-}
 
-extension SpeechGrammarListExtension on SpeechGrammarList {
   external SpeechGrammar item(int index);
   external void addFromURI(
     String src, [
@@ -177,12 +127,7 @@ extension SpeechGrammarListExtension on SpeechGrammarList {
   ]);
   external int get length;
 }
-
-@JS('SpeechSynthesis')
-@staticInterop
-class SpeechSynthesis implements EventTarget {}
-
-extension SpeechSynthesisExtension on SpeechSynthesis {
+extension type SpeechSynthesis._(JSObject _) implements EventTarget, JSObject {
   external void speak(SpeechSynthesisUtterance utterance);
   external void cancel();
   external void pause();
@@ -194,14 +139,10 @@ extension SpeechSynthesisExtension on SpeechSynthesis {
   external set onvoiceschanged(EventHandler value);
   external EventHandler get onvoiceschanged;
 }
-
-@JS('SpeechSynthesisUtterance')
-@staticInterop
-class SpeechSynthesisUtterance implements EventTarget {
+extension type SpeechSynthesisUtterance._(JSObject _)
+    implements EventTarget, JSObject {
   external factory SpeechSynthesisUtterance([String text]);
-}
 
-extension SpeechSynthesisUtteranceExtension on SpeechSynthesisUtterance {
   external set text(String value);
   external String get text;
   external set lang(String value);
@@ -229,28 +170,20 @@ extension SpeechSynthesisUtteranceExtension on SpeechSynthesisUtterance {
   external set onboundary(EventHandler value);
   external EventHandler get onboundary;
 }
-
-@JS('SpeechSynthesisEvent')
-@staticInterop
-class SpeechSynthesisEvent implements Event {
+extension type SpeechSynthesisEvent._(JSObject _) implements Event, JSObject {
   external factory SpeechSynthesisEvent(
     String type,
     SpeechSynthesisEventInit eventInitDict,
   );
-}
 
-extension SpeechSynthesisEventExtension on SpeechSynthesisEvent {
   external SpeechSynthesisUtterance get utterance;
   external int get charIndex;
   external int get charLength;
   external num get elapsedTime;
   external String get name;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class SpeechSynthesisEventInit implements EventInit {
+extension type SpeechSynthesisEventInit._(JSObject _)
+    implements EventInit, JSObject {
   external factory SpeechSynthesisEventInit({
     required SpeechSynthesisUtterance utterance,
     int charIndex,
@@ -258,9 +191,7 @@ class SpeechSynthesisEventInit implements EventInit {
     num elapsedTime,
     String name,
   });
-}
 
-extension SpeechSynthesisEventInitExtension on SpeechSynthesisEventInit {
   external set utterance(SpeechSynthesisUtterance value);
   external SpeechSynthesisUtterance get utterance;
   external set charIndex(int value);
@@ -272,39 +203,24 @@ extension SpeechSynthesisEventInitExtension on SpeechSynthesisEventInit {
   external set name(String value);
   external String get name;
 }
-
-@JS('SpeechSynthesisErrorEvent')
-@staticInterop
-class SpeechSynthesisErrorEvent implements SpeechSynthesisEvent {
+extension type SpeechSynthesisErrorEvent._(JSObject _)
+    implements SpeechSynthesisEvent, JSObject {
   external factory SpeechSynthesisErrorEvent(
     String type,
     SpeechSynthesisErrorEventInit eventInitDict,
   );
-}
 
-extension SpeechSynthesisErrorEventExtension on SpeechSynthesisErrorEvent {
   external SpeechSynthesisErrorCode get error;
 }
-
-@JS()
-@staticInterop
-@anonymous
-class SpeechSynthesisErrorEventInit implements SpeechSynthesisEventInit {
+extension type SpeechSynthesisErrorEventInit._(JSObject _)
+    implements SpeechSynthesisEventInit, JSObject {
   external factory SpeechSynthesisErrorEventInit(
       {required SpeechSynthesisErrorCode error});
-}
 
-extension SpeechSynthesisErrorEventInitExtension
-    on SpeechSynthesisErrorEventInit {
   external set error(SpeechSynthesisErrorCode value);
   external SpeechSynthesisErrorCode get error;
 }
-
-@JS('SpeechSynthesisVoice')
-@staticInterop
-class SpeechSynthesisVoice {}
-
-extension SpeechSynthesisVoiceExtension on SpeechSynthesisVoice {
+extension type SpeechSynthesisVoice._(JSObject _) implements JSObject {
   external String get voiceURI;
   external String get name;
   external String get lang;

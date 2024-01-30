@@ -11,12 +11,8 @@ import 'html.dart';
 
 typedef OrientationLockType = String;
 typedef OrientationType = String;
-
-@JS('ScreenOrientation')
-@staticInterop
-class ScreenOrientation implements EventTarget {}
-
-extension ScreenOrientationExtension on ScreenOrientation {
+extension type ScreenOrientation._(JSObject _)
+    implements EventTarget, JSObject {
   external JSPromise lock(OrientationLockType orientation);
   external void unlock();
   external OrientationType get type;

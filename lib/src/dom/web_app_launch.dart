@@ -7,20 +7,10 @@
 import 'dart:js_interop';
 
 typedef LaunchConsumer = JSFunction;
-
-@JS('LaunchParams')
-@staticInterop
-class LaunchParams {}
-
-extension LaunchParamsExtension on LaunchParams {
+extension type LaunchParams._(JSObject _) implements JSObject {
   external String? get targetURL;
   external JSArray get files;
 }
-
-@JS('LaunchQueue')
-@staticInterop
-class LaunchQueue {}
-
-extension LaunchQueueExtension on LaunchQueue {
+extension type LaunchQueue._(JSObject _) implements JSObject {
   external void setConsumer(LaunchConsumer consumer);
 }

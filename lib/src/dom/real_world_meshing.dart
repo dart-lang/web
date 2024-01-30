@@ -11,7 +11,7 @@ import 'webxr.dart';
 
 extension type XRMesh._(JSObject _) implements JSObject {
   external XRSpace get meshSpace;
-  external JSArray get vertices;
+  external JSArray<JSFloat32Array> get vertices;
   external JSUint32Array get indices;
   external DOMHighResTimeStamp get lastChangedTime;
   external String? get semanticLabel;

@@ -9,7 +9,7 @@ import 'dart:js_interop';
 import 'webxr.dart';
 
 extension type XRAnchor._(JSObject _) implements JSObject {
-  external JSPromise requestPersistentHandle();
+  external JSPromise<JSString> requestPersistentHandle();
   external void delete();
   external XRSpace get anchorSpace;
 }

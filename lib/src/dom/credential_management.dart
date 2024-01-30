@@ -14,15 +14,15 @@ import 'webauthn.dart';
 typedef PasswordCredentialInit = JSObject;
 typedef CredentialMediationRequirement = String;
 extension type Credential._(JSObject _) implements JSObject {
-  external static JSPromise isConditionalMediationAvailable();
+  external static JSPromise<JSBoolean> isConditionalMediationAvailable();
   external String get id;
   external String get type;
 }
 extension type CredentialsContainer._(JSObject _) implements JSObject {
-  external JSPromise get([CredentialRequestOptions options]);
-  external JSPromise store(Credential credential);
-  external JSPromise create([CredentialCreationOptions options]);
-  external JSPromise preventSilentAccess();
+  external JSPromise<Credential?> get([CredentialRequestOptions options]);
+  external JSPromise<JSAny?> store(Credential credential);
+  external JSPromise<Credential?> create([CredentialCreationOptions options]);
+  external JSPromise<JSAny?> preventSilentAccess();
 }
 extension type CredentialData._(JSObject _) implements JSObject {
   external factory CredentialData({required String id});
@@ -111,14 +111,14 @@ extension type FederatedCredential._(JSObject _)
 extension type FederatedCredentialRequestOptions._(JSObject _)
     implements JSObject {
   external factory FederatedCredentialRequestOptions({
-    JSArray providers,
-    JSArray protocols,
+    JSArray<JSString> providers,
+    JSArray<JSString> protocols,
   });
 
-  external set providers(JSArray value);
-  external JSArray get providers;
-  external set protocols(JSArray value);
-  external JSArray get protocols;
+  external set providers(JSArray<JSString> value);
+  external JSArray<JSString> get providers;
+  external set protocols(JSArray<JSString> value);
+  external JSArray<JSString> get protocols;
 }
 extension type FederatedCredentialInit._(JSObject _)
     implements CredentialData, JSObject {

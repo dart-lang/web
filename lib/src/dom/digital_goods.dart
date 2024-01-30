@@ -10,10 +10,11 @@ import 'payment_request.dart';
 
 typedef ItemType = String;
 extension type DigitalGoodsService._(JSObject _) implements JSObject {
-  external JSPromise getDetails(JSArray itemIds);
-  external JSPromise listPurchases();
-  external JSPromise listPurchaseHistory();
-  external JSPromise consume(String purchaseToken);
+  external JSPromise<JSArray<ItemDetails>> getDetails(
+      JSArray<JSString> itemIds);
+  external JSPromise<JSArray<PurchaseDetails>> listPurchases();
+  external JSPromise<JSArray<PurchaseDetails>> listPurchaseHistory();
+  external JSPromise<JSAny?> consume(String purchaseToken);
 }
 extension type ItemDetails._(JSObject _) implements JSObject {
   external factory ItemDetails({
@@ -22,7 +23,7 @@ extension type ItemDetails._(JSObject _) implements JSObject {
     required PaymentCurrencyAmount price,
     ItemType type,
     String description,
-    JSArray iconURLs,
+    JSArray<JSString> iconURLs,
     String subscriptionPeriod,
     String freeTrialPeriod,
     PaymentCurrencyAmount introductoryPrice,
@@ -40,8 +41,8 @@ extension type ItemDetails._(JSObject _) implements JSObject {
   external ItemType get type;
   external set description(String value);
   external String get description;
-  external set iconURLs(JSArray value);
-  external JSArray get iconURLs;
+  external set iconURLs(JSArray<JSString> value);
+  external JSArray<JSString> get iconURLs;
   external set subscriptionPeriod(String value);
   external String get subscriptionPeriod;
   external set freeTrialPeriod(String value);

@@ -11,7 +11,8 @@ import 'html.dart';
 
 extension type DocumentPictureInPicture._(JSObject _)
     implements EventTarget, JSObject {
-  external JSPromise requestWindow([DocumentPictureInPictureOptions options]);
+  external JSPromise<Window> requestWindow(
+      [DocumentPictureInPictureOptions options]);
   external Window get window;
   external set onenter(EventHandler value);
   external EventHandler get onenter;

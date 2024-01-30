@@ -54,7 +54,7 @@ extension type URLSearchParams._(JSObject _) implements JSObject {
     String value,
   ]);
   external String? get(String name);
-  external JSArray getAll(String name);
+  external JSArray<JSString> getAll(String name);
   external bool has(
     String name, [
     String value,

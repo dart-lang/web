@@ -20,11 +20,11 @@ extension type IntersectionObserver._(JSObject _) implements JSObject {
   external void observe(Element target);
   external void unobserve(Element target);
   external void disconnect();
-  external JSArray takeRecords();
+  external JSArray<IntersectionObserverEntry> takeRecords();
   external JSObject? get root;
   external String get rootMargin;
   external String get scrollMargin;
-  external JSArray get thresholds;
+  external JSArray<JSNumber> get thresholds;
 }
 extension type IntersectionObserverEntry._(JSObject _) implements JSObject {
   external factory IntersectionObserverEntry(

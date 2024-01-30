@@ -54,7 +54,7 @@ extension type FontFace._(JSObject _) implements JSObject {
     FontFaceDescriptors descriptors,
   ]);
 
-  external JSPromise load();
+  external JSPromise<FontFace> load();
   external set family(String value);
   external String get family;
   external set style(String value);
@@ -78,7 +78,7 @@ extension type FontFace._(JSObject _) implements JSObject {
   external set lineGapOverride(String value);
   external String get lineGapOverride;
   external FontFaceLoadStatus get status;
-  external JSPromise get loaded;
+  external JSPromise<FontFace> get loaded;
   external FontFaceFeatures get features;
   external FontFaceVariations get variations;
   external FontFacePalettes get palettes;
@@ -102,10 +102,10 @@ extension type FontFacePalettes._(JSObject _) implements JSObject {
 }
 extension type FontFaceSetLoadEventInit._(JSObject _)
     implements EventInit, JSObject {
-  external factory FontFaceSetLoadEventInit({JSArray fontfaces});
+  external factory FontFaceSetLoadEventInit({JSArray<FontFace> fontfaces});
 
-  external set fontfaces(JSArray value);
-  external JSArray get fontfaces;
+  external set fontfaces(JSArray<FontFace> value);
+  external JSArray<FontFace> get fontfaces;
 }
 extension type FontFaceSetLoadEvent._(JSObject _) implements Event, JSObject {
   external factory FontFaceSetLoadEvent(
@@ -113,15 +113,15 @@ extension type FontFaceSetLoadEvent._(JSObject _) implements Event, JSObject {
     FontFaceSetLoadEventInit eventInitDict,
   ]);
 
-  external JSArray get fontfaces;
+  external JSArray<FontFace> get fontfaces;
 }
 extension type FontFaceSet._(JSObject _) implements EventTarget, JSObject {
-  external factory FontFaceSet(JSArray initialFaces);
+  external factory FontFaceSet(JSArray<FontFace> initialFaces);
 
   external FontFaceSet add(FontFace font);
   external bool delete(FontFace font);
   external void clear();
-  external JSPromise load(
+  external JSPromise<JSArray<FontFace>> load(
     String font, [
     String text,
   ]);
@@ -135,6 +135,6 @@ extension type FontFaceSet._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onloadingdone;
   external set onloadingerror(EventHandler value);
   external EventHandler get onloadingerror;
-  external JSPromise get ready;
+  external JSPromise<FontFaceSet> get ready;
   external FontFaceSetLoadStatus get status;
 }

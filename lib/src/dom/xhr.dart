@@ -90,7 +90,7 @@ extension type FormData._(JSObject _) implements JSObject {
   ]);
   external void delete(String name);
   external FormDataEntryValue? get(String name);
-  external JSArray getAll(String name);
+  external JSArray<FormDataEntryValue> getAll(String name);
   external bool has(String name);
   external void set(
     String name,

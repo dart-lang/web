@@ -6,6 +6,7 @@
 
 import 'dart:js_interop';
 
+import 'anchors.dart';
 import 'geometry.dart';
 import 'webxr.dart';
 
@@ -13,14 +14,14 @@ typedef XRHitTestTrackableType = String;
 extension type XRHitTestOptionsInit._(JSObject _) implements JSObject {
   external factory XRHitTestOptionsInit({
     required XRSpace space,
-    JSArray entityTypes,
+    JSArray<JSString> entityTypes,
     XRRay offsetRay,
   });
 
   external set space(XRSpace value);
   external XRSpace get space;
-  external set entityTypes(JSArray value);
-  external JSArray get entityTypes;
+  external set entityTypes(JSArray<JSString> value);
+  external JSArray<JSString> get entityTypes;
   external set offsetRay(XRRay value);
   external XRRay get offsetRay;
 }
@@ -28,14 +29,14 @@ extension type XRTransientInputHitTestOptionsInit._(JSObject _)
     implements JSObject {
   external factory XRTransientInputHitTestOptionsInit({
     required String profile,
-    JSArray entityTypes,
+    JSArray<JSString> entityTypes,
     XRRay offsetRay,
   });
 
   external set profile(String value);
   external String get profile;
-  external set entityTypes(JSArray value);
-  external JSArray get entityTypes;
+  external set entityTypes(JSArray<JSString> value);
+  external JSArray<JSString> get entityTypes;
   external set offsetRay(XRRay value);
   external XRRay get offsetRay;
 }
@@ -46,12 +47,12 @@ extension type XRTransientInputHitTestSource._(JSObject _) implements JSObject {
   external void cancel();
 }
 extension type XRHitTestResult._(JSObject _) implements JSObject {
-  external JSPromise createAnchor();
+  external JSPromise<XRAnchor> createAnchor();
   external XRPose? getPose(XRSpace baseSpace);
 }
 extension type XRTransientInputHitTestResult._(JSObject _) implements JSObject {
   external XRInputSource get inputSource;
-  external JSArray get results;
+  external JSArray<XRHitTestResult> get results;
 }
 extension type XRRayDirectionInit._(JSObject _) implements JSObject {
   external factory XRRayDirectionInit({

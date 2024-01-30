@@ -23,8 +23,8 @@ extension type PointerEventInit._(JSObject _)
     num azimuthAngle,
     String pointerType,
     bool isPrimary,
-    JSArray coalescedEvents,
-    JSArray predictedEvents,
+    JSArray<PointerEvent> coalescedEvents,
+    JSArray<PointerEvent> predictedEvents,
   });
 
   external set pointerId(int value);
@@ -51,10 +51,10 @@ extension type PointerEventInit._(JSObject _)
   external String get pointerType;
   external set isPrimary(bool value);
   external bool get isPrimary;
-  external set coalescedEvents(JSArray value);
-  external JSArray get coalescedEvents;
-  external set predictedEvents(JSArray value);
-  external JSArray get predictedEvents;
+  external set coalescedEvents(JSArray<PointerEvent> value);
+  external JSArray<PointerEvent> get coalescedEvents;
+  external set predictedEvents(JSArray<PointerEvent> value);
+  external JSArray<PointerEvent> get predictedEvents;
 }
 extension type PointerEvent._(JSObject _) implements MouseEvent, JSObject {
   external factory PointerEvent(
@@ -62,8 +62,8 @@ extension type PointerEvent._(JSObject _) implements MouseEvent, JSObject {
     PointerEventInit eventInitDict,
   ]);
 
-  external JSArray getCoalescedEvents();
-  external JSArray getPredictedEvents();
+  external JSArray<PointerEvent> getCoalescedEvents();
+  external JSArray<PointerEvent> getPredictedEvents();
   external int get pointerId;
   external num get width;
   external num get height;

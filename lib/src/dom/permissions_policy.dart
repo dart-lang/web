@@ -13,9 +13,9 @@ extension type PermissionsPolicy._(JSObject _) implements JSObject {
     String feature, [
     String origin,
   ]);
-  external JSArray features();
-  external JSArray allowedFeatures();
-  external JSArray getAllowlistForFeature(String feature);
+  external JSArray<JSString> features();
+  external JSArray<JSString> allowedFeatures();
+  external JSArray<JSString> getAllowlistForFeature(String feature);
 }
 extension type PermissionsPolicyViolationReportBody._(JSObject _)
     implements ReportBody, JSObject {

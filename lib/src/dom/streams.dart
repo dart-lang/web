@@ -32,18 +32,18 @@ extension type ReadableStream._(JSObject _) implements JSObject {
   ]);
 
   external static ReadableStream from(JSAny? asyncIterable);
-  external JSPromise cancel([JSAny? reason]);
+  external JSPromise<JSAny?> cancel([JSAny? reason]);
   external ReadableStreamReader getReader(
       [ReadableStreamGetReaderOptions options]);
   external ReadableStream pipeThrough(
     ReadableWritablePair transform, [
     StreamPipeOptions options,
   ]);
-  external JSPromise pipeTo(
+  external JSPromise<JSAny?> pipeTo(
     WritableStream destination, [
     StreamPipeOptions options,
   ]);
-  external JSArray tee();
+  external JSArray<ReadableStream> tee();
   external bool get locked;
 }
 extension type ReadableStreamGetReaderOptions._(JSObject _)
@@ -111,10 +111,10 @@ extension type UnderlyingSource._(JSObject _) implements JSObject {
 extension type ReadableStreamDefaultReader._(JSObject _) implements JSObject {
   external factory ReadableStreamDefaultReader(ReadableStream stream);
 
-  external JSPromise read();
+  external JSPromise<ReadableStreamReadResult> read();
   external void releaseLock();
-  external JSPromise cancel([JSAny? reason]);
-  external JSPromise get closed;
+  external JSPromise<JSAny?> cancel([JSAny? reason]);
+  external JSPromise<JSAny?> get closed;
 }
 extension type ReadableStreamReadResult._(JSObject _) implements JSObject {
   external factory ReadableStreamReadResult({
@@ -130,10 +130,10 @@ extension type ReadableStreamReadResult._(JSObject _) implements JSObject {
 extension type ReadableStreamBYOBReader._(JSObject _) implements JSObject {
   external factory ReadableStreamBYOBReader(ReadableStream stream);
 
-  external JSPromise read(ArrayBufferView view);
+  external JSPromise<ReadableStreamReadResult> read(ArrayBufferView view);
   external void releaseLock();
-  external JSPromise cancel([JSAny? reason]);
-  external JSPromise get closed;
+  external JSPromise<JSAny?> cancel([JSAny? reason]);
+  external JSPromise<JSAny?> get closed;
 }
 extension type ReadableStreamDefaultController._(JSObject _)
     implements JSObject {
@@ -160,8 +160,8 @@ extension type WritableStream._(JSObject _) implements JSObject {
     QueuingStrategy strategy,
   ]);
 
-  external JSPromise abort([JSAny? reason]);
-  external JSPromise close();
+  external JSPromise<JSAny?> abort([JSAny? reason]);
+  external JSPromise<JSAny?> close();
   external WritableStreamDefaultWriter getWriter();
   external bool get locked;
 }
@@ -188,13 +188,13 @@ extension type UnderlyingSink._(JSObject _) implements JSObject {
 extension type WritableStreamDefaultWriter._(JSObject _) implements JSObject {
   external factory WritableStreamDefaultWriter(WritableStream stream);
 
-  external JSPromise abort([JSAny? reason]);
-  external JSPromise close();
+  external JSPromise<JSAny?> abort([JSAny? reason]);
+  external JSPromise<JSAny?> close();
   external void releaseLock();
-  external JSPromise write([JSAny? chunk]);
-  external JSPromise get closed;
+  external JSPromise<JSAny?> write([JSAny? chunk]);
+  external JSPromise<JSAny?> get closed;
   external num? get desiredSize;
-  external JSPromise get ready;
+  external JSPromise<JSAny?> get ready;
 }
 extension type WritableStreamDefaultController._(JSObject _)
     implements JSObject {

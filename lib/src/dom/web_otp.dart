@@ -13,8 +13,8 @@ extension type OTPCredential._(JSObject _) implements Credential, JSObject {
   external String get code;
 }
 extension type OTPCredentialRequestOptions._(JSObject _) implements JSObject {
-  external factory OTPCredentialRequestOptions({JSArray transport});
+  external factory OTPCredentialRequestOptions({JSArray<JSString> transport});
 
-  external set transport(JSArray value);
-  external JSArray get transport;
+  external set transport(JSArray<JSString> value);
+  external JSArray<JSString> get transport;
 }

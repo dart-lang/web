@@ -6,16 +6,18 @@
 
 import 'dart:js_interop';
 
+import 'fileapi.dart';
+
 extension type ShareData._(JSObject _) implements JSObject {
   external factory ShareData({
-    JSArray files,
+    JSArray<File> files,
     String title,
     String text,
     String url,
   });
 
-  external set files(JSArray value);
-  external JSArray get files;
+  external set files(JSArray<File> value);
+  external JSArray<File> get files;
   external set title(String value);
   external String get title;
   external set text(String value);

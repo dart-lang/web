@@ -11,11 +11,11 @@ import 'webrtc.dart';
 extension type RTCIceGatherOptions._(JSObject _) implements JSObject {
   external factory RTCIceGatherOptions({
     RTCIceTransportPolicy gatherPolicy,
-    JSArray iceServers,
+    JSArray<RTCIceServer> iceServers,
   });
 
   external set gatherPolicy(RTCIceTransportPolicy value);
   external RTCIceTransportPolicy get gatherPolicy;
-  external set iceServers(JSArray value);
-  external JSArray get iceServers;
+  external set iceServers(JSArray<RTCIceServer> value);
+  external JSArray<RTCIceServer> get iceServers;
 }

@@ -9,27 +9,27 @@ import 'dart:js_interop';
 extension type MemoryMeasurement._(JSObject _) implements JSObject {
   external factory MemoryMeasurement({
     int bytes,
-    JSArray breakdown,
+    JSArray<MemoryBreakdownEntry> breakdown,
   });
 
   external set bytes(int value);
   external int get bytes;
-  external set breakdown(JSArray value);
-  external JSArray get breakdown;
+  external set breakdown(JSArray<MemoryBreakdownEntry> value);
+  external JSArray<MemoryBreakdownEntry> get breakdown;
 }
 extension type MemoryBreakdownEntry._(JSObject _) implements JSObject {
   external factory MemoryBreakdownEntry({
     int bytes,
-    JSArray attribution,
-    JSArray types,
+    JSArray<MemoryAttribution> attribution,
+    JSArray<JSString> types,
   });
 
   external set bytes(int value);
   external int get bytes;
-  external set attribution(JSArray value);
-  external JSArray get attribution;
-  external set types(JSArray value);
-  external JSArray get types;
+  external set attribution(JSArray<MemoryAttribution> value);
+  external JSArray<MemoryAttribution> get attribution;
+  external set types(JSArray<JSString> value);
+  external JSArray<JSString> get types;
 }
 extension type MemoryAttribution._(JSObject _) implements JSObject {
   external factory MemoryAttribution({

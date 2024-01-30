@@ -6,14 +6,16 @@
 
 import 'dart:js_interop';
 
-extension type QueryOptions._(JSObject _) implements JSObject {
-  external factory QueryOptions({JSArray postscriptNames});
+import 'fileapi.dart';
 
-  external set postscriptNames(JSArray value);
-  external JSArray get postscriptNames;
+extension type QueryOptions._(JSObject _) implements JSObject {
+  external factory QueryOptions({JSArray<JSString> postscriptNames});
+
+  external set postscriptNames(JSArray<JSString> value);
+  external JSArray<JSString> get postscriptNames;
 }
 extension type FontData._(JSObject _) implements JSObject {
-  external JSPromise blob();
+  external JSPromise<Blob> blob();
   external String get postscriptName;
   external String get fullName;
   external String get family;

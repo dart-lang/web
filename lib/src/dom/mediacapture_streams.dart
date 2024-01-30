@@ -30,9 +30,9 @@ typedef MediaDeviceKind = String;
 extension type MediaStream._(JSObject _) implements EventTarget, JSObject {
   external factory MediaStream([JSObject streamOrTracks]);
 
-  external JSArray getAudioTracks();
-  external JSArray getVideoTracks();
-  external JSArray getTracks();
+  external JSArray<MediaStreamTrack> getAudioTracks();
+  external JSArray<MediaStreamTrack> getVideoTracks();
+  external JSArray<MediaStreamTrack> getTracks();
   external MediaStreamTrack? getTrackById(String trackId);
   external void addTrack(MediaStreamTrack track);
   external void removeTrack(MediaStreamTrack track);
@@ -46,14 +46,15 @@ extension type MediaStream._(JSObject _) implements EventTarget, JSObject {
 }
 extension type MediaStreamTrack._(JSObject _) implements EventTarget, JSObject {
   external CaptureHandle? getCaptureHandle();
-  external JSArray getSupportedCaptureActions();
-  external JSPromise sendCaptureAction(CaptureAction action);
+  external JSArray<JSString> getSupportedCaptureActions();
+  external JSPromise<JSAny?> sendCaptureAction(CaptureAction action);
   external MediaStreamTrack clone();
   external void stop();
   external MediaTrackCapabilities getCapabilities();
   external MediaTrackConstraints getConstraints();
   external MediaTrackSettings getSettings();
-  external JSPromise applyConstraints([MediaTrackConstraints constraints]);
+  external JSPromise<JSAny?> applyConstraints(
+      [MediaTrackConstraints constraints]);
   external set oncapturehandlechange(EventHandler value);
   external EventHandler get oncapturehandlechange;
   external String get kind;
@@ -194,9 +195,9 @@ extension type MediaTrackSupportedConstraints._(JSObject _)
 }
 extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
   external factory MediaTrackCapabilities({
-    JSArray whiteBalanceMode,
-    JSArray exposureMode,
-    JSArray focusMode,
+    JSArray<JSString> whiteBalanceMode,
+    JSArray<JSString> exposureMode,
+    JSArray<JSString> focusMode,
     MediaSettingsRange exposureCompensation,
     MediaSettingsRange exposureTime,
     MediaSettingsRange colorTemperature,
@@ -214,28 +215,28 @@ extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
     ULongRange height,
     DoubleRange aspectRatio,
     DoubleRange frameRate,
-    JSArray facingMode,
-    JSArray resizeMode,
+    JSArray<JSString> facingMode,
+    JSArray<JSString> resizeMode,
     ULongRange sampleRate,
     ULongRange sampleSize,
-    JSArray echoCancellation,
-    JSArray autoGainControl,
-    JSArray noiseSuppression,
+    JSArray<JSBoolean> echoCancellation,
+    JSArray<JSBoolean> autoGainControl,
+    JSArray<JSBoolean> noiseSuppression,
     DoubleRange latency,
     ULongRange channelCount,
     String deviceId,
     String groupId,
     String displaySurface,
     bool logicalSurface,
-    JSArray cursor,
+    JSArray<JSString> cursor,
   });
 
-  external set whiteBalanceMode(JSArray value);
-  external JSArray get whiteBalanceMode;
-  external set exposureMode(JSArray value);
-  external JSArray get exposureMode;
-  external set focusMode(JSArray value);
-  external JSArray get focusMode;
+  external set whiteBalanceMode(JSArray<JSString> value);
+  external JSArray<JSString> get whiteBalanceMode;
+  external set exposureMode(JSArray<JSString> value);
+  external JSArray<JSString> get exposureMode;
+  external set focusMode(JSArray<JSString> value);
+  external JSArray<JSString> get focusMode;
   external set exposureCompensation(MediaSettingsRange value);
   external MediaSettingsRange get exposureCompensation;
   external set exposureTime(MediaSettingsRange value);
@@ -270,20 +271,20 @@ extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
   external DoubleRange get aspectRatio;
   external set frameRate(DoubleRange value);
   external DoubleRange get frameRate;
-  external set facingMode(JSArray value);
-  external JSArray get facingMode;
-  external set resizeMode(JSArray value);
-  external JSArray get resizeMode;
+  external set facingMode(JSArray<JSString> value);
+  external JSArray<JSString> get facingMode;
+  external set resizeMode(JSArray<JSString> value);
+  external JSArray<JSString> get resizeMode;
   external set sampleRate(ULongRange value);
   external ULongRange get sampleRate;
   external set sampleSize(ULongRange value);
   external ULongRange get sampleSize;
-  external set echoCancellation(JSArray value);
-  external JSArray get echoCancellation;
-  external set autoGainControl(JSArray value);
-  external JSArray get autoGainControl;
-  external set noiseSuppression(JSArray value);
-  external JSArray get noiseSuppression;
+  external set echoCancellation(JSArray<JSBoolean> value);
+  external JSArray<JSBoolean> get echoCancellation;
+  external set autoGainControl(JSArray<JSBoolean> value);
+  external JSArray<JSBoolean> get autoGainControl;
+  external set noiseSuppression(JSArray<JSBoolean> value);
+  external JSArray<JSBoolean> get noiseSuppression;
   external set latency(DoubleRange value);
   external DoubleRange get latency;
   external set channelCount(ULongRange value);
@@ -296,15 +297,16 @@ extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
   external String get displaySurface;
   external set logicalSurface(bool value);
   external bool get logicalSurface;
-  external set cursor(JSArray value);
-  external JSArray get cursor;
+  external set cursor(JSArray<JSString> value);
+  external JSArray<JSString> get cursor;
 }
 extension type MediaTrackConstraints._(JSObject _)
     implements MediaTrackConstraintSet, JSObject {
-  external factory MediaTrackConstraints({JSArray advanced});
+  external factory MediaTrackConstraints(
+      {JSArray<MediaTrackConstraintSet> advanced});
 
-  external set advanced(JSArray value);
-  external JSArray get advanced;
+  external set advanced(JSArray<MediaTrackConstraintSet> value);
+  external JSArray<MediaTrackConstraintSet> get advanced;
 }
 extension type MediaTrackConstraintSet._(JSObject _) implements JSObject {
   external factory MediaTrackConstraintSet({
@@ -427,7 +429,7 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
     String whiteBalanceMode,
     String exposureMode,
     String focusMode,
-    JSArray pointsOfInterest,
+    JSArray<Point2D> pointsOfInterest,
     num exposureCompensation,
     num exposureTime,
     num colorTemperature,
@@ -469,8 +471,8 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
   external String get exposureMode;
   external set focusMode(String value);
   external String get focusMode;
-  external set pointsOfInterest(JSArray value);
-  external JSArray get pointsOfInterest;
+  external set pointsOfInterest(JSArray<Point2D> value);
+  external JSArray<Point2D> get pointsOfInterest;
   external set exposureCompensation(num value);
   external num get exposureCompensation;
   external set exposureTime(num value);
@@ -563,15 +565,18 @@ extension type OverconstrainedError._(JSObject _)
   external String get constraint;
 }
 extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {
-  external JSPromise selectAudioOutput([AudioOutputOptions options]);
+  external JSPromise<MediaDeviceInfo> selectAudioOutput(
+      [AudioOutputOptions options]);
   external void setCaptureHandleConfig([CaptureHandleConfig config]);
-  external void setSupportedCaptureActions(JSArray actions);
-  external JSPromise enumerateDevices();
+  external void setSupportedCaptureActions(JSArray<JSString> actions);
+  external JSPromise<JSArray<MediaDeviceInfo>> enumerateDevices();
   external MediaTrackSupportedConstraints getSupportedConstraints();
-  external JSPromise getUserMedia([MediaStreamConstraints constraints]);
-  external JSPromise getViewportMedia(
+  external JSPromise<MediaStream> getUserMedia(
+      [MediaStreamConstraints constraints]);
+  external JSPromise<MediaStream> getViewportMedia(
       [ViewportMediaStreamConstraints constraints]);
-  external JSPromise getDisplayMedia([DisplayMediaStreamOptions options]);
+  external JSPromise<MediaStream> getDisplayMedia(
+      [DisplayMediaStreamOptions options]);
   external set oncaptureaction(EventHandler value);
   external EventHandler get oncaptureaction;
   external set ondevicechange(EventHandler value);

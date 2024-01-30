@@ -45,14 +45,14 @@ extension type FilePickerAcceptType._(JSObject _) implements JSObject {
 }
 extension type FilePickerOptions._(JSObject _) implements JSObject {
   external factory FilePickerOptions({
-    JSArray types,
+    JSArray<FilePickerAcceptType> types,
     bool excludeAcceptAllOption,
     String id,
     StartInDirectory startIn,
   });
 
-  external set types(JSArray value);
-  external JSArray get types;
+  external set types(JSArray<FilePickerAcceptType> value);
+  external JSArray<FilePickerAcceptType> get types;
   external set excludeAcceptAllOption(bool value);
   external bool get excludeAcceptAllOption;
   external set id(String value);

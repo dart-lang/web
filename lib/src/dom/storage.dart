@@ -6,11 +6,13 @@
 
 import 'dart:js_interop';
 
+import 'fs.dart';
+
 extension type StorageManager._(JSObject _) implements JSObject {
-  external JSPromise getDirectory();
-  external JSPromise persisted();
-  external JSPromise persist();
-  external JSPromise estimate();
+  external JSPromise<FileSystemDirectoryHandle> getDirectory();
+  external JSPromise<JSBoolean> persisted();
+  external JSPromise<JSBoolean> persist();
+  external JSPromise<StorageEstimate> estimate();
 }
 extension type StorageEstimate._(JSObject _) implements JSObject {
   external factory StorageEstimate({

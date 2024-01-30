@@ -58,7 +58,7 @@ extension type IDBFactory._(JSObject _) implements JSObject {
     int version,
   ]);
   external IDBOpenDBRequest deleteDatabase(String name);
-  external JSPromise databases();
+  external JSPromise<JSArray<IDBDatabaseInfo>> databases();
   external int cmp(
     JSAny? first,
     JSAny? second,

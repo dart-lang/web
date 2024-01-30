@@ -13,7 +13,8 @@ import 'hr_time.dart';
 extension type GeolocationSensor._(JSObject _) implements Sensor, JSObject {
   external factory GeolocationSensor([GeolocationSensorOptions options]);
 
-  external static JSPromise read([ReadOptions readOptions]);
+  external static JSPromise<GeolocationSensorReading> read(
+      [ReadOptions readOptions]);
   external num? get latitude;
   external num? get longitude;
   external num? get altitude;

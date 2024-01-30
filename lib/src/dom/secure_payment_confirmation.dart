@@ -15,13 +15,13 @@ extension type SecurePaymentConfirmationRequest._(JSObject _)
   external factory SecurePaymentConfirmationRequest({
     required BufferSource challenge,
     required String rpId,
-    required JSArray credentialIds,
+    required JSArray<BufferSource> credentialIds,
     required PaymentCredentialInstrument instrument,
     int timeout,
     String payeeName,
     String payeeOrigin,
     AuthenticationExtensionsClientInputs extensions,
-    JSArray locale,
+    JSArray<JSString> locale,
     bool showOptOut,
   });
 
@@ -29,8 +29,8 @@ extension type SecurePaymentConfirmationRequest._(JSObject _)
   external BufferSource get challenge;
   external set rpId(String value);
   external String get rpId;
-  external set credentialIds(JSArray value);
-  external JSArray get credentialIds;
+  external set credentialIds(JSArray<BufferSource> value);
+  external JSArray<BufferSource> get credentialIds;
   external set instrument(PaymentCredentialInstrument value);
   external PaymentCredentialInstrument get instrument;
   external set timeout(int value);
@@ -41,8 +41,8 @@ extension type SecurePaymentConfirmationRequest._(JSObject _)
   external String get payeeOrigin;
   external set extensions(AuthenticationExtensionsClientInputs value);
   external AuthenticationExtensionsClientInputs get extensions;
-  external set locale(JSArray value);
-  external JSArray get locale;
+  external set locale(JSArray<JSString> value);
+  external JSArray<JSString> get locale;
   external set showOptOut(bool value);
   external bool get showOptOut;
 }

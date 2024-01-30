@@ -9,8 +9,8 @@ import 'dart:js_interop';
 import 'service_workers.dart';
 
 extension type SyncManager._(JSObject _) implements JSObject {
-  external JSPromise register(String tag);
-  external JSPromise getTags();
+  external JSPromise<JSAny?> register(String tag);
+  external JSPromise<JSArray<JSString>> getTags();
 }
 extension type SyncEvent._(JSObject _) implements ExtendableEvent, JSObject {
   external factory SyncEvent(

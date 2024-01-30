@@ -37,5 +37,5 @@ extension type WEBGL_compressed_texture_astc._(JSObject _) implements JSObject {
   external static GLenum get COMPRESSED_SRGB8_ALPHA8_ASTC_10x10_KHR;
   external static GLenum get COMPRESSED_SRGB8_ALPHA8_ASTC_12x10_KHR;
   external static GLenum get COMPRESSED_SRGB8_ALPHA8_ASTC_12x12_KHR;
-  external JSArray getSupportedProfiles();
+  external JSArray<JSString> getSupportedProfiles();
 }

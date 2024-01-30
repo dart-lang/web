@@ -12,7 +12,7 @@ import 'service_workers.dart';
 typedef PaymentDelegation = String;
 typedef PaymentShippingType = String;
 extension type PaymentManager._(JSObject _) implements JSObject {
-  external JSPromise enableDelegations(JSArray delegations);
+  external JSPromise<JSAny?> enableDelegations(JSArray<JSString> delegations);
   external set userHint(String value);
   external String get userHint;
 }
@@ -20,14 +20,14 @@ extension type CanMakePaymentEvent._(JSObject _)
     implements ExtendableEvent, JSObject {
   external factory CanMakePaymentEvent(String type);
 
-  external void respondWith(JSPromise canMakePaymentResponse);
+  external void respondWith(JSPromise<JSBoolean> canMakePaymentResponse);
 }
 extension type PaymentRequestDetailsUpdate._(JSObject _) implements JSObject {
   external factory PaymentRequestDetailsUpdate({
     String error,
     PaymentCurrencyAmount total,
-    JSArray modifiers,
-    JSArray shippingOptions,
+    JSArray<PaymentDetailsModifier> modifiers,
+    JSArray<PaymentShippingOption> shippingOptions,
     JSObject paymentMethodErrors,
     AddressErrors shippingAddressErrors,
   });
@@ -36,10 +36,10 @@ extension type PaymentRequestDetailsUpdate._(JSObject _) implements JSObject {
   external String get error;
   external set total(PaymentCurrencyAmount value);
   external PaymentCurrencyAmount get total;
-  external set modifiers(JSArray value);
-  external JSArray get modifiers;
-  external set shippingOptions(JSArray value);
-  external JSArray get shippingOptions;
+  external set modifiers(JSArray<PaymentDetailsModifier> value);
+  external JSArray<PaymentDetailsModifier> get modifiers;
+  external set shippingOptions(JSArray<PaymentShippingOption> value);
+  external JSArray<PaymentShippingOption> get shippingOptions;
   external set paymentMethodErrors(JSObject value);
   external JSObject get paymentMethodErrors;
   external set shippingAddressErrors(AddressErrors value);
@@ -52,22 +52,25 @@ extension type PaymentRequestEvent._(JSObject _)
     PaymentRequestEventInit eventInitDict,
   ]);
 
-  external JSPromise openWindow(String url);
-  external JSPromise changePaymentMethod(
+  external JSPromise<WindowClient?> openWindow(String url);
+  external JSPromise<PaymentRequestDetailsUpdate?> changePaymentMethod(
     String methodName, [
     JSObject? methodDetails,
   ]);
-  external JSPromise changeShippingAddress([AddressInit shippingAddress]);
-  external JSPromise changeShippingOption(String shippingOption);
-  external void respondWith(JSPromise handlerResponsePromise);
+  external JSPromise<PaymentRequestDetailsUpdate?> changeShippingAddress(
+      [AddressInit shippingAddress]);
+  external JSPromise<PaymentRequestDetailsUpdate?> changeShippingOption(
+      String shippingOption);
+  external void respondWith(
+      JSPromise<PaymentHandlerResponse> handlerResponsePromise);
   external String get topOrigin;
   external String get paymentRequestOrigin;
   external String get paymentRequestId;
-  external JSArray get methodData;
+  external JSArray<PaymentMethodData> get methodData;
   external JSObject get total;
-  external JSArray get modifiers;
+  external JSArray<PaymentDetailsModifier> get modifiers;
   external JSObject? get paymentOptions;
-  external JSArray? get shippingOptions;
+  external JSArray<PaymentShippingOption>? get shippingOptions;
 }
 extension type PaymentRequestEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
@@ -75,11 +78,11 @@ extension type PaymentRequestEventInit._(JSObject _)
     String topOrigin,
     String paymentRequestOrigin,
     String paymentRequestId,
-    JSArray methodData,
+    JSArray<PaymentMethodData> methodData,
     PaymentCurrencyAmount total,
-    JSArray modifiers,
+    JSArray<PaymentDetailsModifier> modifiers,
     PaymentOptions paymentOptions,
-    JSArray shippingOptions,
+    JSArray<PaymentShippingOption> shippingOptions,
   });
 
   external set topOrigin(String value);
@@ -88,16 +91,16 @@ extension type PaymentRequestEventInit._(JSObject _)
   external String get paymentRequestOrigin;
   external set paymentRequestId(String value);
   external String get paymentRequestId;
-  external set methodData(JSArray value);
-  external JSArray get methodData;
+  external set methodData(JSArray<PaymentMethodData> value);
+  external JSArray<PaymentMethodData> get methodData;
   external set total(PaymentCurrencyAmount value);
   external PaymentCurrencyAmount get total;
-  external set modifiers(JSArray value);
-  external JSArray get modifiers;
+  external set modifiers(JSArray<PaymentDetailsModifier> value);
+  external JSArray<PaymentDetailsModifier> get modifiers;
   external set paymentOptions(PaymentOptions value);
   external PaymentOptions get paymentOptions;
-  external set shippingOptions(JSArray value);
-  external JSArray get shippingOptions;
+  external set shippingOptions(JSArray<PaymentShippingOption> value);
+  external JSArray<PaymentShippingOption> get shippingOptions;
 }
 extension type PaymentHandlerResponse._(JSObject _) implements JSObject {
   external factory PaymentHandlerResponse({
@@ -128,7 +131,7 @@ extension type PaymentHandlerResponse._(JSObject _) implements JSObject {
 extension type AddressInit._(JSObject _) implements JSObject {
   external factory AddressInit({
     String country,
-    JSArray addressLine,
+    JSArray<JSString> addressLine,
     String region,
     String city,
     String dependentLocality,
@@ -141,8 +144,8 @@ extension type AddressInit._(JSObject _) implements JSObject {
 
   external set country(String value);
   external String get country;
-  external set addressLine(JSArray value);
-  external JSArray get addressLine;
+  external set addressLine(JSArray<JSString> value);
+  external JSArray<JSString> get addressLine;
   external set region(String value);
   external String get region;
   external set city(String value);

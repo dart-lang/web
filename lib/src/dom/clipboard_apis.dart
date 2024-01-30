@@ -7,11 +7,12 @@
 import 'dart:js_interop';
 
 import 'dom.dart';
+import 'fileapi.dart';
 import 'html.dart';
 import 'permissions.dart';
 
-typedef ClipboardItemData = JSPromise;
-typedef ClipboardItems = JSArray;
+typedef ClipboardItemData = JSPromise<JSAny>;
+typedef ClipboardItems = JSArray<ClipboardItem>;
 typedef PresentationStyle = String;
 extension type ClipboardEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ClipboardEventInit({DataTransfer? clipboardData});
@@ -34,9 +35,9 @@ extension type ClipboardItem._(JSObject _) implements JSObject {
   ]);
 
   external static bool supports(String type);
-  external JSPromise getType(String type);
+  external JSPromise<Blob> getType(String type);
   external PresentationStyle get presentationStyle;
-  external JSArray get types;
+  external JSArray<JSString> get types;
 }
 extension type ClipboardItemOptions._(JSObject _) implements JSObject {
   external factory ClipboardItemOptions({PresentationStyle presentationStyle});
@@ -45,10 +46,10 @@ extension type ClipboardItemOptions._(JSObject _) implements JSObject {
   external PresentationStyle get presentationStyle;
 }
 extension type Clipboard._(JSObject _) implements EventTarget, JSObject {
-  external JSPromise read();
-  external JSPromise readText();
-  external JSPromise write(ClipboardItems data);
-  external JSPromise writeText(String data);
+  external JSPromise<ClipboardItems> read();
+  external JSPromise<JSString> readText();
+  external JSPromise<JSAny?> write(ClipboardItems data);
+  external JSPromise<JSAny?> writeText(String data);
 }
 extension type ClipboardPermissionDescriptor._(JSObject _)
     implements PermissionDescriptor, JSObject {

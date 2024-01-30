@@ -6,6 +6,7 @@
 
 import 'dart:js_interop';
 
+import 'fetch.dart';
 import 'webidl.dart';
 
 typedef ImportExportKind = String;
@@ -27,14 +28,14 @@ external $WebAssembly get WebAssembly;
 @JS('WebAssembly')
 extension type $WebAssembly._(JSObject _) implements JSObject {
   external bool validate(BufferSource bytes);
-  external JSPromise compile(BufferSource bytes);
-  external JSPromise instantiate(
+  external JSPromise<Module> compile(BufferSource bytes);
+  external JSPromise<WebAssemblyInstantiatedSource> instantiate(
     JSObject bytesOrModuleObject, [
     JSObject importObject,
   ]);
-  external JSPromise compileStreaming(JSPromise source);
-  external JSPromise instantiateStreaming(
-    JSPromise source, [
+  external JSPromise<Module> compileStreaming(JSPromise<Response> source);
+  external JSPromise<WebAssemblyInstantiatedSource> instantiateStreaming(
+    JSPromise<Response> source, [
     JSObject importObject,
   ]);
 }
@@ -66,9 +67,9 @@ extension type ModuleImportDescriptor._(JSObject _) implements JSObject {
 extension type Module._(JSObject _) implements JSObject {
   external factory Module(BufferSource bytes);
 
-  external static JSArray exports(Module moduleObject);
-  external static JSArray imports(Module moduleObject);
-  external static JSArray customSections(
+  external static JSArray<ModuleExportDescriptor> exports(Module moduleObject);
+  external static JSArray<ModuleImportDescriptor> imports(Module moduleObject);
+  external static JSArray<JSArrayBuffer> customSections(
     Module moduleObject,
     String sectionName,
   );

@@ -28,9 +28,9 @@ extension type SetHTMLOptions._(JSObject _) implements JSObject {
 }
 extension type SanitizerConfig._(JSObject _) implements JSObject {
   external factory SanitizerConfig({
-    JSArray allowElements,
-    JSArray blockElements,
-    JSArray dropElements,
+    JSArray<JSString> allowElements,
+    JSArray<JSString> blockElements,
+    JSArray<JSString> dropElements,
     AttributeMatchList allowAttributes,
     AttributeMatchList dropAttributes,
     bool allowCustomElements,
@@ -38,12 +38,12 @@ extension type SanitizerConfig._(JSObject _) implements JSObject {
     bool allowComments,
   });
 
-  external set allowElements(JSArray value);
-  external JSArray get allowElements;
-  external set blockElements(JSArray value);
-  external JSArray get blockElements;
-  external set dropElements(JSArray value);
-  external JSArray get dropElements;
+  external set allowElements(JSArray<JSString> value);
+  external JSArray<JSString> get allowElements;
+  external set blockElements(JSArray<JSString> value);
+  external JSArray<JSString> get blockElements;
+  external set dropElements(JSArray<JSString> value);
+  external JSArray<JSString> get dropElements;
   external set allowAttributes(AttributeMatchList value);
   external AttributeMatchList get allowAttributes;
   external set dropAttributes(AttributeMatchList value);

@@ -8,7 +8,7 @@ import 'dart:js_interop';
 
 import 'hr_time.dart';
 
-typedef PerformanceEntryList = JSArray;
+typedef PerformanceEntryList = JSArray<PerformanceEntry>;
 typedef PerformanceObserverCallback = JSFunction;
 extension type PerformanceEntry._(JSObject _) implements JSObject {
   external JSObject toJSON();
@@ -20,7 +20,7 @@ extension type PerformanceEntry._(JSObject _) implements JSObject {
 extension type PerformanceObserver._(JSObject _) implements JSObject {
   external factory PerformanceObserver(PerformanceObserverCallback callback);
 
-  external static JSArray get supportedEntryTypes;
+  external static JSArray<JSString> get supportedEntryTypes;
   external void observe([PerformanceObserverInit options]);
   external void disconnect();
   external PerformanceEntryList takeRecords();
@@ -36,15 +36,15 @@ extension type PerformanceObserverCallbackOptions._(JSObject _)
 extension type PerformanceObserverInit._(JSObject _) implements JSObject {
   external factory PerformanceObserverInit({
     DOMHighResTimeStamp durationThreshold,
-    JSArray entryTypes,
+    JSArray<JSString> entryTypes,
     String type,
     bool buffered,
   });
 
   external set durationThreshold(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get durationThreshold;
-  external set entryTypes(JSArray value);
-  external JSArray get entryTypes;
+  external set entryTypes(JSArray<JSString> value);
+  external JSArray<JSString> get entryTypes;
   external set type(String value);
   external String get type;
   external set buffered(bool value);

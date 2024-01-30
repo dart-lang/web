@@ -71,7 +71,7 @@ extension type URLPatternOptions._(JSObject _) implements JSObject {
 }
 extension type URLPatternResult._(JSObject _) implements JSObject {
   external factory URLPatternResult({
-    JSArray inputs,
+    JSArray<URLPatternInput> inputs,
     URLPatternComponentResult protocol,
     URLPatternComponentResult username,
     URLPatternComponentResult password,
@@ -82,8 +82,8 @@ extension type URLPatternResult._(JSObject _) implements JSObject {
     URLPatternComponentResult hash,
   });
 
-  external set inputs(JSArray value);
-  external JSArray get inputs;
+  external set inputs(JSArray<URLPatternInput> value);
+  external JSArray<URLPatternInput> get inputs;
   external set protocol(URLPatternComponentResult value);
   external URLPatternComponentResult get protocol;
   external set username(URLPatternComponentResult value);

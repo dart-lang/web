@@ -10,5 +10,5 @@ import 'dart:js_interop';
 external $TestUtils get TestUtils;
 @JS('TestUtils')
 extension type $TestUtils._(JSObject _) implements JSObject {
-  external JSPromise gc();
+  external JSPromise<JSAny?> gc();
 }

@@ -8,23 +8,24 @@ import 'dart:js_interop';
 
 import 'geometry.dart';
 import 'html.dart';
+import 'image_capture.dart';
 
 extension type TextDetector._(JSObject _) implements JSObject {
   external factory TextDetector();
 
-  external JSPromise detect(ImageBitmapSource image);
+  external JSPromise<JSArray<DetectedText>> detect(ImageBitmapSource image);
 }
 extension type DetectedText._(JSObject _) implements JSObject {
   external factory DetectedText({
     required DOMRectReadOnly boundingBox,
     required String rawValue,
-    required JSArray cornerPoints,
+    required JSArray<Point2D> cornerPoints,
   });
 
   external set boundingBox(DOMRectReadOnly value);
   external DOMRectReadOnly get boundingBox;
   external set rawValue(String value);
   external String get rawValue;
-  external set cornerPoints(JSArray value);
-  external JSArray get cornerPoints;
+  external set cornerPoints(JSArray<Point2D> value);
+  external JSArray<Point2D> get cornerPoints;
 }

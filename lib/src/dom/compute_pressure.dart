@@ -17,11 +17,11 @@ extension type PressureObserver._(JSObject _) implements JSObject {
     PressureObserverOptions options,
   ]);
 
-  external static JSArray get supportedSources;
-  external JSPromise observe(PressureSource source);
+  external static JSArray<JSString> get supportedSources;
+  external JSPromise<JSAny?> observe(PressureSource source);
   external void unobserve(PressureSource source);
   external void disconnect();
-  external JSArray takeRecords();
+  external JSArray<PressureRecord> takeRecords();
 }
 extension type PressureRecord._(JSObject _) implements JSObject {
   external JSObject toJSON();

@@ -16,7 +16,7 @@ extension type BeforeInstallPromptEvent._(JSObject _)
     EventInit eventInitDict,
   ]);
 
-  external JSPromise prompt();
+  external JSPromise<PromptResponseObject> prompt();
 }
 extension type PromptResponseObject._(JSObject _) implements JSObject {
   external factory PromptResponseObject({AppBannerPromptOutcome userChoice});

@@ -38,7 +38,7 @@ extension type FenceEvent._(JSObject _) implements JSObject {
   external factory FenceEvent({
     String eventType,
     String eventData,
-    JSArray destination,
+    JSArray<JSString> destination,
     bool once,
     String destinationURL,
   });
@@ -47,8 +47,8 @@ extension type FenceEvent._(JSObject _) implements JSObject {
   external String get eventType;
   external set eventData(String value);
   external String get eventData;
-  external set destination(JSArray value);
-  external JSArray get destination;
+  external set destination(JSArray<JSString> value);
+  external JSArray<JSString> get destination;
   external set once(bool value);
   external bool get once;
   external set destinationURL(String value);
@@ -57,5 +57,5 @@ extension type FenceEvent._(JSObject _) implements JSObject {
 extension type Fence._(JSObject _) implements JSObject {
   external void reportEvent([ReportEventType event]);
   external void setReportEventDataForAutomaticBeacons([FenceEvent event]);
-  external JSArray getNestedConfigs();
+  external JSArray<FencedFrameConfig> getNestedConfigs();
 }

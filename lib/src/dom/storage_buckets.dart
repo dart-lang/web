@@ -6,17 +6,19 @@
 
 import 'dart:js_interop';
 
+import 'fs.dart';
 import 'hr_time.dart';
 import 'indexeddb.dart';
 import 'service_workers.dart';
+import 'storage.dart';
 
 extension type StorageBucketManager._(JSObject _) implements JSObject {
-  external JSPromise open(
+  external JSPromise<StorageBucket> open(
     String name, [
     StorageBucketOptions options,
   ]);
-  external JSPromise keys();
-  external JSPromise delete(String name);
+  external JSPromise<JSArray<JSString>> keys();
+  external JSPromise<JSAny?> delete(String name);
 }
 extension type StorageBucketOptions._(JSObject _) implements JSObject {
   external factory StorageBucketOptions({
@@ -33,12 +35,12 @@ extension type StorageBucketOptions._(JSObject _) implements JSObject {
   external DOMHighResTimeStamp? get expires;
 }
 extension type StorageBucket._(JSObject _) implements JSObject {
-  external JSPromise persist();
-  external JSPromise persisted();
-  external JSPromise estimate();
-  external JSPromise setExpires(DOMHighResTimeStamp expires);
-  external JSPromise expires();
-  external JSPromise getDirectory();
+  external JSPromise<JSBoolean> persist();
+  external JSPromise<JSBoolean> persisted();
+  external JSPromise<StorageEstimate> estimate();
+  external JSPromise<JSAny?> setExpires(DOMHighResTimeStamp expires);
+  external JSPromise<JSNumber> expires();
+  external JSPromise<FileSystemDirectoryHandle> getDirectory();
   external String get name;
   external IDBFactory get indexedDB;
   external CacheStorage get caches;

@@ -13,18 +13,18 @@ typedef NDEFMessageSource = JSAny;
 extension type NDEFMessage._(JSObject _) implements JSObject {
   external factory NDEFMessage(NDEFMessageInit messageInit);
 
-  external JSArray get records;
+  external JSArray<NDEFRecord> get records;
 }
 extension type NDEFMessageInit._(JSObject _) implements JSObject {
-  external factory NDEFMessageInit({required JSArray records});
+  external factory NDEFMessageInit({required JSArray<NDEFRecordInit> records});
 
-  external set records(JSArray value);
-  external JSArray get records;
+  external set records(JSArray<NDEFRecordInit> value);
+  external JSArray<NDEFRecordInit> get records;
 }
 extension type NDEFRecord._(JSObject _) implements JSObject {
   external factory NDEFRecord(NDEFRecordInit recordInit);
 
-  external JSArray? toRecords();
+  external JSArray<NDEFRecord>? toRecords();
   external String get recordType;
   external String? get mediaType;
   external String? get id;
@@ -58,12 +58,12 @@ extension type NDEFRecordInit._(JSObject _) implements JSObject {
 extension type NDEFReader._(JSObject _) implements EventTarget, JSObject {
   external factory NDEFReader();
 
-  external JSPromise scan([NDEFScanOptions options]);
-  external JSPromise write(
+  external JSPromise<JSAny?> scan([NDEFScanOptions options]);
+  external JSPromise<JSAny?> write(
     NDEFMessageSource message, [
     NDEFWriteOptions options,
   ]);
-  external JSPromise makeReadOnly([NDEFMakeReadOnlyOptions options]);
+  external JSPromise<JSAny?> makeReadOnly([NDEFMakeReadOnlyOptions options]);
   external set onreading(EventHandler value);
   external EventHandler get onreading;
   external set onreadingerror(EventHandler value);

@@ -9,12 +9,12 @@ import 'dart:js_interop';
 import 'service_workers.dart';
 
 extension type PeriodicSyncManager._(JSObject _) implements JSObject {
-  external JSPromise register(
+  external JSPromise<JSAny?> register(
     String tag, [
     BackgroundSyncOptions options,
   ]);
-  external JSPromise getTags();
-  external JSPromise unregister(String tag);
+  external JSPromise<JSArray<JSString>> getTags();
+  external JSPromise<JSAny?> unregister(String tag);
 }
 extension type BackgroundSyncOptions._(JSObject _) implements JSObject {
   external factory BackgroundSyncOptions({int minInterval});

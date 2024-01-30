@@ -382,7 +382,7 @@ extension type WebGLRenderingContext._(JSObject _) implements JSObject {
   external static GLenum get BROWSER_DEFAULT_WEBGL;
   external WebGLContextAttributes? getContextAttributes();
   external bool isContextLost();
-  external JSArray? getSupportedExtensions();
+  external JSArray<JSString>? getSupportedExtensions();
   external JSObject? getExtension(String name);
   external void activeTexture(GLenum texture);
   external void attachShader(
@@ -531,7 +531,7 @@ extension type WebGLRenderingContext._(JSObject _) implements JSObject {
     WebGLProgram program,
     GLuint index,
   );
-  external JSArray? getAttachedShaders(WebGLProgram program);
+  external JSArray<WebGLShader>? getAttachedShaders(WebGLProgram program);
   external GLint getAttribLocation(
     WebGLProgram program,
     String name,
@@ -762,7 +762,7 @@ extension type WebGLRenderingContext._(JSObject _) implements JSObject {
     GLsizei width,
     GLsizei height,
   );
-  external JSPromise makeXRCompatible();
+  external JSPromise<JSAny?> makeXRCompatible();
   external void bufferData(
     GLenum target,
     JSAny dataOrSize,

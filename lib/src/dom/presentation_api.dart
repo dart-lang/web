@@ -21,9 +21,9 @@ extension type PresentationRequest._(JSObject _)
     implements EventTarget, JSObject {
   external factory PresentationRequest(JSAny urlOrUrls);
 
-  external JSPromise start();
-  external JSPromise reconnect(String presentationId);
-  external JSPromise getAvailability();
+  external JSPromise<PresentationConnection> start();
+  external JSPromise<PresentationConnection> reconnect(String presentationId);
+  external JSPromise<PresentationAvailability> getAvailability();
   external set onconnectionavailable(EventHandler value);
   external EventHandler get onconnectionavailable;
 }
@@ -92,11 +92,11 @@ extension type PresentationConnectionCloseEventInit._(JSObject _)
   external String get message;
 }
 extension type PresentationReceiver._(JSObject _) implements JSObject {
-  external JSPromise get connectionList;
+  external JSPromise<PresentationConnectionList> get connectionList;
 }
 extension type PresentationConnectionList._(JSObject _)
     implements EventTarget, JSObject {
-  external JSArray get connections;
+  external JSArray<PresentationConnection> get connections;
   external set onconnectionavailable(EventHandler value);
   external EventHandler get onconnectionavailable;
 }

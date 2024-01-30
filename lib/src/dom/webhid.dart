@@ -12,8 +12,9 @@ import 'webidl.dart';
 
 typedef HIDUnitSystem = String;
 extension type HID._(JSObject _) implements EventTarget, JSObject {
-  external JSPromise getDevices();
-  external JSPromise requestDevice(HIDDeviceRequestOptions options);
+  external JSPromise<JSArray<HIDDevice>> getDevices();
+  external JSPromise<JSArray<HIDDevice>> requestDevice(
+      HIDDeviceRequestOptions options);
   external set onconnect(EventHandler value);
   external EventHandler get onconnect;
   external set ondisconnect(EventHandler value);
@@ -21,14 +22,14 @@ extension type HID._(JSObject _) implements EventTarget, JSObject {
 }
 extension type HIDDeviceRequestOptions._(JSObject _) implements JSObject {
   external factory HIDDeviceRequestOptions({
-    required JSArray filters,
-    JSArray exclusionFilters,
+    required JSArray<HIDDeviceFilter> filters,
+    JSArray<HIDDeviceFilter> exclusionFilters,
   });
 
-  external set filters(JSArray value);
-  external JSArray get filters;
-  external set exclusionFilters(JSArray value);
-  external JSArray get exclusionFilters;
+  external set filters(JSArray<HIDDeviceFilter> value);
+  external JSArray<HIDDeviceFilter> get filters;
+  external set exclusionFilters(JSArray<HIDDeviceFilter> value);
+  external JSArray<HIDDeviceFilter> get exclusionFilters;
 }
 extension type HIDDeviceFilter._(JSObject _) implements JSObject {
   external factory HIDDeviceFilter({
@@ -48,25 +49,25 @@ extension type HIDDeviceFilter._(JSObject _) implements JSObject {
   external int get usage;
 }
 extension type HIDDevice._(JSObject _) implements EventTarget, JSObject {
-  external JSPromise open();
-  external JSPromise close();
-  external JSPromise forget();
-  external JSPromise sendReport(
+  external JSPromise<JSAny?> open();
+  external JSPromise<JSAny?> close();
+  external JSPromise<JSAny?> forget();
+  external JSPromise<JSAny?> sendReport(
     int reportId,
     BufferSource data,
   );
-  external JSPromise sendFeatureReport(
+  external JSPromise<JSAny?> sendFeatureReport(
     int reportId,
     BufferSource data,
   );
-  external JSPromise receiveFeatureReport(int reportId);
+  external JSPromise<JSDataView> receiveFeatureReport(int reportId);
   external set oninputreport(EventHandler value);
   external EventHandler get oninputreport;
   external bool get opened;
   external int get vendorId;
   external int get productId;
   external String get productName;
-  external JSArray get collections;
+  external JSArray<HIDCollectionInfo> get collections;
 }
 extension type HIDConnectionEvent._(JSObject _) implements Event, JSObject {
   external factory HIDConnectionEvent(
@@ -113,10 +114,10 @@ extension type HIDCollectionInfo._(JSObject _) implements JSObject {
     int usagePage,
     int usage,
     int type,
-    JSArray children,
-    JSArray inputReports,
-    JSArray outputReports,
-    JSArray featureReports,
+    JSArray<HIDCollectionInfo> children,
+    JSArray<HIDReportInfo> inputReports,
+    JSArray<HIDReportInfo> outputReports,
+    JSArray<HIDReportInfo> featureReports,
   });
 
   external set usagePage(int value);
@@ -125,25 +126,25 @@ extension type HIDCollectionInfo._(JSObject _) implements JSObject {
   external int get usage;
   external set type(int value);
   external int get type;
-  external set children(JSArray value);
-  external JSArray get children;
-  external set inputReports(JSArray value);
-  external JSArray get inputReports;
-  external set outputReports(JSArray value);
-  external JSArray get outputReports;
-  external set featureReports(JSArray value);
-  external JSArray get featureReports;
+  external set children(JSArray<HIDCollectionInfo> value);
+  external JSArray<HIDCollectionInfo> get children;
+  external set inputReports(JSArray<HIDReportInfo> value);
+  external JSArray<HIDReportInfo> get inputReports;
+  external set outputReports(JSArray<HIDReportInfo> value);
+  external JSArray<HIDReportInfo> get outputReports;
+  external set featureReports(JSArray<HIDReportInfo> value);
+  external JSArray<HIDReportInfo> get featureReports;
 }
 extension type HIDReportInfo._(JSObject _) implements JSObject {
   external factory HIDReportInfo({
     int reportId,
-    JSArray items,
+    JSArray<HIDReportItem> items,
   });
 
   external set reportId(int value);
   external int get reportId;
-  external set items(JSArray value);
-  external JSArray get items;
+  external set items(JSArray<HIDReportItem> value);
+  external JSArray<HIDReportItem> get items;
 }
 extension type HIDReportItem._(JSObject _) implements JSObject {
   external factory HIDReportItem({
@@ -157,7 +158,7 @@ extension type HIDReportItem._(JSObject _) implements JSObject {
     bool hasNull,
     bool hasPreferredState,
     bool wrap,
-    JSArray usages,
+    JSArray<JSNumber> usages,
     int usageMinimum,
     int usageMaximum,
     int reportSize,
@@ -174,7 +175,7 @@ extension type HIDReportItem._(JSObject _) implements JSObject {
     int logicalMaximum,
     int physicalMinimum,
     int physicalMaximum,
-    JSArray strings,
+    JSArray<JSString> strings,
   });
 
   external set isAbsolute(bool value);
@@ -197,8 +198,8 @@ extension type HIDReportItem._(JSObject _) implements JSObject {
   external bool get hasPreferredState;
   external set wrap(bool value);
   external bool get wrap;
-  external set usages(JSArray value);
-  external JSArray get usages;
+  external set usages(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get usages;
   external set usageMinimum(int value);
   external int get usageMinimum;
   external set usageMaximum(int value);
@@ -231,6 +232,6 @@ extension type HIDReportItem._(JSObject _) implements JSObject {
   external int get physicalMinimum;
   external set physicalMaximum(int value);
   external int get physicalMaximum;
-  external set strings(JSArray value);
-  external JSArray get strings;
+  external set strings(JSArray<JSString> value);
+  external JSArray<JSString> get strings;
 }

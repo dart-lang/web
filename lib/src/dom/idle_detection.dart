@@ -25,8 +25,8 @@ extension type IdleOptions._(JSObject _) implements JSObject {
 extension type IdleDetector._(JSObject _) implements EventTarget, JSObject {
   external factory IdleDetector();
 
-  external static JSPromise requestPermission();
-  external JSPromise start([IdleOptions options]);
+  external static JSPromise<JSString> requestPermission();
+  external JSPromise<JSAny?> start([IdleOptions options]);
   external UserIdleState? get userState;
   external ScreenIdleState? get screenState;
   external set onchange(EventHandler value);

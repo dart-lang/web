@@ -42,10 +42,10 @@ extension type EditContext._(JSObject _) implements EventTarget, JSObject {
   external void updateSelectionBounds(DOMRect selectionBounds);
   external void updateCharacterBounds(
     int rangeStart,
-    JSArray characterBounds,
+    JSArray<DOMRect> characterBounds,
   );
-  external JSArray attachedElements();
-  external JSArray characterBounds();
+  external JSArray<Element> attachedElements();
+  external JSArray<DOMRect> characterBounds();
   external String get text;
   external int get selectionStart;
   external int get selectionEnd;
@@ -134,10 +134,10 @@ extension type TextFormat._(JSObject _) implements JSObject {
 }
 extension type TextFormatUpdateEventInit._(JSObject _)
     implements EventInit, JSObject {
-  external factory TextFormatUpdateEventInit({JSArray textFormats});
+  external factory TextFormatUpdateEventInit({JSArray<TextFormat> textFormats});
 
-  external set textFormats(JSArray value);
-  external JSArray get textFormats;
+  external set textFormats(JSArray<TextFormat> value);
+  external JSArray<TextFormat> get textFormats;
 }
 extension type TextFormatUpdateEvent._(JSObject _) implements Event, JSObject {
   external factory TextFormatUpdateEvent(
@@ -145,7 +145,7 @@ extension type TextFormatUpdateEvent._(JSObject _) implements Event, JSObject {
     TextFormatUpdateEventInit options,
   ]);
 
-  external JSArray getTextFormats();
+  external JSArray<TextFormat> getTextFormats();
 }
 extension type CharacterBoundsUpdateEventInit._(JSObject _)
     implements EventInit, JSObject {

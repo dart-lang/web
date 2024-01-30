@@ -14,8 +14,9 @@ import 'web_bluetooth.dart';
 typedef ParityType = String;
 typedef FlowControlType = String;
 extension type Serial._(JSObject _) implements EventTarget, JSObject {
-  external JSPromise getPorts();
-  external JSPromise requestPort([SerialPortRequestOptions options]);
+  external JSPromise<JSArray<SerialPort>> getPorts();
+  external JSPromise<SerialPort> requestPort(
+      [SerialPortRequestOptions options]);
   external set onconnect(EventHandler value);
   external EventHandler get onconnect;
   external set ondisconnect(EventHandler value);
@@ -23,14 +24,15 @@ extension type Serial._(JSObject _) implements EventTarget, JSObject {
 }
 extension type SerialPortRequestOptions._(JSObject _) implements JSObject {
   external factory SerialPortRequestOptions({
-    JSArray filters,
-    JSArray allowedBluetoothServiceClassIds,
+    JSArray<SerialPortFilter> filters,
+    JSArray<BluetoothServiceUUID> allowedBluetoothServiceClassIds,
   });
 
-  external set filters(JSArray value);
-  external JSArray get filters;
-  external set allowedBluetoothServiceClassIds(JSArray value);
-  external JSArray get allowedBluetoothServiceClassIds;
+  external set filters(JSArray<SerialPortFilter> value);
+  external JSArray<SerialPortFilter> get filters;
+  external set allowedBluetoothServiceClassIds(
+      JSArray<BluetoothServiceUUID> value);
+  external JSArray<BluetoothServiceUUID> get allowedBluetoothServiceClassIds;
 }
 extension type SerialPortFilter._(JSObject _) implements JSObject {
   external factory SerialPortFilter({
@@ -48,11 +50,11 @@ extension type SerialPortFilter._(JSObject _) implements JSObject {
 }
 extension type SerialPort._(JSObject _) implements EventTarget, JSObject {
   external SerialPortInfo getInfo();
-  external JSPromise open(SerialOptions options);
-  external JSPromise setSignals([SerialOutputSignals signals]);
-  external JSPromise getSignals();
-  external JSPromise close();
-  external JSPromise forget();
+  external JSPromise<JSAny?> open(SerialOptions options);
+  external JSPromise<JSAny?> setSignals([SerialOutputSignals signals]);
+  external JSPromise<SerialInputSignals> getSignals();
+  external JSPromise<JSAny?> close();
+  external JSPromise<JSAny?> forget();
   external set onconnect(EventHandler value);
   external EventHandler get onconnect;
   external set ondisconnect(EventHandler value);

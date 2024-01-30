@@ -12,7 +12,7 @@ typedef RotationMatrixType = JSObject;
 typedef OrientationSensorLocalCoordinateSystem = String;
 extension type OrientationSensor._(JSObject _) implements Sensor, JSObject {
   external void populateMatrix(RotationMatrixType targetMatrix);
-  external JSArray? get quaternion;
+  external JSArray<JSNumber>? get quaternion;
 }
 extension type OrientationSensorOptions._(JSObject _)
     implements SensorOptions, JSObject {
@@ -35,10 +35,10 @@ extension type RelativeOrientationSensor._(JSObject _)
 extension type AbsoluteOrientationReadingValues._(JSObject _)
     implements JSObject {
   external factory AbsoluteOrientationReadingValues(
-      {required JSArray? quaternion});
+      {required JSArray<JSNumber>? quaternion});
 
-  external set quaternion(JSArray? value);
-  external JSArray? get quaternion;
+  external set quaternion(JSArray<JSNumber>? value);
+  external JSArray<JSNumber>? get quaternion;
 }
 extension type RelativeOrientationReadingValues._(JSObject _)
     implements AbsoluteOrientationReadingValues, JSObject {

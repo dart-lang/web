@@ -582,7 +582,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   external static GLenum get MAX_CLIENT_WAIT_TIMEOUT_WEBGL;
   external WebGLContextAttributes? getContextAttributes();
   external bool isContextLost();
-  external JSArray? getSupportedExtensions();
+  external JSArray<JSString>? getSupportedExtensions();
   external JSObject? getExtension(String name);
   external void activeTexture(GLenum texture);
   external void attachShader(
@@ -731,7 +731,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
     WebGLProgram program,
     GLuint index,
   );
-  external JSArray? getAttachedShaders(WebGLProgram program);
+  external JSArray<WebGLShader>? getAttachedShaders(WebGLProgram program);
   external GLint getAttribLocation(
     WebGLProgram program,
     String name,
@@ -962,7 +962,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
     GLsizei width,
     GLsizei height,
   );
-  external JSPromise makeXRCompatible();
+  external JSPromise<JSAny?> makeXRCompatible();
   external void copyBufferSubData(
     GLenum readTarget,
     GLenum writeTarget,
@@ -998,11 +998,11 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   );
   external void invalidateFramebuffer(
     GLenum target,
-    JSArray attachments,
+    JSArray<JSNumber> attachments,
   );
   external void invalidateSubFramebuffer(
     GLenum target,
-    JSArray attachments,
+    JSArray<JSNumber> attachments,
     GLint x,
     GLint y,
     GLsizei width,
@@ -1246,7 +1246,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
     GLenum type,
     GLintptr offset,
   );
-  external void drawBuffers(JSArray buffers);
+  external void drawBuffers(JSArray<JSNumber> buffers);
   external void clearBufferfv(
     GLenum buffer,
     GLint drawbuffer,
@@ -1339,7 +1339,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   external void endTransformFeedback();
   external void transformFeedbackVaryings(
     WebGLProgram program,
-    JSArray varyings,
+    JSArray<JSString> varyings,
     GLenum bufferMode,
   );
   external WebGLActiveInfo? getTransformFeedbackVarying(
@@ -1364,13 +1364,13 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
     GLenum target,
     GLuint index,
   );
-  external JSArray? getUniformIndices(
+  external JSArray<JSNumber>? getUniformIndices(
     WebGLProgram program,
-    JSArray uniformNames,
+    JSArray<JSString> uniformNames,
   );
   external JSAny? getActiveUniforms(
     WebGLProgram program,
-    JSArray uniformIndices,
+    JSArray<JSNumber> uniformIndices,
     GLenum pname,
   );
   external GLuint getUniformBlockIndex(

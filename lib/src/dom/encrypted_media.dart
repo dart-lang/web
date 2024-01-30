@@ -18,28 +18,28 @@ typedef MediaKeyMessageType = String;
 extension type MediaKeySystemConfiguration._(JSObject _) implements JSObject {
   external factory MediaKeySystemConfiguration({
     String label,
-    JSArray initDataTypes,
-    JSArray audioCapabilities,
-    JSArray videoCapabilities,
+    JSArray<JSString> initDataTypes,
+    JSArray<MediaKeySystemMediaCapability> audioCapabilities,
+    JSArray<MediaKeySystemMediaCapability> videoCapabilities,
     MediaKeysRequirement distinctiveIdentifier,
     MediaKeysRequirement persistentState,
-    JSArray sessionTypes,
+    JSArray<JSString> sessionTypes,
   });
 
   external set label(String value);
   external String get label;
-  external set initDataTypes(JSArray value);
-  external JSArray get initDataTypes;
-  external set audioCapabilities(JSArray value);
-  external JSArray get audioCapabilities;
-  external set videoCapabilities(JSArray value);
-  external JSArray get videoCapabilities;
+  external set initDataTypes(JSArray<JSString> value);
+  external JSArray<JSString> get initDataTypes;
+  external set audioCapabilities(JSArray<MediaKeySystemMediaCapability> value);
+  external JSArray<MediaKeySystemMediaCapability> get audioCapabilities;
+  external set videoCapabilities(JSArray<MediaKeySystemMediaCapability> value);
+  external JSArray<MediaKeySystemMediaCapability> get videoCapabilities;
   external set distinctiveIdentifier(MediaKeysRequirement value);
   external MediaKeysRequirement get distinctiveIdentifier;
   external set persistentState(MediaKeysRequirement value);
   external MediaKeysRequirement get persistentState;
-  external set sessionTypes(JSArray value);
-  external JSArray get sessionTypes;
+  external set sessionTypes(JSArray<JSString> value);
+  external JSArray<JSString> get sessionTypes;
 }
 extension type MediaKeySystemMediaCapability._(JSObject _) implements JSObject {
   external factory MediaKeySystemMediaCapability({
@@ -57,25 +57,26 @@ extension type MediaKeySystemMediaCapability._(JSObject _) implements JSObject {
 }
 extension type MediaKeySystemAccess._(JSObject _) implements JSObject {
   external MediaKeySystemConfiguration getConfiguration();
-  external JSPromise createMediaKeys();
+  external JSPromise<MediaKeys> createMediaKeys();
   external String get keySystem;
 }
 extension type MediaKeys._(JSObject _) implements JSObject {
   external MediaKeySession createSession([MediaKeySessionType sessionType]);
-  external JSPromise setServerCertificate(BufferSource serverCertificate);
+  external JSPromise<JSBoolean> setServerCertificate(
+      BufferSource serverCertificate);
 }
 extension type MediaKeySession._(JSObject _) implements EventTarget, JSObject {
-  external JSPromise generateRequest(
+  external JSPromise<JSAny?> generateRequest(
     String initDataType,
     BufferSource initData,
   );
-  external JSPromise load(String sessionId);
-  external JSPromise update(BufferSource response);
-  external JSPromise close();
-  external JSPromise remove();
+  external JSPromise<JSBoolean> load(String sessionId);
+  external JSPromise<JSAny?> update(BufferSource response);
+  external JSPromise<JSAny?> close();
+  external JSPromise<JSAny?> remove();
   external String get sessionId;
   external num get expiration;
-  external JSPromise get closed;
+  external JSPromise<JSString> get closed;
   external MediaKeyStatusMap get keyStatuses;
   external set onkeystatuseschange(EventHandler value);
   external EventHandler get onkeystatuseschange;

@@ -14,5 +14,5 @@ extension type CSSLayerBlockRule._(JSObject _)
 }
 extension type CSSLayerStatementRule._(JSObject _)
     implements CSSRule, JSObject {
-  external JSArray get nameList;
+  external JSArray<JSString> get nameList;
 }

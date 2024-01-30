@@ -46,26 +46,26 @@ typedef RTCErrorDetailType = String;
 extension type RTCConfiguration._(JSObject _) implements JSObject {
   external factory RTCConfiguration({
     String peerIdentity,
-    JSArray iceServers,
+    JSArray<RTCIceServer> iceServers,
     RTCIceTransportPolicy iceTransportPolicy,
     RTCBundlePolicy bundlePolicy,
     RTCRtcpMuxPolicy rtcpMuxPolicy,
-    JSArray certificates,
+    JSArray<RTCCertificate> certificates,
     int iceCandidatePoolSize,
   });
 
   external set peerIdentity(String value);
   external String get peerIdentity;
-  external set iceServers(JSArray value);
-  external JSArray get iceServers;
+  external set iceServers(JSArray<RTCIceServer> value);
+  external JSArray<RTCIceServer> get iceServers;
   external set iceTransportPolicy(RTCIceTransportPolicy value);
   external RTCIceTransportPolicy get iceTransportPolicy;
   external set bundlePolicy(RTCBundlePolicy value);
   external RTCBundlePolicy get bundlePolicy;
   external set rtcpMuxPolicy(RTCRtcpMuxPolicy value);
   external RTCRtcpMuxPolicy get rtcpMuxPolicy;
-  external set certificates(JSArray value);
-  external JSArray get certificates;
+  external set certificates(JSArray<RTCCertificate> value);
+  external JSArray<RTCCertificate> get certificates;
   external set iceCandidatePoolSize(int value);
   external int get iceCandidatePoolSize;
 }
@@ -109,33 +109,33 @@ extension type RTCPeerConnection._(JSObject _)
     implements EventTarget, JSObject {
   external factory RTCPeerConnection([RTCConfiguration configuration]);
 
-  external static JSPromise generateCertificate(
+  external static JSPromise<RTCCertificate> generateCertificate(
       AlgorithmIdentifier keygenAlgorithm);
   external void setIdentityProvider(
     String provider, [
     RTCIdentityProviderOptions options,
   ]);
-  external JSPromise getIdentityAssertion();
-  external JSPromise createOffer([
+  external JSPromise<JSString> getIdentityAssertion();
+  external JSPromise<RTCSessionDescriptionInit> createOffer([
     JSObject optionsOrSuccessCallback,
     RTCPeerConnectionErrorCallback failureCallback,
     RTCOfferOptions options,
   ]);
-  external JSPromise createAnswer([
+  external JSPromise<RTCSessionDescriptionInit> createAnswer([
     JSObject optionsOrSuccessCallback,
     RTCPeerConnectionErrorCallback failureCallback,
   ]);
-  external JSPromise setLocalDescription([
+  external JSPromise<JSAny?> setLocalDescription([
     RTCLocalSessionDescriptionInit description,
     VoidFunction successCallback,
     RTCPeerConnectionErrorCallback failureCallback,
   ]);
-  external JSPromise setRemoteDescription(
+  external JSPromise<JSAny?> setRemoteDescription(
     RTCSessionDescriptionInit description, [
     VoidFunction successCallback,
     RTCPeerConnectionErrorCallback failureCallback,
   ]);
-  external JSPromise addIceCandidate([
+  external JSPromise<JSAny?> addIceCandidate([
     RTCIceCandidateInit candidate,
     VoidFunction successCallback,
     RTCPeerConnectionErrorCallback failureCallback,
@@ -144,9 +144,9 @@ extension type RTCPeerConnection._(JSObject _)
   external RTCConfiguration getConfiguration();
   external void setConfiguration([RTCConfiguration configuration]);
   external void close();
-  external JSArray getSenders();
-  external JSArray getReceivers();
-  external JSArray getTransceivers();
+  external JSArray<RTCRtpSender> getSenders();
+  external JSArray<RTCRtpReceiver> getReceivers();
+  external JSArray<RTCRtpTransceiver> getTransceivers();
   external RTCRtpSender addTrack(
     MediaStreamTrack track,
     MediaStream streams,
@@ -160,8 +160,8 @@ extension type RTCPeerConnection._(JSObject _)
     String label, [
     RTCDataChannelInit dataChannelDict,
   ]);
-  external JSPromise getStats([MediaStreamTrack? selector]);
-  external JSPromise get peerIdentity;
+  external JSPromise<RTCStatsReport> getStats([MediaStreamTrack? selector]);
+  external JSPromise<RTCIdentityAssertion> get peerIdentity;
   external String? get idpLoginUrl;
   external String? get idpErrorInfo;
   external RTCSessionDescription? get localDescription;
@@ -327,34 +327,34 @@ extension type RTCCertificateExpiration._(JSObject _) implements JSObject {
   external int get expires;
 }
 extension type RTCCertificate._(JSObject _) implements JSObject {
-  external JSArray getFingerprints();
+  external JSArray<RTCDtlsFingerprint> getFingerprints();
   external EpochTimeStamp get expires;
 }
 extension type RTCRtpTransceiverInit._(JSObject _) implements JSObject {
   external factory RTCRtpTransceiverInit({
     RTCRtpTransceiverDirection direction,
-    JSArray streams,
-    JSArray sendEncodings,
+    JSArray<MediaStream> streams,
+    JSArray<RTCRtpEncodingParameters> sendEncodings,
   });
 
   external set direction(RTCRtpTransceiverDirection value);
   external RTCRtpTransceiverDirection get direction;
-  external set streams(JSArray value);
-  external JSArray get streams;
-  external set sendEncodings(JSArray value);
-  external JSArray get sendEncodings;
+  external set streams(JSArray<MediaStream> value);
+  external JSArray<MediaStream> get streams;
+  external set sendEncodings(JSArray<RTCRtpEncodingParameters> value);
+  external JSArray<RTCRtpEncodingParameters> get sendEncodings;
 }
 extension type RTCRtpSender._(JSObject _) implements JSObject {
   external static RTCRtpCapabilities? getCapabilities(String kind);
-  external JSPromise generateKeyFrame([JSArray rids]);
-  external JSPromise setParameters(
+  external JSPromise<JSAny?> generateKeyFrame([JSArray<JSString> rids]);
+  external JSPromise<JSAny?> setParameters(
     RTCRtpSendParameters parameters, [
     RTCSetParameterOptions setParameterOptions,
   ]);
   external RTCRtpSendParameters getParameters();
-  external JSPromise replaceTrack(MediaStreamTrack? withTrack);
+  external JSPromise<JSAny?> replaceTrack(MediaStreamTrack? withTrack);
   external void setStreams(MediaStream streams);
-  external JSPromise getStats();
+  external JSPromise<RTCStatsReport> getStats();
   external set transform(RTCRtpTransform? value);
   external RTCRtpTransform? get transform;
   external MediaStreamTrack? get track;
@@ -363,32 +363,32 @@ extension type RTCRtpSender._(JSObject _) implements JSObject {
 }
 extension type RTCRtpParameters._(JSObject _) implements JSObject {
   external factory RTCRtpParameters({
-    required JSArray headerExtensions,
+    required JSArray<RTCRtpHeaderExtensionParameters> headerExtensions,
     required RTCRtcpParameters rtcp,
-    required JSArray codecs,
+    required JSArray<RTCRtpCodecParameters> codecs,
   });
 
-  external set headerExtensions(JSArray value);
-  external JSArray get headerExtensions;
+  external set headerExtensions(JSArray<RTCRtpHeaderExtensionParameters> value);
+  external JSArray<RTCRtpHeaderExtensionParameters> get headerExtensions;
   external set rtcp(RTCRtcpParameters value);
   external RTCRtcpParameters get rtcp;
-  external set codecs(JSArray value);
-  external JSArray get codecs;
+  external set codecs(JSArray<RTCRtpCodecParameters> value);
+  external JSArray<RTCRtpCodecParameters> get codecs;
 }
 extension type RTCRtpSendParameters._(JSObject _)
     implements RTCRtpParameters, JSObject {
   external factory RTCRtpSendParameters({
     RTCDegradationPreference degradationPreference,
     required String transactionId,
-    required JSArray encodings,
+    required JSArray<RTCRtpEncodingParameters> encodings,
   });
 
   external set degradationPreference(RTCDegradationPreference value);
   external RTCDegradationPreference get degradationPreference;
   external set transactionId(String value);
   external String get transactionId;
-  external set encodings(JSArray value);
-  external JSArray get encodings;
+  external set encodings(JSArray<RTCRtpEncodingParameters> value);
+  external JSArray<RTCRtpEncodingParameters> get encodings;
 }
 extension type RTCRtpReceiveParameters._(JSObject _)
     implements RTCRtpParameters, JSObject {
@@ -479,14 +479,14 @@ extension type RTCRtpCodecParameters._(JSObject _)
 }
 extension type RTCRtpCapabilities._(JSObject _) implements JSObject {
   external factory RTCRtpCapabilities({
-    required JSArray codecs,
-    required JSArray headerExtensions,
+    required JSArray<RTCRtpCodecCapability> codecs,
+    required JSArray<RTCRtpHeaderExtensionCapability> headerExtensions,
   });
 
-  external set codecs(JSArray value);
-  external JSArray get codecs;
-  external set headerExtensions(JSArray value);
-  external JSArray get headerExtensions;
+  external set codecs(JSArray<RTCRtpCodecCapability> value);
+  external JSArray<RTCRtpCodecCapability> get codecs;
+  external set headerExtensions(JSArray<RTCRtpHeaderExtensionCapability> value);
+  external JSArray<RTCRtpHeaderExtensionCapability> get headerExtensions;
 }
 extension type RTCRtpCodecCapability._(JSObject _)
     implements RTCRtpCodec, JSObject {
@@ -505,9 +505,9 @@ extension type RTCSetParameterOptions._(JSObject _) implements JSObject {
 extension type RTCRtpReceiver._(JSObject _) implements JSObject {
   external static RTCRtpCapabilities? getCapabilities(String kind);
   external RTCRtpReceiveParameters getParameters();
-  external JSArray getContributingSources();
-  external JSArray getSynchronizationSources();
-  external JSPromise getStats();
+  external JSArray<RTCRtpContributingSource> getContributingSources();
+  external JSArray<RTCRtpSynchronizationSource> getSynchronizationSources();
+  external JSPromise<RTCStatsReport> getStats();
   external set transform(RTCRtpTransform? value);
   external RTCRtpTransform? get transform;
   external MediaStreamTrack get track;
@@ -536,7 +536,7 @@ extension type RTCRtpSynchronizationSource._(JSObject _)
 }
 extension type RTCRtpTransceiver._(JSObject _) implements JSObject {
   external void stop();
-  external void setCodecPreferences(JSArray codecs);
+  external void setCodecPreferences(JSArray<RTCRtpCodecCapability> codecs);
   external String? get mid;
   external RTCRtpSender get sender;
   external RTCRtpReceiver get receiver;
@@ -545,7 +545,7 @@ extension type RTCRtpTransceiver._(JSObject _) implements JSObject {
   external RTCRtpTransceiverDirection? get currentDirection;
 }
 extension type RTCDtlsTransport._(JSObject _) implements EventTarget, JSObject {
-  external JSArray getRemoteCertificates();
+  external JSArray<JSArrayBuffer> getRemoteCertificates();
   external RTCIceTransport get iceTransport;
   external RTCDtlsTransportState get state;
   external set onstatechange(EventHandler value);
@@ -574,8 +574,8 @@ extension type RTCIceTransport._(JSObject _) implements EventTarget, JSObject {
   ]);
   external void stop();
   external void addRemoteCandidate([RTCIceCandidateInit remoteCandidate]);
-  external JSArray getLocalCandidates();
-  external JSArray getRemoteCandidates();
+  external JSArray<RTCIceCandidate> getLocalCandidates();
+  external JSArray<RTCIceCandidate> getRemoteCandidates();
   external RTCIceCandidatePair? getSelectedCandidatePair();
   external RTCIceParameters? getLocalParameters();
   external RTCIceParameters? getRemoteParameters();
@@ -627,14 +627,14 @@ extension type RTCTrackEvent._(JSObject _) implements Event, JSObject {
 
   external RTCRtpReceiver get receiver;
   external MediaStreamTrack get track;
-  external JSArray get streams;
+  external JSArray<MediaStream> get streams;
   external RTCRtpTransceiver get transceiver;
 }
 extension type RTCTrackEventInit._(JSObject _) implements EventInit, JSObject {
   external factory RTCTrackEventInit({
     required RTCRtpReceiver receiver,
     required MediaStreamTrack track,
-    JSArray streams,
+    JSArray<MediaStream> streams,
     required RTCRtpTransceiver transceiver,
   });
 
@@ -642,8 +642,8 @@ extension type RTCTrackEventInit._(JSObject _) implements EventInit, JSObject {
   external RTCRtpReceiver get receiver;
   external set track(MediaStreamTrack value);
   external MediaStreamTrack get track;
-  external set streams(JSArray value);
-  external JSArray get streams;
+  external set streams(JSArray<MediaStream> value);
+  external JSArray<MediaStream> get streams;
   external set transceiver(RTCRtpTransceiver value);
   external RTCRtpTransceiver get transceiver;
 }

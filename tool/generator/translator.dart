@@ -806,20 +806,6 @@ class Translator {
 
     final status = browserCompatData.interfaceFor(name);
 
-    // if (status != null) {
-    //   final name = status.name;
-    //   final statusDescription =
-    //       '${status.statusDescription} ${status.browsersDescription}}';
-
-    //   if (!status.standardTrack) {
-    //     print('[$name]: not standards track ($statusDescription)');
-    //   } else if (status.browserCount == 0) {
-    //     print('[$name]: no supported browsers ($statusDescription)');
-    //   } else if (status.browserCount == 1) {
-    //     print('[$name]: only one supported browser  ($statusDescription)');
-    //   }
-    // }
-
     // We create a getter for namespaces with the expected name. We also create
     // getters for a few pre-defined singleton classes.
     final getterName = isNamespace ? jsName : singletons[jsName];

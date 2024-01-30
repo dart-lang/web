@@ -6,12 +6,10 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
 import 'webgl1.dart';
 
 @JS('WEBGL_color_buffer_float')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WEBGL_color_buffer_float {
   external static GLenum get RGBA32F_EXT;
   external static GLenum get FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE_EXT;

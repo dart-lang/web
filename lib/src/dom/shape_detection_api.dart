@@ -8,7 +8,6 @@ import 'dart:js_interop';
 
 import 'geometry.dart';
 import 'html.dart';
-import 'status.dart';
 
 typedef LandmarkType = String;
 typedef BarcodeFormat = String;
@@ -76,7 +75,6 @@ extension LandmarkExtension on Landmark {
 
 @JS('BarcodeDetector')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class BarcodeDetector {
   external factory BarcodeDetector(
       [BarcodeDetectorOptions barcodeDetectorOptions]);

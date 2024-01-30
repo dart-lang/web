@@ -6,11 +6,8 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
-
 @JS('URL')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class URL {
   external factory URL(
     String url, [
@@ -53,7 +50,6 @@ extension URLExtension on URL {
 
 @JS('URLSearchParams')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class URLSearchParams {
   external factory URLSearchParams([JSAny init]);
 }

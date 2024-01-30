@@ -7,7 +7,6 @@
 import 'dart:js_interop';
 
 import 'cssom.dart';
-import 'status.dart';
 
 @JS()
 @staticInterop
@@ -34,7 +33,6 @@ extension PropertyDefinitionExtension on PropertyDefinition {
 
 @JS('CSSPropertyRule')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSPropertyRule implements CSSRule {}
 
 extension CSSPropertyRuleExtension on CSSPropertyRule {

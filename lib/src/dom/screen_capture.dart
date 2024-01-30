@@ -8,7 +8,6 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'status.dart';
 
 typedef CaptureStartFocusBehavior = String;
 typedef SelfCapturePreferenceEnum = String;
@@ -20,7 +19,6 @@ typedef CursorCaptureConstraint = String;
 
 @JS('CaptureController')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class CaptureController implements EventTarget {
   external factory CaptureController();
 }

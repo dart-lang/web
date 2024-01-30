@@ -8,13 +8,11 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'status.dart';
 
 typedef PaymentComplete = String;
 
 @JS('PaymentRequest')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PaymentRequest implements EventTarget {
   external factory PaymentRequest(
     JSArray methodData,
@@ -175,7 +173,6 @@ extension PaymentCompleteDetailsExtension on PaymentCompleteDetails {
 
 @JS('PaymentResponse')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PaymentResponse implements EventTarget {}
 
 extension PaymentResponseExtension on PaymentResponse {
@@ -209,7 +206,6 @@ extension PaymentValidationErrorsExtension on PaymentValidationErrors {
 
 @JS('PaymentMethodChangeEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PaymentMethodChangeEvent implements PaymentRequestUpdateEvent {
   external factory PaymentMethodChangeEvent(
     String type, [
@@ -242,7 +238,6 @@ extension PaymentMethodChangeEventInitExtension
 
 @JS('PaymentRequestUpdateEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PaymentRequestUpdateEvent implements Event {
   external factory PaymentRequestUpdateEvent(
     String type, [

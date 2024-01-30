@@ -7,9 +7,7 @@
 import 'dart:js_interop';
 
 import 'performance_timeline.dart';
-import 'status.dart';
 
 @JS('PerformancePaintTiming')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PerformancePaintTiming implements PerformanceEntry {}

@@ -8,7 +8,6 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'status.dart';
 import 'webidl.dart';
 
 typedef ReadyState = String;
@@ -17,7 +16,6 @@ typedef AppendMode = String;
 
 @JS('MediaSource')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaSource implements EventTarget {
   external factory MediaSource();
 
@@ -50,12 +48,10 @@ extension MediaSourceExtension on MediaSource {
 
 @JS('MediaSourceHandle')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class MediaSourceHandle {}
 
 @JS('SourceBuffer')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SourceBuffer implements EventTarget {}
 
 extension SourceBufferExtension on SourceBuffer {
@@ -93,7 +89,6 @@ extension SourceBufferExtension on SourceBuffer {
 
 @JS('SourceBufferList')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SourceBufferList implements EventTarget {}
 
 extension SourceBufferListExtension on SourceBufferList {

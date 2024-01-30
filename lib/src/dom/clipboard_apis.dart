@@ -9,7 +9,6 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 import 'permissions.dart';
-import 'status.dart';
 
 typedef ClipboardItemData = JSPromise;
 typedef ClipboardItems = JSArray;
@@ -29,7 +28,6 @@ extension ClipboardEventInitExtension on ClipboardEventInit {
 
 @JS('ClipboardEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ClipboardEvent implements Event {
   external factory ClipboardEvent(
     String type, [
@@ -43,7 +41,6 @@ extension ClipboardEventExtension on ClipboardEvent {
 
 @JS('ClipboardItem')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ClipboardItem {
   external factory ClipboardItem(
     JSAny items, [
@@ -73,7 +70,6 @@ extension ClipboardItemOptionsExtension on ClipboardItemOptions {
 
 @JS('Clipboard')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Clipboard implements EventTarget {}
 
 extension ClipboardExtension on Clipboard {

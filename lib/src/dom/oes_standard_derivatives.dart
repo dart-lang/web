@@ -6,12 +6,10 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
 import 'webgl1.dart';
 
 @JS('OES_standard_derivatives')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class OES_standard_derivatives {
   external static GLenum get FRAGMENT_SHADER_DERIVATIVE_HINT_OES;
 }

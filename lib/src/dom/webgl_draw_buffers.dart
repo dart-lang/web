@@ -6,12 +6,10 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
 import 'webgl1.dart';
 
 @JS('WEBGL_draw_buffers')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WEBGL_draw_buffers {
   external static GLenum get COLOR_ATTACHMENT0_WEBGL;
   external static GLenum get COLOR_ATTACHMENT1_WEBGL;

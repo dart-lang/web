@@ -10,11 +10,9 @@ import 'css_typed_om.dart';
 import 'cssom.dart';
 import 'dom.dart';
 import 'html.dart';
-import 'status.dart';
 
 @JS('MathMLElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MathMLElement implements Element {}
 
 extension MathMLElementExtension on MathMLElement {

@@ -10,7 +10,6 @@ import 'fileapi.dart';
 import 'hr_time.dart';
 import 'permissions.dart';
 import 'service_workers.dart';
-import 'status.dart';
 
 typedef PushMessageDataInit = JSAny;
 typedef PushEncryptionKeyName = String;
@@ -29,7 +28,6 @@ extension PushPermissionDescriptorExtension on PushPermissionDescriptor {
 
 @JS('PushManager')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PushManager {
   external static JSArray get supportedContentEncodings;
 }
@@ -42,7 +40,6 @@ extension PushManagerExtension on PushManager {
 
 @JS('PushSubscriptionOptions')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PushSubscriptionOptions {}
 
 extension PushSubscriptionOptionsExtension on PushSubscriptionOptions {
@@ -69,7 +66,6 @@ extension PushSubscriptionOptionsInitExtension on PushSubscriptionOptionsInit {
 
 @JS('PushSubscription')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PushSubscription {}
 
 extension PushSubscriptionExtension on PushSubscription {
@@ -103,7 +99,6 @@ extension PushSubscriptionJSONExtension on PushSubscriptionJSON {
 
 @JS('PushMessageData')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PushMessageData {}
 
 extension PushMessageDataExtension on PushMessageData {
@@ -115,7 +110,6 @@ extension PushMessageDataExtension on PushMessageData {
 
 @JS('PushEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PushEvent implements ExtendableEvent {
   external factory PushEvent(
     String type, [
@@ -141,7 +135,6 @@ extension PushEventInitExtension on PushEventInit {
 
 @JS('PushSubscriptionChangeEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'safari')
 class PushSubscriptionChangeEvent implements ExtendableEvent {
   external factory PushSubscriptionChangeEvent(
     String type, [

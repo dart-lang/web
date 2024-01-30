@@ -7,11 +7,9 @@
 import 'dart:js_interop';
 
 import 'css_conditional.dart';
-import 'status.dart';
 
 @JS('CSSContainerRule')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSContainerRule implements CSSConditionRule {}
 
 extension CSSContainerRuleExtension on CSSContainerRule {

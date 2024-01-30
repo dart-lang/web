@@ -756,8 +756,6 @@ class Translator {
               staticInterop: true,
               objectLiteral: isObjectLiteral,
             ),
-            if (interfaceStatus != null)
-              code.refer(interfaceStatus.toAnnotation(), 'status.dart'),
           ])
           ..name = dartClassName
           ..implements.addAll(implements

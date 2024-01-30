@@ -8,7 +8,6 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'status.dart';
 import 'streams.dart';
 import 'webidl.dart';
 
@@ -17,7 +16,6 @@ typedef EndingType = String;
 
 @JS('Blob')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Blob {
   external factory Blob([
     JSArray blobParts,
@@ -57,7 +55,6 @@ extension BlobPropertyBagExtension on BlobPropertyBag {
 
 @JS('File')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class File implements Blob {
   external factory File(
     JSArray fileBits,
@@ -86,7 +83,6 @@ extension FilePropertyBagExtension on FilePropertyBag {
 
 @JS('FileList')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class FileList {}
 
 extension FileListExtension on FileList {
@@ -96,7 +92,6 @@ extension FileListExtension on FileList {
 
 @JS('FileReader')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class FileReader implements EventTarget {
   external factory FileReader();
 
@@ -133,7 +128,6 @@ extension FileReaderExtension on FileReader {
 
 @JS('FileReaderSync')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class FileReaderSync {
   external factory FileReaderSync();
 }

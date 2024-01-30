@@ -7,11 +7,9 @@
 import 'dart:js_interop';
 
 import 'hr_time.dart';
-import 'status.dart';
 
 @JS('VideoPlaybackQuality')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class VideoPlaybackQuality {}
 
 extension VideoPlaybackQualityExtension on VideoPlaybackQuality {

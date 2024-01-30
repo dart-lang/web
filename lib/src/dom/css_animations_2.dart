@@ -6,12 +6,10 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
 import 'web_animations.dart';
 
 @JS('CSSAnimation')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSAnimation implements Animation {}
 
 extension CSSAnimationExtension on CSSAnimation {

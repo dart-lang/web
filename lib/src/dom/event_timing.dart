@@ -9,11 +9,9 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'hr_time.dart';
 import 'performance_timeline.dart';
-import 'status.dart';
 
 @JS('PerformanceEventTiming')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class PerformanceEventTiming implements PerformanceEntry {}
 
 extension PerformanceEventTimingExtension on PerformanceEventTiming {
@@ -27,7 +25,6 @@ extension PerformanceEventTimingExtension on PerformanceEventTiming {
 
 @JS('EventCounts')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class EventCounts {}
 
 extension EventCountsExtension on EventCounts {}

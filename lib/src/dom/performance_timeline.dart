@@ -7,14 +7,12 @@
 import 'dart:js_interop';
 
 import 'hr_time.dart';
-import 'status.dart';
 
 typedef PerformanceEntryList = JSArray;
 typedef PerformanceObserverCallback = JSFunction;
 
 @JS('PerformanceEntry')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PerformanceEntry {}
 
 extension PerformanceEntryExtension on PerformanceEntry {
@@ -27,7 +25,6 @@ extension PerformanceEntryExtension on PerformanceEntry {
 
 @JS('PerformanceObserver')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PerformanceObserver {
   external factory PerformanceObserver(PerformanceObserverCallback callback);
 
@@ -79,7 +76,6 @@ extension PerformanceObserverInitExtension on PerformanceObserverInit {
 
 @JS('PerformanceObserverEntryList')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PerformanceObserverEntryList {}
 
 extension PerformanceObserverEntryListExtension

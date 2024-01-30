@@ -101,9 +101,6 @@ abstract class BCDItem {
 
   int get browserCount => browsers.length;
 
-  String toAnnotation() =>
-      "BcdStatus('$statusDescription', browsers: '$browsersDescription')";
-
   bool _versionAdded(String browser) {
     final map = (_support[browser] is List
         ? (_support[browser] as List).first

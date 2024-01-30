@@ -8,7 +8,6 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'geometry.dart';
-import 'status.dart';
 
 typedef ResizeObserverCallback = JSFunction;
 typedef ResizeObserverBoxOptions = String;
@@ -27,7 +26,6 @@ extension ResizeObserverOptionsExtension on ResizeObserverOptions {
 
 @JS('ResizeObserver')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ResizeObserver {
   external factory ResizeObserver(ResizeObserverCallback callback);
 }
@@ -43,7 +41,6 @@ extension ResizeObserverExtension on ResizeObserver {
 
 @JS('ResizeObserverEntry')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ResizeObserverEntry {}
 
 extension ResizeObserverEntryExtension on ResizeObserverEntry {
@@ -56,7 +53,6 @@ extension ResizeObserverEntryExtension on ResizeObserverEntry {
 
 @JS('ResizeObserverSize')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ResizeObserverSize {}
 
 extension ResizeObserverSizeExtension on ResizeObserverSize {

@@ -7,13 +7,11 @@
 import 'dart:js_interop';
 
 import 'credential_management.dart';
-import 'status.dart';
 
 typedef IdentityCredentialRequestOptionsContext = String;
 
 @JS('IdentityCredential')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class IdentityCredential implements Credential {}
 
 extension IdentityCredentialExtension on IdentityCredential {
@@ -235,7 +233,6 @@ extension IdentityUserInfoExtension on IdentityUserInfo {
 
 @JS('IdentityProvider')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class IdentityProvider {
   external static JSPromise getUserInfo(IdentityProviderConfig config);
 }

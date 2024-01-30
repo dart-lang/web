@@ -6,13 +6,10 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
-
 typedef URLPatternInput = JSAny;
 
 @JS('URLPattern')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class URLPattern {
   external factory URLPattern([
     URLPatternInput input,

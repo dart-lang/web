@@ -6,12 +6,10 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
 import 'svg.dart';
 
 @JS('SVGFilterElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFilterElement implements SVGElement {}
 
 extension SVGFilterElementExtension on SVGFilterElement {
@@ -26,7 +24,6 @@ extension SVGFilterElementExtension on SVGFilterElement {
 
 @JS('SVGFEBlendElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFEBlendElement implements SVGElement {
   external static int get SVG_FEBLEND_MODE_UNKNOWN;
   external static int get SVG_FEBLEND_MODE_NORMAL;
@@ -60,7 +57,6 @@ extension SVGFEBlendElementExtension on SVGFEBlendElement {
 
 @JS('SVGFEColorMatrixElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFEColorMatrixElement implements SVGElement {
   external static int get SVG_FECOLORMATRIX_TYPE_UNKNOWN;
   external static int get SVG_FECOLORMATRIX_TYPE_MATRIX;
@@ -82,7 +78,6 @@ extension SVGFEColorMatrixElementExtension on SVGFEColorMatrixElement {
 
 @JS('SVGFEComponentTransferElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFEComponentTransferElement implements SVGElement {}
 
 extension SVGFEComponentTransferElementExtension
@@ -97,7 +92,6 @@ extension SVGFEComponentTransferElementExtension
 
 @JS('SVGComponentTransferFunctionElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGComponentTransferFunctionElement implements SVGElement {
   external static int get SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN;
   external static int get SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY;
@@ -120,27 +114,22 @@ extension SVGComponentTransferFunctionElementExtension
 
 @JS('SVGFEFuncRElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFEFuncRElement implements SVGComponentTransferFunctionElement {}
 
 @JS('SVGFEFuncGElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFEFuncGElement implements SVGComponentTransferFunctionElement {}
 
 @JS('SVGFEFuncBElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFEFuncBElement implements SVGComponentTransferFunctionElement {}
 
 @JS('SVGFEFuncAElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFEFuncAElement implements SVGComponentTransferFunctionElement {}
 
 @JS('SVGFECompositeElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFECompositeElement implements SVGElement {
   external static int get SVG_FECOMPOSITE_OPERATOR_UNKNOWN;
   external static int get SVG_FECOMPOSITE_OPERATOR_OVER;
@@ -168,7 +157,6 @@ extension SVGFECompositeElementExtension on SVGFECompositeElement {
 
 @JS('SVGFEConvolveMatrixElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFEConvolveMatrixElement implements SVGElement {
   external static int get SVG_EDGEMODE_UNKNOWN;
   external static int get SVG_EDGEMODE_DUPLICATE;
@@ -198,7 +186,6 @@ extension SVGFEConvolveMatrixElementExtension on SVGFEConvolveMatrixElement {
 
 @JS('SVGFEDiffuseLightingElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFEDiffuseLightingElement implements SVGElement {}
 
 extension SVGFEDiffuseLightingElementExtension on SVGFEDiffuseLightingElement {
@@ -216,7 +203,6 @@ extension SVGFEDiffuseLightingElementExtension on SVGFEDiffuseLightingElement {
 
 @JS('SVGFEDistantLightElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFEDistantLightElement implements SVGElement {}
 
 extension SVGFEDistantLightElementExtension on SVGFEDistantLightElement {
@@ -226,7 +212,6 @@ extension SVGFEDistantLightElementExtension on SVGFEDistantLightElement {
 
 @JS('SVGFEPointLightElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFEPointLightElement implements SVGElement {}
 
 extension SVGFEPointLightElementExtension on SVGFEPointLightElement {
@@ -237,7 +222,6 @@ extension SVGFEPointLightElementExtension on SVGFEPointLightElement {
 
 @JS('SVGFESpotLightElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFESpotLightElement implements SVGElement {}
 
 extension SVGFESpotLightElementExtension on SVGFESpotLightElement {
@@ -253,7 +237,6 @@ extension SVGFESpotLightElementExtension on SVGFESpotLightElement {
 
 @JS('SVGFEDisplacementMapElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFEDisplacementMapElement implements SVGElement {
   external static int get SVG_CHANNEL_UNKNOWN;
   external static int get SVG_CHANNEL_R;
@@ -277,7 +260,6 @@ extension SVGFEDisplacementMapElementExtension on SVGFEDisplacementMapElement {
 
 @JS('SVGFEDropShadowElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFEDropShadowElement implements SVGElement {}
 
 extension SVGFEDropShadowElementExtension on SVGFEDropShadowElement {
@@ -299,7 +281,6 @@ extension SVGFEDropShadowElementExtension on SVGFEDropShadowElement {
 
 @JS('SVGFEFloodElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFEFloodElement implements SVGElement {}
 
 extension SVGFEFloodElementExtension on SVGFEFloodElement {
@@ -312,7 +293,6 @@ extension SVGFEFloodElementExtension on SVGFEFloodElement {
 
 @JS('SVGFEGaussianBlurElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFEGaussianBlurElement implements SVGElement {
   external static int get SVG_EDGEMODE_UNKNOWN;
   external static int get SVG_EDGEMODE_DUPLICATE;
@@ -338,7 +318,6 @@ extension SVGFEGaussianBlurElementExtension on SVGFEGaussianBlurElement {
 
 @JS('SVGFEImageElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFEImageElement implements SVGElement {}
 
 extension SVGFEImageElementExtension on SVGFEImageElement {
@@ -354,7 +333,6 @@ extension SVGFEImageElementExtension on SVGFEImageElement {
 
 @JS('SVGFEMergeElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFEMergeElement implements SVGElement {}
 
 extension SVGFEMergeElementExtension on SVGFEMergeElement {
@@ -367,7 +345,6 @@ extension SVGFEMergeElementExtension on SVGFEMergeElement {
 
 @JS('SVGFEMergeNodeElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFEMergeNodeElement implements SVGElement {}
 
 extension SVGFEMergeNodeElementExtension on SVGFEMergeNodeElement {
@@ -376,7 +353,6 @@ extension SVGFEMergeNodeElementExtension on SVGFEMergeNodeElement {
 
 @JS('SVGFEMorphologyElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFEMorphologyElement implements SVGElement {
   external static int get SVG_MORPHOLOGY_OPERATOR_UNKNOWN;
   external static int get SVG_MORPHOLOGY_OPERATOR_ERODE;
@@ -397,7 +373,6 @@ extension SVGFEMorphologyElementExtension on SVGFEMorphologyElement {
 
 @JS('SVGFEOffsetElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFEOffsetElement implements SVGElement {}
 
 extension SVGFEOffsetElementExtension on SVGFEOffsetElement {
@@ -413,7 +388,6 @@ extension SVGFEOffsetElementExtension on SVGFEOffsetElement {
 
 @JS('SVGFESpecularLightingElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFESpecularLightingElement implements SVGElement {}
 
 extension SVGFESpecularLightingElementExtension
@@ -433,7 +407,6 @@ extension SVGFESpecularLightingElementExtension
 
 @JS('SVGFETileElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFETileElement implements SVGElement {}
 
 extension SVGFETileElementExtension on SVGFETileElement {
@@ -447,7 +420,6 @@ extension SVGFETileElementExtension on SVGFETileElement {
 
 @JS('SVGFETurbulenceElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGFETurbulenceElement implements SVGElement {
   external static int get SVG_TURBULENCE_TYPE_UNKNOWN;
   external static int get SVG_TURBULENCE_TYPE_FRACTALNOISE;

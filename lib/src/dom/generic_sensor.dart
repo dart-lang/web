@@ -9,14 +9,12 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'hr_time.dart';
 import 'html.dart';
-import 'status.dart';
 import 'webidl.dart';
 
 typedef MockSensorType = String;
 
 @JS('Sensor')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class Sensor implements EventTarget {}
 
 extension SensorExtension on Sensor {
@@ -47,7 +45,6 @@ extension SensorOptionsExtension on SensorOptions {
 
 @JS('SensorErrorEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class SensorErrorEvent implements Event {
   external factory SensorErrorEvent(
     String type,

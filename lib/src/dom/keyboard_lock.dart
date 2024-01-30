@@ -8,11 +8,9 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'status.dart';
 
 @JS('Keyboard')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class Keyboard implements EventTarget {}
 
 extension KeyboardExtension on Keyboard {

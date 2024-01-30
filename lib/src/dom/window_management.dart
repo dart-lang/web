@@ -9,11 +9,9 @@ import 'dart:js_interop';
 import 'cssom_view.dart';
 import 'dom.dart';
 import 'html.dart';
-import 'status.dart';
 
 @JS('ScreenDetails')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class ScreenDetails implements EventTarget {}
 
 extension ScreenDetailsExtension on ScreenDetails {
@@ -27,7 +25,6 @@ extension ScreenDetailsExtension on ScreenDetails {
 
 @JS('ScreenDetailed')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class ScreenDetailed implements Screen {}
 
 extension ScreenDetailedExtension on ScreenDetailed {

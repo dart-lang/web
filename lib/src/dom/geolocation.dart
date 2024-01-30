@@ -7,14 +7,12 @@
 import 'dart:js_interop';
 
 import 'hr_time.dart';
-import 'status.dart';
 
 typedef PositionCallback = JSFunction;
 typedef PositionErrorCallback = JSFunction;
 
 @JS('Geolocation')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Geolocation {}
 
 extension GeolocationExtension on Geolocation {
@@ -53,7 +51,6 @@ extension PositionOptionsExtension on PositionOptions {
 
 @JS('GeolocationPosition')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class GeolocationPosition {}
 
 extension GeolocationPositionExtension on GeolocationPosition {
@@ -63,7 +60,6 @@ extension GeolocationPositionExtension on GeolocationPosition {
 
 @JS('GeolocationCoordinates')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class GeolocationCoordinates {}
 
 extension GeolocationCoordinatesExtension on GeolocationCoordinates {
@@ -78,7 +74,6 @@ extension GeolocationCoordinatesExtension on GeolocationCoordinates {
 
 @JS('GeolocationPositionError')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class GeolocationPositionError {
   external static int get PERMISSION_DENIED;
   external static int get POSITION_UNAVAILABLE;

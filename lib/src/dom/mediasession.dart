@@ -6,15 +6,12 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
-
 typedef MediaSessionActionHandler = JSFunction;
 typedef MediaSessionPlaybackState = String;
 typedef MediaSessionAction = String;
 
 @JS('MediaSession')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaSession {}
 
 extension MediaSessionExtension on MediaSession {
@@ -33,7 +30,6 @@ extension MediaSessionExtension on MediaSession {
 
 @JS('MediaMetadata')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaMetadata {
   external factory MediaMetadata([MediaMetadataInit init]);
 }

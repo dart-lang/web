@@ -23,7 +23,6 @@ import 'permissions_policy.dart';
 import 'sanitizer_api.dart';
 import 'scroll_to_text_fragment.dart';
 import 'selection_api.dart';
-import 'status.dart';
 import 'svg.dart';
 import 'web_animations.dart';
 
@@ -36,7 +35,6 @@ typedef SlotAssignmentMode = String;
 
 @JS('Event')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Event {
   external factory Event(
     String type, [
@@ -98,7 +96,6 @@ extension EventInitExtension on EventInit {
 
 @JS('CustomEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CustomEvent implements Event {
   external factory CustomEvent(
     String type, [
@@ -130,7 +127,6 @@ extension CustomEventInitExtension on CustomEventInit {
 
 @JS('EventTarget')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class EventTarget {
   external factory EventTarget();
 }
@@ -183,7 +179,6 @@ extension AddEventListenerOptionsExtension on AddEventListenerOptions {
 
 @JS('AbortController')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AbortController {
   external factory AbortController();
 }
@@ -195,7 +190,6 @@ extension AbortControllerExtension on AbortController {
 
 @JS('AbortSignal')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AbortSignal implements EventTarget {
   external static AbortSignal abort([JSAny? reason]);
   external static AbortSignal timeout(int milliseconds);
@@ -212,7 +206,6 @@ extension AbortSignalExtension on AbortSignal {
 
 @JS('NodeList')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class NodeList {}
 
 extension NodeListExtension on NodeList {
@@ -222,7 +215,6 @@ extension NodeListExtension on NodeList {
 
 @JS('HTMLCollection')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLCollection {}
 
 extension HTMLCollectionExtension on HTMLCollection {
@@ -233,7 +225,6 @@ extension HTMLCollectionExtension on HTMLCollection {
 
 @JS('MutationObserver')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MutationObserver {
   external factory MutationObserver(MutationCallback callback);
 }
@@ -281,7 +272,6 @@ extension MutationObserverInitExtension on MutationObserverInit {
 
 @JS('MutationRecord')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MutationRecord {}
 
 extension MutationRecordExtension on MutationRecord {
@@ -298,7 +288,6 @@ extension MutationRecordExtension on MutationRecord {
 
 @JS('Node')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Node implements EventTarget {
   external static int get ELEMENT_NODE;
   external static int get ATTRIBUTE_NODE;
@@ -377,7 +366,6 @@ external Document get document;
 
 @JS('Document')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Document implements Node {
   external factory Document();
 }
@@ -810,7 +798,6 @@ extension DocumentExtension on Document {
 
 @JS('XMLDocument')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class XMLDocument implements Document {}
 
 @JS()
@@ -829,7 +816,6 @@ extension ElementCreationOptionsExtension on ElementCreationOptions {
 
 @JS('DOMImplementation')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DOMImplementation {}
 
 extension DOMImplementationExtension on DOMImplementation {
@@ -849,7 +835,6 @@ extension DOMImplementationExtension on DOMImplementation {
 
 @JS('DocumentType')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DocumentType implements Node {}
 
 extension DocumentTypeExtension on DocumentType {
@@ -864,7 +849,6 @@ extension DocumentTypeExtension on DocumentType {
 
 @JS('DocumentFragment')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DocumentFragment implements Node {
   external factory DocumentFragment();
 }
@@ -884,7 +868,6 @@ extension DocumentFragmentExtension on DocumentFragment {
 
 @JS('ShadowRoot')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ShadowRoot implements DocumentFragment {}
 
 extension ShadowRootExtension on ShadowRoot {
@@ -908,7 +891,6 @@ extension ShadowRootExtension on ShadowRoot {
 
 @JS('Element')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Element implements Node {}
 
 extension ElementExtension on Element {
@@ -1200,7 +1182,6 @@ extension ShadowRootInitExtension on ShadowRootInit {
 
 @JS('NamedNodeMap')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class NamedNodeMap {}
 
 extension NamedNodeMapExtension on NamedNodeMap {
@@ -1222,7 +1203,6 @@ extension NamedNodeMapExtension on NamedNodeMap {
 
 @JS('Attr')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Attr implements Node {}
 
 extension AttrExtension on Attr {
@@ -1238,7 +1218,6 @@ extension AttrExtension on Attr {
 
 @JS('CharacterData')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CharacterData implements Node {}
 
 extension CharacterDataExtension on CharacterData {
@@ -1273,7 +1252,6 @@ extension CharacterDataExtension on CharacterData {
 
 @JS('Text')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Text implements CharacterData {
   external factory Text([String data]);
 }
@@ -1302,12 +1280,10 @@ extension TextExtension on Text {
 
 @JS('CDATASection')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CDATASection implements Text {}
 
 @JS('ProcessingInstruction')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ProcessingInstruction implements CharacterData {}
 
 extension ProcessingInstructionExtension on ProcessingInstruction {
@@ -1317,14 +1293,12 @@ extension ProcessingInstructionExtension on ProcessingInstruction {
 
 @JS('Comment')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Comment implements CharacterData {
   external factory Comment([String data]);
 }
 
 @JS('AbstractRange')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AbstractRange {}
 
 extension AbstractRangeExtension on AbstractRange {
@@ -1360,14 +1334,12 @@ extension StaticRangeInitExtension on StaticRangeInit {
 
 @JS('StaticRange')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class StaticRange implements AbstractRange {
   external factory StaticRange(StaticRangeInit init);
 }
 
 @JS('Range')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Range implements AbstractRange {
   external factory Range();
 
@@ -1421,7 +1393,6 @@ extension RangeExtension on Range {
 
 @JS('NodeIterator')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class NodeIterator {}
 
 extension NodeIteratorExtension on NodeIterator {
@@ -1437,7 +1408,6 @@ extension NodeIteratorExtension on NodeIterator {
 
 @JS('TreeWalker')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class TreeWalker {}
 
 extension TreeWalkerExtension on TreeWalker {
@@ -1457,7 +1427,6 @@ extension TreeWalkerExtension on TreeWalker {
 
 @JS('DOMTokenList')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DOMTokenList {}
 
 extension DOMTokenListExtension on DOMTokenList {
@@ -1481,7 +1450,6 @@ extension DOMTokenListExtension on DOMTokenList {
 
 @JS('XPathResult')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class XPathResult {
   external static int get ANY_TYPE;
   external static int get NUMBER_TYPE;
@@ -1509,7 +1477,6 @@ extension XPathResultExtension on XPathResult {
 
 @JS('XPathExpression')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class XPathExpression {}
 
 extension XPathExpressionExtension on XPathExpression {
@@ -1522,7 +1489,6 @@ extension XPathExpressionExtension on XPathExpression {
 
 @JS('XPathEvaluator')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class XPathEvaluator {
   external factory XPathEvaluator();
 }
@@ -1544,7 +1510,6 @@ extension XPathEvaluatorExtension on XPathEvaluator {
 
 @JS('XSLTProcessor')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class XSLTProcessor {
   external factory XSLTProcessor();
 }

@@ -8,14 +8,12 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'status.dart';
 
 typedef OrientationLockType = String;
 typedef OrientationType = String;
 
 @JS('ScreenOrientation')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ScreenOrientation implements EventTarget {}
 
 extension ScreenOrientationExtension on ScreenOrientation {

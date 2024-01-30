@@ -9,11 +9,9 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
-import 'status.dart';
 
 @JS('WindowControlsOverlay')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class WindowControlsOverlay implements EventTarget {}
 
 extension WindowControlsOverlayExtension on WindowControlsOverlay {
@@ -25,7 +23,6 @@ extension WindowControlsOverlayExtension on WindowControlsOverlay {
 
 @JS('WindowControlsOverlayGeometryChangeEvent')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class WindowControlsOverlayGeometryChangeEvent implements Event {
   external factory WindowControlsOverlayGeometryChangeEvent(
     String type,

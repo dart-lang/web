@@ -6,11 +6,8 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
-
 @JS('InputDeviceCapabilities')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class InputDeviceCapabilities {
   external factory InputDeviceCapabilities(
       [InputDeviceCapabilitiesInit deviceInitDict]);

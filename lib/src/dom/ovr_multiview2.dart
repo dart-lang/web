@@ -6,12 +6,10 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
 import 'webgl1.dart';
 
 @JS('OVR_multiview2')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class OVR_multiview2 {
   external static GLenum get FRAMEBUFFER_ATTACHMENT_TEXTURE_NUM_VIEWS_OVR;
   external static GLenum get FRAMEBUFFER_ATTACHMENT_TEXTURE_BASE_VIEW_INDEX_OVR;

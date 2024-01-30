@@ -8,11 +8,9 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'status.dart';
 
 @JS('DocumentPictureInPicture')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class DocumentPictureInPicture implements EventTarget {}
 
 extension DocumentPictureInPictureExtension on DocumentPictureInPicture {
@@ -42,7 +40,6 @@ extension DocumentPictureInPictureOptionsExtension
 
 @JS('DocumentPictureInPictureEvent')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class DocumentPictureInPictureEvent implements Event {
   external factory DocumentPictureInPictureEvent(
     String type,

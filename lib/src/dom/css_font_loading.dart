@@ -8,7 +8,6 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'status.dart';
 
 typedef BinaryData = JSObject;
 typedef FontFaceLoadStatus = String;
@@ -57,7 +56,6 @@ extension FontFaceDescriptorsExtension on FontFaceDescriptors {
 
 @JS('FontFace')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class FontFace {
   external factory FontFace(
     String family,
@@ -151,7 +149,6 @@ extension FontFaceSetLoadEventInitExtension on FontFaceSetLoadEventInit {
 
 @JS('FontFaceSetLoadEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class FontFaceSetLoadEvent implements Event {
   external factory FontFaceSetLoadEvent(
     String type, [
@@ -165,7 +162,6 @@ extension FontFaceSetLoadEventExtension on FontFaceSetLoadEvent {
 
 @JS('FontFaceSet')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class FontFaceSet implements EventTarget {
   external factory FontFaceSet(JSArray initialFaces);
 }

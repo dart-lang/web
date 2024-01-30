@@ -6,9 +6,6 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
-
 @JS('OES_fbo_render_mipmap')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class OES_fbo_render_mipmap {}

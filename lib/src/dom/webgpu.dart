@@ -8,7 +8,6 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'status.dart';
 import 'webidl.dart';
 
 typedef GPUBufferUsageFlags = int;
@@ -84,7 +83,6 @@ extension GPUObjectDescriptorBaseExtension on GPUObjectDescriptorBase {
 
 @JS('GPUSupportedLimits')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUSupportedLimits {}
 
 extension GPUSupportedLimitsExtension on GPUSupportedLimits {
@@ -124,21 +122,18 @@ extension GPUSupportedLimitsExtension on GPUSupportedLimits {
 
 @JS('GPUSupportedFeatures')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUSupportedFeatures {}
 
 extension GPUSupportedFeaturesExtension on GPUSupportedFeatures {}
 
 @JS('WGSLLanguageFeatures')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class WGSLLanguageFeatures {}
 
 extension WGSLLanguageFeaturesExtension on WGSLLanguageFeatures {}
 
 @JS('GPUAdapterInfo')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUAdapterInfo {}
 
 extension GPUAdapterInfoExtension on GPUAdapterInfo {
@@ -150,7 +145,6 @@ extension GPUAdapterInfoExtension on GPUAdapterInfo {
 
 @JS('GPU')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPU {}
 
 extension GPUExtension on GPU {
@@ -178,7 +172,6 @@ extension GPURequestAdapterOptionsExtension on GPURequestAdapterOptions {
 
 @JS('GPUAdapter')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUAdapter {}
 
 extension GPUAdapterExtension on GPUAdapter {
@@ -211,7 +204,6 @@ extension GPUDeviceDescriptorExtension on GPUDeviceDescriptor {
 
 @JS('GPUDevice')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUDevice implements EventTarget {}
 
 extension GPUDeviceExtension on GPUDevice {
@@ -255,7 +247,6 @@ extension GPUDeviceExtension on GPUDevice {
 
 @JS('GPUBuffer')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUBuffer {}
 
 extension GPUBufferExtension on GPUBuffer {
@@ -327,7 +318,6 @@ abstract class $GPUMapMode {
 
 @JS('GPUTexture')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUTexture {}
 
 extension GPUTextureExtension on GPUTexture {
@@ -392,7 +382,6 @@ abstract class $GPUTextureUsage {
 
 @JS('GPUTextureView')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUTextureView {}
 
 extension GPUTextureViewExtension on GPUTextureView {
@@ -434,7 +423,6 @@ extension GPUTextureViewDescriptorExtension on GPUTextureViewDescriptor {
 
 @JS('GPUExternalTexture')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class GPUExternalTexture {}
 
 extension GPUExternalTextureExtension on GPUExternalTexture {
@@ -462,7 +450,6 @@ extension GPUExternalTextureDescriptorExtension
 
 @JS('GPUSampler')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUSampler {}
 
 extension GPUSamplerExtension on GPUSampler {
@@ -513,7 +500,6 @@ extension GPUSamplerDescriptorExtension on GPUSamplerDescriptor {
 
 @JS('GPUBindGroupLayout')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUBindGroupLayout {}
 
 extension GPUBindGroupLayoutExtension on GPUBindGroupLayout {
@@ -659,7 +645,6 @@ class GPUExternalTextureBindingLayout {
 
 @JS('GPUBindGroup')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUBindGroup {}
 
 extension GPUBindGroupExtension on GPUBindGroup {
@@ -723,7 +708,6 @@ extension GPUBufferBindingExtension on GPUBufferBinding {
 
 @JS('GPUPipelineLayout')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUPipelineLayout {}
 
 extension GPUPipelineLayoutExtension on GPUPipelineLayout {
@@ -746,7 +730,6 @@ extension GPUPipelineLayoutDescriptorExtension on GPUPipelineLayoutDescriptor {
 
 @JS('GPUShaderModule')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUShaderModule {}
 
 extension GPUShaderModuleExtension on GPUShaderModule {
@@ -790,7 +773,6 @@ extension GPUShaderModuleCompilationHintExtension
 
 @JS('GPUCompilationMessage')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUCompilationMessage {}
 
 extension GPUCompilationMessageExtension on GPUCompilationMessage {
@@ -804,7 +786,6 @@ extension GPUCompilationMessageExtension on GPUCompilationMessage {
 
 @JS('GPUCompilationInfo')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUCompilationInfo {}
 
 extension GPUCompilationInfoExtension on GPUCompilationInfo {
@@ -813,7 +794,6 @@ extension GPUCompilationInfoExtension on GPUCompilationInfo {
 
 @JS('GPUPipelineError')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class GPUPipelineError implements DOMException {
   external factory GPUPipelineError(
     GPUPipelineErrorInit options, [
@@ -872,7 +852,6 @@ extension GPUProgrammableStageExtension on GPUProgrammableStage {
 
 @JS('GPUComputePipeline')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUComputePipeline {}
 
 extension GPUComputePipelineExtension on GPUComputePipeline {
@@ -897,7 +876,6 @@ extension GPUComputePipelineDescriptorExtension
 
 @JS('GPURenderPipeline')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPURenderPipeline {}
 
 extension GPURenderPipelineExtension on GPURenderPipeline {
@@ -1270,7 +1248,6 @@ extension GPUImageCopyExternalImageExtension on GPUImageCopyExternalImage {
 
 @JS('GPUCommandBuffer')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUCommandBuffer {}
 
 extension GPUCommandBufferExtension on GPUCommandBuffer {
@@ -1287,7 +1264,6 @@ class GPUCommandBufferDescriptor implements GPUObjectDescriptorBase {
 
 @JS('GPUCommandEncoder')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUCommandEncoder {}
 
 extension GPUCommandEncoderExtension on GPUCommandEncoder {
@@ -1350,7 +1326,6 @@ class GPUCommandEncoderDescriptor implements GPUObjectDescriptorBase {
 
 @JS('GPUComputePassEncoder')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUComputePassEncoder {}
 
 extension GPUComputePassEncoderExtension on GPUComputePassEncoder {
@@ -1415,7 +1390,6 @@ extension GPUComputePassDescriptorExtension on GPUComputePassDescriptor {
 
 @JS('GPURenderPassEncoder')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPURenderPassEncoder {}
 
 extension GPURenderPassEncoderExtension on GPURenderPassEncoder {
@@ -1623,7 +1597,6 @@ extension GPURenderPassLayoutExtension on GPURenderPassLayout {
 
 @JS('GPURenderBundle')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class GPURenderBundle {}
 
 extension GPURenderBundleExtension on GPURenderBundle {
@@ -1640,7 +1613,6 @@ class GPURenderBundleDescriptor implements GPUObjectDescriptorBase {
 
 @JS('GPURenderBundleEncoder')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPURenderBundleEncoder {}
 
 extension GPURenderBundleEncoderExtension on GPURenderBundleEncoder {
@@ -1720,7 +1692,6 @@ class GPUQueueDescriptor implements GPUObjectDescriptorBase {
 
 @JS('GPUQueue')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUQueue {}
 
 extension GPUQueueExtension on GPUQueue {
@@ -1750,7 +1721,6 @@ extension GPUQueueExtension on GPUQueue {
 
 @JS('GPUQuerySet')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUQuerySet {}
 
 extension GPUQuerySetExtension on GPUQuerySet {
@@ -1780,7 +1750,6 @@ extension GPUQuerySetDescriptorExtension on GPUQuerySetDescriptor {
 
 @JS('GPUCanvasContext')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUCanvasContext {}
 
 extension GPUCanvasContextExtension on GPUCanvasContext {
@@ -1821,7 +1790,6 @@ extension GPUCanvasConfigurationExtension on GPUCanvasConfiguration {
 
 @JS('GPUDeviceLostInfo')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUDeviceLostInfo {}
 
 extension GPUDeviceLostInfoExtension on GPUDeviceLostInfo {
@@ -1831,7 +1799,6 @@ extension GPUDeviceLostInfoExtension on GPUDeviceLostInfo {
 
 @JS('GPUError')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class GPUError {}
 
 extension GPUErrorExtension on GPUError {
@@ -1840,28 +1807,24 @@ extension GPUErrorExtension on GPUError {
 
 @JS('GPUValidationError')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUValidationError implements GPUError {
   external factory GPUValidationError(String message);
 }
 
 @JS('GPUOutOfMemoryError')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUOutOfMemoryError implements GPUError {
   external factory GPUOutOfMemoryError(String message);
 }
 
 @JS('GPUInternalError')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class GPUInternalError implements GPUError {
   external factory GPUInternalError(String message);
 }
 
 @JS('GPUUncapturedErrorEvent')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome, firefox')
 class GPUUncapturedErrorEvent implements Event {
   external factory GPUUncapturedErrorEvent(
     String type,

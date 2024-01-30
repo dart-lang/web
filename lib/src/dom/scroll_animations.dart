@@ -8,7 +8,6 @@ import 'dart:js_interop';
 
 import 'css_typed_om.dart';
 import 'dom.dart';
-import 'status.dart';
 import 'web_animations.dart';
 
 typedef ScrollAxis = String;
@@ -32,7 +31,6 @@ extension ScrollTimelineOptionsExtension on ScrollTimelineOptions {
 
 @JS('ScrollTimeline')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class ScrollTimeline implements AnimationTimeline {
   external factory ScrollTimeline([ScrollTimelineOptions options]);
 }
@@ -64,7 +62,6 @@ extension ViewTimelineOptionsExtension on ViewTimelineOptions {
 
 @JS('ViewTimeline')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class ViewTimeline implements ScrollTimeline {
   external factory ViewTimeline([ViewTimelineOptions options]);
 }

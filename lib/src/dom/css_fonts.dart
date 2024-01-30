@@ -7,11 +7,9 @@
 import 'dart:js_interop';
 
 import 'cssom.dart';
-import 'status.dart';
 
 @JS('CSSFontFaceRule')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSFontFaceRule implements CSSRule {}
 
 extension CSSFontFaceRuleExtension on CSSFontFaceRule {
@@ -20,7 +18,6 @@ extension CSSFontFaceRuleExtension on CSSFontFaceRule {
 
 @JS('CSSFontFeatureValuesRule')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSFontFeatureValuesRule implements CSSRule {}
 
 extension CSSFontFeatureValuesRuleExtension on CSSFontFeatureValuesRule {
@@ -47,7 +44,6 @@ extension CSSFontFeatureValuesMapExtension on CSSFontFeatureValuesMap {
 
 @JS('CSSFontPaletteValuesRule')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSFontPaletteValuesRule implements CSSRule {}
 
 extension CSSFontPaletteValuesRuleExtension on CSSFontPaletteValuesRule {

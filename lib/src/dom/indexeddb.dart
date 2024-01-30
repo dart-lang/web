@@ -8,7 +8,6 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'status.dart';
 import 'webidl.dart';
 
 typedef IDBRequestReadyState = String;
@@ -18,7 +17,6 @@ typedef IDBTransactionMode = String;
 
 @JS('IDBRequest')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class IDBRequest implements EventTarget {}
 
 extension IDBRequestExtension on IDBRequest {
@@ -35,7 +33,6 @@ extension IDBRequestExtension on IDBRequest {
 
 @JS('IDBOpenDBRequest')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class IDBOpenDBRequest implements IDBRequest {}
 
 extension IDBOpenDBRequestExtension on IDBOpenDBRequest {
@@ -47,7 +44,6 @@ extension IDBOpenDBRequestExtension on IDBOpenDBRequest {
 
 @JS('IDBVersionChangeEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class IDBVersionChangeEvent implements Event {
   external factory IDBVersionChangeEvent(
     String type, [
@@ -79,7 +75,6 @@ extension IDBVersionChangeEventInitExtension on IDBVersionChangeEventInit {
 
 @JS('IDBFactory')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class IDBFactory {}
 
 extension IDBFactoryExtension on IDBFactory {
@@ -114,7 +109,6 @@ extension IDBDatabaseInfoExtension on IDBDatabaseInfo {
 
 @JS('IDBDatabase')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class IDBDatabase implements EventTarget {}
 
 extension IDBDatabaseExtension on IDBDatabase {
@@ -173,7 +167,6 @@ extension IDBObjectStoreParametersExtension on IDBObjectStoreParameters {
 
 @JS('IDBObjectStore')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class IDBObjectStore {}
 
 extension IDBObjectStoreExtension on IDBObjectStore {
@@ -240,7 +233,6 @@ extension IDBIndexParametersExtension on IDBIndexParameters {
 
 @JS('IDBIndex')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class IDBIndex {}
 
 extension IDBIndexExtension on IDBIndex {
@@ -273,7 +265,6 @@ extension IDBIndexExtension on IDBIndex {
 
 @JS('IDBKeyRange')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class IDBKeyRange {
   external static IDBKeyRange only(JSAny? value);
   external static IDBKeyRange lowerBound(
@@ -302,7 +293,6 @@ extension IDBKeyRangeExtension on IDBKeyRange {
 
 @JS('IDBCursor')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class IDBCursor {}
 
 extension IDBCursorExtension on IDBCursor {
@@ -324,7 +314,6 @@ extension IDBCursorExtension on IDBCursor {
 
 @JS('IDBCursorWithValue')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class IDBCursorWithValue implements IDBCursor {}
 
 extension IDBCursorWithValueExtension on IDBCursorWithValue {
@@ -333,7 +322,6 @@ extension IDBCursorWithValueExtension on IDBCursorWithValue {
 
 @JS('IDBTransaction')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class IDBTransaction implements EventTarget {}
 
 extension IDBTransactionExtension on IDBTransaction {

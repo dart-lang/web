@@ -7,11 +7,9 @@
 import 'dart:js_interop';
 
 import 'html.dart';
-import 'status.dart';
 
 @JS('DataCue')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'safari')
 class DataCue implements TextTrackCue {
   external factory DataCue(
     num startTime,

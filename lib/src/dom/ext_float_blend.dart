@@ -6,9 +6,6 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
-
 @JS('EXT_float_blend')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class EXT_float_blend {}

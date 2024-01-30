@@ -8,11 +8,9 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'pointerevents.dart';
-import 'status.dart';
 
 @JS('Ink')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class Ink {}
 
 extension InkExtension on Ink {
@@ -33,7 +31,6 @@ extension InkPresenterParamExtension on InkPresenterParam {
 
 @JS('InkPresenter')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class InkPresenter {}
 
 extension InkPresenterExtension on InkPresenter {

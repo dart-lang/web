@@ -10,14 +10,12 @@ import 'dom.dart';
 import 'hr_time.dart';
 import 'html.dart';
 import 'service_workers.dart';
-import 'status.dart';
 
 typedef CookieList = JSArray;
 typedef CookieSameSite = String;
 
 @JS('CookieStore')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class CookieStore implements EventTarget {}
 
 extension CookieStoreExtension on CookieStore {
@@ -141,7 +139,6 @@ extension CookieListItemExtension on CookieListItem {
 
 @JS('CookieStoreManager')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class CookieStoreManager {}
 
 extension CookieStoreManagerExtension on CookieStoreManager {
@@ -152,7 +149,6 @@ extension CookieStoreManagerExtension on CookieStoreManager {
 
 @JS('CookieChangeEvent')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class CookieChangeEvent implements Event {
   external factory CookieChangeEvent(
     String type, [
@@ -184,7 +180,6 @@ extension CookieChangeEventInitExtension on CookieChangeEventInit {
 
 @JS('ExtendableCookieChangeEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class ExtendableCookieChangeEvent implements ExtendableEvent {
   external factory ExtendableCookieChangeEvent(
     String type, [

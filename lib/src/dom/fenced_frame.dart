@@ -7,7 +7,6 @@
 import 'dart:js_interop';
 
 import 'html.dart';
-import 'status.dart';
 
 typedef FencedFrameConfigSize = JSAny;
 typedef FencedFrameConfigURL = String;
@@ -18,7 +17,6 @@ typedef FenceReportingDestination = String;
 
 @JS('HTMLFencedFrameElement')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class HTMLFencedFrameElement implements HTMLElement {
   external factory HTMLFencedFrameElement();
 }
@@ -36,7 +34,6 @@ extension HTMLFencedFrameElementExtension on HTMLFencedFrameElement {
 
 @JS('FencedFrameConfig')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class FencedFrameConfig {}
 
 extension FencedFrameConfigExtension on FencedFrameConfig {
@@ -75,7 +72,6 @@ extension FenceEventExtension on FenceEvent {
 
 @JS('Fence')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class Fence {}
 
 extension FenceExtension on Fence {

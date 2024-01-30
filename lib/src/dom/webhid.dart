@@ -8,14 +8,12 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'status.dart';
 import 'webidl.dart';
 
 typedef HIDUnitSystem = String;
 
 @JS('HID')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class HID implements EventTarget {}
 
 extension HIDExtension on HID {
@@ -69,7 +67,6 @@ extension HIDDeviceFilterExtension on HIDDeviceFilter {
 
 @JS('HIDDevice')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class HIDDevice implements EventTarget {}
 
 extension HIDDeviceExtension on HIDDevice {
@@ -96,7 +93,6 @@ extension HIDDeviceExtension on HIDDevice {
 
 @JS('HIDConnectionEvent')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class HIDConnectionEvent implements Event {
   external factory HIDConnectionEvent(
     String type,
@@ -122,7 +118,6 @@ extension HIDConnectionEventInitExtension on HIDConnectionEventInit {
 
 @JS('HIDInputReportEvent')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class HIDInputReportEvent implements Event {
   external factory HIDInputReportEvent(
     String type,

@@ -10,7 +10,6 @@ import 'attribution_reporting_api.dart';
 import 'dom.dart';
 import 'private_network_access.dart';
 import 'referrer_policy.dart';
-import 'status.dart';
 import 'streams.dart';
 import 'trust_token_api.dart';
 
@@ -29,7 +28,6 @@ typedef ResponseType = String;
 
 @JS('Headers')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Headers {
   external factory Headers([HeadersInit init]);
 }
@@ -51,7 +49,6 @@ extension HeadersExtension on Headers {
 
 @JS('Request')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Request {
   external factory Request(
     RequestInfo input, [
@@ -156,7 +153,6 @@ extension RequestInitExtension on RequestInit {
 
 @JS('Response')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Response {
   external factory Response([
     BodyInit? body,

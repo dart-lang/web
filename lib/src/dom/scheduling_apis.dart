@@ -8,7 +8,6 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'status.dart';
 
 typedef SchedulerPostTaskCallback = JSFunction;
 typedef TaskPriority = String;
@@ -35,7 +34,6 @@ extension SchedulerPostTaskOptionsExtension on SchedulerPostTaskOptions {
 
 @JS('Scheduler')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class Scheduler {}
 
 extension SchedulerExtension on Scheduler {
@@ -47,7 +45,6 @@ extension SchedulerExtension on Scheduler {
 
 @JS('TaskPriorityChangeEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class TaskPriorityChangeEvent implements Event {
   external factory TaskPriorityChangeEvent(
     String type,
@@ -86,7 +83,6 @@ extension TaskControllerInitExtension on TaskControllerInit {
 
 @JS('TaskController')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class TaskController implements AbortController {
   external factory TaskController([TaskControllerInit init]);
 }
@@ -109,7 +105,6 @@ extension TaskSignalAnyInitExtension on TaskSignalAnyInit {
 
 @JS('TaskSignal')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class TaskSignal implements AbortSignal {
   external static TaskSignal any(
     JSArray signals, [

@@ -9,7 +9,6 @@ import 'dart:js_interop';
 import 'credential_management.dart';
 import 'fido.dart';
 import 'secure_payment_confirmation.dart';
-import 'status.dart';
 import 'webidl.dart';
 
 typedef Base64URLString = String;
@@ -29,7 +28,6 @@ typedef LargeBlobSupport = String;
 
 @JS('PublicKeyCredential')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PublicKeyCredential implements Credential {
   external static JSPromise isConditionalMediationAvailable();
   external static JSPromise isUserVerifyingPlatformAuthenticatorAvailable();
@@ -308,7 +306,6 @@ extension PublicKeyCredentialRequestOptionsJSONExtension
 
 @JS('AuthenticatorResponse')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AuthenticatorResponse {}
 
 extension AuthenticatorResponseExtension on AuthenticatorResponse {
@@ -317,7 +314,6 @@ extension AuthenticatorResponseExtension on AuthenticatorResponse {
 
 @JS('AuthenticatorAttestationResponse')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AuthenticatorAttestationResponse implements AuthenticatorResponse {}
 
 extension AuthenticatorAttestationResponseExtension
@@ -331,7 +327,6 @@ extension AuthenticatorAttestationResponseExtension
 
 @JS('AuthenticatorAssertionResponse')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AuthenticatorAssertionResponse implements AuthenticatorResponse {}
 
 extension AuthenticatorAssertionResponseExtension

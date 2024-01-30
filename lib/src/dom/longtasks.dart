@@ -7,11 +7,9 @@
 import 'dart:js_interop';
 
 import 'performance_timeline.dart';
-import 'status.dart';
 
 @JS('PerformanceLongTaskTiming')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class PerformanceLongTaskTiming implements PerformanceEntry {}
 
 extension PerformanceLongTaskTimingExtension on PerformanceLongTaskTiming {
@@ -21,7 +19,6 @@ extension PerformanceLongTaskTimingExtension on PerformanceLongTaskTiming {
 
 @JS('TaskAttributionTiming')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class TaskAttributionTiming implements PerformanceEntry {}
 
 extension TaskAttributionTimingExtension on TaskAttributionTiming {

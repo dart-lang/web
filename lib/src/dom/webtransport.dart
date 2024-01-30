@@ -7,7 +7,6 @@
 import 'dart:js_interop';
 
 import 'hr_time.dart';
-import 'status.dart';
 import 'streams.dart';
 import 'webidl.dart';
 
@@ -17,7 +16,6 @@ typedef WebTransportErrorSource = String;
 
 @JS('WebTransportDatagramDuplexStream')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class WebTransportDatagramDuplexStream {}
 
 extension WebTransportDatagramDuplexStreamExtension
@@ -37,7 +35,6 @@ extension WebTransportDatagramDuplexStreamExtension
 
 @JS('WebTransport')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class WebTransport {
   external factory WebTransport(
     String url, [
@@ -204,7 +201,6 @@ extension WebTransportDatagramStatsExtension on WebTransportDatagramStats {
 
 @JS('WebTransportSendStream')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'firefox')
 class WebTransportSendStream implements WritableStream {}
 
 extension WebTransportSendStreamExtension on WebTransportSendStream {
@@ -238,7 +234,6 @@ extension WebTransportSendStreamStatsExtension on WebTransportSendStreamStats {
 
 @JS('WebTransportReceiveStream')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'firefox')
 class WebTransportReceiveStream implements ReadableStream {}
 
 extension WebTransportReceiveStreamExtension on WebTransportReceiveStream {
@@ -268,7 +263,6 @@ extension WebTransportReceiveStreamStatsExtension
 
 @JS('WebTransportBidirectionalStream')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class WebTransportBidirectionalStream {}
 
 extension WebTransportBidirectionalStreamExtension
@@ -279,7 +273,6 @@ extension WebTransportBidirectionalStreamExtension
 
 @JS('WebTransportError')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class WebTransportError implements DOMException {
   external factory WebTransportError([
     String message,

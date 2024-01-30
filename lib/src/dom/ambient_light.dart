@@ -7,11 +7,9 @@
 import 'dart:js_interop';
 
 import 'generic_sensor.dart';
-import 'status.dart';
 
 @JS('AmbientLightSensor')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class AmbientLightSensor implements Sensor {
   external factory AmbientLightSensor([SensorOptions sensorOptions]);
 }

@@ -6,12 +6,10 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
 import 'webgl1.dart';
 
 @JS('WEBGL_compressed_texture_astc')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WEBGL_compressed_texture_astc {
   external static GLenum get COMPRESSED_RGBA_ASTC_4x4_KHR;
   external static GLenum get COMPRESSED_RGBA_ASTC_5x4_KHR;

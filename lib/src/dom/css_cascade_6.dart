@@ -7,11 +7,9 @@
 import 'dart:js_interop';
 
 import 'cssom.dart';
-import 'status.dart';
 
 @JS('CSSScopeRule')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class CSSScopeRule implements CSSGroupingRule {}
 
 extension CSSScopeRuleExtension on CSSScopeRule {

@@ -8,7 +8,6 @@ import 'dart:js_interop';
 
 import 'css_typed_om.dart';
 import 'dom.dart';
-import 'status.dart';
 import 'web_animations.dart';
 
 typedef EffectCallback = JSFunction;
@@ -73,7 +72,6 @@ extension TimelineRangeOffsetExtension on TimelineRangeOffset {
 
 @JS('AnimationPlaybackEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AnimationPlaybackEvent implements Event {
   external factory AnimationPlaybackEvent(
     String type, [

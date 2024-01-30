@@ -7,14 +7,12 @@
 import 'dart:js_interop';
 
 import 'generic_sensor.dart';
-import 'status.dart';
 
 typedef RotationMatrixType = JSObject;
 typedef OrientationSensorLocalCoordinateSystem = String;
 
 @JS('OrientationSensor')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class OrientationSensor implements Sensor {}
 
 extension OrientationSensorExtension on OrientationSensor {
@@ -37,7 +35,6 @@ extension OrientationSensorOptionsExtension on OrientationSensorOptions {
 
 @JS('AbsoluteOrientationSensor')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class AbsoluteOrientationSensor implements OrientationSensor {
   external factory AbsoluteOrientationSensor(
       [OrientationSensorOptions sensorOptions]);
@@ -45,7 +42,6 @@ class AbsoluteOrientationSensor implements OrientationSensor {
 
 @JS('RelativeOrientationSensor')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class RelativeOrientationSensor implements OrientationSensor {
   external factory RelativeOrientationSensor(
       [OrientationSensorOptions sensorOptions]);

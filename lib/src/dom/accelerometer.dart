@@ -7,13 +7,11 @@
 import 'dart:js_interop';
 
 import 'generic_sensor.dart';
-import 'status.dart';
 
 typedef AccelerometerLocalCoordinateSystem = String;
 
 @JS('Accelerometer')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class Accelerometer implements Sensor {
   external factory Accelerometer([AccelerometerSensorOptions options]);
 }
@@ -39,7 +37,6 @@ extension AccelerometerSensorOptionsExtension on AccelerometerSensorOptions {
 
 @JS('LinearAccelerationSensor')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class LinearAccelerationSensor implements Accelerometer {
   external factory LinearAccelerationSensor(
       [AccelerometerSensorOptions options]);
@@ -47,7 +44,6 @@ class LinearAccelerationSensor implements Accelerometer {
 
 @JS('GravitySensor')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class GravitySensor implements Accelerometer {
   external factory GravitySensor([AccelerometerSensorOptions options]);
 }

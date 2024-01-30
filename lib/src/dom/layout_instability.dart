@@ -10,11 +10,9 @@ import 'dom.dart';
 import 'geometry.dart';
 import 'hr_time.dart';
 import 'performance_timeline.dart';
-import 'status.dart';
 
 @JS('LayoutShift')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class LayoutShift implements PerformanceEntry {}
 
 extension LayoutShiftExtension on LayoutShift {
@@ -27,7 +25,6 @@ extension LayoutShiftExtension on LayoutShift {
 
 @JS('LayoutShiftAttribution')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class LayoutShiftAttribution {}
 
 extension LayoutShiftAttributionExtension on LayoutShiftAttribution {

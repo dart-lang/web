@@ -7,11 +7,9 @@
 import 'dart:js_interop';
 
 import 'dom.dart';
-import 'status.dart';
 
 @JS('DeviceOrientationEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DeviceOrientationEvent implements Event {
   external factory DeviceOrientationEvent(
     String type, [
@@ -53,7 +51,6 @@ extension DeviceOrientationEventInitExtension on DeviceOrientationEventInit {
 
 @JS('DeviceMotionEventAcceleration')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class DeviceMotionEventAcceleration {}
 
 extension DeviceMotionEventAccelerationExtension
@@ -65,7 +62,6 @@ extension DeviceMotionEventAccelerationExtension
 
 @JS('DeviceMotionEventRotationRate')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class DeviceMotionEventRotationRate {}
 
 extension DeviceMotionEventRotationRateExtension
@@ -77,7 +73,6 @@ extension DeviceMotionEventRotationRateExtension
 
 @JS('DeviceMotionEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DeviceMotionEvent implements Event {
   external factory DeviceMotionEvent(
     String type, [

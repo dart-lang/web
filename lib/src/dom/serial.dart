@@ -8,7 +8,6 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'status.dart';
 import 'streams.dart';
 import 'web_bluetooth.dart';
 
@@ -17,7 +16,6 @@ typedef FlowControlType = String;
 
 @JS('Serial')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class Serial implements EventTarget {}
 
 extension SerialExtension on Serial {
@@ -68,7 +66,6 @@ extension SerialPortFilterExtension on SerialPortFilter {
 
 @JS('SerialPort')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class SerialPort implements EventTarget {}
 
 extension SerialPortExtension on SerialPort {

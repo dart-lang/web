@@ -56,7 +56,6 @@ import 'serial.dart';
 import 'service_workers.dart';
 import 'shared_storage.dart';
 import 'speech_api.dart';
-import 'status.dart';
 import 'storage.dart';
 import 'storage_buckets.dart';
 import 'trusted_types.dart';
@@ -134,7 +133,6 @@ typedef WorkerType = String;
 
 @JS('HTMLAllCollection')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLAllCollection {}
 
 extension HTMLAllCollectionExtension on HTMLAllCollection {
@@ -145,7 +143,6 @@ extension HTMLAllCollectionExtension on HTMLAllCollection {
 
 @JS('HTMLFormControlsCollection')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLFormControlsCollection implements HTMLCollection {}
 
 extension HTMLFormControlsCollectionExtension on HTMLFormControlsCollection {
@@ -154,7 +151,6 @@ extension HTMLFormControlsCollectionExtension on HTMLFormControlsCollection {
 
 @JS('RadioNodeList')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class RadioNodeList implements NodeList {}
 
 extension RadioNodeListExtension on RadioNodeList {
@@ -164,7 +160,6 @@ extension RadioNodeListExtension on RadioNodeList {
 
 @JS('HTMLOptionsCollection')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLOptionsCollection implements HTMLCollection {}
 
 extension HTMLOptionsCollectionExtension on HTMLOptionsCollection {
@@ -181,7 +176,6 @@ extension HTMLOptionsCollectionExtension on HTMLOptionsCollection {
 
 @JS('DOMStringList')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DOMStringList {}
 
 extension DOMStringListExtension on DOMStringList {
@@ -192,7 +186,6 @@ extension DOMStringListExtension on DOMStringList {
 
 @JS('HTMLElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLElement implements Element {
   external factory HTMLElement();
 }
@@ -463,17 +456,14 @@ extension HTMLElementExtension on HTMLElement {
 
 @JS('HTMLUnknownElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLUnknownElement implements HTMLElement {}
 
 @JS('DOMStringMap')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DOMStringMap {}
 
 @JS('HTMLHtmlElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLHtmlElement implements HTMLElement {
   external factory HTMLHtmlElement();
 }
@@ -485,14 +475,12 @@ extension HTMLHtmlElementExtension on HTMLHtmlElement {
 
 @JS('HTMLHeadElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLHeadElement implements HTMLElement {
   external factory HTMLHeadElement();
 }
 
 @JS('HTMLTitleElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLTitleElement implements HTMLElement {
   external factory HTMLTitleElement();
 }
@@ -504,7 +492,6 @@ extension HTMLTitleElementExtension on HTMLTitleElement {
 
 @JS('HTMLBaseElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLBaseElement implements HTMLElement {
   external factory HTMLBaseElement();
 }
@@ -518,7 +505,6 @@ extension HTMLBaseElementExtension on HTMLBaseElement {
 
 @JS('HTMLLinkElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLLinkElement implements HTMLElement {
   external factory HTMLLinkElement();
 }
@@ -564,7 +550,6 @@ extension HTMLLinkElementExtension on HTMLLinkElement {
 
 @JS('HTMLMetaElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLMetaElement implements HTMLElement {
   external factory HTMLMetaElement();
 }
@@ -584,7 +569,6 @@ extension HTMLMetaElementExtension on HTMLMetaElement {
 
 @JS('HTMLStyleElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLStyleElement implements HTMLElement {
   external factory HTMLStyleElement();
 }
@@ -602,7 +586,6 @@ extension HTMLStyleElementExtension on HTMLStyleElement {
 
 @JS('HTMLBodyElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLBodyElement implements HTMLElement {
   external factory HTMLBodyElement();
 }
@@ -664,7 +647,6 @@ extension HTMLBodyElementExtension on HTMLBodyElement {
 
 @JS('HTMLHeadingElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLHeadingElement implements HTMLElement {
   external factory HTMLHeadingElement();
 }
@@ -676,7 +658,6 @@ extension HTMLHeadingElementExtension on HTMLHeadingElement {
 
 @JS('HTMLParagraphElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLParagraphElement implements HTMLElement {
   external factory HTMLParagraphElement();
 }
@@ -688,7 +669,6 @@ extension HTMLParagraphElementExtension on HTMLParagraphElement {
 
 @JS('HTMLHRElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLHRElement implements HTMLElement {
   external factory HTMLHRElement();
 }
@@ -708,7 +688,6 @@ extension HTMLHRElementExtension on HTMLHRElement {
 
 @JS('HTMLPreElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLPreElement implements HTMLElement {
   external factory HTMLPreElement();
 }
@@ -720,7 +699,6 @@ extension HTMLPreElementExtension on HTMLPreElement {
 
 @JS('HTMLQuoteElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLQuoteElement implements HTMLElement {
   external factory HTMLQuoteElement();
 }
@@ -732,7 +710,6 @@ extension HTMLQuoteElementExtension on HTMLQuoteElement {
 
 @JS('HTMLOListElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLOListElement implements HTMLElement {
   external factory HTMLOListElement();
 }
@@ -750,7 +727,6 @@ extension HTMLOListElementExtension on HTMLOListElement {
 
 @JS('HTMLUListElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLUListElement implements HTMLElement {
   external factory HTMLUListElement();
 }
@@ -764,7 +740,6 @@ extension HTMLUListElementExtension on HTMLUListElement {
 
 @JS('HTMLMenuElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLMenuElement implements HTMLElement {
   external factory HTMLMenuElement();
 }
@@ -776,7 +751,6 @@ extension HTMLMenuElementExtension on HTMLMenuElement {
 
 @JS('HTMLLIElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLLIElement implements HTMLElement {
   external factory HTMLLIElement();
 }
@@ -790,7 +764,6 @@ extension HTMLLIElementExtension on HTMLLIElement {
 
 @JS('HTMLDListElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLDListElement implements HTMLElement {
   external factory HTMLDListElement();
 }
@@ -802,7 +775,6 @@ extension HTMLDListElementExtension on HTMLDListElement {
 
 @JS('HTMLDivElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLDivElement implements HTMLElement {
   external factory HTMLDivElement();
 }
@@ -814,7 +786,6 @@ extension HTMLDivElementExtension on HTMLDivElement {
 
 @JS('HTMLAnchorElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLAnchorElement implements HTMLElement {
   external factory HTMLAnchorElement();
 }
@@ -876,7 +847,6 @@ extension HTMLAnchorElementExtension on HTMLAnchorElement {
 
 @JS('HTMLDataElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLDataElement implements HTMLElement {
   external factory HTMLDataElement();
 }
@@ -888,7 +858,6 @@ extension HTMLDataElementExtension on HTMLDataElement {
 
 @JS('HTMLTimeElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLTimeElement implements HTMLElement {
   external factory HTMLTimeElement();
 }
@@ -900,14 +869,12 @@ extension HTMLTimeElementExtension on HTMLTimeElement {
 
 @JS('HTMLSpanElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLSpanElement implements HTMLElement {
   external factory HTMLSpanElement();
 }
 
 @JS('HTMLBRElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLBRElement implements HTMLElement {
   external factory HTMLBRElement();
 }
@@ -919,7 +886,6 @@ extension HTMLBRElementExtension on HTMLBRElement {
 
 @JS('HTMLModElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLModElement implements HTMLElement {
   external factory HTMLModElement();
 }
@@ -933,14 +899,12 @@ extension HTMLModElementExtension on HTMLModElement {
 
 @JS('HTMLPictureElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLPictureElement implements HTMLElement {
   external factory HTMLPictureElement();
 }
 
 @JS('HTMLSourceElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLSourceElement implements HTMLElement {
   external factory HTMLSourceElement();
 }
@@ -964,7 +928,6 @@ extension HTMLSourceElementExtension on HTMLSourceElement {
 
 @JS('HTMLImageElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLImageElement implements HTMLElement {
   external factory HTMLImageElement();
 }
@@ -1025,7 +988,6 @@ extension HTMLImageElementExtension on HTMLImageElement {
 
 @JS('HTMLIFrameElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLIFrameElement implements HTMLElement {
   external factory HTMLIFrameElement();
 }
@@ -1076,7 +1038,6 @@ extension HTMLIFrameElementExtension on HTMLIFrameElement {
 
 @JS('HTMLEmbedElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLEmbedElement implements HTMLElement {
   external factory HTMLEmbedElement();
 }
@@ -1099,7 +1060,6 @@ extension HTMLEmbedElementExtension on HTMLEmbedElement {
 
 @JS('HTMLObjectElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLObjectElement implements HTMLElement {
   external factory HTMLObjectElement();
 }
@@ -1151,7 +1111,6 @@ extension HTMLObjectElementExtension on HTMLObjectElement {
 
 @JS('HTMLVideoElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLVideoElement implements HTMLMediaElement {
   external factory HTMLVideoElement();
 }
@@ -1181,14 +1140,12 @@ extension HTMLVideoElementExtension on HTMLVideoElement {
 
 @JS('HTMLAudioElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLAudioElement implements HTMLMediaElement {
   external factory HTMLAudioElement();
 }
 
 @JS('HTMLTrackElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLTrackElement implements HTMLElement {
   external factory HTMLTrackElement();
 
@@ -1217,7 +1174,6 @@ extension HTMLTrackElementExtension on HTMLTrackElement {
 
 @JS('HTMLMediaElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLMediaElement implements HTMLElement {
   external static int get NETWORK_EMPTY;
   external static int get NETWORK_IDLE;
@@ -1300,7 +1256,6 @@ extension HTMLMediaElementExtension on HTMLMediaElement {
 
 @JS('MediaError')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MediaError {
   external static int get MEDIA_ERR_ABORTED;
   external static int get MEDIA_ERR_NETWORK;
@@ -1315,7 +1270,6 @@ extension MediaErrorExtension on MediaError {
 
 @JS('AudioTrackList')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class AudioTrackList implements EventTarget {}
 
 extension AudioTrackListExtension on AudioTrackList {
@@ -1331,7 +1285,6 @@ extension AudioTrackListExtension on AudioTrackList {
 
 @JS('AudioTrack')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class AudioTrack {}
 
 extension AudioTrackExtension on AudioTrack {
@@ -1346,7 +1299,6 @@ extension AudioTrackExtension on AudioTrack {
 
 @JS('VideoTrackList')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class VideoTrackList implements EventTarget {}
 
 extension VideoTrackListExtension on VideoTrackList {
@@ -1363,7 +1315,6 @@ extension VideoTrackListExtension on VideoTrackList {
 
 @JS('VideoTrack')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class VideoTrack {}
 
 extension VideoTrackExtension on VideoTrack {
@@ -1378,7 +1329,6 @@ extension VideoTrackExtension on VideoTrack {
 
 @JS('TextTrackList')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class TextTrackList implements EventTarget {}
 
 extension TextTrackListExtension on TextTrackList {
@@ -1394,7 +1344,6 @@ extension TextTrackListExtension on TextTrackList {
 
 @JS('TextTrack')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class TextTrack implements EventTarget {}
 
 extension TextTrackExtension on TextTrack {
@@ -1416,7 +1365,6 @@ extension TextTrackExtension on TextTrack {
 
 @JS('TextTrackCueList')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class TextTrackCueList {}
 
 extension TextTrackCueListExtension on TextTrackCueList {
@@ -1426,7 +1374,6 @@ extension TextTrackCueListExtension on TextTrackCueList {
 
 @JS('TextTrackCue')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class TextTrackCue implements EventTarget {}
 
 extension TextTrackCueExtension on TextTrackCue {
@@ -1447,7 +1394,6 @@ extension TextTrackCueExtension on TextTrackCue {
 
 @JS('TimeRanges')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class TimeRanges {}
 
 extension TimeRangesExtension on TimeRanges {
@@ -1458,7 +1404,6 @@ extension TimeRangesExtension on TimeRanges {
 
 @JS('TrackEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class TrackEvent implements Event {
   external factory TrackEvent(
     String type, [
@@ -1484,7 +1429,6 @@ extension TrackEventInitExtension on TrackEventInit {
 
 @JS('HTMLMapElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLMapElement implements HTMLElement {
   external factory HTMLMapElement();
 }
@@ -1497,7 +1441,6 @@ extension HTMLMapElementExtension on HTMLMapElement {
 
 @JS('HTMLAreaElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLAreaElement implements HTMLElement {
   external factory HTMLAreaElement();
 }
@@ -1547,7 +1490,6 @@ extension HTMLAreaElementExtension on HTMLAreaElement {
 
 @JS('HTMLTableElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLTableElement implements HTMLElement {
   external factory HTMLTableElement();
 }
@@ -1592,7 +1534,6 @@ extension HTMLTableElementExtension on HTMLTableElement {
 
 @JS('HTMLTableCaptionElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLTableCaptionElement implements HTMLElement {
   external factory HTMLTableCaptionElement();
 }
@@ -1604,7 +1545,6 @@ extension HTMLTableCaptionElementExtension on HTMLTableCaptionElement {
 
 @JS('HTMLTableColElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLTableColElement implements HTMLElement {
   external factory HTMLTableColElement();
 }
@@ -1626,7 +1566,6 @@ extension HTMLTableColElementExtension on HTMLTableColElement {
 
 @JS('HTMLTableSectionElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLTableSectionElement implements HTMLElement {
   external factory HTMLTableSectionElement();
 }
@@ -1647,7 +1586,6 @@ extension HTMLTableSectionElementExtension on HTMLTableSectionElement {
 
 @JS('HTMLTableRowElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLTableRowElement implements HTMLElement {
   external factory HTMLTableRowElement();
 }
@@ -1672,7 +1610,6 @@ extension HTMLTableRowElementExtension on HTMLTableRowElement {
 
 @JS('HTMLTableCellElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLTableCellElement implements HTMLElement {
   external factory HTMLTableCellElement();
 }
@@ -1711,7 +1648,6 @@ extension HTMLTableCellElementExtension on HTMLTableCellElement {
 
 @JS('HTMLFormElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLFormElement implements HTMLElement {
   external factory HTMLFormElement();
 }
@@ -1749,7 +1685,6 @@ extension HTMLFormElementExtension on HTMLFormElement {
 
 @JS('HTMLLabelElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLLabelElement implements HTMLElement {
   external factory HTMLLabelElement();
 }
@@ -1763,7 +1698,6 @@ extension HTMLLabelElementExtension on HTMLLabelElement {
 
 @JS('HTMLInputElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLInputElement implements HTMLElement {
   external factory HTMLInputElement();
 }
@@ -1884,7 +1818,6 @@ extension HTMLInputElementExtension on HTMLInputElement {
 
 @JS('HTMLButtonElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLButtonElement implements HTMLElement {
   external factory HTMLButtonElement();
 }
@@ -1924,7 +1857,6 @@ extension HTMLButtonElementExtension on HTMLButtonElement {
 
 @JS('HTMLSelectElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLSelectElement implements HTMLElement {
   external factory HTMLSelectElement();
 }
@@ -1970,7 +1902,6 @@ extension HTMLSelectElementExtension on HTMLSelectElement {
 
 @JS('HTMLDataListElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLDataListElement implements HTMLElement {
   external factory HTMLDataListElement();
 }
@@ -1981,7 +1912,6 @@ extension HTMLDataListElementExtension on HTMLDataListElement {
 
 @JS('HTMLOptGroupElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLOptGroupElement implements HTMLElement {
   external factory HTMLOptGroupElement();
 }
@@ -1995,7 +1925,6 @@ extension HTMLOptGroupElementExtension on HTMLOptGroupElement {
 
 @JS('HTMLOptionElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLOptionElement implements HTMLElement {
   external factory HTMLOptionElement();
 }
@@ -2019,7 +1948,6 @@ extension HTMLOptionElementExtension on HTMLOptionElement {
 
 @JS('HTMLTextAreaElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLTextAreaElement implements HTMLElement {
   external factory HTMLTextAreaElement();
 }
@@ -2085,7 +2013,6 @@ extension HTMLTextAreaElementExtension on HTMLTextAreaElement {
 
 @JS('HTMLOutputElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLOutputElement implements HTMLElement {
   external factory HTMLOutputElement();
 }
@@ -2111,7 +2038,6 @@ extension HTMLOutputElementExtension on HTMLOutputElement {
 
 @JS('HTMLProgressElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLProgressElement implements HTMLElement {
   external factory HTMLProgressElement();
 }
@@ -2127,7 +2053,6 @@ extension HTMLProgressElementExtension on HTMLProgressElement {
 
 @JS('HTMLMeterElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLMeterElement implements HTMLElement {
   external factory HTMLMeterElement();
 }
@@ -2150,7 +2075,6 @@ extension HTMLMeterElementExtension on HTMLMeterElement {
 
 @JS('HTMLFieldSetElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLFieldSetElement implements HTMLElement {
   external factory HTMLFieldSetElement();
 }
@@ -2173,7 +2097,6 @@ extension HTMLFieldSetElementExtension on HTMLFieldSetElement {
 
 @JS('HTMLLegendElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLLegendElement implements HTMLElement {
   external factory HTMLLegendElement();
 }
@@ -2186,7 +2109,6 @@ extension HTMLLegendElementExtension on HTMLLegendElement {
 
 @JS('ValidityState')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ValidityState {}
 
 extension ValidityStateExtension on ValidityState {
@@ -2205,7 +2127,6 @@ extension ValidityStateExtension on ValidityState {
 
 @JS('SubmitEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SubmitEvent implements Event {
   external factory SubmitEvent(
     String type, [
@@ -2231,7 +2152,6 @@ extension SubmitEventInitExtension on SubmitEventInit {
 
 @JS('FormDataEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class FormDataEvent implements Event {
   external factory FormDataEvent(
     String type,
@@ -2257,7 +2177,6 @@ extension FormDataEventInitExtension on FormDataEventInit {
 
 @JS('HTMLDetailsElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLDetailsElement implements HTMLElement {
   external factory HTMLDetailsElement();
 }
@@ -2271,7 +2190,6 @@ extension HTMLDetailsElementExtension on HTMLDetailsElement {
 
 @JS('HTMLDialogElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLDialogElement implements HTMLElement {
   external factory HTMLDialogElement();
 }
@@ -2288,7 +2206,6 @@ extension HTMLDialogElementExtension on HTMLDialogElement {
 
 @JS('HTMLScriptElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLScriptElement implements HTMLElement {
   external factory HTMLScriptElement();
 
@@ -2329,7 +2246,6 @@ extension HTMLScriptElementExtension on HTMLScriptElement {
 
 @JS('HTMLTemplateElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLTemplateElement implements HTMLElement {
   external factory HTMLTemplateElement();
 }
@@ -2340,7 +2256,6 @@ extension HTMLTemplateElementExtension on HTMLTemplateElement {
 
 @JS('HTMLSlotElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLSlotElement implements HTMLElement {
   external factory HTMLSlotElement();
 }
@@ -2367,7 +2282,6 @@ extension AssignedNodesOptionsExtension on AssignedNodesOptions {
 
 @JS('HTMLCanvasElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HTMLCanvasElement implements HTMLElement {
   external factory HTMLCanvasElement();
 }
@@ -2420,7 +2334,6 @@ extension CanvasRenderingContext2DSettingsExtension
 
 @JS('CanvasRenderingContext2D')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CanvasRenderingContext2D {}
 
 extension CanvasRenderingContext2DExtension on CanvasRenderingContext2D {
@@ -2688,7 +2601,6 @@ extension CanvasRenderingContext2DExtension on CanvasRenderingContext2D {
 
 @JS('CanvasGradient')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CanvasGradient {}
 
 extension CanvasGradientExtension on CanvasGradient {
@@ -2700,7 +2612,6 @@ extension CanvasGradientExtension on CanvasGradient {
 
 @JS('CanvasPattern')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CanvasPattern {}
 
 extension CanvasPatternExtension on CanvasPattern {
@@ -2709,7 +2620,6 @@ extension CanvasPatternExtension on CanvasPattern {
 
 @JS('TextMetrics')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class TextMetrics {}
 
 extension TextMetricsExtension on TextMetrics {
@@ -2741,7 +2651,6 @@ extension ImageDataSettingsExtension on ImageDataSettings {
 
 @JS('ImageData')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ImageData {
   external factory ImageData(
     JSAny dataOrSw,
@@ -2760,7 +2669,6 @@ extension ImageDataExtension on ImageData {
 
 @JS('Path2D')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Path2D {
   external factory Path2D([JSAny path]);
 }
@@ -2835,7 +2743,6 @@ extension Path2DExtension on Path2D {
 
 @JS('ImageBitmapRenderingContext')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ImageBitmapRenderingContext {}
 
 extension ImageBitmapRenderingContextExtension on ImageBitmapRenderingContext {
@@ -2875,7 +2782,6 @@ extension ImageEncodeOptionsExtension on ImageEncodeOptions {
 
 @JS('OffscreenCanvas')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class OffscreenCanvas implements EventTarget {
   external factory OffscreenCanvas(
     int width,
@@ -2902,7 +2808,6 @@ extension OffscreenCanvasExtension on OffscreenCanvas {
 
 @JS('OffscreenCanvasRenderingContext2D')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class OffscreenCanvasRenderingContext2D {}
 
 extension OffscreenCanvasRenderingContext2DExtension
@@ -3166,7 +3071,6 @@ extension OffscreenCanvasRenderingContext2DExtension
 
 @JS('CustomElementRegistry')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CustomElementRegistry {}
 
 extension CustomElementRegistryExtension on CustomElementRegistry {
@@ -3197,7 +3101,6 @@ extension ElementDefinitionOptionsExtension on ElementDefinitionOptions {
 
 @JS('ElementInternals')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ElementInternals {}
 
 extension ElementInternalsExtension on ElementInternals {
@@ -3362,7 +3265,6 @@ extension ValidityStateFlagsExtension on ValidityStateFlags {
 
 @JS('VisibilityStateEntry')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class VisibilityStateEntry implements PerformanceEntry {}
 
 extension VisibilityStateEntryExtension on VisibilityStateEntry {
@@ -3374,7 +3276,6 @@ extension VisibilityStateEntryExtension on VisibilityStateEntry {
 
 @JS('UserActivation')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class UserActivation {}
 
 extension UserActivationExtension on UserActivation {
@@ -3384,7 +3285,6 @@ extension UserActivationExtension on UserActivation {
 
 @JS('ToggleEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ToggleEvent implements Event {
   external factory ToggleEvent(
     String type, [
@@ -3433,7 +3333,6 @@ extension FocusOptionsExtension on FocusOptions {
 
 @JS('DataTransfer')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DataTransfer {
   external factory DataTransfer();
 }
@@ -3461,7 +3360,6 @@ extension DataTransferExtension on DataTransfer {
 
 @JS('DataTransferItemList')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DataTransferItemList {}
 
 extension DataTransferItemListExtension on DataTransferItemList {
@@ -3476,7 +3374,6 @@ extension DataTransferItemListExtension on DataTransferItemList {
 
 @JS('DataTransferItem')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DataTransferItem {}
 
 extension DataTransferItemExtension on DataTransferItem {
@@ -3490,7 +3387,6 @@ extension DataTransferItemExtension on DataTransferItem {
 
 @JS('DragEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DragEvent implements MouseEvent {
   external factory DragEvent(
     String type, [
@@ -3519,7 +3415,6 @@ external Window get window;
 
 @JS('Window')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Window implements EventTarget {}
 
 extension WindowExtension on Window {
@@ -3958,7 +3853,6 @@ extension WindowPostMessageOptionsExtension on WindowPostMessageOptions {
 
 @JS('BarProp')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class BarProp {}
 
 extension BarPropExtension on BarProp {
@@ -3967,7 +3861,6 @@ extension BarPropExtension on BarProp {
 
 @JS('Location')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Location {}
 
 extension LocationExtension on Location {
@@ -3996,7 +3889,6 @@ extension LocationExtension on Location {
 
 @JS('History')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class History {}
 
 extension HistoryExtension on History {
@@ -4021,7 +3913,6 @@ extension HistoryExtension on History {
 
 @JS('Navigation')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class Navigation implements EventTarget {}
 
 extension NavigationExtension on Navigation {
@@ -4125,7 +4016,6 @@ extension NavigationResultExtension on NavigationResult {
 
 @JS('NavigationHistoryEntry')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class NavigationHistoryEntry implements EventTarget {}
 
 extension NavigationHistoryEntryExtension on NavigationHistoryEntry {
@@ -4141,7 +4031,6 @@ extension NavigationHistoryEntryExtension on NavigationHistoryEntry {
 
 @JS('NavigationTransition')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class NavigationTransition {}
 
 extension NavigationTransitionExtension on NavigationTransition {
@@ -4152,7 +4041,6 @@ extension NavigationTransitionExtension on NavigationTransition {
 
 @JS('NavigateEvent')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class NavigateEvent implements Event {
   external factory NavigateEvent(
     String type,
@@ -4238,7 +4126,6 @@ extension NavigationInterceptOptionsExtension on NavigationInterceptOptions {
 
 @JS('NavigationDestination')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class NavigationDestination {}
 
 extension NavigationDestinationExtension on NavigationDestination {
@@ -4252,7 +4139,6 @@ extension NavigationDestinationExtension on NavigationDestination {
 
 @JS('NavigationCurrentEntryChangeEvent')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class NavigationCurrentEntryChangeEvent implements Event {
   external factory NavigationCurrentEntryChangeEvent(
     String type,
@@ -4286,7 +4172,6 @@ extension NavigationCurrentEntryChangeEventInitExtension
 
 @JS('PopStateEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PopStateEvent implements Event {
   external factory PopStateEvent(
     String type, [
@@ -4318,7 +4203,6 @@ extension PopStateEventInitExtension on PopStateEventInit {
 
 @JS('HashChangeEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class HashChangeEvent implements Event {
   external factory HashChangeEvent(
     String type, [
@@ -4350,7 +4234,6 @@ extension HashChangeEventInitExtension on HashChangeEventInit {
 
 @JS('PageTransitionEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PageTransitionEvent implements Event {
   external factory PageTransitionEvent(
     String type, [
@@ -4376,7 +4259,6 @@ extension PageTransitionEventInitExtension on PageTransitionEventInit {
 
 @JS('BeforeUnloadEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class BeforeUnloadEvent implements Event {}
 
 extension BeforeUnloadEventExtension on BeforeUnloadEvent {
@@ -4386,7 +4268,6 @@ extension BeforeUnloadEventExtension on BeforeUnloadEvent {
 
 @JS('ErrorEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ErrorEvent implements Event {
   external factory ErrorEvent(
     String type, [
@@ -4430,7 +4311,6 @@ extension ErrorEventInitExtension on ErrorEventInit {
 
 @JS('PromiseRejectionEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PromiseRejectionEvent implements Event {
   external factory PromiseRejectionEvent(
     String type,
@@ -4462,7 +4342,6 @@ extension PromiseRejectionEventInitExtension on PromiseRejectionEventInit {
 
 @JS('DOMParser')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DOMParser {
   external factory DOMParser();
 }
@@ -4476,7 +4355,6 @@ extension DOMParserExtension on DOMParser {
 
 @JS('Navigator')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Navigator {}
 
 extension NavigatorExtension on Navigator {
@@ -4577,7 +4455,6 @@ extension NavigatorExtension on Navigator {
 
 @JS('PluginArray')
 @staticInterop
-@BcdStatus('standards-track, deprecated', browsers: 'chrome, firefox, safari')
 class PluginArray {}
 
 extension PluginArrayExtension on PluginArray {
@@ -4589,7 +4466,6 @@ extension PluginArrayExtension on PluginArray {
 
 @JS('MimeTypeArray')
 @staticInterop
-@BcdStatus('standards-track, deprecated', browsers: 'chrome, firefox, safari')
 class MimeTypeArray {}
 
 extension MimeTypeArrayExtension on MimeTypeArray {
@@ -4600,7 +4476,6 @@ extension MimeTypeArrayExtension on MimeTypeArray {
 
 @JS('Plugin')
 @staticInterop
-@BcdStatus('standards-track, deprecated', browsers: 'chrome, firefox, safari')
 class Plugin {}
 
 extension PluginExtension on Plugin {
@@ -4614,7 +4489,6 @@ extension PluginExtension on Plugin {
 
 @JS('MimeType')
 @staticInterop
-@BcdStatus('standards-track, deprecated', browsers: 'chrome, firefox, safari')
 class MimeType {}
 
 extension MimeTypeExtension on MimeType {
@@ -4626,7 +4500,6 @@ extension MimeTypeExtension on MimeType {
 
 @JS('ImageBitmap')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ImageBitmap {}
 
 extension ImageBitmapExtension on ImageBitmap {
@@ -4666,7 +4539,6 @@ extension ImageBitmapOptionsExtension on ImageBitmapOptions {
 
 @JS('MessageEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MessageEvent implements Event {
   external factory MessageEvent(
     String type, [
@@ -4720,7 +4592,6 @@ extension MessageEventInitExtension on MessageEventInit {
 
 @JS('EventSource')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class EventSource implements EventTarget {
   external factory EventSource(
     String url, [
@@ -4759,7 +4630,6 @@ extension EventSourceInitExtension on EventSourceInit {
 
 @JS('MessageChannel')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MessageChannel {
   external factory MessageChannel();
 }
@@ -4771,7 +4641,6 @@ extension MessageChannelExtension on MessageChannel {
 
 @JS('MessagePort')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class MessagePort implements EventTarget {}
 
 extension MessagePortExtension on MessagePort {
@@ -4801,7 +4670,6 @@ extension StructuredSerializeOptionsExtension on StructuredSerializeOptions {
 
 @JS('BroadcastChannel')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class BroadcastChannel implements EventTarget {
   external factory BroadcastChannel(String name);
 }
@@ -4818,7 +4686,6 @@ extension BroadcastChannelExtension on BroadcastChannel {
 
 @JS('WorkerGlobalScope')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WorkerGlobalScope implements EventTarget {}
 
 extension WorkerGlobalScopeExtension on WorkerGlobalScope {
@@ -4884,7 +4751,6 @@ extension WorkerGlobalScopeExtension on WorkerGlobalScope {
 
 @JS('DedicatedWorkerGlobalScope')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DedicatedWorkerGlobalScope implements WorkerGlobalScope {}
 
 extension DedicatedWorkerGlobalScopeExtension on DedicatedWorkerGlobalScope {
@@ -4906,7 +4772,6 @@ extension DedicatedWorkerGlobalScopeExtension on DedicatedWorkerGlobalScope {
 
 @JS('SharedWorkerGlobalScope')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SharedWorkerGlobalScope implements WorkerGlobalScope {}
 
 extension SharedWorkerGlobalScopeExtension on SharedWorkerGlobalScope {
@@ -4918,7 +4783,6 @@ extension SharedWorkerGlobalScopeExtension on SharedWorkerGlobalScope {
 
 @JS('Worker')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Worker implements EventTarget {
   external factory Worker(
     String scriptURL, [
@@ -4962,7 +4826,6 @@ extension WorkerOptionsExtension on WorkerOptions {
 
 @JS('SharedWorker')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SharedWorker implements EventTarget {
   external factory SharedWorker(
     String scriptURL, [
@@ -4978,7 +4841,6 @@ extension SharedWorkerExtension on SharedWorker {
 
 @JS('WorkerNavigator')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WorkerNavigator {}
 
 extension WorkerNavigatorExtension on WorkerNavigator {
@@ -5017,7 +4879,6 @@ extension WorkerNavigatorExtension on WorkerNavigator {
 
 @JS('WorkerLocation')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WorkerLocation {}
 
 extension WorkerLocationExtension on WorkerLocation {
@@ -5034,12 +4895,10 @@ extension WorkerLocationExtension on WorkerLocation {
 
 @JS('WorkletGlobalScope')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WorkletGlobalScope {}
 
 @JS('Worklet')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Worklet {}
 
 extension WorkletExtension on Worklet {
@@ -5063,7 +4922,6 @@ extension WorkletOptionsExtension on WorkletOptions {
 
 @JS('Storage')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Storage {}
 
 extension StorageExtension on Storage {
@@ -5080,7 +4938,6 @@ extension StorageExtension on Storage {
 
 @JS('StorageEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class StorageEvent implements Event {
   external factory StorageEvent(
     String type, [
@@ -5134,7 +4991,6 @@ extension StorageEventInitExtension on StorageEventInit {
 
 @JS('HTMLMarqueeElement')
 @staticInterop
-@BcdStatus('standards-track, deprecated', browsers: 'chrome, firefox, safari')
 class HTMLMarqueeElement implements HTMLElement {
   external factory HTMLMarqueeElement();
 }
@@ -5168,7 +5024,6 @@ extension HTMLMarqueeElementExtension on HTMLMarqueeElement {
 
 @JS('HTMLFrameSetElement')
 @staticInterop
-@BcdStatus('standards-track, deprecated', browsers: 'chrome, firefox, safari')
 class HTMLFrameSetElement implements HTMLElement {
   external factory HTMLFrameSetElement();
 }
@@ -5220,7 +5075,6 @@ extension HTMLFrameSetElementExtension on HTMLFrameSetElement {
 
 @JS('HTMLFrameElement')
 @staticInterop
-@BcdStatus('standards-track, deprecated', browsers: 'chrome, firefox, safari')
 class HTMLFrameElement implements HTMLElement {
   external factory HTMLFrameElement();
 }
@@ -5248,7 +5102,6 @@ extension HTMLFrameElementExtension on HTMLFrameElement {
 
 @JS('HTMLDirectoryElement')
 @staticInterop
-@BcdStatus('standards-track, deprecated', browsers: 'chrome, firefox, safari')
 class HTMLDirectoryElement implements HTMLElement {
   external factory HTMLDirectoryElement();
 }
@@ -5260,7 +5113,6 @@ extension HTMLDirectoryElementExtension on HTMLDirectoryElement {
 
 @JS('HTMLFontElement')
 @staticInterop
-@BcdStatus('standards-track, deprecated', browsers: 'chrome, firefox, safari')
 class HTMLFontElement implements HTMLElement {
   external factory HTMLFontElement();
 }
@@ -5276,7 +5128,6 @@ extension HTMLFontElementExtension on HTMLFontElement {
 
 @JS('HTMLParamElement')
 @staticInterop
-@BcdStatus('standards-track, deprecated', browsers: 'chrome, firefox, safari')
 class HTMLParamElement implements HTMLElement {
   external factory HTMLParamElement();
 }
@@ -5294,7 +5145,6 @@ extension HTMLParamElementExtension on HTMLParamElement {
 
 @JS('External')
 @staticInterop
-@BcdStatus('standards-track, deprecated', browsers: 'chrome, firefox')
 class External {}
 
 extension ExternalExtension on External {

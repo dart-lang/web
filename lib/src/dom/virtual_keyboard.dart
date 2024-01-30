@@ -9,11 +9,9 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
-import 'status.dart';
 
 @JS('VirtualKeyboard')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class VirtualKeyboard implements EventTarget {}
 
 extension VirtualKeyboardExtension on VirtualKeyboard {

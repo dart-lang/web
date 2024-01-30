@@ -8,7 +8,6 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'status.dart';
 
 typedef UserIdleState = String;
 typedef ScreenIdleState = String;
@@ -32,7 +31,6 @@ extension IdleOptionsExtension on IdleOptions {
 
 @JS('IdleDetector')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class IdleDetector implements EventTarget {
   external factory IdleDetector();
 

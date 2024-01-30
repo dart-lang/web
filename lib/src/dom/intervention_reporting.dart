@@ -7,11 +7,9 @@
 import 'dart:js_interop';
 
 import 'reporting.dart';
-import 'status.dart';
 
 @JS('InterventionReportBody')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class InterventionReportBody implements ReportBody {}
 
 extension InterventionReportBodyExtension on InterventionReportBody {

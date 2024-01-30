@@ -6,8 +6,6 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
-
 typedef ArrayBufferView = JSObject;
 typedef BufferSource = JSObject;
 typedef AllowSharedBufferSource = JSObject;
@@ -15,7 +13,6 @@ typedef VoidFunction = JSFunction;
 
 @JS('DOMException')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class DOMException {
   external factory DOMException([
     String message,

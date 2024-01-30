@@ -7,13 +7,11 @@
 import 'dart:js_interop';
 
 import 'dom.dart';
-import 'status.dart';
 
 typedef AppBannerPromptOutcome = String;
 
 @JS('BeforeInstallPromptEvent')
 @staticInterop
-@BcdStatus('experimental', browsers: 'chrome')
 class BeforeInstallPromptEvent implements Event {
   external factory BeforeInstallPromptEvent(
     String type, [

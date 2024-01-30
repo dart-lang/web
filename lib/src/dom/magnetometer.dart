@@ -7,13 +7,11 @@
 import 'dart:js_interop';
 
 import 'generic_sensor.dart';
-import 'status.dart';
 
 typedef MagnetometerLocalCoordinateSystem = String;
 
 @JS('Magnetometer')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class Magnetometer implements Sensor {
   external factory Magnetometer([MagnetometerSensorOptions sensorOptions]);
 }

@@ -6,8 +6,6 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
-
 typedef GamepadHand = String;
 typedef GamepadHapticsResult = String;
 typedef GamepadHapticActuatorType = String;
@@ -15,7 +13,6 @@ typedef GamepadHapticEffectType = String;
 
 @JS('GamepadHapticActuator')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class GamepadHapticActuator {}
 
 extension GamepadHapticActuatorExtension on GamepadHapticActuator {
@@ -57,7 +54,6 @@ extension GamepadEffectParametersExtension on GamepadEffectParameters {
 
 @JS('GamepadPose')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'firefox')
 class GamepadPose {}
 
 extension GamepadPoseExtension on GamepadPose {

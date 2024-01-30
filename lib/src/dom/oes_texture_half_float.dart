@@ -6,12 +6,10 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
 import 'webgl1.dart';
 
 @JS('OES_texture_half_float')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class OES_texture_half_float {
   external static GLenum get HALF_FLOAT_OES;
 }

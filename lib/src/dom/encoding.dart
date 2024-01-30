@@ -6,7 +6,6 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
 import 'streams.dart';
 import 'webidl.dart';
 
@@ -41,7 +40,6 @@ extension TextDecodeOptionsExtension on TextDecodeOptions {
 
 @JS('TextDecoder')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class TextDecoder {
   external factory TextDecoder([
     String label,
@@ -78,7 +76,6 @@ extension TextEncoderEncodeIntoResultExtension on TextEncoderEncodeIntoResult {
 
 @JS('TextEncoder')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class TextEncoder {
   external factory TextEncoder();
 }
@@ -94,7 +91,6 @@ extension TextEncoderExtension on TextEncoder {
 
 @JS('TextDecoderStream')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class TextDecoderStream {
   external factory TextDecoderStream([
     String label,
@@ -112,7 +108,6 @@ extension TextDecoderStreamExtension on TextDecoderStream {
 
 @JS('TextEncoderStream')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class TextEncoderStream {
   external factory TextEncoderStream();
 }

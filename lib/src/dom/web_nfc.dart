@@ -8,13 +8,11 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'status.dart';
 
 typedef NDEFMessageSource = JSAny;
 
 @JS('NDEFMessage')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: '')
 class NDEFMessage {
   external factory NDEFMessage(NDEFMessageInit messageInit);
 }
@@ -37,7 +35,6 @@ extension NDEFMessageInitExtension on NDEFMessageInit {
 
 @JS('NDEFRecord')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: '')
 class NDEFRecord {
   external factory NDEFRecord(NDEFRecordInit recordInit);
 }
@@ -83,7 +80,6 @@ extension NDEFRecordInitExtension on NDEFRecordInit {
 
 @JS('NDEFReader')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: '')
 class NDEFReader implements EventTarget {
   external factory NDEFReader();
 }
@@ -103,7 +99,6 @@ extension NDEFReaderExtension on NDEFReader {
 
 @JS('NDEFReadingEvent')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: '')
 class NDEFReadingEvent implements Event {
   external factory NDEFReadingEvent(
     String type,

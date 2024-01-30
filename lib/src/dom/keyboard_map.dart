@@ -6,11 +6,8 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
-
 @JS('KeyboardLayoutMap')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class KeyboardLayoutMap {}
 
 extension KeyboardLayoutMapExtension on KeyboardLayoutMap {}

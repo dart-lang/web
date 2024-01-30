@@ -11,7 +11,6 @@ import 'event_timing.dart';
 import 'html.dart';
 import 'navigation_timing.dart';
 import 'performance_timeline.dart';
-import 'status.dart';
 import 'user_timing.dart';
 
 typedef DOMHighResTimeStamp = num;
@@ -19,7 +18,6 @@ typedef EpochTimeStamp = int;
 
 @JS('Performance')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Performance implements EventTarget {}
 
 extension PerformanceExtension on Performance {

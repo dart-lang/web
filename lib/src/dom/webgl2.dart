@@ -7,7 +7,6 @@
 import 'dart:js_interop';
 
 import 'html.dart';
-import 'status.dart';
 import 'webgl1.dart';
 import 'webidl.dart';
 
@@ -17,32 +16,26 @@ typedef Uint32List = JSObject;
 
 @JS('WebGLQuery')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WebGLQuery implements WebGLObject {}
 
 @JS('WebGLSampler')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WebGLSampler implements WebGLObject {}
 
 @JS('WebGLSync')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WebGLSync implements WebGLObject {}
 
 @JS('WebGLTransformFeedback')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WebGLTransformFeedback implements WebGLObject {}
 
 @JS('WebGLVertexArrayObject')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WebGLVertexArrayObject implements WebGLObject {}
 
 @JS('WebGL2RenderingContext')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WebGL2RenderingContext {
   external static GLenum get DEPTH_BUFFER_BIT;
   external static GLenum get STENCIL_BUFFER_BIT;

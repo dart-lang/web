@@ -6,13 +6,10 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
-
 typedef LaunchConsumer = JSFunction;
 
 @JS('LaunchParams')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class LaunchParams {}
 
 extension LaunchParamsExtension on LaunchParams {
@@ -22,7 +19,6 @@ extension LaunchParamsExtension on LaunchParams {
 
 @JS('LaunchQueue')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class LaunchQueue {}
 
 extension LaunchQueueExtension on LaunchQueue {

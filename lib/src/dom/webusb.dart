@@ -9,7 +9,6 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 import 'permissions.dart';
-import 'status.dart';
 import 'webidl.dart';
 
 typedef USBTransferStatus = String;
@@ -66,7 +65,6 @@ extension USBDeviceRequestOptionsExtension on USBDeviceRequestOptions {
 
 @JS('USB')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class USB implements EventTarget {}
 
 extension USBExtension on USB {
@@ -92,7 +90,6 @@ extension USBConnectionEventInitExtension on USBConnectionEventInit {
 
 @JS('USBConnectionEvent')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class USBConnectionEvent implements Event {
   external factory USBConnectionEvent(
     String type,
@@ -106,7 +103,6 @@ extension USBConnectionEventExtension on USBConnectionEvent {
 
 @JS('USBInTransferResult')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class USBInTransferResult {
   external factory USBInTransferResult(
     USBTransferStatus status, [
@@ -121,7 +117,6 @@ extension USBInTransferResultExtension on USBInTransferResult {
 
 @JS('USBOutTransferResult')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class USBOutTransferResult {
   external factory USBOutTransferResult(
     USBTransferStatus status, [
@@ -136,7 +131,6 @@ extension USBOutTransferResultExtension on USBOutTransferResult {
 
 @JS('USBIsochronousInTransferPacket')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class USBIsochronousInTransferPacket {
   external factory USBIsochronousInTransferPacket(
     USBTransferStatus status, [
@@ -152,7 +146,6 @@ extension USBIsochronousInTransferPacketExtension
 
 @JS('USBIsochronousInTransferResult')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class USBIsochronousInTransferResult {
   external factory USBIsochronousInTransferResult(
     JSArray packets, [
@@ -168,7 +161,6 @@ extension USBIsochronousInTransferResultExtension
 
 @JS('USBIsochronousOutTransferPacket')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class USBIsochronousOutTransferPacket {
   external factory USBIsochronousOutTransferPacket(
     USBTransferStatus status, [
@@ -184,7 +176,6 @@ extension USBIsochronousOutTransferPacketExtension
 
 @JS('USBIsochronousOutTransferResult')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class USBIsochronousOutTransferResult {
   external factory USBIsochronousOutTransferResult(JSArray packets);
 }
@@ -196,7 +187,6 @@ extension USBIsochronousOutTransferResultExtension
 
 @JS('USBDevice')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class USBDevice {}
 
 extension USBDeviceExtension on USBDevice {
@@ -288,7 +278,6 @@ extension USBControlTransferParametersExtension
 
 @JS('USBConfiguration')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class USBConfiguration {
   external factory USBConfiguration(
     USBDevice device,
@@ -304,7 +293,6 @@ extension USBConfigurationExtension on USBConfiguration {
 
 @JS('USBInterface')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class USBInterface {
   external factory USBInterface(
     USBConfiguration configuration,
@@ -321,7 +309,6 @@ extension USBInterfaceExtension on USBInterface {
 
 @JS('USBAlternateInterface')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class USBAlternateInterface {
   external factory USBAlternateInterface(
     USBInterface deviceInterface,
@@ -340,7 +327,6 @@ extension USBAlternateInterfaceExtension on USBAlternateInterface {
 
 @JS('USBEndpoint')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class USBEndpoint {
   external factory USBEndpoint(
     USBAlternateInterface alternate,

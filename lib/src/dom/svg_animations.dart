@@ -8,12 +8,10 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'status.dart';
 import 'svg.dart';
 
 @JS('TimeEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'firefox')
 class TimeEvent implements Event {}
 
 extension TimeEventExtension on TimeEvent {
@@ -28,7 +26,6 @@ extension TimeEventExtension on TimeEvent {
 
 @JS('SVGAnimationElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGAnimationElement implements SVGElement {}
 
 extension SVGAnimationElementExtension on SVGAnimationElement {
@@ -52,22 +49,18 @@ extension SVGAnimationElementExtension on SVGAnimationElement {
 
 @JS('SVGAnimateElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGAnimateElement implements SVGAnimationElement {}
 
 @JS('SVGSetElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGSetElement implements SVGAnimationElement {}
 
 @JS('SVGAnimateMotionElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGAnimateMotionElement implements SVGAnimationElement {}
 
 @JS('SVGMPathElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGMPathElement implements SVGElement {}
 
 extension SVGMPathElementExtension on SVGMPathElement {
@@ -76,7 +69,6 @@ extension SVGMPathElementExtension on SVGMPathElement {
 
 @JS('SVGAnimateTransformElement')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class SVGAnimateTransformElement implements SVGAnimationElement {}
 
 @JS('SVGDiscardElement')

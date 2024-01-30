@@ -7,7 +7,6 @@
 import 'dart:js_interop';
 
 import 'geometry.dart';
-import 'status.dart';
 
 typedef CSSUnparsedSegment = JSAny;
 typedef CSSKeywordish = JSAny;
@@ -22,7 +21,6 @@ typedef CSSMathOperator = String;
 
 @JS('CSSStyleValue')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSStyleValue {
   external static CSSStyleValue parse(
     String property,
@@ -36,7 +34,6 @@ class CSSStyleValue {
 
 @JS('StylePropertyMapReadOnly')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class StylePropertyMapReadOnly {}
 
 extension StylePropertyMapReadOnlyExtension on StylePropertyMapReadOnly {
@@ -48,7 +45,6 @@ extension StylePropertyMapReadOnlyExtension on StylePropertyMapReadOnly {
 
 @JS('StylePropertyMap')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class StylePropertyMap implements StylePropertyMapReadOnly {}
 
 extension StylePropertyMapExtension on StylePropertyMap {
@@ -66,7 +62,6 @@ extension StylePropertyMapExtension on StylePropertyMap {
 
 @JS('CSSUnparsedValue')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSUnparsedValue implements CSSStyleValue {
   external factory CSSUnparsedValue(JSArray members);
 }
@@ -77,7 +72,6 @@ extension CSSUnparsedValueExtension on CSSUnparsedValue {
 
 @JS('CSSVariableReferenceValue')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSVariableReferenceValue {
   external factory CSSVariableReferenceValue(
     String variable, [
@@ -93,7 +87,6 @@ extension CSSVariableReferenceValueExtension on CSSVariableReferenceValue {
 
 @JS('CSSKeywordValue')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSKeywordValue implements CSSStyleValue {
   external factory CSSKeywordValue(String value);
 }
@@ -140,7 +133,6 @@ extension CSSNumericTypeExtension on CSSNumericType {
 
 @JS('CSSNumericValue')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSNumericValue implements CSSStyleValue {
   external static CSSNumericValue parse(String cssText);
 }
@@ -160,7 +152,6 @@ extension CSSNumericValueExtension on CSSNumericValue {
 
 @JS('CSSUnitValue')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSUnitValue implements CSSNumericValue {
   external factory CSSUnitValue(
     num value,
@@ -176,7 +167,6 @@ extension CSSUnitValueExtension on CSSUnitValue {
 
 @JS('CSSMathValue')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSMathValue implements CSSNumericValue {}
 
 extension CSSMathValueExtension on CSSMathValue {
@@ -185,7 +175,6 @@ extension CSSMathValueExtension on CSSMathValue {
 
 @JS('CSSMathSum')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSMathSum implements CSSMathValue {
   external factory CSSMathSum(CSSNumberish args);
 }
@@ -196,7 +185,6 @@ extension CSSMathSumExtension on CSSMathSum {
 
 @JS('CSSMathProduct')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSMathProduct implements CSSMathValue {
   external factory CSSMathProduct(CSSNumberish args);
 }
@@ -207,7 +195,6 @@ extension CSSMathProductExtension on CSSMathProduct {
 
 @JS('CSSMathNegate')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSMathNegate implements CSSMathValue {
   external factory CSSMathNegate(CSSNumberish arg);
 }
@@ -218,7 +205,6 @@ extension CSSMathNegateExtension on CSSMathNegate {
 
 @JS('CSSMathInvert')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSMathInvert implements CSSMathValue {
   external factory CSSMathInvert(CSSNumberish arg);
 }
@@ -229,7 +215,6 @@ extension CSSMathInvertExtension on CSSMathInvert {
 
 @JS('CSSMathMin')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSMathMin implements CSSMathValue {
   external factory CSSMathMin(CSSNumberish args);
 }
@@ -240,7 +225,6 @@ extension CSSMathMinExtension on CSSMathMin {
 
 @JS('CSSMathMax')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSMathMax implements CSSMathValue {
   external factory CSSMathMax(CSSNumberish args);
 }
@@ -251,7 +235,6 @@ extension CSSMathMaxExtension on CSSMathMax {
 
 @JS('CSSMathClamp')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSMathClamp implements CSSMathValue {
   external factory CSSMathClamp(
     CSSNumberish lower,
@@ -268,7 +251,6 @@ extension CSSMathClampExtension on CSSMathClamp {
 
 @JS('CSSNumericArray')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSNumericArray {}
 
 extension CSSNumericArrayExtension on CSSNumericArray {
@@ -277,7 +259,6 @@ extension CSSNumericArrayExtension on CSSNumericArray {
 
 @JS('CSSTransformValue')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSTransformValue implements CSSStyleValue {
   external factory CSSTransformValue(JSArray transforms);
 }
@@ -290,7 +271,6 @@ extension CSSTransformValueExtension on CSSTransformValue {
 
 @JS('CSSTransformComponent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSTransformComponent {}
 
 extension CSSTransformComponentExtension on CSSTransformComponent {
@@ -301,7 +281,6 @@ extension CSSTransformComponentExtension on CSSTransformComponent {
 
 @JS('CSSTranslate')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSTranslate implements CSSTransformComponent {
   external factory CSSTranslate(
     CSSNumericValue x,
@@ -321,7 +300,6 @@ extension CSSTranslateExtension on CSSTranslate {
 
 @JS('CSSRotate')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSRotate implements CSSTransformComponent {
   external factory CSSRotate(
     JSAny angleOrX, [
@@ -344,7 +322,6 @@ extension CSSRotateExtension on CSSRotate {
 
 @JS('CSSScale')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSScale implements CSSTransformComponent {
   external factory CSSScale(
     CSSNumberish x,
@@ -364,7 +341,6 @@ extension CSSScaleExtension on CSSScale {
 
 @JS('CSSSkew')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSSkew implements CSSTransformComponent {
   external factory CSSSkew(
     CSSNumericValue ax,
@@ -381,7 +357,6 @@ extension CSSSkewExtension on CSSSkew {
 
 @JS('CSSSkewX')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSSkewX implements CSSTransformComponent {
   external factory CSSSkewX(CSSNumericValue ax);
 }
@@ -393,7 +368,6 @@ extension CSSSkewXExtension on CSSSkewX {
 
 @JS('CSSSkewY')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSSkewY implements CSSTransformComponent {
   external factory CSSSkewY(CSSNumericValue ay);
 }
@@ -405,7 +379,6 @@ extension CSSSkewYExtension on CSSSkewY {
 
 @JS('CSSPerspective')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSPerspective implements CSSTransformComponent {
   external factory CSSPerspective(CSSPerspectiveValue length);
 }
@@ -417,7 +390,6 @@ extension CSSPerspectiveExtension on CSSPerspective {
 
 @JS('CSSMatrixComponent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSMatrixComponent implements CSSTransformComponent {
   external factory CSSMatrixComponent(
     DOMMatrixReadOnly matrix, [
@@ -444,7 +416,6 @@ extension CSSMatrixComponentOptionsExtension on CSSMatrixComponentOptions {
 
 @JS('CSSImageValue')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, safari')
 class CSSImageValue implements CSSStyleValue {}
 
 @JS('CSSColorValue')

@@ -6,8 +6,6 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
-
 typedef HTMLString = String;
 typedef ScriptString = String;
 typedef ScriptURLString = String;
@@ -18,7 +16,6 @@ typedef CreateScriptURLCallback = JSFunction;
 
 @JS('TrustedHTML')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class TrustedHTML {
   external static TrustedHTML fromLiteral(JSObject templateStringsArray);
 }
@@ -29,7 +26,6 @@ extension TrustedHTMLExtension on TrustedHTML {
 
 @JS('TrustedScript')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class TrustedScript {
   external static TrustedScript fromLiteral(JSObject templateStringsArray);
 }
@@ -40,7 +36,6 @@ extension TrustedScriptExtension on TrustedScript {
 
 @JS('TrustedScriptURL')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class TrustedScriptURL {
   external static TrustedScriptURL fromLiteral(JSObject templateStringsArray);
 }
@@ -51,7 +46,6 @@ extension TrustedScriptURLExtension on TrustedScriptURL {
 
 @JS('TrustedTypePolicyFactory')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class TrustedTypePolicyFactory {}
 
 extension TrustedTypePolicyFactoryExtension on TrustedTypePolicyFactory {
@@ -80,7 +74,6 @@ extension TrustedTypePolicyFactoryExtension on TrustedTypePolicyFactory {
 
 @JS('TrustedTypePolicy')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class TrustedTypePolicy {}
 
 extension TrustedTypePolicyExtension on TrustedTypePolicy {

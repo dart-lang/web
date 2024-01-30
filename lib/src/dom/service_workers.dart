@@ -18,7 +18,6 @@ import 'page_lifecycle.dart';
 import 'payment_handler.dart';
 import 'periodic_background_sync.dart';
 import 'push_api.dart';
-import 'status.dart';
 
 typedef ServiceWorkerState = String;
 typedef ServiceWorkerUpdateViaCache = String;
@@ -27,7 +26,6 @@ typedef ClientType = String;
 
 @JS('ServiceWorker')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ServiceWorker implements EventTarget {}
 
 extension ServiceWorkerExtension on ServiceWorker {
@@ -45,7 +43,6 @@ extension ServiceWorkerExtension on ServiceWorker {
 
 @JS('ServiceWorkerRegistration')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ServiceWorkerRegistration implements EventTarget {}
 
 extension ServiceWorkerRegistrationExtension on ServiceWorkerRegistration {
@@ -75,7 +72,6 @@ extension ServiceWorkerRegistrationExtension on ServiceWorkerRegistration {
 
 @JS('ServiceWorkerContainer')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ServiceWorkerContainer implements EventTarget {}
 
 extension ServiceWorkerContainerExtension on ServiceWorkerContainer {
@@ -118,7 +114,6 @@ extension RegistrationOptionsExtension on RegistrationOptions {
 
 @JS('NavigationPreloadManager')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class NavigationPreloadManager {}
 
 extension NavigationPreloadManagerExtension on NavigationPreloadManager {
@@ -147,7 +142,6 @@ extension NavigationPreloadStateExtension on NavigationPreloadState {
 
 @JS('ServiceWorkerGlobalScope')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ServiceWorkerGlobalScope implements WorkerGlobalScope {}
 
 extension ServiceWorkerGlobalScopeExtension on ServiceWorkerGlobalScope {
@@ -198,7 +192,6 @@ extension ServiceWorkerGlobalScopeExtension on ServiceWorkerGlobalScope {
 
 @JS('Client')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Client {}
 
 extension ClientExtension on Client {
@@ -215,7 +208,6 @@ extension ClientExtension on Client {
 
 @JS('WindowClient')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WindowClient implements Client {}
 
 extension WindowClientExtension on WindowClient {
@@ -228,7 +220,6 @@ extension WindowClientExtension on WindowClient {
 
 @JS('Clients')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Clients {}
 
 extension ClientsExtension on Clients {
@@ -257,7 +248,6 @@ extension ClientQueryOptionsExtension on ClientQueryOptions {
 
 @JS('ExtendableEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ExtendableEvent implements Event {
   external factory ExtendableEvent(
     String type, [
@@ -278,7 +268,6 @@ class ExtendableEventInit implements EventInit {
 
 @JS('FetchEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class FetchEvent implements ExtendableEvent {
   external factory FetchEvent(
     String type,
@@ -327,7 +316,6 @@ extension FetchEventInitExtension on FetchEventInit {
 
 @JS('ExtendableMessageEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class ExtendableMessageEvent implements ExtendableEvent {
   external factory ExtendableMessageEvent(
     String type, [
@@ -371,7 +359,6 @@ extension ExtendableMessageEventInitExtension on ExtendableMessageEventInit {
 
 @JS('Cache')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Cache {}
 
 extension CacheExtension on Cache {
@@ -421,7 +408,6 @@ extension CacheQueryOptionsExtension on CacheQueryOptions {
 
 @JS('CacheStorage')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CacheStorage {}
 
 extension CacheStorageExtension on CacheStorage {

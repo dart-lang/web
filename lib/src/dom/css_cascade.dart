@@ -7,11 +7,9 @@
 import 'dart:js_interop';
 
 import 'cssom.dart';
-import 'status.dart';
 
 @JS('CSSLayerBlockRule')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSLayerBlockRule implements CSSGroupingRule {}
 
 extension CSSLayerBlockRuleExtension on CSSLayerBlockRule {
@@ -20,7 +18,6 @@ extension CSSLayerBlockRuleExtension on CSSLayerBlockRule {
 
 @JS('CSSLayerStatementRule')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSLayerStatementRule implements CSSRule {}
 
 extension CSSLayerStatementRuleExtension on CSSLayerStatementRule {

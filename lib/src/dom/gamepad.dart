@@ -9,13 +9,11 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'gamepad_extensions.dart';
 import 'hr_time.dart';
-import 'status.dart';
 
 typedef GamepadMappingType = String;
 
 @JS('Gamepad')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Gamepad {}
 
 extension GamepadExtension on Gamepad {
@@ -35,7 +33,6 @@ extension GamepadExtension on Gamepad {
 
 @JS('GamepadButton')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class GamepadButton {}
 
 extension GamepadButtonExtension on GamepadButton {
@@ -46,7 +43,6 @@ extension GamepadButtonExtension on GamepadButton {
 
 @JS('GamepadEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class GamepadEvent implements Event {
   external factory GamepadEvent(
     String type,

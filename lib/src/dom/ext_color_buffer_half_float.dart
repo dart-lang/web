@@ -6,12 +6,10 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
 import 'webgl1.dart';
 
 @JS('EXT_color_buffer_half_float')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class EXT_color_buffer_half_float {
   external static GLenum get RGBA16F_EXT;
   external static GLenum get RGB16F_EXT;

@@ -7,13 +7,11 @@
 import 'dart:js_interop';
 
 import 'generic_sensor.dart';
-import 'status.dart';
 
 typedef GyroscopeLocalCoordinateSystem = String;
 
 @JS('Gyroscope')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class Gyroscope implements Sensor {
   external factory Gyroscope([GyroscopeSensorOptions sensorOptions]);
 }

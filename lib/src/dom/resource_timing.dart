@@ -8,13 +8,11 @@ import 'dart:js_interop';
 
 import 'hr_time.dart';
 import 'performance_timeline.dart';
-import 'status.dart';
 
 typedef RenderBlockingStatusType = String;
 
 @JS('PerformanceResourceTiming')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PerformanceResourceTiming implements PerformanceEntry {}
 
 extension PerformanceResourceTimingExtension on PerformanceResourceTiming {

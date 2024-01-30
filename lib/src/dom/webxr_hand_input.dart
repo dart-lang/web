@@ -6,14 +6,12 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
 import 'webxr.dart';
 
 typedef XRHandJoint = String;
 
 @JS('XRHand')
 @staticInterop
-@BcdStatus('standards-track', browsers: '')
 class XRHand {}
 
 extension XRHandExtension on XRHand {
@@ -23,7 +21,6 @@ extension XRHandExtension on XRHand {
 
 @JS('XRJointSpace')
 @staticInterop
-@BcdStatus('standards-track', browsers: '')
 class XRJointSpace implements XRSpace {}
 
 extension XRJointSpaceExtension on XRJointSpace {
@@ -32,7 +29,6 @@ extension XRJointSpaceExtension on XRJointSpace {
 
 @JS('XRJointPose')
 @staticInterop
-@BcdStatus('standards-track', browsers: '')
 class XRJointPose implements XRPose {}
 
 extension XRJointPoseExtension on XRJointPose {

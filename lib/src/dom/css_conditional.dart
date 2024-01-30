@@ -7,11 +7,9 @@
 import 'dart:js_interop';
 
 import 'cssom.dart';
-import 'status.dart';
 
 @JS('CSSConditionRule')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSConditionRule implements CSSGroupingRule {}
 
 extension CSSConditionRuleExtension on CSSConditionRule {
@@ -20,7 +18,6 @@ extension CSSConditionRuleExtension on CSSConditionRule {
 
 @JS('CSSMediaRule')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSMediaRule implements CSSConditionRule {}
 
 extension CSSMediaRuleExtension on CSSMediaRule {
@@ -29,5 +26,4 @@ extension CSSMediaRuleExtension on CSSMediaRule {
 
 @JS('CSSSupportsRule')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSSupportsRule implements CSSConditionRule {}

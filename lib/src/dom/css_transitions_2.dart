@@ -7,17 +7,14 @@
 import 'dart:js_interop';
 
 import 'cssom.dart';
-import 'status.dart';
 import 'web_animations.dart';
 
 @JS('CSSStartingStyleRule')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class CSSStartingStyleRule implements CSSGroupingRule {}
 
 @JS('CSSTransition')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class CSSTransition implements Animation {}
 
 extension CSSTransitionExtension on CSSTransition {

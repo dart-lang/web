@@ -10,7 +10,6 @@ import 'dom.dart';
 import 'hr_time.dart';
 import 'html.dart';
 import 'permissions.dart';
-import 'status.dart';
 
 typedef MIDIPortType = String;
 typedef MIDIPortDeviceState = String;
@@ -47,21 +46,18 @@ extension MIDIOptionsExtension on MIDIOptions {
 
 @JS('MIDIInputMap')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class MIDIInputMap {}
 
 extension MIDIInputMapExtension on MIDIInputMap {}
 
 @JS('MIDIOutputMap')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class MIDIOutputMap {}
 
 extension MIDIOutputMapExtension on MIDIOutputMap {}
 
 @JS('MIDIAccess')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class MIDIAccess implements EventTarget {}
 
 extension MIDIAccessExtension on MIDIAccess {
@@ -74,7 +70,6 @@ extension MIDIAccessExtension on MIDIAccess {
 
 @JS('MIDIPort')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class MIDIPort implements EventTarget {}
 
 extension MIDIPortExtension on MIDIPort {
@@ -93,7 +88,6 @@ extension MIDIPortExtension on MIDIPort {
 
 @JS('MIDIInput')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class MIDIInput implements MIDIPort {}
 
 extension MIDIInputExtension on MIDIInput {
@@ -103,7 +97,6 @@ extension MIDIInputExtension on MIDIInput {
 
 @JS('MIDIOutput')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class MIDIOutput implements MIDIPort {}
 
 extension MIDIOutputExtension on MIDIOutput {
@@ -116,7 +109,6 @@ extension MIDIOutputExtension on MIDIOutput {
 
 @JS('MIDIMessageEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class MIDIMessageEvent implements Event {
   external factory MIDIMessageEvent(
     String type, [
@@ -142,7 +134,6 @@ extension MIDIMessageEventInitExtension on MIDIMessageEventInit {
 
 @JS('MIDIConnectionEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox')
 class MIDIConnectionEvent implements Event {
   external factory MIDIConnectionEvent(
     String type, [

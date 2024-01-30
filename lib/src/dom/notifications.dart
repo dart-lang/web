@@ -10,7 +10,6 @@ import 'dom.dart';
 import 'hr_time.dart';
 import 'html.dart';
 import 'service_workers.dart';
-import 'status.dart';
 import 'vibration.dart';
 
 typedef NotificationPermissionCallback = JSFunction;
@@ -19,7 +18,6 @@ typedef NotificationDirection = String;
 
 @JS('Notification')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Notification implements EventTarget {
   external factory Notification(
     String title, [
@@ -146,7 +144,6 @@ extension GetNotificationOptionsExtension on GetNotificationOptions {
 
 @JS('NotificationEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class NotificationEvent implements ExtendableEvent {
   external factory NotificationEvent(
     String type,

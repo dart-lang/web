@@ -6,9 +6,6 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
-
 @JS('EXT_color_buffer_float')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class EXT_color_buffer_float {}

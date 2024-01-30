@@ -6,12 +6,10 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
 import 'webgl1.dart';
 
 @JS('OES_draw_buffers_indexed')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class OES_draw_buffers_indexed {}
 
 extension OESDrawBuffersIndexedExtension on OES_draw_buffers_indexed {

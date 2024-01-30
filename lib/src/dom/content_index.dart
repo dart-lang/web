@@ -7,7 +7,6 @@
 import 'dart:js_interop';
 
 import 'service_workers.dart';
-import 'status.dart';
 
 typedef ContentCategory = String;
 
@@ -42,7 +41,6 @@ extension ContentDescriptionExtension on ContentDescription {
 
 @JS('ContentIndex')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: '')
 class ContentIndex {}
 
 extension ContentIndexExtension on ContentIndex {
@@ -65,7 +63,6 @@ extension ContentIndexEventInitExtension on ContentIndexEventInit {
 
 @JS('ContentIndexEvent')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: '')
 class ContentIndexEvent implements ExtendableEvent {
   external factory ContentIndexEvent(
     String type,

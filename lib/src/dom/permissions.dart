@@ -8,13 +8,11 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'status.dart';
 
 typedef PermissionState = String;
 
 @JS('Permissions')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class Permissions {}
 
 extension PermissionsExtension on Permissions {
@@ -37,7 +35,6 @@ extension PermissionDescriptorExtension on PermissionDescriptor {
 
 @JS('PermissionStatus')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class PermissionStatus implements EventTarget {}
 
 extension PermissionStatusExtension on PermissionStatus {

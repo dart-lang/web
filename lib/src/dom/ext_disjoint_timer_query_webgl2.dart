@@ -6,13 +6,11 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
 import 'webgl1.dart';
 import 'webgl2.dart';
 
 @JS('EXT_disjoint_timer_query_webgl2')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class EXT_disjoint_timer_query_webgl2 {
   external static GLenum get QUERY_COUNTER_BITS_EXT;
   external static GLenum get TIME_ELAPSED_EXT;

@@ -7,19 +7,16 @@
 import 'dart:js_interop';
 
 import 'html.dart';
-import 'status.dart';
 
 typedef SharedStorageResponse = JSAny;
 typedef SharedStorageOperationConstructor = JSFunction;
 
 @JS('SharedStorageWorklet')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class SharedStorageWorklet implements Worklet {}
 
 @JS('SharedStorageWorkletGlobalScope')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class SharedStorageWorkletGlobalScope implements WorkletGlobalScope {}
 
 extension SharedStorageWorkletGlobalScopeExtension
@@ -33,7 +30,6 @@ extension SharedStorageWorkletGlobalScopeExtension
 
 @JS('SharedStorageOperation')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class SharedStorageOperation {}
 
 @JS()
@@ -59,7 +55,6 @@ extension SharedStorageRunOperationMethodOptionsExtension
 
 @JS('SharedStorageRunOperation')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class SharedStorageRunOperation implements SharedStorageOperation {}
 
 extension SharedStorageRunOperationExtension on SharedStorageRunOperation {
@@ -68,7 +63,6 @@ extension SharedStorageRunOperationExtension on SharedStorageRunOperation {
 
 @JS('SharedStorageSelectURLOperation')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class SharedStorageSelectURLOperation implements SharedStorageOperation {}
 
 extension SharedStorageSelectURLOperationExtension
@@ -81,7 +75,6 @@ extension SharedStorageSelectURLOperationExtension
 
 @JS('SharedStorage')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class SharedStorage {}
 
 extension SharedStorageExtension on SharedStorage {
@@ -113,7 +106,6 @@ extension SharedStorageSetMethodOptionsExtension
 
 @JS('WindowSharedStorage')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class WindowSharedStorage implements SharedStorage {}
 
 extension WindowSharedStorageExtension on WindowSharedStorage {
@@ -149,7 +141,6 @@ extension SharedStorageUrlWithMetadataExtension
 
 @JS('WorkletSharedStorage')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class WorkletSharedStorage implements SharedStorage {}
 
 extension WorkletSharedStorageExtension on WorkletSharedStorage {

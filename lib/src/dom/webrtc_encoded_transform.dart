@@ -8,7 +8,6 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'status.dart';
 import 'streams.dart';
 import 'webcryptoapi.dart';
 
@@ -131,7 +130,6 @@ extension RTCEncodedVideoFrameMetadataExtension
 
 @JS('RTCEncodedVideoFrame')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class RTCEncodedVideoFrame {}
 
 extension RTCEncodedVideoFrameExtension on RTCEncodedVideoFrame {
@@ -170,7 +168,6 @@ extension RTCEncodedAudioFrameMetadataExtension
 
 @JS('RTCEncodedAudioFrame')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class RTCEncodedAudioFrame {}
 
 extension RTCEncodedAudioFrameExtension on RTCEncodedAudioFrame {
@@ -181,7 +178,6 @@ extension RTCEncodedAudioFrameExtension on RTCEncodedAudioFrame {
 
 @JS('RTCTransformEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'firefox, safari')
 class RTCTransformEvent implements Event {}
 
 extension RTCTransformEventExtension on RTCTransformEvent {
@@ -190,7 +186,6 @@ extension RTCTransformEventExtension on RTCTransformEvent {
 
 @JS('RTCRtpScriptTransformer')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'firefox, safari')
 class RTCRtpScriptTransformer {}
 
 extension RTCRtpScriptTransformerExtension on RTCRtpScriptTransformer {
@@ -203,7 +198,6 @@ extension RTCRtpScriptTransformerExtension on RTCRtpScriptTransformer {
 
 @JS('RTCRtpScriptTransform')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'firefox, safari')
 class RTCRtpScriptTransform {
   external factory RTCRtpScriptTransform(
     Worker worker, [

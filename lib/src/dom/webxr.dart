@@ -15,7 +15,6 @@ import 'html.dart';
 import 'permissions.dart';
 import 'raw_camera_access.dart';
 import 'real_world_meshing.dart';
-import 'status.dart';
 import 'webgl1.dart';
 import 'webxr_ar_module.dart';
 import 'webxr_depth_sensing.dart';
@@ -35,7 +34,6 @@ typedef XRTargetRayMode = String;
 
 @JS('XRSystem')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRSystem implements EventTarget {}
 
 extension XRSystemExtension on XRSystem {
@@ -73,7 +71,6 @@ extension XRSessionInitExtension on XRSessionInit {
 
 @JS('XRSession')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRSession implements EventTarget {}
 
 extension XRSessionExtension on XRSession {
@@ -153,7 +150,6 @@ extension XRRenderStateInitExtension on XRRenderStateInit {
 
 @JS('XRRenderState')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRRenderState {}
 
 extension XRRenderStateExtension on XRRenderState {
@@ -166,7 +162,6 @@ extension XRRenderStateExtension on XRRenderState {
 
 @JS('XRFrame')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRFrame {}
 
 extension XRFrameExtension on XRFrame {
@@ -205,12 +200,10 @@ extension XRFrameExtension on XRFrame {
 
 @JS('XRSpace')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class XRSpace implements EventTarget {}
 
 @JS('XRReferenceSpace')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class XRReferenceSpace implements XRSpace {}
 
 extension XRReferenceSpaceExtension on XRReferenceSpace {
@@ -222,7 +215,6 @@ extension XRReferenceSpaceExtension on XRReferenceSpace {
 
 @JS('XRBoundedReferenceSpace')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRBoundedReferenceSpace implements XRReferenceSpace {}
 
 extension XRBoundedReferenceSpaceExtension on XRBoundedReferenceSpace {
@@ -231,7 +223,6 @@ extension XRBoundedReferenceSpaceExtension on XRBoundedReferenceSpace {
 
 @JS('XRView')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRView {}
 
 extension XRViewExtension on XRView {
@@ -246,7 +237,6 @@ extension XRViewExtension on XRView {
 
 @JS('XRViewport')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class XRViewport {}
 
 extension XRViewportExtension on XRViewport {
@@ -258,7 +248,6 @@ extension XRViewportExtension on XRViewport {
 
 @JS('XRRigidTransform')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class XRRigidTransform {
   external factory XRRigidTransform([
     DOMPointInit position,
@@ -275,7 +264,6 @@ extension XRRigidTransformExtension on XRRigidTransform {
 
 @JS('XRPose')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class XRPose {}
 
 extension XRPoseExtension on XRPose {
@@ -287,7 +275,6 @@ extension XRPoseExtension on XRPose {
 
 @JS('XRViewerPose')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class XRViewerPose implements XRPose {}
 
 extension XRViewerPoseExtension on XRViewerPose {
@@ -296,7 +283,6 @@ extension XRViewerPoseExtension on XRViewerPose {
 
 @JS('XRInputSource')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class XRInputSource {}
 
 extension XRInputSourceExtension on XRInputSource {
@@ -311,7 +297,6 @@ extension XRInputSourceExtension on XRInputSource {
 
 @JS('XRInputSourceArray')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRInputSourceArray {}
 
 extension XRInputSourceArrayExtension on XRInputSourceArray {
@@ -320,7 +305,6 @@ extension XRInputSourceArrayExtension on XRInputSourceArray {
 
 @JS('XRLayer')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRLayer implements EventTarget {}
 
 @JS()
@@ -354,7 +338,6 @@ extension XRWebGLLayerInitExtension on XRWebGLLayerInit {
 
 @JS('XRWebGLLayer')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class XRWebGLLayer implements XRLayer {
   external factory XRWebGLLayer(
     XRSession session,
@@ -378,7 +361,6 @@ extension XRWebGLLayerExtension on XRWebGLLayer {
 
 @JS('XRSessionEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class XRSessionEvent implements Event {
   external factory XRSessionEvent(
     String type,
@@ -404,7 +386,6 @@ extension XRSessionEventInitExtension on XRSessionEventInit {
 
 @JS('XRInputSourceEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class XRInputSourceEvent implements Event {
   external factory XRInputSourceEvent(
     String type,
@@ -436,7 +417,6 @@ extension XRInputSourceEventInitExtension on XRInputSourceEventInit {
 
 @JS('XRInputSourcesChangeEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class XRInputSourcesChangeEvent implements Event {
   external factory XRInputSourcesChangeEvent(
     String type,
@@ -473,7 +453,6 @@ extension XRInputSourcesChangeEventInitExtension
 
 @JS('XRReferenceSpaceEvent')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome')
 class XRReferenceSpaceEvent implements Event {
   external factory XRReferenceSpaceEvent(
     String type,

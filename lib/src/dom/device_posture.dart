@@ -8,13 +8,11 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'status.dart';
 
 typedef DevicePostureType = String;
 
 @JS('DevicePosture')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: '')
 class DevicePosture implements EventTarget {}
 
 extension DevicePostureExtension on DevicePosture {

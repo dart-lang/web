@@ -8,7 +8,6 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'status.dart';
 import 'websockets.dart';
 
 typedef PresentationConnectionState = String;
@@ -16,7 +15,6 @@ typedef PresentationConnectionCloseReason = String;
 
 @JS('Presentation')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class Presentation {}
 
 extension PresentationExtension on Presentation {
@@ -27,7 +25,6 @@ extension PresentationExtension on Presentation {
 
 @JS('PresentationRequest')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class PresentationRequest implements EventTarget {
   external factory PresentationRequest(JSAny urlOrUrls);
 }
@@ -42,7 +39,6 @@ extension PresentationRequestExtension on PresentationRequest {
 
 @JS('PresentationAvailability')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class PresentationAvailability implements EventTarget {}
 
 extension PresentationAvailabilityExtension on PresentationAvailability {
@@ -53,7 +49,6 @@ extension PresentationAvailabilityExtension on PresentationAvailability {
 
 @JS('PresentationConnectionAvailableEvent')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class PresentationConnectionAvailableEvent implements Event {
   external factory PresentationConnectionAvailableEvent(
     String type,
@@ -82,7 +77,6 @@ extension PresentationConnectionAvailableEventInitExtension
 
 @JS('PresentationConnection')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class PresentationConnection implements EventTarget {}
 
 extension PresentationConnectionExtension on PresentationConnection {
@@ -106,7 +100,6 @@ extension PresentationConnectionExtension on PresentationConnection {
 
 @JS('PresentationConnectionCloseEvent')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class PresentationConnectionCloseEvent implements Event {
   external factory PresentationConnectionCloseEvent(
     String type,
@@ -140,7 +133,6 @@ extension PresentationConnectionCloseEventInitExtension
 
 @JS('PresentationReceiver')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class PresentationReceiver {}
 
 extension PresentationReceiverExtension on PresentationReceiver {
@@ -149,7 +141,6 @@ extension PresentationReceiverExtension on PresentationReceiver {
 
 @JS('PresentationConnectionList')
 @staticInterop
-@BcdStatus('standards-track, experimental', browsers: 'chrome')
 class PresentationConnectionList implements EventTarget {}
 
 extension PresentationConnectionListExtension on PresentationConnectionList {

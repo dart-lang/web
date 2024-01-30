@@ -6,11 +6,8 @@
 
 import 'dart:js_interop';
 
-import 'status.dart';
-
 @JS('WEBGL_lose_context')
 @staticInterop
-@BcdStatus('standards-track', browsers: 'chrome, firefox, safari')
 class WEBGL_lose_context {}
 
 extension WEBGLLoseContextExtension on WEBGL_lose_context {

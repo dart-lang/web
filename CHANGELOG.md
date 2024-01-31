@@ -6,6 +6,10 @@
 - Contribute a markdown file for the renamed classes from `dart:html` to
   `package:web` (see [renames.md](tool/renames.md)).
 - Migrate classes to use interop extension types that implement `JSObject`.
+- Add generics to APIs that use `JSArray` and `JSPromise`. Typedefs of a Dart
+  primitive type are instead replaced with their JS type equivalent if they
+  appear as a type parameter in order to conform with the type bounds of
+  `JSArray` and `JSPromise`.
 
 ## 0.4.2
 

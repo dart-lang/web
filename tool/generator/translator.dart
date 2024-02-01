@@ -804,7 +804,7 @@ class Translator {
     // private classes, and make their first character uppercase in the process.
     final dartClassName = isNamespace ? '\$${capitalize(jsName)}' : jsName;
 
-    final status = browserCompatData.interfaceFor(name);
+    final status = browserCompatData.retrieveInterfaceFor(name);
 
     // We create a getter for namespaces with the expected name. We also create
     // getters for a few pre-defined singleton classes.

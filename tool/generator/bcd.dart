@@ -24,6 +24,7 @@ class BrowserCompatData {
 
     final api = (jsonDecode(content) as Map)['api'] as Map<String, dynamic>;
     final interfaces = api.keys
+        // Remove non-symbol metadata (`__meta`, `__compat`, ...).
         .where((key) => !key.startsWith('_'))
         .map((key) => BCDInterfaceStatus(key, api[key] as Map<String, dynamic>))
         .toList();
@@ -37,7 +38,7 @@ class BrowserCompatData {
 
   BrowserCompatData(this.interfaces);
 
-  BCDInterfaceStatus? interfaceFor(String name) => interfaces[name];
+  BCDInterfaceStatus? retrieveInterfaceFor(String name) => interfaces[name];
 }
 
 class BCDInterfaceStatus extends BCDItem {
@@ -52,16 +53,13 @@ class BCDInterfaceStatus extends BCDItem {
     );
   }
 
-  BCDPropertyStatus? propertyFor(String name) => properties[name];
+  BCDPropertyStatus? retrievePropertyFor(String name) => properties[name];
 }
 
 class BCDPropertyStatus extends BCDItem {
   final BCDInterfaceStatus parent;
 
   BCDPropertyStatus(super.name, super.json, this.parent);
-
-  bool get statusDifferentFromParent =>
-      parent.statusDescription != statusDescription;
 }
 
 abstract class BCDItem {
@@ -85,11 +83,11 @@ abstract class BCDItem {
         if (experimental) 'experimental',
       ];
 
-  String get statusDescription => status.join(', ');
+  String get _statusDescription => status.join(', ');
 
-  bool get chromeSupported => _versionAdded('chrome');
-  bool get firefoxSupported => _versionAdded('firefox');
-  bool get safariSupported => _versionAdded('safari');
+  bool get chromeSupported => _supportedInBrowser('chrome');
+  bool get firefoxSupported => _supportedInBrowser('firefox');
+  bool get safariSupported => _supportedInBrowser('safari');
 
   List<String> get browsers => [
         if (chromeSupported) 'chrome',
@@ -97,11 +95,11 @@ abstract class BCDItem {
         if (safariSupported) 'safari',
       ];
 
-  String get browsersDescription => browsers.join(', ');
+  String get _browsersDescription => browsers.join(', ');
 
   int get browserCount => browsers.length;
 
-  bool _versionAdded(String browser) {
+  bool _supportedInBrowser(String browser) {
     final map = (_support[browser] is List
         ? (_support[browser] as List).first
         : _support[browser]) as Map<String, dynamic>;
@@ -117,5 +115,5 @@ abstract class BCDItem {
   }
 
   @override
-  String toString() => '$name ($browsersDescription) [$statusDescription]';
+  String toString() => '$name ($_browsersDescription) [$_statusDescription]';
 }

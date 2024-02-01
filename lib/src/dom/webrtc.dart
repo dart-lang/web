@@ -116,12 +116,12 @@ extension type RTCPeerConnection._(JSObject _)
     RTCIdentityProviderOptions options,
   ]);
   external JSPromise<JSString> getIdentityAssertion();
-  external JSPromise<RTCSessionDescriptionInit> createOffer([
+  external JSPromise<RTCSessionDescriptionInit?> createOffer([
     JSObject optionsOrSuccessCallback,
     RTCPeerConnectionErrorCallback failureCallback,
     RTCOfferOptions options,
   ]);
-  external JSPromise<RTCSessionDescriptionInit> createAnswer([
+  external JSPromise<RTCSessionDescriptionInit?> createAnswer([
     JSObject optionsOrSuccessCallback,
     RTCPeerConnectionErrorCallback failureCallback,
   ]);

@@ -106,9 +106,14 @@ _RawType? _getTypedefAsJsType(_RawType rawType) {
     switch (decl.type) {
       case 'typedef':
         return _getRawType((decl as idl.Typedef).idlType);
+      // TODO(srujzs): If we ever add a generic JS function type, we should
+      // maybe leverage that here so we have stronger type-checking of
+      // callbacks.
       case 'callback':
       case 'callback interface':
         return _RawType('JSFunction', false);
+      // TODO(srujzs): Enums in the WebIDL are just strings, but we could make
+      // them easier to work with on the Dart side.
       case 'enum':
         return _RawType('JSString', false);
       default:
@@ -164,7 +169,9 @@ _RawType _computeRawTypeUnion(_RawType rawType1, _RawType rawType2) {
           return _RawType('JSObject', nullable);
         default:
           final desugaredType = _getTypedefAsJsType(rawType);
-          if (desugaredType != null) return desugaredType;
+          if (desugaredType != null) {
+            return getTypeForUnionCalculation(desugaredType);
+          }
           throw Exception('Unhandled type $type with node type: $nodeType');
       }
     } else {
@@ -246,10 +253,10 @@ class _RawType {
   }
 
   void update(idl.IDLType idlType) {
-    final union = _computeRawTypeUnion(
-        _RawType(type, nullable, typeParameter), _getRawType(idlType));
+    final union = _computeRawTypeUnion(this, _getRawType(idlType));
     type = union.type;
     nullable = union.nullable;
+    typeParameter = union.typeParameter;
   }
 }
 
@@ -575,7 +582,6 @@ class Translator {
     var dartType = type.type;
     var nullable = type.nullable;
     var typeParameter = type.typeParameter;
-    final typeArguments = <code.TypeReference>[];
 
     if (onlyEmitInteropTypes) {
       // [type] is already an interop type, but we need to handle two cases:
@@ -608,6 +614,8 @@ class Translator {
       dartType = jsTypeToDartPrimitiveAliases[dartType] ?? dartType;
       if (dartType == 'void') nullable = false;
     }
+
+    final typeArguments = <code.TypeReference>[];
     if (typeParameter != null &&
         (dartType == 'JSArray' || dartType == 'JSPromise')) {
       typeArguments
@@ -914,17 +922,12 @@ class Translator {
       for (final typedef in library.typedefs)
         _typedef(
             typedef.name, _getTypedefAsJsType(_RawType(typedef.name, false))!),
-      // TODO(joshualitt): We should lower callbacks and callback interfaces to
-      // a Dart function that takes a typed Dart function, and returns an
-      // JSFunction.
       for (final callback in library.callbacks)
         _typedef(callback.name,
             _getTypedefAsJsType(_RawType(callback.name, false))!),
       for (final callbackInterface in library.callbackInterfaces)
         _typedef(callbackInterface.name,
             _getTypedefAsJsType(_RawType(callbackInterface.name, false))!),
-      // TODO(joshualitt): Enums in the WebIDL are just strings, but we could
-      // make them easier to work with on the Dart side.
       for (final enum_ in library.enums)
         _typedef(enum_.name, _getTypedefAsJsType(_RawType(enum_.name, false))!),
       for (final interfacelike in library.interfacelikes)

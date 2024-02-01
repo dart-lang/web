@@ -29,7 +29,7 @@ external $WebAssembly get WebAssembly;
 extension type $WebAssembly._(JSObject _) implements JSObject {
   external bool validate(BufferSource bytes);
   external JSPromise<Module> compile(BufferSource bytes);
-  external JSPromise<WebAssemblyInstantiatedSource> instantiate(
+  external JSPromise<JSObject> instantiate(
     JSObject bytesOrModuleObject, [
     JSObject importObject,
   ]);

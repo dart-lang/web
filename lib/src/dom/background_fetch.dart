@@ -9,27 +9,28 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'fetch.dart';
 import 'html.dart';
+import 'image_resource.dart';
 import 'service_workers.dart';
 
 typedef BackgroundFetchResult = String;
 typedef BackgroundFetchFailureReason = String;
 extension type BackgroundFetchManager._(JSObject _) implements JSObject {
-  external JSPromise fetch(
+  external JSPromise<BackgroundFetchRegistration> fetch(
     String id,
     JSAny requests, [
     BackgroundFetchOptions options,
   ]);
-  external JSPromise get(String id);
-  external JSPromise getIds();
+  external JSPromise<BackgroundFetchRegistration?> get(String id);
+  external JSPromise<JSArray<JSString>> getIds();
 }
 extension type BackgroundFetchUIOptions._(JSObject _) implements JSObject {
   external factory BackgroundFetchUIOptions({
-    JSArray icons,
+    JSArray<ImageResource> icons,
     String title,
   });
 
-  external set icons(JSArray value);
-  external JSArray get icons;
+  external set icons(JSArray<ImageResource> value);
+  external JSArray<ImageResource> get icons;
   external set title(String value);
   external String get title;
 }
@@ -42,12 +43,12 @@ extension type BackgroundFetchOptions._(JSObject _)
 }
 extension type BackgroundFetchRegistration._(JSObject _)
     implements EventTarget, JSObject {
-  external JSPromise abort();
-  external JSPromise match(
+  external JSPromise<JSBoolean> abort();
+  external JSPromise<BackgroundFetchRecord> match(
     RequestInfo request, [
     CacheQueryOptions options,
   ]);
-  external JSPromise matchAll([
+  external JSPromise<JSArray<BackgroundFetchRecord>> matchAll([
     RequestInfo request,
     CacheQueryOptions options,
   ]);
@@ -64,7 +65,7 @@ extension type BackgroundFetchRegistration._(JSObject _)
 }
 extension type BackgroundFetchRecord._(JSObject _) implements JSObject {
   external Request get request;
-  external JSPromise get responseReady;
+  external JSPromise<Response> get responseReady;
 }
 extension type BackgroundFetchEvent._(JSObject _)
     implements ExtendableEvent, JSObject {
@@ -90,5 +91,5 @@ extension type BackgroundFetchUpdateUIEvent._(JSObject _)
     BackgroundFetchEventInit init,
   );
 
-  external JSPromise updateUI([BackgroundFetchUIOptions options]);
+  external JSPromise<JSAny?> updateUI([BackgroundFetchUIOptions options]);
 }

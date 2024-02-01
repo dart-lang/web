@@ -8,6 +8,7 @@ import 'dart:js_interop';
 
 import 'hr_time.dart';
 import 'performance_timeline.dart';
+import 'server_timing.dart';
 
 typedef RenderBlockingStatusType = String;
 extension type PerformanceResourceTiming._(JSObject _)
@@ -35,5 +36,5 @@ extension type PerformanceResourceTiming._(JSObject _)
   external int get responseStatus;
   external RenderBlockingStatusType get renderBlockingStatus;
   external String get contentType;
-  external JSArray get serverTiming;
+  external JSArray<PerformanceServerTiming> get serverTiming;
 }

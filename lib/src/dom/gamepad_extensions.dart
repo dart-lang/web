@@ -12,15 +12,15 @@ typedef GamepadHapticActuatorType = String;
 typedef GamepadHapticEffectType = String;
 extension type GamepadHapticActuator._(JSObject _) implements JSObject {
   external bool canPlayEffectType(GamepadHapticEffectType type);
-  external JSPromise playEffect(
+  external JSPromise<JSString> playEffect(
     GamepadHapticEffectType type, [
     GamepadEffectParameters params,
   ]);
-  external JSPromise pulse(
+  external JSPromise<JSBoolean> pulse(
     num value,
     num duration,
   );
-  external JSPromise reset();
+  external JSPromise<JSString> reset();
   external GamepadHapticActuatorType get type;
 }
 extension type GamepadEffectParameters._(JSObject _) implements JSObject {

@@ -37,13 +37,14 @@ extension type ServiceWorker._(JSObject _) implements EventTarget, JSObject {
 }
 extension type ServiceWorkerRegistration._(JSObject _)
     implements EventTarget, JSObject {
-  external JSPromise showNotification(
+  external JSPromise<JSAny?> showNotification(
     String title, [
     NotificationOptions options,
   ]);
-  external JSPromise getNotifications([GetNotificationOptions filter]);
-  external JSPromise update();
-  external JSPromise unregister();
+  external JSPromise<JSArray<Notification>> getNotifications(
+      [GetNotificationOptions filter]);
+  external JSPromise<JSAny?> update();
+  external JSPromise<JSBoolean> unregister();
   external BackgroundFetchManager get backgroundFetch;
   external SyncManager get sync;
   external ContentIndex get index;
@@ -62,15 +63,16 @@ extension type ServiceWorkerRegistration._(JSObject _)
 }
 extension type ServiceWorkerContainer._(JSObject _)
     implements EventTarget, JSObject {
-  external JSPromise register(
+  external JSPromise<ServiceWorkerRegistration> register(
     String scriptURL, [
     RegistrationOptions options,
   ]);
-  external JSPromise getRegistration([String clientURL]);
-  external JSPromise getRegistrations();
+  external JSPromise<ServiceWorkerRegistration?> getRegistration(
+      [String clientURL]);
+  external JSPromise<JSArray<ServiceWorkerRegistration>> getRegistrations();
   external void startMessages();
   external ServiceWorker? get controller;
-  external JSPromise get ready;
+  external JSPromise<ServiceWorkerRegistration> get ready;
   external set oncontrollerchange(EventHandler value);
   external EventHandler get oncontrollerchange;
   external set onmessage(EventHandler value);
@@ -93,10 +95,10 @@ extension type RegistrationOptions._(JSObject _) implements JSObject {
   external ServiceWorkerUpdateViaCache get updateViaCache;
 }
 extension type NavigationPreloadManager._(JSObject _) implements JSObject {
-  external JSPromise enable();
-  external JSPromise disable();
-  external JSPromise setHeaderValue(String value);
-  external JSPromise getState();
+  external JSPromise<JSAny?> enable();
+  external JSPromise<JSAny?> disable();
+  external JSPromise<JSAny?> setHeaderValue(String value);
+  external JSPromise<NavigationPreloadState> getState();
 }
 extension type NavigationPreloadState._(JSObject _) implements JSObject {
   external factory NavigationPreloadState({
@@ -111,7 +113,7 @@ extension type NavigationPreloadState._(JSObject _) implements JSObject {
 }
 extension type ServiceWorkerGlobalScope._(JSObject _)
     implements WorkerGlobalScope, JSObject {
-  external JSPromise skipWaiting();
+  external JSPromise<JSAny?> skipWaiting();
   external set onbackgroundfetchsuccess(EventHandler value);
   external EventHandler get onbackgroundfetchsuccess;
   external set onbackgroundfetchfail(EventHandler value);
@@ -167,17 +169,17 @@ extension type Client._(JSObject _) implements JSObject {
   external ClientType get type;
 }
 extension type WindowClient._(JSObject _) implements Client, JSObject {
-  external JSPromise focus();
-  external JSPromise navigate(String url);
+  external JSPromise<WindowClient> focus();
+  external JSPromise<WindowClient?> navigate(String url);
   external DocumentVisibilityState get visibilityState;
   external bool get focused;
-  external JSArray get ancestorOrigins;
+  external JSArray<JSString> get ancestorOrigins;
 }
 extension type Clients._(JSObject _) implements JSObject {
-  external JSPromise get(String id);
-  external JSPromise matchAll([ClientQueryOptions options]);
-  external JSPromise openWindow(String url);
-  external JSPromise claim();
+  external JSPromise<Client?> get(String id);
+  external JSPromise<JSArray<Client>> matchAll([ClientQueryOptions options]);
+  external JSPromise<WindowClient?> openWindow(String url);
+  external JSPromise<JSAny?> claim();
 }
 extension type ClientQueryOptions._(JSObject _) implements JSObject {
   external factory ClientQueryOptions({
@@ -196,7 +198,7 @@ extension type ExtendableEvent._(JSObject _) implements Event, JSObject {
     ExtendableEventInit eventInitDict,
   ]);
 
-  external void waitUntil(JSPromise f);
+  external void waitUntil(JSPromise<JSAny?> f);
 }
 extension type ExtendableEventInit._(JSObject _)
     implements EventInit, JSObject {
@@ -208,37 +210,37 @@ extension type FetchEvent._(JSObject _) implements ExtendableEvent, JSObject {
     FetchEventInit eventInitDict,
   );
 
-  external void respondWith(JSPromise r);
+  external void respondWith(JSPromise<Response> r);
   external Request get request;
-  external JSPromise get preloadResponse;
+  external JSPromise<JSAny?> get preloadResponse;
   external String get clientId;
   external String get resultingClientId;
   external String get replacesClientId;
-  external JSPromise get handled;
+  external JSPromise<JSAny?> get handled;
 }
 extension type FetchEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
   external factory FetchEventInit({
     required Request request,
-    JSPromise preloadResponse,
+    JSPromise<JSAny?> preloadResponse,
     String clientId,
     String resultingClientId,
     String replacesClientId,
-    JSPromise handled,
+    JSPromise<JSAny?> handled,
   });
 
   external set request(Request value);
   external Request get request;
-  external set preloadResponse(JSPromise value);
-  external JSPromise get preloadResponse;
+  external set preloadResponse(JSPromise<JSAny?> value);
+  external JSPromise<JSAny?> get preloadResponse;
   external set clientId(String value);
   external String get clientId;
   external set resultingClientId(String value);
   external String get resultingClientId;
   external set replacesClientId(String value);
   external String get replacesClientId;
-  external set handled(JSPromise value);
-  external JSPromise get handled;
+  external set handled(JSPromise<JSAny?> value);
+  external JSPromise<JSAny?> get handled;
 }
 extension type ExtendableMessageEvent._(JSObject _)
     implements ExtendableEvent, JSObject {
@@ -251,7 +253,7 @@ extension type ExtendableMessageEvent._(JSObject _)
   external String get origin;
   external String get lastEventId;
   external JSObject? get source;
-  external JSArray get ports;
+  external JSArray<MessagePort> get ports;
 }
 extension type ExtendableMessageEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
@@ -260,7 +262,7 @@ extension type ExtendableMessageEventInit._(JSObject _)
     String origin,
     String lastEventId,
     JSObject? source,
-    JSArray ports,
+    JSArray<MessagePort> ports,
   });
 
   external set data(JSAny? value);
@@ -271,29 +273,29 @@ extension type ExtendableMessageEventInit._(JSObject _)
   external String get lastEventId;
   external set source(JSObject? value);
   external JSObject? get source;
-  external set ports(JSArray value);
-  external JSArray get ports;
+  external set ports(JSArray<MessagePort> value);
+  external JSArray<MessagePort> get ports;
 }
 extension type Cache._(JSObject _) implements JSObject {
-  external JSPromise match(
+  external JSPromise<Response?> match(
     RequestInfo request, [
     CacheQueryOptions options,
   ]);
-  external JSPromise matchAll([
+  external JSPromise<JSArray<Response>> matchAll([
     RequestInfo request,
     CacheQueryOptions options,
   ]);
-  external JSPromise add(RequestInfo request);
-  external JSPromise addAll(JSArray requests);
-  external JSPromise put(
+  external JSPromise<JSAny?> add(RequestInfo request);
+  external JSPromise<JSAny?> addAll(JSArray<RequestInfo> requests);
+  external JSPromise<JSAny?> put(
     RequestInfo request,
     Response response,
   );
-  external JSPromise delete(
+  external JSPromise<JSBoolean> delete(
     RequestInfo request, [
     CacheQueryOptions options,
   ]);
-  external JSPromise keys([
+  external JSPromise<JSArray<Request>> keys([
     RequestInfo request,
     CacheQueryOptions options,
   ]);
@@ -313,14 +315,14 @@ extension type CacheQueryOptions._(JSObject _) implements JSObject {
   external bool get ignoreVary;
 }
 extension type CacheStorage._(JSObject _) implements JSObject {
-  external JSPromise match(
+  external JSPromise<Response?> match(
     RequestInfo request, [
     MultiCacheQueryOptions options,
   ]);
-  external JSPromise has(String cacheName);
-  external JSPromise open(String cacheName);
-  external JSPromise delete(String cacheName);
-  external JSPromise keys();
+  external JSPromise<JSBoolean> has(String cacheName);
+  external JSPromise<Cache> open(String cacheName);
+  external JSPromise<JSBoolean> delete(String cacheName);
+  external JSPromise<JSArray<JSString>> keys();
 }
 extension type MultiCacheQueryOptions._(JSObject _)
     implements CacheQueryOptions, JSObject {

@@ -8,11 +8,12 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
+import 'keyboard_map.dart';
 
 extension type Keyboard._(JSObject _) implements EventTarget, JSObject {
-  external JSPromise lock([JSArray keyCodes]);
+  external JSPromise<JSAny?> lock([JSArray<JSString> keyCodes]);
   external void unlock();
-  external JSPromise getLayoutMap();
+  external JSPromise<KeyboardLayoutMap> getLayoutMap();
   external set onlayoutchange(EventHandler value);
   external EventHandler get onlayoutchange;
 }

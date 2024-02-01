@@ -14,7 +14,7 @@ extension type AuctionAd._(JSObject _) implements JSObject {
     JSAny? metadata,
     String buyerReportingId,
     String buyerAndSellerReportingId,
-    JSArray allowedReportingOrigins,
+    JSArray<JSString> allowedReportingOrigins,
   });
 
   external set renderURL(String value);
@@ -25,8 +25,8 @@ extension type AuctionAd._(JSObject _) implements JSObject {
   external String get buyerReportingId;
   external set buyerAndSellerReportingId(String value);
   external String get buyerAndSellerReportingId;
-  external set allowedReportingOrigins(JSArray value);
-  external JSArray get allowedReportingOrigins;
+  external set allowedReportingOrigins(JSArray<JSString> value);
+  external JSArray<JSString> get allowedReportingOrigins;
 }
 extension type GenerateBidInterestGroup._(JSObject _) implements JSObject {
   external factory GenerateBidInterestGroup({
@@ -40,10 +40,10 @@ extension type GenerateBidInterestGroup._(JSObject _) implements JSObject {
     String biddingWasmHelperURL,
     String updateURL,
     String trustedBiddingSignalsURL,
-    JSArray trustedBiddingSignalsKeys,
+    JSArray<JSString> trustedBiddingSignalsKeys,
     JSAny? userBiddingSignals,
-    JSArray ads,
-    JSArray adComponents,
+    JSArray<AuctionAd> ads,
+    JSArray<AuctionAd> adComponents,
   });
 
   external set owner(String value);
@@ -66,14 +66,14 @@ extension type GenerateBidInterestGroup._(JSObject _) implements JSObject {
   external String get updateURL;
   external set trustedBiddingSignalsURL(String value);
   external String get trustedBiddingSignalsURL;
-  external set trustedBiddingSignalsKeys(JSArray value);
-  external JSArray get trustedBiddingSignalsKeys;
+  external set trustedBiddingSignalsKeys(JSArray<JSString> value);
+  external JSArray<JSString> get trustedBiddingSignalsKeys;
   external set userBiddingSignals(JSAny? value);
   external JSAny? get userBiddingSignals;
-  external set ads(JSArray value);
-  external JSArray get ads;
-  external set adComponents(JSArray value);
-  external JSArray get adComponents;
+  external set ads(JSArray<AuctionAd> value);
+  external JSArray<AuctionAd> get ads;
+  external set adComponents(JSArray<AuctionAd> value);
+  external JSArray<AuctionAd> get adComponents;
 }
 extension type AuctionAdInterestGroup._(JSObject _)
     implements GenerateBidInterestGroup, JSObject {
@@ -103,22 +103,22 @@ extension type AuctionAdConfig._(JSObject _) implements JSObject {
     required String seller,
     required String decisionLogicURL,
     String trustedScoringSignalsURL,
-    JSArray interestGroupBuyers,
-    JSPromise auctionSignals,
-    JSPromise sellerSignals,
-    JSPromise directFromSellerSignals,
+    JSArray<JSString> interestGroupBuyers,
+    JSPromise<JSAny?> auctionSignals,
+    JSPromise<JSAny?> sellerSignals,
+    JSPromise<JSString> directFromSellerSignals,
     int sellerTimeout,
     int sellerExperimentGroupId,
     String sellerCurrency,
-    JSPromise perBuyerSignals,
-    JSPromise perBuyerTimeouts,
+    JSPromise<JSAny> perBuyerSignals,
+    JSPromise<JSAny> perBuyerTimeouts,
     JSAny perBuyerGroupLimits,
     JSAny perBuyerExperimentGroupIds,
     JSAny perBuyerPrioritySignals,
-    JSPromise perBuyerCurrencies,
-    JSArray componentAuctions,
+    JSPromise<JSAny> perBuyerCurrencies,
+    JSArray<AuctionAdConfig> componentAuctions,
     AbortSignal? signal,
-    JSPromise resolveToConfig,
+    JSPromise<JSBoolean> resolveToConfig,
   });
 
   external set seller(String value);
@@ -127,38 +127,38 @@ extension type AuctionAdConfig._(JSObject _) implements JSObject {
   external String get decisionLogicURL;
   external set trustedScoringSignalsURL(String value);
   external String get trustedScoringSignalsURL;
-  external set interestGroupBuyers(JSArray value);
-  external JSArray get interestGroupBuyers;
-  external set auctionSignals(JSPromise value);
-  external JSPromise get auctionSignals;
-  external set sellerSignals(JSPromise value);
-  external JSPromise get sellerSignals;
-  external set directFromSellerSignals(JSPromise value);
-  external JSPromise get directFromSellerSignals;
+  external set interestGroupBuyers(JSArray<JSString> value);
+  external JSArray<JSString> get interestGroupBuyers;
+  external set auctionSignals(JSPromise<JSAny?> value);
+  external JSPromise<JSAny?> get auctionSignals;
+  external set sellerSignals(JSPromise<JSAny?> value);
+  external JSPromise<JSAny?> get sellerSignals;
+  external set directFromSellerSignals(JSPromise<JSString> value);
+  external JSPromise<JSString> get directFromSellerSignals;
   external set sellerTimeout(int value);
   external int get sellerTimeout;
   external set sellerExperimentGroupId(int value);
   external int get sellerExperimentGroupId;
   external set sellerCurrency(String value);
   external String get sellerCurrency;
-  external set perBuyerSignals(JSPromise value);
-  external JSPromise get perBuyerSignals;
-  external set perBuyerTimeouts(JSPromise value);
-  external JSPromise get perBuyerTimeouts;
+  external set perBuyerSignals(JSPromise<JSAny> value);
+  external JSPromise<JSAny> get perBuyerSignals;
+  external set perBuyerTimeouts(JSPromise<JSAny> value);
+  external JSPromise<JSAny> get perBuyerTimeouts;
   external set perBuyerGroupLimits(JSAny value);
   external JSAny get perBuyerGroupLimits;
   external set perBuyerExperimentGroupIds(JSAny value);
   external JSAny get perBuyerExperimentGroupIds;
   external set perBuyerPrioritySignals(JSAny value);
   external JSAny get perBuyerPrioritySignals;
-  external set perBuyerCurrencies(JSPromise value);
-  external JSPromise get perBuyerCurrencies;
-  external set componentAuctions(JSArray value);
-  external JSArray get componentAuctions;
+  external set perBuyerCurrencies(JSPromise<JSAny> value);
+  external JSPromise<JSAny> get perBuyerCurrencies;
+  external set componentAuctions(JSArray<AuctionAdConfig> value);
+  external JSArray<AuctionAdConfig> get componentAuctions;
   external set signal(AbortSignal? value);
   external AbortSignal? get signal;
-  external set resolveToConfig(JSPromise value);
-  external JSPromise get resolveToConfig;
+  external set resolveToConfig(JSPromise<JSBoolean> value);
+  external JSPromise<JSBoolean> get resolveToConfig;
 }
 extension type InterestGroupScriptRunnerGlobalScope._(JSObject _)
     implements JSObject {}
@@ -191,7 +191,7 @@ extension type GenerateBidOutput._(JSObject _) implements JSObject {
     String bidCurrency,
     JSAny render,
     JSAny? ad,
-    JSArray adComponents,
+    JSArray<JSAny> adComponents,
     num adCost,
     num modelingSignals,
     bool allowComponentAuction,
@@ -205,8 +205,8 @@ extension type GenerateBidOutput._(JSObject _) implements JSObject {
   external JSAny get render;
   external set ad(JSAny? value);
   external JSAny? get ad;
-  external set adComponents(JSArray value);
-  external JSArray get adComponents;
+  external set adComponents(JSArray<JSAny> value);
+  external JSArray<JSAny> get adComponents;
   external set adCost(num value);
   external num get adCost;
   external set modelingSignals(num value);
@@ -244,7 +244,7 @@ extension type BiddingBrowserSignals._(JSObject _) implements JSObject {
     required int bidCount,
     required int recency,
     String topLevelSeller,
-    JSArray prevWinsMs,
+    JSArray<PreviousWin> prevWinsMs,
     JSObject wasmHelper,
     int dataVersion,
   });
@@ -261,8 +261,8 @@ extension type BiddingBrowserSignals._(JSObject _) implements JSObject {
   external int get recency;
   external set topLevelSeller(String value);
   external String get topLevelSeller;
-  external set prevWinsMs(JSArray value);
-  external JSArray get prevWinsMs;
+  external set prevWinsMs(JSArray<PreviousWin> value);
+  external JSArray<PreviousWin> get prevWinsMs;
   external set wasmHelper(JSObject value);
   external JSObject get wasmHelper;
   external set dataVersion(int value);
@@ -276,7 +276,7 @@ extension type ScoringBrowserSignals._(JSObject _) implements JSObject {
     required int biddingDurationMsec,
     required String bidCurrency,
     int dataVersion,
-    JSArray adComponents,
+    JSArray<JSString> adComponents,
   });
 
   external set topWindowHostname(String value);
@@ -291,8 +291,8 @@ extension type ScoringBrowserSignals._(JSObject _) implements JSObject {
   external String get bidCurrency;
   external set dataVersion(int value);
   external int get dataVersion;
-  external set adComponents(JSArray value);
-  external JSArray get adComponents;
+  external set adComponents(JSArray<JSString> value);
+  external JSArray<JSString> get adComponents;
 }
 extension type ReportingBrowserSignals._(JSObject _) implements JSObject {
   external factory ReportingBrowserSignals({

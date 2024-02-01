@@ -34,5 +34,5 @@ extension type WorkletAnimation._(JSObject _) implements Animation, JSObject {
   external String get animatorName;
 }
 extension type WorkletGroupEffect._(JSObject _) implements JSObject {
-  external JSArray getChildren();
+  external JSArray<WorkletAnimationEffect> getChildren();
 }

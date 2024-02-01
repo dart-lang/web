@@ -96,17 +96,56 @@ class _Library {
   }
 }
 
+/// If [rawType] corresponds to an IDL type that we declare as a typedef,
+/// desugars the typedef and returns the JS type equivalent.
+///
+/// Otherwise, returns null.
+_RawType? _getTypedefAsJsType(_RawType rawType) {
+  final decl = Translator.instance!._typeToDeclaration[rawType.type];
+  if (decl != null) {
+    switch (decl.type) {
+      case 'typedef':
+        return _getRawType((decl as idl.Typedef).idlType);
+      // TODO(srujzs): If we ever add a generic JS function type, we should
+      // maybe leverage that here so we have stronger type-checking of
+      // callbacks.
+      case 'callback':
+      case 'callback interface':
+        return _RawType('JSFunction', false);
+      // TODO(srujzs): Enums in the WebIDL are just strings, but we could make
+      // them easier to work with on the Dart side.
+      case 'enum':
+        return _RawType('JSString', false);
+      default:
+        return null;
+    }
+  }
+  return null;
+}
+
 _RawType _computeRawTypeUnion(_RawType rawType1, _RawType rawType2) {
   final type1 = rawType1.type;
   final type2 = rawType2.type;
   final nullable1 = rawType1.nullable;
   final nullable2 = rawType2.nullable;
+  final typeParam1 = rawType1.typeParameter;
+  final typeParam2 = rawType2.typeParameter;
+
+  // If either type parameter is null, then the resulting union can never be a
+  // generic type, so return null.
+  _RawType? computeTypeParamUnion(_RawType? typeParam1, _RawType? typeParam2) =>
+      typeParam1 != null && typeParam2 != null
+          ? _computeRawTypeUnion(typeParam1, typeParam2)
+          : null;
 
   // Equality.
-  if (type1 == type2) return _RawType(type1, nullable1 || nullable2);
+  if (type1 == type2) {
+    return _RawType(type1, nullable1 || nullable2,
+        computeTypeParamUnion(typeParam1, typeParam2));
+  }
   // This sentinel is only for nullability.
-  if (type1 == 'JSUndefined') return _RawType(type2, true);
-  if (type2 == 'JSUndefined') return _RawType(type1, true);
+  if (type1 == 'JSUndefined') return _RawType(type2, true, typeParam2);
+  if (type2 == 'JSUndefined') return _RawType(type1, true, typeParam1);
   // If the two types are not equal, we can just use `JSNumber` as the union can
   // never be `JSInteger` or `JSDouble` anyways.
   if (type1 == 'JSInteger' || type1 == 'JSDouble') rawType1.type = 'JSNumber';
@@ -115,8 +154,8 @@ _RawType _computeRawTypeUnion(_RawType rawType1, _RawType rawType2) {
   // In the case of unions, we should try and get a JS type-able type to get a
   // better LUB.
   _RawType getTypeForUnionCalculation(_RawType rawType) {
-    var type = rawType.type;
-    var nullable = rawType.nullable;
+    final type = rawType.type;
+    final nullable = rawType.nullable;
     final decl = Translator.instance!._typeToDeclaration[type];
     if (decl != null) {
       final nodeType = decl.type;
@@ -127,25 +166,17 @@ _RawType _computeRawTypeUnion(_RawType rawType1, _RawType rawType2) {
           // we get a possible interface name instead of `JSObject`), but that
           // might be too much effort for too little reward. This would entail
           // caching the hierarchy of IDL types.
-          type = 'JSObject';
-          break;
-        case 'typedef':
-          final desugared = getTypeForUnionCalculation(
-              _getRawType((decl as idl.Typedef).idlType));
-          type = desugared.type;
-          nullable = desugared.nullable;
-          break;
-        case 'callback':
-          type = 'JSFunction';
-          break;
-        case 'enum':
-          type = 'JSString';
-          break;
+          return _RawType('JSObject', nullable);
         default:
+          final desugaredType = _getTypedefAsJsType(rawType);
+          if (desugaredType != null) {
+            return getTypeForUnionCalculation(desugaredType);
+          }
           throw Exception('Unhandled type $type with node type: $nodeType');
       }
+    } else {
+      return _RawType(type, nullable, rawType.typeParameter);
     }
-    return _RawType(type, nullable);
   }
 
   final unionableType1 = getTypeForUnionCalculation(rawType1);
@@ -154,7 +185,9 @@ _RawType _computeRawTypeUnion(_RawType rawType1, _RawType rawType2) {
   // We choose `JSAny` if they're not both JS types.
   return _RawType(
       computeJsTypeUnion(unionableType1.type, unionableType2.type) ?? 'JSAny',
-      unionableType1.nullable || unionableType2.nullable);
+      unionableType1.nullable || unionableType2.nullable,
+      computeTypeParamUnion(
+          unionableType1.typeParameter, unionableType2.typeParameter));
 }
 
 /// Returns a [_RawType] for the given [idl.IDLType].
@@ -170,6 +203,7 @@ _RawType _getRawType(idl.IDLType idlType) {
   }
   String type;
   var nullable = idlType.nullable;
+  _RawType? typeParameter;
   if (idlType.generic.isNotEmpty) {
     // TODO(srujzs): Once we have a generic `JSArray` and `JSPromise`, we should
     // add these type parameters in. We need to be careful, however, as we
@@ -177,6 +211,13 @@ _RawType _getRawType(idl.IDLType idlType) {
     // either because it is an interface or a typedef. We also need to make sure
     // to convert type aliases that are Dart types back to JS types e.g.
     // `String` should be `JSString`.
+    final types = (idlType.idlType as JSArray).toDart;
+    if (types.length == 1) {
+      typeParameter = _getRawType(types[0] as idl.IDLType);
+    } else if (types.length > 1) {
+      assert(types.length == 2);
+      assert(idlType.generic == 'record');
+    }
     type = idlType.generic;
   } else {
     type = (idlType.idlType as JSString).toDart;
@@ -191,7 +232,8 @@ _RawType _getRawType(idl.IDLType idlType) {
   // `any` is marked non-nullable in the IDL, but since it is a union of
   // `undefined`, it can be nullable for our purposes.
   if (type == 'any') nullable = true;
-  return _RawType(idlOrBuiltinToJsTypeAliases[type] ?? type, nullable);
+  return _RawType(
+      idlOrBuiltinToJsTypeAliases[type] ?? type, nullable, typeParameter);
 }
 
 /// A class representing either a type that corresponds to an IDL declaration or
@@ -202,18 +244,19 @@ _RawType _getRawType(idl.IDLType idlType) {
 class _RawType {
   String type;
   bool nullable;
+  _RawType? typeParameter;
 
-  _RawType(this.type, this.nullable) {
+  _RawType(this.type, this.nullable, [this.typeParameter]) {
     // While the IDL does not define `undefined` as nullable, it is treated as
     // null in interop.
     if (type == 'JSUndefined') nullable = true;
   }
 
   void update(idl.IDLType idlType) {
-    final union =
-        _computeRawTypeUnion(_RawType(type, nullable), _getRawType(idlType));
+    final union = _computeRawTypeUnion(this, _getRawType(idlType));
     type = union.type;
     nullable = union.nullable;
+    typeParameter = union.typeParameter;
   }
 }
 
@@ -530,21 +573,54 @@ class Translator {
 
   // Given a raw type, convert it to the Dart type that will be emitted by the
   // translator.
-  code.TypeReference _typeReference(_RawType type) {
+  //
+  // If [onlyEmitInteropTypes] is true, we don't convert to Dart primitives but
+  // rather only emit a valid interop type. This is used for type arguments as
+  // they are bound to `JSAny?`.
+  code.TypeReference _typeReference(_RawType type,
+      {bool onlyEmitInteropTypes = false}) {
     var dartType = type.type;
     var nullable = type.nullable;
+    var typeParameter = type.typeParameter;
 
-    // Convert JS types to primitives.
-    dartType = switch (dartType) {
-      'JSBoolean' => 'bool',
-      'JSString' => 'String',
-      'JSInteger' => 'int',
-      'JSDouble' => 'num',
-      'JSNumber' => 'num',
-      'JSUndefined' => 'void',
-      _ => dartType,
-    };
-    if (dartType == 'void') nullable = false;
+    if (onlyEmitInteropTypes) {
+      // [type] is already an interop type, but we need to handle two cases:
+      // 1. Types that we declare as typedefs. In the case where they are
+      // aliased to a type that we would declare as a Dart primitive, we need to
+      // use the JS type equivalent and not the typedef name.
+      // 2. Sentinels in our type aliases that aren't actually JS types.
+
+      // TODO(srujzs): Some of these typedefs definitions may end up being
+      // unused as they were ever only used in a generic. Should we delete them
+      // or does it provide value to users?
+      final rawType = _getTypedefAsJsType(type);
+      if (rawType != null &&
+          jsTypeToDartPrimitiveAliases.containsKey(rawType.type)) {
+        dartType = rawType.type;
+        nullable = rawType.nullable;
+        typeParameter = rawType.typeParameter;
+      }
+      dartType = switch (dartType) {
+        'JSInteger' => 'JSNumber',
+        'JSDouble' => 'JSNumber',
+        // When the result is `undefined`, we use `JSAny?`. We explicitly
+        // declare `JSUndefined` `_RawType`s to be nullable, so no need to set
+        // nullable.
+        'JSUndefined' => 'JSAny',
+        _ => dartType,
+      };
+    } else {
+      // Convert JS types to primitives.
+      dartType = jsTypeToDartPrimitiveAliases[dartType] ?? dartType;
+      if (dartType == 'void') nullable = false;
+    }
+
+    final typeArguments = <code.TypeReference>[];
+    if (typeParameter != null &&
+        (dartType == 'JSArray' || dartType == 'JSPromise')) {
+      typeArguments
+          .add(_typeReference(typeParameter, onlyEmitInteropTypes: true));
+    }
     // Unfortunately, `code_builder` doesn't know the url of the library we are
     // emitting, so we have to remove it here to avoid importing ourselves.
     var url = _typeToLibrary[dartType]?.url;
@@ -563,6 +639,7 @@ class Translator {
     return code.TypeReference((b) => b
       ..symbol = dartType
       ..isNullable = nullable
+      ..types.addAll(typeArguments)
       ..url = url);
   }
 
@@ -843,18 +920,16 @@ class Translator {
     ..generatedByComment = generatedFileDisclaimer
     ..body.addAll([
       for (final typedef in library.typedefs)
-        _typedef(typedef.name, _getRawType(typedef.idlType)),
-      // TODO(joshualitt): We should lower callbacks and callback interfaces to
-      // a Dart function that takes a typed Dart function, and returns an
-      // JSFunction.
+        _typedef(
+            typedef.name, _getTypedefAsJsType(_RawType(typedef.name, false))!),
       for (final callback in library.callbacks)
-        _typedef(callback.name, _RawType('JSFunction', false)),
+        _typedef(callback.name,
+            _getTypedefAsJsType(_RawType(callback.name, false))!),
       for (final callbackInterface in library.callbackInterfaces)
-        _typedef(callbackInterface.name, _RawType('JSFunction', false)),
-      // TODO(joshualitt): Enums in the WebIDL are just strings, but we could
-      // make them easier to work with on the Dart side.
+        _typedef(callbackInterface.name,
+            _getTypedefAsJsType(_RawType(callbackInterface.name, false))!),
       for (final enum_ in library.enums)
-        _typedef(enum_.name, _RawType('String', false)),
+        _typedef(enum_.name, _getTypedefAsJsType(_RawType(enum_.name, false))!),
       for (final interfacelike in library.interfacelikes)
         ..._interfacelike(interfacelike),
     ]));

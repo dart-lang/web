@@ -12,7 +12,7 @@ import 'geometry.dart';
 
 extension type CSSPseudoElement._(JSObject _) implements EventTarget, JSObject {
   external CSSPseudoElement? pseudo(String type);
-  external JSArray getBoxQuads([BoxQuadOptions options]);
+  external JSArray<DOMQuad> getBoxQuads([BoxQuadOptions options]);
   external DOMQuad convertQuadFromNode(
     DOMQuadInit quad,
     GeometryNode from, [

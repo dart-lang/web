@@ -7,6 +7,7 @@
 import 'dart:js_interop';
 
 import 'file_system_access.dart';
+import 'fileapi.dart';
 import 'streams.dart';
 import 'webidl.dart';
 
@@ -14,11 +15,11 @@ typedef FileSystemWriteChunkType = JSAny;
 typedef FileSystemHandleKind = String;
 typedef WriteCommandType = String;
 extension type FileSystemHandle._(JSObject _) implements JSObject {
-  external JSPromise queryPermission(
+  external JSPromise<JSString> queryPermission(
       [FileSystemHandlePermissionDescriptor descriptor]);
-  external JSPromise requestPermission(
+  external JSPromise<JSString> requestPermission(
       [FileSystemHandlePermissionDescriptor descriptor]);
-  external JSPromise isSameEntry(FileSystemHandle other);
+  external JSPromise<JSBoolean> isSameEntry(FileSystemHandle other);
   external FileSystemHandleKind get kind;
   external String get name;
 }
@@ -31,9 +32,10 @@ extension type FileSystemCreateWritableOptions._(JSObject _)
 }
 extension type FileSystemFileHandle._(JSObject _)
     implements FileSystemHandle, JSObject {
-  external JSPromise getFile();
-  external JSPromise createWritable([FileSystemCreateWritableOptions options]);
-  external JSPromise createSyncAccessHandle();
+  external JSPromise<File> getFile();
+  external JSPromise<FileSystemWritableFileStream> createWritable(
+      [FileSystemCreateWritableOptions options]);
+  external JSPromise<FileSystemSyncAccessHandle> createSyncAccessHandle();
 }
 extension type FileSystemGetFileOptions._(JSObject _) implements JSObject {
   external factory FileSystemGetFileOptions({bool create});
@@ -55,19 +57,20 @@ extension type FileSystemRemoveOptions._(JSObject _) implements JSObject {
 }
 extension type FileSystemDirectoryHandle._(JSObject _)
     implements FileSystemHandle, JSObject {
-  external JSPromise getFileHandle(
+  external JSPromise<FileSystemFileHandle> getFileHandle(
     String name, [
     FileSystemGetFileOptions options,
   ]);
-  external JSPromise getDirectoryHandle(
+  external JSPromise<FileSystemDirectoryHandle> getDirectoryHandle(
     String name, [
     FileSystemGetDirectoryOptions options,
   ]);
-  external JSPromise removeEntry(
+  external JSPromise<JSAny?> removeEntry(
     String name, [
     FileSystemRemoveOptions options,
   ]);
-  external JSPromise resolve(FileSystemHandle possibleDescendant);
+  external JSPromise<JSArray<JSString>?> resolve(
+      FileSystemHandle possibleDescendant);
 }
 extension type WriteParams._(JSObject _) implements JSObject {
   external factory WriteParams({
@@ -88,9 +91,9 @@ extension type WriteParams._(JSObject _) implements JSObject {
 }
 extension type FileSystemWritableFileStream._(JSObject _)
     implements WritableStream, JSObject {
-  external JSPromise write(FileSystemWriteChunkType data);
-  external JSPromise seek(int position);
-  external JSPromise truncate(int size);
+  external JSPromise<JSAny?> write(FileSystemWriteChunkType data);
+  external JSPromise<JSAny?> seek(int position);
+  external JSPromise<JSAny?> truncate(int size);
 }
 extension type FileSystemReadWriteOptions._(JSObject _) implements JSObject {
   external factory FileSystemReadWriteOptions({int at});

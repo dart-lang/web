@@ -10,7 +10,7 @@ import 'dom.dart';
 import 'pointerevents.dart';
 
 extension type Ink._(JSObject _) implements JSObject {
-  external JSPromise requestPresenter([InkPresenterParam param]);
+  external JSPromise<InkPresenter> requestPresenter([InkPresenterParam param]);
 }
 extension type InkPresenterParam._(JSObject _) implements JSObject {
   external factory InkPresenterParam({Element? presentationArea});

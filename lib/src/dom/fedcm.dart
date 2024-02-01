@@ -16,12 +16,12 @@ extension type IdentityCredential._(JSObject _)
 extension type IdentityCredentialRequestOptions._(JSObject _)
     implements JSObject {
   external factory IdentityCredentialRequestOptions({
-    required JSArray providers,
+    required JSArray<IdentityProviderConfig> providers,
     IdentityCredentialRequestOptionsContext context,
   });
 
-  external set providers(JSArray value);
-  external JSArray get providers;
+  external set providers(JSArray<IdentityProviderConfig> value);
+  external JSArray<IdentityProviderConfig> get providers;
   external set context(IdentityCredentialRequestOptionsContext value);
   external IdentityCredentialRequestOptionsContext get context;
 }
@@ -43,10 +43,11 @@ extension type IdentityProviderConfig._(JSObject _) implements JSObject {
   external String get loginHint;
 }
 extension type IdentityProviderWellKnown._(JSObject _) implements JSObject {
-  external factory IdentityProviderWellKnown({required JSArray provider_urls});
+  external factory IdentityProviderWellKnown(
+      {required JSArray<JSString> provider_urls});
 
-  external set provider_urls(JSArray value);
-  external JSArray get provider_urls;
+  external set provider_urls(JSArray<JSString> value);
+  external JSArray<JSString> get provider_urls;
 }
 extension type IdentityProviderIcon._(JSObject _) implements JSObject {
   external factory IdentityProviderIcon({
@@ -63,7 +64,7 @@ extension type IdentityProviderBranding._(JSObject _) implements JSObject {
   external factory IdentityProviderBranding({
     String background_color,
     String color,
-    JSArray icons,
+    JSArray<IdentityProviderIcon> icons,
     String name,
   });
 
@@ -71,8 +72,8 @@ extension type IdentityProviderBranding._(JSObject _) implements JSObject {
   external String get background_color;
   external set color(String value);
   external String get color;
-  external set icons(JSArray value);
-  external JSArray get icons;
+  external set icons(JSArray<IdentityProviderIcon> value);
+  external JSArray<IdentityProviderIcon> get icons;
   external set name(String value);
   external String get name;
 }
@@ -100,8 +101,8 @@ extension type IdentityProviderAccount._(JSObject _) implements JSObject {
     required String email,
     String given_name,
     String picture,
-    JSArray approved_clients,
-    JSArray login_hints,
+    JSArray<JSString> approved_clients,
+    JSArray<JSString> login_hints,
   });
 
   external set id(String value);
@@ -114,16 +115,17 @@ extension type IdentityProviderAccount._(JSObject _) implements JSObject {
   external String get given_name;
   external set picture(String value);
   external String get picture;
-  external set approved_clients(JSArray value);
-  external JSArray get approved_clients;
-  external set login_hints(JSArray value);
-  external JSArray get login_hints;
+  external set approved_clients(JSArray<JSString> value);
+  external JSArray<JSString> get approved_clients;
+  external set login_hints(JSArray<JSString> value);
+  external JSArray<JSString> get login_hints;
 }
 extension type IdentityProviderAccountList._(JSObject _) implements JSObject {
-  external factory IdentityProviderAccountList({JSArray accounts});
+  external factory IdentityProviderAccountList(
+      {JSArray<IdentityProviderAccount> accounts});
 
-  external set accounts(JSArray value);
-  external JSArray get accounts;
+  external set accounts(JSArray<IdentityProviderAccount> value);
+  external JSArray<IdentityProviderAccount> get accounts;
 }
 extension type IdentityProviderToken._(JSObject _) implements JSObject {
   external factory IdentityProviderToken({required String token});
@@ -161,5 +163,6 @@ extension type IdentityUserInfo._(JSObject _) implements JSObject {
   external String get picture;
 }
 extension type IdentityProvider._(JSObject _) implements JSObject {
-  external static JSPromise getUserInfo(IdentityProviderConfig config);
+  external static JSPromise<JSArray<IdentityUserInfo>> getUserInfo(
+      IdentityProviderConfig config);
 }

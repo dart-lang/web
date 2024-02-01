@@ -6,6 +6,7 @@
 
 import 'dart:js_interop';
 
+import 'image_resource.dart';
 import 'service_workers.dart';
 
 typedef ContentCategory = String;
@@ -15,7 +16,7 @@ extension type ContentDescription._(JSObject _) implements JSObject {
     required String title,
     required String description,
     ContentCategory category,
-    JSArray icons,
+    JSArray<ImageResource> icons,
     required String url,
   });
 
@@ -27,15 +28,15 @@ extension type ContentDescription._(JSObject _) implements JSObject {
   external String get description;
   external set category(ContentCategory value);
   external ContentCategory get category;
-  external set icons(JSArray value);
-  external JSArray get icons;
+  external set icons(JSArray<ImageResource> value);
+  external JSArray<ImageResource> get icons;
   external set url(String value);
   external String get url;
 }
 extension type ContentIndex._(JSObject _) implements JSObject {
-  external JSPromise add(ContentDescription description);
-  external JSPromise delete(String id);
-  external JSPromise getAll();
+  external JSPromise<JSAny?> add(ContentDescription description);
+  external JSPromise<JSAny?> delete(String id);
+  external JSPromise<JSArray<ContentDescription>> getAll();
 }
 extension type ContentIndexEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {

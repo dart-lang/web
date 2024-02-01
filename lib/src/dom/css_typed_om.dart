@@ -23,14 +23,14 @@ extension type CSSStyleValue._(JSObject _) implements JSObject {
     String property,
     String cssText,
   );
-  external static JSArray parseAll(
+  external static JSArray<CSSStyleValue> parseAll(
     String property,
     String cssText,
   );
 }
 extension type StylePropertyMapReadOnly._(JSObject _) implements JSObject {
   external CSSStyleValue? get(String property);
-  external JSArray getAll(String property);
+  external JSArray<CSSStyleValue> getAll(String property);
   external bool has(String property);
   external int get size;
 }
@@ -49,7 +49,7 @@ extension type StylePropertyMap._(JSObject _)
 }
 extension type CSSUnparsedValue._(JSObject _)
     implements CSSStyleValue, JSObject {
-  external factory CSSUnparsedValue(JSArray members);
+  external factory CSSUnparsedValue(JSArray<CSSUnparsedSegment> members);
 
   external int get length;
 }
@@ -172,7 +172,7 @@ extension type CSSNumericArray._(JSObject _) implements JSObject {
 }
 extension type CSSTransformValue._(JSObject _)
     implements CSSStyleValue, JSObject {
-  external factory CSSTransformValue(JSArray transforms);
+  external factory CSSTransformValue(JSArray<CSSTransformComponent> transforms);
 
   external DOMMatrix toMatrix();
   external int get length;
@@ -406,14 +406,14 @@ extension type CSSOKLCH._(JSObject _) implements CSSColorValue, JSObject {
 extension type CSSColor._(JSObject _) implements CSSColorValue, JSObject {
   external factory CSSColor(
     CSSKeywordish colorSpace,
-    JSArray channels, [
+    JSArray<CSSColorPercent> channels, [
     CSSNumberish alpha,
   ]);
 
   external set colorSpace(CSSKeywordish value);
   external CSSKeywordish get colorSpace;
-  external set channels(JSArray value);
-  external JSArray get channels;
+  external set channels(JSArray<CSSColorPercent> value);
+  external JSArray<CSSColorPercent> get channels;
   external set alpha(CSSNumberish value);
   external CSSNumberish get alpha;
 }

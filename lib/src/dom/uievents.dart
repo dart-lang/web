@@ -224,7 +224,7 @@ extension type InputEvent._(JSObject _) implements UIEvent, JSObject {
     InputEventInit eventInitDict,
   ]);
 
-  external JSArray getTargetRanges();
+  external JSArray<StaticRange> getTargetRanges();
   external DataTransfer? get dataTransfer;
   external String? get data;
   external bool get isComposing;
@@ -233,7 +233,7 @@ extension type InputEvent._(JSObject _) implements UIEvent, JSObject {
 extension type InputEventInit._(JSObject _) implements UIEventInit, JSObject {
   external factory InputEventInit({
     DataTransfer? dataTransfer,
-    JSArray targetRanges,
+    JSArray<StaticRange> targetRanges,
     String? data,
     bool isComposing,
     String inputType,
@@ -241,8 +241,8 @@ extension type InputEventInit._(JSObject _) implements UIEventInit, JSObject {
 
   external set dataTransfer(DataTransfer? value);
   external DataTransfer? get dataTransfer;
-  external set targetRanges(JSArray value);
-  external JSArray get targetRanges;
+  external set targetRanges(JSArray<StaticRange> value);
+  external JSArray<StaticRange> get targetRanges;
   external set data(String? value);
   external String? get data;
   external set isComposing(bool value);

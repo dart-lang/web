@@ -8,7 +8,7 @@ import 'dart:js_interop';
 
 extension type FontMetrics._(JSObject _) implements JSObject {
   external num get width;
-  external JSArray get advances;
+  external JSArray<JSNumber> get advances;
   external num get boundingBoxLeft;
   external num get boundingBoxRight;
   external num get height;
@@ -19,8 +19,8 @@ extension type FontMetrics._(JSObject _) implements JSObject {
   external num get fontBoundingBoxAscent;
   external num get fontBoundingBoxDescent;
   external Baseline get dominantBaseline;
-  external JSArray get baselines;
-  external JSArray get fonts;
+  external JSArray<Baseline> get baselines;
+  external JSArray<Font> get fonts;
 }
 extension type Baseline._(JSObject _) implements JSObject {
   external String get name;

@@ -5,6 +5,7 @@
 const idlOrBuiltinToJsTypeAliases = <String, String>{
   'any': 'JSAny',
   'bigint': 'JSBigInt',
+  // TODO(srujzs): Records should be JSObject.
   'record': 'JSAny',
   'object': 'JSObject',
   'Promise': 'JSPromise',
@@ -56,4 +57,13 @@ const idlOrBuiltinToJsTypeAliases = <String, String>{
   'USVString': 'JSString',
   'ByteString': 'JSString',
   'CSSOMString': 'JSString',
+};
+
+const jsTypeToDartPrimitiveAliases = <String, String>{
+  'JSBoolean': 'bool',
+  'JSString': 'String',
+  'JSInteger': 'int',
+  'JSDouble': 'num',
+  'JSNumber': 'num',
+  'JSUndefined': 'void',
 };

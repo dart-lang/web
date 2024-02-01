@@ -42,7 +42,7 @@ extension type Event._(JSObject _) implements JSObject {
   external static int get CAPTURING_PHASE;
   external static int get AT_TARGET;
   external static int get BUBBLING_PHASE;
-  external JSArray composedPath();
+  external JSArray<EventTarget> composedPath();
   external void stopPropagation();
   external void stopImmediatePropagation();
   external void preventDefault();
@@ -146,7 +146,7 @@ extension type AbortController._(JSObject _) implements JSObject {
 extension type AbortSignal._(JSObject _) implements EventTarget, JSObject {
   external static AbortSignal abort([JSAny? reason]);
   external static AbortSignal timeout(int milliseconds);
-  external static AbortSignal any(JSArray signals);
+  external static AbortSignal any(JSArray<AbortSignal> signals);
   external void throwIfAborted();
   external bool get aborted;
   external JSAny? get reason;
@@ -170,7 +170,7 @@ extension type MutationObserver._(JSObject _) implements JSObject {
     MutationObserverInit options,
   ]);
   external void disconnect();
-  external JSArray takeRecords();
+  external JSArray<MutationRecord> takeRecords();
 }
 extension type MutationObserverInit._(JSObject _) implements JSObject {
   external factory MutationObserverInit({
@@ -180,7 +180,7 @@ extension type MutationObserverInit._(JSObject _) implements JSObject {
     bool subtree,
     bool attributeOldValue,
     bool characterDataOldValue,
-    JSArray attributeFilter,
+    JSArray<JSString> attributeFilter,
   });
 
   external set childList(bool value);
@@ -195,8 +195,8 @@ extension type MutationObserverInit._(JSObject _) implements JSObject {
   external bool get attributeOldValue;
   external set characterDataOldValue(bool value);
   external bool get characterDataOldValue;
-  external set attributeFilter(JSArray value);
-  external JSArray get attributeFilter;
+  external set attributeFilter(JSArray<JSString> value);
+  external JSArray<JSString> get attributeFilter;
 }
 extension type MutationRecord._(JSObject _) implements JSObject {
   external String get type;
@@ -282,7 +282,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
     num x,
     num y,
   );
-  external JSArray elementsFromPoint(
+  external JSArray<Element> elementsFromPoint(
     num x,
     num y,
   );
@@ -340,7 +340,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
     String text,
     StylePropertyMapReadOnly styleMap,
   );
-  external JSPromise exitFullscreen();
+  external JSPromise<JSAny?> exitFullscreen();
   external NodeList getElementsByName(String elementName);
   external JSObject? open([
     String unused1OrUrl,
@@ -364,15 +364,15 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external void clear();
   external void captureEvents();
   external void releaseEvents();
-  external JSPromise exitPictureInPicture();
+  external JSPromise<JSAny?> exitPictureInPicture();
   external void exitPointerLock();
-  external JSPromise requestStorageAccessFor(String requestedOrigin);
+  external JSPromise<JSAny?> requestStorageAccessFor(String requestedOrigin);
   external Selection? getSelection();
-  external JSPromise hasStorageAccess();
-  external JSPromise requestStorageAccess();
-  external JSPromise hasPrivateTokens(String issuer);
-  external JSPromise hasRedemptionRecord(String issuer);
-  external JSArray getBoxQuads([BoxQuadOptions options]);
+  external JSPromise<JSBoolean> hasStorageAccess();
+  external JSPromise<JSAny?> requestStorageAccess();
+  external JSPromise<JSBoolean> hasPrivateTokens(String issuer);
+  external JSPromise<JSBoolean> hasRedemptionRecord(String issuer);
+  external JSArray<DOMQuad> getBoxQuads([BoxQuadOptions options]);
   external DOMQuad convertQuadFromNode(
     DOMQuadInit quad,
     GeometryNode from, [
@@ -389,7 +389,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
     ConvertCoordinateOptions options,
   ]);
   external Element? getElementById(String elementId);
-  external JSArray getAnimations();
+  external JSArray<Animation> getAnimations();
   external void prepend(JSAny nodes);
   external void append(JSAny nodes);
   external void replaceChildren(JSAny nodes);
@@ -488,8 +488,8 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external DocumentTimeline get timeline;
   external FontFaceSet get fonts;
   external StyleSheetList get styleSheets;
-  external set adoptedStyleSheets(JSArray value);
-  external JSArray get adoptedStyleSheets;
+  external set adoptedStyleSheets(JSArray<CSSStyleSheet> value);
+  external JSArray<CSSStyleSheet> get adoptedStyleSheets;
   external Element? get fullscreenElement;
   external Element? get activeElement;
   external Element? get pictureInPictureElement;
@@ -748,7 +748,7 @@ extension type DocumentFragment._(JSObject _) implements Node, JSObject {
   external int get childElementCount;
 }
 extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
-  external JSArray getAnimations();
+  external JSArray<Animation> getAnimations();
   external ShadowRootMode get mode;
   external bool get delegatesFocus;
   external SlotAssignmentMode get slotAssignment;
@@ -758,8 +758,8 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   external set innerHTML(String value);
   external String get innerHTML;
   external StyleSheetList get styleSheets;
-  external set adoptedStyleSheets(JSArray value);
-  external JSArray get adoptedStyleSheets;
+  external set adoptedStyleSheets(JSArray<CSSStyleSheet> value);
+  external JSArray<CSSStyleSheet> get adoptedStyleSheets;
   external Element? get fullscreenElement;
   external Element? get activeElement;
   external Element? get pictureInPictureElement;
@@ -771,7 +771,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
     String text,
   );
   external Node getSpatialNavigationContainer();
-  external JSArray focusableAreas([FocusableAreasOption option]);
+  external JSArray<Node> focusableAreas([FocusableAreasOption option]);
   external Node? spatialNavigationSearch(
     SpatialNavigationDirection dir, [
     SpatialNavigationSearchOptions options,
@@ -795,7 +795,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
     num y,
   ]);
   external bool hasAttributes();
-  external JSArray getAttributeNames();
+  external JSArray<JSString> getAttributeNames();
   external String? getAttribute(String qualifiedName);
   external String? getAttributeNS(
     String? namespace,
@@ -850,7 +850,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
     String where,
     String data,
   );
-  external JSPromise requestFullscreen([FullscreenOptions options]);
+  external JSPromise<JSAny?> requestFullscreen([FullscreenOptions options]);
   external void setPointerCapture(int pointerId);
   external void releasePointerCapture(int pointerId);
   external bool hasPointerCapture(int pointerId);
@@ -859,8 +859,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
     String input, [
     SetHTMLOptions options,
   ]);
-  external JSArray? getRegionFlowRanges();
-  external JSArray getBoxQuads([BoxQuadOptions options]);
+  external JSArray<Range>? getRegionFlowRanges();
+  external JSArray<DOMQuad> getBoxQuads([BoxQuadOptions options]);
   external DOMQuad convertQuadFromNode(
     DOMQuadInit quad,
     GeometryNode from, [
@@ -889,7 +889,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
     JSObject? keyframes, [
     JSAny options,
   ]);
-  external JSArray getAnimations([GetAnimationsOptions options]);
+  external JSArray<Animation> getAnimations([GetAnimationsOptions options]);
   external set outerHTML(String value);
   external String get outerHTML;
   external DOMTokenList get part;
@@ -952,24 +952,24 @@ extension type Element._(JSObject _) implements Node, JSObject {
   external String? get ariaColIndexText;
   external set ariaColSpan(String? value);
   external String? get ariaColSpan;
-  external set ariaControlsElements(JSArray? value);
-  external JSArray? get ariaControlsElements;
+  external set ariaControlsElements(JSArray<Element>? value);
+  external JSArray<Element>? get ariaControlsElements;
   external set ariaCurrent(String? value);
   external String? get ariaCurrent;
-  external set ariaDescribedByElements(JSArray? value);
-  external JSArray? get ariaDescribedByElements;
+  external set ariaDescribedByElements(JSArray<Element>? value);
+  external JSArray<Element>? get ariaDescribedByElements;
   external set ariaDescription(String? value);
   external String? get ariaDescription;
-  external set ariaDetailsElements(JSArray? value);
-  external JSArray? get ariaDetailsElements;
+  external set ariaDetailsElements(JSArray<Element>? value);
+  external JSArray<Element>? get ariaDetailsElements;
   external set ariaDisabled(String? value);
   external String? get ariaDisabled;
-  external set ariaErrorMessageElements(JSArray? value);
-  external JSArray? get ariaErrorMessageElements;
+  external set ariaErrorMessageElements(JSArray<Element>? value);
+  external JSArray<Element>? get ariaErrorMessageElements;
   external set ariaExpanded(String? value);
   external String? get ariaExpanded;
-  external set ariaFlowToElements(JSArray? value);
-  external JSArray? get ariaFlowToElements;
+  external set ariaFlowToElements(JSArray<Element>? value);
+  external JSArray<Element>? get ariaFlowToElements;
   external set ariaHasPopup(String? value);
   external String? get ariaHasPopup;
   external set ariaHidden(String? value);
@@ -980,8 +980,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   external String? get ariaKeyShortcuts;
   external set ariaLabel(String? value);
   external String? get ariaLabel;
-  external set ariaLabelledByElements(JSArray? value);
-  external JSArray? get ariaLabelledByElements;
+  external set ariaLabelledByElements(JSArray<Element>? value);
+  external JSArray<Element>? get ariaLabelledByElements;
   external set ariaLevel(String? value);
   external String? get ariaLevel;
   external set ariaLive(String? value);
@@ -994,8 +994,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   external String? get ariaMultiSelectable;
   external set ariaOrientation(String? value);
   external String? get ariaOrientation;
-  external set ariaOwnsElements(JSArray? value);
-  external JSArray? get ariaOwnsElements;
+  external set ariaOwnsElements(JSArray<Element>? value);
+  external JSArray<Element>? get ariaOwnsElements;
   external set ariaPlaceholder(String? value);
   external String? get ariaPlaceholder;
   external set ariaPosInSet(String? value);
@@ -1104,7 +1104,7 @@ extension type Text._(JSObject _) implements CharacterData, JSObject {
   external factory Text([String data]);
 
   external Text splitText(int offset);
-  external JSArray getBoxQuads([BoxQuadOptions options]);
+  external JSArray<DOMQuad> getBoxQuads([BoxQuadOptions options]);
   external DOMQuad convertQuadFromNode(
     DOMQuadInit quad,
     GeometryNode from, [

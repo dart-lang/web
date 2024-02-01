@@ -16,7 +16,7 @@ extension type LayoutShift._(JSObject _) implements PerformanceEntry, JSObject {
   external num get value;
   external bool get hadRecentInput;
   external DOMHighResTimeStamp get lastInputTime;
-  external JSArray get sources;
+  external JSArray<LayoutShiftAttribution> get sources;
 }
 extension type LayoutShiftAttribution._(JSObject _) implements JSObject {
   external Node? get node;

@@ -62,8 +62,8 @@ extension type Animation._(JSObject _) implements EventTarget, JSObject {
   external AnimationPlayState get playState;
   external AnimationReplaceState get replaceState;
   external bool get pending;
-  external JSPromise get ready;
-  external JSPromise get finished;
+  external JSPromise<Animation> get ready;
+  external JSPromise<Animation> get finished;
   external set onfinish(EventHandler value);
   external EventHandler get onfinish;
   external set oncancel(EventHandler value);
@@ -179,7 +179,7 @@ extension type KeyframeEffect._(JSObject _)
     JSAny options,
   ]);
 
-  external JSArray getKeyframes();
+  external JSArray<JSObject> getKeyframes();
   external void setKeyframes(JSObject? keyframes);
   external set iterationComposite(IterationCompositeOperation value);
   external IterationCompositeOperation get iterationComposite;

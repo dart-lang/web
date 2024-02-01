@@ -22,7 +22,7 @@ extension type $Console._(JSObject _) implements JSObject {
   external void log(JSAny? data);
   external void table([
     JSAny? tabularData,
-    JSArray properties,
+    JSArray<JSString> properties,
   ]);
   external void trace(JSAny? data);
   external void warn(JSAny? data);

@@ -39,73 +39,73 @@ extension type CryptoKey._(JSObject _) implements JSObject {
   external JSObject get usages;
 }
 extension type SubtleCrypto._(JSObject _) implements JSObject {
-  external JSPromise encrypt(
+  external JSPromise<JSAny?> encrypt(
     AlgorithmIdentifier algorithm,
     CryptoKey key,
     BufferSource data,
   );
-  external JSPromise decrypt(
+  external JSPromise<JSAny?> decrypt(
     AlgorithmIdentifier algorithm,
     CryptoKey key,
     BufferSource data,
   );
-  external JSPromise sign(
+  external JSPromise<JSAny?> sign(
     AlgorithmIdentifier algorithm,
     CryptoKey key,
     BufferSource data,
   );
-  external JSPromise verify(
+  external JSPromise<JSAny?> verify(
     AlgorithmIdentifier algorithm,
     CryptoKey key,
     BufferSource signature,
     BufferSource data,
   );
-  external JSPromise digest(
+  external JSPromise<JSAny?> digest(
     AlgorithmIdentifier algorithm,
     BufferSource data,
   );
-  external JSPromise generateKey(
+  external JSPromise<JSAny?> generateKey(
     AlgorithmIdentifier algorithm,
     bool extractable,
-    JSArray keyUsages,
+    JSArray<JSString> keyUsages,
   );
-  external JSPromise deriveKey(
+  external JSPromise<JSAny?> deriveKey(
     AlgorithmIdentifier algorithm,
     CryptoKey baseKey,
     AlgorithmIdentifier derivedKeyType,
     bool extractable,
-    JSArray keyUsages,
+    JSArray<JSString> keyUsages,
   );
-  external JSPromise deriveBits(
+  external JSPromise<JSArrayBuffer> deriveBits(
     AlgorithmIdentifier algorithm,
     CryptoKey baseKey,
     int length,
   );
-  external JSPromise importKey(
+  external JSPromise<CryptoKey> importKey(
     KeyFormat format,
     JSObject keyData,
     AlgorithmIdentifier algorithm,
     bool extractable,
-    JSArray keyUsages,
+    JSArray<JSString> keyUsages,
   );
-  external JSPromise exportKey(
+  external JSPromise<JSAny?> exportKey(
     KeyFormat format,
     CryptoKey key,
   );
-  external JSPromise wrapKey(
+  external JSPromise<JSAny?> wrapKey(
     KeyFormat format,
     CryptoKey key,
     CryptoKey wrappingKey,
     AlgorithmIdentifier wrapAlgorithm,
   );
-  external JSPromise unwrapKey(
+  external JSPromise<CryptoKey> unwrapKey(
     KeyFormat format,
     BufferSource wrappedKey,
     CryptoKey unwrappingKey,
     AlgorithmIdentifier unwrapAlgorithm,
     AlgorithmIdentifier unwrappedKeyAlgorithm,
     bool extractable,
-    JSArray keyUsages,
+    JSArray<JSString> keyUsages,
   );
 }
 extension type RsaOtherPrimesInfo._(JSObject _) implements JSObject {
@@ -126,7 +126,7 @@ extension type JsonWebKey._(JSObject _) implements JSObject {
   external factory JsonWebKey({
     String kty,
     String use,
-    JSArray key_ops,
+    JSArray<JSString> key_ops,
     String alg,
     bool ext,
     String crv,
@@ -140,7 +140,7 @@ extension type JsonWebKey._(JSObject _) implements JSObject {
     String dp,
     String dq,
     String qi,
-    JSArray oth,
+    JSArray<RsaOtherPrimesInfo> oth,
     String k,
   });
 
@@ -148,8 +148,8 @@ extension type JsonWebKey._(JSObject _) implements JSObject {
   external String get kty;
   external set use(String value);
   external String get use;
-  external set key_ops(JSArray value);
-  external JSArray get key_ops;
+  external set key_ops(JSArray<JSString> value);
+  external JSArray<JSString> get key_ops;
   external set alg(String value);
   external String get alg;
   external set ext(bool value);
@@ -176,8 +176,8 @@ extension type JsonWebKey._(JSObject _) implements JSObject {
   external String get dq;
   external set qi(String value);
   external String get qi;
-  external set oth(JSArray value);
-  external JSArray get oth;
+  external set oth(JSArray<RsaOtherPrimesInfo> value);
+  external JSArray<RsaOtherPrimesInfo> get oth;
   external set k(String value);
   external String get k;
 }

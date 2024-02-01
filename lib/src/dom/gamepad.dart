@@ -13,17 +13,17 @@ import 'hr_time.dart';
 typedef GamepadMappingType = String;
 extension type Gamepad._(JSObject _) implements JSObject {
   external GamepadHand get hand;
-  external JSArray get hapticActuators;
+  external JSArray<GamepadHapticActuator> get hapticActuators;
   external GamepadPose? get pose;
-  external JSArray? get touchEvents;
+  external JSArray<GamepadTouch>? get touchEvents;
   external GamepadHapticActuator? get vibrationActuator;
   external String get id;
   external int get index;
   external bool get connected;
   external DOMHighResTimeStamp get timestamp;
   external GamepadMappingType get mapping;
-  external JSArray get axes;
-  external JSArray get buttons;
+  external JSArray<JSNumber> get axes;
+  external JSArray<GamepadButton> get buttons;
 }
 extension type GamepadButton._(JSObject _) implements JSObject {
   external bool get pressed;

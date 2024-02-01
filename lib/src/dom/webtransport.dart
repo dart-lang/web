@@ -33,17 +33,17 @@ extension type WebTransport._(JSObject _) implements JSObject {
     WebTransportOptions options,
   ]);
 
-  external JSPromise getStats();
+  external JSPromise<WebTransportConnectionStats> getStats();
   external void close([WebTransportCloseInfo closeInfo]);
-  external JSPromise createBidirectionalStream(
+  external JSPromise<WebTransportBidirectionalStream> createBidirectionalStream(
       [WebTransportSendStreamOptions options]);
-  external JSPromise createUnidirectionalStream(
+  external JSPromise<WebTransportSendStream> createUnidirectionalStream(
       [WebTransportSendStreamOptions options]);
-  external JSPromise get ready;
+  external JSPromise<JSAny?> get ready;
   external WebTransportReliabilityMode get reliability;
   external WebTransportCongestionControl get congestionControl;
-  external JSPromise get closed;
-  external JSPromise get draining;
+  external JSPromise<WebTransportCloseInfo> get closed;
+  external JSPromise<JSAny?> get draining;
   external WebTransportDatagramDuplexStream get datagrams;
   external ReadableStream get incomingBidirectionalStreams;
   external ReadableStream get incomingUnidirectionalStreams;
@@ -63,7 +63,7 @@ extension type WebTransportOptions._(JSObject _) implements JSObject {
   external factory WebTransportOptions({
     bool allowPooling,
     bool requireUnreliable,
-    JSArray serverCertificateHashes,
+    JSArray<WebTransportHash> serverCertificateHashes,
     WebTransportCongestionControl congestionControl,
   });
 
@@ -71,8 +71,8 @@ extension type WebTransportOptions._(JSObject _) implements JSObject {
   external bool get allowPooling;
   external set requireUnreliable(bool value);
   external bool get requireUnreliable;
-  external set serverCertificateHashes(JSArray value);
-  external JSArray get serverCertificateHashes;
+  external set serverCertificateHashes(JSArray<WebTransportHash> value);
+  external JSArray<WebTransportHash> get serverCertificateHashes;
   external set congestionControl(WebTransportCongestionControl value);
   external WebTransportCongestionControl get congestionControl;
 }
@@ -153,7 +153,7 @@ extension type WebTransportDatagramStats._(JSObject _) implements JSObject {
 }
 extension type WebTransportSendStream._(JSObject _)
     implements WritableStream, JSObject {
-  external JSPromise getStats();
+  external JSPromise<WebTransportSendStreamStats> getStats();
   external set sendOrder(int? value);
   external int? get sendOrder;
 }
@@ -176,7 +176,7 @@ extension type WebTransportSendStreamStats._(JSObject _) implements JSObject {
 }
 extension type WebTransportReceiveStream._(JSObject _)
     implements ReadableStream, JSObject {
-  external JSPromise getStats();
+  external JSPromise<WebTransportReceiveStreamStats> getStats();
 }
 extension type WebTransportReceiveStreamStats._(JSObject _)
     implements JSObject {

@@ -10,6 +10,7 @@ import 'dom.dart';
 import 'event_timing.dart';
 import 'html.dart';
 import 'navigation_timing.dart';
+import 'performance_measure_memory.dart';
 import 'performance_timeline.dart';
 import 'user_timing.dart';
 
@@ -18,7 +19,7 @@ typedef EpochTimeStamp = int;
 extension type Performance._(JSObject _) implements EventTarget, JSObject {
   external DOMHighResTimeStamp now();
   external JSObject toJSON();
-  external JSPromise measureUserAgentSpecificMemory();
+  external JSPromise<MemoryMeasurement> measureUserAgentSpecificMemory();
   external PerformanceEntryList getEntries();
   external PerformanceEntryList getEntriesByType(String type);
   external PerformanceEntryList getEntriesByName(

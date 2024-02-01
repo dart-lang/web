@@ -13,26 +13,26 @@ typedef ProfilerResource = String;
 extension type Profiler._(JSObject _) implements EventTarget, JSObject {
   external factory Profiler(ProfilerInitOptions options);
 
-  external JSPromise stop();
+  external JSPromise<ProfilerTrace> stop();
   external DOMHighResTimeStamp get sampleInterval;
   external bool get stopped;
 }
 extension type ProfilerTrace._(JSObject _) implements JSObject {
   external factory ProfilerTrace({
-    required JSArray resources,
-    required JSArray frames,
-    required JSArray stacks,
-    required JSArray samples,
+    required JSArray<JSString> resources,
+    required JSArray<ProfilerFrame> frames,
+    required JSArray<ProfilerStack> stacks,
+    required JSArray<ProfilerSample> samples,
   });
 
-  external set resources(JSArray value);
-  external JSArray get resources;
-  external set frames(JSArray value);
-  external JSArray get frames;
-  external set stacks(JSArray value);
-  external JSArray get stacks;
-  external set samples(JSArray value);
-  external JSArray get samples;
+  external set resources(JSArray<JSString> value);
+  external JSArray<JSString> get resources;
+  external set frames(JSArray<ProfilerFrame> value);
+  external JSArray<ProfilerFrame> get frames;
+  external set stacks(JSArray<ProfilerStack> value);
+  external JSArray<ProfilerStack> get stacks;
+  external set samples(JSArray<ProfilerSample> value);
+  external JSArray<ProfilerSample> get samples;
 }
 extension type ProfilerSample._(JSObject _) implements JSObject {
   external factory ProfilerSample({

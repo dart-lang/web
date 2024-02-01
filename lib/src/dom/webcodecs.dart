@@ -40,10 +40,11 @@ typedef VideoMatrixCoefficients = String;
 extension type AudioDecoder._(JSObject _) implements EventTarget, JSObject {
   external factory AudioDecoder(AudioDecoderInit init);
 
-  external static JSPromise isConfigSupported(AudioDecoderConfig config);
+  external static JSPromise<AudioDecoderSupport> isConfigSupported(
+      AudioDecoderConfig config);
   external void configure(AudioDecoderConfig config);
   external void decode(EncodedAudioChunk chunk);
-  external JSPromise flush();
+  external JSPromise<JSAny?> flush();
   external void reset();
   external void close();
   external CodecState get state;
@@ -65,10 +66,11 @@ extension type AudioDecoderInit._(JSObject _) implements JSObject {
 extension type VideoDecoder._(JSObject _) implements EventTarget, JSObject {
   external factory VideoDecoder(VideoDecoderInit init);
 
-  external static JSPromise isConfigSupported(VideoDecoderConfig config);
+  external static JSPromise<VideoDecoderSupport> isConfigSupported(
+      VideoDecoderConfig config);
   external void configure(VideoDecoderConfig config);
   external void decode(EncodedVideoChunk chunk);
-  external JSPromise flush();
+  external JSPromise<JSAny?> flush();
   external void reset();
   external void close();
   external CodecState get state;
@@ -90,10 +92,11 @@ extension type VideoDecoderInit._(JSObject _) implements JSObject {
 extension type AudioEncoder._(JSObject _) implements EventTarget, JSObject {
   external factory AudioEncoder(AudioEncoderInit init);
 
-  external static JSPromise isConfigSupported(AudioEncoderConfig config);
+  external static JSPromise<AudioEncoderSupport> isConfigSupported(
+      AudioEncoderConfig config);
   external void configure(AudioEncoderConfig config);
   external void encode(AudioData data);
-  external JSPromise flush();
+  external JSPromise<JSAny?> flush();
   external void reset();
   external void close();
   external CodecState get state;
@@ -122,13 +125,14 @@ extension type EncodedAudioChunkMetadata._(JSObject _) implements JSObject {
 extension type VideoEncoder._(JSObject _) implements EventTarget, JSObject {
   external factory VideoEncoder(VideoEncoderInit init);
 
-  external static JSPromise isConfigSupported(VideoEncoderConfig config);
+  external static JSPromise<VideoEncoderSupport> isConfigSupported(
+      VideoEncoderConfig config);
   external void configure(VideoEncoderConfig config);
   external void encode(
     VideoFrame frame, [
     VideoEncoderEncodeOptions options,
   ]);
-  external JSPromise flush();
+  external JSPromise<JSAny?> flush();
   external void reset();
   external void close();
   external CodecState get state;
@@ -436,7 +440,7 @@ extension type AudioDataInit._(JSObject _) implements JSObject {
     required int numberOfChannels,
     required int timestamp,
     required BufferSource data,
-    JSArray transfer,
+    JSArray<JSArrayBuffer> transfer,
   });
 
   external set format(AudioSampleFormat value);
@@ -451,8 +455,8 @@ extension type AudioDataInit._(JSObject _) implements JSObject {
   external int get timestamp;
   external set data(BufferSource value);
   external BufferSource get data;
-  external set transfer(JSArray value);
-  external JSArray get transfer;
+  external set transfer(JSArray<JSArrayBuffer> value);
+  external JSArray<JSArrayBuffer> get transfer;
 }
 extension type AudioDataCopyToOptions._(JSObject _) implements JSObject {
   external factory AudioDataCopyToOptions({
@@ -479,7 +483,7 @@ extension type VideoFrame._(JSObject _) implements JSObject {
 
   external VideoFrameMetadata metadata();
   external int allocationSize([VideoFrameCopyToOptions options]);
-  external JSPromise copyTo(
+  external JSPromise<JSArray<PlaneLayout>> copyTo(
     AllowSharedBufferSource destination, [
     VideoFrameCopyToOptions options,
   ]);
@@ -529,12 +533,12 @@ extension type VideoFrameBufferInit._(JSObject _) implements JSObject {
     required int codedHeight,
     required int timestamp,
     int duration,
-    JSArray layout,
+    JSArray<PlaneLayout> layout,
     DOMRectInit visibleRect,
     int displayWidth,
     int displayHeight,
     VideoColorSpaceInit colorSpace,
-    JSArray transfer,
+    JSArray<JSArrayBuffer> transfer,
   });
 
   external set format(VideoPixelFormat value);
@@ -547,8 +551,8 @@ extension type VideoFrameBufferInit._(JSObject _) implements JSObject {
   external int get timestamp;
   external set duration(int value);
   external int get duration;
-  external set layout(JSArray value);
-  external JSArray get layout;
+  external set layout(JSArray<PlaneLayout> value);
+  external JSArray<PlaneLayout> get layout;
   external set visibleRect(DOMRectInit value);
   external DOMRectInit get visibleRect;
   external set displayWidth(int value);
@@ -557,8 +561,8 @@ extension type VideoFrameBufferInit._(JSObject _) implements JSObject {
   external int get displayHeight;
   external set colorSpace(VideoColorSpaceInit value);
   external VideoColorSpaceInit get colorSpace;
-  external set transfer(JSArray value);
-  external JSArray get transfer;
+  external set transfer(JSArray<JSArrayBuffer> value);
+  external JSArray<JSArrayBuffer> get transfer;
 }
 extension type VideoFrameMetadata._(JSObject _) implements JSObject {
   external factory VideoFrameMetadata();
@@ -566,13 +570,13 @@ extension type VideoFrameMetadata._(JSObject _) implements JSObject {
 extension type VideoFrameCopyToOptions._(JSObject _) implements JSObject {
   external factory VideoFrameCopyToOptions({
     DOMRectInit rect,
-    JSArray layout,
+    JSArray<PlaneLayout> layout,
   });
 
   external set rect(DOMRectInit value);
   external DOMRectInit get rect;
-  external set layout(JSArray value);
-  external JSArray get layout;
+  external set layout(JSArray<PlaneLayout> value);
+  external JSArray<PlaneLayout> get layout;
 }
 extension type PlaneLayout._(JSObject _) implements JSObject {
   external factory PlaneLayout({
@@ -614,13 +618,13 @@ extension type VideoColorSpaceInit._(JSObject _) implements JSObject {
 extension type ImageDecoder._(JSObject _) implements JSObject {
   external factory ImageDecoder(ImageDecoderInit init);
 
-  external static JSPromise isTypeSupported(String type);
-  external JSPromise decode([ImageDecodeOptions options]);
+  external static JSPromise<JSBoolean> isTypeSupported(String type);
+  external JSPromise<ImageDecodeResult> decode([ImageDecodeOptions options]);
   external void reset();
   external void close();
   external String get type;
   external bool get complete;
-  external JSPromise get completed;
+  external JSPromise<JSAny?> get completed;
   external ImageTrackList get tracks;
 }
 extension type ImageDecoderInit._(JSObject _) implements JSObject {
@@ -631,7 +635,7 @@ extension type ImageDecoderInit._(JSObject _) implements JSObject {
     int desiredWidth,
     int desiredHeight,
     bool preferAnimation,
-    JSArray transfer,
+    JSArray<JSArrayBuffer> transfer,
   });
 
   external set type(String value);
@@ -646,8 +650,8 @@ extension type ImageDecoderInit._(JSObject _) implements JSObject {
   external int get desiredHeight;
   external set preferAnimation(bool value);
   external bool get preferAnimation;
-  external set transfer(JSArray value);
-  external JSArray get transfer;
+  external set transfer(JSArray<JSArrayBuffer> value);
+  external JSArray<JSArrayBuffer> get transfer;
 }
 extension type ImageDecodeOptions._(JSObject _) implements JSObject {
   external factory ImageDecodeOptions({
@@ -672,7 +676,7 @@ extension type ImageDecodeResult._(JSObject _) implements JSObject {
   external bool get complete;
 }
 extension type ImageTrackList._(JSObject _) implements JSObject {
-  external JSPromise get ready;
+  external JSPromise<JSAny?> get ready;
   external int get length;
   external int get selectedIndex;
   external ImageTrack? get selectedTrack;

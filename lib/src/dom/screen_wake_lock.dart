@@ -11,10 +11,10 @@ import 'html.dart';
 
 typedef WakeLockType = String;
 extension type WakeLock._(JSObject _) implements JSObject {
-  external JSPromise request([WakeLockType type]);
+  external JSPromise<WakeLockSentinel> request([WakeLockType type]);
 }
 extension type WakeLockSentinel._(JSObject _) implements EventTarget, JSObject {
-  external JSPromise release();
+  external JSPromise<JSAny?> release();
   external bool get released;
   external WakeLockType get type;
   external set onrelease(EventHandler value);

@@ -21,10 +21,12 @@ extension type PushPermissionDescriptor._(JSObject _)
   external bool get userVisibleOnly;
 }
 extension type PushManager._(JSObject _) implements JSObject {
-  external static JSArray get supportedContentEncodings;
-  external JSPromise subscribe([PushSubscriptionOptionsInit options]);
-  external JSPromise getSubscription();
-  external JSPromise permissionState([PushSubscriptionOptionsInit options]);
+  external static JSArray<JSString> get supportedContentEncodings;
+  external JSPromise<PushSubscription> subscribe(
+      [PushSubscriptionOptionsInit options]);
+  external JSPromise<PushSubscription?> getSubscription();
+  external JSPromise<JSString> permissionState(
+      [PushSubscriptionOptionsInit options]);
 }
 extension type PushSubscriptionOptions._(JSObject _) implements JSObject {
   external bool get userVisibleOnly;
@@ -43,7 +45,7 @@ extension type PushSubscriptionOptionsInit._(JSObject _) implements JSObject {
 }
 extension type PushSubscription._(JSObject _) implements JSObject {
   external JSArrayBuffer? getKey(PushEncryptionKeyName name);
-  external JSPromise unsubscribe();
+  external JSPromise<JSBoolean> unsubscribe();
   external PushSubscriptionJSON toJSON();
   external String get endpoint;
   external EpochTimeStamp? get expirationTime;

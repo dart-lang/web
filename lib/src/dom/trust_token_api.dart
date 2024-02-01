@@ -14,7 +14,7 @@ extension type PrivateToken._(JSObject _) implements JSObject {
     required TokenVersion version,
     required OperationType operation,
     RefreshPolicy refreshPolicy,
-    JSArray issuers,
+    JSArray<JSString> issuers,
   });
 
   external set version(TokenVersion value);
@@ -23,6 +23,6 @@ extension type PrivateToken._(JSObject _) implements JSObject {
   external OperationType get operation;
   external set refreshPolicy(RefreshPolicy value);
   external RefreshPolicy get refreshPolicy;
-  external set issuers(JSArray value);
-  external JSArray get issuers;
+  external set issuers(JSArray<JSString> value);
+  external JSArray<JSString> get issuers;
 }

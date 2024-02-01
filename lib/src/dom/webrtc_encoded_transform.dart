@@ -26,7 +26,7 @@ extension type SFrameTransformOptions._(JSObject _) implements JSObject {
 extension type SFrameTransform._(JSObject _) implements EventTarget, JSObject {
   external factory SFrameTransform([SFrameTransformOptions options]);
 
-  external JSPromise setEncryptionKey(
+  external JSPromise<JSAny?> setEncryptionKey(
     CryptoKey key, [
     CryptoKeyID keyID,
   ]);
@@ -64,22 +64,22 @@ extension type SFrameTransformErrorEventInit._(JSObject _)
 extension type RTCEncodedVideoFrameMetadata._(JSObject _) implements JSObject {
   external factory RTCEncodedVideoFrameMetadata({
     int frameId,
-    JSArray dependencies,
+    JSArray<JSNumber> dependencies,
     int width,
     int height,
     int spatialIndex,
     int temporalIndex,
     int synchronizationSource,
     int payloadType,
-    JSArray contributingSources,
+    JSArray<JSNumber> contributingSources,
     int timestamp,
     int rtpTimestamp,
   });
 
   external set frameId(int value);
   external int get frameId;
-  external set dependencies(JSArray value);
-  external JSArray get dependencies;
+  external set dependencies(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get dependencies;
   external set width(int value);
   external int get width;
   external set height(int value);
@@ -92,8 +92,8 @@ extension type RTCEncodedVideoFrameMetadata._(JSObject _) implements JSObject {
   external int get synchronizationSource;
   external set payloadType(int value);
   external int get payloadType;
-  external set contributingSources(JSArray value);
-  external JSArray get contributingSources;
+  external set contributingSources(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get contributingSources;
   external set timestamp(int value);
   external int get timestamp;
   external set rtpTimestamp(int value);
@@ -109,7 +109,7 @@ extension type RTCEncodedAudioFrameMetadata._(JSObject _) implements JSObject {
   external factory RTCEncodedAudioFrameMetadata({
     int synchronizationSource,
     int payloadType,
-    JSArray contributingSources,
+    JSArray<JSNumber> contributingSources,
     int sequenceNumber,
     int rtpTimestamp,
   });
@@ -118,8 +118,8 @@ extension type RTCEncodedAudioFrameMetadata._(JSObject _) implements JSObject {
   external int get synchronizationSource;
   external set payloadType(int value);
   external int get payloadType;
-  external set contributingSources(JSArray value);
-  external JSArray get contributingSources;
+  external set contributingSources(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get contributingSources;
   external set sequenceNumber(int value);
   external int get sequenceNumber;
   external set rtpTimestamp(int value);
@@ -134,8 +134,8 @@ extension type RTCTransformEvent._(JSObject _) implements Event, JSObject {
   external RTCRtpScriptTransformer get transformer;
 }
 extension type RTCRtpScriptTransformer._(JSObject _) implements JSObject {
-  external JSPromise generateKeyFrame([String rid]);
-  external JSPromise sendKeyFrameRequest();
+  external JSPromise<JSNumber> generateKeyFrame([String rid]);
+  external JSPromise<JSAny?> sendKeyFrameRequest();
   external ReadableStream get readable;
   external WritableStream get writable;
   external JSAny? get options;
@@ -144,6 +144,6 @@ extension type RTCRtpScriptTransform._(JSObject _) implements JSObject {
   external factory RTCRtpScriptTransform(
     Worker worker, [
     JSAny? options,
-    JSArray transfer,
+    JSArray<JSObject> transfer,
   ]);
 }

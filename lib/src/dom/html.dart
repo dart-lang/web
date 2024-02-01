@@ -8,6 +8,7 @@ import 'dart:js_interop';
 
 import 'audio_session.dart';
 import 'autoplay_detection.dart';
+import 'battery_status.dart';
 import 'clipboard_apis.dart';
 import 'contact_picker.dart';
 import 'cookie_store.dart';
@@ -19,6 +20,7 @@ import 'cssom.dart';
 import 'cssom_view.dart';
 import 'custom_state_pseudo_class.dart';
 import 'device_posture.dart';
+import 'digital_goods.dart';
 import 'document_picture_in_picture.dart';
 import 'dom.dart';
 import 'edit_context.dart';
@@ -28,8 +30,11 @@ import 'fenced_frame.dart';
 import 'fetch.dart';
 import 'file_system_access.dart';
 import 'fileapi.dart';
+import 'fs.dart';
+import 'gamepad.dart';
 import 'geolocation.dart';
 import 'geometry.dart';
+import 'get_installed_related_apps.dart';
 import 'hr_time.dart';
 import 'indexeddb.dart';
 import 'ink_enhancement.dart';
@@ -45,6 +50,7 @@ import 'netinfo.dart';
 import 'performance_timeline.dart';
 import 'permissions.dart';
 import 'permissions_policy.dart';
+import 'picture_in_picture.dart';
 import 'portals.dart';
 import 'presentation_api.dart';
 import 'remote_playback.dart';
@@ -78,6 +84,7 @@ import 'webnn.dart';
 import 'webusb.dart';
 import 'webxr.dart';
 import 'window_controls_overlay.dart';
+import 'window_management.dart';
 import 'xhr.dart';
 
 typedef HTMLOrSVGScriptElement = JSObject;
@@ -771,7 +778,7 @@ extension type HTMLSourceElement._(JSObject _)
 extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLImageElement();
 
-  external JSPromise decode();
+  external JSPromise<JSAny?> decode();
   external int get x;
   external int get y;
   external set alt(String value);
@@ -938,7 +945,7 @@ extension type HTMLVideoElement._(JSObject _)
   external factory HTMLVideoElement();
 
   external VideoPlaybackQuality getVideoPlaybackQuality();
-  external JSPromise requestPictureInPicture();
+  external JSPromise<PictureInPictureWindow> requestPictureInPicture();
   external int requestVideoFrameCallback(VideoFrameRequestCallback callback);
   external void cancelVideoFrameCallback(int handle);
   external set width(int value);
@@ -994,13 +1001,13 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   external static int get HAVE_CURRENT_DATA;
   external static int get HAVE_FUTURE_DATA;
   external static int get HAVE_ENOUGH_DATA;
-  external JSPromise setSinkId(String sinkId);
-  external JSPromise setMediaKeys(MediaKeys? mediaKeys);
+  external JSPromise<JSAny?> setSinkId(String sinkId);
+  external JSPromise<JSAny?> setMediaKeys(MediaKeys? mediaKeys);
   external void load();
   external CanPlayTypeResult canPlayType(String type);
   external void fastSeek(num time);
   external JSObject getStartDate();
-  external JSPromise play();
+  external JSPromise<JSAny?> play();
   external void pause();
   external TextTrack addTextTrack(
     TextTrackKind kind, [
@@ -1418,7 +1425,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   external void showPicker();
   external set webkitdirectory(bool value);
   external bool get webkitdirectory;
-  external JSArray get webkitEntries;
+  external JSArray<FileSystemEntry> get webkitEntries;
   external set capture(String value);
   external String get capture;
   external set accept(String value);
@@ -1862,8 +1869,8 @@ extension type HTMLTemplateElement._(JSObject _)
 extension type HTMLSlotElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLSlotElement();
 
-  external JSArray assignedNodes([AssignedNodesOptions options]);
-  external JSArray assignedElements([AssignedNodesOptions options]);
+  external JSArray<Node> assignedNodes([AssignedNodesOptions options]);
+  external JSArray<Element> assignedElements([AssignedNodesOptions options]);
   external void assign(JSObject nodes);
   external set name(String value);
   external String get name;
@@ -2061,8 +2068,8 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
     int dirtyWidth,
     int dirtyHeight,
   ]);
-  external void setLineDash(JSArray segments);
-  external JSArray getLineDash();
+  external void setLineDash(JSArray<JSNumber> segments);
+  external JSArray<JSNumber> getLineDash();
   external void closePath();
   external void moveTo(
     num x,
@@ -2322,7 +2329,7 @@ extension type OffscreenCanvas._(JSObject _) implements EventTarget, JSObject {
     JSAny? options,
   ]);
   external ImageBitmap transferToImageBitmap();
-  external JSPromise convertToBlob([ImageEncodeOptions options]);
+  external JSPromise<Blob> convertToBlob([ImageEncodeOptions options]);
   external set width(int value);
   external int get width;
   external set height(int value);
@@ -2473,8 +2480,8 @@ extension type OffscreenCanvasRenderingContext2D._(JSObject _)
     int dirtyWidth,
     int dirtyHeight,
   ]);
-  external void setLineDash(JSArray segments);
-  external JSArray getLineDash();
+  external void setLineDash(JSArray<JSNumber> segments);
+  external JSArray<JSNumber> getLineDash();
   external void closePath();
   external void moveTo(
     num x,
@@ -2598,7 +2605,7 @@ extension type CustomElementRegistry._(JSObject _) implements JSObject {
   ]);
   external CustomElementConstructor? get(String name);
   external String? getName(CustomElementConstructor constructor);
-  external JSPromise whenDefined(String name);
+  external JSPromise<CustomElementConstructor> whenDefined(String name);
   external void upgrade(Node root);
 }
 extension type ElementDefinitionOptions._(JSObject _) implements JSObject {
@@ -2648,24 +2655,24 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   external String? get ariaColIndexText;
   external set ariaColSpan(String? value);
   external String? get ariaColSpan;
-  external set ariaControlsElements(JSArray? value);
-  external JSArray? get ariaControlsElements;
+  external set ariaControlsElements(JSArray<Element>? value);
+  external JSArray<Element>? get ariaControlsElements;
   external set ariaCurrent(String? value);
   external String? get ariaCurrent;
-  external set ariaDescribedByElements(JSArray? value);
-  external JSArray? get ariaDescribedByElements;
+  external set ariaDescribedByElements(JSArray<Element>? value);
+  external JSArray<Element>? get ariaDescribedByElements;
   external set ariaDescription(String? value);
   external String? get ariaDescription;
-  external set ariaDetailsElements(JSArray? value);
-  external JSArray? get ariaDetailsElements;
+  external set ariaDetailsElements(JSArray<Element>? value);
+  external JSArray<Element>? get ariaDetailsElements;
   external set ariaDisabled(String? value);
   external String? get ariaDisabled;
-  external set ariaErrorMessageElements(JSArray? value);
-  external JSArray? get ariaErrorMessageElements;
+  external set ariaErrorMessageElements(JSArray<Element>? value);
+  external JSArray<Element>? get ariaErrorMessageElements;
   external set ariaExpanded(String? value);
   external String? get ariaExpanded;
-  external set ariaFlowToElements(JSArray? value);
-  external JSArray? get ariaFlowToElements;
+  external set ariaFlowToElements(JSArray<Element>? value);
+  external JSArray<Element>? get ariaFlowToElements;
   external set ariaHasPopup(String? value);
   external String? get ariaHasPopup;
   external set ariaHidden(String? value);
@@ -2676,8 +2683,8 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   external String? get ariaKeyShortcuts;
   external set ariaLabel(String? value);
   external String? get ariaLabel;
-  external set ariaLabelledByElements(JSArray? value);
-  external JSArray? get ariaLabelledByElements;
+  external set ariaLabelledByElements(JSArray<Element>? value);
+  external JSArray<Element>? get ariaLabelledByElements;
   external set ariaLevel(String? value);
   external String? get ariaLevel;
   external set ariaLive(String? value);
@@ -2690,8 +2697,8 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   external String? get ariaMultiSelectable;
   external set ariaOrientation(String? value);
   external String? get ariaOrientation;
-  external set ariaOwnsElements(JSArray? value);
-  external JSArray? get ariaOwnsElements;
+  external set ariaOwnsElements(JSArray<Element>? value);
+  external JSArray<Element>? get ariaOwnsElements;
   external set ariaPlaceholder(String? value);
   external String? get ariaPlaceholder;
   external set ariaPosInSet(String? value);
@@ -2823,7 +2830,7 @@ extension type DataTransfer._(JSObject _) implements JSObject {
   external set effectAllowed(String value);
   external String get effectAllowed;
   external DataTransferItemList get items;
-  external JSArray get types;
+  external JSArray<JSString> get types;
   external FileList get files;
 }
 extension type DataTransferItemList._(JSObject _) implements JSObject {
@@ -2837,7 +2844,7 @@ extension type DataTransferItemList._(JSObject _) implements JSObject {
 }
 extension type DataTransferItem._(JSObject _) implements JSObject {
   external FileSystemEntry? webkitGetAsEntry();
-  external JSPromise getAsFileSystemHandle();
+  external JSPromise<FileSystemHandle?> getAsFileSystemHandle();
   external void getAsString(FunctionStringCallback? callback);
   external File? getAsFile();
   external String get kind;
@@ -2894,10 +2901,14 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
     Element elt, [
     String? pseudoElt,
   ]);
-  external JSPromise getDigitalGoodsService(String serviceProvider);
-  external JSPromise showOpenFilePicker([OpenFilePickerOptions options]);
-  external JSPromise showSaveFilePicker([SaveFilePickerOptions options]);
-  external JSPromise showDirectoryPicker([DirectoryPickerOptions options]);
+  external JSPromise<DigitalGoodsService> getDigitalGoodsService(
+      String serviceProvider);
+  external JSPromise<JSArray<FileSystemFileHandle>> showOpenFilePicker(
+      [OpenFilePickerOptions options]);
+  external JSPromise<FileSystemFileHandle> showSaveFilePicker(
+      [SaveFilePickerOptions options]);
+  external JSPromise<FileSystemDirectoryHandle> showDirectoryPicker(
+      [DirectoryPickerOptions options]);
   external void close();
   external void stop();
   external void focus();
@@ -2917,19 +2928,19 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external void postMessage(
     JSAny? message, [
     JSAny optionsOrTargetOrigin,
-    JSArray transfer,
+    JSArray<JSObject> transfer,
   ]);
   external void captureEvents();
   external void releaseEvents();
-  external JSPromise queryLocalFonts([QueryOptions options]);
+  external JSPromise<JSArray<FontData>> queryLocalFonts([QueryOptions options]);
   external int requestIdleCallback(
     IdleRequestCallback callback, [
     IdleRequestOptions options,
   ]);
   external void cancelIdleCallback(int handle);
   external Selection? getSelection();
-  external JSPromise getScreenDetails();
-  external JSPromise fetch(
+  external JSPromise<ScreenDetails> getScreenDetails();
+  external JSPromise<Response> fetch(
     RequestInfo input, [
     RequestInit init,
   ]);
@@ -2949,7 +2960,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   ]);
   external void clearInterval([int id]);
   external void queueMicrotask(VoidFunction callback);
-  external JSPromise createImageBitmap(
+  external JSPromise<ImageBitmap> createImageBitmap(
     ImageBitmapSource image, [
     JSAny optionsOrSx,
     int sy,
@@ -3333,7 +3344,7 @@ extension type History._(JSObject _) implements JSObject {
   external JSAny? get state;
 }
 extension type Navigation._(JSObject _) implements EventTarget, JSObject {
-  external JSArray entries();
+  external JSArray<NavigationHistoryEntry> entries();
   external void updateCurrentEntry(NavigationUpdateCurrentEntryOptions options);
   external NavigationResult navigate(
     String url, [
@@ -3393,14 +3404,14 @@ extension type NavigationReloadOptions._(JSObject _)
 }
 extension type NavigationResult._(JSObject _) implements JSObject {
   external factory NavigationResult({
-    JSPromise committed,
-    JSPromise finished,
+    JSPromise<NavigationHistoryEntry> committed,
+    JSPromise<NavigationHistoryEntry> finished,
   });
 
-  external set committed(JSPromise value);
-  external JSPromise get committed;
-  external set finished(JSPromise value);
-  external JSPromise get finished;
+  external set committed(JSPromise<NavigationHistoryEntry> value);
+  external JSPromise<NavigationHistoryEntry> get committed;
+  external set finished(JSPromise<NavigationHistoryEntry> value);
+  external JSPromise<NavigationHistoryEntry> get finished;
 }
 extension type NavigationHistoryEntry._(JSObject _)
     implements EventTarget, JSObject {
@@ -3416,7 +3427,7 @@ extension type NavigationHistoryEntry._(JSObject _)
 extension type NavigationTransition._(JSObject _) implements JSObject {
   external NavigationType get navigationType;
   external NavigationHistoryEntry get from;
-  external JSPromise get finished;
+  external JSPromise<JSAny?> get finished;
 }
 extension type NavigateEvent._(JSObject _) implements Event, JSObject {
   external factory NavigateEvent(
@@ -3614,18 +3625,18 @@ extension type PromiseRejectionEvent._(JSObject _) implements Event, JSObject {
     PromiseRejectionEventInit eventInitDict,
   );
 
-  external JSPromise get promise;
+  external JSPromise<JSAny?> get promise;
   external JSAny? get reason;
 }
 extension type PromiseRejectionEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory PromiseRejectionEventInit({
-    required JSPromise promise,
+    required JSPromise<JSAny?> promise,
     JSAny? reason,
   });
 
-  external set promise(JSPromise value);
-  external JSPromise get promise;
+  external set promise(JSPromise<JSAny?> value);
+  external JSPromise<JSAny?> get promise;
   external set reason(JSAny? value);
   external JSAny? get reason;
 }
@@ -3639,36 +3650,37 @@ extension type DOMParser._(JSObject _) implements JSObject {
 }
 extension type Navigator._(JSObject _) implements JSObject {
   external AutoplayPolicy getAutoplayPolicy(JSAny contextOrElementOrType);
-  external JSPromise getBattery();
+  external JSPromise<BatteryManager> getBattery();
   external bool sendBeacon(
     String url, [
     BodyInit? data,
   ]);
-  external JSPromise requestMediaKeySystemAccess(
+  external JSPromise<MediaKeySystemAccess> requestMediaKeySystemAccess(
     String keySystem,
-    JSArray supportedConfigurations,
+    JSArray<MediaKeySystemConfiguration> supportedConfigurations,
   );
-  external JSPromise deprecatedReplaceInURN(
+  external JSPromise<JSAny?> deprecatedReplaceInURN(
     UrnOrConfig urnOrConfig,
     JSAny replacements,
   );
-  external JSArray getGamepads();
-  external JSPromise getInstalledRelatedApps();
+  external JSArray<Gamepad?> getGamepads();
+  external JSPromise<JSArray<RelatedApplication>> getInstalledRelatedApps();
   external void getUserMedia(
     MediaStreamConstraints constraints,
     NavigatorUserMediaSuccessCallback successCallback,
     NavigatorUserMediaErrorCallback errorCallback,
   );
-  external JSPromise joinAdInterestGroup(AuctionAdInterestGroup group);
-  external JSPromise leaveAdInterestGroup([AuctionAdInterestGroupKey group]);
-  external JSPromise runAdAuction(AuctionAdConfig config);
+  external JSPromise<JSAny?> joinAdInterestGroup(AuctionAdInterestGroup group);
+  external JSPromise<JSAny?> leaveAdInterestGroup(
+      [AuctionAdInterestGroupKey group]);
+  external JSPromise<JSAny?> runAdAuction(AuctionAdConfig config);
   external void updateAdInterestGroups();
   external bool vibrate(VibratePattern pattern);
-  external JSPromise share([ShareData data]);
+  external JSPromise<JSAny?> share([ShareData data]);
   external bool canShare([ShareData data]);
-  external JSPromise requestMIDIAccess([MIDIOptions options]);
-  external JSPromise setAppBadge([int contents]);
-  external JSPromise clearAppBadge();
+  external JSPromise<MIDIAccess> requestMIDIAccess([MIDIOptions options]);
+  external JSPromise<JSAny?> setAppBadge([int contents]);
+  external JSPromise<JSAny?> clearAppBadge();
   external bool taintEnabled();
   external void registerProtocolHandler(
     String scheme,
@@ -3716,7 +3728,7 @@ extension type Navigator._(JSObject _) implements JSObject {
   external String get vendorSub;
   external String get oscpu;
   external String get language;
-  external JSArray get languages;
+  external JSArray<JSString> get languages;
   external bool get onLine;
   external bool get cookieEnabled;
   external PluginArray get plugins;
@@ -3799,13 +3811,13 @@ extension type MessageEvent._(JSObject _) implements Event, JSObject {
     String origin,
     String lastEventId,
     MessageEventSource? source,
-    JSArray ports,
+    JSArray<MessagePort> ports,
   ]);
   external JSAny? get data;
   external String get origin;
   external String get lastEventId;
   external MessageEventSource? get source;
-  external JSArray get ports;
+  external JSArray<MessagePort> get ports;
 }
 extension type MessageEventInit._(JSObject _) implements EventInit, JSObject {
   external factory MessageEventInit({
@@ -3813,7 +3825,7 @@ extension type MessageEventInit._(JSObject _) implements EventInit, JSObject {
     String origin,
     String lastEventId,
     MessageEventSource? source,
-    JSArray ports,
+    JSArray<MessagePort> ports,
   });
 
   external set data(JSAny? value);
@@ -3824,8 +3836,8 @@ extension type MessageEventInit._(JSObject _) implements EventInit, JSObject {
   external String get lastEventId;
   external set source(MessageEventSource? value);
   external MessageEventSource? get source;
-  external set ports(JSArray value);
-  external JSArray get ports;
+  external set ports(JSArray<MessagePort> value);
+  external JSArray<MessagePort> get ports;
 }
 extension type EventSource._(JSObject _) implements EventTarget, JSObject {
   external factory EventSource(
@@ -3872,10 +3884,10 @@ extension type MessagePort._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onmessageerror;
 }
 extension type StructuredSerializeOptions._(JSObject _) implements JSObject {
-  external factory StructuredSerializeOptions({JSArray transfer});
+  external factory StructuredSerializeOptions({JSArray<JSObject> transfer});
 
-  external set transfer(JSArray value);
-  external JSArray get transfer;
+  external set transfer(JSArray<JSObject> value);
+  external JSArray<JSObject> get transfer;
 }
 extension type BroadcastChannel._(JSObject _) implements EventTarget, JSObject {
   external factory BroadcastChannel(String name);
@@ -3891,7 +3903,7 @@ extension type BroadcastChannel._(JSObject _) implements EventTarget, JSObject {
 extension type WorkerGlobalScope._(JSObject _)
     implements EventTarget, JSObject {
   external void importScripts(String urls);
-  external JSPromise fetch(
+  external JSPromise<Response> fetch(
     RequestInfo input, [
     RequestInit init,
   ]);
@@ -3911,7 +3923,7 @@ extension type WorkerGlobalScope._(JSObject _)
   ]);
   external void clearInterval([int id]);
   external void queueMicrotask(VoidFunction callback);
-  external JSPromise createImageBitmap(
+  external JSPromise<ImageBitmap> createImageBitmap(
     ImageBitmapSource image, [
     JSAny optionsOrSx,
     int sy,
@@ -4016,8 +4028,8 @@ extension type SharedWorker._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onerror;
 }
 extension type WorkerNavigator._(JSObject _) implements JSObject {
-  external JSPromise setAppBadge([int contents]);
-  external JSPromise clearAppBadge();
+  external JSPromise<JSAny?> setAppBadge([int contents]);
+  external JSPromise<JSAny?> clearAppBadge();
   external bool taintEnabled();
   external MediaCapabilities get mediaCapabilities;
   external Permissions get permissions;
@@ -4037,7 +4049,7 @@ extension type WorkerNavigator._(JSObject _) implements JSObject {
   external String get vendorSub;
   external String get oscpu;
   external String get language;
-  external JSArray get languages;
+  external JSArray<JSString> get languages;
   external bool get onLine;
   external int get hardwareConcurrency;
   external NetworkInformation get connection;
@@ -4061,7 +4073,7 @@ extension type WorkerLocation._(JSObject _) implements JSObject {
 }
 extension type WorkletGlobalScope._(JSObject _) implements JSObject {}
 extension type Worklet._(JSObject _) implements JSObject {
-  external JSPromise addModule(
+  external JSPromise<JSAny?> addModule(
     String moduleURL, [
     WorkletOptions options,
   ]);

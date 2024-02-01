@@ -38,27 +38,27 @@ extension type SharedStorageRunOperationMethodOptions._(JSObject _)
 }
 extension type SharedStorageRunOperation._(JSObject _)
     implements SharedStorageOperation, JSObject {
-  external JSPromise run(JSObject data);
+  external JSPromise<JSAny?> run(JSObject data);
 }
 extension type SharedStorageSelectURLOperation._(JSObject _)
     implements SharedStorageOperation, JSObject {
-  external JSPromise run(
+  external JSPromise<JSNumber> run(
     JSObject data,
-    JSArray urls,
+    JSArray<SharedStorageUrlWithMetadata> urls,
   );
 }
 extension type SharedStorage._(JSObject _) implements JSObject {
-  external JSPromise set(
+  external JSPromise<JSAny?> set(
     String key,
     String value, [
     SharedStorageSetMethodOptions options,
   ]);
-  external JSPromise append(
+  external JSPromise<JSAny?> append(
     String key,
     String value,
   );
-  external JSPromise delete(String key);
-  external JSPromise clear();
+  external JSPromise<JSAny?> delete(String key);
+  external JSPromise<JSAny?> clear();
 }
 extension type SharedStorageSetMethodOptions._(JSObject _) implements JSObject {
   external factory SharedStorageSetMethodOptions({bool ignoreIfPresent});
@@ -68,13 +68,13 @@ extension type SharedStorageSetMethodOptions._(JSObject _) implements JSObject {
 }
 extension type WindowSharedStorage._(JSObject _)
     implements SharedStorage, JSObject {
-  external JSPromise run(
+  external JSPromise<JSAny?> run(
     String name, [
     SharedStorageRunOperationMethodOptions options,
   ]);
-  external JSPromise selectURL(
+  external JSPromise<SharedStorageResponse> selectURL(
     String name,
-    JSArray urls, [
+    JSArray<SharedStorageUrlWithMetadata> urls, [
     SharedStorageRunOperationMethodOptions options,
   ]);
   external SharedStorageWorklet get worklet;
@@ -92,7 +92,7 @@ extension type SharedStorageUrlWithMetadata._(JSObject _) implements JSObject {
 }
 extension type WorkletSharedStorage._(JSObject _)
     implements SharedStorage, JSObject {
-  external JSPromise get(String key);
-  external JSPromise length();
-  external JSPromise remainingBudget();
+  external JSPromise<JSString> get(String key);
+  external JSPromise<JSNumber> length();
+  external JSPromise<JSNumber> remainingBudget();
 }

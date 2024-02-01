@@ -38,7 +38,7 @@ extension type CSSStyleSheet._(JSObject _) implements StyleSheet, JSObject {
     int index,
   ]);
   external void deleteRule(int index);
-  external JSPromise replace(String text);
+  external JSPromise<CSSStyleSheet> replace(String text);
   external void replaceSync(String text);
   external int addRule([
     String selector,
@@ -1409,19 +1409,19 @@ extension type $CSS._(JSObject _) implements JSObject {
     String conditionTextOrProperty, [
     String value,
   ]);
-  external JSPromise parseStylesheet(
+  external JSPromise<JSArray<CSSParserRule>> parseStylesheet(
     CSSStringSource css, [
     CSSParserOptions options,
   ]);
-  external JSPromise parseRuleList(
+  external JSPromise<JSArray<CSSParserRule>> parseRuleList(
     CSSStringSource css, [
     CSSParserOptions options,
   ]);
-  external JSPromise parseRule(
+  external JSPromise<CSSParserRule> parseRule(
     CSSStringSource css, [
     CSSParserOptions options,
   ]);
-  external JSPromise parseDeclarationList(
+  external JSPromise<JSArray<CSSParserRule>> parseDeclarationList(
     CSSStringSource css, [
     CSSParserOptions options,
   ]);
@@ -1430,8 +1430,8 @@ extension type $CSS._(JSObject _) implements JSObject {
     CSSParserOptions options,
   ]);
   external CSSToken parseValue(String css);
-  external JSArray parseValueList(String css);
-  external JSArray parseCommaValueList(String css);
+  external JSArray<CSSToken> parseValueList(String css);
+  external JSArray<JSArray<CSSToken>> parseCommaValueList(String css);
   external void registerProperty(PropertyDefinition definition);
   external CSSUnitValue number(num value);
   external CSSUnitValue percent(num value);

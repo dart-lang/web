@@ -14,7 +14,7 @@ extension type Selection._(JSObject _) implements JSObject {
   external void removeRange(Range range);
   external void removeAllRanges();
   external void empty();
-  external JSArray getComposedRanges(ShadowRoot shadowRoots);
+  external JSArray<StaticRange> getComposedRanges(ShadowRoot shadowRoots);
   external void collapse(
     Node? node, [
     int offset,

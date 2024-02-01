@@ -33,8 +33,8 @@ extension type LayoutOptions._(JSObject _) implements JSObject {
   external LayoutSizingMode get sizing;
 }
 extension type LayoutChild._(JSObject _) implements JSObject {
-  external JSPromise intrinsicSizes();
-  external JSPromise layoutNextFragment(
+  external JSPromise<IntrinsicSizes> intrinsicSizes();
+  external JSPromise<LayoutFragment> layoutNextFragment(
     LayoutConstraintsOptions constraints,
     ChildBreakToken breakToken,
   );
@@ -102,17 +102,17 @@ extension type ChildBreakToken._(JSObject _) implements JSObject {
   external LayoutChild get child;
 }
 extension type BreakToken._(JSObject _) implements JSObject {
-  external JSArray get childBreakTokens;
+  external JSArray<ChildBreakToken> get childBreakTokens;
   external JSAny? get data;
 }
 extension type BreakTokenOptions._(JSObject _) implements JSObject {
   external factory BreakTokenOptions({
-    JSArray childBreakTokens,
+    JSArray<ChildBreakToken> childBreakTokens,
     JSAny? data,
   });
 
-  external set childBreakTokens(JSArray value);
-  external JSArray get childBreakTokens;
+  external set childBreakTokens(JSArray<ChildBreakToken> value);
+  external JSArray<ChildBreakToken> get childBreakTokens;
   external set data(JSAny? value);
   external JSAny? get data;
 }
@@ -129,7 +129,7 @@ extension type FragmentResultOptions._(JSObject _) implements JSObject {
     num inlineSize,
     num blockSize,
     num autoBlockSize,
-    JSArray childFragments,
+    JSArray<LayoutFragment> childFragments,
     JSAny? data,
     BreakTokenOptions breakToken,
   });
@@ -140,8 +140,8 @@ extension type FragmentResultOptions._(JSObject _) implements JSObject {
   external num get blockSize;
   external set autoBlockSize(num value);
   external num get autoBlockSize;
-  external set childFragments(JSArray value);
-  external JSArray get childFragments;
+  external set childFragments(JSArray<LayoutFragment> value);
+  external JSArray<LayoutFragment> get childFragments;
   external set data(JSAny? value);
   external JSAny? get data;
   external set breakToken(BreakTokenOptions value);

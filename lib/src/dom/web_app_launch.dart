@@ -6,10 +6,12 @@
 
 import 'dart:js_interop';
 
+import 'fs.dart';
+
 typedef LaunchConsumer = JSFunction;
 extension type LaunchParams._(JSObject _) implements JSObject {
   external String? get targetURL;
-  external JSArray get files;
+  external JSArray<FileSystemHandle> get files;
 }
 extension type LaunchQueue._(JSObject _) implements JSObject {
   external void setConsumer(LaunchConsumer consumer);

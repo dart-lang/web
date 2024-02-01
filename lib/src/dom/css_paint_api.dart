@@ -130,8 +130,8 @@ extension type PaintRenderingContext2D._(JSObject _) implements JSObject {
     num dw,
     num dh,
   ]);
-  external void setLineDash(JSArray segments);
-  external JSArray getLineDash();
+  external void setLineDash(JSArray<JSNumber> segments);
+  external JSArray<JSNumber> getLineDash();
   external void closePath();
   external void moveTo(
     num x,

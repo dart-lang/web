@@ -42,8 +42,8 @@ extension type MIDIAccess._(JSObject _) implements EventTarget, JSObject {
   external bool get sysexEnabled;
 }
 extension type MIDIPort._(JSObject _) implements EventTarget, JSObject {
-  external JSPromise open();
-  external JSPromise close();
+  external JSPromise<MIDIPort> open();
+  external JSPromise<MIDIPort> close();
   external String get id;
   external String? get manufacturer;
   external String? get name;
@@ -60,7 +60,7 @@ extension type MIDIInput._(JSObject _) implements MIDIPort, JSObject {
 }
 extension type MIDIOutput._(JSObject _) implements MIDIPort, JSObject {
   external void send(
-    JSArray data, [
+    JSArray<JSNumber> data, [
     DOMHighResTimeStamp timestamp,
   ]);
   external void clear();

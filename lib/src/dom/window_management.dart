@@ -11,7 +11,7 @@ import 'dom.dart';
 import 'html.dart';
 
 extension type ScreenDetails._(JSObject _) implements EventTarget, JSObject {
-  external JSArray get screens;
+  external JSArray<ScreenDetailed> get screens;
   external ScreenDetailed get currentScreen;
   external set onscreenschange(EventHandler value);
   external EventHandler get onscreenschange;

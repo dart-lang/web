@@ -9,5 +9,5 @@ import 'dart:js_interop';
 import 'dom.dart';
 
 extension type RestrictionTarget._(JSObject _) implements JSObject {
-  external static JSPromise fromElement(Element element);
+  external static JSPromise<RestrictionTarget> fromElement(Element element);
 }

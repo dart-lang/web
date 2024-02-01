@@ -38,20 +38,20 @@ extension type MLContextOptions._(JSObject _) implements JSObject {
   external MLPowerPreference get powerPreference;
 }
 extension type ML._(JSObject _) implements JSObject {
-  external JSPromise createContext([JSObject gpuDeviceOrOptions]);
+  external JSPromise<MLContext> createContext([JSObject gpuDeviceOrOptions]);
   external MLContext createContextSync([JSObject gpuDeviceOrOptions]);
 }
 extension type MLGraph._(JSObject _) implements JSObject {}
 extension type MLOperandDescriptor._(JSObject _) implements JSObject {
   external factory MLOperandDescriptor({
     required MLOperandType type,
-    JSArray dimensions,
+    JSArray<JSNumber> dimensions,
   });
 
   external set type(MLOperandType value);
   external MLOperandType get type;
-  external set dimensions(JSArray value);
-  external JSArray get dimensions;
+  external set dimensions(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get dimensions;
 }
 extension type MLOperand._(JSObject _) implements JSObject {}
 extension type MLActivation._(JSObject _) implements JSObject {}
@@ -61,7 +61,7 @@ extension type MLContext._(JSObject _) implements JSObject {
     MLNamedArrayBufferViews inputs,
     MLNamedArrayBufferViews outputs,
   );
-  external JSPromise compute(
+  external JSPromise<MLComputeResult> compute(
     MLGraph graph,
     MLNamedArrayBufferViews inputs,
     MLNamedArrayBufferViews outputs,
@@ -113,7 +113,7 @@ extension type MLGraphBuilder._(JSObject _) implements JSObject {
     JSAny descriptorOrValue, [
     JSAny bufferViewOrType,
   ]);
-  external JSPromise build(MLNamedOperands outputs);
+  external JSPromise<MLGraph> build(MLNamedOperands outputs);
   external MLGraph buildSync(MLNamedOperands outputs);
   external MLOperand batchNormalization(
     MLOperand input,
@@ -126,7 +126,7 @@ extension type MLGraphBuilder._(JSObject _) implements JSObject {
     MLClampOptions options,
   ]);
   external MLOperand concat(
-    JSArray inputs,
+    JSArray<MLOperand> inputs,
     int axis,
   );
   external MLOperand conv2d(
@@ -185,7 +185,7 @@ extension type MLGraphBuilder._(JSObject _) implements JSObject {
     MLOperand b, [
     MLGemmOptions options,
   ]);
-  external JSArray gru(
+  external JSArray<MLOperand> gru(
     MLOperand input,
     MLOperand weight,
     MLOperand recurrentWeight,
@@ -218,7 +218,7 @@ extension type MLGraphBuilder._(JSObject _) implements JSObject {
     JSObject inputOrOptions,
     MLLinearOptions options,
   ]);
-  external JSArray lstm(
+  external JSArray<MLOperand> lstm(
     MLOperand input,
     MLOperand weight,
     MLOperand recurrentWeight,
@@ -226,7 +226,7 @@ extension type MLGraphBuilder._(JSObject _) implements JSObject {
     int hiddenSize, [
     MLLstmOptions options,
   ]);
-  external JSArray lstmCell(
+  external JSArray<MLOperand> lstmCell(
     MLOperand input,
     MLOperand weight,
     MLOperand recurrentWeight,
@@ -241,8 +241,8 @@ extension type MLGraphBuilder._(JSObject _) implements JSObject {
   );
   external MLOperand pad(
     MLOperand input,
-    JSArray beginningPadding,
-    JSArray endingPadding, [
+    JSArray<JSNumber> beginningPadding,
+    JSArray<JSNumber> endingPadding, [
     MLPadOptions options,
   ]);
   external MLOperand averagePool2d(
@@ -308,13 +308,13 @@ extension type MLGraphBuilder._(JSObject _) implements JSObject {
   ]);
   external MLOperand reshape(
     MLOperand input,
-    JSArray newShape,
+    JSArray<JSNumber?> newShape,
   );
   external JSObject sigmoid([MLOperand input]);
   external MLOperand slice(
     MLOperand input,
-    JSArray starts,
-    JSArray sizes,
+    JSArray<JSNumber> starts,
+    JSArray<JSNumber> sizes,
   );
   external JSObject softmax([MLOperand input]);
   external JSObject softplus([
@@ -322,7 +322,7 @@ extension type MLGraphBuilder._(JSObject _) implements JSObject {
     MLSoftplusOptions options,
   ]);
   external JSObject softsign([MLOperand input]);
-  external JSArray split(
+  external JSArray<MLOperand> split(
     MLOperand input,
     JSAny splits, [
     MLSplitOptions options,
@@ -370,9 +370,9 @@ extension type MLClampOptions._(JSObject _) implements JSObject {
 }
 extension type MLConv2dOptions._(JSObject _) implements JSObject {
   external factory MLConv2dOptions({
-    JSArray padding,
-    JSArray strides,
-    JSArray dilations,
+    JSArray<JSNumber> padding,
+    JSArray<JSNumber> strides,
+    JSArray<JSNumber> dilations,
     MLAutoPad autoPad,
     int groups,
     MLInputOperandLayout inputLayout,
@@ -381,12 +381,12 @@ extension type MLConv2dOptions._(JSObject _) implements JSObject {
     MLActivation activation,
   });
 
-  external set padding(JSArray value);
-  external JSArray get padding;
-  external set strides(JSArray value);
-  external JSArray get strides;
-  external set dilations(JSArray value);
-  external JSArray get dilations;
+  external set padding(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get padding;
+  external set strides(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get strides;
+  external set dilations(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get dilations;
   external set autoPad(MLAutoPad value);
   external MLAutoPad get autoPad;
   external set groups(int value);
@@ -402,11 +402,11 @@ extension type MLConv2dOptions._(JSObject _) implements JSObject {
 }
 extension type MLConvTranspose2dOptions._(JSObject _) implements JSObject {
   external factory MLConvTranspose2dOptions({
-    JSArray padding,
-    JSArray strides,
-    JSArray dilations,
-    JSArray outputPadding,
-    JSArray outputSizes,
+    JSArray<JSNumber> padding,
+    JSArray<JSNumber> strides,
+    JSArray<JSNumber> dilations,
+    JSArray<JSNumber> outputPadding,
+    JSArray<JSNumber> outputSizes,
     MLAutoPad autoPad,
     int groups,
     MLInputOperandLayout inputLayout,
@@ -415,16 +415,16 @@ extension type MLConvTranspose2dOptions._(JSObject _) implements JSObject {
     MLActivation activation,
   });
 
-  external set padding(JSArray value);
-  external JSArray get padding;
-  external set strides(JSArray value);
-  external JSArray get strides;
-  external set dilations(JSArray value);
-  external JSArray get dilations;
-  external set outputPadding(JSArray value);
-  external JSArray get outputPadding;
-  external set outputSizes(JSArray value);
-  external JSArray get outputSizes;
+  external set padding(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get padding;
+  external set strides(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get strides;
+  external set dilations(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get dilations;
+  external set outputPadding(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get outputPadding;
+  external set outputSizes(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get outputSizes;
   external set autoPad(MLAutoPad value);
   external MLAutoPad get autoPad;
   external set groups(int value);
@@ -473,7 +473,7 @@ extension type MLGruOptions._(JSObject _) implements JSObject {
     bool returnSequence,
     MLRecurrentNetworkDirection direction,
     MLGruWeightLayout layout,
-    JSArray activations,
+    JSArray<MLActivation> activations,
   });
 
   external set bias(MLOperand value);
@@ -490,8 +490,8 @@ extension type MLGruOptions._(JSObject _) implements JSObject {
   external MLRecurrentNetworkDirection get direction;
   external set layout(MLGruWeightLayout value);
   external MLGruWeightLayout get layout;
-  external set activations(JSArray value);
-  external JSArray get activations;
+  external set activations(JSArray<MLActivation> value);
+  external JSArray<MLActivation> get activations;
 }
 extension type MLGruCellOptions._(JSObject _) implements JSObject {
   external factory MLGruCellOptions({
@@ -499,7 +499,7 @@ extension type MLGruCellOptions._(JSObject _) implements JSObject {
     MLOperand recurrentBias,
     bool resetAfter,
     MLGruWeightLayout layout,
-    JSArray activations,
+    JSArray<MLActivation> activations,
   });
 
   external set bias(MLOperand value);
@@ -510,8 +510,8 @@ extension type MLGruCellOptions._(JSObject _) implements JSObject {
   external bool get resetAfter;
   external set layout(MLGruWeightLayout value);
   external MLGruWeightLayout get layout;
-  external set activations(JSArray value);
-  external JSArray get activations;
+  external set activations(JSArray<MLActivation> value);
+  external JSArray<MLActivation> get activations;
 }
 extension type MLHardSigmoidOptions._(JSObject _) implements JSObject {
   external factory MLHardSigmoidOptions({
@@ -569,7 +569,7 @@ extension type MLLstmOptions._(JSObject _) implements JSObject {
     bool returnSequence,
     MLRecurrentNetworkDirection direction,
     MLLstmWeightLayout layout,
-    JSArray activations,
+    JSArray<MLActivation> activations,
   });
 
   external set bias(MLOperand value);
@@ -588,8 +588,8 @@ extension type MLLstmOptions._(JSObject _) implements JSObject {
   external MLRecurrentNetworkDirection get direction;
   external set layout(MLLstmWeightLayout value);
   external MLLstmWeightLayout get layout;
-  external set activations(JSArray value);
-  external JSArray get activations;
+  external set activations(JSArray<MLActivation> value);
+  external JSArray<MLActivation> get activations;
 }
 extension type MLLstmCellOptions._(JSObject _) implements JSObject {
   external factory MLLstmCellOptions({
@@ -597,7 +597,7 @@ extension type MLLstmCellOptions._(JSObject _) implements JSObject {
     MLOperand recurrentBias,
     MLOperand peepholeWeight,
     MLLstmWeightLayout layout,
-    JSArray activations,
+    JSArray<MLActivation> activations,
   });
 
   external set bias(MLOperand value);
@@ -608,8 +608,8 @@ extension type MLLstmCellOptions._(JSObject _) implements JSObject {
   external MLOperand get peepholeWeight;
   external set layout(MLLstmWeightLayout value);
   external MLLstmWeightLayout get layout;
-  external set activations(JSArray value);
-  external JSArray get activations;
+  external set activations(JSArray<MLActivation> value);
+  external JSArray<MLActivation> get activations;
 }
 extension type MLPadOptions._(JSObject _) implements JSObject {
   external factory MLPadOptions({
@@ -624,60 +624,60 @@ extension type MLPadOptions._(JSObject _) implements JSObject {
 }
 extension type MLPool2dOptions._(JSObject _) implements JSObject {
   external factory MLPool2dOptions({
-    JSArray windowDimensions,
-    JSArray padding,
-    JSArray strides,
-    JSArray dilations,
+    JSArray<JSNumber> windowDimensions,
+    JSArray<JSNumber> padding,
+    JSArray<JSNumber> strides,
+    JSArray<JSNumber> dilations,
     MLAutoPad autoPad,
     MLInputOperandLayout layout,
     MLRoundingType roundingType,
-    JSArray outputSizes,
+    JSArray<JSNumber> outputSizes,
   });
 
-  external set windowDimensions(JSArray value);
-  external JSArray get windowDimensions;
-  external set padding(JSArray value);
-  external JSArray get padding;
-  external set strides(JSArray value);
-  external JSArray get strides;
-  external set dilations(JSArray value);
-  external JSArray get dilations;
+  external set windowDimensions(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get windowDimensions;
+  external set padding(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get padding;
+  external set strides(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get strides;
+  external set dilations(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get dilations;
   external set autoPad(MLAutoPad value);
   external MLAutoPad get autoPad;
   external set layout(MLInputOperandLayout value);
   external MLInputOperandLayout get layout;
   external set roundingType(MLRoundingType value);
   external MLRoundingType get roundingType;
-  external set outputSizes(JSArray value);
-  external JSArray get outputSizes;
+  external set outputSizes(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get outputSizes;
 }
 extension type MLReduceOptions._(JSObject _) implements JSObject {
   external factory MLReduceOptions({
-    JSArray axes,
+    JSArray<JSNumber> axes,
     bool keepDimensions,
   });
 
-  external set axes(JSArray value);
-  external JSArray get axes;
+  external set axes(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get axes;
   external set keepDimensions(bool value);
   external bool get keepDimensions;
 }
 extension type MLResample2dOptions._(JSObject _) implements JSObject {
   external factory MLResample2dOptions({
     MLInterpolationMode mode,
-    JSArray scales,
-    JSArray sizes,
-    JSArray axes,
+    JSArray<JSNumber> scales,
+    JSArray<JSNumber> sizes,
+    JSArray<JSNumber> axes,
   });
 
   external set mode(MLInterpolationMode value);
   external MLInterpolationMode get mode;
-  external set scales(JSArray value);
-  external JSArray get scales;
-  external set sizes(JSArray value);
-  external JSArray get sizes;
-  external set axes(JSArray value);
-  external JSArray get axes;
+  external set scales(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get scales;
+  external set sizes(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get sizes;
+  external set axes(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get axes;
 }
 extension type MLSoftplusOptions._(JSObject _) implements JSObject {
   external factory MLSoftplusOptions({num steepness});
@@ -692,14 +692,14 @@ extension type MLSplitOptions._(JSObject _) implements JSObject {
   external int get axis;
 }
 extension type MLSqueezeOptions._(JSObject _) implements JSObject {
-  external factory MLSqueezeOptions({JSArray axes});
+  external factory MLSqueezeOptions({JSArray<JSNumber> axes});
 
-  external set axes(JSArray value);
-  external JSArray get axes;
+  external set axes(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get axes;
 }
 extension type MLTransposeOptions._(JSObject _) implements JSObject {
-  external factory MLTransposeOptions({JSArray permutation});
+  external factory MLTransposeOptions({JSArray<JSNumber> permutation});
 
-  external set permutation(JSArray value);
-  external JSArray get permutation;
+  external set permutation(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get permutation;
 }

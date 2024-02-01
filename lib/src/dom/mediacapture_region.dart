@@ -11,11 +11,11 @@ import 'element_capture.dart';
 import 'mediacapture_streams.dart';
 
 extension type CropTarget._(JSObject _) implements JSObject {
-  external static JSPromise fromElement(Element element);
+  external static JSPromise<CropTarget> fromElement(Element element);
 }
 extension type BrowserCaptureMediaStreamTrack._(JSObject _)
     implements MediaStreamTrack, JSObject {
-  external JSPromise restrictTo(RestrictionTarget? RestrictionTarget);
-  external JSPromise cropTo(CropTarget? cropTarget);
+  external JSPromise<JSAny?> restrictTo(RestrictionTarget? RestrictionTarget);
+  external JSPromise<JSAny?> cropTo(CropTarget? cropTarget);
   external BrowserCaptureMediaStreamTrack clone();
 }

@@ -23,5 +23,6 @@ extension type ColorSelectionOptions._(JSObject _) implements JSObject {
 extension type EyeDropper._(JSObject _) implements JSObject {
   external factory EyeDropper();
 
-  external JSPromise open([ColorSelectionOptions options]);
+  external JSPromise<ColorSelectionResult> open(
+      [ColorSelectionOptions options]);
 }

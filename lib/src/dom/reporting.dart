@@ -6,7 +6,7 @@
 
 import 'dart:js_interop';
 
-typedef ReportList = JSArray;
+typedef ReportList = JSArray<Report>;
 typedef ReportingObserverCallback = JSFunction;
 extension type ReportBody._(JSObject _) implements JSObject {
   external JSObject toJSON();
@@ -29,12 +29,12 @@ extension type ReportingObserver._(JSObject _) implements JSObject {
 }
 extension type ReportingObserverOptions._(JSObject _) implements JSObject {
   external factory ReportingObserverOptions({
-    JSArray types,
+    JSArray<JSString> types,
     bool buffered,
   });
 
-  external set types(JSArray value);
-  external JSArray get types;
+  external set types(JSArray<JSString> value);
+  external JSArray<JSString> get types;
   external set buffered(bool value);
   external bool get buffered;
 }

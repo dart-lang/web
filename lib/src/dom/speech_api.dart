@@ -132,7 +132,7 @@ extension type SpeechSynthesis._(JSObject _) implements EventTarget, JSObject {
   external void cancel();
   external void pause();
   external void resume();
-  external JSArray getVoices();
+  external JSArray<SpeechSynthesisVoice> getVoices();
   external bool get pending;
   external bool get speaking;
   external bool get paused;

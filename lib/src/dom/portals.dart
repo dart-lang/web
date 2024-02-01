@@ -13,7 +13,7 @@ extension type HTMLPortalElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLPortalElement();
 
-  external JSPromise activate([PortalActivateOptions options]);
+  external JSPromise<JSAny?> activate([PortalActivateOptions options]);
   external void postMessage(
     JSAny? message, [
     StructuredSerializeOptions options,

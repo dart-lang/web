@@ -8,10 +8,12 @@ import 'dart:js_interop';
 
 import 'attribution_reporting_api.dart';
 import 'dom.dart';
+import 'fileapi.dart';
 import 'private_network_access.dart';
 import 'referrer_policy.dart';
 import 'streams.dart';
 import 'trust_token_api.dart';
+import 'xhr.dart';
 
 typedef HeadersInit = JSAny;
 typedef XMLHttpRequestBodyInit = JSAny;
@@ -34,7 +36,7 @@ extension type Headers._(JSObject _) implements JSObject {
   );
   external void delete(String name);
   external String? get(String name);
-  external JSArray getSetCookie();
+  external JSArray<JSString> getSetCookie();
   external bool has(String name);
   external void set(
     String name,
@@ -48,11 +50,11 @@ extension type Request._(JSObject _) implements JSObject {
   ]);
 
   external Request clone();
-  external JSPromise arrayBuffer();
-  external JSPromise blob();
-  external JSPromise formData();
-  external JSPromise json();
-  external JSPromise text();
+  external JSPromise<JSArrayBuffer> arrayBuffer();
+  external JSPromise<Blob> blob();
+  external JSPromise<FormData> formData();
+  external JSPromise<JSAny?> json();
+  external JSPromise<JSString> text();
   external String get method;
   external String get url;
   external Headers get headers;
@@ -151,11 +153,11 @@ extension type Response._(JSObject _) implements JSObject {
     ResponseInit init,
   ]);
   external Response clone();
-  external JSPromise arrayBuffer();
-  external JSPromise blob();
-  external JSPromise formData();
-  external JSPromise json();
-  external JSPromise text();
+  external JSPromise<JSArrayBuffer> arrayBuffer();
+  external JSPromise<Blob> blob();
+  external JSPromise<FormData> formData();
+  external JSPromise<JSAny?> json();
+  external JSPromise<JSString> text();
   external ResponseType get type;
   external String get url;
   external bool get redirected;

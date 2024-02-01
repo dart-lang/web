@@ -13,14 +13,14 @@ typedef XRDepthUsage = String;
 typedef XRDepthDataFormat = String;
 extension type XRDepthStateInit._(JSObject _) implements JSObject {
   external factory XRDepthStateInit({
-    required JSArray usagePreference,
-    required JSArray dataFormatPreference,
+    required JSArray<JSString> usagePreference,
+    required JSArray<JSString> dataFormatPreference,
   });
 
-  external set usagePreference(JSArray value);
-  external JSArray get usagePreference;
-  external set dataFormatPreference(JSArray value);
-  external JSArray get dataFormatPreference;
+  external set usagePreference(JSArray<JSString> value);
+  external JSArray<JSString> get usagePreference;
+  external set dataFormatPreference(JSArray<JSString> value);
+  external JSArray<JSString> get dataFormatPreference;
 }
 extension type XRDepthInformation._(JSObject _) implements JSObject {
   external int get width;

@@ -15,7 +15,7 @@ typedef BlobPart = JSAny;
 typedef EndingType = String;
 extension type Blob._(JSObject _) implements JSObject {
   external factory Blob([
-    JSArray blobParts,
+    JSArray<BlobPart> blobParts,
     BlobPropertyBag options,
   ]);
 
@@ -25,8 +25,8 @@ extension type Blob._(JSObject _) implements JSObject {
     String contentType,
   ]);
   external ReadableStream stream();
-  external JSPromise text();
-  external JSPromise arrayBuffer();
+  external JSPromise<JSString> text();
+  external JSPromise<JSArrayBuffer> arrayBuffer();
   external int get size;
   external String get type;
 }
@@ -43,7 +43,7 @@ extension type BlobPropertyBag._(JSObject _) implements JSObject {
 }
 extension type File._(JSObject _) implements Blob, JSObject {
   external factory File(
-    JSArray fileBits,
+    JSArray<BlobPart> fileBits,
     String fileName, [
     FilePropertyBag options,
   ]);

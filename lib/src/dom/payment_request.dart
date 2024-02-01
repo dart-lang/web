@@ -12,14 +12,15 @@ import 'html.dart';
 typedef PaymentComplete = String;
 extension type PaymentRequest._(JSObject _) implements EventTarget, JSObject {
   external factory PaymentRequest(
-    JSArray methodData,
+    JSArray<PaymentMethodData> methodData,
     PaymentDetailsInit details,
   );
 
-  external static JSPromise isSecurePaymentConfirmationAvailable();
-  external JSPromise show([JSPromise detailsPromise]);
-  external JSPromise abort();
-  external JSPromise canMakePayment();
+  external static JSPromise<JSBoolean> isSecurePaymentConfirmationAvailable();
+  external JSPromise<PaymentResponse> show(
+      [JSPromise<PaymentDetailsUpdate> detailsPromise]);
+  external JSPromise<JSAny?> abort();
+  external JSPromise<JSBoolean> canMakePayment();
   external String get id;
   external set onpaymentmethodchange(EventHandler value);
   external EventHandler get onpaymentmethodchange;
@@ -48,14 +49,14 @@ extension type PaymentCurrencyAmount._(JSObject _) implements JSObject {
 }
 extension type PaymentDetailsBase._(JSObject _) implements JSObject {
   external factory PaymentDetailsBase({
-    JSArray displayItems,
-    JSArray modifiers,
+    JSArray<PaymentItem> displayItems,
+    JSArray<PaymentDetailsModifier> modifiers,
   });
 
-  external set displayItems(JSArray value);
-  external JSArray get displayItems;
-  external set modifiers(JSArray value);
-  external JSArray get modifiers;
+  external set displayItems(JSArray<PaymentItem> value);
+  external JSArray<PaymentItem> get displayItems;
+  external set modifiers(JSArray<PaymentDetailsModifier> value);
+  external JSArray<PaymentDetailsModifier> get modifiers;
 }
 extension type PaymentDetailsInit._(JSObject _)
     implements PaymentDetailsBase, JSObject {
@@ -85,7 +86,7 @@ extension type PaymentDetailsModifier._(JSObject _) implements JSObject {
   external factory PaymentDetailsModifier({
     required String supportedMethods,
     PaymentItem total,
-    JSArray additionalDisplayItems,
+    JSArray<PaymentItem> additionalDisplayItems,
     JSObject data,
   });
 
@@ -93,8 +94,8 @@ extension type PaymentDetailsModifier._(JSObject _) implements JSObject {
   external String get supportedMethods;
   external set total(PaymentItem value);
   external PaymentItem get total;
-  external set additionalDisplayItems(JSArray value);
-  external JSArray get additionalDisplayItems;
+  external set additionalDisplayItems(JSArray<PaymentItem> value);
+  external JSArray<PaymentItem> get additionalDisplayItems;
   external set data(JSObject value);
   external JSObject get data;
 }
@@ -120,11 +121,11 @@ extension type PaymentCompleteDetails._(JSObject _) implements JSObject {
 }
 extension type PaymentResponse._(JSObject _) implements EventTarget, JSObject {
   external JSObject toJSON();
-  external JSPromise complete([
+  external JSPromise<JSAny?> complete([
     PaymentComplete result,
     PaymentCompleteDetails details,
   ]);
-  external JSPromise retry([PaymentValidationErrors errorFields]);
+  external JSPromise<JSAny?> retry([PaymentValidationErrors errorFields]);
   external String get requestId;
   external String get methodName;
   external JSObject get details;
@@ -169,7 +170,7 @@ extension type PaymentRequestUpdateEvent._(JSObject _)
     PaymentRequestUpdateEventInit eventInitDict,
   ]);
 
-  external void updateWith(JSPromise detailsPromise);
+  external void updateWith(JSPromise<PaymentDetailsUpdate> detailsPromise);
 }
 extension type PaymentRequestUpdateEventInit._(JSObject _)
     implements EventInit, JSObject {

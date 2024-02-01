@@ -11,16 +11,16 @@ import 'hr_time.dart';
 import 'html.dart';
 import 'service_workers.dart';
 
-typedef CookieList = JSArray;
+typedef CookieList = JSArray<CookieListItem>;
 typedef CookieSameSite = String;
 extension type CookieStore._(JSObject _) implements EventTarget, JSObject {
-  external JSPromise get([JSAny nameOrOptions]);
-  external JSPromise getAll([JSAny nameOrOptions]);
-  external JSPromise set(
+  external JSPromise<CookieListItem?> get([JSAny nameOrOptions]);
+  external JSPromise<CookieList> getAll([JSAny nameOrOptions]);
+  external JSPromise<JSAny?> set(
     JSAny nameOrOptions, [
     String value,
   ]);
-  external JSPromise delete(JSAny nameOrOptions);
+  external JSPromise<JSAny?> delete(JSAny nameOrOptions);
   external set onchange(EventHandler value);
   external EventHandler get onchange;
 }
@@ -108,9 +108,11 @@ extension type CookieListItem._(JSObject _) implements JSObject {
   external bool get partitioned;
 }
 extension type CookieStoreManager._(JSObject _) implements JSObject {
-  external JSPromise subscribe(JSArray subscriptions);
-  external JSPromise getSubscriptions();
-  external JSPromise unsubscribe(JSArray subscriptions);
+  external JSPromise<JSAny?> subscribe(
+      JSArray<CookieStoreGetOptions> subscriptions);
+  external JSPromise<JSArray<CookieStoreGetOptions>> getSubscriptions();
+  external JSPromise<JSAny?> unsubscribe(
+      JSArray<CookieStoreGetOptions> subscriptions);
 }
 extension type CookieChangeEvent._(JSObject _) implements Event, JSObject {
   external factory CookieChangeEvent(
@@ -118,8 +120,8 @@ extension type CookieChangeEvent._(JSObject _) implements Event, JSObject {
     CookieChangeEventInit eventInitDict,
   ]);
 
-  external JSArray get changed;
-  external JSArray get deleted;
+  external JSArray<CookieListItem> get changed;
+  external JSArray<CookieListItem> get deleted;
 }
 extension type CookieChangeEventInit._(JSObject _)
     implements EventInit, JSObject {
@@ -140,8 +142,8 @@ extension type ExtendableCookieChangeEvent._(JSObject _)
     ExtendableCookieChangeEventInit eventInitDict,
   ]);
 
-  external JSArray get changed;
-  external JSArray get deleted;
+  external JSArray<CookieListItem> get changed;
+  external JSArray<CookieListItem> get deleted;
 }
 extension type ExtendableCookieChangeEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {

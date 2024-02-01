@@ -20,12 +20,12 @@ extension type FocusableAreasOption._(JSObject _) implements JSObject {
 extension type SpatialNavigationSearchOptions._(JSObject _)
     implements JSObject {
   external factory SpatialNavigationSearchOptions({
-    JSArray? candidates,
+    JSArray<Node>? candidates,
     Node? container,
   });
 
-  external set candidates(JSArray? value);
-  external JSArray? get candidates;
+  external set candidates(JSArray<Node>? value);
+  external JSArray<Node>? get candidates;
   external set container(Node? value);
   external Node? get container;
 }

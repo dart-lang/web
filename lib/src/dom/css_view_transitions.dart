@@ -9,7 +9,7 @@ import 'dart:js_interop';
 typedef UpdateCallback = JSFunction;
 extension type ViewTransition._(JSObject _) implements JSObject {
   external void skipTransition();
-  external JSPromise get updateCallbackDone;
-  external JSPromise get ready;
-  external JSPromise get finished;
+  external JSPromise<JSAny?> get updateCallbackDone;
+  external JSPromise<JSAny?> get ready;
+  external JSPromise<JSAny?> get finished;
 }

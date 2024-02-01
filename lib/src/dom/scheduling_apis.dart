@@ -26,7 +26,7 @@ extension type SchedulerPostTaskOptions._(JSObject _) implements JSObject {
   external int get delay;
 }
 extension type Scheduler._(JSObject _) implements JSObject {
-  external JSPromise postTask(
+  external JSPromise<JSAny?> postTask(
     SchedulerPostTaskCallback callback, [
     SchedulerPostTaskOptions options,
   ]);
@@ -68,7 +68,7 @@ extension type TaskSignalAnyInit._(JSObject _) implements JSObject {
 }
 extension type TaskSignal._(JSObject _) implements AbortSignal, JSObject {
   external static TaskSignal any(
-    JSArray signals, [
+    JSArray<AbortSignal> signals, [
     TaskSignalAnyInit init,
   ]);
   external TaskPriority get priority;

@@ -30,9 +30,9 @@ extension type ResizeObserver._(JSObject _) implements JSObject {
 extension type ResizeObserverEntry._(JSObject _) implements JSObject {
   external Element get target;
   external DOMRectReadOnly get contentRect;
-  external JSArray get borderBoxSize;
-  external JSArray get contentBoxSize;
-  external JSArray get devicePixelContentBoxSize;
+  external JSArray<ResizeObserverSize> get borderBoxSize;
+  external JSArray<ResizeObserverSize> get contentBoxSize;
+  external JSArray<ResizeObserverSize> get devicePixelContentBoxSize;
 }
 extension type ResizeObserverSize._(JSObject _) implements JSObject {
   external num get inlineSize;

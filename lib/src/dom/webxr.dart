@@ -32,8 +32,8 @@ typedef XREye = String;
 typedef XRHandedness = String;
 typedef XRTargetRayMode = String;
 extension type XRSystem._(JSObject _) implements EventTarget, JSObject {
-  external JSPromise isSessionSupported(XRSessionMode mode);
-  external JSPromise requestSession(
+  external JSPromise<JSBoolean> isSessionSupported(XRSessionMode mode);
+  external JSPromise<XRSession> requestSession(
     XRSessionMode mode, [
     XRSessionInit options,
   ]);
@@ -44,33 +44,37 @@ extension type XRSessionInit._(JSObject _) implements JSObject {
   external factory XRSessionInit({
     XRDepthStateInit depthSensing,
     XRDOMOverlayInit? domOverlay,
-    JSArray requiredFeatures,
-    JSArray optionalFeatures,
+    JSArray<JSString> requiredFeatures,
+    JSArray<JSString> optionalFeatures,
   });
 
   external set depthSensing(XRDepthStateInit value);
   external XRDepthStateInit get depthSensing;
   external set domOverlay(XRDOMOverlayInit? value);
   external XRDOMOverlayInit? get domOverlay;
-  external set requiredFeatures(JSArray value);
-  external JSArray get requiredFeatures;
-  external set optionalFeatures(JSArray value);
-  external JSArray get optionalFeatures;
+  external set requiredFeatures(JSArray<JSString> value);
+  external JSArray<JSString> get requiredFeatures;
+  external set optionalFeatures(JSArray<JSString> value);
+  external JSArray<JSString> get optionalFeatures;
 }
 extension type XRSession._(JSObject _) implements EventTarget, JSObject {
-  external JSPromise restorePersistentAnchor(String uuid);
-  external JSPromise deletePersistentAnchor(String uuid);
-  external JSPromise requestHitTestSource(XRHitTestOptionsInit options);
-  external JSPromise requestHitTestSourceForTransientInput(
-      XRTransientInputHitTestOptionsInit options);
-  external JSPromise requestLightProbe([XRLightProbeInit options]);
+  external JSPromise<XRAnchor> restorePersistentAnchor(String uuid);
+  external JSPromise<JSAny?> deletePersistentAnchor(String uuid);
+  external JSPromise<XRHitTestSource> requestHitTestSource(
+      XRHitTestOptionsInit options);
+  external JSPromise<XRTransientInputHitTestSource>
+      requestHitTestSourceForTransientInput(
+          XRTransientInputHitTestOptionsInit options);
+  external JSPromise<XRLightProbe> requestLightProbe(
+      [XRLightProbeInit options]);
   external void updateRenderState([XRRenderStateInit state]);
-  external JSPromise updateTargetFrameRate(num rate);
-  external JSPromise requestReferenceSpace(XRReferenceSpaceType type);
+  external JSPromise<JSAny?> updateTargetFrameRate(num rate);
+  external JSPromise<XRReferenceSpace> requestReferenceSpace(
+      XRReferenceSpaceType type);
   external int requestAnimationFrame(XRFrameRequestCallback callback);
   external void cancelAnimationFrame(int handle);
-  external JSPromise end();
-  external JSArray get persistentAnchors;
+  external JSPromise<JSAny?> end();
+  external JSArray<JSString> get persistentAnchors;
   external XREnvironmentBlendMode get environmentBlendMode;
   external XRInteractionMode get interactionMode;
   external XRDepthUsage get depthUsage;
@@ -82,7 +86,7 @@ extension type XRSession._(JSObject _) implements EventTarget, JSObject {
   external JSFloat32Array? get supportedFrameRates;
   external XRRenderState get renderState;
   external XRInputSourceArray get inputSources;
-  external JSArray get enabledFeatures;
+  external JSArray<JSString> get enabledFeatures;
   external bool get isSystemKeyboardSupported;
   external set onend(EventHandler value);
   external EventHandler get onend;
@@ -111,7 +115,7 @@ extension type XRRenderStateInit._(JSObject _) implements JSObject {
     num depthFar,
     num inlineVerticalFieldOfView,
     XRWebGLLayer? baseLayer,
-    JSArray? layers,
+    JSArray<XRLayer>? layers,
   });
 
   external set depthNear(num value);
@@ -122,18 +126,18 @@ extension type XRRenderStateInit._(JSObject _) implements JSObject {
   external num get inlineVerticalFieldOfView;
   external set baseLayer(XRWebGLLayer? value);
   external XRWebGLLayer? get baseLayer;
-  external set layers(JSArray? value);
-  external JSArray? get layers;
+  external set layers(JSArray<XRLayer>? value);
+  external JSArray<XRLayer>? get layers;
 }
 extension type XRRenderState._(JSObject _) implements JSObject {
   external num get depthNear;
   external num get depthFar;
   external num? get inlineVerticalFieldOfView;
   external XRWebGLLayer? get baseLayer;
-  external JSArray get layers;
+  external JSArray<XRLayer> get layers;
 }
 extension type XRFrame._(JSObject _) implements JSObject {
-  external JSPromise createAnchor(
+  external JSPromise<XRAnchor> createAnchor(
     XRRigidTransform pose,
     XRSpace space,
   );
@@ -143,17 +147,19 @@ extension type XRFrame._(JSObject _) implements JSObject {
     XRSpace baseSpace,
   );
   external bool fillJointRadii(
-    JSArray jointSpaces,
+    JSArray<XRJointSpace> jointSpaces,
     JSFloat32Array radii,
   );
   external bool fillPoses(
-    JSArray spaces,
+    JSArray<XRSpace> spaces,
     XRSpace baseSpace,
     JSFloat32Array transforms,
   );
-  external JSArray getHitTestResults(XRHitTestSource hitTestSource);
-  external JSArray getHitTestResultsForTransientInput(
-      XRTransientInputHitTestSource hitTestSource);
+  external JSArray<XRHitTestResult> getHitTestResults(
+      XRHitTestSource hitTestSource);
+  external JSArray<XRTransientInputHitTestResult>
+      getHitTestResultsForTransientInput(
+          XRTransientInputHitTestSource hitTestSource);
   external XRLightEstimate? getLightEstimate(XRLightProbe lightProbe);
   external XRViewerPose? getViewerPose(XRReferenceSpace referenceSpace);
   external XRPose? getPose(
@@ -174,7 +180,7 @@ extension type XRReferenceSpace._(JSObject _) implements XRSpace, JSObject {
 }
 extension type XRBoundedReferenceSpace._(JSObject _)
     implements XRReferenceSpace, JSObject {
-  external JSArray get boundsGeometry;
+  external JSArray<DOMPointReadOnly> get boundsGeometry;
 }
 extension type XRView._(JSObject _) implements JSObject {
   external void requestViewportScale(num? scale);
@@ -209,7 +215,7 @@ extension type XRPose._(JSObject _) implements JSObject {
   external bool get emulatedPosition;
 }
 extension type XRViewerPose._(JSObject _) implements XRPose, JSObject {
-  external JSArray get views;
+  external JSArray<XRView> get views;
 }
 extension type XRInputSource._(JSObject _) implements JSObject {
   external Gamepad? get gamepad;
@@ -218,7 +224,7 @@ extension type XRInputSource._(JSObject _) implements JSObject {
   external XRTargetRayMode get targetRayMode;
   external XRSpace get targetRaySpace;
   external XRSpace? get gripSpace;
-  external JSArray get profiles;
+  external JSArray<JSString> get profiles;
 }
 extension type XRInputSourceArray._(JSObject _) implements JSObject {
   external int get length;
@@ -307,23 +313,23 @@ extension type XRInputSourcesChangeEvent._(JSObject _)
   );
 
   external XRSession get session;
-  external JSArray get added;
-  external JSArray get removed;
+  external JSArray<XRInputSource> get added;
+  external JSArray<XRInputSource> get removed;
 }
 extension type XRInputSourcesChangeEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory XRInputSourcesChangeEventInit({
     required XRSession session,
-    required JSArray added,
-    required JSArray removed,
+    required JSArray<XRInputSource> added,
+    required JSArray<XRInputSource> removed,
   });
 
   external set session(XRSession value);
   external XRSession get session;
-  external set added(JSArray value);
-  external JSArray get added;
-  external set removed(JSArray value);
-  external JSArray get removed;
+  external set added(JSArray<XRInputSource> value);
+  external JSArray<XRInputSource> get added;
+  external set removed(JSArray<XRInputSource> value);
+  external JSArray<XRInputSource> get removed;
 }
 extension type XRReferenceSpaceEvent._(JSObject _) implements Event, JSObject {
   external factory XRReferenceSpaceEvent(
@@ -357,19 +363,19 @@ extension type XRPermissionDescriptor._(JSObject _)
     implements PermissionDescriptor, JSObject {
   external factory XRPermissionDescriptor({
     XRSessionMode mode,
-    JSArray requiredFeatures,
-    JSArray optionalFeatures,
+    JSArray<JSString> requiredFeatures,
+    JSArray<JSString> optionalFeatures,
   });
 
   external set mode(XRSessionMode value);
   external XRSessionMode get mode;
-  external set requiredFeatures(JSArray value);
-  external JSArray get requiredFeatures;
-  external set optionalFeatures(JSArray value);
-  external JSArray get optionalFeatures;
+  external set requiredFeatures(JSArray<JSString> value);
+  external JSArray<JSString> get requiredFeatures;
+  external set optionalFeatures(JSArray<JSString> value);
+  external JSArray<JSString> get optionalFeatures;
 }
 extension type XRPermissionStatus._(JSObject _)
     implements PermissionStatus, JSObject {
-  external set granted(JSArray value);
-  external JSArray get granted;
+  external set granted(JSArray<JSString> value);
+  external JSArray<JSString> get granted;
 }

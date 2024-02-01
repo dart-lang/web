@@ -44,14 +44,14 @@ extension type BaseAudioContext._(JSObject _) implements EventTarget, JSObject {
   external DynamicsCompressorNode createDynamicsCompressor();
   external GainNode createGain();
   external IIRFilterNode createIIRFilter(
-    JSArray feedforward,
-    JSArray feedback,
+    JSArray<JSNumber> feedforward,
+    JSArray<JSNumber> feedback,
   );
   external OscillatorNode createOscillator();
   external PannerNode createPanner();
   external PeriodicWave createPeriodicWave(
-    JSArray real,
-    JSArray imag, [
+    JSArray<JSNumber> real,
+    JSArray<JSNumber> imag, [
     PeriodicWaveConstraints constraints,
   ]);
   external ScriptProcessorNode createScriptProcessor([
@@ -61,7 +61,7 @@ extension type BaseAudioContext._(JSObject _) implements EventTarget, JSObject {
   ]);
   external StereoPannerNode createStereoPanner();
   external WaveShaperNode createWaveShaper();
-  external JSPromise decodeAudioData(
+  external JSPromise<AudioBuffer> decodeAudioData(
     JSArrayBuffer audioData, [
     DecodeSuccessCallback? successCallback,
     DecodeErrorCallback? errorCallback,
@@ -81,10 +81,10 @@ extension type AudioContext._(JSObject _)
   external factory AudioContext([AudioContextOptions contextOptions]);
 
   external AudioTimestamp getOutputTimestamp();
-  external JSPromise resume();
-  external JSPromise suspend();
-  external JSPromise close();
-  external JSPromise setSinkId(JSAny sinkId);
+  external JSPromise<JSAny?> resume();
+  external JSPromise<JSAny?> suspend();
+  external JSPromise<JSAny?> close();
+  external JSPromise<JSAny?> setSinkId(JSAny sinkId);
   external MediaElementAudioSourceNode createMediaElementSource(
       HTMLMediaElement mediaElement);
   external MediaStreamAudioSourceNode createMediaStreamSource(
@@ -187,9 +187,9 @@ extension type OfflineAudioContext._(JSObject _)
     num sampleRate,
   ]);
 
-  external JSPromise startRendering();
-  external JSPromise resume();
-  external JSPromise suspend(num suspendTime);
+  external JSPromise<AudioBuffer> startRendering();
+  external JSPromise<JSAny?> resume();
+  external JSPromise<JSAny?> suspend(num suspendTime);
   external int get length;
   external set oncomplete(EventHandler value);
   external EventHandler get oncomplete;
@@ -315,7 +315,7 @@ extension type AudioParam._(JSObject _) implements JSObject {
     num timeConstant,
   );
   external AudioParam setValueCurveAtTime(
-    JSArray values,
+    JSArray<JSNumber> values,
     num startTime,
     num duration,
   );
@@ -661,14 +661,14 @@ extension type IIRFilterNode._(JSObject _) implements AudioNode, JSObject {
 extension type IIRFilterOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory IIRFilterOptions({
-    required JSArray feedforward,
-    required JSArray feedback,
+    required JSArray<JSNumber> feedforward,
+    required JSArray<JSNumber> feedback,
   });
 
-  external set feedforward(JSArray value);
-  external JSArray get feedforward;
-  external set feedback(JSArray value);
-  external JSArray get feedback;
+  external set feedforward(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get feedforward;
+  external set feedback(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get feedback;
 }
 extension type MediaElementAudioSourceNode._(JSObject _)
     implements AudioNode, JSObject {
@@ -860,14 +860,14 @@ extension type PeriodicWaveConstraints._(JSObject _) implements JSObject {
 extension type PeriodicWaveOptions._(JSObject _)
     implements PeriodicWaveConstraints, JSObject {
   external factory PeriodicWaveOptions({
-    JSArray real,
-    JSArray imag,
+    JSArray<JSNumber> real,
+    JSArray<JSNumber> imag,
   });
 
-  external set real(JSArray value);
-  external JSArray get real;
-  external set imag(JSArray value);
-  external JSArray get imag;
+  external set real(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get real;
+  external set imag(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get imag;
 }
 extension type ScriptProcessorNode._(JSObject _)
     implements AudioNode, JSObject {
@@ -904,12 +904,12 @@ extension type WaveShaperNode._(JSObject _) implements AudioNode, JSObject {
 extension type WaveShaperOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory WaveShaperOptions({
-    JSArray curve,
+    JSArray<JSNumber> curve,
     OverSampleType oversample,
   });
 
-  external set curve(JSArray value);
-  external JSArray get curve;
+  external set curve(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get curve;
   external set oversample(OverSampleType value);
   external OverSampleType get oversample;
 }
@@ -946,7 +946,7 @@ extension type AudioWorkletNodeOptions._(JSObject _)
   external factory AudioWorkletNodeOptions({
     int numberOfInputs,
     int numberOfOutputs,
-    JSArray outputChannelCount,
+    JSArray<JSNumber> outputChannelCount,
     JSAny parameterData,
     JSObject processorOptions,
   });
@@ -955,8 +955,8 @@ extension type AudioWorkletNodeOptions._(JSObject _)
   external int get numberOfInputs;
   external set numberOfOutputs(int value);
   external int get numberOfOutputs;
-  external set outputChannelCount(JSArray value);
-  external JSArray get outputChannelCount;
+  external set outputChannelCount(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get outputChannelCount;
   external set parameterData(JSAny value);
   external JSAny get parameterData;
   external set processorOptions(JSObject value);

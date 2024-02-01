@@ -21,9 +21,9 @@ extension type UADataValues._(JSObject _) implements JSObject {
   external factory UADataValues({
     String architecture,
     String bitness,
-    JSArray brands,
-    JSArray formFactor,
-    JSArray fullVersionList,
+    JSArray<NavigatorUABrandVersion> brands,
+    JSArray<JSString> formFactor,
+    JSArray<NavigatorUABrandVersion> fullVersionList,
     String model,
     bool mobile,
     String platform,
@@ -36,12 +36,12 @@ extension type UADataValues._(JSObject _) implements JSObject {
   external String get architecture;
   external set bitness(String value);
   external String get bitness;
-  external set brands(JSArray value);
-  external JSArray get brands;
-  external set formFactor(JSArray value);
-  external JSArray get formFactor;
-  external set fullVersionList(JSArray value);
-  external JSArray get fullVersionList;
+  external set brands(JSArray<NavigatorUABrandVersion> value);
+  external JSArray<NavigatorUABrandVersion> get brands;
+  external set formFactor(JSArray<JSString> value);
+  external JSArray<JSString> get formFactor;
+  external set fullVersionList(JSArray<NavigatorUABrandVersion> value);
+  external JSArray<NavigatorUABrandVersion> get fullVersionList;
   external set model(String value);
   external String get model;
   external set mobile(bool value);
@@ -57,22 +57,23 @@ extension type UADataValues._(JSObject _) implements JSObject {
 }
 extension type UALowEntropyJSON._(JSObject _) implements JSObject {
   external factory UALowEntropyJSON({
-    JSArray brands,
+    JSArray<NavigatorUABrandVersion> brands,
     bool mobile,
     String platform,
   });
 
-  external set brands(JSArray value);
-  external JSArray get brands;
+  external set brands(JSArray<NavigatorUABrandVersion> value);
+  external JSArray<NavigatorUABrandVersion> get brands;
   external set mobile(bool value);
   external bool get mobile;
   external set platform(String value);
   external String get platform;
 }
 extension type NavigatorUAData._(JSObject _) implements JSObject {
-  external JSPromise getHighEntropyValues(JSArray hints);
+  external JSPromise<UADataValues> getHighEntropyValues(
+      JSArray<JSString> hints);
   external UALowEntropyJSON toJSON();
-  external JSArray get brands;
+  external JSArray<NavigatorUABrandVersion> get brands;
   external bool get mobile;
   external String get platform;
 }

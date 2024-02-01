@@ -8,7 +8,7 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 
-typedef AttributeMatchList = JSAny;
+typedef AttributeMatchList = JSObject;
 extension type Sanitizer._(JSObject _) implements JSObject {
   external factory Sanitizer([SanitizerConfig config]);
 

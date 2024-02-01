@@ -290,7 +290,7 @@ extension type RTCOutboundRtpStreamStats._(JSObject _)
     num totalEncodeTime,
     num totalPacketSendDelay,
     RTCQualityLimitationReason qualityLimitationReason,
-    JSAny qualityLimitationDurations,
+    JSObject qualityLimitationDurations,
     int qualityLimitationResolutionChanges,
     int nackCount,
     int firCount,
@@ -343,8 +343,8 @@ extension type RTCOutboundRtpStreamStats._(JSObject _)
   external num get totalPacketSendDelay;
   external set qualityLimitationReason(RTCQualityLimitationReason value);
   external RTCQualityLimitationReason get qualityLimitationReason;
-  external set qualityLimitationDurations(JSAny value);
-  external JSAny get qualityLimitationDurations;
+  external set qualityLimitationDurations(JSObject value);
+  external JSObject get qualityLimitationDurations;
   external set qualityLimitationResolutionChanges(int value);
   external int get qualityLimitationResolutionChanges;
   external set nackCount(int value);

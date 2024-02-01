@@ -35,13 +35,13 @@ extension type FileSystemHandlePermissionDescriptor._(JSObject _)
 extension type FilePickerAcceptType._(JSObject _) implements JSObject {
   external factory FilePickerAcceptType({
     String description,
-    JSAny accept,
+    JSObject accept,
   });
 
   external set description(String value);
   external String get description;
-  external set accept(JSAny value);
-  external JSAny get accept;
+  external set accept(JSObject value);
+  external JSObject get accept;
 }
 extension type FilePickerOptions._(JSObject _) implements JSObject {
   external factory FilePickerOptions({

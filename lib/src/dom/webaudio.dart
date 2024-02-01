@@ -947,7 +947,7 @@ extension type AudioWorkletNodeOptions._(JSObject _)
     int numberOfInputs,
     int numberOfOutputs,
     JSArray<JSNumber> outputChannelCount,
-    JSAny parameterData,
+    JSObject parameterData,
     JSObject processorOptions,
   });
 
@@ -957,8 +957,8 @@ extension type AudioWorkletNodeOptions._(JSObject _)
   external int get numberOfOutputs;
   external set outputChannelCount(JSArray<JSNumber> value);
   external JSArray<JSNumber> get outputChannelCount;
-  external set parameterData(JSAny value);
-  external JSAny get parameterData;
+  external set parameterData(JSObject value);
+  external JSObject get parameterData;
   external set processorOptions(JSObject value);
   external JSObject get processorOptions;
 }

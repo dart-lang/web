@@ -10,6 +10,7 @@
   primitive type are instead replaced with their JS type equivalent if they
   appear as a type parameter in order to conform with the type bounds of
   `JSArray` and `JSPromise`.
+- Changed `record` types to be `JSObject` instead of `JSAny`.
 
 ## 0.4.2
 

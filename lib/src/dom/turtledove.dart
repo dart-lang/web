@@ -34,7 +34,7 @@ extension type GenerateBidInterestGroup._(JSObject _) implements JSObject {
     required String name,
     required num lifetimeMs,
     bool enableBiddingSignalsPrioritization,
-    JSAny priorityVector,
+    JSObject priorityVector,
     String executionMode,
     String biddingLogicURL,
     String biddingWasmHelperURL,
@@ -54,8 +54,8 @@ extension type GenerateBidInterestGroup._(JSObject _) implements JSObject {
   external num get lifetimeMs;
   external set enableBiddingSignalsPrioritization(bool value);
   external bool get enableBiddingSignalsPrioritization;
-  external set priorityVector(JSAny value);
-  external JSAny get priorityVector;
+  external set priorityVector(JSObject value);
+  external JSObject get priorityVector;
   external set executionMode(String value);
   external String get executionMode;
   external set biddingLogicURL(String value);
@@ -79,13 +79,13 @@ extension type AuctionAdInterestGroup._(JSObject _)
     implements GenerateBidInterestGroup, JSObject {
   external factory AuctionAdInterestGroup({
     num priority,
-    JSAny prioritySignalsOverrides,
+    JSObject prioritySignalsOverrides,
   });
 
   external set priority(num value);
   external num get priority;
-  external set prioritySignalsOverrides(JSAny value);
-  external JSAny get prioritySignalsOverrides;
+  external set prioritySignalsOverrides(JSObject value);
+  external JSObject get prioritySignalsOverrides;
 }
 extension type AuctionAdInterestGroupKey._(JSObject _) implements JSObject {
   external factory AuctionAdInterestGroupKey({
@@ -110,12 +110,12 @@ extension type AuctionAdConfig._(JSObject _) implements JSObject {
     int sellerTimeout,
     int sellerExperimentGroupId,
     String sellerCurrency,
-    JSPromise<JSAny> perBuyerSignals,
-    JSPromise<JSAny> perBuyerTimeouts,
-    JSAny perBuyerGroupLimits,
-    JSAny perBuyerExperimentGroupIds,
-    JSAny perBuyerPrioritySignals,
-    JSPromise<JSAny> perBuyerCurrencies,
+    JSPromise<JSObject> perBuyerSignals,
+    JSPromise<JSObject> perBuyerTimeouts,
+    JSObject perBuyerGroupLimits,
+    JSObject perBuyerExperimentGroupIds,
+    JSObject perBuyerPrioritySignals,
+    JSPromise<JSObject> perBuyerCurrencies,
     JSArray<AuctionAdConfig> componentAuctions,
     AbortSignal? signal,
     JSPromise<JSBoolean> resolveToConfig,
@@ -141,18 +141,18 @@ extension type AuctionAdConfig._(JSObject _) implements JSObject {
   external int get sellerExperimentGroupId;
   external set sellerCurrency(String value);
   external String get sellerCurrency;
-  external set perBuyerSignals(JSPromise<JSAny> value);
-  external JSPromise<JSAny> get perBuyerSignals;
-  external set perBuyerTimeouts(JSPromise<JSAny> value);
-  external JSPromise<JSAny> get perBuyerTimeouts;
-  external set perBuyerGroupLimits(JSAny value);
-  external JSAny get perBuyerGroupLimits;
-  external set perBuyerExperimentGroupIds(JSAny value);
-  external JSAny get perBuyerExperimentGroupIds;
-  external set perBuyerPrioritySignals(JSAny value);
-  external JSAny get perBuyerPrioritySignals;
-  external set perBuyerCurrencies(JSPromise<JSAny> value);
-  external JSPromise<JSAny> get perBuyerCurrencies;
+  external set perBuyerSignals(JSPromise<JSObject> value);
+  external JSPromise<JSObject> get perBuyerSignals;
+  external set perBuyerTimeouts(JSPromise<JSObject> value);
+  external JSPromise<JSObject> get perBuyerTimeouts;
+  external set perBuyerGroupLimits(JSObject value);
+  external JSObject get perBuyerGroupLimits;
+  external set perBuyerExperimentGroupIds(JSObject value);
+  external JSObject get perBuyerExperimentGroupIds;
+  external set perBuyerPrioritySignals(JSObject value);
+  external JSObject get perBuyerPrioritySignals;
+  external set perBuyerCurrencies(JSPromise<JSObject> value);
+  external JSPromise<JSObject> get perBuyerCurrencies;
   external set componentAuctions(JSArray<AuctionAdConfig> value);
   external JSArray<AuctionAdConfig> get componentAuctions;
   external set signal(AbortSignal? value);
@@ -219,7 +219,7 @@ extension type InterestGroupScoringScriptRunnerGlobalScope._(JSObject _)
 extension type InterestGroupReportingScriptRunnerGlobalScope._(JSObject _)
     implements InterestGroupScriptRunnerGlobalScope, JSObject {
   external void sendReportTo(String url);
-  external void registerAdBeacon(JSAny map);
+  external void registerAdBeacon(JSObject map);
   external void registerAdMacro(
     String name,
     String value,

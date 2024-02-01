@@ -104,11 +104,11 @@ extension type URLPatternResult._(JSObject _) implements JSObject {
 extension type URLPatternComponentResult._(JSObject _) implements JSObject {
   external factory URLPatternComponentResult({
     String input,
-    JSAny groups,
+    JSObject groups,
   });
 
   external set input(String value);
   external String get input;
-  external set groups(JSAny value);
-  external JSAny get groups;
+  external set groups(JSObject value);
+  external JSObject get groups;
 }

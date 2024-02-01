@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library ext_frag_depth;
+
 import 'dart:js_interop';
 
 extension type EXT_frag_depth._(JSObject _) implements JSObject {}

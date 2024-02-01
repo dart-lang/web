@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library requeststorageaccessfor;
+
 import 'dart:js_interop';
 
 import 'permissions.dart';

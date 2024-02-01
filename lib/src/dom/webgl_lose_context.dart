@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library webgl_lose_context;
+
 import 'dart:js_interop';
 
 extension type WEBGL_lose_context._(JSObject _) implements JSObject {

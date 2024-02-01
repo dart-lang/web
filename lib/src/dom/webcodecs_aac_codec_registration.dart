@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library webcodecs_aac_codec_registration;
+
 import 'dart:js_interop';
 
 typedef AacBitstreamFormat = String;

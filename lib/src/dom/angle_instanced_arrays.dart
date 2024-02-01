@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library angle_instanced_arrays;
+
 import 'dart:js_interop';
 
 import 'webgl1.dart';

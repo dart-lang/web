@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library xhr;
+
 import 'dart:js_interop';
 
 import 'attribution_reporting_api.dart';

@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library webgl_provoking_vertex;
+
 import 'dart:js_interop';
 
 import 'webgl1.dart';

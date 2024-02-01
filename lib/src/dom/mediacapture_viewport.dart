@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library mediacapture_viewport;
+
 import 'dart:js_interop';
 
 extension type ViewportMediaStreamConstraints._(JSObject _)

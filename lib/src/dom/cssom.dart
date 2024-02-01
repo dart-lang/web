@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library cssom;
+
 import 'dart:js_interop';
 
 import 'css_highlight_api.dart';

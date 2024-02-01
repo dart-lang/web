@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library pointerevents;
+
 import 'dart:js_interop';
 
 import 'uievents.dart';

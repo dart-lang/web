@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library oes_texture_half_float_linear;
+
 import 'dart:js_interop';
 
 extension type OES_texture_half_float_linear._(JSObject _)

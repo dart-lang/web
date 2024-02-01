@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library oes_standard_derivatives;
+
 import 'dart:js_interop';
 
 import 'webgl1.dart';

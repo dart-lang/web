@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library trusted_types;
+
 import 'dart:js_interop';
 
 typedef HTMLString = String;

@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library private_network_access;
+
 import 'dart:js_interop';
 
 import 'permissions.dart';

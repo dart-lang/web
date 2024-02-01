@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library background_sync;
+
 import 'dart:js_interop';
 
 import 'service_workers.dart';

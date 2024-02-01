@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library vibration;
+
 import 'dart:js_interop';
 
 typedef VibratePattern = JSAny;

@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library web_app_launch;
+
 import 'dart:js_interop';
 
 typedef LaunchConsumer = JSFunction;

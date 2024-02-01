@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library reporting;
+
 import 'dart:js_interop';
 
 typedef ReportList = JSArray;

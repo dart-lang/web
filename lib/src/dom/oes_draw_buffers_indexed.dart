@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library oes_draw_buffers_indexed;
+
 import 'dart:js_interop';
 
 import 'webgl1.dart';

@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library intervention_reporting;
+
 import 'dart:js_interop';
 
 import 'reporting.dart';

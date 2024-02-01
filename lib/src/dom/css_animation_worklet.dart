@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library css_animation_worklet;
+
 import 'dart:js_interop';
 
 import 'html.dart';

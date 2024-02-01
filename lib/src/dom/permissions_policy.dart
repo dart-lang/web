@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library permissions_policy;
+
 import 'dart:js_interop';
 
 import 'reporting.dart';

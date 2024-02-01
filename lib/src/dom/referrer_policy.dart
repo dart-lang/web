@@ -4,4 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library referrer_policy;
+
+import 'dart:js_interop';
+
 typedef ReferrerPolicy = String;

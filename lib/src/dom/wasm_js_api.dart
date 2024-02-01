@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library wasm_js_api;
+
 import 'dart:js_interop';
 
 import 'webidl.dart';

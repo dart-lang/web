@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library html;
+
 import 'dart:js_interop';
 
 import 'audio_session.dart';

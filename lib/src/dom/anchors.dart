@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library anchors;
+
 import 'dart:js_interop';
 
 import 'webxr.dart';

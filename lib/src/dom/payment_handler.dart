@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library payment_handler;
+
 import 'dart:js_interop';
 
 import 'payment_request.dart';

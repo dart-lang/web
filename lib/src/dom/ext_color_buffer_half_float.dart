@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library ext_color_buffer_half_float;
+
 import 'dart:js_interop';
 
 import 'webgl1.dart';

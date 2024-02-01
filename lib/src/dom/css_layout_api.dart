@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library css_layout_api;
+
 import 'dart:js_interop';
 
 import 'css_typed_om.dart';

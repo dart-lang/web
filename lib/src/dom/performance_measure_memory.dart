@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library performance_measure_memory;
+
 import 'dart:js_interop';
 
 extension type MemoryMeasurement._(JSObject _) implements JSObject {

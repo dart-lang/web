@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library khr_parallel_shader_compile;
+
 import 'dart:js_interop';
 
 import 'webgl1.dart';

@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library css_contain_3;
+
 import 'dart:js_interop';
 
 import 'css_conditional.dart';

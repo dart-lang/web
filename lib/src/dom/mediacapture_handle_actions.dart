@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library mediacapture_handle_actions;
+
 import 'dart:js_interop';
 
 import 'dom.dart';

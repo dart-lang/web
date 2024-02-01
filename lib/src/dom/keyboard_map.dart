@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library keyboard_map;
+
 import 'dart:js_interop';
 
 extension type KeyboardLayoutMap._(JSObject _) implements JSObject {}

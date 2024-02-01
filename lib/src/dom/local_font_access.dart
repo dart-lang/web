@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library local_font_access;
+
 import 'dart:js_interop';
 
 extension type QueryOptions._(JSObject _) implements JSObject {

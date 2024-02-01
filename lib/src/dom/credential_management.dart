@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library credential_management;
+
 import 'dart:js_interop';
 
 import 'dom.dart';

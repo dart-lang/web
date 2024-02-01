@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library media_source;
+
 import 'dart:js_interop';
 
 import 'dom.dart';

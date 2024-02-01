@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library js_self_profiling;
+
 import 'dart:js_interop';
 
 import 'dom.dart';

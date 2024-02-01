@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library contact_picker;
+
 import 'dart:js_interop';
 
 typedef ContactProperty = String;

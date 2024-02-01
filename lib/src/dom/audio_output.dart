@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library audio_output;
+
 import 'dart:js_interop';
 
 extension type AudioOutputOptions._(JSObject _) implements JSObject {

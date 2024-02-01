@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library webvtt;
+
 import 'dart:js_interop';
 
 import 'dom.dart';

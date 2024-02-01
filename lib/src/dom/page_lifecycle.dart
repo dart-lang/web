@@ -4,4 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library page_lifecycle;
+
+import 'dart:js_interop';
+
 typedef ClientLifecycleState = String;

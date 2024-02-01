@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library is_input_pending;
+
 import 'dart:js_interop';
 
 extension type IsInputPendingOptions._(JSObject _) implements JSObject {

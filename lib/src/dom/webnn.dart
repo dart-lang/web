@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library webnn;
+
 import 'dart:js_interop';
 
 import 'webgpu.dart';

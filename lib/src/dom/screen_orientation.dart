@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library screen_orientation;
+
 import 'dart:js_interop';
 
 import 'dom.dart';

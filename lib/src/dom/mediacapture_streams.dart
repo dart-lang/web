@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library mediacapture_streams;
+
 import 'dart:js_interop';
 
 import 'audio_output.dart';

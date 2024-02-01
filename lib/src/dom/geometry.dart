@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library geometry;
+
 import 'dart:js_interop';
 
 extension type DOMPointReadOnly._(JSObject _) implements JSObject {

@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library paint_timing;
+
 import 'dart:js_interop';
 
 import 'performance_timeline.dart';

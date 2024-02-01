@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library capture_handle_identity;
+
 import 'dart:js_interop';
 
 extension type CaptureHandleConfig._(JSObject _) implements JSObject {

@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library window_controls_overlay;
+
 import 'dart:js_interop';
 
 import 'dom.dart';

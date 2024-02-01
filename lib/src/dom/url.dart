@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library url;
+
 import 'dart:js_interop';
 
 extension type URL._(JSObject _) implements JSObject {

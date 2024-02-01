@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library get_installed_related_apps;
+
 import 'dart:js_interop';
 
 extension type RelatedApplication._(JSObject _) implements JSObject {

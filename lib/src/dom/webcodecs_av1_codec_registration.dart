@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library webcodecs_av1_codec_registration;
+
 import 'dart:js_interop';
 
 extension type AV1EncoderConfig._(JSObject _) implements JSObject {

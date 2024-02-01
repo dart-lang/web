@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library shared_storage;
+
 import 'dart:js_interop';
 
 import 'html.dart';

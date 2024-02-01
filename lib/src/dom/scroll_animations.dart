@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library scroll_animations;
+
 import 'dart:js_interop';
 
 import 'css_typed_om.dart';

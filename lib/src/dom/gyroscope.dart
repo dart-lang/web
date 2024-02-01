@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library gyroscope;
+
 import 'dart:js_interop';
 
 import 'generic_sensor.dart';

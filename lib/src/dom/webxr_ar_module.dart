@@ -4,5 +4,10 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library webxr_ar_module;
+
+import 'dart:js_interop';
+
 typedef XREnvironmentBlendMode = String;
 typedef XRInteractionMode = String;

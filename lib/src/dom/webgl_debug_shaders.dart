@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library webgl_debug_shaders;
+
 import 'dart:js_interop';
 
 import 'webgl1.dart';

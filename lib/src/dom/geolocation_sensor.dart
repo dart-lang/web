@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library geolocation_sensor;
+
 import 'dart:js_interop';
 
 import 'dom.dart';

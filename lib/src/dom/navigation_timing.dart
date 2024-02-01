@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library navigation_timing;
+
 import 'dart:js_interop';
 
 import 'hr_time.dart';

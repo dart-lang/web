@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library css_parser_api;
+
 import 'dart:js_interop';
 
 typedef CSSStringSource = JSAny;

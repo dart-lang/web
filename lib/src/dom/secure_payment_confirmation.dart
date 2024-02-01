@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library secure_payment_confirmation;
+
 import 'dart:js_interop';
 
 import 'payment_request.dart';

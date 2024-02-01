@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library gamepad_extensions;
+
 import 'dart:js_interop';
 
 typedef GamepadHand = String;

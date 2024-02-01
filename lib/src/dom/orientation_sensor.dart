@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library orientation_sensor;
+
 import 'dart:js_interop';
 
 import 'generic_sensor.dart';

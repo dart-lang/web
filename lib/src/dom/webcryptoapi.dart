@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library webcryptoapi;
+
 import 'dart:js_interop';
 
 import 'webidl.dart';

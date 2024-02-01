@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library mediacapture_automation;
+
 import 'dart:js_interop';
 
 typedef MockCapturePromptResult = String;

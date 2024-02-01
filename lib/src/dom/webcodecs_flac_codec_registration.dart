@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library webcodecs_flac_codec_registration;
+
 import 'dart:js_interop';
 
 extension type FlacEncoderConfig._(JSObject _) implements JSObject {

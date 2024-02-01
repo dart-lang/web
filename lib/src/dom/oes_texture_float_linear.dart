@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library oes_texture_float_linear;
+
 import 'dart:js_interop';
 
 extension type OES_texture_float_linear._(JSObject _) implements JSObject {}

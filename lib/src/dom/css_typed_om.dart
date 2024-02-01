@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library css_typed_om;
+
 import 'dart:js_interop';
 
 import 'geometry.dart';

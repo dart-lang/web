@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library webidl;
+
 import 'dart:js_interop';
 
 typedef ArrayBufferView = JSObject;

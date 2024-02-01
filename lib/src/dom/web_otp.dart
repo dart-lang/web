@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library web_otp;
+
 import 'dart:js_interop';
 
 import 'credential_management.dart';

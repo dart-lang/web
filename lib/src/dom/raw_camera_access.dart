@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library raw_camera_access;
+
 import 'dart:js_interop';
 
 extension type XRCamera._(JSObject _) implements JSObject {

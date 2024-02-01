@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library ext_srgb;
+
 import 'dart:js_interop';
 
 import 'webgl1.dart';

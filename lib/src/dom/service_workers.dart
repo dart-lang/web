@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library service_workers;
+
 import 'dart:js_interop';
 
 import 'background_fetch.dart';

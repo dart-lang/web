@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library webxr_dom_overlays;
+
 import 'dart:js_interop';
 
 import 'dom.dart';

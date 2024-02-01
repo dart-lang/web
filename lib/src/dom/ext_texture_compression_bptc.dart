@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library ext_texture_compression_bptc;
+
 import 'dart:js_interop';
 
 import 'webgl1.dart';

@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library input_device_capabilities;
+
 import 'dart:js_interop';
 
 extension type InputDeviceCapabilities._(JSObject _) implements JSObject {

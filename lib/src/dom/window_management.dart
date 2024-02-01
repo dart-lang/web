@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library window_management;
+
 import 'dart:js_interop';
 
 import 'cssom_view.dart';

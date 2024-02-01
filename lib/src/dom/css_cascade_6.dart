@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library css_cascade_6;
+
 import 'dart:js_interop';
 
 import 'cssom.dart';

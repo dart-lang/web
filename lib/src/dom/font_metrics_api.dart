@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library font_metrics_api;
+
 import 'dart:js_interop';
 
 extension type FontMetrics._(JSObject _) implements JSObject {

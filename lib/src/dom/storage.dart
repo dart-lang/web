@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library storage;
+
 import 'dart:js_interop';
 
 extension type StorageManager._(JSObject _) implements JSObject {

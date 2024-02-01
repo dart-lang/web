@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library webcodecs_vp9_codec_registration;
+
 import 'dart:js_interop';
 
 extension type VideoEncoderEncodeOptionsForVp9._(JSObject _)

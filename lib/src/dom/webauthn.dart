@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library webauthn;
+
 import 'dart:js_interop';
 
 import 'credential_management.dart';

@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library picture_in_picture;
+
 import 'dart:js_interop';
 
 import 'dom.dart';

@@ -4,5 +4,10 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library autoplay_detection;
+
+import 'dart:js_interop';
+
 typedef AutoplayPolicy = String;
 typedef AutoplayPolicyMediaType = String;

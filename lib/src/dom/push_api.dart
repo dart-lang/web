@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library push_api;
+
 import 'dart:js_interop';
 
 import 'fileapi.dart';

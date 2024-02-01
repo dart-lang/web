@@ -4,4 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library mst_content_hint;
+
+import 'dart:js_interop';
+
 typedef RTCDegradationPreference = String;

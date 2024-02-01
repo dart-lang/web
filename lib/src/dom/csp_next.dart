@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library csp_next;
+
 import 'dart:js_interop';
 
 import 'reporting.dart';

@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library webrtc_ice;
+
 import 'dart:js_interop';
 
 import 'webrtc.dart';

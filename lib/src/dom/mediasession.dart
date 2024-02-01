@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library mediasession;
+
 import 'dart:js_interop';
 
 typedef MediaSessionActionHandler = JSFunction;

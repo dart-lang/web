@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library ext_blend_minmax;
+
 import 'dart:js_interop';
 
 import 'webgl1.dart';

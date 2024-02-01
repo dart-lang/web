@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library shape_detection_api;
+
 import 'dart:js_interop';
 
 import 'geometry.dart';

@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library keyboard_lock;
+
 import 'dart:js_interop';
 
 import 'dom.dart';

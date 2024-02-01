@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library oes_vertex_array_object;
+
 import 'dart:js_interop';
 
 import 'webgl1.dart';

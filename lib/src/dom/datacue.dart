@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library datacue;
+
 import 'dart:js_interop';
 
 import 'html.dart';

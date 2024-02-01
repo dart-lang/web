@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library fullscreen;
+
 import 'dart:js_interop';
 
 import 'window_management.dart';

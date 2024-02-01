@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library touch_events;
+library;
 
 import 'dart:js_interop';
 

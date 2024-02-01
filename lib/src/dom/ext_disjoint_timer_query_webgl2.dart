@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library ext_disjoint_timer_query_webgl2;
+library;
 
 import 'dart:js_interop';
 

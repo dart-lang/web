@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library filter_effects;
+library;
 
 import 'dart:js_interop';
 

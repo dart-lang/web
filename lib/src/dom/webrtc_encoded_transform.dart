@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library webrtc_encoded_transform;
+library;
 
 import 'dart:js_interop';
 

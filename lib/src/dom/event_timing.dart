@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library event_timing;
+library;
 
 import 'dart:js_interop';
 

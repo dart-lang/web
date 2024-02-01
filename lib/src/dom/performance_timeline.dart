@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library performance_timeline;
+library;
 
 import 'dart:js_interop';
 

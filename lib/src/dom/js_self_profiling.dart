@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library js_self_profiling;
+library;
 
 import 'dart:js_interop';
 

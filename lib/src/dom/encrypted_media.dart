@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library encrypted_media;
+library;
 
 import 'dart:js_interop';
 

@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library webxr_ar_module;
+library;
 
 import 'dart:js_interop';
 

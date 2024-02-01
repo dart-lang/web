@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library streams;
+library;
 
 import 'dart:js_interop';
 

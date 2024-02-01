@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library model_element;
+library;
 
 import 'dart:js_interop';
 

@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library battery_status;
+library;
 
 import 'dart:js_interop';
 

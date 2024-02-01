@@ -20,7 +20,6 @@ typedef TranslationResult = Map<String, code.Library>;
 
 class _Library {
   final Translator translator;
-  final String name;
   final String url;
   // Contains both IDL `interface`s and `namespace`s.
   final List<idl.Interfacelike> interfacelikes = [];
@@ -32,7 +31,7 @@ class _Library {
   final List<idl.Callback> callbacks = [];
   final List<idl.Interfacelike> callbackInterfaces = [];
 
-  _Library(this.translator, this.name, this.url);
+  _Library(this.translator, this.url);
 
   void _addNamed<T extends idl.Named>(idl.Node node, List<T> list) {
     final named = node as T;
@@ -494,15 +493,14 @@ class Translator {
   }
 
   void collect(String shortName, JSArray ast) {
-    final libraryName = shortName.kebabToSnake;
-    final libraryPath = '$_librarySubDir/$libraryName.dart';
+    final libraryPath = '$_librarySubDir/${shortName.kebabToSnake}.dart';
     assert(!_libraries.containsKey(libraryPath));
 
     // TODO: Use the info from the spec to skip generation of some libraries.
     // ignore: unused_local_variable
     final spec = webSpecs.specFor(shortName)!;
 
-    final library = _Library(this, libraryName, '$packageRoot/$libraryPath');
+    final library = _Library(this, '$packageRoot/$libraryPath');
     _libraries[libraryPath] = library;
 
     for (var i = 0; i < ast.length; i++) {
@@ -848,7 +846,6 @@ class Translator {
     // Once this package moves to an SDK version that contains a fix for that,
     // this can be removed.
     ..annotations.addAll(_jsOverride('', alwaysEmit: true))
-    ..name = library.name
     ..body.addAll([
       for (final typedef in library.typedefs)
         _typedef(typedef.name, _getRawType(typedef.idlType)),

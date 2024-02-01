@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library ext_blend_minmax;
+library;
 
 import 'dart:js_interop';
 

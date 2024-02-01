@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library webxr_hit_test;
+library;
 
 import 'dart:js_interop';
 

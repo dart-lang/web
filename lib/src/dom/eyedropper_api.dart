@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library eyedropper_api;
+library;
 
 import 'dart:js_interop';
 

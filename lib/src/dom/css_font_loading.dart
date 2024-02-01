@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library css_font_loading;
+library;
 
 import 'dart:js_interop';
 

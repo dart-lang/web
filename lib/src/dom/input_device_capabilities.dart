@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library input_device_capabilities;
+library;
 
 import 'dart:js_interop';
 

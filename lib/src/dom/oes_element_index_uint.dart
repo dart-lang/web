@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library oes_element_index_uint;
+library;
 
 import 'dart:js_interop';
 

@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library mediastream_recording;
+library;
 
 import 'dart:js_interop';
 

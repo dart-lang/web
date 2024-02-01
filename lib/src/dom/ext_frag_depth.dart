@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library ext_frag_depth;
+library;
 
 import 'dart:js_interop';
 

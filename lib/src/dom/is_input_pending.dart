@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library is_input_pending;
+library;
 
 import 'dart:js_interop';
 

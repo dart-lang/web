@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library webxr_hand_input;
+library;
 
 import 'dart:js_interop';
 

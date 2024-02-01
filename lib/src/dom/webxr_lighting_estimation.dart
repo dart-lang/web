@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library webxr_lighting_estimation;
+library;
 
 import 'dart:js_interop';
 

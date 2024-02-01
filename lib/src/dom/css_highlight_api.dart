@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library css_highlight_api;
+library;
 
 import 'dart:js_interop';
 

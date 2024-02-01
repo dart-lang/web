@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library service_workers;
+library;
 
 import 'dart:js_interop';
 

@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library cookie_store;
+library;
 
 import 'dart:js_interop';
 

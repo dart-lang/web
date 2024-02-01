@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library custom_state_pseudo_class;
+library;
 
 import 'dart:js_interop';
 

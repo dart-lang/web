@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library mst_content_hint;
+library;
 
 import 'dart:js_interop';
 

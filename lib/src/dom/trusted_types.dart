@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library trusted_types;
+library;
 
 import 'dart:js_interop';
 

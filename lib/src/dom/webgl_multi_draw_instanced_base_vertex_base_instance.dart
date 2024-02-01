@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library webgl_multi_draw_instanced_base_vertex_base_instance;
+library;
 
 import 'dart:js_interop';
 

@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library webgl_debug_renderer_info;
+library;
 
 import 'dart:js_interop';
 

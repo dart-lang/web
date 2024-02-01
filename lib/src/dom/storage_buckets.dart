@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library storage_buckets;
+library;
 
 import 'dart:js_interop';
 

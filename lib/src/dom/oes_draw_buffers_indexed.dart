@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library oes_draw_buffers_indexed;
+library;
 
 import 'dart:js_interop';
 

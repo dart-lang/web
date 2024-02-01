@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library image_capture;
+library;
 
 import 'dart:js_interop';
 

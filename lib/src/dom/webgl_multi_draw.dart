@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library webgl_multi_draw;
+library;
 
 import 'dart:js_interop';
 

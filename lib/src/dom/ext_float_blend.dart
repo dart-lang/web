@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library ext_float_blend;
+library;
 
 import 'dart:js_interop';
 

@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library webcodecs_av1_codec_registration;
+library;
 
 import 'dart:js_interop';
 

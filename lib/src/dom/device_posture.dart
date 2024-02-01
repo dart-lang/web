@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library device_posture;
+library;
 
 import 'dart:js_interop';
 

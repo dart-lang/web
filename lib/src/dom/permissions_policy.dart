@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library permissions_policy;
+library;
 
 import 'dart:js_interop';
 

@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library webgl_clip_cull_distance;
+library;
 
 import 'dart:js_interop';
 

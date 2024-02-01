@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library oes_vertex_array_object;
+library;
 
 import 'dart:js_interop';
 

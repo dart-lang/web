@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library resize_observer;
+library;
 
 import 'dart:js_interop';
 

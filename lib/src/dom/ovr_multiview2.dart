@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library ovr_multiview2;
+library;
 
 import 'dart:js_interop';
 

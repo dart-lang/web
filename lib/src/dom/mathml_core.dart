@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library mathml_core;
+library;
 
 import 'dart:js_interop';
 

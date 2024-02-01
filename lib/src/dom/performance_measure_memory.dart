@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library performance_measure_memory;
+library;
 
 import 'dart:js_interop';
 

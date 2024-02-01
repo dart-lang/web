@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library webxr_depth_sensing;
+library;
 
 import 'dart:js_interop';
 

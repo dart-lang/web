@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library deprecation_reporting;
+library;
 
 import 'dart:js_interop';
 

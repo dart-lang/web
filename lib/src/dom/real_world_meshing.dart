@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library real_world_meshing;
+library;
 
 import 'dart:js_interop';
 

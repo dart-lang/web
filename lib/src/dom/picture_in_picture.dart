@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library picture_in_picture;
+library;
 
 import 'dart:js_interop';
 

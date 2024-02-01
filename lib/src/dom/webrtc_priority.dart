@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library webrtc_priority;
+library;
 
 import 'dart:js_interop';
 

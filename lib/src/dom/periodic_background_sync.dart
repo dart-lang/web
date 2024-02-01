@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library periodic_background_sync;
+library;
 
 import 'dart:js_interop';
 

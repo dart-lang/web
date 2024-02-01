@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library css_cascade;
+library;
 
 import 'dart:js_interop';
 

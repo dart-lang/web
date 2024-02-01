@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library get_installed_related_apps;
+library;
 
 import 'dart:js_interop';
 

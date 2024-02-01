@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library audio_output;
+library;
 
 import 'dart:js_interop';
 

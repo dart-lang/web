@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library webcrypto_secure_curves;
+library;
 
 import 'dart:js_interop';
 

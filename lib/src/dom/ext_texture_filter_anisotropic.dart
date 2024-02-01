@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library ext_texture_filter_anisotropic;
+library;
 
 import 'dart:js_interop';
 

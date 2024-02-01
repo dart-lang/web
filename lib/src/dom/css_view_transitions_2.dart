@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library css_view_transitions_2;
+library;
 
 import 'dart:js_interop';
 

@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library shape_detection_api;
+library;
 
 import 'dart:js_interop';
 

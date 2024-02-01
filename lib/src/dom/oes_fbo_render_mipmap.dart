@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library oes_fbo_render_mipmap;
+library;
 
 import 'dart:js_interop';
 

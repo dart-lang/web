@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library layout_instability;
+library;
 
 import 'dart:js_interop';
 

@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library server_timing;
+library;
 
 import 'dart:js_interop';
 

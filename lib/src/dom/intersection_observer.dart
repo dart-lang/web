@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library intersection_observer;
+library;
 
 import 'dart:js_interop';
 

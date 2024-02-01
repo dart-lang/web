@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library ext_texture_compression_rgtc;
+library;
 
 import 'dart:js_interop';
 

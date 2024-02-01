@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library media_playback_quality;
+library;
 
 import 'dart:js_interop';
 

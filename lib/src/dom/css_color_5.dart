@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library css_color_5;
+library;
 
 import 'dart:js_interop';
 

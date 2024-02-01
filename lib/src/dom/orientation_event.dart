@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library orientation_event;
+library;
 
 import 'dart:js_interop';
 

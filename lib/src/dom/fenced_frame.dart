@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library fenced_frame;
+library;
 
 import 'dart:js_interop';
 

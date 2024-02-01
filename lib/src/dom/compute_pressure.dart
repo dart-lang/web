@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library compute_pressure;
+library;
 
 import 'dart:js_interop';
 

@@ -5,7 +5,7 @@
 // Generated from Web IDL definitions.
 
 @JS()
-library generic_sensor;
+library;
 
 import 'dart:js_interop';
 

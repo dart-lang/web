@@ -918,6 +918,11 @@ class Translator {
   code.Library _library(_Library library) => code.Library((b) => b
     ..comments.addAll(licenseHeader)
     ..generatedByComment = generatedFileDisclaimer
+    // TODO(srujzs): This is to address the issue around extension type object
+    // literal constructors in https://github.com/dart-lang/sdk/issues/54801.
+    // Once this package moves to an SDK version that contains a fix for that,
+    // this can be removed.
+    ..annotations.addAll(_jsOverride('', alwaysEmit: true))
     ..body.addAll([
       for (final typedef in library.typedefs)
         _typedef(

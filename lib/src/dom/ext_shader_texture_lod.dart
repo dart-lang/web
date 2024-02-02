@@ -4,6 +4,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 extension type EXT_shader_texture_lod._(JSObject _) implements JSObject {}

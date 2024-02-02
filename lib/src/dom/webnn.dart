@@ -11,10 +11,10 @@ import 'dart:js_interop';
 
 import 'webgpu.dart';
 
-typedef MLNamedArrayBufferViews = JSAny;
+typedef MLNamedArrayBufferViews = JSObject;
 typedef MLGPUResource = JSObject;
-typedef MLNamedGPUResources = JSAny;
-typedef MLNamedOperands = JSAny;
+typedef MLNamedGPUResources = JSObject;
+typedef MLNamedOperands = JSObject;
 typedef MLBufferView = JSObject;
 typedef MLDeviceType = String;
 typedef MLPowerPreference = String;

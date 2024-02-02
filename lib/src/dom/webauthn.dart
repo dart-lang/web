@@ -548,13 +548,13 @@ extension type AuthenticationExtensionsPRFInputs._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsPRFInputs({
     AuthenticationExtensionsPRFValues eval,
-    JSAny evalByCredential,
+    JSObject evalByCredential,
   });
 
   external set eval(AuthenticationExtensionsPRFValues value);
   external AuthenticationExtensionsPRFValues get eval;
-  external set evalByCredential(JSAny value);
-  external JSAny get evalByCredential;
+  external set evalByCredential(JSObject value);
+  external JSObject get evalByCredential;
 }
 extension type AuthenticationExtensionsPRFOutputs._(JSObject _)
     implements JSObject {

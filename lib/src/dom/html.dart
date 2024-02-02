@@ -3664,7 +3664,7 @@ extension type Navigator._(JSObject _) implements JSObject {
   );
   external JSPromise<JSAny?> deprecatedReplaceInURN(
     UrnOrConfig urnOrConfig,
-    JSAny replacements,
+    JSObject replacements,
   );
   external JSArray<Gamepad?> getGamepads();
   external JSPromise<JSArray<RelatedApplication>> getInstalledRelatedApps();

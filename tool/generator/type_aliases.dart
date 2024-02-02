@@ -5,8 +5,7 @@
 const idlOrBuiltinToJsTypeAliases = <String, String>{
   'any': 'JSAny',
   'bigint': 'JSBigInt',
-  // TODO(srujzs): Records should be JSObject.
-  'record': 'JSAny',
+  'record': 'JSObject',
   'object': 'JSObject',
   'Promise': 'JSPromise',
   'boolean': 'JSBoolean',

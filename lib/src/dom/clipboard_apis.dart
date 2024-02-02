@@ -33,7 +33,7 @@ extension type ClipboardEvent._(JSObject _) implements Event, JSObject {
 }
 extension type ClipboardItem._(JSObject _) implements JSObject {
   external factory ClipboardItem(
-    JSAny items, [
+    JSObject items, [
     ClipboardItemOptions options,
   ]);
 

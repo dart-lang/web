@@ -148,14 +148,14 @@ extension type GPUDeviceDescriptor._(JSObject _)
     implements GPUObjectDescriptorBase, JSObject {
   external factory GPUDeviceDescriptor({
     JSArray<JSString> requiredFeatures,
-    JSAny requiredLimits,
+    JSObject requiredLimits,
     GPUQueueDescriptor defaultQueue,
   });
 
   external set requiredFeatures(JSArray<JSString> value);
   external JSArray<JSString> get requiredFeatures;
-  external set requiredLimits(JSAny value);
-  external JSAny get requiredLimits;
+  external set requiredLimits(JSObject value);
+  external JSObject get requiredLimits;
   external set defaultQueue(GPUQueueDescriptor value);
   external GPUQueueDescriptor get defaultQueue;
 }
@@ -552,15 +552,15 @@ extension type GPUShaderModuleDescriptor._(JSObject _)
   external factory GPUShaderModuleDescriptor({
     required String code,
     JSObject sourceMap,
-    JSAny hints,
+    JSObject hints,
   });
 
   external set code(String value);
   external String get code;
   external set sourceMap(JSObject value);
   external JSObject get sourceMap;
-  external set hints(JSAny value);
-  external JSAny get hints;
+  external set hints(JSObject value);
+  external JSObject get hints;
 }
 extension type GPUShaderModuleCompilationHint._(JSObject _)
     implements JSObject {
@@ -607,15 +607,15 @@ extension type GPUProgrammableStage._(JSObject _) implements JSObject {
   external factory GPUProgrammableStage({
     required GPUShaderModule module,
     required String entryPoint,
-    JSAny constants,
+    JSObject constants,
   });
 
   external set module(GPUShaderModule value);
   external GPUShaderModule get module;
   external set entryPoint(String value);
   external String get entryPoint;
-  external set constants(JSAny value);
-  external JSAny get constants;
+  external set constants(JSObject value);
+  external JSObject get constants;
 }
 extension type GPUComputePipeline._(JSObject _) implements JSObject {
   external GPUBindGroupLayout getBindGroupLayout(int index);

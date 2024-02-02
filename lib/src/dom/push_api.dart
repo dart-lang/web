@@ -58,15 +58,15 @@ extension type PushSubscriptionJSON._(JSObject _) implements JSObject {
   external factory PushSubscriptionJSON({
     String endpoint,
     EpochTimeStamp? expirationTime,
-    JSAny keys,
+    JSObject keys,
   });
 
   external set endpoint(String value);
   external String get endpoint;
   external set expirationTime(EpochTimeStamp? value);
   external EpochTimeStamp? get expirationTime;
-  external set keys(JSAny value);
-  external JSAny get keys;
+  external set keys(JSObject value);
+  external JSObject get keys;
 }
 extension type PushMessageData._(JSObject _) implements JSObject {
   external JSArrayBuffer arrayBuffer();

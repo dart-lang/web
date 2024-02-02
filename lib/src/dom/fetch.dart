@@ -18,7 +18,7 @@ import 'streams.dart';
 import 'trust_token_api.dart';
 import 'xhr.dart';
 
-typedef HeadersInit = JSAny;
+typedef HeadersInit = JSObject;
 typedef XMLHttpRequestBodyInit = JSAny;
 typedef BodyInit = JSAny;
 typedef RequestInfo = JSAny;

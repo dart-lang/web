@@ -23,9 +23,7 @@ class BrowserCompatData {
         .toDart;
 
     final api = (jsonDecode(content) as Map)['api'] as Map<String, dynamic>;
-    final interfaces = api.keys
-        // Remove non-symbol metadata (`__meta`, `__compat`, ...).
-        .where((key) => !key.startsWith('_'))
+    final interfaces = api.symbolNames
         .map((key) => BCDInterfaceStatus(key, api[key] as Map<String, dynamic>))
         .toList();
     return BrowserCompatData(Map.fromIterable(
@@ -45,11 +43,10 @@ class BCDInterfaceStatus extends BCDItem {
   late final Map<String, BCDPropertyStatus> properties;
 
   BCDInterfaceStatus(super.name, super.json) {
-    final names = json.keys.where((key) => !key.startsWith('_'));
     properties = Map.fromIterable(
-      names,
-      value: (key) => BCDPropertyStatus(
-          key as String, json[key] as Map<String, dynamic>, this),
+      json.symbolNames,
+      value: (name) => BCDPropertyStatus(
+          name as String, json[name] as Map<String, dynamic>, this),
     );
   }
 
@@ -116,4 +113,10 @@ abstract class BCDItem {
 
   @override
   String toString() => '$name ($_browsersDescription) [$_statusDescription]';
+}
+
+extension BCDJsonDataExtension on Map<String, dynamic> {
+  /// Return keys which coorespond to symbol names (i.e., filter out non-symbol
+  /// metadata (`__meta`, `__compat`, ...).
+  Iterable<String> get symbolNames => keys.where((key) => !key.startsWith('_'));
 }

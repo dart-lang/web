@@ -219,8 +219,6 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   external EventHandler get ontouchmove;
   external set ontouchcancel(EventHandler value);
   external EventHandler get ontouchcancel;
-  external set onbeforexrselect(EventHandler value);
-  external EventHandler get onbeforexrselect;
   external DOMStringMap get dataset;
   external set nonce(String value);
   external String get nonce;

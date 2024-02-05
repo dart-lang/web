@@ -13,13 +13,9 @@ import 'dom.dart';
 import 'hr_time.dart';
 import 'html.dart';
 import 'mediacapture_streams.dart';
-import 'mst_content_hint.dart';
 import 'webcryptoapi.dart';
 import 'webidl.dart';
 import 'webrtc_encoded_transform.dart';
-import 'webrtc_ice.dart';
-import 'webrtc_identity.dart';
-import 'webrtc_priority.dart';
 import 'webrtc_stats.dart';
 import 'websockets.dart';
 
@@ -48,7 +44,6 @@ typedef RTCDataChannelState = String;
 typedef RTCErrorDetailType = String;
 extension type RTCConfiguration._(JSObject _) implements JSObject {
   external factory RTCConfiguration({
-    String peerIdentity,
     JSArray<RTCIceServer> iceServers,
     RTCIceTransportPolicy iceTransportPolicy,
     RTCBundlePolicy bundlePolicy,
@@ -57,8 +52,6 @@ extension type RTCConfiguration._(JSObject _) implements JSObject {
     int iceCandidatePoolSize,
   });
 
-  external set peerIdentity(String value);
-  external String get peerIdentity;
   external set iceServers(JSArray<RTCIceServer> value);
   external JSArray<RTCIceServer> get iceServers;
   external set iceTransportPolicy(RTCIceTransportPolicy value);
@@ -114,11 +107,6 @@ extension type RTCPeerConnection._(JSObject _)
 
   external static JSPromise<RTCCertificate> generateCertificate(
       AlgorithmIdentifier keygenAlgorithm);
-  external void setIdentityProvider(
-    String provider, [
-    RTCIdentityProviderOptions options,
-  ]);
-  external JSPromise<JSString> getIdentityAssertion();
   external JSPromise<RTCSessionDescriptionInit?> createOffer([
     JSObject optionsOrSuccessCallback,
     RTCPeerConnectionErrorCallback failureCallback,
@@ -164,9 +152,6 @@ extension type RTCPeerConnection._(JSObject _)
     RTCDataChannelInit dataChannelDict,
   ]);
   external JSPromise<RTCStatsReport> getStats([MediaStreamTrack? selector]);
-  external JSPromise<RTCIdentityAssertion> get peerIdentity;
-  external String? get idpLoginUrl;
-  external String? get idpErrorInfo;
   external RTCSessionDescription? get localDescription;
   external RTCSessionDescription? get currentLocalDescription;
   external RTCSessionDescription? get pendingLocalDescription;
@@ -381,13 +366,10 @@ extension type RTCRtpParameters._(JSObject _) implements JSObject {
 extension type RTCRtpSendParameters._(JSObject _)
     implements RTCRtpParameters, JSObject {
   external factory RTCRtpSendParameters({
-    RTCDegradationPreference degradationPreference,
     required String transactionId,
     required JSArray<RTCRtpEncodingParameters> encodings,
   });
 
-  external set degradationPreference(RTCDegradationPreference value);
-  external RTCDegradationPreference get degradationPreference;
   external set transactionId(String value);
   external String get transactionId;
   external set encodings(JSArray<RTCRtpEncodingParameters> value);
@@ -406,21 +388,12 @@ extension type RTCRtpCodingParameters._(JSObject _) implements JSObject {
 extension type RTCRtpEncodingParameters._(JSObject _)
     implements RTCRtpCodingParameters, JSObject {
   external factory RTCRtpEncodingParameters({
-    RTCPriorityType priority,
-    RTCPriorityType networkPriority,
-    String scalabilityMode,
     bool active,
     int maxBitrate,
     num maxFramerate,
     num scaleResolutionDownBy,
   });
 
-  external set priority(RTCPriorityType value);
-  external RTCPriorityType get priority;
-  external set networkPriority(RTCPriorityType value);
-  external RTCPriorityType get networkPriority;
-  external set scalabilityMode(String value);
-  external String get scalabilityMode;
   external set active(bool value);
   external bool get active;
   external set maxBitrate(int value);
@@ -568,24 +541,11 @@ extension type RTCDtlsFingerprint._(JSObject _) implements JSObject {
   external String get value;
 }
 extension type RTCIceTransport._(JSObject _) implements EventTarget, JSObject {
-  external factory RTCIceTransport();
-
-  external void gather([RTCIceGatherOptions options]);
-  external void start([
-    RTCIceParameters remoteParameters,
-    RTCIceRole role,
-  ]);
-  external void stop();
-  external void addRemoteCandidate([RTCIceCandidateInit remoteCandidate]);
   external JSArray<RTCIceCandidate> getLocalCandidates();
   external JSArray<RTCIceCandidate> getRemoteCandidates();
   external RTCIceCandidatePair? getSelectedCandidatePair();
   external RTCIceParameters? getLocalParameters();
   external RTCIceParameters? getRemoteParameters();
-  external set onerror(EventHandler value);
-  external EventHandler get onerror;
-  external set onicecandidate(EventHandler value);
-  external EventHandler get onicecandidate;
   external RTCIceRole get role;
   external RTCIceComponent get component;
   external RTCIceTransportState get state;
@@ -599,13 +559,10 @@ extension type RTCIceTransport._(JSObject _) implements EventTarget, JSObject {
 }
 extension type RTCIceParameters._(JSObject _) implements JSObject {
   external factory RTCIceParameters({
-    bool iceLite,
     String usernameFragment,
     String password,
   });
 
-  external set iceLite(bool value);
-  external bool get iceLite;
   external set usernameFragment(String value);
   external String get usernameFragment;
   external set password(String value);
@@ -661,7 +618,6 @@ extension type RTCSctpTransport._(JSObject _) implements EventTarget, JSObject {
 extension type RTCDataChannel._(JSObject _) implements EventTarget, JSObject {
   external void close();
   external void send(JSAny data);
-  external RTCPriorityType get priority;
   external String get label;
   external bool get ordered;
   external int? get maxPacketLifeTime;
@@ -690,7 +646,6 @@ extension type RTCDataChannel._(JSObject _) implements EventTarget, JSObject {
 }
 extension type RTCDataChannelInit._(JSObject _) implements JSObject {
   external factory RTCDataChannelInit({
-    RTCPriorityType priority,
     bool ordered,
     int maxPacketLifeTime,
     int maxRetransmits,
@@ -699,8 +654,6 @@ extension type RTCDataChannelInit._(JSObject _) implements JSObject {
     int id,
   });
 
-  external set priority(RTCPriorityType value);
-  external RTCPriorityType get priority;
   external set ordered(bool value);
   external bool get ordered;
   external set maxPacketLifeTime(int value);
@@ -776,7 +729,6 @@ extension type RTCError._(JSObject _) implements DOMException, JSObject {
     String message,
   ]);
 
-  external int? get httpRequestStatusCode;
   external RTCErrorDetailType get errorDetail;
   external int? get sdpLineNumber;
   external int? get sctpCauseCode;
@@ -785,7 +737,6 @@ extension type RTCError._(JSObject _) implements DOMException, JSObject {
 }
 extension type RTCErrorInit._(JSObject _) implements JSObject {
   external factory RTCErrorInit({
-    int httpRequestStatusCode,
     required RTCErrorDetailType errorDetail,
     int sdpLineNumber,
     int sctpCauseCode,
@@ -793,8 +744,6 @@ extension type RTCErrorInit._(JSObject _) implements JSObject {
     int sentAlert,
   });
 
-  external set httpRequestStatusCode(int value);
-  external int get httpRequestStatusCode;
   external set errorDetail(RTCErrorDetailType value);
   external RTCErrorDetailType get errorDetail;
   external set sdpLineNumber(int value);

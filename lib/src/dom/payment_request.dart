@@ -19,7 +19,6 @@ extension type PaymentRequest._(JSObject _) implements EventTarget, JSObject {
     PaymentDetailsInit details,
   );
 
-  external static JSPromise<JSBoolean> isSecurePaymentConfirmationAvailable();
   external JSPromise<PaymentResponse> show(
       [JSPromise<PaymentDetailsUpdate> detailsPromise]);
   external JSPromise<JSAny?> abort();

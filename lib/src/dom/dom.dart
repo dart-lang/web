@@ -10,21 +10,12 @@ library;
 import 'dart:js_interop';
 
 import 'css_font_loading.dart';
-import 'css_nav.dart';
-import 'css_pseudo.dart';
-import 'css_regions.dart';
 import 'css_typed_om.dart';
-import 'css_view_transitions.dart';
 import 'cssom.dart';
 import 'cssom_view.dart';
-import 'font_metrics_api.dart';
-import 'fullscreen.dart';
 import 'geometry.dart';
 import 'hr_time.dart';
 import 'html.dart';
-import 'permissions_policy.dart';
-import 'sanitizer_api.dart';
-import 'scroll_to_text_fragment.dart';
 import 'selection_api.dart';
 import 'svg.dart';
 import 'web_animations.dart';
@@ -280,7 +271,6 @@ external Document get document;
 extension type Document._(JSObject _) implements Node, JSObject {
   external factory Document();
 
-  external ViewTransition startViewTransition([UpdateCallback? updateCallback]);
   external Element? elementFromPoint(
     num x,
     num y,
@@ -338,12 +328,6 @@ extension type Document._(JSObject _) implements Node, JSObject {
     int whatToShow,
     NodeFilter? filter,
   ]);
-  external FontMetrics measureElement(Element element);
-  external FontMetrics measureText(
-    String text,
-    StylePropertyMapReadOnly styleMap,
-  );
-  external JSPromise<JSAny?> exitFullscreen();
   external NodeList getElementsByName(String elementName);
   external JSObject? open([
     String unused1OrUrl,
@@ -367,14 +351,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external void clear();
   external void captureEvents();
   external void releaseEvents();
-  external JSPromise<JSAny?> exitPictureInPicture();
-  external void exitPointerLock();
-  external JSPromise<JSAny?> requestStorageAccessFor(String requestedOrigin);
   external Selection? getSelection();
-  external JSPromise<JSBoolean> hasStorageAccess();
-  external JSPromise<JSAny?> requestStorageAccess();
-  external JSPromise<JSBoolean> hasPrivateTokens(String issuer);
-  external JSPromise<JSBoolean> hasRedemptionRecord(String issuer);
   external JSArray<DOMQuad> getBoxQuads([BoxQuadOptions options]);
   external DOMQuad convertQuadFromNode(
     DOMQuadInit quad,
@@ -411,7 +388,6 @@ extension type Document._(JSObject _) implements Node, JSObject {
     XPathResult? result,
   ]);
   external SVGSVGElement? get rootElement;
-  external NamedFlowMap get namedFlows;
   external Element? get scrollingElement;
   external DOMImplementation get implementation;
   external String get URL;
@@ -423,12 +399,6 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external String get contentType;
   external DocumentType? get doctype;
   external Element? get documentElement;
-  external bool get fullscreenEnabled;
-  external bool get fullscreen;
-  external set onfullscreenchange(EventHandler value);
-  external EventHandler get onfullscreenchange;
-  external set onfullscreenerror(EventHandler value);
-  external EventHandler get onfullscreenerror;
   external Location? get location;
   external set domain(String value);
   external String get domain;
@@ -473,30 +443,12 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external HTMLCollection get anchors;
   external HTMLCollection get applets;
   external HTMLAllCollection get all;
-  external set onfreeze(EventHandler value);
-  external EventHandler get onfreeze;
-  external set onresume(EventHandler value);
-  external EventHandler get onresume;
-  external bool get wasDiscarded;
-  external PermissionsPolicy get permissionsPolicy;
-  external bool get pictureInPictureEnabled;
-  external set onpointerlockchange(EventHandler value);
-  external EventHandler get onpointerlockchange;
-  external set onpointerlockerror(EventHandler value);
-  external EventHandler get onpointerlockerror;
-  external bool get prerendering;
-  external set onprerenderingchange(EventHandler value);
-  external EventHandler get onprerenderingchange;
-  external FragmentDirective get fragmentDirective;
   external DocumentTimeline get timeline;
   external FontFaceSet get fonts;
   external StyleSheetList get styleSheets;
   external set adoptedStyleSheets(JSArray<CSSStyleSheet> value);
   external JSArray<CSSStyleSheet> get adoptedStyleSheets;
-  external Element? get fullscreenElement;
   external Element? get activeElement;
-  external Element? get pictureInPictureElement;
-  external Element? get pointerLockElement;
   external HTMLCollection get children;
   external Element? get firstElementChild;
   external Element? get lastElementChild;
@@ -701,8 +653,6 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external EventHandler get ontouchmove;
   external set ontouchcancel(EventHandler value);
   external EventHandler get ontouchcancel;
-  external set onbeforexrselect(EventHandler value);
-  external EventHandler get onbeforexrselect;
 }
 extension type XMLDocument._(JSObject _) implements Document, JSObject {}
 extension type ElementCreationOptions._(JSObject _) implements JSObject {
@@ -763,23 +713,13 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   external StyleSheetList get styleSheets;
   external set adoptedStyleSheets(JSArray<CSSStyleSheet> value);
   external JSArray<CSSStyleSheet> get adoptedStyleSheets;
-  external Element? get fullscreenElement;
   external Element? get activeElement;
-  external Element? get pictureInPictureElement;
-  external Element? get pointerLockElement;
 }
 extension type Element._(JSObject _) implements Node, JSObject {
   external void insertAdjacentHTML(
     String position,
     String text,
   );
-  external Node getSpatialNavigationContainer();
-  external JSArray<Node> focusableAreas([FocusableAreasOption option]);
-  external Node? spatialNavigationSearch(
-    SpatialNavigationDirection dir, [
-    SpatialNavigationSearchOptions options,
-  ]);
-  external CSSPseudoElement? pseudo(String type);
   external StylePropertyMapReadOnly computedStyleMap();
   external DOMRectList getClientRects();
   external DOMRect getBoundingClientRect();
@@ -853,16 +793,9 @@ extension type Element._(JSObject _) implements Node, JSObject {
     String where,
     String data,
   );
-  external JSPromise<JSAny?> requestFullscreen([FullscreenOptions options]);
   external void setPointerCapture(int pointerId);
   external void releasePointerCapture(int pointerId);
   external bool hasPointerCapture(int pointerId);
-  external void requestPointerLock();
-  external void setHTML(
-    String input, [
-    SetHTMLOptions options,
-  ]);
-  external JSArray<Range>? getRegionFlowRanges();
   external JSArray<DOMQuad> getBoxQuads([BoxQuadOptions options]);
   external DOMQuad convertQuadFromNode(
     DOMQuadInit quad,
@@ -895,7 +828,6 @@ extension type Element._(JSObject _) implements Node, JSObject {
   external JSArray<Animation> getAnimations([GetAnimationsOptions options]);
   external set outerHTML(String value);
   external String get outerHTML;
-  external DOMTokenList get part;
   external set scrollTop(num value);
   external num get scrollTop;
   external set scrollLeft(num value);
@@ -919,15 +851,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   external String get slot;
   external NamedNodeMap get attributes;
   external ShadowRoot? get shadowRoot;
-  external set elementTiming(String value);
-  external String get elementTiming;
-  external set onfullscreenchange(EventHandler value);
-  external EventHandler get onfullscreenchange;
-  external set onfullscreenerror(EventHandler value);
-  external EventHandler get onfullscreenerror;
   external set innerHTML(String value);
   external String get innerHTML;
-  external String get regionOverset;
   external HTMLCollection get children;
   external Element? get firstElementChild;
   external Element? get lastElementChild;
@@ -935,104 +860,6 @@ extension type Element._(JSObject _) implements Node, JSObject {
   external Element? get previousElementSibling;
   external Element? get nextElementSibling;
   external HTMLSlotElement? get assignedSlot;
-  external set role(String? value);
-  external String? get role;
-  external set ariaActiveDescendantElement(Element? value);
-  external Element? get ariaActiveDescendantElement;
-  external set ariaAtomic(String? value);
-  external String? get ariaAtomic;
-  external set ariaAutoComplete(String? value);
-  external String? get ariaAutoComplete;
-  external set ariaBusy(String? value);
-  external String? get ariaBusy;
-  external set ariaChecked(String? value);
-  external String? get ariaChecked;
-  external set ariaColCount(String? value);
-  external String? get ariaColCount;
-  external set ariaColIndex(String? value);
-  external String? get ariaColIndex;
-  external set ariaColIndexText(String? value);
-  external String? get ariaColIndexText;
-  external set ariaColSpan(String? value);
-  external String? get ariaColSpan;
-  external set ariaControlsElements(JSArray<Element>? value);
-  external JSArray<Element>? get ariaControlsElements;
-  external set ariaCurrent(String? value);
-  external String? get ariaCurrent;
-  external set ariaDescribedByElements(JSArray<Element>? value);
-  external JSArray<Element>? get ariaDescribedByElements;
-  external set ariaDescription(String? value);
-  external String? get ariaDescription;
-  external set ariaDetailsElements(JSArray<Element>? value);
-  external JSArray<Element>? get ariaDetailsElements;
-  external set ariaDisabled(String? value);
-  external String? get ariaDisabled;
-  external set ariaErrorMessageElements(JSArray<Element>? value);
-  external JSArray<Element>? get ariaErrorMessageElements;
-  external set ariaExpanded(String? value);
-  external String? get ariaExpanded;
-  external set ariaFlowToElements(JSArray<Element>? value);
-  external JSArray<Element>? get ariaFlowToElements;
-  external set ariaHasPopup(String? value);
-  external String? get ariaHasPopup;
-  external set ariaHidden(String? value);
-  external String? get ariaHidden;
-  external set ariaInvalid(String? value);
-  external String? get ariaInvalid;
-  external set ariaKeyShortcuts(String? value);
-  external String? get ariaKeyShortcuts;
-  external set ariaLabel(String? value);
-  external String? get ariaLabel;
-  external set ariaLabelledByElements(JSArray<Element>? value);
-  external JSArray<Element>? get ariaLabelledByElements;
-  external set ariaLevel(String? value);
-  external String? get ariaLevel;
-  external set ariaLive(String? value);
-  external String? get ariaLive;
-  external set ariaModal(String? value);
-  external String? get ariaModal;
-  external set ariaMultiLine(String? value);
-  external String? get ariaMultiLine;
-  external set ariaMultiSelectable(String? value);
-  external String? get ariaMultiSelectable;
-  external set ariaOrientation(String? value);
-  external String? get ariaOrientation;
-  external set ariaOwnsElements(JSArray<Element>? value);
-  external JSArray<Element>? get ariaOwnsElements;
-  external set ariaPlaceholder(String? value);
-  external String? get ariaPlaceholder;
-  external set ariaPosInSet(String? value);
-  external String? get ariaPosInSet;
-  external set ariaPressed(String? value);
-  external String? get ariaPressed;
-  external set ariaReadOnly(String? value);
-  external String? get ariaReadOnly;
-  external set ariaRequired(String? value);
-  external String? get ariaRequired;
-  external set ariaRoleDescription(String? value);
-  external String? get ariaRoleDescription;
-  external set ariaRowCount(String? value);
-  external String? get ariaRowCount;
-  external set ariaRowIndex(String? value);
-  external String? get ariaRowIndex;
-  external set ariaRowIndexText(String? value);
-  external String? get ariaRowIndexText;
-  external set ariaRowSpan(String? value);
-  external String? get ariaRowSpan;
-  external set ariaSelected(String? value);
-  external String? get ariaSelected;
-  external set ariaSetSize(String? value);
-  external String? get ariaSetSize;
-  external set ariaSort(String? value);
-  external String? get ariaSort;
-  external set ariaValueMax(String? value);
-  external String? get ariaValueMax;
-  external set ariaValueMin(String? value);
-  external String? get ariaValueMin;
-  external set ariaValueNow(String? value);
-  external String? get ariaValueNow;
-  external set ariaValueText(String? value);
-  external String? get ariaValueText;
 }
 extension type ShadowRootInit._(JSObject _) implements JSObject {
   external factory ShadowRootInit({

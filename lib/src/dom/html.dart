@@ -9,85 +9,39 @@ library;
 
 import 'dart:js_interop';
 
-import 'audio_session.dart';
-import 'autoplay_detection.dart';
-import 'battery_status.dart';
 import 'clipboard_apis.dart';
-import 'contact_picker.dart';
-import 'cookie_store.dart';
 import 'credential_management.dart';
 import 'css_font_loading.dart';
-import 'css_nav.dart';
 import 'css_typed_om.dart';
 import 'cssom.dart';
 import 'cssom_view.dart';
-import 'custom_state_pseudo_class.dart';
-import 'device_posture.dart';
-import 'digital_goods.dart';
-import 'document_picture_in_picture.dart';
 import 'dom.dart';
-import 'edit_context.dart';
 import 'encrypted_media.dart';
 import 'entries_api.dart';
-import 'fenced_frame.dart';
 import 'fetch.dart';
-import 'file_system_access.dart';
 import 'fileapi.dart';
-import 'fs.dart';
 import 'gamepad.dart';
 import 'geolocation.dart';
 import 'geometry.dart';
-import 'get_installed_related_apps.dart';
 import 'hr_time.dart';
 import 'indexeddb.dart';
-import 'ink_enhancement.dart';
-import 'is_input_pending.dart';
-import 'keyboard_lock.dart';
-import 'local_font_access.dart';
 import 'media_capabilities.dart';
 import 'media_playback_quality.dart';
 import 'media_source.dart';
 import 'mediacapture_streams.dart';
 import 'mediasession.dart';
-import 'netinfo.dart';
 import 'performance_timeline.dart';
 import 'permissions.dart';
-import 'permissions_policy.dart';
-import 'picture_in_picture.dart';
-import 'portals.dart';
-import 'presentation_api.dart';
-import 'remote_playback.dart';
-import 'requestidlecallback.dart';
-import 'scheduling_apis.dart';
 import 'screen_wake_lock.dart';
 import 'selection_api.dart';
-import 'serial.dart';
 import 'service_workers.dart';
-import 'shared_storage.dart';
 import 'speech_api.dart';
 import 'storage.dart';
-import 'storage_buckets.dart';
-import 'trusted_types.dart';
-import 'turtledove.dart';
-import 'ua_client_hints.dart';
 import 'uievents.dart';
 import 'vibration.dart';
-import 'video_rvfc.dart';
-import 'virtual_keyboard.dart';
-import 'web_app_launch.dart';
-import 'web_bluetooth.dart';
 import 'web_locks.dart';
-import 'web_share.dart';
 import 'webcryptoapi.dart';
-import 'webgpu.dart';
-import 'webhid.dart';
 import 'webidl.dart';
-import 'webmidi.dart';
-import 'webnn.dart';
-import 'webusb.dart';
-import 'webxr.dart';
-import 'window_controls_overlay.dart';
-import 'window_management.dart';
 import 'xhr.dart';
 
 typedef HTMLOrSVGScriptElement = JSObject;
@@ -185,8 +139,6 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   external int get offsetLeft;
   external int get offsetWidth;
   external int get offsetHeight;
-  external set editContext(EditContext? value);
-  external EditContext? get editContext;
   external set title(String value);
   external String get title;
   external set lang(String value);
@@ -416,8 +368,6 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   external EventHandler get ontouchmove;
   external set ontouchcancel(EventHandler value);
   external EventHandler get ontouchcancel;
-  external set onbeforexrselect(EventHandler value);
-  external EventHandler get onbeforexrselect;
   external set contentEditable(String value);
   external String get contentEditable;
   external set enterKeyHint(String value);
@@ -425,8 +375,6 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   external bool get isContentEditable;
   external set inputMode(String value);
   external String get inputMode;
-  external set virtualKeyboardPolicy(String value);
-  external String get virtualKeyboardPolicy;
   external DOMStringMap get dataset;
   external set nonce(String value);
   external String get nonce;
@@ -530,8 +478,6 @@ extension type HTMLStyleElement._(JSObject _) implements HTMLElement, JSObject {
 extension type HTMLBodyElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLBodyElement();
 
-  external set onorientationchange(EventHandler value);
-  external EventHandler get onorientationchange;
   external set text(String value);
   external String get text;
   external set link(String value);
@@ -580,8 +526,6 @@ extension type HTMLBodyElement._(JSObject _) implements HTMLElement, JSObject {
   external EventHandler get onunhandledrejection;
   external set onunload(EventHandler value);
   external EventHandler get onunload;
-  external set onportalactivate(EventHandler value);
-  external EventHandler get onportalactivate;
 }
 extension type HTMLHeadingElement._(JSObject _)
     implements HTMLElement, JSObject {
@@ -700,10 +644,6 @@ extension type HTMLAnchorElement._(JSObject _)
   external String get rev;
   external set shape(String value);
   external String get shape;
-  external set attributionSourceId(int value);
-  external int get attributionSourceId;
-  external set attributionSrc(String value);
-  external String get attributionSrc;
   external set href(String value);
   external String get href;
   external String get origin;
@@ -828,18 +768,12 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   external String get longDesc;
   external set border(String value);
   external String get border;
-  external set attributionSrc(String value);
-  external String get attributionSrc;
-  external set sharedStorageWritable(bool value);
-  external bool get sharedStorageWritable;
 }
 extension type HTMLIFrameElement._(JSObject _)
     implements HTMLElement, JSObject {
   external factory HTMLIFrameElement();
 
   external Document? getSVGDocument();
-  external set csp(String value);
-  external String get csp;
   external set src(String value);
   external String get src;
   external set srcdoc(String value);
@@ -873,11 +807,6 @@ extension type HTMLIFrameElement._(JSObject _)
   external String get marginHeight;
   external set marginWidth(String value);
   external String get marginWidth;
-  external PermissionsPolicy get permissionsPolicy;
-  external set privateToken(String value);
-  external String get privateToken;
-  external set sharedStorageWritable(bool value);
-  external bool get sharedStorageWritable;
 }
 extension type HTMLEmbedElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLEmbedElement();
@@ -948,9 +877,6 @@ extension type HTMLVideoElement._(JSObject _)
   external factory HTMLVideoElement();
 
   external VideoPlaybackQuality getVideoPlaybackQuality();
-  external JSPromise<PictureInPictureWindow> requestPictureInPicture();
-  external int requestVideoFrameCallback(VideoFrameRequestCallback callback);
-  external void cancelVideoFrameCallback(int handle);
   external set width(int value);
   external int get width;
   external set height(int value);
@@ -961,12 +887,6 @@ extension type HTMLVideoElement._(JSObject _)
   external String get poster;
   external set playsInline(bool value);
   external bool get playsInline;
-  external set onenterpictureinpicture(EventHandler value);
-  external EventHandler get onenterpictureinpicture;
-  external set onleavepictureinpicture(EventHandler value);
-  external EventHandler get onleavepictureinpicture;
-  external set disablePictureInPicture(bool value);
-  external bool get disablePictureInPicture;
 }
 extension type HTMLAudioElement._(JSObject _)
     implements HTMLMediaElement, JSObject {
@@ -1004,7 +924,6 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   external static int get HAVE_CURRENT_DATA;
   external static int get HAVE_FUTURE_DATA;
   external static int get HAVE_ENOUGH_DATA;
-  external JSPromise<JSAny?> setSinkId(String sinkId);
   external JSPromise<JSAny?> setMediaKeys(MediaKeys? mediaKeys);
   external void load();
   external CanPlayTypeResult canPlayType(String type);
@@ -1017,8 +936,6 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
     String label,
     String language,
   ]);
-  external MediaStream captureStream();
-  external String get sinkId;
   external MediaKeys? get mediaKeys;
   external set onencrypted(EventHandler value);
   external EventHandler get onencrypted;
@@ -1066,9 +983,6 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   external AudioTrackList get audioTracks;
   external VideoTrackList get videoTracks;
   external TextTrackList get textTracks;
-  external RemotePlayback get remote;
-  external set disableRemotePlayback(bool value);
-  external bool get disableRemotePlayback;
 }
 extension type MediaError._(JSObject _) implements JSObject {
   external static int get MEDIA_ERR_ABORTED;
@@ -1429,8 +1343,6 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   external set webkitdirectory(bool value);
   external bool get webkitdirectory;
   external JSArray<FileSystemEntry> get webkitEntries;
-  external set capture(String value);
-  external String get capture;
   external set accept(String value);
   external String get accept;
   external set alt(String value);
@@ -1860,8 +1772,6 @@ extension type HTMLScriptElement._(JSObject _)
   external String get event;
   external set htmlFor(String value);
   external String get htmlFor;
-  external set attributionSrc(String value);
-  external String get attributionSrc;
 }
 extension type HTMLTemplateElement._(JSObject _)
     implements HTMLElement, JSObject {
@@ -1902,7 +1812,6 @@ extension type HTMLCanvasElement._(JSObject _)
     JSAny? quality,
   ]);
   external OffscreenCanvas transferControlToOffscreen();
-  external MediaStream captureStream([num frameRequestRate]);
   external set width(int value);
   external int get width;
   external set height(int value);
@@ -2631,111 +2540,12 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   ]);
   external bool checkValidity();
   external bool reportValidity();
-  external CustomStateSet get states;
   external ShadowRoot? get shadowRoot;
   external HTMLFormElement? get form;
   external bool get willValidate;
   external ValidityState get validity;
   external String get validationMessage;
   external NodeList get labels;
-  external set role(String? value);
-  external String? get role;
-  external set ariaActiveDescendantElement(Element? value);
-  external Element? get ariaActiveDescendantElement;
-  external set ariaAtomic(String? value);
-  external String? get ariaAtomic;
-  external set ariaAutoComplete(String? value);
-  external String? get ariaAutoComplete;
-  external set ariaBusy(String? value);
-  external String? get ariaBusy;
-  external set ariaChecked(String? value);
-  external String? get ariaChecked;
-  external set ariaColCount(String? value);
-  external String? get ariaColCount;
-  external set ariaColIndex(String? value);
-  external String? get ariaColIndex;
-  external set ariaColIndexText(String? value);
-  external String? get ariaColIndexText;
-  external set ariaColSpan(String? value);
-  external String? get ariaColSpan;
-  external set ariaControlsElements(JSArray<Element>? value);
-  external JSArray<Element>? get ariaControlsElements;
-  external set ariaCurrent(String? value);
-  external String? get ariaCurrent;
-  external set ariaDescribedByElements(JSArray<Element>? value);
-  external JSArray<Element>? get ariaDescribedByElements;
-  external set ariaDescription(String? value);
-  external String? get ariaDescription;
-  external set ariaDetailsElements(JSArray<Element>? value);
-  external JSArray<Element>? get ariaDetailsElements;
-  external set ariaDisabled(String? value);
-  external String? get ariaDisabled;
-  external set ariaErrorMessageElements(JSArray<Element>? value);
-  external JSArray<Element>? get ariaErrorMessageElements;
-  external set ariaExpanded(String? value);
-  external String? get ariaExpanded;
-  external set ariaFlowToElements(JSArray<Element>? value);
-  external JSArray<Element>? get ariaFlowToElements;
-  external set ariaHasPopup(String? value);
-  external String? get ariaHasPopup;
-  external set ariaHidden(String? value);
-  external String? get ariaHidden;
-  external set ariaInvalid(String? value);
-  external String? get ariaInvalid;
-  external set ariaKeyShortcuts(String? value);
-  external String? get ariaKeyShortcuts;
-  external set ariaLabel(String? value);
-  external String? get ariaLabel;
-  external set ariaLabelledByElements(JSArray<Element>? value);
-  external JSArray<Element>? get ariaLabelledByElements;
-  external set ariaLevel(String? value);
-  external String? get ariaLevel;
-  external set ariaLive(String? value);
-  external String? get ariaLive;
-  external set ariaModal(String? value);
-  external String? get ariaModal;
-  external set ariaMultiLine(String? value);
-  external String? get ariaMultiLine;
-  external set ariaMultiSelectable(String? value);
-  external String? get ariaMultiSelectable;
-  external set ariaOrientation(String? value);
-  external String? get ariaOrientation;
-  external set ariaOwnsElements(JSArray<Element>? value);
-  external JSArray<Element>? get ariaOwnsElements;
-  external set ariaPlaceholder(String? value);
-  external String? get ariaPlaceholder;
-  external set ariaPosInSet(String? value);
-  external String? get ariaPosInSet;
-  external set ariaPressed(String? value);
-  external String? get ariaPressed;
-  external set ariaReadOnly(String? value);
-  external String? get ariaReadOnly;
-  external set ariaRequired(String? value);
-  external String? get ariaRequired;
-  external set ariaRoleDescription(String? value);
-  external String? get ariaRoleDescription;
-  external set ariaRowCount(String? value);
-  external String? get ariaRowCount;
-  external set ariaRowIndex(String? value);
-  external String? get ariaRowIndex;
-  external set ariaRowIndexText(String? value);
-  external String? get ariaRowIndexText;
-  external set ariaRowSpan(String? value);
-  external String? get ariaRowSpan;
-  external set ariaSelected(String? value);
-  external String? get ariaSelected;
-  external set ariaSetSize(String? value);
-  external String? get ariaSetSize;
-  external set ariaSort(String? value);
-  external String? get ariaSort;
-  external set ariaValueMax(String? value);
-  external String? get ariaValueMax;
-  external set ariaValueMin(String? value);
-  external String? get ariaValueMin;
-  external set ariaValueNow(String? value);
-  external String? get ariaValueNow;
-  external set ariaValueText(String? value);
-  external String? get ariaValueText;
 }
 extension type ValidityStateFlags._(JSObject _) implements JSObject {
   external factory ValidityStateFlags({
@@ -2847,7 +2657,6 @@ extension type DataTransferItemList._(JSObject _) implements JSObject {
 }
 extension type DataTransferItem._(JSObject _) implements JSObject {
   external FileSystemEntry? webkitGetAsEntry();
-  external JSPromise<FileSystemHandle?> getAsFileSystemHandle();
   external void getAsString(FunctionStringCallback? callback);
   external File? getAsFile();
   external String get kind;
@@ -2870,7 +2679,6 @@ extension type DragEventInit._(JSObject _) implements MouseEventInit, JSObject {
 @JS()
 external Window get window;
 extension type Window._(JSObject _) implements EventTarget, JSObject {
-  external void navigate(SpatialNavigationDirection dir);
   external MediaQueryList matchMedia(String query);
   external void moveTo(
     int x,
@@ -2904,14 +2712,6 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
     Element elt, [
     String? pseudoElt,
   ]);
-  external JSPromise<DigitalGoodsService> getDigitalGoodsService(
-      String serviceProvider);
-  external JSPromise<JSArray<FileSystemFileHandle>> showOpenFilePicker(
-      [OpenFilePickerOptions options]);
-  external JSPromise<FileSystemFileHandle> showSaveFilePicker(
-      [SaveFilePickerOptions options]);
-  external JSPromise<FileSystemDirectoryHandle> showDirectoryPicker(
-      [DirectoryPickerOptions options]);
   external void close();
   external void stop();
   external void focus();
@@ -2935,14 +2735,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   ]);
   external void captureEvents();
   external void releaseEvents();
-  external JSPromise<JSArray<FontData>> queryLocalFonts([QueryOptions options]);
-  external int requestIdleCallback(
-    IdleRequestCallback callback, [
-    IdleRequestOptions options,
-  ]);
-  external void cancelIdleCallback(int handle);
   external Selection? getSelection();
-  external JSPromise<ScreenDetails> getScreenDetails();
   external JSPromise<Response> fetch(
     RequestInfo input, [
     RequestInit init,
@@ -2977,10 +2770,6 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   ]);
   external int requestAnimationFrame(FrameRequestCallback callback);
   external void cancelAnimationFrame(int handle);
-  external int get orientation;
-  external set onorientationchange(EventHandler value);
-  external EventHandler get onorientationchange;
-  external CookieStore get cookieStore;
   external Screen get screen;
   external VisualViewport? get visualViewport;
   external int get innerWidth;
@@ -2996,9 +2785,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external int get outerWidth;
   external int get outerHeight;
   external num get devicePixelRatio;
-  external DocumentPictureInPicture get documentPictureInPicture;
   external Event? get event;
-  external Fence? get fence;
   external Window get window;
   external Window get self;
   external Document get document;
@@ -3028,20 +2815,13 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external Navigator get clientInformation;
   external bool get originAgentCluster;
   external External get external;
-  external set onappinstalled(EventHandler value);
-  external EventHandler get onappinstalled;
-  external set onbeforeinstallprompt(EventHandler value);
-  external EventHandler get onbeforeinstallprompt;
   external set ondeviceorientation(EventHandler value);
   external EventHandler get ondeviceorientation;
   external set ondeviceorientationabsolute(EventHandler value);
   external EventHandler get ondeviceorientationabsolute;
   external set ondevicemotion(EventHandler value);
   external EventHandler get ondevicemotion;
-  external PortalHost? get portalHost;
-  external WindowSharedStorage? get sharedStorage;
   external SpeechSynthesis get speechSynthesis;
-  external LaunchQueue get launchQueue;
   external set onanimationstart(EventHandler value);
   external EventHandler get onanimationstart;
   external set onanimationiteration(EventHandler value);
@@ -3242,8 +3022,6 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get ontouchmove;
   external set ontouchcancel(EventHandler value);
   external EventHandler get ontouchcancel;
-  external set onbeforexrselect(EventHandler value);
-  external EventHandler get onbeforexrselect;
   external set ongamepadconnected(EventHandler value);
   external EventHandler get ongamepadconnected;
   external set ongamepaddisconnected(EventHandler value);
@@ -3280,17 +3058,13 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onunhandledrejection;
   external set onunload(EventHandler value);
   external EventHandler get onunload;
-  external set onportalactivate(EventHandler value);
-  external EventHandler get onportalactivate;
   external IDBFactory get indexedDB;
   external Crypto get crypto;
   external Performance get performance;
   external String get origin;
   external bool get isSecureContext;
   external bool get crossOriginIsolated;
-  external Scheduler get scheduler;
   external CacheStorage get caches;
-  external TrustedTypePolicyFactory get trustedTypes;
   external Storage get sessionStorage;
   external Storage get localStorage;
 }
@@ -3652,38 +3426,17 @@ extension type DOMParser._(JSObject _) implements JSObject {
   );
 }
 extension type Navigator._(JSObject _) implements JSObject {
-  external AutoplayPolicy getAutoplayPolicy(JSAny contextOrElementOrType);
-  external JSPromise<BatteryManager> getBattery();
-  external bool sendBeacon(
-    String url, [
-    BodyInit? data,
-  ]);
   external JSPromise<MediaKeySystemAccess> requestMediaKeySystemAccess(
     String keySystem,
     JSArray<MediaKeySystemConfiguration> supportedConfigurations,
   );
-  external JSPromise<JSAny?> deprecatedReplaceInURN(
-    UrnOrConfig urnOrConfig,
-    JSObject replacements,
-  );
   external JSArray<Gamepad?> getGamepads();
-  external JSPromise<JSArray<RelatedApplication>> getInstalledRelatedApps();
   external void getUserMedia(
     MediaStreamConstraints constraints,
     NavigatorUserMediaSuccessCallback successCallback,
     NavigatorUserMediaErrorCallback errorCallback,
   );
-  external JSPromise<JSAny?> joinAdInterestGroup(AuctionAdInterestGroup group);
-  external JSPromise<JSAny?> leaveAdInterestGroup(
-      [AuctionAdInterestGroupKey group]);
-  external JSPromise<JSAny?> runAdAuction(AuctionAdConfig config);
-  external void updateAdInterestGroups();
   external bool vibrate(VibratePattern pattern);
-  external JSPromise<JSAny?> share([ShareData data]);
-  external bool canShare([ShareData data]);
-  external JSPromise<MIDIAccess> requestMIDIAccess([MIDIOptions options]);
-  external JSPromise<JSAny?> setAppBadge([int contents]);
-  external JSPromise<JSAny?> clearAppBadge();
   external bool taintEnabled();
   external void registerProtocolHandler(
     String scheme,
@@ -3694,32 +3447,17 @@ extension type Navigator._(JSObject _) implements JSObject {
     String url,
   );
   external bool javaEnabled();
-  external AudioSession get audioSession;
   external Clipboard get clipboard;
-  external ContactsManager get contacts;
   external CredentialsContainer get credentials;
-  external DevicePosture get devicePosture;
   external Geolocation get geolocation;
   external UserActivation get userActivation;
-  external Ink get ink;
-  external Scheduling get scheduling;
-  external Keyboard get keyboard;
   external MediaCapabilities get mediaCapabilities;
   external MediaDevices get mediaDevices;
   external MediaSession get mediaSession;
   external Permissions get permissions;
   external int get maxTouchPoints;
-  external Presentation get presentation;
   external WakeLock get wakeLock;
-  external Serial get serial;
   external ServiceWorkerContainer get serviceWorker;
-  external VirtualKeyboard get virtualKeyboard;
-  external Bluetooth get bluetooth;
-  external HID get hid;
-  external USB get usb;
-  external XRSystem get xr;
-  external WindowControlsOverlay get windowControlsOverlay;
-  external num get deviceMemory;
   external String get appCodeName;
   external String get appName;
   external String get appVersion;
@@ -3738,14 +3476,8 @@ extension type Navigator._(JSObject _) implements JSObject {
   external MimeTypeArray get mimeTypes;
   external bool get pdfViewerEnabled;
   external int get hardwareConcurrency;
-  external NetworkInformation get connection;
-  external StorageBucketManager get storageBuckets;
   external StorageManager get storage;
-  external NavigatorUAData get userAgentData;
   external LockManager get locks;
-  external bool get webdriver;
-  external GPU get gpu;
-  external ML get ml;
 }
 extension type PluginArray._(JSObject _) implements JSObject {
   external void refresh();
@@ -3960,9 +3692,7 @@ extension type WorkerGlobalScope._(JSObject _)
   external String get origin;
   external bool get isSecureContext;
   external bool get crossOriginIsolated;
-  external Scheduler get scheduler;
   external CacheStorage get caches;
-  external TrustedTypePolicyFactory get trustedTypes;
 }
 extension type DedicatedWorkerGlobalScope._(JSObject _)
     implements WorkerGlobalScope, JSObject {
@@ -4031,16 +3761,10 @@ extension type SharedWorker._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onerror;
 }
 extension type WorkerNavigator._(JSObject _) implements JSObject {
-  external JSPromise<JSAny?> setAppBadge([int contents]);
-  external JSPromise<JSAny?> clearAppBadge();
   external bool taintEnabled();
   external MediaCapabilities get mediaCapabilities;
   external Permissions get permissions;
-  external Serial get serial;
   external ServiceWorkerContainer get serviceWorker;
-  external HID get hid;
-  external USB get usb;
-  external num get deviceMemory;
   external String get appCodeName;
   external String get appName;
   external String get appVersion;
@@ -4055,13 +3779,8 @@ extension type WorkerNavigator._(JSObject _) implements JSObject {
   external JSArray<JSString> get languages;
   external bool get onLine;
   external int get hardwareConcurrency;
-  external NetworkInformation get connection;
-  external StorageBucketManager get storageBuckets;
   external StorageManager get storage;
-  external NavigatorUAData get userAgentData;
   external LockManager get locks;
-  external GPU get gpu;
-  external ML get ml;
 }
 extension type WorkerLocation._(JSObject _) implements JSObject {
   external String get href;
@@ -4213,8 +3932,6 @@ extension type HTMLFrameSetElement._(JSObject _)
   external EventHandler get onunhandledrejection;
   external set onunload(EventHandler value);
   external EventHandler get onunload;
-  external set onportalactivate(EventHandler value);
-  external EventHandler get onportalactivate;
 }
 extension type HTMLFrameElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLFrameElement();

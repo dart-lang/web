@@ -38,14 +38,11 @@ extension type PerformanceObserverCallbackOptions._(JSObject _)
 }
 extension type PerformanceObserverInit._(JSObject _) implements JSObject {
   external factory PerformanceObserverInit({
-    DOMHighResTimeStamp durationThreshold,
     JSArray<JSString> entryTypes,
     String type,
     bool buffered,
   });
 
-  external set durationThreshold(DOMHighResTimeStamp value);
-  external DOMHighResTimeStamp get durationThreshold;
   external set entryTypes(JSArray<JSString> value);
   external JSArray<JSString> get entryTypes;
   external set type(String value);

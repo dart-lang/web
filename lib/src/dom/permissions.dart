@@ -14,8 +14,6 @@ import 'html.dart';
 
 typedef PermissionState = String;
 extension type Permissions._(JSObject _) implements JSObject {
-  external JSPromise<PermissionStatus> request(JSObject permissionDesc);
-  external JSPromise<PermissionStatus> revoke(JSObject permissionDesc);
   external JSPromise<PermissionStatus> query(JSObject permissionDesc);
 }
 extension type PermissionDescriptor._(JSObject _) implements JSObject {

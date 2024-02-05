@@ -526,7 +526,9 @@ class Translator {
     for (final include in _includes) {
       final target = include.target;
       final includes = include.includes;
+      // TODO(devoncarew): determine when this condition is not true.
       if (_interfacelikes.containsKey(target)) {
+        // TODO(devoncarew): determine when this condition is not true.
         if (mixins.containsKey(includes)) {
           for (final partial in mixins[includes]!) {
             _interfacelikes[target]!.update(partial);
@@ -974,6 +976,9 @@ class Translator {
   bool _shouldGenerate(String name, _Library library) {
     // These libraries wouldn't normally qualify for generation but have types
     // that are referenced from generated code.
+    // TODO(devoncarew): We should either remove the members that reference the
+    // types or decide the library should be generated irrespective of the BCD
+    // info.
     const allowList = {
       'css-typed-om',
       'referrer-policy',

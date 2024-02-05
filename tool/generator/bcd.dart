@@ -52,7 +52,8 @@ class BCDInterfaceStatus extends BCDItem {
 
   BCDPropertyStatus? retrievePropertyFor(String name) => properties[name];
 
-  bool get shouldGenerate => standardTrack && browserCount == 3;
+  bool get shouldGenerate =>
+      standardTrack && chromeSupported && firefoxSupported && safariSupported;
 }
 
 class BCDPropertyStatus extends BCDItem {
@@ -95,8 +96,6 @@ abstract class BCDItem {
       ];
 
   String get _browsersDescription => browsers.join(', ');
-
-  int get browserCount => browsers.length;
 
   bool _supportedInBrowser(String browser) {
     final map = (_support[browser] is List

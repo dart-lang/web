@@ -51,6 +51,8 @@ class BCDInterfaceStatus extends BCDItem {
   }
 
   BCDPropertyStatus? retrievePropertyFor(String name) => properties[name];
+
+  bool get shouldGenerate => standardTrack && browserCount == 3;
 }
 
 class BCDPropertyStatus extends BCDItem {

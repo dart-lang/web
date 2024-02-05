@@ -11,6 +11,8 @@
   appear as a type parameter in order to conform with the type bounds of
   `JSArray` and `JSPromise`.
 - Changed `record` types to be `JSObject` instead of `JSAny`.
+- Reduce the number of DOM APIs we generate code for. Currently, the API needs
+  to be standards-track, and be suported by Safari, Chrome, and Firefox.
 
 ## 0.4.2
 

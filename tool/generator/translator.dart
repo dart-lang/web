@@ -526,13 +526,12 @@ class Translator {
     for (final include in _includes) {
       final target = include.target;
       final includes = include.includes;
-      // TODO(devoncarew): determine when this condition is not true.
-      if (_interfacelikes.containsKey(target)) {
-        // TODO(devoncarew): determine when this condition is not true.
-        if (mixins.containsKey(includes)) {
-          for (final partial in mixins[includes]!) {
-            _interfacelikes[target]!.update(partial);
-          }
+
+      // Guard against partial interfaces and mixins that we chose not to
+      // generate.
+      if (_interfacelikes.containsKey(target) && mixins.containsKey(includes)) {
+        for (final partial in mixins[includes]!) {
+          _interfacelikes[target]!.update(partial);
         }
       }
     }

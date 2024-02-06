@@ -10,8 +10,6 @@ library;
 import 'dart:js_interop';
 
 import 'dom.dart';
-import 'fedcm.dart';
-import 'web_otp.dart';
 import 'webauthn.dart';
 
 typedef PasswordCredentialInit = JSObject;
@@ -35,17 +33,13 @@ extension type CredentialData._(JSObject _) implements JSObject {
 }
 extension type CredentialRequestOptions._(JSObject _) implements JSObject {
   external factory CredentialRequestOptions({
-    IdentityCredentialRequestOptions identity,
     CredentialMediationRequirement mediation,
     AbortSignal signal,
     bool password,
     FederatedCredentialRequestOptions federated,
-    OTPCredentialRequestOptions otp,
     PublicKeyCredentialRequestOptions publicKey,
   });
 
-  external set identity(IdentityCredentialRequestOptions value);
-  external IdentityCredentialRequestOptions get identity;
   external set mediation(CredentialMediationRequirement value);
   external CredentialMediationRequirement get mediation;
   external set signal(AbortSignal value);
@@ -54,8 +48,6 @@ extension type CredentialRequestOptions._(JSObject _) implements JSObject {
   external bool get password;
   external set federated(FederatedCredentialRequestOptions value);
   external FederatedCredentialRequestOptions get federated;
-  external set otp(OTPCredentialRequestOptions value);
-  external OTPCredentialRequestOptions get otp;
   external set publicKey(PublicKeyCredentialRequestOptions value);
   external PublicKeyCredentialRequestOptions get publicKey;
 }

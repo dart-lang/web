@@ -10,10 +10,8 @@ library;
 import 'dart:js_interop';
 
 import 'css_highlight_api.dart';
-import 'css_parser_api.dart';
 import 'css_properties_values_api.dart';
 import 'css_typed_om.dart';
-import 'html.dart';
 
 extension type MediaList._(JSObject _) implements JSObject {
   external String? item(int index);
@@ -1412,29 +1410,6 @@ extension type $CSS._(JSObject _) implements JSObject {
     String conditionTextOrProperty, [
     String value,
   ]);
-  external JSPromise<JSArray<CSSParserRule>> parseStylesheet(
-    CSSStringSource css, [
-    CSSParserOptions options,
-  ]);
-  external JSPromise<JSArray<CSSParserRule>> parseRuleList(
-    CSSStringSource css, [
-    CSSParserOptions options,
-  ]);
-  external JSPromise<CSSParserRule> parseRule(
-    CSSStringSource css, [
-    CSSParserOptions options,
-  ]);
-  external JSPromise<JSArray<CSSParserRule>> parseDeclarationList(
-    CSSStringSource css, [
-    CSSParserOptions options,
-  ]);
-  external CSSParserDeclaration parseDeclaration(
-    String css, [
-    CSSParserOptions options,
-  ]);
-  external CSSToken parseValue(String css);
-  external JSArray<CSSToken> parseValueList(String css);
-  external JSArray<JSArray<CSSToken>> parseCommaValueList(String css);
   external void registerProperty(PropertyDefinition definition);
   external CSSUnitValue number(num value);
   external CSSUnitValue percent(num value);
@@ -1501,9 +1476,5 @@ extension type $CSS._(JSObject _) implements JSObject {
   external CSSUnitValue dppx(num value);
   external CSSUnitValue fr(num value);
   external String escape(String ident);
-  external Worklet get animationWorklet;
   external HighlightRegistry get highlights;
-  external JSAny? get elementSources;
-  external Worklet get layoutWorklet;
-  external Worklet get paintWorklet;
 }

@@ -221,8 +221,6 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external EventHandler get ontouchmove;
   external set ontouchcancel(EventHandler value);
   external EventHandler get ontouchcancel;
-  external set onbeforexrselect(EventHandler value);
-  external EventHandler get onbeforexrselect;
   external SVGElement? get correspondingElement;
   external SVGUseElement? get correspondingUseElement;
   external DOMStringMap get dataset;
@@ -505,8 +503,6 @@ extension type SVGSVGElement._(JSObject _)
   external EventHandler get onunhandledrejection;
   external set onunload(EventHandler value);
   external EventHandler get onunload;
-  external set onportalactivate(EventHandler value);
-  external EventHandler get onportalactivate;
 }
 extension type SVGGElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {}

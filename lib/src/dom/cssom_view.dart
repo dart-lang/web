@@ -73,9 +73,6 @@ extension type Screen._(JSObject _) implements JSObject {
   external int get colorDepth;
   external int get pixelDepth;
   external ScreenOrientation get orientation;
-  external bool get isExtended;
-  external set onchange(EventHandler value);
-  external EventHandler get onchange;
 }
 extension type CaretPosition._(JSObject _) implements JSObject {
   external DOMRect? getClientRect();

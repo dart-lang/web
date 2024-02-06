@@ -10,8 +10,6 @@ library;
 import 'dart:js_interop';
 
 import 'credential_management.dart';
-import 'fido.dart';
-import 'secure_payment_confirmation.dart';
 import 'webidl.dart';
 
 typedef Base64URLString = String;
@@ -398,14 +396,6 @@ extension type PublicKeyCredentialRequestOptions._(JSObject _)
 extension type AuthenticationExtensionsClientInputs._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsClientInputs({
-    String credentialProtectionPolicy,
-    bool enforceCredentialProtectionPolicy,
-    JSArrayBuffer credBlob,
-    bool getCredBlob,
-    bool minPinLength,
-    bool hmacCreateSecret,
-    HMACGetSecretInput hmacGetSecret,
-    AuthenticationExtensionsPaymentInputs payment,
     String appid,
     String appidExclude,
     bool credProps,
@@ -415,22 +405,6 @@ extension type AuthenticationExtensionsClientInputs._(JSObject _)
     AuthenticationExtensionsDevicePublicKeyInputs devicePubKey,
   });
 
-  external set credentialProtectionPolicy(String value);
-  external String get credentialProtectionPolicy;
-  external set enforceCredentialProtectionPolicy(bool value);
-  external bool get enforceCredentialProtectionPolicy;
-  external set credBlob(JSArrayBuffer value);
-  external JSArrayBuffer get credBlob;
-  external set getCredBlob(bool value);
-  external bool get getCredBlob;
-  external set minPinLength(bool value);
-  external bool get minPinLength;
-  external set hmacCreateSecret(bool value);
-  external bool get hmacCreateSecret;
-  external set hmacGetSecret(HMACGetSecretInput value);
-  external HMACGetSecretInput get hmacGetSecret;
-  external set payment(AuthenticationExtensionsPaymentInputs value);
-  external AuthenticationExtensionsPaymentInputs get payment;
   external set appid(String value);
   external String get appid;
   external set appidExclude(String value);
@@ -450,8 +424,6 @@ extension type AuthenticationExtensionsClientInputs._(JSObject _)
 extension type AuthenticationExtensionsClientOutputs._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsClientOutputs({
-    bool hmacCreateSecret,
-    HMACGetSecretOutput hmacGetSecret,
     bool appid,
     bool appidExclude,
     CredentialPropertiesOutput credProps,
@@ -461,10 +433,6 @@ extension type AuthenticationExtensionsClientOutputs._(JSObject _)
     AuthenticationExtensionsDevicePublicKeyOutputs devicePubKey,
   });
 
-  external set hmacCreateSecret(bool value);
-  external bool get hmacCreateSecret;
-  external set hmacGetSecret(HMACGetSecretOutput value);
-  external HMACGetSecretOutput get hmacGetSecret;
   external set appid(bool value);
   external bool get appid;
   external set appidExclude(bool value);

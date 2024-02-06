@@ -526,10 +526,13 @@ class Translator {
     for (final include in _includes) {
       final target = include.target;
       final includes = include.includes;
-      assert(_interfacelikes.containsKey(target));
-      assert(mixins.containsKey(includes));
-      for (final partial in mixins[includes]!) {
-        _interfacelikes[target]!.update(partial);
+
+      // Guard against partial interfaces and mixins that we chose not to
+      // generate.
+      if (_interfacelikes.containsKey(target) && mixins.containsKey(includes)) {
+        for (final partial in mixins[includes]!) {
+          _interfacelikes[target]!.update(partial);
+        }
       }
     }
   }
@@ -539,10 +542,15 @@ class Translator {
     assert(!_libraries.containsKey(libraryPath));
 
     final library = _Library(this, '$packageRoot/$libraryPath');
-    _libraries[libraryPath] = library;
 
     for (var i = 0; i < ast.length; i++) {
       library.add(ast[i] as idl.Node);
+    }
+
+    if (_shouldGenerate(shortName, library)) {
+      _libraries[libraryPath] = library;
+    } else {
+      print('  skipping generation for $shortName');
     }
   }
 
@@ -881,7 +889,7 @@ class Translator {
     // private classes, and make their first character uppercase in the process.
     final dartClassName = isNamespace ? '\$${capitalize(jsName)}' : jsName;
 
-    final status = browserCompatData.retrieveInterfaceFor(name);
+    final interfaceStatus = browserCompatData.retrieveInterfaceFor(name);
 
     // We create a getter for namespaces with the expected name. We also create
     // getters for a few pre-defined singleton classes.
@@ -901,7 +909,7 @@ class Translator {
       _extensionType(
           jsName: jsName,
           dartClassName: dartClassName,
-          interfaceStatus: status,
+          interfaceStatus: interfaceStatus,
           implements: implements,
           constructor: interfacelike.constructor,
           operations: operations,
@@ -962,5 +970,32 @@ class Translator {
     dartLibraries['dom.dart'] = generateRootImport(dartLibraries.keys);
 
     return dartLibraries;
+  }
+
+  bool _shouldGenerate(String name, _Library library) {
+    // These libraries wouldn't normally qualify for generation but have types
+    // that are referenced from generated code.
+    // TODO(devoncarew): We should either remove the members that reference the
+    // types or decide the library should be generated irrespective of the BCD
+    // info.
+    const allowList = {
+      'css-typed-om',
+      'referrer-policy',
+      'reporting',
+      'touch-events',
+      'vibration',
+      'webrtc-stats',
+    };
+    if (allowList.contains(name)) {
+      return true;
+    }
+
+    final typeNames = library.interfacelikes.map((i) => i.name);
+    final statuses = typeNames
+        .map((name) => browserCompatData.retrieveInterfaceFor(name))
+        .whereType<BCDInterfaceStatus>()
+        .toList();
+
+    return statuses.any((status) => status.shouldGenerate);
   }
 }

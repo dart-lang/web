@@ -9,7 +9,6 @@ library;
 
 import 'dart:js_interop';
 
-import 'file_system_access.dart';
 import 'fileapi.dart';
 import 'streams.dart';
 import 'webidl.dart';
@@ -18,10 +17,6 @@ typedef FileSystemWriteChunkType = JSAny;
 typedef FileSystemHandleKind = String;
 typedef WriteCommandType = String;
 extension type FileSystemHandle._(JSObject _) implements JSObject {
-  external JSPromise<JSString> queryPermission(
-      [FileSystemHandlePermissionDescriptor descriptor]);
-  external JSPromise<JSString> requestPermission(
-      [FileSystemHandlePermissionDescriptor descriptor]);
   external JSPromise<JSBoolean> isSameEntry(FileSystemHandle other);
   external FileSystemHandleKind get kind;
   external String get name;

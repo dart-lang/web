@@ -27,7 +27,6 @@ extension type PerformanceNavigationTiming._(JSObject _)
   external NavigationTimingType get type;
   external int get redirectCount;
   external DOMHighResTimeStamp get criticalCHRestart;
-  external DOMHighResTimeStamp get activationStart;
 }
 extension type PerformanceTiming._(JSObject _) implements JSObject {
   external JSObject toJSON();

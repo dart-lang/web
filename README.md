@@ -14,12 +14,6 @@ This package is intended to replace
 similar Dart SDK libraries. It will support access to browser APIs from Dart
 code compiled to either JavaScript or WebAssembly.
 
-## Status
-
-The APIs in this package are still fairly provisional and could change rapidly.
-We'll continue to use [semantic versioning](https://semver.org/) as we evolve
-the APIs.
-
 ## Usage
 
 ```dart

@@ -55,8 +55,10 @@ jobs:
           sdk: ${{ matrix.sdk }}
       - name: Install dependencies
         run: dart pub get
-      - name: Run Chrome tests
+      - name: Run Chrome tests - js
         run: dart test --platform chrome
+      - name: Run Chrome tests - wasm
+        run: dart test --platform chrome --compiler dart2wasm
 
   # Ensure the generation script runs.
   generation:

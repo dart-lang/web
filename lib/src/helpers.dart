@@ -36,7 +36,7 @@ export 'helpers/lists.dart';
 export 'helpers/renames.dart';
 
 /// Create an [HTMLElement] with the specified [tagName].
-/// If no element with [tagName] exists, returns a [HTMLUnknownElement].
+/// If no element with [tagName] exists, returns an [HTMLUnknownElement].
 ///
 /// Deprecated in favor of creating the element like other HTML elements:
 ///
@@ -83,7 +83,7 @@ HTMLAudioElement createAudioElement() => _audioConstructor.callAsConstructor();
 /// that matches the specified CSS [selector] string.
 /// If no match is found, `null` is returned.
 ///
-/// Deprecated in favor of querying directly on the [document].
+/// Deprecated in favor of querying directly on the [document]:
 ///
 /// ```dart
 /// final dartDiv = document.querySelector('div.dart');

@@ -17,7 +17,7 @@ extension type DeviceOrientationEvent._(JSObject _) implements Event, JSObject {
     DeviceOrientationEventInit eventInitDict,
   ]);
 
-  external static JSPromise<JSString> requestPermission();
+  external static JSPromise<JSString> requestPermission([bool absolute]);
   external num? get alpha;
   external num? get beta;
   external num? get gamma;

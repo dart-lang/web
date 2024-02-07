@@ -77,6 +77,7 @@ extension type RTCEncodedVideoFrameMetadata._(JSObject _) implements JSObject {
     JSArray<JSNumber> contributingSources,
     int timestamp,
     int rtpTimestamp,
+    String mimeType,
   });
 
   external set frameId(int value);
@@ -101,6 +102,8 @@ extension type RTCEncodedVideoFrameMetadata._(JSObject _) implements JSObject {
   external int get timestamp;
   external set rtpTimestamp(int value);
   external int get rtpTimestamp;
+  external set mimeType(String value);
+  external String get mimeType;
 }
 extension type RTCEncodedVideoFrame._(JSObject _) implements JSObject {
   external RTCEncodedVideoFrameMetadata getMetadata();
@@ -115,6 +118,7 @@ extension type RTCEncodedAudioFrameMetadata._(JSObject _) implements JSObject {
     JSArray<JSNumber> contributingSources,
     int sequenceNumber,
     int rtpTimestamp,
+    String mimeType,
   });
 
   external set synchronizationSource(int value);
@@ -127,6 +131,8 @@ extension type RTCEncodedAudioFrameMetadata._(JSObject _) implements JSObject {
   external int get sequenceNumber;
   external set rtpTimestamp(int value);
   external int get rtpTimestamp;
+  external set mimeType(String value);
+  external String get mimeType;
 }
 extension type RTCEncodedAudioFrame._(JSObject _) implements JSObject {
   external RTCEncodedAudioFrameMetadata getMetadata();
@@ -136,11 +142,14 @@ extension type RTCEncodedAudioFrame._(JSObject _) implements JSObject {
 extension type RTCTransformEvent._(JSObject _) implements Event, JSObject {
   external RTCRtpScriptTransformer get transformer;
 }
-extension type RTCRtpScriptTransformer._(JSObject _) implements JSObject {
+extension type RTCRtpScriptTransformer._(JSObject _)
+    implements EventTarget, JSObject {
   external JSPromise<JSNumber> generateKeyFrame([String rid]);
   external JSPromise<JSAny?> sendKeyFrameRequest();
   external ReadableStream get readable;
   external WritableStream get writable;
+  external set onkeyframerequest(EventHandler value);
+  external EventHandler get onkeyframerequest;
   external JSAny? get options;
 }
 extension type RTCRtpScriptTransform._(JSObject _) implements JSObject {
@@ -149,4 +158,12 @@ extension type RTCRtpScriptTransform._(JSObject _) implements JSObject {
     JSAny? options,
     JSArray<JSObject> transfer,
   ]);
+}
+extension type KeyFrameRequestEvent._(JSObject _) implements Event, JSObject {
+  external factory KeyFrameRequestEvent(
+    String type, [
+    String rid,
+  ]);
+
+  external String? get rid;
 }

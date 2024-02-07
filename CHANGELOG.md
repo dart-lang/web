@@ -13,6 +13,9 @@
 - Changed `record` types to be `JSObject` instead of `JSAny`.
 - Reduce the number of DOM APIs we generate code for. Currently, the API needs
   to be standards-track, and be suported by Safari, Chrome, and Firefox.
+- Deprecate the top-level `createElementTag`, `createCanvasElement`,
+  `createIFrameElement`, and `querySelector` functions.
+  Instead, use the standard creation and query methods on `document`.
 
 ## 0.4.2
 

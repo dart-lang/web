@@ -13,6 +13,8 @@
 - Changed `record` types to be `JSObject` instead of `JSAny`.
 - Reduce the number of DOM APIs we generate code for. Currently, the API needs
   to be standards-track, and be suported by Safari, Chrome, and Firefox.
+- Deprecate the `client` extension methods on `MouseEvent` and `Touch`.
+  Instead, directly use the `clientX` and `clientY` properties.
 
 ## 0.4.2
 

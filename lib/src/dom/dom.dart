@@ -271,6 +271,7 @@ external Document get document;
 extension type Document._(JSObject _) implements Node, JSObject {
   external factory Document();
 
+  external static Document parseHTMLUnsafe(String html);
   external Element? elementFromPoint(
     num x,
     num y,
@@ -701,10 +702,12 @@ extension type DocumentFragment._(JSObject _) implements Node, JSObject {
   external int get childElementCount;
 }
 extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
+  external void setHTMLUnsafe(String html);
   external JSArray<Animation> getAnimations();
   external ShadowRootMode get mode;
   external bool get delegatesFocus;
   external SlotAssignmentMode get slotAssignment;
+  external bool get clonable;
   external Element get host;
   external set onslotchange(EventHandler value);
   external EventHandler get onslotchange;
@@ -793,6 +796,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
     String where,
     String data,
   );
+  external void setHTMLUnsafe(String html);
   external void setPointerCapture(int pointerId);
   external void releasePointerCapture(int pointerId);
   external bool hasPointerCapture(int pointerId);
@@ -866,6 +870,7 @@ extension type ShadowRootInit._(JSObject _) implements JSObject {
     required ShadowRootMode mode,
     bool delegatesFocus,
     SlotAssignmentMode slotAssignment,
+    bool clonable,
   });
 
   external set mode(ShadowRootMode value);
@@ -874,6 +879,8 @@ extension type ShadowRootInit._(JSObject _) implements JSObject {
   external bool get delegatesFocus;
   external set slotAssignment(SlotAssignmentMode value);
   external SlotAssignmentMode get slotAssignment;
+  external set clonable(bool value);
+  external bool get clonable;
 }
 extension type NamedNodeMap._(JSObject _) implements JSObject {
   external Attr? item(int index);

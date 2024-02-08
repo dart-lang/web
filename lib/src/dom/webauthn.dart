@@ -14,6 +14,7 @@ import 'webidl.dart';
 
 typedef Base64URLString = String;
 typedef PublicKeyCredentialJSON = JSObject;
+typedef PublicKeyCredentialClientCapabilities = JSObject;
 typedef COSEAlgorithmIdentifier = int;
 typedef UvmEntry = JSArray<JSNumber>;
 typedef UvmEntries = JSArray<UvmEntry>;
@@ -24,6 +25,7 @@ typedef TokenBindingStatus = String;
 typedef PublicKeyCredentialType = String;
 typedef AuthenticatorTransport = String;
 typedef UserVerificationRequirement = String;
+typedef ClientCapability = String;
 typedef PublicKeyCredentialHints = String;
 typedef LargeBlobSupport = String;
 extension type PublicKeyCredential._(JSObject _)
@@ -31,8 +33,8 @@ extension type PublicKeyCredential._(JSObject _)
   external static JSPromise<JSBoolean> isConditionalMediationAvailable();
   external static JSPromise<JSBoolean>
       isUserVerifyingPlatformAuthenticatorAvailable();
-  external static JSPromise<JSBoolean>
-      isPasskeyPlatformAuthenticatorAvailable();
+  external static JSPromise<PublicKeyCredentialClientCapabilities>
+      getClientCapabilities();
   external static PublicKeyCredentialCreationOptions
       parseCreationOptionsFromJSON(
           PublicKeyCredentialCreationOptionsJSON options);
@@ -123,7 +125,6 @@ extension type AuthenticatorAssertionResponseJSON._(JSObject _)
     required Base64URLString authenticatorData,
     required Base64URLString signature,
     Base64URLString userHandle,
-    Base64URLString attestationObject,
   });
 
   external set clientDataJSON(Base64URLString value);
@@ -134,8 +135,6 @@ extension type AuthenticatorAssertionResponseJSON._(JSObject _)
   external Base64URLString get signature;
   external set userHandle(Base64URLString value);
   external Base64URLString get userHandle;
-  external set attestationObject(Base64URLString value);
-  external Base64URLString get attestationObject;
 }
 extension type AuthenticationExtensionsClientOutputsJSON._(JSObject _)
     implements JSObject {
@@ -224,8 +223,6 @@ extension type PublicKeyCredentialRequestOptionsJSON._(JSObject _)
     JSArray<PublicKeyCredentialDescriptorJSON> allowCredentials,
     String userVerification,
     JSArray<JSString> hints,
-    String attestation,
-    JSArray<JSString> attestationFormats,
     AuthenticationExtensionsClientInputsJSON extensions,
   });
 
@@ -242,10 +239,6 @@ extension type PublicKeyCredentialRequestOptionsJSON._(JSObject _)
   external String get userVerification;
   external set hints(JSArray<JSString> value);
   external JSArray<JSString> get hints;
-  external set attestation(String value);
-  external String get attestation;
-  external set attestationFormats(JSArray<JSString> value);
-  external JSArray<JSString> get attestationFormats;
   external set extensions(AuthenticationExtensionsClientInputsJSON value);
   external AuthenticationExtensionsClientInputsJSON get extensions;
 }
@@ -265,7 +258,6 @@ extension type AuthenticatorAssertionResponse._(JSObject _)
   external JSArrayBuffer get authenticatorData;
   external JSArrayBuffer get signature;
   external JSArrayBuffer? get userHandle;
-  external JSArrayBuffer? get attestationObject;
 }
 extension type PublicKeyCredentialParameters._(JSObject _) implements JSObject {
   external factory PublicKeyCredentialParameters({
@@ -369,8 +361,6 @@ extension type PublicKeyCredentialRequestOptions._(JSObject _)
     JSArray<PublicKeyCredentialDescriptor> allowCredentials,
     String userVerification,
     JSArray<JSString> hints,
-    String attestation,
-    JSArray<JSString> attestationFormats,
     AuthenticationExtensionsClientInputs extensions,
   });
 
@@ -386,10 +376,6 @@ extension type PublicKeyCredentialRequestOptions._(JSObject _)
   external String get userVerification;
   external set hints(JSArray<JSString> value);
   external JSArray<JSString> get hints;
-  external set attestation(String value);
-  external String get attestation;
-  external set attestationFormats(JSArray<JSString> value);
-  external JSArray<JSString> get attestationFormats;
   external set extensions(AuthenticationExtensionsClientInputs value);
   external AuthenticationExtensionsClientInputs get extensions;
 }
@@ -402,7 +388,7 @@ extension type AuthenticationExtensionsClientInputs._(JSObject _)
     AuthenticationExtensionsPRFInputs prf,
     AuthenticationExtensionsLargeBlobInputs largeBlob,
     bool uvm,
-    AuthenticationExtensionsDevicePublicKeyInputs devicePubKey,
+    AuthenticationExtensionsSupplementalPubKeysInputs supplementalPubKeys,
   });
 
   external set appid(String value);
@@ -417,9 +403,10 @@ extension type AuthenticationExtensionsClientInputs._(JSObject _)
   external AuthenticationExtensionsLargeBlobInputs get largeBlob;
   external set uvm(bool value);
   external bool get uvm;
-  external set devicePubKey(
-      AuthenticationExtensionsDevicePublicKeyInputs value);
-  external AuthenticationExtensionsDevicePublicKeyInputs get devicePubKey;
+  external set supplementalPubKeys(
+      AuthenticationExtensionsSupplementalPubKeysInputs value);
+  external AuthenticationExtensionsSupplementalPubKeysInputs
+      get supplementalPubKeys;
 }
 extension type AuthenticationExtensionsClientOutputs._(JSObject _)
     implements JSObject {
@@ -430,7 +417,7 @@ extension type AuthenticationExtensionsClientOutputs._(JSObject _)
     AuthenticationExtensionsPRFOutputs prf,
     AuthenticationExtensionsLargeBlobOutputs largeBlob,
     UvmEntries uvm,
-    AuthenticationExtensionsDevicePublicKeyOutputs devicePubKey,
+    AuthenticationExtensionsSupplementalPubKeysOutputs supplementalPubKeys,
   });
 
   external set appid(bool value);
@@ -445,9 +432,10 @@ extension type AuthenticationExtensionsClientOutputs._(JSObject _)
   external AuthenticationExtensionsLargeBlobOutputs get largeBlob;
   external set uvm(UvmEntries value);
   external UvmEntries get uvm;
-  external set devicePubKey(
-      AuthenticationExtensionsDevicePublicKeyOutputs value);
-  external AuthenticationExtensionsDevicePublicKeyOutputs get devicePubKey;
+  external set supplementalPubKeys(
+      AuthenticationExtensionsSupplementalPubKeysOutputs value);
+  external AuthenticationExtensionsSupplementalPubKeysOutputs
+      get supplementalPubKeys;
 }
 extension type CollectedClientData._(JSObject _) implements JSObject {
   external factory CollectedClientData({
@@ -495,10 +483,15 @@ extension type PublicKeyCredentialDescriptor._(JSObject _) implements JSObject {
   external JSArray<JSString> get transports;
 }
 extension type CredentialPropertiesOutput._(JSObject _) implements JSObject {
-  external factory CredentialPropertiesOutput({bool rk});
+  external factory CredentialPropertiesOutput({
+    bool rk,
+    String authenticatorDisplayName,
+  });
 
   external set rk(bool value);
   external bool get rk;
+  external set authenticatorDisplayName(String value);
+  external String get authenticatorDisplayName;
 }
 extension type AuthenticationExtensionsPRFValues._(JSObject _)
     implements JSObject {
@@ -566,23 +559,26 @@ extension type AuthenticationExtensionsLargeBlobOutputs._(JSObject _)
   external set written(bool value);
   external bool get written;
 }
-extension type AuthenticationExtensionsDevicePublicKeyInputs._(JSObject _)
+extension type AuthenticationExtensionsSupplementalPubKeysInputs._(JSObject _)
     implements JSObject {
-  external factory AuthenticationExtensionsDevicePublicKeyInputs({
+  external factory AuthenticationExtensionsSupplementalPubKeysInputs({
+    required JSArray<JSString> scopes,
     String attestation,
     JSArray<JSString> attestationFormats,
   });
 
+  external set scopes(JSArray<JSString> value);
+  external JSArray<JSString> get scopes;
   external set attestation(String value);
   external String get attestation;
   external set attestationFormats(JSArray<JSString> value);
   external JSArray<JSString> get attestationFormats;
 }
-extension type AuthenticationExtensionsDevicePublicKeyOutputs._(JSObject _)
+extension type AuthenticationExtensionsSupplementalPubKeysOutputs._(JSObject _)
     implements JSObject {
-  external factory AuthenticationExtensionsDevicePublicKeyOutputs(
-      {JSArrayBuffer signature});
+  external factory AuthenticationExtensionsSupplementalPubKeysOutputs(
+      {required JSArray<JSArrayBuffer> signatures});
 
-  external set signature(JSArrayBuffer value);
-  external JSArrayBuffer get signature;
+  external set signatures(JSArray<JSArrayBuffer> value);
+  external JSArray<JSArrayBuffer> get signatures;
 }

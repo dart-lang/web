@@ -13,6 +13,7 @@
 - Changed `record` types to be `JSObject` instead of `JSAny`.
 - Reduce the number of DOM APIs we generate code for. Currently, the API needs
   to be standards-track, and be supported by Safari, Chrome, and Firefox.
+- Updated the source IDL version to `3.43.1`.
 - Deprecate a few type aliases in favor of their standardized versions:
   
   | Deprecated            | Preferred               |

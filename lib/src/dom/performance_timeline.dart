@@ -15,10 +15,12 @@ typedef PerformanceEntryList = JSArray<PerformanceEntry>;
 typedef PerformanceObserverCallback = JSFunction;
 extension type PerformanceEntry._(JSObject _) implements JSObject {
   external JSObject toJSON();
+  external int get id;
   external String get name;
   external String get entryType;
   external DOMHighResTimeStamp get startTime;
   external DOMHighResTimeStamp get duration;
+  external int get navigationId;
 }
 extension type PerformanceObserver._(JSObject _) implements JSObject {
   external factory PerformanceObserver(PerformanceObserverCallback callback);

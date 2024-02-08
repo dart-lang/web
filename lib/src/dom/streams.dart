@@ -133,10 +133,20 @@ extension type ReadableStreamReadResult._(JSObject _) implements JSObject {
 extension type ReadableStreamBYOBReader._(JSObject _) implements JSObject {
   external factory ReadableStreamBYOBReader(ReadableStream stream);
 
-  external JSPromise<ReadableStreamReadResult> read(ArrayBufferView view);
+  external JSPromise<ReadableStreamReadResult> read(
+    ArrayBufferView view, [
+    ReadableStreamBYOBReaderReadOptions options,
+  ]);
   external void releaseLock();
   external JSPromise<JSAny?> cancel([JSAny? reason]);
   external JSPromise<JSAny?> get closed;
+}
+extension type ReadableStreamBYOBReaderReadOptions._(JSObject _)
+    implements JSObject {
+  external factory ReadableStreamBYOBReaderReadOptions({int min});
+
+  external set min(int value);
+  external int get min;
 }
 extension type ReadableStreamDefaultController._(JSObject _)
     implements JSObject {

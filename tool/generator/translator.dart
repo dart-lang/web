@@ -980,6 +980,7 @@ class Translator {
     // info.
     const allowList = {
       'css-typed-om',
+      'css-view-transitions',
       'referrer-policy',
       'reporting',
       'touch-events',

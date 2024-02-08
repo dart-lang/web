@@ -491,6 +491,8 @@ extension type SVGSVGElement._(JSObject _)
   external EventHandler get ononline;
   external set onpagehide(EventHandler value);
   external EventHandler get onpagehide;
+  external set onpagereveal(EventHandler value);
+  external EventHandler get onpagereveal;
   external set onpageshow(EventHandler value);
   external EventHandler get onpageshow;
   external set onpopstate(EventHandler value);

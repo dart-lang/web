@@ -639,6 +639,8 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external String get fontVariationSettings;
   external set fontWeight(String value);
   external String get fontWeight;
+  external set fontWidth(String value);
+  external String get fontWidth;
   external set footnoteDisplay(String value);
   external String get footnoteDisplay;
   external set footnotePolicy(String value);
@@ -1017,10 +1019,14 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external String get pointerEvents;
   external set position(String value);
   external String get position;
-  external set positionFallback(String value);
-  external String get positionFallback;
   external set positionFallbackBounds(String value);
   external String get positionFallbackBounds;
+  external set positionTryFinal(String value);
+  external String get positionTryFinal;
+  external set positionTryOptions(String value);
+  external String get positionTryOptions;
+  external set positionTryOrder(String value);
+  external String get positionTryOrder;
   external set printColorAdjust(String value);
   external String get printColorAdjust;
   external set quotes(String value);
@@ -1401,6 +1407,8 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external String get y;
   external set zIndex(String value);
   external String get zIndex;
+  external set zoom(String value);
+  external String get zoom;
 }
 @JS()
 external $CSS get CSS;

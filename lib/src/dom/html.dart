@@ -13,6 +13,7 @@ import 'clipboard_apis.dart';
 import 'credential_management.dart';
 import 'css_font_loading.dart';
 import 'css_typed_om.dart';
+import 'css_view_transitions.dart';
 import 'cssom.dart';
 import 'cssom_view.dart';
 import 'dom.dart';
@@ -514,6 +515,8 @@ extension type HTMLBodyElement._(JSObject _) implements HTMLElement, JSObject {
   external EventHandler get ononline;
   external set onpagehide(EventHandler value);
   external EventHandler get onpagehide;
+  external set onpagereveal(EventHandler value);
+  external EventHandler get onpagereveal;
   external set onpageshow(EventHandler value);
   external EventHandler get onpageshow;
   external set onpopstate(EventHandler value);
@@ -1481,6 +1484,7 @@ extension type HTMLSelectElement._(JSObject _)
   external bool checkValidity();
   external bool reportValidity();
   external void setCustomValidity(String error);
+  external void showPicker();
   external set autocomplete(String value);
   external String get autocomplete;
   external set disabled(bool value);
@@ -1778,6 +1782,10 @@ extension type HTMLTemplateElement._(JSObject _)
   external factory HTMLTemplateElement();
 
   external DocumentFragment get content;
+  external set shadowRootMode(String value);
+  external String get shadowRootMode;
+  external set shadowRootDelegatesFocus(bool value);
+  external bool get shadowRootDelegatesFocus;
 }
 extension type HTMLSlotElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLSlotElement();
@@ -2546,6 +2554,7 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   external ValidityState get validity;
   external String get validationMessage;
   external NodeList get labels;
+  external CustomStateSet get states;
 }
 extension type ValidityStateFlags._(JSObject _) implements JSObject {
   external factory ValidityStateFlags({
@@ -2582,6 +2591,7 @@ extension type ValidityStateFlags._(JSObject _) implements JSObject {
   external set customError(bool value);
   external bool get customError;
 }
+extension type CustomStateSet._(JSObject _) implements JSObject {}
 extension type VisibilityStateEntry._(JSObject _)
     implements PerformanceEntry, JSObject {
   external String get name;
@@ -2623,6 +2633,23 @@ extension type FocusOptions._(JSObject _) implements JSObject {
   external bool get preventScroll;
   external set focusVisible(bool value);
   external bool get focusVisible;
+}
+extension type CloseWatcher._(JSObject _) implements EventTarget, JSObject {
+  external factory CloseWatcher([CloseWatcherOptions options]);
+
+  external void requestClose();
+  external void close();
+  external void destroy();
+  external set oncancel(EventHandler value);
+  external EventHandler get oncancel;
+  external set onclose(EventHandler value);
+  external EventHandler get onclose;
+}
+extension type CloseWatcherOptions._(JSObject _) implements JSObject {
+  external factory CloseWatcherOptions({AbortSignal signal});
+
+  external set signal(AbortSignal value);
+  external AbortSignal get signal;
 }
 extension type DataTransfer._(JSObject _) implements JSObject {
   external factory DataTransfer();
@@ -3046,6 +3073,8 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get ononline;
   external set onpagehide(EventHandler value);
   external EventHandler get onpagehide;
+  external set onpagereveal(EventHandler value);
+  external EventHandler get onpagereveal;
   external set onpageshow(EventHandler value);
   external EventHandler get onpageshow;
   external set onpopstate(EventHandler value);
@@ -3136,6 +3165,7 @@ extension type Navigation._(JSObject _) implements EventTarget, JSObject {
   external NavigationResult forward([NavigationOptions options]);
   external NavigationHistoryEntry? get currentEntry;
   external NavigationTransition? get transition;
+  external NavigationActivation? get activation;
   external bool get canGoBack;
   external bool get canGoForward;
   external set onnavigate(EventHandler value);
@@ -3205,6 +3235,11 @@ extension type NavigationTransition._(JSObject _) implements JSObject {
   external NavigationType get navigationType;
   external NavigationHistoryEntry get from;
   external JSPromise<JSAny?> get finished;
+}
+extension type NavigationActivation._(JSObject _) implements JSObject {
+  external NavigationHistoryEntry? get from;
+  external NavigationHistoryEntry get entry;
+  external NavigationType get navigationType;
 }
 extension type NavigateEvent._(JSObject _) implements Event, JSObject {
   external factory NavigateEvent(
@@ -3345,6 +3380,21 @@ extension type HashChangeEventInit._(JSObject _)
   external set newURL(String value);
   external String get newURL;
 }
+extension type PageRevealEvent._(JSObject _) implements Event, JSObject {
+  external factory PageRevealEvent(
+    String type, [
+    PageRevealEventInit eventInitDict,
+  ]);
+
+  external ViewTransition? get viewTransition;
+}
+extension type PageRevealEventInit._(JSObject _)
+    implements EventInit, JSObject {
+  external factory PageRevealEventInit({ViewTransition? viewTransition});
+
+  external set viewTransition(ViewTransition? value);
+  external ViewTransition? get viewTransition;
+}
 extension type PageTransitionEvent._(JSObject _) implements Event, JSObject {
   external factory PageTransitionEvent(
     String type, [
@@ -3402,18 +3452,18 @@ extension type PromiseRejectionEvent._(JSObject _) implements Event, JSObject {
     PromiseRejectionEventInit eventInitDict,
   );
 
-  external JSPromise<JSAny?> get promise;
+  external JSObject get promise;
   external JSAny? get reason;
 }
 extension type PromiseRejectionEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory PromiseRejectionEventInit({
-    required JSPromise<JSAny?> promise,
+    required JSObject promise,
     JSAny? reason,
   });
 
-  external set promise(JSPromise<JSAny?> value);
-  external JSPromise<JSAny?> get promise;
+  external set promise(JSObject value);
+  external JSObject get promise;
   external set reason(JSAny? value);
   external JSAny? get reason;
 }
@@ -3617,6 +3667,8 @@ extension type MessagePort._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onmessage;
   external set onmessageerror(EventHandler value);
   external EventHandler get onmessageerror;
+  external set onclose(EventHandler value);
+  external EventHandler get onclose;
 }
 extension type StructuredSerializeOptions._(JSObject _) implements JSObject {
   external factory StructuredSerializeOptions({JSArray<JSObject> transfer});
@@ -3920,6 +3972,8 @@ extension type HTMLFrameSetElement._(JSObject _)
   external EventHandler get ononline;
   external set onpagehide(EventHandler value);
   external EventHandler get onpagehide;
+  external set onpagereveal(EventHandler value);
+  external EventHandler get onpagereveal;
   external set onpageshow(EventHandler value);
   external EventHandler get onpageshow;
   external set onpopstate(EventHandler value);

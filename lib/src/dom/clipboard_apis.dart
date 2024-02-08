@@ -49,10 +49,17 @@ extension type ClipboardItemOptions._(JSObject _) implements JSObject {
   external PresentationStyle get presentationStyle;
 }
 extension type Clipboard._(JSObject _) implements EventTarget, JSObject {
-  external JSPromise<ClipboardItems> read();
+  external JSPromise<ClipboardItems> read(
+      [ClipboardUnsanitizedFormats formats]);
   external JSPromise<JSString> readText();
   external JSPromise<JSAny?> write(ClipboardItems data);
   external JSPromise<JSAny?> writeText(String data);
+}
+extension type ClipboardUnsanitizedFormats._(JSObject _) implements JSObject {
+  external factory ClipboardUnsanitizedFormats({JSArray<JSString> unsanitized});
+
+  external set unsanitized(JSArray<JSString> value);
+  external JSArray<JSString> get unsanitized;
 }
 extension type ClipboardPermissionDescriptor._(JSObject _)
     implements PermissionDescriptor, JSObject {

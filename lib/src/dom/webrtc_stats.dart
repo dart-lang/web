@@ -408,10 +408,6 @@ extension type RTCAudioSourceStats._(JSObject _)
     num totalSamplesDuration,
     num echoReturnLoss,
     num echoReturnLossEnhancement,
-    num droppedSamplesDuration,
-    int droppedSamplesEvents,
-    num totalCaptureDelay,
-    int totalSamplesCaptured,
   });
 
   external set audioLevel(num value);
@@ -424,14 +420,6 @@ extension type RTCAudioSourceStats._(JSObject _)
   external num get echoReturnLoss;
   external set echoReturnLossEnhancement(num value);
   external num get echoReturnLossEnhancement;
-  external set droppedSamplesDuration(num value);
-  external num get droppedSamplesDuration;
-  external set droppedSamplesEvents(int value);
-  external int get droppedSamplesEvents;
-  external set totalCaptureDelay(num value);
-  external num get totalCaptureDelay;
-  external set totalSamplesCaptured(int value);
-  external int get totalSamplesCaptured;
 }
 extension type RTCVideoSourceStats._(JSObject _)
     implements RTCMediaSourceStats, JSObject {

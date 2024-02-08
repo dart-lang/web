@@ -10,16 +10,12 @@ library;
 import 'dart:js_interop';
 
 import 'dom.dart';
-import 'gamepad_extensions.dart';
 import 'hr_time.dart';
 
 typedef GamepadMappingType = String;
+typedef GamepadHapticsResult = String;
+typedef GamepadHapticEffectType = String;
 extension type Gamepad._(JSObject _) implements JSObject {
-  external GamepadHand get hand;
-  external JSArray<GamepadHapticActuator> get hapticActuators;
-  external GamepadPose? get pose;
-  external JSArray<GamepadTouch>? get touchEvents;
-  external GamepadHapticActuator? get vibrationActuator;
   external String get id;
   external int get index;
   external bool get connected;
@@ -27,11 +23,37 @@ extension type Gamepad._(JSObject _) implements JSObject {
   external GamepadMappingType get mapping;
   external JSArray<JSNumber> get axes;
   external JSArray<GamepadButton> get buttons;
+  external GamepadHapticActuator get vibrationActuator;
 }
 extension type GamepadButton._(JSObject _) implements JSObject {
   external bool get pressed;
   external bool get touched;
   external num get value;
+}
+extension type GamepadHapticActuator._(JSObject _) implements JSObject {
+  external JSPromise<JSString> playEffect(
+    GamepadHapticEffectType type, [
+    GamepadEffectParameters params,
+  ]);
+  external JSPromise<JSString> reset();
+  external JSArray<JSString> get effects;
+}
+extension type GamepadEffectParameters._(JSObject _) implements JSObject {
+  external factory GamepadEffectParameters({
+    int duration,
+    int startDelay,
+    num strongMagnitude,
+    num weakMagnitude,
+  });
+
+  external set duration(int value);
+  external int get duration;
+  external set startDelay(int value);
+  external int get startDelay;
+  external set strongMagnitude(num value);
+  external num get strongMagnitude;
+  external set weakMagnitude(num value);
+  external num get weakMagnitude;
 }
 extension type GamepadEvent._(JSObject _) implements Event, JSObject {
   external factory GamepadEvent(

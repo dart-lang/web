@@ -284,6 +284,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   external static GLenum get RENDERBUFFER;
   external static GLenum get RGBA4;
   external static GLenum get RGB5_A1;
+  external static GLenum get RGBA8;
   external static GLenum get RGB565;
   external static GLenum get DEPTH_COMPONENT16;
   external static GLenum get STENCIL_INDEX8;
@@ -332,7 +333,6 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   external static GLenum get STENCIL;
   external static GLenum get RED;
   external static GLenum get RGB8;
-  external static GLenum get RGBA8;
   external static GLenum get RGB10_A2;
   external static GLenum get TEXTURE_BINDING_3D;
   external static GLenum get UNPACK_SKIP_IMAGES;
@@ -587,6 +587,11 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   external bool isContextLost();
   external JSArray<JSString>? getSupportedExtensions();
   external JSObject? getExtension(String name);
+  external void drawingBufferStorage(
+    GLenum sizedFormat,
+    int width,
+    int height,
+  );
   external void activeTexture(GLenum texture);
   external void attachShader(
     WebGLProgram program,
@@ -1540,6 +1545,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   external JSObject get canvas;
   external GLsizei get drawingBufferWidth;
   external GLsizei get drawingBufferHeight;
+  external GLenum get drawingBufferFormat;
   external set drawingBufferColorSpace(PredefinedColorSpace value);
   external PredefinedColorSpace get drawingBufferColorSpace;
   external set unpackColorSpace(PredefinedColorSpace value);

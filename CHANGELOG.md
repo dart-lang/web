@@ -11,9 +11,21 @@
   appear as a type parameter in order to conform with the type bounds of
   `JSArray` and `JSPromise`.
 - Changed `record` types to be `JSObject` instead of `JSAny`.
-- Reduce the number of DOM APIs we generate code for (currently, the API needs
-  to be standards-track, and be suported by Safari, Chrome, and Firefox).
+- Reduce the number of DOM APIs we generate code for. Currently, the API needs
+  to be standards-track, and be supported by Safari, Chrome, and Firefox.
 - Updated the source IDL version to `3.43.1`.
+- Deprecate a few type aliases in favor of their standardized versions:
+  
+  | Deprecated            | Preferred               |
+  |-----------------------|-------------------------|
+  | `AudioElement`        | `HTMLAudioElement`      |
+  | `HtmlElement`         | `HTMLElement`           |
+  | `CanvasElement`       | `HTMLCanvasElement`     |
+  | `ImageElement`        | `HTMLImageElement`      |
+  | `VideoElement`        | `HTMLVideoElement`      |
+  | `CssStyleDeclaration` | `CSSStyleDeclaration`   |
+  | `ContextEvent`        | `WebGLContextEvent`     |
+  | `WebGL`               | `WebGLRenderingContext` |
 
 ## 0.4.2
 

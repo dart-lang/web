@@ -2,21 +2,17 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// ignore_for_file: unreachable_from_main
-
 import 'package:web/web.dart';
 
 late HTMLAnchorElement $0;
 late HTMLAreaElement $1;
 late HTMLAudioElement $2;
 late HTMLBaseElement $3;
-late BluetoothRemoteGATTDescriptor $4;
 late HTMLBodyElement $5;
 late HTMLBRElement $6;
 late HTMLButtonElement $7;
 late HTMLCanvasElement $8;
 late CDATASection $9;
-late CSS $10;
 late CSSConditionRule $11;
 late CSSFontFaceRule $12;
 late CSSGroupingRule $13;
@@ -77,7 +73,6 @@ late Document $67;
 late HTMLElement $68;
 late HTMLFormControlsCollection $69;
 late HTMLHtmlElement $70;
-late HTMLHyperlinkElementUtils $71;
 late HTMLOptionsCollection $72;
 // late HttpRequest/XMLHttpRequest $73;
 late XMLHttpRequestEventTarget $74;
@@ -94,14 +89,6 @@ late HTMLMediaElement $84;
 late HTMLMenuElement $85;
 late HTMLMetaElement $86;
 late HTMLMeterElement $87;
-late MIDIAccess $88;
-late MIDIConnectionEvent $89;
-late MIDIInput $90;
-late MIDIInputMap $91;
-late MIDIMessageEvent $92;
-late MIDIOutput $93;
-late MIDIOutputMap $94;
-late MIDIPort $95;
 late HTMLModElement $96;
 late HTMLObjectElement $97;
 late HTMLOListElement $98;
@@ -147,8 +134,6 @@ late HTMLTextAreaElement $137;
 late HTMLTimeElement $138;
 late HTMLTitleElement $139;
 late HTMLTrackElement $140;
-late TrustedHTML $141;
-late TrustedScriptURL $142;
 late HTMLUListElement $143;
 late UnderlyingSource $144;
 late HTMLUnknownElement $145;

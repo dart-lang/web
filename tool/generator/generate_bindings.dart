@@ -57,5 +57,6 @@ Future<TranslationResult> generateBindings(
     translator.collect(shortname, ast);
   }
   translator.setOrUpdateInterfacelikes();
+  translator.emitInterfaceStatusInformation();
   return translator.translate();
 }

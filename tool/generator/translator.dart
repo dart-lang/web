@@ -9,6 +9,7 @@ import 'package:path/path.dart' as p;
 
 import 'banned_names.dart';
 import 'bcd.dart';
+import 'filesystem_api.dart';
 import 'singletons.dart';
 import 'type_aliases.dart';
 import 'type_union.dart';
@@ -17,8 +18,24 @@ import 'webidl_api.dart' as idl;
 
 typedef TranslationResult = Map<String, code.Library>;
 
+// These libraries wouldn't normally qualify for generation but have types
+// that are referenced from generated code.
+// TODO(devoncarew): We should either remove the members that reference the
+// types or decide the library should be generated irrespective of the BCD
+// info.
+const interfaceAllowList = {
+  'css-typed-om',
+  'css-view-transitions',
+  'referrer-policy',
+  'reporting',
+  'touch-events',
+  'vibration',
+  'webrtc-stats',
+};
+
 class _Library {
   final Translator translator;
+  final String name;
   final String url;
   // Contains both IDL `interface`s and `namespace`s.
   final List<idl.Interfacelike> interfacelikes = [];
@@ -30,7 +47,7 @@ class _Library {
   final List<idl.Callback> callbacks = [];
   final List<idl.Interfacelike> callbackInterfaces = [];
 
-  _Library(this.translator, this.url);
+  _Library(this.translator, this.name, this.url);
 
   void _addNamed<T extends idl.Named>(idl.Node node, List<T> list) {
     final named = node as T;
@@ -541,7 +558,7 @@ class Translator {
     final libraryPath = '$_librarySubDir/${shortName.kebabToSnake}.dart';
     assert(!_libraries.containsKey(libraryPath));
 
-    final library = _Library(this, '$packageRoot/$libraryPath');
+    final library = _Library(this, shortName, '$packageRoot/$libraryPath');
 
     for (var i = 0; i < ast.length; i++) {
       library.add(ast[i] as idl.Node);
@@ -972,22 +989,44 @@ class Translator {
     return dartLibraries;
   }
 
+  void emitInterfaceStatusInformation() {
+    final buf = StringBuffer();
+
+    final libraries = _libraries.values.toList()
+      ..sort((a, b) => a.name.compareTo(b.name));
+
+    for (final library in libraries) {
+      buf.writeln('## ${library.name}');
+
+      final interfaces = library.interfacelikes.toList();
+      interfaces.sort((a, b) => a.name.compareTo(b.name));
+
+      if (interfaces.isNotEmpty) {
+        buf.writeln();
+        for (final $interface in interfaces) {
+          final status =
+              browserCompatData.retrieveInterfaceFor($interface.name);
+          if (status == null) {
+            buf.writeln('- ${$interface.name}:');
+          } else {
+            buf.writeln('- ${$interface.name}: '
+                '${status.status.join(', ')} (${status.browsers.join(', ')})');
+          }
+        }
+      }
+
+      buf.writeln();
+    }
+
+    final output = buf.toString().trim();
+    fs.writeFileSync(
+      p.join('..', '..', 'tool', 'bcd.md').toJS,
+      '$output\n'.toJS,
+    );
+  }
+
   bool _shouldGenerate(String name, _Library library) {
-    // These libraries wouldn't normally qualify for generation but have types
-    // that are referenced from generated code.
-    // TODO(devoncarew): We should either remove the members that reference the
-    // types or decide the library should be generated irrespective of the BCD
-    // info.
-    const allowList = {
-      'css-typed-om',
-      'css-view-transitions',
-      'referrer-policy',
-      'reporting',
-      'touch-events',
-      'vibration',
-      'webrtc-stats',
-    };
-    if (allowList.contains(name)) {
+    if (interfaceAllowList.contains(name)) {
       return true;
     }
 

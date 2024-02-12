@@ -74,10 +74,22 @@ extension NodeGlue on Node {
 }
 
 extension EventGlue on MouseEvent {
+  /// A [Point] representation of the [clientX] and [clientY] properties
+  /// of this [MouseEvent].
+  ///
+  /// **Deprecated:** Prefer directly accessing
+  /// the [clientX] and [clientY] properties on [MouseEvent].
+  @Deprecated('Instead directly access the clientX and clientY properties.')
   Point get client => Point(clientX, clientY);
 }
 
 extension TouchGlue on Touch {
+  /// A [Point] representation of the [clientX] and [clientY] properties
+  /// of this [Touch] event.
+  ///
+  /// **Deprecated:** Prefer directly accessing
+  /// the [clientX] and [clientY] properties on [Touch].
+  @Deprecated('Instead directly access the clientX and clientY properties.')
   Point get client => Point(clientX, clientY);
 }
 

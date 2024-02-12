@@ -32,6 +32,8 @@
   Instead, use the standard creation and query methods on `document`.
 - Deprecate the `client` extension methods on `MouseEvent` and `Touch`.
   Instead, directly use the `clientX` and `clientY` properties.
+- Deprecate the `HttpRequest` API borrowed from `dart:html`.
+  Consider migrating to `package:http` instead.
 
 ## 0.4.2
 

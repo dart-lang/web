@@ -9,6 +9,15 @@ import 'dart:typed_data';
 import '../dom.dart';
 import 'events/events.dart' show XHRGetters;
 
+/// > [!WARNING]
+/// > This class is deprecated and will be
+/// > removed in a future release of `package:web`.
+/// >
+/// > You should instead use the cross-platform
+/// > [`package:http`](https://pub.dev/packages/http) and its
+/// > [`BrowserClient`](https://pub.dev/documentation/http/latest/browser_client/BrowserClient-class.html)
+/// > adapter on top of [XMLHttpRequest].
+///
 /// A helper used to make it easier to operate over [XMLHttpRequest]s.
 ///
 /// The logic here was copied from `dart:html` to help bridge a functionality
@@ -43,10 +52,10 @@ import 'events/events.dart' show XHRGetters;
 /// ## Other resources
 ///
 /// * [Fetch data dynamically](https://dart.dev/tutorials/web/fetch-data/),
-/// a tutorial shows how to load data from a static file or from a server.
-/// * [Dart article on using HttpRequests](https://dart.dev/guides/libraries/library-tour#using-http-resources-with-httprequest)
-/// * [JS XMLHttpRequest](https://developer.mozilla.org/en-US/docs/DOM/XMLHttpRequest)
-/// * [Using XMLHttpRequest](https://developer.mozilla.org/en-US/docs/DOM/XMLHttpRequest/Using_XMLHttpRequest)
+///   a tutorial shows how to load data from a static file or from a server.
+/// * [JS XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)
+/// * [Using XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest_API/Using_XMLHttpRequest)
+@Deprecated('Instead use package:http.')
 class HttpRequest {
   // The lint is ignored because these are purposely made to match the old
   // names used in `dart:html`

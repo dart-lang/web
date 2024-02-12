@@ -30,6 +30,8 @@
 - Deprecate the top-level `createElementTag`, `createCanvasElement`,
   `createIFrameElement`, and `querySelector` functions.
   Instead, use the standard creation and query methods on `document`.
+- Deprecate the `client` extension methods on `MouseEvent` and `Touch`.
+  Instead, directly use the `clientX` and `clientY` properties.
 
 ## 0.4.2
 

@@ -17,7 +17,6 @@
 | BackgroundFetchFetch          |                               |
 | BackgroundFetchSettledFetch   |                               |
 | BaseElement                   | HTMLBaseElement               |
-| BluetoothRemoteGattDescriptor | BluetoothRemoteGATTDescriptor |
 | BodyElement                   | HTMLBodyElement               |
 | BRElement                     | HTMLBRElement                 |
 | BudgetState                   |                               |
@@ -26,7 +25,6 @@
 | CDataSection                  | CDATASection                  |
 | ContentElement                |                               |
 | Coordinates                   |                               |
-| Css                           | CSS                           |
 | CssCharsetRule                |                               |
 | CssConditionRule              | CSSConditionRule              |
 | CssFontFaceRule               | CSSFontFaceRule               |
@@ -103,7 +101,6 @@
 | HtmlElement                   | HTMLElement                   |
 | HtmlFormControlsCollection    | HTMLFormControlsCollection    |
 | HtmlHtmlElement               | HTMLHtmlElement               |
-| HtmlHyperlinkElementUtils     | HTMLHyperlinkElementUtils     |
 | HtmlOptionsCollection         | HTMLOptionsCollection         |
 | HttpRequest                   | XMLHttpRequest                |
 | HttpRequestEventTarget        | XMLHttpRequestEventTarget     |
@@ -127,14 +124,6 @@
 | Metadata                      |                               |
 | MetaElement                   | HTMLMetaElement               |
 | MeterElement                  | HTMLMeterElement              |
-| MidiAccess                    | MIDIAccess                    |
-| MidiConnectionEvent           | MIDIConnectionEvent           |
-| MidiInput                     | MIDIInput                     |
-| MidiInputMap                  | MIDIInputMap                  |
-| MidiMessageEvent              | MIDIMessageEvent              |
-| MidiOutput                    | MIDIOutput                    |
-| MidiOutputMap                 | MIDIOutputMap                 |
-| MidiPort                      | MIDIPort                      |
 | ModElement                    | HTMLModElement                |
 | NavigatorUserMediaError       |                               |
 | NoncedElement                 |                               |
@@ -193,8 +182,6 @@
 | TrackDefault                  |                               |
 | TrackDefaultList              |                               |
 | TrackElement                  | HTMLTrackElement              |
-| TrustedHtml                   | TrustedHTML                   |
-| TrustedScriptUrl              | TrustedScriptURL              |
 | TrustedUrl                    |                               |
 | UListElement                  | HTMLUListElement              |
 | UnderlyingSourceBase          | UnderlyingSource              |

@@ -44,15 +44,6 @@ transforms:
     changes:
       - kind: 'rename'
         newName: 'HTMLBaseElement'
-  # BluetoothRemoteGattDescriptor => BluetoothRemoteGATTDescriptor
-  - title: "Rename to 'BluetoothRemoteGATTDescriptor'"
-    date: 2024-01-12
-    element:
-      uris: [ 'package:web/web.dart' ]
-      class: 'BluetoothRemoteGattDescriptor'
-    changes:
-      - kind: 'rename'
-        newName: 'BluetoothRemoteGATTDescriptor'
   # BodyElement => HTMLBodyElement
   - title: "Rename to 'HTMLBodyElement'"
     date: 2024-01-12
@@ -98,15 +89,6 @@ transforms:
     changes:
       - kind: 'rename'
         newName: 'CDATASection'
-  # Css => CSS
-  - title: "Rename to 'CSS'"
-    date: 2024-01-12
-    element:
-      uris: [ 'package:web/web.dart' ]
-      class: 'Css'
-    changes:
-      - kind: 'rename'
-        newName: 'CSS'
   # CssConditionRule => CSSConditionRule
   - title: "Rename to 'CSSConditionRule'"
     date: 2024-01-12
@@ -647,15 +629,6 @@ transforms:
     changes:
       - kind: 'rename'
         newName: 'HTMLHtmlElement'
-  # HtmlHyperlinkElementUtils => HTMLHyperlinkElementUtils
-  - title: "Rename to 'HTMLHyperlinkElementUtils'"
-    date: 2024-01-12
-    element:
-      uris: [ 'package:web/web.dart' ]
-      class: 'HtmlHyperlinkElementUtils'
-    changes:
-      - kind: 'rename'
-        newName: 'HTMLHyperlinkElementUtils'
   # HtmlOptionsCollection => HTMLOptionsCollection
   - title: "Rename to 'HTMLOptionsCollection'"
     date: 2024-01-12
@@ -800,78 +773,6 @@ transforms:
     changes:
       - kind: 'rename'
         newName: 'HTMLMeterElement'
-  # MidiAccess => MIDIAccess
-  - title: "Rename to 'MIDIAccess'"
-    date: 2024-01-12
-    element:
-      uris: [ 'package:web/web.dart' ]
-      class: 'MidiAccess'
-    changes:
-      - kind: 'rename'
-        newName: 'MIDIAccess'
-  # MidiConnectionEvent => MIDIConnectionEvent
-  - title: "Rename to 'MIDIConnectionEvent'"
-    date: 2024-01-12
-    element:
-      uris: [ 'package:web/web.dart' ]
-      class: 'MidiConnectionEvent'
-    changes:
-      - kind: 'rename'
-        newName: 'MIDIConnectionEvent'
-  # MidiInput => MIDIInput
-  - title: "Rename to 'MIDIInput'"
-    date: 2024-01-12
-    element:
-      uris: [ 'package:web/web.dart' ]
-      class: 'MidiInput'
-    changes:
-      - kind: 'rename'
-        newName: 'MIDIInput'
-  # MidiInputMap => MIDIInputMap
-  - title: "Rename to 'MIDIInputMap'"
-    date: 2024-01-12
-    element:
-      uris: [ 'package:web/web.dart' ]
-      class: 'MidiInputMap'
-    changes:
-      - kind: 'rename'
-        newName: 'MIDIInputMap'
-  # MidiMessageEvent => MIDIMessageEvent
-  - title: "Rename to 'MIDIMessageEvent'"
-    date: 2024-01-12
-    element:
-      uris: [ 'package:web/web.dart' ]
-      class: 'MidiMessageEvent'
-    changes:
-      - kind: 'rename'
-        newName: 'MIDIMessageEvent'
-  # MidiOutput => MIDIOutput
-  - title: "Rename to 'MIDIOutput'"
-    date: 2024-01-12
-    element:
-      uris: [ 'package:web/web.dart' ]
-      class: 'MidiOutput'
-    changes:
-      - kind: 'rename'
-        newName: 'MIDIOutput'
-  # MidiOutputMap => MIDIOutputMap
-  - title: "Rename to 'MIDIOutputMap'"
-    date: 2024-01-12
-    element:
-      uris: [ 'package:web/web.dart' ]
-      class: 'MidiOutputMap'
-    changes:
-      - kind: 'rename'
-        newName: 'MIDIOutputMap'
-  # MidiPort => MIDIPort
-  - title: "Rename to 'MIDIPort'"
-    date: 2024-01-12
-    element:
-      uris: [ 'package:web/web.dart' ]
-      class: 'MidiPort'
-    changes:
-      - kind: 'rename'
-        newName: 'MIDIPort'
   # ModElement => HTMLModElement
   - title: "Rename to 'HTMLModElement'"
     date: 2024-01-12
@@ -1277,24 +1178,6 @@ transforms:
     changes:
       - kind: 'rename'
         newName: 'HTMLTrackElement'
-  # TrustedHtml => TrustedHTML
-  - title: "Rename to 'TrustedHTML'"
-    date: 2024-01-12
-    element:
-      uris: [ 'package:web/web.dart' ]
-      class: 'TrustedHtml'
-    changes:
-      - kind: 'rename'
-        newName: 'TrustedHTML'
-  # TrustedScriptUrl => TrustedScriptURL
-  - title: "Rename to 'TrustedScriptURL'"
-    date: 2024-01-12
-    element:
-      uris: [ 'package:web/web.dart' ]
-      class: 'TrustedScriptUrl'
-    changes:
-      - kind: 'rename'
-        newName: 'TrustedScriptURL'
   # UListElement => HTMLUListElement
   - title: "Rename to 'HTMLUListElement'"
     date: 2024-01-12

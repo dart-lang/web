@@ -27,6 +27,10 @@
   | `ContextEvent`        | `WebGLContextEvent`     |
   | `WebGL`               | `WebGLRenderingContext` |
 
+- Deprecate the top-level `createElementTag`, `createCanvasElement`,
+  `createIFrameElement`, and `querySelector` functions.
+  Instead, use the standard creation and query methods on `document`.
+
 ## 0.4.2
 
 - Undeprecate some APIs and helpers library that were deprecated in `0.4.1`.

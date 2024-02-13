@@ -102,22 +102,17 @@ class _Library {
 _RawType? _getTypedefAsJsType(_RawType rawType) {
   final decl = Translator.instance!._typeToDeclaration[rawType.type];
   if (decl != null) {
-    switch (decl.type) {
-      case 'typedef':
-        return _getRawType((decl as idl.Typedef).idlType);
+    return switch (decl.type) {
+      'typedef' => _getRawType((decl as idl.Typedef).idlType),
       // TODO(srujzs): If we ever add a generic JS function type, we should
       // maybe leverage that here so we have stronger type-checking of
       // callbacks.
-      case 'callback':
-      case 'callback interface':
-        return _RawType('JSFunction', false);
+      'callback' || 'callback interface' => _RawType('JSFunction', false),
       // TODO(srujzs): Enums in the WebIDL are just strings, but we could make
       // them easier to work with on the Dart side.
-      case 'enum':
-        return _RawType('JSString', false);
-      default:
-        return null;
-    }
+      'enum' => _RawType('JSString', false),
+      _ => null
+    };
   }
   return null;
 }
@@ -797,23 +792,18 @@ class Translator {
 
   List<code.Method> _member(idl.Member member) {
     final type = member.type;
-    switch (type) {
-      case 'operation':
-        throw Exception('Should be handled explicitly.');
-      case 'attribute':
-        return _attribute(member as idl.Attribute);
-      case 'const':
-        return [_constant(member as idl.Constant)];
-      case 'field':
-        return _field(member as idl.Field);
-      case 'iterable':
-      case 'maplike':
-      case 'setlike':
+    return switch (type) {
+      'operation' => throw Exception('Should be handled explicitly.'),
+      'attribute' => _attribute(member as idl.Attribute),
+      'const' => [_constant(member as idl.Constant)],
+      'field' => _field(member as idl.Field),
+      'iterable' ||
+      'maplike' ||
+      'setlike' =>
         // TODO(joshualitt): Handle these cases.
-        return [];
-      default:
-        throw Exception('Unsupported member type $type');
-    }
+        [],
+      _ => throw Exception('Unsupported member type $type')
+    };
   }
 
   List<code.Method> _members(List<idl.Member> members) =>

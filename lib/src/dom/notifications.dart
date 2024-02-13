@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -32,7 +35,7 @@ extension type Notification._(JSObject _) implements EventTarget, JSObject {
     NotificationOptions options,
   ]);
 
-  external static JSPromise requestPermission(
+  external static JSPromise<JSString> requestPermission(
       [NotificationPermissionCallback deprecatedCallback]);
   external static NotificationPermission get permission;
   external static int get maxActions;
@@ -69,13 +72,13 @@ extension type Notification._(JSObject _) implements EventTarget, JSObject {
   external String get image;
   external String get icon;
   external String get badge;
-  external JSArray get vibrate;
+  external JSArray<JSNumber> get vibrate;
   external EpochTimeStamp get timestamp;
   external bool get renotify;
   external bool? get silent;
   external bool get requireInteraction;
   external JSAny? get data;
-  external JSArray get actions;
+  external JSArray<NotificationAction> get actions;
 }
 extension type NotificationOptions._(JSObject _) implements JSObject {
   external factory NotificationOptions({
@@ -92,7 +95,7 @@ extension type NotificationOptions._(JSObject _) implements JSObject {
     bool? silent,
     bool requireInteraction,
     JSAny? data,
-    JSArray actions,
+    JSArray<NotificationAction> actions,
   });
 
   external set dir(NotificationDirection value);
@@ -121,8 +124,8 @@ extension type NotificationOptions._(JSObject _) implements JSObject {
   external bool get requireInteraction;
   external set data(JSAny? value);
   external JSAny? get data;
-  external set actions(JSArray value);
-  external JSArray get actions;
+  external set actions(JSArray<NotificationAction> value);
+  external JSArray<NotificationAction> get actions;
 }
 extension type NotificationAction._(JSObject _) implements JSObject {
   external factory NotificationAction({

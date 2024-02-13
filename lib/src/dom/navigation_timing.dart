@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'hr_time.dart';
@@ -46,7 +49,6 @@ extension type PerformanceNavigationTiming._(JSObject _)
   external NavigationTimingType get type;
   external int get redirectCount;
   external DOMHighResTimeStamp get criticalCHRestart;
-  external DOMHighResTimeStamp get activationStart;
 }
 
 /// > **Warning:** This interface is deprecated in the

@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'css_typed_om.dart';
@@ -169,8 +172,8 @@ extension type Animation._(JSObject _) implements EventTarget, JSObject {
   external AnimationPlayState get playState;
   external AnimationReplaceState get replaceState;
   external bool get pending;
-  external JSPromise get ready;
-  external JSPromise get finished;
+  external JSPromise<Animation> get ready;
+  external JSPromise<Animation> get finished;
   external set onfinish(EventHandler value);
   external EventHandler get onfinish;
   external set oncancel(EventHandler value);
@@ -329,7 +332,7 @@ extension type KeyframeEffect._(JSObject _)
   /// The **`getKeyframes()`** method of a [KeyframeEffect] returns an Array of
   /// the computed keyframes that make up this animation along with their
   /// computed offsets.
-  external JSArray getKeyframes();
+  external JSArray<JSObject> getKeyframes();
 
   /// The **`setKeyframes()`** method of the [KeyframeEffect] interface replaces
   /// the keyframes that make up the affected `KeyframeEffect` with a new set of

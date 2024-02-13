@@ -8,13 +8,14 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'css_highlight_api.dart';
-import 'css_parser_api.dart';
 import 'css_properties_values_api.dart';
 import 'css_typed_om.dart';
-import 'html.dart';
 
 /// The **`MediaList`** interface represents the media queries of a stylesheet,
 /// e.g. those set using a `link` element's `media` attribute.
@@ -113,7 +114,7 @@ extension type CSSStyleSheet._(JSObject _) implements StyleSheet, JSObject {
   /// The `replace()` and [CSSStyleSheet.replaceSync] methods can only be used
   /// on a stylesheet created with the [CSSStyleSheet.CSSStyleSheet]
   /// constructor.
-  external JSPromise replace(String text);
+  external JSPromise<CSSStyleSheet> replace(String text);
 
   /// The **`replaceSync()`** method of the [CSSStyleSheet] interface
   /// synchronously replaces the content of the stylesheet with the content
@@ -857,6 +858,8 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external String get fontVariationSettings;
   external set fontWeight(String value);
   external String get fontWeight;
+  external set fontWidth(String value);
+  external String get fontWidth;
   external set footnoteDisplay(String value);
   external String get footnoteDisplay;
   external set footnotePolicy(String value);
@@ -1235,10 +1238,14 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external String get pointerEvents;
   external set position(String value);
   external String get position;
-  external set positionFallback(String value);
-  external String get positionFallback;
   external set positionFallbackBounds(String value);
   external String get positionFallbackBounds;
+  external set positionTryFinal(String value);
+  external String get positionTryFinal;
+  external set positionTryOptions(String value);
+  external String get positionTryOptions;
+  external set positionTryOrder(String value);
+  external String get positionTryOrder;
   external set printColorAdjust(String value);
   external String get printColorAdjust;
   external set quotes(String value);
@@ -1619,6 +1626,8 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external String get y;
   external set zIndex(String value);
   external String get zIndex;
+  external set zoom(String value);
+  external String get zoom;
 }
 @JS()
 external $CSS get CSS;
@@ -1632,29 +1641,6 @@ extension type $CSS._(JSObject _) implements JSObject {
     String conditionTextOrProperty, [
     String value,
   ]);
-  external JSPromise parseStylesheet(
-    CSSStringSource css, [
-    CSSParserOptions options,
-  ]);
-  external JSPromise parseRuleList(
-    CSSStringSource css, [
-    CSSParserOptions options,
-  ]);
-  external JSPromise parseRule(
-    CSSStringSource css, [
-    CSSParserOptions options,
-  ]);
-  external JSPromise parseDeclarationList(
-    CSSStringSource css, [
-    CSSParserOptions options,
-  ]);
-  external CSSParserDeclaration parseDeclaration(
-    String css, [
-    CSSParserOptions options,
-  ]);
-  external CSSToken parseValue(String css);
-  external JSArray parseValueList(String css);
-  external JSArray parseCommaValueList(String css);
   external void registerProperty(PropertyDefinition definition);
   external CSSUnitValue number(num value);
   external CSSUnitValue percent(num value);
@@ -1721,9 +1707,5 @@ extension type $CSS._(JSObject _) implements JSObject {
   external CSSUnitValue dppx(num value);
   external CSSUnitValue fr(num value);
   external String escape(String ident);
-  external Worklet get animationWorklet;
   external HighlightRegistry get highlights;
-  external JSAny? get elementSources;
-  external Worklet get layoutWorklet;
-  external Worklet get paintWorklet;
 }

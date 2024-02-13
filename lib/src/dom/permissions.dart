@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -20,18 +23,9 @@ typedef PermissionState = String;
 /// provides the core Permission API functionality, such as methods for querying
 /// and revoking permissions
 extension type Permissions._(JSObject _) implements JSObject {
-  external JSPromise request(JSObject permissionDesc);
-
-  /// The **`Permissions.revoke()`** method of the
-  /// [Permissions] interface reverts a currently set permission back to its
-  /// default state, which is usually `prompt`.
-  /// This method is called on the global [Permissions] object
-  /// [navigator.permissions].
-  external JSPromise revoke(JSObject permissionDesc);
-
   /// The **`Permissions.query()`** method of the [Permissions] interface
   /// returns the state of a user permission on the global scope.
-  external JSPromise query(JSObject permissionDesc);
+  external JSPromise<PermissionStatus> query(JSObject permissionDesc);
 }
 extension type PermissionDescriptor._(JSObject _) implements JSObject {
   external factory PermissionDescriptor({required String name});

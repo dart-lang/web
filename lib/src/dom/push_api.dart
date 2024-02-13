@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'fileapi.dart';
@@ -33,7 +36,7 @@ extension type PushPermissionDescriptor._(JSObject _)
 /// This interface is accessed via the [ServiceWorkerRegistration.pushManager]
 /// property.
 extension type PushManager._(JSObject _) implements JSObject {
-  external static JSArray get supportedContentEncodings;
+  external static JSArray<JSString> get supportedContentEncodings;
 
   /// The **`subscribe()`** method of the [PushManager]
   /// interface subscribes to a push service.
@@ -42,7 +45,8 @@ extension type PushManager._(JSObject _) implements JSObject {
   /// object containing details of a push subscription. A new push subscription
   /// is created if
   /// the current service worker does not have an existing subscription.
-  external JSPromise subscribe([PushSubscriptionOptionsInit options]);
+  external JSPromise<PushSubscription> subscribe(
+      [PushSubscriptionOptionsInit options]);
 
   /// The **`PushManager.getSubscription()`** method of the [PushManager]
   /// interface retrieves an existing push subscription.
@@ -50,7 +54,7 @@ extension type PushManager._(JSObject _) implements JSObject {
   /// It returns a `Promise` that resolves to a [PushSubscription] object
   /// containing details of an existing subscription. If no existing
   /// subscription exists, this resolves to a `null` value.
-  external JSPromise getSubscription();
+  external JSPromise<PushSubscription?> getSubscription();
 
   /// The **`permissionState()`** method of the
   /// [PushManager] interface returns a `Promise` that resolves to a
@@ -62,7 +66,8 @@ extension type PushManager._(JSObject _) implements JSObject {
   /// > and [Push](https://developer.mozilla.org/en-US/docs/Web/API/Push_API)
   /// > have been merged. If permission is
   /// > granted for notifications, push will also be enabled.
-  external JSPromise permissionState([PushSubscriptionOptionsInit options]);
+  external JSPromise<JSString> permissionState(
+      [PushSubscriptionOptionsInit options]);
 }
 
 /// `Push API`
@@ -104,7 +109,7 @@ extension type PushSubscription._(JSObject _) implements JSObject {
   /// The `unsubscribe()` method of the [PushSubscription] interface
   /// returns a `Promise` that resolves to a boolean value when the
   /// current subscription is successfully unsubscribed.
-  external JSPromise unsubscribe();
+  external JSPromise<JSBoolean> unsubscribe();
 
   /// The `toJSON()` method of the [PushSubscription] interface is a
   /// standard serializer: it returns a JSON representation of the subscription
@@ -119,15 +124,15 @@ extension type PushSubscriptionJSON._(JSObject _) implements JSObject {
   external factory PushSubscriptionJSON({
     String endpoint,
     EpochTimeStamp? expirationTime,
-    JSAny keys,
+    JSObject keys,
   });
 
   external set endpoint(String value);
   external String get endpoint;
   external set expirationTime(EpochTimeStamp? value);
   external EpochTimeStamp? get expirationTime;
-  external set keys(JSAny value);
-  external JSAny get keys;
+  external set keys(JSObject value);
+  external JSObject get keys;
 }
 
 /// The **`PushMessageData`** interface of the

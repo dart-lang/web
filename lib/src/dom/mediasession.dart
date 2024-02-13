@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 typedef MediaSessionActionHandler = JSFunction;
@@ -85,15 +88,15 @@ extension type MediaMetadata._(JSObject _) implements JSObject {
   external String get artist;
   external set album(String value);
   external String get album;
-  external set artwork(JSArray value);
-  external JSArray get artwork;
+  external set artwork(JSArray<MediaImage> value);
+  external JSArray<MediaImage> get artwork;
 }
 extension type MediaMetadataInit._(JSObject _) implements JSObject {
   external factory MediaMetadataInit({
     String title,
     String artist,
     String album,
-    JSArray artwork,
+    JSArray<MediaImage> artwork,
   });
 
   external set title(String value);
@@ -102,8 +105,8 @@ extension type MediaMetadataInit._(JSObject _) implements JSObject {
   external String get artist;
   external set album(String value);
   external String get album;
-  external set artwork(JSArray value);
-  external JSArray get artwork;
+  external set artwork(JSArray<MediaImage> value);
+  external JSArray<MediaImage> get artwork;
 }
 extension type MediaImage._(JSObject _) implements JSObject {
   external factory MediaImage({

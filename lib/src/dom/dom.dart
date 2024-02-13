@@ -8,24 +8,18 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'css_font_loading.dart';
-import 'css_nav.dart';
-import 'css_pseudo.dart';
-import 'css_regions.dart';
 import 'css_typed_om.dart';
-import 'css_view_transitions.dart';
 import 'cssom.dart';
 import 'cssom_view.dart';
-import 'font_metrics_api.dart';
-import 'fullscreen.dart';
 import 'geometry.dart';
 import 'hr_time.dart';
 import 'html.dart';
-import 'permissions_policy.dart';
-import 'sanitizer_api.dart';
-import 'scroll_to_text_fragment.dart';
 import 'selection_api.dart';
 import 'svg.dart';
 import 'web_animations.dart';
@@ -92,7 +86,7 @@ extension type Event._(JSObject _) implements JSObject {
   /// will be invoked. This does not include nodes in shadow trees if the shadow
   /// root was
   /// created with its [ShadowRoot.mode] closed.
-  external JSArray composedPath();
+  external JSArray<EventTarget> composedPath();
 
   /// The **`stopPropagation()`** method of the [Event]
   /// interface prevents further propagation of the current event in the
@@ -406,7 +400,7 @@ extension type AbortController._(JSObject _) implements JSObject {
 extension type AbortSignal._(JSObject _) implements EventTarget, JSObject {
   external static AbortSignal abort([JSAny? reason]);
   external static AbortSignal timeout(int milliseconds);
-  external static AbortSignal any(JSArray signals);
+  external static AbortSignal any(JSArray<AbortSignal> signals);
 
   /// The **`throwIfAborted()`** method throws the signal's abort
   /// [AbortSignal.reason] if the signal has been aborted; otherwise it does
@@ -533,7 +527,7 @@ extension type MutationObserver._(JSObject _) implements JSObject {
   /// observer, so that any pending mutations can be processed when shutting
   /// down the
   /// observer.
-  external JSArray takeRecords();
+  external JSArray<MutationRecord> takeRecords();
 }
 extension type MutationObserverInit._(JSObject _) implements JSObject {
   external factory MutationObserverInit({
@@ -543,7 +537,7 @@ extension type MutationObserverInit._(JSObject _) implements JSObject {
     bool subtree,
     bool attributeOldValue,
     bool characterDataOldValue,
-    JSArray attributeFilter,
+    JSArray<JSString> attributeFilter,
   });
 
   external set childList(bool value);
@@ -558,8 +552,8 @@ extension type MutationObserverInit._(JSObject _) implements JSObject {
   external bool get attributeOldValue;
   external set characterDataOldValue(bool value);
   external bool get characterDataOldValue;
-  external set attributeFilter(JSArray value);
-  external JSArray get attributeFilter;
+  external set attributeFilter(JSArray<JSString> value);
+  external JSArray<JSString> get attributeFilter;
 }
 
 /// The [MutationRecord] is a read-only interface that represents an individual
@@ -836,14 +830,7 @@ external Document get document;
 extension type Document._(JSObject _) implements Node, JSObject {
   external factory Document();
 
-  /// The **`startViewTransition()`** method of the
-  /// [View Transitions API] starts a new view transition and returns a
-  /// [ViewTransition] object to represent it.
-  ///
-  /// When `startViewTransition()` is invoked, a sequence of steps is followed
-  /// as explained in
-  /// [The view transition process](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API#the_view_transition_process).
-  external ViewTransition startViewTransition([UpdateCallback? updateCallback]);
+  external static Document parseHTMLUnsafe(String html);
 
   /// The **`elementFromPoint()`**
   /// method, available on the [Document] object, returns the topmost [Element]
@@ -884,7 +871,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// viewport.
   ///
   /// It operates in a similar way to the [Document.elementFromPoint] method.
-  external JSArray elementsFromPoint(
+  external JSArray<Element> elementsFromPoint(
     num x,
     num y,
   );
@@ -1058,19 +1045,6 @@ extension type Document._(JSObject _) implements Node, JSObject {
     int whatToShow,
     NodeFilter? filter,
   ]);
-  external FontMetrics measureElement(Element element);
-  external FontMetrics measureText(
-    String text,
-    StylePropertyMapReadOnly styleMap,
-  );
-
-  /// The [Document] method
-  /// **`exitFullscreen()`** requests that the element on this
-  /// document which is currently being presented in fullscreen mode be taken
-  /// out of
-  /// fullscreen mode, restoring the previous state of the screen. This usually
-  /// reverses the effects of a previous call to [Element.requestFullscreen].
-  external JSPromise exitFullscreen();
 
   /// The **`getElementsByName()`** method
   /// of the [Document] object returns a [NodeList] Collection of
@@ -1224,77 +1198,13 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external void captureEvents();
   external void releaseEvents();
 
-  /// The **`exitPictureInPicture()`** method of the [Document] interface
-  /// requests that a video contained
-  /// in this document, which is currently floating, be taken out of
-  /// picture-in-picture
-  /// mode, restoring the previous state of the screen. This usually reverses
-  /// the
-  /// effects of a previous call to [HTMLVideoElement.requestPictureInPicture].
-  external JSPromise exitPictureInPicture();
-
-  /// The **`exitPointerLock()`** method of the [Document] interface
-  /// asynchronously releases a pointer lock previously requested through
-  /// [Element.requestPointerLock].
-  ///
-  /// > **Note:** While the **`exitPointerLock()`** method is called on the
-  /// > document, the **`requestPointerLock()`** method is called on an element.
-  ///
-  /// To track the success or failure of the request, it is necessary to listen
-  /// for the [Document/pointerlockchange_event] and
-  /// [Document/pointerlockerror_event] events.
-  external void exitPointerLock();
-
-  /// The **`requestStorageAccessFor()`** method of the [Document] interface
-  /// allows top-level sites to request third-party cookie access on behalf of
-  /// embedded content originating from another site in the same
-  /// [related website set](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API/Related_website_sets).
-  /// It returns a `Promise` that resolves if the access was granted, and
-  /// rejects if access was denied.
-  external JSPromise requestStorageAccessFor(String requestedOrigin);
-
   /// The **`getSelection()`** method of
   /// the [Document] interface returns a [Selection]
   /// object representing the range of text selected by the user, or the current
   /// position of
   /// the caret.
   external Selection? getSelection();
-
-  /// The **`hasStorageAccess()`** method of the [Document] interface returns a
-  /// `Promise` that resolves with a boolean value indicating whether the
-  /// document has access to
-  /// [third-party](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#third-party_cookies),
-  /// [unpartitioned](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API#unpartitioned_versus_partitioned_cookies)
-  /// cookies.
-  ///
-  /// This method is part of the
-  /// [Storage Access API](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API).
-  external JSPromise hasStorageAccess();
-
-  /// The **`requestStorageAccess()`** method of the [Document] interface allows
-  /// content loaded in a third-party context (i.e., embedded in an `iframe`) to
-  /// request access to third-party cookies. This is relevant to user agents
-  /// that, by default, block access to
-  /// [third-party](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#third-party_cookies),
-  /// [unpartitioned](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API#unpartitioned_versus_partitioned_cookies)
-  /// cookies to improve privacy (e.g., to prevent tracking), and is part of the
-  /// [Storage Access API](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API).
-  ///
-  /// To check whether permission to access third-party cookies has already been
-  /// granted, you can call [Permissions.query], specifying the feature name
-  /// `"storage-access"`.
-  ///
-  /// > **Note:** Usage of this feature may be blocked by a
-  /// > [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy)
-  /// > set on your server. In addition, the document must pass additional
-  /// > browser-specific checks such as allowlists, blocklists, on-device
-  /// > classification, user settings,
-  /// > anti-[clickjacking](https://developer.mozilla.org/en-US/docs/Glossary/Clickjacking)
-  /// > heuristics, or prompting the user for explicit permission.
-  external JSPromise requestStorageAccess();
-  external JSPromise hasPrivateTokens(String issuer);
-  external JSPromise hasRedemptionRecord(String issuer);
-  external JSArray getBoxQuads([BoxQuadOptions options]);
+  external JSArray<DOMQuad> getBoxQuads([BoxQuadOptions options]);
   external DOMQuad convertQuadFromNode(
     DOMQuadInit quad,
     GeometryNode from, [
@@ -1332,7 +1242,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// [CSS Transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transitions),
   /// and
   /// [Web Animations](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API).
-  external JSArray getAnimations();
+  external JSArray<Animation> getAnimations();
 
   /// The **`Document.prepend()`** method
   /// inserts a set of [Node] objects or string objects before
@@ -1400,7 +1310,6 @@ extension type Document._(JSObject _) implements Node, JSObject {
     XPathResult? result,
   ]);
   external SVGSVGElement? get rootElement;
-  external NamedFlowMap get namedFlows;
   external Element? get scrollingElement;
   external DOMImplementation get implementation;
   external String get URL;
@@ -1412,12 +1321,6 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external String get contentType;
   external DocumentType? get doctype;
   external Element? get documentElement;
-  external bool get fullscreenEnabled;
-  external bool get fullscreen;
-  external set onfullscreenchange(EventHandler value);
-  external EventHandler get onfullscreenchange;
-  external set onfullscreenerror(EventHandler value);
-  external EventHandler get onfullscreenerror;
   external Location? get location;
   external set domain(String value);
   external String get domain;
@@ -1462,30 +1365,12 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external HTMLCollection get anchors;
   external HTMLCollection get applets;
   external HTMLAllCollection get all;
-  external set onfreeze(EventHandler value);
-  external EventHandler get onfreeze;
-  external set onresume(EventHandler value);
-  external EventHandler get onresume;
-  external bool get wasDiscarded;
-  external PermissionsPolicy get permissionsPolicy;
-  external bool get pictureInPictureEnabled;
-  external set onpointerlockchange(EventHandler value);
-  external EventHandler get onpointerlockchange;
-  external set onpointerlockerror(EventHandler value);
-  external EventHandler get onpointerlockerror;
-  external bool get prerendering;
-  external set onprerenderingchange(EventHandler value);
-  external EventHandler get onprerenderingchange;
-  external FragmentDirective get fragmentDirective;
   external DocumentTimeline get timeline;
   external FontFaceSet get fonts;
   external StyleSheetList get styleSheets;
-  external set adoptedStyleSheets(JSArray value);
-  external JSArray get adoptedStyleSheets;
-  external Element? get fullscreenElement;
+  external set adoptedStyleSheets(JSArray<CSSStyleSheet> value);
+  external JSArray<CSSStyleSheet> get adoptedStyleSheets;
   external Element? get activeElement;
-  external Element? get pictureInPictureElement;
-  external Element? get pointerLockElement;
   external HTMLCollection get children;
   external Element? get firstElementChild;
   external Element? get lastElementChild;
@@ -1690,8 +1575,6 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external EventHandler get ontouchmove;
   external set ontouchcancel(EventHandler value);
   external EventHandler get ontouchcancel;
-  external set onbeforexrselect(EventHandler value);
-  external EventHandler get onbeforexrselect;
 }
 
 /// The **XMLDocument** interface represents an XML document. It inherits from
@@ -1858,6 +1741,8 @@ extension type DocumentFragment._(JSObject _) implements Node, JSObject {
 /// [Element.shadowRoot] property, provided it was created using
 /// [Element.attachShadow] with the `mode` option set to `open`.
 extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
+  external void setHTMLUnsafe(String html);
+
   /// The **`getAnimations()`** method of the [ShadowRoot] interface
   /// returns an array of all [Animation] objects currently in effect whose
   /// target elements are descendants of the shadow tree. This array includes
@@ -1865,22 +1750,20 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   /// [CSS Transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transitions),
   /// and
   /// [Web Animations](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API).
-  external JSArray getAnimations();
+  external JSArray<Animation> getAnimations();
   external ShadowRootMode get mode;
   external bool get delegatesFocus;
   external SlotAssignmentMode get slotAssignment;
+  external bool get clonable;
   external Element get host;
   external set onslotchange(EventHandler value);
   external EventHandler get onslotchange;
   external set innerHTML(String value);
   external String get innerHTML;
   external StyleSheetList get styleSheets;
-  external set adoptedStyleSheets(JSArray value);
-  external JSArray get adoptedStyleSheets;
-  external Element? get fullscreenElement;
+  external set adoptedStyleSheets(JSArray<CSSStyleSheet> value);
+  external JSArray<CSSStyleSheet> get adoptedStyleSheets;
   external Element? get activeElement;
-  external Element? get pictureInPictureElement;
-  external Element? get pointerLockElement;
 }
 
 /// **`Element`** is the most general base class from which all element objects
@@ -1903,13 +1786,6 @@ extension type Element._(JSObject _) implements Node, JSObject {
     String position,
     String text,
   );
-  external Node getSpatialNavigationContainer();
-  external JSArray focusableAreas([FocusableAreasOption option]);
-  external Node? spatialNavigationSearch(
-    SpatialNavigationDirection dir, [
-    SpatialNavigationSearchOptions options,
-  ]);
-  external CSSPseudoElement? pseudo(String type);
 
   /// The **`computedStyleMap()`** method of
   /// the [Element] interface returns a [StylePropertyMapReadOnly]
@@ -2012,7 +1888,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// by a colon, followed by the attribute name (for example,
   /// **`xlink:href`**), while any attributes which have no namespace prefix
   /// have their names returned as-is (for example, **`href`**).
-  external JSArray getAttributeNames();
+  external JSArray<JSString> getAttributeNames();
 
   /// The **`getAttribute()`** method of the
   /// [Element] interface returns the value of a specified attribute on the
@@ -2186,24 +2062,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
     String where,
     String data,
   );
-
-  /// The **`Element.requestFullscreen()`**
-  /// method issues an asynchronous request to make the element be displayed in
-  /// fullscreen
-  /// mode.
-  ///
-  /// It's not guaranteed that the element will be put into full screen mode. If
-  /// permission
-  /// to enter full screen mode is granted, the returned `Promise` will resolve
-  /// and the element will receive a [Element/fullscreenchange_event] event to
-  /// let it know that
-  /// it's now in full screen mode. If permission is denied, the promise is
-  /// rejected and the
-  /// element receives a [Element/fullscreenerror_event] event instead. If the
-  /// element has been
-  /// detached from the original document, then the document receives these
-  /// events instead.
-  external JSPromise requestFullscreen([FullscreenOptions options]);
+  external void setHTMLUnsafe(String html);
 
   /// The **`setPointerCapture()`** method of the
   /// [Element] interface is used to designate a specific element as the
@@ -2250,45 +2109,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// [Element] interface checks whether the element on which it is invoked has
   /// pointer capture for the pointer identified by the given pointer ID.
   external bool hasPointerCapture(int pointerId);
-
-  /// The **`requestPointerLock()`** method of the [Element] interface lets you
-  /// asynchronously ask for the pointer to be locked on the given element.
-  ///
-  /// To track the success or failure of the request, it is necessary to listen
-  /// for the [Document/pointerlockchange_event] and
-  /// [Document/pointerlockerror_event] events at the [Document] level.
-  ///
-  /// > **Note:** In the current specification, `requestPointerLock()` only
-  /// > communicates the success or failure of the request by firing
-  /// > [Document/pointerlockchange_event] or [Document/pointerlockerror_event]
-  /// > events.
-  /// > [A proposed update to the specification](https://github.com/w3c/pointerlock/pull/49)
-  /// > updates `requestPointerLock()` to return a `Promise` which communicates
-  /// > success or failure. This page documents the version that returns a
-  /// > `Promise`. However, note that this version is not yet a standard and is
-  /// > not implemented by all browsers. See
-  /// > [Browser compatibility](#browser_compatibility) for more information.
-  external void requestPointerLock();
-
-  /// The **`setHTML()`** method of the [Element] interface is used to parse and
-  /// sanitize a string of HTML and then insert it into the DOM as a subtree of
-  /// the element.
-  /// It should be used instead of [Element.innerHTML] for inserting untrusted
-  /// strings of HTML into an element.
-  ///
-  /// The parsing process drops any elements in the HTML string that are invalid
-  /// in the context of the current element, while sanitizing removes any unsafe
-  /// or otherwise unwanted elements, attributes or comments.
-  /// The default `Sanitizer()` configuration strips out XSS-relevant input by
-  /// default, including `script` tags, custom elements, and comments.
-  /// The sanitizer configuration may be customized using [Sanitizer.Sanitizer]
-  /// constructor options.
-  external void setHTML(
-    String input, [
-    SetHTMLOptions options,
-  ]);
-  external JSArray? getRegionFlowRanges();
-  external JSArray getBoxQuads([BoxQuadOptions options]);
+  external JSArray<DOMQuad> getBoxQuads([BoxQuadOptions options]);
   external DOMQuad convertQuadFromNode(
     DOMQuadInit quad,
     GeometryNode from, [
@@ -2390,10 +2211,9 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// > [CSS Transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transitions),
   /// > and
   /// > [Web Animations](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API).
-  external JSArray getAnimations([GetAnimationsOptions options]);
+  external JSArray<Animation> getAnimations([GetAnimationsOptions options]);
   external set outerHTML(String value);
   external String get outerHTML;
-  external DOMTokenList get part;
   external set scrollTop(num value);
   external num get scrollTop;
   external set scrollLeft(num value);
@@ -2417,15 +2237,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   external String get slot;
   external NamedNodeMap get attributes;
   external ShadowRoot? get shadowRoot;
-  external set elementTiming(String value);
-  external String get elementTiming;
-  external set onfullscreenchange(EventHandler value);
-  external EventHandler get onfullscreenchange;
-  external set onfullscreenerror(EventHandler value);
-  external EventHandler get onfullscreenerror;
   external set innerHTML(String value);
   external String get innerHTML;
-  external String get regionOverset;
   external HTMLCollection get children;
   external Element? get firstElementChild;
   external Element? get lastElementChild;
@@ -2433,110 +2246,13 @@ extension type Element._(JSObject _) implements Node, JSObject {
   external Element? get previousElementSibling;
   external Element? get nextElementSibling;
   external HTMLSlotElement? get assignedSlot;
-  external set role(String? value);
-  external String? get role;
-  external set ariaActiveDescendantElement(Element? value);
-  external Element? get ariaActiveDescendantElement;
-  external set ariaAtomic(String? value);
-  external String? get ariaAtomic;
-  external set ariaAutoComplete(String? value);
-  external String? get ariaAutoComplete;
-  external set ariaBusy(String? value);
-  external String? get ariaBusy;
-  external set ariaChecked(String? value);
-  external String? get ariaChecked;
-  external set ariaColCount(String? value);
-  external String? get ariaColCount;
-  external set ariaColIndex(String? value);
-  external String? get ariaColIndex;
-  external set ariaColIndexText(String? value);
-  external String? get ariaColIndexText;
-  external set ariaColSpan(String? value);
-  external String? get ariaColSpan;
-  external set ariaControlsElements(JSArray? value);
-  external JSArray? get ariaControlsElements;
-  external set ariaCurrent(String? value);
-  external String? get ariaCurrent;
-  external set ariaDescribedByElements(JSArray? value);
-  external JSArray? get ariaDescribedByElements;
-  external set ariaDescription(String? value);
-  external String? get ariaDescription;
-  external set ariaDetailsElements(JSArray? value);
-  external JSArray? get ariaDetailsElements;
-  external set ariaDisabled(String? value);
-  external String? get ariaDisabled;
-  external set ariaErrorMessageElements(JSArray? value);
-  external JSArray? get ariaErrorMessageElements;
-  external set ariaExpanded(String? value);
-  external String? get ariaExpanded;
-  external set ariaFlowToElements(JSArray? value);
-  external JSArray? get ariaFlowToElements;
-  external set ariaHasPopup(String? value);
-  external String? get ariaHasPopup;
-  external set ariaHidden(String? value);
-  external String? get ariaHidden;
-  external set ariaInvalid(String? value);
-  external String? get ariaInvalid;
-  external set ariaKeyShortcuts(String? value);
-  external String? get ariaKeyShortcuts;
-  external set ariaLabel(String? value);
-  external String? get ariaLabel;
-  external set ariaLabelledByElements(JSArray? value);
-  external JSArray? get ariaLabelledByElements;
-  external set ariaLevel(String? value);
-  external String? get ariaLevel;
-  external set ariaLive(String? value);
-  external String? get ariaLive;
-  external set ariaModal(String? value);
-  external String? get ariaModal;
-  external set ariaMultiLine(String? value);
-  external String? get ariaMultiLine;
-  external set ariaMultiSelectable(String? value);
-  external String? get ariaMultiSelectable;
-  external set ariaOrientation(String? value);
-  external String? get ariaOrientation;
-  external set ariaOwnsElements(JSArray? value);
-  external JSArray? get ariaOwnsElements;
-  external set ariaPlaceholder(String? value);
-  external String? get ariaPlaceholder;
-  external set ariaPosInSet(String? value);
-  external String? get ariaPosInSet;
-  external set ariaPressed(String? value);
-  external String? get ariaPressed;
-  external set ariaReadOnly(String? value);
-  external String? get ariaReadOnly;
-  external set ariaRequired(String? value);
-  external String? get ariaRequired;
-  external set ariaRoleDescription(String? value);
-  external String? get ariaRoleDescription;
-  external set ariaRowCount(String? value);
-  external String? get ariaRowCount;
-  external set ariaRowIndex(String? value);
-  external String? get ariaRowIndex;
-  external set ariaRowIndexText(String? value);
-  external String? get ariaRowIndexText;
-  external set ariaRowSpan(String? value);
-  external String? get ariaRowSpan;
-  external set ariaSelected(String? value);
-  external String? get ariaSelected;
-  external set ariaSetSize(String? value);
-  external String? get ariaSetSize;
-  external set ariaSort(String? value);
-  external String? get ariaSort;
-  external set ariaValueMax(String? value);
-  external String? get ariaValueMax;
-  external set ariaValueMin(String? value);
-  external String? get ariaValueMin;
-  external set ariaValueNow(String? value);
-  external String? get ariaValueNow;
-  external set ariaValueText(String? value);
-  external String? get ariaValueText;
 }
 extension type ShadowRootInit._(JSObject _) implements JSObject {
   external factory ShadowRootInit({
     required ShadowRootMode mode,
     bool delegatesFocus,
     SlotAssignmentMode slotAssignment,
+    bool clonable,
   });
 
   external set mode(ShadowRootMode value);
@@ -2545,6 +2261,8 @@ extension type ShadowRootInit._(JSObject _) implements JSObject {
   external bool get delegatesFocus;
   external set slotAssignment(SlotAssignmentMode value);
   external SlotAssignmentMode get slotAssignment;
+  external set clonable(bool value);
+  external bool get clonable;
 }
 
 /// The **`NamedNodeMap`** interface represents a collection of [Attr] objects.
@@ -2781,7 +2499,7 @@ extension type Text._(JSObject _) implements CharacterData, JSObject {
   /// Separated text nodes can be concatenated using the [Node.normalize]
   /// method.
   external Text splitText(int offset);
-  external JSArray getBoxQuads([BoxQuadOptions options]);
+  external JSArray<DOMQuad> getBoxQuads([BoxQuadOptions options]);
   external DOMQuad convertQuadFromNode(
     DOMQuadInit quad,
     GeometryNode from, [

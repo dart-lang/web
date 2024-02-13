@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -43,7 +46,6 @@ extension type WebGLContextAttributes._(JSObject _) implements JSObject {
     WebGLPowerPreference powerPreference,
     bool failIfMajorPerformanceCaveat,
     bool desynchronized,
-    bool xrCompatible,
   });
 
   external set alpha(bool value);
@@ -64,8 +66,6 @@ extension type WebGLContextAttributes._(JSObject _) implements JSObject {
   external bool get failIfMajorPerformanceCaveat;
   external set desynchronized(bool value);
   external bool get desynchronized;
-  external set xrCompatible(bool value);
-  external bool get xrCompatible;
 }
 
 /// The **`WebGLObject`** is part of the
@@ -445,6 +445,7 @@ extension type WebGLRenderingContext._(JSObject _) implements JSObject {
   external static GLenum get RENDERBUFFER;
   external static GLenum get RGBA4;
   external static GLenum get RGB5_A1;
+  external static GLenum get RGBA8;
   external static GLenum get RGB565;
   external static GLenum get DEPTH_COMPONENT16;
   external static GLenum get STENCIL_INDEX8;
@@ -500,12 +501,17 @@ extension type WebGLRenderingContext._(JSObject _) implements JSObject {
   /// returns a list of all the supported
   /// [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
   /// extensions.
-  external JSArray? getSupportedExtensions();
+  external JSArray<JSString>? getSupportedExtensions();
 
   /// The **`WebGLRenderingContext.getExtension()`** method enables a
   /// [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
   /// extension.
   external JSObject? getExtension(String name);
+  external void drawingBufferStorage(
+    GLenum sizedFormat,
+    int width,
+    int height,
+  );
 
   /// The **`WebGLRenderingContext.activeTexture()`** method of the
   /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
@@ -1013,7 +1019,7 @@ extension type WebGLRenderingContext._(JSObject _) implements JSObject {
   /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
   /// returns a list of
   /// [WebGLShader] objects attached to a [WebGLProgram].
-  external JSArray? getAttachedShaders(WebGLProgram program);
+  external JSArray<WebGLShader>? getAttachedShaders(WebGLProgram program);
 
   /// The **`WebGLRenderingContext.getAttribLocation()`** method of
   /// the
@@ -1542,24 +1548,6 @@ extension type WebGLRenderingContext._(JSObject _) implements JSObject {
     GLsizei height,
   );
 
-  /// The [WebGLRenderingContext] method
-  /// **`makeXRCompatible()`** ensures that the rendering context
-  /// described by the `WebGLRenderingContext` is ready to render the scene for
-  /// the
-  /// immersive
-  /// [WebXR](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API)
-  /// device on which it
-  /// will be displayed. If necessary, the
-  /// [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
-  /// layer may reconfigure the context to be ready to render to a different
-  /// device than it
-  /// originally was.
-  ///
-  /// This is useful if you have an application which can start out being
-  /// presented on a
-  /// standard 2D display but can then be transitioned to a 3D immersion system.
-  external JSPromise makeXRCompatible();
-
   /// The **`WebGLRenderingContext.bufferData()`** method of the
   /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
   /// initializes and creates the
@@ -1718,6 +1706,7 @@ extension type WebGLRenderingContext._(JSObject _) implements JSObject {
   external JSObject get canvas;
   external GLsizei get drawingBufferWidth;
   external GLsizei get drawingBufferHeight;
+  external GLenum get drawingBufferFormat;
   external set drawingBufferColorSpace(PredefinedColorSpace value);
   external PredefinedColorSpace get drawingBufferColorSpace;
   external set unpackColorSpace(PredefinedColorSpace value);

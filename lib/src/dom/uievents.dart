@@ -8,11 +8,13 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'input_device_capabilities.dart';
 
 /// The **`UIEvent`** interface represents simple user interface events.
 ///
@@ -50,21 +52,17 @@ extension type UIEvent._(JSObject _) implements Event, JSObject {
     Window? viewArg,
     int detailArg,
   ]);
-  external InputDeviceCapabilities? get sourceCapabilities;
   external Window? get view;
   external int get detail;
   external int get which;
 }
 extension type UIEventInit._(JSObject _) implements EventInit, JSObject {
   external factory UIEventInit({
-    InputDeviceCapabilities? sourceCapabilities,
     Window? view,
     int detail,
     int which,
   });
 
-  external set sourceCapabilities(InputDeviceCapabilities? value);
-  external InputDeviceCapabilities? get sourceCapabilities;
   external set view(Window? value);
   external Window? get view;
   external set detail(int value);
@@ -155,8 +153,6 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   external num get y;
   external num get offsetX;
   external num get offsetY;
-  external num get movementX;
-  external num get movementY;
   external int get screenX;
   external int get screenY;
   external int get clientX;
@@ -174,8 +170,6 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
 extension type MouseEventInit._(JSObject _)
     implements EventModifierInit, JSObject {
   external factory MouseEventInit({
-    num movementX,
-    num movementY,
     int screenX,
     int screenY,
     int clientX,
@@ -185,10 +179,6 @@ extension type MouseEventInit._(JSObject _)
     EventTarget? relatedTarget,
   });
 
-  external set movementX(num value);
-  external num get movementX;
-  external set movementY(num value);
-  external num get movementY;
   external set screenX(int value);
   external int get screenX;
   external set screenY(int value);
@@ -311,72 +301,17 @@ extension type InputEvent._(JSObject _) implements UIEvent, JSObject {
     InputEventInit eventInitDict,
   ]);
 
-  /// The **`getTargetRanges()`** method of the [InputEvent] interface returns
-  /// an array of static ranges that will be affected by a change to the DOM if
-  /// the input event is not canceled.
-  ///
-  /// This allows web apps to override text edit behavior before the browser
-  /// modifies the DOM tree, and provides more control over input events to
-  /// improve performance.
-  ///
-  /// Depending on the value of `inputType` and the current editing host, the
-  /// expected return value of this method varies:
-  ///
-  /// <table>
-  ///   <thead>
-  ///     <tr>
-  ///       <th>inputType</th>
-  ///       <th>Editing host</th>
-  ///       <th>Response of <code>getTargetRanges()</code></th>
-  ///     </tr>
-  ///   </thead>
-  ///   <tbody>
-  ///     <tr>
-  ///       <td><code>"historyUndo"</code> or <code>"historyRedo"</code></td>
-  ///       <td>Any</td>
-  ///       <td>empty Array</td>
-  ///     </tr>
-  ///     <tr>
-  ///       <td>All remaining</td>
-  ///       <td><code>contenteditable</code></td>
-  ///       <td>
-  /// an Array of
-  /// [StaticRange]
-  /// objects associated with event
-  ///       </td>
-  ///     </tr>
-  ///     <tr>
-  ///       <td>All remaining</td>
-  ///       <td>
-  ///         <a href="/en-US/docs/Web/HTML/Element/input"><code>input</code></a>
-  /// or <a
-  /// href="/en-US/docs/Web/HTML/Element/textarea"><code>textarea</code></a>
-  ///       </td>
-  ///       <td>
-  /// an empty Array
-  ///       </td>
-  ///     </tr>
-  ///   </tbody>
-  /// </table>
-  external JSArray getTargetRanges();
-  external DataTransfer? get dataTransfer;
   external String? get data;
   external bool get isComposing;
   external String get inputType;
 }
 extension type InputEventInit._(JSObject _) implements UIEventInit, JSObject {
   external factory InputEventInit({
-    DataTransfer? dataTransfer,
-    JSArray targetRanges,
     String? data,
     bool isComposing,
     String inputType,
   });
 
-  external set dataTransfer(DataTransfer? value);
-  external DataTransfer? get dataTransfer;
-  external set targetRanges(JSArray value);
-  external JSArray get targetRanges;
   external set data(String? value);
   external String? get data;
   external set isComposing(bool value);

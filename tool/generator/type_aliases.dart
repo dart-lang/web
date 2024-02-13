@@ -5,7 +5,7 @@
 const idlOrBuiltinToJsTypeAliases = <String, String>{
   'any': 'JSAny',
   'bigint': 'JSBigInt',
-  'record': 'JSAny',
+  'record': 'JSObject',
   'object': 'JSObject',
   'Promise': 'JSPromise',
   'boolean': 'JSBoolean',
@@ -56,4 +56,13 @@ const idlOrBuiltinToJsTypeAliases = <String, String>{
   'USVString': 'JSString',
   'ByteString': 'JSString',
   'CSSOMString': 'JSString',
+};
+
+const jsTypeToDartPrimitiveAliases = <String, String>{
+  'JSBoolean': 'bool',
+  'JSString': 'String',
+  'JSInteger': 'int',
+  'JSDouble': 'num',
+  'JSNumber': 'num',
+  'JSUndefined': 'void',
 };

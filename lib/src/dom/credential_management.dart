@@ -8,11 +8,12 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
-import 'fedcm.dart';
-import 'web_otp.dart';
 import 'webauthn.dart';
 
 typedef PasswordCredentialInit = JSObject;
@@ -30,7 +31,7 @@ typedef CredentialMediationRequirement = String;
 /// - [PasswordCredential]
 /// - [PublicKeyCredential]
 extension type Credential._(JSObject _) implements JSObject {
-  external static JSPromise isConditionalMediationAvailable();
+  external static JSPromise<JSBoolean> isConditionalMediationAvailable();
   external String get id;
   external String get type;
 }
@@ -67,7 +68,7 @@ extension type CredentialsContainer._(JSObject _) implements JSObject {
   /// general method call structure and parameters that apply to all the
   /// different APIs. After that, it is split into separate sections providing
   /// parameters, return values, and examples specific to each API.
-  external JSPromise get([CredentialRequestOptions options]);
+  external JSPromise<Credential?> get([CredentialRequestOptions options]);
 
   /// The **`store()`** method of the
   /// [CredentialsContainer] stores a set of credentials for the user inside a
@@ -76,7 +77,7 @@ extension type CredentialsContainer._(JSObject _) implements JSObject {
   /// > **Note:** This method is restricted to top-level contexts. Calls to it
   /// > within an
   /// > `<iframe>` element will resolve without effect.
-  external JSPromise store(Credential credential);
+  external JSPromise<JSAny?> store(Credential credential);
 
   /// The **`create()`** method of the [CredentialsContainer] interface returns
   /// a `Promise` that resolves with a new credential instance based on the
@@ -104,7 +105,7 @@ extension type CredentialsContainer._(JSObject _) implements JSObject {
   /// > running directly inside a browser tab, and not embedded inside another
   /// > document). Calls to it from within an `<iframe>` element will resolve
   /// > without effect.
-  external JSPromise create([CredentialCreationOptions options]);
+  external JSPromise<Credential?> create([CredentialCreationOptions options]);
 
   /// The **`preventSilentAccess()`** method
   /// of the [CredentialsContainer] interface sets a flag that specifies
@@ -129,7 +130,7 @@ extension type CredentialsContainer._(JSObject _) implements JSObject {
   /// The
   /// [Browser compatibility](https://developer.mozilla.org/en-US/docs/Web/API/CredentialsContainer#browser_compatibility)
   /// section has support details.
-  external JSPromise preventSilentAccess();
+  external JSPromise<JSAny?> preventSilentAccess();
 }
 extension type CredentialData._(JSObject _) implements JSObject {
   external factory CredentialData({required String id});
@@ -139,17 +140,13 @@ extension type CredentialData._(JSObject _) implements JSObject {
 }
 extension type CredentialRequestOptions._(JSObject _) implements JSObject {
   external factory CredentialRequestOptions({
-    IdentityCredentialRequestOptions identity,
     CredentialMediationRequirement mediation,
     AbortSignal signal,
     bool password,
     FederatedCredentialRequestOptions federated,
-    OTPCredentialRequestOptions otp,
     PublicKeyCredentialRequestOptions publicKey,
   });
 
-  external set identity(IdentityCredentialRequestOptions value);
-  external IdentityCredentialRequestOptions get identity;
   external set mediation(CredentialMediationRequirement value);
   external CredentialMediationRequirement get mediation;
   external set signal(AbortSignal value);
@@ -158,8 +155,6 @@ extension type CredentialRequestOptions._(JSObject _) implements JSObject {
   external bool get password;
   external set federated(FederatedCredentialRequestOptions value);
   external FederatedCredentialRequestOptions get federated;
-  external set otp(OTPCredentialRequestOptions value);
-  external OTPCredentialRequestOptions get otp;
   external set publicKey(PublicKeyCredentialRequestOptions value);
   external PublicKeyCredentialRequestOptions get publicKey;
 }
@@ -243,14 +238,14 @@ extension type FederatedCredential._(JSObject _)
 extension type FederatedCredentialRequestOptions._(JSObject _)
     implements JSObject {
   external factory FederatedCredentialRequestOptions({
-    JSArray providers,
-    JSArray protocols,
+    JSArray<JSString> providers,
+    JSArray<JSString> protocols,
   });
 
-  external set providers(JSArray value);
-  external JSArray get providers;
-  external set protocols(JSArray value);
-  external JSArray get protocols;
+  external set providers(JSArray<JSString> value);
+  external JSArray<JSString> get providers;
+  external set protocols(JSArray<JSString> value);
+  external JSArray<JSString> get protocols;
 }
 extension type FederatedCredentialInit._(JSObject _)
     implements CredentialData, JSObject {

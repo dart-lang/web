@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -167,4 +170,40 @@ extension type SourceBufferList._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onaddsourcebuffer;
   external set onremovesourcebuffer(EventHandler value);
   external EventHandler get onremovesourcebuffer;
+}
+extension type ManagedMediaSource._(JSObject _)
+    implements MediaSource, JSObject {
+  external factory ManagedMediaSource();
+
+  external bool get streaming;
+  external set onstartstreaming(EventHandler value);
+  external EventHandler get onstartstreaming;
+  external set onendstreaming(EventHandler value);
+  external EventHandler get onendstreaming;
+}
+extension type BufferedChangeEvent._(JSObject _) implements Event, JSObject {
+  external factory BufferedChangeEvent(
+    String type, [
+    BufferedChangeEventInit eventInitDict,
+  ]);
+
+  external TimeRanges get addedRanges;
+  external TimeRanges get removedRanges;
+}
+extension type BufferedChangeEventInit._(JSObject _)
+    implements EventInit, JSObject {
+  external factory BufferedChangeEventInit({
+    TimeRanges addedRanges,
+    TimeRanges removedRanges,
+  });
+
+  external set addedRanges(TimeRanges value);
+  external TimeRanges get addedRanges;
+  external set removedRanges(TimeRanges value);
+  external TimeRanges get removedRanges;
+}
+extension type ManagedSourceBuffer._(JSObject _)
+    implements SourceBuffer, JSObject {
+  external set onbufferedchange(EventHandler value);
+  external EventHandler get onbufferedchange;
 }

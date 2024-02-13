@@ -6,6 +6,34 @@
 - Contribute a markdown file for the renamed classes from `dart:html` to
   `package:web` (see [renames.md](tool/renames.md)).
 - Migrate classes to use interop extension types that implement `JSObject`.
+- Add generics to APIs that use `JSArray` and `JSPromise`. Typedefs of a Dart
+  primitive type are instead replaced with their JS type equivalent if they
+  appear as a type parameter in order to conform with the type bounds of
+  `JSArray` and `JSPromise`.
+- Changed `record` types to be `JSObject` instead of `JSAny`.
+- Reduce the number of DOM APIs we generate code for. Currently, the API needs
+  to be standards-track, and be supported by Safari, Chrome, and Firefox.
+- Updated the source IDL version to `3.43.1`.
+- Deprecate a few type aliases in favor of their standardized versions:
+  
+  | Deprecated            | Preferred               |
+  |-----------------------|-------------------------|
+  | `AudioElement`        | `HTMLAudioElement`      |
+  | `HtmlElement`         | `HTMLElement`           |
+  | `CanvasElement`       | `HTMLCanvasElement`     |
+  | `ImageElement`        | `HTMLImageElement`      |
+  | `VideoElement`        | `HTMLVideoElement`      |
+  | `CssStyleDeclaration` | `CSSStyleDeclaration`   |
+  | `ContextEvent`        | `WebGLContextEvent`     |
+  | `WebGL`               | `WebGLRenderingContext` |
+
+- Deprecate the top-level `createElementTag`, `createCanvasElement`,
+  `createIFrameElement`, and `querySelector` functions.
+  Instead, use the standard creation and query methods on `document`.
+- Deprecate the `client` extension methods on `MouseEvent` and `Touch`.
+  Instead, directly use the `clientX` and `clientY` properties.
+- Deprecate the `HttpRequest` API borrowed from `dart:html`.
+  Consider migrating to `package:http` instead.
 - Include MDN API documentation as class and member dartdoc comments.
   - Docs sourced from the [MDN Web Docs][] project; attributions and copyright
     licensing by Mozilla Contributors is licensed under [CC-BY-SA 2.5][].

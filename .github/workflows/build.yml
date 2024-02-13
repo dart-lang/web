@@ -25,7 +25,7 @@ jobs:
         sdk: [beta]
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
-      - uses: dart-lang/setup-dart@b64355ae6ca0b5d484f0106a033dd1388965d06d
+      - uses: dart-lang/setup-dart@fedb1266e91cf51be2fdb382869461a434b920a3
         with:
           sdk: ${{ matrix.sdk }}
       - id: install
@@ -50,13 +50,15 @@ jobs:
         sdk: [dev, beta]
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
-      - uses: dart-lang/setup-dart@b64355ae6ca0b5d484f0106a033dd1388965d06d
+      - uses: dart-lang/setup-dart@fedb1266e91cf51be2fdb382869461a434b920a3
         with:
           sdk: ${{ matrix.sdk }}
       - name: Install dependencies
         run: dart pub get
-      - name: Run Chrome tests
+      - name: Run Chrome tests - js
         run: dart test --platform chrome
+      - name: Run Chrome tests - wasm
+        run: dart test --platform chrome --compiler dart2wasm
 
   # Ensure the generation script runs.
   generation:
@@ -69,7 +71,7 @@ jobs:
         sdk: [main, dev]
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
-      - uses: dart-lang/setup-dart@b64355ae6ca0b5d484f0106a033dd1388965d06d
+      - uses: dart-lang/setup-dart@fedb1266e91cf51be2fdb382869461a434b920a3
         with:
           sdk: ${{ matrix.sdk }}
       - name: Install Dart dependencies
@@ -93,7 +95,7 @@ jobs:
         sdk: [main]
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
-      - uses: dart-lang/setup-dart@b64355ae6ca0b5d484f0106a033dd1388965d06d
+      - uses: dart-lang/setup-dart@fedb1266e91cf51be2fdb382869461a434b920a3
         with:
           sdk: ${{ matrix.sdk }}
       - name: Install Dart dependencies

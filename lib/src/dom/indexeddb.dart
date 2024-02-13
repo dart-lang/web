@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -142,7 +145,7 @@ extension type IDBFactory._(JSObject _) implements JSObject {
   ///
   /// > **Note:** This method is introduced in a draft of a specifications and
   /// > browser compatibility is limited.
-  external JSPromise databases();
+  external JSPromise<JSArray<IDBDatabaseInfo>> databases();
 
   /// The **`cmp()`** method of the [IDBFactory]
   /// interface compares two values as keys to determine equality and ordering

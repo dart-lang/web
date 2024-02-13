@@ -8,11 +8,14 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'hr_time.dart';
 
-typedef PerformanceEntryList = JSArray;
+typedef PerformanceEntryList = JSArray<PerformanceEntry>;
 typedef PerformanceObserverCallback = JSFunction;
 
 /// The **`PerformanceEntry`** object encapsulates a single performance metric
@@ -45,10 +48,12 @@ extension type PerformanceEntry._(JSObject _) implements JSObject {
   /// The **`toJSON()`** method is a ; it returns a JSON representation of the
   /// [PerformanceEntry] object.
   external JSObject toJSON();
+  external int get id;
   external String get name;
   external String get entryType;
   external DOMHighResTimeStamp get startTime;
   external DOMHighResTimeStamp get duration;
+  external int get navigationId;
 }
 
 /// The **`PerformanceObserver`** interface is used to observe performance
@@ -57,7 +62,7 @@ extension type PerformanceEntry._(JSObject _) implements JSObject {
 extension type PerformanceObserver._(JSObject _) implements JSObject {
   external factory PerformanceObserver(PerformanceObserverCallback callback);
 
-  external static JSArray get supportedEntryTypes;
+  external static JSArray<JSString> get supportedEntryTypes;
 
   /// The **`observe()`** method of the **[PerformanceObserver]** interface is
   /// used to specify the set of performance entry types to observe.
@@ -90,16 +95,13 @@ extension type PerformanceObserverCallbackOptions._(JSObject _)
 }
 extension type PerformanceObserverInit._(JSObject _) implements JSObject {
   external factory PerformanceObserverInit({
-    DOMHighResTimeStamp durationThreshold,
-    JSArray entryTypes,
+    JSArray<JSString> entryTypes,
     String type,
     bool buffered,
   });
 
-  external set durationThreshold(DOMHighResTimeStamp value);
-  external DOMHighResTimeStamp get durationThreshold;
-  external set entryTypes(JSArray value);
-  external JSArray get entryTypes;
+  external set entryTypes(JSArray<JSString> value);
+  external JSArray<JSString> get entryTypes;
   external set type(String value);
   external String get type;
   external set buffered(bool value);

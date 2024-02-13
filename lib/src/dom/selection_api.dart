@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -55,7 +58,7 @@ extension type Selection._(JSObject _) implements JSObject {
   /// > **Note:** This method is an alias for the [Selection.removeAllRanges]
   /// > method.
   external void empty();
-  external JSArray getComposedRanges(ShadowRoot shadowRoots);
+  external JSArray<StaticRange> getComposedRanges(ShadowRoot shadowRoots);
 
   /// The **`Selection.collapse()`** method collapses the current selection to a
   /// single point. The document is not modified. If the content is focused and

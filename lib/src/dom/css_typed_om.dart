@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'geometry.dart';
@@ -32,7 +35,7 @@ extension type CSSStyleValue._(JSObject _) implements JSObject {
     String property,
     String cssText,
   );
-  external static JSArray parseAll(
+  external static JSArray<CSSStyleValue> parseAll(
     String property,
     String cssText,
   );
@@ -52,7 +55,7 @@ extension type StylePropertyMapReadOnly._(JSObject _) implements JSObject {
   /// The **`getAll()`** method of the
   /// [StylePropertyMapReadOnly] interface returns an array of
   /// [CSSStyleValue] objects containing the values for the provided property.
-  external JSArray getAll(String property);
+  external JSArray<CSSStyleValue> getAll(String property);
 
   /// The **`has()`** method of the
   /// [StylePropertyMapReadOnly] interface indicates whether the specified
@@ -101,7 +104,7 @@ extension type StylePropertyMap._(JSObject _)
 /// references are represented using [CSSVariableReferenceValue].
 extension type CSSUnparsedValue._(JSObject _)
     implements CSSStyleValue, JSObject {
-  external factory CSSUnparsedValue(JSArray members);
+  external factory CSSUnparsedValue(JSArray<CSSUnparsedSegment> members);
 
   external int get length;
 }
@@ -328,7 +331,7 @@ extension type CSSNumericArray._(JSObject _) implements JSObject {
 /// values as used by the CSS `transform` property.
 extension type CSSTransformValue._(JSObject _)
     implements CSSStyleValue, JSObject {
-  external factory CSSTransformValue(JSArray transforms);
+  external factory CSSTransformValue(JSArray<CSSTransformComponent> transforms);
 
   /// The **`toMatrix()`** method of the
   /// [CSSTransformValue] interface returns a [DOMMatrix] object.
@@ -632,14 +635,14 @@ extension type CSSOKLCH._(JSObject _) implements CSSColorValue, JSObject {
 extension type CSSColor._(JSObject _) implements CSSColorValue, JSObject {
   external factory CSSColor(
     CSSKeywordish colorSpace,
-    JSArray channels, [
+    JSArray<CSSColorPercent> channels, [
     CSSNumberish alpha,
   ]);
 
   external set colorSpace(CSSKeywordish value);
   external CSSKeywordish get colorSpace;
-  external set channels(JSArray value);
-  external JSArray get channels;
+  external set channels(JSArray<CSSColorPercent> value);
+  external JSArray<CSSColorPercent> get channels;
   external set alpha(CSSNumberish value);
   external CSSNumberish get alpha;
 }

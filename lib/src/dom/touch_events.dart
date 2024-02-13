@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -121,17 +124,17 @@ extension type TouchList._(JSObject _) implements JSObject {
 extension type TouchEventInit._(JSObject _)
     implements EventModifierInit, JSObject {
   external factory TouchEventInit({
-    JSArray touches,
-    JSArray targetTouches,
-    JSArray changedTouches,
+    JSArray<Touch> touches,
+    JSArray<Touch> targetTouches,
+    JSArray<Touch> changedTouches,
   });
 
-  external set touches(JSArray value);
-  external JSArray get touches;
-  external set targetTouches(JSArray value);
-  external JSArray get targetTouches;
-  external set changedTouches(JSArray value);
-  external JSArray get changedTouches;
+  external set touches(JSArray<Touch> value);
+  external JSArray<Touch> get touches;
+  external set targetTouches(JSArray<Touch> value);
+  external JSArray<Touch> get targetTouches;
+  external set changedTouches(JSArray<Touch> value);
+  external JSArray<Touch> get changedTouches;
 }
 
 /// The **`TouchEvent`** interface represents an [UIEvent] which is sent when

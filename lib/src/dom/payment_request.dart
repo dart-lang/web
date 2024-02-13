@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -21,11 +24,9 @@ typedef PaymentComplete = String;
 /// operator of the site or the publisher of the app.
 extension type PaymentRequest._(JSObject _) implements EventTarget, JSObject {
   external factory PaymentRequest(
-    JSArray methodData,
+    JSArray<PaymentMethodData> methodData,
     PaymentDetailsInit details,
   );
-
-  external static JSPromise isSecurePaymentConfirmationAvailable();
 
   /// The **[PaymentRequest]** interface's
   /// **`show()`** method instructs the user agent to begin the
@@ -65,13 +66,14 @@ extension type PaymentRequest._(JSObject _) implements EventTarget, JSObject {
   /// typically the best way to go. Most examples on MDN and elsewhere use
   /// [`async`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)/[`await`](/en-US/docs/Web/JavaScript/Reference/Operators/await)
   /// to wait asynchronously while results are validated and so forth.
-  external JSPromise show([JSPromise detailsPromise]);
+  external JSPromise<PaymentResponse> show(
+      [JSPromise<PaymentDetailsUpdate> detailsPromise]);
 
   /// The `PaymentRequest.abort()` method of the [PaymentRequest]
   /// interface causes the user agent to end the payment request and to remove
   /// any user
   /// interface that might be shown.
-  external JSPromise abort();
+  external JSPromise<JSAny?> abort();
 
   /// The [PaymentRequest] method
   /// **`canMakePayment()`** determines whether or not the request
@@ -91,7 +93,7 @@ extension type PaymentRequest._(JSObject _) implements EventTarget, JSObject {
   /// another payment method, or offer a list of methods that aren't handled by
   /// Payment
   /// Request API (or even provide instructions for paying by mail or by phone).
-  external JSPromise canMakePayment();
+  external JSPromise<JSBoolean> canMakePayment();
   external String get id;
   external set onpaymentmethodchange(EventHandler value);
   external EventHandler get onpaymentmethodchange;
@@ -120,14 +122,14 @@ extension type PaymentCurrencyAmount._(JSObject _) implements JSObject {
 }
 extension type PaymentDetailsBase._(JSObject _) implements JSObject {
   external factory PaymentDetailsBase({
-    JSArray displayItems,
-    JSArray modifiers,
+    JSArray<PaymentItem> displayItems,
+    JSArray<PaymentDetailsModifier> modifiers,
   });
 
-  external set displayItems(JSArray value);
-  external JSArray get displayItems;
-  external set modifiers(JSArray value);
-  external JSArray get modifiers;
+  external set displayItems(JSArray<PaymentItem> value);
+  external JSArray<PaymentItem> get displayItems;
+  external set modifiers(JSArray<PaymentDetailsModifier> value);
+  external JSArray<PaymentDetailsModifier> get modifiers;
 }
 extension type PaymentDetailsInit._(JSObject _)
     implements PaymentDetailsBase, JSObject {
@@ -157,7 +159,7 @@ extension type PaymentDetailsModifier._(JSObject _) implements JSObject {
   external factory PaymentDetailsModifier({
     required String supportedMethods,
     PaymentItem total,
-    JSArray additionalDisplayItems,
+    JSArray<PaymentItem> additionalDisplayItems,
     JSObject data,
   });
 
@@ -165,8 +167,8 @@ extension type PaymentDetailsModifier._(JSObject _) implements JSObject {
   external String get supportedMethods;
   external set total(PaymentItem value);
   external PaymentItem get total;
-  external set additionalDisplayItems(JSArray value);
-  external JSArray get additionalDisplayItems;
+  external set additionalDisplayItems(JSArray<PaymentItem> value);
+  external JSArray<PaymentItem> get additionalDisplayItems;
   external set data(JSObject value);
   external JSObject get data;
 }
@@ -210,7 +212,7 @@ extension type PaymentResponse._(JSObject _) implements EventTarget, JSObject {
   /// This method must be called after the user accepts
   /// the payment request and the `Promise` returned by the
   /// [PaymentRequest.show] method is resolved.
-  external JSPromise complete([
+  external JSPromise<JSAny?> complete([
     PaymentComplete result,
     PaymentCompleteDetails details,
   ]);
@@ -223,7 +225,7 @@ extension type PaymentResponse._(JSObject _) implements EventTarget, JSObject {
   /// gracefully deal with situations such as invalid shipping addresses or
   /// declined credit
   /// cards.
-  external JSPromise retry([PaymentValidationErrors errorFields]);
+  external JSPromise<JSAny?> retry([PaymentValidationErrors errorFields]);
   external String get requestId;
   external String get methodName;
   external JSObject get details;
@@ -287,7 +289,7 @@ extension type PaymentRequestUpdateEvent._(JSObject _)
   /// The **`updateWith()`** method of the
   /// [PaymentRequestUpdateEvent] interface updates the details of an existing
   /// [PaymentRequest].
-  external void updateWith(JSPromise detailsPromise);
+  external void updateWith(JSPromise<PaymentDetailsUpdate> detailsPromise);
 }
 extension type PaymentRequestUpdateEventInit._(JSObject _)
     implements EventInit, JSObject {

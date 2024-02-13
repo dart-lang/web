@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -95,11 +98,11 @@ extension type IntersectionObserver._(JSObject _) implements JSObject {
   /// > need to call this method. Calling this method clears the pending
   /// > intersection list, so
   /// > the callback will not be run.
-  external JSArray takeRecords();
+  external JSArray<IntersectionObserverEntry> takeRecords();
   external JSObject? get root;
   external String get rootMargin;
   external String get scrollMargin;
-  external JSArray get thresholds;
+  external JSArray<JSNumber> get thresholds;
 }
 
 /// The **`IntersectionObserverEntry`** interface of the

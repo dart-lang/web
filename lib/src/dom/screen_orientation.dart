@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -31,7 +34,7 @@ extension type ScreenOrientation._(JSObject _)
   /// the browser context is full screen.
   /// If locking is supported, then it must work for all the parameter values
   /// listed below.
-  external JSPromise lock(OrientationLockType orientation);
+  external JSPromise<JSAny?> lock(OrientationLockType orientation);
 
   /// The **`unlock()`** property of the
   /// [ScreenOrientation] interface unlocks the orientation of the containing

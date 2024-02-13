@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -29,7 +32,7 @@ extension type WakeLock._(JSObject _) implements JSObject {
   ///
   /// The screen wake lock prevents device screens from dimming or locking when
   /// an application needs to keep running.
-  external JSPromise request([WakeLockType type]);
+  external JSPromise<WakeLockSentinel> request([WakeLockType type]);
 }
 
 /// The **`WakeLockSentinel`** interface of the
@@ -59,7 +62,7 @@ extension type WakeLockSentinel._(JSObject _) implements EventTarget, JSObject {
   /// The **`release()`** method of the [WakeLockSentinel] interface releases
   /// the [WakeLockSentinel], returning a `Promise` that is resolved once the
   /// sentinel has been successfully released.
-  external JSPromise release();
+  external JSPromise<JSAny?> release();
   external bool get released;
   external WakeLockType get type;
   external set onrelease(EventHandler value);

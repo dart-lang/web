@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 extension type EXT_float_blend._(JSObject _) implements JSObject {}

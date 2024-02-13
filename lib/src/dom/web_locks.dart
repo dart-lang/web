@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -52,7 +55,7 @@ extension type LockManager._(JSObject _) implements JSObject {
   /// [IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API),
   /// this is exposed as `"readonly"` and `"readwrite"` transactions which have
   /// the same semantics.
-  external JSPromise request(
+  external JSPromise<JSAny?> request(
     String name,
     JSObject callbackOrOptions, [
     LockGrantedCallback callback,
@@ -61,7 +64,7 @@ extension type LockManager._(JSObject _) implements JSObject {
   /// The **`query()`** method of the [LockManager] interface returns a
   /// `Promise` that resolves with an object containing information about held
   /// and pending locks.
-  external JSPromise query();
+  external JSPromise<LockManagerSnapshot> query();
 }
 extension type LockOptions._(JSObject _) implements JSObject {
   external factory LockOptions({
@@ -82,14 +85,14 @@ extension type LockOptions._(JSObject _) implements JSObject {
 }
 extension type LockManagerSnapshot._(JSObject _) implements JSObject {
   external factory LockManagerSnapshot({
-    JSArray held,
-    JSArray pending,
+    JSArray<LockInfo> held,
+    JSArray<LockInfo> pending,
   });
 
-  external set held(JSArray value);
-  external JSArray get held;
-  external set pending(JSArray value);
-  external JSArray get pending;
+  external set held(JSArray<LockInfo> value);
+  external JSArray<LockInfo> get held;
+  external set pending(JSArray<LockInfo> value);
+  external JSArray<LockInfo> get pending;
 }
 extension type LockInfo._(JSObject _) implements JSObject {
   external factory LockInfo({

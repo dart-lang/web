@@ -35,9 +35,28 @@ export 'helpers/http.dart';
 export 'helpers/lists.dart';
 export 'helpers/renames.dart';
 
-HTMLElement createElementTag(String s) =>
-    document.createElement(s) as HTMLElement;
+/// Create an [HTMLElement] with the specified [tagName].
+/// If no element with [tagName] exists, returns an [HTMLUnknownElement].
+///
+/// Deprecated in favor of creating the element like other HTML elements:
+///
+/// ```dart
+/// final anchor = document.createElement('a') as HTMLElement;
+/// ```
+@Deprecated('Directly use document.createElement instead.')
+HTMLElement createElementTag(String tagName) =>
+    document.createElement(tagName) as HTMLElement;
 
+/// Create an [HTMLCanvasElement] in the current [document].
+///
+/// Deprecated in favor of creating the element like other HTML elements:
+///
+/// ```dart
+/// final canvas = document.createElement('canvas') as HTMLCanvasElement
+///   ..width = 256
+///   ..height = 256;
+/// ```
+@Deprecated('Directly use document.createElement instead.')
 HTMLCanvasElement createCanvasElement({int? width, int? height}) {
   final result = document.createElement('canvas') as HTMLCanvasElement;
   if (width != null) result.width = width;
@@ -45,6 +64,14 @@ HTMLCanvasElement createCanvasElement({int? width, int? height}) {
   return result;
 }
 
+/// Create an [HTMLIFrameElement] in the current [document].
+///
+/// Deprecated in favor of creating the element like other HTML elements:
+///
+/// ```dart
+/// final embed = document.createElement('iframe') as HTMLIFrameElement;
+/// ```
+@Deprecated('Directly use document.createElement instead.')
 HTMLIFrameElement createIFrameElement() =>
     document.createElement('iframe') as HTMLIFrameElement;
 
@@ -52,4 +79,14 @@ HTMLIFrameElement createIFrameElement() =>
 external JSFunction get _audioConstructor;
 HTMLAudioElement createAudioElement() => _audioConstructor.callAsConstructor();
 
-Element? querySelector(String selectors) => document.querySelector(selectors);
+/// Finds and returns the first element within the [document]
+/// that matches the specified CSS [selector] string.
+/// If no match is found, `null` is returned.
+///
+/// Deprecated in favor of querying directly on the [document]:
+///
+/// ```dart
+/// final dartDiv = document.querySelector('div.dart');
+/// ```
+@Deprecated('Directly use document.querySelector instead.')
+Element? querySelector(String selector) => document.querySelector(selector);

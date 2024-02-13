@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -21,7 +24,7 @@ extension type DeviceOrientationEvent._(JSObject _) implements Event, JSObject {
     DeviceOrientationEventInit eventInitDict,
   ]);
 
-  external static JSPromise requestPermission();
+  external static JSPromise<JSString> requestPermission([bool absolute]);
   external num? get alpha;
   external num? get beta;
   external num? get gamma;
@@ -76,7 +79,7 @@ extension type DeviceMotionEvent._(JSObject _) implements Event, JSObject {
     DeviceMotionEventInit eventInitDict,
   ]);
 
-  external static JSPromise requestPermission();
+  external static JSPromise<JSString> requestPermission();
   external DeviceMotionEventAcceleration? get acceleration;
   external DeviceMotionEventAcceleration? get accelerationIncludingGravity;
   external DeviceMotionEventRotationRate? get rotationRate;

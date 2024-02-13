@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'css_typed_om.dart';
@@ -224,8 +227,6 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external EventHandler get ontouchmove;
   external set ontouchcancel(EventHandler value);
   external EventHandler get ontouchcancel;
-  external set onbeforexrselect(EventHandler value);
-  external EventHandler get onbeforexrselect;
   external SVGElement? get correspondingElement;
   external SVGUseElement? get correspondingUseElement;
   external DOMStringMap get dataset;
@@ -648,6 +649,8 @@ extension type SVGSVGElement._(JSObject _)
   external EventHandler get ononline;
   external set onpagehide(EventHandler value);
   external EventHandler get onpagehide;
+  external set onpagereveal(EventHandler value);
+  external EventHandler get onpagereveal;
   external set onpageshow(EventHandler value);
   external EventHandler get onpageshow;
   external set onpopstate(EventHandler value);
@@ -660,8 +663,6 @@ extension type SVGSVGElement._(JSObject _)
   external EventHandler get onunhandledrejection;
   external set onunload(EventHandler value);
   external EventHandler get onunload;
-  external set onportalactivate(EventHandler value);
-  external EventHandler get onportalactivate;
 }
 
 /// The **`SVGGElement`** interface corresponds to the  element.

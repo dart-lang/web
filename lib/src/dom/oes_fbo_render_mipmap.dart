@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 extension type OES_fbo_render_mipmap._(JSObject _) implements JSObject {}

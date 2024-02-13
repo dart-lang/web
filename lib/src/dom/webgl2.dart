@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'html.dart';
@@ -390,6 +393,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   external static GLenum get RENDERBUFFER;
   external static GLenum get RGBA4;
   external static GLenum get RGB5_A1;
+  external static GLenum get RGBA8;
   external static GLenum get RGB565;
   external static GLenum get DEPTH_COMPONENT16;
   external static GLenum get STENCIL_INDEX8;
@@ -438,7 +442,6 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   external static GLenum get STENCIL;
   external static GLenum get RED;
   external static GLenum get RGB8;
-  external static GLenum get RGBA8;
   external static GLenum get RGB10_A2;
   external static GLenum get TEXTURE_BINDING_3D;
   external static GLenum get UNPACK_SKIP_IMAGES;
@@ -691,8 +694,13 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   external static GLenum get MAX_CLIENT_WAIT_TIMEOUT_WEBGL;
   external WebGLContextAttributes? getContextAttributes();
   external bool isContextLost();
-  external JSArray? getSupportedExtensions();
+  external JSArray<JSString>? getSupportedExtensions();
   external JSObject? getExtension(String name);
+  external void drawingBufferStorage(
+    GLenum sizedFormat,
+    int width,
+    int height,
+  );
   external void activeTexture(GLenum texture);
   external void attachShader(
     WebGLProgram program,
@@ -840,7 +848,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
     WebGLProgram program,
     GLuint index,
   );
-  external JSArray? getAttachedShaders(WebGLProgram program);
+  external JSArray<WebGLShader>? getAttachedShaders(WebGLProgram program);
   external GLint getAttribLocation(
     WebGLProgram program,
     String name,
@@ -1071,7 +1079,6 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
     GLsizei width,
     GLsizei height,
   );
-  external JSPromise makeXRCompatible();
 
   /// The **`WebGL2RenderingContext.copyBufferSubData()`** method of
   /// the
@@ -1144,7 +1151,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   /// of attachments in a framebuffer.
   external void invalidateFramebuffer(
     GLenum target,
-    JSArray attachments,
+    JSArray<JSNumber> attachments,
   );
 
   /// The **`WebGL2RenderingContext.invalidateSubFramebuffer()`**
@@ -1154,7 +1161,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   /// portions of the contents of attachments in a framebuffer.
   external void invalidateSubFramebuffer(
     GLenum target,
-    JSArray attachments,
+    JSArray<JSNumber> attachments,
     GLint x,
     GLint y,
     GLsizei width,
@@ -1518,7 +1525,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   /// state of the
   /// currently bound framebuffer or the drawingbuffer if no framebuffer is
   /// bound.
-  external void drawBuffers(JSArray buffers);
+  external void drawBuffers(JSArray<JSNumber> buffers);
   external void clearBufferfv(
     GLenum buffer,
     GLint drawbuffer,
@@ -1752,7 +1759,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   /// to record in [WebGLTransformFeedback] buffers.
   external void transformFeedbackVaryings(
     WebGLProgram program,
-    JSArray varyings,
+    JSArray<JSString> varyings,
     GLenum bufferMode,
   );
 
@@ -1820,9 +1827,9 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   /// [WebGL 2 API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
   /// retrieves the indices of a
   /// number of uniforms within a [WebGLProgram].
-  external JSArray? getUniformIndices(
+  external JSArray<JSNumber>? getUniformIndices(
     WebGLProgram program,
-    JSArray uniformNames,
+    JSArray<JSString> uniformNames,
   );
 
   /// The **`WebGL2RenderingContext.getActiveUniforms()`** method of
@@ -1832,7 +1839,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   /// active uniforms within a [WebGLProgram].
   external JSAny? getActiveUniforms(
     WebGLProgram program,
-    JSArray uniformIndices,
+    JSArray<JSNumber> uniformIndices,
     GLenum pname,
   );
 
@@ -2052,6 +2059,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   external JSObject get canvas;
   external GLsizei get drawingBufferWidth;
   external GLsizei get drawingBufferHeight;
+  external GLenum get drawingBufferFormat;
   external set drawingBufferColorSpace(PredefinedColorSpace value);
   external PredefinedColorSpace get drawingBufferColorSpace;
   external set unpackColorSpace(PredefinedColorSpace value);

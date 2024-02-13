@@ -8,7 +8,12 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
+
+import 'fs.dart';
 
 /// The **`StorageManager`** interface of the
 /// [Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Storage_API)
@@ -21,12 +26,12 @@ extension type StorageManager._(JSObject _) implements JSObject {
   /// access to a directory and its contents, stored in the
   /// [origin private file system](https://developer.mozilla.org/en-US/docs/Web/API/File_System_API/Origin_private_file_system)
   /// (OPFS).
-  external JSPromise getDirectory();
+  external JSPromise<FileSystemDirectoryHandle> getDirectory();
 
   /// The **`persisted()`** method of the [StorageManager] interface returns a
   /// `Promise` that resolves to `true` if your site's storage bucket is
   /// persistent.
-  external JSPromise persisted();
+  external JSPromise<JSBoolean> persisted();
 
   /// The **`persist()`** method of the [StorageManager] interface requests
   /// permission to use persistent storage, and returns a `Promise` that
@@ -36,7 +41,7 @@ extension type StorageManager._(JSObject _) implements JSObject {
   /// > **Note:** This method is not available in
   /// > [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API),
   /// > though the [StorageManager] interface is.
-  external JSPromise persist();
+  external JSPromise<JSBoolean> persist();
 
   /// The **`estimate()`** method of the [StorageManager] interface asks the
   /// Storage Manager for how much storage the current
@@ -46,7 +51,7 @@ extension type StorageManager._(JSObject _) implements JSObject {
   /// This method operates asynchronously, so it returns a `Promise` which
   /// resolves once the information is available. The promise's fulfillment
   /// handler is called with an object containing the usage and quota data.
-  external JSPromise estimate();
+  external JSPromise<StorageEstimate> estimate();
 }
 extension type StorageEstimate._(JSObject _) implements JSObject {
   external factory StorageEstimate({

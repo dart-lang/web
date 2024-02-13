@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -16,34 +19,35 @@ import 'webidl.dart';
 
 typedef MediaKeysRequirement = String;
 typedef MediaKeySessionType = String;
+typedef HDCPVersion = String;
 typedef MediaKeySessionClosedReason = String;
 typedef MediaKeyStatus = String;
 typedef MediaKeyMessageType = String;
 extension type MediaKeySystemConfiguration._(JSObject _) implements JSObject {
   external factory MediaKeySystemConfiguration({
     String label,
-    JSArray initDataTypes,
-    JSArray audioCapabilities,
-    JSArray videoCapabilities,
+    JSArray<JSString> initDataTypes,
+    JSArray<MediaKeySystemMediaCapability> audioCapabilities,
+    JSArray<MediaKeySystemMediaCapability> videoCapabilities,
     MediaKeysRequirement distinctiveIdentifier,
     MediaKeysRequirement persistentState,
-    JSArray sessionTypes,
+    JSArray<JSString> sessionTypes,
   });
 
   external set label(String value);
   external String get label;
-  external set initDataTypes(JSArray value);
-  external JSArray get initDataTypes;
-  external set audioCapabilities(JSArray value);
-  external JSArray get audioCapabilities;
-  external set videoCapabilities(JSArray value);
-  external JSArray get videoCapabilities;
+  external set initDataTypes(JSArray<JSString> value);
+  external JSArray<JSString> get initDataTypes;
+  external set audioCapabilities(JSArray<MediaKeySystemMediaCapability> value);
+  external JSArray<MediaKeySystemMediaCapability> get audioCapabilities;
+  external set videoCapabilities(JSArray<MediaKeySystemMediaCapability> value);
+  external JSArray<MediaKeySystemMediaCapability> get videoCapabilities;
   external set distinctiveIdentifier(MediaKeysRequirement value);
   external MediaKeysRequirement get distinctiveIdentifier;
   external set persistentState(MediaKeysRequirement value);
   external MediaKeysRequirement get persistentState;
-  external set sessionTypes(JSArray value);
-  external JSArray get sessionTypes;
+  external set sessionTypes(JSArray<JSString> value);
+  external JSArray<JSString> get sessionTypes;
 }
 extension type MediaKeySystemMediaCapability._(JSObject _) implements JSObject {
   external factory MediaKeySystemMediaCapability({
@@ -84,7 +88,7 @@ extension type MediaKeySystemAccess._(JSObject _) implements JSObject {
 
   /// The `MediaKeySystemAccess.createMediaKeys()` method returns a
   /// `Promise` that resolves to a new [MediaKeys] object.
-  external JSPromise createMediaKeys();
+  external JSPromise<MediaKeys> createMediaKeys();
   external String get keySystem;
 }
 
@@ -97,10 +101,18 @@ extension type MediaKeys._(JSObject _) implements JSObject {
   /// [MediaKeySession] object, which represents a context for message exchange
   /// with a content decryption module (CDM).
   external MediaKeySession createSession([MediaKeySessionType sessionType]);
+  external JSPromise<JSString> getStatusForPolicy([MediaKeysPolicy policy]);
 
   /// The **`MediaKeys.setServerCertificate()`** method provides a
   /// server certificate to be used to encrypt messages to the license server.
-  external JSPromise setServerCertificate(BufferSource serverCertificate);
+  external JSPromise<JSBoolean> setServerCertificate(
+      BufferSource serverCertificate);
+}
+extension type MediaKeysPolicy._(JSObject _) implements JSObject {
+  external factory MediaKeysPolicy({HDCPVersion minHdcpVersion});
+
+  external set minHdcpVersion(HDCPVersion value);
+  external HDCPVersion get minHdcpVersion;
 }
 
 /// The **`MediaKeySession`** interface of the
@@ -110,7 +122,7 @@ extension type MediaKeys._(JSObject _) implements JSObject {
 extension type MediaKeySession._(JSObject _) implements EventTarget, JSObject {
   /// The `MediaKeySession.generateRequest()` method returns a
   /// `Promise` after generating a media request based on initialization data.
-  external JSPromise generateRequest(
+  external JSPromise<JSAny?> generateRequest(
     String initDataType,
     BufferSource initData,
   );
@@ -118,25 +130,25 @@ extension type MediaKeySession._(JSObject _) implements EventTarget, JSObject {
   /// The `MediaKeySession.load()` method returns a `Promise` that
   /// resolves to a boolean value after loading data for a specified session
   /// object.
-  external JSPromise load(String sessionId);
+  external JSPromise<JSBoolean> load(String sessionId);
 
   /// The `MediaKeySession.update()` method loads messages and licenses to the
   /// CDM, and then returns a `Promise` .
-  external JSPromise update(BufferSource response);
+  external JSPromise<JSAny?> update(BufferSource response);
 
   /// The `MediaKeySession.close()` method notifies that the current media
   /// session
   /// is no longer needed, and that the content decryption module should release
   /// any resources
   /// associated with this object and close it. Then, it returns a `Promise`.
-  external JSPromise close();
+  external JSPromise<JSAny?> close();
 
   /// The `MediaKeySession.remove()` method returns a `Promise` after removing
   /// any session data associated with the current object.
-  external JSPromise remove();
+  external JSPromise<JSAny?> remove();
   external String get sessionId;
   external num get expiration;
-  external JSPromise get closed;
+  external JSPromise<JSString> get closed;
   external MediaKeyStatusMap get keyStatuses;
   external set onkeystatuseschange(EventHandler value);
   external EventHandler get onkeystatuseschange;

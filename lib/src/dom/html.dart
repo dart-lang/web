@@ -8,80 +8,45 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
-import 'audio_session.dart';
-import 'autoplay_detection.dart';
 import 'clipboard_apis.dart';
-import 'contact_picker.dart';
-import 'cookie_store.dart';
 import 'credential_management.dart';
 import 'css_font_loading.dart';
-import 'css_nav.dart';
 import 'css_typed_om.dart';
+import 'css_view_transitions.dart';
 import 'cssom.dart';
 import 'cssom_view.dart';
-import 'custom_state_pseudo_class.dart';
-import 'device_posture.dart';
-import 'document_picture_in_picture.dart';
 import 'dom.dart';
-import 'edit_context.dart';
 import 'encrypted_media.dart';
 import 'entries_api.dart';
-import 'fenced_frame.dart';
 import 'fetch.dart';
-import 'file_system_access.dart';
 import 'fileapi.dart';
+import 'gamepad.dart';
 import 'geolocation.dart';
 import 'geometry.dart';
 import 'hr_time.dart';
 import 'indexeddb.dart';
-import 'ink_enhancement.dart';
-import 'is_input_pending.dart';
-import 'keyboard_lock.dart';
-import 'local_font_access.dart';
 import 'media_capabilities.dart';
 import 'media_playback_quality.dart';
 import 'media_source.dart';
 import 'mediacapture_streams.dart';
 import 'mediasession.dart';
-import 'netinfo.dart';
 import 'performance_timeline.dart';
 import 'permissions.dart';
-import 'permissions_policy.dart';
-import 'portals.dart';
-import 'presentation_api.dart';
-import 'remote_playback.dart';
-import 'requestidlecallback.dart';
-import 'scheduling_apis.dart';
 import 'screen_wake_lock.dart';
 import 'selection_api.dart';
-import 'serial.dart';
 import 'service_workers.dart';
-import 'shared_storage.dart';
 import 'speech_api.dart';
 import 'storage.dart';
-import 'storage_buckets.dart';
-import 'trusted_types.dart';
-import 'turtledove.dart';
-import 'ua_client_hints.dart';
 import 'uievents.dart';
 import 'vibration.dart';
-import 'video_rvfc.dart';
-import 'virtual_keyboard.dart';
-import 'web_app_launch.dart';
-import 'web_bluetooth.dart';
 import 'web_locks.dart';
-import 'web_share.dart';
 import 'webcryptoapi.dart';
-import 'webgpu.dart';
-import 'webhid.dart';
 import 'webidl.dart';
-import 'webmidi.dart';
-import 'webnn.dart';
-import 'webusb.dart';
-import 'webxr.dart';
-import 'window_controls_overlay.dart';
 import 'xhr.dart';
 
 typedef HTMLOrSVGScriptElement = JSObject;
@@ -319,8 +284,6 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   external int get offsetLeft;
   external int get offsetWidth;
   external int get offsetHeight;
-  external set editContext(EditContext? value);
-  external EditContext? get editContext;
   external set title(String value);
   external String get title;
   external set lang(String value);
@@ -550,8 +513,6 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   external EventHandler get ontouchmove;
   external set ontouchcancel(EventHandler value);
   external EventHandler get ontouchcancel;
-  external set onbeforexrselect(EventHandler value);
-  external EventHandler get onbeforexrselect;
   external set contentEditable(String value);
   external String get contentEditable;
   external set enterKeyHint(String value);
@@ -559,8 +520,6 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   external bool get isContentEditable;
   external set inputMode(String value);
   external String get inputMode;
-  external set virtualKeyboardPolicy(String value);
-  external String get virtualKeyboardPolicy;
   external DOMStringMap get dataset;
   external set nonce(String value);
   external String get nonce;
@@ -718,8 +677,6 @@ extension type HTMLStyleElement._(JSObject _) implements HTMLElement, JSObject {
 extension type HTMLBodyElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLBodyElement();
 
-  external set onorientationchange(EventHandler value);
-  external EventHandler get onorientationchange;
   external set text(String value);
   external String get text;
   external set link(String value);
@@ -756,6 +713,8 @@ extension type HTMLBodyElement._(JSObject _) implements HTMLElement, JSObject {
   external EventHandler get ononline;
   external set onpagehide(EventHandler value);
   external EventHandler get onpagehide;
+  external set onpagereveal(EventHandler value);
+  external EventHandler get onpagereveal;
   external set onpageshow(EventHandler value);
   external EventHandler get onpageshow;
   external set onpopstate(EventHandler value);
@@ -768,8 +727,6 @@ extension type HTMLBodyElement._(JSObject _) implements HTMLElement, JSObject {
   external EventHandler get onunhandledrejection;
   external set onunload(EventHandler value);
   external EventHandler get onunload;
-  external set onportalactivate(EventHandler value);
-  external EventHandler get onportalactivate;
 }
 
 /// The **`HTMLHeadingElement`** interface represents the different heading
@@ -943,10 +900,6 @@ extension type HTMLAnchorElement._(JSObject _)
   external String get rev;
   external set shape(String value);
   external String get shape;
-  external set attributionSourceId(int value);
-  external int get attributionSourceId;
-  external set attributionSrc(String value);
-  external String get attributionSrc;
   external set href(String value);
   external String get href;
   external String get origin;
@@ -1067,7 +1020,7 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   /// prevents the rendering of the next frame after adding the image to the DOM
   /// from causing
   /// a delay while the image loads.
-  external JSPromise decode();
+  external JSPromise<JSAny?> decode();
   external int get x;
   external int get y;
   external set alt(String value);
@@ -1114,10 +1067,6 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   external String get longDesc;
   external set border(String value);
   external String get border;
-  external set attributionSrc(String value);
-  external String get attributionSrc;
-  external set sharedStorageWritable(bool value);
-  external bool get sharedStorageWritable;
 }
 
 /// The **`HTMLIFrameElement`** interface provides special properties and
@@ -1129,8 +1078,6 @@ extension type HTMLIFrameElement._(JSObject _)
   external factory HTMLIFrameElement();
 
   external Document? getSVGDocument();
-  external set csp(String value);
-  external String get csp;
   external set src(String value);
   external String get src;
   external set srcdoc(String value);
@@ -1164,11 +1111,6 @@ extension type HTMLIFrameElement._(JSObject _)
   external String get marginHeight;
   external set marginWidth(String value);
   external String get marginWidth;
-  external PermissionsPolicy get permissionsPolicy;
-  external set privateToken(String value);
-  external String get privateToken;
-  external set sharedStorageWritable(bool value);
-  external bool get sharedStorageWritable;
 }
 
 /// The **`HTMLEmbedElement`** interface provides special properties (beyond the
@@ -1279,19 +1221,6 @@ extension type HTMLVideoElement._(JSObject _)
   ///
   /// The data returned can be used to evaluate the quality of the video stream.
   external VideoPlaybackQuality getVideoPlaybackQuality();
-
-  /// The **[HTMLVideoElement]** method
-  /// **`requestPictureInPicture()`** issues an asynchronous request
-  /// to display the video in picture-in-picture mode.
-  ///
-  /// It's not guaranteed that the video will be put into picture-in-picture. If
-  /// permission
-  /// to enter that mode is granted, the returned `Promise` will resolve and the
-  /// video will receive a [HTMLVideoElement.enterpictureinpicture_event] event
-  /// to let it know that it's now in picture-in-picture.
-  external JSPromise requestPictureInPicture();
-  external int requestVideoFrameCallback(VideoFrameRequestCallback callback);
-  external void cancelVideoFrameCallback(int handle);
   external set width(int value);
   external int get width;
   external set height(int value);
@@ -1302,12 +1231,6 @@ extension type HTMLVideoElement._(JSObject _)
   external String get poster;
   external set playsInline(bool value);
   external bool get playsInline;
-  external set onenterpictureinpicture(EventHandler value);
-  external EventHandler get onenterpictureinpicture;
-  external set onleavepictureinpicture(EventHandler value);
-  external EventHandler get onleavepictureinpicture;
-  external set disablePictureInPicture(bool value);
-  external bool get disablePictureInPicture;
 }
 
 /// The **`HTMLAudioElement`** interface provides access to the properties of
@@ -1364,21 +1287,11 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   external static int get HAVE_FUTURE_DATA;
   external static int get HAVE_ENOUGH_DATA;
 
-  /// The **`HTMLMediaElement.setSinkId()`** method of the
-  /// [Audio Output Devices API](https://developer.mozilla.org/en-US/docs/Web/API/Audio_Output_Devices_API)
-  /// sets the ID of the audio device to use for output and returns a `Promise`.
-  ///
-  /// This only works when the application is permitted to use the specified
-  /// device.
-  /// For more information see the
-  /// [security requirements](#security_requirements) below.
-  external JSPromise setSinkId(String sinkId);
-
   /// The **`setMediaKeys()`** method of the
   /// [HTMLMediaElement] interface returns a `Promise` that resolves
   /// to the passed [MediaKeys], which are those used to decrypt media during
   /// playback.
-  external JSPromise setMediaKeys(MediaKeys? mediaKeys);
+  external JSPromise<JSAny?> setMediaKeys(MediaKeys? mediaKeys);
 
   /// The [HTMLMediaElement] method
   /// **`load()`** resets the media element to its initial state and
@@ -1424,7 +1337,7 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   ///
   /// Failure to begin playback for any reason, such as
   /// permission issues, result in the promise being rejected.
-  external JSPromise play();
+  external JSPromise<JSAny?> play();
 
   /// The **`HTMLMediaElement.pause()`** method will pause playback
   /// of the media, if the media is already in a paused state this method will
@@ -1435,16 +1348,6 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
     String label,
     String language,
   ]);
-
-  /// The **`captureStream()`** method of the [HTMLMediaElement] interface
-  /// returns a [MediaStream] object which is streaming a real-time capture of
-  /// the content being rendered in the media element.
-  ///
-  /// This can be used, for example, as a source for a
-  /// [WebRTC](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
-  /// [RTCPeerConnection].
-  external MediaStream captureStream();
-  external String get sinkId;
   external MediaKeys? get mediaKeys;
   external set onencrypted(EventHandler value);
   external EventHandler get onencrypted;
@@ -1492,9 +1395,6 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   external AudioTrackList get audioTracks;
   external VideoTrackList get videoTracks;
   external TextTrackList get textTracks;
-  external RemotePlayback get remote;
-  external set disableRemotePlayback(bool value);
-  external bool get disableRemotePlayback;
 }
 
 /// The **`MediaError`** interface represents an error which occurred while
@@ -2469,9 +2369,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   external void showPicker();
   external set webkitdirectory(bool value);
   external bool get webkitdirectory;
-  external JSArray get webkitEntries;
-  external set capture(String value);
-  external String get capture;
+  external JSArray<FileSystemEntry> get webkitEntries;
   external set accept(String value);
   external String get accept;
   external set alt(String value);
@@ -2657,6 +2555,14 @@ extension type HTMLSelectElement._(JSObject _)
   /// validity
   /// error.
   external void setCustomValidity(String error);
+
+  /// The **`HTMLSelectElement.showPicker()`** method displays the browser
+  /// picker for a `select` element.
+  ///
+  /// This is the same picker that would normally be displayed when the element
+  /// is selected, but can be triggered from a button press or other user
+  /// interaction.
+  external void showPicker();
   external set autocomplete(String value);
   external String get autocomplete;
   external set disabled(bool value);
@@ -3043,8 +2949,6 @@ extension type HTMLScriptElement._(JSObject _)
   external String get event;
   external set htmlFor(String value);
   external String get htmlFor;
-  external set attributionSrc(String value);
-  external String get attributionSrc;
 }
 
 /// The **`HTMLTemplateElement`** interface enables access to the contents of an
@@ -3054,6 +2958,10 @@ extension type HTMLTemplateElement._(JSObject _)
   external factory HTMLTemplateElement();
 
   external DocumentFragment get content;
+  external set shadowRootMode(String value);
+  external String get shadowRootMode;
+  external set shadowRootDelegatesFocus(bool value);
+  external bool get shadowRootDelegatesFocus;
 }
 
 /// The **`HTMLSlotElement`** interface of the
@@ -3069,7 +2977,7 @@ extension type HTMLSlotElement._(JSObject _) implements HTMLElement, JSObject {
   /// the nodes assigned to this slot, as well as the nodes assigned to any
   /// other slots that are descendants of this slot. If no assigned nodes are
   /// found, it returns the slot's fallback content.
-  external JSArray assignedNodes([AssignedNodesOptions options]);
+  external JSArray<Node> assignedNodes([AssignedNodesOptions options]);
 
   /// The **`assignedElements()`** method of the [HTMLSlotElement]
   /// interface returns a sequence of the elements assigned to this slot (and no
@@ -3079,7 +2987,7 @@ extension type HTMLSlotElement._(JSObject _) implements HTMLElement, JSObject {
   /// the elements assigned to this slot, as well as the elements assigned to
   /// any other slots that are descendants of this slot. If no assigned elements
   /// are found, it returns the slot's fallback content.
-  external JSArray assignedElements([AssignedNodesOptions options]);
+  external JSArray<Element> assignedElements([AssignedNodesOptions options]);
 
   /// The **`assign()`** method of the [HTMLSlotElement] interface sets the
   /// slot's _manually assigned nodes_ to an ordered set of slottables. The
@@ -3172,12 +3080,6 @@ extension type HTMLCanvasElement._(JSObject _)
   /// control to an [OffscreenCanvas] object, either on the main thread or on a
   /// worker.
   external OffscreenCanvas transferControlToOffscreen();
-
-  /// The **`captureStream()`** method of the [HTMLCanvasElement] interface
-  /// returns a [MediaStream]
-  /// which includes a [CanvasCaptureMediaStreamTrack] containing a real-time
-  /// video capture of the canvas's contents.
-  external MediaStream captureStream([num frameRequestRate]);
   external set width(int value);
   external int get width;
   external set height(int value);
@@ -3789,11 +3691,11 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   ///
   /// > **Note:** To return to using solid lines, set the line dash list to an
   /// > empty array.
-  external void setLineDash(JSArray segments);
+  external void setLineDash(JSArray<JSNumber> segments);
 
   /// The **`getLineDash()`** method of the Canvas 2D API's
   /// [CanvasRenderingContext2D] interface gets the current line dash pattern.
-  external JSArray getLineDash();
+  external JSArray<JSNumber> getLineDash();
 
   /// The
   /// **`CanvasRenderingContext2D.closePath()`**
@@ -4262,7 +4164,7 @@ extension type OffscreenCanvas._(JSObject _) implements EventTarget, JSObject {
   ///
   /// The created image will have a resolution of 96dpi for file formats that
   /// support encoding resolution metadata.
-  external JSPromise convertToBlob([ImageEncodeOptions options]);
+  external JSPromise<Blob> convertToBlob([ImageEncodeOptions options]);
   external set width(int value);
   external int get width;
   external set height(int value);
@@ -4435,8 +4337,8 @@ extension type OffscreenCanvasRenderingContext2D._(JSObject _)
     int dirtyWidth,
     int dirtyHeight,
   ]);
-  external void setLineDash(JSArray segments);
-  external JSArray getLineDash();
+  external void setLineDash(JSArray<JSNumber> segments);
+  external JSArray<JSNumber> getLineDash();
   external void closePath();
   external void moveTo(
     num x,
@@ -4579,7 +4481,7 @@ extension type CustomElementRegistry._(JSObject _) implements JSObject {
   /// The **`whenDefined()`** method of the
   /// [CustomElementRegistry] interface returns a `Promise` that
   /// resolves when the named element is defined.
-  external JSPromise whenDefined(String name);
+  external JSPromise<CustomElementConstructor> whenDefined(String name);
 
   /// The **`upgrade()`** method of the
   /// [CustomElementRegistry] interface upgrades all shadow-containing custom
@@ -4644,111 +4546,13 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// however it additionally sends the value of
   /// [ElementInternals.validationMessage] to the user agent for display.
   external bool reportValidity();
-  external CustomStateSet get states;
   external ShadowRoot? get shadowRoot;
   external HTMLFormElement? get form;
   external bool get willValidate;
   external ValidityState get validity;
   external String get validationMessage;
   external NodeList get labels;
-  external set role(String? value);
-  external String? get role;
-  external set ariaActiveDescendantElement(Element? value);
-  external Element? get ariaActiveDescendantElement;
-  external set ariaAtomic(String? value);
-  external String? get ariaAtomic;
-  external set ariaAutoComplete(String? value);
-  external String? get ariaAutoComplete;
-  external set ariaBusy(String? value);
-  external String? get ariaBusy;
-  external set ariaChecked(String? value);
-  external String? get ariaChecked;
-  external set ariaColCount(String? value);
-  external String? get ariaColCount;
-  external set ariaColIndex(String? value);
-  external String? get ariaColIndex;
-  external set ariaColIndexText(String? value);
-  external String? get ariaColIndexText;
-  external set ariaColSpan(String? value);
-  external String? get ariaColSpan;
-  external set ariaControlsElements(JSArray? value);
-  external JSArray? get ariaControlsElements;
-  external set ariaCurrent(String? value);
-  external String? get ariaCurrent;
-  external set ariaDescribedByElements(JSArray? value);
-  external JSArray? get ariaDescribedByElements;
-  external set ariaDescription(String? value);
-  external String? get ariaDescription;
-  external set ariaDetailsElements(JSArray? value);
-  external JSArray? get ariaDetailsElements;
-  external set ariaDisabled(String? value);
-  external String? get ariaDisabled;
-  external set ariaErrorMessageElements(JSArray? value);
-  external JSArray? get ariaErrorMessageElements;
-  external set ariaExpanded(String? value);
-  external String? get ariaExpanded;
-  external set ariaFlowToElements(JSArray? value);
-  external JSArray? get ariaFlowToElements;
-  external set ariaHasPopup(String? value);
-  external String? get ariaHasPopup;
-  external set ariaHidden(String? value);
-  external String? get ariaHidden;
-  external set ariaInvalid(String? value);
-  external String? get ariaInvalid;
-  external set ariaKeyShortcuts(String? value);
-  external String? get ariaKeyShortcuts;
-  external set ariaLabel(String? value);
-  external String? get ariaLabel;
-  external set ariaLabelledByElements(JSArray? value);
-  external JSArray? get ariaLabelledByElements;
-  external set ariaLevel(String? value);
-  external String? get ariaLevel;
-  external set ariaLive(String? value);
-  external String? get ariaLive;
-  external set ariaModal(String? value);
-  external String? get ariaModal;
-  external set ariaMultiLine(String? value);
-  external String? get ariaMultiLine;
-  external set ariaMultiSelectable(String? value);
-  external String? get ariaMultiSelectable;
-  external set ariaOrientation(String? value);
-  external String? get ariaOrientation;
-  external set ariaOwnsElements(JSArray? value);
-  external JSArray? get ariaOwnsElements;
-  external set ariaPlaceholder(String? value);
-  external String? get ariaPlaceholder;
-  external set ariaPosInSet(String? value);
-  external String? get ariaPosInSet;
-  external set ariaPressed(String? value);
-  external String? get ariaPressed;
-  external set ariaReadOnly(String? value);
-  external String? get ariaReadOnly;
-  external set ariaRequired(String? value);
-  external String? get ariaRequired;
-  external set ariaRoleDescription(String? value);
-  external String? get ariaRoleDescription;
-  external set ariaRowCount(String? value);
-  external String? get ariaRowCount;
-  external set ariaRowIndex(String? value);
-  external String? get ariaRowIndex;
-  external set ariaRowIndexText(String? value);
-  external String? get ariaRowIndexText;
-  external set ariaRowSpan(String? value);
-  external String? get ariaRowSpan;
-  external set ariaSelected(String? value);
-  external String? get ariaSelected;
-  external set ariaSetSize(String? value);
-  external String? get ariaSetSize;
-  external set ariaSort(String? value);
-  external String? get ariaSort;
-  external set ariaValueMax(String? value);
-  external String? get ariaValueMax;
-  external set ariaValueMin(String? value);
-  external String? get ariaValueMin;
-  external set ariaValueNow(String? value);
-  external String? get ariaValueNow;
-  external set ariaValueText(String? value);
-  external String? get ariaValueText;
+  external CustomStateSet get states;
 }
 extension type ValidityStateFlags._(JSObject _) implements JSObject {
   external factory ValidityStateFlags({
@@ -4785,6 +4589,16 @@ extension type ValidityStateFlags._(JSObject _) implements JSObject {
   external set customError(bool value);
   external bool get customError;
 }
+
+/// The **`CustomStateSet`** interface of the
+/// [Document Object Model](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)
+/// stores a list of states for an
+/// [autonomous custom element](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements#types_of_custom_element),
+/// and allows states to be added and removed from the set.
+///
+/// The interface can be used to expose the internal states of a custom element,
+/// allowing them to be used in CSS selectors by code that uses the element.
+extension type CustomStateSet._(JSObject _) implements JSObject {}
 
 /// The **`VisibilityStateEntry`** interface provides timings of page visibility
 /// state changes, i.e., when a tab changes from the foreground to the
@@ -4869,6 +4683,23 @@ extension type FocusOptions._(JSObject _) implements JSObject {
   external bool get preventScroll;
   external set focusVisible(bool value);
   external bool get focusVisible;
+}
+extension type CloseWatcher._(JSObject _) implements EventTarget, JSObject {
+  external factory CloseWatcher([CloseWatcherOptions options]);
+
+  external void requestClose();
+  external void close();
+  external void destroy();
+  external set oncancel(EventHandler value);
+  external EventHandler get oncancel;
+  external set onclose(EventHandler value);
+  external EventHandler get onclose;
+}
+extension type CloseWatcherOptions._(JSObject _) implements JSObject {
+  external factory CloseWatcherOptions({AbortSignal signal});
+
+  external set signal(AbortSignal value);
+  external AbortSignal get signal;
 }
 
 /// The **`DataTransfer`** object is used to hold the data that is being dragged
@@ -4956,7 +4787,7 @@ extension type DataTransfer._(JSObject _) implements JSObject {
   external set effectAllowed(String value);
   external String get effectAllowed;
   external DataTransferItemList get items;
-  external JSArray get types;
+  external JSArray<JSString> get types;
   external FileList get files;
 }
 
@@ -5020,12 +4851,6 @@ extension type DataTransferItem._(JSObject _) implements JSObject {
   /// > `getAsEntry()` in the future, so you should code defensively, looking
   /// > for both.
   external FileSystemEntry? webkitGetAsEntry();
-
-  /// The **`getAsFileSystemHandle()`** method of the
-  /// [DataTransferItem] interface returns a [FileSystemFileHandle]
-  /// if the dragged item is a file, or a [FileSystemDirectoryHandle] if the
-  /// dragged item is a directory.
-  external JSPromise getAsFileSystemHandle();
 
   /// The **`DataTransferItem.getAsString()`** method invokes the given callback
   /// with the drag data item's string data as the argument if the item's
@@ -5093,8 +4918,6 @@ external Window get window;
 /// Generally, anything that can't reasonably pertain to a tab pertains to the
 /// window instead.
 extension type Window._(JSObject _) implements EventTarget, JSObject {
-  external void navigate(SpatialNavigationDirection dir);
-
   /// The [Window] interface's **`matchMedia()`** method
   /// returns a new [MediaQueryList] object that can then be used to determine
   /// if
@@ -5176,22 +4999,6 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
     Element elt, [
     String? pseudoElt,
   ]);
-  external JSPromise getDigitalGoodsService(String serviceProvider);
-
-  /// The **`showOpenFilePicker()`** method of the
-  /// [Window] interface shows a file picker that allows a user to select a file
-  /// or multiple files and returns a handle for the file(s).
-  external JSPromise showOpenFilePicker([OpenFilePickerOptions options]);
-
-  /// The **`showSaveFilePicker()`** method of the
-  /// [Window] interface shows a file picker that allows a user to save a file.
-  /// Either by selecting an existing file, or entering a name for a new file.
-  external JSPromise showSaveFilePicker([SaveFilePickerOptions options]);
-
-  /// The **`showDirectoryPicker()`** method of the
-  /// [Window] interface displays a directory picker which allows the user to
-  /// select a directory.
-  external JSPromise showDirectoryPicker([DirectoryPickerOptions options]);
 
   /// The **`Window.close()`** method closes the current window, or
   /// the window on which it was called.
@@ -5300,7 +5107,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external void postMessage(
     JSAny? message, [
     JSAny optionsOrTargetOrigin,
-    JSArray transfer,
+    JSArray<JSObject> transfer,
   ]);
 
   /// The **`Window.captureEvents()`** method does nothing.
@@ -5312,57 +5119,11 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// Releases the window from trapping events of a specific type.
   external void releaseEvents();
 
-  /// The **`window.queryLocalFonts()`** method returns a `Promise` that
-  /// fulfills with an array of [FontData] objects representing the font faces
-  /// available locally.
-  ///
-  /// To use this method, the user must grant permission to access `local-fonts`
-  /// (permission status can be queried via the [Permissions API]). In addition,
-  /// this feature may be blocked by a
-  /// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy)
-  /// set on your server.
-  external JSPromise queryLocalFonts([QueryOptions options]);
-
-  /// The **`window.requestIdleCallback()`** method queues a function
-  /// to be called during a browser's idle periods. This enables developers to
-  /// perform
-  /// background and low priority work on the main event loop, without impacting
-  /// latency-critical events such as animation and input response. Functions
-  /// are generally
-  /// called in first-in-first-out order; however, callbacks which have a
-  /// `timeout`
-  /// specified may be called out-of-order if necessary in order to run them
-  /// before the
-  /// timeout elapses.
-  ///
-  /// You can call `requestIdleCallback()` within an idle callback function to
-  /// schedule another callback to take place no sooner than the next pass
-  /// through the event
-  /// loop.
-  ///
-  /// > **Note:** A `timeout` option is strongly recommended for required work,
-  /// > as otherwise it's possible multiple seconds will elapse before the
-  /// > callback is fired.
-  external int requestIdleCallback(
-    IdleRequestCallback callback, [
-    IdleRequestOptions options,
-  ]);
-
-  /// The **`window.cancelIdleCallback()`** method cancels a callback
-  /// previously scheduled with [window.requestIdleCallback].
-  external void cancelIdleCallback(int handle);
-
   /// The **`Window.getSelection()`** method returns a
   /// [Selection] object representing the range of text selected by the user or
   /// the current position of the caret.
   external Selection? getSelection();
-
-  /// The **`getScreenDetails()`** method of the
-  /// [Window] interface returns a `Promise` that fulfills with a
-  /// [ScreenDetails] object instance representing the details of all the
-  /// screens available to the user's device.
-  external JSPromise getScreenDetails();
-  external JSPromise fetch(
+  external JSPromise<Response> fetch(
     RequestInfo input, [
     RequestInit init,
   ]);
@@ -5382,7 +5143,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   ]);
   external void clearInterval([int id]);
   external void queueMicrotask(VoidFunction callback);
-  external JSPromise createImageBitmap(
+  external JSPromise<ImageBitmap> createImageBitmap(
     ImageBitmapSource image, [
     JSAny optionsOrSx,
     int sy,
@@ -5428,10 +5189,6 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// animation frame request previously scheduled through a call to
   /// [window.requestAnimationFrame].
   external void cancelAnimationFrame(int handle);
-  external int get orientation;
-  external set onorientationchange(EventHandler value);
-  external EventHandler get onorientationchange;
-  external CookieStore get cookieStore;
   external Screen get screen;
   external VisualViewport? get visualViewport;
   external int get innerWidth;
@@ -5447,9 +5204,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external int get outerWidth;
   external int get outerHeight;
   external num get devicePixelRatio;
-  external DocumentPictureInPicture get documentPictureInPicture;
   external Event? get event;
-  external Fence? get fence;
   external Window get window;
   external Window get self;
   external Document get document;
@@ -5479,20 +5234,13 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external Navigator get clientInformation;
   external bool get originAgentCluster;
   external External get external;
-  external set onappinstalled(EventHandler value);
-  external EventHandler get onappinstalled;
-  external set onbeforeinstallprompt(EventHandler value);
-  external EventHandler get onbeforeinstallprompt;
   external set ondeviceorientation(EventHandler value);
   external EventHandler get ondeviceorientation;
   external set ondeviceorientationabsolute(EventHandler value);
   external EventHandler get ondeviceorientationabsolute;
   external set ondevicemotion(EventHandler value);
   external EventHandler get ondevicemotion;
-  external PortalHost? get portalHost;
-  external WindowSharedStorage? get sharedStorage;
   external SpeechSynthesis get speechSynthesis;
-  external LaunchQueue get launchQueue;
   external set onanimationstart(EventHandler value);
   external EventHandler get onanimationstart;
   external set onanimationiteration(EventHandler value);
@@ -5693,8 +5441,6 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get ontouchmove;
   external set ontouchcancel(EventHandler value);
   external EventHandler get ontouchcancel;
-  external set onbeforexrselect(EventHandler value);
-  external EventHandler get onbeforexrselect;
   external set ongamepadconnected(EventHandler value);
   external EventHandler get ongamepadconnected;
   external set ongamepaddisconnected(EventHandler value);
@@ -5719,6 +5465,8 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get ononline;
   external set onpagehide(EventHandler value);
   external EventHandler get onpagehide;
+  external set onpagereveal(EventHandler value);
+  external EventHandler get onpagereveal;
   external set onpageshow(EventHandler value);
   external EventHandler get onpageshow;
   external set onpopstate(EventHandler value);
@@ -5731,17 +5479,13 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onunhandledrejection;
   external set onunload(EventHandler value);
   external EventHandler get onunload;
-  external set onportalactivate(EventHandler value);
-  external EventHandler get onportalactivate;
   external IDBFactory get indexedDB;
   external Crypto get crypto;
   external Performance get performance;
   external String get origin;
   external bool get isSecureContext;
   external bool get crossOriginIsolated;
-  external Scheduler get scheduler;
   external CacheStorage get caches;
-  external TrustedTypePolicyFactory get trustedTypes;
   external Storage get sessionStorage;
   external Storage get localStorage;
 }
@@ -5935,7 +5679,7 @@ extension type Navigation._(JSObject _) implements EventTarget, JSObject {
   /// The **`entries()`** method of the
   /// [Navigation] interface returns an array of [NavigationHistoryEntry]
   /// objects representing all existing history entries.
-  external JSArray entries();
+  external JSArray<NavigationHistoryEntry> entries();
 
   /// The **`updateCurrentEntry()`** method of the [Navigation] interface
   /// updates the `state` of the [Navigation.currentEntry]; used in cases where
@@ -5974,6 +5718,7 @@ extension type Navigation._(JSObject _) implements EventTarget, JSObject {
   external NavigationResult forward([NavigationOptions options]);
   external NavigationHistoryEntry? get currentEntry;
   external NavigationTransition? get transition;
+  external NavigationActivation? get activation;
   external bool get canGoBack;
   external bool get canGoForward;
   external set onnavigate(EventHandler value);
@@ -6019,14 +5764,14 @@ extension type NavigationReloadOptions._(JSObject _)
 }
 extension type NavigationResult._(JSObject _) implements JSObject {
   external factory NavigationResult({
-    JSPromise committed,
-    JSPromise finished,
+    JSPromise<NavigationHistoryEntry> committed,
+    JSPromise<NavigationHistoryEntry> finished,
   });
 
-  external set committed(JSPromise value);
-  external JSPromise get committed;
-  external set finished(JSPromise value);
-  external JSPromise get finished;
+  external set committed(JSPromise<NavigationHistoryEntry> value);
+  external JSPromise<NavigationHistoryEntry> get committed;
+  external set finished(JSPromise<NavigationHistoryEntry> value);
+  external JSPromise<NavigationHistoryEntry> get finished;
 }
 
 /// The **`NavigationHistoryEntry`** interface of the [Navigation API]
@@ -6065,7 +5810,12 @@ extension type NavigationHistoryEntry._(JSObject _)
 extension type NavigationTransition._(JSObject _) implements JSObject {
   external NavigationType get navigationType;
   external NavigationHistoryEntry get from;
-  external JSPromise get finished;
+  external JSPromise<JSAny?> get finished;
+}
+extension type NavigationActivation._(JSObject _) implements JSObject {
+  external NavigationHistoryEntry? get from;
+  external NavigationHistoryEntry get entry;
+  external NavigationType get navigationType;
 }
 
 /// The **`NavigateEvent`** interface of the [Navigation API] is the event
@@ -6267,6 +6017,21 @@ extension type HashChangeEventInit._(JSObject _)
   external set newURL(String value);
   external String get newURL;
 }
+extension type PageRevealEvent._(JSObject _) implements Event, JSObject {
+  external factory PageRevealEvent(
+    String type, [
+    PageRevealEventInit eventInitDict,
+  ]);
+
+  external ViewTransition? get viewTransition;
+}
+extension type PageRevealEventInit._(JSObject _)
+    implements EventInit, JSObject {
+  external factory PageRevealEventInit({ViewTransition? viewTransition});
+
+  external set viewTransition(ViewTransition? value);
+  external ViewTransition? get viewTransition;
+}
 
 /// The **`PageTransitionEvent`** event object is available inside handler
 /// functions for the
@@ -6348,18 +6113,18 @@ extension type PromiseRejectionEvent._(JSObject _) implements Event, JSObject {
     PromiseRejectionEventInit eventInitDict,
   );
 
-  external JSPromise get promise;
+  external JSObject get promise;
   external JSAny? get reason;
 }
 extension type PromiseRejectionEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory PromiseRejectionEventInit({
-    required JSPromise promise,
+    required JSObject promise,
     JSAny? reason,
   });
 
-  external set promise(JSPromise value);
-  external JSPromise get promise;
+  external set promise(JSObject value);
+  external JSObject get promise;
   external set reason(JSAny? value);
   external JSAny? get reason;
 }
@@ -6406,59 +6171,6 @@ extension type DOMParser._(JSObject _) implements JSObject {
 /// A `Navigator` object can be retrieved using the read-only [window.navigator]
 /// property.
 extension type Navigator._(JSObject _) implements JSObject {
-  /// The **`getAutoplayPolicy()`** method of the _Autoplay Policy Detection
-  /// API_ provides information about whether
-  /// [autoplay](https://developer.mozilla.org/en-US/docs/Web/Media/Autoplay_guide)
-  /// of media elements and audio contexts is allowed, disallowed, or only
-  /// allowed if the audio is muted.
-  ///
-  /// Applications can use this information to provide an appropriate user
-  /// experience.
-  /// For example, if the user agent policy only allows autoplay of inaudible
-  /// content, the application might mute videos so that they can still
-  /// autoplay.
-  ///
-  /// The method can be used to get either the broad autoplay policy for all
-  /// items of a particular type in the document, or for specific media elements
-  /// or audio contexts.
-  external AutoplayPolicy getAutoplayPolicy(JSAny contextOrElementOrType);
-
-  /// The **`getBattery()`** method provides information about the system's
-  /// battery.
-  /// It returns a battery promise, which resolves with a [BatteryManager]
-  /// object providing some properties to get the battery status also some
-  /// events you can handle to monitor the battery status.
-  /// This implements the [Battery Status API]; see that documentation for
-  /// additional details, a guide to using the API, and sample code.
-  ///
-  /// Since Chrome 103, the `Navigator.getBattery()` method of
-  /// [Battery Status API] only expose to secure context.
-  ///
-  /// > **Note:** Access to this feature may be controlled by the  directive .
-  external JSPromise getBattery();
-
-  /// The **`navigator.sendBeacon()`**
-  /// method  sends an
-  /// [HTTP POST](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST)
-  /// request containing a small amount of data to a web server.
-  ///
-  /// It's intended to be used for
-  /// sending analytics data to a web server, and avoids some of the problems
-  /// with
-  /// legacy techniques for sending analytics, such as the use of
-  /// [XMLHttpRequest].
-  ///
-  /// > **Note:** For use cases that need the ability to send requests with
-  /// > methods other than `POST`, or to change any request properties, or that
-  /// > need access to the server response, instead use the
-  /// > [`fetch()`](/en-US/docs/Web/API/fetch) method with
-  /// > [`keepalive`](https://developer.mozilla.org/en-US/docs/Web/API/fetch#keepalive)
-  /// > set to true.
-  external bool sendBeacon(
-    String url, [
-    BodyInit? data,
-  ]);
-
   /// `Encrypted Media Extensions`
   ///
   /// The **`Navigator.requestMediaKeySystemAccess()`** method
@@ -6480,13 +6192,9 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// when it's about time to create and use a [MediaKeys] object by calling the
   /// returned [MediaKeySystemAccess] object's
   /// [MediaKeySystemAccess.createMediaKeys] method.
-  external JSPromise requestMediaKeySystemAccess(
+  external JSPromise<MediaKeySystemAccess> requestMediaKeySystemAccess(
     String keySystem,
-    JSArray supportedConfigurations,
-  );
-  external JSPromise deprecatedReplaceInURN(
-    UrnOrConfig urnOrConfig,
-    JSAny replacements,
+    JSArray<MediaKeySystemConfiguration> supportedConfigurations,
   );
 
   /// The **`Navigator.getGamepads()`** method returns an array of
@@ -6494,20 +6202,7 @@ extension type Navigator._(JSObject _) implements JSObject {
   ///
   /// Elements in the array may be `null` if a gamepad disconnects during a
   /// session, so that the remaining gamepads retain the same index.
-  external JSArray getGamepads();
-
-  /// The **`getInstalledRelatedApps()`** method returns a promise that resolves
-  /// with an array of objects representing any related platform-specific apps
-  /// or
-  /// [Progressive Web Apps](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps)
-  /// that the user has installed. This could be used for content
-  /// personalization such as removing "install our app" banners from the web
-  /// app if the platform-specific app and/or PWA is already installed.
-  ///
-  /// > **Note:** This method must be invoked in a top-level
-  /// > [secure context](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts),
-  /// > that is, not embedded in an `iframe`.
-  external JSPromise getInstalledRelatedApps();
+  external JSArray<Gamepad?> getGamepads();
 
   /// The deprecated **`Navigator.getUserMedia()`** method prompts the user for
   /// permission to use up to one video input device (such as a camera or shared
@@ -6532,10 +6227,6 @@ extension type Navigator._(JSObject _) implements JSObject {
     NavigatorUserMediaSuccessCallback successCallback,
     NavigatorUserMediaErrorCallback errorCallback,
   );
-  external JSPromise joinAdInterestGroup(AuctionAdInterestGroup group);
-  external JSPromise leaveAdInterestGroup([AuctionAdInterestGroupKey group]);
-  external JSPromise runAdAuction(AuctionAdConfig config);
-  external void updateAdInterestGroups();
 
   /// The **`Navigator.vibrate()`** method pulses the vibration
   /// hardware on the device, if such hardware exists. If the device doesn't
@@ -6551,72 +6242,6 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// long vibration, it is truncated: the max length depends on the
   /// implementation.
   external bool vibrate(VibratePattern pattern);
-
-  /// The **`navigator.share()`** method of the
-  /// [Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Share_API)
-  /// invokes the native sharing mechanism of the device to share data such as
-  /// text, URLs, or files. The available _share targets_ depend on the device,
-  /// but might include the clipboard, contacts and email applications,
-  /// websites, Bluetooth, etc.
-  ///
-  /// The method resolves a `Promise` with `undefined`.
-  /// On Windows this happens when the share popup is launched, while on Android
-  /// the promise resolves once the data has successfully been passed to the
-  /// _share target_.
-  external JSPromise share([ShareData data]);
-
-  /// The **`Navigator.canShare()`** method of the
-  /// [Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Share_API)
-  /// returns `true` if the equivalent call to [navigator.share] would succeed.
-  ///
-  /// The method returns `false` if the data cannot be _validated_. Reasons the
-  /// data might be invalid include:
-  ///
-  /// - The `data` parameter has been omitted or only contains properties with
-  ///   unknown values. Note that any properties that are not recognized by the
-  ///   user agent are ignored.
-  /// - A URL is badly formatted.
-  /// - Files are specified but the implementation does not support file
-  ///   sharing.
-  /// - Sharing the specified data would be considered a "hostile share" by the
-  ///   user-agent.
-  ///
-  /// The Web Share API is gated by the
-  /// [web-share](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/web-share)
-  /// permission policy.
-  /// The **`canShare()`** method will return `false` if the permission is
-  /// supported but has not been granted.
-  external bool canShare([ShareData data]);
-
-  /// `Web MIDI API`
-  ///
-  /// The **`requestMIDIAccess()`** method of the [Navigator] interface returns
-  /// a `Promise` representing a request for access to MIDI devices on a user's
-  /// system.
-  /// This method is part of the
-  /// [Web MIDI API](https://developer.mozilla.org/en-US/docs/Web/API/Web_MIDI_API),
-  /// which provides a means for accessing, enumerating, and manipulating MIDI
-  /// devices.
-  ///
-  /// This method may prompt the user for access to MIDI devices available to
-  /// their system, or it may use a previously established preference to grant
-  /// or deny access.
-  /// If permission is granted then the `Promise` resolves and a
-  /// [`MIDIAccess`](https://developer.mozilla.org/en-US/docs/Web/API/MIDIAccess)
-  /// object is returned.
-  external JSPromise requestMIDIAccess([MIDIOptions options]);
-
-  /// The **`setAppBadge()`** method of the [Navigator] interface sets a badge
-  /// on the icon associated with this app. If a value is passed to the method,
-  /// this will be set as the value of the badge. Otherwise the badge will
-  /// display as a dot, or other indicator as defined by the platform.
-  external JSPromise setAppBadge([int contents]);
-
-  /// The **`clearAppBadge()`** method of the [Navigator] interface clears a
-  /// badge on the current app's icon by setting it to `nothing`. The value
-  /// `nothing` indicates that no badge is currently set, and the status of the
-  /// badge is _cleared_.
-  external JSPromise clearAppBadge();
 
   /// The **`Navigator.taintEnabled()`** method always returns
   /// `false`.
@@ -6648,32 +6273,17 @@ extension type Navigator._(JSObject _) implements JSObject {
 
   /// This method always returns false.
   external bool javaEnabled();
-  external AudioSession get audioSession;
   external Clipboard get clipboard;
-  external ContactsManager get contacts;
   external CredentialsContainer get credentials;
-  external DevicePosture get devicePosture;
   external Geolocation get geolocation;
   external UserActivation get userActivation;
-  external Ink get ink;
-  external Scheduling get scheduling;
-  external Keyboard get keyboard;
   external MediaCapabilities get mediaCapabilities;
   external MediaDevices get mediaDevices;
   external MediaSession get mediaSession;
   external Permissions get permissions;
   external int get maxTouchPoints;
-  external Presentation get presentation;
   external WakeLock get wakeLock;
-  external Serial get serial;
   external ServiceWorkerContainer get serviceWorker;
-  external VirtualKeyboard get virtualKeyboard;
-  external Bluetooth get bluetooth;
-  external HID get hid;
-  external USB get usb;
-  external XRSystem get xr;
-  external WindowControlsOverlay get windowControlsOverlay;
-  external num get deviceMemory;
   external String get appCodeName;
   external String get appName;
   external String get appVersion;
@@ -6685,21 +6295,15 @@ extension type Navigator._(JSObject _) implements JSObject {
   external String get vendorSub;
   external String get oscpu;
   external String get language;
-  external JSArray get languages;
+  external JSArray<JSString> get languages;
   external bool get onLine;
   external bool get cookieEnabled;
   external PluginArray get plugins;
   external MimeTypeArray get mimeTypes;
   external bool get pdfViewerEnabled;
   external int get hardwareConcurrency;
-  external NetworkInformation get connection;
-  external StorageBucketManager get storageBuckets;
   external StorageManager get storage;
-  external NavigatorUAData get userAgentData;
   external LockManager get locks;
-  external bool get webdriver;
-  external GPU get gpu;
-  external ML get ml;
 }
 
 /// The `PluginArray` interface is used to store a list of [Plugin] objects
@@ -6839,13 +6443,13 @@ extension type MessageEvent._(JSObject _) implements Event, JSObject {
     String origin,
     String lastEventId,
     MessageEventSource? source,
-    JSArray ports,
+    JSArray<MessagePort> ports,
   ]);
   external JSAny? get data;
   external String get origin;
   external String get lastEventId;
   external MessageEventSource? get source;
-  external JSArray get ports;
+  external JSArray<MessagePort> get ports;
 }
 extension type MessageEventInit._(JSObject _) implements EventInit, JSObject {
   external factory MessageEventInit({
@@ -6853,7 +6457,7 @@ extension type MessageEventInit._(JSObject _) implements EventInit, JSObject {
     String origin,
     String lastEventId,
     MessageEventSource? source,
-    JSArray ports,
+    JSArray<MessagePort> ports,
   });
 
   external set data(JSAny? value);
@@ -6864,8 +6468,8 @@ extension type MessageEventInit._(JSObject _) implements EventInit, JSObject {
   external String get lastEventId;
   external set source(MessageEventSource? value);
   external MessageEventSource? get source;
-  external set ports(JSArray value);
-  external JSArray get ports;
+  external set ports(JSArray<MessagePort> value);
+  external JSArray<MessagePort> get ports;
 }
 
 /// The **`EventSource`** interface is web content's interface to
@@ -6986,12 +6590,14 @@ extension type MessagePort._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onmessage;
   external set onmessageerror(EventHandler value);
   external EventHandler get onmessageerror;
+  external set onclose(EventHandler value);
+  external EventHandler get onclose;
 }
 extension type StructuredSerializeOptions._(JSObject _) implements JSObject {
-  external factory StructuredSerializeOptions({JSArray transfer});
+  external factory StructuredSerializeOptions({JSArray<JSObject> transfer});
 
-  external set transfer(JSArray value);
-  external JSArray get transfer;
+  external set transfer(JSArray<JSObject> value);
+  external JSArray<JSObject> get transfer;
 }
 
 /// The **`BroadcastChannel`** interface represents a named channel that any  of
@@ -7043,7 +6649,7 @@ extension type WorkerGlobalScope._(JSObject _)
   /// The **`importScripts()`** method of the [WorkerGlobalScope] interface
   /// synchronously imports one or more scripts into the worker's scope.
   external void importScripts(String urls);
-  external JSPromise fetch(
+  external JSPromise<Response> fetch(
     RequestInfo input, [
     RequestInit init,
   ]);
@@ -7063,7 +6669,7 @@ extension type WorkerGlobalScope._(JSObject _)
   ]);
   external void clearInterval([int id]);
   external void queueMicrotask(VoidFunction callback);
-  external JSPromise createImageBitmap(
+  external JSPromise<ImageBitmap> createImageBitmap(
     ImageBitmapSource image, [
     JSAny optionsOrSx,
     int sy,
@@ -7097,9 +6703,7 @@ extension type WorkerGlobalScope._(JSObject _)
   external String get origin;
   external bool get isSecureContext;
   external bool get crossOriginIsolated;
-  external Scheduler get scheduler;
   external CacheStorage get caches;
-  external TrustedTypePolicyFactory get trustedTypes;
 }
 
 /// The **`DedicatedWorkerGlobalScope`** object (the [Worker] global scope) is
@@ -7295,25 +6899,10 @@ extension type SharedWorker._(JSObject _) implements EventTarget, JSObject {
 /// initialized for each worker and is available via the
 /// [WorkerGlobalScope.navigator] property.
 extension type WorkerNavigator._(JSObject _) implements JSObject {
-  /// The **`setAppBadge()`** method of the [WorkerNavigator] interface sets a
-  /// badge on the icon associated with this app. If a value is passed to the
-  /// method, this will be set as the value of the badge. Otherwise the badge
-  /// will display as a dot, or other indicator as defined by the platform.
-  external JSPromise setAppBadge([int contents]);
-
-  /// The **`clearAppBadge()`** method of the [WorkerNavigator] interface clears
-  /// a badge on the current app's icon by setting it to `nothing`. The value
-  /// `nothing` indicates that no badge is currently set, and the status of the
-  /// badge is _cleared_.
-  external JSPromise clearAppBadge();
   external bool taintEnabled();
   external MediaCapabilities get mediaCapabilities;
   external Permissions get permissions;
-  external Serial get serial;
   external ServiceWorkerContainer get serviceWorker;
-  external HID get hid;
-  external USB get usb;
-  external num get deviceMemory;
   external String get appCodeName;
   external String get appName;
   external String get appVersion;
@@ -7325,16 +6914,11 @@ extension type WorkerNavigator._(JSObject _) implements JSObject {
   external String get vendorSub;
   external String get oscpu;
   external String get language;
-  external JSArray get languages;
+  external JSArray<JSString> get languages;
   external bool get onLine;
   external int get hardwareConcurrency;
-  external NetworkInformation get connection;
-  external StorageBucketManager get storageBuckets;
   external StorageManager get storage;
-  external NavigatorUAData get userAgentData;
   external LockManager get locks;
-  external GPU get gpu;
-  external ML get ml;
 }
 
 /// The **`WorkerLocation`** interface defines the absolute location of the
@@ -7385,7 +6969,7 @@ extension type Worklet._(JSObject _) implements JSObject {
   /// The **`addModule()`** method of the
   /// [Worklet] interface loads the module in the given JavaScript file and
   /// adds it to the current `Worklet`.
-  external JSPromise addModule(
+  external JSPromise<JSAny?> addModule(
     String moduleURL, [
     WorkletOptions options,
   ]);
@@ -7566,6 +7150,8 @@ extension type HTMLFrameSetElement._(JSObject _)
   external EventHandler get ononline;
   external set onpagehide(EventHandler value);
   external EventHandler get onpagehide;
+  external set onpagereveal(EventHandler value);
+  external EventHandler get onpagereveal;
   external set onpageshow(EventHandler value);
   external EventHandler get onpageshow;
   external set onpopstate(EventHandler value);
@@ -7578,8 +7164,6 @@ extension type HTMLFrameSetElement._(JSObject _)
   external EventHandler get onunhandledrejection;
   external set onunload(EventHandler value);
   external EventHandler get onunload;
-  external set onportalactivate(EventHandler value);
-  external EventHandler get onportalactivate;
 }
 extension type HTMLFrameElement._(JSObject _) implements HTMLElement, JSObject {
   external factory HTMLFrameElement();

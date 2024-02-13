@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -75,7 +78,7 @@ extension type FontFace._(JSObject _) implements JSObject {
   /// If the `source` for the font face was specified as binary data, or the
   /// font [FontFace/status] property of the font face is anything other than
   /// `unloaded`, then this method does nothing.
-  external JSPromise load();
+  external JSPromise<FontFace> load();
   external set family(String value);
   external String get family;
   external set style(String value);
@@ -99,7 +102,7 @@ extension type FontFace._(JSObject _) implements JSObject {
   external set lineGapOverride(String value);
   external String get lineGapOverride;
   external FontFaceLoadStatus get status;
-  external JSPromise get loaded;
+  external JSPromise<FontFace> get loaded;
   external FontFaceFeatures get features;
   external FontFaceVariations get variations;
   external FontFacePalettes get palettes;
@@ -123,10 +126,10 @@ extension type FontFacePalettes._(JSObject _) implements JSObject {
 }
 extension type FontFaceSetLoadEventInit._(JSObject _)
     implements EventInit, JSObject {
-  external factory FontFaceSetLoadEventInit({JSArray fontfaces});
+  external factory FontFaceSetLoadEventInit({JSArray<FontFace> fontfaces});
 
-  external set fontfaces(JSArray value);
-  external JSArray get fontfaces;
+  external set fontfaces(JSArray<FontFace> value);
+  external JSArray<FontFace> get fontfaces;
 }
 
 /// The **`FontFaceSetLoadEvent`** interface of the
@@ -146,7 +149,7 @@ extension type FontFaceSetLoadEvent._(JSObject _) implements Event, JSObject {
     FontFaceSetLoadEventInit eventInitDict,
   ]);
 
-  external JSArray get fontfaces;
+  external JSArray<FontFace> get fontfaces;
 }
 
 /// The **`FontFaceSet`** interface of the
@@ -160,7 +163,7 @@ extension type FontFaceSetLoadEvent._(JSObject _) implements Event, JSObject {
 /// This property is available as [Document.fonts], or `self.fonts` in
 /// [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
 extension type FontFaceSet._(JSObject _) implements EventTarget, JSObject {
-  external factory FontFaceSet(JSArray initialFaces);
+  external factory FontFaceSet(JSArray<FontFace> initialFaces);
 
   /// The **`add()`** method of the [FontFaceSet] interface adds a new font to
   /// the set.
@@ -179,7 +182,7 @@ extension type FontFaceSet._(JSObject _) implements EventTarget, JSObject {
 
   /// The `load()` method of the [FontFaceSet] forces all the fonts given in
   /// parameters to be loaded.
-  external JSPromise load(
+  external JSPromise<JSArray<FontFace>> load(
     String font, [
     String text,
   ]);
@@ -199,6 +202,6 @@ extension type FontFaceSet._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onloadingdone;
   external set onloadingerror(EventHandler value);
   external EventHandler get onloadingerror;
-  external JSPromise get ready;
+  external JSPromise<FontFaceSet> get ready;
   external FontFaceSetLoadStatus get status;
 }

@@ -8,19 +8,15 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
-import 'background_fetch.dart';
-import 'background_sync.dart';
-import 'content_index.dart';
-import 'cookie_store.dart';
 import 'dom.dart';
 import 'fetch.dart';
 import 'html.dart';
 import 'notifications.dart';
-import 'page_lifecycle.dart';
-import 'payment_handler.dart';
-import 'periodic_background_sync.dart';
 import 'push_api.dart';
 
 typedef ServiceWorkerState = String;
@@ -100,7 +96,7 @@ extension type ServiceWorkerRegistration._(JSObject _)
   ///
   /// > **Note:** This feature is available in
   /// > [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
-  external JSPromise showNotification(
+  external JSPromise<JSAny?> showNotification(
     String title, [
     NotificationOptions options,
   ]);
@@ -115,7 +111,8 @@ extension type ServiceWorkerRegistration._(JSObject _)
   /// worker on the same origin will not be available to other active service
   /// workers on
   /// that same origin.
-  external JSPromise getNotifications([GetNotificationOptions filter]);
+  external JSPromise<JSArray<Notification>> getNotifications(
+      [GetNotificationOptions filter]);
 
   /// The **`update()`** method of the
   /// [ServiceWorkerRegistration] interface attempts to update the service
@@ -128,7 +125,7 @@ extension type ServiceWorkerRegistration._(JSObject _)
   ///
   /// > **Note:** This feature is available in
   /// > [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
-  external JSPromise update();
+  external JSPromise<JSAny?> update();
 
   /// The **`unregister()`** method of the
   /// [ServiceWorkerRegistration] interface unregisters the service worker
@@ -142,13 +139,7 @@ extension type ServiceWorkerRegistration._(JSObject _)
   ///
   /// > **Note:** This feature is available in
   /// > [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
-  external JSPromise unregister();
-  external BackgroundFetchManager get backgroundFetch;
-  external SyncManager get sync;
-  external ContentIndex get index;
-  external CookieStoreManager get cookies;
-  external PaymentManager get paymentManager;
-  external PeriodicSyncManager get periodicSync;
+  external JSPromise<JSBoolean> unregister();
   external PushManager get pushManager;
   external ServiceWorker? get installing;
   external ServiceWorker? get waiting;
@@ -190,7 +181,7 @@ extension type ServiceWorkerContainer._(JSObject _)
   /// service worker can't have a scope broader than its own location, only use
   /// the
   /// `scope` option when you need a scope that is narrower than the default.
-  external JSPromise register(
+  external JSPromise<ServiceWorkerRegistration> register(
     String scriptURL, [
     RegistrationOptions options,
   ]);
@@ -200,7 +191,8 @@ extension type ServiceWorkerContainer._(JSObject _)
   /// [ServiceWorkerRegistration] object whose scope URL matches the provided
   /// client URL. The method returns a `Promise` that resolves to
   /// a [ServiceWorkerRegistration] or `undefined`.
-  external JSPromise getRegistration([String clientURL]);
+  external JSPromise<ServiceWorkerRegistration?> getRegistration(
+      [String clientURL]);
 
   /// The **`getRegistrations()`** method of the
   /// [ServiceWorkerContainer] interface gets all
@@ -208,7 +200,7 @@ extension type ServiceWorkerContainer._(JSObject _)
   /// `ServiceWorkerContainer`, in an array. The method returns a
   /// `Promise` that resolves to an array of
   /// [ServiceWorkerRegistration].
-  external JSPromise getRegistrations();
+  external JSPromise<JSArray<ServiceWorkerRegistration>> getRegistrations();
 
   /// The **`startMessages()`** method of
   /// the [ServiceWorkerContainer] interface explicitly starts the flow of
@@ -218,7 +210,7 @@ extension type ServiceWorkerContainer._(JSObject _)
   /// earlier, even before that page's content has finished loading.
   external void startMessages();
   external ServiceWorker? get controller;
-  external JSPromise get ready;
+  external JSPromise<ServiceWorkerRegistration> get ready;
   external set oncontrollerchange(EventHandler value);
   external EventHandler get oncontrollerchange;
   external set onmessage(EventHandler value);
@@ -258,7 +250,7 @@ extension type NavigationPreloadManager._(JSObject _) implements JSObject {
   /// The method should be called in the service worker's `activate` event
   /// handler, which ensures it is called before any `fetch` event handler can
   /// fire.
-  external JSPromise enable();
+  external JSPromise<JSAny?> enable();
 
   /// The **`disable()`** method of the [NavigationPreloadManager] interface
   /// halts the automatic preloading of service-worker-managed resources
@@ -267,7 +259,7 @@ extension type NavigationPreloadManager._(JSObject _) implements JSObject {
   ///
   /// The method may be called in the service worker's `activate` event handler
   /// (before the `fetch` event handler can be called).
-  external JSPromise disable();
+  external JSPromise<JSAny?> disable();
 
   /// The **`setHeaderValue()`** method of the [NavigationPreloadManager]
   /// interface sets the value of the  header that will be sent with requests
@@ -284,13 +276,13 @@ extension type NavigationPreloadManager._(JSObject _) implements JSObject {
   /// > **Note:** If a different response may result from setting this header,
   /// > the server must set `Vary: Service-Worker-Navigation-Preload` to ensure
   /// > that the different responses are cached.
-  external JSPromise setHeaderValue(String value);
+  external JSPromise<JSAny?> setHeaderValue(String value);
 
   /// The **`getState()`** method of the [NavigationPreloadManager] interface
   /// returns a `Promise` that resolves to an object with properties that
   /// indicate whether preload is enabled and what value will be sent in the
   /// HTTP header.
-  external JSPromise getState();
+  external JSPromise<NavigationPreloadState> getState();
 }
 extension type NavigationPreloadState._(JSObject _) implements JSObject {
   external factory NavigationPreloadState({
@@ -333,32 +325,11 @@ extension type ServiceWorkerGlobalScope._(JSObject _)
   /// Use this method with [Clients.claim] to ensure that updates to the
   /// underlying service worker take effect immediately for both the current
   /// client and all other active clients.
-  external JSPromise skipWaiting();
-  external set onbackgroundfetchsuccess(EventHandler value);
-  external EventHandler get onbackgroundfetchsuccess;
-  external set onbackgroundfetchfail(EventHandler value);
-  external EventHandler get onbackgroundfetchfail;
-  external set onbackgroundfetchabort(EventHandler value);
-  external EventHandler get onbackgroundfetchabort;
-  external set onbackgroundfetchclick(EventHandler value);
-  external EventHandler get onbackgroundfetchclick;
-  external set onsync(EventHandler value);
-  external EventHandler get onsync;
-  external set oncontentdelete(EventHandler value);
-  external EventHandler get oncontentdelete;
-  external CookieStore get cookieStore;
-  external set oncookiechange(EventHandler value);
-  external EventHandler get oncookiechange;
+  external JSPromise<JSAny?> skipWaiting();
   external set onnotificationclick(EventHandler value);
   external EventHandler get onnotificationclick;
   external set onnotificationclose(EventHandler value);
   external EventHandler get onnotificationclose;
-  external set oncanmakepayment(EventHandler value);
-  external EventHandler get oncanmakepayment;
-  external set onpaymentrequest(EventHandler value);
-  external EventHandler get onpaymentrequest;
-  external set onperiodicsync(EventHandler value);
-  external EventHandler get onperiodicsync;
   external set onpush(EventHandler value);
   external EventHandler get onpush;
   external set onpushsubscriptionchange(EventHandler value);
@@ -392,7 +363,6 @@ extension type Client._(JSObject _) implements JSObject {
     JSAny? message, [
     JSObject optionsOrTransfer,
   ]);
-  external ClientLifecycleState get lifecycleState;
   external String get url;
   external FrameType get frameType;
   external String get id;
@@ -410,16 +380,16 @@ extension type WindowClient._(JSObject _) implements Client, JSObject {
   /// interface gives user input focus to the current client and returns a
   /// `Promise` that resolves to the existing
   /// [WindowClient].
-  external JSPromise focus();
+  external JSPromise<WindowClient> focus();
 
   /// The **`navigate()`** method of the [WindowClient]
   /// interface loads a specified URL into a controlled client page then returns
   /// a
   /// `Promise` that resolves to the existing [WindowClient].
-  external JSPromise navigate(String url);
+  external JSPromise<WindowClient?> navigate(String url);
   external DocumentVisibilityState get visibilityState;
   external bool get focused;
-  external JSArray get ancestorOrigins;
+  external JSArray<JSString> get ancestorOrigins;
 }
 
 /// The `Clients` interface provides access to [Client] objects. Access it via
@@ -429,7 +399,7 @@ extension type Clients._(JSObject _) implements JSObject {
   /// The **`get()`** method of the
   /// [Clients] interface gets a service worker client matching a given
   /// `id` and returns it in a `Promise`.
-  external JSPromise get(String id);
+  external JSPromise<Client?> get(String id);
 
   /// The **`matchAll()`** method of the [Clients]
   /// interface returns a `Promise` for a list of service worker
@@ -440,7 +410,7 @@ extension type Clients._(JSObject _) implements JSObject {
   /// are not included, the method returns only the service worker clients
   /// controlled by the
   /// service worker.
-  external JSPromise matchAll([ClientQueryOptions options]);
+  external JSPromise<JSArray<Client>> matchAll([ClientQueryOptions options]);
 
   /// The **`openWindow()`** method of the [Clients]
   /// interface creates a new top level browsing context and loads a given URL.
@@ -460,7 +430,7 @@ extension type Clients._(JSObject _) implements JSObject {
   /// previously added to the user's home screen. As of recently, this also
   /// works on
   /// Chrome for Windows.
-  external JSPromise openWindow(String url);
+  external JSPromise<WindowClient?> openWindow(String url);
 
   /// The **`claim()`** method of the [Clients] interface allows an active
   /// service worker to set itself as the [ServiceWorkerContainer.controller]
@@ -475,7 +445,7 @@ extension type Clients._(JSObject _) implements JSObject {
   /// Be aware that this results in your service worker controlling pages that
   /// loaded
   /// regularly over the network, or possibly via a different service worker.
-  external JSPromise claim();
+  external JSPromise<JSAny?> claim();
 }
 extension type ClientQueryOptions._(JSObject _) implements JSObject {
   external factory ClientQueryOptions({
@@ -555,7 +525,7 @@ extension type ExtendableEvent._(JSObject _) implements Event, JSObject {
   ///
   /// > **Note:** The behavior described in the above paragraph was fixed in
   /// > Firefox 43 (see [Firefox bug 1180274](https://bugzil.la/1180274)).
-  external void waitUntil(JSPromise f);
+  external void waitUntil(JSPromise<JSAny?> f);
 }
 extension type ExtendableEventInit._(JSObject _)
     implements EventInit, JSObject {
@@ -636,37 +606,37 @@ extension type FetchEvent._(JSObject _) implements ExtendableEvent, JSObject {
   /// resulting [Window.location]. This means sites can still provide an
   /// "alternate" view of a web page when offline without changing the
   /// user-visible URL.
-  external void respondWith(JSPromise r);
+  external void respondWith(JSPromise<Response> r);
   external Request get request;
-  external JSPromise get preloadResponse;
+  external JSPromise<JSAny?> get preloadResponse;
   external String get clientId;
   external String get resultingClientId;
   external String get replacesClientId;
-  external JSPromise get handled;
+  external JSPromise<JSAny?> get handled;
 }
 extension type FetchEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
   external factory FetchEventInit({
     required Request request,
-    JSPromise preloadResponse,
+    JSPromise<JSAny?> preloadResponse,
     String clientId,
     String resultingClientId,
     String replacesClientId,
-    JSPromise handled,
+    JSPromise<JSAny?> handled,
   });
 
   external set request(Request value);
   external Request get request;
-  external set preloadResponse(JSPromise value);
-  external JSPromise get preloadResponse;
+  external set preloadResponse(JSPromise<JSAny?> value);
+  external JSPromise<JSAny?> get preloadResponse;
   external set clientId(String value);
   external String get clientId;
   external set resultingClientId(String value);
   external String get resultingClientId;
   external set replacesClientId(String value);
   external String get replacesClientId;
-  external set handled(JSPromise value);
-  external JSPromise get handled;
+  external set handled(JSPromise<JSAny?> value);
+  external JSPromise<JSAny?> get handled;
 }
 
 /// The **`ExtendableMessageEvent`** interface of the
@@ -688,7 +658,7 @@ extension type ExtendableMessageEvent._(JSObject _)
   external String get origin;
   external String get lastEventId;
   external JSObject? get source;
-  external JSArray get ports;
+  external JSArray<MessagePort> get ports;
 }
 extension type ExtendableMessageEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
@@ -697,7 +667,7 @@ extension type ExtendableMessageEventInit._(JSObject _)
     String origin,
     String lastEventId,
     JSObject? source,
-    JSArray ports,
+    JSArray<MessagePort> ports,
   });
 
   external set data(JSAny? value);
@@ -708,8 +678,8 @@ extension type ExtendableMessageEventInit._(JSObject _)
   external String get lastEventId;
   external set source(JSObject? value);
   external JSObject? get source;
-  external set ports(JSArray value);
-  external JSArray get ports;
+  external set ports(JSArray<MessagePort> value);
+  external JSArray<MessagePort> get ports;
 }
 
 /// The **`Cache`** interface provides a persistent storage mechanism for
@@ -749,7 +719,7 @@ extension type Cache._(JSObject _) implements JSObject {
   /// resolves to the [Response] associated with the first matching request in
   /// the [Cache] object.
   /// If no match is found, the `Promise` resolves to `undefined`.
-  external JSPromise match(
+  external JSPromise<Response?> match(
     RequestInfo request, [
     CacheQueryOptions options,
   ]);
@@ -757,7 +727,7 @@ extension type Cache._(JSObject _) implements JSObject {
   /// The **`matchAll()`** method of the [Cache]
   /// interface returns a `Promise` that resolves to an array of all matching
   /// responses in the [Cache] object.
-  external JSPromise matchAll([
+  external JSPromise<JSArray<Response>> matchAll([
     RequestInfo request,
     CacheQueryOptions options,
   ]);
@@ -780,7 +750,7 @@ extension type Cache._(JSObject _) implements JSObject {
   ///
   /// > **Note:** `add()` will overwrite any key/value pair previously stored in
   /// > the cache that matches the request.
-  external JSPromise add(RequestInfo request);
+  external JSPromise<JSAny?> add(RequestInfo request);
 
   /// The **`addAll()`** method of the [Cache] interface takes an array of URLs,
   /// retrieves them, and adds the resulting response objects to the given
@@ -792,7 +762,7 @@ extension type Cache._(JSObject _) implements JSObject {
   /// > a
   /// > resulting `put()` operation would overwrite a previous cache entry
   /// > stored by the same `addAll()` method.
-  external JSPromise addAll(JSArray requests);
+  external JSPromise<JSAny?> addAll(JSArray<RequestInfo> requests);
 
   /// The **`put()`** method of the
   /// [Cache] interface allows key/value pairs to be added to the current
@@ -823,7 +793,7 @@ extension type Cache._(JSObject _) implements JSObject {
   /// > a
   /// > result, [Cache.add]/[Cache.addAll] can't be used to store
   /// > opaque responses, whereas [Cache.put] can.
-  external JSPromise put(
+  external JSPromise<JSAny?> put(
     RequestInfo request,
     Response response,
   );
@@ -832,7 +802,7 @@ extension type Cache._(JSObject _) implements JSObject {
   /// whose key is the request, and if found, deletes the [Cache] entry and
   /// returns a `Promise` that resolves to `true`.
   /// If no [Cache] entry is found, it resolves to `false`.
-  external JSPromise delete(
+  external JSPromise<JSBoolean> delete(
     RequestInfo request, [
     CacheQueryOptions options,
   ]);
@@ -845,7 +815,7 @@ extension type Cache._(JSObject _) implements JSObject {
   ///
   /// > **Note:** Requests with duplicate URLs but different headers can be
   /// > returned if their responses have the `VARY` header set on them.
-  external JSPromise keys([
+  external JSPromise<JSArray<Request>> keys([
     RequestInfo request,
     CacheQueryOptions options,
   ]);
@@ -907,7 +877,7 @@ extension type CacheStorage._(JSObject _) implements JSObject {
   /// > **Note:** [CacheStorage.match] is a convenience method.
   /// > Equivalent functionality is to call [cache.match] on each cache (in the
   /// > order returned by [CacheStorage.keys]) until a [Response] is returned.
-  external JSPromise match(
+  external JSPromise<Response?> match(
     RequestInfo request, [
     MultiCacheQueryOptions options,
   ]);
@@ -917,7 +887,7 @@ extension type CacheStorage._(JSObject _) implements JSObject {
   /// [Cache] object matches the `cacheName`.
   ///
   /// You can access `CacheStorage` through the global [caches] property.
-  external JSPromise has(String cacheName);
+  external JSPromise<JSBoolean> has(String cacheName);
 
   /// The **`open()`** method of the
   /// [CacheStorage] interface returns a `Promise` that resolves to
@@ -929,7 +899,7 @@ extension type CacheStorage._(JSObject _) implements JSObject {
   /// > **Note:** If the specified [Cache] does not exist, a new
   /// > cache is created with that `cacheName` and a `Promise` that
   /// > resolves to this new [Cache] object is returned.
-  external JSPromise open(String cacheName);
+  external JSPromise<Cache> open(String cacheName);
 
   /// The **`delete()`** method of the [CacheStorage] interface finds the
   /// [Cache] object matching the `cacheName`, and if found, deletes the [Cache]
@@ -937,7 +907,7 @@ extension type CacheStorage._(JSObject _) implements JSObject {
   /// If no [Cache] object is found, it resolves to `false`.
   ///
   /// You can access `CacheStorage` through the global [caches] property.
-  external JSPromise delete(String cacheName);
+  external JSPromise<JSBoolean> delete(String cacheName);
 
   /// The **`keys()`** method of the [CacheStorage] interface returns a
   /// `Promise` that will resolve with an array containing strings corresponding
@@ -946,7 +916,7 @@ extension type CacheStorage._(JSObject _) implements JSObject {
   /// Use this method to iterate over a list of all [Cache] objects.
   ///
   /// You can access `CacheStorage` through the global [caches] property.
-  external JSPromise keys();
+  external JSPromise<JSArray<JSString>> keys();
 }
 extension type MultiCacheQueryOptions._(JSObject _)
     implements CacheQueryOptions, JSObject {

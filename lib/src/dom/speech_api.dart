@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -263,7 +266,7 @@ extension type SpeechSynthesis._(JSObject _) implements EventTarget, JSObject {
   /// [SpeechSynthesisVoice] objects representing all the available voices on
   /// the
   /// current device.
-  external JSArray getVoices();
+  external JSArray<SpeechSynthesisVoice> getVoices();
   external bool get pending;
   external bool get speaking;
   external bool get paused;

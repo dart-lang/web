@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'webgl1.dart';
@@ -47,5 +50,5 @@ extension type WEBGL_draw_buffers._(JSObject _) implements JSObject {
   external static GLenum get DRAW_BUFFER15_WEBGL;
   external static GLenum get MAX_COLOR_ATTACHMENTS_WEBGL;
   external static GLenum get MAX_DRAW_BUFFERS_WEBGL;
-  external void drawBuffersWEBGL(JSArray buffers);
+  external void drawBuffersWEBGL(JSArray<JSNumber> buffers);
 }

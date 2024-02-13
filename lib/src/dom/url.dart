@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 /// The **`URL`** interface is used to parse, construct, normalize, and encode .
@@ -114,7 +117,7 @@ extension type URLSearchParams._(JSObject _) implements JSObject {
   /// The **`getAll()`** method of the [URLSearchParams]
   /// interface returns all the values associated with a given search parameter
   /// as an array.
-  external JSArray getAll(String name);
+  external JSArray<JSString> getAll(String name);
 
   /// The **`has()`** method of the [URLSearchParams] interface returns a
   /// boolean value that indicates whether the specified parameter is in the

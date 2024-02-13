@@ -8,13 +8,17 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
-import 'gamepad_extensions.dart';
 import 'hr_time.dart';
 
 typedef GamepadMappingType = String;
+typedef GamepadHapticsResult = String;
+typedef GamepadHapticEffectType = String;
 
 /// The **`Gamepad`** interface of the
 /// [Gamepad API](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API)
@@ -26,18 +30,14 @@ typedef GamepadMappingType = String;
 /// [Window.gamepaddisconnected_event] events, or by grabbing any position in
 /// the array returned by the [Navigator.getGamepads] method.
 extension type Gamepad._(JSObject _) implements JSObject {
-  external GamepadHand get hand;
-  external JSArray get hapticActuators;
-  external GamepadPose? get pose;
-  external JSArray? get touchEvents;
-  external GamepadHapticActuator? get vibrationActuator;
   external String get id;
   external int get index;
   external bool get connected;
   external DOMHighResTimeStamp get timestamp;
   external GamepadMappingType get mapping;
-  external JSArray get axes;
-  external JSArray get buttons;
+  external JSArray<JSNumber> get axes;
+  external JSArray<GamepadButton> get buttons;
+  external GamepadHapticActuator get vibrationActuator;
 }
 
 /// The **`GamepadButton`** interface defines an individual button of a gamepad
@@ -50,6 +50,40 @@ extension type GamepadButton._(JSObject _) implements JSObject {
   external bool get pressed;
   external bool get touched;
   external num get value;
+}
+
+/// The **`GamepadHapticActuator`** interface of the
+/// [Gamepad API](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API)
+/// represents hardware in the controller designed to provide haptic feedback to
+/// the user (if available), most commonly vibration hardware.
+///
+/// This interface is accessible through the [Gamepad.hapticActuators] property.
+extension type GamepadHapticActuator._(JSObject _) implements JSObject {
+  /// The **`playEffect()`** method of the [GamepadHapticActuator] interface
+  /// makes the hardware play a specific vibration pattern.
+  external JSPromise<JSString> playEffect(
+    GamepadHapticEffectType type, [
+    GamepadEffectParameters params,
+  ]);
+  external JSPromise<JSString> reset();
+  external JSArray<JSString> get effects;
+}
+extension type GamepadEffectParameters._(JSObject _) implements JSObject {
+  external factory GamepadEffectParameters({
+    int duration,
+    int startDelay,
+    num strongMagnitude,
+    num weakMagnitude,
+  });
+
+  external set duration(int value);
+  external int get duration;
+  external set startDelay(int value);
+  external int get startDelay;
+  external set strongMagnitude(num value);
+  external num get strongMagnitude;
+  external set weakMagnitude(num value);
+  external num get weakMagnitude;
 }
 
 /// The GamepadEvent interface of the Gamepad API contains references to

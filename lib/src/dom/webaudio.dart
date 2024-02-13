@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -197,8 +200,8 @@ extension type BaseAudioContext._(JSObject _) implements EventTarget, JSObject {
   /// > constructor is the recommended way to create a [IIRFilterNode]; see
   /// > [Creating an AudioNode](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode#creating_an_audionode).
   external IIRFilterNode createIIRFilter(
-    JSArray feedforward,
-    JSArray feedback,
+    JSArray<JSNumber> feedforward,
+    JSArray<JSNumber> feedback,
   );
 
   /// The `createOscillator()` method of the [BaseAudioContext]
@@ -230,8 +233,8 @@ extension type BaseAudioContext._(JSObject _) implements EventTarget, JSObject {
   /// waveform
   /// that can be used to shape the output of an [OscillatorNode].
   external PeriodicWave createPeriodicWave(
-    JSArray real,
-    JSArray imag, [
+    JSArray<JSNumber> real,
+    JSArray<JSNumber> imag, [
     PeriodicWaveConstraints constraints,
   ]);
 
@@ -286,7 +289,7 @@ extension type BaseAudioContext._(JSObject _) implements EventTarget, JSObject {
   /// failure. The primary method of interfacing with this function is via its
   /// Promise return value, and the callback parameters are provided for legacy
   /// reasons.
-  external JSPromise decodeAudioData(
+  external JSPromise<AudioBuffer> decodeAudioData(
     JSArrayBuffer audioData, [
     DecodeSuccessCallback? successCallback,
     DecodeErrorCallback? errorCallback,
@@ -342,7 +345,7 @@ extension type AudioContext._(JSObject _)
   ///
   /// This method will cause an `INVALID_STATE_ERR` exception to be thrown if
   /// called on an [OfflineAudioContext].
-  external JSPromise resume();
+  external JSPromise<JSAny?> resume();
 
   /// The `suspend()` method of the [AudioContext] Interface suspends the
   /// progression of time in the audio context, temporarily halting audio
@@ -352,7 +355,7 @@ extension type AudioContext._(JSObject _)
   ///
   /// This method will cause an `INVALID_STATE_ERR` exception to be thrown if
   /// called on an [OfflineAudioContext].
-  external JSPromise suspend();
+  external JSPromise<JSAny?> suspend();
 
   /// The `close()` method of the [AudioContext] Interface closes the audio
   /// context, releasing any system audio resources that it uses.
@@ -366,7 +369,7 @@ extension type AudioContext._(JSObject _)
   /// `AudioContext`-creation-blocking resources have been released. This method
   /// throws an `INVALID_STATE_ERR` exception if called on an
   /// [OfflineAudioContext].
-  external JSPromise close();
+  external JSPromise<JSAny?> close();
 
   /// The **`setSinkId()`** method of the [AudioContext] interface sets the
   /// output audio device for the `AudioContext`. If a sink ID is not explicitly
@@ -380,7 +383,7 @@ extension type AudioContext._(JSObject _)
   /// In addition, this feature may be blocked by a
   /// [`speaker-selection`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/speaker-selection)
   /// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy).
-  external JSPromise setSinkId(JSAny sinkId);
+  external JSPromise<JSAny?> setSinkId(JSAny sinkId);
 
   /// The `createMediaElementSource()` method of the [AudioContext] Interface is
   /// used to create a new [MediaElementAudioSourceNode] object, given an
@@ -548,7 +551,7 @@ extension type OfflineAudioContext._(JSObject _)
   /// an older event-based version and a newer promise-based version.
   /// The former will eventually be removed, but currently both mechanisms are
   /// provided for legacy reasons.
-  external JSPromise startRendering();
+  external JSPromise<AudioBuffer> startRendering();
 
   /// The **`resume()`** method of the
   /// [OfflineAudioContext] interface resumes the progression of time in an
@@ -556,7 +559,7 @@ extension type OfflineAudioContext._(JSObject _)
   /// context that has been suspended. The promise resolves immediately because
   /// the
   /// `OfflineAudioContext` does not require the audio hardware.
-  external JSPromise resume();
+  external JSPromise<JSAny?> resume();
 
   /// The **`suspend()`** method of the [OfflineAudioContext] interface
   /// schedules a suspension of the time
@@ -575,7 +578,7 @@ extension type OfflineAudioContext._(JSObject _)
   /// frame. Also scheduling should be done while the context is not running to
   /// ensure the
   /// precise suspension.
-  external JSPromise suspend(num suspendTime);
+  external JSPromise<JSAny?> suspend(num suspendTime);
   external int get length;
   external set oncomplete(EventHandler value);
   external EventHandler get oncomplete;
@@ -818,7 +821,7 @@ extension type AudioParam._(JSObject _) implements JSObject {
   /// values, which are scaled to fit into the given interval starting at
   /// `startTime` and a specific duration.
   external AudioParam setValueCurveAtTime(
-    JSArray values,
+    JSArray<JSNumber> values,
     num startTime,
     num duration,
   );
@@ -1790,14 +1793,14 @@ extension type IIRFilterNode._(JSObject _) implements AudioNode, JSObject {
 extension type IIRFilterOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory IIRFilterOptions({
-    required JSArray feedforward,
-    required JSArray feedback,
+    required JSArray<JSNumber> feedforward,
+    required JSArray<JSNumber> feedback,
   });
 
-  external set feedforward(JSArray value);
-  external JSArray get feedforward;
-  external set feedback(JSArray value);
-  external JSArray get feedback;
+  external set feedforward(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get feedforward;
+  external set feedback(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get feedback;
 }
 
 /// The `MediaElementAudioSourceNode` interface represents an audio source
@@ -2251,14 +2254,14 @@ extension type PeriodicWaveConstraints._(JSObject _) implements JSObject {
 extension type PeriodicWaveOptions._(JSObject _)
     implements PeriodicWaveConstraints, JSObject {
   external factory PeriodicWaveOptions({
-    JSArray real,
-    JSArray imag,
+    JSArray<JSNumber> real,
+    JSArray<JSNumber> imag,
   });
 
-  external set real(JSArray value);
-  external JSArray get real;
-  external set imag(JSArray value);
-  external JSArray get imag;
+  external set real(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get real;
+  external set imag(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get imag;
 }
 
 /// The `ScriptProcessorNode` interface allows the generation, processing, or
@@ -2424,12 +2427,12 @@ extension type WaveShaperNode._(JSObject _) implements AudioNode, JSObject {
 extension type WaveShaperOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory WaveShaperOptions({
-    JSArray curve,
+    JSArray<JSNumber> curve,
     OverSampleType oversample,
   });
 
-  external set curve(JSArray value);
-  external JSArray get curve;
+  external set curve(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get curve;
   external set oversample(OverSampleType value);
   external OverSampleType get oversample;
 }
@@ -2516,8 +2519,8 @@ extension type AudioWorkletNodeOptions._(JSObject _)
   external factory AudioWorkletNodeOptions({
     int numberOfInputs,
     int numberOfOutputs,
-    JSArray outputChannelCount,
-    JSAny parameterData,
+    JSArray<JSNumber> outputChannelCount,
+    JSObject parameterData,
     JSObject processorOptions,
   });
 
@@ -2525,10 +2528,10 @@ extension type AudioWorkletNodeOptions._(JSObject _)
   external int get numberOfInputs;
   external set numberOfOutputs(int value);
   external int get numberOfOutputs;
-  external set outputChannelCount(JSArray value);
-  external JSArray get outputChannelCount;
-  external set parameterData(JSAny value);
-  external JSAny get parameterData;
+  external set outputChannelCount(JSArray<JSNumber> value);
+  external JSArray<JSNumber> get outputChannelCount;
+  external set parameterData(JSObject value);
+  external JSObject get parameterData;
   external set processorOptions(JSObject value);
   external JSObject get processorOptions;
 }

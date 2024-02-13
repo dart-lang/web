@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -59,7 +62,7 @@ extension type ReadableStream._(JSObject _) implements JSObject {
   /// those chunks
   /// still and not completely get rid of the stream, you'd use
   /// [ReadableStreamDefaultController.close].
-  external JSPromise cancel([JSAny? reason]);
+  external JSPromise<JSAny?> cancel([JSAny? reason]);
 
   /// The **`getReader()`** method of the [ReadableStream] interface creates a
   /// reader and locks the stream to it.
@@ -87,7 +90,7 @@ extension type ReadableStream._(JSObject _) implements JSObject {
   /// Piping a stream will generally
   /// [lock](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream/locked)
   /// it for the duration of the pipe, preventing other readers from locking it.
-  external JSPromise pipeTo(
+  external JSPromise<JSAny?> pipeTo(
     WritableStream destination, [
     StreamPipeOptions options,
   ]);
@@ -135,7 +138,7 @@ extension type ReadableStream._(JSObject _) implements JSObject {
   /// Teeing a stream
   /// will generally lock it for the duration, preventing other readers from
   /// locking it.
-  external JSArray tee();
+  external JSArray<ReadableStream> tee();
   external bool get locked;
 }
 extension type ReadableStreamGetReaderOptions._(JSObject _)
@@ -226,7 +229,7 @@ extension type ReadableStreamDefaultReader._(JSObject _) implements JSObject {
   /// The **`read()`** method of the [ReadableStreamDefaultReader] interface
   /// returns a `Promise` providing access to the next chunk in the stream's
   /// internal queue.
-  external JSPromise read();
+  external JSPromise<ReadableStreamReadResult> read();
 
   /// The **`releaseLock()`** method of the [ReadableStreamDefaultReader]
   /// interface releases the reader's lock on the stream.
@@ -260,8 +263,8 @@ extension type ReadableStreamDefaultReader._(JSObject _) implements JSObject {
   /// > **Note:** If the reader is active, the
   /// > `cancel()` method behaves the same as that for the associated stream
   /// > ([ReadableStream.cancel]).
-  external JSPromise cancel([JSAny? reason]);
-  external JSPromise get closed;
+  external JSPromise<JSAny?> cancel([JSAny? reason]);
+  external JSPromise<JSAny?> get closed;
 }
 extension type ReadableStreamReadResult._(JSObject _) implements JSObject {
   external factory ReadableStreamReadResult({
@@ -336,7 +339,10 @@ extension type ReadableStreamBYOBReader._(JSObject _) implements JSObject {
   /// The `done` property indicates whether or not more data is expected.
   /// The value is set `true` if the stream is closed or cancelled, and `false`
   /// otherwise.
-  external JSPromise read(ArrayBufferView view);
+  external JSPromise<ReadableStreamReadResult> read(
+    ArrayBufferView view, [
+    ReadableStreamBYOBReaderReadOptions options,
+  ]);
 
   /// The **`releaseLock()`** method of the [ReadableStreamBYOBReader] interface
   /// releases the reader's lock on the stream.
@@ -359,8 +365,15 @@ extension type ReadableStreamBYOBReader._(JSObject _) implements JSObject {
   ///
   /// > **Note:** If the reader is active, the `cancel()` method behaves the
   /// > same as that for the associated stream ([ReadableStream.cancel]).
-  external JSPromise cancel([JSAny? reason]);
-  external JSPromise get closed;
+  external JSPromise<JSAny?> cancel([JSAny? reason]);
+  external JSPromise<JSAny?> get closed;
+}
+extension type ReadableStreamBYOBReaderReadOptions._(JSObject _)
+    implements JSObject {
+  external factory ReadableStreamBYOBReaderReadOptions({int min});
+
+  external set min(int value);
+  external int get min;
 }
 
 /// The **`ReadableStreamDefaultController`** interface of the
@@ -583,7 +596,7 @@ extension type WritableStream._(JSObject _) implements JSObject {
   /// stream, signaling that the producer can no longer successfully write to
   /// the stream and it is to be immediately moved to an error state, with any
   /// queued writes discarded.
-  external JSPromise abort([JSAny? reason]);
+  external JSPromise<JSAny?> abort([JSAny? reason]);
 
   /// The **`close()`** method of the [WritableStream] interface closes the
   /// associated stream. All chunks written before this method is called are
@@ -592,7 +605,7 @@ extension type WritableStream._(JSObject _) implements JSObject {
   /// This is equivalent to getting a [WritableStreamDefaultWriter] with
   /// [WritableStream.getWriter], calling [WritableStreamDefaultWriter.close] on
   /// it.
-  external JSPromise close();
+  external JSPromise<JSAny?> close();
 
   /// The **`getWriter()`** method of the [WritableStream] interface returns a
   /// new instance of [WritableStreamDefaultWriter] and locks the stream to that
@@ -640,7 +653,7 @@ extension type WritableStreamDefaultWriter._(JSObject _) implements JSObject {
   /// If the writer is active, the `abort()` method behaves the same as that for
   /// the associated stream ([WritableStream.abort]). If not, it returns a
   /// rejected promise.
-  external JSPromise abort([JSAny? reason]);
+  external JSPromise<JSAny?> abort([JSAny? reason]);
 
   /// The **`close()`** method of the
   /// [WritableStreamDefaultWriter] interface closes the associated writable
@@ -651,7 +664,7 @@ extension type WritableStreamDefaultWriter._(JSObject _) implements JSObject {
   /// invoking the close behavior. During this time any further attempts to
   /// write will fail
   /// (without erroring the stream).
-  external JSPromise close();
+  external JSPromise<JSAny?> close();
 
   /// The **`releaseLock()`** method of the
   /// [WritableStreamDefaultWriter] interface releases the writer's lock on the
@@ -673,10 +686,10 @@ extension type WritableStreamDefaultWriter._(JSObject _) implements JSObject {
   /// chunk has been accepted, and not necessarily that it is safely saved to
   /// its ultimate
   /// destination.
-  external JSPromise write([JSAny? chunk]);
-  external JSPromise get closed;
+  external JSPromise<JSAny?> write([JSAny? chunk]);
+  external JSPromise<JSAny?> get closed;
   external num? get desiredSize;
-  external JSPromise get ready;
+  external JSPromise<JSAny?> get ready;
 }
 
 /// The **`WritableStreamDefaultController`** interface of the

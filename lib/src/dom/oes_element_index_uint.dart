@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 extension type OES_element_index_uint._(JSObject _) implements JSObject {}

@@ -14,12 +14,6 @@ This package is intended to replace
 similar Dart SDK libraries. It will support access to browser APIs from Dart
 code compiled to either JavaScript or WebAssembly.
 
-## Status
-
-The APIs in this package are still fairly provisional and could change rapidly.
-We'll continue to use [semantic versioning](https://semver.org/) as we evolve
-the APIs.
-
 ## Usage
 
 ```dart
@@ -36,8 +30,8 @@ void main() {
 Based on:
 
 <!-- START updated by tool/update_bindings.dart. Do not modify by hand -->
-- @webref/idl [3.39.1](https://www.npmjs.com/package/@webref/idl/v/3.39.1)
-- @webref/css [6.10.0](https://www.npmjs.com/package/@webref/css/v/6.10.0)
+- @webref/idl [3.43.1](https://www.npmjs.com/package/@webref/idl/v/3.43.1)
+- @webref/css [6.11.0](https://www.npmjs.com/package/@webref/css/v/6.11.0)
 <!-- END updated by tool/update_bindings.dart. Do not modify by hand -->
 
 For instructions on re-generating the DOM bindings, see the

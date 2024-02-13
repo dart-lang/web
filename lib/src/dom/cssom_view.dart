@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -119,9 +122,6 @@ extension type Screen._(JSObject _) implements JSObject {
   external int get colorDepth;
   external int get pixelDepth;
   external ScreenOrientation get orientation;
-  external bool get isExtended;
-  external set onchange(EventHandler value);
-  external EventHandler get onchange;
 }
 
 /// The `CaretPosition` interface represents the caret position, an indicator
@@ -148,12 +148,21 @@ extension type CheckVisibilityOptions._(JSObject _) implements JSObject {
   external factory CheckVisibilityOptions({
     bool checkOpacity,
     bool checkVisibilityCSS,
+    bool contentVisibilityAuto,
+    bool opacityProperty,
+    bool visibilityProperty,
   });
 
   external set checkOpacity(bool value);
   external bool get checkOpacity;
   external set checkVisibilityCSS(bool value);
   external bool get checkVisibilityCSS;
+  external set contentVisibilityAuto(bool value);
+  external bool get contentVisibilityAuto;
+  external set opacityProperty(bool value);
+  external bool get opacityProperty;
+  external set visibilityProperty(bool value);
+  external bool get visibilityProperty;
 }
 extension type BoxQuadOptions._(JSObject _) implements JSObject {
   external factory BoxQuadOptions({

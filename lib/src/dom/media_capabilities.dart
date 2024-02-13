@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'encrypted_media.dart';
@@ -114,7 +117,7 @@ extension type MediaCapabilitiesKeySystemConfiguration._(JSObject _)
     String initDataType,
     MediaKeysRequirement distinctiveIdentifier,
     MediaKeysRequirement persistentState,
-    JSArray sessionTypes,
+    JSArray<JSString> sessionTypes,
     KeySystemTrackConfiguration audio,
     KeySystemTrackConfiguration video,
   });
@@ -127,8 +130,8 @@ extension type MediaCapabilitiesKeySystemConfiguration._(JSObject _)
   external MediaKeysRequirement get distinctiveIdentifier;
   external set persistentState(MediaKeysRequirement value);
   external MediaKeysRequirement get persistentState;
-  external set sessionTypes(JSArray value);
-  external JSArray get sessionTypes;
+  external set sessionTypes(JSArray<JSString> value);
+  external JSArray<JSString> get sessionTypes;
   external set audio(KeySystemTrackConfiguration value);
   external KeySystemTrackConfiguration get audio;
   external set video(KeySystemTrackConfiguration value);
@@ -197,7 +200,8 @@ extension type MediaCapabilities._(JSObject _) implements JSObject {
   /// This contains the three boolean properties `supported`, `smooth`, and
   /// `powerefficient`, which describe whether decoding the media described
   /// would be supported, smooth, and powerefficient.
-  external JSPromise decodingInfo(MediaDecodingConfiguration configuration);
+  external JSPromise<MediaCapabilitiesDecodingInfo> decodingInfo(
+      MediaDecodingConfiguration configuration);
 
   /// The **`MediaCapabilities.encodingInfo()`** method, part of the
   /// [MediaCapabilities] interface of the
@@ -207,5 +211,6 @@ extension type MediaCapabilities._(JSObject _) implements JSObject {
   /// This contains the three boolean properties `supported`, `smooth`, and
   /// `powerefficient`, which describe how compatible the device is with the
   /// type of media.
-  external JSPromise encodingInfo(MediaEncodingConfiguration configuration);
+  external JSPromise<MediaCapabilitiesEncodingInfo> encodingInfo(
+      MediaEncodingConfiguration configuration);
 }

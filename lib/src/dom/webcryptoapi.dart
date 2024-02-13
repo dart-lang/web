@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'webidl.dart';
@@ -107,7 +110,7 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   /// parameters, and the data to encrypt (also known as "plaintext").
   /// It returns a `Promise` which will be fulfilled with the encrypted data
   /// (also known as "ciphertext").
-  external JSPromise encrypt(
+  external JSPromise<JSAny?> encrypt(
     AlgorithmIdentifier algorithm,
     CryptoKey key,
     BufferSource data,
@@ -119,7 +122,7 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   /// and the data to decrypt (also known as "ciphertext").
   /// It returns a `Promise` which will be fulfilled with the decrypted data
   /// (also known as "plaintext").
-  external JSPromise decrypt(
+  external JSPromise<JSAny?> decrypt(
     AlgorithmIdentifier algorithm,
     CryptoKey key,
     BufferSource data,
@@ -134,7 +137,7 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   ///
   /// You can use the corresponding [SubtleCrypto.verify] method to verify the
   /// signature.
-  external JSPromise sign(
+  external JSPromise<JSAny?> sign(
     AlgorithmIdentifier algorithm,
     CryptoKey key,
     BufferSource data,
@@ -148,7 +151,7 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   /// data. It returns a
   /// `Promise` which will be fulfilled with a boolean value
   /// indicating whether the signature is valid.
-  external JSPromise verify(
+  external JSPromise<JSAny?> verify(
     AlgorithmIdentifier algorithm,
     CryptoKey key,
     BufferSource signature,
@@ -169,7 +172,7 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   ///
   /// Note that this API does not support streaming input: you must read the
   /// entire input into memory before passing it into the digest function.
-  external JSPromise digest(
+  external JSPromise<JSAny?> digest(
     AlgorithmIdentifier algorithm,
     BufferSource data,
   );
@@ -177,10 +180,10 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   /// Use the **`generateKey()`** method of the
   /// [SubtleCrypto] interface to generate a new key (for symmetric algorithms)
   /// or key pair (for public-key algorithms).
-  external JSPromise generateKey(
+  external JSPromise<JSAny?> generateKey(
     AlgorithmIdentifier algorithm,
     bool extractable,
-    JSArray keyUsages,
+    JSArray<JSString> keyUsages,
   );
 
   /// The **`deriveKey()`** method of the [SubtleCrypto]
@@ -198,12 +201,12 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   /// different characteristics and are appropriate in quite different
   /// situations. See [Supported algorithms](#supported_algorithms) for some
   /// more detail on this.
-  external JSPromise deriveKey(
+  external JSPromise<JSAny?> deriveKey(
     AlgorithmIdentifier algorithm,
     CryptoKey baseKey,
     AlgorithmIdentifier derivedKeyType,
     bool extractable,
-    JSArray keyUsages,
+    JSArray<JSString> keyUsages,
   );
 
   /// The **`deriveBits()`** method of the
@@ -232,7 +235,7 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   /// ECDH, HKDF, and PBKDF2. See
   /// [Supported algorithms](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/deriveKey#supported_algorithms)
   /// for some more detail on these algorithms.
-  external JSPromise deriveBits(
+  external JSPromise<JSArrayBuffer> deriveBits(
     AlgorithmIdentifier algorithm,
     CryptoKey baseKey,
     int length,
@@ -246,12 +249,12 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   ///
   /// The function accepts several import formats: see
   /// [Supported formats](#supported_formats) for details.
-  external JSPromise importKey(
+  external JSPromise<CryptoKey> importKey(
     KeyFormat format,
     JSObject keyData,
     AlgorithmIdentifier algorithm,
     bool extractable,
-    JSArray keyUsages,
+    JSArray<JSString> keyUsages,
   );
 
   /// The **`exportKey()`** method of the [SubtleCrypto]
@@ -272,7 +275,7 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   /// the
   /// [`SubtleCrypto.wrapKey()`](/en-US/docs/Web/API/SubtleCrypto/wrapKey)
   /// API instead.
-  external JSPromise exportKey(
+  external JSPromise<JSAny?> exportKey(
     KeyFormat format,
     CryptoKey key,
   );
@@ -295,7 +298,7 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   ///
   /// The inverse of `wrapKey()` is [SubtleCrypto.unwrapKey]: while `wrapKey` is
   /// composed of export + encrypt, `unwrapKey` is composed of import + decrypt.
-  external JSPromise wrapKey(
+  external JSPromise<JSAny?> wrapKey(
     KeyFormat format,
     CryptoKey key,
     CryptoKey wrappingKey,
@@ -324,14 +327,14 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   /// The inverse of `unwrapKey()` is [SubtleCrypto.wrapKey]: while `unwrapKey`
   /// is composed of decrypt + import, `wrapKey` is composed of encrypt +
   /// export.
-  external JSPromise unwrapKey(
+  external JSPromise<CryptoKey> unwrapKey(
     KeyFormat format,
     BufferSource wrappedKey,
     CryptoKey unwrappingKey,
     AlgorithmIdentifier unwrapAlgorithm,
     AlgorithmIdentifier unwrappedKeyAlgorithm,
     bool extractable,
-    JSArray keyUsages,
+    JSArray<JSString> keyUsages,
   );
 }
 extension type RsaOtherPrimesInfo._(JSObject _) implements JSObject {
@@ -352,7 +355,7 @@ extension type JsonWebKey._(JSObject _) implements JSObject {
   external factory JsonWebKey({
     String kty,
     String use,
-    JSArray key_ops,
+    JSArray<JSString> key_ops,
     String alg,
     bool ext,
     String crv,
@@ -366,7 +369,7 @@ extension type JsonWebKey._(JSObject _) implements JSObject {
     String dp,
     String dq,
     String qi,
-    JSArray oth,
+    JSArray<RsaOtherPrimesInfo> oth,
     String k,
   });
 
@@ -374,8 +377,8 @@ extension type JsonWebKey._(JSObject _) implements JSObject {
   external String get kty;
   external set use(String value);
   external String get use;
-  external set key_ops(JSArray value);
-  external JSArray get key_ops;
+  external set key_ops(JSArray<JSString> value);
+  external JSArray<JSString> get key_ops;
   external set alg(String value);
   external String get alg;
   external set ext(bool value);
@@ -402,8 +405,8 @@ extension type JsonWebKey._(JSObject _) implements JSObject {
   external String get dq;
   external set qi(String value);
   external String get qi;
-  external set oth(JSArray value);
-  external JSArray get oth;
+  external set oth(JSArray<RsaOtherPrimesInfo> value);
+  external JSArray<RsaOtherPrimesInfo> get oth;
   external set k(String value);
   external String get k;
 }

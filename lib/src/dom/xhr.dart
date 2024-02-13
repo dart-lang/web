@@ -8,12 +8,13 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
-import 'attribution_reporting_api.dart';
 import 'dom.dart';
 import 'html.dart';
-import 'trust_token_api.dart';
 
 typedef FormDataEntryValue = JSAny;
 typedef XMLHttpRequestResponseType = String;
@@ -76,9 +77,6 @@ extension type XMLHttpRequest._(JSObject _)
   external static int get HEADERS_RECEIVED;
   external static int get LOADING;
   external static int get DONE;
-  external void setAttributionReporting(
-      AttributionReportingRequestOptions options);
-  external void setPrivateToken(PrivateToken privateToken);
 
   /// The [XMLHttpRequest] method **`open()`**
   /// initializes a newly-created request, or re-initializes an existing one.
@@ -277,7 +275,7 @@ extension type FormData._(JSObject _) implements JSObject {
   ///
   /// > **Note:** This method is available in
   /// > [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
-  external JSArray getAll(String name);
+  external JSArray<FormDataEntryValue> getAll(String name);
 
   /// The **`has()`** method of the [FormData] interface returns whether a
   /// `FormData` object contains a certain key.

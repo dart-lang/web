@@ -8,10 +8,12 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
-import 'event_timing.dart';
 import 'html.dart';
 import 'navigation_timing.dart';
 import 'performance_timeline.dart';
@@ -40,10 +42,6 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
   /// The **`toJSON()`** method of the [Performance] interface is a ; it returns
   /// a JSON representation of the [Performance] object.
   external JSObject toJSON();
-
-  /// The **`measureUserAgentSpecificMemory()`** method is used to estimate the
-  /// memory usage of a web application including all its iframes and workers.
-  external JSPromise measureUserAgentSpecificMemory();
 
   /// The **`getEntries()`** method returns an array of all [PerformanceEntry]
   /// objects currently present in the performance timeline.
@@ -181,8 +179,6 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
   /// The **`clearMeasures()`** method removes all or specific
   /// [PerformanceMeasure] objects from the browser's performance timeline.
   external void clearMeasures([String measureName]);
-  external EventCounts get eventCounts;
-  external int get interactionCount;
   external DOMHighResTimeStamp get timeOrigin;
   external PerformanceTiming get timing;
   external PerformanceNavigation get navigation;

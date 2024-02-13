@@ -8,16 +8,18 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
-import 'attribution_reporting_api.dart';
 import 'dom.dart';
-import 'private_network_access.dart';
+import 'fileapi.dart';
 import 'referrer_policy.dart';
 import 'streams.dart';
-import 'trust_token_api.dart';
+import 'xhr.dart';
 
-typedef HeadersInit = JSAny;
+typedef HeadersInit = JSObject;
 typedef XMLHttpRequestBodyInit = JSAny;
 typedef BodyInit = JSAny;
 typedef RequestInfo = JSAny;
@@ -120,7 +122,7 @@ extension type Headers._(JSObject _) implements JSObject {
   /// that
   /// [must be filtered out](https://fetch.spec.whatwg.org/#ref-for-forbidden-response-header-name%E2%91%A0)
   /// from any response exposed to frontend code.
-  external JSArray getSetCookie();
+  external JSArray<JSString> getSetCookie();
 
   /// The **`has()`** method of the [Headers] interface
   /// returns a boolean stating whether a `Headers` object contains a certain
@@ -187,17 +189,17 @@ extension type Request._(JSObject _) implements JSObject {
   /// The **`arrayBuffer()`** method of the [Request] interface
   /// reads the request body and returns it as a promise that resolves with an
   /// `ArrayBuffer`.
-  external JSPromise arrayBuffer();
+  external JSPromise<JSArrayBuffer> arrayBuffer();
 
   /// The **`blob()`** method of the [Request] interface
   /// reads the request body and returns it as a promise that resolves with a
   /// [Blob].
-  external JSPromise blob();
+  external JSPromise<Blob> blob();
 
   /// The **`formData()`** method of the [Request] interface
   /// reads the request body and returns it as a promise that resolves with a
   /// [FormData] object.
-  external JSPromise formData();
+  external JSPromise<FormData> formData();
 
   /// The **`json()`** method of the [Request] interface
   /// reads the request body and returns it as a promise that resolves with the
@@ -206,13 +208,13 @@ extension type Request._(JSObject _) implements JSObject {
   /// Note that despite the method being named `json()`, the result is not JSON
   /// but is instead the result of taking JSON as input and parsing it to
   /// produce a JavaScript object.
-  external JSPromise json();
+  external JSPromise<JSAny?> json();
 
   /// The **`text()`** method of the [Request] interface
   /// reads the request body and returns it as a promise that resolves with a
   /// `String`.
   /// The response is _always_ decoded using UTF-8.
-  external JSPromise text();
+  external JSPromise<JSString> text();
   external String get method;
   external String get url;
   external Headers get headers;
@@ -234,7 +236,6 @@ extension type Request._(JSObject _) implements JSObject {
 }
 extension type RequestInit._(JSObject _) implements JSObject {
   external factory RequestInit({
-    AttributionReportingRequestOptions attributionReporting,
     String method,
     HeadersInit headers,
     BodyInit? body,
@@ -250,13 +251,8 @@ extension type RequestInit._(JSObject _) implements JSObject {
     RequestDuplex duplex,
     RequestPriority priority,
     JSAny? window,
-    RequestTargetAddressSpace targetAddressSpace,
-    bool sharedStorageWritable,
-    PrivateToken privateToken,
   });
 
-  external set attributionReporting(AttributionReportingRequestOptions value);
-  external AttributionReportingRequestOptions get attributionReporting;
   external set method(String value);
   external String get method;
   external set headers(HeadersInit value);
@@ -287,12 +283,6 @@ extension type RequestInit._(JSObject _) implements JSObject {
   external RequestPriority get priority;
   external set window(JSAny? value);
   external JSAny? get window;
-  external set targetAddressSpace(RequestTargetAddressSpace value);
-  external RequestTargetAddressSpace get targetAddressSpace;
-  external set sharedStorageWritable(bool value);
-  external bool get sharedStorageWritable;
-  external set privateToken(PrivateToken value);
-  external PrivateToken get privateToken;
 }
 
 /// The **`Response`** interface of the
@@ -358,12 +348,12 @@ extension type Response._(JSObject _) implements JSObject {
   /// The **`arrayBuffer()`** method of the [Response] interface
   /// takes a [Response] stream and reads it to completion. It returns a promise
   /// that resolves with an `ArrayBuffer`.
-  external JSPromise arrayBuffer();
+  external JSPromise<JSArrayBuffer> arrayBuffer();
 
   /// The **`blob()`** method of the [Response] interface takes
   /// a [Response] stream and reads it to completion. It returns a promise that
   /// resolves with a [Blob].
-  external JSPromise blob();
+  external JSPromise<Blob> blob();
 
   /// The **`formData()`** method of the [Response] interface
   /// takes a [Response] stream and reads it to completion. It returns a promise
@@ -377,7 +367,7 @@ extension type Response._(JSObject _) implements JSObject {
   /// > `formData()` on it to obtain a key-value map, modify some fields, then
   /// > send
   /// > the form onwards to the server (or use it locally).
-  external JSPromise formData();
+  external JSPromise<FormData> formData();
 
   /// The **`json()`** method of the [Response] interface takes
   /// a [Response] stream and reads it to completion. It returns a promise which
@@ -386,13 +376,13 @@ extension type Response._(JSObject _) implements JSObject {
   /// Note that despite the method being named `json()`, the result is not JSON
   /// but is instead the result of taking JSON as input and parsing it to
   /// produce a JavaScript object.
-  external JSPromise json();
+  external JSPromise<JSAny?> json();
 
   /// The **`text()`** method of the [Response] interface takes a [Response]
   /// stream and reads it to completion.
   /// It returns a promise that resolves with a `String`.
   /// The response is _always_ decoded using UTF-8.
-  external JSPromise text();
+  external JSPromise<JSString> text();
   external ResponseType get type;
   external String get url;
   external bool get redirected;

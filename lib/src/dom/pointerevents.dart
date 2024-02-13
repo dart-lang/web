@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'uievents.dart';
@@ -27,8 +30,8 @@ extension type PointerEventInit._(JSObject _)
     num azimuthAngle,
     String pointerType,
     bool isPrimary,
-    JSArray coalescedEvents,
-    JSArray predictedEvents,
+    JSArray<PointerEvent> coalescedEvents,
+    JSArray<PointerEvent> predictedEvents,
   });
 
   external set pointerId(int value);
@@ -55,10 +58,10 @@ extension type PointerEventInit._(JSObject _)
   external String get pointerType;
   external set isPrimary(bool value);
   external bool get isPrimary;
-  external set coalescedEvents(JSArray value);
-  external JSArray get coalescedEvents;
-  external set predictedEvents(JSArray value);
-  external JSArray get predictedEvents;
+  external set coalescedEvents(JSArray<PointerEvent> value);
+  external JSArray<PointerEvent> get coalescedEvents;
+  external set predictedEvents(JSArray<PointerEvent> value);
+  external JSArray<PointerEvent> get predictedEvents;
 }
 
 /// The **`PointerEvent`** interface represents the state of a DOM event
@@ -100,7 +103,7 @@ extension type PointerEvent._(JSObject _) implements MouseEvent, JSObject {
   ///
   /// For an illustration of coalesced events, see
   /// [Figure 7 in the specification](https://w3c.github.io/pointerevents/#figure_coalesced).
-  external JSArray getCoalescedEvents();
+  external JSArray<PointerEvent> getCoalescedEvents();
 
   /// The **`getPredictedEvents()`** method of the [PointerEvent] interface
   /// returns a sequence of `PointerEvent` instances that are estimated future
@@ -114,7 +117,7 @@ extension type PointerEvent._(JSObject _) implements MouseEvent, JSObject {
   ///
   /// For an illustration of predicted events, see
   /// [Figure 8 in the specification](https://w3c.github.io/pointerevents/#figure_predicted).
-  external JSArray getPredictedEvents();
+  external JSArray<PointerEvent> getPredictedEvents();
   external int get pointerId;
   external num get width;
   external num get height;

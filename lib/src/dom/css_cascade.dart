@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'cssom.dart';
@@ -32,5 +35,5 @@ extension type CSSLayerBlockRule._(JSObject _)
 /// using the `CSSLayerBlockRule` syntax.
 extension type CSSLayerStatementRule._(JSObject _)
     implements CSSRule, JSObject {
-  external JSArray get nameList;
+  external JSArray<JSString> get nameList;
 }

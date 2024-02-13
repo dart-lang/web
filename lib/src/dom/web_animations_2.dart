@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'css_typed_om.dart';
@@ -18,7 +21,7 @@ typedef EffectCallback = JSFunction;
 typedef IterationCompositeOperation = String;
 extension type GroupEffect._(JSObject _) implements JSObject {
   external factory GroupEffect(
-    JSArray? children, [
+    JSArray<AnimationEffect>? children, [
     JSAny timing,
   ]);
 
@@ -35,7 +38,7 @@ extension type AnimationNodeList._(JSObject _) implements JSObject {
 }
 extension type SequenceEffect._(JSObject _) implements GroupEffect, JSObject {
   external factory SequenceEffect(
-    JSArray? children, [
+    JSArray<AnimationEffect>? children, [
     JSAny timing,
   ]);
 

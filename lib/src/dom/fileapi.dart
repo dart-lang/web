@@ -8,6 +8,9 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
@@ -27,7 +30,7 @@ typedef EndingType = String;
 /// functionality and expanding it to support files on the user's system.
 extension type Blob._(JSObject _) implements JSObject {
   external factory Blob([
-    JSArray blobParts,
+    JSArray<BlobPart> blobParts,
     BlobPropertyBag options,
   ]);
 
@@ -49,13 +52,13 @@ extension type Blob._(JSObject _) implements JSObject {
   /// The **`text()`** method of the
   /// [Blob] interface returns a `Promise` that resolves with a
   /// string containing the contents of the blob, interpreted as UTF-8.
-  external JSPromise text();
+  external JSPromise<JSString> text();
 
   /// The **`arrayBuffer()`** method of the [Blob]
   /// interface returns a `Promise` that resolves with the contents of the blob
   /// as
   /// binary data contained in an `ArrayBuffer`.
-  external JSPromise arrayBuffer();
+  external JSPromise<JSArrayBuffer> arrayBuffer();
   external int get size;
   external String get type;
 }
@@ -89,7 +92,7 @@ extension type BlobPropertyBag._(JSObject _) implements JSObject {
 /// for more information and examples.
 extension type File._(JSObject _) implements Blob, JSObject {
   external factory File(
-    JSArray fileBits,
+    JSArray<BlobPart> fileBits,
     String fileName, [
     FilePropertyBag options,
   ]);

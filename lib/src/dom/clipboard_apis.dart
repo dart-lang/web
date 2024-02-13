@@ -8,14 +8,18 @@
 
 // Generated from Web IDL definitions.
 
+@JS()
+library;
+
 import 'dart:js_interop';
 
 import 'dom.dart';
+import 'fileapi.dart';
 import 'html.dart';
 import 'permissions.dart';
 
-typedef ClipboardItemData = JSPromise;
-typedef ClipboardItems = JSArray;
+typedef ClipboardItemData = JSPromise<JSAny>;
+typedef ClipboardItems = JSArray<ClipboardItem>;
 typedef PresentationStyle = String;
 extension type ClipboardEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ClipboardEventInit({DataTransfer? clipboardData});
@@ -51,7 +55,7 @@ extension type ClipboardEvent._(JSObject _) implements Event, JSObject {
 /// > [Clipboard.writeText] methods of the [Clipboard] interface.
 extension type ClipboardItem._(JSObject _) implements JSObject {
   external factory ClipboardItem(
-    JSAny items, [
+    JSObject items, [
     ClipboardItemOptions options,
   ]);
 
@@ -60,9 +64,9 @@ extension type ClipboardItem._(JSObject _) implements JSObject {
   /// The **`getType()`** method of the [ClipboardItem] interface returns a
   /// `Promise` that resolves with a [Blob] of the requested  or an error if the
   /// MIME type is not found.
-  external JSPromise getType(String type);
+  external JSPromise<Blob> getType(String type);
   external PresentationStyle get presentationStyle;
-  external JSArray get types;
+  external JSArray<JSString> get types;
 }
 extension type ClipboardItemOptions._(JSObject _) implements JSObject {
   external factory ClipboardItemOptions({PresentationStyle presentationStyle});
@@ -96,7 +100,8 @@ extension type Clipboard._(JSObject _) implements EventTarget, JSObject {
   /// [Clipboard.readText], which can only return text).
   /// Browsers commonly support reading text, HTML, and PNG image data — see
   /// [browser compatibility](#browser_compatibility) for more information.
-  external JSPromise read();
+  external JSPromise<ClipboardItems> read(
+      [ClipboardUnsanitizedFormats formats]);
 
   /// The **`readText()`** method of the [Clipboard] interface returns a
   /// `Promise` which fulfils with a copy of the textual contents of the system
@@ -105,7 +110,7 @@ extension type Clipboard._(JSObject _) implements EventTarget, JSObject {
   /// > **Note:** To read non-text contents from the clipboard, use the
   /// > [Clipboard.read] method instead.
   /// > You can write text to the clipboard using [Clipboard.writeText].
-  external JSPromise readText();
+  external JSPromise<JSString> readText();
 
   /// The **`write()`** method of the [Clipboard] interface writes arbitrary
   /// data to the clipboard, such as images, fulfilling the returned `Promise`
@@ -116,12 +121,18 @@ extension type Clipboard._(JSObject _) implements EventTarget, JSObject {
   /// [Clipboard.writeText], which can only write text).
   /// Browsers commonly support writing text, HTML, and PNG image data — see
   /// [browser compatibility](#browser_compatibility) for more information.
-  external JSPromise write(ClipboardItems data);
+  external JSPromise<JSAny?> write(ClipboardItems data);
 
   /// The **`writeText()`** method of the [Clipboard] interface writes the
   /// specified text to the system clipboard, returning a `Promise` that is
   /// resolved once the system clipboard has been updated.
-  external JSPromise writeText(String data);
+  external JSPromise<JSAny?> writeText(String data);
+}
+extension type ClipboardUnsanitizedFormats._(JSObject _) implements JSObject {
+  external factory ClipboardUnsanitizedFormats({JSArray<JSString> unsanitized});
+
+  external set unsanitized(JSArray<JSString> value);
+  external JSArray<JSString> get unsanitized;
 }
 extension type ClipboardPermissionDescriptor._(JSObject _)
     implements PermissionDescriptor, JSObject {

@@ -71,7 +71,7 @@ Future<void> main(List<String> args) async {
 
   const encoder = JsonEncoder.withIndent('  ');
 
-  final file = File('tool/mdn.json');
+  final file = File('third_party/mdn/mdn.json');
   final json = {
     '__meta__': {
       'source': '[MDN Web Docs]($mdnUrl)',

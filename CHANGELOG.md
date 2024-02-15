@@ -1,6 +1,9 @@
 ## 0.5.1-wip
 
 - Add [`TrustedTypes`](https://web.dev/trusted-types) members.
+- Include MDN API documentation as class and member dartdoc comments.
+  - Docs sourced from the [MDN Web Docs][] project; attributions and copyright
+    licensing by Mozilla Contributors is licensed under [CC-BY-SA 2.5][].
 
 ## 0.5.0
 
@@ -38,9 +41,6 @@
   Instead, directly use the `clientX` and `clientY` properties.
 - Deprecate the `HttpRequest` API borrowed from `dart:html`.
   Consider migrating to `package:http` instead.
-- Include MDN API documentation as class and member dartdoc comments.
-  - Docs sourced from the [MDN Web Docs][] project; attributions and copyright
-    licensing by Mozilla Contributors is licensed under [CC-BY-SA 2.5][].
 
 [MDN Web Docs]: https://developer.mozilla.org/en-US/docs/Web
 [CC-BY-SA 2.5]: https://creativecommons.org/licenses/by-sa/2.5/

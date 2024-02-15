@@ -27,17 +27,16 @@ void main() {
 
 ## Generation conventions
 
-The generator scripts use a number of conventions they use consistently to
-handle Web IDL definitions:
+The generator scripts use a number of conventions to consistently handle Web IDL
+definitions:
 
 ### Interfaces
 
 - Interfaces are emitted as extension types that wrap and implement `JSObject`.
-- Interface inheritance is maintained using `implements`.
-- Members of partial interfaces and partial mixins are added to the interfaces
-  and mixins that include them, and therefore do not have separate declarations.
-- Members of mixins are added to the interfaces that include them, and therefore
-  do not have separate declarations.
+- Interface inheritance is maintained using `implements` between extension
+  types.
+- Members of partial interfaces, partial mixins, and mixins are added to the
+  interfaces that include them, and therefore do not have separate declarations.
 
 ### Types
 
@@ -47,8 +46,8 @@ handle Web IDL definitions:
 - In general, we prefer the Dart primitive over the JS type equivalent wherever
   possible. For example, APIs use `String` instead of `JSString`.
 - If a type appears in a generic position and it was typedef'd to a Dart
-  primitive type, it is replaced with the JS type equivalent to respect type
-  bounds.
+  primitive type, it is replaced with the JS type equivalent to respect the type
+  bound of `JSAny?`.
 - Union types are computed by picking the least upper bound of the types in the
   JS type hierarchy, where every interface is equivalent to `JSObject`.
 

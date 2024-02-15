@@ -1,3 +1,7 @@
+## 0.5.1-wip
+
+- Add [`TrustedTypes`](https://web.dev/trusted-types) members.
+
 ## 0.5.0
 
 - Redeprecate APIs that were deprecated in `0.4.1` but undeprecated in `0.4.2`.

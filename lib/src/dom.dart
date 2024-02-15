@@ -91,6 +91,7 @@ export 'dom/streams.dart';
 export 'dom/svg.dart';
 export 'dom/svg_animations.dart';
 export 'dom/touch_events.dart';
+export 'dom/trusted_types.dart';
 export 'dom/uievents.dart';
 export 'dom/url.dart';
 export 'dom/user_timing.dart';

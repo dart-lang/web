@@ -976,6 +976,7 @@ class Translator {
       'touch-events',
       'vibration',
       'webrtc-stats',
+      'trusted-types',
     };
     if (allowList.contains(name)) {
       return true;

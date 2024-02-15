@@ -1,10 +1,10 @@
 name: web
-version: 0.5.0
+version: 0.5.1-wip
 description: Lightweight browser API bindings built around JS static interop.
 repository: https://github.com/dart-lang/web
 
 environment:
-  sdk: ^3.3.0-76.0.dev
+  sdk: ^3.3.0
 
 dev_dependencies:
   analyzer: ^6.3.0

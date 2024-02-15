@@ -11,6 +11,7 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
+import 'input_device_capabilities.dart';
 
 extension type UIEvent._(JSObject _) implements Event, JSObject {
   external factory UIEvent(
@@ -25,17 +26,21 @@ extension type UIEvent._(JSObject _) implements Event, JSObject {
     Window? viewArg,
     int detailArg,
   ]);
+  external InputDeviceCapabilities? get sourceCapabilities;
   external Window? get view;
   external int get detail;
   external int get which;
 }
 extension type UIEventInit._(JSObject _) implements EventInit, JSObject {
   external factory UIEventInit({
+    InputDeviceCapabilities? sourceCapabilities,
     Window? view,
     int detail,
     int which,
   });
 
+  external set sourceCapabilities(InputDeviceCapabilities? value);
+  external InputDeviceCapabilities? get sourceCapabilities;
   external set view(Window? value);
   external Window? get view;
   external set detail(int value);

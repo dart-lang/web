@@ -16,6 +16,7 @@ import 'mediacapture_streams.dart';
 import 'webcryptoapi.dart';
 import 'webidl.dart';
 import 'webrtc_encoded_transform.dart';
+import 'webrtc_identity.dart';
 import 'webrtc_stats.dart';
 import 'websockets.dart';
 
@@ -44,6 +45,7 @@ typedef RTCDataChannelState = String;
 typedef RTCErrorDetailType = String;
 extension type RTCConfiguration._(JSObject _) implements JSObject {
   external factory RTCConfiguration({
+    String peerIdentity,
     JSArray<RTCIceServer> iceServers,
     RTCIceTransportPolicy iceTransportPolicy,
     RTCBundlePolicy bundlePolicy,
@@ -52,6 +54,8 @@ extension type RTCConfiguration._(JSObject _) implements JSObject {
     int iceCandidatePoolSize,
   });
 
+  external set peerIdentity(String value);
+  external String get peerIdentity;
   external set iceServers(JSArray<RTCIceServer> value);
   external JSArray<RTCIceServer> get iceServers;
   external set iceTransportPolicy(RTCIceTransportPolicy value);
@@ -107,6 +111,11 @@ extension type RTCPeerConnection._(JSObject _)
 
   external static JSPromise<RTCCertificate> generateCertificate(
       AlgorithmIdentifier keygenAlgorithm);
+  external void setIdentityProvider(
+    String provider, [
+    RTCIdentityProviderOptions options,
+  ]);
+  external JSPromise<JSString> getIdentityAssertion();
   external JSPromise<RTCSessionDescriptionInit?> createOffer([
     JSObject optionsOrSuccessCallback,
     RTCPeerConnectionErrorCallback failureCallback,
@@ -152,6 +161,9 @@ extension type RTCPeerConnection._(JSObject _)
     RTCDataChannelInit dataChannelDict,
   ]);
   external JSPromise<RTCStatsReport> getStats([MediaStreamTrack? selector]);
+  external JSPromise<RTCIdentityAssertion> get peerIdentity;
+  external String? get idpLoginUrl;
+  external String? get idpErrorInfo;
   external RTCSessionDescription? get localDescription;
   external RTCSessionDescription? get currentLocalDescription;
   external RTCSessionDescription? get pendingLocalDescription;
@@ -729,6 +741,7 @@ extension type RTCError._(JSObject _) implements DOMException, JSObject {
     String message,
   ]);
 
+  external int? get httpRequestStatusCode;
   external RTCErrorDetailType get errorDetail;
   external int? get sdpLineNumber;
   external int? get sctpCauseCode;
@@ -737,6 +750,7 @@ extension type RTCError._(JSObject _) implements DOMException, JSObject {
 }
 extension type RTCErrorInit._(JSObject _) implements JSObject {
   external factory RTCErrorInit({
+    int httpRequestStatusCode,
     required RTCErrorDetailType errorDetail,
     int sdpLineNumber,
     int sctpCauseCode,
@@ -744,6 +758,8 @@ extension type RTCErrorInit._(JSObject _) implements JSObject {
     int sentAlert,
   });
 
+  external set httpRequestStatusCode(int value);
+  external int get httpRequestStatusCode;
   external set errorDetail(RTCErrorDetailType value);
   external RTCErrorDetailType get errorDetail;
   external set sdpLineNumber(int value);

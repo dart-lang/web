@@ -970,6 +970,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
     GLsizei width,
     GLsizei height,
   );
+  external JSPromise<JSAny?> makeXRCompatible();
   external void copyBufferSubData(
     GLenum readTarget,
     GLenum writeTarget,

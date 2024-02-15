@@ -91,6 +91,7 @@ extension type RequestInit._(JSObject _) implements JSObject {
     RequestDuplex duplex,
     RequestPriority priority,
     JSAny? window,
+    bool sharedStorageWritable,
   });
 
   external set method(String value);
@@ -123,6 +124,8 @@ extension type RequestInit._(JSObject _) implements JSObject {
   external RequestPriority get priority;
   external set window(JSAny? value);
   external JSAny? get window;
+  external set sharedStorageWritable(bool value);
+  external bool get sharedStorageWritable;
 }
 extension type Response._(JSObject _) implements JSObject {
   external factory Response([

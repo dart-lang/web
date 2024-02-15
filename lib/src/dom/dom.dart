@@ -10,12 +10,15 @@ library;
 import 'dart:js_interop';
 
 import 'css_font_loading.dart';
+import 'css_pseudo.dart';
 import 'css_typed_om.dart';
 import 'cssom.dart';
 import 'cssom_view.dart';
 import 'geometry.dart';
 import 'hr_time.dart';
 import 'html.dart';
+import 'sanitizer_api.dart';
+import 'scroll_to_text_fragment.dart';
 import 'selection_api.dart';
 import 'svg.dart';
 import 'web_animations.dart';
@@ -352,6 +355,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external void clear();
   external void captureEvents();
   external void releaseEvents();
+  external JSPromise<JSAny?> exitPictureInPicture();
   external Selection? getSelection();
   external JSArray<DOMQuad> getBoxQuads([BoxQuadOptions options]);
   external DOMQuad convertQuadFromNode(
@@ -444,12 +448,15 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external HTMLCollection get anchors;
   external HTMLCollection get applets;
   external HTMLAllCollection get all;
+  external bool get pictureInPictureEnabled;
+  external FragmentDirective get fragmentDirective;
   external DocumentTimeline get timeline;
   external FontFaceSet get fonts;
   external StyleSheetList get styleSheets;
   external set adoptedStyleSheets(JSArray<CSSStyleSheet> value);
   external JSArray<CSSStyleSheet> get adoptedStyleSheets;
   external Element? get activeElement;
+  external Element? get pictureInPictureElement;
   external HTMLCollection get children;
   external Element? get firstElementChild;
   external Element? get lastElementChild;
@@ -717,12 +724,14 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   external set adoptedStyleSheets(JSArray<CSSStyleSheet> value);
   external JSArray<CSSStyleSheet> get adoptedStyleSheets;
   external Element? get activeElement;
+  external Element? get pictureInPictureElement;
 }
 extension type Element._(JSObject _) implements Node, JSObject {
   external void insertAdjacentHTML(
     String position,
     String text,
   );
+  external CSSPseudoElement? pseudo(String type);
   external StylePropertyMapReadOnly computedStyleMap();
   external DOMRectList getClientRects();
   external DOMRect getBoundingClientRect();
@@ -800,6 +809,10 @@ extension type Element._(JSObject _) implements Node, JSObject {
   external void setPointerCapture(int pointerId);
   external void releasePointerCapture(int pointerId);
   external bool hasPointerCapture(int pointerId);
+  external void setHTML(
+    String input, [
+    SetHTMLOptions options,
+  ]);
   external JSArray<DOMQuad> getBoxQuads([BoxQuadOptions options]);
   external DOMQuad convertQuadFromNode(
     DOMQuadInit quad,
@@ -855,6 +868,8 @@ extension type Element._(JSObject _) implements Node, JSObject {
   external String get slot;
   external NamedNodeMap get attributes;
   external ShadowRoot? get shadowRoot;
+  external set elementTiming(String value);
+  external String get elementTiming;
   external set innerHTML(String value);
   external String get innerHTML;
   external HTMLCollection get children;

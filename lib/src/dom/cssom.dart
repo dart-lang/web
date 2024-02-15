@@ -12,6 +12,7 @@ import 'dart:js_interop';
 import 'css_highlight_api.dart';
 import 'css_properties_values_api.dart';
 import 'css_typed_om.dart';
+import 'html.dart';
 
 extension type MediaList._(JSObject _) implements JSObject {
   external String? item(int index);
@@ -1485,4 +1486,5 @@ extension type $CSS._(JSObject _) implements JSObject {
   external CSSUnitValue fr(num value);
   external String escape(String ident);
   external HighlightRegistry get highlights;
+  external Worklet get paintWorklet;
 }

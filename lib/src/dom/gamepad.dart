@@ -10,12 +10,17 @@ library;
 import 'dart:js_interop';
 
 import 'dom.dart';
+import 'gamepad_extensions.dart';
 import 'hr_time.dart';
 
 typedef GamepadMappingType = String;
 typedef GamepadHapticsResult = String;
 typedef GamepadHapticEffectType = String;
 extension type Gamepad._(JSObject _) implements JSObject {
+  external GamepadHand get hand;
+  external JSArray<GamepadHapticActuator> get hapticActuators;
+  external GamepadPose? get pose;
+  external JSArray<GamepadTouch>? get touchEvents;
   external String get id;
   external int get index;
   external bool get connected;
@@ -31,6 +36,10 @@ extension type GamepadButton._(JSObject _) implements JSObject {
   external num get value;
 }
 extension type GamepadHapticActuator._(JSObject _) implements JSObject {
+  external JSPromise<JSBoolean> pulse(
+    num value,
+    num duration,
+  );
   external JSPromise<JSString> playEffect(
     GamepadHapticEffectType type, [
     GamepadEffectParameters params,

@@ -81,6 +81,7 @@ export 'dom/hr_time.dart';
 export 'dom/html.dart';
 export 'dom/idle_detection.dart';
 export 'dom/image_capture.dart';
+export 'dom/image_resource.dart';
 export 'dom/indexeddb.dart';
 export 'dom/ink_enhancement.dart';
 export 'dom/input_device_capabilities.dart';

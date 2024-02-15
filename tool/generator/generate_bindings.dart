@@ -81,6 +81,6 @@ Future<TranslationResult> generateBindings(
     final ast = entry[1] as JSArray<webidl.Node>;
     translator.collect(shortname, ast);
   }
-  translator.setOrUpdateInterfacelikes();
+  translator.setOrUpdateInterfacesAndNamespaces();
   return translator.translate();
 }

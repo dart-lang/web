@@ -1,4 +1,8 @@
-## 0.5.0-wip
+## 0.5.1-wip
+
+- Add [`TrustedTypes`](https://web.dev/trusted-types) members.
+
+## 0.5.0
 
 - Redeprecate APIs that were deprecated in `0.4.1` but undeprecated in `0.4.2`.
 - Add support for `dart fix` migrations from `dart:html` classes to
@@ -15,7 +19,7 @@
   to be standards-track, and be supported by Safari, Chrome, and Firefox.
 - Updated the source IDL version to `3.43.1`.
 - Deprecate a few type aliases in favor of their standardized versions:
-  
+
   | Deprecated            | Preferred               |
   |-----------------------|-------------------------|
   | `AudioElement`        | `HTMLAudioElement`      |

@@ -117,7 +117,7 @@ abstract class BCDItem {
 }
 
 extension BCDJsonDataExtension on Map<String, dynamic> {
-  /// Return keys which coorespond to symbol names (i.e., filter out non-symbol
+  /// Return keys which correspond to symbol names (i.e., filter out non-symbol
   /// metadata (`__meta`, `__compat`, ...).
   Iterable<String> get symbolNames => keys.where((key) => !key.startsWith('_'));
 }

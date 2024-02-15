@@ -38,6 +38,7 @@ import 'selection_api.dart';
 import 'service_workers.dart';
 import 'speech_api.dart';
 import 'storage.dart';
+import 'trusted_types.dart';
 import 'uievents.dart';
 import 'vibration.dart';
 import 'web_locks.dart';
@@ -3094,6 +3095,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external bool get isSecureContext;
   external bool get crossOriginIsolated;
   external CacheStorage get caches;
+  external TrustedTypePolicyFactory get trustedTypes;
   external Storage get sessionStorage;
   external Storage get localStorage;
 }
@@ -3745,6 +3747,7 @@ extension type WorkerGlobalScope._(JSObject _)
   external bool get isSecureContext;
   external bool get crossOriginIsolated;
   external CacheStorage get caches;
+  external TrustedTypePolicyFactory get trustedTypes;
 }
 extension type DedicatedWorkerGlobalScope._(JSObject _)
     implements WorkerGlobalScope, JSObject {

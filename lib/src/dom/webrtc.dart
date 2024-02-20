@@ -117,7 +117,7 @@ extension type RTCPeerConnection._(JSObject _)
     RTCPeerConnectionErrorCallback failureCallback,
   ]);
   external JSPromise<JSAny?> setLocalDescription([
-    RTCLocalSessionDescriptionInit description,
+    RTCSessionDescriptionInit description,
     VoidFunction successCallback,
     RTCPeerConnectionErrorCallback failureCallback,
   ]);
@@ -202,18 +202,10 @@ extension type RTCSessionDescriptionInit._(JSObject _) implements JSObject {
   external set sdp(String value);
   external String get sdp;
 }
-extension type RTCLocalSessionDescriptionInit._(JSObject _)
-    implements JSObject {
-  external factory RTCLocalSessionDescriptionInit({
-    RTCSdpType type,
-    String sdp,
-  });
 
-  external set type(RTCSdpType value);
-  external RTCSdpType get type;
-  external set sdp(String value);
-  external String get sdp;
-}
+@Deprecated('Use the "RTCSessionDescriptionInit" instead.')
+typedef RTCLocalSessionDescriptionInit = RTCSessionDescriptionInit;
+
 extension type RTCIceCandidate._(JSObject _) implements JSObject {
   external factory RTCIceCandidate([RTCIceCandidateInit candidateInitDict]);
 

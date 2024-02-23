@@ -4,11 +4,7 @@
 
 import 'dart:js_interop';
 
-@JS()
-@staticInterop
-class IDLType {}
-
-extension IDLTypeExtension on IDLType {
+extension type IDLType._(JSObject _) implements JSObject {
   external String? get type;
   external String get generic;
   external JSAny get idlType;
@@ -18,21 +14,13 @@ extension IDLTypeExtension on IDLType {
 
 /// The abstract node interface in the IDL AST. All nodes that can occur at the
 /// root of the IDL inherit from [Node].
-@JS()
-@staticInterop
-class Node {}
-
-extension NodeExtension on Node {
+extension type Node._(JSObject _) implements JSObject {
   external String get type;
 }
 
 /// The abstract node interface for named nodes in the IDL. Most root nodes have
 /// names, with the exception of `includes`.
-@JS()
-@staticInterop
-class Named extends Node {}
-
-extension NamedExtension on Named {
+extension type Named._(JSObject _) implements Node {
   external String get name;
 }
 
@@ -43,69 +31,39 @@ extension NamedExtension on Named {
 ///   * callback interface
 ///   * dictionary
 /// To disambiguate, use the `type` getter.
-@JS()
-@staticInterop
-class Interfacelike extends Named {}
-
-extension InterfaceExtension on Interfacelike {
+extension type Interfacelike._(JSObject _) implements Named {
   external bool get partial;
-  external JSArray get members;
+  external JSArray<Member> get members;
   external String? get inheritance;
 }
 
-@JS()
-@staticInterop
-class Callback extends Named {}
-
-extension CallbackExtension on Callback {
+extension type Callback._(JSObject _) implements Named {
   external IDLType get idlType;
-  external JSArray get arguments;
+  external JSArray<Argument> get arguments;
 }
 
-@JS()
-@staticInterop
-class EnumValue {}
-
-extension EnumValueExtension on EnumValue {
+extension type EnumValue._(JSObject _) implements JSObject {
   external String get type;
   external String get value;
 }
 
-@JS()
-@staticInterop
-class Enum extends Named {}
+extension type Enum._(JSObject _) implements Named {}
 
-@JS()
-@staticInterop
-class Typedef extends Named {}
-
-extension TypedefExtension on Typedef {
+extension type Typedef._(JSObject _) implements Named {
   external IDLType get idlType;
 }
 
-@JS()
-@staticInterop
-class Includes extends Node {}
-
-extension IncludesExtension on Includes {
+extension type Includes._(JSObject _) implements Node {
   external String get target;
   external String get includes;
 }
 
 /// All members inherit from the [Member] node.
-@JS()
-@staticInterop
-class Member {}
-
-extension MemberExtension on Member {
+extension type Member._(JSObject _) implements JSObject {
   external String get type;
 }
 
-@JS()
-@staticInterop
-class Argument {}
-
-extension ArgumentExtension on Argument {
+extension type Argument._(JSObject _) implements JSObject {
   external String get type;
   @JS('default')
   external Value? get defaultValue;
@@ -115,41 +73,25 @@ extension ArgumentExtension on Argument {
   external String get name;
 }
 
-@JS()
-@staticInterop
-class Operation extends Member {}
-
-extension OperationExtension on Operation {
+extension type Operation._(JSObject _) implements Member {
   external String get special;
   external IDLType get idlType;
   external String get name;
-  external JSArray get arguments;
+  external JSArray<Argument> get arguments;
 }
 
-@JS()
-@staticInterop
-class Constructor extends Member {}
-
-extension ConstructorExtension on Constructor {
-  external JSArray get arguments;
+extension type Constructor._(JSObject _) implements Member {
+  external JSArray<Argument> get arguments;
 }
 
-@JS()
-@staticInterop
-class Attribute extends Member {}
-
-extension AttributeExtension on Attribute {
+extension type Attribute._(JSObject _) implements Member {
   external String get special;
   external bool get readonly;
   external IDLType get idlType;
   external String get name;
 }
 
-@JS()
-@staticInterop
-class Field extends Member {}
-
-extension FieldExtension on Field {
+extension type Field._(JSObject _) implements Member {
   external String get name;
   external bool get required;
   external IDLType get idlType;
@@ -157,21 +99,13 @@ extension FieldExtension on Field {
   external Value? get defaultValue;
 }
 
-@JS()
-@staticInterop
-class Value {}
-
-extension ValueExtension on Value {
+extension type Value._(JSObject _) implements JSObject {
   external String get type;
   external JSAny? get value;
   external bool? get negative;
 }
 
-@JS()
-@staticInterop
-class Constant extends Member {}
-
-extension ConstantExtension on Constant {
+extension type Constant._(JSObject _) implements Member {
   external IDLType get idlType;
   external String get name;
   external Value get value;
@@ -182,23 +116,15 @@ extension ConstantExtension on Constant {
 ///   * async iterable<>
 ///   * maplike<>
 ///   * setlike<>
-@JS()
-@staticInterop
-class MemberDeclaration {}
-
-extension MemberDeclarationExtension on MemberDeclaration {
+extension type MemberDeclaration._(JSObject _) implements JSObject {
   external String get type;
   external IDLType get idlType;
   external bool get readonly;
   external bool get async;
-  external JSArray get arguments;
+  external JSArray<Argument> get arguments;
 }
 
-@JS()
-@staticInterop
-class EOF {}
-
-extension EOFExtension on EOF {
+extension type EOF._(JSObject _) implements JSObject {
   external String get type;
   external String get value;
 }

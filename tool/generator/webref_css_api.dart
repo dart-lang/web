@@ -7,26 +7,14 @@ import 'dart:js_interop';
 @JS()
 external WebRefCSS get css;
 
-@JS()
-@staticInterop
-class WebRefCSS {}
-
-extension WebRefIDLExtension on WebRefCSS {
-  external JSPromise listAll();
+extension type WebRefCSS._(JSObject _) implements JSObject {
+  external JSPromise<JSObject> listAll();
 }
 
-@JS()
-@staticInterop
-class CSSEntries {}
-
-extension CSSEntriesExtension on CSSEntries {
-  external JSArray? get properties;
+extension type CSSEntries._(JSObject _) implements JSObject {
+  external JSArray<CSSEntry>? get properties;
 }
 
-@JS()
-@staticInterop
-class CSSEntry {}
-
-extension CSSEntryExtension on CSSEntry {
-  external JSArray? get styleDeclaration;
+extension type CSSEntry._(JSObject _) implements JSObject {
+  external JSArray<JSString>? get styleDeclaration;
 }

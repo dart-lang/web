@@ -7,10 +7,6 @@ import 'dart:js_interop';
 @JS()
 external WebRefIDL get idl;
 
-@JS()
-@staticInterop
-class WebRefIDL {}
-
-extension WebRefIDLExtension on WebRefIDL {
-  external JSPromise parseAll();
+extension type WebRefIDL._(JSObject _) implements JSObject {
+  external JSPromise<JSObject> parseAll();
 }

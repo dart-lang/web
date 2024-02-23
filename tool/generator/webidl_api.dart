@@ -63,7 +63,7 @@ extension type Member._(JSObject _) implements JSObject {
   external String get type;
 }
 
-extension type Argument._(JSObject _) implements Named {
+extension type Argument._(JSObject _) implements JSObject {
   external String get type;
   @JS('default')
   external Value? get defaultValue;

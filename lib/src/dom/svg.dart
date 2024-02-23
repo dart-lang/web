@@ -423,6 +423,13 @@ extension type SVGUnitTypes._(JSObject _) implements JSObject {
 }
 extension type SVGSVGElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
+  /// Creates a(n) [SVGSVGElement] using the tag 'svg'.
+  SVGSVGElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'svg',
+        );
+
   external NodeList getIntersectionList(
     DOMRectReadOnly rect,
     SVGElement? referenceElement,
@@ -507,20 +514,69 @@ extension type SVGSVGElement._(JSObject _)
   external EventHandler get onunload;
 }
 extension type SVGGElement._(JSObject _)
-    implements SVGGraphicsElement, JSObject {}
+    implements SVGGraphicsElement, JSObject {
+  /// Creates a(n) [SVGGElement] using the tag 'g'.
+  SVGGElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'g',
+        );
+}
 extension type SVGDefsElement._(JSObject _)
-    implements SVGGraphicsElement, JSObject {}
-extension type SVGDescElement._(JSObject _) implements SVGElement, JSObject {}
+    implements SVGGraphicsElement, JSObject {
+  /// Creates a(n) [SVGDefsElement] using the tag 'defs'.
+  SVGDefsElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'defs',
+        );
+}
+extension type SVGDescElement._(JSObject _) implements SVGElement, JSObject {
+  /// Creates a(n) [SVGDescElement] using the tag 'desc'.
+  SVGDescElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'desc',
+        );
+}
 extension type SVGMetadataElement._(JSObject _)
-    implements SVGElement, JSObject {}
-extension type SVGTitleElement._(JSObject _) implements SVGElement, JSObject {}
+    implements SVGElement, JSObject {
+  /// Creates a(n) [SVGMetadataElement] using the tag 'metadata'.
+  SVGMetadataElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'metadata',
+        );
+}
+extension type SVGTitleElement._(JSObject _) implements SVGElement, JSObject {
+  /// Creates a(n) [SVGTitleElement] using the tag 'title'.
+  SVGTitleElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'title',
+        );
+}
 extension type SVGSymbolElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
+  /// Creates a(n) [SVGSymbolElement] using the tag 'symbol'.
+  SVGSymbolElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'symbol',
+        );
+
   external SVGAnimatedRect get viewBox;
   external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
 }
 extension type SVGUseElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
+  /// Creates a(n) [SVGUseElement] using the tag 'use'.
+  SVGUseElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'use',
+        );
+
   external SVGAnimatedLength get x;
   external SVGAnimatedLength get y;
   external SVGAnimatedLength get width;
@@ -540,8 +596,22 @@ extension type ShadowAnimation._(JSObject _) implements Animation, JSObject {
   external Animation get sourceAnimation;
 }
 extension type SVGSwitchElement._(JSObject _)
-    implements SVGGraphicsElement, JSObject {}
+    implements SVGGraphicsElement, JSObject {
+  /// Creates a(n) [SVGSwitchElement] using the tag 'switch'.
+  SVGSwitchElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'switch',
+        );
+}
 extension type SVGStyleElement._(JSObject _) implements SVGElement, JSObject {
+  /// Creates a(n) [SVGStyleElement] using the tag 'style'.
+  SVGStyleElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'style',
+        );
+
   external set type(String value);
   external String get type;
   external set media(String value);
@@ -627,9 +697,23 @@ extension type SVGAnimatedPreserveAspectRatio._(JSObject _)
   external SVGPreserveAspectRatio get animVal;
 }
 extension type SVGPathElement._(JSObject _)
-    implements SVGGeometryElement, JSObject {}
+    implements SVGGeometryElement, JSObject {
+  /// Creates a(n) [SVGPathElement] using the tag 'path'.
+  SVGPathElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'path',
+        );
+}
 extension type SVGRectElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
+  /// Creates a(n) [SVGRectElement] using the tag 'rect'.
+  SVGRectElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'rect',
+        );
+
   external SVGAnimatedLength get x;
   external SVGAnimatedLength get y;
   external SVGAnimatedLength get width;
@@ -639,12 +723,26 @@ extension type SVGRectElement._(JSObject _)
 }
 extension type SVGCircleElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
+  /// Creates a(n) [SVGCircleElement] using the tag 'circle'.
+  SVGCircleElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'circle',
+        );
+
   external SVGAnimatedLength get cx;
   external SVGAnimatedLength get cy;
   external SVGAnimatedLength get r;
 }
 extension type SVGEllipseElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
+  /// Creates a(n) [SVGEllipseElement] using the tag 'ellipse'.
+  SVGEllipseElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'ellipse',
+        );
+
   external SVGAnimatedLength get cx;
   external SVGAnimatedLength get cy;
   external SVGAnimatedLength get rx;
@@ -652,6 +750,13 @@ extension type SVGEllipseElement._(JSObject _)
 }
 extension type SVGLineElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
+  /// Creates a(n) [SVGLineElement] using the tag 'line'.
+  SVGLineElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'line',
+        );
+
   external SVGAnimatedLength get x1;
   external SVGAnimatedLength get y1;
   external SVGAnimatedLength get x2;
@@ -676,11 +781,25 @@ extension type SVGPointList._(JSObject _) implements JSObject {
 }
 extension type SVGPolylineElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
+  /// Creates a(n) [SVGPolylineElement] using the tag 'polyline'.
+  SVGPolylineElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'polyline',
+        );
+
   external SVGPointList get points;
   external SVGPointList get animatedPoints;
 }
 extension type SVGPolygonElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
+  /// Creates a(n) [SVGPolygonElement] using the tag 'polygon'.
+  SVGPolygonElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'polygon',
+        );
+
   external SVGPointList get points;
   external SVGPointList get animatedPoints;
 }
@@ -716,11 +835,32 @@ extension type SVGTextPositioningElement._(JSObject _)
   external SVGAnimatedNumberList get rotate;
 }
 extension type SVGTextElement._(JSObject _)
-    implements SVGTextPositioningElement, JSObject {}
+    implements SVGTextPositioningElement, JSObject {
+  /// Creates a(n) [SVGTextElement] using the tag 'text'.
+  SVGTextElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'text',
+        );
+}
 extension type SVGTSpanElement._(JSObject _)
-    implements SVGTextPositioningElement, JSObject {}
+    implements SVGTextPositioningElement, JSObject {
+  /// Creates a(n) [SVGTSpanElement] using the tag 'tspan'.
+  SVGTSpanElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'tspan',
+        );
+}
 extension type SVGTextPathElement._(JSObject _)
     implements SVGTextContentElement, JSObject {
+  /// Creates a(n) [SVGTextPathElement] using the tag 'textPath'.
+  SVGTextPathElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'textPath',
+        );
+
   external static int get TEXTPATH_METHODTYPE_UNKNOWN;
   external static int get TEXTPATH_METHODTYPE_ALIGN;
   external static int get TEXTPATH_METHODTYPE_STRETCH;
@@ -734,6 +874,13 @@ extension type SVGTextPathElement._(JSObject _)
 }
 extension type SVGImageElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
+  /// Creates a(n) [SVGImageElement] using the tag 'image'.
+  SVGImageElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'image',
+        );
+
   external SVGAnimatedLength get x;
   external SVGAnimatedLength get y;
   external SVGAnimatedLength get width;
@@ -745,12 +892,26 @@ extension type SVGImageElement._(JSObject _)
 }
 extension type SVGForeignObjectElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
+  /// Creates a(n) [SVGForeignObjectElement] using the tag 'foreignObject'.
+  SVGForeignObjectElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'foreignObject',
+        );
+
   external SVGAnimatedLength get x;
   external SVGAnimatedLength get y;
   external SVGAnimatedLength get width;
   external SVGAnimatedLength get height;
 }
 extension type SVGMarkerElement._(JSObject _) implements SVGElement, JSObject {
+  /// Creates a(n) [SVGMarkerElement] using the tag 'marker'.
+  SVGMarkerElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'marker',
+        );
+
   external static int get SVG_MARKERUNITS_UNKNOWN;
   external static int get SVG_MARKERUNITS_USERSPACEONUSE;
   external static int get SVG_MARKERUNITS_STROKEWIDTH;
@@ -784,6 +945,13 @@ extension type SVGGradientElement._(JSObject _)
 }
 extension type SVGLinearGradientElement._(JSObject _)
     implements SVGGradientElement, JSObject {
+  /// Creates a(n) [SVGLinearGradientElement] using the tag 'linearGradient'.
+  SVGLinearGradientElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'linearGradient',
+        );
+
   external SVGAnimatedLength get x1;
   external SVGAnimatedLength get y1;
   external SVGAnimatedLength get x2;
@@ -791,6 +959,13 @@ extension type SVGLinearGradientElement._(JSObject _)
 }
 extension type SVGRadialGradientElement._(JSObject _)
     implements SVGGradientElement, JSObject {
+  /// Creates a(n) [SVGRadialGradientElement] using the tag 'radialGradient'.
+  SVGRadialGradientElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'radialGradient',
+        );
+
   external SVGAnimatedLength get cx;
   external SVGAnimatedLength get cy;
   external SVGAnimatedLength get r;
@@ -799,9 +974,23 @@ extension type SVGRadialGradientElement._(JSObject _)
   external SVGAnimatedLength get fr;
 }
 extension type SVGStopElement._(JSObject _) implements SVGElement, JSObject {
+  /// Creates a(n) [SVGStopElement] using the tag 'stop'.
+  SVGStopElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'stop',
+        );
+
   external SVGAnimatedNumber get offset;
 }
 extension type SVGPatternElement._(JSObject _) implements SVGElement, JSObject {
+  /// Creates a(n) [SVGPatternElement] using the tag 'pattern'.
+  SVGPatternElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'pattern',
+        );
+
   external SVGAnimatedEnumeration get patternUnits;
   external SVGAnimatedEnumeration get patternContentUnits;
   external SVGAnimatedTransformList get patternTransform;
@@ -814,6 +1003,13 @@ extension type SVGPatternElement._(JSObject _) implements SVGElement, JSObject {
   external SVGAnimatedString get href;
 }
 extension type SVGScriptElement._(JSObject _) implements SVGElement, JSObject {
+  /// Creates a(n) [SVGScriptElement] using the tag 'script'.
+  SVGScriptElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'script',
+        );
+
   external set type(String value);
   external String get type;
   external set crossOrigin(String? value);
@@ -822,6 +1018,13 @@ extension type SVGScriptElement._(JSObject _) implements SVGElement, JSObject {
 }
 extension type SVGAElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
+  /// Creates a(n) [SVGAElement] using the tag 'a'.
+  SVGAElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'a',
+        );
+
   external SVGAnimatedString get target;
   external set download(String value);
   external String get download;
@@ -860,6 +1063,13 @@ extension type SVGAElement._(JSObject _)
   external SVGAnimatedString get href;
 }
 extension type SVGViewElement._(JSObject _) implements SVGElement, JSObject {
+  /// Creates a(n) [SVGViewElement] using the tag 'view'.
+  SVGViewElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'view',
+        );
+
   external SVGAnimatedRect get viewBox;
   external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
 }

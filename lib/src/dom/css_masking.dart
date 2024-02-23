@@ -9,14 +9,29 @@ library;
 
 import 'dart:js_interop';
 
+import 'dom.dart';
 import 'svg.dart';
 
 extension type SVGClipPathElement._(JSObject _)
     implements SVGElement, JSObject {
+  /// Creates a(n) [SVGClipPathElement] using the tag 'clipPath'.
+  SVGClipPathElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'clipPath',
+        );
+
   external SVGAnimatedEnumeration get clipPathUnits;
   external SVGAnimatedTransformList get transform;
 }
 extension type SVGMaskElement._(JSObject _) implements SVGElement, JSObject {
+  /// Creates a(n) [SVGMaskElement] using the tag 'mask'.
+  SVGMaskElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'mask',
+        );
+
   external SVGAnimatedEnumeration get maskUnits;
   external SVGAnimatedEnumeration get maskContentUnits;
   external SVGAnimatedLength get x;

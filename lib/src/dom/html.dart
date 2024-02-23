@@ -127,7 +127,161 @@ extension type DOMStringList._(JSObject _) implements JSObject {
   external int get length;
 }
 extension type HTMLElement._(JSObject _) implements Element, JSObject {
-  external factory HTMLElement();
+  /// Creates a(n) [HTMLElement] using the tag 'article'.
+  HTMLElement.article() : _ = document.createElement('article');
+
+  /// Creates a(n) [HTMLElement] using the tag 'section'.
+  HTMLElement.section() : _ = document.createElement('section');
+
+  /// Creates a(n) [HTMLElement] using the tag 'nav'.
+  HTMLElement.nav() : _ = document.createElement('nav');
+
+  /// Creates a(n) [HTMLElement] using the tag 'aside'.
+  HTMLElement.aside() : _ = document.createElement('aside');
+
+  /// Creates a(n) [HTMLElement] using the tag 'hgroup'.
+  HTMLElement.hgroup() : _ = document.createElement('hgroup');
+
+  /// Creates a(n) [HTMLElement] using the tag 'header'.
+  HTMLElement.header() : _ = document.createElement('header');
+
+  /// Creates a(n) [HTMLElement] using the tag 'footer'.
+  HTMLElement.footer() : _ = document.createElement('footer');
+
+  /// Creates a(n) [HTMLElement] using the tag 'address'.
+  HTMLElement.address() : _ = document.createElement('address');
+
+  /// Creates a(n) [HTMLElement] using the tag 'dt'.
+  HTMLElement.dt() : _ = document.createElement('dt');
+
+  /// Creates a(n) [HTMLElement] using the tag 'dd'.
+  HTMLElement.dd() : _ = document.createElement('dd');
+
+  /// Creates a(n) [HTMLElement] using the tag 'figure'.
+  HTMLElement.figure() : _ = document.createElement('figure');
+
+  /// Creates a(n) [HTMLElement] using the tag 'figcaption'.
+  HTMLElement.figcaption() : _ = document.createElement('figcaption');
+
+  /// Creates a(n) [HTMLElement] using the tag 'main'.
+  HTMLElement.main() : _ = document.createElement('main');
+
+  /// Creates a(n) [HTMLElement] using the tag 'search'.
+  HTMLElement.search() : _ = document.createElement('search');
+
+  /// Creates a(n) [HTMLElement] using the tag 'em'.
+  HTMLElement.em() : _ = document.createElement('em');
+
+  /// Creates a(n) [HTMLElement] using the tag 'strong'.
+  HTMLElement.strong() : _ = document.createElement('strong');
+
+  /// Creates a(n) [HTMLElement] using the tag 'small'.
+  HTMLElement.small() : _ = document.createElement('small');
+
+  /// Creates a(n) [HTMLElement] using the tag 's'.
+  HTMLElement.s() : _ = document.createElement('s');
+
+  /// Creates a(n) [HTMLElement] using the tag 'cite'.
+  HTMLElement.cite() : _ = document.createElement('cite');
+
+  /// Creates a(n) [HTMLElement] using the tag 'dfn'.
+  HTMLElement.dfn() : _ = document.createElement('dfn');
+
+  /// Creates a(n) [HTMLElement] using the tag 'abbr'.
+  HTMLElement.abbr() : _ = document.createElement('abbr');
+
+  /// Creates a(n) [HTMLElement] using the tag 'ruby'.
+  HTMLElement.ruby() : _ = document.createElement('ruby');
+
+  /// Creates a(n) [HTMLElement] using the tag 'rt'.
+  HTMLElement.rt() : _ = document.createElement('rt');
+
+  /// Creates a(n) [HTMLElement] using the tag 'rp'.
+  HTMLElement.rp() : _ = document.createElement('rp');
+
+  /// Creates a(n) [HTMLElement] using the tag 'code'.
+  HTMLElement.code() : _ = document.createElement('code');
+
+  /// Creates a(n) [HTMLElement] using the tag 'var'.
+  HTMLElement.var_() : _ = document.createElement('var');
+
+  /// Creates a(n) [HTMLElement] using the tag 'samp'.
+  HTMLElement.samp() : _ = document.createElement('samp');
+
+  /// Creates a(n) [HTMLElement] using the tag 'kbd'.
+  HTMLElement.kbd() : _ = document.createElement('kbd');
+
+  /// Creates a(n) [HTMLElement] using the tag 'sub'.
+  HTMLElement.sub() : _ = document.createElement('sub');
+
+  /// Creates a(n) [HTMLElement] using the tag 'sup'.
+  HTMLElement.sup() : _ = document.createElement('sup');
+
+  /// Creates a(n) [HTMLElement] using the tag 'i'.
+  HTMLElement.i() : _ = document.createElement('i');
+
+  /// Creates a(n) [HTMLElement] using the tag 'b'.
+  HTMLElement.b() : _ = document.createElement('b');
+
+  /// Creates a(n) [HTMLElement] using the tag 'u'.
+  HTMLElement.u() : _ = document.createElement('u');
+
+  /// Creates a(n) [HTMLElement] using the tag 'mark'.
+  HTMLElement.mark() : _ = document.createElement('mark');
+
+  /// Creates a(n) [HTMLElement] using the tag 'bdi'.
+  HTMLElement.bdi() : _ = document.createElement('bdi');
+
+  /// Creates a(n) [HTMLElement] using the tag 'bdo'.
+  HTMLElement.bdo() : _ = document.createElement('bdo');
+
+  /// Creates a(n) [HTMLElement] using the tag 'wbr'.
+  HTMLElement.wbr() : _ = document.createElement('wbr');
+
+  /// Creates a(n) [HTMLElement] using the tag 'summary'.
+  HTMLElement.summary() : _ = document.createElement('summary');
+
+  /// Creates a(n) [HTMLElement] using the tag 'noscript'.
+  HTMLElement.noscript() : _ = document.createElement('noscript');
+
+  /// Creates a(n) [HTMLElement] using the tag 'acronym'.
+  HTMLElement.acronym() : _ = document.createElement('acronym');
+
+  /// Creates a(n) [HTMLElement] using the tag 'noframes'.
+  HTMLElement.noframes() : _ = document.createElement('noframes');
+
+  /// Creates a(n) [HTMLElement] using the tag 'menuitem'.
+  HTMLElement.menuitem() : _ = document.createElement('menuitem');
+
+  /// Creates a(n) [HTMLElement] using the tag 'noembed'.
+  HTMLElement.noembed() : _ = document.createElement('noembed');
+
+  /// Creates a(n) [HTMLElement] using the tag 'plaintext'.
+  HTMLElement.plaintext() : _ = document.createElement('plaintext');
+
+  /// Creates a(n) [HTMLElement] using the tag 'rb'.
+  HTMLElement.rb() : _ = document.createElement('rb');
+
+  /// Creates a(n) [HTMLElement] using the tag 'rtc'.
+  HTMLElement.rtc() : _ = document.createElement('rtc');
+
+  /// Creates a(n) [HTMLElement] using the tag 'strike'.
+  HTMLElement.strike() : _ = document.createElement('strike');
+
+  /// Creates a(n) [HTMLElement] using the tag 'basefont'.
+  HTMLElement.basefont() : _ = document.createElement('basefont');
+
+  /// Creates a(n) [HTMLElement] using the tag 'big'.
+  HTMLElement.big() : _ = document.createElement('big');
+
+  /// Creates a(n) [HTMLElement] using the tag 'center'.
+  HTMLElement.center() : _ = document.createElement('center');
+
+  /// Creates a(n) [HTMLElement] using the tag 'nobr'.
+  HTMLElement.nobr() : _ = document.createElement('nobr');
+
+  /// Creates a(n) [HTMLElement] using the tag 'tt'.
+  HTMLElement.tt() : _ = document.createElement('tt');
 
   external void click();
   external ElementInternals attachInternals();
@@ -386,25 +540,53 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   external int get tabIndex;
 }
 extension type HTMLUnknownElement._(JSObject _)
-    implements HTMLElement, JSObject {}
+    implements HTMLElement, JSObject {
+  /// Creates a(n) [HTMLUnknownElement] using the tag 'applet'.
+  HTMLUnknownElement.applet() : _ = document.createElement('applet');
+
+  /// Creates a(n) [HTMLUnknownElement] using the tag 'bgsound'.
+  HTMLUnknownElement.bgsound() : _ = document.createElement('bgsound');
+
+  /// Creates a(n) [HTMLUnknownElement] using the tag 'isindex'.
+  HTMLUnknownElement.isindex() : _ = document.createElement('isindex');
+
+  /// Creates a(n) [HTMLUnknownElement] using the tag 'keygen'.
+  HTMLUnknownElement.keygen() : _ = document.createElement('keygen');
+
+  /// Creates a(n) [HTMLUnknownElement] using the tag 'nextid'.
+  HTMLUnknownElement.nextid() : _ = document.createElement('nextid');
+
+  /// Creates a(n) [HTMLUnknownElement] using the tag 'blink'.
+  HTMLUnknownElement.blink() : _ = document.createElement('blink');
+
+  /// Creates a(n) [HTMLUnknownElement] using the tag 'multicol'.
+  HTMLUnknownElement.multicol() : _ = document.createElement('multicol');
+
+  /// Creates a(n) [HTMLUnknownElement] using the tag 'spacer'.
+  HTMLUnknownElement.spacer() : _ = document.createElement('spacer');
+}
 extension type DOMStringMap._(JSObject _) implements JSObject {}
 extension type HTMLHtmlElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLHtmlElement();
+  /// Creates a(n) [HTMLHtmlElement] using the tag 'html'.
+  HTMLHtmlElement() : _ = document.createElement('html');
 
   external set version(String value);
   external String get version;
 }
 extension type HTMLHeadElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLHeadElement();
+  /// Creates a(n) [HTMLHeadElement] using the tag 'head'.
+  HTMLHeadElement() : _ = document.createElement('head');
 }
 extension type HTMLTitleElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLTitleElement();
+  /// Creates a(n) [HTMLTitleElement] using the tag 'title'.
+  HTMLTitleElement() : _ = document.createElement('title');
 
   external set text(String value);
   external String get text;
 }
 extension type HTMLBaseElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLBaseElement();
+  /// Creates a(n) [HTMLBaseElement] using the tag 'base'.
+  HTMLBaseElement() : _ = document.createElement('base');
 
   external set href(String value);
   external String get href;
@@ -412,7 +594,8 @@ extension type HTMLBaseElement._(JSObject _) implements HTMLElement, JSObject {
   external String get target;
 }
 extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLLinkElement();
+  /// Creates a(n) [HTMLLinkElement] using the tag 'link'.
+  HTMLLinkElement() : _ = document.createElement('link');
 
   external set href(String value);
   external String get href;
@@ -452,7 +635,8 @@ extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
   external CSSStyleSheet? get sheet;
 }
 extension type HTMLMetaElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLMetaElement();
+  /// Creates a(n) [HTMLMetaElement] using the tag 'meta'.
+  HTMLMetaElement() : _ = document.createElement('meta');
 
   external set name(String value);
   external String get name;
@@ -466,7 +650,8 @@ extension type HTMLMetaElement._(JSObject _) implements HTMLElement, JSObject {
   external String get scheme;
 }
 extension type HTMLStyleElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLStyleElement();
+  /// Creates a(n) [HTMLStyleElement] using the tag 'style'.
+  HTMLStyleElement() : _ = document.createElement('style');
 
   external set disabled(bool value);
   external bool get disabled;
@@ -478,7 +663,8 @@ extension type HTMLStyleElement._(JSObject _) implements HTMLElement, JSObject {
   external CSSStyleSheet? get sheet;
 }
 extension type HTMLBodyElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLBodyElement();
+  /// Creates a(n) [HTMLBodyElement] using the tag 'body'.
+  HTMLBodyElement() : _ = document.createElement('body');
 
   external set text(String value);
   external String get text;
@@ -533,20 +719,38 @@ extension type HTMLBodyElement._(JSObject _) implements HTMLElement, JSObject {
 }
 extension type HTMLHeadingElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLHeadingElement();
+  /// Creates a(n) [HTMLHeadingElement] using the tag 'h1'.
+  HTMLHeadingElement.h1() : _ = document.createElement('h1');
+
+  /// Creates a(n) [HTMLHeadingElement] using the tag 'h2'.
+  HTMLHeadingElement.h2() : _ = document.createElement('h2');
+
+  /// Creates a(n) [HTMLHeadingElement] using the tag 'h3'.
+  HTMLHeadingElement.h3() : _ = document.createElement('h3');
+
+  /// Creates a(n) [HTMLHeadingElement] using the tag 'h4'.
+  HTMLHeadingElement.h4() : _ = document.createElement('h4');
+
+  /// Creates a(n) [HTMLHeadingElement] using the tag 'h5'.
+  HTMLHeadingElement.h5() : _ = document.createElement('h5');
+
+  /// Creates a(n) [HTMLHeadingElement] using the tag 'h6'.
+  HTMLHeadingElement.h6() : _ = document.createElement('h6');
 
   external set align(String value);
   external String get align;
 }
 extension type HTMLParagraphElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLParagraphElement();
+  /// Creates a(n) [HTMLParagraphElement] using the tag 'p'.
+  HTMLParagraphElement() : _ = document.createElement('p');
 
   external set align(String value);
   external String get align;
 }
 extension type HTMLHRElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLHRElement();
+  /// Creates a(n) [HTMLHRElement] using the tag 'hr'.
+  HTMLHRElement() : _ = document.createElement('hr');
 
   external set align(String value);
   external String get align;
@@ -560,19 +764,31 @@ extension type HTMLHRElement._(JSObject _) implements HTMLElement, JSObject {
   external String get width;
 }
 extension type HTMLPreElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLPreElement();
+  /// Creates a(n) [HTMLPreElement] using the tag 'pre'.
+  HTMLPreElement.pre() : _ = document.createElement('pre');
+
+  /// Creates a(n) [HTMLPreElement] using the tag 'listing'.
+  HTMLPreElement.listing() : _ = document.createElement('listing');
+
+  /// Creates a(n) [HTMLPreElement] using the tag 'xmp'.
+  HTMLPreElement.xmp() : _ = document.createElement('xmp');
 
   external set width(int value);
   external int get width;
 }
 extension type HTMLQuoteElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLQuoteElement();
+  /// Creates a(n) [HTMLQuoteElement] using the tag 'blockquote'.
+  HTMLQuoteElement.blockquote() : _ = document.createElement('blockquote');
+
+  /// Creates a(n) [HTMLQuoteElement] using the tag 'q'.
+  HTMLQuoteElement.q() : _ = document.createElement('q');
 
   external set cite(String value);
   external String get cite;
 }
 extension type HTMLOListElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLOListElement();
+  /// Creates a(n) [HTMLOListElement] using the tag 'ol'.
+  HTMLOListElement() : _ = document.createElement('ol');
 
   external set reversed(bool value);
   external bool get reversed;
@@ -584,7 +800,8 @@ extension type HTMLOListElement._(JSObject _) implements HTMLElement, JSObject {
   external bool get compact;
 }
 extension type HTMLUListElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLUListElement();
+  /// Creates a(n) [HTMLUListElement] using the tag 'ul'.
+  HTMLUListElement() : _ = document.createElement('ul');
 
   external set compact(bool value);
   external bool get compact;
@@ -592,13 +809,15 @@ extension type HTMLUListElement._(JSObject _) implements HTMLElement, JSObject {
   external String get type;
 }
 extension type HTMLMenuElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLMenuElement();
+  /// Creates a(n) [HTMLMenuElement] using the tag 'menu'.
+  HTMLMenuElement() : _ = document.createElement('menu');
 
   external set compact(bool value);
   external bool get compact;
 }
 extension type HTMLLIElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLLIElement();
+  /// Creates a(n) [HTMLLIElement] using the tag 'li'.
+  HTMLLIElement() : _ = document.createElement('li');
 
   external set value(int value);
   external int get value;
@@ -606,20 +825,23 @@ extension type HTMLLIElement._(JSObject _) implements HTMLElement, JSObject {
   external String get type;
 }
 extension type HTMLDListElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLDListElement();
+  /// Creates a(n) [HTMLDListElement] using the tag 'dl'.
+  HTMLDListElement() : _ = document.createElement('dl');
 
   external set compact(bool value);
   external bool get compact;
 }
 extension type HTMLDivElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLDivElement();
+  /// Creates a(n) [HTMLDivElement] using the tag 'div'.
+  HTMLDivElement() : _ = document.createElement('div');
 
   external set align(String value);
   external String get align;
 }
 extension type HTMLAnchorElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLAnchorElement();
+  /// Creates a(n) [HTMLAnchorElement] using the tag 'a'.
+  HTMLAnchorElement() : _ = document.createElement('a');
 
   external set target(String value);
   external String get target;
@@ -671,28 +893,36 @@ extension type HTMLAnchorElement._(JSObject _)
   external String get hash;
 }
 extension type HTMLDataElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLDataElement();
+  /// Creates a(n) [HTMLDataElement] using the tag 'data'.
+  HTMLDataElement() : _ = document.createElement('data');
 
   external set value(String value);
   external String get value;
 }
 extension type HTMLTimeElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLTimeElement();
+  /// Creates a(n) [HTMLTimeElement] using the tag 'time'.
+  HTMLTimeElement() : _ = document.createElement('time');
 
   external set dateTime(String value);
   external String get dateTime;
 }
 extension type HTMLSpanElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLSpanElement();
+  /// Creates a(n) [HTMLSpanElement] using the tag 'span'.
+  HTMLSpanElement() : _ = document.createElement('span');
 }
 extension type HTMLBRElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLBRElement();
+  /// Creates a(n) [HTMLBRElement] using the tag 'br'.
+  HTMLBRElement() : _ = document.createElement('br');
 
   external set clear(String value);
   external String get clear;
 }
 extension type HTMLModElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLModElement();
+  /// Creates a(n) [HTMLModElement] using the tag 'ins'.
+  HTMLModElement.ins() : _ = document.createElement('ins');
+
+  /// Creates a(n) [HTMLModElement] using the tag 'del'.
+  HTMLModElement.del() : _ = document.createElement('del');
 
   external set cite(String value);
   external String get cite;
@@ -701,11 +931,13 @@ extension type HTMLModElement._(JSObject _) implements HTMLElement, JSObject {
 }
 extension type HTMLPictureElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLPictureElement();
+  /// Creates a(n) [HTMLPictureElement] using the tag 'picture'.
+  HTMLPictureElement() : _ = document.createElement('picture');
 }
 extension type HTMLSourceElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLSourceElement();
+  /// Creates a(n) [HTMLSourceElement] using the tag 'source'.
+  HTMLSourceElement() : _ = document.createElement('source');
 
   external set src(String value);
   external String get src;
@@ -723,7 +955,8 @@ extension type HTMLSourceElement._(JSObject _)
   external int get height;
 }
 extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLImageElement();
+  /// Creates a(n) [HTMLImageElement] using the tag 'img'.
+  HTMLImageElement() : _ = document.createElement('img');
 
   external JSPromise<JSAny?> decode();
   external int get x;
@@ -775,7 +1008,8 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
 }
 extension type HTMLIFrameElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLIFrameElement();
+  /// Creates a(n) [HTMLIFrameElement] using the tag 'iframe'.
+  HTMLIFrameElement() : _ = document.createElement('iframe');
 
   external Document? getSVGDocument();
   external set src(String value);
@@ -813,7 +1047,8 @@ extension type HTMLIFrameElement._(JSObject _)
   external String get marginWidth;
 }
 extension type HTMLEmbedElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLEmbedElement();
+  /// Creates a(n) [HTMLEmbedElement] using the tag 'embed'.
+  HTMLEmbedElement() : _ = document.createElement('embed');
 
   external Document? getSVGDocument();
   external set src(String value);
@@ -831,7 +1066,8 @@ extension type HTMLEmbedElement._(JSObject _) implements HTMLElement, JSObject {
 }
 extension type HTMLObjectElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLObjectElement();
+  /// Creates a(n) [HTMLObjectElement] using the tag 'object'.
+  HTMLObjectElement() : _ = document.createElement('object');
 
   external Document? getSVGDocument();
   external bool checkValidity();
@@ -878,7 +1114,8 @@ extension type HTMLObjectElement._(JSObject _)
 }
 extension type HTMLVideoElement._(JSObject _)
     implements HTMLMediaElement, JSObject {
-  external factory HTMLVideoElement();
+  /// Creates a(n) [HTMLVideoElement] using the tag 'video'.
+  HTMLVideoElement() : _ = document.createElement('video');
 
   external VideoPlaybackQuality getVideoPlaybackQuality();
   external set width(int value);
@@ -894,10 +1131,12 @@ extension type HTMLVideoElement._(JSObject _)
 }
 extension type HTMLAudioElement._(JSObject _)
     implements HTMLMediaElement, JSObject {
-  external factory HTMLAudioElement();
+  /// Creates a(n) [HTMLAudioElement] using the tag 'audio'.
+  HTMLAudioElement() : _ = document.createElement('audio');
 }
 extension type HTMLTrackElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLTrackElement();
+  /// Creates a(n) [HTMLTrackElement] using the tag 'track'.
+  HTMLTrackElement() : _ = document.createElement('track');
 
   external static int get NONE;
   external static int get LOADING;
@@ -1100,14 +1339,16 @@ extension type TrackEventInit._(JSObject _) implements EventInit, JSObject {
   external JSObject? get track;
 }
 extension type HTMLMapElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLMapElement();
+  /// Creates a(n) [HTMLMapElement] using the tag 'map'.
+  HTMLMapElement() : _ = document.createElement('map');
 
   external set name(String value);
   external String get name;
   external HTMLCollection get areas;
 }
 extension type HTMLAreaElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLAreaElement();
+  /// Creates a(n) [HTMLAreaElement] using the tag 'area'.
+  HTMLAreaElement() : _ = document.createElement('area');
 
   external set alt(String value);
   external String get alt;
@@ -1151,7 +1392,8 @@ extension type HTMLAreaElement._(JSObject _) implements HTMLElement, JSObject {
   external String get hash;
 }
 extension type HTMLTableElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLTableElement();
+  /// Creates a(n) [HTMLTableElement] using the tag 'table'.
+  HTMLTableElement() : _ = document.createElement('table');
 
   external HTMLTableCaptionElement createCaption();
   external void deleteCaption();
@@ -1191,14 +1433,19 @@ extension type HTMLTableElement._(JSObject _) implements HTMLElement, JSObject {
 }
 extension type HTMLTableCaptionElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLTableCaptionElement();
+  /// Creates a(n) [HTMLTableCaptionElement] using the tag 'caption'.
+  HTMLTableCaptionElement() : _ = document.createElement('caption');
 
   external set align(String value);
   external String get align;
 }
 extension type HTMLTableColElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLTableColElement();
+  /// Creates a(n) [HTMLTableColElement] using the tag 'colgroup'.
+  HTMLTableColElement.colgroup() : _ = document.createElement('colgroup');
+
+  /// Creates a(n) [HTMLTableColElement] using the tag 'col'.
+  HTMLTableColElement.col() : _ = document.createElement('col');
 
   external set span(int value);
   external int get span;
@@ -1215,7 +1462,14 @@ extension type HTMLTableColElement._(JSObject _)
 }
 extension type HTMLTableSectionElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLTableSectionElement();
+  /// Creates a(n) [HTMLTableSectionElement] using the tag 'tbody'.
+  HTMLTableSectionElement.tbody() : _ = document.createElement('tbody');
+
+  /// Creates a(n) [HTMLTableSectionElement] using the tag 'thead'.
+  HTMLTableSectionElement.thead() : _ = document.createElement('thead');
+
+  /// Creates a(n) [HTMLTableSectionElement] using the tag 'tfoot'.
+  HTMLTableSectionElement.tfoot() : _ = document.createElement('tfoot');
 
   external HTMLTableRowElement insertRow([int index]);
   external void deleteRow(int index);
@@ -1231,7 +1485,8 @@ extension type HTMLTableSectionElement._(JSObject _)
 }
 extension type HTMLTableRowElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLTableRowElement();
+  /// Creates a(n) [HTMLTableRowElement] using the tag 'tr'.
+  HTMLTableRowElement() : _ = document.createElement('tr');
 
   external HTMLTableCellElement insertCell([int index]);
   external void deleteCell(int index);
@@ -1251,7 +1506,11 @@ extension type HTMLTableRowElement._(JSObject _)
 }
 extension type HTMLTableCellElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLTableCellElement();
+  /// Creates a(n) [HTMLTableCellElement] using the tag 'td'.
+  HTMLTableCellElement.td() : _ = document.createElement('td');
+
+  /// Creates a(n) [HTMLTableCellElement] using the tag 'th'.
+  HTMLTableCellElement.th() : _ = document.createElement('th');
 
   external set colSpan(int value);
   external int get colSpan;
@@ -1284,7 +1543,8 @@ extension type HTMLTableCellElement._(JSObject _)
   external String get bgColor;
 }
 extension type HTMLFormElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLFormElement();
+  /// Creates a(n) [HTMLFormElement] using the tag 'form'.
+  HTMLFormElement() : _ = document.createElement('form');
 
   external void submit();
   external void requestSubmit([HTMLElement? submitter]);
@@ -1316,7 +1576,8 @@ extension type HTMLFormElement._(JSObject _) implements HTMLElement, JSObject {
   external int get length;
 }
 extension type HTMLLabelElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLLabelElement();
+  /// Creates a(n) [HTMLLabelElement] using the tag 'label'.
+  HTMLLabelElement() : _ = document.createElement('label');
 
   external HTMLFormElement? get form;
   external set htmlFor(String value);
@@ -1324,7 +1585,8 @@ extension type HTMLLabelElement._(JSObject _) implements HTMLElement, JSObject {
   external HTMLElement? get control;
 }
 extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLInputElement();
+  /// Creates a(n) [HTMLInputElement] using the tag 'input'.
+  HTMLInputElement() : _ = document.createElement('input');
 
   external void stepUp([int n]);
   external void stepDown([int n]);
@@ -1438,7 +1700,8 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
 }
 extension type HTMLButtonElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLButtonElement();
+  /// Creates a(n) [HTMLButtonElement] using the tag 'button'.
+  HTMLButtonElement() : _ = document.createElement('button');
 
   external bool checkValidity();
   external bool reportValidity();
@@ -1473,7 +1736,8 @@ extension type HTMLButtonElement._(JSObject _)
 }
 extension type HTMLSelectElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLSelectElement();
+  /// Creates a(n) [HTMLSelectElement] using the tag 'select'.
+  HTMLSelectElement() : _ = document.createElement('select');
 
   external HTMLOptionElement? item(int index);
   external HTMLOptionElement? namedItem(String name);
@@ -1515,13 +1779,15 @@ extension type HTMLSelectElement._(JSObject _)
 }
 extension type HTMLDataListElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLDataListElement();
+  /// Creates a(n) [HTMLDataListElement] using the tag 'datalist'.
+  HTMLDataListElement() : _ = document.createElement('datalist');
 
   external HTMLCollection get options;
 }
 extension type HTMLOptGroupElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLOptGroupElement();
+  /// Creates a(n) [HTMLOptGroupElement] using the tag 'optgroup'.
+  HTMLOptGroupElement() : _ = document.createElement('optgroup');
 
   external set disabled(bool value);
   external bool get disabled;
@@ -1530,7 +1796,8 @@ extension type HTMLOptGroupElement._(JSObject _)
 }
 extension type HTMLOptionElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLOptionElement();
+  /// Creates a(n) [HTMLOptionElement] using the tag 'option'.
+  HTMLOptionElement() : _ = document.createElement('option');
 
   external set disabled(bool value);
   external bool get disabled;
@@ -1549,7 +1816,8 @@ extension type HTMLOptionElement._(JSObject _)
 }
 extension type HTMLTextAreaElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLTextAreaElement();
+  /// Creates a(n) [HTMLTextAreaElement] using the tag 'textarea'.
+  HTMLTextAreaElement() : _ = document.createElement('textarea');
 
   external bool checkValidity();
   external bool reportValidity();
@@ -1610,7 +1878,8 @@ extension type HTMLTextAreaElement._(JSObject _)
 }
 extension type HTMLOutputElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLOutputElement();
+  /// Creates a(n) [HTMLOutputElement] using the tag 'output'.
+  HTMLOutputElement() : _ = document.createElement('output');
 
   external bool checkValidity();
   external bool reportValidity();
@@ -1631,7 +1900,8 @@ extension type HTMLOutputElement._(JSObject _)
 }
 extension type HTMLProgressElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLProgressElement();
+  /// Creates a(n) [HTMLProgressElement] using the tag 'progress'.
+  HTMLProgressElement() : _ = document.createElement('progress');
 
   external set value(num value);
   external num get value;
@@ -1641,7 +1911,8 @@ extension type HTMLProgressElement._(JSObject _)
   external NodeList get labels;
 }
 extension type HTMLMeterElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLMeterElement();
+  /// Creates a(n) [HTMLMeterElement] using the tag 'meter'.
+  HTMLMeterElement() : _ = document.createElement('meter');
 
   external set value(num value);
   external num get value;
@@ -1659,7 +1930,8 @@ extension type HTMLMeterElement._(JSObject _) implements HTMLElement, JSObject {
 }
 extension type HTMLFieldSetElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLFieldSetElement();
+  /// Creates a(n) [HTMLFieldSetElement] using the tag 'fieldset'.
+  HTMLFieldSetElement() : _ = document.createElement('fieldset');
 
   external bool checkValidity();
   external bool reportValidity();
@@ -1677,7 +1949,8 @@ extension type HTMLFieldSetElement._(JSObject _)
 }
 extension type HTMLLegendElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLLegendElement();
+  /// Creates a(n) [HTMLLegendElement] using the tag 'legend'.
+  HTMLLegendElement() : _ = document.createElement('legend');
 
   external HTMLFormElement? get form;
   external set align(String value);
@@ -1726,7 +1999,8 @@ extension type FormDataEventInit._(JSObject _) implements EventInit, JSObject {
 }
 extension type HTMLDetailsElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLDetailsElement();
+  /// Creates a(n) [HTMLDetailsElement] using the tag 'details'.
+  HTMLDetailsElement() : _ = document.createElement('details');
 
   external set name(String value);
   external String get name;
@@ -1735,7 +2009,8 @@ extension type HTMLDetailsElement._(JSObject _)
 }
 extension type HTMLDialogElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLDialogElement();
+  /// Creates a(n) [HTMLDialogElement] using the tag 'dialog'.
+  HTMLDialogElement() : _ = document.createElement('dialog');
 
   external void show();
   external void showModal();
@@ -1747,7 +2022,8 @@ extension type HTMLDialogElement._(JSObject _)
 }
 extension type HTMLScriptElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLScriptElement();
+  /// Creates a(n) [HTMLScriptElement] using the tag 'script'.
+  HTMLScriptElement() : _ = document.createElement('script');
 
   external static bool supports(String type);
   external set src(String value);
@@ -1780,7 +2056,8 @@ extension type HTMLScriptElement._(JSObject _)
 }
 extension type HTMLTemplateElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLTemplateElement();
+  /// Creates a(n) [HTMLTemplateElement] using the tag 'template'.
+  HTMLTemplateElement() : _ = document.createElement('template');
 
   external DocumentFragment get content;
   external set shadowRootMode(String value);
@@ -1789,7 +2066,8 @@ extension type HTMLTemplateElement._(JSObject _)
   external bool get shadowRootDelegatesFocus;
 }
 extension type HTMLSlotElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLSlotElement();
+  /// Creates a(n) [HTMLSlotElement] using the tag 'slot'.
+  HTMLSlotElement() : _ = document.createElement('slot');
 
   external JSArray<Node> assignedNodes([AssignedNodesOptions options]);
   external JSArray<Element> assignedElements([AssignedNodesOptions options]);
@@ -1805,7 +2083,8 @@ extension type AssignedNodesOptions._(JSObject _) implements JSObject {
 }
 extension type HTMLCanvasElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLCanvasElement();
+  /// Creates a(n) [HTMLCanvasElement] using the tag 'canvas'.
+  HTMLCanvasElement() : _ = document.createElement('canvas');
 
   external RenderingContext? getContext(
     String contextId, [
@@ -3916,7 +4195,8 @@ extension type StorageEventInit._(JSObject _) implements EventInit, JSObject {
 }
 extension type HTMLMarqueeElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLMarqueeElement();
+  /// Creates a(n) [HTMLMarqueeElement] using the tag 'marquee'.
+  HTMLMarqueeElement() : _ = document.createElement('marquee');
 
   external void start();
   external void stop();
@@ -3945,7 +4225,8 @@ extension type HTMLMarqueeElement._(JSObject _)
 }
 extension type HTMLFrameSetElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLFrameSetElement();
+  /// Creates a(n) [HTMLFrameSetElement] using the tag 'frameset'.
+  HTMLFrameSetElement() : _ = document.createElement('frameset');
 
   external set cols(String value);
   external String get cols;
@@ -3991,7 +4272,8 @@ extension type HTMLFrameSetElement._(JSObject _)
   external EventHandler get onunload;
 }
 extension type HTMLFrameElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLFrameElement();
+  /// Creates a(n) [HTMLFrameElement] using the tag 'frame'.
+  HTMLFrameElement() : _ = document.createElement('frame');
 
   external set name(String value);
   external String get name;
@@ -4014,13 +4296,15 @@ extension type HTMLFrameElement._(JSObject _) implements HTMLElement, JSObject {
 }
 extension type HTMLDirectoryElement._(JSObject _)
     implements HTMLElement, JSObject {
-  external factory HTMLDirectoryElement();
+  /// Creates a(n) [HTMLDirectoryElement] using the tag 'dir'.
+  HTMLDirectoryElement() : _ = document.createElement('dir');
 
   external set compact(bool value);
   external bool get compact;
 }
 extension type HTMLFontElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLFontElement();
+  /// Creates a(n) [HTMLFontElement] using the tag 'font'.
+  HTMLFontElement() : _ = document.createElement('font');
 
   external set color(String value);
   external String get color;
@@ -4030,7 +4314,8 @@ extension type HTMLFontElement._(JSObject _) implements HTMLElement, JSObject {
   external String get size;
 }
 extension type HTMLParamElement._(JSObject _) implements HTMLElement, JSObject {
-  external factory HTMLParamElement();
+  /// Creates a(n) [HTMLParamElement] using the tag 'param'.
+  HTMLParamElement() : _ = document.createElement('param');
 
   external set name(String value);
   external String get name;

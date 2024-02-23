@@ -1,6 +1,10 @@
-## 0.5.1-wip
+## 0.6.0-wip
 
 - Add [`TrustedTypes`](https://web.dev/trusted-types) members.
+- Add a constructor for each Element tag onto their respective Element
+  interfaces.
+- Remove `external` Element constructors that would result in a runtime error.
+- Deprecate `createAudioElement` in favor of the `HTMLAudioElement` constructor.
 
 ## 0.5.0
 

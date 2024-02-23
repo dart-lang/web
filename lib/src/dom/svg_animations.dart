@@ -42,15 +42,50 @@ extension type SVGAnimationElement._(JSObject _)
   external SVGStringList get systemLanguage;
 }
 extension type SVGAnimateElement._(JSObject _)
-    implements SVGAnimationElement, JSObject {}
+    implements SVGAnimationElement, JSObject {
+  /// Creates a(n) [SVGAnimateElement] using the tag 'animate'.
+  SVGAnimateElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'animate',
+        );
+}
 extension type SVGSetElement._(JSObject _)
-    implements SVGAnimationElement, JSObject {}
+    implements SVGAnimationElement, JSObject {
+  /// Creates a(n) [SVGSetElement] using the tag 'set'.
+  SVGSetElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'set',
+        );
+}
 extension type SVGAnimateMotionElement._(JSObject _)
-    implements SVGAnimationElement, JSObject {}
+    implements SVGAnimationElement, JSObject {
+  /// Creates a(n) [SVGAnimateMotionElement] using the tag 'animateMotion'.
+  SVGAnimateMotionElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'animateMotion',
+        );
+}
 extension type SVGMPathElement._(JSObject _) implements SVGElement, JSObject {
+  /// Creates a(n) [SVGMPathElement] using the tag 'mpath'.
+  SVGMPathElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'mpath',
+        );
+
   external SVGAnimatedString get href;
 }
 extension type SVGAnimateTransformElement._(JSObject _)
-    implements SVGAnimationElement, JSObject {}
+    implements SVGAnimationElement, JSObject {
+  /// Creates a(n) [SVGAnimateTransformElement] using the tag 'animateTransform'.
+  SVGAnimateTransformElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'animateTransform',
+        );
+}
 extension type SVGDiscardElement._(JSObject _)
     implements SVGAnimationElement, JSObject {}

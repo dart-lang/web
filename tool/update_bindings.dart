@@ -98,12 +98,14 @@ $_usage''');
 
   final sourceContent = readmeFile.readAsStringSync();
 
-  final idlVersion = _packageLockVersion(_webRefIdl);
   final cssVersion = _packageLockVersion(_webRefCss);
+  final elementsVersion = _packageLockVersion(_webRefElements);
+  final idlVersion = _packageLockVersion(_webRefIdl);
   final versions = '''
 $_startComment
-- $_webRefIdl [$idlVersion](https://www.npmjs.com/package/$_webRefIdl/v/$idlVersion)
 - $_webRefCss [$cssVersion](https://www.npmjs.com/package/$_webRefCss/v/$cssVersion)
+- $_webRefElements [$elementsVersion](https://www.npmjs.com/package/$_webRefElements/v/$elementsVersion)
+- $_webRefIdl [$idlVersion](https://www.npmjs.com/package/$_webRefIdl/v/$idlVersion)
 ''';
 
   final newContent =
@@ -131,8 +133,9 @@ String _packageLockVersion(String package) {
 
 final _bindingsGeneratorPath = p.join('tool', 'generator');
 
-const _webRefIdl = '@webref/idl';
 const _webRefCss = '@webref/css';
+const _webRefElements = '@webref/elements';
+const _webRefIdl = '@webref/idl';
 
 const _thisScript = 'tool/update_bindings.dart';
 

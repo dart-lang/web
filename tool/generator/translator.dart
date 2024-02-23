@@ -14,6 +14,7 @@ import 'type_aliases.dart';
 import 'type_union.dart';
 import 'util.dart';
 import 'webidl_api.dart' as idl;
+import 'webref_elements_api.dart';
 
 typedef TranslationResult = Map<String, code.Library>;
 
@@ -368,6 +369,7 @@ class _PartialInterfacelike {
       switch (type) {
         case 'constructor':
           final idlConstructor = member as idl.Constructor;
+          if (_hasHTMLConstructorAttribute(idlConstructor)) continue;
           if (constructor == null) {
             constructor = _OverridableConstructor(idlConstructor);
           } else {
@@ -451,6 +453,13 @@ class _PartialInterfacelike {
     inheritance ??= interfacelike.inheritance;
     _processMembers(interfacelike.members);
   }
+
+  // Constructors with the attribute `HTMLConstructor` are intended for custom
+  // element behavior, and are not useful otherwise, so avoid emitting them.
+  // https://html.spec.whatwg.org/#html-element-constructors
+  bool _hasHTMLConstructorAttribute(idl.Constructor constructor) =>
+      constructor.extAttrs.toDart
+          .any((extAttr) => extAttr.name == 'HTMLConstructor');
 }
 
 class _MemberName {
@@ -460,11 +469,9 @@ class _MemberName {
   _MemberName._(this.name, this.jsOverride);
 
   factory _MemberName(String name, [String jsOverride = '']) {
-    if (bannedNames.contains(name)) {
-      if (jsOverride.isEmpty) jsOverride = name;
-      name = '${name}_';
-    }
-    return _MemberName._(name, jsOverride);
+    final rename = dartRename(name);
+    if (rename != name && jsOverride.isEmpty) jsOverride = name;
+    return _MemberName._(rename, jsOverride);
   }
 }
 
@@ -472,6 +479,7 @@ class Translator {
   final String packageRoot;
   final String _librarySubDir;
   final List<String> _cssStyleDeclarations;
+  final Map<String, Set<String>> _elementTagMap;
 
   final _libraries = <String, _Library>{};
   final _typeToDeclaration = <String, idl.Node>{};
@@ -485,8 +493,8 @@ class Translator {
   /// Singleton so that various helper methods can access info about the AST.
   static Translator? instance;
 
-  Translator(
-      this.packageRoot, this._librarySubDir, this._cssStyleDeclarations) {
+  Translator(this.packageRoot, this._librarySubDir, this._cssStyleDeclarations,
+      this._elementTagMap) {
     instance = this;
     browserCompatData = BrowserCompatData.read();
   }
@@ -561,14 +569,6 @@ class Translator {
         ..name = getterName
         ..type = code.MethodType.getter);
 
-  String _parameterName(String name) {
-    if (bannedNames.contains(name)) {
-      return '${name}_';
-    } else {
-      return name;
-    }
-  }
-
   // Given a raw type, convert it to the Dart type that will be emitted by the
   // translator.
   //
@@ -619,6 +619,17 @@ class Translator {
       typeArguments
           .add(_typeReference(typeParameter, onlyEmitInteropTypes: true));
     }
+    final url = _urlForType(dartType);
+    return code.TypeReference((b) => b
+      ..symbol = dartType
+      ..isNullable = nullable
+      ..types.addAll(typeArguments)
+      ..url = url);
+  }
+
+  // Given a [dartType] that is part of a reference, returns the url that needs
+  // to be imported to use it, if any.
+  String? _urlForType(String dartType) {
     // Unfortunately, `code_builder` doesn't know the url of the library we are
     // emitting, so we have to remove it here to avoid importing ourselves.
     var url = _typeToLibrary[dartType]?.url;
@@ -634,11 +645,7 @@ class Translator {
     } else if (p.dirname(url) == p.dirname(_currentlyTranslatingUrl)) {
       url = p.basename(url);
     }
-    return code.TypeReference((b) => b
-      ..symbol = dartType
-      ..isNullable = nullable
-      ..types.addAll(typeArguments)
-      ..url = url);
+    return url;
   }
 
   code.TypeReference _idlTypeToTypeReference(idl.IDLType idlType) =>
@@ -656,7 +663,7 @@ class Translator {
     final optionalParameters = <code.Parameter>[];
     for (final rawParameter in member.parameters) {
       final parameter = code.Parameter((b) => b
-        ..name = _parameterName(rawParameter.name)
+        ..name = dartRename(rawParameter.name)
         ..type = _typeToTypeReference(rawParameter.type));
       if (rawParameter.isOptional) {
         optionalParameters.add(parameter);
@@ -688,7 +695,7 @@ class Translator {
       final field = member as idl.Field;
       final isRequired = field.required;
       final parameter = code.Parameter((b) => b
-        ..name = _parameterName(field.name)
+        ..name = dartRename(field.name)
         ..type = _idlTypeToTypeReference(field.idlType)
         ..required = isRequired
         ..named = true);
@@ -821,6 +828,44 @@ class Translator {
               readOnly: false),
       ];
 
+  // If [jsName] is an element type, creates a constructor for each tag that the
+  // element interface corresponds to using either `createElement` or
+  // `createElementNS`.
+  List<code.Constructor> _elementConstructors(
+      String jsName, String dartClassName, String representationFieldName) {
+    final elementConstructors = <code.Constructor>[];
+    final tags = _elementTagMap[jsName];
+    if (tags != null) {
+      final uri = uriForElement(jsName);
+      assert(tags.isNotEmpty);
+      final createElementMethod =
+          uri != null ? 'createElementNS' : 'createElement';
+      for (final tag in tags) {
+        elementConstructors.add(code.Constructor((b) => b
+          ..docs.addAll(
+              ["/// Creates a(n) [$dartClassName] using the tag '$tag'."])
+          // If there are multiple tags, use a named constructor.
+          ..name = tags.length == 1 ? null : dartRename(tag)
+          ..initializers.addAll([
+            code
+                .refer(representationFieldName)
+                .assign(code
+                    .refer('document', _urlForType('Document'))
+                    .property(createElementMethod)
+                    .call([
+                  // TODO(srujzs): Should we make these URIs a constant and
+                  // refer to the constant instead? Downside is that it requires
+                  // another manual hack to generate them.
+                  if (uri != null) code.literalString(uri),
+                  code.literalString(tag)
+                ]))
+                .code
+          ])));
+      }
+    }
+    return elementConstructors;
+  }
+
   code.Extension _extension(
           {required _RawType type,
           required List<idl.Member> extensionMembers}) =>
@@ -842,22 +887,25 @@ class Translator {
     required bool isObjectLiteral,
   }) {
     final jsObject = _typeReference(_RawType('JSObject', false));
+    const representationFieldName = '_';
     return code.ExtensionType((b) => b
       ..annotations.addAll(
           _jsOverride(isObjectLiteral || jsName == dartClassName ? '' : jsName))
       ..name = dartClassName
       ..primaryConstructorName = '_'
       ..representationDeclaration = code.RepresentationDeclaration((b) => b
-        ..name = '_'
+        ..name = representationFieldName
         ..declaredRepresentationType = jsObject)
       ..implements.addAll(implements
           .map((interface) => _typeReference(_RawType(interface, false)))
           .followedBy([jsObject]))
-      ..constructors.addAll(isObjectLiteral
-          ? [_objectLiteral(members)]
-          : constructor != null
-              ? [_constructor(constructor)]
-              : [])
+      ..constructors.addAll((isObjectLiteral
+              ? [_objectLiteral(members)]
+              : constructor != null
+                  ? [_constructor(constructor)]
+                  : <code.Constructor>[])
+          .followedBy(_elementConstructors(
+              jsName, dartClassName, representationFieldName)))
       ..methods.addAll(_operations(staticOperations)
           .followedBy(_members(staticMembers))
           .followedBy(_operations(operations))

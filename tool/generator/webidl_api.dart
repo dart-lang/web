@@ -61,6 +61,11 @@ extension type Includes._(JSObject _) implements Node {
 /// All members inherit from the [Member] node.
 extension type Member._(JSObject _) implements JSObject {
   external String get type;
+  external JSArray<ExtendedAttribute> get extAttrs;
+}
+
+extension type ExtendedAttribute._(JSObject _) implements JSObject {
+  external String get name;
 }
 
 extension type Argument._(JSObject _) implements JSObject {

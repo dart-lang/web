@@ -80,7 +80,8 @@ extension type SVGMPathElement._(JSObject _) implements SVGElement, JSObject {
 }
 extension type SVGAnimateTransformElement._(JSObject _)
     implements SVGAnimationElement, JSObject {
-  /// Creates a(n) [SVGAnimateTransformElement] using the tag 'animateTransform'.
+  /// Creates a(n) [SVGAnimateTransformElement] using the tag
+  /// 'animateTransform'.
   SVGAnimateTransformElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',

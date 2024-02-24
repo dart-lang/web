@@ -828,6 +828,30 @@ class Translator {
               readOnly: false),
       ];
 
+  // Wraps a [doc] comment given a [leadingWhitespaceCount] for each line so
+  // that the comment doesn't exceed 80 characters.
+  //
+  // Dart format doesn't wrap comments, so we roll our own here.
+  String _wrapDocComment(String doc, [int leadingWhitespaceCount = 0]) {
+    final lineWidth = 80 - leadingWhitespaceCount;
+    final input = doc.split(' ');
+    final output = <String>['///'];
+    var charCount = 3;
+    for (final token in input) {
+      final length = token.length;
+      // 1 for the whitespace between tokens.
+      if (charCount != 3 && charCount + 1 + length > lineWidth) {
+        output[output.length - 1] += '\n';
+        output.add('///');
+        charCount = 3;
+      } else {
+        charCount += 1 + length;
+      }
+      output.add(token);
+    }
+    return output.join(' ');
+  }
+
   // If [jsName] is an element type, creates a constructor for each tag that the
   // element interface corresponds to using either `createElement` or
   // `createElementNS`.
@@ -842,8 +866,12 @@ class Translator {
           uri != null ? 'createElementNS' : 'createElement';
       for (final tag in tags) {
         elementConstructors.add(code.Constructor((b) => b
-          ..docs.addAll(
-              ["/// Creates a(n) [$dartClassName] using the tag '$tag'."])
+          ..docs.addAll([
+            _wrapDocComment(
+                "Creates a(n) [$dartClassName] using the tag '$tag'.",
+                // Extension type members start with an indentation of 2 chars.
+                2)
+          ])
           // If there are multiple tags, use a named constructor.
           ..name = tags.length == 1 ? null : dartRename(tag)
           ..initializers.addAll([

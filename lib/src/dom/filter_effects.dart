@@ -87,7 +87,8 @@ extension type SVGFEColorMatrixElement._(JSObject _)
 }
 extension type SVGFEComponentTransferElement._(JSObject _)
     implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFEComponentTransferElement] using the tag 'feComponentTransfer'.
+  /// Creates a(n) [SVGFEComponentTransferElement] using the tag
+  /// 'feComponentTransfer'.
   SVGFEComponentTransferElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -184,7 +185,8 @@ extension type SVGFECompositeElement._(JSObject _)
 }
 extension type SVGFEConvolveMatrixElement._(JSObject _)
     implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFEConvolveMatrixElement] using the tag 'feConvolveMatrix'.
+  /// Creates a(n) [SVGFEConvolveMatrixElement] using the tag
+  /// 'feConvolveMatrix'.
   SVGFEConvolveMatrixElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -215,7 +217,8 @@ extension type SVGFEConvolveMatrixElement._(JSObject _)
 }
 extension type SVGFEDiffuseLightingElement._(JSObject _)
     implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFEDiffuseLightingElement] using the tag 'feDiffuseLighting'.
+  /// Creates a(n) [SVGFEDiffuseLightingElement] using the tag
+  /// 'feDiffuseLighting'.
   SVGFEDiffuseLightingElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -278,7 +281,8 @@ extension type SVGFESpotLightElement._(JSObject _)
 }
 extension type SVGFEDisplacementMapElement._(JSObject _)
     implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFEDisplacementMapElement] using the tag 'feDisplacementMap'.
+  /// Creates a(n) [SVGFEDisplacementMapElement] using the tag
+  /// 'feDisplacementMap'.
   SVGFEDisplacementMapElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -450,7 +454,8 @@ extension type SVGFEOffsetElement._(JSObject _)
 }
 extension type SVGFESpecularLightingElement._(JSObject _)
     implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFESpecularLightingElement] using the tag 'feSpecularLighting'.
+  /// Creates a(n) [SVGFESpecularLightingElement] using the tag
+  /// 'feSpecularLighting'.
   SVGFESpecularLightingElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',

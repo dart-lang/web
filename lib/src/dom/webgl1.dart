@@ -42,6 +42,7 @@ extension type WebGLContextAttributes._(JSObject _) implements JSObject {
     WebGLPowerPreference powerPreference,
     bool failIfMajorPerformanceCaveat,
     bool desynchronized,
+    bool xrCompatible,
   });
 
   external set alpha(bool value);
@@ -62,6 +63,8 @@ extension type WebGLContextAttributes._(JSObject _) implements JSObject {
   external bool get failIfMajorPerformanceCaveat;
   external set desynchronized(bool value);
   external bool get desynchronized;
+  external set xrCompatible(bool value);
+  external bool get xrCompatible;
 }
 extension type WebGLObject._(JSObject _) implements JSObject {}
 extension type WebGLBuffer._(JSObject _) implements WebGLObject, JSObject {}
@@ -768,6 +771,7 @@ extension type WebGLRenderingContext._(JSObject _) implements JSObject {
     GLsizei width,
     GLsizei height,
   );
+  external JSPromise<JSAny?> makeXRCompatible();
   external void bufferData(
     GLenum target,
     JSAny dataOrSize,

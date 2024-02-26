@@ -11,7 +11,9 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
+import 'image_capture.dart';
 import 'permissions.dart';
+import 'screen_capture.dart';
 import 'webidl.dart';
 
 typedef ConstrainULong = JSAny;
@@ -62,10 +64,30 @@ extension type MediaStreamTrack._(JSObject _) implements EventTarget, JSObject {
   external MediaStreamTrackState get readyState;
   external set onended(EventHandler value);
   external EventHandler get onended;
+  external bool get isolated;
+  external set onisolationchange(EventHandler value);
+  external EventHandler get onisolationchange;
 }
 extension type MediaTrackSupportedConstraints._(JSObject _)
     implements JSObject {
   external factory MediaTrackSupportedConstraints({
+    bool whiteBalanceMode,
+    bool exposureMode,
+    bool focusMode,
+    bool pointsOfInterest,
+    bool exposureCompensation,
+    bool exposureTime,
+    bool colorTemperature,
+    bool iso,
+    bool brightness,
+    bool contrast,
+    bool pan,
+    bool saturation,
+    bool sharpness,
+    bool focusDistance,
+    bool tilt,
+    bool zoom,
+    bool torch,
     bool width,
     bool height,
     bool aspectRatio,
@@ -81,8 +103,47 @@ extension type MediaTrackSupportedConstraints._(JSObject _)
     bool channelCount,
     bool deviceId,
     bool groupId,
+    bool displaySurface,
+    bool logicalSurface,
+    bool cursor,
+    bool restrictOwnAudio,
+    bool suppressLocalAudioPlayback,
   });
 
+  external set whiteBalanceMode(bool value);
+  external bool get whiteBalanceMode;
+  external set exposureMode(bool value);
+  external bool get exposureMode;
+  external set focusMode(bool value);
+  external bool get focusMode;
+  external set pointsOfInterest(bool value);
+  external bool get pointsOfInterest;
+  external set exposureCompensation(bool value);
+  external bool get exposureCompensation;
+  external set exposureTime(bool value);
+  external bool get exposureTime;
+  external set colorTemperature(bool value);
+  external bool get colorTemperature;
+  external set iso(bool value);
+  external bool get iso;
+  external set brightness(bool value);
+  external bool get brightness;
+  external set contrast(bool value);
+  external bool get contrast;
+  external set pan(bool value);
+  external bool get pan;
+  external set saturation(bool value);
+  external bool get saturation;
+  external set sharpness(bool value);
+  external bool get sharpness;
+  external set focusDistance(bool value);
+  external bool get focusDistance;
+  external set tilt(bool value);
+  external bool get tilt;
+  external set zoom(bool value);
+  external bool get zoom;
+  external set torch(bool value);
+  external bool get torch;
   external set width(bool value);
   external bool get width;
   external set height(bool value);
@@ -113,9 +174,35 @@ extension type MediaTrackSupportedConstraints._(JSObject _)
   external bool get deviceId;
   external set groupId(bool value);
   external bool get groupId;
+  external set displaySurface(bool value);
+  external bool get displaySurface;
+  external set logicalSurface(bool value);
+  external bool get logicalSurface;
+  external set cursor(bool value);
+  external bool get cursor;
+  external set restrictOwnAudio(bool value);
+  external bool get restrictOwnAudio;
+  external set suppressLocalAudioPlayback(bool value);
+  external bool get suppressLocalAudioPlayback;
 }
 extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
   external factory MediaTrackCapabilities({
+    JSArray<JSString> whiteBalanceMode,
+    JSArray<JSString> exposureMode,
+    JSArray<JSString> focusMode,
+    MediaSettingsRange exposureCompensation,
+    MediaSettingsRange exposureTime,
+    MediaSettingsRange colorTemperature,
+    MediaSettingsRange iso,
+    MediaSettingsRange brightness,
+    MediaSettingsRange contrast,
+    MediaSettingsRange saturation,
+    MediaSettingsRange sharpness,
+    MediaSettingsRange focusDistance,
+    MediaSettingsRange pan,
+    MediaSettingsRange tilt,
+    MediaSettingsRange zoom,
+    JSArray<JSBoolean> torch,
     ULongRange width,
     ULongRange height,
     DoubleRange aspectRatio,
@@ -131,8 +218,43 @@ extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
     ULongRange channelCount,
     String deviceId,
     String groupId,
+    String displaySurface,
+    bool logicalSurface,
+    JSArray<JSString> cursor,
   });
 
+  external set whiteBalanceMode(JSArray<JSString> value);
+  external JSArray<JSString> get whiteBalanceMode;
+  external set exposureMode(JSArray<JSString> value);
+  external JSArray<JSString> get exposureMode;
+  external set focusMode(JSArray<JSString> value);
+  external JSArray<JSString> get focusMode;
+  external set exposureCompensation(MediaSettingsRange value);
+  external MediaSettingsRange get exposureCompensation;
+  external set exposureTime(MediaSettingsRange value);
+  external MediaSettingsRange get exposureTime;
+  external set colorTemperature(MediaSettingsRange value);
+  external MediaSettingsRange get colorTemperature;
+  external set iso(MediaSettingsRange value);
+  external MediaSettingsRange get iso;
+  external set brightness(MediaSettingsRange value);
+  external MediaSettingsRange get brightness;
+  external set contrast(MediaSettingsRange value);
+  external MediaSettingsRange get contrast;
+  external set saturation(MediaSettingsRange value);
+  external MediaSettingsRange get saturation;
+  external set sharpness(MediaSettingsRange value);
+  external MediaSettingsRange get sharpness;
+  external set focusDistance(MediaSettingsRange value);
+  external MediaSettingsRange get focusDistance;
+  external set pan(MediaSettingsRange value);
+  external MediaSettingsRange get pan;
+  external set tilt(MediaSettingsRange value);
+  external MediaSettingsRange get tilt;
+  external set zoom(MediaSettingsRange value);
+  external MediaSettingsRange get zoom;
+  external set torch(JSArray<JSBoolean> value);
+  external JSArray<JSBoolean> get torch;
   external set width(ULongRange value);
   external ULongRange get width;
   external set height(ULongRange value);
@@ -163,6 +285,12 @@ extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
   external String get deviceId;
   external set groupId(String value);
   external String get groupId;
+  external set displaySurface(String value);
+  external String get displaySurface;
+  external set logicalSurface(bool value);
+  external bool get logicalSurface;
+  external set cursor(JSArray<JSString> value);
+  external JSArray<JSString> get cursor;
 }
 extension type MediaTrackConstraints._(JSObject _)
     implements MediaTrackConstraintSet, JSObject {
@@ -174,6 +302,23 @@ extension type MediaTrackConstraints._(JSObject _)
 }
 extension type MediaTrackConstraintSet._(JSObject _) implements JSObject {
   external factory MediaTrackConstraintSet({
+    ConstrainDOMString whiteBalanceMode,
+    ConstrainDOMString exposureMode,
+    ConstrainDOMString focusMode,
+    ConstrainPoint2D pointsOfInterest,
+    ConstrainDouble exposureCompensation,
+    ConstrainDouble exposureTime,
+    ConstrainDouble colorTemperature,
+    ConstrainDouble iso,
+    ConstrainDouble brightness,
+    ConstrainDouble contrast,
+    ConstrainDouble saturation,
+    ConstrainDouble sharpness,
+    ConstrainDouble focusDistance,
+    JSAny pan,
+    JSAny tilt,
+    JSAny zoom,
+    ConstrainBoolean torch,
     ConstrainULong width,
     ConstrainULong height,
     ConstrainDouble aspectRatio,
@@ -189,8 +334,47 @@ extension type MediaTrackConstraintSet._(JSObject _) implements JSObject {
     ConstrainULong channelCount,
     ConstrainDOMString deviceId,
     ConstrainDOMString groupId,
+    ConstrainDOMString displaySurface,
+    ConstrainBoolean logicalSurface,
+    ConstrainDOMString cursor,
+    ConstrainBoolean restrictOwnAudio,
+    ConstrainBoolean suppressLocalAudioPlayback,
   });
 
+  external set whiteBalanceMode(ConstrainDOMString value);
+  external ConstrainDOMString get whiteBalanceMode;
+  external set exposureMode(ConstrainDOMString value);
+  external ConstrainDOMString get exposureMode;
+  external set focusMode(ConstrainDOMString value);
+  external ConstrainDOMString get focusMode;
+  external set pointsOfInterest(ConstrainPoint2D value);
+  external ConstrainPoint2D get pointsOfInterest;
+  external set exposureCompensation(ConstrainDouble value);
+  external ConstrainDouble get exposureCompensation;
+  external set exposureTime(ConstrainDouble value);
+  external ConstrainDouble get exposureTime;
+  external set colorTemperature(ConstrainDouble value);
+  external ConstrainDouble get colorTemperature;
+  external set iso(ConstrainDouble value);
+  external ConstrainDouble get iso;
+  external set brightness(ConstrainDouble value);
+  external ConstrainDouble get brightness;
+  external set contrast(ConstrainDouble value);
+  external ConstrainDouble get contrast;
+  external set saturation(ConstrainDouble value);
+  external ConstrainDouble get saturation;
+  external set sharpness(ConstrainDouble value);
+  external ConstrainDouble get sharpness;
+  external set focusDistance(ConstrainDouble value);
+  external ConstrainDouble get focusDistance;
+  external set pan(JSAny value);
+  external JSAny get pan;
+  external set tilt(JSAny value);
+  external JSAny get tilt;
+  external set zoom(JSAny value);
+  external JSAny get zoom;
+  external set torch(ConstrainBoolean value);
+  external ConstrainBoolean get torch;
   external set width(ConstrainULong value);
   external ConstrainULong get width;
   external set height(ConstrainULong value);
@@ -221,9 +405,36 @@ extension type MediaTrackConstraintSet._(JSObject _) implements JSObject {
   external ConstrainDOMString get deviceId;
   external set groupId(ConstrainDOMString value);
   external ConstrainDOMString get groupId;
+  external set displaySurface(ConstrainDOMString value);
+  external ConstrainDOMString get displaySurface;
+  external set logicalSurface(ConstrainBoolean value);
+  external ConstrainBoolean get logicalSurface;
+  external set cursor(ConstrainDOMString value);
+  external ConstrainDOMString get cursor;
+  external set restrictOwnAudio(ConstrainBoolean value);
+  external ConstrainBoolean get restrictOwnAudio;
+  external set suppressLocalAudioPlayback(ConstrainBoolean value);
+  external ConstrainBoolean get suppressLocalAudioPlayback;
 }
 extension type MediaTrackSettings._(JSObject _) implements JSObject {
   external factory MediaTrackSettings({
+    String whiteBalanceMode,
+    String exposureMode,
+    String focusMode,
+    JSArray<Point2D> pointsOfInterest,
+    num exposureCompensation,
+    num exposureTime,
+    num colorTemperature,
+    num iso,
+    num brightness,
+    num contrast,
+    num saturation,
+    num sharpness,
+    num focusDistance,
+    num pan,
+    num tilt,
+    num zoom,
+    bool torch,
     int width,
     int height,
     num aspectRatio,
@@ -239,8 +450,47 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
     int channelCount,
     String deviceId,
     String groupId,
+    String displaySurface,
+    bool logicalSurface,
+    String cursor,
+    bool restrictOwnAudio,
+    bool suppressLocalAudioPlayback,
   });
 
+  external set whiteBalanceMode(String value);
+  external String get whiteBalanceMode;
+  external set exposureMode(String value);
+  external String get exposureMode;
+  external set focusMode(String value);
+  external String get focusMode;
+  external set pointsOfInterest(JSArray<Point2D> value);
+  external JSArray<Point2D> get pointsOfInterest;
+  external set exposureCompensation(num value);
+  external num get exposureCompensation;
+  external set exposureTime(num value);
+  external num get exposureTime;
+  external set colorTemperature(num value);
+  external num get colorTemperature;
+  external set iso(num value);
+  external num get iso;
+  external set brightness(num value);
+  external num get brightness;
+  external set contrast(num value);
+  external num get contrast;
+  external set saturation(num value);
+  external num get saturation;
+  external set sharpness(num value);
+  external num get sharpness;
+  external set focusDistance(num value);
+  external num get focusDistance;
+  external set pan(num value);
+  external num get pan;
+  external set tilt(num value);
+  external num get tilt;
+  external set zoom(num value);
+  external num get zoom;
+  external set torch(bool value);
+  external bool get torch;
   external set width(int value);
   external int get width;
   external set height(int value);
@@ -271,6 +521,16 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
   external String get deviceId;
   external set groupId(String value);
   external String get groupId;
+  external set displaySurface(String value);
+  external String get displaySurface;
+  external set logicalSurface(bool value);
+  external bool get logicalSurface;
+  external set cursor(String value);
+  external String get cursor;
+  external set restrictOwnAudio(bool value);
+  external bool get restrictOwnAudio;
+  external set suppressLocalAudioPlayback(bool value);
+  external bool get suppressLocalAudioPlayback;
 }
 extension type MediaStreamTrackEvent._(JSObject _) implements Event, JSObject {
   external factory MediaStreamTrackEvent(
@@ -301,6 +561,8 @@ extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {
   external MediaTrackSupportedConstraints getSupportedConstraints();
   external JSPromise<MediaStream> getUserMedia(
       [MediaStreamConstraints constraints]);
+  external JSPromise<MediaStream> getDisplayMedia(
+      [DisplayMediaStreamOptions options]);
   external set ondevicechange(EventHandler value);
   external EventHandler get ondevicechange;
 }
@@ -319,12 +581,15 @@ extension type MediaStreamConstraints._(JSObject _) implements JSObject {
   external factory MediaStreamConstraints({
     JSAny video,
     JSAny audio,
+    String peerIdentity,
   });
 
   external set video(JSAny value);
   external JSAny get video;
   external set audio(JSAny value);
   external JSAny get audio;
+  external set peerIdentity(String value);
+  external String get peerIdentity;
 }
 extension type DoubleRange._(JSObject _) implements JSObject {
   external factory DoubleRange({

@@ -52,8 +52,7 @@ class BCDInterfaceStatus extends BCDItem {
 
   BCDPropertyStatus? retrievePropertyFor(String name) => properties[name];
 
-  bool get shouldGenerate =>
-      standardTrack && chromeSupported && firefoxSupported && safariSupported;
+  bool get shouldGenerate => standardTrack;
 }
 
 class BCDPropertyStatus extends BCDItem {

@@ -971,6 +971,9 @@ class Translator {
     const allowList = {
       'css-typed-om',
       'css-view-transitions',
+      // MDN doesn't contain data about dictionaries and this library only
+      // contains a dictionary, so it has to be allowlisted.
+      'image-resource',
       'referrer-policy',
       'reporting',
       'touch-events',

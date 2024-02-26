@@ -9,10 +9,16 @@ library;
 
 import 'dart:js_interop';
 
+import 'background_fetch.dart';
+import 'background_sync.dart';
+import 'content_index.dart';
+import 'cookie_store.dart';
 import 'dom.dart';
 import 'fetch.dart';
 import 'html.dart';
 import 'notifications.dart';
+import 'payment_handler.dart';
+import 'periodic_background_sync.dart';
 import 'push_api.dart';
 
 typedef ServiceWorkerState = String;
@@ -41,6 +47,12 @@ extension type ServiceWorkerRegistration._(JSObject _)
       [GetNotificationOptions filter]);
   external JSPromise<JSAny?> update();
   external JSPromise<JSBoolean> unregister();
+  external BackgroundFetchManager get backgroundFetch;
+  external SyncManager get sync;
+  external ContentIndex get index;
+  external CookieStoreManager get cookies;
+  external PaymentManager get paymentManager;
+  external PeriodicSyncManager get periodicSync;
   external PushManager get pushManager;
   external ServiceWorker? get installing;
   external ServiceWorker? get waiting;
@@ -104,10 +116,31 @@ extension type NavigationPreloadState._(JSObject _) implements JSObject {
 extension type ServiceWorkerGlobalScope._(JSObject _)
     implements WorkerGlobalScope, JSObject {
   external JSPromise<JSAny?> skipWaiting();
+  external set onbackgroundfetchsuccess(EventHandler value);
+  external EventHandler get onbackgroundfetchsuccess;
+  external set onbackgroundfetchfail(EventHandler value);
+  external EventHandler get onbackgroundfetchfail;
+  external set onbackgroundfetchabort(EventHandler value);
+  external EventHandler get onbackgroundfetchabort;
+  external set onbackgroundfetchclick(EventHandler value);
+  external EventHandler get onbackgroundfetchclick;
+  external set onsync(EventHandler value);
+  external EventHandler get onsync;
+  external set oncontentdelete(EventHandler value);
+  external EventHandler get oncontentdelete;
+  external CookieStore get cookieStore;
+  external set oncookiechange(EventHandler value);
+  external EventHandler get oncookiechange;
   external set onnotificationclick(EventHandler value);
   external EventHandler get onnotificationclick;
   external set onnotificationclose(EventHandler value);
   external EventHandler get onnotificationclose;
+  external set oncanmakepayment(EventHandler value);
+  external EventHandler get oncanmakepayment;
+  external set onpaymentrequest(EventHandler value);
+  external EventHandler get onpaymentrequest;
+  external set onperiodicsync(EventHandler value);
+  external EventHandler get onperiodicsync;
   external set onpush(EventHandler value);
   external EventHandler get onpush;
   external set onpushsubscriptionchange(EventHandler value);

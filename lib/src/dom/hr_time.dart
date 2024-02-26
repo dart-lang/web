@@ -10,6 +10,7 @@ library;
 import 'dart:js_interop';
 
 import 'dom.dart';
+import 'event_timing.dart';
 import 'html.dart';
 import 'navigation_timing.dart';
 import 'performance_timeline.dart';
@@ -39,6 +40,8 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
     String endMark,
   ]);
   external void clearMeasures([String measureName]);
+  external EventCounts get eventCounts;
+  external int get interactionCount;
   external DOMHighResTimeStamp get timeOrigin;
   external PerformanceTiming get timing;
   external PerformanceNavigation get navigation;

@@ -2,31 +2,25 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+// TODO(srujzs): Remove this workaround once we use an SDK version that contains
+// https://github.com/dart-lang/sdk/issues/54801.
+@JS()
+library;
+
 import 'dart:js_interop';
 
 @JS()
 external FileSystem get fs;
 
-@JS()
-@anonymous
-@staticInterop
-class JSMkdirOptions {
+extension type JSMkdirOptions._(JSObject _) implements JSObject {
   external factory JSMkdirOptions({JSBoolean? recursive});
 }
 
-@JS()
-@anonymous
-@staticInterop
-class JSReadFileOptions {
+extension type JSReadFileOptions._(JSObject _) implements JSObject {
   external factory JSReadFileOptions({JSString? encoding});
 }
 
-@JS()
-@staticInterop
-class FileSystem {}
-
-// TODO(joshualitt): Replace `void` with `JSVoid`
-extension FileSystemExtension on FileSystem {
+extension type FileSystem._(JSObject _) implements JSObject {
   external JSBoolean existsSync(JSString path);
 
   @JS('mkdirSync')

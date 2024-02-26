@@ -8,10 +8,11 @@ import 'filesystem_api.dart';
 
 // TODO(joshualitt): Let's find a better place for these.
 @JS('Object.entries')
-external JSArray objectEntries(JSObject o);
+external JSArray<JSAny?> objectEntries(JSObject o);
 
-extension JSArrayExtension on JSArray {
-  external JSAny? operator [](int i);
+// TODO(srujzs): Remove once this is in dart:js_interop.
+extension JSArrayExtension<T extends JSAny?> on JSArray<T> {
+  external T operator [](int i);
   external int get length;
 }
 

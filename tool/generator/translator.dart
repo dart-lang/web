@@ -288,13 +288,13 @@ class _Parameter {
 class _OverridableMember {
   final List<_Parameter> parameters = [];
 
-  _OverridableMember(JSArray rawParameters) {
+  _OverridableMember(JSArray<idl.Argument> rawParameters) {
     for (var i = 0; i < rawParameters.length; i++) {
-      parameters.add(_Parameter(rawParameters[i] as idl.Argument));
+      parameters.add(_Parameter(rawParameters[i]));
     }
   }
 
-  void _processParameters(JSArray thoseParameters) {
+  void _processParameters(JSArray<idl.Argument> thoseParameters) {
     // Assume if we have extra arguments beyond what was provided in some other
     // method, that these are all optional.
     final thatLength = thoseParameters.length;
@@ -302,7 +302,7 @@ class _OverridableMember {
       parameters[i].isOptional = true;
     }
     for (var i = 0; i < thatLength; i++) {
-      final argument = thoseParameters[i] as idl.Argument;
+      final argument = thoseParameters[i];
       if (i >= parameters.length) {
         // We assume these parameters must be optional, regardless of what the
         // IDL says.
@@ -367,9 +367,9 @@ class _PartialInterfacelike {
     return partialInterfacelike;
   }
 
-  void _processMembers(JSArray nodeMembers) {
+  void _processMembers(JSArray<idl.Member> nodeMembers) {
     for (var i = 0; i < nodeMembers.length; i++) {
-      final member = nodeMembers[i] as idl.Member;
+      final member = nodeMembers[i];
       final type = member.type;
       switch (type) {
         case 'constructor':
@@ -541,14 +541,14 @@ class Translator {
     }
   }
 
-  void collect(String shortName, JSArray ast) {
+  void collect(String shortName, JSArray<idl.Node> ast) {
     final libraryPath = '$_librarySubDir/${shortName.kebabToSnake}.dart';
     assert(!_libraries.containsKey(libraryPath));
 
     final library = _Library(this, '$packageRoot/$libraryPath');
 
     for (var i = 0; i < ast.length; i++) {
-      library.add(ast[i] as idl.Node);
+      library.add(ast[i]);
     }
 
     if (_shouldGenerate(shortName, library)) {

@@ -1,4 +1,4 @@
-## 0.6.0-wip
+## 0.5.1-wip
 
 - Add [`TrustedTypes`](https://web.dev/trusted-types) members.
 - Add a constructor for each Element tag onto their respective Element

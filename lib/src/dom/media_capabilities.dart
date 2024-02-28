@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -178,9 +182,35 @@ extension type MediaCapabilitiesEncodingInfo._(JSObject _)
   external set configuration(MediaEncodingConfiguration value);
   external MediaEncodingConfiguration get configuration;
 }
+
+/// The **`MediaCapabilities`** interface of the
+/// [Media Capabilities API](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capabilities_API)
+/// provides information about the decoding abilities of the device, system and
+/// browser. The API can be used to query the browser about the decoding
+/// abilities of the device based on codecs, profile, resolution, and bitrates.
+/// The information can be used to serve optimal media streams to the user and
+/// determine if playback should be smooth and power efficient.
+///
+/// The information is accessed through the **`mediaCapabilities`** property of
+/// the [Navigator] interface.
 extension type MediaCapabilities._(JSObject _) implements JSObject {
+  /// The **`MediaCapabilities.decodingInfo()`** method, part of the
+  /// [Media Capabilities API](https://developer.mozilla.org/en-US/docs/Web/API/MediaCapabilities),
+  /// returns a promise with the tested media configuration's capabilities info.
+  /// This contains the three boolean properties `supported`, `smooth`, and
+  /// `powerefficient`, which describe whether decoding the media described
+  /// would be supported, smooth, and powerefficient.
   external JSPromise<MediaCapabilitiesDecodingInfo> decodingInfo(
       MediaDecodingConfiguration configuration);
+
+  /// The **`MediaCapabilities.encodingInfo()`** method, part of the
+  /// [MediaCapabilities] interface of the
+  /// [Media Capabilities API](https://developer.mozilla.org/en-US/docs/Web/API/MediaCapabilities),
+  /// returns a promise with the tested media configuration's capabilities
+  /// information.
+  /// This contains the three boolean properties `supported`, `smooth`, and
+  /// `powerefficient`, which describe how compatible the device is with the
+  /// type of media.
   external JSPromise<MediaCapabilitiesEncodingInfo> encodingInfo(
       MediaEncodingConfiguration configuration);
 }

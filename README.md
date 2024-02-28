@@ -25,6 +25,13 @@ void main() {
 }
 ```
 
+## Migrating to package:web
+
+`package:web` is replacing `dart:html` and other web libraries as Dart's 
+long-term web interop solution. To learn how to migrate from `dart:html`
+APIs to `package:web`, see our
+[migration guide](http://dart.dev/go/package-web).
+
 ## Generation conventions
 
 The generator scripts use a number of conventions to consistently handle Web IDL
@@ -60,15 +67,8 @@ definitions:
   the number of breaking changes. This is currently WIP and some members may be
   added or removed.
 
-## Web IDL version
+### Generation
 
-Based on:
-
-<!-- START updated by tool/update_bindings.dart. Do not modify by hand -->
-- @webref/css [6.11.0](https://www.npmjs.com/package/@webref/css/v/6.11.0)
-- @webref/elements [2.2.2](https://www.npmjs.com/package/@webref/elements/v/2.2.2)
-- @webref/idl [3.43.1](https://www.npmjs.com/package/@webref/idl/v/3.43.1)
-<!-- END updated by tool/update_bindings.dart. Do not modify by hand -->
-
-For instructions on re-generating the DOM bindings, see the
-[generator docs](tool/generator/README.md).
+Most of the APIs in this package are generated from public assets.
+See the [tool directory](https://github.com/dart-lang/web/tree/main/tool) in the
+source repository to learn more.

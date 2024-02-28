@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -11,6 +15,9 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 
+/// The **`DeviceOrientationEvent`** interface of the
+/// [Device Orientation Events] provides web developers with information from
+/// the physical orientation of the device running the web page.
 extension type DeviceOrientationEvent._(JSObject _) implements Event, JSObject {
   external factory DeviceOrientationEvent(
     String type, [
@@ -41,16 +48,31 @@ extension type DeviceOrientationEventInit._(JSObject _)
   external set absolute(bool value);
   external bool get absolute;
 }
+
+/// The **`DeviceMotionEventAcceleration`** interface of the
+/// [Device Orientation Events] provides information about the amount of
+/// acceleration the device is experiencing along all three axes.
 extension type DeviceMotionEventAcceleration._(JSObject _) implements JSObject {
   external num? get x;
   external num? get y;
   external num? get z;
 }
+
+/// A **`DeviceMotionEventRotationRate`** interface of the
+/// [Device Orientation Events] provides information about the rate at which the
+/// device is rotating around all three axes.
 extension type DeviceMotionEventRotationRate._(JSObject _) implements JSObject {
   external num? get alpha;
   external num? get beta;
   external num? get gamma;
 }
+
+/// The **`DeviceMotionEvent`** interface of the [Device Orientation Events]
+/// provides web developers with information about the speed of changes for the
+/// device's position and orientation.
+///
+/// > **Warning:** Currently, Firefox and Chrome do not handle the coordinates
+/// > the same way. Take care about this while using them.
 extension type DeviceMotionEvent._(JSObject _) implements Event, JSObject {
   external factory DeviceMotionEvent(
     String type, [

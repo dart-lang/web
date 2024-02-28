@@ -5,6 +5,10 @@
 /// Given markdown formatted text and a width, return a line-wrapped dartdoc
 /// comment.
 List<String> formatDocs(String data, int width) {
+  // TODO(devoncarew): Look at combining soft line breaks in the markdown in
+  // order to better reflow the returned dartdoc comments (i.e., only have line
+  // breaks for markdown paragraphs).
+
   final lines = data.split('\n');
   final output = <String>[];
 

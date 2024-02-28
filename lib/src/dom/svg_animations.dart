@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -13,6 +17,10 @@ import 'dom.dart';
 import 'html.dart';
 import 'svg.dart';
 
+/// The **`TimeEvent`** interface, a part of
+/// [SVG SMIL](https://developer.mozilla.org/en-US/docs/Web/SVG/SVG_animation_with_SMIL)
+/// animation, provides specific contextual information associated with Time
+/// events.
 extension type TimeEvent._(JSObject _) implements Event, JSObject {
   external void initTimeEvent(
     String typeArg,
@@ -22,6 +30,11 @@ extension type TimeEvent._(JSObject _) implements Event, JSObject {
   external Window? get view;
   external int get detail;
 }
+
+/// The **`SVGAnimationElement`** interface is the base interface for all of the
+/// animation element interfaces: [SVGAnimateElement], [SVGSetElement],
+/// [SVGAnimateColorElement], [SVGAnimateMotionElement] and
+/// [SVGAnimateTransformElement].
 extension type SVGAnimationElement._(JSObject _)
     implements SVGElement, JSObject {
   external num getStartTime();
@@ -41,15 +54,25 @@ extension type SVGAnimationElement._(JSObject _)
   external SVGStringList get requiredExtensions;
   external SVGStringList get systemLanguage;
 }
+
+/// The **`SVGAnimateElement`** interface corresponds to the  element.
 extension type SVGAnimateElement._(JSObject _)
     implements SVGAnimationElement, JSObject {}
+
+/// The **`SVGSetElement`** interface corresponds to the  element.
 extension type SVGSetElement._(JSObject _)
     implements SVGAnimationElement, JSObject {}
+
+/// The **`SVGAnimateMotionElement`** interface corresponds to the  element.
 extension type SVGAnimateMotionElement._(JSObject _)
     implements SVGAnimationElement, JSObject {}
+
+/// The **`SVGMPathElement`** interface corresponds to the  element.
 extension type SVGMPathElement._(JSObject _) implements SVGElement, JSObject {
   external SVGAnimatedString get href;
 }
+
+/// The `SVGAnimateTransformElement` interface corresponds to the  element.
 extension type SVGAnimateTransformElement._(JSObject _)
     implements SVGAnimationElement, JSObject {}
 extension type SVGDiscardElement._(JSObject _)

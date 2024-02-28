@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -19,6 +23,10 @@ typedef LineAlignSetting = String;
 typedef PositionAlignSetting = String;
 typedef AlignSetting = String;
 typedef ScrollSetting = String;
+
+/// The `VTTCue` interface—part of the API for handling WebVTT (text tracks on
+/// media presentations)—describes and controls the text track associated with a
+/// particular `track` element.
 extension type VTTCue._(JSObject _) implements TextTrackCue, JSObject {
   external factory VTTCue(
     num startTime,
@@ -26,6 +34,8 @@ extension type VTTCue._(JSObject _) implements TextTrackCue, JSObject {
     String text,
   );
 
+  /// The **`getCueAsHTML()`** method of the [VTTCue] interface returns a
+  /// [DocumentFragment] containing the cue content.
   external DocumentFragment getCueAsHTML();
   external set region(VTTRegion? value);
   external VTTRegion? get region;
@@ -48,6 +58,10 @@ extension type VTTCue._(JSObject _) implements TextTrackCue, JSObject {
   external set text(String value);
   external String get text;
 }
+
+/// The `VTTRegion` interface—part of the API for handling WebVTT (text tracks
+/// on media presentations)—describes a portion of the video to render a
+/// [VTTCue] onto.
 extension type VTTRegion._(JSObject _) implements JSObject {
   external factory VTTRegion();
 

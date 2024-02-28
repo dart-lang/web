@@ -1,6 +1,10 @@
 // Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
 
 // Generated from Web IDL definitions.
 
@@ -18,6 +22,13 @@ import 'vibration.dart';
 typedef NotificationPermissionCallback = JSFunction;
 typedef NotificationPermission = String;
 typedef NotificationDirection = String;
+
+/// The **`Notification`** interface of the [Notifications API] is used to
+/// configure and display desktop notifications to the user.
+///
+/// These notifications' appearance and specific functionality vary across
+/// platforms but generally they provide a way to asynchronously provide
+/// information to the user.
 extension type Notification._(JSObject _) implements EventTarget, JSObject {
   external factory Notification(
     String title, [
@@ -28,6 +39,22 @@ extension type Notification._(JSObject _) implements EventTarget, JSObject {
       [NotificationPermissionCallback deprecatedCallback]);
   external static NotificationPermission get permission;
   external static int get maxActions;
+
+  /// The **`close()`** method of the [Notification] interface is used to
+  /// close/remove a previously displayed notification.
+  ///
+  /// > **Note:** This API shouldn't be used just to have the notification
+  /// > removed from the screen after a fixed delay since this method will also
+  /// > remove the
+  /// > notification from any notification tray, preventing users from
+  /// > interacting with it
+  /// > after it was initially shown. A valid use for this API would be to
+  /// > remove a
+  /// > notification that is no longer relevant (e.g. the user already read the
+  /// > notification
+  /// > on the webpage in the case of a messaging app or the following song is
+  /// > already playing
+  /// > in a music app).
   external void close();
   external set onclick(EventHandler value);
   external EventHandler get onclick;
@@ -120,6 +147,17 @@ extension type GetNotificationOptions._(JSObject _) implements JSObject {
   external set tag(String value);
   external String get tag;
 }
+
+/// The **`NotificationEvent`** interface of the [Notifications API] represents
+/// a notification event dispatched on the [ServiceWorkerGlobalScope] of a
+/// [ServiceWorker].
+///
+/// This interface inherits from the [ExtendableEvent] interface.
+///
+/// > **Note:** Only persistent notification events, fired at the
+/// > [ServiceWorkerGlobalScope] object, implement the `NotificationEvent`
+/// > interface. Non-persistent notification events, fired at the [Notification]
+/// > object, implement the `Event` interface.
 extension type NotificationEvent._(JSObject _)
     implements ExtendableEvent, JSObject {
   external factory NotificationEvent(

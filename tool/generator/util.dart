@@ -30,6 +30,12 @@ final List<String> licenseHeader = [
   'BSD-style license that can be found in the LICENSE file.',
 ];
 
+final List<String> mozLicenseHeader = [
+  'API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).',
+  'Attributions and copyright licensing by Mozilla Contributors is licensed',
+  'under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.',
+];
+
 // Needed for dart_style until 2.3.5 is published.
 const String inlineClassExperimentFlag = 'inline-class';
 

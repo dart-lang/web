@@ -66,3 +66,9 @@ definitions:
   that is standards track and supported on Chrome, Firefox, and Safari to reduce
   the number of breaking changes. This is currently WIP and some members may be
   added or removed.
+
+### Generation
+
+Most of the APIs in this package are generated from public assets.
+See the [tool directory](https://github.com/dart-lang/web/tree/main/tool) in the
+source repository to learn more.

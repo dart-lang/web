@@ -20,7 +20,7 @@ import 'svg.dart';
 /// elements, as well as methods to manipulate them.
 extension type SVGClipPathElement._(JSObject _)
     implements SVGElement, JSObject {
-  /// Creates a(n) [SVGClipPathElement] using the tag 'clipPath'.
+  /// Creates an [SVGClipPathElement] using the tag 'clipPath'.
   SVGClipPathElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -34,7 +34,7 @@ extension type SVGClipPathElement._(JSObject _)
 /// The **`SVGMaskElement`** interface provides access to the properties of
 /// elements, as well as methods to manipulate them.
 extension type SVGMaskElement._(JSObject _) implements SVGElement, JSObject {
-  /// Creates a(n) [SVGMaskElement] using the tag 'mask'.
+  /// Creates an [SVGMaskElement] using the tag 'mask'.
   SVGMaskElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',

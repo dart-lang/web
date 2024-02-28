@@ -58,7 +58,7 @@ extension type SVGAnimationElement._(JSObject _)
 /// The **`SVGAnimateElement`** interface corresponds to the  element.
 extension type SVGAnimateElement._(JSObject _)
     implements SVGAnimationElement, JSObject {
-  /// Creates a(n) [SVGAnimateElement] using the tag 'animate'.
+  /// Creates an [SVGAnimateElement] using the tag 'animate'.
   SVGAnimateElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -69,7 +69,7 @@ extension type SVGAnimateElement._(JSObject _)
 /// The **`SVGSetElement`** interface corresponds to the  element.
 extension type SVGSetElement._(JSObject _)
     implements SVGAnimationElement, JSObject {
-  /// Creates a(n) [SVGSetElement] using the tag 'set'.
+  /// Creates an [SVGSetElement] using the tag 'set'.
   SVGSetElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -80,7 +80,7 @@ extension type SVGSetElement._(JSObject _)
 /// The **`SVGAnimateMotionElement`** interface corresponds to the  element.
 extension type SVGAnimateMotionElement._(JSObject _)
     implements SVGAnimationElement, JSObject {
-  /// Creates a(n) [SVGAnimateMotionElement] using the tag 'animateMotion'.
+  /// Creates an [SVGAnimateMotionElement] using the tag 'animateMotion'.
   SVGAnimateMotionElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -90,7 +90,7 @@ extension type SVGAnimateMotionElement._(JSObject _)
 
 /// The **`SVGMPathElement`** interface corresponds to the  element.
 extension type SVGMPathElement._(JSObject _) implements SVGElement, JSObject {
-  /// Creates a(n) [SVGMPathElement] using the tag 'mpath'.
+  /// Creates an [SVGMPathElement] using the tag 'mpath'.
   SVGMPathElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -103,8 +103,7 @@ extension type SVGMPathElement._(JSObject _) implements SVGElement, JSObject {
 /// The `SVGAnimateTransformElement` interface corresponds to the  element.
 extension type SVGAnimateTransformElement._(JSObject _)
     implements SVGAnimationElement, JSObject {
-  /// Creates a(n) [SVGAnimateTransformElement] using the tag
-  /// 'animateTransform'.
+  /// Creates an [SVGAnimateTransformElement] using the tag 'animateTransform'.
   SVGAnimateTransformElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',

@@ -19,7 +19,7 @@ import 'svg.dart';
 /// The **`SVGFilterElement`** interface provides access to the properties of
 /// elements, as well as methods to manipulate them.
 extension type SVGFilterElement._(JSObject _) implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFilterElement] using the tag 'filter'.
+  /// Creates an [SVGFilterElement] using the tag 'filter'.
   SVGFilterElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -37,7 +37,7 @@ extension type SVGFilterElement._(JSObject _) implements SVGElement, JSObject {
 
 /// The **`SVGFEBlendElement`** interface corresponds to the  element.
 extension type SVGFEBlendElement._(JSObject _) implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFEBlendElement] using the tag 'feBlend'.
+  /// Creates an [SVGFEBlendElement] using the tag 'feBlend'.
   SVGFEBlendElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -74,7 +74,7 @@ extension type SVGFEBlendElement._(JSObject _) implements SVGElement, JSObject {
 /// The **`SVGFEColorMatrixElement`** interface corresponds to the  element.
 extension type SVGFEColorMatrixElement._(JSObject _)
     implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFEColorMatrixElement] using the tag 'feColorMatrix'.
+  /// Creates an [SVGFEColorMatrixElement] using the tag 'feColorMatrix'.
   SVGFEColorMatrixElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -100,7 +100,7 @@ extension type SVGFEColorMatrixElement._(JSObject _)
 /// element.
 extension type SVGFEComponentTransferElement._(JSObject _)
     implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFEComponentTransferElement] using the tag
+  /// Creates an [SVGFEComponentTransferElement] using the tag
   /// 'feComponentTransfer'.
   SVGFEComponentTransferElement()
       : _ = document.createElementNS(
@@ -138,7 +138,7 @@ extension type SVGComponentTransferFunctionElement._(JSObject _)
 /// The **`SVGFEFuncRElement`** interface corresponds to the  element.
 extension type SVGFEFuncRElement._(JSObject _)
     implements SVGComponentTransferFunctionElement, JSObject {
-  /// Creates a(n) [SVGFEFuncRElement] using the tag 'feFuncR'.
+  /// Creates an [SVGFEFuncRElement] using the tag 'feFuncR'.
   SVGFEFuncRElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -149,7 +149,7 @@ extension type SVGFEFuncRElement._(JSObject _)
 /// The **`SVGFEFuncGElement`** interface corresponds to the  element.
 extension type SVGFEFuncGElement._(JSObject _)
     implements SVGComponentTransferFunctionElement, JSObject {
-  /// Creates a(n) [SVGFEFuncGElement] using the tag 'feFuncG'.
+  /// Creates an [SVGFEFuncGElement] using the tag 'feFuncG'.
   SVGFEFuncGElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -160,7 +160,7 @@ extension type SVGFEFuncGElement._(JSObject _)
 /// The **`SVGFEFuncBElement`** interface corresponds to the  element.
 extension type SVGFEFuncBElement._(JSObject _)
     implements SVGComponentTransferFunctionElement, JSObject {
-  /// Creates a(n) [SVGFEFuncBElement] using the tag 'feFuncB'.
+  /// Creates an [SVGFEFuncBElement] using the tag 'feFuncB'.
   SVGFEFuncBElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -171,7 +171,7 @@ extension type SVGFEFuncBElement._(JSObject _)
 /// The **`SVGFEFuncAElement`** interface corresponds to the  element.
 extension type SVGFEFuncAElement._(JSObject _)
     implements SVGComponentTransferFunctionElement, JSObject {
-  /// Creates a(n) [SVGFEFuncAElement] using the tag 'feFuncA'.
+  /// Creates an [SVGFEFuncAElement] using the tag 'feFuncA'.
   SVGFEFuncAElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -182,7 +182,7 @@ extension type SVGFEFuncAElement._(JSObject _)
 /// The **`SVGFECompositeElement`** interface corresponds to the  element.
 extension type SVGFECompositeElement._(JSObject _)
     implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFECompositeElement] using the tag 'feComposite'.
+  /// Creates an [SVGFECompositeElement] using the tag 'feComposite'.
   SVGFECompositeElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -213,8 +213,7 @@ extension type SVGFECompositeElement._(JSObject _)
 /// The **`SVGFEConvolveMatrixElement`** interface corresponds to the  element.
 extension type SVGFEConvolveMatrixElement._(JSObject _)
     implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFEConvolveMatrixElement] using the tag
-  /// 'feConvolveMatrix'.
+  /// Creates an [SVGFEConvolveMatrixElement] using the tag 'feConvolveMatrix'.
   SVGFEConvolveMatrixElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -247,7 +246,7 @@ extension type SVGFEConvolveMatrixElement._(JSObject _)
 /// The **`SVGFEDiffuseLightingElement`** interface corresponds to the  element.
 extension type SVGFEDiffuseLightingElement._(JSObject _)
     implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFEDiffuseLightingElement] using the tag
+  /// Creates an [SVGFEDiffuseLightingElement] using the tag
   /// 'feDiffuseLighting'.
   SVGFEDiffuseLightingElement()
       : _ = document.createElementNS(
@@ -270,7 +269,7 @@ extension type SVGFEDiffuseLightingElement._(JSObject _)
 /// The **`SVGFEDistantLightElement`** interface corresponds to the  element.
 extension type SVGFEDistantLightElement._(JSObject _)
     implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFEDistantLightElement] using the tag 'feDistantLight'.
+  /// Creates an [SVGFEDistantLightElement] using the tag 'feDistantLight'.
   SVGFEDistantLightElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -284,7 +283,7 @@ extension type SVGFEDistantLightElement._(JSObject _)
 /// The **`SVGFEPointLightElement`** interface corresponds to the  element.
 extension type SVGFEPointLightElement._(JSObject _)
     implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFEPointLightElement] using the tag 'fePointLight'.
+  /// Creates an [SVGFEPointLightElement] using the tag 'fePointLight'.
   SVGFEPointLightElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -299,7 +298,7 @@ extension type SVGFEPointLightElement._(JSObject _)
 /// The **`SVGFESpotLightElement`** interface corresponds to the  element.
 extension type SVGFESpotLightElement._(JSObject _)
     implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFESpotLightElement] using the tag 'feSpotLight'.
+  /// Creates an [SVGFESpotLightElement] using the tag 'feSpotLight'.
   SVGFESpotLightElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -319,7 +318,7 @@ extension type SVGFESpotLightElement._(JSObject _)
 /// The **`SVGFEDisplacementMapElement`** interface corresponds to the  element.
 extension type SVGFEDisplacementMapElement._(JSObject _)
     implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFEDisplacementMapElement] using the tag
+  /// Creates an [SVGFEDisplacementMapElement] using the tag
   /// 'feDisplacementMap'.
   SVGFEDisplacementMapElement()
       : _ = document.createElementNS(
@@ -347,7 +346,7 @@ extension type SVGFEDisplacementMapElement._(JSObject _)
 /// The **`SVGFEDropShadowElement`** interface corresponds to the  element.
 extension type SVGFEDropShadowElement._(JSObject _)
     implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFEDropShadowElement] using the tag 'feDropShadow'.
+  /// Creates an [SVGFEDropShadowElement] using the tag 'feDropShadow'.
   SVGFEDropShadowElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -372,7 +371,7 @@ extension type SVGFEDropShadowElement._(JSObject _)
 
 /// The **`SVGFEFloodElement`** interface corresponds to the  element.
 extension type SVGFEFloodElement._(JSObject _) implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFEFloodElement] using the tag 'feFlood'.
+  /// Creates an [SVGFEFloodElement] using the tag 'feFlood'.
   SVGFEFloodElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -389,7 +388,7 @@ extension type SVGFEFloodElement._(JSObject _) implements SVGElement, JSObject {
 /// The **`SVGFEGaussianBlurElement`** interface corresponds to the  element.
 extension type SVGFEGaussianBlurElement._(JSObject _)
     implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFEGaussianBlurElement] using the tag 'feGaussianBlur'.
+  /// Creates an [SVGFEGaussianBlurElement] using the tag 'feGaussianBlur'.
   SVGFEGaussianBlurElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -417,7 +416,7 @@ extension type SVGFEGaussianBlurElement._(JSObject _)
 
 /// The **`SVGFEImageElement`** interface corresponds to the  element.
 extension type SVGFEImageElement._(JSObject _) implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFEImageElement] using the tag 'feImage'.
+  /// Creates an [SVGFEImageElement] using the tag 'feImage'.
   SVGFEImageElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -436,7 +435,7 @@ extension type SVGFEImageElement._(JSObject _) implements SVGElement, JSObject {
 
 /// The **`SVGFEMergeElement`** interface corresponds to the  element.
 extension type SVGFEMergeElement._(JSObject _) implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFEMergeElement] using the tag 'feMerge'.
+  /// Creates an [SVGFEMergeElement] using the tag 'feMerge'.
   SVGFEMergeElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -453,7 +452,7 @@ extension type SVGFEMergeElement._(JSObject _) implements SVGElement, JSObject {
 /// The **`SVGFEMergeNodeElement`** interface corresponds to the  element.
 extension type SVGFEMergeNodeElement._(JSObject _)
     implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFEMergeNodeElement] using the tag 'feMergeNode'.
+  /// Creates an [SVGFEMergeNodeElement] using the tag 'feMergeNode'.
   SVGFEMergeNodeElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -466,7 +465,7 @@ extension type SVGFEMergeNodeElement._(JSObject _)
 /// The **`SVGFEMorphologyElement`** interface corresponds to the  element.
 extension type SVGFEMorphologyElement._(JSObject _)
     implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFEMorphologyElement] using the tag 'feMorphology'.
+  /// Creates an [SVGFEMorphologyElement] using the tag 'feMorphology'.
   SVGFEMorphologyElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -490,7 +489,7 @@ extension type SVGFEMorphologyElement._(JSObject _)
 /// The **`SVGFEOffsetElement`** interface corresponds to the  element.
 extension type SVGFEOffsetElement._(JSObject _)
     implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFEOffsetElement] using the tag 'feOffset'.
+  /// Creates an [SVGFEOffsetElement] using the tag 'feOffset'.
   SVGFEOffsetElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -511,7 +510,7 @@ extension type SVGFEOffsetElement._(JSObject _)
 /// element.
 extension type SVGFESpecularLightingElement._(JSObject _)
     implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFESpecularLightingElement] using the tag
+  /// Creates an [SVGFESpecularLightingElement] using the tag
   /// 'feSpecularLighting'.
   SVGFESpecularLightingElement()
       : _ = document.createElementNS(
@@ -534,7 +533,7 @@ extension type SVGFESpecularLightingElement._(JSObject _)
 
 /// The **`SVGFETileElement`** interface corresponds to the  element.
 extension type SVGFETileElement._(JSObject _) implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFETileElement] using the tag 'feTile'.
+  /// Creates an [SVGFETileElement] using the tag 'feTile'.
   SVGFETileElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -552,7 +551,7 @@ extension type SVGFETileElement._(JSObject _) implements SVGElement, JSObject {
 /// The **`SVGFETurbulenceElement`** interface corresponds to the  element.
 extension type SVGFETurbulenceElement._(JSObject _)
     implements SVGElement, JSObject {
-  /// Creates a(n) [SVGFETurbulenceElement] using the tag 'feTurbulence'.
+  /// Creates an [SVGFETurbulenceElement] using the tag 'feTurbulence'.
   SVGFETurbulenceElement()
       : _ = document.createElementNS(
           'http://www.w3.org/2000/svg',

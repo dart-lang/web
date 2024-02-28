@@ -853,10 +853,11 @@ class Translator {
       final createElementMethod =
           uri != null ? 'createElementNS' : 'createElement';
       for (final tag in tags) {
+        final article = singularArticleForElement(dartClassName);
         elementConstructors.add(code.Constructor((b) => b
           ..docs.addAll([
             formatDocs(
-                    "Creates a(n) [$dartClassName] using the tag '$tag'.",
+                    "Creates $article [$dartClassName] using the tag '$tag'.",
                     80,
                     // Extension type members start with an indentation of 2
                     // chars.

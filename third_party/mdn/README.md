@@ -10,5 +10,5 @@ See [LICENSE] for the license this content is under.
 
 ## Process
 
-See [../../tool/scrape_mdn.dart] for the script which collects the
-documentation information.
+See [the script](../../tool/scrape_mdn.dart) which collects the documentation
+information.

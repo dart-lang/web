@@ -10,6 +10,7 @@ import 'package:path/path.dart' as p;
 import 'banned_names.dart';
 import 'bcd.dart';
 import 'doc_provider.dart';
+import 'formatting.dart';
 import 'singletons.dart';
 import 'type_aliases.dart';
 import 'type_union.dart';
@@ -839,30 +840,6 @@ class Translator {
               readOnly: false),
       ];
 
-  // Wraps a [doc] comment given a [leadingWhitespaceCount] for each line so
-  // that the comment doesn't exceed 80 characters.
-  //
-  // Dart format doesn't wrap comments, so we roll our own here.
-  String _wrapDocComment(String doc, [int leadingWhitespaceCount = 0]) {
-    final lineWidth = 80 - leadingWhitespaceCount;
-    final input = doc.split(' ');
-    final output = <String>['///'];
-    var charCount = 3;
-    for (final token in input) {
-      final length = token.length;
-      // 1 for the whitespace between tokens.
-      if (charCount != 3 && charCount + 1 + length > lineWidth) {
-        output[output.length - 1] += '\n';
-        output.add('///');
-        charCount = 3;
-      } else {
-        charCount += 1 + length;
-      }
-      output.add(token);
-    }
-    return output.join(' ');
-  }
-
   // If [jsName] is an element type, creates a constructor for each tag that the
   // element interface corresponds to using either `createElement` or
   // `createElementNS`.
@@ -878,10 +855,13 @@ class Translator {
       for (final tag in tags) {
         elementConstructors.add(code.Constructor((b) => b
           ..docs.addAll([
-            _wrapDocComment(
-                "Creates a(n) [$dartClassName] using the tag '$tag'.",
-                // Extension type members start with an indentation of 2 chars.
-                2)
+            formatDocs(
+                    "Creates a(n) [$dartClassName] using the tag '$tag'.",
+                    80,
+                    // Extension type members start with an indentation of 2
+                    // chars.
+                    2)
+                .join('\n')
           ])
           // If there are multiple tags, use a named constructor.
           ..name = tags.length == 1 ? null : dartRename(tag)

@@ -93,7 +93,7 @@ $_usage''');
 
   // Update readme.
   final readmeFile = File(
-    p.normalize(p.join(_bindingsGeneratorPath, '..', '..', 'README.md')),
+    p.normalize(p.join(_bindingsGeneratorPath, '..', 'README.md')),
   );
 
   final sourceContent = readmeFile.readAsStringSync();

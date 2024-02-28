@@ -34,9 +34,8 @@ extension type MediaRecorder._(JSObject _) implements EventTarget, JSObject {
 
   external static bool isTypeSupported(String type);
 
-  /// The [MediaRecorder] method
-  /// **`start()`**, which is part of the MediaStream Recording API,
-  /// begins recording media into one or more [Blob] objects.
+  /// The **`start()`** method of the [MediaRecorder] interface begins recording
+  /// media into one or more [Blob] objects.
   ///
   /// You can
   /// record the entire duration of the media into a single `Blob` (or until you
@@ -72,10 +71,7 @@ extension type MediaRecorder._(JSObject _) implements EventTarget, JSObject {
   /// > has gathered, followed by the [MediaRecorder/stop_event] event.
   external void start([int timeslice]);
 
-  /// The **`MediaRecorder.stop()`** method
-  /// (part of the
-  /// [MediaStream Recording API](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API))
-  /// is
+  /// The **`stop()`** method of the [MediaRecorder] interface is
   /// used to stop media capture.
   ///
   /// When the `stop()` method is invoked, the UA queues a task that runs the
@@ -90,10 +86,7 @@ extension type MediaRecorder._(JSObject _) implements EventTarget, JSObject {
   /// 4. Raise a `stop` event.
   external void stop();
 
-  /// The **`MediaRecorder.pause()`** method (part
-  /// of the
-  /// [MediaStream Recording API](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API))
-  /// is used
+  /// The **`pause()`** method of the [MediaRecorder] interface is used
   /// to pause recording of media streams.
   ///
   /// When a `MediaRecorder` object's `pause()`method is called, the
@@ -108,17 +101,17 @@ extension type MediaRecorder._(JSObject _) implements EventTarget, JSObject {
   /// 4. Raise a [MediaRecorder/pause_event] event.
   external void pause();
 
-  /// The **`MediaRecorder.resume()`**
-  /// method (part of the
-  /// [MediaStream Recording API](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API))
-  /// is used to resume media recording when it has been previously
-  /// paused.
+  /// The **`resume()`** method of the [MediaRecorder] interface is used to
+  /// resume media recording when it has been previously paused.
+  ///
+  /// If [MediaRecorder.state] is already "recording", calling `resume()` has no
+  /// effect.
   ///
   /// When the `resume()` method is invoked, the browser queues a task that runs
   /// the following steps:
   ///
   /// 1. If [MediaRecorder.state] is "inactive", raise a DOM
-  /// `InvalidState` error and terminate these steps. If
+  /// `InvalidStateError` exception and terminate these steps. If
   /// [MediaRecorder.state] is not "inactive", continue to the next step.
   /// 2. Set [MediaRecorder.state] to "recording".
   /// 3. Continue gathering data into the current [Blob].

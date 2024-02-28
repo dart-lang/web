@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+/// Given markdown formatted text and a width, return a line-wrapped dartdoc
+/// comment.
 List<String> formatDocs(String data, int width) {
   final lines = data.split('\n');
   final output = <String>[];
@@ -41,8 +43,10 @@ List<String> formatDocs(String data, int width) {
   return output.map((line) => line.isEmpty ? '///' : '/// $line').toList();
 }
 
+/// Identify `[foo](bar)` and `[foo]` patterns.
 final RegExp _linksRegEx = RegExp(r'\[([\w `-]+?)\](\(\S+\))?');
 
+/// Wrap the given line to [width], breaking at whitespace.
 Iterable<String> _wrap(String line, int width) sync* {
   if (line.isEmpty) {
     yield line;

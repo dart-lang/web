@@ -227,9 +227,6 @@ extension type XMLHttpRequest._(JSObject _)
 /// An object implementing `FormData` can directly be used in a `for...of`
 /// structure, instead of [FormData.entries]: `for (const p of myFormData)` is
 /// equivalent to `for (const p of myFormData.entries())`.
-///
-/// > **Note:** This feature is available in
-/// > [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
 extension type FormData._(JSObject _) implements JSObject {
   external factory FormData([
     HTMLFormElement form,
@@ -244,9 +241,6 @@ extension type FormData._(JSObject _) implements JSObject {
   /// specified key already exists, `set()` will overwrite all existing values
   /// with the new one, whereas `append()` will append the new value onto the
   /// end of the existing set of values.
-  ///
-  /// > **Note:** This method is available in
-  /// > [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
   external void append(
     String name,
     JSAny blobValueOrValue, [
@@ -255,9 +249,6 @@ extension type FormData._(JSObject _) implements JSObject {
 
   /// The **`delete()`** method of the [FormData] interface deletes a key and
   /// its value(s) from a `FormData` object.
-  ///
-  /// > **Note:** This method is available in
-  /// > [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
   external void delete(String name);
 
   /// The **`get()`** method of the [FormData] interface
@@ -265,23 +256,14 @@ extension type FormData._(JSObject _) implements JSObject {
   /// `FormData`
   /// object. If you expect multiple values and want all of them, use the
   /// [FormData.getAll] method instead.
-  ///
-  /// > **Note:** This method is available in
-  /// > [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
   external FormDataEntryValue? get(String name);
 
   /// The **`getAll()`** method of the [FormData] interface returns all the
   /// values associated with a given key from within a `FormData` object.
-  ///
-  /// > **Note:** This method is available in
-  /// > [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
   external JSArray<FormDataEntryValue> getAll(String name);
 
   /// The **`has()`** method of the [FormData] interface returns whether a
   /// `FormData` object contains a certain key.
-  ///
-  /// > **Note:** This method is available in
-  /// > [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
   external bool has(String name);
 
   /// The **`set()`** method of the [FormData] interface sets a new value for an
@@ -292,9 +274,6 @@ extension type FormData._(JSObject _) implements JSObject {
   /// specified key does already exist, `set()` will overwrite all existing
   /// values with the new one, whereas `append()` will append the new value onto
   /// the end of the existing set of values.
-  ///
-  /// > **Note:** This method is available in
-  /// > [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
   external void set(
     String name,
     JSAny blobValueOrValue, [

@@ -1897,6 +1897,9 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// If the given attribute does not exist, the value returned will
   /// either be `null` or `""` (the empty string); see
   /// [Non-existing attributes](#non-existing_attributes) for details.
+  ///
+  /// If you need to inspect the [Attr] node's properties, you can use the
+  /// [Element.getAttributeNode] method instead.
   external String? getAttribute(String qualifiedName);
 
   /// The **`getAttributeNS()`** method of the [Element]
@@ -1906,6 +1909,10 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// either be
   /// `null` or `""` (the empty string); see [Notes](#notes) for
   /// details.
+  ///
+  /// If you are working with HTML documents and you don't need to specify the
+  /// requested attribute as being part of a specific namespace, use the
+  /// [Element.getAttribute] method instead.
   external String? getAttributeNS(
     String? namespace,
     String localName,
@@ -1918,6 +1925,10 @@ extension type Element._(JSObject _) implements Node, JSObject {
   ///
   /// To get the current value of an attribute, use [Element.getAttribute]; to
   /// remove an attribute, call [Element.removeAttribute].
+  ///
+  /// If you need to work with the [Attr] node (such as cloning from another
+  /// element) before adding it, you can use the [Element.setAttributeNode]
+  /// method instead.
   external void setAttribute(
     String qualifiedName,
     String value,
@@ -1925,6 +1936,10 @@ extension type Element._(JSObject _) implements Node, JSObject {
 
   /// `setAttributeNS` adds a new attribute or changes the value of an attribute
   /// with the given namespace and name.
+  ///
+  /// If you are working with HTML documents and you don't need to specify the
+  /// requested attribute as being part of a specific namespace, use the
+  /// [Element.setAttribute] method instead.
   external void setAttributeNS(
     String? namespace,
     String qualifiedName,
@@ -1937,7 +1952,12 @@ extension type Element._(JSObject _) implements Node, JSObject {
   external void removeAttribute(String qualifiedName);
 
   /// The **`removeAttributeNS()`** method of the
-  /// [Element] interface removes the specified attribute from an element.
+  /// [Element] interface removes the specified attribute with the specified
+  /// namespace from an element.
+  ///
+  /// If you are working with HTML and you don't need to specify the requested
+  /// attribute as being part of a specific namespace, use the
+  /// [Element.removeAttribute] method instead.
   external void removeAttributeNS(
     String? namespace,
     String localName,
@@ -1956,33 +1976,68 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// specified attribute or not.
   external bool hasAttribute(String qualifiedName);
 
-  /// `hasAttributeNS` returns a boolean value indicating whether the current
-  /// element has the specified attribute.
+  /// The **`hasAttributeNS()`** method of the [Element] interface returns a
+  /// boolean value indicating whether the current element has the specified
+  /// attribute with the specified namespace.
+  ///
+  /// If you are working with HTML documents and you don't need to specify the
+  /// requested attribute as being part of a specific namespace, use the
+  /// [Element.hasAttribute] method instead.
   external bool hasAttributeNS(
     String? namespace,
     String localName,
   );
 
-  /// Returns the specified attribute of the specified element, as an `Attr`
+  /// Returns the specified attribute of the specified element, as an [Attr]
   /// node.
+  ///
+  /// This method is useful if you need the attribute's
+  /// [instance properties](https://developer.mozilla.org/en-US/docs/Web/API/Attr#instance_properties).
+  /// If you only need the attribute's value, you can use the
+  /// [Element.getAttribute] method instead.
   external Attr? getAttributeNode(String qualifiedName);
 
-  /// Returns the `Attr` node for the attribute with the given namespace and
-  /// name.
+  /// The **`getAttributeNodeNS()`** method of the [Element] interface returns
+  /// the namespaced [Attr] node of an element.
+  ///
+  /// This method is useful if you need the namespaced attribute's
+  /// [instance properties](https://developer.mozilla.org/en-US/docs/Web/API/Attr#instance_properties).
+  /// If you only need the namespaced attribute's value, you can use the
+  /// [Element.getAttributeNS] method instead.
+  ///
+  /// If you need the [Attr] node of an element in HTML documents and the
+  /// attribute is not namespaced, use the [Element.getAttributeNode] method
+  /// instead.
   external Attr? getAttributeNodeNS(
     String? namespace,
     String localName,
   );
 
-  /// The **`setAttributeNode()`** method adds a new
-  /// `Attr` node to the specified element.
+  /// The **`setAttributeNode()`** method of the [Element] interface adds a new
+  /// [Attr] node to the specified element.
+  ///
+  /// If you don't need to work with the attribute node (such as cloning from
+  /// another element) before adding it, you can use the [Element.setAttribute]
+  /// method instead.
   external Attr? setAttributeNode(Attr attr);
 
-  /// `setAttributeNodeNS` adds a new namespaced attribute node to an element.
+  /// The **`setAttributeNodeNS()`** method of the [Element] interface adds a
+  /// new namespaced [Attr] node to an element.
+  ///
+  /// If you don't need to work with the attribute node (such as cloning from
+  /// another element) before adding it, you can use the
+  /// [Element.setAttributeNS] method instead.
+  ///
+  /// If you are working with HTML documents and you don't need to specify the
+  /// requested attribute as being part of a specific namespace, use the
+  /// [Element.setAttribute] method instead.
   external Attr? setAttributeNodeNS(Attr attr);
 
-  /// The **`removeAttributeNode()`** method of the
-  /// [Element] interface removes the specified attribute from the element.
+  /// The **`removeAttributeNode()`** method of the [Element] interface removes
+  /// the specified [Attr] node from the element.
+  ///
+  /// If you don't need to inspect the attribute node before removing it, you
+  /// can use the [Element.removeAttribute] method instead.
   external Attr removeAttributeNode(Attr attr);
 
   /// The **`Element.attachShadow()`** method attaches a shadow DOM tree to the
@@ -2333,8 +2388,8 @@ extension type NamedNodeMap._(JSObject _) implements JSObject {
 
 /// The **`Attr`** interface represents one of an element's attributes as an
 /// object. In most situations, you will directly retrieve the attribute value
-/// as a string (e.g., [Element.getAttribute]), but certain functions (e.g.,
-/// [Element.getAttributeNode]) or means of iterating return `Attr` instances.
+/// as a string (e.g., [Element.getAttribute]), but some cases may require
+/// interacting with `Attr` instances (e.g., [Element.getAttributeNode]).
 ///
 /// The core idea of an object of type `Attr` is the association between a
 /// _name_ and a _value_. An attribute may also be part of a _namespace_ and, in

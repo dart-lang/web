@@ -64,6 +64,20 @@ foo bar
 ''');
     });
 
+    test('strips DefaultAPISidebar', () {
+      compare('''
+{{DefaultAPISidebar("Streams API")}}
+
+The **`enqueue()`** method of the {{domxref("TransformStreamDefaultController")}} interface enqueues the given chunk in the readable side of the stream.
+
+For more information on readable streams and chunks see [Using Readable Streams](/en-US/docs/Web/API/Streams_API/Using_readable_streams).
+''', '''
+The **`enqueue()`** method of the [TransformStreamDefaultController] interface enqueues the given chunk in the readable side of the stream.
+
+For more information on readable streams and chunks see [Using Readable Streams](/en-US/docs/Web/API/Streams_API/Using_readable_streams).
+''');
+    });
+
     test('reference domxref', () {
       compare('''
 Examples include:

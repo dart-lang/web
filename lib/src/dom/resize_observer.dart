@@ -67,8 +67,6 @@ extension type ResizeObserverEntry._(JSObject _) implements JSObject {
   external JSArray<ResizeObserverSize> get devicePixelContentBoxSize;
 }
 
-/// `Resize Observer API`
-///
 /// The **`ResizeObserverSize`** interface of the [Resize Observer API] is used
 /// by the [ResizeObserverEntry] interface to access the box sizing properties
 /// of the element being observed.

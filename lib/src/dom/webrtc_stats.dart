@@ -789,8 +789,6 @@ extension type RTCIceCandidatePairStats._(JSObject _)
   external int get bytesDiscardedOnSend;
 }
 
-/// `WebRTC`
-///
 /// The **`RTCCertificateStats`** dictionary of the
 /// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API) is
 /// used to report information about a certificate used by an [RTCDtlsTransport]

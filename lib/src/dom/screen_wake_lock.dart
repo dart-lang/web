@@ -52,6 +52,8 @@ extension type WakeLock._(JSObject _) implements JSObject {
 /// wake lock. The latter may occur if the document becomes inactive or loses
 /// visibility, if the device is low on power, or if the user turns on a power
 /// save mode.
+/// A released `WakeLockSentinel` cannot be re-used: a new sentinel must be be
+/// requested using [WakeLock.request] if a new lock is needed.
 /// Releasing all `WakeLockSentinel` instances of a given wake lock type will
 /// cause the underlying platform wake lock to be released.
 ///

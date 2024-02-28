@@ -154,7 +154,7 @@ extension type GetNotificationOptions._(JSObject _) implements JSObject {
 ///
 /// This interface inherits from the [ExtendableEvent] interface.
 ///
-/// > **Note**: Only persistent notification events, fired at the
+/// > **Note:** Only persistent notification events, fired at the
 /// > [ServiceWorkerGlobalScope] object, implement the `NotificationEvent`
 /// > interface. Non-persistent notification events, fired at the [Notification]
 /// > object, implement the `Event` interface.

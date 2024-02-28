@@ -171,7 +171,7 @@ extension type HTMLOptionsCollection._(JSObject _)
   external int get selectedIndex;
 }
 
-/// The **`DOMString`** interface is a legacy type returned by some APIs and
+/// The **`DOMStringList`** interface is a legacy type returned by some APIs and
 /// represents a non-modifiable list of strings (`DOMString`). Modern APIs use
 /// `Array` objects (in WebIDL: `sequence<DOMString>`) instead.
 ///
@@ -1317,9 +1317,6 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The [HTMLMediaElement] method **`canPlayType()`** reports how likely it is
   /// that the current browser will be able to play media of a given MIME type.
-  ///
-  /// > **Note:** This feature is not available in
-  /// > [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
   external CanPlayTypeResult canPlayType(String type);
 
   /// The **`HTMLMediaElement.fastSeek()`** method quickly seeks the
@@ -5031,7 +5028,14 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// method returns.
   external void focus();
 
-  /// Shifts focus away from the window.
+  /// The **`Window.blur()`** method does nothing.
+  ///
+  /// > **Note:** Historically, this method was the programmatic equivalent of
+  /// > the user shifting focus away
+  /// > from the current window. This behavior was removed due to hostile sites
+  /// > abusing this functionality.
+  /// > In Firefox, you can enable the old behavior with the
+  /// > `dom.disable_window_flip` preference.
   external void blur();
 
   /// The **`open()`** method of the
@@ -5528,52 +5532,24 @@ extension type BarProp._(JSObject _) implements JSObject {
 /// Both the [Document] and [Window] interface have such a linked `Location`,
 /// accessible via [Document.location] and [Window.location] respectively.
 extension type Location._(JSObject _) implements JSObject {
-  /// The **`Location.assign()`** method causes the window to load
+  /// The **`assign()`** method of the [Location]
+  /// interface causes the window to load
   /// and display the document at the URL specified. After the navigation
   /// occurs, the user can
   /// navigate back to the page that called `Location.assign()` by pressing the
   /// "back" button.
-  ///
-  /// If the assignment can't happen because of a security violation, a
-  /// [DOMException] of the `SECURITY_ERROR` type is thrown. This
-  /// happens if the origin of the script calling the method is different from
-  /// the origin of
-  /// the page originally described by the [Location] object, mostly when the
-  /// script is hosted on a different domain.
-  ///
-  /// If the provided URL is not valid, a [DOMException] of the
-  /// `SYNTAX_ERROR` type is thrown.
   external void assign(String url);
 
   /// The **`replace()`** method of the [Location]
   /// interface replaces the current resource with the one at the provided URL.
   /// The difference
   /// from the [Location.assign] method is that after using
-  /// `replace()` the current page will not be saved in session
-  /// [History], meaning the user won't be able to use the _back_ button
-  /// to navigate to it.
-  ///
-  /// If the assignment can't happen because of a security violation, a
-  /// [DOMException] of the `SECURITY_ERROR` type is thrown. This
-  /// happens if the origin of the script calling the method is different from
-  /// the origin of
-  /// the page originally described by the [Location] object, mostly when the
-  /// script is hosted on a different domain.
-  ///
-  /// If the provided URL is not valid, a [DOMException] of the
-  /// `SYNTAX_ERROR` type is thrown.
+  /// `replace()` the current page will not be saved in session [History],
+  /// meaning the user won't be able to use the _back_ button to navigate to it.
   external void replace(String url);
 
-  /// The **`location.reload()`** method reloads the current URL, like the
-  /// Refresh button.
-  ///
-  /// The reload may be blocked and a `SECURITY_ERROR` [DOMException]
-  /// thrown. This happens if the  of the script calling
-  /// `location.reload()` differs from the origin of the page that owns the
-  /// [Location] object. See
-  /// [Same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)
-  /// for more
-  /// information.
+  /// The **`reload()`** method of the [Location] interface reloads the current
+  /// URL, like the Refresh button.
   external void reload();
   external set href(String value);
   external String get href;
@@ -6173,8 +6149,6 @@ extension type DOMParser._(JSObject _) implements JSObject {
 /// A `Navigator` object can be retrieved using the read-only [window.navigator]
 /// property.
 extension type Navigator._(JSObject _) implements JSObject {
-  /// `Encrypted Media Extensions`
-  ///
   /// The **`Navigator.requestMediaKeySystemAccess()`** method
   /// returns a `Promise` which delivers a [MediaKeySystemAccess]
   /// object that can be used to access a particular media key system, which can

@@ -50,18 +50,16 @@ extension type ReadableStream._(JSObject _) implements JSObject {
 
   external static ReadableStream from(JSAny? asyncIterable);
 
-  /// The **`cancel()`** method of the
-  /// [ReadableStream] interface returns a `Promise` that
-  /// resolves when the stream is canceled.
+  /// The **`cancel()`** method of the [ReadableStream] interface returns a
+  /// `Promise` that resolves when the stream is canceled.
   ///
   /// Cancel is used when you've completely finished with the stream and don't
-  /// need any more
-  /// data from it, even if there are chunks enqueued waiting to be read. That
-  /// data is lost
-  /// after cancel is called, and the stream is not readable any more. To read
-  /// those chunks
-  /// still and not completely get rid of the stream, you'd use
-  /// [ReadableStreamDefaultController.close].
+  /// need any more data from it, even if there are chunks enqueued waiting to
+  /// be read.
+  /// That data is lost after cancel is called, and the stream is not readable
+  /// any more.
+  /// To read those chunks still and not completely get rid of the stream, you'd
+  /// use [ReadableStreamDefaultController.close].
   external JSPromise<JSAny?> cancel([JSAny? reason]);
 
   /// The **`getReader()`** method of the [ReadableStream] interface creates a
@@ -777,8 +775,6 @@ extension type Transformer._(JSObject _) implements JSObject {
 /// [TransformStream.TransformStream].
 extension type TransformStreamDefaultController._(JSObject _)
     implements JSObject {
-  /// `Streams API`
-  ///
   /// The **`enqueue()`** method of the [TransformStreamDefaultController]
   /// interface enqueues the given chunk in the readable side of the stream.
   ///
@@ -786,16 +782,12 @@ extension type TransformStreamDefaultController._(JSObject _)
   /// [Using Readable Streams](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_streams).
   external void enqueue([JSAny? chunk]);
 
-  /// `Streams API`
-  ///
   /// The **`error()`** method of the [TransformStreamDefaultController]
   /// interface errors both sides of the stream. Any further interactions with
   /// it will fail with the given error message, and any chunks in the queue
   /// will be discarded.
   external void error([JSAny? reason]);
 
-  /// `Streams API`
-  ///
   /// The **`terminate()`** method of the [TransformStreamDefaultController]
   /// interface closes the readable side and errors the writable side of the
   /// stream.

@@ -70,8 +70,6 @@ extension type PushManager._(JSObject _) implements JSObject {
       [PushSubscriptionOptionsInit options]);
 }
 
-/// `Push API`
-///
 /// The **`PushSubscriptionOptions`** interface of the [Push API] represents the
 /// options associated with a push subscription.
 ///

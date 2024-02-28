@@ -486,13 +486,14 @@ extension type OverconstrainedError._(JSObject _)
   external String get constraint;
 }
 
-/// The **`MediaDevices`** interface provides access to connected media input
-/// devices like cameras and microphones, as well as screen sharing. In essence,
-/// it lets you obtain access to any hardware source of media data.
+/// The **`MediaDevices`** interface of the [Media Capture and Streams API]
+/// provides access to connected media input devices like cameras and
+/// microphones, as well as screen sharing. In essence, it lets you obtain
+/// access to any hardware source of media data.
 extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {
-  /// The [MediaDevices] method **`enumerateDevices()`** requests a list of the
-  /// currently available media input and output devices, such as microphones,
-  /// cameras, headsets, and so forth.
+  /// The **`enumerateDevices()`** method of the [MediaDevices] interface
+  /// requests a list of the currently available media input and output devices,
+  /// such as microphones, cameras, headsets, and so forth.
   /// The returned `Promise` is resolved with an array of [MediaDeviceInfo]
   /// objects describing the devices.
   ///
@@ -508,11 +509,10 @@ extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {
   /// permission.
   external JSPromise<JSArray<MediaDeviceInfo>> enumerateDevices();
 
-  /// The
-  /// **`getSupportedConstraints()`**
-  /// method of the [MediaDevices] interface returns an object based on the
-  /// [MediaTrackSupportedConstraints] dictionary, whose member fields each
-  /// specify one of the constrainable properties the  understands.
+  /// The **`getSupportedConstraints()`** method of the [MediaDevices] interface
+  /// returns an object based on the [MediaTrackSupportedConstraints]
+  /// dictionary, whose member fields each specify one of the constrainable
+  /// properties the  understands.
   external MediaTrackSupportedConstraints getSupportedConstraints();
 
   /// The **`getUserMedia()`** method of the [MediaDevices] interface prompts

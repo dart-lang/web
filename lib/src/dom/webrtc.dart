@@ -577,8 +577,6 @@ extension type RTCPeerConnectionIceEventInit._(JSObject _)
   external String? get url;
 }
 
-/// `WebRTC API`
-///
 /// The **`RTCPeerConnectionIceErrorEvent`** interface—based upon the [Event]
 /// interface—provides details pertaining to an  error announced by sending an
 /// [RTCPeerConnection.icecandidateerror_event] event to the [RTCPeerConnection]
@@ -686,8 +684,6 @@ extension type RTCRtpSender._(JSObject _) implements JSObject {
     RTCSetParameterOptions setParameterOptions,
   ]);
 
-  /// `WebRTC`
-  ///
   /// The **`getParameters()`** method of the [RTCRtpSender] interface returns
   /// an object describing the current configuration for how the sender's
   /// [RTCRtpSender.track] will be encoded and transmitted to a remote
@@ -711,8 +707,6 @@ extension type RTCRtpSender._(JSObject _) implements JSObject {
   /// the example [Switching cameras](#switching_cameras) below.
   external JSPromise<JSAny?> replaceTrack(MediaStreamTrack? withTrack);
 
-  /// `WebRTC API`
-  ///
   /// The [RTCRtpSender] method **`setStreams()`** associates the sender's
   /// [RTCRtpSender.track] with the specified [MediaStream] objects.
   external void setStreams(MediaStream streams);
@@ -1406,8 +1400,6 @@ extension type RTCStats._(JSObject _) implements JSObject {
   external String get id;
 }
 
-/// `WebRTC`
-///
 /// The **`RTCError`** interface describes an error which has occurred while
 /// handling
 /// [WebRTC](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
@@ -1446,8 +1438,6 @@ extension type RTCErrorInit._(JSObject _) implements JSObject {
   external int get sentAlert;
 }
 
-/// `WebRTC`
-///
 /// The WebRTC API's **`RTCErrorEvent`** interface represents an error sent to a
 /// WebRTC object. It's based on the standard [Event] interface, but adds
 /// RTC-specific information describing the error, as shown below.

@@ -24,12 +24,13 @@ typedef CredentialMediationRequirement = String;
 /// provides information about an entity (usually a user) normally as a
 /// prerequisite to a trust decision.
 ///
-/// `Credential` objects may be of four different types:
+/// `Credential` objects may be of the following types:
 ///
 /// - [FederatedCredential]
 /// - [IdentityCredential]
 /// - [PasswordCredential]
 /// - [PublicKeyCredential]
+/// - [OTPCredential]
 extension type Credential._(JSObject _) implements JSObject {
   external static JSPromise<JSBoolean> isConditionalMediationAvailable();
   external String get id;
@@ -107,24 +108,16 @@ extension type CredentialsContainer._(JSObject _) implements JSObject {
   /// > without effect.
   external JSPromise<Credential?> create([CredentialCreationOptions options]);
 
-  /// The **`preventSilentAccess()`** method
-  /// of the [CredentialsContainer] interface sets a flag that specifies
-  /// whether automatic log in is allowed for future visits to the current
-  /// origin, then
-  /// returns an empty
-  /// [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
-  /// For
-  /// example, you might call this, after a user signs out of a website to
-  /// ensure that
-  /// they aren't automatically signed in on the next site visit. Mediation
-  /// varies by origin,
-  /// and is an added check point of browser stored credentials, informing a
-  /// user of an
-  /// account login status. This method is typically called after a user signs
-  /// out of a
-  /// website, ensuring this user's login information is not automatically
-  /// passed on the next
-  /// site visit.
+  /// The **`preventSilentAccess()`** method of the [CredentialsContainer]
+  /// interface sets a flag that specifies whether automatic log in is allowed
+  /// for future visits to the current origin, then returns a `Promise` that
+  /// resolves to `undefined`.
+  /// For example, you might call this, after a user signs out of a website to
+  /// ensure that they aren't automatically signed in on the next site visit.
+  /// Mediation varies by origin, and is an added check point of browser stored
+  /// credentials, informing a user of an account login status. This method is
+  /// typically called after a user signs out of a website, ensuring this user's
+  /// login information is not automatically passed on the next site visit.
   ///
   /// Earlier versions of the spec called this method `requireUserMediation()`.
   /// The
@@ -176,7 +169,7 @@ extension type CredentialCreationOptions._(JSObject _) implements JSObject {
   external PublicKeyCredentialCreationOptions get publicKey;
 }
 
-/// The interface of the
+/// The **`PasswordCredential`** interface of the
 /// [Credential Management API](https://developer.mozilla.org/en-US/docs/Web/API/Credential_Management_API)
 /// provides information about a username/password pair. In supporting browsers
 /// an instance of this class may be passed in the `credential` member of the

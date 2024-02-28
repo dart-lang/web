@@ -55,9 +55,8 @@ typedef ClientType = String;
 /// throw.
 extension type ServiceWorker._(JSObject _) implements EventTarget, JSObject {
   /// The **`postMessage()`** method of the [ServiceWorker] interface sends a
-  /// message to the worker. This accepts a single parameter, which is the data
-  /// to send to the worker. The data may be any JavaScript object which can be
-  /// handled by the
+  /// message to the worker. The first parameter is the data to send to the
+  /// worker. The data may be any JavaScript object which can be handled by the
   /// [structured clone algorithm](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm).
   ///
   /// The service worker can send back information to its clients by using the
@@ -85,17 +84,11 @@ extension type ServiceWorker._(JSObject _) implements EventTarget, JSObject {
 /// `ServiceWorkerRegistration` objects that represent them within the lifetime
 /// of their corresponding service worker clients. The browser maintains a
 /// persistent list of active `ServiceWorkerRegistration` objects.
-///
-/// > **Note:** This feature is available in
-/// > [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
 extension type ServiceWorkerRegistration._(JSObject _)
     implements EventTarget, JSObject {
   /// The **`showNotification()`** method of the
   /// [ServiceWorkerRegistration] interface creates a notification on an active
   /// service worker.
-  ///
-  /// > **Note:** This feature is available in
-  /// > [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
   external JSPromise<JSAny?> showNotification(
     String title, [
     NotificationOptions options,
@@ -122,9 +115,6 @@ extension type ServiceWorkerRegistration._(JSObject _)
   /// the worker
   /// bypasses any browser caches if the previous fetch occurred over 24 hours
   /// ago.
-  ///
-  /// > **Note:** This feature is available in
-  /// > [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
   external JSPromise<JSAny?> update();
 
   /// The **`unregister()`** method of the
@@ -136,9 +126,6 @@ extension type ServiceWorkerRegistration._(JSObject _)
   /// with the same scope.) The service worker will finish any ongoing
   /// operations before it is
   /// unregistered.
-  ///
-  /// > **Note:** This feature is available in
-  /// > [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
   external JSPromise<JSBoolean> unregister();
   external PushManager get pushManager;
   external ServiceWorker? get installing;
@@ -474,9 +461,6 @@ extension type ClientQueryOptions._(JSObject _) implements JSObject {
 /// the list of
 /// [extend lifetime promises](https://w3c.github.io/ServiceWorker/#extendableevent-extend-lifetime-promises).
 ///
-/// > **Note:** The behavior described in the above paragraph was fixed in
-/// > Firefox 43 (see [Firefox bug 1180274](https://bugzil.la/1180274).)
-///
 /// This interface inherits from the [Event] interface.
 ///
 /// > **Note:** This interface is only available when the global scope is a
@@ -522,9 +506,6 @@ extension type ExtendableEvent._(JSObject _) implements Event, JSObject {
   /// but after that it can be called multiple times, until all the promises
   /// passed to it
   /// settle.
-  ///
-  /// > **Note:** The behavior described in the above paragraph was fixed in
-  /// > Firefox 43 (see [Firefox bug 1180274](https://bugzil.la/1180274)).
   external void waitUntil(JSPromise<JSAny?> f);
 }
 extension type ExtendableEventInit._(JSObject _)
@@ -742,7 +723,7 @@ extension type Cache._(JSObject _) implements JSObject {
   ///   if (!response.ok) {
   ///     throw new TypeError("bad response status");
   ///   }
-  ///   return cache.add(url);
+  ///   return cache.put(url, response);
   /// });
   /// ```
   ///

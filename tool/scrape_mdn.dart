@@ -150,6 +150,10 @@ String convertMdnToMarkdown(String content) {
       return '';
     }
 
+    if (type == 'defaultapisidebar') {
+      return '';
+    }
+
     var content = match.group(2)!;
     if (type == 'availableinworkers') {
       final name = match.group(1)!;

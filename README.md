@@ -67,14 +67,8 @@ definitions:
   the number of breaking changes. This is currently WIP and some members may be
   added or removed.
 
-## Web IDL version
+### Generation
 
-Based on:
-
-<!-- START updated by tool/update_bindings.dart. Do not modify by hand -->
-- @webref/idl [3.43.1](https://www.npmjs.com/package/@webref/idl/v/3.43.1)
-- @webref/css [6.11.0](https://www.npmjs.com/package/@webref/css/v/6.11.0)
-<!-- END updated by tool/update_bindings.dart. Do not modify by hand -->
-
-For instructions on re-generating the DOM bindings, see the
-[generator docs](tool/generator/README.md).
+Most of the APIs in this package are generated from public assets.
+See the [tool directory](https://github.com/dart-lang/web/tree/main/tool) in the
+source repository to learn more.

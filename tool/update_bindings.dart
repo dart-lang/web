@@ -103,9 +103,11 @@ $_usage''');
   final idlVersion = _packageLockVersion(_webRefIdl);
   final versions = '''
 $_startComment
-- $_webRefCss [$cssVersion](https://www.npmjs.com/package/$_webRefCss/v/$cssVersion)
-- $_webRefElements [$elementsVersion](https://www.npmjs.com/package/$_webRefElements/v/$elementsVersion)
-- $_webRefIdl [$idlVersion](https://www.npmjs.com/package/$_webRefIdl/v/$idlVersion)
+| Item | Version |
+| --- | --- |
+| `$_webRefCss` | [$cssVersion](https://www.npmjs.com/package/$_webRefCss/v/$cssVersion) |
+| `$_webRefElements` | [$elementsVersion](https://www.npmjs.com/package/$_webRefElements/v/$elementsVersion) |
+| `$_webRefIdl` | [$idlVersion](https://www.npmjs.com/package/$_webRefIdl/v/$idlVersion) |
 ''';
 
   final newContent =

@@ -104,7 +104,7 @@ $_usage''');
   final versions = '''
 $_startComment
 | Item | Version |
-| --- | --- |
+| --- | --: |
 | `$_webRefCss` | [$cssVersion](https://www.npmjs.com/package/$_webRefCss/v/$cssVersion) |
 | `$_webRefElements` | [$elementsVersion](https://www.npmjs.com/package/$_webRefElements/v/$elementsVersion) |
 | `$_webRefIdl` | [$idlVersion](https://www.npmjs.com/package/$_webRefIdl/v/$idlVersion) |

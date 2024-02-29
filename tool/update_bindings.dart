@@ -159,7 +159,8 @@ Future<void> _runProc(
   }
 }
 
-// Creates a supertype hierarchy of the JS types defined in `dart:js_interop`.
+// Generates a map of the JS type hierarchy defined in `dart:js_interop` that is
+// used by the translator to handle IDL types.
 Future<void> _generateJsTypeSupertypes() async {
   // Use a file that uses `dart:js_interop` for analysis.
   final contextCollection = AnalysisContextCollection(includedPaths: [
@@ -176,9 +177,9 @@ Future<void> _generateJsTypeSupertypes() async {
     final element = definedNames[name];
     if (element is ExtensionTypeElement) {
       // Only extension types defined in `dart:js_interop` are JS types.
-      bool _isJSType(InterfaceElement element) =>
+      bool isJSType(InterfaceElement element) =>
           element is ExtensionTypeElement && element.library == dartJsInterop;
-      if (!_isJSType(element)) continue;
+      if (!isJSType(element)) continue;
 
       String? parentJsType;
       final supertype = element.supertype;
@@ -189,7 +190,7 @@ Future<void> _generateJsTypeSupertypes() async {
       // We should have at most one non-trivial supertype.
       assert(immediateSupertypes.length <= 1);
       for (final supertype in immediateSupertypes) {
-        if (_isJSType(supertype.element)) {
+        if (isJSType(supertype.element)) {
           parentJsType = "'${supertype.element.name}'";
         }
       }

@@ -8,6 +8,7 @@ import 'translator.dart';
 import 'util.dart';
 import 'webidl_api.dart' as webidl;
 import 'webref_css_api.dart';
+import 'webref_elements_api.dart';
 import 'webref_idl_api.dart';
 
 /// Generate CSS property names for setting / getting CSS properties in JS.
@@ -45,11 +46,34 @@ Future<List<String>> _generateCSSStyleDeclarations() async {
   return cssStyleDeclarations.toList()..sort();
 }
 
+/// Parse the elements spec and construct a map of element interfaces to the
+/// tag names that correspond to the interface.
+Future<Map<String, Set<String>>> _generateElementTagMap() async {
+  final elementMap = <String, Set<String>>{};
+  final array = objectEntries(await elements.listAll().toDart);
+  for (var i = 0; i < array.length; i++) {
+    final entry = array[i] as JSArray;
+    final data = entry[1] as ElementsEntries;
+    final elements = data.elements;
+    if (elements != null) {
+      for (var j = 0; j < elements.length; j++) {
+        final element = elements[j];
+        final tag = element.name;
+        final interface = element.interface;
+        if (tag == null || interface == null) continue;
+        elementMap.putIfAbsent(interface, () => {}).add(tag);
+      }
+    }
+  }
+  return elementMap;
+}
+
 Future<TranslationResult> generateBindings(
     String packageRoot, String librarySubDir) async {
   final cssStyleDeclarations = await _generateCSSStyleDeclarations();
-  final translator =
-      Translator(packageRoot, librarySubDir, cssStyleDeclarations);
+  final elementHTMLMap = await _generateElementTagMap();
+  final translator = Translator(
+      packageRoot, librarySubDir, cssStyleDeclarations, elementHTMLMap);
   final array = objectEntries(await idl.parseAll().toDart);
   for (var i = 0; i < array.length; i++) {
     final entry = array[i] as JSArray<JSAny?>;

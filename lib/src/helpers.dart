@@ -43,7 +43,7 @@ export 'helpers/renames.dart';
 /// ```dart
 /// final anchor = document.createElement('a') as HTMLElement;
 /// ```
-@Deprecated('Directly use document.createElement instead.')
+@Deprecated('Use the specific HTMLElement constructor instead.')
 HTMLElement createElementTag(String tagName) =>
     document.createElement(tagName) as HTMLElement;
 
@@ -56,7 +56,7 @@ HTMLElement createElementTag(String tagName) =>
 ///   ..width = 256
 ///   ..height = 256;
 /// ```
-@Deprecated('Directly use document.createElement instead.')
+@Deprecated('Use the HTMLCanvasElement constructor instead.')
 HTMLCanvasElement createCanvasElement({int? width, int? height}) {
   final result = document.createElement('canvas') as HTMLCanvasElement;
   if (width != null) result.width = width;
@@ -71,12 +71,16 @@ HTMLCanvasElement createCanvasElement({int? width, int? height}) {
 /// ```dart
 /// final embed = document.createElement('iframe') as HTMLIFrameElement;
 /// ```
-@Deprecated('Directly use document.createElement instead.')
+@Deprecated('Use the HTMLIFrameElement constructor instead.')
 HTMLIFrameElement createIFrameElement() =>
     document.createElement('iframe') as HTMLIFrameElement;
 
 @JS('Audio')
 external JSFunction get _audioConstructor;
+// While `new Audio()` is a different syntax from
+// `document.createElement('audio')`, it looks like they're the same:
+// https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement/Audio#usage_notes
+@Deprecated('Use the HTMLAudioElement constructor instead.')
 HTMLAudioElement createAudioElement() => _audioConstructor.callAsConstructor();
 
 /// Finds and returns the first element within the [document]

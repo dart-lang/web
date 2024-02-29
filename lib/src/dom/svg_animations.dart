@@ -57,23 +57,58 @@ extension type SVGAnimationElement._(JSObject _)
 
 /// The **`SVGAnimateElement`** interface corresponds to the  element.
 extension type SVGAnimateElement._(JSObject _)
-    implements SVGAnimationElement, JSObject {}
+    implements SVGAnimationElement, JSObject {
+  /// Creates an [SVGAnimateElement] using the tag 'animate'.
+  SVGAnimateElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'animate',
+        );
+}
 
 /// The **`SVGSetElement`** interface corresponds to the  element.
 extension type SVGSetElement._(JSObject _)
-    implements SVGAnimationElement, JSObject {}
+    implements SVGAnimationElement, JSObject {
+  /// Creates an [SVGSetElement] using the tag 'set'.
+  SVGSetElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'set',
+        );
+}
 
 /// The **`SVGAnimateMotionElement`** interface corresponds to the  element.
 extension type SVGAnimateMotionElement._(JSObject _)
-    implements SVGAnimationElement, JSObject {}
+    implements SVGAnimationElement, JSObject {
+  /// Creates an [SVGAnimateMotionElement] using the tag 'animateMotion'.
+  SVGAnimateMotionElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'animateMotion',
+        );
+}
 
 /// The **`SVGMPathElement`** interface corresponds to the  element.
 extension type SVGMPathElement._(JSObject _) implements SVGElement, JSObject {
+  /// Creates an [SVGMPathElement] using the tag 'mpath'.
+  SVGMPathElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'mpath',
+        );
+
   external SVGAnimatedString get href;
 }
 
 /// The `SVGAnimateTransformElement` interface corresponds to the  element.
 extension type SVGAnimateTransformElement._(JSObject _)
-    implements SVGAnimationElement, JSObject {}
+    implements SVGAnimationElement, JSObject {
+  /// Creates an [SVGAnimateTransformElement] using the tag 'animateTransform'.
+  SVGAnimateTransformElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'animateTransform',
+        );
+}
 extension type SVGDiscardElement._(JSObject _)
     implements SVGAnimationElement, JSObject {}

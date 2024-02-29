@@ -4,6 +4,10 @@
 - Include MDN API documentation as class and member dartdoc comments. Docs
   sourced from the [MDN Web Docs][] project; attributions and copyright
   licensing by Mozilla Contributors is licensed under [CC-BY-SA 2.5][].
+- Add a constructor for each Element tag onto their respective Element
+  interfaces.
+- Remove `external` Element constructors that would result in a runtime error.
+- Deprecate `createAudioElement` in favor of the `HTMLAudioElement` constructor.
 
 [MDN Web Docs]: https://developer.mozilla.org/en-US/docs/Web
 [CC-BY-SA 2.5]: https://creativecommons.org/licenses/by-sa/2.5/

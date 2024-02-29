@@ -21,6 +21,216 @@ import 'html.dart';
 /// The **`MathMLElement`** interface represents any
 /// [MathML](https://developer.mozilla.org/en-US/docs/Web/MathML) element.
 extension type MathMLElement._(JSObject _) implements Element, JSObject {
+  /// Creates a [MathMLElement] using the tag 'math'.
+  MathMLElement.math()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'math',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'mtext'.
+  MathMLElement.mtext()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'mtext',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'mi'.
+  MathMLElement.mi()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'mi',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'mn'.
+  MathMLElement.mn()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'mn',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'mo'.
+  MathMLElement.mo()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'mo',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'mspace'.
+  MathMLElement.mspace()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'mspace',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'ms'.
+  MathMLElement.ms()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'ms',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'mrow'.
+  MathMLElement.mrow()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'mrow',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'mfrac'.
+  MathMLElement.mfrac()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'mfrac',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'msqrt'.
+  MathMLElement.msqrt()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'msqrt',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'mroot'.
+  MathMLElement.mroot()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'mroot',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'mstyle'.
+  MathMLElement.mstyle()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'mstyle',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'merror'.
+  MathMLElement.merror()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'merror',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'mpadded'.
+  MathMLElement.mpadded()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'mpadded',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'mphantom'.
+  MathMLElement.mphantom()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'mphantom',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'msub'.
+  MathMLElement.msub()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'msub',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'msup'.
+  MathMLElement.msup()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'msup',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'msubsup'.
+  MathMLElement.msubsup()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'msubsup',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'munder'.
+  MathMLElement.munder()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'munder',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'mover'.
+  MathMLElement.mover()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'mover',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'munderover'.
+  MathMLElement.munderover()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'munderover',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'mmultiscripts'.
+  MathMLElement.mmultiscripts()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'mmultiscripts',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'mprescripts'.
+  MathMLElement.mprescripts()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'mprescripts',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'mtable'.
+  MathMLElement.mtable()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'mtable',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'mtr'.
+  MathMLElement.mtr()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'mtr',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'mtd'.
+  MathMLElement.mtd()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'mtd',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'maction'.
+  MathMLElement.maction()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'maction',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'semantics'.
+  MathMLElement.semantics()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'semantics',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'annotation'.
+  MathMLElement.annotation()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'annotation',
+        );
+
+  /// Creates a [MathMLElement] using the tag 'annotation-xml'.
+  MathMLElement.annotation_xml()
+      : _ = document.createElementNS(
+          'http://www.w3.org/1998/Math/MathML',
+          'annotation-xml',
+        );
+
   external void focus([FocusOptions options]);
   external void blur();
   external StylePropertyMap get attributeStyleMap;

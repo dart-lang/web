@@ -13,12 +13,20 @@ library;
 
 import 'dart:js_interop';
 
+import 'dom.dart';
 import 'svg.dart';
 
 /// The **`SVGClipPathElement`** interface provides access to the properties of
 /// elements, as well as methods to manipulate them.
 extension type SVGClipPathElement._(JSObject _)
     implements SVGElement, JSObject {
+  /// Creates an [SVGClipPathElement] using the tag 'clipPath'.
+  SVGClipPathElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'clipPath',
+        );
+
   external SVGAnimatedEnumeration get clipPathUnits;
   external SVGAnimatedTransformList get transform;
 }
@@ -26,6 +34,13 @@ extension type SVGClipPathElement._(JSObject _)
 /// The **`SVGMaskElement`** interface provides access to the properties of
 /// elements, as well as methods to manipulate them.
 extension type SVGMaskElement._(JSObject _) implements SVGElement, JSObject {
+  /// Creates an [SVGMaskElement] using the tag 'mask'.
+  SVGMaskElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'mask',
+        );
+
   external SVGAnimatedEnumeration get maskUnits;
   external SVGAnimatedEnumeration get maskContentUnits;
   external SVGAnimatedLength get x;

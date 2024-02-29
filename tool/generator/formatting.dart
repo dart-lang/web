@@ -2,9 +2,10 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-/// Given markdown formatted text and a width, return a line-wrapped dartdoc
-/// comment.
-List<String> formatDocs(String data, int width) {
+/// Given markdown formatted text [data] and a line [width], return a
+/// line-wrapped dartdoc comment accounting for any [leadingWhitespace] the
+/// comment should have.
+List<String> formatDocs(String data, int width, [int leadingWhitespace = 0]) {
   // TODO(devoncarew): Look at combining soft line breaks in the markdown in
   // order to better reflow the returned dartdoc comments (i.e., only have line
   // breaks for markdown paragraphs).
@@ -12,6 +13,7 @@ List<String> formatDocs(String data, int width) {
   final lines = data.split('\n');
   final output = <String>[];
 
+  width -= leadingWhitespace;
   width -= '/// '.length;
 
   var inCodeFence = false;
@@ -50,7 +52,7 @@ List<String> formatDocs(String data, int width) {
 /// Identify `[foo](bar)` and `[foo]` patterns.
 final RegExp _linksRegEx = RegExp(r'\[([\w `-]+?)\](\(\S+\))?');
 
-/// Wrap the given line to [width], breaking at whitespace.
+/// Wrap the given [line] to [width], breaking at whitespace.
 Iterable<String> _wrap(String line, int width) sync* {
   if (line.isEmpty) {
     yield line;

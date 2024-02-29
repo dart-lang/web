@@ -2,11 +2,12 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import * as fs from 'fs';
 import * as childProcess from 'child_process';
+import * as fs from 'fs';
 import { createRequire } from 'module';
-import * as idl from '@webref/idl';
 import * as css from '@webref/css';
+import * as elements from '@webref/elements';
+import * as idl from '@webref/idl';
 
 const require = createRequire(import.meta.url);
 
@@ -14,11 +15,12 @@ const require = createRequire(import.meta.url);
 globalThis.self = globalThis;
 globalThis.childProcess = childProcess;
 globalThis.css = css;
-globalThis.idl = idl;
+globalThis.elements = elements;
 globalThis.fs = fs;
-globalThis.location = { href: `file://${process.cwd()}/`}
+globalThis.idl = idl;
+globalThis.location = { href: `file://${process.cwd()}/` }
 
-globalThis.dartMainRunner = async function(main, args) {
+globalThis.dartMainRunner = async function (main, args) {
   const dir = process.argv[2];
   await main(dir);
 }

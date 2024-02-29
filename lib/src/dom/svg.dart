@@ -581,6 +581,13 @@ extension type SVGUnitTypes._(JSObject _) implements JSObject {
 /// devices.
 extension type SVGSVGElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
+  /// Creates an [SVGSVGElement] using the tag 'svg'.
+  SVGSVGElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'svg',
+        );
+
   external NodeList getIntersectionList(
     DOMRectReadOnly rect,
     SVGElement? referenceElement,
@@ -667,25 +674,67 @@ extension type SVGSVGElement._(JSObject _)
 
 /// The **`SVGGElement`** interface corresponds to the  element.
 extension type SVGGElement._(JSObject _)
-    implements SVGGraphicsElement, JSObject {}
+    implements SVGGraphicsElement, JSObject {
+  /// Creates an [SVGGElement] using the tag 'g'.
+  SVGGElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'g',
+        );
+}
 
 /// The **`SVGDefsElement`** interface corresponds to the  element.
 extension type SVGDefsElement._(JSObject _)
-    implements SVGGraphicsElement, JSObject {}
+    implements SVGGraphicsElement, JSObject {
+  /// Creates an [SVGDefsElement] using the tag 'defs'.
+  SVGDefsElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'defs',
+        );
+}
 
 /// The **`SVGDescElement`** interface corresponds to the  element.
-extension type SVGDescElement._(JSObject _) implements SVGElement, JSObject {}
+extension type SVGDescElement._(JSObject _) implements SVGElement, JSObject {
+  /// Creates an [SVGDescElement] using the tag 'desc'.
+  SVGDescElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'desc',
+        );
+}
 
 /// The **`SVGMetadataElement`** interface corresponds to the  element.
 extension type SVGMetadataElement._(JSObject _)
-    implements SVGElement, JSObject {}
+    implements SVGElement, JSObject {
+  /// Creates an [SVGMetadataElement] using the tag 'metadata'.
+  SVGMetadataElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'metadata',
+        );
+}
 
 /// The **`SVGTitleElement`** interface corresponds to the  element.
-extension type SVGTitleElement._(JSObject _) implements SVGElement, JSObject {}
+extension type SVGTitleElement._(JSObject _) implements SVGElement, JSObject {
+  /// Creates an [SVGTitleElement] using the tag 'title'.
+  SVGTitleElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'title',
+        );
+}
 
 /// The **`SVGSymbolElement`** interface corresponds to the  element.
 extension type SVGSymbolElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
+  /// Creates an [SVGSymbolElement] using the tag 'symbol'.
+  SVGSymbolElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'symbol',
+        );
+
   external SVGAnimatedRect get viewBox;
   external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
 }
@@ -693,6 +742,13 @@ extension type SVGSymbolElement._(JSObject _)
 ///
 extension type SVGUseElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
+  /// Creates an [SVGUseElement] using the tag 'use'.
+  SVGUseElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'use',
+        );
+
   external SVGAnimatedLength get x;
   external SVGAnimatedLength get y;
   external SVGAnimatedLength get width;
@@ -714,10 +770,24 @@ extension type ShadowAnimation._(JSObject _) implements Animation, JSObject {
 
 /// The **`SVGSwitchElement`** interface corresponds to the  element.
 extension type SVGSwitchElement._(JSObject _)
-    implements SVGGraphicsElement, JSObject {}
+    implements SVGGraphicsElement, JSObject {
+  /// Creates an [SVGSwitchElement] using the tag 'switch'.
+  SVGSwitchElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'switch',
+        );
+}
 
 /// The **`SVGStyleElement`** interface corresponds to the SVG  element.
 extension type SVGStyleElement._(JSObject _) implements SVGElement, JSObject {
+  /// Creates an [SVGStyleElement] using the tag 'style'.
+  SVGStyleElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'style',
+        );
+
   external set type(String value);
   external String get type;
   external set media(String value);
@@ -820,12 +890,26 @@ extension type SVGAnimatedPreserveAspectRatio._(JSObject _)
 /// > `getTotalLength()` and `getPointAtLength()` methods were moved to
 /// > [SVGGeometryElement].
 extension type SVGPathElement._(JSObject _)
-    implements SVGGeometryElement, JSObject {}
+    implements SVGGeometryElement, JSObject {
+  /// Creates an [SVGPathElement] using the tag 'path'.
+  SVGPathElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'path',
+        );
+}
 
 /// The `SVGRectElement` interface provides access to the properties of
 /// elements, as well as methods to manipulate them.
 extension type SVGRectElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
+  /// Creates an [SVGRectElement] using the tag 'rect'.
+  SVGRectElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'rect',
+        );
+
   external SVGAnimatedLength get x;
   external SVGAnimatedLength get y;
   external SVGAnimatedLength get width;
@@ -837,6 +921,13 @@ extension type SVGRectElement._(JSObject _)
 /// The **`SVGCircleElement`** interface is an interface for the  element.
 extension type SVGCircleElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
+  /// Creates an [SVGCircleElement] using the tag 'circle'.
+  SVGCircleElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'circle',
+        );
+
   external SVGAnimatedLength get cx;
   external SVGAnimatedLength get cy;
   external SVGAnimatedLength get r;
@@ -846,6 +937,13 @@ extension type SVGCircleElement._(JSObject _)
 /// elements.
 extension type SVGEllipseElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
+  /// Creates an [SVGEllipseElement] using the tag 'ellipse'.
+  SVGEllipseElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'ellipse',
+        );
+
   external SVGAnimatedLength get cx;
   external SVGAnimatedLength get cy;
   external SVGAnimatedLength get rx;
@@ -856,6 +954,13 @@ extension type SVGEllipseElement._(JSObject _)
 /// elements, as well as methods to manipulate them.
 extension type SVGLineElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
+  /// Creates an [SVGLineElement] using the tag 'line'.
+  SVGLineElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'line',
+        );
+
   external SVGAnimatedLength get x1;
   external SVGAnimatedLength get y1;
   external SVGAnimatedLength get x2;
@@ -908,6 +1013,13 @@ extension type SVGPointList._(JSObject _) implements JSObject {
 /// elements, as well as methods to manipulate them.
 extension type SVGPolylineElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
+  /// Creates an [SVGPolylineElement] using the tag 'polyline'.
+  SVGPolylineElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'polyline',
+        );
+
   external SVGPointList get points;
   external SVGPointList get animatedPoints;
 }
@@ -916,6 +1028,13 @@ extension type SVGPolylineElement._(JSObject _)
 /// elements, as well as methods to manipulate them.
 extension type SVGPolygonElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
+  /// Creates an [SVGPolygonElement] using the tag 'polygon'.
+  SVGPolygonElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'polygon',
+        );
+
   external SVGPointList get points;
   external SVGPointList get animatedPoints;
 }
@@ -962,15 +1081,36 @@ extension type SVGTextPositioningElement._(JSObject _)
 
 /// The **`SVGTextElement`** interface corresponds to the  elements.
 extension type SVGTextElement._(JSObject _)
-    implements SVGTextPositioningElement, JSObject {}
+    implements SVGTextPositioningElement, JSObject {
+  /// Creates an [SVGTextElement] using the tag 'text'.
+  SVGTextElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'text',
+        );
+}
 
 /// The **`SVGTSpanElement`** interface represents a  element.
 extension type SVGTSpanElement._(JSObject _)
-    implements SVGTextPositioningElement, JSObject {}
+    implements SVGTextPositioningElement, JSObject {
+  /// Creates an [SVGTSpanElement] using the tag 'tspan'.
+  SVGTSpanElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'tspan',
+        );
+}
 
 /// The **`SVGTextPathElement`** interface corresponds to the  element.
 extension type SVGTextPathElement._(JSObject _)
     implements SVGTextContentElement, JSObject {
+  /// Creates an [SVGTextPathElement] using the tag 'textPath'.
+  SVGTextPathElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'textPath',
+        );
+
   external static int get TEXTPATH_METHODTYPE_UNKNOWN;
   external static int get TEXTPATH_METHODTYPE_ALIGN;
   external static int get TEXTPATH_METHODTYPE_STRETCH;
@@ -986,6 +1126,13 @@ extension type SVGTextPathElement._(JSObject _)
 /// The **`SVGImageElement`** interface corresponds to the  element.
 extension type SVGImageElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
+  /// Creates an [SVGImageElement] using the tag 'image'.
+  SVGImageElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'image',
+        );
+
   external SVGAnimatedLength get x;
   external SVGAnimatedLength get y;
   external SVGAnimatedLength get width;
@@ -1000,6 +1147,13 @@ extension type SVGImageElement._(JSObject _)
 /// properties of  elements, as well as methods to manipulate them.
 extension type SVGForeignObjectElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
+  /// Creates an [SVGForeignObjectElement] using the tag 'foreignObject'.
+  SVGForeignObjectElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'foreignObject',
+        );
+
   external SVGAnimatedLength get x;
   external SVGAnimatedLength get y;
   external SVGAnimatedLength get width;
@@ -1013,6 +1167,13 @@ extension type SVGForeignObjectElement._(JSObject _)
 /// The following properties and methods all return, or act on the attributes of
 /// the  element represented by `SVGMarkerElement`.
 extension type SVGMarkerElement._(JSObject _) implements SVGElement, JSObject {
+  /// Creates an [SVGMarkerElement] using the tag 'marker'.
+  SVGMarkerElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'marker',
+        );
+
   external static int get SVG_MARKERUNITS_UNKNOWN;
   external static int get SVG_MARKERUNITS_USERSPACEONUSE;
   external static int get SVG_MARKERUNITS_STROKEWIDTH;
@@ -1058,6 +1219,13 @@ extension type SVGGradientElement._(JSObject _)
 /// The **`SVGLinearGradientElement`** interface corresponds to the  element.
 extension type SVGLinearGradientElement._(JSObject _)
     implements SVGGradientElement, JSObject {
+  /// Creates an [SVGLinearGradientElement] using the tag 'linearGradient'.
+  SVGLinearGradientElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'linearGradient',
+        );
+
   external SVGAnimatedLength get x1;
   external SVGAnimatedLength get y1;
   external SVGAnimatedLength get x2;
@@ -1067,6 +1235,13 @@ extension type SVGLinearGradientElement._(JSObject _)
 /// The **`SVGRadialGradientElement`** interface corresponds to the  element.
 extension type SVGRadialGradientElement._(JSObject _)
     implements SVGGradientElement, JSObject {
+  /// Creates an [SVGRadialGradientElement] using the tag 'radialGradient'.
+  SVGRadialGradientElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'radialGradient',
+        );
+
   external SVGAnimatedLength get cx;
   external SVGAnimatedLength get cy;
   external SVGAnimatedLength get r;
@@ -1077,11 +1252,25 @@ extension type SVGRadialGradientElement._(JSObject _)
 
 /// The **`SVGStopElement`** interface corresponds to the  element.
 extension type SVGStopElement._(JSObject _) implements SVGElement, JSObject {
+  /// Creates an [SVGStopElement] using the tag 'stop'.
+  SVGStopElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'stop',
+        );
+
   external SVGAnimatedNumber get offset;
 }
 
 /// The **`SVGPatternElement`** interface corresponds to the  element.
 extension type SVGPatternElement._(JSObject _) implements SVGElement, JSObject {
+  /// Creates an [SVGPatternElement] using the tag 'pattern'.
+  SVGPatternElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'pattern',
+        );
+
   external SVGAnimatedEnumeration get patternUnits;
   external SVGAnimatedEnumeration get patternContentUnits;
   external SVGAnimatedTransformList get patternTransform;
@@ -1096,6 +1285,13 @@ extension type SVGPatternElement._(JSObject _) implements SVGElement, JSObject {
 
 /// The **`SVGScriptElement`** interface corresponds to the SVG  element.
 extension type SVGScriptElement._(JSObject _) implements SVGElement, JSObject {
+  /// Creates an [SVGScriptElement] using the tag 'script'.
+  SVGScriptElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'script',
+        );
+
   external set type(String value);
   external String get type;
   external set crossOrigin(String? value);
@@ -1107,6 +1303,13 @@ extension type SVGScriptElement._(JSObject _) implements SVGElement, JSObject {
 /// element, as well as methods to manipulate them.
 extension type SVGAElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
+  /// Creates an [SVGAElement] using the tag 'a'.
+  SVGAElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'a',
+        );
+
   external SVGAnimatedString get target;
   external set download(String value);
   external String get download;
@@ -1148,6 +1351,13 @@ extension type SVGAElement._(JSObject _)
 /// The **`SVGViewElement`** interface provides access to the properties of
 /// elements, as well as methods to manipulate them.
 extension type SVGViewElement._(JSObject _) implements SVGElement, JSObject {
+  /// Creates an [SVGViewElement] using the tag 'view'.
+  SVGViewElement()
+      : _ = document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'view',
+        );
+
   external SVGAnimatedRect get viewBox;
   external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
 }

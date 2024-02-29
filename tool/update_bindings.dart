@@ -159,27 +159,27 @@ Future<void> _runProc(
   }
 }
 
-bool _isInJsTypesOrJsInterop(InterfaceElement element) =>
-    element.library.isInSdk &&
-    (element.library.name == '_js_types' ||
-        element is ExtensionTypeElement &&
-            element.library.name == 'dart.js_interop');
-
+// Generates a map of the JS type hierarchy defined in `dart:js_interop` that is
+// used by the translator to handle IDL types.
 Future<void> _generateJsTypeSupertypes() async {
   // Use a file that uses `dart:js_interop` for analysis.
   final contextCollection = AnalysisContextCollection(includedPaths: [
     p.fromUri(Platform.script.resolve('../lib/src/dom.dart'))
   ]);
-  final dartJsInterop = await contextCollection.contexts.single.currentSession
-      .getLibraryByUri('dart:js_interop') as LibraryElementResult;
-  final definedNames = dartJsInterop.element.exportNamespace.definedNames;
+  final dartJsInterop = (await contextCollection.contexts.single.currentSession
+          .getLibraryByUri('dart:js_interop') as LibraryElementResult)
+      .element;
+  final definedNames = dartJsInterop.exportNamespace.definedNames;
   // `SplayTreeMap` to avoid moving types around in `dart:js_interop` affecting
   // the code generation.
   final jsTypeSupertypes = SplayTreeMap<String, String?>();
   for (final name in definedNames.keys) {
     final element = definedNames[name];
     if (element is ExtensionTypeElement) {
-      if (!_isInJsTypesOrJsInterop(element)) return;
+      // Only extension types defined in `dart:js_interop` are JS types.
+      bool isJSType(InterfaceElement element) =>
+          element is ExtensionTypeElement && element.library == dartJsInterop;
+      if (!isJSType(element)) continue;
 
       String? parentJsType;
       final supertype = element.supertype;
@@ -190,7 +190,7 @@ Future<void> _generateJsTypeSupertypes() async {
       // We should have at most one non-trivial supertype.
       assert(immediateSupertypes.length <= 1);
       for (final supertype in immediateSupertypes) {
-        if (_isInJsTypesOrJsInterop(supertype.element)) {
+        if (isJSType(supertype.element)) {
           parentJsType = "'${supertype.element.name}'";
         }
       }

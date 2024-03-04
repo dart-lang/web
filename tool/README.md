@@ -1,11 +1,11 @@
 ## Updating the package
 
-This Dart code in this package is generated from Web IDL definitions and MDN API
+The Dart code in this package is generated from Web IDL definitions and MDN API
 documentation.
 
 ### Regenerating the package
 
-To regenerate the Dart code from the current IDL versions, run:
+To regenerate the package from the current IDL versions, run:
 
 ```shell
 dart tool/update_bindings.dart
@@ -13,18 +13,17 @@ dart tool/update_bindings.dart
 
 ### Updating the dartdoc info from MDN
 
-The dartdoc comments come from the
+package:web's dartdoc comments come from the
 [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web) project. In order
-to update to the latest version of this documentation, run:
+to update to the latest version of the documentation, run:
 
 ```shell
 dart tool/scrape_mdn.dart
 ```
 
-That will collect the MDN documentation into `third_party/mdn/mdn.json`. Running
-the above command will update the mdn.json file; those changes should be
-committed to git. You'll need to run `tool/update_bindings.dart` to produce Dart
-code using the updated documentation.
+That will collect the MDN documentation into `third_party/mdn/mdn.json`; changes
+to that file should be committed to git. You'll need to run
+`tool/update_bindings.dart` to produce Dart code using the updated documentation.
 
 ### Updating to use the latest Web IDL versions
 

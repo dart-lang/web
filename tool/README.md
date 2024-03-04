@@ -1,7 +1,7 @@
 ## Updating the package
 
 This Dart code in this package is generated from Web IDL definitions and MDN API
-documentation. In order to re-generate the package, run:
+documentation.
 
 ### Regenerating the package
 

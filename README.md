@@ -67,8 +67,9 @@ definitions:
   the number of breaking changes. This is currently WIP and some members may be
   added or removed.
 
-## Generation
+## Generation and updating the package
 
-Most of the APIs in this package are generated from public assets. See the
-[tool directory](https://github.com/dart-lang/web/tree/main/tool) in the source
-repository to learn more.
+Most of the APIs in this package are generated from public assets. See
+[tool/README.md](https://github.com/dart-lang/web/tree/main/tool) for
+information on the spec and IDL versions the package was generated from, and for
+the process for updating the package.

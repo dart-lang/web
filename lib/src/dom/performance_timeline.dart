@@ -44,6 +44,10 @@ typedef PerformanceObserverCallback = JSFunction;
 /// - [PerformanceServerTiming]
 /// - [TaskAttributionTiming]
 /// - [VisibilityStateEntry]
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type PerformanceEntry._(JSObject _) implements JSObject {
   /// The **`toJSON()`** method is a ; it returns a JSON representation of the
   /// [PerformanceEntry] object.
@@ -59,6 +63,10 @@ extension type PerformanceEntry._(JSObject _) implements JSObject {
 /// The **`PerformanceObserver`** interface is used to observe performance
 /// measurement events and be notified of new [PerformanceEntry] as they are
 /// recorded in the browser's _performance timeline_.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type PerformanceObserver._(JSObject _) implements JSObject {
   external factory PerformanceObserver(PerformanceObserverCallback callback);
 
@@ -111,6 +119,10 @@ extension type PerformanceObserverInit._(JSObject _) implements JSObject {
 /// The **`PerformanceObserverEntryList`** interface is a list of
 /// [PerformanceEntry] that were explicitly observed via the
 /// [PerformanceObserver.observe] method.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type PerformanceObserverEntryList._(JSObject _) implements JSObject {
   /// The **`getEntries()`** method of the [PerformanceObserverEntryList]
   /// interface returns a list of explicitly observed [PerformanceEntry]

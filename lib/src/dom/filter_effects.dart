@@ -18,6 +18,10 @@ import 'svg.dart';
 
 /// The **`SVGFilterElement`** interface provides access to the properties of
 /// elements, as well as methods to manipulate them.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFilterElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGFilterElement] using the tag 'filter'.
   SVGFilterElement()
@@ -36,6 +40,10 @@ extension type SVGFilterElement._(JSObject _) implements SVGElement, JSObject {
 }
 
 /// The **`SVGFEBlendElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFEBlendElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGFEBlendElement] using the tag 'feBlend'.
   SVGFEBlendElement()
@@ -72,6 +80,10 @@ extension type SVGFEBlendElement._(JSObject _) implements SVGElement, JSObject {
 }
 
 /// The **`SVGFEColorMatrixElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFEColorMatrixElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEColorMatrixElement] using the tag 'feColorMatrix'.
@@ -98,6 +110,10 @@ extension type SVGFEColorMatrixElement._(JSObject _)
 
 /// The **`SVGFEComponentTransferElement`** interface corresponds to the
 /// element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFEComponentTransferElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEComponentTransferElement] using the tag
@@ -118,6 +134,10 @@ extension type SVGFEComponentTransferElement._(JSObject _)
 
 /// The **`SVGComponentTransferFunctionElement`** interface defines a base
 /// interface used by the component transfer function interfaces.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGComponentTransferFunctionElement._(JSObject _)
     implements SVGElement, JSObject {
   external static int get SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN;
@@ -136,6 +156,10 @@ extension type SVGComponentTransferFunctionElement._(JSObject _)
 }
 
 /// The **`SVGFEFuncRElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFEFuncRElement._(JSObject _)
     implements SVGComponentTransferFunctionElement, JSObject {
   /// Creates an [SVGFEFuncRElement] using the tag 'feFuncR'.
@@ -147,6 +171,10 @@ extension type SVGFEFuncRElement._(JSObject _)
 }
 
 /// The **`SVGFEFuncGElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFEFuncGElement._(JSObject _)
     implements SVGComponentTransferFunctionElement, JSObject {
   /// Creates an [SVGFEFuncGElement] using the tag 'feFuncG'.
@@ -158,6 +186,10 @@ extension type SVGFEFuncGElement._(JSObject _)
 }
 
 /// The **`SVGFEFuncBElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFEFuncBElement._(JSObject _)
     implements SVGComponentTransferFunctionElement, JSObject {
   /// Creates an [SVGFEFuncBElement] using the tag 'feFuncB'.
@@ -169,6 +201,10 @@ extension type SVGFEFuncBElement._(JSObject _)
 }
 
 /// The **`SVGFEFuncAElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFEFuncAElement._(JSObject _)
     implements SVGComponentTransferFunctionElement, JSObject {
   /// Creates an [SVGFEFuncAElement] using the tag 'feFuncA'.
@@ -180,6 +216,10 @@ extension type SVGFEFuncAElement._(JSObject _)
 }
 
 /// The **`SVGFECompositeElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFECompositeElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFECompositeElement] using the tag 'feComposite'.
@@ -211,6 +251,10 @@ extension type SVGFECompositeElement._(JSObject _)
 }
 
 /// The **`SVGFEConvolveMatrixElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFEConvolveMatrixElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEConvolveMatrixElement] using the tag 'feConvolveMatrix'.
@@ -244,6 +288,10 @@ extension type SVGFEConvolveMatrixElement._(JSObject _)
 }
 
 /// The **`SVGFEDiffuseLightingElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFEDiffuseLightingElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEDiffuseLightingElement] using the tag
@@ -267,6 +315,10 @@ extension type SVGFEDiffuseLightingElement._(JSObject _)
 }
 
 /// The **`SVGFEDistantLightElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFEDistantLightElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEDistantLightElement] using the tag 'feDistantLight'.
@@ -281,6 +333,10 @@ extension type SVGFEDistantLightElement._(JSObject _)
 }
 
 /// The **`SVGFEPointLightElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFEPointLightElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEPointLightElement] using the tag 'fePointLight'.
@@ -296,6 +352,10 @@ extension type SVGFEPointLightElement._(JSObject _)
 }
 
 /// The **`SVGFESpotLightElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFESpotLightElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFESpotLightElement] using the tag 'feSpotLight'.
@@ -316,6 +376,10 @@ extension type SVGFESpotLightElement._(JSObject _)
 }
 
 /// The **`SVGFEDisplacementMapElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFEDisplacementMapElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEDisplacementMapElement] using the tag
@@ -344,6 +408,10 @@ extension type SVGFEDisplacementMapElement._(JSObject _)
 }
 
 /// The **`SVGFEDropShadowElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFEDropShadowElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEDropShadowElement] using the tag 'feDropShadow'.
@@ -370,6 +438,10 @@ extension type SVGFEDropShadowElement._(JSObject _)
 }
 
 /// The **`SVGFEFloodElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFEFloodElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGFEFloodElement] using the tag 'feFlood'.
   SVGFEFloodElement()
@@ -386,6 +458,10 @@ extension type SVGFEFloodElement._(JSObject _) implements SVGElement, JSObject {
 }
 
 /// The **`SVGFEGaussianBlurElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFEGaussianBlurElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEGaussianBlurElement] using the tag 'feGaussianBlur'.
@@ -415,6 +491,10 @@ extension type SVGFEGaussianBlurElement._(JSObject _)
 }
 
 /// The **`SVGFEImageElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFEImageElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGFEImageElement] using the tag 'feImage'.
   SVGFEImageElement()
@@ -434,6 +514,10 @@ extension type SVGFEImageElement._(JSObject _) implements SVGElement, JSObject {
 }
 
 /// The **`SVGFEMergeElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFEMergeElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGFEMergeElement] using the tag 'feMerge'.
   SVGFEMergeElement()
@@ -450,6 +534,10 @@ extension type SVGFEMergeElement._(JSObject _) implements SVGElement, JSObject {
 }
 
 /// The **`SVGFEMergeNodeElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFEMergeNodeElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEMergeNodeElement] using the tag 'feMergeNode'.
@@ -463,6 +551,10 @@ extension type SVGFEMergeNodeElement._(JSObject _)
 }
 
 /// The **`SVGFEMorphologyElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFEMorphologyElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEMorphologyElement] using the tag 'feMorphology'.
@@ -487,6 +579,10 @@ extension type SVGFEMorphologyElement._(JSObject _)
 }
 
 /// The **`SVGFEOffsetElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFEOffsetElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFEOffsetElement] using the tag 'feOffset'.
@@ -508,6 +604,10 @@ extension type SVGFEOffsetElement._(JSObject _)
 
 /// The **`SVGFESpecularLightingElement`** interface corresponds to the
 /// element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFESpecularLightingElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFESpecularLightingElement] using the tag
@@ -532,6 +632,10 @@ extension type SVGFESpecularLightingElement._(JSObject _)
 }
 
 /// The **`SVGFETileElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFETileElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGFETileElement] using the tag 'feTile'.
   SVGFETileElement()
@@ -549,6 +653,10 @@ extension type SVGFETileElement._(JSObject _) implements SVGElement, JSObject {
 }
 
 /// The **`SVGFETurbulenceElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGFETurbulenceElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGFETurbulenceElement] using the tag 'feTurbulence'.

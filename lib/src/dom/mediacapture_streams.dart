@@ -38,6 +38,10 @@ typedef MediaDeviceKind = String;
 /// calling functions such as [MediaDevices.getUserMedia],
 /// [MediaDevices.getDisplayMedia], or [HTMLCanvasElement.captureStream] and
 /// [HTMLMediaElement.captureStream].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type MediaStream._(JSObject _) implements EventTarget, JSObject {
   external factory MediaStream([JSObject streamOrTracks]);
 
@@ -103,6 +107,10 @@ extension type MediaStream._(JSObject _) implements EventTarget, JSObject {
 ///
 /// Some user agents subclass this interface to provide more precise information
 /// or functionality, such as [CanvasCaptureMediaStreamTrack].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type MediaStreamTrack._(JSObject _) implements EventTarget, JSObject {
   /// The **`clone()`** method of the [MediaStreamTrack]
   /// interface creates a duplicate of the `MediaStreamTrack`. This new
@@ -215,6 +223,10 @@ extension type MediaStreamTrack._(JSObject _) implements EventTarget, JSObject {
 /// To learn more about how constraints work, see [Capabilities, constraints,
 /// and
 /// settings](/en-US/docs/Web/API/Media_Capture_and_Streams_API/Constraints).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type MediaTrackSupportedConstraints._(JSObject _)
     implements JSObject {
   external factory MediaTrackSupportedConstraints({
@@ -324,6 +336,10 @@ extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
 /// preferred values or ranges of values for the track, and the most
 /// recently-requested set of custom constraints can be retrieved by calling
 /// [MediaStreamTrack.getConstraints].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type MediaTrackConstraints._(JSObject _)
     implements MediaTrackConstraintSet, JSObject {
   external factory MediaTrackConstraints(
@@ -394,6 +410,10 @@ extension type MediaTrackConstraintSet._(JSObject _) implements JSObject {
 /// To learn more about how constraints and settings work, see [Capabilities,
 /// constraints, and
 /// settings](/en-US/docs/Web/API/Media_Capture_and_Streams_API/Constraints).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type MediaTrackSettings._(JSObject _) implements JSObject {
   external factory MediaTrackSettings({
     int width,
@@ -454,6 +474,10 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
 ///
 /// The events based on this interface are [MediaStream/addtrack_event] and
 /// [MediaStream/removetrack_event].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type MediaStreamTrackEvent._(JSObject _) implements Event, JSObject {
   external factory MediaStreamTrackEvent(
     String type,
@@ -476,6 +500,10 @@ extension type MediaStreamTrackEventInit._(JSObject _)
 /// [MediaStreamTrack] cannot currently be met. When this event is thrown on a
 /// MediaStreamTrack, it is muted until either the current constraints can be
 /// established or until satisfiable constraints are applied.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type OverconstrainedError._(JSObject _)
     implements DOMException, JSObject {
   external factory OverconstrainedError(
@@ -490,6 +518,10 @@ extension type OverconstrainedError._(JSObject _)
 /// provides access to connected media input devices like cameras and
 /// microphones, as well as screen sharing. In essence, it lets you obtain
 /// access to any hardware source of media data.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {
   /// The **`enumerateDevices()`** method of the [MediaDevices] interface
   /// requests a list of the currently available media input and output devices,
@@ -544,6 +576,10 @@ extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {
 ///
 /// The list of devices obtained by calling [MediaDevices.enumerateDevices] is
 /// an array of `MediaDeviceInfo` objects, one per media device.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type MediaDeviceInfo._(JSObject _) implements JSObject {
   /// The **`toJSON()`** method of the [MediaDeviceInfo] interface is a ; it
   /// returns a JSON representation of the [MediaDeviceInfo] object.
@@ -559,6 +595,10 @@ extension type MediaDeviceInfo._(JSObject _) implements JSObject {
 ///
 /// `InputDeviceInfo` objects are returned by [MediaDevices.enumerateDevices] if
 /// the returned device is an audio or video input device.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type InputDeviceInfo._(JSObject _)
     implements MediaDeviceInfo, JSObject {
   /// The **`getCapabilities()`** method of the [InputDeviceInfo] interface

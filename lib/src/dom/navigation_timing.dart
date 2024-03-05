@@ -32,6 +32,10 @@ typedef NavigationTimingType = String;
 /// `PerformanceNavigationTiming`.
 ///
 /// ![Timestamp diagram listing timestamps in the order in which they are recorded for the fetching of a document](timestamp-diagram.svg)
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type PerformanceNavigationTiming._(JSObject _)
     implements PerformanceResourceTiming, JSObject {
   /// The **`toJSON()`** method of the [PerformanceNavigationTiming] interface
@@ -60,6 +64,10 @@ extension type PerformanceNavigationTiming._(JSObject _)
 /// timing information for various events which occur during the loading and use
 /// of the current page. You get a `PerformanceTiming` object describing your
 /// page using the [Performance.timing] property.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// > **Warning:** This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
@@ -101,6 +109,10 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
 ///
 /// An object of this type can be obtained by calling the
 /// [Performance.navigation] read-only attribute.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type PerformanceNavigation._(JSObject _) implements JSObject {
   external static int get TYPE_NAVIGATE;
   external static int get TYPE_RELOAD;

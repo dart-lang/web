@@ -25,6 +25,10 @@ typedef AppendMode = String;
 /// represents a source of media data for an [HTMLMediaElement] object. A
 /// `MediaSource` object can be attached to a [HTMLMediaElement] to be played in
 /// the user agent.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type MediaSource._(JSObject _) implements EventTarget, JSObject {
   external factory MediaSource();
 
@@ -89,11 +93,19 @@ extension type MediaSource._(JSObject _) implements EventTarget, JSObject {
 /// the main thread using [DedicatedWorkerGlobalScope.postMessage], the handle
 /// instance in the worker is technically detached and can't be transferred
 /// again.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type MediaSourceHandle._(JSObject _) implements JSObject {}
 
 /// The **`SourceBuffer`** interface represents a chunk of media to be passed
 /// into an [HTMLMediaElement] and played, via a [MediaSource] object. This can
 /// be made up of one or several media segments.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SourceBuffer._(JSObject _) implements EventTarget, JSObject {
   /// The **`appendBuffer()`** method of the
   /// [SourceBuffer] interface appends media segment data from an
@@ -164,6 +176,10 @@ extension type SourceBuffer._(JSObject _) implements EventTarget, JSObject {
 /// The individual source buffers can be accessed using the
 /// [bracket notation](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_accessors#bracket_notation)
 /// `[]`.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SourceBufferList._(JSObject _) implements EventTarget, JSObject {
   external int get length;
   external set onaddsourcebuffer(EventHandler value);

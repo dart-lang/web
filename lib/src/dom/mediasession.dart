@@ -26,6 +26,10 @@ typedef MediaSessionAction = String;
 /// that provides controls for media playback and information display. A browser
 /// on the device can use `MediaSession` to make browser playback controllable
 /// from that standard/global user interface.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type MediaSession._(JSObject _) implements JSObject {
   /// The **`setActionHandler()`** method of the [MediaSession] interface sets a
   /// handler for a media session action.
@@ -79,6 +83,10 @@ extension type MediaSession._(JSObject _) implements JSObject {
 
 /// The **`MediaMetadata`** interface of the [Media Session API] allows a web
 /// page to provide rich media metadata for display in a platform UI.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type MediaMetadata._(JSObject _) implements JSObject {
   external factory MediaMetadata([MediaMetadataInit init]);
 

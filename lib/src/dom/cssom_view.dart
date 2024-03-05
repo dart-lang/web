@@ -55,6 +55,10 @@ extension type ScrollToOptions._(JSObject _)
 /// observe a document to detect when its media queries change, instead of
 /// polling the values periodically, and allows you to programmatically make
 /// changes to a document based on media query status.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type MediaQueryList._(JSObject _) implements EventTarget, JSObject {
   /// The deprecated **`addListener()`** method of the
   /// [MediaQueryList] interface adds a listener to the
@@ -87,6 +91,10 @@ extension type MediaQueryList._(JSObject _) implements EventTarget, JSObject {
 /// The `MediaQueryListEvent` object stores information on the changes that have
 /// happened to a [MediaQueryList] object — instances are available as the event
 /// object on a function referenced by a [MediaQueryList.change_event] event.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type MediaQueryListEvent._(JSObject _) implements Event, JSObject {
   external factory MediaQueryListEvent(
     String type, [
@@ -114,6 +122,10 @@ extension type MediaQueryListEventInit._(JSObject _)
 ///
 /// Note that browsers determine which screen to report as current by detecting
 /// which screen has the center of the browser window.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type Screen._(JSObject _) implements JSObject {
   external int get availWidth;
   external int get availHeight;
@@ -127,6 +139,10 @@ extension type Screen._(JSObject _) implements JSObject {
 /// The `CaretPosition` interface represents the caret position, an indicator
 /// for the text insertion point. You can get a `CaretPosition` using the
 /// [Document.caretPositionFromPoint] method.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type CaretPosition._(JSObject _) implements JSObject {
   external DOMRect? getClientRect();
   external Node get offsetNode;
@@ -200,6 +216,10 @@ extension type ConvertCoordinateOptions._(JSObject _) implements JSObject {
 /// > `VisualViewport` object of the top-level window that's useful. For an
 /// > `iframe`, visual viewport metrics like [VisualViewport.width] always
 /// > correspond to layout viewport metrics like [Element.clientWidth].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type VisualViewport._(JSObject _) implements EventTarget, JSObject {
   external num get offsetLeft;
   external num get offsetTop;

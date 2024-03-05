@@ -19,6 +19,10 @@ typedef CompressionFormat = String;
 
 /// The **`CompressionStream`** interface of the [Compression Streams API] is an
 /// API for compressing a stream of data.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type CompressionStream._(JSObject _) implements JSObject {
   external factory CompressionStream(CompressionFormat format);
 
@@ -28,6 +32,10 @@ extension type CompressionStream._(JSObject _) implements JSObject {
 
 /// The **`DecompressionStream`** interface of the [Compression Streams API] is
 /// an API for decompressing a stream of data.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type DecompressionStream._(JSObject _) implements JSObject {
   external factory DecompressionStream(CompressionFormat format);
 

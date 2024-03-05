@@ -18,6 +18,10 @@ import 'cssom.dart';
 /// The **`CSSLayerBlockRule`** represents a  block rule. It is a grouping
 /// at-rule meaning that it can contain other rules, and is associated to a
 /// given cascade layer, identified by its _name_.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type CSSLayerBlockRule._(JSObject _)
     implements CSSGroupingRule, JSObject {
   external String get name;
@@ -33,6 +37,10 @@ extension type CSSLayerBlockRule._(JSObject _)
 /// statement allows the reader to understand the layer order. It also allows
 /// inline and imported layers to be interleaved, which is not possible when
 /// using the `CSSLayerBlockRule` syntax.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type CSSLayerStatementRule._(JSObject _)
     implements CSSRule, JSObject {
   external JSArray<JSString> get nameList;

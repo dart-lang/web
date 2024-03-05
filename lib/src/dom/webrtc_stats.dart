@@ -37,6 +37,10 @@ typedef RTCStatsIceCandidatePairState = String;
 /// > specification update in the spring of 2017.
 /// > Check the [Browser compatibility](#browser_compatibility) table to know if
 /// > and when the name change was implemented in specific browsers.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type RTCRtpStreamStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCRtpStreamStats({
     required int ssrc,
@@ -101,6 +105,10 @@ extension type RTCReceivedRtpStreamStats._(JSObject _)
 /// The statistics can be obtained by iterating the [RTCStatsReport] returned by
 /// [RTCPeerConnection.getStats] or [RTCRtpReceiver.getStats] until you find a
 /// report with the [`type`](#type) of `inbound-rtp`.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type RTCInboundRtpStreamStats._(JSObject _)
     implements RTCReceivedRtpStreamStats, JSObject {
   external factory RTCInboundRtpStreamStats({
@@ -308,6 +316,10 @@ extension type RTCSentRtpStreamStats._(JSObject _)
 /// The statistics can be obtained by iterating the [RTCStatsReport] returned by
 /// [RTCPeerConnection.getStats] or [RTCRtpSender.getStats] until you find a
 /// report with the [`type`](#type) of `outbound-rtp`.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type RTCOutboundRtpStreamStats._(JSObject _)
     implements RTCSentRtpStreamStats, JSObject {
   external factory RTCOutboundRtpStreamStats({
@@ -414,6 +426,10 @@ extension type RTCOutboundRtpStreamStats._(JSObject _)
 /// The statistics can be obtained by iterating the [RTCStatsReport] returned by
 /// [RTCPeerConnection.getStats] until you find a report with the
 /// [`type`](#type) of `remote-outbound-rtp`.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type RTCRemoteOutboundRtpStreamStats._(JSObject _)
     implements RTCSentRtpStreamStats, JSObject {
   external factory RTCRemoteOutboundRtpStreamStats({
@@ -462,6 +478,10 @@ extension type RTCMediaSourceStats._(JSObject _) implements RTCStats, JSObject {
 ///
 /// > **Note:** For audio information about remotely sourced tracks (that are
 /// > being received), see [RTCInboundRtpStreamStats].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type RTCAudioSourceStats._(JSObject _)
     implements RTCMediaSourceStats, JSObject {
   external factory RTCAudioSourceStats({
@@ -538,6 +558,10 @@ extension type RTCAudioPlayoutStats._(JSObject _)
 /// These statistics can be obtained by iterating the [RTCStatsReport] returned
 /// by [RTCPeerConnection.getStats] until you find a report with the
 /// [`type`](#type) of `peer-connection`.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type RTCPeerConnectionStats._(JSObject _)
     implements RTCStats, JSObject {
   external factory RTCPeerConnectionStats({
@@ -600,6 +624,10 @@ extension type RTCDataChannelStats._(JSObject _) implements RTCStats, JSObject {
 /// These statistics can be obtained by iterating the [RTCStatsReport] returned
 /// by [RTCPeerConnection.getStats] until you find a report with the
 /// [`type`](#type) of `transport`.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type RTCTransportStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCTransportStats({
     int packetsSent,
@@ -661,6 +689,10 @@ extension type RTCTransportStats._(JSObject _) implements RTCStats, JSObject {
 /// The statistics can be obtained by iterating the [RTCStatsReport] returned by
 /// [RTCPeerConnection.getStats] until you find a report with the
 /// [`type`](#type) of `local-candidate`.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type RTCIceCandidateStats._(JSObject _)
     implements RTCStats, JSObject {
   external factory RTCIceCandidateStats({
@@ -716,6 +748,10 @@ extension type RTCIceCandidateStats._(JSObject _)
 /// The statistics can be obtained by iterating the [RTCStatsReport] returned by
 /// [RTCPeerConnection.getStats] until you find an entry with the
 /// [`type`](#type) of `"candidate-pair"`.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type RTCIceCandidatePairStats._(JSObject _)
     implements RTCStats, JSObject {
   external factory RTCIceCandidatePairStats({
@@ -797,6 +833,10 @@ extension type RTCIceCandidatePairStats._(JSObject _)
 /// The report can be obtained by iterating the [RTCStatsReport] returned by
 /// [RTCPeerConnection.getStats] until you find an entry with the
 /// [`type`](#type) of `certificate`.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type RTCCertificateStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCCertificateStats({
     required String fingerprint,

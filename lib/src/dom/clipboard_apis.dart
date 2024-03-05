@@ -33,6 +33,10 @@ extension type ClipboardEventInit._(JSObject _) implements EventInit, JSObject {
 /// represents events providing information related to modification of the
 /// clipboard, that is [Element/cut_event], [Element/copy_event], and
 /// [Element/paste_event] events.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type ClipboardEvent._(JSObject _) implements Event, JSObject {
   external factory ClipboardEvent(
     String type, [
@@ -53,6 +57,10 @@ extension type ClipboardEvent._(JSObject _) implements Event, JSObject {
 ///
 /// > **Note:** To work with text see the [Clipboard.readText] and
 /// > [Clipboard.writeText] methods of the [Clipboard] interface.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type ClipboardItem._(JSObject _) implements JSObject {
   external factory ClipboardItem(
     JSObject items, [
@@ -92,6 +100,10 @@ extension type ClipboardItemOptions._(JSObject _) implements JSObject {
 /// Additional requirements for using the API are discussed in the
 /// [Security consideration](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API#security_considerations)
 /// section of the API overview topic.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type Clipboard._(JSObject _) implements EventTarget, JSObject {
   /// The **`read()`** method of the [Clipboard] interface requests a copy of
   /// the clipboard's contents, fulfilling the returned `Promise` with the data.

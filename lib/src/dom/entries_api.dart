@@ -24,6 +24,10 @@ typedef FileCallback = JSFunction;
 /// interface). It includes methods for working with files—including copying,
 /// moving, removing, and reading files—as well as information about a file it
 /// points to—including the file name and its path from the root to the entry.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type FileSystemEntry._(JSObject _) implements JSObject {
   /// The [FileSystemEntry] interface's method
   /// **`getParent()`** obtains a
@@ -44,6 +48,10 @@ extension type FileSystemEntry._(JSObject _) implements JSObject {
 /// represents a directory in a file system. It provides methods which make it
 /// possible to access and manipulate the files in a directory, as well as to
 /// access the entries within the directory.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type FileSystemDirectoryEntry._(JSObject _)
     implements FileSystemEntry, JSObject {
   /// The [FileSystemDirectoryEntry] interface's method
@@ -93,6 +101,10 @@ extension type FileSystemFlags._(JSObject _) implements JSObject {
 /// lets you access the [FileSystemFileEntry]-based objects (generally
 /// [FileSystemFileEntry] or [FileSystemDirectoryEntry]) representing each entry
 /// in a directory.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type FileSystemDirectoryReader._(JSObject _) implements JSObject {
   /// The [FileSystemDirectoryReader] interface's **`readEntries()`** method
   /// retrieves the directory entries
@@ -114,6 +126,10 @@ extension type FileSystemDirectoryReader._(JSObject _) implements JSObject {
 /// represents a file in a file system. It offers properties describing the
 /// file's attributes, as well as the [FileSystemFileEntry.file] method, which
 /// creates a [File] object that can be used to read the file.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type FileSystemFileEntry._(JSObject _)
     implements FileSystemEntry, JSObject {
   /// The [FileSystemFileEntry] interface's method
@@ -138,6 +154,10 @@ extension type FileSystemFileEntry._(JSObject _)
 /// example by installing a Chrome extension. The relevant Chrome API can be
 /// found
 /// [here](https://developer.chrome.com/docs/extensions/reference/fileSystem/).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type FileSystem._(JSObject _) implements JSObject {
   external String get name;
   external FileSystemDirectoryEntry get root;

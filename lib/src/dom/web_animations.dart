@@ -34,6 +34,10 @@ typedef CompositeOperationOrAuto = String;
 /// - [DocumentTimeline]
 /// - [ScrollTimeline]
 /// - [ViewTimeline]
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type AnimationTimeline._(JSObject _) implements JSObject {
   external Animation play([AnimationEffect? effect]);
   external CSSNumberish? get currentTime;
@@ -50,6 +54,10 @@ extension type DocumentTimelineOptions._(JSObject _) implements JSObject {
 /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
 /// represents animation timelines, including the default document timeline
 /// (accessed via [Document.timeline]).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type DocumentTimeline._(JSObject _)
     implements AnimationTimeline, JSObject {
   external factory DocumentTimeline([DocumentTimelineOptions options]);
@@ -59,6 +67,10 @@ extension type DocumentTimeline._(JSObject _)
 /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
 /// represents a single animation player and provides playback controls and a
 /// timeline for an animation node or source.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type Animation._(JSObject _) implements EventTarget, JSObject {
   external factory Animation([
     AnimationEffect? effect,
@@ -193,6 +205,10 @@ extension type Animation._(JSObject _) implements EventTarget, JSObject {
 /// [CSS Animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animations)
 /// and
 /// [Transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transitions).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type AnimationEffect._(JSObject _) implements JSObject {
   external void before(AnimationEffect effects);
   external void after(AnimationEffect effects);
@@ -321,6 +337,10 @@ extension type ComputedEffectTiming._(JSObject _)
 /// lets us create sets of animatable properties and values, called
 /// **keyframes.** These can then be played using the [Animation.Animation]
 /// constructor.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type KeyframeEffect._(JSObject _)
     implements AnimationEffect, JSObject {
   external factory KeyframeEffect(

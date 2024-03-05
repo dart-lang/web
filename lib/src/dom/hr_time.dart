@@ -31,6 +31,10 @@ typedef EpochTimeStamp = int;
 /// cannot see it in a worker thread, and vice versa. See
 /// [`self.performance`](/en-US/docs/Web/API/performance_property) for which
 /// APIs are available in window and worker contexts.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type Performance._(JSObject _) implements EventTarget, JSObject {
   /// The **`performance.now()`** method returns a high resolution timestamp in
   /// milliseconds. It represents the time elapsed since

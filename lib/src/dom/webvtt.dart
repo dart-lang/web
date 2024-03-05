@@ -27,6 +27,10 @@ typedef ScrollSetting = String;
 /// The `VTTCue` interface—part of the API for handling WebVTT (text tracks on
 /// media presentations)—describes and controls the text track associated with a
 /// particular `track` element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type VTTCue._(JSObject _) implements TextTrackCue, JSObject {
   external factory VTTCue(
     num startTime,
@@ -62,6 +66,10 @@ extension type VTTCue._(JSObject _) implements TextTrackCue, JSObject {
 /// The `VTTRegion` interface—part of the API for handling WebVTT (text tracks
 /// on media presentations)—describes a portion of the video to render a
 /// [VTTCue] onto.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type VTTRegion._(JSObject _) implements JSObject {
   external factory VTTRegion();
 

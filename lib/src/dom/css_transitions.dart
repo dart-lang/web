@@ -18,6 +18,10 @@ import 'dom.dart';
 /// The **`TransitionEvent`** interface represents events providing information
 /// related to
 /// [transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transitions/Using_CSS_transitions).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type TransitionEvent._(JSObject _) implements Event, JSObject {
   external factory TransitionEvent(
     String type, [

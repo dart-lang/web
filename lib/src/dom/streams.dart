@@ -42,6 +42,10 @@ typedef ReadableStreamType = String;
 ///
 /// `ReadableStream` is a
 /// [transferable object](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type ReadableStream._(JSObject _) implements JSObject {
   external factory ReadableStream([
     JSObject underlyingSource,
@@ -221,6 +225,10 @@ extension type UnderlyingSource._(JSObject _) implements JSObject {
 /// [`autoAllocateChunkSize`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream/ReadableStream#autoallocatechunksize).
 /// For any other underlying source, the stream will always satisfy read
 /// requests with data from internal queues.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type ReadableStreamDefaultReader._(JSObject _) implements JSObject {
   external factory ReadableStreamDefaultReader(ReadableStream stream);
 
@@ -303,6 +311,10 @@ extension type ReadableStreamReadResult._(JSObject _) implements JSObject {
 /// reader ([ReadableStreamDefaultReader]).
 /// The `read()` method differs in that it provide a view into which data should
 /// be written.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type ReadableStreamBYOBReader._(JSObject _) implements JSObject {
   external factory ReadableStreamBYOBReader(ReadableStream stream);
 
@@ -379,6 +391,10 @@ extension type ReadableStreamBYOBReaderReadOptions._(JSObject _)
 /// represents a controller allowing control of a [ReadableStream]'s state and
 /// internal queue. Default controllers are for streams that are not byte
 /// streams.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type ReadableStreamDefaultController._(JSObject _)
     implements JSObject {
   /// The **`close()`** method of the
@@ -465,6 +481,10 @@ extension type ReadableStreamDefaultController._(JSObject _)
 /// Note that even though the controller is primarily used by the underlying
 /// byte source, there is no reason it cannot be stored used by other parts of
 /// the system to signal the stream.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type ReadableByteStreamController._(JSObject _) implements JSObject {
   /// The **`close()`** method of the [ReadableByteStreamController] interface
   /// closes the associated stream.
@@ -546,6 +566,10 @@ extension type ReadableByteStreamController._(JSObject _) implements JSObject {
 /// constructor](/en-US/docs/Web/API/ReadableStream/ReadableStream#autoallocatechunksize)
 /// or when using a [ReadableStreamBYOBReader] (typically constructed by calling
 /// [ReadableStream.getReader] with the argument `{ mode: 'byob' }`).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type ReadableStreamBYOBRequest._(JSObject _) implements JSObject {
   /// The **`respond()`** method of the [ReadableStreamBYOBRequest] interface is
   /// used to signal to the associated
@@ -584,6 +608,10 @@ extension type ReadableStreamBYOBRequest._(JSObject _) implements JSObject {
 ///
 /// `WritableStream` is a
 /// [transferable object](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type WritableStream._(JSObject _) implements JSObject {
   external factory WritableStream([
     JSObject underlyingSink,
@@ -639,6 +667,10 @@ extension type UnderlyingSink._(JSObject _) implements JSObject {
 /// is the object returned by [WritableStream.getWriter] and once created locks
 /// the writer to the `WritableStream` ensuring that no other streams can write
 /// to the underlying sink.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type WritableStreamDefaultWriter._(JSObject _) implements JSObject {
   external factory WritableStreamDefaultWriter(WritableStream stream);
 
@@ -695,6 +727,10 @@ extension type WritableStreamDefaultWriter._(JSObject _) implements JSObject {
 /// represents a controller allowing control of a [WritableStream]'s state. When
 /// constructing a `WritableStream`, the underlying sink is given a
 /// corresponding `WritableStreamDefaultController` instance to manipulate.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type WritableStreamDefaultController._(JSObject _)
     implements JSObject {
   /// The **`error()`** method of the
@@ -729,6 +765,10 @@ extension type WritableStreamDefaultController._(JSObject _)
 ///
 /// `TransformStream` is a
 /// [transferable object](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type TransformStream._(JSObject _) implements JSObject {
   external factory TransformStream([
     JSObject transformer,
@@ -773,6 +813,10 @@ extension type Transformer._(JSObject _) implements JSObject {
 /// constructor. The way to get an instance of
 /// `TransformStreamDefaultController` is via the callback methods of
 /// [TransformStream.TransformStream].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type TransformStreamDefaultController._(JSObject _)
     implements JSObject {
   /// The **`enqueue()`** method of the [TransformStreamDefaultController]
@@ -816,6 +860,10 @@ extension type QueuingStrategyInit._(JSObject _) implements JSObject {
 /// [Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)
 /// provides a built-in byte length queuing strategy that can be used when
 /// constructing streams.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type ByteLengthQueuingStrategy._(JSObject _) implements JSObject {
   external factory ByteLengthQueuingStrategy(QueuingStrategyInit init);
 
@@ -827,6 +875,10 @@ extension type ByteLengthQueuingStrategy._(JSObject _) implements JSObject {
 /// [Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)
 /// provides a built-in chunk counting queuing strategy that can be used when
 /// constructing streams.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type CountQueuingStrategy._(JSObject _) implements JSObject {
   external factory CountQueuingStrategy(QueuingStrategyInit init);
 

@@ -39,6 +39,10 @@ external $Console get console;
 /// > console API, such as the timer methods, may not be outputted in the
 /// > console of online IDEs or editors. Always open your browser's DevTools
 /// > console to see the logs as shown in this documentation.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 @JS('console')
 extension type $Console._(JSObject _) implements JSObject {
   @JS('assert')

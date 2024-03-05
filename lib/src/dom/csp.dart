@@ -30,6 +30,10 @@ typedef SecurityPolicyViolationEventDisposition = String;
 /// > or
 /// > [`report-to`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/report-to)
 /// > policy directive of the  header.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type CSPViolationReportBody._(JSObject _)
     implements ReportBody, JSObject {
   external JSObject toJSON();
@@ -49,6 +53,10 @@ extension type CSPViolationReportBody._(JSObject _)
 /// The **`SecurityPolicyViolationEvent`** interface inherits from [Event], and
 /// represents the event object of an event sent on a document or worker when
 /// its content security policy is violated.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SecurityPolicyViolationEvent._(JSObject _)
     implements Event, JSObject {
   external factory SecurityPolicyViolationEvent(

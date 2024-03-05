@@ -29,6 +29,10 @@ typedef CreateScriptURLCallback = JSFunction;
 ///
 /// The value of a **TrustedHTML** object is set when the object is created and
 /// cannot be changed by JavaScript as there is no setter exposed.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type TrustedHTML._(JSObject _) implements JSObject {
   external static TrustedHTML fromLiteral(JSObject templateStringsArray);
 
@@ -45,6 +49,10 @@ extension type TrustedHTML._(JSObject _) implements JSObject {
 ///
 /// The value of a **TrustedScript** object is set when the object is created
 /// and cannot be changed by JavaScript as there is no setter exposed.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type TrustedScript._(JSObject _) implements JSObject {
   external static TrustedScript fromLiteral(JSObject templateStringsArray);
 
@@ -61,6 +69,10 @@ extension type TrustedScript._(JSObject _) implements JSObject {
 ///
 /// The value of a **TrustedScriptURL** object is set when the object is created
 /// and cannot be changed by JavaScript as there is no setter exposed.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type TrustedScriptURL._(JSObject _) implements JSObject {
   external static TrustedScriptURL fromLiteral(JSObject templateStringsArray);
 
@@ -72,6 +84,10 @@ extension type TrustedScriptURL._(JSObject _) implements JSObject {
 /// The **`TrustedTypePolicyFactory`** interface of the [Trusted Types API]
 /// creates policies and allows the verification of Trusted Type objects against
 /// created policies.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type TrustedTypePolicyFactory._(JSObject _) implements JSObject {
   /// The **`createPolicy()`** method of the [TrustedTypePolicyFactory]
   /// interface creates a [TrustedTypePolicy] object that implements the rules
@@ -151,6 +167,10 @@ extension type TrustedTypePolicyFactory._(JSObject _) implements JSObject {
 /// A `TrustedTypePolicy` object is created by
 /// [TrustedTypePolicyFactory.createPolicy] to define a policy for enforcing
 /// security rules on input. Therefore, `TrustedTypePolicy` has no constructor.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type TrustedTypePolicy._(JSObject _) implements JSObject {
   /// The **`createHTML()`** method of the [TrustedTypePolicy] interface creates
   /// a [TrustedHTML] object using a policy created by

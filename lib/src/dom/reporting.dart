@@ -28,6 +28,10 @@ typedef ReportingObserverCallback = JSFunction;
 ///
 /// An instance of `ReportBody` is returned as the value of [Report.body]. The
 /// interface has no constructor.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type ReportBody._(JSObject _) implements JSObject {
   /// The **`toJSON()`** method of the [ReportBody] interface is a _serializer_,
   /// and returns a JSON representation of the `ReportBody` object.
@@ -47,6 +51,10 @@ extension type ReportBody._(JSObject _) implements JSObject {
 ///   constructor upon creation of a new observer instance. This contains the
 ///   list of reports currently contained in the observer's report queue.
 /// - By sending requests to the endpoints defined via the  HTTP header.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type Report._(JSObject _) implements JSObject {
   external JSObject toJSON();
   external String get type;
@@ -57,6 +65,10 @@ extension type Report._(JSObject _) implements JSObject {
 /// The `ReportingObserver` interface of the
 /// [Reporting API](https://developer.mozilla.org/en-US/docs/Web/API/Reporting_API)
 /// allows you to collect and access reports.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type ReportingObserver._(JSObject _) implements JSObject {
   external factory ReportingObserver(
     ReportingObserverCallback callback, [

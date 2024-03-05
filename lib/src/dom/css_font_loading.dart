@@ -64,6 +64,10 @@ extension type FontFaceDescriptors._(JSObject _) implements JSObject {
 /// `weight`, and so on.
 /// For URL font sources it allows authors to trigger when the remote font is
 /// fetched and loaded, and to track loading status.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type FontFace._(JSObject _) implements JSObject {
   external factory FontFace(
     String family,
@@ -143,6 +147,10 @@ extension type FontFaceSetLoadEventInit._(JSObject _)
 /// ([`loadingdone`](https://developer.mozilla.org/en-US/docs/Web/API/FontFaceSet/loadingdone_event))
 /// or there is an error loading one of the fonts
 /// ([`loadingerror`](https://developer.mozilla.org/en-US/docs/Web/API/FontFaceSet/loadingerror_event)).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type FontFaceSetLoadEvent._(JSObject _) implements Event, JSObject {
   external factory FontFaceSetLoadEvent(
     String type, [
@@ -162,6 +170,10 @@ extension type FontFaceSetLoadEvent._(JSObject _) implements Event, JSObject {
 ///
 /// This property is available as [Document.fonts], or `self.fonts` in
 /// [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type FontFaceSet._(JSObject _) implements EventTarget, JSObject {
   external factory FontFaceSet(JSArray<FontFace> initialFaces);
 

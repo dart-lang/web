@@ -48,6 +48,10 @@ typedef IDBTransactionMode = String;
 /// `error` property and an error event is fired ([IDBRequest.error_event]).
 ///
 /// The interface [IDBOpenDBRequest] is derived from `IDBRequest`.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type IDBRequest._(JSObject _) implements EventTarget, JSObject {
   external JSAny? get result;
   external DOMException? get error;
@@ -64,6 +68,10 @@ extension type IDBRequest._(JSObject _) implements EventTarget, JSObject {
 /// the results of requests to open or delete databases (performed using
 /// [IDBFactory.open] and [IDBFactory.deleteDatabase]), using specific event
 /// handler attributes.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type IDBOpenDBRequest._(JSObject _) implements IDBRequest, JSObject {
   external set onblocked(EventHandler value);
   external EventHandler get onblocked;
@@ -75,6 +83,10 @@ extension type IDBOpenDBRequest._(JSObject _) implements IDBRequest, JSObject {
 /// [IndexedDB API](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
 /// indicates that the version of the database has changed, as the result of an
 /// [IDBOpenDBRequest.upgradeneeded_event] event handler function.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type IDBVersionChangeEvent._(JSObject _) implements Event, JSObject {
   external factory IDBVersionChangeEvent(
     String type, [
@@ -103,6 +115,10 @@ extension type IDBVersionChangeEventInit._(JSObject _)
 /// that implements the interface is `window.indexedDB`. You open — that is,
 /// create and access — and delete a database with this object, and not directly
 /// with `IDBFactory`.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type IDBFactory._(JSObject _) implements JSObject {
   /// The **`open()`** method of the [IDBFactory] interface requests opening a
   /// [connection to a database](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Basic_Terminology#database_connection).
@@ -194,6 +210,10 @@ extension type IDBDatabaseInfo._(JSObject _) implements JSObject {
 /// > IndexedDB — including object stores, indexes, and cursors — are tied to a
 /// > particular transaction. Thus, you cannot execute commands, access data, or
 /// > open anything outside of a transaction.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type IDBDatabase._(JSObject _) implements EventTarget, JSObject {
   /// The **`transaction`** method of the [IDBDatabase] interface immediately
   /// returns a transaction object ([IDBTransaction]) containing the
@@ -281,6 +301,10 @@ extension type IDBObjectStoreParameters._(JSObject _) implements JSObject {
 /// represents an object store in a database. Records within an object store are
 /// sorted according to their keys. This sorting enables fast insertion,
 /// look-up, and ordered retrieval.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type IDBObjectStore._(JSObject _) implements JSObject {
   /// The **`put()`** method of the [IDBObjectStore] interface updates a given
   /// record in a database, or inserts a new record if the given item does not
@@ -556,6 +580,10 @@ extension type IDBIndexParameters._(JSObject _) implements JSObject {
 /// updated.
 ///
 /// You can grab a set of keys within a range. To learn more, see [IDBKeyRange].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type IDBIndex._(JSObject _) implements JSObject {
   /// The **`get()`** method of the [IDBIndex]
   /// interface returns an [IDBRequest] object, and, in a separate thread,
@@ -703,6 +731,10 @@ extension type IDBIndex._(JSObject _) implements JSObject {
 ///   - `undefined`
 ///   - Greater than key value
 ///   - Equal to key value if `upperOpen` is `false`.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type IDBKeyRange._(JSObject _) implements JSObject {
   external static IDBKeyRange only(JSAny? value);
   external static IDBKeyRange lowerBound(
@@ -749,6 +781,10 @@ extension type IDBKeyRange._(JSObject _) implements JSObject {
 /// You can have an unlimited number of cursors at the same time. You always get
 /// the same `IDBCursor` object representing a given cursor. Operations are
 /// performed on the underlying index or object store.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type IDBCursor._(JSObject _) implements JSObject {
   /// The **`advance()`** method of the [IDBCursor]
   /// interface sets the number of times a cursor should move
@@ -837,6 +873,10 @@ extension type IDBCursor._(JSObject _) implements JSObject {
 /// You can have an unlimited number of cursors at the same time. You always get
 /// the same `IDBCursorWithValue` object representing a given cursor. Operations
 /// are performed on the underlying index or object store.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type IDBCursorWithValue._(JSObject _) implements IDBCursor, JSObject {
   external JSAny? get value;
 }
@@ -864,6 +904,10 @@ extension type IDBCursorWithValue._(JSObject _) implements IDBCursor, JSObject {
 ///
 /// After the code is executed the object store should contain the value "2",
 /// since `trans2` should run after `trans1`.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type IDBTransaction._(JSObject _) implements EventTarget, JSObject {
   /// The **`objectStore()`** method of the
   /// [IDBTransaction] interface returns an object store that has already been

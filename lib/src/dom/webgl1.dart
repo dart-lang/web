@@ -76,16 +76,28 @@ extension type WebGLContextAttributes._(JSObject _) implements JSObject {
 ///
 /// If the WebGL context is lost, the internal _invalidated_ flag of all
 /// `WebGLObject` instances is set to `true`.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type WebGLObject._(JSObject _) implements JSObject {}
 
 /// The **WebGLBuffer** interface is part of the
 /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
 /// represents an opaque buffer object storing data such as vertices or colors.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type WebGLBuffer._(JSObject _) implements WebGLObject, JSObject {}
 
 /// The **WebGLFramebuffer** interface is part of the
 /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
 /// represents a collection of buffers that serve as a rendering destination.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type WebGLFramebuffer._(JSObject _)
     implements WebGLObject, JSObject {}
 
@@ -116,12 +128,20 @@ extension type WebGLFramebuffer._(JSObject _)
 ///
 /// See [WebGLShader] for information on creating the `vertexShader` and
 /// `fragmentShader` in the above example.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type WebGLProgram._(JSObject _) implements WebGLObject, JSObject {}
 
 /// The **WebGLRenderbuffer** interface is part of the
 /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
 /// represents a buffer that can contain an image, or that can be a source or
 /// target of a rendering operation.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type WebGLRenderbuffer._(JSObject _)
     implements WebGLObject, JSObject {}
 
@@ -129,17 +149,29 @@ extension type WebGLRenderbuffer._(JSObject _)
 /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
 /// can either be a vertex or a fragment shader. A [WebGLProgram] requires both
 /// types of shaders.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type WebGLShader._(JSObject _) implements WebGLObject, JSObject {}
 
 /// The **WebGLTexture** interface is part of the
 /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
 /// represents an opaque texture object providing storage and state for
 /// texturing operations.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type WebGLTexture._(JSObject _) implements WebGLObject, JSObject {}
 
 /// The **WebGLUniformLocation** interface is part of the
 /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
 /// represents the location of a uniform variable in a shader program.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type WebGLUniformLocation._(JSObject _) implements JSObject {}
 
 /// The **WebGLActiveInfo** interface is part of the
@@ -147,6 +179,10 @@ extension type WebGLUniformLocation._(JSObject _) implements JSObject {}
 /// represents the information returned by calling the
 /// [WebGLRenderingContext.getActiveAttrib] and
 /// [WebGLRenderingContext.getActiveUniform] methods.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type WebGLActiveInfo._(JSObject _) implements JSObject {
   external GLint get size;
   external GLenum get type;
@@ -157,6 +193,10 @@ extension type WebGLActiveInfo._(JSObject _) implements JSObject {
 /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
 /// represents the information returned by calling the
 /// [WebGLRenderingContext.getShaderPrecisionFormat] method.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type WebGLShaderPrecisionFormat._(JSObject _) implements JSObject {
   external GLint get rangeMin;
   external GLint get rangeMax;
@@ -184,6 +224,10 @@ extension type WebGLShaderPrecisionFormat._(JSObject _) implements JSObject {
 ///
 /// If you require a WebGL 2.0 context, see [WebGL2RenderingContext]; this
 /// supplies access to an implementation of OpenGL ES 3.0 graphics.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type WebGLRenderingContext._(JSObject _) implements JSObject {
   external static GLenum get DEPTH_BUFFER_BIT;
   external static GLenum get STENCIL_BUFFER_BIT;
@@ -1717,6 +1761,10 @@ extension type WebGLRenderingContext._(JSObject _) implements JSObject {
 /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
 /// is an interface for an event that is generated in response to a status
 /// change to the WebGL rendering context.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type WebGLContextEvent._(JSObject _) implements Event, JSObject {
   external factory WebGLContextEvent(
     String type, [

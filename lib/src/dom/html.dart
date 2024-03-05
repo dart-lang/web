@@ -111,6 +111,10 @@ typedef WorkerType = String;
 /// are many subtle behavior differences — for example, `HTMLAllCollection` can
 /// be called as a function, and its `item()` method can be called with a string
 /// representing an element's `id` or `name` attribute.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLAllCollection._(JSObject _) implements JSObject {
   /// The **`namedItem()`** method of the [HTMLAllCollection] interface returns
   /// the first [Element] in the collection whose `id` or `name` attribute
@@ -130,6 +134,10 @@ extension type HTMLAllCollection._(JSObject _) implements JSObject {
 ///
 /// This interface replaces one method from [HTMLCollection], on which it is
 /// based.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLFormControlsCollection._(JSObject _)
     implements HTMLCollection, JSObject {
   /// The **`HTMLFormControlsCollection.namedItem()`** method returns
@@ -147,6 +155,10 @@ extension type HTMLFormControlsCollection._(JSObject _)
 /// The **`RadioNodeList`** interface represents a collection of elements in a
 /// `form` or a `fieldset` element, returned by a call to
 /// [HTMLFormControlsCollection.namedItem].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type RadioNodeList._(JSObject _) implements NodeList, JSObject {
   external set value(String value);
   external String get value;
@@ -158,6 +170,10 @@ extension type RadioNodeList._(JSObject _) implements NodeList, JSObject {
 /// as optionally altering its items. This object is returned only by the
 /// `options` property of
 /// [select](https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLOptionsCollection._(JSObject _)
     implements HTMLCollection, JSObject {
   external void add(
@@ -182,6 +198,10 @@ extension type HTMLOptionsCollection._(JSObject _)
 /// - [IDBDatabase.objectStoreNames]
 /// - [IDBObjectStore.indexNames]
 /// - [Location.ancestorOrigins]
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type DOMStringList._(JSObject _) implements JSObject {
   /// The **`item()`** method returns a string from a
   /// [`DOMStringList`](https://developer.mozilla.org/en-US/docs/Web/API/DOMStringList)
@@ -198,6 +218,10 @@ extension type DOMStringList._(JSObject _) implements JSObject {
 /// [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) element. Some
 /// elements directly implement this interface, while others implement it via an
 /// interface that inherits it.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// Creates an [HTMLElement] using the tag 'article'.
   HTMLElement.article() : _ = document.createElement('article');
@@ -687,6 +711,10 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
 /// The **`HTMLUnknownElement`** interface represents an invalid HTML element
 /// and derives from the [HTMLElement] interface, but without implementing any
 /// additional properties or methods.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLUnknownElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLUnknownElement] using the tag 'applet'.
@@ -716,6 +744,10 @@ extension type HTMLUnknownElement._(JSObject _)
 
 /// The **`DOMStringMap`** interface is used for the [HTMLElement.dataset]
 /// attribute, to represent data for custom attributes added to elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type DOMStringMap._(JSObject _) implements JSObject {}
 
 /// The **`HTMLHtmlElement`** interface serves as the root node for a given HTML
@@ -724,6 +756,10 @@ extension type DOMStringMap._(JSObject _) implements JSObject {}
 ///
 /// You can retrieve the `HTMLHtmlElement` object for a given document by
 /// reading the value of the [document.documentElement] property.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLHtmlElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLHtmlElement] using the tag 'html'.
   HTMLHtmlElement() : _ = document.createElement('html');
@@ -735,6 +771,10 @@ extension type HTMLHtmlElement._(JSObject _) implements HTMLElement, JSObject {
 /// The **`HTMLHeadElement`** interface contains the descriptive information, or
 /// metadata, for a document. This object inherits all of the properties and
 /// methods described in the [HTMLElement] interface.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLHeadElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLHeadElement] using the tag 'head'.
   HTMLHeadElement() : _ = document.createElement('head');
@@ -743,6 +783,10 @@ extension type HTMLHeadElement._(JSObject _) implements HTMLElement, JSObject {
 /// The **`HTMLTitleElement`** interface is implemented by a document's `title`.
 /// This element inherits all of the properties and methods of the [HTMLElement]
 /// interface.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLTitleElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLTitleElement] using the tag 'title'.
   HTMLTitleElement() : _ = document.createElement('title');
@@ -754,6 +798,10 @@ extension type HTMLTitleElement._(JSObject _) implements HTMLElement, JSObject {
 /// The **`HTMLBaseElement`** interface contains the base URI for a document.
 /// This object inherits all of the properties and methods as described in the
 /// [HTMLElement] interface.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLBaseElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLBaseElement] using the tag 'base'.
   HTMLBaseElement() : _ = document.createElement('base');
@@ -772,6 +820,10 @@ extension type HTMLBaseElement._(JSObject _) implements HTMLElement, JSObject {
 /// [`HTMLAnchorElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLAnchorElement)).
 /// This object inherits all of the properties and methods of the [HTMLElement]
 /// interface.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLLinkElement] using the tag 'link'.
   HTMLLinkElement() : _ = document.createElement('link');
@@ -819,6 +871,10 @@ extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
 /// elements.
 /// This interface inherits all of the properties and methods described in the
 /// [HTMLElement] interface.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLMetaElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLMetaElement] using the tag 'meta'.
   HTMLMetaElement() : _ = document.createElement('meta');
@@ -843,6 +899,10 @@ extension type HTMLMetaElement._(JSObject _) implements HTMLElement, JSObject {
 /// [Using dynamic styling information](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model/Using_dynamic_styling_information)
 /// for an overview of the objects used to manipulate specified CSS properties
 /// using the DOM.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLStyleElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLStyleElement] using the tag 'style'.
   HTMLStyleElement() : _ = document.createElement('style');
@@ -860,6 +920,10 @@ extension type HTMLStyleElement._(JSObject _) implements HTMLElement, JSObject {
 /// The **`HTMLBodyElement`** interface provides special properties (beyond
 /// those inherited from the regular [HTMLElement] interface) for manipulating
 /// `body` elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLBodyElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLBodyElement] using the tag 'body'.
   HTMLBodyElement() : _ = document.createElement('body');
@@ -920,6 +984,10 @@ extension type HTMLBodyElement._(JSObject _) implements HTMLElement, JSObject {
 /// elements, [`<h1>` through
 /// `<h6>`](/en-US/docs/Web/HTML/Element/Heading_Elements). It inherits methods
 /// and properties from the [HTMLElement] interface.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLHeadingElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLHeadingElement] using the tag 'h1'.
@@ -947,6 +1015,10 @@ extension type HTMLHeadingElement._(JSObject _)
 /// The **`HTMLParagraphElement`** interface provides special properties (beyond
 /// those of the regular [HTMLElement] object interface it inherits) for
 /// manipulating `p` elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLParagraphElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLParagraphElement] using the tag 'p'.
@@ -959,6 +1031,10 @@ extension type HTMLParagraphElement._(JSObject _)
 /// The **`HTMLHRElement`** interface provides special properties (beyond those
 /// of the [HTMLElement] interface it also has available to it by inheritance)
 /// for manipulating `hr` elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLHRElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLHRElement] using the tag 'hr'.
   HTMLHRElement() : _ = document.createElement('hr');
@@ -978,6 +1054,10 @@ extension type HTMLHRElement._(JSObject _) implements HTMLElement, JSObject {
 /// The **`HTMLPreElement`** interface exposes specific properties and methods
 /// (beyond those of the [HTMLElement] interface it also has available to it by
 /// inheritance) for manipulating a block of preformatted text (`pre`).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLPreElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLPreElement] using the tag 'pre'.
   HTMLPreElement.pre() : _ = document.createElement('pre');
@@ -996,6 +1076,10 @@ extension type HTMLPreElement._(JSObject _) implements HTMLElement, JSObject {
 /// (beyond the regular [HTMLElement] interface it also has available to it by
 /// inheritance) for manipulating quoting elements, like `blockquote` and `q`,
 /// but not the `cite` element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLQuoteElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLQuoteElement] using the tag 'blockquote'.
   HTMLQuoteElement.blockquote() : _ = document.createElement('blockquote');
@@ -1010,6 +1094,10 @@ extension type HTMLQuoteElement._(JSObject _) implements HTMLElement, JSObject {
 /// The **`HTMLOListElement`** interface provides special properties (beyond
 /// those defined on the regular [HTMLElement] interface it also has available
 /// to it by inheritance) for manipulating ordered list elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLOListElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLOListElement] using the tag 'ol'.
   HTMLOListElement() : _ = document.createElement('ol');
@@ -1027,6 +1115,10 @@ extension type HTMLOListElement._(JSObject _) implements HTMLElement, JSObject {
 /// The **`HTMLUListElement`** interface provides special properties (beyond
 /// those defined on the regular [HTMLElement] interface it also has available
 /// to it by inheritance) for manipulating unordered list (`ul`) elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLUListElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLUListElement] using the tag 'ul'.
   HTMLUListElement() : _ = document.createElement('ul');
@@ -1041,6 +1133,10 @@ extension type HTMLUListElement._(JSObject _) implements HTMLElement, JSObject {
 /// those inherited from the [HTMLElement] interface) for manipulating a `menu`
 /// element.
 /// `<menu>` is a semantic alternative to the `ul` element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLMenuElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLMenuElement] using the tag 'menu'.
   HTMLMenuElement() : _ = document.createElement('menu');
@@ -1052,6 +1148,10 @@ extension type HTMLMenuElement._(JSObject _) implements HTMLElement, JSObject {
 /// The **`HTMLLIElement`** interface exposes specific properties and methods
 /// (beyond those defined by regular [HTMLElement] interface it also has
 /// available to it by inheritance) for manipulating list elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLLIElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLLIElement] using the tag 'li'.
   HTMLLIElement() : _ = document.createElement('li');
@@ -1065,6 +1165,10 @@ extension type HTMLLIElement._(JSObject _) implements HTMLElement, JSObject {
 /// The **`HTMLDListElement`** interface provides special properties (beyond
 /// those of the regular [HTMLElement] interface it also has available to it by
 /// inheritance) for manipulating definition list (`dl`) elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLDListElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLDListElement] using the tag 'dl'.
   HTMLDListElement() : _ = document.createElement('dl');
@@ -1076,6 +1180,10 @@ extension type HTMLDListElement._(JSObject _) implements HTMLElement, JSObject {
 /// The **`HTMLDivElement`** interface provides special properties (beyond the
 /// regular [HTMLElement] interface it also has available to it by inheritance)
 /// for manipulating `div` elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLDivElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLDivElement] using the tag 'div'.
   HTMLDivElement() : _ = document.createElement('div');
@@ -1091,6 +1199,10 @@ extension type HTMLDivElement._(JSObject _) implements HTMLElement, JSObject {
 /// [`<a>`](/en-US/docs/Web/HTML/Element/a) element; not to be confused with
 /// [`<link>`](/en-US/docs/Web/HTML/Element/link), which is represented by
 /// [`HTMLLinkElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLLinkElement).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLAnchorElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLAnchorElement] using the tag 'a'.
@@ -1149,6 +1261,10 @@ extension type HTMLAnchorElement._(JSObject _)
 /// The **`HTMLDataElement`** interface provides special properties (beyond the
 /// regular [HTMLElement] interface it also has available to it by inheritance)
 /// for manipulating `data` elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLDataElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLDataElement] using the tag 'data'.
   HTMLDataElement() : _ = document.createElement('data');
@@ -1160,6 +1276,10 @@ extension type HTMLDataElement._(JSObject _) implements HTMLElement, JSObject {
 /// The **`HTMLTimeElement`** interface provides special properties (beyond the
 /// regular [HTMLElement] interface it also has available to it by inheritance)
 /// for manipulating `time` elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLTimeElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLTimeElement] using the tag 'time'.
   HTMLTimeElement() : _ = document.createElement('time');
@@ -1171,6 +1291,10 @@ extension type HTMLTimeElement._(JSObject _) implements HTMLElement, JSObject {
 /// The **`HTMLSpanElement`** interface represents a `span` element and derives
 /// from the [HTMLElement] interface, but without implementing any additional
 /// properties or methods.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLSpanElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLSpanElement] using the tag 'span'.
   HTMLSpanElement() : _ = document.createElement('span');
@@ -1178,6 +1302,10 @@ extension type HTMLSpanElement._(JSObject _) implements HTMLElement, JSObject {
 
 /// The **`HTMLBRElement`** interface represents an HTML line break element
 /// (`br`). It inherits from [HTMLElement].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLBRElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLBRElement] using the tag 'br'.
   HTMLBRElement() : _ = document.createElement('br');
@@ -1190,6 +1318,10 @@ extension type HTMLBRElement._(JSObject _) implements HTMLElement, JSObject {
 /// regular methods and properties available through the [HTMLElement] interface
 /// they also have available to them by inheritance) for manipulating
 /// modification elements, that is `del` and `ins`.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLModElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLModElement] using the tag 'ins'.
   HTMLModElement.ins() : _ = document.createElement('ins');
@@ -1205,6 +1337,10 @@ extension type HTMLModElement._(JSObject _) implements HTMLElement, JSObject {
 
 /// The **`HTMLPictureElement`** interface represents a `picture` HTML element.
 /// It doesn't implement specific properties or methods.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLPictureElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLPictureElement] using the tag 'picture'.
@@ -1214,6 +1350,10 @@ extension type HTMLPictureElement._(JSObject _)
 /// The **`HTMLSourceElement`** interface provides special properties (beyond
 /// the regular [HTMLElement] object interface it also has available to it by
 /// inheritance) for manipulating `source` elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLSourceElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLSourceElement] using the tag 'source'.
@@ -1237,6 +1377,10 @@ extension type HTMLSourceElement._(JSObject _)
 
 /// The **`HTMLImageElement`** interface represents an HTML `img` element,
 /// providing the properties and methods used to manipulate image elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLImageElement] using the tag 'img'.
   HTMLImageElement() : _ = document.createElement('img');
@@ -1307,6 +1451,10 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
 /// methods (beyond those of the [HTMLElement] interface it also has available
 /// to it by inheritance) for manipulating the layout and presentation of inline
 /// frame elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLIFrameElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLIFrameElement] using the tag 'iframe'.
@@ -1355,6 +1503,10 @@ extension type HTMLIFrameElement._(JSObject _)
 /// > **Note:** This topic describes the `HTMLEmbedElement` interface as defined
 /// > in the standard. It does not address earlier, non-standardized version of
 /// > the interface.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLEmbedElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLEmbedElement] using the tag 'embed'.
   HTMLEmbedElement() : _ = document.createElement('embed');
@@ -1378,6 +1530,10 @@ extension type HTMLEmbedElement._(JSObject _) implements HTMLElement, JSObject {
 /// methods (beyond those on the [HTMLElement] interface it also has available
 /// to it by inheritance) for manipulating the layout and presentation of
 /// `object` element, representing external resources.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLObjectElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLObjectElement] using the tag 'object'.
@@ -1447,6 +1603,10 @@ extension type HTMLObjectElement._(JSObject _)
 /// in a single format that all the relevant browsers supports, or provide
 /// multiple video sources in enough different formats that all the browsers you
 /// need to support are covered.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLVideoElement._(JSObject _)
     implements HTMLMediaElement, JSObject {
   /// Creates an [HTMLVideoElement] using the tag 'video'.
@@ -1476,6 +1636,10 @@ extension type HTMLVideoElement._(JSObject _)
 ///
 /// This element is based on, and inherits properties and methods from, the
 /// [HTMLMediaElement] interface.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLAudioElement._(JSObject _)
     implements HTMLMediaElement, JSObject {
   /// Creates an [HTMLAudioElement] using the tag 'audio'.
@@ -1486,6 +1650,10 @@ extension type HTMLAudioElement._(JSObject _)
 /// the . This element can be used as a child of either `audio` or `video` to
 /// specify a text track containing information such as closed captions or
 /// subtitles.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLTrackElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLTrackElement] using the tag 'track'.
   HTMLTrackElement() : _ = document.createElement('track');
@@ -1516,6 +1684,10 @@ extension type HTMLTrackElement._(JSObject _) implements HTMLElement, JSObject {
 ///
 /// The [HTMLVideoElement] and [HTMLAudioElement] elements both inherit this
 /// interface.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   external static int get NETWORK_EMPTY;
   external static int get NETWORK_IDLE;
@@ -1641,6 +1813,10 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
 /// A `MediaError` object describes the error in general terms using a numeric
 /// `code` categorizing the kind of error, and a `message`, which provides
 /// specific diagnostics about what went wrong.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type MediaError._(JSObject _) implements JSObject {
   external static int get MEDIA_ERR_ABORTED;
   external static int get MEDIA_ERR_NETWORK;
@@ -1656,6 +1832,10 @@ extension type MediaError._(JSObject _) implements JSObject {
 ///
 /// Retrieve an instance of this object with [HTMLMediaElement.audioTracks]. The
 /// individual tracks can be accessed using array syntax.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type AudioTrackList._(JSObject _) implements EventTarget, JSObject {
   /// The **[AudioTrackList]** method
   /// **`getTrackById()`** returns the first
@@ -1677,6 +1857,10 @@ extension type AudioTrackList._(JSObject _) implements EventTarget, JSObject {
 ///
 /// The most common use for accessing an `AudioTrack` object is to toggle its
 /// [AudioTrack.enabled] property in order to mute and unmute the track.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type AudioTrack._(JSObject _) implements JSObject {
   external String get id;
   external String get kind;
@@ -1694,6 +1878,10 @@ extension type AudioTrack._(JSObject _) implements JSObject {
 /// Retrieve an instance of this object with [HTMLMediaElement.videoTracks]. The
 /// individual tracks can be accessed using array syntax or functions such as
 /// `forEach()` for example.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type VideoTrackList._(JSObject _) implements EventTarget, JSObject {
   /// The **[VideoTrackList]** method
   /// **`getTrackById()`** returns the first
@@ -1719,6 +1907,10 @@ extension type VideoTrackList._(JSObject _) implements EventTarget, JSObject {
 /// The most common use for accessing a `VideoTrack` object is to toggle its
 /// [VideoTrack.selected] property in order to make it the active video track
 /// for its `video` element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type VideoTrack._(JSObject _) implements JSObject {
   external String get id;
   external String get kind;
@@ -1745,6 +1937,10 @@ extension type VideoTrack._(JSObject _) implements JSObject {
 /// - the
 ///   `media.textTracks`.[`getTrackById()`](/en-US/docs/Web/API/TextTrackList/getTrackById)
 ///   method
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type TextTrackList._(JSObject _) implements EventTarget, JSObject {
   /// The **[TextTrackList]** method
   /// **`getTrackById()`** returns the first
@@ -1766,6 +1962,10 @@ extension type TextTrackList._(JSObject _) implements EventTarget, JSObject {
 /// The `TextTrack` interface—part of the API for handling WebVTT (text tracks
 /// on media presentations)—describes and controls the text track associated
 /// with a particular `track` element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type TextTrack._(JSObject _) implements EventTarget, JSObject {
   /// The **`addCue()`** method of the [TextTrack] interface adds a new cue to
   /// the list of cues.
@@ -1793,6 +1993,10 @@ extension type TextTrack._(JSObject _) implements EventTarget, JSObject {
 ///
 /// This interface has no constructor. Retrieve an instance of this object with
 /// [TextTrack.cues] which returns all of the cues in a [TextTrack] object.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type TextTrackCueList._(JSObject _) implements JSObject {
   /// The **`getCueById()`** method of the [TextTrackCueList] interface returns
   /// the first [VTTCue] in the list represented by the `TextTrackCueList`
@@ -1808,6 +2012,10 @@ extension type TextTrackCueList._(JSObject _) implements JSObject {
 /// the start time (the time at which the text will be displayed) and the end
 /// time (the time at which it will be removed from the display), as well as
 /// other information.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type TextTrackCue._(JSObject _) implements EventTarget, JSObject {
   external TextTrack? get track;
   external set id(String value);
@@ -1833,6 +2041,10 @@ extension type TextTrackCue._(JSObject _) implements EventTarget, JSObject {
 /// a starting time offset and an ending time offset. You reference each time
 /// range by using the `start()` and `end()` methods, passing the index number
 /// of the time range you want to retrieve.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type TimeRanges._(JSObject _) implements JSObject {
   /// The **`start()`** method of the [TimeRanges] interface returns the time
   /// offset at which a specified time range begins.
@@ -1861,6 +2073,10 @@ extension type TimeRanges._(JSObject _) implements JSObject {
 ///   specified in [HTMLMediaElement.audioTracks]
 /// - Events affecting text tracks are sent to the [TextTrackList] object
 ///   indicated by [HTMLMediaElement.textTracks].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type TrackEvent._(JSObject _) implements Event, JSObject {
   external factory TrackEvent(
     String type, [
@@ -1880,6 +2096,10 @@ extension type TrackEventInit._(JSObject _) implements EventInit, JSObject {
 /// (beyond those of the regular object [HTMLElement] interface it also has
 /// available to it by inheritance) for manipulating the layout and presentation
 /// of map elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLMapElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLMapElement] using the tag 'map'.
   HTMLMapElement() : _ = document.createElement('map');
@@ -1893,6 +2113,10 @@ extension type HTMLMapElement._(JSObject _) implements HTMLElement, JSObject {
 /// (beyond those of the regular object [HTMLElement] interface it also has
 /// available to it by inheritance) for manipulating the layout and presentation
 /// of `area` elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLAreaElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLAreaElement] using the tag 'area'.
   HTMLAreaElement() : _ = document.createElement('area');
@@ -1943,6 +2167,10 @@ extension type HTMLAreaElement._(JSObject _) implements HTMLElement, JSObject {
 /// (beyond the regular [HTMLElement] object interface it also has available to
 /// it by inheritance) for manipulating the layout and presentation of tables in
 /// an HTML document.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLTableElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLTableElement] using the tag 'table'.
   HTMLTableElement() : _ = document.createElement('table');
@@ -2063,6 +2291,10 @@ extension type HTMLTableElement._(JSObject _) implements HTMLElement, JSObject {
 /// The **`HTMLTableCaptionElement`** interface provides special properties
 /// (beyond the regular [HTMLElement] interface it also has available to it by
 /// inheritance) for manipulating table `caption` elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLTableCaptionElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLTableCaptionElement] using the tag 'caption'.
@@ -2074,6 +2306,10 @@ extension type HTMLTableCaptionElement._(JSObject _)
 
 /// The **`HTMLTableColElement`** interface provides properties for manipulating
 /// single or grouped table column elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLTableColElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLTableColElement] using the tag 'colgroup'.
@@ -2101,6 +2337,10 @@ extension type HTMLTableColElement._(JSObject _)
 /// inheritance) for manipulating the layout and presentation of sections, that
 /// is headers, footers and bodies (`thead`, `tfoot`, and `tbody`, respectively)
 /// in an HTML table.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLTableSectionElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLTableSectionElement] using the tag 'tbody'.
@@ -2129,6 +2369,10 @@ extension type HTMLTableSectionElement._(JSObject _)
 /// methods (beyond the [HTMLElement] interface it also has available to it by
 /// inheritance) for manipulating the layout and presentation of rows in an HTML
 /// table.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLTableRowElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLTableRowElement] using the tag 'tr'.
@@ -2168,6 +2412,10 @@ extension type HTMLTableRowElement._(JSObject _)
 /// it by inheritance) for manipulating the layout and presentation of table
 /// cells, either header cells (`th`)) or data cells (`td`), in an HTML
 /// document.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLTableCellElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLTableCellElement] using the tag 'td'.
@@ -2210,6 +2458,10 @@ extension type HTMLTableCellElement._(JSObject _)
 /// The **`HTMLFormElement`** interface represents a `form` element in the DOM.
 /// It allows access to—and, in some cases, modification of—aspects of the form,
 /// as well as access to its component elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLFormElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLFormElement] using the tag 'form'.
   HTMLFormElement() : _ = document.createElement('form');
@@ -2298,6 +2550,10 @@ extension type HTMLFormElement._(JSObject _) implements HTMLElement, JSObject {
 /// The **`HTMLLabelElement`** interface gives access to properties specific to
 /// `label` elements. It inherits methods and properties from the base
 /// [HTMLElement] interface.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLLabelElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLLabelElement] using the tag 'label'.
   HTMLLabelElement() : _ = document.createElement('label');
@@ -2310,6 +2566,10 @@ extension type HTMLLabelElement._(JSObject _) implements HTMLElement, JSObject {
 
 /// The **`HTMLInputElement`** interface provides special properties and methods
 /// for manipulating the options, layout, and presentation of `input` elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLInputElement] using the tag 'input'.
   HTMLInputElement() : _ = document.createElement('input');
@@ -2723,6 +2983,10 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
 /// The **`HTMLButtonElement`** interface provides properties and methods
 /// (beyond the regular [HTMLElement] interface it also has available to it by
 /// inheritance) for manipulating `button` elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLButtonElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLButtonElement] using the tag 'button'.
@@ -2763,6 +3027,10 @@ extension type HTMLButtonElement._(JSObject _)
 /// The **`HTMLSelectElement`** interface represents a `select` HTML Element.
 /// These elements also share all of the properties and methods of other HTML
 /// elements via the [HTMLElement] interface.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLSelectElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLSelectElement] using the tag 'select'.
@@ -2856,6 +3124,10 @@ extension type HTMLSelectElement._(JSObject _)
 /// The **`HTMLDataListElement`** interface provides special properties (beyond
 /// the [HTMLElement] object interface it also has available to it by
 /// inheritance) to manipulate `datalist` elements and their content.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLDataListElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLDataListElement] using the tag 'datalist'.
@@ -2868,6 +3140,10 @@ extension type HTMLDataListElement._(JSObject _)
 /// methods (beyond the regular [HTMLElement] object interface they also have
 /// available to them by inheritance) for manipulating the layout and
 /// presentation of `optgroup` elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLOptGroupElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLOptGroupElement] using the tag 'optgroup'.
@@ -2881,6 +3157,10 @@ extension type HTMLOptGroupElement._(JSObject _)
 
 /// The **`HTMLOptionElement`** interface represents `option` elements and
 /// inherits all properties and methods of the [HTMLElement] interface.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLOptionElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLOptionElement] using the tag 'option'.
@@ -2904,6 +3184,10 @@ extension type HTMLOptionElement._(JSObject _)
 
 /// The **`HTMLTextAreaElement`** interface provides special properties and
 /// methods for manipulating the layout and presentation of `textarea` elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLTextAreaElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLTextAreaElement] using the tag 'textarea'.
@@ -2970,6 +3254,10 @@ extension type HTMLTextAreaElement._(JSObject _)
 /// The **`HTMLOutputElement`** interface provides properties and methods
 /// (beyond those inherited from [HTMLElement]) for manipulating the layout and
 /// presentation of `output` elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLOutputElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLOutputElement] using the tag 'output'.
@@ -2997,6 +3285,10 @@ extension type HTMLOutputElement._(JSObject _)
 /// methods (beyond the regular [HTMLElement] interface it also has available to
 /// it by inheritance) for manipulating the layout and presentation of
 /// `progress` elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLProgressElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLProgressElement] using the tag 'progress'.
@@ -3014,6 +3306,10 @@ extension type HTMLProgressElement._(JSObject _)
 /// provides special properties and methods (beyond the [HTMLElement] object
 /// interface they also have available to them by inheritance) for manipulating
 /// the layout and presentation of `meter` elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLMeterElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLMeterElement] using the tag 'meter'.
   HTMLMeterElement() : _ = document.createElement('meter');
@@ -3037,6 +3333,10 @@ extension type HTMLMeterElement._(JSObject _) implements HTMLElement, JSObject {
 /// methods (beyond the regular [HTMLElement] interface it also has available to
 /// it by inheritance) for manipulating the layout and presentation of
 /// `fieldset` elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLFieldSetElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLFieldSetElement] using the tag 'fieldset'.
@@ -3060,6 +3360,10 @@ extension type HTMLFieldSetElement._(JSObject _)
 /// The **`HTMLLegendElement`** is an interface allowing to access properties of
 /// the `legend` elements. It inherits properties and methods from the
 /// [HTMLElement] interface.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLLegendElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLLegendElement] using the tag 'legend'.
@@ -3073,6 +3377,10 @@ extension type HTMLLegendElement._(JSObject _)
 /// The **`ValidityState`** interface represents the _validity states_ that an
 /// element can be in, with respect to constraint validation. Together, they
 /// help explain why an element's value fails to validate, if it's not valid.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type ValidityState._(JSObject _) implements JSObject {
   external bool get valueMissing;
   external bool get typeMismatch;
@@ -3090,6 +3398,10 @@ extension type ValidityState._(JSObject _) implements JSObject {
 /// The **`SubmitEvent`** interface defines the object used to represent an
 /// form's [HTMLFormElement.submit_event] event. This event is fired at the
 /// `form` when the form's submit action is invoked.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SubmitEvent._(JSObject _) implements Event, JSObject {
   external factory SubmitEvent(
     String type, [
@@ -3116,6 +3428,10 @@ extension type SubmitEventInit._(JSObject _) implements EventInit, JSObject {
 /// `formdata` event firing, rather than needing to put it together yourself
 /// when you wish to submit form data via a method like [fetch] (see
 /// [Using FormData objects](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest_API/Using_FormData_Objects)).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type FormDataEvent._(JSObject _) implements Event, JSObject {
   external factory FormDataEvent(
     String type,
@@ -3134,6 +3450,10 @@ extension type FormDataEventInit._(JSObject _) implements EventInit, JSObject {
 /// The **`HTMLDetailsElement`** interface provides special properties (beyond
 /// the regular [HTMLElement] interface it also has available to it by
 /// inheritance) for manipulating `details` elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLDetailsElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLDetailsElement] using the tag 'details'.
@@ -3148,6 +3468,10 @@ extension type HTMLDetailsElement._(JSObject _)
 /// The **`HTMLDialogElement`** interface provides methods to manipulate
 /// `dialog` elements. It inherits properties and methods from the [HTMLElement]
 /// interface.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLDialogElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLDialogElement] using the tag 'dialog'.
@@ -3190,6 +3514,10 @@ extension type HTMLDialogElement._(JSObject _)
 /// `text/csv`. If the script is blocked, its element receives an
 /// [HTMLElement/error_event] event; otherwise, it receives a
 /// [Window/load_event] event.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLScriptElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLScriptElement] using the tag 'script'.
@@ -3227,6 +3555,10 @@ extension type HTMLScriptElement._(JSObject _)
 
 /// The **`HTMLTemplateElement`** interface enables access to the contents of an
 /// HTML `template` element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLTemplateElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLTemplateElement] using the tag 'template'.
@@ -3242,6 +3574,10 @@ extension type HTMLTemplateElement._(JSObject _)
 /// The **`HTMLSlotElement`** interface of the
 /// [Shadow DOM API](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM)
 /// enables access to the name and assigned nodes of an HTML `slot` element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLSlotElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLSlotElement] using the tag 'slot'.
   HTMLSlotElement() : _ = document.createElement('slot');
@@ -3290,6 +3626,10 @@ extension type AssignedNodesOptions._(JSObject _) implements JSObject {
 /// manipulating the layout and presentation of `canvas` elements. The
 /// `HTMLCanvasElement` interface also inherits the properties and methods of
 /// the [HTMLElement] interface.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLCanvasElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLCanvasElement] using the tag 'canvas'.
@@ -3399,6 +3739,10 @@ extension type CanvasRenderingContext2DSettings._(JSObject _)
 /// The offscreen rendering context inherits most of the same properties and
 /// methods as the `CanvasRenderingContext2D` and is described in more detail in
 /// the [OffscreenCanvasRenderingContext2D] reference page.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// The **`CanvasRenderingContext2D.getContextAttributes()`** method returns
   /// an object that contains attributes used by the context.
@@ -4203,6 +4547,10 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
 ///
 /// It can be used as a [CanvasRenderingContext2D.fillStyle] or
 /// [CanvasRenderingContext2D.strokeStyle].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type CanvasGradient._(JSObject _) implements JSObject {
   /// The **`CanvasGradient.addColorStop()`** method adds a new color stop,
   /// defined by an `offset` and a `color`, to a given canvas gradient.
@@ -4219,6 +4567,10 @@ extension type CanvasGradient._(JSObject _) implements JSObject {
 ///
 /// It can be used as a [CanvasRenderingContext2D.fillStyle] or
 /// [CanvasRenderingContext2D.strokeStyle].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type CanvasPattern._(JSObject _) implements JSObject {
   /// The **`CanvasPattern.setTransform()`** method uses a [DOMMatrix] object as
   /// the pattern's transformation matrix and invokes it on the pattern.
@@ -4228,6 +4580,10 @@ extension type CanvasPattern._(JSObject _) implements JSObject {
 /// The **`TextMetrics`** interface represents the dimensions of a piece of text
 /// in the canvas; a `TextMetrics` instance can be retrieved using the
 /// [CanvasRenderingContext2D.measureText] method.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type TextMetrics._(JSObject _) implements JSObject {
   external num get width;
   external num get actualBoundingBoxLeft;
@@ -4257,6 +4613,10 @@ extension type ImageDataSettings._(JSObject _) implements JSObject {
 /// [CanvasRenderingContext2D.createImageData] and
 /// [CanvasRenderingContext2D.getImageData]. It can also be used to set a part
 /// of the canvas by using [CanvasRenderingContext2D.putImageData].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type ImageData._(JSObject _) implements JSObject {
   external factory ImageData(
     JSAny dataOrSw,
@@ -4277,6 +4637,10 @@ extension type ImageData._(JSObject _) implements JSObject {
 /// of the `CanvasRenderingContext2D` interface are also present on this
 /// interface, which gives you the convenience of being able to retain and
 /// replay your path whenever desired.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type Path2D._(JSObject _) implements JSObject {
   external factory Path2D([JSAny path]);
 
@@ -4359,6 +4723,10 @@ extension type Path2D._(JSObject _) implements JSObject {
 /// This interface is available in both the window and the
 /// [worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)
 /// context.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type ImageBitmapRenderingContext._(JSObject _) implements JSObject {
   /// The **`ImageBitmapRenderingContext.transferFromImageBitmap()`**
   /// method displays the given [ImageBitmap] in the canvas associated with this
@@ -4409,6 +4777,10 @@ extension type ImageEncodeOptions._(JSObject _) implements JSObject {
 ///
 /// `OffscreenCanvas` is a
 /// [transferable object](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type OffscreenCanvas._(JSObject _) implements EventTarget, JSObject {
   external factory OffscreenCanvas(
     int width,
@@ -4464,6 +4836,10 @@ extension type OffscreenCanvas._(JSObject _) implements EventTarget, JSObject {
 ///   `canvas` element
 /// - it has a `commit()` method for pushing rendered images to the context's
 ///   `OffscreenCanvas` object's placeholder `canvas` element
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type OffscreenCanvasRenderingContext2D._(JSObject _)
     implements JSObject {
   /// The
@@ -4735,6 +5111,10 @@ extension type OffscreenCanvasRenderingContext2D._(JSObject _)
 /// The **`CustomElementRegistry`** interface provides methods for registering
 /// custom elements and querying registered elements. To get an instance of it,
 /// use the [window.customElements] property.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type CustomElementRegistry._(JSObject _) implements JSObject {
   /// The **`define()`** method of the [CustomElementRegistry] interface adds a
   /// definition for a custom element to the custom element registry, mapping
@@ -4783,6 +5163,10 @@ extension type ElementDefinitionOptions._(JSObject _) implements JSObject {
 /// exposes the
 /// [Accessibility Object Model](https://wicg.github.io/aom/explainer.html) to
 /// the element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type ElementInternals._(JSObject _) implements JSObject {
   /// The **`setFormValue()`** method of the [ElementInternals] interface sets
   /// the element's submission value and state, communicating these to the user
@@ -4875,6 +5259,10 @@ extension type ValidityStateFlags._(JSObject _) implements JSObject {
 ///
 /// The interface can be used to expose the internal states of a custom element,
 /// allowing them to be used in CSS selectors by code that uses the element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type CustomStateSet._(JSObject _) implements JSObject {}
 
 /// The **`VisibilityStateEntry`** interface provides timings of page visibility
@@ -4898,6 +5286,10 @@ extension type CustomStateSet._(JSObject _) implements JSObject {}
 ///
 /// > **Note:** Like other Performance APIs, this API extends
 /// > [PerformanceEntry].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type VisibilityStateEntry._(JSObject _)
     implements PerformanceEntry, JSObject {
   external String get name;
@@ -4911,6 +5303,10 @@ extension type VisibilityStateEntry._(JSObject _)
 /// since page load.
 ///
 /// This API is only available in the window context and not exposed to workers.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type UserActivation._(JSObject _) implements JSObject {
   external bool get hasBeenActive;
   external bool get isActive;
@@ -4930,6 +5326,10 @@ extension type UserActivation._(JSObject _) implements JSObject {
 /// > [HTMLDetailsElement.toggle_event] event, which fires on a `details`
 /// > element when its `open`/`closed` state is toggled. Its event object is a
 /// > generic [Event].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type ToggleEvent._(JSObject _) implements Event, JSObject {
   external factory ToggleEvent(
     String type, [
@@ -4986,6 +5386,10 @@ extension type CloseWatcherOptions._(JSObject _) implements JSObject {
 ///
 /// This object is available from the [DragEvent.dataTransfer] property of all
 /// [DragEvent].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type DataTransfer._(JSObject _) implements JSObject {
   external factory DataTransfer();
 
@@ -5078,6 +5482,10 @@ extension type DataTransfer._(JSObject _) implements JSObject {
 /// `[]`.
 ///
 /// This interface has no constructor.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type DataTransferItemList._(JSObject _) implements JSObject {
   /// The **`DataTransferItemList.add()`** method creates a new
   /// [DataTransferItem] using the specified data and adds it to the drag data
@@ -5117,6 +5525,10 @@ extension type DataTransferItemList._(JSObject _) implements JSObject {
 /// list is a `DataTransferItem` object.
 ///
 /// This interface has no constructor.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type DataTransferItem._(JSObject _) implements JSObject {
   /// If the item described by the [DataTransferItem] is a file,
   /// `webkitGetAsEntry()` returns a [FileSystemFileEntry] or
@@ -5150,6 +5562,10 @@ extension type DataTransferItem._(JSObject _) implements JSObject {
 /// drag and drop interaction in an application-specific way.
 ///
 /// This interface inherits properties from [MouseEvent] and [Event].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type DragEvent._(JSObject _) implements MouseEvent, JSObject {
   external factory DragEvent(
     String type, [
@@ -5194,6 +5610,10 @@ external Window get window;
 /// contains the tab, such as [Window.resizeTo] and [Window.innerHeight].
 /// Generally, anything that can't reasonably pertain to a tab pertains to the
 /// window instead.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// The [Window] interface's **`matchMedia()`** method
   /// returns a new [MediaQueryList] object that can then be used to determine
@@ -5802,6 +6222,10 @@ extension type WindowPostMessageOptions._(JSObject _)
 ///
 /// The `BarProp` interface is not accessed directly, but via one of these
 /// elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type BarProp._(JSObject _) implements JSObject {
   external bool get visible;
 }
@@ -5810,6 +6234,10 @@ extension type BarProp._(JSObject _) implements JSObject {
 /// is linked to. Changes done on it are reflected on the object it relates to.
 /// Both the [Document] and [Window] interface have such a linked `Location`,
 /// accessible via [Document.location] and [Window.location] respectively.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type Location._(JSObject _) implements JSObject {
   /// The **`assign()`** method of the [Location]
   /// interface causes the window to load
@@ -5859,6 +6287,10 @@ extension type Location._(JSObject _) implements JSObject {
 ///
 /// > **Note:** This interface is only available on the main thread ([Window]).
 /// > It cannot be accessed in [Worker] or [Worklet] contexts.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type History._(JSObject _) implements JSObject {
   /// The **`go()`** method of the [History] interface loads a specific page
   /// from the
@@ -5932,6 +6364,10 @@ extension type History._(JSObject _) implements JSObject {
 /// providing an accurate list of all previous history entries just for your
 /// app. This makes traversing the history a much less fragile proposition than
 /// with the older [History API].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type Navigation._(JSObject _) implements EventTarget, JSObject {
   /// The **`entries()`** method of the
   /// [Navigation] interface returns an array of [NavigationHistoryEntry]
@@ -6043,6 +6479,10 @@ extension type NavigationResult._(JSObject _) implements JSObject {
 /// providing an accurate list of all previous history entries just for your
 /// app. This makes traversing the history a much less fragile proposition than
 /// with the older [History API].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type NavigationHistoryEntry._(JSObject _)
     implements EventTarget, JSObject {
   /// The **`getState()`** method of the [NavigationHistoryEntry] interface
@@ -6064,6 +6504,10 @@ extension type NavigationHistoryEntry._(JSObject _)
 /// stage.
 ///
 /// It is accessed via the [Navigation.transition] property.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type NavigationTransition._(JSObject _) implements JSObject {
   external NavigationType get navigationType;
   external NavigationHistoryEntry get from;
@@ -6082,6 +6526,10 @@ extension type NavigationActivation._(JSObject _) implements JSObject {
 /// [History.go]). `NavigateEvent` provides access to information about that
 /// navigation, and allows developers to intercept and control the navigation
 /// handling.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type NavigateEvent._(JSObject _) implements Event, JSObject {
   external factory NavigateEvent(
     String type,
@@ -6164,6 +6612,10 @@ extension type NavigationInterceptOptions._(JSObject _) implements JSObject {
 /// the destination being navigated to in the current navigation.
 ///
 /// It is accessed via the [NavigateEvent.destination] property.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type NavigationDestination._(JSObject _) implements JSObject {
   /// The **`getState()`** method of the
   /// [NavigationDestination] interface returns a clone of the
@@ -6193,6 +6645,10 @@ extension type NavigationDestination._(JSObject _) implements JSObject {
 /// URL has changed and the [NavigationHistoryEntry] update has occurred. It is
 /// useful for migrating from usage of older API features like the
 /// [Window/hashchange_event] or [Window/popstate_event] events.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type NavigationCurrentEntryChangeEvent._(JSObject _)
     implements Event, JSObject {
   external factory NavigationCurrentEntryChangeEvent(
@@ -6227,6 +6683,10 @@ extension type NavigationCurrentEntryChangeEventInit._(JSObject _)
 /// affected by a call to `history.replaceState()`, the `popstate`
 /// event's `state` property contains a copy of the history entry's state
 /// object.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type PopStateEvent._(JSObject _) implements Event, JSObject {
   external factory PopStateEvent(
     String type, [
@@ -6253,6 +6713,10 @@ extension type PopStateEventInit._(JSObject _) implements EventInit, JSObject {
 ///
 /// The fragment identifier is the part of the URL that follows (and includes)
 /// the `#` symbol.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HashChangeEvent._(JSObject _) implements Event, JSObject {
   external factory HashChangeEvent(
     String type, [
@@ -6296,6 +6760,10 @@ extension type PageRevealEventInit._(JSObject _)
 /// and
 /// [`pagehide`](https://developer.mozilla.org/en-US/docs/Web/API/Window/pagehide_event)
 /// events, fired when a document is being loaded or unloaded.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type PageTransitionEvent._(JSObject _) implements Event, JSObject {
   external factory PageTransitionEvent(
     String type, [
@@ -6318,6 +6786,10 @@ extension type PageTransitionEventInit._(JSObject _)
 ///
 /// See the [Window/beforeunload_event] event reference for detailed guidance on
 /// using this event.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type BeforeUnloadEvent._(JSObject _) implements Event, JSObject {
   external set returnValue(String value);
   external String get returnValue;
@@ -6325,6 +6797,10 @@ extension type BeforeUnloadEvent._(JSObject _) implements Event, JSObject {
 
 /// The **`ErrorEvent`** interface represents events providing information
 /// related to errors in scripts or in files.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type ErrorEvent._(JSObject _) implements Event, JSObject {
   external factory ErrorEvent(
     String type, [
@@ -6364,6 +6840,10 @@ extension type ErrorEventInit._(JSObject _) implements EventInit, JSObject {
 ///
 /// For details, see
 /// [Promise rejection events](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises#promise_rejection_events).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type PromiseRejectionEvent._(JSObject _) implements Event, JSObject {
   external factory PromiseRejectionEvent(
     String type,
@@ -6409,6 +6889,10 @@ extension type PromiseRejectionEventInit._(JSObject _)
 /// > like `<p>` will be automatically closed if another
 /// > block-level element is nested inside and therefore parsed before the
 /// > closing `</p>` tag.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type DOMParser._(JSObject _) implements JSObject {
   external factory DOMParser();
 
@@ -6427,6 +6911,10 @@ extension type DOMParser._(JSObject _) implements JSObject {
 ///
 /// A `Navigator` object can be retrieved using the read-only [window.navigator]
 /// property.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type Navigator._(JSObject _) implements JSObject {
   /// The **`Navigator.requestMediaKeySystemAccess()`** method
   /// returns a `Promise` which delivers a [MediaKeySystemAccess]
@@ -6571,6 +7059,10 @@ extension type Navigator._(JSObject _) implements JSObject {
 ///
 /// > **Note:** Own properties of `PluginArray` objects are no longer enumerable
 /// > in the latest browser versions.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type PluginArray._(JSObject _) implements JSObject {
   external void refresh();
   external Plugin? item(int index);
@@ -6589,6 +7081,10 @@ extension type PluginArray._(JSObject _) implements JSObject {
 /// > so you can treat them like ECMAScript arrays, and at the same time impose
 /// > additional semantics on their usage (such as making their items
 /// > read-only).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type MimeTypeArray._(JSObject _) implements JSObject {
   external MimeType? item(int index);
   external MimeType? namedItem(String name);
@@ -6599,6 +7095,10 @@ extension type MimeTypeArray._(JSObject _) implements JSObject {
 ///
 /// > **Note:** Own properties of `Plugin` objects are no longer enumerable in
 /// > the latest browser versions.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type Plugin._(JSObject _) implements JSObject {
   external MimeType? item(int index);
   external MimeType? namedItem(String name);
@@ -6611,6 +7111,10 @@ extension type Plugin._(JSObject _) implements JSObject {
 /// The **`MimeType`** interface provides contains information about a MIME type
 /// associated with a particular plugin. [Navigator.mimeTypes] returns an array
 /// of this object.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type MimeType._(JSObject _) implements JSObject {
   external String get type;
   external String get description;
@@ -6626,6 +7130,10 @@ extension type MimeType._(JSObject _) implements JSObject {
 ///
 /// `ImageBitmap` is a
 /// [transferable object](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type ImageBitmap._(JSObject _) implements JSObject {
   /// The **`ImageBitmap.close()`**
   /// method disposes of all graphical resources associated with an
@@ -6684,6 +7192,10 @@ extension type ImageBitmapOptions._(JSObject _) implements JSObject {
 /// The action triggered by this event is defined in a function set as the event
 /// handler for the relevant `message` event (e.g. using an `onmessage` handler
 /// as listed above).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type MessageEvent._(JSObject _) implements Event, JSObject {
   external factory MessageEvent(
     String type, [
@@ -6769,6 +7281,10 @@ extension type MessageEventInit._(JSObject _) implements EventInit, JSObject {
 /// > [Stackoverflow](https://stackoverflow.com/questions/5195452/websockets-vs-server-sent-events-eventsource/5326159)).
 /// > When using HTTP/2, the maximum number of simultaneous _HTTP streams_ is
 /// > negotiated between the server and the client (defaults to 100).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type EventSource._(JSObject _) implements EventTarget, JSObject {
   external factory EventSource(
     String url, [
@@ -6806,6 +7322,10 @@ extension type EventSourceInit._(JSObject _) implements JSObject {
 /// [Channel Messaging API](https://developer.mozilla.org/en-US/docs/Web/API/Channel_Messaging_API)
 /// allows us to create a new message channel and send data through it via its
 /// two [MessagePort] properties.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type MessageChannel._(JSObject _) implements JSObject {
   external factory MessageChannel();
 
@@ -6820,6 +7340,10 @@ extension type MessageChannel._(JSObject _) implements JSObject {
 ///
 /// `MessagePort` is a
 /// [transferable object](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type MessagePort._(JSObject _) implements EventTarget, JSObject {
   /// The **`postMessage()`** method of the
   /// [MessagePort] interface sends a message from the port, and optionally,
@@ -6861,6 +7385,10 @@ extension type StructuredSerializeOptions._(JSObject _) implements JSObject {
 /// origin. Messages are broadcasted via a [BroadcastChannel/message_event]
 /// event fired at all `BroadcastChannel` objects listening to the channel,
 /// except the object that sent the message.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type BroadcastChannel._(JSObject _) implements EventTarget, JSObject {
   external factory BroadcastChannel(String name);
 
@@ -6899,6 +7427,10 @@ extension type BroadcastChannel._(JSObject _) implements EventTarget, JSObject {
 /// for
 /// [ServiceWorker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
 /// The `self` property returns the specialized scope for each context.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type WorkerGlobalScope._(JSObject _)
     implements EventTarget, JSObject {
   /// The **`importScripts()`** method of the [WorkerGlobalScope] interface
@@ -6970,6 +7502,10 @@ extension type WorkerGlobalScope._(JSObject _)
 /// [JavaScript Reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference).
 /// See also:
 /// [Functions available to workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Functions_and_classes_available_to_workers).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type DedicatedWorkerGlobalScope._(JSObject _)
     implements WorkerGlobalScope, JSObject {
   /// The **`postMessage()`** method of the [DedicatedWorkerGlobalScope]
@@ -7055,6 +7591,10 @@ extension type DedicatedWorkerGlobalScope._(JSObject _)
 /// [JavaScript Reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference).
 /// See the complete list of
 /// [functions available to workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Functions_and_classes_available_to_workers).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SharedWorkerGlobalScope._(JSObject _)
     implements WorkerGlobalScope, JSObject {
   /// The **`close()`** method of the [SharedWorkerGlobalScope] interface
@@ -7082,6 +7622,10 @@ extension type SharedWorkerGlobalScope._(JSObject _)
 /// Note that not all interfaces and functions are available to web workers. See
 /// [Functions and classes available to Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Functions_and_classes_available_to_workers)
 /// for details.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type Worker._(JSObject _) implements EventTarget, JSObject {
   external factory Worker(
     String scriptURL, [
@@ -7139,6 +7683,10 @@ extension type WorkerOptions._(JSObject _) implements JSObject {
 /// > **Note:** If SharedWorker can be accessed from several browsing contexts,
 /// > all those browsing contexts must share the exact same origin (same
 /// > protocol, host and port).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SharedWorker._(JSObject _) implements EventTarget, JSObject {
   external factory SharedWorker(
     String scriptURL, [
@@ -7154,6 +7702,10 @@ extension type SharedWorker._(JSObject _) implements EventTarget, JSObject {
 /// interface allowed to be accessed from a [Worker]. Such an object is
 /// initialized for each worker and is available via the
 /// [WorkerGlobalScope.navigator] property.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type WorkerNavigator._(JSObject _) implements JSObject {
   external bool taintEnabled();
   external MediaCapabilities get mediaCapabilities;
@@ -7184,6 +7736,10 @@ extension type WorkerNavigator._(JSObject _) implements JSObject {
 ///
 /// This interface is only visible from inside a JavaScript script executed in
 /// the context of a Web worker.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type WorkerLocation._(JSObject _) implements JSObject {
   external String get href;
   external String get origin;
@@ -7204,6 +7760,10 @@ extension type WorkerLocation._(JSObject _) implements JSObject {
 /// > base interface intended to be subclassed. You will encounter the
 /// > subclasses [AudioWorkletGlobalScope] inside [AudioWorklet] objects, or
 /// > [PaintWorkletGlobalScope] inside CSS paint [Worklet] objects.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type WorkletGlobalScope._(JSObject _) implements JSObject {}
 
 /// The **`Worklet`** interface is a lightweight version of [Worker] and gives
@@ -7221,6 +7781,10 @@ extension type WorkletGlobalScope._(JSObject _) implements JSObject {}
 /// Dynamic import is disallowed by the specification — calling
 /// [`import()`](/en-US/docs/Web/JavaScript/Reference/Operators/import) will
 /// throw.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type Worklet._(JSObject _) implements JSObject {
   /// The **`addModule()`** method of the
   /// [Worklet] interface loads the module in the given JavaScript file and
@@ -7246,6 +7810,10 @@ extension type WorkletOptions._(JSObject _) implements JSObject {
 /// To manipulate, for instance, the session storage for a domain, a call to
 /// [Window.sessionStorage] is made; whereas for local storage the call is made
 /// to [Window.localStorage].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type Storage._(JSObject _) implements JSObject {
   /// The **`key()`** method of the [Storage] interface,
   /// when passed a number n, returns the name of the nth key in a given
@@ -7292,6 +7860,10 @@ extension type Storage._(JSObject _) implements JSObject {
 /// sent to a window
 /// when a storage area the window has access to is changed within the context
 /// of another document.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type StorageEvent._(JSObject _) implements Event, JSObject {
   external factory StorageEvent(
     String type, [
@@ -7341,6 +7913,10 @@ extension type StorageEventInit._(JSObject _) implements EventInit, JSObject {
 /// `marquee` elements.
 ///
 /// It inherits properties and methods from the [HTMLElement] interface.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLMarqueeElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLMarqueeElement] using the tag 'marquee'.
@@ -7375,6 +7951,10 @@ extension type HTMLMarqueeElement._(JSObject _)
 /// The **`HTMLFrameSetElement`** interface provides special properties (beyond
 /// those of the regular [HTMLElement] interface they also inherit) for
 /// manipulating `frameset` elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLFrameSetElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLFrameSetElement] using the tag 'frameset'.
@@ -7458,6 +8038,10 @@ extension type HTMLDirectoryElement._(JSObject _)
 /// Implements the document object model (DOM) representation of the font
 /// element. The HTML Font Element `font` defines the font size, font face and
 /// color of text.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLFontElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLFontElement] using the tag 'font'.
   HTMLFontElement() : _ = document.createElement('font');
@@ -7474,6 +8058,10 @@ extension type HTMLFontElement._(JSObject _) implements HTMLElement, JSObject {
 /// those of the regular [HTMLElement] object interface it inherits) for
 /// manipulating `param` elements, representing a pair of a key and a value that
 /// acts as a parameter for an `object` element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HTMLParamElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLParamElement] using the tag 'param'.
   HTMLParamElement() : _ = document.createElement('param');

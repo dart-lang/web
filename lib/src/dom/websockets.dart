@@ -25,6 +25,10 @@ typedef BinaryType = String;
 ///
 /// To construct a `WebSocket`, use the
 /// [`WebSocket()`](/en-US/docs/Web/API/WebSocket/WebSocket) constructor.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type WebSocket._(JSObject _) implements EventTarget, JSObject {
   external factory WebSocket(
     String url, [
@@ -83,6 +87,10 @@ extension type WebSocket._(JSObject _) implements EventTarget, JSObject {
 /// A `CloseEvent` is sent to clients using  when the connection is closed. This
 /// is delivered to the listener indicated by the `WebSocket` object's `onclose`
 /// attribute.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type CloseEvent._(JSObject _) implements Event, JSObject {
   external factory CloseEvent(
     String type, [

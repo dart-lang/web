@@ -32,6 +32,10 @@ typedef KeyFormat = String;
 /// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
 /// is accessed through the global [crypto_property] property, which is a
 /// `Crypto` object.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type Crypto._(JSObject _) implements JSObject {
   /// The **`Crypto.getRandomValues()`** method lets you get cryptographically
   /// strong random values.
@@ -74,6 +78,10 @@ extension type KeyAlgorithm._(JSObject _) implements JSObject {
 ///
 /// For security reasons, the `CryptoKey` interface can only be used in a
 /// [secure context](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type CryptoKey._(JSObject _) implements JSObject {
   external KeyType get type;
   external bool get extractable;
@@ -103,6 +111,10 @@ extension type CryptoKey._(JSObject _) implements JSObject {
 /// > thoroughly reviews it. The [Crypto 101 Course](https://www.crypto101.io/)
 /// > can be a great place to start learning about the design and implementation
 /// > of secure systems.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SubtleCrypto._(JSObject _) implements JSObject {
   /// The **`encrypt()`** method of the [SubtleCrypto] interface encrypts data.
   ///
@@ -424,6 +436,10 @@ extension type JsonWebKey._(JSObject _) implements JSObject {
 /// [`CryptoKey`](https://developer.mozilla.org/en-US/docs/Web/API/CryptoKey)
 /// objects: a `privateKey` property containing the private key and a
 /// `publicKey` property containing the public key.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type CryptoKeyPair._(JSObject _) implements JSObject {
   external factory CryptoKeyPair({
     CryptoKey publicKey,
@@ -456,6 +472,10 @@ extension type RsaKeyGenParams._(JSObject _) implements Algorithm, JSObject {
 /// [RSA-PSS](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign#rsa-pss),
 /// or
 /// [RSA-OAEP](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt#rsa-oaep).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type RsaHashedKeyGenParams._(JSObject _)
     implements RsaKeyGenParams, JSObject {
   external factory RsaHashedKeyGenParams(
@@ -492,6 +512,10 @@ extension type RsaHashedKeyAlgorithm._(JSObject _)
 /// [RSA-PSS](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign#rsa-pss),
 /// or
 /// [RSA-OAEP](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt#rsa-oaep).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type RsaHashedImportParams._(JSObject _)
     implements Algorithm, JSObject {
   external factory RsaHashedImportParams(
@@ -507,6 +531,10 @@ extension type RsaHashedImportParams._(JSObject _)
 /// into [SubtleCrypto.sign] or [SubtleCrypto.verify], when using the
 /// [RSA-PSS](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign#rsa-pss)
 /// algorithm.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type RsaPssParams._(JSObject _) implements Algorithm, JSObject {
   external factory RsaPssParams({required int saltLength});
 
@@ -521,6 +549,10 @@ extension type RsaPssParams._(JSObject _) implements Algorithm, JSObject {
 /// or [SubtleCrypto.unwrapKey], when using the
 /// [RSA_OAEP](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt#rsa-oaep)
 /// algorithm.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type RsaOaepParams._(JSObject _) implements Algorithm, JSObject {
   external factory RsaOaepParams({BufferSource label});
 
@@ -534,6 +566,10 @@ extension type RsaOaepParams._(JSObject _) implements Algorithm, JSObject {
 /// into [SubtleCrypto.sign] or [SubtleCrypto.verify] when using the
 /// [ECDSA](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign#ecdsa)
 /// algorithm.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type EcdsaParams._(JSObject _) implements Algorithm, JSObject {
   external factory EcdsaParams({required HashAlgorithmIdentifier hash});
 
@@ -549,6 +585,10 @@ extension type EcdsaParams._(JSObject _) implements Algorithm, JSObject {
 /// [ECDSA](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign#ecdsa)
 /// or
 /// [ECDH](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/deriveKey#ecdh).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type EcKeyGenParams._(JSObject _) implements Algorithm, JSObject {
   external factory EcKeyGenParams({required NamedCurve namedCurve});
 
@@ -571,6 +611,10 @@ extension type EcKeyAlgorithm._(JSObject _) implements KeyAlgorithm, JSObject {
 /// [ECDSA](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign#ecdsa)
 /// or
 /// [ECDH](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/deriveKey#ecdh).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type EcKeyImportParams._(JSObject _) implements Algorithm, JSObject {
   external factory EcKeyImportParams({required NamedCurve namedCurve});
 
@@ -593,6 +637,10 @@ extension type EcKeyImportParams._(JSObject _) implements Algorithm, JSObject {
 /// The parameters for ECDH `deriveKey()` therefore include the other entity's
 /// public key, which is combined with this entity's private key to derive the
 /// shared secret.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type EcdhKeyDeriveParams._(JSObject _)
     implements Algorithm, JSObject {
   external factory EcdhKeyDeriveParams({required CryptoKey public});
@@ -640,6 +688,10 @@ extension type EcdhKeyDeriveParams._(JSObject _)
 /// > **Note:** See
 /// > [Appendix B of the NIST SP800-38A standard](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38a.pdf#%5B%7B%22num%22%3A70%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22Fit%22%7D%5D)
 /// > for more information.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type AesCtrParams._(JSObject _) implements Algorithm, JSObject {
   external factory AesCtrParams({
     required BufferSource counter,
@@ -668,6 +720,10 @@ extension type AesKeyAlgorithm._(JSObject _) implements KeyAlgorithm, JSObject {
 /// [AES-GCM](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt#aes-gcm),
 /// or
 /// [AES-KW](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/wrapKey#aes-kw).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type AesKeyGenParams._(JSObject _) implements Algorithm, JSObject {
   external factory AesKeyGenParams({required int length});
 
@@ -689,6 +745,10 @@ extension type AesDerivedKeyParams._(JSObject _)
 /// or [SubtleCrypto.unwrapKey], when using the
 /// [AES-CBC](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt#aes-cbc)
 /// algorithm.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type AesCbcParams._(JSObject _) implements Algorithm, JSObject {
   external factory AesCbcParams({required BufferSource iv});
 
@@ -708,6 +768,10 @@ extension type AesCbcParams._(JSObject _) implements Algorithm, JSObject {
 /// specification for AES-GCM:
 /// [NIST SP800-38D](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38d.pdf),
 /// in particular section 5.2.1.1 on Input Data.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type AesGcmParams._(JSObject _) implements Algorithm, JSObject {
   external factory AesGcmParams({
     required BufferSource iv,
@@ -730,6 +794,10 @@ extension type AesGcmParams._(JSObject _) implements Algorithm, JSObject {
 /// key for the
 /// [HMAC](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign#hmac)
 /// algorithm.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HmacImportParams._(JSObject _) implements Algorithm, JSObject {
   external factory HmacImportParams({
     required HashAlgorithmIdentifier hash,
@@ -760,6 +828,10 @@ extension type HmacKeyAlgorithm._(JSObject _)
 /// into [SubtleCrypto.generateKey], when generating a key for the
 /// [HMAC](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/sign#hmac)
 /// algorithm.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HmacKeyGenParams._(JSObject _) implements Algorithm, JSObject {
   external factory HmacKeyGenParams({
     required HashAlgorithmIdentifier hash,
@@ -778,6 +850,10 @@ extension type HmacKeyGenParams._(JSObject _) implements Algorithm, JSObject {
 /// into [SubtleCrypto.deriveKey], when using the
 /// [HKDF](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/deriveKey#hkdf)
 /// algorithm.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HkdfParams._(JSObject _) implements Algorithm, JSObject {
   external factory HkdfParams({
     required HashAlgorithmIdentifier hash,
@@ -799,6 +875,10 @@ extension type HkdfParams._(JSObject _) implements Algorithm, JSObject {
 /// into [SubtleCrypto.deriveKey], when using the
 /// [PBKDF2](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/deriveKey#pbkdf2)
 /// algorithm.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type Pbkdf2Params._(JSObject _) implements Algorithm, JSObject {
   external factory Pbkdf2Params({
     required BufferSource salt,

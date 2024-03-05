@@ -22,6 +22,10 @@ import 'web_animations.dart';
 
 /// All of the SVG DOM interfaces that correspond directly to elements in the
 /// SVG language derive from the `SVGElement` interface.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGElement._(JSObject _) implements Element, JSObject {
   external void focus([FocusOptions options]);
   external void blur();
@@ -264,6 +268,10 @@ extension type SVGBoundingBoxOptions._(JSObject _) implements JSObject {
 
 /// The **`SVGGraphicsElement`** interface represents SVG elements whose primary
 /// purpose is to directly render graphics into a group.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGGraphicsElement._(JSObject _)
     implements SVGElement, JSObject {
   /// The **`SVGGraphicsElement.getBBox()`** method allows us to determine
@@ -293,6 +301,10 @@ extension type SVGGraphicsElement._(JSObject _)
 /// The `SVGGeometryElement` interface represents SVG elements whose rendering
 /// is defined by geometry with an equivalent path, and which can be filled and
 /// stroked. This includes paths and the basic shapes.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGGeometryElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
   /// The **`SVGGeometryElement.isPointInFill()`** method determines
@@ -331,12 +343,20 @@ extension type SVGGeometryElement._(JSObject _)
 ///
 /// An `SVGNumber` object can be designated as read only, which means that
 /// attempts to modify the object will result in an exception being thrown.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGNumber._(JSObject _) implements JSObject {
   external set value(num value);
   external num get value;
 }
 
 ///
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGLength._(JSObject _) implements JSObject {
   external static int get SVG_LENGTHTYPE_UNKNOWN;
   external static int get SVG_LENGTHTYPE_NUMBER;
@@ -381,6 +401,10 @@ extension type SVGLength._(JSObject _) implements JSObject {
 /// exposed through the `baseVal` member of an [SVGAnimatedAngle]),
 /// 2. **_Be detached_,** which is the case for `SVGAngle` objects created with
 /// [SVGSVGElement.createSVGAngle].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGAngle._(JSObject _) implements JSObject {
   external static int get SVG_ANGLETYPE_UNKNOWN;
   external static int get SVG_ANGLETYPE_UNSPECIFIED;
@@ -402,6 +426,10 @@ extension type SVGAngle._(JSObject _) implements JSObject {
 }
 
 ///
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGNumberList._(JSObject _) implements JSObject {
   external void clear();
   external SVGNumber initialize(SVGNumber newItem);
@@ -421,6 +449,10 @@ extension type SVGNumberList._(JSObject _) implements JSObject {
 }
 
 ///
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGLengthList._(JSObject _) implements JSObject {
   external void clear();
   external SVGLength initialize(SVGLength newItem);
@@ -440,6 +472,10 @@ extension type SVGLengthList._(JSObject _) implements JSObject {
 }
 
 ///
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGStringList._(JSObject _) implements JSObject {
   external void clear();
   external String initialize(String newItem);
@@ -459,6 +495,10 @@ extension type SVGStringList._(JSObject _) implements JSObject {
 }
 
 ///
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGAnimatedBoolean._(JSObject _) implements JSObject {
   external set baseVal(bool value);
   external bool get baseVal;
@@ -467,6 +507,10 @@ extension type SVGAnimatedBoolean._(JSObject _) implements JSObject {
 
 /// The **`SVGAnimatedEnumeration`** interface describes attribute values which
 /// are constants from a particular enumeration and which can be animated.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGAnimatedEnumeration._(JSObject _) implements JSObject {
   external set baseVal(int value);
   external int get baseVal;
@@ -474,6 +518,10 @@ extension type SVGAnimatedEnumeration._(JSObject _) implements JSObject {
 }
 
 ///
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGAnimatedInteger._(JSObject _) implements JSObject {
   external set baseVal(int value);
   external int get baseVal;
@@ -481,6 +529,10 @@ extension type SVGAnimatedInteger._(JSObject _) implements JSObject {
 }
 
 ///
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGAnimatedNumber._(JSObject _) implements JSObject {
   external set baseVal(num value);
   external num get baseVal;
@@ -489,12 +541,20 @@ extension type SVGAnimatedNumber._(JSObject _) implements JSObject {
 
 /// The **`SVGAnimatedLength`** interface represents attributes of type
 /// [\<length>](/en-US/docs/Web/SVG/Content_type#length) which can be animated.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGAnimatedLength._(JSObject _) implements JSObject {
   external SVGLength get baseVal;
   external SVGLength get animVal;
 }
 
 ///
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGAnimatedAngle._(JSObject _) implements JSObject {
   external SVGAngle get baseVal;
   external SVGAngle get animVal;
@@ -503,6 +563,10 @@ extension type SVGAnimatedAngle._(JSObject _) implements JSObject {
 /// The **`SVGAnimatedString`** interface represents string attributes which can
 /// be animated from each SVG declaration. You need to create SVG attribute
 /// before doing anything else, everything should be declared inside this.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGAnimatedString._(JSObject _) implements JSObject {
   external set baseVal(String value);
   external String get baseVal;
@@ -548,18 +612,30 @@ extension type SVGAnimatedString._(JSObject _) implements JSObject {
 ///     </tr>
 ///   </tbody>
 /// </table>
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGAnimatedRect._(JSObject _) implements JSObject {
   external DOMRect get baseVal;
   external DOMRectReadOnly get animVal;
 }
 
 ///
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGAnimatedNumberList._(JSObject _) implements JSObject {
   external SVGNumberList get baseVal;
   external SVGNumberList get animVal;
 }
 
 ///
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGAnimatedLengthList._(JSObject _) implements JSObject {
   external SVGLengthList get baseVal;
   external SVGLengthList get animVal;
@@ -568,6 +644,10 @@ extension type SVGAnimatedLengthList._(JSObject _) implements JSObject {
 /// The **`SVGUnitTypes`** interface defines a commonly used set of constants
 /// used for reflecting `gradientUnits`, `patternContentUnits` and other similar
 /// attributes.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGUnitTypes._(JSObject _) implements JSObject {
   external static int get SVG_UNIT_TYPE_UNKNOWN;
   external static int get SVG_UNIT_TYPE_USERSPACEONUSE;
@@ -579,6 +659,10 @@ extension type SVGUnitTypes._(JSObject _) implements JSObject {
 /// also various miscellaneous commonly-used utility methods, such as matrix
 /// operations and the ability to control the time of redraw on visual rendering
 /// devices.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGSVGElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
   /// Creates an [SVGSVGElement] using the tag 'svg'.
@@ -673,6 +757,10 @@ extension type SVGSVGElement._(JSObject _)
 }
 
 /// The **`SVGGElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGGElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
   /// Creates an [SVGGElement] using the tag 'g'.
@@ -684,6 +772,10 @@ extension type SVGGElement._(JSObject _)
 }
 
 /// The **`SVGDefsElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGDefsElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
   /// Creates an [SVGDefsElement] using the tag 'defs'.
@@ -695,6 +787,10 @@ extension type SVGDefsElement._(JSObject _)
 }
 
 /// The **`SVGDescElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGDescElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGDescElement] using the tag 'desc'.
   SVGDescElement()
@@ -705,6 +801,10 @@ extension type SVGDescElement._(JSObject _) implements SVGElement, JSObject {
 }
 
 /// The **`SVGMetadataElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGMetadataElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGMetadataElement] using the tag 'metadata'.
@@ -716,6 +816,10 @@ extension type SVGMetadataElement._(JSObject _)
 }
 
 /// The **`SVGTitleElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGTitleElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGTitleElement] using the tag 'title'.
   SVGTitleElement()
@@ -726,6 +830,10 @@ extension type SVGTitleElement._(JSObject _) implements SVGElement, JSObject {
 }
 
 /// The **`SVGSymbolElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGSymbolElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
   /// Creates an [SVGSymbolElement] using the tag 'symbol'.
@@ -740,6 +848,10 @@ extension type SVGSymbolElement._(JSObject _)
 }
 
 ///
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGUseElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
   /// Creates an [SVGUseElement] using the tag 'use'.
@@ -769,6 +881,10 @@ extension type ShadowAnimation._(JSObject _) implements Animation, JSObject {
 }
 
 /// The **`SVGSwitchElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGSwitchElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
   /// Creates an [SVGSwitchElement] using the tag 'switch'.
@@ -780,6 +896,10 @@ extension type SVGSwitchElement._(JSObject _)
 }
 
 /// The **`SVGStyleElement`** interface corresponds to the SVG  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGStyleElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGStyleElement] using the tag 'style'.
   SVGStyleElement()
@@ -798,6 +918,10 @@ extension type SVGStyleElement._(JSObject _) implements SVGElement, JSObject {
 }
 
 ///
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGTransform._(JSObject _) implements JSObject {
   external static int get SVG_TRANSFORM_UNKNOWN;
   external static int get SVG_TRANSFORM_MATRIX;
@@ -828,6 +952,10 @@ extension type SVGTransform._(JSObject _) implements JSObject {
 }
 
 ///
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGTransformList._(JSObject _) implements JSObject {
   external void clear();
   external SVGTransform initialize(SVGTransform newItem);
@@ -849,12 +977,20 @@ extension type SVGTransformList._(JSObject _) implements JSObject {
 }
 
 ///
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGAnimatedTransformList._(JSObject _) implements JSObject {
   external SVGTransformList get baseVal;
   external SVGTransformList get animVal;
 }
 
 ///
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGPreserveAspectRatio._(JSObject _) implements JSObject {
   external static int get SVG_PRESERVEASPECTRATIO_UNKNOWN;
   external static int get SVG_PRESERVEASPECTRATIO_NONE;
@@ -877,6 +1013,10 @@ extension type SVGPreserveAspectRatio._(JSObject _) implements JSObject {
 }
 
 ///
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGAnimatedPreserveAspectRatio._(JSObject _)
     implements JSObject {
   external SVGPreserveAspectRatio get baseVal;
@@ -889,6 +1029,10 @@ extension type SVGAnimatedPreserveAspectRatio._(JSObject _)
 /// > methods were removed and the `pathLength` property and the
 /// > `getTotalLength()` and `getPointAtLength()` methods were moved to
 /// > [SVGGeometryElement].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGPathElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
   /// Creates an [SVGPathElement] using the tag 'path'.
@@ -901,6 +1045,10 @@ extension type SVGPathElement._(JSObject _)
 
 /// The `SVGRectElement` interface provides access to the properties of
 /// elements, as well as methods to manipulate them.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGRectElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
   /// Creates an [SVGRectElement] using the tag 'rect'.
@@ -919,6 +1067,10 @@ extension type SVGRectElement._(JSObject _)
 }
 
 /// The **`SVGCircleElement`** interface is an interface for the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGCircleElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
   /// Creates an [SVGCircleElement] using the tag 'circle'.
@@ -935,6 +1087,10 @@ extension type SVGCircleElement._(JSObject _)
 
 /// The **`SVGEllipseElement`** interface provides access to the properties of
 /// elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGEllipseElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
   /// Creates an [SVGEllipseElement] using the tag 'ellipse'.
@@ -952,6 +1108,10 @@ extension type SVGEllipseElement._(JSObject _)
 
 /// The **`SVGLineElement`** interface provides access to the properties of
 /// elements, as well as methods to manipulate them.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGLineElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
   /// Creates an [SVGLineElement] using the tag 'line'.
@@ -971,6 +1131,10 @@ extension type SVGLineElement._(JSObject _)
 ///
 /// An `SVGPointList` can be designated as read-only, which means that attempts
 /// to modify the object will result in an exception being thrown.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGPointList._(JSObject _) implements JSObject {
   /// The **`clear()`** method of the [SVGPointList] interface removes all items
   /// from the list.
@@ -1011,6 +1175,10 @@ extension type SVGPointList._(JSObject _) implements JSObject {
 
 /// The **`SVGPolylineElement`** interface provides access to the properties of
 /// elements, as well as methods to manipulate them.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGPolylineElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
   /// Creates an [SVGPolylineElement] using the tag 'polyline'.
@@ -1026,6 +1194,10 @@ extension type SVGPolylineElement._(JSObject _)
 
 /// The **`SVGPolygonElement`** interface provides access to the properties of
 /// elements, as well as methods to manipulate them.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGPolygonElement._(JSObject _)
     implements SVGGeometryElement, JSObject {
   /// Creates an [SVGPolygonElement] using the tag 'polygon'.
@@ -1043,6 +1215,10 @@ extension type SVGPolygonElement._(JSObject _)
 /// support rendering child text content. It is inherited by various
 /// text-related interfaces, such as [SVGTextElement], [SVGTSpanElement],
 /// [SVGTRefElement], and [SVGTextPathElement].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGTextContentElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
   external static int get LENGTHADJUST_UNKNOWN;
@@ -1070,6 +1246,10 @@ extension type SVGTextContentElement._(JSObject _)
 /// The **`SVGTextPositioningElement`** interface is implemented by elements
 /// that support attributes that position individual text glyphs. It is
 /// inherited by [SVGTextElement], [SVGTSpanElement], and [SVGTRefElement].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGTextPositioningElement._(JSObject _)
     implements SVGTextContentElement, JSObject {
   external SVGAnimatedLengthList get x;
@@ -1080,6 +1260,10 @@ extension type SVGTextPositioningElement._(JSObject _)
 }
 
 /// The **`SVGTextElement`** interface corresponds to the  elements.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGTextElement._(JSObject _)
     implements SVGTextPositioningElement, JSObject {
   /// Creates an [SVGTextElement] using the tag 'text'.
@@ -1091,6 +1275,10 @@ extension type SVGTextElement._(JSObject _)
 }
 
 /// The **`SVGTSpanElement`** interface represents a  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGTSpanElement._(JSObject _)
     implements SVGTextPositioningElement, JSObject {
   /// Creates an [SVGTSpanElement] using the tag 'tspan'.
@@ -1102,6 +1290,10 @@ extension type SVGTSpanElement._(JSObject _)
 }
 
 /// The **`SVGTextPathElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGTextPathElement._(JSObject _)
     implements SVGTextContentElement, JSObject {
   /// Creates an [SVGTextPathElement] using the tag 'textPath'.
@@ -1124,6 +1316,10 @@ extension type SVGTextPathElement._(JSObject _)
 }
 
 /// The **`SVGImageElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGImageElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
   /// Creates an [SVGImageElement] using the tag 'image'.
@@ -1145,6 +1341,10 @@ extension type SVGImageElement._(JSObject _)
 
 /// The **`SVGForeignObjectElement`** interface provides access to the
 /// properties of  elements, as well as methods to manipulate them.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGForeignObjectElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
   /// Creates an [SVGForeignObjectElement] using the tag 'foreignObject'.
@@ -1166,6 +1366,10 @@ extension type SVGForeignObjectElement._(JSObject _)
 ///
 /// The following properties and methods all return, or act on the attributes of
 /// the  element represented by `SVGMarkerElement`.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGMarkerElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGMarkerElement] using the tag 'marker'.
   SVGMarkerElement()
@@ -1204,6 +1408,10 @@ extension type SVGMarkerElement._(JSObject _) implements SVGElement, JSObject {
 
 /// The **`SVGGradient`** interface is a base interface used by
 /// [SVGLinearGradientElement] and [SVGRadialGradientElement].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGGradientElement._(JSObject _)
     implements SVGElement, JSObject {
   external static int get SVG_SPREADMETHOD_UNKNOWN;
@@ -1217,6 +1425,10 @@ extension type SVGGradientElement._(JSObject _)
 }
 
 /// The **`SVGLinearGradientElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGLinearGradientElement._(JSObject _)
     implements SVGGradientElement, JSObject {
   /// Creates an [SVGLinearGradientElement] using the tag 'linearGradient'.
@@ -1233,6 +1445,10 @@ extension type SVGLinearGradientElement._(JSObject _)
 }
 
 /// The **`SVGRadialGradientElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGRadialGradientElement._(JSObject _)
     implements SVGGradientElement, JSObject {
   /// Creates an [SVGRadialGradientElement] using the tag 'radialGradient'.
@@ -1251,6 +1467,10 @@ extension type SVGRadialGradientElement._(JSObject _)
 }
 
 /// The **`SVGStopElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGStopElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGStopElement] using the tag 'stop'.
   SVGStopElement()
@@ -1263,6 +1483,10 @@ extension type SVGStopElement._(JSObject _) implements SVGElement, JSObject {
 }
 
 /// The **`SVGPatternElement`** interface corresponds to the  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGPatternElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGPatternElement] using the tag 'pattern'.
   SVGPatternElement()
@@ -1284,6 +1508,10 @@ extension type SVGPatternElement._(JSObject _) implements SVGElement, JSObject {
 }
 
 /// The **`SVGScriptElement`** interface corresponds to the SVG  element.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGScriptElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGScriptElement] using the tag 'script'.
   SVGScriptElement()
@@ -1301,6 +1529,10 @@ extension type SVGScriptElement._(JSObject _) implements SVGElement, JSObject {
 
 /// The **`SVGAElement`** interface provides access to the properties of an
 /// element, as well as methods to manipulate them.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGAElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
   /// Creates an [SVGAElement] using the tag 'a'.
@@ -1350,6 +1582,10 @@ extension type SVGAElement._(JSObject _)
 
 /// The **`SVGViewElement`** interface provides access to the properties of
 /// elements, as well as methods to manipulate them.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type SVGViewElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGViewElement] using the tag 'view'.
   SVGViewElement()

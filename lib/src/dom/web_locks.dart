@@ -23,6 +23,10 @@ typedef LockMode = String;
 /// provides methods for requesting a new [Lock] object and querying for an
 /// existing `Lock` object. To get an instance of `LockManager`, call
 /// [navigator.locks].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type LockManager._(JSObject _) implements JSObject {
   /// The **`request()`** method of the [LockManager] interface requests a
   /// [Lock] object with parameters specifying its name and characteristics.
@@ -115,6 +119,10 @@ extension type LockInfo._(JSObject _) implements JSObject {
 /// This may be a newly requested lock that is received in the callback to
 /// [LockManager.request], or a record of an active or queued lock returned by
 /// [LockManager.query].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type Lock._(JSObject _) implements JSObject {
   external String get name;
   external LockMode get mode;

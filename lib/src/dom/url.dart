@@ -25,6 +25,10 @@ import 'dart:js_interop';
 /// If a browser doesn't yet support the [URL.URL] constructor, you can access a
 /// URL object using the [Window] interface's [URL] property. Be sure to check
 /// to see if any of your target browsers require this to be prefixed.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type URL._(JSObject _) implements JSObject {
   external factory URL(
     String url, [
@@ -81,6 +85,10 @@ extension type URL._(JSObject _) implements JSObject {
 /// for (const [key, value] of mySearchParams.entries()) {
 /// }
 /// ```
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type URLSearchParams._(JSObject _) implements JSObject {
   external factory URLSearchParams([JSAny init]);
 

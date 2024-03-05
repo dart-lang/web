@@ -29,6 +29,10 @@ typedef HighlightType = String;
 /// A `Highlight` instance is a
 /// [`Set`-like object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set#set-like_browser_apis)
 /// that can hold one or more `Range` objects.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type Highlight._(JSObject _) implements JSObject {
   external factory Highlight(AbstractRange initialRanges);
 
@@ -47,4 +51,8 @@ extension type Highlight._(JSObject _) implements JSObject {
 /// [`Map`-like object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map#map-like_browser_apis),
 /// in which each key is the name string for a custom highlight, and the
 /// corresponding value is the associated [Highlight] object.
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type HighlightRegistry._(JSObject _) implements JSObject {}

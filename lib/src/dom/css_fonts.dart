@@ -17,6 +17,10 @@ import 'cssom.dart';
 
 /// The **`CSSFontFaceRule`** interface represents an
 /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type CSSFontFaceRule._(JSObject _) implements CSSRule, JSObject {
   external CSSStyleDeclaration get style;
 }
@@ -25,6 +29,10 @@ extension type CSSFontFaceRule._(JSObject _) implements CSSRule, JSObject {
 /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule), letting
 /// developers assign for each font face a common name to specify features
 /// indices to be used in .
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type CSSFontFeatureValuesRule._(JSObject _)
     implements CSSRule, JSObject {
   external set fontFamily(String value);
@@ -45,6 +53,10 @@ extension type CSSFontFeatureValuesMap._(JSObject _) implements JSObject {
 
 /// The **`CSSFontPaletteValuesRule`** interface represents an
 /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type CSSFontPaletteValuesRule._(JSObject _)
     implements CSSRule, JSObject {
   external String get name;

@@ -36,5 +36,9 @@ import 'performance_timeline.dart';
 /// performant, and engaging for your users.
 ///
 /// Like other Performance APIs, this API extends [PerformanceEntry].
+///
+/// ---
+///
+/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
 extension type PerformancePaintTiming._(JSObject _)
     implements PerformanceEntry, JSObject {}

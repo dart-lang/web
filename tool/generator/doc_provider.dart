@@ -53,7 +53,21 @@ class MdnInterface {
     }
   }
 
-  List<String> get formattedDocs => formatDocs(docs, 80);
+  List<String> get formattedDocs {
+    final result = formatDocs(docs, 80);
+
+    if (result.isEmpty) {
+      return result;
+    } else {
+      return [
+        ...result,
+        '///',
+        '/// ---',
+        '///',
+        '/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).',
+      ];
+    }
+  }
 
   MdnProperty? propertyFor(String name) {
     name = name.toLowerCase();

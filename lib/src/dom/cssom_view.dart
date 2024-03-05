@@ -31,6 +31,7 @@ extension type ScrollOptions._(JSObject _) implements JSObject {
 extension type ScrollToOptions._(JSObject _)
     implements ScrollOptions, JSObject {
   external factory ScrollToOptions({
+    ScrollBehavior behavior,
     num left,
     num top,
   });
@@ -99,6 +100,9 @@ extension type MediaQueryListEvent._(JSObject _) implements Event, JSObject {
 extension type MediaQueryListEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory MediaQueryListEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     String media,
     bool matches,
   });
@@ -135,6 +139,7 @@ extension type CaretPosition._(JSObject _) implements JSObject {
 extension type ScrollIntoViewOptions._(JSObject _)
     implements ScrollOptions, JSObject {
   external factory ScrollIntoViewOptions({
+    ScrollBehavior behavior,
     ScrollLogicalPosition block,
     ScrollLogicalPosition inline,
   });

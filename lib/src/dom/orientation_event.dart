@@ -33,6 +33,9 @@ extension type DeviceOrientationEvent._(JSObject _) implements Event, JSObject {
 extension type DeviceOrientationEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory DeviceOrientationEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     num? alpha,
     num? beta,
     num? gamma,
@@ -118,6 +121,9 @@ extension type DeviceMotionEventRotationRateInit._(JSObject _)
 extension type DeviceMotionEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory DeviceMotionEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     DeviceMotionEventAccelerationInit acceleration,
     DeviceMotionEventAccelerationInit accelerationIncludingGravity,
     DeviceMotionEventRotationRateInit rotationRate,

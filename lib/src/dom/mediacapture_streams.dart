@@ -326,8 +326,24 @@ extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
 /// [MediaStreamTrack.getConstraints].
 extension type MediaTrackConstraints._(JSObject _)
     implements MediaTrackConstraintSet, JSObject {
-  external factory MediaTrackConstraints(
-      {JSArray<MediaTrackConstraintSet> advanced});
+  external factory MediaTrackConstraints({
+    ConstrainULong width,
+    ConstrainULong height,
+    ConstrainDouble aspectRatio,
+    ConstrainDouble frameRate,
+    ConstrainDOMString facingMode,
+    ConstrainDOMString resizeMode,
+    ConstrainULong sampleRate,
+    ConstrainULong sampleSize,
+    ConstrainBoolean echoCancellation,
+    ConstrainBoolean autoGainControl,
+    ConstrainBoolean noiseSuppression,
+    ConstrainDouble latency,
+    ConstrainULong channelCount,
+    ConstrainDOMString deviceId,
+    ConstrainDOMString groupId,
+    JSArray<MediaTrackConstraintSet> advanced,
+  });
 
   external set advanced(JSArray<MediaTrackConstraintSet> value);
   external JSArray<MediaTrackConstraintSet> get advanced;
@@ -464,7 +480,12 @@ extension type MediaStreamTrackEvent._(JSObject _) implements Event, JSObject {
 }
 extension type MediaStreamTrackEventInit._(JSObject _)
     implements EventInit, JSObject {
-  external factory MediaStreamTrackEventInit({required MediaStreamTrack track});
+  external factory MediaStreamTrackEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    required MediaStreamTrack track,
+  });
 
   external set track(MediaStreamTrack value);
   external MediaStreamTrack get track;
@@ -591,6 +612,8 @@ extension type DoubleRange._(JSObject _) implements JSObject {
 extension type ConstrainDoubleRange._(JSObject _)
     implements DoubleRange, JSObject {
   external factory ConstrainDoubleRange({
+    num max,
+    num min,
     num exact,
     num ideal,
   });
@@ -614,6 +637,8 @@ extension type ULongRange._(JSObject _) implements JSObject {
 extension type ConstrainULongRange._(JSObject _)
     implements ULongRange, JSObject {
   external factory ConstrainULongRange({
+    int max,
+    int min,
     int exact,
     int ideal,
   });
@@ -647,7 +672,10 @@ extension type ConstrainDOMStringParameters._(JSObject _) implements JSObject {
 }
 extension type CameraDevicePermissionDescriptor._(JSObject _)
     implements PermissionDescriptor, JSObject {
-  external factory CameraDevicePermissionDescriptor({bool panTiltZoom});
+  external factory CameraDevicePermissionDescriptor({
+    required String name,
+    bool panTiltZoom,
+  });
 
   external set panTiltZoom(bool value);
   external bool get panTiltZoom;

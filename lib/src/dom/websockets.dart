@@ -95,6 +95,9 @@ extension type CloseEvent._(JSObject _) implements Event, JSObject {
 }
 extension type CloseEventInit._(JSObject _) implements EventInit, JSObject {
   external factory CloseEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     bool wasClean,
     int code,
     String reason,

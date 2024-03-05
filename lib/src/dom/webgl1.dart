@@ -1727,7 +1727,12 @@ extension type WebGLContextEvent._(JSObject _) implements Event, JSObject {
 }
 extension type WebGLContextEventInit._(JSObject _)
     implements EventInit, JSObject {
-  external factory WebGLContextEventInit({String statusMessage});
+  external factory WebGLContextEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    String statusMessage,
+  });
 
   external set statusMessage(String value);
   external String get statusMessage;

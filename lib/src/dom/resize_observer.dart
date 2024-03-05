@@ -36,7 +36,8 @@ extension type ResizeObserverOptions._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver).
 extension type ResizeObserver._(JSObject _) implements JSObject {
   external factory ResizeObserver(ResizeObserverCallback callback);
 
@@ -66,7 +67,8 @@ extension type ResizeObserver._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserverEntry).
 extension type ResizeObserverEntry._(JSObject _) implements JSObject {
   external Element get target;
   external DOMRectReadOnly get contentRect;
@@ -86,7 +88,8 @@ extension type ResizeObserverEntry._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserverSize).
 extension type ResizeObserverSize._(JSObject _) implements JSObject {
   external num get inlineSize;
   external num get blockSize;

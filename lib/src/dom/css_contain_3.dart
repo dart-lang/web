@@ -24,7 +24,8 @@ import 'css_conditional.dart';
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSContainerRule).
 extension type CSSContainerRule._(JSObject _)
     implements CSSConditionRule, JSObject {
   external String get containerName;

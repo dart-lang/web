@@ -25,7 +25,8 @@ typedef PaymentComplete = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PaymentRequest).
 extension type PaymentRequest._(JSObject _) implements EventTarget, JSObject {
   external factory PaymentRequest(
     JSArray<PaymentMethodData> methodData,
@@ -204,7 +205,8 @@ extension type PaymentCompleteDetails._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PaymentResponse).
 extension type PaymentResponse._(JSObject _) implements EventTarget, JSObject {
   /// The **`toJSON()`** method of the [PaymentResponse] interface is a ; it
   /// returns a JSON representation of the [PaymentResponse] object.
@@ -259,7 +261,8 @@ extension type PaymentValidationErrors._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PaymentMethodChangeEvent).
 extension type PaymentMethodChangeEvent._(JSObject _)
     implements PaymentRequestUpdateEvent, JSObject {
   external factory PaymentMethodChangeEvent(
@@ -294,7 +297,8 @@ extension type PaymentMethodChangeEventInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PaymentRequestUpdateEvent).
 extension type PaymentRequestUpdateEvent._(JSObject _)
     implements Event, JSObject {
   external factory PaymentRequestUpdateEvent(

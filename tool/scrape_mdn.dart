@@ -47,8 +47,10 @@ Future<void> main(List<String> args) async {
       continue;
     }
 
-    final info = InterfaceInfo(name: p.basename(dir.path));
-    info.docs = convertMdnToMarkdown(interfaceIndex.readAsStringSync());
+    final indexFileContent = interfaceIndex.readAsStringSync();
+    final name = findTitle(indexFileContent) ?? p.basename(dir.path);
+    final info = InterfaceInfo(name: name);
+    info.docs = convertMdnToMarkdown(indexFileContent);
     interfaces.add(info);
 
     for (final child in dir.listSync().whereType<Directory>()) {
@@ -56,7 +58,7 @@ Future<void> main(List<String> args) async {
       if (!propertyIndex.existsSync()) continue;
 
       final property = Property(name: p.basename(child.path));
-      if (property.name != info.name) {
+      if (property.name != info.name.toLowerCase()) {
         property.docs = convertMdnToMarkdown(propertyIndex.readAsStringSync());
         info.properties.add(property);
       }
@@ -117,6 +119,33 @@ class Property implements Comparable<Property> {
 final RegExp _xrefRegex =
     RegExp(r'''{{\s*(\w+)\(([\w\., \n/\*"'\(\)]+)\)\s*}}''');
 final RegExp _mustacheRegex = RegExp(r'''{{\s*([\S ]+?)\s*}}''');
+
+String? findTitle(String content) {
+  // Look for 'title: AbortController'.
+
+  for (var line in content.split('\n')) {
+    line = line.trim();
+
+    // early exit
+    if (line.isEmpty) return null;
+
+    if (line.contains(':')) {
+      final index = line.indexOf(':');
+      final key = line.substring(0, index).trim();
+
+      if (key == 'title') {
+        var value = line.substring(index + 1).trim();
+        if (value.contains(' ')) {
+          // Work around 'title: Foo (Bar)'.
+          value = value.substring(0, value.indexOf(' '));
+        }
+        return value;
+      }
+    }
+  }
+
+  return null;
+}
 
 String convertMdnToMarkdown(String content) {
   var lines = content.split('\n');

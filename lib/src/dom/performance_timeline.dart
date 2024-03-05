@@ -47,7 +47,8 @@ typedef PerformanceObserverCallback = JSFunction;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceEntry).
 extension type PerformanceEntry._(JSObject _) implements JSObject {
   /// The **`toJSON()`** method is a ; it returns a JSON representation of the
   /// [PerformanceEntry] object.
@@ -66,7 +67,8 @@ extension type PerformanceEntry._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver).
 extension type PerformanceObserver._(JSObject _) implements JSObject {
   external factory PerformanceObserver(PerformanceObserverCallback callback);
 
@@ -122,7 +124,8 @@ extension type PerformanceObserverInit._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserverEntryList).
 extension type PerformanceObserverEntryList._(JSObject _) implements JSObject {
   /// The **`getEntries()`** method of the [PerformanceObserverEntryList]
   /// interface returns a list of explicitly observed [PerformanceEntry]

@@ -33,7 +33,8 @@ typedef PositionErrorCallback = JSFunction;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation).
 extension type Geolocation._(JSObject _) implements JSObject {
   /// The **`getCurrentPosition()`** method of the [Geolocation] interface is
   /// used to get the current position of the device.
@@ -80,7 +81,8 @@ extension type PositionOptions._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/GeolocationPosition).
 extension type GeolocationPosition._(JSObject _) implements JSObject {
   external GeolocationCoordinates get coords;
   external EpochTimeStamp get timestamp;
@@ -94,7 +96,8 @@ extension type GeolocationPosition._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/GeolocationCoordinates).
 extension type GeolocationCoordinates._(JSObject _) implements JSObject {
   external num get accuracy;
   external num get latitude;
@@ -110,7 +113,8 @@ extension type GeolocationCoordinates._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/GeolocationPositionError).
 extension type GeolocationPositionError._(JSObject _) implements JSObject {
   external static int get PERMISSION_DENIED;
   external static int get POSITION_UNAVAILABLE;

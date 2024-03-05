@@ -21,7 +21,8 @@ import 'dom.dart';
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DeviceOrientationEvent).
 extension type DeviceOrientationEvent._(JSObject _) implements Event, JSObject {
   external factory DeviceOrientationEvent(
     String type, [
@@ -59,7 +60,8 @@ extension type DeviceOrientationEventInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DeviceMotionEventAcceleration).
 extension type DeviceMotionEventAcceleration._(JSObject _) implements JSObject {
   external num? get x;
   external num? get y;
@@ -72,7 +74,8 @@ extension type DeviceMotionEventAcceleration._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DeviceMotionEventRotationRate).
 extension type DeviceMotionEventRotationRate._(JSObject _) implements JSObject {
   external num? get alpha;
   external num? get beta;
@@ -88,7 +91,8 @@ extension type DeviceMotionEventRotationRate._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DeviceMotionEvent).
 extension type DeviceMotionEvent._(JSObject _) implements Event, JSObject {
   external factory DeviceMotionEvent(
     String type, [

@@ -28,7 +28,8 @@ typedef UpdateCallback = JSFunction;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ViewTransition).
 extension type ViewTransition._(JSObject _) implements JSObject {
   /// The **`skipTransition()`** method of the
   /// [ViewTransition] interface skips the animation part of the view

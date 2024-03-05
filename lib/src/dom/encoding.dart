@@ -40,7 +40,8 @@ extension type TextDecodeOptions._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder).
 extension type TextDecoder._(JSObject _) implements JSObject {
   external factory TextDecoder([
     String label,
@@ -78,7 +79,8 @@ extension type TextEncoderEncodeIntoResult._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TextEncoder).
 extension type TextEncoder._(JSObject _) implements JSObject {
   external factory TextEncoder();
 
@@ -107,7 +109,8 @@ extension type TextEncoder._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TextDecoderStream).
 extension type TextDecoderStream._(JSObject _) implements JSObject {
   external factory TextDecoderStream([
     String label,
@@ -127,7 +130,8 @@ extension type TextDecoderStream._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TextEncoderStream).
 extension type TextEncoderStream._(JSObject _) implements JSObject {
   external factory TextEncoderStream();
 

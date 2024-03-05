@@ -32,7 +32,8 @@ typedef GamepadHapticEffectType = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad).
 extension type Gamepad._(JSObject _) implements JSObject {
   external String get id;
   external int get index;
@@ -53,7 +54,8 @@ extension type Gamepad._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/GamepadButton).
 extension type GamepadButton._(JSObject _) implements JSObject {
   external bool get pressed;
   external bool get touched;
@@ -69,7 +71,8 @@ extension type GamepadButton._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/GamepadHapticActuator).
 extension type GamepadHapticActuator._(JSObject _) implements JSObject {
   /// The **`playEffect()`** method of the [GamepadHapticActuator] interface
   /// makes the hardware play a specific vibration pattern.
@@ -105,7 +108,8 @@ extension type GamepadEffectParameters._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/GamepadEvent).
 extension type GamepadEvent._(JSObject _) implements Event, JSObject {
   external factory GamepadEvent(
     String type,

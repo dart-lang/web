@@ -45,7 +45,8 @@ typedef ReadableStreamType = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream).
 extension type ReadableStream._(JSObject _) implements JSObject {
   external factory ReadableStream([
     JSObject underlyingSource,
@@ -228,7 +229,8 @@ extension type UnderlyingSource._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStreamDefaultReader).
 extension type ReadableStreamDefaultReader._(JSObject _) implements JSObject {
   external factory ReadableStreamDefaultReader(ReadableStream stream);
 
@@ -314,7 +316,8 @@ extension type ReadableStreamReadResult._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStreamBYOBReader).
 extension type ReadableStreamBYOBReader._(JSObject _) implements JSObject {
   external factory ReadableStreamBYOBReader(ReadableStream stream);
 
@@ -394,7 +397,8 @@ extension type ReadableStreamBYOBReaderReadOptions._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStreamDefaultController).
 extension type ReadableStreamDefaultController._(JSObject _)
     implements JSObject {
   /// The **`close()`** method of the
@@ -484,7 +488,8 @@ extension type ReadableStreamDefaultController._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ReadableByteStreamController).
 extension type ReadableByteStreamController._(JSObject _) implements JSObject {
   /// The **`close()`** method of the [ReadableByteStreamController] interface
   /// closes the associated stream.
@@ -569,7 +574,8 @@ extension type ReadableByteStreamController._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStreamBYOBRequest).
 extension type ReadableStreamBYOBRequest._(JSObject _) implements JSObject {
   /// The **`respond()`** method of the [ReadableStreamBYOBRequest] interface is
   /// used to signal to the associated
@@ -611,7 +617,8 @@ extension type ReadableStreamBYOBRequest._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WritableStream).
 extension type WritableStream._(JSObject _) implements JSObject {
   external factory WritableStream([
     JSObject underlyingSink,
@@ -670,7 +677,8 @@ extension type UnderlyingSink._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WritableStreamDefaultWriter).
 extension type WritableStreamDefaultWriter._(JSObject _) implements JSObject {
   external factory WritableStreamDefaultWriter(WritableStream stream);
 
@@ -730,7 +738,8 @@ extension type WritableStreamDefaultWriter._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WritableStreamDefaultController).
 extension type WritableStreamDefaultController._(JSObject _)
     implements JSObject {
   /// The **`error()`** method of the
@@ -768,7 +777,8 @@ extension type WritableStreamDefaultController._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TransformStream).
 extension type TransformStream._(JSObject _) implements JSObject {
   external factory TransformStream([
     JSObject transformer,
@@ -816,7 +826,8 @@ extension type Transformer._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TransformStreamDefaultController).
 extension type TransformStreamDefaultController._(JSObject _)
     implements JSObject {
   /// The **`enqueue()`** method of the [TransformStreamDefaultController]
@@ -863,7 +874,8 @@ extension type QueuingStrategyInit._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ByteLengthQueuingStrategy).
 extension type ByteLengthQueuingStrategy._(JSObject _) implements JSObject {
   external factory ByteLengthQueuingStrategy(QueuingStrategyInit init);
 
@@ -878,7 +890,8 @@ extension type ByteLengthQueuingStrategy._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CountQueuingStrategy).
 extension type CountQueuingStrategy._(JSObject _) implements JSObject {
   external factory CountQueuingStrategy(QueuingStrategyInit init);
 

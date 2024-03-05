@@ -34,7 +34,8 @@ typedef EpochTimeStamp = int;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Performance).
 extension type Performance._(JSObject _) implements EventTarget, JSObject {
   /// The **`performance.now()`** method returns a high resolution timestamp in
   /// milliseconds. It represents the time elapsed since

@@ -40,7 +40,8 @@ typedef RTCStatsIceCandidatePairState = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpStreamStats).
 extension type RTCRtpStreamStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCRtpStreamStats({
     required int ssrc,
@@ -108,7 +109,8 @@ extension type RTCReceivedRtpStreamStats._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCInboundRtpStreamStats).
 extension type RTCInboundRtpStreamStats._(JSObject _)
     implements RTCReceivedRtpStreamStats, JSObject {
   external factory RTCInboundRtpStreamStats({
@@ -319,7 +321,8 @@ extension type RTCSentRtpStreamStats._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCOutboundRtpStreamStats).
 extension type RTCOutboundRtpStreamStats._(JSObject _)
     implements RTCSentRtpStreamStats, JSObject {
   external factory RTCOutboundRtpStreamStats({
@@ -429,7 +432,8 @@ extension type RTCOutboundRtpStreamStats._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCRemoteOutboundRtpStreamStats).
 extension type RTCRemoteOutboundRtpStreamStats._(JSObject _)
     implements RTCSentRtpStreamStats, JSObject {
   external factory RTCRemoteOutboundRtpStreamStats({
@@ -481,7 +485,8 @@ extension type RTCMediaSourceStats._(JSObject _) implements RTCStats, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCAudioSourceStats).
 extension type RTCAudioSourceStats._(JSObject _)
     implements RTCMediaSourceStats, JSObject {
   external factory RTCAudioSourceStats({
@@ -561,7 +566,8 @@ extension type RTCAudioPlayoutStats._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnectionStats).
 extension type RTCPeerConnectionStats._(JSObject _)
     implements RTCStats, JSObject {
   external factory RTCPeerConnectionStats({
@@ -627,7 +633,8 @@ extension type RTCDataChannelStats._(JSObject _) implements RTCStats, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCTransportStats).
 extension type RTCTransportStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCTransportStats({
     int packetsSent,
@@ -692,7 +699,8 @@ extension type RTCTransportStats._(JSObject _) implements RTCStats, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCIceCandidateStats).
 extension type RTCIceCandidateStats._(JSObject _)
     implements RTCStats, JSObject {
   external factory RTCIceCandidateStats({
@@ -751,7 +759,8 @@ extension type RTCIceCandidateStats._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCIceCandidatePairStats).
 extension type RTCIceCandidatePairStats._(JSObject _)
     implements RTCStats, JSObject {
   external factory RTCIceCandidatePairStats({
@@ -836,7 +845,8 @@ extension type RTCIceCandidatePairStats._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCCertificateStats).
 extension type RTCCertificateStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCCertificateStats({
     required String fingerprint,

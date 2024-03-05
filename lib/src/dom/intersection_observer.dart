@@ -34,7 +34,8 @@ typedef IntersectionObserverCallback = JSFunction;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver).
 extension type IntersectionObserver._(JSObject _) implements JSObject {
   external factory IntersectionObserver(
     IntersectionObserverCallback callback, [
@@ -120,7 +121,8 @@ extension type IntersectionObserver._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry).
 extension type IntersectionObserverEntry._(JSObject _) implements JSObject {
   external factory IntersectionObserverEntry(
       IntersectionObserverEntryInit intersectionObserverEntryInit);

@@ -196,7 +196,8 @@ extension type MediaCapabilitiesEncodingInfo._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaCapabilities).
 extension type MediaCapabilities._(JSObject _) implements JSObject {
   /// The **`MediaCapabilities.decodingInfo()`** method, part of the
   /// [Media Capabilities API](https://developer.mozilla.org/en-US/docs/Web/API/MediaCapabilities),

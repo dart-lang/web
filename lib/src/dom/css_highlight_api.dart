@@ -32,7 +32,8 @@ typedef HighlightType = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Highlight).
 extension type Highlight._(JSObject _) implements JSObject {
   external factory Highlight(AbstractRange initialRanges);
 
@@ -54,5 +55,6 @@ extension type Highlight._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/HighlightRegistry).
 extension type HighlightRegistry._(JSObject _) implements JSObject {}

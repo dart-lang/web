@@ -20,7 +20,8 @@ import 'web_animations.dart';
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSAnimation).
 extension type CSSAnimation._(JSObject _) implements Animation, JSObject {
   external String get animationName;
 }

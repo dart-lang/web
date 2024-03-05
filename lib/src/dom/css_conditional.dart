@@ -25,7 +25,8 @@ import 'cssom.dart';
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSConditionRule).
 extension type CSSConditionRule._(JSObject _)
     implements CSSGroupingRule, JSObject {
   external String get conditionText;
@@ -35,7 +36,8 @@ extension type CSSConditionRule._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSMediaRule).
 extension type CSSMediaRule._(JSObject _)
     implements CSSConditionRule, JSObject {
   external MediaList get media;
@@ -46,6 +48,7 @@ extension type CSSMediaRule._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSSupportsRule).
 extension type CSSSupportsRule._(JSObject _)
     implements CSSConditionRule, JSObject {}

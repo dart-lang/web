@@ -42,7 +42,8 @@ external $Console get console;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/console).
 @JS('console')
 extension type $Console._(JSObject _) implements JSObject {
   @JS('assert')

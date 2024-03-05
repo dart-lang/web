@@ -21,7 +21,8 @@ import 'cssom.dart';
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSLayerBlockRule).
 extension type CSSLayerBlockRule._(JSObject _)
     implements CSSGroupingRule, JSObject {
   external String get name;
@@ -40,7 +41,8 @@ extension type CSSLayerBlockRule._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSLayerStatementRule).
 extension type CSSLayerStatementRule._(JSObject _)
     implements CSSRule, JSObject {
   external JSArray<JSString> get nameList;

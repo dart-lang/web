@@ -33,7 +33,8 @@ typedef CSSMathOperator = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleValue).
 extension type CSSStyleValue._(JSObject _) implements JSObject {
   external static CSSStyleValue parse(
     String property,
@@ -53,7 +54,8 @@ extension type CSSStyleValue._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/StylePropertyMapReadOnly).
 extension type StylePropertyMapReadOnly._(JSObject _) implements JSObject {
   /// The **`get()`** method of the
   /// [StylePropertyMapReadOnly] interface returns a [CSSStyleValue]
@@ -79,7 +81,8 @@ extension type StylePropertyMapReadOnly._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/StylePropertyMap).
 extension type StylePropertyMap._(JSObject _)
     implements StylePropertyMapReadOnly, JSObject {
   /// The **`set()`** method of the [StylePropertyMap]
@@ -117,7 +120,8 @@ extension type StylePropertyMap._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSUnparsedValue).
 extension type CSSUnparsedValue._(JSObject _)
     implements CSSStyleValue, JSObject {
   external factory CSSUnparsedValue(JSArray<CSSUnparsedSegment> members);
@@ -132,7 +136,8 @@ extension type CSSUnparsedValue._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSVariableReferenceValue).
 extension type CSSVariableReferenceValue._(JSObject _) implements JSObject {
   external factory CSSVariableReferenceValue(
     String variable, [
@@ -153,7 +158,8 @@ extension type CSSVariableReferenceValue._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSKeywordValue).
 extension type CSSKeywordValue._(JSObject _)
     implements CSSStyleValue, JSObject {
   external factory CSSKeywordValue(String value);
@@ -197,7 +203,8 @@ extension type CSSNumericType._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSNumericValue).
 extension type CSSNumericValue._(JSObject _)
     implements CSSStyleValue, JSObject {
   external static CSSNumericValue parse(String cssText);
@@ -267,7 +274,8 @@ extension type CSSNumericValue._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSUnitValue).
 extension type CSSUnitValue._(JSObject _) implements CSSNumericValue, JSObject {
   external factory CSSUnitValue(
     num value,
@@ -284,7 +292,8 @@ extension type CSSUnitValue._(JSObject _) implements CSSNumericValue, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSMathValue).
 extension type CSSMathValue._(JSObject _) implements CSSNumericValue, JSObject {
   external CSSMathOperator get operator;
 }
@@ -300,7 +309,8 @@ extension type CSSMathValue._(JSObject _) implements CSSNumericValue, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSMathSum).
 extension type CSSMathSum._(JSObject _) implements CSSMathValue, JSObject {
   external factory CSSMathSum(CSSNumberish args);
 
@@ -314,7 +324,8 @@ extension type CSSMathSum._(JSObject _) implements CSSMathValue, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSMathProduct).
 extension type CSSMathProduct._(JSObject _) implements CSSMathValue, JSObject {
   external factory CSSMathProduct(CSSNumberish args);
 
@@ -326,7 +337,8 @@ extension type CSSMathProduct._(JSObject _) implements CSSMathValue, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSMathNegate).
 extension type CSSMathNegate._(JSObject _) implements CSSMathValue, JSObject {
   external factory CSSMathNegate(CSSNumberish arg);
 
@@ -339,7 +351,8 @@ extension type CSSMathNegate._(JSObject _) implements CSSMathValue, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSMathInvert).
 extension type CSSMathInvert._(JSObject _) implements CSSMathValue, JSObject {
   external factory CSSMathInvert(CSSNumberish arg);
 
@@ -351,7 +364,8 @@ extension type CSSMathInvert._(JSObject _) implements CSSMathValue, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSMathMin).
 extension type CSSMathMin._(JSObject _) implements CSSMathValue, JSObject {
   external factory CSSMathMin(CSSNumberish args);
 
@@ -363,7 +377,8 @@ extension type CSSMathMin._(JSObject _) implements CSSMathValue, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSMathMax).
 extension type CSSMathMax._(JSObject _) implements CSSMathValue, JSObject {
   external factory CSSMathMax(CSSNumberish args);
 
@@ -386,7 +401,8 @@ extension type CSSMathClamp._(JSObject _) implements CSSMathValue, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSNumericArray).
 extension type CSSNumericArray._(JSObject _) implements JSObject {
   external int get length;
 }
@@ -396,7 +412,8 @@ extension type CSSNumericArray._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSTransformValue).
 extension type CSSTransformValue._(JSObject _)
     implements CSSStyleValue, JSObject {
   external factory CSSTransformValue(JSArray<CSSTransformComponent> transforms);
@@ -413,7 +430,8 @@ extension type CSSTransformValue._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSTransformComponent).
 extension type CSSTransformComponent._(JSObject _) implements JSObject {
   /// The **`toMatrix()`** method of the
   /// [CSSTransformComponent] interface returns a [DOMMatrix]
@@ -440,7 +458,8 @@ extension type CSSTransformComponent._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSTranslate).
 extension type CSSTranslate._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSTranslate(
@@ -463,7 +482,8 @@ extension type CSSTranslate._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSRotate).
 extension type CSSRotate._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSRotate(
@@ -491,7 +511,8 @@ extension type CSSRotate._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSScale).
 extension type CSSScale._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSScale(
@@ -515,7 +536,8 @@ extension type CSSScale._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSSkew).
 extension type CSSSkew._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSSkew(
@@ -536,7 +558,8 @@ extension type CSSSkew._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSSkewX).
 extension type CSSSkewX._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSSkewX(CSSNumericValue ax);
@@ -552,7 +575,8 @@ extension type CSSSkewX._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSSkewY).
 extension type CSSSkewY._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSSkewY(CSSNumericValue ay);
@@ -568,7 +592,8 @@ extension type CSSSkewY._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSPerspective).
 extension type CSSPerspective._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSPerspective(CSSPerspectiveValue length);
@@ -585,7 +610,8 @@ extension type CSSPerspective._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSMatrixComponent).
 extension type CSSMatrixComponent._(JSObject _)
     implements CSSTransformComponent, JSObject {
   external factory CSSMatrixComponent(
@@ -616,7 +642,8 @@ extension type CSSMatrixComponentOptions._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSImageValue).
 extension type CSSImageValue._(JSObject _) implements CSSStyleValue, JSObject {}
 extension type CSSColorValue._(JSObject _) implements CSSStyleValue, JSObject {
   external static JSObject parse(String cssText);

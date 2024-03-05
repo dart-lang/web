@@ -32,7 +32,8 @@ typedef NotificationDirection = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Notification).
 extension type Notification._(JSObject _) implements EventTarget, JSObject {
   external factory Notification(
     String title, [
@@ -165,7 +166,8 @@ extension type GetNotificationOptions._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NotificationEvent).
 extension type NotificationEvent._(JSObject _)
     implements ExtendableEvent, JSObject {
   external factory NotificationEvent(

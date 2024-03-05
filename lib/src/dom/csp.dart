@@ -33,7 +33,8 @@ typedef SecurityPolicyViolationEventDisposition = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSPViolationReportBody).
 extension type CSPViolationReportBody._(JSObject _)
     implements ReportBody, JSObject {
   external JSObject toJSON();
@@ -56,7 +57,8 @@ extension type CSPViolationReportBody._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SecurityPolicyViolationEvent).
 extension type SecurityPolicyViolationEvent._(JSObject _)
     implements Event, JSObject {
   external factory SecurityPolicyViolationEvent(

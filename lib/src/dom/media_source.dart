@@ -28,7 +28,8 @@ typedef AppendMode = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaSource).
 extension type MediaSource._(JSObject _) implements EventTarget, JSObject {
   external factory MediaSource();
 
@@ -96,7 +97,8 @@ extension type MediaSource._(JSObject _) implements EventTarget, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaSourceHandle).
 extension type MediaSourceHandle._(JSObject _) implements JSObject {}
 
 /// The **`SourceBuffer`** interface represents a chunk of media to be passed
@@ -105,7 +107,8 @@ extension type MediaSourceHandle._(JSObject _) implements JSObject {}
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SourceBuffer).
 extension type SourceBuffer._(JSObject _) implements EventTarget, JSObject {
   /// The **`appendBuffer()`** method of the
   /// [SourceBuffer] interface appends media segment data from an
@@ -179,7 +182,8 @@ extension type SourceBuffer._(JSObject _) implements EventTarget, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SourceBufferList).
 extension type SourceBufferList._(JSObject _) implements EventTarget, JSObject {
   external int get length;
   external set onaddsourcebuffer(EventHandler value);

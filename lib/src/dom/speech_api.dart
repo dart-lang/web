@@ -30,7 +30,8 @@ typedef SpeechSynthesisErrorCode = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition).
 extension type SpeechRecognition._(JSObject _)
     implements EventTarget, JSObject {
   external factory SpeechRecognition();
@@ -98,7 +99,8 @@ extension type SpeechRecognition._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognitionErrorEvent).
 extension type SpeechRecognitionErrorEvent._(JSObject _)
     implements Event, JSObject {
   external factory SpeechRecognitionErrorEvent(
@@ -129,7 +131,8 @@ extension type SpeechRecognitionErrorEventInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognitionAlternative).
 extension type SpeechRecognitionAlternative._(JSObject _) implements JSObject {
   external String get transcript;
   external num get confidence;
@@ -142,7 +145,8 @@ extension type SpeechRecognitionAlternative._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognitionResult).
 extension type SpeechRecognitionResult._(JSObject _) implements JSObject {
   /// The **`item`** getter of the
   /// [SpeechRecognitionResult] interface is a standard getter that allows
@@ -161,7 +165,8 @@ extension type SpeechRecognitionResult._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognitionResultList).
 extension type SpeechRecognitionResultList._(JSObject _) implements JSObject {
   /// The **`item`** getter of the
   /// [SpeechRecognitionResultList] interface is a standard getter — it allows
@@ -179,7 +184,8 @@ extension type SpeechRecognitionResultList._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognitionEvent).
 extension type SpeechRecognitionEvent._(JSObject _) implements Event, JSObject {
   external factory SpeechRecognitionEvent(
     String type,
@@ -213,7 +219,8 @@ extension type SpeechRecognitionEventInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechGrammar).
 extension type SpeechGrammar._(JSObject _) implements JSObject {
   external set src(String value);
   external String get src;
@@ -232,7 +239,8 @@ extension type SpeechGrammar._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechGrammarList).
 extension type SpeechGrammarList._(JSObject _) implements JSObject {
   external factory SpeechGrammarList();
 
@@ -274,7 +282,8 @@ extension type SpeechGrammarList._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis).
 extension type SpeechSynthesis._(JSObject _) implements EventTarget, JSObject {
   /// The **`speak()`** method of the [SpeechSynthesis]
   /// interface adds an [SpeechSynthesisUtterance] to the utterance
@@ -318,7 +327,8 @@ extension type SpeechSynthesis._(JSObject _) implements EventTarget, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisUtterance).
 extension type SpeechSynthesisUtterance._(JSObject _)
     implements EventTarget, JSObject {
   external factory SpeechSynthesisUtterance([String text]);
@@ -358,7 +368,8 @@ extension type SpeechSynthesisUtterance._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisEvent).
 extension type SpeechSynthesisEvent._(JSObject _) implements Event, JSObject {
   external factory SpeechSynthesisEvent(
     String type,
@@ -400,7 +411,8 @@ extension type SpeechSynthesisEventInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisErrorEvent).
 extension type SpeechSynthesisErrorEvent._(JSObject _)
     implements SpeechSynthesisEvent, JSObject {
   external factory SpeechSynthesisErrorEvent(
@@ -427,7 +439,8 @@ extension type SpeechSynthesisErrorEventInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisVoice).
 extension type SpeechSynthesisVoice._(JSObject _) implements JSObject {
   external String get voiceURI;
   external String get name;

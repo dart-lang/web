@@ -58,7 +58,8 @@ extension type ScrollToOptions._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryList).
 extension type MediaQueryList._(JSObject _) implements EventTarget, JSObject {
   /// The deprecated **`addListener()`** method of the
   /// [MediaQueryList] interface adds a listener to the
@@ -94,7 +95,8 @@ extension type MediaQueryList._(JSObject _) implements EventTarget, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaQueryListEvent).
 extension type MediaQueryListEvent._(JSObject _) implements Event, JSObject {
   external factory MediaQueryListEvent(
     String type, [
@@ -125,7 +127,8 @@ extension type MediaQueryListEventInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Screen).
 extension type Screen._(JSObject _) implements JSObject {
   external int get availWidth;
   external int get availHeight;
@@ -142,7 +145,8 @@ extension type Screen._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CaretPosition).
 extension type CaretPosition._(JSObject _) implements JSObject {
   external DOMRect? getClientRect();
   external Node get offsetNode;
@@ -219,7 +223,8 @@ extension type ConvertCoordinateOptions._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/VisualViewport).
 extension type VisualViewport._(JSObject _) implements EventTarget, JSObject {
   external num get offsetLeft;
   external num get offsetTop;

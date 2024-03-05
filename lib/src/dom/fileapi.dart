@@ -31,7 +31,8 @@ typedef EndingType = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Blob).
 extension type Blob._(JSObject _) implements JSObject {
   external factory Blob([
     JSArray<BlobPart> blobParts,
@@ -97,7 +98,8 @@ extension type BlobPropertyBag._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/File).
 extension type File._(JSObject _) implements Blob, JSObject {
   external factory File(
     JSArray<BlobPart> fileBits,
@@ -148,7 +150,8 @@ extension type FilePropertyBag._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FileList).
 extension type FileList._(JSObject _) implements JSObject {
   /// The **`item()`** method of the [FileList] interface returns a [File]
   /// object representing the file at the specified index in the file list.
@@ -176,7 +179,8 @@ extension type FileList._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FileReader).
 extension type FileReader._(JSObject _) implements EventTarget, JSObject {
   external factory FileReader();
 
@@ -280,7 +284,8 @@ extension type FileReader._(JSObject _) implements EventTarget, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FileReaderSync).
 extension type FileReaderSync._(JSObject _) implements JSObject {
   external factory FileReaderSync();
 

@@ -28,7 +28,8 @@ typedef WakeLockType = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WakeLock).
 extension type WakeLock._(JSObject _) implements JSObject {
   /// The **`request()`** method of the [WakeLock] interface returns a `Promise`
   /// that fullfills with a [WakeLockSentinel] object if the system screen wake
@@ -67,7 +68,8 @@ extension type WakeLock._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WakeLockSentinel).
 extension type WakeLockSentinel._(JSObject _) implements EventTarget, JSObject {
   /// The **`release()`** method of the [WakeLockSentinel] interface releases
   /// the [WakeLockSentinel], returning a `Promise` that is resolved once the

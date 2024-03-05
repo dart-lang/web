@@ -67,7 +67,8 @@ extension type FontFaceDescriptors._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FontFace).
 extension type FontFace._(JSObject _) implements JSObject {
   external factory FontFace(
     String family,
@@ -150,7 +151,8 @@ extension type FontFaceSetLoadEventInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FontFaceSetLoadEvent).
 extension type FontFaceSetLoadEvent._(JSObject _) implements Event, JSObject {
   external factory FontFaceSetLoadEvent(
     String type, [
@@ -173,7 +175,8 @@ extension type FontFaceSetLoadEvent._(JSObject _) implements Event, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FontFaceSet).
 extension type FontFaceSet._(JSObject _) implements EventTarget, JSObject {
   external factory FontFaceSet(JSArray<FontFace> initialFaces);
 

@@ -28,7 +28,8 @@ typedef BinaryType = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket).
 extension type WebSocket._(JSObject _) implements EventTarget, JSObject {
   external factory WebSocket(
     String url, [
@@ -90,7 +91,8 @@ extension type WebSocket._(JSObject _) implements EventTarget, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent).
 extension type CloseEvent._(JSObject _) implements Event, JSObject {
   external factory CloseEvent(
     String type, [

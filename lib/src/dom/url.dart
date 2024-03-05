@@ -28,7 +28,8 @@ import 'dart:js_interop';
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/URL).
 extension type URL._(JSObject _) implements JSObject {
   external factory URL(
     String url, [
@@ -88,7 +89,8 @@ extension type URL._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams).
 extension type URLSearchParams._(JSObject _) implements JSObject {
   external factory URLSearchParams([JSAny init]);
 

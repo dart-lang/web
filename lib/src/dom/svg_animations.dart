@@ -24,7 +24,8 @@ import 'svg.dart';
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TimeEvent).
 extension type TimeEvent._(JSObject _) implements Event, JSObject {
   external void initTimeEvent(
     String typeArg,
@@ -42,7 +43,8 @@ extension type TimeEvent._(JSObject _) implements Event, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGAnimationElement).
 extension type SVGAnimationElement._(JSObject _)
     implements SVGElement, JSObject {
   external num getStartTime();
@@ -67,7 +69,8 @@ extension type SVGAnimationElement._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGAnimateElement).
 extension type SVGAnimateElement._(JSObject _)
     implements SVGAnimationElement, JSObject {
   /// Creates an [SVGAnimateElement] using the tag 'animate'.
@@ -82,7 +85,8 @@ extension type SVGAnimateElement._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGSetElement).
 extension type SVGSetElement._(JSObject _)
     implements SVGAnimationElement, JSObject {
   /// Creates an [SVGSetElement] using the tag 'set'.
@@ -97,7 +101,8 @@ extension type SVGSetElement._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGAnimateMotionElement).
 extension type SVGAnimateMotionElement._(JSObject _)
     implements SVGAnimationElement, JSObject {
   /// Creates an [SVGAnimateMotionElement] using the tag 'animateMotion'.
@@ -112,7 +117,8 @@ extension type SVGAnimateMotionElement._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGMPathElement).
 extension type SVGMPathElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGMPathElement] using the tag 'mpath'.
   SVGMPathElement()
@@ -128,7 +134,8 @@ extension type SVGMPathElement._(JSObject _) implements SVGElement, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGAnimateTransformElement).
 extension type SVGAnimateTransformElement._(JSObject _)
     implements SVGAnimationElement, JSObject {
   /// Creates an [SVGAnimateTransformElement] using the tag 'animateTransform'.

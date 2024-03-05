@@ -28,7 +28,8 @@ import 'html.dart';
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent).
 extension type UIEvent._(JSObject _) implements Event, JSObject {
   external factory UIEvent(
     String type, [
@@ -81,7 +82,8 @@ extension type UIEventInit._(JSObject _) implements EventInit, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FocusEvent).
 extension type FocusEvent._(JSObject _) implements UIEvent, JSObject {
   external factory FocusEvent(
     String type, [
@@ -113,7 +115,8 @@ extension type FocusEventInit._(JSObject _) implements UIEventInit, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent).
 extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   external factory MouseEvent(
     String type, [
@@ -275,7 +278,8 @@ extension type EventModifierInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WheelEvent).
 extension type WheelEvent._(JSObject _) implements MouseEvent, JSObject {
   external factory WheelEvent(
     String type, [
@@ -314,7 +318,8 @@ extension type WheelEventInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/InputEvent).
 extension type InputEvent._(JSObject _) implements UIEvent, JSObject {
   external factory InputEvent(
     String type, [
@@ -355,7 +360,8 @@ extension type InputEventInit._(JSObject _) implements UIEventInit, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent).
 extension type KeyboardEvent._(JSObject _) implements UIEvent, JSObject {
   external factory KeyboardEvent(
     String type, [
@@ -438,7 +444,8 @@ extension type KeyboardEventInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CompositionEvent).
 extension type CompositionEvent._(JSObject _) implements UIEvent, JSObject {
   external factory CompositionEvent(
     String type, [
@@ -491,7 +498,8 @@ extension type CompositionEventInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MutationEvent).
 extension type MutationEvent._(JSObject _) implements Event, JSObject {
   external static int get MODIFICATION;
   external static int get ADDITION;

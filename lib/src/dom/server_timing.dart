@@ -25,7 +25,8 @@ import 'hr_time.dart';
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceServerTiming).
 extension type PerformanceServerTiming._(JSObject _) implements JSObject {
   /// The **`toJSON()`** method of the [PerformanceServerTiming] interface is a
   /// ; it returns a JSON representation of the [PerformanceServerTiming]

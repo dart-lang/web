@@ -72,7 +72,8 @@ typedef SlotAssignmentMode = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Event).
 extension type Event._(JSObject _) implements JSObject {
   external factory Event(
     String type, [
@@ -193,7 +194,8 @@ extension type EventInit._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent).
 extension type CustomEvent._(JSObject _) implements Event, JSObject {
   external factory CustomEvent(
     String type, [
@@ -250,7 +252,8 @@ extension type CustomEventInit._(JSObject _) implements EventInit, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget).
 extension type EventTarget._(JSObject _) implements JSObject {
   external factory EventTarget();
 
@@ -397,7 +400,8 @@ extension type AddEventListenerOptions._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AbortController).
 extension type AbortController._(JSObject _) implements JSObject {
   external factory AbortController();
 
@@ -416,7 +420,8 @@ extension type AbortController._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal).
 extension type AbortSignal._(JSObject _) implements EventTarget, JSObject {
   external static AbortSignal abort([JSAny? reason]);
   external static AbortSignal timeout(int milliseconds);
@@ -451,7 +456,8 @@ extension type AbortSignal._(JSObject _) implements EventTarget, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NodeList).
 extension type NodeList._(JSObject _) implements JSObject {
   /// Returns a node from a
   /// [`NodeList`](https://developer.mozilla.org/en-US/docs/Web/API/NodeList) by
@@ -488,7 +494,8 @@ extension type NodeList._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCollection).
 extension type HTMLCollection._(JSObject _) implements JSObject {
   /// The [HTMLCollection] method `item()`
   /// returns the element located at the specified offset into the collection.
@@ -520,7 +527,8 @@ extension type HTMLCollection._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver).
 extension type MutationObserver._(JSObject _) implements JSObject {
   external factory MutationObserver(MutationCallback callback);
 
@@ -594,7 +602,8 @@ extension type MutationObserverInit._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MutationRecord).
 extension type MutationRecord._(JSObject _) implements JSObject {
   external String get type;
   external Node get target;
@@ -631,7 +640,8 @@ extension type MutationRecord._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Node).
 extension type Node._(JSObject _) implements EventTarget, JSObject {
   external static int get ELEMENT_NODE;
   external static int get ATTRIBUTE_NODE;
@@ -870,7 +880,8 @@ external Document get document;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Document).
 extension type Document._(JSObject _) implements Node, JSObject {
   external factory Document();
 
@@ -1628,7 +1639,8 @@ extension type Document._(JSObject _) implements Node, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XMLDocument).
 extension type XMLDocument._(JSObject _) implements Document, JSObject {}
 extension type ElementCreationOptions._(JSObject _) implements JSObject {
   external factory ElementCreationOptions({String is_});
@@ -1645,7 +1657,8 @@ extension type ElementCreationOptions._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMImplementation).
 extension type DOMImplementation._(JSObject _) implements JSObject {
   /// The **`DOMImplementation.createDocumentType()`** method returns
   /// a [DocumentType] object which can either be used with
@@ -1688,7 +1701,8 @@ extension type DOMImplementation._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DocumentType).
 extension type DocumentType._(JSObject _) implements Node, JSObject {
   /// The **`DocumentType.before()`** method inserts a set of
   /// [Node] objects or strings in the children list of the
@@ -1724,7 +1738,8 @@ extension type DocumentType._(JSObject _) implements Node, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment).
 extension type DocumentFragment._(JSObject _) implements Node, JSObject {
   external factory DocumentFragment();
 
@@ -1803,7 +1818,8 @@ extension type DocumentFragment._(JSObject _) implements Node, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot).
 extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   external void setHTMLUnsafe(String html);
 
@@ -1845,7 +1861,8 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Element).
 extension type Element._(JSObject _) implements Node, JSObject {
   /// The **`insertAdjacentHTML()`** method of the
   /// [Element] interface parses the specified text as HTML or XML and inserts
@@ -2401,7 +2418,8 @@ extension type ShadowRootInit._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NamedNodeMap).
 extension type NamedNodeMap._(JSObject _) implements JSObject {
   /// The **`item()`** method of the [NamedNodeMap] interface
   /// returns the item in the map matching the index.
@@ -2489,7 +2507,8 @@ extension type NamedNodeMap._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Attr).
 extension type Attr._(JSObject _) implements Node, JSObject {
   external String? get namespaceURI;
   external String? get prefix;
@@ -2509,7 +2528,8 @@ extension type Attr._(JSObject _) implements Node, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CharacterData).
 extension type CharacterData._(JSObject _) implements Node, JSObject {
   /// The **`substringData()`** method of the [CharacterData] interface
   /// returns a portion of the existing data,
@@ -2613,7 +2633,8 @@ extension type CharacterData._(JSObject _) implements Node, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Text).
 extension type Text._(JSObject _) implements CharacterData, JSObject {
   external factory Text([String data]);
 
@@ -2681,7 +2702,8 @@ extension type Text._(JSObject _) implements CharacterData, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CDATASection).
 extension type CDATASection._(JSObject _) implements Text, JSObject {}
 
 /// The **`ProcessingInstruction`** interface represents a
@@ -2713,7 +2735,8 @@ extension type CDATASection._(JSObject _) implements Text, JSObject {}
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ProcessingInstruction).
 extension type ProcessingInstruction._(JSObject _)
     implements CharacterData, JSObject {
   external String get target;
@@ -2730,7 +2753,8 @@ extension type ProcessingInstruction._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Comment).
 extension type Comment._(JSObject _) implements CharacterData, JSObject {
   external factory Comment([String data]);
 }
@@ -2747,7 +2771,8 @@ extension type Comment._(JSObject _) implements CharacterData, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AbstractRange).
 extension type AbstractRange._(JSObject _) implements JSObject {
   external Node get startContainer;
   external int get startOffset;
@@ -2787,7 +2812,8 @@ extension type StaticRangeInit._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/StaticRange).
 extension type StaticRange._(JSObject _) implements AbstractRange, JSObject {
   external factory StaticRange(StaticRangeInit init);
 }
@@ -2804,7 +2830,8 @@ extension type StaticRange._(JSObject _) implements AbstractRange, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Range).
 extension type Range._(JSObject _) implements AbstractRange, JSObject {
   external factory Range();
 
@@ -3046,7 +3073,8 @@ extension type Range._(JSObject _) implements AbstractRange, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NodeIterator).
 extension type NodeIterator._(JSObject _) implements JSObject {
   /// The **`NodeIterator.nextNode()`** method returns the next node
   /// in the set represented by the [NodeIterator] and advances the position of
@@ -3099,7 +3127,8 @@ extension type NodeIterator._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TreeWalker).
 extension type TreeWalker._(JSObject _) implements JSObject {
   /// The **`TreeWalker.parentNode()`** method moves the current
   /// [Node] to the first _visible_ ancestor node in the document order,
@@ -3160,7 +3189,8 @@ extension type TreeWalker._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList).
 extension type DOMTokenList._(JSObject _) implements JSObject {
   /// The **`item()`** method of the [DOMTokenList] interface returns an item in
   /// the list,
@@ -3221,7 +3251,8 @@ extension type DOMTokenList._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XPathResult).
 extension type XPathResult._(JSObject _) implements JSObject {
   external static int get ANY_TYPE;
   external static int get NUMBER_TYPE;
@@ -3267,7 +3298,8 @@ extension type XPathResult._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XPathExpression).
 extension type XPathExpression._(JSObject _) implements JSObject {
   /// The **`evaluate()`** method of the
   /// [XPathExpression] interface executes an
@@ -3285,7 +3317,8 @@ extension type XPathExpression._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XPathEvaluator).
 extension type XPathEvaluator._(JSObject _) implements JSObject {
   external factory XPathEvaluator();
 
@@ -3331,7 +3364,8 @@ extension type XPathEvaluator._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XSLTProcessor).
 extension type XSLTProcessor._(JSObject _) implements JSObject {
   external factory XSLTProcessor();
 

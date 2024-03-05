@@ -46,7 +46,8 @@ typedef LargeBlobSupport = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PublicKeyCredential).
 extension type PublicKeyCredential._(JSObject _)
     implements Credential, JSObject {
   /// The **`isConditionalMediationAvailable()`** static method of the
@@ -340,7 +341,8 @@ extension type PublicKeyCredentialRequestOptionsJSON._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AuthenticatorResponse).
 extension type AuthenticatorResponse._(JSObject _) implements JSObject {
   external JSArrayBuffer get clientDataJSON;
 }
@@ -362,7 +364,8 @@ extension type AuthenticatorResponse._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AuthenticatorAttestationResponse).
 extension type AuthenticatorAttestationResponse._(JSObject _)
     implements AuthenticatorResponse, JSObject {
   /// The **`getTransports()`** method of the [AuthenticatorAttestationResponse]
@@ -432,7 +435,8 @@ extension type AuthenticatorAttestationResponse._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AuthenticatorAssertionResponse).
 extension type AuthenticatorAssertionResponse._(JSObject _)
     implements AuthenticatorResponse, JSObject {
   external JSArrayBuffer get authenticatorData;

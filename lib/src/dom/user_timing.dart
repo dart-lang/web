@@ -55,7 +55,8 @@ extension type PerformanceMeasureOptions._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceMark).
 extension type PerformanceMark._(JSObject _)
     implements PerformanceEntry, JSObject {
   external factory PerformanceMark(
@@ -74,7 +75,8 @@ extension type PerformanceMark._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceMeasure).
 extension type PerformanceMeasure._(JSObject _)
     implements PerformanceEntry, JSObject {
   external JSAny? get detail;

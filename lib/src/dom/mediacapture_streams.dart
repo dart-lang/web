@@ -41,7 +41,8 @@ typedef MediaDeviceKind = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream).
 extension type MediaStream._(JSObject _) implements EventTarget, JSObject {
   external factory MediaStream([JSObject streamOrTracks]);
 
@@ -110,7 +111,8 @@ extension type MediaStream._(JSObject _) implements EventTarget, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack).
 extension type MediaStreamTrack._(JSObject _) implements EventTarget, JSObject {
   /// The **`clone()`** method of the [MediaStreamTrack]
   /// interface creates a duplicate of the `MediaStreamTrack`. This new
@@ -226,7 +228,8 @@ extension type MediaStreamTrack._(JSObject _) implements EventTarget, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaTrackSupportedConstraints).
 extension type MediaTrackSupportedConstraints._(JSObject _)
     implements JSObject {
   external factory MediaTrackSupportedConstraints({
@@ -339,7 +342,8 @@ extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaTrackConstraints).
 extension type MediaTrackConstraints._(JSObject _)
     implements MediaTrackConstraintSet, JSObject {
   external factory MediaTrackConstraints(
@@ -413,7 +417,8 @@ extension type MediaTrackConstraintSet._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaTrackSettings).
 extension type MediaTrackSettings._(JSObject _) implements JSObject {
   external factory MediaTrackSettings({
     int width,
@@ -477,7 +482,8 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrackEvent).
 extension type MediaStreamTrackEvent._(JSObject _) implements Event, JSObject {
   external factory MediaStreamTrackEvent(
     String type,
@@ -503,7 +509,8 @@ extension type MediaStreamTrackEventInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/OverconstrainedError).
 extension type OverconstrainedError._(JSObject _)
     implements DOMException, JSObject {
   external factory OverconstrainedError(
@@ -521,7 +528,8 @@ extension type OverconstrainedError._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices).
 extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {
   /// The **`enumerateDevices()`** method of the [MediaDevices] interface
   /// requests a list of the currently available media input and output devices,
@@ -579,7 +587,8 @@ extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaDeviceInfo).
 extension type MediaDeviceInfo._(JSObject _) implements JSObject {
   /// The **`toJSON()`** method of the [MediaDeviceInfo] interface is a ; it
   /// returns a JSON representation of the [MediaDeviceInfo] object.
@@ -598,7 +607,8 @@ extension type MediaDeviceInfo._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/InputDeviceInfo).
 extension type InputDeviceInfo._(JSObject _)
     implements MediaDeviceInfo, JSObject {
   /// The **`getCapabilities()`** method of the [InputDeviceInfo] interface

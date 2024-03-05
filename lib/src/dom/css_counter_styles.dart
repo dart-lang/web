@@ -20,7 +20,8 @@ import 'cssom.dart';
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSCounterStyleRule).
 extension type CSSCounterStyleRule._(JSObject _) implements CSSRule, JSObject {
   external set name(String value);
   external String get name;

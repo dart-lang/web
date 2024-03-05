@@ -86,7 +86,8 @@ extension type TouchInit._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Touch).
 extension type Touch._(JSObject _) implements JSObject {
   external factory Touch(TouchInit touchInitDict);
 
@@ -122,7 +123,8 @@ extension type Touch._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TouchList).
 extension type TouchList._(JSObject _) implements JSObject {
   /// The **`item()`** method returns the [Touch]
   /// object at the specified index in the [TouchList].
@@ -157,7 +159,8 @@ extension type TouchEventInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent).
 extension type TouchEvent._(JSObject _) implements UIEvent, JSObject {
   external factory TouchEvent(
     String type, [

@@ -34,7 +34,8 @@ typedef CredentialMediationRequirement = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Credential).
 extension type Credential._(JSObject _) implements JSObject {
   external static JSPromise<JSBoolean> isConditionalMediationAvailable();
   external String get id;
@@ -49,7 +50,8 @@ extension type Credential._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CredentialsContainer).
 extension type CredentialsContainer._(JSObject _) implements JSObject {
   /// The **`get()`** method of the [CredentialsContainer] interface returns a
   /// `Promise` that fulfills with a single credential instance that matches the
@@ -188,7 +190,8 @@ extension type CredentialCreationOptions._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PasswordCredential).
 extension type PasswordCredential._(JSObject _)
     implements Credential, JSObject {
   external factory PasswordCredential(JSObject dataOrForm);
@@ -234,7 +237,8 @@ extension type PasswordCredentialData._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FederatedCredential).
 extension type FederatedCredential._(JSObject _)
     implements Credential, JSObject {
   external factory FederatedCredential(FederatedCredentialInit data);

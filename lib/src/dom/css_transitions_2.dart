@@ -22,7 +22,8 @@ import 'web_animations.dart';
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSStartingStyleRule).
 extension type CSSStartingStyleRule._(JSObject _)
     implements CSSGroupingRule, JSObject {}
 
@@ -32,7 +33,8 @@ extension type CSSStartingStyleRule._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSTransition).
 extension type CSSTransition._(JSObject _) implements Animation, JSObject {
   external String get transitionProperty;
 }

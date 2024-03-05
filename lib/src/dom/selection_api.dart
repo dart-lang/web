@@ -32,7 +32,8 @@ import 'dom.dart';
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Selection).
 extension type Selection._(JSObject _) implements JSObject {
   /// The **`Selection.getRangeAt()`** method returns a range object
   /// representing one of the ranges currently selected.

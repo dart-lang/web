@@ -21,7 +21,8 @@ import 'svg.dart';
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGClipPathElement).
 extension type SVGClipPathElement._(JSObject _)
     implements SVGElement, JSObject {
   /// Creates an [SVGClipPathElement] using the tag 'clipPath'.
@@ -40,7 +41,8 @@ extension type SVGClipPathElement._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGMaskElement).
 extension type SVGMaskElement._(JSObject _) implements SVGElement, JSObject {
   /// Creates an [SVGMaskElement] using the tag 'mask'.
   SVGMaskElement()

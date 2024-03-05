@@ -37,7 +37,8 @@ typedef CompositeOperationOrAuto = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AnimationTimeline).
 extension type AnimationTimeline._(JSObject _) implements JSObject {
   external Animation play([AnimationEffect? effect]);
   external CSSNumberish? get currentTime;
@@ -57,7 +58,8 @@ extension type DocumentTimelineOptions._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DocumentTimeline).
 extension type DocumentTimeline._(JSObject _)
     implements AnimationTimeline, JSObject {
   external factory DocumentTimeline([DocumentTimelineOptions options]);
@@ -70,7 +72,8 @@ extension type DocumentTimeline._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Animation).
 extension type Animation._(JSObject _) implements EventTarget, JSObject {
   external factory Animation([
     AnimationEffect? effect,
@@ -208,7 +211,8 @@ extension type Animation._(JSObject _) implements EventTarget, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AnimationEffect).
 extension type AnimationEffect._(JSObject _) implements JSObject {
   external void before(AnimationEffect effects);
   external void after(AnimationEffect effects);
@@ -340,7 +344,8 @@ extension type ComputedEffectTiming._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/KeyframeEffect).
 extension type KeyframeEffect._(JSObject _)
     implements AnimationEffect, JSObject {
   external factory KeyframeEffect(

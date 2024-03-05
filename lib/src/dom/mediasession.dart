@@ -29,7 +29,8 @@ typedef MediaSessionAction = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaSession).
 extension type MediaSession._(JSObject _) implements JSObject {
   /// The **`setActionHandler()`** method of the [MediaSession] interface sets a
   /// handler for a media session action.
@@ -86,7 +87,8 @@ extension type MediaSession._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaMetadata).
 extension type MediaMetadata._(JSObject _) implements JSObject {
   external factory MediaMetadata([MediaMetadataInit init]);
 

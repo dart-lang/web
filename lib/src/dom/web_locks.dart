@@ -26,7 +26,8 @@ typedef LockMode = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/LockManager).
 extension type LockManager._(JSObject _) implements JSObject {
   /// The **`request()`** method of the [LockManager] interface requests a
   /// [Lock] object with parameters specifying its name and characteristics.
@@ -122,7 +123,8 @@ extension type LockInfo._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Lock).
 extension type Lock._(JSObject _) implements JSObject {
   external String get name;
   external LockMode get mode;

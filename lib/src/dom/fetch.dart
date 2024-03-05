@@ -66,7 +66,8 @@ typedef ResponseType = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Headers).
 extension type Headers._(JSObject _) implements JSObject {
   external factory Headers([HeadersInit init]);
 
@@ -168,7 +169,8 @@ extension type Headers._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Request).
 extension type Request._(JSObject _) implements JSObject {
   external factory Request(
     RequestInfo input, [
@@ -304,7 +306,8 @@ extension type RequestInit._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Response).
 extension type Response._(JSObject _) implements JSObject {
   external factory Response([
     BodyInit? body,

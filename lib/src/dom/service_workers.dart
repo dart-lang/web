@@ -56,7 +56,8 @@ typedef ClientType = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorker).
 extension type ServiceWorker._(JSObject _) implements EventTarget, JSObject {
   /// The **`postMessage()`** method of the [ServiceWorker] interface sends a
   /// message to the worker. The first parameter is the data to send to the
@@ -91,7 +92,8 @@ extension type ServiceWorker._(JSObject _) implements EventTarget, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration).
 extension type ServiceWorkerRegistration._(JSObject _)
     implements EventTarget, JSObject {
   /// The **`showNotification()`** method of the
@@ -160,7 +162,8 @@ extension type ServiceWorkerRegistration._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerContainer).
 extension type ServiceWorkerContainer._(JSObject _)
     implements EventTarget, JSObject {
   /// The **`register()`** method of the
@@ -244,7 +247,8 @@ extension type RegistrationOptions._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NavigationPreloadManager).
 extension type NavigationPreloadManager._(JSObject _) implements JSObject {
   /// The **`enable()`** method of the [NavigationPreloadManager] interface is
   /// used to enable preloading of resources managed by the service worker.
@@ -322,7 +326,8 @@ extension type NavigationPreloadState._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope).
 extension type ServiceWorkerGlobalScope._(JSObject _)
     implements WorkerGlobalScope, JSObject {
   /// The **`ServiceWorkerGlobalScope.skipWaiting()`** method of the
@@ -363,7 +368,8 @@ extension type ServiceWorkerGlobalScope._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Client).
 extension type Client._(JSObject _) implements JSObject {
   /// The **`postMessage()`** method of the
   /// [Client] interface allows a service worker to send a message to a client
@@ -389,7 +395,8 @@ extension type Client._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WindowClient).
 extension type WindowClient._(JSObject _) implements Client, JSObject {
   /// The **`focus()`** method of the [WindowClient]
   /// interface gives user input focus to the current client and returns a
@@ -413,7 +420,8 @@ extension type WindowClient._(JSObject _) implements Client, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Clients).
 extension type Clients._(JSObject _) implements JSObject {
   /// The **`get()`** method of the
   /// [Clients] interface gets a service worker client matching a given
@@ -501,7 +509,8 @@ extension type ClientQueryOptions._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ExtendableEvent).
 extension type ExtendableEvent._(JSObject _) implements Event, JSObject {
   external factory ExtendableEvent(
     String type, [
@@ -557,7 +566,8 @@ extension type ExtendableEventInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FetchEvent).
 extension type FetchEvent._(JSObject _) implements ExtendableEvent, JSObject {
   external factory FetchEvent(
     String type,
@@ -671,7 +681,8 @@ extension type FetchEventInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ExtendableMessageEvent).
 extension type ExtendableMessageEvent._(JSObject _)
     implements ExtendableEvent, JSObject {
   external factory ExtendableMessageEvent(
@@ -742,7 +753,8 @@ extension type ExtendableMessageEventInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Cache).
 extension type Cache._(JSObject _) implements JSObject {
   /// The **`match()`** method of the [Cache] interface returns a `Promise` that
   /// resolves to the [Response] associated with the first matching request in
@@ -895,7 +907,8 @@ extension type CacheQueryOptions._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CacheStorage).
 extension type CacheStorage._(JSObject _) implements JSObject {
   /// The **`match()`** method of the [CacheStorage] interface checks if a given
   /// [Request] or URL string is a key for a stored [Response].

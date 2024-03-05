@@ -35,7 +35,8 @@ typedef KeyFormat = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Crypto).
 extension type Crypto._(JSObject _) implements JSObject {
   /// The **`Crypto.getRandomValues()`** method lets you get cryptographically
   /// strong random values.
@@ -81,7 +82,8 @@ extension type KeyAlgorithm._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CryptoKey).
 extension type CryptoKey._(JSObject _) implements JSObject {
   external KeyType get type;
   external bool get extractable;
@@ -114,7 +116,8 @@ extension type CryptoKey._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto).
 extension type SubtleCrypto._(JSObject _) implements JSObject {
   /// The **`encrypt()`** method of the [SubtleCrypto] interface encrypts data.
   ///
@@ -439,7 +442,8 @@ extension type JsonWebKey._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CryptoKeyPair).
 extension type CryptoKeyPair._(JSObject _) implements JSObject {
   external factory CryptoKeyPair({
     CryptoKey publicKey,
@@ -475,7 +479,8 @@ extension type RsaKeyGenParams._(JSObject _) implements Algorithm, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RsaHashedKeyGenParams).
 extension type RsaHashedKeyGenParams._(JSObject _)
     implements RsaKeyGenParams, JSObject {
   external factory RsaHashedKeyGenParams(
@@ -515,7 +520,8 @@ extension type RsaHashedKeyAlgorithm._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RsaHashedImportParams).
 extension type RsaHashedImportParams._(JSObject _)
     implements Algorithm, JSObject {
   external factory RsaHashedImportParams(
@@ -534,7 +540,8 @@ extension type RsaHashedImportParams._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RsaPssParams).
 extension type RsaPssParams._(JSObject _) implements Algorithm, JSObject {
   external factory RsaPssParams({required int saltLength});
 
@@ -552,7 +559,8 @@ extension type RsaPssParams._(JSObject _) implements Algorithm, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RsaOaepParams).
 extension type RsaOaepParams._(JSObject _) implements Algorithm, JSObject {
   external factory RsaOaepParams({BufferSource label});
 
@@ -569,7 +577,8 @@ extension type RsaOaepParams._(JSObject _) implements Algorithm, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/EcdsaParams).
 extension type EcdsaParams._(JSObject _) implements Algorithm, JSObject {
   external factory EcdsaParams({required HashAlgorithmIdentifier hash});
 
@@ -588,7 +597,8 @@ extension type EcdsaParams._(JSObject _) implements Algorithm, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/EcKeyGenParams).
 extension type EcKeyGenParams._(JSObject _) implements Algorithm, JSObject {
   external factory EcKeyGenParams({required NamedCurve namedCurve});
 
@@ -614,7 +624,8 @@ extension type EcKeyAlgorithm._(JSObject _) implements KeyAlgorithm, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/EcKeyImportParams).
 extension type EcKeyImportParams._(JSObject _) implements Algorithm, JSObject {
   external factory EcKeyImportParams({required NamedCurve namedCurve});
 
@@ -640,7 +651,8 @@ extension type EcKeyImportParams._(JSObject _) implements Algorithm, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/EcdhKeyDeriveParams).
 extension type EcdhKeyDeriveParams._(JSObject _)
     implements Algorithm, JSObject {
   external factory EcdhKeyDeriveParams({required CryptoKey public});
@@ -691,7 +703,8 @@ extension type EcdhKeyDeriveParams._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AesCtrParams).
 extension type AesCtrParams._(JSObject _) implements Algorithm, JSObject {
   external factory AesCtrParams({
     required BufferSource counter,
@@ -723,7 +736,8 @@ extension type AesKeyAlgorithm._(JSObject _) implements KeyAlgorithm, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AesKeyGenParams).
 extension type AesKeyGenParams._(JSObject _) implements Algorithm, JSObject {
   external factory AesKeyGenParams({required int length});
 
@@ -748,7 +762,8 @@ extension type AesDerivedKeyParams._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AesCbcParams).
 extension type AesCbcParams._(JSObject _) implements Algorithm, JSObject {
   external factory AesCbcParams({required BufferSource iv});
 
@@ -771,7 +786,8 @@ extension type AesCbcParams._(JSObject _) implements Algorithm, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AesGcmParams).
 extension type AesGcmParams._(JSObject _) implements Algorithm, JSObject {
   external factory AesGcmParams({
     required BufferSource iv,
@@ -797,7 +813,8 @@ extension type AesGcmParams._(JSObject _) implements Algorithm, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/HmacImportParams).
 extension type HmacImportParams._(JSObject _) implements Algorithm, JSObject {
   external factory HmacImportParams({
     required HashAlgorithmIdentifier hash,
@@ -831,7 +848,8 @@ extension type HmacKeyAlgorithm._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/HmacKeyGenParams).
 extension type HmacKeyGenParams._(JSObject _) implements Algorithm, JSObject {
   external factory HmacKeyGenParams({
     required HashAlgorithmIdentifier hash,
@@ -853,7 +871,8 @@ extension type HmacKeyGenParams._(JSObject _) implements Algorithm, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/HkdfParams).
 extension type HkdfParams._(JSObject _) implements Algorithm, JSObject {
   external factory HkdfParams({
     required HashAlgorithmIdentifier hash,
@@ -878,7 +897,8 @@ extension type HkdfParams._(JSObject _) implements Algorithm, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Pbkdf2Params).
 extension type Pbkdf2Params._(JSObject _) implements Algorithm, JSObject {
   external factory Pbkdf2Params({
     required BufferSource salt,

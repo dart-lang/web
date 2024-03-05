@@ -32,7 +32,8 @@ typedef CreateScriptURLCallback = JSFunction;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TrustedHTML).
 extension type TrustedHTML._(JSObject _) implements JSObject {
   external static TrustedHTML fromLiteral(JSObject templateStringsArray);
 
@@ -52,7 +53,8 @@ extension type TrustedHTML._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TrustedScript).
 extension type TrustedScript._(JSObject _) implements JSObject {
   external static TrustedScript fromLiteral(JSObject templateStringsArray);
 
@@ -72,7 +74,8 @@ extension type TrustedScript._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TrustedScriptURL).
 extension type TrustedScriptURL._(JSObject _) implements JSObject {
   external static TrustedScriptURL fromLiteral(JSObject templateStringsArray);
 
@@ -87,7 +90,8 @@ extension type TrustedScriptURL._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TrustedTypePolicyFactory).
 extension type TrustedTypePolicyFactory._(JSObject _) implements JSObject {
   /// The **`createPolicy()`** method of the [TrustedTypePolicyFactory]
   /// interface creates a [TrustedTypePolicy] object that implements the rules
@@ -170,7 +174,8 @@ extension type TrustedTypePolicyFactory._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TrustedTypePolicy).
 extension type TrustedTypePolicy._(JSObject _) implements JSObject {
   /// The **`createHTML()`** method of the [TrustedTypePolicy] interface creates
   /// a [TrustedHTML] object using a policy created by

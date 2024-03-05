@@ -20,7 +20,8 @@ import 'cssom.dart';
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSFontFaceRule).
 extension type CSSFontFaceRule._(JSObject _) implements CSSRule, JSObject {
   external CSSStyleDeclaration get style;
 }
@@ -32,7 +33,8 @@ extension type CSSFontFaceRule._(JSObject _) implements CSSRule, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSFontFeatureValuesRule).
 extension type CSSFontFeatureValuesRule._(JSObject _)
     implements CSSRule, JSObject {
   external set fontFamily(String value);
@@ -56,7 +58,8 @@ extension type CSSFontFeatureValuesMap._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSFontPaletteValuesRule).
 extension type CSSFontPaletteValuesRule._(JSObject _)
     implements CSSRule, JSObject {
   external String get name;

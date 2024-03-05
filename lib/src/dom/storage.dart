@@ -23,7 +23,8 @@ import 'fs.dart';
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/StorageManager).
 extension type StorageManager._(JSObject _) implements JSObject {
   /// The **`getDirectory()`** method of the [StorageManager] interface is used
   /// to obtain a reference to a [FileSystemDirectoryHandle] object allowing

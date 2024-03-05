@@ -27,7 +27,8 @@ typedef RenderBlockingStatusType = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceResourceTiming).
 extension type PerformanceResourceTiming._(JSObject _)
     implements PerformanceEntry, JSObject {
   /// The **`toJSON()`** method of the [PerformanceResourceTiming] interface is

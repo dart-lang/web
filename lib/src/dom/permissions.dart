@@ -25,7 +25,8 @@ typedef PermissionState = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Permissions).
 extension type Permissions._(JSObject _) implements JSObject {
   /// The **`Permissions.query()`** method of the [Permissions] interface
   /// returns the state of a user permission on the global scope.
@@ -45,7 +46,8 @@ extension type PermissionDescriptor._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PermissionStatus).
 extension type PermissionStatus._(JSObject _) implements EventTarget, JSObject {
   external PermissionState get state;
   external String get name;

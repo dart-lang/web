@@ -41,7 +41,8 @@ import 'dart:js_interop';
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMPointReadOnly).
 extension type DOMPointReadOnly._(JSObject _) implements JSObject {
   external factory DOMPointReadOnly([
     num x,
@@ -75,7 +76,8 @@ extension type DOMPointReadOnly._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMPoint).
 extension type DOMPoint._(JSObject _) implements DOMPointReadOnly, JSObject {
   external factory DOMPoint([
     num x,
@@ -117,7 +119,8 @@ extension type DOMPointInit._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMRectReadOnly).
 extension type DOMRectReadOnly._(JSObject _) implements JSObject {
   external factory DOMRectReadOnly([
     num x,
@@ -149,7 +152,8 @@ extension type DOMRectReadOnly._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMRect).
 extension type DOMRect._(JSObject _) implements DOMRectReadOnly, JSObject {
   external factory DOMRect([
     num x,
@@ -198,7 +202,8 @@ extension type DOMRectList._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMQuad).
 extension type DOMQuad._(JSObject _) implements JSObject {
   external factory DOMQuad([
     DOMPointInit p1,
@@ -246,7 +251,8 @@ extension type DOMQuadInit._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMMatrixReadOnly).
 extension type DOMMatrixReadOnly._(JSObject _) implements JSObject {
   external factory DOMMatrixReadOnly([JSAny init]);
 
@@ -350,7 +356,8 @@ extension type DOMMatrixReadOnly._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMMatrix).
 extension type DOMMatrix._(JSObject _) implements DOMMatrixReadOnly, JSObject {
   external factory DOMMatrix([JSAny init]);
 

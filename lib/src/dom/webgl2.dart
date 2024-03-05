@@ -43,7 +43,8 @@ typedef Uint32List = JSObject;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGLQuery).
 extension type WebGLQuery._(JSObject _) implements WebGLObject, JSObject {}
 
 /// The **`WebGLSampler`** interface is part of the
@@ -61,7 +62,8 @@ extension type WebGLQuery._(JSObject _) implements WebGLObject, JSObject {}
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGLSampler).
 extension type WebGLSampler._(JSObject _) implements WebGLObject, JSObject {}
 
 /// The **`WebGLSync`** interface is part of the
@@ -80,7 +82,8 @@ extension type WebGLSampler._(JSObject _) implements WebGLObject, JSObject {}
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGLSync).
 extension type WebGLSync._(JSObject _) implements WebGLObject, JSObject {}
 
 /// The **`WebGLTransformFeedback`** interface is part of the
@@ -105,7 +108,8 @@ extension type WebGLSync._(JSObject _) implements WebGLObject, JSObject {}
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGLTransformFeedback).
 extension type WebGLTransformFeedback._(JSObject _)
     implements WebGLObject, JSObject {}
 
@@ -127,7 +131,8 @@ extension type WebGLTransformFeedback._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGLVertexArrayObject).
 extension type WebGLVertexArrayObject._(JSObject _)
     implements WebGLObject, JSObject {}
 
@@ -155,7 +160,8 @@ extension type WebGLVertexArrayObject._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGL2RenderingContext).
 extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   external static GLenum get DEPTH_BUFFER_BIT;
   external static GLenum get STENCIL_BUFFER_BIT;

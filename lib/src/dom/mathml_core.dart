@@ -23,7 +23,8 @@ import 'html.dart';
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MathMLElement).
 extension type MathMLElement._(JSObject _) implements Element, JSObject {
   /// Creates a [MathMLElement] using the tag 'math'.
   MathMLElement.math()

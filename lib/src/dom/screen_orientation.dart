@@ -28,7 +28,8 @@ typedef OrientationType = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ScreenOrientation).
 extension type ScreenOrientation._(JSObject _)
     implements EventTarget, JSObject {
   /// The **`lock()`** property of the [ScreenOrientation] interface locks the

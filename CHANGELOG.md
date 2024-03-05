@@ -1,3 +1,8 @@
+## 0.5.2-wip
+
+- Update the docs for generated interface types to reference the MDN Web Docs
+  project.
+
 ## 0.5.1
 
 - Add [`TrustedTypes`](https://web.dev/trusted-types) members.

@@ -26,7 +26,8 @@ import 'css_typed_om.dart';
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaList).
 extension type MediaList._(JSObject _) implements JSObject {
   /// The **`item()`** method of the [MediaList] interface returns the media
   /// query at the specified `index`, or `null` if the specified `index` doesn't
@@ -52,7 +53,8 @@ extension type MediaList._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/StyleSheet).
 extension type StyleSheet._(JSObject _) implements JSObject {
   external String get type;
   external String? get href;
@@ -94,7 +96,8 @@ extension type StyleSheet._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet).
 extension type CSSStyleSheet._(JSObject _) implements StyleSheet, JSObject {
   external factory CSSStyleSheet([CSSStyleSheetInit options]);
 
@@ -193,7 +196,8 @@ extension type CSSStyleSheetInit._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/StyleSheetList).
 extension type StyleSheetList._(JSObject _) implements JSObject {
   /// The **`item()`** method of the [StyleSheetList] interface returns a single
   /// [CSSStyleSheet] object.
@@ -225,7 +229,8 @@ extension type StyleSheetList._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSRuleList).
 extension type CSSRuleList._(JSObject _) implements JSObject {
   /// The **`item()`** method of the [CSSRuleList] interface returns the
   /// [CSSRule] object at the specified `index` or `null` if the specified
@@ -256,7 +261,8 @@ extension type CSSRuleList._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSRule).
 extension type CSSRule._(JSObject _) implements JSObject {
   external static int get KEYFRAMES_RULE;
   external static int get KEYFRAME_RULE;
@@ -282,7 +288,8 @@ extension type CSSRule._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleRule).
 extension type CSSStyleRule._(JSObject _) implements CSSGroupingRule, JSObject {
   external StylePropertyMap get styleMap;
   external set selectorText(String value);
@@ -295,7 +302,8 @@ extension type CSSStyleRule._(JSObject _) implements CSSGroupingRule, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSImportRule).
 extension type CSSImportRule._(JSObject _) implements CSSRule, JSObject {
   external String get href;
   external MediaList get media;
@@ -312,7 +320,8 @@ extension type CSSImportRule._(JSObject _) implements CSSRule, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSGroupingRule).
 extension type CSSGroupingRule._(JSObject _) implements CSSRule, JSObject {
   /// The **`insertRule()`** method of the
   /// [CSSGroupingRule] interface adds a new CSS rule to a list of CSS rules.
@@ -332,7 +341,8 @@ extension type CSSGroupingRule._(JSObject _) implements CSSRule, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSPageRule).
 extension type CSSPageRule._(JSObject _) implements CSSGroupingRule, JSObject {
   external set selectorText(String value);
   external String get selectorText;
@@ -349,7 +359,8 @@ extension type CSSMarginRule._(JSObject _) implements CSSRule, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSNamespaceRule).
 extension type CSSNamespaceRule._(JSObject _) implements CSSRule, JSObject {
   external String get namespaceURI;
   external String get prefix;
@@ -372,7 +383,8 @@ extension type CSSNamespaceRule._(JSObject _) implements CSSRule, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleDeclaration).
 extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   /// The `CSSStyleDeclaration.item()`
   /// method interface returns a CSS property name from a [CSSStyleDeclaration]
@@ -1686,7 +1698,8 @@ external $CSS get CSS;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSS).
 @JS('CSS')
 extension type $CSS._(JSObject _) implements JSObject {
   external bool supports(

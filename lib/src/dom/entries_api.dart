@@ -27,7 +27,8 @@ typedef FileCallback = JSFunction;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FileSystemEntry).
 extension type FileSystemEntry._(JSObject _) implements JSObject {
   /// The [FileSystemEntry] interface's method
   /// **`getParent()`** obtains a
@@ -51,7 +52,8 @@ extension type FileSystemEntry._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FileSystemDirectoryEntry).
 extension type FileSystemDirectoryEntry._(JSObject _)
     implements FileSystemEntry, JSObject {
   /// The [FileSystemDirectoryEntry] interface's method
@@ -104,7 +106,8 @@ extension type FileSystemFlags._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FileSystemDirectoryReader).
 extension type FileSystemDirectoryReader._(JSObject _) implements JSObject {
   /// The [FileSystemDirectoryReader] interface's **`readEntries()`** method
   /// retrieves the directory entries
@@ -129,7 +132,8 @@ extension type FileSystemDirectoryReader._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FileSystemFileEntry).
 extension type FileSystemFileEntry._(JSObject _)
     implements FileSystemEntry, JSObject {
   /// The [FileSystemFileEntry] interface's method
@@ -157,7 +161,8 @@ extension type FileSystemFileEntry._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FileSystem).
 extension type FileSystem._(JSObject _) implements JSObject {
   external String get name;
   external FileSystemDirectoryEntry get root;

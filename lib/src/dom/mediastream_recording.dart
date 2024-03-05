@@ -29,7 +29,8 @@ typedef RecordingState = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder).
 extension type MediaRecorder._(JSObject _) implements EventTarget, JSObject {
   external factory MediaRecorder(
     MediaStream stream, [
@@ -193,7 +194,8 @@ extension type MediaRecorderOptions._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/BlobEvent).
 extension type BlobEvent._(JSObject _) implements Event, JSObject {
   external factory BlobEvent(
     String type,

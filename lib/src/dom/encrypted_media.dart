@@ -72,7 +72,8 @@ extension type MediaKeySystemMediaCapability._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaKeySystemAccess).
 extension type MediaKeySystemAccess._(JSObject _) implements JSObject {
   /// The `MediaKeySystemAccess.getConfiguration()` method returns an object
   /// with the supported combination of
@@ -103,7 +104,8 @@ extension type MediaKeySystemAccess._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaKeys).
 extension type MediaKeys._(JSObject _) implements JSObject {
   /// The `MediaKeys.createSession()` method returns a new
   /// [MediaKeySession] object, which represents a context for message exchange
@@ -130,7 +132,8 @@ extension type MediaKeysPolicy._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaKeySession).
 extension type MediaKeySession._(JSObject _) implements EventTarget, JSObject {
   /// The `MediaKeySession.generateRequest()` method returns a
   /// `Promise` after generating a media request based on initialization data.
@@ -174,7 +177,8 @@ extension type MediaKeySession._(JSObject _) implements EventTarget, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaKeyStatusMap).
 extension type MediaKeyStatusMap._(JSObject _) implements JSObject {
   /// The **`has`** property of the
   /// [MediaKeyStatusMap] interface returns a `Boolean`, asserting
@@ -195,7 +199,8 @@ extension type MediaKeyStatusMap._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaKeyMessageEvent).
 extension type MediaKeyMessageEvent._(JSObject _) implements Event, JSObject {
   external factory MediaKeyMessageEvent(
     String type,
@@ -226,7 +231,8 @@ extension type MediaKeyMessageEventInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaEncryptedEvent).
 extension type MediaEncryptedEvent._(JSObject _) implements Event, JSObject {
   external factory MediaEncryptedEvent(
     String type, [

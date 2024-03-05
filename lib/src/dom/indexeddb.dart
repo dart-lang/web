@@ -51,7 +51,8 @@ typedef IDBTransactionMode = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/IDBRequest).
 extension type IDBRequest._(JSObject _) implements EventTarget, JSObject {
   external JSAny? get result;
   external DOMException? get error;
@@ -71,7 +72,8 @@ extension type IDBRequest._(JSObject _) implements EventTarget, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/IDBOpenDBRequest).
 extension type IDBOpenDBRequest._(JSObject _) implements IDBRequest, JSObject {
   external set onblocked(EventHandler value);
   external EventHandler get onblocked;
@@ -86,7 +88,8 @@ extension type IDBOpenDBRequest._(JSObject _) implements IDBRequest, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/IDBVersionChangeEvent).
 extension type IDBVersionChangeEvent._(JSObject _) implements Event, JSObject {
   external factory IDBVersionChangeEvent(
     String type, [
@@ -118,7 +121,8 @@ extension type IDBVersionChangeEventInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/IDBFactory).
 extension type IDBFactory._(JSObject _) implements JSObject {
   /// The **`open()`** method of the [IDBFactory] interface requests opening a
   /// [connection to a database](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Basic_Terminology#database_connection).
@@ -213,7 +217,8 @@ extension type IDBDatabaseInfo._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/IDBDatabase).
 extension type IDBDatabase._(JSObject _) implements EventTarget, JSObject {
   /// The **`transaction`** method of the [IDBDatabase] interface immediately
   /// returns a transaction object ([IDBTransaction]) containing the
@@ -304,7 +309,8 @@ extension type IDBObjectStoreParameters._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/IDBObjectStore).
 extension type IDBObjectStore._(JSObject _) implements JSObject {
   /// The **`put()`** method of the [IDBObjectStore] interface updates a given
   /// record in a database, or inserts a new record if the given item does not
@@ -583,7 +589,8 @@ extension type IDBIndexParameters._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/IDBIndex).
 extension type IDBIndex._(JSObject _) implements JSObject {
   /// The **`get()`** method of the [IDBIndex]
   /// interface returns an [IDBRequest] object, and, in a separate thread,
@@ -734,7 +741,8 @@ extension type IDBIndex._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/IDBKeyRange).
 extension type IDBKeyRange._(JSObject _) implements JSObject {
   external static IDBKeyRange only(JSAny? value);
   external static IDBKeyRange lowerBound(
@@ -784,7 +792,8 @@ extension type IDBKeyRange._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/IDBCursor).
 extension type IDBCursor._(JSObject _) implements JSObject {
   /// The **`advance()`** method of the [IDBCursor]
   /// interface sets the number of times a cursor should move
@@ -876,7 +885,8 @@ extension type IDBCursor._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/IDBCursorWithValue).
 extension type IDBCursorWithValue._(JSObject _) implements IDBCursor, JSObject {
   external JSAny? get value;
 }
@@ -907,7 +917,8 @@ extension type IDBCursorWithValue._(JSObject _) implements IDBCursor, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/IDBTransaction).
 extension type IDBTransaction._(JSObject _) implements EventTarget, JSObject {
   /// The **`objectStore()`** method of the
   /// [IDBTransaction] interface returns an object store that has already been

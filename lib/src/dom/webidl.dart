@@ -32,7 +32,8 @@ typedef VoidFunction = JSFunction;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMException).
 extension type DOMException._(JSObject _) implements JSObject {
   external factory DOMException([
     String message,

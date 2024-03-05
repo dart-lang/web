@@ -113,7 +113,8 @@ extension type RTCAnswerOptions._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection).
 extension type RTCPeerConnection._(JSObject _)
     implements EventTarget, JSObject {
   external factory RTCPeerConnection([RTCConfiguration configuration]);
@@ -460,7 +461,8 @@ extension type RTCPeerConnection._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCSessionDescription).
 extension type RTCSessionDescription._(JSObject _) implements JSObject {
   external factory RTCSessionDescription(
       RTCSessionDescriptionInit descriptionInitDict);
@@ -517,7 +519,8 @@ extension type RTCLocalSessionDescriptionInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCIceCandidate).
 extension type RTCIceCandidate._(JSObject _) implements JSObject {
   external factory RTCIceCandidate([RTCIceCandidateInit candidateInitDict]);
 
@@ -569,7 +572,8 @@ extension type RTCIceCandidateInit._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnectionIceEvent).
 extension type RTCPeerConnectionIceEvent._(JSObject _)
     implements Event, JSObject {
   external factory RTCPeerConnectionIceEvent(
@@ -600,7 +604,8 @@ extension type RTCPeerConnectionIceEventInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnectionIceErrorEvent).
 extension type RTCPeerConnectionIceErrorEvent._(JSObject _)
     implements Event, JSObject {
   external factory RTCPeerConnectionIceErrorEvent(
@@ -653,7 +658,8 @@ extension type RTCCertificateExpiration._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCCertificate).
 extension type RTCCertificate._(JSObject _) implements JSObject {
   /// The **`getFingerprints()`** method of the **[RTCCertificate]** interface
   /// is used to get an array of certificate fingerprints.
@@ -693,7 +699,8 @@ extension type RTCRtpTransceiverInit._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpSender).
 extension type RTCRtpSender._(JSObject _) implements JSObject {
   external static RTCRtpCapabilities? getCapabilities(String kind);
   external JSPromise<JSAny?> generateKeyFrame([JSArray<JSString> rids]);
@@ -864,7 +871,8 @@ extension type RTCRtpCodec._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpCodecParameters).
 extension type RTCRtpCodecParameters._(JSObject _)
     implements RTCRtpCodec, JSObject {
   external factory RTCRtpCodecParameters({required int payloadType});
@@ -905,7 +913,8 @@ extension type RTCSetParameterOptions._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpReceiver).
 extension type RTCRtpReceiver._(JSObject _) implements JSObject {
   external static RTCRtpCapabilities? getCapabilities(String kind);
 
@@ -977,7 +986,8 @@ extension type RTCRtpSynchronizationSource._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpTransceiver).
 extension type RTCRtpTransceiver._(JSObject _) implements JSObject {
   /// The **`stop()`** method in the [RTCRtpTransceiver] interface permanently
   /// stops the transceiver by stopping both the associated [RTCRtpSender] and
@@ -1023,7 +1033,8 @@ extension type RTCRtpTransceiver._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCDtlsTransport).
 extension type RTCDtlsTransport._(JSObject _) implements EventTarget, JSObject {
   external JSArray<JSArrayBuffer> getRemoteCertificates();
   external RTCIceTransport get iceTransport;
@@ -1052,7 +1063,8 @@ extension type RTCDtlsFingerprint._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCIceTransport).
 extension type RTCIceTransport._(JSObject _) implements EventTarget, JSObject {
   /// The **[RTCIceTransport]** method
   /// **`getLocalCandidates()`** returns an array of
@@ -1129,7 +1141,8 @@ extension type RTCIceTransport._(JSObject _) implements EventTarget, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCIceParameters).
 extension type RTCIceParameters._(JSObject _) implements JSObject {
   external factory RTCIceParameters({
     String usernameFragment,
@@ -1150,7 +1163,8 @@ extension type RTCIceParameters._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCIceCandidatePair).
 extension type RTCIceCandidatePair._(JSObject _) implements JSObject {
   external factory RTCIceCandidatePair({
     RTCIceCandidate local,
@@ -1177,7 +1191,8 @@ extension type RTCIceCandidatePair._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCTrackEvent).
 extension type RTCTrackEvent._(JSObject _) implements Event, JSObject {
   external factory RTCTrackEvent(
     String type,
@@ -1225,7 +1240,8 @@ extension type RTCTrackEventInit._(JSObject _) implements EventInit, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCSctpTransport).
 extension type RTCSctpTransport._(JSObject _) implements EventTarget, JSObject {
   external RTCDtlsTransport get transport;
   external RTCSctpTransportState get state;
@@ -1253,7 +1269,8 @@ extension type RTCSctpTransport._(JSObject _) implements EventTarget, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCDataChannel).
 extension type RTCDataChannel._(JSObject _) implements EventTarget, JSObject {
   /// The **`RTCDataChannel.close()`** method closes the
   /// [RTCDataChannel]. Either peer is permitted to call this method to initiate
@@ -1362,7 +1379,8 @@ extension type RTCDataChannelInit._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCDataChannelEvent).
 extension type RTCDataChannelEvent._(JSObject _) implements Event, JSObject {
   external factory RTCDataChannelEvent(
     String type,
@@ -1397,7 +1415,8 @@ extension type RTCDataChannelEventInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCDTMFSender).
 extension type RTCDTMFSender._(JSObject _) implements EventTarget, JSObject {
   /// The **`insertDTMF()`** method on the [RTCDTMFSender] interface
   /// starts sending  tones to the remote peer over the
@@ -1437,7 +1456,8 @@ extension type RTCDTMFSender._(JSObject _) implements EventTarget, JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCDTMFToneChangeEvent).
 extension type RTCDTMFToneChangeEvent._(JSObject _) implements Event, JSObject {
   external factory RTCDTMFToneChangeEvent(
     String type, [
@@ -1467,7 +1487,8 @@ extension type RTCDTMFToneChangeEventInit._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCStatsReport).
 extension type RTCStatsReport._(JSObject _) implements JSObject {}
 extension type RTCStats._(JSObject _) implements JSObject {
   external factory RTCStats({
@@ -1492,7 +1513,8 @@ extension type RTCStats._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCError).
 extension type RTCError._(JSObject _) implements DOMException, JSObject {
   external factory RTCError(
     RTCErrorInit init, [
@@ -1532,7 +1554,8 @@ extension type RTCErrorInit._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCErrorEvent).
 extension type RTCErrorEvent._(JSObject _) implements Event, JSObject {
   external factory RTCErrorEvent(
     String type,

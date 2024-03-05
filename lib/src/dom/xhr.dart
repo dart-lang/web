@@ -27,7 +27,8 @@ typedef XMLHttpRequestResponseType = String;
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequestEventTarget).
 extension type XMLHttpRequestEventTarget._(JSObject _)
     implements EventTarget, JSObject {
   external set onloadstart(EventHandler value);
@@ -56,7 +57,8 @@ extension type XMLHttpRequestEventTarget._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequestUpload).
 extension type XMLHttpRequestUpload._(JSObject _)
     implements XMLHttpRequestEventTarget, JSObject {}
 
@@ -79,7 +81,8 @@ extension type XMLHttpRequestUpload._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest).
 extension type XMLHttpRequest._(JSObject _)
     implements XMLHttpRequestEventTarget, JSObject {
   external factory XMLHttpRequest();
@@ -242,7 +245,8 @@ extension type XMLHttpRequest._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FormData).
 extension type FormData._(JSObject _) implements JSObject {
   external factory FormData([
     HTMLFormElement form,
@@ -304,7 +308,8 @@ extension type FormData._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ProgressEvent).
 extension type ProgressEvent._(JSObject _) implements Event, JSObject {
   external factory ProgressEvent(
     String type, [

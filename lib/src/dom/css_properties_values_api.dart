@@ -39,7 +39,8 @@ extension type PropertyDefinition._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSPropertyRule).
 extension type CSSPropertyRule._(JSObject _) implements CSSRule, JSObject {
   external String get name;
   external String get syntax;

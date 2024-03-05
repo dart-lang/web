@@ -38,7 +38,8 @@ extension type PushPermissionDescriptor._(JSObject _)
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PushManager).
 extension type PushManager._(JSObject _) implements JSObject {
   external static JSArray<JSString> get supportedContentEncodings;
 
@@ -83,7 +84,8 @@ extension type PushManager._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PushSubscriptionOptions).
 extension type PushSubscriptionOptions._(JSObject _) implements JSObject {
   external bool get userVisibleOnly;
   external JSArrayBuffer? get applicationServerKey;
@@ -109,7 +111,8 @@ extension type PushSubscriptionOptionsInit._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PushSubscription).
 extension type PushSubscription._(JSObject _) implements JSObject {
   /// The `getKey()` method of the [PushSubscription] interface
   /// returns an `ArrayBuffer` representing a client public key, which can then
@@ -161,7 +164,8 @@ extension type PushSubscriptionJSON._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PushMessageData).
 extension type PushMessageData._(JSObject _) implements JSObject {
   /// The **`arrayBuffer()`** method of the [PushMessageData] interface extracts
   /// push message data as an `ArrayBuffer` object.
@@ -191,7 +195,8 @@ extension type PushMessageData._(JSObject _) implements JSObject {
 ///
 /// ---
 ///
-/// API documentation sourced from [MDN Web Docs](https://developer.mozilla.org/docs/Web).
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PushEvent).
 extension type PushEvent._(JSObject _) implements ExtendableEvent, JSObject {
   external factory PushEvent(
     String type, [

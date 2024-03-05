@@ -1,4 +1,4 @@
-## 0.5.1-wip
+## 0.5.1
 
 - Add [`TrustedTypes`](https://web.dev/trusted-types) members.
 - Include MDN API documentation as class and member dartdoc comments. Docs

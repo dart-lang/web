@@ -458,6 +458,18 @@ extension type DOMMatrix2DInit._(JSObject _) implements JSObject {
 extension type DOMMatrixInit._(JSObject _)
     implements DOMMatrix2DInit, JSObject {
   external factory DOMMatrixInit({
+    num a,
+    num b,
+    num c,
+    num d,
+    num e,
+    num f,
+    num m11,
+    num m12,
+    num m21,
+    num m22,
+    num m41,
+    num m42,
     num m13,
     num m14,
     num m23,

@@ -481,7 +481,10 @@ extension type PublicKeyCredentialEntity._(JSObject _) implements JSObject {
 }
 extension type PublicKeyCredentialRpEntity._(JSObject _)
     implements PublicKeyCredentialEntity, JSObject {
-  external factory PublicKeyCredentialRpEntity({String id});
+  external factory PublicKeyCredentialRpEntity({
+    required String name,
+    String id,
+  });
 
   external set id(String value);
   external String get id;
@@ -489,6 +492,7 @@ extension type PublicKeyCredentialRpEntity._(JSObject _)
 extension type PublicKeyCredentialUserEntity._(JSObject _)
     implements PublicKeyCredentialEntity, JSObject {
   external factory PublicKeyCredentialUserEntity({
+    required String name,
     required BufferSource id,
     required String displayName,
   });

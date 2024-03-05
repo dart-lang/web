@@ -134,6 +134,8 @@ extension type PaymentDetailsBase._(JSObject _) implements JSObject {
 extension type PaymentDetailsInit._(JSObject _)
     implements PaymentDetailsBase, JSObject {
   external factory PaymentDetailsInit({
+    JSArray<PaymentItem> displayItems,
+    JSArray<PaymentDetailsModifier> modifiers,
     String id,
     required PaymentItem total,
   });
@@ -146,6 +148,8 @@ extension type PaymentDetailsInit._(JSObject _)
 extension type PaymentDetailsUpdate._(JSObject _)
     implements PaymentDetailsBase, JSObject {
   external factory PaymentDetailsUpdate({
+    JSArray<PaymentItem> displayItems,
+    JSArray<PaymentDetailsModifier> modifiers,
     PaymentItem total,
     JSObject paymentMethodErrors,
   });
@@ -261,6 +265,9 @@ extension type PaymentMethodChangeEvent._(JSObject _)
 extension type PaymentMethodChangeEventInit._(JSObject _)
     implements PaymentRequestUpdateEventInit, JSObject {
   external factory PaymentMethodChangeEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     String methodName,
     JSObject? methodDetails,
   });
@@ -293,5 +300,9 @@ extension type PaymentRequestUpdateEvent._(JSObject _)
 }
 extension type PaymentRequestUpdateEventInit._(JSObject _)
     implements EventInit, JSObject {
-  external factory PaymentRequestUpdateEventInit();
+  external factory PaymentRequestUpdateEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+  });
 }

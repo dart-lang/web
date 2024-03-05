@@ -1870,7 +1870,12 @@ extension type TrackEvent._(JSObject _) implements Event, JSObject {
   external JSObject? get track;
 }
 extension type TrackEventInit._(JSObject _) implements EventInit, JSObject {
-  external factory TrackEventInit({JSObject? track});
+  external factory TrackEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    JSObject? track,
+  });
 
   external set track(JSObject? value);
   external JSObject? get track;
@@ -3099,7 +3104,12 @@ extension type SubmitEvent._(JSObject _) implements Event, JSObject {
   external HTMLElement? get submitter;
 }
 extension type SubmitEventInit._(JSObject _) implements EventInit, JSObject {
-  external factory SubmitEventInit({HTMLElement? submitter});
+  external factory SubmitEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    HTMLElement? submitter,
+  });
 
   external set submitter(HTMLElement? value);
   external HTMLElement? get submitter;
@@ -3125,7 +3135,12 @@ extension type FormDataEvent._(JSObject _) implements Event, JSObject {
   external FormData get formData;
 }
 extension type FormDataEventInit._(JSObject _) implements EventInit, JSObject {
-  external factory FormDataEventInit({required FormData formData});
+  external factory FormDataEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    required FormData formData,
+  });
 
   external set formData(FormData value);
   external FormData get formData;
@@ -4941,6 +4956,9 @@ extension type ToggleEvent._(JSObject _) implements Event, JSObject {
 }
 extension type ToggleEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ToggleEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     String oldState,
     String newState,
   });
@@ -5159,7 +5177,36 @@ extension type DragEvent._(JSObject _) implements MouseEvent, JSObject {
   external DataTransfer? get dataTransfer;
 }
 extension type DragEventInit._(JSObject _) implements MouseEventInit, JSObject {
-  external factory DragEventInit({DataTransfer? dataTransfer});
+  external factory DragEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    Window? view,
+    int detail,
+    int which,
+    bool ctrlKey,
+    bool shiftKey,
+    bool altKey,
+    bool metaKey,
+    bool modifierAltGraph,
+    bool modifierCapsLock,
+    bool modifierFn,
+    bool modifierFnLock,
+    bool modifierHyper,
+    bool modifierNumLock,
+    bool modifierScrollLock,
+    bool modifierSuper,
+    bool modifierSymbol,
+    bool modifierSymbolLock,
+    int screenX,
+    int screenY,
+    int clientX,
+    int clientY,
+    int button,
+    int buttons,
+    EventTarget? relatedTarget,
+    DataTransfer? dataTransfer,
+  });
 
   external set dataTransfer(DataTransfer? value);
   external DataTransfer? get dataTransfer;
@@ -5776,7 +5823,10 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
 }
 extension type WindowPostMessageOptions._(JSObject _)
     implements StructuredSerializeOptions, JSObject {
-  external factory WindowPostMessageOptions({String targetOrigin});
+  external factory WindowPostMessageOptions({
+    JSArray<JSObject> transfer,
+    String targetOrigin,
+  });
 
   external set targetOrigin(String value);
   external String get targetOrigin;
@@ -6003,6 +6053,7 @@ extension type NavigationOptions._(JSObject _) implements JSObject {
 extension type NavigationNavigateOptions._(JSObject _)
     implements NavigationOptions, JSObject {
   external factory NavigationNavigateOptions({
+    JSAny? info,
     JSAny? state,
     NavigationHistoryBehavior history,
   });
@@ -6014,7 +6065,10 @@ extension type NavigationNavigateOptions._(JSObject _)
 }
 extension type NavigationReloadOptions._(JSObject _)
     implements NavigationOptions, JSObject {
-  external factory NavigationReloadOptions({JSAny? state});
+  external factory NavigationReloadOptions({
+    JSAny? info,
+    JSAny? state,
+  });
 
   external set state(JSAny? value);
   external JSAny? get state;
@@ -6112,6 +6166,9 @@ extension type NavigateEvent._(JSObject _) implements Event, JSObject {
 }
 extension type NavigateEventInit._(JSObject _) implements EventInit, JSObject {
   external factory NavigateEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     NavigationType navigationType,
     required NavigationDestination destination,
     bool canIntercept,
@@ -6206,6 +6263,9 @@ extension type NavigationCurrentEntryChangeEvent._(JSObject _)
 extension type NavigationCurrentEntryChangeEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory NavigationCurrentEntryChangeEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     NavigationType? navigationType,
     required NavigationHistoryEntry from,
   });
@@ -6238,6 +6298,9 @@ extension type PopStateEvent._(JSObject _) implements Event, JSObject {
 }
 extension type PopStateEventInit._(JSObject _) implements EventInit, JSObject {
   external factory PopStateEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     JSAny? state,
     bool hasUAVisualTransition,
   });
@@ -6265,6 +6328,9 @@ extension type HashChangeEvent._(JSObject _) implements Event, JSObject {
 extension type HashChangeEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory HashChangeEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     String oldURL,
     String newURL,
   });
@@ -6284,7 +6350,12 @@ extension type PageRevealEvent._(JSObject _) implements Event, JSObject {
 }
 extension type PageRevealEventInit._(JSObject _)
     implements EventInit, JSObject {
-  external factory PageRevealEventInit({ViewTransition? viewTransition});
+  external factory PageRevealEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    ViewTransition? viewTransition,
+  });
 
   external set viewTransition(ViewTransition? value);
   external ViewTransition? get viewTransition;
@@ -6306,7 +6377,12 @@ extension type PageTransitionEvent._(JSObject _) implements Event, JSObject {
 }
 extension type PageTransitionEventInit._(JSObject _)
     implements EventInit, JSObject {
-  external factory PageTransitionEventInit({bool persisted});
+  external factory PageTransitionEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    bool persisted,
+  });
 
   external set persisted(bool value);
   external bool get persisted;
@@ -6339,6 +6415,9 @@ extension type ErrorEvent._(JSObject _) implements Event, JSObject {
 }
 extension type ErrorEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ErrorEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     String message,
     String filename,
     int lineno,
@@ -6376,6 +6455,9 @@ extension type PromiseRejectionEvent._(JSObject _) implements Event, JSObject {
 extension type PromiseRejectionEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory PromiseRejectionEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     required JSObject promise,
     JSAny? reason,
   });
@@ -6708,6 +6790,9 @@ extension type MessageEvent._(JSObject _) implements Event, JSObject {
 }
 extension type MessageEventInit._(JSObject _) implements EventInit, JSObject {
   external factory MessageEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     JSAny? data,
     String origin,
     String lastEventId,
@@ -7318,6 +7403,9 @@ extension type StorageEvent._(JSObject _) implements Event, JSObject {
 }
 extension type StorageEventInit._(JSObject _) implements EventInit, JSObject {
   external factory StorageEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     String? key,
     String? oldValue,
     String? newValue,

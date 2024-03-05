@@ -34,6 +34,8 @@ extension type MediaConfiguration._(JSObject _) implements JSObject {
 extension type MediaDecodingConfiguration._(JSObject _)
     implements MediaConfiguration, JSObject {
   external factory MediaDecodingConfiguration({
+    VideoConfiguration video,
+    AudioConfiguration audio,
     required MediaDecodingType type,
     MediaCapabilitiesKeySystemConfiguration keySystemConfiguration,
   });
@@ -46,8 +48,11 @@ extension type MediaDecodingConfiguration._(JSObject _)
 }
 extension type MediaEncodingConfiguration._(JSObject _)
     implements MediaConfiguration, JSObject {
-  external factory MediaEncodingConfiguration(
-      {required MediaEncodingType type});
+  external factory MediaEncodingConfiguration({
+    VideoConfiguration video,
+    AudioConfiguration audio,
+    required MediaEncodingType type,
+  });
 
   external set type(MediaEncodingType value);
   external MediaEncodingType get type;
@@ -165,6 +170,9 @@ extension type MediaCapabilitiesInfo._(JSObject _) implements JSObject {
 extension type MediaCapabilitiesDecodingInfo._(JSObject _)
     implements MediaCapabilitiesInfo, JSObject {
   external factory MediaCapabilitiesDecodingInfo({
+    required bool supported,
+    required bool smooth,
+    required bool powerEfficient,
     required MediaKeySystemAccess keySystemAccess,
     MediaDecodingConfiguration configuration,
   });
@@ -176,8 +184,12 @@ extension type MediaCapabilitiesDecodingInfo._(JSObject _)
 }
 extension type MediaCapabilitiesEncodingInfo._(JSObject _)
     implements MediaCapabilitiesInfo, JSObject {
-  external factory MediaCapabilitiesEncodingInfo(
-      {MediaEncodingConfiguration configuration});
+  external factory MediaCapabilitiesEncodingInfo({
+    required bool supported,
+    required bool smooth,
+    required bool powerEfficient,
+    MediaEncodingConfiguration configuration,
+  });
 
   external set configuration(MediaEncodingConfiguration value);
   external MediaEncodingConfiguration get configuration;

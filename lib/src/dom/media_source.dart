@@ -193,6 +193,9 @@ extension type BufferedChangeEvent._(JSObject _) implements Event, JSObject {
 extension type BufferedChangeEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory BufferedChangeEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     TimeRanges addedRanges,
     TimeRanges removedRanges,
   });

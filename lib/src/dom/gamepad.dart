@@ -99,7 +99,12 @@ extension type GamepadEvent._(JSObject _) implements Event, JSObject {
   external Gamepad get gamepad;
 }
 extension type GamepadEventInit._(JSObject _) implements EventInit, JSObject {
-  external factory GamepadEventInit({required Gamepad gamepad});
+  external factory GamepadEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    required Gamepad gamepad,
+  });
 
   external set gamepad(Gamepad value);
   external Gamepad get gamepad;

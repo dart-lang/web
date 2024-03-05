@@ -72,6 +72,9 @@ extension type SecurityPolicyViolationEvent._(JSObject _)
 extension type SecurityPolicyViolationEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory SecurityPolicyViolationEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     required String documentURI,
     String referrer,
     String blockedURI,

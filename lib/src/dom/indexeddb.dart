@@ -87,6 +87,9 @@ extension type IDBVersionChangeEvent._(JSObject _) implements Event, JSObject {
 extension type IDBVersionChangeEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory IDBVersionChangeEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     int oldVersion,
     int? newVersion,
   });

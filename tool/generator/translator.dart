@@ -696,23 +696,37 @@ class Translator {
             ..requiredParameters.addAll(requiredParameters)
             ..optionalParameters.addAll(optionalParameters)));
 
-  code.Constructor _objectLiteral(List<idl.Member> members) {
-    final optionalParameters = <code.Parameter>[];
-    for (final member in members) {
-      // We currently only lower dictionaries to object literals, and
-      // dictionaries can only have 'field' members.
-      assert(member.type == 'field');
-      final field = member as idl.Field;
-      final isRequired = field.required;
-      final parameter = code.Parameter((b) => b
-        ..name = dartRename(field.name)
-        ..type = _idlTypeToTypeReference(field.idlType)
-        ..required = isRequired
-        ..named = true);
-      optionalParameters.add(parameter);
+  code.Constructor _objectLiteral(String jsName) {
+    // Dictionaries that inherit other dictionaries should provide a constructor
+    // that can take in their supertypes' members as well.
+    final namedParameters = <code.Parameter>[];
+    String? dictionaryName = jsName;
+    while (dictionaryName != null) {
+      final interfacelike = _interfacelikes[dictionaryName]!;
+      final parameters = <code.Parameter>[];
+      for (final member in interfacelike.members) {
+        // We currently only lower dictionaries to object literals, and
+        // dictionaries can only have 'field' members.
+        assert(member.type == 'field');
+        final field = member as idl.Field;
+        final isRequired = field.required;
+        final parameter = code.Parameter((b) => b
+          ..name = dartRename(field.name)
+          ..type = _idlTypeToTypeReference(field.idlType)
+          ..required = isRequired
+          ..named = true);
+        parameters.add(parameter);
+      }
+      // Supertype members should be first.
+      namedParameters.insertAll(0, parameters);
+      dictionaryName = interfacelike.inheritance;
+    }
+    if (namedParameters.isEmpty) {
+      // TODO(srujzs): Add a constructor that just assigns the field to a new
+      // object literal.
     }
     return code.Constructor((b) => b
-      ..optionalParameters.addAll(optionalParameters)
+      ..optionalParameters.addAll(namedParameters)
       ..external = true
       // TODO(srujzs): Should we generate generative or factory constructors?
       // With `@staticInterop`, factories were needed, but extension types have
@@ -924,7 +938,7 @@ class Translator {
           .map((interface) => _typeReference(_RawType(interface, false)))
           .followedBy([jsObject]))
       ..constructors.addAll((isObjectLiteral
-              ? [_objectLiteral(members)]
+              ? [_objectLiteral(jsName)]
               : constructor != null
                   ? [_constructor(constructor)]
                   : <code.Constructor>[])

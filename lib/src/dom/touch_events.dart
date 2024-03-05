@@ -14,6 +14,7 @@ library;
 import 'dart:js_interop';
 
 import 'dom.dart';
+import 'html.dart';
 import 'uievents.dart';
 
 typedef TouchType = String;
@@ -124,6 +125,26 @@ extension type TouchList._(JSObject _) implements JSObject {
 extension type TouchEventInit._(JSObject _)
     implements EventModifierInit, JSObject {
   external factory TouchEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    Window? view,
+    int detail,
+    int which,
+    bool ctrlKey,
+    bool shiftKey,
+    bool altKey,
+    bool metaKey,
+    bool modifierAltGraph,
+    bool modifierCapsLock,
+    bool modifierFn,
+    bool modifierFnLock,
+    bool modifierHyper,
+    bool modifierNumLock,
+    bool modifierScrollLock,
+    bool modifierSuper,
+    bool modifierSymbol,
+    bool modifierSymbolLock,
     JSArray<Touch> touches,
     JSArray<Touch> targetTouches,
     JSArray<Touch> changedTouches,

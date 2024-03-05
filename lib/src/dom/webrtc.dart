@@ -84,7 +84,7 @@ extension type RTCIceServer._(JSObject _) implements JSObject {
   external String get credential;
 }
 extension type RTCOfferAnswerOptions._(JSObject _) implements JSObject {
-  external factory RTCOfferAnswerOptions();
+  RTCOfferAnswerOptions() : _ = JSObject();
 }
 extension type RTCOfferOptions._(JSObject _)
     implements RTCOfferAnswerOptions, JSObject {
@@ -103,7 +103,7 @@ extension type RTCOfferOptions._(JSObject _)
 }
 extension type RTCAnswerOptions._(JSObject _)
     implements RTCOfferAnswerOptions, JSObject {
-  external factory RTCAnswerOptions();
+  RTCAnswerOptions() : _ = JSObject();
 }
 
 /// The **`RTCPeerConnection`** interface represents a WebRTC connection between
@@ -888,7 +888,7 @@ extension type RTCRtpHeaderExtensionCapability._(JSObject _)
   external String get uri;
 }
 extension type RTCSetParameterOptions._(JSObject _) implements JSObject {
-  external factory RTCSetParameterOptions();
+  RTCSetParameterOptions() : _ = JSObject();
 }
 
 /// The **`RTCRtpReceiver`** interface of the

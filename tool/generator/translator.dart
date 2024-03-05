@@ -696,7 +696,14 @@ class Translator {
             ..requiredParameters.addAll(requiredParameters)
             ..optionalParameters.addAll(optionalParameters)));
 
-  code.Constructor _objectLiteral(String jsName) {
+  // TODO(srujzs): We don't need constructors for many dictionaries as they're
+  // only ever returned from APIs instead of passed to them. However,
+  // determining whether they are is quite difficult and requires tracking not
+  // only where this type is used but where any typedefs of this type are used.
+  // The IDL also doesn't tell us if a dictionary needs a constructor or not, so
+  // for now, always emit one.
+  code.Constructor _objectLiteral(
+      String jsName, String representationFieldName) {
     // Dictionaries that inherit other dictionaries should provide a constructor
     // that can take in their supertypes' members as well.
     final namedParameters = <code.Parameter>[];
@@ -722,16 +729,20 @@ class Translator {
       dictionaryName = interfacelike.inheritance;
     }
     if (namedParameters.isEmpty) {
-      // TODO(srujzs): Add a constructor that just assigns the field to a new
-      // object literal.
+      return code.Constructor((b) => b
+        ..initializers.add(code
+            .refer(representationFieldName)
+            .assign(code.refer('JSObject', _urlForType('JSObject')).call([]))
+            .code));
+    } else {
+      return code.Constructor((b) => b
+        ..optionalParameters.addAll(namedParameters)
+        ..external = true
+        // TODO(srujzs): Should we generate generative or factory constructors?
+        // With `@staticInterop`, factories were needed, but extension types have
+        // no such limitation.
+        ..factory = true);
     }
-    return code.Constructor((b) => b
-      ..optionalParameters.addAll(namedParameters)
-      ..external = true
-      // TODO(srujzs): Should we generate generative or factory constructors?
-      // With `@staticInterop`, factories were needed, but extension types have
-      // no such limitation.
-      ..factory = true);
   }
 
   // Generates an `@JS` annotation if the given [jsOverride] is not empty or if
@@ -938,7 +949,7 @@ class Translator {
           .map((interface) => _typeReference(_RawType(interface, false)))
           .followedBy([jsObject]))
       ..constructors.addAll((isObjectLiteral
-              ? [_objectLiteral(jsName)]
+              ? [_objectLiteral(jsName, representationFieldName)]
               : constructor != null
                   ? [_constructor(constructor)]
                   : <code.Constructor>[])

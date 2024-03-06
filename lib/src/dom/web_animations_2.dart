@@ -79,6 +79,9 @@ extension type AnimationPlaybackEvent._(JSObject _) implements Event, JSObject {
 extension type AnimationPlaybackEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory AnimationPlaybackEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     CSSNumberish? currentTime,
     CSSNumberish? timelineTime,
   });

@@ -213,6 +213,9 @@ extension type MediaKeyMessageEvent._(JSObject _) implements Event, JSObject {
 extension type MediaKeyMessageEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory MediaKeyMessageEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     required MediaKeyMessageType messageType,
     required JSArrayBuffer message,
   });
@@ -245,6 +248,9 @@ extension type MediaEncryptedEvent._(JSObject _) implements Event, JSObject {
 extension type MediaEncryptedEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory MediaEncryptedEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     String initDataType,
     JSArrayBuffer? initData,
   });

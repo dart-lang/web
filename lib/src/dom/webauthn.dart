@@ -227,7 +227,7 @@ extension type AuthenticatorAssertionResponseJSON._(JSObject _)
 }
 extension type AuthenticationExtensionsClientOutputsJSON._(JSObject _)
     implements JSObject {
-  external factory AuthenticationExtensionsClientOutputsJSON();
+  AuthenticationExtensionsClientOutputsJSON() : _ = JSObject();
 }
 extension type PublicKeyCredentialCreationOptionsJSON._(JSObject _)
     implements JSObject {
@@ -301,7 +301,7 @@ extension type PublicKeyCredentialDescriptorJSON._(JSObject _)
 }
 extension type AuthenticationExtensionsClientInputsJSON._(JSObject _)
     implements JSObject {
-  external factory AuthenticationExtensionsClientInputsJSON();
+  AuthenticationExtensionsClientInputsJSON() : _ = JSObject();
 }
 extension type PublicKeyCredentialRequestOptionsJSON._(JSObject _)
     implements JSObject {
@@ -501,7 +501,10 @@ extension type PublicKeyCredentialEntity._(JSObject _) implements JSObject {
 }
 extension type PublicKeyCredentialRpEntity._(JSObject _)
     implements PublicKeyCredentialEntity, JSObject {
-  external factory PublicKeyCredentialRpEntity({String id});
+  external factory PublicKeyCredentialRpEntity({
+    required String name,
+    String id,
+  });
 
   external set id(String value);
   external String get id;
@@ -509,6 +512,7 @@ extension type PublicKeyCredentialRpEntity._(JSObject _)
 extension type PublicKeyCredentialUserEntity._(JSObject _)
     implements PublicKeyCredentialEntity, JSObject {
   external factory PublicKeyCredentialUserEntity({
+    required String name,
     required BufferSource id,
     required String displayName,
   });

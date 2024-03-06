@@ -22,7 +22,12 @@ typedef ClipboardItemData = JSPromise<JSAny>;
 typedef ClipboardItems = JSArray<ClipboardItem>;
 typedef PresentationStyle = String;
 extension type ClipboardEventInit._(JSObject _) implements EventInit, JSObject {
-  external factory ClipboardEventInit({DataTransfer? clipboardData});
+  external factory ClipboardEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    DataTransfer? clipboardData,
+  });
 
   external set clipboardData(DataTransfer? value);
   external DataTransfer? get clipboardData;
@@ -151,7 +156,10 @@ extension type ClipboardUnsanitizedFormats._(JSObject _) implements JSObject {
 }
 extension type ClipboardPermissionDescriptor._(JSObject _)
     implements PermissionDescriptor, JSObject {
-  external factory ClipboardPermissionDescriptor({bool allowWithoutGesture});
+  external factory ClipboardPermissionDescriptor({
+    required String name,
+    bool allowWithoutGesture,
+  });
 
   external set allowWithoutGesture(bool value);
   external bool get allowWithoutGesture;

@@ -524,6 +524,9 @@ extension type AudioRenderCapacityEvent._(JSObject _)
 extension type AudioRenderCapacityEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory AudioRenderCapacityEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     num timestamp,
     num averageLoad,
     num peakLoad,
@@ -647,8 +650,12 @@ extension type OfflineAudioCompletionEvent._(JSObject _)
 }
 extension type OfflineAudioCompletionEventInit._(JSObject _)
     implements EventInit, JSObject {
-  external factory OfflineAudioCompletionEventInit(
-      {required AudioBuffer renderedBuffer});
+  external factory OfflineAudioCompletionEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    required AudioBuffer renderedBuffer,
+  });
 
   external set renderedBuffer(AudioBuffer value);
   external AudioBuffer get renderedBuffer;
@@ -1033,6 +1040,9 @@ extension type AnalyserNode._(JSObject _) implements AudioNode, JSObject {
 extension type AnalyserOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory AnalyserOptions({
+    int channelCount,
+    ChannelCountMode channelCountMode,
+    ChannelInterpretation channelInterpretation,
     int fftSize,
     num maxDecibels,
     num minDecibels,
@@ -1301,6 +1311,9 @@ extension type AudioProcessingEvent._(JSObject _) implements Event, JSObject {
 extension type AudioProcessingEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory AudioProcessingEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     required num playbackTime,
     required AudioBuffer inputBuffer,
     required AudioBuffer outputBuffer,
@@ -1379,6 +1392,9 @@ extension type BiquadFilterNode._(JSObject _) implements AudioNode, JSObject {
 extension type BiquadFilterOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory BiquadFilterOptions({
+    int channelCount,
+    ChannelCountMode channelCountMode,
+    ChannelInterpretation channelInterpretation,
     BiquadFilterType type,
     num Q,
     num detune,
@@ -1454,7 +1470,12 @@ extension type ChannelMergerNode._(JSObject _) implements AudioNode, JSObject {
 }
 extension type ChannelMergerOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
-  external factory ChannelMergerOptions({int numberOfInputs});
+  external factory ChannelMergerOptions({
+    int channelCount,
+    ChannelCountMode channelCountMode,
+    ChannelInterpretation channelInterpretation,
+    int numberOfInputs,
+  });
 
   external set numberOfInputs(int value);
   external int get numberOfInputs;
@@ -1520,7 +1541,12 @@ extension type ChannelSplitterNode._(JSObject _)
 }
 extension type ChannelSplitterOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
-  external factory ChannelSplitterOptions({int numberOfOutputs});
+  external factory ChannelSplitterOptions({
+    int channelCount,
+    ChannelCountMode channelCountMode,
+    ChannelInterpretation channelInterpretation,
+    int numberOfOutputs,
+  });
 
   external set numberOfOutputs(int value);
   external int get numberOfOutputs;
@@ -1622,6 +1648,9 @@ extension type ConvolverNode._(JSObject _) implements AudioNode, JSObject {
 extension type ConvolverOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory ConvolverOptions({
+    int channelCount,
+    ChannelCountMode channelCountMode,
+    ChannelInterpretation channelInterpretation,
     AudioBuffer? buffer,
     bool disableNormalization,
   });
@@ -1687,6 +1716,9 @@ extension type DelayNode._(JSObject _) implements AudioNode, JSObject {
 extension type DelayOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory DelayOptions({
+    int channelCount,
+    ChannelCountMode channelCountMode,
+    ChannelInterpretation channelInterpretation,
     num maxDelayTime,
     num delayTime,
   });
@@ -1750,6 +1782,9 @@ extension type DynamicsCompressorNode._(JSObject _)
 extension type DynamicsCompressorOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory DynamicsCompressorOptions({
+    int channelCount,
+    ChannelCountMode channelCountMode,
+    ChannelInterpretation channelInterpretation,
     num attack,
     num knee,
     num ratio,
@@ -1820,7 +1855,12 @@ extension type GainNode._(JSObject _) implements AudioNode, JSObject {
   external AudioParam get gain;
 }
 extension type GainOptions._(JSObject _) implements AudioNodeOptions, JSObject {
-  external factory GainOptions({num gain});
+  external factory GainOptions({
+    int channelCount,
+    ChannelCountMode channelCountMode,
+    ChannelInterpretation channelInterpretation,
+    num gain,
+  });
 
   external set gain(num value);
   external num get gain;
@@ -1908,6 +1948,9 @@ extension type IIRFilterNode._(JSObject _) implements AudioNode, JSObject {
 extension type IIRFilterOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory IIRFilterOptions({
+    int channelCount,
+    ChannelCountMode channelCountMode,
+    ChannelInterpretation channelInterpretation,
     required JSArray<JSNumber> feedforward,
     required JSArray<JSNumber> feedback,
   });
@@ -2194,6 +2237,9 @@ extension type OscillatorNode._(JSObject _)
 extension type OscillatorOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory OscillatorOptions({
+    int channelCount,
+    ChannelCountMode channelCountMode,
+    ChannelInterpretation channelInterpretation,
     OscillatorType type,
     num frequency,
     num detune,
@@ -2331,6 +2377,9 @@ extension type PannerNode._(JSObject _) implements AudioNode, JSObject {
 extension type PannerOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory PannerOptions({
+    int channelCount,
+    ChannelCountMode channelCountMode,
+    ChannelInterpretation channelInterpretation,
     PanningModelType panningModel,
     DistanceModelType distanceModel,
     num positionX,
@@ -2404,6 +2453,7 @@ extension type PeriodicWaveConstraints._(JSObject _) implements JSObject {
 extension type PeriodicWaveOptions._(JSObject _)
     implements PeriodicWaveConstraints, JSObject {
   external factory PeriodicWaveOptions({
+    bool disableNormalization,
     JSArray<JSNumber> real,
     JSArray<JSNumber> imag,
   });
@@ -2535,7 +2585,12 @@ extension type StereoPannerNode._(JSObject _) implements AudioNode, JSObject {
 }
 extension type StereoPannerOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
-  external factory StereoPannerOptions({num pan});
+  external factory StereoPannerOptions({
+    int channelCount,
+    ChannelCountMode channelCountMode,
+    ChannelInterpretation channelInterpretation,
+    num pan,
+  });
 
   external set pan(num value);
   external num get pan;
@@ -2592,6 +2647,9 @@ extension type WaveShaperNode._(JSObject _) implements AudioNode, JSObject {
 extension type WaveShaperOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory WaveShaperOptions({
+    int channelCount,
+    ChannelCountMode channelCountMode,
+    ChannelInterpretation channelInterpretation,
     JSArray<JSNumber> curve,
     OverSampleType oversample,
   });
@@ -2702,6 +2760,9 @@ extension type AudioWorkletNode._(JSObject _) implements AudioNode, JSObject {
 extension type AudioWorkletNodeOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
   external factory AudioWorkletNodeOptions({
+    int channelCount,
+    ChannelCountMode channelCountMode,
+    ChannelInterpretation channelInterpretation,
     int numberOfInputs,
     int numberOfOutputs,
     JSArray<JSNumber> outputChannelCount,

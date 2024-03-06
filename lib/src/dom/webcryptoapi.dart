@@ -457,6 +457,7 @@ extension type CryptoKeyPair._(JSObject _) implements JSObject {
 }
 extension type RsaKeyGenParams._(JSObject _) implements Algorithm, JSObject {
   external factory RsaKeyGenParams({
+    required String name,
     required int modulusLength,
     required BigInteger publicExponent,
   });
@@ -483,14 +484,19 @@ extension type RsaKeyGenParams._(JSObject _) implements Algorithm, JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RsaHashedKeyGenParams).
 extension type RsaHashedKeyGenParams._(JSObject _)
     implements RsaKeyGenParams, JSObject {
-  external factory RsaHashedKeyGenParams(
-      {required HashAlgorithmIdentifier hash});
+  external factory RsaHashedKeyGenParams({
+    required String name,
+    required int modulusLength,
+    required BigInteger publicExponent,
+    required HashAlgorithmIdentifier hash,
+  });
 
   external set hash(HashAlgorithmIdentifier value);
   external HashAlgorithmIdentifier get hash;
 }
 extension type RsaKeyAlgorithm._(JSObject _) implements KeyAlgorithm, JSObject {
   external factory RsaKeyAlgorithm({
+    required String name,
     required int modulusLength,
     required BigInteger publicExponent,
   });
@@ -502,7 +508,12 @@ extension type RsaKeyAlgorithm._(JSObject _) implements KeyAlgorithm, JSObject {
 }
 extension type RsaHashedKeyAlgorithm._(JSObject _)
     implements RsaKeyAlgorithm, JSObject {
-  external factory RsaHashedKeyAlgorithm({required KeyAlgorithm hash});
+  external factory RsaHashedKeyAlgorithm({
+    required String name,
+    required int modulusLength,
+    required BigInteger publicExponent,
+    required KeyAlgorithm hash,
+  });
 
   external set hash(KeyAlgorithm value);
   external KeyAlgorithm get hash;
@@ -524,8 +535,10 @@ extension type RsaHashedKeyAlgorithm._(JSObject _)
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RsaHashedImportParams).
 extension type RsaHashedImportParams._(JSObject _)
     implements Algorithm, JSObject {
-  external factory RsaHashedImportParams(
-      {required HashAlgorithmIdentifier hash});
+  external factory RsaHashedImportParams({
+    required String name,
+    required HashAlgorithmIdentifier hash,
+  });
 
   external set hash(HashAlgorithmIdentifier value);
   external HashAlgorithmIdentifier get hash;
@@ -543,7 +556,10 @@ extension type RsaHashedImportParams._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RsaPssParams).
 extension type RsaPssParams._(JSObject _) implements Algorithm, JSObject {
-  external factory RsaPssParams({required int saltLength});
+  external factory RsaPssParams({
+    required String name,
+    required int saltLength,
+  });
 
   external set saltLength(int value);
   external int get saltLength;
@@ -562,7 +578,10 @@ extension type RsaPssParams._(JSObject _) implements Algorithm, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RsaOaepParams).
 extension type RsaOaepParams._(JSObject _) implements Algorithm, JSObject {
-  external factory RsaOaepParams({BufferSource label});
+  external factory RsaOaepParams({
+    required String name,
+    BufferSource label,
+  });
 
   external set label(BufferSource value);
   external BufferSource get label;
@@ -580,7 +599,10 @@ extension type RsaOaepParams._(JSObject _) implements Algorithm, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/EcdsaParams).
 extension type EcdsaParams._(JSObject _) implements Algorithm, JSObject {
-  external factory EcdsaParams({required HashAlgorithmIdentifier hash});
+  external factory EcdsaParams({
+    required String name,
+    required HashAlgorithmIdentifier hash,
+  });
 
   external set hash(HashAlgorithmIdentifier value);
   external HashAlgorithmIdentifier get hash;
@@ -600,13 +622,19 @@ extension type EcdsaParams._(JSObject _) implements Algorithm, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/EcKeyGenParams).
 extension type EcKeyGenParams._(JSObject _) implements Algorithm, JSObject {
-  external factory EcKeyGenParams({required NamedCurve namedCurve});
+  external factory EcKeyGenParams({
+    required String name,
+    required NamedCurve namedCurve,
+  });
 
   external set namedCurve(NamedCurve value);
   external NamedCurve get namedCurve;
 }
 extension type EcKeyAlgorithm._(JSObject _) implements KeyAlgorithm, JSObject {
-  external factory EcKeyAlgorithm({required NamedCurve namedCurve});
+  external factory EcKeyAlgorithm({
+    required String name,
+    required NamedCurve namedCurve,
+  });
 
   external set namedCurve(NamedCurve value);
   external NamedCurve get namedCurve;
@@ -627,7 +655,10 @@ extension type EcKeyAlgorithm._(JSObject _) implements KeyAlgorithm, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/EcKeyImportParams).
 extension type EcKeyImportParams._(JSObject _) implements Algorithm, JSObject {
-  external factory EcKeyImportParams({required NamedCurve namedCurve});
+  external factory EcKeyImportParams({
+    required String name,
+    required NamedCurve namedCurve,
+  });
 
   external set namedCurve(NamedCurve value);
   external NamedCurve get namedCurve;
@@ -655,7 +686,10 @@ extension type EcKeyImportParams._(JSObject _) implements Algorithm, JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/EcdhKeyDeriveParams).
 extension type EcdhKeyDeriveParams._(JSObject _)
     implements Algorithm, JSObject {
-  external factory EcdhKeyDeriveParams({required CryptoKey public});
+  external factory EcdhKeyDeriveParams({
+    required String name,
+    required CryptoKey public,
+  });
 
   external set public(CryptoKey value);
   external CryptoKey get public;
@@ -707,6 +741,7 @@ extension type EcdhKeyDeriveParams._(JSObject _)
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AesCtrParams).
 extension type AesCtrParams._(JSObject _) implements Algorithm, JSObject {
   external factory AesCtrParams({
+    required String name,
     required BufferSource counter,
     required int length,
   });
@@ -717,7 +752,10 @@ extension type AesCtrParams._(JSObject _) implements Algorithm, JSObject {
   external int get length;
 }
 extension type AesKeyAlgorithm._(JSObject _) implements KeyAlgorithm, JSObject {
-  external factory AesKeyAlgorithm({required int length});
+  external factory AesKeyAlgorithm({
+    required String name,
+    required int length,
+  });
 
   external set length(int value);
   external int get length;
@@ -739,14 +777,20 @@ extension type AesKeyAlgorithm._(JSObject _) implements KeyAlgorithm, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AesKeyGenParams).
 extension type AesKeyGenParams._(JSObject _) implements Algorithm, JSObject {
-  external factory AesKeyGenParams({required int length});
+  external factory AesKeyGenParams({
+    required String name,
+    required int length,
+  });
 
   external set length(int value);
   external int get length;
 }
 extension type AesDerivedKeyParams._(JSObject _)
     implements Algorithm, JSObject {
-  external factory AesDerivedKeyParams({required int length});
+  external factory AesDerivedKeyParams({
+    required String name,
+    required int length,
+  });
 
   external set length(int value);
   external int get length;
@@ -765,7 +809,10 @@ extension type AesDerivedKeyParams._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AesCbcParams).
 extension type AesCbcParams._(JSObject _) implements Algorithm, JSObject {
-  external factory AesCbcParams({required BufferSource iv});
+  external factory AesCbcParams({
+    required String name,
+    required BufferSource iv,
+  });
 
   external set iv(BufferSource value);
   external BufferSource get iv;
@@ -790,6 +837,7 @@ extension type AesCbcParams._(JSObject _) implements Algorithm, JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AesGcmParams).
 extension type AesGcmParams._(JSObject _) implements Algorithm, JSObject {
   external factory AesGcmParams({
+    required String name,
     required BufferSource iv,
     BufferSource additionalData,
     int tagLength,
@@ -817,6 +865,7 @@ extension type AesGcmParams._(JSObject _) implements Algorithm, JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/HmacImportParams).
 extension type HmacImportParams._(JSObject _) implements Algorithm, JSObject {
   external factory HmacImportParams({
+    required String name,
     required HashAlgorithmIdentifier hash,
     int length,
   });
@@ -829,6 +878,7 @@ extension type HmacImportParams._(JSObject _) implements Algorithm, JSObject {
 extension type HmacKeyAlgorithm._(JSObject _)
     implements KeyAlgorithm, JSObject {
   external factory HmacKeyAlgorithm({
+    required String name,
     required KeyAlgorithm hash,
     required int length,
   });
@@ -852,6 +902,7 @@ extension type HmacKeyAlgorithm._(JSObject _)
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/HmacKeyGenParams).
 extension type HmacKeyGenParams._(JSObject _) implements Algorithm, JSObject {
   external factory HmacKeyGenParams({
+    required String name,
     required HashAlgorithmIdentifier hash,
     int length,
   });
@@ -875,6 +926,7 @@ extension type HmacKeyGenParams._(JSObject _) implements Algorithm, JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/HkdfParams).
 extension type HkdfParams._(JSObject _) implements Algorithm, JSObject {
   external factory HkdfParams({
+    required String name,
     required HashAlgorithmIdentifier hash,
     required BufferSource salt,
     required BufferSource info,
@@ -901,6 +953,7 @@ extension type HkdfParams._(JSObject _) implements Algorithm, JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Pbkdf2Params).
 extension type Pbkdf2Params._(JSObject _) implements Algorithm, JSObject {
   external factory Pbkdf2Params({
+    required String name,
     required BufferSource salt,
     required int iterations,
     required HashAlgorithmIdentifier hash,

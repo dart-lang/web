@@ -22,7 +22,10 @@ typedef PushMessageDataInit = JSAny;
 typedef PushEncryptionKeyName = String;
 extension type PushPermissionDescriptor._(JSObject _)
     implements PermissionDescriptor, JSObject {
-  external factory PushPermissionDescriptor({bool userVisibleOnly});
+  external factory PushPermissionDescriptor({
+    required String name,
+    bool userVisibleOnly,
+  });
 
   external set userVisibleOnly(bool value);
   external bool get userVisibleOnly;
@@ -207,7 +210,12 @@ extension type PushEvent._(JSObject _) implements ExtendableEvent, JSObject {
 }
 extension type PushEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
-  external factory PushEventInit({PushMessageDataInit data});
+  external factory PushEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    PushMessageDataInit data,
+  });
 
   external set data(PushMessageDataInit value);
   external PushMessageDataInit get data;
@@ -225,6 +233,9 @@ extension type PushSubscriptionChangeEvent._(JSObject _)
 extension type PushSubscriptionChangeEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
   external factory PushSubscriptionChangeEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     PushSubscription newSubscription,
     PushSubscription oldSubscription,
   });

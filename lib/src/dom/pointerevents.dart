@@ -13,11 +13,40 @@ library;
 
 import 'dart:js_interop';
 
+import 'dom.dart';
+import 'html.dart';
 import 'uievents.dart';
 
 extension type PointerEventInit._(JSObject _)
     implements MouseEventInit, JSObject {
   external factory PointerEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    Window? view,
+    int detail,
+    int which,
+    bool ctrlKey,
+    bool shiftKey,
+    bool altKey,
+    bool metaKey,
+    bool modifierAltGraph,
+    bool modifierCapsLock,
+    bool modifierFn,
+    bool modifierFnLock,
+    bool modifierHyper,
+    bool modifierNumLock,
+    bool modifierScrollLock,
+    bool modifierSuper,
+    bool modifierSymbol,
+    bool modifierSymbolLock,
+    int screenX,
+    int screenY,
+    int clientX,
+    int clientY,
+    int button,
+    int buttons,
+    EventTarget? relatedTarget,
     int pointerId,
     num width,
     num height,

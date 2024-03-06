@@ -56,6 +56,9 @@ extension type SFrameTransformErrorEvent._(JSObject _)
 extension type SFrameTransformErrorEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory SFrameTransformErrorEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     required SFrameTransformErrorEventType errorType,
     required JSAny? frame,
     CryptoKeyID? keyID,

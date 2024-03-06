@@ -36,6 +36,9 @@ extension type AnimationEvent._(JSObject _) implements Event, JSObject {
 }
 extension type AnimationEventInit._(JSObject _) implements EventInit, JSObject {
   external factory AnimationEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     String animationName,
     num elapsedTime,
     String pseudoElement,

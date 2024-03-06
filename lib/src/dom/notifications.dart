@@ -181,6 +181,9 @@ extension type NotificationEvent._(JSObject _)
 extension type NotificationEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
   external factory NotificationEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     required Notification notification,
     String action,
   });

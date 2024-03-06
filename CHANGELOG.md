@@ -1,5 +1,9 @@
-## 0.5.2-wip
+## 0.6.0-wip
 
+- Added supertypes' fields to dictionary constructors as dictionaries are
+  allowed to contain those fields.
+- Empty dictionary constructors now create an empty object instead of being
+  treated like non-object literal `external` constructors.
 - Update the docs for generated interface types to reference the MDN Web Docs
   project.
 

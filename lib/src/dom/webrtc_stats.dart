@@ -44,6 +44,9 @@ typedef RTCStatsIceCandidatePairState = String;
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpStreamStats).
 extension type RTCRtpStreamStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCRtpStreamStats({
+    required DOMHighResTimeStamp timestamp,
+    required RTCStatsType type,
+    required String id,
     required int ssrc,
     required String kind,
     String transportId,
@@ -61,6 +64,9 @@ extension type RTCRtpStreamStats._(JSObject _) implements RTCStats, JSObject {
 }
 extension type RTCCodecStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCCodecStats({
+    required DOMHighResTimeStamp timestamp,
+    required RTCStatsType type,
+    required String id,
     required int payloadType,
     required String transportId,
     required String mimeType,
@@ -85,6 +91,13 @@ extension type RTCCodecStats._(JSObject _) implements RTCStats, JSObject {
 extension type RTCReceivedRtpStreamStats._(JSObject _)
     implements RTCRtpStreamStats, JSObject {
   external factory RTCReceivedRtpStreamStats({
+    required DOMHighResTimeStamp timestamp,
+    required RTCStatsType type,
+    required String id,
+    required int ssrc,
+    required String kind,
+    String transportId,
+    String codecId,
     int packetsReceived,
     int packetsLost,
     num jitter,
@@ -114,6 +127,16 @@ extension type RTCReceivedRtpStreamStats._(JSObject _)
 extension type RTCInboundRtpStreamStats._(JSObject _)
     implements RTCReceivedRtpStreamStats, JSObject {
   external factory RTCInboundRtpStreamStats({
+    required DOMHighResTimeStamp timestamp,
+    required RTCStatsType type,
+    required String id,
+    required int ssrc,
+    required String kind,
+    String transportId,
+    String codecId,
+    int packetsReceived,
+    int packetsLost,
+    num jitter,
     required String trackIdentifier,
     String mid,
     String remoteId,
@@ -279,6 +302,16 @@ extension type RTCInboundRtpStreamStats._(JSObject _)
 extension type RTCRemoteInboundRtpStreamStats._(JSObject _)
     implements RTCReceivedRtpStreamStats, JSObject {
   external factory RTCRemoteInboundRtpStreamStats({
+    required DOMHighResTimeStamp timestamp,
+    required RTCStatsType type,
+    required String id,
+    required int ssrc,
+    required String kind,
+    String transportId,
+    String codecId,
+    int packetsReceived,
+    int packetsLost,
+    num jitter,
     String localId,
     num roundTripTime,
     num totalRoundTripTime,
@@ -300,6 +333,13 @@ extension type RTCRemoteInboundRtpStreamStats._(JSObject _)
 extension type RTCSentRtpStreamStats._(JSObject _)
     implements RTCRtpStreamStats, JSObject {
   external factory RTCSentRtpStreamStats({
+    required DOMHighResTimeStamp timestamp,
+    required RTCStatsType type,
+    required String id,
+    required int ssrc,
+    required String kind,
+    String transportId,
+    String codecId,
     int packetsSent,
     int bytesSent,
   });
@@ -326,6 +366,15 @@ extension type RTCSentRtpStreamStats._(JSObject _)
 extension type RTCOutboundRtpStreamStats._(JSObject _)
     implements RTCSentRtpStreamStats, JSObject {
   external factory RTCOutboundRtpStreamStats({
+    required DOMHighResTimeStamp timestamp,
+    required RTCStatsType type,
+    required String id,
+    required int ssrc,
+    required String kind,
+    String transportId,
+    String codecId,
+    int packetsSent,
+    int bytesSent,
     String mid,
     String mediaSourceId,
     String remoteId,
@@ -437,6 +486,15 @@ extension type RTCOutboundRtpStreamStats._(JSObject _)
 extension type RTCRemoteOutboundRtpStreamStats._(JSObject _)
     implements RTCSentRtpStreamStats, JSObject {
   external factory RTCRemoteOutboundRtpStreamStats({
+    required DOMHighResTimeStamp timestamp,
+    required RTCStatsType type,
+    required String id,
+    required int ssrc,
+    required String kind,
+    String transportId,
+    String codecId,
+    int packetsSent,
+    int bytesSent,
     String localId,
     DOMHighResTimeStamp remoteTimestamp,
     int reportsSent,
@@ -460,6 +518,9 @@ extension type RTCRemoteOutboundRtpStreamStats._(JSObject _)
 }
 extension type RTCMediaSourceStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCMediaSourceStats({
+    required DOMHighResTimeStamp timestamp,
+    required RTCStatsType type,
+    required String id,
     required String trackIdentifier,
     required String kind,
   });
@@ -490,6 +551,11 @@ extension type RTCMediaSourceStats._(JSObject _) implements RTCStats, JSObject {
 extension type RTCAudioSourceStats._(JSObject _)
     implements RTCMediaSourceStats, JSObject {
   external factory RTCAudioSourceStats({
+    required DOMHighResTimeStamp timestamp,
+    required RTCStatsType type,
+    required String id,
+    required String trackIdentifier,
+    required String kind,
     num audioLevel,
     num totalAudioEnergy,
     num totalSamplesDuration,
@@ -511,6 +577,11 @@ extension type RTCAudioSourceStats._(JSObject _)
 extension type RTCVideoSourceStats._(JSObject _)
     implements RTCMediaSourceStats, JSObject {
   external factory RTCVideoSourceStats({
+    required DOMHighResTimeStamp timestamp,
+    required RTCStatsType type,
+    required String id,
+    required String trackIdentifier,
+    required String kind,
     int width,
     int height,
     int frames,
@@ -529,6 +600,9 @@ extension type RTCVideoSourceStats._(JSObject _)
 extension type RTCAudioPlayoutStats._(JSObject _)
     implements RTCStats, JSObject {
   external factory RTCAudioPlayoutStats({
+    required DOMHighResTimeStamp timestamp,
+    required RTCStatsType type,
+    required String id,
     required String kind,
     num synthesizedSamplesDuration,
     int synthesizedSamplesEvents,
@@ -571,6 +645,9 @@ extension type RTCAudioPlayoutStats._(JSObject _)
 extension type RTCPeerConnectionStats._(JSObject _)
     implements RTCStats, JSObject {
   external factory RTCPeerConnectionStats({
+    required DOMHighResTimeStamp timestamp,
+    required RTCStatsType type,
+    required String id,
     int dataChannelsOpened,
     int dataChannelsClosed,
   });
@@ -582,6 +659,9 @@ extension type RTCPeerConnectionStats._(JSObject _)
 }
 extension type RTCDataChannelStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCDataChannelStats({
+    required DOMHighResTimeStamp timestamp,
+    required RTCStatsType type,
+    required String id,
     String label,
     String protocol,
     int dataChannelIdentifier,
@@ -637,6 +717,9 @@ extension type RTCDataChannelStats._(JSObject _) implements RTCStats, JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCTransportStats).
 extension type RTCTransportStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCTransportStats({
+    required DOMHighResTimeStamp timestamp,
+    required RTCStatsType type,
+    required String id,
     int packetsSent,
     int packetsReceived,
     int bytesSent,
@@ -704,6 +787,9 @@ extension type RTCTransportStats._(JSObject _) implements RTCStats, JSObject {
 extension type RTCIceCandidateStats._(JSObject _)
     implements RTCStats, JSObject {
   external factory RTCIceCandidateStats({
+    required DOMHighResTimeStamp timestamp,
+    required RTCStatsType type,
+    required String id,
     required String transportId,
     String? address,
     int port,
@@ -764,6 +850,9 @@ extension type RTCIceCandidateStats._(JSObject _)
 extension type RTCIceCandidatePairStats._(JSObject _)
     implements RTCStats, JSObject {
   external factory RTCIceCandidatePairStats({
+    required DOMHighResTimeStamp timestamp,
+    required RTCStatsType type,
+    required String id,
     required String transportId,
     required String localCandidateId,
     required String remoteCandidateId,
@@ -849,6 +938,9 @@ extension type RTCIceCandidatePairStats._(JSObject _)
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCCertificateStats).
 extension type RTCCertificateStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCCertificateStats({
+    required DOMHighResTimeStamp timestamp,
+    required RTCStatsType type,
+    required String id,
     required String fingerprint,
     required String fingerprintAlgorithm,
     required String base64Certificate,

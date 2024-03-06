@@ -36,6 +36,9 @@ extension type TransitionEvent._(JSObject _) implements Event, JSObject {
 extension type TransitionEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory TransitionEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     String propertyName,
     num elapsedTime,
     String pseudoElement,

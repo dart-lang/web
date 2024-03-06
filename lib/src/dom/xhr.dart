@@ -322,6 +322,9 @@ extension type ProgressEvent._(JSObject _) implements Event, JSObject {
 }
 extension type ProgressEventInit._(JSObject _) implements EventInit, JSObject {
   external factory ProgressEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     bool lengthComputable,
     int loaded,
     int total,

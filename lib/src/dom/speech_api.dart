@@ -114,6 +114,9 @@ extension type SpeechRecognitionErrorEvent._(JSObject _)
 extension type SpeechRecognitionErrorEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory SpeechRecognitionErrorEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     required SpeechRecognitionErrorCode error,
     String message,
   });
@@ -198,6 +201,9 @@ extension type SpeechRecognitionEvent._(JSObject _) implements Event, JSObject {
 extension type SpeechRecognitionEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory SpeechRecognitionEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     int resultIndex,
     required SpeechRecognitionResultList results,
   });
@@ -385,6 +391,9 @@ extension type SpeechSynthesisEvent._(JSObject _) implements Event, JSObject {
 extension type SpeechSynthesisEventInit._(JSObject _)
     implements EventInit, JSObject {
   external factory SpeechSynthesisEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     required SpeechSynthesisUtterance utterance,
     int charIndex,
     int charLength,
@@ -424,8 +433,17 @@ extension type SpeechSynthesisErrorEvent._(JSObject _)
 }
 extension type SpeechSynthesisErrorEventInit._(JSObject _)
     implements SpeechSynthesisEventInit, JSObject {
-  external factory SpeechSynthesisErrorEventInit(
-      {required SpeechSynthesisErrorCode error});
+  external factory SpeechSynthesisErrorEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    required SpeechSynthesisUtterance utterance,
+    int charIndex,
+    int charLength,
+    num elapsedTime,
+    String name,
+    required SpeechSynthesisErrorCode error,
+  });
 
   external set error(SpeechSynthesisErrorCode value);
   external SpeechSynthesisErrorCode get error;

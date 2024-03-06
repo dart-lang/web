@@ -314,6 +314,15 @@ extension type OptionalEffectTiming._(JSObject _) implements JSObject {
 extension type ComputedEffectTiming._(JSObject _)
     implements EffectTiming, JSObject {
   external factory ComputedEffectTiming({
+    num delay,
+    num endDelay,
+    num playbackRate,
+    JSAny duration,
+    FillMode fill,
+    num iterationStart,
+    num iterations,
+    PlaybackDirection direction,
+    String easing,
     CSSNumberish startTime,
     CSSNumberish endTime,
     CSSNumberish activeDuration,
@@ -420,6 +429,15 @@ extension type BaseKeyframe._(JSObject _) implements JSObject {
 extension type KeyframeEffectOptions._(JSObject _)
     implements EffectTiming, JSObject {
   external factory KeyframeEffectOptions({
+    num delay,
+    num endDelay,
+    num playbackRate,
+    JSAny duration,
+    FillMode fill,
+    num iterationStart,
+    num iterations,
+    PlaybackDirection direction,
+    String easing,
     IterationCompositeOperation iterationComposite,
     CompositeOperation composite,
     String? pseudoElement,
@@ -435,6 +453,18 @@ extension type KeyframeEffectOptions._(JSObject _)
 extension type KeyframeAnimationOptions._(JSObject _)
     implements KeyframeEffectOptions, JSObject {
   external factory KeyframeAnimationOptions({
+    num delay,
+    num endDelay,
+    num playbackRate,
+    JSAny duration,
+    FillMode fill,
+    num iterationStart,
+    num iterations,
+    PlaybackDirection direction,
+    String easing,
+    IterationCompositeOperation iterationComposite,
+    CompositeOperation composite,
+    String? pseudoElement,
     JSAny rangeStart,
     JSAny rangeEnd,
     String id,

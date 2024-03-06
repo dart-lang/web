@@ -113,7 +113,11 @@ extension type File._(JSObject _) implements Blob, JSObject {
 }
 extension type FilePropertyBag._(JSObject _)
     implements BlobPropertyBag, JSObject {
-  external factory FilePropertyBag({int lastModified});
+  external factory FilePropertyBag({
+    String type,
+    EndingType endings,
+    int lastModified,
+  });
 
   external set lastModified(int value);
   external int get lastModified;

@@ -228,7 +228,12 @@ extension type CustomEvent._(JSObject _) implements Event, JSObject {
   external JSAny? get detail;
 }
 extension type CustomEventInit._(JSObject _) implements EventInit, JSObject {
-  external factory CustomEventInit({JSAny? detail});
+  external factory CustomEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    JSAny? detail,
+  });
 
   external set detail(JSAny? value);
   external JSAny? get detail;
@@ -378,6 +383,7 @@ extension type EventListenerOptions._(JSObject _) implements JSObject {
 extension type AddEventListenerOptions._(JSObject _)
     implements EventListenerOptions, JSObject {
   external factory AddEventListenerOptions({
+    bool capture,
     bool passive,
     bool once,
     AbortSignal signal,

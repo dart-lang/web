@@ -203,6 +203,7 @@ extension type PasswordCredential._(JSObject _)
 extension type PasswordCredentialData._(JSObject _)
     implements CredentialData, JSObject {
   external factory PasswordCredentialData({
+    required String id,
     String name,
     String iconURL,
     required String origin,
@@ -263,6 +264,7 @@ extension type FederatedCredentialRequestOptions._(JSObject _)
 extension type FederatedCredentialInit._(JSObject _)
     implements CredentialData, JSObject {
   external factory FederatedCredentialInit({
+    required String id,
     String name,
     String iconURL,
     required String origin,

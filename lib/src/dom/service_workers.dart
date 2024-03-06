@@ -555,7 +555,11 @@ extension type ExtendableEvent._(JSObject _) implements Event, JSObject {
 }
 extension type ExtendableEventInit._(JSObject _)
     implements EventInit, JSObject {
-  external factory ExtendableEventInit();
+  external factory ExtendableEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+  });
 }
 
 /// This is the event type for `fetch` events dispatched on the
@@ -648,6 +652,9 @@ extension type FetchEvent._(JSObject _) implements ExtendableEvent, JSObject {
 extension type FetchEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
   external factory FetchEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     required Request request,
     JSPromise<JSAny?> preloadResponse,
     String clientId,
@@ -699,6 +706,9 @@ extension type ExtendableMessageEvent._(JSObject _)
 extension type ExtendableMessageEventInit._(JSObject _)
     implements ExtendableEventInit, JSObject {
   external factory ExtendableMessageEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     JSAny? data,
     String origin,
     String lastEventId,
@@ -966,7 +976,12 @@ extension type CacheStorage._(JSObject _) implements JSObject {
 }
 extension type MultiCacheQueryOptions._(JSObject _)
     implements CacheQueryOptions, JSObject {
-  external factory MultiCacheQueryOptions({String cacheName});
+  external factory MultiCacheQueryOptions({
+    bool ignoreSearch,
+    bool ignoreMethod,
+    bool ignoreVary,
+    String cacheName,
+  });
 
   external set cacheName(String value);
   external String get cacheName;

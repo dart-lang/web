@@ -63,6 +63,9 @@ extension type UIEvent._(JSObject _) implements Event, JSObject {
 }
 extension type UIEventInit._(JSObject _) implements EventInit, JSObject {
   external factory UIEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
     Window? view,
     int detail,
     int which,
@@ -93,7 +96,15 @@ extension type FocusEvent._(JSObject _) implements UIEvent, JSObject {
   external EventTarget? get relatedTarget;
 }
 extension type FocusEventInit._(JSObject _) implements UIEventInit, JSObject {
-  external factory FocusEventInit({EventTarget? relatedTarget});
+  external factory FocusEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    Window? view,
+    int detail,
+    int which,
+    EventTarget? relatedTarget,
+  });
 
   external set relatedTarget(EventTarget? value);
   external EventTarget? get relatedTarget;
@@ -185,6 +196,26 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
 extension type MouseEventInit._(JSObject _)
     implements EventModifierInit, JSObject {
   external factory MouseEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    Window? view,
+    int detail,
+    int which,
+    bool ctrlKey,
+    bool shiftKey,
+    bool altKey,
+    bool metaKey,
+    bool modifierAltGraph,
+    bool modifierCapsLock,
+    bool modifierFn,
+    bool modifierFnLock,
+    bool modifierHyper,
+    bool modifierNumLock,
+    bool modifierScrollLock,
+    bool modifierSuper,
+    bool modifierSymbol,
+    bool modifierSymbolLock,
     int screenX,
     int screenY,
     int clientX,
@@ -212,6 +243,12 @@ extension type MouseEventInit._(JSObject _)
 extension type EventModifierInit._(JSObject _)
     implements UIEventInit, JSObject {
   external factory EventModifierInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    Window? view,
+    int detail,
+    int which,
     bool ctrlKey,
     bool shiftKey,
     bool altKey,
@@ -297,6 +334,33 @@ extension type WheelEvent._(JSObject _) implements MouseEvent, JSObject {
 extension type WheelEventInit._(JSObject _)
     implements MouseEventInit, JSObject {
   external factory WheelEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    Window? view,
+    int detail,
+    int which,
+    bool ctrlKey,
+    bool shiftKey,
+    bool altKey,
+    bool metaKey,
+    bool modifierAltGraph,
+    bool modifierCapsLock,
+    bool modifierFn,
+    bool modifierFnLock,
+    bool modifierHyper,
+    bool modifierNumLock,
+    bool modifierScrollLock,
+    bool modifierSuper,
+    bool modifierSymbol,
+    bool modifierSymbolLock,
+    int screenX,
+    int screenY,
+    int clientX,
+    int clientY,
+    int button,
+    int buttons,
+    EventTarget? relatedTarget,
     num deltaX,
     num deltaY,
     num deltaZ,
@@ -332,6 +396,12 @@ extension type InputEvent._(JSObject _) implements UIEvent, JSObject {
 }
 extension type InputEventInit._(JSObject _) implements UIEventInit, JSObject {
   external factory InputEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    Window? view,
+    int detail,
+    int which,
     String? data,
     bool isComposing,
     String inputType,
@@ -414,6 +484,26 @@ extension type KeyboardEvent._(JSObject _) implements UIEvent, JSObject {
 extension type KeyboardEventInit._(JSObject _)
     implements EventModifierInit, JSObject {
   external factory KeyboardEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    Window? view,
+    int detail,
+    int which,
+    bool ctrlKey,
+    bool shiftKey,
+    bool altKey,
+    bool metaKey,
+    bool modifierAltGraph,
+    bool modifierCapsLock,
+    bool modifierFn,
+    bool modifierFnLock,
+    bool modifierHyper,
+    bool modifierNumLock,
+    bool modifierScrollLock,
+    bool modifierSuper,
+    bool modifierSymbol,
+    bool modifierSymbolLock,
     String key,
     String code,
     int location,
@@ -469,7 +559,15 @@ extension type CompositionEvent._(JSObject _) implements UIEvent, JSObject {
 }
 extension type CompositionEventInit._(JSObject _)
     implements UIEventInit, JSObject {
-  external factory CompositionEventInit({String data});
+  external factory CompositionEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    Window? view,
+    int detail,
+    int which,
+    String data,
+  });
 
   external set data(String value);
   external String get data;

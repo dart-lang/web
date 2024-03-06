@@ -131,7 +131,12 @@ extension type FontFacePalettes._(JSObject _) implements JSObject {
 }
 extension type FontFaceSetLoadEventInit._(JSObject _)
     implements EventInit, JSObject {
-  external factory FontFaceSetLoadEventInit({JSArray<FontFace> fontfaces});
+  external factory FontFaceSetLoadEventInit({
+    bool bubbles,
+    bool cancelable,
+    bool composed,
+    JSArray<FontFace> fontfaces,
+  });
 
   external set fontfaces(JSArray<FontFace> value);
   external JSArray<FontFace> get fontfaces;

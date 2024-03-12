@@ -25,6 +25,11 @@ import 'html.dart';
 /// Several interfaces are direct or indirect descendants of this one:
 /// [MouseEvent], [TouchEvent], [FocusEvent], [KeyboardEvent], [WheelEvent],
 /// [InputEvent], and [CompositionEvent].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/UIEvent).
 extension type UIEvent._(JSObject _) implements Event, JSObject {
   external factory UIEvent(
     String type, [
@@ -77,6 +82,11 @@ extension type UIEventInit._(JSObject _) implements EventInit, JSObject {
 /// The **`FocusEvent`** interface represents focus-related events, including
 /// [Element/focus_event], [Element/blur_event], [Element/focusin_event], and
 /// [Element/focusout_event].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FocusEvent).
 extension type FocusEvent._(JSObject _) implements UIEvent, JSObject {
   external factory FocusEvent(
     String type, [
@@ -113,6 +123,11 @@ extension type FocusEventInit._(JSObject _) implements UIEventInit, JSObject {
 ///
 /// Several more specific events are based on `MouseEvent`, including
 /// [WheelEvent], [DragEvent], and [PointerEvent].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent).
 extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   external factory MouseEvent(
     String type, [
@@ -297,6 +312,11 @@ extension type EventModifierInit._(JSObject _)
 /// > content's scrolling direction. Instead, detect value changes to
 /// > [Element.scrollLeft] and [Element.scrollTop] of the target in the `scroll`
 /// > event.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WheelEvent).
 extension type WheelEvent._(JSObject _) implements MouseEvent, JSObject {
   external factory WheelEvent(
     String type, [
@@ -359,6 +379,11 @@ extension type WheelEventInit._(JSObject _)
 
 /// The **`InputEvent`** interface represents an event notifying the user of
 /// editable content changes.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/InputEvent).
 extension type InputEvent._(JSObject _) implements UIEvent, JSObject {
   external factory InputEvent(
     String type, [
@@ -402,6 +427,11 @@ extension type InputEventInit._(JSObject _) implements UIEventInit, JSObject {
 /// > [Element/input_event] event instead. Keyboard events may not be fired if
 /// > the user is using an alternate means of entering text, such as a
 /// > handwriting system on a tablet or graphics tablet.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent).
 extension type KeyboardEvent._(JSObject _) implements UIEvent, JSObject {
   external factory KeyboardEvent(
     String type, [
@@ -501,6 +531,11 @@ extension type KeyboardEventInit._(JSObject _)
 
 /// The DOM **`CompositionEvent`** represents events that occur due to the user
 /// indirectly entering text.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CompositionEvent).
 extension type CompositionEvent._(JSObject _) implements UIEvent, JSObject {
   external factory CompositionEvent(
     String type, [
@@ -558,6 +593,11 @@ extension type CompositionEventInit._(JSObject _)
 /// > They have been deprecated in favor of
 /// > [mutation observers](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver).
 /// > **Consider using these instead.**
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MutationEvent).
 extension type MutationEvent._(JSObject _) implements Event, JSObject {
   external static int get MODIFICATION;
   external static int get ADDITION;

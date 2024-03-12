@@ -26,6 +26,11 @@ typedef WriteCommandType = String;
 /// the same entry. For the most part you do not work with `FileSystemHandle`
 /// directly but rather its child interfaces [FileSystemFileHandle] and
 /// [FileSystemDirectoryHandle].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FileSystemHandle).
 extension type FileSystemHandle._(JSObject _) implements JSObject {
   /// The **`isSameEntry()`** method of the
   /// [FileSystemHandle] interface compares two [FileSystemHandle] to see if the
@@ -51,6 +56,11 @@ extension type FileSystemCreateWritableOptions._(JSObject _)
 /// open. The [FileSystemHandle.queryPermission] method of the
 /// [FileSystemHandle] interface can be used to verify permission state before
 /// accessing a file.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FileSystemFileHandle).
 extension type FileSystemFileHandle._(JSObject _)
     implements FileSystemHandle, JSObject {
   /// The **`getFile()`** method of the
@@ -117,6 +127,11 @@ extension type FileSystemRemoveOptions._(JSObject _) implements JSObject {
 /// The interface can be accessed via the [window.showDirectoryPicker],
 /// [StorageManager.getDirectory], [DataTransferItem.getAsFileSystemHandle], and
 /// [FileSystemDirectoryHandle.getDirectoryHandle] methods.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FileSystemDirectoryHandle).
 extension type FileSystemDirectoryHandle._(JSObject _)
     implements FileSystemHandle, JSObject {
   /// The **`getFileHandle()`** method of the
@@ -175,6 +190,11 @@ extension type WriteParams._(JSObject _) implements JSObject {
 /// a [WritableStream] object with additional convenience methods, which
 /// operates on a single file on disk. The interface is accessed through the
 /// [FileSystemFileHandle.createWritable] method.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FileSystemWritableFileStream).
 extension type FileSystemWritableFileStream._(JSObject _)
     implements WritableStream, JSObject {
   /// The **`write()`** method of the [FileSystemWritableFileStream] interface
@@ -243,6 +263,11 @@ extension type FileSystemReadWriteOptions._(JSObject _) implements JSObject {
 /// > asynchronous methods, and older versions of some browsers implement them
 /// > in this way. However, all current browsers that support these methods
 /// > implement them as synchronous methods.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FileSystemSyncAccessHandle).
 extension type FileSystemSyncAccessHandle._(JSObject _) implements JSObject {
   /// The **`read()`** method of the
   /// [FileSystemSyncAccessHandle] interface reads the content of the file

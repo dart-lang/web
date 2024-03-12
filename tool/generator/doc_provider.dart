@@ -31,10 +31,8 @@ class DocProvider {
     }
   }
 
-  MdnInterface? interfaceFor(String name) {
-    name = name.toLowerCase();
-    return interfaces.firstWhereOrNull((p) => p.name == name);
-  }
+  MdnInterface? interfaceFor(String name) =>
+      interfaces.firstWhereOrNull((p) => p.name == name);
 }
 
 class MdnInterface {
@@ -53,7 +51,22 @@ class MdnInterface {
     }
   }
 
-  List<String> get formattedDocs => formatDocs(docs, 80);
+  List<String> get formattedDocs {
+    final result = formatDocs(docs, 80);
+
+    if (result.isEmpty) {
+      return result;
+    } else {
+      return [
+        ...result,
+        '///',
+        '/// ---',
+        '///',
+        '/// API documentation sourced from',
+        '/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/$name).',
+      ];
+    }
+  }
 
   MdnProperty? propertyFor(String name) {
     name = name.toLowerCase();

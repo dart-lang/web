@@ -24,6 +24,11 @@ typedef RenderBlockingStatusType = String;
 /// resources. An application can use the timing metrics to determine, for
 /// example, the length of time it takes to fetch a specific resource, such as
 /// an [XMLHttpRequest], , image, or script.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceResourceTiming).
 extension type PerformanceResourceTiming._(JSObject _)
     implements PerformanceEntry, JSObject {
   /// The **`toJSON()`** method of the [PerformanceResourceTiming] interface is

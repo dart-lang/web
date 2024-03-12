@@ -37,6 +37,11 @@ extension type TextDecodeOptions._(JSObject _) implements JSObject {
 /// The **`TextDecoder`** interface represents a decoder for a specific text
 /// encoding, such as `UTF-8`, `ISO-8859-2`, `KOI8-R`, `GBK`, etc. A decoder
 /// takes a stream of bytes as input and emits a stream of code points.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder).
 extension type TextDecoder._(JSObject _) implements JSObject {
   external factory TextDecoder([
     String label,
@@ -71,6 +76,11 @@ extension type TextEncoderEncodeIntoResult._(JSObject _) implements JSObject {
 
 /// The **`TextEncoder`** interface takes a stream of code points as input and
 /// emits a stream of UTF-8 bytes.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TextEncoder).
 extension type TextEncoder._(JSObject _) implements JSObject {
   external factory TextEncoder();
 
@@ -96,6 +106,11 @@ extension type TextEncoder._(JSObject _) implements JSObject {
 /// stream of text in a binary encoding, such as UTF-8 etc., to a stream of
 /// strings.
 /// It is the streaming equivalent of [TextDecoder].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TextDecoderStream).
 extension type TextDecoderStream._(JSObject _) implements JSObject {
   external factory TextDecoderStream([
     String label,
@@ -112,6 +127,11 @@ extension type TextDecoderStream._(JSObject _) implements JSObject {
 /// The **`TextEncoderStream`** interface of the [Encoding API] converts a
 /// stream of strings into bytes in the UTF-8 encoding. It is the streaming
 /// equivalent of [TextEncoder].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TextEncoderStream).
 extension type TextEncoderStream._(JSObject _) implements JSObject {
   external factory TextEncoderStream();
 

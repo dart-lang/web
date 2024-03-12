@@ -22,6 +22,11 @@ import 'hr_time.dart';
 /// to specify the domains that are allowed to access the server metrics. Note
 /// that this interface is only available in secure contexts (HTTPS) in some
 /// browsers.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceServerTiming).
 extension type PerformanceServerTiming._(JSObject _) implements JSObject {
   /// The **`toJSON()`** method of the [PerformanceServerTiming] interface is a
   /// ; it returns a JSON representation of the [PerformanceServerTiming]

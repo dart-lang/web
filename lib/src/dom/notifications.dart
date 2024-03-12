@@ -29,6 +29,11 @@ typedef NotificationDirection = String;
 /// These notifications' appearance and specific functionality vary across
 /// platforms but generally they provide a way to asynchronously provide
 /// information to the user.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Notification).
 extension type Notification._(JSObject _) implements EventTarget, JSObject {
   external factory Notification(
     String title, [
@@ -158,6 +163,11 @@ extension type GetNotificationOptions._(JSObject _) implements JSObject {
 /// > [ServiceWorkerGlobalScope] object, implement the `NotificationEvent`
 /// > interface. Non-persistent notification events, fired at the [Notification]
 /// > object, implement the `Event` interface.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NotificationEvent).
 extension type NotificationEvent._(JSObject _)
     implements ExtendableEvent, JSObject {
   external factory NotificationEvent(

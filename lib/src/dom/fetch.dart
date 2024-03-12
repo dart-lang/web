@@ -63,6 +63,11 @@ typedef ResponseType = String;
 /// > **Note:** you can find out more about the available headers by reading our
 /// > [HTTP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers)
 /// > reference.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Headers).
 extension type Headers._(JSObject _) implements JSObject {
   external factory Headers([HeadersInit init]);
 
@@ -161,6 +166,11 @@ extension type Headers._(JSObject _) implements JSObject {
 /// constructor, but you are more likely to encounter a `Request` object being
 /// returned as the result of another API operation, such as a service worker
 /// [FetchEvent.request].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Request).
 extension type Request._(JSObject _) implements JSObject {
   external factory Request(
     RequestInfo input, [
@@ -293,6 +303,11 @@ extension type RequestInit._(JSObject _) implements JSObject {
 /// constructor, but you are more likely to encounter a `Response` object being
 /// returned as the result of another API operation—for example, a service
 /// worker [FetchEvent.respondWith], or a simple [fetch].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Response).
 extension type Response._(JSObject _) implements JSObject {
   external factory Response([
     BodyInit? body,

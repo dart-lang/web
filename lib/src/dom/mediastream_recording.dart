@@ -26,6 +26,11 @@ typedef RecordingState = String;
 /// [MediaStream Recording API](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API)
 /// provides functionality to easily record media. It is created using the
 /// [MediaRecorder.MediaRecorder] constructor.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder).
 extension type MediaRecorder._(JSObject _) implements EventTarget, JSObject {
   external factory MediaRecorder(
     MediaStream stream, [
@@ -186,6 +191,11 @@ extension type MediaRecorderOptions._(JSObject _) implements JSObject {
 /// [MediaStream Recording API](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API)
 /// represents events associated with a [Blob]. These blobs are typically, but
 /// not necessarily, associated with media content.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/BlobEvent).
 extension type BlobEvent._(JSObject _) implements Event, JSObject {
   external factory BlobEvent(
     String type,

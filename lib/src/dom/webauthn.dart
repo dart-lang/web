@@ -43,6 +43,11 @@ typedef LargeBlobSupport = String;
 ///
 /// > **Note:** This API is restricted to top-level contexts. Use from within an
 /// > `iframe` element will not have any effect.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PublicKeyCredential).
 extension type PublicKeyCredential._(JSObject _)
     implements Credential, JSObject {
   /// The **`isConditionalMediationAvailable()`** static method of the
@@ -333,6 +338,11 @@ extension type PublicKeyCredentialRequestOptionsJSON._(JSObject _)
 /// trust for a key pair. The child interfaces include information from the
 /// browser such as the challenge origin and either may be returned from
 /// [PublicKeyCredential.response].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AuthenticatorResponse).
 extension type AuthenticatorResponse._(JSObject _) implements JSObject {
   external JSArrayBuffer get clientDataJSON;
 }
@@ -351,6 +361,11 @@ extension type AuthenticatorResponse._(JSObject _) implements JSObject {
 ///
 /// > **Note:** This interface is restricted to top-level contexts. Use of its
 /// > features from within an `iframe` element will not have any effect.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AuthenticatorAttestationResponse).
 extension type AuthenticatorAttestationResponse._(JSObject _)
     implements AuthenticatorResponse, JSObject {
   /// The **`getTransports()`** method of the [AuthenticatorAttestationResponse]
@@ -417,6 +432,11 @@ extension type AuthenticatorAttestationResponse._(JSObject _)
 ///
 /// > **Note:** This interface is restricted to top-level contexts. Use from
 /// > within an `iframe` element will not have any effect.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AuthenticatorAssertionResponse).
 extension type AuthenticatorAssertionResponse._(JSObject _)
     implements AuthenticatorResponse, JSObject {
   external JSArrayBuffer get authenticatorData;

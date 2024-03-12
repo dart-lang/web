@@ -18,6 +18,11 @@ import 'dom.dart';
 /// The **`DeviceOrientationEvent`** interface of the
 /// [Device Orientation Events] provides web developers with information from
 /// the physical orientation of the device running the web page.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DeviceOrientationEvent).
 extension type DeviceOrientationEvent._(JSObject _) implements Event, JSObject {
   external factory DeviceOrientationEvent(
     String type, [
@@ -55,6 +60,11 @@ extension type DeviceOrientationEventInit._(JSObject _)
 /// The **`DeviceMotionEventAcceleration`** interface of the
 /// [Device Orientation Events] provides information about the amount of
 /// acceleration the device is experiencing along all three axes.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DeviceMotionEventAcceleration).
 extension type DeviceMotionEventAcceleration._(JSObject _) implements JSObject {
   external num? get x;
   external num? get y;
@@ -64,6 +74,11 @@ extension type DeviceMotionEventAcceleration._(JSObject _) implements JSObject {
 /// A **`DeviceMotionEventRotationRate`** interface of the
 /// [Device Orientation Events] provides information about the rate at which the
 /// device is rotating around all three axes.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DeviceMotionEventRotationRate).
 extension type DeviceMotionEventRotationRate._(JSObject _) implements JSObject {
   external num? get alpha;
   external num? get beta;
@@ -76,6 +91,11 @@ extension type DeviceMotionEventRotationRate._(JSObject _) implements JSObject {
 ///
 /// > **Warning:** Currently, Firefox and Chrome do not handle the coordinates
 /// > the same way. Take care about this while using them.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DeviceMotionEvent).
 extension type DeviceMotionEvent._(JSObject _) implements Event, JSObject {
   external factory DeviceMotionEvent(
     String type, [

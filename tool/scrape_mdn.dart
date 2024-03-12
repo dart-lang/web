@@ -47,8 +47,10 @@ Future<void> main(List<String> args) async {
       continue;
     }
 
+    final indexFileContent = interfaceIndex.readAsStringSync();
+    final name = findTitle(indexFileContent) ?? p.basename(dir.path);
     final info = InterfaceInfo(
-      name: p.basename(dir.path),
+      name: name,
       docs: convertMdnToMarkdown(interfaceIndex.readAsStringSync()),
     );
     interfaces.add(info);
@@ -124,6 +126,30 @@ class Property implements Comparable<Property> {
 final RegExp _xrefRegex =
     RegExp(r'''{{\s*(\w+)\(([\w\., \n/\*"'\(\)]+)\)\s*}}''');
 final RegExp _mustacheRegex = RegExp(r'''{{\s*([\S ]+?)\s*}}''');
+
+String? findTitle(String content) {
+  // Look for 'title: AbortController'.
+
+  for (var line in content.split('\n')) {
+    line = line.trim();
+
+    // early exit
+    if (line.isEmpty) return null;
+
+    if (line.contains(':')) {
+      final index = line.indexOf(':');
+      final key = line.substring(0, index).trim();
+
+      if (key == 'title') {
+        final value = line.substring(index + 1).trim();
+        // Work around 'title: Foo (Bar)'.
+        return value.split(' ').first;
+      }
+    }
+  }
+
+  return null;
+}
 
 String convertMdnToMarkdown(String content) {
   var lines = content.split('\n');

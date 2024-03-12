@@ -22,12 +22,22 @@ import 'cssom.dart';
 ///
 /// Three objects derive from `CSSConditionRule`: [CSSMediaRule],
 /// [CSSContainerRule] and [CSSSupportsRule].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSConditionRule).
 extension type CSSConditionRule._(JSObject _)
     implements CSSGroupingRule, JSObject {
   external String get conditionText;
 }
 
 /// The **`CSSMediaRule`** interface represents a single CSS  rule.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSMediaRule).
 extension type CSSMediaRule._(JSObject _)
     implements CSSConditionRule, JSObject {
   external MediaList get media;
@@ -35,5 +45,10 @@ extension type CSSMediaRule._(JSObject _)
 
 /// The **`CSSSupportsRule`** interface represents a single CSS
 /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSSupportsRule).
 extension type CSSSupportsRule._(JSObject _)
     implements CSSConditionRule, JSObject {}

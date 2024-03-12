@@ -84,6 +84,11 @@ extension type TouchInit._(JSObject _) implements JSObject {
 /// > placed on the surface, the `force` value will always be 0. This may also
 /// > be the case for `radiusX` and `radiusY`; if the hardware reports only a
 /// > single point, these values will be 1.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Touch).
 extension type Touch._(JSObject _) implements JSObject {
   external factory Touch(TouchInit touchInitDict);
 
@@ -116,6 +121,11 @@ extension type Touch._(JSObject _) implements JSObject {
 /// > so you can treat them like ECMAScript arrays, and at the same time impose
 /// > additional semantics on their usage (such as making their items
 /// > read-only).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TouchList).
 extension type TouchList._(JSObject _) implements JSObject {
   /// The **`item()`** method returns the [Touch]
   /// object at the specified index in the [TouchList].
@@ -167,6 +177,11 @@ extension type TouchEventInit._(JSObject _)
 /// Touches are represented by the [Touch] object; each touch is described by a
 /// position, size and shape, amount of pressure, and target element. Lists of
 /// touches are represented by [TouchList] objects.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent).
 extension type TouchEvent._(JSObject _) implements UIEvent, JSObject {
   external factory TouchEvent(
     String type, [

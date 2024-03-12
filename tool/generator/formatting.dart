@@ -36,6 +36,9 @@ List<String> formatDocs(String data, int width, [int leadingWhitespace = 0]) {
         output.addAll(wrapped.skip(1).map((l) => '  $l'));
       } else if (ltrim.startsWith('- ') || ltrim.startsWith('<')) {
         output.add(line);
+      } else if (ltrim.startsWith('| ')) {
+        // Don't wrap lines in a markdown table.
+        output.add(line);
       } else {
         output.addAll(_wrap(line, width));
 

@@ -30,6 +30,11 @@ typedef PositionErrorCallback = JSFunction;
 /// > information, the user is notified and asked to grant permission. Be aware
 /// > that each browser has its own policies and methods for requesting this
 /// > permission.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation).
 extension type Geolocation._(JSObject _) implements JSObject {
   /// The **`getCurrentPosition()`** method of the [Geolocation] interface is
   /// used to get the current position of the device.
@@ -73,6 +78,11 @@ extension type PositionOptions._(JSObject _) implements JSObject {
 /// concerned device at a given time. The position, represented by a
 /// [GeolocationCoordinates] object, comprehends the 2D position of the device,
 /// on a spheroid representing the Earth, but also its altitude and its speed.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/GeolocationPosition).
 extension type GeolocationPosition._(JSObject _) implements JSObject {
   external GeolocationCoordinates get coords;
   external EpochTimeStamp get timestamp;
@@ -83,6 +93,11 @@ extension type GeolocationPosition._(JSObject _) implements JSObject {
 /// properties are calculated.
 /// The geographic position information is provided in terms of World Geodetic
 /// System coordinates (WGS84).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/GeolocationCoordinates).
 extension type GeolocationCoordinates._(JSObject _) implements JSObject {
   external num get accuracy;
   external num get latitude;
@@ -95,6 +110,11 @@ extension type GeolocationCoordinates._(JSObject _) implements JSObject {
 
 /// The **`GeolocationPositionError`** interface represents the reason of an
 /// error occurring when using the geolocating device.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/GeolocationPositionError).
 extension type GeolocationPositionError._(JSObject _) implements JSObject {
   external static int get PERMISSION_DENIED;
   external static int get POSITION_UNAVAILABLE;

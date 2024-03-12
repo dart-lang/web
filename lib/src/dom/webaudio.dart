@@ -44,6 +44,11 @@ typedef OverSampleType = String;
 ///
 /// A `BaseAudioContext` can be a target of events, therefore it implements the
 /// [EventTarget] interface.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext).
 extension type BaseAudioContext._(JSObject _) implements EventTarget, JSObject {
   /// The `createAnalyser()` method of the
   /// [BaseAudioContext] interface creates an [AnalyserNode], which
@@ -314,6 +319,11 @@ extension type BaseAudioContext._(JSObject _) implements EventTarget, JSObject {
 /// context. It's recommended to create one AudioContext and reuse it instead of
 /// initializing a new one each time, and it's OK to use a single `AudioContext`
 /// for several different audio sources and pipeline concurrently.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext).
 extension type AudioContext._(JSObject _)
     implements BaseAudioContext, JSObject {
   external factory AudioContext([AudioContextOptions contextOptions]);
@@ -467,6 +477,11 @@ extension type AudioSinkOptions._(JSObject _) implements JSObject {
 /// The **`AudioSinkInfo`** interface of the [Web Audio API] represents
 /// information describing an [AudioContext]'s sink ID, retrieved via
 /// [AudioContext.sinkId].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioSinkInfo).
 extension type AudioSinkInfo._(JSObject _) implements JSObject {
   external AudioSinkType get type;
 }
@@ -534,6 +549,11 @@ extension type AudioRenderCapacityEventInit._(JSObject _)
 /// `OfflineAudioContext` doesn't render the audio to the device hardware;
 /// instead, it generates it, as fast as it can, and outputs the result to an
 /// [AudioBuffer].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/OfflineAudioContext).
 extension type OfflineAudioContext._(JSObject _)
     implements BaseAudioContext, JSObject {
   external factory OfflineAudioContext(
@@ -614,6 +634,11 @@ extension type OfflineAudioContextOptions._(JSObject _) implements JSObject {
 /// > for legacy reasons, but it will soon be superseded when the promise
 /// > version of [OfflineAudioContext.startRendering] is supported in browsers,
 /// > which will no longer need it.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/OfflineAudioCompletionEvent).
 extension type OfflineAudioCompletionEvent._(JSObject _)
     implements Event, JSObject {
   external factory OfflineAudioCompletionEvent(
@@ -650,6 +675,11 @@ extension type OfflineAudioCompletionEventInit._(JSObject _)
 /// between `-1` and `+1`, that is, a 32-bit floating point buffer, with each
 /// sample between -1.0 and 1.0. If the [AudioBuffer] has multiple channels,
 /// they are stored in separate buffers.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer).
 extension type AudioBuffer._(JSObject _) implements JSObject {
   external factory AudioBuffer(AudioBufferOptions options);
 
@@ -711,6 +741,11 @@ extension type AudioBufferOptions._(JSObject _) implements JSObject {
 ///
 /// > **Note:** An `AudioNode` can be target of events, therefore it implements
 /// > the [EventTarget] interface.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode).
 extension type AudioNode._(JSObject _) implements EventTarget, JSObject {
   /// The `connect()` method of the [AudioNode] interface lets
   /// you connect one of the node's outputs to a target, which may be either
@@ -768,6 +803,11 @@ extension type AudioNodeOptions._(JSObject _) implements JSObject {
 /// schedule changes that have to happen at very precise times, using arbitrary
 /// timeline-based automation curves. The time used is the one defined in
 /// [BaseAudioContext/currentTime].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam).
 extension type AudioParam._(JSObject _) implements JSObject {
   /// The `setValueAtTime()` method of the
   /// [AudioParam] interface schedules an instant change to the
@@ -866,6 +906,11 @@ extension type AudioParam._(JSObject _) implements JSObject {
 /// silence when not playing (that is, before `start()` is called and after
 /// `stop()` is called). Silence is represented, as always, by a stream of
 /// samples with the value zero (0).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioScheduledSourceNode).
 extension type AudioScheduledSourceNode._(JSObject _)
     implements AudioNode, JSObject {
   /// The `start()` method on
@@ -926,6 +971,11 @@ extension type AudioScheduledSourceNode._(JSObject _)
 ///     </tr>
 ///   </tbody>
 /// </table>
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode).
 extension type AnalyserNode._(JSObject _) implements AudioNode, JSObject {
   external factory AnalyserNode(
     BaseAudioContext context, [
@@ -1058,6 +1108,11 @@ extension type AnalyserOptions._(JSObject _)
 ///     </tr>
 ///   </tbody>
 /// </table>
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode).
 extension type AudioBufferSourceNode._(JSObject _)
     implements AudioScheduledSourceNode, JSObject {
   external factory AudioBufferSourceNode(
@@ -1146,6 +1201,11 @@ extension type AudioBufferSourceOptions._(JSObject _) implements JSObject {
 ///     </tr>
 ///   </tbody>
 /// </table>
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioDestinationNode).
 extension type AudioDestinationNode._(JSObject _)
     implements AudioNode, JSObject {
   external int get maxChannelCount;
@@ -1162,6 +1222,11 @@ extension type AudioDestinationNode._(JSObject _)
 ///
 /// ![We see the position, up and front vectors of an AudioListener, with the up
 /// and front vectors at 90° from the other.](webaudiolistenerreduced.png)
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioListener).
 extension type AudioListener._(JSObject _) implements JSObject {
   /// The `setPosition()` method of the [AudioListener] Interface defines the
   /// position of the listener.
@@ -1228,6 +1293,11 @@ extension type AudioListener._(JSObject _) implements JSObject {
 ///
 /// > **Warning:** This feature has been deprecated and should be replaced by an
 /// > [`AudioWorklet`](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioProcessingEvent).
 extension type AudioProcessingEvent._(JSObject _) implements Event, JSObject {
   external factory AudioProcessingEvent(
     String type,
@@ -1287,6 +1357,11 @@ extension type AudioProcessingEventInit._(JSObject _)
 ///     </tr>
 ///   </tbody>
 /// </table>
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode).
 extension type BiquadFilterNode._(JSObject _) implements AudioNode, JSObject {
   external factory BiquadFilterNode(
     BaseAudioContext context, [
@@ -1382,6 +1457,11 @@ extension type BiquadFilterOptions._(JSObject _)
 ///     </tr>
 ///   </tbody>
 /// </table>
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ChannelMergerNode).
 extension type ChannelMergerNode._(JSObject _) implements AudioNode, JSObject {
   external factory ChannelMergerNode(
     BaseAudioContext context, [
@@ -1447,6 +1527,11 @@ extension type ChannelMergerOptions._(JSObject _)
 ///     </tr>
 ///   </tbody>
 /// </table>
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ChannelSplitterNode).
 extension type ChannelSplitterNode._(JSObject _)
     implements AudioNode, JSObject {
   external factory ChannelSplitterNode(
@@ -1491,6 +1576,11 @@ extension type ChannelSplitterOptions._(JSObject _)
 ///     </tr>
 ///   </tbody>
 /// </table>
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ConstantSourceNode).
 extension type ConstantSourceNode._(JSObject _)
     implements AudioScheduledSourceNode, JSObject {
   external factory ConstantSourceNode(
@@ -1539,6 +1629,11 @@ extension type ConstantSourceOptions._(JSObject _) implements JSObject {
 ///     </tr>
 ///   </tbody>
 /// </table>
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ConvolverNode).
 extension type ConvolverNode._(JSObject _) implements AudioNode, JSObject {
   external factory ConvolverNode(
     BaseAudioContext context, [
@@ -1605,6 +1700,11 @@ extension type ConvolverOptions._(JSObject _)
 ///     </tr>
 ///   </tbody>
 /// </table>
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DelayNode).
 extension type DelayNode._(JSObject _) implements AudioNode, JSObject {
   external factory DelayNode(
     BaseAudioContext context, [
@@ -1660,6 +1760,11 @@ extension type DelayOptions._(JSObject _)
 ///     </tr>
 ///   </tbody>
 /// </table>
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DynamicsCompressorNode).
 extension type DynamicsCompressorNode._(JSObject _)
     implements AudioNode, JSObject {
   external factory DynamicsCompressorNode(
@@ -1736,6 +1841,11 @@ extension type DynamicsCompressorOptions._(JSObject _)
 ///     </tr>
 ///   </tbody>
 /// </table>
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/GainNode).
 extension type GainNode._(JSObject _) implements AudioNode, JSObject {
   external factory GainNode(
     BaseAudioContext context, [
@@ -1808,6 +1918,11 @@ extension type GainOptions._(JSObject _) implements AudioNodeOptions, JSObject {
 /// continues forever, but this can be limited after some finite time in
 /// practice, when the output has approached zero closely enough. The actual
 /// time that takes depends on the filter coefficients provided.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/IIRFilterNode).
 extension type IIRFilterNode._(JSObject _) implements AudioNode, JSObject {
   external factory IIRFilterNode(
     BaseAudioContext context,
@@ -1876,6 +1991,11 @@ extension type IIRFilterOptions._(JSObject _)
 ///     </tr>
 ///   </tbody>
 /// </table>
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaElementAudioSourceNode).
 extension type MediaElementAudioSourceNode._(JSObject _)
     implements AudioNode, JSObject {
   external factory MediaElementAudioSourceNode(
@@ -1927,6 +2047,11 @@ extension type MediaElementAudioSourceOptions._(JSObject _)
 ///     </tr>
 ///   </tbody>
 /// </table>
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamAudioDestinationNode).
 extension type MediaStreamAudioDestinationNode._(JSObject _)
     implements AudioNode, JSObject {
   external factory MediaStreamAudioDestinationNode(
@@ -1976,6 +2101,11 @@ extension type MediaStreamAudioDestinationNode._(JSObject _)
 ///     </tr>
 ///   </tbody>
 /// </table>
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamAudioSourceNode).
 extension type MediaStreamAudioSourceNode._(JSObject _)
     implements AudioNode, JSObject {
   external factory MediaStreamAudioSourceNode(
@@ -2031,6 +2161,11 @@ extension type MediaStreamAudioSourceOptions._(JSObject _) implements JSObject {
 ///     </tr>
 ///   </tbody>
 /// </table>
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrackAudioSourceNode).
 extension type MediaStreamTrackAudioSourceNode._(JSObject _)
     implements AudioNode, JSObject {
   external factory MediaStreamTrackAudioSourceNode(
@@ -2076,6 +2211,11 @@ extension type MediaStreamTrackAudioSourceOptions._(JSObject _)
 ///     </tr>
 ///   </tbody>
 /// </table>
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/OscillatorNode).
 extension type OscillatorNode._(JSObject _)
     implements AudioScheduledSourceNode, JSObject {
   external factory OscillatorNode(
@@ -2153,6 +2293,11 @@ extension type OscillatorOptions._(JSObject _)
 ///     </tr>
 ///   </tbody>
 /// </table>
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PannerNode).
 extension type PannerNode._(JSObject _) implements AudioNode, JSObject {
   external factory PannerNode(
     BaseAudioContext context, [
@@ -2288,6 +2433,11 @@ extension type PannerOptions._(JSObject _)
 /// oscillators when calling [OscillatorNode.setPeriodicWave]. The
 /// `PeriodicWave` itself is created/returned by
 /// [BaseAudioContext.createPeriodicWave].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PeriodicWave).
 extension type PeriodicWave._(JSObject _) implements JSObject {
   external factory PeriodicWave(
     BaseAudioContext context, [
@@ -2368,6 +2518,11 @@ extension type PeriodicWaveOptions._(JSObject _)
 ///     </tr>
 ///   </tbody>
 /// </table>
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ScriptProcessorNode).
 extension type ScriptProcessorNode._(JSObject _)
     implements AudioNode, JSObject {
   external set onaudioprocess(EventHandler value);
@@ -2415,6 +2570,11 @@ extension type ScriptProcessorNode._(JSObject _)
 ///     </tr>
 ///   </tbody>
 /// </table>
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/StereoPannerNode).
 extension type StereoPannerNode._(JSObject _) implements AudioNode, JSObject {
   external factory StereoPannerNode(
     BaseAudioContext context, [
@@ -2468,6 +2628,11 @@ extension type StereoPannerOptions._(JSObject _)
 ///     </tr>
 ///   </tbody>
 /// </table>
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WaveShaperNode).
 extension type WaveShaperNode._(JSObject _) implements AudioNode, JSObject {
   external factory WaveShaperNode(
     BaseAudioContext context, [
@@ -2506,6 +2671,11 @@ extension type WaveShaperOptions._(JSObject _)
 ///
 /// Access the audio context's instance of `AudioWorklet` through the
 /// [BaseAudioContext.audioWorklet] property.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet).
 extension type AudioWorklet._(JSObject _) implements Worklet, JSObject {
   external MessagePort get port;
 }
@@ -2523,6 +2693,11 @@ extension type AudioWorklet._(JSObject _) implements Worklet, JSObject {
 /// `BaseAudioContext`, it's possible to define any other variables and perform
 /// any actions allowed in worklets — apart from defining
 /// `AudioWorkletProcessor` derived classes.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletGlobalScope).
 extension type AudioWorkletGlobalScope._(JSObject _)
     implements WorkletGlobalScope, JSObject {
   /// The **`registerProcessor`** method of the
@@ -2547,6 +2722,11 @@ extension type AudioWorkletGlobalScope._(JSObject _)
 /// [`Map`-like object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map#map-like_browser_apis),
 /// in which each key is the name string for a parameter, and the corresponding
 /// value is an [AudioParam] containing the value of that parameter.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioParamMap).
 extension type AudioParamMap._(JSObject _) implements JSObject {}
 
 /// > **Note:** Although the interface is available outside
@@ -2560,6 +2740,11 @@ extension type AudioParamMap._(JSObject _) implements JSObject {}
 /// connected to an audio routing graph along with other nodes. It has an
 /// associated [AudioWorkletProcessor], which does the actual audio processing
 /// in a Web Audio rendering thread.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletNode).
 extension type AudioWorkletNode._(JSObject _) implements AudioNode, JSObject {
   external factory AudioWorkletNode(
     BaseAudioContext context,
@@ -2602,6 +2787,11 @@ extension type AudioWorkletNodeOptions._(JSObject _)
 /// represents an audio processing code behind a custom [AudioWorkletNode]. It
 /// lives in the [AudioWorkletGlobalScope] and runs on the Web Audio rendering
 /// thread. In turn, an [AudioWorkletNode] based on it runs on the main thread.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorkletProcessor).
 extension type AudioWorkletProcessor._(JSObject _) implements JSObject {
   external factory AudioWorkletProcessor();
 
@@ -2618,6 +2808,11 @@ extension type AudioWorkletProcessor._(JSObject _) implements JSObject {
 /// returned array of objects based on this dictionary is used internally by
 /// `AudioWorkletNode` constructor to populate its [AudioWorkletNode.parameters]
 /// property accordingly.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioParamDescriptor).
 extension type AudioParamDescriptor._(JSObject _) implements JSObject {
   external factory AudioParamDescriptor({
     required String name,

@@ -28,6 +28,11 @@ typedef EndingType = String;
 /// Blobs can represent data that isn't necessarily in a JavaScript-native
 /// format. The [File] interface is based on `Blob`, inheriting blob
 /// functionality and expanding it to support files on the user's system.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Blob).
 extension type Blob._(JSObject _) implements JSObject {
   external factory Blob([
     JSArray<BlobPart> blobParts,
@@ -90,6 +95,11 @@ extension type BlobPropertyBag._(JSObject _) implements JSObject {
 /// See
 /// [Using files from web applications](https://developer.mozilla.org/en-US/docs/Web/API/File_API/Using_files_from_web_applications)
 /// for more information and examples.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/File).
 extension type File._(JSObject _) implements Blob, JSObject {
   external factory File(
     JSArray<BlobPart> fileBits,
@@ -141,6 +151,11 @@ extension type FilePropertyBag._(JSObject _)
 /// > so you can treat them like ECMAScript arrays, and at the same time impose
 /// > additional semantics on their usage (such as making their items
 /// > read-only).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FileList).
 extension type FileList._(JSObject _) implements JSObject {
   /// The **`item()`** method of the [FileList] interface returns a [File]
   /// object representing the file at the specified index in the file list.
@@ -165,6 +180,11 @@ extension type FileList._(JSObject _) implements JSObject {
 /// To read server-side files, use [fetch], with
 /// [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) permission if
 /// reading cross-domain.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FileReader).
 extension type FileReader._(JSObject _) implements EventTarget, JSObject {
   external factory FileReader();
 
@@ -265,6 +285,11 @@ extension type FileReader._(JSObject _) implements EventTarget, JSObject {
 /// [only available](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Functions_and_classes_available_to_workers)
 /// in [workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker) as it
 /// enables synchronous I/O that could potentially block.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FileReaderSync).
 extension type FileReaderSync._(JSObject _) implements JSObject {
   external factory FileReaderSync();
 

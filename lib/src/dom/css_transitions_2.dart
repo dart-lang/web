@@ -19,12 +19,22 @@ import 'web_animations.dart';
 /// The **`CSSStartingStyleRule`** interface of the
 /// [CSS Object Model](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
 /// represents a CSS  at-rule.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSStartingStyleRule).
 extension type CSSStartingStyleRule._(JSObject _)
     implements CSSGroupingRule, JSObject {}
 
 /// The **`CSSTransition`** interface of the [Web Animations API] represents an
 /// [Animation] object used for a
 /// [CSS Transition](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transitions).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSTransition).
 extension type CSSTransition._(JSObject _) implements Animation, JSObject {
   external String get transitionProperty;
 }

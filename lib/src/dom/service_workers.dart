@@ -53,6 +53,11 @@ typedef ClientType = String;
 /// Dynamic import is disallowed by the specification — calling
 /// [`import()`](/en-US/docs/Web/JavaScript/Reference/Operators/import) will
 /// throw.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorker).
 extension type ServiceWorker._(JSObject _) implements EventTarget, JSObject {
   /// The **`postMessage()`** method of the [ServiceWorker] interface sends a
   /// message to the worker. The first parameter is the data to send to the
@@ -84,6 +89,11 @@ extension type ServiceWorker._(JSObject _) implements EventTarget, JSObject {
 /// `ServiceWorkerRegistration` objects that represent them within the lifetime
 /// of their corresponding service worker clients. The browser maintains a
 /// persistent list of active `ServiceWorkerRegistration` objects.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration).
 extension type ServiceWorkerRegistration._(JSObject _)
     implements EventTarget, JSObject {
   /// The **`showNotification()`** method of the
@@ -149,6 +159,11 @@ extension type ServiceWorkerRegistration._(JSObject _)
 /// used to register service workers, and the
 /// [ServiceWorkerContainer.controller] property used to determine whether or
 /// not the current page is actively controlled.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerContainer).
 extension type ServiceWorkerContainer._(JSObject _)
     implements EventTarget, JSObject {
   /// The **`register()`** method of the
@@ -229,6 +244,11 @@ extension type RegistrationOptions._(JSObject _) implements JSObject {
 /// [ServiceWorkerRegistration.navigationPreload].
 /// The result of a preload fetch request is waited on using the promise
 /// returned by [FetchEvent.preloadResponse].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NavigationPreloadManager).
 extension type NavigationPreloadManager._(JSObject _) implements JSObject {
   /// The **`enable()`** method of the [NavigationPreloadManager] interface is
   /// used to enable preloading of resources managed by the service worker.
@@ -303,6 +323,11 @@ extension type NavigationPreloadState._(JSObject _) implements JSObject {
 ///
 /// This interface inherits from the [WorkerGlobalScope] interface, and its
 /// parent [EventTarget].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope).
 extension type ServiceWorkerGlobalScope._(JSObject _)
     implements WorkerGlobalScope, JSObject {
   /// The **`ServiceWorkerGlobalScope.skipWaiting()`** method of the
@@ -340,6 +365,11 @@ extension type ServiceWorkerGlobalScope._(JSObject _)
 /// or a [SharedWorker]. [Window] clients are represented by the more-specific
 /// [WindowClient]. You can get `Client`/`WindowClient` objects from methods
 /// such as [Clients.matchAll] and [Clients.get].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Client).
 extension type Client._(JSObject _) implements JSObject {
   /// The **`postMessage()`** method of the
   /// [Client] interface allows a service worker to send a message to a client
@@ -362,6 +392,11 @@ extension type Client._(JSObject _) implements JSObject {
 /// browsing context, controlled by an active worker. The service worker client
 /// independently selects and uses a service worker for its own loading and
 /// sub-resources.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WindowClient).
 extension type WindowClient._(JSObject _) implements Client, JSObject {
   /// The **`focus()`** method of the [WindowClient]
   /// interface gives user input focus to the current client and returns a
@@ -382,6 +417,11 @@ extension type WindowClient._(JSObject _) implements Client, JSObject {
 /// The `Clients` interface provides access to [Client] objects. Access it via
 /// `[ServiceWorkerGlobalScope].clients` within a
 /// [service worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Clients).
 extension type Clients._(JSObject _) implements JSObject {
   /// The **`get()`** method of the
   /// [Clients] interface gets a service worker client matching a given
@@ -466,6 +506,11 @@ extension type ClientQueryOptions._(JSObject _) implements JSObject {
 /// > **Note:** This interface is only available when the global scope is a
 /// > [ServiceWorkerGlobalScope]. It is not available when it is a [Window], or
 /// > the scope of another kind of worker.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ExtendableEvent).
 extension type ExtendableEvent._(JSObject _) implements Event, JSObject {
   external factory ExtendableEvent(
     String type, [
@@ -522,6 +567,11 @@ extension type ExtendableEventInit._(JSObject _)
 /// including the request and how the receiver will treat the response. It
 /// provides the [FetchEvent.respondWith] method, which allows us to provide a
 /// response to this fetch.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FetchEvent).
 extension type FetchEvent._(JSObject _) implements ExtendableEvent, JSObject {
   external factory FetchEvent(
     String type,
@@ -635,6 +685,11 @@ extension type FetchEventInit._(JSObject _)
 /// such events.
 ///
 /// This interface inherits from the [ExtendableEvent] interface.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ExtendableMessageEvent).
 extension type ExtendableMessageEvent._(JSObject _)
     implements ExtendableEvent, JSObject {
   external factory ExtendableMessageEvent(
@@ -705,6 +760,11 @@ extension type ExtendableMessageEventInit._(JSObject _)
 /// > for entries in the `Cache` object.
 ///
 /// > **Note:** The caching API doesn't honor HTTP caching headers.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Cache).
 extension type Cache._(JSObject _) implements JSObject {
   /// The **`match()`** method of the [Cache] interface returns a `Promise` that
   /// resolves to the [Response] associated with the first matching request in
@@ -854,6 +914,11 @@ extension type CacheQueryOptions._(JSObject _) implements JSObject {
 /// > functionality to match a cache entry can be implemented by returning an
 /// > array of cache names from [CacheStorage.keys], opening each cache with
 /// > [CacheStorage.open], and matching the one you want with [Cache.match].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CacheStorage).
 extension type CacheStorage._(JSObject _) implements JSObject {
   /// The **`match()`** method of the [CacheStorage] interface checks if a given
   /// [Request] or URL string is a key for a stored [Response].

@@ -29,6 +29,11 @@ typedef VoidFunction = JSFunction;
 /// `DOMException` is a , so it can be cloned with [structuredClone] or copied
 /// between [Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker)
 /// using [Worker.postMessage].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMException).
 extension type DOMException._(JSObject _) implements JSObject {
   external factory DOMException([
     String message,

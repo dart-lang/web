@@ -27,6 +27,11 @@ typedef SpeechSynthesisErrorCode = String;
 /// > **Note:** On some browsers, like Chrome, using Speech Recognition on a web
 /// > page involves a server-based recognition engine. Your audio is sent to a
 /// > web service for recognition processing, so it won't work offline.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition).
 extension type SpeechRecognition._(JSObject _)
     implements EventTarget, JSObject {
   external factory SpeechRecognition();
@@ -91,6 +96,11 @@ extension type SpeechRecognition._(JSObject _)
 /// The **`SpeechRecognitionErrorEvent`** interface of the
 /// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
 /// represents error messages from the recognition service.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognitionErrorEvent).
 extension type SpeechRecognitionErrorEvent._(JSObject _)
     implements Event, JSObject {
   external factory SpeechRecognitionErrorEvent(
@@ -121,6 +131,11 @@ extension type SpeechRecognitionErrorEventInit._(JSObject _)
 /// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
 /// represents a single word that has been recognized by the speech recognition
 /// service.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognitionAlternative).
 extension type SpeechRecognitionAlternative._(JSObject _) implements JSObject {
   external String get transcript;
   external num get confidence;
@@ -130,6 +145,11 @@ extension type SpeechRecognitionAlternative._(JSObject _) implements JSObject {
 /// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
 /// represents a single recognition match, which may contain multiple
 /// [SpeechRecognitionAlternative] objects.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognitionResult).
 extension type SpeechRecognitionResult._(JSObject _) implements JSObject {
   /// The **`item`** getter of the
   /// [SpeechRecognitionResult] interface is a standard getter that allows
@@ -145,6 +165,11 @@ extension type SpeechRecognitionResult._(JSObject _) implements JSObject {
 /// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
 /// represents a list of [SpeechRecognitionResult] objects, or a single one if
 /// results are being captured in  mode.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognitionResultList).
 extension type SpeechRecognitionResultList._(JSObject _) implements JSObject {
   /// The **`item`** getter of the
   /// [SpeechRecognitionResultList] interface is a standard getter — it allows
@@ -159,6 +184,11 @@ extension type SpeechRecognitionResultList._(JSObject _) implements JSObject {
 /// represents the event object for the [SpeechRecognition.result_event] and
 /// [SpeechRecognition.nomatch_event] events, and contains all the data
 /// associated with an interim or final speech recognition result.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognitionEvent).
 extension type SpeechRecognitionEvent._(JSObject _) implements Event, JSObject {
   external factory SpeechRecognitionEvent(
     String type,
@@ -192,6 +222,11 @@ extension type SpeechRecognitionEventInit._(JSObject _)
 /// Grammar is defined using
 /// [JSpeech Grammar Format](https://www.w3.org/TR/jsgf/) (**JSGF**.) Other
 /// formats may also be supported in the future.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechGrammar).
 extension type SpeechGrammar._(JSObject _) implements JSObject {
   external set src(String value);
   external String get src;
@@ -207,6 +242,11 @@ extension type SpeechGrammar._(JSObject _) implements JSObject {
 /// Grammar is defined using
 /// [JSpeech Grammar Format](https://www.w3.org/TR/jsgf/) (**JSGF**.) Other
 /// formats may also be supported in the future.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechGrammarList).
 extension type SpeechGrammarList._(JSObject _) implements JSObject {
   external factory SpeechGrammarList();
 
@@ -245,6 +285,11 @@ extension type SpeechGrammarList._(JSObject _) implements JSObject {
 /// is the controller interface for the speech service; this can be used to
 /// retrieve information about the synthesis voices available on the device,
 /// start and pause speech, and other commands besides.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis).
 extension type SpeechSynthesis._(JSObject _) implements EventTarget, JSObject {
   /// The **`speak()`** method of the [SpeechSynthesis]
   /// interface adds an [SpeechSynthesisUtterance] to the utterance
@@ -285,6 +330,11 @@ extension type SpeechSynthesis._(JSObject _) implements EventTarget, JSObject {
 /// represents a speech request.
 /// It contains the content the speech service should read and information about
 /// how to read it (e.g. language, pitch and volume.)
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisUtterance).
 extension type SpeechSynthesisUtterance._(JSObject _)
     implements EventTarget, JSObject {
   external factory SpeechSynthesisUtterance([String text]);
@@ -321,6 +371,11 @@ extension type SpeechSynthesisUtterance._(JSObject _)
 /// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
 /// contains information about the current state of [SpeechSynthesisUtterance]
 /// objects that have been processed in the speech service.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisEvent).
 extension type SpeechSynthesisEvent._(JSObject _) implements Event, JSObject {
   external factory SpeechSynthesisEvent(
     String type,
@@ -362,6 +417,11 @@ extension type SpeechSynthesisEventInit._(JSObject _)
 /// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
 /// contains information about any errors that occur while processing
 /// [SpeechSynthesisUtterance] objects in the speech service.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisErrorEvent).
 extension type SpeechSynthesisErrorEvent._(JSObject _)
     implements SpeechSynthesisEvent, JSObject {
   external factory SpeechSynthesisErrorEvent(
@@ -394,6 +454,11 @@ extension type SpeechSynthesisErrorEventInit._(JSObject _)
 /// represents a voice that the system supports.
 /// Every `SpeechSynthesisVoice` has its own relative speech service including
 /// information about language, name and URI.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisVoice).
 extension type SpeechSynthesisVoice._(JSObject _) implements JSObject {
   external String get voiceURI;
   external String get name;

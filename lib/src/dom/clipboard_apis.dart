@@ -36,8 +36,8 @@ extension type ClipboardEventInit._(JSObject _) implements EventInit, JSObject {
 /// The **`ClipboardEvent`** interface of the
 /// [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API)
 /// represents events providing information related to modification of the
-/// clipboard, that is [Element/cut_event], [Element/copy_event], and
-/// [Element/paste_event] events.
+/// clipboard, that is [Element.cut_event], [Element.copy_event], and
+/// [Element.paste_event] events.
 ///
 /// ---
 ///

@@ -47,13 +47,13 @@ extension type XMLHttpRequestEventTarget._(JSObject _)
   external EventHandler get onloadend;
 }
 
+/// @AvailableInWorkers("notservice")
+///
 /// The **`XMLHttpRequestUpload`** interface represents the upload process for a
 /// specific [XMLHttpRequest]. It is an _opaque_ object that represents the
 /// underlying, browser-dependent, upload process. It is an
 /// [XMLHttpRequestEventTarget] and can be obtained by calling
 /// [XMLHttpRequest.upload].
-///
-/// @AvailableInWorkers("notservice")
 ///
 /// ---
 ///
@@ -62,6 +62,8 @@ extension type XMLHttpRequestEventTarget._(JSObject _)
 extension type XMLHttpRequestUpload._(JSObject _)
     implements XMLHttpRequestEventTarget, JSObject {}
 
+/// @AvailableInWorkers("notservice")
+///
 /// `XMLHttpRequest` (XHR) objects are used to interact with servers. You can
 /// retrieve data from a URL without having to do a full page refresh. This
 /// enables a Web page to update just part of a page without disrupting what the
@@ -76,8 +78,6 @@ extension type XMLHttpRequestUpload._(JSObject _)
 /// through the [EventSource] interface. For full-duplex communication,
 /// [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)
 /// may be a better choice.
-///
-/// @AvailableInWorkers("notservice")
 ///
 /// ---
 ///

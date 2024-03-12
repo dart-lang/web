@@ -70,11 +70,11 @@ foo bar
 
 The **`enqueue()`** method of the {{domxref("TransformStreamDefaultController")}} interface enqueues the given chunk in the readable side of the stream.
 
-For more information on readable streams and chunks see [Using Readable Streams](/en-US/docs/Web/API/Streams_API/Using_readable_streams).
+For more information on readable streams and chunks see [Using Readable Streams](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_streams).
 ''', '''
 The **`enqueue()`** method of the [TransformStreamDefaultController] interface enqueues the given chunk in the readable side of the stream.
 
-For more information on readable streams and chunks see [Using Readable Streams](/en-US/docs/Web/API/Streams_API/Using_readable_streams).
+For more information on readable streams and chunks see [Using Readable Streams](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Using_readable_streams).
 ''');
     });
 
@@ -122,6 +122,28 @@ samples per second, of the PCM data stored in the buffer.
 ... or functions such as `forEach()`.
 
 - `JSON.parse()` - counterpart for `JSON` documents.
+''');
+    });
+
+    test('expand links', () {
+      compare('''
+some text
+[WebGL API](/en-US/docs/Web/API/WebGL_API)
+more text
+another [link](https://www.google.com)
+''', '''
+some text
+[WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
+more text
+another [link](https://www.google.com)
+''');
+    });
+
+    test('rewrite slash references', () {
+      compare('''
+volume control (like {{domxref("FontFace/status")}})
+''', '''
+volume control (like [FontFace.status])
 ''');
     });
   });

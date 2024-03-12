@@ -74,7 +74,7 @@ extension type BaseAudioContext._(JSObject _) implements EventTarget, JSObject {
 
   /// The `createBuffer()` method of the [BaseAudioContext]
   /// Interface is used to create a new, empty [AudioBuffer] object, which
-  /// can then be populated by data, and played via an [AudioBufferSourceNode]
+  /// can then be populated by data, and played via an [AudioBufferSourceNode].
   ///
   /// For more details about audio buffers, check out the [AudioBuffer]
   /// reference page.
@@ -99,10 +99,9 @@ extension type BaseAudioContext._(JSObject _) implements EventTarget, JSObject {
   /// The `createBufferSource()` method of the [BaseAudioContext]
   /// Interface is used to create a new [AudioBufferSourceNode], which can be
   /// used to play audio data contained within an [AudioBuffer] object.
-  /// [AudioBuffer]s are created using
-  /// [BaseAudioContext.createBuffer] or returned by
-  /// [BaseAudioContext.decodeAudioData] when it successfully decodes an audio
-  /// track.
+  /// [AudioBuffer]s are created using [BaseAudioContext.createBuffer] or
+  /// returned by [BaseAudioContext.decodeAudioData] when it successfully
+  /// decodes an audio track.
   ///
   /// > **Note:** The [AudioBufferSourceNode.AudioBufferSourceNode]
   /// > constructor is the recommended way to create a [AudioBufferSourceNode];
@@ -165,9 +164,8 @@ extension type BaseAudioContext._(JSObject _) implements EventTarget, JSObject {
   external DelayNode createDelay([num maxDelayTime]);
 
   /// The `createDynamicsCompressor()` method of the [BaseAudioContext]
-  /// Interface is used to create a
-  /// [DynamicsCompressorNode], which can be used to apply compression to an
-  /// audio signal.
+  /// Interface is used to create a [DynamicsCompressorNode], which can be used
+  /// to apply compression to an audio signal.
   ///
   /// Compression lowers the volume of the loudest parts of the signal and
   /// raises the volume
@@ -195,11 +193,9 @@ extension type BaseAudioContext._(JSObject _) implements EventTarget, JSObject {
   external GainNode createGain();
 
   /// The **`createIIRFilter()`** method of the [BaseAudioContext] interface
-  /// creates an [IIRFilterNode],
-  /// which represents a general
+  /// creates an [IIRFilterNode], which represents a general
   /// **[infinite impulse response](https://en.wikipedia.org/wiki/Infinite_impulse_response)**
-  /// (IIR) filter which can be configured to serve as various types
-  /// of filter.
+  /// (IIR) filter which can be configured to serve as various types of filter.
   ///
   /// > **Note:** The [IIRFilterNode.IIRFilterNode]
   /// > constructor is the recommended way to create a [IIRFilterNode]; see
@@ -223,7 +219,7 @@ extension type BaseAudioContext._(JSObject _) implements EventTarget, JSObject {
   /// spatialize an incoming audio stream in 3D space.
   ///
   /// The panner node is spatialized in relation to the AudioContext's
-  /// [AudioListener] (defined by the [BaseAudioContext/listener]
+  /// [AudioListener] (defined by the [BaseAudioContext.listener]
   /// attribute), which represents the position and orientation of the person
   /// listening to the
   /// audio.
@@ -339,7 +335,7 @@ extension type AudioContext._(JSObject _)
   /// - `AudioTimestamp.contextTime`: The time of the sample frame currently
   /// being rendered by the audio output device (i.e., output audio stream
   /// position), in the
-  /// same units and origin as the context's [BaseAudioContext/currentTime].
+  /// same units and origin as the context's [BaseAudioContext.currentTime].
   /// Basically, this is the time after the audio context was first created.
   /// - `AudioTimestamp.performanceTime`: An estimation of the moment when the
   /// sample frame corresponding to the stored `contextTime` value was rendered
@@ -416,14 +412,14 @@ extension type AudioContext._(JSObject _)
       MediaStream mediaStream);
 
   /// The **`createMediaStreamTrackSource()`** method of the [AudioContext]
-  /// interface creates and returns a
-  /// [MediaStreamTrackAudioSourceNode] which represents an audio source whose
-  /// data comes from the specified [MediaStreamTrack].
+  /// interface creates and returns a [MediaStreamTrackAudioSourceNode] which
+  /// represents an audio source whose data comes from the specified
+  /// [MediaStreamTrack].
   ///
   /// This differs from [AudioContext.createMediaStreamSource], which creates a
   /// [MediaStreamAudioSourceNode] whose audio comes from the audio track in a
-  /// specified [MediaStream] whose [MediaStreamTrack.id] is
-  /// first, lexicographically (alphabetically).
+  /// specified [MediaStream] whose [MediaStreamTrack.id] is first,
+  /// lexicographically (alphabetically).
   external MediaStreamTrackAudioSourceNode createMediaStreamTrackSource(
       MediaStreamTrack mediaStreamTrack);
 
@@ -566,7 +562,7 @@ extension type OfflineAudioContext._(JSObject _)
   /// starts rendering the audio graph, taking into account the current
   /// connections and the current scheduled changes.
   ///
-  /// The [OfflineAudioContext/complete_event] event (of type
+  /// The [OfflineAudioContext.complete_event] event (of type
   /// [OfflineAudioCompletionEvent]) is raised when the rendering is finished,
   /// containing the resulting [AudioBuffer] in its `renderedBuffer` property.
   ///
@@ -628,7 +624,7 @@ extension type OfflineAudioContextOptions._(JSObject _) implements JSObject {
 /// [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
 /// `OfflineAudioCompletionEvent` interface represents events that occur when
 /// the processing of an [OfflineAudioContext] is terminated. The
-/// [OfflineAudioContext/complete_event] event uses this interface.
+/// [OfflineAudioContext.complete_event] event uses this interface.
 ///
 /// > **Note:** This interface is marked as deprecated; it is still supported
 /// > for legacy reasons, but it will soon be superseded when the promise
@@ -663,8 +659,8 @@ extension type OfflineAudioCompletionEventInit._(JSObject _)
 
 /// The **`AudioBuffer`** interface represents a short audio asset residing in
 /// memory, created from an audio file using the
-/// [BaseAudioContext/decodeAudioData] method, or from raw data using
-/// [BaseAudioContext/createBuffer]. Once put into an AudioBuffer, the audio can
+/// [BaseAudioContext.decodeAudioData] method, or from raw data using
+/// [BaseAudioContext.createBuffer]. Once put into an AudioBuffer, the audio can
 /// then be played by being passed into an [AudioBufferSourceNode].
 ///
 /// Objects of these types are designed to hold small audio snippets, typically
@@ -802,7 +798,7 @@ extension type AudioNodeOptions._(JSObject _) implements JSObject {
 /// `AudioParam.value` attributes are ignored. This list of events allows us to
 /// schedule changes that have to happen at very precise times, using arbitrary
 /// timeline-based automation curves. The time used is the one defined in
-/// [BaseAudioContext/currentTime].
+/// [BaseAudioContext.currentTime].
 ///
 /// ---
 ///
@@ -812,7 +808,7 @@ extension type AudioParam._(JSObject _) implements JSObject {
   /// The `setValueAtTime()` method of the
   /// [AudioParam] interface schedules an instant change to the
   /// `AudioParam` value at a precise time, as measured against
-  /// [BaseAudioContext/currentTime]. The new value is given in the value
+  /// [BaseAudioContext.currentTime]. The new value is given in the value
   /// parameter.
   external AudioParam setValueAtTime(
     num value,
@@ -831,11 +827,11 @@ extension type AudioParam._(JSObject _) implements JSObject {
   );
 
   /// The **`exponentialRampToValueAtTime()`** method of the [AudioParam]
-  /// Interface schedules a gradual exponential change in the value
-  /// of the [AudioParam]. The change starts at the time specified for the
-  /// _previous_ event, follows an exponential ramp to the new value given in
-  /// the
-  /// `value` parameter, and reaches the new value at the time given in the
+  /// Interface schedules a gradual exponential change in the value of the
+  /// [AudioParam].
+  /// The change starts at the time specified for the _previous_ event, follows
+  /// an exponential ramp to the new value given in the `value` parameter, and
+  /// reaches the new value at the time given in the
   /// `endTime` parameter.
   ///
   /// > **Note:** Exponential ramps are considered more useful when changing
@@ -913,10 +909,9 @@ extension type AudioParam._(JSObject _) implements JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioScheduledSourceNode).
 extension type AudioScheduledSourceNode._(JSObject _)
     implements AudioNode, JSObject {
-  /// The `start()` method on
-  /// [AudioScheduledSourceNode] schedules a sound to begin playback at the
-  /// specified time. If no time is specified, then the sound begins playing
-  /// immediately.
+  /// The `start()` method on [AudioScheduledSourceNode] schedules a sound to
+  /// begin playback at the specified time.
+  /// If no time is specified, then the sound begins playing immediately.
   external void start([num when]);
 
   /// The `stop()` method on [AudioScheduledSourceNode] schedules a
@@ -1086,7 +1081,7 @@ extension type AnalyserOptions._(JSObject _)
 /// at an appropriate time, which won't be until sometime after the sound has
 /// finished playing.
 ///
-/// Multiple calls to [AudioScheduledSourceNode/stop] are allowed. The most
+/// Multiple calls to [AudioScheduledSourceNode.stop] are allowed. The most
 /// recent call replaces the previous one, if the `AudioBufferSourceNode` has
 /// not already reached the end of the buffer.
 ///
@@ -1175,7 +1170,7 @@ extension type AudioBufferSourceOptions._(JSObject _) implements JSObject {
 /// `maxChannelCount` value or an exception is raised.
 ///
 /// The `AudioDestinationNode` of a given `AudioContext` can be retrieved using
-/// the [BaseAudioContext/destination] property.
+/// the [BaseAudioContext.destination] property.
 ///
 /// <table class="properties">
 ///   <tbody>
@@ -1328,7 +1323,7 @@ extension type AudioProcessingEventInit._(JSObject _)
 }
 
 /// The `BiquadFilterNode` interface represents a simple low-order filter, and
-/// is created using the [BaseAudioContext/createBiquadFilter] method. It is an
+/// is created using the [BaseAudioContext.createBiquadFilter] method. It is an
 /// [AudioNode] that can represent different kinds of filters, tone control
 /// devices, and graphic equalizers. A `BiquadFilterNode` always has exactly one
 /// input and one output.
@@ -1425,12 +1420,12 @@ extension type BiquadFilterOptions._(JSObject _)
 ///
 /// If `ChannelMergerNode` has one single output, but as many inputs as there
 /// are channels to merge; the number of inputs is defined as a parameter of its
-/// constructor and the call to [BaseAudioContext/createChannelMerger]. In the
+/// constructor and the call to [BaseAudioContext.createChannelMerger]. In the
 /// case that no value is given, it will default to `6`.
 ///
 /// Using a `ChannelMergerNode`, it is possible to create outputs with more
 /// channels than the rendering hardware is able to process. In that case, when
-/// the signal is sent to the [BaseAudioContext/listener] object, supernumerary
+/// the signal is sent to the [BaseAudioContext.listener] object, supernumerary
 /// channels will be ignored.
 ///
 /// <table class="properties">
@@ -1492,7 +1487,7 @@ extension type ChannelMergerOptions._(JSObject _)
 ///
 /// If your `ChannelSplitterNode` always has one single input, the amount of
 /// outputs is defined by a parameter on its constructor and the call to
-/// [BaseAudioContext/createChannelSplitter]. In the case that no value is
+/// [BaseAudioContext.createChannelSplitter]. In the case that no value is
 /// given, it will default to `6`. If there are fewer channels in the input than
 /// there are outputs, supernumerary outputs are silent.
 ///

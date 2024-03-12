@@ -24,7 +24,8 @@ typedef BinaryType = String;
 /// connection.
 ///
 /// To construct a `WebSocket`, use the
-/// [`WebSocket()`](/en-US/docs/Web/API/WebSocket/WebSocket) constructor.
+/// [`WebSocket()`](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/WebSocket)
+/// constructor.
 ///
 /// ---
 ///

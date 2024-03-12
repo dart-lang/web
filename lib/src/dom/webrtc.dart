@@ -355,7 +355,7 @@ extension type RTCPeerConnection._(JSObject _)
   /// the set of tracks which will be transmitted to the other peer.
   ///
   /// > **Note:** Adding a track to a connection triggers renegotiation by
-  /// > firing a [RTCPeerConnection/negotiationneeded_event] event.
+  /// > firing a [RTCPeerConnection.negotiationneeded_event] event.
   /// > See
   /// > [Starting negotiation](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Signaling_and_video_calling#starting_negotiation)
   /// > for details.
@@ -378,7 +378,7 @@ extension type RTCPeerConnection._(JSObject _)
   /// `"stable"`), it is marked as needing to be negotiated again; the remote
   /// peer
   /// won't experience the change until this negotiation occurs. A
-  /// [RTCPeerConnection/negotiationneeded_event] event is sent to the
+  /// [RTCPeerConnection.negotiationneeded_event] event is sent to the
   /// [RTCPeerConnection] to
   /// let the local end know this negotiation must occur.
   external void removeTrack(RTCRtpSender sender);
@@ -403,7 +403,7 @@ extension type RTCPeerConnection._(JSObject _)
   ///
   /// If the new data channel is the first one added to the connection,
   /// renegotiation is
-  /// started by delivering a [RTCPeerConnection/negotiationneeded_event] event.
+  /// started by delivering a [RTCPeerConnection.negotiationneeded_event] event.
   external RTCDataChannel createDataChannel(
     String label, [
     RTCDataChannelInit dataChannelDict,
@@ -660,7 +660,7 @@ extension type RTCCertificateExpiration._(JSObject _) implements JSObject {
 ///
 /// `RTCCertificate` is a , so it can be cloned with [structuredClone] or copied
 /// between [Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker)
-/// using [Worker/postMessage].
+/// using [Worker.postMessage].
 ///
 /// ---
 ///

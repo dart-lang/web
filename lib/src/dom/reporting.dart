@@ -48,7 +48,7 @@ extension type ReportBody._(JSObject _) implements JSObject {
 /// - Via the [ReportingObserver.takeRecords] method — this returns all reports
 ///   in an observer's report queue, and then empties the queue.
 /// - Via the `reports` parameter of the callback function passed into the
-///   [`ReportingObserver()`](/en-US/docs/Web/API/ReportingObserver/ReportingObserver)
+///   [`ReportingObserver()`](https://developer.mozilla.org/en-US/docs/Web/API/ReportingObserver/ReportingObserver)
 ///   constructor upon creation of a new observer instance. This contains the
 ///   list of reports currently contained in the observer's report queue.
 /// - By sending requests to the endpoints defined via the  HTTP header.
@@ -90,7 +90,7 @@ extension type ReportingObserver._(JSObject _) implements JSObject {
   /// After calling `disconnect()`, neither
   /// [ReportingObserver.takeRecords] nor the `records` parameter of
   /// the
-  /// [`ReportingObserver()`](/en-US/docs/Web/API/ReportingObserver/ReportingObserver)
+  /// [`ReportingObserver()`](https://developer.mozilla.org/en-US/docs/Web/API/ReportingObserver/ReportingObserver)
   /// callback will return any reports. The associated observer will no longer
   /// be active.
   external void disconnect();

@@ -583,7 +583,7 @@ extension type ReadableStreamBYOBRequest._(JSObject _) implements JSObject {
   /// that the specified number of bytes were written into the
   /// [ReadableStreamBYOBRequest.view].
   ///
-  /// After this method is called, the [ReadableStreamBYOBRequest/view] will be
+  /// After this method is called, the [ReadableStreamBYOBRequest.view] will be
   /// transferred and no longer modifiable.
   external void respond(int bytesWritten);
 

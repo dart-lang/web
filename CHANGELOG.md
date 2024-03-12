@@ -6,6 +6,7 @@
   treated like non-object literal `external` constructors.
 - Update the docs for generated interface types to reference the MDN Web Docs
   project.
+- Address several broken links in API documentation.
 
 ## 0.5.1
 

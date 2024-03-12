@@ -67,13 +67,13 @@ extension type MediaRecorder._(JSObject _) implements EventTarget, JSObject {
   /// When the source stream ends, `state` is set to `inactive` and
   /// data gathering stops. A final [MediaRecorder.dataavailable_event] event is
   /// sent to the
-  /// `MediaRecorder`, followed by a [MediaRecorder/stop_event] event.
+  /// `MediaRecorder`, followed by a [MediaRecorder.stop_event] event.
   ///
   /// > **Note:** If the browser is unable to start recording or continue
   /// > recording, it will raise an [MediaRecorder.error_event] event, followed
   /// > by a
   /// > [MediaRecorder.dataavailable_event] event containing the `Blob` it
-  /// > has gathered, followed by the [MediaRecorder/stop_event] event.
+  /// > has gathered, followed by the [MediaRecorder.stop_event] event.
   external void start([int timeslice]);
 
   /// The **`stop()`** method of the [MediaRecorder] interface is
@@ -103,7 +103,7 @@ extension type MediaRecorder._(JSObject _) implements EventTarget, JSObject {
   /// 2. Set [MediaRecorder.state] to "paused".
   /// 3. Stop gathering data into the current [Blob], but keep it available so
   /// that recording can be resumed later on.
-  /// 4. Raise a [MediaRecorder/pause_event] event.
+  /// 4. Raise a [MediaRecorder.pause_event] event.
   external void pause();
 
   /// The **`resume()`** method of the [MediaRecorder] interface is used to

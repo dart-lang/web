@@ -18,7 +18,8 @@ import 'html.dart';
 
 typedef PaymentComplete = String;
 
-/// The [Payment Request API's](/en-US/docs/Web/API/Payment_Request_API)
+/// The [Payment Request
+/// API's](https://developer.mozilla.org/en-US/docs/Web/API/Payment_Request_API)
 /// **`PaymentRequest`** interface is the primary access point into the API, and
 /// lets web content and apps accept payments from the end user on behalf of the
 /// operator of the site or the publisher of the app.
@@ -69,7 +70,7 @@ extension type PaymentRequest._(JSObject _) implements EventTarget, JSObject {
   /// depending on your needs. For the best user experience, asynchronous
   /// solutions are
   /// typically the best way to go. Most examples on MDN and elsewhere use
-  /// [`async`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)/[`await`](/en-US/docs/Web/JavaScript/Reference/Operators/await)
+  /// [`async`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)/[`await`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await)
   /// to wait asynchronously while results are validated and so forth.
   external JSPromise<PaymentResponse> show(
       [JSPromise<PaymentDetailsUpdate> detailsPromise]);
@@ -258,7 +259,7 @@ extension type PaymentValidationErrors._(JSObject _) implements JSObject {
 
 /// The **`PaymentMethodChangeEvent`** interface of the
 /// [Payment Request API](https://developer.mozilla.org/en-US/docs/Web/API/Payment_Request_API)
-/// describes the [PaymentRequest/paymentmethodchange_event] event which is
+/// describes the [PaymentRequest.paymentmethodchange_event] event which is
 /// fired by some payment handlers when the user switches payment instruments
 /// (e.g., a user selects a "store" card to make a purchase while using Apple
 /// Pay).

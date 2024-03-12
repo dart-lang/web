@@ -168,10 +168,10 @@ extension type RadioNodeList._(JSObject _) implements NodeList, JSObject {
 }
 
 /// The **`HTMLOptionsCollection`** interface represents a collection of
-/// [`<option>`](/en-US/docs/Web/HTML/Element/option) HTML elements (in document
-/// order) and offers methods and properties for selecting from the list as well
-/// as optionally altering its items. This object is returned only by the
-/// `options` property of
+/// [`<option>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
+/// HTML elements (in document order) and offers methods and properties for
+/// selecting from the list as well as optionally altering its items. This
+/// object is returned only by the `options` property of
 /// [select](https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement).
 ///
 /// ---
@@ -385,14 +385,11 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// Creates an [HTMLElement] using the tag 'tt'.
   HTMLElement.tt() : _ = document.createElement('tt');
 
-  /// The **`HTMLElement.click()`** method simulates a mouse click on
-  /// an element.
-  ///
-  /// When `click()` is used with supported elements (such as an
-  /// `input`), it fires the element's click event. This event then bubbles
-  /// up to elements higher in the document tree (or event chain) and fires
-  /// their click
-  /// events.
+  /// The **`HTMLElement.click()`** method simulates a mouse click on an
+  /// element. When called on an element, the element's [Element.click_event]
+  /// event is fired (unless its
+  /// [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled)
+  /// attribute is set).
   external void click();
 
   /// The **`HTMLElement.attachInternals()`** method returns an
@@ -413,9 +410,9 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   ///
   /// When `showPopover()` is called on an element with the
   /// [`popover`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover)
-  /// attribute that is currently hidden, a [HTMLElement/beforetoggle_event]
+  /// attribute that is currently hidden, a [HTMLElement.beforetoggle_event]
   /// event will be fired, followed by the popover showing, and then the
-  /// [HTMLElement/toggle_event] event firing. If the element is already
+  /// [HTMLElement.toggle_event] event firing. If the element is already
   /// showing, an error will be thrown.
   external void showPopover();
 
@@ -427,9 +424,9 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   ///
   /// When `hidePopover()` is called on a showing element with the
   /// [`popover`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover)
-  /// attribute, a [HTMLElement/beforetoggle_event] event will be fired,
+  /// attribute, a [HTMLElement.beforetoggle_event] event will be fired,
   /// followed by the popover being hidden, and then the
-  /// [HTMLElement/toggle_event] event firing. If the element is already hidden,
+  /// [HTMLElement.toggle_event] event firing. If the element is already hidden,
   /// an error is thrown.
   external void hidePopover();
 
@@ -442,11 +439,11 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// [`popover`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover)
   /// attribute:
   ///
-  /// 1. A [HTMLElement/beforetoggle_event] event is fired.
+  /// 1. A [HTMLElement.beforetoggle_event] event is fired.
   /// 2. The popover toggles between hidden and showing:
   /// 1. If it was initially showing, it toggles to hidden.
   /// 2. If it was initially hidden, it toggles to showing.
-  /// 3. A [HTMLElement/toggle_event] event is fired.
+  /// 3. A [HTMLElement.toggle_event] event is fired.
   external bool togglePopover([bool force]);
 
   /// The **`HTMLElement.focus()`** method sets focus on the specified element,
@@ -826,9 +823,11 @@ extension type HTMLBaseElement._(JSObject _) implements HTMLElement, JSObject {
 
 /// The **`HTMLLinkElement`** interface represents reference information for
 /// external resources and the relationship of those resources to a document and
-/// vice versa (corresponds to [`<link>`](/en-US/docs/Web/HTML/Element/link)
-/// element; not to be confused with [`<a>`](/en-US/docs/Web/HTML/Element/a),
-/// which is represented by
+/// vice versa (corresponds to
+/// [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link)
+/// element; not to be confused with
+/// [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a), which
+/// is represented by
 /// [`HTMLAnchorElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLAnchorElement)).
 /// This object inherits all of the properties and methods of the [HTMLElement]
 /// interface.
@@ -880,7 +879,8 @@ extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
 }
 
 /// The **`HTMLMetaElement`** interface contains descriptive metadata about a
-/// document provided in HTML as [`<meta>`](/en-US/docs/Web/HTML/Element/meta)
+/// document provided in HTML as
+/// [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta)
 /// elements.
 /// This interface inherits all of the properties and methods described in the
 /// [HTMLElement] interface.
@@ -998,8 +998,8 @@ extension type HTMLBodyElement._(JSObject _) implements HTMLElement, JSObject {
 
 /// The **`HTMLHeadingElement`** interface represents the different heading
 /// elements, [`<h1>` through
-/// `<h6>`](/en-US/docs/Web/HTML/Element/Heading_Elements). It inherits methods
-/// and properties from the [HTMLElement] interface.
+/// `<h6>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements).
+/// It inherits methods and properties from the [HTMLElement] interface.
 ///
 /// ---
 ///
@@ -1223,8 +1223,10 @@ extension type HTMLDivElement._(JSObject _) implements HTMLElement, JSObject {
 /// provides special properties and methods (beyond those of the regular
 /// [HTMLElement] object interface that they inherit from) for manipulating the
 /// layout and presentation of such elements. This interface corresponds to
-/// [`<a>`](/en-US/docs/Web/HTML/Element/a) element; not to be confused with
-/// [`<link>`](/en-US/docs/Web/HTML/Element/link), which is represented by
+/// [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a)
+/// element; not to be confused with
+/// [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link),
+/// which is represented by
 /// [`HTMLLinkElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLLinkElement).
 ///
 /// ---
@@ -1777,7 +1779,7 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   /// media to the new time with precision tradeoff.
   ///
   /// > **Note:** If you need to seek with precision, you should set
-  /// > [`HTMLMediaElement.currentTime`](/en-US/docs/Web/API/HTMLMediaElement/currentTime)
+  /// > [`HTMLMediaElement.currentTime`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/currentTime)
   /// > instead.
   external void fastSeek(num time);
   external JSObject getStartDate();
@@ -1882,11 +1884,10 @@ extension type MediaError._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioTrackList).
 extension type AudioTrackList._(JSObject _) implements EventTarget, JSObject {
-  /// The **[AudioTrackList]** method
-  /// **`getTrackById()`** returns the first
+  /// The **[AudioTrackList]** method **`getTrackById()`** returns the first
   /// [AudioTrack] object from the track list whose [AudioTrack.id] matches the
-  /// specified string. This lets you find a specified track if
-  /// you know its ID string.
+  /// specified string.
+  /// This lets you find a specified track if you know its ID string.
   external AudioTrack? getTrackById(String id);
   external int get length;
   external set onchange(EventHandler value);
@@ -1983,7 +1984,7 @@ extension type VideoTrack._(JSObject _) implements JSObject {
 ///   of text tracks
 ///
 /// - the
-///   `media.textTracks`.[`getTrackById()`](/en-US/docs/Web/API/TextTrackList/getTrackById)
+///   `media.textTracks`.[`getTrackById()`](https://developer.mozilla.org/en-US/docs/Web/API/TextTrackList/getTrackById)
 ///   method
 ///
 /// ---
@@ -2540,7 +2541,7 @@ extension type HTMLFormElement._(JSObject _) implements HTMLElement, JSObject {
   /// This method is similar, but not identical to, activating a form's submit
   /// `button`. When invoking this method directly, however:
   ///
-  /// - No [HTMLFormElement/submit_event] event is raised. In particular, the
+  /// - No [HTMLFormElement.submit_event] event is raised. In particular, the
   ///   form's `onsubmit` event handler is not run.
   /// - [Constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation)
   ///   is not triggered.
@@ -2565,7 +2566,8 @@ extension type HTMLFormElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`HTMLFormElement.reset()`** method restores a form
   /// element's default values. This method does the same thing as clicking the
   /// form's
-  /// [`<input type="reset">`](/en-US/docs/Web/HTML/Element/input/reset)
+  /// [`<input
+  /// type="reset">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/reset)
   /// control.
   ///
   /// If a form control (such as a reset button) has a name or id of _reset_ it
@@ -2776,7 +2778,8 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// attribute,
   /// including `date`, `month`,
   /// `week`, `time`,
-  /// , `number`, and `range`.
+  /// ,
+  /// `number`, and `range`.
   ///
   /// Given `<input id="myTime" type="time" max="17:00" step="900"
   /// value="17:00">`,
@@ -2873,7 +2876,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`HTMLInputElement.checkValidity()`** method returns a boolean value
   /// which indicates validity of the value of the element. If the value is
-  /// invalid, this method also fires the [HTMLInputElement/invalid_event] event
+  /// invalid, this method also fires the [HTMLInputElement.invalid_event] event
   /// on the element.
   external bool checkValidity();
 
@@ -2933,7 +2936,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// element's type ('number') does not support selection".
   ///
   /// If you wish to select **all** text of an input element, you can use the
-  /// [HTMLInputElement.select()](/en-US/docs/Web/API/HTMLInputElement/select)
+  /// [HTMLInputElement.select()](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/select)
   /// method instead.
   external void setSelectionRange(
     int start,
@@ -3145,7 +3148,7 @@ extension type HTMLSelectElement._(JSObject _)
   /// whether the element has any constraints and whether it satisfies them. If
   /// the element
   /// fails its constraints, the browser fires a cancelable
-  /// [HTMLSelectElement/invalid_event] event at the
+  /// [HTMLSelectElement.invalid_event] event at the
   /// element, and then returns `false`.
   external bool checkValidity();
   external bool reportValidity();
@@ -3608,8 +3611,8 @@ extension type HTMLDialogElement._(JSObject _)
 /// but browsers are lenient and block them only if the script is served with an
 /// image type (`image/*`), video type (`video/*`), audio type (`audio/*`), or
 /// `text/csv`. If the script is blocked, its element receives an
-/// [HTMLElement/error_event] event; otherwise, it receives a
-/// [Window/load_event] event.
+/// [HTMLElement.error_event] event; otherwise, it receives a
+/// [Window.load_event] event.
 ///
 /// ---
 ///
@@ -3850,7 +3853,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   ///
   /// Note that context attributes may be requested when creating the context
   /// with
-  /// [`HTMLCanvasElement.getContext()`](/en-US/docs/Web/API/HTMLCanvasElement/getContext),
+  /// [`HTMLCanvasElement.getContext()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext),
   /// but the attributes that are actually supported and used may differ.
   external CanvasRenderingContext2DSettings getContextAttributes();
 
@@ -4062,8 +4065,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// This method returns a [CanvasGradient]. To be applied to a shape, the
   /// gradient must first be assigned to the
   /// [CanvasRenderingContext2D.fillStyle] or
-  /// [CanvasRenderingContext2D.strokeStyle]
-  /// properties.
+  /// [CanvasRenderingContext2D.strokeStyle] properties.
   ///
   /// > **Note:** Gradient coordinates are global, i.e., relative to the current
   /// > coordinate space. When applied to a shape, the coordinates are NOT
@@ -4224,9 +4226,9 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// > add a rectangular shape to the path before calling `clip()`.
   ///
   /// > **Note:** Clip paths cannot be reverted directly. You must save your
-  /// > canvas state using [CanvasRenderingContext2D/save] before calling
+  /// > canvas state using [CanvasRenderingContext2D.save] before calling
   /// > `clip()`, and restore it once you have finished drawing in the clipped
-  /// > area using [CanvasRenderingContext2D/restore].
+  /// > area using [CanvasRenderingContext2D.restore].
   external void clip([
     JSAny fillRuleOrPath,
     CanvasFillRule fillRule,
@@ -4462,7 +4464,8 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// The
   /// **`CanvasRenderingContext2D.quadraticCurveTo()`**
   /// method of the Canvas 2D API adds a quadratic [Bézier
-  /// curve](/en-US/docs/Glossary/Bezier_curve) to the current
+  /// curve](https://developer.mozilla.org/en-US/docs/Glossary/Bezier_curve) to
+  /// the current
   /// sub-path. It requires two points: the first one is a control point and the
   /// second one is
   /// the end point. The starting point is the latest point in the current path,
@@ -4479,7 +4482,8 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// The
   /// **`CanvasRenderingContext2D.bezierCurveTo()`**
   /// method of the Canvas 2D API adds a cubic [Bézier
-  /// curve](/en-US/docs/Glossary/Bezier_curve) to the current
+  /// curve](https://developer.mozilla.org/en-US/docs/Glossary/Bezier_curve) to
+  /// the current
   /// sub-path. It requires three points: the first two are control points and
   /// the third one
   /// is the end point. The starting point is the latest point in the current
@@ -5514,7 +5518,7 @@ extension type DataTransfer._(JSObject _) implements JSObject {
 
   /// When a drag occurs, a translucent image is generated from the drag target
   /// (the element
-  /// the [HTMLElement/dragstart_event] event is fired at), and follows the
+  /// the [HTMLElement.dragstart_event] event is fired at), and follows the
   /// mouse pointer during the
   /// drag. This image is created automatically, so you do not need to create it
   /// yourself.
@@ -5531,7 +5535,7 @@ extension type DataTransfer._(JSObject _) implements JSObject {
   /// is at its center, use values that are half the width and height of the
   /// image.
   ///
-  /// This method must be called in the [HTMLElement/dragstart_event] event
+  /// This method must be called in the [HTMLElement.dragstart_event] event
   /// handler.
   external void setDragImage(
     Element image,
@@ -5578,7 +5582,7 @@ extension type DataTransfer._(JSObject _) implements JSObject {
   /// [DataTransfer.types] list if there are any files included in the drag.
   ///
   /// > **Note:** This method can only be used in the handler for the
-  /// > [HTMLElement/dragstart_event] event,
+  /// > [HTMLElement.dragstart_event] event,
   /// > because that's the only time the drag operation's data store is
   /// > writable.
   external void clearData([String format]);
@@ -5631,8 +5635,8 @@ extension type DataTransferItemList._(JSObject _) implements JSObject {
   ///
   /// The drag data store in which this list is kept is only writable while
   /// handling the
-  /// [HTMLElement/dragstart_event] event. While handling
-  /// [HTMLElement/drop_event], the drag data store is
+  /// [HTMLElement.dragstart_event] event. While handling
+  /// [HTMLElement.drop_event], the drag data store is
   /// in read-only mode, and this method silently does nothing. No exception is
   /// thrown.
   external void clear();
@@ -5861,7 +5865,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   ///
   /// Note also that `close()` has no effect when called on [Window]
   /// objects returned by
-  /// [`HTMLIFrameElement.contentWindow`](/en-US/docs/Web/API/HTMLIFrameElement/contentWindow).
+  /// [`HTMLIFrameElement.contentWindow`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement/contentWindow).
   external void close();
 
   /// The **`window.stop()`** stops further resource loading in the current
@@ -6457,7 +6461,7 @@ extension type History._(JSObject _) implements JSObject {
   /// depending on the value of a parameter.
   ///
   /// This method is . Add a listener for the
-  /// [Window/popstate_event] event in order to determine when the navigation
+  /// [Window.popstate_event] event in order to determine when the navigation
   /// has completed.
   external void go([int delta]);
 
@@ -6469,7 +6473,7 @@ extension type History._(JSObject _) implements JSObject {
   /// page, this method call does nothing.
   ///
   /// This method is . Add a listener for the
-  /// [Window/popstate_event] event in order to determine when the navigation
+  /// [Window.popstate_event] event in order to determine when the navigation
   /// has completed.
   external void back();
 
@@ -6478,7 +6482,7 @@ extension type History._(JSObject _) implements JSObject {
   /// forward one page in the session history. It has the same effect as calling
   /// [History.go].
   ///
-  /// This method is . Add a listener for the [Window/popstate_event] event in
+  /// This method is . Add a listener for the [Window.popstate_event] event in
   /// order to determine when the navigation has completed.
   external void forward();
 
@@ -6664,7 +6668,7 @@ extension type NavigationHistoryEntry._(JSObject _)
 
 /// The **`NavigationTransition`** interface of the [Navigation API] represents
 /// an ongoing navigation, that is, a navigation that hasn't yet reached the
-/// [Navigation/navigatesuccess_event] or [Navigation/navigateerror_event]
+/// [Navigation.navigatesuccess_event] or [Navigation.navigateerror_event]
 /// stage.
 ///
 /// It is accessed via the [Navigation.transition] property.
@@ -6685,7 +6689,7 @@ extension type NavigationActivation._(JSObject _) implements JSObject {
 }
 
 /// The **`NavigateEvent`** interface of the [Navigation API] is the event
-/// object for the [Navigation/navigate_event] event, which fires when
+/// object for the [Navigation.navigate_event] event, which fires when
 /// [any type of navigation](https://github.com/WICG/navigation-api#appendix-types-of-navigations)
 /// is initiated (this includes usage of [History API] features like
 /// [History.go]). `NavigateEvent` provides access to information about that
@@ -6802,7 +6806,7 @@ extension type NavigationDestination._(JSObject _) implements JSObject {
 
 /// The **`NavigationCurrentEntryChangeEvent`** interface of the
 /// [Navigation API] is the event object for the
-/// [Navigation/currententrychange_event] event, which fires when the
+/// [Navigation.currententrychange_event] event, which fires when the
 /// [Navigation.currentEntry] has changed.
 ///
 /// This event will fire for same-document navigations (e.g. [Navigation.back]
@@ -6814,7 +6818,7 @@ extension type NavigationDestination._(JSObject _) implements JSObject {
 /// This event fires after the navigation is committed, meaning that the visible
 /// URL has changed and the [NavigationHistoryEntry] update has occurred. It is
 /// useful for migrating from usage of older API features like the
-/// [Window/hashchange_event] or [Window/popstate_event] events.
+/// [Window.hashchange_event] or [Window.popstate_event] events.
 ///
 /// ---
 ///
@@ -6974,10 +6978,10 @@ extension type PageTransitionEventInit._(JSObject _)
 }
 
 /// The **`BeforeUnloadEvent`** interface represents the event object for the
-/// [Window/beforeunload_event] event, which is fired when the current window,
+/// [Window.beforeunload_event] event, which is fired when the current window,
 /// contained document, and associated resources are about to be unloaded.
 ///
-/// See the [Window/beforeunload_event] event reference for detailed guidance on
+/// See the [Window.beforeunload_event] event reference for detailed guidance on
 /// using this event.
 ///
 /// ---
@@ -7466,7 +7470,7 @@ extension type MessageEventInit._(JSObject _) implements EventInit, JSObject {
 /// delivered to your code in the form of events. If there is an event field in
 /// the incoming message, the triggered event is the same as the event field
 /// value. If no event field is present, then a generic
-/// [EventSource/message_event] event is fired.
+/// [EventSource.message_event] event is fired.
 ///
 /// Unlike
 /// [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API),
@@ -7598,7 +7602,7 @@ extension type StructuredSerializeOptions._(JSObject _) implements JSObject {
 /// The **`BroadcastChannel`** interface represents a named channel that any  of
 /// a given  can subscribe to. It allows communication between different
 /// documents (in different windows, tabs, frames or iframes) of the same
-/// origin. Messages are broadcasted via a [BroadcastChannel/message_event]
+/// origin. Messages are broadcasted via a [BroadcastChannel.message_event]
 /// event fired at all `BroadcastChannel` objects listening to the channel,
 /// except the object that sent the message.
 ///
@@ -7613,7 +7617,8 @@ extension type BroadcastChannel._(JSObject _) implements EventTarget, JSObject {
   /// which can be of any kind of `Object`,
   /// to each listener in any  with the same .
   /// The message is transmitted as a
-  /// ['message'](/en-US/docs/Web/API/BroadcastChannel/message_event) event
+  /// ['message'](https://developer.mozilla.org/en-US/docs/Web/API/BroadcastChannel/message_event)
+  /// event
   /// targeted at each [BroadcastChannel] bound to the channel.
   external void postMessage(JSAny? message);
 
@@ -8004,8 +8009,8 @@ extension type WorkletGlobalScope._(JSObject _) implements JSObject {}
 /// if supported, using
 /// [`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import).
 /// Dynamic import is disallowed by the specification — calling
-/// [`import()`](/en-US/docs/Web/JavaScript/Reference/Operators/import) will
-/// throw.
+/// [`import()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import)
+/// will throw.
 ///
 /// ---
 ///
@@ -8083,7 +8088,7 @@ extension type Storage._(JSObject _) implements JSObject {
 }
 
 /// The **`StorageEvent`** interface is implemented by the
-/// [Window/storage_event] event, which is
+/// [Window.storage_event] event, which is
 /// sent to a window
 /// when a storage area the window has access to is changed within the context
 /// of another document.

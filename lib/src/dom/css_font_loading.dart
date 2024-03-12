@@ -81,7 +81,7 @@ extension type FontFace._(JSObject _) implements JSObject {
   /// resolves with the current `FontFace` object.
   ///
   /// If the `source` for the font face was specified as binary data, or the
-  /// font [FontFace/status] property of the font face is anything other than
+  /// font [FontFace.status] property of the font face is anything other than
   /// `unloaded`, then this method does nothing.
   external JSPromise<FontFace> load();
   external set family(String value);

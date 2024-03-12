@@ -49,17 +49,21 @@ Future<void> main(List<String> args) async {
 
     final indexFileContent = interfaceIndex.readAsStringSync();
     final name = findTitle(indexFileContent) ?? p.basename(dir.path);
-    final info = InterfaceInfo(name: name);
-    info.docs = convertMdnToMarkdown(indexFileContent);
+    final info = InterfaceInfo(
+      name: name,
+      docs: convertMdnToMarkdown(interfaceIndex.readAsStringSync()),
+    );
     interfaces.add(info);
 
     for (final child in dir.listSync().whereType<Directory>()) {
       final propertyIndex = File(p.join(child.path, 'index.md'));
       if (!propertyIndex.existsSync()) continue;
 
-      final property = Property(name: p.basename(child.path));
-      if (property.name != info.name.toLowerCase()) {
-        property.docs = convertMdnToMarkdown(propertyIndex.readAsStringSync());
+      final property = Property(
+        name: p.basename(child.path),
+        docs: convertMdnToMarkdown(propertyIndex.readAsStringSync()),
+      );
+      if (property.name != info.name) {
         info.properties.add(property);
       }
     }
@@ -90,11 +94,14 @@ Future<void> main(List<String> args) async {
 
 class InterfaceInfo implements Comparable<InterfaceInfo> {
   final String name;
-  late final String docs;
+  final String docs;
 
   final List<Property> properties = [];
 
-  InterfaceInfo({required this.name});
+  InterfaceInfo({
+    required this.name,
+    required this.docs,
+  });
 
   Map<String, dynamic> get asJson => {
         'docs': docs,
@@ -108,9 +115,9 @@ class InterfaceInfo implements Comparable<InterfaceInfo> {
 
 class Property implements Comparable<Property> {
   final String name;
-  late final String docs;
+  final String docs;
 
-  Property({required this.name});
+  Property({required this.name, required this.docs});
 
   @override
   int compareTo(Property other) => name.compareTo(other.name);
@@ -166,6 +173,23 @@ String convertMdnToMarkdown(String content) {
     lines.removeLast();
   }
 
+  // Rewrite relative link references:
+  //   "[WebGL API](/en-US/docs/Web/API/WebGL_API)"
+  final linkRefRegex = RegExp(r'\[([^\]]+)\]\(([\w\/-]+)\)');
+  lines = lines
+      .map((line) => line.replaceAllMapped(linkRefRegex, (match) {
+            final ref = match.group(1)!;
+            final link = match.group(2)!;
+
+            if (link.startsWith('/en-US/')) {
+              // prefix with 'https://developer.mozilla.org'
+              return '[$ref](https://developer.mozilla.org$link)';
+            } else {
+              return match.group(0)!;
+            }
+          }))
+      .toList();
+
   var text = lines.join('\n');
 
   // Convert {{jsxref("Promise")}} to code references and
@@ -193,9 +217,18 @@ String convertMdnToMarkdown(String content) {
     } else if (type == 'domxref') {
       content = content.split(',').first.trim();
       content = _stripQuotes(content);
+
       if (content.endsWith('()')) {
         content = content.substring(0, content.length - 2);
       }
+
+      // Rewrite [FontFace/status] references to [FontFace.status] ones.
+      if (content.contains('/')) {
+        content = content.replaceAll('/', '.');
+      }
+
+      // TODO: rewrite FileReader.loadend_event => FileReader.onloadend
+
       return '[$content]';
     } else {
       content = _stripQuotes(content);

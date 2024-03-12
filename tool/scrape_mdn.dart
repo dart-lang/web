@@ -176,20 +176,19 @@ String convertMdnToMarkdown(String content) {
   // Rewrite relative link references:
   //   "[WebGL API](/en-US/docs/Web/API/WebGL_API)"
   final linkRefRegex = RegExp(r'\[([^\]]+)\]\(([\w\/-]+)\)');
-  // ignore: prefer_expression_function_bodies
-  lines = lines.map((line) {
-    return line.replaceAllMapped(linkRefRegex, (match) {
-      final ref = match.group(1)!;
-      final link = match.group(2)!;
+  lines = lines
+      .map((line) => line.replaceAllMapped(linkRefRegex, (match) {
+            final ref = match.group(1)!;
+            final link = match.group(2)!;
 
-      if (link.startsWith('/en-US/')) {
-        // prefix with 'https://developer.mozilla.org'
-        return '[$ref](https://developer.mozilla.org$link)';
-      } else {
-        return match.group(0)!;
-      }
-    });
-  }).toList();
+            if (link.startsWith('/en-US/')) {
+              // prefix with 'https://developer.mozilla.org'
+              return '[$ref](https://developer.mozilla.org$link)';
+            } else {
+              return match.group(0)!;
+            }
+          }))
+      .toList();
 
   var text = lines.join('\n');
 

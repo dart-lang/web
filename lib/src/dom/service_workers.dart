@@ -51,8 +51,8 @@ typedef ClientType = String;
 /// if supported, using
 /// [`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import).
 /// Dynamic import is disallowed by the specification — calling
-/// [`import()`](/en-US/docs/Web/JavaScript/Reference/Operators/import) will
-/// throw.
+/// [`import()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import)
+/// will throw.
 ///
 /// ---
 ///
@@ -525,7 +525,7 @@ extension type ExtendableEvent._(JSObject _) implements Event, JSObject {
   /// shouldn't terminate
   /// the service worker if it wants that work to complete.
   ///
-  /// The [ServiceWorkerGlobalScope/install_event] events in
+  /// The [ServiceWorkerGlobalScope.install_event] events in
   /// [service workers](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope)
   /// use
   /// `waitUntil()` to hold the service worker in
@@ -537,7 +537,7 @@ extension type ExtendableEvent._(JSObject _) implements Event, JSObject {
   /// of the core
   /// caches it depends on are successfully populated.
   ///
-  /// The [ServiceWorkerGlobalScope/activate_event] events in
+  /// The [ServiceWorkerGlobalScope.activate_event] events in
   /// [service workers](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope)
   /// use
   /// `waitUntil()` to buffer functional events such as `fetch` and
@@ -587,15 +587,15 @@ extension type FetchEvent._(JSObject _) implements ExtendableEvent, JSObject {
   /// if an `img` initiates the request, the response body needs to be
   /// image data. For security reasons, there are a few global rules:
   ///
-  /// - You can only return [Response] objects of [Response.type] "`opaque`" if
-  ///   the [fetchEvent.request] object's
+  /// - You can only return [Response] objects of [Response.type]
+  /// "`opaque`" if the [fetchEvent.request] object's
   /// [request.mode] is "`no-cors`". This prevents the
   /// leaking of private data.
   /// - You can only return [Response] objects of [Response.type]
-  ///   "`opaqueredirect`" if the [fetchEvent.request]
+  /// "`opaqueredirect`" if the [fetchEvent.request]
   /// object's [request.mode] is "`manual`".
-  /// - You cannot return [Response] objects of [Response.type] "`cors`" if the
-  ///   [fetchEvent.request] object's
+  /// - You cannot return [Response] objects of [Response.type]
+  /// "`cors`" if the [fetchEvent.request] object's
   /// [request.mode] is "`same-origin`".
   ///
   /// ### Specifying the final URL of a resource
@@ -628,7 +628,7 @@ extension type FetchEvent._(JSObject _) implements ExtendableEvent, JSObject {
   ///   [worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)
   ///   script is
   /// intercepted, then the final URL is used to set
-  /// [`self.location`](/en-US/docs/Web/API/WorkerGlobalScope/location)
+  /// [`self.location`](https://developer.mozilla.org/en-US/docs/Web/API/WorkerGlobalScope/location)
   /// and used as the base URL for relative URLs in the worker script.
   /// - If a stylesheet is intercepted, then the final URL is used as the base
   ///   URL for
@@ -679,7 +679,7 @@ extension type FetchEventInit._(JSObject _)
 
 /// The **`ExtendableMessageEvent`** interface of the
 /// [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
-/// represents the event object of a [ServiceWorkerGlobalScope/message_event]
+/// represents the event object of a [ServiceWorkerGlobalScope.message_event]
 /// event fired on a service worker (when a message is received on the
 /// [ServiceWorkerGlobalScope] from another context) — extends the lifetime of
 /// such events.

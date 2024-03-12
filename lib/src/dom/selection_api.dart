@@ -50,7 +50,7 @@ extension type Selection._(JSObject _) implements JSObject {
   /// The **`Selection.removeAllRanges()`** method removes all ranges from the
   /// selection, leaving the [Selection.anchorNode] and [Selection.focusNode]
   /// properties equal to `null` and nothing selected. When this method is
-  /// called, a [Document/selectionchange_event] event is fired at the document.
+  /// called, a [Document.selectionchange_event] event is fired at the document.
   ///
   /// > **Note:** This method is an alias for the [Selection.empty] method.
   external void removeAllRanges();
@@ -58,7 +58,7 @@ extension type Selection._(JSObject _) implements JSObject {
   /// The **`Selection.empty()`** method removes all ranges from the selection,
   /// leaving the [Selection.anchorNode] and [Selection.focusNode] properties
   /// equal to `null` and nothing selected. When this method is called, a
-  /// [Document/selectionchange_event] event is fired at the document.
+  /// [Document.selectionchange_event] event is fired at the document.
   ///
   /// > **Note:** This method is an alias for the [Selection.removeAllRanges]
   /// > method.

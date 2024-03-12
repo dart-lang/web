@@ -117,16 +117,16 @@ extension type PublicKeyCredential._(JSObject _)
   ///
   /// The properties of the returned object depend on whether the credential is
   /// returned by
-  /// [`navigator.credentials.create()`](/en-US/docs/Web/API/CredentialsContainer/create)
+  /// [`navigator.credentials.create()`](https://developer.mozilla.org/en-US/docs/Web/API/CredentialsContainer/create)
   /// when
   /// [creating a key pair and registering a user](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API#creating_a_key_pair_and_registering_a_user),
   /// or
-  /// [`navigator.credentials.get()`](/en-US/docs/Web/API/CredentialsContainer/get)
+  /// [`navigator.credentials.get()`](https://developer.mozilla.org/en-US/docs/Web/API/CredentialsContainer/get)
   /// when
   /// [authenticating a user](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API#authenticating_a_user).
   ///
   /// This method is automatically invoked when web app code calls
-  /// [`JSON.stringify()`](/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
+  /// [`JSON.stringify()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
   /// to serialize a [PublicKeyCredential] so that it can be sent to relying
   /// party server when registering or authenticating a user.
   /// It not intended to be called directly in web app code.

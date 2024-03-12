@@ -196,7 +196,7 @@ extension type FileReader._(JSObject _) implements EventTarget, JSObject {
   /// to start reading the
   /// contents of a specified [Blob] or [File]. When the read
   /// operation is finished, the [FileReader.readyState] becomes
-  /// `DONE`, and the [FileReader/loadend_event] is
+  /// `DONE`, and the [FileReader.loadend_event] is
   /// triggered. At that time, the [FileReader.result] attribute
   /// contains an `ArrayBuffer` representing the file's data.
   ///
@@ -226,7 +226,7 @@ extension type FileReader._(JSObject _) implements EventTarget, JSObject {
   /// read the contents of the specified [Blob] or [File].
   /// When the read operation is complete, the [FileReader.readyState] is
   /// changed to `DONE`,
-  /// the [FileReader/loadend_event] event is triggered, and the
+  /// the [FileReader.loadend_event] event is triggered, and the
   /// [FileReader.result] property contains the contents of the file as a text
   /// string.
   ///
@@ -235,7 +235,7 @@ extension type FileReader._(JSObject _) implements EventTarget, JSObject {
   ///
   /// > **Note:** This method loads the entire file's content into memory and is
   /// > not suitable for large files. Prefer
-  /// > [`readAsArrayBuffer()`](/en-US/docs/Web/API/FileReader/readAsArrayBuffer)
+  /// > [`readAsArrayBuffer()`](https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsArrayBuffer)
   /// > for large files.
   external void readAsText(
     Blob blob, [
@@ -246,9 +246,10 @@ extension type FileReader._(JSObject _) implements EventTarget, JSObject {
   /// read the contents of the specified
   /// [Blob] or [File]. When the read operation is finished, the
   /// [FileReader.readyState] becomes `DONE`, and the
-  /// [FileReader/loadend_event] is triggered. At that time, the
+  /// [FileReader.loadend_event] is triggered. At that time, the
   /// [FileReader.result] attribute contains the data as a [data:
-  /// URL](/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs) representing the
+  /// URL](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs)
+  /// representing the
   /// file's data as a base64 encoded string.
   ///
   /// > **Note:** The blob's [FileReader.result] cannot be

@@ -229,7 +229,7 @@ extension type MediaKeyMessageEventInit._(JSObject _)
 /// The **`MediaEncryptedEvent`** interface of the
 /// [Encrypted Media Extensions API](https://developer.mozilla.org/en-US/docs/Web/API/Encrypted_Media_Extensions_API)
 /// contains the information associated with an
-/// [HTMLMediaElement/encrypted_event] event sent to a [HTMLMediaElement] when
+/// [HTMLMediaElement.encrypted_event] event sent to a [HTMLMediaElement] when
 /// some initialization data is encountered in the media.
 ///
 /// ---

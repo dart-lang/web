@@ -303,9 +303,9 @@ extension type CSSMathValue._(JSObject _) implements CSSNumericValue, JSObject {
 /// [CSSNumericValue.toSum] on [CSSNumericValue].
 ///
 /// A CSSMathSum is the object type returned when the
-/// [`StylePropertyMapReadOnly.get()`](/en-US/docs/Web/API/StylePropertyMapReadOnly/get)
+/// [`StylePropertyMapReadOnly.get()`](https://developer.mozilla.org/en-US/docs/Web/API/StylePropertyMapReadOnly/get)
 /// method is used on a CSS property whose value is created with a
-/// [`calc()`](/en-US/docs/Web/CSS/calc) function.
+/// [`calc()`](https://developer.mozilla.org/en-US/docs/Web/CSS/calc) function.
 ///
 /// ---
 ///
@@ -452,9 +452,9 @@ extension type CSSTransformComponent._(JSObject _) implements JSObject {
 }
 
 /// The **`CSSTranslate`** interface of the  represents the
-/// [translate()](/en-US/docs/Web/CSS/transform-function/translate) value of the
-/// individual `transform` property in CSS. It inherits properties and methods
-/// from its parent [CSSTransformValue].
+/// [translate()](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/translate)
+/// value of the individual `transform` property in CSS. It inherits properties
+/// and methods from its parent [CSSTransformValue].
 ///
 /// ---
 ///
@@ -504,10 +504,11 @@ extension type CSSRotate._(JSObject _)
 }
 
 /// The **`CSSScale`** interface of the  represents the
-/// [scale()](/en-US/docs/Web/CSS/transform-function/scale) and
-/// [scale3d()](/en-US/docs/Web/CSS/transform-function/scale3d) values of the
-/// individual `transform` property in CSS. It inherits properties and methods
-/// from its parent [CSSTransformValue].
+/// [scale()](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/scale)
+/// and
+/// [scale3d()](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/scale3d)
+/// values of the individual `transform` property in CSS. It inherits properties
+/// and methods from its parent [CSSTransformValue].
 ///
 /// ---
 ///
@@ -531,8 +532,8 @@ extension type CSSScale._(JSObject _)
 
 /// The **`CSSSkew`** interface of the  is part of the [CSSTransformValue]
 /// interface. It represents the
-/// [`skew()`](/en-US/docs/Web/CSS/transform-function/skew) value of the
-/// individual `transform` property in CSS.
+/// [`skew()`](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/skew)
+/// value of the individual `transform` property in CSS.
 ///
 /// ---
 ///
@@ -552,9 +553,9 @@ extension type CSSSkew._(JSObject _)
 }
 
 /// The **`CSSSkewX`** interface of the  represents the
-/// [`skewX()`](/en-US/docs/Web/CSS/transform-function/skewX) value of the
-/// individual `transform` property in CSS. It inherits properties and methods
-/// from its parent [CSSTransformValue].
+/// [`skewX()`](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/skewX)
+/// value of the individual `transform` property in CSS. It inherits properties
+/// and methods from its parent [CSSTransformValue].
 ///
 /// ---
 ///
@@ -569,9 +570,9 @@ extension type CSSSkewX._(JSObject _)
 }
 
 /// The **`CSSSkewY`** interface of the  represents the
-/// [`skewY()`](/en-US/docs/Web/CSS/transform-function/skewY) value of the
-/// individual `transform` property in CSS. It inherits properties and methods
-/// from its parent [CSSTransformValue].
+/// [`skewY()`](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/skewY)
+/// value of the individual `transform` property in CSS. It inherits properties
+/// and methods from its parent [CSSTransformValue].
 ///
 /// ---
 ///
@@ -586,9 +587,9 @@ extension type CSSSkewY._(JSObject _)
 }
 
 /// The **`CSSPerspective`** interface of the  represents the
-/// [perspective()](/en-US/docs/Web/CSS/transform-function/perspective) value of
-/// the individual `transform` property in CSS. It inherits properties and
-/// methods from its parent [CSSTransformValue].
+/// [perspective()](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/perspective)
+/// value of the individual `transform` property in CSS. It inherits properties
+/// and methods from its parent [CSSTransformValue].
 ///
 /// ---
 ///
@@ -603,10 +604,11 @@ extension type CSSPerspective._(JSObject _)
 }
 
 /// The **`CSSMatrixComponent`** interface of the  represents the
-/// [matrix()](/en-US/docs/Web/CSS/transform-function/matrix) and
-/// [matrix3d()](/en-US/docs/Web/CSS/transform-function/matrix3d) values of the
-/// individual `transform` property in CSS. It inherits properties and methods
-/// from its parent [CSSTransformValue].
+/// [matrix()](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/matrix)
+/// and
+/// [matrix3d()](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/matrix3d)
+/// values of the individual `transform` property in CSS. It inherits properties
+/// and methods from its parent [CSSTransformValue].
 ///
 /// ---
 ///
@@ -634,11 +636,12 @@ extension type CSSMatrixComponentOptions._(JSObject _) implements JSObject {
 /// represents values for properties that take an image, for example , , or .
 ///
 /// The CSSImageValue object represents an
-/// [`<image>`](/en-US/docs/Web/CSS/image) that involves a URL, such as
-/// [`url()`](/en-US/docs/Web/CSS/url) or
-/// [`image()`](/en-US/docs/Web/CSS/image), but not
-/// [`linear-gradient()`](/en-US/docs/Web/CSS/gradient/linear-gradient) or
-/// [`element()`](/en-US/docs/Web/CSS/element).
+/// [`<image>`](https://developer.mozilla.org/en-US/docs/Web/CSS/image) that
+/// involves a URL, such as
+/// [`url()`](https://developer.mozilla.org/en-US/docs/Web/CSS/url) or
+/// [`image()`](https://developer.mozilla.org/en-US/docs/Web/CSS/image), but not
+/// [`linear-gradient()`](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient)
+/// or [`element()`](https://developer.mozilla.org/en-US/docs/Web/CSS/element).
 ///
 /// ---
 ///

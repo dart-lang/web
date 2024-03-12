@@ -133,7 +133,7 @@ extension type MediaStreamTrack._(JSObject _) implements EventTarget, JSObject {
   /// [MediaStreamTrack.applyConstraints] to ask for the
   /// track to be configured to match ideal or acceptable settings. See
   /// [Capabilities, constraints, and
-  /// settings](/en-US/docs/Web/API/Media_Capture_and_Streams_API/Constraints)
+  /// settings](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API/Constraints)
   /// for details on how to work with constrainable properties.
   external MediaTrackCapabilities getCapabilities();
 
@@ -155,7 +155,7 @@ extension type MediaStreamTrack._(JSObject _) implements EventTarget, JSObject {
   /// Constraints
   /// can also specify ideal and/or acceptable sizes or ranges of sizes. See
   /// [Capabilities, constraints, and
-  /// settings](/en-US/docs/Web/API/Media_Capture_and_Streams_API/Constraints)
+  /// settings](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API/Constraints)
   /// for details on how to work with constrainable properties.
   external MediaTrackConstraints getConstraints();
 
@@ -166,7 +166,7 @@ extension type MediaStreamTrack._(JSObject _) implements EventTarget, JSObject {
   /// current `MediaStreamTrack`.
   ///
   /// See [Capabilities, constraints, and
-  /// settings](/en-US/docs/Web/API/Media_Capture_and_Streams_API/Constraints)
+  /// settings](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API/Constraints)
   /// for details on how to work with constrainable properties.
   external MediaTrackSettings getSettings();
 
@@ -186,7 +186,7 @@ extension type MediaStreamTrack._(JSObject _) implements EventTarget, JSObject {
   /// See
   /// [Applying constraints](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API/Constraints#applying_constraints)
   /// in [Capabilities, constraints, and
-  /// settings](/en-US/docs/Web/API/Media_Capture_and_Streams_API/Constraints)
+  /// settings](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API/Constraints)
   /// for more information on how to apply your preferred constraints.
   external JSPromise<JSAny?> applyConstraints(
       [MediaTrackConstraints constraints]);
@@ -224,7 +224,7 @@ extension type MediaStreamTrack._(JSObject _) implements EventTarget, JSObject {
 ///
 /// To learn more about how constraints work, see [Capabilities, constraints,
 /// and
-/// settings](/en-US/docs/Web/API/Media_Capture_and_Streams_API/Constraints).
+/// settings](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API/Constraints).
 ///
 /// ---
 ///
@@ -429,7 +429,7 @@ extension type MediaTrackConstraintSet._(JSObject _) implements JSObject {
 ///
 /// To learn more about how constraints and settings work, see [Capabilities,
 /// constraints, and
-/// settings](/en-US/docs/Web/API/Media_Capture_and_Streams_API/Constraints).
+/// settings](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API/Constraints).
 ///
 /// ---
 ///
@@ -493,8 +493,8 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
 /// [Media Capture and Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capture_and_Streams_API)
 /// methods. These events are sent to the stream when these changes occur.
 ///
-/// The events based on this interface are [MediaStream/addtrack_event] and
-/// [MediaStream/removetrack_event].
+/// The events based on this interface are [MediaStream.addtrack_event] and
+/// [MediaStream.removetrack_event].
 ///
 /// ---
 ///

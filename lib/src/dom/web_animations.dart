@@ -132,8 +132,9 @@ extension type Animation._(JSObject _) implements EventTarget, JSObject {
   /// that the
   /// resulting change in speed does not produce a sharp jump. After calling
   /// `updatePlaybackRate()` the animation's [Animation.playbackRate] is _not_
-  /// immediately updated. It will be updated once the
-  /// animation's [Animation.ready] promise is resolved.
+  /// immediately updated.
+  /// It will be updated once the animation's [Animation.ready] promise is
+  /// resolved.
   external void updatePlaybackRate(num playbackRate);
 
   /// The **`Animation.reverse()`** method of the [Animation] Interface reverses

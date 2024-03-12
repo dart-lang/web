@@ -80,8 +80,8 @@ extension type UIEventInit._(JSObject _) implements EventInit, JSObject {
 }
 
 /// The **`FocusEvent`** interface represents focus-related events, including
-/// [Element/focus_event], [Element/blur_event], [Element/focusin_event], and
-/// [Element/focusout_event].
+/// [Element.focus_event], [Element.blur_event], [Element.focusin_event], and
+/// [Element.focusout_event].
 ///
 /// ---
 ///
@@ -112,9 +112,9 @@ extension type FocusEventInit._(JSObject _) implements UIEventInit, JSObject {
 
 /// The **`MouseEvent`** interface represents events that occur due to the user
 /// interacting with a pointing device (such as a mouse).
-/// Common events using this interface include [Element/click_event],
-/// [Element/dblclick_event], [Element/mouseup_event],
-/// [Element/mousedown_event].
+/// Common events using this interface include [Element.click_event],
+/// [Element.dblclick_event], [Element.mouseup_event],
+/// [Element.mousedown_event].
 ///
 /// `MouseEvent` derives from [UIEvent], which in turn derives from [Event].
 /// Though the [MouseEvent.initMouseEvent] method is kept for backward
@@ -303,8 +303,8 @@ extension type EventModifierInit._(JSObject _)
 /// > `MouseWheelEvent` and [MouseScrollEvent] interfaces. Use this interface
 /// > and avoid the non-standard ones.
 ///
-/// > **Note:** Do not confuse the [Element/wheel_event] event with the
-/// > [Element/scroll_event] event. The default action of a `wheel` event is
+/// > **Note:** Do not confuse the [Element.wheel_event] event with the
+/// > [Element.scroll_event] event. The default action of a `wheel` event is
 /// > implementation-defined. Thus, a `wheel` event doesn't necessarily dispatch
 /// > a `scroll` event. Even when it does, that doesn't mean that the `delta*`
 /// > values in the `wheel` event necessarily reflect the content's scrolling
@@ -418,13 +418,13 @@ extension type InputEventInit._(JSObject _) implements UIEventInit, JSObject {
 /// **`KeyboardEvent`** objects describe a user interaction with the keyboard;
 /// each event describes a single interaction between the user and a key (or
 /// combination of a key with modifier keys) on the keyboard. The event type
-/// ([Element/keydown_event], [Element/keypress_event], or
-/// [Element/keyup_event]) identifies what kind of keyboard activity occurred.
+/// ([Element.keydown_event], [Element.keypress_event], or
+/// [Element.keyup_event]) identifies what kind of keyboard activity occurred.
 ///
 /// > **Note:** `KeyboardEvent` events just indicate what interaction the user
 /// > had with a key on the keyboard at a low level, providing no contextual
 /// > meaning to that interaction. When you need to handle text input, use the
-/// > [Element/input_event] event instead. Keyboard events may not be fired if
+/// > [Element.input_event] event instead. Keyboard events may not be fired if
 /// > the user is using an alternate means of entering text, such as a
 /// > handwriting system on a tablet or graphics tablet.
 ///

@@ -687,7 +687,8 @@ extension type IDBIndex._(JSObject _) implements JSObject {
   ///
   /// > **Note:** Cursors returned by `openKeyCursor()` do not
   /// > make the referenced value available as
-  /// > [`IDBIndex.openCursor`](/en-US/docs/Web/API/IDBIndex/openCursor) does.
+  /// > [`IDBIndex.openCursor`](https://developer.mozilla.org/en-US/docs/Web/API/IDBIndex/openCursor)
+  /// > does.
   /// > This makes obtaining a list of keys much more efficient.
   external IDBRequest openKeyCursor([
     JSAny? query,

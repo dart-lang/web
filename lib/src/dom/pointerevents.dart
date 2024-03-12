@@ -120,9 +120,9 @@ extension type PointerEvent._(JSObject _) implements MouseEvent, JSObject {
 
   /// The **`getCoalescedEvents()`** method of the [PointerEvent] interface
   /// returns a sequence of `PointerEvent` instances that were coalesced
-  /// (merged) into a single [Element/pointermove_event] or
-  /// [Element/pointerrawupdate_event] event.
-  /// Instead of a stream of many [Element/pointermove_event] events, user
+  /// (merged) into a single [Element.pointermove_event] or
+  /// [Element.pointerrawupdate_event] event.
+  /// Instead of a stream of many [Element.pointermove_event] events, user
   /// agents coalesce multiple updates into a single event.
   /// This helps with performance as the user agent has less event handling to
   /// perform, but there is a reduction in the granularity and accuracy when

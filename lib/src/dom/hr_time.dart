@@ -29,8 +29,8 @@ typedef EpochTimeStamp = int;
 /// `self.performance` in workers. Note that Performance entries are per
 /// context. If you create a mark on the main thread (or other worker), you
 /// cannot see it in a worker thread, and vice versa. See
-/// [`self.performance`](/en-US/docs/Web/API/performance_property) for which
-/// APIs are available in window and worker contexts.
+/// [`self.performance`](https://developer.mozilla.org/en-US/docs/Web/API/performance_property)
+/// for which APIs are available in window and worker contexts.
 ///
 /// ---
 ///

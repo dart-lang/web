@@ -238,13 +238,13 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   /// containing the derived bits.
   ///
   /// This method is very similar to
-  /// [`SubtleCrypto.deriveKey()`](/en-US/docs/Web/API/SubtleCrypto/deriveKey),
+  /// [`SubtleCrypto.deriveKey()`](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/deriveKey),
   /// except that `deriveKey()` returns a
   /// [`CryptoKey`](https://developer.mozilla.org/en-US/docs/Web/API/CryptoKey)
   /// object rather than an
   /// `ArrayBuffer`. Essentially `deriveKey()` is composed of
   /// `deriveBits()` followed by
-  /// [`importKey()`](/en-US/docs/Web/API/SubtleCrypto/importKey).
+  /// [`importKey()`](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/importKey).
   ///
   /// This function supports the same derivation algorithms as `deriveKey()`:
   /// ECDH, HKDF, and PBKDF2. See
@@ -282,13 +282,13 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   /// Keys can be exported in several formats: see
   /// [Supported formats](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/importKey#supported_formats)
   /// in the
-  /// [`SubtleCrypto.importKey()`](/en-US/docs/Web/API/SubtleCrypto/importKey)
+  /// [`SubtleCrypto.importKey()`](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/importKey)
   /// page for details.
   ///
   /// Keys are not exported in an encrypted format: to encrypt keys when
   /// exporting them use
   /// the
-  /// [`SubtleCrypto.wrapKey()`](/en-US/docs/Web/API/SubtleCrypto/wrapKey)
+  /// [`SubtleCrypto.wrapKey()`](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/wrapKey)
   /// API instead.
   external JSPromise<JSAny?> exportKey(
     KeyFormat format,
@@ -329,7 +329,7 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   /// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API).
   ///
   /// As with
-  /// [`SubtleCrypto.importKey()`](/en-US/docs/Web/API/SubtleCrypto/importKey),
+  /// [`SubtleCrypto.importKey()`](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/importKey),
   /// you specify the key's
   /// [import format](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/importKey#supported_formats)
   /// and other attributes of the key to import details such as whether it is

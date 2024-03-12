@@ -68,8 +68,8 @@ extension type CredentialsContainer._(JSObject _) implements JSObject {
   ///   uses `get()` to authenticate or provide additional factors during MFA
   ///   with public key credentials (based on asymmetric cryptography).
   /// - The [Federated Credential Management (FedCM)
-  ///   API](/en-US/docs/Web/API/FedCM_API) uses `get()` to authenticate with
-  ///   federated identity providers (IdPs).
+  ///   API](https://developer.mozilla.org/en-US/docs/Web/API/FedCM_API) uses
+  ///   `get()` to authenticate with federated identity providers (IdPs).
   /// - The
   ///   [WebOTP API](https://developer.mozilla.org/en-US/docs/Web/API/WebOTP_API)
   ///   uses `get()` to request retrieval of a one-time password (OTP) from a
@@ -229,9 +229,9 @@ extension type PasswordCredentialData._(JSObject _)
 /// federated identity provider framework.
 ///
 /// > **Note:** The [Federated Credential Management API
-/// > (FedCM)](/en-US/docs/Web/API/FedCM_API) provides a more complete solution
-/// > for handling identity federation in the browser, and uses the
-/// > [IdentityCredential] type.
+/// > (FedCM)](https://developer.mozilla.org/en-US/docs/Web/API/FedCM_API)
+/// > provides a more complete solution for handling identity federation in the
+/// > browser, and uses the [IdentityCredential] type.
 ///
 /// In browsers that support it, an instance of this interface may be passed in
 /// the `credential` member of the `init` object for global [fetch].

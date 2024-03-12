@@ -28,6 +28,11 @@ import 'webgl1.dart';
 ///
 /// > **Note:** This extension is only available to [WebGL2RenderingContext]
 /// > contexts.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/OES_draw_buffers_indexed).
 extension type OES_draw_buffers_indexed._(JSObject _) implements JSObject {
   /// The `enableiOES()` method of the [OES_draw_buffers_indexed] WebGL
   /// extension enables blending for a particular draw buffer.

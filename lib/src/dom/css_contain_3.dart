@@ -21,6 +21,11 @@ import 'css_conditional.dart';
 /// along with the container name if one is defined.
 /// Note that the container name and query together define the "condition text",
 /// which can be obtained using [CSSConditionRule.conditionText].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSContainerRule).
 extension type CSSContainerRule._(JSObject _)
     implements CSSConditionRule, JSObject {
   external String get containerName;

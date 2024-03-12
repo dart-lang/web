@@ -31,6 +31,11 @@ typedef IntersectionObserverCallback = JSFunction;
 /// object is only useful for watching for specific changes in degree of
 /// visibility; however, you can watch multiple target elements with the same
 /// observer.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver).
 extension type IntersectionObserver._(JSObject _) implements JSObject {
   external factory IntersectionObserver(
     IntersectionObserverCallback callback, [
@@ -113,6 +118,11 @@ extension type IntersectionObserver._(JSObject _) implements JSObject {
 /// Instances of `IntersectionObserverEntry` are delivered to an
 /// [IntersectionObserver] callback in its `entries` parameter; otherwise, these
 /// objects can only be obtained by calling [IntersectionObserver.takeRecords].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry).
 extension type IntersectionObserverEntry._(JSObject _) implements JSObject {
   external factory IntersectionObserverEntry(
       IntersectionObserverEntryInit intersectionObserverEntryInit);

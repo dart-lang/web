@@ -33,6 +33,11 @@ extension type ResizeObserverOptions._(JSObject _) implements JSObject {
 /// > encompasses the content, padding, and border. See
 /// > [The box model](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model)
 /// > for further explanation.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver).
 extension type ResizeObserver._(JSObject _) implements JSObject {
   external factory ResizeObserver(ResizeObserverCallback callback);
 
@@ -59,6 +64,11 @@ extension type ResizeObserver._(JSObject _) implements JSObject {
 /// [ResizeObserver.ResizeObserver] constructor's callback function, which
 /// allows you to access the new dimensions of the [Element] or [SVGElement]
 /// being observed.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserverEntry).
 extension type ResizeObserverEntry._(JSObject _) implements JSObject {
   external Element get target;
   external DOMRectReadOnly get contentRect;
@@ -75,6 +85,11 @@ extension type ResizeObserverEntry._(JSObject _) implements JSObject {
 /// > [multi-column layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_multicol_layout),
 /// > which is a fragmented context, the sizing returned by `ResizeObserverSize`
 /// > will be the size of the first column.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserverSize).
 extension type ResizeObserverSize._(JSObject _) implements JSObject {
   external num get inlineSize;
   external num get blockSize;

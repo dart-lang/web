@@ -52,6 +52,11 @@ extension type PerformanceMeasureOptions._(JSObject _) implements JSObject {
 /// add a _named_ [DOMHighResTimeStamp] (the _mark_) to the browser's
 /// performance timeline. To create a performance mark that isn't added to the
 /// browser's performance timeline, use the constructor.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceMark).
 extension type PerformanceMark._(JSObject _)
     implements PerformanceEntry, JSObject {
   external factory PerformanceMark(
@@ -67,6 +72,11 @@ extension type PerformanceMark._(JSObject _)
 /// type are created by calling [Performance.measure] to add a _named_
 /// [DOMHighResTimeStamp] (the _measure_) between two _marks_ to the browser's
 /// _performance timeline_.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceMeasure).
 extension type PerformanceMeasure._(JSObject _)
     implements PerformanceEntry, JSObject {
   external JSAny? get detail;

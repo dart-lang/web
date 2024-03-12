@@ -22,6 +22,11 @@ typedef PaymentComplete = String;
 /// **`PaymentRequest`** interface is the primary access point into the API, and
 /// lets web content and apps accept payments from the end user on behalf of the
 /// operator of the site or the publisher of the app.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PaymentRequest).
 extension type PaymentRequest._(JSObject _) implements EventTarget, JSObject {
   external factory PaymentRequest(
     JSArray<PaymentMethodData> methodData,
@@ -201,6 +206,11 @@ extension type PaymentCompleteDetails._(JSObject _) implements JSObject {
 /// [Payment Request API](https://developer.mozilla.org/en-US/docs/Web/API/Payment_Request_API)
 /// is returned after a user selects a payment method and approves a payment
 /// request.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PaymentResponse).
 extension type PaymentResponse._(JSObject _) implements EventTarget, JSObject {
   /// The **`toJSON()`** method of the [PaymentResponse] interface is a ; it
   /// returns a JSON representation of the [PaymentResponse] object.
@@ -252,6 +262,11 @@ extension type PaymentValidationErrors._(JSObject _) implements JSObject {
 /// fired by some payment handlers when the user switches payment instruments
 /// (e.g., a user selects a "store" card to make a purchase while using Apple
 /// Pay).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PaymentMethodChangeEvent).
 extension type PaymentMethodChangeEvent._(JSObject _)
     implements PaymentRequestUpdateEvent, JSObject {
   external factory PaymentMethodChangeEvent(
@@ -286,6 +301,11 @@ extension type PaymentMethodChangeEventInit._(JSObject _)
 ///   - : Dispatched whenever the user changes their shipping address.
 /// - [PaymentRequest.shippingoptionchange_event]
 ///   - : Dispatched whenever the user changes a shipping option.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PaymentRequestUpdateEvent).
 extension type PaymentRequestUpdateEvent._(JSObject _)
     implements Event, JSObject {
   external factory PaymentRequestUpdateEvent(

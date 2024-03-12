@@ -38,6 +38,11 @@ import 'dart:js_interop';
 /// ```js
 /// const point = DOMPointReadOnly.fromPoint({ x: 100, y: 100, z: 50, w: 1.0 });
 /// ```
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMPointReadOnly).
 extension type DOMPointReadOnly._(JSObject _) implements JSObject {
   external factory DOMPointReadOnly([
     num x,
@@ -68,6 +73,11 @@ extension type DOMPointReadOnly._(JSObject _) implements JSObject {
 /// the origin, a positive `y` component is downward from the origin, and a
 /// positive `z` component extends outward from the screen (in other words,
 /// toward the user).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMPoint).
 extension type DOMPoint._(JSObject _) implements DOMPointReadOnly, JSObject {
   external factory DOMPoint([
     num x,
@@ -106,6 +116,11 @@ extension type DOMPointInit._(JSObject _) implements JSObject {
 
 /// The **`DOMRectReadOnly`** interface specifies the standard properties (also
 /// used by [DOMRect]) to define a rectangle whose properties are immutable.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMRectReadOnly).
 extension type DOMRectReadOnly._(JSObject _) implements JSObject {
   external factory DOMRectReadOnly([
     num x,
@@ -134,6 +149,11 @@ extension type DOMRectReadOnly._(JSObject _) implements JSObject {
 /// objects.
 ///
 /// It inherits from its parent, [DOMRectReadOnly].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMRect).
 extension type DOMRect._(JSObject _) implements DOMRectReadOnly, JSObject {
   external factory DOMRect([
     num x,
@@ -179,6 +199,11 @@ extension type DOMRectList._(JSObject _) implements JSObject {
 /// accurate information even when arbitrary 2D or 3D transforms are present. It
 /// has a handy `bounds` attribute returning a `DOMRectReadOnly` for those cases
 /// where you just want an axis-aligned bounding rectangle.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMQuad).
 extension type DOMQuad._(JSObject _) implements JSObject {
   external factory DOMQuad([
     DOMPointInit p1,
@@ -223,6 +248,11 @@ extension type DOMQuadInit._(JSObject _) implements JSObject {
 /// This interface should be available inside
 /// [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API),
 /// though some implementations doesn't allow it yet.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMMatrixReadOnly).
 extension type DOMMatrixReadOnly._(JSObject _) implements JSObject {
   external factory DOMMatrixReadOnly([JSAny init]);
 
@@ -323,6 +353,11 @@ extension type DOMMatrixReadOnly._(JSObject _) implements JSObject {
 /// This interface should be available inside
 /// [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API),
 /// though some implementations don't allow it yet.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMMatrix).
 extension type DOMMatrix._(JSObject _) implements DOMMatrixReadOnly, JSObject {
   external factory DOMMatrix([JSAny init]);
 

@@ -29,6 +29,11 @@ import 'dom.dart';
 /// > **Note:** _Anchor_ and _focus_ should not be confused with the _start_ and
 /// > _end_ positions of a selection. The anchor can be placed before the focus
 /// > or vice versa, depending on the direction you made your selection.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Selection).
 extension type Selection._(JSObject _) implements JSObject {
   /// The **`Selection.getRangeAt()`** method returns a range object
   /// representing one of the ranges currently selected.

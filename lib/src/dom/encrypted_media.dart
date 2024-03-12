@@ -69,6 +69,11 @@ extension type MediaKeySystemMediaCapability._(JSObject _) implements JSObject {
 /// provides access to a Key System for decryption and/or a content protection
 /// provider. You can request an instance of this object using the
 /// [Navigator.requestMediaKeySystemAccess] method.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaKeySystemAccess).
 extension type MediaKeySystemAccess._(JSObject _) implements JSObject {
   /// The `MediaKeySystemAccess.getConfiguration()` method returns an object
   /// with the supported combination of
@@ -96,6 +101,11 @@ extension type MediaKeySystemAccess._(JSObject _) implements JSObject {
 /// [Encrypted Media Extensions API](https://developer.mozilla.org/en-US/docs/Web/API/Encrypted_Media_Extensions_API)
 /// represents a set of keys that an associated [HTMLMediaElement] can use for
 /// decryption of media data during playback.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaKeys).
 extension type MediaKeys._(JSObject _) implements JSObject {
   /// The `MediaKeys.createSession()` method returns a new
   /// [MediaKeySession] object, which represents a context for message exchange
@@ -119,6 +129,11 @@ extension type MediaKeysPolicy._(JSObject _) implements JSObject {
 /// [Encrypted Media Extensions API](https://developer.mozilla.org/en-US/docs/Web/API/Encrypted_Media_Extensions_API)
 /// represents a context for message exchange with a content decryption module
 /// (CDM).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaKeySession).
 extension type MediaKeySession._(JSObject _) implements EventTarget, JSObject {
   /// The `MediaKeySession.generateRequest()` method returns a
   /// `Promise` after generating a media request based on initialization data.
@@ -159,6 +174,11 @@ extension type MediaKeySession._(JSObject _) implements EventTarget, JSObject {
 /// The **`MediaKeyStatusMap`** interface of the
 /// [Encrypted Media Extensions API](https://developer.mozilla.org/en-US/docs/Web/API/Encrypted_Media_Extensions_API)
 /// is a read-only map of media key statuses by key IDs.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaKeyStatusMap).
 extension type MediaKeyStatusMap._(JSObject _) implements JSObject {
   /// The **`has`** property of the
   /// [MediaKeyStatusMap] interface returns a `Boolean`, asserting
@@ -176,6 +196,11 @@ extension type MediaKeyStatusMap._(JSObject _) implements JSObject {
 /// [Encrypted Media Extensions API](https://developer.mozilla.org/en-US/docs/Web/API/Encrypted_Media_Extensions_API)
 /// contains the content and related data when the content decryption module
 /// generates a message for the session.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaKeyMessageEvent).
 extension type MediaKeyMessageEvent._(JSObject _) implements Event, JSObject {
   external factory MediaKeyMessageEvent(
     String type,
@@ -206,6 +231,11 @@ extension type MediaKeyMessageEventInit._(JSObject _)
 /// contains the information associated with an
 /// [HTMLMediaElement/encrypted_event] event sent to a [HTMLMediaElement] when
 /// some initialization data is encountered in the media.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaEncryptedEvent).
 extension type MediaEncryptedEvent._(JSObject _) implements Event, JSObject {
   external factory MediaEncryptedEvent(
     String type, [

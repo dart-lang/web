@@ -110,6 +110,11 @@ extension type RTCAnswerOptions._(JSObject _)
 /// the local computer and a remote peer.
 /// It provides methods to connect to a remote peer, maintain and monitor the
 /// connection, and close the connection once it's no longer needed.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection).
 extension type RTCPeerConnection._(JSObject _)
     implements EventTarget, JSObject {
   external factory RTCPeerConnection([RTCConfiguration configuration]);
@@ -453,6 +458,11 @@ extension type RTCPeerConnection._(JSObject _)
 /// description suggesting one combination of connection configuration options
 /// that the sender of the description supports. Once the two peers agree upon a
 /// configuration for the connection, negotiation is complete.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCSessionDescription).
 extension type RTCSessionDescription._(JSObject _) implements JSObject {
   external factory RTCSessionDescription(
       RTCSessionDescriptionInit descriptionInitDict);
@@ -506,6 +516,11 @@ extension type RTCLocalSessionDescriptionInit._(JSObject _)
 /// The article
 /// [WebRTC connectivity](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity)
 /// provides additional useful details.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCIceCandidate).
 extension type RTCIceCandidate._(JSObject _) implements JSObject {
   external factory RTCIceCandidate([RTCIceCandidateInit candidateInitDict]);
 
@@ -554,6 +569,11 @@ extension type RTCIceCandidateInit._(JSObject _) implements JSObject {
 /// in relation to  candidates with the target, usually an [RTCPeerConnection].
 ///
 /// Only one event is of this type: [RTCPeerConnection.icecandidate_event].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnectionIceEvent).
 extension type RTCPeerConnectionIceEvent._(JSObject _)
     implements Event, JSObject {
   external factory RTCPeerConnectionIceEvent(
@@ -584,6 +604,11 @@ extension type RTCPeerConnectionIceEventInit._(JSObject _)
 /// interface—provides details pertaining to an  error announced by sending an
 /// [RTCPeerConnection.icecandidateerror_event] event to the [RTCPeerConnection]
 /// object.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnectionIceErrorEvent).
 extension type RTCPeerConnectionIceErrorEvent._(JSObject _)
     implements Event, JSObject {
   external factory RTCPeerConnectionIceErrorEvent(
@@ -636,6 +661,11 @@ extension type RTCCertificateExpiration._(JSObject _) implements JSObject {
 /// `RTCCertificate` is a , so it can be cloned with [structuredClone] or copied
 /// between [Workers](https://developer.mozilla.org/en-US/docs/Web/API/Worker)
 /// using [Worker/postMessage].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCCertificate).
 extension type RTCCertificate._(JSObject _) implements JSObject {
   /// The **`getFingerprints()`** method of the **[RTCCertificate]** interface
   /// is used to get an array of certificate fingerprints.
@@ -672,6 +702,11 @@ extension type RTCRtpTransceiverInit._(JSObject _) implements JSObject {
 /// also obtain access to an [RTCDTMFSender] which can be used to send  codes
 /// (to simulate the user pressing buttons on a telephone's dial pad) to the
 /// remote peer.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpSender).
 extension type RTCRtpSender._(JSObject _) implements JSObject {
   external static RTCRtpCapabilities? getCapabilities(String kind);
   external JSPromise<JSAny?> generateKeyFrame([JSArray<JSString> rids]);
@@ -847,6 +882,11 @@ extension type RTCRtpCodec._(JSObject _) implements JSObject {
 /// maintained by the Internet Assigned Numbers Authority (IANA). References to
 /// relevant IANA documents are provided in the [see also](#see_also) section at
 /// the end of this article.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpCodecParameters).
 extension type RTCRtpCodecParameters._(JSObject _)
     implements RTCRtpCodec, JSObject {
   external factory RTCRtpCodecParameters({
@@ -895,6 +935,11 @@ extension type RTCSetParameterOptions._(JSObject _) implements JSObject {
 /// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
 /// manages the reception and decoding of data for a [MediaStreamTrack] on an
 /// [RTCPeerConnection].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpReceiver).
 extension type RTCRtpReceiver._(JSObject _) implements JSObject {
   external static RTCRtpCapabilities? getCapabilities(String kind);
 
@@ -968,6 +1013,11 @@ extension type RTCRtpSynchronizationSource._(JSObject _)
 /// property, which is the same as the media ID (`mid`) of its corresponding
 /// m-line. An `RTCRtpTransceiver` is **associated** with an m-line if its `mid`
 /// is non-null; otherwise it's considered disassociated.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpTransceiver).
 extension type RTCRtpTransceiver._(JSObject _) implements JSObject {
   /// The **`stop()`** method in the [RTCRtpTransceiver] interface permanently
   /// stops the transceiver by stopping both the associated [RTCRtpSender] and
@@ -1010,6 +1060,11 @@ extension type RTCRtpTransceiver._(JSObject _) implements JSObject {
 /// underlying transport; the `RTCDtlsTransport` interface can be used to obtain
 /// information about the underlying transport and the security added to it by
 /// the DTLS layer.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCDtlsTransport).
 extension type RTCDtlsTransport._(JSObject _) implements EventTarget, JSObject {
   external JSArray<JSArrayBuffer> getRemoteCertificates();
   external RTCIceTransport get iceTransport;
@@ -1035,6 +1090,11 @@ extension type RTCDtlsFingerprint._(JSObject _) implements JSObject {
 /// transport layer over which the data is being sent and received.
 /// This is particularly useful if you need to access state information about
 /// the connection.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCIceTransport).
 extension type RTCIceTransport._(JSObject _) implements EventTarget, JSObject {
   /// The **[RTCIceTransport]** method
   /// **`getLocalCandidates()`** returns an array of
@@ -1108,6 +1168,11 @@ extension type RTCIceTransport._(JSObject _) implements EventTarget, JSObject {
 /// [RTCIceTransport] by calling its [RTCIceTransport.getLocalParameters] or
 /// [RTCIceTransport.getRemoteParameters] method, depending on which end
 /// interests you.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCIceParameters).
 extension type RTCIceParameters._(JSObject _) implements JSObject {
   external factory RTCIceParameters({
     String usernameFragment,
@@ -1125,6 +1190,11 @@ extension type RTCIceParameters._(JSObject _) implements JSObject {
 /// WebRTC endpoints. It is used as the return value from
 /// [RTCIceTransport.getSelectedCandidatePair] to identify the
 /// currently-selected candidate pair identified by the ICE agent.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCIceCandidatePair).
 extension type RTCIceCandidatePair._(JSObject _) implements JSObject {
   external factory RTCIceCandidatePair({
     RTCIceCandidate local,
@@ -1148,6 +1218,11 @@ extension type RTCIceCandidatePair._(JSObject _) implements JSObject {
 ///
 /// This event is sent by the WebRTC layer to the website or application, so you
 /// will not typically need to instantiate an `RTCTrackEvent` yourself.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCTrackEvent).
 extension type RTCTrackEvent._(JSObject _) implements Event, JSObject {
   external factory RTCTrackEvent(
     String type,
@@ -1195,6 +1270,11 @@ extension type RTCTrackEventInit._(JSObject _) implements EventInit, JSObject {
 /// [`maxMessageSize`](#rtcsctptransport.maxmessagesize) property, which you can
 /// use to determine the upper limit on the size of messages you can send over a
 /// data channel on the peer connection.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCSctpTransport).
 extension type RTCSctpTransport._(JSObject _) implements EventTarget, JSObject {
   external RTCDtlsTransport get transport;
   external RTCSctpTransportState get state;
@@ -1219,6 +1299,11 @@ extension type RTCSctpTransport._(JSObject _) implements EventTarget, JSObject {
 ///
 /// `RTCDataChannel` is a
 /// [transferable object](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCDataChannel).
 extension type RTCDataChannel._(JSObject _) implements EventTarget, JSObject {
   /// The **`RTCDataChannel.close()`** method closes the
   /// [RTCDataChannel]. Either peer is permitted to call this method to initiate
@@ -1324,6 +1409,11 @@ extension type RTCDataChannelInit._(JSObject _) implements JSObject {
 
 /// The **`RTCDataChannelEvent`** interface
 /// represents an event related to a specific [RTCDataChannel].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCDataChannelEvent).
 extension type RTCDataChannelEvent._(JSObject _) implements Event, JSObject {
   external factory RTCDataChannelEvent(
     String type,
@@ -1360,6 +1450,11 @@ extension type RTCDataChannelEventInit._(JSObject _)
 /// services. For that reason, DTMF can't be used between two WebRTC-based
 /// devices, because there is no mechanism provided by WebRTC for receiving DTMF
 /// codes.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCDTMFSender).
 extension type RTCDTMFSender._(JSObject _) implements EventTarget, JSObject {
   /// The **`insertDTMF()`** method on the [RTCDTMFSender] interface
   /// starts sending  tones to the remote peer over the
@@ -1396,6 +1491,11 @@ extension type RTCDTMFSender._(JSObject _) implements EventTarget, JSObject {
 /// used by the
 /// [`tonechange`](https://developer.mozilla.org/en-US/docs/Web/API/RTCDTMFSender/tonechange_event)
 /// event.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCDTMFToneChangeEvent).
 extension type RTCDTMFToneChangeEvent._(JSObject _) implements Event, JSObject {
   external factory RTCDTMFToneChangeEvent(
     String type, [
@@ -1427,6 +1527,11 @@ extension type RTCDTMFToneChangeEventInit._(JSObject _)
 /// in which each key is an identifier for an object for which statistics are
 /// being reported, and the corresponding value is a dictionary object providing
 /// the statistics.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCStatsReport).
 extension type RTCStatsReport._(JSObject _) implements JSObject {}
 extension type RTCStats._(JSObject _) implements JSObject {
   external factory RTCStats({
@@ -1448,6 +1553,11 @@ extension type RTCStats._(JSObject _) implements JSObject {
 /// [WebRTC](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
 /// operations. It's based upon the standard [DOMException] interface that
 /// describes general DOM errors.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCError).
 extension type RTCError._(JSObject _) implements DOMException, JSObject {
   external factory RTCError(
     RTCErrorInit init, [
@@ -1484,6 +1594,11 @@ extension type RTCErrorInit._(JSObject _) implements JSObject {
 /// The WebRTC API's **`RTCErrorEvent`** interface represents an error sent to a
 /// WebRTC object. It's based on the standard [Event] interface, but adds
 /// RTC-specific information describing the error, as shown below.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCErrorEvent).
 extension type RTCErrorEvent._(JSObject _) implements Event, JSObject {
   external factory RTCErrorEvent(
     String type,

@@ -18,6 +18,11 @@ import 'hr_time.dart';
 /// A **`VideoPlaybackQuality`** object is returned by the
 /// [HTMLVideoElement.getVideoPlaybackQuality] method and contains metrics that
 /// can be used to determine the playback quality of a video.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/VideoPlaybackQuality).
 extension type VideoPlaybackQuality._(JSObject _) implements JSObject {
   external DOMHighResTimeStamp get creationTime;
   external int get droppedVideoFrames;

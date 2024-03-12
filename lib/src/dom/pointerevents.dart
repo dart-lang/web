@@ -107,6 +107,11 @@ extension type PointerEventInit._(JSObject _)
 /// element for a pointer event. Typically, this is determined by considering
 /// the pointer's location and also the visual layout of elements in a document
 /// on screen media.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent).
 extension type PointerEvent._(JSObject _) implements MouseEvent, JSObject {
   external factory PointerEvent(
     String type, [

@@ -59,6 +59,27 @@ Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ip
 ''');
     });
 
+    test('tables don\'t wrap', () {
+      compare('''
+Some text.
+
+| Attribute | Namespace name | Namespace prefix | Attribute local name | Attribute qualified name |
+| --------- | -------------- | ---------------- | -------------------- | ------------------------ |
+| `myAttr`  | _none_         | _none_           | `myAttr`             | `myAttr`                 |
+| `myAttr`  | `mynamespace`  | _none_           | `myAttr`             | `myAttr`                 |
+| `myAttr`  | `mynamespace`  | `myns`           | `myAttr`             | `myns:myAttr`            |
+
+''', '''
+/// Some text.
+///
+/// | Attribute | Namespace name | Namespace prefix | Attribute local name | Attribute qualified name |
+/// | --------- | -------------- | ---------------- | -------------------- | ------------------------ |
+/// | `myAttr`  | _none_         | _none_           | `myAttr`             | `myAttr`                 |
+/// | `myAttr`  | `mynamespace`  | _none_           | `myAttr`             | `myAttr`                 |
+/// | `myAttr`  | `mynamespace`  | `myns`           | `myAttr`             | `myns:myAttr`            |
+''');
+    });
+
     test('references', () {
       compare('''
 [foo]

@@ -20,6 +20,11 @@ import 'fs.dart';
 /// provides an interface for managing persistence permissions and estimating
 /// available storage. You can get a reference to this interface using either
 /// [navigator.storage] or [WorkerNavigator.storage].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/StorageManager).
 extension type StorageManager._(JSObject _) implements JSObject {
   /// The **`getDirectory()`** method of the [StorageManager] interface is used
   /// to obtain a reference to a [FileSystemDirectoryHandle] object allowing

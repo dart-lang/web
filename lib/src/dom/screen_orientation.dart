@@ -25,6 +25,11 @@ typedef OrientationType = String;
 ///
 /// A **`ScreenOrientation`** instance object can be retrieved using the
 /// [screen.orientation] property.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ScreenOrientation).
 extension type ScreenOrientation._(JSObject _)
     implements EventTarget, JSObject {
   /// The **`lock()`** property of the [ScreenOrientation] interface locks the

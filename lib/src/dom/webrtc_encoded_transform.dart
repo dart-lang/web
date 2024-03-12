@@ -121,6 +121,11 @@ extension type RTCEncodedVideoFrameMetadata._(JSObject _) implements JSObject {
 ///
 /// > **Note:** This feature is available in
 /// > [_Dedicated_ Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API#worker_types).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCEncodedVideoFrame).
 extension type RTCEncodedVideoFrame._(JSObject _) implements JSObject {
   /// The **`getMetadata()`** method of the [RTCEncodedVideoFrame] interface
   /// returns an object containing the metadata associated with the frame.
@@ -171,6 +176,11 @@ extension type RTCEncodedAudioFrameMetadata._(JSObject _) implements JSObject {
 ///
 /// > **Note:** This feature is available in
 /// > [_Dedicated_ Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API#worker_types).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCEncodedAudioFrame).
 extension type RTCEncodedAudioFrame._(JSObject _) implements JSObject {
   /// The **`getMetadata()`** method of the [RTCEncodedAudioFrame] interface
   /// returns an object containing the metadata associated with the frame.
@@ -197,6 +207,11 @@ extension type RTCEncodedAudioFrame._(JSObject _) implements JSObject {
 ///
 /// At time of writing there is just one event based on `RTCTransformEvent`:
 /// [DedicatedWorkerGlobalScope.rtctransform_event].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCTransformEvent).
 extension type RTCTransformEvent._(JSObject _) implements Event, JSObject {
   external RTCRtpScriptTransformer get transformer;
 }
@@ -212,6 +227,11 @@ extension type RTCTransformEvent._(JSObject _) implements Event, JSObject {
 ///
 /// > **Note:** This feature is available in
 /// > [_Dedicated_ Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API#worker_types).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpScriptTransformer).
 extension type RTCRtpScriptTransformer._(JSObject _)
     implements EventTarget, JSObject {
   /// The **`generateKeyFrame()`** method of the [RTCRtpScriptTransformer]
@@ -251,6 +271,11 @@ extension type RTCRtpScriptTransformer._(JSObject _)
 /// [WebRTC Encoded Transform](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Using_Encoded_Transforms)
 /// (a [TransformStream] running in a worker thread) into the WebRTC sender and
 /// receiver pipelines.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpScriptTransform).
 extension type RTCRtpScriptTransform._(JSObject _) implements JSObject {
   external factory RTCRtpScriptTransform(
     Worker worker, [

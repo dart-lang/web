@@ -62,6 +62,11 @@ extension type TimelineRangeOffset._(JSObject _) implements JSObject {
 ///
 /// As animations play, they report changes to their [Animation.playState]
 /// through animation events.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AnimationPlaybackEvent).
 extension type AnimationPlaybackEvent._(JSObject _) implements Event, JSObject {
   external factory AnimationPlaybackEvent(
     String type, [

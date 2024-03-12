@@ -19,6 +19,11 @@ import 'dom.dart';
 /// The **`AnimationEvent`** interface represents events providing information
 /// related to
 /// [animations](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animations/Using_CSS_animations).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AnimationEvent).
 extension type AnimationEvent._(JSObject _) implements Event, JSObject {
   external factory AnimationEvent(
     String type, [
@@ -51,6 +56,11 @@ extension type AnimationEventInit._(JSObject _) implements EventInit, JSObject {
 /// of styles for a given keyframe. It corresponds to the contents of a single
 /// keyframe of a
 /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSKeyframeRule).
 extension type CSSKeyframeRule._(JSObject _) implements CSSRule, JSObject {
   external set keyText(String value);
   external String get keyText;
@@ -61,6 +71,11 @@ extension type CSSKeyframeRule._(JSObject _) implements CSSRule, JSObject {
 /// complete set of keyframes for a CSS animation. It corresponds to the
 /// contents of a whole
 /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSKeyframesRule).
 extension type CSSKeyframesRule._(JSObject _) implements CSSRule, JSObject {
   /// The **`appendRule()`** method of the [CSSKeyframeRule] interface appends a
   /// [CSSKeyFrameRule] to the end of the rules.

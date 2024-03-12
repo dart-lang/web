@@ -24,6 +24,11 @@ typedef XMLHttpRequestResponseType = String;
 ///
 /// You don't use `XMLHttpRequestEventTarget` directly; instead you interact
 /// with the sub classes.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequestEventTarget).
 extension type XMLHttpRequestEventTarget._(JSObject _)
     implements EventTarget, JSObject {
   external set onloadstart(EventHandler value);
@@ -49,6 +54,11 @@ extension type XMLHttpRequestEventTarget._(JSObject _)
 /// [XMLHttpRequest.upload].
 ///
 /// @AvailableInWorkers("notservice")
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequestUpload).
 extension type XMLHttpRequestUpload._(JSObject _)
     implements XMLHttpRequestEventTarget, JSObject {}
 
@@ -68,6 +78,11 @@ extension type XMLHttpRequestUpload._(JSObject _)
 /// may be a better choice.
 ///
 /// @AvailableInWorkers("notservice")
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest).
 extension type XMLHttpRequest._(JSObject _)
     implements XMLHttpRequestEventTarget, JSObject {
   external factory XMLHttpRequest();
@@ -227,6 +242,11 @@ extension type XMLHttpRequest._(JSObject _)
 /// An object implementing `FormData` can directly be used in a `for...of`
 /// structure, instead of [FormData.entries]: `for (const p of myFormData)` is
 /// equivalent to `for (const p of myFormData.entries())`.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FormData).
 extension type FormData._(JSObject _) implements JSObject {
   external factory FormData([
     HTMLFormElement form,
@@ -285,6 +305,11 @@ extension type FormData._(JSObject _) implements JSObject {
 /// underlying process, like an HTTP request (for an `XMLHttpRequest`, or the
 /// loading of the underlying resource of an `img`, `audio`, `video`, `style` or
 /// `link`).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ProgressEvent).
 extension type ProgressEvent._(JSObject _) implements Event, JSObject {
   external factory ProgressEvent(
     String type, [

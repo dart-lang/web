@@ -69,6 +69,11 @@ typedef SlotAssignmentMode = String;
 /// such events depends on the
 /// [Event bubbling and capture](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#event_bubbling_and_capture)
 /// settings of each handler triggered.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Event).
 extension type Event._(JSObject _) implements JSObject {
   external factory Event(
     String type, [
@@ -186,6 +191,11 @@ extension type EventInit._(JSObject _) implements JSObject {
 /// > this issue clone the object. See
 /// > [Share objects with page scripts](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Sharing_objects_with_page_scripts)
 /// > for more information.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent).
 extension type CustomEvent._(JSObject _) implements Event, JSObject {
   external factory CustomEvent(
     String type, [
@@ -244,6 +254,11 @@ extension type CustomEventInit._(JSObject _) implements EventInit, JSObject {
 /// setting
 /// [event handlers](https://developer.mozilla.org/en-US/docs/Web/Events/Event_handlers)
 /// via `onevent` properties and attributes.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget).
 extension type EventTarget._(JSObject _) implements JSObject {
   external factory EventTarget();
 
@@ -388,6 +403,11 @@ extension type AddEventListenerOptions._(JSObject _)
 /// You can create a new `AbortController` object using the
 /// [AbortController.AbortController] constructor. Communicating with an
 /// asynchronous operation is done using an [AbortSignal] object.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AbortController).
 extension type AbortController._(JSObject _) implements JSObject {
   external factory AbortController();
 
@@ -403,6 +423,11 @@ extension type AbortController._(JSObject _) implements JSObject {
 /// The **`AbortSignal`** interface represents a signal object that allows you
 /// to communicate with an asynchronous operation (such as a fetch request) and
 /// abort it if required via an [AbortController] object.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal).
 extension type AbortSignal._(JSObject _) implements EventTarget, JSObject {
   external static AbortSignal abort([JSAny? reason]);
   external static AbortSignal timeout(int milliseconds);
@@ -434,6 +459,11 @@ extension type AbortSignal._(JSObject _) implements EventTarget, JSObject {
 /// > **Note:** Although `NodeList` is not an `Array`, it is possible to iterate
 /// > over it with `forEach()`. It can also be converted to a real `Array` using
 /// > `Array.from()`.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NodeList).
 extension type NodeList._(JSObject _) implements JSObject {
   /// Returns a node from a
   /// [`NodeList`](https://developer.mozilla.org/en-US/docs/Web/API/NodeList) by
@@ -467,6 +497,11 @@ extension type NodeList._(JSObject _) implements JSObject {
 /// > so you can treat them like ECMAScript arrays, and at the same time impose
 /// > additional semantics on their usage (such as making their items
 /// > read-only).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCollection).
 extension type HTMLCollection._(JSObject _) implements JSObject {
   /// The [HTMLCollection] method `item()`
   /// returns the element located at the specified offset into the collection.
@@ -495,6 +530,11 @@ extension type HTMLCollection._(JSObject _) implements JSObject {
 /// tree. It is designed as a replacement for the older
 /// [Mutation Events](https://developer.mozilla.org/en-US/docs/Web/API/MutationEvent)
 /// feature, which was part of the DOM3 Events specification.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver).
 extension type MutationObserver._(JSObject _) implements JSObject {
   external factory MutationObserver(MutationCallback callback);
 
@@ -565,6 +605,11 @@ extension type MutationObserverInit._(JSObject _) implements JSObject {
 /// The [MutationRecord] is a read-only interface that represents an individual
 /// DOM mutation observed by a [MutationObserver]. It is the object inside the
 /// array passed to the callback of a [MutationObserver].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MutationRecord).
 extension type MutationRecord._(JSObject _) implements JSObject {
   external String get type;
   external Node get target;
@@ -598,6 +643,11 @@ extension type MutationRecord._(JSObject _) implements JSObject {
 /// attempting to add children to a node type that cannot have children will
 /// throw an
 /// exception.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Node).
 extension type Node._(JSObject _) implements EventTarget, JSObject {
   external static int get ELEMENT_NODE;
   external static int get ATTRIBUTE_NODE;
@@ -833,6 +883,11 @@ external Document get document;
 /// API is available: HTML documents, served with the `"text/html"` content
 /// type, also implement the [HTMLDocument] interface, whereas XML and SVG
 /// documents implement the [XMLDocument] interface.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Document).
 extension type Document._(JSObject _) implements Node, JSObject {
   external factory Document();
 
@@ -1587,6 +1642,11 @@ extension type Document._(JSObject _) implements Node, JSObject {
 /// the generic [Document] and does not add any specific methods or properties
 /// to it: nevertheless, several algorithms behave differently with the two
 /// types of documents.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XMLDocument).
 extension type XMLDocument._(JSObject _) implements Document, JSObject {}
 extension type ElementCreationOptions._(JSObject _) implements JSObject {
   external factory ElementCreationOptions({String is_});
@@ -1600,6 +1660,11 @@ extension type ElementCreationOptions._(JSObject _) implements JSObject {
 /// The **`DOMImplementation`** interface represents an object providing methods
 /// which are not dependent on any particular document. Such an object is
 /// returned by the [Document.implementation] property.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMImplementation).
 extension type DOMImplementation._(JSObject _) implements JSObject {
   /// The **`DOMImplementation.createDocumentType()`** method returns
   /// a [DocumentType] object which can either be used with
@@ -1639,6 +1704,11 @@ extension type DOMImplementation._(JSObject _) implements JSObject {
 }
 
 /// The **`DocumentType`** interface represents a [Node] containing a doctype.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DocumentType).
 extension type DocumentType._(JSObject _) implements Node, JSObject {
   /// The **`DocumentType.before()`** method inserts a set of
   /// [Node] objects or strings in the children list of the
@@ -1671,6 +1741,11 @@ extension type DocumentType._(JSObject _) implements Node, JSObject {
 /// difference is due to the fact that the document fragment isn't part of the
 /// active document tree structure. Changes made to the fragment don't affect
 /// the document.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment).
 extension type DocumentFragment._(JSObject _) implements Node, JSObject {
   external factory DocumentFragment();
 
@@ -1746,6 +1821,11 @@ extension type DocumentFragment._(JSObject _) implements Node, JSObject {
 /// You can retrieve a reference to an element's shadow root using its
 /// [Element.shadowRoot] property, provided it was created using
 /// [Element.attachShadow] with the `mode` option set to `open`.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot).
 extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   external void setHTMLUnsafe(String html);
 
@@ -1784,6 +1864,11 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
 ///
 /// Languages outside the realm of the Web platform, like XUL through the
 /// `XULElement` interface, also implement `Element`.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Element).
 extension type Element._(JSObject _) implements Node, JSObject {
   /// The **`insertAdjacentHTML()`** method of the
   /// [Element] interface parses the specified text as HTML or XML and inserts
@@ -2336,6 +2421,11 @@ extension type ShadowRootInit._(JSObject _) implements JSObject {
 /// > **Note:** Although called `NamedNodeMap`, this interface doesn't deal with
 /// > [Node] objects but with [Attr] objects, which are a specialized class of
 /// > [Node] objects.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NamedNodeMap).
 extension type NamedNodeMap._(JSObject _) implements JSObject {
   /// The **`item()`** method of the [NamedNodeMap] interface
   /// returns the item in the map matching the index.
@@ -2408,16 +2498,11 @@ extension type NamedNodeMap._(JSObject _) implements JSObject {
 /// attribute outside of a namespace, an attribute inside a namespace without a
 /// prefix defined, an attribute inside a namespace with a prefix:
 ///
-/// | Attribute | Namespace name | Namespace prefix | Attribute local name |
-/// Attribute qualified name |
-/// | --------- | -------------- | ---------------- | -------------------- |
-/// ------------------------ |
-/// | `myAttr`  | _none_         | _none_           | `myAttr`             |
-/// `myAttr`                 |
-/// | `myAttr`  | `mynamespace`  | _none_           | `myAttr`             |
-/// `myAttr`                 |
-/// | `myAttr`  | `mynamespace`  | `myns`           | `myAttr`             |
-/// `myns:myAttr`            |
+/// | Attribute | Namespace name | Namespace prefix | Attribute local name | Attribute qualified name |
+/// | --------- | -------------- | ---------------- | -------------------- | ------------------------ |
+/// | `myAttr`  | _none_         | _none_           | `myAttr`             | `myAttr`                 |
+/// | `myAttr`  | `mynamespace`  | _none_           | `myAttr`             | `myAttr`                 |
+/// | `myAttr`  | `mynamespace`  | `myns`           | `myAttr`             | `myns:myAttr`            |
 ///
 /// > **Note:** This interface represents only attributes present in the tree
 /// > representation of the [Element], being a SVG, an HTML or a MathML element.
@@ -2425,6 +2510,11 @@ extension type NamedNodeMap._(JSObject _) implements JSObject {
 /// > element, such as [HTMLTableElement] for a `table` element. (See  for more
 /// > information about attributes and how they are _reflected_ into
 /// > properties.)
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Attr).
 extension type Attr._(JSObject _) implements Node, JSObject {
   external String? get namespaceURI;
   external String? get prefix;
@@ -2441,6 +2531,11 @@ extension type Attr._(JSObject _) implements Node, JSObject {
 /// objects of type `CharacterData`: it is implemented by other interfaces like
 /// [Text], [Comment], [CDATASection], or [ProcessingInstruction], which aren't
 /// abstract.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CharacterData).
 extension type CharacterData._(JSObject _) implements Node, JSObject {
   /// The **`substringData()`** method of the [CharacterData] interface
   /// returns a portion of the existing data,
@@ -2541,6 +2636,11 @@ extension type CharacterData._(JSObject _) implements Node, JSObject {
 ///
 /// Each of those text nodes is an object that has the properties and methods
 /// documented in this article.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Text).
 extension type Text._(JSObject _) implements CharacterData, JSObject {
   external factory Text([String data]);
 
@@ -2605,6 +2705,11 @@ extension type Text._(JSObject _) implements CharacterData, JSObject {
 ///
 /// > **Note:** CDATA sections should not be used within HTML they are
 /// > considered as comments and not displayed.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CDATASection).
 extension type CDATASection._(JSObject _) implements Text, JSObject {}
 
 /// The **`ProcessingInstruction`** interface represents a
@@ -2633,6 +2738,11 @@ extension type CDATASection._(JSObject _) implements Text, JSObject {}
 /// ```
 ///
 /// is a processing instruction whose `target` is `xml`.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ProcessingInstruction).
 extension type ProcessingInstruction._(JSObject _)
     implements CharacterData, JSObject {
   external String get target;
@@ -2646,6 +2756,11 @@ extension type ProcessingInstruction._(JSObject _)
 /// Comments are represented in HTML and XML as content between '`<!--`' and
 /// '`-->`'. In XML, like inside SVG or MathML markup, the character sequence
 /// '`--`' cannot be used within a comment.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Comment).
 extension type Comment._(JSObject _) implements CharacterData, JSObject {
   external factory Comment([String data]);
 }
@@ -2659,6 +2774,11 @@ extension type Comment._(JSObject _) implements CharacterData, JSObject {
 /// > [StaticRange] interfaces. To understand the difference between those two
 /// > interfaces, and how to choose which is appropriate for your needs, consult
 /// > each interface's documentation.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AbstractRange).
 extension type AbstractRange._(JSObject _) implements JSObject {
   external Node get startContainer;
   external int get startOffset;
@@ -2695,6 +2815,11 @@ extension type StaticRangeInit._(JSObject _) implements JSObject {
 ///
 /// `AbstractRange` and `StaticRange` are not available from
 /// [web workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/StaticRange).
 extension type StaticRange._(JSObject _) implements AbstractRange, JSObject {
   external factory StaticRange(StaticRangeInit init);
 }
@@ -2708,6 +2833,11 @@ extension type StaticRange._(JSObject _) implements AbstractRange, JSObject {
 /// [Document] object.
 ///
 /// There also is the [Range.Range] constructor available.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Range).
 extension type Range._(JSObject _) implements AbstractRange, JSObject {
   external factory Range();
 
@@ -2946,6 +3076,11 @@ extension type Range._(JSObject _) implements AbstractRange, JSObject {
 
 /// The **`NodeIterator`** interface represents an iterator to traverse nodes of
 /// a DOM subtree in document order.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NodeIterator).
 extension type NodeIterator._(JSObject _) implements JSObject {
   /// The **`NodeIterator.nextNode()`** method returns the next node
   /// in the set represented by the [NodeIterator] and advances the position of
@@ -2995,6 +3130,11 @@ extension type NodeIterator._(JSObject _) implements JSObject {
 /// position within them.
 ///
 /// A `TreeWalker` can be created using the [Document.createTreeWalker] method.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TreeWalker).
 extension type TreeWalker._(JSObject _) implements JSObject {
   /// The **`TreeWalker.parentNode()`** method moves the current
   /// [Node] to the first _visible_ ancestor node in the document order,
@@ -3052,6 +3192,11 @@ extension type TreeWalker._(JSObject _) implements JSObject {
 ///
 /// A `DOMTokenList` is indexed beginning with `0` as with JavaScript `Array`
 /// objects. `DOMTokenList` is always case-sensitive.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList).
 extension type DOMTokenList._(JSObject _) implements JSObject {
   /// The **`item()`** method of the [DOMTokenList] interface returns an item in
   /// the list,
@@ -3109,6 +3254,11 @@ extension type DOMTokenList._(JSObject _) implements JSObject {
 /// Since XPath expressions can result in a variety of result types, this
 /// interface makes it possible to determine and handle the type and value of
 /// the result.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XPathResult).
 extension type XPathResult._(JSObject _) implements JSObject {
   external static int get ANY_TYPE;
   external static int get NUMBER_TYPE;
@@ -3151,6 +3301,11 @@ extension type XPathResult._(JSObject _) implements JSObject {
 ///
 /// Objects of this type are created by calling
 /// [XPathEvaluator.createExpression].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XPathExpression).
 extension type XPathExpression._(JSObject _) implements JSObject {
   /// The **`evaluate()`** method of the
   /// [XPathExpression] interface executes an
@@ -3165,6 +3320,11 @@ extension type XPathExpression._(JSObject _) implements JSObject {
 }
 
 /// The `XPathEvaluator` interface allows to compile and evaluate  expressions.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XPathEvaluator).
 extension type XPathEvaluator._(JSObject _) implements JSObject {
   external factory XPathEvaluator();
 
@@ -3207,6 +3367,11 @@ extension type XPathEvaluator._(JSObject _) implements JSObject {
 /// stylesheet, to
 /// manipulate `<xsl:param>` parameter values, and to apply the
 /// transformation to documents.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XSLTProcessor).
 extension type XSLTProcessor._(JSObject _) implements JSObject {
   external factory XSLTProcessor();
 

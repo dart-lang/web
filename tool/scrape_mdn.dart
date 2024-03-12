@@ -134,12 +134,9 @@ String? findTitle(String content) {
       final key = line.substring(0, index).trim();
 
       if (key == 'title') {
-        var value = line.substring(index + 1).trim();
-        if (value.contains(' ')) {
-          // Work around 'title: Foo (Bar)'.
-          value = value.substring(0, value.indexOf(' '));
-        }
-        return value;
+        final value = line.substring(index + 1).trim();
+        // Work around 'title: Foo (Bar)'.
+        return value.split(' ').first;
       }
     }
   }

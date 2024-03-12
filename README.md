@@ -2,7 +2,8 @@
 [![pub package](https://img.shields.io/pub/v/web.svg)](https://pub.dev/packages/web)
 [![package publisher](https://img.shields.io/pub/publisher/web.svg)](https://pub.dev/packages/web/publisher)
 
-Lightweight browser API bindings built around JS static interop.
+Lightweight browser API bindings built around
+[JS interop](https://dart.dev/interop/js-interop).
 
 ## What's this?
 

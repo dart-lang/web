@@ -27,7 +27,12 @@ typedef CompressionFormat = String;
 extension type CompressionStream._(JSObject _) implements JSObject {
   external factory CompressionStream(CompressionFormat format);
 
+  /// The **`readable`** read-only property of the [CompressionStream] interface
+  /// returns a [ReadableStream].
   external ReadableStream get readable;
+
+  /// The **`writable`** read-only property of the [CompressionStream] interface
+  /// returns a [WritableStream].
   external WritableStream get writable;
 }
 
@@ -41,6 +46,11 @@ extension type CompressionStream._(JSObject _) implements JSObject {
 extension type DecompressionStream._(JSObject _) implements JSObject {
   external factory DecompressionStream(CompressionFormat format);
 
+  /// The **`readable`** read-only property of the [DecompressionStream]
+  /// interface returns a [ReadableStream].
   external ReadableStream get readable;
+
+  /// The **`writable`** read-only property of the [DecompressionStream]
+  /// interface returns a [WritableStream].
   external WritableStream get writable;
 }

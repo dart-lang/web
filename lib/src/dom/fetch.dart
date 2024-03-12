@@ -225,23 +225,111 @@ extension type Request._(JSObject _) implements JSObject {
   /// `String`.
   /// The response is _always_ decoded using UTF-8.
   external JSPromise<JSString> text();
+
+  /// The **`method`** read-only property of the
+  /// [Request] interface contains the request's method (`GET`,
+  /// `POST`, etc.)
   external String get method;
+
+  /// The **`url`** read-only property of the [Request]
+  /// interface contains the URL of the request.
   external String get url;
+
+  /// The **`headers`** read-only property of the
+  /// [Request] interface contains the [Headers] object associated
+  /// with the request.
   external Headers get headers;
+
+  /// The **`destination`** read-only
+  /// property of the **[Request]** interface returns a string
+  /// describing the type of content being requested.
+  ///
+  /// The string must be one of the `audio`, `audioworklet`,
+  /// `document`, `embed`, `fencedframe`, `font`, `frame`,
+  /// `iframe`, `image`, `manifest`, `object`,
+  /// `paintworklet`, `report`, `script`, `sharedworker`,
+  /// `style`, `track`, `video`, `worker`
+  /// or `xslt` strings, or the empty string, which is the default value.
+  ///
+  /// The `destination` is used by the  to, for example,
+  /// help determine which set of rules to follow for CORS purposes, or how to
+  /// navigate any
+  /// complicated code paths that affect how specific types of request get
+  /// handled.
+  ///
+  /// These destinations vary substantially in how they operate. Some are data
+  /// receptacles,
+  /// where the received data is stored for processing later. Others are
+  /// script-based, in
+  /// which case the received data is delivered to a script by calling it and
+  /// passing the data
+  /// along. Script-based destinations include `script` elements, as well as
+  /// any of the [Worklet]-based destinations
+  /// (including subclasses like [AudioWorklet]), and the
+  /// [Worker]-based destinations, including [ServiceWorker]
+  /// and [SharedWorker].
   external RequestDestination get destination;
+
+  /// The **`referrer`** read-only property of the
+  /// [Request] interface is set by the user agent to be the referrer of the
+  /// Request. (e.g., `client`, `no-referrer`, or a URL.)
+  ///
+  /// > **Note:** If `referrer`'s value is `no-referrer`,
+  /// > it returns an empty string.
   external String get referrer;
+
+  /// The **`referrerPolicy`** read-only property of the
+  /// [Request] interface returns the referrer policy, which governs what
+  /// referrer information, sent in the `Referer` header, should be included
+  /// with the request.
   external ReferrerPolicy get referrerPolicy;
+
+  /// The **`mode`** read-only property of the [Request]
+  /// interface contains the mode of the request (e.g., `cors`,
+  /// `no-cors`, `same-origin`, `navigate` or `websocket`.) This is used
+  /// to determine if cross-origin requests lead to valid responses, and which
+  /// properties of the response are readable.
   external RequestMode get mode;
+
+  /// The **`credentials`** read-only property of the [Request] interface
+  /// indicates whether the user agent should send or receive cookies from the
+  /// other domain in the case of cross-origin requests.
   external RequestCredentials get credentials;
+
+  /// The **`cache`** read-only property of the [Request] interface contains the
+  /// cache mode of the request. It controls how the request will interact with
+  /// the browser's
+  /// [HTTP cache](https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching).
   external RequestCache get cache;
+
+  /// The **`redirect`** read-only property of the [Request] interface contains
+  /// the mode for how redirects are handled.
   external RequestRedirect get redirect;
+
+  /// The **`integrity`** read-only property of the [Request] interface contains
+  /// the
+  /// [subresource integrity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity)
+  /// value of the request.
   external String get integrity;
   external bool get keepalive;
   external bool get isReloadNavigation;
   external bool get isHistoryNavigation;
+
+  /// The read-only **`signal`** property of the [Request] interface returns the
+  /// [AbortSignal] associated with the request.
   external AbortSignal get signal;
   external RequestDuplex get duplex;
+
+  /// The read-only **`body`** property of the [Request]
+  /// interface contains a [ReadableStream] with the body contents
+  /// that have been added to the request. Note that a request using the
+  /// `GET` or `HEAD` method cannot have a body
+  /// and `null` is returned in these cases.
   external ReadableStream? get body;
+
+  /// The read-only **`bodyUsed`** property of the
+  /// [Request] interface is a boolean value that indicates
+  /// whether the request body has been read yet.
   external bool get bodyUsed;
 }
 extension type RequestInit._(JSObject _) implements JSObject {
@@ -263,36 +351,36 @@ extension type RequestInit._(JSObject _) implements JSObject {
     JSAny? window,
   });
 
-  external set method(String value);
   external String get method;
-  external set headers(HeadersInit value);
+  external set method(String value);
   external HeadersInit get headers;
-  external set body(BodyInit? value);
+  external set headers(HeadersInit value);
   external BodyInit? get body;
-  external set referrer(String value);
+  external set body(BodyInit? value);
   external String get referrer;
-  external set referrerPolicy(ReferrerPolicy value);
+  external set referrer(String value);
   external ReferrerPolicy get referrerPolicy;
-  external set mode(RequestMode value);
+  external set referrerPolicy(ReferrerPolicy value);
   external RequestMode get mode;
-  external set credentials(RequestCredentials value);
+  external set mode(RequestMode value);
   external RequestCredentials get credentials;
-  external set cache(RequestCache value);
+  external set credentials(RequestCredentials value);
   external RequestCache get cache;
-  external set redirect(RequestRedirect value);
+  external set cache(RequestCache value);
   external RequestRedirect get redirect;
-  external set integrity(String value);
+  external set redirect(RequestRedirect value);
   external String get integrity;
-  external set keepalive(bool value);
+  external set integrity(String value);
   external bool get keepalive;
-  external set signal(AbortSignal? value);
+  external set keepalive(bool value);
   external AbortSignal? get signal;
-  external set duplex(RequestDuplex value);
+  external set signal(AbortSignal? value);
   external RequestDuplex get duplex;
-  external set priority(RequestPriority value);
+  external set duplex(RequestDuplex value);
   external RequestPriority get priority;
-  external set window(JSAny? value);
+  external set priority(RequestPriority value);
   external JSAny? get window;
+  external set window(JSAny? value);
 }
 
 /// The **`Response`** interface of the
@@ -398,14 +486,79 @@ extension type Response._(JSObject _) implements JSObject {
   /// It returns a promise that resolves with a `String`.
   /// The response is _always_ decoded using UTF-8.
   external JSPromise<JSString> text();
+
+  /// The **`type`** read-only property of the [Response] interface contains the
+  /// type of the response.
+  /// It can be one of the following:
+  ///
+  /// - `basic`: Normal, same origin response, with all headers exposed except
+  ///   "Set-Cookie".
+  /// - `cors`: Response was received from a valid cross-origin request.
+  ///   [Certain headers and the body](https://fetch.spec.whatwg.org/#concept-filtered-response-cors)
+  ///   may be accessed.
+  /// - `error`: Network error.
+  /// No useful information describing the error is available.
+  /// The Response's status is 0, headers are empty and immutable.
+  /// This is the type for a Response obtained from `Response.error()`.
+  /// - `opaque`: Response for "no-cors" request to cross-origin resource.
+  /// [Severely restricted](https://fetch.spec.whatwg.org/#concept-filtered-response-opaque).
+  /// - `opaqueredirect`: The fetch request was made with `redirect: "manual"`.
+  /// The Response's status is 0, headers are empty, body is null and trailer is
+  /// empty.
+  ///
+  /// > **Note:** An "error" Response never really gets exposed to script: such
+  /// > a response to a [fetch] would reject the promise.
   external ResponseType get type;
+
+  /// The **`url`** read-only property of the [Response] interface contains the
+  /// URL of the response.
+  /// The value of the `url` property will be the final URL obtained after any
+  /// redirects.
   external String get url;
+
+  /// The read-only **`redirected`** property of the [Response] interface
+  /// indicates whether or not the response is the result of a request you made
+  /// which was redirected.
+  ///
+  /// > **Note:** Relying on redirected to filter out redirects makes it easy
+  /// > for a forged redirect to prevent your content from working as expected.
+  /// > Instead, you should do the filtering when you call [fetch].
+  /// > See the example [Disallowing redirects](#disallowing_redirects), which
+  /// > shows this being done.
   external bool get redirected;
+
+  /// The **`status`** read-only property of the [Response] interface contains
+  /// the
+  /// [HTTP status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+  /// of the response.
+  ///
+  /// For example, `200` for success, `404` if the resource could not be found.
   external int get status;
+
+  /// The **`ok`** read-only property of the [Response] interface contains a
+  /// Boolean stating whether the response was successful (status in the range
+  /// 200-299) or not.
   external bool get ok;
+
+  /// The **`statusText`** read-only property of the [Response] interface
+  /// contains the status message corresponding to the HTTP status code in
+  /// [Response.status].
+  ///
+  /// For example, this would be `OK` for a status code `200`, `Continue` for
+  /// `100`, `Not Found` for `404`.
   external String get statusText;
+
+  /// The **`headers`** read-only property of the
+  /// [Response] interface contains the [Headers] object associated
+  /// with the response.
   external Headers get headers;
+
+  /// The **`body`** read-only property of the [Response] interface is a
+  /// [ReadableStream] of the body contents.
   external ReadableStream? get body;
+
+  /// The **`bodyUsed`** read-only property of the [Response] interface is a
+  /// boolean value that indicates whether the body has been read yet.
   external bool get bodyUsed;
 }
 extension type ResponseInit._(JSObject _) implements JSObject {
@@ -415,10 +568,10 @@ extension type ResponseInit._(JSObject _) implements JSObject {
     HeadersInit headers,
   });
 
-  external set status(int value);
   external int get status;
-  external set statusText(String value);
+  external set status(int value);
   external String get statusText;
-  external set headers(HeadersInit value);
+  external set statusText(String value);
   external HeadersInit get headers;
+  external set headers(HeadersInit value);
 }

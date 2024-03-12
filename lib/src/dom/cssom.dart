@@ -42,8 +42,15 @@ extension type MediaList._(JSObject _) implements JSObject {
   /// The `deleteMedium()` method of the [MediaList] interface removes from this
   /// `MediaList` the given media query.
   external void deleteMedium(String medium);
-  external set mediaText(String value);
+
+  /// The **`mediaText`** property of the [MediaList]
+  /// interface is a  that returns a string representing the
+  /// `MediaList` as text, and also allows you to set a new `MediaList`.
   external String get mediaText;
+  external set mediaText(String value);
+
+  /// The read-only **`length`** property of the [MediaList] interface returns
+  /// the number of media queries in the list.
   external int get length;
 }
 
@@ -56,14 +63,60 @@ extension type MediaList._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/StyleSheet).
 extension type StyleSheet._(JSObject _) implements JSObject {
+  /// The **`type`** property of the [StyleSheet]
+  /// interface specifies the style sheet language for the given style sheet.
   external String get type;
+
+  /// The **`href`** property of the [StyleSheet]
+  /// interface returns the location of the style sheet.
+  ///
+  /// This property is read-only.
   external String? get href;
+
+  /// The **`ownerNode`** property of the
+  /// [StyleSheet] interface returns the node that associates this style sheet
+  /// with the document.
+  ///
+  /// This is usually an HTML
+  /// [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link)
+  /// or
+  /// [`<style>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/style)
+  /// element, but
+  /// can also return a
+  /// [processing instruction node](https://developer.mozilla.org/en-US/docs/Web/API/ProcessingInstruction)
+  /// in the case of `<?xml-stylesheet ?>`.
   external JSObject? get ownerNode;
+
+  /// The **`parentStyleSheet`** property of the
+  /// [StyleSheet] interface returns the style sheet, if any, that is including
+  /// the given style sheet.
   external CSSStyleSheet? get parentStyleSheet;
+
+  /// The **`title`** property of the [StyleSheet] interface returns the
+  /// advisory title of the current style sheet.
+  ///
+  /// The title is often specified in the [StyleSheet.OwnerNode].
   external String? get title;
+
+  /// The **`media`** property of the [StyleSheet] interface specifies the
+  /// intended destination media for style information. It is a read-only,
+  /// array-like `MediaList` object and can be removed with `deleteMedium()` and
+  /// added with `appendMedium()`.
   external MediaList get media;
-  external set disabled(bool value);
+
+  /// The **`disabled`** property of the
+  /// [StyleSheet] interface determines whether the style sheet is prevented
+  /// from
+  /// applying to the document.
+  ///
+  /// A style sheet may be disabled by manually setting this property to `true`
+  /// or
+  /// if it's an inactive
+  /// [alternative style sheet](https://developer.mozilla.org/en-US/docs/Web/CSS/Alternative_style_sheets).
+  /// Note that `disabled === false` does not guarantee the style
+  /// sheet is applied (it could be removed from the document, for instance).
   external bool get disabled;
+  external set disabled(bool value);
 }
 
 /// The **`CSSStyleSheet`** interface represents a single
@@ -160,8 +213,33 @@ extension type CSSStyleSheet._(JSObject _) implements StyleSheet, JSObject {
   /// > the standard method [CSSStyleSheet.deleteRule]. You
   /// > should use that instead.
   external void removeRule([int index]);
+
+  /// The read-only [CSSStyleSheet] property
+  /// **`ownerRule`** returns the [CSSImportRule]
+  /// corresponding to the  at-rule which imported the stylesheet into
+  /// the document. If the stylesheet wasn't imported into the document using
+  /// `@import`, the returned value is `null`.
   external CSSRule? get ownerRule;
+
+  /// The read-only [CSSStyleSheet] property
+  /// **`cssRules`** returns a live [CSSRuleList] which
+  /// provides a real-time, up-to-date list of every CSS rule which comprises
+  /// the
+  /// stylesheet. Each item in the list is a [CSSRule] defining a single
+  /// rule.
   external CSSRuleList get cssRules;
+
+  /// **`rules`** is a _deprecated_
+  /// _legacy property_ of the [CSSStyleSheet] interface. Functionally
+  /// identical to the preferred [CSSStyleSheet.cssRules] property,
+  /// it provides access to a live-updating list of the CSS rules comprising the
+  /// stylesheet.
+  ///
+  /// > **Note:** As a legacy property, you should not use `rules` and
+  /// > should instead use the preferred [CSSStyleSheet.cssRules].
+  /// > While `rules` is unlikely to be removed soon, its availability is not as
+  /// > widespread and using it will result in compatibility problems for your
+  /// > site or app.
   external CSSRuleList get rules;
 }
 extension type CSSStyleSheetInit._(JSObject _) implements JSObject {
@@ -171,12 +249,12 @@ extension type CSSStyleSheetInit._(JSObject _) implements JSObject {
     bool disabled,
   });
 
-  external set baseURL(String value);
   external String get baseURL;
-  external set media(JSAny value);
+  external set baseURL(String value);
   external JSAny get media;
-  external set disabled(bool value);
+  external set media(JSAny value);
   external bool get disabled;
+  external set disabled(bool value);
 }
 
 /// The `StyleSheetList` interface represents a list of [CSSStyleSheet] objects.
@@ -202,6 +280,9 @@ extension type StyleSheetList._(JSObject _) implements JSObject {
   /// The **`item()`** method of the [StyleSheetList] interface returns a single
   /// [CSSStyleSheet] object.
   external CSSStyleSheet? item(int index);
+
+  /// The **`length`** read-only property of the [StyleSheetList] interface
+  /// returns the number of [CSSStyleSheet] objects in the collection.
   external int get length;
 }
 
@@ -236,6 +317,9 @@ extension type CSSRuleList._(JSObject _) implements JSObject {
   /// [CSSRule] object at the specified `index` or `null` if the specified
   /// `index` doesn't exist.
   external CSSRule? item(int index);
+
+  /// The **`length`** property of the [CSSRuleList] interface returns the
+  /// number of [CSSRule] objects in the list.
   external int get length;
 }
 
@@ -277,10 +361,56 @@ extension type CSSRule._(JSObject _) implements JSObject {
   external static int get PAGE_RULE;
   external static int get MARGIN_RULE;
   external static int get NAMESPACE_RULE;
-  external set cssText(String value);
+
+  /// The **`cssText`** property of the [CSSRule]
+  /// interface returns the actual text of a [CSSStyleSheet] style-rule.
+  ///
+  /// > **Note:** Do not confuse this property with element-style
+  /// > [CSSStyleDeclaration.cssText].
+  ///
+  /// Be aware that this property can no longer be set directly, as it is
+  /// [now specified](https://www.w3.org/TR/cssom-1/#changes-from-5-december-2013)
+  /// to be _functionally_ modify-only, and silently so. In other words,
+  /// attempting to
+  /// set it _does absolutely nothing_, and doesn't even omit a warning or
+  /// error.
+  /// Furthermore, it has no settable sub-properties. Therefore, to modify it,
+  /// use the
+  /// stylesheet's [CSSRuleList]`[index]` properties
+  /// [CSSStyleRule.selectorText] and
+  /// [CSSStyleRule.style] (or its sub-properties). See
+  /// [Using dynamic styling information](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model/Using_dynamic_styling_information)
+  /// for details.
   external String get cssText;
+  external set cssText(String value);
+
+  /// The **`parentRule`** property of the [CSSRule]
+  /// interface returns the containing rule of the current rule if this exists,
+  /// or otherwise
+  /// returns null.
   external CSSRule? get parentRule;
+
+  /// The **`parentStyleSheet`** property of the
+  /// [CSSRule] interface returns the [StyleSheet] object in which
+  /// the current rule is defined.
   external CSSStyleSheet? get parentStyleSheet;
+
+  /// The read-only **`type`** property of the
+  /// [CSSRule] interface is a deprecated property that returns an integer
+  /// indicating which type of rule the [CSSRule] represents.
+  ///
+  /// If you need to distinguish different types of CSS rule, a good alternative
+  /// is to use
+  /// [`constructor.name`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/name):
+  ///
+  /// ```js
+  /// const sheets = Array.from(document.styleSheets);
+  /// const rules = sheets.map((sheet) => Array.from(sheet.cssRules)).flat();
+  ///
+  /// for (const rule of rules) {
+  ///   console.log(rule.constructor.name);
+  /// }
+  /// ```
   external int get type;
 }
 
@@ -291,9 +421,20 @@ extension type CSSRule._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleRule).
 extension type CSSStyleRule._(JSObject _) implements CSSGroupingRule, JSObject {
+  /// The **`styleMap`** read-only property of the
+  /// [CSSStyleRule] interface returns a [StylePropertyMap] object
+  /// which provides access to the rule's property-value pairs.
   external StylePropertyMap get styleMap;
-  external set selectorText(String value);
+
+  /// The **`selectorText`** property of the [CSSStyleRule] interface gets and
+  /// sets the selectors associated with the `CSSStyleRule`.
   external String get selectorText;
+  external set selectorText(String value);
+
+  /// The read-only **`style`** property is the [CSSStyleDeclaration] interface
+  /// for the
+  /// [declaration block](https://www.w3.org/TR/1998/REC-CSS2-19980512/syndata.html#block)
+  /// of the [CSSStyleRule].
   external CSSStyleDeclaration get style;
 }
 
@@ -305,10 +446,45 @@ extension type CSSStyleRule._(JSObject _) implements CSSGroupingRule, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSImportRule).
 extension type CSSImportRule._(JSObject _) implements CSSRule, JSObject {
+  /// The read-only **`href`** property of the
+  /// [CSSImportRule] interface returns the URL specified by the
+  /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
+  ///
+  /// The resolved URL will be the
+  /// [`href`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#href)
+  /// attribute of the
+  /// associated stylesheet.
   external String get href;
+
+  /// The read-only **`media`** property of the
+  /// [CSSImportRule] interface returns a [MediaList] object,
+  /// containing the value of the `media` attribute of the associated
+  /// stylesheet.
   external MediaList get media;
+
+  /// The read-only **`styleSheet`** property of the
+  /// [CSSImportRule] interface returns the CSS Stylesheet specified by the
+  /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule). This
+  /// will be
+  /// in the form of a [CSSStyleSheet] object.
+  ///
+  /// An  [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule)
+  /// always has
+  /// an associated stylesheet.
   external CSSStyleSheet? get styleSheet;
+
+  /// The read-only **`layerName`** property of the [CSSImportRule] interface
+  /// returns the name of the cascade layer created by the
+  /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
+  ///
+  /// If the created layer is anonymous, the string is empty (`""`), if no layer
+  /// has been
+  /// created, it is the `null` object.
   external String? get layerName;
+
+  /// The read-only **`supportsText`** property of the [CSSImportRule] interface
+  /// returns the supports condition specified by the
+  /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
   external String? get supportsText;
 }
 
@@ -334,6 +510,10 @@ extension type CSSGroupingRule._(JSObject _) implements CSSRule, JSObject {
   /// [CSSGroupingRule] interface removes a CSS rule from a list of child CSS
   /// rules.
   external void deleteRule(int index);
+
+  /// The **`cssRules`** property of the
+  /// [CSSGroupingRule] interface returns a [CSSRuleList] containing
+  /// a collection of [CSSRule] objects.
   external CSSRuleList get cssRules;
 }
 
@@ -344,8 +524,16 @@ extension type CSSGroupingRule._(JSObject _) implements CSSRule, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSPageRule).
 extension type CSSPageRule._(JSObject _) implements CSSGroupingRule, JSObject {
-  external set selectorText(String value);
+  /// The **`selectorText`** property of the [CSSPageRule] interface gets and
+  /// sets the selectors associated with the `CSSPageRule`.
   external String get selectorText;
+  external set selectorText(String value);
+
+  /// The **`style`** read-only property of the [CSSPageRule] interface returns
+  /// a [CSSStyleDeclaration] object. This represents an object that is a
+  /// [CSS declaration block](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model/CSS_Declaration_Block),
+  /// and exposes style information and various style-related methods and
+  /// properties.
   external CSSStyleDeclaration get style;
 }
 extension type CSSMarginRule._(JSObject _) implements CSSRule, JSObject {
@@ -362,7 +550,13 @@ extension type CSSMarginRule._(JSObject _) implements CSSRule, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSNamespaceRule).
 extension type CSSNamespaceRule._(JSObject _) implements CSSRule, JSObject {
+  /// The read-only **`namespaceURI`** property of the [CSSNamespaceRule]
+  /// returns a string containing the text of the URI of the given namespace.
   external String get namespaceURI;
+
+  /// The read-only **`prefix`** property of the [CSSNamespaceRule] returns a
+  /// string with the name of the prefix associated to this namespace. If there
+  /// is no such prefix, it returns an empty string.
   external String get prefix;
 }
 
@@ -416,1278 +610,1302 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   /// The **`CSSStyleDeclaration.removeProperty()`** method interface
   /// removes a property from a CSS style declaration object.
   external String removeProperty(String property);
-  external set cssText(String value);
+
+  /// The **`cssText`** property of the [CSSStyleDeclaration] interface returns
+  /// or sets the text of the element's **inline** style declaration only.
+  ///
+  /// To be able to set a **stylesheet** rule dynamically, see
+  /// [Using dynamic styling information](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model/Using_dynamic_styling_information).
+  ///
+  /// Not to be confused with stylesheet style-rule [CSSRule.cssText].
   external String get cssText;
+  external set cssText(String value);
+
+  /// The read-only property returns an integer that represents the
+  /// number of style declarations in this CSS declaration block.
   external int get length;
+
+  /// The **CSSStyleDeclaration.parentRule** read-only
+  /// property returns a [CSSRule] that is the parent of this style
+  /// block, e.g. a [CSSStyleRule] representing the style for a CSS
+  /// selector.
   external CSSRule? get parentRule;
-  external set cssFloat(String value);
+
+  /// The **`cssFloat`** property of the [CSSStyleDeclaration] interface returns
+  /// the result of invoking [CSSStyleDeclaration.getPropertyValue] with `float`
+  /// as an argument.
+  ///
+  /// When setting, it invokes [CSSStyleDeclaration.setProperty] with `float` as
+  /// the first argument, and the given value as the second argument. The given
+  /// value must be a valid value for the `float` property.
   external String get cssFloat;
-  external set accentColor(String value);
+  external set cssFloat(String value);
   external String get accentColor;
-  external set alignContent(String value);
+  external set accentColor(String value);
   external String get alignContent;
-  external set alignItems(String value);
+  external set alignContent(String value);
   external String get alignItems;
-  external set alignSelf(String value);
+  external set alignItems(String value);
   external String get alignSelf;
-  external set alignmentBaseline(String value);
+  external set alignSelf(String value);
   external String get alignmentBaseline;
-  external set all(String value);
+  external set alignmentBaseline(String value);
   external String get all;
-  external set anchorDefault(String value);
+  external set all(String value);
   external String get anchorDefault;
-  external set anchorName(String value);
+  external set anchorDefault(String value);
   external String get anchorName;
-  external set animation(String value);
+  external set anchorName(String value);
   external String get animation;
-  external set animationComposition(String value);
+  external set animation(String value);
   external String get animationComposition;
-  external set animationDelay(String value);
+  external set animationComposition(String value);
   external String get animationDelay;
-  external set animationDirection(String value);
+  external set animationDelay(String value);
   external String get animationDirection;
-  external set animationDuration(String value);
+  external set animationDirection(String value);
   external String get animationDuration;
-  external set animationFillMode(String value);
+  external set animationDuration(String value);
   external String get animationFillMode;
-  external set animationIterationCount(String value);
+  external set animationFillMode(String value);
   external String get animationIterationCount;
-  external set animationName(String value);
+  external set animationIterationCount(String value);
   external String get animationName;
-  external set animationPlayState(String value);
+  external set animationName(String value);
   external String get animationPlayState;
-  external set animationRange(String value);
+  external set animationPlayState(String value);
   external String get animationRange;
-  external set animationRangeEnd(String value);
+  external set animationRange(String value);
   external String get animationRangeEnd;
-  external set animationRangeStart(String value);
+  external set animationRangeEnd(String value);
   external String get animationRangeStart;
-  external set animationTimeline(String value);
+  external set animationRangeStart(String value);
   external String get animationTimeline;
-  external set animationTimingFunction(String value);
+  external set animationTimeline(String value);
   external String get animationTimingFunction;
-  external set appearance(String value);
+  external set animationTimingFunction(String value);
   external String get appearance;
-  external set aspectRatio(String value);
+  external set appearance(String value);
   external String get aspectRatio;
-  external set backdropFilter(String value);
+  external set aspectRatio(String value);
   external String get backdropFilter;
-  external set backfaceVisibility(String value);
+  external set backdropFilter(String value);
   external String get backfaceVisibility;
-  external set background(String value);
+  external set backfaceVisibility(String value);
   external String get background;
-  external set backgroundAttachment(String value);
+  external set background(String value);
   external String get backgroundAttachment;
-  external set backgroundBlendMode(String value);
+  external set backgroundAttachment(String value);
   external String get backgroundBlendMode;
-  external set backgroundClip(String value);
+  external set backgroundBlendMode(String value);
   external String get backgroundClip;
-  external set backgroundColor(String value);
+  external set backgroundClip(String value);
   external String get backgroundColor;
-  external set backgroundImage(String value);
+  external set backgroundColor(String value);
   external String get backgroundImage;
-  external set backgroundOrigin(String value);
+  external set backgroundImage(String value);
   external String get backgroundOrigin;
-  external set backgroundPosition(String value);
+  external set backgroundOrigin(String value);
   external String get backgroundPosition;
-  external set backgroundPositionBlock(String value);
+  external set backgroundPosition(String value);
   external String get backgroundPositionBlock;
-  external set backgroundPositionInline(String value);
+  external set backgroundPositionBlock(String value);
   external String get backgroundPositionInline;
-  external set backgroundPositionX(String value);
+  external set backgroundPositionInline(String value);
   external String get backgroundPositionX;
-  external set backgroundPositionY(String value);
+  external set backgroundPositionX(String value);
   external String get backgroundPositionY;
-  external set backgroundRepeat(String value);
+  external set backgroundPositionY(String value);
   external String get backgroundRepeat;
-  external set backgroundSize(String value);
+  external set backgroundRepeat(String value);
   external String get backgroundSize;
-  external set backgroundTbd(String value);
+  external set backgroundSize(String value);
   external String get backgroundTbd;
-  external set baselineShift(String value);
+  external set backgroundTbd(String value);
   external String get baselineShift;
-  external set baselineSource(String value);
+  external set baselineShift(String value);
   external String get baselineSource;
-  external set blockEllipsis(String value);
+  external set baselineSource(String value);
   external String get blockEllipsis;
-  external set blockSize(String value);
+  external set blockEllipsis(String value);
   external String get blockSize;
-  external set blockStep(String value);
+  external set blockSize(String value);
   external String get blockStep;
-  external set blockStepAlign(String value);
+  external set blockStep(String value);
   external String get blockStepAlign;
-  external set blockStepInsert(String value);
+  external set blockStepAlign(String value);
   external String get blockStepInsert;
-  external set blockStepRound(String value);
+  external set blockStepInsert(String value);
   external String get blockStepRound;
-  external set blockStepSize(String value);
+  external set blockStepRound(String value);
   external String get blockStepSize;
-  external set bookmarkLabel(String value);
+  external set blockStepSize(String value);
   external String get bookmarkLabel;
-  external set bookmarkLevel(String value);
+  external set bookmarkLabel(String value);
   external String get bookmarkLevel;
-  external set bookmarkState(String value);
+  external set bookmarkLevel(String value);
   external String get bookmarkState;
-  external set border(String value);
+  external set bookmarkState(String value);
   external String get border;
-  external set borderBlock(String value);
+  external set border(String value);
   external String get borderBlock;
-  external set borderBlockColor(String value);
+  external set borderBlock(String value);
   external String get borderBlockColor;
-  external set borderBlockEnd(String value);
+  external set borderBlockColor(String value);
   external String get borderBlockEnd;
-  external set borderBlockEndColor(String value);
+  external set borderBlockEnd(String value);
   external String get borderBlockEndColor;
-  external set borderBlockEndRadius(String value);
+  external set borderBlockEndColor(String value);
   external String get borderBlockEndRadius;
-  external set borderBlockEndStyle(String value);
+  external set borderBlockEndRadius(String value);
   external String get borderBlockEndStyle;
-  external set borderBlockEndWidth(String value);
+  external set borderBlockEndStyle(String value);
   external String get borderBlockEndWidth;
-  external set borderBlockStart(String value);
+  external set borderBlockEndWidth(String value);
   external String get borderBlockStart;
-  external set borderBlockStartColor(String value);
+  external set borderBlockStart(String value);
   external String get borderBlockStartColor;
-  external set borderBlockStartRadius(String value);
+  external set borderBlockStartColor(String value);
   external String get borderBlockStartRadius;
-  external set borderBlockStartStyle(String value);
+  external set borderBlockStartRadius(String value);
   external String get borderBlockStartStyle;
-  external set borderBlockStartWidth(String value);
+  external set borderBlockStartStyle(String value);
   external String get borderBlockStartWidth;
-  external set borderBlockStyle(String value);
+  external set borderBlockStartWidth(String value);
   external String get borderBlockStyle;
-  external set borderBlockWidth(String value);
+  external set borderBlockStyle(String value);
   external String get borderBlockWidth;
-  external set borderBottom(String value);
+  external set borderBlockWidth(String value);
   external String get borderBottom;
-  external set borderBottomColor(String value);
+  external set borderBottom(String value);
   external String get borderBottomColor;
-  external set borderBottomLeftRadius(String value);
+  external set borderBottomColor(String value);
   external String get borderBottomLeftRadius;
-  external set borderBottomRadius(String value);
+  external set borderBottomLeftRadius(String value);
   external String get borderBottomRadius;
-  external set borderBottomRightRadius(String value);
+  external set borderBottomRadius(String value);
   external String get borderBottomRightRadius;
-  external set borderBottomStyle(String value);
+  external set borderBottomRightRadius(String value);
   external String get borderBottomStyle;
-  external set borderBottomWidth(String value);
+  external set borderBottomStyle(String value);
   external String get borderBottomWidth;
-  external set borderBoundary(String value);
+  external set borderBottomWidth(String value);
   external String get borderBoundary;
-  external set borderClip(String value);
+  external set borderBoundary(String value);
   external String get borderClip;
-  external set borderClipBottom(String value);
+  external set borderClip(String value);
   external String get borderClipBottom;
-  external set borderClipLeft(String value);
+  external set borderClipBottom(String value);
   external String get borderClipLeft;
-  external set borderClipRight(String value);
+  external set borderClipLeft(String value);
   external String get borderClipRight;
-  external set borderClipTop(String value);
+  external set borderClipRight(String value);
   external String get borderClipTop;
-  external set borderCollapse(String value);
+  external set borderClipTop(String value);
   external String get borderCollapse;
-  external set borderColor(String value);
+  external set borderCollapse(String value);
   external String get borderColor;
-  external set borderEndEndRadius(String value);
+  external set borderColor(String value);
   external String get borderEndEndRadius;
-  external set borderEndStartRadius(String value);
+  external set borderEndEndRadius(String value);
   external String get borderEndStartRadius;
-  external set borderImage(String value);
+  external set borderEndStartRadius(String value);
   external String get borderImage;
-  external set borderImageOutset(String value);
+  external set borderImage(String value);
   external String get borderImageOutset;
-  external set borderImageRepeat(String value);
+  external set borderImageOutset(String value);
   external String get borderImageRepeat;
-  external set borderImageSlice(String value);
+  external set borderImageRepeat(String value);
   external String get borderImageSlice;
-  external set borderImageSource(String value);
+  external set borderImageSlice(String value);
   external String get borderImageSource;
-  external set borderImageWidth(String value);
+  external set borderImageSource(String value);
   external String get borderImageWidth;
-  external set borderInline(String value);
+  external set borderImageWidth(String value);
   external String get borderInline;
-  external set borderInlineColor(String value);
+  external set borderInline(String value);
   external String get borderInlineColor;
-  external set borderInlineEnd(String value);
+  external set borderInlineColor(String value);
   external String get borderInlineEnd;
-  external set borderInlineEndColor(String value);
+  external set borderInlineEnd(String value);
   external String get borderInlineEndColor;
-  external set borderInlineEndRadius(String value);
+  external set borderInlineEndColor(String value);
   external String get borderInlineEndRadius;
-  external set borderInlineEndStyle(String value);
+  external set borderInlineEndRadius(String value);
   external String get borderInlineEndStyle;
-  external set borderInlineEndWidth(String value);
+  external set borderInlineEndStyle(String value);
   external String get borderInlineEndWidth;
-  external set borderInlineStart(String value);
+  external set borderInlineEndWidth(String value);
   external String get borderInlineStart;
-  external set borderInlineStartColor(String value);
+  external set borderInlineStart(String value);
   external String get borderInlineStartColor;
-  external set borderInlineStartRadius(String value);
+  external set borderInlineStartColor(String value);
   external String get borderInlineStartRadius;
-  external set borderInlineStartStyle(String value);
+  external set borderInlineStartRadius(String value);
   external String get borderInlineStartStyle;
-  external set borderInlineStartWidth(String value);
+  external set borderInlineStartStyle(String value);
   external String get borderInlineStartWidth;
-  external set borderInlineStyle(String value);
+  external set borderInlineStartWidth(String value);
   external String get borderInlineStyle;
-  external set borderInlineWidth(String value);
+  external set borderInlineStyle(String value);
   external String get borderInlineWidth;
-  external set borderLeft(String value);
+  external set borderInlineWidth(String value);
   external String get borderLeft;
-  external set borderLeftColor(String value);
+  external set borderLeft(String value);
   external String get borderLeftColor;
-  external set borderLeftRadius(String value);
+  external set borderLeftColor(String value);
   external String get borderLeftRadius;
-  external set borderLeftStyle(String value);
+  external set borderLeftRadius(String value);
   external String get borderLeftStyle;
-  external set borderLeftWidth(String value);
+  external set borderLeftStyle(String value);
   external String get borderLeftWidth;
-  external set borderLimit(String value);
+  external set borderLeftWidth(String value);
   external String get borderLimit;
-  external set borderRadius(String value);
+  external set borderLimit(String value);
   external String get borderRadius;
-  external set borderRight(String value);
+  external set borderRadius(String value);
   external String get borderRight;
-  external set borderRightColor(String value);
+  external set borderRight(String value);
   external String get borderRightColor;
-  external set borderRightRadius(String value);
+  external set borderRightColor(String value);
   external String get borderRightRadius;
-  external set borderRightStyle(String value);
+  external set borderRightRadius(String value);
   external String get borderRightStyle;
-  external set borderRightWidth(String value);
+  external set borderRightStyle(String value);
   external String get borderRightWidth;
-  external set borderSpacing(String value);
+  external set borderRightWidth(String value);
   external String get borderSpacing;
-  external set borderStartEndRadius(String value);
+  external set borderSpacing(String value);
   external String get borderStartEndRadius;
-  external set borderStartStartRadius(String value);
+  external set borderStartEndRadius(String value);
   external String get borderStartStartRadius;
-  external set borderStyle(String value);
+  external set borderStartStartRadius(String value);
   external String get borderStyle;
-  external set borderTop(String value);
+  external set borderStyle(String value);
   external String get borderTop;
-  external set borderTopColor(String value);
+  external set borderTop(String value);
   external String get borderTopColor;
-  external set borderTopLeftRadius(String value);
+  external set borderTopColor(String value);
   external String get borderTopLeftRadius;
-  external set borderTopRadius(String value);
+  external set borderTopLeftRadius(String value);
   external String get borderTopRadius;
-  external set borderTopRightRadius(String value);
+  external set borderTopRadius(String value);
   external String get borderTopRightRadius;
-  external set borderTopStyle(String value);
+  external set borderTopRightRadius(String value);
   external String get borderTopStyle;
-  external set borderTopWidth(String value);
+  external set borderTopStyle(String value);
   external String get borderTopWidth;
-  external set borderWidth(String value);
+  external set borderTopWidth(String value);
   external String get borderWidth;
-  external set bottom(String value);
+  external set borderWidth(String value);
   external String get bottom;
-  external set boxDecorationBreak(String value);
+  external set bottom(String value);
   external String get boxDecorationBreak;
-  external set boxShadow(String value);
+  external set boxDecorationBreak(String value);
   external String get boxShadow;
-  external set boxShadowBlur(String value);
+  external set boxShadow(String value);
   external String get boxShadowBlur;
-  external set boxShadowColor(String value);
+  external set boxShadowBlur(String value);
   external String get boxShadowColor;
-  external set boxShadowOffset(String value);
+  external set boxShadowColor(String value);
   external String get boxShadowOffset;
-  external set boxShadowPosition(String value);
+  external set boxShadowOffset(String value);
   external String get boxShadowPosition;
-  external set boxShadowSpread(String value);
+  external set boxShadowPosition(String value);
   external String get boxShadowSpread;
-  external set boxSizing(String value);
+  external set boxShadowSpread(String value);
   external String get boxSizing;
-  external set boxSnap(String value);
+  external set boxSizing(String value);
   external String get boxSnap;
-  external set breakAfter(String value);
+  external set boxSnap(String value);
   external String get breakAfter;
-  external set breakBefore(String value);
+  external set breakAfter(String value);
   external String get breakBefore;
-  external set breakInside(String value);
+  external set breakBefore(String value);
   external String get breakInside;
-  external set captionSide(String value);
+  external set breakInside(String value);
   external String get captionSide;
-  external set caret(String value);
+  external set captionSide(String value);
   external String get caret;
-  external set caretColor(String value);
+  external set caret(String value);
   external String get caretColor;
-  external set caretShape(String value);
+  external set caretColor(String value);
   external String get caretShape;
-  external set clear(String value);
+  external set caretShape(String value);
   external String get clear;
-  external set clip(String value);
+  external set clear(String value);
   external String get clip;
-  external set clipPath(String value);
+  external set clip(String value);
   external String get clipPath;
-  external set clipRule(String value);
+  external set clipPath(String value);
   external String get clipRule;
-  external set color(String value);
+  external set clipRule(String value);
   external String get color;
-  external set colorAdjust(String value);
+  external set color(String value);
   external String get colorAdjust;
-  external set colorInterpolation(String value);
+  external set colorAdjust(String value);
   external String get colorInterpolation;
-  external set colorInterpolationFilters(String value);
+  external set colorInterpolation(String value);
   external String get colorInterpolationFilters;
-  external set colorScheme(String value);
+  external set colorInterpolationFilters(String value);
   external String get colorScheme;
-  external set columnCount(String value);
+  external set colorScheme(String value);
   external String get columnCount;
-  external set columnFill(String value);
+  external set columnCount(String value);
   external String get columnFill;
-  external set columnGap(String value);
+  external set columnFill(String value);
   external String get columnGap;
-  external set columnRule(String value);
+  external set columnGap(String value);
   external String get columnRule;
-  external set columnRuleColor(String value);
+  external set columnRule(String value);
   external String get columnRuleColor;
-  external set columnRuleStyle(String value);
+  external set columnRuleColor(String value);
   external String get columnRuleStyle;
-  external set columnRuleWidth(String value);
+  external set columnRuleStyle(String value);
   external String get columnRuleWidth;
-  external set columnSpan(String value);
+  external set columnRuleWidth(String value);
   external String get columnSpan;
-  external set columnWidth(String value);
+  external set columnSpan(String value);
   external String get columnWidth;
-  external set columns(String value);
+  external set columnWidth(String value);
   external String get columns;
-  external set contain(String value);
+  external set columns(String value);
   external String get contain;
-  external set containIntrinsicBlockSize(String value);
+  external set contain(String value);
   external String get containIntrinsicBlockSize;
-  external set containIntrinsicHeight(String value);
+  external set containIntrinsicBlockSize(String value);
   external String get containIntrinsicHeight;
-  external set containIntrinsicInlineSize(String value);
+  external set containIntrinsicHeight(String value);
   external String get containIntrinsicInlineSize;
-  external set containIntrinsicSize(String value);
+  external set containIntrinsicInlineSize(String value);
   external String get containIntrinsicSize;
-  external set containIntrinsicWidth(String value);
+  external set containIntrinsicSize(String value);
   external String get containIntrinsicWidth;
-  external set container(String value);
+  external set containIntrinsicWidth(String value);
   external String get container;
-  external set containerName(String value);
+  external set container(String value);
   external String get containerName;
-  external set containerType(String value);
+  external set containerName(String value);
   external String get containerType;
-  external set content(String value);
+  external set containerType(String value);
   external String get content;
-  external set contentVisibility(String value);
+  external set content(String value);
   external String get contentVisibility;
-  @JS('continue')
-  external set continue_(String value);
+  external set contentVisibility(String value);
   @JS('continue')
   external String get continue_;
-  external set copyInto(String value);
+  @JS('continue')
+  external set continue_(String value);
   external String get copyInto;
-  external set cornerShape(String value);
+  external set copyInto(String value);
   external String get cornerShape;
-  external set corners(String value);
+  external set cornerShape(String value);
   external String get corners;
-  external set counterIncrement(String value);
+  external set corners(String value);
   external String get counterIncrement;
-  external set counterReset(String value);
+  external set counterIncrement(String value);
   external String get counterReset;
-  external set counterSet(String value);
+  external set counterReset(String value);
   external String get counterSet;
-  external set cue(String value);
+  external set counterSet(String value);
   external String get cue;
-  external set cueAfter(String value);
+  external set cue(String value);
   external String get cueAfter;
-  external set cueBefore(String value);
+  external set cueAfter(String value);
   external String get cueBefore;
-  external set cursor(String value);
+  external set cueBefore(String value);
   external String get cursor;
-  external set cx(String value);
+  external set cursor(String value);
   external String get cx;
-  external set cy(String value);
+  external set cx(String value);
   external String get cy;
-  external set d(String value);
+  external set cy(String value);
   external String get d;
-  external set direction(String value);
+  external set d(String value);
   external String get direction;
-  external set display(String value);
+  external set direction(String value);
   external String get display;
-  external set dominantBaseline(String value);
+  external set display(String value);
   external String get dominantBaseline;
-  external set emptyCells(String value);
+  external set dominantBaseline(String value);
   external String get emptyCells;
-  external set fieldSizing(String value);
+  external set emptyCells(String value);
   external String get fieldSizing;
-  external set fill(String value);
+  external set fieldSizing(String value);
   external String get fill;
-  external set fillBreak(String value);
+  external set fill(String value);
   external String get fillBreak;
-  external set fillColor(String value);
+  external set fillBreak(String value);
   external String get fillColor;
-  external set fillImage(String value);
+  external set fillColor(String value);
   external String get fillImage;
-  external set fillOpacity(String value);
+  external set fillImage(String value);
   external String get fillOpacity;
-  external set fillOrigin(String value);
+  external set fillOpacity(String value);
   external String get fillOrigin;
-  external set fillPosition(String value);
+  external set fillOrigin(String value);
   external String get fillPosition;
-  external set fillRepeat(String value);
+  external set fillPosition(String value);
   external String get fillRepeat;
-  external set fillRule(String value);
+  external set fillRepeat(String value);
   external String get fillRule;
-  external set fillSize(String value);
+  external set fillRule(String value);
   external String get fillSize;
-  external set filter(String value);
+  external set fillSize(String value);
   external String get filter;
-  external set flex(String value);
+  external set filter(String value);
   external String get flex;
-  external set flexBasis(String value);
+  external set flex(String value);
   external String get flexBasis;
-  external set flexDirection(String value);
+  external set flexBasis(String value);
   external String get flexDirection;
-  external set flexFlow(String value);
+  external set flexDirection(String value);
   external String get flexFlow;
-  external set flexGrow(String value);
+  external set flexFlow(String value);
   external String get flexGrow;
-  external set flexShrink(String value);
+  external set flexGrow(String value);
   external String get flexShrink;
-  external set flexWrap(String value);
+  external set flexShrink(String value);
   external String get flexWrap;
-  external set float(String value);
+  external set flexWrap(String value);
   external String get float;
-  external set floatDefer(String value);
+  external set float(String value);
   external String get floatDefer;
-  external set floatOffset(String value);
+  external set floatDefer(String value);
   external String get floatOffset;
-  external set floatReference(String value);
+  external set floatOffset(String value);
   external String get floatReference;
-  external set floodColor(String value);
+  external set floatReference(String value);
   external String get floodColor;
-  external set floodOpacity(String value);
+  external set floodColor(String value);
   external String get floodOpacity;
-  external set flowFrom(String value);
+  external set floodOpacity(String value);
   external String get flowFrom;
-  external set flowInto(String value);
+  external set flowFrom(String value);
   external String get flowInto;
-  external set font(String value);
+  external set flowInto(String value);
   external String get font;
-  external set fontFamily(String value);
+  external set font(String value);
   external String get fontFamily;
-  external set fontFeatureSettings(String value);
+  external set fontFamily(String value);
   external String get fontFeatureSettings;
-  external set fontKerning(String value);
+  external set fontFeatureSettings(String value);
   external String get fontKerning;
-  external set fontLanguageOverride(String value);
+  external set fontKerning(String value);
   external String get fontLanguageOverride;
-  external set fontOpticalSizing(String value);
+  external set fontLanguageOverride(String value);
   external String get fontOpticalSizing;
-  external set fontPalette(String value);
+  external set fontOpticalSizing(String value);
   external String get fontPalette;
-  external set fontSize(String value);
+  external set fontPalette(String value);
   external String get fontSize;
-  external set fontSizeAdjust(String value);
+  external set fontSize(String value);
   external String get fontSizeAdjust;
-  external set fontStretch(String value);
+  external set fontSizeAdjust(String value);
   external String get fontStretch;
-  external set fontStyle(String value);
+  external set fontStretch(String value);
   external String get fontStyle;
-  external set fontSynthesis(String value);
+  external set fontStyle(String value);
   external String get fontSynthesis;
-  external set fontSynthesisPosition(String value);
+  external set fontSynthesis(String value);
   external String get fontSynthesisPosition;
-  external set fontSynthesisSmallCaps(String value);
+  external set fontSynthesisPosition(String value);
   external String get fontSynthesisSmallCaps;
-  external set fontSynthesisStyle(String value);
+  external set fontSynthesisSmallCaps(String value);
   external String get fontSynthesisStyle;
-  external set fontSynthesisWeight(String value);
+  external set fontSynthesisStyle(String value);
   external String get fontSynthesisWeight;
-  external set fontVariant(String value);
+  external set fontSynthesisWeight(String value);
   external String get fontVariant;
-  external set fontVariantAlternates(String value);
+  external set fontVariant(String value);
   external String get fontVariantAlternates;
-  external set fontVariantCaps(String value);
+  external set fontVariantAlternates(String value);
   external String get fontVariantCaps;
-  external set fontVariantEastAsian(String value);
+  external set fontVariantCaps(String value);
   external String get fontVariantEastAsian;
-  external set fontVariantEmoji(String value);
+  external set fontVariantEastAsian(String value);
   external String get fontVariantEmoji;
-  external set fontVariantLigatures(String value);
+  external set fontVariantEmoji(String value);
   external String get fontVariantLigatures;
-  external set fontVariantNumeric(String value);
+  external set fontVariantLigatures(String value);
   external String get fontVariantNumeric;
-  external set fontVariantPosition(String value);
+  external set fontVariantNumeric(String value);
   external String get fontVariantPosition;
-  external set fontVariationSettings(String value);
+  external set fontVariantPosition(String value);
   external String get fontVariationSettings;
-  external set fontWeight(String value);
+  external set fontVariationSettings(String value);
   external String get fontWeight;
-  external set fontWidth(String value);
+  external set fontWeight(String value);
   external String get fontWidth;
-  external set footnoteDisplay(String value);
+  external set fontWidth(String value);
   external String get footnoteDisplay;
-  external set footnotePolicy(String value);
+  external set footnoteDisplay(String value);
   external String get footnotePolicy;
-  external set forcedColorAdjust(String value);
+  external set footnotePolicy(String value);
   external String get forcedColorAdjust;
-  external set gap(String value);
+  external set forcedColorAdjust(String value);
   external String get gap;
-  external set glyphOrientationVertical(String value);
+  external set gap(String value);
   external String get glyphOrientationVertical;
-  external set grid(String value);
+  external set glyphOrientationVertical(String value);
   external String get grid;
-  external set gridArea(String value);
+  external set grid(String value);
   external String get gridArea;
-  external set gridAutoColumns(String value);
+  external set gridArea(String value);
   external String get gridAutoColumns;
-  external set gridAutoFlow(String value);
+  external set gridAutoColumns(String value);
   external String get gridAutoFlow;
-  external set gridAutoRows(String value);
+  external set gridAutoFlow(String value);
   external String get gridAutoRows;
-  external set gridColumn(String value);
+  external set gridAutoRows(String value);
   external String get gridColumn;
-  external set gridColumnEnd(String value);
+  external set gridColumn(String value);
   external String get gridColumnEnd;
-  external set gridColumnGap(String value);
+  external set gridColumnEnd(String value);
   external String get gridColumnGap;
-  external set gridColumnStart(String value);
+  external set gridColumnGap(String value);
   external String get gridColumnStart;
-  external set gridGap(String value);
+  external set gridColumnStart(String value);
   external String get gridGap;
-  external set gridRow(String value);
+  external set gridGap(String value);
   external String get gridRow;
-  external set gridRowEnd(String value);
+  external set gridRow(String value);
   external String get gridRowEnd;
-  external set gridRowGap(String value);
+  external set gridRowEnd(String value);
   external String get gridRowGap;
-  external set gridRowStart(String value);
+  external set gridRowGap(String value);
   external String get gridRowStart;
-  external set gridTemplate(String value);
+  external set gridRowStart(String value);
   external String get gridTemplate;
-  external set gridTemplateAreas(String value);
+  external set gridTemplate(String value);
   external String get gridTemplateAreas;
-  external set gridTemplateColumns(String value);
+  external set gridTemplateAreas(String value);
   external String get gridTemplateColumns;
-  external set gridTemplateRows(String value);
+  external set gridTemplateColumns(String value);
   external String get gridTemplateRows;
-  external set hangingPunctuation(String value);
+  external set gridTemplateRows(String value);
   external String get hangingPunctuation;
-  external set height(String value);
+  external set hangingPunctuation(String value);
   external String get height;
-  external set hyphenateCharacter(String value);
+  external set height(String value);
   external String get hyphenateCharacter;
-  external set hyphenateLimitChars(String value);
+  external set hyphenateCharacter(String value);
   external String get hyphenateLimitChars;
-  external set hyphenateLimitLast(String value);
+  external set hyphenateLimitChars(String value);
   external String get hyphenateLimitLast;
-  external set hyphenateLimitLines(String value);
+  external set hyphenateLimitLast(String value);
   external String get hyphenateLimitLines;
-  external set hyphenateLimitZone(String value);
+  external set hyphenateLimitLines(String value);
   external String get hyphenateLimitZone;
-  external set hyphens(String value);
+  external set hyphenateLimitZone(String value);
   external String get hyphens;
-  external set imageOrientation(String value);
+  external set hyphens(String value);
   external String get imageOrientation;
-  external set imageRendering(String value);
+  external set imageOrientation(String value);
   external String get imageRendering;
-  external set imageResolution(String value);
+  external set imageRendering(String value);
   external String get imageResolution;
-  external set initialLetter(String value);
+  external set imageResolution(String value);
   external String get initialLetter;
-  external set initialLetterAlign(String value);
+  external set initialLetter(String value);
   external String get initialLetterAlign;
-  external set initialLetterWrap(String value);
+  external set initialLetterAlign(String value);
   external String get initialLetterWrap;
-  external set inlineSize(String value);
+  external set initialLetterWrap(String value);
   external String get inlineSize;
-  external set inlineSizing(String value);
+  external set inlineSize(String value);
   external String get inlineSizing;
-  external set inputSecurity(String value);
+  external set inlineSizing(String value);
   external String get inputSecurity;
-  external set inset(String value);
+  external set inputSecurity(String value);
   external String get inset;
-  external set insetArea(String value);
+  external set inset(String value);
   external String get insetArea;
-  external set insetBlock(String value);
+  external set insetArea(String value);
   external String get insetBlock;
-  external set insetBlockEnd(String value);
+  external set insetBlock(String value);
   external String get insetBlockEnd;
-  external set insetBlockStart(String value);
+  external set insetBlockEnd(String value);
   external String get insetBlockStart;
-  external set insetInline(String value);
+  external set insetBlockStart(String value);
   external String get insetInline;
-  external set insetInlineEnd(String value);
+  external set insetInline(String value);
   external String get insetInlineEnd;
-  external set insetInlineStart(String value);
+  external set insetInlineEnd(String value);
   external String get insetInlineStart;
-  external set isolation(String value);
+  external set insetInlineStart(String value);
   external String get isolation;
-  external set justifyContent(String value);
+  external set isolation(String value);
   external String get justifyContent;
-  external set justifyItems(String value);
+  external set justifyContent(String value);
   external String get justifyItems;
-  external set justifySelf(String value);
+  external set justifyItems(String value);
   external String get justifySelf;
-  external set layoutOrder(String value);
+  external set justifySelf(String value);
   external String get layoutOrder;
-  external set left(String value);
+  external set layoutOrder(String value);
   external String get left;
-  external set letterSpacing(String value);
+  external set left(String value);
   external String get letterSpacing;
-  external set lightingColor(String value);
+  external set letterSpacing(String value);
   external String get lightingColor;
-  external set lineBreak(String value);
+  external set lightingColor(String value);
   external String get lineBreak;
-  external set lineClamp(String value);
+  external set lineBreak(String value);
   external String get lineClamp;
-  external set lineGrid(String value);
+  external set lineClamp(String value);
   external String get lineGrid;
-  external set lineHeight(String value);
+  external set lineGrid(String value);
   external String get lineHeight;
-  external set lineHeightStep(String value);
+  external set lineHeight(String value);
   external String get lineHeightStep;
-  external set linePadding(String value);
+  external set lineHeightStep(String value);
   external String get linePadding;
-  external set lineSnap(String value);
+  external set linePadding(String value);
   external String get lineSnap;
-  external set linkParameters(String value);
+  external set lineSnap(String value);
   external String get linkParameters;
-  external set listStyle(String value);
+  external set linkParameters(String value);
   external String get listStyle;
-  external set listStyleImage(String value);
+  external set listStyle(String value);
   external String get listStyleImage;
-  external set listStylePosition(String value);
+  external set listStyleImage(String value);
   external String get listStylePosition;
-  external set listStyleType(String value);
+  external set listStylePosition(String value);
   external String get listStyleType;
-  external set margin(String value);
+  external set listStyleType(String value);
   external String get margin;
-  external set marginBlock(String value);
+  external set margin(String value);
   external String get marginBlock;
-  external set marginBlockEnd(String value);
+  external set marginBlock(String value);
   external String get marginBlockEnd;
-  external set marginBlockStart(String value);
+  external set marginBlockEnd(String value);
   external String get marginBlockStart;
-  external set marginBottom(String value);
+  external set marginBlockStart(String value);
   external String get marginBottom;
-  external set marginBreak(String value);
+  external set marginBottom(String value);
   external String get marginBreak;
-  external set marginInline(String value);
+  external set marginBreak(String value);
   external String get marginInline;
-  external set marginInlineEnd(String value);
+  external set marginInline(String value);
   external String get marginInlineEnd;
-  external set marginInlineStart(String value);
+  external set marginInlineEnd(String value);
   external String get marginInlineStart;
-  external set marginLeft(String value);
+  external set marginInlineStart(String value);
   external String get marginLeft;
-  external set marginRight(String value);
+  external set marginLeft(String value);
   external String get marginRight;
-  external set marginTop(String value);
+  external set marginRight(String value);
   external String get marginTop;
-  external set marginTrim(String value);
+  external set marginTop(String value);
   external String get marginTrim;
-  external set marker(String value);
+  external set marginTrim(String value);
   external String get marker;
-  external set markerEnd(String value);
+  external set marker(String value);
   external String get markerEnd;
-  external set markerMid(String value);
+  external set markerEnd(String value);
   external String get markerMid;
-  external set markerSide(String value);
+  external set markerMid(String value);
   external String get markerSide;
-  external set markerStart(String value);
+  external set markerSide(String value);
   external String get markerStart;
-  external set mask(String value);
+  external set markerStart(String value);
   external String get mask;
-  external set maskBorder(String value);
+  external set mask(String value);
   external String get maskBorder;
-  external set maskBorderMode(String value);
+  external set maskBorder(String value);
   external String get maskBorderMode;
-  external set maskBorderOutset(String value);
+  external set maskBorderMode(String value);
   external String get maskBorderOutset;
-  external set maskBorderRepeat(String value);
+  external set maskBorderOutset(String value);
   external String get maskBorderRepeat;
-  external set maskBorderSlice(String value);
+  external set maskBorderRepeat(String value);
   external String get maskBorderSlice;
-  external set maskBorderSource(String value);
+  external set maskBorderSlice(String value);
   external String get maskBorderSource;
-  external set maskBorderWidth(String value);
+  external set maskBorderSource(String value);
   external String get maskBorderWidth;
-  external set maskClip(String value);
+  external set maskBorderWidth(String value);
   external String get maskClip;
-  external set maskComposite(String value);
+  external set maskClip(String value);
   external String get maskComposite;
-  external set maskImage(String value);
+  external set maskComposite(String value);
   external String get maskImage;
-  external set maskMode(String value);
+  external set maskImage(String value);
   external String get maskMode;
-  external set maskOrigin(String value);
+  external set maskMode(String value);
   external String get maskOrigin;
-  external set maskPosition(String value);
+  external set maskOrigin(String value);
   external String get maskPosition;
-  external set maskRepeat(String value);
+  external set maskPosition(String value);
   external String get maskRepeat;
-  external set maskSize(String value);
+  external set maskRepeat(String value);
   external String get maskSize;
-  external set maskType(String value);
+  external set maskSize(String value);
   external String get maskType;
-  external set masonryAutoFlow(String value);
+  external set maskType(String value);
   external String get masonryAutoFlow;
-  external set mathDepth(String value);
+  external set masonryAutoFlow(String value);
   external String get mathDepth;
-  external set mathShift(String value);
+  external set mathDepth(String value);
   external String get mathShift;
-  external set mathStyle(String value);
+  external set mathShift(String value);
   external String get mathStyle;
-  external set maxBlockSize(String value);
+  external set mathStyle(String value);
   external String get maxBlockSize;
-  external set maxHeight(String value);
+  external set maxBlockSize(String value);
   external String get maxHeight;
-  external set maxInlineSize(String value);
+  external set maxHeight(String value);
   external String get maxInlineSize;
-  external set maxLines(String value);
+  external set maxInlineSize(String value);
   external String get maxLines;
-  external set maxWidth(String value);
+  external set maxLines(String value);
   external String get maxWidth;
-  external set minBlockSize(String value);
+  external set maxWidth(String value);
   external String get minBlockSize;
-  external set minHeight(String value);
+  external set minBlockSize(String value);
   external String get minHeight;
-  external set minInlineSize(String value);
+  external set minHeight(String value);
   external String get minInlineSize;
-  external set minIntrinsicSizing(String value);
+  external set minInlineSize(String value);
   external String get minIntrinsicSizing;
-  external set minWidth(String value);
+  external set minIntrinsicSizing(String value);
   external String get minWidth;
-  external set mixBlendMode(String value);
+  external set minWidth(String value);
   external String get mixBlendMode;
-  external set navDown(String value);
+  external set mixBlendMode(String value);
   external String get navDown;
-  external set navLeft(String value);
+  external set navDown(String value);
   external String get navLeft;
-  external set navRight(String value);
+  external set navLeft(String value);
   external String get navRight;
-  external set navUp(String value);
+  external set navRight(String value);
   external String get navUp;
-  external set objectFit(String value);
+  external set navUp(String value);
   external String get objectFit;
-  external set objectPosition(String value);
+  external set objectFit(String value);
   external String get objectPosition;
-  external set objectViewBox(String value);
+  external set objectPosition(String value);
   external String get objectViewBox;
-  external set offset(String value);
+  external set objectViewBox(String value);
   external String get offset;
-  external set offsetAnchor(String value);
+  external set offset(String value);
   external String get offsetAnchor;
-  external set offsetDistance(String value);
+  external set offsetAnchor(String value);
   external String get offsetDistance;
-  external set offsetPath(String value);
+  external set offsetDistance(String value);
   external String get offsetPath;
-  external set offsetPosition(String value);
+  external set offsetPath(String value);
   external String get offsetPosition;
-  external set offsetRotate(String value);
+  external set offsetPosition(String value);
   external String get offsetRotate;
-  external set opacity(String value);
+  external set offsetRotate(String value);
   external String get opacity;
-  external set order(String value);
+  external set opacity(String value);
   external String get order;
-  external set orphans(String value);
+  external set order(String value);
   external String get orphans;
-  external set outline(String value);
+  external set orphans(String value);
   external String get outline;
-  external set outlineColor(String value);
+  external set outline(String value);
   external String get outlineColor;
-  external set outlineOffset(String value);
+  external set outlineColor(String value);
   external String get outlineOffset;
-  external set outlineStyle(String value);
+  external set outlineOffset(String value);
   external String get outlineStyle;
-  external set outlineWidth(String value);
+  external set outlineStyle(String value);
   external String get outlineWidth;
-  external set overflow(String value);
+  external set outlineWidth(String value);
   external String get overflow;
-  external set overflowAnchor(String value);
+  external set overflow(String value);
   external String get overflowAnchor;
-  external set overflowBlock(String value);
+  external set overflowAnchor(String value);
   external String get overflowBlock;
-  external set overflowClipMargin(String value);
+  external set overflowBlock(String value);
   external String get overflowClipMargin;
-  external set overflowClipMarginBlock(String value);
+  external set overflowClipMargin(String value);
   external String get overflowClipMarginBlock;
-  external set overflowClipMarginBlockEnd(String value);
+  external set overflowClipMarginBlock(String value);
   external String get overflowClipMarginBlockEnd;
-  external set overflowClipMarginBlockStart(String value);
+  external set overflowClipMarginBlockEnd(String value);
   external String get overflowClipMarginBlockStart;
-  external set overflowClipMarginBottom(String value);
+  external set overflowClipMarginBlockStart(String value);
   external String get overflowClipMarginBottom;
-  external set overflowClipMarginInline(String value);
+  external set overflowClipMarginBottom(String value);
   external String get overflowClipMarginInline;
-  external set overflowClipMarginInlineEnd(String value);
+  external set overflowClipMarginInline(String value);
   external String get overflowClipMarginInlineEnd;
-  external set overflowClipMarginInlineStart(String value);
+  external set overflowClipMarginInlineEnd(String value);
   external String get overflowClipMarginInlineStart;
-  external set overflowClipMarginLeft(String value);
+  external set overflowClipMarginInlineStart(String value);
   external String get overflowClipMarginLeft;
-  external set overflowClipMarginRight(String value);
+  external set overflowClipMarginLeft(String value);
   external String get overflowClipMarginRight;
-  external set overflowClipMarginTop(String value);
+  external set overflowClipMarginRight(String value);
   external String get overflowClipMarginTop;
-  external set overflowInline(String value);
+  external set overflowClipMarginTop(String value);
   external String get overflowInline;
-  external set overflowWrap(String value);
+  external set overflowInline(String value);
   external String get overflowWrap;
-  external set overflowX(String value);
+  external set overflowWrap(String value);
   external String get overflowX;
-  external set overflowY(String value);
+  external set overflowX(String value);
   external String get overflowY;
-  external set overlay(String value);
+  external set overflowY(String value);
   external String get overlay;
-  external set overscrollBehavior(String value);
+  external set overlay(String value);
   external String get overscrollBehavior;
-  external set overscrollBehaviorBlock(String value);
+  external set overscrollBehavior(String value);
   external String get overscrollBehaviorBlock;
-  external set overscrollBehaviorInline(String value);
+  external set overscrollBehaviorBlock(String value);
   external String get overscrollBehaviorInline;
-  external set overscrollBehaviorX(String value);
+  external set overscrollBehaviorInline(String value);
   external String get overscrollBehaviorX;
-  external set overscrollBehaviorY(String value);
+  external set overscrollBehaviorX(String value);
   external String get overscrollBehaviorY;
-  external set padding(String value);
+  external set overscrollBehaviorY(String value);
   external String get padding;
-  external set paddingBlock(String value);
+  external set padding(String value);
   external String get paddingBlock;
-  external set paddingBlockEnd(String value);
+  external set paddingBlock(String value);
   external String get paddingBlockEnd;
-  external set paddingBlockStart(String value);
+  external set paddingBlockEnd(String value);
   external String get paddingBlockStart;
-  external set paddingBottom(String value);
+  external set paddingBlockStart(String value);
   external String get paddingBottom;
-  external set paddingInline(String value);
+  external set paddingBottom(String value);
   external String get paddingInline;
-  external set paddingInlineEnd(String value);
+  external set paddingInline(String value);
   external String get paddingInlineEnd;
-  external set paddingInlineStart(String value);
+  external set paddingInlineEnd(String value);
   external String get paddingInlineStart;
-  external set paddingLeft(String value);
+  external set paddingInlineStart(String value);
   external String get paddingLeft;
-  external set paddingRight(String value);
+  external set paddingLeft(String value);
   external String get paddingRight;
-  external set paddingTop(String value);
+  external set paddingRight(String value);
   external String get paddingTop;
-  external set page(String value);
+  external set paddingTop(String value);
   external String get page;
-  external set pageBreakAfter(String value);
+  external set page(String value);
   external String get pageBreakAfter;
-  external set pageBreakBefore(String value);
+  external set pageBreakAfter(String value);
   external String get pageBreakBefore;
-  external set pageBreakInside(String value);
+  external set pageBreakBefore(String value);
   external String get pageBreakInside;
-  external set paintOrder(String value);
+  external set pageBreakInside(String value);
   external String get paintOrder;
-  external set pause(String value);
+  external set paintOrder(String value);
   external String get pause;
-  external set pauseAfter(String value);
+  external set pause(String value);
   external String get pauseAfter;
-  external set pauseBefore(String value);
+  external set pauseAfter(String value);
   external String get pauseBefore;
-  external set perspective(String value);
+  external set pauseBefore(String value);
   external String get perspective;
-  external set perspectiveOrigin(String value);
+  external set perspective(String value);
   external String get perspectiveOrigin;
-  external set placeContent(String value);
+  external set perspectiveOrigin(String value);
   external String get placeContent;
-  external set placeItems(String value);
+  external set placeContent(String value);
   external String get placeItems;
-  external set placeSelf(String value);
+  external set placeItems(String value);
   external String get placeSelf;
-  external set pointerEvents(String value);
+  external set placeSelf(String value);
   external String get pointerEvents;
-  external set position(String value);
+  external set pointerEvents(String value);
   external String get position;
-  external set positionFallbackBounds(String value);
+  external set position(String value);
   external String get positionFallbackBounds;
-  external set positionTryFinal(String value);
+  external set positionFallbackBounds(String value);
   external String get positionTryFinal;
-  external set positionTryOptions(String value);
+  external set positionTryFinal(String value);
   external String get positionTryOptions;
-  external set positionTryOrder(String value);
+  external set positionTryOptions(String value);
   external String get positionTryOrder;
-  external set printColorAdjust(String value);
+  external set positionTryOrder(String value);
   external String get printColorAdjust;
-  external set quotes(String value);
+  external set printColorAdjust(String value);
   external String get quotes;
-  external set r(String value);
+  external set quotes(String value);
   external String get r;
-  external set readingOrder(String value);
+  external set r(String value);
   external String get readingOrder;
-  external set regionFragment(String value);
+  external set readingOrder(String value);
   external String get regionFragment;
-  external set resize(String value);
+  external set regionFragment(String value);
   external String get resize;
-  external set rest(String value);
+  external set resize(String value);
   external String get rest;
-  external set restAfter(String value);
+  external set rest(String value);
   external String get restAfter;
-  external set restBefore(String value);
+  external set restAfter(String value);
   external String get restBefore;
-  external set right(String value);
+  external set restBefore(String value);
   external String get right;
-  external set rotate(String value);
+  external set right(String value);
   external String get rotate;
-  external set rowGap(String value);
+  external set rotate(String value);
   external String get rowGap;
-  external set rubyAlign(String value);
+  external set rowGap(String value);
   external String get rubyAlign;
-  external set rubyMerge(String value);
+  external set rubyAlign(String value);
   external String get rubyMerge;
-  external set rubyOverhang(String value);
+  external set rubyMerge(String value);
   external String get rubyOverhang;
-  external set rubyPosition(String value);
+  external set rubyOverhang(String value);
   external String get rubyPosition;
-  external set rx(String value);
+  external set rubyPosition(String value);
   external String get rx;
-  external set ry(String value);
+  external set rx(String value);
   external String get ry;
-  external set scale(String value);
+  external set ry(String value);
   external String get scale;
-  external set scrollBehavior(String value);
+  external set scale(String value);
   external String get scrollBehavior;
-  external set scrollMargin(String value);
+  external set scrollBehavior(String value);
   external String get scrollMargin;
-  external set scrollMarginBlock(String value);
+  external set scrollMargin(String value);
   external String get scrollMarginBlock;
-  external set scrollMarginBlockEnd(String value);
+  external set scrollMarginBlock(String value);
   external String get scrollMarginBlockEnd;
-  external set scrollMarginBlockStart(String value);
+  external set scrollMarginBlockEnd(String value);
   external String get scrollMarginBlockStart;
-  external set scrollMarginBottom(String value);
+  external set scrollMarginBlockStart(String value);
   external String get scrollMarginBottom;
-  external set scrollMarginInline(String value);
+  external set scrollMarginBottom(String value);
   external String get scrollMarginInline;
-  external set scrollMarginInlineEnd(String value);
+  external set scrollMarginInline(String value);
   external String get scrollMarginInlineEnd;
-  external set scrollMarginInlineStart(String value);
+  external set scrollMarginInlineEnd(String value);
   external String get scrollMarginInlineStart;
-  external set scrollMarginLeft(String value);
+  external set scrollMarginInlineStart(String value);
   external String get scrollMarginLeft;
-  external set scrollMarginRight(String value);
+  external set scrollMarginLeft(String value);
   external String get scrollMarginRight;
-  external set scrollMarginTop(String value);
+  external set scrollMarginRight(String value);
   external String get scrollMarginTop;
-  external set scrollPadding(String value);
+  external set scrollMarginTop(String value);
   external String get scrollPadding;
-  external set scrollPaddingBlock(String value);
+  external set scrollPadding(String value);
   external String get scrollPaddingBlock;
-  external set scrollPaddingBlockEnd(String value);
+  external set scrollPaddingBlock(String value);
   external String get scrollPaddingBlockEnd;
-  external set scrollPaddingBlockStart(String value);
+  external set scrollPaddingBlockEnd(String value);
   external String get scrollPaddingBlockStart;
-  external set scrollPaddingBottom(String value);
+  external set scrollPaddingBlockStart(String value);
   external String get scrollPaddingBottom;
-  external set scrollPaddingInline(String value);
+  external set scrollPaddingBottom(String value);
   external String get scrollPaddingInline;
-  external set scrollPaddingInlineEnd(String value);
+  external set scrollPaddingInline(String value);
   external String get scrollPaddingInlineEnd;
-  external set scrollPaddingInlineStart(String value);
+  external set scrollPaddingInlineEnd(String value);
   external String get scrollPaddingInlineStart;
-  external set scrollPaddingLeft(String value);
+  external set scrollPaddingInlineStart(String value);
   external String get scrollPaddingLeft;
-  external set scrollPaddingRight(String value);
+  external set scrollPaddingLeft(String value);
   external String get scrollPaddingRight;
-  external set scrollPaddingTop(String value);
+  external set scrollPaddingRight(String value);
   external String get scrollPaddingTop;
-  external set scrollSnapAlign(String value);
+  external set scrollPaddingTop(String value);
   external String get scrollSnapAlign;
-  external set scrollSnapStop(String value);
+  external set scrollSnapAlign(String value);
   external String get scrollSnapStop;
-  external set scrollSnapType(String value);
+  external set scrollSnapStop(String value);
   external String get scrollSnapType;
-  external set scrollStart(String value);
+  external set scrollSnapType(String value);
   external String get scrollStart;
-  external set scrollStartBlock(String value);
+  external set scrollStart(String value);
   external String get scrollStartBlock;
-  external set scrollStartInline(String value);
+  external set scrollStartBlock(String value);
   external String get scrollStartInline;
-  external set scrollStartTarget(String value);
+  external set scrollStartInline(String value);
   external String get scrollStartTarget;
-  external set scrollStartTargetBlock(String value);
+  external set scrollStartTarget(String value);
   external String get scrollStartTargetBlock;
-  external set scrollStartTargetInline(String value);
+  external set scrollStartTargetBlock(String value);
   external String get scrollStartTargetInline;
-  external set scrollStartTargetX(String value);
+  external set scrollStartTargetInline(String value);
   external String get scrollStartTargetX;
-  external set scrollStartTargetY(String value);
+  external set scrollStartTargetX(String value);
   external String get scrollStartTargetY;
-  external set scrollStartX(String value);
+  external set scrollStartTargetY(String value);
   external String get scrollStartX;
-  external set scrollStartY(String value);
+  external set scrollStartX(String value);
   external String get scrollStartY;
-  external set scrollTimeline(String value);
+  external set scrollStartY(String value);
   external String get scrollTimeline;
-  external set scrollTimelineAxis(String value);
+  external set scrollTimeline(String value);
   external String get scrollTimelineAxis;
-  external set scrollTimelineName(String value);
+  external set scrollTimelineAxis(String value);
   external String get scrollTimelineName;
-  external set scrollbarColor(String value);
+  external set scrollTimelineName(String value);
   external String get scrollbarColor;
-  external set scrollbarGutter(String value);
+  external set scrollbarColor(String value);
   external String get scrollbarGutter;
-  external set scrollbarWidth(String value);
+  external set scrollbarGutter(String value);
   external String get scrollbarWidth;
-  external set shapeImageThreshold(String value);
+  external set scrollbarWidth(String value);
   external String get shapeImageThreshold;
-  external set shapeInside(String value);
+  external set shapeImageThreshold(String value);
   external String get shapeInside;
-  external set shapeMargin(String value);
+  external set shapeInside(String value);
   external String get shapeMargin;
-  external set shapeOutside(String value);
+  external set shapeMargin(String value);
   external String get shapeOutside;
-  external set shapePadding(String value);
+  external set shapeOutside(String value);
   external String get shapePadding;
-  external set shapeRendering(String value);
+  external set shapePadding(String value);
   external String get shapeRendering;
-  external set shapeSubtract(String value);
+  external set shapeRendering(String value);
   external String get shapeSubtract;
-  external set spatialNavigationAction(String value);
+  external set shapeSubtract(String value);
   external String get spatialNavigationAction;
-  external set spatialNavigationContain(String value);
+  external set spatialNavigationAction(String value);
   external String get spatialNavigationContain;
-  external set spatialNavigationFunction(String value);
+  external set spatialNavigationContain(String value);
   external String get spatialNavigationFunction;
-  external set speak(String value);
+  external set spatialNavigationFunction(String value);
   external String get speak;
-  external set speakAs(String value);
+  external set speak(String value);
   external String get speakAs;
-  external set stopColor(String value);
+  external set speakAs(String value);
   external String get stopColor;
-  external set stopOpacity(String value);
+  external set stopColor(String value);
   external String get stopOpacity;
-  external set stringSet(String value);
+  external set stopOpacity(String value);
   external String get stringSet;
-  external set stroke(String value);
+  external set stringSet(String value);
   external String get stroke;
-  external set strokeAlign(String value);
+  external set stroke(String value);
   external String get strokeAlign;
-  external set strokeAlignment(String value);
+  external set strokeAlign(String value);
   external String get strokeAlignment;
-  external set strokeBreak(String value);
+  external set strokeAlignment(String value);
   external String get strokeBreak;
-  external set strokeColor(String value);
+  external set strokeBreak(String value);
   external String get strokeColor;
-  external set strokeDashCorner(String value);
+  external set strokeColor(String value);
   external String get strokeDashCorner;
-  external set strokeDashJustify(String value);
+  external set strokeDashCorner(String value);
   external String get strokeDashJustify;
-  external set strokeDashadjust(String value);
+  external set strokeDashJustify(String value);
   external String get strokeDashadjust;
-  external set strokeDasharray(String value);
+  external set strokeDashadjust(String value);
   external String get strokeDasharray;
-  external set strokeDashcorner(String value);
+  external set strokeDasharray(String value);
   external String get strokeDashcorner;
-  external set strokeDashoffset(String value);
+  external set strokeDashcorner(String value);
   external String get strokeDashoffset;
-  external set strokeImage(String value);
+  external set strokeDashoffset(String value);
   external String get strokeImage;
-  external set strokeLinecap(String value);
+  external set strokeImage(String value);
   external String get strokeLinecap;
-  external set strokeLinejoin(String value);
+  external set strokeLinecap(String value);
   external String get strokeLinejoin;
-  external set strokeMiterlimit(String value);
+  external set strokeLinejoin(String value);
   external String get strokeMiterlimit;
-  external set strokeOpacity(String value);
+  external set strokeMiterlimit(String value);
   external String get strokeOpacity;
-  external set strokeOrigin(String value);
+  external set strokeOpacity(String value);
   external String get strokeOrigin;
-  external set strokePosition(String value);
+  external set strokeOrigin(String value);
   external String get strokePosition;
-  external set strokeRepeat(String value);
+  external set strokePosition(String value);
   external String get strokeRepeat;
-  external set strokeSize(String value);
+  external set strokeRepeat(String value);
   external String get strokeSize;
-  external set strokeWidth(String value);
+  external set strokeSize(String value);
   external String get strokeWidth;
-  external set tabSize(String value);
+  external set strokeWidth(String value);
   external String get tabSize;
-  external set tableLayout(String value);
+  external set tabSize(String value);
   external String get tableLayout;
-  external set textAlign(String value);
+  external set tableLayout(String value);
   external String get textAlign;
-  external set textAlignAll(String value);
+  external set textAlign(String value);
   external String get textAlignAll;
-  external set textAlignLast(String value);
+  external set textAlignAll(String value);
   external String get textAlignLast;
-  external set textAnchor(String value);
+  external set textAlignLast(String value);
   external String get textAnchor;
-  external set textAutospace(String value);
+  external set textAnchor(String value);
   external String get textAutospace;
-  external set textBoxEdge(String value);
+  external set textAutospace(String value);
   external String get textBoxEdge;
-  external set textBoxTrim(String value);
+  external set textBoxEdge(String value);
   external String get textBoxTrim;
-  external set textCombineUpright(String value);
+  external set textBoxTrim(String value);
   external String get textCombineUpright;
-  external set textDecoration(String value);
+  external set textCombineUpright(String value);
   external String get textDecoration;
-  external set textDecorationColor(String value);
+  external set textDecoration(String value);
   external String get textDecorationColor;
-  external set textDecorationLine(String value);
+  external set textDecorationColor(String value);
   external String get textDecorationLine;
-  external set textDecorationSkip(String value);
+  external set textDecorationLine(String value);
   external String get textDecorationSkip;
-  external set textDecorationSkipBox(String value);
+  external set textDecorationSkip(String value);
   external String get textDecorationSkipBox;
-  external set textDecorationSkipInk(String value);
+  external set textDecorationSkipBox(String value);
   external String get textDecorationSkipInk;
-  external set textDecorationSkipSelf(String value);
+  external set textDecorationSkipInk(String value);
   external String get textDecorationSkipSelf;
-  external set textDecorationSkipSpaces(String value);
+  external set textDecorationSkipSelf(String value);
   external String get textDecorationSkipSpaces;
-  external set textDecorationStyle(String value);
+  external set textDecorationSkipSpaces(String value);
   external String get textDecorationStyle;
-  external set textDecorationThickness(String value);
+  external set textDecorationStyle(String value);
   external String get textDecorationThickness;
-  external set textDecorationTrim(String value);
+  external set textDecorationThickness(String value);
   external String get textDecorationTrim;
-  external set textEmphasis(String value);
+  external set textDecorationTrim(String value);
   external String get textEmphasis;
-  external set textEmphasisColor(String value);
+  external set textEmphasis(String value);
   external String get textEmphasisColor;
-  external set textEmphasisPosition(String value);
+  external set textEmphasisColor(String value);
   external String get textEmphasisPosition;
-  external set textEmphasisSkip(String value);
+  external set textEmphasisPosition(String value);
   external String get textEmphasisSkip;
-  external set textEmphasisStyle(String value);
+  external set textEmphasisSkip(String value);
   external String get textEmphasisStyle;
-  external set textGroupAlign(String value);
+  external set textEmphasisStyle(String value);
   external String get textGroupAlign;
-  external set textIndent(String value);
+  external set textGroupAlign(String value);
   external String get textIndent;
-  external set textJustify(String value);
+  external set textIndent(String value);
   external String get textJustify;
-  external set textOrientation(String value);
+  external set textJustify(String value);
   external String get textOrientation;
-  external set textOverflow(String value);
+  external set textOrientation(String value);
   external String get textOverflow;
-  external set textRendering(String value);
+  external set textOverflow(String value);
   external String get textRendering;
-  external set textShadow(String value);
+  external set textRendering(String value);
   external String get textShadow;
-  external set textSizeAdjust(String value);
+  external set textShadow(String value);
   external String get textSizeAdjust;
-  external set textSpacing(String value);
+  external set textSizeAdjust(String value);
   external String get textSpacing;
-  external set textSpacingTrim(String value);
+  external set textSpacing(String value);
   external String get textSpacingTrim;
-  external set textTransform(String value);
+  external set textSpacingTrim(String value);
   external String get textTransform;
-  external set textUnderlineOffset(String value);
+  external set textTransform(String value);
   external String get textUnderlineOffset;
-  external set textUnderlinePosition(String value);
+  external set textUnderlineOffset(String value);
   external String get textUnderlinePosition;
-  external set textWrap(String value);
+  external set textUnderlinePosition(String value);
   external String get textWrap;
-  external set textWrapMode(String value);
+  external set textWrap(String value);
   external String get textWrapMode;
-  external set textWrapStyle(String value);
+  external set textWrapMode(String value);
   external String get textWrapStyle;
-  external set timelineScope(String value);
+  external set textWrapStyle(String value);
   external String get timelineScope;
-  external set top(String value);
+  external set timelineScope(String value);
   external String get top;
-  external set touchAction(String value);
+  external set top(String value);
   external String get touchAction;
-  external set transform(String value);
+  external set touchAction(String value);
   external String get transform;
-  external set transformBox(String value);
+  external set transform(String value);
   external String get transformBox;
-  external set transformOrigin(String value);
+  external set transformBox(String value);
   external String get transformOrigin;
-  external set transformStyle(String value);
+  external set transformOrigin(String value);
   external String get transformStyle;
-  external set transition(String value);
+  external set transformStyle(String value);
   external String get transition;
-  external set transitionBehavior(String value);
+  external set transition(String value);
   external String get transitionBehavior;
-  external set transitionDelay(String value);
+  external set transitionBehavior(String value);
   external String get transitionDelay;
-  external set transitionDuration(String value);
+  external set transitionDelay(String value);
   external String get transitionDuration;
-  external set transitionProperty(String value);
+  external set transitionDuration(String value);
   external String get transitionProperty;
-  external set transitionTimingFunction(String value);
+  external set transitionProperty(String value);
   external String get transitionTimingFunction;
-  external set translate(String value);
+  external set transitionTimingFunction(String value);
   external String get translate;
-  external set unicodeBidi(String value);
+  external set translate(String value);
   external String get unicodeBidi;
-  external set userSelect(String value);
+  external set unicodeBidi(String value);
   external String get userSelect;
-  external set vectorEffect(String value);
+  external set userSelect(String value);
   external String get vectorEffect;
-  external set verticalAlign(String value);
+  external set vectorEffect(String value);
   external String get verticalAlign;
-  external set viewTimeline(String value);
+  external set verticalAlign(String value);
   external String get viewTimeline;
-  external set viewTimelineAxis(String value);
+  external set viewTimeline(String value);
   external String get viewTimelineAxis;
-  external set viewTimelineInset(String value);
+  external set viewTimelineAxis(String value);
   external String get viewTimelineInset;
-  external set viewTimelineName(String value);
+  external set viewTimelineInset(String value);
   external String get viewTimelineName;
-  external set viewTransitionName(String value);
+  external set viewTimelineName(String value);
   external String get viewTransitionName;
-  external set visibility(String value);
+  external set viewTransitionName(String value);
   external String get visibility;
-  external set voiceBalance(String value);
+  external set visibility(String value);
   external String get voiceBalance;
-  external set voiceDuration(String value);
+  external set voiceBalance(String value);
   external String get voiceDuration;
-  external set voiceFamily(String value);
+  external set voiceDuration(String value);
   external String get voiceFamily;
-  external set voicePitch(String value);
+  external set voiceFamily(String value);
   external String get voicePitch;
-  external set voiceRange(String value);
+  external set voicePitch(String value);
   external String get voiceRange;
-  external set voiceRate(String value);
+  external set voiceRange(String value);
   external String get voiceRate;
-  external set voiceStress(String value);
+  external set voiceRate(String value);
   external String get voiceStress;
-  external set voiceVolume(String value);
+  external set voiceStress(String value);
   external String get voiceVolume;
-  external set whiteSpace(String value);
+  external set voiceVolume(String value);
   external String get whiteSpace;
-  external set whiteSpaceCollapse(String value);
+  external set whiteSpace(String value);
   external String get whiteSpaceCollapse;
-  external set whiteSpaceTrim(String value);
+  external set whiteSpaceCollapse(String value);
   external String get whiteSpaceTrim;
-  external set widows(String value);
+  external set whiteSpaceTrim(String value);
   external String get widows;
-  external set width(String value);
+  external set widows(String value);
   external String get width;
-  external set willChange(String value);
+  external set width(String value);
   external String get willChange;
-  external set wordBreak(String value);
+  external set willChange(String value);
   external String get wordBreak;
-  external set wordSpaceTransform(String value);
+  external set wordBreak(String value);
   external String get wordSpaceTransform;
-  external set wordSpacing(String value);
+  external set wordSpaceTransform(String value);
   external String get wordSpacing;
-  external set wordWrap(String value);
+  external set wordSpacing(String value);
   external String get wordWrap;
-  external set wrapAfter(String value);
+  external set wordWrap(String value);
   external String get wrapAfter;
-  external set wrapBefore(String value);
+  external set wrapAfter(String value);
   external String get wrapBefore;
-  external set wrapFlow(String value);
+  external set wrapBefore(String value);
   external String get wrapFlow;
-  external set wrapInside(String value);
+  external set wrapFlow(String value);
   external String get wrapInside;
-  external set wrapThrough(String value);
+  external set wrapInside(String value);
   external String get wrapThrough;
-  external set writingMode(String value);
+  external set wrapThrough(String value);
   external String get writingMode;
-  external set x(String value);
+  external set writingMode(String value);
   external String get x;
-  external set y(String value);
+  external set x(String value);
   external String get y;
-  external set zIndex(String value);
+  external set y(String value);
   external String get zIndex;
-  external set zoom(String value);
+  external set zIndex(String value);
   external String get zoom;
+  external set zoom(String value);
 }
 @JS()
 external $CSS get CSS;

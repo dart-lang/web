@@ -31,20 +31,20 @@ typedef XMLHttpRequestResponseType = String;
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequestEventTarget).
 extension type XMLHttpRequestEventTarget._(JSObject _)
     implements EventTarget, JSObject {
-  external set onloadstart(EventHandler value);
   external EventHandler get onloadstart;
-  external set onprogress(EventHandler value);
+  external set onloadstart(EventHandler value);
   external EventHandler get onprogress;
-  external set onabort(EventHandler value);
+  external set onprogress(EventHandler value);
   external EventHandler get onabort;
-  external set onerror(EventHandler value);
+  external set onabort(EventHandler value);
   external EventHandler get onerror;
-  external set onload(EventHandler value);
+  external set onerror(EventHandler value);
   external EventHandler get onload;
-  external set ontimeout(EventHandler value);
+  external set onload(EventHandler value);
   external EventHandler get ontimeout;
-  external set onloadend(EventHandler value);
+  external set ontimeout(EventHandler value);
   external EventHandler get onloadend;
+  external set onloadend(EventHandler value);
 }
 
 /// @AvailableInWorkers("notservice")
@@ -211,21 +211,227 @@ extension type XMLHttpRequest._(JSObject _)
   /// it
   /// as such. This method must be called before calling [XMLHttpRequest.send].
   external void overrideMimeType(String mime);
-  external set onreadystatechange(EventHandler value);
   external EventHandler get onreadystatechange;
+  external set onreadystatechange(EventHandler value);
+
+  /// The **XMLHttpRequest.readyState** property returns the state an
+  /// XMLHttpRequest client is in. An XHR client exists in one of the following
+  /// states:
+  ///
+  /// | Value | State              | Description                                                     |
+  /// | ----- | ------------------ | --------------------------------------------------------------- |
+  /// | `0`   | `UNSENT`           | Client has been created. `open()` not called yet.               |
+  /// | `1`   | `OPENED`           | `open()` has been called.                                       |
+  /// | `2`   | `HEADERS_RECEIVED` | `send()` has been called, and headers and status are available. |
+  /// | `3`   | `LOADING`          | Downloading; `responseText` holds partial data.                 |
+  /// | `4`   | `DONE`             | The operation is complete.                                      |
+  ///
+  /// - UNSENT
+  ///   - : The XMLHttpRequest client has been created, but the open() method hasn't been called yet.
+  /// - OPENED
+  ///   - : open() method has been invoked. During this state, the request headers can be set using the [setRequestHeader()](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/setRequestHeader) method and the [send()](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/send) method can be called which will initiate the fetch.
+  /// - HEADERS_RECEIVED
+  ///   - : send() has been called, all redirects (if any) have been followed and the response headers have been received.
+  /// - LOADING
+  ///   - : Response's body is being received. If [`responseType`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/responseType) is "text" or empty string, [`responseText`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/responseText) will have the partial text response as it loads.
+  /// - DONE
+  ///   - : The fetch operation is complete. This could mean that either the data transfer has been completed successfully or failed.
   external int get readyState;
-  external set timeout(int value);
+
+  /// The **`XMLHttpRequest.timeout`** property is an `unsigned long`
+  /// representing the number of milliseconds a request can take before
+  /// automatically being terminated. The default value is 0, which means there
+  /// is no timeout. Timeout shouldn't be used for synchronous XMLHttpRequests
+  /// requests used in a  or it will throw an `InvalidAccessError` exception.
+  /// When a timeout happens, a
+  /// [timeout](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/timeout_event)
+  /// event is fired.
+  ///
+  /// > **Note:** You may not use a timeout for synchronous requests with an
+  /// > owning window.
+  ///
+  /// [Using a timeout with an asynchronous request](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest_API/Synchronous_and_Asynchronous_Requests#example_using_a_timeout).
   external int get timeout;
-  external set withCredentials(bool value);
+  external set timeout(int value);
+
+  /// The **`XMLHttpRequest.withCredentials`** property is a boolean value that
+  /// indicates whether or not cross-site `Access-Control` requests should be
+  /// made using credentials such as cookies, authorization headers or TLS
+  /// client certificates. Setting `withCredentials` has no effect on
+  /// same-origin requests.
+  ///
+  /// In addition, this flag is also used to indicate when cookies are to be
+  /// ignored in the response. The default is `false`. `XMLHttpRequest`
+  /// responses from a different domain cannot set cookie values for their own
+  /// domain unless `withCredentials` is set to `true` before making the
+  /// request. The third-party cookies obtained by setting `withCredentials` to
+  /// true will still honor same-origin policy and hence can not be accessed by
+  /// the requesting script through
+  /// [document.cookie](https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie)
+  /// or from response headers.
+  ///
+  /// > **Note:** This never affects same-origin requests.
+  ///
+  /// > **Note:** `XMLHttpRequest` responses from a different domain _cannot_
+  /// > set cookie values for their own domain unless `withCredentials` is set
+  /// > to `true` before making the request, regardless of `Access-Control-`
+  /// > header values.
   external bool get withCredentials;
+  external set withCredentials(bool value);
+
+  /// The [XMLHttpRequest] `upload` property returns an [XMLHttpRequestUpload]
+  /// object that can be observed to monitor an upload's progress.
+  ///
+  /// It is an opaque object, but because it's also an
+  /// [XMLHttpRequestEventTarget], event listeners can be attached to track its
+  /// process.
+  ///
+  /// > **Note:** Attaching event listeners to this object prevents the request
+  /// > from being a "simple request" and will cause a preflight request to be
+  /// > issued if cross-origin; see
+  /// > [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS). Because
+  /// > of this, event listeners need to be registered before calling
+  /// > [XMLHttpRequest.send] or upload events won't be dispatched.
+  ///
+  /// > **Note:** The spec also seems to indicate that event listeners should be
+  /// > attached after [XMLHttpRequest.open]. However, browsers are buggy on
+  /// > this matter, and often need the listeners to be registered _before_
+  /// > [XMLHttpRequest.open] to work.
+  ///
+  /// The following events can be triggered on an upload object and used to
+  /// monitor the upload:
+  ///
+  /// <table class="no-markdown">
+  ///   <thead>
+  ///     <tr>
+  ///       <th>Event</th>
+  ///       <th>Description</th>
+  ///     </tr>
+  ///   </thead>
+  ///   <tbody>
+  ///     <tr>
+  ///       <td>[XMLHttpRequestUpload.loadstart_event]</td>
+  ///       <td>The upload has begun.</td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>[XMLHttpRequestUpload.progress_event]</td>
+  ///       <td>
+  /// Periodically delivered to indicate the amount of progress made so far.
+  ///       </td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>[XMLHttpRequestUpload.abort_event]</td>
+  ///       <td>The upload operation was aborted.</td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>[XMLHttpRequestUpload.error_event]</td>
+  ///       <td>The upload failed due to an error.</td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>[XMLHttpRequestUpload.load_event]</td>
+  ///       <td>The upload completed successfully.</td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>[XMLHttpRequestUpload.timeout_event]</td>
+  ///       <td>
+  /// The upload timed out because a reply did not arrive within the time
+  /// interval specified by the
+  /// [XMLHttpRequest.timeout].
+  ///       </td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>[XMLHttpRequestUpload.loadend_event]</td>
+  ///       <td>
+  /// The upload finished. This event does not differentiate between success
+  /// or failure, and is sent at the end of the upload regardless of the
+  /// outcome. Prior to this event, one of <code>load</code>,
+  ///         <code>error</code>, <code>abort</code>, or <code>timeout</code> will
+  /// already have been delivered to indicate why the upload ended.
+  ///       </td>
+  ///     </tr>
+  ///   </tbody>
+  /// </table>
   external XMLHttpRequestUpload get upload;
+
+  /// The read-only **`XMLHttpRequest.responseURL`** property returns the
+  /// serialized URL of the response or the empty string if the URL is `null`.
+  /// If the URL is returned, any URL fragment present in the URL will be
+  /// stripped away. The value of `responseURL` will be the final URL obtained
+  /// after any redirects.
   external String get responseURL;
+
+  /// The read-only **`XMLHttpRequest.status`** property returns the numerical
+  /// HTTP
+  /// [status code](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) of
+  /// the `XMLHttpRequest`'s response.
+  ///
+  /// Before the request completes, the value of `status` is 0. Browsers also
+  /// report a status of 0 in case of `XMLHttpRequest` errors.
   external int get status;
+
+  /// The read-only **`XMLHttpRequest.statusText`** property returns a string
+  /// containing the response's status message as returned by the HTTP server.
+  /// Unlike
+  /// [`XMLHTTPRequest.status`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/status)
+  /// which indicates a numerical status code, this property contains the _text_
+  /// of the response status, such as "OK" or "Not Found". If the request's
+  /// [`readyState`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/readyState)
+  /// is in `UNSENT` or `OPENED` state, the value of `statusText` will be an
+  /// empty string.
+  ///
+  /// If the server response doesn't explicitly specify a status text,
+  /// `statusText` will assume the default value "OK".
+  ///
+  /// > **Note:** Responses over an HTTP/2 connection will always have an empty
+  /// > string as status message as HTTP/2 does not support them.
   external String get statusText;
-  external set responseType(XMLHttpRequestResponseType value);
+
+  /// The [XMLHttpRequest] property
+  /// **`responseType`** is an enumerated string value specifying
+  /// the type of data contained in the response.
+  ///
+  /// It also lets the author change the
+  /// response type. If an empty string is set as the value of `responseType`,
+  /// the
+  /// default value of `text` is used.
   external XMLHttpRequestResponseType get responseType;
+  external set responseType(XMLHttpRequestResponseType value);
+
+  /// The [XMLHttpRequest]
+  /// **`response`** property returns the response's body content as
+  /// an `ArrayBuffer`, a [Blob], a [Document],
+  /// a JavaScript `Object`, or a string, depending on the value
+  /// of the request's [XMLHttpRequest.responseType]
+  /// property.
   external JSAny? get response;
+
+  /// The read-only [XMLHttpRequest] property
+  /// **`responseText`** returns the text received from a server
+  /// following a request being sent.
   external String get responseText;
+
+  /// The **`XMLHttpRequest.responseXML`** read-only property returns
+  /// a [Document] containing the HTML or XML retrieved by the request; or
+  /// `null` if the request was unsuccessful, has not yet been sent, or if the
+  /// data
+  /// can't be parsed as XML or HTML.
+  ///
+  /// > **Note:** The name `responseXML` is an artifact of this
+  /// > property's history; it works for both HTML and XML.
+  ///
+  /// Usually, the response is parsed as "`text/xml`". If the
+  /// [XMLHttpRequest.responseType] is set to
+  /// "`document`" and the request was made asynchronously, instead the response
+  /// is
+  /// parsed as "`text/html`". `responseXML` is `null` for
+  /// any other types of data, as well as for [`data:`
+  /// URLs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs).
+  ///
+  /// If the server doesn't specify the  as
+  /// "`text/xml`" or "`application/xml`", you can use
+  /// [XMLHttpRequest.overrideMimeType] to parse it as XML anyway.
+  ///
+  /// This property isn't available to workers.
   external Document? get responseXML;
 }
 
@@ -316,8 +522,33 @@ extension type ProgressEvent._(JSObject _) implements Event, JSObject {
     ProgressEventInit eventInitDict,
   ]);
 
+  /// The
+  /// **`ProgressEvent.lengthComputable`** read-only property is a
+  /// boolean flag indicating if the resource concerned by the
+  /// [ProgressEvent] has a length that can be calculated. If not, the
+  /// [ProgressEvent.total] property has no significant value.
   external bool get lengthComputable;
+
+  /// The **`ProgressEvent.loaded`** read-only property is an integer
+  /// representing the amount of work already performed by the underlying
+  /// process. The ratio
+  /// of work done can be calculated with the property and
+  /// `ProgressEvent.total`.
+  /// When downloading a resource using HTTP, this value is specified in bytes
+  /// (not bits), and only represents the part of the content
+  /// itself, not headers and other overhead.
   external int get loaded;
+
+  /// The **`ProgressEvent.total`** read-only property is an unsigned
+  /// 64-bit integer value indicating the total size of the data being processed
+  /// or
+  /// transmitted. In the case of an HTTP transmission, this is the size of the
+  /// body of the
+  /// message (the `Content-Length`), and does not include headers and other
+  /// overhead.
+  ///
+  /// If the event's [ProgressEvent.lengthComputable]
+  /// property is `false`, this value is meaningless and should be ignored.
   external int get total;
 }
 extension type ProgressEventInit._(JSObject _) implements EventInit, JSObject {
@@ -330,10 +561,10 @@ extension type ProgressEventInit._(JSObject _) implements EventInit, JSObject {
     int total,
   });
 
-  external set lengthComputable(bool value);
   external bool get lengthComputable;
-  external set loaded(int value);
+  external set lengthComputable(bool value);
   external int get loaded;
-  external set total(int value);
+  external set loaded(int value);
   external int get total;
+  external set total(int value);
 }

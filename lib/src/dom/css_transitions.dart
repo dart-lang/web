@@ -29,8 +29,25 @@ extension type TransitionEvent._(JSObject _) implements Event, JSObject {
     TransitionEventInit transitionEventInitDict,
   ]);
 
+  /// The **`propertyName`** read-only property of [TransitionEvent] objects is
+  /// a string containing the name of the CSS property associated with the
+  /// transition.
   external String get propertyName;
+
+  /// The **`TransitionEvent.elapsedTime`** read-only property is a
+  /// `float` giving the amount of time the animation has been running, in
+  /// seconds,
+  /// when this event fired. This value is not affected by the
+  /// property.
   external num get elapsedTime;
+
+  /// The **`TransitionEvent.pseudoElement`** read-only property is a
+  /// string, starting with `'::'`, containing the name of the
+  /// [pseudo-element](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements)
+  /// the animation runs on.
+  /// If the transition doesn't run on a pseudo-element but on the element, an
+  /// empty string:
+  /// `''``.`
   external String get pseudoElement;
 }
 extension type TransitionEventInit._(JSObject _)
@@ -44,10 +61,10 @@ extension type TransitionEventInit._(JSObject _)
     String pseudoElement,
   });
 
-  external set propertyName(String value);
   external String get propertyName;
-  external set elapsedTime(num value);
+  external set propertyName(String value);
   external num get elapsedTime;
-  external set pseudoElement(String value);
+  external set elapsedTime(num value);
   external String get pseudoElement;
+  external set pseudoElement(String value);
 }

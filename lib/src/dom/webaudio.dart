@@ -295,15 +295,45 @@ extension type BaseAudioContext._(JSObject _) implements EventTarget, JSObject {
     DecodeSuccessCallback? successCallback,
     DecodeErrorCallback? errorCallback,
   ]);
+
+  /// The `destination` property of the [BaseAudioContext]
+  /// interface returns an [AudioDestinationNode] representing the final
+  /// destination of all audio in the context. It often represents an actual
+  /// audio-rendering
+  /// device such as your device's speakers.
   external AudioDestinationNode get destination;
+
+  /// The `sampleRate` property of the [BaseAudioContext] interface returns a
+  /// floating point number representing the sample rate, in samples per second,
+  /// used by all nodes in this audio context.
+  /// This limitation means that sample-rate converters are not supported.
   external num get sampleRate;
+
+  /// The `currentTime` read-only property of the [BaseAudioContext]
+  /// interface returns a double representing an ever-increasing hardware
+  /// timestamp in seconds that
+  /// can be used for scheduling audio playback, visualizing timelines, etc. It
+  /// starts at 0.
   external num get currentTime;
+
+  /// The `listener` property of the [BaseAudioContext] interface
+  /// returns an [AudioListener] object that can then be used for
+  /// implementing 3D audio spatialization.
   external AudioListener get listener;
+
+  /// The `state` read-only property of the [BaseAudioContext]
+  /// interface returns the current state of the `AudioContext`.
   external AudioContextState get state;
   external int get renderQuantumSize;
+
+  /// The `audioWorklet` read-only property of the
+  /// [BaseAudioContext] interface returns an instance of
+  /// [AudioWorklet] that can be used for adding
+  /// [AudioWorkletProcessor]-derived classes which implement custom audio
+  /// processing.
   external AudioWorklet get audioWorklet;
-  external set onstatechange(EventHandler value);
   external EventHandler get onstatechange;
+  external set onstatechange(EventHandler value);
 }
 
 /// The `AudioContext` interface represents an audio-processing graph built from
@@ -439,12 +469,40 @@ extension type AudioContext._(JSObject _)
   /// For more details about media stream destination nodes, check out the
   /// [MediaStreamAudioDestinationNode] reference page.
   external MediaStreamAudioDestinationNode createMediaStreamDestination();
+
+  /// The **`baseLatency`** read-only property of the
+  /// [AudioContext] interface returns a double that represents the number of
+  /// seconds of processing latency incurred by the `AudioContext` passing an
+  /// audio
+  /// buffer from the [AudioDestinationNode] — i.e. the end of the audio graph —
+  /// into the host system's audio subsystem ready for playing.
+  ///
+  /// > **Note:** You can request a certain latency during
+  /// > [AudioContext.AudioContext] with the
+  /// > `latencyHint` option, but the browser may ignore the option.
   external num get baseLatency;
+
+  /// The **`outputLatency`** read-only property of
+  /// the [AudioContext] Interface provides an estimation of the output latency
+  /// of the current audio context.
+  ///
+  /// This is the time, in seconds, between the browser passing an audio buffer
+  /// out of an
+  /// audio graph over to the host system's audio subsystem to play, and the
+  /// time at which the
+  /// first sample in the buffer is actually processed by the audio output
+  /// device.
+  ///
+  /// It varies depending on the platform and the available hardware.
   external num get outputLatency;
+
+  /// The **`sinkId`** read-only property of the
+  /// [AudioContext] interface returns the sink ID of the current output audio
+  /// device.
   external JSAny get sinkId;
   external AudioRenderCapacity get renderCapacity;
-  external set onsinkchange(EventHandler value);
   external EventHandler get onsinkchange;
+  external set onsinkchange(EventHandler value);
 }
 extension type AudioContextOptions._(JSObject _) implements JSObject {
   external factory AudioContextOptions({
@@ -454,20 +512,20 @@ extension type AudioContextOptions._(JSObject _) implements JSObject {
     JSAny renderSizeHint,
   });
 
-  external set latencyHint(JSAny value);
   external JSAny get latencyHint;
-  external set sampleRate(num value);
+  external set latencyHint(JSAny value);
   external num get sampleRate;
-  external set sinkId(JSAny value);
+  external set sampleRate(num value);
   external JSAny get sinkId;
-  external set renderSizeHint(JSAny value);
+  external set sinkId(JSAny value);
   external JSAny get renderSizeHint;
+  external set renderSizeHint(JSAny value);
 }
 extension type AudioSinkOptions._(JSObject _) implements JSObject {
   external factory AudioSinkOptions({required AudioSinkType type});
 
-  external set type(AudioSinkType value);
   external AudioSinkType get type;
+  external set type(AudioSinkType value);
 }
 
 /// The **`AudioSinkInfo`** interface of the [Web Audio API] represents
@@ -479,6 +537,8 @@ extension type AudioSinkOptions._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioSinkInfo).
 extension type AudioSinkInfo._(JSObject _) implements JSObject {
+  /// The **`type`** read-only property of the [AudioSinkInfo] interface returns
+  /// the type of the audio output device.
   external AudioSinkType get type;
 }
 extension type AudioTimestamp._(JSObject _) implements JSObject {
@@ -487,23 +547,23 @@ extension type AudioTimestamp._(JSObject _) implements JSObject {
     DOMHighResTimeStamp performanceTime,
   });
 
-  external set contextTime(num value);
   external num get contextTime;
-  external set performanceTime(DOMHighResTimeStamp value);
+  external set contextTime(num value);
   external DOMHighResTimeStamp get performanceTime;
+  external set performanceTime(DOMHighResTimeStamp value);
 }
 extension type AudioRenderCapacity._(JSObject _)
     implements EventTarget, JSObject {
   external void start([AudioRenderCapacityOptions options]);
   external void stop();
-  external set onupdate(EventHandler value);
   external EventHandler get onupdate;
+  external set onupdate(EventHandler value);
 }
 extension type AudioRenderCapacityOptions._(JSObject _) implements JSObject {
   external factory AudioRenderCapacityOptions({num updateInterval});
 
-  external set updateInterval(num value);
   external num get updateInterval;
+  external set updateInterval(num value);
 }
 extension type AudioRenderCapacityEvent._(JSObject _)
     implements Event, JSObject {
@@ -529,14 +589,14 @@ extension type AudioRenderCapacityEventInit._(JSObject _)
     num underrunRatio,
   });
 
-  external set timestamp(num value);
   external num get timestamp;
-  external set averageLoad(num value);
+  external set timestamp(num value);
   external num get averageLoad;
-  external set peakLoad(num value);
+  external set averageLoad(num value);
   external num get peakLoad;
-  external set underrunRatio(num value);
+  external set peakLoad(num value);
   external num get underrunRatio;
+  external set underrunRatio(num value);
 }
 
 /// The `OfflineAudioContext` interface is an [AudioContext] interface
@@ -598,9 +658,14 @@ extension type OfflineAudioContext._(JSObject _)
   /// ensure the
   /// precise suspension.
   external JSPromise<JSAny?> suspend(num suspendTime);
+
+  /// The **`length`** property of the
+  /// [OfflineAudioContext] interface returns an integer representing the size
+  /// of
+  /// the buffer in sample-frames.
   external int get length;
-  external set oncomplete(EventHandler value);
   external EventHandler get oncomplete;
+  external set oncomplete(EventHandler value);
 }
 extension type OfflineAudioContextOptions._(JSObject _) implements JSObject {
   external factory OfflineAudioContextOptions({
@@ -610,14 +675,14 @@ extension type OfflineAudioContextOptions._(JSObject _) implements JSObject {
     JSAny renderSizeHint,
   });
 
-  external set numberOfChannels(int value);
   external int get numberOfChannels;
-  external set length(int value);
+  external set numberOfChannels(int value);
   external int get length;
-  external set sampleRate(num value);
+  external set length(int value);
   external num get sampleRate;
-  external set renderSizeHint(JSAny value);
+  external set sampleRate(num value);
   external JSAny get renderSizeHint;
+  external set renderSizeHint(JSAny value);
 }
 
 /// The
@@ -642,6 +707,9 @@ extension type OfflineAudioCompletionEvent._(JSObject _)
     OfflineAudioCompletionEventInit eventInitDict,
   );
 
+  /// The **`renderedBuffer`** read-only property of the
+  /// [OfflineAudioCompletionEvent] interface is an [AudioBuffer]
+  /// containing the result of processing an [OfflineAudioContext].
   external AudioBuffer get renderedBuffer;
 }
 extension type OfflineAudioCompletionEventInit._(JSObject _)
@@ -653,8 +721,8 @@ extension type OfflineAudioCompletionEventInit._(JSObject _)
     required AudioBuffer renderedBuffer,
   });
 
-  external set renderedBuffer(AudioBuffer value);
   external AudioBuffer get renderedBuffer;
+  external set renderedBuffer(AudioBuffer value);
 }
 
 /// The **`AudioBuffer`** interface represents a short audio asset residing in
@@ -703,9 +771,27 @@ extension type AudioBuffer._(JSObject _) implements JSObject {
     int channelNumber, [
     int bufferOffset,
   ]);
+
+  /// The **`sampleRate`** property of the [AudioBuffer] interface returns a
+  /// float representing the sample rate, in samples per second, of the PCM data
+  /// stored in the buffer.
   external num get sampleRate;
+
+  /// The **`length`** property of the [AudioBuffer]
+  /// interface returns an integer representing the length, in sample-frames, of
+  /// the PCM data
+  /// stored in the buffer.
   external int get length;
+
+  /// The **`duration`** property of the [AudioBuffer] interface returns a
+  /// double representing the duration, in seconds, of the PCM data stored in
+  /// the buffer.
   external num get duration;
+
+  /// The `numberOfChannels` property of the [AudioBuffer]
+  /// interface returns an integer representing the number of discrete audio
+  /// channels
+  /// described by the PCM data stored in the buffer.
   external int get numberOfChannels;
 }
 extension type AudioBufferOptions._(JSObject _) implements JSObject {
@@ -715,12 +801,12 @@ extension type AudioBufferOptions._(JSObject _) implements JSObject {
     required num sampleRate,
   });
 
-  external set numberOfChannels(int value);
   external int get numberOfChannels;
-  external set length(int value);
+  external set numberOfChannels(int value);
   external int get length;
-  external set sampleRate(num value);
+  external set length(int value);
   external num get sampleRate;
+  external set sampleRate(num value);
 }
 
 /// The **`AudioNode`** interface is a generic interface for representing an
@@ -762,15 +848,59 @@ extension type AudioNode._(JSObject _) implements EventTarget, JSObject {
     int output,
     int input,
   ]);
+
+  /// The read-only `context` property of the
+  /// [AudioNode] interface returns the associated
+  /// [BaseAudioContext], that is the object representing the processing graph
+  /// the node is participating in.
   external BaseAudioContext get context;
+
+  /// The `numberOfInputs` property of
+  /// the [AudioNode] interface returns the number of inputs feeding the
+  /// node. Source nodes are defined as nodes having a `numberOfInputs`
+  /// property with a value of 0.
   external int get numberOfInputs;
+
+  /// The `numberOfOutputs` property of
+  /// the [AudioNode] interface returns the number of outputs coming out of
+  /// the node. Destination nodes — like [AudioDestinationNode] — have
+  /// a value of 0 for this attribute.
   external int get numberOfOutputs;
-  external set channelCount(int value);
+
+  /// The **`channelCount`** property of the [AudioNode] interface represents an
+  /// integer used to determine how many channels are used when
+  /// [up-mixing and down-mixing](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Basic_concepts_behind_Web_Audio_API#up-mixing_and_down-mixing)
+  /// connections to any inputs to the node.
+  ///
+  /// `channelCount`'s usage and precise definition depend on the value of
+  /// [AudioNode.channelCountMode]:
+  ///
+  /// - It is ignored if the `channelCountMode` value is `max`.
+  /// - It is used as a maximum value if the `channelCountMode` value is
+  ///   `clamped-max`.
+  /// - It is used as the exact value if the `channelCountMode` value is
+  ///   `explicit`.
   external int get channelCount;
-  external set channelCountMode(ChannelCountMode value);
+  external set channelCount(int value);
+
+  /// The `channelCountMode` property of the [AudioNode] interface represents an
+  /// enumerated value describing the way channels must be matched between the
+  /// node's inputs and outputs.
   external ChannelCountMode get channelCountMode;
-  external set channelInterpretation(ChannelInterpretation value);
+  external set channelCountMode(ChannelCountMode value);
+
+  /// The **`channelInterpretation`** property of the [AudioNode] interface
+  /// represents an enumerated value describing how input channels are mapped to
+  /// output channels when the number of inputs/outputs is different. For
+  /// example, this setting defines how a mono input will be up-mixed to a
+  /// stereo or 5.1 channel output, or how a quad channel input will be
+  /// down-mixed to a stereo or mono output.
+  ///
+  /// The property has two options: `speakers` and `discrete`. These are
+  /// documented in [Basic concepts behind Web Audio API > up-mixing and
+  /// down-mixing](/en-US/docs/Web/API/Web_Audio_API/Basic_concepts_behind_Web_Audio_API#up-mixing_and_down-mixing).
   external ChannelInterpretation get channelInterpretation;
+  external set channelInterpretation(ChannelInterpretation value);
 }
 extension type AudioNodeOptions._(JSObject _) implements JSObject {
   external factory AudioNodeOptions({
@@ -779,12 +909,12 @@ extension type AudioNodeOptions._(JSObject _) implements JSObject {
     ChannelInterpretation channelInterpretation,
   });
 
-  external set channelCount(int value);
   external int get channelCount;
-  external set channelCountMode(ChannelCountMode value);
+  external set channelCount(int value);
   external ChannelCountMode get channelCountMode;
-  external set channelInterpretation(ChannelInterpretation value);
+  external set channelCountMode(ChannelCountMode value);
   external ChannelInterpretation get channelInterpretation;
+  external set channelInterpretation(ChannelInterpretation value);
 }
 
 /// The Web Audio API's `AudioParam` interface represents an audio-related
@@ -878,12 +1008,36 @@ extension type AudioParam._(JSObject _) implements JSObject {
   /// `AudioParam` but holds its value at a given time until further changes are
   /// made using other methods.
   external AudioParam cancelAndHoldAtTime(num cancelTime);
-  external set value(num value);
+
+  /// The [Web Audio
+  /// API's](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
+  /// [AudioParam] interface property **`value`** gets
+  /// or sets the value of this [AudioParam] at the current time. Initially, the
+  /// value is set to [AudioParam.defaultValue].
+  ///
+  /// Setting `value` has the same effect as
+  /// calling [AudioParam.setValueAtTime] with the time returned by the
+  /// `AudioContext`'s [BaseAudioContext.currentTime]
+  /// property.
   external num get value;
-  external set automationRate(AutomationRate value);
+  external set value(num value);
   external AutomationRate get automationRate;
+  external set automationRate(AutomationRate value);
+
+  /// The **`defaultValue`**
+  /// read-only property of the [AudioParam] interface represents the initial
+  /// value of the attributes as defined by the specific [AudioNode] creating
+  /// the `AudioParam`.
   external num get defaultValue;
+
+  /// The **`minValue`**
+  /// read-only property of the [AudioParam] interface represents the minimum
+  /// possible value for the parameter's nominal (effective) range.
   external num get minValue;
+
+  /// The **`maxValue`**
+  /// read-only property of the [AudioParam] interface represents the maximum
+  /// possible value for the parameter's nominal (effective) range.
   external num get maxValue;
 }
 
@@ -927,8 +1081,8 @@ extension type AudioScheduledSourceNode._(JSObject _)
   /// > **Note:** If a scheduled stop time occurs before the node's scheduled
   /// > start time, the node never starts to play.
   external void stop([num when]);
-  external set onended(EventHandler value);
   external EventHandler get onended;
+  external set onended(EventHandler value);
 }
 
 /// The **`AnalyserNode`** interface represents a node able to provide real-time
@@ -1022,15 +1176,46 @@ extension type AnalyserNode._(JSObject _) implements AudioNode, JSObject {
   /// elements are dropped. If it has more elements than needed, excess elements
   /// are ignored.
   external void getByteTimeDomainData(JSUint8Array array);
-  external set fftSize(int value);
+
+  /// The **`fftSize`** property of the [AnalyserNode] interface is an unsigned
+  /// long value and represents the window size in samples that is used when
+  /// performing a
+  /// [Fast Fourier Transform](https://en.wikipedia.org/wiki/Fast_Fourier_transform)
+  /// (FFT) to get frequency domain data.
   external int get fftSize;
+  external set fftSize(int value);
+
+  /// The **`frequencyBinCount`** read-only property of the [AnalyserNode]
+  /// interface contains the total number of data points available to
+  /// [AudioContext] [BaseAudioContext.sampleRate]. This is half of the `value`
+  /// of the [AnalyserNode.fftSize]. The two methods' indices have a linear
+  /// relationship with the frequencies they represent, between 0 and the
+  /// [Nyquist frequency](https://en.wikipedia.org/wiki/Nyquist_frequency).
   external int get frequencyBinCount;
-  external set minDecibels(num value);
+
+  /// The **`minDecibels`** property of the [AnalyserNode] interface is a double
+  /// value representing the minimum power value in the scaling range for the
+  /// FFT analysis data, for conversion to unsigned byte values — basically,
+  /// this specifies the minimum value for the range of results when using
+  /// `getByteFrequencyData()`.
   external num get minDecibels;
-  external set maxDecibels(num value);
+  external set minDecibels(num value);
+
+  /// The **`maxDecibels`** property of the [AnalyserNode] interface is a double
+  /// value representing the maximum power value in the scaling range for the
+  /// FFT analysis data, for conversion to unsigned byte values — basically,
+  /// this specifies the maximum value for the range of results when using
+  /// `getByteFrequencyData()`.
   external num get maxDecibels;
-  external set smoothingTimeConstant(num value);
+  external set maxDecibels(num value);
+
+  /// The **`smoothingTimeConstant`** property of the [AnalyserNode] interface
+  /// is a double value representing the averaging constant with the last
+  /// analysis frame. It's basically an average between the current buffer and
+  /// the last buffer the `AnalyserNode` processed, and results in a much
+  /// smoother set of value changes over time.
   external num get smoothingTimeConstant;
+  external set smoothingTimeConstant(num value);
 }
 extension type AnalyserOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
@@ -1044,14 +1229,14 @@ extension type AnalyserOptions._(JSObject _)
     num smoothingTimeConstant,
   });
 
-  external set fftSize(int value);
   external int get fftSize;
-  external set maxDecibels(num value);
+  external set fftSize(int value);
   external num get maxDecibels;
-  external set minDecibels(num value);
+  external set maxDecibels(num value);
   external num get minDecibels;
-  external set smoothingTimeConstant(num value);
+  external set minDecibels(num value);
   external num get smoothingTimeConstant;
+  external set smoothingTimeConstant(num value);
 }
 
 /// The **`AudioBufferSourceNode`** interface is an [AudioScheduledSourceNode]
@@ -1124,16 +1309,71 @@ extension type AudioBufferSourceNode._(JSObject _)
     num offset,
     num duration,
   ]);
-  external set buffer(AudioBuffer? value);
+
+  /// The **`buffer`** property of the [AudioBufferSourceNode] interface
+  /// provides the ability to play back audio using an [AudioBuffer] as the
+  /// source of the sound data.
+  ///
+  /// If the `buffer` property is set to the value `null`, the node
+  /// generates a single channel containing silence (that is, every sample is
+  /// 0).
   external AudioBuffer? get buffer;
+  external set buffer(AudioBuffer? value);
+
+  /// The **`playbackRate`** property of
+  /// the [AudioBufferSourceNode] interface Is a
+  /// [k-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#k-rate)
+  /// [AudioParam] that
+  /// defines the speed at which the audio asset will be played.
+  ///
+  /// A value of 1.0 indicates it should play at the same speed as its sampling
+  /// rate,
+  /// values less than 1.0 cause the sound to play more slowly, while values
+  /// greater than
+  /// 1.0 result in audio playing faster than normal. The default value is
+  /// `1.0`.
+  /// When set to another value, the `AudioBufferSourceNode` resamples the audio
+  /// before sending it to the output.
   external AudioParam get playbackRate;
+
+  /// The **`detune`** property of the
+  /// [AudioBufferSourceNode] interface is a
+  /// [k-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#k-rate)
+  /// [AudioParam]
+  /// representing detuning of oscillation in
+  /// [cents](https://en.wikipedia.org/wiki/Cent_%28music%29).
+  ///
+  /// For example, values of +100 and -100 detune the source up or down by one
+  /// semitone,
+  /// while +1200 and -1200 detune it up or down by one octave.
   external AudioParam get detune;
-  external set loop(bool value);
+
+  /// The `loop` property of the [AudioBufferSourceNode]
+  /// interface is a Boolean indicating if the audio asset must be replayed when
+  /// the end of
+  /// the [AudioBuffer] is reached.
+  ///
+  /// The `loop` property's default value is `false`.
   external bool get loop;
-  external set loopStart(num value);
+  external set loop(bool value);
+
+  /// The **`loopStart`** property of the [AudioBufferSourceNode] interface is a
+  /// floating-point value indicating, in seconds, where in the [AudioBuffer]
+  /// the restart of the play must happen.
+  ///
+  /// The `loopStart` property's default value is `0`.
   external num get loopStart;
-  external set loopEnd(num value);
+  external set loopStart(num value);
+
+  /// The `loopEnd` property of the [AudioBufferSourceNode]
+  /// interface specifies is a floating point number specifying, in seconds, at
+  /// what offset
+  /// into playing the [AudioBuffer] playback should loop back to the time
+  /// indicated by the [AudioBufferSourceNode.loopStart] property.
+  /// This is only used if the [AudioBufferSourceNode.loop] property is
+  /// `true`.
   external num get loopEnd;
+  external set loopEnd(num value);
 }
 extension type AudioBufferSourceOptions._(JSObject _) implements JSObject {
   external factory AudioBufferSourceOptions({
@@ -1145,18 +1385,18 @@ extension type AudioBufferSourceOptions._(JSObject _) implements JSObject {
     num playbackRate,
   });
 
-  external set buffer(AudioBuffer? value);
   external AudioBuffer? get buffer;
-  external set detune(num value);
+  external set buffer(AudioBuffer? value);
   external num get detune;
-  external set loop(bool value);
+  external set detune(num value);
   external bool get loop;
-  external set loopEnd(num value);
+  external set loop(bool value);
   external num get loopEnd;
-  external set loopStart(num value);
+  external set loopEnd(num value);
   external num get loopStart;
-  external set playbackRate(num value);
+  external set loopStart(num value);
   external num get playbackRate;
+  external set playbackRate(num value);
 }
 
 /// The `AudioDestinationNode` interface represents the end destination of an
@@ -1203,6 +1443,13 @@ extension type AudioBufferSourceOptions._(JSObject _) implements JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioDestinationNode).
 extension type AudioDestinationNode._(JSObject _)
     implements AudioNode, JSObject {
+  /// The `maxchannelCount` property of the [AudioDestinationNode] interface is
+  /// an `unsigned long` defining the maximum amount of channels that the
+  /// physical device can handle.
+  ///
+  /// The [AudioNode.channelCount] property can be set between 0 and this value
+  /// (both included). If `maxChannelCount` is `0`, like in
+  /// [OfflineAudioContext], the channel count cannot be changed.
   external int get maxChannelCount;
 }
 
@@ -1265,14 +1512,77 @@ extension type AudioListener._(JSObject _) implements JSObject {
     num yUp,
     num zUp,
   );
+
+  /// The `positionX` read-only property of the [AudioListener] interface is an
+  /// [AudioParam] representing the x position of the listener in 3D cartesian
+  /// space.
+  ///
+  /// > **Note:** The parameter is _a-rate_ when used with a [PannerNode] whose
+  /// > [PannerNode.panningModel] is set to equalpower, or _k-rate_ otherwise.
   external AudioParam get positionX;
+
+  /// The `positionY` read-only property of the [AudioListener] interface is an
+  /// [AudioParam] representing the y position of the listener in 3D cartesian
+  /// space.
+  ///
+  /// > **Note:** The parameter is _a-rate_ when used with a [PannerNode] whose
+  /// > [PannerNode.panningModel] is set to equalpower, or _k-rate_ otherwise.
   external AudioParam get positionY;
+
+  /// The `positionZ` read-only property of the [AudioListener] interface is an
+  /// [AudioParam] representing the z position of the listener in 3D cartesian
+  /// space.
+  ///
+  /// > **Note:** The parameter is _a-rate_ when used with a [PannerNode] whose
+  /// > [PannerNode.panningModel] is set to equalpower, or _k-rate_ otherwise.
   external AudioParam get positionZ;
+
+  /// The `forwardX` read-only property of the [AudioListener] interface is an
+  /// [AudioParam] representing the x value of the direction vector defining the
+  /// forward direction the listener is pointing in.
+  ///
+  /// > **Note:** The parameter is _a-rate_ when used with a [PannerNode] whose
+  /// > [PannerNode.panningModel] is set to equalpower, or _k-rate_ otherwise.
   external AudioParam get forwardX;
+
+  /// The `forwardY` read-only property of the [AudioListener] interface is an
+  /// [AudioParam] representing the y value of the direction vector defining the
+  /// forward direction the listener is pointing in.
+  ///
+  /// > **Note:** The parameter is _a-rate_ when used with a [PannerNode] whose
+  /// > [PannerNode.panningModel] is set to equalpower, or _k-rate_ otherwise.
   external AudioParam get forwardY;
+
+  /// The `forwardZ` read-only property of the [AudioListener] interface is an
+  /// [AudioParam] representing the z value of the direction vector defining the
+  /// forward direction the listener is pointing in.
+  ///
+  /// > **Note:** The parameter is _a-rate_ when used with a [PannerNode] whose
+  /// > [PannerNode.panningModel] is set to equalpower, or _k-rate_ otherwise.
   external AudioParam get forwardZ;
+
+  /// The `upX` read-only property of the [AudioListener] interface is an
+  /// [AudioParam] representing the x value of the direction vector defining the
+  /// up direction the listener is pointing in.
+  ///
+  /// > **Note:** The parameter is _a-rate_ when used with a [PannerNode] whose
+  /// > [PannerNode.panningModel] is set to equalpower, or _k-rate_ otherwise.
   external AudioParam get upX;
+
+  /// The `upY` read-only property of the [AudioListener] interface is an
+  /// [AudioParam] representing the y value of the direction vector defining the
+  /// up direction the listener is pointing in.
+  ///
+  /// > **Note:** The parameter is _a-rate_ when used with a [PannerNode] whose
+  /// > [PannerNode.panningModel] is set to equalpower, or _k-rate_ otherwise.
   external AudioParam get upY;
+
+  /// The `upZ` read-only property of the [AudioListener] interface is an
+  /// [AudioParam] representing the z value of the direction vector defining the
+  /// up direction the listener is pointing in.
+  ///
+  /// > **Note:** The parameter is _a-rate_ when used with a [PannerNode] whose
+  /// > [PannerNode.panningModel] is set to equalpower, or _k-rate_ otherwise.
   external AudioParam get upZ;
 }
 
@@ -1299,8 +1609,31 @@ extension type AudioProcessingEvent._(JSObject _) implements Event, JSObject {
     AudioProcessingEventInit eventInitDict,
   );
 
+  /// The **`playbackTime`** read-only property of the [AudioProcessingEvent]
+  /// interface represents the time when the audio will be played. It is in the
+  /// same coordinate system as the time used by the [AudioContext].
   external num get playbackTime;
+
+  /// The **`inputBuffer`** read-only property of the [AudioProcessingEvent]
+  /// interface represents the input buffer of an audio processing event.
+  ///
+  /// The input buffer is represented by an [AudioBuffer] object, which contains
+  /// a collection of audio channels, each of which is an array of
+  /// floating-point values representing the audio signal waveform encoded as a
+  /// series of amplitudes. The number of channels and the length of each
+  /// channel are determined by the channel count and buffer size properties of
+  /// the `AudioBuffer`.
   external AudioBuffer get inputBuffer;
+
+  /// The **`outputBuffer`** read-only property of the [AudioProcessingEvent]
+  /// interface represents the output buffer of an audio processing event.
+  ///
+  /// The output buffer is represented by an [AudioBuffer] object, which
+  /// contains a collection of audio channels, each of which is an array of
+  /// floating-point values representing the audio signal waveform encoded as a
+  /// series of amplitudes. The number of channels and the length of each
+  /// channel are determined by the channel count and buffer size properties of
+  /// the `AudioBuffer`.
   external AudioBuffer get outputBuffer;
 }
 extension type AudioProcessingEventInit._(JSObject _)
@@ -1314,12 +1647,12 @@ extension type AudioProcessingEventInit._(JSObject _)
     required AudioBuffer outputBuffer,
   });
 
-  external set playbackTime(num value);
   external num get playbackTime;
-  external set inputBuffer(AudioBuffer value);
+  external set playbackTime(num value);
   external AudioBuffer get inputBuffer;
-  external set outputBuffer(AudioBuffer value);
+  external set inputBuffer(AudioBuffer value);
   external AudioBuffer get outputBuffer;
+  external set outputBuffer(AudioBuffer value);
 }
 
 /// The `BiquadFilterNode` interface represents a simple low-order filter, and
@@ -1377,11 +1710,48 @@ extension type BiquadFilterNode._(JSObject _) implements AudioNode, JSObject {
     JSFloat32Array magResponse,
     JSFloat32Array phaseResponse,
   );
-  external set type(BiquadFilterType value);
+
+  /// The `type` property of the [BiquadFilterNode] interface is a string (enum)
+  /// value defining the kind of filtering algorithm the node is implementing.
   external BiquadFilterType get type;
+  external set type(BiquadFilterType value);
+
+  /// The `frequency` property of the [BiquadFilterNode] interface is an
+  /// [a-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#a-rate)
+  /// [AudioParam] — a double representing a frequency in the current filtering
+  /// algorithm measured in hertz (Hz).
+  ///
+  /// Its default value is `350`, with a nominal range of `10` to the
+  /// [Nyquist frequency](https://en.wikipedia.org/wiki/Nyquist_frequency) —
+  /// that is, half of the sample rate.
   external AudioParam get frequency;
+
+  /// The `detune` property of the [BiquadFilterNode] interface is an
+  /// [a-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#a-rate)
+  /// [AudioParam] representing detuning of the frequency in
+  /// [cents](https://en.wikipedia.org/wiki/Cent_%28music%29).
   external AudioParam get detune;
+
+  /// The `Q` property of the [BiquadFilterNode] interface is an
+  /// [a-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#a-rate)
+  /// [AudioParam], a double representing a
+  /// [Q factor](https://en.wikipedia.org/wiki/Q_factor), or _quality factor_.
+  ///
+  /// It is a dimensionless value with a default value of `1` and a nominal
+  /// range of `0.0001` to `1000`.
   external AudioParam get Q;
+
+  /// The `gain` property of the [BiquadFilterNode] interface is an
+  /// [a-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#a-rate)
+  /// [AudioParam] — a double representing the
+  /// [gain](https://en.wikipedia.org/wiki/Gain) used in the current filtering
+  /// algorithm.
+  ///
+  /// When its value is positive, it represents a real gain; when negative, it
+  /// represents an attenuation.
+  ///
+  /// It is expressed in dB, has a default value of `0`, and can take a value in
+  /// a nominal range of `-40` to `40`.
   external AudioParam get gain;
 }
 extension type BiquadFilterOptions._(JSObject _)
@@ -1397,16 +1767,16 @@ extension type BiquadFilterOptions._(JSObject _)
     num gain,
   });
 
-  external set type(BiquadFilterType value);
   external BiquadFilterType get type;
-  external set Q(num value);
+  external set type(BiquadFilterType value);
   external num get Q;
-  external set detune(num value);
+  external set Q(num value);
   external num get detune;
-  external set frequency(num value);
+  external set detune(num value);
   external num get frequency;
-  external set gain(num value);
+  external set frequency(num value);
   external num get gain;
+  external set gain(num value);
 }
 
 /// The `ChannelMergerNode` interface, often used in conjunction with its
@@ -1472,8 +1842,8 @@ extension type ChannelMergerOptions._(JSObject _)
     int numberOfInputs,
   });
 
-  external set numberOfInputs(int value);
   external int get numberOfInputs;
+  external set numberOfInputs(int value);
 }
 
 /// The `ChannelSplitterNode` interface, often used in conjunction with its
@@ -1543,8 +1913,8 @@ extension type ChannelSplitterOptions._(JSObject _)
     int numberOfOutputs,
   });
 
-  external set numberOfOutputs(int value);
   external int get numberOfOutputs;
+  external set numberOfOutputs(int value);
 }
 
 /// The `ConstantSourceNode` interface—part of the Web Audio API—represents an
@@ -1583,13 +1953,27 @@ extension type ConstantSourceNode._(JSObject _)
     ConstantSourceOptions options,
   ]);
 
+  /// The read-only `offset` property of the [ConstantSourceNode]
+  /// interface returns a [AudioParam] object indicating the numeric
+  /// [a-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#a-rate)
+  /// value which is always returned
+  /// by the source when asked for the next sample.
+  ///
+  /// > **Note:** While the `AudioParam` named `offset` is read-only, the
+  /// > `value` property within is not. So you can change the value of
+  /// > `offset` by setting the value of
+  /// > `ConstantSourceNode.offset.value`:
+  /// >
+  /// > ```js
+  /// > myConstantSourceNode.offset.value = newValue;
+  /// > ```
   external AudioParam get offset;
 }
 extension type ConstantSourceOptions._(JSObject _) implements JSObject {
   external factory ConstantSourceOptions({num offset});
 
-  external set offset(num value);
   external num get offset;
+  external set offset(num value);
 }
 
 /// The `ConvolverNode` interface is an [AudioNode] that performs a Linear
@@ -1635,10 +2019,40 @@ extension type ConvolverNode._(JSObject _) implements AudioNode, JSObject {
     ConvolverOptions options,
   ]);
 
-  external set buffer(AudioBuffer? value);
+  /// The **`buffer`** property of the [ConvolverNode] interface represents a
+  /// mono, stereo, or 4-channel [AudioBuffer] containing the (possibly
+  /// multichannel) impulse response used by the `ConvolverNode` to create the
+  /// reverb effect.
+  ///
+  /// This is normally a simple recording of as-close-to-an-impulse as can be
+  /// found in the space you want to model. For example, if you want to model
+  /// the reverb in your bathroom, you might set up a microphone near the door
+  /// to record the sound of a balloon pop or synthesized impulse from the sink.
+  /// That audio recording could then be used as the buffer.
+  ///
+  /// This audio buffer must have the same sample-rate as the `AudioContext` or
+  /// an exception will be thrown. At the time when this attribute is set, the
+  /// buffer and the state of the attribute will be used to configure the
+  /// `ConvolverNode` with this impulse response having the given normalization.
+  /// The initial value of this attribute is `null`.
   external AudioBuffer? get buffer;
-  external set normalize(bool value);
+  external set buffer(AudioBuffer? value);
+
+  /// The `normalize` property of the [ConvolverNode] interface
+  /// is a boolean that controls whether the impulse response from the buffer
+  /// will be
+  /// scaled by an equal-power normalization when the `buffer` attribute is set,
+  /// or not.
+  ///
+  /// Its default value is `true` in order to achieve a more uniform output
+  /// level from the convolver, when loaded with diverse impulse responses. If
+  /// normalize is
+  /// set to `false`, then the convolution will be rendered with no
+  /// pre-processing/scaling of the impulse response. Changes to this value do
+  /// not take
+  /// effect until the next time the `buffer` attribute is set.
   external bool get normalize;
+  external set normalize(bool value);
 }
 extension type ConvolverOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
@@ -1650,10 +2064,10 @@ extension type ConvolverOptions._(JSObject _)
     bool disableNormalization,
   });
 
-  external set buffer(AudioBuffer? value);
   external AudioBuffer? get buffer;
-  external set disableNormalization(bool value);
+  external set buffer(AudioBuffer? value);
   external bool get disableNormalization;
+  external set disableNormalization(bool value);
 }
 
 /// The **`DelayNode`** interface represents a
@@ -1706,6 +2120,16 @@ extension type DelayNode._(JSObject _) implements AudioNode, JSObject {
     DelayOptions options,
   ]);
 
+  /// The `delayTime` property of the [DelayNode] interface is an
+  /// [a-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#a-rate)
+  /// [AudioParam] representing the amount of delay to apply.
+  ///
+  /// `delayTime` is expressed in seconds, its minimal value is `0`, and its
+  /// maximum value is defined by the `maxDelayTime` argument of the
+  /// [BaseAudioContext.createDelay] method that created it.
+  ///
+  /// > **Note:** Though the [AudioParam] returned is read-only, the value it
+  /// > represents is not.
   external AudioParam get delayTime;
 }
 extension type DelayOptions._(JSObject _)
@@ -1718,10 +2142,10 @@ extension type DelayOptions._(JSObject _)
     num delayTime,
   });
 
-  external set maxDelayTime(num value);
   external num get maxDelayTime;
-  external set delayTime(num value);
+  external set maxDelayTime(num value);
   external num get delayTime;
+  external set delayTime(num value);
 }
 
 /// The `DynamicsCompressorNode` interface provides a compression effect, which
@@ -1767,11 +2191,69 @@ extension type DynamicsCompressorNode._(JSObject _)
     DynamicsCompressorOptions options,
   ]);
 
+  /// The `threshold` property of the [DynamicsCompressorNode] interface is a
+  /// [k-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#k-rate)
+  /// [AudioParam] representing the decibel value above which the compression
+  /// will start taking effect.
+  ///
+  /// The `threshold` property's default value is `-24` and it can be set
+  /// between `-100` and `0`.
+  ///
+  /// ![The threshold attribute has no effect on signals lowers than its value,
+  /// but induce volume reduction on signal stronger than its
+  /// value.](webaudiothreshold.png)
   external AudioParam get threshold;
+
+  /// The `knee` property of the [DynamicsCompressorNode] interface is a
+  /// [k-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#k-rate)
+  /// [AudioParam] containing a decibel value representing the range above the
+  /// threshold where the curve smoothly transitions to the compressed portion.
+  ///
+  /// The `knee` property's default value is `30` and it can be set between `0`
+  /// and `40`.
+  ///
+  /// ![Describes the effect of a knee, showing two curves one for a hard knee,
+  /// the other for a soft knee.](webaudioknee.png)
   external AudioParam get knee;
+
+  /// The `ratio` property of the [DynamicsCompressorNode] interface Is a
+  /// [k-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#k-rate)
+  /// [AudioParam] representing the amount of change, in dB, needed in the input
+  /// for a 1 dB change in the output.
+  ///
+  /// The `ratio` property's default value is `12` and it can be set between `1`
+  /// and `20`.
+  ///
+  /// ![Describes the effect of different ratio on the output signal](webaudioratio.png)
   external AudioParam get ratio;
+
+  /// The **`reduction`** read-only property of the [DynamicsCompressorNode]
+  /// interface is a float representing the amount of gain reduction currently
+  /// applied by the compressor to the signal.
+  ///
+  /// Intended for metering purposes, it returns a value in dB, or `0` (no gain
+  /// reduction) if no signal is fed into the `DynamicsCompressorNode`. The
+  /// range of this value is between `-20` and `0` (in dB).
   external num get reduction;
+
+  /// The `attack` property of the [DynamicsCompressorNode] interface is a
+  /// [k-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#k-rate)
+  /// [AudioParam] representing the amount of time, in seconds, required to
+  /// reduce the gain by 10 dB. It defines how quickly the signal is adapted
+  /// when its volume is increased.
+  ///
+  /// The `attack` property's default value is `0.003` and it can be set between
+  /// `0` and `1`.
   external AudioParam get attack;
+
+  /// The `release` property of the [DynamicsCompressorNode] interface Is a
+  /// [k-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#k-rate)
+  /// [AudioParam] representing the amount of time, in seconds, required to
+  /// increase the gain by 10 dB. It defines how quick the signal is adapted
+  /// when its volume is reduced.
+  ///
+  /// The `release` property's default value is `0.25` and it can be set between
+  /// `0` and `1`.
   external AudioParam get release;
 }
 extension type DynamicsCompressorOptions._(JSObject _)
@@ -1787,16 +2269,16 @@ extension type DynamicsCompressorOptions._(JSObject _)
     num threshold,
   });
 
-  external set attack(num value);
   external num get attack;
-  external set knee(num value);
+  external set attack(num value);
   external num get knee;
-  external set ratio(num value);
+  external set knee(num value);
   external num get ratio;
-  external set release(num value);
+  external set ratio(num value);
   external num get release;
-  external set threshold(num value);
+  external set release(num value);
   external num get threshold;
+  external set threshold(num value);
 }
 
 /// The `GainNode` interface represents a change in volume. It is an [AudioNode]
@@ -1847,6 +2329,9 @@ extension type GainNode._(JSObject _) implements AudioNode, JSObject {
     GainOptions options,
   ]);
 
+  /// The `gain` property of the [GainNode] interface is an
+  /// [a-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#a-rate)
+  /// [AudioParam] representing the amount of gain to apply.
   external AudioParam get gain;
 }
 extension type GainOptions._(JSObject _) implements AudioNodeOptions, JSObject {
@@ -1857,8 +2342,8 @@ extension type GainOptions._(JSObject _) implements AudioNodeOptions, JSObject {
     num gain,
   });
 
-  external set gain(num value);
   external num get gain;
+  external set gain(num value);
 }
 
 /// The **`IIRFilterNode`** interface of the
@@ -1950,10 +2435,10 @@ extension type IIRFilterOptions._(JSObject _)
     required JSArray<JSNumber> feedback,
   });
 
-  external set feedforward(JSArray<JSNumber> value);
   external JSArray<JSNumber> get feedforward;
-  external set feedback(JSArray<JSNumber> value);
+  external set feedforward(JSArray<JSNumber> value);
   external JSArray<JSNumber> get feedback;
+  external set feedback(JSArray<JSNumber> value);
 }
 
 /// The `MediaElementAudioSourceNode` interface represents an audio source
@@ -1998,6 +2483,14 @@ extension type MediaElementAudioSourceNode._(JSObject _)
     MediaElementAudioSourceOptions options,
   );
 
+  /// The [MediaElementAudioSourceNode] interface's
+  /// read-only **`mediaElement`** property indicates the
+  /// [HTMLMediaElement] that contains the audio track from which the node is
+  /// receiving audio.
+  ///
+  /// This stream was specified when the node was first created,
+  /// either using the [MediaElementAudioSourceNode.MediaElementAudioSourceNode]
+  /// constructor or the [AudioContext.createMediaElementSource] method.
   external HTMLMediaElement get mediaElement;
 }
 extension type MediaElementAudioSourceOptions._(JSObject _)
@@ -2005,8 +2498,8 @@ extension type MediaElementAudioSourceOptions._(JSObject _)
   external factory MediaElementAudioSourceOptions(
       {required HTMLMediaElement mediaElement});
 
-  external set mediaElement(HTMLMediaElement value);
   external HTMLMediaElement get mediaElement;
+  external set mediaElement(HTMLMediaElement value);
 }
 
 /// The `MediaStreamAudioDestinationNode` interface represents an audio
@@ -2054,6 +2547,13 @@ extension type MediaStreamAudioDestinationNode._(JSObject _)
     AudioNodeOptions options,
   ]);
 
+  /// The `stream` property of the [AudioContext] interface represents a
+  /// [MediaStream] containing a single audio [MediaStreamTrack] with the same
+  /// number of channels as the node itself.
+  ///
+  /// You can use this property to get a stream out of the audio graph and feed
+  /// it into another construct, such as a
+  /// [Media Recorder](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API).
   external MediaStream get stream;
 }
 
@@ -2108,14 +2608,22 @@ extension type MediaStreamAudioSourceNode._(JSObject _)
     MediaStreamAudioSourceOptions options,
   );
 
+  /// The [MediaStreamAudioSourceNode] interface's
+  /// read-only **`mediaStream`** property indicates the
+  /// [MediaStream] that contains the audio track from which the node is
+  /// receiving audio.
+  ///
+  /// This stream was specified when the node was first created,
+  /// either using the [MediaStreamAudioSourceNode.MediaStreamAudioSourceNode]
+  /// constructor or the [AudioContext.createMediaStreamSource] method.
   external MediaStream get mediaStream;
 }
 extension type MediaStreamAudioSourceOptions._(JSObject _) implements JSObject {
   external factory MediaStreamAudioSourceOptions(
       {required MediaStream mediaStream});
 
-  external set mediaStream(MediaStream value);
   external MediaStream get mediaStream;
+  external set mediaStream(MediaStream value);
 }
 
 /// The **`MediaStreamTrackAudioSourceNode`** interface is a type of [AudioNode]
@@ -2173,8 +2681,8 @@ extension type MediaStreamTrackAudioSourceOptions._(JSObject _)
   external factory MediaStreamTrackAudioSourceOptions(
       {required MediaStreamTrack mediaStreamTrack});
 
-  external set mediaStreamTrack(MediaStreamTrack value);
   external MediaStreamTrack get mediaStreamTrack;
+  external set mediaStreamTrack(MediaStreamTrack value);
 }
 
 /// The **`OscillatorNode`** interface represents a periodic waveform, such as a
@@ -2224,9 +2732,32 @@ extension type OscillatorNode._(JSObject _)
   /// output, when
   /// [OscillatorNode.type] is `custom`.
   external void setPeriodicWave(PeriodicWave periodicWave);
-  external set type(OscillatorType value);
+
+  /// The **`type`** property of the [OscillatorNode] interface specifies what
+  /// shape of [waveform](https://en.wikipedia.org/wiki/Waveform) the
+  /// oscillator will output. There are several common waveforms available, as
+  /// well as an
+  /// option to specify a custom waveform shape. The shape of the waveform will
+  /// affect the
+  /// tone that is produced.
   external OscillatorType get type;
+  external set type(OscillatorType value);
+
+  /// The **`frequency`** property of the [OscillatorNode] interface is an
+  /// [a-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#a-rate)
+  /// [AudioParam] representing the frequency of oscillation in hertz.
+  ///
+  /// > **Note:** though the `AudioParam` returned is read-only, the value it
+  /// > represents is not.
   external AudioParam get frequency;
+
+  /// The `detune` property of the [OscillatorNode] interface is an
+  /// [a-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#a-rate)
+  /// [AudioParam] representing detuning of oscillation in
+  /// [cents](https://en.wikipedia.org/wiki/Cent_%28music%29).
+  ///
+  /// > **Note:** though the `AudioParam` returned is read-only, the value it
+  /// > represents is not.
   external AudioParam get detune;
 }
 extension type OscillatorOptions._(JSObject _)
@@ -2241,14 +2772,14 @@ extension type OscillatorOptions._(JSObject _)
     PeriodicWave periodicWave,
   });
 
-  external set type(OscillatorType value);
   external OscillatorType get type;
-  external set frequency(num value);
+  external set type(OscillatorType value);
   external num get frequency;
-  external set detune(num value);
+  external set frequency(num value);
   external num get detune;
-  external set periodicWave(PeriodicWave value);
+  external set detune(num value);
   external PeriodicWave get periodicWave;
+  external set periodicWave(PeriodicWave value);
 }
 
 /// The `PannerNode` interface defines an audio-processing object that
@@ -2346,28 +2877,279 @@ extension type PannerNode._(JSObject _) implements AudioNode, JSObject {
     num y,
     num z,
   );
-  external set panningModel(PanningModelType value);
+
+  /// The `panningModel` property of the [PannerNode] interface is an enumerated
+  /// value determining which spatialization algorithm to use to position the
+  /// audio in 3D space.
+  ///
+  /// The possible values are:
+  ///
+  /// - `equalpower`: Represents the equal-power panning algorithm, generally
+  ///   regarded as simple and efficient. `equalpower` is the default value.
+  /// - `HRTF`: Renders a stereo output of higher quality than `equalpower` — it
+  ///   uses a convolution with measured impulse responses from human subjects.
   external PanningModelType get panningModel;
+  external set panningModel(PanningModelType value);
+
+  /// The **`positionX`** property of the [PannerNode] interface specifies the X
+  /// coordinate of the audio source's position in 3D Cartesian
+  /// coordinates, corresponding to the _horizontal_ axis (left-right).
+  ///
+  /// The complete vector is defined by the position of the audio source, given
+  /// as
+  /// ([PannerNode.positionX], [PannerNode.positionY],
+  /// [PannerNode.positionZ]), and the orientation
+  /// of the audio source (that is, the direction in which it's facing), given
+  /// as
+  /// ([PannerNode.orientationX],
+  /// [PannerNode.orientationY],
+  /// [PannerNode.orientationZ]).
+  ///
+  /// Depending on the directionality of the sound (as specified using the
+  /// attributes
+  /// [PannerNode.coneInnerAngle],
+  /// [PannerNode.coneOuterAngle], and
+  /// [PannerNode.coneOuterGain]), the orientation of the
+  /// sound may alter the perceived volume of the sound as it's being played. If
+  /// the sound
+  /// is pointing toward the listener, it will be louder than if the sound is
+  /// pointed away
+  /// from the listener.
+  ///
+  /// The [AudioParam] contained by this property is read only; however, you
+  /// can still change the value of the parameter by assigning a new value to
+  /// its
+  /// [AudioParam.value] property.
   external AudioParam get positionX;
+
+  /// The **`positionY`** property of the [PannerNode] interface specifies the Y
+  /// coordinate of the audio source's position in 3D Cartesian
+  /// coordinates, corresponding to the _vertical_ axis (top-bottom). The
+  /// complete
+  /// vector is defined by the position of the audio source, given as
+  /// ([PannerNode.positionX], [PannerNode.positionY], [PannerNode.positionZ]),
+  /// and the orientation
+  /// of the audio source (that is, the direction in which it's facing), given
+  /// as
+  /// ([PannerNode.orientationX],
+  /// [PannerNode.orientationY],
+  /// [PannerNode.orientationZ]).
+  ///
+  /// Depending on the directionality of the sound (as specified using the
+  /// attributes
+  /// [PannerNode.coneInnerAngle],
+  /// [PannerNode.coneOuterAngle], and
+  /// [PannerNode.coneOuterGain]), the orientation of the
+  /// sound may alter the perceived volume of the sound as it's being played. If
+  /// the sound
+  /// is pointing toward the listener, it will be louder than if the sound is
+  /// pointed away
+  /// from the listener.
+  ///
+  /// The [AudioParam] contained by this property is read only; however, you
+  /// can still change the value of the parameter by assigning a new value to
+  /// its
+  /// [AudioParam.value] property.
   external AudioParam get positionY;
+
+  /// The **`positionZ`** property of the [PannerNode] interface specifies the Z
+  /// coordinate of the audio source's position in 3D Cartesian
+  /// coordinates, corresponding to the _depth_ axis (behind-in front of the
+  /// listener). The complete vector is defined by the position of the audio
+  /// source, given
+  /// as ([PannerNode.positionX],
+  /// [PannerNode.positionY],
+  /// [PannerNode.positionZ]),
+  /// and the orientation of the audio source (that is, the direction in
+  /// which it's facing), given as ([PannerNode.orientationX],
+  /// [PannerNode.orientationY],
+  /// [PannerNode.orientationZ]).
+  ///
+  /// Depending on the directionality of the sound (as specified using the
+  /// attributes
+  /// [PannerNode.coneInnerAngle],
+  /// [PannerNode.coneOuterAngle], and
+  /// [PannerNode.coneOuterGain]), the orientation of the
+  /// sound may alter the perceived volume of the sound as it's being played. If
+  /// the sound
+  /// is pointing toward the listener, it will be louder than if the sound is
+  /// pointed away
+  /// from the listener.
+  ///
+  /// The [AudioParam] contained by this property is read only; however, you
+  /// can still change the value of the parameter by assigning a new value to
+  /// its
+  /// [AudioParam.value] property.
   external AudioParam get positionZ;
+
+  /// The **`orientationX`** property of the [PannerNode] interface indicates
+  /// the X (horizontal) component of the
+  /// direction in which the audio source is facing, in a 3D Cartesian
+  /// coordinate space.
+  ///
+  /// The complete vector is defined by the position of the audio source, given
+  /// as
+  /// ([PannerNode.positionX], [PannerNode.positionY],
+  /// [PannerNode.positionZ]), and the orientation
+  /// of the audio source (that is, the direction in which it's facing), given
+  /// as
+  /// ([PannerNode.orientationX],
+  /// [PannerNode.orientationY],
+  /// [PannerNode.orientationZ]).
+  ///
+  /// Depending on the directionality of the sound (as specified using the
+  /// attributes
+  /// [PannerNode.coneInnerAngle],
+  /// [PannerNode.coneOuterAngle], and
+  /// [PannerNode.coneOuterGain]), the orientation of the
+  /// sound may alter the perceived volume of the sound as it's being played. If
+  /// the sound
+  /// is pointing toward the listener, it will be louder than if the sound is
+  /// pointed away
+  /// from the listener.
+  ///
+  /// The [AudioParam] contained by this property is read only; however, you
+  /// can still change the value of the parameter by assigning a new value to
+  /// its
+  /// [AudioParam.value] property.
   external AudioParam get orientationX;
+
+  /// The **`orientationY`** property of the [PannerNode] interface
+  /// indicates the Y (vertical) component of the direction the audio source is
+  /// facing, in 3D Cartesian coordinate space.
+  ///
+  /// The complete vector is defined by the position of the audio source, given
+  /// as
+  /// ([PannerNode.positionX], [PannerNode.positionY],
+  /// [PannerNode.positionZ]), and the orientation
+  /// of the audio source (that is, the direction in which it's facing), given
+  /// as
+  /// ([PannerNode.orientationX],
+  /// [PannerNode.orientationY],
+  /// [PannerNode.orientationZ]).
+  ///
+  /// Depending on the directionality of the sound (as specified using the
+  /// attributes
+  /// [PannerNode.coneInnerAngle],
+  /// [PannerNode.coneOuterAngle], and
+  /// [PannerNode.coneOuterGain]), the orientation of the
+  /// sound may alter the perceived volume of the sound as it's being played. If
+  /// the sound
+  /// is pointing toward the listener, it will be louder than if the sound is
+  /// pointed away
+  /// from the listener.
+  ///
+  /// The [AudioParam] contained by this property is read only; however, you
+  /// can still change the value of the parameter by assigning a new value to
+  /// its
+  /// [AudioParam.value] property.
   external AudioParam get orientationY;
+
+  /// The **`orientationZ`** property of the [PannerNode] interface
+  /// indicates the Z (depth) component of the direction the audio source is
+  /// facing, in 3D Cartesian coordinate space.
+  ///
+  /// The complete vector is defined by the position of the audio source, given
+  /// as
+  /// ([PannerNode.positionX], [PannerNode.positionY],
+  /// [PannerNode.positionZ]), and the orientation
+  /// of the audio source (that is, the direction in which it's facing), given
+  /// as
+  /// ([PannerNode.orientationX],
+  /// [PannerNode.orientationY],
+  /// [PannerNode.orientationZ]).
+  ///
+  /// Depending on the directionality of the sound (as specified using the
+  /// attributes
+  /// [PannerNode.coneInnerAngle],
+  /// [PannerNode.coneOuterAngle], and
+  /// [PannerNode.coneOuterGain]), the orientation of the
+  /// sound may alter the perceived volume of the sound as it's being played. If
+  /// the sound
+  /// is pointing toward the listener, it will be louder than if the sound is
+  /// pointed away
+  /// from the listener.
+  ///
+  /// The [AudioParam] contained by this property is read only; however, you
+  /// can still change the value of the parameter by assigning a new value to
+  /// its
+  /// [AudioParam.value] property.
   external AudioParam get orientationZ;
-  external set distanceModel(DistanceModelType value);
+
+  /// The `distanceModel` property of the [PannerNode] interface is an
+  /// enumerated value determining which algorithm to use to reduce the volume
+  /// of the audio source as it moves away from the listener.
+  ///
+  /// The possible values are:
+  ///
+  /// - `linear`: A _linear distance model_ calculating the gain induced by the
+  ///   distance according to:
+  /// `1 - rolloffFactor * (distance - refDistance) / (maxDistance -
+  /// refDistance)`
+  /// - `inverse`: An _inverse distance model_ calculating the gain induced by
+  ///   the distance according to:
+  /// `refDistance / (refDistance + rolloffFactor * (Math.max(distance,
+  /// refDistance) - refDistance))`
+  /// - `exponential`: An _exponential distance model_ calculating the gain
+  ///   induced by the distance according to:
+  /// `pow((Math.max(distance, refDistance) / refDistance, -rolloffFactor)`.
+  ///
+  /// `inverse` is the default value of `distanceModel`.
   external DistanceModelType get distanceModel;
-  external set refDistance(num value);
+  external set distanceModel(DistanceModelType value);
+
+  /// The `refDistance` property of the [PannerNode] interface is a double value
+  /// representing the reference distance for reducing volume as the audio
+  /// source moves further from the listener – i.e. the distance at which the
+  /// volume reduction starts taking effect. This value is used by all distance
+  /// models.
+  ///
+  /// The `refDistance` property's default value is `1`.
   external num get refDistance;
-  external set maxDistance(num value);
+  external set refDistance(num value);
+
+  /// The `maxDistance` property of the [PannerNode] interface is a double value
+  /// representing the maximum distance between the audio source and the
+  /// listener, after which the volume is not reduced any further. This value is
+  /// used only by the `linear` distance model.
+  ///
+  /// The `maxDistance` property's default value is `10000`.
   external num get maxDistance;
-  external set rolloffFactor(num value);
+  external set maxDistance(num value);
+
+  /// The `rolloffFactor` property of the [PannerNode] interface is a double
+  /// value describing how quickly the volume is reduced as the source moves
+  /// away from the listener. This value is used by all distance models. The
+  /// `rolloffFactor` property's default value is `1`.
   external num get rolloffFactor;
-  external set coneInnerAngle(num value);
+  external set rolloffFactor(num value);
+
+  /// The `coneInnerAngle` property of the [PannerNode] interface is a double
+  /// value describing the angle, in degrees, of a cone inside of which there
+  /// will be no volume reduction.
+  ///
+  /// The `coneInnerAngle` property's default value is `360`, suitable for a
+  /// non-directional source.
   external num get coneInnerAngle;
-  external set coneOuterAngle(num value);
+  external set coneInnerAngle(num value);
+
+  /// The `coneOuterAngle` property of the [PannerNode] interface is a double
+  /// value describing the angle, in degrees, of a cone outside of which the
+  /// volume will be reduced by a constant value, defined by the
+  /// [PannerNode.coneOuterGain] property.
+  ///
+  /// The `coneOuterAngle` property's default value is `0`.
   external num get coneOuterAngle;
-  external set coneOuterGain(num value);
+  external set coneOuterAngle(num value);
+
+  /// The `coneOuterGain` property of the [PannerNode] interface is a double
+  /// value, describing the amount of volume reduction outside the cone, defined
+  /// by the [PannerNode.coneOuterAngle] attribute.
+  ///
+  /// The `coneOuterGain` property's default value is `0`, meaning that no sound
+  /// can be heard outside the cone.
   external num get coneOuterGain;
+  external set coneOuterGain(num value);
 }
 extension type PannerOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
@@ -2391,34 +3173,34 @@ extension type PannerOptions._(JSObject _)
     num coneOuterGain,
   });
 
-  external set panningModel(PanningModelType value);
   external PanningModelType get panningModel;
-  external set distanceModel(DistanceModelType value);
+  external set panningModel(PanningModelType value);
   external DistanceModelType get distanceModel;
-  external set positionX(num value);
+  external set distanceModel(DistanceModelType value);
   external num get positionX;
-  external set positionY(num value);
+  external set positionX(num value);
   external num get positionY;
-  external set positionZ(num value);
+  external set positionY(num value);
   external num get positionZ;
-  external set orientationX(num value);
+  external set positionZ(num value);
   external num get orientationX;
-  external set orientationY(num value);
+  external set orientationX(num value);
   external num get orientationY;
-  external set orientationZ(num value);
+  external set orientationY(num value);
   external num get orientationZ;
-  external set refDistance(num value);
+  external set orientationZ(num value);
   external num get refDistance;
-  external set maxDistance(num value);
+  external set refDistance(num value);
   external num get maxDistance;
-  external set rolloffFactor(num value);
+  external set maxDistance(num value);
   external num get rolloffFactor;
-  external set coneInnerAngle(num value);
+  external set rolloffFactor(num value);
   external num get coneInnerAngle;
-  external set coneOuterAngle(num value);
+  external set coneInnerAngle(num value);
   external num get coneOuterAngle;
-  external set coneOuterGain(num value);
+  external set coneOuterAngle(num value);
   external num get coneOuterGain;
+  external set coneOuterGain(num value);
 }
 
 /// The **`PeriodicWave`** interface defines a periodic waveform that can be
@@ -2442,8 +3224,8 @@ extension type PeriodicWave._(JSObject _) implements JSObject {
 extension type PeriodicWaveConstraints._(JSObject _) implements JSObject {
   external factory PeriodicWaveConstraints({bool disableNormalization});
 
-  external set disableNormalization(bool value);
   external bool get disableNormalization;
+  external set disableNormalization(bool value);
 }
 extension type PeriodicWaveOptions._(JSObject _)
     implements PeriodicWaveConstraints, JSObject {
@@ -2453,10 +3235,10 @@ extension type PeriodicWaveOptions._(JSObject _)
     JSArray<JSNumber> imag,
   });
 
-  external set real(JSArray<JSNumber> value);
   external JSArray<JSNumber> get real;
-  external set imag(JSArray<JSNumber> value);
+  external set real(JSArray<JSNumber> value);
   external JSArray<JSNumber> get imag;
+  external set imag(JSArray<JSNumber> value);
 }
 
 /// The `ScriptProcessorNode` interface allows the generation, processing, or
@@ -2520,8 +3302,17 @@ extension type PeriodicWaveOptions._(JSObject _)
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ScriptProcessorNode).
 extension type ScriptProcessorNode._(JSObject _)
     implements AudioNode, JSObject {
-  external set onaudioprocess(EventHandler value);
   external EventHandler get onaudioprocess;
+  external set onaudioprocess(EventHandler value);
+
+  /// The `bufferSize` property of the [ScriptProcessorNode] interface returns
+  /// an integer representing both the input and output buffer size, in
+  /// sample-frames. Its value can be a power of 2 value in the range `256` –
+  /// `16384`.
+  ///
+  /// > **Note:** This feature was replaced by
+  /// > [AudioWorklets](https://developer.mozilla.org/en-US/docs/Web/API/AudioWorklet)
+  /// > and the [AudioWorkletNode] interface.
   external int get bufferSize;
 }
 
@@ -2576,6 +3367,10 @@ extension type StereoPannerNode._(JSObject _) implements AudioNode, JSObject {
     StereoPannerOptions options,
   ]);
 
+  /// The `pan` property of the [StereoPannerNode] interface is an
+  /// [a-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#a-rate)
+  /// [AudioParam] representing the amount of panning to apply. The value can
+  /// range between `-1` (full left pan) and `1` (full right pan).
   external AudioParam get pan;
 }
 extension type StereoPannerOptions._(JSObject _)
@@ -2587,8 +3382,8 @@ extension type StereoPannerOptions._(JSObject _)
     num pan,
   });
 
-  external set pan(num value);
   external num get pan;
+  external set pan(num value);
 }
 
 /// The **`WaveShaperNode`** interface represents a non-linear distorter.
@@ -2634,10 +3429,40 @@ extension type WaveShaperNode._(JSObject _) implements AudioNode, JSObject {
     WaveShaperOptions options,
   ]);
 
-  external set curve(JSFloat32Array? value);
+  /// The `curve` property of the [WaveShaperNode] interface is a `Float32Array`
+  /// of numbers describing the distortion to apply.
+  ///
+  /// The mid-element of the array is applied to any signal value of `0`, the
+  /// first one to signal values of `-1`, and the last to signal values of `1`;
+  /// values lower than `-1` or greater than `1` are treated like `-1` or `1`
+  /// respectively.
+  ///
+  /// If necessary, intermediate values of the distortion curve are linearly
+  /// interpolated.
+  ///
+  /// > **Note:** The array can be a `null` value: in that case, no distortion
+  /// > is applied to the input signal.
   external JSFloat32Array? get curve;
-  external set oversample(OverSampleType value);
+  external set curve(JSFloat32Array? value);
+
+  /// The `oversample` property of the [WaveShaperNode] interface is an
+  /// enumerated value indicating if oversampling must be used. Oversampling is
+  /// a technique for creating more samples (up-sampling) before applying a
+  /// distortion effect to the audio signal.
+  ///
+  /// Once applied, the number of samples is reduced to its initial numbers.
+  /// This leads to better results by avoiding some aliasing, but comes at the
+  /// expense of a lower precision shaping curve.
+  ///
+  /// The possible `oversample` values are:
+  ///
+  /// | Value    | Effect                                                                 |
+  /// | -------- | ---------------------------------------------------------------------- |
+  /// | `'none'` | Do not perform any oversampling.                                       |
+  /// | `'2x'`   | Double the amount of samples before applying the shaping curve.        |
+  /// | `'4x'`   | Multiply by 4 the amount of samples before applying the shaping curve. |
   external OverSampleType get oversample;
+  external set oversample(OverSampleType value);
 }
 extension type WaveShaperOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
@@ -2649,10 +3474,10 @@ extension type WaveShaperOptions._(JSObject _)
     OverSampleType oversample,
   });
 
-  external set curve(JSArray<JSNumber> value);
   external JSArray<JSNumber> get curve;
-  external set oversample(OverSampleType value);
+  external set curve(JSArray<JSNumber> value);
   external OverSampleType get oversample;
+  external set oversample(OverSampleType value);
 }
 
 /// The **`AudioWorklet`** interface of the
@@ -2702,8 +3527,23 @@ extension type AudioWorkletGlobalScope._(JSObject _)
     String name,
     AudioWorkletProcessorConstructor processorCtor,
   );
+
+  /// The read-only **`currentFrame`** property of the [AudioWorkletGlobalScope]
+  /// interface returns an integer that represents the ever-increasing current
+  /// sample-frame of the audio block being processed. It is incremented by 128
+  /// (the size of a render quantum) after the processing of each audio block.
   external int get currentFrame;
+
+  /// The read-only **`currentTime`** property of the [AudioWorkletGlobalScope]
+  /// interface returns a double that represents the ever-increasing context
+  /// time of the audio block being processed. It is equal to the
+  /// [BaseAudioContext.currentTime] property of the [BaseAudioContext] the
+  /// worklet belongs to.
   external num get currentTime;
+
+  /// The read-only **`sampleRate`** property of the [AudioWorkletGlobalScope]
+  /// interface returns a float that represents the sample rate of the
+  /// associated [BaseAudioContext] the worklet belongs to.
   external num get sampleRate;
   external int get renderQuantumSize;
   external MessagePort get port;
@@ -2747,10 +3587,26 @@ extension type AudioWorkletNode._(JSObject _) implements AudioNode, JSObject {
     AudioWorkletNodeOptions options,
   ]);
 
+  /// The read-only **`parameters`** property of the
+  /// [AudioWorkletNode] interface returns the associated
+  /// [AudioParamMap] — that is, a `Map`-like collection of
+  /// [AudioParam] objects. They are instantiated during creation of the
+  /// underlying [AudioWorkletProcessor] according to its
+  /// [AudioWorkletProcessor.parameterDescriptors] static
+  /// getter.
   external AudioParamMap get parameters;
+
+  /// The read-only **`port`** property of the
+  /// [AudioWorkletNode] interface returns the associated
+  /// [MessagePort]. It can be used to communicate between the node and its
+  /// associated [AudioWorkletProcessor].
+  ///
+  /// > **Note:** The port at the other end of the channel is
+  /// > available under the [AudioWorkletProcessor.port] property of the
+  /// > processor.
   external MessagePort get port;
-  external set onprocessorerror(EventHandler value);
   external EventHandler get onprocessorerror;
+  external set onprocessorerror(EventHandler value);
 }
 extension type AudioWorkletNodeOptions._(JSObject _)
     implements AudioNodeOptions, JSObject {
@@ -2765,16 +3621,16 @@ extension type AudioWorkletNodeOptions._(JSObject _)
     JSObject processorOptions,
   });
 
-  external set numberOfInputs(int value);
   external int get numberOfInputs;
-  external set numberOfOutputs(int value);
+  external set numberOfInputs(int value);
   external int get numberOfOutputs;
-  external set outputChannelCount(JSArray<JSNumber> value);
+  external set numberOfOutputs(int value);
   external JSArray<JSNumber> get outputChannelCount;
-  external set parameterData(JSObject value);
+  external set outputChannelCount(JSArray<JSNumber> value);
   external JSObject get parameterData;
-  external set processorOptions(JSObject value);
+  external set parameterData(JSObject value);
   external JSObject get processorOptions;
+  external set processorOptions(JSObject value);
 }
 
 /// The **`AudioWorkletProcessor`** interface of the
@@ -2790,6 +3646,13 @@ extension type AudioWorkletNodeOptions._(JSObject _)
 extension type AudioWorkletProcessor._(JSObject _) implements JSObject {
   external factory AudioWorkletProcessor();
 
+  /// The read-only **`port`** property of the
+  /// [AudioWorkletProcessor] interface returns the associated
+  /// [MessagePort]. It can be used to communicate between the processor and the
+  /// [AudioWorkletNode] to which it belongs.
+  ///
+  /// > **Note:** The port at the other end of the channel is
+  /// > available under the [AudioWorkletNode.port] property of the node.
   external MessagePort get port;
 }
 
@@ -2817,14 +3680,14 @@ extension type AudioParamDescriptor._(JSObject _) implements JSObject {
     AutomationRate automationRate,
   });
 
-  external set name(String value);
   external String get name;
-  external set defaultValue(num value);
+  external set name(String value);
   external num get defaultValue;
-  external set minValue(num value);
+  external set defaultValue(num value);
   external num get minValue;
-  external set maxValue(num value);
+  external set minValue(num value);
   external num get maxValue;
-  external set automationRate(AutomationRate value);
+  external set maxValue(num value);
   external AutomationRate get automationRate;
+  external set automationRate(AutomationRate value);
 }

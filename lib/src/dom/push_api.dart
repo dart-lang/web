@@ -27,8 +27,8 @@ extension type PushPermissionDescriptor._(JSObject _)
     bool userVisibleOnly,
   });
 
-  external set userVisibleOnly(bool value);
   external bool get userVisibleOnly;
+  external set userVisibleOnly(bool value);
 }
 
 /// The **`PushManager`** interface of the
@@ -90,7 +90,15 @@ extension type PushManager._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PushSubscriptionOptions).
 extension type PushSubscriptionOptions._(JSObject _) implements JSObject {
+  /// The **`userVisibleOnly`** read-only property of the
+  /// [PushSubscriptionOptions] interface indicates if the returned push
+  /// subscription will only be used for messages whose effect is made visible
+  /// to the user.
   external bool get userVisibleOnly;
+
+  /// The **`applicationServerKey`** read-only property of the
+  /// [PushSubscriptionOptions] interface contains the public key used by the
+  /// push server.
   external JSArrayBuffer? get applicationServerKey;
 }
 extension type PushSubscriptionOptionsInit._(JSObject _) implements JSObject {
@@ -99,10 +107,10 @@ extension type PushSubscriptionOptionsInit._(JSObject _) implements JSObject {
     JSAny? applicationServerKey,
   });
 
-  external set userVisibleOnly(bool value);
   external bool get userVisibleOnly;
-  external set applicationServerKey(JSAny? value);
+  external set userVisibleOnly(bool value);
   external JSAny? get applicationServerKey;
+  external set applicationServerKey(JSAny? value);
 }
 
 /// The `PushSubscription` interface of the
@@ -132,8 +140,30 @@ extension type PushSubscription._(JSObject _) implements JSObject {
   /// properties,
   /// providing a useful shortcut.
   external PushSubscriptionJSON toJSON();
+
+  /// The **`endpoint`** read-only property of the
+  /// [PushSubscription] interface returns a string containing
+  /// the endpoint associated with the push subscription.
+  ///
+  /// The endpoint takes the form of a custom URL pointing to a push server,
+  /// which can be
+  /// used to send a push message to the particular service worker instance that
+  /// subscribed to
+  /// the push service. For this reason, it is a good idea to keep your endpoint
+  /// a secret, so
+  /// others do not hijack it and abuse the push functionality.
   external String get endpoint;
+
+  /// The **`expirationTime`** read-only property of the
+  /// [PushSubscription] interface returns a [DOMHighResTimeStamp]
+  /// of the subscription expiration time associated with the push subscription,
+  /// if there is
+  /// one, or `null` otherwise.
   external EpochTimeStamp? get expirationTime;
+
+  /// The **`options`** read-only property
+  /// of the [PushSubscription] interface is an object containing the options
+  /// used to create the subscription.
   external PushSubscriptionOptions get options;
 }
 extension type PushSubscriptionJSON._(JSObject _) implements JSObject {
@@ -143,12 +173,12 @@ extension type PushSubscriptionJSON._(JSObject _) implements JSObject {
     JSObject keys,
   });
 
-  external set endpoint(String value);
   external String get endpoint;
-  external set expirationTime(EpochTimeStamp? value);
+  external set endpoint(String value);
   external EpochTimeStamp? get expirationTime;
-  external set keys(JSObject value);
+  external set expirationTime(EpochTimeStamp? value);
   external JSObject get keys;
+  external set keys(JSObject value);
 }
 
 /// The **`PushMessageData`** interface of the
@@ -206,6 +236,9 @@ extension type PushEvent._(JSObject _) implements ExtendableEvent, JSObject {
     PushEventInit eventInitDict,
   ]);
 
+  /// The `data` read-only property of the **`PushEvent`** interface returns a
+  /// reference to a [PushMessageData] object containing data sent to the
+  /// [PushSubscription].
   external PushMessageData? get data;
 }
 extension type PushEventInit._(JSObject _)
@@ -217,8 +250,8 @@ extension type PushEventInit._(JSObject _)
     PushMessageDataInit data,
   });
 
-  external set data(PushMessageDataInit value);
   external PushMessageDataInit get data;
+  external set data(PushMessageDataInit value);
 }
 extension type PushSubscriptionChangeEvent._(JSObject _)
     implements ExtendableEvent, JSObject {
@@ -240,8 +273,8 @@ extension type PushSubscriptionChangeEventInit._(JSObject _)
     PushSubscription oldSubscription,
   });
 
-  external set newSubscription(PushSubscription value);
   external PushSubscription get newSubscription;
-  external set oldSubscription(PushSubscription value);
+  external set newSubscription(PushSubscription value);
   external PushSubscription get oldSubscription;
+  external set oldSubscription(PushSubscription value);
 }

@@ -59,8 +59,19 @@ extension type ReportBody._(JSObject _) implements JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Report).
 extension type Report._(JSObject _) implements JSObject {
   external JSObject toJSON();
+
+  /// The **`type`** read-only property of the [Report]
+  /// interface returns the type of report generated, e.g. `deprecation` or
+  /// `intervention`.
   external String get type;
+
+  /// The **`url`** read-only property of the [Report]
+  /// interface returns the URL of the document that generated the report.
   external String get url;
+
+  /// The **`body`** read-only property of the [Report]
+  /// interface returns the body of the report, which is a `ReportBody` object
+  /// containing the detailed report information.
   external ReportBody? get body;
 }
 
@@ -107,10 +118,10 @@ extension type ReportingObserverOptions._(JSObject _) implements JSObject {
     bool buffered,
   });
 
-  external set types(JSArray<JSString> value);
   external JSArray<JSString> get types;
-  external set buffered(bool value);
+  external set types(JSArray<JSString> value);
   external bool get buffered;
+  external set buffered(bool value);
 }
 extension type GenerateTestReportParameters._(JSObject _) implements JSObject {
   external factory GenerateTestReportParameters({
@@ -118,8 +129,8 @@ extension type GenerateTestReportParameters._(JSObject _) implements JSObject {
     String group,
   });
 
-  external set message(String value);
   external String get message;
-  external set group(String value);
+  external set message(String value);
   external String get group;
+  external set group(String value);
 }

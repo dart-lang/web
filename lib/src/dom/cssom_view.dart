@@ -25,8 +25,8 @@ typedef CSSBoxType = String;
 extension type ScrollOptions._(JSObject _) implements JSObject {
   external factory ScrollOptions({ScrollBehavior behavior});
 
-  external set behavior(ScrollBehavior value);
   external ScrollBehavior get behavior;
+  external set behavior(ScrollBehavior value);
 }
 extension type ScrollToOptions._(JSObject _)
     implements ScrollOptions, JSObject {
@@ -36,10 +36,10 @@ extension type ScrollToOptions._(JSObject _)
     num top,
   });
 
-  external set left(num value);
   external num get left;
-  external set top(num value);
+  external set left(num value);
   external num get top;
+  external set top(num value);
 }
 
 /// A **`MediaQueryList`** object stores information on a
@@ -84,10 +84,24 @@ extension type MediaQueryList._(JSObject _) implements EventTarget, JSObject {
   /// Use `removeEventListener()` instead of `removeListener()` if it is
   /// available in the browsers you need to support.
   external void removeListener(EventListener? callback);
+
+  /// The **`media`** read-only property of the
+  /// [MediaQueryList] interface is a string representing a
+  /// serialized media query.
   external String get media;
+
+  /// The **`matches`** read-only property of the
+  /// [MediaQueryList] interface is a boolean value that returns
+  /// `true` if the [document] currently matches the media query list,
+  /// or `false` if not.
+  ///
+  /// You can be notified when the value of `matches` changes by watching for
+  /// the
+  /// [MediaQueryList.change_event] event to be fired at the
+  /// `MediaQueryList`.
   external bool get matches;
-  external set onchange(EventHandler value);
   external EventHandler get onchange;
+  external set onchange(EventHandler value);
 }
 
 /// The `MediaQueryListEvent` object stores information on the changes that have
@@ -104,7 +118,15 @@ extension type MediaQueryListEvent._(JSObject _) implements Event, JSObject {
     MediaQueryListEventInit eventInitDict,
   ]);
 
+  /// The **`media`** read-only property of the
+  /// [MediaQueryListEvent] interface is a string representing
+  /// a serialized media query.
   external String get media;
+
+  /// The **`matches`** read-only property of the
+  /// [MediaQueryListEvent] interface is a boolean value that is
+  /// `true` if the [document] currently matches the media query list,
+  /// or `false` if not.
   external bool get matches;
 }
 extension type MediaQueryListEventInit._(JSObject _)
@@ -117,10 +139,10 @@ extension type MediaQueryListEventInit._(JSObject _)
     bool matches,
   });
 
-  external set media(String value);
   external String get media;
-  external set matches(bool value);
+  external set media(String value);
   external bool get matches;
+  external set matches(bool value);
 }
 
 /// The `Screen` interface represents a screen, usually the one on which the
@@ -134,12 +156,42 @@ extension type MediaQueryListEventInit._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Screen).
 extension type Screen._(JSObject _) implements JSObject {
+  /// The **`Screen.availWidth`** property returns the amount of
+  /// horizontal space (in pixels) available to the window.
   external int get availWidth;
+
+  /// The read-only [Screen] interface's
+  /// **`availHeight`** property returns the height, in CSS pixels, of
+  /// the space available for Web content on the screen. Since [Screen] is
+  /// exposed on the [Window] interface's [Window.screen]
+  /// property, you access `availHeight` using `window.screen.availHeight`.
+  ///
+  /// You can similarly use [Screen.availWidth] to get the number of pixels
+  /// which are horizontally available to the browser for its use.
   external int get availHeight;
+
+  /// The **`Screen.width`** read-only property returns the width of
+  /// the screen in CSS pixels.
   external int get width;
+
+  /// The **`Screen.height`** read-only property returns the height
+  /// of the screen in pixels.
   external int get height;
+
+  /// The **`Screen.colorDepth`** read-only property returns the
+  /// color depth of the screen. Per the CSSOM, some implementations return `24`
+  /// for compatibility reasons. See the browser compatibility section for those
+  /// that don't.
   external int get colorDepth;
+
+  /// Returns the bit depth of the screen. Per the CSSOM, some implementations
+  /// return `24` for compatibility reasons. See the
+  /// [browser compatibility](#browser_compatibility) section for those that
+  /// don't.
   external int get pixelDepth;
+
+  /// The **`orientation`** read-only property of the
+  /// [Screen] interface returns the current orientation of the screen.
   external ScreenOrientation get orientation;
 }
 
@@ -164,10 +216,10 @@ extension type ScrollIntoViewOptions._(JSObject _)
     ScrollLogicalPosition inline,
   });
 
-  external set block(ScrollLogicalPosition value);
   external ScrollLogicalPosition get block;
-  external set inline(ScrollLogicalPosition value);
+  external set block(ScrollLogicalPosition value);
   external ScrollLogicalPosition get inline;
+  external set inline(ScrollLogicalPosition value);
 }
 extension type CheckVisibilityOptions._(JSObject _) implements JSObject {
   external factory CheckVisibilityOptions({
@@ -178,16 +230,16 @@ extension type CheckVisibilityOptions._(JSObject _) implements JSObject {
     bool visibilityProperty,
   });
 
-  external set checkOpacity(bool value);
   external bool get checkOpacity;
-  external set checkVisibilityCSS(bool value);
+  external set checkOpacity(bool value);
   external bool get checkVisibilityCSS;
-  external set contentVisibilityAuto(bool value);
+  external set checkVisibilityCSS(bool value);
   external bool get contentVisibilityAuto;
-  external set opacityProperty(bool value);
+  external set contentVisibilityAuto(bool value);
   external bool get opacityProperty;
-  external set visibilityProperty(bool value);
+  external set opacityProperty(bool value);
   external bool get visibilityProperty;
+  external set visibilityProperty(bool value);
 }
 extension type BoxQuadOptions._(JSObject _) implements JSObject {
   external factory BoxQuadOptions({
@@ -195,10 +247,10 @@ extension type BoxQuadOptions._(JSObject _) implements JSObject {
     GeometryNode relativeTo,
   });
 
-  external set box(CSSBoxType value);
   external CSSBoxType get box;
-  external set relativeTo(GeometryNode value);
+  external set box(CSSBoxType value);
   external GeometryNode get relativeTo;
+  external set relativeTo(GeometryNode value);
 }
 extension type ConvertCoordinateOptions._(JSObject _) implements JSObject {
   external factory ConvertCoordinateOptions({
@@ -206,10 +258,10 @@ extension type ConvertCoordinateOptions._(JSObject _) implements JSObject {
     CSSBoxType toBox,
   });
 
-  external set fromBox(CSSBoxType value);
   external CSSBoxType get fromBox;
-  external set toBox(CSSBoxType value);
+  external set fromBox(CSSBoxType value);
   external CSSBoxType get toBox;
+  external set toBox(CSSBoxType value);
 }
 
 /// The **`VisualViewport`** interface of the [Visual Viewport API] represents
@@ -231,17 +283,49 @@ extension type ConvertCoordinateOptions._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/VisualViewport).
 extension type VisualViewport._(JSObject _) implements EventTarget, JSObject {
+  /// The **`offsetLeft`** read-only property of the [VisualViewport] interface
+  /// returns the offset of the left edge of the visual viewport from the left
+  /// edge of the layout viewport in CSS pixels, or `0` if current document is
+  /// not fully active.
   external num get offsetLeft;
+
+  /// The **`offsetTop`** read-only property of the [VisualViewport] interface
+  /// returns the offset of the top edge of the visual viewport from the top
+  /// edge of the layout viewport in CSS pixels, or `0` if current document is
+  /// not fully active.
   external num get offsetTop;
+
+  /// The **`pageLeft`** read-only property of the [VisualViewport] interface
+  /// returns the x coordinate of the left edge of the visual viewport relative
+  /// to the initial containing block origin, in CSS pixels, or `0` if current
+  /// document is not fully active.
   external num get pageLeft;
+
+  /// The **`pageTop`** read-only property of the [VisualViewport] interface
+  /// returns the y coordinate of the top edge of the visual viewport relative
+  /// to the initial containing block origin, in CSS pixels, or `0` if current
+  /// document is not fully active.
   external num get pageTop;
+
+  /// The **`width`** read-only property of the [VisualViewport] interface
+  /// returns the width of the visual viewport, in CSS pixels, or `0` if current
+  /// document is not fully active.
   external num get width;
+
+  /// The **`height`** read-only property of the [VisualViewport] interface
+  /// returns the height of the visual viewport, in CSS pixels, or `0` if
+  /// current document is not fully active.
   external num get height;
+
+  /// The **`scale`** read-only property of the [VisualViewport] interface
+  /// returns the pinch-zoom scaling factor applied to the visual viewport, or
+  /// `0` if current document is not fully active, or `1` if there is no output
+  /// device.
   external num get scale;
-  external set onresize(EventHandler value);
   external EventHandler get onresize;
-  external set onscroll(EventHandler value);
+  external set onresize(EventHandler value);
   external EventHandler get onscroll;
-  external set onscrollend(EventHandler value);
+  external set onscroll(EventHandler value);
   external EventHandler get onscrollend;
+  external set onscrollend(EventHandler value);
 }

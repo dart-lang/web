@@ -22,16 +22,16 @@ extension type TextDecoderOptions._(JSObject _) implements JSObject {
     bool ignoreBOM,
   });
 
-  external set fatal(bool value);
   external bool get fatal;
-  external set ignoreBOM(bool value);
+  external set fatal(bool value);
   external bool get ignoreBOM;
+  external set ignoreBOM(bool value);
 }
 extension type TextDecodeOptions._(JSObject _) implements JSObject {
   external factory TextDecodeOptions({bool stream});
 
-  external set stream(bool value);
   external bool get stream;
+  external set stream(bool value);
 }
 
 /// The **`TextDecoder`** interface represents a decoder for a specific text
@@ -58,8 +58,31 @@ extension type TextDecoder._(JSObject _) implements JSObject {
     AllowSharedBufferSource input,
     TextDecodeOptions options,
   ]);
+
+  /// The **`TextDecoder.encoding`** read-only property returns a string
+  /// containing the name of the decoding algorithm used by the specific decoder
+  /// object.
+  ///
+  /// The encoding is set by the
+  /// [constructor](https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder/TextDecoder)
+  /// `label` parameter, and defaults to `utf-8`.
   external String get encoding;
+
+  /// The **`fatal`** read-only property of the [TextDecoder] interface is a
+  /// `Boolean` indicating whether the error mode is fatal.
+  ///
+  /// If the property is `true`, then a decoder will throw a `TypeError` if it
+  /// encounters malformed data while decoding.
+  /// If `false`, the decoder will substitute the invalid data with the
+  /// replacement character `U+FFFD` (�).
+  /// The value of the property is set in the [`TextDecoder()`
+  /// constructor](https://developer.mozilla.org/en-US/docs/Web/API/TextDecoder/TextDecoder).
   external bool get fatal;
+
+  /// The **`ignoreBOM`** read-only property of the [TextDecoder] interface is a
+  /// `Boolean` indicating whether the
+  /// [byte order mark](https://www.w3.org/International/questions/qa-byte-order-mark)
+  /// will be included in the output or skipped over.
   external bool get ignoreBOM;
 }
 extension type TextEncoderEncodeIntoResult._(JSObject _) implements JSObject {
@@ -68,10 +91,10 @@ extension type TextEncoderEncodeIntoResult._(JSObject _) implements JSObject {
     int written,
   });
 
-  external set read(int value);
   external int get read;
-  external set written(int value);
+  external set read(int value);
   external int get written;
+  external set written(int value);
 }
 
 /// The **`TextEncoder`** interface takes a stream of code points as input and
@@ -99,6 +122,12 @@ extension type TextEncoder._(JSObject _) implements JSObject {
     String source,
     JSUint8Array destination,
   );
+
+  /// The **`TextEncoder.encoding`** read-only property returns a string
+  /// containing the name of the encoding algorithm used by the specific
+  /// encoder.
+  ///
+  /// It can only have the following value `utf-8`.
   external String get encoding;
 }
 
@@ -117,10 +146,39 @@ extension type TextDecoderStream._(JSObject _) implements JSObject {
     TextDecoderOptions options,
   ]);
 
+  /// The **`encoding`** read-only property of the [TextDecoderStream] interface
+  /// returns a string containing the name of the encoding algorithm used by the
+  /// specific decoder.
+  ///
+  /// The encoding is set by the
+  /// [constructor](https://developer.mozilla.org/en-US/docs/Web/API/TextDecoderStream/TextDecoderStream)
+  /// `label` parameter, and defaults to `utf-8`.
   external String get encoding;
+
+  /// The **`fatal`** read-only property of the [TextDecoderStream] interface is
+  /// a `boolean` indicating if the error mode of the `TextDecoderStream` object
+  /// is set to `fatal`.
+  ///
+  /// If the property is `true` then a decoder will throw a `TypeError` if it
+  /// encounters malformed data while decoding.
+  /// If `false` the decoder will substitute the invalid data with the
+  /// replacement character `U+FFFD` (�).
+  /// The value of the property is set in the [`TextDecoderStream()`
+  /// constructor](https://developer.mozilla.org/en-US/docs/Web/API/TextDecoderStream/TextDecoderStream).
   external bool get fatal;
+
+  /// The **`ignoreBOM`** read-only property of the [TextDecoderStream]
+  /// interface is a `Boolean` indicating whether the
+  /// [byte order mark](https://www.w3.org/International/questions/qa-byte-order-mark)
+  /// will be included in the output or skipped over.
   external bool get ignoreBOM;
+
+  /// The **`readable`** read-only property of the [TextDecoderStream] interface
+  /// returns a [ReadableStream].
   external ReadableStream get readable;
+
+  /// The **`writable`** read-only property of the [TextDecoderStream] interface
+  /// returns a [WritableStream].
   external WritableStream get writable;
 }
 
@@ -135,7 +193,17 @@ extension type TextDecoderStream._(JSObject _) implements JSObject {
 extension type TextEncoderStream._(JSObject _) implements JSObject {
   external factory TextEncoderStream();
 
+  /// The **`encoding`** read-only property of the [TextEncoderStream] interface
+  /// returns a
+  /// string containing the name of the encoding algorithm used by the current
+  /// `TextEncoderStream` object.
   external String get encoding;
+
+  /// The **`readable`** read-only property of the [TextEncoderStream] interface
+  /// returns a [ReadableStream].
   external ReadableStream get readable;
+
+  /// The **`writable`** read-only property of the [TextEncoderStream] interface
+  /// returns a [WritableStream].
   external WritableStream get writable;
 }

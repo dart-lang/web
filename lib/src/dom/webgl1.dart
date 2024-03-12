@@ -48,24 +48,24 @@ extension type WebGLContextAttributes._(JSObject _) implements JSObject {
     bool desynchronized,
   });
 
-  external set alpha(bool value);
   external bool get alpha;
-  external set depth(bool value);
+  external set alpha(bool value);
   external bool get depth;
-  external set stencil(bool value);
+  external set depth(bool value);
   external bool get stencil;
-  external set antialias(bool value);
+  external set stencil(bool value);
   external bool get antialias;
-  external set premultipliedAlpha(bool value);
+  external set antialias(bool value);
   external bool get premultipliedAlpha;
-  external set preserveDrawingBuffer(bool value);
+  external set premultipliedAlpha(bool value);
   external bool get preserveDrawingBuffer;
-  external set powerPreference(WebGLPowerPreference value);
+  external set preserveDrawingBuffer(bool value);
   external WebGLPowerPreference get powerPreference;
-  external set failIfMajorPerformanceCaveat(bool value);
+  external set powerPreference(WebGLPowerPreference value);
   external bool get failIfMajorPerformanceCaveat;
-  external set desynchronized(bool value);
+  external set failIfMajorPerformanceCaveat(bool value);
   external bool get desynchronized;
+  external set desynchronized(bool value);
 }
 
 /// The **`WebGLObject`** is part of the
@@ -193,8 +193,22 @@ extension type WebGLUniformLocation._(JSObject _) implements JSObject {}
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGLActiveInfo).
 extension type WebGLActiveInfo._(JSObject _) implements JSObject {
+  /// The read-only **`WebGLActiveInfo.size`** property is a `Number`
+  /// representing the size of the requested data returned by calling the
+  /// [WebGLRenderingContext.getActiveAttrib] or
+  /// [WebGLRenderingContext.getActiveUniform] methods.
   external GLint get size;
+
+  /// The read-only **`WebGLActiveInfo.type`** property represents the type of
+  /// the requested data returned by calling the
+  /// [WebGLRenderingContext.getActiveAttrib] or
+  /// [WebGLRenderingContext.getActiveUniform] methods.
   external GLenum get type;
+
+  /// The read-only **`WebGLActiveInfo.name`** property represents the name of
+  /// the requested data returned by calling the
+  /// [WebGLRenderingContext.getActiveAttrib] or
+  /// [WebGLRenderingContext.getActiveUniform] methods.
   external String get name;
 }
 
@@ -208,8 +222,20 @@ extension type WebGLActiveInfo._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGLShaderPrecisionFormat).
 extension type WebGLShaderPrecisionFormat._(JSObject _) implements JSObject {
+  /// The read-only **`WebGLShaderPrecisionFormat.rangeMin`** property returns
+  /// the base 2 log of the absolute value of the minimum value that can be
+  /// represented.
   external GLint get rangeMin;
+
+  /// The read-only **`WebGLShaderPrecisionFormat.rangeMax`** property returns
+  /// the base 2 log of the absolute value of the maximum value that can be
+  /// represented.
   external GLint get rangeMax;
+
+  /// The read-only **`WebGLShaderPrecisionFormat.precision`** property returns
+  /// the number of bits of precision that can be represented.
+  ///
+  /// For integer formats this value is always 0.
   external GLint get precision;
 }
 
@@ -1758,14 +1784,72 @@ extension type WebGLRenderingContext._(JSObject _) implements JSObject {
     GLboolean transpose,
     Float32List value,
   );
+
+  /// The **`WebGLRenderingContext.canvas`** property is a read-only
+  /// reference to the [HTMLCanvasElement] or [OffscreenCanvas]
+  /// object that is associated with the context. It might be
+  /// [`null`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/null)
+  /// if it is not
+  /// associated with a `canvas` element or an [OffscreenCanvas]
+  /// object.
   external JSObject get canvas;
+
+  /// The read-only **`WebGLRenderingContext.drawingBufferWidth`**
+  /// property represents the actual width of the current drawing buffer. It
+  /// should match the
+  /// `width` attribute of the `canvas` element associated with
+  /// this context, but might differ if the implementation is not able to
+  /// provide the
+  /// requested width.
   external GLsizei get drawingBufferWidth;
+
+  /// The read-only **`WebGLRenderingContext.drawingBufferHeight`**
+  /// property represents the actual height of the current drawing buffer. It
+  /// should match the
+  /// `height` attribute of the `canvas` element associated with
+  /// this context, but might differ if the implementation is not able to
+  /// provide the
+  /// requested height.
   external GLsizei get drawingBufferHeight;
   external GLenum get drawingBufferFormat;
-  external set drawingBufferColorSpace(PredefinedColorSpace value);
+
+  /// The **`WebGLRenderingContext.drawingBufferColorSpace`** property specifies
+  /// the color space of the WebGL drawing buffer. Along with the default
+  /// (`srgb`), the `display-p3` color space can be used.
+  ///
+  /// See
+  /// [`WebGLRenderingContext.unpackColorSpace`](https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/unpackColorSpace)
+  /// for specifying the color space for textures.
   external PredefinedColorSpace get drawingBufferColorSpace;
-  external set unpackColorSpace(PredefinedColorSpace value);
+  external set drawingBufferColorSpace(PredefinedColorSpace value);
+
+  /// The **`WebGLRenderingContext.unpackColorSpace`** property specifies the
+  /// color space to convert to when importing textures. Along with the default
+  /// (`srgb`), the `display-p3` color space can be used.
+  ///
+  /// Texture image sources can be the following:
+  ///
+  /// - [`ImageBitmap`](https://developer.mozilla.org/en-US/docs/Web/API/ImageBitmap)
+  /// - [`ImageData`](https://developer.mozilla.org/en-US/docs/Web/API/ImageData)
+  /// - [`HTMLImageElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement)
+  /// - [`HTMLCanvasElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement)
+  /// - [`HTMLVideoElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLVideoElement)
+  /// - [`OffscreenCanvas`](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas)
+  /// - [`VideoFrame`](https://developer.mozilla.org/en-US/docs/Web/API/VideoFrame)
+  ///
+  /// Textures are imported using the
+  /// [`WebGLRenderingContext.texImage2D()`](https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texImage2D)
+  /// and
+  /// [`WebGLRenderingContext.texSubImage2D()`](https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texSubImage2D)
+  /// methods and conversion to the specified `unpackColorSpace` color space
+  /// happens during import.
+  ///
+  /// Note that this doesn't apply to
+  /// [`HTMLImageElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement)
+  /// when the `UNPACK_COLORSPACE_CONVERSION_WEBGL` pixel storage parameter is
+  /// set to `NONE`.
   external PredefinedColorSpace get unpackColorSpace;
+  external set unpackColorSpace(PredefinedColorSpace value);
 }
 
 /// The **WebContextEvent** interface is part of the
@@ -1783,6 +1867,9 @@ extension type WebGLContextEvent._(JSObject _) implements Event, JSObject {
     WebGLContextEventInit eventInit,
   ]);
 
+  /// The read-only **`WebGLContextEvent.statusMessage`** property contains
+  /// additional event status information, or is an empty string if no
+  /// additional information is available.
   external String get statusMessage;
 }
 extension type WebGLContextEventInit._(JSObject _)
@@ -1794,6 +1881,6 @@ extension type WebGLContextEventInit._(JSObject _)
     String statusMessage,
   });
 
-  external set statusMessage(String value);
   external String get statusMessage;
+  external set statusMessage(String value);
 }

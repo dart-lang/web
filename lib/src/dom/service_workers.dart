@@ -72,12 +72,24 @@ extension type ServiceWorker._(JSObject _) implements EventTarget, JSObject {
     JSAny? message, [
     JSObject optionsOrTransfer,
   ]);
+
+  /// Returns the `ServiceWorker` serialized script URL defined as part of
+  /// [`ServiceWorkerRegistration`](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration).
+  /// Must be on the same origin as the document that registers the
+  /// `ServiceWorker`.
   external String get scriptURL;
+
+  /// The **`state`** read-only property of the
+  /// [ServiceWorker] interface returns a string representing the current state
+  /// of the service worker. It can be one of the following values: `parsed`,
+  /// `installing`,
+  /// `installed`, `activating`, `activated`, or
+  /// `redundant`.
   external ServiceWorkerState get state;
-  external set onstatechange(EventHandler value);
   external EventHandler get onstatechange;
-  external set onerror(EventHandler value);
+  external set onstatechange(EventHandler value);
   external EventHandler get onerror;
+  external set onerror(EventHandler value);
 }
 
 /// The **`ServiceWorkerRegistration`** interface of the
@@ -137,15 +149,67 @@ extension type ServiceWorkerRegistration._(JSObject _)
   /// operations before it is
   /// unregistered.
   external JSPromise<JSBoolean> unregister();
+
+  /// The **`pushManager`** read-only property of the
+  /// [ServiceWorkerRegistration] interface returns a reference to the
+  /// [PushManager] interface for managing push subscriptions; this includes
+  /// support for subscribing, getting an active subscription, and accessing
+  /// push permission
+  /// status.
   external PushManager get pushManager;
+
+  /// The **`installing`** read-only property of the
+  /// [ServiceWorkerRegistration] interface returns a service worker whose
+  /// [ServiceWorker.state] is `installing`. This property is
+  /// initially set to `null`.
   external ServiceWorker? get installing;
+
+  /// The **`waiting`** read-only property of the
+  /// [ServiceWorkerRegistration] interface returns a service worker whose
+  /// [ServiceWorker.state] is `installed`. This property is initially
+  /// set to `null`.
   external ServiceWorker? get waiting;
+
+  /// The **`active`** read-only property of the
+  /// [ServiceWorkerRegistration] interface returns a service worker whose
+  /// [ServiceWorker.state] is `activating` or `activated`.
+  /// This property is initially set to `null`.
+  ///
+  /// An active worker controls a [Client] if the client's URL
+  /// falls within the scope of the registration (the `scope` option set when
+  /// [ServiceWorkerContainer.register] is first called.)
+  ///
+  /// > **Note:** Once an active worker is `activating`, neither a
+  /// > runtime script error nor a force termination of the active worker
+  /// > prevents the active
+  /// > worker from getting `activated`.
   external ServiceWorker? get active;
+
+  /// The **`navigationPreload`** read-only property of the
+  /// [ServiceWorkerRegistration] interface returns the
+  /// [NavigationPreloadManager] associated with the current service worker
+  /// registration.
+  ///
+  /// The returned object allows resources managed by a service worker to be
+  /// preemptively downloaded in parallel with service worker boot up.
   external NavigationPreloadManager get navigationPreload;
+
+  /// The **`scope`** read-only property of the
+  /// [ServiceWorkerRegistration] interface returns a unique identifier for a
+  /// service worker registration. The service worker must be on the same origin
+  /// as the
+  /// document that registers the [ServiceWorker].
   external String get scope;
+
+  /// The **`updateViaCache`** read-only property of the
+  /// [ServiceWorkerRegistration] interface updates the cache using
+  /// the mode specified in the call to [ServiceWorkerContainer.register].
+  /// Requests for `importScripts` still go via the HTTP cache. `updateViaCache`
+  /// offers
+  /// control over this behavior.
   external ServiceWorkerUpdateViaCache get updateViaCache;
-  external set onupdatefound(EventHandler value);
   external EventHandler get onupdatefound;
+  external set onupdatefound(EventHandler value);
 }
 
 /// The **`ServiceWorkerContainer`** interface of the
@@ -211,14 +275,31 @@ extension type ServiceWorkerContainer._(JSObject _)
   /// via [Client.postMessage]). This can be used to react to sent messages
   /// earlier, even before that page's content has finished loading.
   external void startMessages();
+
+  /// The **`controller`** read-only
+  /// property of the [ServiceWorkerContainer] interface returns a
+  /// [ServiceWorker] object if its state is `activating` or
+  /// `activated` (the same object returned by
+  /// [ServiceWorkerRegistration.active]). This property returns
+  /// `null` if the request is a force refresh (_Shift_ + refresh) or if
+  /// there is no active worker.
   external ServiceWorker? get controller;
+
+  /// The **`ready`** read-only property of
+  /// the [ServiceWorkerContainer] interface provides a way of delaying code
+  /// execution until a service worker is active. It returns a `Promise` that
+  /// will never reject, and which waits indefinitely until
+  /// the [ServiceWorkerRegistration] associated with the current page has
+  /// an [ServiceWorkerRegistration.active] worker. Once that
+  /// condition is met, it resolves with
+  /// the [ServiceWorkerRegistration].
   external JSPromise<ServiceWorkerRegistration> get ready;
-  external set oncontrollerchange(EventHandler value);
   external EventHandler get oncontrollerchange;
-  external set onmessage(EventHandler value);
+  external set oncontrollerchange(EventHandler value);
   external EventHandler get onmessage;
-  external set onmessageerror(EventHandler value);
+  external set onmessage(EventHandler value);
   external EventHandler get onmessageerror;
+  external set onmessageerror(EventHandler value);
 }
 extension type RegistrationOptions._(JSObject _) implements JSObject {
   external factory RegistrationOptions({
@@ -227,12 +308,12 @@ extension type RegistrationOptions._(JSObject _) implements JSObject {
     ServiceWorkerUpdateViaCache updateViaCache,
   });
 
-  external set scope(String value);
   external String get scope;
-  external set type(WorkerType value);
+  external set scope(String value);
   external WorkerType get type;
-  external set updateViaCache(ServiceWorkerUpdateViaCache value);
+  external set type(WorkerType value);
   external ServiceWorkerUpdateViaCache get updateViaCache;
+  external set updateViaCache(ServiceWorkerUpdateViaCache value);
 }
 
 /// The **`NavigationPreloadManager`** interface of the
@@ -297,10 +378,10 @@ extension type NavigationPreloadState._(JSObject _) implements JSObject {
     String headerValue,
   });
 
-  external set enabled(bool value);
   external bool get enabled;
-  external set headerValue(String value);
+  external set enabled(bool value);
   external String get headerValue;
+  external set headerValue(String value);
 }
 
 /// The **`ServiceWorkerGlobalScope`** interface of the
@@ -338,27 +419,41 @@ extension type ServiceWorkerGlobalScope._(JSObject _)
   /// underlying service worker take effect immediately for both the current
   /// client and all other active clients.
   external JSPromise<JSAny?> skipWaiting();
-  external set onnotificationclick(EventHandler value);
   external EventHandler get onnotificationclick;
-  external set onnotificationclose(EventHandler value);
+  external set onnotificationclick(EventHandler value);
   external EventHandler get onnotificationclose;
-  external set onpush(EventHandler value);
+  external set onnotificationclose(EventHandler value);
   external EventHandler get onpush;
-  external set onpushsubscriptionchange(EventHandler value);
+  external set onpush(EventHandler value);
   external EventHandler get onpushsubscriptionchange;
+  external set onpushsubscriptionchange(EventHandler value);
+
+  /// The **`clients`** read-only property of the
+  /// [ServiceWorkerGlobalScope] interface returns the
+  /// [`Clients`](https://developer.mozilla.org/en-US/docs/Web/API/Clients)
+  /// object associated with the service worker.
   external Clients get clients;
+
+  /// The **`registration`** read-only property of the
+  /// [ServiceWorkerGlobalScope] interface returns a reference to the
+  /// [ServiceWorkerRegistration] object, which represents the service worker's
+  /// registration.
   external ServiceWorkerRegistration get registration;
+
+  /// The **`serviceWorker`** read-only property of the
+  /// [ServiceWorkerGlobalScope] interface returns a reference to the
+  /// [ServiceWorker] object, which represents the service worker.
   external ServiceWorker get serviceWorker;
-  external set oninstall(EventHandler value);
   external EventHandler get oninstall;
-  external set onactivate(EventHandler value);
+  external set oninstall(EventHandler value);
   external EventHandler get onactivate;
-  external set onfetch(EventHandler value);
+  external set onactivate(EventHandler value);
   external EventHandler get onfetch;
-  external set onmessage(EventHandler value);
+  external set onfetch(EventHandler value);
   external EventHandler get onmessage;
-  external set onmessageerror(EventHandler value);
+  external set onmessage(EventHandler value);
   external EventHandler get onmessageerror;
+  external set onmessageerror(EventHandler value);
 }
 
 /// The `Client` interface represents an executable context such as a [Worker],
@@ -380,9 +475,22 @@ extension type Client._(JSObject _) implements JSObject {
     JSAny? message, [
     JSObject optionsOrTransfer,
   ]);
+
+  /// The **`url`** read-only property of the [Client]
+  /// interface returns the URL of the current service worker client.
   external String get url;
+
+  /// The **`frameType`** read-only property of the [Client] interface indicates
+  /// the type of browsing context of the current [Client]. This value can be
+  /// one of `"auxiliary"`, `"top-level"`, `"nested"`, or `"none"`.
   external FrameType get frameType;
+
+  /// The **`id`** read-only property of the [Client] interface returns the
+  /// universally unique identifier of the [Client] object.
   external String get id;
+
+  /// The **`type`** read-only property of the [Client]
+  /// interface indicates the type of client the service worker is controlling.
   external ClientType get type;
 }
 
@@ -409,8 +517,26 @@ extension type WindowClient._(JSObject _) implements Client, JSObject {
   /// a
   /// `Promise` that resolves to the existing [WindowClient].
   external JSPromise<WindowClient?> navigate(String url);
+
+  /// The **`visibilityState`** read-only property of the
+  /// [WindowClient] interface indicates the visibility of the current client.
+  /// This value can be one of `"hidden"`, `"visible"`, or
+  /// `"prerender"`.
   external DocumentVisibilityState get visibilityState;
+
+  /// The **`focused`** read-only property of the
+  /// [WindowClient] interface is a boolean value that indicates whether
+  /// the current client has focus.
   external bool get focused;
+
+  /// The **`ancestorOrigins`** read-only property of the [WindowClient]
+  /// interface is an array of strings listing the origins of all ancestors of
+  /// the browsing context represented by this `WindowClient` in reverse order.
+  ///
+  /// The first element in the array is the origin of this window's parent, and
+  /// the last element is the origin of the top-level browsing context. If this
+  /// window is itself a top-level browsing context, then `ancestorOrigins` is
+  /// an empty array.
   external JSArray<JSString> get ancestorOrigins;
 }
 
@@ -480,10 +606,10 @@ extension type ClientQueryOptions._(JSObject _) implements JSObject {
     ClientType type,
   });
 
-  external set includeUncontrolled(bool value);
   external bool get includeUncontrolled;
-  external set type(ClientType value);
+  external set includeUncontrolled(bool value);
   external ClientType get type;
+  external set type(ClientType value);
 }
 
 /// The **`ExtendableEvent`** interface extends the lifetime of the
@@ -642,11 +768,77 @@ extension type FetchEvent._(JSObject _) implements ExtendableEvent, JSObject {
   /// "alternate" view of a web page when offline without changing the
   /// user-visible URL.
   external void respondWith(JSPromise<Response> r);
+
+  /// The **`request`** read-only property of the
+  /// [FetchEvent] interface returns the [Request] that triggered
+  /// the event handler.
+  ///
+  /// This property is non-nullable (since version 46, in the case of Firefox.)
+  /// If a request
+  /// is not provided by some other means, the constructor `options` object must
+  /// contain a request (see [FetchEvent.FetchEvent].)
   external Request get request;
+
+  /// The **`preloadResponse`** read-only property of the [FetchEvent] interface
+  /// returns a `Promise` that resolves to the navigation preload [Response] if
+  /// [navigation preload](https://developer.mozilla.org/en-US/docs/Web/API/NavigationPreloadManager)
+  /// was triggered, or `undefined` otherwise.
+  ///
+  /// Navigation preload is triggered if
+  /// [navigation preload is enabled](https://developer.mozilla.org/en-US/docs/Web/API/NavigationPreloadManager/enable),
+  /// the request is a `GET` request, and the request is a navigation request
+  /// (generated by the browser when loading pages and iframes).
+  ///
+  /// A service worker can wait on this promise in its fetch event handler in
+  /// order to track completion of a fetch request made during service-worker
+  /// boot.
   external JSPromise<JSAny?> get preloadResponse;
+
+  /// The **`clientId`** read-only property of the
+  /// [FetchEvent] interface returns the id of the [Client] that the
+  /// current service worker is controlling.
+  ///
+  /// The [Clients.get] method could then be passed this ID to retrieve the
+  /// associated client.
   external String get clientId;
+
+  /// The **`resultingClientId`** read-only property of the
+  /// [FetchEvent] interface is the [Client.id] of the
+  /// [Client] that replaces the previous client during a page
+  /// navigation.
+  ///
+  /// For example, when navigating from page A to page B `resultingClientId` is
+  /// the ID of the client associated with page B.
+  ///
+  /// If the fetch request is a subresource request or the request's
+  /// [`destination`](https://developer.mozilla.org/en-US/docs/Web/API/Request/destination)
+  /// is
+  /// `report`, `resultingClientId` will be an empty string.
   external String get resultingClientId;
+
+  /// The **`replacesClientId`** read-only property of the
+  /// [FetchEvent] interface is the [Client.id] of the
+  /// [Client] that is being replaced during a page navigation.
+  ///
+  /// For example, when navigating from page A to page B `replacesClientId` is
+  /// the
+  /// ID of the client associated with page A. It can be an empty string when
+  /// navigating from
+  /// `about:blank` to another page, as `about:blank`'s client will be
+  /// reused, rather than be replaced.
+  ///
+  /// Additionally, if the fetch isn't a navigation, `replacesClientId` will be
+  /// an
+  /// empty string. This could be used to access/communicate with a client that
+  /// will
+  /// imminently be replaced, right before a navigation.
   external String get replacesClientId;
+
+  /// The **`handled`** property of the [FetchEvent] interface returns a promise
+  /// indicating if the event has been handled by the fetch algorithm or not.
+  /// This property allows executing code after the browser has consumed a
+  /// response, and is usually used together with the
+  /// [ExtendableEvent.waitUntil] method.
   external JSPromise<JSAny?> get handled;
 }
 extension type FetchEventInit._(JSObject _)
@@ -663,18 +855,18 @@ extension type FetchEventInit._(JSObject _)
     JSPromise<JSAny?> handled,
   });
 
-  external set request(Request value);
   external Request get request;
-  external set preloadResponse(JSPromise<JSAny?> value);
+  external set request(Request value);
   external JSPromise<JSAny?> get preloadResponse;
-  external set clientId(String value);
+  external set preloadResponse(JSPromise<JSAny?> value);
   external String get clientId;
-  external set resultingClientId(String value);
+  external set clientId(String value);
   external String get resultingClientId;
-  external set replacesClientId(String value);
+  external set resultingClientId(String value);
   external String get replacesClientId;
-  external set handled(JSPromise<JSAny?> value);
+  external set replacesClientId(String value);
   external JSPromise<JSAny?> get handled;
+  external set handled(JSPromise<JSAny?> value);
 }
 
 /// The **`ExtendableMessageEvent`** interface of the
@@ -697,10 +889,31 @@ extension type ExtendableMessageEvent._(JSObject _)
     ExtendableMessageEventInit eventInitDict,
   ]);
 
+  /// The **`data`** read-only property of the
+  /// [ExtendableMessageEvent] interface returns the event's data. It can be any
+  /// data type.
   external JSAny? get data;
+
+  /// The **`origin`** read-only property of the
+  /// [ExtendableMessageEvent] interface returns the origin of the
+  /// [Client] that sent the message.
   external String get origin;
+
+  /// The **`lastEventID`** read-only property of the
+  /// [ExtendableMessageEvent] interface represents, in
+  /// [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events),
+  /// the last event ID of the event source. This is an empty string.
   external String get lastEventId;
+
+  /// The **`source`** read-only property of the
+  /// [ExtendableMessageEvent] interface returns a reference to the
+  /// [Client] object from which the message was sent.
   external JSObject? get source;
+
+  /// The **`ports`** read-only property of the
+  /// [ExtendableMessageEvent] interface returns the array containing the
+  /// [MessagePort] objects representing the ports of the associated message
+  /// channel (the channel the message is being sent through.)
   external JSArray<MessagePort> get ports;
 }
 extension type ExtendableMessageEventInit._(JSObject _)
@@ -716,16 +929,16 @@ extension type ExtendableMessageEventInit._(JSObject _)
     JSArray<MessagePort> ports,
   });
 
-  external set data(JSAny? value);
   external JSAny? get data;
-  external set origin(String value);
+  external set data(JSAny? value);
   external String get origin;
-  external set lastEventId(String value);
+  external set origin(String value);
   external String get lastEventId;
-  external set source(JSObject? value);
+  external set lastEventId(String value);
   external JSObject? get source;
-  external set ports(JSArray<MessagePort> value);
+  external set source(JSObject? value);
   external JSArray<MessagePort> get ports;
+  external set ports(JSArray<MessagePort> value);
 }
 
 /// The **`Cache`** interface provides a persistent storage mechanism for
@@ -878,12 +1091,12 @@ extension type CacheQueryOptions._(JSObject _) implements JSObject {
     bool ignoreVary,
   });
 
-  external set ignoreSearch(bool value);
   external bool get ignoreSearch;
-  external set ignoreMethod(bool value);
+  external set ignoreSearch(bool value);
   external bool get ignoreMethod;
-  external set ignoreVary(bool value);
+  external set ignoreMethod(bool value);
   external bool get ignoreVary;
+  external set ignoreVary(bool value);
 }
 
 /// The **`CacheStorage`** interface represents the storage for [Cache] objects.
@@ -983,6 +1196,6 @@ extension type MultiCacheQueryOptions._(JSObject _)
     String cacheName,
   });
 
-  external set cacheName(String value);
   external String get cacheName;
+  external set cacheName(String value);
 }

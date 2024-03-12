@@ -38,7 +38,16 @@ typedef CredentialMediationRequirement = String;
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Credential).
 extension type Credential._(JSObject _) implements JSObject {
   external static JSPromise<JSBoolean> isConditionalMediationAvailable();
+
+  /// The **`id`** read-only property of the [Credential] interface returns a
+  /// string containing the credential's identifier. This might be a GUID,
+  /// username, or email address, or some other value, depending on the type of
+  /// credential.
   external String get id;
+
+  /// The **`type`** read-only property of the [Credential] interface returns a
+  /// string containing the credential's type. Valid values are `password`,
+  /// `federated`, `public-key`, `identity` and `otp`.
   external String get type;
 }
 
@@ -138,8 +147,8 @@ extension type CredentialsContainer._(JSObject _) implements JSObject {
 extension type CredentialData._(JSObject _) implements JSObject {
   external factory CredentialData({required String id});
 
-  external set id(String value);
   external String get id;
+  external set id(String value);
 }
 extension type CredentialRequestOptions._(JSObject _) implements JSObject {
   external factory CredentialRequestOptions({
@@ -150,16 +159,16 @@ extension type CredentialRequestOptions._(JSObject _) implements JSObject {
     PublicKeyCredentialRequestOptions publicKey,
   });
 
-  external set mediation(CredentialMediationRequirement value);
   external CredentialMediationRequirement get mediation;
-  external set signal(AbortSignal value);
+  external set mediation(CredentialMediationRequirement value);
   external AbortSignal get signal;
-  external set password(bool value);
+  external set signal(AbortSignal value);
   external bool get password;
-  external set federated(FederatedCredentialRequestOptions value);
+  external set password(bool value);
   external FederatedCredentialRequestOptions get federated;
-  external set publicKey(PublicKeyCredentialRequestOptions value);
+  external set federated(FederatedCredentialRequestOptions value);
   external PublicKeyCredentialRequestOptions get publicKey;
+  external set publicKey(PublicKeyCredentialRequestOptions value);
 }
 extension type CredentialCreationOptions._(JSObject _) implements JSObject {
   external factory CredentialCreationOptions({
@@ -169,14 +178,14 @@ extension type CredentialCreationOptions._(JSObject _) implements JSObject {
     PublicKeyCredentialCreationOptions publicKey,
   });
 
-  external set signal(AbortSignal value);
   external AbortSignal get signal;
-  external set password(PasswordCredentialInit value);
+  external set signal(AbortSignal value);
   external PasswordCredentialInit get password;
-  external set federated(FederatedCredentialInit value);
+  external set password(PasswordCredentialInit value);
   external FederatedCredentialInit get federated;
-  external set publicKey(PublicKeyCredentialCreationOptions value);
+  external set federated(FederatedCredentialInit value);
   external PublicKeyCredentialCreationOptions get publicKey;
+  external set publicKey(PublicKeyCredentialCreationOptions value);
 }
 
 /// The **`PasswordCredential`** interface of the
@@ -196,8 +205,23 @@ extension type PasswordCredential._(JSObject _)
     implements Credential, JSObject {
   external factory PasswordCredential(JSObject dataOrForm);
 
+  /// The **`password`** read-only property
+  /// of the [PasswordCredential] interface returns a string
+  /// containing the password of the credential.
   external String get password;
+
+  /// The **`name`** read-only property of
+  /// the [PasswordCredential] interface returns a string
+  /// containing a human-readable public name for display in a credential
+  /// chooser.
   external String get name;
+
+  /// The **`iconURL`** read-only property
+  /// of the [PasswordCredential] interface returns a string
+  /// containing a URL pointing to an image for an icon. This image is intended
+  /// for display
+  /// in a credential chooser. The URL must be accessible without
+  /// authentication.
   external String get iconURL;
 }
 extension type PasswordCredentialData._(JSObject _)
@@ -210,14 +234,14 @@ extension type PasswordCredentialData._(JSObject _)
     required String password,
   });
 
-  external set name(String value);
   external String get name;
-  external set iconURL(String value);
+  external set name(String value);
   external String get iconURL;
-  external set origin(String value);
+  external set iconURL(String value);
   external String get origin;
-  external set password(String value);
+  external set origin(String value);
   external String get password;
+  external set password(String value);
 }
 
 /// The **`FederatedCredential`** interface of the
@@ -244,7 +268,18 @@ extension type FederatedCredential._(JSObject _)
     implements Credential, JSObject {
   external factory FederatedCredential(FederatedCredentialInit data);
 
+  /// The **`provider`** property of the
+  /// [FederatedCredential] interface returns a string
+  /// containing a credential's federated identity provider.
   external String get provider;
+
+  /// The **`protocol`** property of the
+  /// [FederatedCredential] interface returns a read-only
+  /// string containing a credential's federated identity protocol. If this
+  /// property is
+  /// [`null`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/null),
+  /// the protocol may be inferred from the
+  /// [FederatedCredential.provider] property.
   external String? get protocol;
   external String get name;
   external String get iconURL;
@@ -256,10 +291,10 @@ extension type FederatedCredentialRequestOptions._(JSObject _)
     JSArray<JSString> protocols,
   });
 
-  external set providers(JSArray<JSString> value);
   external JSArray<JSString> get providers;
-  external set protocols(JSArray<JSString> value);
+  external set providers(JSArray<JSString> value);
   external JSArray<JSString> get protocols;
+  external set protocols(JSArray<JSString> value);
 }
 extension type FederatedCredentialInit._(JSObject _)
     implements CredentialData, JSObject {
@@ -272,14 +307,14 @@ extension type FederatedCredentialInit._(JSObject _)
     String protocol,
   });
 
-  external set name(String value);
   external String get name;
-  external set iconURL(String value);
+  external set name(String value);
   external String get iconURL;
-  external set origin(String value);
+  external set iconURL(String value);
   external String get origin;
-  external set provider(String value);
+  external set origin(String value);
   external String get provider;
-  external set protocol(String value);
+  external set provider(String value);
   external String get protocol;
+  external set protocol(String value);
 }

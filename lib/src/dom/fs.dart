@@ -36,15 +36,26 @@ extension type FileSystemHandle._(JSObject _) implements JSObject {
   /// [FileSystemHandle] interface compares two [FileSystemHandle] to see if the
   /// associated entries (either a file or directory) match.
   external JSPromise<JSBoolean> isSameEntry(FileSystemHandle other);
+
+  /// The **`kind`** read-only property of the
+  /// [FileSystemHandle] interface returns the type of entry. This is
+  /// `'file'` if the associated entry is a file or `'directory'`. It is
+  /// used to distinguish files from directories when iterating over the
+  /// contents of a
+  /// directory.
   external FileSystemHandleKind get kind;
+
+  /// The **`name`** read-only property of the
+  /// [FileSystemHandle] interface returns the name of the entry represented by
+  /// handle.
   external String get name;
 }
 extension type FileSystemCreateWritableOptions._(JSObject _)
     implements JSObject {
   external factory FileSystemCreateWritableOptions({bool keepExistingData});
 
-  external set keepExistingData(bool value);
   external bool get keepExistingData;
+  external set keepExistingData(bool value);
 }
 
 /// The **`FileSystemFileHandle`** interface of the [File System API] represents
@@ -105,20 +116,20 @@ extension type FileSystemFileHandle._(JSObject _)
 extension type FileSystemGetFileOptions._(JSObject _) implements JSObject {
   external factory FileSystemGetFileOptions({bool create});
 
-  external set create(bool value);
   external bool get create;
+  external set create(bool value);
 }
 extension type FileSystemGetDirectoryOptions._(JSObject _) implements JSObject {
   external factory FileSystemGetDirectoryOptions({bool create});
 
-  external set create(bool value);
   external bool get create;
+  external set create(bool value);
 }
 extension type FileSystemRemoveOptions._(JSObject _) implements JSObject {
   external factory FileSystemRemoveOptions({bool recursive});
 
-  external set recursive(bool value);
   external bool get recursive;
+  external set recursive(bool value);
 }
 
 /// The **`FileSystemDirectoryHandle`** interface of the [File System API]
@@ -176,14 +187,14 @@ extension type WriteParams._(JSObject _) implements JSObject {
     JSAny? data,
   });
 
-  external set type(WriteCommandType value);
   external WriteCommandType get type;
-  external set size(int? value);
+  external set type(WriteCommandType value);
   external int? get size;
-  external set position(int? value);
+  external set size(int? value);
   external int? get position;
-  external set data(JSAny? value);
+  external set position(int? value);
   external JSAny? get data;
+  external set data(JSAny? value);
 }
 
 /// The **`FileSystemWritableFileStream`** interface of the [File System API] is
@@ -233,8 +244,8 @@ extension type FileSystemWritableFileStream._(JSObject _)
 extension type FileSystemReadWriteOptions._(JSObject _) implements JSObject {
   external factory FileSystemReadWriteOptions({int at});
 
-  external set at(int value);
   external int get at;
+  external set at(int value);
 }
 
 /// The **`FileSystemSyncAccessHandle`** interface of the [File System API]

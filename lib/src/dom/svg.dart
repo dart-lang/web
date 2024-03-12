@@ -32,216 +32,256 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external void blur();
   external SVGSVGElement? get ownerSVGElement;
   external SVGElement? get viewportElement;
-  external set onanimationstart(EventHandler value);
   external EventHandler get onanimationstart;
-  external set onanimationiteration(EventHandler value);
+  external set onanimationstart(EventHandler value);
   external EventHandler get onanimationiteration;
-  external set onanimationend(EventHandler value);
+  external set onanimationiteration(EventHandler value);
   external EventHandler get onanimationend;
-  external set onanimationcancel(EventHandler value);
+  external set onanimationend(EventHandler value);
   external EventHandler get onanimationcancel;
-  external set ontransitionrun(EventHandler value);
+  external set onanimationcancel(EventHandler value);
   external EventHandler get ontransitionrun;
-  external set ontransitionstart(EventHandler value);
+  external set ontransitionrun(EventHandler value);
   external EventHandler get ontransitionstart;
-  external set ontransitionend(EventHandler value);
+  external set ontransitionstart(EventHandler value);
   external EventHandler get ontransitionend;
-  external set ontransitioncancel(EventHandler value);
+  external set ontransitionend(EventHandler value);
   external EventHandler get ontransitioncancel;
-  external set onabort(EventHandler value);
+  external set ontransitioncancel(EventHandler value);
   external EventHandler get onabort;
-  external set onauxclick(EventHandler value);
+  external set onabort(EventHandler value);
   external EventHandler get onauxclick;
-  external set onbeforeinput(EventHandler value);
+  external set onauxclick(EventHandler value);
   external EventHandler get onbeforeinput;
-  external set onbeforematch(EventHandler value);
+  external set onbeforeinput(EventHandler value);
   external EventHandler get onbeforematch;
-  external set onbeforetoggle(EventHandler value);
+  external set onbeforematch(EventHandler value);
   external EventHandler get onbeforetoggle;
-  external set onblur(EventHandler value);
+  external set onbeforetoggle(EventHandler value);
   external EventHandler get onblur;
-  external set oncancel(EventHandler value);
+  external set onblur(EventHandler value);
   external EventHandler get oncancel;
-  external set oncanplay(EventHandler value);
+  external set oncancel(EventHandler value);
   external EventHandler get oncanplay;
-  external set oncanplaythrough(EventHandler value);
+  external set oncanplay(EventHandler value);
   external EventHandler get oncanplaythrough;
-  external set onchange(EventHandler value);
+  external set oncanplaythrough(EventHandler value);
   external EventHandler get onchange;
-  external set onclick(EventHandler value);
+  external set onchange(EventHandler value);
   external EventHandler get onclick;
-  external set onclose(EventHandler value);
+  external set onclick(EventHandler value);
   external EventHandler get onclose;
-  external set oncontextlost(EventHandler value);
+  external set onclose(EventHandler value);
   external EventHandler get oncontextlost;
-  external set oncontextmenu(EventHandler value);
+  external set oncontextlost(EventHandler value);
   external EventHandler get oncontextmenu;
-  external set oncontextrestored(EventHandler value);
+  external set oncontextmenu(EventHandler value);
   external EventHandler get oncontextrestored;
-  external set oncopy(EventHandler value);
+  external set oncontextrestored(EventHandler value);
   external EventHandler get oncopy;
-  external set oncuechange(EventHandler value);
+  external set oncopy(EventHandler value);
   external EventHandler get oncuechange;
-  external set oncut(EventHandler value);
+  external set oncuechange(EventHandler value);
   external EventHandler get oncut;
-  external set ondblclick(EventHandler value);
+  external set oncut(EventHandler value);
   external EventHandler get ondblclick;
-  external set ondrag(EventHandler value);
+  external set ondblclick(EventHandler value);
   external EventHandler get ondrag;
-  external set ondragend(EventHandler value);
+  external set ondrag(EventHandler value);
   external EventHandler get ondragend;
-  external set ondragenter(EventHandler value);
+  external set ondragend(EventHandler value);
   external EventHandler get ondragenter;
-  external set ondragleave(EventHandler value);
+  external set ondragenter(EventHandler value);
   external EventHandler get ondragleave;
-  external set ondragover(EventHandler value);
+  external set ondragleave(EventHandler value);
   external EventHandler get ondragover;
-  external set ondragstart(EventHandler value);
+  external set ondragover(EventHandler value);
   external EventHandler get ondragstart;
-  external set ondrop(EventHandler value);
+  external set ondragstart(EventHandler value);
   external EventHandler get ondrop;
-  external set ondurationchange(EventHandler value);
+  external set ondrop(EventHandler value);
   external EventHandler get ondurationchange;
-  external set onemptied(EventHandler value);
+  external set ondurationchange(EventHandler value);
   external EventHandler get onemptied;
-  external set onended(EventHandler value);
+  external set onemptied(EventHandler value);
   external EventHandler get onended;
-  external set onerror(OnErrorEventHandler value);
+  external set onended(EventHandler value);
   external OnErrorEventHandler get onerror;
-  external set onfocus(EventHandler value);
+  external set onerror(OnErrorEventHandler value);
   external EventHandler get onfocus;
-  external set onformdata(EventHandler value);
+  external set onfocus(EventHandler value);
   external EventHandler get onformdata;
-  external set oninput(EventHandler value);
+  external set onformdata(EventHandler value);
   external EventHandler get oninput;
-  external set oninvalid(EventHandler value);
+  external set oninput(EventHandler value);
   external EventHandler get oninvalid;
-  external set onkeydown(EventHandler value);
+  external set oninvalid(EventHandler value);
   external EventHandler get onkeydown;
-  external set onkeypress(EventHandler value);
+  external set onkeydown(EventHandler value);
   external EventHandler get onkeypress;
-  external set onkeyup(EventHandler value);
+  external set onkeypress(EventHandler value);
   external EventHandler get onkeyup;
-  external set onload(EventHandler value);
+  external set onkeyup(EventHandler value);
   external EventHandler get onload;
-  external set onloadeddata(EventHandler value);
+  external set onload(EventHandler value);
   external EventHandler get onloadeddata;
-  external set onloadedmetadata(EventHandler value);
+  external set onloadeddata(EventHandler value);
   external EventHandler get onloadedmetadata;
-  external set onloadstart(EventHandler value);
+  external set onloadedmetadata(EventHandler value);
   external EventHandler get onloadstart;
-  external set onmousedown(EventHandler value);
+  external set onloadstart(EventHandler value);
   external EventHandler get onmousedown;
-  external set onmouseenter(EventHandler value);
+  external set onmousedown(EventHandler value);
   external EventHandler get onmouseenter;
-  external set onmouseleave(EventHandler value);
+  external set onmouseenter(EventHandler value);
   external EventHandler get onmouseleave;
-  external set onmousemove(EventHandler value);
+  external set onmouseleave(EventHandler value);
   external EventHandler get onmousemove;
-  external set onmouseout(EventHandler value);
+  external set onmousemove(EventHandler value);
   external EventHandler get onmouseout;
-  external set onmouseover(EventHandler value);
+  external set onmouseout(EventHandler value);
   external EventHandler get onmouseover;
-  external set onmouseup(EventHandler value);
+  external set onmouseover(EventHandler value);
   external EventHandler get onmouseup;
-  external set onpaste(EventHandler value);
+  external set onmouseup(EventHandler value);
   external EventHandler get onpaste;
-  external set onpause(EventHandler value);
+  external set onpaste(EventHandler value);
   external EventHandler get onpause;
-  external set onplay(EventHandler value);
+  external set onpause(EventHandler value);
   external EventHandler get onplay;
-  external set onplaying(EventHandler value);
+  external set onplay(EventHandler value);
   external EventHandler get onplaying;
-  external set onprogress(EventHandler value);
+  external set onplaying(EventHandler value);
   external EventHandler get onprogress;
-  external set onratechange(EventHandler value);
+  external set onprogress(EventHandler value);
   external EventHandler get onratechange;
-  external set onreset(EventHandler value);
+  external set onratechange(EventHandler value);
   external EventHandler get onreset;
-  external set onresize(EventHandler value);
+  external set onreset(EventHandler value);
   external EventHandler get onresize;
-  external set onscroll(EventHandler value);
+  external set onresize(EventHandler value);
   external EventHandler get onscroll;
-  external set onscrollend(EventHandler value);
+  external set onscroll(EventHandler value);
   external EventHandler get onscrollend;
-  external set onsecuritypolicyviolation(EventHandler value);
+  external set onscrollend(EventHandler value);
   external EventHandler get onsecuritypolicyviolation;
-  external set onseeked(EventHandler value);
+  external set onsecuritypolicyviolation(EventHandler value);
   external EventHandler get onseeked;
-  external set onseeking(EventHandler value);
+  external set onseeked(EventHandler value);
   external EventHandler get onseeking;
-  external set onselect(EventHandler value);
+  external set onseeking(EventHandler value);
   external EventHandler get onselect;
-  external set onslotchange(EventHandler value);
+  external set onselect(EventHandler value);
   external EventHandler get onslotchange;
-  external set onstalled(EventHandler value);
+  external set onslotchange(EventHandler value);
   external EventHandler get onstalled;
-  external set onsubmit(EventHandler value);
+  external set onstalled(EventHandler value);
   external EventHandler get onsubmit;
-  external set onsuspend(EventHandler value);
+  external set onsubmit(EventHandler value);
   external EventHandler get onsuspend;
-  external set ontimeupdate(EventHandler value);
+  external set onsuspend(EventHandler value);
   external EventHandler get ontimeupdate;
-  external set ontoggle(EventHandler value);
+  external set ontimeupdate(EventHandler value);
   external EventHandler get ontoggle;
-  external set onvolumechange(EventHandler value);
+  external set ontoggle(EventHandler value);
   external EventHandler get onvolumechange;
-  external set onwaiting(EventHandler value);
+  external set onvolumechange(EventHandler value);
   external EventHandler get onwaiting;
-  external set onwebkitanimationend(EventHandler value);
+  external set onwaiting(EventHandler value);
   external EventHandler get onwebkitanimationend;
-  external set onwebkitanimationiteration(EventHandler value);
+  external set onwebkitanimationend(EventHandler value);
   external EventHandler get onwebkitanimationiteration;
-  external set onwebkitanimationstart(EventHandler value);
+  external set onwebkitanimationiteration(EventHandler value);
   external EventHandler get onwebkitanimationstart;
-  external set onwebkittransitionend(EventHandler value);
+  external set onwebkitanimationstart(EventHandler value);
   external EventHandler get onwebkittransitionend;
-  external set onwheel(EventHandler value);
+  external set onwebkittransitionend(EventHandler value);
   external EventHandler get onwheel;
-  external set onpointerover(EventHandler value);
+  external set onwheel(EventHandler value);
   external EventHandler get onpointerover;
-  external set onpointerenter(EventHandler value);
+  external set onpointerover(EventHandler value);
   external EventHandler get onpointerenter;
-  external set onpointerdown(EventHandler value);
+  external set onpointerenter(EventHandler value);
   external EventHandler get onpointerdown;
-  external set onpointermove(EventHandler value);
+  external set onpointerdown(EventHandler value);
   external EventHandler get onpointermove;
-  external set onpointerrawupdate(EventHandler value);
+  external set onpointermove(EventHandler value);
   external EventHandler get onpointerrawupdate;
-  external set onpointerup(EventHandler value);
+  external set onpointerrawupdate(EventHandler value);
   external EventHandler get onpointerup;
-  external set onpointercancel(EventHandler value);
+  external set onpointerup(EventHandler value);
   external EventHandler get onpointercancel;
-  external set onpointerout(EventHandler value);
+  external set onpointercancel(EventHandler value);
   external EventHandler get onpointerout;
-  external set onpointerleave(EventHandler value);
+  external set onpointerout(EventHandler value);
   external EventHandler get onpointerleave;
-  external set ongotpointercapture(EventHandler value);
+  external set onpointerleave(EventHandler value);
   external EventHandler get ongotpointercapture;
-  external set onlostpointercapture(EventHandler value);
+  external set ongotpointercapture(EventHandler value);
   external EventHandler get onlostpointercapture;
-  external set onselectstart(EventHandler value);
+  external set onlostpointercapture(EventHandler value);
   external EventHandler get onselectstart;
-  external set onselectionchange(EventHandler value);
+  external set onselectstart(EventHandler value);
   external EventHandler get onselectionchange;
-  external set ontouchstart(EventHandler value);
+  external set onselectionchange(EventHandler value);
   external EventHandler get ontouchstart;
-  external set ontouchend(EventHandler value);
+  external set ontouchstart(EventHandler value);
   external EventHandler get ontouchend;
-  external set ontouchmove(EventHandler value);
+  external set ontouchend(EventHandler value);
   external EventHandler get ontouchmove;
-  external set ontouchcancel(EventHandler value);
+  external set ontouchmove(EventHandler value);
   external EventHandler get ontouchcancel;
+  external set ontouchcancel(EventHandler value);
   external SVGElement? get correspondingElement;
   external SVGUseElement? get correspondingUseElement;
   external DOMStringMap get dataset;
-  external set nonce(String value);
   external String get nonce;
-  external set autofocus(bool value);
+  external set nonce(String value);
   external bool get autofocus;
-  external set tabIndex(int value);
+  external set autofocus(bool value);
   external int get tabIndex;
+  external set tabIndex(int value);
   external StylePropertyMap get attributeStyleMap;
+
+  /// The read-only **`style`** property of the [SVGElement] returns the
+  /// _inline_ style of an element in the form of a live [CSSStyleDeclaration]
+  /// object that contains a list of all styles properties for that element with
+  /// values assigned only for the attributes that are defined in the element's
+  /// inline
+  /// [`style`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/style)
+  /// attribute.
+  ///
+  /// Shorthand properties are expanded. If you set `style="border-top: 1px
+  /// solid black"`, the longhand properties (, , and ) are set instead.
+  ///
+  /// This property is read-only, meaning it is not possible to assign a
+  /// [CSSStyleDeclaration] object to it. Nevertheless, it is possible to set an
+  /// inline style by assigning a _string_ directly to the `style` property. In
+  /// this case the string is forwarded to [CSSStyleDeclaration.cssText]. Using
+  /// `style` in this manner will completely overwrite all inline styles on the
+  /// element.
+  ///
+  /// Therefore, to add specific styles to an element without altering other
+  /// style values, it is generally preferable to set individual properties on
+  /// the [CSSStyleDeclaration] object. For example, you can write
+  /// `element.style.backgroundColor = "red"`.
+  ///
+  /// A style declaration is reset by setting it to `null` or an empty string,
+  /// e.g., `elt.style.color = null`.
+  ///
+  /// > **Note:** CSS property names are converted to JavaScript identifier with
+  /// > these rules:
+  /// >
+  /// > - If the property is made of one word, it remains as it is: `height`
+  /// > stays as is (in lowercase).
+  /// > - If the property is made of several words, separated by dashes, the
+  /// > dashes are removed and it is converted to : `background-attachment`
+  /// > becomes `backgroundAttachment`.
+  /// > - The property `float`, being a reserved JavaScript keyword, is
+  /// > converted to `cssFloat`.
+  /// >
+  /// > The `style` property has the same priority in the CSS cascade as an
+  /// > inline style declaration set via the `style` attribute.
   external CSSStyleDeclaration get style;
 }
 
@@ -257,14 +297,14 @@ extension type SVGBoundingBoxOptions._(JSObject _) implements JSObject {
     bool clipped,
   });
 
-  external set fill(bool value);
   external bool get fill;
-  external set stroke(bool value);
+  external set fill(bool value);
   external bool get stroke;
-  external set markers(bool value);
+  external set stroke(bool value);
   external bool get markers;
-  external set clipped(bool value);
+  external set markers(bool value);
   external bool get clipped;
+  external set clipped(bool value);
 }
 
 /// The **`SVGGraphicsElement`** interface represents SVG elements whose primary
@@ -339,6 +379,10 @@ extension type SVGGeometryElement._(JSObject _)
   /// **`SVGGeometryElement.getPointAtLength()`** method returns the
   /// point at a given distance along the path.
   external DOMPoint getPointAtLength(num distance);
+
+  /// The **`SVGGeometryElement.pathLength`** property reflects the
+  /// `pathLength` attribute and returns the total length of the path, in user
+  /// units.
   external SVGAnimatedNumber get pathLength;
 }
 
@@ -352,8 +396,8 @@ extension type SVGGeometryElement._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGNumber).
 extension type SVGNumber._(JSObject _) implements JSObject {
-  external set value(num value);
   external num get value;
+  external set value(num value);
 }
 
 ///
@@ -380,12 +424,12 @@ extension type SVGLength._(JSObject _) implements JSObject {
   );
   external void convertToSpecifiedUnits(int unitType);
   external int get unitType;
-  external set value(num value);
   external num get value;
-  external set valueInSpecifiedUnits(num value);
+  external set value(num value);
   external num get valueInSpecifiedUnits;
-  external set valueAsString(String value);
+  external set valueInSpecifiedUnits(num value);
   external String get valueAsString;
+  external set valueAsString(String value);
 }
 
 /// The `SVGAngle` interface is used to represent a value that can be an  or
@@ -423,12 +467,12 @@ extension type SVGAngle._(JSObject _) implements JSObject {
   );
   external void convertToSpecifiedUnits(int unitType);
   external int get unitType;
-  external set value(num value);
   external num get value;
-  external set valueInSpecifiedUnits(num value);
+  external set value(num value);
   external num get valueInSpecifiedUnits;
-  external set valueAsString(String value);
+  external set valueInSpecifiedUnits(num value);
   external String get valueAsString;
+  external set valueAsString(String value);
 }
 
 ///
@@ -510,8 +554,8 @@ extension type SVGStringList._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGAnimatedBoolean).
 extension type SVGAnimatedBoolean._(JSObject _) implements JSObject {
-  external set baseVal(bool value);
   external bool get baseVal;
+  external set baseVal(bool value);
   external bool get animVal;
 }
 
@@ -523,8 +567,14 @@ extension type SVGAnimatedBoolean._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGAnimatedEnumeration).
 extension type SVGAnimatedEnumeration._(JSObject _) implements JSObject {
-  external set baseVal(int value);
+  /// The **`baseVal`** property of the [SVGAnimatedEnumeration] interface
+  /// contains the initial value of an SVG enumeration.
   external int get baseVal;
+  external set baseVal(int value);
+
+  /// The **`animVal`** property of the [SVGAnimatedEnumeration] interface
+  /// contains the current value of an SVG enumeration. If there is no
+  /// animation, it is the same value as the [SVGAnimatedEnumeration.baseVal].
   external int get animVal;
 }
 
@@ -535,8 +585,8 @@ extension type SVGAnimatedEnumeration._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGAnimatedInteger).
 extension type SVGAnimatedInteger._(JSObject _) implements JSObject {
-  external set baseVal(int value);
   external int get baseVal;
+  external set baseVal(int value);
   external int get animVal;
 }
 
@@ -547,8 +597,8 @@ extension type SVGAnimatedInteger._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGAnimatedNumber).
 extension type SVGAnimatedNumber._(JSObject _) implements JSObject {
-  external set baseVal(num value);
   external num get baseVal;
+  external set baseVal(num value);
   external num get animVal;
 }
 
@@ -560,7 +610,13 @@ extension type SVGAnimatedNumber._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGAnimatedLength).
 extension type SVGAnimatedLength._(JSObject _) implements JSObject {
+  /// The **`baseVal`** property of the [SVGAnimatedLength] interface contains
+  /// the initial value of an SVG enumeration.
   external SVGLength get baseVal;
+
+  /// The **`animVal`** property of the [SVGAnimatedLength] interface contains
+  /// the current value of an SVG enumeration. If there is no animation, it is
+  /// the same value as the [SVGAnimatedLength.baseVal].
   external SVGLength get animVal;
 }
 
@@ -584,8 +640,19 @@ extension type SVGAnimatedAngle._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGAnimatedString).
 extension type SVGAnimatedString._(JSObject _) implements JSObject {
-  external set baseVal(String value);
+  /// BaseVal gets or sets the base value of the given attribute before any
+  /// animations are applied. The base value of the given attribute before
+  /// applying any animations. Setter throws DOMException.
   external String get baseVal;
+  external set baseVal(String value);
+
+  /// AnimVal attribute or animVal property contains the same value as the
+  /// [SVGAnimatedString.baseVal] property. If the given attribute or property
+  /// is being animated, contains the current animated value of the attribute or
+  /// property. If the given attribute or property is not currently being
+  /// animated, then it contains the same value as baseVal
+  ///
+  /// > **Note:** The **animVal** property is a read only property.
   external String get animVal;
 }
 
@@ -732,49 +799,49 @@ extension type SVGSVGElement._(JSObject _)
   external SVGAnimatedLength get y;
   external SVGAnimatedLength get width;
   external SVGAnimatedLength get height;
-  external set currentScale(num value);
   external num get currentScale;
+  external set currentScale(num value);
   external DOMPointReadOnly get currentTranslate;
   external SVGAnimatedRect get viewBox;
   external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
-  external set ongamepadconnected(EventHandler value);
   external EventHandler get ongamepadconnected;
-  external set ongamepaddisconnected(EventHandler value);
+  external set ongamepadconnected(EventHandler value);
   external EventHandler get ongamepaddisconnected;
-  external set onafterprint(EventHandler value);
+  external set ongamepaddisconnected(EventHandler value);
   external EventHandler get onafterprint;
-  external set onbeforeprint(EventHandler value);
+  external set onafterprint(EventHandler value);
   external EventHandler get onbeforeprint;
-  external set onbeforeunload(OnBeforeUnloadEventHandler value);
+  external set onbeforeprint(EventHandler value);
   external OnBeforeUnloadEventHandler get onbeforeunload;
-  external set onhashchange(EventHandler value);
+  external set onbeforeunload(OnBeforeUnloadEventHandler value);
   external EventHandler get onhashchange;
-  external set onlanguagechange(EventHandler value);
+  external set onhashchange(EventHandler value);
   external EventHandler get onlanguagechange;
-  external set onmessage(EventHandler value);
+  external set onlanguagechange(EventHandler value);
   external EventHandler get onmessage;
-  external set onmessageerror(EventHandler value);
+  external set onmessage(EventHandler value);
   external EventHandler get onmessageerror;
-  external set onoffline(EventHandler value);
+  external set onmessageerror(EventHandler value);
   external EventHandler get onoffline;
-  external set ononline(EventHandler value);
+  external set onoffline(EventHandler value);
   external EventHandler get ononline;
-  external set onpagehide(EventHandler value);
+  external set ononline(EventHandler value);
   external EventHandler get onpagehide;
-  external set onpagereveal(EventHandler value);
+  external set onpagehide(EventHandler value);
   external EventHandler get onpagereveal;
-  external set onpageshow(EventHandler value);
+  external set onpagereveal(EventHandler value);
   external EventHandler get onpageshow;
-  external set onpopstate(EventHandler value);
+  external set onpageshow(EventHandler value);
   external EventHandler get onpopstate;
-  external set onrejectionhandled(EventHandler value);
+  external set onpopstate(EventHandler value);
   external EventHandler get onrejectionhandled;
-  external set onstorage(EventHandler value);
+  external set onrejectionhandled(EventHandler value);
   external EventHandler get onstorage;
-  external set onunhandledrejection(EventHandler value);
+  external set onstorage(EventHandler value);
   external EventHandler get onunhandledrejection;
-  external set onunload(EventHandler value);
+  external set onunhandledrejection(EventHandler value);
   external EventHandler get onunload;
+  external set onunload(EventHandler value);
 }
 
 /// The **`SVGGElement`** interface corresponds to the  element.
@@ -938,12 +1005,36 @@ extension type SVGStyleElement._(JSObject _) implements SVGElement, JSObject {
           'style',
         );
 
-  external set type(String value);
+  /// The **`SVGStyleElement.type`** property returns the type of the current
+  /// style.
+  /// The value reflects the associated SVG `<style>` element's
+  /// [`type`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/style#type)
+  /// attribute.
+  ///
+  /// Authors should not use this property or rely on the value.
   external String get type;
-  external set media(String value);
+  external set type(String value);
+
+  /// The **`SVGStyleElement.media`** property is a media query string
+  /// corresponding to the
+  /// [`media`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/style#media)
+  /// attribute of the given SVG style element.
+  ///
+  /// The query must be matched for the style to apply.
   external String get media;
-  external set title(String value);
+  external set media(String value);
+
+  /// The **`SVGStyleElement.title`** property is a string corresponding to the
+  /// [`title`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/style#title)
+  /// attribute of the given SVG style element.
+  /// It may be used to select between
+  /// [alternate style sheets](https://developer.mozilla.org/en-US/docs/Web/CSS/Alternative_style_sheets).
   external String get title;
+  external set title(String value);
+
+  /// The **`SVGStyleElement.sheet`** read-only property returns the
+  /// [CSSStyleSheet] corresponding to the given SVG style element, or `null` if
+  /// there is none.
   external CSSStyleSheet? get sheet;
 }
 
@@ -1040,10 +1131,10 @@ extension type SVGPreserveAspectRatio._(JSObject _) implements JSObject {
   external static int get SVG_MEETORSLICE_UNKNOWN;
   external static int get SVG_MEETORSLICE_MEET;
   external static int get SVG_MEETORSLICE_SLICE;
-  external set align(int value);
   external int get align;
-  external set meetOrSlice(int value);
+  external set align(int value);
   external int get meetOrSlice;
+  external set meetOrSlice(int value);
 }
 
 ///
@@ -1118,8 +1209,25 @@ extension type SVGCircleElement._(JSObject _)
           'circle',
         );
 
+  /// The **`cx`** read-only property of the [SVGCircleElement] interface
+  /// reflects the `cx` attribute of a  element and by that defines the
+  /// x-coordinate of the circle's center.<
+  ///
+  /// If unspecified, the effect is as if the value is set to `0`.
   external SVGAnimatedLength get cx;
+
+  /// The **`cy`** read-only property of the [SVGCircleElement] interface
+  /// reflects the `cy` attribute of a  element and by that defines the
+  /// y-coordinate of the circle's center.
+  ///
+  /// If unspecified, the effect is as if the value is set to `0`.
   external SVGAnimatedLength get cy;
+
+  /// The **`r`** read-only property of the [SVGCircleElement] interface
+  /// reflects the `r` attribute of a  element and by that defines the radius of
+  /// the circle.
+  ///
+  /// If unspecified, the effect is as if the value is set to `0`.
   external SVGAnimatedLength get r;
 }
 
@@ -1210,7 +1318,13 @@ extension type SVGPointList._(JSObject _) implements JSObject {
   /// The **`appendItem()`** method of the [SVGPointList] interface adds a
   /// [SVGPoint] to the end of the list.
   external DOMPoint appendItem(DOMPoint newItem);
+
+  /// The **`length`** read-only property of the [SVGPointList] interface
+  /// returns the number of items in the list.
   external int get length;
+
+  /// The **`numberOfItems`** read-only property of the [SVGPointList] interface
+  /// returns the number of items in the list.
   external int get numberOfItems;
 }
 
@@ -1378,13 +1492,38 @@ extension type SVGImageElement._(JSObject _)
           'image',
         );
 
+  /// The **`x`** read-only property of the
+  /// [SVGImageElement] interface returns an [SVGAnimatedLength]
+  /// corresponding to the `x` attribute of the given
+  /// element.
   external SVGAnimatedLength get x;
+
+  /// The **`y`** read-only property of the
+  /// [SVGImageElement] interface returns an [SVGAnimatedLength]
+  /// corresponding to the `y` attribute of the given
+  /// element.
   external SVGAnimatedLength get y;
+
+  /// The **`width`** read-only property of the
+  /// [SVGImageElement] interface returns an [SVGAnimatedLength]
+  /// corresponding to the `width` attribute of the given
+  /// element.
   external SVGAnimatedLength get width;
+
+  /// The **`height`** read-only property of the
+  /// [SVGImageElement] interface returns an [SVGAnimatedLength]
+  /// corresponding to the `height` attribute of the given
+  /// element.
   external SVGAnimatedLength get height;
+
+  /// The **`preserveAspectRatio`** read-only
+  /// property of the [SVGImageElement] interface returns an
+  /// [SVGAnimatedPreserveAspectRatio] corresponding to the
+  /// `preserveAspectRatio` attribute of the given
+  /// element.
   external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
-  external set crossOrigin(String? value);
   external String? get crossOrigin;
+  external set crossOrigin(String? value);
   external SVGAnimatedString get href;
 }
 
@@ -1444,16 +1583,58 @@ extension type SVGMarkerElement._(JSObject _) implements SVGElement, JSObject {
   /// sets the value of the `orient` attribute to the value in the [SVGAngle]
   /// passed in.
   external void setOrientToAngle(SVGAngle angle);
+
+  /// The **`refX`** read-only property of the [SVGMarkerElement] interface
+  /// returns an [SVGAnimatedLength] object containing the value of the `refX`
+  /// attribute of the .
   external SVGAnimatedLength get refX;
+
+  /// The **`refY`** read-only property of the [SVGMarkerElement] interface
+  /// returns an [SVGAnimatedLength] object containing the value of the `refY`
+  /// attribute of the .
   external SVGAnimatedLength get refY;
+
+  /// The **`markerUnits`** read-only property of the [SVGMarkerElement]
+  /// interface returns an [SVGAnimatedEnumeration] object. This object returns
+  /// an integer which represents the keyword values that the `markerUnits`
+  /// attribute accepts.
   external SVGAnimatedEnumeration get markerUnits;
+
+  /// The **`markerWidth`** read-only property of the [SVGMarkerElement]
+  /// interface returns an [SVGAnimatedLength] object containing the width of
+  /// the  viewport as defined by the `markerWidth` attribute.
   external SVGAnimatedLength get markerWidth;
+
+  /// The **`markerHeight`** read-only property of the [SVGMarkerElement]
+  /// interface returns an [SVGAnimatedLength] object containing the height of
+  /// the  viewport as defined by the `markerHeight` attribute.
   external SVGAnimatedLength get markerHeight;
+
+  /// The **`orientType`** read-only property of the [SVGMarkerElement]
+  /// interface returns an [SVGAnimatedEnumeration] object indicating whether
+  /// the `orient` attribute is `auto`, an angle value, or something else.
+  ///
+  /// This _something else_ is most likely to be the keyword
+  /// `auto-start-reverse` however the spec leaves it open for this to be other
+  /// values. Unsupported values will generally be thrown away by the parser,
+  /// leaving the value the default of `auto`.
   external SVGAnimatedEnumeration get orientType;
+
+  /// The **`orientAngle`** read-only property of the [SVGMarkerElement]
+  /// interface returns an [SVGAnimatedAngle] object containing the angle of the
+  /// `orient` attribute.
   external SVGAnimatedAngle get orientAngle;
-  external set orient(String value);
   external String get orient;
+  external set orient(String value);
+
+  /// The **`viewBox`** read-only property of the [SVGMarkerElement] interface
+  /// returns an [SVGAnimatedRect] object which contains the values set by the
+  /// `viewBox` attribute on the .
   external SVGAnimatedRect get viewBox;
+
+  /// The **`preserveAspectRatio`** read-only property of the [SVGMarkerElement]
+  /// interface returns an [SVGAnimatedPreserveAspectRatio] object containing
+  /// the value of the `preserveAspectRatio` attribute of the .
   external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
 }
 
@@ -1577,10 +1758,10 @@ extension type SVGScriptElement._(JSObject _) implements SVGElement, JSObject {
           'script',
         );
 
-  external set type(String value);
   external String get type;
-  external set crossOrigin(String? value);
+  external set type(String value);
   external String? get crossOrigin;
+  external set crossOrigin(String? value);
   external SVGAnimatedString get href;
 }
 
@@ -1600,41 +1781,49 @@ extension type SVGAElement._(JSObject _)
           'a',
         );
 
+  /// The **`SVGAElement.target`** read-only property of [SVGAElement] returns
+  /// an [SVGAnimatedString] object that specifies the portion of a target
+  /// window, frame, pane into which a document is to be opened when a link is
+  /// activated.
+  ///
+  /// This property is used when there are multiple possible targets for the
+  /// ending resource, like when the parent document is a multi-frame HTML or
+  /// XHTML document.
   external SVGAnimatedString get target;
-  external set download(String value);
   external String get download;
-  external set ping(String value);
+  external set download(String value);
   external String get ping;
-  external set rel(String value);
+  external set ping(String value);
   external String get rel;
+  external set rel(String value);
   external DOMTokenList get relList;
-  external set hreflang(String value);
   external String get hreflang;
-  external set type(String value);
+  external set hreflang(String value);
   external String get type;
-  external set text(String value);
+  external set type(String value);
   external String get text;
-  external set referrerPolicy(String value);
+  external set text(String value);
   external String get referrerPolicy;
+  external set referrerPolicy(String value);
   external String get origin;
-  external set protocol(String value);
   external String get protocol;
-  external set username(String value);
+  external set protocol(String value);
   external String get username;
-  external set password(String value);
+  external set username(String value);
   external String get password;
-  external set host(String value);
+  external set password(String value);
   external String get host;
-  external set hostname(String value);
+  external set host(String value);
   external String get hostname;
-  external set port(String value);
+  external set hostname(String value);
   external String get port;
-  external set pathname(String value);
+  external set port(String value);
   external String get pathname;
-  external set search(String value);
+  external set pathname(String value);
   external String get search;
-  external set hash(String value);
+  external set search(String value);
   external String get hash;
+  external set hash(String value);
   external SVGAnimatedString get href;
 }
 

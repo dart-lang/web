@@ -141,23 +141,66 @@ extension type MediaRecorder._(JSObject _) implements EventTarget, JSObject {
   /// attribute.)
   /// 3. Create a new Blob and place subsequently captured data into it.
   external void requestData();
+
+  /// The **`stream`** read-only property of the [MediaRecorder] interface
+  /// returns the stream that was passed into the [MediaRecorder.MediaRecorder]
+  /// constructor when the `MediaRecorder` was created.
   external MediaStream get stream;
+
+  /// The **`mimeType`** read-only property of the [MediaRecorder] interface
+  /// returns the  media type that was specified when creating the
+  /// [MediaRecorder] object, or, if none was specified, which was chosen by the
+  /// browser.
+  /// This is the file format of the file that would result from writing all of
+  /// the recorded data to disk.
+  ///
+  /// Keep in mind that not all codecs are supported by a given container; if
+  /// you write media using a codec that is not supported by a given media
+  /// container, the resulting file may not work reliably if at all when you try
+  /// to play it back.
+  /// See our
+  /// [media type and format guide](https://developer.mozilla.org/en-US/docs/Web/Media/Formats)
+  /// for information about container and codec support across browsers.
+  ///
+  /// > **Note:** The term "MIME type" is officially considered to be
+  /// > historical; these strings are now officially known as **media types**.
+  /// > MDN Web Docs content uses the terms interchangeably.
   external String get mimeType;
+
+  /// The **`state`** read-only property of the [MediaRecorder] interface
+  /// returns the current state of the current `MediaRecorder` object.
   external RecordingState get state;
-  external set onstart(EventHandler value);
   external EventHandler get onstart;
-  external set onstop(EventHandler value);
+  external set onstart(EventHandler value);
   external EventHandler get onstop;
-  external set ondataavailable(EventHandler value);
+  external set onstop(EventHandler value);
   external EventHandler get ondataavailable;
-  external set onpause(EventHandler value);
+  external set ondataavailable(EventHandler value);
   external EventHandler get onpause;
-  external set onresume(EventHandler value);
+  external set onpause(EventHandler value);
   external EventHandler get onresume;
-  external set onerror(EventHandler value);
+  external set onresume(EventHandler value);
   external EventHandler get onerror;
+  external set onerror(EventHandler value);
+
+  /// The **`videoBitsPerSecond`** read-only
+  /// property of the [MediaRecorder] interface returns the video encoding
+  /// bit rate in use.
+  ///
+  /// This may differ from the bit rate specified in the
+  /// constructor, if it was provided.
   external int get videoBitsPerSecond;
+
+  /// The **`audioBitsPerSecond`** read-only
+  /// property of the [MediaRecorder] interface returns the audio encoding bit
+  /// rate in use.
+  ///
+  /// This may differ from the bit rate specified in the constructor (if
+  /// it was provided).
   external int get audioBitsPerSecond;
+
+  /// The **`audioBitrateMode`** read-only property of the [MediaRecorder]
+  /// interface returns the bitrate mode used to encode audio tracks.
   external BitrateMode get audioBitrateMode;
 }
 extension type MediaRecorderOptions._(JSObject _) implements JSObject {
@@ -171,20 +214,20 @@ extension type MediaRecorderOptions._(JSObject _) implements JSObject {
     int videoKeyFrameIntervalCount,
   });
 
-  external set mimeType(String value);
   external String get mimeType;
-  external set audioBitsPerSecond(int value);
+  external set mimeType(String value);
   external int get audioBitsPerSecond;
-  external set videoBitsPerSecond(int value);
+  external set audioBitsPerSecond(int value);
   external int get videoBitsPerSecond;
-  external set bitsPerSecond(int value);
+  external set videoBitsPerSecond(int value);
   external int get bitsPerSecond;
-  external set audioBitrateMode(BitrateMode value);
+  external set bitsPerSecond(int value);
   external BitrateMode get audioBitrateMode;
-  external set videoKeyFrameIntervalDuration(DOMHighResTimeStamp value);
+  external set audioBitrateMode(BitrateMode value);
   external DOMHighResTimeStamp get videoKeyFrameIntervalDuration;
-  external set videoKeyFrameIntervalCount(int value);
+  external set videoKeyFrameIntervalDuration(DOMHighResTimeStamp value);
   external int get videoKeyFrameIntervalCount;
+  external set videoKeyFrameIntervalCount(int value);
 }
 
 /// The **`BlobEvent`** interface of the
@@ -202,7 +245,17 @@ extension type BlobEvent._(JSObject _) implements Event, JSObject {
     BlobEventInit eventInitDict,
   );
 
+  /// The **`data`** read-only property of the [BlobEvent] interface represents
+  /// a [Blob] associated with the event.
   external Blob get data;
+
+  /// The **`timecode`** read-only property of the [BlobEvent] interface
+  /// indicates the difference between the timestamp of the first chunk of data,
+  /// and the timestamp of the first chunk in the first `BlobEvent` produced by
+  /// this recorder.
+  ///
+  /// Note that the `timecode` in the first produced `BlobEvent` does not need
+  /// to be zero.
   external DOMHighResTimeStamp get timecode;
 }
 extension type BlobEventInit._(JSObject _) implements JSObject {
@@ -211,8 +264,8 @@ extension type BlobEventInit._(JSObject _) implements JSObject {
     DOMHighResTimeStamp timecode,
   });
 
-  external set data(Blob value);
   external Blob get data;
-  external set timecode(DOMHighResTimeStamp value);
+  external set data(Blob value);
   external DOMHighResTimeStamp get timecode;
+  external set timecode(DOMHighResTimeStamp value);
 }

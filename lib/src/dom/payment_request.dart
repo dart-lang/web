@@ -100,9 +100,17 @@ extension type PaymentRequest._(JSObject _) implements EventTarget, JSObject {
   /// Payment
   /// Request API (or even provide instructions for paying by mail or by phone).
   external JSPromise<JSBoolean> canMakePayment();
+
+  /// The **`id`** read-only attribute of the
+  /// [PaymentRequest] interface returns a unique identifier for a particular
+  /// [PaymentRequest] instance.
+  ///
+  /// When constructing an instance of the [PaymentRequest], you are able to
+  /// supply an custom id. If none is provided, the browser automatically sets
+  /// the id value to a UUID.
   external String get id;
-  external set onpaymentmethodchange(EventHandler value);
   external EventHandler get onpaymentmethodchange;
+  external set onpaymentmethodchange(EventHandler value);
 }
 extension type PaymentMethodData._(JSObject _) implements JSObject {
   external factory PaymentMethodData({
@@ -110,10 +118,10 @@ extension type PaymentMethodData._(JSObject _) implements JSObject {
     JSObject data,
   });
 
-  external set supportedMethods(String value);
   external String get supportedMethods;
-  external set data(JSObject value);
+  external set supportedMethods(String value);
   external JSObject get data;
+  external set data(JSObject value);
 }
 extension type PaymentCurrencyAmount._(JSObject _) implements JSObject {
   external factory PaymentCurrencyAmount({
@@ -121,10 +129,10 @@ extension type PaymentCurrencyAmount._(JSObject _) implements JSObject {
     required String value,
   });
 
-  external set currency(String value);
   external String get currency;
-  external set value(String value);
+  external set currency(String value);
   external String get value;
+  external set value(String value);
 }
 extension type PaymentDetailsBase._(JSObject _) implements JSObject {
   external factory PaymentDetailsBase({
@@ -132,10 +140,10 @@ extension type PaymentDetailsBase._(JSObject _) implements JSObject {
     JSArray<PaymentDetailsModifier> modifiers,
   });
 
-  external set displayItems(JSArray<PaymentItem> value);
   external JSArray<PaymentItem> get displayItems;
-  external set modifiers(JSArray<PaymentDetailsModifier> value);
+  external set displayItems(JSArray<PaymentItem> value);
   external JSArray<PaymentDetailsModifier> get modifiers;
+  external set modifiers(JSArray<PaymentDetailsModifier> value);
 }
 extension type PaymentDetailsInit._(JSObject _)
     implements PaymentDetailsBase, JSObject {
@@ -146,10 +154,10 @@ extension type PaymentDetailsInit._(JSObject _)
     required PaymentItem total,
   });
 
-  external set id(String value);
   external String get id;
-  external set total(PaymentItem value);
+  external set id(String value);
   external PaymentItem get total;
+  external set total(PaymentItem value);
 }
 extension type PaymentDetailsUpdate._(JSObject _)
     implements PaymentDetailsBase, JSObject {
@@ -160,10 +168,10 @@ extension type PaymentDetailsUpdate._(JSObject _)
     JSObject paymentMethodErrors,
   });
 
-  external set total(PaymentItem value);
   external PaymentItem get total;
-  external set paymentMethodErrors(JSObject value);
+  external set total(PaymentItem value);
   external JSObject get paymentMethodErrors;
+  external set paymentMethodErrors(JSObject value);
 }
 extension type PaymentDetailsModifier._(JSObject _) implements JSObject {
   external factory PaymentDetailsModifier({
@@ -173,14 +181,14 @@ extension type PaymentDetailsModifier._(JSObject _) implements JSObject {
     JSObject data,
   });
 
-  external set supportedMethods(String value);
   external String get supportedMethods;
-  external set total(PaymentItem value);
+  external set supportedMethods(String value);
   external PaymentItem get total;
-  external set additionalDisplayItems(JSArray<PaymentItem> value);
+  external set total(PaymentItem value);
   external JSArray<PaymentItem> get additionalDisplayItems;
-  external set data(JSObject value);
+  external set additionalDisplayItems(JSArray<PaymentItem> value);
   external JSObject get data;
+  external set data(JSObject value);
 }
 extension type PaymentItem._(JSObject _) implements JSObject {
   external factory PaymentItem({
@@ -189,18 +197,18 @@ extension type PaymentItem._(JSObject _) implements JSObject {
     bool pending,
   });
 
-  external set label(String value);
   external String get label;
-  external set amount(PaymentCurrencyAmount value);
+  external set label(String value);
   external PaymentCurrencyAmount get amount;
-  external set pending(bool value);
+  external set amount(PaymentCurrencyAmount value);
   external bool get pending;
+  external set pending(bool value);
 }
 extension type PaymentCompleteDetails._(JSObject _) implements JSObject {
   external factory PaymentCompleteDetails({JSObject? data});
 
-  external set data(JSObject? value);
   external JSObject? get data;
+  external set data(JSObject? value);
 }
 
 /// The **`PaymentResponse`** interface of the
@@ -241,8 +249,31 @@ extension type PaymentResponse._(JSObject _) implements EventTarget, JSObject {
   /// declined credit
   /// cards.
   external JSPromise<JSAny?> retry([PaymentValidationErrors errorFields]);
+
+  /// The **`requestId`** read-only property of the
+  /// [PaymentResponse] interface returns the free-form identifier supplied by
+  /// the `PaymentResponse()` constructor by details.id.
   external String get requestId;
+
+  /// The **`methodName`** read-only
+  /// property of the [PaymentResponse] interface returns a string uniquely
+  /// identifying the payment handler selected by the user.
+  ///
+  /// This string may be either
+  /// one of the standardized payment method identifiers or a URL used by the
+  /// payment handler
+  /// to process payments.
   external String get methodName;
+
+  /// The **`details`** read-only property of the
+  /// [PaymentResponse] interface returns a JSON-serializable object that
+  /// provides a payment method specific message used by the merchant to process
+  /// the
+  /// transaction and determine a successful funds transfer.
+  ///
+  /// This data is returned by the payment app that satisfies the payment
+  /// request. Developers need to consult whomever controls the URL for the
+  /// expected shape of the details object.
   external JSObject get details;
 }
 extension type PaymentValidationErrors._(JSObject _) implements JSObject {
@@ -251,10 +282,10 @@ extension type PaymentValidationErrors._(JSObject _) implements JSObject {
     JSObject paymentMethod,
   });
 
-  external set error(String value);
   external String get error;
-  external set paymentMethod(JSObject value);
+  external set error(String value);
   external JSObject get paymentMethod;
+  external set paymentMethod(JSObject value);
 }
 
 /// The **`PaymentMethodChangeEvent`** interface of the
@@ -275,7 +306,24 @@ extension type PaymentMethodChangeEvent._(JSObject _)
     PaymentMethodChangeEventInit eventInitDict,
   ]);
 
+  /// The read-only **`methodName`** property of the [PaymentMethodChangeEvent]
+  /// interface is a string which
+  /// uniquely identifies the payment handler currently selected by the user.
+  /// The
+  /// payment handler may be a payment technology, such as Apple Pay or Android
+  /// Pay, and each
+  /// payment handler may support multiple payment methods; changes to the
+  /// payment method
+  /// within the payment handler are described by the
+  /// `PaymentMethodChangeEvent`.
   external String get methodName;
+
+  /// The read-only **`methodDetails`** property of the
+  /// [PaymentMethodChangeEvent] interface is an object
+  /// containing any data the payment handler may provide to describe the change
+  /// the user
+  /// has made to their payment method. The value is `null` if no details
+  /// are available.
   external JSObject? get methodDetails;
 }
 extension type PaymentMethodChangeEventInit._(JSObject _)
@@ -288,10 +336,10 @@ extension type PaymentMethodChangeEventInit._(JSObject _)
     JSObject? methodDetails,
   });
 
-  external set methodName(String value);
   external String get methodName;
-  external set methodDetails(JSObject? value);
+  external set methodName(String value);
   external JSObject? get methodDetails;
+  external set methodDetails(JSObject? value);
 }
 
 /// The **`PaymentRequestUpdateEvent`** interface is used for events sent to a

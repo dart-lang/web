@@ -66,17 +66,70 @@ extension type SecurityPolicyViolationEvent._(JSObject _)
     SecurityPolicyViolationEventInit eventInitDict,
   ]);
 
+  /// The **`documentURI`** read-only property of the
+  /// [SecurityPolicyViolationEvent] interface is a string
+  /// representing the URI of the document or worker in which the violation was
+  /// found.
   external String get documentURI;
+
+  /// The **`referrer`** read-only property of the
+  /// [SecurityPolicyViolationEvent] interface is a string
+  /// representing the referrer of the resources whose policy was violated. This
+  /// will be a URL
+  /// or `null`.
   external String get referrer;
+
+  /// The **`blockedURI`** read-only property of the
+  /// [SecurityPolicyViolationEvent] interface is a string
+  /// representing the URI of the resource that was blocked because it violates
+  /// a policy.
   external String get blockedURI;
+
+  /// The **`effectiveDirective`** read-only property of the
+  /// [SecurityPolicyViolationEvent] interface is a string
+  /// representing the directive whose enforcement uncovered the violation.
   external String get effectiveDirective;
+
+  /// The **`violatedDirective`** read-only property of the
+  /// [SecurityPolicyViolationEvent] interface is a string
+  /// representing the directive whose enforcement uncovered the violation.
   external String get violatedDirective;
+
+  /// The **`originalPolicy`** read-only property of the
+  /// [SecurityPolicyViolationEvent] interface is a string
+  /// containing the policy whose enforcement uncovered the violation.
   external String get originalPolicy;
+
+  /// The **`sourceFile`** read-only property of the
+  /// [SecurityPolicyViolationEvent] interface is a string
+  /// representing the URI of the document or worker in which the violation was
+  /// found.
   external String get sourceFile;
+
+  /// The **`sample`** read-only property of the
+  /// [SecurityPolicyViolationEvent] interface is a string
+  /// representing a sample of the resource that caused the violation.
   external String get sample;
+
+  /// The **`disposition`** read-only property of the
+  /// [SecurityPolicyViolationEvent] interface indicates how the violated policy
+  /// is configured to be treated by the user agent.
   external SecurityPolicyViolationEventDisposition get disposition;
+
+  /// The **`statusCode`** read-only property of the
+  /// [SecurityPolicyViolationEvent] interface is a number representing the HTTP
+  /// status code of the document or worker in which the violation occurred.
   external int get statusCode;
+
+  /// The **`lineNumber`** read-only property of the
+  /// [SecurityPolicyViolationEvent] interface is the line number in the
+  /// document
+  /// or worker at which the violation occurred.
   external int get lineNumber;
+
+  /// The **`columnNumber`** read-only property of the
+  /// [SecurityPolicyViolationEvent] interface is the column number in the
+  /// document or worker at which the violation occurred.
   external int get columnNumber;
 }
 extension type SecurityPolicyViolationEventInit._(JSObject _)
@@ -99,28 +152,28 @@ extension type SecurityPolicyViolationEventInit._(JSObject _)
     int columnNumber,
   });
 
-  external set documentURI(String value);
   external String get documentURI;
-  external set referrer(String value);
+  external set documentURI(String value);
   external String get referrer;
-  external set blockedURI(String value);
+  external set referrer(String value);
   external String get blockedURI;
-  external set violatedDirective(String value);
+  external set blockedURI(String value);
   external String get violatedDirective;
-  external set effectiveDirective(String value);
+  external set violatedDirective(String value);
   external String get effectiveDirective;
-  external set originalPolicy(String value);
+  external set effectiveDirective(String value);
   external String get originalPolicy;
-  external set sourceFile(String value);
+  external set originalPolicy(String value);
   external String get sourceFile;
-  external set sample(String value);
+  external set sourceFile(String value);
   external String get sample;
-  external set disposition(SecurityPolicyViolationEventDisposition value);
+  external set sample(String value);
   external SecurityPolicyViolationEventDisposition get disposition;
-  external set statusCode(int value);
+  external set disposition(SecurityPolicyViolationEventDisposition value);
   external int get statusCode;
-  external set lineNumber(int value);
+  external set statusCode(int value);
   external int get lineNumber;
-  external set columnNumber(int value);
+  external set lineNumber(int value);
   external int get columnNumber;
+  external set columnNumber(int value);
 }

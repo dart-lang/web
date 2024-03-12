@@ -184,9 +184,52 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
   /// The **`clearMeasures()`** method removes all or specific
   /// [PerformanceMeasure] objects from the browser's performance timeline.
   external void clearMeasures([String measureName]);
+
+  /// The **`timeOrigin`** read-only property of the [Performance] interface
+  /// returns the high resolution timestamp that is used as the baseline for
+  /// performance-related timestamps.
+  ///
+  /// In Window contexts, this value represents the time when navigation has
+  /// started. In [Worker] and [ServiceWorker] contexts, this value represents
+  /// the time when the worker is run. You can use this property to synchronize
+  /// the time origins between the contexts (see example below).
+  ///
+  /// > **Note:** The value of `performance.timeOrigin` may differ from the
+  /// > value returned by `Date.now()` executed at the time origin, because
+  /// > `Date.now()` may have been impacted by system and user clock
+  /// > adjustments, clock skew, etc. The `timeOrigin` property is a
+  /// > [monotonic clock](https://w3c.github.io/hr-time/#dfn-monotonic-clock)
+  /// > which current time never decreases and which isn't subject to these
+  /// > adjustments.
   external DOMHighResTimeStamp get timeOrigin;
+
+  /// The legacy
+  /// **`Performance.timing`** read-only
+  /// property returns a [PerformanceTiming] object containing latency-related
+  /// performance information.
+  ///
+  /// This property is not available in workers.
+  ///
+  /// > **Warning:** This property is deprecated in the
+  /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
+  /// > Please use the [PerformanceNavigationTiming]
+  /// > interface instead.
   external PerformanceTiming get timing;
+
+  /// The legacy
+  /// **`Performance.navigation`**
+  /// read-only property returns a [PerformanceNavigation] object representing
+  /// the type of navigation that occurs in the given browsing context, such as
+  /// the number of
+  /// redirections needed to fetch the resource.
+  ///
+  /// This property is not available in workers.
+  ///
+  /// > **Warning:** This property is deprecated in the
+  /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
+  /// > Please use the
+  /// > [PerformanceNavigationTiming] interface instead.
   external PerformanceNavigation get navigation;
-  external set onresourcetimingbufferfull(EventHandler value);
   external EventHandler get onresourcetimingbufferfull;
+  external set onresourcetimingbufferfull(EventHandler value);
 }

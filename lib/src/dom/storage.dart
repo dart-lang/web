@@ -64,8 +64,8 @@ extension type StorageEstimate._(JSObject _) implements JSObject {
     int quota,
   });
 
-  external set usage(int value);
   external int get usage;
-  external set quota(int value);
+  external set usage(int value);
   external int get quota;
+  external set quota(int value);
 }

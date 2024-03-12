@@ -29,8 +29,8 @@ extension type ClipboardEventInit._(JSObject _) implements EventInit, JSObject {
     DataTransfer? clipboardData,
   });
 
-  external set clipboardData(DataTransfer? value);
   external DataTransfer? get clipboardData;
+  external set clipboardData(DataTransfer? value);
 }
 
 /// The **`ClipboardEvent`** interface of the
@@ -49,6 +49,17 @@ extension type ClipboardEvent._(JSObject _) implements Event, JSObject {
     ClipboardEventInit eventInitDict,
   ]);
 
+  /// The **`clipboardData`** property of the [ClipboardEvent] interface holds a
+  /// [DataTransfer] object, which can be used to:
+  ///
+  /// - specify what data should be put into the clipboard from the
+  ///   [Element.cut_event] and [Element.copy_event] event handlers, typically
+  ///   with a [DataTransfer.setData] call;
+  /// - obtain the data to be pasted from the [Element.paste_event] event
+  ///   handler, typically with a [DataTransfer.getData] call.
+  ///
+  /// See the [Element.cut_event], [Element.copy_event], and
+  /// [Element.paste_event] events documentation for more information.
   external DataTransfer? get clipboardData;
 }
 
@@ -80,14 +91,23 @@ extension type ClipboardItem._(JSObject _) implements JSObject {
   /// `Promise` that resolves with a [Blob] of the requested  or an error if the
   /// MIME type is not found.
   external JSPromise<Blob> getType(String type);
+
+  /// The read-only **`presentationStyle`** property of the [ClipboardItem]
+  /// interface returns a string indicating how an item should be presented.
+  ///
+  /// For example, in some contexts an image might be displayed inline, while in
+  /// others it might be represented as an attachment.
   external PresentationStyle get presentationStyle;
+
+  /// The read-only **`types`** property of the [ClipboardItem] interface
+  /// returns an `Array` of  available within the [ClipboardItem]
   external JSArray<JSString> get types;
 }
 extension type ClipboardItemOptions._(JSObject _) implements JSObject {
   external factory ClipboardItemOptions({PresentationStyle presentationStyle});
 
-  external set presentationStyle(PresentationStyle value);
   external PresentationStyle get presentationStyle;
+  external set presentationStyle(PresentationStyle value);
 }
 
 /// The **`Clipboard`** interface of the
@@ -151,8 +171,8 @@ extension type Clipboard._(JSObject _) implements EventTarget, JSObject {
 extension type ClipboardUnsanitizedFormats._(JSObject _) implements JSObject {
   external factory ClipboardUnsanitizedFormats({JSArray<JSString> unsanitized});
 
-  external set unsanitized(JSArray<JSString> value);
   external JSArray<JSString> get unsanitized;
+  external set unsanitized(JSArray<JSString> value);
 }
 extension type ClipboardPermissionDescriptor._(JSObject _)
     implements PermissionDescriptor, JSObject {
@@ -161,6 +181,6 @@ extension type ClipboardPermissionDescriptor._(JSObject _)
     bool allowWithoutGesture,
   });
 
-  external set allowWithoutGesture(bool value);
   external bool get allowWithoutGesture;
+  external set allowWithoutGesture(bool value);
 }

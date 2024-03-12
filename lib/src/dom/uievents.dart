@@ -57,8 +57,28 @@ extension type UIEvent._(JSObject _) implements Event, JSObject {
     Window? viewArg,
     int detailArg,
   ]);
+
+  /// The **`UIEvent.view`** read-only property returns the
+  /// object from which the event was generated. In browsers, this
+  /// is the [Window] object the event happened in.
   external Window? get view;
+
+  /// The **`UIEvent.detail`** read-only property, when non-zero, provides the
+  /// current (or next, depending on the event) click count.
+  ///
+  /// For [Element.click_event] or [Element.dblclick_event] events,
+  /// `UIEvent.detail` is the current click count.
+  ///
+  /// For [Element.mousedown_event] or [Element.mouseup_event] events,
+  /// `UIEvent.detail` is _1 plus_ the current click count.
+  ///
+  /// For all other [UIEvent] objects, `UIEvent.detail` is always zero.
   external int get detail;
+
+  /// The **`UIEvent.which`** read-only property of the [UIEvent] interface
+  /// returns a number that indicates which button was pressed on the mouse, or
+  /// the numeric `keyCode` or the character code (`charCode`) of the key
+  /// pressed on the keyboard.
   external int get which;
 }
 extension type UIEventInit._(JSObject _) implements EventInit, JSObject {
@@ -71,12 +91,12 @@ extension type UIEventInit._(JSObject _) implements EventInit, JSObject {
     int which,
   });
 
-  external set view(Window? value);
   external Window? get view;
-  external set detail(int value);
+  external set view(Window? value);
   external int get detail;
-  external set which(int value);
+  external set detail(int value);
   external int get which;
+  external set which(int value);
 }
 
 /// The **`FocusEvent`** interface represents focus-related events, including
@@ -93,6 +113,50 @@ extension type FocusEvent._(JSObject _) implements UIEvent, JSObject {
     FocusEventInit eventInitDict,
   ]);
 
+  /// The **`FocusEvent.relatedTarget`** read-only property is the
+  /// secondary target, depending on the type of event:
+  ///
+  /// <table class="no-markdown">
+  ///   <thead>
+  ///     <tr>
+  ///       <th scope="col">Event name</th>
+  ///       <th scope="col"><code>target</code></th>
+  ///       <th scope="col"><code>relatedTarget</code></th>
+  ///     </tr>
+  ///   </thead>
+  ///   <tbody>
+  ///     <tr>
+  ///       <td>[Element.blur_event]</td>
+  ///       <td>The [EventTarget] losing focus</td>
+  ///       <td>
+  /// The [EventTarget] receiving focus (if any).
+  ///       </td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>[Element.focus_event]</td>
+  ///       <td>The [EventTarget] receiving focus</td>
+  ///       <td>The [EventTarget] losing focus (if any)</td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>[Element.focusin_event]</td>
+  ///       <td>The [EventTarget] receiving focus</td>
+  ///       <td>The [EventTarget] losing focus (if any)</td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>[Element.focusout_event]</td>
+  ///       <td>The [EventTarget] losing focus</td>
+  ///       <td>The [EventTarget] receiving focus (if any)</td>
+  ///     </tr>
+  ///   </tbody>
+  /// </table>
+  ///
+  /// Note that [many elements can't have
+  /// focus](https://stackoverflow.com/questions/42764494/blur-event-relatedtarget-returns-null/42764495),
+  /// which is a common reason for `relatedTarget` to be
+  /// `null`. `relatedTarget` may also be set to `null` for
+  /// security reasons, like when tabbing in or out of a page.
+  ///
+  /// [MouseEvent.relatedTarget] is a similar property for mouse events.
   external EventTarget? get relatedTarget;
 }
 extension type FocusEventInit._(JSObject _) implements UIEventInit, JSObject {
@@ -106,8 +170,8 @@ extension type FocusEventInit._(JSObject _) implements UIEventInit, JSObject {
     EventTarget? relatedTarget,
   });
 
-  external set relatedTarget(EventTarget? value);
   external EventTarget? get relatedTarget;
+  external set relatedTarget(EventTarget? value);
 }
 
 /// The **`MouseEvent`** interface represents events that occur due to the user
@@ -173,24 +237,264 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
     int buttonArg,
     EventTarget? relatedTargetArg,
   ]);
+
+  /// The **`pageX`** read-only property of the [MouseEvent] interface returns
+  /// the X (horizontal) coordinate (in pixels) at which the mouse was clicked,
+  /// relative to the left edge of the entire document.
+  /// This includes any portion of the document not currently visible.
+  ///
+  /// Being based on the edge of the document as it is, this property takes into
+  /// account any horizontal scrolling of the page.
+  /// For example, if the page is scrolled such that 200 pixels of the left side
+  /// of the document are scrolled out of view, and the mouse is clicked 100
+  /// pixels inward from the left edge of the view, the value returned by
+  /// `pageX` will be 300.
+  ///
+  /// Originally, this property was defined as a `long` integer. The
+  /// [CSSOM View Module](https://developer.mozilla.org/en-US/docs/Web/CSS/CSSOM_view)
+  /// redefined it as a
+  /// `double` float. See the [Browser compatibility](#browser_compatibility)
+  /// section for
+  /// details.
+  ///
+  /// See
+  /// [Coordinate systems](https://developer.mozilla.org/en-US/docs/Web/CSS/CSSOM_view/Coordinate_systems#page)
+  /// for additional information about coordinates specified in this fashion.
   external num get pageX;
+
+  /// The **`pageY`** read-only property of the [MouseEvent] interface returns
+  /// the Y (vertical) coordinate in pixels of the event relative to the whole
+  /// document.
+  /// This property takes into account any vertical scrolling of the page.
   external num get pageY;
+
+  /// The **`MouseEvent.x`** property is an alias for the [MouseEvent.clientX]
+  /// property.
   external num get x;
+
+  /// The **`MouseEvent.y`** property is an alias for the [MouseEvent.clientY]
+  /// property.
   external num get y;
+
+  /// The **`offsetX`** read-only property of the [MouseEvent] interface
+  /// provides the offset in the X coordinate of the mouse pointer between that
+  /// event and the padding edge of the target node.
   external num get offsetX;
+
+  /// The **`offsetY`** read-only property of the [MouseEvent] interface
+  /// provides the offset in the Y coordinate of the mouse pointer between that
+  /// event and the padding edge of the target node.
   external num get offsetY;
+
+  /// The **`screenX`** read-only property of the [MouseEvent] interface
+  /// provides the horizontal coordinate (offset) of the mouse pointer in
+  /// [screen coordinates](https://developer.mozilla.org/en-US/docs/Web/CSS/CSSOM_view/Coordinate_systems#screen).
+  ///
+  /// > **Note:** In a multiscreen environment, screens aligned horizontally
+  /// > will be treated as a single device, and so the range of the `screenX`
+  /// > value will increase to the combined width of the screens.
   external int get screenX;
+
+  /// The **`screenY`** read-only property of the [MouseEvent] interface
+  /// provides the vertical coordinate (offset) of the mouse pointer in
+  /// [screen coordinates](https://developer.mozilla.org/en-US/docs/Web/CSS/CSSOM_view/Coordinate_systems#screen).
   external int get screenY;
+
+  /// The **`clientX`** read-only property of the [MouseEvent] interface
+  /// provides the horizontal coordinate within the application's  at which the
+  /// event occurred (as opposed to the coordinate within the page).
+  ///
+  /// For example, clicking on the left edge of the viewport will always result
+  /// in a mouse event with a `clientX` value of `0`, regardless of whether the
+  /// page is scrolled horizontally.
   external int get clientX;
+
+  /// The **`clientY`** read-only property of the [MouseEvent] interface
+  /// provides the vertical coordinate within the application's  at which the
+  /// event occurred (as opposed to the coordinate within the page).
+  ///
+  /// For example, clicking on the top edge of the viewport will always result
+  /// in a mouse event with a `clientY` value of `0`, regardless of whether the
+  /// page is scrolled vertically.
   external int get clientY;
+
+  /// The **`MouseEvent.layerX`** read-only property returns the
+  /// horizontal coordinate of the event relative to the current layer.
+  ///
+  /// This property takes scrolling of the page into account and returns a value
+  /// relative to
+  /// the whole of the document unless the event occurs inside a positioned
+  /// element, where the
+  /// returned value is relative to the top left of the positioned element.
   external int get layerX;
+
+  /// The **`MouseEvent.layerY`** read-only property returns the
+  /// vertical coordinate of the event relative to the current layer.
+  ///
+  /// This property takes scrolling of the page into account, and returns a
+  /// value relative to
+  /// the whole of the document, unless the event occurs inside a positioned
+  /// element, where
+  /// the returned value is relative to the top left of the positioned element.
   external int get layerY;
+
+  /// The **`MouseEvent.ctrlKey`** read-only property is a boolean value that
+  /// indicates whether the <kbd>ctrl</kbd> key was pressed or not when a given
+  /// mouse event occurs.
+  ///
+  /// On Macintosh keyboards, this key is labeled the <kbd>control</kbd> key.
+  /// Also, note that on a Mac, a click combined with the <kbd>control</kbd> key
+  /// is intercepted by the operating system and used to open a context menu, so
+  /// `ctrlKey` is not detectable on click events.
   external bool get ctrlKey;
+
+  /// The **`MouseEvent.shiftKey`** read-only property is a boolean value that
+  /// indicates whether the <kbd>shift</kbd> key was pressed or not when a given
+  /// mouse event occurs.
   external bool get shiftKey;
+
+  /// The **`MouseEvent.altKey`** read-only property is a boolean value that
+  /// indicates whether the <kbd>alt</kbd> key was pressed or not when a given
+  /// mouse event occurs.
+  ///
+  /// Be aware that the browser can't always detect the <kbd>alt</kbd> key on
+  /// some operating systems.
+  /// On some Linux variants, for example, a left mouse click combined with the
+  /// <kbd>alt</kbd> key is used to move or resize windows.
+  ///
+  /// > **Note:** On Macintosh keyboards, this key is also known as the
+  /// > <kbd>option</kbd> key.
   external bool get altKey;
+
+  /// The **`MouseEvent.metaKey`** read-only property is a boolean value that
+  /// indicates whether the <kbd>meta</kbd> key was pressed or not when a given
+  /// mouse event occurs.
+  ///
+  /// Be aware that many operating systems bind special functionality to the
+  /// <kbd>meta</kbd> key, so this property may be `false` even when the key is
+  /// actually pressed.
+  /// On Windows, for example, this key may open the Start menu.
+  ///
+  /// > **Note:** On Macintosh keyboards, this key is the <kbd>command</kbd> key
+  /// > (<kbd>⌘</kbd>).
+  /// > On Windows keyboards, this key is the Windows key (<kbd>⊞</kbd>).
   external bool get metaKey;
+
+  /// The **`MouseEvent.button`** read-only property indicates which button was
+  /// pressed on the mouse to trigger the event.
+  ///
+  /// This property only guarantees to indicate which buttons are pressed during
+  /// events caused by pressing or releasing one or multiple buttons.
+  /// As such, it is not reliable for events such as [Element.mouseenter_event],
+  /// [Element.mouseleave_event], [Element.mouseover_event],
+  /// [Element.mouseout_event], or [Element.mousemove_event].
+  ///
+  /// Users may change the configuration of buttons on their pointing device so
+  /// that if an event's button property is zero, it may not have been caused by
+  /// the button that is physically left–most on the pointing device; however,
+  /// it should behave as if the left button was clicked in the standard button
+  /// layout.
+  ///
+  /// > **Note:** Do not confuse this property with the [MouseEvent.buttons]
+  /// > property, which indicates which buttons are pressed for all mouse events
+  /// > types.
   external int get button;
+
+  /// The **`MouseEvent.buttons`** read-only property indicates which buttons
+  /// are pressed on the mouse (or other input device) when a mouse event is
+  /// triggered.
+  ///
+  /// Each button that can be pressed is represented by a given number (see
+  /// below).
+  /// If more than one button is pressed, the button values are added together
+  /// to produce a new number.
+  /// For example, if the secondary (`2`) and auxiliary (`4`) buttons are
+  /// pressed simultaneously, the value is `6` (i.e., `2 + 4`).
+  ///
+  /// > **Note:** Do not confuse this property with the [MouseEvent.button]
+  /// > property.
+  /// > The [MouseEvent.buttons] property indicates the state of buttons pressed
+  /// > during any kind of mouse event,
+  /// > while the [MouseEvent.button] property only guarantees the correct value
+  /// > for mouse events caused by pressing or releasing one or multiple
+  /// > buttons.
   external int get buttons;
+
+  /// The **`MouseEvent.relatedTarget`** read-only property is the secondary
+  /// target for the mouse event, if there is one.
+  ///
+  /// That is:
+  ///
+  /// <table class="no-markdown">
+  ///   <thead>
+  ///     <tr>
+  ///       <th>Event name</th>
+  ///       <th><code>target</code></th>
+  ///       <th><code>relatedTarget</code></th>
+  ///     </tr>
+  ///   </thead>
+  ///   <tbody>
+  ///     <tr>
+  ///       <td>[Element.mouseenter_event]</td>
+  ///       <td>
+  /// The [EventTarget] the pointing device entered to
+  ///       </td>
+  ///       <td>
+  /// The [EventTarget] the pointing device exited from
+  ///       </td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>[Element.mouseleave_event]</td>
+  ///       <td>
+  /// The [EventTarget] the pointing device exited from
+  ///       </td>
+  ///       <td>
+  /// The [EventTarget] the pointing device entered to
+  ///       </td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>[Element.mouseout_event]</td>
+  ///       <td>
+  /// The [EventTarget] the pointing device exited from
+  ///       </td>
+  ///       <td>
+  /// The [EventTarget] the pointing device entered to
+  ///       </td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>[Element.mouseover_event]</td>
+  ///       <td>
+  /// The [EventTarget] the pointing device entered to
+  ///       </td>
+  ///       <td>
+  /// The [EventTarget] the pointing device exited from
+  ///       </td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>[HTMLElement.dragenter_event]</td>
+  ///       <td>
+  /// The [EventTarget] the pointing device entered to
+  ///       </td>
+  ///       <td>
+  /// The [EventTarget] the pointing device exited from
+  ///       </td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>[HTMLElement.dragleave_event]</td>
+  ///       <td>
+  /// The [EventTarget] the pointing device exited from
+  ///       </td>
+  ///       <td>
+  /// The [EventTarget] the pointing device entered to
+  ///       </td>
+  ///     </tr>
+  ///   </tbody>
+  /// </table>
+  ///
+  /// For events with no secondary target, `relatedTarget` returns
+  /// `null`.
+  ///
+  /// [FocusEvent.relatedTarget] is a similar property for focus events.
   external EventTarget? get relatedTarget;
 }
 extension type MouseEventInit._(JSObject _)
@@ -225,20 +529,20 @@ extension type MouseEventInit._(JSObject _)
     EventTarget? relatedTarget,
   });
 
-  external set screenX(int value);
   external int get screenX;
-  external set screenY(int value);
+  external set screenX(int value);
   external int get screenY;
-  external set clientX(int value);
+  external set screenY(int value);
   external int get clientX;
-  external set clientY(int value);
+  external set clientX(int value);
   external int get clientY;
-  external set button(int value);
+  external set clientY(int value);
   external int get button;
-  external set buttons(int value);
+  external set button(int value);
   external int get buttons;
-  external set relatedTarget(EventTarget? value);
+  external set buttons(int value);
   external EventTarget? get relatedTarget;
+  external set relatedTarget(EventTarget? value);
 }
 extension type EventModifierInit._(JSObject _)
     implements UIEventInit, JSObject {
@@ -265,34 +569,34 @@ extension type EventModifierInit._(JSObject _)
     bool modifierSymbolLock,
   });
 
-  external set ctrlKey(bool value);
   external bool get ctrlKey;
-  external set shiftKey(bool value);
+  external set ctrlKey(bool value);
   external bool get shiftKey;
-  external set altKey(bool value);
+  external set shiftKey(bool value);
   external bool get altKey;
-  external set metaKey(bool value);
+  external set altKey(bool value);
   external bool get metaKey;
-  external set modifierAltGraph(bool value);
+  external set metaKey(bool value);
   external bool get modifierAltGraph;
-  external set modifierCapsLock(bool value);
+  external set modifierAltGraph(bool value);
   external bool get modifierCapsLock;
-  external set modifierFn(bool value);
+  external set modifierCapsLock(bool value);
   external bool get modifierFn;
-  external set modifierFnLock(bool value);
+  external set modifierFn(bool value);
   external bool get modifierFnLock;
-  external set modifierHyper(bool value);
+  external set modifierFnLock(bool value);
   external bool get modifierHyper;
-  external set modifierNumLock(bool value);
+  external set modifierHyper(bool value);
   external bool get modifierNumLock;
-  external set modifierScrollLock(bool value);
+  external set modifierNumLock(bool value);
   external bool get modifierScrollLock;
-  external set modifierSuper(bool value);
+  external set modifierScrollLock(bool value);
   external bool get modifierSuper;
-  external set modifierSymbol(bool value);
+  external set modifierSuper(bool value);
   external bool get modifierSymbol;
-  external set modifierSymbolLock(bool value);
+  external set modifierSymbol(bool value);
   external bool get modifierSymbolLock;
+  external set modifierSymbolLock(bool value);
 }
 
 /// The **`WheelEvent`** interface represents events that occur due to the user
@@ -326,9 +630,31 @@ extension type WheelEvent._(JSObject _) implements MouseEvent, JSObject {
   external static int get DOM_DELTA_PIXEL;
   external static int get DOM_DELTA_LINE;
   external static int get DOM_DELTA_PAGE;
+
+  /// The **`WheelEvent.deltaX`** read-only property is a
+  /// `double` representing the horizontal scroll amount in the
+  /// [WheelEvent.deltaMode] unit.
   external num get deltaX;
+
+  /// The **`WheelEvent.deltaY`** read-only property is a
+  /// `double` representing the vertical scroll amount in the
+  /// [WheelEvent.deltaMode] unit.
   external num get deltaY;
+
+  /// The **`WheelEvent.deltaZ`** read-only property is a
+  /// `double` representing the scroll amount along the z-axis, in the
+  /// [WheelEvent.deltaMode] unit.
   external num get deltaZ;
+
+  /// The **`WheelEvent.deltaMode`** read-only property returns an
+  /// `unsigned long` representing the unit of the delta values scroll amount.
+  /// Permitted values are:
+  ///
+  /// | Constant          | Value  | Description                               |
+  /// | ----------------- | ------ | ----------------------------------------- |
+  /// | `DOM_DELTA_PIXEL` | `0x00` | The delta values are specified in pixels. |
+  /// | `DOM_DELTA_LINE`  | `0x01` | The delta values are specified in lines.  |
+  /// | `DOM_DELTA_PAGE`  | `0x02` | The delta values are specified in pages.  |
   external int get deltaMode;
 }
 extension type WheelEventInit._(JSObject _)
@@ -367,14 +693,14 @@ extension type WheelEventInit._(JSObject _)
     int deltaMode,
   });
 
-  external set deltaX(num value);
   external num get deltaX;
-  external set deltaY(num value);
+  external set deltaX(num value);
   external num get deltaY;
-  external set deltaZ(num value);
+  external set deltaY(num value);
   external num get deltaZ;
-  external set deltaMode(int value);
+  external set deltaZ(num value);
   external int get deltaMode;
+  external set deltaMode(int value);
 }
 
 /// The **`InputEvent`** interface represents an event notifying the user of
@@ -390,8 +716,24 @@ extension type InputEvent._(JSObject _) implements UIEvent, JSObject {
     InputEventInit eventInitDict,
   ]);
 
+  /// The **`data`** read-only property of the
+  /// [InputEvent] interface returns a string with inserted
+  /// characters. This may be an empty string if the change doesn't insert text,
+  /// such as when
+  /// characters are deleted.
   external String? get data;
+
+  /// The **`InputEvent.isComposing`** read-only property returns a
+  /// boolean value indicating if the event is fired after
+  /// [Element.compositionstart_event] and before
+  /// [Element.compositionend_event].
   external bool get isComposing;
+
+  /// The **`inputType`** read-only property of the
+  /// [InputEvent] interface returns the type of change made to editable
+  /// content.
+  /// Possible changes include for example inserting, deleting, and formatting
+  /// text.
   external String get inputType;
 }
 extension type InputEventInit._(JSObject _) implements UIEventInit, JSObject {
@@ -407,12 +749,12 @@ extension type InputEventInit._(JSObject _) implements UIEventInit, JSObject {
     String inputType,
   });
 
-  external set data(String? value);
   external String? get data;
-  external set isComposing(bool value);
+  external set data(String? value);
   external bool get isComposing;
-  external set inputType(String value);
+  external set isComposing(bool value);
   external String get inputType;
+  external set inputType(String value);
 }
 
 /// **`KeyboardEvent`** objects describe a user interaction with the keyboard;
@@ -469,16 +811,219 @@ extension type KeyboardEvent._(JSObject _) implements UIEvent, JSObject {
     bool shiftKey,
     bool metaKey,
   ]);
+
+  /// The [KeyboardEvent] interface's **`key`** read-only property returns the
+  /// value of the key pressed by the user, taking into consideration the state
+  /// of modifier keys such as <kbd>Shift</kbd> as well as the keyboard locale
+  /// and layout.
   external String get key;
+
+  /// The `KeyboardEvent.code` property represents a physical key on the
+  /// keyboard (as opposed to the character generated by pressing the key). In
+  /// other words, this property returns a value that isn't altered by keyboard
+  /// layout or the state of the modifier keys.
+  ///
+  /// If the input device isn't a physical keyboard, but is instead a virtual
+  /// keyboard or accessibility device, the returned value will be set by the
+  /// browser to match as closely as possible to what would happen with a
+  /// physical keyboard, to maximize compatibility between physical and virtual
+  /// input devices.
+  ///
+  /// This property is useful when you want to handle keys based on their
+  /// physical positions on the input device rather than the characters
+  /// associated with those keys; this is especially common when writing code to
+  /// handle input for games that simulate a gamepad-like environment using keys
+  /// on the keyboard. Be aware, however, that you can't use the value reported
+  /// by `KeyboardEvent.code` to determine the character generated by the
+  /// keystroke, because the keycode's name may not match the actual character
+  /// that's printed on the key or that's generated by the computer when the key
+  /// is pressed.
+  ///
+  /// For example, the `code` returned is "`KeyQ`" for the <kbd>Q</kbd> key on a
+  /// QWERTY layout keyboard, but the same `code` value also represents the
+  /// <kbd>'</kbd> key on Dvorak keyboards and the <kbd>A</kbd> key on AZERTY
+  /// keyboards. That makes it impossible to use the value of `code` to
+  /// determine what the name of the key is to users if they're not using an
+  /// anticipated keyboard layout.
+  ///
+  /// To determine what character corresponds with the key event, use the
+  /// [KeyboardEvent.key] property instead.
   external String get code;
+
+  /// The **`KeyboardEvent.location`** read-only property returns an
+  /// `unsigned long` representing the location of the key on the keyboard or
+  /// other
+  /// input device.
+  ///
+  /// Possible values are:
+  ///
+  /// <table class="standard-table">
+  ///   <thead>
+  ///     <tr>
+  ///       <th>Constant</th>
+  ///       <th>Value</th>
+  ///       <th>Description</th>
+  ///     </tr>
+  ///   </thead>
+  ///   <tbody>
+  ///     <tr>
+  ///       <td><code>DOM_KEY_LOCATION_STANDARD</code></td>
+  ///       <td>0</td>
+  ///       <td>
+  /// The key has only one version, or can't be distinguished between the left
+  /// and right versions of the key, and was not pressed on the numeric keypad
+  /// or a key that is considered to be part of the keypad.
+  ///       </td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td><code>DOM_KEY_LOCATION_LEFT</code></td>
+  ///       <td>1</td>
+  ///       <td>
+  /// The key was the left-hand version of the key; for example, the left-hand
+  ///         <kbd>Control</kbd> key was pressed on a standard 101 key US keyboard.
+  /// This value is only used for keys that have more than one possible
+  /// location on the keyboard.
+  ///       </td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td><code>DOM_KEY_LOCATION_RIGHT</code></td>
+  ///       <td>2</td>
+  ///       <td>
+  /// The key was the right-hand version of the key; for example, the
+  /// right-hand <kbd>Control</kbd> key is pressed on a standard 101 key US
+  /// keyboard. This value is only used for keys that have more than one
+  /// possible location on the keyboard.
+  ///       </td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td><code>DOM_KEY_LOCATION_NUMPAD</code></td>
+  ///       <td>3</td>
+  ///       <td>
+  ///         <p>
+  /// The key was on the numeric keypad, or has a virtual key code that
+  /// corresponds to the numeric keypad.
+  ///         </p>
+  ///         <div class="note">
+  ///           <p>
+  ///             <strong>Note:</strong> When <kbd>NumLock</kbd> is locked, Firefox
+  /// always returns <code>DOM_KEY_LOCATION_NUMPAD</code> for the keys on
+  /// the numeric pad. Otherwise, when <kbd>NumLock</kbd> is unlocked and
+  /// the keyboard actually has a numeric keypad, Firefox always returns
+  ///             <code>DOM_KEY_LOCATION_NUMPAD</code> too. On the other hand, if the
+  /// keyboard doesn't have a keypad, such as on a notebook computer, some
+  /// keys become Numpad only when NumLock is locked. When such keys fires
+  /// key events, the location attribute value depends on the key. That
+  /// is, it must not be <code>DOM_KEY_LOCATION_NUMPAD</code>.
+  ///           </p>
+  ///         </div>
+  ///         <div class="note">
+  ///           <p>
+  ///             <strong>Note:</strong> <kbd>NumLock</kbd> key's key events indicate
+  ///             <code>DOM_KEY_LOCATION_STANDARD</code> both on Firefox and Internet
+  /// Explorer.
+  ///           </p>
+  ///         </div>
+  ///       </td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>
+  ///         <code>DOM_KEY_LOCATION_MOBILE</code>
+  ///       </td>
+  ///       <td>4</td>
+  ///       <td>
+  ///         <p>
+  /// The key was on a mobile device; this can be on either a physical
+  /// keypad or a virtual keyboard.
+  ///         </p>
+  ///       </td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>
+  ///         <code>DOM_KEY_LOCATION_JOYSTICK</code>
+  ///       </td>
+  ///       <td>5</td>
+  ///       <td>
+  ///         <p>
+  /// The key was a button on a game controller or a joystick on a mobile
+  /// device.
+  ///         </p>
+  ///       </td>
+  ///     </tr>
+  ///   </tbody>
+  /// </table>
   external int get location;
+
+  /// The **`KeyboardEvent.ctrlKey`** read-only property returns a
+  /// boolean value that indicates if the <kbd>control</kbd> key was pressed
+  /// (`true`) or not (`false`) when the event occurred.
   external bool get ctrlKey;
+
+  /// The **`KeyboardEvent.shiftKey`** read-only property is a
+  /// boolean value that indicates if the <kbd>shift</kbd> key was pressed
+  /// (`true`) or not (`false`) when the event occurred.
   external bool get shiftKey;
+
+  /// The **`KeyboardEvent.altKey`** read-only property is a
+  /// boolean value that indicates if the <kbd>alt</kbd> key (<kbd>Option</kbd>
+  /// or <kbd>⌥</kbd> on macOS) was pressed (`true`) or not (`false`) when
+  /// the event occurred.
   external bool get altKey;
+
+  /// The **`KeyboardEvent.metaKey`** read-only property returning a
+  /// boolean value that indicates if the <kbd>Meta</kbd> key was pressed
+  /// (`true`) or not (`false`) when the event occurred. Some operating
+  /// systems may intercept the key so it is never detected.
+  ///
+  /// > **Note:** On Macintosh keyboards, this is the <kbd>⌘ Command</kbd> key.
+  ///
+  /// > **Note:** Before Firefox 118, the <kbd>⊞ Windows</kbd> key was handled
+  /// > as an "OS" key rather than the "Meta" key. `KeyboardEvent.metaKey` was
+  /// > `false` when the <kbd>⊞ Windows</kbd> key was pressed.
   external bool get metaKey;
+
+  /// The **`repeat`** read-only property of the
+  /// [KeyboardEvent] interface returns a boolean value that is
+  /// `true` if the given key is being held down such that it is automatically
+  /// repeating.
   external bool get repeat;
+
+  /// The **`KeyboardEvent.isComposing`** read-only property returns
+  /// a boolean value indicating if the event is fired within a composition
+  /// session, i.e. after [Element.compositionstart_event]
+  /// and before [Element.compositionend_event].
   external bool get isComposing;
+
+  /// The **`charCode`** read-only property of the
+  /// [KeyboardEvent] interface returns the Unicode value of a character key
+  /// pressed during a [Element.keypress_event] event.
+  ///
+  /// > **Warning:** Do not use this property, as it is deprecated. Instead, get
+  /// > the
+  /// > Unicode value of the character using the [KeyboardEvent.key]
+  /// > property.
   external int get charCode;
+
+  /// The deprecated **`KeyboardEvent.keyCode`** read-only property represents a
+  /// system and implementation dependent numerical code identifying the
+  /// unmodified value of the pressed key.
+  ///
+  /// This is usually the decimal ASCII (`20`) or Windows 1252 code
+  /// corresponding to the key. If the key can't be identified, this value is
+  /// `0`.
+  ///
+  /// You should avoid using this if possible; it's been deprecated for some
+  /// time. Instead, you should use [KeyboardEvent.code], if it's implemented.
+  /// Unfortunately, some browsers still don't have it, so you'll have to be
+  /// careful to make sure you use one which is supported on all target
+  /// browsers.
+  ///
+  /// > **Note:** Web developers shouldn't use the `keyCode` attribute for
+  /// > printable characters when handling `keydown` and `keyup` events. As
+  /// > described above, the `keyCode` attribute is not useful for printable
+  /// > characters, especially those input with the <kbd>Shift</kbd> or
+  /// > <kbd>Alt</kbd> key pressed. When implementing a shortcut key handler,
+  /// > the [Element.keypress_event] event is usually better (at least when
+  /// > Gecko is the runtime in use).
   external int get keyCode;
 }
 extension type KeyboardEventInit._(JSObject _)
@@ -513,20 +1058,20 @@ extension type KeyboardEventInit._(JSObject _)
     int keyCode,
   });
 
-  external set key(String value);
   external String get key;
-  external set code(String value);
+  external set key(String value);
   external String get code;
-  external set location(int value);
+  external set code(String value);
   external int get location;
-  external set repeat(bool value);
+  external set location(int value);
   external bool get repeat;
-  external set isComposing(bool value);
+  external set repeat(bool value);
   external bool get isComposing;
-  external set charCode(int value);
+  external set isComposing(bool value);
   external int get charCode;
-  external set keyCode(int value);
+  external set charCode(int value);
   external int get keyCode;
+  external set keyCode(int value);
 }
 
 /// The DOM **`CompositionEvent`** represents events that occur due to the user
@@ -555,6 +1100,12 @@ extension type CompositionEvent._(JSObject _) implements UIEvent, JSObject {
     Window? viewArg,
     String dataArg,
   ]);
+
+  /// The **`data`** read-only property of the
+  /// [CompositionEvent] interface returns the characters generated by the input
+  /// method that raised the event; its exact nature varies depending on the
+  /// type of event
+  /// that generated the `CompositionEvent` object.
   external String get data;
 }
 extension type CompositionEventInit._(JSObject _)
@@ -569,8 +1120,8 @@ extension type CompositionEventInit._(JSObject _)
     String data,
   });
 
-  external set data(String value);
   external String get data;
+  external set data(String value);
 }
 
 /// The **`MutationEvent`** interface provides event properties that are
@@ -623,9 +1174,36 @@ extension type MutationEvent._(JSObject _) implements Event, JSObject {
     String attrNameArg,
     int attrChangeArg,
   ]);
+
+  /// The **`relatedNode`** read-only property of the [MutationEvent] interface
+  /// returns a string indicating the node related to the event, like the
+  /// changed node inside the subtree for `DOMSubtreeModified`.
   external Node? get relatedNode;
+
+  /// The **`prevValue`** read-only property of the [MutationEvent] interface
+  /// returns a string. In `DOMAttrModified` events, it represents the previous
+  /// value of the [Attr] node. In `DOMCharacterDataModified` events, it
+  /// contains the previous value of the [CharacterData] node. In all other
+  /// cases, returns the empty string (`""`).
   external String get prevValue;
+
+  /// The **`newValue`** read-only property of the [MutationEvent] interface
+  /// returns a string. In `DOMAttrModified` events, it represents the new value
+  /// of the [Attr] node. In `DOMCharacterDataModified` events, it contains the
+  /// new value of the [CharacterData] node. In all other cases, returns the
+  /// empty string (`""`).
   external String get newValue;
+
+  /// The **`attrName`** read-only property of the [MutationEvent] interface
+  /// returns a string with the name of the node affected by the
+  /// `DOMAttrModified` event. It has no meaning for other events and is then
+  /// set to the empty string (`""`).
   external String get attrName;
+
+  /// The **`attrChange`** read-only property of the [MutationEvent] interface
+  /// returns a number indicating what kind of change triggered the
+  /// `DOMAttrModified` event. The three possible values are `MODIFICATION`
+  /// (`1`), `ADDITION` (`2`) or `REMOVAL` (`3`). It has no meaning for other
+  /// events and is then set to `0`.
   external int get attrChange;
 }

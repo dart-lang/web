@@ -32,7 +32,17 @@ extension type PerformanceServerTiming._(JSObject _) implements JSObject {
   /// ; it returns a JSON representation of the [PerformanceServerTiming]
   /// object.
   external JSObject toJSON();
+
+  /// The **`name`** read-only property returns a
+  /// string value of the server-specified metric name.
   external String get name;
+
+  /// The **`duration`** read-only property returns a double that contains the
+  /// server-specified metric duration, or the value `0.0`.
   external DOMHighResTimeStamp get duration;
+
+  /// The **`description`** read-only property returns a
+  /// string value of the server-specified metric description, or an empty
+  /// string.
   external String get description;
 }

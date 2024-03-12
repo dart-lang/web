@@ -75,8 +75,22 @@ extension type WakeLockSentinel._(JSObject _) implements EventTarget, JSObject {
   /// the [WakeLockSentinel], returning a `Promise` that is resolved once the
   /// sentinel has been successfully released.
   external JSPromise<JSAny?> release();
+
+  /// The **`released`** read-only property of the [WakeLockSentinel] interface
+  /// returns a boolean that indicates whether a [WakeLockSentinel] has been
+  /// released.
+  ///
+  /// The `WakeLockSentinel` is released when the associated platform screen
+  /// wake lock is revoked; afterwards `released` will always return `true`.
+  /// If a subsequent screen wake lock is required, the application will need to
+  /// request a new screen wake lock (the current `WakeLockSentinel` cannot be
+  /// reused).
   external bool get released;
+
+  /// The **`type`** read-only property of the [WakeLockSentinel] interface
+  /// returns a string representation of the currently acquired
+  /// [WakeLockSentinel] type.
   external WakeLockType get type;
-  external set onrelease(EventHandler value);
   external EventHandler get onrelease;
+  external set onrelease(EventHandler value);
 }

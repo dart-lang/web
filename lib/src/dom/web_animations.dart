@@ -41,14 +41,19 @@ typedef CompositeOperationOrAuto = String;
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AnimationTimeline).
 extension type AnimationTimeline._(JSObject _) implements JSObject {
   external Animation play([AnimationEffect? effect]);
+
+  /// The **`currentTime`** read-only property of the
+  /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)'s
+  /// [AnimationTimeline] interface returns the timeline's current time in
+  /// milliseconds, or `null` if the timeline is inactive.
   external CSSNumberish? get currentTime;
   external CSSNumberish? get duration;
 }
 extension type DocumentTimelineOptions._(JSObject _) implements JSObject {
   external factory DocumentTimelineOptions({DOMHighResTimeStamp originTime});
 
-  external set originTime(DOMHighResTimeStamp value);
   external DOMHighResTimeStamp get originTime;
+  external set originTime(DOMHighResTimeStamp value);
 }
 
 /// The **`DocumentTimeline`** interface of the
@@ -173,29 +178,107 @@ extension type Animation._(JSObject _) implements EventTarget, JSObject {
   /// [`style`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#style)
   /// attribute, where they can be modified and replaced as normal.
   external void commitStyles();
-  external set startTime(CSSNumberish? value);
+
+  /// The **`Animation.startTime`** property of the [Animation] interface is a
+  /// double-precision floating-point value which indicates the scheduled time
+  /// when an animation's playback should begin.
+  ///
+  /// An animation's **start time** is the time value of its [DocumentTimeline]
+  /// when its target [KeyframeEffect] is scheduled to begin playback. An
+  /// animation's **start time** is initially unresolved (meaning that it's
+  /// `null` because it has no value).
   external CSSNumberish? get startTime;
-  external set currentTime(CSSNumberish? value);
+  external set startTime(CSSNumberish? value);
+
+  /// The **`Animation.currentTime`** property of the
+  /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+  /// returns and sets the current time value of the animation in milliseconds,
+  /// whether running or paused.
+  ///
+  /// If the animation lacks a [AnimationTimeline], is inactive, or hasn't been
+  /// played yet, `currentTime`'s return value is `null`.
   external CSSNumberish? get currentTime;
-  external set id(String value);
+  external set currentTime(CSSNumberish? value);
+
+  /// The **`Animation.id`** property of the
+  /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+  /// returns or sets a string used to identify the animation.
   external String get id;
-  external set effect(AnimationEffect? value);
+  external set id(String value);
+
+  /// The **`Animation.effect`** property of the
+  /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+  /// gets and sets the target effect of an animation. The target effect may be
+  /// either an effect object of a type based on [AnimationEffect], such as
+  /// [KeyframeEffect], or `null`.
   external AnimationEffect? get effect;
-  external set timeline(AnimationTimeline? value);
+  external set effect(AnimationEffect? value);
+
+  /// The **`Animation.timeline`** property of the [Animation] interface returns
+  /// or sets the [AnimationTimeline] associated with this animation. A timeline
+  /// is a source of time values for synchronization purposes, and is an
+  /// [AnimationTimeline]-based object. By default, the animation's timeline and
+  /// the [Document]'s timeline are the same.
   external AnimationTimeline? get timeline;
-  external set playbackRate(num value);
+  external set timeline(AnimationTimeline? value);
+
+  /// The **`Animation.playbackRate`** property of the
+  /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+  /// returns or sets the playback rate of the animation.
+  ///
+  /// Animations have a **playback rate** that provides a scaling factor from
+  /// the rate of change of the animation's [DocumentTimeline] time values to
+  /// the animation's current time. The playback rate is initially `1`.
   external num get playbackRate;
+  external set playbackRate(num value);
+
+  /// The read-only **`Animation.playState`** property of the
+  /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+  /// returns an enumerated value describing the playback state of an animation.
   external AnimationPlayState get playState;
+
+  /// The read-only **`Animation.replaceState`** property of the
+  /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+  /// indicates whether the animation has been
+  /// [removed by the browser automatically](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API/Using_the_Web_Animations_API#automatically_removing_filling_animations)
+  /// after being replaced by another animation.
   external AnimationReplaceState get replaceState;
+
+  /// The read-only **`Animation.pending`** property of the
+  /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+  /// indicates whether the animation is currently waiting for an asynchronous
+  /// operation such as initiating playback or pausing a running animation.
   external bool get pending;
+
+  /// The read-only **`Animation.ready`** property of the
+  /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+  /// returns a `Promise` which resolves when the animation is ready to play. A
+  /// new promise is created every time the animation enters the `"pending"`
+  /// [play state](https://developer.mozilla.org/en-US/docs/Web/API/Animation/playState)
+  /// as well as when the animation is canceled, since in both of those
+  /// scenarios, the animation is ready to be started again.
+  ///
+  /// > **Note:** Since the same `Promise` is used for both pending `play` and
+  /// > pending `pause` requests, authors are advised to check the state of the
+  /// > animation when the promise is resolved.
   external JSPromise<Animation> get ready;
+
+  /// The **`Animation.finished`** read-only property of the
+  /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+  /// returns a `Promise` which resolves once the animation has finished
+  /// playing.
+  ///
+  /// > **Note:** Every time the animation leaves the `finished` play state
+  /// > (that is, when it starts playing again), a new `Promise` is created for
+  /// > this property. The new `Promise` will resolve once the new animation
+  /// > sequence has completed.
   external JSPromise<Animation> get finished;
-  external set onfinish(EventHandler value);
   external EventHandler get onfinish;
-  external set oncancel(EventHandler value);
+  external set onfinish(EventHandler value);
   external EventHandler get oncancel;
-  external set onremove(EventHandler value);
+  external set oncancel(EventHandler value);
   external EventHandler get onremove;
+  external set onremove(EventHandler value);
 }
 
 /// The `AnimationEffect` interface of the
@@ -261,24 +344,24 @@ extension type EffectTiming._(JSObject _) implements JSObject {
     String easing,
   });
 
-  external set delay(num value);
   external num get delay;
-  external set endDelay(num value);
+  external set delay(num value);
   external num get endDelay;
-  external set playbackRate(num value);
+  external set endDelay(num value);
   external num get playbackRate;
-  external set duration(JSAny value);
+  external set playbackRate(num value);
   external JSAny get duration;
-  external set fill(FillMode value);
+  external set duration(JSAny value);
   external FillMode get fill;
-  external set iterationStart(num value);
+  external set fill(FillMode value);
   external num get iterationStart;
-  external set iterations(num value);
+  external set iterationStart(num value);
   external num get iterations;
-  external set direction(PlaybackDirection value);
+  external set iterations(num value);
   external PlaybackDirection get direction;
-  external set easing(String value);
+  external set direction(PlaybackDirection value);
   external String get easing;
+  external set easing(String value);
 }
 extension type OptionalEffectTiming._(JSObject _) implements JSObject {
   external factory OptionalEffectTiming({
@@ -293,24 +376,24 @@ extension type OptionalEffectTiming._(JSObject _) implements JSObject {
     String easing,
   });
 
-  external set playbackRate(num value);
   external num get playbackRate;
-  external set delay(num value);
+  external set playbackRate(num value);
   external num get delay;
-  external set endDelay(num value);
+  external set delay(num value);
   external num get endDelay;
-  external set fill(FillMode value);
+  external set endDelay(num value);
   external FillMode get fill;
-  external set iterationStart(num value);
+  external set fill(FillMode value);
   external num get iterationStart;
-  external set iterations(num value);
+  external set iterationStart(num value);
   external num get iterations;
-  external set duration(JSAny value);
+  external set iterations(num value);
   external JSAny get duration;
-  external set direction(PlaybackDirection value);
+  external set duration(JSAny value);
   external PlaybackDirection get direction;
-  external set easing(String value);
+  external set direction(PlaybackDirection value);
   external String get easing;
+  external set easing(String value);
 }
 extension type ComputedEffectTiming._(JSObject _)
     implements EffectTiming, JSObject {
@@ -332,18 +415,18 @@ extension type ComputedEffectTiming._(JSObject _)
     num? currentIteration,
   });
 
-  external set startTime(CSSNumberish value);
   external CSSNumberish get startTime;
-  external set endTime(CSSNumberish value);
+  external set startTime(CSSNumberish value);
   external CSSNumberish get endTime;
-  external set activeDuration(CSSNumberish value);
+  external set endTime(CSSNumberish value);
   external CSSNumberish get activeDuration;
-  external set localTime(CSSNumberish? value);
+  external set activeDuration(CSSNumberish value);
   external CSSNumberish? get localTime;
-  external set progress(num? value);
+  external set localTime(CSSNumberish? value);
   external num? get progress;
-  external set currentIteration(num? value);
+  external set progress(num? value);
   external num? get currentIteration;
+  external set currentIteration(num? value);
 }
 
 /// The **`KeyframeEffect`** interface of the
@@ -373,14 +456,36 @@ extension type KeyframeEffect._(JSObject _)
   /// the keyframes that make up the affected `KeyframeEffect` with a new set of
   /// keyframes.
   external void setKeyframes(JSObject? keyframes);
-  external set iterationComposite(IterationCompositeOperation value);
+
+  /// The **`iterationComposite`** property of a [KeyframeEffect] resolves how
+  /// the animation's property value changes accumulate or override each other
+  /// upon each of the animation's iterations.
   external IterationCompositeOperation get iterationComposite;
-  external set target(Element? value);
+  external set iterationComposite(IterationCompositeOperation value);
+
+  /// The **`target`** property of a [KeyframeEffect] interface represents the
+  /// element or pseudo-element being animated. It may be `null` for animations
+  /// that do not target a specific element. It performs as both a getter and a
+  /// setter, except with animations and transitions generated by CSS.
   external Element? get target;
-  external set pseudoElement(String? value);
+  external set target(Element? value);
+
+  /// The **`pseudoElement`** property of a [KeyframeEffect] interface is a
+  /// string representing the pseudo-element being animated. It may be `null`
+  /// for animations that do not target a pseudo-element. It performs as both a
+  /// getter and a setter, except with animations and transitions generated by
+  /// CSS.
+  ///
+  /// > **Note:** If set to the legacy single-colon syntax of , , , or , the
+  /// > string is transformed into its double-colon modern version (, , , and ,
+  /// > respectively).
   external String? get pseudoElement;
-  external set composite(CompositeOperation value);
+  external set pseudoElement(String? value);
+
+  /// The **`composite`** property of a [KeyframeEffect] resolves how an
+  /// element's animation impacts its underlying property values.
   external CompositeOperation get composite;
+  external set composite(CompositeOperation value);
 }
 extension type BaseComputedKeyframe._(JSObject _) implements JSObject {
   external factory BaseComputedKeyframe({
@@ -390,14 +495,14 @@ extension type BaseComputedKeyframe._(JSObject _) implements JSObject {
     CompositeOperationOrAuto composite,
   });
 
-  external set offset(num? value);
   external num? get offset;
-  external set computedOffset(num value);
+  external set offset(num? value);
   external num get computedOffset;
-  external set easing(String value);
+  external set computedOffset(num value);
   external String get easing;
-  external set composite(CompositeOperationOrAuto value);
+  external set easing(String value);
   external CompositeOperationOrAuto get composite;
+  external set composite(CompositeOperationOrAuto value);
 }
 extension type BasePropertyIndexedKeyframe._(JSObject _) implements JSObject {
   external factory BasePropertyIndexedKeyframe({
@@ -406,12 +511,12 @@ extension type BasePropertyIndexedKeyframe._(JSObject _) implements JSObject {
     JSAny composite,
   });
 
-  external set offset(JSAny? value);
   external JSAny? get offset;
-  external set easing(JSAny value);
+  external set offset(JSAny? value);
   external JSAny get easing;
-  external set composite(JSAny value);
+  external set easing(JSAny value);
   external JSAny get composite;
+  external set composite(JSAny value);
 }
 extension type BaseKeyframe._(JSObject _) implements JSObject {
   external factory BaseKeyframe({
@@ -420,12 +525,12 @@ extension type BaseKeyframe._(JSObject _) implements JSObject {
     CompositeOperationOrAuto composite,
   });
 
-  external set offset(num? value);
   external num? get offset;
-  external set easing(String value);
+  external set offset(num? value);
   external String get easing;
-  external set composite(CompositeOperationOrAuto value);
+  external set easing(String value);
   external CompositeOperationOrAuto get composite;
+  external set composite(CompositeOperationOrAuto value);
 }
 extension type KeyframeEffectOptions._(JSObject _)
     implements EffectTiming, JSObject {
@@ -444,12 +549,12 @@ extension type KeyframeEffectOptions._(JSObject _)
     String? pseudoElement,
   });
 
-  external set iterationComposite(IterationCompositeOperation value);
   external IterationCompositeOperation get iterationComposite;
-  external set composite(CompositeOperation value);
+  external set iterationComposite(IterationCompositeOperation value);
   external CompositeOperation get composite;
-  external set pseudoElement(String? value);
+  external set composite(CompositeOperation value);
   external String? get pseudoElement;
+  external set pseudoElement(String? value);
 }
 extension type KeyframeAnimationOptions._(JSObject _)
     implements KeyframeEffectOptions, JSObject {
@@ -472,18 +577,18 @@ extension type KeyframeAnimationOptions._(JSObject _)
     AnimationTimeline? timeline,
   });
 
-  external set rangeStart(JSAny value);
   external JSAny get rangeStart;
-  external set rangeEnd(JSAny value);
+  external set rangeStart(JSAny value);
   external JSAny get rangeEnd;
-  external set id(String value);
+  external set rangeEnd(JSAny value);
   external String get id;
-  external set timeline(AnimationTimeline? value);
+  external set id(String value);
   external AnimationTimeline? get timeline;
+  external set timeline(AnimationTimeline? value);
 }
 extension type GetAnimationsOptions._(JSObject _) implements JSObject {
   external factory GetAnimationsOptions({bool subtree});
 
-  external set subtree(bool value);
   external bool get subtree;
+  external set subtree(bool value);
 }

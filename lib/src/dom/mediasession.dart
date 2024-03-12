@@ -76,10 +76,22 @@ extension type MediaSession._(JSObject _) implements JSObject {
   /// Note that the status of the camera is not tracked in the [MediaSession]
   /// itself, but must be tracked separately.
   external void setCameraActive(bool active);
-  external set metadata(MediaMetadata? value);
+
+  /// The **`metadata`** property of the [MediaSession]
+  /// interface contains a [MediaMetadata] object providing descriptive
+  /// information about the currently playing media, or `null` if the metadata
+  /// has
+  /// not been set. This metadata is provided by the browser to the device for
+  /// presentation in
+  /// any standard media control user interface the device might offer.
   external MediaMetadata? get metadata;
-  external set playbackState(MediaSessionPlaybackState value);
+  external set metadata(MediaMetadata? value);
+
+  /// The **`playbackState`** property of the
+  /// [MediaSession] interface indicates whether the current media session is
+  /// playing or paused.
   external MediaSessionPlaybackState get playbackState;
+  external set playbackState(MediaSessionPlaybackState value);
 }
 
 /// The **`MediaMetadata`** interface of the [Media Session API] allows a web
@@ -92,14 +104,30 @@ extension type MediaSession._(JSObject _) implements JSObject {
 extension type MediaMetadata._(JSObject _) implements JSObject {
   external factory MediaMetadata([MediaMetadataInit init]);
 
-  external set title(String value);
+  /// The **`title`** property of the
+  /// [MediaMetaData] interface returns or sets the title of the media to be
+  /// played.
   external String get title;
-  external set artist(String value);
+  external set title(String value);
+
+  /// The **`artist`** property of the
+  /// [MediaMetaData] interface returns or sets the name of the artist, group,
+  /// creator, etc., of the media to be played.
   external String get artist;
-  external set album(String value);
+  external set artist(String value);
+
+  /// The **`album`** property of the
+  /// [MediaMetaData] interface returns or sets the name of the album or
+  /// collection containing the media to be played.
   external String get album;
-  external set artwork(JSArray<MediaImage> value);
+  external set album(String value);
+
+  /// The **`artwork`** property of the
+  /// [MediaMetaData] interface returns or sets an array of
+  /// objects representing images associated with playing
+  /// media.
   external JSArray<MediaImage> get artwork;
+  external set artwork(JSArray<MediaImage> value);
 }
 extension type MediaMetadataInit._(JSObject _) implements JSObject {
   external factory MediaMetadataInit({
@@ -109,14 +137,14 @@ extension type MediaMetadataInit._(JSObject _) implements JSObject {
     JSArray<MediaImage> artwork,
   });
 
-  external set title(String value);
   external String get title;
-  external set artist(String value);
+  external set title(String value);
   external String get artist;
-  external set album(String value);
+  external set artist(String value);
   external String get album;
-  external set artwork(JSArray<MediaImage> value);
+  external set album(String value);
   external JSArray<MediaImage> get artwork;
+  external set artwork(JSArray<MediaImage> value);
 }
 extension type MediaImage._(JSObject _) implements JSObject {
   external factory MediaImage({
@@ -125,12 +153,12 @@ extension type MediaImage._(JSObject _) implements JSObject {
     String type,
   });
 
-  external set src(String value);
   external String get src;
-  external set sizes(String value);
+  external set src(String value);
   external String get sizes;
-  external set type(String value);
+  external set sizes(String value);
   external String get type;
+  external set type(String value);
 }
 extension type MediaPositionState._(JSObject _) implements JSObject {
   external factory MediaPositionState({
@@ -139,12 +167,12 @@ extension type MediaPositionState._(JSObject _) implements JSObject {
     num position,
   });
 
-  external set duration(num value);
   external num get duration;
-  external set playbackRate(num value);
+  external set duration(num value);
   external num get playbackRate;
-  external set position(num value);
+  external set playbackRate(num value);
   external num get position;
+  external set position(num value);
 }
 extension type MediaSessionActionDetails._(JSObject _) implements JSObject {
   external factory MediaSessionActionDetails({
@@ -154,12 +182,12 @@ extension type MediaSessionActionDetails._(JSObject _) implements JSObject {
     bool fastSeek,
   });
 
-  external set action(MediaSessionAction value);
   external MediaSessionAction get action;
-  external set seekOffset(num value);
+  external set action(MediaSessionAction value);
   external num get seekOffset;
-  external set seekTime(num value);
+  external set seekOffset(num value);
   external num get seekTime;
-  external set fastSeek(bool value);
+  external set seekTime(num value);
   external bool get fastSeek;
+  external set fastSeek(bool value);
 }

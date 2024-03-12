@@ -69,21 +69,53 @@ extension type WebSocket._(JSObject _) implements EventTarget, JSObject {
   /// connection is in the `CLOSING` or `CLOSED` states, the browser will
   /// silently discard the data.
   external void send(JSAny data);
+
+  /// The **`WebSocket.url`** read-only property returns the absolute
+  /// URL of the [WebSocket] as resolved by the constructor.
   external String get url;
+
+  /// The **`WebSocket.readyState`** read-only property returns the
+  /// current state of the [WebSocket] connection.
   external int get readyState;
+
+  /// The **`WebSocket.bufferedAmount`** read-only property returns
+  /// the number of bytes of data that have been queued using calls to
+  /// [`send()`](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/send)
+  /// but
+  /// not yet transmitted to the network. This value resets to zero once all
+  /// queued data has
+  /// been sent. This value does not reset to zero when the connection is
+  /// closed; if you keep
+  /// calling
+  /// [`send()`](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket/send),
+  /// this will continue to climb.
   external int get bufferedAmount;
-  external set onopen(EventHandler value);
   external EventHandler get onopen;
-  external set onerror(EventHandler value);
+  external set onopen(EventHandler value);
   external EventHandler get onerror;
-  external set onclose(EventHandler value);
+  external set onerror(EventHandler value);
   external EventHandler get onclose;
+  external set onclose(EventHandler value);
+
+  /// The **`WebSocket.extensions`** read-only property returns the
+  /// extensions selected by the server. This is currently only the empty string
+  /// or a list of
+  /// extensions as negotiated by the connection.
   external String get extensions;
+
+  /// The **`WebSocket.protocol`** read-only property returns the
+  /// name of the sub-protocol the server selected; this will be one of the
+  /// strings specified
+  /// in the `protocols` parameter when creating the [WebSocket]
+  /// object, or the empty string if no connection is established.
   external String get protocol;
-  external set onmessage(EventHandler value);
   external EventHandler get onmessage;
-  external set binaryType(BinaryType value);
+  external set onmessage(EventHandler value);
+
+  /// The **`WebSocket.binaryType`** property controls the type of
+  /// binary data being received over the WebSocket connection.
   external BinaryType get binaryType;
+  external set binaryType(BinaryType value);
 }
 
 /// A `CloseEvent` is sent to clients using  when the connection is closed. This
@@ -100,8 +132,20 @@ extension type CloseEvent._(JSObject _) implements Event, JSObject {
     CloseEventInit eventInitDict,
   ]);
 
+  /// The **`wasClean`** read-only property of the [CloseEvent] interface
+  /// returns `true` if the connection closed cleanly.
   external bool get wasClean;
+
+  /// The **`code`** read-only property of the [CloseEvent] interface returns a
+  /// [WebSocket connection close code](https://www.rfc-editor.org/rfc/rfc6455.html#section-7.1.5)
+  /// indicating the reason the server gave for closing the connection.
   external int get code;
+
+  /// The **`reason`** read-only property of the [CloseEvent] interface returns
+  /// the
+  /// [WebSocket connection close reason](https://www.rfc-editor.org/rfc/rfc6455.html#section-7.1.6)
+  /// the server gave for closing the connection; that is, a concise
+  /// human-readable prose explanation for the closure.
   external String get reason;
 }
 extension type CloseEventInit._(JSObject _) implements EventInit, JSObject {
@@ -114,10 +158,10 @@ extension type CloseEventInit._(JSObject _) implements EventInit, JSObject {
     String reason,
   });
 
-  external set wasClean(bool value);
   external bool get wasClean;
-  external set code(int value);
+  external set wasClean(bool value);
   external int get code;
-  external set reason(String value);
+  external set code(int value);
   external String get reason;
+  external set reason(String value);
 }

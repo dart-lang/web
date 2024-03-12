@@ -142,6 +142,15 @@ extension type ReadableStream._(JSObject _) implements JSObject {
   /// will generally lock it for the duration, preventing other readers from
   /// locking it.
   external JSArray<ReadableStream> tee();
+
+  /// The **`locked`** read-only property of the [ReadableStream] interface
+  /// returns whether or not the readable stream is locked to a reader.
+  ///
+  /// A readable stream can have at most one active reader at a time, and is
+  /// locked to that reader until it is released.
+  /// A reader might be obtained using
+  /// [`ReadableStream.getReader()`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream/getReader)
+  /// and released using the reader's `releaseLock()` method.
   external bool get locked;
 }
 extension type ReadableStreamGetReaderOptions._(JSObject _)
@@ -149,14 +158,14 @@ extension type ReadableStreamGetReaderOptions._(JSObject _)
   external factory ReadableStreamGetReaderOptions(
       {ReadableStreamReaderMode mode});
 
-  external set mode(ReadableStreamReaderMode value);
   external ReadableStreamReaderMode get mode;
+  external set mode(ReadableStreamReaderMode value);
 }
 extension type ReadableStreamIteratorOptions._(JSObject _) implements JSObject {
   external factory ReadableStreamIteratorOptions({bool preventCancel});
 
-  external set preventCancel(bool value);
   external bool get preventCancel;
+  external set preventCancel(bool value);
 }
 extension type ReadableWritablePair._(JSObject _) implements JSObject {
   external factory ReadableWritablePair({
@@ -164,10 +173,10 @@ extension type ReadableWritablePair._(JSObject _) implements JSObject {
     required WritableStream writable,
   });
 
-  external set readable(ReadableStream value);
   external ReadableStream get readable;
-  external set writable(WritableStream value);
+  external set readable(ReadableStream value);
   external WritableStream get writable;
+  external set writable(WritableStream value);
 }
 extension type StreamPipeOptions._(JSObject _) implements JSObject {
   external factory StreamPipeOptions({
@@ -177,14 +186,14 @@ extension type StreamPipeOptions._(JSObject _) implements JSObject {
     AbortSignal signal,
   });
 
-  external set preventClose(bool value);
   external bool get preventClose;
-  external set preventAbort(bool value);
+  external set preventClose(bool value);
   external bool get preventAbort;
-  external set preventCancel(bool value);
+  external set preventAbort(bool value);
   external bool get preventCancel;
-  external set signal(AbortSignal value);
+  external set preventCancel(bool value);
   external AbortSignal get signal;
+  external set signal(AbortSignal value);
 }
 extension type UnderlyingSource._(JSObject _) implements JSObject {
   external factory UnderlyingSource({
@@ -195,16 +204,16 @@ extension type UnderlyingSource._(JSObject _) implements JSObject {
     int autoAllocateChunkSize,
   });
 
-  external set start(UnderlyingSourceStartCallback value);
   external UnderlyingSourceStartCallback get start;
-  external set pull(UnderlyingSourcePullCallback value);
+  external set start(UnderlyingSourceStartCallback value);
   external UnderlyingSourcePullCallback get pull;
-  external set cancel(UnderlyingSourceCancelCallback value);
+  external set pull(UnderlyingSourcePullCallback value);
   external UnderlyingSourceCancelCallback get cancel;
-  external set type(ReadableStreamType value);
+  external set cancel(UnderlyingSourceCancelCallback value);
   external ReadableStreamType get type;
-  external set autoAllocateChunkSize(int value);
+  external set type(ReadableStreamType value);
   external int get autoAllocateChunkSize;
+  external set autoAllocateChunkSize(int value);
 }
 
 /// The **`ReadableStreamDefaultReader`** interface of the
@@ -272,6 +281,13 @@ extension type ReadableStreamDefaultReader._(JSObject _) implements JSObject {
   /// > `cancel()` method behaves the same as that for the associated stream
   /// > ([ReadableStream.cancel]).
   external JSPromise<JSAny?> cancel([JSAny? reason]);
+
+  /// The **`closed`** read-only property of the
+  /// [ReadableStreamDefaultReader] interface returns a
+  /// `Promise` that fulfills when the stream closes, or rejects if the
+  /// stream throws an error or the reader's lock is released. This property
+  /// enables you
+  /// to write code that responds to an end to the streaming process.
   external JSPromise<JSAny?> get closed;
 }
 extension type ReadableStreamReadResult._(JSObject _) implements JSObject {
@@ -280,10 +296,10 @@ extension type ReadableStreamReadResult._(JSObject _) implements JSObject {
     bool done,
   });
 
-  external set value(JSAny? value);
   external JSAny? get value;
-  external set done(bool value);
+  external set value(JSAny? value);
   external bool get done;
+  external set done(bool value);
 }
 
 /// The `ReadableStreamBYOBReader` interface of the
@@ -379,14 +395,21 @@ extension type ReadableStreamBYOBReader._(JSObject _) implements JSObject {
   /// > **Note:** If the reader is active, the `cancel()` method behaves the
   /// > same as that for the associated stream ([ReadableStream.cancel]).
   external JSPromise<JSAny?> cancel([JSAny? reason]);
+
+  /// The **`closed`** read-only property of the [ReadableStreamBYOBReader]
+  /// interface returns a `Promise` that fulfills when the stream closes, or
+  /// rejects if the stream throws an error or the reader's lock is released.
+  ///
+  /// This property enables you to write code that responds to an end to the
+  /// streaming process.
   external JSPromise<JSAny?> get closed;
 }
 extension type ReadableStreamBYOBReaderReadOptions._(JSObject _)
     implements JSObject {
   external factory ReadableStreamBYOBReaderReadOptions({int min});
 
-  external set min(int value);
   external int get min;
+  external set min(int value);
 }
 
 /// The **`ReadableStreamDefaultController`** interface of the
@@ -425,6 +448,10 @@ extension type ReadableStreamDefaultController._(JSObject _)
   /// > **Note:** The `error()` method can be called
   /// > more than once, and can be called when the stream is not readable.
   external void error([JSAny? e]);
+
+  /// The **`desiredSize`** read-only property of the
+  /// [ReadableStreamDefaultController] interface returns the desired size
+  /// required to fill the stream's internal queue.
   external num? get desiredSize;
 }
 
@@ -523,7 +550,31 @@ extension type ReadableByteStreamController._(JSObject _) implements JSObject {
   /// It can also be called from elsewhere to trigger a stream error, for
   /// example if another part of the system that the stream relies on fails.
   external void error([JSAny? e]);
+
+  /// The **`byobRequest`** read-only property of the
+  /// [ReadableByteStreamController] interface returns the current BYOB request,
+  /// or `null` if there are no pending requests.
+  ///
+  /// An underlying byte source should check this property, and use it to write
+  /// data to the stream if it exists (rather than using
+  /// [ReadableByteStreamController.enqueue]).
+  /// This will result in an efficient zero-byte transfer of the data to the
+  /// consumer.
   external ReadableStreamBYOBRequest? get byobRequest;
+
+  /// The **`desiredSize`** read-only property of the
+  /// [ReadableByteStreamController] interface returns the number of bytes
+  /// required to fill the stream's internal queue to its "desired size".
+  ///
+  /// The value is used by the stream to indicate a preferred flow rate to the
+  /// underlying source.
+  /// Sources that support throttling or pausing their inflow of data (not all
+  /// do!) should control the inflow such that `desiredSize` of the stream
+  /// buffer is kept positive and as close to zero as possible.
+  ///
+  /// The `desiredSize` is used to apply
+  /// [backpressure](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Concepts#backpressure)
+  /// from downstream consumers.
   external num? get desiredSize;
 }
 
@@ -603,6 +654,9 @@ extension type ReadableStreamBYOBRequest._(JSObject _) implements JSObject {
   /// thread, and wait for the worker to transfer it back once it has been
   /// filled.
   external void respondWithNewView(ArrayBufferView view);
+
+  /// The **`view`** getter property of the [ReadableStreamBYOBRequest]
+  /// interface returns the current view.
   external ArrayBufferView? get view;
 }
 
@@ -646,6 +700,10 @@ extension type WritableStream._(JSObject _) implements JSObject {
   /// While the stream is locked, no other writer can be acquired until this one
   /// is released.
   external WritableStreamDefaultWriter getWriter();
+
+  /// The **`locked`** read-only property of the [WritableStream] interface
+  /// returns a boolean indicating whether the `WritableStream` is locked to a
+  /// writer.
   external bool get locked;
 }
 extension type UnderlyingSink._(JSObject _) implements JSObject {
@@ -657,16 +715,16 @@ extension type UnderlyingSink._(JSObject _) implements JSObject {
     JSAny? type,
   });
 
-  external set start(UnderlyingSinkStartCallback value);
   external UnderlyingSinkStartCallback get start;
-  external set write(UnderlyingSinkWriteCallback value);
+  external set start(UnderlyingSinkStartCallback value);
   external UnderlyingSinkWriteCallback get write;
-  external set close(UnderlyingSinkCloseCallback value);
+  external set write(UnderlyingSinkWriteCallback value);
   external UnderlyingSinkCloseCallback get close;
-  external set abort(UnderlyingSinkAbortCallback value);
+  external set close(UnderlyingSinkCloseCallback value);
   external UnderlyingSinkAbortCallback get abort;
-  external set type(JSAny? value);
+  external set abort(UnderlyingSinkAbortCallback value);
   external JSAny? get type;
+  external set type(JSAny? value);
 }
 
 /// The **`WritableStreamDefaultWriter`** interface of the
@@ -725,8 +783,24 @@ extension type WritableStreamDefaultWriter._(JSObject _) implements JSObject {
   /// its ultimate
   /// destination.
   external JSPromise<JSAny?> write([JSAny? chunk]);
+
+  /// The **`closed`** read-only property of the
+  /// [WritableStreamDefaultWriter] interface returns a
+  /// `Promise` that fulfills if the stream becomes closed, or rejects if
+  /// the stream errors or the writer's lock is released.
   external JSPromise<JSAny?> get closed;
+
+  /// The **`desiredSize`** read-only property of the
+  /// [WritableStreamDefaultWriter] interface returns the desired size required
+  /// to fill the stream's internal queue.
   external num? get desiredSize;
+
+  /// The **`ready`** read-only property of the
+  /// [WritableStreamDefaultWriter] interface returns a `Promise`
+  /// that resolves when the desired size of the stream's internal queue
+  /// transitions from
+  /// non-positive to positive, signaling that it is no longer applying
+  /// backpressure.
   external JSPromise<JSAny?> get ready;
 }
 
@@ -754,6 +828,10 @@ extension type WritableStreamDefaultController._(JSObject _)
   /// interactions with
   /// the underlying sink.
   external void error([JSAny? e]);
+
+  /// The read-only **`signal`** property of the
+  /// [WritableStreamDefaultController] interface returns the [AbortSignal]
+  /// associated with the controller.
   external AbortSignal get signal;
 }
 
@@ -786,7 +864,14 @@ extension type TransformStream._(JSObject _) implements JSObject {
     QueuingStrategy readableStrategy,
   ]);
 
+  /// The **`readable`** read-only property of the [TransformStream] interface
+  /// returns the [ReadableStream] instance controlled by this
+  /// `TransformStream`.
   external ReadableStream get readable;
+
+  /// The **`writable`** read-only property of the [TransformStream] interface
+  /// returns the [WritableStream] instance controlled by this
+  /// `TransformStream`.
   external WritableStream get writable;
 }
 extension type Transformer._(JSObject _) implements JSObject {
@@ -799,18 +884,18 @@ extension type Transformer._(JSObject _) implements JSObject {
     JSAny? writableType,
   });
 
-  external set start(TransformerStartCallback value);
   external TransformerStartCallback get start;
-  external set transform(TransformerTransformCallback value);
+  external set start(TransformerStartCallback value);
   external TransformerTransformCallback get transform;
-  external set flush(TransformerFlushCallback value);
+  external set transform(TransformerTransformCallback value);
   external TransformerFlushCallback get flush;
-  external set cancel(TransformerCancelCallback value);
+  external set flush(TransformerFlushCallback value);
   external TransformerCancelCallback get cancel;
-  external set readableType(JSAny? value);
+  external set cancel(TransformerCancelCallback value);
   external JSAny? get readableType;
-  external set writableType(JSAny? value);
+  external set readableType(JSAny? value);
   external JSAny? get writableType;
+  external set writableType(JSAny? value);
 }
 
 /// The **`TransformStreamDefaultController`** interface of the
@@ -847,6 +932,20 @@ extension type TransformStreamDefaultController._(JSObject _)
   /// interface closes the readable side and errors the writable side of the
   /// stream.
   external void terminate();
+
+  /// The **`desiredSize`** read-only property of the
+  /// [TransformStreamDefaultController] interface returns the desired size to
+  /// fill the queue of the associated [ReadableStream].
+  ///
+  /// The internal queue of a `ReadableStream` contains chunks that have been
+  /// enqueued, but not yet read. The browser determines the **desired size** to
+  /// fill the stream, and it is this value returned by the `desiredSize`
+  /// property.
+  ///
+  /// If the `desiredSize` is `0` then the queue is full. Therefore you can use
+  /// this information to
+  /// [manually apply backpressure](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Concepts#backpressure)
+  /// to manage the queue.
   external num? get desiredSize;
 }
 extension type QueuingStrategy._(JSObject _) implements JSObject {
@@ -855,16 +954,16 @@ extension type QueuingStrategy._(JSObject _) implements JSObject {
     QueuingStrategySize size,
   });
 
-  external set highWaterMark(num value);
   external num get highWaterMark;
-  external set size(QueuingStrategySize value);
+  external set highWaterMark(num value);
   external QueuingStrategySize get size;
+  external set size(QueuingStrategySize value);
 }
 extension type QueuingStrategyInit._(JSObject _) implements JSObject {
   external factory QueuingStrategyInit({required num highWaterMark});
 
-  external set highWaterMark(num value);
   external num get highWaterMark;
+  external set highWaterMark(num value);
 }
 
 /// The **`ByteLengthQueuingStrategy`** interface of the
@@ -879,7 +978,25 @@ extension type QueuingStrategyInit._(JSObject _) implements JSObject {
 extension type ByteLengthQueuingStrategy._(JSObject _) implements JSObject {
   external factory ByteLengthQueuingStrategy(QueuingStrategyInit init);
 
+  /// The read-only **`ByteLengthQueuingStrategy.highWaterMark`** property
+  /// returns the total number of bytes that can be contained in the internal
+  /// queue before
+  /// [backpressure](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Concepts#backpressure)
+  /// is applied.
+  ///
+  /// > **Note:** Unlike
+  /// > [`CountQueuingStrategy()`](https://developer.mozilla.org/en-US/docs/Web/API/CountQueuingStrategy/CountQueuingStrategy)
+  /// > where the `highWaterMark` property specifies a simple count of the
+  /// > number of chunks, with `ByteLengthQueuingStrategy()`, the
+  /// > `highWaterMark` parameter specifies a number of _bytes_ — specifically,
+  /// > given a stream of chunks, how many bytes worth of those chunks (rather
+  /// > than a count of how many of those chunks) can be contained in the
+  /// > internal queue before backpressure is applied.
   external num get highWaterMark;
+
+  /// The **`size()`** method of the
+  /// [ByteLengthQueuingStrategy] interface returns the given chunk's
+  /// `byteLength` property.
   external JSFunction get size;
 }
 
@@ -895,6 +1012,13 @@ extension type ByteLengthQueuingStrategy._(JSObject _) implements JSObject {
 extension type CountQueuingStrategy._(JSObject _) implements JSObject {
   external factory CountQueuingStrategy(QueuingStrategyInit init);
 
+  /// The read-only **`CountQueuingStrategy.highWaterMark`** property returns
+  /// the total number of chunks that can be contained in the internal queue
+  /// before backpressure is applied.
   external num get highWaterMark;
+
+  /// The **`size()`** method of the
+  /// [CountQueuingStrategy] interface always returns `1`, so that the
+  /// total queue size is a count of the number of chunks in the queue.
   external JSFunction get size;
 }

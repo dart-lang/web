@@ -1,6 +1,6 @@
 name: web
 version: 0.6.0-wip
-description: Lightweight browser API bindings built around JS static interop.
+description: Lightweight browser API bindings built around JS interop.
 repository: https://github.com/dart-lang/web
 
 environment:

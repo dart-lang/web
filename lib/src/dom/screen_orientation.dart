@@ -45,8 +45,18 @@ extension type ScreenOrientation._(JSObject _)
   /// [ScreenOrientation] interface unlocks the orientation of the containing
   /// document from its default orientation.
   external void unlock();
+
+  /// The **`type`** read-only property of the
+  /// [ScreenOrientation] interface returns the document's current orientation
+  /// type, one of `portrait-primary`, `portrait-secondary`,
+  /// `landscape-primary`, or
+  /// `landscape-secondary`.
   external OrientationType get type;
+
+  /// The **`angle`** read-only property of the
+  /// [ScreenOrientation] interface returns the document's current orientation
+  /// angle.
   external int get angle;
-  external set onchange(EventHandler value);
   external EventHandler get onchange;
+  external set onchange(EventHandler value);
 }

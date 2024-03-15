@@ -65,7 +65,25 @@ extension type DOMException._(JSObject _) implements JSObject {
   external static int get TIMEOUT_ERR;
   external static int get INVALID_NODE_TYPE_ERR;
   external static int get DATA_CLONE_ERR;
+
+  /// The **`name`** read-only property of the
+  /// [DOMException] interface returns a string that contains
+  /// one of the strings associated with an
+  /// [error name](https://developer.mozilla.org/en-US/docs/Web/API/DOMException#error_names).
   external String get name;
+
+  /// The **`message`** read-only property of the
+  /// [DOMException] interface returns a string representing
+  /// a message or description associated with the given
+  /// [error name](https://developer.mozilla.org/en-US/docs/Web/API/DOMException#error_names).
   external String get message;
+
+  /// The **`code`** read-only property of the [DOMException] interface returns
+  /// one of the legacy
+  /// [error code constants](https://developer.mozilla.org/en-US/docs/Web/API/DOMException#error_names),
+  /// or `0` if none match.
+  ///
+  /// This field is used for historical reasons. New DOM exceptions don't use
+  /// this anymore: they put this info in the [DOMException.name] attribute.
   external int get code;
 }

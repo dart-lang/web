@@ -64,7 +64,24 @@ extension type Blob._(JSObject _) implements JSObject {
   /// as
   /// binary data contained in an `ArrayBuffer`.
   external JSPromise<JSArrayBuffer> arrayBuffer();
+
+  /// The **`size`** read-only property of the [Blob] interface returns
+  /// the size of the [Blob] or [File] in bytes.
   external int get size;
+
+  /// The **`type`** read-only property of the [Blob] interface returns the  of
+  /// the file.
+  ///
+  /// > **Note:** Based on the current implementation, browsers won't actually
+  /// > read the bytestream of a file to determine its media type.
+  /// > It is assumed based on the file extension; a PNG image file renamed to
+  /// > .txt would give "_text/plain_" and not "_image/png_". Moreover,
+  /// > `blob.type` is generally reliable only for common file types like
+  /// > images, HTML documents, audio and video.
+  /// > Uncommon file extensions would return an empty string.
+  /// > Client configuration (for instance, the Windows Registry) may result in
+  /// > unexpected values even for common types. **Developers are advised not to
+  /// > rely on this property as a sole validation scheme.**
   external String get type;
 }
 extension type BlobPropertyBag._(JSObject _) implements JSObject {
@@ -73,10 +90,10 @@ extension type BlobPropertyBag._(JSObject _) implements JSObject {
     EndingType endings,
   });
 
-  external set type(String value);
   external String get type;
-  external set endings(EndingType value);
+  external set type(String value);
   external EndingType get endings;
+  external set endings(EndingType value);
 }
 
 /// The **`File`** interface provides information about files and allows
@@ -107,8 +124,25 @@ extension type File._(JSObject _) implements Blob, JSObject {
     FilePropertyBag options,
   ]);
 
+  /// The **`name`** read-only property of the [File] interface returns the name
+  /// of the file represented by a [File] object. For security
+  /// reasons, the path is excluded from this property.
   external String get name;
+
+  /// The **`lastModified`** read-only property of the [File] interface provides
+  /// the
+  /// last modified date of the file as the number of milliseconds since the
+  /// Unix
+  /// epoch (January 1, 1970 at midnight). Files without a known last modified
+  /// date return the
+  /// current date.
   external int get lastModified;
+
+  /// The **`webkitRelativePath`** read-only property of the [File] interface
+  /// contains a string which specifies the file's path relative to the
+  /// directory selected by the user in an `input` element with its
+  /// [`webkitdirectory`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#webkitdirectory)
+  /// attribute set.
   external String get webkitRelativePath;
 }
 extension type FilePropertyBag._(JSObject _)
@@ -119,8 +153,8 @@ extension type FilePropertyBag._(JSObject _)
     int lastModified,
   });
 
-  external set lastModified(int value);
   external int get lastModified;
+  external set lastModified(int value);
 }
 
 /// The **`FileList`** interface represents an object of this type returned by
@@ -160,6 +194,9 @@ extension type FileList._(JSObject _) implements JSObject {
   /// The **`item()`** method of the [FileList] interface returns a [File]
   /// object representing the file at the specified index in the file list.
   external File? item(int index);
+
+  /// The **`length`** read-only property of the [FileList] interface returns
+  /// the number of files in the `FileList`.
   external int get length;
 }
 
@@ -264,21 +301,50 @@ extension type FileReader._(JSObject _) implements EventTarget, JSObject {
   /// operation. Upon return,
   /// the [FileReader.readyState] will be `DONE`.
   external void abort();
+
+  /// The **`readyState`** read-only property of the [FileReader] interface
+  /// provides the current state of the reading operation a `FileReader` is in.
+  /// A `FileReader` exists in one of the following states:
+  ///
+  /// | Value | State     | Description                                                   |
+  /// | ----- | --------- | ------------------------------------------------------------- |
+  /// | `0`   | `EMPTY`   | Reader has been created. None of the read methods called yet. |
+  /// | `1`   | `LOADING` | A read method has been called.                                |
+  /// | `2`   | `DONE`    | The operation is complete.                                    |
+  ///
+  /// - `EMPTY`
+  ///   - : The `FileReader` has been created, but no readAs method was called yet.
+  /// - `LOADING`
+  ///   - : A readAs method was invoked. A [File] or [Blob] is being read, and no error has occurred yet.
+  /// - `DONE`
+  ///   - : The read operation is complete. This could mean that: the entire [File] or [Blob] has been read into memory, a file read error occurred, or [FileReader.abort] was called and the read was cancelled.
   external int get readyState;
+
+  /// The **`result`** read-only property of the [FileReader] interface returns
+  /// the
+  /// file's contents. This property is only valid after the read operation is
+  /// complete, and
+  /// the format of the data depends on which of the methods was used to
+  /// initiate the read
+  /// operation.
   external JSAny? get result;
+
+  /// The **`error`** read-only property of the [FileReader] interface returns
+  /// the
+  /// error that occurred while reading the file.
   external DOMException? get error;
-  external set onloadstart(EventHandler value);
   external EventHandler get onloadstart;
-  external set onprogress(EventHandler value);
+  external set onloadstart(EventHandler value);
   external EventHandler get onprogress;
-  external set onload(EventHandler value);
+  external set onprogress(EventHandler value);
   external EventHandler get onload;
-  external set onabort(EventHandler value);
+  external set onload(EventHandler value);
   external EventHandler get onabort;
-  external set onerror(EventHandler value);
+  external set onabort(EventHandler value);
   external EventHandler get onerror;
-  external set onloadend(EventHandler value);
+  external set onerror(EventHandler value);
   external EventHandler get onloadend;
+  external set onloadend(EventHandler value);
 }
 
 /// The **`FileReaderSync`** interface allows to read [File] or [Blob] objects

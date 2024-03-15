@@ -28,6 +28,34 @@ import 'css_conditional.dart';
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSContainerRule).
 extension type CSSContainerRule._(JSObject _)
     implements CSSConditionRule, JSObject {
+  /// The read-only **`containerName`** property of the [CSSContainerRule]
+  /// interface represents the container name of the associated CSS  at-rule.
+  ///
+  /// For example, the value of `containerName` for the  below is `sidebar`:
+  ///
+  /// ```css
+  /// @container sidebar (min-width: 700px) {
+  ///   .card {
+  ///     font-size: 2em;
+  ///   }
+  /// }
+  /// ```
   external String get containerName;
+
+  /// The read-only **`containerQuery`** property of the [CSSContainerRule]
+  /// interface returns a string representing the container conditions that are
+  /// evaluated when the container changes size in order to determine if the
+  /// styles in the associated  are applied.
+  ///
+  /// For example, the value of `containerQuery` for the  below is `(min-width:
+  /// 700px)`:
+  ///
+  /// ```css
+  /// @container sidebar (min-width: 700px) {
+  ///   .card {
+  ///     font-size: 2em;
+  ///   }
+  /// }
+  /// ```
   external String get containerQuery;
 }

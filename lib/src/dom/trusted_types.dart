@@ -160,8 +160,30 @@ extension type TrustedTypePolicyFactory._(JSObject _) implements JSObject {
     String property, [
     String elementNs,
   ]);
+
+  /// The **`emptyHTML`** read-only property of the [TrustedTypePolicyFactory]
+  /// interface returns a [TrustedHTML] object containing an empty string.
+  ///
+  /// This object can be used when the application requires an empty string to
+  /// be inserted into an injection sink.
   external TrustedHTML get emptyHTML;
+
+  /// The **`emptyScript`** read-only property of the [TrustedTypePolicyFactory]
+  /// interface returns a [TrustedScript] object containing an empty string.
+  ///
+  /// This object can be used when the application requires an empty string to
+  /// be inserted into an injection sink which is expecting a `TrustedScript`
+  /// object.
   external TrustedScript get emptyScript;
+
+  /// The **`defaultPolicy`** read-only property of the
+  /// [TrustedTypePolicyFactory] interface returns the default
+  /// [TrustedTypePolicy] or null if this is empty.
+  ///
+  /// > **Note:** Information about the creation and use of default policies can
+  /// > be found in the
+  /// > [`createPolicy()`](/en-US/docs/Web/API/TrustedTypePolicyFactory/createPolicy#default_policy)
+  /// > documentation.
   external TrustedTypePolicy? get defaultPolicy;
 }
 
@@ -200,6 +222,9 @@ extension type TrustedTypePolicy._(JSObject _) implements JSObject {
     String input,
     JSAny? arguments,
   );
+
+  /// The **`name`** read-only property of the [TrustedTypePolicy] interface
+  /// returns the name of the policy.
   external String get name;
 }
 extension type TrustedTypePolicyOptions._(JSObject _) implements JSObject {
@@ -209,10 +234,10 @@ extension type TrustedTypePolicyOptions._(JSObject _) implements JSObject {
     CreateScriptURLCallback createScriptURL,
   });
 
-  external set createHTML(CreateHTMLCallback value);
   external CreateHTMLCallback get createHTML;
-  external set createScript(CreateScriptCallback value);
+  external set createHTML(CreateHTMLCallback value);
   external CreateScriptCallback get createScript;
-  external set createScriptURL(CreateScriptURLCallback value);
+  external set createScript(CreateScriptCallback value);
   external CreateScriptURLCallback get createScriptURL;
+  external set createScriptURL(CreateScriptURLCallback value);
 }

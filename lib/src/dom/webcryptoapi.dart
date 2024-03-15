@@ -56,19 +56,23 @@ extension type Crypto._(JSObject _) implements JSObject {
   /// The **`randomUUID()`** method of the [Crypto] interface is used to
   /// generate a v4  using a cryptographically secure random number generator.
   external String randomUUID();
+
+  /// The **`Crypto.subtle`** read-only property returns a
+  /// [SubtleCrypto] which can then be used to perform low-level
+  /// cryptographic operations.
   external SubtleCrypto get subtle;
 }
 extension type Algorithm._(JSObject _) implements JSObject {
   external factory Algorithm({required String name});
 
-  external set name(String value);
   external String get name;
+  external set name(String value);
 }
 extension type KeyAlgorithm._(JSObject _) implements JSObject {
   external factory KeyAlgorithm({required String name});
 
-  external set name(String value);
   external String get name;
+  external set name(String value);
 }
 
 /// The **`CryptoKey`** interface of the
@@ -85,9 +89,39 @@ extension type KeyAlgorithm._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CryptoKey).
 extension type CryptoKey._(JSObject _) implements JSObject {
+  /// The read-only **`type`** property of the [CryptoKey] interface indicates
+  /// which kind of key is represented by the object. It can have the following
+  /// values:
+  ///
+  /// - `"secret"`: This key is a secret key for use with a .
+  /// - `"private"`: This key is the private half of an
+  ///   [`CryptoKeyPair`](https://developer.mozilla.org/en-US/docs/Web/API/CryptoKeyPair).
+  /// - `"public"`: This key is the public half of an
+  ///   [`CryptoKeyPair`](https://developer.mozilla.org/en-US/docs/Web/API/CryptoKeyPair).
   external KeyType get type;
+
+  /// The read-only **`extractable`** property of the [CryptoKey] interface
+  /// indicates whether or not the key may be extracted using
+  /// [`SubtleCrypto.exportKey()`](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/exportKey)
+  /// or
+  /// [`SubtleCrypto.wrapKey()`](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/wrapKey).
+  ///
+  /// If the key cannot be exported,
+  /// [`exportKey()`](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/exportKey)
+  /// or
+  /// [`wrapKey()`](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/wrapKey)
+  /// will throw an exception if used to extract it.
   external bool get extractable;
+
+  /// The read-only **`algorithm`** property of the [CryptoKey] interface
+  /// returns an object describing the algorithm for which this key can be used,
+  /// and any associated extra parameters.
+  ///
+  /// The object returned depends of the algorithm used to generate the key.
   external JSObject get algorithm;
+
+  /// The read-only **`usages`** property of the [CryptoKey] interface indicates
+  /// what can be done with the key.
   external JSObject get usages;
 }
 
@@ -359,12 +393,12 @@ extension type RsaOtherPrimesInfo._(JSObject _) implements JSObject {
     String t,
   });
 
-  external set r(String value);
   external String get r;
-  external set d(String value);
+  external set r(String value);
   external String get d;
-  external set t(String value);
+  external set d(String value);
   external String get t;
+  external set t(String value);
 }
 extension type JsonWebKey._(JSObject _) implements JSObject {
   external factory JsonWebKey({
@@ -388,42 +422,42 @@ extension type JsonWebKey._(JSObject _) implements JSObject {
     String k,
   });
 
-  external set kty(String value);
   external String get kty;
-  external set use(String value);
+  external set kty(String value);
   external String get use;
-  external set key_ops(JSArray<JSString> value);
+  external set use(String value);
   external JSArray<JSString> get key_ops;
-  external set alg(String value);
+  external set key_ops(JSArray<JSString> value);
   external String get alg;
-  external set ext(bool value);
+  external set alg(String value);
   external bool get ext;
-  external set crv(String value);
+  external set ext(bool value);
   external String get crv;
-  external set x(String value);
+  external set crv(String value);
   external String get x;
-  external set y(String value);
+  external set x(String value);
   external String get y;
-  external set d(String value);
+  external set y(String value);
   external String get d;
-  external set n(String value);
+  external set d(String value);
   external String get n;
-  external set e(String value);
+  external set n(String value);
   external String get e;
-  external set p(String value);
+  external set e(String value);
   external String get p;
-  external set q(String value);
+  external set p(String value);
   external String get q;
-  external set dp(String value);
+  external set q(String value);
   external String get dp;
-  external set dq(String value);
+  external set dp(String value);
   external String get dq;
-  external set qi(String value);
+  external set dq(String value);
   external String get qi;
-  external set oth(JSArray<RsaOtherPrimesInfo> value);
+  external set qi(String value);
   external JSArray<RsaOtherPrimesInfo> get oth;
-  external set k(String value);
+  external set oth(JSArray<RsaOtherPrimesInfo> value);
   external String get k;
+  external set k(String value);
 }
 
 /// The **`CryptoKeyPair`** dictionary of the
@@ -450,10 +484,10 @@ extension type CryptoKeyPair._(JSObject _) implements JSObject {
     CryptoKey privateKey,
   });
 
-  external set publicKey(CryptoKey value);
   external CryptoKey get publicKey;
-  external set privateKey(CryptoKey value);
+  external set publicKey(CryptoKey value);
   external CryptoKey get privateKey;
+  external set privateKey(CryptoKey value);
 }
 extension type RsaKeyGenParams._(JSObject _) implements Algorithm, JSObject {
   external factory RsaKeyGenParams({
@@ -462,10 +496,10 @@ extension type RsaKeyGenParams._(JSObject _) implements Algorithm, JSObject {
     required BigInteger publicExponent,
   });
 
-  external set modulusLength(int value);
   external int get modulusLength;
-  external set publicExponent(BigInteger value);
+  external set modulusLength(int value);
   external BigInteger get publicExponent;
+  external set publicExponent(BigInteger value);
 }
 
 /// The **`RsaHashedKeyGenParams`** dictionary of the
@@ -491,8 +525,8 @@ extension type RsaHashedKeyGenParams._(JSObject _)
     required HashAlgorithmIdentifier hash,
   });
 
-  external set hash(HashAlgorithmIdentifier value);
   external HashAlgorithmIdentifier get hash;
+  external set hash(HashAlgorithmIdentifier value);
 }
 extension type RsaKeyAlgorithm._(JSObject _) implements KeyAlgorithm, JSObject {
   external factory RsaKeyAlgorithm({
@@ -501,10 +535,10 @@ extension type RsaKeyAlgorithm._(JSObject _) implements KeyAlgorithm, JSObject {
     required BigInteger publicExponent,
   });
 
-  external set modulusLength(int value);
   external int get modulusLength;
-  external set publicExponent(BigInteger value);
+  external set modulusLength(int value);
   external BigInteger get publicExponent;
+  external set publicExponent(BigInteger value);
 }
 extension type RsaHashedKeyAlgorithm._(JSObject _)
     implements RsaKeyAlgorithm, JSObject {
@@ -515,8 +549,8 @@ extension type RsaHashedKeyAlgorithm._(JSObject _)
     required KeyAlgorithm hash,
   });
 
-  external set hash(KeyAlgorithm value);
   external KeyAlgorithm get hash;
+  external set hash(KeyAlgorithm value);
 }
 
 /// The **`RsaHashedImportParams`** dictionary of the
@@ -540,8 +574,8 @@ extension type RsaHashedImportParams._(JSObject _)
     required HashAlgorithmIdentifier hash,
   });
 
-  external set hash(HashAlgorithmIdentifier value);
   external HashAlgorithmIdentifier get hash;
+  external set hash(HashAlgorithmIdentifier value);
 }
 
 /// The **`RsaPssParams`** dictionary of the
@@ -561,8 +595,8 @@ extension type RsaPssParams._(JSObject _) implements Algorithm, JSObject {
     required int saltLength,
   });
 
-  external set saltLength(int value);
   external int get saltLength;
+  external set saltLength(int value);
 }
 
 /// The **`RsaOaepParams`** dictionary of the
@@ -583,8 +617,8 @@ extension type RsaOaepParams._(JSObject _) implements Algorithm, JSObject {
     BufferSource label,
   });
 
-  external set label(BufferSource value);
   external BufferSource get label;
+  external set label(BufferSource value);
 }
 
 /// The **`EcdsaParams`** dictionary of the
@@ -604,8 +638,8 @@ extension type EcdsaParams._(JSObject _) implements Algorithm, JSObject {
     required HashAlgorithmIdentifier hash,
   });
 
-  external set hash(HashAlgorithmIdentifier value);
   external HashAlgorithmIdentifier get hash;
+  external set hash(HashAlgorithmIdentifier value);
 }
 
 /// The **`EcKeyGenParams`** dictionary of the
@@ -627,8 +661,8 @@ extension type EcKeyGenParams._(JSObject _) implements Algorithm, JSObject {
     required NamedCurve namedCurve,
   });
 
-  external set namedCurve(NamedCurve value);
   external NamedCurve get namedCurve;
+  external set namedCurve(NamedCurve value);
 }
 extension type EcKeyAlgorithm._(JSObject _) implements KeyAlgorithm, JSObject {
   external factory EcKeyAlgorithm({
@@ -636,8 +670,8 @@ extension type EcKeyAlgorithm._(JSObject _) implements KeyAlgorithm, JSObject {
     required NamedCurve namedCurve,
   });
 
-  external set namedCurve(NamedCurve value);
   external NamedCurve get namedCurve;
+  external set namedCurve(NamedCurve value);
 }
 
 /// The **`EcKeyImportParams`** dictionary of the
@@ -660,8 +694,8 @@ extension type EcKeyImportParams._(JSObject _) implements Algorithm, JSObject {
     required NamedCurve namedCurve,
   });
 
-  external set namedCurve(NamedCurve value);
   external NamedCurve get namedCurve;
+  external set namedCurve(NamedCurve value);
 }
 
 /// The **`EcdhKeyDeriveParams`** dictionary of the
@@ -691,8 +725,8 @@ extension type EcdhKeyDeriveParams._(JSObject _)
     required CryptoKey public,
   });
 
-  external set public(CryptoKey value);
   external CryptoKey get public;
+  external set public(CryptoKey value);
 }
 
 /// The **`AesCtrParams`** dictionary of the
@@ -746,10 +780,10 @@ extension type AesCtrParams._(JSObject _) implements Algorithm, JSObject {
     required int length,
   });
 
-  external set counter(BufferSource value);
   external BufferSource get counter;
-  external set length(int value);
+  external set counter(BufferSource value);
   external int get length;
+  external set length(int value);
 }
 extension type AesKeyAlgorithm._(JSObject _) implements KeyAlgorithm, JSObject {
   external factory AesKeyAlgorithm({
@@ -757,8 +791,8 @@ extension type AesKeyAlgorithm._(JSObject _) implements KeyAlgorithm, JSObject {
     required int length,
   });
 
-  external set length(int value);
   external int get length;
+  external set length(int value);
 }
 
 /// The **`AesKeyGenParams`** dictionary of the
@@ -782,8 +816,8 @@ extension type AesKeyGenParams._(JSObject _) implements Algorithm, JSObject {
     required int length,
   });
 
-  external set length(int value);
   external int get length;
+  external set length(int value);
 }
 extension type AesDerivedKeyParams._(JSObject _)
     implements Algorithm, JSObject {
@@ -792,8 +826,8 @@ extension type AesDerivedKeyParams._(JSObject _)
     required int length,
   });
 
-  external set length(int value);
   external int get length;
+  external set length(int value);
 }
 
 /// The **`AesCbcParams`** dictionary of the
@@ -814,8 +848,8 @@ extension type AesCbcParams._(JSObject _) implements Algorithm, JSObject {
     required BufferSource iv,
   });
 
-  external set iv(BufferSource value);
   external BufferSource get iv;
+  external set iv(BufferSource value);
 }
 
 /// The **`AesGcmParams`** dictionary of the
@@ -843,12 +877,12 @@ extension type AesGcmParams._(JSObject _) implements Algorithm, JSObject {
     int tagLength,
   });
 
-  external set iv(BufferSource value);
   external BufferSource get iv;
-  external set additionalData(BufferSource value);
+  external set iv(BufferSource value);
   external BufferSource get additionalData;
-  external set tagLength(int value);
+  external set additionalData(BufferSource value);
   external int get tagLength;
+  external set tagLength(int value);
 }
 
 /// The **`HmacImportParams`** dictionary of the
@@ -870,10 +904,10 @@ extension type HmacImportParams._(JSObject _) implements Algorithm, JSObject {
     int length,
   });
 
-  external set hash(HashAlgorithmIdentifier value);
   external HashAlgorithmIdentifier get hash;
-  external set length(int value);
+  external set hash(HashAlgorithmIdentifier value);
   external int get length;
+  external set length(int value);
 }
 extension type HmacKeyAlgorithm._(JSObject _)
     implements KeyAlgorithm, JSObject {
@@ -883,10 +917,10 @@ extension type HmacKeyAlgorithm._(JSObject _)
     required int length,
   });
 
-  external set hash(KeyAlgorithm value);
   external KeyAlgorithm get hash;
-  external set length(int value);
+  external set hash(KeyAlgorithm value);
   external int get length;
+  external set length(int value);
 }
 
 /// The **`HmacKeyGenParams`** dictionary of the
@@ -907,10 +941,10 @@ extension type HmacKeyGenParams._(JSObject _) implements Algorithm, JSObject {
     int length,
   });
 
-  external set hash(HashAlgorithmIdentifier value);
   external HashAlgorithmIdentifier get hash;
-  external set length(int value);
+  external set hash(HashAlgorithmIdentifier value);
   external int get length;
+  external set length(int value);
 }
 
 /// The **`HkdfParams`** dictionary of the
@@ -932,12 +966,12 @@ extension type HkdfParams._(JSObject _) implements Algorithm, JSObject {
     required BufferSource info,
   });
 
-  external set hash(HashAlgorithmIdentifier value);
   external HashAlgorithmIdentifier get hash;
-  external set salt(BufferSource value);
+  external set hash(HashAlgorithmIdentifier value);
   external BufferSource get salt;
-  external set info(BufferSource value);
+  external set salt(BufferSource value);
   external BufferSource get info;
+  external set info(BufferSource value);
 }
 
 /// The **`Pbkdf2Params`** dictionary of the
@@ -959,10 +993,10 @@ extension type Pbkdf2Params._(JSObject _) implements Algorithm, JSObject {
     required HashAlgorithmIdentifier hash,
   });
 
-  external set salt(BufferSource value);
   external BufferSource get salt;
-  external set iterations(int value);
+  external set salt(BufferSource value);
   external int get iterations;
-  external set hash(HashAlgorithmIdentifier value);
+  external set iterations(int value);
   external HashAlgorithmIdentifier get hash;
+  external set hash(HashAlgorithmIdentifier value);
 }

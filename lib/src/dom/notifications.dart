@@ -61,28 +61,151 @@ extension type Notification._(JSObject _) implements EventTarget, JSObject {
   /// > already playing
   /// > in a music app).
   external void close();
-  external set onclick(EventHandler value);
   external EventHandler get onclick;
-  external set onshow(EventHandler value);
+  external set onclick(EventHandler value);
   external EventHandler get onshow;
-  external set onerror(EventHandler value);
+  external set onshow(EventHandler value);
   external EventHandler get onerror;
-  external set onclose(EventHandler value);
+  external set onerror(EventHandler value);
   external EventHandler get onclose;
+  external set onclose(EventHandler value);
+
+  /// The **`title`** read-only property of the
+  /// [Notification] interface indicates the title of the notification, as
+  /// specified in the `title` parameter of the
+  /// [Notification.Notification] constructor.
   external String get title;
+
+  /// The **`dir`** read-only property of the [Notification] interface indicates
+  /// the text direction of the notification, as specified in the `dir` option
+  /// of the [Notification.Notification] constructor.
   external NotificationDirection get dir;
+
+  /// The **`lang`** read-only property of the
+  /// [Notification] interface indicates the language used in the notification,
+  /// as specified in the `lang` option of the
+  /// [Notification.Notification] constructor.
+  ///
+  /// The language itself is specified using a string representing a language
+  /// tag according to `5646, "Tags for Identifying Languages (also known as BCP
+  /// 47)"`.
+  /// See the Sitepoint
+  /// [ISO 2 letter language codes](https://www.sitepoint.com/iso-2-letter-language-codes/)
+  /// page for a simple reference.
   external String get lang;
+
+  /// The **`body`** read-only property of the
+  /// [Notification] interface indicates the body string of the notification, as
+  /// specified in the `body` option of the
+  /// [Notification.Notification] constructor.
   external String get body;
+
+  /// The **`tag`** read-only property of the
+  /// [Notification] interface signifies an identifying tag for the
+  /// notification,
+  /// as specified in the `tag` option of the
+  /// [Notification.Notification] constructor.
+  ///
+  /// The idea of notification tags is that more than one notification can share
+  /// the same
+  /// tag, linking them together. One notification can then be programmatically
+  /// replaced with
+  /// another to avoid the users' screen being filled up with a huge number of
+  /// similar
+  /// notifications.
   external String get tag;
+
+  /// The **`image`** read-only property of the
+  /// [Notification] interface contains the URL of an image to be displayed as
+  /// part of the notification, as specified in the `image` option of the
+  /// [Notification.Notification] constructor.
   external String get image;
+
+  /// The **`icon`** read-only property of the
+  /// [Notification] interface contains the URL of an icon to be displayed as
+  /// part of the notification, as specified in the `icon` option of the
+  /// [Notification.Notification] constructor.
   external String get icon;
+
+  /// The **`badge`** read-only property of the [Notification] interface returns
+  /// a string containing the URL of an image to represent the notification when
+  /// there is not enough space to display the notification itself such as for
+  /// example, the Android Notification Bar. On Android devices, the badge
+  /// should accommodate devices up to 4x resolution, about 96 by 96 px, and the
+  /// image will be automatically masked.
   external String get badge;
+
+  /// The **`vibrate`** read-only property of the [Notification]
+  /// interface specifies a
+  /// [vibration pattern](https://developer.mozilla.org/en-US/docs/Web/API/Vibration_API#vibration_patterns)
+  /// for the device's vibration hardware to emit when the notification fires.
+  /// This is
+  /// specified in the `vibrate` option of the
+  /// [Notification.Notification] constructor.
   external JSArray<JSNumber> get vibrate;
+
+  /// The **`timestamp`** read-only property of the
+  /// [Notification] interface returns a number, as
+  /// specified in the `timestamp` option of the
+  /// [Notification.Notification] constructor.
+  ///
+  /// The notification's timestamp can represent the time, in milliseconds since
+  /// 00:00:00 UTC
+  /// on 1 January 1970, of the event for which the notification was created, or
+  /// it can be an
+  /// arbitrary timestamp that you want associated with the notification. For
+  /// example, a
+  /// timestamp for an upcoming meeting could be set in the future, whereas a
+  /// timestamp for a
+  /// missed message could be set in the past.
   external EpochTimeStamp get timestamp;
+
+  /// The **`renotify`** read-only property of the
+  /// [Notification] interface specifies whether the user should be notified
+  /// after a new notification replaces an old one, as specified in the
+  /// `renotify`
+  /// option of the [Notification.Notification] constructor.
   external bool get renotify;
+
+  /// The **`silent`** read-only property of the
+  /// [Notification] interface specifies whether the notification should be
+  /// silent, i.e., no sounds or vibrations should be issued, regardless of the
+  /// device
+  /// settings. This is specified in the `silent` option of the
+  /// [Notification.Notification] constructor.
   external bool? get silent;
+
+  /// The **`requireInteraction`** read-only property of the [Notification]
+  /// interface returns a boolean value indicating that a notification should
+  /// remain active until the user clicks or dismisses it, rather than closing
+  /// automatically.
+  ///
+  /// > **Note:** This can be set when the notification is first created by
+  /// > setting the `requireInteraction` option to `true` in the options object
+  /// > of the [Notification.Notification] constructor.
   external bool get requireInteraction;
+
+  /// The **`data`** read-only property of the
+  /// [Notification] interface returns a structured clone of the notification's
+  /// data, as specified in the `data` option of the
+  /// [Notification.Notification] constructor.
+  ///
+  /// The notification's data can be any arbitrary data that you want associated
+  /// with the
+  /// notification.
   external JSAny? get data;
+
+  /// The **`actions`** read-only property of the [Notification] interface
+  /// provides the actions available for users to choose from for interacting
+  /// with the notification.
+  ///
+  /// The actions are set using the `actions` option of the second argument for
+  /// the [ServiceWorkerRegistration.showNotification] method and
+  /// [Notification.Notification] constructor.
+  ///
+  /// > **Note:** Browsers typically limit the maximum number of actions they
+  /// > will display for a particular notification. Check the static
+  /// > [Notification.maxActions_static] property to determine the limit.
   external JSArray<NotificationAction> get actions;
 }
 extension type NotificationOptions._(JSObject _) implements JSObject {
@@ -103,34 +226,34 @@ extension type NotificationOptions._(JSObject _) implements JSObject {
     JSArray<NotificationAction> actions,
   });
 
-  external set dir(NotificationDirection value);
   external NotificationDirection get dir;
-  external set lang(String value);
+  external set dir(NotificationDirection value);
   external String get lang;
-  external set body(String value);
+  external set lang(String value);
   external String get body;
-  external set tag(String value);
+  external set body(String value);
   external String get tag;
-  external set image(String value);
+  external set tag(String value);
   external String get image;
-  external set icon(String value);
+  external set image(String value);
   external String get icon;
-  external set badge(String value);
+  external set icon(String value);
   external String get badge;
-  external set vibrate(VibratePattern value);
+  external set badge(String value);
   external VibratePattern get vibrate;
-  external set timestamp(EpochTimeStamp value);
+  external set vibrate(VibratePattern value);
   external EpochTimeStamp get timestamp;
-  external set renotify(bool value);
+  external set timestamp(EpochTimeStamp value);
   external bool get renotify;
-  external set silent(bool? value);
+  external set renotify(bool value);
   external bool? get silent;
-  external set requireInteraction(bool value);
+  external set silent(bool? value);
   external bool get requireInteraction;
-  external set data(JSAny? value);
+  external set requireInteraction(bool value);
   external JSAny? get data;
-  external set actions(JSArray<NotificationAction> value);
+  external set data(JSAny? value);
   external JSArray<NotificationAction> get actions;
+  external set actions(JSArray<NotificationAction> value);
 }
 extension type NotificationAction._(JSObject _) implements JSObject {
   external factory NotificationAction({
@@ -139,18 +262,18 @@ extension type NotificationAction._(JSObject _) implements JSObject {
     String icon,
   });
 
-  external set action(String value);
   external String get action;
-  external set title(String value);
+  external set action(String value);
   external String get title;
-  external set icon(String value);
+  external set title(String value);
   external String get icon;
+  external set icon(String value);
 }
 extension type GetNotificationOptions._(JSObject _) implements JSObject {
   external factory GetNotificationOptions({String tag});
 
-  external set tag(String value);
   external String get tag;
+  external set tag(String value);
 }
 
 /// The **`NotificationEvent`** interface of the [Notifications API] represents
@@ -175,7 +298,21 @@ extension type NotificationEvent._(JSObject _)
     NotificationEventInit eventInitDict,
   );
 
+  /// The **`notification`** read-only property of the [NotificationEvent]
+  /// interface returns the instance of the [Notification] that was clicked to
+  /// fire the event. The [Notification] provides read-only access to many
+  /// properties that were set at the instantiation time of the Notification
+  /// such as `tag` and `data` attributes that allow you to store information
+  /// for deferred use in the `notificationclick` event.
   external Notification get notification;
+
+  /// The **`action`** read-only property of the [NotificationEvent] interface
+  /// returns the string ID of the notification button the user clicked. This
+  /// value returns an empty string if the user clicked the notification
+  /// somewhere other than an action button, or the notification does not have a
+  /// button. The notification id is set during the creation of the Notification
+  /// via the actions array attribute and can't be modified unless the
+  /// notification is replaced.
   external String get action;
 }
 extension type NotificationEventInit._(JSObject _)
@@ -188,8 +325,8 @@ extension type NotificationEventInit._(JSObject _)
     String action,
   });
 
-  external set notification(Notification value);
   external Notification get notification;
-  external set action(String value);
+  external set notification(Notification value);
   external String get action;
+  external set action(String value);
 }

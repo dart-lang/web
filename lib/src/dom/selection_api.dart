@@ -140,12 +140,88 @@ extension type Selection._(JSObject _) implements JSObject {
     Node node, [
     bool allowPartialContainment,
   ]);
+
+  /// The **`Selection.anchorNode`** read-only property returns the
+  /// [Node] in which the selection begins.
+  ///
+  /// A user may make a selection from left to right (in document order) or
+  /// right to left
+  /// (reverse of document order). The anchor is where the user began the
+  /// selection. This can
+  /// be visualized by holding the Shift key and pressing the arrow keys on your
+  /// keyboard. The
+  /// selection's anchor does not move, but the selection's focus, the other end
+  /// of the
+  /// selection, does move.
   external Node? get anchorNode;
+
+  /// The **`Selection.anchorOffset`** read-only property returns the
+  /// number of characters that the selection's anchor is offset within the
+  /// [Selection.anchorNode].
+  ///
+  /// This number is zero-based. If the selection begins with the first
+  /// character in the
+  /// [Selection.anchorNode], `0` is returned.
   external int get anchorOffset;
+
+  /// The **`Selection.focusNode`** read-only property returns the
+  /// [Node] in which the selection ends.
+  ///
+  /// A user may make a selection from left to right (in document order) or
+  /// right to left
+  /// (reverse of document order). The focus is where the user ended the
+  /// selection. This can
+  /// be visualized by holding the <kbd>Shift</kbd> key and pressing the arrow
+  /// keys on your
+  /// keyboard to modify the current selection. The selection's focus moves, but
+  /// the
+  /// selection's anchor, the other end of the selection, does not move.
   external Node? get focusNode;
+
+  /// The **`Selection.focusOffset`** read-only property returns the
+  /// number of characters that the selection's focus is offset within the
+  /// [Selection.focusNode].
+  ///
+  /// This number is zero-based. If the selection ends with the first character
+  /// in the
+  /// [Selection.focusNode], `0` is returned.
   external int get focusOffset;
+
+  /// The **`Selection.isCollapsed`** read-only property returns a
+  /// boolean value which indicates whether or not there is currently any text
+  /// selected. No text is selected when the selection's start and end points
+  /// are at the same
+  /// position in the content.
+  ///
+  /// Keep in mind that a collapsed selection may still have one (or more, in
+  /// Gecko)
+  /// [Range]s, so [Selection.rangeCount] may not be zero. In that
+  /// scenario, calling a [Selection] object's [Selection.getRangeAt]
+  /// method may return a `Range` object which is collapsed.
   external bool get isCollapsed;
+
+  /// The **`Selection.rangeCount`** read-only property returns the
+  /// number of ranges in the selection.
+  ///
+  /// Before the user has clicked a freshly loaded page, the `rangeCount` is
+  /// `0`. After the user clicks on the page, `rangeCount` is
+  /// `1`, even if no selection is visible.
+  ///
+  /// A user can normally only select one range at a time, so the `rangeCount`
+  /// will usually be `1`. Scripting can be used to make the selection contain
+  /// more
+  /// than one range.
+  ///
+  /// Gecko browsers allow multiple selections across table cells. Firefox
+  /// allows to select
+  /// multiple ranges in the document by using Ctrl+click (unless the click
+  /// occurs within an
+  /// element that has the `display: table-cell` CSS property assigned).
   external int get rangeCount;
+
+  /// The **`type`** read-only property of the
+  /// [Selection] interface returns a string describing the
+  /// type of the current selection.
   external String get type;
   external String get direction;
 }

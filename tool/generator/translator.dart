@@ -526,7 +526,9 @@ class Translator {
           _interfacelikes[name]!.update(interfacelike);
         } else {
           _interfacelikes[name] = _PartialInterfacelike(
-              interfacelike, docProvider.interfaceFor(name));
+            interfacelike,
+            docProvider.interfaceFor(name),
+          );
         }
       }
       for (final interfacelike in [
@@ -775,72 +777,102 @@ class Translator {
     );
   }
 
-  List<code.Method> _getterSetter(
-      {required String fieldName,
-      required code.Reference Function() getType,
-      required bool isStatic,
-      required bool readOnly}) {
+  List<code.Method> _getterSetter({
+    required String fieldName,
+    required code.Reference Function() getType,
+    required bool isStatic,
+    required bool readOnly,
+    required MdnInterface? mdnInterface,
+  }) {
     final memberName = _MemberName(fieldName);
     final name = memberName.name;
+    final docs = mdnInterface?.propertyFor(name)?.formattedDocs ?? [];
+
     return [
-      if (!readOnly)
-        code.Method((b) => b
+      code.Method(
+        (b) => b
           ..annotations.addAll(_jsOverride(memberName.jsOverride))
           ..external = true
           ..static = isStatic
-          ..type = code.MethodType.setter
+          ..returns = getType()
+          ..type = code.MethodType.getter
           ..name = name
-          ..requiredParameters.add(code.Parameter((b) => b
-            ..type = getType()
-            ..name = 'value'))),
-      code.Method((b) => b
-        ..annotations.addAll(_jsOverride(memberName.jsOverride))
-        ..external = true
-        ..static = isStatic
-        ..returns = getType()
-        ..type = code.MethodType.getter
-        ..name = name)
+          ..docs.addAll(docs),
+      ),
+      if (!readOnly)
+        code.Method(
+          (b) => b
+            ..annotations.addAll(_jsOverride(memberName.jsOverride))
+            ..external = true
+            ..static = isStatic
+            ..type = code.MethodType.setter
+            ..name = name
+            ..requiredParameters.add(
+              code.Parameter(
+                (b) => b
+                  ..type = getType()
+                  ..name = 'value',
+              ),
+            ),
+        ),
     ];
   }
 
-  List<code.Method> _getterSetterWithIDLType(
-          {required String fieldName,
-          required idl.IDLType type,
-          required bool isStatic,
-          required bool readOnly}) =>
-      _getterSetter(
-          fieldName: fieldName,
-          getType: () => _idlTypeToTypeReference(type),
-          isStatic: isStatic,
-          readOnly: readOnly);
+  List<code.Method> _getterSetterWithIDLType({
+    required String fieldName,
+    required idl.IDLType type,
+    required bool isStatic,
+    required bool readOnly,
+    required MdnInterface? mdnInterface,
+  }) {
+    return _getterSetter(
+      fieldName: fieldName,
+      getType: () => _idlTypeToTypeReference(type),
+      isStatic: isStatic,
+      readOnly: readOnly,
+      mdnInterface: mdnInterface,
+    );
+  }
 
-  List<code.Method> _attribute(idl.Attribute attribute) =>
-      _getterSetterWithIDLType(
-          fieldName: attribute.name,
-          type: attribute.idlType,
-          readOnly: attribute.readonly,
-          isStatic: attribute.special == 'static');
+  List<code.Method> _attribute(
+      idl.Attribute attribute, MdnInterface? mdnInterface) {
+    return _getterSetterWithIDLType(
+      fieldName: attribute.name,
+      type: attribute.idlType,
+      readOnly: attribute.readonly,
+      isStatic: attribute.special == 'static',
+      mdnInterface: mdnInterface,
+    );
+  }
 
-  code.Method _constant(idl.Constant constant) => code.Method((b) => b
-    ..external = true
-    ..static = true
-    ..returns = _idlTypeToTypeReference(constant.idlType)
-    ..type = code.MethodType.getter
-    ..name = constant.name);
+  code.Method _constant(idl.Constant constant) {
+    return code.Method(
+      (b) => b
+        ..external = true
+        ..static = true
+        ..returns = _idlTypeToTypeReference(constant.idlType)
+        ..type = code.MethodType.getter
+        ..name = constant.name,
+    );
+  }
 
-  List<code.Method> _field(idl.Field field) => _getterSetterWithIDLType(
+  List<code.Method> _field(idl.Field field, MdnInterface? mdnInterface) {
+    return _getterSetterWithIDLType(
       fieldName: field.name,
       type: field.idlType,
       readOnly: false,
-      isStatic: false);
+      isStatic: false,
+      mdnInterface: mdnInterface,
+    );
+  }
 
-  List<code.Method> _member(idl.Member member) {
+  List<code.Method> _member(idl.Member member, MdnInterface? mdnInterface) {
     final type = member.type;
     return switch (type) {
       'operation' => throw Exception('Should be handled explicitly.'),
-      'attribute' => _attribute(member as idl.Attribute),
+      'attribute' => _attribute(member as idl.Attribute, mdnInterface),
       'const' => [_constant(member as idl.Constant)],
-      'field' => _field(member as idl.Field),
+      'field' => _field(member as idl.Field, mdnInterface),
       'iterable' ||
       'maplike' ||
       'setlike' =>
@@ -850,20 +882,28 @@ class Translator {
     };
   }
 
-  List<code.Method> _members(List<idl.Member> members) =>
-      [for (final member in members) ..._member(member)];
+  List<code.Method> _members(
+      List<idl.Member> members, MdnInterface? mdnInterface) {
+    return [
+      for (final member in members) ..._member(member, mdnInterface),
+    ];
+  }
 
   List<code.Method> _operations(List<_OverridableOperation> operations) =>
       [for (final operation in operations) _operation(operation)];
 
-  List<code.Method> _cssStyleDeclarationProperties() => [
-        for (final style in _cssStyleDeclarations)
-          ..._getterSetter(
-              fieldName: style,
-              getType: () => code.TypeReference((b) => b..symbol = 'String'),
-              isStatic: false,
-              readOnly: false),
-      ];
+  List<code.Method> _cssStyleDeclarationProperties() {
+    return [
+      for (final style in _cssStyleDeclarations)
+        ..._getterSetter(
+          fieldName: style,
+          getType: () => code.TypeReference((b) => b..symbol = 'String'),
+          isStatic: false,
+          readOnly: false,
+          mdnInterface: null,
+        ),
+    ];
+  }
 
   // If [jsName] is an element type, creates a constructor for each tag that the
   // element interface corresponds to using either `createElement` or
@@ -911,13 +951,17 @@ class Translator {
     return elementConstructors;
   }
 
-  code.Extension _extension(
-          {required _RawType type,
-          required List<idl.Member> extensionMembers}) =>
-      code.Extension((b) => b
+  code.Extension _extension({
+    required _RawType type,
+    required List<idl.Member> extensionMembers,
+  }) {
+    return code.Extension(
+      (b) => b
         ..name = '${type.type.snakeToPascal}Extension'
         ..on = _typeReference(type)
-        ..methods.addAll(_members(extensionMembers)));
+        ..methods.addAll(_members(extensionMembers, null)),
+    );
+  }
 
   code.ExtensionType _extensionType({
     required String jsName,
@@ -956,9 +1000,9 @@ class Translator {
           .followedBy(_elementConstructors(
               jsName, dartClassName, representationFieldName)))
       ..methods.addAll(_operations(staticOperations)
-          .followedBy(_members(staticMembers))
+          .followedBy(_members(staticMembers, mdnInterface))
           .followedBy(_operations(operations))
-          .followedBy(_members(members))
+          .followedBy(_members(members, mdnInterface))
           .followedBy(dartClassName == 'CSSStyleDeclaration'
               ? _cssStyleDeclarationProperties()
               : [])));
@@ -996,17 +1040,18 @@ class Translator {
     return [
       if (getterName != null) _topLevelGetter(rawType, getterName),
       _extensionType(
-          jsName: jsName,
-          dartClassName: dartClassName,
-          mdnInterface: mdnInterface,
-          interfaceStatus: interfaceStatus,
-          implements: implements,
-          constructor: interfacelike.constructor,
-          operations: operations,
-          staticOperations: staticOperations,
-          members: members,
-          staticMembers: interfacelike.staticMembers,
-          isObjectLiteral: isDictionary),
+        jsName: jsName,
+        dartClassName: dartClassName,
+        mdnInterface: mdnInterface,
+        interfaceStatus: interfaceStatus,
+        implements: implements,
+        constructor: interfacelike.constructor,
+        operations: operations,
+        staticOperations: staticOperations,
+        members: members,
+        staticMembers: interfacelike.staticMembers,
+        isObjectLiteral: isDictionary,
+      ),
       if (extensionMembers.isNotEmpty)
         _extension(type: rawType, extensionMembers: extensionMembers)
     ];
@@ -1069,9 +1114,6 @@ class Translator {
   bool _shouldGenerate(String name, _Library library) {
     // These libraries wouldn't normally qualify for generation but have types
     // that are referenced from generated code.
-    // TODO(devoncarew): We should either remove the members that reference the
-    // types or decide the library should be generated irrespective of the BCD
-    // info.
     const allowList = {
       'css-typed-om',
       'css-view-transitions',

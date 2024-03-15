@@ -35,8 +35,8 @@ extension type Permissions._(JSObject _) implements JSObject {
 extension type PermissionDescriptor._(JSObject _) implements JSObject {
   external factory PermissionDescriptor({required String name});
 
-  external set name(String value);
   external String get name;
+  external set name(String value);
 }
 
 /// The **`PermissionStatus`** interface of the
@@ -49,10 +49,17 @@ extension type PermissionDescriptor._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PermissionStatus).
 extension type PermissionStatus._(JSObject _) implements EventTarget, JSObject {
+  /// The **`state`** read-only property of the
+  /// [PermissionStatus] interface returns the state of a requested permission.
+  /// This property returns one of `'granted'`, `'denied'`, or
+  /// `'prompt'`.
   external PermissionState get state;
+
+  /// The **`name`** read-only property of the [PermissionStatus] interface
+  /// returns the name of a requested permission.
   external String get name;
-  external set onchange(EventHandler value);
   external EventHandler get onchange;
+  external set onchange(EventHandler value);
 }
 extension type PermissionSetParameters._(JSObject _) implements JSObject {
   external factory PermissionSetParameters({
@@ -60,8 +67,8 @@ extension type PermissionSetParameters._(JSObject _) implements JSObject {
     required PermissionState state,
   });
 
-  external set descriptor(PermissionDescriptor value);
   external PermissionDescriptor get descriptor;
-  external set state(PermissionState value);
+  external set descriptor(PermissionDescriptor value);
   external PermissionState get state;
+  external set state(PermissionState value);
 }

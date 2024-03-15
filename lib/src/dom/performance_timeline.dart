@@ -54,9 +54,28 @@ extension type PerformanceEntry._(JSObject _) implements JSObject {
   /// [PerformanceEntry] object.
   external JSObject toJSON();
   external int get id;
+
+  /// The read-only **`name`** property of the [PerformanceEntry] interface is a
+  /// string representing the name for a performance entry. It acts as an
+  /// identifier, but it does not have to be unique. The value depends on the
+  /// subclass.
   external String get name;
+
+  /// The read-only **`entryType`** property returns a string representing the
+  /// type of performance metric that this entry represents.
+  ///
+  /// All supported `entryTypes` are available using the static property
+  /// [PerformanceObserver.supportedEntryTypes_static].
   external String get entryType;
+
+  /// The read-only **`startTime`** property returns the first  recorded for
+  /// this . The meaning of this property depends on the value of this entry's
+  /// [PerformanceEntry.entryType].
   external DOMHighResTimeStamp get startTime;
+
+  /// The read-only **`duration`** property returns a  that is the duration of
+  /// the . The meaning of this property depends on the value of this entry's
+  /// [PerformanceEntry.entryType].
   external DOMHighResTimeStamp get duration;
   external int get navigationId;
 }
@@ -100,8 +119,8 @@ extension type PerformanceObserverCallbackOptions._(JSObject _)
   external factory PerformanceObserverCallbackOptions(
       {int droppedEntriesCount});
 
-  external set droppedEntriesCount(int value);
   external int get droppedEntriesCount;
+  external set droppedEntriesCount(int value);
 }
 extension type PerformanceObserverInit._(JSObject _) implements JSObject {
   external factory PerformanceObserverInit({
@@ -110,12 +129,12 @@ extension type PerformanceObserverInit._(JSObject _) implements JSObject {
     bool buffered,
   });
 
-  external set entryTypes(JSArray<JSString> value);
   external JSArray<JSString> get entryTypes;
-  external set type(String value);
+  external set entryTypes(JSArray<JSString> value);
   external String get type;
-  external set buffered(bool value);
+  external set type(String value);
   external bool get buffered;
+  external set buffered(bool value);
 }
 
 /// The **`PerformanceObserverEntryList`** interface is a list of

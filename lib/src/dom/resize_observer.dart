@@ -21,8 +21,8 @@ typedef ResizeObserverBoxOptions = String;
 extension type ResizeObserverOptions._(JSObject _) implements JSObject {
   external factory ResizeObserverOptions({ResizeObserverBoxOptions box});
 
-  external set box(ResizeObserverBoxOptions value);
   external ResizeObserverBoxOptions get box;
+  external set box(ResizeObserverBoxOptions value);
 }
 
 /// The **`ResizeObserver`** interface reports changes to the dimensions of an
@@ -70,10 +70,35 @@ extension type ResizeObserver._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserverEntry).
 extension type ResizeObserverEntry._(JSObject _) implements JSObject {
+  /// The **`target`** read-only property of the
+  /// [ResizeObserverEntry] interface returns a reference to the
+  /// [Element] or [SVGElement] that is being observed.
   external Element get target;
+
+  /// The `contentRect` read-only property of the
+  /// [ResizeObserverEntry] interface returns a [DOMRectReadOnly]
+  /// object containing the new size of the observed element when the callback
+  /// is run. Note
+  /// that this is better supported than [ResizeObserverEntry.borderBoxSize] or
+  /// [ResizeObserverEntry.contentBoxSize], but it is left over from an earlier
+  /// implementation of the Resize Observer API, is still included in the spec
+  /// for web compat
+  /// reasons, and may be deprecated in future versions.
   external DOMRectReadOnly get contentRect;
+
+  /// The **`borderBoxSize`** read-only property of
+  /// the [ResizeObserverEntry] interface returns an array containing the new
+  /// border box size of the observed element when the callback is run.
   external JSArray<ResizeObserverSize> get borderBoxSize;
+
+  /// The **`contentBoxSize`** read-only property of
+  /// the [ResizeObserverEntry] interface returns an array containing the new
+  /// content box size of the observed element when the callback is run.
   external JSArray<ResizeObserverSize> get contentBoxSize;
+
+  /// The **`devicePixelContentBoxSize`** read-only property of
+  /// the [ResizeObserverEntry] interface returns an array containing the size
+  /// in device pixels of the observed element when the callback is run.
   external JSArray<ResizeObserverSize> get devicePixelContentBoxSize;
 }
 
@@ -91,6 +116,25 @@ extension type ResizeObserverEntry._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserverSize).
 extension type ResizeObserverSize._(JSObject _) implements JSObject {
+  /// The **`inlineSize`** read-only property of the [ResizeObserverSize]
+  /// interface returns the length of the observed element's border box in the
+  /// inline dimension. For boxes with a horizontal , this is the horizontal
+  /// dimension, or width; if the writing-mode is vertical, this is the vertical
+  /// dimension, or height.
+  ///
+  /// > **Note:** For more explanation of writing modes and block and inline
+  /// > dimensions, read
+  /// > [Handling different text directions](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Handling_different_text_directions).
   external num get inlineSize;
+
+  /// The **`blockSize`** read-only property of the [ResizeObserverSize]
+  /// interface returns the length of the observed element's border box in the
+  /// block dimension. For boxes with a horizontal , this is the vertical
+  /// dimension, or height; if the writing-mode is vertical, this is the
+  /// horizontal dimension, or width.
+  ///
+  /// > **Note:** For more explanation of writing modes and block and inline
+  /// > dimensions, read
+  /// > [Handling different text directions](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Handling_different_text_directions).
   external num get blockSize;
 }

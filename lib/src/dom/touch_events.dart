@@ -37,36 +37,36 @@ extension type TouchInit._(JSObject _) implements JSObject {
     TouchType touchType,
   });
 
-  external set identifier(int value);
   external int get identifier;
-  external set target(EventTarget value);
+  external set identifier(int value);
   external EventTarget get target;
-  external set clientX(num value);
+  external set target(EventTarget value);
   external num get clientX;
-  external set clientY(num value);
+  external set clientX(num value);
   external num get clientY;
-  external set screenX(num value);
+  external set clientY(num value);
   external num get screenX;
-  external set screenY(num value);
+  external set screenX(num value);
   external num get screenY;
-  external set pageX(num value);
+  external set screenY(num value);
   external num get pageX;
-  external set pageY(num value);
+  external set pageX(num value);
   external num get pageY;
-  external set radiusX(num value);
+  external set pageY(num value);
   external num get radiusX;
-  external set radiusY(num value);
+  external set radiusX(num value);
   external num get radiusY;
-  external set rotationAngle(num value);
+  external set radiusY(num value);
   external num get rotationAngle;
-  external set force(num value);
+  external set rotationAngle(num value);
   external num get force;
-  external set altitudeAngle(num value);
+  external set force(num value);
   external num get altitudeAngle;
-  external set azimuthAngle(num value);
+  external set altitudeAngle(num value);
   external num get azimuthAngle;
-  external set touchType(TouchType value);
+  external set azimuthAngle(num value);
   external TouchType get touchType;
+  external set touchType(TouchType value);
 }
 
 /// The **`Touch`** interface represents a single contact point on a
@@ -92,17 +92,90 @@ extension type TouchInit._(JSObject _) implements JSObject {
 extension type Touch._(JSObject _) implements JSObject {
   external factory Touch(TouchInit touchInitDict);
 
+  /// The **`Touch.identifier`** returns a value uniquely identifying
+  /// this point of contact with the touch surface. This value remains
+  /// consistent for every
+  /// event involving this finger's (or stylus's) movement on the surface until
+  /// it is lifted
+  /// off the surface.
   external int get identifier;
+
+  /// The read-only **`target`** property of the `Touch` interface returns the
+  /// ([EventTarget]) on which the touch contact started when it was first
+  /// placed on the surface, even if the touch point has since moved outside the
+  /// interactive area of that element or even been removed from the document.
+  /// Note that if the target element is removed from the document, events will
+  /// still be targeted at it, and hence won't necessarily bubble up to the
+  /// window or document anymore. If there is any risk of an element being
+  /// removed while it is being touched, the best practice is to attach the
+  /// touch listeners directly to the target.
   external EventTarget get target;
+
+  /// Returns the X coordinate of the touch point relative to the screen, not
+  /// including any scroll offset.
   external num get screenX;
+
+  /// Returns the Y coordinate of the touch point relative to the screen, not
+  /// including any scroll offset.
   external num get screenY;
+
+  /// The `Touch.clientX` read-only property returns the X coordinate of the
+  /// touch
+  /// point relative to the viewport, not including any scroll offset.
   external num get clientX;
+
+  /// The **`Touch.clientY`** read-only property returns the Y
+  /// coordinate of the touch point relative to the browser's viewport, not
+  /// including any
+  /// scroll offset.
   external num get clientY;
+
+  /// The **`Touch.pageX`** read-only property returns the X
+  /// coordinate of the touch point relative to the viewport, including any
+  /// scroll offset.
   external num get pageX;
+
+  /// The **`Touch.pageY`** read-only property returns the Y
+  /// coordinate of the touch point relative to the viewport, including any
+  /// scroll offset.
   external num get pageY;
+
+  /// The **`radiusX`** read-only property of the [Touch] interface returns the
+  /// X radius of the ellipse that most closely circumscribes the area of
+  /// contact with the touch surface. The value is in CSS pixels of the same
+  /// scale as [Touch.screenX].
+  ///
+  /// This value, in combination with [Touch.radiusY] and [Touch.rotationAngle]
+  /// constructs an ellipse that approximates the size and shape of the area of
+  /// contact between the user and the screen. This may be a relatively large
+  /// ellipse representing the contact between a fingertip and the screen or a
+  /// small area representing the tip of a stylus, for example.
   external num get radiusX;
+
+  /// The **`radiusY`** read-only property of the [Touch] interface returns the
+  /// Y radius of the ellipse that most closely circumscribes the area of
+  /// contact with the touch surface. The value is in CSS pixels of the same
+  /// scale as [Touch.screenX].
+  ///
+  /// This value, in combination with [Touch.radiusX] and [Touch.rotationAngle]
+  /// constructs an ellipse that approximates the size and shape of the area of
+  /// contact between the user and the screen. This may be a large ellipse
+  /// representing the contact between a fingertip and the screen or a small one
+  /// representing the tip of a stylus, for example.
   external num get radiusY;
+
+  /// The **`rotationAngle`** read-only property of the [Touch] interface
+  /// returns the rotation angle, in degrees, of the contact area ellipse
+  /// defined by [Touch.radiusX] and [Touch.radiusY]. The value may be between 0
+  /// and 90. Together, these three values describe an ellipse that approximates
+  /// the size and shape of the area of contact between the user and the screen.
+  /// This may be a relatively large ellipse representing the contact between a
+  /// fingertip and the screen or a small area representing the tip of a stylus,
+  /// for example.
   external num get rotationAngle;
+
+  /// The **`Touch.force`** read-only property returns the amount of
+  /// pressure the user is applying to the touch surface for a [Touch] point.
   external num get force;
   external num get altitudeAngle;
   external num get azimuthAngle;
@@ -130,6 +203,9 @@ extension type TouchList._(JSObject _) implements JSObject {
   /// The **`item()`** method returns the [Touch]
   /// object at the specified index in the [TouchList].
   external Touch? item(int index);
+
+  /// The **`length`** read-only property indicates the number of
+  /// items (touch points) in a given [TouchList].
   external int get length;
 }
 extension type TouchEventInit._(JSObject _)
@@ -160,12 +236,12 @@ extension type TouchEventInit._(JSObject _)
     JSArray<Touch> changedTouches,
   });
 
-  external set touches(JSArray<Touch> value);
   external JSArray<Touch> get touches;
-  external set targetTouches(JSArray<Touch> value);
+  external set touches(JSArray<Touch> value);
   external JSArray<Touch> get targetTouches;
-  external set changedTouches(JSArray<Touch> value);
+  external set targetTouches(JSArray<Touch> value);
   external JSArray<Touch> get changedTouches;
+  external set changedTouches(JSArray<Touch> value);
 }
 
 /// The **`TouchEvent`** interface represents an [UIEvent] which is sent when
@@ -189,11 +265,72 @@ extension type TouchEvent._(JSObject _) implements UIEvent, JSObject {
   ]);
 
   external bool getModifierState(String keyArg);
+
+  /// **`touches`** is a read-only [TouchList] listing
+  /// all the [Touch] objects for touch points that are currently in contact
+  /// with the touch surface, regardless of whether or not they've changed or
+  /// what their
+  /// target element was at [Element.touchstart_event] time.
+  ///
+  /// You can think of it as how many separate fingers are able to be identified
+  /// as touching
+  /// the screen.
+  ///
+  /// > **Note:** Touches inside the array are not necessarily ordered by order
+  /// > of occurrences (the
+  /// > i-th element in the array being the i-th touch that happened). You
+  /// > cannot assume a specific order. To determine the order of occurrences of
+  /// > the touches, use the `touch` object IDs.
   external TouchList get touches;
+
+  /// The **`targetTouches`** read-only property is a [TouchList] listing all
+  /// the [Touch] objects for touch points that are still in contact with the
+  /// touch surface **and** whose [Element.touchstart_event] event occurred
+  /// inside the same target [element] as the current target element.
   external TouchList get targetTouches;
+
+  /// The **`changedTouches`** read-only property is a [TouchList] whose touch
+  /// points ([Touch] objects) varies depending on the event type, as follows:
+  ///
+  /// - For the [Element.touchstart_event] event, it is a list of the touch
+  ///   points that became active with the current event.
+  /// - For the [Element.touchmove_event] event, it is a list of the touch
+  ///   points that have changed since the last event.
+  /// - For the [Element.touchend_event] event, it is a list of the touch points
+  ///   that have been removed from the surface (that is, the set of touch
+  ///   points corresponding to fingers no longer touching the surface).
   external TouchList get changedTouches;
+
+  /// The read-only **`altKey`** property of the [TouchEvent] interface returns
+  /// a boolean value indicating whether or not the <kbd>alt</kbd> (Alternate)
+  /// key is enabled when the touch event is created. If the <kbd>alt</kbd> key
+  /// is enabled, the attribute's value is `true`. Otherwise, it is `false`.
+  ///
+  /// This property is .
   external bool get altKey;
+
+  /// The read-only **`metaKey`** property of the [TouchEvent] interface returns
+  /// a boolean value indicating whether or not the <kbd>Meta</kbd> key is
+  /// enabled when the touch event is created. If this key is enabled, the
+  /// attribute's value is `true`. Otherwise, it is `false`.
+  ///
+  /// This property is .
+  ///
+  /// > **Note:** On Macintosh keyboards, this is the <kbd>⌘ Command</kbd> key.
+  /// > On Windows keyboards, this is the Windows key (<kbd>⊞</kbd>).
   external bool get metaKey;
+
+  /// The read-only **`ctrlKey`** property of the [TouchEvent] interface returns
+  /// a boolean value indicating whether the <kbd>control</kbd> (Control) key is
+  /// enabled when the touch event is created. If this key is enabled, the
+  /// attribute's value is `true`. Otherwise, it is `false`.
+  ///
+  /// This property is .
   external bool get ctrlKey;
+
+  /// The read-only **`shiftKey`** property of the `TouchEvent` interface
+  /// returns a boolean value indicating whether or not the <kbd>shift</kbd> key
+  /// is enabled when the touch event is created. If this key is enabled, the
+  /// attribute's value is `true`. Otherwise, it is `false`.
   external bool get shiftKey;
 }

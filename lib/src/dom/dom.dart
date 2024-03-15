@@ -153,20 +153,138 @@ extension type Event._(JSObject _) implements JSObject {
     bool bubbles,
     bool cancelable,
   ]);
+
+  /// The **`type`** read-only property of the [Event]
+  /// interface returns a string containing the event's type. It is set when the
+  /// event is
+  /// constructed and is the name commonly used to refer to the specific event,
+  /// such as
+  /// `click`, `load`, or `error`.
   external String get type;
+
+  /// The read-only **`target`** property of the
+  /// [Event] interface is a reference to the object onto which the event was
+  /// dispatched. It is different from [Event.currentTarget] when the event
+  /// handler is called during the bubbling or capturing phase of the event.
   external EventTarget? get target;
+
+  /// The deprecated **`Event.srcElement`** is an alias for the [Event.target]
+  /// property. Use [Event.target] instead.
   external EventTarget? get srcElement;
+
+  /// The **`currentTarget`** read-only property of the [Event] interface
+  /// identifies the element to which the event handler has been attached.
+  ///
+  /// This will not always be the same as the element on which the event was
+  /// fired, because the event may have fired on a descendant of the element
+  /// with the handler, and then
+  /// [bubbled](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#event_bubbling)
+  /// up to the element with the handler. The element on which the event was
+  /// fired is given by [Event.target].
   external EventTarget? get currentTarget;
+
+  /// The **`eventPhase`** read-only property of the
+  /// [Event] interface indicates which phase of the event flow is currently
+  /// being evaluated.
   external int get eventPhase;
-  external set cancelBubble(bool value);
+
+  /// The **`cancelBubble`** property of the [Event]
+  /// interface is deprecated. Use [Event.stopPropagation] instead.
+  /// Setting its value to `true` before returning from an event handler
+  /// prevents propagation
+  /// of the event. In later implementations, setting this to `false` does
+  /// nothing.
+  /// See [Browser compatibility](#browser_compatibility) for details.
   external bool get cancelBubble;
+  external set cancelBubble(bool value);
+
+  /// The **`bubbles`** read-only property of the [Event] interface indicates
+  /// whether the event bubbles up through the DOM tree or not.
+  ///
+  /// > **Note:** See
+  /// > [Event bubbling and capture](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#event_bubbling)
+  /// > for more information on bubbling.
   external bool get bubbles;
+
+  /// The **`cancelable`** read-only property of the [Event] interface indicates
+  /// whether the event
+  /// can be canceled, and therefore prevented as if the event never happened.
+  ///
+  /// If the event is _not_ cancelable, then its `cancelable` property will be
+  /// `false` and the event listener cannot stop the event from occurring.
+  ///
+  /// Most browser-native events that can be canceled are the ones that result
+  /// from the user
+  /// interacting with the page. Canceling the [Element.click_event],
+  /// [Element.wheel_event], or
+  /// [Window.beforeunload_event] events would prevent the user
+  /// from clicking on something, scrolling the page with the mouse wheel, or
+  /// navigating away from the page, respectively.
+  ///
+  /// [Synthetic events](https://developer.mozilla.org/en-US/docs/Web/API/Event/Event)
+  /// created by other JavaScript
+  /// code define if they can be canceled when they are created.
+  ///
+  /// To cancel an event, call the [event.preventDefault]
+  /// method on the event. This keeps the implementation from executing the
+  /// default action
+  /// that is associated with the event.
+  ///
+  /// Event listeners that handle multiple kinds of events may want to check
+  /// `cancelable` before invoking their [event.preventDefault] methods.
   external bool get cancelable;
-  external set returnValue(bool value);
+
+  /// The [Event] property
+  /// **`returnValue`** indicates whether the default action for
+  /// this event has been prevented or not.
+  ///
+  /// It is set to `true` by
+  /// default, allowing the default action to occur. Setting this property to
+  /// `false` prevents the default action.
+  ///
+  /// > **Note:** While `returnValue` has been adopted into the DOM
+  /// > standard, it is present primarily to support existing code. Use
+  /// > [Event.preventDefault], and
+  /// > [Event.defaultPrevented] instead of this historical
+  /// > property.
   external bool get returnValue;
+  external set returnValue(bool value);
+
+  /// The **`defaultPrevented`** read-only property of the [Event] interface
+  /// returns a boolean value indicating whether or not the call to
+  /// [Event.preventDefault] canceled the event.
   external bool get defaultPrevented;
+
+  /// The read-only **`composed`** property of the
+  /// [Event] interface returns a boolean value which indicates whether
+  /// or not the event will propagate across the shadow DOM boundary into the
+  /// standard DOM.
+  ///
+  /// All UA-dispatched UI events are composed
+  /// (click/touch/mouseover/copy/paste, etc.). Most
+  /// other types of events are not composed, and so will return `false`. For
+  /// example, this includes synthetic events that are created without their
+  /// `composed` option set to `true`.
+  ///
+  /// Propagation only occurs if the [Event.bubbles] property is also
+  /// `true`. However, capturing only composed events are also handled at host
+  /// as
+  /// if they were in `AT_TARGET` phase. You can determine the path the event
+  /// will
+  /// follow through the shadow root to the DOM root by calling
+  /// [Event.composedPath].
   external bool get composed;
+
+  /// The **`isTrusted`** read-only property of the
+  /// [Event] interface is a boolean value that is `true`
+  /// when the event was generated by a user action, and `false` when the event
+  /// was
+  /// created or modified by a script or dispatched via
+  /// [EventTarget.dispatchEvent].
   external bool get isTrusted;
+
+  /// The **`timeStamp`** read-only property of the [Event] interface returns
+  /// the time (in milliseconds) at which the event was created.
   external DOMHighResTimeStamp get timeStamp;
 }
 extension type EventInit._(JSObject _) implements JSObject {
@@ -176,12 +294,12 @@ extension type EventInit._(JSObject _) implements JSObject {
     bool composed,
   });
 
-  external set bubbles(bool value);
   external bool get bubbles;
-  external set cancelable(bool value);
+  external set bubbles(bool value);
   external bool get cancelable;
-  external set composed(bool value);
+  external set cancelable(bool value);
   external bool get composed;
+  external set composed(bool value);
 }
 
 /// The **`CustomEvent`** interface represents events initialized by an
@@ -227,6 +345,9 @@ extension type CustomEvent._(JSObject _) implements Event, JSObject {
     bool cancelable,
     JSAny? detail,
   ]);
+
+  /// The read-only **`detail`** property of the [CustomEvent] interface
+  /// returns any data passed when initializing the event.
   external JSAny? get detail;
 }
 extension type CustomEventInit._(JSObject _) implements EventInit, JSObject {
@@ -237,8 +358,8 @@ extension type CustomEventInit._(JSObject _) implements EventInit, JSObject {
     JSAny? detail,
   });
 
-  external set detail(JSAny? value);
   external JSAny? get detail;
+  external set detail(JSAny? value);
 }
 
 /// The **`EventTarget`** interface is implemented by objects that can receive
@@ -379,8 +500,8 @@ extension type EventTarget._(JSObject _) implements JSObject {
 extension type EventListenerOptions._(JSObject _) implements JSObject {
   external factory EventListenerOptions({bool capture});
 
-  external set capture(bool value);
   external bool get capture;
+  external set capture(bool value);
 }
 extension type AddEventListenerOptions._(JSObject _)
     implements EventListenerOptions, JSObject {
@@ -391,12 +512,12 @@ extension type AddEventListenerOptions._(JSObject _)
     AbortSignal signal,
   });
 
-  external set passive(bool value);
   external bool get passive;
-  external set once(bool value);
+  external set passive(bool value);
   external bool get once;
-  external set signal(AbortSignal value);
+  external set once(bool value);
   external AbortSignal get signal;
+  external set signal(AbortSignal value);
 }
 
 /// The **`AbortController`** interface represents a controller object that
@@ -419,6 +540,10 @@ extension type AbortController._(JSObject _) implements JSObject {
   /// [fetch requests](https://developer.mozilla.org/en-US/docs/Web/API/fetch),
   /// the consumption of any response bodies, or streams.
   external void abort([JSAny? reason]);
+
+  /// The **`signal`** read-only property of the [AbortController] interface
+  /// returns an [AbortSignal] object instance, which can be used to communicate
+  /// with/abort an asynchronous operation as desired.
   external AbortSignal get signal;
 }
 
@@ -447,10 +572,23 @@ extension type AbortSignal._(JSObject _) implements EventTarget, JSObject {
   /// This method can also be used to abort operations at particular points in
   /// code, rather than passing to functions that take a signal.
   external void throwIfAborted();
+
+  /// The **`aborted`** read-only property returns a value that indicates
+  /// whether the asynchronous operations the signal is communicating with are
+  /// aborted (`true`) or not (`false`).
   external bool get aborted;
+
+  /// The **`reason`** read-only property returns a JavaScript value that
+  /// indicates the abort reason.
+  ///
+  /// The property is `undefined` when the signal has not been aborted.
+  /// It can be set to a specific value when the signal is aborted, using
+  /// [AbortController.abort] or [AbortSignal.abort_static].
+  /// If not explicitly set in those methods, it defaults to "AbortError"
+  /// [DOMException].
   external JSAny? get reason;
-  external set onabort(EventHandler value);
   external EventHandler get onabort;
+  external set onabort(EventHandler value);
 }
 
 /// **`NodeList`** objects are collections of
@@ -476,6 +614,9 @@ extension type NodeList._(JSObject _) implements JSObject {
   /// no
   /// argument is provided.
   external Node? item(int index);
+
+  /// The **`NodeList.length`** property returns the number of items
+  /// in a [NodeList].
   external int get length;
 }
 
@@ -523,6 +664,9 @@ extension type HTMLCollection._(JSObject _) implements JSObject {
   /// In JavaScript, using the array bracket syntax with a `String`, like
   /// `collection["value"]` is equivalent to `collection.namedItem("value")`.
   external Element? namedItem(String name);
+
+  /// The **`HTMLCollection.length`** property returns the number of
+  /// items in a [HTMLCollection].
   external int get length;
 }
 
@@ -588,20 +732,20 @@ extension type MutationObserverInit._(JSObject _) implements JSObject {
     JSArray<JSString> attributeFilter,
   });
 
-  external set childList(bool value);
   external bool get childList;
-  external set attributes(bool value);
+  external set childList(bool value);
   external bool get attributes;
-  external set characterData(bool value);
+  external set attributes(bool value);
   external bool get characterData;
-  external set subtree(bool value);
+  external set characterData(bool value);
   external bool get subtree;
-  external set attributeOldValue(bool value);
+  external set subtree(bool value);
   external bool get attributeOldValue;
-  external set characterDataOldValue(bool value);
+  external set attributeOldValue(bool value);
   external bool get characterDataOldValue;
-  external set attributeFilter(JSArray<JSString> value);
+  external set characterDataOldValue(bool value);
   external JSArray<JSString> get attributeFilter;
+  external set attributeFilter(JSArray<JSString> value);
 }
 
 /// The [MutationRecord] is a read-only interface that represents an individual
@@ -613,14 +757,50 @@ extension type MutationObserverInit._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MutationRecord).
 extension type MutationRecord._(JSObject _) implements JSObject {
+  /// The [MutationRecord] read-only property **`type`** is the type of the
+  /// [MutationRecord] observed by a [MutationObserver].
   external String get type;
+
+  /// The [MutationRecord] read-only property **`target`** is the target (i.e.
+  /// the mutated/changed node) of a mutation observed with a
+  /// [MutationObserver].
   external Node get target;
+
+  /// The [MutationRecord] read-only property **`addedNodes`** is a [NodeList]
+  /// of nodes added to a target node by a mutation observed with a
+  /// [MutationObserver].
   external NodeList get addedNodes;
+
+  /// The [MutationRecord] read-only property **`removedNodes`** is a [NodeList]
+  /// of nodes removed from a target node by a mutation observed with a
+  /// [MutationObserver].
   external NodeList get removedNodes;
+
+  /// The [MutationRecord] read-only property **`previousSibling`** is the
+  /// previous sibling of an added or removed child node of the
+  /// [`target`](https://developer.mozilla.org/en-US/docs/Web/API/MutationRecord/target)
+  /// of a [MutationObserver].
   external Node? get previousSibling;
+
+  /// The [MutationRecord] read-only property **`nextSibling`** is the next
+  /// sibling of an added or removed child node of the
+  /// [`target`](https://developer.mozilla.org/en-US/docs/Web/API/MutationRecord/target)
+  /// of a [MutationObserver].
   external Node? get nextSibling;
+
+  /// The [MutationRecord] read-only property **`attributeName`** contains the
+  /// name of a changed attribute belonging to a node that is observed by a
+  /// [MutationObserver].
   external String? get attributeName;
+
+  /// The [MutationRecord] read-only property **`attributeNamespace`** is the
+  /// namespace of the mutated attribute in the [MutationRecord] observed by a
+  /// [MutationObserver].
   external String? get attributeNamespace;
+
+  /// The [MutationRecord] read-only property **`oldValue`** contains the
+  /// character data or attribute value of an observed node before it was
+  /// changed.
   external String? get oldValue;
 }
 
@@ -843,28 +1023,200 @@ extension type Node._(JSObject _) implements EventTarget, JSObject {
   /// Unlike [Node.cloneNode] the return value preserves the `EventListener`
   /// objects associated with it.
   external Node removeChild(Node child);
+
+  /// The read-only **`nodeType`** property of a [Node] interface is an integer
+  /// that identifies what the node is. It distinguishes different kind of nodes
+  /// from each other,
+  /// such as [Element], [Text] and [Comment].
   external int get nodeType;
+
+  /// The read-only **`nodeName`** property of [Node] returns the name of the
+  /// current node as a string.
   external String get nodeName;
+
+  /// The read-only **`baseURI`** property of the [Node] interface
+  /// returns the absolute base URL of the document containing the node.
+  ///
+  /// The base URL is used to resolve relative URLs when the browser needs to
+  /// obtain an absolute URL, for example when processing the HTML `img`
+  /// element's `src` attribute or the `xlink:href`  or `href` attributes in
+  /// SVG.
+  ///
+  /// Although this property is read-only, its value is determined by an
+  /// algorithm each time
+  /// the property is accessed, and may change if the conditions changed.
+  ///
+  /// The base URL is determined as follows:
+  ///
+  /// 1. By default, the base URL is the location of the document (as determined
+  /// by [window.location]).
+  /// 2. If it is an HTML Document and there is a `Base` element in the
+  /// document,
+  /// the `href` value of the _first_ `Base` element with such an attribute is
+  /// used instead.
   external String get baseURI;
+
+  /// The read-only **`isConnected`** property of the [Node] interface
+  /// returns a boolean indicating whether the node is connected
+  /// (directly or indirectly) to a [Document] object.
   external bool get isConnected;
+
+  /// The read-only **`ownerDocument`** property of the [Node] interface
+  /// returns the top-level document object of the node.
   external Document? get ownerDocument;
+
+  /// The read-only **`parentNode`** property of the [Node] interface
+  /// returns the parent of the specified node in the DOM tree.
+  ///
+  /// `Document` and `DocumentFragment`
+  /// [nodes](https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType)
+  /// can never have a parent, so
+  /// `parentNode` will always return `null`.
+  /// It also returns `null` if the node has just been created
+  /// and is not yet attached to the tree.
   external Node? get parentNode;
+
+  /// The read-only **`parentElement`** property of [Node] interface
+  /// returns the DOM node's parent [Element], or `null` if the node either has
+  /// no
+  /// parent, or its parent isn't a DOM [Element].
   external Element? get parentElement;
+
+  /// The read-only **`childNodes`** property of the [Node] interface returns a
+  /// live
+  /// [NodeList] of child [Node] of the given element where
+  /// the first child node is assigned index `0`. Child nodes include elements,
+  /// text and
+  /// comments.
+  ///
+  /// > **Note:** The [NodeList] being live means that its content is changed
+  /// > each time
+  /// > new children are added or removed.
+  /// >
+  /// > Browsers insert text nodes into a document to represent whitespace in
+  /// > the source markup.
+  /// > Therefore a node obtained, for example, using `Node.childNodes[0]`
+  /// > may refer to a whitespace text node rather than the actual element the
+  /// > author intended to get.
+  /// >
+  /// > See
+  /// > [Whitespace in the DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Whitespace)
+  /// > for more information.
+  ///
+  /// The items in the collection of nodes are objects, not strings. To get data
+  /// from node
+  /// objects, use their properties. For example, to get the name of the first
+  /// childNode, you can use `elementNodeReference.childNodes[0].nodeName`.
+  ///
+  /// The [document] object itself has two children: the Doctype declaration and
+  /// the
+  /// root element, typically referred to as `documentElement`. In HTML
+  /// documents the latter is the `html` element.
+  ///
+  /// It is important to keep in mind that `childNodes` includes _all_ child
+  /// nodes,
+  /// including non-element nodes like text and comment.
+  /// To get a collection containing only elements, use [Element.children]
+  /// instead.
   external NodeList get childNodes;
+
+  /// The read-only **`firstChild`** property of the [Node] interface
+  /// returns the node's first child in the tree,
+  /// or `null` if the node has no children.
+  ///
+  /// If the node is a [Document],
+  /// this property returns the first node in the list of its direct children.
+  ///
+  /// > **Note:** This property returns any type of node that is the first child
+  /// > of this one.
+  /// > It may be a [Text] or a [Comment] node.
+  /// > If you want to get the first [Element] that is a child of another
+  /// > element,
+  /// > consider using [Element.firstElementChild].
   external Node? get firstChild;
+
+  /// The read-only **`lastChild`** property of the [Node] interface
+  /// returns the last child of the node, or `null` if there are no child nodes.
+  ///
+  /// > **Note:** This property returns any type of node that is the last child
+  /// > of this one.
+  /// > It may be a [Text] or a [Comment] node.
+  /// > If you want to get the last [Element] that is a child of another
+  /// > element,
+  /// > consider using [Element.lastElementChild].
   external Node? get lastChild;
+
+  /// The read-only **`previousSibling`** property of the [Node] interface
+  /// returns the node immediately preceding the specified one in its parent's
+  /// [Node.childNodes] list,
+  /// or `null` if the specified node is the first in that list.
+  ///
+  /// > **Note:** Browsers insert text nodes into a document to represent
+  /// > whitespace in the source markup.
+  /// > Therefore a node obtained, for example, using
+  /// > [`Node.firstChild`](https://developer.mozilla.org/en-US/docs/Web/API/Node/firstChild)
+  /// > or `Node.previousSibling`
+  /// > may refer to a whitespace text node rather than the actual element the
+  /// > author intended to get.
+  /// >
+  /// > See
+  /// > [Whitespace in the DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Whitespace)
+  /// > for more information.
+  /// >
+  /// > You can use
+  /// > [`previousElementSibling`](https://developer.mozilla.org/en-US/docs/Web/API/Element/previousElementSibling)
+  /// > to get the previous element node (skipping text nodes and any other
+  /// > non-element nodes).
+  /// >
+  /// > To navigate the opposite way through the child nodes list use
+  /// > [Node.nextSibling](https://developer.mozilla.org/en-US/docs/Web/API/Node/nextSibling).
   external Node? get previousSibling;
+
+  /// The read-only **`nextSibling`** property of the [Node] interface
+  /// returns the node immediately following the specified one in their
+  /// parent's [Node.childNodes], or returns `null`
+  /// if the specified node is the last child in the parent element.
+  ///
+  /// > **Note:** Browsers insert [Text] nodes into a document to represent
+  /// > whitespace in the source markup.
+  /// > Therefore a node obtained, for example, using
+  /// > [`Node.firstChild`](https://developer.mozilla.org/en-US/docs/Web/API/Node/firstChild)
+  /// > or
+  /// > [`Node.previousSibling`](https://developer.mozilla.org/en-US/docs/Web/API/Node/previousSibling)
+  /// > may refer to a whitespace text node rather than the actual element the
+  /// > author
+  /// > intended to get.
+  /// >
+  /// > The article
+  /// > [Whitespace in the DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Whitespace)
+  /// > contains more information about this behavior.
+  /// >
+  /// > You can use [Element.nextElementSibling] to obtain the next element
+  /// > skipping any whitespace nodes, other between-element text, or comments.
+  /// >
+  /// > To navigate the opposite way through the child nodes list use
+  /// > [Node.previousSibling](https://developer.mozilla.org/en-US/docs/Web/API/Node/previousSibling).
   external Node? get nextSibling;
-  external set nodeValue(String? value);
+
+  /// The **`nodeValue`** property of the [Node] interface returns or sets the
+  /// value of the current node.
   external String? get nodeValue;
-  external set textContent(String? value);
+  external set nodeValue(String? value);
+
+  /// The **`textContent`** property of the [Node]
+  /// interface represents the text content of the node and its descendants.
+  ///
+  /// > **Note:** `textContent` and [HTMLElement.innerText] are easily confused,
+  /// > but the two properties are
+  /// > [different in important ways](#differences_from_innertext).
   external String? get textContent;
+  external set textContent(String? value);
 }
 extension type GetRootNodeOptions._(JSObject _) implements JSObject {
   external factory GetRootNodeOptions({bool composed});
 
-  external set composed(bool value);
   external bool get composed;
+  external set composed(bool value);
 }
 @JS()
 external Document get document;
@@ -1372,272 +1724,652 @@ extension type Document._(JSObject _) implements Node, JSObject {
     int type,
     XPathResult? result,
   ]);
+
+  /// **`Document.rootElement`** returns the [Element]
+  /// that is the root element of the [document] if it is an
+  /// element, otherwise `null`. It is deprecated in favor of
+  /// [Document.documentElement], which returns the root element for all
+  /// documents.
   external SVGSVGElement? get rootElement;
+
+  /// The **`scrollingElement`** read-only property of the
+  /// [Document] interface returns a reference to the [Element] that
+  /// scrolls the document. In standards mode, this is the root element of the
+  /// document, [document.documentElement].
+  ///
+  /// When in quirks mode, the `scrollingElement` attribute returns the HTML
+  /// `body` element if it exists and is
+  /// [potentially scrollable](https://drafts.csswg.org/cssom-view/#potentially-scrollable),
+  /// otherwise it returns null.
   external Element? get scrollingElement;
+
+  /// The **`Document.implementation`** property returns a
+  /// [DOMImplementation] object associated with the current document.
   external DOMImplementation get implementation;
+
+  /// The **`URL`** read-only property of the [Document]
+  /// interface returns the document location as a string.
   external String get URL;
+
+  /// The **`documentURI`** read-only property of the
+  /// [Document] interface returns the document location as a string.
   external String get documentURI;
+
+  /// The **`Document.compatMode`** read-only property indicates
+  /// whether the document is rendered in
+  /// [Quirks mode](https://developer.mozilla.org/en-US/docs/Web/HTML/Quirks_Mode_and_Standards_Mode)
+  /// or
+  /// Standards mode.
   external String get compatMode;
+
+  /// The **`Document.characterSet`**
+  /// read-only property returns the
+  /// [character encoding](https://developer.mozilla.org/en-US/docs/Glossary/Character_encoding)
+  /// of the
+  /// document that it's currently rendered with.
+  ///
+  /// > **Note:** A "character set" and a "character encoding" are related, but
+  /// > different. Despite the
+  /// > name of this property, it returns the _encoding_.
+  ///
+  /// Users can override the developer-specified encoding inside the
+  /// [Content-Type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type)
+  /// header or inline
+  /// like `<meta charset="utf-8">`, such as with Firefox's <kbd>View → Text
+  /// Encoding</kbd> menu. This override is provided to fix incorrect
+  /// developer-specified
+  /// encodings that result in
+  /// [garbled text](https://en.wikipedia.org/wiki/Mojibake).
+  ///
+  /// > **Note:** The properties `document.charset` and `document.inputEncoding`
+  /// > are legacy aliases for `document.characterSet`. Do not use them any
+  /// > more.
   external String get characterSet;
   external String get charset;
   external String get inputEncoding;
+
+  /// The **`Document.contentType`** read-only property returns the
+  /// MIME type that the document is being rendered as. This may come from HTTP
+  /// headers or
+  /// other sources of MIME information, and might be affected by automatic type
+  /// conversions
+  /// performed by either the browser or extensions.
+  ///
+  /// > **Note:** This property is unaffected by `meta`
+  /// > elements.
   external String get contentType;
+
+  /// Returns the Document Type Declaration (DTD) associated with current
+  /// document. The
+  /// returned object implements the [DocumentType] interface. Use
+  /// [DOMImplementation.createDocumentType] to create a
+  /// `DocumentType`.
+  ///
+  /// - `doctype` is a read-only property.
   external DocumentType? get doctype;
+
+  /// **`Document.documentElement`** returns the
+  /// [Element] that is the root element of the [document] (for
+  /// example, the `html` element for HTML documents).
   external Element? get documentElement;
+
+  /// The **`Document.location`** read-only property returns a
+  /// [Location] object, which contains information about the URL of the
+  /// document
+  /// and provides methods for changing that URL and loading another URL.
+  ///
+  /// Though `Document.location` is a _read-only_ `Location`
+  /// object, you can also assign a string to it. This means that you can
+  /// work with document.location as if it were a string in most cases:
+  /// `document.location = 'http://www.example.com'` is a synonym of
+  /// `document.location.href = 'http://www.example.com'`. If you assign another
+  /// string to it, browser will load the website you assigned.
+  ///
+  /// To retrieve just the URL as a string, the read-only [document.URL]
+  /// property can also be used.
+  ///
+  /// If the current document is not in a browsing context, the returned value
+  /// is
+  /// `null`.
   external Location? get location;
-  external set domain(String value);
+
+  /// The **`domain`** property of the [Document]
+  /// interface gets/sets the domain portion of the  of the current
+  /// document, as used by the
+  /// [same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy).
   external String get domain;
+  external set domain(String value);
+
+  /// The **`Document.referrer`** property returns the
+  /// [URI](https://www.w3.org/Addressing/#background) of the page that linked
+  /// to
+  /// this page.
   external String get referrer;
-  external set cookie(String value);
+
+  /// The [Document] property `cookie` lets you read and write
+  /// [cookies](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)
+  /// associated with the document.
+  /// It serves as a getter and setter for the actual values of the cookies.
   external String get cookie;
+  external set cookie(String value);
+
+  /// The **`lastModified`** property of the [Document]
+  /// interface returns a string containing the date and local time on which the
+  /// current document
+  /// was last modified.
   external String get lastModified;
+
+  /// The **`Document.readyState`** property describes the loading state of the
+  /// [document].
+  /// When the value of this property changes, a
+  /// [Document.readystatechange_event] event fires on the [document] object.
   external DocumentReadyState get readyState;
-  external set title(String value);
+
+  /// The **`document.title`** property gets or sets the current title of the
+  /// document.
+  /// When present, it defaults to the value of the
+  /// [`<title>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title).
   external String get title;
-  external set dir(String value);
+  external set title(String value);
+
+  /// The **`Document.dir`** property is a string
+  /// representing the directionality of the text of the document, whether left
+  /// to right
+  /// (default) or right to left. Possible values are `'rtl'`, right to left,
+  /// and
+  /// `'ltr'`, left to right.
   external String get dir;
-  external set body(HTMLElement? value);
+  external set dir(String value);
+
+  /// The **`Document.body`** property represents the
+  /// `body` or `frameset` node of the current document, or
+  /// `null` if no such element exists.
   external HTMLElement? get body;
+  external set body(HTMLElement? value);
+
+  /// The **`head`** read-only property of
+  /// the [Document] interface returns the `head` element of
+  /// the current document.
   external HTMLHeadElement? get head;
+
+  /// The **`images`** read-only property of
+  /// the [Document] interface returns a
+  /// [collection](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCollection)
+  /// of the
+  /// [images](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image)
+  /// in the current HTML document.
   external HTMLCollection get images;
+
+  /// The **`embeds`** read-only property of the
+  /// [Document] interface returns a list of the embedded
+  /// `embed` elements within the current document.
   external HTMLCollection get embeds;
+
+  /// The **`plugins`** read-only property of the
+  /// [Document] interface returns an [HTMLCollection] object
+  /// containing one or more [HTMLEmbedElement]s representing the
+  /// `embed` elements in the current document.
+  ///
+  /// > **Note:** For a list of installed plugins, use
+  /// > [Navigator.plugins](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/plugins)
+  /// > instead.
   external HTMLCollection get plugins;
+
+  /// The **`links`** read-only property of the [Document] interface returns a
+  /// collection of all `area` elements and `a` elements in a document with a
+  /// value for the
+  /// [href](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#href)
+  /// attribute.
   external HTMLCollection get links;
+
+  /// The **`forms`** read-only property of
+  /// the [Document] interface returns an [HTMLCollection] listing
+  /// all the `form` elements contained in the document.
+  ///
+  /// > **Note:** Similarly, you can access a list of a form's component user
+  /// > input elements using the [HTMLFormElement.elements] property.
   external HTMLCollection get forms;
+
+  /// The **`scripts`** property of the [Document]
+  /// interface returns a list of the `script`
+  /// elements in the document. The returned object is an
+  /// [HTMLCollection].
   external HTMLCollection get scripts;
+
+  /// The **`Document.currentScript`** property returns the `script` element
+  /// whose script is currently being processed and [isn't a JavaScript
+  /// module](https://github.com/whatwg/html/issues/997). (For modules use
+  /// [`import.meta`](/en-US/docs/Web/JavaScript/Reference/Operators/import.meta)
+  /// instead.)
+  ///
+  /// It's important to note that this will not reference the `script`
+  /// element if the code in the script is being called as a callback or event
+  /// handler; it
+  /// will only reference the element while it's initially being processed.
   external HTMLOrSVGScriptElement? get currentScript;
+
+  /// In browsers, **`document.defaultView`** returns the
+  /// [Window] object associated with , or `null` if none is available.
+  ///
+  /// This property is read-only.
   external Window? get defaultView;
-  external set designMode(String value);
+
+  /// **`document.designMode`** controls whether the entire document
+  /// is editable. Valid values are `"on"` and `"off"`. According to the
+  /// specification, this property is meant to default to `"off"`. Firefox
+  /// follows
+  /// this standard. The earlier versions of Chrome and IE default to
+  /// `"inherit"`.
+  /// Starting in Chrome 43, the default is `"off"` and `"inherit"` is
+  /// no longer supported. In IE6-10, the value is capitalized.
   external String get designMode;
+  external set designMode(String value);
+
+  /// The **`Document.hidden`** read-only property returns a Boolean
+  /// value indicating if the page is considered hidden or not.
+  ///
+  /// The [Document.visibilityState] property provides an alternative way to
+  /// determine whether the page is hidden.
   external bool get hidden;
+
+  /// The **`Document.visibilityState`**
+  /// read-only property returns the visibility of the document. It can be used
+  /// to check whether the document is in the background or in a minimized
+  /// window, or is otherwise not visible to the user.
+  ///
+  /// When the value of this property changes, the
+  /// [Document.visibilitychange_event] event is sent to the [Document].
+  ///
+  /// The [Document.hidden] property provides an alternative way to determine
+  /// whether the page is hidden.
   external DocumentVisibilityState get visibilityState;
-  external set onreadystatechange(EventHandler value);
   external EventHandler get onreadystatechange;
-  external set onvisibilitychange(EventHandler value);
+  external set onreadystatechange(EventHandler value);
   external EventHandler get onvisibilitychange;
-  external set fgColor(String value);
+  external set onvisibilitychange(EventHandler value);
+
+  /// **`fgColor`** gets/sets the foreground color, or text color, of
+  /// the current document.
   external String get fgColor;
-  external set linkColor(String value);
+  external set fgColor(String value);
+
+  /// The **`Document.linkColor`** property gets/sets the color of
+  /// links within the document.
+  ///
+  /// This property is deprecated. As an alternative, you can set the CSS
+  /// `color` property on either HTML anchor links (`a`) or on
+  /// pseudo-classes. Another alternative is
+  /// `document.body.link`, although this is [deprecated in HTML
+  /// 4.01](https://www.w3.org/TR/html401/struct/global.html#adef-link).
   external String get linkColor;
-  external set vlinkColor(String value);
+  external set linkColor(String value);
+
+  /// The **`Document.vlinkColor`** property gets/sets the color of
+  /// links that the user has visited in the document.
   external String get vlinkColor;
-  external set alinkColor(String value);
+  external set vlinkColor(String value);
+
+  /// Returns or sets the color of an active link in the document body. A link
+  /// is active
+  /// during the time between `mousedown` and `mouseup` events.
   external String get alinkColor;
-  external set bgColor(String value);
+  external set alinkColor(String value);
+
+  /// The deprecated `bgColor` property gets or sets the background color of the
+  /// current document.
   external String get bgColor;
+  external set bgColor(String value);
+
+  /// The **`anchors`** read-only property of the
+  /// [Document] interface returns a list of all of the anchors in the document.
   external HTMLCollection get anchors;
+
+  /// The **`applets`** property of the [Document] returns an empty
+  /// [HTMLCollection]. This property is kept only for compatibility reasons; in
+  /// older versions of browsers, it returned a list of the applets within a
+  /// document.
+  ///
+  /// > **Note:** Support for the `<applet>` element has been removed by all
+  /// > browsers. Therefore, calling `document.applets` always
+  /// > returns an empty collection.
   external HTMLCollection get applets;
+
+  /// The [Document] interface's read-only **`all`** property returns an
+  /// [HTMLAllCollection] rooted at the document node.
+  ///
+  /// Rather than using `document.all` to return an [HTMLAllCollection] of all
+  /// the document's elements in document order, you can use
+  /// [Document.querySelectorAll] to return a [NodeList] of all the document's
+  /// elements in document order:
+  ///
+  /// ```js
+  /// const allElements = document.querySelectorAll("*");
+  /// ```
   external HTMLAllCollection get all;
+
+  /// The `timeline` readonly property of the [Document] interface represents
+  /// the default timeline of the current document. This timeline is a special
+  /// instance of [DocumentTimeline].
+  ///
+  /// This timeline is unique to each `document` and persists for the lifetime
+  /// of the `document` including calls to [Document.open].
+  ///
+  /// This timeline expresses the time in milliseconds since
+  /// [Performance.timeOrigin].
+  /// Prior to the time origin, the timeline is inactive, and its
+  /// [AnimationTimeline.currentTime] is `null`.
+  ///
+  /// > **Note:** A document timeline that is associated with a non-active
+  /// > document (a [Document] not associated with a [Window], `iframe`, or
+  /// > `frame`) is also considered to be inactive.
   external DocumentTimeline get timeline;
+
+  /// The **`fonts`** property of the [Document] interface returns the
+  /// [FontFaceSet] interface of the document.
+  ///
+  /// This feature is part of the
+  /// [CSS Font Loading API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Font_Loading_API).
   external FontFaceSet get fonts;
+
+  /// The **`styleSheets`** read-only property of the [Document] interface
+  /// returns a [StyleSheetList] of [CSSStyleSheet] objects, for stylesheets
+  /// explicitly linked into or embedded in a document.
   external StyleSheetList get styleSheets;
-  external set adoptedStyleSheets(JSArray<CSSStyleSheet> value);
+
+  /// The **`adoptedStyleSheets`** property of the [Document] interface is used
+  /// for setting an array of constructed stylesheets to be used by the
+  /// document.
+  ///
+  /// > **Note:** A constructed stylesheet is a stylesheet created
+  /// > programmatically using the [`CSSStyleSheet()`
+  /// > constructor](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet/CSSStyleSheet)
+  /// > (as compared to one created by a user-agent when importing a stylesheet
+  /// > from a script, imported using `style` and , or linked to via `link`).
+  ///
+  /// The same constructed stylesheets can also be shared with one or more
+  /// [ShadowRoot] instances using the
+  /// [`ShadowRoot.adoptedStyleSheets`](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/adoptedStyleSheets)
+  /// property.
+  /// Changing an adopted stylesheet will affect all the objects that adopt it.
+  ///
+  /// Stylesheets in the property are evaluated along with the document's other
+  /// stylesheets using the
+  /// [CSS cascade algorithm](https://developer.mozilla.org/en-US/docs/Web/CSS/Cascade).
+  /// Where the resolution of rules considers stylesheet order,
+  /// `adoptedStyleSheets` are assumed to be ordered after those in
+  /// [`Document.styleSheets`](https://developer.mozilla.org/en-US/docs/Web/API/Document/styleSheets).
+  ///
+  /// Only stylesheets created using the [`CSSStyleSheet()`
+  /// constructor](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet/CSSStyleSheet)
+  /// within the context of the current [Document] may be adopted.
   external JSArray<CSSStyleSheet> get adoptedStyleSheets;
+  external set adoptedStyleSheets(JSArray<CSSStyleSheet> value);
+
+  /// The **`activeElement`** read-only property
+  /// of the [Document] interface returns the [Element] within the DOM that
+  /// currently has focus.
+  ///
+  /// Often `activeElement` will return a [HTMLInputElement] or
+  /// [HTMLTextAreaElement] object if it has the text selection at the time. If
+  /// so, you can get more detail by using the object's `selectionStart` and
+  /// `selectionEnd` properties.
+  /// Other times the focused element might be a `select` element (menu) or
+  /// an `input` element.
+  ///
+  /// Typically a user can press the tab key to move the focus around the page
+  /// among
+  /// focusable elements, and use the space bar to activate one (that is, to
+  /// press a button or
+  /// toggle a radio button). Which elements are focusable varies depending on
+  /// the platform
+  /// and the browser's current configuration. For example, on macOS systems,
+  /// elements that
+  /// aren't text input elements are not typically focusable by default.
+  ///
+  /// > **Note:** Focus (which element is receiving user input events) is not
+  /// > the same thing as selection (the currently highlighted part of the
+  /// > document). You can
+  /// > get the current selection using [window.getSelection].
   external Element? get activeElement;
+
+  /// The read-only **`children`** property returns a live [HTMLCollection]
+  /// which contains all of the child [Element] of the document upon which it
+  /// was called.
+  ///
+  /// For HTML documents, this is usually only the root `<html>` element.
+  ///
+  /// See [Element.children] for child elements of specific HTML elements within
+  /// the document.
   external HTMLCollection get children;
+
+  /// The **`Document.firstElementChild`** read-only property
+  /// returns the document's first child [Element], or `null` if there
+  /// are no child elements.
+  ///
+  /// For HTML documents, this is usually the only child, the root `<html>`
+  /// element.
+  ///
+  /// See [Element.firstElementChild] for the first child element of specific
+  /// elements within a document.
   external Element? get firstElementChild;
+
+  /// The **`Document.lastElementChild`** read-only property
+  /// returns the document's last child [Element], or `null` if there
+  /// are no child elements.
+  ///
+  /// For HTML documents, this is usually the only child, the root `<html>`
+  /// element.
+  ///
+  /// See [Element.lastElementChild] for the last child element of specific
+  /// elements within a document.
   external Element? get lastElementChild;
+
+  /// The **`Document.childElementCount`** read-only property
+  /// returns the number of child elements of the document.
+  ///
+  /// To get the number of children of a specific element, see
+  /// [Element.childElementCount].
   external int get childElementCount;
-  external set onanimationstart(EventHandler value);
   external EventHandler get onanimationstart;
-  external set onanimationiteration(EventHandler value);
+  external set onanimationstart(EventHandler value);
   external EventHandler get onanimationiteration;
-  external set onanimationend(EventHandler value);
+  external set onanimationiteration(EventHandler value);
   external EventHandler get onanimationend;
-  external set onanimationcancel(EventHandler value);
+  external set onanimationend(EventHandler value);
   external EventHandler get onanimationcancel;
-  external set ontransitionrun(EventHandler value);
+  external set onanimationcancel(EventHandler value);
   external EventHandler get ontransitionrun;
-  external set ontransitionstart(EventHandler value);
+  external set ontransitionrun(EventHandler value);
   external EventHandler get ontransitionstart;
-  external set ontransitionend(EventHandler value);
+  external set ontransitionstart(EventHandler value);
   external EventHandler get ontransitionend;
-  external set ontransitioncancel(EventHandler value);
+  external set ontransitionend(EventHandler value);
   external EventHandler get ontransitioncancel;
-  external set onabort(EventHandler value);
+  external set ontransitioncancel(EventHandler value);
   external EventHandler get onabort;
-  external set onauxclick(EventHandler value);
+  external set onabort(EventHandler value);
   external EventHandler get onauxclick;
-  external set onbeforeinput(EventHandler value);
+  external set onauxclick(EventHandler value);
   external EventHandler get onbeforeinput;
-  external set onbeforematch(EventHandler value);
+  external set onbeforeinput(EventHandler value);
   external EventHandler get onbeforematch;
-  external set onbeforetoggle(EventHandler value);
+  external set onbeforematch(EventHandler value);
   external EventHandler get onbeforetoggle;
-  external set onblur(EventHandler value);
+  external set onbeforetoggle(EventHandler value);
   external EventHandler get onblur;
-  external set oncancel(EventHandler value);
+  external set onblur(EventHandler value);
   external EventHandler get oncancel;
-  external set oncanplay(EventHandler value);
+  external set oncancel(EventHandler value);
   external EventHandler get oncanplay;
-  external set oncanplaythrough(EventHandler value);
+  external set oncanplay(EventHandler value);
   external EventHandler get oncanplaythrough;
-  external set onchange(EventHandler value);
+  external set oncanplaythrough(EventHandler value);
   external EventHandler get onchange;
-  external set onclick(EventHandler value);
+  external set onchange(EventHandler value);
   external EventHandler get onclick;
-  external set onclose(EventHandler value);
+  external set onclick(EventHandler value);
   external EventHandler get onclose;
-  external set oncontextlost(EventHandler value);
+  external set onclose(EventHandler value);
   external EventHandler get oncontextlost;
-  external set oncontextmenu(EventHandler value);
+  external set oncontextlost(EventHandler value);
   external EventHandler get oncontextmenu;
-  external set oncontextrestored(EventHandler value);
+  external set oncontextmenu(EventHandler value);
   external EventHandler get oncontextrestored;
-  external set oncopy(EventHandler value);
+  external set oncontextrestored(EventHandler value);
   external EventHandler get oncopy;
-  external set oncuechange(EventHandler value);
+  external set oncopy(EventHandler value);
   external EventHandler get oncuechange;
-  external set oncut(EventHandler value);
+  external set oncuechange(EventHandler value);
   external EventHandler get oncut;
-  external set ondblclick(EventHandler value);
+  external set oncut(EventHandler value);
   external EventHandler get ondblclick;
-  external set ondrag(EventHandler value);
+  external set ondblclick(EventHandler value);
   external EventHandler get ondrag;
-  external set ondragend(EventHandler value);
+  external set ondrag(EventHandler value);
   external EventHandler get ondragend;
-  external set ondragenter(EventHandler value);
+  external set ondragend(EventHandler value);
   external EventHandler get ondragenter;
-  external set ondragleave(EventHandler value);
+  external set ondragenter(EventHandler value);
   external EventHandler get ondragleave;
-  external set ondragover(EventHandler value);
+  external set ondragleave(EventHandler value);
   external EventHandler get ondragover;
-  external set ondragstart(EventHandler value);
+  external set ondragover(EventHandler value);
   external EventHandler get ondragstart;
-  external set ondrop(EventHandler value);
+  external set ondragstart(EventHandler value);
   external EventHandler get ondrop;
-  external set ondurationchange(EventHandler value);
+  external set ondrop(EventHandler value);
   external EventHandler get ondurationchange;
-  external set onemptied(EventHandler value);
+  external set ondurationchange(EventHandler value);
   external EventHandler get onemptied;
-  external set onended(EventHandler value);
+  external set onemptied(EventHandler value);
   external EventHandler get onended;
-  external set onerror(OnErrorEventHandler value);
+  external set onended(EventHandler value);
   external OnErrorEventHandler get onerror;
-  external set onfocus(EventHandler value);
+  external set onerror(OnErrorEventHandler value);
   external EventHandler get onfocus;
-  external set onformdata(EventHandler value);
+  external set onfocus(EventHandler value);
   external EventHandler get onformdata;
-  external set oninput(EventHandler value);
+  external set onformdata(EventHandler value);
   external EventHandler get oninput;
-  external set oninvalid(EventHandler value);
+  external set oninput(EventHandler value);
   external EventHandler get oninvalid;
-  external set onkeydown(EventHandler value);
+  external set oninvalid(EventHandler value);
   external EventHandler get onkeydown;
-  external set onkeypress(EventHandler value);
+  external set onkeydown(EventHandler value);
   external EventHandler get onkeypress;
-  external set onkeyup(EventHandler value);
+  external set onkeypress(EventHandler value);
   external EventHandler get onkeyup;
-  external set onload(EventHandler value);
+  external set onkeyup(EventHandler value);
   external EventHandler get onload;
-  external set onloadeddata(EventHandler value);
+  external set onload(EventHandler value);
   external EventHandler get onloadeddata;
-  external set onloadedmetadata(EventHandler value);
+  external set onloadeddata(EventHandler value);
   external EventHandler get onloadedmetadata;
-  external set onloadstart(EventHandler value);
+  external set onloadedmetadata(EventHandler value);
   external EventHandler get onloadstart;
-  external set onmousedown(EventHandler value);
+  external set onloadstart(EventHandler value);
   external EventHandler get onmousedown;
-  external set onmouseenter(EventHandler value);
+  external set onmousedown(EventHandler value);
   external EventHandler get onmouseenter;
-  external set onmouseleave(EventHandler value);
+  external set onmouseenter(EventHandler value);
   external EventHandler get onmouseleave;
-  external set onmousemove(EventHandler value);
+  external set onmouseleave(EventHandler value);
   external EventHandler get onmousemove;
-  external set onmouseout(EventHandler value);
+  external set onmousemove(EventHandler value);
   external EventHandler get onmouseout;
-  external set onmouseover(EventHandler value);
+  external set onmouseout(EventHandler value);
   external EventHandler get onmouseover;
-  external set onmouseup(EventHandler value);
+  external set onmouseover(EventHandler value);
   external EventHandler get onmouseup;
-  external set onpaste(EventHandler value);
+  external set onmouseup(EventHandler value);
   external EventHandler get onpaste;
-  external set onpause(EventHandler value);
+  external set onpaste(EventHandler value);
   external EventHandler get onpause;
-  external set onplay(EventHandler value);
+  external set onpause(EventHandler value);
   external EventHandler get onplay;
-  external set onplaying(EventHandler value);
+  external set onplay(EventHandler value);
   external EventHandler get onplaying;
-  external set onprogress(EventHandler value);
+  external set onplaying(EventHandler value);
   external EventHandler get onprogress;
-  external set onratechange(EventHandler value);
+  external set onprogress(EventHandler value);
   external EventHandler get onratechange;
-  external set onreset(EventHandler value);
+  external set onratechange(EventHandler value);
   external EventHandler get onreset;
-  external set onresize(EventHandler value);
+  external set onreset(EventHandler value);
   external EventHandler get onresize;
-  external set onscroll(EventHandler value);
+  external set onresize(EventHandler value);
   external EventHandler get onscroll;
-  external set onscrollend(EventHandler value);
+  external set onscroll(EventHandler value);
   external EventHandler get onscrollend;
-  external set onsecuritypolicyviolation(EventHandler value);
+  external set onscrollend(EventHandler value);
   external EventHandler get onsecuritypolicyviolation;
-  external set onseeked(EventHandler value);
+  external set onsecuritypolicyviolation(EventHandler value);
   external EventHandler get onseeked;
-  external set onseeking(EventHandler value);
+  external set onseeked(EventHandler value);
   external EventHandler get onseeking;
-  external set onselect(EventHandler value);
+  external set onseeking(EventHandler value);
   external EventHandler get onselect;
-  external set onslotchange(EventHandler value);
+  external set onselect(EventHandler value);
   external EventHandler get onslotchange;
-  external set onstalled(EventHandler value);
+  external set onslotchange(EventHandler value);
   external EventHandler get onstalled;
-  external set onsubmit(EventHandler value);
+  external set onstalled(EventHandler value);
   external EventHandler get onsubmit;
-  external set onsuspend(EventHandler value);
+  external set onsubmit(EventHandler value);
   external EventHandler get onsuspend;
-  external set ontimeupdate(EventHandler value);
+  external set onsuspend(EventHandler value);
   external EventHandler get ontimeupdate;
-  external set ontoggle(EventHandler value);
+  external set ontimeupdate(EventHandler value);
   external EventHandler get ontoggle;
-  external set onvolumechange(EventHandler value);
+  external set ontoggle(EventHandler value);
   external EventHandler get onvolumechange;
-  external set onwaiting(EventHandler value);
+  external set onvolumechange(EventHandler value);
   external EventHandler get onwaiting;
-  external set onwebkitanimationend(EventHandler value);
+  external set onwaiting(EventHandler value);
   external EventHandler get onwebkitanimationend;
-  external set onwebkitanimationiteration(EventHandler value);
+  external set onwebkitanimationend(EventHandler value);
   external EventHandler get onwebkitanimationiteration;
-  external set onwebkitanimationstart(EventHandler value);
+  external set onwebkitanimationiteration(EventHandler value);
   external EventHandler get onwebkitanimationstart;
-  external set onwebkittransitionend(EventHandler value);
+  external set onwebkitanimationstart(EventHandler value);
   external EventHandler get onwebkittransitionend;
-  external set onwheel(EventHandler value);
+  external set onwebkittransitionend(EventHandler value);
   external EventHandler get onwheel;
-  external set onpointerover(EventHandler value);
+  external set onwheel(EventHandler value);
   external EventHandler get onpointerover;
-  external set onpointerenter(EventHandler value);
+  external set onpointerover(EventHandler value);
   external EventHandler get onpointerenter;
-  external set onpointerdown(EventHandler value);
+  external set onpointerenter(EventHandler value);
   external EventHandler get onpointerdown;
-  external set onpointermove(EventHandler value);
+  external set onpointerdown(EventHandler value);
   external EventHandler get onpointermove;
-  external set onpointerrawupdate(EventHandler value);
+  external set onpointermove(EventHandler value);
   external EventHandler get onpointerrawupdate;
-  external set onpointerup(EventHandler value);
+  external set onpointerrawupdate(EventHandler value);
   external EventHandler get onpointerup;
-  external set onpointercancel(EventHandler value);
+  external set onpointerup(EventHandler value);
   external EventHandler get onpointercancel;
-  external set onpointerout(EventHandler value);
+  external set onpointercancel(EventHandler value);
   external EventHandler get onpointerout;
-  external set onpointerleave(EventHandler value);
+  external set onpointerout(EventHandler value);
   external EventHandler get onpointerleave;
-  external set ongotpointercapture(EventHandler value);
+  external set onpointerleave(EventHandler value);
   external EventHandler get ongotpointercapture;
-  external set onlostpointercapture(EventHandler value);
+  external set ongotpointercapture(EventHandler value);
   external EventHandler get onlostpointercapture;
-  external set onselectstart(EventHandler value);
+  external set onlostpointercapture(EventHandler value);
   external EventHandler get onselectstart;
-  external set onselectionchange(EventHandler value);
+  external set onselectstart(EventHandler value);
   external EventHandler get onselectionchange;
-  external set ontouchstart(EventHandler value);
+  external set onselectionchange(EventHandler value);
   external EventHandler get ontouchstart;
-  external set ontouchend(EventHandler value);
+  external set ontouchstart(EventHandler value);
   external EventHandler get ontouchend;
-  external set ontouchmove(EventHandler value);
+  external set ontouchend(EventHandler value);
   external EventHandler get ontouchmove;
-  external set ontouchcancel(EventHandler value);
+  external set ontouchmove(EventHandler value);
   external EventHandler get ontouchcancel;
+  external set ontouchcancel(EventHandler value);
 }
 
 /// The **XMLDocument** interface represents an XML document. It inherits from
@@ -1654,9 +2386,9 @@ extension type ElementCreationOptions._(JSObject _) implements JSObject {
   external factory ElementCreationOptions({String is_});
 
   @JS('is')
-  external set is_(String value);
-  @JS('is')
   external String get is_;
+  @JS('is')
+  external set is_(String value);
 }
 
 /// The **`DOMImplementation`** interface represents an object providing methods
@@ -1730,8 +2462,37 @@ extension type DocumentType._(JSObject _) implements Node, JSObject {
 
   /// The **`DocumentType.remove()`** method removes a document's `doctype`.
   external void remove();
+
+  /// The read-only **`name`** property of the [DocumentType] returns the type
+  /// of the document.
+  ///
+  /// For synthetic `DocumentType`, this property reflects the value given in
+  /// parameter to [DOMImplementation.createDocumentType].
+  ///
+  /// For HTML documents, browsers always set it up to `html`, whatever the
+  /// actual `DOCTYPE` in the source code is.
   external String get name;
+
+  /// The read-only **`publicId`** property of the [DocumentType] returns a
+  /// formal identifier of the document.
+  ///
+  /// For synthetic `DocumentType`, this property reflects the value given in
+  /// parameter to [DOMImplementation.createDocumentType].
+  ///
+  /// For HTML documents, browsers always set it up to `html`, whatever the
+  /// actual `DOCTYPE` in the source code is. For SVG documents, for example, it
+  /// can be `"-//W3C//DTD SVG 1.1//EN"`.
   external String get publicId;
+
+  /// The read-only **`systemId`** property of the [DocumentType] returns the
+  /// URL of the associated DTD.
+  ///
+  /// For synthetic `DocumentType`, this property reflects the value given in
+  /// parameter to [DOMImplementation.createDocumentType].
+  ///
+  /// For HTML documents, browsers always set it up to `html`, whatever the
+  /// actual `DOCTYPE` in the source code is. For SVG documents, for example, it
+  /// can be `"http://www.w3.org/2000/svg"`.
   external String get systemId;
 }
 
@@ -1811,9 +2572,27 @@ extension type DocumentFragment._(JSObject _) implements Node, JSObject {
   /// If the selectors specified in parameter are invalid a [DOMException] with
   /// a `SYNTAX_ERR` value is raised.
   external NodeList querySelectorAll(String selectors);
+
+  /// The read-only **`children`** property returns a live [HTMLCollection]
+  /// which contains all of the child [Element] of the document fragment upon
+  /// which it was called.
   external HTMLCollection get children;
+
+  /// The **`DocumentFragment.firstElementChild`** read-only property
+  /// returns the document fragment's first child [Element], or `null` if there
+  /// are no child elements.
   external Element? get firstElementChild;
+
+  /// The **`DocumentFragment.lastElementChild`** read-only property
+  /// returns the document fragment's last child [Element], or `null` if there
+  /// are no child elements.
   external Element? get lastElementChild;
+
+  /// The **`DocumentFragment.childElementCount`** read-only property
+  /// returns the number of child elements of a `DocumentFragment`.
+  ///
+  /// To get the number of children of a specific element, see
+  /// [Element.childElementCount].
   external int get childElementCount;
 }
 
@@ -1839,18 +2618,105 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   /// and
   /// [Web Animations](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API).
   external JSArray<Animation> getAnimations();
+
+  /// The **`mode`** read-only property of the [ShadowRoot]
+  /// specifies its mode — either `open` or `closed`. This defines
+  /// whether or not the shadow root's internal features are accessible from
+  /// JavaScript.
+  ///
+  /// When the `mode` of a shadow root is "`closed`", the shadow root's
+  /// implementation internals are inaccessible and unchangeable from
+  /// JavaScript—in the same
+  /// way the implementation internals of, for example, the `video` element
+  /// are inaccessible and unchangeable from JavaScript.
   external ShadowRootMode get mode;
+
+  /// The **`delegatesFocus`** read-only property of the [ShadowRoot] interface
+  /// returns `true` if the shadow root delegates focus, and `false` otherwise.
+  ///
+  /// If `true`, when a non-focusable part of the shadow DOM is clicked, or
+  /// `.focus()` is called on the host element, the first focusable part is
+  /// given focus, and the shadow host is given any available `:focus` styling.
+  ///
+  /// Focus is of particular importance for keyboard users (including those
+  /// using screen readers). `delegatesFocus` default behavior is to focus the
+  /// first focusable element — which may be undesirable if that element is not
+  /// meant to be part of the tabbing order (for example, an element with
+  /// `tabindex="-1"`), or if a more 'important' focusable element should
+  /// receive initial focus (for instance, the first text field rather than the
+  /// 'close' button which precedes it). In such cases, the `autofocus`
+  /// attribute can be specified on the element which should receive initial
+  /// focus. Use the `autofocus` attribute with caution as it can introduce
+  /// accessibility issues, such as bypassing important content which may go
+  /// unnoticed due to focus being set to an element later in the DOM order.
+  ///
+  /// The property value is set using the `delegatesFocus` property of the
+  /// object passed to [Element.attachShadow]).
   external bool get delegatesFocus;
+
+  /// The read-only **`slotAssignment`** property of the [ShadowRoot] interface
+  /// returns the _slot assignment mode_ for the shadow DOM tree. Nodes are
+  /// either automatically assigned (`named`) or manually assigned (`manual`).
+  /// The value of this property defined using the `slotAssignment` option when
+  /// calling [Element.attachShadow].
   external SlotAssignmentMode get slotAssignment;
+
+  /// The **`clonable`** read-only property of the [ShadowRoot] interface
+  /// returns `true` if the shadow root is clonable, and `false` otherwise. It
+  /// always returns `true` for shadow roots created via declarative shadow DOM.
+  /// It can be set to `true` using the `clonable` option of the
+  /// [Element.attachShadow] method.
   external bool get clonable;
+
+  /// The **`host`** read-only property of
+  /// the [ShadowRoot] returns a reference to the DOM element the
+  /// `ShadowRoot` is attached to.
   external Element get host;
-  external set onslotchange(EventHandler value);
   external EventHandler get onslotchange;
-  external set innerHTML(String value);
+  external set onslotchange(EventHandler value);
+
+  /// The **`innerHTML`** property of the [ShadowRoot]
+  /// interface sets or returns a reference to the DOM tree inside the
+  /// `ShadowRoot`.
   external String get innerHTML;
+  external set innerHTML(String value);
+
+  /// The **`styleSheets`** read-only property of the [ShadowRoot] interface
+  /// returns a [StyleSheetList] of [CSSStyleSheet] objects, for stylesheets
+  /// explicitly linked into or embedded in a shadow tree.
   external StyleSheetList get styleSheets;
-  external set adoptedStyleSheets(JSArray<CSSStyleSheet> value);
+
+  /// The **`adoptedStyleSheets`** property of the [ShadowRoot] interface sets
+  /// an array of constructed stylesheets to be used by the shadow DOM subtree.
+  ///
+  /// > **Note:** A constructed stylesheet is a stylesheet created
+  /// > programmatically using the [`CSSStyleSheet()`
+  /// > constructor](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet/CSSStyleSheet)
+  /// > (as compared to one created by a user-agent when importing a stylesheet
+  /// > from a script, imported using `style` and , or linked to via `link`).
+  ///
+  /// The same constructed stylesheet can be adopted by multiple [ShadowRoot]
+  /// instances, and by the parent document (using the
+  /// [Document.adoptedStyleSheets] property).
+  /// Changing an adopted stylesheet will affect all the adopting objects.
+  ///
+  /// Stylesheets in the `adoptedStyleSheets` property are considered along with
+  /// the shadow DOM's other stylesheets.
+  /// For the purpose of determining the final computed CSS of any element, they
+  /// are considered to have been added _after_ the other stylesheets in the
+  /// shadow DOM
+  /// ([`ShadowRoot.styleSheets`](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/styleSheets)).
+  ///
+  /// Only stylesheets created using the [`CSSStyleSheet()`
+  /// constructor](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet/CSSStyleSheet),
+  /// and from within the same parent [Document] as the shadow root, may be
+  /// adopted.
   external JSArray<CSSStyleSheet> get adoptedStyleSheets;
+  external set adoptedStyleSheets(JSArray<CSSStyleSheet> value);
+
+  /// The **`activeElement`** read-only property of the
+  /// [ShadowRoot] interface returns the element within the shadow tree that has
+  /// focus.
   external Element? get activeElement;
 }
 
@@ -2360,39 +3226,340 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// > and
   /// > [Web Animations](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API).
   external JSArray<Animation> getAnimations([GetAnimationsOptions options]);
-  external set outerHTML(String value);
+
+  /// The **`outerHTML`** attribute of the [Element]
+  /// DOM interface gets the serialized HTML fragment describing the element
+  /// including its
+  /// descendants. It can also be set to replace the element with nodes parsed
+  /// from the given
+  /// string.
+  ///
+  /// To only obtain the HTML representation of the contents of an element, or
+  /// to replace the
+  /// contents of an element, use the [Element.innerHTML] property
+  /// instead.
   external String get outerHTML;
-  external set scrollTop(num value);
+  external set outerHTML(String value);
+
+  /// The **`Element.scrollTop`** property gets or sets the number of pixels
+  /// that an element's content is scrolled vertically.
+  ///
+  /// An element's `scrollTop` value is a measurement of the distance from the
+  /// element's top to its topmost _visible_ content. When an element's content
+  /// does not generate a vertical scrollbar, then its `scrollTop` value is `0`.
+  ///
+  /// `scrollTop` can be set to any integer value, with certain caveats:
+  ///
+  /// - If the element can't be scrolled (e.g. it has no overflow or if the
+  ///   element has a property of "**non-scrollable**"), `scrollTop` is `0`.
+  /// - `scrollTop` doesn't respond to negative values; instead, it sets itself
+  ///   back to `0`.
+  /// - If set to a value greater than the maximum available for the element,
+  ///   `scrollTop` settles itself to the maximum value.
+  ///
+  /// When `scrollTop` is used on the root element (the `<html>` element), the
+  /// `scrollY` of the window is returned.
+  /// [This is a special case of `scrollTop`](https://www.w3.org/TR/2016/WD-cssom-view-1-20160317/#dom-element-scrolltop).
+  ///
+  /// > **Warning:** On systems using display scaling, `scrollTop` may give you
+  /// > a decimal value.
   external num get scrollTop;
-  external set scrollLeft(num value);
+  external set scrollTop(num value);
+
+  /// The **`Element.scrollLeft`** property gets or sets the number
+  /// of pixels that an element's content is scrolled from its left edge.
+  ///
+  /// If the element's `direction` is `rtl` (right-to-left), then
+  /// `scrollLeft` is `0` when the scrollbar is at its rightmost
+  /// position (at the start of the scrolled content), and then increasingly
+  /// negative as you
+  /// scroll towards the end of the content.
+  ///
+  /// It can be specified as any integer value. However:
+  ///
+  /// - If the element can't be scrolled (e.g., it has no overflow),
+  ///   `scrollLeft`
+  /// is set to `0`.
+  /// - If specified as a value less than `0` (greater than `0` for
+  /// right-to-left elements), `scrollLeft` is set to `0`.
+  /// - If specified as a value greater than the maximum that the content can be
+  ///   scrolled,
+  /// `scrollLeft` is set to the maximum.
+  ///
+  /// > **Warning:** On systems using display scaling, `scrollLeft` may give you
+  /// > a decimal
+  /// > value.
   external num get scrollLeft;
+  external set scrollLeft(num value);
+
+  /// The **`Element.scrollWidth`** read-only property is a
+  /// measurement of the width of an element's content, including content not
+  /// visible on the
+  /// screen due to overflow.
+  ///
+  /// The `scrollWidth` value is equal to the minimum width the element would
+  /// require in order to fit all the content in the viewport without using a
+  /// horizontal
+  /// scrollbar. The width is measured in the same way as [Element.clientWidth]:
+  /// it includes the element's padding, but not its border, margin or
+  /// vertical scrollbar (if present). It can also include the width of
+  /// pseudo-elements such
+  /// as  or . If the element's content can fit
+  /// without a need for horizontal scrollbar, its `scrollWidth` is equal to
+  /// [Element.clientWidth]
+  ///
+  /// > **Note:** This property will round the value to an integer. If you need
+  /// > a fractional value,
+  /// > use [element.getBoundingClientRect].
   external int get scrollWidth;
+
+  /// The **`Element.scrollHeight`** read-only property is a
+  /// measurement of the height of an element's content, including content not
+  /// visible on the
+  /// screen due to overflow.
+  ///
+  /// ![The user's viewport is an element with four regions labeled padding-top,
+  /// border-top, border-bottom, padding-bottom. The scroll height goes from the
+  /// container's padding top to the end of the padding bottom, well beyond the
+  /// top and bottom of the viewport.](scrollheight.png)
+  ///
+  /// The `scrollHeight` value is equal to the minimum height the element would
+  /// require in order to fit all the content in the viewport without using a
+  /// vertical
+  /// scrollbar. The height is measured in the same way as
+  /// [Element.clientHeight]:
+  /// it includes the element's padding, but not its border, margin or
+  /// horizontal scrollbar (if present). It can also include the height of
+  /// pseudo-elements
+  /// such as  or . If the element's content can
+  /// fit without a need for vertical scrollbar, its `scrollHeight` is equal to
+  /// [Element.clientHeight]
+  ///
+  /// > **Note:** This property will round the value to an integer. If you need
+  /// > a fractional value, use
+  /// > [Element.getBoundingClientRect].
   external int get scrollHeight;
+
+  /// The width of the top border of an element in pixels. It is a read-only,
+  /// integer
+  /// property of element.
+  ///
+  /// As it happens, all that lies between the two locations (`offsetTop` and
+  /// client area top) is the element's border. This is because the `offsetTop`
+  /// indicates the location of the top of the border (not the margin) while the
+  /// client area
+  /// starts immediately below the border, (client area includes padding.)
+  /// Therefore, the
+  /// **clientTop** value will always equal the integer portion of the
+  /// `.getComputedStyle()` value for "border-top-width". (Actually might be
+  /// Math.round(parseFloat()).) For example, if the computed "border-top-width"
+  /// is zero,
+  /// then **`clientTop`** is also zero.
+  ///
+  /// > **Note:** This property will round the value to an integer. If you
+  /// > need a fractional value, use [element.getBoundingClientRect].
   external int get clientTop;
+
+  /// The width of the left border of an element in pixels. It includes the
+  /// width of the
+  /// vertical scrollbar if the text direction of the element is right-to-left
+  /// and if there
+  /// is an overflow causing a left vertical scrollbar to be rendered.
+  /// `clientLeft` does not include the left margin or the left padding.
+  /// `clientLeft` is read-only.
+  ///
+  /// > **Note:** This property will round the value to an integer. If you
+  /// > need a fractional value, use [element.getBoundingClientRect].
+  ///
+  /// > **Note:** When an element has
+  /// > `display: inline`, `clientLeft` returns `0`
+  /// > regardless of the element's border.
   external int get clientLeft;
+
+  /// The **`Element.clientWidth`** property is zero for inline
+  /// elements and elements with no CSS; otherwise, it's the inner width of an
+  /// element in
+  /// pixels. It includes padding but excludes borders, margins, and vertical
+  /// scrollbars (if
+  /// present).
+  ///
+  /// When `clientWidth` is used on the root element (the
+  /// `<html>` element), (or on `<body>` if the document is
+  /// in quirks mode), the viewport's width (excluding any scrollbar) is
+  /// returned.
+  /// [This is a special case of `clientWidth`](https://www.w3.org/TR/2016/WD-cssom-view-1-20160317/#dom-element-clientwidth).
+  ///
+  /// > **Note:** This property will round the value to an integer. If you need
+  /// > a fractional value, use [element.getBoundingClientRect].
   external int get clientWidth;
+
+  /// The **`Element.clientHeight`** read-only property is zero for
+  /// elements with no CSS or inline layout boxes; otherwise, it's the inner
+  /// height of an
+  /// element in pixels. It includes padding but excludes borders, margins, and
+  /// horizontal
+  /// scrollbars (if present).
+  ///
+  /// `clientHeight` can be calculated as: CSS `height` + CSS
+  /// `padding` - height of horizontal scrollbar (if present).
+  ///
+  /// When `clientHeight` is used on the root element (the
+  /// `<html>` element), (or on `<body>` if the document is
+  /// in quirks mode), the viewport's height (excluding any scrollbar) is
+  /// returned.
+  /// [This is a special case of `clientHeight`](https://www.w3.org/TR/2016/WD-cssom-view-1-20160317/#dom-element-clientheight).
+  ///
+  /// > **Note:** This property will round the value to an integer. If you need
+  /// > a fractional value, use [element.getBoundingClientRect].
   external int get clientHeight;
+
+  /// The **`Element.namespaceURI`** read-only property returns the namespace
+  /// URI of the element, or `null` if the element is not in a namespace.
   external String? get namespaceURI;
+
+  /// The **`Element.prefix`** read-only property returns the
+  /// namespace prefix of the specified element, or `null` if no prefix is
+  /// specified.
   external String? get prefix;
+
+  /// The **`Element.localName`** read-only property returns the
+  /// local part of the qualified name of an element.
   external String get localName;
+
+  /// The **`tagName`** read-only property
+  /// of the [Element] interface returns the tag name of the element on which
+  /// it's called.
+  ///
+  /// For example, if the element is an `img`, its
+  /// `tagName` property is `IMG` (for HTML documents; it may be cased
+  /// differently for XML/XHTML documents). Note: You can use the
+  /// [Element.localName] property
+  /// to access the Element's local name — which for the case in the example is
+  /// `img` (lowercase) .
   external String get tagName;
-  external set id(String value);
+
+  /// The **`id`** property of the [Element] interface
+  /// represents the element's identifier, reflecting the
+  /// [**`id`**](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id)
+  /// global attribute.
+  ///
+  /// If the `id` value is not the empty string, it must be unique in a
+  /// document.
+  ///
+  /// The `id` is often used with [Document.getElementById] to retrieve a
+  /// particular element.
+  /// Another common case is to use an element's
+  /// [ID as a selector](https://developer.mozilla.org/en-US/docs/Web/CSS/ID_selectors)
+  /// when styling the document with
+  /// [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS).
+  ///
+  /// > **Note:** Identifiers are case-sensitive, but you should avoid creating
+  /// > IDs that differ only in the capitalization.
   external String get id;
-  external set className(String value);
+  external set id(String value);
+
+  /// The **`className`** property of the
+  /// [Element] interface gets and sets the value of the
+  /// [`class` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class)
+  /// of the specified element.
   external String get className;
+  external set className(String value);
+
+  /// The **`Element.classList`** is a read-only property that
+  /// returns a live [DOMTokenList] collection of the `class`
+  /// attributes of the element. This can then be used to manipulate the class
+  /// list.
+  ///
+  /// Using `classList` is a convenient alternative to accessing an element's
+  /// list
+  /// of classes as a space-delimited string via [element.className].
   external DOMTokenList get classList;
-  external set slot(String value);
+
+  /// The **`slot`** property of the [Element] interface
+  /// returns the name of the shadow DOM slot the element is inserted in.
+  ///
+  /// A slot is a placeholder inside a
+  /// [web component](https://developer.mozilla.org/en-US/docs/Web/API/Web_components)
+  /// that users can fill with their own markup (see
+  /// [Using templates and slots](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_templates_and_slots)
+  /// for more information).
   external String get slot;
+  external set slot(String value);
+
+  /// The **`Element.attributes`** property returns a live collection
+  /// of all attribute nodes registered to the specified node. It is a
+  /// [NamedNodeMap], not an `Array`, so it has no `Array`
+  /// methods and the [Attr] nodes' indexes may differ among browsers. To be
+  /// more
+  /// specific, `attributes` is a key/value pair of strings that represents any
+  /// information regarding that attribute.
   external NamedNodeMap get attributes;
+
+  /// The `Element.shadowRoot` read-only property
+  /// represents the shadow root hosted by the element.
+  ///
+  /// Use [Element.attachShadow] to add a shadow root to an existing element.
   external ShadowRoot? get shadowRoot;
-  external set innerHTML(String value);
+
+  /// The [Element] property
+  /// **`innerHTML`** gets or sets the HTML or XML markup contained
+  /// within the element.
+  ///
+  /// To insert the HTML into the document rather than replace the contents of
+  /// an element,
+  /// use the method [Element.insertAdjacentHTML].
   external String get innerHTML;
+  external set innerHTML(String value);
+
+  /// The read-only **`children`** property returns a live [HTMLCollection]
+  /// which contains all of the child [Element] of the element upon which it was
+  /// called.
+  ///
+  /// `Element.children` includes only element nodes. To get all child nodes,
+  /// including non-element nodes like text and comment nodes, use
+  /// [Node.childNodes].
   external HTMLCollection get children;
+
+  /// The **`Element.firstElementChild`** read-only property
+  /// returns an element's first child [Element], or `null` if there
+  /// are no child elements.
+  ///
+  /// `Element.firstElementChild` includes only element nodes.
+  /// To get all child nodes, including non-element nodes like text and comment
+  /// nodes, use [Node.firstChild].
   external Element? get firstElementChild;
+
+  /// The **`Element.lastElementChild`** read-only property
+  /// returns an element's last child [Element], or `null` if there
+  /// are no child elements.
+  ///
+  /// `Element.lastElementChild` includes only element nodes.
+  /// To get all child nodes, including non-element nodes like text and comment
+  /// nodes, use [Node.lastChild].
   external Element? get lastElementChild;
+
+  /// The **`Element.childElementCount`** read-only property
+  /// returns the number of child elements of this element.
   external int get childElementCount;
+
+  /// The **`Element.previousElementSibling`**
+  /// read-only property returns the [Element] immediately prior to the
+  /// specified
+  /// one in its parent's children list, or `null` if the specified element is
+  /// the first one in the list.
   external Element? get previousElementSibling;
+
+  /// The **`Element.nextElementSibling`** read-only
+  /// property returns the element immediately following the specified one in
+  /// its parent's
+  /// children list, or `null` if the specified element is the last one in the
+  /// list.
   external Element? get nextElementSibling;
+
+  /// The **`assignedSlot`** read-only
+  /// property of the [Element] interface returns an
+  /// [HTMLSlotElement] representing the `slot` element the
+  /// node is inserted in.
   external HTMLSlotElement? get assignedSlot;
 }
 extension type ShadowRootInit._(JSObject _) implements JSObject {
@@ -2403,14 +3570,14 @@ extension type ShadowRootInit._(JSObject _) implements JSObject {
     bool clonable,
   });
 
-  external set mode(ShadowRootMode value);
   external ShadowRootMode get mode;
-  external set delegatesFocus(bool value);
+  external set mode(ShadowRootMode value);
   external bool get delegatesFocus;
-  external set slotAssignment(SlotAssignmentMode value);
+  external set delegatesFocus(bool value);
   external SlotAssignmentMode get slotAssignment;
-  external set clonable(bool value);
+  external set slotAssignment(SlotAssignmentMode value);
   external bool get clonable;
+  external set clonable(bool value);
 }
 
 /// The **`NamedNodeMap`** interface represents a collection of [Attr] objects.
@@ -2481,6 +3648,9 @@ extension type NamedNodeMap._(JSObject _) implements JSObject {
     String? namespace,
     String localName,
   );
+
+  /// The read-only **`length`** property of the [NamedNodeMap] interface
+  /// is the number of objects stored in the map.
   external int get length;
 }
 
@@ -2518,13 +3688,82 @@ extension type NamedNodeMap._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Attr).
 extension type Attr._(JSObject _) implements Node, JSObject {
+  /// The read-only **`namespaceURI`** property of the [Attr] interface returns
+  /// the namespace URI of the attribute,
+  /// or `null` if the element is not in a namespace.
+  ///
+  /// The namespace URI is set at the [Attr] creation and cannot be changed.
+  /// An attribute with a namespace can be created using
+  /// [Element.setAttributeNS].
+  ///
+  /// > **Note:** an attribute does not inherit its namespace from the element
+  /// > it is attached to.
+  /// > If an attribute is not explicitly given a namespace, it has no
+  /// > namespace.
+  ///
+  /// The browser does not handle or enforce namespace validation per se. It is
+  /// up to the JavaScript
+  /// application to do any necessary validation. Note, too, that the namespace
+  /// prefix, once it
+  /// is associated with a particular attribute node, cannot be changed.
   external String? get namespaceURI;
+
+  /// The read-only **`prefix`** property of the [Attr] returns the namespace
+  /// prefix of the attribute, or `null` if no prefix is specified.
+  ///
+  /// The prefix is always in lower case, whatever case is used at the attribute
+  /// creation.
+  ///
+  /// > **Note:** Only XML supports namespaces. HTML does not. That means that
+  /// > the prefix of an attribute of an HTML element will always be `null`.
+  ///
+  /// Also, only the `xml` (for the `xml:lang` attribute), `xlink` (for the
+  /// `xlink:href`, `xlink:show`, `xlink:target` and `xlink:title` attributes)
+  /// and `xpath` namespaces are supported, and only on SVG and MathML elements.
   external String? get prefix;
+
+  /// The read-only **`localName`** property of the [Attr] interface returns the
+  /// _local part_ of the _qualified name_ of an attribute, that is the name of
+  /// the attribute, stripped from any namespace in front of it. For example, if
+  /// the qualified name is `xml:lang`, the returned local name is `lang`, if
+  /// the element supports that namespace.
+  ///
+  /// The local name is always in lower case, whatever case at the attribute
+  /// creation.
+  ///
+  /// > **Note:** HTML only supports a fixed set of namespaces on SVG and MathML
+  /// > elements. These are `xml` (for the `xml:lang` attribute), `xlink` (for
+  /// > the `xlink:href`, `xlink:show`, `xlink:target` and `xlink:title`
+  /// > attributes) and `xpath`.
+  /// >
+  /// > That means that the local name of an attribute of an HTML element is
+  /// > always be equal to its qualified name: Colons are treated as regular
+  /// > characters. In XML, like in SVG or MathML, the colon denotes the end of
+  /// > the prefix and what is before is the namespace; the local name may be
+  /// > different from the qualified name.
   external String get localName;
+
+  /// The read-only **`name`** property of the [Attr] interface returns the
+  /// _qualified name_ of an attribute, that is the name of the attribute, with
+  /// the namespace prefix, if any, in front of it. For example, if the local
+  /// name is `lang` and the namespace prefix is `xml`, the returned qualified
+  /// name is `xml:lang`.
+  ///
+  /// The qualified name is always in lower case, whatever case at the attribute
+  /// creation.
   external String get name;
-  external set value(String value);
+
+  /// The **`value`** property of the [Attr] interface contains the value of the
+  /// attribute.
   external String get value;
+  external set value(String value);
+
+  /// The read-only **`ownerElement`** property of the [Attr] interface returns
+  /// the [Element] the attribute belongs to.
   external Element? get ownerElement;
+
+  /// The read-only **`specified`** property of the [Attr] interface always
+  /// returns `true`.
   external bool get specified;
 }
 
@@ -2605,10 +3844,30 @@ extension type CharacterData._(JSObject _) implements Node, JSObject {
   /// The **`remove()`** method of the [CharacterData] removes the text
   /// contained in the node.
   external void remove();
-  external set data(String value);
+
+  /// The **`data`** property of the [CharacterData] interface represent the
+  /// value of the current object's data.
   external String get data;
+  external set data(String value);
+
+  /// The read-only **`CharacterData.length`** property
+  /// returns the number of characters in the contained data, as a positive
+  /// integer.
   external int get length;
+
+  /// The read-only **`previousElementSibling`** of the [CharacterData]
+  /// interface
+  /// returns the first [Element] before the current node in its parent's
+  /// children list,
+  /// or `null` if there is none.
   external Element? get previousElementSibling;
+
+  /// The read-only **`nextElementSibling`** property of the [CharacterData]
+  /// interface
+  /// returns the first [Element] node following the specified one in its
+  /// parent's
+  /// children list, or `null` if the specified element is the last one in the
+  /// list.
   external Element? get nextElementSibling;
 }
 
@@ -2678,7 +3937,20 @@ extension type Text._(JSObject _) implements CharacterData, JSObject {
     GeometryNode from, [
     ConvertCoordinateOptions options,
   ]);
+
+  /// The read-only **`wholeText`** property of the [Text] interface
+  /// returns the full text of all [Text] nodes logically adjacent to the node.
+  /// The text is concatenated in document order.
+  /// This allows specifying any text node and obtaining all adjacent text as a
+  /// single string.
+  ///
+  /// > **Note:** This is similar to call [Node.normalize] followed by reading
+  /// > the text value,
+  /// > but without modifying the tree.
   external String get wholeText;
+
+  /// The read-only **`assignedSlot`** property of the [Text] interface
+  /// returns the [HTMLSlotElement] object associated with the element.
   external HTMLSlotElement? get assignedSlot;
 }
 
@@ -2747,7 +4019,26 @@ extension type CDATASection._(JSObject _) implements Text, JSObject {}
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ProcessingInstruction).
 extension type ProcessingInstruction._(JSObject _)
     implements CharacterData, JSObject {
+  /// The read-only **`target`** property of the [ProcessingInstruction]
+  /// interface
+  /// represent the application to which the `ProcessingInstruction` is
+  /// targeted.
+  ///
+  /// For example:
+  ///
+  /// ```html
+  /// <?xml version="1.0"?>
+  /// ```
+  ///
+  /// is a processing instruction whose `target` is `xml`.
   external String get target;
+
+  /// The read-only **`sheet`** property of the [ProcessingInstruction]
+  /// interface
+  /// contains the stylesheet associated to the `ProcessingInstruction`.
+  ///
+  /// The `xml-stylesheet` processing instruction is used to associate a
+  /// stylesheet in an XML file.
   external CSSStyleSheet? get sheet;
 }
 
@@ -2782,10 +4073,25 @@ extension type Comment._(JSObject _) implements CharacterData, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AbstractRange).
 extension type AbstractRange._(JSObject _) implements JSObject {
+  /// The read-only **`startContainer`** property of the [AbstractRange]
+  /// interface returns the start [Node] for the range.
   external Node get startContainer;
+
+  /// The read-only **`startOffset`** property of the [AbstractRange] interface
+  /// returns the offset into the start node of the range's start position.
   external int get startOffset;
+
+  /// The read-only **`endContainer`** property of the [AbstractRange] interface
+  /// returns the [Node] in which the end of the range is located.
   external Node get endContainer;
+
+  /// The **`endOffset`** property of the [AbstractRange] interface returns the
+  /// offset into the end node of the range's end position.
   external int get endOffset;
+
+  /// The read-only **`collapsed`** property of the [AbstractRange] interface
+  /// returns `true` if the range's start position and end position are the
+  /// same.
   external bool get collapsed;
 }
 extension type StaticRangeInit._(JSObject _) implements JSObject {
@@ -2796,14 +4102,14 @@ extension type StaticRangeInit._(JSObject _) implements JSObject {
     required int endOffset,
   });
 
-  external set startContainer(Node value);
   external Node get startContainer;
-  external set startOffset(int value);
+  external set startContainer(Node value);
   external int get startOffset;
-  external set endContainer(Node value);
+  external set startOffset(int value);
   external Node get endContainer;
-  external set endOffset(int value);
+  external set endContainer(Node value);
   external int get endOffset;
+  external set endOffset(int value);
 }
 
 /// The
@@ -3073,6 +4379,25 @@ extension type Range._(JSObject _) implements AbstractRange, JSObject {
   /// The **`Range.intersectsNode()`** method returns a boolean
   /// indicating whether the given [Node] intersects the [Range].
   external bool intersectsNode(Node node);
+
+  /// The **`Range.commonAncestorContainer`** read-only property
+  /// returns the deepest — or furthest down the document tree — [Node] that
+  /// contains both
+  /// [boundary points](https://www.w3.org/TR/DOM-Level-2-Traversal-Range/ranges.html#Level-2-Range-Position-h3)
+  /// of the [Range]. This means that if
+  /// [Range.startContainer] and [Range.endContainer] both refer to
+  /// the same node, this node is the **common ancestor container**.
+  ///
+  /// Since a `Range` need not be continuous, and may also partially select
+  /// nodes,
+  /// this is a convenient way to find a `Node` which encloses a
+  /// `Range`.
+  ///
+  /// This property is read-only. To change the ancestor container of a `Node`,
+  /// consider using the various methods available to set the start and end
+  /// positions of the
+  /// `Range`, such as [Range.setStart] and
+  /// [Range.setEnd].
   external Node get commonAncestorContainer;
 }
 
@@ -3121,10 +4446,42 @@ extension type NodeIterator._(JSObject _) implements JSObject {
   /// `INVALID`. Once this method had been called, calls to other methods on
   /// `NodeIterator` would raise the `INVALID_STATE_ERR` exception.
   external void detach();
+
+  /// The **`NodeIterator.root`** read-only property represents the
+  /// [Node] that is the root of what the [NodeIterator]
+  /// traverses.
   external Node get root;
+
+  /// The **`NodeIterator.referenceNode`** read-only property returns the
+  /// [Node] to which the iterator is anchored; as new nodes are inserted, the
+  /// iterator remains anchored to the reference node as specified by this
+  /// property.
   external Node get referenceNode;
+
+  /// The **`NodeIterator.pointerBeforeReferenceNode`** read-only
+  /// property returns a boolean flag that indicates whether the
+  /// `NodeFilter` is anchored before (if this value is `true`) or
+  /// after (if this value is `false`) the anchor node indicated by the
+  /// [NodeIterator.referenceNode] property.
   external bool get pointerBeforeReferenceNode;
+
+  /// The **`NodeIterator.whatToShow`** read-only property represents
+  /// an `unsigned integer` representing a bitmask signifying what types of
+  /// nodes
+  /// should be returned by the [NodeIterator].
   external int get whatToShow;
+
+  /// The **`NodeIterator.filter`** read-only property returns a
+  /// `NodeFilter` object, that is an object which implements an
+  /// `acceptNode(node)` method, used to screen nodes.
+  ///
+  /// When creating the [NodeIterator], the filter object is passed in as the
+  /// third parameter, and the object method `acceptNode(node)` is
+  /// called on every single node to determine whether or not to accept it. This
+  /// function
+  /// should return the constant `NodeFilter.FILTER_ACCEPT` for cases when the
+  /// node should be accepted and `NodeFilter.FILTER_REJECT` for cases when the
+  /// node should be rejected.
   external NodeFilter? get filter;
 }
 
@@ -3181,11 +4538,126 @@ extension type TreeWalker._(JSObject _) implements JSObject {
   /// the found node. If no such node exists, it returns `null` and the current
   /// node is not changed.
   external Node? nextNode();
+
+  /// The **`TreeWalker.root`** read-only property returns the node
+  /// that is the root of what the TreeWalker traverses.
   external Node get root;
+
+  /// The **`TreeWalker.whatToShow`** read-only property returns a
+  /// bitmask that indicates the types of
+  /// [nodes](https://developer.mozilla.org/en-US/docs/Web/API/Node) to show.
+  /// Non-matching nodes are skipped, but their
+  /// children may be included, if relevant. The possible values are:
+  ///
+  /// <table class="no-markdown">
+  ///   <thead>
+  ///     <tr>
+  ///       <th>Constant</th>
+  ///       <th>Numerical value</th>
+  ///       <th>Description</th>
+  ///     </tr>
+  ///   </thead>
+  ///   <tbody>
+  ///     <tr>
+  ///       <td><code>NodeFilter.SHOW_ALL</code></td>
+  ///       <td>
+  ///         <code>4294967295</code> (that is the max value of <code>unsigned long</code>)
+  ///       </td>
+  ///       <td>Shows all nodes.</td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>
+  ///         <code>NodeFilter.SHOW_ATTRIBUTE</code>
+  ///       </td>
+  ///       <td><code>2</code></td>
+  ///       <td>
+  /// Shows attribute [Attr] nodes. This is meaningful
+  /// only when creating a [TreeWalker] with an
+  /// [Attr] node as its root; in this case, it means
+  /// that the attribute node will appear in the first position of the
+  /// iteration or traversal. Since attributes are never children of other
+  /// nodes, they do not appear when traversing over the document tree.
+  ///       </td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>
+  ///         <code>NodeFilter.SHOW_CDATA_SECTION</code>
+  ///       </td>
+  ///       <td><code>8</code></td>
+  ///       <td>Shows [CDATASection] nodes.</td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td><code>NodeFilter.SHOW_COMMENT</code></td>
+  ///       <td><code>128</code></td>
+  ///       <td>Shows [Comment] nodes.</td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td><code>NodeFilter.SHOW_DOCUMENT</code></td>
+  ///       <td><code>256</code></td>
+  ///       <td>Shows [Document] nodes.</td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td><code>NodeFilter.SHOW_DOCUMENT_FRAGMENT</code></td>
+  ///       <td><code>1024</code></td>
+  ///       <td>Shows [DocumentFragment] nodes.</td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td><code>NodeFilter.SHOW_DOCUMENT_TYPE</code></td>
+  ///       <td><code>512</code></td>
+  ///       <td>Shows [DocumentType] nodes.</td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td><code>NodeFilter.SHOW_ELEMENT</code></td>
+  ///       <td><code>1</code></td>
+  ///       <td>Shows [Element] nodes.</td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td><code>NodeFilter.SHOW_ENTITY</code> </td>
+  ///       <td><code>32</code></td>
+  ///       <td>Legacy, no more used.</td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>
+  ///         <code>NodeFilter.SHOW_ENTITY_REFERENCE</code>
+  ///       </td>
+  ///       <td><code>16</code></td>
+  ///       <td>Legacy, no more used.</td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>
+  ///         <code>NodeFilter.SHOW_NOTATION</code>
+  ///       </td>
+  ///       <td><code>2048</code></td>
+  ///       <td>Legacy, no more used.</td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td><code>NodeFilter.SHOW_PROCESSING_INSTRUCTION</code></td>
+  ///       <td><code>64</code></td>
+  ///       <td>Shows [ProcessingInstruction] nodes.</td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td><code>NodeFilter.SHOW_TEXT</code></td>
+  ///       <td><code>4</code></td>
+  ///       <td>Shows [Text] nodes.</td>
+  ///     </tr>
+  ///   </tbody>
+  /// </table>
   external int get whatToShow;
+
+  /// The **`TreeWalker.filter`** read-only property returns a
+  /// `NodeFilter` that is the filtering object associated with the
+  /// [TreeWalker].
+  ///
+  /// When creating the `TreeWalker`, the filter object is passed in as the
+  /// third
+  /// parameter, and its method `acceptNode()` is called on every
+  /// single node to determine whether or not to accept it.
   external NodeFilter? get filter;
-  external set currentNode(Node value);
+
+  /// The **`TreeWalker.currentNode`** property represents the
+  /// [Node] which the [TreeWalker] is currently pointing at.
   external Node get currentNode;
+  external set currentNode(Node value);
 }
 
 /// The **`DOMTokenList`** interface represents a set of space-separated tokens.
@@ -3245,9 +4717,17 @@ extension type DOMTokenList._(JSObject _) implements JSObject {
   /// supported tokens.
   /// This method is intended to support feature detection.
   external bool supports(String token);
+
+  /// The read-only **`length`** property of the [DOMTokenList] interface is an
+  /// `integer` representing the number
+  /// of objects stored in the object.
   external int get length;
-  external set value(String value);
+
+  /// The **`value`** property of the [DOMTokenList]
+  /// interface is a  that returns the value of the list serialized as a
+  /// string, or clears and sets the list to the given value.
   external String get value;
+  external set value(String value);
 }
 
 /// The **`XPathResult`** interface represents the results generated by
@@ -3285,12 +4765,44 @@ extension type XPathResult._(JSObject _) implements JSObject {
   /// correspond to the
   /// current document if it is mutated.
   external Node? snapshotItem(int index);
+
+  /// The read-only **`resultType`** property of the
+  /// [XPathResult] interface represents the type of the result, as defined by
+  /// the type constants.
   external int get resultType;
+
+  /// The read-only **`numberValue`** property of the
+  /// [XPathResult] interface returns the numeric value of a result with
+  /// [XPathResult.resultType] being `NUMBER_TYPE`.
   external num get numberValue;
+
+  /// The read-only **`stringValue`** property of the
+  /// [XPathResult] interface returns the string value of a result with
+  /// [XPathResult.resultType] being `STRING_TYPE`.
   external String get stringValue;
+
+  /// The read-only **`booleanValue`** property of the
+  /// [XPathResult] interface returns the boolean value of a result with
+  /// [XPathResult.resultType] being `BOOLEAN_TYPE`.
   external bool get booleanValue;
+
+  /// The read-only **`singleNodeValue`** property of the
+  /// [XPathResult] interface returns a [Node] value or
+  /// `null` in case no node was matched of a result with
+  /// [XPathResult.resultType] being `ANY_UNORDERED_NODE_TYPE` or
+  /// `FIRST_ORDERED_NODE_TYPE`.
   external Node? get singleNodeValue;
+
+  /// The read-only **`invalidIteratorState`** property of the
+  /// [XPathResult] interface signifies that the iterator has become invalid. It
+  /// is `true` if [XPathResult.resultType] is
+  /// `UNORDERED_NODE_ITERATOR_TYPE` or `ORDERED_NODE_ITERATOR_TYPE` and
+  /// the document has been modified since this result was returned.
   external bool get invalidIteratorState;
+
+  /// The read-only **`snapshotLength`** property of the
+  /// [XPathResult] interface represents the number of nodes in the result
+  /// snapshot.
   external int get snapshotLength;
 }
 

@@ -54,13 +54,19 @@ extension type SVGAnimationElement._(JSObject _)
   external void beginElementAt(num offset);
   external void endElement();
   external void endElementAt(num offset);
+
+  /// The **`SVGAnimationElement.targetElement`** property refers to
+  /// the element which is being animated. If no target element is being
+  /// animated (for
+  /// example, because the `href` attribute specifies an unknown element), the
+  /// value returned is `null`.
   external SVGElement? get targetElement;
-  external set onbegin(EventHandler value);
   external EventHandler get onbegin;
-  external set onend(EventHandler value);
+  external set onbegin(EventHandler value);
   external EventHandler get onend;
-  external set onrepeat(EventHandler value);
+  external set onend(EventHandler value);
   external EventHandler get onrepeat;
+  external set onrepeat(EventHandler value);
   external SVGStringList get requiredExtensions;
   external SVGStringList get systemLanguage;
 }

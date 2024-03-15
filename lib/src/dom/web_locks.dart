@@ -79,14 +79,14 @@ extension type LockOptions._(JSObject _) implements JSObject {
     AbortSignal signal,
   });
 
-  external set mode(LockMode value);
   external LockMode get mode;
-  external set ifAvailable(bool value);
+  external set mode(LockMode value);
   external bool get ifAvailable;
-  external set steal(bool value);
+  external set ifAvailable(bool value);
   external bool get steal;
-  external set signal(AbortSignal value);
+  external set steal(bool value);
   external AbortSignal get signal;
+  external set signal(AbortSignal value);
 }
 extension type LockManagerSnapshot._(JSObject _) implements JSObject {
   external factory LockManagerSnapshot({
@@ -94,10 +94,10 @@ extension type LockManagerSnapshot._(JSObject _) implements JSObject {
     JSArray<LockInfo> pending,
   });
 
-  external set held(JSArray<LockInfo> value);
   external JSArray<LockInfo> get held;
-  external set pending(JSArray<LockInfo> value);
+  external set held(JSArray<LockInfo> value);
   external JSArray<LockInfo> get pending;
+  external set pending(JSArray<LockInfo> value);
 }
 extension type LockInfo._(JSObject _) implements JSObject {
   external factory LockInfo({
@@ -106,12 +106,12 @@ extension type LockInfo._(JSObject _) implements JSObject {
     String clientId,
   });
 
-  external set name(String value);
   external String get name;
-  external set mode(LockMode value);
+  external set name(String value);
   external LockMode get mode;
-  external set clientId(String value);
+  external set mode(LockMode value);
   external String get clientId;
+  external set clientId(String value);
 }
 
 /// The **`Lock`** interface of the
@@ -126,6 +126,23 @@ extension type LockInfo._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Lock).
 extension type Lock._(JSObject _) implements JSObject {
+  /// The **`name`** read-only property of
+  /// the [Lock] interface returns the _name_ passed to
+  /// [LockManager.request] selected when the lock was requested.
+  ///
+  /// The name of a lock is passed by script when the lock is requested. The
+  /// name is selected
+  /// by the developer to represent an abstract resource for which use is being
+  /// coordinated
+  /// across multiple tabs, workers, or other code within the origin. For
+  /// example, if only one
+  /// tab of a web application should be synchronizing network resources with an
+  /// offline
+  /// database, it could use a lock name such as `"net_db_sync"`.
   external String get name;
+
+  /// The **`mode`** read-only property of the [Lock] interface returns the
+  /// access mode passed to [LockManager.request] when the lock was requested.
+  /// The mode is either `"exclusive"` (the default) or `"shared"`.
   external LockMode get mode;
 }

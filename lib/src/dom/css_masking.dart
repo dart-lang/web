@@ -32,7 +32,18 @@ extension type SVGClipPathElement._(JSObject _)
           'clipPath',
         );
 
+  /// The read-only **`clipPathUnits`** property of the [SVGClipPathElement]
+  /// interface reflects the `clipPathUnits` attribute of a  element which
+  /// defines the coordinate system to use for the content of the element.
+  ///
+  /// > **Note:** Although this property is read-only, it is merely a container
+  /// > for two values you can modify, [SVGAnimatedEnumeration.baseVal] and
+  /// > [SVGAnimatedEnumeration.animVal].
   external SVGAnimatedEnumeration get clipPathUnits;
+
+  /// The read-only **`transform`** property of the [SVGClipPathElement]
+  /// interface reflects the `transform` attribute of a  element, that is a list
+  /// of transformations applied to the element.
   external SVGAnimatedTransformList get transform;
 }
 
@@ -51,10 +62,59 @@ extension type SVGMaskElement._(JSObject _) implements SVGElement, JSObject {
           'mask',
         );
 
+  /// The read-only **`maskUnits`** property of the [SVGMaskElement] interface
+  /// reflects the `maskUnits` attribute of a  element which defines the
+  /// coordinate system to use for the mask of the element.
+  ///
+  /// > **Note:** Although this property is read-only, it is merely a container
+  /// > for two values you can modify, [SVGAnimatedEnumeration.baseVal] and
+  /// > [SVGAnimatedEnumeration.animVal].
   external SVGAnimatedEnumeration get maskUnits;
+
+  /// The read-only **`maskContentUnits`** property of the [SVGMaskElement]
+  /// interface reflects the `maskContentUnits` attribute. It indicates which
+  /// coordinate system to use for the contents of the  element.
+  ///
+  /// > **Note:** Although this property is read-only, it is merely a container
+  /// > for two values you can modify, [SVGAnimatedEnumeration.baseVal] and
+  /// > [SVGAnimatedEnumeration.animVal].
   external SVGAnimatedEnumeration get maskContentUnits;
+
+  /// The read-only **`x`** property of the [SVGMaskElement] interface returns
+  /// an [SVGAnimatedLength] object containing the value of the `x` attribute of
+  /// the . It represents the x-axis coordinate of the _top-left_ corner of the
+  /// masking area.
+  ///
+  /// > **Note:** Although this property is read-only, it is merely a container
+  /// > for two values you can modify, [SVGAnimatedLength.baseVal] and
+  /// > [SVGAnimatedLength.animVal].
   external SVGAnimatedLength get x;
+
+  /// The read-only **`y`** property of the [SVGMaskElement] interface returns
+  /// an [SVGAnimatedLength] object containing the value of the `y` attribute of
+  /// the . It represents the y-axis coordinate of the _top-left_ corner of the
+  /// masking area.
+  ///
+  /// > **Note:** Although this property is read-only, it is merely a container
+  /// > for two values you can modify, [SVGAnimatedLength.baseVal] and
+  /// > [SVGAnimatedLength.animVal].
   external SVGAnimatedLength get y;
+
+  /// The read-only **`width`** property of the [SVGMaskElement] interface
+  /// returns an [SVGAnimatedLength] object containing the value of the `width`
+  /// attribute of the .
+  ///
+  /// > **Note:** Although this property is read-only, it is merely a container
+  /// > for two values you can modify, [SVGAnimatedLength.baseVal] and
+  /// > [SVGAnimatedLength.animVal].
   external SVGAnimatedLength get width;
+
+  /// The read-only **`height`** property of the [SVGMaskElement] interface
+  /// returns an [SVGAnimatedLength] object containing the value of the `height`
+  /// attribute of the .
+  ///
+  /// > **Note:** Although this property is read-only, it is merely a container
+  /// > for two values you can modify, [SVGAnimatedLength.baseVal] and
+  /// > [SVGAnimatedLength.animVal].
   external SVGAnimatedLength get height;
 }

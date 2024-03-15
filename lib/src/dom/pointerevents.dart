@@ -63,34 +63,34 @@ extension type PointerEventInit._(JSObject _)
     JSArray<PointerEvent> predictedEvents,
   });
 
-  external set pointerId(int value);
   external int get pointerId;
-  external set width(num value);
+  external set pointerId(int value);
   external num get width;
-  external set height(num value);
+  external set width(num value);
   external num get height;
-  external set pressure(num value);
+  external set height(num value);
   external num get pressure;
-  external set tangentialPressure(num value);
+  external set pressure(num value);
   external num get tangentialPressure;
-  external set tiltX(int value);
+  external set tangentialPressure(num value);
   external int get tiltX;
-  external set tiltY(int value);
+  external set tiltX(int value);
   external int get tiltY;
-  external set twist(int value);
+  external set tiltY(int value);
   external int get twist;
-  external set altitudeAngle(num value);
+  external set twist(int value);
   external num get altitudeAngle;
-  external set azimuthAngle(num value);
+  external set altitudeAngle(num value);
   external num get azimuthAngle;
-  external set pointerType(String value);
+  external set azimuthAngle(num value);
   external String get pointerType;
-  external set isPrimary(bool value);
+  external set pointerType(String value);
   external bool get isPrimary;
-  external set coalescedEvents(JSArray<PointerEvent> value);
+  external set isPrimary(bool value);
   external JSArray<PointerEvent> get coalescedEvents;
-  external set predictedEvents(JSArray<PointerEvent> value);
+  external set coalescedEvents(JSArray<PointerEvent> value);
   external JSArray<PointerEvent> get predictedEvents;
+  external set predictedEvents(JSArray<PointerEvent> value);
 }
 
 /// The **`PointerEvent`** interface represents the state of a DOM event
@@ -152,16 +152,151 @@ extension type PointerEvent._(JSObject _) implements MouseEvent, JSObject {
   /// For an illustration of predicted events, see
   /// [Figure 8 in the specification](https://w3c.github.io/pointerevents/#figure_predicted).
   external JSArray<PointerEvent> getPredictedEvents();
+
+  /// The **`pointerId`** read-only property of the
+  /// [PointerEvent] interface is an identifier assigned to a given pointer
+  /// event. The identifier is unique, being different from the identifiers of
+  /// all other
+  /// active pointer events. Since the value may be randomly generated, it is
+  /// not guaranteed
+  /// to convey any particular meaning.
   external int get pointerId;
+
+  /// The **`width`** read-only property of the
+  /// [PointerEvent] interface represents the width of the pointer's contact
+  /// geometry along the x-axis, measured in CSS pixels. Depending on the source
+  /// of the
+  /// pointer device (such as a finger), for a given pointer, each event may
+  /// produce a
+  /// different value.
+  ///
+  /// If the input hardware cannot report the contact geometry to the browser,
+  /// the width
+  /// defaults to `1`.
   external num get width;
+
+  /// The **`height`** read-only property of the
+  /// [PointerEvent] interface represents the height of the pointer's contact
+  /// geometry, along the y-axis (in CSS pixels). Depending on the source of the
+  /// pointer
+  /// device (for example a finger), for a given pointer, each event may produce
+  /// a different
+  /// value.
+  ///
+  /// If the input hardware cannot report the contact geometry to the browser,
+  /// the height
+  /// defaults to `1`.
   external num get height;
+
+  /// The **`pressure`** read-only property of the
+  /// [PointerEvent] interface indicates the normalized pressure of the pointer
+  /// input.
   external num get pressure;
+
+  /// The **`tangentialPressure`** read-only property of the
+  /// [PointerEvent] interface represents the normalized tangential pressure of
+  /// the pointer input (also known as barrel pressure or
+  /// [cylinder stress](https://en.wikipedia.org/wiki/Cylinder_stress)).
   external num get tangentialPressure;
+
+  /// The **`tiltX`** read-only property of the
+  /// [PointerEvent] interface is the angle (in degrees) between the _Y-Z
+  /// plane_ of the pointer and the screen. This property is typically only
+  /// useful for a
+  /// pen/stylus pointer type.
+  ///
+  /// For an illustration of this property see
+  /// [Figure 2 in the specification](https://w3c.github.io/pointerevents/#dom-pointerevent-tiltx).
   external int get tiltX;
+
+  /// The **`tiltY`** read-only property of the
+  /// [PointerEvent] interface is the angle (in degrees) between the _X-Z
+  /// plane_ of the pointer and the screen. This property is typically only
+  /// useful for a
+  /// pen/stylus pointer type.
+  ///
+  /// For an illustration of this property, see
+  /// [Figure 3 in the specification](https://w3c.github.io/pointerevents/#dom-pointerevent-tilty).
   external int get tiltY;
+
+  /// The **`twist`** read-only property of the
+  /// [PointerEvent] interface represents the clockwise rotation of the pointer
+  /// (e.g., pen stylus) around its major axis, in degrees.
   external int get twist;
+
+  /// The **`altitudeAngle`** read-only property of the [PointerEvent] interface
+  /// represents the angle between a transducer (a pointer or stylus) axis and
+  /// the X-Y plane of a device screen.
+  /// The altitude angle describes whether the transducer is perpendicular to
+  /// the screen, parallel, or at some angle in between.
+  ///
+  /// Depending on the specific hardware and platform, user agents will likely
+  /// only receive one set of values for the transducer orientation relative to
+  /// the screen plane — either [PointerEvent.tiltx] and [PointerEvent.tilty] or
+  /// `altitudeAngle` and [PointerEvent.azimuthAngle].
+  ///
+  /// ![The azimuth angle of a pointer compared to the altitude angle](./azimuth_altitude_angles.svg)
+  ///
+  /// For an additional illustration of this property, see
+  /// [Figure 4 in the specification](https://w3c.github.io/pointerevents/#figure_altitudeAngle).
   external num get altitudeAngle;
+
+  /// The **`azimuthAngle`** read-only property of the [PointerEvent] interface
+  /// represents the angle between the Y-Z plane and the plane containing both
+  /// the transducer (pointer or stylus) axis and the Y axis.
+  ///
+  /// Depending on the specific hardware and platform, user agents will likely
+  /// only receive one set of values for the transducer orientation relative to
+  /// the screen plane — either [PointerEvent.tiltx] and [PointerEvent.tilty] or
+  /// [PointerEvent.altitudeAngle] and `azimuthAngle`.
+  ///
+  /// ![The azimuth angle of a pointer compared to the altitude angle](azimuth_altitude_angles.svg)
+  ///
+  /// For an additional illustration of this property, see
+  /// [Figure 5 in the specification](https://w3c.github.io/pointerevents/#figure_azimuthAngle).
   external num get azimuthAngle;
+
+  /// The **`pointerType`** read-only property of the
+  /// [PointerEvent] interface indicates the device type (mouse, pen, or touch)
+  /// that caused a given pointer event.
   external String get pointerType;
+
+  /// The **`isPrimary`** read-only property of the
+  /// [PointerEvent] interface indicates whether or not the pointer device that
+  /// created the event is the _primary_ pointer. It returns `true` if the
+  /// pointer that caused the event to be fired is the primary one and returns
+  /// `false` otherwise.
+  ///
+  /// In a multi-pointer scenario (such as a touch screen that supports more
+  /// than one touch
+  /// point), this property is used to identify a _master pointer_ among the set
+  /// of
+  /// active pointers for each pointer type. Only a primary pointer will produce
+  /// _compatibility mouse events_. Authors who desire only single-pointer
+  /// interaction
+  /// can achieve that by ignoring non-primary pointers.
+  ///
+  /// A pointer is considered primary if the pointer represents a mouse device.
+  /// A pointer
+  /// representing pen input is considered the primary pen input if its
+  /// [Element.pointerdown_event] event was dispatched when no other active
+  /// pointers representing
+  /// pen input existed. A pointer representing touch input is considered the
+  /// primary touch
+  /// input if its [Element.pointerdown_event] event was dispatched when no
+  /// other active pointers
+  /// representing touch input existed.
+  ///
+  /// When two or more pointer device types are being used concurrently,
+  /// multiple pointers
+  /// (one for each [PointerEvent.pointerType]) are considered
+  /// primary. For example, a touch contact and a mouse cursor moved
+  /// simultaneously will
+  /// produce pointers that are both considered primary. If there are multiple
+  /// primary
+  /// pointers, these pointers will all produce _compatibility mouse events_
+  /// (see
+  /// [Pointer_events] for more information about pointer, mouse and touch
+  /// interaction).
   external bool get isPrimary;
 }

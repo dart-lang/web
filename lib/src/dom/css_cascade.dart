@@ -25,6 +25,8 @@ import 'cssom.dart';
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSLayerBlockRule).
 extension type CSSLayerBlockRule._(JSObject _)
     implements CSSGroupingRule, JSObject {
+  /// The read-only **`name`** property of the [CSSLayerBlockRule] interface
+  /// represents the name of the associated cascade layer.
   external String get name;
 }
 
@@ -45,5 +47,8 @@ extension type CSSLayerBlockRule._(JSObject _)
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSLayerStatementRule).
 extension type CSSLayerStatementRule._(JSObject _)
     implements CSSRule, JSObject {
+  /// The read-only **`nameList`** property of the [CSSLayerStatementRule]
+  /// interface return the list of associated cascade layer names. The names
+  /// can't be modified.
   external JSArray<JSString> get nameList;
 }

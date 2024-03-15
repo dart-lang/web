@@ -2090,8 +2090,8 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   external GLsizei get drawingBufferWidth;
   external GLsizei get drawingBufferHeight;
   external GLenum get drawingBufferFormat;
-  external set drawingBufferColorSpace(PredefinedColorSpace value);
   external PredefinedColorSpace get drawingBufferColorSpace;
-  external set unpackColorSpace(PredefinedColorSpace value);
+  external set drawingBufferColorSpace(PredefinedColorSpace value);
   external PredefinedColorSpace get unpackColorSpace;
+  external set unpackColorSpace(PredefinedColorSpace value);
 }

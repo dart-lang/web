@@ -36,5 +36,9 @@ extension type CSSStartingStyleRule._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSTransition).
 extension type CSSTransition._(JSObject _) implements Animation, JSObject {
+  /// The **`transitionProperty`** property of the
+  /// [CSSTransition] interface returns the **expanded transition property
+  /// name** of the transition. This is the longhand CSS property for which the
+  /// transition was generated.
   external String get transitionProperty;
 }

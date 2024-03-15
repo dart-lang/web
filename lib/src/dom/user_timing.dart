@@ -22,10 +22,10 @@ extension type PerformanceMarkOptions._(JSObject _) implements JSObject {
     DOMHighResTimeStamp startTime,
   });
 
-  external set detail(JSAny? value);
   external JSAny? get detail;
-  external set startTime(DOMHighResTimeStamp value);
+  external set detail(JSAny? value);
   external DOMHighResTimeStamp get startTime;
+  external set startTime(DOMHighResTimeStamp value);
 }
 extension type PerformanceMeasureOptions._(JSObject _) implements JSObject {
   external factory PerformanceMeasureOptions({
@@ -35,14 +35,14 @@ extension type PerformanceMeasureOptions._(JSObject _) implements JSObject {
     JSAny end,
   });
 
-  external set detail(JSAny? value);
   external JSAny? get detail;
-  external set start(JSAny value);
+  external set detail(JSAny? value);
   external JSAny get start;
-  external set duration(DOMHighResTimeStamp value);
+  external set start(JSAny value);
   external DOMHighResTimeStamp get duration;
-  external set end(JSAny value);
+  external set duration(DOMHighResTimeStamp value);
   external JSAny get end;
+  external set end(JSAny value);
 }
 
 /// **`PerformanceMark`** is an interface for [PerformanceEntry] objects with an
@@ -64,6 +64,9 @@ extension type PerformanceMark._(JSObject _)
     PerformanceMarkOptions markOptions,
   ]);
 
+  /// The read-only **`detail`** property returns arbitrary metadata that was
+  /// included in the mark upon construction (either when using
+  /// [Performance.mark] or the [PerformanceMark.PerformanceMark] constructor).
   external JSAny? get detail;
 }
 
@@ -79,5 +82,7 @@ extension type PerformanceMark._(JSObject _)
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceMeasure).
 extension type PerformanceMeasure._(JSObject _)
     implements PerformanceEntry, JSObject {
+  /// The read-only **`detail`** property returns arbitrary metadata that was
+  /// included in the mark upon construction (when using [Performance.measure].
   external JSAny? get detail;
 }

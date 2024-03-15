@@ -126,6 +126,9 @@ extension type HTMLAllCollection._(JSObject _) implements JSObject {
   /// element located at the specified offset into the collection, or the
   /// element with the specified value for its `id` or `name` attribute.
   external JSObject? item([String nameOrIndex]);
+
+  /// The **`HTMLAllCollection.length`** property returns the number of items in
+  /// this [HTMLAllCollection].
   external int get length;
 }
 
@@ -163,8 +166,19 @@ extension type HTMLFormControlsCollection._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RadioNodeList).
 extension type RadioNodeList._(JSObject _) implements NodeList, JSObject {
-  external set value(String value);
+  /// If the underlying element collection contains radio buttons, the
+  /// **`RadioNodeList.value`** property represents the checked radio
+  /// button. On retrieving the `value` property, the `value` of the
+  /// currently `checked` radio button is returned as a string. If the
+  /// collection
+  /// does not contain any radio buttons or none of the radio buttons in the
+  /// collection is in
+  /// `checked` state, the empty string is returned. On setting the
+  /// `value` property, the first radio button input element whose
+  /// `value` property is equal to the new value will be set to
+  /// `checked`.
   external String get value;
+  external set value(String value);
 }
 
 /// The **`HTMLOptionsCollection`** interface represents a collection of
@@ -185,10 +199,10 @@ extension type HTMLOptionsCollection._(JSObject _)
     JSAny? before,
   ]);
   external void remove(int index);
-  external set length(int value);
   external int get length;
-  external set selectedIndex(int value);
+  external set length(int value);
   external int get selectedIndex;
+  external set selectedIndex(int value);
 }
 
 /// The **`DOMStringList`** interface is a legacy type returned by some APIs and
@@ -216,6 +230,9 @@ extension type DOMStringList._(JSObject _) implements JSObject {
   /// The **`contains()`** method returns a boolean indicating whether the given
   /// string is in the list.
   external bool contains(String string);
+
+  /// The read-only **`length`** property indicates the number of strings in the
+  /// [DOMStringList].
   external int get length;
 }
 
@@ -461,254 +478,708 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// The **`HTMLElement.blur()`** method removes keyboard focus from the
   /// current element.
   external void blur();
+
+  /// The **`HTMLElement.offsetParent`** read-only property returns a
+  /// reference to the element which is the closest (nearest in the containment
+  /// hierarchy)
+  /// positioned ancestor element.
+  ///
+  /// A positioned ancestor is either:
+  ///
+  /// - an element with a non-static position, or
+  /// - `td`, `th`, `table` in case the element itself is static positioned.
+  ///
+  /// If there is no positioned ancestor element, the `body` is returned.
+  ///
+  /// > **Note:** `offsetParent` returns `null` in the following
+  /// > situations:
+  /// >
+  /// > - The element or any ancestor has the `display` property set to
+  /// > `none`.
+  /// > - The element has the `position` property set to `fixed`
+  /// > (Firefox returns `<body>`).
+  /// > - The element is `<body>` or `<html>`.
+  ///
+  /// `offsetParent` is useful because
+  /// [HTMLElement.offsetTop] and
+  /// [HTMLElement.offsetLeft] are relative to its padding edge.
   external Element? get offsetParent;
+
+  /// The **`HTMLElement.offsetTop`** read-only property returns the
+  /// distance from the outer border of the current element (including its
+  /// margin) to the top padding edge of the [HTMLelement.offsetParent], the
+  /// _closest positioned_
+  /// ancestor element.
   external int get offsetTop;
+
+  /// The **`HTMLElement.offsetLeft`** read-only property returns the number of
+  /// pixels that the _upper left corner_ of the current element is offset to
+  /// the left within the [HTMLElement.offsetParent] node.
+  ///
+  /// For block-level elements, `offsetTop`, `offsetLeft`, `offsetWidth`, and
+  /// `offsetHeight` describe the border box of an element relative to the
+  /// `offsetParent`.
+  ///
+  /// However, for inline-level elements (such as **span**) that can wrap from
+  /// one line to the next, `offsetTop` and `offsetLeft` describe the positions
+  /// of the _first_ border box (use [Element.getClientRects] to get its width
+  /// and height), while `offsetWidth` and `offsetHeight` describe the
+  /// dimensions of the _bounding_ border box (use
+  /// [Element.getBoundingClientRect] to get its position). Therefore, a box
+  /// with the left, top, width and height of `offsetLeft`, `offsetTop`,
+  /// `offsetWidth` and `offsetHeight` will not be a bounding box for a span
+  /// with wrapped text.
   external int get offsetLeft;
+
+  /// The **`HTMLElement.offsetWidth`** read-only property returns
+  /// the layout width of an element as an integer.
+  ///
+  /// Typically, `offsetWidth` is a measurement in pixels of the element's CSS
+  /// width, including any borders, padding, and vertical scrollbars (if
+  /// rendered). It does
+  /// not include the width of pseudo-elements such as `::before` or
+  /// `::after`.
+  ///
+  /// If the element is hidden (for example, by setting `style.display` on the
+  /// element or one of its ancestors to `"none"`), then `0` is
+  /// returned.
   external int get offsetWidth;
+
+  /// The **`HTMLElement.offsetHeight`** read-only property returns
+  /// the height of an element, including vertical padding and borders, as an
+  /// integer.
+  ///
+  /// Typically, `offsetHeight` is a measurement in pixels of the element's CSS
+  /// height, including any borders, padding, and horizontal scrollbars (if
+  /// rendered). It does
+  /// not include the height of pseudo-elements such as `::before` or
+  /// `::after`. For the document body object, the measurement includes total
+  /// linear content height instead of the element's CSS height. Floated
+  /// elements extending
+  /// below other linear content are ignored.
+  ///
+  /// If the element is hidden (for example, by setting `style.display` on the
+  /// element or one of its ancestors to `"none"`), then `0` is
+  /// returned.
+  ///
+  /// > **Note:** This property will round the value to an integer. If you need
+  /// > a fractional value, use
+  /// > [element.getBoundingClientRect].
   external int get offsetHeight;
-  external set title(String value);
+
+  /// The **`HTMLElement.title`** property
+  /// represents the title of the element: the text usually displayed in a
+  /// 'tooltip' popup
+  /// when the mouse is over the node.
   external String get title;
-  external set lang(String value);
+  external set title(String value);
+
+  /// The **`HTMLElement.lang`** property gets or sets the base
+  /// language of an element's attribute values and text content.
+  ///
+  /// The language code returned by this property is defined in `5646, "Tags for
+  /// Identifying Languages (also known as BCP 47)"`.
+  /// Common examples include "en" for English, "ja" for
+  /// Japanese, "es" for Spanish and so on. The default value of this attribute
+  /// is
+  /// `unknown`. Note that this attribute, though valid at the individual
+  /// element
+  /// level described here, is most often specified for the root element of the
+  /// document.
+  ///
+  /// This also only works with the `lang` attribute and not with
+  /// `xml:lang`.
   external String get lang;
-  external set translate(bool value);
+  external set lang(String value);
+
+  /// The **`translate`** property of the [HTMLElement] interface indicates
+  /// whether an element's attribute values and the values of its [Text] node
+  /// children are to be translated when the page is localized, or whether to
+  /// leave them unchanged.
+  ///
+  /// It reflects the value of the
+  /// [`translate`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/translate)
+  /// HTML global attribute.
   external bool get translate;
-  external set dir(String value);
+  external set translate(bool value);
+
+  /// The **`HTMLElement.dir`** property gets or sets the text
+  /// writing directionality of the content of the current element.
+  ///
+  /// The text writing directionality of an element is which direction that text
+  /// goes (for
+  /// support of different language systems). Arabic languages and Hebrew are
+  /// typical
+  /// languages using the RTL directionality.
+  ///
+  /// An image can have its `dir` property set to "`rtl`" in which case
+  /// the HTML attributes `title` and `alt` will be formatted and
+  /// defined as "`rtl`".
+  ///
+  /// When a table has its `dir` set to "`rtl`", the column order is
+  /// arranged from right to left.
+  ///
+  /// When an element has its dir set to "`auto`", the direction of the element
+  /// is
+  /// determined based on its first strong directionality character, or default
+  /// to the
+  /// directionality of its parent element.
+  ///
+  /// > **Note:** Browsers might allow users to change the directionality of
+  /// > `input`
+  /// > and `textarea`s in order to assist with authoring content. Chrome
+  /// > and Safari provide a directionality option in the contextual menu of
+  /// > input fields
+  /// > while pre-Chromium Edge uses the key combinations <kbd>Ctrl</kbd> +
+  /// > <kbd>Left Shift</kbd> and <kbd>Ctrl</kbd> + <kbd>Right Shift</kbd>.
+  /// > Firefox uses <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>Shift</kbd> +
+  /// > <kbd>X</kbd> but does NOT update
+  /// > the **`dir`** attribute value.
   external String get dir;
-  external set hidden(JSAny? value);
+  external set dir(String value);
+
+  /// The [HTMLElement] property **`hidden`** reflects the value of the
+  /// element's
+  /// [`hidden`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/hidden)
+  /// attribute.
   external JSAny? get hidden;
-  external set inert(bool value);
+  external set hidden(JSAny? value);
+
+  /// The [HTMLElement] property **`inert`** reflects the value of the element's
+  /// [`inert`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inert)
+  /// attribute. It is a boolean value that, when present, makes the browser
+  /// "ignore" user input events for the element, including focus events and
+  /// events from assistive technologies. The browser may also ignore page
+  /// search and text selection in the element. This can be useful when building
+  /// UIs such as modals where you would want to "trap" the focus inside the
+  /// modal when it's visible.
+  ///
+  /// > **Note:** Do not nest interactive elements or important content within
+  /// > elements with the `inert` attribute as inert content and their
+  /// > descendants are neither focusable nor perceivable by all users.
   external bool get inert;
-  external set accessKey(String value);
+  external set inert(bool value);
+
+  /// The **`HTMLElement.accessKey`** property sets the keystroke which a user
+  /// can press to jump to a given element.
+  ///
+  /// > **Note:** The `HTMLElement.accessKey` property is seldom used because of
+  /// > its multiple conflicts with already present key bindings in browsers. To
+  /// > work around this, browsers implement accesskey behavior if the keys are
+  /// > pressed with other "qualifying" keys (such as <kbd>Alt</kbd> +
+  /// > accesskey).
   external String get accessKey;
+  external set accessKey(String value);
+
+  /// The **`HTMLElement.accessKeyLabel`**
+  /// read-only property returns a string containing the element's
+  /// browser-assigned access key (if any); otherwise it returns an empty
+  /// string.
   external String get accessKeyLabel;
-  external set draggable(bool value);
+
+  /// The **`draggable`** property of the [HTMLElement] interface gets and sets
+  /// a `Boolean` primitive indicating if the element is draggable.
+  ///
+  /// It reflects the value of the
+  /// [`draggable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/draggable)
+  /// HTML global attribute.
   external bool get draggable;
-  external set spellcheck(bool value);
+  external set draggable(bool value);
+
+  /// The **`spellcheck`** property of the [HTMLElement] interface represents a
+  /// boolean value that controls the
+  /// [spell-checking](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/spellcheck)
+  /// hint. It is available on all HTML elements, though it doesn't affect all
+  /// of them.
+  ///
+  /// It reflects the value of the
+  /// [`spellcheck`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/spellcheck)
+  /// HTML global attribute.
   external bool get spellcheck;
-  external set autocapitalize(String value);
+  external set spellcheck(bool value);
   external String get autocapitalize;
-  external set innerText(String value);
+  external set autocapitalize(String value);
+
+  /// The **`innerText`** property of the [HTMLElement] interface represents the
+  /// rendered text content of a node and its descendants.
+  ///
+  /// As a getter, it approximates the text the user would get if they
+  /// highlighted the contents of the element with the cursor and then copied it
+  /// to the clipboard.
+  /// As a setter this will replace the element's children with the given value,
+  /// converting any line breaks into `br` elements.
+  ///
+  /// > **Note:** `innerText` is easily confused with [Node.textContent], but
+  /// > there are important differences between the two.
+  /// > Basically, `innerText` is aware of the rendered appearance of text,
+  /// > while `textContent` is not.
   external String get innerText;
-  external set outerText(String value);
+  external set innerText(String value);
+
+  /// The **`outerText`** property of the [HTMLElement] interface returns the
+  /// same value as [HTMLElement.innerText].
+  /// When used as a setter it replaces the whole current node with the given
+  /// text (this differs from `innerText`, which replaces the content _inside_
+  /// the current node).
+  ///
+  /// See [HTMLElement.innerText] for more information and examples showing how
+  /// both properties are used as getters.
   external String get outerText;
-  external set popover(String? value);
+  external set outerText(String value);
+
+  /// The **`popover`** property of the [HTMLElement] interface gets and sets an
+  /// element's popover state via JavaScript (`"auto"` or `"manual"`), and can
+  /// be used for feature detection.
+  ///
+  /// It reflects the value of the
+  /// [`popover`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/popover)
+  /// global HTML attribute.
   external String? get popover;
+  external set popover(String? value);
   external StylePropertyMap get attributeStyleMap;
+
+  /// The read-only **`style`** property of the [HTMLElement] returns the
+  /// _inline_ style of an element in the form of a live [CSSStyleDeclaration]
+  /// object that contains a list of all styles properties for that element with
+  /// values assigned only for the attributes that are defined in the element's
+  /// inline
+  /// [`style`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/style)
+  /// attribute.
+  ///
+  /// Shorthand properties are expanded. If you set `style="border-top: 1px
+  /// solid black"`, the longhand properties (, , and ) are set instead.
+  ///
+  /// This property is read-only, meaning it is not possible to assign a
+  /// [CSSStyleDeclaration] object to it. Nevertheless, it is possible to set an
+  /// inline style by assigning a _string_ directly to the `style` property. In
+  /// this case the string is forwarded to [CSSStyleDeclaration.cssText]. Using
+  /// `style` in this manner will completely overwrite all inline styles on the
+  /// element.
+  ///
+  /// Therefore, to add specific styles to an element without altering other
+  /// style values, it is generally preferable to set individual properties on
+  /// the [CSSStyleDeclaration] object. For example, you can write
+  /// `element.style.backgroundColor = "red"`.
+  ///
+  /// A style declaration is reset by setting it to `null` or an empty string,
+  /// e.g., `elt.style.color = null`.
+  ///
+  /// > **Note:** CSS property names are converted to JavaScript identifier with
+  /// > these rules:
+  /// >
+  /// > - If the property is made of one word, it remains as it is: `height`
+  /// > stays as is (in lowercase). As `float` is a reserved keyword in
+  /// > JavaScript, this property name was historically converted to `cssFloat`.
+  /// > All modern browsers now support the direct use of `float` in JavaScript
+  /// > to access the `float` CSS property, but `cssFloat` is used in older
+  /// > browsers and is still supported as an alias in modern browsers.
+  /// > - If the property is made of several words, separated by dashes, the
+  /// > dashes are removed and it is converted to : `background-attachment`
+  /// > becomes `backgroundAttachment`.
+  /// >
+  /// > The `style` property has the same priority in the CSS cascade as an
+  /// > inline style declaration set via the `style` attribute.
   external CSSStyleDeclaration get style;
-  external set onanimationstart(EventHandler value);
   external EventHandler get onanimationstart;
-  external set onanimationiteration(EventHandler value);
+  external set onanimationstart(EventHandler value);
   external EventHandler get onanimationiteration;
-  external set onanimationend(EventHandler value);
+  external set onanimationiteration(EventHandler value);
   external EventHandler get onanimationend;
-  external set onanimationcancel(EventHandler value);
+  external set onanimationend(EventHandler value);
   external EventHandler get onanimationcancel;
-  external set ontransitionrun(EventHandler value);
+  external set onanimationcancel(EventHandler value);
   external EventHandler get ontransitionrun;
-  external set ontransitionstart(EventHandler value);
+  external set ontransitionrun(EventHandler value);
   external EventHandler get ontransitionstart;
-  external set ontransitionend(EventHandler value);
+  external set ontransitionstart(EventHandler value);
   external EventHandler get ontransitionend;
-  external set ontransitioncancel(EventHandler value);
+  external set ontransitionend(EventHandler value);
   external EventHandler get ontransitioncancel;
-  external set onabort(EventHandler value);
+  external set ontransitioncancel(EventHandler value);
   external EventHandler get onabort;
-  external set onauxclick(EventHandler value);
+  external set onabort(EventHandler value);
   external EventHandler get onauxclick;
-  external set onbeforeinput(EventHandler value);
+  external set onauxclick(EventHandler value);
   external EventHandler get onbeforeinput;
-  external set onbeforematch(EventHandler value);
+  external set onbeforeinput(EventHandler value);
   external EventHandler get onbeforematch;
-  external set onbeforetoggle(EventHandler value);
+  external set onbeforematch(EventHandler value);
   external EventHandler get onbeforetoggle;
-  external set onblur(EventHandler value);
+  external set onbeforetoggle(EventHandler value);
   external EventHandler get onblur;
-  external set oncancel(EventHandler value);
+  external set onblur(EventHandler value);
   external EventHandler get oncancel;
-  external set oncanplay(EventHandler value);
+  external set oncancel(EventHandler value);
   external EventHandler get oncanplay;
-  external set oncanplaythrough(EventHandler value);
+  external set oncanplay(EventHandler value);
   external EventHandler get oncanplaythrough;
-  external set onchange(EventHandler value);
+  external set oncanplaythrough(EventHandler value);
   external EventHandler get onchange;
-  external set onclick(EventHandler value);
+  external set onchange(EventHandler value);
   external EventHandler get onclick;
-  external set onclose(EventHandler value);
+  external set onclick(EventHandler value);
   external EventHandler get onclose;
-  external set oncontextlost(EventHandler value);
+  external set onclose(EventHandler value);
   external EventHandler get oncontextlost;
-  external set oncontextmenu(EventHandler value);
+  external set oncontextlost(EventHandler value);
   external EventHandler get oncontextmenu;
-  external set oncontextrestored(EventHandler value);
+  external set oncontextmenu(EventHandler value);
   external EventHandler get oncontextrestored;
-  external set oncopy(EventHandler value);
+  external set oncontextrestored(EventHandler value);
   external EventHandler get oncopy;
-  external set oncuechange(EventHandler value);
+  external set oncopy(EventHandler value);
   external EventHandler get oncuechange;
-  external set oncut(EventHandler value);
+  external set oncuechange(EventHandler value);
   external EventHandler get oncut;
-  external set ondblclick(EventHandler value);
+  external set oncut(EventHandler value);
   external EventHandler get ondblclick;
-  external set ondrag(EventHandler value);
+  external set ondblclick(EventHandler value);
   external EventHandler get ondrag;
-  external set ondragend(EventHandler value);
+  external set ondrag(EventHandler value);
   external EventHandler get ondragend;
-  external set ondragenter(EventHandler value);
+  external set ondragend(EventHandler value);
   external EventHandler get ondragenter;
-  external set ondragleave(EventHandler value);
+  external set ondragenter(EventHandler value);
   external EventHandler get ondragleave;
-  external set ondragover(EventHandler value);
+  external set ondragleave(EventHandler value);
   external EventHandler get ondragover;
-  external set ondragstart(EventHandler value);
+  external set ondragover(EventHandler value);
   external EventHandler get ondragstart;
-  external set ondrop(EventHandler value);
+  external set ondragstart(EventHandler value);
   external EventHandler get ondrop;
-  external set ondurationchange(EventHandler value);
+  external set ondrop(EventHandler value);
   external EventHandler get ondurationchange;
-  external set onemptied(EventHandler value);
+  external set ondurationchange(EventHandler value);
   external EventHandler get onemptied;
-  external set onended(EventHandler value);
+  external set onemptied(EventHandler value);
   external EventHandler get onended;
-  external set onerror(OnErrorEventHandler value);
+  external set onended(EventHandler value);
   external OnErrorEventHandler get onerror;
-  external set onfocus(EventHandler value);
+  external set onerror(OnErrorEventHandler value);
   external EventHandler get onfocus;
-  external set onformdata(EventHandler value);
+  external set onfocus(EventHandler value);
   external EventHandler get onformdata;
-  external set oninput(EventHandler value);
+  external set onformdata(EventHandler value);
   external EventHandler get oninput;
-  external set oninvalid(EventHandler value);
+  external set oninput(EventHandler value);
   external EventHandler get oninvalid;
-  external set onkeydown(EventHandler value);
+  external set oninvalid(EventHandler value);
   external EventHandler get onkeydown;
-  external set onkeypress(EventHandler value);
+  external set onkeydown(EventHandler value);
   external EventHandler get onkeypress;
-  external set onkeyup(EventHandler value);
+  external set onkeypress(EventHandler value);
   external EventHandler get onkeyup;
-  external set onload(EventHandler value);
+  external set onkeyup(EventHandler value);
   external EventHandler get onload;
-  external set onloadeddata(EventHandler value);
+  external set onload(EventHandler value);
   external EventHandler get onloadeddata;
-  external set onloadedmetadata(EventHandler value);
+  external set onloadeddata(EventHandler value);
   external EventHandler get onloadedmetadata;
-  external set onloadstart(EventHandler value);
+  external set onloadedmetadata(EventHandler value);
   external EventHandler get onloadstart;
-  external set onmousedown(EventHandler value);
+  external set onloadstart(EventHandler value);
   external EventHandler get onmousedown;
-  external set onmouseenter(EventHandler value);
+  external set onmousedown(EventHandler value);
   external EventHandler get onmouseenter;
-  external set onmouseleave(EventHandler value);
+  external set onmouseenter(EventHandler value);
   external EventHandler get onmouseleave;
-  external set onmousemove(EventHandler value);
+  external set onmouseleave(EventHandler value);
   external EventHandler get onmousemove;
-  external set onmouseout(EventHandler value);
+  external set onmousemove(EventHandler value);
   external EventHandler get onmouseout;
-  external set onmouseover(EventHandler value);
+  external set onmouseout(EventHandler value);
   external EventHandler get onmouseover;
-  external set onmouseup(EventHandler value);
+  external set onmouseover(EventHandler value);
   external EventHandler get onmouseup;
-  external set onpaste(EventHandler value);
+  external set onmouseup(EventHandler value);
   external EventHandler get onpaste;
-  external set onpause(EventHandler value);
+  external set onpaste(EventHandler value);
   external EventHandler get onpause;
-  external set onplay(EventHandler value);
+  external set onpause(EventHandler value);
   external EventHandler get onplay;
-  external set onplaying(EventHandler value);
+  external set onplay(EventHandler value);
   external EventHandler get onplaying;
-  external set onprogress(EventHandler value);
+  external set onplaying(EventHandler value);
   external EventHandler get onprogress;
-  external set onratechange(EventHandler value);
+  external set onprogress(EventHandler value);
   external EventHandler get onratechange;
-  external set onreset(EventHandler value);
+  external set onratechange(EventHandler value);
   external EventHandler get onreset;
-  external set onresize(EventHandler value);
+  external set onreset(EventHandler value);
   external EventHandler get onresize;
-  external set onscroll(EventHandler value);
+  external set onresize(EventHandler value);
   external EventHandler get onscroll;
-  external set onscrollend(EventHandler value);
+  external set onscroll(EventHandler value);
   external EventHandler get onscrollend;
-  external set onsecuritypolicyviolation(EventHandler value);
+  external set onscrollend(EventHandler value);
   external EventHandler get onsecuritypolicyviolation;
-  external set onseeked(EventHandler value);
+  external set onsecuritypolicyviolation(EventHandler value);
   external EventHandler get onseeked;
-  external set onseeking(EventHandler value);
+  external set onseeked(EventHandler value);
   external EventHandler get onseeking;
-  external set onselect(EventHandler value);
+  external set onseeking(EventHandler value);
   external EventHandler get onselect;
-  external set onslotchange(EventHandler value);
+  external set onselect(EventHandler value);
   external EventHandler get onslotchange;
-  external set onstalled(EventHandler value);
+  external set onslotchange(EventHandler value);
   external EventHandler get onstalled;
-  external set onsubmit(EventHandler value);
+  external set onstalled(EventHandler value);
   external EventHandler get onsubmit;
-  external set onsuspend(EventHandler value);
+  external set onsubmit(EventHandler value);
   external EventHandler get onsuspend;
-  external set ontimeupdate(EventHandler value);
+  external set onsuspend(EventHandler value);
   external EventHandler get ontimeupdate;
-  external set ontoggle(EventHandler value);
+  external set ontimeupdate(EventHandler value);
   external EventHandler get ontoggle;
-  external set onvolumechange(EventHandler value);
+  external set ontoggle(EventHandler value);
   external EventHandler get onvolumechange;
-  external set onwaiting(EventHandler value);
+  external set onvolumechange(EventHandler value);
   external EventHandler get onwaiting;
-  external set onwebkitanimationend(EventHandler value);
+  external set onwaiting(EventHandler value);
   external EventHandler get onwebkitanimationend;
-  external set onwebkitanimationiteration(EventHandler value);
+  external set onwebkitanimationend(EventHandler value);
   external EventHandler get onwebkitanimationiteration;
-  external set onwebkitanimationstart(EventHandler value);
+  external set onwebkitanimationiteration(EventHandler value);
   external EventHandler get onwebkitanimationstart;
-  external set onwebkittransitionend(EventHandler value);
+  external set onwebkitanimationstart(EventHandler value);
   external EventHandler get onwebkittransitionend;
-  external set onwheel(EventHandler value);
+  external set onwebkittransitionend(EventHandler value);
   external EventHandler get onwheel;
-  external set onpointerover(EventHandler value);
+  external set onwheel(EventHandler value);
   external EventHandler get onpointerover;
-  external set onpointerenter(EventHandler value);
+  external set onpointerover(EventHandler value);
   external EventHandler get onpointerenter;
-  external set onpointerdown(EventHandler value);
+  external set onpointerenter(EventHandler value);
   external EventHandler get onpointerdown;
-  external set onpointermove(EventHandler value);
+  external set onpointerdown(EventHandler value);
   external EventHandler get onpointermove;
-  external set onpointerrawupdate(EventHandler value);
+  external set onpointermove(EventHandler value);
   external EventHandler get onpointerrawupdate;
-  external set onpointerup(EventHandler value);
+  external set onpointerrawupdate(EventHandler value);
   external EventHandler get onpointerup;
-  external set onpointercancel(EventHandler value);
+  external set onpointerup(EventHandler value);
   external EventHandler get onpointercancel;
-  external set onpointerout(EventHandler value);
+  external set onpointercancel(EventHandler value);
   external EventHandler get onpointerout;
-  external set onpointerleave(EventHandler value);
+  external set onpointerout(EventHandler value);
   external EventHandler get onpointerleave;
-  external set ongotpointercapture(EventHandler value);
+  external set onpointerleave(EventHandler value);
   external EventHandler get ongotpointercapture;
-  external set onlostpointercapture(EventHandler value);
+  external set ongotpointercapture(EventHandler value);
   external EventHandler get onlostpointercapture;
-  external set onselectstart(EventHandler value);
+  external set onlostpointercapture(EventHandler value);
   external EventHandler get onselectstart;
-  external set onselectionchange(EventHandler value);
+  external set onselectstart(EventHandler value);
   external EventHandler get onselectionchange;
-  external set ontouchstart(EventHandler value);
+  external set onselectionchange(EventHandler value);
   external EventHandler get ontouchstart;
-  external set ontouchend(EventHandler value);
+  external set ontouchstart(EventHandler value);
   external EventHandler get ontouchend;
-  external set ontouchmove(EventHandler value);
+  external set ontouchend(EventHandler value);
   external EventHandler get ontouchmove;
-  external set ontouchcancel(EventHandler value);
+  external set ontouchmove(EventHandler value);
   external EventHandler get ontouchcancel;
-  external set contentEditable(String value);
+  external set ontouchcancel(EventHandler value);
+
+  /// The **`contentEditable`** property of
+  /// the [HTMLElement] interface specifies whether or not the element is
+  /// editable.
+  ///
+  /// This enumerated attribute can have the following values:
+  ///
+  /// - '`true`' indicates that the element is `contenteditable`.
+  /// - '`false`' indicates that the element cannot be edited.
+  /// - '`plaintext-only`' indicates that the element's raw text is editable,
+  ///   but rich text formatting is disabled.
+  ///
+  /// You can use the [HTMLElement.isContentEditable] property to test the
+  /// computed boolean value of this property.
+  ///
+  /// If the attribute is missing or its value is invalid, its value is
+  /// inherited from its parent element: so the element
+  /// is editable (or not) based on the parent element.
   external String get contentEditable;
-  external set enterKeyHint(String value);
+  external set contentEditable(String value);
+
+  /// The **`enterKeyHint`** property is an enumerated property defining
+  /// what action label (or icon) to present for the enter key on virtual
+  /// keyboards.
+  /// It reflects the
+  /// [`enterkeyhint`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/enterkeyhint)
+  /// HTML global attribute and is an enumerated property, only accepting the
+  /// following values
+  /// as a string:
+  ///
+  /// - `'enter'` typically indicating inserting a new line.
+  /// - `'done'` typically meaning there is nothing more to input and the input
+  ///   method editor (IME) will be closed.
+  /// - `'go'` typically meaning to take the user to the target of the text they
+  ///   typed.
+  /// - `'next'` typically taking the user to the next field that will accept
+  ///   text.
+  /// - `'previous'` typically taking the user to the previous field that will
+  ///   accept text.
+  /// - `'search'` typically taking the user to the results of searching for the
+  ///   text they have typed.
+  /// - `'send'` typically delivering the text to its target.
+  ///
+  /// If no `enterKeyHint` value has been specified or if it was set to a
+  /// different value than the allowed ones, it will return an empty string.
   external String get enterKeyHint;
+  external set enterKeyHint(String value);
+
+  /// The **`HTMLElement.isContentEditable`** read-only property
+  /// returns a boolean value that is `true` if the contents of the element
+  /// are editable; otherwise it returns `false`.
   external bool get isContentEditable;
-  external set inputMode(String value);
+
+  /// The [HTMLElement] property **`inputMode`** reflects the value of the
+  /// element's
+  /// [`inputmode`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode)
+  /// attribute.
+  ///
+  /// It provides a hint about the type of data that might be entered by the
+  /// user while editing the element or its contents. This allows the browser to
+  /// display an appropriate virtual keyboard.
+  ///
+  /// It is used primarily on `input` elements, but is usable on any element in
+  /// [`contenteditable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#contenteditable)
+  /// mode.
   external String get inputMode;
+  external set inputMode(String value);
+
+  /// The **`dataset`** read-only property
+  /// of the [HTMLElement] interface provides read/write access to
+  /// [custom data attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*)
+  /// (`data-*`) on elements. It exposes a map of strings
+  /// ([DOMStringMap]) with an entry for each `data-*` attribute.
+  ///
+  /// > **Note:** The `dataset` property itself can be read, but not directly
+  /// > written.
+  /// > Instead, all writes must be to the individual properties within the
+  /// > `dataset`, which in turn represent the data attributes.
+  ///
+  /// An HTML `data-*` attribute and its corresponding DOM
+  /// `dataset.property` modify their shared name according to where
+  /// they are read or written:
+  ///
+  /// - In HTML
+  ///   - : The attribute name begins with `data-`. It can contain only letters,
+  /// numbers, dashes (`-`), periods (`.`), colons (`:`),
+  /// and underscores (`_`). Any  capital letters (`A` to
+  /// `Z`) are converted to lowercase.
+  /// - In JavaScript
+  ///   - : The property name of a custom data attribute is the same as the HTML attribute
+  /// without the `data-` prefix, and removes single dashes (`-`) for
+  /// when to capitalize the property's "" name.
+  ///
+  /// In addition to the information below, you'll find a how-to guide for using
+  /// HTML data
+  /// attributes in our article
+  /// [_Using data attributes_](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Use_data_attributes).
+  ///
+  /// ### Name conversion
+  ///
+  /// - `dash-style` to `camelCase` conversion
+  ///
+  ///   - : A custom data attribute name is transformed to a key for the
+  /// [DOMStringMap] entry by the following:
+  ///
+  /// 1. Lowercase all ASCII capital letters (`A` to
+  /// `Z`);
+  /// 2. Remove the prefix `data-` (including the dash);
+  /// 3. For any dash (`U+002D`) followed by an ASCII lowercase letter
+  /// `a` to `z`, remove the dash and uppercase the letter;
+  /// 4. Other characters (including other dashes) are left unchanged.
+  ///
+  /// - `camelCase` to `dash-style` conversion
+  ///
+  ///   - : The opposite transformation, which maps a key to an attribute name, uses the
+  /// following:
+  ///
+  /// 1. **Restriction:** Before transformation, a dash _must not_ be
+  /// immediately followed by an ASCII lowercase letter `a` to
+  /// `z`;
+  /// 2. Add the `data-` prefix;
+  /// 3. Add a dash before any ASCII uppercase letter `A` to `Z`,
+  /// then lowercase the letter;
+  /// 4. Other characters are left unchanged.
+  ///
+  /// For example, a `data-abc-def` attribute corresponds to
+  /// `dataset.abcDef`.
+  ///
+  /// ### Accessing values
+  ///
+  /// - Attributes can be set and read by the camelCase name/key as an object
+  ///   property of
+  /// the dataset: `element.dataset.keyname`.
+  /// - Attributes can also be set and read using bracket syntax:
+  /// `element.dataset['keyname']`.
+  /// - The
+  ///   [`in` operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/in)
+  ///   can check if a given attribute exists:
+  /// `'keyname' in element.dataset`.
+  ///
+  /// ### Setting values
+  ///
+  /// - When the attribute is set, its value is always converted to a string.
+  /// For example: `element.dataset.example = null` is
+  /// converted into `data-example="null"`.
+  ///
+  /// - To remove an attribute, you can use the
+  ///   [`delete` operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete):
+  ///   `delete element.dataset.keyname`.
   external DOMStringMap get dataset;
-  external set nonce(String value);
+
+  /// The **`nonce`** property of the [HTMLElement] interface returns the
+  /// cryptographic number used once that is used by
+  /// [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP)
+  /// to determine whether a given fetch will be allowed to proceed.
+  ///
+  /// In later implementations, elements only expose their `nonce` attribute to
+  /// scripts (and not to side-channels like CSS attribute selectors).
   external String get nonce;
-  external set autofocus(bool value);
+  external set nonce(String value);
+
+  /// The **`autofocus`** property of the [HTMLElement] interface represents a
+  /// boolean value reflecting the
+  /// [`autofocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#autofocus)
+  /// HTML global attribute, which indicates whether the control should be
+  /// focused when the page loads, or when dialog or popover become shown if
+  /// specified in an element inside `dialog` elements or elements whose popover
+  /// attribute is set.
+  ///
+  /// Only one form-associated element inside a document, or a `dialog` element,
+  /// or an element whose `popover` attribute is set, can have this attribute
+  /// specified. If there are several, the first element with the attribute set
+  /// inserted, usually the first such element on the page, get the initial
+  /// focus.
+  ///
+  /// > **Note:** Setting this property doesn't set the focus to the associated
+  /// > element: it merely tells the browser to focus to it when _the element is
+  /// > inserted_ in the document. Setting it after the insertion, that is most
+  /// > of the time after the document load, has no visible effect.
   external bool get autofocus;
-  external set tabIndex(int value);
+  external set autofocus(bool value);
+
+  /// The **`tabIndex`** property of the
+  /// [HTMLElement] interface represents the tab order of the current element.
+  ///
+  /// Tab order is as follows:
+  ///
+  /// 1. Elements with a positive `tabIndex`. Elements that have identical
+  /// `tabIndex` values should be navigated in the order they appear. Navigation
+  /// proceeds from the lowest `tabIndex` to the highest `tabIndex`.
+  /// 2. Elements that do not support the `tabIndex` attribute or support it and
+  /// assign `tabIndex` to `0`, in the order they appear.
+  ///
+  /// Elements that are disabled do not participate in the tabbing order.
+  ///
+  /// Values don't need to be sequential, nor must they begin with any
+  /// particular value. They
+  /// may even be negative, though each browser trims very large values.
   external int get tabIndex;
+  external set tabIndex(int value);
 }
 
 /// The **`HTMLUnknownElement`** interface represents an invalid HTML element
@@ -770,8 +1241,15 @@ extension type HTMLHtmlElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLHtmlElement] using the tag 'html'.
   HTMLHtmlElement() : _ = document.createElement('html');
 
-  external set version(String value);
+  /// > **Note:** This property has been declared as deprecated by the W3C
+  /// > technical recommendation for HTML 4.01 in favor of use of the DTD for
+  /// > obtaining version information for a document.
+  ///
+  /// Returns version information about the document type definition (DTD) of a
+  /// document. While this property is recognized by Mozilla, the return value
+  /// for this property is always an empty string.
   external String get version;
+  external set version(String value);
 }
 
 /// The **`HTMLHeadElement`** interface contains the descriptive information, or
@@ -799,8 +1277,11 @@ extension type HTMLTitleElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLTitleElement] using the tag 'title'.
   HTMLTitleElement() : _ = document.createElement('title');
 
-  external set text(String value);
+  /// The **`text`** property of the [HTMLTitleElement] interface represents the
+  /// text of the document's title. Only the text part is included; tags within
+  /// the element and their content are stripped and ignored.
   external String get text;
+  external set text(String value);
 }
 
 /// The **`HTMLBaseElement`** interface contains the base URI for a document.
@@ -815,10 +1296,18 @@ extension type HTMLBaseElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLBaseElement] using the tag 'base'.
   HTMLBaseElement() : _ = document.createElement('base');
 
-  external set href(String value);
   external String get href;
-  external set target(String value);
+  external set href(String value);
+
+  /// The `target` property of the [HTMLBaseElement] interface is a string that
+  /// represents the default target tab to show the resulting output for
+  /// hyperlinks and form elements.
+  ///
+  /// It reflects the
+  /// [`target`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base#target)
+  /// attribute of the `base` element.
   external String get target;
+  external set target(String value);
 }
 
 /// The **`HTMLLinkElement`** interface represents reference information for
@@ -840,41 +1329,114 @@ extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLLinkElement] using the tag 'link'.
   HTMLLinkElement() : _ = document.createElement('link');
 
-  external set href(String value);
   external String get href;
-  external set crossOrigin(String? value);
+  external set href(String value);
+
+  /// The **`crossOrigin`** property of the [HTMLLinkElement] interface
+  /// specifies the Cross-Origin Resource Sharing () setting to use when
+  /// retrieving the resource.
   external String? get crossOrigin;
-  external set rel(String value);
+  external set crossOrigin(String? value);
+
+  /// The **`HTMLLinkElement.rel`** property reflects the
+  /// [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel)
+  /// attribute. It is a string containing a space-separated list of link types
+  /// indicating the relationship between the resource represented by the `link`
+  /// element and the current document.
+  ///
+  /// The most common use of this attribute is to specify a link to an external
+  /// style sheet:
+  /// the property is set to `stylesheet`, and the
+  /// [`href`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#href)
+  /// attribute is set to the URL of an external style sheet to format the page.
   external String get rel;
-  external set as(String value);
+  external set rel(String value);
+
+  /// The **`as`** property of the [HTMLLinkElement] interface returns a string
+  /// representing the type of content to be preloaded by a link element.
+  ///
+  /// The `as` property must have a value for link elements when
+  /// [`rel="preload"`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload),
+  /// or the resource will not be fetched.
+  /// It may also be applied to link elements where
+  /// [`rel="modulepreload"`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload),
+  /// but if omitted, will default to `script`.
+  /// The property should not be set for other types of link elements, such as
+  /// `rel="prefetch"`.
+  ///
+  /// This property reflects the value of the
+  /// [`as` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#as)
+  /// of the
+  /// [`<link>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link)
+  /// HTML element.
   external String get as;
+  external set as(String value);
+
+  /// The **`HTMLLinkElement.relList`** read-only property reflects the
+  /// [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel)
+  /// attribute. It is a live [DOMTokenList] containing the set of link types
+  /// indicating the relationship between the resource represented by the `link`
+  /// element and the current document.
+  ///
+  /// The property itself is read-only, meaning you can not substitute the
+  /// [DOMTokenList] by another one, but the content of the returned list can be
+  /// changed.
   external DOMTokenList get relList;
-  external set media(String value);
   external String get media;
-  external set integrity(String value);
+  external set media(String value);
   external String get integrity;
-  external set hreflang(String value);
+  external set integrity(String value);
+
+  /// The **`hreflang`** property of the [HTMLLinkElement] is used to indicate
+  /// the language and the geographical targeting of a page. This hint can be
+  /// used by browsers to select the more appropriate page or to improve .
+  ///
+  /// It reflects the `hreflang` attribute of the `link` element and is the
+  /// empty string (`""`) if there is no `hreflang` attribute.
   external String get hreflang;
-  external set type(String value);
+  external set hreflang(String value);
   external String get type;
+  external set type(String value);
   external DOMTokenList get sizes;
-  external set imageSrcset(String value);
   external String get imageSrcset;
-  external set imageSizes(String value);
+  external set imageSrcset(String value);
   external String get imageSizes;
-  external set referrerPolicy(String value);
+  external set imageSizes(String value);
+
+  /// The
+  /// **`HTMLLinkElement.referrerPolicy`**
+  /// property reflects the HTML
+  /// [`referrerpolicy`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#referrerpolicy)
+  /// attribute of the
+  /// `link` element defining which referrer is sent when fetching the
+  /// resource.
+  ///
+  /// See the HTTP  header for details.
   external String get referrerPolicy;
+  external set referrerPolicy(String value);
   external DOMTokenList get blocking;
-  external set disabled(bool value);
   external bool get disabled;
-  external set fetchPriority(String value);
+  external set disabled(bool value);
+
+  /// The **`fetchPriority`** property of the
+  /// [HTMLLinkElement] interface represents a hint given to the browser
+  /// on how it should prioritize the preload of the given resource relative to
+  /// other
+  /// resources of the same type.
   external String get fetchPriority;
-  external set charset(String value);
+  external set fetchPriority(String value);
   external String get charset;
-  external set rev(String value);
+  external set charset(String value);
   external String get rev;
-  external set target(String value);
+  external set rev(String value);
   external String get target;
+  external set target(String value);
+
+  /// The read-only **`sheet`** property of the [HTMLLinkElement] interface
+  /// contains the stylesheet associated with that element.
+  ///
+  /// A stylesheet is associated to an `HTMLLinkElement` if `rel="stylesheet"`
+  /// is used with `<link>`.
   external CSSStyleSheet? get sheet;
 }
 
@@ -893,16 +1455,57 @@ extension type HTMLMetaElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLMetaElement] using the tag 'meta'.
   HTMLMetaElement() : _ = document.createElement('meta');
 
-  external set name(String value);
+  /// The **`HTMLMetaElement.name`** property is used in combination with
+  /// [HTMLMetaElement.content] to define the name-value pairs for the metadata
+  /// of a document.
+  /// The `name` attribute defines the metadata name and the `content` attribute
+  /// defines the value.
   external String get name;
-  external set httpEquiv(String value);
+  external set name(String value);
+
+  /// The **`HTMLMetaElement.httpEquiv`** property gets or sets the pragma
+  /// directive or an HTTP response header name for the
+  /// [HTMLMetaElement.content] attribute.
+  /// For more details on the possible values, see the
+  /// [http-equiv](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#http-equiv)
+  /// attribute.
   external String get httpEquiv;
-  external set content(String value);
+  external set httpEquiv(String value);
+
+  /// The **`HTMLMetaElement.content`** property gets or sets the `content`
+  /// attribute of pragma directives and named `meta` data in conjunction with
+  /// [HTMLMetaElement.name] or [HTMLMetaElement.httpEquiv].
+  /// For more information, see the
+  /// [content](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#content)
+  /// attribute.
   external String get content;
-  external set media(String value);
+  external set content(String value);
+
+  /// The **`HTMLMetaElement.media`** property enables specifying the media for
+  /// `theme-color` metadata.
+  ///
+  /// The `theme-color` property enables setting the color of the browser's
+  /// toolbar or UI in browsers and operating systems that support this
+  /// property.
+  /// The `media` property enables setting different theme colors for different
+  /// `media` values.
   external String get media;
-  external set scheme(String value);
+  external set media(String value);
+
+  /// The **`HTMLMetaElement.scheme`** property defines the scheme of the value
+  /// in the [HTMLMetaElement.content] attribute.
+  /// The `scheme` property was created to enable providing additional
+  /// information to be used to interpret the value of the `content` property.
+  /// The `scheme` property takes as its value a scheme format (i.e.
+  /// `YYYY-MM-DD`) or scheme format name (i.e. `ISBN`), or a URI providing more
+  /// information regarding the scheme format. The scheme defines the format of
+  /// the value of the `content` attribute.
+  /// The `scheme` content is interpreted as an extension of the element's
+  /// [HTMLMetaElement.name] if a browser or user agent recognizes the scheme.
+  ///
+  /// This property is deprecated and should not be used on new web pages.
   external String get scheme;
+  external set scheme(String value);
 }
 
 /// The **`HTMLStyleElement`** interface represents a `style` element. It
@@ -922,13 +1525,35 @@ extension type HTMLStyleElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLStyleElement] using the tag 'style'.
   HTMLStyleElement() : _ = document.createElement('style');
 
-  external set disabled(bool value);
+  /// The **`HTMLStyleElement.disabled`** property can be used to get and set
+  /// whether the stylesheet is disabled (`true`) or not (`false`).
+  ///
+  /// Note that there is no corresponding `disabled` attribute on the [HTML
+  /// `<style>`
+  /// element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/style).
   external bool get disabled;
-  external set media(String value);
+  external set disabled(bool value);
+
+  /// The **`HTMLStyleElement.media`** property specifies the
+  /// intended destination medium for style information.
   external String get media;
+  external set media(String value);
   external DOMTokenList get blocking;
-  external set type(String value);
+
+  /// The **`HTMLStyleElement.type`** property returns the type of the current
+  /// style.
+  /// The value mirrors the [HTML `<style>` element's `type`
+  /// attribute](/en-US/docs/Web/HTML/Element/style#type).
+  ///
+  /// Authors should not use this property or rely on the value.
   external String get type;
+  external set type(String value);
+
+  /// The read-only **`sheet`** property of the [HTMLStyleElement] interface
+  /// contains the stylesheet associated with that element.
+  ///
+  /// An [StyleSheet] is always associated with a [HTMLStyleElement], unless its
+  /// `type` attribute is not `text/css`.
   external CSSStyleSheet? get sheet;
 }
 
@@ -944,56 +1569,56 @@ extension type HTMLBodyElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLBodyElement] using the tag 'body'.
   HTMLBodyElement() : _ = document.createElement('body');
 
-  external set text(String value);
   external String get text;
-  external set link(String value);
+  external set text(String value);
   external String get link;
-  external set vLink(String value);
+  external set link(String value);
   external String get vLink;
-  external set aLink(String value);
+  external set vLink(String value);
   external String get aLink;
-  external set bgColor(String value);
+  external set aLink(String value);
   external String get bgColor;
-  external set background(String value);
+  external set bgColor(String value);
   external String get background;
-  external set ongamepadconnected(EventHandler value);
+  external set background(String value);
   external EventHandler get ongamepadconnected;
-  external set ongamepaddisconnected(EventHandler value);
+  external set ongamepadconnected(EventHandler value);
   external EventHandler get ongamepaddisconnected;
-  external set onafterprint(EventHandler value);
+  external set ongamepaddisconnected(EventHandler value);
   external EventHandler get onafterprint;
-  external set onbeforeprint(EventHandler value);
+  external set onafterprint(EventHandler value);
   external EventHandler get onbeforeprint;
-  external set onbeforeunload(OnBeforeUnloadEventHandler value);
+  external set onbeforeprint(EventHandler value);
   external OnBeforeUnloadEventHandler get onbeforeunload;
-  external set onhashchange(EventHandler value);
+  external set onbeforeunload(OnBeforeUnloadEventHandler value);
   external EventHandler get onhashchange;
-  external set onlanguagechange(EventHandler value);
+  external set onhashchange(EventHandler value);
   external EventHandler get onlanguagechange;
-  external set onmessage(EventHandler value);
+  external set onlanguagechange(EventHandler value);
   external EventHandler get onmessage;
-  external set onmessageerror(EventHandler value);
+  external set onmessage(EventHandler value);
   external EventHandler get onmessageerror;
-  external set onoffline(EventHandler value);
+  external set onmessageerror(EventHandler value);
   external EventHandler get onoffline;
-  external set ononline(EventHandler value);
+  external set onoffline(EventHandler value);
   external EventHandler get ononline;
-  external set onpagehide(EventHandler value);
+  external set ononline(EventHandler value);
   external EventHandler get onpagehide;
-  external set onpagereveal(EventHandler value);
+  external set onpagehide(EventHandler value);
   external EventHandler get onpagereveal;
-  external set onpageshow(EventHandler value);
+  external set onpagereveal(EventHandler value);
   external EventHandler get onpageshow;
-  external set onpopstate(EventHandler value);
+  external set onpageshow(EventHandler value);
   external EventHandler get onpopstate;
-  external set onrejectionhandled(EventHandler value);
+  external set onpopstate(EventHandler value);
   external EventHandler get onrejectionhandled;
-  external set onstorage(EventHandler value);
+  external set onrejectionhandled(EventHandler value);
   external EventHandler get onstorage;
-  external set onunhandledrejection(EventHandler value);
+  external set onstorage(EventHandler value);
   external EventHandler get onunhandledrejection;
-  external set onunload(EventHandler value);
+  external set onunhandledrejection(EventHandler value);
   external EventHandler get onunload;
+  external set onunload(EventHandler value);
 }
 
 /// The **`HTMLHeadingElement`** interface represents the different heading
@@ -1025,8 +1650,8 @@ extension type HTMLHeadingElement._(JSObject _)
   /// Creates an [HTMLHeadingElement] using the tag 'h6'.
   HTMLHeadingElement.h6() : _ = document.createElement('h6');
 
-  external set align(String value);
   external String get align;
+  external set align(String value);
 }
 
 /// The **`HTMLParagraphElement`** interface provides special properties (beyond
@@ -1042,8 +1667,8 @@ extension type HTMLParagraphElement._(JSObject _)
   /// Creates an [HTMLParagraphElement] using the tag 'p'.
   HTMLParagraphElement() : _ = document.createElement('p');
 
-  external set align(String value);
   external String get align;
+  external set align(String value);
 }
 
 /// The **`HTMLHRElement`** interface provides special properties (beyond those
@@ -1058,16 +1683,16 @@ extension type HTMLHRElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLHRElement] using the tag 'hr'.
   HTMLHRElement() : _ = document.createElement('hr');
 
-  external set align(String value);
   external String get align;
-  external set color(String value);
+  external set align(String value);
   external String get color;
-  external set noShade(bool value);
+  external set color(String value);
   external bool get noShade;
-  external set size(String value);
+  external set noShade(bool value);
   external String get size;
-  external set width(String value);
+  external set size(String value);
   external String get width;
+  external set width(String value);
 }
 
 /// The **`HTMLPreElement`** interface exposes specific properties and methods
@@ -1088,8 +1713,8 @@ extension type HTMLPreElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLPreElement] using the tag 'xmp'.
   HTMLPreElement.xmp() : _ = document.createElement('xmp');
 
-  external set width(int value);
   external int get width;
+  external set width(int value);
 }
 
 /// The **`HTMLQuoteElement`** interface provides special properties and methods
@@ -1108,8 +1733,8 @@ extension type HTMLQuoteElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLQuoteElement] using the tag 'q'.
   HTMLQuoteElement.q() : _ = document.createElement('q');
 
-  external set cite(String value);
   external String get cite;
+  external set cite(String value);
 }
 
 /// The **`HTMLOListElement`** interface provides special properties (beyond
@@ -1124,14 +1749,41 @@ extension type HTMLOListElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLOListElement] using the tag 'ol'.
   HTMLOListElement() : _ = document.createElement('ol');
 
-  external set reversed(bool value);
+  /// The **`reversed`** property of the [HTMLOListElement] interface indicates
+  /// order of a list.
+  ///
+  /// It reflects the
+  /// [`reversed`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol#reversed)
+  /// attribute of the `ol` element.
   external bool get reversed;
-  external set start(int value);
+  external set reversed(bool value);
+
+  /// The **`start`** property of the [HTMLOListElement] interface indicates
+  /// starting value of the ordered list, with default value of 1.
+  ///
+  /// It reflects the
+  /// [`start`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol#start)
+  /// attribute of the `ol` element.
+  ///
+  /// > **Note:** The `start` property value is independent of the
+  /// > [HTMLOListElement.type] property; it is always numeric, even when type
+  /// > is letters or Roman numerals.
   external int get start;
-  external set type(String value);
+  external set start(int value);
+
+  /// The **`type`** property of the [HTMLOListElement] interface indicates the
+  /// kind of marker to be used to display ordered list.
+  ///
+  /// It reflects the
+  /// [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol#type)
+  /// attribute of the `ol` element.
+  ///
+  /// > **Note:** The `type` can be defined in CSS with the  property. The
+  /// > `list-style-type` property provides many more values.
   external String get type;
-  external set compact(bool value);
+  external set type(String value);
   external bool get compact;
+  external set compact(bool value);
 }
 
 /// The **`HTMLUListElement`** interface provides special properties (beyond
@@ -1146,10 +1798,10 @@ extension type HTMLUListElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLUListElement] using the tag 'ul'.
   HTMLUListElement() : _ = document.createElement('ul');
 
-  external set compact(bool value);
   external bool get compact;
-  external set type(String value);
+  external set compact(bool value);
   external String get type;
+  external set type(String value);
 }
 
 /// The **`HTMLMenuElement`** interface provides additional properties (beyond
@@ -1165,8 +1817,8 @@ extension type HTMLMenuElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLMenuElement] using the tag 'menu'.
   HTMLMenuElement() : _ = document.createElement('menu');
 
-  external set compact(bool value);
   external bool get compact;
+  external set compact(bool value);
 }
 
 /// The **`HTMLLIElement`** interface exposes specific properties and methods
@@ -1181,10 +1833,10 @@ extension type HTMLLIElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLLIElement] using the tag 'li'.
   HTMLLIElement() : _ = document.createElement('li');
 
-  external set value(int value);
   external int get value;
-  external set type(String value);
+  external set value(int value);
   external String get type;
+  external set type(String value);
 }
 
 /// The **`HTMLDListElement`** interface provides special properties (beyond
@@ -1199,8 +1851,8 @@ extension type HTMLDListElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLDListElement] using the tag 'dl'.
   HTMLDListElement() : _ = document.createElement('dl');
 
-  external set compact(bool value);
   external bool get compact;
+  external set compact(bool value);
 }
 
 /// The **`HTMLDivElement`** interface provides special properties (beyond the
@@ -1215,8 +1867,8 @@ extension type HTMLDivElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLDivElement] using the tag 'div'.
   HTMLDivElement() : _ = document.createElement('div');
 
-  external set align(String value);
   external String get align;
+  external set align(String value);
 }
 
 /// The **`HTMLAnchorElement`** interface represents hyperlink elements and
@@ -1238,54 +1890,200 @@ extension type HTMLAnchorElement._(JSObject _)
   /// Creates an [HTMLAnchorElement] using the tag 'a'.
   HTMLAnchorElement() : _ = document.createElement('a');
 
-  external set target(String value);
+  /// The **`target`** property of the [HTMLAnchorElement] interface is a string
+  /// that indicates where to display the linked resource.
+  ///
+  /// It reflects the
+  /// [`target`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#target)
+  /// attribute of the `a` element.
   external String get target;
-  external set download(String value);
+  external set target(String value);
+
+  /// The **`HTMLAnchorElement.download`** property is a
+  /// string indicating that the linked resource is intended to be
+  /// downloaded rather than displayed in the browser. The value, if any,
+  /// specifies the
+  /// default file name for use in labeling the resource in a local file system.
+  /// If the name
+  /// is not a valid file name in the underlying OS, the browser will adjust it.
+  ///
+  /// > **Note:** This value might not be used for download. This value cannot
+  /// > be used to determine whether the download will occur.
   external String get download;
-  external set ping(String value);
+  external set download(String value);
+
+  /// The **`ping`** property of the [HTMLAnchorElement] interface is a
+  /// space-separated list of URLs. When the link is followed, the browser will
+  /// send `POST` requests with the body PING to the URLs.
+  ///
+  /// It reflects the `ping` attribute of the `a` element.
+  ///
+  /// > **Note:** This property is not effective in Firefox and its usage may be
+  /// > limited due to privacy and security concerns.
   external String get ping;
-  external set rel(String value);
+  external set ping(String value);
+
+  /// The **`HTMLAnchorElement.rel`** property reflects the
+  /// [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel)
+  /// attribute. It is a string containing a space-separated list of link types
+  /// indicating the relationship between the resource represented by the `a`
+  /// element and the current document.
   external String get rel;
+  external set rel(String value);
+
+  /// The **`HTMLAnchorElement.relList`** read-only property reflects the
+  /// [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel)
+  /// attribute. It is a live [DOMTokenList] containing the set of link types
+  /// indicating the relationship between the resource represented by the `a`
+  /// element and the current document.
+  ///
+  /// The property itself is read-only, meaning you can't substitute the
+  /// [DOMTokenList] with another one, but its contents can still be changed.
   external DOMTokenList get relList;
-  external set hreflang(String value);
+
+  /// The **`hreflang`** property of the [HTMLAnchorElement] interface is a
+  /// string that is the language of the linked resource.
+  ///
+  /// It reflects the `hreflang` attribute of the `a` element and is the empty
+  /// string (`""`) if there is no `hreflang` element.
+  ///
+  /// Web browsers and search engines may use this information to understand the
+  /// language of the linked content better, but they are not required to follow
+  /// it. The value provided for the `hreflang` attribute adheres to the format
+  /// defined in `5646, "Tags for Identifying Languages (also known as BCP
+  /// 47)"`. If not, it is ignored.
+  ///
+  /// Web browsers do not rely solely on the `hreflang` attribute after fetching
+  /// the linked resource. Instead, they use language information directly
+  /// associated with the resource (e.g., through HTTP headers) to determine its
+  /// language.
   external String get hreflang;
-  external set type(String value);
+  external set hreflang(String value);
+
+  /// The **`type`** property of the [HTMLAnchorElement] interface is a string
+  /// that indicates the MIME type of the linked resource.
+  ///
+  /// It reflects the `type` attribute of the `a` element.
   external String get type;
-  external set text(String value);
+  external set type(String value);
+
+  /// The **`text`** property of the [HTMLAnchorElement] represents the text
+  /// inside the the element.
+  /// This property represents the same information as [Node.textContent].
   external String get text;
-  external set referrerPolicy(String value);
+  external set text(String value);
+
+  /// The
+  /// **`HTMLAnchorElement.referrerPolicy`**
+  /// property reflect the HTML
+  /// [`referrerpolicy`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#referrerpolicy)
+  /// attribute of the
+  /// `a` element defining which referrer is sent when fetching the resource.
   external String get referrerPolicy;
-  external set coords(String value);
+  external set referrerPolicy(String value);
   external String get coords;
-  external set charset(String value);
+  external set coords(String value);
   external String get charset;
-  external set name(String value);
+  external set charset(String value);
   external String get name;
-  external set rev(String value);
+  external set name(String value);
   external String get rev;
-  external set shape(String value);
+  external set rev(String value);
   external String get shape;
-  external set href(String value);
+  external set shape(String value);
+
+  /// The **`HTMLAnchorElement.href`** property is a
+  /// that returns a string containing the whole URL, and allows
+  /// the href to be updated.
   external String get href;
+  external set href(String value);
+
+  /// The
+  /// **`HTMLAnchorElement.origin`** read-only property is a
+  /// string containing the Unicode serialization of the origin of the
+  /// represented URL.
+  ///
+  /// That is:
+  ///
+  /// - for URL using the `http` or `https`, the scheme followed by
+  /// `'://'`, followed by the domain, followed by `':'`, followed by
+  /// the port (the default port, `80` and `443` respectively, if
+  /// explicitly specified);
+  /// - for URL using `file:` scheme, the value is browser dependent;
+  /// - for URL using the `blob:` scheme, the origin of the URL following
+  /// `blob:`. E.g `"blob:https://mozilla.org"` will have
+  /// `"https://mozilla.org".`
   external String get origin;
-  external set protocol(String value);
+
+  /// The
+  /// **`HTMLAnchorElement.protocol`**
+  /// property is a string representing the protocol scheme of the URL,
+  /// including the final `':'`.
   external String get protocol;
-  external set username(String value);
+  external set protocol(String value);
+
+  /// The **`HTMLAnchorElement.username`** property is a
+  /// string containing the username specified before the domain name.
   external String get username;
-  external set password(String value);
+  external set username(String value);
+
+  /// The **`HTMLAnchorElement.password`** property is a
+  /// string containing the password specified before the domain name.
+  ///
+  /// If it is set without first setting the
+  /// [`username`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLAnchorElement/username)
+  /// property, it silently fails.
   external String get password;
-  external set host(String value);
+  external set password(String value);
+
+  /// The **`HTMLAnchorElement.host`** property is a
+  /// string containing the host, that is the _hostname_, and then,
+  /// if the _port_ of the URL is nonempty, a `':'`, and the _port_
+  /// of the URL.
   external String get host;
-  external set hostname(String value);
+  external set host(String value);
+
+  /// The **`HTMLAnchorElement.hostname`** property is a
+  /// string containing the domain of the URL.
   external String get hostname;
-  external set port(String value);
+  external set hostname(String value);
+
+  /// The **`HTMLAnchorElement.port`** property is a
+  /// string containing the port number of the URL. If the URL does not
+  /// contain an explicit port number, it will be set to `''`.
   external String get port;
-  external set pathname(String value);
+  external set port(String value);
+
+  /// The **`HTMLAnchorElement.pathname`** property is a
+  /// string containing an initial `'/'` followed by the path of
+  /// the URL not including the query string or fragment (or the empty string if
+  /// there is no
+  /// path).
   external String get pathname;
-  external set search(String value);
+  external set pathname(String value);
+
+  /// The **`HTMLAnchorElement.search`** property is a search
+  /// string, also called a _query string_, that is a string containing
+  /// a `'?'` followed by the parameters of the URL.
+  ///
+  /// Modern browsers provide
+  /// [`URLSearchParams`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/get#examples)
+  /// and
+  /// [`URL.searchParams`](/en-US/docs/Web/API/URL/searchParams#examples)
+  /// to make it easy to parse out the parameters from the querystring.
   external String get search;
-  external set hash(String value);
+  external set search(String value);
+
+  /// The
+  /// **`HTMLAnchorElement.hash`** property returns a
+  /// string containing a `'#'` followed by the fragment
+  /// identifier of the URL.
+  ///
+  /// The fragment is [URL encoded](https://en.wikipedia.org/wiki/URL_encoding).
+  /// If the URL does not
+  /// have a fragment identifier, this property contains an empty string, `""`.
   external String get hash;
+  external set hash(String value);
 }
 
 /// The **`HTMLDataElement`** interface provides special properties (beyond the
@@ -1300,8 +2098,12 @@ extension type HTMLDataElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLDataElement] using the tag 'data'.
   HTMLDataElement() : _ = document.createElement('data');
 
-  external set value(String value);
+  /// The **`value`** property of the [HTMLDataElement]
+  /// interface returns a string reflecting the
+  /// [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/data#value)
+  /// HTML attribute.
   external String get value;
+  external set value(String value);
 }
 
 /// The **`HTMLTimeElement`** interface provides special properties (beyond the
@@ -1316,8 +2118,154 @@ extension type HTMLTimeElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLTimeElement] using the tag 'time'.
   HTMLTimeElement() : _ = document.createElement('time');
 
-  external set dateTime(String value);
+  /// The
+  /// **`HTMLTimeElement.dateTime`**
+  /// property is a string that reflects the
+  /// [`datetime`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/time#datetime)
+  /// HTML attribute, containing a machine-readable form of the element's date
+  /// and
+  /// time value.
+  ///
+  /// The format of the string must follow one of the following HTML
+  /// microsyntaxes:
+  ///
+  /// <table class="no-markdown">
+  ///   <thead>
+  ///     <tr>
+  ///       <th scope="col">Microsyntax</th>
+  ///       <th scope="col">Description</th>
+  ///       <th scope="col">Examples</th>
+  ///     </tr>
+  ///   </thead>
+  ///   <tbody>
+  ///     <tr>
+  ///       <td>Valid month string</td>
+  ///       <td><em>YYYY</em><code>-</code><em>MM</em></td>
+  ///       <td><code>2011-11</code>, <code>2013-05</code></td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>Valid date string</td>
+  ///       <td><em>YYYY</em><code>-</code><em>MM</em><code>-</code><em>DD</em></td>
+  ///       <td><code>1887-12-01</code></td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>Valid yearless date string</td>
+  ///       <td><em>MM</em><code>-</code><em>DD</em></td>
+  ///       <td><code>11-12</code></td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>Valid time string</td>
+  ///       <td>
+  ///         <em>HH</em><code>:</code><em>MM</em><br /><em>HH</em><code>:</code
+  /// ><em>MM</em><code>:</code><em>SS</em><br /><em>HH</em><code>:</code
+  /// ><em>MM</em><code>:</code><em>SS</em><code>.</code><em>mmm</em>
+  ///       </td>
+  ///       <td>
+  ///         <code>23:59</code><br /><code>12:15:47</code><br /><code
+  /// >12:15:52.998</code
+  /// >
+  ///       </td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>Valid local date and time string</td>
+  ///       <td>
+  ///         <em>YYYY</em><code>-</code><em>MM</em><code>-</code><em>DD</em>
+  ///         <em>HH</em><code>:</code><em>MM</em><br /><em>YYYY</em><code>-</code
+  /// ><em>MM</em><code>-</code><em>DD</em> <em>HH</em><code>:</code
+  /// ><em>MM</em><code>:</code><em>SS</em><br /><em>YYYY</em><code>-</code
+  /// ><em>MM</em><code>-</code><em>DD</em> <em>HH</em><code>:</code
+  /// ><em>MM</em><code>:</code><em>SS</em><code>.</code><em>mmm</em><br /><em
+  /// >YYYY</em
+  /// ><code>-</code><em>MM</em><code>-</code><em>DD</em><code>T</code
+  /// ><em>HH</em><code>:</code><em>MM</em><br /><em>YYYY</em><code>-</code
+  /// ><em>MM</em><code>-</code><em>DD</em><code>T</code><em>HH</em
+  /// ><code>:</code><em>MM</em><code>:</code><em>SS</em><br /><em>YYYY</em
+  /// ><code>-</code><em>MM</em><code>-</code><em>DD</em><code>T</code
+  /// ><em>HH</em><code>:</code><em>MM</em><code>:</code><em>SS</em
+  /// ><code>.</code><em>mmm</em>
+  ///       </td>
+  ///       <td>
+  ///         <code
+  /// >2013-12-25 11:12<br />1972-07-25 13:43:07<br />1941-03-15
+  /// 07:06:23.678<br />2013-12-25T11:12<br />1972-07-25T13:43:07<br
+  /// />1941-03-15T07:06:23.678</code
+  /// >
+  ///       </td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>Valid time-zone offset string</td>
+  ///       <td>
+  ///         <code>Z</code><br /><code>+</code><em>HHMM</em><br /><code>+</code
+  /// ><em>HH</em><code>:</code><em>MM</em><br /><code>-</code><em>HHMM</em
+  /// ><br /><code>-</code><em>HH</em><code>:</code><em>MM</em>
+  ///       </td>
+  ///       <td>
+  ///         <code>Z<br />+0200<br />+04:30<br />-0300<br />-08:00</code>
+  ///       </td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>Valid global date and time string</td>
+  ///       <td>
+  ///         <em
+  /// >Any combination of a valid local date and time string followed by a
+  /// valid time-zone offset string</em
+  /// >
+  ///       </td>
+  ///       <td>
+  ///         <code
+  /// >2013-12-25 11:12+0200<br />1972-07-25 13:43:07+04:30<br />1941-03-15
+  /// 07:06:23.678Z<br />2013-12-25T11:12-08:00</code
+  /// >
+  ///       </td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>Valid week string</td>
+  ///       <td><em>YYYY</em><code>-W</code><em>WW</em></td>
+  ///       <td><code>2013-W46</code></td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>Four or more ASCII digits</td>
+  ///       <td><em>YYYY</em></td>
+  ///       <td><code>2013</code>, <code>0001</code></td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>Valid duration string</td>
+  ///       <td>
+  ///         <code>P</code><em>d</em><code>D</code><code>T</code><em>h</em
+  /// ><code>H</code><em>m</em><code>M</code><em>s</em><code>S</code
+  /// ><br /><code>P</code><em>d</em><code>D</code><code>T</code><em>h</em
+  /// ><code>H</code><em>m</em><code>M</code><em>s</em><code>.</code>X<code
+  /// >S</code
+  /// ><br /><code>P</code><em>d</em><code>D</code><code>T</code><em>h</em
+  /// ><code>H</code><em>m</em><code>M</code><em>s</em><code>.</code>XX<code
+  /// >S</code
+  /// ><br /><code>P</code><em>d</em><code>D</code><code>T</code><em>h</em
+  /// ><code>H</code><em>m</em><code>M</code><em>s</em><code>.</code>XXX<code
+  /// >S</code
+  /// ><br /><code>P</code><code>T</code><em>h</em><code>H</code><em>m</em
+  /// ><code>M</code><em>s</em><code>S</code><br /><code>P</code><code>T</code
+  /// ><em>h</em><code>H</code><em>m</em><code>M</code><em>s</em
+  /// ><code>.</code>X<code>S</code><br /><code>P</code><code>T</code
+  /// ><em>h</em><code>H</code><em>m</em><code>M</code><em>s</em
+  /// ><code>.</code>XX<code>S</code><br /><code>P</code><code>T</code
+  /// ><em>h</em><code>H</code><em>m</em><code>M</code><em>s</em
+  /// ><code>.</code>XXX<code>S</code><br /><em>w</em><code>w </code><em>d</em
+  /// ><code>d </code><em>h</em><code>h </code><em>m</em><code>m </code
+  /// ><em>s</em><code>s</code>
+  ///       </td>
+  ///       <td>
+  ///         <code
+  /// >P12DT7H12M13S<br />P12DT7H12M13.3S<br />P12DT7H12M13.45S<br
+  /// />P12DT7H12M13.455S<br />PT7H12M13S<br />PT7H12M13.2S<br
+  /// />PT7H12M13.56S<br />PT7H12M13.999S<br />7d
+  /// 5h 24m 13s</code
+  /// >
+  ///       </td>
+  ///     </tr>
+  ///   </tbody>
+  /// </table>
   external String get dateTime;
+  external set dateTime(String value);
 }
 
 /// The **`HTMLSpanElement`** interface represents a `span` element and derives
@@ -1344,8 +2292,8 @@ extension type HTMLBRElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLBRElement] using the tag 'br'.
   HTMLBRElement() : _ = document.createElement('br');
 
-  external set clear(String value);
   external String get clear;
+  external set clear(String value);
 }
 
 /// The **`HTMLModElement`** interface provides special properties (beyond the
@@ -1364,10 +2312,10 @@ extension type HTMLModElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLModElement] using the tag 'del'.
   HTMLModElement.del() : _ = document.createElement('del');
 
-  external set cite(String value);
   external String get cite;
-  external set dateTime(String value);
+  external set cite(String value);
   external String get dateTime;
+  external set dateTime(String value);
 }
 
 /// The **`HTMLPictureElement`** interface represents a `picture` HTML element.
@@ -1396,20 +2344,38 @@ extension type HTMLSourceElement._(JSObject _)
   /// Creates an [HTMLSourceElement] using the tag 'source'.
   HTMLSourceElement() : _ = document.createElement('source');
 
-  external set src(String value);
   external String get src;
-  external set type(String value);
+  external set src(String value);
   external String get type;
-  external set srcset(String value);
+  external set type(String value);
   external String get srcset;
-  external set sizes(String value);
+  external set srcset(String value);
   external String get sizes;
-  external set media(String value);
+  external set sizes(String value);
   external String get media;
-  external set width(int value);
+  external set media(String value);
+
+  /// The **`width`** property of the [HTMLSourceElement] interface is a
+  /// non-negative number indicating the width of the image resource in CSS
+  /// pixels.
+  ///
+  /// The property has an effect only if the parent of the current `source`
+  /// element is a `picture` element.
+  ///
+  /// It reflects the `width` attribute of the `source` element.
   external int get width;
-  external set height(int value);
+  external set width(int value);
+
+  /// The **`height`** property of the [HTMLSourceElement] interface is a
+  /// non-negative number indicating the height of the image resource in CSS
+  /// pixels.
+  ///
+  /// The property has an effect only if the parent of the current `source`
+  /// element is a `picture` element.
+  ///
+  /// It reflects the `height` attribute of the `source` element.
   external int get height;
+  external set height(int value);
 }
 
 /// The **`HTMLImageElement`** interface represents an HTML `img` element,
@@ -1437,52 +2403,322 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   /// from causing
   /// a delay while the image loads.
   external JSPromise<JSAny?> decode();
+
+  /// The read-only [HTMLImageElement] property
+  /// **`x`** indicates the x-coordinate of the
+  /// `img` element's left border edge relative to the root element's
+  /// origin.
+  ///
+  /// The `x` and [HTMLImageElement.y] properties are only valid
+  /// for an image if its `display` property has the computed value
+  /// `table-column` or `table-column-group`. In other words: it has
+  /// either of those values set explicitly on it, or it has inherited it from a
+  /// containing
+  /// element, or by being located within a column described by either `col`
+  /// or `colgroup`.
   external int get x;
+
+  /// The read-only [HTMLImageElement] property
+  /// **`y`** indicates the y-coordinate of the
+  /// `img` element's top border edge relative to the root element's
+  /// origin.
+  ///
+  /// The [HTMLImageElement.x] and `y` properties are only valid
+  /// for an image if its `display` property has the computed value
+  /// `table-column` or `table-column-group`. In other words: it has
+  /// either of those values set explicitly on it, or it has inherited it from a
+  /// containing
+  /// element, or by being located within a column described by either
+  /// `col` or `colgroup`.
   external int get y;
-  external set alt(String value);
+
+  /// The [HTMLImageElement] property **`alt`** provides fallback (alternate)
+  /// text to display when the image specified by the `img` element is not
+  /// loaded.
+  ///
+  /// This may be the case because of an error, because the user has disabled
+  /// the loading of images, or because the image hasn't finished loading yet.
+  ///
+  /// Perhaps the most important reason to use the `alt` property is to support
+  /// [accessibility](https://developer.mozilla.org/en-US/docs/Web/Accessibility),
+  /// as the `alt` text may be used by screen readers and other assistive
+  /// technologies to help people with a disability make full use of your
+  /// content.
+  /// It will be read aloud or sent to a braille output device, for example, to
+  /// support blind or visually impaired users.
+  ///
+  /// > **Think of it like this:** When choosing `alt` strings for your images,
+  /// > imagine what you would say when reading the page to someone over the
+  /// > phone without mentioning that there's an image on the page.
+  ///
+  /// The alternate text is displayed in the space the image would occupy and
+  /// should be able to take the place of the image _without altering the
+  /// meaning of the page_.
   external String get alt;
-  external set src(String value);
+  external set alt(String value);
+
+  /// The [HTMLImageElement] property
+  /// **`src`**, which reflects the HTML
+  /// [`src`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#src)
+  /// attribute, specifies the image to display in the `img`
+  /// element.
   external String get src;
-  external set srcset(String value);
+  external set src(String value);
+
+  /// The [HTMLImageElement] property
+  /// **`srcset`** is a string which identifies one or more
+  /// **image candidate strings**, separated using commas (`,`) each
+  /// specifying image resources to use under given circumstances.
+  ///
+  /// Each image
+  /// candidate string contains an image URL and an optional width or pixel
+  /// density descriptor
+  /// that indicates the conditions under which that candidate should be used
+  /// instead of the
+  /// image specified by the [HTMLImageElement.src] property.
+  ///
+  /// The `srcset` property, along with the [HTMLImageElement.sizes]
+  /// property, are a crucial component in designing responsive websites, as
+  /// they
+  /// can be used together to make pages that use appropriate images for the
+  /// rendering
+  /// situation.
+  ///
+  /// > **Note:** If the
+  /// > [`srcset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#srcset)
+  /// > attribute uses width descriptors, the `sizes` attribute must also be
+  /// > present, or the `srcset` itself will be ignored.
   external String get srcset;
-  external set sizes(String value);
+  external set srcset(String value);
+
+  /// The [HTMLImageElement] property
+  /// **`sizes`** allows you to specify the layout width of the
+  /// [image](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img) for
+  /// each of a list of media conditions. This provides the ability to
+  /// automatically select among different images—even images of different
+  /// orientations or
+  /// aspect ratios—as the document state changes to match different media
+  /// conditions.
+  ///
+  /// Each condition is specified using the same conditional format used
+  /// by
+  /// [media queries](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries).
   external String get sizes;
-  external set crossOrigin(String? value);
+  external set sizes(String value);
+
+  /// The [HTMLImageElement]
+  /// interface's **`crossOrigin`** attribute is a string which
+  /// specifies the Cross-Origin Resource Sharing () setting to use when
+  /// retrieving the image.
   external String? get crossOrigin;
-  external set useMap(String value);
+  external set crossOrigin(String? value);
+
+  /// The **`useMap`** property on the
+  /// [HTMLImageElement] interface reflects the value of the
+  /// [`usemap`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#usemap)
+  /// attribute, which is a string
+  /// providing the name of the client-side image map to apply to the image.
   external String get useMap;
-  external set isMap(bool value);
+  external set useMap(String value);
+
+  /// The [HTMLImageElement] property **`isMap`** is a
+  /// Boolean value which indicates that the image is to be used by a
+  /// server-side image map.
+  /// This may only be used on images located within an `a` element.
+  ///
+  /// > **Note:** For accessibility reasons, you should generally avoid using
+  /// > server-side image maps, as they require the use of a mouse. Use a
+  /// > [client-side image map](https://developer.mozilla.org/en-US/docs/Learn/HTML/Howto/Add_a_hit_map_on_top_of_an_image)
+  /// > instead.
   external bool get isMap;
-  external set width(int value);
+  external set isMap(bool value);
+
+  /// The **`width`** property of the
+  /// [HTMLImageElement] interface indicates the width at which an image is
+  /// drawn in  if it's being drawn or rendered to
+  /// any visual medium such as a screen or printer. Otherwise, it's the
+  /// natural, pixel
+  /// density-corrected width of the image.
   external int get width;
-  external set height(int value);
+  external set width(int value);
+
+  /// The **`height`** property of the
+  /// [HTMLImageElement] interface indicates the height at which the image is
+  /// drawn, in  if the image is being drawn or rendered to any
+  /// visual medium such as the screen or a printer; otherwise, it's the
+  /// natural, pixel
+  /// density corrected height of the image.
   external int get height;
+  external set height(int value);
+
+  /// The [HTMLImageElement] interface's read-only
+  /// **`naturalWidth`** property returns the intrinsic (natural),
+  /// density-corrected width of the image in .
+  ///
+  /// This is the width the image is if drawn with nothing constraining
+  /// its width; if you neither specify a width for the image nor place the
+  /// image inside a
+  /// container that limits or expressly specifies the image width, this is the
+  /// number of CSS
+  /// pixels wide the image will be.
+  ///
+  /// The corresponding [HTMLImageElement.naturalHeight] method
+  /// returns the natural height of the image.
+  ///
+  /// > **Note:** Most of the time the natural width is the actual width of the
+  /// > image sent by the server.
+  /// > Nevertheless, browsers can modify an image before pushing it to the
+  /// > renderer. For example, Chrome
+  /// > [degrades the resolution of images on low-end devices](https://crbug.com/1187043#c7).
+  /// > In such cases, `naturalWidth` will consider the width of the image
+  /// > modified
+  /// > by such browser interventions as the natural width, and returns this
+  /// > value.
   external int get naturalWidth;
+
+  /// The [HTMLImageElement] interface's
+  /// **`naturalHeight`** property is a read-only value which
+  /// returns the intrinsic (natural), density-corrected height of the image in
+  /// .
+  ///
+  /// This is the height the image is if
+  /// drawn with nothing constraining its height; if you don't specify a height
+  /// for the image,
+  /// or place the image inside a container that either limits or expressly
+  /// specifies the
+  /// image height, it will be rendered this tall.
+  ///
+  /// > **Note:** Most of the time the natural height is the actual height of
+  /// > the image sent by the server.
+  /// > Nevertheless, browsers can modify an image before pushing it to the
+  /// > renderer. For example, Chrome
+  /// > [degrades the resolution of images on low-end devices](https://crbug.com/1187043#c7).
+  /// > In such cases, `naturalHeight` will consider the height of the image
+  /// > modified
+  /// > by such browser interventions as the natural height, and returns this
+  /// > value.
   external int get naturalHeight;
+
+  /// The read-only [HTMLImageElement] interface's
+  /// **`complete`** attribute is a Boolean value which indicates
+  /// whether or not the image has completely loaded.
   external bool get complete;
+
+  /// The read-only [HTMLImageElement] property
+  /// **`currentSrc`** indicates the URL of the image which is
+  /// currently presented in the `img` element it represents.
   external String get currentSrc;
-  external set referrerPolicy(String value);
+
+  /// The
+  /// **`HTMLImageElement.referrerPolicy`**
+  /// property reflects the HTML
+  /// [`referrerpolicy`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#referrerpolicy)
+  /// attribute of the
+  /// `img` element defining which referrer is sent when fetching the
+  /// resource.
   external String get referrerPolicy;
-  external set decoding(String value);
+  external set referrerPolicy(String value);
+
+  /// The **`decoding`** property of the [HTMLImageElement] interface provides a
+  /// hint to the browser as to how it should decode the image. More
+  /// specifically, whether it should wait for the image to be decoded before
+  /// presenting other content updates or not.
   external String get decoding;
-  external set loading(String value);
+  external set decoding(String value);
+
+  /// The [HTMLImageElement] property **`loading`** is a string whose value
+  /// provides a hint to the  on how to handle the loading of the image which is
+  /// currently outside the window's .
+  ///
+  /// This helps to optimize the loading of the document's contents by
+  /// postponing loading the image until it's expected to be needed, rather than
+  /// immediately during the initial page load.
   external String get loading;
-  external set fetchPriority(String value);
+  external set loading(String value);
+
+  /// The **`fetchPriority`** property of the
+  /// [HTMLImageElement] interface represents a hint given to the browser on how
+  /// it should prioritize the fetch of the image relative to other images.
   external String get fetchPriority;
-  external set name(String value);
+  external set fetchPriority(String value);
+
+  /// The [HTMLImageElement]
+  /// interface's _deprecated_ **`name`** property specifies
+  /// a name for the element. This has been replaced by the [Element.id]
+  /// property available on all elements.
   external String get name;
-  external set lowsrc(String value);
+  external set name(String value);
   external String get lowsrc;
-  external set align(String value);
+  external set lowsrc(String value);
+
+  /// The _obsolete_ **`align`**
+  /// property of the [HTMLImageElement] interface is a string which indicates
+  /// how to position the image relative to its container.
+  ///
+  /// You should instead use the
+  /// CSS property , which does in fact also work on images
+  /// despite its name. You can also use the `float` property to float the image
+  /// to the left or right margin.
+  ///
+  /// The `align` property reflects the HTML
+  /// [`align`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#align)
+  /// content attribute.
   external String get align;
-  external set hspace(int value);
+  external set align(String value);
+
+  /// The
+  /// _obsolete_ **`hspace`** property of the
+  /// [HTMLImageElement] interface specifies the number of pixels of empty
+  /// space to leave empty on the left and right sides of the `img` element
+  /// when laying out the page.
+  ///
+  /// This property reflects the
+  /// [`hspace`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#hspace)
+  /// attribute.
   external int get hspace;
-  external set vspace(int value);
+  external set hspace(int value);
+
+  /// The _obsolete_ **`vspace`** property of the
+  /// [HTMLImageElement] interface specifies the number of pixels of empty space
+  /// to leave empty on the top and bottom of the `img` element when laying
+  /// out the page.
   external int get vspace;
-  external set longDesc(String value);
+  external set vspace(int value);
+
+  /// The _deprecated_ property **`longDesc`** on
+  /// the [HTMLImageElement] interface specifies the URL of a text or HTML file
+  /// which contains a long-form description of the image. This can be used to
+  /// provide optional added details beyond the short description provided in
+  /// the
+  /// [`title`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#title)
+  /// attribute.
   external String get longDesc;
-  external set border(String value);
+  external set longDesc(String value);
+
+  /// The obsolete [HTMLImageElement]
+  /// property **`border`** specifies the number of pixels thick the
+  /// border surrounding the image should be. A value of 0, the default,
+  /// indicates that no
+  /// border should be drawn.
+  ///
+  /// You should _not_ use this property! Instead, you should use CSS to style
+  /// the
+  /// border. The `border` property or its longhand properties to not only set
+  /// the thickness of the border but to potentially apply a wide variety of
+  /// other styling
+  /// options to it.
+  ///
+  /// The width, specifically, is controlled using the writing-mode aware
+  /// , ,
+  /// , and
+  /// properties.
+  ///
+  /// For compatibility (or perhaps other) reasons, you can use the older
+  /// properties instead
+  /// (or in addition): , ,
+  /// , and .
   external String get border;
+  external set border(String value);
 }
 
 /// The **`HTMLIFrameElement`** interface provides special properties and
@@ -1500,39 +2736,104 @@ extension type HTMLIFrameElement._(JSObject _)
   HTMLIFrameElement() : _ = document.createElement('iframe');
 
   external Document? getSVGDocument();
-  external set src(String value);
+
+  /// The **`HTMLIFrameElement.src`**
+  /// A string that reflects the
+  /// [`src`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#src)
+  /// HTML attribute, containing the address of the content to be embedded.
+  ///
+  /// Note that programmatically removing an `<iframe>`'s src attribute (e.g.
+  /// via [Element.removeAttribute]) causes `about:blank` to be loaded in the
+  /// frame.
   external String get src;
-  external set srcdoc(String value);
+  external set src(String value);
+
+  /// The **`srcdoc`** property of the [HTMLIFrameElement] specifies the content
+  /// of the page.
   external String get srcdoc;
-  external set name(String value);
+  external set srcdoc(String value);
+
+  /// The **`name`** property of the [HTMLIFrameElement] interface is a string
+  /// value that reflects the `name` attribute of the `iframe` element,
+  /// indicating the specific name of the `<iframe>` element.
   external String get name;
+  external set name(String value);
   external DOMTokenList get sandbox;
-  external set allow(String value);
   external String get allow;
-  external set allowFullscreen(bool value);
+  external set allow(String value);
+
+  /// The **`allowFullscreen`** property of the [HTMLIFrameElement] interface is
+  /// a boolean value that reflects the `allowfullscreen` attribute of the
+  /// `iframe` element, indicating whether to allow the iframe's contents to use
+  /// [Element.requestFullscreen].
+  ///
+  /// > **Note:** This property is considered a legacy property. Use
+  /// > `allow="fullscreen"` and [HTMLIFrameElement.allow] instead.
   external bool get allowFullscreen;
-  external set width(String value);
+  external set allowFullscreen(bool value);
+
+  /// The **`width`** property of the [HTMLIFrameElement] interface returns a
+  /// string that reflects the `width` attribute of the `iframe` element,
+  /// indicating the width of the frame in CSS pixels.
   external String get width;
-  external set height(String value);
+  external set width(String value);
+
+  /// The **`height`** property of the [HTMLIFrameElement] interface returns a
+  /// string that reflects the `height` attribute of the `iframe` element,
+  /// indicating the height of the frame in CSS pixels.
   external String get height;
-  external set referrerPolicy(String value);
+  external set height(String value);
+
+  /// The
+  /// **`HTMLIFrameElement.referrerPolicy`**
+  /// property reflects the HTML
+  /// [`referrerpolicy`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#referrerpolicy)
+  /// attribute of the
+  /// `iframe` element defining which referrer is sent when fetching the
+  /// resource.
   external String get referrerPolicy;
-  external set loading(String value);
+  external set referrerPolicy(String value);
+
+  /// The **`loading`** property of the [HTMLIFrameElement] interface is a
+  /// string that provides a hint to the  indicating whether the
+  /// [iframe](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe)
+  /// should be loaded immediately on page load, or only when it is needed.
+  ///
+  /// This can be used to optimize the loading of the document's contents.
+  /// Iframes that are visible when the page loads can be downloaded immediately
+  /// (eagerly), while iframes that are likely to be offscreen on initial page
+  /// load can be downloaded lazily — just before they will appear in the
+  /// window's .
   external String get loading;
+  external set loading(String value);
+
+  /// If the iframe and the iframe's parent document are
+  /// [Same Origin](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy),
+  /// returns a
+  /// [`Document`](https://developer.mozilla.org/en-US/docs/Web/API/Document)
+  /// (that is, the active document in the inline frame's nested browsing
+  /// context), else returns `null`.
   external Document? get contentDocument;
+
+  /// The **`contentWindow`** property returns the
+  /// [Window](https://developer.mozilla.org/en-US/docs/Web/API/Window) object
+  /// of an
+  /// [HTMLIFrameElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement).
+  ///
+  /// This attribute is read-only.
   external Window? get contentWindow;
-  external set align(String value);
   external String get align;
-  external set scrolling(String value);
+  external set align(String value);
   external String get scrolling;
-  external set frameBorder(String value);
+  external set scrolling(String value);
   external String get frameBorder;
-  external set longDesc(String value);
+  external set frameBorder(String value);
   external String get longDesc;
-  external set marginHeight(String value);
+  external set longDesc(String value);
   external String get marginHeight;
-  external set marginWidth(String value);
+  external set marginHeight(String value);
   external String get marginWidth;
+  external set marginWidth(String value);
 }
 
 /// The **`HTMLEmbedElement`** interface provides special properties (beyond the
@@ -1552,18 +2853,26 @@ extension type HTMLEmbedElement._(JSObject _) implements HTMLElement, JSObject {
   HTMLEmbedElement() : _ = document.createElement('embed');
 
   external Document? getSVGDocument();
-  external set src(String value);
   external String get src;
-  external set type(String value);
+  external set src(String value);
   external String get type;
-  external set width(String value);
+  external set type(String value);
+
+  /// The **`width`** property of the [HTMLEmbedElement] interface returns a
+  /// string that reflects the `width` attribute of the `embed` element,
+  /// indicating the displayed width of the resource in CSS pixels.
   external String get width;
-  external set height(String value);
+  external set width(String value);
+
+  /// The **`height`** property of the [HTMLEmbedElement] interface returns a
+  /// string that reflects the `height` attribute of the `embed` element,
+  /// indicating the displayed height of the resource in CSS pixels.
   external String get height;
-  external set align(String value);
+  external set height(String value);
   external String get align;
-  external set name(String value);
+  external set align(String value);
   external String get name;
+  external set name(String value);
 }
 
 /// The **`HTMLObjectElement`** interface provides special properties and
@@ -1593,44 +2902,122 @@ extension type HTMLObjectElement._(JSObject _)
   /// [HTMLObjectElement] interface sets a custom validity message for the
   /// element.
   external void setCustomValidity(String error);
-  external set data(String value);
+
+  /// The **`data`** property of the
+  /// [HTMLObjectElement] interface returns a string that
+  /// reflects the
+  /// [`data`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object#data)
+  /// HTML attribute, specifying the address
+  /// of a resource's data.
   external String get data;
-  external set type(String value);
+  external set data(String value);
+
+  /// The **`type`** property of the
+  /// [HTMLObjectElement] interface returns a string that
+  /// reflects the
+  /// [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object#type)
+  /// HTML attribute, specifying the MIME type
+  /// of the resource.
   external String get type;
-  external set name(String value);
+  external set type(String value);
+
+  /// The **`name`** property of the
+  /// [HTMLObjectElement] interface returns a string that
+  /// reflects the
+  /// [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object#name)
+  /// HTML attribute, specifying the name of
+  /// the browsing context.
   external String get name;
+  external set name(String value);
+
+  /// The **`form`** read-only property of the
+  /// [HTMLObjectElement] interface returns a [HTMLFormElement]
+  /// representing the object element's form owner, or null if there isn't one.
   external HTMLFormElement? get form;
-  external set width(String value);
+
+  /// The **`width`** property of the
+  /// [HTMLObjectElement] interface returns a string that
+  /// reflects the
+  /// [`width`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object#width)
+  /// HTML attribute, specifying the
+  /// displayed width of the resource in CSS pixels.
   external String get width;
-  external set height(String value);
+  external set width(String value);
+
+  /// The **`height`** property of the
+  /// [HTMLObjectElement] interface Returns a string that
+  /// reflects the
+  /// [`height`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object#height)
+  /// HTML attribute, specifying the
+  /// displayed height of the resource in CSS pixels.
   external String get height;
+  external set height(String value);
+
+  /// The **`contentDocument`** read-only property of
+  /// the [HTMLObjectElement] interface Returns a [Document]
+  /// representing the active document of the object element's nested browsing
+  /// context, if
+  /// any; otherwise null.
   external Document? get contentDocument;
+
+  /// The **`contentWindow`** read-only property of
+  /// the [HTMLObjectElement] interface returns a
+  /// representing the window proxy of the object element's nested browsing
+  /// context, if any;
+  /// otherwise null.
   external Window? get contentWindow;
+
+  /// The **`willValidate`** read-only property of
+  /// the [HTMLObjectElement] interface returns a boolean value that
+  /// indicates whether the element is a candidate for constraint validation.
+  /// Always false for
+  /// HTMLObjectElement objects.
   external bool get willValidate;
+
+  /// The **`validity`** read-only property of the
+  /// [HTMLObjectElement] interface returns a [ValidityState] with
+  /// the validity states that this element is in.
   external ValidityState get validity;
+
+  /// The **`validationMessage`** read-only property
+  /// of the [HTMLObjectElement] interface returns a string
+  /// representing a localized message that describes the validation constraints
+  /// that the
+  /// control does not satisfy (if any). This is the empty string if the control
+  /// is not a
+  /// candidate for constraint validation (willValidate is false), or it
+  /// satisfies its
+  /// constraints.
   external String get validationMessage;
-  external set align(String value);
   external String get align;
-  external set archive(String value);
+  external set align(String value);
   external String get archive;
-  external set code(String value);
+  external set archive(String value);
   external String get code;
-  external set declare(bool value);
+  external set code(String value);
   external bool get declare;
-  external set hspace(int value);
+  external set declare(bool value);
   external int get hspace;
-  external set standby(String value);
+  external set hspace(int value);
   external String get standby;
-  external set vspace(int value);
+  external set standby(String value);
   external int get vspace;
-  external set codeBase(String value);
+  external set vspace(int value);
   external String get codeBase;
-  external set codeType(String value);
+  external set codeBase(String value);
   external String get codeType;
-  external set useMap(String value);
+  external set codeType(String value);
+
+  /// The **`useMap`** property of the
+  /// [HTMLObjectElement] interface returns a string that
+  /// reflects the
+  /// [`usemap`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object#usemap)
+  /// HTML attribute, specifying a
+  /// `map` element to use.
   external String get useMap;
-  external set border(String value);
+  external set useMap(String value);
   external String get border;
+  external set border(String value);
 }
 
 /// Implemented by the `video` element, the **`HTMLVideoElement`** interface
@@ -1661,16 +3048,46 @@ extension type HTMLVideoElement._(JSObject _)
   ///
   /// The data returned can be used to evaluate the quality of the video stream.
   external VideoPlaybackQuality getVideoPlaybackQuality();
-  external set width(int value);
+
+  /// The **`width`** property of the [HTMLVideoElement] interface returns an
+  /// integer that that reflects the `width` attribute of the `video` element,
+  /// specifying the displayed width of the resource in CSS pixels.
   external int get width;
-  external set height(int value);
+  external set width(int value);
+
+  /// The **`height`** property of the [HTMLVideoElement] interface returns an
+  /// integer that reflects the `height` attribute of the `video` element,
+  /// specifying the displayed height of the resource in CSS pixels.
   external int get height;
+  external set height(int value);
+
+  /// The [HTMLVideoElement] interface's read-only **`videoWidth`** property
+  /// indicates the
+  /// [intrinsic width](https://developer.mozilla.org/en-US/docs/Web/API/HTMLVideoElement/videoHeight#about_intrinsic_width_and_height)
+  /// of the video, expressed in CSS pixels.
+  /// In simple terms, this is the width of the media in its natural size.
+  ///
+  /// See [`HTMLVideoElement.videoHeight` > About intrinsic width and
+  /// height](/en-US/docs/Web/API/HTMLVideoElement/videoHeight#about_intrinsic_width_and_height)
+  /// for more details.
   external int get videoWidth;
+
+  /// The [HTMLVideoElement] interface's read-only **`videoHeight`** property
+  /// indicates the [intrinsic height](#about_intrinsic_width_and_height) of the
+  /// video, expressed in CSS pixels.
+  /// In simple terms, this is the height of the media in its natural size.
   external int get videoHeight;
-  external set poster(String value);
+
+  /// The **`poster`** property of the [HTMLVideoElement] interface is a string
+  /// that reflects the URL for an image to be shown while no video data is
+  /// available. If the property does not represent a valid URL, no poster frame
+  /// will be shown.
+  ///
+  /// It reflects the `poster` attribute of the `video` element.
   external String get poster;
-  external set playsInline(bool value);
+  external set poster(String value);
   external bool get playsInline;
+  external set playsInline(bool value);
 }
 
 /// The **`HTMLAudioElement`** interface provides access to the properties of
@@ -1706,18 +3123,24 @@ extension type HTMLTrackElement._(JSObject _) implements HTMLElement, JSObject {
   external static int get LOADING;
   external static int get LOADED;
   external static int get ERROR;
-  external set kind(String value);
   external String get kind;
-  external set src(String value);
+  external set kind(String value);
+
+  /// The **`HTMLTrackElement.src`** property reflects the value of
+  /// the `track` element's
+  /// [`src`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#src)
+  /// attribute, which
+  /// indicates the URL of the text track's data.
   external String get src;
-  external set srclang(String value);
+  external set src(String value);
   external String get srclang;
-  external set label(String value);
+  external set srclang(String value);
   external String get label;
-  @JS('default')
-  external set default_(bool value);
+  external set label(String value);
   @JS('default')
   external bool get default_;
+  @JS('default')
+  external set default_(bool value);
   external int get readyState;
   external TextTrack get track;
 }
@@ -1802,52 +3225,278 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
     String label,
     String language,
   ]);
+
+  /// The read-only **`HTMLMediaElement.mediaKeys`** property returns a
+  /// [MediaKeys] object, that is a set of keys that the element can use for
+  /// decryption of media data during playback.
   external MediaKeys? get mediaKeys;
-  external set onencrypted(EventHandler value);
   external EventHandler get onencrypted;
-  external set onwaitingforkey(EventHandler value);
+  external set onencrypted(EventHandler value);
   external EventHandler get onwaitingforkey;
+  external set onwaitingforkey(EventHandler value);
+
+  /// The **`HTMLMediaElement.error`** property is the
+  /// [MediaError] object for the most recent error, or `null` if
+  /// there has not been an error. When an [HTMLMediaElement.error_event] event
+  /// is received by the
+  /// element, you can determine details about what happened by examining this
+  /// object.
   external MediaError? get error;
-  external set src(String value);
+
+  /// The **`HTMLMediaElement.src`** property reflects the value of
+  /// the HTML media element's `src` attribute, which indicates the URL of a
+  /// media
+  /// resource to use in the element.
+  ///
+  /// > **Note:** The best way to know the URL of the media resource currently
+  /// > in active use in this element is to look at the value of the
+  /// > [HTMLMediaElement.currentSrc] attribute, which also takes
+  /// > into account selection of a best or preferred media resource from a list
+  /// > provided in
+  /// > an [HTMLSourceElement] (which represents a `source`
+  /// > element).
   external String get src;
-  external set srcObject(MediaProvider? value);
+  external set src(String value);
+
+  /// The **`srcObject`** property of the
+  /// [HTMLMediaElement] interface sets or returns the object which serves as
+  /// the source of the media associated with the [HTMLMediaElement].
+  ///
+  /// The object can be a [MediaStream], a [MediaSource], a
+  /// [Blob], or a [File] (which inherits from `Blob`).
+  ///
+  /// > **Note:** As of March 2020, only Safari has full support for
+  /// > `srcObject`, i.e. using `MediaSource`, `MediaStream`, `Blob`, and `File`
+  /// > objects as values. Other browsers support `MediaStream` objects; until
+  /// > they catch up, consider falling back to creating a URL with
+  /// > [URL.createObjectURL_static] and assigning it to [HTMLMediaElement.src]
+  /// > (see below for an example). In addition, as of version 108 Chromium
+  /// > supports attaching a dedicated worker `MediaSource` object by assigning
+  /// > that object's [MediaSourceHandle] instance (transferred from the worker)
+  /// > to `srcObject`.
   external MediaProvider? get srcObject;
+  external set srcObject(MediaProvider? value);
+
+  /// The **`HTMLMediaElement.currentSrc`** property contains the
+  /// absolute URL of the chosen media resource. This could happen, for example,
+  /// if the web
+  /// server selects a media file based on the resolution of the user's display.
+  /// The value
+  /// is an empty string if the `networkState` property is `EMPTY`.
   external String get currentSrc;
-  external set crossOrigin(String? value);
+
+  /// The **`HTMLMediaElement.crossOrigin`** property is the CORS setting for
+  /// this media element. See
+  /// [CORS settings attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin)
+  /// for details.
   external String? get crossOrigin;
+  external set crossOrigin(String? value);
+
+  /// The
+  /// **`HTMLMediaElement.networkState`** property indicates the
+  /// current state of the fetching of media over the network.
   external int get networkState;
-  external set preload(String value);
   external String get preload;
+  external set preload(String value);
+
+  /// The **`buffered`** read-only property of [HTMLMediaElement] objects
+  /// returns a new static
+  /// [normalized `TimeRanges` object](https://developer.mozilla.org/en-US/docs/Web/API/TimeRanges#normalized_timeranges_objects)
+  /// that represents the ranges of the media resource, if any, that the user
+  /// agent has buffered at the moment the `buffered` property is accessed.
   external TimeRanges get buffered;
+
+  /// The **`HTMLMediaElement.readyState`** property indicates the
+  /// readiness state of the media.
   external int get readyState;
   external bool get seeking;
-  external set currentTime(num value);
+
+  /// The [HTMLMediaElement] interface's
+  /// **`currentTime`** property specifies the current playback time
+  /// in seconds.
+  ///
+  /// Changing the value of `currentTime` seeks the media to
+  /// the new time.
   external num get currentTime;
+  external set currentTime(num value);
+
+  /// The _read-only_ [HTMLMediaElement]
+  /// property **`duration`** indicates the length of the element's
+  /// media in seconds.
   external num get duration;
+
+  /// The read-only **`HTMLMediaElement.paused`** property
+  /// tells whether the media element is paused.
   external bool get paused;
-  external set defaultPlaybackRate(num value);
+
+  /// The **`HTMLMediaElement.defaultPlaybackRate`** property indicates the
+  /// default playback rate for the media.
   external num get defaultPlaybackRate;
-  external set playbackRate(num value);
+  external set defaultPlaybackRate(num value);
+
+  /// The **`HTMLMediaElement.playbackRate`** property sets the rate at which
+  /// the media is being played back. This is used to implement user controls
+  /// for fast forward, slow motion, and so forth. The normal playback rate is
+  /// multiplied by this value to obtain the current rate, so a value of 1.0
+  /// indicates normal speed.
+  ///
+  /// If `playbackRate` is negative, the media is played backwards.
+  ///
+  /// The audio is muted when the fast forward or slow motion is outside a
+  /// useful range (for example, Gecko mutes the sound outside the range `0.25`
+  /// to `4.0`).
+  ///
+  /// The pitch of the audio is corrected by default. You can disable pitch
+  /// correction using the [HTMLMediaElement.preservesPitch] property.
   external num get playbackRate;
-  external set preservesPitch(bool value);
+  external set playbackRate(num value);
+
+  /// The **`HTMLMediaElement.preservesPitch`** property determines whether or
+  /// not the browser should adjust the pitch of the audio to compensate for
+  /// changes to the playback rate made by setting
+  /// [HTMLMediaElement.playbackRate].
   external bool get preservesPitch;
+  external set preservesPitch(bool value);
   external TimeRanges get played;
+
+  /// The **`seekable`** read-only property of [HTMLMediaElement] objects
+  /// returns a new static
+  /// [normalized `TimeRanges` object](https://developer.mozilla.org/en-US/docs/Web/API/TimeRanges#normalized_timeranges_objects)
+  /// that represents the ranges of the media resource, if any, that the user
+  /// agent is able to seek to at the time `seekable` property is accessed.
   external TimeRanges get seekable;
+
+  /// The **`HTMLMediaElement.ended`** property indicates whether the media
+  /// element has ended playback.
   external bool get ended;
-  external set autoplay(bool value);
+
+  /// The **`HTMLMediaElement.autoplay`**
+  /// property reflects the
+  /// [`autoplay`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#autoplay)
+  /// HTML attribute, indicating
+  /// whether playback should automatically begin as soon as enough media is
+  /// available to do
+  /// so without interruption.
+  ///
+  /// A media element whose source is a [MediaStream] and whose
+  /// `autoplay` property is `true` will begin playback when it becomes
+  /// active (that is, when [MediaStream.active] becomes `true`).
+  ///
+  /// > **Note:** Sites which automatically play audio (or videos with an audio
+  /// > track) can be an unpleasant experience for users, so it should be
+  /// > avoided when
+  /// > possible. If you must offer autoplay functionality, you should make it
+  /// > opt-in
+  /// > (requiring a user to specifically enable it). However, autoplay can be
+  /// > useful when
+  /// > creating media elements whose source will be set at a later time, under
+  /// > user control.
+  ///
+  /// For a much more in-depth look at autoplay, autoplay blocking, and how to
+  /// respond when
+  /// autoplay is blocked by the user's browser, see our article
+  /// [Autoplay guide for media and Web Audio APIs](https://developer.mozilla.org/en-US/docs/Web/Media/Autoplay_guide).
   external bool get autoplay;
-  external set loop(bool value);
+  external set autoplay(bool value);
+
+  /// The **`HTMLMediaElement.loop`** property reflects the
+  /// [`loop`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#loop)
+  /// HTML attribute, which controls whether the media element should start over
+  /// when it reaches the end.
   external bool get loop;
-  external set controls(bool value);
+  external set loop(bool value);
+
+  /// The **`HTMLMediaElement.controls`** property reflects the
+  /// [`controls`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#controls)
+  /// HTML attribute, which controls whether user
+  /// interface controls for playing the media item will be displayed.
   external bool get controls;
-  external set volume(num value);
+  external set controls(bool value);
+
+  /// The **`HTMLMediaElement.volume`** property sets the volume at
+  /// which the media will be played.
   external num get volume;
-  external set muted(bool value);
+  external set volume(num value);
+
+  /// The **`HTMLMediaElement.muted`** property indicates whether the media
+  /// element is muted.
   external bool get muted;
-  external set defaultMuted(bool value);
+  external set muted(bool value);
+
+  /// The **`HTMLMediaElement.defaultMuted`** property reflects the
+  /// [`muted`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#muted)
+  /// HTML attribute, which indicates whether the media element's audio output
+  /// should be muted by default. This property has no dynamic effect. To mute
+  /// and unmute the audio output, use the [HTMLMediaElement.muted] property.
   external bool get defaultMuted;
+  external set defaultMuted(bool value);
+
+  /// The read-only **`audioTracks`**
+  /// property on [HTMLMediaElement] objects returns
+  /// an [AudioTrackList] object listing all of the [AudioTrack]
+  /// objects representing the media element's audio tracks.
+  ///
+  /// The media element may be
+  /// either an `audio` element or a `video` element.
+  ///
+  /// The returned list is _live_; that is, as tracks are added to and removed
+  /// from
+  /// the media element, the list's contents change dynamically. Once you have a
+  /// reference to
+  /// the list, you can monitor it for changes to detect when new audio tracks
+  /// are added or
+  /// existing ones removed. See
+  /// [AudioTrackList events](https://developer.mozilla.org/en-US/docs/Web/API/AudioTrackList#events)
+  /// to learn more about watching for changes to a media element's track list.
   external AudioTrackList get audioTracks;
+
+  /// The read-only **`videoTracks`**
+  /// property on [HTMLMediaElement] objects returns a
+  /// [VideoTrackList] object listing all of the [VideoTrack]
+  /// objects representing the media element's video tracks.
+  ///
+  /// The returned list is _live_; that is, as tracks are added to and removed
+  /// from
+  /// the media element, the list's contents change dynamically. Once you have a
+  /// reference to
+  /// the list, you can monitor it for changes to detect when new video tracks
+  /// are added or
+  /// existing ones removed. See
+  /// [VideoTrackList events](https://developer.mozilla.org/en-US/docs/Web/API/VideoTrackList#events)
+  /// to learn more about watching for changes to a media element's track list.
   external VideoTrackList get videoTracks;
+
+  /// The read-only **`textTracks`**
+  /// property on [HTMLMediaElement] objects returns a
+  /// [TextTrackList] object listing all of the [TextTrack]
+  /// objects representing the media element's text tracks, in the same order as
+  /// in
+  /// the list of text tracks.
+  ///
+  /// You can detect when tracks are added to and removed from an
+  /// [`<audio>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio)
+  /// or
+  /// [`<video>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video)
+  /// element
+  /// using the `addtrack` and `removetrack` events. However, these
+  /// events aren't sent directly to the media element itself. Instead, they're
+  /// sent to the
+  /// track list object of the
+  /// [`HTMLMediaElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement)
+  /// that corresponds to the type of track that was added to the element
+  ///
+  /// The returned list is _live_; that is, as tracks are added to and removed
+  /// from
+  /// the media element, the list's contents change dynamically. Once you have a
+  /// reference to
+  /// the list, you can monitor it for changes to detect when new text tracks
+  /// are added or
+  /// existing ones removed.
+  ///
+  /// See
+  /// [TextTrackList events](https://developer.mozilla.org/en-US/docs/Web/API/TextTrackList#events)
+  /// to learn
+  /// more about watching for changes to a media element's track list.
   external TextTrackList get textTracks;
 }
 
@@ -1868,7 +3517,20 @@ extension type MediaError._(JSObject _) implements JSObject {
   external static int get MEDIA_ERR_NETWORK;
   external static int get MEDIA_ERR_DECODE;
   external static int get MEDIA_ERR_SRC_NOT_SUPPORTED;
+
+  /// The read-only property **`MediaError.code`** returns a numeric
+  /// value which represents the kind of error that occurred on a media element.
+  /// To get a text
+  /// string with specific diagnostic information, see [MediaError.message].
   external int get code;
+
+  /// The read-only property **`MediaError.message`** returns a
+  /// human-readable string offering specific
+  /// diagnostic details related to the error described by the `MediaError`
+  /// object,
+  /// or an empty string (`""`) if no diagnostic information can be determined
+  /// or
+  /// provided.
   external String get message;
 }
 
@@ -1889,13 +3551,20 @@ extension type AudioTrackList._(JSObject _) implements EventTarget, JSObject {
   /// specified string.
   /// This lets you find a specified track if you know its ID string.
   external AudioTrack? getTrackById(String id);
+
+  /// The read-only **[AudioTrackList]**
+  /// property **`length`** returns the number of entries in the
+  /// `AudioTrackList`, each of which is an [AudioTrack]
+  /// representing one audio track in the media element. A value of 0 indicates
+  /// that
+  /// there are no audio tracks in the media.
   external int get length;
-  external set onchange(EventHandler value);
   external EventHandler get onchange;
-  external set onaddtrack(EventHandler value);
+  external set onchange(EventHandler value);
   external EventHandler get onaddtrack;
-  external set onremovetrack(EventHandler value);
+  external set onaddtrack(EventHandler value);
   external EventHandler get onremovetrack;
+  external set onremovetrack(EventHandler value);
 }
 
 /// The **`AudioTrack`** interface represents a single audio track from one of
@@ -1909,12 +3578,59 @@ extension type AudioTrackList._(JSObject _) implements EventTarget, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioTrack).
 extension type AudioTrack._(JSObject _) implements JSObject {
+  /// The **`id`** property contains a
+  /// string which uniquely identifies the track represented by the
+  /// **[AudioTrack]**.
+  ///
+  /// This ID can be used with the
+  /// [AudioTrackList.getTrackById] method to locate a specific track within
+  /// the media associated with a media element. The track ID can also be used
+  /// as the fragment of a URL that loads the specific track
+  /// (if the media supports media fragments).
   external String get id;
+
+  /// The **`kind`** property contains a
+  /// string indicating the category of audio contained in the
+  /// **[AudioTrack]**.
+  ///
+  /// The `kind` can be used
+  /// to determine the scenarios in which specific tracks should be enabled or
+  /// disabled. See
+  /// [Audio track kind strings](#audio_track_kind_strings) for a list of the
+  /// kinds available for audio tracks.
   external String get kind;
+
+  /// The read-only **[AudioTrack]**
+  /// property **`label`** returns a string specifying the audio
+  /// track's human-readable label, if one is available; otherwise, it returns
+  /// an empty
+  /// string.
   external String get label;
+
+  /// The read-only **[AudioTrack]**
+  /// property **`language`** returns a string identifying the
+  /// language used in the audio track.
+  ///
+  /// For tracks that include multiple languages
+  /// (such as a movie in English in which a few lines are spoken in other
+  /// languages), this
+  /// should be the video's primary language.
   external String get language;
-  external set enabled(bool value);
+
+  /// The **[AudioTrack]** property
+  /// **`enabled`** specifies whether or not the described audio
+  /// track is currently enabled for use. If the track is disabled by setting
+  /// `enabled` to `false`, the track is muted and does not produce
+  /// audio.
   external bool get enabled;
+  external set enabled(bool value);
+
+  /// The read-only **[AudioTrack]**
+  /// property **`sourceBuffer`** returns the
+  /// [SourceBuffer] that created the track, or null if the track was not
+  /// created by a [SourceBuffer] or the [SourceBuffer] has been
+  /// removed from the [MediaSource.sourceBuffers] attribute of its parent
+  /// media source.
   external SourceBuffer? get sourceBuffer;
 }
 
@@ -1939,14 +3655,26 @@ extension type VideoTrackList._(JSObject _) implements EventTarget, JSObject {
   /// This lets you find a specified track if
   /// you know its ID string.
   external VideoTrack? getTrackById(String id);
+
+  /// The read-only **[VideoTrackList]**
+  /// property **`length`** returns the number of entries in the
+  /// `VideoTrackList`, each of which is a [VideoTrack] representing
+  /// one video track in the media element.
+  ///
+  /// A value of 0 indicates that there are no
+  /// video tracks in the media.
   external int get length;
+
+  /// The read-only **[VideoTrackList]**
+  /// property **`selectedIndex`** returns the index of the
+  /// currently selected track, if any, or `-1` otherwise.
   external int get selectedIndex;
-  external set onchange(EventHandler value);
   external EventHandler get onchange;
-  external set onaddtrack(EventHandler value);
+  external set onchange(EventHandler value);
   external EventHandler get onaddtrack;
-  external set onremovetrack(EventHandler value);
+  external set onaddtrack(EventHandler value);
   external EventHandler get onremovetrack;
+  external set onremovetrack(EventHandler value);
 }
 
 /// The [VideoTrack] interface represents a single video track from a `video`
@@ -1961,12 +3689,59 @@ extension type VideoTrackList._(JSObject _) implements EventTarget, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/VideoTrack).
 extension type VideoTrack._(JSObject _) implements JSObject {
+  /// The **`id`** property contains a
+  /// string which uniquely identifies the track represented by the
+  /// **[VideoTrack]**.
+  ///
+  /// This ID can be used with the
+  /// [VideoTrackList.getTrackById] method to locate a specific track within
+  /// the media associated with a media element.
+  ///
+  /// The track ID can also be used as the fragment of a URL that loads the
+  /// specific track
+  /// (if the media supports media fragments).
   external String get id;
+
+  /// The **`kind`** property contains a
+  /// string indicating the category of video contained in the
+  /// **[VideoTrack]**.
+  ///
+  /// The `kind` can be used
+  /// to determine the scenarios in which specific tracks should be enabled or
+  /// disabled. See
+  /// [Video track kind strings](#video_track_kind_strings) for a list of the
+  /// kinds available for video tracks.
   external String get kind;
+
+  /// The read-only **[VideoTrack]**
+  /// property **`label`** returns a string specifying the video
+  /// track's human-readable label, if one is available; otherwise, it returns
+  /// an empty
+  /// string.
   external String get label;
+
+  /// The read-only **[VideoTrack]**
+  /// property **`language`** returns a string identifying the
+  /// language used in the video track.
+  ///
+  /// For tracks that include multiple languages
+  /// (such as a movie in English in which a few lines are spoken in other
+  /// languages), this
+  /// should be the video's primary language.
   external String get language;
-  external set selected(bool value);
+
+  /// The **[VideoTrack]** property
+  /// **`selected`** controls whether or not a particular video
+  /// track is active.
   external bool get selected;
+  external set selected(bool value);
+
+  /// The read-only **[VideoTrack]**
+  /// property **`sourceBuffer`** returns the
+  /// [SourceBuffer] that created the track, or null if the track was not
+  /// created by a [SourceBuffer] or the [SourceBuffer] has been
+  /// removed from the [MediaSource.sourceBuffers] attribute of its parent
+  /// media source.
   external SourceBuffer? get sourceBuffer;
 }
 
@@ -2000,13 +3775,21 @@ extension type TextTrackList._(JSObject _) implements EventTarget, JSObject {
   /// specified string. This lets you find a specified track if you know its ID
   /// string.
   external TextTrack? getTrackById(String id);
+
+  /// The read-only **[TextTrackList]**
+  /// property **`length`** returns the number of entries in the
+  /// `TextTrackList`, each of which is a [TextTrack] representing
+  /// one track in the media element.
+  ///
+  /// A value of 0 indicates that there are no text
+  /// tracks in the media.
   external int get length;
-  external set onchange(EventHandler value);
   external EventHandler get onchange;
-  external set onaddtrack(EventHandler value);
+  external set onchange(EventHandler value);
   external EventHandler get onaddtrack;
-  external set onremovetrack(EventHandler value);
+  external set onaddtrack(EventHandler value);
   external EventHandler get onremovetrack;
+  external set onremovetrack(EventHandler value);
 }
 
 /// The `TextTrack` interface—part of the API for handling WebVTT (text tracks
@@ -2025,17 +3808,98 @@ extension type TextTrack._(JSObject _) implements EventTarget, JSObject {
   /// The **`removeCue()`** method of the [TextTrack] interface removes a cue
   /// from the list of cues.
   external void removeCue(TextTrackCue cue);
+
+  /// The **`kind`** read-only property of the [TextTrack] interface returns the
+  /// kind of text track this object represents. This decides how the track will
+  /// be handled by a user agent.
   external TextTrackKind get kind;
+
+  /// The **`label`** read-only property of the [TextTrack] interface returns a
+  /// human-readable label for the text track, if it is available.
   external String get label;
+
+  /// The **`language`** read-only property of the [TextTrack] interface returns
+  /// the language of the text track.
+  ///
+  /// This uses the same values as the HTML
+  /// [`lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#lang)
+  /// attribute. These values are documented in `5646, "Tags for Identifying
+  /// Languages (also known as BCP 47)"`.
   external String get language;
+
+  /// The **`id`** read-only property of the [TextTrack] interface returns the
+  /// ID of the track if it has one.
   external String get id;
+
+  /// The **`inBandMetadataTrackDispatchType`** read-only property of the
+  /// [TextTrack] interface returns the text track's in-band metadata dispatch
+  /// type of the text track represented by the [TextTrack] object.
+  ///
+  /// An in-band metadata dispatch type is a string extracted from a media
+  /// resource specifically for in-band metadata tracks. An example of a media
+  /// resource that might have such tracks is a TV station streaming a broadcast
+  /// on the web. Text Tracks may be used to include metadata for ad targeting,
+  /// additional information such as recipe data during a cooking show, or
+  /// trivia game data during a game show.
+  ///
+  /// The value of this attribute could be used to attach these tracks to
+  /// dedicated script modules as they are loaded.
   external String get inBandMetadataTrackDispatchType;
-  external set mode(TextTrackMode value);
+
+  /// The [TextTrack] interface's
+  /// **`mode`** property is a string specifying and controlling the
+  /// text track's mode: `disabled`, `hidden`, or
+  /// `showing`. You can read this value to determine the current mode,
+  /// and you can change this value to switch modes.
+  ///
+  /// Safari additionally requires the **`default`**
+  /// boolean attribute to be set to true when implementing your own video
+  /// player controls in
+  /// order for the subtitles cues to be shown.
+  ///
+  /// ### Value
+  ///
+  /// A string which indicates the track's current mode. One of:
+  ///
+  /// - `disabled`
+  ///   - : The text track is currently disabled. While the track's presence is exposed in the
+  /// DOM, the user agent is otherwise ignoring it. No cues are active, no
+  /// events are being
+  /// fired, and the user agent won't attempt to obtain the track's cues. This
+  /// is the
+  /// default value, unless the text track has the
+  /// [`default`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#default)
+  /// Boolean attribute is specified, in which case the default is `showing`.
+  /// - `hidden`
+  ///   - : The text track is currently active but the cues aren't being displayed. If the user
+  /// agent hasn't tried to obtain the track's cues yet, it will do so soon
+  /// (thereby
+  /// populating the track's [TextTrack.cues] property). The user agent is
+  /// keeping a list of the active cues (in the track's [TextTrack.activeCues]
+  /// property) and events are being fired at the corresponding times, even
+  /// though the text isn't being displayed.
+  /// - `showing`
+  ///   - : The text track is currently enabled and is visible. If the track's cues list hasn't
+  /// been obtained yet, it will be soon. The [TextTrack.activeCues]
+  /// list is being maintained and events are firing at the appropriate
+  /// times; the track's text is also being drawn appropriately based on the
+  /// styling and the
+  /// track's [TextTrack.kind]. This is the default value if the text
+  /// track's
+  /// [`default`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track#default)
+  /// Boolean attribute is specified.
   external TextTrackMode get mode;
+  external set mode(TextTrackMode value);
+
+  /// The **`cues`** read-only property of the [TextTrack] interface returns a
+  /// [TextTrackCueList] object containing all of the track's cues.
   external TextTrackCueList? get cues;
+
+  /// The **`activeCues`** read-only property of the [TextTrack] interface
+  /// returns a [TextTrackCueList] object listing the currently active cues.
   external TextTrackCueList? get activeCues;
-  external set oncuechange(EventHandler value);
   external EventHandler get oncuechange;
+  external set oncuechange(EventHandler value);
   external SourceBuffer? get sourceBuffer;
 }
 
@@ -2054,6 +3918,9 @@ extension type TextTrackCueList._(JSObject _) implements JSObject {
   /// the first [VTTCue] in the list represented by the `TextTrackCueList`
   /// object whose identifier matches the value of `id`.
   external TextTrackCue? getCueById(String id);
+
+  /// The **`length`** read-only property of the [TextTrackCueList] interface
+  /// returns the number of cues in the list.
   external int get length;
 }
 
@@ -2070,19 +3937,34 @@ extension type TextTrackCueList._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TextTrackCue).
 extension type TextTrackCue._(JSObject _) implements EventTarget, JSObject {
+  /// The **`track`** read-only property of the [TextTrackCue] interface returns
+  /// the [TextTrack] object that this cue belongs to.
   external TextTrack? get track;
-  external set id(String value);
+
+  /// The **`id`** property of the [TextTrackCue] interface returns and sets the
+  /// identifier for this cue.
   external String get id;
-  external set startTime(num value);
+  external set id(String value);
+
+  /// The **`startTime`** property of the [TextTrackCue] interface returns and
+  /// sets the start time of the cue.
   external num get startTime;
-  external set endTime(num value);
+  external set startTime(num value);
+
+  /// The **`endTime`** property of the [TextTrackCue] interface returns and
+  /// sets the end time of the cue.
   external num get endTime;
-  external set pauseOnExit(bool value);
+  external set endTime(num value);
+
+  /// The **`pauseOnExit`** property of the [TextTrackCue] interface returns or
+  /// sets the flag indicating whether playback of the media should pause when
+  /// the end of the range to which this cue applies is reached.
   external bool get pauseOnExit;
-  external set onenter(EventHandler value);
+  external set pauseOnExit(bool value);
   external EventHandler get onenter;
-  external set onexit(EventHandler value);
+  external set onenter(EventHandler value);
   external EventHandler get onexit;
+  external set onexit(EventHandler value);
 }
 
 /// When loading a media resource for use by an `audio` or `video` element, the
@@ -2107,6 +3989,9 @@ extension type TimeRanges._(JSObject _) implements JSObject {
   /// The **`end()`** method of the [TimeRanges] interface returns the time
   /// offset at which a specified time range ends.
   external num end(int index);
+
+  /// The **`TimeRanges.length`** read-only property returns the
+  /// number of ranges in the object.
   external int get length;
 }
 
@@ -2138,6 +4023,12 @@ extension type TrackEvent._(JSObject _) implements Event, JSObject {
     TrackEventInit eventInitDict,
   ]);
 
+  /// The read-only **`track`** property of
+  /// the [TrackEvent] interface specifies the media track object to which the
+  /// event applies.
+  ///
+  /// The media track will be an [AudioTrack],
+  /// [VideoTrack], or [TextTrack] object.
   external JSObject? get track;
 }
 extension type TrackEventInit._(JSObject _) implements EventInit, JSObject {
@@ -2148,8 +4039,8 @@ extension type TrackEventInit._(JSObject _) implements EventInit, JSObject {
     JSObject? track,
   });
 
-  external set track(JSObject? value);
   external JSObject? get track;
+  external set track(JSObject? value);
 }
 
 /// The **`HTMLMapElement`** interface provides special properties and methods
@@ -2165,8 +4056,15 @@ extension type HTMLMapElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLMapElement] using the tag 'map'.
   HTMLMapElement() : _ = document.createElement('map');
 
-  external set name(String value);
+  /// The **`name`** property of the [HTMLMapElement] represents the unique name
+  /// `<map>` element.
+  /// Its value can be used with the `useMap` attribute of the `img` element to
+  /// reference a `<map>` element.
+  ///
+  /// If an `id` attribute is set on the `map` element, then this `name`
+  /// property should be the same as this `id`.
   external String get name;
+  external set name(String value);
   external HTMLCollection get areas;
 }
 
@@ -2183,46 +4081,159 @@ extension type HTMLAreaElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLAreaElement] using the tag 'area'.
   HTMLAreaElement() : _ = document.createElement('area');
 
-  external set alt(String value);
   external String get alt;
-  external set coords(String value);
+  external set alt(String value);
   external String get coords;
-  external set shape(String value);
+  external set coords(String value);
   external String get shape;
-  external set target(String value);
+  external set shape(String value);
+
+  /// The **`target`** property of the [HTMLAreaElement] interface is a string
+  /// that indicates where to display the linked resource.
+  ///
+  /// It reflects the
+  /// [`target`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#target)
+  /// attribute of the `area` element.
   external String get target;
-  external set download(String value);
+  external set target(String value);
   external String get download;
-  external set ping(String value);
+  external set download(String value);
+
+  /// The **`ping`** property of the [HTMLAreaElement] interface is a
+  /// space-separated list of URLs. When the link is followed, the browser will
+  /// send `POST` requests with the body PING to the URLs.
+  ///
+  /// It reflects the `ping` attribute of the `area` element.
+  ///
+  /// > **Note:** This property is not effective in Firefox and its usage may be
+  /// > limited due to privacy and security concerns.
   external String get ping;
-  external set rel(String value);
+  external set ping(String value);
+
+  /// The **`HTMLAreaElement.rel`** property reflects the
+  /// [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel)
+  /// attribute. It is a string containing a space-separated list of link types
+  /// indicating the relationship between the resource represented by the `area`
+  /// element and the current document.
   external String get rel;
+  external set rel(String value);
+
+  /// The **`HTMLAreaElement.relList`** read-only property reflects the
+  /// [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel)
+  /// attribute. It is a live [DOMTokenList] containing the set of link types
+  /// indicating the relationship between the resource represented by the `area`
+  /// element and the current document.
+  ///
+  /// The property itself is read-only, meaning you can't substitute the
+  /// [DOMTokenList] by another one, but the content of the returned list can be
+  /// changed.
   external DOMTokenList get relList;
-  external set referrerPolicy(String value);
+
+  /// The
+  /// **`HTMLAreaElement.referrerPolicy`**
+  /// property reflect the HTML
+  /// [`referrerpolicy`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area#referrerpolicy)
+  /// attribute of the
+  /// `area` element defining which referrer is sent when fetching the
+  /// resource.
   external String get referrerPolicy;
-  external set noHref(bool value);
+  external set referrerPolicy(String value);
   external bool get noHref;
-  external set href(String value);
+  external set noHref(bool value);
+
+  /// The **`HTMLAreaElement.href`** property is a
+  /// that returns a string containing the whole URL, and allows
+  /// the href to be updated.
   external String get href;
+  external set href(String value);
+
+  /// The
+  /// **`HTMLAreaElement.origin`** read-only property is a
+  /// string containing the Unicode serialization of the origin of the
+  /// represented URL.
+  ///
+  /// That is:
+  ///
+  /// - for URL using the `http` or `https`, the scheme followed by
+  /// `'://'`, followed by the domain, followed by `':'`, followed by
+  /// the port (the default port, `80` and `443` respectively, if
+  /// explicitly specified);
+  /// - for URL using `file:` scheme, the value is browser dependent;
+  /// - for URL using the `blob:` scheme, the origin of the URL following
+  /// `blob:`. E.g `"blob:https://mozilla.org"` will have
+  /// `"https://mozilla.org".`
   external String get origin;
-  external set protocol(String value);
+
+  /// The
+  /// **`HTMLAreaElement.protocol`**
+  /// property is a string representing the protocol scheme of the URL,
+  /// including the final `':'`.
   external String get protocol;
-  external set username(String value);
+  external set protocol(String value);
+
+  /// The **`HTMLAreaElement.username`** property is a
+  /// string containing the username specified before the domain name.
   external String get username;
-  external set password(String value);
+  external set username(String value);
+
+  /// The **`HTMLAreaElement.password`** property is a
+  /// string containing the password specified before the domain name.
+  ///
+  /// If it is set without first setting the
+  /// [`username`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLAreaElement/username)
+  /// property, it silently fails.
   external String get password;
-  external set host(String value);
+  external set password(String value);
+
+  /// The **`HTMLAreaElement.host`** property is a
+  /// string containing the host, that is the _hostname_, and then,
+  /// if the _port_ of the URL is nonempty, a `':'`, and the _port_
+  /// of the URL.
   external String get host;
-  external set hostname(String value);
+  external set host(String value);
+
+  /// The **`HTMLAreaElement.hostname`** property is a string containing the
+  /// domain of the URL.
   external String get hostname;
-  external set port(String value);
+  external set hostname(String value);
+
+  /// The **`HTMLAreaElement.port`** property is a
+  /// string containing the port number of the URL. If the URL does not
+  /// contain an explicit port number, it will be set to `''`.
   external String get port;
-  external set pathname(String value);
+  external set port(String value);
+
+  /// The **`HTMLAreaElement.pathname`** property is a
+  /// string containing an initial `'/'` followed by the path of
+  /// the URL not including the query string or fragment (or the empty string if
+  /// there is no
+  /// path).
   external String get pathname;
-  external set search(String value);
+  external set pathname(String value);
+
+  /// The **`HTMLAreaElement.search`** property is a search
+  /// string, also called a _query string_, that is a string containing
+  /// a `'?'` followed by the parameters of the URL.
+  ///
+  /// Modern browsers provide
+  /// [`URLSearchParams`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/get#examples)
+  /// and
+  /// [`URL.searchParams`](/en-US/docs/Web/API/URL/searchParams#examples)
+  /// to make it easy to parse out the parameters from the querystring.
   external String get search;
-  external set hash(String value);
+  external set search(String value);
+
+  /// The
+  /// **`HTMLAreaElement.hash`** property returns a
+  /// string containing a `'#'` followed by the fragment
+  /// identifier of the URL.
+  ///
+  /// The fragment is not
+  /// [URL decoded](https://en.wikipedia.org/wiki/URL_encoding). If the URL does
+  /// not
+  /// have a fragment identifier, this property contains an empty string, `""`.
   external String get hash;
+  external set hash(String value);
 }
 
 /// The **`HTMLTableElement`** interface provides special properties and methods
@@ -2323,32 +4334,115 @@ extension type HTMLTableElement._(JSObject _) implements HTMLElement, JSObject {
   /// The **`HTMLTableElement.deleteRow()`** method removes a
   /// specific row (`tr`) from a given `table`.
   external void deleteRow(int index);
-  external set caption(HTMLTableCaptionElement? value);
+
+  /// The **`HTMLTableElement.caption`** property represents the
+  /// table caption. If no caption element is associated with the table, this
+  /// property is
+  /// `null`.
   external HTMLTableCaptionElement? get caption;
-  external set tHead(HTMLTableSectionElement? value);
+  external set caption(HTMLTableCaptionElement? value);
+
+  /// The **`HTMLTableElement.tHead`** represents the
+  /// `thead` element of a `table`. Its value will be
+  /// `null` if there is no such element.
   external HTMLTableSectionElement? get tHead;
-  external set tFoot(HTMLTableSectionElement? value);
+  external set tHead(HTMLTableSectionElement? value);
+
+  /// The **`HTMLTableElement.tFoot`** property represents the
+  /// `tfoot` element of a `table`. Its value will be
+  /// `null` if there is no such element.
   external HTMLTableSectionElement? get tFoot;
+  external set tFoot(HTMLTableSectionElement? value);
+
+  /// The **`HTMLTableElement.tBodies`** read-only property returns a
+  /// live [HTMLCollection] of the bodies in a `table`.
+  ///
+  /// Although the property is read-only, the returned object is live and allows
+  /// the
+  /// modification of its content.
+  ///
+  /// The collection returned includes implicit `tbody` elements. For
+  /// example:
+  ///
+  /// ```html
+  /// <table>
+  ///   <tr>
+  ///     <td>cell one</td>
+  ///   </tr>
+  /// </table>
+  /// ```
+  ///
+  /// The HTML DOM generated from the above HTML will have a `tbody` element
+  /// even though the tags are not included in the source HTML.
   external HTMLCollection get tBodies;
+
+  /// The read-only [HTMLTableElement]
+  /// property **`rows`** returns a live
+  /// [HTMLCollection] of all the rows in the table, including the rows
+  /// contained within any `thead`, `tfoot`, and
+  /// `tbody` elements.
+  ///
+  /// Although the property itself is read-only, the returned object is live and
+  /// allows the
+  /// modification of its content.
   external HTMLCollection get rows;
-  external set align(String value);
+
+  /// The **`HTMLTableElement.align`** property represents the
+  /// alignment of the table.
   external String get align;
-  external set border(String value);
+  external set align(String value);
+
+  /// The **`HTMLTableElement.border`** property represents the
+  /// border width of the `table` element.
   external String get border;
-  external set frame(String value);
+  external set border(String value);
+
+  /// The [HTMLTableElement] interface's **`frame`**
+  /// property is a string that indicates which of the table's exterior borders
+  /// should be
+  /// drawn.
   external String get frame;
-  external set rules(String value);
+  external set frame(String value);
+
+  /// The **`HTMLTableElement.rules`** property indicates which cell
+  /// borders to render in the table.
   external String get rules;
-  external set summary(String value);
+  external set rules(String value);
+
+  /// The **`HTMLTableElement.summary`** property represents the
+  /// table description.
   external String get summary;
-  external set width(String value);
+  external set summary(String value);
+
+  /// The **`HTMLTableElement.width`** property represents the
+  /// desired width of the table.
   external String get width;
-  external set bgColor(String value);
+  external set width(String value);
+
+  /// The **`bgcolor`** property of the [HTMLTableElement] represents the
+  /// background color of the table.
+  ///
+  /// > **Note:** Do not use this attribute anymore. Instead, use the CSS
+  /// > property by modifying the element's
+  /// > [`style`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/style)
+  /// > attribute or using a style rule.
   external String get bgColor;
-  external set cellPadding(String value);
+  external set bgColor(String value);
+
+  /// The **`HTMLTableElement.cellPadding`** property represents the
+  /// padding around the individual cells of the table.
   external String get cellPadding;
-  external set cellSpacing(String value);
+  external set cellPadding(String value);
+
+  /// While you should instead use the CSS
+  /// property, the obsolete [HTMLTableElement]
+  /// interface's **`cellSpacing`** property represents the spacing
+  /// around the individual `th` and `td` elements
+  /// representing a table's cells. Any two cells are separated by the sum of
+  /// the
+  /// `cellSpacing` of each of the two cells.
   external String get cellSpacing;
+  external set cellSpacing(String value);
 }
 
 /// The **`HTMLTableCaptionElement`** interface provides special properties
@@ -2364,8 +4458,8 @@ extension type HTMLTableCaptionElement._(JSObject _)
   /// Creates an [HTMLTableCaptionElement] using the tag 'caption'.
   HTMLTableCaptionElement() : _ = document.createElement('caption');
 
-  external set align(String value);
   external String get align;
+  external set align(String value);
 }
 
 /// The **`HTMLTableColElement`** interface provides properties for manipulating
@@ -2383,18 +4477,18 @@ extension type HTMLTableColElement._(JSObject _)
   /// Creates an [HTMLTableColElement] using the tag 'col'.
   HTMLTableColElement.col() : _ = document.createElement('col');
 
-  external set span(int value);
   external int get span;
-  external set align(String value);
+  external set span(int value);
   external String get align;
-  external set ch(String value);
+  external set align(String value);
   external String get ch;
-  external set chOff(String value);
+  external set ch(String value);
   external String get chOff;
-  external set vAlign(String value);
+  external set chOff(String value);
   external String get vAlign;
-  external set width(String value);
+  external set vAlign(String value);
   external String get width;
+  external set width(String value);
 }
 
 /// The **`HTMLTableSectionElement`** interface provides special properties and
@@ -2421,14 +4515,14 @@ extension type HTMLTableSectionElement._(JSObject _)
   external HTMLTableRowElement insertRow([int index]);
   external void deleteRow(int index);
   external HTMLCollection get rows;
-  external set align(String value);
   external String get align;
-  external set ch(String value);
+  external set align(String value);
   external String get ch;
-  external set chOff(String value);
+  external set ch(String value);
   external String get chOff;
-  external set vAlign(String value);
+  external set chOff(String value);
   external String get vAlign;
+  external set vAlign(String value);
 }
 
 /// The **`HTMLTableRowElement`** interface provides special properties and
@@ -2459,19 +4553,28 @@ extension type HTMLTableRowElement._(JSObject _)
   /// > element though.
   external HTMLTableCellElement insertCell([int index]);
   external void deleteCell(int index);
+
+  /// The **`HTMLTableRowElement.rowIndex`** read-only property
+  /// represents the position of a row in relation to the whole `table`.
+  ///
+  /// Even when the `thead`, `tbody`, and
+  /// `tfoot` elements are out of order in the HTML, browsers render the
+  /// table in the right order. Therefore the rows count from `<thead>` to
+  /// `<tbody>`, from `<tbody>` to
+  /// `<tfoot>`.
   external int get rowIndex;
   external int get sectionRowIndex;
   external HTMLCollection get cells;
-  external set align(String value);
   external String get align;
-  external set ch(String value);
+  external set align(String value);
   external String get ch;
-  external set chOff(String value);
+  external set ch(String value);
   external String get chOff;
-  external set vAlign(String value);
+  external set chOff(String value);
   external String get vAlign;
-  external set bgColor(String value);
+  external set vAlign(String value);
   external String get bgColor;
+  external set bgColor(String value);
 }
 
 /// The **`HTMLTableCellElement`** interface provides special properties and
@@ -2492,35 +4595,35 @@ extension type HTMLTableCellElement._(JSObject _)
   /// Creates an [HTMLTableCellElement] using the tag 'th'.
   HTMLTableCellElement.th() : _ = document.createElement('th');
 
-  external set colSpan(int value);
   external int get colSpan;
-  external set rowSpan(int value);
+  external set colSpan(int value);
   external int get rowSpan;
-  external set headers(String value);
+  external set rowSpan(int value);
   external String get headers;
+  external set headers(String value);
   external int get cellIndex;
-  external set scope(String value);
   external String get scope;
-  external set abbr(String value);
+  external set scope(String value);
   external String get abbr;
-  external set align(String value);
+  external set abbr(String value);
   external String get align;
-  external set axis(String value);
+  external set align(String value);
   external String get axis;
-  external set height(String value);
+  external set axis(String value);
   external String get height;
-  external set width(String value);
+  external set height(String value);
   external String get width;
-  external set ch(String value);
+  external set width(String value);
   external String get ch;
-  external set chOff(String value);
+  external set ch(String value);
   external String get chOff;
-  external set noWrap(bool value);
+  external set chOff(String value);
   external bool get noWrap;
-  external set vAlign(String value);
+  external set noWrap(bool value);
   external String get vAlign;
-  external set bgColor(String value);
+  external set vAlign(String value);
   external String get bgColor;
+  external set bgColor(String value);
 }
 
 /// The **`HTMLFormElement`** interface represents a `form` element in the DOM.
@@ -2592,28 +4695,113 @@ extension type HTMLFormElement._(JSObject _) implements HTMLElement, JSObject {
   /// events are fired for
   /// each invalid child and validation problems are reported to the user.
   external bool reportValidity();
-  external set acceptCharset(String value);
+
+  /// The **`HTMLFormElement.acceptCharset`** property represents a
+  /// list of the supported
+  /// [character encodings](https://developer.mozilla.org/en-US/docs/Glossary/Character_encoding)
+  /// for the given `form` element. This list can be
+  /// comma-separated or space-separated.
   external String get acceptCharset;
-  external set action(String value);
+  external set acceptCharset(String value);
+
+  /// The **`HTMLFormElement.action`** property represents the action
+  /// of the `form` element.
+  ///
+  /// The action of a form is the program that is executed on the server when
+  /// the form is
+  /// submitted. This property can be retrieved or set.
   external String get action;
-  external set autocomplete(String value);
+  external set action(String value);
   external String get autocomplete;
-  external set enctype(String value);
+  external set autocomplete(String value);
+
+  /// The **`HTMLFormElement.enctype`** property is the
+  /// [MIME type](https://en.wikipedia.org/wiki/Mime_type) of content that is
+  /// used
+  /// to submit the form to the server. Possible values are:
+  ///
+  /// - `application/x-www-form-urlencoded`: The initial default type.
+  /// - `multipart/form-data`: The type that allows file `input`
+  /// element(s) to upload file data.
+  /// - `text/plain`: Ambiguous format, human-readable content not reliably
+  ///   interpretable by computer.
+  ///
+  /// This value can be overridden by a
+  /// [`formenctype`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#formenctype)
+  /// attribute
+  /// on a `button` or `input` element.
   external String get enctype;
-  external set encoding(String value);
+  external set enctype(String value);
+
+  /// The **`HTMLFormElement.encoding`** property is an alternative name for the
+  /// [HTMLFormElement.enctype] element on the DOM [HTMLFormElement] object.
   external String get encoding;
-  external set method(String value);
+  external set encoding(String value);
+
+  /// The **`HTMLFormElement.method`** property represents the
+  /// method used to submit the `form`.
+  ///
+  /// Unless explicitly specified, the default method is 'get'.
   external String get method;
-  external set name(String value);
+  external set method(String value);
+
+  /// The **`HTMLFormElement.name`** property represents the name of
+  /// the current `form` element as a string.
+  ///
+  /// If your `Form` element contains an element named _name_ then
+  /// that element overrides the `form.name` property, so that you can't access
+  /// it.
   external String get name;
-  external set noValidate(bool value);
+  external set name(String value);
   external bool get noValidate;
-  external set target(String value);
+  external set noValidate(bool value);
+
+  /// The **`target`** property of the [HTMLFormElement]
+  /// interface represents the target of the form's action (i.e., the frame in
+  /// which to render
+  /// its output).
   external String get target;
-  external set rel(String value);
+  external set target(String value);
   external String get rel;
+  external set rel(String value);
   external DOMTokenList get relList;
+
+  /// The [HTMLFormElement] property
+  /// **`elements`** returns an
+  /// [HTMLFormControlsCollection] listing all the form controls contained in
+  /// the `form` element.
+  ///
+  /// Independently, you can obtain just the
+  /// number of form controls using the [HTMLFormElement.length]
+  /// property.
+  ///
+  /// You can access a particular form control in the returned collection by
+  /// using either an
+  /// index or the element's `name` or `id` attributes.
+  ///
+  /// Prior to HTML 5, the returned object was an [HTMLCollection], on which
+  /// `HTMLFormControlsCollection` is based.
+  ///
+  /// > **Note:** Similarly, you can get a list of all of the forms contained
+  /// > within a given document using the document's [Document.forms] property.
   external HTMLFormControlsCollection get elements;
+
+  /// The **`HTMLFormElement.length`**
+  /// read-only property returns the number of controls in the `form`
+  /// element.
+  ///
+  /// You can access the list of the form's controls using the
+  /// [HTMLFormElement.elements] property.
+  ///
+  /// This includes both elements that are descendants of the `<form>`
+  /// element as well as elements that are made members of the form using their
+  /// `form` property.
+  ///
+  /// Elements that are considered for this property are: `button`,
+  /// `fieldset`, `input` (with the exception
+  /// that any whose type is "image" are omitted for historical reasons),
+  /// `object`, `output`, `select`,
+  /// and `textarea`.
   external int get length;
 }
 
@@ -2629,9 +4817,30 @@ extension type HTMLLabelElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLLabelElement] using the tag 'label'.
   HTMLLabelElement() : _ = document.createElement('label');
 
+  /// The read-only **`HTMLLabelElement.form`** property returns an
+  /// [HTMLFormElement] object which represents the form of which the label's
+  /// associated control is a part, or null if there is either no associated
+  /// control, or if
+  /// that control isn't in a form.
+  ///
+  /// This property is just a shortcut for `HTMLLabelElement.control.form`.
   external HTMLFormElement? get form;
-  external set htmlFor(String value);
+
+  /// The **`HTMLLabelElement.htmlFor`** property reflects the value
+  /// of the
+  /// [`for`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label#for)
+  /// content property. That means that this
+  /// script-accessible property is used to set and read the value of the
+  /// content property
+  /// `for`, which is the ID of the label's associated control element.
   external String get htmlFor;
+  external set htmlFor(String value);
+
+  /// The read-only **`HTMLLabelElement.control`** property returns a
+  /// reference to the control (in the form of an object of type [HTMLElement]
+  /// or
+  /// one of its derivatives) with which the `label` element is associated,
+  /// or `null` if the label isn't associated with a control.
   external HTMLElement? get control;
 }
 
@@ -2960,97 +5169,213 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// More generally, this method should ideally display the picker for any
   /// input element on the platform that has a picker.
   external void showPicker();
-  external set webkitdirectory(bool value);
+
+  /// The **`HTMLInputElement.webkitdirectory`** is a property
+  /// that reflects the
+  /// [`webkitdirectory`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#webkitdirectory)
+  /// HTML attribute
+  /// and indicates that the `input` element should let the user select
+  /// directories instead of files.
+  /// When a directory is selected, the directory and its entire hierarchy of
+  /// contents are included in the set of selected items.
+  /// The selected file system entries can be obtained using the
+  /// [HTMLInputElement.webkitEntries] property.
+  ///
+  /// > **Note:** This property is called `webkitEntries` in the specification
+  /// > due to its
+  /// > origins as a Google Chrome-specific API. It's likely to be renamed
+  /// > someday.
   external bool get webkitdirectory;
+  external set webkitdirectory(bool value);
+
+  /// The read-only **`webkitEntries`**
+  /// property of the [HTMLInputElement] interface contains an array of file
+  /// system entries (as objects based on [FileSystemEntry]) representing files
+  /// and/or directories selected by the user using an `input` element of
+  /// type `file`, but only if that selection was made using drag-and-drop:
+  /// selecting a file in the dialog will leave the property empty.
+  ///
+  /// The array can only contain directories if the
+  /// [HTMLInputElement.webkitdirectory] property is
+  /// `true`. This means the `<input>` element was configured to
+  /// let the user choose directories.
+  ///
+  /// > **Note:** This property is called `webkitEntries` in the specification
+  /// > due to its
+  /// > origins as a Google Chrome-specific API. It's likely to be renamed
+  /// > someday.
   external JSArray<FileSystemEntry> get webkitEntries;
-  external set accept(String value);
   external String get accept;
-  external set alt(String value);
+  external set accept(String value);
   external String get alt;
-  external set autocomplete(String value);
+  external set alt(String value);
   external String get autocomplete;
-  external set defaultChecked(bool value);
+  external set autocomplete(String value);
   external bool get defaultChecked;
-  external set checked(bool value);
+  external set defaultChecked(bool value);
   external bool get checked;
-  external set dirName(String value);
+  external set checked(bool value);
   external String get dirName;
-  external set disabled(bool value);
+  external set dirName(String value);
+
+  /// The **`HTMLInputElement.disabled`** property is a boolean value that
+  /// reflects the
+  /// [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#disabled)
+  /// HTML attribute, which indicates whether the control is disabled. If it is
+  /// disabled, it does not accept clicks. A disabled element is unusable and
+  /// un-clickable.
   external bool get disabled;
+  external set disabled(bool value);
   external HTMLFormElement? get form;
-  external set files(FileList? value);
+
+  /// The **`HTMLInputElement.files`** property allows you to access the
+  /// [FileList] selected with the [`<input
+  /// type="file">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file)
+  /// element.
   external FileList? get files;
-  external set formAction(String value);
+  external set files(FileList? value);
   external String get formAction;
-  external set formEnctype(String value);
+  external set formAction(String value);
   external String get formEnctype;
-  external set formMethod(String value);
+  external set formEnctype(String value);
   external String get formMethod;
-  external set formNoValidate(bool value);
+  external set formMethod(String value);
   external bool get formNoValidate;
-  external set formTarget(String value);
+  external set formNoValidate(bool value);
   external String get formTarget;
-  external set height(int value);
+  external set formTarget(String value);
   external int get height;
-  external set indeterminate(bool value);
+  external set height(int value);
   external bool get indeterminate;
+  external set indeterminate(bool value);
   external HTMLDataListElement? get list;
-  external set max(String value);
   external String get max;
-  external set maxLength(int value);
+  external set max(String value);
   external int get maxLength;
-  external set min(String value);
+  external set maxLength(int value);
   external String get min;
-  external set minLength(int value);
+  external set min(String value);
   external int get minLength;
-  external set multiple(bool value);
+  external set minLength(int value);
+
+  /// The **`HTMLInputElement.multiple`** property indicates if an input can
+  /// have more than one value. Firefox currently only supports `multiple` for
+  /// `<input type="file">`.
   external bool get multiple;
-  external set name(String value);
+  external set multiple(bool value);
   external String get name;
-  external set pattern(String value);
+  external set name(String value);
   external String get pattern;
-  external set placeholder(String value);
+  external set pattern(String value);
   external String get placeholder;
-  external set readOnly(bool value);
+  external set placeholder(String value);
   external bool get readOnly;
-  external set required(bool value);
+  external set readOnly(bool value);
   external bool get required;
-  external set size(int value);
+  external set required(bool value);
   external int get size;
-  external set src(String value);
+  external set size(int value);
   external String get src;
-  external set step(String value);
+  external set src(String value);
   external String get step;
-  external set type(String value);
+  external set step(String value);
+
+  /// The **`type`** property of the [HTMLInputElement] interface indicates the
+  /// kind of data allowed in the `input` element, or example a number, a date,
+  /// or an email. Browsers will select the appropriate widget and behavior to
+  /// help users to enter a valid value.
+  ///
+  /// It reflects the
+  /// [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#type)
+  /// attribute of the `input` element.
   external String get type;
-  external set defaultValue(String value);
+  external set type(String value);
   external String get defaultValue;
-  external set value(String value);
+  external set defaultValue(String value);
   external String get value;
-  external set valueAsDate(JSObject? value);
+  external set value(String value);
   external JSObject? get valueAsDate;
-  external set valueAsNumber(num value);
+  external set valueAsDate(JSObject? value);
   external num get valueAsNumber;
-  external set width(int value);
+  external set valueAsNumber(num value);
   external int get width;
+  external set width(int value);
   external bool get willValidate;
   external ValidityState get validity;
   external String get validationMessage;
+
+  /// The **`HTMLInputElement.labels`** read-only property returns a
+  /// [NodeList] of the `label` elements associated with the
+  /// `input` element, if the element is not hidden. If the element has the
+  /// type `hidden`, the property returns `null`.
   external NodeList? get labels;
-  external set selectionStart(int? value);
+
+  /// The **`selectionStart`** property of the [HTMLInputElement] interface is a
+  /// number that represents the beginning index of the selected text. When
+  /// nothing is selected, then returns the position of the text input cursor
+  /// (caret) inside of the `<input>` element.
+  ///
+  /// > **Note:** According to the
+  /// > [WHATWG forms spec](https://html.spec.whatwg.org/multipage/forms.html#concept-input-apply)
+  /// > `selectionStart` property applies only to inputs of types text, search,
+  /// > URL, tel, and password. In modern browsers, throws an exception while
+  /// > setting `selectionStart` property on the rest of input types.
+  /// > Additionally, this property returns `null` while accessing
+  /// > `selectionStart` property on non-text input elements.
+  ///
+  /// If `selectionStart` is greater than `selectionEnd`, then both are
+  /// treated as the value of `selectionEnd`.
   external int? get selectionStart;
-  external set selectionEnd(int? value);
+  external set selectionStart(int? value);
+
+  /// The **`selectionEnd`** property of the [HTMLInputElement] interface is a
+  /// number that represents the end index of the selected text. When there is
+  /// no selection, this returns the offset of the character immediately
+  /// following the current text input cursor position.
+  ///
+  /// > **Note:** According to the
+  /// > [WHATWG forms spec](https://html.spec.whatwg.org/multipage/forms.html#concept-input-apply)
+  /// > `selectionEnd` property applies only to inputs of types text, search,
+  /// > URL, tel, and password. In modern browsers, throws an exception while
+  /// > setting `selectionEnd` property on the rest of input types.
+  /// > Additionally, this property returns `null` while accessing
+  /// > `selectionEnd` property on non-text input elements.
+  ///
+  /// If `selectionEnd` is less than `selectionStart`, then both are
+  /// treated as the value of `selectionEnd`.
   external int? get selectionEnd;
-  external set selectionDirection(String? value);
+  external set selectionEnd(int? value);
+
+  /// The **`selectionDirection`** property of the [HTMLInputElement] interface
+  /// is a string that indicates the direction in which the user is selecting
+  /// the text.
   external String? get selectionDirection;
-  external set align(String value);
+  external set selectionDirection(String? value);
   external String get align;
-  external set useMap(String value);
+  external set align(String value);
   external String get useMap;
-  external set popoverTargetElement(Element? value);
+  external set useMap(String value);
+
+  /// The **`popoverTargetElement`** property of the [HTMLInputElement]
+  /// interface gets and sets the popover element to control via an `input`
+  /// element of `type="button"`.
+  ///
+  /// It is the JavaScript equivalent of the
+  /// [`popovertarget`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertarget)
+  /// HTML attribute.
   external Element? get popoverTargetElement;
-  external set popoverTargetAction(String value);
+  external set popoverTargetElement(Element? value);
+
+  /// The **`popoverTargetAction`** property of the [HTMLInputElement] interface
+  /// gets and sets the action to be performed (`"hide"`, `"show"`, or
+  /// `"toggle"`) on a popover element being controlled by an `input` element of
+  /// `type="button"`.
+  ///
+  /// It reflects the value of the
+  /// [`popovertargetaction`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertargetaction)
+  /// HTML attribute.
   external String get popoverTargetAction;
+  external set popoverTargetAction(String value);
 }
 
 /// The **`HTMLButtonElement`** interface provides properties and methods
@@ -3069,33 +5394,62 @@ extension type HTMLButtonElement._(JSObject _)
   external bool checkValidity();
   external bool reportValidity();
   external void setCustomValidity(String error);
-  external set disabled(bool value);
+
+  /// The **`HTMLButtonElement.disabled`** property indicates whether the
+  /// control is disabled, meaning that it does not accept any clicks.
   external bool get disabled;
+  external set disabled(bool value);
   external HTMLFormElement? get form;
-  external set formAction(String value);
   external String get formAction;
-  external set formEnctype(String value);
+  external set formAction(String value);
   external String get formEnctype;
-  external set formMethod(String value);
+  external set formEnctype(String value);
   external String get formMethod;
-  external set formNoValidate(bool value);
+  external set formMethod(String value);
   external bool get formNoValidate;
-  external set formTarget(String value);
+  external set formNoValidate(bool value);
   external String get formTarget;
-  external set name(String value);
+  external set formTarget(String value);
   external String get name;
-  external set type(String value);
+  external set name(String value);
+
+  /// The **`type`** property of the [HTMLButtonElement] interface is a string
+  /// that indicates the behavior type of the `button` element.
+  ///
+  /// It reflects the
+  /// [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type)
+  /// attribute of the `button` element.
   external String get type;
-  external set value(String value);
+  external set type(String value);
   external String get value;
+  external set value(String value);
   external bool get willValidate;
   external ValidityState get validity;
   external String get validationMessage;
+
+  /// The **`HTMLButtonElement.labels`** read-only property returns a
+  /// [NodeList] of the `label` elements associated with the
+  /// `button` element.
   external NodeList get labels;
-  external set popoverTargetElement(Element? value);
+
+  /// The **`popoverTargetElement`** property of the [HTMLButtonElement]
+  /// interface gets and sets the popover element to control via a button.
+  ///
+  /// It is the JavaScript equivalent of the
+  /// [`popovertarget`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertarget)
+  /// HTML attribute.
   external Element? get popoverTargetElement;
-  external set popoverTargetAction(String value);
+  external set popoverTargetElement(Element? value);
+
+  /// The **`popoverTargetAction`** property of the [HTMLButtonElement]
+  /// interface gets and sets the action to be performed (`"hide"`, `"show"`, or
+  /// `"toggle"`) on a popover element being controlled by a button.
+  ///
+  /// It reflects the value of the
+  /// [`popovertargetaction`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#popovertargetaction)
+  /// HTML attribute.
   external String get popoverTargetAction;
+  external set popoverTargetAction(String value);
 }
 
 /// The **`HTMLSelectElement`** interface represents a `select` HTML Element.
@@ -3168,31 +5522,68 @@ extension type HTMLSelectElement._(JSObject _)
   /// is selected, but can be triggered from a button press or other user
   /// interaction.
   external void showPicker();
-  external set autocomplete(String value);
   external String get autocomplete;
-  external set disabled(bool value);
+  external set autocomplete(String value);
+
+  /// The **`HTMLSelectElement.disabled`** property is a boolean value that
+  /// reflects the
+  /// [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select#disabled)
+  /// HTML attribute, which indicates whether the control is disabled. If it is
+  /// disabled, it
+  /// does not accept clicks. A disabled element is unusable and un-clickable.
   external bool get disabled;
+  external set disabled(bool value);
+
+  /// The **`HTMLSelectElement.form`** read-only property returns a
+  /// [HTMLFormElement] representing the form that this element is associated
+  /// with. If the element is not associated with a `form` element, then
+  /// it returns `null`.
   external HTMLFormElement? get form;
-  external set multiple(bool value);
   external bool get multiple;
-  external set name(String value);
+  external set multiple(bool value);
   external String get name;
-  external set required(bool value);
+  external set name(String value);
   external bool get required;
-  external set size(int value);
+  external set required(bool value);
   external int get size;
+  external set size(int value);
+
+  /// The **`HTMLSelectElement.type`**
+  /// read-only property returns the form control's `type`.
   external String get type;
+
+  /// The **`HTMLSelectElement.options`** read-only property returns
+  /// a [HTMLOptionsCollection] of the `option` elements
+  /// contained by the `select` element.
   external HTMLOptionsCollection get options;
-  external set length(int value);
   external int get length;
+  external set length(int value);
+
+  /// The **read-only** [HTMLSelectElement] property
+  /// **`selectedOptions`** contains a list of the
+  /// `option` elements contained within the `select`
+  /// element that are currently selected. The list of selected options is an
+  /// [HTMLCollection] object with one entry per currently selected option.
+  ///
+  /// An option is considered selected if it has an [HTMLOptionElement.selected]
+  /// attribute.
   external HTMLCollection get selectedOptions;
-  external set selectedIndex(int value);
+
+  /// The **`HTMLSelectElement.selectedIndex`** property is a
+  /// `long` that reflects the index of the first or last selected
+  /// `option` element, depending on the value of `multiple`. The
+  /// value `-1` indicates that no element is selected.
   external int get selectedIndex;
-  external set value(String value);
+  external set selectedIndex(int value);
   external String get value;
+  external set value(String value);
   external bool get willValidate;
   external ValidityState get validity;
   external String get validationMessage;
+
+  /// The **`HTMLSelectElement.labels`** read-only property returns a
+  /// [NodeList] of the `label` elements associated with the
+  /// `select` element.
   external NodeList get labels;
 }
 
@@ -3226,10 +5617,10 @@ extension type HTMLOptGroupElement._(JSObject _)
   /// Creates an [HTMLOptGroupElement] using the tag 'optgroup'.
   HTMLOptGroupElement() : _ = document.createElement('optgroup');
 
-  external set disabled(bool value);
   external bool get disabled;
-  external set label(String value);
+  external set disabled(bool value);
   external String get label;
+  external set label(String value);
 }
 
 /// The **`HTMLOptionElement`** interface represents `option` elements and
@@ -3244,19 +5635,19 @@ extension type HTMLOptionElement._(JSObject _)
   /// Creates an [HTMLOptionElement] using the tag 'option'.
   HTMLOptionElement() : _ = document.createElement('option');
 
-  external set disabled(bool value);
   external bool get disabled;
+  external set disabled(bool value);
   external HTMLFormElement? get form;
-  external set label(String value);
   external String get label;
-  external set defaultSelected(bool value);
+  external set label(String value);
   external bool get defaultSelected;
-  external set selected(bool value);
+  external set defaultSelected(bool value);
   external bool get selected;
-  external set value(String value);
+  external set selected(bool value);
   external String get value;
-  external set text(String value);
+  external set value(String value);
   external String get text;
+  external set text(String value);
   external int get index;
 }
 
@@ -3287,47 +5678,54 @@ extension type HTMLTextAreaElement._(JSObject _)
     int end, [
     String direction,
   ]);
-  external set autocomplete(String value);
   external String get autocomplete;
-  external set cols(int value);
+  external set autocomplete(String value);
   external int get cols;
-  external set dirName(String value);
+  external set cols(int value);
   external String get dirName;
-  external set disabled(bool value);
+  external set dirName(String value);
   external bool get disabled;
+  external set disabled(bool value);
   external HTMLFormElement? get form;
-  external set maxLength(int value);
   external int get maxLength;
-  external set minLength(int value);
+  external set maxLength(int value);
   external int get minLength;
-  external set name(String value);
+  external set minLength(int value);
   external String get name;
-  external set placeholder(String value);
+  external set name(String value);
   external String get placeholder;
-  external set readOnly(bool value);
+  external set placeholder(String value);
   external bool get readOnly;
-  external set required(bool value);
+  external set readOnly(bool value);
   external bool get required;
-  external set rows(int value);
+  external set required(bool value);
   external int get rows;
-  external set wrap(String value);
+  external set rows(int value);
   external String get wrap;
+  external set wrap(String value);
+
+  /// The read-only **`type`** property of the [HTMLTextAreaElement] always
+  /// returns `textarea`.
   external String get type;
-  external set defaultValue(String value);
   external String get defaultValue;
-  external set value(String value);
+  external set defaultValue(String value);
   external String get value;
+  external set value(String value);
   external int get textLength;
   external bool get willValidate;
   external ValidityState get validity;
   external String get validationMessage;
+
+  /// The **`HTMLTextAreaElement.labels`** read-only property returns
+  /// a [NodeList] of the `label` elements associated with the
+  /// `textArea` element.
   external NodeList get labels;
-  external set selectionStart(int value);
   external int get selectionStart;
-  external set selectionEnd(int value);
+  external set selectionStart(int value);
   external int get selectionEnd;
-  external set selectionDirection(String value);
+  external set selectionEnd(int value);
   external String get selectionDirection;
+  external set selectionDirection(String value);
 }
 
 /// The **`HTMLOutputElement`** interface provides properties and methods
@@ -3348,16 +5746,20 @@ extension type HTMLOutputElement._(JSObject _)
   external void setCustomValidity(String error);
   external DOMTokenList get htmlFor;
   external HTMLFormElement? get form;
-  external set name(String value);
   external String get name;
+  external set name(String value);
   external String get type;
-  external set defaultValue(String value);
   external String get defaultValue;
-  external set value(String value);
+  external set defaultValue(String value);
   external String get value;
+  external set value(String value);
   external bool get willValidate;
   external ValidityState get validity;
   external String get validationMessage;
+
+  /// The **`HTMLOutputElement.labels`** read-only property returns a
+  /// [NodeList] of the `label` elements associated with the
+  /// `output` element.
   external NodeList get labels;
 }
 
@@ -3375,11 +5777,23 @@ extension type HTMLProgressElement._(JSObject _)
   /// Creates an [HTMLProgressElement] using the tag 'progress'.
   HTMLProgressElement() : _ = document.createElement('progress');
 
-  external set value(num value);
+  /// The **`value`** property of the [HTMLProgressElement] interface represents
+  /// the current progress of the `progress` element.
   external num get value;
-  external set max(num value);
+  external set value(num value);
+
+  /// The **`max`** property of the [HTMLProgressElement] interface represents
+  /// the upper bound of the `progress` element's range.
   external num get max;
+  external set max(num value);
+
+  /// The **`position`** read-only property of the [HTMLProgressElement]
+  /// interface returns current progress of the `progress` element.
   external num get position;
+
+  /// The **`HTMLProgressElement.labels`** read-only property returns
+  /// a [NodeList] of the `label` elements associated with the
+  /// `progress` element.
   external NodeList get labels;
 }
 
@@ -3396,18 +5810,22 @@ extension type HTMLMeterElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLMeterElement] using the tag 'meter'.
   HTMLMeterElement() : _ = document.createElement('meter');
 
-  external set value(num value);
   external num get value;
-  external set min(num value);
+  external set value(num value);
   external num get min;
-  external set max(num value);
+  external set min(num value);
   external num get max;
-  external set low(num value);
+  external set max(num value);
   external num get low;
-  external set high(num value);
+  external set low(num value);
   external num get high;
-  external set optimum(num value);
+  external set high(num value);
   external num get optimum;
+  external set optimum(num value);
+
+  /// The **`HTMLMeterElement.labels`** read-only property returns a
+  /// [NodeList] of the `label` elements associated with the
+  /// `meter` element.
   external NodeList get labels;
 }
 
@@ -3428,11 +5846,11 @@ extension type HTMLFieldSetElement._(JSObject _)
   external bool checkValidity();
   external bool reportValidity();
   external void setCustomValidity(String error);
-  external set disabled(bool value);
   external bool get disabled;
+  external set disabled(bool value);
   external HTMLFormElement? get form;
-  external set name(String value);
   external String get name;
+  external set name(String value);
   external String get type;
   external HTMLCollection get elements;
   external bool get willValidate;
@@ -3454,8 +5872,8 @@ extension type HTMLLegendElement._(JSObject _)
   HTMLLegendElement() : _ = document.createElement('legend');
 
   external HTMLFormElement? get form;
-  external set align(String value);
   external String get align;
+  external set align(String value);
 }
 
 /// The **`ValidityState`** interface represents the _validity states_ that an
@@ -3467,14 +5885,176 @@ extension type HTMLLegendElement._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState).
 extension type ValidityState._(JSObject _) implements JSObject {
+  /// The read-only **`valueMissing`** property of a
+  /// **[`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)**
+  /// object indicates if a
+  /// [`required`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/required)
+  /// control, such as an `input`, `select`, or `textarea`, has an empty value.
+  ///
+  /// If the `required` attribute is set, and no `option` is selected or a
+  /// `<textarea>` or user-editable `<input>` is empty, the `valueMissing`
+  /// property will be `true`. The property is only `true` if the field is
+  /// required and has no value; if the field is not required, or if the field
+  /// is required and has a value, the value is `false`.
   external bool get valueMissing;
+
+  /// The read-only **`typeMismatch`** property of a
+  /// **[`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)**
+  /// object indicates if the value of an `input`, after having been edited by
+  /// the user, does not conform to the constraints set by the element's
+  /// [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types)
+  /// attribute.
+  ///
+  /// If the `type` attribute expects specific strings, such as the `email` and
+  /// `url` types and the value doesn't conform to the constraints set by the
+  /// type, the `typeMismatch` property will be true.
+  ///
+  /// The `email` input type expects one or more valid email addresses,
+  /// depending on whether the
+  /// [`multiple`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/multiple)
+  /// attribute is present. A valid email address includes an email prefix and a
+  /// domain, with or without a top level domain. If the value of the email
+  /// input is not an empty string, a single valid email address, or one or more
+  /// comma separated email address if the
+  /// [`multiple`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/multiple)
+  /// attribute is present, there is a `typeMismatch`.
+  ///
+  /// The `url` input type expects one or more valid URLs, depending on whether
+  /// the
+  /// [`multiple`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/multiple)
+  /// attribute is present. A valid URL includes a protocol, optionally with an
+  /// IP address, or an optional subdomain, domain, and top level domain
+  /// combination. If the value of the URL input is not an empty string, a
+  /// single valid URL, or one or more comma separated URLS if the
+  /// [`multiple`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/multiple)
+  /// attribute is present, there is a `typeMismatch`.
+  ///
+  /// | Input type                              | Value             | Expected value                                                 |
+  /// | --------------------------------------- | ----------------- | -------------------------------------------------------------- |
+  /// | `email` | `x@y` or `x@y.z`  | email address, with or without [TLD](https://developer.mozilla.org/en-US/docs/Glossary/TLD) |
+  /// | `url`     | `x:` or `x://y.z` | protocol or full URL with protocol                             |
   external bool get typeMismatch;
+
+  /// The read-only **`patternMismatch`** property of a
+  /// **[`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)**
+  /// object indicates if the value of an `input`, after having been edited by
+  /// the user, does not conform to the constraints set by the element's
+  /// [`pattern`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern)
+  /// attribute.
+  ///
+  /// The `patternMismatch` property will be true if and only if the following
+  /// conditions are all true:
+  ///
+  /// - the field supports the
+  ///   [`pattern`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern)
+  ///   attribute — which means the `input` is of `type` `text`, `tel`, `email`,
+  ///   `url`, `password`, or `search`
+  /// - the
+  ///   [`pattern`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern)
+  ///   attribute contains a valid regular expression
+  /// - the `input` value doesn't conform to the constraints set by the
+  ///   [`pattern`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern)
+  ///   value.
   external bool get patternMismatch;
+
+  /// The read-only **`tooLong`** property of a
+  /// **[`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)**
+  /// object indicates if the value of an `input` or `textarea`, after having
+  /// been edited by the user, exceeds the maximum code-unit length established
+  /// by the element's
+  /// [`maxlength`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/maxlength)
+  /// attribute.
   external bool get tooLong;
+
+  /// The read-only **`tooShort`** property of a
+  /// **[`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)**
+  /// object indicates if the value of an `input`, `button`, `select`, `output`,
+  /// `fieldset` or `textarea`, after having been edited by the user, is less
+  /// than the minimum code-unit length established by the element's `minlength`
+  /// attribute.
   external bool get tooShort;
+
+  /// The read-only **`rangeUnderflow`** property of a
+  /// **[`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)**
+  /// object indicates if the value of an `input`, after having been edited by
+  /// the user, does not conform to the constraints set by the element's
+  /// [`min`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/min)
+  /// attribute.
+  ///
+  /// If the field is numeric in nature, including the `date`, `month`, `week`,
+  /// `time`, , `number` and `range` types and a `min` value is set, if the
+  /// value doesn't conform to the constraints set by the
+  /// [`min`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/step)
+  /// value, the `rangeUnderflow` property will be true.
+  ///
+  /// Given the following:
+  ///
+  /// ```html
+  /// <input type="number" min="20" max="40" step="2" />
+  /// ```
+  ///
+  /// if `value < 20`, `rangeUnderflow` will be true. When `true`, the element
+  /// matches the  and  CSS pseudo-classes.
   external bool get rangeUnderflow;
+
+  /// The read-only **`rangeOverflow`** property of a
+  /// **[`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)**
+  /// object indicates if the value of an `input`, after having been edited by
+  /// the user, does not conform to the constraints set by the element's
+  /// [`max`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/max)
+  /// attribute.
+  ///
+  /// If the field is numeric in nature, including the `date`, `month`, `week`,
+  /// `time`, , `number` and `range` types and a `max` value is set, if the
+  /// value doesn't conform to the constraints set by the
+  /// [`max`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/step)
+  /// value, the `rangeOverflow` property will be true.
+  ///
+  /// Given the following:
+  ///
+  /// ```html
+  /// <input type="number" min="20" max="40" step="2" />
+  /// ```
+  ///
+  /// if `value > 40`, `rangeOverflow` will be true. When `true`, the element
+  /// matches the  and  CSS pseudo-classes.
   external bool get rangeOverflow;
+
+  /// The read-only **`stepMismatch`** property of a
+  /// **[`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)**
+  /// object indicates if the value of an `input`, after having been edited by
+  /// the user, does not conform to the constraints set by the element's `step`
+  /// attribute.
+  ///
+  /// If the field is numeric in nature, including the `date`, `month`, `week`,
+  /// `time`, , `number` and `range` types and the step value is not `any`, if
+  /// the value don't doesn't conform to the constraints set by the
+  /// [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/step)
+  /// and
+  /// [`min`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/min)
+  /// values, then `stepMismatch` will be true. If the remainder of the form
+  /// control's value less the
+  /// [`min`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/min)
+  /// value, divided by the
+  /// [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/step)
+  /// value (which defaults to 1 if omitted) is not zero, there is a mismatch.
+  ///
+  /// Given the following:
+  ///
+  /// ```html
+  /// <input type="number" min="20" max="40" step="2" />
+  /// ```
+  ///
+  /// if `(value - min) % 2 !== 0`, `stepMismatch` will be true.
+  ///
+  /// If true, the element matches the  and  CSS pseudo-classes.
   external bool get stepMismatch;
+
+  /// The read-only **`badInput`** property of a
+  /// [ValidityState](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)
+  /// object indicates if the user has provided input that the browser is unable
+  /// to convert. For example, if you have a number input element whose content
+  /// is a string.
   external bool get badInput;
   external bool get customError;
   external bool get valid;
@@ -3494,6 +6074,9 @@ extension type SubmitEvent._(JSObject _) implements Event, JSObject {
     SubmitEventInit eventInitDict,
   ]);
 
+  /// The read-only **`submitter`** property found on
+  /// the [SubmitEvent] interface specifies the submit button or other element
+  /// that was invoked to cause the form to be submitted.
   external HTMLElement? get submitter;
 }
 extension type SubmitEventInit._(JSObject _) implements EventInit, JSObject {
@@ -3504,8 +6087,8 @@ extension type SubmitEventInit._(JSObject _) implements EventInit, JSObject {
     HTMLElement? submitter,
   });
 
-  external set submitter(HTMLElement? value);
   external HTMLElement? get submitter;
+  external set submitter(HTMLElement? value);
 }
 
 /// The **`FormDataEvent`** interface represents a
@@ -3530,6 +6113,10 @@ extension type FormDataEvent._(JSObject _) implements Event, JSObject {
     FormDataEventInit eventInitDict,
   );
 
+  /// The `formData` read-only property of the [FormDataEvent]
+  /// interface contains the [FormData] object representing the data contained
+  /// in
+  /// the form when the event was fired.
   external FormData get formData;
 }
 extension type FormDataEventInit._(JSObject _) implements EventInit, JSObject {
@@ -3540,8 +6127,8 @@ extension type FormDataEventInit._(JSObject _) implements EventInit, JSObject {
     required FormData formData,
   });
 
-  external set formData(FormData value);
   external FormData get formData;
+  external set formData(FormData value);
 }
 
 /// The **`HTMLDetailsElement`** interface provides special properties (beyond
@@ -3557,10 +6144,16 @@ extension type HTMLDetailsElement._(JSObject _)
   /// Creates an [HTMLDetailsElement] using the tag 'details'.
   HTMLDetailsElement() : _ = document.createElement('details');
 
-  external set name(String value);
   external String get name;
-  external set open(bool value);
+  external set name(String value);
+
+  /// The **`open`** property of the
+  /// [HTMLDetailsElement] interface is a boolean value reflecting the
+  /// [`open`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details#open)
+  /// HTML attribute, indicating whether the `details`'s contents (not counting
+  /// the `summary`) is to be shown to the user.
   external bool get open;
+  external set open(bool value);
 }
 
 /// The **`HTMLDialogElement`** interface provides methods to manipulate
@@ -3595,10 +6188,20 @@ extension type HTMLDialogElement._(JSObject _)
   /// An optional string may be passed as an argument, updating the
   /// `returnValue` of the dialog.
   external void close([String returnValue]);
-  external set open(bool value);
+
+  /// The **`open`** property of the
+  /// [HTMLDialogElement] interface is a boolean value reflecting the
+  /// [`open`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog#open)
+  /// HTML attribute, indicating whether the `dialog` is
+  /// available for interaction.
   external bool get open;
-  external set returnValue(String value);
+  external set open(bool value);
+
+  /// The **`returnValue`** property of the [HTMLDialogElement] interface gets
+  /// or sets the return value for the `dialog`, usually to indicate which
+  /// button the user pressed to close it.
   external String get returnValue;
+  external set returnValue(String value);
 }
 
 /// HTML `script` elements expose the **`HTMLScriptElement`** interface, which
@@ -3624,33 +6227,47 @@ extension type HTMLScriptElement._(JSObject _)
   HTMLScriptElement() : _ = document.createElement('script');
 
   external static bool supports(String type);
-  external set src(String value);
   external String get src;
-  external set type(String value);
+  external set src(String value);
   external String get type;
-  external set noModule(bool value);
+  external set type(String value);
   external bool get noModule;
-  external set async(bool value);
+  external set noModule(bool value);
   external bool get async;
-  external set defer(bool value);
+  external set async(bool value);
   external bool get defer;
-  external set crossOrigin(String? value);
+  external set defer(bool value);
+
+  /// The **`crossOrigin`** property of the [HTMLScriptElement] interface
+  /// reflects the  settings for the script element. For classic scripts from
+  /// other [origins](https://developer.mozilla.org/en-US/docs/Glossary/Origin),
+  /// this controls if full error information will be exposed. For module
+  /// scripts, it controls the script itself and any script it imports. See
+  /// [CORS settings attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin)
+  /// for details.
   external String? get crossOrigin;
-  external set text(String value);
+  external set crossOrigin(String? value);
   external String get text;
-  external set integrity(String value);
+  external set text(String value);
   external String get integrity;
-  external set referrerPolicy(String value);
+  external set integrity(String value);
+
+  /// The **`referrerPolicy`** property of the
+  /// [HTMLScriptElement] interface reflects the HTML
+  /// [`referrerpolicy`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script#referrerpolicy)
+  /// of the `script` element, which defines how the referrer is set when
+  /// fetching the script and any scripts it imports.
   external String get referrerPolicy;
+  external set referrerPolicy(String value);
   external DOMTokenList get blocking;
-  external set fetchPriority(String value);
   external String get fetchPriority;
-  external set charset(String value);
+  external set fetchPriority(String value);
   external String get charset;
-  external set event(String value);
+  external set charset(String value);
   external String get event;
-  external set htmlFor(String value);
+  external set event(String value);
   external String get htmlFor;
+  external set htmlFor(String value);
 }
 
 /// The **`HTMLTemplateElement`** interface enables access to the contents of an
@@ -3665,11 +6282,14 @@ extension type HTMLTemplateElement._(JSObject _)
   /// Creates an [HTMLTemplateElement] using the tag 'template'.
   HTMLTemplateElement() : _ = document.createElement('template');
 
+  /// The **`HTMLTemplateElement.content`** property returns a
+  /// `<template>` element's template contents (a
+  /// [DocumentFragment]).
   external DocumentFragment get content;
-  external set shadowRootMode(String value);
   external String get shadowRootMode;
-  external set shadowRootDelegatesFocus(bool value);
+  external set shadowRootMode(String value);
   external bool get shadowRootDelegatesFocus;
+  external set shadowRootDelegatesFocus(bool value);
 }
 
 /// The **`HTMLSlotElement`** interface of the
@@ -3714,14 +6334,19 @@ extension type HTMLSlotElement._(JSObject _) implements HTMLElement, JSObject {
   /// > [created](https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow)
   /// > with the `slotAssignment: "manual"` option.
   external void assign(JSObject nodes);
-  external set name(String value);
+
+  /// The **`name`** property of the [HTMLSlotElement]
+  /// interface returns or sets the slot name. A slot is a placeholder inside a
+  /// web component
+  /// that users can fill with their own markup.
   external String get name;
+  external set name(String value);
 }
 extension type AssignedNodesOptions._(JSObject _) implements JSObject {
   external factory AssignedNodesOptions({bool flatten});
 
-  external set flatten(bool value);
   external bool get flatten;
+  external set flatten(bool value);
 }
 
 /// The **`HTMLCanvasElement`** interface provides properties and methods for
@@ -3800,10 +6425,34 @@ extension type HTMLCanvasElement._(JSObject _)
   /// control to an [OffscreenCanvas] object, either on the main thread or on a
   /// worker.
   external OffscreenCanvas transferControlToOffscreen();
-  external set width(int value);
+
+  /// The **`HTMLCanvasElement.width`** property is a
+  /// positive `integer` reflecting the
+  /// [`width`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas#width)
+  /// HTML
+  /// attribute of the `canvas` element interpreted in CSS pixels. When the
+  /// attribute is not specified, or if it is set to an invalid value, like a
+  /// negative, the
+  /// default value of `300` is used.
+  ///
+  /// This is one of the two properties, the other being
+  /// [HTMLCanvasElement.height], that controls the size of the canvas.
   external int get width;
-  external set height(int value);
+  external set width(int value);
+
+  /// The **`HTMLCanvasElement.height`** property is a
+  /// positive `integer` reflecting the
+  /// [`height`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas#height)
+  /// HTML
+  /// attribute of the `canvas` element interpreted in CSS pixels. When the
+  /// attribute is not specified, or if it is set to an invalid value, like a
+  /// negative, the
+  /// default value of `150` is used.
+  ///
+  /// This is one of the two properties, the other being
+  /// [HTMLCanvasElement.width], that controls the size of the canvas.
   external int get height;
+  external set height(int value);
 }
 extension type CanvasRenderingContext2DSettings._(JSObject _)
     implements JSObject {
@@ -3814,14 +6463,14 @@ extension type CanvasRenderingContext2DSettings._(JSObject _)
     bool willReadFrequently,
   });
 
-  external set alpha(bool value);
   external bool get alpha;
-  external set desynchronized(bool value);
+  external set alpha(bool value);
   external bool get desynchronized;
-  external set colorSpace(PredefinedColorSpace value);
+  external set desynchronized(bool value);
   external PredefinedColorSpace get colorSpace;
-  external set willReadFrequently(bool value);
+  external set colorSpace(PredefinedColorSpace value);
   external bool get willReadFrequently;
+  external set willReadFrequently(bool value);
 }
 
 /// The **`CanvasRenderingContext2D`** interface, part of the
@@ -4588,59 +7237,344 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
     num endAngle, [
     bool counterclockwise,
   ]);
+
+  /// The **`CanvasRenderingContext2D.canvas`** property, part of the
+  /// [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API),
+  /// is a read-only reference to the
+  /// [HTMLCanvasElement] object that is associated with a given context. It
+  /// might be
+  /// [`null`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/null)
+  /// if there is no associated `canvas` element.
   external HTMLCanvasElement get canvas;
-  external set globalAlpha(num value);
+
+  /// The
+  /// **`CanvasRenderingContext2D.globalAlpha`**
+  /// property of the Canvas 2D API specifies the alpha (transparency) value
+  /// that is applied
+  /// to shapes and images before they are drawn onto the canvas.
+  ///
+  /// > **Note:** See also the chapter
+  /// > [Applying styles and color](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors)
+  /// > in the
+  /// > [Canvas Tutorial](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial).
   external num get globalAlpha;
-  external set globalCompositeOperation(String value);
+  external set globalAlpha(num value);
+
+  /// The
+  /// **`CanvasRenderingContext2D.globalCompositeOperation`**
+  /// property of the Canvas 2D API sets the type of compositing operation to
+  /// apply when
+  /// drawing new shapes.
+  ///
+  /// See also
+  /// [Compositing and clipping](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Compositing)
+  /// in the
+  /// [Canvas Tutorial](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial).
   external String get globalCompositeOperation;
-  external set imageSmoothingEnabled(bool value);
+  external set globalCompositeOperation(String value);
+
+  /// The **`imageSmoothingEnabled`** property of the
+  /// [CanvasRenderingContext2D] interface, part of the
+  /// [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API),
+  /// determines whether scaled images
+  /// are smoothed (`true`, default) or not (`false`). On getting the
+  /// `imageSmoothingEnabled` property, the last value it was set to is
+  /// returned.
+  ///
+  /// This property is useful for games and other apps that use pixel art. When
+  /// enlarging
+  /// images, the default resizing algorithm will blur the pixels. Set this
+  /// property to
+  /// `false` to retain the pixels' sharpness.
+  ///
+  /// > **Note:** You can adjust the smoothing quality with the
+  /// > [CanvasRenderingContext2D.imageSmoothingQuality]
+  /// > property.
   external bool get imageSmoothingEnabled;
-  external set imageSmoothingQuality(ImageSmoothingQuality value);
+  external set imageSmoothingEnabled(bool value);
+
+  /// The **`imageSmoothingQuality`** property of the
+  /// [CanvasRenderingContext2D] interface, part of the
+  /// [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API),
+  /// lets you set the quality of
+  /// image smoothing.
+  ///
+  /// > **Note:** For this property to have an effect,
+  /// > [CanvasRenderingContext2D.imageSmoothingEnabled]
+  /// > must be `true`.
   external ImageSmoothingQuality get imageSmoothingQuality;
-  external set strokeStyle(JSAny value);
+  external set imageSmoothingQuality(ImageSmoothingQuality value);
+
+  /// The **`CanvasRenderingContext2D.strokeStyle`** property of the
+  /// Canvas 2D API specifies the color, gradient, or pattern to use for the
+  /// strokes
+  /// (outlines) around shapes. The default is `#000` (black).
+  ///
+  /// > **Note:** For more examples of stroke and fill styles, see
+  /// > [Applying styles and color](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors)
+  /// > in the
+  /// > [Canvas tutorial](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial).
   external JSAny get strokeStyle;
-  external set fillStyle(JSAny value);
+  external set strokeStyle(JSAny value);
+
+  /// The
+  /// **`CanvasRenderingContext2D.fillStyle`**
+  /// property of the
+  /// [Canvas 2D API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
+  /// specifies the
+  /// color, gradient, or pattern to use inside shapes. The default style is
+  /// `#000`
+  /// (black).
+  ///
+  /// > **Note:** For more examples of fill and stroke styles, see
+  /// > [Applying styles and color](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors)
+  /// > in the
+  /// > [Canvas tutorial](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial).
   external JSAny get fillStyle;
-  external set shadowOffsetX(num value);
+  external set fillStyle(JSAny value);
+
+  /// The
+  /// **`CanvasRenderingContext2D.shadowOffsetX`**
+  /// property of the Canvas 2D API specifies the distance that shadows will be
+  /// offset
+  /// horizontally.
+  ///
+  /// > **Note:** Shadows are only drawn if the
+  /// > [CanvasRenderingContext2D.shadowColor] property is set to
+  /// > a non-transparent value. One of the
+  /// > [CanvasRenderingContext2D.shadowBlur], `shadowOffsetX`, or
+  /// > [CanvasRenderingContext2D.shadowOffsetY] properties must
+  /// > be non-zero, as well.
   external num get shadowOffsetX;
-  external set shadowOffsetY(num value);
+  external set shadowOffsetX(num value);
+
+  /// The
+  /// **`CanvasRenderingContext2D.shadowOffsetY`**
+  /// property of the Canvas 2D API specifies the distance that shadows will be
+  /// offset
+  /// vertically.
+  ///
+  /// > **Note:** Shadows are only drawn if the
+  /// > [CanvasRenderingContext2D.shadowColor] property is set to
+  /// > a non-transparent value. One of the
+  /// > [CanvasRenderingContext2D.shadowBlur],
+  /// > [CanvasRenderingContext2D.shadowOffsetX], or `shadowOffsetY` properties
+  /// > must be non-zero, as
+  /// > well.
   external num get shadowOffsetY;
-  external set shadowBlur(num value);
+  external set shadowOffsetY(num value);
+
+  /// The
+  /// **`CanvasRenderingContext2D.shadowBlur`**
+  /// property of the Canvas 2D API specifies the amount of blur applied to
+  /// shadows. The
+  /// default is `0` (no blur).
+  ///
+  /// > **Note:** Shadows are only drawn if the
+  /// > [CanvasRenderingContext2D.shadowColor] property is set to
+  /// > a non-transparent value. One of the `shadowBlur`,
+  /// > [CanvasRenderingContext2D.shadowOffsetX], or
+  /// > [CanvasRenderingContext2D.shadowOffsetY] properties must
+  /// > be non-zero, as well.
   external num get shadowBlur;
-  external set shadowColor(String value);
+  external set shadowBlur(num value);
+
+  /// The
+  /// **`CanvasRenderingContext2D.shadowColor`**
+  /// property of the Canvas 2D API specifies the color of shadows.
+  ///
+  /// Be aware that the shadow's rendered opacity will be affected by the
+  /// opacity of the
+  /// [CanvasRenderingContext2D.fillStyle] color when filling, and
+  /// of the [CanvasRenderingContext2D.strokeStyle] color when
+  /// stroking.
+  ///
+  /// > **Note:** Shadows are only drawn if the `shadowColor`
+  /// > property is set to a non-transparent value. One of the
+  /// > [CanvasRenderingContext2D.shadowBlur],
+  /// > [CanvasRenderingContext2D.shadowOffsetX], or
+  /// > [CanvasRenderingContext2D.shadowOffsetY] properties must
+  /// > be non-zero, as well.
   external String get shadowColor;
-  external set filter(String value);
+  external set shadowColor(String value);
+
+  /// The
+  /// **`CanvasRenderingContext2D.filter`**
+  /// property of the Canvas 2D API provides filter effects such as blurring and
+  /// grayscaling.
+  /// It is similar to the CSS `filter` property and accepts the same values.
   external String get filter;
-  external set lineWidth(num value);
+  external set filter(String value);
+
+  /// The
+  /// **`CanvasRenderingContext2D.lineWidth`**
+  /// property of the Canvas 2D API sets the thickness of lines.
+  ///
+  /// > **Note:** Lines can be drawn with the
+  /// > [CanvasRenderingContext2D.stroke],
+  /// > [CanvasRenderingContext2D.strokeRect],
+  /// > and [CanvasRenderingContext2D.strokeText] methods.
   external num get lineWidth;
-  external set lineCap(CanvasLineCap value);
+  external set lineWidth(num value);
+
+  /// The
+  /// **`CanvasRenderingContext2D.lineCap`**
+  /// property of the Canvas 2D API determines the shape used to draw the end
+  /// points of lines.
+  ///
+  /// > **Note:** Lines can be drawn with the
+  /// > [CanvasRenderingContext2D.stroke],
+  /// > [CanvasRenderingContext2D.strokeRect],
+  /// > and [CanvasRenderingContext2D.strokeText] methods.
   external CanvasLineCap get lineCap;
-  external set lineJoin(CanvasLineJoin value);
+  external set lineCap(CanvasLineCap value);
+
+  /// The
+  /// **`CanvasRenderingContext2D.lineJoin`**
+  /// property of the Canvas 2D API determines the shape used to join two line
+  /// segments where
+  /// they meet.
+  ///
+  /// This property has no effect wherever two connected segments have the same
+  /// direction,
+  /// because no joining area will be added in this case. Degenerate segments
+  /// with a length of
+  /// zero (i.e., with all endpoints and control points at the exact same
+  /// position) are also
+  /// ignored.
+  ///
+  /// > **Note:** Lines can be drawn with the
+  /// > [CanvasRenderingContext2D.stroke],
+  /// > [CanvasRenderingContext2D.strokeRect],
+  /// > and [CanvasRenderingContext2D.strokeText] methods.
   external CanvasLineJoin get lineJoin;
-  external set miterLimit(num value);
+  external set lineJoin(CanvasLineJoin value);
+
+  /// The **`CanvasRenderingContext2D.miterLimit`** property of the
+  /// Canvas 2D API sets the miter limit ratio.
+  ///
+  /// > **Note:** For more info about miters, see
+  /// > [Applying styles and color](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors)
+  /// > in the
+  /// > [Canvas tutorial](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial).
   external num get miterLimit;
-  external set lineDashOffset(num value);
+  external set miterLimit(num value);
+
+  /// The
+  /// **`CanvasRenderingContext2D.lineDashOffset`**
+  /// property of the Canvas 2D API sets the line dash offset, or "phase."
+  ///
+  /// > **Note:** Lines are drawn by calling the
+  /// > [CanvasRenderingContext2D.stroke] method.
   external num get lineDashOffset;
-  external set font(String value);
+  external set lineDashOffset(num value);
+
+  /// The **`CanvasRenderingContext2D.font`** property of the Canvas 2D API
+  /// specifies the current text style to use when drawing text.
+  /// This string uses the same syntax as the
+  /// [CSS font](https://developer.mozilla.org/en-US/docs/Web/CSS/font)
+  /// specifier.
   external String get font;
-  external set textAlign(CanvasTextAlign value);
+  external set font(String value);
+
+  /// The
+  /// **`CanvasRenderingContext2D.textAlign`**
+  /// property of the Canvas 2D API specifies the current text alignment used
+  /// when drawing
+  /// text.
+  ///
+  /// The alignment is relative to the `x` value of the
+  /// [CanvasRenderingContext2D.fillText] method. For example, if
+  /// `textAlign` is `"center"`, then the text's left edge will be at
+  /// `x - (textWidth / 2)`.
   external CanvasTextAlign get textAlign;
-  external set textBaseline(CanvasTextBaseline value);
+  external set textAlign(CanvasTextAlign value);
+
+  /// The
+  /// **`CanvasRenderingContext2D.textBaseline`**
+  /// property of the Canvas 2D API specifies the current text baseline used
+  /// when drawing
+  /// text.
   external CanvasTextBaseline get textBaseline;
-  external set direction(CanvasDirection value);
+  external set textBaseline(CanvasTextBaseline value);
+
+  /// The
+  /// **`CanvasRenderingContext2D.direction`**
+  /// property of the Canvas 2D API specifies the current text direction used to
+  /// draw text.
   external CanvasDirection get direction;
-  external set letterSpacing(String value);
+  external set direction(CanvasDirection value);
+
+  /// The **`CanvasRenderingContext2D.letterSpacing`** property of the
+  /// [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
+  /// specifies the spacing between letters when drawing text.
+  ///
+  /// This corresponds to the CSS
+  /// [`letter-spacing`](https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing)
+  /// property.
   external String get letterSpacing;
-  external set fontKerning(CanvasFontKerning value);
+  external set letterSpacing(String value);
+
+  /// The **`CanvasRenderingContext2D.fontKerning`** property of the
+  /// [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
+  /// specifies how font kerning information is used.
+  ///
+  /// Kerning adjusts how adjacent letters are spaced in a proportional font,
+  /// allowing them to edge into each other's visual area if there is space
+  /// available.
+  /// For example, in well-kerned fonts, the characters `AV`, `Ta` and `We` nest
+  /// together and make character spacing more uniform and pleasant to read than
+  /// the equivalent text without kerning.
+  ///
+  /// The property corresponds to the
+  /// [`font-kerning`](https://developer.mozilla.org/en-US/docs/Web/CSS/font-kerning)
+  /// CSS property.
   external CanvasFontKerning get fontKerning;
-  external set fontStretch(CanvasFontStretch value);
+  external set fontKerning(CanvasFontKerning value);
+
+  /// The **`CanvasRenderingContext2D.fontStretch`** property of the
+  /// [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
+  /// specifies how the font may be expanded or condensed when drawing text.
+  ///
+  /// The property corresponds to the
+  /// [`font-stretch`](https://developer.mozilla.org/en-US/docs/Web/CSS/font-stretch)
+  /// CSS property when used with keywords (percentage values are not
+  /// supported).
   external CanvasFontStretch get fontStretch;
-  external set fontVariantCaps(CanvasFontVariantCaps value);
+  external set fontStretch(CanvasFontStretch value);
+
+  /// The **`CanvasRenderingContext2D.fontVariantCaps`** property of the
+  /// [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
+  /// specifies an alternative capitalization of the rendered text.
+  ///
+  /// This corresponds to the CSS
+  /// [`font-variant-caps`](https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-caps)
+  /// property.
   external CanvasFontVariantCaps get fontVariantCaps;
-  external set textRendering(CanvasTextRendering value);
+  external set fontVariantCaps(CanvasFontVariantCaps value);
+
+  /// The **`CanvasRenderingContext2D.textRendering`** property of the
+  /// [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
+  /// provides information to the rendering engine about what to optimize for
+  /// when rendering text.
+  ///
+  /// The values correspond to the SVG
+  /// [`text-rendering`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-rendering)
+  /// attribute (and CSS
+  /// [`text-rendering`](https://developer.mozilla.org/en-US/docs/Web/CSS/text-rendering)
+  /// property).
   external CanvasTextRendering get textRendering;
-  external set wordSpacing(String value);
+  external set textRendering(CanvasTextRendering value);
+
+  /// The **`CanvasRenderingContext2D.wordSpacing`** property of the
+  /// [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
+  /// specifies the spacing between words when drawing text.
+  ///
+  /// This corresponds to the CSS
+  /// [`word-spacing`](https://developer.mozilla.org/en-US/docs/Web/CSS/word-spacing)
+  /// property.
   external String get wordSpacing;
+  external set wordSpacing(String value);
 }
 
 /// The **`CanvasGradient`** interface represents an
@@ -4693,24 +7627,86 @@ extension type CanvasPattern._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TextMetrics).
 extension type TextMetrics._(JSObject _) implements JSObject {
+  /// The read-only **`width`** property of the [TextMetrics] interface contains
+  /// the text's advance width (the width of that inline box) in CSS pixels.
   external num get width;
+
+  /// The read-only `actualBoundingBoxLeft` property of the [TextMetrics]
+  /// interface is a `double` giving the distance parallel to the baseline from
+  /// the alignment point given by the [CanvasRenderingContext2D.textAlign]
+  /// property to the left side of the bounding rectangle of the given text, in
+  /// CSS pixels; positive numbers indicating a distance going left from the
+  /// given alignment point.
   external num get actualBoundingBoxLeft;
+
+  /// The read-only `actualBoundingBoxRight` property of the [TextMetrics]
+  /// interface is a `double` giving the distance parallel to the baseline from
+  /// the alignment point given by the [CanvasRenderingContext2D.textAlign]
+  /// property to the right side of the bounding rectangle of the given text, in
+  /// CSS pixels.
   external num get actualBoundingBoxRight;
+
+  /// The read-only `fontBoundingBoxAscent` property of the [TextMetrics]
+  /// interface returns the distance from the horizontal line indicated by the
+  /// [CanvasRenderingContext2D.textBaseline] attribute, to the top of the
+  /// highest bounding rectangle of all the fonts used to render the text, in
+  /// CSS pixels.
   external num get fontBoundingBoxAscent;
+
+  /// The read-only `fontBoundingBoxDescent` property of the [TextMetrics]
+  /// interface returns the distance from the horizontal line indicated by the
+  /// [CanvasRenderingContext2D.textBaseline] attribute to the bottom of the
+  /// bounding rectangle of all the fonts used to render the text, in CSS
+  /// pixels.
   external num get fontBoundingBoxDescent;
+
+  /// The read-only **`actualBoundingBoxAscent`** property of the [TextMetrics]
+  /// interface is a `double` giving the distance from the horizontal line
+  /// indicated by the [CanvasRenderingContext2D.textBaseline] attribute to the
+  /// top of the bounding rectangle used to render the text, in CSS pixels.
   external num get actualBoundingBoxAscent;
+
+  /// The read-only `actualBoundingBoxDescent` property of the [TextMetrics]
+  /// interface is a `double` giving the distance from the horizontal line
+  /// indicated by the [CanvasRenderingContext2D.textBaseline] attribute to the
+  /// bottom of the bounding rectangle used to render the text, in CSS pixels.
   external num get actualBoundingBoxDescent;
+
+  /// The read-only `emHeightAscent` property of the [TextMetrics] interface
+  /// returns the distance from the horizontal line indicated by the
+  /// [CanvasRenderingContext2D.textBaseline] property to the top of the _em_
+  /// square in the line box, in CSS pixels.
   external num get emHeightAscent;
+
+  /// The read-only `emHeightDescent` property of the [TextMetrics] interface
+  /// returns the distance from the horizontal line indicated by the
+  /// [CanvasRenderingContext2D.textBaseline] property to the bottom of the _em_
+  /// square in the line box, in CSS pixels.
   external num get emHeightDescent;
+
+  /// The read-only `hangingBaseline` property of the [TextMetrics] interface is
+  /// a `double` giving the distance from the horizontal line indicated by the
+  /// [CanvasRenderingContext2D.textBaseline] property to the hanging baseline
+  /// of the line box, in CSS pixels.
   external num get hangingBaseline;
+
+  /// The read-only `alphabeticBaseline` property of the [TextMetrics] interface
+  /// is a `double` giving the distance from the horizontal line indicated by
+  /// the [CanvasRenderingContext2D.textBaseline] property to the alphabetic
+  /// baseline of the line box, in CSS pixels.
   external num get alphabeticBaseline;
+
+  /// The read-only `ideographicBaseline` property of the [TextMetrics]
+  /// interface is a `double` giving the distance from the horizontal line
+  /// indicated by the [CanvasRenderingContext2D.textBaseline] property to the
+  /// ideographic baseline of the line box, in CSS pixels.
   external num get ideographicBaseline;
 }
 extension type ImageDataSettings._(JSObject _) implements JSObject {
   external factory ImageDataSettings({PredefinedColorSpace colorSpace});
 
-  external set colorSpace(PredefinedColorSpace value);
   external PredefinedColorSpace get colorSpace;
+  external set colorSpace(PredefinedColorSpace value);
 }
 
 /// The **`ImageData`** interface represents the underlying pixel data of an
@@ -4734,9 +7730,30 @@ extension type ImageData._(JSObject _) implements JSObject {
     ImageDataSettings settings,
   ]);
 
+  /// The readonly **`ImageData.width`** property returns the number
+  /// of pixels per row in the [ImageData] object.
   external int get width;
+
+  /// The readonly **`ImageData.height`** property returns the number
+  /// of rows in the [ImageData] object.
   external int get height;
+
+  /// The readonly **`ImageData.data`** property returns a
+  /// `Uint8ClampedArray` that contains the [ImageData] object's
+  /// pixel data. Data is stored as a one-dimensional array in the RGBA order,
+  /// with integer
+  /// values between `0` and `255` (inclusive).
   external JSUint8ClampedArray get data;
+
+  /// The read-only **`ImageData.colorSpace`** property is a string indicating
+  /// the color space of the image data.
+  ///
+  /// The color space can be set during `ImageData` initialization using either
+  /// the
+  /// [`ImageData()`](https://developer.mozilla.org/en-US/docs/Web/API/ImageData/ImageData)
+  /// constructor or the
+  /// [`createImageData()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/createImageData)
+  /// method.
   external PredefinedColorSpace get colorSpace;
 }
 
@@ -4856,8 +7873,8 @@ extension type ImageBitmapRenderingContextSettings._(JSObject _)
     implements JSObject {
   external factory ImageBitmapRenderingContextSettings({bool alpha});
 
-  external set alpha(bool value);
   external bool get alpha;
+  external set alpha(bool value);
 }
 extension type ImageEncodeOptions._(JSObject _) implements JSObject {
   external factory ImageEncodeOptions({
@@ -4865,10 +7882,10 @@ extension type ImageEncodeOptions._(JSObject _) implements JSObject {
     num quality,
   });
 
-  external set type(String value);
   external String get type;
-  external set quality(num value);
+  external set type(String value);
   external num get quality;
+  external set quality(num value);
 }
 
 /// When using the `canvas` element or the
@@ -4926,14 +7943,20 @@ extension type OffscreenCanvas._(JSObject _) implements EventTarget, JSObject {
   /// The created image will have a resolution of 96dpi for file formats that
   /// support encoding resolution metadata.
   external JSPromise<Blob> convertToBlob([ImageEncodeOptions options]);
-  external set width(int value);
+
+  /// The **`width`** property returns and sets the width of an
+  /// [OffscreenCanvas] object.
   external int get width;
-  external set height(int value);
+  external set width(int value);
+
+  /// The **`height`** property returns and sets the height of an
+  /// [OffscreenCanvas] object.
   external int get height;
-  external set oncontextlost(EventHandler value);
+  external set height(int value);
   external EventHandler get oncontextlost;
-  external set oncontextrestored(EventHandler value);
+  external set oncontextlost(EventHandler value);
   external EventHandler get oncontextrestored;
+  external set oncontextrestored(EventHandler value);
 }
 
 /// The **`OffscreenCanvasRenderingContext2D`** interface is a
@@ -5167,58 +8190,58 @@ extension type OffscreenCanvasRenderingContext2D._(JSObject _)
     bool counterclockwise,
   ]);
   external OffscreenCanvas get canvas;
-  external set globalAlpha(num value);
   external num get globalAlpha;
-  external set globalCompositeOperation(String value);
+  external set globalAlpha(num value);
   external String get globalCompositeOperation;
-  external set imageSmoothingEnabled(bool value);
+  external set globalCompositeOperation(String value);
   external bool get imageSmoothingEnabled;
-  external set imageSmoothingQuality(ImageSmoothingQuality value);
+  external set imageSmoothingEnabled(bool value);
   external ImageSmoothingQuality get imageSmoothingQuality;
-  external set strokeStyle(JSAny value);
+  external set imageSmoothingQuality(ImageSmoothingQuality value);
   external JSAny get strokeStyle;
-  external set fillStyle(JSAny value);
+  external set strokeStyle(JSAny value);
   external JSAny get fillStyle;
-  external set shadowOffsetX(num value);
+  external set fillStyle(JSAny value);
   external num get shadowOffsetX;
-  external set shadowOffsetY(num value);
+  external set shadowOffsetX(num value);
   external num get shadowOffsetY;
-  external set shadowBlur(num value);
+  external set shadowOffsetY(num value);
   external num get shadowBlur;
-  external set shadowColor(String value);
+  external set shadowBlur(num value);
   external String get shadowColor;
-  external set filter(String value);
+  external set shadowColor(String value);
   external String get filter;
-  external set lineWidth(num value);
+  external set filter(String value);
   external num get lineWidth;
-  external set lineCap(CanvasLineCap value);
+  external set lineWidth(num value);
   external CanvasLineCap get lineCap;
-  external set lineJoin(CanvasLineJoin value);
+  external set lineCap(CanvasLineCap value);
   external CanvasLineJoin get lineJoin;
-  external set miterLimit(num value);
+  external set lineJoin(CanvasLineJoin value);
   external num get miterLimit;
-  external set lineDashOffset(num value);
+  external set miterLimit(num value);
   external num get lineDashOffset;
-  external set font(String value);
+  external set lineDashOffset(num value);
   external String get font;
-  external set textAlign(CanvasTextAlign value);
+  external set font(String value);
   external CanvasTextAlign get textAlign;
-  external set textBaseline(CanvasTextBaseline value);
+  external set textAlign(CanvasTextAlign value);
   external CanvasTextBaseline get textBaseline;
-  external set direction(CanvasDirection value);
+  external set textBaseline(CanvasTextBaseline value);
   external CanvasDirection get direction;
-  external set letterSpacing(String value);
+  external set direction(CanvasDirection value);
   external String get letterSpacing;
-  external set fontKerning(CanvasFontKerning value);
+  external set letterSpacing(String value);
   external CanvasFontKerning get fontKerning;
-  external set fontStretch(CanvasFontStretch value);
+  external set fontKerning(CanvasFontKerning value);
   external CanvasFontStretch get fontStretch;
-  external set fontVariantCaps(CanvasFontVariantCaps value);
+  external set fontStretch(CanvasFontStretch value);
   external CanvasFontVariantCaps get fontVariantCaps;
-  external set textRendering(CanvasTextRendering value);
+  external set fontVariantCaps(CanvasFontVariantCaps value);
   external CanvasTextRendering get textRendering;
-  external set wordSpacing(String value);
+  external set textRendering(CanvasTextRendering value);
   external String get wordSpacing;
+  external set wordSpacing(String value);
 }
 
 /// The **`CustomElementRegistry`** interface provides methods for registering
@@ -5264,9 +8287,9 @@ extension type ElementDefinitionOptions._(JSObject _) implements JSObject {
   external factory ElementDefinitionOptions({String extends_});
 
   @JS('extends')
-  external set extends_(String value);
-  @JS('extends')
   external String get extends_;
+  @JS('extends')
+  external set extends_(String value);
 }
 
 /// The **`ElementInternals`** interface of the
@@ -5322,12 +8345,43 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// however it additionally sends the value of
   /// [ElementInternals.validationMessage] to the user agent for display.
   external bool reportValidity();
+
+  /// The **`shadowRoot`** read-only property of the [ElementInternals]
+  /// interface returns the [ShadowRoot] for this element.
   external ShadowRoot? get shadowRoot;
+
+  /// The **`form`** read-only property of the [ElementInternals] interface
+  /// returns the [HTMLFormElement] associated with this element.
   external HTMLFormElement? get form;
+
+  /// The **`willValidate`** read-only property of the [ElementInternals]
+  /// interface returns `true` if the element is a submittable element that is a
+  /// candidate for
+  /// [constraint validation](https://developer.mozilla.org/en-US/docs/Web/HTML/Constraint_validation).
+  ///
+  /// Elements that are barred from being candidates for constraint validation
+  /// include those that have the attributes: `disabled`, `hidden` or
+  /// `readonly`, input elements of `type=button` or `type=reset`, or any
+  /// element that is a `datalist` element or has a `<datalist>` element
+  /// ancestor.
   external bool get willValidate;
+
+  /// The **`validity`** read-only property of the [ElementInternals] interface
+  /// returns a [ValidityState] object which represents the different validity
+  /// states the element can be in, with respect to constraint validation.
   external ValidityState get validity;
+
+  /// The **`validationMessage`** read-only property of the [ElementInternals]
+  /// interface returns the validation message for the element.
   external String get validationMessage;
+
+  /// The **`labels`** read-only property of the [ElementInternals] interface
+  /// returns the labels associated with the element.
   external NodeList get labels;
+
+  /// The **`states`** read-only property of the [ElementInternals] interface
+  /// returns a [CustomStateSet] representing the possible states of the custom
+  /// element.
   external CustomStateSet get states;
 }
 extension type ValidityStateFlags._(JSObject _) implements JSObject {
@@ -5344,26 +8398,26 @@ extension type ValidityStateFlags._(JSObject _) implements JSObject {
     bool customError,
   });
 
-  external set valueMissing(bool value);
   external bool get valueMissing;
-  external set typeMismatch(bool value);
+  external set valueMissing(bool value);
   external bool get typeMismatch;
-  external set patternMismatch(bool value);
+  external set typeMismatch(bool value);
   external bool get patternMismatch;
-  external set tooLong(bool value);
+  external set patternMismatch(bool value);
   external bool get tooLong;
-  external set tooShort(bool value);
+  external set tooLong(bool value);
   external bool get tooShort;
-  external set rangeUnderflow(bool value);
+  external set tooShort(bool value);
   external bool get rangeUnderflow;
-  external set rangeOverflow(bool value);
+  external set rangeUnderflow(bool value);
   external bool get rangeOverflow;
-  external set stepMismatch(bool value);
+  external set rangeOverflow(bool value);
   external bool get stepMismatch;
-  external set badInput(bool value);
+  external set stepMismatch(bool value);
   external bool get badInput;
-  external set customError(bool value);
+  external set badInput(bool value);
   external bool get customError;
+  external set customError(bool value);
 }
 
 /// The **`CustomStateSet`** interface of the
@@ -5426,7 +8480,12 @@ extension type VisibilityStateEntry._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/UserActivation).
 extension type UserActivation._(JSObject _) implements JSObject {
+  /// The read-only **`hasBeenActive`** property of the [UserActivation]
+  /// interface indicates whether the current window has .
   external bool get hasBeenActive;
+
+  /// The read-only **`isActive`** property of the [UserActivation] interface
+  /// indicates whether the current window has .
   external bool get isActive;
 }
 
@@ -5455,7 +8514,12 @@ extension type ToggleEvent._(JSObject _) implements Event, JSObject {
     ToggleEventInit eventInitDict,
   ]);
 
+  /// The **`oldState`** read-only property of the [ToggleEvent] interface is a
+  /// string representing the state the element is transitioning from.
   external String get oldState;
+
+  /// The **`newState`** read-only property of the [ToggleEvent] interface is a
+  /// string representing the state the element is transitioning to.
   external String get newState;
 }
 extension type ToggleEventInit._(JSObject _) implements EventInit, JSObject {
@@ -5467,10 +8531,10 @@ extension type ToggleEventInit._(JSObject _) implements EventInit, JSObject {
     String newState,
   });
 
-  external set oldState(String value);
   external String get oldState;
-  external set newState(String value);
+  external set oldState(String value);
   external String get newState;
+  external set newState(String value);
 }
 extension type FocusOptions._(JSObject _) implements JSObject {
   external factory FocusOptions({
@@ -5478,10 +8542,10 @@ extension type FocusOptions._(JSObject _) implements JSObject {
     bool focusVisible,
   });
 
-  external set preventScroll(bool value);
   external bool get preventScroll;
-  external set focusVisible(bool value);
+  external set preventScroll(bool value);
   external bool get focusVisible;
+  external set focusVisible(bool value);
 }
 extension type CloseWatcher._(JSObject _) implements EventTarget, JSObject {
   external factory CloseWatcher([CloseWatcherOptions options]);
@@ -5489,16 +8553,16 @@ extension type CloseWatcher._(JSObject _) implements EventTarget, JSObject {
   external void requestClose();
   external void close();
   external void destroy();
-  external set oncancel(EventHandler value);
   external EventHandler get oncancel;
-  external set onclose(EventHandler value);
+  external set oncancel(EventHandler value);
   external EventHandler get onclose;
+  external set onclose(EventHandler value);
 }
 extension type CloseWatcherOptions._(JSObject _) implements JSObject {
   external factory CloseWatcherOptions({AbortSignal signal});
 
-  external set signal(AbortSignal value);
   external AbortSignal get signal;
+  external set signal(AbortSignal value);
 }
 
 /// The **`DataTransfer`** object is used to hold the data that is being dragged
@@ -5586,12 +8650,102 @@ extension type DataTransfer._(JSObject _) implements JSObject {
   /// > because that's the only time the drag operation's data store is
   /// > writable.
   external void clearData([String format]);
-  external set dropEffect(String value);
+
+  /// The **`DataTransfer.dropEffect`** property controls the
+  /// feedback (typically visual) the user is given during a drag and drop
+  /// operation. It will
+  /// affect which cursor is displayed while dragging. For example, when the
+  /// user hovers over
+  /// a target drop element, the browser's cursor may indicate which type of
+  /// operation will
+  /// occur.
+  ///
+  /// When the [DataTransfer] object is created, `dropEffect` is set
+  /// to a string value. On getting, it returns its current value. On setting,
+  /// if the new
+  /// value is one of the values listed below, then the property's current value
+  /// will be set
+  /// to the new value and other values will be ignored.
+  ///
+  /// For the [HTMLElement.dragenter_event] and [HTMLElement.dragover_event]
+  /// events,
+  /// `dropEffect` will be initialized based on what action the user is
+  /// requesting.
+  /// How this is determined is platform specific, but typically the user can
+  /// press modifier
+  /// keys such as the alt key to adjust the desired action. Within event
+  /// handlers for
+  /// [HTMLElement.dragenter_event] and [HTMLElement.dragover_event] events,
+  /// `dropEffect` should
+  /// be modified if a different action is desired than the action that the user
+  /// is
+  /// requesting.
+  ///
+  /// For the [HTMLElement.drop_event] and [HTMLElement.dragend_event] events,
+  /// `dropEffect` will
+  /// be set to the action that was desired, which will be the value
+  /// `dropEffect`
+  /// had after the last [HTMLElement.dragenter_event] or
+  /// [HTMLElement.dragover_event] event. In a
+  /// [HTMLElement.dragend_event] event, for instance, if the desired dropEffect
+  /// is "move", then the
+  /// data being dragged should be removed from the source.
   external String get dropEffect;
-  external set effectAllowed(String value);
+  external set dropEffect(String value);
+
+  /// The **`DataTransfer.effectAllowed`** property specifies the
+  /// effect that is allowed for a drag operation. The _copy_ operation is used
+  /// to
+  /// indicate that the data being dragged will be copied from its present
+  /// location to the
+  /// drop location. The _move_ operation is used to indicate that the data
+  /// being
+  /// dragged will be moved, and the _link_ operation is used to indicate that
+  /// some
+  /// form of relationship or connection will be created between the source and
+  /// drop
+  /// locations.
+  ///
+  /// This property should be set in the [HTMLElement.dragstart_event] event to
+  /// set the desired drag
+  /// effect for the drag source. Within the [HTMLElement.dragenter_event] and
+  /// [HTMLElement.dragover_event]
+  /// event handlers, this property will be set to whatever value was assigned
+  /// during the
+  /// [HTMLElement.dragstart_event] event, thus `effectAllowed` may be used to
+  /// determine
+  /// which effect is permitted.
+  ///
+  /// Assigning a value to `effectAllowed` in events other than
+  /// [HTMLElement.dragstart_event] has no effect.
   external String get effectAllowed;
+  external set effectAllowed(String value);
+
+  /// The read-only [DataTransfer] property `items` property is a
+  /// [DataTransferItemList] of the [DataTransferItem] in a drag operation. The
+  /// list includes one item for each item in the operation and if the operation
+  /// had no items, the list is empty.
   external DataTransferItemList get items;
+
+  /// The **`DataTransfer.types`** read-only property returns the available
+  /// types
+  /// that exist in the [DataTransfer.items].
   external JSArray<JSString> get types;
+
+  /// The **`files`** read-only property of
+  /// [`DataTransfer`](https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer)
+  /// objects is a [FileList] in the drag operation. If the operation includes
+  /// no files, the list is empty.
+  ///
+  /// This feature can be used to drag files from a user's desktop to the
+  /// browser.
+  ///
+  /// > **Note:** The `files` property of
+  /// > [`DataTransfer`](https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer)
+  /// > objects can only be accessed from within the `drop` event. For all other
+  /// > events, the `files` property will be empty — because its underlying data
+  /// > store will be in a
+  /// > [protected mode](https://html.spec.whatwg.org/multipage/dnd.html#the-drag-data-store).
   external FileList get files;
 }
 
@@ -5640,6 +8794,10 @@ extension type DataTransferItemList._(JSObject _) implements JSObject {
   /// in read-only mode, and this method silently does nothing. No exception is
   /// thrown.
   external void clear();
+
+  /// The read-only **`length`** property of the
+  /// [DataTransferItemList] interface returns the number of items currently in
+  /// the drag item list.
   external int get length;
 }
 
@@ -5676,7 +8834,18 @@ extension type DataTransferItem._(JSObject _) implements JSObject {
   /// returns the drag data item's [File] object.
   /// If the item is not a file, this method returns `null`.
   external File? getAsFile();
+
+  /// The read-only **`DataTransferItem.kind`** property returns the kind–a
+  /// string or a file–of the [DataTransferItem] object representing the _drag
+  /// data item_.
   external String get kind;
+
+  /// The read-only **`DataTransferItem.type`** property returns the type
+  /// (format) of the [DataTransferItem] object representing the drag data item.
+  /// The `type` is a Unicode string generally given by a MIME type, although a
+  /// MIME type is not required.
+  ///
+  /// Some example types are: `text/plain` and `text/html`.
   external String get type;
 }
 
@@ -5698,6 +8867,8 @@ extension type DragEvent._(JSObject _) implements MouseEvent, JSObject {
     DragEventInit eventInitDict,
   ]);
 
+  /// The **`DragEvent.dataTransfer`** read-only property holds the drag
+  /// operation's data (as a [DataTransfer] object).
   external DataTransfer? get dataTransfer;
 }
 extension type DragEventInit._(JSObject _) implements MouseEventInit, JSObject {
@@ -5732,8 +8903,8 @@ extension type DragEventInit._(JSObject _) implements MouseEventInit, JSObject {
     DataTransfer? dataTransfer,
   });
 
-  external set dataTransfer(DataTransfer? value);
   external DataTransfer? get dataTransfer;
+  external set dataTransfer(DataTransfer? value);
 }
 @JS()
 external Window get window;
@@ -6049,296 +9220,673 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// animation frame request previously scheduled through a call to
   /// [window.requestAnimationFrame].
   external void cancelAnimationFrame(int handle);
+
+  /// The [Window] property **`screen`** returns a
+  /// reference to the screen object associated with the window. The `screen`
+  /// object, implementing the [Screen] interface, is a special object for
+  /// inspecting properties of the screen on which the current window is being
+  /// rendered.
   external Screen get screen;
+
+  /// The **`visualViewport`** read-only property of the [Window] interface
+  /// returns a [VisualViewport] object representing the visual viewport for a
+  /// given window, or `null` if current document is not fully active.
   external VisualViewport? get visualViewport;
+
+  /// The read-only [Window] property **`innerWidth`** returns the interior
+  /// width of the window in pixels (that is, the width of the window's ). That
+  /// includes the width of the vertical scroll bar, if one is present.
+  ///
+  /// Similarly, the interior height of the window (that is, the height of the
+  /// layout viewport) can be obtained using the [Window.innerHeight] property.
+  /// That measurement also accounts for the height of the horizontal scroll
+  /// bar, if it is visible.
   external int get innerWidth;
+
+  /// The read-only **`innerHeight`** property of the
+  /// [Window] interface returns the interior height of the window in pixels,
+  /// including the height of the horizontal scroll bar, if present.
+  ///
+  /// The value of `innerHeight` is taken from the height of the window's
+  /// . The width can be obtained using the
+  /// [Window.innerWidth] property.
   external int get innerHeight;
+
+  /// The read-only **`scrollX`** property of the
+  /// [Window] interface returns the number of pixels that the document is
+  /// currently scrolled horizontally. This value is subpixel precise in modern
+  /// browsers,
+  /// meaning that it isn't necessarily a whole number. You can get the number
+  /// of pixels the
+  /// document is scrolled vertically from the [Window.scrollY]
+  /// property.
   external num get scrollX;
   external num get pageXOffset;
+
+  /// The read-only **`scrollY`** property
+  /// of the [Window] interface returns the number of pixels that the document
+  /// is currently scrolled vertically.
+  ///
+  /// This value is subpixel precise in modern
+  /// browsers, meaning that it isn't necessarily a whole number. You can get
+  /// the number of
+  /// pixels the document is scrolled horizontally from the [Window.scrollX]
+  /// property.
   external num get scrollY;
   external num get pageYOffset;
+
+  /// The **`Window.screenX`** read-only property returns the
+  /// horizontal distance, in CSS pixels, of the left border of the user's
+  /// browser viewport to
+  /// the left side of the screen.
+  ///
+  /// > **Note:** An alias of `screenX` was implemented across modern
+  /// > browsers in more recent times — [Window.screenLeft]. This was originally
+  /// > supported only in IE but was introduced everywhere due to popularity.
   external int get screenX;
+
+  /// The **`Window.screenLeft`** read-only property returns the
+  /// horizontal distance, in CSS pixels, from the left border of the user's
+  /// browser viewport
+  /// to the left side of the screen.
+  ///
+  /// > **Note:** `screenLeft` is an alias of the older
+  /// > [Window.screenX] property. `screenLeft` was originally
+  /// > supported only in IE but was introduced everywhere due to popularity.
   external int get screenLeft;
+
+  /// The **`Window.screenY`** read-only property returns the vertical distance,
+  /// in CSS pixels, of the top border of the user's browser viewport to the top
+  /// edge of the screen.
+  ///
+  /// > **Note:** An alias of `screenY` was implemented across modern browsers
+  /// > in more recent times — [Window.screenTop]. This was originally supported
+  /// > only in IE but was introduced everywhere due to popularity.
   external int get screenY;
+
+  /// The **`Window.screenTop`** read-only property returns the
+  /// vertical distance, in CSS pixels, from the top border of the user's
+  /// browser viewport to
+  /// the top side of the screen.
+  ///
+  /// > **Note:** `screenTop` is an alias of the older
+  /// > [Window.screenY] property. `screenTop` was originally
+  /// > supported only in IE but was introduced everywhere due to popularity.
   external int get screenTop;
+
+  /// **`Window.outerWidth`** read-only property returns the width of the
+  /// outside of the browser window. It represents the width of the whole
+  /// browser window including sidebar (if expanded), window chrome and window
+  /// resizing borders/handles.
   external int get outerWidth;
+
+  /// The **`Window.outerHeight`** read-only property returns the height in
+  /// pixels of the whole browser window, including any sidebar, window chrome,
+  /// and window-resizing borders/handles.
   external int get outerHeight;
+
+  /// The **`devicePixelRatio`** of
+  /// [Window] interface returns the ratio of the resolution in _physical
+  /// pixels_ to the resolution in _CSS pixels_ for the current display
+  /// device.
+  ///
+  /// This value could also be interpreted as the ratio of pixel sizes: the
+  /// size of one _CSS pixel_ to the size of one _physical pixel_. In simpler
+  /// terms, this tells the browser how many of the screen's actual pixels
+  /// should be used to
+  /// draw a single CSS pixel.
+  ///
+  /// This is useful when dealing with the difference between rendering on a
+  /// standard display
+  /// versus a HiDPI or Retina display, which use more screen pixels to draw the
+  /// same objects,
+  /// resulting in a sharper image.
+  ///
+  /// You can use [Window.matchMedia] to check if the
+  /// value of `devicePixelRatio` changes (which can happen, for example, if the
+  /// user drags the window to a display with a different pixel density). See
+  /// [the example below](#monitoring_screen_resolution_or_zoom_level_changes).
   external num get devicePixelRatio;
+
+  /// The read-only [Window] property **`event`** returns the [Event] which is
+  /// currently being handled by the site's code. Outside the context of an
+  /// event handler, the value is always `undefined`.
+  ///
+  /// You _should_ avoid using this property in new code, and should instead use
+  /// the [Event] passed into the event handler function. This property is not
+  /// universally supported and even when supported introduces potential
+  /// fragility to your code.
+  ///
+  /// > **Note:** This property can be fragile, in that there may be situations
+  /// > in which the returned `Event` is not the expected value. In addition,
+  /// > `Window.event` is not accurate for events dispatched within .
   external Event? get event;
+
+  /// The **`window`** property of a [Window] object points to the window object
+  /// itself.
+  ///
+  /// Thus, the following expressions all return the same window object:
+  ///
+  /// ```js
+  /// window.window;
+  /// window.window.window;
+  /// window.window.window.window;
+  /// // …
+  /// ```
+  ///
+  /// In web pages, the window object is also a _global object_. This means:
+  ///
+  /// 1. Global variables of your script are, in fact, properties of `window`:
+  ///
+  /// ```js
+  /// var global = { data: 0 };
+  /// alert(global === window.global); // displays "true"
+  /// ```
+  ///
+  /// 2. You can access the built-in properties of the window object without
+  /// having to prefix them with `window.`:
+  ///
+  /// ```js
+  /// setTimeout("alert('Hi!')", 50); // equivalent to using
+  /// window.setTimeout().
+  /// alert(window === window.window); // displays "true"
+  /// ```
+  ///
+  /// The point of having the `window` property refer to the object itself, was
+  /// likely to make it easy to refer to the global object. Otherwise, you'd
+  /// have to do a manual `let window = this;` assignment at the top of your
+  /// script.
+  ///
+  /// Another reason, is that without this property you wouldn't be able to
+  /// write, for example, "". You'd have to use `open('https://google.com/')`
+  /// instead.
+  ///
+  /// Yet another reason to use this property, is for libraries which wish to
+  /// offer OOP-versions, and non-OOP versions (especially JavaScript modules).
+  /// For example, if we refer to "this.window\.location.href", a
+  /// [JavaScript module](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
+  /// could define a property called "window" inside of a class it defined
+  /// (since no global "window" variable exists for it by default) which could
+  /// be created after passing in a window object to the module class'
+  /// constructor. Thus, "this.window" inside of its functions would refer to
+  /// that window object. In the non-namespaced version, "this.window" would
+  /// refer back to "window", and also be able to readily get the document
+  /// location. Another advantage, is that the objects of such a class (even if
+  /// the class were defined outside of a module) could change their reference
+  /// to the window at will, they would not be able to do this if they had
+  /// hard-coded a reference to "window". The default in the class could still
+  /// be set as the current window object.
   external Window get window;
+
+  /// The **`Window.self`** read-only property returns the window itself, as a .
+  /// It can be used with dot notation on a `window` object (that is,
+  /// `window.self`) or standalone (`self`). The advantage of the standalone
+  /// notation is that a similar notation exists for non-window contexts, such
+  /// as in [Worker]. By using `self`, you can refer to the global scope in a
+  /// way that will work not only in a window context (`self` will resolve to
+  /// `window.self`) but also in a worker context (`self` will then resolve to
+  /// [WorkerGlobalScope.self]).
   external Window get self;
+
+  /// **`window.document`** returns a reference to the
+  /// [document](https://developer.mozilla.org/en-US/docs/Web/API/Document)
+  /// contained in the window.
   external Document get document;
-  external set name(String value);
+
+  /// The `Window.name` property
+  /// gets/sets the name of the window's browsing context.
   external String get name;
+  external set name(String value);
+
+  /// The **`Window.location`** read-only property returns a [Location] object
+  /// with information about the current location of the document.
+  ///
+  /// Though `Window.location` is a _read-only_ `Location` object, you can also
+  /// assign a string to it.
+  /// This means that you can work with `location` as if it were a string in
+  /// most cases:
+  /// `location = 'http://www.example.com'` is a synonym of `location.href =
+  /// 'http://www.example.com'`.
+  ///
+  /// See [Location] for all available properties.
   external Location get location;
+
+  /// The `Window.history` read-only property returns a reference to the
+  /// [History] object, which provides an interface for manipulating the browser
+  /// _session history_ (pages visited in the tab or frame that the current page
+  /// is loaded in).
+  ///
+  /// See
+  /// [Manipulating the browser history](https://developer.mozilla.org/en-US/docs/Web/API/History_API)
+  /// for examples and details. In particular, that article explains security
+  /// features of the [History.pushState] and [History.replaceState] methods
+  /// that you should be aware of before using them.
   external History get history;
+
+  /// The **`navigation`** read-only property of the [Window] interface returns
+  /// the current `window`'s associated [Navigation] object.
+  ///
+  /// This is the entry point for the [Navigation API].
   external Navigation get navigation;
+
+  /// The **`customElements`** read-only property of the [Window] interface
+  /// returns a reference to the [CustomElementRegistry] object, which can be
+  /// used to register new
+  /// [custom elements](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements)
+  /// and get information about previously registered custom elements.
   external CustomElementRegistry get customElements;
+
+  /// Returns the `locationbar` object.
+  ///
+  /// This is one of a group of `Window` properties that contain a boolean
+  /// `visible` property, that used to represent whether or not a particular
+  /// part of a web browser's user interface was visible.
+  ///
+  /// For privacy and interoperability reasons, the value of the `visible`
+  /// property is now `false` if this `Window` is a popup, and `true` otherwise.
   external BarProp get locationbar;
+
+  /// Returns the `menubar` object.
+  ///
+  /// This is one of a group of `Window` properties that contain a boolean
+  /// `visible` property, that used to represent whether or not a particular
+  /// part of a web browser's user interface was visible.
+  ///
+  /// For privacy and interoperability reasons, the value of the `visible`
+  /// property is now `false` if this `Window` is a popup, and `true` otherwise.
   external BarProp get menubar;
+
+  /// Returns the `personalbar` object.
+  ///
+  /// This is one of a group of `Window` properties that contain a boolean
+  /// `visible` property, that used to represent whether or not a particular
+  /// part of a web browser's user interface was visible.
+  ///
+  /// For privacy and interoperability reasons, the value of the `visible`
+  /// property is now `false` if this `Window` is a popup, and `true` otherwise.
   external BarProp get personalbar;
+
+  /// Returns the `scrollbars` object.
+  ///
+  /// This is one of a group of `Window` properties that contain a boolean
+  /// `visible` property, that used to represent whether or not a particular
+  /// part of a web browser's user interface was visible.
+  ///
+  /// For privacy and interoperability reasons, the value of the `visible`
+  /// property is now `false` if this `Window` is a popup, and `true` otherwise.
   external BarProp get scrollbars;
+
+  /// Returns the `statusbar` object.
+  ///
+  /// This is one of a group of `Window` properties that contain a boolean
+  /// `visible` property, that used to represent whether or not a particular
+  /// part of a web browser's user interface was visible.
+  ///
+  /// For privacy and interoperability reasons, the value of the `visible`
+  /// property is now `false` if this `Window` is a popup, and `true` otherwise.
   external BarProp get statusbar;
+
+  /// Returns the `toolbar` object.
+  ///
+  /// This is one of a group of `Window` properties that contain a boolean
+  /// `visible` property, that used to represent whether or not a particular
+  /// part of a web browser's user interface was visible.
+  ///
+  /// For privacy and interoperability reasons, the value of the `visible`
+  /// property is now `false` if this `Window` is a popup, and `true` otherwise.
   external BarProp get toolbar;
-  external set status(String value);
+
+  /// The **`status`** property of the
+  /// [Window] interface was originally intended to set the text in the status
+  /// bar at the bottom of the browser window. However, the HTML standard now
+  /// requires
+  /// setting `window.status` to have no effect on the text displayed in the
+  /// status bar.
   external String get status;
+  external set status(String value);
+
+  /// The **`Window.closed`** read-only property indicates whether
+  /// the referenced window is closed or not.
   external bool get closed;
+
+  /// Returns the window itself, which is an array-like object, listing the
+  /// direct sub-frames
+  /// of the current window.
   external Window get frames;
+
+  /// Returns the number of frames (either `frame` or
+  /// `iframe` elements) in the window.
   external int get length;
+
+  /// Returns a reference to the topmost window in the window hierarchy.
   external Window? get top;
-  external set opener(JSAny? value);
+
+  /// The [Window] interface's
+  /// **`opener`** property returns a reference to the window that
+  /// opened the window, either with [Window.open], or by navigating
+  /// a link with a
+  /// [`target`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#target)
+  /// attribute.
+  ///
+  /// In other words, if window `A` opens window `B`,
+  /// `B.opener` returns `A`.
   external JSAny? get opener;
+  external set opener(JSAny? value);
+
+  /// The **`Window.parent`** property is a reference to the parent
+  /// of the current window or subframe.
+  ///
+  /// If a window does not have a parent, its `parent` property is a reference
+  /// to
+  /// itself.
+  ///
+  /// When a window is loaded in an `iframe`, `object`, or
+  /// `frame`, its parent is the window with the element embedding the
+  /// window.
   external Window? get parent;
+
+  /// The **`Window.frameElement`** property
+  /// returns the element (such as `iframe` or `object`)
+  /// in which the window is embedded.
+  ///
+  /// > **Note:** Despite this property's name, it works for documents embedded
+  /// > within any embedding point, including `object`,
+  /// > `iframe`, or `embed`.
   external Element? get frameElement;
+
+  /// The **`Window.navigator`** read-only property returns a
+  /// reference to the [Navigator] object, which has methods and properties
+  /// about
+  /// the application running the script.
   external Navigator get navigator;
   external Navigator get clientInformation;
+
+  /// The **`originAgentCluster`** read-only property of the [Window] interface
+  /// returns `true` if this window belongs to an _origin-keyed
+  /// [agent cluster](https://tc39.es/ecma262/#sec-agent-clusters)_: this means
+  /// that the operating system has provided dedicated resources (for example an
+  /// operating system process) to this window's origin that are not shared with
+  /// windows from other origins.
+  ///
+  /// Otherwise this property returns `false`.
+  ///
+  /// Windows that are part of an origin-keyed agent cluster are subjects to
+  /// some additional restrictions, compared with windows that are not. In
+  /// particular, they cannot:
+  ///
+  /// - Set [Document.domain], which is a legacy feature that normally allows
+  ///   same-site cross-origin pages to synchronously access each other's DOM.
+  /// - Send
+  ///   [`WebAssembly.Module`](https://developer.mozilla.org/en-US/docs/WebAssembly/JavaScript_interface/Module)
+  ///   objects to other same-site cross-origin pages via [Window.postMessage].
+  /// - Send `SharedArrayBuffer` or
+  ///   [`WebAssembly.Memory`](https://developer.mozilla.org/en-US/docs/WebAssembly/JavaScript_interface/Memory)
+  ///   objects to other same-site cross-origin pages.
+  ///
+  /// To request that the browser assign this window to an origin-keyed agent
+  /// cluster, the server must send the  response header.
+  ///
+  /// Note that the origin-keyed agent cluster feature is only supported in . If
+  /// a site is not a secure context, the `window.originAgentCluster` will
+  /// always return `false`.
   external bool get originAgentCluster;
+
+  /// The `external` property of the [Window] API returns an instance of the
+  /// `External` interface, which was intended to contain functions related to
+  /// adding external search providers to the browser. However, this is now
+  /// deprecated, and the contained methods are now dummy functions that do
+  /// nothing as per spec.
   external External get external;
-  external set ondeviceorientation(EventHandler value);
   external EventHandler get ondeviceorientation;
-  external set ondeviceorientationabsolute(EventHandler value);
+  external set ondeviceorientation(EventHandler value);
   external EventHandler get ondeviceorientationabsolute;
-  external set ondevicemotion(EventHandler value);
+  external set ondeviceorientationabsolute(EventHandler value);
   external EventHandler get ondevicemotion;
+  external set ondevicemotion(EventHandler value);
+
+  /// The `speechSynthesis` read-only property of the Window object returns a
+  /// [SpeechSynthesis] object, which is the entry point into using
+  /// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
+  /// speech synthesis functionality.
   external SpeechSynthesis get speechSynthesis;
-  external set onanimationstart(EventHandler value);
   external EventHandler get onanimationstart;
-  external set onanimationiteration(EventHandler value);
+  external set onanimationstart(EventHandler value);
   external EventHandler get onanimationiteration;
-  external set onanimationend(EventHandler value);
+  external set onanimationiteration(EventHandler value);
   external EventHandler get onanimationend;
-  external set onanimationcancel(EventHandler value);
+  external set onanimationend(EventHandler value);
   external EventHandler get onanimationcancel;
-  external set ontransitionrun(EventHandler value);
+  external set onanimationcancel(EventHandler value);
   external EventHandler get ontransitionrun;
-  external set ontransitionstart(EventHandler value);
+  external set ontransitionrun(EventHandler value);
   external EventHandler get ontransitionstart;
-  external set ontransitionend(EventHandler value);
+  external set ontransitionstart(EventHandler value);
   external EventHandler get ontransitionend;
-  external set ontransitioncancel(EventHandler value);
+  external set ontransitionend(EventHandler value);
   external EventHandler get ontransitioncancel;
-  external set onabort(EventHandler value);
+  external set ontransitioncancel(EventHandler value);
   external EventHandler get onabort;
-  external set onauxclick(EventHandler value);
+  external set onabort(EventHandler value);
   external EventHandler get onauxclick;
-  external set onbeforeinput(EventHandler value);
+  external set onauxclick(EventHandler value);
   external EventHandler get onbeforeinput;
-  external set onbeforematch(EventHandler value);
+  external set onbeforeinput(EventHandler value);
   external EventHandler get onbeforematch;
-  external set onbeforetoggle(EventHandler value);
+  external set onbeforematch(EventHandler value);
   external EventHandler get onbeforetoggle;
-  external set onblur(EventHandler value);
+  external set onbeforetoggle(EventHandler value);
   external EventHandler get onblur;
-  external set oncancel(EventHandler value);
+  external set onblur(EventHandler value);
   external EventHandler get oncancel;
-  external set oncanplay(EventHandler value);
+  external set oncancel(EventHandler value);
   external EventHandler get oncanplay;
-  external set oncanplaythrough(EventHandler value);
+  external set oncanplay(EventHandler value);
   external EventHandler get oncanplaythrough;
-  external set onchange(EventHandler value);
+  external set oncanplaythrough(EventHandler value);
   external EventHandler get onchange;
-  external set onclick(EventHandler value);
+  external set onchange(EventHandler value);
   external EventHandler get onclick;
-  external set onclose(EventHandler value);
+  external set onclick(EventHandler value);
   external EventHandler get onclose;
-  external set oncontextlost(EventHandler value);
+  external set onclose(EventHandler value);
   external EventHandler get oncontextlost;
-  external set oncontextmenu(EventHandler value);
+  external set oncontextlost(EventHandler value);
   external EventHandler get oncontextmenu;
-  external set oncontextrestored(EventHandler value);
+  external set oncontextmenu(EventHandler value);
   external EventHandler get oncontextrestored;
-  external set oncopy(EventHandler value);
+  external set oncontextrestored(EventHandler value);
   external EventHandler get oncopy;
-  external set oncuechange(EventHandler value);
+  external set oncopy(EventHandler value);
   external EventHandler get oncuechange;
-  external set oncut(EventHandler value);
+  external set oncuechange(EventHandler value);
   external EventHandler get oncut;
-  external set ondblclick(EventHandler value);
+  external set oncut(EventHandler value);
   external EventHandler get ondblclick;
-  external set ondrag(EventHandler value);
+  external set ondblclick(EventHandler value);
   external EventHandler get ondrag;
-  external set ondragend(EventHandler value);
+  external set ondrag(EventHandler value);
   external EventHandler get ondragend;
-  external set ondragenter(EventHandler value);
+  external set ondragend(EventHandler value);
   external EventHandler get ondragenter;
-  external set ondragleave(EventHandler value);
+  external set ondragenter(EventHandler value);
   external EventHandler get ondragleave;
-  external set ondragover(EventHandler value);
+  external set ondragleave(EventHandler value);
   external EventHandler get ondragover;
-  external set ondragstart(EventHandler value);
+  external set ondragover(EventHandler value);
   external EventHandler get ondragstart;
-  external set ondrop(EventHandler value);
+  external set ondragstart(EventHandler value);
   external EventHandler get ondrop;
-  external set ondurationchange(EventHandler value);
+  external set ondrop(EventHandler value);
   external EventHandler get ondurationchange;
-  external set onemptied(EventHandler value);
+  external set ondurationchange(EventHandler value);
   external EventHandler get onemptied;
-  external set onended(EventHandler value);
+  external set onemptied(EventHandler value);
   external EventHandler get onended;
-  external set onerror(OnErrorEventHandler value);
+  external set onended(EventHandler value);
   external OnErrorEventHandler get onerror;
-  external set onfocus(EventHandler value);
+  external set onerror(OnErrorEventHandler value);
   external EventHandler get onfocus;
-  external set onformdata(EventHandler value);
+  external set onfocus(EventHandler value);
   external EventHandler get onformdata;
-  external set oninput(EventHandler value);
+  external set onformdata(EventHandler value);
   external EventHandler get oninput;
-  external set oninvalid(EventHandler value);
+  external set oninput(EventHandler value);
   external EventHandler get oninvalid;
-  external set onkeydown(EventHandler value);
+  external set oninvalid(EventHandler value);
   external EventHandler get onkeydown;
-  external set onkeypress(EventHandler value);
+  external set onkeydown(EventHandler value);
   external EventHandler get onkeypress;
-  external set onkeyup(EventHandler value);
+  external set onkeypress(EventHandler value);
   external EventHandler get onkeyup;
-  external set onload(EventHandler value);
+  external set onkeyup(EventHandler value);
   external EventHandler get onload;
-  external set onloadeddata(EventHandler value);
+  external set onload(EventHandler value);
   external EventHandler get onloadeddata;
-  external set onloadedmetadata(EventHandler value);
+  external set onloadeddata(EventHandler value);
   external EventHandler get onloadedmetadata;
-  external set onloadstart(EventHandler value);
+  external set onloadedmetadata(EventHandler value);
   external EventHandler get onloadstart;
-  external set onmousedown(EventHandler value);
+  external set onloadstart(EventHandler value);
   external EventHandler get onmousedown;
-  external set onmouseenter(EventHandler value);
+  external set onmousedown(EventHandler value);
   external EventHandler get onmouseenter;
-  external set onmouseleave(EventHandler value);
+  external set onmouseenter(EventHandler value);
   external EventHandler get onmouseleave;
-  external set onmousemove(EventHandler value);
+  external set onmouseleave(EventHandler value);
   external EventHandler get onmousemove;
-  external set onmouseout(EventHandler value);
+  external set onmousemove(EventHandler value);
   external EventHandler get onmouseout;
-  external set onmouseover(EventHandler value);
+  external set onmouseout(EventHandler value);
   external EventHandler get onmouseover;
-  external set onmouseup(EventHandler value);
+  external set onmouseover(EventHandler value);
   external EventHandler get onmouseup;
-  external set onpaste(EventHandler value);
+  external set onmouseup(EventHandler value);
   external EventHandler get onpaste;
-  external set onpause(EventHandler value);
+  external set onpaste(EventHandler value);
   external EventHandler get onpause;
-  external set onplay(EventHandler value);
+  external set onpause(EventHandler value);
   external EventHandler get onplay;
-  external set onplaying(EventHandler value);
+  external set onplay(EventHandler value);
   external EventHandler get onplaying;
-  external set onprogress(EventHandler value);
+  external set onplaying(EventHandler value);
   external EventHandler get onprogress;
-  external set onratechange(EventHandler value);
+  external set onprogress(EventHandler value);
   external EventHandler get onratechange;
-  external set onreset(EventHandler value);
+  external set onratechange(EventHandler value);
   external EventHandler get onreset;
-  external set onresize(EventHandler value);
+  external set onreset(EventHandler value);
   external EventHandler get onresize;
-  external set onscroll(EventHandler value);
+  external set onresize(EventHandler value);
   external EventHandler get onscroll;
-  external set onscrollend(EventHandler value);
+  external set onscroll(EventHandler value);
   external EventHandler get onscrollend;
-  external set onsecuritypolicyviolation(EventHandler value);
+  external set onscrollend(EventHandler value);
   external EventHandler get onsecuritypolicyviolation;
-  external set onseeked(EventHandler value);
+  external set onsecuritypolicyviolation(EventHandler value);
   external EventHandler get onseeked;
-  external set onseeking(EventHandler value);
+  external set onseeked(EventHandler value);
   external EventHandler get onseeking;
-  external set onselect(EventHandler value);
+  external set onseeking(EventHandler value);
   external EventHandler get onselect;
-  external set onslotchange(EventHandler value);
+  external set onselect(EventHandler value);
   external EventHandler get onslotchange;
-  external set onstalled(EventHandler value);
+  external set onslotchange(EventHandler value);
   external EventHandler get onstalled;
-  external set onsubmit(EventHandler value);
+  external set onstalled(EventHandler value);
   external EventHandler get onsubmit;
-  external set onsuspend(EventHandler value);
+  external set onsubmit(EventHandler value);
   external EventHandler get onsuspend;
-  external set ontimeupdate(EventHandler value);
+  external set onsuspend(EventHandler value);
   external EventHandler get ontimeupdate;
-  external set ontoggle(EventHandler value);
+  external set ontimeupdate(EventHandler value);
   external EventHandler get ontoggle;
-  external set onvolumechange(EventHandler value);
+  external set ontoggle(EventHandler value);
   external EventHandler get onvolumechange;
-  external set onwaiting(EventHandler value);
+  external set onvolumechange(EventHandler value);
   external EventHandler get onwaiting;
-  external set onwebkitanimationend(EventHandler value);
+  external set onwaiting(EventHandler value);
   external EventHandler get onwebkitanimationend;
-  external set onwebkitanimationiteration(EventHandler value);
+  external set onwebkitanimationend(EventHandler value);
   external EventHandler get onwebkitanimationiteration;
-  external set onwebkitanimationstart(EventHandler value);
+  external set onwebkitanimationiteration(EventHandler value);
   external EventHandler get onwebkitanimationstart;
-  external set onwebkittransitionend(EventHandler value);
+  external set onwebkitanimationstart(EventHandler value);
   external EventHandler get onwebkittransitionend;
-  external set onwheel(EventHandler value);
+  external set onwebkittransitionend(EventHandler value);
   external EventHandler get onwheel;
-  external set onpointerover(EventHandler value);
+  external set onwheel(EventHandler value);
   external EventHandler get onpointerover;
-  external set onpointerenter(EventHandler value);
+  external set onpointerover(EventHandler value);
   external EventHandler get onpointerenter;
-  external set onpointerdown(EventHandler value);
+  external set onpointerenter(EventHandler value);
   external EventHandler get onpointerdown;
-  external set onpointermove(EventHandler value);
+  external set onpointerdown(EventHandler value);
   external EventHandler get onpointermove;
-  external set onpointerrawupdate(EventHandler value);
+  external set onpointermove(EventHandler value);
   external EventHandler get onpointerrawupdate;
-  external set onpointerup(EventHandler value);
+  external set onpointerrawupdate(EventHandler value);
   external EventHandler get onpointerup;
-  external set onpointercancel(EventHandler value);
+  external set onpointerup(EventHandler value);
   external EventHandler get onpointercancel;
-  external set onpointerout(EventHandler value);
+  external set onpointercancel(EventHandler value);
   external EventHandler get onpointerout;
-  external set onpointerleave(EventHandler value);
+  external set onpointerout(EventHandler value);
   external EventHandler get onpointerleave;
-  external set ongotpointercapture(EventHandler value);
+  external set onpointerleave(EventHandler value);
   external EventHandler get ongotpointercapture;
-  external set onlostpointercapture(EventHandler value);
+  external set ongotpointercapture(EventHandler value);
   external EventHandler get onlostpointercapture;
-  external set onselectstart(EventHandler value);
+  external set onlostpointercapture(EventHandler value);
   external EventHandler get onselectstart;
-  external set onselectionchange(EventHandler value);
+  external set onselectstart(EventHandler value);
   external EventHandler get onselectionchange;
-  external set ontouchstart(EventHandler value);
+  external set onselectionchange(EventHandler value);
   external EventHandler get ontouchstart;
-  external set ontouchend(EventHandler value);
+  external set ontouchstart(EventHandler value);
   external EventHandler get ontouchend;
-  external set ontouchmove(EventHandler value);
+  external set ontouchend(EventHandler value);
   external EventHandler get ontouchmove;
-  external set ontouchcancel(EventHandler value);
+  external set ontouchmove(EventHandler value);
   external EventHandler get ontouchcancel;
-  external set ongamepadconnected(EventHandler value);
+  external set ontouchcancel(EventHandler value);
   external EventHandler get ongamepadconnected;
-  external set ongamepaddisconnected(EventHandler value);
+  external set ongamepadconnected(EventHandler value);
   external EventHandler get ongamepaddisconnected;
-  external set onafterprint(EventHandler value);
+  external set ongamepaddisconnected(EventHandler value);
   external EventHandler get onafterprint;
-  external set onbeforeprint(EventHandler value);
+  external set onafterprint(EventHandler value);
   external EventHandler get onbeforeprint;
-  external set onbeforeunload(OnBeforeUnloadEventHandler value);
+  external set onbeforeprint(EventHandler value);
   external OnBeforeUnloadEventHandler get onbeforeunload;
-  external set onhashchange(EventHandler value);
+  external set onbeforeunload(OnBeforeUnloadEventHandler value);
   external EventHandler get onhashchange;
-  external set onlanguagechange(EventHandler value);
+  external set onhashchange(EventHandler value);
   external EventHandler get onlanguagechange;
-  external set onmessage(EventHandler value);
+  external set onlanguagechange(EventHandler value);
   external EventHandler get onmessage;
-  external set onmessageerror(EventHandler value);
+  external set onmessage(EventHandler value);
   external EventHandler get onmessageerror;
-  external set onoffline(EventHandler value);
+  external set onmessageerror(EventHandler value);
   external EventHandler get onoffline;
-  external set ononline(EventHandler value);
+  external set onoffline(EventHandler value);
   external EventHandler get ononline;
-  external set onpagehide(EventHandler value);
+  external set ononline(EventHandler value);
   external EventHandler get onpagehide;
-  external set onpagereveal(EventHandler value);
+  external set onpagehide(EventHandler value);
   external EventHandler get onpagereveal;
-  external set onpageshow(EventHandler value);
+  external set onpagereveal(EventHandler value);
   external EventHandler get onpageshow;
-  external set onpopstate(EventHandler value);
+  external set onpageshow(EventHandler value);
   external EventHandler get onpopstate;
-  external set onrejectionhandled(EventHandler value);
+  external set onpopstate(EventHandler value);
   external EventHandler get onrejectionhandled;
-  external set onstorage(EventHandler value);
+  external set onrejectionhandled(EventHandler value);
   external EventHandler get onstorage;
-  external set onunhandledrejection(EventHandler value);
+  external set onstorage(EventHandler value);
   external EventHandler get onunhandledrejection;
-  external set onunload(EventHandler value);
+  external set onunhandledrejection(EventHandler value);
   external EventHandler get onunload;
+  external set onunload(EventHandler value);
   external IDBFactory get indexedDB;
   external Crypto get crypto;
   external Performance get performance;
@@ -6347,7 +9895,56 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external bool get crossOriginIsolated;
   external CacheStorage get caches;
   external TrustedTypePolicyFactory get trustedTypes;
+
+  /// The read-only **`sessionStorage`**
+  /// property accesses a session [Storage] object for the current
+  /// . `sessionStorage` is similar to
+  /// [Window.localStorage]; the difference is that while data
+  /// in `localStorage` doesn't expire, data in `sessionStorage` is
+  /// cleared when the _page session_ ends.
+  ///
+  /// - Whenever a document is loaded in a particular tab in the browser, a
+  ///   unique page
+  /// session gets created and assigned to that particular tab. That page
+  /// session is valid
+  /// only for that particular tab.
+  /// - A page session lasts as long as the tab or the browser is open, and
+  ///   survives over
+  /// page reloads and restores.
+  /// - **Opening a page in a new tab or window creates a new session with the
+  ///   value
+  /// of the top-level browsing context, which differs from how session cookies
+  /// work.**
+  /// - Opening multiple tabs/windows with the same URL creates `sessionStorage`
+  /// for each tab/window.
+  /// - Duplicating a tab copies the tab's `sessionStorage` into the new
+  /// tab.
+  /// - Closing a tab/window ends the session and clears objects in
+  /// `sessionStorage`.
+  ///
+  /// Data stored in `sessionStorage` **is specific to the protocol of the
+  /// page**. In particular, data stored by a script on a site accessed with
+  /// HTTP
+  /// (e.g., [http://example.com](https://example.com)) is
+  /// put in a different `sessionStorage` object from the same site accessed
+  /// with
+  /// HTTPS (e.g., <https://example.com>).
+  ///
+  /// The keys and the values are _always_ in the UTF-16 string
+  /// format, which uses two bytes per character. As with objects, integer keys
+  /// are
+  /// automatically converted to strings.
   external Storage get sessionStorage;
+
+  /// The **`localStorage`** read-only property of the [window] interface allows
+  /// you to access a [Storage] object for the [Document]'s ; the stored data is
+  /// saved across browser sessions.
+  ///
+  /// `localStorage` is similar to [Window.sessionStorage], except that while
+  /// `localStorage` data has no expiration time, `sessionStorage` data gets
+  /// cleared when the page session ends — that is, when the page is closed.
+  /// (`localStorage` data for a document loaded in a "private browsing" or
+  /// "incognito" session is cleared when the last "private" tab is closed.)
   external Storage get localStorage;
 }
 extension type WindowPostMessageOptions._(JSObject _)
@@ -6357,8 +9954,8 @@ extension type WindowPostMessageOptions._(JSObject _)
     String targetOrigin,
   });
 
-  external set targetOrigin(String value);
   external String get targetOrigin;
+  external set targetOrigin(String value);
 }
 
 /// The **`BarProp`** interface of the [Document Object Model] represents the
@@ -6387,6 +9984,8 @@ extension type WindowPostMessageOptions._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/BarProp).
 extension type BarProp._(JSObject _) implements JSObject {
+  /// The **`visible`** read-only property of the [BarProp] interface returns
+  /// `true` if the user interface element it represents is visible.
   external bool get visible;
 }
 
@@ -6419,23 +10018,106 @@ extension type Location._(JSObject _) implements JSObject {
   /// The **`reload()`** method of the [Location] interface reloads the current
   /// URL, like the Refresh button.
   external void reload();
-  external set href(String value);
+
+  /// The **`href`** property of the [Location]
+  /// interface is a  that returns a string containing the whole
+  /// URL, and allows the href to be updated.
+  ///
+  /// Setting the value of `href` _navigates_ to the provided URL. If you
+  /// want _redirection_, use [Location.replace]. The difference from setting
+  /// the `href` property value is that when using the `location.replace()`
+  /// method, after navigating to the given URL, the current page will not be
+  /// saved in session
+  /// [history](https://developer.mozilla.org/en-US/docs/Web/API/History_API) —
+  /// meaning the user won't be able to use the back button to navigate to it.
   external String get href;
+  external set href(String value);
+
+  /// The **`origin`** read-only property of
+  /// the [Location] interface is a string containing the
+  /// Unicode serialization of the origin of the represented URL.
+  ///
+  /// That is:
+  ///
+  /// - for URL using the `http` or `https`, the scheme followed by
+  /// `'://'`, followed by the domain, followed by `':'`, followed by
+  /// the port (the default port, `80` and `443` respectively, if
+  /// explicitly specified);
+  /// - for URL using `file:` scheme, the value is browser dependent;
+  /// - for URL using the `blob:` scheme, the origin of the URL following
+  /// `blob:`. E.g `"blob:https://mozilla.org"` will have
+  /// `"https://mozilla.org".`
   external String get origin;
-  external set protocol(String value);
+
+  /// The **`protocol`** property of the [Location]
+  /// interface is a string representing the protocol scheme of the URL,
+  /// including the final `':'`.
   external String get protocol;
-  external set host(String value);
+  external set protocol(String value);
+
+  /// The **`host`** property of the [Location]
+  /// interface is a string containing the host, that is the
+  /// _hostname_, and then, if the _port_ of the URL is nonempty, a
+  /// `':'`, and the _port_ of the URL.
   external String get host;
-  external set hostname(String value);
+  external set host(String value);
+
+  /// The **`hostname`** property of the [Location]
+  /// interface is a string containing the domain of the URL.
   external String get hostname;
-  external set port(String value);
+  external set hostname(String value);
+
+  /// The **`port`** property of the [Location]
+  /// interface is a string containing the port number of the URL. If the
+  /// URL does not contain an explicit port number, it will be set to `''`.
   external String get port;
-  external set pathname(String value);
+  external set port(String value);
+
+  /// The **`pathname`** property of the [Location]
+  /// interface is a string containing the path of the URL for the location. If
+  /// there is no path, `pathname` will be empty: otherwise, `pathname` contains
+  /// an initial '/' followed by the path of the URL, not including the query
+  /// string or fragment.
   external String get pathname;
-  external set search(String value);
+  external set pathname(String value);
+
+  /// The **`search`** property of the [Location]
+  /// interface is a search string, also called a _query string_; that is, a
+  /// string containing a `'?'` followed by the parameters of the
+  /// URL.
+  ///
+  /// Modern browsers provide
+  /// [`URLSearchParams`](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/get#examples)
+  /// and
+  /// [`URL.searchParams`](/en-US/docs/Web/API/URL/searchParams#examples)
+  /// to make it easy to parse out the parameters from the querystring.
   external String get search;
-  external set hash(String value);
+  external set search(String value);
+
+  /// The **`hash`** property of the
+  /// [Location] interface returns a string containing a
+  /// `'#'` followed by the fragment identifier of the URL — the ID on the page
+  /// that the URL is trying to target.
+  ///
+  /// The fragment is not
+  /// [URL decoded](https://en.wikipedia.org/wiki/URL_encoding). If the URL does
+  /// not
+  /// have a fragment identifier, this property contains an empty string, `""`.
   external String get hash;
+  external set hash(String value);
+
+  /// The **`ancestorOrigins`** read-only
+  /// property of the [Location] interface is a static
+  /// [DOMStringList] containing, in reverse order, the origins of all ancestor
+  /// browsing contexts of the document associated with the given [Location]
+  /// object.
+  ///
+  /// You can use `location.ancestorOrigins` in the script for a document to
+  /// determine, for example, whenever the document is being framed by a site
+  /// which you don't
+  /// expect it to be framed by. You can also use it to vary the behavior of the
+  /// document
+  /// based on what site or list of sites is framing it.
   external DOMStringList get ancestorOrigins;
 }
 
@@ -6507,9 +10189,26 @@ extension type History._(JSObject _) implements JSObject {
     String unused, [
     String? url,
   ]);
+
+  /// The **`length`** read-only property of the [History] interface
+  /// returns an integer representing the number of elements in the session
+  /// history, including the currently loaded page.
+  ///
+  /// For example, for a page loaded in a new tab this property returns `1`.
   external int get length;
-  external set scrollRestoration(ScrollRestoration value);
+
+  /// The **`scrollRestoration`** property of the [History]
+  /// interface allows web applications to explicitly set default scroll
+  /// restoration behavior
+  /// on history navigation.
   external ScrollRestoration get scrollRestoration;
+  external set scrollRestoration(ScrollRestoration value);
+
+  /// The **`state`** read-only property of the [History] interface
+  /// returns a value representing the state at the top of the history stack.
+  /// This is
+  /// a way to look at the state without having to wait for a
+  /// [Window.popstate_event] event.
   external JSAny? get state;
 }
 
@@ -6572,32 +10271,54 @@ extension type Navigation._(JSObject _) implements EventTarget, JSObject {
   /// [Navigation] interface navigates forwards by one entry in the navigation
   /// history.
   external NavigationResult forward([NavigationOptions options]);
+
+  /// The **`currentEntry`** read-only property of the
+  /// [Navigation] interface returns a [NavigationHistoryEntry] object
+  /// representing the location the user is currently navigated to right now.
   external NavigationHistoryEntry? get currentEntry;
+
+  /// The **`transition`** read-only property of the [Navigation] interface
+  /// returns a [NavigationTransition] object representing the status of an
+  /// in-progress navigation, which can be used to track it.
   external NavigationTransition? get transition;
   external NavigationActivation? get activation;
+
+  /// The **`canGoBack`** read-only property of the
+  /// [Navigation] interface returns `true`
+  /// if it is possible to navigate backwards in the navigation history
+  /// (i.e. the [Navigation.currentEntry] is
+  /// not the first one in the history entry list),
+  /// and `false` if it is not.
   external bool get canGoBack;
+
+  /// The **`canGoForward`** read-only property of the
+  /// [Navigation] interface returns `true` if it is possible to navigate
+  /// forwards in the navigation history
+  /// (i.e. the [Navigation.currentEntry] is not the last one in the history
+  /// entry list),
+  /// and `false` if it is not.
   external bool get canGoForward;
-  external set onnavigate(EventHandler value);
   external EventHandler get onnavigate;
-  external set onnavigatesuccess(EventHandler value);
+  external set onnavigate(EventHandler value);
   external EventHandler get onnavigatesuccess;
-  external set onnavigateerror(EventHandler value);
+  external set onnavigatesuccess(EventHandler value);
   external EventHandler get onnavigateerror;
-  external set oncurrententrychange(EventHandler value);
+  external set onnavigateerror(EventHandler value);
   external EventHandler get oncurrententrychange;
+  external set oncurrententrychange(EventHandler value);
 }
 extension type NavigationUpdateCurrentEntryOptions._(JSObject _)
     implements JSObject {
   external factory NavigationUpdateCurrentEntryOptions({required JSAny? state});
 
-  external set state(JSAny? value);
   external JSAny? get state;
+  external set state(JSAny? value);
 }
 extension type NavigationOptions._(JSObject _) implements JSObject {
   external factory NavigationOptions({JSAny? info});
 
-  external set info(JSAny? value);
   external JSAny? get info;
+  external set info(JSAny? value);
 }
 extension type NavigationNavigateOptions._(JSObject _)
     implements NavigationOptions, JSObject {
@@ -6607,10 +10328,10 @@ extension type NavigationNavigateOptions._(JSObject _)
     NavigationHistoryBehavior history,
   });
 
-  external set state(JSAny? value);
   external JSAny? get state;
-  external set history(NavigationHistoryBehavior value);
+  external set state(JSAny? value);
   external NavigationHistoryBehavior get history;
+  external set history(NavigationHistoryBehavior value);
 }
 extension type NavigationReloadOptions._(JSObject _)
     implements NavigationOptions, JSObject {
@@ -6619,8 +10340,8 @@ extension type NavigationReloadOptions._(JSObject _)
     JSAny? state,
   });
 
-  external set state(JSAny? value);
   external JSAny? get state;
+  external set state(JSAny? value);
 }
 extension type NavigationResult._(JSObject _) implements JSObject {
   external factory NavigationResult({
@@ -6628,10 +10349,10 @@ extension type NavigationResult._(JSObject _) implements JSObject {
     JSPromise<NavigationHistoryEntry> finished,
   });
 
-  external set committed(JSPromise<NavigationHistoryEntry> value);
   external JSPromise<NavigationHistoryEntry> get committed;
-  external set finished(JSPromise<NavigationHistoryEntry> value);
+  external set committed(JSPromise<NavigationHistoryEntry> value);
   external JSPromise<NavigationHistoryEntry> get finished;
+  external set finished(JSPromise<NavigationHistoryEntry> value);
 }
 
 /// The **`NavigationHistoryEntry`** interface of the [Navigation API]
@@ -6657,13 +10378,57 @@ extension type NavigationHistoryEntry._(JSObject _)
   /// returns a clone of the developer-supplied state associated with this
   /// history entry.
   external JSAny? getState();
+
+  /// The **`url`** read-only property of the [NavigationHistoryEntry] interface
+  /// returns the absolute URL of this history entry. If the entry corresponds
+  /// to a different Document than the current one (like `sameDocument` property
+  /// is `false`), and that Document was fetched with a  header set to
+  /// `no-referrer` or `origin`, the property returns `null`. If current
+  /// document is not fully active, it returns an empty string.
   external String? get url;
+
+  /// The **`key`** read-only property of the [NavigationHistoryEntry] interface
+  /// returns the `key` of the history entry, or an empty string if current
+  /// document is not fully active. This is a unique, UA-generated value that
+  /// represents the history entry's slot in the entries list. It is used to
+  /// navigate that particular slot via [Navigation.traverseTo]. The `key` will
+  /// be reused by other entries that replace the entry in the list (that is, if
+  /// the [NavigateEvent.navigationType] is `replace`).
+  ///
+  /// This differs from the [NavigationHistoryEntry.id] of a history entry. The
+  /// `id` is a unique, UA-generated value that always represents a specific
+  /// history entry rather than its slot in the entries list. This is useful to
+  /// correlate it with an external resource such as a storage cache.
   external String get key;
+
+  /// The **`id`** read-only property of the [NavigationHistoryEntry] interface
+  /// returns the `id` of the history entry, or an empty string if current
+  /// document is not fully active. This is a unique, UA-generated value that
+  /// always represents a specific history entry, useful to correlate it with an
+  /// external resource such as a storage cache.
+  ///
+  /// This differs from the [NavigationHistoryEntry.key] of a history entry. The
+  /// `key` is a unique, UA-generated value that represents the history entry's
+  /// slot in the entries list rather than the entry itself. It is used to
+  /// navigate that particular slot via [Navigation.traverseTo]. The `key` will
+  /// be reused by other entries that replace the entry in the list (that is, if
+  /// the [NavigateEvent.navigationType] is `replace`).
   external String get id;
+
+  /// The **`index`** read-only property of the [NavigationHistoryEntry]
+  /// interface returns the index of the history entry in the history entries
+  /// list (that is, the list returned by [Navigation.entries]), or `-1` if the
+  /// entry does not appear in the list or if current document is not fully
+  /// active.
   external int get index;
+
+  /// The **`sameDocument`** read-only property of the [NavigationHistoryEntry]
+  /// interface returns `true` if this history entry is for the same `document`
+  /// as the current [Document] value and current document is fully active, or
+  /// `false` otherwise.
   external bool get sameDocument;
-  external set ondispose(EventHandler value);
   external EventHandler get ondispose;
+  external set ondispose(EventHandler value);
 }
 
 /// The **`NavigationTransition`** interface of the [Navigation API] represents
@@ -6678,8 +10443,20 @@ extension type NavigationHistoryEntry._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NavigationTransition).
 extension type NavigationTransition._(JSObject _) implements JSObject {
+  /// The **`navigationType`** read-only property of the
+  /// [NavigationTransition] interface returns the type of the ongoing
+  /// navigation.
   external NavigationType get navigationType;
+
+  /// The **`from`** read-only property of the
+  /// [NavigationTransition] interface returns the [NavigationHistoryEntry] that
+  /// the transition is coming from.
   external NavigationHistoryEntry get from;
+
+  /// The **`finished`** read-only property of the
+  /// [NavigationTransition] interface returns a `Promise` that fulfills at the
+  /// same time the [Navigation.navigatesuccess_event] event fires, or rejects
+  /// at the same time the [Navigation.navigateerror_event] event fires.
   external JSPromise<JSAny?> get finished;
 }
 extension type NavigationActivation._(JSObject _) implements JSObject {
@@ -6717,14 +10494,77 @@ extension type NavigateEvent._(JSObject _) implements Event, JSObject {
   /// navigation, if you want it to happen before the navigation handling has
   /// completed.
   external void scroll();
+
+  /// The **`navigationType`** read-only property of the
+  /// [NavigateEvent] interface returns the type of the navigation — `push`,
+  /// `reload`, `replace`, or `traverse`.
   external NavigationType get navigationType;
+
+  /// The **`destination`** read-only property of the
+  /// [NavigateEvent] interface returns a [NavigationDestination] object
+  /// representing the destination being navigated to.
   external NavigationDestination get destination;
+
+  /// The **`canIntercept`** read-only property of the
+  /// [NavigateEvent] interface returns `true` if the navigation can be
+  /// intercepted and have its URL rewritten, or `false` otherwise
+  ///
+  /// There are several rules around when a navigation can be intercepted. For
+  /// example:
+  ///
+  /// - You can't intercept cross-origin navigations.
+  /// - You can intercept `http` or `https` URLs if only the `path`, `query`,
+  ///   and `fragment` portions of the new URL differ from the current URL.
+  /// - You can intercept `file` URLs if only the `query` and `fragment`
+  ///   portions of the new URL differ.
+  /// - For other URL types you can intercept the navigation if only the
+  ///   `fragment` portion differs.
+  ///
+  /// See the spec for more explanation on
+  /// [when a Document can have its URL rewritten](https://html.spec.whatwg.org/multipage/nav-history-apis.html#can-have-its-url-rewritten),
+  /// including a table of examples.
   external bool get canIntercept;
+
+  /// The **`userInitiated`** read-only property of the
+  /// [NavigateEvent] interface returns `true` if the navigation was initiated
+  /// by the user (e.g. by clicking a link, submitting a form, or pressing the
+  /// browser's "Back"/"Forward" buttons), or `false` otherwise.
+  ///
+  /// > **Note:** The table found at [Appendix: types of
+  /// > navigations](https://github.com/WICG/navigation-api#appendix-types-of-navigations)
+  /// > shows which navigation types are user-initiated.
   external bool get userInitiated;
+
+  /// The **`hashChange`** read-only property of the
+  /// [NavigateEvent] interface returns `true` if the navigation is a fragment
+  /// navigation (i.e. to a fragment identifier in the same document), or
+  /// `false` otherwise.
   external bool get hashChange;
+
+  /// The **`signal`** read-only property of the
+  /// [NavigateEvent] interface returns an [AbortSignal], which will become
+  /// aborted if the navigation is cancelled (e.g. by the user pressing the
+  /// browser's "Stop" button, or another navigation starting and thus
+  /// cancelling the ongoing one).
   external AbortSignal get signal;
+
+  /// The **`formData`** read-only property of the
+  /// [NavigateEvent] interface returns the [FormData] object representing the
+  /// submitted data in the case of a
+  /// [`POST`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST)
+  /// form submission, or `null` otherwise.
   external FormData? get formData;
+
+  /// The **`downloadRequest`** read-only property of the
+  /// [NavigateEvent] interface returns the filename of the file requested for
+  /// download, in the case of a download navigation (e.g. an `a` or `area`
+  /// element with a `download` attribute), or `null` otherwise.
   external String? get downloadRequest;
+
+  /// The **`info`** read-only property of the
+  /// [NavigateEvent] interface returns the `info` data value passed by the
+  /// initiating navigation operation (e.g. [Navigation.back], or
+  /// [Navigation.navigate]), or `undefined` if no `info` data was passed.
   external JSAny? get info;
   external bool get hasUAVisualTransition;
 }
@@ -6745,26 +10585,26 @@ extension type NavigateEventInit._(JSObject _) implements EventInit, JSObject {
     bool hasUAVisualTransition,
   });
 
-  external set navigationType(NavigationType value);
   external NavigationType get navigationType;
-  external set destination(NavigationDestination value);
+  external set navigationType(NavigationType value);
   external NavigationDestination get destination;
-  external set canIntercept(bool value);
+  external set destination(NavigationDestination value);
   external bool get canIntercept;
-  external set userInitiated(bool value);
+  external set canIntercept(bool value);
   external bool get userInitiated;
-  external set hashChange(bool value);
+  external set userInitiated(bool value);
   external bool get hashChange;
-  external set signal(AbortSignal value);
+  external set hashChange(bool value);
   external AbortSignal get signal;
-  external set formData(FormData? value);
+  external set signal(AbortSignal value);
   external FormData? get formData;
-  external set downloadRequest(String? value);
+  external set formData(FormData? value);
   external String? get downloadRequest;
-  external set info(JSAny? value);
+  external set downloadRequest(String? value);
   external JSAny? get info;
-  external set hasUAVisualTransition(bool value);
+  external set info(JSAny? value);
   external bool get hasUAVisualTransition;
+  external set hasUAVisualTransition(bool value);
 }
 extension type NavigationInterceptOptions._(JSObject _) implements JSObject {
   external factory NavigationInterceptOptions({
@@ -6773,12 +10613,12 @@ extension type NavigationInterceptOptions._(JSObject _) implements JSObject {
     NavigationScrollBehavior scroll,
   });
 
-  external set handler(NavigationInterceptHandler value);
   external NavigationInterceptHandler get handler;
-  external set focusReset(NavigationFocusReset value);
+  external set handler(NavigationInterceptHandler value);
   external NavigationFocusReset get focusReset;
-  external set scroll(NavigationScrollBehavior value);
+  external set focusReset(NavigationFocusReset value);
   external NavigationScrollBehavior get scroll;
+  external set scroll(NavigationScrollBehavior value);
 }
 
 /// The **`NavigationDestination`** interface of the [Navigation API] represents
@@ -6797,10 +10637,48 @@ extension type NavigationDestination._(JSObject _) implements JSObject {
   /// [NavigationHistoryEntry], or navigation operation (e.g.
   /// [Navigation.navigate]) as appropriate.
   external JSAny? getState();
+
+  /// The **`url`** read-only property of the
+  /// [NavigationDestination] interface returns the URL being navigated to.
   external String get url;
+
+  /// The **`key`** read-only property of the
+  /// [NavigationDestination] interface returns the [NavigationHistoryEntry.key]
+  /// value of the destination [NavigationHistoryEntry] if the
+  /// [NavigateEvent.navigationType] is `traverse`, or an empty string
+  /// otherwise.
+  ///
+  /// The `key` is a unique, UA-generated value that represents the history
+  /// entry's slot in the history entries list, used to navigate to this place
+  /// in the history via [Navigation.traverseTo]. It will be reused by other
+  /// entries that replace the entry in the list (i.e. if the
+  /// [NavigateEvent.navigationType] is `replace`).
   external String get key;
+
+  /// The **`id`** read-only property of the
+  /// [NavigationDestination] interface returns the [NavigationHistoryEntry.id]
+  /// value of the destination [NavigationHistoryEntry] if the
+  /// [NavigateEvent.navigationType] is `traverse`, or an empty string
+  /// otherwise.
+  ///
+  /// The `id` is a unique, UA-generated value that always represents the
+  /// history entry, useful to correlate a history entry with an external
+  /// resource such as a storage cache.
   external String get id;
+
+  /// The **`index`** read-only property of the
+  /// [NavigationDestination] interface returns the
+  /// [NavigationHistoryEntry.index] value of the destination
+  /// [NavigationHistoryEntry] if the [NavigateEvent.navigationType] is
+  /// `traverse`, or `-1` otherwise.
   external int get index;
+
+  /// The **`sameDocument`** read-only property of the
+  /// [NavigationDestination] interface returns `true` if the navigation is to
+  /// the same `document` as the current [Document] value, or `false` otherwise.
+  ///
+  /// This is useful for checking whether the navigation will be same-document
+  /// or cross-document.
   external bool get sameDocument;
 }
 
@@ -6831,7 +10709,15 @@ extension type NavigationCurrentEntryChangeEvent._(JSObject _)
     NavigationCurrentEntryChangeEventInit eventInitDict,
   );
 
+  /// The **`navigationType`** read-only property of the
+  /// [NavigationCurrentEntryChangeEvent] interface returns the type of the
+  /// navigation that resulted in the change. The property may be `null` if the
+  /// change occurs due to [Navigation.updateCurrentEntry].
   external NavigationType? get navigationType;
+
+  /// The **`from`** read-only property of the
+  /// [NavigationCurrentEntryChangeEvent] interface returns the
+  /// [NavigationHistoryEntry] that was navigated from.
   external NavigationHistoryEntry get from;
 }
 extension type NavigationCurrentEntryChangeEventInit._(JSObject _)
@@ -6844,10 +10730,10 @@ extension type NavigationCurrentEntryChangeEventInit._(JSObject _)
     required NavigationHistoryEntry from,
   });
 
-  external set navigationType(NavigationType? value);
   external NavigationType? get navigationType;
-  external set from(NavigationHistoryEntry value);
+  external set navigationType(NavigationType? value);
   external NavigationHistoryEntry get from;
+  external set from(NavigationHistoryEntry value);
 }
 
 /// **`PopStateEvent`** is an interface for the
@@ -6872,6 +10758,11 @@ extension type PopStateEvent._(JSObject _) implements Event, JSObject {
     PopStateEventInit eventInitDict,
   ]);
 
+  /// The **`state`** read-only property of the [PopStateEvent] interface
+  /// represents the state stored when the event was created.
+  ///
+  /// Practically it is a value provided by the call to [history.pushState] or
+  /// [history.replaceState]
   external JSAny? get state;
   external bool get hasUAVisualTransition;
 }
@@ -6884,10 +10775,10 @@ extension type PopStateEventInit._(JSObject _) implements EventInit, JSObject {
     bool hasUAVisualTransition,
   });
 
-  external set state(JSAny? value);
   external JSAny? get state;
-  external set hasUAVisualTransition(bool value);
+  external set state(JSAny? value);
   external bool get hasUAVisualTransition;
+  external set hasUAVisualTransition(bool value);
 }
 
 /// The **`HashChangeEvent`** interface represents events that fire when the
@@ -6906,7 +10797,14 @@ extension type HashChangeEvent._(JSObject _) implements Event, JSObject {
     HashChangeEventInit eventInitDict,
   ]);
 
+  /// The **`oldURL`** read-only property of the
+  /// [HashChangeEvent] interface returns the previous URL from which the window
+  /// was navigated.
   external String get oldURL;
+
+  /// The **`newURL`** read-only property of the
+  /// [HashChangeEvent] interface returns the new URL to which the window is
+  /// navigating.
   external String get newURL;
 }
 extension type HashChangeEventInit._(JSObject _)
@@ -6919,10 +10817,10 @@ extension type HashChangeEventInit._(JSObject _)
     String newURL,
   });
 
-  external set oldURL(String value);
   external String get oldURL;
-  external set newURL(String value);
+  external set oldURL(String value);
   external String get newURL;
+  external set newURL(String value);
 }
 extension type PageRevealEvent._(JSObject _) implements Event, JSObject {
   external factory PageRevealEvent(
@@ -6941,8 +10839,8 @@ extension type PageRevealEventInit._(JSObject _)
     ViewTransition? viewTransition,
   });
 
-  external set viewTransition(ViewTransition? value);
   external ViewTransition? get viewTransition;
+  external set viewTransition(ViewTransition? value);
 }
 
 /// The **`PageTransitionEvent`** event object is available inside handler
@@ -6962,6 +10860,8 @@ extension type PageTransitionEvent._(JSObject _) implements Event, JSObject {
     PageTransitionEventInit eventInitDict,
   ]);
 
+  /// The **`persisted`** read-only property indicates if a webpage is loading
+  /// from a cache.
   external bool get persisted;
 }
 extension type PageTransitionEventInit._(JSObject _)
@@ -6973,8 +10873,8 @@ extension type PageTransitionEventInit._(JSObject _)
     bool persisted,
   });
 
-  external set persisted(bool value);
   external bool get persisted;
+  external set persisted(bool value);
 }
 
 /// The **`BeforeUnloadEvent`** interface represents the event object for the
@@ -6989,8 +10889,20 @@ extension type PageTransitionEventInit._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/BeforeUnloadEvent).
 extension type BeforeUnloadEvent._(JSObject _) implements Event, JSObject {
-  external set returnValue(String value);
+  /// The **`returnValue`** property of the
+  /// [BeforeUnloadEvent] interface, when set to a truthy value, triggers a
+  /// browser-generated confirmation dialog asking users to confirm if they
+  /// _really_ want to leave the page when they try to close or reload it, or
+  /// navigate somewhere else. This is intended to help prevent loss of unsaved
+  /// data.
+  ///
+  /// > **Note:** `returnValue` is a legacy feature, and best practice is to
+  /// > trigger the dialog by invoking [Event.preventDefault] on the
+  /// > `BeforeUnloadEvent` object, while also setting `returnValue` to support
+  /// > legacy cases. See the [Window.beforeunload_event] event reference for
+  /// > detailed up-to-date guidance.
   external String get returnValue;
+  external set returnValue(String value);
 }
 
 /// The **`ErrorEvent`** interface represents events providing information
@@ -7024,16 +10936,16 @@ extension type ErrorEventInit._(JSObject _) implements EventInit, JSObject {
     JSAny? error,
   });
 
-  external set message(String value);
   external String get message;
-  external set filename(String value);
+  external set message(String value);
   external String get filename;
-  external set lineno(int value);
+  external set filename(String value);
   external int get lineno;
-  external set colno(int value);
+  external set lineno(int value);
   external int get colno;
-  external set error(JSAny? value);
+  external set colno(int value);
   external JSAny? get error;
+  external set error(JSAny? value);
 }
 
 /// The **`PromiseRejectionEvent`** interface represents events which are sent
@@ -7053,7 +10965,17 @@ extension type PromiseRejectionEvent._(JSObject _) implements Event, JSObject {
     PromiseRejectionEventInit eventInitDict,
   );
 
+  /// The [PromiseRejectionEvent] interface's
+  /// **`promise`** read-only property indicates the JavaScript
+  /// `Promise` which was rejected. You can examine the event's
+  /// [PromiseRejectionEvent.reason] property to learn why the promise was
+  /// rejected.
   external JSObject get promise;
+
+  /// The [PromiseRejectionEvent] **`reason`** read-only
+  /// property is any JavaScript value or `Object` which provides the reason
+  /// passed into `Promise.reject()`. This in theory provides information about
+  /// why the promise was rejected.
   external JSAny? get reason;
 }
 extension type PromiseRejectionEventInit._(JSObject _)
@@ -7066,10 +10988,10 @@ extension type PromiseRejectionEventInit._(JSObject _)
     JSAny? reason,
   });
 
-  external set promise(JSObject value);
   external JSObject get promise;
-  external set reason(JSAny? value);
+  external set promise(JSObject value);
   external JSAny? get reason;
+  external set reason(JSAny? value);
 }
 
 /// The **`DOMParser`** interface provides
@@ -7224,36 +11146,353 @@ extension type Navigator._(JSObject _) implements JSObject {
 
   /// This method always returns false.
   external bool javaEnabled();
+
+  /// The **`clipboard`** read-only property of the [Navigator] interface
+  /// returns a [Clipboard] object used to read and write the clipboard's
+  /// contents.
+  ///
+  /// This is the entry point to the
+  /// [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API),
+  /// which can be used to implement cut, copy, and paste features within a web
+  /// application.
   external Clipboard get clipboard;
+
+  /// The **`credentials`** read-only property of the [Navigator] interface
+  /// returns the [CredentialsContainer] object associated with the current
+  /// document, which exposes methods to request credentials. The
+  /// [CredentialsContainer] interface also notifies the user agent when an
+  /// interesting event occurs, such as a successful sign-in or sign-out. This
+  /// interface can be used for feature detection.
   external CredentialsContainer get credentials;
+
+  /// The **`Navigator.geolocation`** read-only property returns a
+  /// [Geolocation] object that gives Web content access to the location of the
+  /// device. This allows a website or app to offer customized results based on
+  /// the user's
+  /// location.
+  ///
+  /// > **Note:** For security reasons, when a web page tries to access location
+  /// > information, the user is notified and asked to grant permission. Be
+  /// > aware that each
+  /// > browser has its own policies and methods for requesting this permission.
   external Geolocation get geolocation;
+
+  /// The read-only **`userActivation`** property of the [Navigator] interface
+  /// returns a [UserActivation] object which contains information about the
+  /// current window's user activation state.
   external UserActivation get userActivation;
+
+  /// The **`Navigator.mediaCapabilities`** read-only property
+  /// returns a [MediaCapabilities] object that can expose information about the
+  /// decoding and encoding capabilities for a given format and output
+  /// capabilities as defined
+  /// by the
+  /// [Media Capabilities API](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capabilities_API).
   external MediaCapabilities get mediaCapabilities;
+
+  /// The **`mediaDevices`** read-only property of the [Navigator] interface
+  /// returns a [MediaDevices] object, which provides access to connected media
+  /// input devices like cameras and microphones, as well as screen sharing.
   external MediaDevices get mediaDevices;
+
+  /// The **`mediaSession`** read-only property of the [Navigator]
+  /// interface returns a [MediaSession]
+  /// object that can be used to share with the browser metadata and other
+  /// information about
+  /// the current playback state of media being handled by a document.
+  ///
+  /// This
+  /// information may, in turn, be shared with the device and/or operating
+  /// system in order to
+  /// a device's standard media control user experience to describe and control
+  /// the playback
+  /// of the media.
+  ///
+  /// In addition, the `MediaSession` interface provides the
+  /// [MediaSession.setActionHandler] method, which lets
+  /// you receive events when the user engages device controls such as either
+  /// onscreen or
+  /// physical play, pause, seek, and other similar controls. An internet radio
+  /// app, for
+  /// example, can use `setActionHandler()` to let the media controls on a
+  /// keyboard
+  /// or elsewhere on the user's device be used to control the app's media
+  /// playback.
   external MediaSession get mediaSession;
+
+  /// The **`Navigator.permissions`** read-only property returns a
+  /// [Permissions] object that can be used to query and update permission
+  /// status of APIs covered by the
+  /// [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API).
   external Permissions get permissions;
+
+  /// The **`maxTouchPoints`** read-only property of the
+  /// [Navigator] interface returns the maximum number of simultaneous touch
+  /// contact points are supported by the current device.
   external int get maxTouchPoints;
+
+  /// The **`wakeLock`** read-only property of the [Navigator] interface returns
+  /// a [WakeLock] interface that allows a document to acquire a screen wake
+  /// lock.
+  /// While a screen wake lock is active, the user agent will try to prevent the
+  /// device from dimming the screen, turning it off completely, or showing a
+  /// screensaver.
   external WakeLock get wakeLock;
+
+  /// The **`serviceWorker`** read-only property of the [Navigator] interface
+  /// returns the [ServiceWorkerContainer] object for the
+  /// [associated document](https://html.spec.whatwg.org/multipage/browsers.html#concept-document-window),
+  /// which provides access to registration, removal, upgrade, and communication
+  /// with the [ServiceWorker].
+  ///
+  /// The feature may not be available in private mode.
   external ServiceWorkerContainer get serviceWorker;
+
+  /// The value of the **`Navigator.appCodeName`** property is
+  /// always "`Mozilla`", in any browser. This property is kept only for
+  /// compatibility purposes.
+  ///
+  /// > **Note:** Do not rely on this property to return a real
+  /// > product name. All browsers return "`Mozilla`" as the value of this
+  /// > property.
   external String get appCodeName;
+
+  /// The value of the **`Navigator.appName`** property is always
+  /// "`Netscape`", in any browser. This property is kept only for compatibility
+  /// purposes.
+  ///
+  /// > **Note:** Do not rely on this property to return a real browser name.
+  /// > All browsers return "`Netscape`" as the value of this property.
   external String get appName;
+
+  /// Returns either "`4.0`" or a string representing version information about
+  /// the browser.
+  ///
+  /// > **Note:** Do not rely on this property to return the correct browser
+  /// > version.
   external String get appVersion;
+
+  /// The **`platform`** property read-only property of the [Navigator]
+  /// interface returns a string identifying the platform on which the user's
+  /// browser is running.
+  ///
+  /// > **Note:** In general, you should whenever possible avoid writing code
+  /// > that uses methods or properties like this one to try to find out
+  /// > information about the user's environment, and instead write code that
+  /// > does
+  /// > [feature detection](https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection).
   external String get platform;
+
+  /// The value of the **`Navigator.product`** property is always
+  /// "`Gecko`", in any browser. This property is kept only for compatibility
+  /// purposes.
+  ///
+  /// > **Note:** Do not rely on this property to return a real product name.
+  /// > All browsers return "`Gecko`" as the value of this property.
   external String get product;
+
+  /// The **`Navigator.productSub`** read-only property returns the
+  /// build number of the current browser.
   external String get productSub;
+
+  /// The **`Navigator.userAgent`** read-only property returns the
+  /// user agent string for the current browser.
+  ///
+  /// > **Note:** The specification asks browsers to provide as little
+  /// > information via this field as
+  /// > possible. Never assume that the value of this property will stay the
+  /// > same in future
+  /// > versions of the same browser. Try not to use it at all, or only for
+  /// > current and past
+  /// > versions of a browser. New browsers may start using the same UA, or part
+  /// > of it, as an
+  /// > older browser: you really have no guarantee that the browser agent is
+  /// > indeed the one
+  /// > advertised by this property.
+  /// >
+  /// > Also keep in mind that users of a browser can change the value of this
+  /// > field if they
+  /// > want (UA spoofing).
+  ///
+  /// Browser identification based on detecting the user agent string is
+  /// **unreliable** and **is not recommended**, as the user agent
+  /// string is user configurable. For example:
+  ///
+  /// - In Firefox, you can change the preference `general.useragent.override`
+  ///   in
+  /// `about:config`. Some Firefox extensions do that; however, this only
+  /// changes
+  /// the HTTP header that gets sent and that is returned by
+  /// `navigator.userAgent`.
+  /// There might be other methods that utilize JavaScript code to identify the
+  /// browser.
+  /// - Opera 6+ allows users to set the browser identification string via a
+  ///   menu.
   external String get userAgent;
+
+  /// The value of the [Navigator] **`vendor`** property is always either
+  /// "`Google Inc.`", "`Apple Computer, Inc.`", or (in Firefox) the empty
+  /// string.
   external String get vendor;
+
+  /// The value of the **`Navigator.vendorSub`** property is always
+  /// the empty string, in any browser.
   external String get vendorSub;
+
+  /// The **`Navigator.oscpu`** property returns a string that identifies the
+  /// current operating system.
   external String get oscpu;
+
+  /// The **`Navigator.language`** read-only property returns a string
+  /// representing the preferred language of the user, usually the language of
+  /// the browser UI.
   external String get language;
+
+  /// The **`Navigator.languages`** read-only property
+  /// returns an array of strings representing the user's preferred
+  /// languages. The language is described using language tags according to
+  /// `5646, "Tags for Identifying Languages (also known as BCP 47)"`. In the
+  /// returned
+  /// array they are ordered by preference with the most preferred language
+  /// first.
+  ///
+  /// The value of [Navigator.language] is the
+  /// first element of the returned array.
+  ///
+  /// When its value changes, as the user's preferred languages are changed a
+  /// [Window.languagechange_event] event is fired on the [Window] object.
+  ///
+  /// The `Accept-Language` HTTP header in every HTTP request from the user's
+  /// browser uses the same value for the `navigator.languages` property except
+  /// for
+  /// the extra `qvalues` (quality values) field (e.g. `en-US;q=0.8`).
   external JSArray<JSString> get languages;
+
+  /// Returns the online status of the browser. The property returns a boolean
+  /// value, with
+  /// `true` meaning online and `false` meaning offline. The property
+  /// sends updates whenever the browser's ability to connect to the network
+  /// changes. The
+  /// update occurs when the user follows links or when a script requests a
+  /// remote page. For
+  /// example, the property should return `false` when users click links soon
+  /// after
+  /// they lose internet connection.
+  ///
+  /// Browsers implement this property differently.
+  ///
+  /// In Chrome and Safari, if the browser is not able to connect to a local
+  /// area network
+  /// (LAN) or a router, it is offline; all other conditions return `true`. So
+  /// while you can assume that the browser is offline when it returns a `false`
+  /// value, you cannot assume that a true value necessarily means that the
+  /// browser can access
+  /// the internet. You could be getting false positives, such as in cases where
+  /// the computer
+  /// is running a virtualization software that has virtual ethernet adapters
+  /// that are always
+  /// "connected." Therefore, if you really want to determine the online status
+  /// of the
+  /// browser, you should develop additional means for checking.
+  ///
+  /// In Firefox, switching the browser to offline mode sends a `false` value.
+  /// Until Firefox
+  /// 41, all other conditions returned a `true` value; testing actual behavior
+  /// on Nightly 68 on
+  /// Windows shows that it only looks for LAN connection like Chrome and Safari
+  /// giving false
+  /// positives.
+  ///
+  /// You can see changes in the network state by listening to the
+  /// [`online`](https://developer.mozilla.org/en-US/docs/Web/API/Window/online_event)
+  /// and
+  /// [`offline`](https://developer.mozilla.org/en-US/docs/Web/API/Window/offline_event)
+  /// events.
   external bool get onLine;
+
+  /// `navigator.cookieEnabled` returns a Boolean value that indicates whether
+  /// cookies are enabled or not.
+  ///
+  /// The property is read-only.
   external bool get cookieEnabled;
+
+  /// Returns a [PluginArray] object, listing the [Plugin] objects describing
+  /// the plugins installed in the application.
+  /// Named properties of the returned object are not enumerable (except in very
+  /// old browser versions).
+  ///
+  /// Recent versions of the specification hard-code the returned list.
+  /// If inline viewing of PDF files is supported the property lists five
+  /// standard plugins.
+  /// If inline PDF viewing is not supported then an empty list is returned.
+  ///
+  /// > **Note:** Use [Navigator.pdfViewerEnabled] to determine if inline
+  /// > viewing of PDF files is supported. Do not infer it from this property.
+  /// >
+  /// > The "five standard plugins" are those that developers have most commonly
+  /// > used to feature detect inline PDF viewing.
+  /// > Returning these ensures that legacy code can more reliably determine
+  /// > whether inline viewing is supported.
+  /// > However this approach is not recommended for new code because this
+  /// > property may eventually be removed.
+  ///
+  /// Legacy browser versions also list plugins for Adobe Flash and PDF viewer
+  /// extensions.
   external PluginArray get plugins;
+
+  /// Returns a [MimeTypeArray] object, which contains a list of [MimeType]
+  /// objects representing the MIME types recognized and supported by the
+  /// browser.
+  /// The array can be queried for information about the enabled plugin that is
+  /// used to handle a file of the specified type.
+  /// Named properties of the returned object are not enumerable (except in very
+  /// old browser versions).
+  ///
+  /// Recent versions of the specification hard-code the returned set of MIME
+  /// types.
+  /// If PDF files can be displayed inline then `application/pdf` and `text/pdf`
+  /// are listed.
+  /// Otherwise an empty list is returned.
+  ///
+  /// > **Note:** Use [Navigator.pdfViewerEnabled] to determine if inline
+  /// > viewing of PDF files is supported. Do not infer it from this property.
+  ///
+  /// Legacy browser versions do not hard-code the list returned by the
+  /// property, and might return other MIME types.
   external MimeTypeArray get mimeTypes;
+
+  /// The **`pdfViewerEnabled`** read-only property of the [Navigator] interface
+  /// indicates whether the browser supports inline display of PDF files when
+  /// navigating to them.
+  ///
+  /// If inline viewing is not supported the PDF is downloaded and may then be
+  /// handled by some external application.
+  ///
+  /// > **Note:** This method replaces a number of legacy methods of inferring
+  /// > support for inline viewing of PDF files.
   external bool get pdfViewerEnabled;
+
+  /// The **`navigator.hardwareConcurrency`** read-only property
+  /// returns the number of logical processors available to run threads on the
+  /// user's
+  /// computer.
   external int get hardwareConcurrency;
+
+  /// The **`Navigator.storage`**
+  /// read-only property returns the singleton [StorageManager] object used to
+  /// access the overall storage capabilities of the browser for the current
+  /// site or app.
+  /// The returned object lets you examine and configure persistence of data
+  /// stores and
+  /// learn approximately how much more space your browser has available for
+  /// local storage
+  /// use.
   external StorageManager get storage;
+
+  /// The **`locks`** read-only property of
+  /// the [Navigator] interface returns a [LockManager] object
+  /// which provides methods for requesting a new [Lock] object and querying
+  /// for an existing `Lock` object.
   external LockManager get locks;
 }
 
@@ -7352,7 +11591,13 @@ extension type ImageBitmap._(JSObject _) implements JSObject {
   /// method disposes of all graphical resources associated with an
   /// `ImageBitmap`.
   external void close();
+
+  /// The read-only **`ImageBitmap.width`** property returns the [ImageBitmap]
+  /// object's width in CSS pixels.
   external int get width;
+
+  /// The read-only **`ImageBitmap.height`** property returns the [ImageBitmap]
+  /// object's height in CSS pixels.
   external int get height;
 }
 extension type ImageBitmapOptions._(JSObject _) implements JSObject {
@@ -7365,18 +11610,18 @@ extension type ImageBitmapOptions._(JSObject _) implements JSObject {
     ResizeQuality resizeQuality,
   });
 
-  external set imageOrientation(ImageOrientation value);
   external ImageOrientation get imageOrientation;
-  external set premultiplyAlpha(PremultiplyAlpha value);
+  external set imageOrientation(ImageOrientation value);
   external PremultiplyAlpha get premultiplyAlpha;
-  external set colorSpaceConversion(ColorSpaceConversion value);
+  external set premultiplyAlpha(PremultiplyAlpha value);
   external ColorSpaceConversion get colorSpaceConversion;
-  external set resizeWidth(int value);
+  external set colorSpaceConversion(ColorSpaceConversion value);
   external int get resizeWidth;
-  external set resizeHeight(int value);
+  external set resizeWidth(int value);
   external int get resizeHeight;
-  external set resizeQuality(ResizeQuality value);
+  external set resizeHeight(int value);
   external ResizeQuality get resizeQuality;
+  external set resizeQuality(ResizeQuality value);
 }
 
 /// The **`MessageEvent`** interface represents a message received by a target
@@ -7426,10 +11671,34 @@ extension type MessageEvent._(JSObject _) implements Event, JSObject {
     MessageEventSource? source,
     JSArray<MessagePort> ports,
   ]);
+
+  /// The **`data`** read-only property of the
+  /// [MessageEvent] interface represents the data sent by the message emitter.
   external JSAny? get data;
+
+  /// The **`origin`** read-only property of the
+  /// [MessageEvent] interface is a string representing the
+  /// origin of the message emitter.
   external String get origin;
+
+  /// The **`lastEventId`** read-only property of the
+  /// [MessageEvent] interface is a string representing a
+  /// unique ID for the event.
   external String get lastEventId;
+
+  /// The **`source`** read-only property of the
+  /// [MessageEvent] interface is a `MessageEventSource` (which can be
+  /// a , [MessagePort], or
+  /// [ServiceWorker] object) representing the message emitter.
   external MessageEventSource? get source;
+
+  /// The **`ports`** read-only property of the
+  /// [MessageEvent] interface is an array of [MessagePort] objects
+  /// representing the ports associated with the channel the message is being
+  /// sent through
+  /// (where appropriate, e.g. in channel messaging or when sending a message to
+  /// a shared
+  /// worker).
   external JSArray<MessagePort> get ports;
 }
 extension type MessageEventInit._(JSObject _) implements EventInit, JSObject {
@@ -7444,16 +11713,16 @@ extension type MessageEventInit._(JSObject _) implements EventInit, JSObject {
     JSArray<MessagePort> ports,
   });
 
-  external set data(JSAny? value);
   external JSAny? get data;
-  external set origin(String value);
+  external set data(JSAny? value);
   external String get origin;
-  external set lastEventId(String value);
+  external set origin(String value);
   external String get lastEventId;
-  external set source(MessageEventSource? value);
+  external set lastEventId(String value);
   external MessageEventSource? get source;
-  external set ports(JSArray<MessagePort> value);
+  external set source(MessageEventSource? value);
   external JSArray<MessagePort> get ports;
+  external set ports(JSArray<MessagePort> value);
 }
 
 /// The **`EventSource`** interface is web content's interface to
@@ -7519,21 +11788,33 @@ extension type EventSource._(JSObject _) implements EventTarget, JSObject {
   ///
   /// > **Note:** If the connection is already closed, the method does nothing.
   external void close();
+
+  /// The **`url`** read-only property of the
+  /// [EventSource] interface returns a string representing the
+  /// URL of the source.
   external String get url;
+
+  /// The **`withCredentials`** read-only property of the
+  /// [EventSource] interface returns a boolean value indicating whether
+  /// the `EventSource` object was instantiated with CORS credentials set.
   external bool get withCredentials;
+
+  /// The **`readyState`** read-only property of the
+  /// [EventSource] interface returns a number representing the state of the
+  /// connection.
   external int get readyState;
-  external set onopen(EventHandler value);
   external EventHandler get onopen;
-  external set onmessage(EventHandler value);
+  external set onopen(EventHandler value);
   external EventHandler get onmessage;
-  external set onerror(EventHandler value);
+  external set onmessage(EventHandler value);
   external EventHandler get onerror;
+  external set onerror(EventHandler value);
 }
 extension type EventSourceInit._(JSObject _) implements JSObject {
   external factory EventSourceInit({bool withCredentials});
 
-  external set withCredentials(bool value);
   external bool get withCredentials;
+  external set withCredentials(bool value);
 }
 
 /// The **`MessageChannel`** interface of the
@@ -7548,7 +11829,17 @@ extension type EventSourceInit._(JSObject _) implements JSObject {
 extension type MessageChannel._(JSObject _) implements JSObject {
   external factory MessageChannel();
 
+  /// The **`port1`** read-only property of the
+  /// [MessageChannel] interface returns the first port of the message channel —
+  /// the port attached to the context that originated the channel.
   external MessagePort get port1;
+
+  /// The **`port2`** read-only property of the
+  /// [MessageChannel] interface returns the second port of the message channel
+  /// —
+  /// the port attached to the context at the other end of the channel, which
+  /// the message is
+  /// initially sent to.
   external MessagePort get port2;
 }
 
@@ -7585,18 +11876,18 @@ extension type MessagePort._(JSObject _) implements EventTarget, JSObject {
   /// flow of
   /// messages to that port.
   external void close();
-  external set onmessage(EventHandler value);
   external EventHandler get onmessage;
-  external set onmessageerror(EventHandler value);
+  external set onmessage(EventHandler value);
   external EventHandler get onmessageerror;
-  external set onclose(EventHandler value);
+  external set onmessageerror(EventHandler value);
   external EventHandler get onclose;
+  external set onclose(EventHandler value);
 }
 extension type StructuredSerializeOptions._(JSObject _) implements JSObject {
   external factory StructuredSerializeOptions({JSArray<JSObject> transfer});
 
-  external set transfer(JSArray<JSObject> value);
   external JSArray<JSObject> get transfer;
+  external set transfer(JSArray<JSObject> value);
 }
 
 /// The **`BroadcastChannel`** interface represents a named channel that any  of
@@ -7628,11 +11919,16 @@ extension type BroadcastChannel._(JSObject _) implements EventTarget, JSObject {
   /// as there is no other way for a browser to know
   /// that this channel is not needed anymore.
   external void close();
+
+  /// The read-only **`BroadcastChannel.name`** property returns a string, which
+  /// uniquely identifies the given channel with its name. This name is passed
+  /// to the [BroadcastChannel.BroadCastChannel] constructor at creation time
+  /// and is therefore read-only.
   external String get name;
-  external set onmessage(EventHandler value);
   external EventHandler get onmessage;
-  external set onmessageerror(EventHandler value);
+  external set onmessage(EventHandler value);
   external EventHandler get onmessageerror;
+  external set onmessageerror(EventHandler value);
 }
 
 /// The **`WorkerGlobalScope`** interface of the
@@ -7691,21 +11987,42 @@ extension type WorkerGlobalScope._(JSObject _)
     JSAny? value, [
     StructuredSerializeOptions options,
   ]);
+
+  /// The **`self`** read-only property of the [WorkerGlobalScope] interface
+  /// returns a reference to the `WorkerGlobalScope` itself. Most of the time it
+  /// is a specific scope like [DedicatedWorkerGlobalScope],
+  /// [SharedWorkerGlobalScope], or [ServiceWorkerGlobalScope].
   external WorkerGlobalScope get self;
+
+  /// The **`location`** read-only property of the [WorkerGlobalScope] interface
+  /// returns the [WorkerLocation] associated with the worker. It is a specific
+  /// location object, mostly a subset of the [Location] for browsing scopes,
+  /// but adapted to workers.
   external WorkerLocation get location;
+
+  /// The **`navigator`** read-only property of the [WorkerGlobalScope]
+  /// interface returns the [WorkerNavigator] associated with the worker. It is
+  /// a specific navigator object, mostly a subset of the [Navigator] for
+  /// browsing scopes, but adapted to workers.
   external WorkerNavigator get navigator;
-  external set onerror(OnErrorEventHandler value);
   external OnErrorEventHandler get onerror;
-  external set onlanguagechange(EventHandler value);
+  external set onerror(OnErrorEventHandler value);
   external EventHandler get onlanguagechange;
-  external set onoffline(EventHandler value);
+  external set onlanguagechange(EventHandler value);
   external EventHandler get onoffline;
-  external set ononline(EventHandler value);
+  external set onoffline(EventHandler value);
   external EventHandler get ononline;
-  external set onrejectionhandled(EventHandler value);
+  external set ononline(EventHandler value);
   external EventHandler get onrejectionhandled;
-  external set onunhandledrejection(EventHandler value);
+  external set onrejectionhandled(EventHandler value);
   external EventHandler get onunhandledrejection;
+  external set onunhandledrejection(EventHandler value);
+
+  /// The **`fonts`** property of the [WorkerGlobalScope] interface returns the
+  /// [FontFaceSet] interface of the worker.
+  ///
+  /// This property is part of the
+  /// [CSS Font Loading API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Font_Loading_API).
   external FontFaceSet get fonts;
   external IDBFactory get indexedDB;
   external Crypto get crypto;
@@ -7799,13 +12116,19 @@ extension type DedicatedWorkerGlobalScope._(JSObject _)
   /// be created by [Window] or by a dedicated worker that also has an
   /// associated owner [Window].
   external void cancelAnimationFrame(int handle);
+
+  /// The **`name`** read-only property of the
+  /// [DedicatedWorkerGlobalScope] interface returns the name that the
+  /// [Worker] was (optionally) given when it was created. This is the name that
+  /// the [Worker.Worker] constructor can pass to get a reference to
+  /// the [DedicatedWorkerGlobalScope].
   external String get name;
-  external set onmessage(EventHandler value);
   external EventHandler get onmessage;
-  external set onmessageerror(EventHandler value);
+  external set onmessage(EventHandler value);
   external EventHandler get onmessageerror;
-  external set onrtctransform(EventHandler value);
+  external set onmessageerror(EventHandler value);
   external EventHandler get onrtctransform;
+  external set onrtctransform(EventHandler value);
 }
 
 /// The **`SharedWorkerGlobalScope`** object (the [SharedWorker] global scope)
@@ -7826,9 +12149,16 @@ extension type SharedWorkerGlobalScope._(JSObject _)
   /// discards any tasks queued in the `SharedWorkerGlobalScope`'s event loop,
   /// effectively closing this particular scope.
   external void close();
+
+  /// The **`name`** read-only property of the
+  /// [SharedWorkerGlobalScope] interface returns the name that the
+  /// [SharedWorker] was (optionally) given when it was created. This is the
+  /// name
+  /// that the [SharedWorker.SharedWorker] constructor can pass
+  /// to get a reference to the [SharedWorkerGlobalScope].
   external String get name;
-  external set onconnect(EventHandler value);
   external EventHandler get onconnect;
+  external set onconnect(EventHandler value);
 }
 
 /// The **`Worker`** interface of the
@@ -7878,12 +12208,12 @@ extension type Worker._(JSObject _) implements EventTarget, JSObject {
     JSAny? message, [
     JSObject optionsOrTransfer,
   ]);
-  external set onmessage(EventHandler value);
   external EventHandler get onmessage;
-  external set onmessageerror(EventHandler value);
+  external set onmessage(EventHandler value);
   external EventHandler get onmessageerror;
-  external set onerror(EventHandler value);
+  external set onmessageerror(EventHandler value);
   external EventHandler get onerror;
+  external set onerror(EventHandler value);
 }
 extension type WorkerOptions._(JSObject _) implements JSObject {
   external factory WorkerOptions({
@@ -7892,12 +12222,12 @@ extension type WorkerOptions._(JSObject _) implements JSObject {
     String name,
   });
 
-  external set type(WorkerType value);
   external WorkerType get type;
-  external set credentials(RequestCredentials value);
+  external set type(WorkerType value);
   external RequestCredentials get credentials;
-  external set name(String value);
+  external set credentials(RequestCredentials value);
   external String get name;
+  external set name(String value);
 }
 
 /// The **`SharedWorker`** interface represents a specific kind of worker that
@@ -7920,9 +12250,12 @@ extension type SharedWorker._(JSObject _) implements EventTarget, JSObject {
     JSAny options,
   ]);
 
+  /// The **`port`** property of the [SharedWorker]
+  /// interface returns a [MessagePort] object used to communicate and control
+  /// the shared worker.
   external MessagePort get port;
-  external set onerror(EventHandler value);
   external EventHandler get onerror;
+  external set onerror(EventHandler value);
 }
 
 /// The **`WorkerNavigator`** interface represents a subset of the [Navigator]
@@ -7936,24 +12269,181 @@ extension type SharedWorker._(JSObject _) implements EventTarget, JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WorkerNavigator).
 extension type WorkerNavigator._(JSObject _) implements JSObject {
   external bool taintEnabled();
+
+  /// The read-only **`WorkerNavigator.mediaCapabilities`** property
+  /// returns a [MediaCapabilities] object that can expose information about the
+  /// decoding and encoding capabilities for a given format and output
+  /// capabilities as defined
+  /// by the
+  /// [Media Capabilities API](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capabilities_API).
   external MediaCapabilities get mediaCapabilities;
+
+  /// The **`WorkerNavigator.permissions`** read-only property
+  /// returns a [Permissions] object that can be used to query and update
+  /// permission status of APIs covered by the
+  /// [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API).
   external Permissions get permissions;
+
+  /// The **`serviceWorker`** read-only property of the [WorkerNavigator]
+  /// interface returns the [ServiceWorkerContainer] object for the
+  /// [associated document](https://html.spec.whatwg.org/multipage/browsers.html#concept-document-window),
+  /// which provides access to registration, removal, upgrade, and communication
+  /// with the [ServiceWorker].
+  ///
+  /// The feature may not be available in private mode.
   external ServiceWorkerContainer get serviceWorker;
+
+  /// The value of the **`WorkerNavigator.appCodeName`** property is
+  /// always "`Mozilla`", in any browser. This property is kept only for
+  /// compatibility purposes.
+  ///
+  /// > **Note:** Do not rely on this property to return a real
+  /// > product name. All browsers return "`Mozilla`" as the value of this
+  /// > property.
   external String get appCodeName;
+
+  /// The value of the **`WorkerNavigator.appName`** property is always
+  /// "`Netscape`", in any browser. This property is kept only for compatibility
+  /// purposes.
+  ///
+  /// > **Note:** Do not rely on this property to return a real browser name.
+  /// > All browsers return "`Netscape`" as the value of this property.
   external String get appName;
+
+  /// Returns either "`4.0`" or a string representing version information about
+  /// the browser.
+  ///
+  /// > **Note:** Do not rely on this property to return the correct browser
+  /// > version.
   external String get appVersion;
+
+  /// Returns a string representing the platform of the browser. The
+  /// specification allows
+  /// browsers to always return the empty string, so don't rely on this property
+  /// to get a
+  /// reliable answer.
   external String get platform;
+
+  /// The value of the **`WorkerNavigator.product`** property is always
+  /// "`Gecko`", in any browser. This property is kept only for compatibility
+  /// purposes.
+  ///
+  /// > **Note:** Do not rely on this property to return a real product name.
+  /// > All browsers return "`Gecko`" as the value of this property.
   external String get product;
   external String get productSub;
+
+  /// The **`WorkerNavigator.userAgent`** read-only property returns the
+  /// user agent string for the current browser.
+  ///
+  /// > **Note:** The specification asks browsers to provide as little
+  /// > information via this field as
+  /// > possible. Never assume that the value of this property will stay the
+  /// > same in future
+  /// > versions of the same browser. Try not to use it at all, or only for
+  /// > current and past
+  /// > versions of a browser. New browsers may start using the same UA, or part
+  /// > of it, as an
+  /// > older browser: you really have no guarantee that the browser agent is
+  /// > indeed the one
+  /// > advertised by this property.
+  /// >
+  /// > Also keep in mind that users of a browser can change the value of this
+  /// > field if they
+  /// > want (UA spoofing).
+  ///
+  /// Browser identification based on detecting the user agent string is
+  /// **unreliable** and **is not recommended**, as the user agent
+  /// string is user configurable. For example:
+  ///
+  /// - In Firefox, you can change the preference `general.useragent.override`
+  ///   in
+  /// `about:config`. Some Firefox extensions do that; however, this only
+  /// changes
+  /// the HTTP header that gets sent, and doesn't affect browser detection
+  /// performed by
+  /// JavaScript code.
+  /// - Opera 6+ allows users to set the browser identification string via a
+  ///   menu.
   external String get userAgent;
   external String get vendor;
   external String get vendorSub;
   external String get oscpu;
+
+  /// The **`WorkerNavigator.language`** read-only property returns
+  /// a string representing the preferred language of the user, usually the
+  /// language of the
+  /// browser UI.
   external String get language;
+
+  /// The **`WorkerNavigator.languages`** read-only property
+  /// returns an array of strings representing the user's preferred
+  /// languages. The language is described using language tags according to
+  /// `5646, "Tags for Identifying Languages (also known as BCP 47)"`. In the
+  /// returned
+  /// array they are ordered by preference with the most preferred language
+  /// first.
+  ///
+  /// The value of [WorkerNavigator.language] is the
+  /// first element of the returned array.
+  ///
+  /// When its value changes, as the user's preferred languages are changed a
+  /// [Window.languagechange_event] event is fired on the [WorkerGlobalScope]
+  /// object.
+  ///
+  /// The `Accept-Language` HTTP header in every HTTP request from the user's
+  /// browser uses the same value for the `navigator.languages` property except
+  /// for
+  /// the extra `qvalues` (quality values) field (e.g. `en-US;q=0.8`).
   external JSArray<JSString> get languages;
+
+  /// Returns the online status of the browser. The property returns a boolean
+  /// value, with `true` meaning online and `false` meaning offline. The
+  /// property sends updates whenever the browser's ability to connect to the
+  /// network changes. The update occurs when the user follows links or when a
+  /// script requests a remote page.
+  ///
+  /// For example, the property should return `false` when users click links
+  /// soon after they lose internet connection.
+  ///
+  /// Browsers implement this property differently.
+  ///
+  /// In Chrome and Safari, if the browser is not able to connect to a local
+  /// area network (LAN) or a router, it is offline; all other conditions return
+  /// `true`. So while you can assume that the browser is offline when it
+  /// returns a `false` value, you cannot assume that a true value necessarily
+  /// means that the browser can access the internet. You could be getting false
+  /// positives, such as in cases where the computer is running a virtualization
+  /// software that has virtual ethernet adapters that are always
+  /// "connected." Therefore, if you really want to determine the online status
+  /// of the browser, you should develop additional means for checking. To learn
+  /// more, see the 2011 article,
+  /// [Working Off the Grid](https://developer.chrome.com/docs/workbox/service-worker-overview/).
+  ///
+  /// In Firefox, switching the browser to offline mode sends a `false` value.
   external bool get onLine;
+
+  /// The **`navigator.hardwareConcurrency`** read-only property
+  /// returns the number of logical processors available to run threads on the
+  /// user's
+  /// computer.
   external int get hardwareConcurrency;
+
+  /// The **`storage`** read-only property of the [WorkerNavigator] interface
+  /// returns the singleton [StorageManager] object used to
+  /// access the overall storage capabilities of the browser for the current
+  /// site or app.
+  /// The returned object lets you examine and configure persistence of data
+  /// stores and
+  /// learn approximately how much more space your browser has available for
+  /// local storage
+  /// use.
   external StorageManager get storage;
+
+  /// The **`locks`** read-only property of
+  /// the [WorkerNavigator] interface returns a [LockManager]
+  /// object which provides methods for requesting a new [Lock] object and
+  /// querying for an existing `Lock` object.
   external LockManager get locks;
 }
 
@@ -7970,14 +12460,40 @@ extension type WorkerNavigator._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WorkerLocation).
 extension type WorkerLocation._(JSObject _) implements JSObject {
+  /// The **`href`** property of a [WorkerLocation] object returns a string
+  /// containing the serialized [URL] for the worker's location.
   external String get href;
+
+  /// The **`origin`** property of a [WorkerLocation] object returns the
+  /// worker's [URL.origin].
   external String get origin;
+
+  /// The **`protocol`** property of a [WorkerLocation] object returns the
+  /// [URL.protocol] part of the worker's location.
   external String get protocol;
+
+  /// The **`host`** property of a [WorkerLocation] object returns the
+  /// [URL.host] part of the worker's location.
   external String get host;
+
+  /// The **`hostname`** property of a [WorkerLocation] object returns the
+  /// [URL.hostname] part of the worker's location.
   external String get hostname;
+
+  /// The **`port`** property of a [WorkerLocation] object returns the
+  /// [URL.port] part of the worker's location.
   external String get port;
+
+  /// The **`pathname`** property of a [WorkerLocation] object returns the
+  /// [URL.pathname] part of the worker's location.
   external String get pathname;
+
+  /// The **`search`** property of a [WorkerLocation] object returns the
+  /// [URL.search] part of the worker's location.
   external String get search;
+
+  /// The **`hash`** property of a [WorkerLocation] object returns the
+  /// [URL.hash] part of the worker's location.
   external String get hash;
 }
 
@@ -8028,8 +12544,8 @@ extension type Worklet._(JSObject _) implements JSObject {
 extension type WorkletOptions._(JSObject _) implements JSObject {
   external factory WorkletOptions({RequestCredentials credentials});
 
-  external set credentials(RequestCredentials value);
   external RequestCredentials get credentials;
+  external set credentials(RequestCredentials value);
 }
 
 /// The **`Storage`** interface of the
@@ -8084,6 +12600,10 @@ extension type Storage._(JSObject _) implements JSObject {
   /// The **`clear()`** method of the [Storage]
   /// interface clears all keys stored in a given `Storage` object.
   external void clear();
+
+  /// The **`length`** read-only property of the
+  /// [Storage] interface returns the number of data items stored in a given
+  /// `Storage` object.
   external int get length;
 }
 
@@ -8115,10 +12635,25 @@ extension type StorageEvent._(JSObject _) implements Event, JSObject {
     String url,
     Storage? storageArea,
   ]);
+
+  /// The **`key`** property of the [StorageEvent] interface returns the key for
+  /// the storage item that was changed.
   external String? get key;
+
+  /// The **`oldValue`** property of the [StorageEvent] interface returns the
+  /// original value of the storage item whose value changed.
   external String? get oldValue;
+
+  /// The **`newValue`** property of the [StorageEvent] interface returns the
+  /// new value of the storage item whose value was changed.
   external String? get newValue;
+
+  /// The **`url`** property of the [StorageEvent] interface returns the URL of
+  /// the document whose storage changed.
   external String get url;
+
+  /// The **`storageArea`** property of the [StorageEvent] interface returns the
+  /// storage object that was affected.
   external Storage? get storageArea;
 }
 extension type StorageEventInit._(JSObject _) implements EventInit, JSObject {
@@ -8133,16 +12668,16 @@ extension type StorageEventInit._(JSObject _) implements EventInit, JSObject {
     Storage? storageArea,
   });
 
-  external set key(String? value);
   external String? get key;
-  external set oldValue(String? value);
+  external set key(String? value);
   external String? get oldValue;
-  external set newValue(String? value);
+  external set oldValue(String? value);
   external String? get newValue;
-  external set url(String value);
+  external set newValue(String? value);
   external String get url;
-  external set storageArea(Storage? value);
+  external set url(String value);
   external Storage? get storageArea;
+  external set storageArea(Storage? value);
 }
 
 /// The **`HTMLMarqueeElement`** interface provides methods to manipulate
@@ -8161,28 +12696,28 @@ extension type HTMLMarqueeElement._(JSObject _)
 
   external void start();
   external void stop();
-  external set behavior(String value);
   external String get behavior;
-  external set bgColor(String value);
+  external set behavior(String value);
   external String get bgColor;
-  external set direction(String value);
+  external set bgColor(String value);
   external String get direction;
-  external set height(String value);
+  external set direction(String value);
   external String get height;
-  external set hspace(int value);
+  external set height(String value);
   external int get hspace;
-  external set loop(int value);
+  external set hspace(int value);
   external int get loop;
-  external set scrollAmount(int value);
+  external set loop(int value);
   external int get scrollAmount;
-  external set scrollDelay(int value);
+  external set scrollAmount(int value);
   external int get scrollDelay;
-  external set trueSpeed(bool value);
+  external set scrollDelay(int value);
   external bool get trueSpeed;
-  external set vspace(int value);
+  external set trueSpeed(bool value);
   external int get vspace;
-  external set width(String value);
+  external set vspace(int value);
   external String get width;
+  external set width(String value);
 }
 
 /// The **`HTMLFrameSetElement`** interface provides special properties (beyond
@@ -8198,79 +12733,79 @@ extension type HTMLFrameSetElement._(JSObject _)
   /// Creates an [HTMLFrameSetElement] using the tag 'frameset'.
   HTMLFrameSetElement() : _ = document.createElement('frameset');
 
-  external set cols(String value);
   external String get cols;
-  external set rows(String value);
+  external set cols(String value);
   external String get rows;
-  external set ongamepadconnected(EventHandler value);
+  external set rows(String value);
   external EventHandler get ongamepadconnected;
-  external set ongamepaddisconnected(EventHandler value);
+  external set ongamepadconnected(EventHandler value);
   external EventHandler get ongamepaddisconnected;
-  external set onafterprint(EventHandler value);
+  external set ongamepaddisconnected(EventHandler value);
   external EventHandler get onafterprint;
-  external set onbeforeprint(EventHandler value);
+  external set onafterprint(EventHandler value);
   external EventHandler get onbeforeprint;
-  external set onbeforeunload(OnBeforeUnloadEventHandler value);
+  external set onbeforeprint(EventHandler value);
   external OnBeforeUnloadEventHandler get onbeforeunload;
-  external set onhashchange(EventHandler value);
+  external set onbeforeunload(OnBeforeUnloadEventHandler value);
   external EventHandler get onhashchange;
-  external set onlanguagechange(EventHandler value);
+  external set onhashchange(EventHandler value);
   external EventHandler get onlanguagechange;
-  external set onmessage(EventHandler value);
+  external set onlanguagechange(EventHandler value);
   external EventHandler get onmessage;
-  external set onmessageerror(EventHandler value);
+  external set onmessage(EventHandler value);
   external EventHandler get onmessageerror;
-  external set onoffline(EventHandler value);
+  external set onmessageerror(EventHandler value);
   external EventHandler get onoffline;
-  external set ononline(EventHandler value);
+  external set onoffline(EventHandler value);
   external EventHandler get ononline;
-  external set onpagehide(EventHandler value);
+  external set ononline(EventHandler value);
   external EventHandler get onpagehide;
-  external set onpagereveal(EventHandler value);
+  external set onpagehide(EventHandler value);
   external EventHandler get onpagereveal;
-  external set onpageshow(EventHandler value);
+  external set onpagereveal(EventHandler value);
   external EventHandler get onpageshow;
-  external set onpopstate(EventHandler value);
+  external set onpageshow(EventHandler value);
   external EventHandler get onpopstate;
-  external set onrejectionhandled(EventHandler value);
+  external set onpopstate(EventHandler value);
   external EventHandler get onrejectionhandled;
-  external set onstorage(EventHandler value);
+  external set onrejectionhandled(EventHandler value);
   external EventHandler get onstorage;
-  external set onunhandledrejection(EventHandler value);
+  external set onstorage(EventHandler value);
   external EventHandler get onunhandledrejection;
-  external set onunload(EventHandler value);
+  external set onunhandledrejection(EventHandler value);
   external EventHandler get onunload;
+  external set onunload(EventHandler value);
 }
 extension type HTMLFrameElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLFrameElement] using the tag 'frame'.
   HTMLFrameElement() : _ = document.createElement('frame');
 
-  external set name(String value);
   external String get name;
-  external set scrolling(String value);
+  external set name(String value);
   external String get scrolling;
-  external set src(String value);
+  external set scrolling(String value);
   external String get src;
-  external set frameBorder(String value);
+  external set src(String value);
   external String get frameBorder;
-  external set longDesc(String value);
+  external set frameBorder(String value);
   external String get longDesc;
-  external set noResize(bool value);
+  external set longDesc(String value);
   external bool get noResize;
+  external set noResize(bool value);
   external Document? get contentDocument;
   external Window? get contentWindow;
-  external set marginHeight(String value);
   external String get marginHeight;
-  external set marginWidth(String value);
+  external set marginHeight(String value);
   external String get marginWidth;
+  external set marginWidth(String value);
 }
 extension type HTMLDirectoryElement._(JSObject _)
     implements HTMLElement, JSObject {
   /// Creates an [HTMLDirectoryElement] using the tag 'dir'.
   HTMLDirectoryElement() : _ = document.createElement('dir');
 
-  external set compact(bool value);
   external bool get compact;
+  external set compact(bool value);
 }
 
 /// Implements the document object model (DOM) representation of the font
@@ -8285,12 +12820,86 @@ extension type HTMLFontElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLFontElement] using the tag 'font'.
   HTMLFontElement() : _ = document.createElement('font');
 
-  external set color(String value);
+  /// The obsolete
+  /// **`HTMLFontElement.color`**
+  /// property is a string that reflects the
+  /// [`color`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/font#color)
+  /// HTML attribute, containing either a named color or a color specified in
+  /// the
+  /// hexadecimal #RRGGBB format.
+  ///
+  /// The format of the string must follow one of the following HTML
+  /// microsyntaxes:
+  ///
+  /// | Microsyntax              | Description                                                      | Examples                  |
+  /// | ------------------------ | ---------------------------------------------------------------- | ------------------------- |
+  /// | Valid name color string  | _nameOfColor (case insensitive)_                                 | `Green`, `green`, `GREEN` |
+  /// | Valid hex color string   | _in_ _: #RRGGBB_ | `#008000`                 |
+  /// | RGB using decimal values | _rgb(x,x,x) (x in 0-255 range)_                                  | `rgb(0 128 0)`            |
   external String get color;
-  external set face(String value);
+  external set color(String value);
+
+  /// The obsolete
+  /// **`HTMLFontElement.face`**
+  /// property is a string that reflects the
+  /// [`face`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/font#face)
+  /// HTML attribute, containing a comma-separated list of one or more font
+  /// names.
+  ///
+  /// The document text, in the default style, is rendered as the first font
+  /// face that the
+  /// client's browser supports. If no font listed is installed on the local
+  /// system, the
+  /// browser typically defaults to the proportional or fixed-width font for
+  /// that system.
+  ///
+  /// The format of the string must follow one of the following HTML
+  /// microsyntax:
+  ///
+  /// | Microsyntax                                 | Description                                                         | Examples          |
+  /// | ------------------------------------------- | ------------------------------------------------------------------- | ----------------- |
+  /// | List of one or more valid font family names | _A list of font names, that have to be present on the local system_ | `courier,verdana` |
   external String get face;
-  external set size(String value);
+  external set face(String value);
+
+  /// The obsolete
+  /// **`HTMLFontElement.size`** property is a
+  /// string that reflects the
+  /// [`size`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/font#size)
+  /// HTML
+  /// attribute. It contains either a font size ranging from 1 to 7 or a
+  /// number relative to the default value 3, for example -2 or +1.
+  ///
+  /// The format of the string must follow one of the following HTML
+  /// microsyntaxes:
+  ///
+  /// <table class="no-markdown">
+  ///   <thead>
+  ///     <tr>
+  ///       <th scope="col">Microsyntax</th>
+  ///       <th scope="col">Description</th>
+  ///       <th scope="col">Examples</th>
+  ///     </tr>
+  ///   </thead>
+  ///   <tbody>
+  ///     <tr>
+  ///       <td>Valid size number string</td>
+  ///       <td><em>integer number in the range of 1-7</em></td>
+  ///       <td><code>6</code></td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>Relative size string</td>
+  ///       <td>
+  ///         <em>+x or -x, where x is a number relative to 3 (the result should be in the range of 1-7)</em>
+  ///       </td>
+  ///       <td>
+  ///         <code>+2<br />-1</code>
+  ///       </td>
+  ///     </tr>
+  ///   </tbody>
+  /// </table>
   external String get size;
+  external set size(String value);
 }
 
 /// The **`HTMLParamElement`** interface provides special properties (beyond
@@ -8306,14 +12915,14 @@ extension type HTMLParamElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLParamElement] using the tag 'param'.
   HTMLParamElement() : _ = document.createElement('param');
 
-  external set name(String value);
   external String get name;
-  external set value(String value);
+  external set name(String value);
   external String get value;
-  external set type(String value);
+  external set value(String value);
   external String get type;
-  external set valueType(String value);
+  external set type(String value);
   external String get valueType;
+  external set valueType(String value);
 }
 extension type External._(JSObject _) implements JSObject {
   external void AddSearchProvider();

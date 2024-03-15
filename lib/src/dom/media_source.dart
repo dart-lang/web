@@ -64,18 +64,59 @@ extension type MediaSource._(JSObject _) implements EventTarget, JSObject {
   /// [MediaSource] interface clears a seekable range previously set with a call
   /// to [MediaSource.setLiveSeekableRange].
   external void clearLiveSeekableRange();
+
+  /// The **`handle`** read-only property of the [MediaSource] interface returns
+  /// a [MediaSourceHandle] object, a proxy for the `MediaSource` that can be
+  /// transferred from a dedicated worker back to the main thread and attached
+  /// to a media element via its [HTMLMediaElement.srcObject] property.
+  ///
+  /// > **Note:** `handle` is only visible on [MediaSource] instances inside
+  /// > dedicated workers.
+  ///
+  /// Each `MediaSource` object created inside a dedicated worker has its own
+  /// distinct `MediaSourceHandle`. The `handle` getter will always return the
+  /// `MediaSourceHandle` instance specific to the associated dedicated worker
+  /// `MediaSource` instance. If the handle has already been transferred to the
+  /// main thread using [DedicatedWorkerGlobalScope.postMessage], the handle
+  /// instance in the worker is technically detached and can't be transferred
+  /// again.
   external MediaSourceHandle get handle;
+
+  /// The **`sourceBuffers`** read-only property of the
+  /// [MediaSource] interface returns a [SourceBufferList] object
+  /// containing the list of [SourceBuffer] objects associated with this
+  /// `MediaSource`.
   external SourceBufferList get sourceBuffers;
+
+  /// The **`activeSourceBuffers`** read-only property of the
+  /// [MediaSource] interface returns a [SourceBufferList] object
+  /// containing a subset of the [SourceBuffer] objects contained within
+  /// [MediaSource.sourceBuffers] — the list of objects
+  /// providing the selected video track, enabled audio tracks, and shown/hidden
+  /// text tracks.
   external SourceBufferList get activeSourceBuffers;
+
+  /// The **`readyState`** read-only property of the
+  /// [MediaSource] interface returns an enum representing the state of the
+  /// current `MediaSource`. The three possible values are:
+  ///
+  /// - `closed`: The source is not currently attached to a media element.
+  /// - `open`: The source is attached to a media element and ready to receive
+  /// [SourceBuffer] objects.
+  /// - `ended`: The source is attached to a media element but the stream has
+  /// been ended via a call to [MediaSource.endOfStream].
   external ReadyState get readyState;
-  external set duration(num value);
+
+  /// The **`duration`** property of the [MediaSource]
+  /// interface gets and sets the duration of the current media being presented.
   external num get duration;
-  external set onsourceopen(EventHandler value);
+  external set duration(num value);
   external EventHandler get onsourceopen;
-  external set onsourceended(EventHandler value);
+  external set onsourceopen(EventHandler value);
   external EventHandler get onsourceended;
-  external set onsourceclose(EventHandler value);
+  external set onsourceended(EventHandler value);
   external EventHandler get onsourceclose;
+  external set onsourceclose(EventHandler value);
 }
 
 /// The **`MediaSourceHandle`** interface of the [Media Source Extensions API]
@@ -144,29 +185,113 @@ extension type SourceBuffer._(JSObject _) implements EventTarget, JSObject {
     num start,
     num end,
   );
-  external set mode(AppendMode value);
+
+  /// The **`mode`** property of the [SourceBuffer]
+  /// interface controls whether media segments can be appended to the
+  /// `SourceBuffer` in any order, or in a strict sequence.
+  ///
+  /// The two available values are:
+  ///
+  /// - `segments`: The media segment timestamps determine the order in which
+  ///   the
+  /// segments are played. The segments can be appended to the `SourceBuffer` in
+  /// any order.
+  /// - `sequence`: The order in which the segments are appended to the
+  /// `SourceBuffer` determines the order in which they are played. Segment
+  /// timestamps are generated automatically for the segments that observe this
+  /// order.
+  ///
+  /// The mode value is initially set when the `SourceBuffer` is created using
+  /// `MediaSource.addSourceBuffer()`. If timestamps already exist for the media
+  /// segments, then the value will be set to `segments`; if they don't, then
+  /// the
+  /// value will be set to `sequence`.
+  ///
+  /// If you try to set the `mode` property value to `segments` when
+  /// the initial value is `sequence`, an exception will be thrown. The existing
+  /// segment order must be maintained in `sequence` mode. You can, however,
+  /// change
+  /// the value from `segments` to `sequence`. It just means the play
+  /// order will be fixed, and new timestamps generated to reflect this.
+  ///
+  /// This property cannot be changed during while the `SourceBuffer` is
+  /// processing either an [SourceBuffer.appendBuffer] or
+  /// [SourceBuffer.remove] call.
   external AppendMode get mode;
+  external set mode(AppendMode value);
+
+  /// The **`updating`** read-only property of the
+  /// [SourceBuffer] interface indicates whether the `SourceBuffer` is
+  /// currently being updated — i.e. whether an [SourceBuffer.appendBuffer] or
+  /// [SourceBuffer.remove]
+  /// operation is currently in progress.
   external bool get updating;
+
+  /// The **`buffered`** read-only property of the
+  /// [SourceBuffer] interface returns the time ranges that are currently
+  /// buffered in the `SourceBuffer` as a normalized [TimeRanges]
+  /// object.
   external TimeRanges get buffered;
-  external set timestampOffset(num value);
+
+  /// The **`timestampOffset`** property of the
+  /// [SourceBuffer] interface controls the offset applied to timestamps inside
+  /// media segments that are appended to the `SourceBuffer`.
+  ///
+  /// The initial value of `timestampOffset` is 0.
   external num get timestampOffset;
+  external set timestampOffset(num value);
+
+  /// The **`audioTracks`** read-only property of the
+  /// [SourceBuffer] interface returns a list of the audio tracks currently
+  /// contained inside the `SourceBuffer`.
   external AudioTrackList get audioTracks;
+
+  /// The **`videoTracks`** read-only property of the
+  /// [SourceBuffer] interface returns a list of the video tracks currently
+  /// contained inside the `SourceBuffer`.
   external VideoTrackList get videoTracks;
+
+  /// The **`textTracks`** read-only property of the
+  /// [SourceBuffer] interface returns a list of the text tracks currently
+  /// contained inside the `SourceBuffer`.
   external TextTrackList get textTracks;
-  external set appendWindowStart(num value);
+
+  /// The **`appendWindowStart`** property of the
+  /// [SourceBuffer] interface controls the timestamp for the start of the
+  /// [append window](https://w3c.github.io/media-source/#append-window), a
+  /// timestamp range that can be used to filter what media data is appended to
+  /// the
+  /// `SourceBuffer`. Coded media frames with timestamps within this range will
+  /// be
+  /// appended, whereas those outside the range will be filtered out.
+  ///
+  /// The default value of `appendWindowStart` is the presentation start time,
+  /// which is the beginning time of the playable media.
   external num get appendWindowStart;
-  external set appendWindowEnd(num value);
+  external set appendWindowStart(num value);
+
+  /// The **`appendWindowEnd`** property of the
+  /// [SourceBuffer] interface controls the timestamp for the end of the
+  /// [append window](https://w3c.github.io/media-source/#append-window), a
+  /// timestamp range that can be used to filter what media data is appended to
+  /// the
+  /// `SourceBuffer`. Coded media frames with timestamps within this range will
+  /// be
+  /// appended, whereas those outside the range will be filtered out.
+  ///
+  /// The default value of `appendWindowEnd` is positive infinity.
   external num get appendWindowEnd;
-  external set onupdatestart(EventHandler value);
+  external set appendWindowEnd(num value);
   external EventHandler get onupdatestart;
-  external set onupdate(EventHandler value);
+  external set onupdatestart(EventHandler value);
   external EventHandler get onupdate;
-  external set onupdateend(EventHandler value);
+  external set onupdate(EventHandler value);
   external EventHandler get onupdateend;
-  external set onerror(EventHandler value);
+  external set onupdateend(EventHandler value);
   external EventHandler get onerror;
-  external set onabort(EventHandler value);
+  external set onerror(EventHandler value);
   external EventHandler get onabort;
+  external set onabort(EventHandler value);
 }
 
 /// The **`SourceBufferList`** interface represents a simple container list for
@@ -185,21 +310,24 @@ extension type SourceBuffer._(JSObject _) implements EventTarget, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SourceBufferList).
 extension type SourceBufferList._(JSObject _) implements EventTarget, JSObject {
+  /// The **`length`** read-only property of the
+  /// [SourceBufferList] interface returns the number of
+  /// [SourceBuffer] objects in the list.
   external int get length;
-  external set onaddsourcebuffer(EventHandler value);
   external EventHandler get onaddsourcebuffer;
-  external set onremovesourcebuffer(EventHandler value);
+  external set onaddsourcebuffer(EventHandler value);
   external EventHandler get onremovesourcebuffer;
+  external set onremovesourcebuffer(EventHandler value);
 }
 extension type ManagedMediaSource._(JSObject _)
     implements MediaSource, JSObject {
   external factory ManagedMediaSource();
 
   external bool get streaming;
-  external set onstartstreaming(EventHandler value);
   external EventHandler get onstartstreaming;
-  external set onendstreaming(EventHandler value);
+  external set onstartstreaming(EventHandler value);
   external EventHandler get onendstreaming;
+  external set onendstreaming(EventHandler value);
 }
 extension type BufferedChangeEvent._(JSObject _) implements Event, JSObject {
   external factory BufferedChangeEvent(
@@ -220,13 +348,13 @@ extension type BufferedChangeEventInit._(JSObject _)
     TimeRanges removedRanges,
   });
 
-  external set addedRanges(TimeRanges value);
   external TimeRanges get addedRanges;
-  external set removedRanges(TimeRanges value);
+  external set addedRanges(TimeRanges value);
   external TimeRanges get removedRanges;
+  external set removedRanges(TimeRanges value);
 }
 extension type ManagedSourceBuffer._(JSObject _)
     implements SourceBuffer, JSObject {
-  external set onbufferedchange(EventHandler value);
   external EventHandler get onbufferedchange;
+  external set onbufferedchange(EventHandler value);
 }

@@ -42,26 +42,57 @@ extension type VTTCue._(JSObject _) implements TextTrackCue, JSObject {
   /// The **`getCueAsHTML()`** method of the [VTTCue] interface returns a
   /// [DocumentFragment] containing the cue content.
   external DocumentFragment getCueAsHTML();
-  external set region(VTTRegion? value);
+
+  /// The **`region`** property of the [VTTCue] interface returns and sets the
+  /// [VTTRegion] that this cue belongs to.
   external VTTRegion? get region;
-  external set vertical(DirectionSetting value);
+  external set region(VTTRegion? value);
+
+  /// The **`vertical`** property of the [VTTCue] interface is a string
+  /// representing the cue's writing direction.
   external DirectionSetting get vertical;
-  external set snapToLines(bool value);
+  external set vertical(DirectionSetting value);
+
+  /// The **`snapToLines`** property of the [VTTCue] interface is a `Boolean`
+  /// indicating if the [VTTCue.line] property is an integer number of lines, or
+  /// a percentage of the video size.
   external bool get snapToLines;
-  external set line(LineAndPositionSetting value);
+  external set snapToLines(bool value);
+
+  /// The **`line`** property of the [VTTCue] interface represents the cue line
+  /// of this WebVTT cue.
   external LineAndPositionSetting get line;
-  external set lineAlign(LineAlignSetting value);
+  external set line(LineAndPositionSetting value);
+
+  /// The **`lineAlign`** property of the [VTTCue] interface represents the
+  /// alignment of this VTT cue.
   external LineAlignSetting get lineAlign;
-  external set position(LineAndPositionSetting value);
+  external set lineAlign(LineAlignSetting value);
+
+  /// The **`position`** property of the [VTTCue] interface represents the
+  /// indentation of the cue within the line.
   external LineAndPositionSetting get position;
-  external set positionAlign(PositionAlignSetting value);
+  external set position(LineAndPositionSetting value);
+
+  /// The **`positionAlign`** property of the [VTTCue] interface is used to
+  /// determine what [VTTCue.position] is anchored to.
   external PositionAlignSetting get positionAlign;
-  external set size(num value);
+  external set positionAlign(PositionAlignSetting value);
+
+  /// The **`size`** property of the [VTTCue] interface represents the size of
+  /// the cue as a percentage of the video size.
   external num get size;
-  external set align(AlignSetting value);
+  external set size(num value);
+
+  /// The **`align`** property of the [VTTCue] interface represents the
+  /// alignment of all of the lines of text in the text box.
   external AlignSetting get align;
-  external set text(String value);
+  external set align(AlignSetting value);
+
+  /// The **`text`** property of the [VTTCue] interface represents the text
+  /// contents of the cue.
   external String get text;
+  external set text(String value);
 }
 
 /// The `VTTRegion` interface—part of the API for handling WebVTT (text tracks
@@ -75,20 +106,20 @@ extension type VTTCue._(JSObject _) implements TextTrackCue, JSObject {
 extension type VTTRegion._(JSObject _) implements JSObject {
   external factory VTTRegion();
 
-  external set id(String value);
   external String get id;
-  external set width(num value);
+  external set id(String value);
   external num get width;
-  external set lines(int value);
+  external set width(num value);
   external int get lines;
-  external set regionAnchorX(num value);
+  external set lines(int value);
   external num get regionAnchorX;
-  external set regionAnchorY(num value);
+  external set regionAnchorX(num value);
   external num get regionAnchorY;
-  external set viewportAnchorX(num value);
+  external set regionAnchorY(num value);
   external num get viewportAnchorX;
-  external set viewportAnchorY(num value);
+  external set viewportAnchorX(num value);
   external num get viewportAnchorY;
-  external set scroll(ScrollSetting value);
+  external set viewportAnchorY(num value);
   external ScrollSetting get scroll;
+  external set scroll(ScrollSetting value);
 }

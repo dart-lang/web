@@ -23,5 +23,10 @@ import 'web_animations.dart';
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSAnimation).
 extension type CSSAnimation._(JSObject _) implements Animation, JSObject {
+  /// The **`animationName`** property of the
+  /// [CSSAnimation] interface returns the . This
+  /// specifies one or more keyframe at-rules which describe the animation
+  /// applied to the
+  /// element.
   external String get animationName;
 }

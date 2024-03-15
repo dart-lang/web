@@ -37,10 +37,62 @@ extension type FileSystemEntry._(JSObject _) implements JSObject {
     FileSystemEntryCallback successCallback,
     ErrorCallback errorCallback,
   ]);
+
+  /// The read-only **`isFile`** property of
+  /// the [FileSystemEntry] interface is `true` if the entry
+  /// represents a file (meaning it's a [FileSystemFileEntry]) and
+  /// `false` if it's not.
+  ///
+  /// You can also use [FileSystemEntry.isDirectory] to determine
+  /// if the entry is a directory.
+  ///
+  /// > **Warning:** You should not assume that any entry which isn't a file is
+  /// > a directory or vice versa.
+  /// > There are other types of file descriptors on many operating systems. Be
+  /// > sure to use
+  /// > both `isDirectory` and `isFile` as needed to ensure that the
+  /// > entry is something you know how to work with.
   external bool get isFile;
+
+  /// The read-only **`isDirectory`**
+  /// property of the [FileSystemEntry] interface is `true` if the
+  /// entry represents a directory (meaning it's a [FileSystemDirectoryEntry])
+  /// and `false` if it's not.
+  ///
+  /// You can also use [FileSystemEntry.isFile] to determine if the
+  /// entry is a file.
+  ///
+  /// > **Warning:** You should not assume that any entry which isn't a
+  /// > directory is a file or vice versa.
+  /// > There are other types of file descriptors on many operating systems. Be
+  /// > sure to use
+  /// > both `isDirectory` and `isFile` as needed to ensure that the
+  /// > entry is something you know how to work with.
   external bool get isDirectory;
+
+  /// The read-only **`name`** property of
+  /// the [FileSystemEntry] interface returns a string
+  /// specifying the entry's name; this is the entry within its parent directory
+  /// (the last
+  /// component of the path as indicated by the [FileSystemEntry.fullPath]
+  /// property).
   external String get name;
+
+  /// The read-only **`fullPath`** property
+  /// of the [FileSystemEntry] interface returns a string
+  /// specifying the full, absolute path from the file system's root to the file
+  /// represented
+  /// by the entry.
+  ///
+  /// This can also be thought of as a path which is relative to the root
+  /// directory, with a
+  /// "/" prepended to it to make it absolute.
   external String get fullPath;
+
+  /// The read-only **`filesystem`**
+  /// property of the [FileSystemEntry] interface contains a
+  /// [FileSystem] object that represents the file system on which the entry
+  /// resides.
   external FileSystem get filesystem;
 }
 
@@ -92,10 +144,10 @@ extension type FileSystemFlags._(JSObject _) implements JSObject {
     bool exclusive,
   });
 
-  external set create(bool value);
   external bool get create;
-  external set exclusive(bool value);
+  external set create(bool value);
   external bool get exclusive;
+  external set exclusive(bool value);
 }
 
 /// The `FileSystemDirectoryReader` interface of the
@@ -164,6 +216,16 @@ extension type FileSystemFileEntry._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FileSystem).
 extension type FileSystem._(JSObject _) implements JSObject {
+  /// The read-only **`name`** property of the
+  /// [FileSystem] interface indicates the file system's name. This
+  /// string is unique among all file systems currently exposed by the
+  /// [File and Directory Entries API](https://developer.mozilla.org/en-US/docs/Web/API/File_and_Directory_Entries_API).
   external String get name;
+
+  /// The read-only **`root`** property of the
+  /// [FileSystem] interface specifies a [FileSystemDirectoryEntry]
+  /// object representing the root directory of the file system, for use with
+  /// the
+  /// [File and Directory Entries API](https://developer.mozilla.org/en-US/docs/Web/API/File_and_Directory_Entries_API).
   external FileSystemDirectoryEntry get root;
 }

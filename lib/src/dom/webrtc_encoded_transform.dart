@@ -27,8 +27,8 @@ typedef RTCEncodedVideoFrameType = String;
 extension type SFrameTransformOptions._(JSObject _) implements JSObject {
   external factory SFrameTransformOptions({SFrameTransformRole role});
 
-  external set role(SFrameTransformRole value);
   external SFrameTransformRole get role;
+  external set role(SFrameTransformRole value);
 }
 extension type SFrameTransform._(JSObject _) implements EventTarget, JSObject {
   external factory SFrameTransform([SFrameTransformOptions options]);
@@ -37,8 +37,8 @@ extension type SFrameTransform._(JSObject _) implements EventTarget, JSObject {
     CryptoKey key, [
     CryptoKeyID keyID,
   ]);
-  external set onerror(EventHandler value);
   external EventHandler get onerror;
+  external set onerror(EventHandler value);
   external ReadableStream get readable;
   external WritableStream get writable;
 }
@@ -64,12 +64,12 @@ extension type SFrameTransformErrorEventInit._(JSObject _)
     CryptoKeyID? keyID,
   });
 
-  external set errorType(SFrameTransformErrorEventType value);
   external SFrameTransformErrorEventType get errorType;
-  external set frame(JSAny? value);
+  external set errorType(SFrameTransformErrorEventType value);
   external JSAny? get frame;
-  external set keyID(CryptoKeyID? value);
+  external set frame(JSAny? value);
   external CryptoKeyID? get keyID;
+  external set keyID(CryptoKeyID? value);
 }
 extension type RTCEncodedVideoFrameMetadata._(JSObject _) implements JSObject {
   external factory RTCEncodedVideoFrameMetadata({
@@ -87,30 +87,30 @@ extension type RTCEncodedVideoFrameMetadata._(JSObject _) implements JSObject {
     String mimeType,
   });
 
-  external set frameId(int value);
   external int get frameId;
-  external set dependencies(JSArray<JSNumber> value);
+  external set frameId(int value);
   external JSArray<JSNumber> get dependencies;
-  external set width(int value);
+  external set dependencies(JSArray<JSNumber> value);
   external int get width;
-  external set height(int value);
+  external set width(int value);
   external int get height;
-  external set spatialIndex(int value);
+  external set height(int value);
   external int get spatialIndex;
-  external set temporalIndex(int value);
+  external set spatialIndex(int value);
   external int get temporalIndex;
-  external set synchronizationSource(int value);
+  external set temporalIndex(int value);
   external int get synchronizationSource;
-  external set payloadType(int value);
+  external set synchronizationSource(int value);
   external int get payloadType;
-  external set contributingSources(JSArray<JSNumber> value);
+  external set payloadType(int value);
   external JSArray<JSNumber> get contributingSources;
-  external set timestamp(int value);
+  external set contributingSources(JSArray<JSNumber> value);
   external int get timestamp;
-  external set rtpTimestamp(int value);
+  external set timestamp(int value);
   external int get rtpTimestamp;
-  external set mimeType(String value);
+  external set rtpTimestamp(int value);
   external String get mimeType;
+  external set mimeType(String value);
 }
 
 /// The **`RTCEncodedVideoFrame`** of the
@@ -134,9 +134,15 @@ extension type RTCEncodedVideoFrame._(JSObject _) implements JSObject {
   /// encoding, other frames needed to construct a full image, timestamp, and
   /// other information.
   external RTCEncodedVideoFrameMetadata getMetadata();
+
+  /// The readonly **`type`** property of the [RTCEncodedVideoFrame] interface
+  /// indicates whether this frame is a key frame, delta frame, or empty frame.
   external RTCEncodedVideoFrameType get type;
-  external set data(JSArrayBuffer value);
+
+  /// The **`data`** property of the [RTCEncodedVideoFrame] interface returns a
+  /// buffer containing the frame data.
   external JSArrayBuffer get data;
+  external set data(JSArrayBuffer value);
 }
 extension type RTCEncodedAudioFrameMetadata._(JSObject _) implements JSObject {
   external factory RTCEncodedAudioFrameMetadata({
@@ -148,18 +154,18 @@ extension type RTCEncodedAudioFrameMetadata._(JSObject _) implements JSObject {
     String mimeType,
   });
 
-  external set synchronizationSource(int value);
   external int get synchronizationSource;
-  external set payloadType(int value);
+  external set synchronizationSource(int value);
   external int get payloadType;
-  external set contributingSources(JSArray<JSNumber> value);
+  external set payloadType(int value);
   external JSArray<JSNumber> get contributingSources;
-  external set sequenceNumber(int value);
+  external set contributingSources(JSArray<JSNumber> value);
   external int get sequenceNumber;
-  external set rtpTimestamp(int value);
+  external set sequenceNumber(int value);
   external int get rtpTimestamp;
-  external set mimeType(String value);
+  external set rtpTimestamp(int value);
   external String get mimeType;
+  external set mimeType(String value);
 }
 
 /// The **`RTCEncodedAudioFrame`** of the
@@ -189,8 +195,11 @@ extension type RTCEncodedAudioFrame._(JSObject _) implements JSObject {
   /// used, the synchronization source and contributing sources, and the
   /// sequence number (for incoming frames).
   external RTCEncodedAudioFrameMetadata getMetadata();
-  external set data(JSArrayBuffer value);
+
+  /// The **`data`** property of the [RTCEncodedAudioFrame] interface returns a
+  /// buffer containing the data for an encoded frame.
   external JSArrayBuffer get data;
+  external set data(JSArrayBuffer value);
 }
 
 /// The **`RTCTransformEvent`** of the
@@ -213,6 +222,13 @@ extension type RTCEncodedAudioFrame._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCTransformEvent).
 extension type RTCTransformEvent._(JSObject _) implements Event, JSObject {
+  /// The read-only **`transformer`** property of the [RTCTransformEvent]
+  /// interface returns the [RTCRtpScriptTransformer] associated with the event.
+  ///
+  /// The property exposes the WebRTC sender or receiver pipeline as a readable
+  /// and writable stream of encoded media frames, which a
+  /// [WebRTC Encoded Transform](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Using_Encoded_Transforms)
+  /// can insert itself into in order to modify frames.
   external RTCRtpScriptTransformer get transformer;
 }
 
@@ -258,10 +274,45 @@ extension type RTCRtpScriptTransformer._(JSObject _)
   /// > [Triggering a key frame](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Using_Encoded_Transforms#triggering_a_key_frame)
   /// > in Using WebRTC Encoded Transforms.
   external JSPromise<JSAny?> sendKeyFrameRequest();
+
+  /// The **`readable`** read-only property of the [RTCRtpScriptTransformer]
+  /// interface returns a [ReadableStream] instance is a source for encoded
+  /// media frames.
+  ///
+  /// When the corresponding [RTCRtpScriptTransform] is inserted into the WebRTC
+  /// sender and receiver pipelines, this stream may be enqueued with outgoing
+  /// or incoming encoded media frames ([RTCEncodedVideoFrame] or
+  /// [RTCEncodedAudioFrame]).
+  /// A WebRTC encoded transform can read the frames, modify them as needed, and
+  /// then send them back into the WebRTC pipeline by writing them to
+  /// [RTCRtpScriptTransformer.writable].
+  /// A common way to perform this operation is to pipe the frames through a
+  /// [TransformStream].
   external ReadableStream get readable;
+
+  /// The **`writable`** read-only property of the [RTCRtpScriptTransformer]
+  /// interface returns a [WritableStream] instance that can be used as a sink
+  /// for encoded media frames enqueued on the corresponding
+  /// [RTCRtpScriptTransformer.readable].
+  ///
+  /// When the corresponding [RTCRtpScriptTransform] is inserted into the WebRTC
+  /// sender and receiver pipelines, encoded media frames
+  /// ([RTCEncodedVideoFrame] or [RTCEncodedAudioFrame]) may be enqueued on the
+  /// [RTCRtpScriptTransformer.readable].
+  /// A WebRTC encoded transform can read the frames from `readable`, modify
+  /// them as needed, and then send them back into the WebRTC pipeline by
+  /// sending them to this `writable`.
+  /// A common way to perform this operation is to pipe the frames through a
+  /// [TransformStream].
   external WritableStream get writable;
-  external set onkeyframerequest(EventHandler value);
   external EventHandler get onkeyframerequest;
+  external set onkeyframerequest(EventHandler value);
+
+  /// The **`options`** read-only property of the [RTCRtpScriptTransformer]
+  /// interface returns the object that was (optionally) passed as the second
+  /// argument
+  /// [during construction](https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpScriptTransform/RTCRtpScriptTransform)
+  /// of the corresponding [RTCRtpScriptTransform].
   external JSAny? get options;
 }
 

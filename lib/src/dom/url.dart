@@ -48,28 +48,132 @@ extension type URL._(JSObject _) implements JSObject {
   /// although in practice it seems to have the same effect as
   /// [URL.toString].
   external String toJSON();
-  external set href(String value);
+
+  /// The **`href`** property of the [URL] interface is
+  /// a string containing the whole URL.
   external String get href;
+  external set href(String value);
+
+  /// The **`origin`** read-only property of
+  /// the [URL] interface returns a string containing the
+  /// Unicode serialization of the origin of the represented URL.
+  ///
+  /// The exact structure
+  /// varies depending on the type of URL:
+  ///
+  /// - For `http` or `https` URLs, the scheme followed by
+  /// `'://'`, followed by the domain, followed by `':'`, followed by
+  /// the port (if explicitly specified, unless it is the default port - `80`
+  /// and `443` respectively).
+  /// - For `file:` URLs, the value is browser dependent.
+  /// - for `blob:` URLs, the origin of the URL following `blob:` will
+  /// be used. For example, `"blob:https://mozilla.org"` will be returned as
+  /// `"https://mozilla.org".`
   external String get origin;
-  external set protocol(String value);
+
+  /// The **`protocol`** property of the [URL] interface
+  /// is a string representing the protocol scheme of the URL, including the
+  /// final `':'`.
   external String get protocol;
-  external set username(String value);
+  external set protocol(String value);
+
+  /// The **`username`** property of the [URL] interface
+  /// is a string containing the username specified before the domain name.
   external String get username;
-  external set password(String value);
+  external set username(String value);
+
+  /// The **`password`** property of the [URL] interface
+  /// is a string containing the password specified before the domain name.
+  ///
+  /// If it is set without first setting the [URL.username]
+  /// property, it silently fails.
   external String get password;
-  external set host(String value);
+  external set password(String value);
+
+  /// The **`host`** property of the [URL] interface is
+  /// a string containing the host, that is the [URL.hostname], and then, if the
+  /// of the URL is nonempty, a
+  /// `':'`, followed by the [URL.port] of the URL.
   external String get host;
-  external set hostname(String value);
+  external set host(String value);
+
+  /// The **`hostname`** property of the [URL] interface
+  /// is a string containing the  of the URL.
   external String get hostname;
-  external set port(String value);
+  external set hostname(String value);
+
+  /// The **`port`** property of the [URL] interface is
+  /// a string containing the port number of the URL.
+  ///
+  /// > **Note:** If an input string passed to the
+  /// > [`URL()`](https://developer.mozilla.org/en-US/docs/Web/API/URL/URL)
+  /// > constructor doesn't contain an explicit port number (e.g.,
+  /// > `https://localhost`) or contains a port number that's the default port
+  /// > number corresponding to the protocol part of the input string (e.g.,
+  /// > `https://localhost:443`), then in the
+  /// > [`URL`](https://developer.mozilla.org/en-US/docs/Web/API/URL) object the
+  /// > constructor returns, the value of the port property will be the empty
+  /// > string: `''`.
   external String get port;
-  external set pathname(String value);
+  external set port(String value);
+
+  /// The **`pathname`** property of the [URL] interface represents a location
+  /// in a hierarchical structure. It is a string constructed from a list of
+  /// path segments, each of which is prefixed by a `/` character. If the URL
+  /// has no path segments, the value of its `pathname` property will be the
+  /// empty string.
+  ///
+  /// URLs such as `https` and `http` URLs that have
+  /// [hierarchical schemes](https://www.rfc-editor.org/rfc/rfc3986#section-1.2.3)
+  /// (which the URL standard calls
+  /// "[special schemes](https://url.spec.whatwg.org/#special-scheme)") always
+  /// have at least one (invisible) path segment: the empty string. Thus the
+  /// `pathname` value for such "special scheme" URLs can never be the empty
+  /// string, but will instead always have a least one `/` character.
+  ///
+  /// For example, the URL `https://developer.mozilla.org` has just one path
+  /// segment: the empty string, so its `pathname` value is constructed by
+  /// prefixing a `/` character to the empty string.
+  ///
+  /// Some systems define the term _slug_ to mean the final segment of a
+  /// non-empty path if it identifies a page in human-readable keywords. For
+  /// example, the URL
+  /// `https://example.org/articles/this-that-other-outre-collection` has
+  /// `this-that-other-outre-collection` as its slug.
+  ///
+  /// Some systems use the `;` and `=` characters to delimit parameters and
+  /// parameter values applicable to a path segment. For example, with the URL
+  /// `https://example.org/users;id=42/tasks;state=open?sort=modified`, a system
+  /// might extract and use the path segment parameters `id=42` and `state=open`
+  /// from the path segments `users;id=42` and `tasks;state=open`.
   external String get pathname;
-  external set search(String value);
+  external set pathname(String value);
+
+  /// The **`search`** property of the [URL] interface
+  /// is a search string, also called a _query string_, that is a
+  /// string containing a `'?'` followed by the parameters of the
+  /// URL.
+  ///
+  /// Modern browsers provide the [URL.searchParams] property to make it easy to
+  /// parse out the parameters from the query string.
   external String get search;
+  external set search(String value);
+
+  /// The **`searchParams`** read-only property of the
+  /// [URL] interface returns a [URLSearchParams] object allowing
+  /// access to the `GET` decoded query arguments contained in the URL.
   external URLSearchParams get searchParams;
-  external set hash(String value);
+
+  /// The **`hash`** property of the
+  /// [URL] interface is a string containing a
+  /// `'#'` followed by the fragment identifier of the URL.
+  ///
+  /// The fragment is not
+  /// [URL decoded](https://en.wikipedia.org/wiki/URL_encoding). If the URL does
+  /// not
+  /// have a fragment identifier, this property contains an empty string — `""`.
   external String get hash;
+  external set hash(String value);
 }
 
 /// The **`URLSearchParams`** interface defines utility methods to work with the
@@ -163,5 +267,8 @@ extension type URLSearchParams._(JSObject _) implements JSObject {
   /// will be
   /// preserved).
   external void sort();
+
+  /// The **`size`** read-only property of the [URLSearchParams] interface
+  /// indicates the total number of search parameter entries.
   external int get size;
 }

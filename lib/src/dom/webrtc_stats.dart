@@ -91,6 +91,40 @@ extension type RTCRtpStreamStats._(JSObject _) implements RTCStats, JSObject {
   external String get codecId;
   external set codecId(String value);
 }
+
+/// The **`RTCCodecStats`** dictionary of the
+/// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
+/// provides statistics about a codec used by  streams that are being sent or
+/// received by the associated [RTCPeerConnection] object.
+///
+/// These statistics can be obtained by iterating the [RTCStatsReport] object
+/// returned by [RTCPeerConnection.getStats] until you find an entry with the
+/// [`type`](#type) of `codec`.
+///
+/// The codec statistics can be correlated with the inbound or outbound stream
+/// statistics (both local and remote) by matching their `codecId` property to
+/// the codec's `id`.
+/// For example, if
+/// [`RTCInboundRtpStreamStats.codecId`](/en-US/docs/Web/API/RTCInboundRtpStreamStats#codecid)
+/// matches an [`RTCCodecStats.id`](#id) in the same report, then we know that
+/// the codec is being used on this peer connection's inbound stream.
+/// If no stream `codecId` references a codec statistic, then that codec
+/// statistic object is deleted — if the codec is used again, the statistics
+/// object will be recreated with the same `id`.
+///
+/// Codec objects may be referenced by multiple RTP streams in media sections
+/// using the same transport.
+/// In fact, user agents are expected to consolidate information into a single
+/// "codec" entry per payload type per transport (unless
+/// [sdpFmtpLine](#sdpfmtpline) is different when sending or receiving, in which
+/// case, different codecs will be needed for encoding and decoding).
+/// Note that other transports will use their own distinct `RTCCodecStats`
+/// objects.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCCodecStats).
 extension type RTCCodecStats._(JSObject _) implements RTCStats, JSObject {
   external factory RTCCodecStats({
     required DOMHighResTimeStamp timestamp,
@@ -104,16 +138,51 @@ extension type RTCCodecStats._(JSObject _) implements RTCStats, JSObject {
     String sdpFmtpLine,
   });
 
+  /// The **`payloadType`** property of the [RTCCodecStats] dictionary is a
+  /// positive integer in the range from 0 to 127 that describes the format of
+  /// the  payload used in RTP encoding or decoding.
   external int get payloadType;
   external set payloadType(int value);
+
+  /// The **`transportId`** property of the [RTCCodecStats] dictionary is a
+  /// string that contains the unique identifier of the corresponding transport
+  /// on which this codec is being used.
+  ///
+  /// You can correlate the codec and associated transport statistics by
+  /// matching the `RTCCodecStats.transportId` with an [RTCTransportStats.id]
+  /// value.
   external String get transportId;
   external set transportId(String value);
+
+  /// The **`mimeType`** property of the [RTCCodecStats] dictionary is a string
+  /// containing the codec's  and subtype.
+  ///
+  /// This is of the form `"type/subtype"`, such as "video/VP8" or "audio/opus",
+  /// as defined in the
+  /// [IANA registry of valid MIME types](https://www.iana.org/assignments/rtp-parameters/rtp-parameters.xhtml#rtp-parameters-2).
   external String get mimeType;
   external set mimeType(String value);
+
+  /// The **`clockRate`** property of the [RTCCodecStats] dictionary is a
+  /// positive number containing the media sampling rate in hertz (Hz).
   external int get clockRate;
   external set clockRate(int value);
+
+  /// The **`channels`** property of the [RTCCodecStats] dictionary is a
+  /// positive number containing the number of channels supported by the codec.
+  ///
+  /// For audio codecs, a value of 1 specifies monaural sound while 2 indicates
+  /// stereo.
   external int get channels;
   external set channels(int value);
+
+  /// The **`sdpFmtpLine`** property of the [RTCCodecStats] dictionary is a
+  /// string containing the format-specific parameters of the codec.
+  ///
+  /// These are the values in the `"a=fmtp"` line in the codec's  (if present)
+  /// after the payload type number (see [section 5.8 of the IETF specification
+  /// for
+  /// JSEP](https://datatracker.ietf.org/doc/html/draft-ietf-rtcweb-jsep-24#section-5.8)).
   external String get sdpFmtpLine;
   external set sdpFmtpLine(String value);
 }

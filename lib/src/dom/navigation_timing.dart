@@ -161,6 +161,19 @@ extension type PerformanceNavigationTiming._(JSObject _)
   /// Note that client side redirects, such as `<meta http-equiv="refresh"
   /// content="0; url=https://example.com/">` are not considered here.
   external int get redirectCount;
+
+  /// A website can indicate that a particular
+  /// [Client Hint](https://developer.mozilla.org/en-US/docs/Web/HTTP/Client_hints)
+  /// is critical to the page by including it in a  HTTP response header (as
+  /// well as the  HTTP request header which is needed for all client hints
+  /// whether critical or not). Doing so will trigger a connection restart if
+  /// the hint listed in the `Critical-CH` HTTP response header could have been,
+  /// but wasn't, included in the HTTP request initially sent. If the browser
+  /// does not support that client hint, it is ignored and no connection restart
+  /// occurs.
+  ///
+  /// The **`criticalCHRestart`** read-only property represents the time at
+  /// which the connection restart occurred.
   external DOMHighResTimeStamp get criticalCHRestart;
 }
 

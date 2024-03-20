@@ -3050,7 +3050,7 @@ extension type HTMLVideoElement._(JSObject _)
   external VideoPlaybackQuality getVideoPlaybackQuality();
 
   /// The **`width`** property of the [HTMLVideoElement] interface returns an
-  /// integer that that reflects the `width` attribute of the `video` element,
+  /// integer that reflects the `width` attribute of the `video` element,
   /// specifying the displayed width of the resource in CSS pixels.
   external int get width;
   external set width(int value);
@@ -9113,27 +9113,25 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// This method will block while the print dialog is open.
   external void print();
 
-  /// The **`window.postMessage()`** method safely enables
-  /// cross-origin communication between [Window] objects; _e.g.,_ between
-  /// a page and a pop-up that it spawned, or between a page and an iframe
-  /// embedded within it.
+  /// The **`window.postMessage()`** method safely enables cross-origin
+  /// communication between [Window] objects; _e.g.,_ between a page and a
+  /// pop-up that it spawned, or between a page and an iframe embedded within
+  /// it.
   ///
   /// Normally, scripts on different pages are allowed to access each other if
-  /// and only if
-  /// the pages they originate from share the same protocol, port number, and
-  /// host (also known
-  /// as the
+  /// and only if the pages they originate from share the same protocol, port
+  /// number, and host (also known as the
   /// "[same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)").
   /// `window.postMessage()` provides a controlled mechanism to securely
   /// circumvent this restriction (if used properly).
   ///
   /// Broadly, one window may obtain a reference to another (_e.g.,_ via
-  /// `targetWindow = window.opener`), and then dispatch a
-  /// [MessageEvent] on it with `targetWindow.postMessage()`. The
-  /// receiving window is then free to
+  /// `targetWindow = window.opener`), and then dispatch a [MessageEvent] on it
+  /// with `targetWindow.postMessage()`.
+  /// The receiving window is then free to
   /// [handle this event](https://developer.mozilla.org/en-US/docs/Web/Events/Event_handlers)
-  /// as needed. The arguments passed to `window.postMessage()`
-  /// (_i.e.,_ the "message") are
+  /// as needed.
+  /// The arguments passed to `window.postMessage()` (_i.e.,_ the "message") are
   /// [exposed to the receiving window through the event object](#the_dispatched_event).
   external void postMessage(
     JSAny? message, [

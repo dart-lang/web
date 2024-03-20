@@ -1946,6 +1946,10 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   /// binds a
   /// passed [WebGLVertexArrayObject] object to the buffer.
   external void bindVertexArray(WebGLVertexArrayObject? array);
+
+  /// The **`WebGL2RenderingContext.bufferData()`** method of the
+  /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
+  /// creates and initializes the buffer object's data store.
   external void bufferData(
     GLenum target,
     JSAny sizeOrSrcData,
@@ -1953,6 +1957,11 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
     int srcOffset,
     GLuint length,
   ]);
+
+  /// The **`WebGL2RenderingContext.bufferSubData()`** method of the
+  /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
+  /// updates a subset of a buffer
+  /// object's data store.
   external void bufferSubData(
     GLenum target,
     GLintptr dstByteOffset,

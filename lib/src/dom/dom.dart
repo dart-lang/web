@@ -1809,9 +1809,9 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external DocumentType? get doctype;
 
   /// **`Document.documentElement`** returns the
-  /// [Element] that is the root element of the [document] (for
+  /// [HTMLHtmlElement] that is the root element of the [document] (for
   /// example, the `html` element for HTML documents).
-  external Element? get documentElement;
+  external HTMLHtmlElement? get documentElement;
 
   /// The **`Document.location`** read-only property returns a
   /// [Location] object, which contains information about the URL of the

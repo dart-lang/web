@@ -2244,8 +2244,8 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external set onEmptied(EventHandler value);
   external EventHandler get onEnded;
   external set onEnded(EventHandler value);
-  external OnErrorEventHandler get onerror;
-  external set onerror(OnErrorEventHandler value);
+  external OnErrorEventHandler get onError;
+  external set onError(OnErrorEventHandler value);
   external EventHandler get onFocus;
   external set onFocus(EventHandler value);
   external EventHandler get onFormData;

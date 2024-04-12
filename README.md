@@ -31,7 +31,7 @@ void main() {
 `package:web` is replacing `dart:html` and other web libraries as Dart's 
 long-term web interop solution. To learn how to migrate from `dart:html`
 APIs to `package:web`, see our
-[migration guide](https://dart.dev/interop/js-interop/package-web).
+[migration guide](http://dart.dev/go/package-web).
 
 ## Generation conventions
 

@@ -181,9 +181,12 @@ Future<void> _generateJsTypeSupertypes() async {
   for (final name in definedNames.keys) {
     final element = definedNames[name];
     if (element is ExtensionTypeElement) {
-      // Only extension types defined in `dart:js_interop` are JS types.
+      // JS types are any extension type that starts with 'JS' in
+      // `dart:js_interop`.
       bool isJSType(InterfaceElement element) =>
-          element is ExtensionTypeElement && element.library == dartJsInterop;
+          element is ExtensionTypeElement &&
+          element.library == dartJsInterop &&
+          element.name.startsWith('JS');
       if (!isJSType(element)) continue;
 
       String? parentJsType;

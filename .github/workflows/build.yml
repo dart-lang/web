@@ -24,7 +24,7 @@ jobs:
         # TODO(srujzs): Replace with stable when 3.3 is out.
         sdk: [dev, 3.3]
     steps:
-      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
+      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
       - uses: dart-lang/setup-dart@fedb1266e91cf51be2fdb382869461a434b920a3
         with:
           sdk: ${{ matrix.sdk }}
@@ -48,7 +48,7 @@ jobs:
         os: [ubuntu-latest]
         sdk: [dev, 3.3]
     steps:
-      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
+      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
       - uses: dart-lang/setup-dart@fedb1266e91cf51be2fdb382869461a434b920a3
         with:
           sdk: ${{ matrix.sdk }}
@@ -69,7 +69,7 @@ jobs:
         os: [ubuntu-latest]
         sdk: [dev]
     steps:
-      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
+      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
       - uses: dart-lang/setup-dart@fedb1266e91cf51be2fdb382869461a434b920a3
         with:
           sdk: ${{ matrix.sdk }}
@@ -93,7 +93,7 @@ jobs:
         os: [ubuntu-latest]
         sdk: [main]
     steps:
-      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
+      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
       - uses: dart-lang/setup-dart@fedb1266e91cf51be2fdb382869461a434b920a3
         with:
           sdk: ${{ matrix.sdk }}

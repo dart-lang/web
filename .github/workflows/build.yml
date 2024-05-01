@@ -25,7 +25,7 @@ jobs:
         sdk: [dev, 3.3]
     steps:
       - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
-      - uses: dart-lang/setup-dart@fedb1266e91cf51be2fdb382869461a434b920a3
+      - uses: dart-lang/setup-dart@f0ead981b4d9a35b37f30d36160575d60931ec30
         with:
           sdk: ${{ matrix.sdk }}
       - id: install
@@ -49,7 +49,7 @@ jobs:
         sdk: [dev, 3.3]
     steps:
       - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
-      - uses: dart-lang/setup-dart@fedb1266e91cf51be2fdb382869461a434b920a3
+      - uses: dart-lang/setup-dart@f0ead981b4d9a35b37f30d36160575d60931ec30
         with:
           sdk: ${{ matrix.sdk }}
       - name: Install dependencies
@@ -70,7 +70,7 @@ jobs:
         sdk: [dev]
     steps:
       - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
-      - uses: dart-lang/setup-dart@fedb1266e91cf51be2fdb382869461a434b920a3
+      - uses: dart-lang/setup-dart@f0ead981b4d9a35b37f30d36160575d60931ec30
         with:
           sdk: ${{ matrix.sdk }}
       - name: Install Dart dependencies
@@ -94,7 +94,7 @@ jobs:
         sdk: [main]
     steps:
       - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b
-      - uses: dart-lang/setup-dart@fedb1266e91cf51be2fdb382869461a434b920a3
+      - uses: dart-lang/setup-dart@f0ead981b4d9a35b37f30d36160575d60931ec30
         with:
           sdk: ${{ matrix.sdk }}
       - name: Install Dart dependencies

@@ -45,18 +45,6 @@ extension type CSSFontFeatureValuesRule._(JSObject _)
   /// represents the name of the font family it applies to.
   external String get fontFamily;
   external set fontFamily(String value);
-  external CSSFontFeatureValuesMap get annotation;
-  external CSSFontFeatureValuesMap get ornaments;
-  external CSSFontFeatureValuesMap get stylistic;
-  external CSSFontFeatureValuesMap get swash;
-  external CSSFontFeatureValuesMap get characterVariant;
-  external CSSFontFeatureValuesMap get styleset;
-}
-extension type CSSFontFeatureValuesMap._(JSObject _) implements JSObject {
-  external void set(
-    String featureValueName,
-    JSAny values,
-  );
 }
 
 /// The **`CSSFontPaletteValuesRule`** interface represents an

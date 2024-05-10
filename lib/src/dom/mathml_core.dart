@@ -302,8 +302,6 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   external set onauxclick(EventHandler value);
   external EventHandler get onbeforeinput;
   external set onbeforeinput(EventHandler value);
-  external EventHandler get onbeforematch;
-  external set onbeforematch(EventHandler value);
   external EventHandler get onbeforetoggle;
   external set onbeforetoggle(EventHandler value);
   external EventHandler get onblur;
@@ -436,14 +434,6 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   external set onvolumechange(EventHandler value);
   external EventHandler get onwaiting;
   external set onwaiting(EventHandler value);
-  external EventHandler get onwebkitanimationend;
-  external set onwebkitanimationend(EventHandler value);
-  external EventHandler get onwebkitanimationiteration;
-  external set onwebkitanimationiteration(EventHandler value);
-  external EventHandler get onwebkitanimationstart;
-  external set onwebkitanimationstart(EventHandler value);
-  external EventHandler get onwebkittransitionend;
-  external set onwebkittransitionend(EventHandler value);
   external EventHandler get onwheel;
   external set onwheel(EventHandler value);
   external EventHandler get onpointerover;
@@ -454,8 +444,6 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   external set onpointerdown(EventHandler value);
   external EventHandler get onpointermove;
   external set onpointermove(EventHandler value);
-  external EventHandler get onpointerrawupdate;
-  external set onpointerrawupdate(EventHandler value);
   external EventHandler get onpointerup;
   external set onpointerup(EventHandler value);
   external EventHandler get onpointercancel;

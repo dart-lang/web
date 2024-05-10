@@ -15,7 +15,8 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'html.dart';
-import 'permissions.dart';
+import 'image_capture.dart';
+import 'screen_capture.dart';
 import 'webidl.dart';
 
 typedef ConstrainULong = JSAny;
@@ -25,8 +26,6 @@ typedef ConstrainDOMString = JSAny;
 typedef NavigatorUserMediaSuccessCallback = JSFunction;
 typedef NavigatorUserMediaErrorCallback = JSFunction;
 typedef MediaStreamTrackState = String;
-typedef VideoFacingModeEnum = String;
-typedef VideoResizeModeEnum = String;
 typedef MediaDeviceKind = String;
 
 /// The **`MediaStream`** interface of the [Media Capture and Streams API]
@@ -276,6 +275,12 @@ extension type MediaStreamTrack._(JSObject _) implements EventTarget, JSObject {
   external MediaStreamTrackState get readyState;
   external EventHandler get onended;
   external set onended(EventHandler value);
+
+  /// The **`contentHint`** property of the [MediaStreamTrack] interface is a
+  /// string that hints at the type of content the track contains. Allowable
+  /// values depend on the value of the [MediaStreamTrack.kind] property.
+  external String get contentHint;
+  external set contentHint(String value);
 }
 
 /// The **`MediaTrackSupportedConstraints`** dictionary establishes the list of
@@ -321,6 +326,28 @@ extension type MediaTrackSupportedConstraints._(JSObject _)
     bool channelCount,
     bool deviceId,
     bool groupId,
+    bool whiteBalanceMode,
+    bool exposureMode,
+    bool focusMode,
+    bool pointsOfInterest,
+    bool exposureCompensation,
+    bool exposureTime,
+    bool colorTemperature,
+    bool iso,
+    bool brightness,
+    bool contrast,
+    bool pan,
+    bool saturation,
+    bool sharpness,
+    bool focusDistance,
+    bool tilt,
+    bool zoom,
+    bool torch,
+    bool displaySurface,
+    bool logicalSurface,
+    bool cursor,
+    bool restrictOwnAudio,
+    bool suppressLocalAudioPlayback,
   });
 
   /// The [MediaTrackSupportedConstraints] dictionary's
@@ -532,6 +559,74 @@ extension type MediaTrackSupportedConstraints._(JSObject _)
   /// `navigator.mediaDevices.getSupportedConstraints()`.
   external bool get groupId;
   external set groupId(bool value);
+  external bool get whiteBalanceMode;
+  external set whiteBalanceMode(bool value);
+  external bool get exposureMode;
+  external set exposureMode(bool value);
+  external bool get focusMode;
+  external set focusMode(bool value);
+  external bool get pointsOfInterest;
+  external set pointsOfInterest(bool value);
+  external bool get exposureCompensation;
+  external set exposureCompensation(bool value);
+  external bool get exposureTime;
+  external set exposureTime(bool value);
+  external bool get colorTemperature;
+  external set colorTemperature(bool value);
+  external bool get iso;
+  external set iso(bool value);
+  external bool get brightness;
+  external set brightness(bool value);
+  external bool get contrast;
+  external set contrast(bool value);
+  external bool get pan;
+  external set pan(bool value);
+  external bool get saturation;
+  external set saturation(bool value);
+  external bool get sharpness;
+  external set sharpness(bool value);
+  external bool get focusDistance;
+  external set focusDistance(bool value);
+  external bool get tilt;
+  external set tilt(bool value);
+  external bool get zoom;
+  external set zoom(bool value);
+  external bool get torch;
+  external set torch(bool value);
+
+  /// The [MediaTrackSupportedConstraints] dictionary's **`displaySurface`**
+  /// property indicates whether or not the
+  /// [MediaTrackConstraints.displaySurface] constraint is supported by the user
+  /// agent and the device on which the content is being used.
+  ///
+  /// The supported constraints list is obtained by calling
+  /// [MediaDevices.getSupportedConstraints].
+  external bool get displaySurface;
+  external set displaySurface(bool value);
+
+  /// The [MediaTrackSupportedConstraints] dictionary's **`logicalSurface`**
+  /// property indicates whether or not the
+  /// [MediaTrackConstraints.logicalSurface] constraint is supported by the user
+  /// agent and the device on which the content is being used.
+  ///
+  /// The supported constraints list is obtained by calling
+  /// [MediaDevices.getSupportedConstraints].
+  external bool get logicalSurface;
+  external set logicalSurface(bool value);
+  external bool get cursor;
+  external set cursor(bool value);
+  external bool get restrictOwnAudio;
+  external set restrictOwnAudio(bool value);
+
+  /// The [MediaTrackSupportedConstraints] dictionary's
+  /// **`suppressLocalAudioPlayback`** property indicates whether or not the
+  /// [MediaTrackConstraints.suppressLocalAudioPlayback] constraint is supported
+  /// by the user agent and the device on which the content is being used.
+  ///
+  /// The supported constraints list is obtained by calling
+  /// [MediaDevices.getSupportedConstraints].
+  external bool get suppressLocalAudioPlayback;
+  external set suppressLocalAudioPlayback(bool value);
 }
 extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
   external factory MediaTrackCapabilities({
@@ -550,6 +645,25 @@ extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
     ULongRange channelCount,
     String deviceId,
     String groupId,
+    JSArray<JSString> whiteBalanceMode,
+    JSArray<JSString> exposureMode,
+    JSArray<JSString> focusMode,
+    MediaSettingsRange exposureCompensation,
+    MediaSettingsRange exposureTime,
+    MediaSettingsRange colorTemperature,
+    MediaSettingsRange iso,
+    MediaSettingsRange brightness,
+    MediaSettingsRange contrast,
+    MediaSettingsRange saturation,
+    MediaSettingsRange sharpness,
+    MediaSettingsRange focusDistance,
+    MediaSettingsRange pan,
+    MediaSettingsRange tilt,
+    MediaSettingsRange zoom,
+    JSArray<JSBoolean> torch,
+    String displaySurface,
+    bool logicalSurface,
+    JSArray<JSString> cursor,
   });
 
   external ULongRange get width;
@@ -582,6 +696,44 @@ extension type MediaTrackCapabilities._(JSObject _) implements JSObject {
   external set deviceId(String value);
   external String get groupId;
   external set groupId(String value);
+  external JSArray<JSString> get whiteBalanceMode;
+  external set whiteBalanceMode(JSArray<JSString> value);
+  external JSArray<JSString> get exposureMode;
+  external set exposureMode(JSArray<JSString> value);
+  external JSArray<JSString> get focusMode;
+  external set focusMode(JSArray<JSString> value);
+  external MediaSettingsRange get exposureCompensation;
+  external set exposureCompensation(MediaSettingsRange value);
+  external MediaSettingsRange get exposureTime;
+  external set exposureTime(MediaSettingsRange value);
+  external MediaSettingsRange get colorTemperature;
+  external set colorTemperature(MediaSettingsRange value);
+  external MediaSettingsRange get iso;
+  external set iso(MediaSettingsRange value);
+  external MediaSettingsRange get brightness;
+  external set brightness(MediaSettingsRange value);
+  external MediaSettingsRange get contrast;
+  external set contrast(MediaSettingsRange value);
+  external MediaSettingsRange get saturation;
+  external set saturation(MediaSettingsRange value);
+  external MediaSettingsRange get sharpness;
+  external set sharpness(MediaSettingsRange value);
+  external MediaSettingsRange get focusDistance;
+  external set focusDistance(MediaSettingsRange value);
+  external MediaSettingsRange get pan;
+  external set pan(MediaSettingsRange value);
+  external MediaSettingsRange get tilt;
+  external set tilt(MediaSettingsRange value);
+  external MediaSettingsRange get zoom;
+  external set zoom(MediaSettingsRange value);
+  external JSArray<JSBoolean> get torch;
+  external set torch(JSArray<JSBoolean> value);
+  external String get displaySurface;
+  external set displaySurface(String value);
+  external bool get logicalSurface;
+  external set logicalSurface(bool value);
+  external JSArray<JSString> get cursor;
+  external set cursor(JSArray<JSString> value);
 }
 
 /// The **`MediaTrackConstraints`** dictionary is used to describe a set of
@@ -614,6 +766,28 @@ extension type MediaTrackConstraints._(JSObject _)
     ConstrainULong channelCount,
     ConstrainDOMString deviceId,
     ConstrainDOMString groupId,
+    ConstrainDOMString whiteBalanceMode,
+    ConstrainDOMString exposureMode,
+    ConstrainDOMString focusMode,
+    ConstrainPoint2D pointsOfInterest,
+    ConstrainDouble exposureCompensation,
+    ConstrainDouble exposureTime,
+    ConstrainDouble colorTemperature,
+    ConstrainDouble iso,
+    ConstrainDouble brightness,
+    ConstrainDouble contrast,
+    ConstrainDouble saturation,
+    ConstrainDouble sharpness,
+    ConstrainDouble focusDistance,
+    JSAny pan,
+    JSAny tilt,
+    JSAny zoom,
+    ConstrainBoolean torch,
+    ConstrainDOMString displaySurface,
+    ConstrainBoolean logicalSurface,
+    ConstrainDOMString cursor,
+    ConstrainBoolean restrictOwnAudio,
+    ConstrainBoolean suppressLocalAudioPlayback,
     JSArray<MediaTrackConstraintSet> advanced,
   });
 
@@ -637,6 +811,28 @@ extension type MediaTrackConstraintSet._(JSObject _) implements JSObject {
     ConstrainULong channelCount,
     ConstrainDOMString deviceId,
     ConstrainDOMString groupId,
+    ConstrainDOMString whiteBalanceMode,
+    ConstrainDOMString exposureMode,
+    ConstrainDOMString focusMode,
+    ConstrainPoint2D pointsOfInterest,
+    ConstrainDouble exposureCompensation,
+    ConstrainDouble exposureTime,
+    ConstrainDouble colorTemperature,
+    ConstrainDouble iso,
+    ConstrainDouble brightness,
+    ConstrainDouble contrast,
+    ConstrainDouble saturation,
+    ConstrainDouble sharpness,
+    ConstrainDouble focusDistance,
+    JSAny pan,
+    JSAny tilt,
+    JSAny zoom,
+    ConstrainBoolean torch,
+    ConstrainDOMString displaySurface,
+    ConstrainBoolean logicalSurface,
+    ConstrainDOMString cursor,
+    ConstrainBoolean restrictOwnAudio,
+    ConstrainBoolean suppressLocalAudioPlayback,
   });
 
   external ConstrainULong get width;
@@ -669,6 +865,50 @@ extension type MediaTrackConstraintSet._(JSObject _) implements JSObject {
   external set deviceId(ConstrainDOMString value);
   external ConstrainDOMString get groupId;
   external set groupId(ConstrainDOMString value);
+  external ConstrainDOMString get whiteBalanceMode;
+  external set whiteBalanceMode(ConstrainDOMString value);
+  external ConstrainDOMString get exposureMode;
+  external set exposureMode(ConstrainDOMString value);
+  external ConstrainDOMString get focusMode;
+  external set focusMode(ConstrainDOMString value);
+  external ConstrainPoint2D get pointsOfInterest;
+  external set pointsOfInterest(ConstrainPoint2D value);
+  external ConstrainDouble get exposureCompensation;
+  external set exposureCompensation(ConstrainDouble value);
+  external ConstrainDouble get exposureTime;
+  external set exposureTime(ConstrainDouble value);
+  external ConstrainDouble get colorTemperature;
+  external set colorTemperature(ConstrainDouble value);
+  external ConstrainDouble get iso;
+  external set iso(ConstrainDouble value);
+  external ConstrainDouble get brightness;
+  external set brightness(ConstrainDouble value);
+  external ConstrainDouble get contrast;
+  external set contrast(ConstrainDouble value);
+  external ConstrainDouble get saturation;
+  external set saturation(ConstrainDouble value);
+  external ConstrainDouble get sharpness;
+  external set sharpness(ConstrainDouble value);
+  external ConstrainDouble get focusDistance;
+  external set focusDistance(ConstrainDouble value);
+  external JSAny get pan;
+  external set pan(JSAny value);
+  external JSAny get tilt;
+  external set tilt(JSAny value);
+  external JSAny get zoom;
+  external set zoom(JSAny value);
+  external ConstrainBoolean get torch;
+  external set torch(ConstrainBoolean value);
+  external ConstrainDOMString get displaySurface;
+  external set displaySurface(ConstrainDOMString value);
+  external ConstrainBoolean get logicalSurface;
+  external set logicalSurface(ConstrainBoolean value);
+  external ConstrainDOMString get cursor;
+  external set cursor(ConstrainDOMString value);
+  external ConstrainBoolean get restrictOwnAudio;
+  external set restrictOwnAudio(ConstrainBoolean value);
+  external ConstrainBoolean get suppressLocalAudioPlayback;
+  external set suppressLocalAudioPlayback(ConstrainBoolean value);
 }
 
 /// The **`MediaTrackSettings`** dictionary is used to return the current values
@@ -704,6 +944,28 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
     int channelCount,
     String deviceId,
     String groupId,
+    String whiteBalanceMode,
+    String exposureMode,
+    String focusMode,
+    JSArray<Point2D> pointsOfInterest,
+    num exposureCompensation,
+    num exposureTime,
+    num colorTemperature,
+    num iso,
+    num brightness,
+    num contrast,
+    num saturation,
+    num sharpness,
+    num focusDistance,
+    num pan,
+    num tilt,
+    num zoom,
+    bool torch,
+    String displaySurface,
+    bool logicalSurface,
+    String cursor,
+    bool restrictOwnAudio,
+    bool suppressLocalAudioPlayback,
   });
 
   /// The [MediaTrackSettings] dictionary's **`width`**
@@ -1036,6 +1298,77 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
   /// will never include this property.
   external String get groupId;
   external set groupId(String value);
+  external String get whiteBalanceMode;
+  external set whiteBalanceMode(String value);
+  external String get exposureMode;
+  external set exposureMode(String value);
+  external String get focusMode;
+  external set focusMode(String value);
+  external JSArray<Point2D> get pointsOfInterest;
+  external set pointsOfInterest(JSArray<Point2D> value);
+  external num get exposureCompensation;
+  external set exposureCompensation(num value);
+  external num get exposureTime;
+  external set exposureTime(num value);
+  external num get colorTemperature;
+  external set colorTemperature(num value);
+  external num get iso;
+  external set iso(num value);
+  external num get brightness;
+  external set brightness(num value);
+  external num get contrast;
+  external set contrast(num value);
+  external num get saturation;
+  external set saturation(num value);
+  external num get sharpness;
+  external set sharpness(num value);
+  external num get focusDistance;
+  external set focusDistance(num value);
+  external num get pan;
+  external set pan(num value);
+  external num get tilt;
+  external set tilt(num value);
+  external num get zoom;
+  external set zoom(num value);
+  external bool get torch;
+  external set torch(bool value);
+
+  /// The [MediaTrackSettings] dictionary's
+  /// **`displaySurface`** property indicates the type of display
+  /// surface being captured.
+  external String get displaySurface;
+  external set displaySurface(String value);
+
+  /// The [MediaTrackSettings] dictionary's
+  /// **`logicalSurface`** property indicates whether or not the
+  /// display area being captured is a logical surface. Logical surfaces are
+  /// those which are
+  /// not necessarily entirely onscreen, or may even be off-screen, such as
+  /// windows' backing
+  /// buffers (where only part of the buffer is visible without scrolling the
+  /// containing
+  /// window) and offscreen rendering contexts.
+  external bool get logicalSurface;
+  external set logicalSurface(bool value);
+
+  /// The [MediaTrackSettings] dictionary's **`cursor`** property indicates
+  /// whether or not the cursor should be captured as part of the video track
+  /// included in the [MediaStream] returned by [MediaDevices.getDisplayMedia].
+  external String get cursor;
+  external set cursor(String value);
+  external bool get restrictOwnAudio;
+  external set restrictOwnAudio(bool value);
+
+  /// The [MediaTrackSettings] dictionary's **`suppressLocalAudioPlayback`**
+  /// property controls whether the audio playing in a tab will continue to be
+  /// played out of a user's local speakers when the tab is captured.
+  ///
+  /// For example, in cases where you broadcast a video call to an external AV
+  /// system in a conference room, you will want the audio to play out of the AV
+  /// system, and not the local speakers. This way, the audio will be louder and
+  /// clearer, and also in sync with the conference video.
+  external bool get suppressLocalAudioPlayback;
+  external set suppressLocalAudioPlayback(bool value);
 }
 
 /// The **`MediaStreamTrackEvent`** interface of the
@@ -1153,6 +1486,24 @@ extension type MediaDevices._(JSObject _) implements EventTarget, JSObject {
   /// > ignore the request.
   external JSPromise<MediaStream> getUserMedia(
       [MediaStreamConstraints constraints]);
+
+  /// The **`getDisplayMedia()`** method of the [MediaDevices] interface prompts
+  /// the user to select and
+  /// grant permission to capture the contents of a display or portion thereof
+  /// (such as a window) as a [MediaStream].
+  ///
+  /// The resulting stream can then be
+  /// recorded using the
+  /// [MediaStream Recording API](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API)
+  /// or transmitted as part of a
+  /// [WebRTC](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
+  /// session.
+  ///
+  /// See
+  /// [Using the Screen Capture API](https://developer.mozilla.org/en-US/docs/Web/API/Screen_Capture_API/Using_Screen_Capture)
+  /// for more details and an example.
+  external JSPromise<MediaStream> getDisplayMedia(
+      [DisplayMediaStreamOptions options]);
   external EventHandler get ondevicechange;
   external set ondevicechange(EventHandler value);
 }
@@ -1229,12 +1580,18 @@ extension type MediaStreamConstraints._(JSObject _) implements JSObject {
   external factory MediaStreamConstraints({
     JSAny video,
     JSAny audio,
+    bool preferCurrentTab,
+    String peerIdentity,
   });
 
   external JSAny get video;
   external set video(JSAny value);
   external JSAny get audio;
   external set audio(JSAny value);
+  external bool get preferCurrentTab;
+  external set preferCurrentTab(bool value);
+  external String get peerIdentity;
+  external set peerIdentity(String value);
 }
 extension type DoubleRange._(JSObject _) implements JSObject {
   external factory DoubleRange({
@@ -1307,14 +1664,4 @@ extension type ConstrainDOMStringParameters._(JSObject _) implements JSObject {
   external set exact(JSAny value);
   external JSAny get ideal;
   external set ideal(JSAny value);
-}
-extension type CameraDevicePermissionDescriptor._(JSObject _)
-    implements PermissionDescriptor, JSObject {
-  external factory CameraDevicePermissionDescriptor({
-    required String name,
-    bool panTiltZoom,
-  });
-
-  external bool get panTiltZoom;
-  external set panTiltZoom(bool value);
 }

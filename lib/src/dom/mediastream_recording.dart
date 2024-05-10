@@ -198,10 +198,6 @@ extension type MediaRecorder._(JSObject _) implements EventTarget, JSObject {
   /// This may differ from the bit rate specified in the constructor (if
   /// it was provided).
   external int get audioBitsPerSecond;
-
-  /// The **`audioBitrateMode`** read-only property of the [MediaRecorder]
-  /// interface returns the bitrate mode used to encode audio tracks.
-  external BitrateMode get audioBitrateMode;
 }
 extension type MediaRecorderOptions._(JSObject _) implements JSObject {
   external factory MediaRecorderOptions({

@@ -55,28 +55,6 @@ extension type MediaSession._(JSObject _) implements JSObject {
   /// [navigator.mediaSession] object.
   external void setPositionState([MediaPositionState state]);
 
-  /// The **`setMicrophoneActive()`** method of the [MediaSession] interface is
-  /// used to indicate to the user agent whether the user's microphone is
-  /// considered to be currently muted.
-  ///
-  /// Call this method on the `navigator` object's
-  /// [navigator.mediaSession] object.
-  ///
-  /// Note that the status of the microphone is not tracked in the
-  /// [MediaSession] itself, but must be tracked separately.
-  external void setMicrophoneActive(bool active);
-
-  /// The **`setCameraActive()`** method of the [MediaSession] interface is used
-  /// to indicate to the user agent whether the user's camera is considered to
-  /// be active.
-  ///
-  /// Call this method on the `navigator` object's
-  /// [navigator.mediaSession] object.
-  ///
-  /// Note that the status of the camera is not tracked in the [MediaSession]
-  /// itself, but must be tracked separately.
-  external void setCameraActive(bool active);
-
   /// The **`metadata`** property of the [MediaSession]
   /// interface contains a [MediaMetadata] object providing descriptive
   /// information about the currently playing media, or `null` if the metadata
@@ -173,21 +151,4 @@ extension type MediaPositionState._(JSObject _) implements JSObject {
   external set playbackRate(num value);
   external num get position;
   external set position(num value);
-}
-extension type MediaSessionActionDetails._(JSObject _) implements JSObject {
-  external factory MediaSessionActionDetails({
-    required MediaSessionAction action,
-    num seekOffset,
-    num seekTime,
-    bool fastSeek,
-  });
-
-  external MediaSessionAction get action;
-  external set action(MediaSessionAction value);
-  external num get seekOffset;
-  external set seekOffset(num value);
-  external num get seekTime;
-  external set seekTime(num value);
-  external bool get fastSeek;
-  external set fastSeek(bool value);
 }

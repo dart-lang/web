@@ -45,11 +45,6 @@ extension type PerformanceResourceTiming._(JSObject _)
   /// > in a CSS file, the `initiatorType` will be `css` and not `img`.
   external String get initiatorType;
 
-  /// The **`deliveryType`** read-only property is a string indicating how the
-  /// resource was delivered — for example from the cache or from a navigational
-  /// prefetch.
-  external String get deliveryType;
-
   /// The **`nextHopProtocol`** read-only property is a string representing the
   /// network protocol used to fetch the resource, as identified by the [ALPN
   /// Protocol ID
@@ -153,14 +148,6 @@ extension type PerformanceResourceTiming._(JSObject _)
   /// (see the example below).
   external DOMHighResTimeStamp get requestStart;
 
-  /// The **`firstInterimResponseStart`** read-only property returns a
-  /// [DOMHighResTimeStamp] immediately after the browser receives the first
-  /// byte of the interim 1xx response (for example, 100 Continue or 103 Early
-  /// Hints) from the server.
-  ///
-  /// There is no _end_ property for `firstInterimResponseStart`.
-  external DOMHighResTimeStamp get firstInterimResponseStart;
-
   /// The **`responseStart`** read-only property returns a [DOMHighResTimeStamp]
   /// immediately after the browser receives the first byte of the response from
   /// the server, cache, or local resource.
@@ -201,13 +188,6 @@ extension type PerformanceResourceTiming._(JSObject _)
   /// size of the payload after removing any applied content encoding.
   external int get decodedBodySize;
 
-  /// The **`responseStatus`** read-only property represents the HTTP response
-  /// status code returned when fetching the resource.
-  ///
-  /// This property maps to [Response.status] from the
-  /// [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
-  external int get responseStatus;
-
   /// The **`renderBlockingStatus`** read-only property returns the
   /// render-blocking status of the resource.
   ///
@@ -216,7 +196,6 @@ extension type PerformanceResourceTiming._(JSObject _)
   /// - weren't render-blocking and therefore could be delayed, or
   /// - were render-blocking and therefore could be preloaded.
   external RenderBlockingStatusType get renderBlockingStatus;
-  external String get contentType;
 
   /// The **`serverTiming`** read-only property returns an array of
   /// [PerformanceServerTiming] entries containing server timing metrics.

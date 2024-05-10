@@ -16,61 +16,9 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 import 'streams.dart';
-import 'webcryptoapi.dart';
 
 typedef RTCRtpTransform = JSObject;
-typedef SmallCryptoKeyID = int;
-typedef CryptoKeyID = JSAny;
-typedef SFrameTransformRole = String;
-typedef SFrameTransformErrorEventType = String;
 typedef RTCEncodedVideoFrameType = String;
-extension type SFrameTransformOptions._(JSObject _) implements JSObject {
-  external factory SFrameTransformOptions({SFrameTransformRole role});
-
-  external SFrameTransformRole get role;
-  external set role(SFrameTransformRole value);
-}
-extension type SFrameTransform._(JSObject _) implements EventTarget, JSObject {
-  external factory SFrameTransform([SFrameTransformOptions options]);
-
-  external JSPromise<JSAny?> setEncryptionKey(
-    CryptoKey key, [
-    CryptoKeyID keyID,
-  ]);
-  external EventHandler get onerror;
-  external set onerror(EventHandler value);
-  external ReadableStream get readable;
-  external WritableStream get writable;
-}
-extension type SFrameTransformErrorEvent._(JSObject _)
-    implements Event, JSObject {
-  external factory SFrameTransformErrorEvent(
-    String type,
-    SFrameTransformErrorEventInit eventInitDict,
-  );
-
-  external SFrameTransformErrorEventType get errorType;
-  external CryptoKeyID? get keyID;
-  external JSAny? get frame;
-}
-extension type SFrameTransformErrorEventInit._(JSObject _)
-    implements EventInit, JSObject {
-  external factory SFrameTransformErrorEventInit({
-    bool bubbles,
-    bool cancelable,
-    bool composed,
-    required SFrameTransformErrorEventType errorType,
-    required JSAny? frame,
-    CryptoKeyID? keyID,
-  });
-
-  external SFrameTransformErrorEventType get errorType;
-  external set errorType(SFrameTransformErrorEventType value);
-  external JSAny? get frame;
-  external set frame(JSAny? value);
-  external CryptoKeyID? get keyID;
-  external set keyID(CryptoKeyID? value);
-}
 extension type RTCEncodedVideoFrameMetadata._(JSObject _) implements JSObject {
   external factory RTCEncodedVideoFrameMetadata({
     int frameId,
@@ -305,8 +253,6 @@ extension type RTCRtpScriptTransformer._(JSObject _)
   /// A common way to perform this operation is to pipe the frames through a
   /// [TransformStream].
   external WritableStream get writable;
-  external EventHandler get onkeyframerequest;
-  external set onkeyframerequest(EventHandler value);
 
   /// The **`options`** read-only property of the [RTCRtpScriptTransformer]
   /// interface returns the object that was (optionally) passed as the second
@@ -333,12 +279,4 @@ extension type RTCRtpScriptTransform._(JSObject _) implements JSObject {
     JSAny? options,
     JSArray<JSObject> transfer,
   ]);
-}
-extension type KeyFrameRequestEvent._(JSObject _) implements Event, JSObject {
-  external factory KeyFrameRequestEvent(
-    String type, [
-    String rid,
-  ]);
-
-  external String? get rid;
 }

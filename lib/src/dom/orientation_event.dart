@@ -29,8 +29,6 @@ extension type DeviceOrientationEvent._(JSObject _) implements Event, JSObject {
     DeviceOrientationEventInit eventInitDict,
   ]);
 
-  external static JSPromise<JSString> requestPermission([bool absolute]);
-
   /// The **`alpha`** read-only property of the [DeviceOrientationEvent]
   /// interface returns the rotation of the device around the Z axis; that is,
   /// the number of degrees by
@@ -165,8 +163,6 @@ extension type DeviceMotionEvent._(JSObject _) implements Event, JSObject {
     String type, [
     DeviceMotionEventInit eventInitDict,
   ]);
-
-  external static JSPromise<JSString> requestPermission();
 
   /// The **`acceleration`** read-only property of the [DeviceMotionEvent]
   /// interface returns the amount of acceleration recorded by

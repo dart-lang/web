@@ -16,9 +16,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'fileapi.dart';
 import 'html.dart';
-import 'permissions.dart';
 
-typedef ClipboardItemData = JSPromise<JSAny>;
 typedef ClipboardItems = JSArray<ClipboardItem>;
 typedef PresentationStyle = String;
 extension type ClipboardEventInit._(JSObject _) implements EventInit, JSObject {
@@ -84,8 +82,6 @@ extension type ClipboardItem._(JSObject _) implements JSObject {
     JSObject items, [
     ClipboardItemOptions options,
   ]);
-
-  external static bool supports(String type);
 
   /// The **`getType()`** method of the [ClipboardItem] interface returns a
   /// `Promise` that resolves with a [Blob] of the requested  or an error if the
@@ -173,14 +169,4 @@ extension type ClipboardUnsanitizedFormats._(JSObject _) implements JSObject {
 
   external JSArray<JSString> get unsanitized;
   external set unsanitized(JSArray<JSString> value);
-}
-extension type ClipboardPermissionDescriptor._(JSObject _)
-    implements PermissionDescriptor, JSObject {
-  external factory ClipboardPermissionDescriptor({
-    required String name,
-    bool allowWithoutGesture,
-  });
-
-  external bool get allowWithoutGesture;
-  external set allowWithoutGesture(bool value);
 }

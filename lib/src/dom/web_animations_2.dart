@@ -15,35 +15,8 @@ import 'dart:js_interop';
 
 import 'css_typed_om.dart';
 import 'dom.dart';
-import 'web_animations.dart';
 
-typedef EffectCallback = JSFunction;
 typedef IterationCompositeOperation = String;
-extension type GroupEffect._(JSObject _) implements JSObject {
-  external factory GroupEffect(
-    JSArray<AnimationEffect>? children, [
-    JSAny timing,
-  ]);
-
-  external GroupEffect clone();
-  external void prepend(AnimationEffect effects);
-  external void append(AnimationEffect effects);
-  external AnimationNodeList get children;
-  external AnimationEffect? get firstChild;
-  external AnimationEffect? get lastChild;
-}
-extension type AnimationNodeList._(JSObject _) implements JSObject {
-  external AnimationEffect? item(int index);
-  external int get length;
-}
-extension type SequenceEffect._(JSObject _) implements GroupEffect, JSObject {
-  external factory SequenceEffect(
-    JSArray<AnimationEffect>? children, [
-    JSAny timing,
-  ]);
-
-  external SequenceEffect clone();
-}
 extension type TimelineRangeOffset._(JSObject _) implements JSObject {
   external factory TimelineRangeOffset({
     String? rangeName,

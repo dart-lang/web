@@ -25,6 +25,7 @@ extension type PointerEventInit._(JSObject _)
     bool composed,
     Window? view,
     int detail,
+    JSObject? sourceCapabilities,
     int which,
     bool ctrlKey,
     bool shiftKey,
@@ -47,6 +48,8 @@ extension type PointerEventInit._(JSObject _)
     int button,
     int buttons,
     EventTarget? relatedTarget,
+    num movementX,
+    num movementY,
     int pointerId,
     num width,
     num height,
@@ -223,38 +226,6 @@ extension type PointerEvent._(JSObject _) implements MouseEvent, JSObject {
   /// [PointerEvent] interface represents the clockwise rotation of the pointer
   /// (e.g., pen stylus) around its major axis, in degrees.
   external int get twist;
-
-  /// The **`altitudeAngle`** read-only property of the [PointerEvent] interface
-  /// represents the angle between a transducer (a pointer or stylus) axis and
-  /// the X-Y plane of a device screen.
-  /// The altitude angle describes whether the transducer is perpendicular to
-  /// the screen, parallel, or at some angle in between.
-  ///
-  /// Depending on the specific hardware and platform, user agents will likely
-  /// only receive one set of values for the transducer orientation relative to
-  /// the screen plane — either [PointerEvent.tiltx] and [PointerEvent.tilty] or
-  /// `altitudeAngle` and [PointerEvent.azimuthAngle].
-  ///
-  /// ![The azimuth angle of a pointer compared to the altitude angle](./azimuth_altitude_angles.svg)
-  ///
-  /// For an additional illustration of this property, see
-  /// [Figure 4 in the specification](https://w3c.github.io/pointerevents/#figure_altitudeAngle).
-  external num get altitudeAngle;
-
-  /// The **`azimuthAngle`** read-only property of the [PointerEvent] interface
-  /// represents the angle between the Y-Z plane and the plane containing both
-  /// the transducer (pointer or stylus) axis and the Y axis.
-  ///
-  /// Depending on the specific hardware and platform, user agents will likely
-  /// only receive one set of values for the transducer orientation relative to
-  /// the screen plane — either [PointerEvent.tiltx] and [PointerEvent.tilty] or
-  /// [PointerEvent.altitudeAngle] and `azimuthAngle`.
-  ///
-  /// ![The azimuth angle of a pointer compared to the altitude angle](azimuth_altitude_angles.svg)
-  ///
-  /// For an additional illustration of this property, see
-  /// [Figure 5 in the specification](https://w3c.github.io/pointerevents/#figure_azimuthAngle).
-  external num get azimuthAngle;
 
   /// The **`pointerType`** read-only property of the
   /// [PointerEvent] interface indicates the device type (mouse, pen, or touch)

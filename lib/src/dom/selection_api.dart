@@ -63,7 +63,6 @@ extension type Selection._(JSObject _) implements JSObject {
   /// > **Note:** This method is an alias for the [Selection.removeAllRanges]
   /// > method.
   external void empty();
-  external JSArray<StaticRange> getComposedRanges(ShadowRoot shadowRoots);
 
   /// The **`Selection.collapse()`** method collapses the current selection to a
   /// single point. The document is not modified. If the content is focused and
@@ -223,5 +222,4 @@ extension type Selection._(JSObject _) implements JSObject {
   /// [Selection] interface returns a string describing the
   /// type of the current selection.
   external String get type;
-  external String get direction;
 }

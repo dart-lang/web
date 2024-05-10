@@ -13,10 +13,6 @@ library;
 
 import 'dart:js_interop';
 
-typedef HTMLString = String;
-typedef ScriptString = String;
-typedef ScriptURLString = String;
-typedef TrustedType = JSObject;
 typedef CreateHTMLCallback = JSFunction;
 typedef CreateScriptCallback = JSFunction;
 typedef CreateScriptURLCallback = JSFunction;
@@ -35,8 +31,6 @@ typedef CreateScriptURLCallback = JSFunction;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TrustedHTML).
 extension type TrustedHTML._(JSObject _) implements JSObject {
-  external static TrustedHTML fromLiteral(JSObject templateStringsArray);
-
   /// The **`toJSON()`** method of the [TrustedHTML] interface returns a JSON
   /// representation of the stored data.
   external String toJSON();
@@ -56,8 +50,6 @@ extension type TrustedHTML._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TrustedScript).
 extension type TrustedScript._(JSObject _) implements JSObject {
-  external static TrustedScript fromLiteral(JSObject templateStringsArray);
-
   /// The **`toJSON()`** method of the [TrustedScript] interface returns a JSON
   /// representation of the stored data.
   external String toJSON();
@@ -77,8 +69,6 @@ extension type TrustedScript._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TrustedScriptURL).
 extension type TrustedScriptURL._(JSObject _) implements JSObject {
-  external static TrustedScriptURL fromLiteral(JSObject templateStringsArray);
-
   /// The **`toJSON()`** method of the [TrustedScriptURL] interface returns a
   /// JSON representation of the stored data.
   external String toJSON();

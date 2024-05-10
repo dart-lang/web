@@ -65,8 +65,8 @@ extension type SpeechRecognition._(JSObject _)
   /// [SpeechGrammar] objects that represent the grammars that will be
   /// understood
   /// by the current `SpeechRecognition`.
-  external SpeechGrammarList get grammars;
-  external set grammars(SpeechGrammarList value);
+  external JSObject get grammars;
+  external set grammars(JSObject value);
 
   /// The **`lang`** property of the [SpeechRecognition]
   /// interface returns and sets the language of the current
@@ -139,11 +139,6 @@ extension type SpeechRecognition._(JSObject _)
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognitionErrorEvent).
 extension type SpeechRecognitionErrorEvent._(JSObject _)
     implements Event, JSObject {
-  external factory SpeechRecognitionErrorEvent(
-    String type,
-    SpeechRecognitionErrorEventInit eventInitDict,
-  );
-
   /// The **`error`** read-only property of the
   /// [SpeechRecognitionErrorEvent] interface returns the type of error raised.
   external SpeechRecognitionErrorCode get error;
@@ -152,21 +147,6 @@ extension type SpeechRecognitionErrorEvent._(JSObject _)
   /// [SpeechRecognitionErrorEvent] interface returns a message describing the
   /// error in more detail.
   external String get message;
-}
-extension type SpeechRecognitionErrorEventInit._(JSObject _)
-    implements EventInit, JSObject {
-  external factory SpeechRecognitionErrorEventInit({
-    bool bubbles,
-    bool cancelable,
-    bool composed,
-    required SpeechRecognitionErrorCode error,
-    String message,
-  });
-
-  external SpeechRecognitionErrorCode get error;
-  external set error(SpeechRecognitionErrorCode value);
-  external String get message;
-  external set message(String value);
 }
 
 /// The **`SpeechRecognitionAlternative`** interface of the
@@ -269,11 +249,6 @@ extension type SpeechRecognitionResultList._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognitionEvent).
 extension type SpeechRecognitionEvent._(JSObject _) implements Event, JSObject {
-  external factory SpeechRecognitionEvent(
-    String type,
-    SpeechRecognitionEventInit eventInitDict,
-  );
-
   /// The **`resultIndex`** read-only property of the
   /// [SpeechRecognitionEvent] interface returns the lowest index value result
   /// in
@@ -300,99 +275,6 @@ extension type SpeechRecognitionEvent._(JSObject _) implements Event, JSObject {
   /// the other hand
   /// will not be overwritten or removed.
   external SpeechRecognitionResultList get results;
-}
-extension type SpeechRecognitionEventInit._(JSObject _)
-    implements EventInit, JSObject {
-  external factory SpeechRecognitionEventInit({
-    bool bubbles,
-    bool cancelable,
-    bool composed,
-    int resultIndex,
-    required SpeechRecognitionResultList results,
-  });
-
-  external int get resultIndex;
-  external set resultIndex(int value);
-  external SpeechRecognitionResultList get results;
-  external set results(SpeechRecognitionResultList value);
-}
-
-/// The **`SpeechGrammar`** interface of the
-/// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
-/// represents a set of words or patterns of words that we want the recognition
-/// service to recognize.
-///
-/// Grammar is defined using
-/// [JSpeech Grammar Format](https://www.w3.org/TR/jsgf/) (**JSGF**.) Other
-/// formats may also be supported in the future.
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechGrammar).
-extension type SpeechGrammar._(JSObject _) implements JSObject {
-  /// The **`src`** property of the [SpeechGrammar]
-  /// interface sets and returns a string containing the grammar from within in
-  /// the
-  /// `SpeechGrammar` object.
-  external String get src;
-  external set src(String value);
-
-  /// The optional **`weight`** property of the
-  /// [SpeechGrammar] interface sets and returns the weight of the
-  /// `SpeechGrammar` object.
-  external num get weight;
-  external set weight(num value);
-}
-
-/// The **`SpeechGrammarList`** interface of the
-/// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
-/// represents a list of [SpeechGrammar] objects containing words or patterns of
-/// words that we want the recognition service to recognize.
-///
-/// Grammar is defined using
-/// [JSpeech Grammar Format](https://www.w3.org/TR/jsgf/) (**JSGF**.) Other
-/// formats may also be supported in the future.
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SpeechGrammarList).
-extension type SpeechGrammarList._(JSObject _) implements JSObject {
-  external factory SpeechGrammarList();
-
-  /// The **`item`** getter of the [SpeechGrammarList]
-  /// interface is a standard getter — it allows individual [SpeechGrammar]
-  /// objects to be retrieved from the `SpeechGrammarList` using array syntax.
-  external SpeechGrammar item(int index);
-
-  /// The **`addFromURI()`** method of the
-  /// [SpeechGrammarList] interface takes a grammar present at a specific URI
-  /// and
-  /// adds it to the `SpeechGrammarList` as a new [SpeechGrammar]
-  /// object.
-  ///
-  /// Note that some speech recognition services may support built-in grammars
-  /// that can be
-  /// specified by URI.
-  external void addFromURI(
-    String src, [
-    num weight,
-  ]);
-
-  /// The **`addFromString()`** method of the
-  /// [SpeechGrammarList] interface takes a grammar present in a specific
-  /// string within the code base (e.g. stored in a variable) and adds it to
-  /// the `SpeechGrammarList` as a new [SpeechGrammar] object.
-  external void addFromString(
-    String string, [
-    num weight,
-  ]);
-
-  /// The **`length`** read-only property of the
-  /// [SpeechGrammarList] interface returns the number of
-  /// [SpeechGrammar] objects contained in the [SpeechGrammarList].
-  external int get length;
 }
 
 /// The **`SpeechSynthesis`** interface of the

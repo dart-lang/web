@@ -419,6 +419,8 @@ extension type ServiceWorkerGlobalScope._(JSObject _)
   /// underlying service worker take effect immediately for both the current
   /// client and all other active clients.
   external JSPromise<JSAny?> skipWaiting();
+  external EventHandler get onsync;
+  external set onsync(EventHandler value);
   external EventHandler get onnotificationclick;
   external set onnotificationclick(EventHandler value);
   external EventHandler get onnotificationclose;
@@ -528,16 +530,6 @@ extension type WindowClient._(JSObject _) implements Client, JSObject {
   /// [WindowClient] interface is a boolean value that indicates whether
   /// the current client has focus.
   external bool get focused;
-
-  /// The **`ancestorOrigins`** read-only property of the [WindowClient]
-  /// interface is an array of strings listing the origins of all ancestors of
-  /// the browsing context represented by this `WindowClient` in reverse order.
-  ///
-  /// The first element in the array is the origin of this window's parent, and
-  /// the last element is the origin of the top-level browsing context. If this
-  /// window is itself a top-level browsing context, then `ancestorOrigins` is
-  /// an empty array.
-  external JSArray<JSString> get ancestorOrigins;
 }
 
 /// The `Clients` interface provides access to [Client] objects. Access it via

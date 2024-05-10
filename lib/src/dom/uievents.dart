@@ -88,6 +88,7 @@ extension type UIEventInit._(JSObject _) implements EventInit, JSObject {
     bool composed,
     Window? view,
     int detail,
+    JSObject? sourceCapabilities,
     int which,
   });
 
@@ -95,6 +96,8 @@ extension type UIEventInit._(JSObject _) implements EventInit, JSObject {
   external set view(Window? value);
   external int get detail;
   external set detail(int value);
+  external JSObject? get sourceCapabilities;
+  external set sourceCapabilities(JSObject? value);
   external int get which;
   external set which(int value);
 }
@@ -166,6 +169,7 @@ extension type FocusEventInit._(JSObject _) implements UIEventInit, JSObject {
     bool composed,
     Window? view,
     int detail,
+    JSObject? sourceCapabilities,
     int which,
     EventTarget? relatedTarget,
   });
@@ -286,6 +290,38 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   /// event and the padding edge of the target node.
   external num get offsetY;
 
+  /// The **`movementX`** read-only property of the [MouseEvent] interface
+  /// provides the difference in the X coordinate of the mouse pointer between
+  /// the given event and the previous [Element.mousemove_event] event.
+  /// In other words, the value of the property is computed like this:
+  /// `currentEvent.movementX = currentEvent.screenX - previousEvent.screenX`.
+  ///
+  /// > **Warning:** Browsers [use different units for `movementX` and
+  /// > [MouseEvent.screenX]](https://github.com/w3c/pointerlock/issues/42) than
+  /// > what the specification defines. Depending on the browser and operating
+  /// > system, the `movementX` units may be a physical pixel, a logical pixel,
+  /// > or a CSS pixel. You may want to avoid the movement properties, and
+  /// > instead calculate the delta between the current client values
+  /// > ([MouseEvent.screenX], [MouseEvent.screenY]) and the previous client
+  /// > values.
+  external num get movementX;
+
+  /// The **`movementY`** read-only property of the [MouseEvent] interface
+  /// provides the difference in the Y coordinate of the mouse pointer between
+  /// the given event and the previous [Element.mousemove_event] event.
+  /// In other words, the value of the property is computed like this:
+  /// `currentEvent.movementY = currentEvent.screenY - previousEvent.screenY`.
+  ///
+  /// > **Warning:** Browsers [use different units for `movementY` and
+  /// > [MouseEvent.screenY]](https://github.com/w3c/pointerlock/issues/42) than
+  /// > what the specification defines. Depending on the browser and operating
+  /// > system, the `movementY` units may be a physical pixel, a logical pixel,
+  /// > or a CSS pixel. You may want to avoid the movement properties, and
+  /// > instead calculate the delta between the current client values
+  /// > ([MouseEvent.screenX], [MouseEvent.screenY]) and the previous client
+  /// > values.
+  external num get movementY;
+
   /// The **`screenX`** read-only property of the [MouseEvent] interface
   /// provides the horizontal coordinate (offset) of the mouse pointer in
   /// [screen coordinates](https://developer.mozilla.org/en-US/docs/Web/CSS/CSSOM_view/Coordinate_systems#screen).
@@ -317,26 +353,6 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   /// in a mouse event with a `clientY` value of `0`, regardless of whether the
   /// page is scrolled vertically.
   external int get clientY;
-
-  /// The **`MouseEvent.layerX`** read-only property returns the
-  /// horizontal coordinate of the event relative to the current layer.
-  ///
-  /// This property takes scrolling of the page into account and returns a value
-  /// relative to
-  /// the whole of the document unless the event occurs inside a positioned
-  /// element, where the
-  /// returned value is relative to the top left of the positioned element.
-  external int get layerX;
-
-  /// The **`MouseEvent.layerY`** read-only property returns the
-  /// vertical coordinate of the event relative to the current layer.
-  ///
-  /// This property takes scrolling of the page into account, and returns a
-  /// value relative to
-  /// the whole of the document, unless the event occurs inside a positioned
-  /// element, where
-  /// the returned value is relative to the top left of the positioned element.
-  external int get layerY;
 
   /// The **`MouseEvent.ctrlKey`** read-only property is a boolean value that
   /// indicates whether the <kbd>ctrl</kbd> key was pressed or not when a given
@@ -505,6 +521,7 @@ extension type MouseEventInit._(JSObject _)
     bool composed,
     Window? view,
     int detail,
+    JSObject? sourceCapabilities,
     int which,
     bool ctrlKey,
     bool shiftKey,
@@ -527,6 +544,8 @@ extension type MouseEventInit._(JSObject _)
     int button,
     int buttons,
     EventTarget? relatedTarget,
+    num movementX,
+    num movementY,
   });
 
   external int get screenX;
@@ -543,6 +562,10 @@ extension type MouseEventInit._(JSObject _)
   external set buttons(int value);
   external EventTarget? get relatedTarget;
   external set relatedTarget(EventTarget? value);
+  external num get movementX;
+  external set movementX(num value);
+  external num get movementY;
+  external set movementY(num value);
 }
 extension type EventModifierInit._(JSObject _)
     implements UIEventInit, JSObject {
@@ -552,6 +575,7 @@ extension type EventModifierInit._(JSObject _)
     bool composed,
     Window? view,
     int detail,
+    JSObject? sourceCapabilities,
     int which,
     bool ctrlKey,
     bool shiftKey,
@@ -665,6 +689,7 @@ extension type WheelEventInit._(JSObject _)
     bool composed,
     Window? view,
     int detail,
+    JSObject? sourceCapabilities,
     int which,
     bool ctrlKey,
     bool shiftKey,
@@ -687,6 +712,8 @@ extension type WheelEventInit._(JSObject _)
     int button,
     int buttons,
     EventTarget? relatedTarget,
+    num movementX,
+    num movementY,
     num deltaX,
     num deltaY,
     num deltaZ,
@@ -716,6 +743,62 @@ extension type InputEvent._(JSObject _) implements UIEvent, JSObject {
     InputEventInit eventInitDict,
   ]);
 
+  /// The **`getTargetRanges()`** method of the [InputEvent] interface returns
+  /// an array of static ranges that will be affected by a change to the DOM if
+  /// the input event is not canceled.
+  ///
+  /// This allows web apps to override text edit behavior before the browser
+  /// modifies the DOM tree, and provides more control over input events to
+  /// improve performance.
+  ///
+  /// Depending on the value of `inputType` and the current editing host, the
+  /// expected return value of this method varies:
+  ///
+  /// <table>
+  ///   <thead>
+  ///     <tr>
+  ///       <th>inputType</th>
+  ///       <th>Editing host</th>
+  ///       <th>Response of <code>getTargetRanges()</code></th>
+  ///     </tr>
+  ///   </thead>
+  ///   <tbody>
+  ///     <tr>
+  ///       <td><code>"historyUndo"</code> or <code>"historyRedo"</code></td>
+  ///       <td>Any</td>
+  ///       <td>empty Array</td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>All remaining</td>
+  ///       <td><code>contenteditable</code></td>
+  ///       <td>
+  /// an Array of
+  /// [StaticRange]
+  /// objects associated with event
+  ///       </td>
+  ///     </tr>
+  ///     <tr>
+  ///       <td>All remaining</td>
+  ///       <td>
+  ///         <a href="/en-US/docs/Web/HTML/Element/input"><code>input</code></a>
+  /// or <a
+  /// href="/en-US/docs/Web/HTML/Element/textarea"><code>textarea</code></a>
+  ///       </td>
+  ///       <td>
+  /// an empty Array
+  ///       </td>
+  ///     </tr>
+  ///   </tbody>
+  /// </table>
+  external JSArray<StaticRange> getTargetRanges();
+
+  /// The **`dataTransfer`** read-only property of the
+  /// [InputEvent] interface returns a [DataTransfer] object
+  /// containing information about richtext or plaintext data being added to or
+  /// removed from
+  /// editable content.
+  external DataTransfer? get dataTransfer;
+
   /// The **`data`** read-only property of the
   /// [InputEvent] interface returns a string with inserted
   /// characters. This may be an empty string if the change doesn't insert text,
@@ -743,10 +826,13 @@ extension type InputEventInit._(JSObject _) implements UIEventInit, JSObject {
     bool composed,
     Window? view,
     int detail,
+    JSObject? sourceCapabilities,
     int which,
     String? data,
     bool isComposing,
     String inputType,
+    DataTransfer? dataTransfer,
+    JSArray<StaticRange> targetRanges,
   });
 
   external String? get data;
@@ -755,6 +841,10 @@ extension type InputEventInit._(JSObject _) implements UIEventInit, JSObject {
   external set isComposing(bool value);
   external String get inputType;
   external set inputType(String value);
+  external DataTransfer? get dataTransfer;
+  external set dataTransfer(DataTransfer? value);
+  external JSArray<StaticRange> get targetRanges;
+  external set targetRanges(JSArray<StaticRange> value);
 }
 
 /// **`KeyboardEvent`** objects describe a user interaction with the keyboard;
@@ -1034,6 +1124,7 @@ extension type KeyboardEventInit._(JSObject _)
     bool composed,
     Window? view,
     int detail,
+    JSObject? sourceCapabilities,
     int which,
     bool ctrlKey,
     bool shiftKey,
@@ -1116,6 +1207,7 @@ extension type CompositionEventInit._(JSObject _)
     bool composed,
     Window? view,
     int detail,
+    JSObject? sourceCapabilities,
     int which,
     String data,
   });

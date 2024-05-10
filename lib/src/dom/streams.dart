@@ -17,21 +17,8 @@ import 'dom.dart';
 import 'webidl.dart';
 
 typedef ReadableStreamReader = JSObject;
-typedef ReadableStreamController = JSObject;
-typedef UnderlyingSourceStartCallback = JSFunction;
-typedef UnderlyingSourcePullCallback = JSFunction;
-typedef UnderlyingSourceCancelCallback = JSFunction;
-typedef UnderlyingSinkStartCallback = JSFunction;
-typedef UnderlyingSinkWriteCallback = JSFunction;
-typedef UnderlyingSinkCloseCallback = JSFunction;
-typedef UnderlyingSinkAbortCallback = JSFunction;
-typedef TransformerStartCallback = JSFunction;
-typedef TransformerFlushCallback = JSFunction;
-typedef TransformerTransformCallback = JSFunction;
-typedef TransformerCancelCallback = JSFunction;
 typedef QueuingStrategySize = JSFunction;
 typedef ReadableStreamReaderMode = String;
-typedef ReadableStreamType = String;
 
 /// The `ReadableStream` interface of the
 /// [Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)
@@ -52,8 +39,6 @@ extension type ReadableStream._(JSObject _) implements JSObject {
     JSObject underlyingSource,
     QueuingStrategy strategy,
   ]);
-
-  external static ReadableStream from(JSAny? asyncIterable);
 
   /// The **`cancel()`** method of the [ReadableStream] interface returns a
   /// `Promise` that resolves when the stream is canceled.
@@ -161,12 +146,6 @@ extension type ReadableStreamGetReaderOptions._(JSObject _)
   external ReadableStreamReaderMode get mode;
   external set mode(ReadableStreamReaderMode value);
 }
-extension type ReadableStreamIteratorOptions._(JSObject _) implements JSObject {
-  external factory ReadableStreamIteratorOptions({bool preventCancel});
-
-  external bool get preventCancel;
-  external set preventCancel(bool value);
-}
 extension type ReadableWritablePair._(JSObject _) implements JSObject {
   external factory ReadableWritablePair({
     required ReadableStream readable,
@@ -194,26 +173,6 @@ extension type StreamPipeOptions._(JSObject _) implements JSObject {
   external set preventCancel(bool value);
   external AbortSignal get signal;
   external set signal(AbortSignal value);
-}
-extension type UnderlyingSource._(JSObject _) implements JSObject {
-  external factory UnderlyingSource({
-    UnderlyingSourceStartCallback start,
-    UnderlyingSourcePullCallback pull,
-    UnderlyingSourceCancelCallback cancel,
-    ReadableStreamType type,
-    int autoAllocateChunkSize,
-  });
-
-  external UnderlyingSourceStartCallback get start;
-  external set start(UnderlyingSourceStartCallback value);
-  external UnderlyingSourcePullCallback get pull;
-  external set pull(UnderlyingSourcePullCallback value);
-  external UnderlyingSourceCancelCallback get cancel;
-  external set cancel(UnderlyingSourceCancelCallback value);
-  external ReadableStreamType get type;
-  external set type(ReadableStreamType value);
-  external int get autoAllocateChunkSize;
-  external set autoAllocateChunkSize(int value);
 }
 
 /// The **`ReadableStreamDefaultReader`** interface of the
@@ -706,26 +665,6 @@ extension type WritableStream._(JSObject _) implements JSObject {
   /// writer.
   external bool get locked;
 }
-extension type UnderlyingSink._(JSObject _) implements JSObject {
-  external factory UnderlyingSink({
-    UnderlyingSinkStartCallback start,
-    UnderlyingSinkWriteCallback write,
-    UnderlyingSinkCloseCallback close,
-    UnderlyingSinkAbortCallback abort,
-    JSAny? type,
-  });
-
-  external UnderlyingSinkStartCallback get start;
-  external set start(UnderlyingSinkStartCallback value);
-  external UnderlyingSinkWriteCallback get write;
-  external set write(UnderlyingSinkWriteCallback value);
-  external UnderlyingSinkCloseCallback get close;
-  external set close(UnderlyingSinkCloseCallback value);
-  external UnderlyingSinkAbortCallback get abort;
-  external set abort(UnderlyingSinkAbortCallback value);
-  external JSAny? get type;
-  external set type(JSAny? value);
-}
 
 /// The **`WritableStreamDefaultWriter`** interface of the
 /// [Streams API](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API)
@@ -873,29 +812,6 @@ extension type TransformStream._(JSObject _) implements JSObject {
   /// returns the [WritableStream] instance controlled by this
   /// `TransformStream`.
   external WritableStream get writable;
-}
-extension type Transformer._(JSObject _) implements JSObject {
-  external factory Transformer({
-    TransformerStartCallback start,
-    TransformerTransformCallback transform,
-    TransformerFlushCallback flush,
-    TransformerCancelCallback cancel,
-    JSAny? readableType,
-    JSAny? writableType,
-  });
-
-  external TransformerStartCallback get start;
-  external set start(TransformerStartCallback value);
-  external TransformerTransformCallback get transform;
-  external set transform(TransformerTransformCallback value);
-  external TransformerFlushCallback get flush;
-  external set flush(TransformerFlushCallback value);
-  external TransformerCancelCallback get cancel;
-  external set cancel(TransformerCancelCallback value);
-  external JSAny? get readableType;
-  external set readableType(JSAny? value);
-  external JSAny? get writableType;
-  external set writableType(JSAny? value);
 }
 
 /// The **`TransformStreamDefaultController`** interface of the

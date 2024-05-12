@@ -17,7 +17,7 @@ import '../../helpers.dart' show Device;
 ///     provider omits APIs related to them.
 ///
 ///   * Streams returned here behave slighly differently. The timing of when
-///     callbacks execute is sometimes differet when using stream to future APIs
+///     callbacks execute is sometimes different when using stream to future APIs
 ///     like `.first`. In particular, when using synchronous browser APIs like
 ///     `dispatchEvent`, the Dart callbacks that would have executed
 ///     synchronously in `dart:html`, may now execute asynchronously. This only

@@ -109,19 +109,43 @@ class _Library {
 /// Otherwise, returns null.
 _RawType? _desugarTypedef(_RawType rawType) {
   final decl = Translator.instance!._typeToDeclaration[rawType.type];
-  // TODO(srujzs): We can just do a `switch (decl?.type)` instead.
+  return switch (decl?.type) {
+    'typedef' => _getRawType((decl as idl.Typedef).idlType),
+    // TODO(srujzs): If we ever add a generic JS function type, we should
+    // maybe leverage that here so we have stronger type-checking of
+    // callbacks.
+    'callback' || 'callback interface' => _RawType('JSFunction', false),
+    // TODO(srujzs): Enums in the WebIDL are just strings, but we could make
+    // them easier to work with on the Dart side.
+    'enum' => _RawType('JSString', false),
+    _ => null
+  };
+}
+
+/// Given a [rawType], return its JS type-equivalent type if it's a type that is
+/// declared in the IDL.
+///
+/// Otherwise, return null.
+_RawType? _getJSTypeEquivalent(_RawType rawType) {
+  final type = rawType.type;
+  final nullable = rawType.nullable;
+  final decl = Translator.instance!._typeToDeclaration[type];
   if (decl != null) {
-    return switch (decl.type) {
-      'typedef' => _getRawType((decl as idl.Typedef).idlType),
-      // TODO(srujzs): If we ever add a generic JS function type, we should
-      // maybe leverage that here so we have stronger type-checking of
-      // callbacks.
-      'callback' || 'callback interface' => _RawType('JSFunction', false),
-      // TODO(srujzs): Enums in the WebIDL are just strings, but we could make
-      // them easier to work with on the Dart side.
-      'enum' => _RawType('JSString', false),
-      _ => null
-    };
+    final nodeType = decl.type;
+    switch (nodeType) {
+      case 'interface':
+      case 'dictionary':
+        return _RawType('JSObject', nullable);
+      default:
+        final desugaredType = _desugarTypedef(rawType);
+        if (desugaredType != null) {
+          // The output of `_desugarTypedef` is always an IDL decl type or a JS
+          // type, so either get the equivalent in the former case or return the
+          // JS type directly.
+          return _getJSTypeEquivalent(desugaredType) ?? desugaredType;
+        }
+        throw Exception('Unhandled type $type with node type: $nodeType');
+    }
   }
   return null;
 }
@@ -156,34 +180,8 @@ _RawType _computeRawTypeUnion(_RawType rawType1, _RawType rawType2) {
 
   // In the case of unions, we should try and get a JS type-able type to get a
   // better LUB.
-  _RawType getTypeForUnionCalculation(_RawType rawType) {
-    final type = rawType.type;
-    final nullable = rawType.nullable;
-    final decl = Translator.instance!._typeToDeclaration[type];
-    if (decl != null) {
-      final nodeType = decl.type;
-      switch (nodeType) {
-        case 'interface':
-        case 'dictionary':
-          // TODO(srujzs): We can do better if we do a LUB of the interfaces (so
-          // we get a possible interface name instead of `JSObject`), but that
-          // might be too much effort for too little reward. This would entail
-          // caching the hierarchy of IDL types.
-          return _RawType('JSObject', nullable);
-        default:
-          final desugaredType = _desugarTypedef(rawType);
-          if (desugaredType != null) {
-            return getTypeForUnionCalculation(desugaredType);
-          }
-          throw Exception('Unhandled type $type with node type: $nodeType');
-      }
-    } else {
-      return _RawType(type, nullable, rawType.typeParameter);
-    }
-  }
-
-  final unionableType1 = getTypeForUnionCalculation(rawType1);
-  final unionableType2 = getTypeForUnionCalculation(rawType2);
+  final unionableType1 = _getJSTypeEquivalent(rawType1) ?? rawType1;
+  final unionableType2 = _getJSTypeEquivalent(rawType2) ?? rawType2;
 
   // We choose `JSAny` if they're not both JS types.
   return _RawType(
@@ -234,10 +232,9 @@ _RawType _getRawType(idl.IDLType idlType) {
   final alias = idlOrBuiltinToJsTypeAliases[type];
   assert(decl != null || alias != null);
   if (alias == null && !translator.markTypeAsUsed(type)) {
-    // TODO(srujzs): Refactor `getTypeForUnionCalculation` to a shared function
-    // and use that instead.
-    assert(decl!.type == 'interface');
-    type = 'JSObject';
+    // If the type is an IDL type that is never generated, use its JS type
+    // equivalent.
+    type = _getJSTypeEquivalent(_RawType(type, false))!.type;
   }
   return _RawType(alias ?? type, nullable, typeParameter);
 }
@@ -450,39 +447,39 @@ class _PartialInterfacelike {
           break;
         case 'operation':
           final operation = member as idl.Operation;
-          // TODO(srujzs): Avoid shadowing fields.
-          final name = operation.name;
-          if (name.isEmpty) {
+          final operationName = operation.name;
+          if (operationName.isEmpty) {
             // TODO(joshualitt): We may be able to handle some unnamed
             // operations.
             continue;
           }
           final isStatic = operation.special == 'static';
-          if (!_shouldGenerateMember(name, isStatic: isStatic)) break;
-          final docs = mdnInterface?.propertyFor(name);
+          if (!_shouldGenerateMember(operationName, isStatic: isStatic)) break;
+          final docs = mdnInterface?.propertyFor(operationName);
           if (isStatic) {
-            if (staticOperations.containsKey(name)) {
-              staticOperations[name]!.update(operation);
+            if (staticOperations.containsKey(operationName)) {
+              staticOperations[operationName]!.update(operation);
             } else {
               final _MemberName memberName;
-              if (operations.containsKey(name)) {
-                memberName = _MemberName('${name}_', name);
+              if (operations.containsKey(operationName)) {
+                memberName = _MemberName('${operationName}_', operationName);
               } else {
-                memberName = _MemberName(name);
+                memberName = _MemberName(operationName);
               }
-              staticOperations[name] =
+              staticOperations[operationName] =
                   _OverridableOperation(operation, memberName, docs);
             }
           } else {
-            if (operations.containsKey(name)) {
-              operations[name]!.update(operation);
+            if (operations.containsKey(operationName)) {
+              operations[operationName]!.update(operation);
             } else {
-              final staticOperation = staticOperations[name];
+              final staticOperation = staticOperations[operationName];
               if (staticOperation != null) {
-                staticOperation.name = _MemberName('${name}_', name);
+                staticOperation.name =
+                    _MemberName('${operationName}_', operationName);
               }
-              operations[name] =
-                  _OverridableOperation(operation, _MemberName(name), docs);
+              operations[operationName] = _OverridableOperation(
+                  operation, _MemberName(operationName), docs);
             }
           }
           break;

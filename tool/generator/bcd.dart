@@ -13,7 +13,7 @@ import 'filesystem_api.dart';
 /// property status (standards track, experimental, deprecated) and supported
 /// browser (chrome, safari, firefox) info.
 class BrowserCompatData {
-  static final _eventHandlers = <String, Set<BCDPropertyStatus>>{};
+  static final Map<String, Set<BCDPropertyStatus>> _eventHandlers = {};
 
   /// Returns whether [name] is an event handler that is supported in any
   /// interface.
@@ -88,7 +88,7 @@ class BrowserCompatData {
 }
 
 class BCDInterfaceStatus extends BCDItem {
-  final _properties = <String, BCDPropertyStatus>{};
+  final Map<String, BCDPropertyStatus> _properties = {};
 
   BCDInterfaceStatus(super.name, super.json) {
     for (final symbolName in json.symbolNames) {

@@ -298,6 +298,9 @@ sealed class _Property {
   final _RawType type;
   final MdnProperty? mdnProperty;
 
+  // TODO(srujzs): Remove ignore after
+  // https://github.com/dart-lang/sdk/issues/55720 is resolved.
+  // ignore: unused_element
   _Property(this.name, idl.IDLType idlType, [this.mdnProperty])
       : type = _getRawType(idlType);
 }
@@ -703,7 +706,7 @@ class Translator {
           final name = dictionary.name;
           for (final interfacelike in [
             dictionary,
-            ...(_typeToPartials[name] ?? <idl.Interfacelike>[])
+            ..._typeToPartials[name] ?? <idl.Interfacelike>[]
           ]) {
             _addOrUpdateInterfaceLike(interfacelike);
           }

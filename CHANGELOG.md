@@ -8,6 +8,10 @@
 - Update the docs for generated interface types to reference the MDN Web Docs
   project.
 - Address several broken links in API documentation.
+- Generate APIs based on if they're on track to be a standard and not
+  experimental. This is a looser restriction from the previous requirement that
+  APIs need to be implemented by Chrome, Firefox, and Safari. As part of this,
+  dictionaries and typedefs are only emitted if they're used by a generated API.
 
 ## 0.5.1
 
@@ -42,7 +46,7 @@
 - Deprecate a few type aliases in favor of their standardized versions:
 
   | Deprecated            | Preferred               |
-  |-----------------------|-------------------------|
+  | --------------------- | ----------------------- |
   | `AudioElement`        | `HTMLAudioElement`      |
   | `HtmlElement`         | `HTMLElement`           |
   | `CanvasElement`       | `HTMLCanvasElement`     |

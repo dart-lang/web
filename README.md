@@ -58,15 +58,15 @@ definitions:
   bound of `JSAny?`.
 - Union types are computed by picking the least upper bound of the types in the
   JS type hierarchy, where every interface is equivalent to `JSObject`.
+- Dictionary and typedef types are only emitted if they're used by another API.
 
 ### Compatibility
 
 - The generator uses the
   [MDN compatibility data](https://github.com/mdn/browser-compat-data) to
-  determine what members and interfaces to emit. Currently, we only emit code
-  that is standards track and supported on Chrome, Firefox, and Safari to reduce
-  the number of breaking changes. This is currently WIP and some members may be
-  added or removed.
+  determine what members, interfaces, and namespaces to emit. Currently, we only
+  emit code that is standards track and is not experimental to reduce the number
+  of breaking changes.
 
 ## Generation and updating the package
 

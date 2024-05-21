@@ -17,8 +17,6 @@ import 'dom.dart';
 import 'hr_time.dart';
 
 typedef GamepadMappingType = String;
-typedef GamepadHapticsResult = String;
-typedef GamepadHapticEffectType = String;
 
 /// The **`Gamepad`** interface of the
 /// [Gamepad API](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API)
@@ -129,11 +127,6 @@ extension type Gamepad._(JSObject _) implements JSObject {
   /// is not
   /// pressed, and 1.0 representing a button that is fully pressed.
   external JSArray<GamepadButton> get buttons;
-
-  /// The **`vibrationActuator`** read-only property of the [Gamepad] interface
-  /// returns a [GamepadHapticActuator] object, which represents haptic feedback
-  /// hardware available on the controller.
-  external GamepadHapticActuator get vibrationActuator;
 }
 
 /// The **`GamepadButton`** interface defines an individual button of a gamepad
@@ -188,31 +181,12 @@ extension type GamepadButton._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/GamepadHapticActuator).
 extension type GamepadHapticActuator._(JSObject _) implements JSObject {
-  /// The **`playEffect()`** method of the [GamepadHapticActuator] interface
-  /// makes the hardware play a specific vibration pattern.
-  external JSPromise<JSString> playEffect(
-    GamepadHapticEffectType type, [
-    GamepadEffectParameters params,
-  ]);
-  external JSPromise<JSString> reset();
-  external JSArray<JSString> get effects;
-}
-extension type GamepadEffectParameters._(JSObject _) implements JSObject {
-  external factory GamepadEffectParameters({
-    int duration,
-    int startDelay,
-    num strongMagnitude,
-    num weakMagnitude,
-  });
-
-  external int get duration;
-  external set duration(int value);
-  external int get startDelay;
-  external set startDelay(int value);
-  external num get strongMagnitude;
-  external set strongMagnitude(num value);
-  external num get weakMagnitude;
-  external set weakMagnitude(num value);
+  /// The **`pulse()`** method of the [GamepadHapticActuator] interface makes
+  /// the hardware pulse at a certain intensity for a specified duration.
+  external JSPromise<JSBoolean> pulse(
+    num value,
+    num duration,
+  );
 }
 
 /// The GamepadEvent interface of the Gamepad API contains references to

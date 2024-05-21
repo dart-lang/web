@@ -14,14 +14,11 @@ library;
 import 'dart:js_interop';
 
 import 'dom.dart';
-import 'geometry.dart';
 import 'html.dart';
 import 'screen_orientation.dart';
 
-typedef GeometryNode = JSObject;
 typedef ScrollBehavior = String;
 typedef ScrollLogicalPosition = String;
-typedef CSSBoxType = String;
 extension type ScrollOptions._(JSObject _) implements JSObject {
   external factory ScrollOptions({ScrollBehavior behavior});
 
@@ -194,20 +191,6 @@ extension type Screen._(JSObject _) implements JSObject {
   /// [Screen] interface returns the current orientation of the screen.
   external ScreenOrientation get orientation;
 }
-
-/// The `CaretPosition` interface represents the caret position, an indicator
-/// for the text insertion point. You can get a `CaretPosition` using the
-/// [Document.caretPositionFromPoint] method.
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CaretPosition).
-extension type CaretPosition._(JSObject _) implements JSObject {
-  external DOMRect? getClientRect();
-  external Node get offsetNode;
-  external int get offset;
-}
 extension type ScrollIntoViewOptions._(JSObject _)
     implements ScrollOptions, JSObject {
   external factory ScrollIntoViewOptions({
@@ -240,28 +223,6 @@ extension type CheckVisibilityOptions._(JSObject _) implements JSObject {
   external set opacityProperty(bool value);
   external bool get visibilityProperty;
   external set visibilityProperty(bool value);
-}
-extension type BoxQuadOptions._(JSObject _) implements JSObject {
-  external factory BoxQuadOptions({
-    CSSBoxType box,
-    GeometryNode relativeTo,
-  });
-
-  external CSSBoxType get box;
-  external set box(CSSBoxType value);
-  external GeometryNode get relativeTo;
-  external set relativeTo(GeometryNode value);
-}
-extension type ConvertCoordinateOptions._(JSObject _) implements JSObject {
-  external factory ConvertCoordinateOptions({
-    CSSBoxType fromBox,
-    CSSBoxType toBox,
-  });
-
-  external CSSBoxType get fromBox;
-  external set fromBox(CSSBoxType value);
-  external CSSBoxType get toBox;
-  external set toBox(CSSBoxType value);
 }
 
 /// The **`VisualViewport`** interface of the [Visual Viewport API] represents

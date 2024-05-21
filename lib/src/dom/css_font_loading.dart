@@ -135,13 +135,6 @@ extension type FontFace._(JSObject _) implements JSObject {
   external String get featureSettings;
   external set featureSettings(String value);
 
-  /// The **`variationSettings`** property of the [FontFace] interface retrieves
-  /// or sets low-level OpenType or TrueType font variations.
-  ///
-  /// This property is equivalent to the  descriptor.
-  external String get variationSettings;
-  external set variationSettings(String value);
-
   /// The **`display`** property of the [FontFace] interface determines how a
   /// font face is displayed based on whether and when it is downloaded and
   /// ready to use.
@@ -196,26 +189,6 @@ extension type FontFace._(JSObject _) implements JSObject {
   /// specified in the object's constructor is done loading or rejects with a
   /// `SyntaxError`.
   external JSPromise<FontFace> get loaded;
-  external FontFaceFeatures get features;
-  external FontFaceVariations get variations;
-  external FontFacePalettes get palettes;
-}
-extension type FontFaceFeatures._(JSObject _) implements JSObject {}
-extension type FontFaceVariationAxis._(JSObject _) implements JSObject {
-  external String get name;
-  external String get axisTag;
-  external num get minimumValue;
-  external num get maximumValue;
-  external num get defaultValue;
-}
-extension type FontFaceVariations._(JSObject _) implements JSObject {}
-extension type FontFacePalette._(JSObject _) implements JSObject {
-  external int get length;
-  external bool get usableWithLightBackground;
-  external bool get usableWithDarkBackground;
-}
-extension type FontFacePalettes._(JSObject _) implements JSObject {
-  external int get length;
 }
 extension type FontFaceSetLoadEventInit._(JSObject _)
     implements EventInit, JSObject {

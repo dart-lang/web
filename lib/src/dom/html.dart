@@ -13,11 +13,11 @@ library;
 
 import 'dart:js_interop';
 
+import 'battery_status.dart';
 import 'clipboard_apis.dart';
 import 'credential_management.dart';
 import 'css_font_loading.dart';
 import 'css_typed_om.dart';
-import 'css_view_transitions.dart';
 import 'cssom.dart';
 import 'cssom_view.dart';
 import 'dom.dart';
@@ -35,8 +35,11 @@ import 'media_playback_quality.dart';
 import 'media_source.dart';
 import 'mediacapture_streams.dart';
 import 'mediasession.dart';
-import 'performance_timeline.dart';
 import 'permissions.dart';
+import 'picture_in_picture.dart';
+import 'remote_playback.dart';
+import 'requestidlecallback.dart';
+import 'scheduling_apis.dart';
 import 'screen_wake_lock.dart';
 import 'selection_api.dart';
 import 'service_workers.dart';
@@ -45,9 +48,12 @@ import 'storage.dart';
 import 'trusted_types.dart';
 import 'uievents.dart';
 import 'vibration.dart';
+import 'video_rvfc.dart';
 import 'web_locks.dart';
+import 'web_share.dart';
 import 'webcryptoapi.dart';
 import 'webidl.dart';
+import 'webmidi.dart';
 import 'xhr.dart';
 
 typedef HTMLOrSVGScriptElement = JSObject;
@@ -65,7 +71,6 @@ typedef MessageEventSource = JSObject;
 typedef BlobCallback = JSFunction;
 typedef CustomElementConstructor = JSFunction;
 typedef FunctionStringCallback = JSFunction;
-typedef NavigationInterceptHandler = JSFunction;
 typedef EventHandlerNonNull = JSFunction;
 typedef OnErrorEventHandlerNonNull = JSFunction;
 typedef OnBeforeUnloadEventHandlerNonNull = JSFunction;
@@ -90,10 +95,6 @@ typedef CanvasFontVariantCaps = String;
 typedef CanvasTextRendering = String;
 typedef OffscreenRenderingContextId = String;
 typedef ScrollRestoration = String;
-typedef NavigationHistoryBehavior = String;
-typedef NavigationType = String;
-typedef NavigationFocusReset = String;
-typedef NavigationScrollBehavior = String;
 typedef DOMParserSupportedType = String;
 typedef ImageOrientation = String;
 typedef PremultiplyAlpha = String;
@@ -802,8 +803,6 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   external set onauxclick(EventHandler value);
   external EventHandler get onbeforeinput;
   external set onbeforeinput(EventHandler value);
-  external EventHandler get onbeforematch;
-  external set onbeforematch(EventHandler value);
   external EventHandler get onbeforetoggle;
   external set onbeforetoggle(EventHandler value);
   external EventHandler get onblur;
@@ -936,14 +935,6 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   external set onvolumechange(EventHandler value);
   external EventHandler get onwaiting;
   external set onwaiting(EventHandler value);
-  external EventHandler get onwebkitanimationend;
-  external set onwebkitanimationend(EventHandler value);
-  external EventHandler get onwebkitanimationiteration;
-  external set onwebkitanimationiteration(EventHandler value);
-  external EventHandler get onwebkitanimationstart;
-  external set onwebkitanimationstart(EventHandler value);
-  external EventHandler get onwebkittransitionend;
-  external set onwebkittransitionend(EventHandler value);
   external EventHandler get onwheel;
   external set onwheel(EventHandler value);
   external EventHandler get onpointerover;
@@ -954,8 +945,6 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   external set onpointerdown(EventHandler value);
   external EventHandler get onpointermove;
   external set onpointermove(EventHandler value);
-  external EventHandler get onpointerrawupdate;
-  external set onpointerrawupdate(EventHandler value);
   external EventHandler get onpointerup;
   external set onpointerup(EventHandler value);
   external EventHandler get onpointercancel;
@@ -1414,7 +1403,6 @@ extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
   /// See the HTTP  header for details.
   external String get referrerPolicy;
   external set referrerPolicy(String value);
-  external DOMTokenList get blocking;
   external bool get disabled;
   external set disabled(bool value);
 
@@ -1538,7 +1526,6 @@ extension type HTMLStyleElement._(JSObject _) implements HTMLElement, JSObject {
   /// intended destination medium for style information.
   external String get media;
   external set media(String value);
-  external DOMTokenList get blocking;
 
   /// The **`HTMLStyleElement.type`** property returns the type of the current
   /// style.
@@ -1569,6 +1556,8 @@ extension type HTMLBodyElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLBodyElement] using the tag 'body'.
   HTMLBodyElement() : _ = document.createElement('body');
 
+  external EventHandler get onorientationchange;
+  external set onorientationchange(EventHandler value);
   external String get text;
   external set text(String value);
   external String get link;
@@ -1605,8 +1594,6 @@ extension type HTMLBodyElement._(JSObject _) implements HTMLElement, JSObject {
   external set ononline(EventHandler value);
   external EventHandler get onpagehide;
   external set onpagehide(EventHandler value);
-  external EventHandler get onpagereveal;
-  external set onpagereveal(EventHandler value);
   external EventHandler get onpageshow;
   external set onpageshow(EventHandler value);
   external EventHandler get onpopstate;
@@ -3049,6 +3036,27 @@ extension type HTMLVideoElement._(JSObject _)
   /// The data returned can be used to evaluate the quality of the video stream.
   external VideoPlaybackQuality getVideoPlaybackQuality();
 
+  /// The **[HTMLVideoElement]** method
+  /// **`requestPictureInPicture()`** issues an asynchronous request
+  /// to display the video in picture-in-picture mode.
+  ///
+  /// It's not guaranteed that the video will be put into picture-in-picture. If
+  /// permission
+  /// to enter that mode is granted, the returned `Promise` will resolve and the
+  /// video will receive a [HTMLVideoElement.enterpictureinpicture_event] event
+  /// to let it know that it's now in picture-in-picture.
+  external JSPromise<PictureInPictureWindow> requestPictureInPicture();
+
+  /// The **`requestVideoFrameCallback()`** method of the [HTMLVideoElement]
+  /// interface registers a callback function that runs when a new video frame
+  /// is sent to the compositor. This enables developers to perform efficient
+  /// operations on each video frame.
+  external int requestVideoFrameCallback(VideoFrameRequestCallback callback);
+
+  /// The **`cancelVideoFrameCallback()`** method of the [HTMLVideoElement]
+  /// interface cancels a previously-registered video frame callback.
+  external void cancelVideoFrameCallback(int handle);
+
   /// The **`width`** property of the [HTMLVideoElement] interface returns an
   /// integer that reflects the `width` attribute of the `video` element,
   /// specifying the displayed width of the resource in CSS pixels.
@@ -3088,6 +3096,16 @@ extension type HTMLVideoElement._(JSObject _)
   external set poster(String value);
   external bool get playsInline;
   external set playsInline(bool value);
+  external EventHandler get onenterpictureinpicture;
+  external set onenterpictureinpicture(EventHandler value);
+  external EventHandler get onleavepictureinpicture;
+  external set onleavepictureinpicture(EventHandler value);
+
+  /// The [HTMLVideoElement] **`disablePictureInPicture`** property reflects the
+  /// HTML attribute indicating whether the picture-in-picture feature is
+  /// disabled for the current element.
+  external bool get disablePictureInPicture;
+  external set disablePictureInPicture(bool value);
 }
 
 /// The **`HTMLAudioElement`** interface provides access to the properties of
@@ -3167,6 +3185,16 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   external static int get HAVE_FUTURE_DATA;
   external static int get HAVE_ENOUGH_DATA;
 
+  /// The **`HTMLMediaElement.setSinkId()`** method of the
+  /// [Audio Output Devices API](https://developer.mozilla.org/en-US/docs/Web/API/Audio_Output_Devices_API)
+  /// sets the ID of the audio device to use for output and returns a `Promise`.
+  ///
+  /// This only works when the application is permitted to use the specified
+  /// device.
+  /// For more information see the
+  /// [security requirements](#security_requirements) below.
+  external JSPromise<JSAny?> setSinkId(String sinkId);
+
   /// The **`setMediaKeys()`** method of the
   /// [HTMLMediaElement] interface returns a `Promise` that resolves
   /// to the passed [MediaKeys], which are those used to decrypt media during
@@ -3225,6 +3253,27 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
     String label,
     String language,
   ]);
+
+  /// The **`captureStream()`** method of the [HTMLMediaElement] interface
+  /// returns a [MediaStream] object which is streaming a real-time capture of
+  /// the content being rendered in the media element.
+  ///
+  /// This can be used, for example, as a source for a
+  /// [WebRTC](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
+  /// [RTCPeerConnection].
+  external MediaStream captureStream();
+
+  /// The **`HTMLMediaElement.sinkId`** read-only property of the
+  /// [Audio Output Devices API](https://developer.mozilla.org/en-US/docs/Web/API/Audio_Output_Devices_API)
+  /// returns a string that is the unique ID of the device to be used for
+  /// playing audio output.
+  ///
+  /// This ID should be one of the [MediaDeviceInfo.deviceId] values returned
+  /// from [MediaDevices.enumerateDevices], `id-multimedia`, or
+  /// `id-communications`.
+  /// If the user agent default device is being used, it returns an empty
+  /// string.
+  external String get sinkId;
 
   /// The read-only **`HTMLMediaElement.mediaKeys`** property returns a
   /// [MediaKeys] object, that is a set of keys that the element can use for
@@ -3498,6 +3547,18 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   /// to learn
   /// more about watching for changes to a media element's track list.
   external TextTrackList get textTracks;
+
+  /// The **`remote`** read-only property of the [HTMLMediaElement] interface
+  /// returns the [RemotePlayback] object associated with the media element. The
+  /// `RemotePlayback` object allow the control of remote devices playing the
+  /// media.
+  external RemotePlayback get remote;
+
+  /// The **`disableRemotePlayback`** property of the [HTMLMediaElement]
+  /// interface determines whether the media element is allowed to have a remote
+  /// playback UI.
+  external bool get disableRemotePlayback;
+  external set disableRemotePlayback(bool value);
 }
 
 /// The **`MediaError`** interface represents an error which occurred while
@@ -5205,6 +5266,8 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// > origins as a Google Chrome-specific API. It's likely to be renamed
   /// > someday.
   external JSArray<FileSystemEntry> get webkitEntries;
+  external String get capture;
+  external set capture(String value);
   external String get accept;
   external set accept(String value);
   external String get alt;
@@ -6259,7 +6322,6 @@ extension type HTMLScriptElement._(JSObject _)
   /// fetching the script and any scripts it imports.
   external String get referrerPolicy;
   external set referrerPolicy(String value);
-  external DOMTokenList get blocking;
   external String get fetchPriority;
   external set fetchPriority(String value);
   external String get charset;
@@ -6288,8 +6350,6 @@ extension type HTMLTemplateElement._(JSObject _)
   external DocumentFragment get content;
   external String get shadowRootMode;
   external set shadowRootMode(String value);
-  external bool get shadowRootDelegatesFocus;
-  external set shadowRootDelegatesFocus(bool value);
 }
 
 /// The **`HTMLSlotElement`** interface of the
@@ -6425,6 +6485,12 @@ extension type HTMLCanvasElement._(JSObject _)
   /// control to an [OffscreenCanvas] object, either on the main thread or on a
   /// worker.
   external OffscreenCanvas transferControlToOffscreen();
+
+  /// The **`captureStream()`** method of the [HTMLCanvasElement] interface
+  /// returns a [MediaStream]
+  /// which includes a [CanvasCaptureMediaStreamTrack] containing a real-time
+  /// video capture of the canvas's contents.
+  external MediaStream captureStream([num frameRequestRate]);
 
   /// The **`HTMLCanvasElement.width`** property is a
   /// positive `integer` reflecting the
@@ -6572,24 +6638,6 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// [filters](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D#filters),
   /// and so on.
   external void reset();
-
-  /// The **`CanvasRenderingContext2D.isContextLost()`** method of the Canvas 2D
-  /// API returns `true` if the rendering context is lost (and has not yet been
-  /// reset).
-  /// This might occur due to driver crashes, running out of memory, and so on.
-  ///
-  /// If the user agent detects that the canvas backing storage is lost it will
-  /// fire the
-  /// [`contextlost` event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/contextlost_event)
-  /// at the associated
-  /// [`HTMLCanvasElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement).
-  /// If this event is not cancelled it will attempt to reset the backing
-  /// storage to the default state (this is equivalent to calling
-  /// [CanvasRenderingContext2D.reset]).
-  /// On success it will fire the
-  /// [`contextrestored` event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/contextrestored_event),
-  /// indicating that the context is ready to reinitialize and redraw.
-  external bool isContextLost();
 
   /// The
   /// **`CanvasRenderingContext2D.scale()`**
@@ -6915,13 +6963,6 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
     JSObject elementOrPath, [
     Element element,
   ]);
-
-  /// The
-  /// **`CanvasRenderingContext2D.scrollPathIntoView()`**
-  /// method of the Canvas 2D API scrolls the current or given path into view.
-  /// It is similar
-  /// to [Element.scrollIntoView].
-  external void scrollPathIntoView([Path2D path]);
 
   /// The [CanvasRenderingContext2D] method
   /// **`fillText()`**, part of the Canvas 2D API, draws a text string
@@ -7869,13 +7910,6 @@ extension type ImageBitmapRenderingContext._(JSObject _) implements JSObject {
   external void transferFromImageBitmap(ImageBitmap? bitmap);
   external JSObject get canvas;
 }
-extension type ImageBitmapRenderingContextSettings._(JSObject _)
-    implements JSObject {
-  external factory ImageBitmapRenderingContextSettings({bool alpha});
-
-  external bool get alpha;
-  external set alpha(bool value);
-}
 extension type ImageEncodeOptions._(JSObject _) implements JSObject {
   external factory ImageEncodeOptions({
     String type,
@@ -7991,7 +8025,6 @@ extension type OffscreenCanvasRenderingContext2D._(JSObject _)
   external void save();
   external void restore();
   external void reset();
-  external bool isContextLost();
   external void scale(
     num x,
     num y,
@@ -8379,10 +8412,571 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// returns the labels associated with the element.
   external NodeList get labels;
 
-  /// The **`states`** read-only property of the [ElementInternals] interface
-  /// returns a [CustomStateSet] representing the possible states of the custom
-  /// element.
-  external CustomStateSet get states;
+  /// The **`role`** read-only property of the [ElementInternals] interface
+  /// returns the
+  /// [WAI-ARIA role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles)
+  /// for the element. For example, a checkbox might have
+  /// [`role="checkbox"`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/checkbox_role).
+  external String? get role;
+  external set role(String? value);
+
+  /// The **`ariaAtomic`** property of the [ElementInternals] interface reflects
+  /// the value of the
+  /// [`aria-atomic`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-atomic)
+  /// attribute, which indicates whether assistive technologies will present
+  /// all, or only parts of, the changed region based on the change
+  /// notifications defined by the `aria-relevant` attribute.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaAtomic;
+  external set ariaAtomic(String? value);
+
+  /// The **`ariaAutoComplete`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-autocomplete`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-autocomplete)
+  /// attribute, which indicates whether inputting text could trigger display of
+  /// one or more predictions of the user's intended value for a combobox,
+  /// searchbox, or textbox and specifies how predictions would be presented if
+  /// they were made.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaAutoComplete;
+  external set ariaAutoComplete(String? value);
+
+  /// The **`ariaBusy`** property of the [ElementInternals] interface reflects
+  /// the value of the
+  /// [`aria-busy`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-busy)
+  /// attribute, which indicates whether an element is being modified, as
+  /// assistive technologies may want to wait until the modifications are
+  /// complete before exposing them to the user.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaBusy;
+  external set ariaBusy(String? value);
+
+  /// The **`ariaChecked`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-checked`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-checked)
+  /// attribute, which indicates the current "checked" state of checkboxes,
+  /// radio buttons, and other widgets that have a checked state.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaChecked;
+  external set ariaChecked(String? value);
+
+  /// The **`ariaColCount`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-colcount`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colcount)
+  /// attribute, which defines the number of columns in a table, grid, or
+  /// treegrid.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaColCount;
+  external set ariaColCount(String? value);
+
+  /// The **`ariaColIndex`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-colindex`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colindex)
+  /// attribute, which defines an element's column index or position with
+  /// respect to the total number of columns within a table, grid, or treegrid.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaColIndex;
+  external set ariaColIndex(String? value);
+
+  /// The **`ariaColSpan`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-colspan`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colspan)
+  /// attribute, which defines the number of columns spanned by a cell or
+  /// gridcell within a table, grid, or treegrid.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaColSpan;
+  external set ariaColSpan(String? value);
+
+  /// The **`ariaCurrent`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+  /// attribute, which indicates the element that represents the current item
+  /// within a container or set of related elements.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaCurrent;
+  external set ariaCurrent(String? value);
+
+  /// The **`ariaDescription`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-description`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-description)
+  /// attribute, which defines a string value that describes or annotates the
+  /// current element.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaDescription;
+  external set ariaDescription(String? value);
+
+  /// The **`ariaDisabled`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-disabled`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled)
+  /// attribute, which indicates that the element is perceivable but disabled,
+  /// so it is not editable or otherwise operable.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaDisabled;
+  external set ariaDisabled(String? value);
+
+  /// The **`ariaExpanded`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-expanded`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-expanded)
+  /// attribute, which indicates whether a grouping element owned or controlled
+  /// by this element is expanded or collapsed.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaExpanded;
+  external set ariaExpanded(String? value);
+
+  /// The **`ariaHasPopup`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-haspopup`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-haspopup)
+  /// attribute, which indicates the availability and type of interactive popup
+  /// element, such as menu or dialog, that can be triggered by an element.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaHasPopup;
+  external set ariaHasPopup(String? value);
+
+  /// The **`ariaHidden`** property of the [ElementInternals] interface reflects
+  /// the value of the
+  /// [`aria-hidden`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden)
+  /// attribute, which indicates whether the element is exposed to an
+  /// accessibility API.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaHidden;
+  external set ariaHidden(String? value);
+  external String? get ariaInvalid;
+  external set ariaInvalid(String? value);
+
+  /// The **`ariaKeyShortcuts`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-keyshortcuts`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-keyshortcuts)
+  /// attribute, which indicates keyboard shortcuts that an author has
+  /// implemented to activate or give focus to an element.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaKeyShortcuts;
+  external set ariaKeyShortcuts(String? value);
+
+  /// }
+  ///
+  /// The **`ariaLabel`** property of the [ElementInternals] interface reflects
+  /// the value of the
+  /// [`aria-label`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label)
+  /// attribute, which defines a string value that labels the current Element.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaLabel;
+  external set ariaLabel(String? value);
+
+  /// The **`ariaLevel`** property of the [ElementInternals] interface reflects
+  /// the value of the
+  /// [`aria-level`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-level)
+  /// attribute, which defines the hierarchical level of an element within a
+  /// structure.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaLevel;
+  external set ariaLevel(String? value);
+
+  /// The **`ariaLive`** property of the [ElementInternals] interface reflects
+  /// the value of the
+  /// [`aria-live`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions)
+  /// attribute, which indicates that an element will be updated, and describes
+  /// the types of updates the user agents, assistive technologies, and user can
+  /// expect from the live region.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaLive;
+  external set ariaLive(String? value);
+
+  /// The **`ariaModal`** property of the [ElementInternals] interface reflects
+  /// the value of the
+  /// [`aria-modal`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-modal)
+  /// attribute, which indicates whether an element is modal when displayed.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaModal;
+  external set ariaModal(String? value);
+
+  /// The **`ariaMultiLine`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-multiline`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiline)
+  /// attribute, which indicates whether a text box accepts multiple lines of
+  /// input or only a single line.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaMultiLine;
+  external set ariaMultiLine(String? value);
+
+  /// The **`ariaMultiSelectable`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-multiselectable`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiselectable)
+  /// attribute, which indicates that the user may select more than one item
+  /// from the current selectable descendants.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaMultiSelectable;
+  external set ariaMultiSelectable(String? value);
+
+  /// The **`ariaOrientation`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-orientation`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation)
+  /// attribute, which indicates whether the element's orientation is
+  /// horizontal, vertical, or unknown/ambiguous.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaOrientation;
+  external set ariaOrientation(String? value);
+
+  /// The **`ariaPlaceholder`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-placeholder`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-placeholder)
+  /// attribute, which defines a short hint intended to aid the user with data
+  /// entry when the control has no value.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaPlaceholder;
+  external set ariaPlaceholder(String? value);
+
+  /// The **`ariaPosInSet`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-posinset`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-posinset)
+  /// attribute, which defines an element's number or position in the current
+  /// set of listitems or treeitems.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaPosInSet;
+  external set ariaPosInSet(String? value);
+
+  /// The **`ariaPressed`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-pressed`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed)
+  /// attribute, which indicates the current "pressed" state of toggle buttons.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaPressed;
+  external set ariaPressed(String? value);
+
+  /// The **`ariaReadOnly`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-readonly`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly)
+  /// attribute, which indicates that the element is not editable, but is
+  /// otherwise operable.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaReadOnly;
+  external set ariaReadOnly(String? value);
+
+  /// The **`ariaRequired`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-required`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-required)
+  /// attribute, which indicates that user input is required on the element
+  /// before a form may be submitted.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaRequired;
+  external set ariaRequired(String? value);
+
+  /// The **`ariaRoleDescription`** property of the [Element] interface reflects
+  /// the value of the
+  /// [`aria-roledescription`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-roledescription)
+  /// attribute, which defines a human-readable, author-localized description
+  /// for the role of an element.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaRoleDescription;
+  external set ariaRoleDescription(String? value);
+
+  /// The **`ariaRowCount`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-rowcount`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowcount)
+  /// attribute, which defines the total number of rows in a table, grid, or
+  /// treegrid.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaRowCount;
+  external set ariaRowCount(String? value);
+
+  /// The **`ariaRowIndex`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-rowindex`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindex)
+  /// attribute, which defines an element's row index or position with respect
+  /// to the total number of rows within a table, grid, or treegrid.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaRowIndex;
+  external set ariaRowIndex(String? value);
+
+  /// The **`ariaRowSpan`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-rowspan`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowspan)
+  /// attribute, which defines the number of rows spanned by a cell or gridcell
+  /// within a table, grid, or treegrid.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaRowSpan;
+  external set ariaRowSpan(String? value);
+
+  /// The **`ariaSelected`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-selected`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected)
+  /// attribute, which indicates the current "selected" state of elements that
+  /// have a selected state.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaSelected;
+  external set ariaSelected(String? value);
+
+  /// The **`ariaSetSize`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-setsize`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-setsize)
+  /// attribute, which defines the number of items in the current set of
+  /// listitems or treeitems.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaSetSize;
+  external set ariaSetSize(String? value);
+
+  /// The **`ariaSort`** property of the [ElementInternals] interface reflects
+  /// the value of the
+  /// [`aria-sort`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-sort)
+  /// attribute, which indicates if items in a table or grid are sorted in
+  /// ascending or descending order.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaSort;
+  external set ariaSort(String? value);
+
+  /// The **`ariaValueMax`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-valuemax`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemax)
+  /// attribute, which defines the maximum allowed value for a range widget.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaValueMax;
+  external set ariaValueMax(String? value);
+
+  /// The **`ariaValueMin`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-valuemin`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemin)
+  /// attribute, which defines the minimum allowed value for a range widget.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaValueMin;
+  external set ariaValueMin(String? value);
+
+  /// The **`ariaValueNow`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-valuenow`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuenow)
+  /// attribute, which defines the current value for a range widget.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaValueNow;
+  external set ariaValueNow(String? value);
+
+  /// The **`ariaValueText`** property of the [ElementInternals] interface
+  /// reflects the value of the
+  /// [`aria-valuetext`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext)
+  /// attribute, which defines the human-readable text alternative of
+  /// aria-valuenow for a range widget.
+  ///
+  /// > **Note:** Setting aria attributes on `ElementInternals` allows default
+  /// > semantics to be defined on a custom element. These may be overwritten by
+  /// > author-defined attributes, but ensure that default semantics are
+  /// > retained should the author delete those attributes, or fail to add them
+  /// > at all. For more information see the
+  /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
+  external String? get ariaValueText;
+  external set ariaValueText(String? value);
 }
 extension type ValidityStateFlags._(JSObject _) implements JSObject {
   external factory ValidityStateFlags({
@@ -8418,55 +9012,6 @@ extension type ValidityStateFlags._(JSObject _) implements JSObject {
   external set badInput(bool value);
   external bool get customError;
   external set customError(bool value);
-}
-
-/// The **`CustomStateSet`** interface of the
-/// [Document Object Model](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)
-/// stores a list of states for an
-/// [autonomous custom element](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements#types_of_custom_element),
-/// and allows states to be added and removed from the set.
-///
-/// The interface can be used to expose the internal states of a custom element,
-/// allowing them to be used in CSS selectors by code that uses the element.
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CustomStateSet).
-extension type CustomStateSet._(JSObject _) implements JSObject {}
-
-/// The **`VisibilityStateEntry`** interface provides timings of page visibility
-/// state changes, i.e., when a tab changes from the foreground to the
-/// background or vice versa.
-///
-/// This can be used to pinpoint visibility changes on the performance timeline,
-/// and cross-reference them against other performance entries such as
-/// "first-contentful-paint" (see [PerformancePaintTiming]).
-///
-/// There are two key visibility state change times that this API reports on:
-///
-/// - `visible`: The time when the page becomes visible (i.e. when its tab moves
-///   into the foreground).
-/// - `hidden`: The time when the pages become hidden (i.e. when its tab moves
-///   into the background).
-///
-/// The performance timeline will always have a "`visibility-state`" entry with
-/// a `startTime` of `0` and a `name` representing the initial page visibility
-/// state.
-///
-/// > **Note:** Like other Performance APIs, this API extends
-/// > [PerformanceEntry].
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/VisibilityStateEntry).
-extension type VisibilityStateEntry._(JSObject _)
-    implements PerformanceEntry, JSObject {
-  external String get name;
-  external String get entryType;
-  external DOMHighResTimeStamp get startTime;
-  external int get duration;
 }
 
 /// The **`UserActivation`** interface provides information about whether a user
@@ -8546,23 +9091,6 @@ extension type FocusOptions._(JSObject _) implements JSObject {
   external set preventScroll(bool value);
   external bool get focusVisible;
   external set focusVisible(bool value);
-}
-extension type CloseWatcher._(JSObject _) implements EventTarget, JSObject {
-  external factory CloseWatcher([CloseWatcherOptions options]);
-
-  external void requestClose();
-  external void close();
-  external void destroy();
-  external EventHandler get oncancel;
-  external set oncancel(EventHandler value);
-  external EventHandler get onclose;
-  external set onclose(EventHandler value);
-}
-extension type CloseWatcherOptions._(JSObject _) implements JSObject {
-  external factory CloseWatcherOptions({AbortSignal signal});
-
-  external AbortSignal get signal;
-  external set signal(AbortSignal value);
 }
 
 /// The **`DataTransfer`** object is used to hold the data that is being dragged
@@ -8878,6 +9406,7 @@ extension type DragEventInit._(JSObject _) implements MouseEventInit, JSObject {
     bool composed,
     Window? view,
     int detail,
+    JSObject? sourceCapabilities,
     int which,
     bool ctrlKey,
     bool shiftKey,
@@ -8900,6 +9429,8 @@ extension type DragEventInit._(JSObject _) implements MouseEventInit, JSObject {
     int button,
     int buttons,
     EventTarget? relatedTarget,
+    num movementX,
+    num movementY,
     DataTransfer? dataTransfer,
   });
 
@@ -9148,6 +9679,35 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// Releases the window from trapping events of a specific type.
   external void releaseEvents();
 
+  /// The **`window.requestIdleCallback()`** method queues a function
+  /// to be called during a browser's idle periods. This enables developers to
+  /// perform
+  /// background and low priority work on the main event loop, without impacting
+  /// latency-critical events such as animation and input response. Functions
+  /// are generally
+  /// called in first-in-first-out order; however, callbacks which have a
+  /// `timeout`
+  /// specified may be called out-of-order if necessary in order to run them
+  /// before the
+  /// timeout elapses.
+  ///
+  /// You can call `requestIdleCallback()` within an idle callback function to
+  /// schedule another callback to take place no sooner than the next pass
+  /// through the event
+  /// loop.
+  ///
+  /// > **Note:** A `timeout` option is strongly recommended for required work,
+  /// > as otherwise it's possible multiple seconds will elapse before the
+  /// > callback is fired.
+  external int requestIdleCallback(
+    IdleRequestCallback callback, [
+    IdleRequestOptions options,
+  ]);
+
+  /// The **`window.cancelIdleCallback()`** method cancels a callback
+  /// previously scheduled with [window.requestIdleCallback].
+  external void cancelIdleCallback(int handle);
+
   /// The **`Window.getSelection()`** method returns a
   /// [Selection] object representing the range of text selected by the user or
   /// the current position of the caret.
@@ -9219,6 +9779,18 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// [window.requestAnimationFrame].
   external void cancelAnimationFrame(int handle);
 
+  /// Returns the orientation in degrees (in 90-degree increments) of the
+  /// viewport relative to the device's natural orientation.
+  ///
+  /// Its only possible values are `-90`, `0`, `90`, and `180`. Positive values
+  /// are counterclockwise; negative values are clockwise.
+  ///
+  /// This property is deprecated. Use the [Screen.orientation] property
+  /// instead, available on the [window.screen] property.
+  external int get orientation;
+  external EventHandler get onorientationchange;
+  external set onorientationchange(EventHandler value);
+
   /// The [Window] property **`screen`** returns a
   /// reference to the screen object associated with the window. The `screen`
   /// object, implementing the [Screen] interface, is a special object for
@@ -9259,7 +9831,6 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// document is scrolled vertically from the [Window.scrollY]
   /// property.
   external num get scrollX;
-  external num get pageXOffset;
 
   /// The read-only **`scrollY`** property
   /// of the [Window] interface returns the number of pixels that the document
@@ -9271,7 +9842,6 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// pixels the document is scrolled horizontally from the [Window.scrollX]
   /// property.
   external num get scrollY;
-  external num get pageYOffset;
 
   /// The **`Window.screenX`** read-only property returns the
   /// horizontal distance, in CSS pixels, of the left border of the user's
@@ -9461,12 +10031,6 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// that you should be aware of before using them.
   external History get history;
 
-  /// The **`navigation`** read-only property of the [Window] interface returns
-  /// the current `window`'s associated [Navigation] object.
-  ///
-  /// This is the entry point for the [Navigation API].
-  external Navigation get navigation;
-
   /// The **`customElements`** read-only property of the [Window] interface
   /// returns a reference to the [CustomElementRegistry] object, which can be
   /// used to register new
@@ -9597,37 +10161,6 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// about
   /// the application running the script.
   external Navigator get navigator;
-  external Navigator get clientInformation;
-
-  /// The **`originAgentCluster`** read-only property of the [Window] interface
-  /// returns `true` if this window belongs to an _origin-keyed
-  /// [agent cluster](https://tc39.es/ecma262/#sec-agent-clusters)_: this means
-  /// that the operating system has provided dedicated resources (for example an
-  /// operating system process) to this window's origin that are not shared with
-  /// windows from other origins.
-  ///
-  /// Otherwise this property returns `false`.
-  ///
-  /// Windows that are part of an origin-keyed agent cluster are subjects to
-  /// some additional restrictions, compared with windows that are not. In
-  /// particular, they cannot:
-  ///
-  /// - Set [Document.domain], which is a legacy feature that normally allows
-  ///   same-site cross-origin pages to synchronously access each other's DOM.
-  /// - Send
-  ///   [`WebAssembly.Module`](https://developer.mozilla.org/en-US/docs/WebAssembly/JavaScript_interface/Module)
-  ///   objects to other same-site cross-origin pages via [Window.postMessage].
-  /// - Send `SharedArrayBuffer` or
-  ///   [`WebAssembly.Memory`](https://developer.mozilla.org/en-US/docs/WebAssembly/JavaScript_interface/Memory)
-  ///   objects to other same-site cross-origin pages.
-  ///
-  /// To request that the browser assign this window to an origin-keyed agent
-  /// cluster, the server must send the  response header.
-  ///
-  /// Note that the origin-keyed agent cluster feature is only supported in . If
-  /// a site is not a secure context, the `window.originAgentCluster` will
-  /// always return `false`.
-  external bool get originAgentCluster;
 
   /// The `external` property of the [Window] API returns an instance of the
   /// `External` interface, which was intended to contain functions related to
@@ -9635,6 +10168,10 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// deprecated, and the contained methods are now dummy functions that do
   /// nothing as per spec.
   external External get external;
+  external EventHandler get onappinstalled;
+  external set onappinstalled(EventHandler value);
+  external EventHandler get onbeforeinstallprompt;
+  external set onbeforeinstallprompt(EventHandler value);
   external EventHandler get ondeviceorientation;
   external set ondeviceorientation(EventHandler value);
   external EventHandler get ondeviceorientationabsolute;
@@ -9669,8 +10206,6 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external set onauxclick(EventHandler value);
   external EventHandler get onbeforeinput;
   external set onbeforeinput(EventHandler value);
-  external EventHandler get onbeforematch;
-  external set onbeforematch(EventHandler value);
   external EventHandler get onbeforetoggle;
   external set onbeforetoggle(EventHandler value);
   external EventHandler get onblur;
@@ -9803,14 +10338,6 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external set onvolumechange(EventHandler value);
   external EventHandler get onwaiting;
   external set onwaiting(EventHandler value);
-  external EventHandler get onwebkitanimationend;
-  external set onwebkitanimationend(EventHandler value);
-  external EventHandler get onwebkitanimationiteration;
-  external set onwebkitanimationiteration(EventHandler value);
-  external EventHandler get onwebkitanimationstart;
-  external set onwebkitanimationstart(EventHandler value);
-  external EventHandler get onwebkittransitionend;
-  external set onwebkittransitionend(EventHandler value);
   external EventHandler get onwheel;
   external set onwheel(EventHandler value);
   external EventHandler get onpointerover;
@@ -9821,8 +10348,6 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external set onpointerdown(EventHandler value);
   external EventHandler get onpointermove;
   external set onpointermove(EventHandler value);
-  external EventHandler get onpointerrawupdate;
-  external set onpointerrawupdate(EventHandler value);
   external EventHandler get onpointerup;
   external set onpointerup(EventHandler value);
   external EventHandler get onpointercancel;
@@ -9871,8 +10396,6 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external set ononline(EventHandler value);
   external EventHandler get onpagehide;
   external set onpagehide(EventHandler value);
-  external EventHandler get onpagereveal;
-  external set onpagereveal(EventHandler value);
   external EventHandler get onpageshow;
   external set onpageshow(EventHandler value);
   external EventHandler get onpopstate;
@@ -9891,6 +10414,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external String get origin;
   external bool get isSecureContext;
   external bool get crossOriginIsolated;
+  external Scheduler get scheduler;
   external CacheStorage get caches;
   external TrustedTypePolicyFactory get trustedTypes;
 
@@ -10210,530 +10734,6 @@ extension type History._(JSObject _) implements JSObject {
   external JSAny? get state;
 }
 
-/// The **`Navigation`** interface of the [Navigation API] allows control over
-/// all navigation actions for the current `window` in one central place,
-/// including initiating navigations programmatically, examining navigation
-/// history entries, and managing navigations as they happen.
-///
-/// It is accessed via the [Window.navigation] property.
-///
-/// The Navigation API only exposes history entries created in the current
-/// browsing context that have the same origin as the current page (e.g. not
-/// navigations inside embedded `iframe`s, or cross-origin navigations),
-/// providing an accurate list of all previous history entries just for your
-/// app. This makes traversing the history a much less fragile proposition than
-/// with the older [History API].
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Navigation).
-extension type Navigation._(JSObject _) implements EventTarget, JSObject {
-  /// The **`entries()`** method of the
-  /// [Navigation] interface returns an array of [NavigationHistoryEntry]
-  /// objects representing all existing history entries.
-  external JSArray<NavigationHistoryEntry> entries();
-
-  /// The **`updateCurrentEntry()`** method of the [Navigation] interface
-  /// updates the `state` of the [Navigation.currentEntry]; used in cases where
-  /// the state change will be independent of a navigation or reload.
-  external void updateCurrentEntry(NavigationUpdateCurrentEntryOptions options);
-
-  /// The **`navigate()`** method of the
-  /// [Navigation] interface navigates to a specific URL, updating any provided
-  /// state in the history entries list.
-  external NavigationResult navigate(
-    String url, [
-    NavigationNavigateOptions options,
-  ]);
-
-  /// The **`reload()`** method of the
-  /// [Navigation] interface reloads the current URL, updating any provided
-  /// state in the history entries list.
-  external NavigationResult reload([NavigationReloadOptions options]);
-
-  /// The **`traverseTo()`** method of the [Navigation] interface navigates to
-  /// the [NavigationHistoryEntry] identified by the given
-  /// [NavigationHistoryEntry.key].
-  external NavigationResult traverseTo(
-    String key, [
-    NavigationOptions options,
-  ]);
-
-  /// The **`back()`** method of the
-  /// [Navigation] interface navigates backwards by one entry in the navigation
-  /// history.
-  external NavigationResult back([NavigationOptions options]);
-
-  /// The **`forward()`** method of the
-  /// [Navigation] interface navigates forwards by one entry in the navigation
-  /// history.
-  external NavigationResult forward([NavigationOptions options]);
-
-  /// The **`currentEntry`** read-only property of the
-  /// [Navigation] interface returns a [NavigationHistoryEntry] object
-  /// representing the location the user is currently navigated to right now.
-  external NavigationHistoryEntry? get currentEntry;
-
-  /// The **`transition`** read-only property of the [Navigation] interface
-  /// returns a [NavigationTransition] object representing the status of an
-  /// in-progress navigation, which can be used to track it.
-  external NavigationTransition? get transition;
-  external NavigationActivation? get activation;
-
-  /// The **`canGoBack`** read-only property of the
-  /// [Navigation] interface returns `true`
-  /// if it is possible to navigate backwards in the navigation history
-  /// (i.e. the [Navigation.currentEntry] is
-  /// not the first one in the history entry list),
-  /// and `false` if it is not.
-  external bool get canGoBack;
-
-  /// The **`canGoForward`** read-only property of the
-  /// [Navigation] interface returns `true` if it is possible to navigate
-  /// forwards in the navigation history
-  /// (i.e. the [Navigation.currentEntry] is not the last one in the history
-  /// entry list),
-  /// and `false` if it is not.
-  external bool get canGoForward;
-  external EventHandler get onnavigate;
-  external set onnavigate(EventHandler value);
-  external EventHandler get onnavigatesuccess;
-  external set onnavigatesuccess(EventHandler value);
-  external EventHandler get onnavigateerror;
-  external set onnavigateerror(EventHandler value);
-  external EventHandler get oncurrententrychange;
-  external set oncurrententrychange(EventHandler value);
-}
-extension type NavigationUpdateCurrentEntryOptions._(JSObject _)
-    implements JSObject {
-  external factory NavigationUpdateCurrentEntryOptions({required JSAny? state});
-
-  external JSAny? get state;
-  external set state(JSAny? value);
-}
-extension type NavigationOptions._(JSObject _) implements JSObject {
-  external factory NavigationOptions({JSAny? info});
-
-  external JSAny? get info;
-  external set info(JSAny? value);
-}
-extension type NavigationNavigateOptions._(JSObject _)
-    implements NavigationOptions, JSObject {
-  external factory NavigationNavigateOptions({
-    JSAny? info,
-    JSAny? state,
-    NavigationHistoryBehavior history,
-  });
-
-  external JSAny? get state;
-  external set state(JSAny? value);
-  external NavigationHistoryBehavior get history;
-  external set history(NavigationHistoryBehavior value);
-}
-extension type NavigationReloadOptions._(JSObject _)
-    implements NavigationOptions, JSObject {
-  external factory NavigationReloadOptions({
-    JSAny? info,
-    JSAny? state,
-  });
-
-  external JSAny? get state;
-  external set state(JSAny? value);
-}
-extension type NavigationResult._(JSObject _) implements JSObject {
-  external factory NavigationResult({
-    JSPromise<NavigationHistoryEntry> committed,
-    JSPromise<NavigationHistoryEntry> finished,
-  });
-
-  external JSPromise<NavigationHistoryEntry> get committed;
-  external set committed(JSPromise<NavigationHistoryEntry> value);
-  external JSPromise<NavigationHistoryEntry> get finished;
-  external set finished(JSPromise<NavigationHistoryEntry> value);
-}
-
-/// The **`NavigationHistoryEntry`** interface of the [Navigation API]
-/// represents a single navigation history entry.
-///
-/// These objects are commonly accessed via the [Navigation.currentEntry]
-/// property and [Navigation.entries] method.
-///
-/// The Navigation API only exposes history entries created in the current
-/// browsing context that have the same origin as the current page (e.g. not
-/// navigations inside embedded `iframe`s, or cross-origin navigations),
-/// providing an accurate list of all previous history entries just for your
-/// app. This makes traversing the history a much less fragile proposition than
-/// with the older [History API].
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NavigationHistoryEntry).
-extension type NavigationHistoryEntry._(JSObject _)
-    implements EventTarget, JSObject {
-  /// The **`getState()`** method of the [NavigationHistoryEntry] interface
-  /// returns a clone of the developer-supplied state associated with this
-  /// history entry.
-  external JSAny? getState();
-
-  /// The **`url`** read-only property of the [NavigationHistoryEntry] interface
-  /// returns the absolute URL of this history entry. If the entry corresponds
-  /// to a different Document than the current one (like `sameDocument` property
-  /// is `false`), and that Document was fetched with a  header set to
-  /// `no-referrer` or `origin`, the property returns `null`. If current
-  /// document is not fully active, it returns an empty string.
-  external String? get url;
-
-  /// The **`key`** read-only property of the [NavigationHistoryEntry] interface
-  /// returns the `key` of the history entry, or an empty string if current
-  /// document is not fully active. This is a unique, UA-generated value that
-  /// represents the history entry's slot in the entries list. It is used to
-  /// navigate that particular slot via [Navigation.traverseTo]. The `key` will
-  /// be reused by other entries that replace the entry in the list (that is, if
-  /// the [NavigateEvent.navigationType] is `replace`).
-  ///
-  /// This differs from the [NavigationHistoryEntry.id] of a history entry. The
-  /// `id` is a unique, UA-generated value that always represents a specific
-  /// history entry rather than its slot in the entries list. This is useful to
-  /// correlate it with an external resource such as a storage cache.
-  external String get key;
-
-  /// The **`id`** read-only property of the [NavigationHistoryEntry] interface
-  /// returns the `id` of the history entry, or an empty string if current
-  /// document is not fully active. This is a unique, UA-generated value that
-  /// always represents a specific history entry, useful to correlate it with an
-  /// external resource such as a storage cache.
-  ///
-  /// This differs from the [NavigationHistoryEntry.key] of a history entry. The
-  /// `key` is a unique, UA-generated value that represents the history entry's
-  /// slot in the entries list rather than the entry itself. It is used to
-  /// navigate that particular slot via [Navigation.traverseTo]. The `key` will
-  /// be reused by other entries that replace the entry in the list (that is, if
-  /// the [NavigateEvent.navigationType] is `replace`).
-  external String get id;
-
-  /// The **`index`** read-only property of the [NavigationHistoryEntry]
-  /// interface returns the index of the history entry in the history entries
-  /// list (that is, the list returned by [Navigation.entries]), or `-1` if the
-  /// entry does not appear in the list or if current document is not fully
-  /// active.
-  external int get index;
-
-  /// The **`sameDocument`** read-only property of the [NavigationHistoryEntry]
-  /// interface returns `true` if this history entry is for the same `document`
-  /// as the current [Document] value and current document is fully active, or
-  /// `false` otherwise.
-  external bool get sameDocument;
-  external EventHandler get ondispose;
-  external set ondispose(EventHandler value);
-}
-
-/// The **`NavigationTransition`** interface of the [Navigation API] represents
-/// an ongoing navigation, that is, a navigation that hasn't yet reached the
-/// [Navigation.navigatesuccess_event] or [Navigation.navigateerror_event]
-/// stage.
-///
-/// It is accessed via the [Navigation.transition] property.
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NavigationTransition).
-extension type NavigationTransition._(JSObject _) implements JSObject {
-  /// The **`navigationType`** read-only property of the
-  /// [NavigationTransition] interface returns the type of the ongoing
-  /// navigation.
-  external NavigationType get navigationType;
-
-  /// The **`from`** read-only property of the
-  /// [NavigationTransition] interface returns the [NavigationHistoryEntry] that
-  /// the transition is coming from.
-  external NavigationHistoryEntry get from;
-
-  /// The **`finished`** read-only property of the
-  /// [NavigationTransition] interface returns a `Promise` that fulfills at the
-  /// same time the [Navigation.navigatesuccess_event] event fires, or rejects
-  /// at the same time the [Navigation.navigateerror_event] event fires.
-  external JSPromise<JSAny?> get finished;
-}
-extension type NavigationActivation._(JSObject _) implements JSObject {
-  external NavigationHistoryEntry? get from;
-  external NavigationHistoryEntry get entry;
-  external NavigationType get navigationType;
-}
-
-/// The **`NavigateEvent`** interface of the [Navigation API] is the event
-/// object for the [Navigation.navigate_event] event, which fires when
-/// [any type of navigation](https://github.com/WICG/navigation-api#appendix-types-of-navigations)
-/// is initiated (this includes usage of [History API] features like
-/// [History.go]). `NavigateEvent` provides access to information about that
-/// navigation, and allows developers to intercept and control the navigation
-/// handling.
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NavigateEvent).
-extension type NavigateEvent._(JSObject _) implements Event, JSObject {
-  external factory NavigateEvent(
-    String type,
-    NavigateEventInit eventInitDict,
-  );
-
-  /// The **`intercept()`** method of the
-  /// [NavigateEvent] interface intercepts this navigation, turning it into a
-  /// same-document navigation to the [NavigationDestination.url] URL.
-  external void intercept([NavigationInterceptOptions options]);
-
-  /// The **`scroll()`** method of the
-  /// [NavigateEvent] interface can be called to manually trigger the
-  /// browser-driven scrolling behavior that occurs in response to the
-  /// navigation, if you want it to happen before the navigation handling has
-  /// completed.
-  external void scroll();
-
-  /// The **`navigationType`** read-only property of the
-  /// [NavigateEvent] interface returns the type of the navigation — `push`,
-  /// `reload`, `replace`, or `traverse`.
-  external NavigationType get navigationType;
-
-  /// The **`destination`** read-only property of the
-  /// [NavigateEvent] interface returns a [NavigationDestination] object
-  /// representing the destination being navigated to.
-  external NavigationDestination get destination;
-
-  /// The **`canIntercept`** read-only property of the
-  /// [NavigateEvent] interface returns `true` if the navigation can be
-  /// intercepted and have its URL rewritten, or `false` otherwise
-  ///
-  /// There are several rules around when a navigation can be intercepted. For
-  /// example:
-  ///
-  /// - You can't intercept cross-origin navigations.
-  /// - You can intercept `http` or `https` URLs if only the `path`, `query`,
-  ///   and `fragment` portions of the new URL differ from the current URL.
-  /// - You can intercept `file` URLs if only the `query` and `fragment`
-  ///   portions of the new URL differ.
-  /// - For other URL types you can intercept the navigation if only the
-  ///   `fragment` portion differs.
-  ///
-  /// See the spec for more explanation on
-  /// [when a Document can have its URL rewritten](https://html.spec.whatwg.org/multipage/nav-history-apis.html#can-have-its-url-rewritten),
-  /// including a table of examples.
-  external bool get canIntercept;
-
-  /// The **`userInitiated`** read-only property of the
-  /// [NavigateEvent] interface returns `true` if the navigation was initiated
-  /// by the user (e.g. by clicking a link, submitting a form, or pressing the
-  /// browser's "Back"/"Forward" buttons), or `false` otherwise.
-  ///
-  /// > **Note:** The table found at [Appendix: types of
-  /// > navigations](https://github.com/WICG/navigation-api#appendix-types-of-navigations)
-  /// > shows which navigation types are user-initiated.
-  external bool get userInitiated;
-
-  /// The **`hashChange`** read-only property of the
-  /// [NavigateEvent] interface returns `true` if the navigation is a fragment
-  /// navigation (i.e. to a fragment identifier in the same document), or
-  /// `false` otherwise.
-  external bool get hashChange;
-
-  /// The **`signal`** read-only property of the
-  /// [NavigateEvent] interface returns an [AbortSignal], which will become
-  /// aborted if the navigation is cancelled (e.g. by the user pressing the
-  /// browser's "Stop" button, or another navigation starting and thus
-  /// cancelling the ongoing one).
-  external AbortSignal get signal;
-
-  /// The **`formData`** read-only property of the
-  /// [NavigateEvent] interface returns the [FormData] object representing the
-  /// submitted data in the case of a
-  /// [`POST`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST)
-  /// form submission, or `null` otherwise.
-  external FormData? get formData;
-
-  /// The **`downloadRequest`** read-only property of the
-  /// [NavigateEvent] interface returns the filename of the file requested for
-  /// download, in the case of a download navigation (e.g. an `a` or `area`
-  /// element with a `download` attribute), or `null` otherwise.
-  external String? get downloadRequest;
-
-  /// The **`info`** read-only property of the
-  /// [NavigateEvent] interface returns the `info` data value passed by the
-  /// initiating navigation operation (e.g. [Navigation.back], or
-  /// [Navigation.navigate]), or `undefined` if no `info` data was passed.
-  external JSAny? get info;
-  external bool get hasUAVisualTransition;
-}
-extension type NavigateEventInit._(JSObject _) implements EventInit, JSObject {
-  external factory NavigateEventInit({
-    bool bubbles,
-    bool cancelable,
-    bool composed,
-    NavigationType navigationType,
-    required NavigationDestination destination,
-    bool canIntercept,
-    bool userInitiated,
-    bool hashChange,
-    required AbortSignal signal,
-    FormData? formData,
-    String? downloadRequest,
-    JSAny? info,
-    bool hasUAVisualTransition,
-  });
-
-  external NavigationType get navigationType;
-  external set navigationType(NavigationType value);
-  external NavigationDestination get destination;
-  external set destination(NavigationDestination value);
-  external bool get canIntercept;
-  external set canIntercept(bool value);
-  external bool get userInitiated;
-  external set userInitiated(bool value);
-  external bool get hashChange;
-  external set hashChange(bool value);
-  external AbortSignal get signal;
-  external set signal(AbortSignal value);
-  external FormData? get formData;
-  external set formData(FormData? value);
-  external String? get downloadRequest;
-  external set downloadRequest(String? value);
-  external JSAny? get info;
-  external set info(JSAny? value);
-  external bool get hasUAVisualTransition;
-  external set hasUAVisualTransition(bool value);
-}
-extension type NavigationInterceptOptions._(JSObject _) implements JSObject {
-  external factory NavigationInterceptOptions({
-    NavigationInterceptHandler handler,
-    NavigationFocusReset focusReset,
-    NavigationScrollBehavior scroll,
-  });
-
-  external NavigationInterceptHandler get handler;
-  external set handler(NavigationInterceptHandler value);
-  external NavigationFocusReset get focusReset;
-  external set focusReset(NavigationFocusReset value);
-  external NavigationScrollBehavior get scroll;
-  external set scroll(NavigationScrollBehavior value);
-}
-
-/// The **`NavigationDestination`** interface of the [Navigation API] represents
-/// the destination being navigated to in the current navigation.
-///
-/// It is accessed via the [NavigateEvent.destination] property.
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NavigationDestination).
-extension type NavigationDestination._(JSObject _) implements JSObject {
-  /// The **`getState()`** method of the
-  /// [NavigationDestination] interface returns a clone of the
-  /// developer-supplied state associated with the destination
-  /// [NavigationHistoryEntry], or navigation operation (e.g.
-  /// [Navigation.navigate]) as appropriate.
-  external JSAny? getState();
-
-  /// The **`url`** read-only property of the
-  /// [NavigationDestination] interface returns the URL being navigated to.
-  external String get url;
-
-  /// The **`key`** read-only property of the
-  /// [NavigationDestination] interface returns the [NavigationHistoryEntry.key]
-  /// value of the destination [NavigationHistoryEntry] if the
-  /// [NavigateEvent.navigationType] is `traverse`, or an empty string
-  /// otherwise.
-  ///
-  /// The `key` is a unique, UA-generated value that represents the history
-  /// entry's slot in the history entries list, used to navigate to this place
-  /// in the history via [Navigation.traverseTo]. It will be reused by other
-  /// entries that replace the entry in the list (i.e. if the
-  /// [NavigateEvent.navigationType] is `replace`).
-  external String get key;
-
-  /// The **`id`** read-only property of the
-  /// [NavigationDestination] interface returns the [NavigationHistoryEntry.id]
-  /// value of the destination [NavigationHistoryEntry] if the
-  /// [NavigateEvent.navigationType] is `traverse`, or an empty string
-  /// otherwise.
-  ///
-  /// The `id` is a unique, UA-generated value that always represents the
-  /// history entry, useful to correlate a history entry with an external
-  /// resource such as a storage cache.
-  external String get id;
-
-  /// The **`index`** read-only property of the
-  /// [NavigationDestination] interface returns the
-  /// [NavigationHistoryEntry.index] value of the destination
-  /// [NavigationHistoryEntry] if the [NavigateEvent.navigationType] is
-  /// `traverse`, or `-1` otherwise.
-  external int get index;
-
-  /// The **`sameDocument`** read-only property of the
-  /// [NavigationDestination] interface returns `true` if the navigation is to
-  /// the same `document` as the current [Document] value, or `false` otherwise.
-  ///
-  /// This is useful for checking whether the navigation will be same-document
-  /// or cross-document.
-  external bool get sameDocument;
-}
-
-/// The **`NavigationCurrentEntryChangeEvent`** interface of the
-/// [Navigation API] is the event object for the
-/// [Navigation.currententrychange_event] event, which fires when the
-/// [Navigation.currentEntry] has changed.
-///
-/// This event will fire for same-document navigations (e.g. [Navigation.back]
-/// or [Navigation.traverseTo]), replacements (i.e. a [Navigation.navigate] call
-/// with `history` set to `replace`), or other calls that change the entry's
-/// state (e.g. [Navigation.updateCurrentEntry], or the [History API]'s
-/// [History.replaceState]).
-///
-/// This event fires after the navigation is committed, meaning that the visible
-/// URL has changed and the [NavigationHistoryEntry] update has occurred. It is
-/// useful for migrating from usage of older API features like the
-/// [Window.hashchange_event] or [Window.popstate_event] events.
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/NavigationCurrentEntryChangeEvent).
-extension type NavigationCurrentEntryChangeEvent._(JSObject _)
-    implements Event, JSObject {
-  external factory NavigationCurrentEntryChangeEvent(
-    String type,
-    NavigationCurrentEntryChangeEventInit eventInitDict,
-  );
-
-  /// The **`navigationType`** read-only property of the
-  /// [NavigationCurrentEntryChangeEvent] interface returns the type of the
-  /// navigation that resulted in the change. The property may be `null` if the
-  /// change occurs due to [Navigation.updateCurrentEntry].
-  external NavigationType? get navigationType;
-
-  /// The **`from`** read-only property of the
-  /// [NavigationCurrentEntryChangeEvent] interface returns the
-  /// [NavigationHistoryEntry] that was navigated from.
-  external NavigationHistoryEntry get from;
-}
-extension type NavigationCurrentEntryChangeEventInit._(JSObject _)
-    implements EventInit, JSObject {
-  external factory NavigationCurrentEntryChangeEventInit({
-    bool bubbles,
-    bool cancelable,
-    bool composed,
-    NavigationType? navigationType,
-    required NavigationHistoryEntry from,
-  });
-
-  external NavigationType? get navigationType;
-  external set navigationType(NavigationType? value);
-  external NavigationHistoryEntry get from;
-  external set from(NavigationHistoryEntry value);
-}
-
 /// **`PopStateEvent`** is an interface for the
 /// [`popstate`](https://developer.mozilla.org/en-US/docs/Web/API/Window/popstate_event)
 /// event.
@@ -10762,7 +10762,6 @@ extension type PopStateEvent._(JSObject _) implements Event, JSObject {
   /// Practically it is a value provided by the call to [history.pushState] or
   /// [history.replaceState]
   external JSAny? get state;
-  external bool get hasUAVisualTransition;
 }
 extension type PopStateEventInit._(JSObject _) implements EventInit, JSObject {
   external factory PopStateEventInit({
@@ -10819,26 +10818,6 @@ extension type HashChangeEventInit._(JSObject _)
   external set oldURL(String value);
   external String get newURL;
   external set newURL(String value);
-}
-extension type PageRevealEvent._(JSObject _) implements Event, JSObject {
-  external factory PageRevealEvent(
-    String type, [
-    PageRevealEventInit eventInitDict,
-  ]);
-
-  external ViewTransition? get viewTransition;
-}
-extension type PageRevealEventInit._(JSObject _)
-    implements EventInit, JSObject {
-  external factory PageRevealEventInit({
-    bool bubbles,
-    bool cancelable,
-    bool composed,
-    ViewTransition? viewTransition,
-  });
-
-  external ViewTransition? get viewTransition;
-  external set viewTransition(ViewTransition? value);
 }
 
 /// The **`PageTransitionEvent`** event object is available inside handler
@@ -11044,6 +11023,43 @@ extension type DOMParser._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Navigator).
 extension type Navigator._(JSObject _) implements JSObject {
+  /// The **`getBattery()`** method provides information about the system's
+  /// battery.
+  /// It returns a battery promise, which resolves with a [BatteryManager]
+  /// object providing some properties to get the battery status also some
+  /// events you can handle to monitor the battery status.
+  /// This implements the [Battery Status API]; see that documentation for
+  /// additional details, a guide to using the API, and sample code.
+  ///
+  /// Since Chrome 103, the `Navigator.getBattery()` method of
+  /// [Battery Status API] only expose to secure context.
+  ///
+  /// > **Note:** Access to this feature may be controlled by the  directive .
+  external JSPromise<BatteryManager> getBattery();
+
+  /// The **`navigator.sendBeacon()`**
+  /// method  sends an
+  /// [HTTP POST](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST)
+  /// request containing a small amount of data to a web server.
+  ///
+  /// It's intended to be used for
+  /// sending analytics data to a web server, and avoids some of the problems
+  /// with
+  /// legacy techniques for sending analytics, such as the use of
+  /// [XMLHttpRequest].
+  ///
+  /// > **Note:** For use cases that need the ability to send requests with
+  /// > methods other than `POST`, or to change any request properties, or that
+  /// > need access to the server response, instead use the
+  /// > [`fetch()`](https://developer.mozilla.org/en-US/docs/Web/API/fetch)
+  /// > method with
+  /// > [`keepalive`](https://developer.mozilla.org/en-US/docs/Web/API/fetch#keepalive)
+  /// > set to true.
+  external bool sendBeacon(
+    String url, [
+    BodyInit? data,
+  ]);
+
   /// The **`Navigator.requestMediaKeySystemAccess()`** method
   /// returns a `Promise` which delivers a [MediaKeySystemAccess]
   /// object that can be used to access a particular media key system, which can
@@ -11113,6 +11129,70 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// long vibration, it is truncated: the max length depends on the
   /// implementation.
   external bool vibrate(VibratePattern pattern);
+
+  /// The **`navigator.share()`** method of the
+  /// [Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Share_API)
+  /// invokes the native sharing mechanism of the device to share data such as
+  /// text, URLs, or files. The available _share targets_ depend on the device,
+  /// but might include the clipboard, contacts and email applications,
+  /// websites, Bluetooth, etc.
+  ///
+  /// The method resolves a `Promise` with `undefined`.
+  /// On Windows this happens when the share popup is launched, while on Android
+  /// the promise resolves once the data has successfully been passed to the
+  /// _share target_.
+  external JSPromise<JSAny?> share([ShareData data]);
+
+  /// The **`Navigator.canShare()`** method of the
+  /// [Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Share_API)
+  /// returns `true` if the equivalent call to [navigator.share] would succeed.
+  ///
+  /// The method returns `false` if the data cannot be _validated_. Reasons the
+  /// data might be invalid include:
+  ///
+  /// - The `data` parameter has been omitted or only contains properties with
+  ///   unknown values. Note that any properties that are not recognized by the
+  ///   user agent are ignored.
+  /// - A URL is badly formatted.
+  /// - Files are specified but the implementation does not support file
+  ///   sharing.
+  /// - Sharing the specified data would be considered a "hostile share" by the
+  ///   user-agent.
+  ///
+  /// The Web Share API is gated by the
+  /// [web-share](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/web-share)
+  /// permission policy.
+  /// The **`canShare()`** method will return `false` if the permission is
+  /// supported but has not been granted.
+  external bool canShare([ShareData data]);
+
+  /// The **`requestMIDIAccess()`** method of the [Navigator] interface returns
+  /// a `Promise` representing a request for access to MIDI devices on a user's
+  /// system.
+  /// This method is part of the
+  /// [Web MIDI API](https://developer.mozilla.org/en-US/docs/Web/API/Web_MIDI_API),
+  /// which provides a means for accessing, enumerating, and manipulating MIDI
+  /// devices.
+  ///
+  /// This method may prompt the user for access to MIDI devices available to
+  /// their system, or it may use a previously established preference to grant
+  /// or deny access.
+  /// If permission is granted then the `Promise` resolves and a
+  /// [`MIDIAccess`](https://developer.mozilla.org/en-US/docs/Web/API/MIDIAccess)
+  /// object is returned.
+  external JSPromise<MIDIAccess> requestMIDIAccess([MIDIOptions options]);
+
+  /// The **`setAppBadge()`** method of the [Navigator] interface sets a badge
+  /// on the icon associated with this app. If a value is passed to the method,
+  /// this will be set as the value of the badge. Otherwise the badge will
+  /// display as a dot, or other indicator as defined by the platform.
+  external JSPromise<JSAny?> setAppBadge([int contents]);
+
+  /// The **`clearAppBadge()`** method of the [Navigator] interface clears a
+  /// badge on the current app's icon by setting it to `nothing`. The value
+  /// `nothing` indicates that no badge is currently set, and the status of the
+  /// badge is _cleared_.
+  external JSPromise<JSAny?> clearAppBadge();
 
   /// The **`Navigator.taintEnabled()`** method always returns
   /// `false`.
@@ -11229,6 +11309,13 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// contact points are supported by the current device.
   external int get maxTouchPoints;
 
+  /// The `presentation` read-only property of [Navigator] serves as the entry
+  /// point for the
+  /// [Presentation API](https://developer.mozilla.org/en-US/docs/Web/API/Presentation_API)
+  /// and
+  /// returns a reference to [Presentation] object.
+  external JSObject get presentation;
+
   /// The **`wakeLock`** read-only property of the [Navigator] interface returns
   /// a [WakeLock] interface that allows a document to acquire a screen wake
   /// lock.
@@ -11245,6 +11332,42 @@ extension type Navigator._(JSObject _) implements JSObject {
   ///
   /// The feature may not be available in private mode.
   external ServiceWorkerContainer get serviceWorker;
+
+  /// The **`usb`** read-only property of the [Navigator] interface returns a
+  /// [USB] object for the current document, providing access to
+  /// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)
+  /// functionality.
+  external JSObject get usb;
+
+  /// The **`windowControlsOverlay`** read-only property of the [Navigator]
+  /// interface returns the [WindowControlsOverlay] interface, which exposes
+  /// information about the title bar geometry in desktop Progressive Web Apps
+  /// that use the
+  /// [Window Controls Overlay API](https://developer.mozilla.org/en-US/docs/Web/API/Window_Controls_Overlay_API).
+  ///
+  /// Progressive Web Apps installed on desktop Operating Systems can opt-in to
+  /// the
+  /// Window Controls Overlay feature by using the `window-controls-overlay`
+  /// value in the
+  /// [`display_override`](https://developer.mozilla.org/en-US/docs/Web/Manifest/display_override)
+  /// web app manifest member.
+  ///
+  /// Doing so hides the default window title bar and gives the app access to
+  /// the full area
+  /// of the app window.
+  external JSObject get windowControlsOverlay;
+
+  /// The **`deviceMemory`** read-only
+  /// property of the [Navigator] interface returns the approximate amount of
+  /// device memory in gigabytes.
+  ///
+  /// The reported value is imprecise to curtail . It's approximated by
+  /// rounding down to the nearest power of 2, then dividing that number by
+  /// 1024. It is then
+  /// clamped within lower and upper bounds to protect the privacy of owners of
+  /// very low-memory or
+  /// high-memory devices.
+  external num get deviceMemory;
 
   /// The value of the **`Navigator.appCodeName`** property is
   /// always "`Mozilla`", in any browser. This property is kept only for
@@ -11492,6 +11615,27 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// which provides methods for requesting a new [Lock] object and querying
   /// for an existing `Lock` object.
   external LockManager get locks;
+
+  /// The **`webdriver`** read-only property
+  /// of the [navigator] interface indicates whether the user agent is
+  /// controlled by automation.
+  ///
+  /// It defines a standard way for co-operating user agents to inform the
+  /// document that it
+  /// is controlled by
+  /// [WebDriver](https://developer.mozilla.org/en-US/docs/Web/WebDriver), for
+  /// example, so that
+  /// alternate code paths can be triggered during automation.
+  ///
+  /// The `navigator.webdriver` property is true when in:
+  ///
+  /// - Chrome
+  ///   - : The `--enable-automation` or the `--headless` flag or the
+  /// `--remote-debugging-port` is used.
+  /// - Firefox
+  ///   - : The `marionette.enabled` preference or `--marionette` flag is
+  /// passed.
+  external bool get webdriver;
 }
 
 /// The `PluginArray` interface is used to store a list of [Plugin] objects
@@ -12028,6 +12172,7 @@ extension type WorkerGlobalScope._(JSObject _)
   external String get origin;
   external bool get isSecureContext;
   external bool get crossOriginIsolated;
+  external Scheduler get scheduler;
   external CacheStorage get caches;
   external TrustedTypePolicyFactory get trustedTypes;
 }
@@ -12266,8 +12411,6 @@ extension type SharedWorker._(JSObject _) implements EventTarget, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WorkerNavigator).
 extension type WorkerNavigator._(JSObject _) implements JSObject {
-  external bool taintEnabled();
-
   /// The read-only **`WorkerNavigator.mediaCapabilities`** property
   /// returns a [MediaCapabilities] object that can expose information about the
   /// decoding and encoding capabilities for a given format and output
@@ -12290,6 +12433,25 @@ extension type WorkerNavigator._(JSObject _) implements JSObject {
   ///
   /// The feature may not be available in private mode.
   external ServiceWorkerContainer get serviceWorker;
+
+  /// The **`usb`** read-only property of the [WorkerNavigator] interface
+  /// returns a [USB] object for the current document, providing access to
+  /// [WebUSB API](https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API)
+  /// functionality.
+  external JSObject get usb;
+
+  /// The **`deviceMemory`** read-only
+  /// property of the [WorkerNavigator] interface returns the approximate amount
+  /// of
+  /// device memory in gigabytes.
+  ///
+  /// The reported value is imprecise to curtail . It's approximated by
+  /// rounding down to the nearest power of 2, then dividing that number by
+  /// 1024. It is then
+  /// clamped within lower and upper bounds to protect the privacy of owners of
+  /// very low-memory or
+  /// high-memory devices.
+  external num get deviceMemory;
 
   /// The value of the **`WorkerNavigator.appCodeName`** property is
   /// always "`Mozilla`", in any browser. This property is kept only for
@@ -12329,7 +12491,6 @@ extension type WorkerNavigator._(JSObject _) implements JSObject {
   /// > **Note:** Do not rely on this property to return a real product name.
   /// > All browsers return "`Gecko`" as the value of this property.
   external String get product;
-  external String get productSub;
 
   /// The **`WorkerNavigator.userAgent`** read-only property returns the
   /// user agent string for the current browser.
@@ -12364,9 +12525,6 @@ extension type WorkerNavigator._(JSObject _) implements JSObject {
   /// - Opera 6+ allows users to set the browser identification string via a
   ///   menu.
   external String get userAgent;
-  external String get vendor;
-  external String get vendorSub;
-  external String get oscpu;
 
   /// The **`WorkerNavigator.language`** read-only property returns
   /// a string representing the preferred language of the user, usually the
@@ -12426,6 +12584,15 @@ extension type WorkerNavigator._(JSObject _) implements JSObject {
   /// user's
   /// computer.
   external int get hardwareConcurrency;
+
+  /// The **`WorkerNavigator.connection`** read-only property returns
+  /// a [NetworkInformation] object containing information about the system's
+  /// connection, such as the current bandwidth of the user's device or whether
+  /// the connection
+  /// is metered. This could be used to select high definition content or low
+  /// definition
+  /// content based on the user's connection.
+  external JSObject get connection;
 
   /// The **`storage`** read-only property of the [WorkerNavigator] interface
   /// returns the singleton [StorageManager] object used to
@@ -12759,8 +12926,6 @@ extension type HTMLFrameSetElement._(JSObject _)
   external set ononline(EventHandler value);
   external EventHandler get onpagehide;
   external set onpagehide(EventHandler value);
-  external EventHandler get onpagereveal;
-  external set onpagereveal(EventHandler value);
   external EventHandler get onpageshow;
   external set onpageshow(EventHandler value);
   external EventHandler get onpopstate;

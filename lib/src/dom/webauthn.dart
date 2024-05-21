@@ -14,24 +14,13 @@ library;
 import 'dart:js_interop';
 
 import 'credential_management.dart';
+import 'fido.dart';
+import 'secure_payment_confirmation.dart';
 import 'webidl.dart';
 
-typedef Base64URLString = String;
-typedef PublicKeyCredentialJSON = JSObject;
-typedef PublicKeyCredentialClientCapabilities = JSObject;
 typedef COSEAlgorithmIdentifier = int;
 typedef UvmEntry = JSArray<JSNumber>;
 typedef UvmEntries = JSArray<UvmEntry>;
-typedef AuthenticatorAttachment = String;
-typedef ResidentKeyRequirement = String;
-typedef AttestationConveyancePreference = String;
-typedef TokenBindingStatus = String;
-typedef PublicKeyCredentialType = String;
-typedef AuthenticatorTransport = String;
-typedef UserVerificationRequirement = String;
-typedef ClientCapability = String;
-typedef PublicKeyCredentialHints = String;
-typedef LargeBlobSupport = String;
 
 /// The **`PublicKeyCredential`** interface provides information about a public
 /// key / private key pair, which is a credential for logging in to a service
@@ -84,13 +73,6 @@ extension type PublicKeyCredential._(JSObject _)
   external static JSPromise<JSBoolean> isConditionalMediationAvailable();
   external static JSPromise<JSBoolean>
       isUserVerifyingPlatformAuthenticatorAvailable();
-  external static JSPromise<PublicKeyCredentialClientCapabilities>
-      getClientCapabilities();
-  external static PublicKeyCredentialCreationOptions
-      parseCreationOptionsFromJSON(
-          PublicKeyCredentialCreationOptionsJSON options);
-  external static PublicKeyCredentialRequestOptions parseRequestOptionsFromJSON(
-      PublicKeyCredentialRequestOptionsJSON options);
 
   /// The **`getClientExtensionResults()`** method of the
   /// [PublicKeyCredential] interface returns a map between the identifiers of
@@ -111,26 +93,6 @@ extension type PublicKeyCredential._(JSObject _)
   /// > [authenticator data](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API/Authenticator_data)
   /// > available in [AuthenticatorAssertionResponse.authenticatorData].
   external AuthenticationExtensionsClientOutputs getClientExtensionResults();
-
-  /// The **`toJSON()`** method of the [PublicKeyCredential] interface returns a
-  /// of a [PublicKeyCredential].
-  ///
-  /// The properties of the returned object depend on whether the credential is
-  /// returned by
-  /// [`navigator.credentials.create()`](https://developer.mozilla.org/en-US/docs/Web/API/CredentialsContainer/create)
-  /// when
-  /// [creating a key pair and registering a user](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API#creating_a_key_pair_and_registering_a_user),
-  /// or
-  /// [`navigator.credentials.get()`](https://developer.mozilla.org/en-US/docs/Web/API/CredentialsContainer/get)
-  /// when
-  /// [authenticating a user](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API#authenticating_a_user).
-  ///
-  /// This method is automatically invoked when web app code calls
-  /// [`JSON.stringify()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
-  /// to serialize a [PublicKeyCredential] so that it can be sent to relying
-  /// party server when registering or authenticating a user.
-  /// It not intended to be called directly in web app code.
-  external PublicKeyCredentialJSON toJSON();
 
   /// The **`rawId`** read-only property of the
   /// [PublicKeyCredential] interface is an `ArrayBuffer` object
@@ -184,202 +146,6 @@ extension type PublicKeyCredential._(JSObject _)
   /// category of authenticator used during the associated
   /// [CredentialsContainer.create] or [CredentialsContainer.get] call.
   external String? get authenticatorAttachment;
-}
-extension type RegistrationResponseJSON._(JSObject _) implements JSObject {
-  external factory RegistrationResponseJSON({
-    required Base64URLString id,
-    required Base64URLString rawId,
-    required AuthenticatorAttestationResponseJSON response,
-    String authenticatorAttachment,
-    required AuthenticationExtensionsClientOutputsJSON clientExtensionResults,
-    required String type,
-  });
-
-  external Base64URLString get id;
-  external set id(Base64URLString value);
-  external Base64URLString get rawId;
-  external set rawId(Base64URLString value);
-  external AuthenticatorAttestationResponseJSON get response;
-  external set response(AuthenticatorAttestationResponseJSON value);
-  external String get authenticatorAttachment;
-  external set authenticatorAttachment(String value);
-  external AuthenticationExtensionsClientOutputsJSON get clientExtensionResults;
-  external set clientExtensionResults(
-      AuthenticationExtensionsClientOutputsJSON value);
-  external String get type;
-  external set type(String value);
-}
-extension type AuthenticatorAttestationResponseJSON._(JSObject _)
-    implements JSObject {
-  external factory AuthenticatorAttestationResponseJSON({
-    required Base64URLString clientDataJSON,
-    required Base64URLString authenticatorData,
-    required JSArray<JSString> transports,
-    Base64URLString publicKey,
-    required int publicKeyAlgorithm,
-    required Base64URLString attestationObject,
-  });
-
-  external Base64URLString get clientDataJSON;
-  external set clientDataJSON(Base64URLString value);
-  external Base64URLString get authenticatorData;
-  external set authenticatorData(Base64URLString value);
-  external JSArray<JSString> get transports;
-  external set transports(JSArray<JSString> value);
-  external Base64URLString get publicKey;
-  external set publicKey(Base64URLString value);
-  external int get publicKeyAlgorithm;
-  external set publicKeyAlgorithm(int value);
-  external Base64URLString get attestationObject;
-  external set attestationObject(Base64URLString value);
-}
-extension type AuthenticationResponseJSON._(JSObject _) implements JSObject {
-  external factory AuthenticationResponseJSON({
-    required Base64URLString id,
-    required Base64URLString rawId,
-    required AuthenticatorAssertionResponseJSON response,
-    String authenticatorAttachment,
-    required AuthenticationExtensionsClientOutputsJSON clientExtensionResults,
-    required String type,
-  });
-
-  external Base64URLString get id;
-  external set id(Base64URLString value);
-  external Base64URLString get rawId;
-  external set rawId(Base64URLString value);
-  external AuthenticatorAssertionResponseJSON get response;
-  external set response(AuthenticatorAssertionResponseJSON value);
-  external String get authenticatorAttachment;
-  external set authenticatorAttachment(String value);
-  external AuthenticationExtensionsClientOutputsJSON get clientExtensionResults;
-  external set clientExtensionResults(
-      AuthenticationExtensionsClientOutputsJSON value);
-  external String get type;
-  external set type(String value);
-}
-extension type AuthenticatorAssertionResponseJSON._(JSObject _)
-    implements JSObject {
-  external factory AuthenticatorAssertionResponseJSON({
-    required Base64URLString clientDataJSON,
-    required Base64URLString authenticatorData,
-    required Base64URLString signature,
-    Base64URLString userHandle,
-  });
-
-  external Base64URLString get clientDataJSON;
-  external set clientDataJSON(Base64URLString value);
-  external Base64URLString get authenticatorData;
-  external set authenticatorData(Base64URLString value);
-  external Base64URLString get signature;
-  external set signature(Base64URLString value);
-  external Base64URLString get userHandle;
-  external set userHandle(Base64URLString value);
-}
-extension type AuthenticationExtensionsClientOutputsJSON._(JSObject _)
-    implements JSObject {
-  AuthenticationExtensionsClientOutputsJSON() : _ = JSObject();
-}
-extension type PublicKeyCredentialCreationOptionsJSON._(JSObject _)
-    implements JSObject {
-  external factory PublicKeyCredentialCreationOptionsJSON({
-    required PublicKeyCredentialRpEntity rp,
-    required PublicKeyCredentialUserEntityJSON user,
-    required Base64URLString challenge,
-    required JSArray<PublicKeyCredentialParameters> pubKeyCredParams,
-    int timeout,
-    JSArray<PublicKeyCredentialDescriptorJSON> excludeCredentials,
-    AuthenticatorSelectionCriteria authenticatorSelection,
-    JSArray<JSString> hints,
-    String attestation,
-    JSArray<JSString> attestationFormats,
-    AuthenticationExtensionsClientInputsJSON extensions,
-  });
-
-  external PublicKeyCredentialRpEntity get rp;
-  external set rp(PublicKeyCredentialRpEntity value);
-  external PublicKeyCredentialUserEntityJSON get user;
-  external set user(PublicKeyCredentialUserEntityJSON value);
-  external Base64URLString get challenge;
-  external set challenge(Base64URLString value);
-  external JSArray<PublicKeyCredentialParameters> get pubKeyCredParams;
-  external set pubKeyCredParams(JSArray<PublicKeyCredentialParameters> value);
-  external int get timeout;
-  external set timeout(int value);
-  external JSArray<PublicKeyCredentialDescriptorJSON> get excludeCredentials;
-  external set excludeCredentials(
-      JSArray<PublicKeyCredentialDescriptorJSON> value);
-  external AuthenticatorSelectionCriteria get authenticatorSelection;
-  external set authenticatorSelection(AuthenticatorSelectionCriteria value);
-  external JSArray<JSString> get hints;
-  external set hints(JSArray<JSString> value);
-  external String get attestation;
-  external set attestation(String value);
-  external JSArray<JSString> get attestationFormats;
-  external set attestationFormats(JSArray<JSString> value);
-  external AuthenticationExtensionsClientInputsJSON get extensions;
-  external set extensions(AuthenticationExtensionsClientInputsJSON value);
-}
-extension type PublicKeyCredentialUserEntityJSON._(JSObject _)
-    implements JSObject {
-  external factory PublicKeyCredentialUserEntityJSON({
-    required Base64URLString id,
-    required String name,
-    required String displayName,
-  });
-
-  external Base64URLString get id;
-  external set id(Base64URLString value);
-  external String get name;
-  external set name(String value);
-  external String get displayName;
-  external set displayName(String value);
-}
-extension type PublicKeyCredentialDescriptorJSON._(JSObject _)
-    implements JSObject {
-  external factory PublicKeyCredentialDescriptorJSON({
-    required Base64URLString id,
-    required String type,
-    JSArray<JSString> transports,
-  });
-
-  external Base64URLString get id;
-  external set id(Base64URLString value);
-  external String get type;
-  external set type(String value);
-  external JSArray<JSString> get transports;
-  external set transports(JSArray<JSString> value);
-}
-extension type AuthenticationExtensionsClientInputsJSON._(JSObject _)
-    implements JSObject {
-  AuthenticationExtensionsClientInputsJSON() : _ = JSObject();
-}
-extension type PublicKeyCredentialRequestOptionsJSON._(JSObject _)
-    implements JSObject {
-  external factory PublicKeyCredentialRequestOptionsJSON({
-    required Base64URLString challenge,
-    int timeout,
-    String rpId,
-    JSArray<PublicKeyCredentialDescriptorJSON> allowCredentials,
-    String userVerification,
-    JSArray<JSString> hints,
-    AuthenticationExtensionsClientInputsJSON extensions,
-  });
-
-  external Base64URLString get challenge;
-  external set challenge(Base64URLString value);
-  external int get timeout;
-  external set timeout(int value);
-  external String get rpId;
-  external set rpId(String value);
-  external JSArray<PublicKeyCredentialDescriptorJSON> get allowCredentials;
-  external set allowCredentials(
-      JSArray<PublicKeyCredentialDescriptorJSON> value);
-  external String get userVerification;
-  external set userVerification(String value);
-  external JSArray<JSString> get hints;
-  external set hints(JSArray<JSString> value);
-  external AuthenticationExtensionsClientInputsJSON get extensions;
-  external set extensions(AuthenticationExtensionsClientInputsJSON value);
 }
 
 /// The **`AuthenticatorResponse`** interface of the
@@ -671,6 +437,14 @@ extension type PublicKeyCredentialRequestOptions._(JSObject _)
 extension type AuthenticationExtensionsClientInputs._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsClientInputs({
+    String credentialProtectionPolicy,
+    bool enforceCredentialProtectionPolicy,
+    JSArrayBuffer credBlob,
+    bool getCredBlob,
+    bool minPinLength,
+    bool hmacCreateSecret,
+    HMACGetSecretInput hmacGetSecret,
+    AuthenticationExtensionsPaymentInputs payment,
     String appid,
     String appidExclude,
     bool credProps,
@@ -680,6 +454,22 @@ extension type AuthenticationExtensionsClientInputs._(JSObject _)
     AuthenticationExtensionsSupplementalPubKeysInputs supplementalPubKeys,
   });
 
+  external String get credentialProtectionPolicy;
+  external set credentialProtectionPolicy(String value);
+  external bool get enforceCredentialProtectionPolicy;
+  external set enforceCredentialProtectionPolicy(bool value);
+  external JSArrayBuffer get credBlob;
+  external set credBlob(JSArrayBuffer value);
+  external bool get getCredBlob;
+  external set getCredBlob(bool value);
+  external bool get minPinLength;
+  external set minPinLength(bool value);
+  external bool get hmacCreateSecret;
+  external set hmacCreateSecret(bool value);
+  external HMACGetSecretInput get hmacGetSecret;
+  external set hmacGetSecret(HMACGetSecretInput value);
+  external AuthenticationExtensionsPaymentInputs get payment;
+  external set payment(AuthenticationExtensionsPaymentInputs value);
   external String get appid;
   external set appid(String value);
   external String get appidExclude;
@@ -700,6 +490,8 @@ extension type AuthenticationExtensionsClientInputs._(JSObject _)
 extension type AuthenticationExtensionsClientOutputs._(JSObject _)
     implements JSObject {
   external factory AuthenticationExtensionsClientOutputs({
+    bool hmacCreateSecret,
+    HMACGetSecretOutput hmacGetSecret,
     bool appid,
     bool appidExclude,
     CredentialPropertiesOutput credProps,
@@ -709,6 +501,10 @@ extension type AuthenticationExtensionsClientOutputs._(JSObject _)
     AuthenticationExtensionsSupplementalPubKeysOutputs supplementalPubKeys,
   });
 
+  external bool get hmacCreateSecret;
+  external set hmacCreateSecret(bool value);
+  external HMACGetSecretOutput get hmacGetSecret;
+  external set hmacGetSecret(HMACGetSecretOutput value);
   external bool get appid;
   external set appid(bool value);
   external bool get appidExclude;
@@ -725,37 +521,6 @@ extension type AuthenticationExtensionsClientOutputs._(JSObject _)
       get supplementalPubKeys;
   external set supplementalPubKeys(
       AuthenticationExtensionsSupplementalPubKeysOutputs value);
-}
-extension type CollectedClientData._(JSObject _) implements JSObject {
-  external factory CollectedClientData({
-    required String type,
-    required String challenge,
-    required String origin,
-    String topOrigin,
-    bool crossOrigin,
-  });
-
-  external String get type;
-  external set type(String value);
-  external String get challenge;
-  external set challenge(String value);
-  external String get origin;
-  external set origin(String value);
-  external String get topOrigin;
-  external set topOrigin(String value);
-  external bool get crossOrigin;
-  external set crossOrigin(bool value);
-}
-extension type TokenBinding._(JSObject _) implements JSObject {
-  external factory TokenBinding({
-    required String status,
-    String id,
-  });
-
-  external String get status;
-  external set status(String value);
-  external String get id;
-  external set id(String value);
 }
 extension type PublicKeyCredentialDescriptor._(JSObject _) implements JSObject {
   external factory PublicKeyCredentialDescriptor({

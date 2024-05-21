@@ -17,6 +17,7 @@ import 'css_font_loading.dart';
 import 'css_typed_om.dart';
 import 'cssom.dart';
 import 'cssom_view.dart';
+import 'fullscreen.dart';
 import 'geometry.dart';
 import 'hr_time.dart';
 import 'html.dart';
@@ -1245,8 +1246,6 @@ external Document get document;
 extension type Document._(JSObject _) implements Node, JSObject {
   external factory Document();
 
-  external static Document parseHTMLUnsafe(String html);
-
   /// The **`elementFromPoint()`**
   /// method, available on the [Document] object, returns the topmost [Element]
   /// at the specified coordinates
@@ -1295,7 +1294,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// method of the [Document] interface returns a
   /// [CaretPosition] object, containing the DOM node, along with the caret and
   /// caret's character offset within that node.
-  external CaretPosition? caretPositionFromPoint(
+  external JSObject? caretPositionFromPoint(
     num x,
     num y,
   );
@@ -1461,6 +1460,14 @@ extension type Document._(JSObject _) implements Node, JSObject {
     NodeFilter? filter,
   ]);
 
+  /// The [Document] method
+  /// **`exitFullscreen()`** requests that the element on this
+  /// document which is currently being presented in fullscreen mode be taken
+  /// out of
+  /// fullscreen mode, restoring the previous state of the screen. This usually
+  /// reverses the effects of a previous call to [Element.requestFullscreen].
+  external JSPromise<JSAny?> exitFullscreen();
+
   /// The **`getElementsByName()`** method
   /// of the [Document] object returns a [NodeList] Collection of
   /// elements with a given `name` attribute in the document.
@@ -1592,19 +1599,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
     bool showUI,
     String value,
   ]);
-
-  /// The **`Document.queryCommandEnabled()`** method reports whether
-  /// or not the specified editor command is enabled by the browser.
-  external bool queryCommandEnabled(String commandId);
   external bool queryCommandIndeterm(String commandId);
-
-  /// The **`queryCommandState()`** method will tell you if the current
-  /// selection has a certain [Document.execCommand] command applied.
-  external bool queryCommandState(String commandId);
-
-  /// The **`Document.queryCommandSupported()`** method reports
-  /// whether or not the specified editor command is supported by the browser.
-  external bool queryCommandSupported(String commandId);
   external String queryCommandValue(String commandId);
 
   /// The **`Document.clear()`** method does nothing, but doesn't raise any
@@ -1613,28 +1608,66 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external void captureEvents();
   external void releaseEvents();
 
+  /// The **`exitPictureInPicture()`** method of the [Document] interface
+  /// requests that a video contained
+  /// in this document, which is currently floating, be taken out of
+  /// picture-in-picture
+  /// mode, restoring the previous state of the screen. This usually reverses
+  /// the
+  /// effects of a previous call to [HTMLVideoElement.requestPictureInPicture].
+  external JSPromise<JSAny?> exitPictureInPicture();
+
+  /// The **`exitPointerLock()`** method of the [Document] interface
+  /// asynchronously releases a pointer lock previously requested through
+  /// [Element.requestPointerLock].
+  ///
+  /// > **Note:** While the **`exitPointerLock()`** method is called on the
+  /// > document, the **`requestPointerLock()`** method is called on an element.
+  ///
+  /// To track the success or failure of the request, it is necessary to listen
+  /// for the [Document.pointerlockchange_event] and
+  /// [Document.pointerlockerror_event] events.
+  external void exitPointerLock();
+
   /// The **`getSelection()`** method of
   /// the [Document] interface returns a [Selection]
   /// object representing the range of text selected by the user, or the current
   /// position of
   /// the caret.
   external Selection? getSelection();
-  external JSArray<DOMQuad> getBoxQuads([BoxQuadOptions options]);
-  external DOMQuad convertQuadFromNode(
-    DOMQuadInit quad,
-    GeometryNode from, [
-    ConvertCoordinateOptions options,
-  ]);
-  external DOMQuad convertRectFromNode(
-    DOMRectReadOnly rect,
-    GeometryNode from, [
-    ConvertCoordinateOptions options,
-  ]);
-  external DOMPoint convertPointFromNode(
-    DOMPointInit point,
-    GeometryNode from, [
-    ConvertCoordinateOptions options,
-  ]);
+
+  /// The **`hasStorageAccess()`** method of the [Document] interface returns a
+  /// `Promise` that resolves with a boolean value indicating whether the
+  /// document has access to
+  /// [third-party](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#third-party_cookies),
+  /// [unpartitioned](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API#unpartitioned_versus_partitioned_cookies)
+  /// cookies.
+  ///
+  /// This method is part of the
+  /// [Storage Access API](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API).
+  external JSPromise<JSBoolean> hasStorageAccess();
+
+  /// The **`requestStorageAccess()`** method of the [Document] interface allows
+  /// content loaded in a third-party context (i.e., embedded in an `iframe`) to
+  /// request access to third-party cookies. This is relevant to user agents
+  /// that, by default, block access to
+  /// [third-party](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#third-party_cookies),
+  /// [unpartitioned](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API#unpartitioned_versus_partitioned_cookies)
+  /// cookies to improve privacy (e.g., to prevent tracking), and is part of the
+  /// [Storage Access API](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API).
+  ///
+  /// To check whether permission to access third-party cookies has already been
+  /// granted, you can call [Permissions.query], specifying the feature name
+  /// `"storage-access"`.
+  ///
+  /// > **Note:** Usage of this feature may be blocked by a
+  /// > [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy)
+  /// > set on your server. In addition, the document must pass additional
+  /// > browser-specific checks such as allowlists, blocklists, on-device
+  /// > classification, user settings,
+  /// > anti-[clickjacking](https://developer.mozilla.org/en-US/docs/Glossary/Clickjacking)
+  /// > heuristics, or prompting the user for explicit permission.
+  external JSPromise<JSAny?> requestStorageAccess();
 
   /// The **`getElementById()`** method of the [Document] interface returns an
   /// [Element] object representing the element whose [Element.id] property
@@ -1785,8 +1818,6 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// > are legacy aliases for `document.characterSet`. Do not use them any
   /// > more.
   external String get characterSet;
-  external String get charset;
-  external String get inputEncoding;
 
   /// The **`Document.contentType`** read-only property returns the
   /// MIME type that the document is being rendered as. This may come from HTTP
@@ -1812,6 +1843,38 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// [Element] that is the root element of the [document] (for
   /// example, the `html` element for HTML documents).
   external Element? get documentElement;
+
+  /// The read-only **`fullscreenEnabled`**
+  /// property on the [Document] interface indicates whether or not fullscreen
+  /// mode is available.
+  ///
+  /// fullscreen mode is available only for a page that has no
+  /// windowed plug-ins in any of its documents, and if all `iframe` elements
+  /// which contain the document have their
+  /// [`allowfullscreen`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#allowfullscreen)
+  /// attribute set.
+  ///
+  /// Although this property is read-only, it will not throw if it is modified
+  /// (even in
+  /// strict mode); the setter is a no-operation and it will be ignored.
+  external bool get fullscreenEnabled;
+
+  /// The obsolete [Document] interface's **`fullscreen`** read-only property
+  /// reports whether or not the document is currently displaying content in
+  /// fullscreen mode.
+  ///
+  /// Although this property is read-only, it will not throw if it is modified
+  /// (even in strict mode); the setter is a no-operation and it will be
+  /// ignored.
+  ///
+  /// > **Note:** Since this property is deprecated, you can determine if
+  /// > fullscreen mode is active on the document by checking to see if
+  /// > [Document.fullscreenElement] is not `null`.
+  external bool get fullscreen;
+  external EventHandler get onfullscreenchange;
+  external set onfullscreenchange(EventHandler value);
+  external EventHandler get onfullscreenerror;
+  external set onfullscreenerror(EventHandler value);
 
   /// The **`Document.location`** read-only property returns a
   /// [Location] object, which contains information about the URL of the
@@ -2047,6 +2110,24 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// ```
   external HTMLAllCollection get all;
 
+  /// The read-only
+  /// **`pictureInPictureEnabled`** property of the
+  /// [Document] interface indicates whether or not picture-in-picture mode is
+  /// available.
+  ///
+  /// Picture-in-Picture mode is available by default unless specified
+  /// otherwise by a
+  /// [Permissions-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/picture-in-picture).
+  ///
+  /// Although this property is read-only, it will not throw if it is modified
+  /// (even in
+  /// strict mode); the setter is a no-operation and will be ignored.
+  external bool get pictureInPictureEnabled;
+  external EventHandler get onpointerlockchange;
+  external set onpointerlockchange(EventHandler value);
+  external EventHandler get onpointerlockerror;
+  external set onpointerlockerror(EventHandler value);
+
   /// The `timeline` readonly property of the [Document] interface represents
   /// the default timeline of the current document. This timeline is a special
   /// instance of [DocumentTimeline].
@@ -2105,6 +2186,17 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external JSArray<CSSStyleSheet> get adoptedStyleSheets;
   external set adoptedStyleSheets(JSArray<CSSStyleSheet> value);
 
+  /// The
+  /// **`Document.fullscreenElement`** read-only
+  /// property returns the [Element] that is currently being presented in
+  /// fullscreen mode in this document, or `null` if fullscreen mode is not
+  /// currently in use.
+  ///
+  /// Although this property is read-only, it will not throw if it is modified
+  /// (even in
+  /// strict mode); the setter is a no-operation and it will be ignored.
+  external Element? get fullscreenElement;
+
   /// The **`activeElement`** read-only property
   /// of the [Document] interface returns the [Element] within the DOM that
   /// currently has focus.
@@ -2131,6 +2223,23 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// > document). You can
   /// > get the current selection using [window.getSelection].
   external Element? get activeElement;
+
+  /// The read-only **`pictureInPictureElement`** property of the [Document]
+  /// interface returns the [Element] that is currently being
+  /// presented in picture-in-picture mode in this document, or `null` if
+  /// picture-in-picture mode is not currently in use.
+  ///
+  /// Although this property is read-only, it will not throw if it is modified
+  /// (even in
+  /// strict mode); the setter is a no-operation and will be ignored.
+  external Element? get pictureInPictureElement;
+
+  /// The **`pointerLockElement`** read-only property of the [Document]
+  /// interface provides the element set as the target for mouse events while
+  /// the pointer is locked.
+  /// It is `null` if lock is pending, pointer is unlocked, or the target is in
+  /// another document.
+  external Element? get pointerLockElement;
 
   /// The read-only **`children`** property returns a live [HTMLCollection]
   /// which contains all of the child [Element] of the document upon which it
@@ -2192,8 +2301,6 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external set onauxclick(EventHandler value);
   external EventHandler get onbeforeinput;
   external set onbeforeinput(EventHandler value);
-  external EventHandler get onbeforematch;
-  external set onbeforematch(EventHandler value);
   external EventHandler get onbeforetoggle;
   external set onbeforetoggle(EventHandler value);
   external EventHandler get onblur;
@@ -2326,14 +2433,6 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external set onvolumechange(EventHandler value);
   external EventHandler get onwaiting;
   external set onwaiting(EventHandler value);
-  external EventHandler get onwebkitanimationend;
-  external set onwebkitanimationend(EventHandler value);
-  external EventHandler get onwebkitanimationiteration;
-  external set onwebkitanimationiteration(EventHandler value);
-  external EventHandler get onwebkitanimationstart;
-  external set onwebkitanimationstart(EventHandler value);
-  external EventHandler get onwebkittransitionend;
-  external set onwebkittransitionend(EventHandler value);
   external EventHandler get onwheel;
   external set onwheel(EventHandler value);
   external EventHandler get onpointerover;
@@ -2344,8 +2443,6 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external set onpointerdown(EventHandler value);
   external EventHandler get onpointermove;
   external set onpointermove(EventHandler value);
-  external EventHandler get onpointerrawupdate;
-  external set onpointerrawupdate(EventHandler value);
   external EventHandler get onpointerup;
   external set onpointerup(EventHandler value);
   external EventHandler get onpointercancel;
@@ -2608,8 +2705,6 @@ extension type DocumentFragment._(JSObject _) implements Node, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot).
 extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
-  external void setHTMLUnsafe(String html);
-
   /// The **`getAnimations()`** method of the [ShadowRoot] interface
   /// returns an array of all [Animation] objects currently in effect whose
   /// target elements are descendants of the shadow tree. This array includes
@@ -2714,10 +2809,28 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   external JSArray<CSSStyleSheet> get adoptedStyleSheets;
   external set adoptedStyleSheets(JSArray<CSSStyleSheet> value);
 
+  /// The **`fullscreenElement`** read-only property of the
+  /// [ShadowRoot] interface returns the element within the shadow tree that is
+  /// currently displayed in full screen.
+  external Element? get fullscreenElement;
+
   /// The **`activeElement`** read-only property of the
   /// [ShadowRoot] interface returns the element within the shadow tree that has
   /// focus.
   external Element? get activeElement;
+
+  /// The **`pictureInPictureElement`** read-only property of the
+  /// [ShadowRoot] interface returns the [Element] that is currently being
+  /// presented in picture-in-picture mode in this shadow tree, or `null` if
+  /// picture-in-picture mode is not currently in use.
+  external Element? get pictureInPictureElement;
+
+  /// The **`pointerLockElement`** read-only property of the [ShadowRoot]
+  /// interface provides the element set as the target for mouse events while
+  /// the pointer is locked.
+  /// It is `null` if lock is pending, pointer is unlocked, or the target is in
+  /// another tree.
+  external Element? get pointerLockElement;
 }
 
 /// **`Element`** is the most general base class from which all element objects
@@ -3013,7 +3126,6 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// element would be selected by the specified
   /// [CSS selector](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors).
   external bool matches(String selectors);
-  external bool webkitMatchesSelector(String selectors);
 
   /// The
   /// **`Element.getElementsByTagName()`** method returns a live
@@ -3076,7 +3188,24 @@ extension type Element._(JSObject _) implements Node, JSObject {
     String where,
     String data,
   );
-  external void setHTMLUnsafe(String html);
+
+  /// The **`Element.requestFullscreen()`**
+  /// method issues an asynchronous request to make the element be displayed in
+  /// fullscreen
+  /// mode.
+  ///
+  /// It's not guaranteed that the element will be put into full screen mode. If
+  /// permission
+  /// to enter full screen mode is granted, the returned `Promise` will resolve
+  /// and the element will receive a [Element.fullscreenchange_event] event to
+  /// let it know that
+  /// it's now in full screen mode. If permission is denied, the promise is
+  /// rejected and the
+  /// element receives a [Element.fullscreenerror_event] event instead. If the
+  /// element has been
+  /// detached from the original document, then the document receives these
+  /// events instead.
+  external JSPromise<JSAny?> requestFullscreen([FullscreenOptions options]);
 
   /// The **`setPointerCapture()`** method of the
   /// [Element] interface is used to designate a specific element as the
@@ -3123,22 +3252,25 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// [Element] interface checks whether the element on which it is invoked has
   /// pointer capture for the pointer identified by the given pointer ID.
   external bool hasPointerCapture(int pointerId);
-  external JSArray<DOMQuad> getBoxQuads([BoxQuadOptions options]);
-  external DOMQuad convertQuadFromNode(
-    DOMQuadInit quad,
-    GeometryNode from, [
-    ConvertCoordinateOptions options,
-  ]);
-  external DOMQuad convertRectFromNode(
-    DOMRectReadOnly rect,
-    GeometryNode from, [
-    ConvertCoordinateOptions options,
-  ]);
-  external DOMPoint convertPointFromNode(
-    DOMPointInit point,
-    GeometryNode from, [
-    ConvertCoordinateOptions options,
-  ]);
+
+  /// The **`requestPointerLock()`** method of the [Element] interface lets you
+  /// asynchronously ask for the pointer to be locked on the given element.
+  ///
+  /// To track the success or failure of the request, it is necessary to listen
+  /// for the [Document.pointerlockchange_event] and
+  /// [Document.pointerlockerror_event] events at the [Document] level.
+  ///
+  /// > **Note:** In the current specification, `requestPointerLock()` only
+  /// > communicates the success or failure of the request by firing
+  /// > [Document.pointerlockchange_event] or [Document.pointerlockerror_event]
+  /// > events.
+  /// > [A proposed update to the specification](https://github.com/w3c/pointerlock/pull/49)
+  /// > updates `requestPointerLock()` to return a `Promise` which communicates
+  /// > success or failure. This page documents the version that returns a
+  /// > `Promise`. However, note that this version is not yet a standard and is
+  /// > not implemented by all browsers. See
+  /// > [Browser compatibility](#browser_compatibility) for more information.
+  external void requestPointerLock();
 
   /// The **`Element.prepend()`** method inserts a set of
   /// [Node] objects or string objects before the first child
@@ -3240,6 +3372,13 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// instead.
   external String get outerHTML;
   external set outerHTML(String value);
+
+  /// The **`part`** property of the [Element] interface
+  /// represents the part identifier(s) of the element (i.e. set using the
+  /// `part`
+  /// attribute), returned as a [DOMTokenList]. These can be used to style parts
+  /// of a shadow DOM, via the  pseudo-element.
+  external DOMTokenList get part;
 
   /// The **`Element.scrollTop`** property gets or sets the number of pixels
   /// that an element's content is scrolled vertically.
@@ -3500,6 +3639,10 @@ extension type Element._(JSObject _) implements Node, JSObject {
   ///
   /// Use [Element.attachShadow] to add a shadow root to an existing element.
   external ShadowRoot? get shadowRoot;
+  external EventHandler get onfullscreenchange;
+  external set onfullscreenchange(EventHandler value);
+  external EventHandler get onfullscreenerror;
+  external set onfullscreenerror(EventHandler value);
 
   /// The [Element] property
   /// **`innerHTML`** gets or sets the HTML or XML markup contained
@@ -3561,6 +3704,337 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// [HTMLSlotElement] representing the `slot` element the
   /// node is inserted in.
   external HTMLSlotElement? get assignedSlot;
+  external String? get role;
+  external set role(String? value);
+
+  /// The **`ariaAtomic`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-atomic`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-atomic)
+  /// attribute, which indicates whether assistive technologies will present
+  /// all, or only parts of, the changed region based on the change
+  /// notifications defined by the
+  /// [`aria-relevant`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-relevant)
+  /// attribute.
+  external String? get ariaAtomic;
+  external set ariaAtomic(String? value);
+
+  /// The **`ariaAutoComplete`** property of the [Element] interface reflects
+  /// the value of the
+  /// [`aria-autocomplete`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-autocomplete)
+  /// attribute, which indicates whether inputting text could trigger display of
+  /// one or more predictions of the user's intended value for a combobox,
+  /// searchbox, or textbox and specifies how predictions would be presented if
+  /// they were made.
+  external String? get ariaAutoComplete;
+  external set ariaAutoComplete(String? value);
+
+  /// The **`ariaBusy`** property of the [Element] interface reflects the value
+  /// of the
+  /// [`aria-busy`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-busy)
+  /// attribute, which indicates whether an element is being modified, as
+  /// assistive technologies may want to wait until the modifications are
+  /// complete before exposing them to the user.
+  external String? get ariaBusy;
+  external set ariaBusy(String? value);
+
+  /// The **`ariaChecked`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-checked`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-checked)
+  /// attribute, which indicates the current "checked" state of checkboxes,
+  /// radio buttons, and other widgets that have a checked state.
+  ///
+  /// > **Note:** Where possible use an HTML `input` element with
+  /// > `type="checkbox"` as this element has built in semantics and does not
+  /// > require ARIA attributes.
+  external String? get ariaChecked;
+  external set ariaChecked(String? value);
+
+  /// The **`ariaColCount`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-colcount`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colcount)
+  /// attribute, which defines the number of columns in a table, grid, or
+  /// treegrid.
+  external String? get ariaColCount;
+  external set ariaColCount(String? value);
+
+  /// The **`ariaColIndex`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-colindex`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colindex)
+  /// attribute, which defines an element's column index or position with
+  /// respect to the total number of columns within a table, grid, or treegrid.
+  external String? get ariaColIndex;
+  external set ariaColIndex(String? value);
+
+  /// The **`ariaColSpan`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-colspan`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-colspan)
+  /// attribute, which defines the number of columns spanned by a cell or
+  /// gridcell within a table, grid, or treegrid.
+  external String? get ariaColSpan;
+  external set ariaColSpan(String? value);
+
+  /// The **`ariaCurrent`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current)
+  /// attribute, which indicates the element that represents the current item
+  /// within a container or set of related elements.
+  external String? get ariaCurrent;
+  external set ariaCurrent(String? value);
+
+  /// The **`ariaDescription`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-description`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-description)
+  /// attribute, which defines a string value that describes or annotates the
+  /// current element.
+  external String? get ariaDescription;
+  external set ariaDescription(String? value);
+
+  /// The **`ariaDisabled`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-disabled`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled)
+  /// attribute, which indicates that the element is perceivable but disabled,
+  /// so it is not editable or otherwise operable.
+  ///
+  /// > **Note:** Where possible, use the `input` element with `type="button"`
+  /// > or the `button` element — because those elements have built in semantics
+  /// > and do not require ARIA attributes.
+  external String? get ariaDisabled;
+  external set ariaDisabled(String? value);
+
+  /// The **`ariaExpanded`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-expanded`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-expanded)
+  /// attribute, which indicates whether a grouping element owned or controlled
+  /// by this element is expanded or collapsed.
+  external String? get ariaExpanded;
+  external set ariaExpanded(String? value);
+
+  /// The **`ariaHasPopup`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-haspopup`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-haspopup)
+  /// attribute, which indicates the availability and type of interactive popup
+  /// element, such as menu or dialog, that can be triggered by an element.
+  external String? get ariaHasPopup;
+  external set ariaHasPopup(String? value);
+
+  /// The **`ariaHidden`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-hidden`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-hidden))
+  /// attribute, which indicates whether the element is exposed to an
+  /// accessibility API.
+  external String? get ariaHidden;
+  external set ariaHidden(String? value);
+  external String? get ariaInvalid;
+  external set ariaInvalid(String? value);
+
+  /// The **`ariaKeyShortcuts`** property of the [Element] interface reflects
+  /// the value of the `aria-keyshortcuts` attribute, which indicates keyboard
+  /// shortcuts that an author has implemented to activate or give focus to an
+  /// element.
+  external String? get ariaKeyShortcuts;
+  external set ariaKeyShortcuts(String? value);
+
+  /// The **`ariaLabel`** property of the [Element] interface reflects the value
+  /// of the
+  /// [`aria-label`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label)
+  /// attribute, which defines a string value that labels the current element.
+  external String? get ariaLabel;
+  external set ariaLabel(String? value);
+
+  /// The **`ariaLevel`** property of the [Element] interface reflects the value
+  /// of the `aria-level` attribute, which defines the hierarchical level of an
+  /// element within a structure.
+  ///
+  /// > **Note:** Where possible use an HTML `h1` or other correct heading level
+  /// > as these have built in semantics and do not require ARIA attributes.
+  external String? get ariaLevel;
+  external set ariaLevel(String? value);
+
+  /// The **`ariaLive`** property of the [Element] interface reflects the value
+  /// of the
+  /// [`aria-live`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-live)
+  /// attribute, which indicates that an element will be updated, and describes
+  /// the types of updates the user agents, assistive technologies, and user can
+  /// expect from the
+  /// [live region](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Live_Regions).
+  external String? get ariaLive;
+  external set ariaLive(String? value);
+
+  /// The **`ariaModal`** property of the [Element] interface reflects the value
+  /// of the `aria-modal` attribute, which indicates whether an element is modal
+  /// when displayed. Applying the `aria-modal` property to an element with
+  /// `role="dialog"` replaces the technique of using aria-hidden on the
+  /// background for informing assistive technologies that content outside a
+  /// dialog is inert.
+  external String? get ariaModal;
+  external set ariaModal(String? value);
+
+  /// The **`ariaMultiLine`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-multiline`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiline)
+  /// attribute, which indicates whether a text box accepts multiple lines of
+  /// input or only a single line.
+  ///
+  /// > **Note:** Where possible use an HTML `input` element with `type="text"`
+  /// > or a `textarea` as these have built in semantics and do not require ARIA
+  /// > attributes.
+  external String? get ariaMultiLine;
+  external set ariaMultiLine(String? value);
+
+  /// The **`ariaMultiSelectable`** property of the [Element] interface reflects
+  /// the value of the
+  /// [`aria-multiselectable`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-multiselectable)
+  /// attribute, which indicates that the user may select more than one item
+  /// from the current selectable descendants.
+  ///
+  /// > **Note:** Where possible use an HTML `select` element as this has built
+  /// > in semantics and does not require ARIA attributes.
+  external String? get ariaMultiSelectable;
+  external set ariaMultiSelectable(String? value);
+
+  /// The **`ariaOrientation`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-orientation`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-orientation)
+  /// attribute, which indicates whether the element's orientation is
+  /// horizontal, vertical, or unknown/ambiguous.
+  external String? get ariaOrientation;
+  external set ariaOrientation(String? value);
+
+  /// The **`ariaPlaceholder`** property of the [Element] interface reflects the
+  /// value of the `aria-placeholder` attribute, which defines a short hint
+  /// intended to aid the user with data entry when the control has no value.
+  ///
+  /// > **Note:** Where possible use an HTML `input` element with `type="text"`
+  /// > or a `textarea` as these have built in semantics and do not require ARIA
+  /// > attributes.
+  external String? get ariaPlaceholder;
+  external set ariaPlaceholder(String? value);
+
+  /// The **`ariaPosInSet`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-posinset`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-posinset)
+  /// attribute, which defines an element's number or position in the current
+  /// set of listitems or treeitems.
+  external String? get ariaPosInSet;
+  external set ariaPosInSet(String? value);
+
+  /// The **`ariaPressed`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-pressed`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-pressed)
+  /// attribute, which indicates the current "pressed" state of toggle buttons.
+  ///
+  /// > **Note:** Where possible use an HTML `input` element with
+  /// > `type="button"` or the `button` element as these have built in semantics
+  /// > and do not require ARIA attributes.
+  external String? get ariaPressed;
+  external set ariaPressed(String? value);
+
+  /// The **`ariaReadOnly`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-readonly`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly)
+  /// attribute, which indicates that the element is not editable, but is
+  /// otherwise operable.
+  ///
+  /// > **Note:** Where possible use an HTML `input` element with `type="text"`
+  /// > or a `textarea` as these have built in semantics and do not require ARIA
+  /// > attributes.
+  external String? get ariaReadOnly;
+  external set ariaReadOnly(String? value);
+
+  /// The **`ariaRequired`** property of the [Element] interface reflects the
+  /// value of the `aria-required` attribute, which indicates that user input is
+  /// required on the element before a form may be submitted.
+  ///
+  /// > **Note:** Where possible use an HTML `input` element with `type="text"`
+  /// > or a `textarea` as these have built in semantics and do not require ARIA
+  /// > attributes.
+  external String? get ariaRequired;
+  external set ariaRequired(String? value);
+
+  /// The **`ariaRoleDescription`** property of the [Element] interface reflects
+  /// the value of the
+  /// [`aria-roledescription`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-roledescription)
+  /// attribute, which defines a human-readable, author-localized description
+  /// for the role of an element.
+  external String? get ariaRoleDescription;
+  external set ariaRoleDescription(String? value);
+
+  /// The **`ariaRowCount`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-rowcount`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowcount)
+  /// attribute, which defines the total number of rows in a table, grid, or
+  /// treegrid.
+  external String? get ariaRowCount;
+  external set ariaRowCount(String? value);
+
+  /// The **`ariaRowIndex`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-rowindex`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowindex)
+  /// attribute, which defines an element's row index or position with respect
+  /// to the total number of rows within a table, grid, or treegrid.
+  external String? get ariaRowIndex;
+  external set ariaRowIndex(String? value);
+
+  /// The **`ariaRowSpan`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-rowspan`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-rowspan)
+  /// attribute, which defines the number of rows spanned by a cell or gridcell
+  /// within a table, grid, or treegrid.
+  external String? get ariaRowSpan;
+  external set ariaRowSpan(String? value);
+
+  /// The **`ariaSelected`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-selected`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected)
+  /// attribute, which indicates the current "selected" state of elements that
+  /// have a selected state.
+  external String? get ariaSelected;
+  external set ariaSelected(String? value);
+
+  /// The **`ariaSetSize`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-setsize`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-setsize)
+  /// attribute, which defines the number of items in the current set of
+  /// listitems or treeitems.
+  external String? get ariaSetSize;
+  external set ariaSetSize(String? value);
+
+  /// The **`ariaSort`** property of the [Element] interface reflects the value
+  /// of the
+  /// [`aria-sort`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-sort)
+  /// attribute, which indicates if items in a table or grid are sorted in
+  /// ascending or descending order.
+  external String? get ariaSort;
+  external set ariaSort(String? value);
+
+  /// The **`ariaValueMax`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-valuemax`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemax)
+  /// attribute, which defines the maximum allowed value for a range widget.
+  external String? get ariaValueMax;
+  external set ariaValueMax(String? value);
+
+  /// The **`ariaValueMin`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-valuemin`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuemin)
+  /// attribute, which defines the minimum allowed value for a range widget.
+  external String? get ariaValueMin;
+  external set ariaValueMin(String? value);
+
+  /// The **`ariaValueNow`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-valuenow`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuenow)
+  /// attribute, which defines the current value for a range widget.
+  external String? get ariaValueNow;
+  external set ariaValueNow(String? value);
+
+  /// The **`ariaValueText`** property of the [Element] interface reflects the
+  /// value of the
+  /// [`aria-valuetext`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext)
+  /// attribute, which defines the human-readable text alternative of
+  /// aria-valuenow for a range widget.
+  external String? get ariaValueText;
+  external set ariaValueText(String? value);
 }
 extension type ShadowRootInit._(JSObject _) implements JSObject {
   external factory ShadowRootInit({
@@ -3921,22 +4395,6 @@ extension type Text._(JSObject _) implements CharacterData, JSObject {
   /// Separated text nodes can be concatenated using the [Node.normalize]
   /// method.
   external Text splitText(int offset);
-  external JSArray<DOMQuad> getBoxQuads([BoxQuadOptions options]);
-  external DOMQuad convertQuadFromNode(
-    DOMQuadInit quad,
-    GeometryNode from, [
-    ConvertCoordinateOptions options,
-  ]);
-  external DOMQuad convertRectFromNode(
-    DOMRectReadOnly rect,
-    GeometryNode from, [
-    ConvertCoordinateOptions options,
-  ]);
-  external DOMPoint convertPointFromNode(
-    DOMPointInit point,
-    GeometryNode from, [
-    ConvertCoordinateOptions options,
-  ]);
 
   /// The read-only **`wholeText`** property of the [Text] interface
   /// returns the full text of all [Text] nodes logically adjacent to the node.

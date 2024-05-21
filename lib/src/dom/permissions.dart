@@ -28,15 +28,16 @@ typedef PermissionState = String;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Permissions).
 extension type Permissions._(JSObject _) implements JSObject {
+  /// The **`Permissions.revoke()`** method of the
+  /// [Permissions] interface reverts a currently set permission back to its
+  /// default state, which is usually `prompt`.
+  /// This method is called on the global [Permissions] object
+  /// [navigator.permissions].
+  external JSPromise<PermissionStatus> revoke(JSObject permissionDesc);
+
   /// The **`Permissions.query()`** method of the [Permissions] interface
   /// returns the state of a user permission on the global scope.
   external JSPromise<PermissionStatus> query(JSObject permissionDesc);
-}
-extension type PermissionDescriptor._(JSObject _) implements JSObject {
-  external factory PermissionDescriptor({required String name});
-
-  external String get name;
-  external set name(String value);
 }
 
 /// The **`PermissionStatus`** interface of the
@@ -60,15 +61,4 @@ extension type PermissionStatus._(JSObject _) implements EventTarget, JSObject {
   external String get name;
   external EventHandler get onchange;
   external set onchange(EventHandler value);
-}
-extension type PermissionSetParameters._(JSObject _) implements JSObject {
-  external factory PermissionSetParameters({
-    required PermissionDescriptor descriptor,
-    required PermissionState state,
-  });
-
-  external PermissionDescriptor get descriptor;
-  external set descriptor(PermissionDescriptor value);
-  external PermissionState get state;
-  external set state(PermissionState value);
 }

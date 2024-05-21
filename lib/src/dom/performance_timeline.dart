@@ -53,7 +53,6 @@ extension type PerformanceEntry._(JSObject _) implements JSObject {
   /// The **`toJSON()`** method is a ; it returns a JSON representation of the
   /// [PerformanceEntry] object.
   external JSObject toJSON();
-  external int get id;
 
   /// The read-only **`name`** property of the [PerformanceEntry] interface is a
   /// string representing the name for a performance entry. It acts as an
@@ -77,7 +76,6 @@ extension type PerformanceEntry._(JSObject _) implements JSObject {
   /// the . The meaning of this property depends on the value of this entry's
   /// [PerformanceEntry.entryType].
   external DOMHighResTimeStamp get duration;
-  external int get navigationId;
 }
 
 /// The **`PerformanceObserver`** interface is used to observe performance
@@ -114,19 +112,12 @@ extension type PerformanceObserver._(JSObject _) implements JSObject {
   /// observer, emptying it out.
   external PerformanceEntryList takeRecords();
 }
-extension type PerformanceObserverCallbackOptions._(JSObject _)
-    implements JSObject {
-  external factory PerformanceObserverCallbackOptions(
-      {int droppedEntriesCount});
-
-  external int get droppedEntriesCount;
-  external set droppedEntriesCount(int value);
-}
 extension type PerformanceObserverInit._(JSObject _) implements JSObject {
   external factory PerformanceObserverInit({
     JSArray<JSString> entryTypes,
     String type,
     bool buffered,
+    DOMHighResTimeStamp durationThreshold,
   });
 
   external JSArray<JSString> get entryTypes;
@@ -135,6 +126,8 @@ extension type PerformanceObserverInit._(JSObject _) implements JSObject {
   external set type(String value);
   external bool get buffered;
   external set buffered(bool value);
+  external DOMHighResTimeStamp get durationThreshold;
+  external set durationThreshold(DOMHighResTimeStamp value);
 }
 
 /// The **`PerformanceObserverEntryList`** interface is a list of

@@ -19,10 +19,6 @@ typedef CSSUnparsedSegment = JSAny;
 typedef CSSKeywordish = JSAny;
 typedef CSSNumberish = JSAny;
 typedef CSSPerspectiveValue = JSAny;
-typedef CSSColorRGBComp = JSAny;
-typedef CSSColorPercent = JSAny;
-typedef CSSColorNumber = JSAny;
-typedef CSSColorAngle = JSAny;
 typedef CSSNumericBaseType = String;
 typedef CSSMathOperator = String;
 
@@ -342,8 +338,6 @@ extension type CSSMathValue._(JSObject _) implements CSSNumericValue, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSMathSum).
 extension type CSSMathSum._(JSObject _) implements CSSMathValue, JSObject {
-  external factory CSSMathSum(CSSNumberish args);
-
   /// The **`CSSMathSum.values`** read-only property
   /// of the [CSSMathSum] interface returns a [CSSNumericArray]
   /// object which contains one or more [CSSNumericValue] objects.
@@ -360,8 +354,6 @@ extension type CSSMathSum._(JSObject _) implements CSSMathValue, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSMathProduct).
 extension type CSSMathProduct._(JSObject _) implements CSSMathValue, JSObject {
-  external factory CSSMathProduct(CSSNumberish args);
-
   /// The **`CSSMathProduct.values`** read-only
   /// property of the [CSSMathProduct] interface returns a
   /// [CSSNumericArray] object which contains one or more
@@ -408,8 +400,6 @@ extension type CSSMathInvert._(JSObject _) implements CSSMathValue, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSMathMin).
 extension type CSSMathMin._(JSObject _) implements CSSMathValue, JSObject {
-  external factory CSSMathMin(CSSNumberish args);
-
   /// The CSSMathMin.values read-only property of the
   /// [CSSMathMin] interface returns a [CSSNumericArray] object
   /// which contains one or more [CSSNumericValue] objects.
@@ -424,8 +414,6 @@ extension type CSSMathMin._(JSObject _) implements CSSMathValue, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSMathMax).
 extension type CSSMathMax._(JSObject _) implements CSSMathValue, JSObject {
-  external factory CSSMathMax(CSSNumberish args);
-
   /// The CSSMathMax.values read-only property of the
   /// [CSSMathMax] interface returns a [CSSNumericArray] object
   /// which contains one or more [CSSNumericValue] objects.
@@ -794,139 +782,3 @@ extension type CSSMatrixComponentOptions._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSImageValue).
 extension type CSSImageValue._(JSObject _) implements CSSStyleValue, JSObject {}
-extension type CSSColorValue._(JSObject _) implements CSSStyleValue, JSObject {
-  external static JSObject parse(String cssText);
-}
-extension type CSSRGB._(JSObject _) implements CSSColorValue, JSObject {
-  external factory CSSRGB(
-    CSSColorRGBComp r,
-    CSSColorRGBComp g,
-    CSSColorRGBComp b, [
-    CSSColorPercent alpha,
-  ]);
-
-  external CSSColorRGBComp get r;
-  external set r(CSSColorRGBComp value);
-  external CSSColorRGBComp get g;
-  external set g(CSSColorRGBComp value);
-  external CSSColorRGBComp get b;
-  external set b(CSSColorRGBComp value);
-  external CSSColorPercent get alpha;
-  external set alpha(CSSColorPercent value);
-}
-extension type CSSHSL._(JSObject _) implements CSSColorValue, JSObject {
-  external factory CSSHSL(
-    CSSColorAngle h,
-    CSSColorPercent s,
-    CSSColorPercent l, [
-    CSSColorPercent alpha,
-  ]);
-
-  external CSSColorAngle get h;
-  external set h(CSSColorAngle value);
-  external CSSColorPercent get s;
-  external set s(CSSColorPercent value);
-  external CSSColorPercent get l;
-  external set l(CSSColorPercent value);
-  external CSSColorPercent get alpha;
-  external set alpha(CSSColorPercent value);
-}
-extension type CSSHWB._(JSObject _) implements CSSColorValue, JSObject {
-  external factory CSSHWB(
-    CSSNumericValue h,
-    CSSNumberish w,
-    CSSNumberish b, [
-    CSSNumberish alpha,
-  ]);
-
-  external CSSNumericValue get h;
-  external set h(CSSNumericValue value);
-  external CSSNumberish get w;
-  external set w(CSSNumberish value);
-  external CSSNumberish get b;
-  external set b(CSSNumberish value);
-  external CSSNumberish get alpha;
-  external set alpha(CSSNumberish value);
-}
-extension type CSSLab._(JSObject _) implements CSSColorValue, JSObject {
-  external factory CSSLab(
-    CSSColorPercent l,
-    CSSColorNumber a,
-    CSSColorNumber b, [
-    CSSColorPercent alpha,
-  ]);
-
-  external CSSColorPercent get l;
-  external set l(CSSColorPercent value);
-  external CSSColorNumber get a;
-  external set a(CSSColorNumber value);
-  external CSSColorNumber get b;
-  external set b(CSSColorNumber value);
-  external CSSColorPercent get alpha;
-  external set alpha(CSSColorPercent value);
-}
-extension type CSSLCH._(JSObject _) implements CSSColorValue, JSObject {
-  external factory CSSLCH(
-    CSSColorPercent l,
-    CSSColorPercent c,
-    CSSColorAngle h, [
-    CSSColorPercent alpha,
-  ]);
-
-  external CSSColorPercent get l;
-  external set l(CSSColorPercent value);
-  external CSSColorPercent get c;
-  external set c(CSSColorPercent value);
-  external CSSColorAngle get h;
-  external set h(CSSColorAngle value);
-  external CSSColorPercent get alpha;
-  external set alpha(CSSColorPercent value);
-}
-extension type CSSOKLab._(JSObject _) implements CSSColorValue, JSObject {
-  external factory CSSOKLab(
-    CSSColorPercent l,
-    CSSColorNumber a,
-    CSSColorNumber b, [
-    CSSColorPercent alpha,
-  ]);
-
-  external CSSColorPercent get l;
-  external set l(CSSColorPercent value);
-  external CSSColorNumber get a;
-  external set a(CSSColorNumber value);
-  external CSSColorNumber get b;
-  external set b(CSSColorNumber value);
-  external CSSColorPercent get alpha;
-  external set alpha(CSSColorPercent value);
-}
-extension type CSSOKLCH._(JSObject _) implements CSSColorValue, JSObject {
-  external factory CSSOKLCH(
-    CSSColorPercent l,
-    CSSColorPercent c,
-    CSSColorAngle h, [
-    CSSColorPercent alpha,
-  ]);
-
-  external CSSColorPercent get l;
-  external set l(CSSColorPercent value);
-  external CSSColorPercent get c;
-  external set c(CSSColorPercent value);
-  external CSSColorAngle get h;
-  external set h(CSSColorAngle value);
-  external CSSColorPercent get alpha;
-  external set alpha(CSSColorPercent value);
-}
-extension type CSSColor._(JSObject _) implements CSSColorValue, JSObject {
-  external factory CSSColor(
-    CSSKeywordish colorSpace,
-    JSArray<CSSColorPercent> channels, [
-    CSSNumberish alpha,
-  ]);
-
-  external CSSKeywordish get colorSpace;
-  external set colorSpace(CSSKeywordish value);
-  external JSArray<CSSColorPercent> get channels;
-  external set channels(JSArray<CSSColorPercent> value);
-  external CSSNumberish get alpha;
-  external set alpha(CSSNumberish value);
-}

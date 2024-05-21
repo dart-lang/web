@@ -20,14 +20,10 @@ import 'webidl.dart';
 typedef GLenum = int;
 typedef GLboolean = bool;
 typedef GLbitfield = int;
-typedef GLbyte = int;
-typedef GLshort = int;
 typedef GLint = int;
 typedef GLsizei = int;
 typedef GLintptr = int;
 typedef GLsizeiptr = int;
-typedef GLubyte = int;
-typedef GLushort = int;
 typedef GLuint = int;
 typedef GLfloat = num;
 typedef GLclampf = num;
@@ -46,6 +42,7 @@ extension type WebGLContextAttributes._(JSObject _) implements JSObject {
     WebGLPowerPreference powerPreference,
     bool failIfMajorPerformanceCaveat,
     bool desynchronized,
+    bool xrCompatible,
   });
 
   external bool get alpha;
@@ -66,22 +63,9 @@ extension type WebGLContextAttributes._(JSObject _) implements JSObject {
   external set failIfMajorPerformanceCaveat(bool value);
   external bool get desynchronized;
   external set desynchronized(bool value);
+  external bool get xrCompatible;
+  external set xrCompatible(bool value);
 }
-
-/// The **`WebGLObject`** is part of the
-/// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
-/// is the parent interface for all WebGL objects.
-///
-/// This object has no public properties or methods on its own.
-///
-/// If the WebGL context is lost, the internal _invalidated_ flag of all
-/// `WebGLObject` instances is set to `true`.
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGLObject).
-extension type WebGLObject._(JSObject _) implements JSObject {}
 
 /// The **WebGLBuffer** interface is part of the
 /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
@@ -91,7 +75,7 @@ extension type WebGLObject._(JSObject _) implements JSObject {}
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGLBuffer).
-extension type WebGLBuffer._(JSObject _) implements WebGLObject, JSObject {}
+extension type WebGLBuffer._(JSObject _) implements JSObject {}
 
 /// The **WebGLFramebuffer** interface is part of the
 /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
@@ -101,8 +85,7 @@ extension type WebGLBuffer._(JSObject _) implements WebGLObject, JSObject {}
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGLFramebuffer).
-extension type WebGLFramebuffer._(JSObject _)
-    implements WebGLObject, JSObject {}
+extension type WebGLFramebuffer._(JSObject _) implements JSObject {}
 
 /// The **`WebGLProgram`** is part of the
 /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
@@ -136,7 +119,7 @@ extension type WebGLFramebuffer._(JSObject _)
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGLProgram).
-extension type WebGLProgram._(JSObject _) implements WebGLObject, JSObject {}
+extension type WebGLProgram._(JSObject _) implements JSObject {}
 
 /// The **WebGLRenderbuffer** interface is part of the
 /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
@@ -147,8 +130,7 @@ extension type WebGLProgram._(JSObject _) implements WebGLObject, JSObject {}
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderbuffer).
-extension type WebGLRenderbuffer._(JSObject _)
-    implements WebGLObject, JSObject {}
+extension type WebGLRenderbuffer._(JSObject _) implements JSObject {}
 
 /// The **WebGLShader** is part of the
 /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
@@ -159,7 +141,7 @@ extension type WebGLRenderbuffer._(JSObject _)
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGLShader).
-extension type WebGLShader._(JSObject _) implements WebGLObject, JSObject {}
+extension type WebGLShader._(JSObject _) implements JSObject {}
 
 /// The **WebGLTexture** interface is part of the
 /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
@@ -170,7 +152,7 @@ extension type WebGLShader._(JSObject _) implements WebGLObject, JSObject {}
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGLTexture).
-extension type WebGLTexture._(JSObject _) implements WebGLObject, JSObject {}
+extension type WebGLTexture._(JSObject _) implements JSObject {}
 
 /// The **WebGLUniformLocation** interface is part of the
 /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API) and
@@ -588,11 +570,6 @@ extension type WebGLRenderingContext._(JSObject _) implements JSObject {
   /// [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
   /// extension.
   external JSObject? getExtension(String name);
-  external void drawingBufferStorage(
-    GLenum sizedFormat,
-    int width,
-    int height,
-  );
 
   /// The **`WebGLRenderingContext.activeTexture()`** method of the
   /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
@@ -1629,6 +1606,24 @@ extension type WebGLRenderingContext._(JSObject _) implements JSObject {
     GLsizei height,
   );
 
+  /// The [WebGLRenderingContext] method
+  /// **`makeXRCompatible()`** ensures that the rendering context
+  /// described by the `WebGLRenderingContext` is ready to render the scene for
+  /// the
+  /// immersive
+  /// [WebXR](https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API)
+  /// device on which it
+  /// will be displayed. If necessary, the
+  /// [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
+  /// layer may reconfigure the context to be ready to render to a different
+  /// device than it
+  /// originally was.
+  ///
+  /// This is useful if you have an application which can start out being
+  /// presented on a
+  /// standard 2D display but can then be transitioned to a 3D immersion system.
+  external JSPromise<JSAny?> makeXRCompatible();
+
   /// The **`WebGLRenderingContext.bufferData()`** method of the
   /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
   /// initializes and creates the
@@ -1811,7 +1806,6 @@ extension type WebGLRenderingContext._(JSObject _) implements JSObject {
   /// provide the
   /// requested height.
   external GLsizei get drawingBufferHeight;
-  external GLenum get drawingBufferFormat;
 
   /// The **`WebGLRenderingContext.drawingBufferColorSpace`** property specifies
   /// the color space of the WebGL drawing buffer. Along with the default
@@ -1822,34 +1816,6 @@ extension type WebGLRenderingContext._(JSObject _) implements JSObject {
   /// for specifying the color space for textures.
   external PredefinedColorSpace get drawingBufferColorSpace;
   external set drawingBufferColorSpace(PredefinedColorSpace value);
-
-  /// The **`WebGLRenderingContext.unpackColorSpace`** property specifies the
-  /// color space to convert to when importing textures. Along with the default
-  /// (`srgb`), the `display-p3` color space can be used.
-  ///
-  /// Texture image sources can be the following:
-  ///
-  /// - [`ImageBitmap`](https://developer.mozilla.org/en-US/docs/Web/API/ImageBitmap)
-  /// - [`ImageData`](https://developer.mozilla.org/en-US/docs/Web/API/ImageData)
-  /// - [`HTMLImageElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement)
-  /// - [`HTMLCanvasElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement)
-  /// - [`HTMLVideoElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLVideoElement)
-  /// - [`OffscreenCanvas`](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas)
-  /// - [`VideoFrame`](https://developer.mozilla.org/en-US/docs/Web/API/VideoFrame)
-  ///
-  /// Textures are imported using the
-  /// [`WebGLRenderingContext.texImage2D()`](https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texImage2D)
-  /// and
-  /// [`WebGLRenderingContext.texSubImage2D()`](https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texSubImage2D)
-  /// methods and conversion to the specified `unpackColorSpace` color space
-  /// happens during import.
-  ///
-  /// Note that this doesn't apply to
-  /// [`HTMLImageElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement)
-  /// when the `UNPACK_COLORSPACE_CONVERSION_WEBGL` pixel storage parameter is
-  /// set to `NONE`.
-  external PredefinedColorSpace get unpackColorSpace;
-  external set unpackColorSpace(PredefinedColorSpace value);
 }
 
 /// The **WebContextEvent** interface is part of the

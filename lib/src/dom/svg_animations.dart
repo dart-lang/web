@@ -61,12 +61,8 @@ extension type SVGAnimationElement._(JSObject _)
   /// example, because the `href` attribute specifies an unknown element), the
   /// value returned is `null`.
   external SVGElement? get targetElement;
-  external EventHandler get onbegin;
-  external set onbegin(EventHandler value);
   external EventHandler get onend;
   external set onend(EventHandler value);
-  external EventHandler get onrepeat;
-  external set onrepeat(EventHandler value);
   external SVGStringList get requiredExtensions;
   external SVGStringList get systemLanguage;
 }
@@ -151,5 +147,3 @@ extension type SVGAnimateTransformElement._(JSObject _)
           'animateTransform',
         );
 }
-extension type SVGDiscardElement._(JSObject _)
-    implements SVGAnimationElement, JSObject {}

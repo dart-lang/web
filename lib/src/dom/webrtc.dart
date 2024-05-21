@@ -17,10 +17,12 @@ import 'dom.dart';
 import 'hr_time.dart';
 import 'html.dart';
 import 'mediacapture_streams.dart';
+import 'mst_content_hint.dart';
 import 'webcryptoapi.dart';
 import 'webidl.dart';
 import 'webrtc_encoded_transform.dart';
-import 'webrtc_stats.dart';
+import 'webrtc_identity.dart';
+import 'webrtc_priority.dart';
 import 'websockets.dart';
 
 typedef RTCPeerConnectionErrorCallback = JSFunction;
@@ -36,7 +38,6 @@ typedef RTCSdpType = String;
 typedef RTCIceProtocol = String;
 typedef RTCIceTcpCandidateType = String;
 typedef RTCIceCandidateType = String;
-typedef RTCIceServerTransportProtocol = String;
 typedef RTCRtpTransceiverDirection = String;
 typedef RTCDtlsTransportState = String;
 typedef RTCIceGathererState = String;
@@ -54,6 +55,7 @@ extension type RTCConfiguration._(JSObject _) implements JSObject {
     RTCRtcpMuxPolicy rtcpMuxPolicy,
     JSArray<RTCCertificate> certificates,
     int iceCandidatePoolSize,
+    String peerIdentity,
   });
 
   external JSArray<RTCIceServer> get iceServers;
@@ -68,6 +70,8 @@ extension type RTCConfiguration._(JSObject _) implements JSObject {
   external set certificates(JSArray<RTCCertificate> value);
   external int get iceCandidatePoolSize;
   external set iceCandidatePoolSize(int value);
+  external String get peerIdentity;
+  external set peerIdentity(String value);
 }
 extension type RTCIceServer._(JSObject _) implements JSObject {
   external factory RTCIceServer({
@@ -121,6 +125,35 @@ extension type RTCPeerConnection._(JSObject _)
 
   external static JSPromise<RTCCertificate> generateCertificate(
       AlgorithmIdentifier keygenAlgorithm);
+
+  /// The **`RTCPeerConnection.setIdentityProvider()`** method sets
+  /// the Identity Provider (IdP) to the triplet given in parameter: its name,
+  /// the protocol
+  /// used to communicate with it (optional) and an optional username. The IdP
+  /// will be used
+  /// only when an assertion is needed.
+  ///
+  /// If the [RTCPeerConnection.signalingState] is set to
+  /// `"closed"`, an `InvalidStateError` is raised.
+  external void setIdentityProvider(
+    String provider, [
+    RTCIdentityProviderOptions options,
+  ]);
+
+  /// The **`RTCPeerConnection.getIdentityAssertion()`** method
+  /// initiates the gathering of an identity assertion. This has an effect only
+  /// if the
+  /// [RTCPeerConnection.signalingState] is not
+  /// `"closed"`.
+  ///
+  /// The method returns a JavaScript `Promise` which resolves to an
+  /// identity assertion encoded as a string.
+  ///
+  /// It is not expected for the application dealing with the
+  /// `RTCPeerConnection`:
+  /// this is automatically done; an explicit call only allows to anticipate the
+  /// need.
+  external JSPromise<JSString> getIdentityAssertion();
 
   /// The **`createOffer()`** method
   /// of the [RTCPeerConnection] interface
@@ -415,6 +448,15 @@ extension type RTCPeerConnection._(JSObject _)
   /// specified
   /// [MediaStreamTrack].
   external JSPromise<RTCStatsReport> getStats([MediaStreamTrack? selector]);
+
+  /// The read-only [RTCPeerConnection] property
+  /// **`peerIdentity`** returns a JavaScript `Promise`
+  /// that resolves to an [RTCIdentityAssertion] which contains a
+  /// string identifying the remote peer. Once this promise
+  /// resolves successfully, the resulting identity is the **target peer
+  /// identity** and cannot change for the duration of the connection.
+  external JSPromise<JSObject> get peerIdentity;
+  external String? get idpLoginUrl;
 
   /// The read-only property **`RTCPeerConnection.localDescription`** returns an
   /// [RTCSessionDescription] describing the session for the local end of the
@@ -914,8 +956,6 @@ extension type RTCIceCandidate._(JSObject _) implements JSObject {
   /// Note that 24 bits of the username fragment are required to be randomized
   /// by the browser. See [Randomization](#randomization) below for details.
   external String? get usernameFragment;
-  external RTCIceServerTransportProtocol? get relayProtocol;
-  external String? get url;
 }
 extension type RTCIceCandidateInit._(JSObject _) implements JSObject {
   external factory RTCIceCandidateInit({
@@ -1023,12 +1063,6 @@ extension type RTCPeerConnectionIceErrorEventInit._(JSObject _)
   external String get errorText;
   external set errorText(String value);
 }
-extension type RTCCertificateExpiration._(JSObject _) implements JSObject {
-  external factory RTCCertificateExpiration({int expires});
-
-  external int get expires;
-  external set expires(int value);
-}
 
 /// The **`RTCCertificate`** interface of the
 /// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
@@ -1095,7 +1129,6 @@ extension type RTCRtpTransceiverInit._(JSObject _) implements JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpSender).
 extension type RTCRtpSender._(JSObject _) implements JSObject {
   external static RTCRtpCapabilities? getCapabilities(String kind);
-  external JSPromise<JSAny?> generateKeyFrame([JSArray<JSString> rids]);
 
   /// The **`setParameters()`** method of the [RTCRtpSender] interface applies
   /// changes the configuration of sender's [RTCRtpSender.track], which is the
@@ -1210,12 +1243,15 @@ extension type RTCRtpSendParameters._(JSObject _)
     required JSArray<RTCRtpCodecParameters> codecs,
     required String transactionId,
     required JSArray<RTCRtpEncodingParameters> encodings,
+    RTCDegradationPreference degradationPreference,
   });
 
   external String get transactionId;
   external set transactionId(String value);
   external JSArray<RTCRtpEncodingParameters> get encodings;
   external set encodings(JSArray<RTCRtpEncodingParameters> value);
+  external RTCDegradationPreference get degradationPreference;
+  external set degradationPreference(RTCDegradationPreference value);
 }
 extension type RTCRtpReceiveParameters._(JSObject _)
     implements RTCRtpParameters, JSObject {
@@ -1239,6 +1275,9 @@ extension type RTCRtpEncodingParameters._(JSObject _)
     int maxBitrate,
     num maxFramerate,
     num scaleResolutionDownBy,
+    RTCPriorityType priority,
+    RTCPriorityType networkPriority,
+    String scalabilityMode,
   });
 
   external bool get active;
@@ -1249,6 +1288,12 @@ extension type RTCRtpEncodingParameters._(JSObject _)
   external set maxFramerate(num value);
   external num get scaleResolutionDownBy;
   external set scaleResolutionDownBy(num value);
+  external RTCPriorityType get priority;
+  external set priority(RTCPriorityType value);
+  external RTCPriorityType get networkPriority;
+  external set networkPriority(RTCPriorityType value);
+  external String get scalabilityMode;
+  external set scalabilityMode(String value);
 }
 extension type RTCRtcpParameters._(JSObject _) implements JSObject {
   external factory RTCRtcpParameters({
@@ -1652,6 +1697,10 @@ extension type RTCIceTransport._(JSObject _) implements EventTarget, JSObject {
   /// transport when the client calls
   /// [RTCPeerConnection.setRemoteDescription].
   external RTCIceParameters? getRemoteParameters();
+  external EventHandler get onerror;
+  external set onerror(EventHandler value);
+  external EventHandler get onicecandidate;
+  external set onicecandidate(EventHandler value);
 
   /// The read-only **[RTCIceTransport]**
   /// property **`role`** indicates which  role
@@ -1662,11 +1711,6 @@ extension type RTCIceTransport._(JSObject _) implements EventTarget, JSObject {
   /// You can learn more about ICE roles in
   /// [Choosing a candidate pair](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity#choosing_a_candidate_pair).
   external RTCIceRole get role;
-
-  /// The read-only **[RTCIceTransport]**
-  /// property **`component`** specifies whether the object is
-  /// serving to transport  or .
-  external RTCIceComponent get component;
 
   /// The read-only **[RTCIceTransport]**
   /// property **`state`** returns the current state of the ICE
@@ -1707,6 +1751,7 @@ extension type RTCIceParameters._(JSObject _) implements JSObject {
   external factory RTCIceParameters({
     String usernameFragment,
     String password,
+    bool iceLite,
   });
 
   /// The **[RTCIceParameters]** dictionary's
@@ -1724,6 +1769,8 @@ extension type RTCIceParameters._(JSObject _) implements JSObject {
   /// duration.
   external String get password;
   external set password(String value);
+  external bool get iceLite;
+  external set iceLite(bool value);
 }
 
 /// The **`RTCIceCandidatePair`** dictionary describes a pair of ICE candidates
@@ -2136,6 +2183,7 @@ extension type RTCDataChannelInit._(JSObject _) implements JSObject {
     String protocol,
     bool negotiated,
     int id,
+    RTCPriorityType priority,
   });
 
   external bool get ordered;
@@ -2150,6 +2198,8 @@ extension type RTCDataChannelInit._(JSObject _) implements JSObject {
   external set negotiated(bool value);
   external int get id;
   external set id(int value);
+  external RTCPriorityType get priority;
+  external set priority(RTCPriorityType value);
 }
 
 /// The **`RTCDataChannelEvent`** interface
@@ -2293,20 +2343,6 @@ extension type RTCDTMFToneChangeEventInit._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCStatsReport).
 extension type RTCStatsReport._(JSObject _) implements JSObject {}
-extension type RTCStats._(JSObject _) implements JSObject {
-  external factory RTCStats({
-    required DOMHighResTimeStamp timestamp,
-    required RTCStatsType type,
-    required String id,
-  });
-
-  external DOMHighResTimeStamp get timestamp;
-  external set timestamp(DOMHighResTimeStamp value);
-  external RTCStatsType get type;
-  external set type(RTCStatsType value);
-  external String get id;
-  external set id(String value);
-}
 
 /// The **`RTCError`** interface describes an error which has occurred while
 /// handling
@@ -2323,6 +2359,8 @@ extension type RTCError._(JSObject _) implements DOMException, JSObject {
     RTCErrorInit init, [
     String message,
   ]);
+
+  external int? get httpRequestStatusCode;
 
   /// The [RTCError] interface's read-only
   /// **`errorDetail`** property is a string indicating the
@@ -2359,6 +2397,7 @@ extension type RTCErrorInit._(JSObject _) implements JSObject {
     int sctpCauseCode,
     int receivedAlert,
     int sentAlert,
+    int httpRequestStatusCode,
   });
 
   external RTCErrorDetailType get errorDetail;
@@ -2371,6 +2410,8 @@ extension type RTCErrorInit._(JSObject _) implements JSObject {
   external set receivedAlert(int value);
   external int get sentAlert;
   external set sentAlert(int value);
+  external int get httpRequestStatusCode;
+  external set httpRequestStatusCode(int value);
 }
 
 /// The WebRTC API's **`RTCErrorEvent`** interface represents an error sent to a

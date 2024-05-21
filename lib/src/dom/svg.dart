@@ -18,7 +18,6 @@ import 'cssom.dart';
 import 'dom.dart';
 import 'geometry.dart';
 import 'html.dart';
-import 'web_animations.dart';
 
 /// All of the SVG DOM interfaces that correspond directly to elements in the
 /// SVG language derive from the `SVGElement` interface.
@@ -54,8 +53,6 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external set onauxclick(EventHandler value);
   external EventHandler get onbeforeinput;
   external set onbeforeinput(EventHandler value);
-  external EventHandler get onbeforematch;
-  external set onbeforematch(EventHandler value);
   external EventHandler get onbeforetoggle;
   external set onbeforetoggle(EventHandler value);
   external EventHandler get onblur;
@@ -188,14 +185,6 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external set onvolumechange(EventHandler value);
   external EventHandler get onwaiting;
   external set onwaiting(EventHandler value);
-  external EventHandler get onwebkitanimationend;
-  external set onwebkitanimationend(EventHandler value);
-  external EventHandler get onwebkitanimationiteration;
-  external set onwebkitanimationiteration(EventHandler value);
-  external EventHandler get onwebkitanimationstart;
-  external set onwebkitanimationstart(EventHandler value);
-  external EventHandler get onwebkittransitionend;
-  external set onwebkittransitionend(EventHandler value);
   external EventHandler get onwheel;
   external set onwheel(EventHandler value);
   external EventHandler get onpointerover;
@@ -206,8 +195,6 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external set onpointerdown(EventHandler value);
   external EventHandler get onpointermove;
   external set onpointermove(EventHandler value);
-  external EventHandler get onpointerrawupdate;
-  external set onpointerrawupdate(EventHandler value);
   external EventHandler get onpointerup;
   external set onpointerup(EventHandler value);
   external EventHandler get onpointercancel;
@@ -232,8 +219,6 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external set ontouchmove(EventHandler value);
   external EventHandler get ontouchcancel;
   external set ontouchcancel(EventHandler value);
-  external SVGElement? get correspondingElement;
-  external SVGUseElement? get correspondingUseElement;
   external DOMStringMap get dataset;
   external String get nonce;
   external set nonce(String value);
@@ -543,7 +528,6 @@ extension type SVGStringList._(JSObject _) implements JSObject {
   );
   external String removeItem(int index);
   external String appendItem(String newItem);
-  external int get length;
   external int get numberOfItems;
 }
 
@@ -828,8 +812,6 @@ extension type SVGSVGElement._(JSObject _)
   external set ononline(EventHandler value);
   external EventHandler get onpagehide;
   external set onpagehide(EventHandler value);
-  external EventHandler get onpagereveal;
-  external set onpagereveal(EventHandler value);
   external EventHandler get onpageshow;
   external set onpageshow(EventHandler value);
   external EventHandler get onpopstate;
@@ -960,19 +942,7 @@ extension type SVGUseElement._(JSObject _)
   external SVGAnimatedLength get y;
   external SVGAnimatedLength get width;
   external SVGAnimatedLength get height;
-  external SVGElement? get instanceRoot;
-  external SVGElement? get animatedInstanceRoot;
   external SVGAnimatedString get href;
-}
-extension type SVGUseElementShadowRoot._(JSObject _)
-    implements ShadowRoot, JSObject {}
-extension type ShadowAnimation._(JSObject _) implements Animation, JSObject {
-  external factory ShadowAnimation(
-    Animation source,
-    JSObject newTarget,
-  );
-
-  external Animation get sourceAnimation;
 }
 
 /// The **`SVGSwitchElement`** interface corresponds to the  element.
@@ -1095,7 +1065,6 @@ extension type SVGTransformList._(JSObject _) implements JSObject {
   external SVGTransform appendItem(SVGTransform newItem);
   external SVGTransform createSVGTransformFromMatrix([DOMMatrix2DInit matrix]);
   external SVGTransform? consolidate();
-  external int get length;
   external int get numberOfItems;
 }
 
@@ -1805,25 +1774,6 @@ extension type SVGAElement._(JSObject _)
   external set text(String value);
   external String get referrerPolicy;
   external set referrerPolicy(String value);
-  external String get origin;
-  external String get protocol;
-  external set protocol(String value);
-  external String get username;
-  external set username(String value);
-  external String get password;
-  external set password(String value);
-  external String get host;
-  external set host(String value);
-  external String get hostname;
-  external set hostname(String value);
-  external String get port;
-  external set port(String value);
-  external String get pathname;
-  external set pathname(String value);
-  external String get search;
-  external set search(String value);
-  external String get hash;
-  external set hash(String value);
   external SVGAnimatedString get href;
 }
 

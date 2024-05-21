@@ -24,7 +24,6 @@ typedef AnimationReplaceState = String;
 typedef FillMode = String;
 typedef PlaybackDirection = String;
 typedef CompositeOperation = String;
-typedef CompositeOperationOrAuto = String;
 
 /// The `AnimationTimeline` interface of the
 /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
@@ -40,14 +39,11 @@ typedef CompositeOperationOrAuto = String;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AnimationTimeline).
 extension type AnimationTimeline._(JSObject _) implements JSObject {
-  external Animation play([AnimationEffect? effect]);
-
   /// The **`currentTime`** read-only property of the
   /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)'s
   /// [AnimationTimeline] interface returns the timeline's current time in
   /// milliseconds, or `null` if the timeline is inactive.
   external CSSNumberish? get currentTime;
-  external CSSNumberish? get duration;
 }
 extension type DocumentTimelineOptions._(JSObject _) implements JSObject {
   external factory DocumentTimelineOptions({DOMHighResTimeStamp originTime});
@@ -298,11 +294,6 @@ extension type Animation._(JSObject _) implements EventTarget, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AnimationEffect).
 extension type AnimationEffect._(JSObject _) implements JSObject {
-  external void before(AnimationEffect effects);
-  external void after(AnimationEffect effects);
-  external void replace(AnimationEffect effects);
-  external void remove();
-
   /// The `AnimationEffect.getTiming()` method of the [AnimationEffect]
   /// interface returns an object containing the timing properties for the
   /// Animation Effect.
@@ -327,31 +318,20 @@ extension type AnimationEffect._(JSObject _) implements JSObject {
   /// The `updateTiming()` method of the [AnimationEffect] interface updates the
   /// specified timing properties for an animation effect.
   external void updateTiming([OptionalEffectTiming timing]);
-  external GroupEffect? get parent;
-  external AnimationEffect? get previousSibling;
-  external AnimationEffect? get nextSibling;
 }
 extension type EffectTiming._(JSObject _) implements JSObject {
   external factory EffectTiming({
-    num delay,
-    num endDelay,
-    num playbackRate,
-    JSAny duration,
     FillMode fill,
     num iterationStart,
     num iterations,
     PlaybackDirection direction,
     String easing,
+    num delay,
+    num endDelay,
+    num playbackRate,
+    JSAny duration,
   });
 
-  external num get delay;
-  external set delay(num value);
-  external num get endDelay;
-  external set endDelay(num value);
-  external num get playbackRate;
-  external set playbackRate(num value);
-  external JSAny get duration;
-  external set duration(JSAny value);
   external FillMode get fill;
   external set fill(FillMode value);
   external num get iterationStart;
@@ -362,10 +342,17 @@ extension type EffectTiming._(JSObject _) implements JSObject {
   external set direction(PlaybackDirection value);
   external String get easing;
   external set easing(String value);
+  external num get delay;
+  external set delay(num value);
+  external num get endDelay;
+  external set endDelay(num value);
+  external num get playbackRate;
+  external set playbackRate(num value);
+  external JSAny get duration;
+  external set duration(JSAny value);
 }
 extension type OptionalEffectTiming._(JSObject _) implements JSObject {
   external factory OptionalEffectTiming({
-    num playbackRate,
     num delay,
     num endDelay,
     FillMode fill,
@@ -374,10 +361,9 @@ extension type OptionalEffectTiming._(JSObject _) implements JSObject {
     JSAny duration,
     PlaybackDirection direction,
     String easing,
+    num playbackRate,
   });
 
-  external num get playbackRate;
-  external set playbackRate(num value);
   external num get delay;
   external set delay(num value);
   external num get endDelay;
@@ -394,27 +380,33 @@ extension type OptionalEffectTiming._(JSObject _) implements JSObject {
   external set direction(PlaybackDirection value);
   external String get easing;
   external set easing(String value);
+  external num get playbackRate;
+  external set playbackRate(num value);
 }
 extension type ComputedEffectTiming._(JSObject _)
     implements EffectTiming, JSObject {
   external factory ComputedEffectTiming({
-    num delay,
-    num endDelay,
-    num playbackRate,
-    JSAny duration,
     FillMode fill,
     num iterationStart,
     num iterations,
     PlaybackDirection direction,
     String easing,
+    num delay,
+    num endDelay,
+    num playbackRate,
+    JSAny duration,
+    num? progress,
+    num? currentIteration,
     CSSNumberish startTime,
     CSSNumberish endTime,
     CSSNumberish activeDuration,
     CSSNumberish? localTime,
-    num? progress,
-    num? currentIteration,
   });
 
+  external num? get progress;
+  external set progress(num? value);
+  external num? get currentIteration;
+  external set currentIteration(num? value);
   external CSSNumberish get startTime;
   external set startTime(CSSNumberish value);
   external CSSNumberish get endTime;
@@ -423,10 +415,6 @@ extension type ComputedEffectTiming._(JSObject _)
   external set activeDuration(CSSNumberish value);
   external CSSNumberish? get localTime;
   external set localTime(CSSNumberish? value);
-  external num? get progress;
-  external set progress(num? value);
-  external num? get currentIteration;
-  external set currentIteration(num? value);
 }
 
 /// The **`KeyframeEffect`** interface of the
@@ -487,104 +475,59 @@ extension type KeyframeEffect._(JSObject _)
   external CompositeOperation get composite;
   external set composite(CompositeOperation value);
 }
-extension type BaseComputedKeyframe._(JSObject _) implements JSObject {
-  external factory BaseComputedKeyframe({
-    num? offset,
-    num computedOffset,
-    String easing,
-    CompositeOperationOrAuto composite,
-  });
-
-  external num? get offset;
-  external set offset(num? value);
-  external num get computedOffset;
-  external set computedOffset(num value);
-  external String get easing;
-  external set easing(String value);
-  external CompositeOperationOrAuto get composite;
-  external set composite(CompositeOperationOrAuto value);
-}
-extension type BasePropertyIndexedKeyframe._(JSObject _) implements JSObject {
-  external factory BasePropertyIndexedKeyframe({
-    JSAny? offset,
-    JSAny easing,
-    JSAny composite,
-  });
-
-  external JSAny? get offset;
-  external set offset(JSAny? value);
-  external JSAny get easing;
-  external set easing(JSAny value);
-  external JSAny get composite;
-  external set composite(JSAny value);
-}
-extension type BaseKeyframe._(JSObject _) implements JSObject {
-  external factory BaseKeyframe({
-    num? offset,
-    String easing,
-    CompositeOperationOrAuto composite,
-  });
-
-  external num? get offset;
-  external set offset(num? value);
-  external String get easing;
-  external set easing(String value);
-  external CompositeOperationOrAuto get composite;
-  external set composite(CompositeOperationOrAuto value);
-}
 extension type KeyframeEffectOptions._(JSObject _)
     implements EffectTiming, JSObject {
   external factory KeyframeEffectOptions({
-    num delay,
-    num endDelay,
-    num playbackRate,
-    JSAny duration,
     FillMode fill,
     num iterationStart,
     num iterations,
     PlaybackDirection direction,
     String easing,
-    IterationCompositeOperation iterationComposite,
+    num delay,
+    num endDelay,
+    num playbackRate,
+    JSAny duration,
     CompositeOperation composite,
     String? pseudoElement,
+    IterationCompositeOperation iterationComposite,
   });
 
-  external IterationCompositeOperation get iterationComposite;
-  external set iterationComposite(IterationCompositeOperation value);
   external CompositeOperation get composite;
   external set composite(CompositeOperation value);
   external String? get pseudoElement;
   external set pseudoElement(String? value);
+  external IterationCompositeOperation get iterationComposite;
+  external set iterationComposite(IterationCompositeOperation value);
 }
 extension type KeyframeAnimationOptions._(JSObject _)
     implements KeyframeEffectOptions, JSObject {
   external factory KeyframeAnimationOptions({
-    num delay,
-    num endDelay,
-    num playbackRate,
-    JSAny duration,
     FillMode fill,
     num iterationStart,
     num iterations,
     PlaybackDirection direction,
     String easing,
-    IterationCompositeOperation iterationComposite,
+    num delay,
+    num endDelay,
+    num playbackRate,
+    JSAny duration,
     CompositeOperation composite,
     String? pseudoElement,
-    JSAny rangeStart,
-    JSAny rangeEnd,
+    IterationCompositeOperation iterationComposite,
     String id,
     AnimationTimeline? timeline,
+    JSAny rangeStart,
+    JSAny rangeEnd,
   });
 
-  external JSAny get rangeStart;
-  external set rangeStart(JSAny value);
-  external JSAny get rangeEnd;
-  external set rangeEnd(JSAny value);
   external String get id;
   external set id(String value);
   external AnimationTimeline? get timeline;
   external set timeline(AnimationTimeline? value);
+  external JSAny get rangeStart;
+  external set rangeStart(JSAny value);
+  external JSAny get rangeEnd;
+  external set rangeEnd(JSAny value);
 }
 extension type GetAnimationsOptions._(JSObject _) implements JSObject {
   external factory GetAnimationsOptions({bool subtree});

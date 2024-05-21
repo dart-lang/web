@@ -352,6 +352,7 @@ extension type CSSRule._(JSObject _) implements JSObject {
   external static int get SUPPORTS_RULE;
   external static int get COUNTER_STYLE_RULE;
   external static int get FONT_FEATURE_VALUES_RULE;
+  external static int get VIEW_TRANSITION_RULE;
   external static int get STYLE_RULE;
   external static int get CHARSET_RULE;
   external static int get IMPORT_RULE;
@@ -533,10 +534,6 @@ extension type CSSPageRule._(JSObject _) implements CSSGroupingRule, JSObject {
   /// [CSS declaration block](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model/CSS_Declaration_Block),
   /// and exposes style information and various style-related methods and
   /// properties.
-  external CSSStyleDeclaration get style;
-}
-extension type CSSMarginRule._(JSObject _) implements CSSRule, JSObject {
-  external String get name;
   external CSSStyleDeclaration get style;
 }
 

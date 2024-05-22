@@ -347,8 +347,8 @@ extension type CustomEvent._(JSObject _) implements Event, JSObject {
     JSAny? detail,
   ]);
 
-  /// The read-only **`detail`** property of the [CustomEvent] interface
-  /// returns any data passed when initializing the event.
+  /// The read-only **`detail`** property of the [CustomEvent] interface returns
+  /// any data passed when initializing the event.
   external JSAny? get detail;
 }
 extension type CustomEventInit._(JSObject _) implements EventInit, JSObject {
@@ -1639,19 +1639,26 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// The **`hasStorageAccess()`** method of the [Document] interface returns a
   /// `Promise` that resolves with a boolean value indicating whether the
   /// document has access to
-  /// [third-party](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#third-party_cookies),
+  /// [third-party](https://developer.mozilla.org/en-US/docs/Web/Privacy/Third-party_cookies),
   /// [unpartitioned](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API#unpartitioned_versus_partitioned_cookies)
   /// cookies.
   ///
   /// This method is part of the
   /// [Storage Access API](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API).
+  ///
+  /// > **Note:** This method is another name for
+  /// > [Document.hasUnpartitionedCookieAccess]. There are no current plans to
+  /// > remove this method in favor of [Document.hasUnpartitionedCookieAccess].
   external JSPromise<JSBoolean> hasStorageAccess();
 
   /// The **`requestStorageAccess()`** method of the [Document] interface allows
   /// content loaded in a third-party context (i.e., embedded in an `iframe`) to
-  /// request access to third-party cookies. This is relevant to user agents
-  /// that, by default, block access to
-  /// [third-party](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#third-party_cookies),
+  /// request access to
+  /// [third-party cookies](https://developer.mozilla.org/en-US/docs/Web/Privacy/Third-party_cookies)
+  /// and
+  /// [unpartitioned state](https://developer.mozilla.org/en-US/docs/Web/Privacy/State_Partitioning#state_partitioning).
+  /// This is relevant to user agents that, by default, block access to
+  /// third-party,
   /// [unpartitioned](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API#unpartitioned_versus_partitioned_cookies)
   /// cookies to improve privacy (e.g., to prevent tracking), and is part of the
   /// [Storage Access API](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API).
@@ -1804,19 +1811,6 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// > **Note:** A "character set" and a "character encoding" are related, but
   /// > different. Despite the
   /// > name of this property, it returns the _encoding_.
-  ///
-  /// Users can override the developer-specified encoding inside the
-  /// [Content-Type](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type)
-  /// header or inline
-  /// like `<meta charset="utf-8">`, such as with Firefox's <kbd>View → Text
-  /// Encoding</kbd> menu. This override is provided to fix incorrect
-  /// developer-specified
-  /// encodings that result in
-  /// [garbled text](https://en.wikipedia.org/wiki/Mojibake).
-  ///
-  /// > **Note:** The properties `document.charset` and `document.inputEncoding`
-  /// > are legacy aliases for `document.characterSet`. Do not use them any
-  /// > more.
   external String get characterSet;
 
   /// The **`Document.contentType`** read-only property returns the
@@ -1830,13 +1824,9 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// > elements.
   external String get contentType;
 
-  /// Returns the Document Type Declaration (DTD) associated with current
-  /// document. The
-  /// returned object implements the [DocumentType] interface. Use
-  /// [DOMImplementation.createDocumentType] to create a
-  /// `DocumentType`.
-  ///
-  /// - `doctype` is a read-only property.
+  /// The **`doctype`** read-only property of the [Document] interface is a
+  /// [DocumentType] object representing the the  associated with the current
+  /// document.
   external DocumentType? get doctype;
 
   /// **`Document.documentElement`** returns the
@@ -1955,11 +1945,10 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// the current document.
   external HTMLHeadElement? get head;
 
-  /// The **`images`** read-only property of
-  /// the [Document] interface returns a
+  /// The **`images`** read-only property of the [Document] interface returns a
   /// [collection](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCollection)
   /// of the
-  /// [images](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image)
+  /// [images](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement)
   /// in the current HTML document.
   external HTMLCollection get images;
 
@@ -2714,16 +2703,22 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   /// [Web Animations](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API).
   external JSArray<Animation> getAnimations();
 
-  /// The **`mode`** read-only property of the [ShadowRoot]
-  /// specifies its mode — either `open` or `closed`. This defines
-  /// whether or not the shadow root's internal features are accessible from
-  /// JavaScript.
+  /// The **`mode`** read-only property of the [ShadowRoot] specifies its mode —
+  /// either `open` or `closed`.
+  /// This defines whether or not the shadow root's internal features are
+  /// accessible from JavaScript.
   ///
   /// When the `mode` of a shadow root is "`closed`", the shadow root's
   /// implementation internals are inaccessible and unchangeable from
-  /// JavaScript—in the same
-  /// way the implementation internals of, for example, the `video` element
-  /// are inaccessible and unchangeable from JavaScript.
+  /// JavaScript—in the same way the implementation internals of, for example,
+  /// the `video` element are inaccessible and unchangeable from JavaScript.
+  ///
+  /// The property value is set using the `options.mode` property of the object
+  /// passed to [Element.attachShadow], or using the
+  /// [`shadowrootmode`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootmode)
+  /// attribute of the
+  /// [`<template>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template)
+  /// element when a shadow root is created declaratively.
   external ShadowRootMode get mode;
 
   /// The **`delegatesFocus`** read-only property of the [ShadowRoot] interface
@@ -2745,8 +2740,12 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   /// accessibility issues, such as bypassing important content which may go
   /// unnoticed due to focus being set to an element later in the DOM order.
   ///
-  /// The property value is set using the `delegatesFocus` property of the
-  /// object passed to [Element.attachShadow]).
+  /// The property value is originally set using the `delegatesFocus` property
+  /// of the object passed to [Element.attachShadow], or using the
+  /// [`shadowrootdelegatesfocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootclonable)
+  /// attribute of the
+  /// [`<template>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template)
+  /// element when a shadow root is created declaratively.
   external bool get delegatesFocus;
 
   /// The read-only **`slotAssignment`** property of the [ShadowRoot] interface
@@ -2757,10 +2756,17 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   external SlotAssignmentMode get slotAssignment;
 
   /// The **`clonable`** read-only property of the [ShadowRoot] interface
-  /// returns `true` if the shadow root is clonable, and `false` otherwise. It
-  /// always returns `true` for shadow roots created via declarative shadow DOM.
+  /// returns `true` if the shadow root is clonable, and `false` otherwise.
+  ///
+  /// When the value is `true`, a shadow host cloned with [Node.cloneNode] or
+  /// [Document.importNode] will include a copy of the shadow root.
+  ///
+  /// By default the value is `false`.
   /// It can be set to `true` using the `clonable` option of the
-  /// [Element.attachShadow] method.
+  /// [Element.attachShadow] method or by setting the
+  /// [`shadowrootclonable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootclonable)
+  /// attribute of the `<template>` element that is being used to declaratively
+  /// attach a shadow root.
   external bool get clonable;
 
   /// The **`host`** read-only property of
@@ -2966,9 +2972,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// [Element] interface returns the value of a specified attribute on the
   /// element.
   ///
-  /// If the given attribute does not exist, the value returned will
-  /// either be `null` or `""` (the empty string); see
-  /// [Non-existing attributes](#non-existing_attributes) for details.
+  /// If the given attribute does not exist, the value returned will be `null`.
   ///
   /// If you need to inspect the [Attr] node's properties, you can use the
   /// [Element.getAttributeNode] method instead.
@@ -2990,10 +2994,10 @@ extension type Element._(JSObject _) implements Node, JSObject {
     String localName,
   );
 
-  /// Sets the value of an attribute on the specified element. If
-  /// the attribute already exists, the value is updated; otherwise a new
-  /// attribute is added
-  /// with the specified name and value.
+  /// The **`setAttribute()`** method of the [Element] interface sets the value
+  /// of an attribute on the specified element. If the attribute already exists,
+  /// the value is updated; otherwise a new attribute is added with the
+  /// specified name and value.
   ///
   /// To get the current value of an attribute, use [Element.getAttribute]; to
   /// remove an attribute, call [Element.removeAttribute].
@@ -3644,13 +3648,30 @@ extension type Element._(JSObject _) implements Node, JSObject {
   external EventHandler get onfullscreenerror;
   external set onfullscreenerror(EventHandler value);
 
-  /// The [Element] property
-  /// **`innerHTML`** gets or sets the HTML or XML markup contained
-  /// within the element.
+  /// The [Element] property **`innerHTML`** gets or sets the HTML or XML markup
+  /// contained within the element.
+  ///
+  /// More precisely, `innerHTML` gets a serialization of the nested child DOM
+  /// elements within the element, or sets HTML or XML that should be parsed to
+  /// replace the DOM tree within the element.
   ///
   /// To insert the HTML into the document rather than replace the contents of
-  /// an element,
-  /// use the method [Element.insertAdjacentHTML].
+  /// an element, use the method [Element.insertAdjacentHTML].
+  ///
+  /// The serialization of the DOM tree read from the property does not include
+  /// — if you want to get a HTML string that includes shadow roots, you must
+  /// instead use the [Element.getHTML] or [ShadowRoot.getHTML] methods.
+  /// Similarly, when setting element content using `innerHTML`, the HTML string
+  /// is parsed into DOM elements that do not contain shadow roots.
+  ///
+  /// So for example
+  /// [`<template>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template)
+  /// is parsed into as [HTMLTemplateElement], whether or not the
+  /// [`shadowrootmode`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootmode)
+  /// attribute is specfied
+  /// In order to set an element's contents from an HTML string that includes
+  /// declarative shadow roots, you must use either [Element.setHTMLUnsafe] or
+  /// [ShadowRoot.setHTMLUnsafe].
   external String get innerHTML;
   external set innerHTML(String value);
 
@@ -4329,7 +4350,7 @@ extension type CharacterData._(JSObject _) implements Node, JSObject {
   /// integer.
   external int get length;
 
-  /// The read-only **`previousElementSibling`** of the [CharacterData]
+  /// The read-only **`previousElementSibling`** property of the [CharacterData]
   /// interface
   /// returns the first [Element] before the current node in its parent's
   /// children list,

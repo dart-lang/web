@@ -88,10 +88,10 @@ extension type SpeechRecognition._(JSObject _)
 
   /// The **`interimResults`** property of the
   /// [SpeechRecognition] interface controls whether interim results should be
-  /// returned (`true`) or not (`false`.) Interim results are results
+  /// returned (`true`) or not (`false`). Interim results are results
   /// that are not yet final (e.g. the [SpeechRecognitionResult.isFinal]
   /// property
-  /// is `false`.)
+  /// is `false`).
   ///
   /// The default value for **`interimResults`** is `false`.
   external bool get interimResults;

@@ -25,10 +25,8 @@ typedef KeyFormat = String;
 /// It allows access to a cryptographically strong random number generator and
 /// to cryptographic primitives.
 ///
-/// The
-/// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
-/// is accessed through the global [crypto_property] property, which is a
-/// `Crypto` object.
+/// The `Crypto` is available in windows using the [Window.crypto] property and
+/// in workers using the the [WorkerGlobalScope.crypto] property.
 ///
 /// ---
 ///
@@ -112,9 +110,12 @@ extension type CryptoKey._(JSObject _) implements JSObject {
 
 /// The **`SubtleCrypto`** interface of the
 /// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
-/// provides a number of low-level cryptographic functions. Access to the
-/// features of `SubtleCrypto` is obtained through the [Crypto.subtle] property
-/// of the [Crypto] object you get from the [crypto_property] property.
+/// provides a number of low-level cryptographic functions.
+///
+/// An instance of `SubtleCrypto` is available as the[Crypto.subtle] property of
+/// the [Crypto] interface, which in turn is available in windows through the
+/// [Window.crypto] property and in workers through the
+/// [WorkerGlobalScope.crypto] property.
 ///
 /// > **Warning:** This API provides a number of low-level cryptographic
 /// > primitives. It's very easy to misuse them, and the pitfalls involved can

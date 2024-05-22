@@ -698,6 +698,26 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// HTML global attribute.
   external bool get spellcheck;
   external set spellcheck(bool value);
+
+  /// The **`autocapitalize`** property of the [HTMLElement] interface
+  /// represents the element's capitalization behavior for user input. It is
+  /// available on all HTML elements, though it doesn't affect all of them,
+  /// including:
+  ///
+  /// - `input` and `textarea` elements.
+  /// - Any element with
+  ///   [`contenteditable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/contenteditable)
+  ///   set on it.
+  ///
+  /// `autocapitalize` doesn't affect behavior when typing on a physical
+  /// keyboard. It affects the behavior of other input mechanisms such as
+  /// virtual keyboards on mobile devices and voice input. This can assist users
+  /// by making data entry quicker and easier, for example by automatically
+  /// capitalizing the first letter of each sentence.
+  ///
+  /// It reflects the value of the
+  /// [`autocapitalize`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autocapitalize)
+  /// HTML global attribute.
   external String get autocapitalize;
   external set autocapitalize(String value);
 
@@ -737,6 +757,26 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// global HTML attribute.
   external String? get popover;
   external set popover(String? value);
+
+  /// The **`attributeStyleMap`** read-only property of the [HTMLElement]
+  /// interface returns a live [StylePropertyMap] object that contains a list of
+  /// style properties of the element that are defined in the element's inline
+  /// [`style`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/style)
+  /// attribute, or assigned using the [HTMLElement.style] property of the
+  /// [HTMLElement] interface via script.
+  ///
+  /// Shorthand properties are expanded. If you set `border-top: 1px solid
+  /// black`, the longhand properties (, , and ) are set instead.
+  ///
+  /// The main difference between [HTMLElement.style] property and
+  /// `attributeStyleMap` property is that, the `style` property will return a
+  /// [CSSStyleDeclaration] object, while the `attributeStyleMap` property will
+  /// return a [StylePropertyMap] object.
+  ///
+  /// Though the property itself is not writable, you could read and write
+  /// inline styles through the [StylePropertyMap] object that it returns, just
+  /// like through the [CSSStyleDeclaration] object that returns via the `style`
+  /// property.
   external StylePropertyMap get attributeStyleMap;
 
   /// The read-only **`style`** property of the [HTMLElement] returns the
@@ -1327,7 +1367,7 @@ extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
   external String? get crossOrigin;
   external set crossOrigin(String? value);
 
-  /// The **`HTMLLinkElement.rel`** property reflects the
+  /// The **`rel`** property of the [HTMLLinkElement] interface reflects the
   /// [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel)
   /// attribute. It is a string containing a space-separated list of link types
   /// indicating the relationship between the resource represented by the `link`
@@ -1361,7 +1401,8 @@ extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
   external String get as;
   external set as(String value);
 
-  /// The **`HTMLLinkElement.relList`** read-only property reflects the
+  /// The **`relList`** read-only property of the [HTMLLinkElement] interface
+  /// reflects the
   /// [`rel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel)
   /// attribute. It is a live [DOMTokenList] containing the set of link types
   /// indicating the relationship between the resource represented by the `link`
@@ -1373,17 +1414,29 @@ extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
   external DOMTokenList get relList;
   external String get media;
   external set media(String value);
+
+  /// The **`integrity`** property of the [HTMLLinkElement] interface is a
+  /// string containing inline metadata that a browser can use to verify that a
+  /// fetched resource has been delivered without unexpected manipulation.
+  ///
+  /// It reflects the `integrity` attribute of the `link` element.
   external String get integrity;
   external set integrity(String value);
 
-  /// The **`hreflang`** property of the [HTMLLinkElement] is used to indicate
-  /// the language and the geographical targeting of a page. This hint can be
-  /// used by browsers to select the more appropriate page or to improve .
+  /// The **`hreflang`** property of the [HTMLLinkElement] interface is used to
+  /// indicate the language and the geographical targeting of a page. This hint
+  /// can be used by browsers to select the more appropriate page or to improve
+  /// .
   ///
   /// It reflects the `hreflang` attribute of the `link` element and is the
   /// empty string (`""`) if there is no `hreflang` attribute.
   external String get hreflang;
   external set hreflang(String value);
+
+  /// The **`type`** property of the [HTMLLinkElement] interface is a string
+  /// that reflects the  of the linked resource.
+  ///
+  /// It reflects the `type` attribute of the `link` element.
   external String get type;
   external set type(String value);
   external DOMTokenList get sizes;
@@ -1392,9 +1445,8 @@ extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
   external String get imageSizes;
   external set imageSizes(String value);
 
-  /// The
-  /// **`HTMLLinkElement.referrerPolicy`**
-  /// property reflects the HTML
+  /// The **`referrerPolicy`** property of the [HTMLLinkElement] interface
+  /// reflects the HTML
   /// [`referrerpolicy`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#referrerpolicy)
   /// attribute of the
   /// `link` element defining which referrer is sent when fetching the
@@ -1403,6 +1455,18 @@ extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
   /// See the HTTP  header for details.
   external String get referrerPolicy;
   external set referrerPolicy(String value);
+
+  /// The **`disabled`** property of the [HTMLLinkElement] interface is a
+  /// boolean value that represents whether the link is disabled. It only has an
+  /// effect with style sheet links (`rel` property set to `stylesheet`).
+  ///
+  /// If `disabled` attribute is specified in the HTML when it is loaded, the
+  /// stylesheet will not be loaded during page load. Instead, the stylesheet
+  /// will be loaded only when the `disabled` property is set to `false` or
+  /// removed. Setting the `disabled` property using JavaScript causes the
+  /// stylesheet to be removed from the document's [Document.styleSheets] list.
+  ///
+  /// It reflects the `disabled` attribute of the `link` element.
   external bool get disabled;
   external set disabled(bool value);
 
@@ -1410,7 +1474,8 @@ extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
   /// [HTMLLinkElement] interface represents a hint given to the browser
   /// on how it should prioritize the preload of the given resource relative to
   /// other
-  /// resources of the same type.
+  /// resources of the same
+  /// [type](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload#what_types_of_content_can_be_preloaded).
   external String get fetchPriority;
   external set fetchPriority(String value);
   external String get charset;
@@ -1420,7 +1485,7 @@ extension type HTMLLinkElement._(JSObject _) implements HTMLElement, JSObject {
   external String get target;
   external set target(String value);
 
-  /// The read-only **`sheet`** property of the [HTMLLinkElement] interface
+  /// The **`sheet`** read-only property of the [HTMLLinkElement] interface
   /// contains the stylesheet associated with that element.
   ///
   /// A stylesheet is associated to an `HTMLLinkElement` if `rel="stylesheet"`
@@ -2745,7 +2810,31 @@ extension type HTMLIFrameElement._(JSObject _)
   /// indicating the specific name of the `<iframe>` element.
   external String get name;
   external set name(String value);
+
+  /// The **`sandbox`** read-only property of the [HTMLIFrameElement] interface
+  /// returns a [DOMTokenList] indicating extra restrictions on the behavior of
+  /// the nested content.
+  ///
+  /// It reflects the `sandbox` attribute of the `iframe` element.
   external DOMTokenList get sandbox;
+
+  /// The **`allow`** property of the [HTMLIFrameElement] interface indicates
+  /// the
+  /// [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy)
+  /// specified for this `<iframe>` element. The policy defines what features
+  /// are available to the `<iframe>` element (for example, access to the
+  /// `microphone`, `camera`, `battery`, `web-share`, etc.) based on the origin
+  /// of the request.
+  ///
+  /// The Permissions Policy specified by the `allow` attribute implements a
+  /// further restriction on top of the policy specified in the  header. It
+  /// doesn't replace it.
+  ///
+  /// See [`<iframe>`'s Permissions Policy
+  /// syntax](/en-US/docs/Web/HTTP/Permissions_Policy#iframe_syntax) for more
+  /// details.
+  ///
+  /// It reflects the `allow` attribute of the `iframe` element.
   external String get allow;
   external set allow(String value);
 
@@ -2840,6 +2929,11 @@ extension type HTMLEmbedElement._(JSObject _) implements HTMLElement, JSObject {
   HTMLEmbedElement() : _ = document.createElement('embed');
 
   external Document? getSVGDocument();
+
+  /// The **`src`** property of the [HTMLEmbedElement] interface returns a
+  /// string that indicates the URL of the resource being embedded.
+  ///
+  /// It reflects the `src` attribute of the `embed` element.
   external String get src;
   external set src(String value);
   external String get type;
@@ -3345,6 +3439,13 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   /// **`HTMLMediaElement.networkState`** property indicates the
   /// current state of the fetching of media over the network.
   external int get networkState;
+
+  /// The **`preload`** property of the [HTMLMediaElement] interface is a string
+  /// that provides a hint to the browser about what the author thinks will lead
+  /// to the best user experience.
+  ///
+  /// It reflects the `preload` attribute of the `audio` element and the `video`
+  /// element.
   external String get preload;
   external set preload(String value);
 
@@ -3389,7 +3490,8 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   /// multiplied by this value to obtain the current rate, so a value of 1.0
   /// indicates normal speed.
   ///
-  /// If `playbackRate` is negative, the media is played backwards.
+  /// A negative `playbackRate` value indicates that the media should be played
+  /// backwards, but support for this is not yet widespread.[1](#see-also)
   ///
   /// The audio is muted when the fast forward or slow motion is outside a
   /// useful range (for example, Gecko mutes the sound outside the range `0.25`
@@ -4372,18 +4474,15 @@ extension type HTMLTableElement._(JSObject _) implements HTMLElement, JSObject {
   /// > ones.
   external HTMLTableSectionElement createTBody();
 
-  /// The **`HTMLTableElement.insertRow()`** method inserts a new row
+  /// The **`insertRow()`** method of the [HTMLTableElement] interface inserts a
+  /// new row
   /// (`tr`) in a given `table`, and returns a reference to
   /// the new row.
   ///
   /// If a table has multiple `tbody` elements, by default, the new row is
-  /// inserted into the last `<tbody>`. To insert the row into a specific
-  /// `<tbody>`:
-  ///
-  /// ```js
-  /// let specific_tbody = document.getElementById(tbody_id);
-  /// let row = specific_tbody.insertRow(index);
-  /// ```
+  /// inserted into the last `<tbody>`.
+  /// To insert the row into a specific section, use
+  /// [HTMLTableSectionElement.insertRow]
   ///
   /// > **Note:** `insertRow()` inserts the row directly into the
   /// > table. The row does not need to be appended separately as would be the
@@ -4538,12 +4637,38 @@ extension type HTMLTableColElement._(JSObject _)
   /// Creates an [HTMLTableColElement] using the tag 'col'.
   HTMLTableColElement.col() : _ = document.createElement('col');
 
+  /// The **`span`** read-only property of the [HTMLTableColElement] interface
+  /// represents the number of columns this `col` or `colgroup` must span; this
+  /// lets the column occupy space across multiple columns of the table. It
+  /// reflects the
+  /// [`span`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/col#colspan)
+  /// attribute.
   external int get span;
   external set span(int value);
   external String get align;
   external set align(String value);
+
+  /// The **`ch`** property of the [HTMLTableColElement] interface does nothing.
+  /// It reflects the `char` attribute of the `col` element.
+  ///
+  /// > **Note:** This property was designed to participate to the ability to
+  /// > align table cell content on a specific character (typically the decimal
+  /// > point), but was never implemented by browsers.
+  /// >
+  /// > To achieve such alignment, watch for the support of a string value with
+  /// > the  CSS property.
   external String get ch;
   external set ch(String value);
+
+  /// The **`chOff`** property of the [HTMLTableColElement] interface does
+  /// nothing. It reflects the `charoff` attribute of the `col` element.
+  ///
+  /// > **Note:** This property was designed to participate in an ability to
+  /// > align table cell content on a specific character (typically the decimal
+  /// > point), but was never implemented by browsers.
+  /// >
+  /// > To achieve such alignment, watch for the support of a string value with
+  /// > the  CSS property.
   external String get chOff;
   external set chOff(String value);
   external String get vAlign;
@@ -4573,13 +4698,52 @@ extension type HTMLTableSectionElement._(JSObject _)
   /// Creates an [HTMLTableSectionElement] using the tag 'tfoot'.
   HTMLTableSectionElement.tfoot() : _ = document.createElement('tfoot');
 
+  /// The **`insertRow()`** method of the [HTMLTableSectionElement] interface
+  /// inserts a new row
+  /// (`tr`) in the given `section`, and returns a reference to
+  /// this new row.
+  ///
+  /// > **Note:** `insertRow()` inserts the row directly into the
+  /// > section. The row does not need to be appended separately as would be the
+  /// > case if
+  /// > [Document.createElement] had been used to create the new
+  /// > `<tr>` element.
   external HTMLTableRowElement insertRow([int index]);
+
+  /// The **`deleteRow()`** method of the [HTMLTableSectionElement] interface
+  /// removes a
+  /// specific row (`tr`) from a given `section`.
   external void deleteRow(int index);
+
+  /// The **`rows`** read-only property of the [HTMLTableSectionElement]
+  /// interface returns a live [HTMLCollection] containing the rows in the
+  /// section. The `HTMLCollection` is live and is automatically updated when
+  /// rows are added or removed.
   external HTMLCollection get rows;
   external String get align;
   external set align(String value);
+
+  /// The **`ch`** property of the [HTMLTableSectionElement] interface does
+  /// nothing. It reflects the `char` attribute of the section element.
+  ///
+  /// > **Note:** This property was designed to participate to the ability to
+  /// > align table cell content on a specific character (typically the decimal
+  /// > point), but was never implemented by browsers.
+  /// >
+  /// > To achieve such alignment, watch for the support of a string value with
+  /// > the  CSS property.
   external String get ch;
   external set ch(String value);
+
+  /// The **`chOff`** property of the [HTMLTableSectionElement] interface does
+  /// nothing. It reflects the `charoff` attribute of the section element.
+  ///
+  /// > **Note:** This property was designed to participate in an ability to
+  /// > align table cell content on a specific character (typically the decimal
+  /// > point), but was never implemented by browsers.
+  /// >
+  /// > To achieve such alignment, watch for the support of a string value with
+  /// > the  CSS property.
   external String get chOff;
   external set chOff(String value);
   external String get vAlign;
@@ -4600,7 +4764,8 @@ extension type HTMLTableRowElement._(JSObject _)
   /// Creates an [HTMLTableRowElement] using the tag 'tr'.
   HTMLTableRowElement() : _ = document.createElement('tr');
 
-  /// The **`HTMLTableRowElement.insertCell()`** method inserts a new
+  /// The **`insertCell()`** method of the [HTMLTableRowElement] interface
+  /// inserts a new
   /// cell (`td`) into a table row (`tr`) and returns a
   /// reference to the cell.
   ///
@@ -4613,10 +4778,15 @@ extension type HTMLTableRowElement._(JSObject _)
   /// > You can not use `insertCell()` to create a new `<th>`
   /// > element though.
   external HTMLTableCellElement insertCell([int index]);
+
+  /// The **`deleteCell()`** method of the [HTMLTableRowElement] interface
+  /// removes a
+  /// specific row cell from a given `tr`.
   external void deleteCell(int index);
 
-  /// The **`HTMLTableRowElement.rowIndex`** read-only property
-  /// represents the position of a row in relation to the whole `table`.
+  /// The **`rowIndex`** read-only property of the [HTMLTableRowElement]
+  /// interface
+  /// represents the position of a row within the whole `table`.
   ///
   /// Even when the `thead`, `tbody`, and
   /// `tfoot` elements are out of order in the HTML, browsers render the
@@ -4624,16 +4794,54 @@ extension type HTMLTableRowElement._(JSObject _)
   /// `<tbody>`, from `<tbody>` to
   /// `<tfoot>`.
   external int get rowIndex;
+
+  /// The **`sectionRowIndex`** read-only property of the [HTMLTableRowElement]
+  /// interface
+  /// represents the position of a row within the current section (`thead`,
+  /// `tbody`, or `tfoot`).
   external int get sectionRowIndex;
+
+  /// The **`cells`** read-only property of the [HTMLTableRowElement] interface
+  /// returns a live [HTMLCollection] containing the cells in the row. The
+  /// `HTMLCollection` is live and is automatically updated when cells are added
+  /// or removed.
   external HTMLCollection get cells;
   external String get align;
   external set align(String value);
+
+  /// The **`ch`** property of the [HTMLTableRowElement] interface does nothing.
+  /// It reflects the `char` attribute of the `tr` element.
+  ///
+  /// > **Note:** This property was designed to participate to the ability to
+  /// > align table cell content on a specific character (typically the decimal
+  /// > point), but was never implemented by browsers.
+  /// >
+  /// > To achieve such alignment, watch for the support of a string value with
+  /// > the  CSS property.
   external String get ch;
   external set ch(String value);
+
+  /// The **`chOff`** property of the [HTMLTableRowElement] interface does
+  /// nothing. It reflects the `charoff` attribute of the `tr` element.
+  ///
+  /// > **Note:** This property was designed to participate in an ability to
+  /// > align table cell content on a specific character (typically the decimal
+  /// > point), but was never implemented by browsers.
+  /// >
+  /// > To achieve such alignment, watch for the support of a string value with
+  /// > the  CSS property.
   external String get chOff;
   external set chOff(String value);
   external String get vAlign;
   external set vAlign(String value);
+
+  /// The **`HTMLTableRowElement.bgColor`** property is used to set the
+  /// background color of a row or retrieve the value of the obsolete
+  /// [`bgColor`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/tr#bgcolor)
+  /// attribute, if present.
+  ///
+  /// **Note:** This property is deprecated and CSS should be used to set the
+  /// background color. Use the  property instead.
   external String get bgColor;
   external set bgColor(String value);
 }
@@ -4641,8 +4849,7 @@ extension type HTMLTableRowElement._(JSObject _)
 /// The **`HTMLTableCellElement`** interface provides special properties and
 /// methods (beyond the regular [HTMLElement] interface it also has available to
 /// it by inheritance) for manipulating the layout and presentation of table
-/// cells, either header cells (`th`)) or data cells (`td`), in an HTML
-/// document.
+/// cells, either header cells (`th`) or data cells (`td`), in an HTML document.
 ///
 /// ---
 ///
@@ -4656,17 +4863,70 @@ extension type HTMLTableCellElement._(JSObject _)
   /// Creates an [HTMLTableCellElement] using the tag 'th'.
   HTMLTableCellElement.th() : _ = document.createElement('th');
 
+  /// The **`colSpan`** read-only property of the [HTMLTableCellElement]
+  /// interface represents the number of columns this cell must span; this lets
+  /// the cell occupy space across multiple columns of the table. It reflects
+  /// the
+  /// [`colspan`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td#colspan)
+  /// attribute.
   external int get colSpan;
   external set colSpan(int value);
+
+  /// The **`rowSpan`** read-only property of the [HTMLTableCellElement]
+  /// interface represents the number of rows this cell must span; this lets the
+  /// cell occupy space across multiple rows of the table. It reflects the
+  /// [`rowspan`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td#colspan)
+  /// attribute.
   external int get rowSpan;
   external set rowSpan(int value);
+
+  /// The **`headers`** property of the [HTMLTableCellElement] interface
+  /// contains a list of IDs of `th` elements that are _headers_ for this
+  /// specific cell.
   external String get headers;
   external set headers(String value);
+
+  /// The **`cellIndex`** read-only property of the [HTMLTableCellElement]
+  /// interface
+  /// represents the position of a cell within its row (`tr`). The first cell
+  /// has an index of `0`.
   external int get cellIndex;
+
+  /// The **`scope`** property of the [HTMLTableCellElement] interface
+  /// indicates the scope of a `th` cell.
+  ///
+  /// Header cells can be configured, using the `scope` attribute, to apply to a
+  /// specified row or column, or to the not-yet-scoped cells within the current
+  /// row group (that is, the same ancestor `thead`, `tbody`, or `tfoot`
+  /// element). If no value is specified for `scope`, the header is not
+  /// associated directly with cells in this way. Permitted values for `scope`
+  /// are:
+  ///
+  /// > **Note:** this property doesn't have a visual effect in browsers. It
+  /// > adds semantic information to help assistive technology like
+  /// > screenreaders to present the table in a more coherent way.
   external String get scope;
   external set scope(String value);
+
+  /// The **`abbr`** property of the [HTMLTableCellElement] interface
+  /// indicates an abbreviation associated with the cell. If the cell does not
+  /// represent a header cell `th`, it is ignored.
+  ///
+  /// It reflects the `abbr` attribute of the `tr` element.
+  ///
+  /// > **Note:** this property doesn't have a visual effect in browsers. It
+  /// > adds information to help assistive technology like screenreaders that
+  /// > can use this abbreviation
   external String get abbr;
   external set abbr(String value);
+
+  /// The **`align`** property of the [HTMLTableCellElement] interface is a
+  /// string indicating how to horizontally align text in the `th` or `td` table
+  /// cell.
+  ///
+  /// > **Note:** This property is deprecated, and CSS should be used to align
+  /// > text horizontally in a cell. Use the CSS  property, which takes
+  /// > precedence, to horizontally align text in a cell instead.
   external String get align;
   external set align(String value);
   external String get axis;
@@ -4675,14 +4935,56 @@ extension type HTMLTableCellElement._(JSObject _)
   external set height(String value);
   external String get width;
   external set width(String value);
+
+  /// The **`ch`** property of the [HTMLTableCellElement] interface does
+  /// nothing. It reflects the `char` attribute of the cell element.
+  ///
+  /// > **Note:** This property was designed to participate to the ability to
+  /// > align table cell content on a specific character (typically the decimal
+  /// > point), but was never implemented by browsers.
+  /// >
+  /// > To achieve such alignment, watch for the support of a string value with
+  /// > the  CSS property.
   external String get ch;
   external set ch(String value);
+
+  /// The **`chOff`** property of the [HTMLTableCellElement] interface does
+  /// nothing. It reflects the `charoff` attribute of the cell element.
+  ///
+  /// > **Note:** This property was designed to participate in an ability to
+  /// > align table cell content on a specific character (typically the decimal
+  /// > point), but was never implemented by browsers.
+  /// >
+  /// > To achieve such alignment, watch for the support of a string value with
+  /// > the  CSS property.
   external String get chOff;
   external set chOff(String value);
+
+  /// The **`noWrap`** property of the [HTMLTableCellElement] interface returns
+  /// a Boolean value indicating if the text of the cell may be wrapped on
+  /// several lines or not.
+  ///
+  /// > **Note:** This property is deprecated and you should use the CSS
+  /// > property with the value `nowrap` instead.
   external bool get noWrap;
   external set noWrap(bool value);
+
+  /// The **`vAlign`** property of the [HTMLTableCellElement] interface is a
+  /// string indicating how to vertically align text in a `th` or `td` table
+  /// cell.
+  ///
+  /// > **Note:** This property is deprecated. Use the CSS  property to
+  /// > horizontally align text in a cell instead.
   external String get vAlign;
   external set vAlign(String value);
+
+  /// The **`HTMLTableCellElement.bgColor`** property is used to set the
+  /// background color of a cell or get the value of the obsolete
+  /// [`bgColor`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/td#bgcolor)
+  /// attribute, if present.
+  ///
+  /// **Note:** This property is deprecated and CSS should be used to set the
+  /// background color. Use the  property instead.
   external String get bgColor;
   external set bgColor(String value);
 }
@@ -4776,9 +5078,7 @@ extension type HTMLFormElement._(JSObject _) implements HTMLElement, JSObject {
   external String get autocomplete;
   external set autocomplete(String value);
 
-  /// The **`HTMLFormElement.enctype`** property is the
-  /// [MIME type](https://en.wikipedia.org/wiki/Mime_type) of content that is
-  /// used
+  /// The **`HTMLFormElement.enctype`** property is the  of content that is used
   /// to submit the form to the server. Possible values are:
   ///
   /// - `application/x-www-form-urlencoded`: The initial default type.
@@ -5344,7 +5644,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   external set step(String value);
 
   /// The **`type`** property of the [HTMLInputElement] interface indicates the
-  /// kind of data allowed in the `input` element, or example a number, a date,
+  /// kind of data allowed in the `input` element, for example a number, a date,
   /// or an email. Browsers will select the appropriate widget and behavior to
   /// help users to enter a valid value.
   ///
@@ -6290,14 +6590,56 @@ extension type HTMLScriptElement._(JSObject _)
   HTMLScriptElement() : _ = document.createElement('script');
 
   external static bool supports(String type);
+
+  /// The **`src`** property of the [HTMLScriptElement] interface is a string
+  /// representing the URL of an external script; this can be used as an
+  /// alternative to embedding a script directly within a document.
+  ///
+  /// It reflects the `src` attribute of the `script` element.
   external String get src;
   external set src(String value);
+
+  /// The **`type`** property of the [HTMLScriptElement] interface is a string
+  /// that reflects the type of the script.
+  ///
+  /// It reflects the `type` attribute of the `script` element.
   external String get type;
   external set type(String value);
+
+  /// The **`noModule`** property of the [HTMLScriptElement] interface is a
+  /// boolean value that indicates whether the script should be executed in
+  /// browsers that support
+  /// [ES modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules).
+  /// Practically, this can be used to serve fallback scripts to older browsers
+  /// that do not support JavaScript modules.
+  ///
+  /// It reflects the `nomodule` attribute of the `script` element.
   external bool get noModule;
   external set noModule(bool value);
+
+  /// The **`async`** property of the [HTMLScriptElement] interface is a boolean
+  /// value that controls how the script should be executed. For classic
+  /// scripts, if the `async` property is set to `true`, the external script
+  /// will be fetched in parallel to parsing and evaluated as soon as it is
+  /// available. For
+  /// [module scripts](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules),
+  /// if the `async` property is set to `true`, the script and all their
+  /// dependencies will be fetched in parallel to parsing and evaluated as soon
+  /// as they are available.
+  ///
+  /// It reflects the `async` attribute of the `script` element.
   external bool get async;
   external set async(bool value);
+
+  /// The **`defer`** property of the [HTMLScriptElement] interface is a boolean
+  /// value that controls how the script should be executed. For classic
+  /// scripts, if the `defer` property is set to `true`, the external script
+  /// will be executed after the document has been parsed, but before firing
+  /// [Document.DOMContentLoaded_event] event. For
+  /// [module scripts](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules),
+  /// the `defer` property has no effect.
+  ///
+  /// It reflects the `defer` attribute of the `script` element.
   external bool get defer;
   external set defer(bool value);
 
@@ -6310,8 +6652,20 @@ extension type HTMLScriptElement._(JSObject _)
   /// for details.
   external String? get crossOrigin;
   external set crossOrigin(String? value);
+
+  /// The **`text`** property of the [HTMLScriptElement] interface is a string
+  /// that reflects the text content inside the `script` element. It acts the
+  /// same way as the [Node.textContent] property.
+  ///
+  /// It reflects the `text` attribute of the `script` element.
   external String get text;
   external set text(String value);
+
+  /// The **`integrity`** property of the [HTMLScriptElement] interface is a
+  /// string that contains inline metadata that a browser can use to verify that
+  /// a fetched resource has been delivered without unexpected manipulation.
+  ///
+  /// It reflects the `integrity` attribute of the `script` element.
   external String get integrity;
   external set integrity(String value);
 
@@ -6322,6 +6676,12 @@ extension type HTMLScriptElement._(JSObject _)
   /// fetching the script and any scripts it imports.
   external String get referrerPolicy;
   external set referrerPolicy(String value);
+
+  /// The **`fetchPriority`** property of the [HTMLScriptElement] interface
+  /// represents a hint given to the browser on how it should prioritize
+  /// fetching of an external script relative to other external scripts.
+  ///
+  /// It reflects the `fetchpriority` attribute of the `script` element.
   external String get fetchPriority;
   external set fetchPriority(String value);
   external String get charset;
@@ -6334,6 +6694,14 @@ extension type HTMLScriptElement._(JSObject _)
 
 /// The **`HTMLTemplateElement`** interface enables access to the contents of an
 /// HTML `template` element.
+///
+/// > **Note:** An HTML parser can create either an `HTMLTemplateElement` or a
+/// > [ShadowRoot] when it parses a `template` element, depending on the
+/// > `<template>` attributes.
+/// > If an `HTMLTemplateElement` is created the "shadow" attributes are
+/// > reflected from the template.
+/// > However these are not useful, because an `HTMLTemplateElement` is not a
+/// > shadow root and cannot subsequently be changed to a shadow root.
 ///
 /// ---
 ///
@@ -6348,6 +6716,21 @@ extension type HTMLTemplateElement._(JSObject _)
   /// `<template>` element's template contents (a
   /// [DocumentFragment]).
   external DocumentFragment get content;
+
+  /// The **`shadowRootMode`** property of the [HTMLTemplateElement] interface
+  /// reflects the value of the
+  /// [`shadowrootmode`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootmode)
+  /// attribute of the associated
+  /// [`<template>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template)
+  /// element.
+  ///
+  /// Note that this property is not useful for developers.
+  /// If a `<template>` element is used to declaratively create a
+  /// [`ShadowRoot`](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot),
+  /// then this object and property do not exist.
+  /// Otherwise, if an `HTMLTemplateElement` is created, the value of this
+  /// property is irrelevant because the object is not a shadow root and cannot
+  /// subsequently be changed to a shadow root.
   external String get shadowRootMode;
   external set shadowRootMode(String value);
 }
@@ -8003,8 +8386,9 @@ extension type OffscreenCanvas._(JSObject _) implements EventTarget, JSObject {
 ///   `scrollPathIntoView`)
 /// - its `canvas` attribute refers to an `OffscreenCanvas` object rather than a
 ///   `canvas` element
-/// - it has a `commit()` method for pushing rendered images to the context's
-///   `OffscreenCanvas` object's placeholder `canvas` element
+/// - the bitmap for the placeholder `canvas` element belonging to the
+///   `OffscreenCanvas` object is updated during the rendering update of the
+///   `Window` or `Worker` that owns the `OffscreenCanvas`
 ///
 /// ---
 ///
@@ -8016,8 +8400,8 @@ extension type OffscreenCanvasRenderingContext2D._(JSObject _)
   /// **`OffscreenCanvasRenderingContext2D.commit()`**
   /// method of the
   /// [Canvas 2D API](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvasRenderingContext2D)
-  /// copies the rendering context's bitmap to the bitmap of the placeholder
-  /// `canvas` element of the associated `OffscreenCanvas` object.
+  /// was intended to copy the rendering context's bitmap to the bitmap of the
+  /// placeholder `canvas` element of the associated `OffscreenCanvas` object.
   /// The copy operation is synchronous. Calling this method is not needed for
   /// the transfer, since it happens automatically during the event-loop
   /// execution.
@@ -8801,8 +9185,8 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   external String? get ariaReadOnly;
   external set ariaReadOnly(String? value);
 
-  /// The **`ariaRequired`** property of the [Element] interface reflects the
-  /// value of the
+  /// The **`ariaRequired`** property of the [ElementInternals] interface
+  /// reflects the value of the
   /// [`aria-required`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-required)
   /// attribute, which indicates that user input is required on the element
   /// before a form may be submitted.
@@ -8816,8 +9200,8 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   external String? get ariaRequired;
   external set ariaRequired(String? value);
 
-  /// The **`ariaRoleDescription`** property of the [Element] interface reflects
-  /// the value of the
+  /// The **`ariaRoleDescription`** property of the [ElementInternals] interface
+  /// reflects the value of the
   /// [`aria-roledescription`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-roledescription)
   /// attribute, which defines a human-readable, author-localized description
   /// for the role of an element.
@@ -10408,14 +10792,79 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external set onunhandledrejection(EventHandler value);
   external EventHandler get onunload;
   external set onunload(EventHandler value);
+
+  /// The **`indexedDB`** read-only property of the [Window] interface provides
+  /// a mechanism for applications to
+  /// asynchronously access the capabilities of indexed databases.
   external IDBFactory get indexedDB;
+
+  /// The **`crypto`** read-only property of the [Window] interface returns the
+  /// [Crypto] object for this window's scope. This object gives web pages
+  /// access to certain cryptographic related services.
+  ///
+  /// Although the property itself is read-only, all of its methods (and the
+  /// methods of its
+  /// child object, [SubtleCrypto]) are not read-only, and therefore vulnerable
+  /// to attack by .
+  ///
+  /// Although `crypto` is available on all windows, the returned `Crypto`
+  /// object only has one usable feature in insecure contexts: the
+  /// [Crypto.getRandomValues] method. In general, you should use this API only
+  /// in secure contexts.
   external Crypto get crypto;
+
+  /// The **`performance`** property of the [Window] interface returns a
+  /// [Performance] object, which can be used to gather performance information
+  /// about code running in the window's scope.
+  ///
+  /// Performance entries are per context. If you create a mark on the main
+  /// thread (or other worker), you cannot see it in a worker thread, and vice
+  /// versa.
   external Performance get performance;
+
+  /// The **`origin`** read-only property of the [Window] interface returns the
+  /// origin of the global scope, serialized as a string.
   external String get origin;
+
+  /// The **`isSecureContext`** read-only property of the [Window] interface
+  /// returns a boolean indicating whether the current
+  /// [context is secure](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts)
+  /// (`true`) or not (`false`).
   external bool get isSecureContext;
+
+  /// The **`crossOriginIsolated`** read-only property of the [Window] interface
+  /// returns a boolean value that
+  /// indicates whether the website is in a cross-origin isolation state. That
+  /// state mitigates the risk of side-channel attacks and unlocks a few
+  /// capabilities:
+  ///
+  /// - `SharedArrayBuffer` can be created and sent via a [Window.postMessage]
+  ///   or a [MessagePort.postMessage] call.
+  /// - [Performance.now] offers better precision.
+  /// - [Performance.measureUserAgentSpecificMemory] can be accessed.
+  ///
+  /// A website is in a cross-origin isolated state, when the response header
+  /// has the value `same-origin` and the  header has the value `require-corp`
+  /// or `credentialless`.
   external bool get crossOriginIsolated;
+
+  /// The **`scheduler`** read-only property of the [Window] interface is the
+  /// entry point for using the
+  /// [Prioritized Task Scheduling API](https://developer.mozilla.org/en-US/docs/Web/API/Prioritized_Task_Scheduling_API).
+  ///
+  /// The object has a single instance method [Scheduler.postTask] that is used
+  /// to post prioritized tasks for scheduling.
   external Scheduler get scheduler;
+
+  /// The **`caches`** read-only property of the [Window] interface returns the
+  /// [CacheStorage] object associated with the current context.
+  /// This object enables functionality such as storing assets for offline use,
+  /// and generating custom responses to requests.
   external CacheStorage get caches;
+
+  /// The **`trustedTypes`** read-only property of the [Window] interface
+  /// returns the [TrustedTypePolicyFactory] object associated with the global
+  /// object, providing the entry point for using the [Trusted Types API].
   external TrustedTypePolicyFactory get trustedTypes;
 
   /// The read-only **`sessionStorage`**
@@ -10585,7 +11034,7 @@ extension type Location._(JSObject _) implements JSObject {
   external set host(String value);
 
   /// The **`hostname`** property of the [Location]
-  /// interface is a string containing the domain of the URL.
+  /// interface is a string containing the  of the URL.
   external String get hostname;
   external set hostname(String value);
 
@@ -11115,7 +11564,8 @@ extension type Navigator._(JSObject _) implements JSObject {
     NavigatorUserMediaErrorCallback errorCallback,
   );
 
-  /// The **`Navigator.vibrate()`** method pulses the vibration
+  /// The **`vibrate()`** method of the [Navigator] interface pulses the
+  /// vibration
   /// hardware on the device, if such hardware exists. If the device doesn't
   /// support
   /// vibration, this method has no effect. If a vibration pattern is already in
@@ -11130,22 +11580,28 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// implementation.
   external bool vibrate(VibratePattern pattern);
 
-  /// The **`navigator.share()`** method of the
-  /// [Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Share_API)
-  /// invokes the native sharing mechanism of the device to share data such as
-  /// text, URLs, or files. The available _share targets_ depend on the device,
-  /// but might include the clipboard, contacts and email applications,
-  /// websites, Bluetooth, etc.
+  /// The **`share()`** method of the [Navigator] interface invokes the native
+  /// sharing mechanism of the device to share data such as text, URLs, or
+  /// files. The available _share targets_ depend on the device, but might
+  /// include the clipboard, contacts and email applications, websites,
+  /// Bluetooth, etc.
   ///
   /// The method resolves a `Promise` with `undefined`.
   /// On Windows this happens when the share popup is launched, while on Android
   /// the promise resolves once the data has successfully been passed to the
   /// _share target_.
+  ///
+  /// The
+  /// [Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Share_API)
+  /// is gated by the
+  /// [web-share](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/web-share)
+  /// permission policy.
+  /// The `share()` method will throw exceptions if the permission is supported
+  /// but has not been granted.
   external JSPromise<JSAny?> share([ShareData data]);
 
-  /// The **`Navigator.canShare()`** method of the
-  /// [Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Share_API)
-  /// returns `true` if the equivalent call to [navigator.share] would succeed.
+  /// The **`canShare()`** method of the [Navigator] interface returns `true` if
+  /// the equivalent call to [navigator.share] would succeed.
   ///
   /// The method returns `false` if the data cannot be _validated_. Reasons the
   /// data might be invalid include:
@@ -11159,11 +11615,13 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// - Sharing the specified data would be considered a "hostile share" by the
   ///   user-agent.
   ///
-  /// The Web Share API is gated by the
+  /// The
+  /// [Web Share API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Share_API)
+  /// is gated by the
   /// [web-share](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/web-share)
   /// permission policy.
-  /// The **`canShare()`** method will return `false` if the permission is
-  /// supported but has not been granted.
+  /// The `canShare()` method will return `false` if the permission is supported
+  /// but has not been granted.
   external bool canShare([ShareData data]);
 
   /// The **`requestMIDIAccess()`** method of the [Navigator] interface returns
@@ -11298,7 +11756,8 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// playback.
   external MediaSession get mediaSession;
 
-  /// The **`Navigator.permissions`** read-only property returns a
+  /// The **`permissions`** read-only property of the [Navigator] interface
+  /// returns a
   /// [Permissions] object that can be used to query and update permission
   /// status of APIs covered by the
   /// [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API).
@@ -11412,8 +11871,8 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// > All browsers return "`Gecko`" as the value of this property.
   external String get product;
 
-  /// The **`Navigator.productSub`** read-only property returns the
-  /// build number of the current browser.
+  /// The **`Navigator.productSub`** read-only property that returns either the
+  /// string "20030107", or the string "20100101".
   external String get productSub;
 
   /// The **`Navigator.userAgent`** read-only property returns the
@@ -12166,17 +12625,97 @@ extension type WorkerGlobalScope._(JSObject _)
   /// This property is part of the
   /// [CSS Font Loading API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Font_Loading_API).
   external FontFaceSet get fonts;
+
+  /// The **`indexedDB`** read-only property of the [WorkerGlobalScope]
+  /// interface provides a mechanism for workers to
+  /// asynchronously access the capabilities of indexed databases.
   external IDBFactory get indexedDB;
+
+  /// The **`crypto`** read-only property of the [WorkerGlobalScope] interface
+  /// returns the [Crypto] object for this worker. This object gives workers
+  /// access to certain cryptographic related services.
+  ///
+  /// Although the property itself is read-only, all of its methods (and the
+  /// methods of its
+  /// child object, [SubtleCrypto]) are not read-only, and therefore vulnerable
+  /// to attack by .
+  ///
+  /// Although `crypto` is available on all workers, the returned `Crypto`
+  /// object only has one usable feature in insecure contexts: the
+  /// [Crypto.getRandomValues] method. In general, you should use this API only
+  /// in secure contexts.
   external Crypto get crypto;
+
+  /// The **`performance`** property of the [WorkerGlobalScope] interface
+  /// returns a [Performance] object, which can be used to gather performance
+  /// information about code running in the worker's scope.
+  ///
+  /// Performance entries are per context. If you create a mark on a worker
+  /// thread, you will not see it in the main thread or any other workers.
+  ///
+  /// Note that only the following performance interfaces are available in
+  /// worker contexts:
+  ///
+  /// - [Performance]
+  /// - [PerformanceEntry]
+  /// - [PerformanceMark]
+  /// - [PerformanceMeasure]
+  /// - [PerformanceObserver]
+  /// - [PerformanceObserverEntryList]
+  /// - [PerformanceResourceTiming]
+  /// - [PerformanceServerTiming]
   external Performance get performance;
+
+  /// The **`origin`** read-only property of the [WorkerGlobalScope] interface
+  /// returns the origin of the global scope, serialized as a string.
   external String get origin;
+
+  /// The **`isSecureContext`** read-only property of the [WorkerGlobalScope]
+  /// interface returns a boolean indicating whether the current
+  /// [context is secure](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts)
+  /// (`true`) or not (`false`).
   external bool get isSecureContext;
+
+  /// The **`crossOriginIsolated`** read-only property of the
+  /// [WorkerGlobalScope] interface returns a boolean value that
+  /// indicates whether the website is in a cross-origin isolation state. That
+  /// state mitigates the risk of side-channel attacks and unlocks a few
+  /// capabilities:
+  ///
+  /// - `SharedArrayBuffer` can be created and sent via a
+  ///   [DedicatedWorkerGlobalScope.postMessage] or a [MessagePort.postMessage]
+  ///   call.
+  /// - [Performance.now] offers better precision.
+  /// - [Performance.measureUserAgentSpecificMemory] can be accessed.
+  ///
+  /// A website is in a cross-origin isolated state, when the response header
+  /// has the value `same-origin` and the  header has the value `require-corp`
+  /// or `credentialless`.
   external bool get crossOriginIsolated;
+
+  /// The **`scheduler`** read-only property of the [WorkerGlobalScope]
+  /// interface is the entry point for using the
+  /// [Prioritized Task Scheduling API](https://developer.mozilla.org/en-US/docs/Web/API/Prioritized_Task_Scheduling_API).
+  ///
+  /// The object has a single instance method [Scheduler.postTask] that is used
+  /// to post prioritized tasks for scheduling.
   external Scheduler get scheduler;
+
+  /// The **`caches`** read-only property of the [WorkerGlobalScope] interface
+  /// returns the [CacheStorage] object associated with the current context.
+  /// This object enables functionality such as storing assets for offline use,
+  /// and generating custom responses to requests.
   external CacheStorage get caches;
+
+  /// The **`trustedTypes`** read-only property of the [WorkerGlobalScope]
+  /// interface returns the [TrustedTypePolicyFactory] object associated with
+  /// the global object, providing the entry point for using the
+  /// [Trusted Types API].
   external TrustedTypePolicyFactory get trustedTypes;
 }
 
+/// @AvailableInWorkers("dedicated")
+///
 /// The **`DedicatedWorkerGlobalScope`** object (the [Worker] global scope) is
 /// accessible through the [WorkerGlobalScope.self] keyword. Some additional
 /// global functions, namespaces objects, and constructors, not typically
@@ -12192,6 +12731,8 @@ extension type WorkerGlobalScope._(JSObject _)
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DedicatedWorkerGlobalScope).
 extension type DedicatedWorkerGlobalScope._(JSObject _)
     implements WorkerGlobalScope, JSObject {
+  /// @AvailableInWorkers("dedicated")
+  ///
   /// The **`postMessage()`** method of the [DedicatedWorkerGlobalScope]
   /// interface sends a message to the main thread that spawned it.
   ///
@@ -12216,11 +12757,15 @@ extension type DedicatedWorkerGlobalScope._(JSObject _)
     JSObject optionsOrTransfer,
   ]);
 
+  /// @AvailableInWorkers("dedicated")
+  ///
   /// The **`close()`** method of the [DedicatedWorkerGlobalScope] interface
   /// discards any tasks queued in the `DedicatedWorkerGlobalScope`'s event
   /// loop, effectively closing this particular scope.
   external void close();
 
+  /// @AvailableInWorkers("dedicated")
+  ///
   /// The **`requestAnimationFrame()`** method of the
   /// [DedicatedWorkerGlobalScope] interface tells the browser you wish to
   /// perform an animation frame request and call a user-supplied callback
@@ -12249,6 +12794,8 @@ extension type DedicatedWorkerGlobalScope._(JSObject _)
   /// associated owner [Window].
   external int requestAnimationFrame(FrameRequestCallback callback);
 
+  /// @AvailableInWorkers("dedicated")
+  ///
   /// The **`cancelAnimationFrame()`** method of the
   /// [DedicatedWorkerGlobalScope] interface cancels an animation frame request
   /// previously scheduled through a call to
@@ -12260,6 +12807,8 @@ extension type DedicatedWorkerGlobalScope._(JSObject _)
   /// associated owner [Window].
   external void cancelAnimationFrame(int handle);
 
+  /// @AvailableInWorkers("dedicated")
+  ///
   /// The **`name`** read-only property of the
   /// [DedicatedWorkerGlobalScope] interface returns the name that the
   /// [Worker] was (optionally) given when it was created. This is the name that
@@ -12304,6 +12853,8 @@ extension type SharedWorkerGlobalScope._(JSObject _)
   external set onconnect(EventHandler value);
 }
 
+/// @AvailableInWorkers("window_and_worker_except_service")
+///
 /// The **`Worker`** interface of the
 /// [Web Workers API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API)
 /// represents a background task that can be created via script, which can send
@@ -12331,11 +12882,15 @@ extension type Worker._(JSObject _) implements EventTarget, JSObject {
     WorkerOptions options,
   ]);
 
+  /// @AvailableInWorkers("window_and_worker_except_service")
+  ///
   /// The **`terminate()`** method of the [Worker] interface immediately
   /// terminates the [Worker]. This does not offer the worker an opportunity to
   /// finish its operations; it is stopped at once.
   external void terminate();
 
+  /// @AvailableInWorkers("window_and_worker_except_service")
+  ///
   /// The **`postMessage()`** method of the [Worker] interface sends a message
   /// to the worker. The first parameter is the data to send to the worker. The
   /// data may be any JavaScript object that can be handled by the
@@ -12419,7 +12974,8 @@ extension type WorkerNavigator._(JSObject _) implements JSObject {
   /// [Media Capabilities API](https://developer.mozilla.org/en-US/docs/Web/API/Media_Capabilities_API).
   external MediaCapabilities get mediaCapabilities;
 
-  /// The **`WorkerNavigator.permissions`** read-only property
+  /// The **`permissions`** read-only property of the [WorkerNavigator]
+  /// interface
   /// returns a [Permissions] object that can be used to query and update
   /// permission status of APIs covered by the
   /// [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API).
@@ -12585,12 +13141,11 @@ extension type WorkerNavigator._(JSObject _) implements JSObject {
   /// computer.
   external int get hardwareConcurrency;
 
-  /// The **`WorkerNavigator.connection`** read-only property returns
-  /// a [NetworkInformation] object containing information about the system's
-  /// connection, such as the current bandwidth of the user's device or whether
-  /// the connection
-  /// is metered. This could be used to select high definition content or low
-  /// definition
+  /// The **`connection`** read-only property of the [WorkerNavigator] interface
+  /// returns a [NetworkInformation] object containing information about the
+  /// system's connection, such as the current bandwidth of the user's device or
+  /// whether the connection is metered.
+  /// This could be used to select high definition content or low definition
   /// content based on the user's connection.
   external JSObject get connection;
 

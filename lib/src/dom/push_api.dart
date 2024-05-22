@@ -170,6 +170,8 @@ extension type PushSubscriptionJSON._(JSObject _) implements JSObject {
   external set keys(JSObject value);
 }
 
+/// @AvailableInWorkers("service")
+///
 /// The **`PushMessageData`** interface of the
 /// [Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API)
 /// provides methods which let you retrieve the push data sent by a server in
@@ -189,25 +191,35 @@ extension type PushSubscriptionJSON._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PushMessageData).
 extension type PushMessageData._(JSObject _) implements JSObject {
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`arrayBuffer()`** method of the [PushMessageData] interface extracts
   /// push message data as an `ArrayBuffer` object.
   external JSArrayBuffer arrayBuffer();
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`blob()`** method of the [PushMessageData] interface extracts push
   /// message data as a [Blob] object.
   external Blob blob();
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`json()`** method of the [PushMessageData] interface extracts push
   /// message data by parsing it as a
   /// [JSON](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON)
   /// string and returning the result.
   external JSAny? json();
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`text()`** method of the [PushMessageData] interface extracts push
   /// message data as a plain text string.
   external String text();
 }
 
+/// @AvailableInWorkers("service")
+///
 /// The **`PushEvent`** interface of the
 /// [Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API)
 /// represents a push message that has been received. This event is sent to the
@@ -225,6 +237,8 @@ extension type PushEvent._(JSObject _) implements ExtendableEvent, JSObject {
     PushEventInit eventInitDict,
   ]);
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The `data` read-only property of the **`PushEvent`** interface returns a
   /// reference to a [PushMessageData] object containing data sent to the
   /// [PushSubscription].

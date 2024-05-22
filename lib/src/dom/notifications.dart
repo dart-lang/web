@@ -224,6 +224,8 @@ extension type GetNotificationOptions._(JSObject _) implements JSObject {
   external set tag(String value);
 }
 
+/// @AvailableInWorkers("service")
+///
 /// The **`NotificationEvent`** interface of the [Notifications API] represents
 /// a notification event dispatched on the [ServiceWorkerGlobalScope] of a
 /// [ServiceWorker].
@@ -246,6 +248,8 @@ extension type NotificationEvent._(JSObject _)
     NotificationEventInit eventInitDict,
   );
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`notification`** read-only property of the [NotificationEvent]
   /// interface returns the instance of the [Notification] that was clicked to
   /// fire the event. The [Notification] provides read-only access to many
@@ -254,6 +258,8 @@ extension type NotificationEvent._(JSObject _)
   /// for deferred use in the `notificationclick` event.
   external Notification get notification;
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`action`** read-only property of the [NotificationEvent] interface
   /// returns the string ID of the notification button the user clicked. This
   /// value returns an empty string if the user clicked the notification

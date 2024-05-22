@@ -97,6 +97,8 @@ extension type FileSystemFileHandle._(JSObject _)
   external JSPromise<FileSystemWritableFileStream> createWritable(
       [FileSystemCreateWritableOptions options]);
 
+  /// @AvailableInWorkers("dedicated")
+  ///
   /// The **`createSyncAccessHandle()`** method of the
   /// [FileSystemFileHandle] interface returns a `Promise` which resolves to a
   /// [FileSystemSyncAccessHandle] object
@@ -248,6 +250,8 @@ extension type FileSystemReadWriteOptions._(JSObject _) implements JSObject {
   external set at(int value);
 }
 
+/// @AvailableInWorkers("dedicated")
+///
 /// The **`FileSystemSyncAccessHandle`** interface of the [File System API]
 /// represents a synchronous handle to a file system entry.
 ///
@@ -280,6 +284,8 @@ extension type FileSystemReadWriteOptions._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FileSystemSyncAccessHandle).
 extension type FileSystemSyncAccessHandle._(JSObject _) implements JSObject {
+  /// @AvailableInWorkers("dedicated")
+  ///
   /// The **`read()`** method of the
   /// [FileSystemSyncAccessHandle] interface reads the content of the file
   /// associated with the handle into a specified buffer, optionally at a given
@@ -289,6 +295,8 @@ extension type FileSystemSyncAccessHandle._(JSObject _) implements JSObject {
     FileSystemReadWriteOptions options,
   ]);
 
+  /// @AvailableInWorkers("dedicated")
+  ///
   /// The **`write()`** method of the
   /// [FileSystemSyncAccessHandle] interface writes the content of a specified
   /// buffer to the file associated with the handle, optionally at a given
@@ -307,6 +315,8 @@ extension type FileSystemSyncAccessHandle._(JSObject _) implements JSObject {
     FileSystemReadWriteOptions options,
   ]);
 
+  /// @AvailableInWorkers("dedicated")
+  ///
   /// The **`truncate()`** method of the
   /// [FileSystemSyncAccessHandle] interface resizes the file associated with
   /// the handle to a specified number of bytes.
@@ -319,6 +329,8 @@ extension type FileSystemSyncAccessHandle._(JSObject _) implements JSObject {
   /// > these methods implement them as synchronous methods.
   external void truncate(int newSize);
 
+  /// @AvailableInWorkers("dedicated")
+  ///
   /// The **`getSize()`** method of the
   /// [FileSystemSyncAccessHandle] interface returns the size of the file
   /// associated with the handle in bytes.
@@ -331,6 +343,8 @@ extension type FileSystemSyncAccessHandle._(JSObject _) implements JSObject {
   /// > these methods implement them as synchronous methods.
   external int getSize();
 
+  /// @AvailableInWorkers("dedicated")
+  ///
   /// The **`flush()`** method of the
   /// [FileSystemSyncAccessHandle] interface persists any changes made to the
   /// file associated with the handle via the [FileSystemSyncAccessHandle.write]
@@ -350,6 +364,8 @@ extension type FileSystemSyncAccessHandle._(JSObject _) implements JSObject {
   /// > implement them as synchronous methods.
   external void flush();
 
+  /// @AvailableInWorkers("dedicated")
+  ///
   /// The **`close()`** method of the
   /// [FileSystemSyncAccessHandle] interface closes an open synchronous file
   /// handle, disabling any further operations on it and releasing the exclusive

@@ -35,8 +35,19 @@ import 'dom.dart';
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Selection).
 extension type Selection._(JSObject _) implements JSObject {
-  /// The **`Selection.getRangeAt()`** method returns a range object
-  /// representing one of the ranges currently selected.
+  /// The **`getRangeAt()`** method of the [Selection] interface returns a range
+  /// object representing a currently selected range.
+  ///
+  /// If the endpoints of the selected range are within a  then JavaScript does
+  /// not have visibility of the shadow nodes, and the method should re-scope
+  /// the range to include the host element that contains the end point.
+  /// In practice most browsers do not yet implement this behavior, and the
+  /// returned range is unpredictable.
+  ///
+  /// > **Note:** When selecting within nodes that might contain a shadow root,
+  /// > you can use [Selection.getComposedRanges] (if supported) to get a
+  /// > selection range inside a shadow tree, or to reliably re-scope the
+  /// > selection to the host node.
   external Range getRangeAt(int index);
 
   /// The **`Selection.addRange()`** method adds a
@@ -106,9 +117,12 @@ extension type Selection._(JSObject _) implements JSObject {
     int offset,
   ]);
 
-  /// The **`setBaseAndExtent()`** method of the
-  /// [Selection] interface sets the selection to be a range including all or
-  /// parts of two specified DOM nodes, and any content located between them.
+  /// The **`setBaseAndExtent()`** method of the [Selection] interface sets the
+  /// selection to be a range including all or parts of two specified DOM nodes,
+  /// and any content located between them.
+  ///
+  /// The anchor and focus nodes can be located in a , if supported by the
+  /// browser.
   external void setBaseAndExtent(
     Node anchorNode,
     int anchorOffset,

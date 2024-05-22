@@ -18,9 +18,13 @@ external $Console get console;
 
 /// The **`console`** object provides access to the debugging console (e.g., the
 /// [Web console](https://firefox-source-docs.mozilla.org/devtools-user/web_console/index.html)
-/// in Firefox). The specifics of how it works vary from browser to browser or
-/// server runtimes (Node.js, for example), but there is a _de facto_ set of
-/// features that are typically provided.
+/// in Firefox).
+///
+/// Implementations of the console API may differ between runtimes. In
+/// particular, some console methods may work differently or not work at all in
+/// some online editors and IDEs. To see the behavior described in this
+/// documentation, try the methods in your browser's developer tools, although
+/// even here, there are some differences between browsers.
 ///
 /// The `console` object can be accessed from any global object. [Window] on
 /// browsing scopes and [WorkerGlobalScope] as specific variants in workers via
@@ -33,12 +37,6 @@ external $Console get console;
 ///
 /// This page documents the [Methods](#methods) available on the `console`
 /// object and gives a few [Usage](#usage) examples.
-///
-/// > **Note:** Certain online IDEs and editors may implement the console API
-/// > differently than the browsers. As a result, certain functionality of the
-/// > console API, such as the timer methods, may not be outputted in the
-/// > console of online IDEs or editors. Always open your browser's DevTools
-/// > console to see the logs as shown in this documentation.
 ///
 /// ---
 ///

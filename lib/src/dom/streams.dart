@@ -286,8 +286,8 @@ extension type ReadableStreamReadResult._(JSObject _) implements JSObject {
 ///
 /// Note that the methods and properties are similar to those for the default
 /// reader ([ReadableStreamDefaultReader]).
-/// The `read()` method differs in that it provide a view into which data should
-/// be written.
+/// The `read()` method differs in that it provides a view into which data
+/// should be written.
 ///
 /// ---
 ///

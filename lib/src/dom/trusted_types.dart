@@ -23,7 +23,7 @@ typedef CreateScriptURLCallback = JSFunction;
 /// that will render it as HTML. These objects are created via
 /// [TrustedTypePolicy.createHTML] and therefore have no constructor.
 ///
-/// The value of a **TrustedHTML** object is set when the object is created and
+/// The value of a `TrustedHTML` object is set when the object is created and
 /// cannot be changed by JavaScript as there is no setter exposed.
 ///
 /// ---
@@ -61,7 +61,7 @@ extension type TrustedScript._(JSObject _) implements JSObject {
 /// that will parse it as a URL of an external script. These objects are created
 /// via [TrustedTypePolicy.createScriptURL] and therefore have no constructor.
 ///
-/// The value of a **TrustedScriptURL** object is set when the object is created
+/// The value of a `TrustedScriptURL` object is set when the object is created
 /// and cannot be changed by JavaScript as there is no setter exposed.
 ///
 /// ---
@@ -178,7 +178,7 @@ extension type TrustedTypePolicyFactory._(JSObject _) implements JSObject {
 }
 
 /// The **`TrustedTypePolicy`** interface of the [Trusted Types API] defines a
-/// group of functions which create [TrustedType] objects.
+/// group of functions which create `TrustedType` objects.
 ///
 /// A `TrustedTypePolicy` object is created by
 /// [TrustedTypePolicyFactory.createPolicy] to define a policy for enforcing

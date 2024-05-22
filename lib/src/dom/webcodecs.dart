@@ -36,6 +36,8 @@ typedef VideoColorPrimaries = String;
 typedef VideoTransferCharacteristics = String;
 typedef VideoMatrixCoefficients = String;
 
+/// @AvailableInWorkers("window_and_dedicated")
+///
 /// The **`VideoDecoder`** interface of the [WebCodecs API] decodes chunks of
 /// video.
 ///
@@ -49,31 +51,45 @@ extension type VideoDecoder._(JSObject _) implements EventTarget, JSObject {
   external static JSPromise<VideoDecoderSupport> isConfigSupported(
       VideoDecoderConfig config);
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`configure()`** method of the [VideoDecoder] interface enqueues a
   /// control message to configure the video decoder for decoding chunks.
   external void configure(VideoDecoderConfig config);
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`decode()`** method of the [VideoDecoder] interface enqueues a
   /// control message to decode a given chunk of video.
   external void decode(EncodedVideoChunk chunk);
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`flush()`** method of the [VideoDecoder] interface returns a Promise
   /// that resolves once all pending messages in the queue have been completed.
   external JSPromise<JSAny?> flush();
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`reset()`** method of the [VideoDecoder] interface resets all states
   /// including configuration, control messages in the control message queue,
   /// and all pending callbacks.
   external void reset();
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`close()`** method of the [VideoDecoder] interface ends all pending
   /// work and releases system resources.
   external void close();
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`state`** property of the [VideoDecoder] interface returns the
   /// current state of the underlying codec.
   external CodecState get state;
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`decodeQueueSize`** read-only property of the [VideoDecoder]
   /// interface returns the number of pending decode requests in the queue.
   external int get decodeQueueSize;
@@ -92,6 +108,8 @@ extension type VideoDecoderInit._(JSObject _) implements JSObject {
   external set error(WebCodecsErrorCallback value);
 }
 
+/// @AvailableInWorkers("window_and_dedicated")
+///
 /// The **`VideoEncoder`** interface of the [WebCodecs API] encodes [VideoFrame]
 /// objects into [EncodedVideoChunk]s.
 ///
@@ -105,6 +123,8 @@ extension type VideoEncoder._(JSObject _) implements EventTarget, JSObject {
   external static JSPromise<VideoEncoderSupport> isConfigSupported(
       VideoEncoderConfig config);
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`configure()`** method of the [VideoEncoder] interface changes the
   /// [VideoEncoder.state] of the encoder to "configured" and asynchronously
   /// prepares the encoder to accept [VideoEncoder]s for encoding with the
@@ -117,6 +137,8 @@ extension type VideoEncoder._(JSObject _) implements EventTarget, JSObject {
   /// configuration will not be applied until all previous tasks have completed.
   external void configure(VideoEncoderConfig config);
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`encode()`** method of the [VideoEncoder] interface asynchronously
   /// encodes a [VideoFrame].
   /// Encoded data ([EncodedVideoChunk]) or an error will eventually be returned
@@ -126,10 +148,14 @@ extension type VideoEncoder._(JSObject _) implements EventTarget, JSObject {
     VideoEncoderEncodeOptions options,
   ]);
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`flush()`** method of the [VideoEncoder] interface forces all
   /// pending encodes to complete.
   external JSPromise<JSAny?> flush();
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`reset()`** method of the [VideoEncoder] interface synchronously
   /// cancels all pending encodes and callbacks, frees all underlying resources
   /// and sets the [VideoEncoder.state] to "unconfigured".
@@ -141,14 +167,20 @@ extension type VideoEncoder._(JSObject _) implements EventTarget, JSObject {
   /// > [VideoEncoder.reset].
   external void reset();
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`close()`** method of the [VideoEncoder] interface ends all pending
   /// work and releases system resources.
   external void close();
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`state`** read-only property of the [VideoEncoder] interface returns
   /// the current state of the underlying codec.
   external CodecState get state;
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`encodeQueueSize`** read-only property of the [VideoEncoder]
   /// interface returns the number of pending encode requests in the queue.
   external int get encodeQueueSize;
@@ -294,6 +326,8 @@ extension type VideoEncoderEncodeOptions._(JSObject _) implements JSObject {
   external set vp9(VideoEncoderEncodeOptionsForVp9 value);
 }
 
+/// @AvailableInWorkers("window_and_dedicated")
+///
 /// The **`EncodedVideoChunk`** interface of the [WebCodecs API] represents a
 /// chunk of encoded video data.
 ///
@@ -304,24 +338,34 @@ extension type VideoEncoderEncodeOptions._(JSObject _) implements JSObject {
 extension type EncodedVideoChunk._(JSObject _) implements JSObject {
   external factory EncodedVideoChunk(EncodedVideoChunkInit init);
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`copyTo()`** method of the [EncodedVideoChunk] interface copies the
   /// encoded chunk of video data.
   external void copyTo(AllowSharedBufferSource destination);
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`type`** read-only property of the [EncodedVideoChunk] interface
   /// returns a value indicating whether the video chunk is a key chunk, which
   /// does not rely on other frames for decoding.
   external EncodedVideoChunkType get type;
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`timestamp`** read-only property of the [EncodedVideoChunk]
   /// interface returns an integer indicating the timestamp of the video in
   /// microseconds.
   external int get timestamp;
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`duration`** read-only property of the [EncodedVideoChunk] interface
   /// returns an integer indicating the duration of the video in microseconds.
   external int? get duration;
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`byteLength`** read-only property of the [EncodedVideoChunk]
   /// interface returns the length in bytes of the encoded video data.
   external int get byteLength;
@@ -347,6 +391,8 @@ extension type EncodedVideoChunkInit._(JSObject _) implements JSObject {
   external set transfer(JSArray<JSArrayBuffer> value);
 }
 
+/// @AvailableInWorkers("window_and_dedicated")
+///
 /// The **`VideoFrame`** interface of the
 /// [Web Codecs API](https://developer.mozilla.org/en-US/docs/Web/API/WebCodecs_API)
 /// represents a frame of a video.
@@ -364,11 +410,15 @@ extension type VideoFrame._(JSObject _) implements JSObject {
     JSObject init,
   ]);
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`allocationSize()`** method of the [VideoFrame] interface returns
   /// the number of bytes required to hold the video as filtered by options
   /// passed into the method.
   external int allocationSize([VideoFrameCopyToOptions options]);
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`copyTo()`** method of the [VideoFrame] interface copies the
   /// contents of the `VideoFrame` to an `ArrayBuffer`.
   external JSPromise<JSArray<PlaneLayout>> copyTo(
@@ -376,54 +426,78 @@ extension type VideoFrame._(JSObject _) implements JSObject {
     VideoFrameCopyToOptions options,
   ]);
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`clone()`** method of the [VideoFrame] interface creates a new
   /// `VideoFrame` object referencing the same media resource as the original.
   external VideoFrame clone();
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`close()`** method of the [VideoFrame] interface clears all states
   /// and releases the reference to the media resource.
   external void close();
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`format`** property of the [VideoFrame] interface returns the pixel
   /// format of the `VideoFrame`.
   external VideoPixelFormat? get format;
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`codedWidth`** property of the [VideoFrame] interface returns the
   /// width of the `VideoFrame` in pixels, potentially including non-visible
   /// padding, and prior to considering potential ratio adjustments.
   external int get codedWidth;
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`codedHeight`** property of the [VideoFrame] interface returns the
   /// height of the VideoFrame in pixels, potentially including non-visible
   /// padding, and prior to considering potential ratio adjustments.
   external int get codedHeight;
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`codedRect`** property of the [VideoFrame] interface returns a
   /// [DOMRectReadOnly] with the width and height matching
   /// [VideoFrame.codedWidth] and [VideoFrame.codedHeight].
   external DOMRectReadOnly? get codedRect;
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`visibleRect`** property of the [VideoFrame] interface returns a
   /// [DOMRectReadOnly] describing the visible rectangle of pixels for this
   /// `VideoFrame`.
   external DOMRectReadOnly? get visibleRect;
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`displayWidth`** property of the [VideoFrame] interface returns the
   /// width of the `VideoFrame` after applying aspect ratio adjustments.
   external int get displayWidth;
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`displayHeight`** property of the [VideoFrame] interface returns the
   /// height of the `VideoFrame` after applying aspect ratio adjustments.
   external int get displayHeight;
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`duration`** property of the [VideoFrame] interface returns an
   /// integer indicating the duration of the video in microseconds.
   external int? get duration;
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`timestamp`** property of the [VideoFrame] interface returns an
   /// integer indicating the timestamp of the video in microseconds.
   external int get timestamp;
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`colorSpace`** property of the [VideoFrame] interface returns a
   /// [VideoColorSpace] object representing the color space of the video.
   external VideoColorSpace get colorSpace;
@@ -518,6 +592,8 @@ extension type PlaneLayout._(JSObject _) implements JSObject {
   external set stride(int value);
 }
 
+/// @AvailableInWorkers("window_and_dedicated")
+///
 /// The **`VideoColorSpace`** interface of the [WebCodecs API] represents the
 /// color space of a video.
 ///
@@ -528,24 +604,34 @@ extension type PlaneLayout._(JSObject _) implements JSObject {
 extension type VideoColorSpace._(JSObject _) implements JSObject {
   external factory VideoColorSpace([VideoColorSpaceInit init]);
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`toJSON()`** method of the [VideoColorSpace] interface is a
   /// _serializer_ that returns a JSON representation of the `VideoColorSpace`
   /// object.
   external VideoColorSpaceInit toJSON();
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`primaries`** read-only property of the [VideoColorSpace] interface
   /// returns the color  of the video.
   external VideoColorPrimaries? get primaries;
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`transfer`** read-only property of the [VideoColorSpace] interface
   /// returns the opto-electronic transfer characteristics of the video.
   external VideoTransferCharacteristics? get transfer;
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`matrix`** read-only property of the [VideoColorSpace] interface
   /// returns the matrix coefficient of the video. Matrix coefficients describe
   /// the relationship between sample component values and color coordinates.
   external VideoMatrixCoefficients? get matrix;
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`fullRange`** read-only property of the [VideoColorSpace] interface
   /// returns `true` if full-range color values are used.
   external bool? get fullRange;

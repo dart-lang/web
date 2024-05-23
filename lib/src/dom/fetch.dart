@@ -249,7 +249,7 @@ extension type Request._(JSObject _) implements JSObject {
   ///
   /// The string must be one of the `audio`, `audioworklet`,
   /// `document`, `embed`, `fencedframe`, `font`, `frame`,
-  /// `iframe`, `image`, `manifest`, `object`,
+  /// `iframe`, `image`, `json`, `manifest`, `object`,
   /// `paintworklet`, `report`, `script`, `sharedworker`,
   /// `style`, `track`, `video`, `worker`
   /// or `xslt` strings, or the empty string, which is the default value.

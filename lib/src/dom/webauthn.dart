@@ -321,6 +321,17 @@ extension type PublicKeyCredentialParameters._(JSObject _) implements JSObject {
   external COSEAlgorithmIdentifier get alg;
   external set alg(COSEAlgorithmIdentifier value);
 }
+
+/// The **`PublicKeyCredentialCreationOptions`** dictionary represents the
+/// object passed to [CredentialsContainer.create] as the value of the
+/// `publicKey` option: that is, when using `create()` to create a public key
+/// credential using the
+/// [Web Authentication API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PublicKeyCredentialCreationOptions).
 extension type PublicKeyCredentialCreationOptions._(JSObject _)
     implements JSObject {
   external factory PublicKeyCredentialCreationOptions({

@@ -110,8 +110,9 @@ extension type StylePropertyMap._(JSObject _)
   external void clear();
 }
 
-/// The **`CSSUnparsedValue`** interface of the  represents property values that
-/// reference
+/// The **`CSSUnparsedValue`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// represents property values that reference
 /// [custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascading_variables).
 /// It consists of a list of string fragments and variable references.
 ///
@@ -131,10 +132,11 @@ extension type CSSUnparsedValue._(JSObject _)
   external int get length;
 }
 
-/// The **`CSSVariableReferenceValue`** interface of the  allows you to create a
-/// custom name for a built-in CSS value. This object functionality is sometimes
-/// called a "CSS variable" and serves the same purpose as the `var()` function.
-/// The custom name must begin with two dashes.
+/// The **`CSSVariableReferenceValue`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// allows you to create a custom name for a built-in CSS value. This object
+/// functionality is sometimes called a "CSS variable" and serves the same
+/// purpose as the `var()` function. The custom name must begin with two dashes.
 ///
 /// ---
 ///
@@ -283,9 +285,10 @@ extension type CSSNumericValue._(JSObject _)
   external CSSNumericType type();
 }
 
-/// The **`CSSUnitValue`** interface of the  represents values that contain a
-/// single unit type. For example, "42px" would be represented by a
-/// `CSSNumericValue`.
+/// The **`CSSUnitValue`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model#css_typed_object_model)
+/// represents values that contain a single unit type. For example, "42px" would
+/// be represented by a `CSSNumericValue`.
 ///
 /// ---
 ///
@@ -308,8 +311,9 @@ extension type CSSUnitValue._(JSObject _) implements CSSNumericValue, JSObject {
   external String get unit;
 }
 
-/// The **`CSSMathValue`** interface of the  a base class for classes
-/// representing complex numeric values.
+/// The **`CSSMathValue`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// a base class for classes representing complex numeric values.
 ///
 /// ---
 ///
@@ -324,9 +328,10 @@ extension type CSSMathValue._(JSObject _) implements CSSNumericValue, JSObject {
   external CSSMathOperator get operator;
 }
 
-/// The **`CSSMathSum`** interface of the  represents the result obtained by
-/// calling [CSSNumericValue.add], [CSSNumericValue.sub], or
-/// [CSSNumericValue.toSum] on [CSSNumericValue].
+/// The **`CSSMathSum`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// represents the result obtained by calling [CSSNumericValue.add],
+/// [CSSNumericValue.sub], or [CSSNumericValue.toSum] on [CSSNumericValue].
 ///
 /// A CSSMathSum is the object type returned when the
 /// [`StylePropertyMapReadOnly.get()`](https://developer.mozilla.org/en-US/docs/Web/API/StylePropertyMapReadOnly/get)
@@ -344,10 +349,11 @@ extension type CSSMathSum._(JSObject _) implements CSSMathValue, JSObject {
   external CSSNumericArray get values;
 }
 
-/// The **`CSSMathProduct`** interface of the  represents the result obtained by
-/// calling [CSSNumericValue.add], [CSSNumericValue.sub], or
-/// [CSSNumericValue.toSum] on [CSSNumericValue]. It inherits properties and
-/// methods from its parent [CSSNumericValue].
+/// The **`CSSMathProduct`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// represents the result obtained by calling [CSSNumericValue.add],
+/// [CSSNumericValue.sub], or [CSSNumericValue.toSum] on [CSSNumericValue]. It
+/// inherits properties and methods from its parent [CSSNumericValue].
 ///
 /// ---
 ///
@@ -361,8 +367,10 @@ extension type CSSMathProduct._(JSObject _) implements CSSMathValue, JSObject {
   external CSSNumericArray get values;
 }
 
-/// The **`CSSMathNegate`** interface of the  negates the value passed into it.
-/// It inherits properties and methods from its parent [CSSNumericValue].
+/// The **`CSSMathNegate`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// negates the value passed into it. It inherits properties and methods from
+/// its parent [CSSNumericValue].
 ///
 /// ---
 ///
@@ -376,9 +384,10 @@ extension type CSSMathNegate._(JSObject _) implements CSSMathValue, JSObject {
   external CSSNumericValue get value;
 }
 
-/// The **`CSSMathInvert`** interface of the  represents a CSS `calc()` used as
-/// `calc(1 / <value>).` It inherits properties and methods from its parent
-/// [CSSNumericValue].
+/// The **`CSSMathInvert`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// represents a CSS `calc()` used as `calc(1 / <value>).` It inherits
+/// properties and methods from its parent [CSSNumericValue].
 ///
 /// ---
 ///
@@ -392,8 +401,10 @@ extension type CSSMathInvert._(JSObject _) implements CSSMathValue, JSObject {
   external CSSNumericValue get value;
 }
 
-/// The **`CSSMathMin`** interface of the  represents the CSS `min()` function.
-/// It inherits properties and methods from its parent [CSSNumericValue].
+/// The **`CSSMathMin`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// represents the CSS `min()` function. It inherits properties and methods from
+/// its parent [CSSNumericValue].
 ///
 /// ---
 ///
@@ -406,8 +417,10 @@ extension type CSSMathMin._(JSObject _) implements CSSMathValue, JSObject {
   external CSSNumericArray get values;
 }
 
-/// The **`CSSMathMax`** interface of the  represents the CSS `max()` function.
-/// It inherits properties and methods from its parent [CSSNumericValue].
+/// The **`CSSMathMax`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// represents the CSS `max()` function. It inherits properties and methods from
+/// its parent [CSSNumericValue].
 ///
 /// ---
 ///
@@ -431,8 +444,9 @@ extension type CSSMathClamp._(JSObject _) implements CSSMathValue, JSObject {
   external CSSNumericValue get upper;
 }
 
-/// The **`CSSNumericArray`** interface of the  contains a list of
-/// [CSSNumericValue] objects.
+/// The **`CSSNumericArray`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// contains a list of [CSSNumericValue] objects.
 ///
 /// ---
 ///
@@ -445,8 +459,9 @@ extension type CSSNumericArray._(JSObject _) implements JSObject {
   external int get length;
 }
 
-/// The **`CSSTransformValue`** interface of the  represents `transform-list`
-/// values as used by the CSS `transform` property.
+/// The **`CSSTransformValue`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// represents `transform-list` values as used by the CSS `transform` property.
 ///
 /// ---
 ///
@@ -476,8 +491,9 @@ extension type CSSTransformValue._(JSObject _)
   external bool get is2D;
 }
 
-/// The **`CSSTransformComponent`** interface of the  is part of the
-/// [CSSTransformValue] interface.
+/// The **`CSSTransformComponent`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// is part of the [CSSTransformValue] interface.
 ///
 /// ---
 ///
@@ -505,7 +521,9 @@ extension type CSSTransformComponent._(JSObject _) implements JSObject {
   external set is2D(bool value);
 }
 
-/// The **`CSSTranslate`** interface of the  represents the
+/// The **`CSSTranslate`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// represents the
 /// [translate()](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/translate)
 /// value of the individual `transform` property in CSS. It inherits properties
 /// and methods from its parent [CSSTransformValue].
@@ -547,9 +565,10 @@ extension type CSSTranslate._(JSObject _)
   external set z(CSSNumericValue value);
 }
 
-/// The **`CSSRotate`** interface of the  represents the rotate value of the
-/// individual `transform` property in CSS. It inherits properties and methods
-/// from its parent [CSSTransformValue].
+/// The **`CSSRotate`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// represents the rotate value of the individual `transform` property in CSS.
+/// It inherits properties and methods from its parent [CSSTransformValue].
 ///
 /// ---
 ///
@@ -592,7 +611,9 @@ extension type CSSRotate._(JSObject _)
   external set angle(CSSNumericValue value);
 }
 
-/// The **`CSSScale`** interface of the  represents the
+/// The **`CSSScale`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// represents the
 /// [scale()](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/scale)
 /// and
 /// [scale3d()](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/scale3d)
@@ -636,8 +657,9 @@ extension type CSSScale._(JSObject _)
   external set z(CSSNumberish value);
 }
 
-/// The **`CSSSkew`** interface of the  is part of the [CSSTransformValue]
-/// interface. It represents the
+/// The **`CSSSkew`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// is part of the [CSSTransformValue] interface. It represents the
 /// [`skew()`](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/skew)
 /// value of the individual `transform` property in CSS.
 ///
@@ -665,7 +687,9 @@ extension type CSSSkew._(JSObject _)
   external set ay(CSSNumericValue value);
 }
 
-/// The **`CSSSkewX`** interface of the  represents the
+/// The **`CSSSkewX`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// represents the
 /// [`skewX()`](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/skewX)
 /// value of the individual `transform` property in CSS. It inherits properties
 /// and methods from its parent [CSSTransformValue].
@@ -685,7 +709,9 @@ extension type CSSSkewX._(JSObject _)
   external set ax(CSSNumericValue value);
 }
 
-/// The **`CSSSkewY`** interface of the  represents the
+/// The **`CSSSkewY`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// represents the
 /// [`skewY()`](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/skewY)
 /// value of the individual `transform` property in CSS. It inherits properties
 /// and methods from its parent [CSSTransformValue].
@@ -705,7 +731,9 @@ extension type CSSSkewY._(JSObject _)
   external set ay(CSSNumericValue value);
 }
 
-/// The **`CSSPerspective`** interface of the  represents the
+/// The **`CSSPerspective`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// represents the
 /// [perspective()](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/perspective)
 /// value of the individual `transform` property in CSS. It inherits properties
 /// and methods from its parent [CSSTransformValue].
@@ -728,7 +756,9 @@ extension type CSSPerspective._(JSObject _)
   external set length(CSSPerspectiveValue value);
 }
 
-/// The **`CSSMatrixComponent`** interface of the  represents the
+/// The **`CSSMatrixComponent`** interface of the
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
+/// represents the
 /// [matrix()](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/matrix)
 /// and
 /// [matrix3d()](https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/matrix3d)

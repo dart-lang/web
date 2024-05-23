@@ -21,7 +21,7 @@ import 'webidl.dart';
 typedef BlobPart = JSAny;
 typedef EndingType = String;
 
-/// The **`Blob`** object represents a blob, which is a file-like object of
+/// The **`Blob`** interface represents a blob, which is a file-like object of
 /// immutable, raw data; they can be read as text or binary data, or converted
 /// into a [ReadableStream] so its methods can be used for processing the data.
 ///
@@ -200,7 +200,7 @@ extension type FileList._(JSObject _) implements JSObject {
   external int get length;
 }
 
-/// The **`FileReader`** object lets web applications asynchronously read the
+/// The **`FileReader`** interface lets web applications asynchronously read the
 /// contents of files (or raw data buffers) stored on the user's computer, using
 /// [File] or [Blob] objects to specify the file or data to read.
 ///
@@ -216,7 +216,7 @@ extension type FileList._(JSObject _) implements JSObject {
 /// [File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_API).
 /// To read server-side files, use [fetch], with
 /// [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) permission if
-/// reading cross-domain.
+/// reading cross-origin.
 ///
 /// ---
 ///
@@ -232,9 +232,9 @@ extension type FileReader._(JSObject _) implements EventTarget, JSObject {
   /// The **`readAsArrayBuffer()`** method of the [FileReader] interface is used
   /// to start reading the
   /// contents of a specified [Blob] or [File]. When the read
-  /// operation is finished, the [FileReader.readyState] becomes
-  /// `DONE`, and the [FileReader.loadend_event] is
-  /// triggered. At that time, the [FileReader.result] attribute
+  /// operation is finished, the [FileReader.readyState] property becomes
+  /// `DONE`, and the [FileReader.loadend_event] event is
+  /// triggered. At that time, the [FileReader.result] property
   /// contains an `ArrayBuffer` representing the file's data.
   ///
   /// > **Note:** The [Blob.arrayBuffer] method is a newer promise-based API to
@@ -245,12 +245,13 @@ extension type FileReader._(JSObject _) implements EventTarget, JSObject {
   /// > **Note:** This method is deprecated in favor of
   /// > [FileReader.readAsArrayBuffer].
   ///
-  /// The **`readAsBinaryString`** method of the [FileReader] interface is used
-  /// to start reading the contents of the
+  /// The **`readAsBinaryString()`** method of the [FileReader] interface is
+  /// used to start reading the contents of the
   /// specified [Blob] or [File]. When the read operation is
-  /// finished, the [FileReader.readyState] becomes
-  /// `DONE`, and the [FileReader.loadend_event] is triggered. At that time, the
-  /// [FileReader.result] attribute contains the raw binary data from
+  /// finished, the [FileReader.readyState] property becomes
+  /// `DONE`, and the [FileReader.loadend_event] event is triggered. At that
+  /// time, the
+  /// [FileReader.result] property contains the raw binary data from
   /// the file.
   ///
   /// Note that this method was once removed from the File API specification,
@@ -261,8 +262,8 @@ extension type FileReader._(JSObject _) implements EventTarget, JSObject {
 
   /// The **`readAsText()`** method of the [FileReader] interface is used to
   /// read the contents of the specified [Blob] or [File].
-  /// When the read operation is complete, the [FileReader.readyState] is
-  /// changed to `DONE`,
+  /// When the read operation is complete, the [FileReader.readyState] property
+  /// is changed to `DONE`,
   /// the [FileReader.loadend_event] event is triggered, and the
   /// [FileReader.result] property contains the contents of the file as a text
   /// string.
@@ -271,19 +272,18 @@ extension type FileReader._(JSObject _) implements EventTarget, JSObject {
   /// > file as text.
   ///
   /// > **Note:** This method loads the entire file's content into memory and is
-  /// > not suitable for large files. Prefer
-  /// > [`readAsArrayBuffer()`](https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsArrayBuffer)
-  /// > for large files.
+  /// > not suitable for large files. Prefer [FileReader.readAsArrayBuffer] for
+  /// > large files.
   external void readAsText(
     Blob blob, [
     String encoding,
   ]);
 
-  /// The **`readAsDataURL`** method of the [FileReader] interface is used to
+  /// The **`readAsDataURL()`** method of the [FileReader] interface is used to
   /// read the contents of the specified
   /// [Blob] or [File]. When the read operation is finished, the
-  /// [FileReader.readyState] becomes `DONE`, and the
-  /// [FileReader.loadend_event] is triggered. At that time, the
+  /// [FileReader.readyState] property becomes `DONE`, and the
+  /// [FileReader.loadend_event] event is triggered. At that time, the
   /// [FileReader.result] attribute contains the data as a [data:
   /// URL](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs)
   /// representing the
@@ -297,27 +297,14 @@ extension type FileReader._(JSObject _) implements EventTarget, JSObject {
   /// > remove `data:*/*;base64,` from the result.
   external void readAsDataURL(Blob blob);
 
-  /// The **`abort`** method of the [FileReader] interface aborts the read
+  /// The **`abort()`** method of the [FileReader] interface aborts the read
   /// operation. Upon return,
   /// the [FileReader.readyState] will be `DONE`.
   external void abort();
 
   /// The **`readyState`** read-only property of the [FileReader] interface
-  /// provides the current state of the reading operation a `FileReader` is in.
-  /// A `FileReader` exists in one of the following states:
-  ///
-  /// | Value | State     | Description                                                   |
-  /// | ----- | --------- | ------------------------------------------------------------- |
-  /// | `0`   | `EMPTY`   | Reader has been created. None of the read methods called yet. |
-  /// | `1`   | `LOADING` | A read method has been called.                                |
-  /// | `2`   | `DONE`    | The operation is complete.                                    |
-  ///
-  /// - `EMPTY`
-  ///   - : The `FileReader` has been created, but no readAs method was called yet.
-  /// - `LOADING`
-  ///   - : A readAs method was invoked. A [File] or [Blob] is being read, and no error has occurred yet.
-  /// - `DONE`
-  ///   - : The read operation is complete. This could mean that: the entire [File] or [Blob] has been read into memory, a file read error occurred, or [FileReader.abort] was called and the read was cancelled.
+  /// provides the current state of the reading operation.
+  /// This will be one of the states: `EMPTY`, `LOADING`, or `DONE`.
   external int get readyState;
 
   /// The **`result`** read-only property of the [FileReader] interface returns
@@ -347,6 +334,8 @@ extension type FileReader._(JSObject _) implements EventTarget, JSObject {
   external set onloadend(EventHandler value);
 }
 
+/// @AvailableInWorkers("worker_except_service")
+///
 /// The **`FileReaderSync`** interface allows to read [File] or [Blob] objects
 /// synchronously. This interface is
 /// [only available](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Functions_and_classes_available_to_workers)
@@ -360,6 +349,8 @@ extension type FileReader._(JSObject _) implements EventTarget, JSObject {
 extension type FileReaderSync._(JSObject _) implements JSObject {
   external factory FileReaderSync();
 
+  /// @AvailableInWorkers("worker_except_service")
+  ///
   /// The **`readAsArrayBuffer()`** method of the [FileReaderSync] interface
   /// allows to read [File] or [Blob] objects in a synchronous way into an
   /// `ArrayBuffer`. This interface is
@@ -368,6 +359,8 @@ extension type FileReaderSync._(JSObject _) implements JSObject {
   /// it enables synchronous I/O that could potentially block.
   external JSArrayBuffer readAsArrayBuffer(Blob blob);
 
+  /// @AvailableInWorkers("worker_except_service")
+  ///
   /// > **Note:** This method is deprecated in favor of
   /// > [FileReaderSync.readAsArrayBuffer].
   ///
@@ -379,6 +372,8 @@ extension type FileReaderSync._(JSObject _) implements JSObject {
   /// it enables synchronous I/O that could potentially block.
   external String readAsBinaryString(Blob blob);
 
+  /// @AvailableInWorkers("worker_except_service")
+  ///
   /// The **`readAsText()`** method of the [FileReaderSync] interface allows to
   /// read [File] or [Blob] objects in a synchronous way into a string. This
   /// interface is
@@ -390,6 +385,8 @@ extension type FileReaderSync._(JSObject _) implements JSObject {
     String encoding,
   ]);
 
+  /// @AvailableInWorkers("worker_except_service")
+  ///
   /// The **`readAsDataURL()`** method of the [FileReaderSync] interface allows
   /// to read [File] or [Blob] objects in a synchronous way into a string
   /// representing a data URL. This interface is

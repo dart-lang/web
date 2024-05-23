@@ -99,32 +99,22 @@ extension type CredentialsContainer._(JSObject _) implements JSObject {
   /// > `<iframe>` element will resolve without effect.
   external JSPromise<JSAny?> store(Credential credential);
 
-  /// The **`create()`** method of the [CredentialsContainer] interface returns
-  /// a `Promise` that resolves with a new credential instance based on the
-  /// provided options, the information from which can then be stored and later
-  /// used to authenticate users via [CredentialsContainer.get].
+  /// The **`create()`** method of the [CredentialsContainer] interface creates
+  /// a new , which can then be stored and later used to authenticate users via
+  /// [CredentialsContainer.get].
   ///
-  /// This is used by multiple different credential-related APIs with
-  /// significantly different purposes:
+  /// This method supports three different types of credential:
   ///
-  /// - The
-  ///   [Credential Management API](https://developer.mozilla.org/en-US/docs/Web/API/Credential_Management_API)
-  ///   uses `create()` to create basic federated credentials or
-  ///   username/password credentials.
-  /// - The
-  ///   [Web Authentication API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Authentication_API)
-  ///   uses `create()` to create public key credentials (based on asymmetric
-  ///   cryptography).
+  /// - A password credential, which enables a user to sign in using a password.
+  /// - A federated credential, which enables a user to sign in using a
+  ///   federated identity provider.
+  /// - A public key credential, which enables a user to sign in with an
+  ///   authenticator such as a biometric reader built into the platform or a
+  ///   removable hardware token.
   ///
-  /// The below reference page starts with a syntax section that explains the
-  /// general method call structure and parameters that apply to all the
-  /// different APIs. After that, it is split into separate sections providing
-  /// parameters, return values, and examples specific to each API.
-  ///
-  /// > **Note:** This method is restricted to top-level  (i.e., a document
-  /// > running directly inside a browser tab, and not embedded inside another
-  /// > document). Calls to it from within an `<iframe>` element will resolve
-  /// > without effect.
+  /// Note that the [Federated Credential Management API
+  /// (FedCM)](https://developer.mozilla.org/en-US/docs/Web/API/FedCM_API)
+  /// supersedes the federated credential type.
   external JSPromise<Credential?> create([CredentialCreationOptions options]);
 
   /// The **`preventSilentAccess()`** method of the [CredentialsContainer]
@@ -224,6 +214,24 @@ extension type FederatedCredentialRequestOptions._(JSObject _)
   external JSArray<JSString> get protocols;
   external set protocols(JSArray<JSString> value);
 }
+
+/// The **`FederatedCredentialInit`** dictionary represents the object passed to
+/// [CredentialsContainer.create] as the value of the `federated` option: that
+/// is, when creating a [FederatedCredential] object representing a credential
+/// associated with a federated identify provider.
+///
+/// > **Note:** The [Federated Credential Management API
+/// > (FedCM)](https://developer.mozilla.org/en-US/docs/Web/API/FedCM_API)
+/// > supersedes the [FederatedCredential] interface in favor of the
+/// > [IdentityCredential] interface.
+/// >
+/// > The `FederatedCredentialInit` dictionary is not used when working with the
+/// > `IdentityCredential`interface.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/FederatedCredentialInit).
 extension type FederatedCredentialInit._(JSObject _)
     implements CredentialData, JSObject {
   external factory FederatedCredentialInit({

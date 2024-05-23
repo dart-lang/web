@@ -194,19 +194,18 @@ extension type ServiceWorkerRegistration._(JSObject _)
   /// preemptively downloaded in parallel with service worker boot up.
   external NavigationPreloadManager get navigationPreload;
 
-  /// The **`scope`** read-only property of the
-  /// [ServiceWorkerRegistration] interface returns a unique identifier for a
-  /// service worker registration. The service worker must be on the same origin
-  /// as the
-  /// document that registers the [ServiceWorker].
+  /// The **`scope`** read-only property of the [ServiceWorkerRegistration]
+  /// interface returns a string representing a URL that defines a service
+  /// worker's registration scope; that is, the range of URLs a service worker
+  /// can control. This is set using the `scope` parameter specified in the call
+  /// to [ServiceWorkerContainer.register] which registered the service worker.
   external String get scope;
 
   /// The **`updateViaCache`** read-only property of the
-  /// [ServiceWorkerRegistration] interface updates the cache using
-  /// the mode specified in the call to [ServiceWorkerContainer.register].
-  /// Requests for `importScripts` still go via the HTTP cache. `updateViaCache`
-  /// offers
-  /// control over this behavior.
+  /// [ServiceWorkerRegistration] interface returns the value of the setting
+  /// used to determine the circumstances in which the browser will consult the
+  /// HTTP cache when it tries to update the service worker or any scripts that
+  /// are imported via [WorkerGlobalScope.importScripts].
   external ServiceWorkerUpdateViaCache get updateViaCache;
   external EventHandler get onupdatefound;
   external set onupdatefound(EventHandler value);
@@ -384,6 +383,8 @@ extension type NavigationPreloadState._(JSObject _) implements JSObject {
   external set headerValue(String value);
 }
 
+/// @AvailableInWorkers("service")
+///
 /// The **`ServiceWorkerGlobalScope`** interface of the
 /// [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
 /// represents the global execution context of a service worker.
@@ -411,9 +412,10 @@ extension type NavigationPreloadState._(JSObject _) implements JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope).
 extension type ServiceWorkerGlobalScope._(JSObject _)
     implements WorkerGlobalScope, JSObject {
-  /// The **`ServiceWorkerGlobalScope.skipWaiting()`** method of the
-  /// [ServiceWorkerGlobalScope] forces the waiting service worker to become the
-  /// active service worker.
+  /// @AvailableInWorkers("service")
+  ///
+  /// The **`skipWaiting()`** method of the [ServiceWorkerGlobalScope] interface
+  /// forces the waiting service worker to become the active service worker.
   ///
   /// Use this method with [Clients.claim] to ensure that updates to the
   /// underlying service worker take effect immediately for both the current
@@ -430,18 +432,24 @@ extension type ServiceWorkerGlobalScope._(JSObject _)
   external EventHandler get onpushsubscriptionchange;
   external set onpushsubscriptionchange(EventHandler value);
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`clients`** read-only property of the
   /// [ServiceWorkerGlobalScope] interface returns the
   /// [`Clients`](https://developer.mozilla.org/en-US/docs/Web/API/Clients)
   /// object associated with the service worker.
   external Clients get clients;
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`registration`** read-only property of the
   /// [ServiceWorkerGlobalScope] interface returns a reference to the
   /// [ServiceWorkerRegistration] object, which represents the service worker's
   /// registration.
   external ServiceWorkerRegistration get registration;
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`serviceWorker`** read-only property of the
   /// [ServiceWorkerGlobalScope] interface returns a reference to the
   /// [ServiceWorker] object, which represents the service worker.
@@ -458,6 +466,8 @@ extension type ServiceWorkerGlobalScope._(JSObject _)
   external set onmessageerror(EventHandler value);
 }
 
+/// @AvailableInWorkers("service")
+///
 /// The `Client` interface represents an executable context such as a [Worker],
 /// or a [SharedWorker]. [Window] clients are represented by the more-specific
 /// [WindowClient]. You can get `Client`/`WindowClient` objects from methods
@@ -468,6 +478,8 @@ extension type ServiceWorkerGlobalScope._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Client).
 extension type Client._(JSObject _) implements JSObject {
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`postMessage()`** method of the
   /// [Client] interface allows a service worker to send a message to a client
   /// (a [Window], [Worker], or [SharedWorker]). The
@@ -478,24 +490,34 @@ extension type Client._(JSObject _) implements JSObject {
     JSObject optionsOrTransfer,
   ]);
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`url`** read-only property of the [Client]
   /// interface returns the URL of the current service worker client.
   external String get url;
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`frameType`** read-only property of the [Client] interface indicates
   /// the type of browsing context of the current [Client]. This value can be
   /// one of `"auxiliary"`, `"top-level"`, `"nested"`, or `"none"`.
   external FrameType get frameType;
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`id`** read-only property of the [Client] interface returns the
   /// universally unique identifier of the [Client] object.
   external String get id;
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`type`** read-only property of the [Client]
   /// interface indicates the type of client the service worker is controlling.
   external ClientType get type;
 }
 
+/// @AvailableInWorkers("service")
+///
 /// The `WindowClient` interface of the
 /// [ServiceWorker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
 /// represents the scope of a service worker client that is a document in a
@@ -508,30 +530,40 @@ extension type Client._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WindowClient).
 extension type WindowClient._(JSObject _) implements Client, JSObject {
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`focus()`** method of the [WindowClient]
   /// interface gives user input focus to the current client and returns a
   /// `Promise` that resolves to the existing
   /// [WindowClient].
   external JSPromise<WindowClient> focus();
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`navigate()`** method of the [WindowClient]
   /// interface loads a specified URL into a controlled client page then returns
   /// a
   /// `Promise` that resolves to the existing [WindowClient].
   external JSPromise<WindowClient?> navigate(String url);
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`visibilityState`** read-only property of the
   /// [WindowClient] interface indicates the visibility of the current client.
   /// This value can be one of `"hidden"`, `"visible"`, or
   /// `"prerender"`.
   external DocumentVisibilityState get visibilityState;
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`focused`** read-only property of the
   /// [WindowClient] interface is a boolean value that indicates whether
   /// the current client has focus.
   external bool get focused;
 }
 
+/// @AvailableInWorkers("service")
+///
 /// The `Clients` interface provides access to [Client] objects. Access it via
 /// `[ServiceWorkerGlobalScope].clients` within a
 /// [service worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
@@ -541,11 +573,15 @@ extension type WindowClient._(JSObject _) implements Client, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Clients).
 extension type Clients._(JSObject _) implements JSObject {
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`get()`** method of the
   /// [Clients] interface gets a service worker client matching a given
   /// `id` and returns it in a `Promise`.
   external JSPromise<Client?> get(String id);
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`matchAll()`** method of the [Clients]
   /// interface returns a `Promise` for a list of service worker
   /// [Client] objects. Include the `options` parameter to return all service
@@ -557,6 +593,8 @@ extension type Clients._(JSObject _) implements JSObject {
   /// service worker.
   external JSPromise<JSArray<Client>> matchAll([ClientQueryOptions options]);
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`openWindow()`** method of the [Clients]
   /// interface creates a new top level browsing context and loads a given URL.
   /// If the calling
@@ -577,6 +615,8 @@ extension type Clients._(JSObject _) implements JSObject {
   /// Chrome for Windows.
   external JSPromise<WindowClient?> openWindow(String url);
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`claim()`** method of the [Clients] interface allows an active
   /// service worker to set itself as the [ServiceWorkerContainer.controller]
   /// for all clients within its [ServiceWorkerRegistration.scope].
@@ -604,6 +644,8 @@ extension type ClientQueryOptions._(JSObject _) implements JSObject {
   external set type(ClientType value);
 }
 
+/// @AvailableInWorkers("service")
+///
 /// The **`ExtendableEvent`** interface extends the lifetime of the
 /// [`install`](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope/install_event)
 /// and
@@ -635,6 +677,8 @@ extension type ExtendableEvent._(JSObject _) implements Event, JSObject {
     ExtendableEventInit eventInitDict,
   ]);
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`ExtendableEvent.waitUntil()`**
   /// method tells the event dispatcher that work is ongoing. It can also be
   /// used to detect
@@ -680,6 +724,8 @@ extension type ExtendableEventInit._(JSObject _)
   });
 }
 
+/// @AvailableInWorkers("service")
+///
 /// This is the event type for `fetch` events dispatched on the
 /// [ServiceWorkerGlobalScope]. It contains information about the fetch,
 /// including the request and how the receiver will treat the response. It
@@ -696,6 +742,8 @@ extension type FetchEvent._(JSObject _) implements ExtendableEvent, JSObject {
     FetchEventInit eventInitDict,
   );
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`respondWith()`** method of
   /// [FetchEvent] prevents the browser's default fetch handling, and
   /// allows you to provide a promise for a [Response] yourself.
@@ -761,6 +809,8 @@ extension type FetchEvent._(JSObject _) implements ExtendableEvent, JSObject {
   /// user-visible URL.
   external void respondWith(JSPromise<Response> r);
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`request`** read-only property of the
   /// [FetchEvent] interface returns the [Request] that triggered
   /// the event handler.
@@ -771,6 +821,8 @@ extension type FetchEvent._(JSObject _) implements ExtendableEvent, JSObject {
   /// contain a request (see [FetchEvent.FetchEvent].)
   external Request get request;
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`preloadResponse`** read-only property of the [FetchEvent] interface
   /// returns a `Promise` that resolves to the navigation preload [Response] if
   /// [navigation preload](https://developer.mozilla.org/en-US/docs/Web/API/NavigationPreloadManager)
@@ -786,6 +838,8 @@ extension type FetchEvent._(JSObject _) implements ExtendableEvent, JSObject {
   /// boot.
   external JSPromise<JSAny?> get preloadResponse;
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`clientId`** read-only property of the
   /// [FetchEvent] interface returns the id of the [Client] that the
   /// current service worker is controlling.
@@ -794,6 +848,8 @@ extension type FetchEvent._(JSObject _) implements ExtendableEvent, JSObject {
   /// associated client.
   external String get clientId;
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`resultingClientId`** read-only property of the
   /// [FetchEvent] interface is the [Client.id] of the
   /// [Client] that replaces the previous client during a page
@@ -808,6 +864,8 @@ extension type FetchEvent._(JSObject _) implements ExtendableEvent, JSObject {
   /// `report`, `resultingClientId` will be an empty string.
   external String get resultingClientId;
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`replacesClientId`** read-only property of the
   /// [FetchEvent] interface is the [Client.id] of the
   /// [Client] that is being replaced during a page navigation.
@@ -826,6 +884,8 @@ extension type FetchEvent._(JSObject _) implements ExtendableEvent, JSObject {
   /// imminently be replaced, right before a navigation.
   external String get replacesClientId;
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`handled`** property of the [FetchEvent] interface returns a promise
   /// indicating if the event has been handled by the fetch algorithm or not.
   /// This property allows executing code after the browser has consumed a
@@ -861,6 +921,8 @@ extension type FetchEventInit._(JSObject _)
   external set handled(JSPromise<JSAny?> value);
 }
 
+/// @AvailableInWorkers("service")
+///
 /// The **`ExtendableMessageEvent`** interface of the
 /// [Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
 /// represents the event object of a [ServiceWorkerGlobalScope.message_event]
@@ -881,27 +943,37 @@ extension type ExtendableMessageEvent._(JSObject _)
     ExtendableMessageEventInit eventInitDict,
   ]);
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`data`** read-only property of the
   /// [ExtendableMessageEvent] interface returns the event's data. It can be any
   /// data type.
   external JSAny? get data;
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`origin`** read-only property of the
   /// [ExtendableMessageEvent] interface returns the origin of the
   /// [Client] that sent the message.
   external String get origin;
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`lastEventID`** read-only property of the
   /// [ExtendableMessageEvent] interface represents, in
   /// [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events),
   /// the last event ID of the event source. This is an empty string.
   external String get lastEventId;
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`source`** read-only property of the
   /// [ExtendableMessageEvent] interface returns a reference to the
   /// [Client] object from which the message was sent.
   external JSObject? get source;
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`ports`** read-only property of the
   /// [ExtendableMessageEvent] interface returns the array containing the
   /// [MessagePort] objects representing the ports of the associated message
@@ -1105,7 +1177,8 @@ extension type CacheQueryOptions._(JSObject _) implements JSObject {
 /// Use [CacheStorage.match] to check if a given [Request] is a key in any of
 /// the [Cache] objects that the `CacheStorage` object tracks.
 ///
-/// You can access `CacheStorage` through the global [caches] property.
+/// You can access `CacheStorage` through the [Window.caches] property in
+/// windows or through the [WorkerGlobalScope.caches] property in workers.
 ///
 /// > **Note:** `CacheStorage` always rejects with a `SecurityError` on
 /// > untrusted origins (i.e. those that aren't using HTTPS, although this
@@ -1130,8 +1203,8 @@ extension type CacheStorage._(JSObject _) implements JSObject {
   /// This method returns a `Promise` for a [Response], or a `Promise` which
   /// resolves to `undefined` if no match is found.
   ///
-  /// You can access `CacheStorage` through the global
-  /// [caches] property.
+  /// You can access `CacheStorage` through the [Window.caches] property in
+  /// windows or through the [WorkerGlobalScope.caches] property in workers.
   ///
   /// `Cache` objects are searched in creation order.
   ///
@@ -1147,15 +1220,16 @@ extension type CacheStorage._(JSObject _) implements JSObject {
   /// interface returns a `Promise` that resolves to `true` if a
   /// [Cache] object matches the `cacheName`.
   ///
-  /// You can access `CacheStorage` through the global [caches] property.
+  /// You can access `CacheStorage` through the [Window.caches] property in
+  /// windows or through the [WorkerGlobalScope.caches] property in workers.
   external JSPromise<JSBoolean> has(String cacheName);
 
   /// The **`open()`** method of the
   /// [CacheStorage] interface returns a `Promise` that resolves to
   /// the [Cache] object matching the `cacheName`.
   ///
-  /// You can access `CacheStorage` through the global
-  /// [caches] property.
+  /// You can access `CacheStorage` through the [Window.caches] property in
+  /// windows or through the [WorkerGlobalScope.caches] property in workers.
   ///
   /// > **Note:** If the specified [Cache] does not exist, a new
   /// > cache is created with that `cacheName` and a `Promise` that
@@ -1167,7 +1241,8 @@ extension type CacheStorage._(JSObject _) implements JSObject {
   /// object and returns a `Promise` that resolves to `true`.
   /// If no [Cache] object is found, it resolves to `false`.
   ///
-  /// You can access `CacheStorage` through the global [caches] property.
+  /// You can access `CacheStorage` through the [Window.caches] property in
+  /// windows or through the [WorkerGlobalScope.caches] property in workers.
   external JSPromise<JSBoolean> delete(String cacheName);
 
   /// The **`keys()`** method of the [CacheStorage] interface returns a
@@ -1176,7 +1251,8 @@ extension type CacheStorage._(JSObject _) implements JSObject {
   /// in the order they were created.
   /// Use this method to iterate over a list of all [Cache] objects.
   ///
-  /// You can access `CacheStorage` through the global [caches] property.
+  /// You can access `CacheStorage` through the [Window.caches] property in
+  /// windows or through the [WorkerGlobalScope.caches] property in workers.
   external JSPromise<JSArray<JSString>> keys();
 }
 extension type MultiCacheQueryOptions._(JSObject _)

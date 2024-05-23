@@ -61,6 +61,8 @@ extension type RTCEncodedVideoFrameMetadata._(JSObject _) implements JSObject {
   external set mimeType(String value);
 }
 
+/// @AvailableInWorkers("window_and_dedicated")
+///
 /// The **`RTCEncodedVideoFrame`** of the
 /// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
 /// represents an encoded video frame in the WebRTC receiver or sender pipeline,
@@ -75,6 +77,8 @@ extension type RTCEncodedVideoFrameMetadata._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCEncodedVideoFrame).
 extension type RTCEncodedVideoFrame._(JSObject _) implements JSObject {
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`getMetadata()`** method of the [RTCEncodedVideoFrame] interface
   /// returns an object containing the metadata associated with the frame.
   ///
@@ -83,10 +87,14 @@ extension type RTCEncodedVideoFrame._(JSObject _) implements JSObject {
   /// other information.
   external RTCEncodedVideoFrameMetadata getMetadata();
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The readonly **`type`** property of the [RTCEncodedVideoFrame] interface
   /// indicates whether this frame is a key frame, delta frame, or empty frame.
   external RTCEncodedVideoFrameType get type;
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`data`** property of the [RTCEncodedVideoFrame] interface returns a
   /// buffer containing the frame data.
   external JSArrayBuffer get data;
@@ -116,6 +124,8 @@ extension type RTCEncodedAudioFrameMetadata._(JSObject _) implements JSObject {
   external set mimeType(String value);
 }
 
+/// @AvailableInWorkers("window_and_dedicated")
+///
 /// The **`RTCEncodedAudioFrame`** of the
 /// [WebRTC API](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
 /// represents an encoded audio frame in the WebRTC receiver or sender pipeline,
@@ -136,6 +146,8 @@ extension type RTCEncodedAudioFrameMetadata._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCEncodedAudioFrame).
 extension type RTCEncodedAudioFrame._(JSObject _) implements JSObject {
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`getMetadata()`** method of the [RTCEncodedAudioFrame] interface
   /// returns an object containing the metadata associated with the frame.
   ///
@@ -144,6 +156,8 @@ extension type RTCEncodedAudioFrame._(JSObject _) implements JSObject {
   /// sequence number (for incoming frames).
   external RTCEncodedAudioFrameMetadata getMetadata();
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
   /// The **`data`** property of the [RTCEncodedAudioFrame] interface returns a
   /// buffer containing the data for an encoded frame.
   external JSArrayBuffer get data;

@@ -1005,7 +1005,7 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
   external set height(int value);
 
   /// The [MediaTrackSettings] dictionary's **`aspectRatio`** property is a
-  /// double-precision floating-point number indicating the aspect ratio of the
+  /// double-precision floating-point number indicating the  of the
   /// [MediaStreamTrack] as currently configured.
   /// This lets you determine what value was selected to comply with your
   /// specified constraints for this property's value as described in the

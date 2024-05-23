@@ -19,6 +19,8 @@ import 'html.dart';
 typedef FormDataEntryValue = JSAny;
 typedef XMLHttpRequestResponseType = String;
 
+/// @AvailableInWorkers("window_and_worker_except_service")
+///
 /// `XMLHttpRequestEventTarget` is the interface that describes the event
 /// handlers shared on [XMLHttpRequest] and [XMLHttpRequestUpload].
 ///
@@ -47,7 +49,7 @@ extension type XMLHttpRequestEventTarget._(JSObject _)
   external set onloadend(EventHandler value);
 }
 
-/// @AvailableInWorkers("notservice")
+/// @AvailableInWorkers("window_and_worker_except_service")
 ///
 /// The **`XMLHttpRequestUpload`** interface represents the upload process for a
 /// specific [XMLHttpRequest]. It is an _opaque_ object that represents the
@@ -62,7 +64,7 @@ extension type XMLHttpRequestEventTarget._(JSObject _)
 extension type XMLHttpRequestUpload._(JSObject _)
     implements XMLHttpRequestEventTarget, JSObject {}
 
-/// @AvailableInWorkers("notservice")
+/// @AvailableInWorkers("window_and_worker_except_service")
 ///
 /// `XMLHttpRequest` (XHR) objects are used to interact with servers. You can
 /// retrieve data from a URL without having to do a full page refresh. This
@@ -93,6 +95,8 @@ extension type XMLHttpRequest._(JSObject _)
   external static int get LOADING;
   external static int get DONE;
 
+  /// @AvailableInWorkers("window_and_worker_except_service")
+  ///
   /// The [XMLHttpRequest] method **`open()`**
   /// initializes a newly-created request, or re-initializes an existing one.
   ///
@@ -108,6 +112,8 @@ extension type XMLHttpRequest._(JSObject _)
     String? password,
   ]);
 
+  /// @AvailableInWorkers("window_and_worker_except_service")
+  ///
   /// The [XMLHttpRequest] method **`setRequestHeader()`** sets the value of an
   /// HTTP request header.
   /// When using `setRequestHeader()`, you must call it after calling
@@ -142,6 +148,8 @@ extension type XMLHttpRequest._(JSObject _)
     String value,
   );
 
+  /// @AvailableInWorkers("window_and_worker_except_service")
+  ///
   /// The [XMLHttpRequest] method
   /// **`send()`** sends the request to the server.
   ///
@@ -163,6 +171,8 @@ extension type XMLHttpRequest._(JSObject _)
   /// `Accept` header with the type `"*/*"` (any type) is sent.
   external void send([JSAny? body]);
 
+  /// @AvailableInWorkers("window_and_worker_except_service")
+  ///
   /// The **`XMLHttpRequest.abort()`** method aborts the request if
   /// it has already been sent. When a request is aborted, its
   /// [XMLHttpRequest.readyState] is changed to
@@ -170,6 +180,8 @@ extension type XMLHttpRequest._(JSObject _)
   /// [XMLHttpRequest.status] code is set to 0.
   external void abort();
 
+  /// @AvailableInWorkers("window_and_worker_except_service")
+  ///
   /// The [XMLHttpRequest] method
   /// **`getResponseHeader()`** returns the string containing the
   /// text of a particular header's value.
@@ -188,6 +200,8 @@ extension type XMLHttpRequest._(JSObject _)
   /// which returns the entire raw header string.
   external String? getResponseHeader(String name);
 
+  /// @AvailableInWorkers("window_and_worker_except_service")
+  ///
   /// The [XMLHttpRequest] method
   /// **`getAllResponseHeaders()`** returns all the response
   /// headers, separated by , as a string, or returns `null`
@@ -200,6 +214,8 @@ extension type XMLHttpRequest._(JSObject _)
   /// > _current_ part of the request, not from the original channel.
   external String getAllResponseHeaders();
 
+  /// @AvailableInWorkers("window_and_worker_except_service")
+  ///
   /// The [XMLHttpRequest] method
   /// **`overrideMimeType()`** specifies a MIME type other than the
   /// one provided by the server to be used instead when interpreting the data
@@ -214,6 +230,8 @@ extension type XMLHttpRequest._(JSObject _)
   external EventHandler get onreadystatechange;
   external set onreadystatechange(EventHandler value);
 
+  /// @AvailableInWorkers("window_and_worker_except_service")
+  ///
   /// The **XMLHttpRequest.readyState** property returns the state an
   /// XMLHttpRequest client is in. An XHR client exists in one of the following
   /// states:
@@ -238,6 +256,8 @@ extension type XMLHttpRequest._(JSObject _)
   ///   - : The fetch operation is complete. This could mean that either the data transfer has been completed successfully or failed.
   external int get readyState;
 
+  /// @AvailableInWorkers("window_and_worker_except_service")
+  ///
   /// The **`XMLHttpRequest.timeout`** property is an `unsigned long`
   /// representing the number of milliseconds a request can take before
   /// automatically being terminated. The default value is 0, which means there
@@ -254,9 +274,11 @@ extension type XMLHttpRequest._(JSObject _)
   external int get timeout;
   external set timeout(int value);
 
+  /// @AvailableInWorkers("window_and_worker_except_service")
+  ///
   /// The **`XMLHttpRequest.withCredentials`** property is a boolean value that
   /// indicates whether or not cross-site `Access-Control` requests should be
-  /// made using credentials such as cookies, authorization headers or TLS
+  /// made using credentials such as cookies, authentication headers or TLS
   /// client certificates. Setting `withCredentials` has no effect on
   /// same-origin requests.
   ///
@@ -264,9 +286,11 @@ extension type XMLHttpRequest._(JSObject _)
   /// ignored in the response. The default is `false`. `XMLHttpRequest`
   /// responses from a different domain cannot set cookie values for their own
   /// domain unless `withCredentials` is set to `true` before making the
-  /// request. The third-party cookies obtained by setting `withCredentials` to
-  /// true will still honor same-origin policy and hence can not be accessed by
-  /// the requesting script through
+  /// request. The
+  /// [third-party cookies](https://developer.mozilla.org/en-US/docs/Web/Privacy/Third-party_cookies)
+  /// obtained by setting `withCredentials` to `true` will still honor
+  /// same-origin policy and hence can not be accessed by the requesting script
+  /// through
   /// [document.cookie](https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie)
   /// or from response headers.
   ///
@@ -279,6 +303,8 @@ extension type XMLHttpRequest._(JSObject _)
   external bool get withCredentials;
   external set withCredentials(bool value);
 
+  /// @AvailableInWorkers("window_and_worker_except_service")
+  ///
   /// The [XMLHttpRequest] `upload` property returns an [XMLHttpRequestUpload]
   /// object that can be observed to monitor an upload's progress.
   ///
@@ -353,6 +379,8 @@ extension type XMLHttpRequest._(JSObject _)
   /// </table>
   external XMLHttpRequestUpload get upload;
 
+  /// @AvailableInWorkers("window_and_worker_except_service")
+  ///
   /// The read-only **`XMLHttpRequest.responseURL`** property returns the
   /// serialized URL of the response or the empty string if the URL is `null`.
   /// If the URL is returned, any URL fragment present in the URL will be
@@ -360,6 +388,8 @@ extension type XMLHttpRequest._(JSObject _)
   /// after any redirects.
   external String get responseURL;
 
+  /// @AvailableInWorkers("window_and_worker_except_service")
+  ///
   /// The read-only **`XMLHttpRequest.status`** property returns the numerical
   /// HTTP
   /// [status code](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) of
@@ -369,6 +399,8 @@ extension type XMLHttpRequest._(JSObject _)
   /// report a status of 0 in case of `XMLHttpRequest` errors.
   external int get status;
 
+  /// @AvailableInWorkers("window_and_worker_except_service")
+  ///
   /// The read-only **`XMLHttpRequest.statusText`** property returns a string
   /// containing the response's status message as returned by the HTTP server.
   /// Unlike
@@ -386,6 +418,8 @@ extension type XMLHttpRequest._(JSObject _)
   /// > string as status message as HTTP/2 does not support them.
   external String get statusText;
 
+  /// @AvailableInWorkers("window_and_worker_except_service")
+  ///
   /// The [XMLHttpRequest] property
   /// **`responseType`** is an enumerated string value specifying
   /// the type of data contained in the response.
@@ -397,6 +431,8 @@ extension type XMLHttpRequest._(JSObject _)
   external XMLHttpRequestResponseType get responseType;
   external set responseType(XMLHttpRequestResponseType value);
 
+  /// @AvailableInWorkers("window_and_worker_except_service")
+  ///
   /// The [XMLHttpRequest]
   /// **`response`** property returns the response's body content as
   /// an `ArrayBuffer`, a [Blob], a [Document],
@@ -405,11 +441,15 @@ extension type XMLHttpRequest._(JSObject _)
   /// property.
   external JSAny? get response;
 
+  /// @AvailableInWorkers("window_and_worker_except_service")
+  ///
   /// The read-only [XMLHttpRequest] property
   /// **`responseText`** returns the text received from a server
   /// following a request being sent.
   external String get responseText;
 
+  /// @AvailableInWorkers("window_and_worker_except_service")
+  ///
   /// The **`XMLHttpRequest.responseXML`** read-only property returns
   /// a [Document] containing the HTML or XML retrieved by the request; or
   /// `null` if the request was unsuccessful, has not yet been sent, or if the
@@ -529,23 +569,28 @@ extension type ProgressEvent._(JSObject _) implements Event, JSObject {
   /// [ProgressEvent.total] property has no significant value.
   external bool get lengthComputable;
 
-  /// The **`ProgressEvent.loaded`** read-only property is an integer
-  /// representing the amount of work already performed by the underlying
-  /// process. The ratio
-  /// of work done can be calculated with the property and
-  /// `ProgressEvent.total`.
-  /// When downloading a resource using HTTP, this value is specified in bytes
-  /// (not bits), and only represents the part of the content
-  /// itself, not headers and other overhead.
+  /// The **`ProgressEvent.loaded`** read-only property is a 64-bit unsigned
+  /// integer
+  /// indicating the size, in bytes, of the data already transmitted or
+  /// processed. The ratio can be calculated by dividing `ProgressEvent.total`
+  /// by the value of this property.
+  /// When downloading a resource using HTTP, this only counts the body of the
+  /// HTTP message, and doesn't include headers and other overhead.
+  ///
+  /// Note that for compressed requests of unknown total size, `loaded` might
+  /// contain the size of the compressed, or decompressed, data, depending on
+  /// the browser. As of 2024, it contains the size of the compressed data in
+  /// Firefox, and the size of the uncompressed data in Chrome.
   external int get loaded;
 
-  /// The **`ProgressEvent.total`** read-only property is an unsigned
-  /// 64-bit integer value indicating the total size of the data being processed
-  /// or
-  /// transmitted. In the case of an HTTP transmission, this is the size of the
-  /// body of the
-  /// message (the `Content-Length`), and does not include headers and other
-  /// overhead.
+  /// The **`ProgressEvent.total`** read-only property is a 64-bit unsigned
+  /// integer
+  /// indicating the total size, in bytes, of the data being transmitted or
+  /// processed.
+  ///
+  /// When downloading a resource using HTTP, this value is taken from the
+  /// `Content-Length` response header. It only counts the body of the HTTP
+  /// message, and doesn't include headers and other overhead.
   ///
   /// If the event's [ProgressEvent.lengthComputable]
   /// property is `false`, this value is meaningless and should be ignored.

@@ -16,7 +16,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
-/// The `BatteryManager` interface of the [Battery Status API] provides
+/// The **`BatteryManager`** interface of the [Battery Status API] provides
 /// information about the system's battery charge level. The
 /// [navigator.getBattery] method returns a promise that resolves with a
 /// `BatteryManager` interface.
@@ -29,19 +29,20 @@ import 'html.dart';
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/BatteryManager).
 extension type BatteryManager._(JSObject _) implements EventTarget, JSObject {
-  /// The **`BatteryManager.charging`** property is a Boolean value indicating
-  /// whether or not the device's battery is currently being charged. When its
-  /// value changes, the [BatteryManager.chargingchange_event] event is fired.
+  /// The **`charging`** read-only property of the [BatteryManager] interface is
+  /// a Boolean value indicating whether or not the device's battery is
+  /// currently being charged. When its value changes, the
+  /// [BatteryManager.chargingchange_event] event is fired.
   ///
   /// If the battery is charging or the user agent is unable to report the
   /// battery status information, this value is `true`. Otherwise, it is
   /// `false`.
   external bool get charging;
 
-  /// The **`BatteryManager.chargingTime`** property indicates the amount of
-  /// time, in seconds, that remain until the battery is fully charged, or `0`
-  /// if the battery is already fully charged or the user agent is unable to
-  /// report the battery status information.
+  /// The **`chargingTime`** read-only property of the [BatteryManager]
+  /// interface indicates the amount of time, in seconds, that remain until the
+  /// battery is fully charged, or `0` if the battery is already fully charged
+  /// or the user agent is unable to report the battery status information.
   /// If the battery is currently discharging, its value is `Infinity`.
   /// When its value changes, the [BatteryManager.chargingtimechange_event]
   /// event is fired.
@@ -51,8 +52,9 @@ extension type BatteryManager._(JSObject _) implements EventTarget, JSObject {
   /// > (typically to the closest 15 minutes) for privacy reasons.
   external num get chargingTime;
 
-  /// The **`BatteryManager.dischargingTime`** property indicates the amount of
-  /// time, in seconds, that remains until the battery is fully discharged,
+  /// The **`dischargingTime`** read-only property of the [BatteryManager]
+  /// interface indicates the amount of time, in seconds, that remains until the
+  /// battery is fully discharged,
   /// or `Infinity` if the battery is currently charging rather than discharging
   /// or the user agent is unable to report the battery status information.
   /// When its value changes, the [BatteryManager.dischargingtimechange_event]
@@ -63,8 +65,9 @@ extension type BatteryManager._(JSObject _) implements EventTarget, JSObject {
   /// > interval (typically to the closest 15 minutes) for privacy reasons.
   external num get dischargingTime;
 
-  /// The **`BatteryManager.level`** property indicates the current battery
-  /// charge level as a value between `0.0` and `1.0`.
+  /// The **`level`** read-only property of the [BatteryManager] interface
+  /// indicates the current battery charge level as a value between `0.0` and
+  /// `1.0`.
   /// A value of `0.0` means the battery is empty and the system is about to be
   /// suspended.
   /// A value of `1.0` means the battery is full or the user agent is unable to

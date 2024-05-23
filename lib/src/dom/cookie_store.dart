@@ -21,6 +21,8 @@ import 'service_workers.dart';
 typedef CookieList = JSArray<CookieListItem>;
 typedef CookieSameSite = String;
 
+/// @AvailableInWorkers("window_and_service")
+///
 /// The **`CookieStore`** interface of the [Cookie Store API] provides methods
 /// for getting and setting cookies asynchronously from either a page or a
 /// service worker.
@@ -34,26 +36,34 @@ typedef CookieSameSite = String;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CookieStore).
 extension type CookieStore._(JSObject _) implements EventTarget, JSObject {
+  /// @AvailableInWorkers("window_and_service")
+  ///
   /// The **`get()`** method of the [CookieStore] interface returns a single
-  /// cookie with the given name or options object. The method will return the
-  /// first matching cookie for the passed parameters.
+  /// cookie with the given `name` or `options` object. The method will return
+  /// the first matching cookie for the passed parameters.
   external JSPromise<CookieListItem?> get([JSAny nameOrOptions]);
 
+  /// @AvailableInWorkers("window_and_service")
+  ///
   /// The **`getAll()`** method of the [CookieStore] interface returns a list of
-  /// cookies that match the name or options passed to it. Passing no parameters
-  /// will return all cookies for the current context.
+  /// cookies that match the `name` or `options` passed to it. Passing no
+  /// parameters will return all cookies for the current context.
   external JSPromise<CookieList> getAll([JSAny nameOrOptions]);
 
+  /// @AvailableInWorkers("window_and_service")
+  ///
   /// The **`set()`** method of the [CookieStore] interface sets a cookie with
-  /// the given name and value or options object.
+  /// the given `name` and `value` or `options` object.
   external JSPromise<JSAny?> set(
     JSAny nameOrOptions, [
     String value,
   ]);
 
+  /// @AvailableInWorkers("window_and_service")
+  ///
   /// The **`delete()`** method of the [CookieStore] interface deletes a cookie
-  /// with the given name or options object. The `delete()` method expires the
-  /// cookie by changing the date to one in the past.
+  /// with the given `name` or `options` object. The `delete()` method expires
+  /// the cookie by changing the date to one in the past.
   external JSPromise<JSAny?> delete(JSAny nameOrOptions);
   external EventHandler get onchange;
   external set onchange(EventHandler value);
@@ -142,6 +152,8 @@ extension type CookieListItem._(JSObject _) implements JSObject {
   external set partitioned(bool value);
 }
 
+/// @AvailableInWorkers("window_and_service")
+///
 /// The **`CookieStoreManager`** interface of the [Cookie Store API] allows
 /// service workers to subscribe to cookie change events. Call
 /// [CookieStoreManager.subscribe] on a particular service worker registration
@@ -160,16 +172,22 @@ extension type CookieListItem._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CookieStoreManager).
 extension type CookieStoreManager._(JSObject _) implements JSObject {
+  /// @AvailableInWorkers("window_and_service")
+  ///
   /// The **`subscribe()`** method of the [CookieStoreManager] interface
   /// subscribes a [ServiceWorkerRegistration] to cookie change events.
   external JSPromise<JSAny?> subscribe(
       JSArray<CookieStoreGetOptions> subscriptions);
 
+  /// @AvailableInWorkers("window_and_service")
+  ///
   /// The **`getSubscriptions()`** method of the [CookieStoreManager] interface
   /// returns a list of all the cookie change subscriptions for this
   /// [ServiceWorkerRegistration].
   external JSPromise<JSArray<CookieStoreGetOptions>> getSubscriptions();
 
+  /// @AvailableInWorkers("window_and_service")
+  ///
   /// The **`unsubscribe()`** method of the [CookieStoreManager] interface stops
   /// the [ServiceWorkerRegistration] from receiving previously subscribed
   /// events.
@@ -229,6 +247,8 @@ extension type CookieChangeEventInit._(JSObject _)
   external set deleted(CookieList value);
 }
 
+/// @AvailableInWorkers("service")
+///
 /// The **`ExtendableCookieChangeEvent`** interface of the [Cookie Store API] is
 /// the event type passed to [ServiceWorkerGlobalScope.cookiechange_event] event
 /// fired at the [ServiceWorkerGlobalScope] when any cookie changes occur which
@@ -259,11 +279,15 @@ extension type ExtendableCookieChangeEvent._(JSObject _)
     ExtendableCookieChangeEventInit eventInitDict,
   ]);
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`changed`** read-only property of the [ExtendableCookieChangeEvent]
   /// interface returns any cookies that have been changed by the given
   /// `ExtendableCookieChangeEvent` instance.
   external JSArray<CookieListItem> get changed;
 
+  /// @AvailableInWorkers("service")
+  ///
   /// The **`deleted`** read-only property of the [ExtendableCookieChangeEvent]
   /// interface returns any cookies that have been deleted by the given
   /// `ExtendableCookieChangeEvent` instance.

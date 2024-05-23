@@ -126,94 +126,81 @@ extension type RTCPeerConnection._(JSObject _)
   external static JSPromise<RTCCertificate> generateCertificate(
       AlgorithmIdentifier keygenAlgorithm);
 
-  /// The **`RTCPeerConnection.setIdentityProvider()`** method sets
-  /// the Identity Provider (IdP) to the triplet given in parameter: its name,
-  /// the protocol
-  /// used to communicate with it (optional) and an optional username. The IdP
-  /// will be used
-  /// only when an assertion is needed.
+  /// The **`setIdentityProvider()`** method of the [RTCPeerConnection]
+  /// interface sets the Identity Provider (IdP) to the triplet given in
+  /// parameter: its name, the protocol used to communicate with it (optional)
+  /// and an optional username.
+  /// The IdP will be used only when an assertion is needed.
   ///
-  /// If the [RTCPeerConnection.signalingState] is set to
-  /// `"closed"`, an `InvalidStateError` is raised.
+  /// If the [RTCPeerConnection.signalingState] is set to `"closed"`, an
+  /// `InvalidStateError` is raised.
   external void setIdentityProvider(
     String provider, [
     RTCIdentityProviderOptions options,
   ]);
 
-  /// The **`RTCPeerConnection.getIdentityAssertion()`** method
-  /// initiates the gathering of an identity assertion. This has an effect only
-  /// if the
-  /// [RTCPeerConnection.signalingState] is not
+  /// The **`getIdentityAssertion()`** method of the [RTCPeerConnection]
+  /// interface initiates the gathering of an identity assertion.
+  /// This has an effect only if the [RTCPeerConnection.signalingState] is not
   /// `"closed"`.
   ///
-  /// The method returns a JavaScript `Promise` which resolves to an
-  /// identity assertion encoded as a string.
+  /// The method returns a JavaScript `Promise` which resolves to an identity
+  /// assertion encoded as a string.
   ///
   /// It is not expected for the application dealing with the
-  /// `RTCPeerConnection`:
-  /// this is automatically done; an explicit call only allows to anticipate the
-  /// need.
+  /// `RTCPeerConnection`: this is automatically done; an explicit call only
+  /// allows to anticipate the need.
   external JSPromise<JSString> getIdentityAssertion();
 
-  /// The **`createOffer()`** method
-  /// of the [RTCPeerConnection] interface
-  /// initiates the creation of an  offer
-  /// for the purpose of starting a new WebRTC connection to a remote peer.
-  /// The SDP offer includes information
-  /// about any [MediaStreamTrack] objects
+  /// The **`createOffer()`** method of the [RTCPeerConnection] interface
+  /// initiates the creation of an  offer for the purpose of starting a new
+  /// WebRTC connection to a remote peer.
+  ///
+  /// The SDP offer includes information about any [MediaStreamTrack] objects
   /// already attached to the WebRTC session, codec, and options supported by
-  /// the browser,
-  /// and any candidates already gathered by the  agent,
-  /// for the purpose of being sent over the signaling channel
-  /// to a potential peer
-  /// to request a connection
-  /// or to update the configuration of an existing connection.
+  /// the browser, and any candidates already gathered by the  agent, for the
+  /// purpose of being sent over the signaling channel to a potential peer to
+  /// request a connection or to update the configuration of an existing
+  /// connection.
   ///
   /// The return value is a `Promise` which, when the offer has been created, is
   /// resolved with a [RTCSessionDescription] object containing the
-  /// newly-created
-  /// offer.
+  /// newly-created offer.
   external JSPromise<RTCSessionDescriptionInit?> createOffer([
     JSObject optionsOrSuccessCallback,
     RTCPeerConnectionErrorCallback failureCallback,
     RTCOfferOptions options,
   ]);
 
-  /// The **`createAnswer()`** method on the
-  /// [RTCPeerConnection] interface creates an  answer to an
-  /// offer received from a remote peer during the offer/answer negotiation of a
-  /// WebRTC
-  /// connection. The answer contains information about any media already
-  /// attached to the
-  /// session, codecs and options supported by the browser, and any
-  /// candidates already gathered. The answer is delivered to the returned
-  /// `Promise`, and should then be sent to the source of the offer to continue
-  /// the negotiation process.
+  /// The **`createAnswer()`** method of the [RTCPeerConnection] interface
+  /// creates an  answer to an offer received from a remote peer during the
+  /// offer/answer negotiation of a WebRTC connection.
+  ///
+  /// The answer contains information about any media already attached to the
+  /// session, codecs and options supported by the browser, and any  candidates
+  /// already gathered.
+  /// The answer is delivered to the returned `Promise`, and should then be sent
+  /// to the source of the offer to continue the negotiation process.
   external JSPromise<RTCSessionDescriptionInit?> createAnswer([
     JSObject optionsOrSuccessCallback,
     RTCPeerConnectionErrorCallback failureCallback,
   ]);
 
-  /// The [RTCPeerConnection] method
-  /// [RTCPeerConnection.setLocalDescription] changes
-  /// the local description associated with the connection. This description
-  /// specifies the
-  /// properties of the local end of the connection, including the media format.
+  /// The **`setLocalDescription()`** method of the [RTCPeerConnection]
+  /// interface changes the local description associated with the connection.
+  /// This description specifies the properties of the local end of the
+  /// connection, including the media format.
   /// The method takes a single parameter—the session description—and it returns
-  /// a
-  /// `Promise` which is fulfilled once the description has been changed,
+  /// a `Promise` which is fulfilled once the description has been changed,
   /// asynchronously.
   ///
   /// If `setLocalDescription()` is called while a connection is already in
-  /// place,
-  /// it means renegotiation is underway (possibly to adapt to changing network
-  /// conditions).
+  /// place, it means renegotiation is underway (possibly to adapt to changing
+  /// network conditions).
   /// Because descriptions will be exchanged until the two peers agree on a
-  /// configuration, the
-  /// description submitted by calling `setLocalDescription()` does not
-  /// immediately
-  /// take effect. Instead, the current connection configuration remains in
-  /// place until
+  /// configuration, the description submitted by calling
+  /// `setLocalDescription()` does not immediately take effect.
+  /// Instead, the current connection configuration remains in place until
   /// negotiation is complete. Only then does the agreed-upon configuration take
   /// effect.
   external JSPromise<JSAny?> setLocalDescription([
@@ -222,37 +209,37 @@ extension type RTCPeerConnection._(JSObject _)
     RTCPeerConnectionErrorCallback failureCallback,
   ]);
 
-  /// The [RTCPeerConnection]
-  /// method **`setRemoteDescription()`** sets the specified
-  /// session description as the remote peer's current offer or answer. The
-  /// description
-  /// specifies the properties of the remote end of the connection, including
-  /// the media
-  /// format. The method takes a single parameter—the session description—and it
-  /// returns a `Promise` which is fulfilled once the description has been
-  /// changed, asynchronously.
+  /// The **`setRemoteDescription()`** method of the [RTCPeerConnection]
+  /// interface sets the specified session description as the remote peer's
+  /// current offer or answer.
+  /// The description specifies the properties of the remote end of the
+  /// connection, including the media format.
+  /// The method takes a single parameter—the session description—and it returns
+  /// a `Promise` which is fulfilled once the description has been changed,
+  /// asynchronously.
   ///
   /// This is typically called after receiving an offer or answer from another
-  /// peer over the
-  /// signaling server. Keep in mind that if `setRemoteDescription()` is called
-  /// while a connection is already in place, it means renegotiation is underway
-  /// (possibly
-  /// to adapt to changing network conditions).
+  /// peer over the signaling server.
+  /// Keep in mind that if `setRemoteDescription()` is called while a connection
+  /// is already in place, it means renegotiation is underway (possibly to adapt
+  /// to changing network conditions).
   ///
   /// Because descriptions will be exchanged until the two peers agree on a
-  /// configuration,
-  /// the description submitted by calling `setRemoteDescription()` does not
-  /// immediately take effect. Instead, the current connection configuration
-  /// remains in
-  /// place until negotiation is complete. Only then does the agreed-upon
-  /// configuration take
-  /// effect.
+  /// configuration, the description submitted by calling
+  /// `setRemoteDescription()` does not immediately take effect.
+  /// Instead, the current connection configuration remains in place until
+  /// negotiation is complete.
+  /// Only then does the agreed-upon configuration take effect.
   external JSPromise<JSAny?> setRemoteDescription(
     RTCSessionDescriptionInit description, [
     VoidFunction successCallback,
     RTCPeerConnectionErrorCallback failureCallback,
   ]);
 
+  /// The **`addIceCandidate()`** method of the [RTCPeerConnection] interface
+  /// adds a new remote candidate to the connection's remote description, which
+  /// describes the state of the remote end of the connection.
+  ///
   /// When a website or app using [RTCPeerConnection] receives a new ICE
   /// candidate from the remote peer over its signaling channel, it delivers the
   /// newly-received candidate to the browser's  agent by calling
@@ -284,76 +271,66 @@ extension type RTCPeerConnection._(JSObject _)
     RTCPeerConnectionErrorCallback failureCallback,
   ]);
 
-  /// The [WebRTC](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
-  /// API's
-  /// [RTCPeerConnection] interface offers the
-  /// **`restartIce()`** method to allow a web application to easily
-  /// request that  candidate gathering be redone on both ends of the
-  /// connection.
-  /// This simplifies the process by allowing the same method to be used
-  /// by either the caller or the receiver to trigger an ICE restart.
+  /// The **`restartIce()`** method of the [RTCPeerConnection] interface allows
+  /// a web application to request that  candidate gathering be redone on both
+  /// ends of the connection.
+  /// This simplifies the process by allowing the same method to be used by
+  /// either the caller or the receiver to trigger an ICE restart.
   ///
   /// After `restartIce()` returns, the offer returned by the next call to
-  /// [RTCPeerConnection.createOffer] is automatically
-  /// configured to trigger ICE restart on both the local peer (once the local
-  /// peer has been
-  /// set) and on the remote peer, once the offer is sent across your signaling
-  /// mechanism and
-  /// the remote peer has set its description as well.
+  /// [RTCPeerConnection.createOffer] is automatically configured to trigger ICE
+  /// restart on both the local peer (once the local peer has been set) and on
+  /// the remote peer, once the offer is sent across your signaling mechanism
+  /// and the remote peer has set its description as well.
   ///
   /// `restartIce()` causes the
-  /// [RTCPeerConnection.negotiationneeded_event] event to
-  /// be fired on the `RTCPeerConnection` to inform the application that it
-  /// should
-  /// perform negotiation using its signaling channel.
+  /// [RTCPeerConnection.negotiationneeded_event] event to be fired on the
+  /// `RTCPeerConnection` to inform the application that it should perform
+  /// negotiation using its signaling channel.
   ///
   /// If negotiation fails to complete—either due to rollback or because
-  /// incoming offers are
-  /// in the process of being negotiated—the [RTCPeerConnection] will remember
-  /// that you requested ICE restart. The next time the connection's
-  /// [RTCPeerConnection.signalingState] changes to
-  /// `stable`, the connection will fire the
+  /// incoming offers are in the process of being negotiated—the
+  /// [RTCPeerConnection] will remember that you requested ICE restart.
+  /// The next time the connection's [RTCPeerConnection.signalingState] changes
+  /// to `stable`, the connection will fire the
   /// [RTCPeerConnection.negotiationneeded_event] event.
   /// This process continues until an ICE restart has been successfully
   /// completed.
   external void restartIce();
 
-  /// The **`RTCPeerConnection.getConfiguration()`** method returns
-  /// an object which indicates the current configuration of
-  /// the [RTCPeerConnection] on which the method is called.
+  /// The **`getConfiguration()`** method of the [RTCPeerConnection] interface
+  /// returns an object which indicates the current configuration of the
+  /// [RTCPeerConnection] on which the method is called.
   ///
   /// The returned configuration is the last configuration applied via
   /// [RTCPeerConnection.setConfiguration], or if
   /// `setConfiguration()` hasn't been called, the configuration the
-  /// `RTCPeerConnection` was constructed with. The configuration includes a
-  /// list
-  /// of the ICE servers used by the connection, information about transport
-  /// policies, and
-  /// identity information.
+  /// `RTCPeerConnection` was constructed with.
+  /// The configuration includes a list of the ICE servers used by the
+  /// connection, information about transport policies, and identity
+  /// information.
   external RTCConfiguration getConfiguration();
 
-  /// The **`RTCPeerConnection.setConfiguration()`** method sets the
-  /// current configuration of the [RTCPeerConnection] based on the values
-  /// included in the specified object. This lets you change
-  /// the ICE servers used by the connection and which transport policies to
-  /// use.
+  /// The **`setConfiguration()`** method of the [RTCPeerConnection] interface
+  /// sets the current configuration of the connection based on the values
+  /// included in the specified object.
+  /// This lets you change the ICE servers used by the connection and which
+  /// transport policies to use.
   ///
   /// The most common use case for this method (and even then, probably not a
-  /// very common use
-  /// case) is to replace the set of ICE servers to be used. Two potential
-  /// scenarios in which
-  /// this might be done:
+  /// very common use case) is to replace the set of ICE servers to be used. Two
+  /// potential scenarios in which this might be done:
   ///
   /// - The [RTCPeerConnection] was instantiated without specifying any ICE
-  /// servers. If, for example, the [RTCPeerConnection.RTCPeerConnection]
-  /// constructor was called with no parameters, you would have to
-  /// then call `setConfiguration()` to add ICE servers before ICE negotiation
-  /// could begin.
+  ///   servers.
+  /// If, for example, the [RTCPeerConnection.RTCPeerConnection] constructor was
+  /// called with no parameters, you would have to then call
+  /// `setConfiguration()` to add ICE servers before ICE negotiation could
+  /// begin.
   /// - Renegotiation of the connection is needed, and a different set of ICE
-  ///   servers needs
-  /// to be used for some reason. Perhaps the user has moved into a new region,
-  /// so using new
-  /// regional ICE servers is necessary, for example.
+  ///   servers needs to be used for some reason.
+  /// Perhaps the user has moved into a new region, so using new regional ICE
+  /// servers is necessary, for example.
   /// In this situation, one might call `setConfiguration()` to switch to new
   /// regional ICE servers, then initiate an
   /// [ICE restart](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Session_lifetime#ice_restart).
@@ -362,30 +339,32 @@ extension type RTCPeerConnection._(JSObject _)
   /// > once it's already been set.
   external void setConfiguration([RTCConfiguration configuration]);
 
-  /// The **`RTCPeerConnection.close()`** method closes the current
-  /// peer connection.
+  /// The **`close()`** method of the [RTCPeerConnection] interface closes the
+  /// current peer connection.
   external void close();
 
-  /// The [RTCPeerConnection] method **`getSenders()`** returns an array of
-  /// [RTCRtpSender] objects, each of which represents the RTP sender
-  /// responsible for transmitting one track's data.
+  /// The **`getSenders()`** method of the [RTCPeerConnection] interface returns
+  /// an array of [RTCRtpSender] objects, each of which represents the RTP
+  /// sender responsible for transmitting one track's data.
   /// A sender object provides methods and properties for examining and
   /// controlling the encoding and transmission of the track's data.
   external JSArray<RTCRtpSender> getSenders();
 
-  /// The **`RTCPeerConnection.getReceivers()`** method returns an array of
-  /// [RTCRtpReceiver] objects, each of which represents one RTP receiver.
+  /// The **`getReceivers()`** method of the [RTCPeerConnection] interface
+  /// returns an array of [RTCRtpReceiver] objects, each of which represents one
+  /// RTP receiver.
   /// Each RTP receiver manages the reception and decoding of data for a
   /// [MediaStreamTrack] on an [RTCPeerConnection].
   external JSArray<RTCRtpReceiver> getReceivers();
 
-  /// The [RTCPeerConnection] interface's **`getTransceivers()`** method returns
-  /// a list of the [RTCRtpTransceiver] objects being used to send and receive
-  /// data on the connection.
+  /// The **`getTransceivers()`** method of the [RTCPeerConnection] interface
+  /// returns a list of the [RTCRtpTransceiver] objects being used to send and
+  /// receive data on the connection.
   external JSArray<RTCRtpTransceiver> getTransceivers();
 
-  /// The [RTCPeerConnection] method **`addTrack()`** adds a new media track to
-  /// the set of tracks which will be transmitted to the other peer.
+  /// The **`addTrack()`** method of the [RTCPeerConnection] interface adds a
+  /// new media track to the set of tracks which will be transmitted to the
+  /// other peer.
   ///
   /// > **Note:** Adding a track to a connection triggers renegotiation by
   /// > firing a [RTCPeerConnection.negotiationneeded_event] event.
@@ -397,28 +376,24 @@ extension type RTCPeerConnection._(JSObject _)
     MediaStream streams,
   );
 
-  /// The
-  /// **`RTCPeerConnection.removeTrack()`** method tells the local
-  /// end of the connection to stop sending media from the specified track,
-  /// without actually
-  /// removing the corresponding [RTCRtpSender] from the list of senders as
-  /// reported by [RTCPeerConnection.getSenders]. If the track is
-  /// already stopped, or is not in the connection's senders list, this method
-  /// has no effect.
+  /// The **`removeTrack()`** method of the [RTCPeerConnection] interface tells
+  /// the local end of the connection to stop sending media from the specified
+  /// track, without actually removing the corresponding [RTCRtpSender] from the
+  /// list of senders as reported by [RTCPeerConnection.getSenders].
+  /// If the track is already stopped, or is not in the connection's senders
+  /// list, this method has no effect.
   ///
   /// If the connection has already been negotiated
-  /// ([RTCPeerConnection.signalingState] is set to
-  /// `"stable"`), it is marked as needing to be negotiated again; the remote
-  /// peer
-  /// won't experience the change until this negotiation occurs. A
-  /// [RTCPeerConnection.negotiationneeded_event] event is sent to the
-  /// [RTCPeerConnection] to
-  /// let the local end know this negotiation must occur.
+  /// ([RTCPeerConnection.signalingState] is set to `"stable"`), it is marked as
+  /// needing to be negotiated again; the remote peer won't experience the
+  /// change until this negotiation occurs.
+  /// A [RTCPeerConnection.negotiationneeded_event] event is sent to the
+  /// [RTCPeerConnection] to let the local end know this negotiation must occur.
   external void removeTrack(RTCRtpSender sender);
 
-  /// The [RTCPeerConnection] method **`addTransceiver()`** creates a new
-  /// [RTCRtpTransceiver] and adds it to the set of transceivers associated with
-  /// the `RTCPeerConnection`.
+  /// The **`addTransceiver()`** method of the [RTCPeerConnection] interface
+  /// creates a new [RTCRtpTransceiver] and adds it to the set of transceivers
+  /// associated with the `RTCPeerConnection`.
   /// Each transceiver represents a bidirectional stream, with both an
   /// [RTCRtpSender] and an [RTCRtpReceiver] associated with it.
   external RTCRtpTransceiver addTransceiver(
@@ -426,194 +401,184 @@ extension type RTCPeerConnection._(JSObject _)
     RTCRtpTransceiverInit init,
   ]);
 
-  /// The **`createDataChannel()`** method
-  /// on the [RTCPeerConnection] interface
-  /// creates a new channel linked with the remote peer,
-  /// over which any kind of data may be transmitted.
-  /// This can be useful for back-channel content,
-  /// such as images, file transfer, text chat, game update
-  /// packets, and so forth.
+  /// The **`createDataChannel()`** method of the [RTCPeerConnection] interface
+  /// creates a new channel linked with the remote peer, over which any kind of
+  /// data may be transmitted.
+  /// This can be useful for back-channel content, such as images, file
+  /// transfer, text chat, game update packets, and so forth.
   ///
   /// If the new data channel is the first one added to the connection,
-  /// renegotiation is
-  /// started by delivering a [RTCPeerConnection.negotiationneeded_event] event.
+  /// renegotiation is started by delivering a
+  /// [RTCPeerConnection.negotiationneeded_event] event.
   external RTCDataChannel createDataChannel(
     String label, [
     RTCDataChannelInit dataChannelDict,
   ]);
 
-  /// The [RTCPeerConnection] method
-  /// **`getStats()`** returns a promise which resolves with data
-  /// providing statistics about either the overall connection or about the
-  /// specified
-  /// [MediaStreamTrack].
+  /// The **`getStats()`** method of the [RTCPeerConnection] interface returns a
+  /// promise which resolves with data providing statistics about either the
+  /// overall connection or about the specified [MediaStreamTrack].
   external JSPromise<RTCStatsReport> getStats([MediaStreamTrack? selector]);
 
-  /// The read-only [RTCPeerConnection] property
-  /// **`peerIdentity`** returns a JavaScript `Promise`
-  /// that resolves to an [RTCIdentityAssertion] which contains a
-  /// string identifying the remote peer. Once this promise
-  /// resolves successfully, the resulting identity is the **target peer
-  /// identity** and cannot change for the duration of the connection.
+  /// The **`peerIdentity`** read-only property of the [RTCPeerConnection]
+  /// interface returns a JavaScript `Promise` that resolves to an
+  /// [RTCIdentityAssertion] which contains a string identifying the remote
+  /// peer.
+  /// Once this promise resolves successfully, the resulting identity is the
+  /// **target peer identity** and cannot change for the duration of the
+  /// connection.
   external JSPromise<JSObject> get peerIdentity;
   external String? get idpLoginUrl;
 
-  /// The read-only property **`RTCPeerConnection.localDescription`** returns an
-  /// [RTCSessionDescription] describing the session for the local end of the
-  /// connection.
+  /// The **`localDescription`** read-only property of the [RTCPeerConnection]
+  /// interface returns an [RTCSessionDescription] describing the session for
+  /// the local end of the connection.
   /// If it has not yet been set, this is `null`.
   external RTCSessionDescription? get localDescription;
 
-  /// The read-only property
-  /// **`RTCPeerConnection.currentLocalDescription`** returns an
-  /// [RTCSessionDescription] object describing the local end of the connection
-  /// as it was most recently successfully negotiated since the last time the
-  /// [RTCPeerConnection] finished negotiating and connecting to a remote peer.
+  /// The **`currentLocalDescription`** read-only property of the
+  /// [RTCPeerConnection] interface returns an [RTCSessionDescription] object
+  /// describing the local end of the connection as it was most recently
+  /// successfully negotiated since the last time the [RTCPeerConnection]
+  /// finished negotiating and connecting to a remote peer.
   /// Also included is a list of any ICE candidates that may already have been
-  /// generated by
-  /// the ICE agent since the offer or answer represented by the description was
-  /// first
-  /// instantiated.
+  /// generated by the ICE agent since the offer or answer represented by the
+  /// description was first instantiated.
   ///
   /// To change the `currentLocalDescription`, call
-  /// [RTCPeerConnection.setLocalDescription], which triggers a series of
-  /// events which leads to this value being set. For details on what exactly
-  /// happens and why
-  /// the change isn't necessarily instantaneous, see
+  /// [RTCPeerConnection.setLocalDescription], which triggers a series of events
+  /// which leads to this value being set.
+  /// For details on what exactly happens and why the change isn't necessarily
+  /// instantaneous, see
   /// [Pending and current descriptions](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity#pending_and_current_descriptions)
   /// in the WebRTC Connectivity page.
   ///
   /// > **Note:** Unlike [RTCPeerConnection.localDescription], this value
-  /// > represents the
-  /// > actual current state of the local end of the connection;
-  /// > `localDescription`
-  /// > may specify a description which the connection is currently in the
-  /// > process of
-  /// > switching over to.
+  /// > represents the actual current state of the local end of the connection;
+  /// > `localDescription` may specify a description which the connection is
+  /// > currently in the process of switching over to.
   external RTCSessionDescription? get currentLocalDescription;
 
-  /// The read-only property
-  /// **`RTCPeerConnection.pendingLocalDescription`** returns an
-  /// [RTCSessionDescription] object describing a pending configuration change
-  /// for the local end of the connection. This does not describe the connection
-  /// as it
-  /// currently stands, but as it may exist in the near future. Use
-  /// [RTCPeerConnection.currentLocalDescription] or
+  /// The **`pendingLocalDescription`** read-only property of the
+  /// [RTCPeerConnection] interface returns an [RTCSessionDescription] object
+  /// describing a pending configuration change for the local end of the
+  /// connection.
+  ///
+  /// This does not describe the connection as it currently stands, but as it
+  /// may exist in the near future.
+  /// Use [RTCPeerConnection.currentLocalDescription] or
   /// [RTCPeerConnection.localDescription] to get the current state of the
-  /// endpoint. For details on the difference, see
+  /// endpoint.
+  /// For details on the difference, see
   /// [Pending and current descriptions](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity#pending_and_current_descriptions)
   /// in the WebRTC Connectivity page.
   external RTCSessionDescription? get pendingLocalDescription;
 
-  /// The read-only property
-  /// **`RTCPeerConnection.remoteDescription`** returns a
-  /// [RTCSessionDescription] describing the session (which includes
-  /// configuration and media information) for the remote end of the connection.
-  /// If this
-  /// hasn't been set yet, this is `null`.
+  /// The **`remoteDescription`** read-only property of the [RTCPeerConnection]
+  /// interface returns a [RTCSessionDescription] describing the session (which
+  /// includes configuration and media information) for the remote end of the
+  /// connection.
+  /// If this hasn't been set yet, this is `null`.
   ///
   /// The returned value typically reflects a remote description which has been
-  /// received over
-  /// the signaling server (as either an offer or an answer) and then put into
-  /// effect by your
-  /// code calling [RTCPeerConnection.setRemoteDescription] in response.
+  /// received over the signaling server (as either an offer or an answer) and
+  /// then put into effect by your code calling
+  /// [RTCPeerConnection.setRemoteDescription] in response.
   external RTCSessionDescription? get remoteDescription;
 
-  /// The read-only property
-  /// **`RTCPeerConnection.currentRemoteDescription`** returns an
+  /// The **`currentRemoteDescription`** read-only property of the
+  /// [RTCPeerConnection] interface returns an
   /// [RTCSessionDescription] object describing the remote end of the connection
   /// as it was most recently successfully negotiated since the last time the
   /// [RTCPeerConnection] finished negotiating and connecting to a remote peer.
   /// Also included is a list of any ICE candidates that may already have been
-  /// generated by
-  /// the ICE agent since the offer or answer represented by the description was
-  /// first
-  /// instantiated.
+  /// generated by the ICE agent since the offer or answer represented by the
+  /// description was first instantiated.
   ///
   /// To change the `currentRemoteDescription`, call
   /// [RTCPeerConnection.setRemoteDescription], which triggers a series of
-  /// events which leads to this value being set. For details on what exactly
-  /// happens and why
-  /// the change isn't necessarily instantaneous, see
+  /// events which leads to this value being set.
+  /// For details on what exactly happens and why the change isn't necessarily
+  /// instantaneous, see
   /// [Pending and current descriptions](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity#pending_and_current_descriptions)
   /// in the WebRTC Connectivity page.
   ///
   /// > **Note:** Unlike [RTCPeerConnection.remoteDescription], this value
-  /// > represents the
-  /// > actual current state of the local end of the connection;
+  /// > represents the actual current state of the local end of the connection;
   /// > `remoteDescription` may specify a description which the connection is
   /// > currently in the process of switching over to.
   external RTCSessionDescription? get currentRemoteDescription;
 
-  /// The read-only property
-  /// **`RTCPeerConnection.pendingRemoteDescription`** returns an
-  /// [RTCSessionDescription] object describing a pending configuration change
-  /// for the remote end of the connection. This does not describe the
-  /// connection as it
-  /// currently stands, but as it may exist in the near future. Use
-  /// [RTCPeerConnection.currentRemoteDescription] or
+  /// The **`pendingRemoteDescription`** read-only property of the
+  /// [RTCPeerConnection] interface returns an [RTCSessionDescription] object
+  /// describing a pending configuration change for the remote end of the
+  /// connection.
+  ///
+  /// This does not describe the connection as it currently stands, but as it
+  /// may exist in the near future.
+  /// Use [RTCPeerConnection.currentRemoteDescription] or
   /// [RTCPeerConnection.remoteDescription] to get the current session
-  /// description for the remote endpoint. For details on the difference, see
+  /// description for the remote endpoint.
+  /// For details on the difference, see
   /// [Pending and current descriptions](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity#pending_and_current_descriptions)
   /// in the WebRTC Connectivity page.
   external RTCSessionDescription? get pendingRemoteDescription;
 
-  /// The read-only **`signalingState`** property on the
-  /// [RTCPeerConnection] interface returns a string value
-  /// describing the state of the signaling process
-  /// on the local end of the connection
-  /// while connecting or reconnecting to another peer.
+  /// The **`signalingState`** read-only property of the [RTCPeerConnection]
+  /// interface returns a string value describing the state of the signaling
+  /// process on the local end of the connection while connecting or
+  /// reconnecting to another peer.
   /// See
   /// [Signaling](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Session_lifetime#signaling)
   /// in our WebRTC session lifetime page.
   ///
   /// Because the signaling process is a state machine, being able to verify
-  /// that your code
-  /// is in the expected state when messages arrive can help avoid unexpected
-  /// and avoidable
-  /// failures. For example, if you receive an answer while the `signalingState`
-  /// isn't `"have-local-offer"`, you know that something is wrong, since you
-  /// should only receive answers after creating an offer but before an answer
-  /// has been
+  /// that your code is in the expected state when messages arrive can help
+  /// avoid unexpected and avoidable failures.
+  /// For example, if you receive an answer while the `signalingState` isn't
+  /// `"have-local-offer"`, you know that something is wrong, since you should
+  /// only receive answers after creating an offer but before an answer has been
   /// received and passed into [RTCPeerConnection.setLocalDescription]. Your
   /// code will be more reliable if you watch for mismatched states like this
-  /// and handle them
-  /// gracefully.
+  /// and handle them gracefully.
   ///
   /// This value may also be useful during debugging, for example.
   ///
   /// In addition, when the value of this property changes, a
   /// [RTCPeerConnection.signalingstatechange_event] event is sent to the
-  /// [RTCPeerConnection]
-  /// instance.
+  /// [RTCPeerConnection] instance.
   external RTCSignalingState get signalingState;
 
-  /// The read-only property **`RTCPeerConnection.iceGatheringState`** returns a
-  /// string
-  /// that describes the connection's ICE gathering state.
+  /// The **`iceGatheringState`** read-only property of the [RTCPeerConnection]
+  /// interface returns a string that describes the overall ICE gathering state
+  /// for this connection.
   /// This lets you detect, for example, when collection of ICE candidates has
   /// finished.
   ///
   /// You can detect when the value of this property changes by watching for an
-  /// event of type
-  /// [RTCPeerConnection.icegatheringstatechange_event].
+  /// event of type [RTCPeerConnection.icegatheringstatechange_event].
+  ///
+  /// Note that **`iceGatheringState`** represents the overall gathering state
+  /// of the connection, including every [RTCIceTransport] used by every
+  /// [RTCRtpSender] and every [RTCRtpReceiver] on the entire connection.
+  /// This contrasts with [RTCIceTransport.gatheringState], which represents the
+  /// gathering state for a single transport.
   external RTCIceGatheringState get iceGatheringState;
 
-  /// The read-only property **`RTCPeerConnection.iceConnectionState`** returns
-  /// a string which state of the  agent associated with the
-  /// [RTCPeerConnection]:
-  /// `new`, `checking`, `connected`, `completed`,
+  /// The **`iceConnectionState`** read-only property of the [RTCPeerConnection]
+  /// interface returns a string which state of the  agent associated with the
+  /// [RTCPeerConnection]: `new`, `checking`, `connected`, `completed`,
   /// `failed`, `disconnected`, and `closed`.
   ///
-  /// It describes the current state of the ICE agent
-  /// and its connection to the ICE server;
+  /// It describes the current state of the ICE agent and its connection to the
+  /// ICE server;
   /// that is, the  or  server.
   ///
   /// You can detect when this value has changed by watching for the
   /// [RTCPeerConnection.iceconnectionstatechange_event] event.
   external RTCIceConnectionState get iceConnectionState;
 
-  /// The read-only **`connectionState`** property of the [RTCPeerConnection]
+  /// The **`connectionState`** read-only property of the [RTCPeerConnection]
   /// interface indicates the current state of the peer connection by returning
   /// one of the following string values: `new`, `connecting`, `connected`,
   /// `disconnected`, `failed`, or `closed`.
@@ -627,27 +592,24 @@ extension type RTCPeerConnection._(JSObject _)
   /// [RTCPeerConnection] instance.
   external RTCPeerConnectionState get connectionState;
 
-  /// The read-only **[RTCPeerConnection]** property
-  /// **`canTrickleIceCandidates`**
-  /// returns a boolean value which indicates whether or not the remote peer can
-  /// accept
+  /// The **`canTrickleIceCandidates`** read-only property of the
+  /// [RTCPeerConnection] interface returns a boolean value which indicates
+  /// whether or not the remote peer can accept
   /// [trickled ICE candidates](https://datatracker.ietf.org/doc/html/draft-ietf-mmusic-trickle-ice).
   ///
   /// **ICE trickling** is the process of continuing to send candidates after
   /// the initial offer or answer has already been sent to the other peer.
   ///
   /// This property is only set after having called
-  /// [RTCPeerConnection.setRemoteDescription]. Ideally, your signaling
-  /// protocol provides a way to detect trickling support, so that you don't
-  /// need to rely on
-  /// this property. A WebRTC browser will always support trickle ICE. If
-  /// trickling isn't
+  /// [RTCPeerConnection.setRemoteDescription]. Ideally, your signaling protocol
+  /// provides a way to detect trickling support, so that you don't need to rely
+  /// on this property.
+  /// A WebRTC browser will always support trickle ICE. If trickling isn't
   /// supported, or you aren't able to tell, you can check for a falsy value for
-  /// this
-  /// property and then wait until the value of
-  /// [RTCPeerConnection.iceGatheringState] changes to
-  /// `"completed"` before creating and sending the initial offer. That way, the
-  /// offer contains all of the candidates.
+  /// this property and then wait until the value of
+  /// [RTCPeerConnection.iceGatheringState] changes to `"completed"` before
+  /// creating and sending the initial offer.
+  /// That way, the offer contains all of the candidates.
   external bool? get canTrickleIceCandidates;
   external EventHandler get onnegotiationneeded;
   external set onnegotiationneeded(EventHandler value);
@@ -666,10 +628,9 @@ extension type RTCPeerConnection._(JSObject _)
   external EventHandler get ontrack;
   external set ontrack(EventHandler value);
 
-  /// The read-only **`sctp`** property on the [RTCPeerConnection] interface
+  /// The **`sctp`** read-only property of the [RTCPeerConnection] interface
   /// returns an [RTCSctpTransport] describing the  transport over which SCTP
-  /// data is being sent and
-  /// received.
+  /// data is being sent and received.
   /// If SCTP hasn't been negotiated, this value is `null`.
   ///
   /// The SCTP transport is used for transmitting and receiving data for any and
@@ -901,9 +862,8 @@ extension type RTCIceCandidate._(JSObject _) implements JSObject {
   external RTCIceTcpCandidateType? get tcpType;
 
   /// The **[RTCIceCandidate]** interface's read-only **`relatedAddress`**
-  /// property is a
-  /// string indicating the **related address** of a relay or reflexive
-  /// candidate.
+  /// property is a string indicating the **related address** of a relay or
+  /// reflexive candidate.
   ///
   /// If the candidate is a host candidate (that is, its
   /// [RTCIceCandidate.address] is in fact the real IP address of the remote
@@ -916,10 +876,9 @@ extension type RTCIceCandidate._(JSObject _) implements JSObject {
   /// `candidate` a-line if it's formatted properly(the `rel-address` field).
   ///
   /// The related address and port ([RTCIceCandidate.relatedPort]) are not used
-  /// at all by  itself; they are provided
-  /// for analysis and diagnostic purposes only, and their inclusion may be
-  /// blocked by security systems, so do not rely on them having non-`null`
-  /// values.
+  /// at all by  itself; they are provided for analysis and diagnostic purposes
+  /// only, and their inclusion may be blocked by security systems, so do not
+  /// rely on them having non-`null` values.
   external String? get relatedAddress;
 
   /// The **[RTCIceCandidate]** interface's read-only **`relatedPort`** property
@@ -1609,9 +1568,8 @@ extension type RTCRtpTransceiver._(JSObject _) implements JSObject {
 extension type RTCDtlsTransport._(JSObject _) implements EventTarget, JSObject {
   external JSArray<JSArrayBuffer> getRemoteCertificates();
 
-  /// The read-only **[RTCDtlsTransport]**
-  /// property **`iceTransport`** contains a reference
-  /// to the underlying [RTCIceTransport].
+  /// The **`iceTransport`** read-only property of the **[RTCDtlsTransport]**
+  /// interface contains a reference to the underlying [RTCIceTransport].
   external RTCIceTransport get iceTransport;
 
   /// The **`state`** read-only property of the
@@ -1645,56 +1603,48 @@ extension type RTCDtlsFingerprint._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCIceTransport).
 extension type RTCIceTransport._(JSObject _) implements EventTarget, JSObject {
-  /// The **[RTCIceTransport]** method
-  /// **`getLocalCandidates()`** returns an array of
-  /// [RTCIceCandidate] objects, one for each of the candidates that have been
-  /// gathered by the local device during the current  agent
-  /// session.
+  /// The **`getLocalCandidates()`** method of the [RTCIceTransport] interface
+  /// returns an array of [RTCIceCandidate] objects, one for each of the
+  /// candidates that have been gathered by the local device during the current
+  /// agent session.
   ///
   /// The local candidates are placed in this list by the ICE agent prior to
-  /// being delivered
-  /// to the local client's code in an [RTCPeerConnection.icecandidate_event]
-  /// event so that the client can
+  /// being delivered to the local client's code in an
+  /// [RTCPeerConnection.icecandidate_event] event so that the client can
   /// forward the candidates to the remote peer.
   external JSArray<RTCIceCandidate> getLocalCandidates();
 
-  /// The **[RTCIceTransport]** method
-  /// **`getRemoteCandidates()`** returns an array which contains
-  /// one [RTCIceCandidate] for each of the candidates that have been received
-  /// from the remote peer so far during the current  gathering
-  /// session.
+  /// The **`getRemoteCandidates()`** method of the [RTCIceTransport] interface
+  /// returns an array that contains one [RTCIceCandidate] for each of the
+  /// candidates that have been received from the remote peer so far during the
+  /// current  gathering session.
   ///
-  /// Each time your signaling code calls [RTCPeerConnection.addIceCandidate]
-  /// to add a received candidate to the ICE session, the ICE agent places it in
-  /// the list
-  /// returned by this function.
+  /// Each time your signaling code calls [RTCPeerConnection.addIceCandidate] to
+  /// add a received candidate to the ICE session, the ICE agent places it in
+  /// the list returned by this function.
   external JSArray<RTCIceCandidate> getRemoteCandidates();
 
-  /// The [RTCIceTransport] method
-  /// **`getSelectedCandidatePair()`** returns an
-  /// [RTCIceCandidatePair] object containing the current best-choice pair
-  /// of  candidates describing the configuration of the endpoints of the
-  /// transport.
+  /// The **`getSelectedCandidatePair()`** method of the [RTCIceTransport]
+  /// interface returns an [RTCIceCandidatePair] object containing the current
+  /// best-choice pair of  candidates describing the configuration of the
+  /// endpoints of the transport.
   external RTCIceCandidatePair? getSelectedCandidatePair();
 
-  /// The **[RTCIceTransport]** method
-  /// **`getLocalParameters()`** returns an
-  /// [RTCIceParameters] object which provides information uniquely identifying
-  /// the local peer for the duration of the ICE session.
+  /// The **`getLocalParameters()`** method of the [RTCIceTransport] interface
+  /// returns an [RTCIceParameters] object that provides information uniquely
+  /// identifying the local peer for the duration of the ICE session.
   ///
   /// The local peer's parameters are obtained during ICE signaling and
-  /// delivered to the
-  /// transport when the client calls [RTCPeerConnection.setLocalDescription].
+  /// delivered to the transport when the client calls
+  /// [RTCPeerConnection.setLocalDescription].
   external RTCIceParameters? getLocalParameters();
 
-  /// The **[RTCIceTransport]** method
-  /// **`getRemoteParameters()`** returns an
-  /// [RTCIceParameters] object which provides information uniquely
+  /// The **`getRemoteParameters()`** method of the [RTCIceTransport] interface
+  /// returns an [RTCIceParameters] object that provides information uniquely
   /// identifying the remote peer for the duration of the ICE session.
   ///
   /// The remote peer's parameters are received during ICE signaling and
-  /// delivered to the
-  /// transport when the client calls
+  /// delivered to the transport when the client calls
   /// [RTCPeerConnection.setRemoteDescription].
   external RTCIceParameters? getRemoteParameters();
   external EventHandler get onerror;
@@ -1702,29 +1652,37 @@ extension type RTCIceTransport._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onicecandidate;
   external set onicecandidate(EventHandler value);
 
-  /// The read-only **[RTCIceTransport]**
-  /// property **`role`** indicates which  role
-  /// the transport is fulfilling: that of the controlling agent, or the agent
-  /// that is being
-  /// controlled.
+  /// The **`role`** read-only property of the [RTCIceTransport] interface
+  /// indicates which  role the transport is fulfilling: that of the controlling
+  /// agent, or the agent that is being controlled.
   ///
   /// You can learn more about ICE roles in
   /// [Choosing a candidate pair](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API/Connectivity#choosing_a_candidate_pair).
   external RTCIceRole get role;
 
-  /// The read-only **[RTCIceTransport]**
-  /// property **`state`** returns the current state of the ICE
-  /// transport, so you can determine the state of ICE gathering in which the
-  /// ICE agent
-  /// currently is operating.
+  /// The **`state`** read-only property of the [RTCIceTransport] interface
+  /// returns the current state of the ICE transport, so you can determine the
+  /// state of ICE gathering in which the ICE agent currently is operating.
   ///
-  /// This differs from the [RTCIceTransport.gatheringState],
-  /// which only indicates whether or not ICE gathering is currently underway.
+  /// This differs from the [RTCIceTransport.gatheringState], which only
+  /// indicates whether or not ICE gathering is currently underway.
+  /// It also differs from [RTCPeerConnection.connectionState], which aggregates
+  /// the states across every [RTCIceTransport] used by every [RTCRtpSender] and
+  /// every [RTCRtpReceiver] on the entire connection.
   external RTCIceTransportState get state;
 
-  /// The read-only property **`gatheringState`** property of the
-  /// [RTCIceTransport] interface returns a string that indicates the current
-  /// gathering state of the ICE agent: `"new"`, `"gathering"`, or `"complete"`.
+  /// The **`gatheringState`** read-only property of the [RTCIceTransport]
+  /// interface returns a string that indicates the current gathering state of
+  /// the ICE agent for this transport: `"new"`, `"gathering"`, or `"complete"`.
+  ///
+  /// You can detect when the value of this property changes by watching for an
+  /// event of type [RTCIceTransport.gatheringstatechange_event].
+  ///
+  /// Note that **`gatheringState`** represents the gathering state of just this
+  /// transport, while [RTCPeerConnection.iceGatheringState] represents the
+  /// overall gathering state of the whole connection, including every
+  /// [RTCIceTransport] used by every [RTCRtpSender] and every [RTCRtpReceiver]
+  /// on the entire connection.
   external RTCIceGathererState get gatheringState;
   external EventHandler get onstatechange;
   external set onstatechange(EventHandler value);
@@ -1789,10 +1747,9 @@ extension type RTCIceCandidatePair._(JSObject _) implements JSObject {
     RTCIceCandidate remote,
   });
 
-  /// The **`local`** property of the
-  /// **[RTCIceCandidatePair]** dictionary specifies the
-  /// [RTCIceCandidate] which describes the configuration of the local end of a
-  /// viable WebRTC connection.
+  /// The **`local`** property of the **[RTCIceCandidatePair]** dictionary
+  /// specifies the [RTCIceCandidate] which describes the configuration of the
+  /// local end of a viable WebRTC connection.
   external RTCIceCandidate get local;
   external set local(RTCIceCandidate value);
 

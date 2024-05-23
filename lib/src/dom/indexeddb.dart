@@ -210,12 +210,14 @@ extension type IDBFactory._(JSObject _) implements JSObject {
   /// event.
   external IDBOpenDBRequest deleteDatabase(String name);
 
-  /// The **`databases`** method of the [IDBFactory] interface returns a list
-  /// representing all the available databases, including their names and
-  /// versions.
+  /// The **`databases`** method of the [IDBFactory] interface returns a
+  /// `Promise` that fulfills with an array of objects containing the name and
+  /// version of all the available databases.
   ///
-  /// > **Note:** This method is introduced in a draft of a specifications and
-  /// > browser compatibility is limited.
+  /// This is is a snapshot of the databases, intended primarily to allow web
+  /// applications to check what databases have been created — in order to, for
+  /// example, clean up databases created by earlier versions of application
+  /// code.
   external JSPromise<JSArray<IDBDatabaseInfo>> databases();
 
   /// The **`cmp()`** method of the [IDBFactory]
@@ -1136,14 +1138,14 @@ extension type IDBTransaction._(JSObject _) implements EventTarget, JSObject {
   /// `readonly`.
   external IDBTransactionMode get mode;
 
-  /// The **`durability`** read-only property of the
-  /// [IDBTransaction] interface returns the durability hint the transaction was
-  /// created with. This is a hint to the user agent of whether to prioritize
-  /// performance or
+  /// The **`durability`** read-only property of the [IDBTransaction] interface
+  /// returns the durability hint the transaction was created with.
+  /// This is a hint to the user agent of whether to prioritize performance or
   /// durability when committing the transaction.
   ///
-  /// The value of this property is defined in the `options` parameter when
-  /// creating a transaction using [IDBDatabase.transaction].
+  /// The value of this property is defined in the
+  /// [`options.durability`](/en-US/docs/Web/API/IDBDatabase/transaction#options)
+  /// parameter when creating a transaction using [IDBDatabase.transaction].
   external IDBTransactionDurability get durability;
 
   /// The **`db`** read-only property of the [IDBTransaction] interface returns

@@ -116,8 +116,8 @@ extension type FocusEvent._(JSObject _) implements UIEvent, JSObject {
     FocusEventInit eventInitDict,
   ]);
 
-  /// The **`FocusEvent.relatedTarget`** read-only property is the
-  /// secondary target, depending on the type of event:
+  /// The **`relatedTarget`** read-only property of the [FocusEvent] interface
+  /// is the secondary target, depending on the type of event:
   ///
   /// <table class="no-markdown">
   ///   <thead>
@@ -131,9 +131,7 @@ extension type FocusEvent._(JSObject _) implements UIEvent, JSObject {
   ///     <tr>
   ///       <td>[Element.blur_event]</td>
   ///       <td>The [EventTarget] losing focus</td>
-  ///       <td>
-  /// The [EventTarget] receiving focus (if any).
-  ///       </td>
+  ///       <td>The [EventTarget] receiving focus (if any).</td>
   ///     </tr>
   ///     <tr>
   ///       <td>[Element.focus_event]</td>
@@ -155,9 +153,9 @@ extension type FocusEvent._(JSObject _) implements UIEvent, JSObject {
   ///
   /// Note that [many elements can't have
   /// focus](https://stackoverflow.com/questions/42764494/blur-event-relatedtarget-returns-null/42764495),
-  /// which is a common reason for `relatedTarget` to be
-  /// `null`. `relatedTarget` may also be set to `null` for
-  /// security reasons, like when tabbing in or out of a page.
+  /// which is a common reason for `relatedTarget` to be `null`. `relatedTarget`
+  /// may also be set to `null` for security reasons, like when tabbing in or
+  /// out of a page.
   ///
   /// [MouseEvent.relatedTarget] is a similar property for mouse events.
   external EventTarget? get relatedTarget;
@@ -744,8 +742,8 @@ extension type InputEvent._(JSObject _) implements UIEvent, JSObject {
   ]);
 
   /// The **`getTargetRanges()`** method of the [InputEvent] interface returns
-  /// an array of static ranges that will be affected by a change to the DOM if
-  /// the input event is not canceled.
+  /// an array of [StaticRange] objects that will be affected by a change to the
+  /// DOM if the input event is not canceled.
   ///
   /// This allows web apps to override text edit behavior before the browser
   /// modifies the DOM tree, and provides more control over input events to

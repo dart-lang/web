@@ -18,7 +18,7 @@ import 'html.dart';
 
 typedef PermissionState = String;
 
-/// The Permissions interface of the
+/// The **`Permissions`** interface of the
 /// [Permissions API](https://developer.mozilla.org/en-US/docs/Web/API/Permissions_API)
 /// provides the core Permission API functionality, such as methods for querying
 /// and revoking permissions
@@ -28,15 +28,15 @@ typedef PermissionState = String;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Permissions).
 extension type Permissions._(JSObject _) implements JSObject {
-  /// The **`Permissions.revoke()`** method of the
+  /// The **`revoke()`** method of the
   /// [Permissions] interface reverts a currently set permission back to its
   /// default state, which is usually `prompt`.
   /// This method is called on the global [Permissions] object
   /// [navigator.permissions].
   external JSPromise<PermissionStatus> revoke(JSObject permissionDesc);
 
-  /// The **`Permissions.query()`** method of the [Permissions] interface
-  /// returns the state of a user permission on the global scope.
+  /// The **`query()`** method of the [Permissions] interface returns the state
+  /// of a user permission on the global scope.
   external JSPromise<PermissionStatus> query(JSObject permissionDesc);
 }
 

@@ -106,6 +106,9 @@ extension ElementEventGetters on Element {
   ElementStream<Event> get onLoad =>
       EventStreamProviders.loadEvent.forElement(this);
 
+  ElementStream<Event> get onUnload =>
+      EventStreamProviders.unloadEvent.forElement(this);
+
   ElementStream<Event> get onLoadedData =>
       EventStreamProviders.loadedDataEvent.forElement(this);
 

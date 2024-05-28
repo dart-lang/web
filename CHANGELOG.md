@@ -12,6 +12,7 @@
   experimental. This is a looser restriction from the previous requirement that
   APIs need to be implemented by Chrome, Firefox, and Safari. As part of this,
   dictionaries and typedefs are only emitted if they're used by a generated API.
+- Added `onUnload` event stream to `ElementEventGetters` extension methods.
 
 ## 0.5.1
 

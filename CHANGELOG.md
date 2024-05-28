@@ -13,6 +13,7 @@
   APIs need to be implemented by Chrome, Firefox, and Safari. As part of this,
   dictionaries and typedefs are only emitted if they're used by a generated API.
 - Added `onUnload` event stream to `ElementEventGetters` extension methods.
+- Expose `ElementStream` as a public class.
 
 ## 0.5.1
 

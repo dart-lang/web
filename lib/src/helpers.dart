@@ -29,7 +29,7 @@ import 'dom.dart';
 export 'helpers/enums.dart';
 export 'helpers/events/events.dart';
 export 'helpers/events/providers.dart';
-export 'helpers/events/streams.dart' show EventStreamProvider;
+export 'helpers/events/streams.dart' show ElementStream, EventStreamProvider;
 export 'helpers/extensions.dart';
 export 'helpers/http.dart';
 export 'helpers/lists.dart';

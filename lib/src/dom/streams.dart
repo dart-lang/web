@@ -411,7 +411,7 @@ extension type ReadableStreamDefaultController._(JSObject _)
   /// The **`desiredSize`** read-only property of the
   /// [ReadableStreamDefaultController] interface returns the desired size
   /// required to fill the stream's internal queue.
-  external num? get desiredSize;
+  external double? get desiredSize;
 }
 
 /// The **`ReadableByteStreamController`** interface of the
@@ -534,7 +534,7 @@ extension type ReadableByteStreamController._(JSObject _) implements JSObject {
   /// The `desiredSize` is used to apply
   /// [backpressure](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Concepts#backpressure)
   /// from downstream consumers.
-  external num? get desiredSize;
+  external double? get desiredSize;
 }
 
 /// The **`ReadableStreamBYOBRequest`** interface of the
@@ -732,7 +732,7 @@ extension type WritableStreamDefaultWriter._(JSObject _) implements JSObject {
   /// The **`desiredSize`** read-only property of the
   /// [WritableStreamDefaultWriter] interface returns the desired size required
   /// to fill the stream's internal queue.
-  external num? get desiredSize;
+  external double? get desiredSize;
 
   /// The **`ready`** read-only property of the
   /// [WritableStreamDefaultWriter] interface returns a `Promise`
@@ -862,7 +862,7 @@ extension type TransformStreamDefaultController._(JSObject _)
   /// this information to
   /// [manually apply backpressure](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Concepts#backpressure)
   /// to manage the queue.
-  external num? get desiredSize;
+  external double? get desiredSize;
 }
 extension type QueuingStrategy._(JSObject _) implements JSObject {
   external factory QueuingStrategy({
@@ -870,7 +870,7 @@ extension type QueuingStrategy._(JSObject _) implements JSObject {
     QueuingStrategySize size,
   });
 
-  external num get highWaterMark;
+  external double get highWaterMark;
   external set highWaterMark(num value);
   external QueuingStrategySize get size;
   external set size(QueuingStrategySize value);
@@ -878,7 +878,7 @@ extension type QueuingStrategy._(JSObject _) implements JSObject {
 extension type QueuingStrategyInit._(JSObject _) implements JSObject {
   external factory QueuingStrategyInit({required num highWaterMark});
 
-  external num get highWaterMark;
+  external double get highWaterMark;
   external set highWaterMark(num value);
 }
 
@@ -908,7 +908,7 @@ extension type ByteLengthQueuingStrategy._(JSObject _) implements JSObject {
   /// > given a stream of chunks, how many bytes worth of those chunks (rather
   /// > than a count of how many of those chunks) can be contained in the
   /// > internal queue before backpressure is applied.
-  external num get highWaterMark;
+  external double get highWaterMark;
 
   /// The **`size()`** method of the
   /// [ByteLengthQueuingStrategy] interface returns the given chunk's
@@ -931,7 +931,7 @@ extension type CountQueuingStrategy._(JSObject _) implements JSObject {
   /// The read-only **`CountQueuingStrategy.highWaterMark`** property returns
   /// the total number of chunks that can be contained in the internal queue
   /// before backpressure is applied.
-  external num get highWaterMark;
+  external double get highWaterMark;
 
   /// The **`size()`** method of the
   /// [CountQueuingStrategy] interface always returns `1`, so that the

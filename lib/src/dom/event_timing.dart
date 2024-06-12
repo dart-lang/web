@@ -14,7 +14,6 @@ library;
 import 'dart:js_interop';
 
 import 'dom.dart';
-import 'hr_time.dart';
 import 'performance_timeline.dart';
 
 /// The `PerformanceEventTiming` interface of the Event Timing API provides
@@ -34,14 +33,14 @@ extension type PerformanceEventTiming._(JSObject _)
   /// The read-only **`processingStart`** property returns the time at which
   /// event dispatch started. This is when event handlers are about to be
   /// executed.
-  external DOMHighResTimeStamp get processingStart;
+  external double get processingStart;
 
   /// The read-only **`processingEnd`** property returns the time the last event
   /// handler finished executing.
   ///
   /// It's equal to [PerformanceEventTiming.processingStart] when there are no
   /// such event handlers.
-  external DOMHighResTimeStamp get processingEnd;
+  external double get processingEnd;
 
   /// The read-only **`cancelable`** property returns the associated event's
   /// [`cancelable`](https://developer.mozilla.org/en-US/docs/Web/API/Event/cancelable)

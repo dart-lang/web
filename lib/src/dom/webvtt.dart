@@ -81,7 +81,7 @@ extension type VTTCue._(JSObject _) implements TextTrackCue, JSObject {
 
   /// The **`size`** property of the [VTTCue] interface represents the size of
   /// the cue as a percentage of the video size.
-  external num get size;
+  external double get size;
   external set size(num value);
 
   /// The **`align`** property of the [VTTCue] interface represents the
@@ -108,17 +108,17 @@ extension type VTTRegion._(JSObject _) implements JSObject {
 
   external String get id;
   external set id(String value);
-  external num get width;
+  external double get width;
   external set width(num value);
   external int get lines;
   external set lines(int value);
-  external num get regionAnchorX;
+  external double get regionAnchorX;
   external set regionAnchorX(num value);
-  external num get regionAnchorY;
+  external double get regionAnchorY;
   external set regionAnchorY(num value);
-  external num get viewportAnchorX;
+  external double get viewportAnchorX;
   external set viewportAnchorX(num value);
-  external num get viewportAnchorY;
+  external double get viewportAnchorY;
   external set viewportAnchorY(num value);
   external ScrollSetting get scroll;
   external set scroll(ScrollSetting value);

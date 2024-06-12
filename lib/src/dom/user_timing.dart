@@ -24,7 +24,7 @@ extension type PerformanceMarkOptions._(JSObject _) implements JSObject {
 
   external JSAny? get detail;
   external set detail(JSAny? value);
-  external DOMHighResTimeStamp get startTime;
+  external double get startTime;
   external set startTime(DOMHighResTimeStamp value);
 }
 extension type PerformanceMeasureOptions._(JSObject _) implements JSObject {
@@ -39,7 +39,7 @@ extension type PerformanceMeasureOptions._(JSObject _) implements JSObject {
   external set detail(JSAny? value);
   external JSAny get start;
   external set start(JSAny value);
-  external DOMHighResTimeStamp get duration;
+  external double get duration;
   external set duration(DOMHighResTimeStamp value);
   external JSAny get end;
   external set end(JSAny value);

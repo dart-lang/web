@@ -176,7 +176,7 @@ extension type SpeechRecognitionAlternative._(JSObject _) implements JSObject {
   ///
   /// > **Note:** Mozilla's implementation of `confidence` is still
   /// > being worked on — at the moment, it always seems to return 1.
-  external num get confidence;
+  external double get confidence;
 }
 
 /// The **`SpeechRecognitionResult`** interface of the
@@ -391,21 +391,21 @@ extension type SpeechSynthesisUtterance._(JSObject _)
   /// and sets the volume that the utterance will be spoken at.
   ///
   /// If not set, the default value 1 will be used.
-  external num get volume;
+  external double get volume;
   external set volume(num value);
 
   /// The **`rate`** property of the [SpeechSynthesisUtterance] interface gets
   /// and sets the speed at which the utterance will be spoken at.
   ///
   /// If unset, a default value of 1 will be used.
-  external num get rate;
+  external double get rate;
   external set rate(num value);
 
   /// The **`pitch`** property of the [SpeechSynthesisUtterance] interface gets
   /// and sets the pitch at which the utterance will be spoken at.
   ///
   /// If unset, a default value of 1 will be used.
-  external num get pitch;
+  external double get pitch;
   external set pitch(num value);
   external EventHandler get onstart;
   external set onstart(EventHandler value);
@@ -461,7 +461,7 @@ extension type SpeechSynthesisEvent._(JSObject _) implements Event, JSObject {
   /// [SpeechSynthesisUtterance.text] started being spoken, at which the
   /// [event](https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisUtterance#events)
   /// was triggered.
-  external num get elapsedTime;
+  external double get elapsedTime;
 
   /// The **`name`** read-only property of the [SpeechSynthesisUtterance]
   /// interface returns the name associated with certain types of events
@@ -491,7 +491,7 @@ extension type SpeechSynthesisEventInit._(JSObject _)
   external set charIndex(int value);
   external int get charLength;
   external set charLength(int value);
-  external num get elapsedTime;
+  external double get elapsedTime;
   external set elapsedTime(num value);
   external String get name;
   external set name(String value);

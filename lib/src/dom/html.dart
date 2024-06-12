@@ -3467,13 +3467,13 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   ///
   /// Changing the value of `currentTime` seeks the media to
   /// the new time.
-  external num get currentTime;
+  external double get currentTime;
   external set currentTime(num value);
 
   /// The _read-only_ [HTMLMediaElement]
   /// property **`duration`** indicates the length of the element's
   /// media in seconds.
-  external num get duration;
+  external double get duration;
 
   /// The read-only **`HTMLMediaElement.paused`** property
   /// tells whether the media element is paused.
@@ -3481,7 +3481,7 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`HTMLMediaElement.defaultPlaybackRate`** property indicates the
   /// default playback rate for the media.
-  external num get defaultPlaybackRate;
+  external double get defaultPlaybackRate;
   external set defaultPlaybackRate(num value);
 
   /// The **`HTMLMediaElement.playbackRate`** property sets the rate at which
@@ -3499,7 +3499,7 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   ///
   /// The pitch of the audio is corrected by default. You can disable pitch
   /// correction using the [HTMLMediaElement.preservesPitch] property.
-  external num get playbackRate;
+  external double get playbackRate;
   external set playbackRate(num value);
 
   /// The **`HTMLMediaElement.preservesPitch`** property determines whether or
@@ -3566,7 +3566,7 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
 
   /// The **`HTMLMediaElement.volume`** property sets the volume at
   /// which the media will be played.
-  external num get volume;
+  external double get volume;
   external set volume(num value);
 
   /// The **`HTMLMediaElement.muted`** property indicates whether the media
@@ -4111,12 +4111,12 @@ extension type TextTrackCue._(JSObject _) implements EventTarget, JSObject {
 
   /// The **`startTime`** property of the [TextTrackCue] interface returns and
   /// sets the start time of the cue.
-  external num get startTime;
+  external double get startTime;
   external set startTime(num value);
 
   /// The **`endTime`** property of the [TextTrackCue] interface returns and
   /// sets the end time of the cue.
-  external num get endTime;
+  external double get endTime;
   external set endTime(num value);
 
   /// The **`pauseOnExit`** property of the [TextTrackCue] interface returns or
@@ -4147,11 +4147,11 @@ extension type TextTrackCue._(JSObject _) implements EventTarget, JSObject {
 extension type TimeRanges._(JSObject _) implements JSObject {
   /// The **`start()`** method of the [TimeRanges] interface returns the time
   /// offset at which a specified time range begins.
-  external num start(int index);
+  external double start(int index);
 
   /// The **`end()`** method of the [TimeRanges] interface returns the time
   /// offset at which a specified time range ends.
-  external num end(int index);
+  external double end(int index);
 
   /// The **`TimeRanges.length`** read-only property returns the
   /// number of ranges in the object.
@@ -5659,7 +5659,7 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   external set value(String value);
   external JSObject? get valueAsDate;
   external set valueAsDate(JSObject? value);
-  external num get valueAsNumber;
+  external double get valueAsNumber;
   external set valueAsNumber(num value);
   external int get width;
   external set width(int value);
@@ -6142,17 +6142,17 @@ extension type HTMLProgressElement._(JSObject _)
 
   /// The **`value`** property of the [HTMLProgressElement] interface represents
   /// the current progress of the `progress` element.
-  external num get value;
+  external double get value;
   external set value(num value);
 
   /// The **`max`** property of the [HTMLProgressElement] interface represents
   /// the upper bound of the `progress` element's range.
-  external num get max;
+  external double get max;
   external set max(num value);
 
   /// The **`position`** read-only property of the [HTMLProgressElement]
   /// interface returns current progress of the `progress` element.
-  external num get position;
+  external double get position;
 
   /// The **`HTMLProgressElement.labels`** read-only property returns
   /// a [NodeList] of the `label` elements associated with the
@@ -6173,17 +6173,17 @@ extension type HTMLMeterElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLMeterElement] using the tag 'meter'.
   HTMLMeterElement() : _ = document.createElement('meter');
 
-  external num get value;
+  external double get value;
   external set value(num value);
-  external num get min;
+  external double get min;
   external set min(num value);
-  external num get max;
+  external double get max;
   external set max(num value);
-  external num get low;
+  external double get low;
   external set low(num value);
-  external num get high;
+  external double get high;
   external set high(num value);
-  external num get optimum;
+  external double get optimum;
   external set optimum(num value);
 
   /// The **`HTMLMeterElement.labels`** read-only property returns a
@@ -7681,7 +7681,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// > [Applying styles and color](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors)
   /// > in the
   /// > [Canvas Tutorial](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial).
-  external num get globalAlpha;
+  external double get globalAlpha;
   external set globalAlpha(num value);
 
   /// The
@@ -7769,7 +7769,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// > [CanvasRenderingContext2D.shadowBlur], `shadowOffsetX`, or
   /// > [CanvasRenderingContext2D.shadowOffsetY] properties must
   /// > be non-zero, as well.
-  external num get shadowOffsetX;
+  external double get shadowOffsetX;
   external set shadowOffsetX(num value);
 
   /// The
@@ -7785,7 +7785,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// > [CanvasRenderingContext2D.shadowOffsetX], or `shadowOffsetY` properties
   /// > must be non-zero, as
   /// > well.
-  external num get shadowOffsetY;
+  external double get shadowOffsetY;
   external set shadowOffsetY(num value);
 
   /// The
@@ -7800,7 +7800,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// > [CanvasRenderingContext2D.shadowOffsetX], or
   /// > [CanvasRenderingContext2D.shadowOffsetY] properties must
   /// > be non-zero, as well.
-  external num get shadowBlur;
+  external double get shadowBlur;
   external set shadowBlur(num value);
 
   /// The
@@ -7838,7 +7838,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// > [CanvasRenderingContext2D.stroke],
   /// > [CanvasRenderingContext2D.strokeRect],
   /// > and [CanvasRenderingContext2D.strokeText] methods.
-  external num get lineWidth;
+  external double get lineWidth;
   external set lineWidth(num value);
 
   /// The
@@ -7881,7 +7881,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// > [Applying styles and color](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors)
   /// > in the
   /// > [Canvas tutorial](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial).
-  external num get miterLimit;
+  external double get miterLimit;
   external set miterLimit(num value);
 
   /// The
@@ -7890,7 +7890,7 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   ///
   /// > **Note:** Lines are drawn by calling the
   /// > [CanvasRenderingContext2D.stroke] method.
-  external num get lineDashOffset;
+  external double get lineDashOffset;
   external set lineDashOffset(num value);
 
   /// The **`CanvasRenderingContext2D.font`** property of the Canvas 2D API
@@ -8053,7 +8053,7 @@ extension type CanvasPattern._(JSObject _) implements JSObject {
 extension type TextMetrics._(JSObject _) implements JSObject {
   /// The read-only **`width`** property of the [TextMetrics] interface contains
   /// the text's advance width (the width of that inline box) in CSS pixels.
-  external num get width;
+  external double get width;
 
   /// The read-only `actualBoundingBoxLeft` property of the [TextMetrics]
   /// interface is a `double` giving the distance parallel to the baseline from
@@ -8061,70 +8061,70 @@ extension type TextMetrics._(JSObject _) implements JSObject {
   /// property to the left side of the bounding rectangle of the given text, in
   /// CSS pixels; positive numbers indicating a distance going left from the
   /// given alignment point.
-  external num get actualBoundingBoxLeft;
+  external double get actualBoundingBoxLeft;
 
   /// The read-only `actualBoundingBoxRight` property of the [TextMetrics]
   /// interface is a `double` giving the distance parallel to the baseline from
   /// the alignment point given by the [CanvasRenderingContext2D.textAlign]
   /// property to the right side of the bounding rectangle of the given text, in
   /// CSS pixels.
-  external num get actualBoundingBoxRight;
+  external double get actualBoundingBoxRight;
 
   /// The read-only `fontBoundingBoxAscent` property of the [TextMetrics]
   /// interface returns the distance from the horizontal line indicated by the
   /// [CanvasRenderingContext2D.textBaseline] attribute, to the top of the
   /// highest bounding rectangle of all the fonts used to render the text, in
   /// CSS pixels.
-  external num get fontBoundingBoxAscent;
+  external double get fontBoundingBoxAscent;
 
   /// The read-only `fontBoundingBoxDescent` property of the [TextMetrics]
   /// interface returns the distance from the horizontal line indicated by the
   /// [CanvasRenderingContext2D.textBaseline] attribute to the bottom of the
   /// bounding rectangle of all the fonts used to render the text, in CSS
   /// pixels.
-  external num get fontBoundingBoxDescent;
+  external double get fontBoundingBoxDescent;
 
   /// The read-only **`actualBoundingBoxAscent`** property of the [TextMetrics]
   /// interface is a `double` giving the distance from the horizontal line
   /// indicated by the [CanvasRenderingContext2D.textBaseline] attribute to the
   /// top of the bounding rectangle used to render the text, in CSS pixels.
-  external num get actualBoundingBoxAscent;
+  external double get actualBoundingBoxAscent;
 
   /// The read-only `actualBoundingBoxDescent` property of the [TextMetrics]
   /// interface is a `double` giving the distance from the horizontal line
   /// indicated by the [CanvasRenderingContext2D.textBaseline] attribute to the
   /// bottom of the bounding rectangle used to render the text, in CSS pixels.
-  external num get actualBoundingBoxDescent;
+  external double get actualBoundingBoxDescent;
 
   /// The read-only `emHeightAscent` property of the [TextMetrics] interface
   /// returns the distance from the horizontal line indicated by the
   /// [CanvasRenderingContext2D.textBaseline] property to the top of the _em_
   /// square in the line box, in CSS pixels.
-  external num get emHeightAscent;
+  external double get emHeightAscent;
 
   /// The read-only `emHeightDescent` property of the [TextMetrics] interface
   /// returns the distance from the horizontal line indicated by the
   /// [CanvasRenderingContext2D.textBaseline] property to the bottom of the _em_
   /// square in the line box, in CSS pixels.
-  external num get emHeightDescent;
+  external double get emHeightDescent;
 
   /// The read-only `hangingBaseline` property of the [TextMetrics] interface is
   /// a `double` giving the distance from the horizontal line indicated by the
   /// [CanvasRenderingContext2D.textBaseline] property to the hanging baseline
   /// of the line box, in CSS pixels.
-  external num get hangingBaseline;
+  external double get hangingBaseline;
 
   /// The read-only `alphabeticBaseline` property of the [TextMetrics] interface
   /// is a `double` giving the distance from the horizontal line indicated by
   /// the [CanvasRenderingContext2D.textBaseline] property to the alphabetic
   /// baseline of the line box, in CSS pixels.
-  external num get alphabeticBaseline;
+  external double get alphabeticBaseline;
 
   /// The read-only `ideographicBaseline` property of the [TextMetrics]
   /// interface is a `double` giving the distance from the horizontal line
   /// indicated by the [CanvasRenderingContext2D.textBaseline] property to the
   /// ideographic baseline of the line box, in CSS pixels.
-  external num get ideographicBaseline;
+  external double get ideographicBaseline;
 }
 extension type ImageDataSettings._(JSObject _) implements JSObject {
   external factory ImageDataSettings({PredefinedColorSpace colorSpace});
@@ -8301,7 +8301,7 @@ extension type ImageEncodeOptions._(JSObject _) implements JSObject {
 
   external String get type;
   external set type(String value);
-  external num get quality;
+  external double get quality;
   external set quality(num value);
 }
 
@@ -8607,7 +8607,7 @@ extension type OffscreenCanvasRenderingContext2D._(JSObject _)
     bool counterclockwise,
   ]);
   external OffscreenCanvas get canvas;
-  external num get globalAlpha;
+  external double get globalAlpha;
   external set globalAlpha(num value);
   external String get globalCompositeOperation;
   external set globalCompositeOperation(String value);
@@ -8619,25 +8619,25 @@ extension type OffscreenCanvasRenderingContext2D._(JSObject _)
   external set strokeStyle(JSAny value);
   external JSAny get fillStyle;
   external set fillStyle(JSAny value);
-  external num get shadowOffsetX;
+  external double get shadowOffsetX;
   external set shadowOffsetX(num value);
-  external num get shadowOffsetY;
+  external double get shadowOffsetY;
   external set shadowOffsetY(num value);
-  external num get shadowBlur;
+  external double get shadowBlur;
   external set shadowBlur(num value);
   external String get shadowColor;
   external set shadowColor(String value);
   external String get filter;
   external set filter(String value);
-  external num get lineWidth;
+  external double get lineWidth;
   external set lineWidth(num value);
   external CanvasLineCap get lineCap;
   external set lineCap(CanvasLineCap value);
   external CanvasLineJoin get lineJoin;
   external set lineJoin(CanvasLineJoin value);
-  external num get miterLimit;
+  external double get miterLimit;
   external set miterLimit(num value);
-  external num get lineDashOffset;
+  external double get lineDashOffset;
   external set lineDashOffset(num value);
   external String get font;
   external set font(String value);
@@ -10214,7 +10214,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// of pixels the
   /// document is scrolled vertically from the [Window.scrollY]
   /// property.
-  external num get scrollX;
+  external double get scrollX;
 
   /// The read-only **`scrollY`** property
   /// of the [Window] interface returns the number of pixels that the document
@@ -10225,7 +10225,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// the number of
   /// pixels the document is scrolled horizontally from the [Window.scrollX]
   /// property.
-  external num get scrollY;
+  external double get scrollY;
 
   /// The **`Window.screenX`** read-only property returns the
   /// horizontal distance, in CSS pixels, of the left border of the user's
@@ -10298,7 +10298,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// value of `devicePixelRatio` changes (which can happen, for example, if the
   /// user drags the window to a display with a different pixel density). See
   /// [the example below](#monitoring_screen_resolution_or_zoom_level_changes).
-  external num get devicePixelRatio;
+  external double get devicePixelRatio;
 
   /// The read-only [Window] property **`event`** returns the [Event] which is
   /// currently being handled by the site's code. Outside the context of an
@@ -11826,7 +11826,7 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// clamped within lower and upper bounds to protect the privacy of owners of
   /// very low-memory or
   /// high-memory devices.
-  external num get deviceMemory;
+  external double get deviceMemory;
 
   /// The value of the **`Navigator.appCodeName`** property is
   /// always "`Mozilla`", in any browser. This property is kept only for
@@ -13007,7 +13007,7 @@ extension type WorkerNavigator._(JSObject _) implements JSObject {
   /// clamped within lower and upper bounds to protect the privacy of owners of
   /// very low-memory or
   /// high-memory devices.
-  external num get deviceMemory;
+  external double get deviceMemory;
 
   /// The value of the **`WorkerNavigator.appCodeName`** property is
   /// always "`Mozilla`", in any browser. This property is kept only for

@@ -13,7 +13,6 @@ library;
 
 import 'dart:js_interop';
 
-import 'hr_time.dart';
 import 'performance_timeline.dart';
 import 'server_timing.dart';
 
@@ -61,7 +60,7 @@ extension type PerformanceResourceTiming._(JSObject _)
   /// Service Worker thread is already running, or immediately before starting
   /// the Service Worker thread if it is not already running. If the resource is
   /// not intercepted by a Service Worker the property will always return 0.
-  external DOMHighResTimeStamp get workerStart;
+  external double get workerStart;
 
   /// The **`redirectStart`** read-only property returns a [DOMHighResTimeStamp]
   /// representing the start time of the fetch which that initiates the
@@ -75,7 +74,7 @@ extension type PerformanceResourceTiming._(JSObject _)
   ///
   /// To get the amount of redirects, see also
   /// [PerformanceNavigationTiming.redirectCount].
-  external DOMHighResTimeStamp get redirectStart;
+  external double get redirectStart;
 
   /// The **`redirectEnd`** read-only property returns a [DOMHighResTimeStamp]
   /// immediately after receiving the last byte of the response of the last
@@ -89,7 +88,7 @@ extension type PerformanceResourceTiming._(JSObject _)
   ///
   /// To get the amount of redirects, see also
   /// [PerformanceNavigationTiming.redirectCount].
-  external DOMHighResTimeStamp get redirectEnd;
+  external double get redirectEnd;
 
   /// The **`fetchStart`** read-only property represents a [DOMHighResTimeStamp]
   /// immediately before the browser starts to fetch the resource.
@@ -101,12 +100,12 @@ extension type PerformanceResourceTiming._(JSObject _)
   /// Unlike many other `PerformanceResourceTiming` properties, the `fetchStart`
   /// property is available for cross-origin requests without the need of the
   /// HTTP response header.
-  external DOMHighResTimeStamp get fetchStart;
+  external double get fetchStart;
 
   /// The **`domainLookupStart`** read-only property returns the
   /// [DOMHighResTimeStamp] immediately before the browser starts the domain
   /// name lookup for the resource.
-  external DOMHighResTimeStamp get domainLookupStart;
+  external double get domainLookupStart;
 
   /// The **`domainLookupEnd`** read-only property returns the
   /// [DOMHighResTimeStamp] immediately after the browser finishes the
@@ -116,12 +115,12 @@ extension type PerformanceResourceTiming._(JSObject _)
   /// [PerformanceResourceTiming.domainLookupStart] and
   /// [PerformanceResourceTiming.domainLookupEnd] represent the times when the
   /// user agent starts and ends the domain data retrieval from the cache.
-  external DOMHighResTimeStamp get domainLookupEnd;
+  external double get domainLookupEnd;
 
   /// The **`connectStart`** read-only property returns the
   /// [DOMHighResTimeStamp] immediately before the user agent starts
   /// establishing the connection to the server to retrieve the resource.
-  external DOMHighResTimeStamp get connectStart;
+  external double get connectStart;
 
   /// The **`connectEnd`** read-only property returns the [DOMHighResTimeStamp]
   /// immediately after the browser finishes establishing the connection to the
@@ -129,13 +128,13 @@ extension type PerformanceResourceTiming._(JSObject _)
   /// interval to establish the transport connection, as well as other time
   /// intervals such as TLS handshake and
   /// [SOCKS](https://en.wikipedia.org/wiki/SOCKS) authentication.
-  external DOMHighResTimeStamp get connectEnd;
+  external double get connectEnd;
 
   /// The **`secureConnectionStart`** read-only property returns a
   /// [DOMHighResTimeStamp] immediately before the browser starts the handshake
   /// process to secure the current connection. If a secure connection is not
   /// used, the property returns zero.
-  external DOMHighResTimeStamp get secureConnectionStart;
+  external double get secureConnectionStart;
 
   /// The **`requestStart`** read-only property returns a [DOMHighResTimeStamp]
   /// of the time immediately before the browser starts requesting the resource
@@ -146,12 +145,12 @@ extension type PerformanceResourceTiming._(JSObject _)
   /// There is no _end_ property for `requestStart`. To measure the request
   /// time, calculate [PerformanceResourceTiming.responseStart] - `requestStart`
   /// (see the example below).
-  external DOMHighResTimeStamp get requestStart;
+  external double get requestStart;
 
   /// The **`responseStart`** read-only property returns a [DOMHighResTimeStamp]
   /// immediately after the browser receives the first byte of the response from
   /// the server, cache, or local resource.
-  external DOMHighResTimeStamp get responseStart;
+  external double get responseStart;
 
   /// The **`responseEnd`** read-only property returns a [DOMHighResTimeStamp]
   /// immediately after the browser receives the last byte of the resource or
@@ -161,7 +160,7 @@ extension type PerformanceResourceTiming._(JSObject _)
   /// Unlike many other `PerformanceResourceTiming` properties, the
   /// `responseEnd` property is available for cross-origin requests without the
   /// need of the  HTTP response header.
-  external DOMHighResTimeStamp get responseEnd;
+  external double get responseEnd;
 
   /// The **`transferSize`** read-only property represents the size (in octets)
   /// of the fetched resource. The size includes the response header fields plus

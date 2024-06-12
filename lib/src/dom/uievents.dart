@@ -262,31 +262,31 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   /// See
   /// [Coordinate systems](https://developer.mozilla.org/en-US/docs/Web/CSS/CSSOM_view/Coordinate_systems#page)
   /// for additional information about coordinates specified in this fashion.
-  external num get pageX;
+  external double get pageX;
 
   /// The **`pageY`** read-only property of the [MouseEvent] interface returns
   /// the Y (vertical) coordinate in pixels of the event relative to the whole
   /// document.
   /// This property takes into account any vertical scrolling of the page.
-  external num get pageY;
+  external double get pageY;
 
   /// The **`MouseEvent.x`** property is an alias for the [MouseEvent.clientX]
   /// property.
-  external num get x;
+  external double get x;
 
   /// The **`MouseEvent.y`** property is an alias for the [MouseEvent.clientY]
   /// property.
-  external num get y;
+  external double get y;
 
   /// The **`offsetX`** read-only property of the [MouseEvent] interface
   /// provides the offset in the X coordinate of the mouse pointer between that
   /// event and the padding edge of the target node.
-  external num get offsetX;
+  external double get offsetX;
 
   /// The **`offsetY`** read-only property of the [MouseEvent] interface
   /// provides the offset in the Y coordinate of the mouse pointer between that
   /// event and the padding edge of the target node.
-  external num get offsetY;
+  external double get offsetY;
 
   /// The **`movementX`** read-only property of the [MouseEvent] interface
   /// provides the difference in the X coordinate of the mouse pointer between
@@ -302,7 +302,7 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   /// > instead calculate the delta between the current client values
   /// > ([MouseEvent.screenX], [MouseEvent.screenY]) and the previous client
   /// > values.
-  external num get movementX;
+  external double get movementX;
 
   /// The **`movementY`** read-only property of the [MouseEvent] interface
   /// provides the difference in the Y coordinate of the mouse pointer between
@@ -318,7 +318,7 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   /// > instead calculate the delta between the current client values
   /// > ([MouseEvent.screenX], [MouseEvent.screenY]) and the previous client
   /// > values.
-  external num get movementY;
+  external double get movementY;
 
   /// The **`screenX`** read-only property of the [MouseEvent] interface
   /// provides the horizontal coordinate (offset) of the mouse pointer in
@@ -560,9 +560,9 @@ extension type MouseEventInit._(JSObject _)
   external set buttons(int value);
   external EventTarget? get relatedTarget;
   external set relatedTarget(EventTarget? value);
-  external num get movementX;
+  external double get movementX;
   external set movementX(num value);
-  external num get movementY;
+  external double get movementY;
   external set movementY(num value);
 }
 extension type EventModifierInit._(JSObject _)
@@ -656,17 +656,17 @@ extension type WheelEvent._(JSObject _) implements MouseEvent, JSObject {
   /// The **`WheelEvent.deltaX`** read-only property is a
   /// `double` representing the horizontal scroll amount in the
   /// [WheelEvent.deltaMode] unit.
-  external num get deltaX;
+  external double get deltaX;
 
   /// The **`WheelEvent.deltaY`** read-only property is a
   /// `double` representing the vertical scroll amount in the
   /// [WheelEvent.deltaMode] unit.
-  external num get deltaY;
+  external double get deltaY;
 
   /// The **`WheelEvent.deltaZ`** read-only property is a
   /// `double` representing the scroll amount along the z-axis, in the
   /// [WheelEvent.deltaMode] unit.
-  external num get deltaZ;
+  external double get deltaZ;
 
   /// The **`WheelEvent.deltaMode`** read-only property returns an
   /// `unsigned long` representing the unit of the delta values scroll amount.
@@ -718,11 +718,11 @@ extension type WheelEventInit._(JSObject _)
     int deltaMode,
   });
 
-  external num get deltaX;
+  external double get deltaX;
   external set deltaX(num value);
-  external num get deltaY;
+  external double get deltaY;
   external set deltaY(num value);
-  external num get deltaZ;
+  external double get deltaZ;
   external set deltaZ(num value);
   external int get deltaMode;
   external set deltaMode(int value);

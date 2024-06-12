@@ -302,7 +302,7 @@ extension type CSSUnitValue._(JSObject _) implements CSSNumericValue, JSObject {
 
   /// The **`CSSUnitValue.value`** property of the
   /// [CSSUnitValue] interface returns a double indicating the number of units.
-  external num get value;
+  external double get value;
   external set value(num value);
 
   /// The **`CSSUnitValue.unit`** read-only property

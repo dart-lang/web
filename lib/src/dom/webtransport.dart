@@ -73,13 +73,13 @@ extension type WebTransportDatagramDuplexStream._(JSObject _)
   /// The **`incomingMaxAge`** property of the
   /// [WebTransportDatagramDuplexStream] interface gets or sets the maximum age
   /// for incoming datagrams, in milliseconds.
-  external num? get incomingMaxAge;
+  external double? get incomingMaxAge;
   external set incomingMaxAge(num? value);
 
   /// The **`outgoingMaxAge`** property of the
   /// [WebTransportDatagramDuplexStream] interface gets or sets the maximum age
   /// for outgoing datagrams, in milliseconds.
-  external num? get outgoingMaxAge;
+  external double? get outgoingMaxAge;
   external set outgoingMaxAge(num? value);
 
   /// The **`incomingHighWaterMark`** property of the
@@ -89,7 +89,7 @@ extension type WebTransportDatagramDuplexStream._(JSObject _)
   /// considered full. See
   /// [Internal queues and queuing strategies](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Concepts#internal_queues_and_queuing_strategies)
   /// for more information.
-  external num get incomingHighWaterMark;
+  external double get incomingHighWaterMark;
   external set incomingHighWaterMark(num value);
 
   /// The **`outgoingHighWaterMark`** property of the
@@ -99,7 +99,7 @@ extension type WebTransportDatagramDuplexStream._(JSObject _)
   /// considered full. See
   /// [Internal queues and queuing strategies](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Concepts#internal_queues_and_queuing_strategies)
   /// for more information.
-  external num get outgoingHighWaterMark;
+  external double get outgoingHighWaterMark;
   external set outgoingHighWaterMark(num value);
 }
 

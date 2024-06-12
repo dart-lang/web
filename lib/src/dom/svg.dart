@@ -358,7 +358,7 @@ extension type SVGGeometryElement._(JSObject _)
   /// The **`SVGGeometryElement.getTotalLength()`** method returns
   /// the user agent's computed value for the total length of the path in user
   /// units.
-  external num getTotalLength();
+  external double getTotalLength();
 
   /// The
   /// **`SVGGeometryElement.getPointAtLength()`** method returns the
@@ -381,7 +381,7 @@ extension type SVGGeometryElement._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGNumber).
 extension type SVGNumber._(JSObject _) implements JSObject {
-  external num get value;
+  external double get value;
   external set value(num value);
 }
 
@@ -409,9 +409,9 @@ extension type SVGLength._(JSObject _) implements JSObject {
   );
   external void convertToSpecifiedUnits(int unitType);
   external int get unitType;
-  external num get value;
+  external double get value;
   external set value(num value);
-  external num get valueInSpecifiedUnits;
+  external double get valueInSpecifiedUnits;
   external set valueInSpecifiedUnits(num value);
   external String get valueAsString;
   external set valueAsString(String value);
@@ -452,9 +452,9 @@ extension type SVGAngle._(JSObject _) implements JSObject {
   );
   external void convertToSpecifiedUnits(int unitType);
   external int get unitType;
-  external num get value;
+  external double get value;
   external set value(num value);
-  external num get valueInSpecifiedUnits;
+  external double get valueInSpecifiedUnits;
   external set valueInSpecifiedUnits(num value);
   external String get valueAsString;
   external set valueAsString(String value);
@@ -581,9 +581,9 @@ extension type SVGAnimatedInteger._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGAnimatedNumber).
 extension type SVGAnimatedNumber._(JSObject _) implements JSObject {
-  external num get baseVal;
+  external double get baseVal;
   external set baseVal(num value);
-  external num get animVal;
+  external double get animVal;
 }
 
 /// The **`SVGAnimatedLength`** interface represents attributes of type
@@ -777,13 +777,13 @@ extension type SVGSVGElement._(JSObject _)
   external void pauseAnimations();
   external void unpauseAnimations();
   external bool animationsPaused();
-  external num getCurrentTime();
+  external double getCurrentTime();
   external void setCurrentTime(num seconds);
   external SVGAnimatedLength get x;
   external SVGAnimatedLength get y;
   external SVGAnimatedLength get width;
   external SVGAnimatedLength get height;
-  external num get currentScale;
+  external double get currentScale;
   external set currentScale(num value);
   external DOMPointReadOnly get currentTranslate;
   external SVGAnimatedRect get viewBox;
@@ -1040,7 +1040,7 @@ extension type SVGTransform._(JSObject _) implements JSObject {
   external void setSkewY(num angle);
   external int get type;
   external DOMMatrix get matrix;
-  external num get angle;
+  external double get angle;
 }
 
 ///
@@ -1352,15 +1352,15 @@ extension type SVGTextContentElement._(JSObject _)
   external static int get LENGTHADJUST_SPACING;
   external static int get LENGTHADJUST_SPACINGANDGLYPHS;
   external int getNumberOfChars();
-  external num getComputedTextLength();
-  external num getSubStringLength(
+  external double getComputedTextLength();
+  external double getSubStringLength(
     int charnum,
     int nchars,
   );
   external DOMPoint getStartPositionOfChar(int charnum);
   external DOMPoint getEndPositionOfChar(int charnum);
   external DOMRect getExtentOfChar(int charnum);
-  external num getRotationOfChar(int charnum);
+  external double getRotationOfChar(int charnum);
   external int getCharNumAtPosition([DOMPointInit point]);
   external void selectSubString(
     int charnum,

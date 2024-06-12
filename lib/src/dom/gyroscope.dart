@@ -39,16 +39,16 @@ extension type Gyroscope._(JSObject _) implements Sensor, JSObject {
   /// The **`x`** read-only property of the
   /// [Gyroscope] interface returns a number specifying the
   /// angular velocity of the device along its x-axis.
-  external num? get x;
+  external double? get x;
 
   /// The **`y`** read-only property of the [Gyroscope] interface returns a
   /// number specifying the angular velocity of the device along its y-axis.
-  external num? get y;
+  external double? get y;
 
   /// The **`z`** read-only property of the
   /// [Gyroscope] interface returns a number specifying the
   /// angular velocity of the device along its z-axis.
-  external num? get z;
+  external double? get z;
 }
 extension type GyroscopeSensorOptions._(JSObject _)
     implements SensorOptions, JSObject {

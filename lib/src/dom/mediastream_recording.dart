@@ -220,7 +220,7 @@ extension type MediaRecorderOptions._(JSObject _) implements JSObject {
   external set bitsPerSecond(int value);
   external BitrateMode get audioBitrateMode;
   external set audioBitrateMode(BitrateMode value);
-  external DOMHighResTimeStamp get videoKeyFrameIntervalDuration;
+  external double get videoKeyFrameIntervalDuration;
   external set videoKeyFrameIntervalDuration(DOMHighResTimeStamp value);
   external int get videoKeyFrameIntervalCount;
   external set videoKeyFrameIntervalCount(int value);
@@ -252,7 +252,7 @@ extension type BlobEvent._(JSObject _) implements Event, JSObject {
   ///
   /// Note that the `timecode` in the first produced `BlobEvent` does not need
   /// to be zero.
-  external DOMHighResTimeStamp get timecode;
+  external double get timecode;
 }
 extension type BlobEventInit._(JSObject _) implements JSObject {
   external factory BlobEventInit({
@@ -262,6 +262,6 @@ extension type BlobEventInit._(JSObject _) implements JSObject {
 
   external Blob get data;
   external set data(Blob value);
-  external DOMHighResTimeStamp get timecode;
+  external double get timecode;
   external set timecode(DOMHighResTimeStamp value);
 }

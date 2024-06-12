@@ -43,7 +43,7 @@ extension type AnimationEvent._(JSObject _) implements Event, JSObject {
   /// `elapsedTime` is `0.0` unless there was a negative value for
   /// , in which case the event will be fired with
   /// `elapsedTime` containing `(-1 * delay)`.
-  external num get elapsedTime;
+  external double get elapsedTime;
 
   /// The **`AnimationEvent.pseudoElement`** read-only property is a
   /// string, starting with `'::'`, containing the name of the
@@ -65,7 +65,7 @@ extension type AnimationEventInit._(JSObject _) implements EventInit, JSObject {
 
   external String get animationName;
   external set animationName(String value);
-  external num get elapsedTime;
+  external double get elapsedTime;
   external set elapsedTime(num value);
   external String get pseudoElement;
   external set pseudoElement(String value);

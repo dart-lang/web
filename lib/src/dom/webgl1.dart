@@ -1630,7 +1630,7 @@ extension type WebGLRenderingContext._(JSObject _) implements JSObject {
   /// buffer object's data store.
   external void bufferData(
     GLenum target,
-    JSAny dataOrSize,
+    JSAny? dataOrSize,
     GLenum usage,
   );
 

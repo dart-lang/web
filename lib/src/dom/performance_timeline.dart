@@ -72,12 +72,12 @@ extension type PerformanceEntry._(JSObject _) implements JSObject {
   /// The read-only **`startTime`** property returns the first  recorded for
   /// this . The meaning of this property depends on the value of this entry's
   /// [PerformanceEntry.entryType].
-  external DOMHighResTimeStamp get startTime;
+  external double get startTime;
 
   /// The read-only **`duration`** property returns a  that is the duration of
   /// the . The meaning of this property depends on the value of this entry's
   /// [PerformanceEntry.entryType].
-  external DOMHighResTimeStamp get duration;
+  external double get duration;
 }
 
 /// The **`PerformanceObserver`** interface is used to observe performance
@@ -128,7 +128,7 @@ extension type PerformanceObserverInit._(JSObject _) implements JSObject {
   external set type(String value);
   external bool get buffered;
   external set buffered(bool value);
-  external DOMHighResTimeStamp get durationThreshold;
+  external double get durationThreshold;
   external set durationThreshold(DOMHighResTimeStamp value);
 }
 

@@ -145,10 +145,10 @@ extension type MediaPositionState._(JSObject _) implements JSObject {
     num position,
   });
 
-  external num get duration;
+  external double get duration;
   external set duration(num value);
-  external num get playbackRate;
+  external double get playbackRate;
   external set playbackRate(num value);
-  external num get position;
+  external double get position;
   external set position(num value);
 }

@@ -67,7 +67,7 @@ extension type DOMPointReadOnly._(JSObject _) implements JSObject {
   ///
   /// In general, positive values `x` mean to the right, and negative values of
   /// `x` means to the left, assuming no transforms have resulted in a reversal.
-  external num get x;
+  external double get x;
 
   /// The **`DOMPointReadOnly`** interface's
   /// **`y`** property holds the vertical coordinate, y, for a
@@ -78,7 +78,7 @@ extension type DOMPointReadOnly._(JSObject _) implements JSObject {
   ///
   /// In general, positive values of `y` mean downward, and negative values of
   /// `y` mean upward, assuming no transforms have resulted in a reversal.
-  external num get y;
+  external double get y;
 
   /// The **`DOMPointReadOnly`** interface's
   /// **`z`** property holds the depth coordinate, z, for a
@@ -90,7 +90,7 @@ extension type DOMPointReadOnly._(JSObject _) implements JSObject {
   /// In general, positive values of `z` mean toward the user (out from the
   /// screen), and negative values of `z` mean away from the user (into the
   /// screen), assuming no transforms have resulted in a reversal.
-  external num get z;
+  external double get z;
 
   /// The **`DOMPointReadOnly`** interface's
   /// **`w`** property holds the point's perspective value,
@@ -100,7 +100,7 @@ extension type DOMPointReadOnly._(JSObject _) implements JSObject {
   /// to change the value of this property, you should instead use the
   /// [DOMPoint]
   /// object.
-  external num get w;
+  external double get w;
 }
 
 /// A **`DOMPoint`** object represents a 2D or 3D point in a coordinate system;
@@ -135,7 +135,7 @@ extension type DOMPoint._(JSObject _) implements DOMPointReadOnly, JSObject {
   /// and negative values of `x` means to the left, barring any transforms that
   /// may
   /// have altered the orientation of the axes.
-  external num get x;
+  external double get x;
   external set x(num value);
 
   /// The **`DOMPoint`** interface's
@@ -144,7 +144,7 @@ extension type DOMPoint._(JSObject _) implements DOMPointReadOnly, JSObject {
   ///
   /// Unless transforms have been applied to alter the
   /// orientation, the value of `y` increases downward and decreases upward.
-  external num get y;
+  external double get y;
   external set y(num value);
 
   /// The **`DOMPoint`** interface's
@@ -155,13 +155,13 @@ extension type DOMPoint._(JSObject _) implements DOMPointReadOnly, JSObject {
   /// the plane of the screen, with positive values extending outward toward the
   /// user from the
   /// screen, and negative values receding into the distance behind the screen.
-  external num get z;
+  external double get z;
   external set z(num value);
 
   /// The **`DOMPoint`** interface's
   /// **`w`** property holds the point's perspective value, w, for a
   /// point in space.
-  external num get w;
+  external double get w;
   external set w(num value);
 }
 extension type DOMPointInit._(JSObject _) implements JSObject {
@@ -172,13 +172,13 @@ extension type DOMPointInit._(JSObject _) implements JSObject {
     num w,
   });
 
-  external num get x;
+  external double get x;
   external set x(num value);
-  external num get y;
+  external double get y;
   external set y(num value);
-  external num get z;
+  external double get z;
   external set z(num value);
-  external num get w;
+  external double get w;
   external set w(num value);
 }
 
@@ -202,39 +202,39 @@ extension type DOMRectReadOnly._(JSObject _) implements JSObject {
 
   /// The **`x`** read-only property of the **`DOMRectReadOnly`** interface
   /// represents the x coordinate of the `DOMRect`'s origin.
-  external num get x;
+  external double get x;
 
   /// The **`y`** read-only property of the **`DOMRectReadOnly`** interface
   /// represents the y coordinate of the `DOMRect`'s origin.
-  external num get y;
+  external double get y;
 
   /// The **`width`** read-only property of the **`DOMRectReadOnly`** interface
   /// represents the width of the `DOMRect`.
-  external num get width;
+  external double get width;
 
   /// The **`height`** read-only property of the **`DOMRectReadOnly`** interface
   /// represents the height of the `DOMRect`.
-  external num get height;
+  external double get height;
 
   /// The **`top`** read-only property of the **`DOMRectReadOnly`** interface
   /// returns the top coordinate value of the `DOMRect`. (Has the same value as
   /// `y`, or `y + height` if `height` is negative.)
-  external num get top;
+  external double get top;
 
   /// The **`right`** read-only property of the **`DOMRectReadOnly`** interface
   /// returns the right coordinate value of the `DOMRect`. (Has the same value
   /// as `x + width`, or `x` if `width` is negative.)
-  external num get right;
+  external double get right;
 
   /// The **`bottom`** read-only property of the **`DOMRectReadOnly`** interface
   /// returns the bottom coordinate value of the `DOMRect`. (Has the same value
   /// as `y + height`, or `y` if `height` is negative.)
-  external num get bottom;
+  external double get bottom;
 
   /// The **`left`** read-only property of the **`DOMRectReadOnly`** interface
   /// returns the left coordinate value of the `DOMRect`. (Has the same value as
   /// `x`, or `x + width` if `width` is negative.)
-  external num get left;
+  external double get left;
 }
 
 /// A **`DOMRect`** describes the size and position of a rectangle.
@@ -259,13 +259,13 @@ extension type DOMRect._(JSObject _) implements DOMRectReadOnly, JSObject {
   ]);
 
   external static DOMRect fromRect([DOMRectInit other]);
-  external num get x;
+  external double get x;
   external set x(num value);
-  external num get y;
+  external double get y;
   external set y(num value);
-  external num get width;
+  external double get width;
   external set width(num value);
-  external num get height;
+  external double get height;
   external set height(num value);
 }
 extension type DOMRectInit._(JSObject _) implements JSObject {
@@ -276,13 +276,13 @@ extension type DOMRectInit._(JSObject _) implements JSObject {
     num height,
   });
 
-  external num get x;
+  external double get x;
   external set x(num value);
-  external num get y;
+  external double get y;
   external set y(num value);
-  external num get width;
+  external double get width;
   external set width(num value);
-  external num get height;
+  external double get height;
   external set height(num value);
 }
 extension type DOMRectList._(JSObject _) implements JSObject {
@@ -414,28 +414,28 @@ extension type DOMMatrixReadOnly._(JSObject _) implements JSObject {
   external JSFloat32Array toFloat32Array();
   external JSFloat64Array toFloat64Array();
   external JSObject toJSON();
-  external num get a;
-  external num get b;
-  external num get c;
-  external num get d;
-  external num get e;
-  external num get f;
-  external num get m11;
-  external num get m12;
-  external num get m13;
-  external num get m14;
-  external num get m21;
-  external num get m22;
-  external num get m23;
-  external num get m24;
-  external num get m31;
-  external num get m32;
-  external num get m33;
-  external num get m34;
-  external num get m41;
-  external num get m42;
-  external num get m43;
-  external num get m44;
+  external double get a;
+  external double get b;
+  external double get c;
+  external double get d;
+  external double get e;
+  external double get f;
+  external double get m11;
+  external double get m12;
+  external double get m13;
+  external double get m14;
+  external double get m21;
+  external double get m22;
+  external double get m23;
+  external double get m24;
+  external double get m31;
+  external double get m32;
+  external double get m33;
+  external double get m34;
+  external double get m41;
+  external double get m42;
+  external double get m43;
+  external double get m44;
   external bool get is2D;
   external bool get isIdentity;
 }
@@ -500,49 +500,49 @@ extension type DOMMatrix._(JSObject _) implements DOMMatrixReadOnly, JSObject {
   external DOMMatrix skewYSelf([num sy]);
   external DOMMatrix invertSelf();
   external DOMMatrix setMatrixValue(String transformList);
-  external num get a;
+  external double get a;
   external set a(num value);
-  external num get b;
+  external double get b;
   external set b(num value);
-  external num get c;
+  external double get c;
   external set c(num value);
-  external num get d;
+  external double get d;
   external set d(num value);
-  external num get e;
+  external double get e;
   external set e(num value);
-  external num get f;
+  external double get f;
   external set f(num value);
-  external num get m11;
+  external double get m11;
   external set m11(num value);
-  external num get m12;
+  external double get m12;
   external set m12(num value);
-  external num get m13;
+  external double get m13;
   external set m13(num value);
-  external num get m14;
+  external double get m14;
   external set m14(num value);
-  external num get m21;
+  external double get m21;
   external set m21(num value);
-  external num get m22;
+  external double get m22;
   external set m22(num value);
-  external num get m23;
+  external double get m23;
   external set m23(num value);
-  external num get m24;
+  external double get m24;
   external set m24(num value);
-  external num get m31;
+  external double get m31;
   external set m31(num value);
-  external num get m32;
+  external double get m32;
   external set m32(num value);
-  external num get m33;
+  external double get m33;
   external set m33(num value);
-  external num get m34;
+  external double get m34;
   external set m34(num value);
-  external num get m41;
+  external double get m41;
   external set m41(num value);
-  external num get m42;
+  external double get m42;
   external set m42(num value);
-  external num get m43;
+  external double get m43;
   external set m43(num value);
-  external num get m44;
+  external double get m44;
   external set m44(num value);
 }
 extension type DOMMatrix2DInit._(JSObject _) implements JSObject {
@@ -561,29 +561,29 @@ extension type DOMMatrix2DInit._(JSObject _) implements JSObject {
     num m42,
   });
 
-  external num get a;
+  external double get a;
   external set a(num value);
-  external num get b;
+  external double get b;
   external set b(num value);
-  external num get c;
+  external double get c;
   external set c(num value);
-  external num get d;
+  external double get d;
   external set d(num value);
-  external num get e;
+  external double get e;
   external set e(num value);
-  external num get f;
+  external double get f;
   external set f(num value);
-  external num get m11;
+  external double get m11;
   external set m11(num value);
-  external num get m12;
+  external double get m12;
   external set m12(num value);
-  external num get m21;
+  external double get m21;
   external set m21(num value);
-  external num get m22;
+  external double get m22;
   external set m22(num value);
-  external num get m41;
+  external double get m41;
   external set m41(num value);
-  external num get m42;
+  external double get m42;
   external set m42(num value);
 }
 extension type DOMMatrixInit._(JSObject _)
@@ -614,25 +614,25 @@ extension type DOMMatrixInit._(JSObject _)
     bool is2D,
   });
 
-  external num get m13;
+  external double get m13;
   external set m13(num value);
-  external num get m14;
+  external double get m14;
   external set m14(num value);
-  external num get m23;
+  external double get m23;
   external set m23(num value);
-  external num get m24;
+  external double get m24;
   external set m24(num value);
-  external num get m31;
+  external double get m31;
   external set m31(num value);
-  external num get m32;
+  external double get m32;
   external set m32(num value);
-  external num get m33;
+  external double get m33;
   external set m33(num value);
-  external num get m34;
+  external double get m34;
   external set m34(num value);
-  external num get m43;
+  external double get m43;
   external set m43(num value);
-  external num get m44;
+  external double get m44;
   external set m44(num value);
   external bool get is2D;
   external set is2D(bool value);

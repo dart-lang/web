@@ -39,7 +39,7 @@ extension type TransitionEvent._(JSObject _) implements Event, JSObject {
   /// seconds,
   /// when this event fired. This value is not affected by the
   /// property.
-  external num get elapsedTime;
+  external double get elapsedTime;
 
   /// The **`TransitionEvent.pseudoElement`** read-only property is a
   /// string, starting with `'::'`, containing the name of the
@@ -63,7 +63,7 @@ extension type TransitionEventInit._(JSObject _)
 
   external String get propertyName;
   external set propertyName(String value);
-  external num get elapsedTime;
+  external double get elapsedTime;
   external set elapsedTime(num value);
   external String get pseudoElement;
   external set pseudoElement(String value);

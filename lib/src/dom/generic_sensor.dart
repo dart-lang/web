@@ -14,7 +14,6 @@ library;
 import 'dart:js_interop';
 
 import 'dom.dart';
-import 'hr_time.dart';
 import 'html.dart';
 import 'webidl.dart';
 
@@ -73,7 +72,7 @@ extension type Sensor._(JSObject _) implements EventTarget, JSObject {
   ///
   /// Because [Sensor] is a base class, `timestamp` may only be read
   /// from one of its derived classes.
-  external DOMHighResTimeStamp? get timestamp;
+  external double? get timestamp;
   external EventHandler get onreading;
   external set onreading(EventHandler value);
   external EventHandler get onactivate;
@@ -84,7 +83,7 @@ extension type Sensor._(JSObject _) implements EventTarget, JSObject {
 extension type SensorOptions._(JSObject _) implements JSObject {
   external factory SensorOptions({num frequency});
 
-  external num get frequency;
+  external double get frequency;
   external set frequency(num value);
 }
 

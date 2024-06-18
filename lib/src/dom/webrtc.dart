@@ -1243,9 +1243,9 @@ extension type RTCRtpEncodingParameters._(JSObject _)
   external set active(bool value);
   external int get maxBitrate;
   external set maxBitrate(int value);
-  external num get maxFramerate;
+  external double get maxFramerate;
   external set maxFramerate(num value);
-  external num get scaleResolutionDownBy;
+  external double get scaleResolutionDownBy;
   external set scaleResolutionDownBy(num value);
   external RTCPriorityType get priority;
   external set priority(RTCPriorityType value);
@@ -1440,11 +1440,11 @@ extension type RTCRtpContributingSource._(JSObject _) implements JSObject {
     required int rtpTimestamp,
   });
 
-  external DOMHighResTimeStamp get timestamp;
+  external double get timestamp;
   external set timestamp(DOMHighResTimeStamp value);
   external int get source;
   external set source(int value);
-  external num get audioLevel;
+  external double get audioLevel;
   external set audioLevel(num value);
   external int get rtpTimestamp;
   external set rtpTimestamp(int value);
@@ -1868,7 +1868,7 @@ extension type RTCSctpTransport._(JSObject _) implements EventTarget, JSObject {
   /// The **`maxMessageSize`** read-only property of the [RTCSctpTransport]
   /// interface indicates the maximum size of a message that can be sent using
   /// the [RTCDataChannel.send] method.
-  external num get maxMessageSize;
+  external double get maxMessageSize;
 
   /// The **`maxChannels`** read-only property of the [RTCSctpTransport]
   /// interface indicates the maximum number of [RTCDataChannel] objects that

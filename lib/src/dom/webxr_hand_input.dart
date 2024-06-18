@@ -51,5 +51,5 @@ extension type XRJointSpace._(JSObject _) implements XRSpace, JSObject {
 extension type XRJointPose._(JSObject _) implements XRPose, JSObject {
   /// The read-only **`radius`** property of the [XRJointPose] interface
   /// indicates the radius (distance from skin) for a joint.
-  external num get radius;
+  external double get radius;
 }

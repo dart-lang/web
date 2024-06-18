@@ -1018,7 +1018,7 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
   /// call to [MediaDevices.getSupportedConstraints]. However, typically this
   /// is unnecessary since browsers will ignore any constraints they're
   /// unfamiliar with.
-  external num get aspectRatio;
+  external double get aspectRatio;
   external set aspectRatio(num value);
 
   /// The [MediaTrackSettings] dictionary's
@@ -1038,7 +1038,7 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
   /// call to [MediaDevices.getSupportedConstraints]. However, typically this
   /// is unnecessary since browsers will ignore any constraints they're
   /// unfamiliar with.
-  external num get frameRate;
+  external double get frameRate;
   external set frameRate(num value);
 
   /// The [MediaTrackSettings] dictionary's
@@ -1225,7 +1225,7 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
   /// [WebRTC](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
   /// [RTCPeerConnection]
   /// will never include this property.
-  external num get latency;
+  external double get latency;
   external set latency(num value);
 
   /// The [MediaTrackSettings] dictionary's
@@ -1306,29 +1306,29 @@ extension type MediaTrackSettings._(JSObject _) implements JSObject {
   external set focusMode(String value);
   external JSArray<Point2D> get pointsOfInterest;
   external set pointsOfInterest(JSArray<Point2D> value);
-  external num get exposureCompensation;
+  external double get exposureCompensation;
   external set exposureCompensation(num value);
-  external num get exposureTime;
+  external double get exposureTime;
   external set exposureTime(num value);
-  external num get colorTemperature;
+  external double get colorTemperature;
   external set colorTemperature(num value);
-  external num get iso;
+  external double get iso;
   external set iso(num value);
-  external num get brightness;
+  external double get brightness;
   external set brightness(num value);
-  external num get contrast;
+  external double get contrast;
   external set contrast(num value);
-  external num get saturation;
+  external double get saturation;
   external set saturation(num value);
-  external num get sharpness;
+  external double get sharpness;
   external set sharpness(num value);
-  external num get focusDistance;
+  external double get focusDistance;
   external set focusDistance(num value);
-  external num get pan;
+  external double get pan;
   external set pan(num value);
-  external num get tilt;
+  external double get tilt;
   external set tilt(num value);
-  external num get zoom;
+  external double get zoom;
   external set zoom(num value);
   external bool get torch;
   external set torch(bool value);
@@ -1599,9 +1599,9 @@ extension type DoubleRange._(JSObject _) implements JSObject {
     num min,
   });
 
-  external num get max;
+  external double get max;
   external set max(num value);
-  external num get min;
+  external double get min;
   external set min(num value);
 }
 extension type ConstrainDoubleRange._(JSObject _)
@@ -1613,9 +1613,9 @@ extension type ConstrainDoubleRange._(JSObject _)
     num ideal,
   });
 
-  external num get exact;
+  external double get exact;
   external set exact(num value);
-  external num get ideal;
+  external double get ideal;
   external set ideal(num value);
 }
 extension type ULongRange._(JSObject _) implements JSObject {

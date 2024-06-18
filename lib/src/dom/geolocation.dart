@@ -113,12 +113,12 @@ extension type GeolocationCoordinates._(JSObject _) implements JSObject {
   /// interface is a strictly positive `double` representing the accuracy, with
   /// a 95% confidence level, of the [GeolocationCoordinates.latitude] and
   /// [GeolocationCoordinates.longitude] properties expressed in meters.
-  external num get accuracy;
+  external double get accuracy;
 
   /// The **`latitude`** read-only property of the [GeolocationCoordinates]
   /// interface is a `double` representing the latitude of the position in
   /// decimal degrees.
-  external num get latitude;
+  external double get latitude;
 
   /// The **`longitude`** read-only property of the [GeolocationCoordinates]
   /// interface is a number which represents the longitude of a geographical
@@ -127,7 +127,7 @@ extension type GeolocationCoordinates._(JSObject _) implements JSObject {
   /// measurement, the `GeolocationCoordinates` object is part of the
   /// [GeolocationPosition] interface, which is the object type returned by
   /// Geolocation API functions that obtain and return a geographical position.
-  external num get longitude;
+  external double get longitude;
 
   /// The **`altitude`** read-only property of the [GeolocationCoordinates]
   /// interface is a `double` representing the altitude of the position in
@@ -135,14 +135,14 @@ extension type GeolocationCoordinates._(JSObject _) implements JSObject {
   /// [WGS84](https://gis-lab.info/docs/nima-tr8350.2-wgs84fin.pdf) ellipsoid
   /// (which defines the nominal sea level surface). This value is `null` if the
   /// implementation cannot provide this data.
-  external num? get altitude;
+  external double? get altitude;
 
   /// The **`altitudeAccuracy`** read-only property of the
   /// [GeolocationCoordinates] interface is a strictly positive `double`
   /// representing the accuracy, with a 95% confidence level, of the `altitude`
   /// expressed in meters. This value is `null` if the implementation doesn't
   /// support measuring altitude.
-  external num? get altitudeAccuracy;
+  external double? get altitudeAccuracy;
 
   /// The **`heading`** read-only property of the [GeolocationCoordinates]
   /// interface is a `double` representing the direction in which the device is
@@ -152,13 +152,13 @@ extension type GeolocationCoordinates._(JSObject _) implements JSObject {
   /// degrees and west is `270` degrees). If [GeolocationCoordinates.speed] is
   /// `0`, `heading` is `NaN`. If the device is not able to provide heading
   /// information, this value is `null`.
-  external num? get heading;
+  external double? get heading;
 
   /// The **`speed`** read-only property of the [GeolocationCoordinates]
   /// interface is a `double` representing the velocity of the device in meters
   /// per second. This value is `null` if the implementation is not able to
   /// measure it.
-  external num? get speed;
+  external double? get speed;
 }
 
 /// The **`GeolocationPositionError`** interface represents the reason of an

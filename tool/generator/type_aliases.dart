@@ -63,6 +63,10 @@ const jsTypeToDartPrimitiveAliases = <String, String>{
   'JSBoolean': 'bool',
   'JSString': 'String',
   'JSInteger': 'int',
+  // Since we want users to be able to be pass integer values for where doubles
+  // are expected, we keep this as `num`. We handle cases where doubles are
+  // returned from a browser API differently however. See
+  // `Translator._typeReference` for more details.
   'JSDouble': 'num',
   'JSNumber': 'num',
   'JSUndefined': 'void',

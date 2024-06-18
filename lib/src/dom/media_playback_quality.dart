@@ -13,8 +13,6 @@ library;
 
 import 'dart:js_interop';
 
-import 'hr_time.dart';
-
 /// A **`VideoPlaybackQuality`** object is returned by the
 /// [HTMLVideoElement.getVideoPlaybackQuality] method and contains metrics that
 /// can be used to determine the playback quality of a video.
@@ -27,7 +25,7 @@ extension type VideoPlaybackQuality._(JSObject _) implements JSObject {
   /// The read-only **`creationTime`** property on the
   /// [VideoPlaybackQuality] interface reports the number of milliseconds since
   /// the browsing context was created this quality sample was recorded.
-  external DOMHighResTimeStamp get creationTime;
+  external double get creationTime;
 
   /// The read-only **`droppedVideoFrames`**
   /// property of the [VideoPlaybackQuality] interface returns the number of

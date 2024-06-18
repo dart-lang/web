@@ -13,8 +13,6 @@ library;
 
 import 'dart:js_interop';
 
-import 'hr_time.dart';
-
 typedef IdleRequestCallback = JSFunction;
 extension type IdleRequestOptions._(JSObject _) implements JSObject {
   external factory IdleRequestOptions({int timeout});
@@ -54,7 +52,7 @@ extension type IdleDeadline._(JSObject _) implements JSObject {
   ///
   /// By the time `timeRemaining()` reaches 0, it is suggested that the callback
   /// should return control to the user agent's event loop.
-  external DOMHighResTimeStamp timeRemaining();
+  external double timeRemaining();
 
   /// The read-only **`didTimeout`** property on the
   /// **[IdleDeadline]** interface is a Boolean value which

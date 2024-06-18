@@ -15,7 +15,13 @@
 - Added `onUnload` event stream to `ElementEventGetters` extension methods.
 - Expose `ElementStream` as a public class.
 - Require Dart `^3.4.0`.
+- APIs that return a double value now return `double` instead of `num`. This is
+  to avoid users accidentally downcasting `num`, which has different semantics
+  depending on whether you compile to JS or Wasm. See issue [#57][] for more
+  details.
 - Fix an issue where some union types didn't account for typedef nullability.
+
+[#57]: https://github.com/dart-lang/web/issues/57
 
 ## 0.5.1
 

@@ -36,7 +36,7 @@ extension type DeviceOrientationEvent._(JSObject _) implements Event, JSObject {
   /// See
   /// [Orientation and motion data explained](https://developer.mozilla.org/en-US/docs/Web/API/Device_orientation_events/Orientation_and_motion_data_explained)
   /// for details.
-  external num? get alpha;
+  external double? get alpha;
 
   /// The **`beta`** read-only property of the [DeviceOrientationEvent]
   /// interface returns the rotation of the device around the X axis; that is,
@@ -46,7 +46,7 @@ extension type DeviceOrientationEvent._(JSObject _) implements Event, JSObject {
   /// See
   /// [Orientation and motion data explained](https://developer.mozilla.org/en-US/docs/Web/API/Device_orientation_events/Orientation_and_motion_data_explained)
   /// for details.
-  external num? get beta;
+  external double? get beta;
 
   /// The **`gamma`** read-only property of the [DeviceOrientationEvent]
   /// interface returns the rotation of the device around the Y axis; that is,
@@ -56,7 +56,7 @@ extension type DeviceOrientationEvent._(JSObject _) implements Event, JSObject {
   /// See
   /// [Orientation and motion data explained](https://developer.mozilla.org/en-US/docs/Web/API/Device_orientation_events/Orientation_and_motion_data_explained)
   /// for details.
-  external num? get gamma;
+  external double? get gamma;
 
   /// The **`absolute`** read-only property of the [DeviceOrientationEvent]
   /// interface indicates whether or not the device is providing orientation
@@ -81,11 +81,11 @@ extension type DeviceOrientationEventInit._(JSObject _)
     bool absolute,
   });
 
-  external num? get alpha;
+  external double? get alpha;
   external set alpha(num? value);
-  external num? get beta;
+  external double? get beta;
   external set beta(num? value);
-  external num? get gamma;
+  external double? get gamma;
   external set gamma(num? value);
   external bool get absolute;
   external set absolute(bool value);
@@ -105,21 +105,21 @@ extension type DeviceMotionEventAcceleration._(JSObject _) implements JSObject {
   /// axis in a
   /// [`DeviceMotionEventAcceleration`](https://developer.mozilla.org/en-US/docs/Web/API/DeviceMotionEventAcceleration)
   /// object.
-  external num? get x;
+  external double? get x;
 
   /// The **`y`** read-only property of the [DeviceMotionEventAcceleration]
   /// interface indicates the amount of acceleration that occurred along the Y
   /// axis in a
   /// [`DeviceMotionEventAcceleration`](https://developer.mozilla.org/en-US/docs/Web/API/DeviceMotionEventAcceleration)
   /// object.
-  external num? get y;
+  external double? get y;
 
   /// The **`z`** read-only property of the [DeviceMotionEventAcceleration]
   /// interface indicates the amount of acceleration that occurred along the Z
   /// axis in a
   /// [`DeviceMotionEventAcceleration`](https://developer.mozilla.org/en-US/docs/Web/API/DeviceMotionEventAcceleration)
   /// object.
-  external num? get z;
+  external double? get z;
 }
 
 /// A **`DeviceMotionEventRotationRate`** interface of the
@@ -134,17 +134,17 @@ extension type DeviceMotionEventRotationRate._(JSObject _) implements JSObject {
   /// The **`alpha`** read-only property of the [DeviceMotionEventRotationRate]
   /// interface indicates the rate of rotation around the Z axis, in degrees per
   /// second.
-  external num? get alpha;
+  external double? get alpha;
 
   /// The **`beta`** read-only property of the [DeviceMotionEventRotationRate]
   /// interface indicates the rate of rotation around the X axis, in degrees per
   /// second.
-  external num? get beta;
+  external double? get beta;
 
   /// The **`gamma`** read-only property of the [DeviceMotionEventRotationRate]
   /// interface indicates the rate of rotation around the Y axis, in degrees per
   /// second.
-  external num? get gamma;
+  external double? get gamma;
 }
 
 /// The **`DeviceMotionEvent`** interface of the [Device Orientation Events]
@@ -222,7 +222,7 @@ extension type DeviceMotionEvent._(JSObject _) implements Event, JSObject {
   /// returns the interval, in milliseconds, at which data is obtained from the
   /// underlying
   /// hardware. You can use this to determine the granularity of motion events.
-  external num get interval;
+  external double get interval;
 }
 extension type DeviceMotionEventAccelerationInit._(JSObject _)
     implements JSObject {
@@ -232,11 +232,11 @@ extension type DeviceMotionEventAccelerationInit._(JSObject _)
     num? z,
   });
 
-  external num? get x;
+  external double? get x;
   external set x(num? value);
-  external num? get y;
+  external double? get y;
   external set y(num? value);
-  external num? get z;
+  external double? get z;
   external set z(num? value);
 }
 extension type DeviceMotionEventRotationRateInit._(JSObject _)
@@ -247,11 +247,11 @@ extension type DeviceMotionEventRotationRateInit._(JSObject _)
     num? gamma,
   });
 
-  external num? get alpha;
+  external double? get alpha;
   external set alpha(num? value);
-  external num? get beta;
+  external double? get beta;
   external set beta(num? value);
-  external num? get gamma;
+  external double? get gamma;
   external set gamma(num? value);
 }
 extension type DeviceMotionEventInit._(JSObject _)
@@ -273,6 +273,6 @@ extension type DeviceMotionEventInit._(JSObject _)
       DeviceMotionEventAccelerationInit value);
   external DeviceMotionEventRotationRateInit get rotationRate;
   external set rotationRate(DeviceMotionEventRotationRateInit value);
-  external num get interval;
+  external double get interval;
   external set interval(num value);
 }

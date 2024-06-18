@@ -41,7 +41,7 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
   /// [Performance.timeOrigin] (the time when navigation has started in window
   /// contexts, or the time when the worker is run in [Worker] and
   /// [ServiceWorker] contexts).
-  external DOMHighResTimeStamp now();
+  external double now();
 
   /// The **`toJSON()`** method of the [Performance] interface is a ; it returns
   /// a JSON representation of the [Performance] object.
@@ -207,7 +207,7 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
   /// > [monotonic clock](https://w3c.github.io/hr-time/#dfn-monotonic-clock)
   /// > which current time never decreases and which isn't subject to these
   /// > adjustments.
-  external DOMHighResTimeStamp get timeOrigin;
+  external double get timeOrigin;
 
   /// The legacy
   /// **`Performance.timing`** read-only

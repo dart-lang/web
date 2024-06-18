@@ -306,14 +306,14 @@ extension type BaseAudioContext._(JSObject _) implements EventTarget, JSObject {
   /// floating point number representing the sample rate, in samples per second,
   /// used by all nodes in this audio context.
   /// This limitation means that sample-rate converters are not supported.
-  external num get sampleRate;
+  external double get sampleRate;
 
   /// The `currentTime` read-only property of the [BaseAudioContext]
   /// interface returns a double representing an ever-increasing hardware
   /// timestamp in seconds that
   /// can be used for scheduling audio playback, visualizing timelines, etc. It
   /// starts at 0.
-  external num get currentTime;
+  external double get currentTime;
 
   /// The `listener` property of the [BaseAudioContext] interface
   /// returns an [AudioListener] object that can then be used for
@@ -464,7 +464,7 @@ extension type AudioContext._(JSObject _)
   /// > **Note:** You can request a certain latency during
   /// > [AudioContext.AudioContext] with the
   /// > `latencyHint` option, but the browser may ignore the option.
-  external num get baseLatency;
+  external double get baseLatency;
 
   /// The **`outputLatency`** read-only property of
   /// the [AudioContext] Interface provides an estimation of the output latency
@@ -478,7 +478,7 @@ extension type AudioContext._(JSObject _)
   /// device.
   ///
   /// It varies depending on the platform and the available hardware.
-  external num get outputLatency;
+  external double get outputLatency;
 }
 extension type AudioContextOptions._(JSObject _) implements JSObject {
   external factory AudioContextOptions({
@@ -490,7 +490,7 @@ extension type AudioContextOptions._(JSObject _) implements JSObject {
 
   external JSAny get latencyHint;
   external set latencyHint(JSAny value);
-  external num get sampleRate;
+  external double get sampleRate;
   external set sampleRate(num value);
   external JSAny get sinkId;
   external set sinkId(JSAny value);
@@ -509,9 +509,9 @@ extension type AudioTimestamp._(JSObject _) implements JSObject {
     DOMHighResTimeStamp performanceTime,
   });
 
-  external num get contextTime;
+  external double get contextTime;
   external set contextTime(num value);
-  external DOMHighResTimeStamp get performanceTime;
+  external double get performanceTime;
   external set performanceTime(DOMHighResTimeStamp value);
 }
 
@@ -595,7 +595,7 @@ extension type OfflineAudioContextOptions._(JSObject _) implements JSObject {
   external set numberOfChannels(int value);
   external int get length;
   external set length(int value);
-  external num get sampleRate;
+  external double get sampleRate;
   external set sampleRate(num value);
   external JSAny get renderSizeHint;
   external set renderSizeHint(JSAny value);
@@ -691,7 +691,7 @@ extension type AudioBuffer._(JSObject _) implements JSObject {
   /// The **`sampleRate`** property of the [AudioBuffer] interface returns a
   /// float representing the sample rate, in samples per second, of the PCM data
   /// stored in the buffer.
-  external num get sampleRate;
+  external double get sampleRate;
 
   /// The **`length`** property of the [AudioBuffer]
   /// interface returns an integer representing the length, in sample-frames, of
@@ -702,7 +702,7 @@ extension type AudioBuffer._(JSObject _) implements JSObject {
   /// The **`duration`** property of the [AudioBuffer] interface returns a
   /// double representing the duration, in seconds, of the PCM data stored in
   /// the buffer.
-  external num get duration;
+  external double get duration;
 
   /// The `numberOfChannels` property of the [AudioBuffer]
   /// interface returns an integer representing the number of discrete audio
@@ -721,7 +721,7 @@ extension type AudioBufferOptions._(JSObject _) implements JSObject {
   external set numberOfChannels(int value);
   external int get length;
   external set length(int value);
-  external num get sampleRate;
+  external double get sampleRate;
   external set sampleRate(num value);
 }
 
@@ -935,7 +935,7 @@ extension type AudioParam._(JSObject _) implements JSObject {
   /// calling [AudioParam.setValueAtTime] with the time returned by the
   /// `AudioContext`'s [BaseAudioContext.currentTime]
   /// property.
-  external num get value;
+  external double get value;
   external set value(num value);
   external AutomationRate get automationRate;
   external set automationRate(AutomationRate value);
@@ -944,17 +944,17 @@ extension type AudioParam._(JSObject _) implements JSObject {
   /// read-only property of the [AudioParam] interface represents the initial
   /// value of the attributes as defined by the specific [AudioNode] creating
   /// the `AudioParam`.
-  external num get defaultValue;
+  external double get defaultValue;
 
   /// The **`minValue`**
   /// read-only property of the [AudioParam] interface represents the minimum
   /// possible value for the parameter's nominal (effective) range.
-  external num get minValue;
+  external double get minValue;
 
   /// The **`maxValue`**
   /// read-only property of the [AudioParam] interface represents the maximum
   /// possible value for the parameter's nominal (effective) range.
-  external num get maxValue;
+  external double get maxValue;
 }
 
 /// The `AudioScheduledSourceNode` interface—part of the Web Audio API—is a
@@ -1114,7 +1114,7 @@ extension type AnalyserNode._(JSObject _) implements AudioNode, JSObject {
   /// FFT analysis data, for conversion to unsigned byte values — basically,
   /// this specifies the minimum value for the range of results when using
   /// `getByteFrequencyData()`.
-  external num get minDecibels;
+  external double get minDecibels;
   external set minDecibels(num value);
 
   /// The **`maxDecibels`** property of the [AnalyserNode] interface is a double
@@ -1122,7 +1122,7 @@ extension type AnalyserNode._(JSObject _) implements AudioNode, JSObject {
   /// FFT analysis data, for conversion to unsigned byte values — basically,
   /// this specifies the maximum value for the range of results when using
   /// `getByteFrequencyData()`.
-  external num get maxDecibels;
+  external double get maxDecibels;
   external set maxDecibels(num value);
 
   /// The **`smoothingTimeConstant`** property of the [AnalyserNode] interface
@@ -1130,7 +1130,7 @@ extension type AnalyserNode._(JSObject _) implements AudioNode, JSObject {
   /// analysis frame. It's basically an average between the current buffer and
   /// the last buffer the `AnalyserNode` processed, and results in a much
   /// smoother set of value changes over time.
-  external num get smoothingTimeConstant;
+  external double get smoothingTimeConstant;
   external set smoothingTimeConstant(num value);
 }
 extension type AnalyserOptions._(JSObject _)
@@ -1147,11 +1147,11 @@ extension type AnalyserOptions._(JSObject _)
 
   external int get fftSize;
   external set fftSize(int value);
-  external num get maxDecibels;
+  external double get maxDecibels;
   external set maxDecibels(num value);
-  external num get minDecibels;
+  external double get minDecibels;
   external set minDecibels(num value);
-  external num get smoothingTimeConstant;
+  external double get smoothingTimeConstant;
   external set smoothingTimeConstant(num value);
 }
 
@@ -1278,7 +1278,7 @@ extension type AudioBufferSourceNode._(JSObject _)
   /// the restart of the play must happen.
   ///
   /// The `loopStart` property's default value is `0`.
-  external num get loopStart;
+  external double get loopStart;
   external set loopStart(num value);
 
   /// The `loopEnd` property of the [AudioBufferSourceNode]
@@ -1288,7 +1288,7 @@ extension type AudioBufferSourceNode._(JSObject _)
   /// indicated by the [AudioBufferSourceNode.loopStart] property.
   /// This is only used if the [AudioBufferSourceNode.loop] property is
   /// `true`.
-  external num get loopEnd;
+  external double get loopEnd;
   external set loopEnd(num value);
 }
 extension type AudioBufferSourceOptions._(JSObject _) implements JSObject {
@@ -1303,15 +1303,15 @@ extension type AudioBufferSourceOptions._(JSObject _) implements JSObject {
 
   external AudioBuffer? get buffer;
   external set buffer(AudioBuffer? value);
-  external num get detune;
+  external double get detune;
   external set detune(num value);
   external bool get loop;
   external set loop(bool value);
-  external num get loopEnd;
+  external double get loopEnd;
   external set loopEnd(num value);
-  external num get loopStart;
+  external double get loopStart;
   external set loopStart(num value);
-  external num get playbackRate;
+  external double get playbackRate;
   external set playbackRate(num value);
 }
 
@@ -1528,7 +1528,7 @@ extension type AudioProcessingEvent._(JSObject _) implements Event, JSObject {
   /// The **`playbackTime`** read-only property of the [AudioProcessingEvent]
   /// interface represents the time when the audio will be played. It is in the
   /// same coordinate system as the time used by the [AudioContext].
-  external num get playbackTime;
+  external double get playbackTime;
 
   /// The **`inputBuffer`** read-only property of the [AudioProcessingEvent]
   /// interface represents the input buffer of an audio processing event.
@@ -1563,7 +1563,7 @@ extension type AudioProcessingEventInit._(JSObject _)
     required AudioBuffer outputBuffer,
   });
 
-  external num get playbackTime;
+  external double get playbackTime;
   external set playbackTime(num value);
   external AudioBuffer get inputBuffer;
   external set inputBuffer(AudioBuffer value);
@@ -1685,13 +1685,13 @@ extension type BiquadFilterOptions._(JSObject _)
 
   external BiquadFilterType get type;
   external set type(BiquadFilterType value);
-  external num get Q;
+  external double get Q;
   external set Q(num value);
-  external num get detune;
+  external double get detune;
   external set detune(num value);
-  external num get frequency;
+  external double get frequency;
   external set frequency(num value);
-  external num get gain;
+  external double get gain;
   external set gain(num value);
 }
 
@@ -1888,7 +1888,7 @@ extension type ConstantSourceNode._(JSObject _)
 extension type ConstantSourceOptions._(JSObject _) implements JSObject {
   external factory ConstantSourceOptions({num offset});
 
-  external num get offset;
+  external double get offset;
   external set offset(num value);
 }
 
@@ -2058,9 +2058,9 @@ extension type DelayOptions._(JSObject _)
     num delayTime,
   });
 
-  external num get maxDelayTime;
+  external double get maxDelayTime;
   external set maxDelayTime(num value);
-  external num get delayTime;
+  external double get delayTime;
   external set delayTime(num value);
 }
 
@@ -2150,7 +2150,7 @@ extension type DynamicsCompressorNode._(JSObject _)
   /// Intended for metering purposes, it returns a value in dB, or `0` (no gain
   /// reduction) if no signal is fed into the `DynamicsCompressorNode`. The
   /// range of this value is between `-20` and `0` (in dB).
-  external num get reduction;
+  external double get reduction;
 
   /// The `attack` property of the [DynamicsCompressorNode] interface is a
   /// [k-rate](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#k-rate)
@@ -2185,15 +2185,15 @@ extension type DynamicsCompressorOptions._(JSObject _)
     num threshold,
   });
 
-  external num get attack;
+  external double get attack;
   external set attack(num value);
-  external num get knee;
+  external double get knee;
   external set knee(num value);
-  external num get ratio;
+  external double get ratio;
   external set ratio(num value);
-  external num get release;
+  external double get release;
   external set release(num value);
-  external num get threshold;
+  external double get threshold;
   external set threshold(num value);
 }
 
@@ -2258,7 +2258,7 @@ extension type GainOptions._(JSObject _) implements AudioNodeOptions, JSObject {
     num gain,
   });
 
-  external num get gain;
+  external double get gain;
   external set gain(num value);
 }
 
@@ -2690,9 +2690,9 @@ extension type OscillatorOptions._(JSObject _)
 
   external OscillatorType get type;
   external set type(OscillatorType value);
-  external num get frequency;
+  external double get frequency;
   external set frequency(num value);
-  external num get detune;
+  external double get detune;
   external set detune(num value);
   external PeriodicWave get periodicWave;
   external set periodicWave(PeriodicWave value);
@@ -3021,7 +3021,7 @@ extension type PannerNode._(JSObject _) implements AudioNode, JSObject {
   /// models.
   ///
   /// The `refDistance` property's default value is `1`.
-  external num get refDistance;
+  external double get refDistance;
   external set refDistance(num value);
 
   /// The `maxDistance` property of the [PannerNode] interface is a double value
@@ -3030,14 +3030,14 @@ extension type PannerNode._(JSObject _) implements AudioNode, JSObject {
   /// used only by the `linear` distance model.
   ///
   /// The `maxDistance` property's default value is `10000`.
-  external num get maxDistance;
+  external double get maxDistance;
   external set maxDistance(num value);
 
   /// The `rolloffFactor` property of the [PannerNode] interface is a double
   /// value describing how quickly the volume is reduced as the source moves
   /// away from the listener. This value is used by all distance models. The
   /// `rolloffFactor` property's default value is `1`.
-  external num get rolloffFactor;
+  external double get rolloffFactor;
   external set rolloffFactor(num value);
 
   /// The `coneInnerAngle` property of the [PannerNode] interface is a double
@@ -3046,7 +3046,7 @@ extension type PannerNode._(JSObject _) implements AudioNode, JSObject {
   ///
   /// The `coneInnerAngle` property's default value is `360`, suitable for a
   /// non-directional source.
-  external num get coneInnerAngle;
+  external double get coneInnerAngle;
   external set coneInnerAngle(num value);
 
   /// The `coneOuterAngle` property of the [PannerNode] interface is a double
@@ -3055,7 +3055,7 @@ extension type PannerNode._(JSObject _) implements AudioNode, JSObject {
   /// [PannerNode.coneOuterGain] property.
   ///
   /// The `coneOuterAngle` property's default value is `0`.
-  external num get coneOuterAngle;
+  external double get coneOuterAngle;
   external set coneOuterAngle(num value);
 
   /// The `coneOuterGain` property of the [PannerNode] interface is a double
@@ -3064,7 +3064,7 @@ extension type PannerNode._(JSObject _) implements AudioNode, JSObject {
   ///
   /// The `coneOuterGain` property's default value is `0`, meaning that no sound
   /// can be heard outside the cone.
-  external num get coneOuterGain;
+  external double get coneOuterGain;
   external set coneOuterGain(num value);
 }
 extension type PannerOptions._(JSObject _)
@@ -3093,29 +3093,29 @@ extension type PannerOptions._(JSObject _)
   external set panningModel(PanningModelType value);
   external DistanceModelType get distanceModel;
   external set distanceModel(DistanceModelType value);
-  external num get positionX;
+  external double get positionX;
   external set positionX(num value);
-  external num get positionY;
+  external double get positionY;
   external set positionY(num value);
-  external num get positionZ;
+  external double get positionZ;
   external set positionZ(num value);
-  external num get orientationX;
+  external double get orientationX;
   external set orientationX(num value);
-  external num get orientationY;
+  external double get orientationY;
   external set orientationY(num value);
-  external num get orientationZ;
+  external double get orientationZ;
   external set orientationZ(num value);
-  external num get refDistance;
+  external double get refDistance;
   external set refDistance(num value);
-  external num get maxDistance;
+  external double get maxDistance;
   external set maxDistance(num value);
-  external num get rolloffFactor;
+  external double get rolloffFactor;
   external set rolloffFactor(num value);
-  external num get coneInnerAngle;
+  external double get coneInnerAngle;
   external set coneInnerAngle(num value);
-  external num get coneOuterAngle;
+  external double get coneOuterAngle;
   external set coneOuterAngle(num value);
-  external num get coneOuterGain;
+  external double get coneOuterGain;
   external set coneOuterGain(num value);
 }
 
@@ -3298,7 +3298,7 @@ extension type StereoPannerOptions._(JSObject _)
     num pan,
   });
 
-  external num get pan;
+  external double get pan;
   external set pan(num value);
 }
 
@@ -3453,12 +3453,12 @@ extension type AudioWorkletGlobalScope._(JSObject _)
   /// time of the audio block being processed. It is equal to the
   /// [BaseAudioContext.currentTime] property of the [BaseAudioContext] the
   /// worklet belongs to.
-  external num get currentTime;
+  external double get currentTime;
 
   /// The read-only **`sampleRate`** property of the [AudioWorkletGlobalScope]
   /// interface returns a float that represents the sample rate of the
   /// associated [BaseAudioContext] the worklet belongs to.
-  external num get sampleRate;
+  external double get sampleRate;
 }
 
 /// The **`AudioParamMap`** interface of the

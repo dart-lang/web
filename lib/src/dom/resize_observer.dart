@@ -125,7 +125,7 @@ extension type ResizeObserverSize._(JSObject _) implements JSObject {
   /// > **Note:** For more explanation of writing modes and block and inline
   /// > dimensions, read
   /// > [Handling different text directions](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Handling_different_text_directions).
-  external num get inlineSize;
+  external double get inlineSize;
 
   /// The **`blockSize`** read-only property of the [ResizeObserverSize]
   /// interface returns the length of the observed element's border box in the
@@ -136,5 +136,5 @@ extension type ResizeObserverSize._(JSObject _) implements JSObject {
   /// > **Note:** For more explanation of writing modes and block and inline
   /// > dimensions, read
   /// > [Handling different text directions](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Handling_different_text_directions).
-  external num get blockSize;
+  external double get blockSize;
 }

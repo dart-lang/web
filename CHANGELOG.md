@@ -15,6 +15,7 @@
 - Added `onUnload` event stream to `ElementEventGetters` extension methods.
 - Expose `ElementStream` as a public class.
 - Require Dart `^3.4.0`.
+- Fix an issue where some union types didn't account for typedef nullability.
 
 ## 0.5.1
 

@@ -1268,7 +1268,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
     GLint border,
     GLenum format,
     GLenum type,
-    JSAny pboOffsetOrSourceOrSrcData, [
+    JSAny? pboOffsetOrSourceOrSrcData, [
     int srcOffset,
   ]);
 
@@ -1287,7 +1287,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
     GLsizei depth,
     GLenum format,
     GLenum type,
-    JSAny pboOffsetOrSourceOrSrcData, [
+    JSAny? pboOffsetOrSourceOrSrcData, [
     int srcOffset,
   ]);
 
@@ -1946,7 +1946,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   /// creates and initializes the buffer object's data store.
   external void bufferData(
     GLenum target,
-    JSAny sizeOrSrcData,
+    JSAny? sizeOrSrcData,
     GLenum usage, [
     int srcOffset,
     GLuint length,
@@ -1972,7 +1972,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
     JSAny borderOrSource, [
     GLenum format,
     GLenum type,
-    JSAny pboOffsetOrPixelsOrSourceOrSrcData,
+    JSAny? pboOffsetOrPixelsOrSourceOrSrcData,
     int srcOffset,
   ]);
   external void texSubImage2D(
@@ -1984,7 +1984,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
     JSAny heightOrType,
     JSAny formatOrSource, [
     GLenum type,
-    JSAny pboOffsetOrPixelsOrSourceOrSrcData,
+    JSAny? pboOffsetOrPixelsOrSourceOrSrcData,
     int srcOffset,
   ]);
   external void compressedTexImage2D(
@@ -2086,7 +2086,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
     GLsizei height,
     GLenum format,
     GLenum type,
-    JSAny dstDataOrOffset, [
+    JSAny? dstDataOrOffset, [
     int dstOffset,
   ]);
   external JSObject get canvas;

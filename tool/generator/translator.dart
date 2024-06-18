@@ -104,20 +104,23 @@ class _Library {
 }
 
 /// If [rawType] corresponds to an IDL type that we declare as a typedef,
-/// desugars the typedef.
+/// desugars the typedef, accounting for nullability along the way.
 ///
 /// Otherwise, returns null.
 _RawType? _desugarTypedef(_RawType rawType) {
   final decl = Translator.instance!._typeToDeclaration[rawType.type];
   return switch (decl?.type) {
-    'typedef' => _getRawType((decl as idl.Typedef).idlType),
+    'typedef' => _getRawType((decl as idl.Typedef).idlType)
+      ..nullable |= rawType.nullable,
     // TODO(srujzs): If we ever add a generic JS function type, we should
     // maybe leverage that here so we have stronger type-checking of
     // callbacks.
-    'callback' || 'callback interface' => _RawType('JSFunction', false),
+    'callback' ||
+    'callback interface' =>
+      _RawType('JSFunction', rawType.nullable),
     // TODO(srujzs): Enums in the WebIDL are just strings, but we could make
     // them easier to work with on the Dart side.
-    'enum' => _RawType('JSString', false),
+    'enum' => _RawType('JSString', rawType.nullable),
     _ => null
   };
 }

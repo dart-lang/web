@@ -19,6 +19,7 @@
   to avoid users accidentally downcasting `num`, which has different semantics
   depending on whether you compile to JS or Wasm. See issue [#57][] for more
   details.
+- Fix an issue where some union types didn't account for typedef nullability.
 
 [#57]: https://github.com/dart-lang/web/issues/57
 

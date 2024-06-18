@@ -94,7 +94,7 @@ extension type CookieInit._(JSObject _) implements JSObject {
   external set name(String value);
   external String get value;
   external set value(String value);
-  external DOMHighResTimeStamp? get expires;
+  external double? get expires;
   external set expires(DOMHighResTimeStamp? value);
   external String? get domain;
   external set domain(String? value);
@@ -142,7 +142,7 @@ extension type CookieListItem._(JSObject _) implements JSObject {
   external set domain(String? value);
   external String get path;
   external set path(String value);
-  external DOMHighResTimeStamp? get expires;
+  external double? get expires;
   external set expires(DOMHighResTimeStamp? value);
   external bool get secure;
   external set secure(bool value);

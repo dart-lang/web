@@ -19,7 +19,6 @@ import 'cssom.dart';
 import 'cssom_view.dart';
 import 'fullscreen.dart';
 import 'geometry.dart';
-import 'hr_time.dart';
 import 'html.dart';
 import 'selection_api.dart';
 import 'svg.dart';
@@ -286,7 +285,7 @@ extension type Event._(JSObject _) implements JSObject {
 
   /// The **`timeStamp`** read-only property of the [Event] interface returns
   /// the time (in milliseconds) at which the event was created.
-  external DOMHighResTimeStamp get timeStamp;
+  external double get timeStamp;
 }
 extension type EventInit._(JSObject _) implements JSObject {
   external factory EventInit({
@@ -3406,7 +3405,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   ///
   /// > **Warning:** On systems using display scaling, `scrollTop` may give you
   /// > a decimal value.
-  external num get scrollTop;
+  external double get scrollTop;
   external set scrollTop(num value);
 
   /// The **`Element.scrollLeft`** property gets or sets the number
@@ -3432,7 +3431,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// > **Warning:** On systems using display scaling, `scrollLeft` may give you
   /// > a decimal
   /// > value.
-  external num get scrollLeft;
+  external double get scrollLeft;
   external set scrollLeft(num value);
 
   /// The **`Element.scrollWidth`** read-only property is a
@@ -5253,7 +5252,7 @@ extension type XPathResult._(JSObject _) implements JSObject {
   /// The read-only **`numberValue`** property of the
   /// [XPathResult] interface returns the numeric value of a result with
   /// [XPathResult.resultType] being `NUMBER_TYPE`.
-  external num get numberValue;
+  external double get numberValue;
 
   /// The read-only **`stringValue`** property of the
   /// [XPathResult] interface returns the string value of a result with

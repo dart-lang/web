@@ -15,7 +15,6 @@ import 'dart:js_interop';
 
 import 'dom.dart';
 import 'geometry.dart';
-import 'hr_time.dart';
 
 typedef IntersectionObserverCallback = JSFunction;
 
@@ -166,7 +165,7 @@ extension type IntersectionObserverEntry._(JSObject _) implements JSObject {
   /// read-only **`time`** property is a
   /// [DOMHighResTimeStamp] that indicates the time at which the intersection
   /// change occurred relative to the time at which the document was created.
-  external DOMHighResTimeStamp get time;
+  external double get time;
 
   /// The [IntersectionObserverEntry] interface's
   /// read-only **`rootBounds`** property is a
@@ -204,7 +203,7 @@ extension type IntersectionObserverEntry._(JSObject _) implements JSObject {
   /// of the target element is currently visible within the root's intersection
   /// ratio, as a
   /// value between 0.0 and 1.0.
-  external num get intersectionRatio;
+  external double get intersectionRatio;
 
   /// The [IntersectionObserverEntry] interface's
   /// read-only **`target`** property indicates which targeted

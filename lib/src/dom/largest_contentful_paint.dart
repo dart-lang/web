@@ -14,7 +14,6 @@ library;
 import 'dart:js_interop';
 
 import 'dom.dart';
-import 'hr_time.dart';
 import 'performance_timeline.dart';
 
 /// The `LargestContentfulPaint` interface provides timing information about the
@@ -32,11 +31,11 @@ extension type LargestContentfulPaint._(JSObject _)
 
   /// The **`renderTime`** read-only property of the [LargestContentfulPaint]
   /// interface represents the time that the element was rendered to the screen.
-  external DOMHighResTimeStamp get renderTime;
+  external double get renderTime;
 
   /// The **`loadTime`** read-only property of the [LargestContentfulPaint]
   /// interface returns the time that the element was loaded.
-  external DOMHighResTimeStamp get loadTime;
+  external double get loadTime;
 
   /// The **`size`** read-only property of the [LargestContentfulPaint]
   /// interface returns the intrinsic size of the element that is the largest

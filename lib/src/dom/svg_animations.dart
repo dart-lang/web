@@ -47,9 +47,9 @@ extension type TimeEvent._(JSObject _) implements Event, JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGAnimationElement).
 extension type SVGAnimationElement._(JSObject _)
     implements SVGElement, JSObject {
-  external num getStartTime();
-  external num getCurrentTime();
-  external num getSimpleDuration();
+  external double getStartTime();
+  external double getCurrentTime();
+  external double getSimpleDuration();
   external void beginElement();
   external void beginElementAt(num offset);
   external void endElement();

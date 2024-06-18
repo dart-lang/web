@@ -80,7 +80,7 @@ extension type VideoConfiguration._(JSObject _) implements JSObject {
   external set height(int value);
   external int get bitrate;
   external set bitrate(int value);
-  external num get framerate;
+  external double get framerate;
   external set framerate(num value);
   external bool get hasAlphaChannel;
   external set hasAlphaChannel(bool value);

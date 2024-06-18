@@ -13,8 +13,6 @@ library;
 
 import 'dart:js_interop';
 
-import 'hr_time.dart';
-
 /// The **`PerformanceServerTiming`** interface surfaces server metrics that are
 /// sent with the response in the  HTTP header.
 ///
@@ -39,7 +37,7 @@ extension type PerformanceServerTiming._(JSObject _) implements JSObject {
 
   /// The **`duration`** read-only property returns a double that contains the
   /// server-specified metric duration, or the value `0.0`.
-  external DOMHighResTimeStamp get duration;
+  external double get duration;
 
   /// The **`description`** read-only property returns a
   /// string value of the server-specified metric description, or an empty

@@ -284,7 +284,7 @@ extension type VideoEncoderConfig._(JSObject _) implements JSObject {
   external set displayHeight(int value);
   external int get bitrate;
   external set bitrate(int value);
-  external num get framerate;
+  external double get framerate;
   external set framerate(num value);
   external HardwareAcceleration get hardwareAcceleration;
   external set hardwareAcceleration(HardwareAcceleration value);

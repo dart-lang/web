@@ -50,7 +50,7 @@ extension type BatteryManager._(JSObject _) implements EventTarget, JSObject {
   /// > **Note:** Even if the time returned is precise to the second,
   /// > browsers round them to a higher interval
   /// > (typically to the closest 15 minutes) for privacy reasons.
-  external num get chargingTime;
+  external double get chargingTime;
 
   /// The **`dischargingTime`** read-only property of the [BatteryManager]
   /// interface indicates the amount of time, in seconds, that remains until the
@@ -63,7 +63,7 @@ extension type BatteryManager._(JSObject _) implements EventTarget, JSObject {
   /// > **Note:** Even if the time returned is precise to the second, browsers
   /// > round them to a higher
   /// > interval (typically to the closest 15 minutes) for privacy reasons.
-  external num get dischargingTime;
+  external double get dischargingTime;
 
   /// The **`level`** read-only property of the [BatteryManager] interface
   /// indicates the current battery charge level as a value between `0.0` and
@@ -74,7 +74,7 @@ extension type BatteryManager._(JSObject _) implements EventTarget, JSObject {
   /// report the battery status information.
   /// When its value changes, the [BatteryManager.levelchange_event] event is
   /// fired.
-  external num get level;
+  external double get level;
   external EventHandler get onchargingchange;
   external set onchargingchange(EventHandler value);
   external EventHandler get onchargingtimechange;

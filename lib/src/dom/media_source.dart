@@ -91,7 +91,7 @@ extension type MediaSource._(JSObject _) implements EventTarget, JSObject {
 
   /// The **`duration`** property of the [MediaSource]
   /// interface gets and sets the duration of the current media being presented.
-  external num get duration;
+  external double get duration;
   external set duration(num value);
   external EventHandler get onsourceopen;
   external set onsourceopen(EventHandler value);
@@ -197,7 +197,7 @@ extension type SourceBuffer._(JSObject _) implements EventTarget, JSObject {
   /// media segments that are appended to the `SourceBuffer`.
   ///
   /// The initial value of `timestampOffset` is 0.
-  external num get timestampOffset;
+  external double get timestampOffset;
   external set timestampOffset(num value);
 
   /// The **`audioTracks`** read-only property of the
@@ -221,7 +221,7 @@ extension type SourceBuffer._(JSObject _) implements EventTarget, JSObject {
   ///
   /// The default value of `appendWindowStart` is the presentation start time,
   /// which is the beginning time of the playable media.
-  external num get appendWindowStart;
+  external double get appendWindowStart;
   external set appendWindowStart(num value);
 
   /// The **`appendWindowEnd`** property of the
@@ -234,7 +234,7 @@ extension type SourceBuffer._(JSObject _) implements EventTarget, JSObject {
   /// appended, whereas those outside the range will be filtered out.
   ///
   /// The default value of `appendWindowEnd` is positive infinity.
-  external num get appendWindowEnd;
+  external double get appendWindowEnd;
   external set appendWindowEnd(num value);
   external EventHandler get onupdatestart;
   external set onupdatestart(EventHandler value);

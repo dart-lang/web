@@ -14,7 +14,6 @@ library;
 import 'dart:js_interop';
 
 import 'dom.dart';
-import 'hr_time.dart';
 
 typedef GamepadMappingType = String;
 
@@ -84,7 +83,7 @@ extension type Gamepad._(JSObject _) implements JSObject {
   /// newer values will always be greater than or equal to older values.
   ///
   /// > **Note:** This property is not currently supported anywhere.
-  external DOMHighResTimeStamp get timestamp;
+  external double get timestamp;
 
   /// The **`Gamepad.mapping`** property of the
   /// [Gamepad] interface returns a string indicating whether the browser has
@@ -166,7 +165,7 @@ extension type GamepadButton._(JSObject _) implements JSObject {
   /// The values are normalized to the range `0.0` — `1.0`, with
   /// `0.0` representing a button that is not pressed, and 1.0 representing a
   /// button that is fully pressed.
-  external num get value;
+  external double get value;
 }
 
 /// The **`GamepadHapticActuator`** interface of the

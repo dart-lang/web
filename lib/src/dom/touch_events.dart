@@ -41,29 +41,29 @@ extension type TouchInit._(JSObject _) implements JSObject {
   external set identifier(int value);
   external EventTarget get target;
   external set target(EventTarget value);
-  external num get clientX;
+  external double get clientX;
   external set clientX(num value);
-  external num get clientY;
+  external double get clientY;
   external set clientY(num value);
-  external num get screenX;
+  external double get screenX;
   external set screenX(num value);
-  external num get screenY;
+  external double get screenY;
   external set screenY(num value);
-  external num get pageX;
+  external double get pageX;
   external set pageX(num value);
-  external num get pageY;
+  external double get pageY;
   external set pageY(num value);
-  external num get radiusX;
+  external double get radiusX;
   external set radiusX(num value);
-  external num get radiusY;
+  external double get radiusY;
   external set radiusY(num value);
-  external num get rotationAngle;
+  external double get rotationAngle;
   external set rotationAngle(num value);
-  external num get force;
+  external double get force;
   external set force(num value);
-  external num get altitudeAngle;
+  external double get altitudeAngle;
   external set altitudeAngle(num value);
-  external num get azimuthAngle;
+  external double get azimuthAngle;
   external set azimuthAngle(num value);
   external TouchType get touchType;
   external set touchType(TouchType value);
@@ -113,32 +113,32 @@ extension type Touch._(JSObject _) implements JSObject {
 
   /// Returns the X coordinate of the touch point relative to the screen, not
   /// including any scroll offset.
-  external num get screenX;
+  external double get screenX;
 
   /// Returns the Y coordinate of the touch point relative to the screen, not
   /// including any scroll offset.
-  external num get screenY;
+  external double get screenY;
 
   /// The `Touch.clientX` read-only property returns the X coordinate of the
   /// touch
   /// point relative to the viewport, not including any scroll offset.
-  external num get clientX;
+  external double get clientX;
 
   /// The **`Touch.clientY`** read-only property returns the Y
   /// coordinate of the touch point relative to the browser's viewport, not
   /// including any
   /// scroll offset.
-  external num get clientY;
+  external double get clientY;
 
   /// The **`Touch.pageX`** read-only property returns the X
   /// coordinate of the touch point relative to the viewport, including any
   /// scroll offset.
-  external num get pageX;
+  external double get pageX;
 
   /// The **`Touch.pageY`** read-only property returns the Y
   /// coordinate of the touch point relative to the viewport, including any
   /// scroll offset.
-  external num get pageY;
+  external double get pageY;
 
   /// The **`radiusX`** read-only property of the [Touch] interface returns the
   /// X radius of the ellipse that most closely circumscribes the area of
@@ -150,7 +150,7 @@ extension type Touch._(JSObject _) implements JSObject {
   /// contact between the user and the screen. This may be a relatively large
   /// ellipse representing the contact between a fingertip and the screen or a
   /// small area representing the tip of a stylus, for example.
-  external num get radiusX;
+  external double get radiusX;
 
   /// The **`radiusY`** read-only property of the [Touch] interface returns the
   /// Y radius of the ellipse that most closely circumscribes the area of
@@ -162,7 +162,7 @@ extension type Touch._(JSObject _) implements JSObject {
   /// contact between the user and the screen. This may be a large ellipse
   /// representing the contact between a fingertip and the screen or a small one
   /// representing the tip of a stylus, for example.
-  external num get radiusY;
+  external double get radiusY;
 
   /// The **`rotationAngle`** read-only property of the [Touch] interface
   /// returns the rotation angle, in degrees, of the contact area ellipse
@@ -172,13 +172,13 @@ extension type Touch._(JSObject _) implements JSObject {
   /// This may be a relatively large ellipse representing the contact between a
   /// fingertip and the screen or a small area representing the tip of a stylus,
   /// for example.
-  external num get rotationAngle;
+  external double get rotationAngle;
 
   /// The **`Touch.force`** read-only property returns the amount of
   /// pressure the user is applying to the touch surface for a [Touch] point.
-  external num get force;
-  external num get altitudeAngle;
-  external num get azimuthAngle;
+  external double get force;
+  external double get altitudeAngle;
+  external double get azimuthAngle;
   external TouchType get touchType;
 }
 

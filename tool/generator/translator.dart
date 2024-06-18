@@ -751,24 +751,29 @@ class Translator {
 
   code.TypeDef _typedef(String name, _RawType rawType) => code.TypeDef((b) => b
     ..name = name
+    // Any typedefs that need to be handled differently when used in a return
+    // type context will be handled in `_typeReference` separately.
     ..definition = _typeReference(rawType));
 
   code.Method _topLevelGetter(_RawType type, String getterName) =>
       code.Method((b) => b
         ..annotations.addAll(_jsOverride('', alwaysEmit: true))
         ..external = true
-        ..returns = _typeReference(type)
+        ..returns = _typeReference(type, returnType: true)
         ..name = getterName
         ..type = code.MethodType.getter);
 
-  // Given a raw type, convert it to the Dart type that will be emitted by the
-  // translator.
-  //
-  // If [onlyEmitInteropTypes] is true, we don't convert to Dart primitives but
-  // rather only emit a valid interop type. This is used for type arguments as
-  // they are bound to `JSAny?`.
+  /// Given a raw type, convert it to the Dart type that will be emitted by the
+  /// translator.
+  ///
+  /// If [returnType] is true, [type] is assumed to be used as a return type of
+  /// some member.
+  ///
+  /// If [onlyEmitInteropTypes] is true, we don't convert to Dart primitives but
+  /// rather only emit a valid interop type. This is used for type arguments as
+  /// they are bound to `JSAny?`.
   code.TypeReference _typeReference(_RawType type,
-      {bool onlyEmitInteropTypes = false}) {
+      {bool returnType = false, bool onlyEmitInteropTypes = false}) {
     var dartType = type.type;
     var nullable = type.nullable;
     var typeParameter = type.typeParameter;
@@ -782,7 +787,8 @@ class Translator {
 
       // TODO(srujzs): Some of these typedefs definitions may end up being
       // unused as they were ever only used in a generic. Should we delete them
-      // or does it provide value to users?
+      // or do they provide value to users? If we do delete them, a good way of
+      // detecting if they're unused is making `_usedTypes` a ref counter.
       final rawType = _desugarTypedef(type);
       if (rawType != null &&
           jsTypeToDartPrimitiveAliases.containsKey(rawType.type)) {
@@ -800,7 +806,18 @@ class Translator {
         _ => dartType,
       };
     } else {
-      // Convert JS types to primitives.
+      if (returnType) {
+        // To avoid users downcasting `num`, which works differently based on
+        // the platform, we return `double` if it's a double type.
+        // TODO(srujzs): Some of these typedefs definitions may end up being
+        // unused as they were ever only used in a return type. Should we delete
+        // them or do they provide value to users? If we do delete them, a good
+        // way of detecting if they're unused is making `_usedTypes` a ref
+        // counter.
+        final rawType = _desugarTypedef(type);
+        final underlyingType = rawType?.type ?? dartType;
+        if (underlyingType == 'JSDouble') dartType = 'double';
+      }
       dartType = jsTypeToDartPrimitiveAliases[dartType] ?? dartType;
       if (dartType == 'void') nullable = false;
     }
@@ -840,9 +857,6 @@ class Translator {
     return url;
   }
 
-  code.TypeReference _typeToTypeReference(_RawType type) =>
-      _typeReference(type);
-
   T _overridableMember<T>(
       _OverridableMember member,
       T Function(List<code.Parameter> requiredParameters,
@@ -853,7 +867,7 @@ class Translator {
     for (final rawParameter in member.parameters) {
       final parameter = code.Parameter((b) => b
         ..name = dartRename(rawParameter.name)
-        ..type = _typeToTypeReference(rawParameter.type));
+        ..type = _typeReference(rawParameter.type));
       if (rawParameter.isOptional) {
         optionalParameters.add(parameter);
       } else {
@@ -945,7 +959,7 @@ class Translator {
         ..annotations.addAll(_jsOverride(memberName.jsOverride))
         ..external = true
         ..static = operation.isStatic
-        ..returns = _typeToTypeReference(operation.returnType)
+        ..returns = _typeReference(operation.returnType, returnType: true)
         ..name = memberName.name
         ..docs.addAll(operation.mdnProperty?.formattedDocs ?? [])
         ..requiredParameters.addAll(requiredParameters)
@@ -955,7 +969,8 @@ class Translator {
 
   List<code.Method> _getterSetter({
     required _MemberName memberName,
-    required code.Reference Function() getType,
+    required code.Reference Function() getGetterType,
+    required code.Reference Function() getSetterType,
     required bool isStatic,
     required bool readOnly,
     required MdnInterface? mdnInterface,
@@ -969,7 +984,7 @@ class Translator {
           ..annotations.addAll(_jsOverride(memberName.jsOverride))
           ..external = true
           ..static = isStatic
-          ..returns = getType()
+          ..returns = getGetterType()
           ..type = code.MethodType.getter
           ..name = name
           ..docs.addAll(docs),
@@ -985,7 +1000,7 @@ class Translator {
             ..requiredParameters.add(
               code.Parameter(
                 (b) => b
-                  ..type = getType()
+                  ..type = getSetterType()
                   ..name = 'value',
               ),
             ),
@@ -997,7 +1012,8 @@ class Translator {
       _Attribute attribute, MdnInterface? mdnInterface) {
     return _getterSetter(
       memberName: attribute.name,
-      getType: () => _typeReference(attribute.type),
+      getGetterType: () => _typeReference(attribute.type, returnType: true),
+      getSetterType: () => _typeReference(attribute.type),
       readOnly: attribute.isReadOnly,
       isStatic: attribute.isStatic,
       mdnInterface: mdnInterface,
@@ -1011,7 +1027,7 @@ class Translator {
           ..annotations.addAll(_jsOverride(constant.name.jsOverride))
           ..external = true
           ..static = true
-          ..returns = _typeReference(constant.type)
+          ..returns = _typeReference(constant.type, returnType: true)
           ..type = code.MethodType.getter
           ..name = constant.name.name,
       )
@@ -1021,7 +1037,8 @@ class Translator {
   List<code.Method> _field(_Field field, MdnInterface? mdnInterface) {
     return _getterSetter(
       memberName: field.name,
-      getType: () => _typeReference(field.type),
+      getGetterType: () => _typeReference(field.type, returnType: true),
+      getSetterType: () => _typeReference(field.type),
       readOnly: false,
       isStatic: false,
       mdnInterface: mdnInterface,
@@ -1050,7 +1067,9 @@ class Translator {
       for (final style in _cssStyleDeclarations)
         ..._getterSetter(
           memberName: _MemberName(style),
-          getType: () => code.TypeReference((b) => b..symbol = 'String'),
+          getGetterType: () =>
+              _typeReference(_RawType('JSString', false), returnType: true),
+          getSetterType: () => _typeReference(_RawType('JSString', false)),
           isStatic: false,
           readOnly: false,
           mdnInterface: null,

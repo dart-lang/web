@@ -33,9 +33,9 @@ extension type ScrollToOptions._(JSObject _)
     num top,
   });
 
-  external num get left;
+  external double get left;
   external set left(num value);
-  external num get top;
+  external double get top;
   external set top(num value);
 }
 
@@ -248,41 +248,41 @@ extension type VisualViewport._(JSObject _) implements EventTarget, JSObject {
   /// returns the offset of the left edge of the visual viewport from the left
   /// edge of the layout viewport in CSS pixels, or `0` if current document is
   /// not fully active.
-  external num get offsetLeft;
+  external double get offsetLeft;
 
   /// The **`offsetTop`** read-only property of the [VisualViewport] interface
   /// returns the offset of the top edge of the visual viewport from the top
   /// edge of the layout viewport in CSS pixels, or `0` if current document is
   /// not fully active.
-  external num get offsetTop;
+  external double get offsetTop;
 
   /// The **`pageLeft`** read-only property of the [VisualViewport] interface
   /// returns the x coordinate of the left edge of the visual viewport relative
   /// to the initial containing block origin, in CSS pixels, or `0` if current
   /// document is not fully active.
-  external num get pageLeft;
+  external double get pageLeft;
 
   /// The **`pageTop`** read-only property of the [VisualViewport] interface
   /// returns the y coordinate of the top edge of the visual viewport relative
   /// to the initial containing block origin, in CSS pixels, or `0` if current
   /// document is not fully active.
-  external num get pageTop;
+  external double get pageTop;
 
   /// The **`width`** read-only property of the [VisualViewport] interface
   /// returns the width of the visual viewport, in CSS pixels, or `0` if current
   /// document is not fully active.
-  external num get width;
+  external double get width;
 
   /// The **`height`** read-only property of the [VisualViewport] interface
   /// returns the height of the visual viewport, in CSS pixels, or `0` if
   /// current document is not fully active.
-  external num get height;
+  external double get height;
 
   /// The **`scale`** read-only property of the [VisualViewport] interface
   /// returns the pinch-zoom scaling factor applied to the visual viewport, or
   /// `0` if current document is not fully active, or `1` if there is no output
   /// device.
-  external num get scale;
+  external double get scale;
   external EventHandler get onresize;
   external set onresize(EventHandler value);
   external EventHandler get onscroll;

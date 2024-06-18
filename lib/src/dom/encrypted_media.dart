@@ -171,7 +171,7 @@ extension type MediaKeySession._(JSObject _) implements EventTarget, JSObject {
   /// measured in milliseconds since January 1, 1970, UTC. This value may change
   /// during a
   /// session lifetime, such as when an action triggers the start of a window.
-  external num get expiration;
+  external double get expiration;
 
   /// The `MediaKeySession.closed` read-only property returns a
   /// `Promise` signaling when a [MediaKeySession] closes. This

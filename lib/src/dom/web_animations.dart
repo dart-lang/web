@@ -48,7 +48,7 @@ extension type AnimationTimeline._(JSObject _) implements JSObject {
 extension type DocumentTimelineOptions._(JSObject _) implements JSObject {
   external factory DocumentTimelineOptions({DOMHighResTimeStamp originTime});
 
-  external DOMHighResTimeStamp get originTime;
+  external double get originTime;
   external set originTime(DOMHighResTimeStamp value);
 }
 
@@ -225,7 +225,7 @@ extension type Animation._(JSObject _) implements EventTarget, JSObject {
   /// Animations have a **playback rate** that provides a scaling factor from
   /// the rate of change of the animation's [DocumentTimeline] time values to
   /// the animation's current time. The playback rate is initially `1`.
-  external num get playbackRate;
+  external double get playbackRate;
   external set playbackRate(num value);
 
   /// The read-only **`Animation.playState`** property of the
@@ -334,19 +334,19 @@ extension type EffectTiming._(JSObject _) implements JSObject {
 
   external FillMode get fill;
   external set fill(FillMode value);
-  external num get iterationStart;
+  external double get iterationStart;
   external set iterationStart(num value);
-  external num get iterations;
+  external double get iterations;
   external set iterations(num value);
   external PlaybackDirection get direction;
   external set direction(PlaybackDirection value);
   external String get easing;
   external set easing(String value);
-  external num get delay;
+  external double get delay;
   external set delay(num value);
-  external num get endDelay;
+  external double get endDelay;
   external set endDelay(num value);
-  external num get playbackRate;
+  external double get playbackRate;
   external set playbackRate(num value);
   external JSAny get duration;
   external set duration(JSAny value);
@@ -364,15 +364,15 @@ extension type OptionalEffectTiming._(JSObject _) implements JSObject {
     num playbackRate,
   });
 
-  external num get delay;
+  external double get delay;
   external set delay(num value);
-  external num get endDelay;
+  external double get endDelay;
   external set endDelay(num value);
   external FillMode get fill;
   external set fill(FillMode value);
-  external num get iterationStart;
+  external double get iterationStart;
   external set iterationStart(num value);
-  external num get iterations;
+  external double get iterations;
   external set iterations(num value);
   external JSAny get duration;
   external set duration(JSAny value);
@@ -380,7 +380,7 @@ extension type OptionalEffectTiming._(JSObject _) implements JSObject {
   external set direction(PlaybackDirection value);
   external String get easing;
   external set easing(String value);
-  external num get playbackRate;
+  external double get playbackRate;
   external set playbackRate(num value);
 }
 extension type ComputedEffectTiming._(JSObject _)
@@ -403,9 +403,9 @@ extension type ComputedEffectTiming._(JSObject _)
     CSSNumberish? localTime,
   });
 
-  external num? get progress;
+  external double? get progress;
   external set progress(num? value);
-  external num? get currentIteration;
+  external double? get currentIteration;
   external set currentIteration(num? value);
   external CSSNumberish get startTime;
   external set startTime(CSSNumberish value);

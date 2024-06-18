@@ -68,13 +68,13 @@ extension type PointerEventInit._(JSObject _)
 
   external int get pointerId;
   external set pointerId(int value);
-  external num get width;
+  external double get width;
   external set width(num value);
-  external num get height;
+  external double get height;
   external set height(num value);
-  external num get pressure;
+  external double get pressure;
   external set pressure(num value);
-  external num get tangentialPressure;
+  external double get tangentialPressure;
   external set tangentialPressure(num value);
   external int get tiltX;
   external set tiltX(int value);
@@ -82,9 +82,9 @@ extension type PointerEventInit._(JSObject _)
   external set tiltY(int value);
   external int get twist;
   external set twist(int value);
-  external num get altitudeAngle;
+  external double get altitudeAngle;
   external set altitudeAngle(num value);
-  external num get azimuthAngle;
+  external double get azimuthAngle;
   external set azimuthAngle(num value);
   external String get pointerType;
   external set pointerType(String value);
@@ -176,7 +176,7 @@ extension type PointerEvent._(JSObject _) implements MouseEvent, JSObject {
   /// If the input hardware cannot report the contact geometry to the browser,
   /// the width
   /// defaults to `1`.
-  external num get width;
+  external double get width;
 
   /// The **`height`** read-only property of the
   /// [PointerEvent] interface represents the height of the pointer's contact
@@ -189,18 +189,18 @@ extension type PointerEvent._(JSObject _) implements MouseEvent, JSObject {
   /// If the input hardware cannot report the contact geometry to the browser,
   /// the height
   /// defaults to `1`.
-  external num get height;
+  external double get height;
 
   /// The **`pressure`** read-only property of the
   /// [PointerEvent] interface indicates the normalized pressure of the pointer
   /// input.
-  external num get pressure;
+  external double get pressure;
 
   /// The **`tangentialPressure`** read-only property of the
   /// [PointerEvent] interface represents the normalized tangential pressure of
   /// the pointer input (also known as barrel pressure or
   /// [cylinder stress](https://en.wikipedia.org/wiki/Cylinder_stress)).
-  external num get tangentialPressure;
+  external double get tangentialPressure;
 
   /// The **`tiltX`** read-only property of the
   /// [PointerEvent] interface is the angle (in degrees) between the _Y-Z

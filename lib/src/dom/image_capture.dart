@@ -21,11 +21,11 @@ extension type MediaSettingsRange._(JSObject _) implements JSObject {
     num step,
   });
 
-  external num get max;
+  external double get max;
   external set max(num value);
-  external num get min;
+  external double get min;
   external set min(num value);
-  external num get step;
+  external double get step;
   external set step(num value);
 }
 extension type ConstrainPoint2DParameters._(JSObject _) implements JSObject {
@@ -45,8 +45,8 @@ extension type Point2D._(JSObject _) implements JSObject {
     num y,
   });
 
-  external num get x;
+  external double get x;
   external set x(num value);
-  external num get y;
+  external double get y;
   external set y(num value);
 }

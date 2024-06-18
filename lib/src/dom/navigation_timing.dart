@@ -13,7 +13,6 @@ library;
 
 import 'dart:js_interop';
 
-import 'hr_time.dart';
 import 'resource_timing.dart';
 
 typedef NavigationTimingType = String;
@@ -49,14 +48,14 @@ extension type PerformanceNavigationTiming._(JSObject _)
   /// document's
   /// [`unload`](https://developer.mozilla.org/en-US/docs/Web/API/Window/unload_event)
   /// event handler starts.
-  external DOMHighResTimeStamp get unloadEventStart;
+  external double get unloadEventStart;
 
   /// The **`unloadEventEnd`** read-only property returns a
   /// [DOMHighResTimeStamp] representing the time immediately after the current
   /// document's
   /// [`unload`](https://developer.mozilla.org/en-US/docs/Web/API/Window/unload_event)
   /// event handler completes.
-  external DOMHighResTimeStamp get unloadEventEnd;
+  external double get unloadEventEnd;
 
   /// The **`domInteractive`** read-only property returns a
   /// [DOMHighResTimeStamp] representing the time immediately before the user
@@ -77,7 +76,7 @@ extension type PerformanceNavigationTiming._(JSObject _)
   /// event (see
   /// [`domContentLoadedEventStart`](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceNavigationTiming/domContentLoadedEventStart)
   /// for the timestamp) will fire immediately after `domInteractive`.
-  external DOMHighResTimeStamp get domInteractive;
+  external double get domInteractive;
 
   /// The **`domContentLoadedEventStart`** read-only property returns a
   /// [DOMHighResTimeStamp] representing the time immediately before the current
@@ -90,7 +89,7 @@ extension type PerformanceNavigationTiming._(JSObject _)
   /// `domContentLoadedEventStart` and the
   /// [`domContentLoadedEventEnd`](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceNavigationTiming/domContentLoadedEventEnd)
   /// properties to calculate how long this takes to run.
-  external DOMHighResTimeStamp get domContentLoadedEventStart;
+  external double get domContentLoadedEventStart;
 
   /// The **`domContentLoadedEventEnd`** read-only property returns a
   /// [DOMHighResTimeStamp] representing the time immediately after the current
@@ -103,7 +102,7 @@ extension type PerformanceNavigationTiming._(JSObject _)
   /// `domContentLoadedEventEnd` and the
   /// [`domContentLoadedEventStart`](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceNavigationTiming/domContentLoadedEventStart)
   /// properties to calculate how long this takes to run.
-  external DOMHighResTimeStamp get domContentLoadedEventEnd;
+  external double get domContentLoadedEventEnd;
 
   /// The **`domComplete`** read-only property returns a [DOMHighResTimeStamp]
   /// representing the time immediately before the user agent sets the
@@ -115,20 +114,20 @@ extension type PerformanceNavigationTiming._(JSObject _)
   /// to this property and refers to the state in which the document and all
   /// sub-resources have finished loading. The state also indicates that the
   /// [Window.load_event] event is about to fire.
-  external DOMHighResTimeStamp get domComplete;
+  external double get domComplete;
 
   /// The **`loadEventStart`** read-only property returns a
   /// [DOMHighResTimeStamp] representing the time immediately before the current
   /// document's
   /// [`load`](https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event)
   /// event handler starts.
-  external DOMHighResTimeStamp get loadEventStart;
+  external double get loadEventStart;
 
   /// The **`loadEventEnd`** read-only property returns a [DOMHighResTimeStamp]
   /// representing the time immediately after the current document's
   /// [`load`](https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event)
   /// event handler completes.
-  external DOMHighResTimeStamp get loadEventEnd;
+  external double get loadEventEnd;
 
   /// The **`type`** read-only property returns the type of navigation.
   ///

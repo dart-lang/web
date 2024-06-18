@@ -116,7 +116,7 @@ extension type PaintRenderingContext2D._(JSObject _) implements JSObject {
   ]);
   external void setLineDash(JSArray<JSNumber> segments);
   external JSArray<JSNumber> getLineDash();
-  external num get globalAlpha;
+  external double get globalAlpha;
   external set globalAlpha(num value);
   external String get globalCompositeOperation;
   external set globalCompositeOperation(String value);
@@ -128,26 +128,26 @@ extension type PaintRenderingContext2D._(JSObject _) implements JSObject {
   external set strokeStyle(JSAny value);
   external JSAny get fillStyle;
   external set fillStyle(JSAny value);
-  external num get shadowOffsetX;
+  external double get shadowOffsetX;
   external set shadowOffsetX(num value);
-  external num get shadowOffsetY;
+  external double get shadowOffsetY;
   external set shadowOffsetY(num value);
-  external num get shadowBlur;
+  external double get shadowBlur;
   external set shadowBlur(num value);
   external String get shadowColor;
   external set shadowColor(String value);
-  external num get lineWidth;
+  external double get lineWidth;
   external set lineWidth(num value);
   external CanvasLineCap get lineCap;
   external set lineCap(CanvasLineCap value);
   external CanvasLineJoin get lineJoin;
   external set lineJoin(CanvasLineJoin value);
-  external num get miterLimit;
+  external double get miterLimit;
   external set miterLimit(num value);
-  external num get lineDashOffset;
+  external double get lineDashOffset;
   external set lineDashOffset(num value);
 }
 extension type PaintSize._(JSObject _) implements JSObject {
-  external num get width;
-  external num get height;
+  external double get width;
+  external double get height;
 }

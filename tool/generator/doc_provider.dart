@@ -68,8 +68,9 @@ class MdnInterface {
     }
   }
 
-  MdnProperty? propertyFor(String name) {
+  MdnProperty? propertyFor(String name, {required bool isStatic}) {
     name = name.toLowerCase();
+    if (isStatic) name = '${name}_static';
     return properties.firstWhereOrNull((p) => p.name == name);
   }
 }

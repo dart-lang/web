@@ -478,9 +478,12 @@ class _PartialInterfacelike {
               name == 'SVGElement' && attributeName == 'className';
           final memberList =
               isExtensionMember ? extensionProperties : properties;
-          memberList.add(_Attribute(_MemberName(attributeName),
-              attribute.idlType, mdnInterface?.propertyFor(attributeName),
-              isStatic: isStatic, isReadOnly: attribute.readonly));
+          memberList.add(_Attribute(
+              _MemberName(attributeName),
+              attribute.idlType,
+              mdnInterface?.propertyFor(attributeName, isStatic: isStatic),
+              isStatic: isStatic,
+              isReadOnly: attribute.readonly));
           break;
         case 'operation':
           final operation = member as idl.Operation;
@@ -492,7 +495,8 @@ class _PartialInterfacelike {
           }
           final isStatic = operation.special == 'static';
           if (!_shouldGenerateMember(operationName, isStatic: isStatic)) break;
-          final docs = mdnInterface?.propertyFor(operationName);
+          final docs =
+              mdnInterface?.propertyFor(operationName, isStatic: isStatic);
           // Static member may have the same name as instance members in the
           // IDL, but not in Dart. Rename the static member if so.
           if (isStatic) {
@@ -520,7 +524,7 @@ class _PartialInterfacelike {
           final fieldName = field.name;
           if (!_shouldGenerateMember(fieldName)) break;
           properties.add(_Field(_MemberName(fieldName), field.idlType,
-              mdnInterface?.propertyFor(fieldName),
+              mdnInterface?.propertyFor(fieldName, isStatic: false),
               isRequired: field.required));
           break;
         case 'maplike':
@@ -1005,7 +1009,9 @@ class Translator {
     required MdnInterface? mdnInterface,
   }) {
     final name = memberName.name;
-    final docs = mdnInterface?.propertyFor(name)?.formattedDocs ?? [];
+    final docs =
+        mdnInterface?.propertyFor(name, isStatic: isStatic)?.formattedDocs ??
+            [];
 
     return [
       code.Method(

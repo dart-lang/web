@@ -213,7 +213,8 @@ abstract final class KeyCode {
   // ignore: constant_identifier_names
   static const int NUM_PERIOD = 110;
   // ignore: constant_identifier_names
-  static const int MAC_FF_META = 224; // Firefox (Gecko) fires this for the meta key instead of 91
+  static const int MAC_FF_META =
+      224; // Firefox (Gecko) fires this for the meta key instead of 91
 }
 
 abstract final class Device {

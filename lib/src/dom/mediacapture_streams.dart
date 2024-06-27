@@ -23,8 +23,6 @@ typedef ConstrainULong = JSAny;
 typedef ConstrainDouble = JSAny;
 typedef ConstrainBoolean = JSAny;
 typedef ConstrainDOMString = JSAny;
-typedef NavigatorUserMediaSuccessCallback = JSFunction;
-typedef NavigatorUserMediaErrorCallback = JSFunction;
 typedef MediaStreamTrackState = String;
 typedef MediaDeviceKind = String;
 

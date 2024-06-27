@@ -1213,6 +1213,16 @@ extension type CompositionEventInit._(JSObject _)
   external String get data;
   external set data(String value);
 }
+extension type TextEvent._(JSObject _) implements UIEvent, JSObject {
+  external void initTextEvent(
+    String type, [
+    bool bubbles,
+    bool cancelable,
+    Window? view,
+    String data,
+  ]);
+  external String get data;
+}
 
 /// The **`MutationEvent`** interface provides event properties that are
 /// specific to modifications to the Document Object Model (DOM) hierarchy and

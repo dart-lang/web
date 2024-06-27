@@ -35,6 +35,7 @@ import 'media_playback_quality.dart';
 import 'media_source.dart';
 import 'mediacapture_streams.dart';
 import 'mediasession.dart';
+import 'netinfo.dart';
 import 'permissions.dart';
 import 'picture_in_picture.dart';
 import 'remote_playback.dart';
@@ -2802,8 +2803,8 @@ extension type HTMLIFrameElement._(JSObject _)
 
   /// The **`srcdoc`** property of the [HTMLIFrameElement] specifies the content
   /// of the page.
-  external String get srcdoc;
-  external set srcdoc(String value);
+  external JSAny get srcdoc;
+  external set srcdoc(JSAny value);
 
   /// The **`name`** property of the [HTMLIFrameElement] interface is a string
   /// value that reflects the `name` attribute of the `iframe` element,
@@ -6733,6 +6734,55 @@ extension type HTMLTemplateElement._(JSObject _)
   /// subsequently be changed to a shadow root.
   external String get shadowRootMode;
   external set shadowRootMode(String value);
+
+  /// The **`shadowRootDelegatesFocus`** property of the [HTMLTemplateElement]
+  /// interface reflects the value of the
+  /// [`shadowrootdelegatesfocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootdelegatesfocus)
+  /// attribute of the associated
+  /// [`<template>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template)
+  /// element.
+  ///
+  /// Note that this property is not useful for developers.
+  /// If a `<template>` element is used to declaratively create a
+  /// [`ShadowRoot`](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot),
+  /// then this object and property do not exist.
+  /// Otherwise, if an `HTMLTemplateElement` is created, the value of this
+  /// property is irrelevant because the object is not a shadow root and cannot
+  /// subsequently be changed to a shadow root.
+  external bool get shadowRootDelegatesFocus;
+  external set shadowRootDelegatesFocus(bool value);
+
+  /// The **`shadowRootClonable`** property reflects the value of the
+  /// [`shadowrootclonable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootclonable)
+  /// attribute of the associated
+  /// [`<template>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template)
+  /// element.
+  ///
+  /// Note that this property is not useful for developers.
+  /// If a `<template>` element is used to declaratively create a
+  /// [`ShadowRoot`](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot),
+  /// then this object and property do not exist.
+  /// Otherwise, if an `HTMLTemplateElement` is created, the value of this
+  /// property is irrelevant because the object is not a shadow root and cannot
+  /// subsequently be changed to a shadow root.
+  external bool get shadowRootClonable;
+  external set shadowRootClonable(bool value);
+
+  /// The **`shadowRootSerializable`** property reflects the value of the
+  /// [`shadowrootserializable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootserializable)
+  /// attribute of the associated
+  /// [`<template>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template)
+  /// element.
+  ///
+  /// Note that this property is not useful for developers.
+  /// If a `<template>` element is used to declaratively create a
+  /// [`ShadowRoot`](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot),
+  /// then this object and property do not exist.
+  /// Otherwise, if an `HTMLTemplateElement` is created, the value of this
+  /// property is irrelevant because the object is not a shadow root and cannot
+  /// subsequently be changed to a shadow root.
+  external bool get shadowRootSerializable;
+  external set shadowRootSerializable(bool value);
 }
 
 /// The **`HTMLSlotElement`** interface of the
@@ -7021,6 +7071,24 @@ extension type CanvasRenderingContext2D._(JSObject _) implements JSObject {
   /// [filters](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D#filters),
   /// and so on.
   external void reset();
+
+  /// The **`CanvasRenderingContext2D.isContextLost()`** method of the Canvas 2D
+  /// API returns `true` if the rendering context is lost (and has not yet been
+  /// reset).
+  /// This might occur due to driver crashes, running out of memory, and so on.
+  ///
+  /// If the user agent detects that the canvas backing storage is lost it will
+  /// fire the
+  /// [`contextlost` event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/contextlost_event)
+  /// at the associated
+  /// [`HTMLCanvasElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement).
+  /// If this event is not cancelled it will attempt to reset the backing
+  /// storage to the default state (this is equivalent to calling
+  /// [CanvasRenderingContext2D.reset]).
+  /// On success it will fire the
+  /// [`contextrestored` event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/contextrestored_event),
+  /// indicating that the context is ready to reinitialize and redraw.
+  external bool isContextLost();
 
   /// The
   /// **`CanvasRenderingContext2D.scale()`**
@@ -8396,19 +8464,10 @@ extension type OffscreenCanvas._(JSObject _) implements EventTarget, JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvasRenderingContext2D).
 extension type OffscreenCanvasRenderingContext2D._(JSObject _)
     implements JSObject {
-  /// The
-  /// **`OffscreenCanvasRenderingContext2D.commit()`**
-  /// method of the
-  /// [Canvas 2D API](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvasRenderingContext2D)
-  /// was intended to copy the rendering context's bitmap to the bitmap of the
-  /// placeholder `canvas` element of the associated `OffscreenCanvas` object.
-  /// The copy operation is synchronous. Calling this method is not needed for
-  /// the transfer, since it happens automatically during the event-loop
-  /// execution.
-  external void commit();
   external void save();
   external void restore();
   external void reset();
+  external bool isContextLost();
   external void scale(
     num x,
     num y,
@@ -8796,6 +8855,11 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// returns the labels associated with the element.
   external NodeList get labels;
 
+  /// The **`states`** read-only property of the [ElementInternals] interface
+  /// returns a [CustomStateSet] representing the possible states of the custom
+  /// element.
+  external CustomStateSet get states;
+
   /// The **`role`** read-only property of the [ElementInternals] interface
   /// returns the
   /// [WAI-ARIA role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles)
@@ -8836,6 +8900,10 @@ extension type ElementInternals._(JSObject _) implements JSObject {
   /// > [Accessibility Object Model explainer](https://wicg.github.io/aom/explainer.html#default-semantics-for-custom-elements-via-the-elementinternals-object).
   external String? get ariaAutoComplete;
   external set ariaAutoComplete(String? value);
+  external String? get ariaBrailleLabel;
+  external set ariaBrailleLabel(String? value);
+  external String? get ariaBrailleRoleDescription;
+  external set ariaBrailleRoleDescription(String? value);
 
   /// The **`ariaBusy`** property of the [ElementInternals] interface reflects
   /// the value of the
@@ -9397,6 +9465,21 @@ extension type ValidityStateFlags._(JSObject _) implements JSObject {
   external bool get customError;
   external set customError(bool value);
 }
+
+/// The **`CustomStateSet`** interface of the
+/// [Document Object Model](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)
+/// stores a list of states for an
+/// [autonomous custom element](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements#types_of_custom_element),
+/// and allows states to be added and removed from the set.
+///
+/// The interface can be used to expose the internal states of a custom element,
+/// allowing them to be used in CSS selectors by code that uses the element.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CustomStateSet).
+extension type CustomStateSet._(JSObject _) implements JSObject {}
 
 /// The **`UserActivation`** interface provides information about whether a user
 /// is currently interacting with the page, or has completed an interaction
@@ -11211,6 +11294,7 @@ extension type PopStateEvent._(JSObject _) implements Event, JSObject {
   /// Practically it is a value provided by the call to [history.pushState] or
   /// [history.replaceState]
   external JSAny? get state;
+  external bool get hasUAVisualTransition;
 }
 extension type PopStateEventInit._(JSObject _) implements EventInit, JSObject {
   external factory PopStateEventInit({
@@ -11419,6 +11503,17 @@ extension type PromiseRejectionEventInit._(JSObject _)
   external JSAny? get reason;
   external set reason(JSAny? value);
 }
+extension type GetHTMLOptions._(JSObject _) implements JSObject {
+  external factory GetHTMLOptions({
+    bool serializableShadowRoots,
+    JSArray<ShadowRoot> shadowRoots,
+  });
+
+  external bool get serializableShadowRoots;
+  external set serializableShadowRoots(bool value);
+  external JSArray<ShadowRoot> get shadowRoots;
+  external set shadowRoots(JSArray<ShadowRoot> value);
+}
 
 /// The **`DOMParser`** interface provides
 /// the ability to parse  or  source code from a
@@ -11455,7 +11550,7 @@ extension type DOMParser._(JSObject _) implements JSObject {
   /// string containing either HTML or XML, returning an [HTMLDocument] or an
   /// [XMLDocument].
   external Document parseFromString(
-    String string,
+    JSAny string,
     DOMParserSupportedType type,
   );
 }
@@ -11539,30 +11634,6 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// Elements in the array may be `null` if a gamepad disconnects during a
   /// session, so that the remaining gamepads retain the same index.
   external JSArray<Gamepad?> getGamepads();
-
-  /// The deprecated **`Navigator.getUserMedia()`** method prompts the user for
-  /// permission to use up to one video input device (such as a camera or shared
-  /// screen) and up to one audio input device (such as a microphone) as the
-  /// source for a [MediaStream].
-  ///
-  /// If permission is granted, a `MediaStream` whose video and/or audio tracks
-  /// come from those devices is delivered to the specified success callback.
-  /// If permission is denied, no compatible input devices exist, or any other
-  /// error condition occurs, the error callback is executed with an object
-  /// describing what went wrong.
-  /// If the user instead doesn't make a choice at all, neither callback is
-  /// executed.
-  ///
-  /// > **Note:** This is a legacy method.
-  /// > Please use the newer [MediaDevices.getUserMedia] instead.
-  /// > While technically not deprecated, this old callback version is marked as
-  /// > such, since the specification strongly encourages using the newer
-  /// > promise returning version.
-  external void getUserMedia(
-    MediaStreamConstraints constraints,
-    NavigatorUserMediaSuccessCallback successCallback,
-    NavigatorUserMediaErrorCallback errorCallback,
-  );
 
   /// The **`vibrate()`** method of the [Navigator] interface pulses the
   /// vibration
@@ -12057,6 +12128,15 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// user's
   /// computer.
   external int get hardwareConcurrency;
+
+  /// The **`connection`** read-only property of the [Navigator] interface
+  /// returns a [NetworkInformation] object containing information about the
+  /// system's connection, such as the current bandwidth of the user's device or
+  /// whether the connection is metered.
+  ///
+  /// This could be used to select high definition content or low definition
+  /// content based on the user's connection.
+  external NetworkInformation get connection;
 
   /// The **`Navigator.storage`**
   /// read-only property returns the singleton [StorageManager] object used to
@@ -12555,7 +12635,7 @@ extension type WorkerGlobalScope._(JSObject _)
     implements EventTarget, JSObject {
   /// The **`importScripts()`** method of the [WorkerGlobalScope] interface
   /// synchronously imports one or more scripts into the worker's scope.
-  external void importScripts(String urls);
+  external void importScripts(JSAny urls);
   external JSPromise<Response> fetch(
     RequestInfo input, [
     RequestInit init,
@@ -12878,7 +12958,7 @@ extension type SharedWorkerGlobalScope._(JSObject _)
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Worker).
 extension type Worker._(JSObject _) implements EventTarget, JSObject {
   external factory Worker(
-    String scriptURL, [
+    JSAny scriptURL, [
     WorkerOptions options,
   ]);
 
@@ -12944,7 +13024,7 @@ extension type WorkerOptions._(JSObject _) implements JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SharedWorker).
 extension type SharedWorker._(JSObject _) implements EventTarget, JSObject {
   external factory SharedWorker(
-    String scriptURL, [
+    JSAny scriptURL, [
     JSAny options,
   ]);
 
@@ -13147,7 +13227,7 @@ extension type WorkerNavigator._(JSObject _) implements JSObject {
   /// whether the connection is metered.
   /// This could be used to select high definition content or low definition
   /// content based on the user's connection.
-  external JSObject get connection;
+  external NetworkInformation get connection;
 
   /// The **`storage`** read-only property of the [WorkerNavigator] interface
   /// returns the singleton [StorageManager] object used to

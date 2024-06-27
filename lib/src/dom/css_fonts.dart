@@ -27,7 +27,7 @@ extension type CSSFontFaceRule._(JSObject _) implements CSSRule, JSObject {
   /// returns the style information from the
   /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule). This
   /// will be in the form of a [CSSStyleDeclaration] object.
-  external CSSStyleDeclaration get style;
+  external JSObject get style;
 }
 
 /// The **`CSSFontFeatureValuesRule`** interface represents an

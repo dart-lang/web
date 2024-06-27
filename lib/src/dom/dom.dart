@@ -15,11 +15,13 @@ import 'dart:js_interop';
 
 import 'css_font_loading.dart';
 import 'css_typed_om.dart';
+import 'css_view_transitions.dart';
 import 'cssom.dart';
 import 'cssom_view.dart';
 import 'fullscreen.dart';
 import 'geometry.dart';
 import 'html.dart';
+import 'pointerlock.dart';
 import 'selection_api.dart';
 import 'svg.dart';
 import 'web_animations.dart';
@@ -1245,6 +1247,17 @@ external Document get document;
 extension type Document._(JSObject _) implements Node, JSObject {
   external factory Document();
 
+  external static Document parseHTMLUnsafe(JSAny html);
+
+  /// The **`startViewTransition()`** method of the [Document] interface starts
+  /// a new view transition and returns a [ViewTransition] object to represent
+  /// it.
+  ///
+  /// When `startViewTransition()` is invoked, a sequence of steps is followed
+  /// as explained in
+  /// [The view transition process](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API#the_view_transition_process).
+  external ViewTransition startViewTransition([JSObject callbackOptions]);
+
   /// The **`elementFromPoint()`**
   /// method, available on the [Document] object, returns the topmost [Element]
   /// at the specified coordinates
@@ -1295,8 +1308,9 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// caret's character offset within that node.
   external JSObject? caretPositionFromPoint(
     num x,
-    num y,
-  );
+    num y, [
+    CaretPositionFromPointOptions options,
+  ]);
 
   /// The **`getElementsByTagName`** method of
   /// [Document] interface returns an
@@ -1522,7 +1536,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// > calling `document.write()` on a closed (loaded) document automatically
   /// > calls `document.open()`,
   /// > [which will clear the document](https://developer.mozilla.org/en-US/docs/Web/API/Document/open#notes).
-  external void write(String text);
+  external void write(JSAny text);
 
   /// > **Warning:** Use of the `document.writeln()` method is strongly
   /// > discouraged.
@@ -1549,7 +1563,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// > any existing code that is still using it.
   ///
   /// Writes a string of text followed by a newline character to a document.
-  external void writeln(String text);
+  external void writeln(JSAny text);
 
   /// The **`hasFocus()`** method of the [Document] interface returns a boolean
   /// value indicating whether the document or any element inside the document
@@ -1627,6 +1641,19 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// for the [Document.pointerlockchange_event] and
   /// [Document.pointerlockerror_event] events.
   external void exitPointerLock();
+
+  /// The **`hasUnpartitionedCookieAccess()`** method of the [Document]
+  /// interface returns a `Promise` that resolves with a boolean value
+  /// indicating whether the document has access to
+  /// [third-party](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#third-party_cookies),
+  /// [unpartitioned](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API#unpartitioned_versus_partitioned_cookies)
+  /// cookies.
+  ///
+  /// This method is part of the
+  /// [Storage Access API](https://developer.mozilla.org/en-US/docs/Web/API/Storage_Access_API).
+  ///
+  /// This method is a new name for [Document.hasStorageAccess].
+  external JSPromise<JSBoolean> hasUnpartitionedCookieAccess();
 
   /// The **`getSelection()`** method of
   /// the [Document] interface returns a [Selection]
@@ -2693,6 +2720,22 @@ extension type DocumentFragment._(JSObject _) implements Node, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot).
 extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
+  external void setHTMLUnsafe(JSAny html);
+
+  /// The **`getHTML()`** method of the [ShadowRoot] interface is used to
+  /// serialize a shadow root's DOM to an HTML string.
+  ///
+  /// The method provides an options argument that enables the serialization of
+  /// child nodes that are shadow roots.
+  /// The options can be used to include nested shadow roots that have been set
+  /// as [ShadowRoot.serializable], and/or a specified array of [ShadowRoot]
+  /// objects, which may be either open or closed.
+  ///
+  /// Without arguments, child nodes that are shadow roots are not serialized,
+  /// and this method behaves in the same way as reading the value of
+  /// [Element.innerHTML].
+  external String getHTML([GetHTMLOptions options]);
+
   /// The **`getAnimations()`** method of the [ShadowRoot] interface
   /// returns an array of all [Animation] objects currently in effect whose
   /// target elements are descendants of the shadow tree. This array includes
@@ -2768,6 +2811,24 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   /// attach a shadow root.
   external bool get clonable;
 
+  /// The **`serializable`** read-only property of the [ShadowRoot] interface
+  /// returns `true` if the shadow root is serializable.
+  ///
+  /// If set, the shadow root may be serialized by calling the [Element.getHTML]
+  /// or [ShadowRoot.getHTML] methods with the `options.serializableShadowRoots`
+  /// parameter set `true`.
+  ///
+  /// The serializable property of a shadow root is specified when the shadow
+  /// root is created, either declaratively by adding the
+  /// [`shadowrootserializable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootserializable)
+  /// attribute on a `<template>` element (along with an allowed
+  /// [`shadowrootmode`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template#shadowrootmode)
+  /// value), or by setting the
+  /// [`options.serializable`](/en-US/docs/Web/API/Element/attachShadow#serializable)
+  /// parameter to `true` when using
+  /// [`Element.attachShadow()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow).
+  external bool get serializable;
+
   /// The **`host`** read-only property of
   /// the [ShadowRoot] returns a reference to the DOM element the
   /// `ShadowRoot` is attached to.
@@ -2778,8 +2839,8 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
   /// The **`innerHTML`** property of the [ShadowRoot]
   /// interface sets or returns a reference to the DOM tree inside the
   /// `ShadowRoot`.
-  external String get innerHTML;
-  external set innerHTML(String value);
+  external JSAny get innerHTML;
+  external set innerHTML(JSAny value);
 
   /// The **`styleSheets`** read-only property of the [ShadowRoot] interface
   /// returns a [StyleSheetList] of [CSSStyleSheet] objects, for stylesheets
@@ -2856,14 +2917,6 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Element).
 extension type Element._(JSObject _) implements Node, JSObject {
-  /// The **`insertAdjacentHTML()`** method of the
-  /// [Element] interface parses the specified text as HTML or XML and inserts
-  /// the resulting nodes into the DOM tree at a specified position.
-  external void insertAdjacentHTML(
-    String position,
-    String text,
-  );
-
   /// The **`computedStyleMap()`** method of
   /// the [Element] interface returns a [StylePropertyMapReadOnly]
   /// interface which provides a read-only representation of a CSS declaration
@@ -3209,6 +3262,29 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// detached from the original document, then the document receives these
   /// events instead.
   external JSPromise<JSAny?> requestFullscreen([FullscreenOptions options]);
+  external void setHTMLUnsafe(JSAny html);
+
+  /// The **`getHTML()`** method of the [Element] interface is used to serialize
+  /// an element's DOM to an HTML string.
+  ///
+  /// The method provides an options argument that enables the serialization of
+  /// child nodes that are shadow roots.
+  /// The options can be used to include nested shadow roots that have been set
+  /// as [ShadowRoot.serializable], and/or a specified array of [ShadowRoot]
+  /// objects, which may be either open or closed.
+  ///
+  /// Without arguments, child nodes that are shadow roots are not serialized,
+  /// and this method behaves in the same way as reading the value of
+  /// [Element.innerHTML].
+  external String getHTML([GetHTMLOptions options]);
+
+  /// The **`insertAdjacentHTML()`** method of the
+  /// [Element] interface parses the specified text as HTML or XML and inserts
+  /// the resulting nodes into the DOM tree at a specified position.
+  external void insertAdjacentHTML(
+    String position,
+    JSAny string,
+  );
 
   /// The **`setPointerCapture()`** method of the
   /// [Element] interface is used to designate a specific element as the
@@ -3273,7 +3349,7 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// > `Promise`. However, note that this version is not yet a standard and is
   /// > not implemented by all browsers. See
   /// > [Browser compatibility](#browser_compatibility) for more information.
-  external void requestPointerLock();
+  external JSPromise<JSAny?> requestPointerLock([PointerLockOptions options]);
 
   /// The **`Element.prepend()`** method inserts a set of
   /// [Node] objects or string objects before the first child
@@ -3361,20 +3437,6 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// > and
   /// > [Web Animations](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API).
   external JSArray<Animation> getAnimations([GetAnimationsOptions options]);
-
-  /// The **`outerHTML`** attribute of the [Element]
-  /// DOM interface gets the serialized HTML fragment describing the element
-  /// including its
-  /// descendants. It can also be set to replace the element with nodes parsed
-  /// from the given
-  /// string.
-  ///
-  /// To only obtain the HTML representation of the contents of an element, or
-  /// to replace the
-  /// contents of an element, use the [Element.innerHTML] property
-  /// instead.
-  external String get outerHTML;
-  external set outerHTML(String value);
 
   /// The **`part`** property of the [Element] interface
   /// represents the part identifier(s) of the element (i.e. set using the
@@ -3671,8 +3733,22 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// In order to set an element's contents from an HTML string that includes
   /// declarative shadow roots, you must use either [Element.setHTMLUnsafe] or
   /// [ShadowRoot.setHTMLUnsafe].
-  external String get innerHTML;
-  external set innerHTML(String value);
+  external JSAny get innerHTML;
+  external set innerHTML(JSAny value);
+
+  /// The **`outerHTML`** attribute of the [Element]
+  /// DOM interface gets the serialized HTML fragment describing the element
+  /// including its
+  /// descendants. It can also be set to replace the element with nodes parsed
+  /// from the given
+  /// string.
+  ///
+  /// To only obtain the HTML representation of the contents of an element, or
+  /// to replace the
+  /// contents of an element, use the [Element.innerHTML] property
+  /// instead.
+  external JSAny get outerHTML;
+  external set outerHTML(JSAny value);
 
   /// The read-only **`children`** property returns a live [HTMLCollection]
   /// which contains all of the child [Element] of the element upon which it was
@@ -3747,6 +3823,36 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// they were made.
   external String? get ariaAutoComplete;
   external set ariaAutoComplete(String? value);
+
+  /// The **`ariaBrailleLabel`** property of the [Element] interface reflects
+  /// the value of the
+  /// [`aria-braillelabel`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-braillelabel)
+  /// attribute, which defines the ARIA braille label of the element.
+  ///
+  /// This element label may be used by assistive technologies that can present
+  /// content in braille, but should only be set if a braille-specific label
+  /// would improve the user experience.
+  /// The
+  /// [`aria-braillelabel`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-braillelabel)
+  /// contains additional information about when the property should be set.
+  external String? get ariaBrailleLabel;
+  external set ariaBrailleLabel(String? value);
+
+  /// The **`ariaBrailleRoleDescription`** property of the [Element] interface
+  /// reflects the value of the
+  /// [`aria-brailleroledescription`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-brailleroledescription)
+  /// attribute, which defines the ARIA braille role description of the element.
+  ///
+  /// This property may be used to provide an abbreviated version of the
+  /// [`aria-roledescription`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-roledescription)
+  /// value.
+  /// It should only be used if `aria-roledescription` is present and in the
+  /// rare case where it is is too verbose for braille.
+  /// The
+  /// [`aria-brailleroledescription`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-brailleroledescription)
+  /// contains additional information about when the property should be set.
+  external String? get ariaBrailleRoleDescription;
+  external set ariaBrailleRoleDescription(String? value);
 
   /// The **`ariaBusy`** property of the [Element] interface reflects the value
   /// of the
@@ -4062,6 +4168,7 @@ extension type ShadowRootInit._(JSObject _) implements JSObject {
     bool delegatesFocus,
     SlotAssignmentMode slotAssignment,
     bool clonable,
+    bool serializable,
   });
 
   external ShadowRootMode get mode;
@@ -4072,6 +4179,8 @@ extension type ShadowRootInit._(JSObject _) implements JSObject {
   external set slotAssignment(SlotAssignmentMode value);
   external bool get clonable;
   external set clonable(bool value);
+  external bool get serializable;
+  external set serializable(bool value);
 }
 
 /// The **`NamedNodeMap`** interface represents a collection of [Attr] objects.
@@ -4632,19 +4741,6 @@ extension type Range._(JSObject _) implements AbstractRange, JSObject {
   external static int get END_TO_END;
   external static int get END_TO_START;
 
-  /// The **`Range.createContextualFragment()`** method returns a
-  /// [DocumentFragment] by invoking the HTML fragment parsing algorithm or the
-  /// XML fragment parsing algorithm with the start of the range (the _parent_
-  /// of the
-  /// selected node) as the context node. The HTML fragment parsing algorithm is
-  /// used if the
-  /// range belongs to a `Document` whose HTMLness bit is set. In the HTML case,
-  /// if
-  /// the context node would be `html`, for historical reasons the fragment
-  /// parsing
-  /// algorithm is invoked with `body` as the context instead.
-  external DocumentFragment createContextualFragment(String fragment);
-
   /// The **`Range.getClientRects()`** method returns a list of [DOMRect]
   /// objects representing the area of the screen occupied by the
   /// [range](https://developer.mozilla.org/en-US/docs/Web/API/Range). This is
@@ -4857,6 +4953,19 @@ extension type Range._(JSObject _) implements AbstractRange, JSObject {
   /// The **`Range.intersectsNode()`** method returns a boolean
   /// indicating whether the given [Node] intersects the [Range].
   external bool intersectsNode(Node node);
+
+  /// The **`Range.createContextualFragment()`** method returns a
+  /// [DocumentFragment] by invoking the HTML fragment parsing algorithm or the
+  /// XML fragment parsing algorithm with the start of the range (the _parent_
+  /// of the
+  /// selected node) as the context node. The HTML fragment parsing algorithm is
+  /// used if the
+  /// range belongs to a `Document` whose HTMLness bit is set. In the HTML case,
+  /// if
+  /// the context node would be `html`, for historical reasons the fragment
+  /// parsing
+  /// algorithm is invoked with `body` as the context instead.
+  external DocumentFragment createContextualFragment(JSAny string);
 
   /// The **`Range.commonAncestorContainer`** read-only property
   /// returns the deepest — or furthest down the document tree — [Node] that

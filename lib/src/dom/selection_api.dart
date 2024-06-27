@@ -236,4 +236,22 @@ extension type Selection._(JSObject _) implements JSObject {
   /// [Selection] interface returns a string describing the
   /// type of the current selection.
   external String get type;
+
+  /// The **`direction`** read-only property of the [Selection] interface is a
+  /// string that provides the direction of the current selection.
+  ///
+  /// The value is determined by the order in which the user chooses the
+  /// boundary points of the selection.
+  /// For example, a user might make a selection by clicking a starting boundary
+  /// point, dragging the cursor, and releasing at an end boundary point.
+  /// If the end boundary point is later in the document than the start point,
+  /// then the direction is "forwards", while the direction is "backwards" if
+  /// the end point is before the start point within the document.
+  /// The value is "directionless" if no direction is implied by the user. For
+  /// example, if the user made the selection by double-clicking on a word or
+  /// element, or the selection was made programmatically.
+  ///
+  /// The direction does not change if a selection's range is mutated, for
+  /// example, using methods like [Range.selectNode].
+  external String get direction;
 }

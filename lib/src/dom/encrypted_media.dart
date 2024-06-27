@@ -113,11 +113,18 @@ extension type MediaKeys._(JSObject _) implements JSObject {
   /// [MediaKeySession] object, which represents a context for message exchange
   /// with a content decryption module (CDM).
   external MediaKeySession createSession([MediaKeySessionType sessionType]);
+  external JSPromise<JSString> getStatusForPolicy([MediaKeysPolicy policy]);
 
   /// The **`MediaKeys.setServerCertificate()`** method provides a
   /// server certificate to be used to encrypt messages to the license server.
   external JSPromise<JSBoolean> setServerCertificate(
       BufferSource serverCertificate);
+}
+extension type MediaKeysPolicy._(JSObject _) implements JSObject {
+  external factory MediaKeysPolicy({String minHdcpVersion});
+
+  external String get minHdcpVersion;
+  external set minHdcpVersion(String value);
 }
 
 /// The **`MediaKeySession`** interface of the

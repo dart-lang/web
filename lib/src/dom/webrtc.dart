@@ -664,7 +664,7 @@ extension type RTCSessionDescription._(JSObject _) implements JSObject {
   /// description of the object. Both properties,
   /// [RTCSessionDescription.type] and
   /// [RTCSessionDescription.sdp], are contained in the generated JSON.
-  external JSObject toJSON();
+  external RTCSessionDescriptionInit toJSON();
 
   /// The property **`RTCSessionDescription.type`** is a read-only
   /// string value which describes the description's type.
@@ -1331,23 +1331,14 @@ extension type RTCRtpCodecParameters._(JSObject _)
 }
 extension type RTCRtpCapabilities._(JSObject _) implements JSObject {
   external factory RTCRtpCapabilities({
-    required JSArray<RTCRtpCodecCapability> codecs,
+    required JSArray<RTCRtpCodec> codecs,
     required JSArray<RTCRtpHeaderExtensionCapability> headerExtensions,
   });
 
-  external JSArray<RTCRtpCodecCapability> get codecs;
-  external set codecs(JSArray<RTCRtpCodecCapability> value);
+  external JSArray<RTCRtpCodec> get codecs;
+  external set codecs(JSArray<RTCRtpCodec> value);
   external JSArray<RTCRtpHeaderExtensionCapability> get headerExtensions;
   external set headerExtensions(JSArray<RTCRtpHeaderExtensionCapability> value);
-}
-extension type RTCRtpCodecCapability._(JSObject _)
-    implements RTCRtpCodec, JSObject {
-  external factory RTCRtpCodecCapability({
-    required String mimeType,
-    required int clockRate,
-    int channels,
-    String sdpFmtpLine,
-  });
 }
 extension type RTCRtpHeaderExtensionCapability._(JSObject _)
     implements JSObject {
@@ -1431,6 +1422,17 @@ extension type RTCRtpReceiver._(JSObject _) implements JSObject {
   /// receiver's
   /// [RTCRtpReceiver.track].
   external RTCDtlsTransport? get transport;
+
+  /// The **`jitterBufferTarget`** property of the [RTCRtpReceiver] interface is
+  /// a [DOMHighResTimeStamp] that indicates the application's preferred
+  /// duration, in milliseconds, for which the jitter buffer should hold media
+  /// before playing it out.
+  ///
+  /// The application can use it to influence the tradeoff between playout delay
+  /// and the risk of running out of audio or video frames due to network
+  /// jitter.
+  external double? get jitterBufferTarget;
+  external set jitterBufferTarget(DOMHighResTimeStamp? value);
 }
 extension type RTCRtpContributingSource._(JSObject _) implements JSObject {
   external factory RTCRtpContributingSource({
@@ -1500,7 +1502,7 @@ extension type RTCRtpTransceiver._(JSObject _) implements JSObject {
   /// A guide to codecs supported by WebRTC—and each codec's positive and
   /// negative characteristics—can be found in
   /// [Codecs used by WebRTC](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/WebRTC_codecs).
-  external void setCodecPreferences(JSArray<RTCRtpCodecCapability> codecs);
+  external void setCodecPreferences(JSArray<RTCRtpCodec> codecs);
 
   /// The read-only [RTCRtpTransceiver] interface's
   /// **`mid`** property specifies the negotiated media ID
@@ -1628,7 +1630,7 @@ extension type RTCIceTransport._(JSObject _) implements EventTarget, JSObject {
   /// interface returns an [RTCIceCandidatePair] object containing the current
   /// best-choice pair of  candidates describing the configuration of the
   /// endpoints of the transport.
-  external RTCIceCandidatePair? getSelectedCandidatePair();
+  external JSObject? getSelectedCandidatePair();
 
   /// The **`getLocalParameters()`** method of the [RTCIceTransport] interface
   /// returns an [RTCIceParameters] object that provides information uniquely
@@ -1729,36 +1731,6 @@ extension type RTCIceParameters._(JSObject _) implements JSObject {
   external set password(String value);
   external bool get iceLite;
   external set iceLite(bool value);
-}
-
-/// The **`RTCIceCandidatePair`** dictionary describes a pair of ICE candidates
-/// which together comprise a description of a viable connection between two
-/// WebRTC endpoints. It is used as the return value from
-/// [RTCIceTransport.getSelectedCandidatePair] to identify the
-/// currently-selected candidate pair identified by the ICE agent.
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCIceCandidatePair).
-extension type RTCIceCandidatePair._(JSObject _) implements JSObject {
-  external factory RTCIceCandidatePair({
-    RTCIceCandidate local,
-    RTCIceCandidate remote,
-  });
-
-  /// The **`local`** property of the **[RTCIceCandidatePair]** dictionary
-  /// specifies the [RTCIceCandidate] which describes the configuration of the
-  /// local end of a viable WebRTC connection.
-  external RTCIceCandidate get local;
-  external set local(RTCIceCandidate value);
-
-  /// The **`remote`** property of the
-  /// **[RTCIceCandidatePair]** dictionary specifies the
-  /// [RTCIceCandidate] describing the configuration of the remote end of a
-  /// viable WebRTC connection.
-  external RTCIceCandidate get remote;
-  external set remote(RTCIceCandidate value);
 }
 
 /// The

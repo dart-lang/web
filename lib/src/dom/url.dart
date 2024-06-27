@@ -38,6 +38,10 @@ extension type URL._(JSObject _) implements JSObject {
 
   external static String createObjectURL(JSObject obj);
   external static void revokeObjectURL(String url);
+  external static URL? parse(
+    String url, [
+    String base,
+  ]);
   external static bool canParse(
     String url, [
     String base,

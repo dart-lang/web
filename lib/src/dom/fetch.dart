@@ -208,6 +208,7 @@ extension type Request._(JSObject _) implements JSObject {
   /// reads the request body and returns it as a promise that resolves with a
   /// [Blob].
   external JSPromise<Blob> blob();
+  external JSPromise<JSUint8Array> bytes();
 
   /// The **`formData()`** method of the [Request] interface
   /// reads the request body and returns it as a promise that resolves with a
@@ -473,6 +474,7 @@ extension type Response._(JSObject _) implements JSObject {
   /// a [Response] stream and reads it to completion. It returns a promise that
   /// resolves with a [Blob].
   external JSPromise<Blob> blob();
+  external JSPromise<JSUint8Array> bytes();
 
   /// The **`formData()`** method of the [Response] interface
   /// takes a [Response] stream and reads it to completion. It returns a promise

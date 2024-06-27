@@ -138,8 +138,8 @@ extension type TrustedTypePolicyFactory._(JSObject _) implements JSObject {
   external String? getAttributeType(
     String tagName,
     String attribute, [
-    String elementNs,
-    String attrNs,
+    String? elementNs,
+    String? attrNs,
   ]);
 
   /// The **`getPropertyType()`** method of the [TrustedTypePolicyFactory]
@@ -148,7 +148,7 @@ extension type TrustedTypePolicyFactory._(JSObject _) implements JSObject {
   external String? getPropertyType(
     String tagName,
     String property, [
-    String elementNs,
+    String? elementNs,
   ]);
 
   /// The **`emptyHTML`** read-only property of the [TrustedTypePolicyFactory]

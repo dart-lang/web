@@ -13,10 +13,16 @@ library;
 
 import 'dart:js_interop';
 
-extension type VideoEncoderEncodeOptionsForAv1._(JSObject _)
-    implements JSObject {
-  external factory VideoEncoderEncodeOptionsForAv1({int? quantizer});
+import 'css_view_transitions.dart';
 
-  external int? get quantizer;
-  external set quantizer(int? value);
+extension type StartViewTransitionOptions._(JSObject _) implements JSObject {
+  external factory StartViewTransitionOptions({
+    UpdateCallback? update,
+    JSArray<JSString>? types,
+  });
+
+  external UpdateCallback? get update;
+  external set update(UpdateCallback? value);
+  external JSArray<JSString>? get types;
+  external set types(JSArray<JSString>? value);
 }

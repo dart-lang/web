@@ -435,7 +435,7 @@ extension type CSSStyleRule._(JSObject _) implements CSSGroupingRule, JSObject {
   /// for the
   /// [declaration block](https://www.w3.org/TR/1998/REC-CSS2-19980512/syndata.html#block)
   /// of the [CSSStyleRule].
-  external CSSStyleDeclaration get style;
+  external JSObject get style;
 }
 
 /// The **`CSSImportRule`** interface represents an
@@ -534,7 +534,7 @@ extension type CSSPageRule._(JSObject _) implements CSSGroupingRule, JSObject {
   /// [CSS declaration block](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model/CSS_Declaration_Block),
   /// and exposes style information and various style-related methods and
   /// properties.
-  external CSSStyleDeclaration get style;
+  external JSObject get style;
 }
 
 /// The **`CSSNamespaceRule`** interface describes an object representing a
@@ -626,16 +626,6 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   /// block, e.g. a [CSSStyleRule] representing the style for a CSS
   /// selector.
   external CSSRule? get parentRule;
-
-  /// The **`cssFloat`** property of the [CSSStyleDeclaration] interface returns
-  /// the result of invoking [CSSStyleDeclaration.getPropertyValue] with `float`
-  /// as an argument.
-  ///
-  /// When setting, it invokes [CSSStyleDeclaration.setProperty] with `float` as
-  /// the first argument, and the given value as the second argument. The given
-  /// value must be a valid value for the `float` property.
-  external String get cssFloat;
-  external set cssFloat(String value);
   external String get accentColor;
   external set accentColor(String value);
   external String get alignContent;
@@ -648,10 +638,10 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set alignmentBaseline(String value);
   external String get all;
   external set all(String value);
-  external String get anchorDefault;
-  external set anchorDefault(String value);
   external String get anchorName;
   external set anchorName(String value);
+  external String get anchorScope;
+  external set anchorScope(String value);
   external String get animation;
   external set animation(String value);
   external String get animationComposition;
@@ -924,6 +914,8 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set captionSide(String value);
   external String get caret;
   external set caret(String value);
+  external String get caretAnimation;
+  external set caretAnimation(String value);
   external String get caretColor;
   external set caretColor(String value);
   external String get caretShape;
@@ -1024,6 +1016,8 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set display(String value);
   external String get dominantBaseline;
   external set dominantBaseline(String value);
+  external String get dynamicRangeLimit;
+  external set dynamicRangeLimit(String value);
   external String get emptyCells;
   external set emptyCells(String value);
   external String get fieldSizing;
@@ -1238,8 +1232,6 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set justifyItems(String value);
   external String get justifySelf;
   external set justifySelf(String value);
-  external String get layoutOrder;
-  external set layoutOrder(String value);
   external String get left;
   external set left(String value);
   external String get letterSpacing;
@@ -1512,22 +1504,24 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set pointerEvents(String value);
   external String get position;
   external set position(String value);
-  external String get positionFallbackBounds;
-  external set positionFallbackBounds(String value);
-  external String get positionTryFinal;
-  external set positionTryFinal(String value);
+  external String get positionAnchor;
+  external set positionAnchor(String value);
+  external String get positionTry;
+  external set positionTry(String value);
   external String get positionTryOptions;
   external set positionTryOptions(String value);
   external String get positionTryOrder;
   external set positionTryOrder(String value);
+  external String get positionVisibility;
+  external set positionVisibility(String value);
   external String get printColorAdjust;
   external set printColorAdjust(String value);
   external String get quotes;
   external set quotes(String value);
   external String get r;
   external set r(String value);
-  external String get readingOrder;
-  external set readingOrder(String value);
+  external String get readingFlow;
+  external set readingFlow(String value);
   external String get regionFragment;
   external set regionFragment(String value);
   external String get resize;
@@ -1842,6 +1836,8 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set viewTimelineInset(String value);
   external String get viewTimelineName;
   external set viewTimelineName(String value);
+  external String get viewTransitionClass;
+  external set viewTransitionClass(String value);
   external String get viewTransitionName;
   external set viewTransitionName(String value);
   external String get visibility;

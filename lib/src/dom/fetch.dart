@@ -419,19 +419,47 @@ extension type Response._(JSObject _) implements JSObject {
     ResponseInit init,
   ]);
 
+  /// The **`error()`** static method of the [Response] interface returns a new
+  /// `Response` object associated with a network error.
+  ///
+  /// This is mainly useful when writing service workers: it enables a service
+  /// worker to send a response from a [ServiceWorkerGlobalScope.fetch_event]
+  /// event handler that will cause the [fetch] call in the main app code to
+  /// reject the promise.
+  ///
+  /// An error response has its [Response.type] set to `error`.
   external static Response error();
+
+  /// The **`redirect()`** static method of the [Response] interface returns a
+  /// `Response` resulting in a redirect to the specified URL.
+  ///
+  /// > **Note:** This can be used alongside the
+  /// > [ServiceWorker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API).
+  /// > A controlling service worker could intercept a page's request and
+  /// > redirect it as desired.
+  /// > This will actually lead to a real redirect if a service worker sends it
+  /// > upstream.
   external static Response redirect(
     String url, [
     int status,
   ]);
 
-  /// The **`json()`** method of the [Response] interface takes
-  /// a [Response] stream and reads it to completion. It returns a promise which
-  /// resolves with the result of parsing the body text as `JSON`.
+  /// The **`json()`** static method of the [Response] interface returns a
+  /// `Response` that contains the provided JSON data as body, and a  header
+  /// which is set to `application/json`.
+  /// The response status, status message, and additional headers can also be
+  /// set.
   ///
-  /// Note that despite the method being named `json()`, the result is not JSON
-  /// but is instead the result of taking JSON as input and parsing it to
-  /// produce a JavaScript object.
+  /// The method makes it easy to create `Response` objects for returning JSON
+  /// encoded data.
+  /// [Service workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API),
+  /// for example, intercept fetch requests made by a browser, and might use
+  /// `json()` to construct a `Response` from cached JSON data to return to the
+  /// main thread.
+  /// The `json()` method can also be used in server code to return JSON data
+  /// for
+  /// [single page applications](https://developer.mozilla.org/en-US/docs/Glossary/SPA),
+  /// and any other applications where a JSON response is expected.
   @JS('json')
   external static Response json_(
     JSAny? data, [

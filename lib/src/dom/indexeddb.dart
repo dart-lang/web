@@ -870,15 +870,33 @@ extension type IDBIndex._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/IDBKeyRange).
 extension type IDBKeyRange._(JSObject _) implements JSObject {
+  /// The **`only()`** static method of the [IDBKeyRange]
+  /// interface creates a new key range containing a single value.
   external static IDBKeyRange only(JSAny? value);
+
+  /// The **`lowerBound()`** static method of the
+  /// [IDBKeyRange] interface creates a new key range with only a lower bound.
+  /// By default, it includes the lower endpoint value and is closed.
   external static IDBKeyRange lowerBound(
     JSAny? lower, [
     bool open,
   ]);
+
+  /// The **`upperBound()`** static method of the
+  /// [IDBKeyRange] interface creates a new upper-bound key range. By default,
+  /// it includes the upper endpoint value and is closed.
   external static IDBKeyRange upperBound(
     JSAny? upper, [
     bool open,
   ]);
+
+  /// The **`bound()`** static method of the [IDBKeyRange]
+  /// interface creates a new key range with the specified upper and lower
+  /// bounds. The
+  /// bounds can be open (that is, the bounds exclude the endpoint values) or
+  /// closed (that
+  /// is, the bounds include the endpoint values). By default, the bounds are
+  /// closed.
   external static IDBKeyRange bound(
     JSAny? lower,
     JSAny? upper, [

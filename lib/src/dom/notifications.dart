@@ -40,8 +40,16 @@ extension type Notification._(JSObject _) implements EventTarget, JSObject {
     NotificationOptions options,
   ]);
 
+  /// The **`requestPermission()`** static method of the [Notification]
+  /// interface requests permission from the user for the current origin to
+  /// display notifications.
   external static JSPromise<JSString> requestPermission(
       [NotificationPermissionCallback deprecatedCallback]);
+
+  /// The **`permission`** read-only static property of the [Notification]
+  /// interface indicates the current permission granted by the user for the
+  /// current origin to
+  /// display web notifications.
   external static NotificationPermission get permission;
 
   /// The **`close()`** method of the [Notification] interface is used to

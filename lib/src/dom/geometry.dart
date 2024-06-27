@@ -51,6 +51,12 @@ extension type DOMPointReadOnly._(JSObject _) implements JSObject {
     num w,
   ]);
 
+  /// The static **[DOMPointReadOnly]**
+  /// method `fromPoint()` creates and returns a new
+  /// `DOMPointReadOnly` object given a source point.
+  ///
+  /// You can also create a new `DOMPointReadOnly` object using the
+  /// [DOMPointReadOnly.DOMPointReadOnly] constructor.
   external static DOMPointReadOnly fromPoint([DOMPointInit other]);
   external DOMPoint matrixTransform([DOMMatrixInit matrix]);
 
@@ -125,6 +131,16 @@ extension type DOMPoint._(JSObject _) implements DOMPointReadOnly, JSObject {
     num w,
   ]);
 
+  /// The **[DOMPoint]** static method
+  /// `fromPoint()` creates and returns a new mutable `DOMPoint`
+  /// object given a source point.
+  ///
+  /// You can also create a new `DOMPoint` object using the
+  /// [DOMPoint.DOMPoint] constructor.
+  ///
+  /// Although this interface is based on `DOMPointReadOnly`, it is not
+  /// read-only;
+  /// the properties within may be changed at will.
   external static DOMPoint fromPoint([DOMPointInit other]);
 
   /// The **`DOMPoint`** interface's
@@ -197,6 +213,9 @@ extension type DOMRectReadOnly._(JSObject _) implements JSObject {
     num height,
   ]);
 
+  /// The **`fromRect()`** static method of the
+  /// [DOMRectReadOnly] object creates a new `DOMRectReadOnly`
+  /// object with a given location and dimensions.
   external static DOMRectReadOnly fromRect([DOMRectInit other]);
   external JSObject toJSON();
 
@@ -258,6 +277,9 @@ extension type DOMRect._(JSObject _) implements DOMRectReadOnly, JSObject {
     num height,
   ]);
 
+  /// The **`fromRect()`** static method of the
+  /// [DOMRect] object creates a new `DOMRect`
+  /// object with a given location and dimensions.
   external static DOMRect fromRect([DOMRectInit other]);
   external double get x;
   external set x(num value);

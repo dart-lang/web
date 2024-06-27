@@ -48,6 +48,12 @@ typedef VideoMatrixCoefficients = String;
 extension type VideoDecoder._(JSObject _) implements EventTarget, JSObject {
   external factory VideoDecoder(VideoDecoderInit init);
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
+  /// The **`isConfigSupported()`** static method of the [VideoDecoder]
+  /// interface checks if the given config is supported (that is, if
+  /// [VideoDecoder] objects can be successfully configured with the given
+  /// config).
   external static JSPromise<VideoDecoderSupport> isConfigSupported(
       VideoDecoderConfig config);
 
@@ -120,6 +126,11 @@ extension type VideoDecoderInit._(JSObject _) implements JSObject {
 extension type VideoEncoder._(JSObject _) implements EventTarget, JSObject {
   external factory VideoEncoder(VideoEncoderInit init);
 
+  /// @AvailableInWorkers("window_and_dedicated")
+  ///
+  /// The **`isConfigSupported()`** static method of the [VideoEncoder]
+  /// interface checks if [VideoEncoder] can be successfully configured with the
+  /// given config.
   external static JSPromise<VideoEncoderSupport> isConfigSupported(
       VideoEncoderConfig config);
 

@@ -91,6 +91,12 @@ extension type PerformanceEntry._(JSObject _) implements JSObject {
 extension type PerformanceObserver._(JSObject _) implements JSObject {
   external factory PerformanceObserver(PerformanceObserverCallback callback);
 
+  /// The static **`supportedEntryTypes`** read-only property of the
+  /// [PerformanceObserver] interface returns an array of the
+  /// [PerformanceEntry.entryType] values supported by the user agent.
+  ///
+  /// As the list of supported entries varies per browser and is evolving, this
+  /// property allows web developers to check which are available.
   external static JSArray<JSString> get supportedEntryTypes;
 
   /// The **`observe()`** method of the **[PerformanceObserver]** interface is

@@ -123,6 +123,10 @@ extension type RTCPeerConnection._(JSObject _)
     implements EventTarget, JSObject {
   external factory RTCPeerConnection([RTCConfiguration configuration]);
 
+  /// The **`generateCertificate()`** static function of the [RTCPeerConnection]
+  /// interface creates an X.509 certificate and corresponding private key,
+  /// returning a promise that resolves with the new [RTCCertificate] once it's
+  /// generated.
   external static JSPromise<RTCCertificate> generateCertificate(
       AlgorithmIdentifier keygenAlgorithm);
 
@@ -1087,6 +1091,13 @@ extension type RTCRtpTransceiverInit._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpSender).
 extension type RTCRtpSender._(JSObject _) implements JSObject {
+  /// The _static method_ **`RTCRtpSender.getCapabilities()`** returns an object
+  /// describing the codec and header extension capabilities supported by the
+  /// [RTCRtpSender].
+  ///
+  /// You can, similarly, obtain the capabilities of [RTCRtpReceiver] objects on
+  /// the device by calling the static function
+  /// [RTCRtpReceiver.getCapabilities_static].
   external static RTCRtpCapabilities? getCapabilities(String kind);
 
   /// The **`setParameters()`** method of the [RTCRtpSender] interface applies
@@ -1361,6 +1372,12 @@ extension type RTCSetParameterOptions._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpReceiver).
 extension type RTCRtpReceiver._(JSObject _) implements JSObject {
+  /// The _static method_ **`RTCRtpReceiver.getCapabilities()`** returns an
+  /// object describing the codec and header extension capabilities supported by
+  /// [RTCRtpReceiver] objects on the current device.
+  ///
+  /// You can, similarly, obtain the capabilities of [RTCRtpSender] objects by
+  /// calling the static function [RTCRtpSender.getCapabilities_static].
   external static RTCRtpCapabilities? getCapabilities(String kind);
 
   /// The **`getParameters()`** method of the [RTCRtpReceiver] interface returns

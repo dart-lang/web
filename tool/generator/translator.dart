@@ -297,15 +297,21 @@ class _Parameter {
 }
 
 sealed class _Property {
-  final _MemberName name;
+  late final _MemberName name;
   final _RawType type;
   final MdnProperty? mdnProperty;
 
   // TODO(srujzs): Remove ignore after
   // https://github.com/dart-lang/sdk/issues/55720 is resolved.
   // ignore: unused_element
-  _Property(this.name, idl.IDLType idlType, [this.mdnProperty])
-      : type = _getRawType(idlType);
+  _Property(_MemberName name, idl.IDLType idlType, [this.mdnProperty])
+      : type = _getRawType(idlType) {
+    // Rename the property if there's a collision with the type name.
+    final dartName = name.name;
+    final jsName = name.jsOverride.isEmpty ? dartName : name.jsOverride;
+    this.name =
+        dartName == type.type ? _MemberName('${dartName}_', jsName) : name;
+  }
 }
 
 class _Attribute extends _Property {
@@ -357,12 +363,15 @@ abstract class _OverridableMember {
 }
 
 class _OverridableOperation extends _OverridableMember {
-  _MemberName name;
+  bool _finalized = false;
+  _MemberName _name;
+
   final bool isStatic;
   final _RawType returnType;
   final MdnProperty? mdnProperty;
+  late final _MemberName name = _generateName();
 
-  _OverridableOperation._(this.name, this.isStatic, this.returnType,
+  _OverridableOperation._(this._name, this.isStatic, this.returnType,
       this.mdnProperty, super.parameters);
 
   factory _OverridableOperation(idl.Operation operation, _MemberName name,
@@ -370,9 +379,31 @@ class _OverridableOperation extends _OverridableMember {
       _OverridableOperation._(name, operation.special == 'static',
           _getRawType(operation.idlType), mdnProperty, operation.arguments);
 
+  _MemberName _generateName() {
+    // The name is determined after all updates are done, so finalize the
+    // operation.
+    _finalized = true;
+    // Rename the member if the name collides with a return or parameter type.
+    final dartName = _name.name;
+    if (dartName == returnType.type ||
+        parameters.any((parameter) => dartName == parameter.type.type)) {
+      underscoreName();
+    }
+    return _name;
+  }
+
+  void underscoreName() {
+    final jsName = _name.jsOverride.isEmpty ? _name.name : _name.jsOverride;
+    _name = _MemberName('${_name.name}_', jsName);
+  }
+
   void update(idl.Operation that) {
-    final jsOverride = name.jsOverride;
-    final thisName = jsOverride.isNotEmpty ? jsOverride : name.name;
+    assert(
+        !_finalized,
+        'Call to _OverridableOperation.update was made after the operation was '
+        'finalized.');
+    final jsOverride = _name.jsOverride;
+    final thisName = jsOverride.isNotEmpty ? jsOverride : _name.name;
     assert(thisName == that.name && isStatic == (that.special == 'static'));
     returnType.update(that.idlType);
     _processParameters(that.arguments);
@@ -462,28 +493,23 @@ class _PartialInterfacelike {
           final isStatic = operation.special == 'static';
           if (!_shouldGenerateMember(operationName, isStatic: isStatic)) break;
           final docs = mdnInterface?.propertyFor(operationName);
+          // Static member may have the same name as instance members in the
+          // IDL, but not in Dart. Rename the static member if so.
           if (isStatic) {
             if (staticOperations.containsKey(operationName)) {
               staticOperations[operationName]!.update(operation);
             } else {
-              final _MemberName memberName;
+              staticOperations[operationName] = _OverridableOperation(
+                  operation, _MemberName(operationName), docs);
               if (operations.containsKey(operationName)) {
-                memberName = _MemberName('${operationName}_', operationName);
-              } else {
-                memberName = _MemberName(operationName);
+                staticOperations[operationName]!.underscoreName();
               }
-              staticOperations[operationName] =
-                  _OverridableOperation(operation, memberName, docs);
             }
           } else {
             if (operations.containsKey(operationName)) {
               operations[operationName]!.update(operation);
             } else {
-              final staticOperation = staticOperations[operationName];
-              if (staticOperation != null) {
-                staticOperation.name =
-                    _MemberName('${operationName}_', operationName);
-              }
+              staticOperations[operationName]?.underscoreName();
               operations[operationName] = _OverridableOperation(
                   operation, _MemberName(operationName), docs);
             }

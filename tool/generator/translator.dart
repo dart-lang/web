@@ -499,12 +499,11 @@ class _PartialInterfacelike {
             if (staticOperations.containsKey(operationName)) {
               staticOperations[operationName]!.update(operation);
             } else {
-              final staticOperation = _OverridableOperation(
+              staticOperations[operationName] = _OverridableOperation(
                   operation, _MemberName(operationName), docs);
               if (operations.containsKey(operationName)) {
-                staticOperation.underscoreName();
+                staticOperations[operationName]!.underscoreName();
               }
-              staticOperations[operationName] = staticOperation;
             }
           } else {
             if (operations.containsKey(operationName)) {

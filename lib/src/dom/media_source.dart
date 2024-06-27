@@ -34,6 +34,7 @@ extension type MediaSource._(JSObject _) implements EventTarget, JSObject {
   external factory MediaSource();
 
   external static bool isTypeSupported(String type);
+  external static bool get canConstructInDedicatedWorker;
 
   /// The **`addSourceBuffer()`** method of the
   /// [MediaSource] interface creates a new [SourceBuffer] of the
@@ -63,6 +64,23 @@ extension type MediaSource._(JSObject _) implements EventTarget, JSObject {
   /// [MediaSource] interface clears a seekable range previously set with a call
   /// to [MediaSource.setLiveSeekableRange].
   external void clearLiveSeekableRange();
+
+  /// The **`handle`** read-only property of the [MediaSource] interface returns
+  /// a [MediaSourceHandle] object, a proxy for the `MediaSource` that can be
+  /// transferred from a dedicated worker back to the main thread and attached
+  /// to a media element via its [HTMLMediaElement.srcObject] property.
+  ///
+  /// > **Note:** `handle` is only visible on [MediaSource] instances inside
+  /// > dedicated workers.
+  ///
+  /// Each `MediaSource` object created inside a dedicated worker has its own
+  /// distinct `MediaSourceHandle`. The `handle` getter will always return the
+  /// `MediaSourceHandle` instance specific to the associated dedicated worker
+  /// `MediaSource` instance. If the handle has already been transferred to the
+  /// main thread using [DedicatedWorkerGlobalScope.postMessage], the handle
+  /// instance in the worker is technically detached and can't be transferred
+  /// again.
+  external MediaSourceHandle get handle;
 
   /// The **`sourceBuffers`** read-only property of the
   /// [MediaSource] interface returns a [SourceBufferList] object
@@ -100,6 +118,29 @@ extension type MediaSource._(JSObject _) implements EventTarget, JSObject {
   external EventHandler get onsourceclose;
   external set onsourceclose(EventHandler value);
 }
+
+/// The **`MediaSourceHandle`** interface of the [Media Source Extensions API]
+/// is a proxy for a [MediaSource] that can be transferred from a dedicated
+/// worker back to the main thread and attached to a media element via its
+/// [HTMLMediaElement.srcObject] property. `MediaSource` objects are not
+/// transferable because they are event targets, hence the need for
+/// `MediaSourceHandle`s.
+///
+/// It can be accessed via the [MediaSource.handle] property.
+///
+/// Each `MediaSource` object created inside a dedicated worker has its own
+/// distinct `MediaSourceHandle`. The `MediaSource.handle` getter will always
+/// return the `MediaSourceHandle` instance specific to the associated dedicated
+/// worker `MediaSource` instance. If the handle has already been transferred to
+/// the main thread using [DedicatedWorkerGlobalScope.postMessage], the handle
+/// instance in the worker is technically detached and can't be transferred
+/// again.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaSourceHandle).
+extension type MediaSourceHandle._(JSObject _) implements JSObject {}
 
 /// The **`SourceBuffer`** interface represents a chunk of media to be passed
 /// into an [HTMLMediaElement] and played, via a [MediaSource] object. This can

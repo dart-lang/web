@@ -16,6 +16,8 @@ import 'dart:js_interop';
 import 'dom.dart';
 
 typedef GamepadMappingType = String;
+typedef GamepadHapticsResult = String;
+typedef GamepadHapticEffectType = String;
 
 /// The **`Gamepad`** interface of the
 /// [Gamepad API](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API)
@@ -186,6 +188,37 @@ extension type GamepadHapticActuator._(JSObject _) implements JSObject {
     num value,
     num duration,
   );
+
+  /// The **`playEffect()`** method of the [GamepadHapticActuator] interface
+  /// makes the hardware play a specific vibration pattern.
+  external JSPromise<JSString> playEffect(
+    GamepadHapticEffectType type, [
+    GamepadEffectParameters params,
+  ]);
+  external JSPromise<JSString> reset();
+}
+extension type GamepadEffectParameters._(JSObject _) implements JSObject {
+  external factory GamepadEffectParameters({
+    int duration,
+    int startDelay,
+    num strongMagnitude,
+    num weakMagnitude,
+    num leftTrigger,
+    num rightTrigger,
+  });
+
+  external int get duration;
+  external set duration(int value);
+  external int get startDelay;
+  external set startDelay(int value);
+  external double get strongMagnitude;
+  external set strongMagnitude(num value);
+  external double get weakMagnitude;
+  external set weakMagnitude(num value);
+  external double get leftTrigger;
+  external set leftTrigger(num value);
+  external double get rightTrigger;
+  external set rightTrigger(num value);
 }
 
 /// The GamepadEvent interface of the Gamepad API contains references to

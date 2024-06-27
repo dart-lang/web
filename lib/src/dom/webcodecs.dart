@@ -267,7 +267,6 @@ extension type VideoEncoderConfig._(JSObject _) implements JSObject {
     VideoEncoderBitrateMode bitrateMode,
     LatencyMode latencyMode,
     String contentHint,
-    AV1EncoderConfig av1,
     AvcEncoderConfig avc,
     HevcEncoderConfig hevc,
   });
@@ -298,8 +297,6 @@ extension type VideoEncoderConfig._(JSObject _) implements JSObject {
   external set latencyMode(LatencyMode value);
   external String get contentHint;
   external set contentHint(String value);
-  external AV1EncoderConfig get av1;
-  external set av1(AV1EncoderConfig value);
   external AvcEncoderConfig get avc;
   external set avc(AvcEncoderConfig value);
   external HevcEncoderConfig get hevc;
@@ -541,6 +538,7 @@ extension type VideoFrameBufferInit._(JSObject _) implements JSObject {
     int displayHeight,
     VideoColorSpaceInit colorSpace,
     JSArray<JSArrayBuffer> transfer,
+    VideoFrameMetadata metadata,
   });
 
   external VideoPixelFormat get format;
@@ -565,6 +563,8 @@ extension type VideoFrameBufferInit._(JSObject _) implements JSObject {
   external set colorSpace(VideoColorSpaceInit value);
   external JSArray<JSArrayBuffer> get transfer;
   external set transfer(JSArray<JSArrayBuffer> value);
+  external VideoFrameMetadata get metadata;
+  external set metadata(VideoFrameMetadata value);
 }
 extension type VideoFrameMetadata._(JSObject _) implements JSObject {
   VideoFrameMetadata() : _ = JSObject();
@@ -573,12 +573,18 @@ extension type VideoFrameCopyToOptions._(JSObject _) implements JSObject {
   external factory VideoFrameCopyToOptions({
     DOMRectInit rect,
     JSArray<PlaneLayout> layout,
+    VideoPixelFormat format,
+    PredefinedColorSpace colorSpace,
   });
 
   external DOMRectInit get rect;
   external set rect(DOMRectInit value);
   external JSArray<PlaneLayout> get layout;
   external set layout(JSArray<PlaneLayout> value);
+  external VideoPixelFormat get format;
+  external set format(VideoPixelFormat value);
+  external PredefinedColorSpace get colorSpace;
+  external set colorSpace(PredefinedColorSpace value);
 }
 extension type PlaneLayout._(JSObject _) implements JSObject {
   external factory PlaneLayout({

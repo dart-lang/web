@@ -1,0 +1,34 @@
+// Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+//
+// API docs from [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web).
+// Attributions and copyright licensing by Mozilla Contributors is licensed
+// under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/.
+
+// Generated from Web IDL definitions.
+
+@JS()
+library;
+
+import 'dart:js_interop';
+
+extension type DigitalCredentialRequestOptions._(JSObject _)
+    implements JSObject {
+  external factory DigitalCredentialRequestOptions(
+      {JSArray<IdentityRequestProvider> providers});
+
+  external JSArray<IdentityRequestProvider> get providers;
+  external set providers(JSArray<IdentityRequestProvider> value);
+}
+extension type IdentityRequestProvider._(JSObject _) implements JSObject {
+  external factory IdentityRequestProvider({
+    required String protocol,
+    required JSObject request,
+  });
+
+  external String get protocol;
+  external set protocol(String value);
+  external JSObject get request;
+  external set request(JSObject value);
+}

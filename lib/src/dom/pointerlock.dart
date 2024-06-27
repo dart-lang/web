@@ -13,10 +13,9 @@ library;
 
 import 'dart:js_interop';
 
-extension type VideoEncoderEncodeOptionsForAv1._(JSObject _)
-    implements JSObject {
-  external factory VideoEncoderEncodeOptionsForAv1({int? quantizer});
+extension type PointerLockOptions._(JSObject _) implements JSObject {
+  external factory PointerLockOptions({bool unadjustedMovement});
 
-  external int? get quantizer;
-  external set quantizer(int? value);
+  external bool get unadjustedMovement;
+  external set unadjustedMovement(bool value);
 }

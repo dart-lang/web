@@ -13,6 +13,7 @@ library;
 
 import 'dart:js_interop';
 
+import 'background_sync.dart';
 import 'dom.dart';
 import 'fetch.dart';
 import 'html.dart';
@@ -150,6 +151,12 @@ extension type ServiceWorkerRegistration._(JSObject _)
   /// unregistered.
   external JSPromise<JSBoolean> unregister();
 
+  /// The **`sync`** read-only property of the
+  /// [ServiceWorkerRegistration] interface returns a reference to the
+  /// [SyncManager] interface, which manages background synchronization
+  /// processes.
+  external SyncManager get sync;
+
   /// The **`pushManager`** read-only property of the
   /// [ServiceWorkerRegistration] interface returns a reference to the
   /// [PushManager] interface for managing push subscriptions; this includes
@@ -247,7 +254,7 @@ extension type ServiceWorkerContainer._(JSObject _)
   /// the
   /// `scope` option when you need a scope that is narrower than the default.
   external JSPromise<ServiceWorkerRegistration> register(
-    String scriptURL, [
+    JSAny scriptURL, [
     RegistrationOptions options,
   ]);
 
@@ -723,6 +730,26 @@ extension type ExtendableEventInit._(JSObject _)
     bool composed,
   });
 }
+
+/// > **Note:** Instead of using the deprecated
+/// > `ServiceWorkerGlobalScope.oninstall` handler to catch events of this type,
+/// > handle the (non-deprecated) [ServiceWorkerGlobalScope.install_event] event
+/// > using a listener added with [EventTarget.addEventListener].
+///
+/// The parameter passed into the [ServiceWorkerGlobalScope.install_event]
+/// handler, the `InstallEvent` interface represents an install action that is
+/// dispatched on the [ServiceWorkerGlobalScope] of a [ServiceWorker]. As a
+/// child of [ExtendableEvent], it ensures that functional events such as
+/// [FetchEvent] are not dispatched during installation.
+///
+/// This interface inherits from the [ExtendableEvent] interface.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/InstallEvent).
+extension type InstallEvent._(JSObject _)
+    implements ExtendableEvent, JSObject {}
 
 /// @AvailableInWorkers("service")
 ///

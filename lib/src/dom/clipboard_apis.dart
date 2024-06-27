@@ -83,6 +83,8 @@ extension type ClipboardItem._(JSObject _) implements JSObject {
     ClipboardItemOptions options,
   ]);
 
+  external static bool supports(String type);
+
   /// The **`getType()`** method of the [ClipboardItem] interface returns a
   /// `Promise` that resolves with a [Blob] of the requested  or an error if the
   /// MIME type is not found.

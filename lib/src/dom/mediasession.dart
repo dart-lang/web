@@ -113,6 +113,7 @@ extension type MediaMetadataInit._(JSObject _) implements JSObject {
     String artist,
     String album,
     JSArray<MediaImage> artwork,
+    JSArray<ChapterInformationInit> chapterInfo,
   });
 
   external String get title;
@@ -121,6 +122,22 @@ extension type MediaMetadataInit._(JSObject _) implements JSObject {
   external set artist(String value);
   external String get album;
   external set album(String value);
+  external JSArray<MediaImage> get artwork;
+  external set artwork(JSArray<MediaImage> value);
+  external JSArray<ChapterInformationInit> get chapterInfo;
+  external set chapterInfo(JSArray<ChapterInformationInit> value);
+}
+extension type ChapterInformationInit._(JSObject _) implements JSObject {
+  external factory ChapterInformationInit({
+    String title,
+    num startTime,
+    JSArray<MediaImage> artwork,
+  });
+
+  external String get title;
+  external set title(String value);
+  external double get startTime;
+  external set startTime(num value);
   external JSArray<MediaImage> get artwork;
   external set artwork(JSArray<MediaImage> value);
 }

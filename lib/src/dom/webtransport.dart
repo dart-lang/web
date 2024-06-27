@@ -229,6 +229,8 @@ extension type WebTransportOptions._(JSObject _) implements JSObject {
     bool requireUnreliable,
     JSArray<WebTransportHash> serverCertificateHashes,
     WebTransportCongestionControl congestionControl,
+    int? anticipatedConcurrentIncomingUnidirectionalStreams,
+    int? anticipatedConcurrentIncomingBidirectionalStreams,
   });
 
   external bool get allowPooling;
@@ -239,6 +241,10 @@ extension type WebTransportOptions._(JSObject _) implements JSObject {
   external set serverCertificateHashes(JSArray<WebTransportHash> value);
   external WebTransportCongestionControl get congestionControl;
   external set congestionControl(WebTransportCongestionControl value);
+  external int? get anticipatedConcurrentIncomingUnidirectionalStreams;
+  external set anticipatedConcurrentIncomingUnidirectionalStreams(int? value);
+  external int? get anticipatedConcurrentIncomingBidirectionalStreams;
+  external set anticipatedConcurrentIncomingBidirectionalStreams(int? value);
 }
 extension type WebTransportCloseInfo._(JSObject _) implements JSObject {
   external factory WebTransportCloseInfo({

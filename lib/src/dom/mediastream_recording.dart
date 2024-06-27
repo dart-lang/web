@@ -37,6 +37,9 @@ extension type MediaRecorder._(JSObject _) implements EventTarget, JSObject {
     MediaRecorderOptions options,
   ]);
 
+  /// The **`isTypeSupported()`** static method of the [MediaRecorder] interface
+  /// returns a `Boolean` which is `true` if the MIME media type specified is
+  /// one the user agent should be able to successfully record.
   external static bool isTypeSupported(String type);
 
   /// The **`start()`** method of the [MediaRecorder] interface begins recording

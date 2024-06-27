@@ -33,6 +33,9 @@ typedef PushEncryptionKeyName = String;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PushManager).
 extension type PushManager._(JSObject _) implements JSObject {
+  /// The **`supportedContentEncodings`** read-only static property of the
+  /// [PushManager] interface returns an array of supported content codings that
+  /// can be used to encrypt the payload of a push message.
   external static JSArray<JSString> get supportedContentEncodings;
 
   /// The **`subscribe()`** method of the [PushManager]

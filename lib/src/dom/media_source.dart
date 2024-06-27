@@ -33,7 +33,23 @@ typedef AppendMode = String;
 extension type MediaSource._(JSObject _) implements EventTarget, JSObject {
   external factory MediaSource();
 
+  /// The **`MediaSource.isTypeSupported()`** static method returns a boolean
+  /// value which is `true` if the given MIME type and (optional) codec are
+  /// _likely_ to be supported by the current .
+  ///
+  /// That is, if it can successfully create [SourceBuffer] objects for that
+  /// media type.
+  /// If the returned value is `false`, then the user agent is certain that it
+  /// _cannot_ access media of the specified format.
   external static bool isTypeSupported(String type);
+
+  /// The **`canConstructInDedicatedWorker`** static property of the
+  /// [MediaSource] interface returns `true` if `MediaSource` worker support is
+  /// implemented, providing a low-latency feature detection mechanism.
+  ///
+  /// If this were not available, the alternative would be a much higher latency
+  /// approach such as attempting the creation of a `MediaSource` object from a
+  /// dedicated worker and transferring the result back to the main thread.
   external static bool get canConstructInDedicatedWorker;
 
   /// The **`addSourceBuffer()`** method of the

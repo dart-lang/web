@@ -32,10 +32,20 @@ typedef CSSMathOperator = String;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleValue).
 extension type CSSStyleValue._(JSObject _) implements JSObject {
+  /// The **`parse()`** static method of the [CSSStyleValue]
+  /// interface sets a specific CSS property to the specified values and returns
+  /// the first
+  /// value as a [CSSStyleValue] object.
   external static CSSStyleValue parse(
     String property,
     String cssText,
   );
+
+  /// The **`parseAll()`** static method of the [CSSStyleValue]
+  /// interface sets all occurrences of a specific CSS property to the specified
+  /// value and
+  /// returns an array of [CSSStyleValue] objects, each containing one of the
+  /// supplied values.
   external static JSArray<CSSStyleValue> parseAll(
     String property,
     String cssText,
@@ -224,6 +234,9 @@ extension type CSSNumericType._(JSObject _) implements JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSNumericValue).
 extension type CSSNumericValue._(JSObject _)
     implements CSSStyleValue, JSObject {
+  /// The **`parse()`** static method of the
+  /// [CSSNumericValue] interface converts a value string into an object whose
+  /// members are value and the units.
   external static CSSNumericValue parse(String cssText);
 
   /// The **`add()`** method of the

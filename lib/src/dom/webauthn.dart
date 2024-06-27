@@ -39,38 +39,23 @@ typedef UvmEntries = JSArray<UvmEntry>;
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PublicKeyCredential).
 extension type PublicKeyCredential._(JSObject _)
     implements Credential, JSObject {
-  /// The **`isConditionalMediationAvailable()`** static method of the
-  /// [PublicKeyCredential] interface returns a `Promise` which resolves to
-  /// `true` if conditional mediation is available.
-  ///
-  /// Conditional mediation, if available, results in any discovered credentials
-  /// being presented to the user in a non-modal dialog box along with an
-  /// indication of the origin requesting credentials. This is requested by
-  /// including `mediation: 'conditional'` in your `get()` call. In practice,
-  /// this means autofilling available credentials; you need to include
-  /// `autocomplete="webauthn"` on your form fields so that they will show the
-  /// WebAuthn sign-in options.
-  ///
-  /// A conditional `get()` call does not show the browser UI and remains
-  /// pending until the user picks an account to sign-in with from available
-  /// autofill suggestions:
-  ///
-  /// - If the user makes a gesture outside of the dialog, it closes without
-  ///   resolving or rejecting the Promise and without causing a user-visible
-  ///   error condition.
-  /// - If the user selects a credential, that credential is returned to the
-  ///   caller.
-  ///
-  /// The prevent silent access flag (see
-  /// [CredentialsContainer.preventSilentAccess]) is treated as being `true`
-  /// regardless of its actual value: the conditional behavior always involves
-  /// user mediation of some sort if applicable credentials are discovered.
-  ///
-  /// > **Note:** If no credentials are discovered, the non-modal dialog will
-  /// > not be visible, and the user agent can prompt the user to take action in
-  /// > a way that depends on the type of credential (for example, to insert a
-  /// > device containing credentials).
   external static JSPromise<JSBoolean> isConditionalMediationAvailable();
+
+  /// The **`isUserVerifyingPlatformAuthenticatorAvailable()`** static method of
+  /// the [PublicKeyCredential] interface returns a `Promise` which resolves to
+  /// `true` if a user-verifying platform authenticator is present.
+  ///
+  /// A user-verifying platform authenticator is a kind of multi-factor
+  /// authenticator that is part of the client device (it is generally not
+  /// removable) and that involves an action from the user in order to identify
+  /// them. Common user-verifying platform authenticators include:
+  ///
+  /// - Touch ID or Face ID (macOS and iOS)
+  /// - Windows Hello (Windows)
+  /// - Device unlock (fingerprint, face, PIN, etc.) on Android
+  ///
+  /// > **Note:** This method may only be used in top-level contexts and will
+  /// > not be available in an `iframe` for example.
   external static JSPromise<JSBoolean>
       isUserVerifyingPlatformAuthenticatorAvailable();
 

@@ -6590,6 +6590,12 @@ extension type HTMLScriptElement._(JSObject _)
   /// Creates an [HTMLScriptElement] using the tag 'script'.
   HTMLScriptElement() : _ = document.createElement('script');
 
+  /// The **`supports()`** static method of the [HTMLScriptElement] interface
+  /// provides a simple and consistent method to feature-detect what types of
+  /// scripts are supported by the user agent.
+  ///
+  /// The method is expected to return `true` for classic and module scripts,
+  /// which are supported by most modern browsers.
   external static bool supports(String type);
 
   /// The **`src`** property of the [HTMLScriptElement] interface is a string

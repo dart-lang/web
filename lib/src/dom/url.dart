@@ -36,12 +36,69 @@ extension type URL._(JSObject _) implements JSObject {
     String base,
   ]);
 
+  /// @AvailableInWorkers("window_and_worker_except_service")
+  ///
+  /// The **`createObjectURL()`** static method of the [URL] interface
+  /// creates a string containing a URL representing the object given in the
+  /// parameter.
+  ///
+  /// The URL lifetime is tied to the [document]
+  /// in the window on which it was created. The new object URL represents the
+  /// specified
+  /// [File] object or [Blob] object.
+  ///
+  /// To release an object URL, call [URL.revokeObjectURL_static].
+  ///
+  /// > **Note:** This feature is _not_ available in
+  /// > [Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
+  /// > due to its
+  /// > potential to create memory leaks.
   external static String createObjectURL(JSObject obj);
+
+  /// @AvailableInWorkers("window_and_worker_except_service")
+  ///
+  /// The **`revokeObjectURL()`** static method of the [URL] interface
+  /// releases an existing object URL which was previously created by calling
+  /// [URL.createObjectURL_static].
+  ///
+  /// Call this method when you've finished
+  /// using an object URL to let the browser know not to keep the reference to
+  /// the file any
+  /// longer.
+  ///
+  /// > **Note:** This method is _not_ available in
+  /// > [Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API),
+  /// > due to
+  /// > issues with the [Blob] interface's life cycle and the potential for
+  /// > leaks.
   external static void revokeObjectURL(String url);
+
+  /// The **`URL.parse()`** static method of the [URL] interface returns a newly
+  /// created [URL] object representing the URL defined by the parameters.
+  ///
+  /// If the given base URL or the resulting URL are not parsable and valid
+  /// URLs, `null` is returned.
+  /// This is an alternative to using the [URL.URL] constructor to construct a
+  /// `URL` within a
+  /// [try...catch](/en-US/docs/Web/JavaScript/Reference/Statements/try...catch)
+  /// block, or using [URL.canParse_static] to check the parameters and
+  /// returning `null` if the method returns `false`.
   external static URL? parse(
     String url, [
     String base,
   ]);
+
+  /// The **`URL.canParse()`** static method of the [URL] interface returns a
+  /// boolean indicating whether or not an absolute URL, or a relative URL
+  /// combined with a base URL, are parsable and valid.
+  ///
+  /// This is a fast and easy alternative to constructing a `URL` within a
+  /// [try...catch](/en-US/docs/Web/JavaScript/Reference/Statements/try...catch)
+  /// block.
+  /// It returns `true` for the same values for which the [`URL()`
+  /// constructor](https://developer.mozilla.org/en-US/docs/Web/API/URL/URL)
+  /// would succeed, and `false` for the values that would cause the constructor
+  /// to throw.
   external static bool canParse(
     String url, [
     String base,

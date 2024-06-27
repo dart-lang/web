@@ -558,8 +558,51 @@ extension type AbortController._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal).
 extension type AbortSignal._(JSObject _) implements EventTarget, JSObject {
+  /// The **`AbortSignal.abort()`** static method returns an [AbortSignal] that
+  /// is already set as aborted (and which does not trigger an
+  /// [AbortSignal.abort_event] event).
+  ///
+  /// This is shorthand for the following code:
+  ///
+  /// ```js
+  /// const controller = new AbortController();
+  /// controller.abort();
+  /// return controller.signal;
+  /// ```
+  ///
+  /// This could, for example, be passed to a fetch method in order to run its
+  /// abort logic (i.e. it may be that code is organized such that the abort
+  /// logic should be run even if the intended fetch operation has not been
+  /// started).
+  ///
+  /// > **Note:** The method is similar in purpose to `Promise.reject`.
   external static AbortSignal abort([JSAny? reason]);
+
+  /// The **`AbortSignal.timeout()`** static method returns an [AbortSignal]
+  /// that will automatically abort after a specified time.
+  ///
+  /// The signal aborts with a `TimeoutError` [DOMException] on timeout, or with
+  /// `AbortError` [DOMException] due to pressing a browser stop button (or some
+  /// other inbuilt "stop" operation).
+  /// This allows UIs to differentiate timeout errors, which typically require
+  /// user notification, from user-triggered aborts that do not.
+  ///
+  /// The timeout is based on active rather than elapsed time, and will
+  /// effectively be paused if the code is running in a suspended worker, or
+  /// while the document is in a back-forward cache
+  /// ("[bfcache](https://web.dev/articles/bfcache)").
+  ///
+  /// To combine multiple signals, you can use [AbortSignal.any_static], for
+  /// example, to directly abort a download using either a timeout signal or by
+  /// calling [AbortController.abort].
   external static AbortSignal timeout(int milliseconds);
+
+  /// The **`AbortSignal.any()`** static method takes an iterable of abort
+  /// signals and returns an [AbortSignal]. The returned abort signal is aborted
+  /// when any of the input iterable abort signals are aborted. The
+  /// [AbortSignal.reason] will be set to the reason of the first signal that is
+  /// aborted. If any of the given abort signals are already aborted then so
+  /// will be the returned [AbortSignal].
   external static AbortSignal any(JSArray<AbortSignal> signals);
 
   /// The **`throwIfAborted()`** method throws the signal's abort

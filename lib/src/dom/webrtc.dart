@@ -168,8 +168,9 @@ extension type RTCPeerConnection._(JSObject _)
   /// connection.
   ///
   /// The return value is a `Promise` which, when the offer has been created, is
-  /// resolved with a [RTCSessionDescription] object containing the
-  /// newly-created offer.
+  /// resolved with a
+  /// [RTCSessionDescriptionInit](https://developer.mozilla.org/en-US/docs/Web/API/RTCSessionDescription/RTCSessionDescription#options)
+  /// dictionary containing the newly-created offer.
   external JSPromise<RTCSessionDescriptionInit?> createOffer([
     JSObject optionsOrSuccessCallback,
     RTCPeerConnectionErrorCallback failureCallback,
@@ -1308,25 +1309,6 @@ extension type RTCRtpCodec._(JSObject _) implements JSObject {
   external String get sdpFmtpLine;
   external set sdpFmtpLine(String value);
 }
-
-/// The [RTCRtpCodecParameters] dictionary, part of the WebRTC API, is used to
-/// describe the configuration parameters for a single media .
-///
-/// It's used in [RTCRtpSender.getParameters], [RTCRtpSender.setParameters] and
-/// [RTCRtpReceiver.getParameters].
-/// Its also use used when calling [RTCRtpTransceiver.setCodecPreferences] to
-/// configure a transceiver's codecs before beginning the offer/answer process
-/// to establish a WebRTC peer connection.
-///
-/// Most of the fields in this property take values which are defined and
-/// maintained by the Internet Assigned Numbers Authority (IANA). References to
-/// relevant IANA documents are provided in the [see also](#see_also) section at
-/// the end of this article.
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/RTCRtpCodecParameters).
 extension type RTCRtpCodecParameters._(JSObject _)
     implements RTCRtpCodec, JSObject {
   external factory RTCRtpCodecParameters({
@@ -1381,8 +1363,8 @@ extension type RTCRtpReceiver._(JSObject _) implements JSObject {
   external static RTCRtpCapabilities? getCapabilities(String kind);
 
   /// The **`getParameters()`** method of the [RTCRtpReceiver] interface returns
-  /// an object describing the current configuration for the encoding and
-  /// transmission of media on the receiver's [RTCRtpReceiver.track].
+  /// an object describing the current configuration for how the receiver's
+  /// [RTCRtpReceiver.track] is decoded.
   external RTCRtpReceiveParameters getParameters();
 
   /// The **`getContributingSources()`** method of the [RTCRtpReceiver]
@@ -2225,6 +2207,11 @@ extension type RTCDTMFSender._(JSObject _) implements EventTarget, JSObject {
   ]);
   external EventHandler get ontonechange;
   external set ontonechange(EventHandler value);
+
+  /// The **`canInsertDTMF`** read-only property of the [RTCDTMFSender]
+  /// interface returns a boolean value which indicates whether the
+  /// `RTCDTMFSender` is capable of sending DTMF tones over the
+  /// [RTCPeerConnection].
   external bool get canInsertDTMF;
 
   /// The [RTCDTMFSender] interface's toneBuffer property returns a string

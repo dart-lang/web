@@ -112,8 +112,8 @@ extension type CryptoKey._(JSObject _) implements JSObject {
 /// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
 /// provides a number of low-level cryptographic functions.
 ///
-/// An instance of `SubtleCrypto` is available as the[Crypto.subtle] property of
-/// the [Crypto] interface, which in turn is available in windows through the
+/// An instance of `SubtleCrypto` is available as the [Crypto.subtle] property
+/// of the [Crypto] interface, which in turn is available in windows through the
 /// [Window.crypto] property and in workers through the
 /// [WorkerGlobalScope.crypto] property.
 ///

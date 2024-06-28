@@ -265,9 +265,11 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   external double get pageX;
 
   /// The **`pageY`** read-only property of the [MouseEvent] interface returns
-  /// the Y (vertical) coordinate in pixels of the event relative to the whole
-  /// document.
-  /// This property takes into account any vertical scrolling of the page.
+  /// the Y (vertical) coordinate (in pixels) at which the mouse was clicked,
+  /// relative to the top edge of the entire document.
+  /// This includes any portion of the document not currently visible.
+  ///
+  /// See [MouseEvent.pageX] for more information.
   external double get pageY;
 
   /// The **`MouseEvent.x`** property is an alias for the [MouseEvent.clientX]
@@ -629,15 +631,17 @@ extension type EventModifierInit._(JSObject _)
 /// > `MouseWheelEvent` and [MouseScrollEvent] interfaces. Use this interface
 /// > and avoid the non-standard ones.
 ///
-/// > **Note:** Do not confuse the [Element.wheel_event] event with the
-/// > [Element.scroll_event] event. The default action of a `wheel` event is
-/// > implementation-defined. Thus, a `wheel` event doesn't necessarily dispatch
-/// > a `scroll` event. Even when it does, that doesn't mean that the `delta*`
-/// > values in the `wheel` event necessarily reflect the content's scrolling
-/// > direction. Therefore, do not rely on `delta*` properties to get the
-/// > content's scrolling direction. Instead, detect value changes to
-/// > [Element.scrollLeft] and [Element.scrollTop] of the target in the `scroll`
-/// > event.
+/// Don't confuse the `wheel` event with the [Element.scroll_event] event:
+///
+/// - A `wheel` event doesn't necessarily dispatch a `scroll` event. For
+///   example, the element may be unscrollable at all. Zooming actions using the
+///   wheel or trackpad also fire `wheel` events.
+/// - A `scroll` event isn't necessarily triggered by a `wheel` event. Elements
+///   can also be scrolled by using the keyboard, dragging a scrollbar, or using
+///   JavaScript.
+/// - Even when the `wheel` event does trigger scrolling, the `delta*` values in
+///   the `wheel` event don't necessarily reflect the content's scrolling
+///   direction.
 ///
 /// ---
 ///
@@ -1049,6 +1053,10 @@ extension type KeyboardEvent._(JSObject _) implements UIEvent, JSObject {
   /// The **`KeyboardEvent.shiftKey`** read-only property is a
   /// boolean value that indicates if the <kbd>shift</kbd> key was pressed
   /// (`true`) or not (`false`) when the event occurred.
+  ///
+  /// The pressing of the shift key may change the [KeyboardEvent.key] of the
+  /// event too. For example, pressing <kbd>B</kbd> generates `key: "b"`, while
+  /// simultaneously pressing <kbd>Shift</kbd> generates `key: "B"`.
   external bool get shiftKey;
 
   /// The **`KeyboardEvent.altKey`** read-only property is a
@@ -1100,18 +1108,15 @@ extension type KeyboardEvent._(JSObject _) implements UIEvent, JSObject {
   /// `0`.
   ///
   /// You should avoid using this if possible; it's been deprecated for some
-  /// time. Instead, you should use [KeyboardEvent.code], if it's implemented.
-  /// Unfortunately, some browsers still don't have it, so you'll have to be
-  /// careful to make sure you use one which is supported on all target
-  /// browsers.
+  /// time. Instead, you should use [KeyboardEvent.code] (for the physical key
+  /// pressed) or [KeyboardEvent.key] (for the character the key maps to). Check
+  /// compatibility for either property if you target very old browsers.
   ///
   /// > **Note:** Web developers shouldn't use the `keyCode` attribute for
   /// > printable characters when handling `keydown` and `keyup` events. As
   /// > described above, the `keyCode` attribute is not useful for printable
   /// > characters, especially those input with the <kbd>Shift</kbd> or
-  /// > <kbd>Alt</kbd> key pressed. When implementing a shortcut key handler,
-  /// > the [Element.keypress_event] event is usually better (at least when
-  /// > Gecko is the runtime in use).
+  /// > <kbd>Alt</kbd> key pressed.
   external int get keyCode;
 }
 extension type KeyboardEventInit._(JSObject _)

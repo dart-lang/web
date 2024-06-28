@@ -41,7 +41,9 @@ extension type StorageManager._(JSObject _) implements JSObject {
   /// The **`persist()`** method of the [StorageManager] interface requests
   /// permission to use persistent storage, and returns a `Promise` that
   /// resolves to `true` if permission is granted and bucket mode is persistent,
-  /// and `false` otherwise.
+  /// and `false` otherwise. The browser may or may not honor the request,
+  /// depending on browser-specific rules. (For more details, see the guide to
+  /// [Storage quotas and eviction criteria](https://developer.mozilla.org/en-US/docs/Web/API/Storage_API/Storage_quotas_and_eviction_criteria#does_browser-stored_data_persist).)
   ///
   /// > **Note:** This method is not available in
   /// > [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API),

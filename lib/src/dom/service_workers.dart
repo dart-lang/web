@@ -55,6 +55,11 @@ typedef ClientType = String;
 /// [`import()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import)
 /// will throw.
 ///
+/// Service workers can only be registered in the Window scope in some or all
+/// browsers, because the `ServiceWorker` object is not exposed to
+/// [DedicatedWorkerGlobalScope] and [SharedWorkerGlobalScope].
+/// Check the [browser compatibility](#browser_compatibility) for information.
+///
 /// ---
 ///
 /// API documentation sourced from
@@ -230,6 +235,11 @@ extension type ServiceWorkerRegistration._(JSObject _)
 /// [ServiceWorkerContainer.controller] property used to determine whether or
 /// not the current page is actively controlled.
 ///
+/// Service workers can currently only be registered in the Window scope in some
+/// or all browsers, because the `ServiceWorkerContainer` object is not exposed
+/// to [DedicatedWorkerGlobalScope] and [SharedWorkerGlobalScope]. Check the
+/// [browser compatibility](#browser_compatibility) for information.
+///
 /// ---
 ///
 /// API documentation sourced from
@@ -247,12 +257,6 @@ extension type ServiceWorkerContainer._(JSObject _)
   /// method unconditionally from the controlled page. I.e., you don't need to
   /// first check
   /// whether there's an active registration.
-  ///
-  /// There is frequent confusion surrounding the meaning and use of _scope_.
-  /// Since a
-  /// service worker can't have a scope broader than its own location, only use
-  /// the
-  /// `scope` option when you need a scope that is narrower than the default.
   external JSPromise<ServiceWorkerRegistration> register(
     JSAny scriptURL, [
     RegistrationOptions options,

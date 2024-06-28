@@ -219,6 +219,15 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external set ontouchmove(EventHandler value);
   external EventHandler get ontouchcancel;
   external set ontouchcancel(EventHandler value);
+
+  /// The **`dataset`** read-only property of the [SVGElement] interface
+  /// provides read/write access to
+  /// [custom data attributes](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/data-*)
+  /// (`data-*`) on elements. It exposes a map of strings ([DOMStringMap]) with
+  /// an entry for each `data-*` attribute.
+  ///
+  /// For more information on the behavior of `dataset`, see
+  /// [HTMLElement.dataset].
   external DOMStringMap get dataset;
   external String get nonce;
   external set nonce(String value);
@@ -226,6 +235,25 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external set autofocus(bool value);
   external int get tabIndex;
   external set tabIndex(int value);
+
+  /// The **`attributeStyleMap`** read-only property of the [SVGElement]
+  /// interface returns a live [StylePropertyMap] object that contains a list of
+  /// style properties of the element that are defined in the element's inline
+  /// `style` attribute, or assigned using the [SVGElement.style] property of
+  /// the [SVGElement] interface via script.
+  ///
+  /// Shorthand properties are expanded. If you set `border-top: 1px solid
+  /// black`, the longhand properties (, , and ) are set instead.
+  ///
+  /// The main difference between [SVGElement.style] property and
+  /// `attributeStyleMap` property is that, the `style` property will return a
+  /// [CSSStyleDeclaration] object, while the `attributeStyleMap` property will
+  /// return a [StylePropertyMap] object.
+  ///
+  /// Though the property itself is not writable, you could read and write
+  /// inline styles through the [StylePropertyMap] object that it returns, just
+  /// like through the [CSSStyleDeclaration] object that returns via the `style`
+  /// property.
   external StylePropertyMap get attributeStyleMap;
 
   /// The read-only **`style`** property of the [SVGElement] returns the

@@ -83,6 +83,15 @@ extension type ClipboardItem._(JSObject _) implements JSObject {
     ClipboardItemOptions options,
   ]);
 
+  /// The **`supports()`** static method of the [ClipboardItem] interface
+  /// returns `true` if the given  is supported by the clipboard, and `false`
+  /// otherwise.
+  ///
+  /// Note that the
+  /// [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API)
+  /// mandates support for plain text, HTML and PNG files.
+  /// The `supports()` method will always return `true` for these MIME types, so
+  /// testing them is unnecessary .
   external static bool supports(String type);
 
   /// The **`getType()`** method of the [ClipboardItem] interface returns a

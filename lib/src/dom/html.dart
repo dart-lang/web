@@ -160,8 +160,7 @@ extension type HTMLFormControlsCollection._(JSObject _)
 }
 
 /// The **`RadioNodeList`** interface represents a collection of elements in a
-/// `form` or a `fieldset` element, returned by a call to
-/// [HTMLFormControlsCollection.namedItem].
+/// `form` returned by a call to [HTMLFormControlsCollection.namedItem].
 ///
 /// ---
 ///
@@ -208,8 +207,21 @@ extension type HTMLOptionsCollection._(JSObject _)
 }
 
 /// The **`DOMStringList`** interface is a legacy type returned by some APIs and
-/// represents a non-modifiable list of strings (`DOMString`). Modern APIs use
-/// `Array` objects (in WebIDL: `sequence<DOMString>`) instead.
+/// represents a non-modifiable list of strings (`DOMString`).
+///
+/// This interface was an
+/// [attempt to create an unmodifiable list](https://stackoverflow.com/questions/74630989/why-use-domstringlist-rather-than-an-array/74641156#74641156)
+/// and only continues to be supported to not break code that's already using
+/// it. Modern APIs represent list structures using types based on JavaScript
+/// [arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array),
+/// thus making many array methods available, and at the same time imposing
+/// additional semantics on their usage (such as making their items read-only).
+///
+/// These historical reasons do not mean that you as a developer should avoid
+/// `DOMStringList`. You don't create `DOMStringList` objects yourself, but you
+/// get them from APIs such as `Location.ancestorOrigins`, and these APIs are
+/// not deprecated. However, be careful of the semantic differences from a real
+/// array.
 ///
 /// This interface is used in
 /// [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
@@ -762,9 +774,8 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// The **`attributeStyleMap`** read-only property of the [HTMLElement]
   /// interface returns a live [StylePropertyMap] object that contains a list of
   /// style properties of the element that are defined in the element's inline
-  /// [`style`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/style)
-  /// attribute, or assigned using the [HTMLElement.style] property of the
-  /// [HTMLElement] interface via script.
+  /// `style` attribute, or assigned using the [HTMLElement.style] property of
+  /// the [HTMLElement] interface via script.
   ///
   /// Shorthand properties are expanded. If you set `border-top: 1px solid
   /// black`, the longhand properties (, , and ) are set instead.
@@ -1148,7 +1159,11 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// - The
   ///   [`in` operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/in)
   ///   can check if a given attribute exists:
-  /// `'keyname' in element.dataset`.
+  /// `'keyname' in element.dataset`. Note that this will walk the
+  /// [prototype chain](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)
+  /// of `dataset` and may be unsafe if you have external code that may pollute
+  /// the prototype chain. Several alternatives exist, such as `'keyname')"`, or
+  /// just checking if `element.dataset.keyname !== undefined`.
   ///
   /// ### Setting values
   ///
@@ -1182,7 +1197,7 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// Only one form-associated element inside a document, or a `dialog` element,
   /// or an element whose `popover` attribute is set, can have this attribute
   /// specified. If there are several, the first element with the attribute set
-  /// inserted, usually the first such element on the page, get the initial
+  /// inserted, usually the first such element on the page, gets the initial
   /// focus.
   ///
   /// > **Note:** Setting this property doesn't set the focus to the associated
@@ -3290,10 +3305,11 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   /// [security requirements](#security_requirements) below.
   external JSPromise<JSAny?> setSinkId(String sinkId);
 
-  /// The **`setMediaKeys()`** method of the
-  /// [HTMLMediaElement] interface returns a `Promise` that resolves
-  /// to the passed [MediaKeys], which are those used to decrypt media during
-  /// playback.
+  /// The **`setMediaKeys()`** method of the [HTMLMediaElement] interface sets
+  /// the [MediaKeys] that will be used to decrypt media during playback.
+  ///
+  /// It returns a `Promise` that fulfils if the new keys are successfully set,
+  /// or rejects if keys cannot be set.
   external JSPromise<JSAny?> setMediaKeys(MediaKeys? mediaKeys);
 
   /// The [HTMLMediaElement] method
@@ -4646,6 +4662,19 @@ extension type HTMLTableColElement._(JSObject _)
   /// attribute.
   external int get span;
   external set span(int value);
+
+  /// The **`align`** property of the [HTMLTableColElement] interface is a
+  /// string indicating how to horizontally align text in a table `col` column
+  /// element.
+  ///
+  /// > **Note:** This property is deprecated, and CSS should be used to align
+  /// > text horizontally in a column. Use the CSS  property, which takes
+  /// > precedence, to horizontally align text in a column instead.
+  /// >
+  /// > As `td` are not children of `col`, you can't set it directly on a `col`
+  /// > element, you need to select the cells of the column using a
+  /// > `td:nth-last-child(n)` or similar (`n` is the column number, counting
+  /// > from the end).
   external String get align;
   external set align(String value);
 
@@ -4672,6 +4701,18 @@ extension type HTMLTableColElement._(JSObject _)
   /// > the  CSS property.
   external String get chOff;
   external set chOff(String value);
+
+  /// The **`vAlign`** property of the [HTMLTableColElement] interface is a
+  /// string indicating how to vertically align text in a table `col` column
+  /// element.
+  ///
+  /// > **Note:** This property is deprecated, and CSS should be used to align
+  /// > text vertically in a column. Use the CSS  property, which takes
+  /// > precedence, to vertically align text in each column cell instead.
+  /// >
+  /// > As `td` are not children of `col`, you can't set it directly on a
+  /// > `col`element , you need to select the cells of the column using a
+  /// > `td:nth-child(n)` or similar (`n` is the column number).
   external String get vAlign;
   external set vAlign(String value);
   external String get width;
@@ -4913,7 +4954,7 @@ extension type HTMLTableCellElement._(JSObject _)
   /// indicates an abbreviation associated with the cell. If the cell does not
   /// represent a header cell `th`, it is ignored.
   ///
-  /// It reflects the `abbr` attribute of the `tr` element.
+  /// It reflects the `abbr` attribute of the `th` element.
   ///
   /// > **Note:** this property doesn't have a visual effect in browsers. It
   /// > adds information to help assistive technology like screenreaders that
@@ -5478,33 +5519,29 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
     SelectionMode selectionMode,
   ]);
 
-  /// The **`HTMLInputElement.setSelectionRange()`** method sets the
-  /// start and end positions of the current text selection in an `input`
-  /// or `textarea` element.
+  /// The **`HTMLInputElement.setSelectionRange()`** method sets the start and
+  /// end positions of the current text selection in an `input` or `textarea`
+  /// element.
   ///
-  /// Optionally, in newer browser versions, you can specify the direction in
-  /// which selection
-  /// should be considered to have occurred. This lets you indicate, for
-  /// example, that the
+  /// The element must be focused for the call to have any effect.
+  ///
+  /// Optionally, you can specify the direction in which selection should be
+  /// considered to have occurred. This lets you indicate, for example, that the
   /// selection was set by the user clicking and dragging from the end of the
-  /// selected text
-  /// toward the beginning.
+  /// selected text toward the beginning.
   ///
-  /// This method updates the `HTMLInputElement.selectionStart`,
-  /// `selectionEnd`, and `selectionDirection` properties in one call.
+  /// This method updates the [HTMLInputElement.selectionStart],
+  /// [HTMLInputElement.selectionEnd], and [HTMLInputElement.selectionDirection]
+  /// properties in one call.
   ///
-  /// Note that according to the
-  /// [WHATWG forms spec](https://html.spec.whatwg.org/multipage/forms.html#concept-input-apply)
-  /// `selectionStart`, `selectionEnd` properties and
-  /// `setSelectionRange` method apply only to inputs of types text, search,
-  /// URL,
-  /// tel and password. Chrome, starting from version 33, throws an exception
-  /// while accessing
-  /// those properties and method on the rest of input types. For example, on
-  /// input of type
-  /// number: "Failed to read the 'selectionStart' property from
-  /// 'HTMLInputElement': The input
-  /// element's type ('number') does not support selection".
+  /// The element must be of one of the following input types:
+  /// [`password`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/password),
+  /// [`search`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search),
+  /// [`tel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel),
+  /// [`text`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text),
+  /// or
+  /// [`url`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/url).
+  /// Otherwise the browser throws an `InvalidStateError` exception.
   ///
   /// If you wish to select **all** text of an input element, you can use the
   /// [HTMLInputElement.select()](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/select)
@@ -5939,6 +5976,12 @@ extension type HTMLSelectElement._(JSObject _)
   /// value `-1` indicates that no element is selected.
   external int get selectedIndex;
   external set selectedIndex(int value);
+
+  /// The **`HTMLSelectElement.value`** property contains the value of the first
+  /// selected `option` element associated with this `select` element.
+  ///
+  /// This property can also be set directly, for example to set a default value
+  /// based on some condition.
   external String get value;
   external set value(String value);
   external bool get willValidate;
@@ -6940,6 +6983,12 @@ extension type HTMLCanvasElement._(JSObject _)
   /// negative, the
   /// default value of `300` is used.
   ///
+  /// When the `width` property is set the drawing buffer is always reset to
+  /// blank — this is true for all context types, and even when the width is set
+  /// to the same value. If you need to restore the previous content, you can
+  /// save it via [CanvasRenderingContext2D.getImageData] and restore it via
+  /// [CanvasRenderingContext2D.putImageData].
+  ///
   /// This is one of the two properties, the other being
   /// [HTMLCanvasElement.height], that controls the size of the canvas.
   external int get width;
@@ -6953,6 +7002,12 @@ extension type HTMLCanvasElement._(JSObject _)
   /// attribute is not specified, or if it is set to an invalid value, like a
   /// negative, the
   /// default value of `150` is used.
+  ///
+  /// When the `height` property is set the drawing buffer is always reset to
+  /// blank — this is true for all context types, and even when the height is
+  /// set to the same value. If you need to restore the previous content, you
+  /// can save it via [CanvasRenderingContext2D.getImageData] and restore it via
+  /// [CanvasRenderingContext2D.putImageData].
   ///
   /// This is one of the two properties, the other being
   /// [HTMLCanvasElement.width], that controls the size of the canvas.
@@ -9722,7 +9777,7 @@ extension type DataTransfer._(JSObject _) implements JSObject {
   external String get effectAllowed;
   external set effectAllowed(String value);
 
-  /// The read-only [DataTransfer] property `items` property is a
+  /// The read-only `items` property of the [DataTransfer] interface is a
   /// [DataTransferItemList] of the [DataTransferItem] in a drag operation. The
   /// list includes one item for each item in the operation and if the operation
   /// had no items, the list is empty.
@@ -10123,19 +10178,26 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// it.
   ///
   /// Normally, scripts on different pages are allowed to access each other if
-  /// and only if the pages they originate from share the same protocol, port
-  /// number, and host (also known as the
+  /// and only if the pages they originate from share the same
+  /// [origin](https://developer.mozilla.org/en-US/docs/Web/API/Location/origin)
+  /// (also known as the
   /// "[same-origin policy](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)").
   /// `window.postMessage()` provides a controlled mechanism to securely
   /// circumvent this restriction (if used properly).
   ///
+  /// Furthermore, an accessing script must have obtained the window object of
+  /// the accessed document beforehand. This can occur through methods such as
+  /// [`window.open()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/open)
+  /// for popups or
+  /// [`iframe.contentWindow`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement/contentWindow)
+  /// for iframes.
+  ///
   /// Broadly, one window may obtain a reference to another (_e.g.,_ via
   /// `targetWindow = window.opener`), and then dispatch a [MessageEvent] on it
-  /// with `targetWindow.postMessage()`.
-  /// The receiving window is then free to
+  /// with `targetWindow.postMessage()`. The receiving window is then free to
   /// [handle this event](https://developer.mozilla.org/en-US/docs/Web/Events/Event_handlers)
-  /// as needed.
-  /// The arguments passed to `window.postMessage()` (_i.e.,_ the "message") are
+  /// as needed. The arguments passed to `window.postMessage()` (_i.e.,_ the
+  /// "message") are
   /// [exposed to the receiving window through the event object](#the_dispatched_event).
   external void postMessage(
     JSAny? message, [
@@ -10190,7 +10252,30 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
     RequestInit init,
   ]);
   external void reportError(JSAny? e);
+
+  /// The **`btoa()`** method of the [Window] interface creates a
+  /// -encoded  string from a _binary string_ (i.e., a
+  /// string in which each character in the string is treated as a byte
+  /// of binary data).
+  ///
+  /// You can use this method to encode data which may otherwise cause
+  /// communication
+  /// problems, transmit it, then use the [Window.atob] method to decode the
+  /// data again.
+  /// For example, you can encode control characters such as ASCII values 0
+  /// through 31.
   external String btoa(String data);
+
+  /// The **`atob()`** method of the [Window] interface decodes a
+  /// string of data which has been encoded using  encoding. You can use
+  /// the [Window.btoa] method to encode and transmit
+  /// data which may otherwise cause communication problems, then transmit it
+  /// and use the
+  /// `atob()` method to decode the data again. For example, you can encode,
+  /// transmit, and decode control characters such as  values 0 through 31.
+  ///
+  /// For use with arbitrary Unicode strings, see _The "Unicode Problem"_ in the
+  /// glossary entry.
   external String atob(String data);
   external int setTimeout(
     TimerHandler handler,
@@ -10295,25 +10380,18 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// [Window.innerWidth] property.
   external int get innerHeight;
 
-  /// The read-only **`scrollX`** property of the
-  /// [Window] interface returns the number of pixels that the document is
-  /// currently scrolled horizontally. This value is subpixel precise in modern
-  /// browsers,
-  /// meaning that it isn't necessarily a whole number. You can get the number
-  /// of pixels the
-  /// document is scrolled vertically from the [Window.scrollY]
-  /// property.
+  /// The read-only **`scrollX`** property of the [Window] interface returns the
+  /// number of pixels by which the document is currently scrolled horizontally.
+  /// This value is subpixel precise in modern browsers, meaning that it isn't
+  /// necessarily a whole number. You can get the number of pixels the document
+  /// is scrolled vertically from the [Window.scrollY] property.
   external double get scrollX;
 
-  /// The read-only **`scrollY`** property
-  /// of the [Window] interface returns the number of pixels that the document
-  /// is currently scrolled vertically.
-  ///
-  /// This value is subpixel precise in modern
-  /// browsers, meaning that it isn't necessarily a whole number. You can get
-  /// the number of
-  /// pixels the document is scrolled horizontally from the [Window.scrollX]
-  /// property.
+  /// The read-only **`scrollY`** property of the [Window] interface returns the
+  /// number of pixels by which the document is currently scrolled vertically.
+  /// This value is subpixel precise in modern browsers, meaning that it isn't
+  /// necessarily a whole number. You can get the number of pixels the document
+  /// is scrolled horizontally from the [Window.scrollX] property.
   external double get scrollY;
 
   /// The **`Window.screenX`** read-only property returns the
@@ -11093,20 +11171,19 @@ extension type Location._(JSObject _) implements JSObject {
   external String get href;
   external set href(String value);
 
-  /// The **`origin`** read-only property of
-  /// the [Location] interface is a string containing the
-  /// Unicode serialization of the origin of the represented URL.
+  /// The **`origin`** read-only property of the [Location] interface is a
+  /// string containing the Unicode serialization of the origin of the
+  /// represented URL.
   ///
-  /// That is:
+  /// The exact structure varies depending on the type of URL:
   ///
-  /// - for URL using the `http` or `https`, the scheme followed by
-  /// `'://'`, followed by the domain, followed by `':'`, followed by
-  /// the port (the default port, `80` and `443` respectively, if
-  /// explicitly specified);
-  /// - for URL using `file:` scheme, the value is browser dependent;
-  /// - for URL using the `blob:` scheme, the origin of the URL following
-  /// `blob:`. E.g `"blob:https://mozilla.org"` will have
-  /// `"https://mozilla.org".`
+  /// - For URL using the `http:` or `https:` schemes, the scheme followed by
+  ///   `//`, followed by the domain, followed by `:`, followed by the port (the
+  ///   default port, `80` and `443` respectively, if explicitly specified).
+  /// - For URL using `file:` scheme, the value is browser dependent.
+  /// - For URL using the `blob:` scheme, the origin of the URL following
+  ///   `blob:`. For example, `blob:https://mozilla.org` will have
+  ///   `https://mozilla.org`.
   external String get origin;
 
   /// The **`protocol`** property of the [Location]
@@ -11555,6 +11632,11 @@ extension type DOMParser._(JSObject _) implements JSObject {
   /// The **`parseFromString()`** method of the [DOMParser] interface parses a
   /// string containing either HTML or XML, returning an [HTMLDocument] or an
   /// [XMLDocument].
+  ///
+  /// > **Note:** The
+  /// > [`Document.parseHTMLUnsafe()`](https://developer.mozilla.org/en-US/docs/Web/API/Document/parseHTMLUnsafe_static)
+  /// > static method provides an ergonomic alternative for parsing HTML strings
+  /// > into a [Document].
   external Document parseFromString(
     JSAny string,
     DOMParserSupportedType type,
@@ -11610,25 +11692,24 @@ extension type Navigator._(JSObject _) implements JSObject {
     BodyInit? data,
   ]);
 
-  /// The **`Navigator.requestMediaKeySystemAccess()`** method
-  /// returns a `Promise` which delivers a [MediaKeySystemAccess]
+  /// The **`requestMediaKeySystemAccess()`** method of the [Navigator]
+  /// interface returns a `Promise` which delivers a [MediaKeySystemAccess]
   /// object that can be used to access a particular media key system, which can
-  /// in turn be
-  /// used to create keys for decrypting a media stream. This method is part of
-  /// the
+  /// in turn be used to create keys for decrypting a media stream.
+  ///
+  /// This method is part of the
   /// [Encrypted Media Extensions API](https://developer.mozilla.org/en-US/docs/Web/API/Encrypted_Media_Extensions_API),
   /// which brings support for encrypted media and DRM-protected video to the
   /// web.
   ///
   /// This method may have user-visible effects such as asking for permission to
-  /// access one
-  /// or more system resources. Consider that when deciding when to call
-  /// `requestMediaKeySystemAccess()`; you don't want those requests
-  /// to happen at inconvenient times. As a general rule, this function should
-  /// be called only
-  /// when it's about time to create and use a [MediaKeys] object by calling the
-  /// returned [MediaKeySystemAccess] object's
-  /// [MediaKeySystemAccess.createMediaKeys] method.
+  /// access one or more system resources.
+  /// Consider that when deciding when to call `requestMediaKeySystemAccess()`;
+  /// you don't want those requests to happen at inconvenient times.
+  /// As a general rule, this function should be called only when it's about
+  /// time to create and use a [MediaKeys] object by calling the returned
+  /// [MediaKeySystemAccess] object's [MediaKeySystemAccess.createMediaKeys]
+  /// method.
   external JSPromise<MediaKeySystemAccess> requestMediaKeySystemAccess(
     String keySystem,
     JSArray<MediaKeySystemConfiguration> supportedConfigurations,
@@ -12019,10 +12100,15 @@ extension type Navigator._(JSObject _) implements JSObject {
   /// When its value changes, as the user's preferred languages are changed a
   /// [Window.languagechange_event] event is fired on the [Window] object.
   ///
-  /// The `Accept-Language` HTTP header in every HTTP request from the user's
-  /// browser uses the same value for the `navigator.languages` property except
-  /// for
-  /// the extra `qvalues` (quality values) field (e.g. `en-US;q=0.8`).
+  /// The  HTTP header in every HTTP request from the user's browser generally
+  /// lists the same locales as the `navigator.languages` property, with
+  /// decreasing `q` values (quality values). Some browsers (Chrome and Safari)
+  /// add language-only fallback tags in `Accept-Language`—for example,
+  /// `en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7` when `navigator.languages` is
+  /// `["en-US", "zh-CN"]`. For privacy purposes (reducing ), both
+  /// `Accept-Language` and `navigator.languages` may not include the full list
+  /// of user preferences, such as in Safari (always) and Chrome's incognito
+  /// mode, where only one language is listed.
   external JSArray<JSString> get languages;
 
   /// Returns the online status of the browser. The property returns a boolean
@@ -12207,15 +12293,15 @@ extension type PluginArray._(JSObject _) implements JSObject {
 
 /// The **`MimeTypeArray`** interface returns an array of [MimeType] instances,
 /// each of which contains information about a supported browser plugins. This
-/// object is returned by [Navigator.mimeTypes].
+/// object is returned by the deprecated [Navigator.mimeTypes] property.
 ///
-/// > **Note:** This interface was an
-/// > [attempt to create an unmodifiable list](https://stackoverflow.com/questions/74630989/why-use-domstringlist-rather-than-an-array/74641156#74641156)
-/// > and only continues to be supported to not break code that's already using
-/// > it. Modern APIs use types that wrap around ECMAScript array types instead,
-/// > so you can treat them like ECMAScript arrays, and at the same time impose
-/// > additional semantics on their usage (such as making their items
-/// > read-only).
+/// This interface was an
+/// [attempt to create an unmodifiable list](https://stackoverflow.com/questions/74630989/why-use-domstringlist-rather-than-an-array/74641156#74641156)
+/// and only continues to be supported to not break code that's already using
+/// it. Modern APIs represent list structures using types based on JavaScript
+/// [arrays](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array),
+/// thus making many array methods available, and at the same time imposing
+/// additional semantics on their usage (such as making their items read-only).
 ///
 /// ---
 ///
@@ -12591,26 +12677,26 @@ extension type StructuredSerializeOptions._(JSObject _) implements JSObject {
 extension type BroadcastChannel._(JSObject _) implements EventTarget, JSObject {
   external factory BroadcastChannel(String name);
 
-  /// The **`BroadcastChannel.postMessage()`** sends a message,
+  /// The **`postMessage()`** method of the [BroadcastChannel] interface sends a
+  /// message,
   /// which can be of any kind of `Object`,
   /// to each listener in any  with the same .
-  /// The message is transmitted as a
-  /// ['message'](https://developer.mozilla.org/en-US/docs/Web/API/BroadcastChannel/message_event)
-  /// event
+  /// The message is transmitted as a [BroadcastChannel.message_event] event
   /// targeted at each [BroadcastChannel] bound to the channel.
   external void postMessage(JSAny? message);
 
-  /// The **`BroadcastChannel.close()`** terminates the connection to
+  /// The **`close()`** method of the [BroadcastChannel] interface terminates
+  /// the connection to
   /// the underlying channel, allowing the object to be garbage collected.
   /// This is a necessary step to perform
   /// as there is no other way for a browser to know
   /// that this channel is not needed anymore.
   external void close();
 
-  /// The read-only **`BroadcastChannel.name`** property returns a string, which
-  /// uniquely identifies the given channel with its name. This name is passed
-  /// to the [BroadcastChannel.BroadCastChannel] constructor at creation time
-  /// and is therefore read-only.
+  /// The **`name`** read-only property of the [BroadcastChannel] interface
+  /// returns a string, which uniquely identifies the given channel with its
+  /// name. This name is passed to the [BroadcastChannel.BroadCastChannel]
+  /// constructor at creation time and is therefore read-only.
   external String get name;
   external EventHandler get onmessage;
   external set onmessage(EventHandler value);
@@ -12647,7 +12733,30 @@ extension type WorkerGlobalScope._(JSObject _)
     RequestInit init,
   ]);
   external void reportError(JSAny? e);
+
+  /// The **`btoa()`** method of the [WorkerGlobalScope] interface creates a
+  /// -encoded  string from a _binary string_ (i.e., a
+  /// string in which each character in the string is treated as a byte
+  /// of binary data).
+  ///
+  /// You can use this method to encode data which may otherwise cause
+  /// communication
+  /// problems, transmit it, then use the [WorkerGlobalScope.atob] method to
+  /// decode the data again.
+  /// For example, you can encode control characters such as ASCII values 0
+  /// through 31.
   external String btoa(String data);
+
+  /// The **`atob()`** method of the [WorkerGlobalScope] interface decodes a
+  /// string of data which has been encoded using  encoding. You can use
+  /// the [WorkerGlobalScope.btoa] method to encode and transmit
+  /// data which may otherwise cause communication problems, then transmit it
+  /// and use the
+  /// `atob()` method to decode the data again. For example, you can encode,
+  /// transmit, and decode control characters such as  values 0 through 31.
+  ///
+  /// For use with arbitrary Unicode strings, see _The "Unicode Problem"_
+  /// section in  glossary entry.
   external String atob(String data);
   external int setTimeout(
     TimerHandler handler,

@@ -29,7 +29,7 @@ import 'cssom.dart';
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSConditionRule).
 extension type CSSConditionRule._(JSObject _)
     implements CSSGroupingRule, JSObject {
-  /// The **`conditionText`** property of
+  /// The read-only **`conditionText`** property of
   /// the [CSSConditionRule] interface returns or sets the text of the CSS
   /// rule.
   external String get conditionText;

@@ -1433,24 +1433,36 @@ extension type AudioListener._(JSObject _) implements JSObject {
   /// [AudioParam] representing the x position of the listener in 3D cartesian
   /// space.
   ///
-  /// > **Note:** The parameter is _a-rate_ when used with a [PannerNode] whose
-  /// > [PannerNode.panningModel] is set to equalpower, or _k-rate_ otherwise.
+  /// > **Note:** The parameter is
+  /// > [_a-rate_](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#a-rate)
+  /// > when used with a [PannerNode] whose [PannerNode.panningModel] is set to
+  /// > equalpower, or
+  /// > [_k-rate_](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#k-rate)
+  /// > otherwise.
   external AudioParam get positionX;
 
   /// The `positionY` read-only property of the [AudioListener] interface is an
   /// [AudioParam] representing the y position of the listener in 3D cartesian
   /// space.
   ///
-  /// > **Note:** The parameter is _a-rate_ when used with a [PannerNode] whose
-  /// > [PannerNode.panningModel] is set to equalpower, or _k-rate_ otherwise.
+  /// > **Note:** The parameter is
+  /// > [_a-rate_](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#a-rate)
+  /// > when used with a [PannerNode] whose [PannerNode.panningModel] is set to
+  /// > equalpower, or
+  /// > [_k-rate_](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#k-rate)
+  /// > otherwise.
   external AudioParam get positionY;
 
   /// The `positionZ` read-only property of the [AudioListener] interface is an
   /// [AudioParam] representing the z position of the listener in 3D cartesian
   /// space.
   ///
-  /// > **Note:** The parameter is _a-rate_ when used with a [PannerNode] whose
-  /// > [PannerNode.panningModel] is set to equalpower, or _k-rate_ otherwise.
+  /// > **Note:** The parameter is
+  /// > [_a-rate_](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#a-rate)
+  /// > when used with a [PannerNode] whose [PannerNode.panningModel] is set to
+  /// > equalpower, or
+  /// > [_k-rate_](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam#k-rate)
+  /// > otherwise.
   external AudioParam get positionZ;
 
   /// The `forwardX` read-only property of the [AudioListener] interface is an

@@ -30,7 +30,7 @@ typedef NavigationTimingType = String;
 /// The following diagram shows all of the timestamp properties defined in
 /// `PerformanceNavigationTiming`.
 ///
-/// ![Timestamp diagram listing timestamps in the order in which they are recorded for the fetching of a document](timestamp-diagram.svg)
+/// ![Timestamp diagram listing timestamps in the order in which they are recorded for the fetching of a document](https://mdn.github.io/shared-assets/images/diagrams/api/performance/timestamp-diagram.svg)
 ///
 /// ---
 ///

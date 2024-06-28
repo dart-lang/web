@@ -84,6 +84,8 @@ extension type PositionOptions._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/GeolocationPosition).
 extension type GeolocationPosition._(JSObject _) implements JSObject {
+  /// The **`toJSON()`** method of the [GeolocationPosition] interface is a ; it
+  /// returns a JSON representation of the [GeolocationPosition] object.
   external JSObject toJSON();
 
   /// The **`coords`** read-only property of the [GeolocationPosition] interface
@@ -111,6 +113,8 @@ extension type GeolocationPosition._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/GeolocationCoordinates).
 extension type GeolocationCoordinates._(JSObject _) implements JSObject {
+  /// The **`toJSON()`** method of the [GeolocationCoordinates] interface is a ;
+  /// it returns a JSON representation of the [GeolocationCoordinates] object.
   external JSObject toJSON();
 
   /// The **`accuracy`** read-only property of the [GeolocationCoordinates]

@@ -1,4 +1,4 @@
-## 0.6.0-wip
+## 1.0.0-wip
 
 - Added supertypes' fields to dictionary constructors as dictionaries are
   allowed to contain those fields.

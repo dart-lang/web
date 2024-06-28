@@ -238,6 +238,25 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
 
   external void focus([FocusOptions options]);
   external void blur();
+
+  /// The **`attributeStyleMap`** read-only property of the [MathMLElement]
+  /// interface returns a live [StylePropertyMap] object that contains a list of
+  /// style properties of the element that are defined in the element's inline
+  /// `style` attribute, or assigned using the [MathMLElement.style] property of
+  /// the [MathMLElement] interface via script.
+  ///
+  /// Shorthand properties are expanded. If you set `border-top: 1px solid
+  /// black`, the longhand properties (, , and ) are set instead.
+  ///
+  /// The main difference between [MathMLElement.style] property and
+  /// `attributeStyleMap` property is that, the `style` property will return a
+  /// [CSSStyleDeclaration] object, while the `attributeStyleMap` property will
+  /// return a [StylePropertyMap] object.
+  ///
+  /// Though the property itself is not writable, you could read and write
+  /// inline styles through the [StylePropertyMap] object that it returns, just
+  /// like through the [CSSStyleDeclaration] object that returns via the `style`
+  /// property.
   external StylePropertyMap get attributeStyleMap;
 
   /// The read-only **`style`** property of the [MathMLElement] returns the

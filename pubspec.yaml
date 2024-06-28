@@ -1,5 +1,5 @@
 name: web
-version: 0.6.0-wip
+version: 1.0.0-wip
 description: Lightweight browser API bindings built around JS interop.
 repository: https://github.com/dart-lang/web
 

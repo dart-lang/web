@@ -22,6 +22,7 @@ analyzer:
     unreachable_from_main: ignore
     # MDN comments include HTML docs that trigger this lint. Reenable once
     # that's resolved.
+    # ignore: unrecognized_error_code
     unintended_html_in_doc_comment: ignore
 
 linter:

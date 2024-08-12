@@ -23,18 +23,21 @@ analyzer:
 
 linter:
   rules:
-  - avoid_bool_literals_in_conditional_expressions
-  - avoid_private_typedef_functions
-  - avoid_redundant_argument_values
-  - avoid_returning_this
-  - avoid_unused_constructor_parameters
-  - cancel_subscriptions
-  - join_return_with_assignment
-  - literal_only_boolean_expressions
-  - no_adjacent_strings_in_list
-  - no_runtimeType_toString
-  - package_api_docs
-  - prefer_const_declarations
-  - prefer_final_locals
-  - unnecessary_await_in_return
-  - use_string_buffers
+    avoid_bool_literals_in_conditional_expressions: true
+    avoid_private_typedef_functions: true
+    avoid_redundant_argument_values: true
+    avoid_returning_this: true
+    avoid_unused_constructor_parameters: true
+    cancel_subscriptions: true
+    join_return_with_assignment: true
+    literal_only_boolean_expressions: true
+    no_adjacent_strings_in_list: true
+    no_runtimeType_toString: true
+    package_api_docs: true
+    prefer_const_declarations: true
+    prefer_final_locals: true
+    # MDN comments include HTML docs that trigger this lint. Reenable once
+    # that's resolved.
+    unintended_html_in_doc_comment: false
+    unnecessary_await_in_return: true
+    use_string_buffers: true

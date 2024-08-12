@@ -1273,7 +1273,8 @@ class Translator {
       '',
       ...mozLicenseHeader,
     ])
-    // TODO(56450): Remove this once this bug has been resolved.
+    // TODO(https://github.com/dart-lang/sdk/issues/56450): Remove this once
+    // this bug has been resolved.
     ..ignoreForFile.addAll([
       'unintended_html_in_doc_comment',
     ])

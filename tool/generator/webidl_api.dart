@@ -117,10 +117,10 @@ extension type Constant._(JSObject _) implements Member {
 }
 
 /// Grab bag to handle declarations in members:
-///   * iterable<>
-///   * async iterable<>
-///   * maplike<>
-///   * setlike<>
+///   * iterable
+///   * async iterable
+///   * maplike
+///   * setlike
 extension type MemberDeclaration._(JSObject _) implements JSObject {
   external String get type;
   external IDLType get idlType;

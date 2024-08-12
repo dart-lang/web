@@ -1273,6 +1273,10 @@ class Translator {
       '',
       ...mozLicenseHeader,
     ])
+    // TODO(56450): Remove this once this bug has been resolved.
+    ..ignoreForFile.addAll([
+      'unintended_html_in_doc_comment',
+    ])
     ..generatedByComment = generatedFileDisclaimer
     // TODO(srujzs): This is to address the issue around extension type object
     // literal constructors in https://github.com/dart-lang/sdk/issues/54801.

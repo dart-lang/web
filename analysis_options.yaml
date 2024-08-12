@@ -20,10 +20,6 @@ analyzer:
     non_constant_identifier_names: ignore
     # Consider removing from dart_flutter_team_lints.
     unreachable_from_main: ignore
-    # MDN comments include HTML docs that trigger this lint. Reenable once
-    # that's resolved.
-    # ignore: unrecognized_error_code
-    unintended_html_in_doc_comment: ignore
 
 linter:
   rules:

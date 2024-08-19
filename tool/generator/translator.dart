@@ -303,7 +303,7 @@ sealed class _Property {
 
   // TODO(srujzs): Remove ignore after
   // https://github.com/dart-lang/sdk/issues/55720 is resolved.
-  // ignore: unused_element
+  // ignore: unused_element_parameter
   _Property(_MemberName name, idl.IDLType idlType, [this.mdnProperty])
       : type = _getRawType(idlType) {
     // Rename the property if there's a collision with the type name.

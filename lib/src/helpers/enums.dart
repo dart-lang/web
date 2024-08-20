@@ -229,6 +229,8 @@ abstract final class Device {
 }
 
 /// HTTP status codes.
+// This is a copy of the `HttpStatus` from the `dart:_internal` library that's
+// exposed only through the `dart:io` and `dart:html`.
 abstract class HttpStatus {
   static const int continue_ = 100;
   static const int switchingProtocols = 101;

@@ -1,3 +1,9 @@
+## 1.1.0-wip
+
+- Added `HttpStatus` class that declares http status codes. This is a copy of 
+  the `HttpStatus` from the `dart:_internal` library that's exposed only through
+  `dart:io` and `dart:html`.
+
 ## 1.0.0
 
 - Added supertypes' fields to dictionary constructors as dictionaries are

@@ -8,7 +8,7 @@ import 'dart:js_interop';
 extension on JSObject {
   /// The **`item()`** method returns the [JSObject]
   /// at the specified index in the assumed js list.
-  external JSObject? item(int index);
+  external JSObject item(int index);
 
   /// The **`length`** read-only property indicates the number of
   /// items in a given assumed js list.

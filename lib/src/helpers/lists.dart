@@ -5,13 +5,16 @@
 import 'dart:collection';
 import 'dart:js_interop';
 
+/// Defines interop members on a JSObject that would be present on a js list object.
+/// The JSObject is assumed to be one of the js list type as right now
+/// we don't have a single interface that would represent all the js list types.
 extension on JSObject {
   /// The **`item()`** method returns the [JSObject]
-  /// at the specified index in the assumed js list.
+  /// at the specified index in the list.
   external JSObject item(int index);
 
   /// The **`length`** read-only property indicates the number of
-  /// items in a given assumed js list.
+  /// items in a given list.
   external int get length;
 }
 

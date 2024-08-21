@@ -3,29 +3,39 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:collection';
+import 'dart:js_interop';
 
-import '../../web.dart' show Touch, TouchList;
+extension on JSObject {
+  /// The **`item()`** method returns the [JSObject]
+  /// at the specified index in the assumed js list.
+  external JSObject? item(int index);
 
-/// A wrapper to present a [TouchList] as a `List<Touch>`.
-class TouchListWrapper extends Object
-    with ListMixin<Touch>
-    implements List<Touch> {
-  final TouchList _original;
-  TouchListWrapper(this._original);
+  /// The **`length`** read-only property indicates the number of
+  /// items in a given assumed js list.
+  external int get length;
+}
+
+
+/// A wrapper to present a js list as a `List<T>`.
+class JSListWrapper<T extends JSObject> extends Object
+    with ListMixin<T>
+    implements List<T> {
+  final JSObject _original;
+  JSListWrapper(this._original);
 
   @override
   int get length => _original.length;
 
   @override
-  Touch operator [](int index) {
+  T operator [](int index) {
     if (index > length) {
       throw IndexError.withLength(index, length, indexable: this);
     }
-    return _original.item(index)!;
+    return _original.item(index) as T;
   }
 
   @override
-  void operator []=(int index, Touch value) {
+  void operator []=(int index, T value) {
     throw UnsupportedError('Cannot assign element of immutable List.');
   }
 
@@ -35,24 +45,24 @@ class TouchListWrapper extends Object
   }
 
   @override
-  Touch get first {
-    if (length > 0) return _original.item(0)!;
+  T get first {
+    if (length > 0) return _original.item(0) as T;
     throw StateError('No elements');
   }
 
   @override
-  Touch get last {
+  T get last {
     final len = length;
-    if (len > 0) return _original.item(len - 1)!;
+    if (len > 0) return _original.item(len - 1) as T;
     throw StateError('No elements');
   }
 
   @override
-  Touch get single {
+  T get single {
     if (length > 1) throw StateError('More than one element');
     return first;
   }
 
   @override
-  Touch elementAt(int index) => this[index];
+  T elementAt(int index) => this[index];
 }

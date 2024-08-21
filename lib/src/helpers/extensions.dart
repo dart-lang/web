@@ -99,5 +99,13 @@ extension StorageGlue on Storage {
 }
 
 extension TouchListConvert on TouchList {
-  List<Touch> toList() => TouchListWrapper(this);
+  List<Touch> toList() => JSListWrapper<Touch>(this);
+}
+
+extension HTMLCollectionConvert on HTMLCollection {
+  List<Element> toList() => JSListWrapper<Element>(this);
+}
+
+extension NodeListConvert on NodeList {
+  List<Node> toList() => JSListWrapper<Node>(this);
 }

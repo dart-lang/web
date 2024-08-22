@@ -5,6 +5,11 @@
   `dart:io` and `dart:html`.
 - Added `JSImmutableListWrapper` which helps create a dart list from a JS list.
 - Deprecated `TouchListWrapper` and `TouchListConvert` in favor of `JSImmutableListWrapper`.
+- Added `CrossOriginWindow` and `CrossOriginLocation` wrappers for cross-origin
+  windows and locations, respectively, that can be accessed through
+  `HTMLIFrameElement.contentWindowCrossOrigin`, `Window.openCrossOrigin`,
+  `Window.openerCrossOrigin`, `Window.topCrossOrigin`,
+  and `Window.parentCrossOrigin`.
 
 ## 1.0.0
 

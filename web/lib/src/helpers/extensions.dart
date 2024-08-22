@@ -27,6 +27,9 @@ import 'dart:math' show Point;
 import '../dom.dart';
 import 'lists.dart';
 
+export 'cross_origin.dart'
+    show CrossOriginContentWindowExtension, CrossOriginWindowExtension;
+
 extension HTMLCanvasElementGlue on HTMLCanvasElement {
   CanvasRenderingContext2D get context2D =>
       getContext('2d') as CanvasRenderingContext2D;

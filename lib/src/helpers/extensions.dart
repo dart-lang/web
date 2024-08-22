@@ -98,14 +98,8 @@ extension StorageGlue on Storage {
   void operator []=(String key, String value) => setItem(key, value);
 }
 
+@Deprecated('Use JSImmutableListWrapper<TouchList, Touch> instead.')
 extension TouchListConvert on TouchList {
-  List<Touch> toList() => JSImmutableListWrapper<TouchList,Touch>(this);
-}
-
-extension HTMLCollectionConvert on HTMLCollection {
-  List<Element> toList() => JSImmutableListWrapper<HTMLCollection,Element>(this);
-}
-
-extension NodeListConvert on NodeList {
-  List<Node> toList() => JSImmutableListWrapper<NodeList,Node>(this);
+  @Deprecated('Use JSImmutableListWrapper<TouchList, Touch> directly instead.')
+  List<Touch> toList() => JSImmutableListWrapper<TouchList, Touch>(this);
 }

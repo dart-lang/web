@@ -8,10 +8,10 @@ import 'dart:js_interop';
 /// Defines interop members on a JSObject that would be present on a JS list object.
 /// The JSObject is assumed to be one of the JS list type as right now
 /// we don't have a single interface that would represent all the JS list types.
-extension on JSObject {
+extension type _JSList<T extends JSObject>(JSObject _) implements JSObject {
   /// The **`item()`** method returns the [JSObject]
   /// at the specified index in the list.
-  external JSObject item(int index);
+  external T item(int index);
 
   /// The **`length`** read-only property indicates the number of
   /// items in a given list.
@@ -27,15 +27,17 @@ class JSImmutableListWrapper<T extends JSObject, U extends JSObject> extends Obj
   final T _original;
   JSImmutableListWrapper(this._original);
 
+  _JSList<U> get _jsList => _JSList<U>(_original);
+
   @override
-  int get length => _original.length;
+  int get length => _jsList.length;
 
   @override
   U operator [](int index) {
     if (index > length) {
       throw IndexError.withLength(index, length, indexable: this);
     }
-    return _original.item(index) as  U;
+    return _jsList.item(index);
   }
 
   @override
@@ -50,14 +52,14 @@ class JSImmutableListWrapper<T extends JSObject, U extends JSObject> extends Obj
 
   @override
   U get first {
-    if (length > 0) return _original.item(0) as  U;
+    if (length > 0) return _jsList.item(0);
     throw StateError('No elements');
   }
 
   @override
   U get last {
     final len = length;
-    if (len > 0) return _original.item(len - 1) as  U;
+    if (len > 0) return _jsList.item(len - 1);
     throw StateError('No elements');
   }
 

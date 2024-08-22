@@ -18,12 +18,10 @@ extension type _JSList<T extends JSObject>(JSObject _) implements JSObject {
   external int get length;
 }
 
-
 /// A wrapper to present a JS immutable list of type T as a `List<U>` where U
 /// is the list item type.
-class JSImmutableListWrapper<T extends JSObject, U extends JSObject> extends Object
-    with ListMixin<U>
-    implements List<U> {
+class JSImmutableListWrapper<T extends JSObject, U extends JSObject>
+    extends Object with ListMixin<U> implements List<U> {
   final T _original;
   JSImmutableListWrapper(this._original);
 
@@ -64,11 +62,11 @@ class JSImmutableListWrapper<T extends JSObject, U extends JSObject> extends Obj
   }
 
   @override
-   U get single {
+  U get single {
     if (length > 1) throw StateError('More than one element');
     return first;
   }
 
   @override
-   U elementAt(int index) => this[index];
+  U elementAt(int index) => this[index];
 }

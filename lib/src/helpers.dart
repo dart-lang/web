@@ -98,5 +98,5 @@ Element? querySelector(String selector) => document.querySelector(selector);
 
 @Deprecated('Use JSImmutableListWrapper<TouchList, Touch> instead.')
 class TouchListWrapper extends JSImmutableListWrapper<TouchList, Touch> {
-TouchListWrapper(super._original);
+  TouchListWrapper(super._original);
 }

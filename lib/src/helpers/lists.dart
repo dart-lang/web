@@ -5,9 +5,9 @@
 import 'dart:collection';
 import 'dart:js_interop';
 
-/// Defines interop members on a JSObject that would be present on a js list object.
-/// The JSObject is assumed to be one of the js list type as right now
-/// we don't have a single interface that would represent all the js list types.
+/// Defines interop members on a JSObject that would be present on a JS list object.
+/// The JSObject is assumed to be one of the JS list type as right now
+/// we don't have a single interface that would represent all the JS list types.
 extension on JSObject {
   /// The **`item()`** method returns the [JSObject]
   /// at the specified index in the list.
@@ -19,12 +19,12 @@ extension on JSObject {
 }
 
 
-/// A wrapper to present a js list as a `List<T>`.
-class JSListWrapper<T extends JSObject> extends Object
+/// A wrapper to present a JS immutable list as a `List<T>`.
+class JSImmutableListWrapper<T extends JSObject> extends Object
     with ListMixin<T>
     implements List<T> {
   final JSObject _original;
-  JSListWrapper(this._original);
+  JSImmutableListWrapper(this._original);
 
   @override
   int get length => _original.length;

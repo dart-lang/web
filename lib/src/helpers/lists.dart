@@ -19,26 +19,27 @@ extension on JSObject {
 }
 
 
-/// A wrapper to present a JS immutable list as a `List<T>`.
-class JSImmutableListWrapper<T extends JSObject> extends Object
-    with ListMixin<T>
-    implements List<T> {
-  final JSObject _original;
+/// A wrapper to present a JS immutable list of type T as a `List<U>` where U
+/// is the list item type.
+class JSImmutableListWrapper<T extends JSObject, U extends JSObject> extends Object
+    with ListMixin<U>
+    implements List<U> {
+  final T _original;
   JSImmutableListWrapper(this._original);
 
   @override
   int get length => _original.length;
 
   @override
-  T operator [](int index) {
+  U operator [](int index) {
     if (index > length) {
       throw IndexError.withLength(index, length, indexable: this);
     }
-    return _original.item(index) as T;
+    return _original.item(index) as  U;
   }
 
   @override
-  void operator []=(int index, T value) {
+  void operator []=(int index, U value) {
     throw UnsupportedError('Cannot assign element of immutable List.');
   }
 
@@ -48,24 +49,24 @@ class JSImmutableListWrapper<T extends JSObject> extends Object
   }
 
   @override
-  T get first {
-    if (length > 0) return _original.item(0) as T;
+  U get first {
+    if (length > 0) return _original.item(0) as  U;
     throw StateError('No elements');
   }
 
   @override
-  T get last {
+  U get last {
     final len = length;
-    if (len > 0) return _original.item(len - 1) as T;
+    if (len > 0) return _original.item(len - 1) as  U;
     throw StateError('No elements');
   }
 
   @override
-  T get single {
+   U get single {
     if (length > 1) throw StateError('More than one element');
     return first;
   }
 
   @override
-  T elementAt(int index) => this[index];
+   U elementAt(int index) => this[index];
 }

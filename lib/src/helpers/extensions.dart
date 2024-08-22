@@ -99,13 +99,13 @@ extension StorageGlue on Storage {
 }
 
 extension TouchListConvert on TouchList {
-  List<Touch> toList() => JSImmutableListWrapper<Touch>(this);
+  List<Touch> toList() => JSImmutableListWrapper<TouchList,Touch>(this);
 }
 
 extension HTMLCollectionConvert on HTMLCollection {
-  List<Element> toList() => JSImmutableListWrapper<Element>(this);
+  List<Element> toList() => JSImmutableListWrapper<HTMLCollection,Element>(this);
 }
 
 extension NodeListConvert on NodeList {
-  List<Node> toList() => JSImmutableListWrapper<Node>(this);
+  List<Node> toList() => JSImmutableListWrapper<NodeList,Node>(this);
 }

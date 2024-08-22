@@ -22,12 +22,9 @@ extension type _JSList<T extends JSObject>(JSObject _) implements JSObject {
 /// a `List<U>`.
 class JSImmutableListWrapper<T extends JSObject, U extends JSObject>
     extends Object with ListMixin<U> implements List<U> {
-  // ignore: unused_field
-  final T _original;
-
   final _JSList<U> _jsList;
 
-  JSImmutableListWrapper(this._original) : _jsList = _JSList<U>(_original);
+  JSImmutableListWrapper(T original) : _jsList = _JSList<U>(original);
 
   @override
   int get length => _jsList.length;

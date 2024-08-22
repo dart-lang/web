@@ -14,7 +14,7 @@ import 'formatting.dart';
 class DocProvider {
   static DocProvider create() {
     final content = fs.readFileSync(
-      p.join('..', '..', 'third_party', 'mdn', 'mdn.json').toJS,
+      p.join('..', 'third_party', 'mdn', 'mdn.json').toJS,
       JSReadFileOptions(encoding: 'utf8'.toJS),
     ) as JSString;
 

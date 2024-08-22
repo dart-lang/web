@@ -71,6 +71,6 @@ definitions:
 ## Generation and updating the package
 
 Most of the APIs in this package are generated from public assets. See
-[tool/README.md](https://github.com/dart-lang/web/tree/main/tool) for
-information on the spec and IDL versions the package was generated from, and for
-the process for updating the package.
+[web_generator/README.md](https://github.com/dart-lang/web/tree/main/web_generator)
+for information on the spec and IDL versions the package was generated from, and
+for the process for updating the package.

@@ -7,7 +7,7 @@ This tool is written in Dart, compiled to JavaScript, and run on Node.
 Run:
 
 ```
-dart tool/update_bindings.dart
+dart update_bindings.dart
 ```
 
 ## Update to the latest Web IDL versions and regenerate
@@ -15,5 +15,5 @@ dart tool/update_bindings.dart
 Run:
 
 ```
-dart tool/update_bindings.dart --update
+dart update_bindings.dart --update
 ```

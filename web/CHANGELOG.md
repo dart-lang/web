@@ -51,7 +51,7 @@
 - Add support for `dart fix` migrations from `dart:html` classes to
   `package:web` classes.
 - Contribute a markdown file for the renamed classes from `dart:html` to
-  `package:web` (see [renames.md](../web_generator/renames.md)).
+  `package:web` (see [renames.md](renames.md)).
 - Migrate classes to use interop extension types that implement `JSObject`.
 - Add generics to APIs that use `JSArray` and `JSPromise`. Typedefs of a Dart
   primitive type are instead replaced with their JS type equivalent if they

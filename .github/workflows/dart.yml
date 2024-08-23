@@ -69,8 +69,6 @@ jobs:
         run: dart analyze --fatal-infos .
         if: "always() && steps.web_pub_upgrade.conclusion == 'success'"
         working-directory: web
-    needs:
-      - job_001
   job_003:
     name: "analyze_and_format; Dart 3.4.0; PKG: web; `dart format --output=none --set-exit-if-changed .`"
     runs-on: ubuntu-latest
@@ -101,8 +99,6 @@ jobs:
         run: "dart format --output=none --set-exit-if-changed ."
         if: "always() && steps.web_pub_upgrade.conclusion == 'success'"
         working-directory: web
-    needs:
-      - job_001
   job_004:
     name: "analyze_and_format; Dart dev; PKGS: web, web_generator; `dart analyze --fatal-infos .`"
     runs-on: ubuntu-latest
@@ -142,8 +138,6 @@ jobs:
         run: dart analyze --fatal-infos .
         if: "always() && steps.web_generator_pub_upgrade.conclusion == 'success'"
         working-directory: web_generator
-    needs:
-      - job_001
   job_005:
     name: "analyze_and_format; Dart dev; PKGS: web, web_generator; `dart format --output=none --set-exit-if-changed .`"
     runs-on: ubuntu-latest
@@ -183,8 +177,6 @@ jobs:
         run: "dart format --output=none --set-exit-if-changed ."
         if: "always() && steps.web_generator_pub_upgrade.conclusion == 'success'"
         working-directory: web_generator
-    needs:
-      - job_001
   job_006:
     name: "unit_test; Dart 3.4.0; PKG: web; `dart test --test-randomize-ordering-seed=random -p chrome -c dart2wasm`"
     runs-on: ubuntu-latest

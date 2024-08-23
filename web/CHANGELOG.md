@@ -3,6 +3,8 @@
 - Added `HttpStatus` class that declares http status codes. This is a copy of 
   the `HttpStatus` from the `dart:_internal` library that's exposed only through
   `dart:io` and `dart:html`.
+- Added `JSImmutableListWrapper` which helps create a dart list from a JS list.
+- Deprecated `TouchListWrapper` and `TouchListConvert` in favor of `JSImmutableListWrapper`.
 
 ## 1.0.0
 

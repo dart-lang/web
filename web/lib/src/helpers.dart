@@ -25,6 +25,7 @@ import 'dart:js_interop';
 import 'dart:js_interop_unsafe';
 
 import 'dom.dart';
+import 'helpers/lists.dart';
 
 export 'helpers/enums.dart';
 export 'helpers/events/events.dart';
@@ -94,3 +95,8 @@ HTMLAudioElement createAudioElement() => _audioConstructor.callAsConstructor();
 /// ```
 @Deprecated('Directly use document.querySelector instead.')
 Element? querySelector(String selector) => document.querySelector(selector);
+
+@Deprecated('Use JSImmutableListWrapper<TouchList, Touch> instead.')
+class TouchListWrapper extends JSImmutableListWrapper<TouchList, Touch> {
+  TouchListWrapper(super._original);
+}

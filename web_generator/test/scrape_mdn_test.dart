@@ -7,7 +7,7 @@ library;
 
 import 'package:test/test.dart';
 
-import '../scrape_mdn.dart';
+import '../bin/scrape_mdn.dart';
 
 void main() {
   group('convertMdnToMarkdown', () {

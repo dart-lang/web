@@ -12,7 +12,7 @@ run on Node.
 To regenerate `web` bindings from the current IDL versions, run:
 
 ```shell
-dart update_bindings.dart
+dart bin/update_bindings.dart
 ```
 
 ## Update to the latest Web IDL versions and regenerate
@@ -77,20 +77,20 @@ to that file should be committed to git. You'll need to run
 To re-generate the package from newer IDL versions, you can either run:
 
 ```shell
-dart update_bindings.dart --update
+dart bin/update_bindings.dart --update
 ```
 
-or, manually edit `generator/package.json` to use specific IDL versions, and
+or, manually edit `lib/src/package.json` to use specific IDL versions, and
 re-run `update_bindings.dart`.
 
 ## Web IDL versions
 
 Based on:
 
-<!-- START updated by update_bindings.dart. Do not modify by hand -->
-| Item               |                                                         Version |
-| ------------------ | --------------------------------------------------------------: |
-| `@webref/css`      |  [6.12.15](https://www.npmjs.com/package/@webref/css/v/6.12.15) |
+<!-- START updated by bin/update_bindings.dart. Do not modify by hand -->
+| Item | Version |
+| --- | --: |
+| `@webref/css` | [6.12.15](https://www.npmjs.com/package/@webref/css/v/6.12.15) |
 | `@webref/elements` | [2.3.0](https://www.npmjs.com/package/@webref/elements/v/2.3.0) |
-| `@webref/idl`      |    [3.49.0](https://www.npmjs.com/package/@webref/idl/v/3.49.0) |
-<!-- END updated by update_bindings.dart. Do not modify by hand -->
+| `@webref/idl` | [3.49.0](https://www.npmjs.com/package/@webref/idl/v/3.49.0) |
+<!-- END updated by bin/update_bindings.dart. Do not modify by hand -->

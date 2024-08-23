@@ -14,7 +14,7 @@ Future<void> main(List<String> args) async {
   final offline = args.length == 1 && args.first == '--offline';
 
   // clone the repo
-  final repoDir = Directory(p.join('.dart_tool', 'mdn_content'));
+  final repoDir = Directory(p.join('..', '.dart_tool', 'mdn_content'));
   if (!repoDir.existsSync()) {
     await _run(
       'git',

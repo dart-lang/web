@@ -10,5 +10,5 @@ See [LICENSE](./LICENSE) for the license this content is under.
 
 ## Process
 
-See [the script](../web_generator/bin/scrape_mdn.dart) which collects the
+See [the script](../../web_generator/bin/scrape_mdn.dart) which collects the
 documentation information.

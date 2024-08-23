@@ -17,4 +17,23 @@ void main() {
     expect(div.instanceOfString('bob'), false);
     expect(div.instanceOfString('HTMLDivElement'), true);
   });
+
+  test('Converts a JS list to a dart list using JSImmutableListWrapper', () {
+    final div = (document.createElement('div'))
+      ..append(document.createElement('div')..text = '1')
+      ..append(document.createElement('div')..text = '2')
+      ..append(document.createElement('div')..text = '3');
+
+    final List<Node> dartList =
+        JSImmutableListWrapper<NodeList, Node>(div.querySelectorAll('div'));
+
+    // Ensure accessing length does not throw.
+    expect(() => dartList.length, returnsNormally);
+
+    // Ensure list length is correct.
+    expect(dartList.length, 3);
+
+    // Ensure accessing any arbitrary item in the list does not throw.
+    expect(() => dartList[0], returnsNormally);
+  });
 }

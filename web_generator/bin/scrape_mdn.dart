@@ -14,7 +14,8 @@ Future<void> main(List<String> args) async {
   final offline = args.length == 1 && args.first == '--offline';
 
   // clone the repo
-  final repoDir = Directory(p.join('.dart_tool', 'mdn_content'));
+  final repoDir =
+      Directory(Platform.script.resolve('../.dart_tool/mdn_content').path);
   if (!repoDir.existsSync()) {
     await _run(
       'git',
@@ -77,7 +78,8 @@ Future<void> main(List<String> args) async {
 
   const encoder = JsonEncoder.withIndent('  ');
 
-  final file = File('third_party/mdn/mdn.json');
+  final file =
+      File(Platform.script.resolve('../../third_party/mdn/mdn.json').path);
   final json = {
     '__meta__': {
       'source': '[MDN Web Docs]($mdnUrl)',

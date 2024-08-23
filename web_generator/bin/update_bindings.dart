@@ -64,7 +64,8 @@ $_usage''');
   }
 
   // Determine the set of previously generated files.
-  final domDir = Directory(p.join('lib', 'src', 'dom'));
+  final domDir =
+      Directory(Platform.script.resolve('../../web/lib/src/dom').path);
   final existingFiles =
       domDir.listSync(recursive: true).whereType<File>().where((file) {
     if (!file.path.endsWith('.dart')) return false;
@@ -79,7 +80,7 @@ $_usage''');
   // Run app with `node`.
   await _runProc(
     'node',
-    ['main.mjs', '../../lib/src'],
+    ['main.mjs', Platform.script.resolve('../../web/lib/src').path],
     workingDirectory: _bindingsGeneratorPath,
   );
 
@@ -93,7 +94,7 @@ $_usage''');
 
   // Update readme.
   final readmeFile = File(
-    p.normalize(p.join(_bindingsGeneratorPath, '..', 'README.md')),
+    p.normalize(Platform.script.resolve('../README.md').path),
   );
 
   final sourceContent = readmeFile.readAsStringSync();
@@ -133,13 +134,13 @@ String _packageLockVersion(String package) {
   return webRefIdl['version'] as String;
 }
 
-final _bindingsGeneratorPath = p.join('tool', 'generator');
+final _bindingsGeneratorPath = Platform.script.resolve('../lib/src').path;
 
 const _webRefCss = '@webref/css';
 const _webRefElements = '@webref/elements';
 const _webRefIdl = '@webref/idl';
 
-const _thisScript = 'tool/update_bindings.dart';
+const _thisScript = 'bin/update_bindings.dart';
 
 const _startComment =
     '<!-- START updated by $_thisScript. Do not modify by hand -->';
@@ -169,7 +170,7 @@ Future<void> _runProc(
 Future<void> _generateJsTypeSupertypes() async {
   // Use a file that uses `dart:js_interop` for analysis.
   final contextCollection = AnalysisContextCollection(includedPaths: [
-    p.fromUri(Platform.script.resolve('../lib/src/dom.dart'))
+    p.fromUri(Platform.script.resolve('../../web/lib/src/dom.dart'))
   ]);
   final dartJsInterop = (await contextCollection.contexts.single.currentSession
           .getLibraryByUri('dart:js_interop') as LibraryElementResult)

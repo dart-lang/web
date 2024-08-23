@@ -79,7 +79,7 @@ Future<void> main(List<String> args) async {
   const encoder = JsonEncoder.withIndent('  ');
 
   final file =
-      File(Platform.script.resolve('../third_party/mdn/mdn.json').path);
+      File(Platform.script.resolve('../../third_party/mdn/mdn.json').path);
   final json = {
     '__meta__': {
       'source': '[MDN Web Docs]($mdnUrl)',

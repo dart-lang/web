@@ -72,8 +72,8 @@ for PKG in ${PKGS}; do
         dart fix --compare-to-golden test_fixes || EXIT_CODE=$?
         ;;
       command_1)
-        echo 'dart update_bindings.dart'
-        dart update_bindings.dart || EXIT_CODE=$?
+        echo 'dart bin/update_bindings.dart'
+        dart bin/update_bindings.dart || EXIT_CODE=$?
         ;;
       format)
         echo 'dart format --output=none --set-exit-if-changed .'

@@ -17,11 +17,28 @@ dart bin/update_bindings.dart
 
 ## Update to the latest Web IDL versions and regenerate
 
-Run:
+To re-generate the package from newer IDL versions, you can either run:
 
+```shell
+dart bin/update_bindings.dart --update
 ```
-dart update_bindings.dart --update
+
+or, manually edit `lib/src/package.json` to use specific IDL versions, and
+re-run `update_bindings.dart`.
+
+### Updating the dartdoc info from MDN
+
+package:web's dartdoc comments come from the
+[MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web) project. In order
+to update to the latest version of the documentation, run:
+
+```shell
+dart bin/scrape_mdn.dart
 ```
+
+That will collect the MDN documentation into `third_party/mdn/mdn.json`; changes
+to that file should be committed to git. You'll need to run
+`update_bindings.dart` to produce Dart code using the updated documentation.
 
 ## Generation conventions
 
@@ -57,31 +74,6 @@ definitions:
   determine what members, interfaces, and namespaces to emit. Currently, we only
   emit code that is standards track and is not experimental to reduce the number
   of breaking changes.
-
-### Updating the dartdoc info from MDN
-
-package:web's dartdoc comments come from the
-[MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web) project. In order
-to update to the latest version of the documentation, run:
-
-```shell
-dart scrape_mdn.dart
-```
-
-That will collect the MDN documentation into `third_party/mdn/mdn.json`; changes
-to that file should be committed to git. You'll need to run
-`update_bindings.dart` to produce Dart code using the updated documentation.
-
-### Updating to use the latest Web IDL versions
-
-To re-generate the package from newer IDL versions, you can either run:
-
-```shell
-dart bin/update_bindings.dart --update
-```
-
-or, manually edit `lib/src/package.json` to use specific IDL versions, and
-re-run `update_bindings.dart`.
 
 ## Web IDL versions
 

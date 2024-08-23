@@ -64,7 +64,8 @@ $_usage''');
   }
 
   // Determine the set of previously generated files.
-  final domDir = Directory(p.join('..', '..', 'web', 'lib', 'src', 'dom'));
+  final domDir =
+      Directory(Platform.script.resolve('../../web/lib/src/dom').path);
   final existingFiles =
       domDir.listSync(recursive: true).whereType<File>().where((file) {
     if (!file.path.endsWith('.dart')) return false;
@@ -79,7 +80,7 @@ $_usage''');
   // Run app with `node`.
   await _runProc(
     'node',
-    ['main.mjs', '../../../web/lib/src'],
+    ['main.mjs', Platform.script.resolve('../../web/lib/src').path],
     workingDirectory: _bindingsGeneratorPath,
   );
 
@@ -93,7 +94,7 @@ $_usage''');
 
   // Update readme.
   final readmeFile = File(
-    p.normalize(p.join(_bindingsGeneratorPath, '..', '..', 'README.md')),
+    p.normalize(Platform.script.resolve('../README.md').path),
   );
 
   final sourceContent = readmeFile.readAsStringSync();
@@ -133,7 +134,7 @@ String _packageLockVersion(String package) {
   return webRefIdl['version'] as String;
 }
 
-const _bindingsGeneratorPath = '../lib/src';
+final _bindingsGeneratorPath = Platform.script.resolve('../lib/src').path;
 
 const _webRefCss = '@webref/css';
 const _webRefElements = '@webref/elements';

@@ -1,5 +1,5 @@
 name: web_generator
-publish_to: none
+publish_to: none # internal only for now
 version: 1.0.0-wip
 description: Generator scripts for package:web.
 repository: https://github.com/dart-lang/web
@@ -7,7 +7,7 @@ repository: https://github.com/dart-lang/web
 environment:
   sdk: ^3.6.0-0
 
-dev_dependencies:
+dependencies:
   analyzer: ^6.3.0
   args: ^2.4.0
   build_runner: ^2.4.6

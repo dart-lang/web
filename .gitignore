@@ -2,6 +2,6 @@
 doc/api/
 pubspec.lock
 
-web_generator/generator/*.js
-web_generator/generator/*.js.*
-web_generator/generator/node_modules/
+web_generator/lib/src/*.js
+web_generator/lib/src/*.js.*
+web_generator/lib/src/node_modules/

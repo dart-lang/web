@@ -1,3 +1,3 @@
 ## 1.0.0-wip
 
-- Initial publish of internal repo.
+- Initial separation of `web_generator` from `web`.

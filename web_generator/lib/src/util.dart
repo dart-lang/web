@@ -10,12 +10,6 @@ import 'filesystem_api.dart';
 @JS('Object.entries')
 external JSArray<JSAny?> objectEntries(JSObject o);
 
-// TODO(srujzs): Remove once this is in dart:js_interop.
-extension JSArrayExtension<T extends JSAny?> on JSArray<T> {
-  external T operator [](int i);
-  external int get length;
-}
-
 void ensureDirectoryExists(String dir) {
   if (!fs.existsSync(dir.toJS).toDart) {
     fs.mkdirSync(dir.toJS, JSMkdirOptions(recursive: true.toJS));

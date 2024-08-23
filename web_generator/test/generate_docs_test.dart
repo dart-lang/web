@@ -4,7 +4,7 @@
 
 import 'package:test/test.dart';
 
-import '../generator/formatting.dart';
+import 'package:web_generator/src/formatting.dart';
 
 void main() {
   group('formatDocs', () {

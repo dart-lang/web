@@ -1,15 +1,62 @@
-## Updating the package
+## What's this?
 
-The Dart code in this package is generated from Web IDL definitions and MDN API
-documentation.
+This package contains tools to generate
+[`web`](https://github.com/dart-lang/web/tree/main/web) from Web IDL definitions
+and MDN API documentation.
 
 ### Regenerating the package
 
-To regenerate the package from the current IDL versions, run:
+The tool to generate bindings is written in Dart, compiled to JavaScript, and
+run on Node.
+
+To regenerate `web` bindings from the current IDL versions, run:
 
 ```shell
 dart update_bindings.dart
 ```
+
+## Update to the latest Web IDL versions and regenerate
+
+Run:
+
+```
+dart update_bindings.dart --update
+```
+
+## Generation conventions
+
+The generator scripts use a number of conventions to consistently handle Web IDL
+definitions:
+
+### Interfaces
+
+- Interfaces are emitted as extension types that wrap and implement `JSObject`.
+- Interface inheritance is maintained using `implements` between extension
+  types.
+- Members of partial interfaces, partial mixins, and mixins are added to the
+  interfaces that include them, and therefore do not have separate declarations.
+
+### Types
+
+- Generic types include the generic in the case of `JSArray` and `JSPromise`.
+- Enums are typedef'd to `String`.
+- Callbacks and callback interfaces are typedef'd to `JSFunction`.
+- In general, we prefer the Dart primitive over the JS type equivalent wherever
+  possible. For example, APIs use `String` instead of `JSString`.
+- If a type appears in a generic position and it was typedef'd to a Dart
+  primitive type, it is replaced with the JS type equivalent to respect the type
+  bound of `JSAny?`.
+- Union types are computed by picking the least upper bound of the types in the
+  JS type hierarchy, where every interface is equivalent to `JSObject`.
+- Dictionary and typedef types are only emitted if they're used by another API.
+
+### Compatibility
+
+- The generator uses the
+  [MDN compatibility data](https://github.com/mdn/browser-compat-data) to
+  determine what members, interfaces, and namespaces to emit. Currently, we only
+  emit code that is standards track and is not experimental to reduce the number
+  of breaking changes.
 
 ### Updating the dartdoc info from MDN
 
@@ -33,20 +80,17 @@ To re-generate the package from newer IDL versions, you can either run:
 dart update_bindings.dart --update
 ```
 
-or, edit manually edit `generator/package.json` to use specific IDL
-versions, and re-run `update_bindings.dart`.
+or, manually edit `generator/package.json` to use specific IDL versions, and
+re-run `update_bindings.dart`.
 
 ## Web IDL versions
 
 Based on:
 
 <!-- START updated by update_bindings.dart. Do not modify by hand -->
-| Item | Version |
-| --- | --: |
-| `@webref/css` | [6.12.15](https://www.npmjs.com/package/@webref/css/v/6.12.15) |
+| Item               |                                                         Version |
+| ------------------ | --------------------------------------------------------------: |
+| `@webref/css`      |  [6.12.15](https://www.npmjs.com/package/@webref/css/v/6.12.15) |
 | `@webref/elements` | [2.3.0](https://www.npmjs.com/package/@webref/elements/v/2.3.0) |
-| `@webref/idl` | [3.49.0](https://www.npmjs.com/package/@webref/idl/v/3.49.0) |
+| `@webref/idl`      |    [3.49.0](https://www.npmjs.com/package/@webref/idl/v/3.49.0) |
 <!-- END updated by update_bindings.dart. Do not modify by hand -->
-
-For instructions on re-generating the DOM bindings, see the
-[generator docs](generator/README.md).

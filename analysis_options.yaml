@@ -7,7 +7,7 @@ analyzer:
     strict-inference: true
     strict-raw-types: true
   exclude:
-    - test_fixes/**
+    - web/test_fixes/**
 
   errors:
     # 43 instances in generated code.

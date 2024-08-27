@@ -5,6 +5,8 @@
   `dart:io` and `dart:html`.
 - Added `JSImmutableListWrapper` which helps create a dart list from a JS list.
 - Deprecated `TouchListWrapper` and `TouchListConvert` in favor of `JSImmutableListWrapper`.
+- Added `[]` and `[]=` overloaded operators to types which define unnamed
+  `getter`s and `setter`s, respectively.
 
 ## 1.0.0
 

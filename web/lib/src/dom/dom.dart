@@ -1568,6 +1568,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// fullscreen mode, restoring the previous state of the screen. This usually
   /// reverses the effects of a previous call to [Element.requestFullscreen].
   external JSPromise<JSAny?> exitFullscreen();
+  external JSObject operator [](String name);
 
   /// The **`getElementsByName()`** method
   /// of the [Document] object returns a [NodeList] Collection of

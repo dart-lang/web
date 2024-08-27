@@ -510,6 +510,10 @@ extension type SVGNumberList._(JSObject _) implements JSObject {
   );
   external SVGNumber removeItem(int index);
   external SVGNumber appendItem(SVGNumber newItem);
+  external void operator []=(
+    int index,
+    SVGNumber newItem,
+  );
   external int get length;
   external int get numberOfItems;
 }
@@ -534,6 +538,10 @@ extension type SVGLengthList._(JSObject _) implements JSObject {
   );
   external SVGLength removeItem(int index);
   external SVGLength appendItem(SVGLength newItem);
+  external void operator []=(
+    int index,
+    SVGLength newItem,
+  );
   external int get length;
   external int get numberOfItems;
 }
@@ -558,6 +566,10 @@ extension type SVGStringList._(JSObject _) implements JSObject {
   );
   external String removeItem(int index);
   external String appendItem(String newItem);
+  external void operator []=(
+    int index,
+    String newItem,
+  );
   external int get numberOfItems;
 }
 
@@ -1093,6 +1105,10 @@ extension type SVGTransformList._(JSObject _) implements JSObject {
   );
   external SVGTransform removeItem(int index);
   external SVGTransform appendItem(SVGTransform newItem);
+  external void operator []=(
+    int index,
+    SVGTransform newItem,
+  );
   external SVGTransform createSVGTransformFromMatrix([DOMMatrix2DInit matrix]);
   external SVGTransform? consolidate();
   external int get numberOfItems;
@@ -1317,6 +1333,10 @@ extension type SVGPointList._(JSObject _) implements JSObject {
   /// The **`appendItem()`** method of the [SVGPointList] interface adds a
   /// [SVGPoint] to the end of the list.
   external DOMPoint appendItem(DOMPoint newItem);
+  external void operator []=(
+    int index,
+    DOMPoint newItem,
+  );
 
   /// The **`length`** read-only property of the [SVGPointList] interface
   /// returns the number of items in the list.

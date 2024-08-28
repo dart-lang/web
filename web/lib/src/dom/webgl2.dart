@@ -163,565 +163,1124 @@ extension type WebGLVertexArrayObject._(JSObject _) implements JSObject {}
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/WebGL2RenderingContext).
 extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
-  external static GLenum get DEPTH_BUFFER_BIT;
-  external static GLenum get STENCIL_BUFFER_BIT;
-  external static GLenum get COLOR_BUFFER_BIT;
-  external static GLenum get POINTS;
-  external static GLenum get LINES;
-  external static GLenum get LINE_LOOP;
-  external static GLenum get LINE_STRIP;
-  external static GLenum get TRIANGLES;
-  external static GLenum get TRIANGLE_STRIP;
-  external static GLenum get TRIANGLE_FAN;
-  external static GLenum get ZERO;
-  external static GLenum get ONE;
-  external static GLenum get SRC_COLOR;
-  external static GLenum get ONE_MINUS_SRC_COLOR;
-  external static GLenum get SRC_ALPHA;
-  external static GLenum get ONE_MINUS_SRC_ALPHA;
-  external static GLenum get DST_ALPHA;
-  external static GLenum get ONE_MINUS_DST_ALPHA;
-  external static GLenum get DST_COLOR;
-  external static GLenum get ONE_MINUS_DST_COLOR;
-  external static GLenum get SRC_ALPHA_SATURATE;
-  external static GLenum get FUNC_ADD;
-  external static GLenum get BLEND_EQUATION;
-  external static GLenum get BLEND_EQUATION_RGB;
-  external static GLenum get BLEND_EQUATION_ALPHA;
-  external static GLenum get FUNC_SUBTRACT;
-  external static GLenum get FUNC_REVERSE_SUBTRACT;
-  external static GLenum get BLEND_DST_RGB;
-  external static GLenum get BLEND_SRC_RGB;
-  external static GLenum get BLEND_DST_ALPHA;
-  external static GLenum get BLEND_SRC_ALPHA;
-  external static GLenum get CONSTANT_COLOR;
-  external static GLenum get ONE_MINUS_CONSTANT_COLOR;
-  external static GLenum get CONSTANT_ALPHA;
-  external static GLenum get ONE_MINUS_CONSTANT_ALPHA;
-  external static GLenum get BLEND_COLOR;
-  external static GLenum get ARRAY_BUFFER;
-  external static GLenum get ELEMENT_ARRAY_BUFFER;
-  external static GLenum get ARRAY_BUFFER_BINDING;
-  external static GLenum get ELEMENT_ARRAY_BUFFER_BINDING;
-  external static GLenum get STREAM_DRAW;
-  external static GLenum get STATIC_DRAW;
-  external static GLenum get DYNAMIC_DRAW;
-  external static GLenum get BUFFER_SIZE;
-  external static GLenum get BUFFER_USAGE;
-  external static GLenum get CURRENT_VERTEX_ATTRIB;
-  external static GLenum get FRONT;
-  external static GLenum get BACK;
-  external static GLenum get FRONT_AND_BACK;
-  external static GLenum get CULL_FACE;
-  external static GLenum get BLEND;
-  external static GLenum get DITHER;
-  external static GLenum get STENCIL_TEST;
-  external static GLenum get DEPTH_TEST;
-  external static GLenum get SCISSOR_TEST;
-  external static GLenum get POLYGON_OFFSET_FILL;
-  external static GLenum get SAMPLE_ALPHA_TO_COVERAGE;
-  external static GLenum get SAMPLE_COVERAGE;
-  external static GLenum get NO_ERROR;
-  external static GLenum get INVALID_ENUM;
-  external static GLenum get INVALID_VALUE;
-  external static GLenum get INVALID_OPERATION;
-  external static GLenum get OUT_OF_MEMORY;
-  external static GLenum get CW;
-  external static GLenum get CCW;
-  external static GLenum get LINE_WIDTH;
-  external static GLenum get ALIASED_POINT_SIZE_RANGE;
-  external static GLenum get ALIASED_LINE_WIDTH_RANGE;
-  external static GLenum get CULL_FACE_MODE;
-  external static GLenum get FRONT_FACE;
-  external static GLenum get DEPTH_RANGE;
-  external static GLenum get DEPTH_WRITEMASK;
-  external static GLenum get DEPTH_CLEAR_VALUE;
-  external static GLenum get DEPTH_FUNC;
-  external static GLenum get STENCIL_CLEAR_VALUE;
-  external static GLenum get STENCIL_FUNC;
-  external static GLenum get STENCIL_FAIL;
-  external static GLenum get STENCIL_PASS_DEPTH_FAIL;
-  external static GLenum get STENCIL_PASS_DEPTH_PASS;
-  external static GLenum get STENCIL_REF;
-  external static GLenum get STENCIL_VALUE_MASK;
-  external static GLenum get STENCIL_WRITEMASK;
-  external static GLenum get STENCIL_BACK_FUNC;
-  external static GLenum get STENCIL_BACK_FAIL;
-  external static GLenum get STENCIL_BACK_PASS_DEPTH_FAIL;
-  external static GLenum get STENCIL_BACK_PASS_DEPTH_PASS;
-  external static GLenum get STENCIL_BACK_REF;
-  external static GLenum get STENCIL_BACK_VALUE_MASK;
-  external static GLenum get STENCIL_BACK_WRITEMASK;
-  external static GLenum get VIEWPORT;
-  external static GLenum get SCISSOR_BOX;
-  external static GLenum get COLOR_CLEAR_VALUE;
-  external static GLenum get COLOR_WRITEMASK;
-  external static GLenum get UNPACK_ALIGNMENT;
-  external static GLenum get PACK_ALIGNMENT;
-  external static GLenum get MAX_TEXTURE_SIZE;
-  external static GLenum get MAX_VIEWPORT_DIMS;
-  external static GLenum get SUBPIXEL_BITS;
-  external static GLenum get RED_BITS;
-  external static GLenum get GREEN_BITS;
-  external static GLenum get BLUE_BITS;
-  external static GLenum get ALPHA_BITS;
-  external static GLenum get DEPTH_BITS;
-  external static GLenum get STENCIL_BITS;
-  external static GLenum get POLYGON_OFFSET_UNITS;
-  external static GLenum get POLYGON_OFFSET_FACTOR;
-  external static GLenum get TEXTURE_BINDING_2D;
-  external static GLenum get SAMPLE_BUFFERS;
-  external static GLenum get SAMPLES;
-  external static GLenum get SAMPLE_COVERAGE_VALUE;
-  external static GLenum get SAMPLE_COVERAGE_INVERT;
-  external static GLenum get COMPRESSED_TEXTURE_FORMATS;
-  external static GLenum get DONT_CARE;
-  external static GLenum get FASTEST;
-  external static GLenum get NICEST;
-  external static GLenum get GENERATE_MIPMAP_HINT;
-  external static GLenum get BYTE;
-  external static GLenum get UNSIGNED_BYTE;
-  external static GLenum get SHORT;
-  external static GLenum get UNSIGNED_SHORT;
-  external static GLenum get INT;
-  external static GLenum get UNSIGNED_INT;
-  external static GLenum get FLOAT;
-  external static GLenum get DEPTH_COMPONENT;
-  external static GLenum get ALPHA;
-  external static GLenum get RGB;
-  external static GLenum get RGBA;
-  external static GLenum get LUMINANCE;
-  external static GLenum get LUMINANCE_ALPHA;
-  external static GLenum get UNSIGNED_SHORT_4_4_4_4;
-  external static GLenum get UNSIGNED_SHORT_5_5_5_1;
-  external static GLenum get UNSIGNED_SHORT_5_6_5;
-  external static GLenum get FRAGMENT_SHADER;
-  external static GLenum get VERTEX_SHADER;
-  external static GLenum get MAX_VERTEX_ATTRIBS;
-  external static GLenum get MAX_VERTEX_UNIFORM_VECTORS;
-  external static GLenum get MAX_VARYING_VECTORS;
-  external static GLenum get MAX_COMBINED_TEXTURE_IMAGE_UNITS;
-  external static GLenum get MAX_VERTEX_TEXTURE_IMAGE_UNITS;
-  external static GLenum get MAX_TEXTURE_IMAGE_UNITS;
-  external static GLenum get MAX_FRAGMENT_UNIFORM_VECTORS;
-  external static GLenum get SHADER_TYPE;
-  external static GLenum get DELETE_STATUS;
-  external static GLenum get LINK_STATUS;
-  external static GLenum get VALIDATE_STATUS;
-  external static GLenum get ATTACHED_SHADERS;
-  external static GLenum get ACTIVE_UNIFORMS;
-  external static GLenum get ACTIVE_ATTRIBUTES;
-  external static GLenum get SHADING_LANGUAGE_VERSION;
-  external static GLenum get CURRENT_PROGRAM;
-  external static GLenum get NEVER;
-  external static GLenum get LESS;
-  external static GLenum get EQUAL;
-  external static GLenum get LEQUAL;
-  external static GLenum get GREATER;
-  external static GLenum get NOTEQUAL;
-  external static GLenum get GEQUAL;
-  external static GLenum get ALWAYS;
-  external static GLenum get KEEP;
-  external static GLenum get REPLACE;
-  external static GLenum get INCR;
-  external static GLenum get DECR;
-  external static GLenum get INVERT;
-  external static GLenum get INCR_WRAP;
-  external static GLenum get DECR_WRAP;
-  external static GLenum get VENDOR;
-  external static GLenum get RENDERER;
-  external static GLenum get VERSION;
-  external static GLenum get NEAREST;
-  external static GLenum get LINEAR;
-  external static GLenum get NEAREST_MIPMAP_NEAREST;
-  external static GLenum get LINEAR_MIPMAP_NEAREST;
-  external static GLenum get NEAREST_MIPMAP_LINEAR;
-  external static GLenum get LINEAR_MIPMAP_LINEAR;
-  external static GLenum get TEXTURE_MAG_FILTER;
-  external static GLenum get TEXTURE_MIN_FILTER;
-  external static GLenum get TEXTURE_WRAP_S;
-  external static GLenum get TEXTURE_WRAP_T;
-  external static GLenum get TEXTURE_2D;
-  external static GLenum get TEXTURE;
-  external static GLenum get TEXTURE_CUBE_MAP;
-  external static GLenum get TEXTURE_BINDING_CUBE_MAP;
-  external static GLenum get TEXTURE_CUBE_MAP_POSITIVE_X;
-  external static GLenum get TEXTURE_CUBE_MAP_NEGATIVE_X;
-  external static GLenum get TEXTURE_CUBE_MAP_POSITIVE_Y;
-  external static GLenum get TEXTURE_CUBE_MAP_NEGATIVE_Y;
-  external static GLenum get TEXTURE_CUBE_MAP_POSITIVE_Z;
-  external static GLenum get TEXTURE_CUBE_MAP_NEGATIVE_Z;
-  external static GLenum get MAX_CUBE_MAP_TEXTURE_SIZE;
-  external static GLenum get TEXTURE0;
-  external static GLenum get TEXTURE1;
-  external static GLenum get TEXTURE2;
-  external static GLenum get TEXTURE3;
-  external static GLenum get TEXTURE4;
-  external static GLenum get TEXTURE5;
-  external static GLenum get TEXTURE6;
-  external static GLenum get TEXTURE7;
-  external static GLenum get TEXTURE8;
-  external static GLenum get TEXTURE9;
-  external static GLenum get TEXTURE10;
-  external static GLenum get TEXTURE11;
-  external static GLenum get TEXTURE12;
-  external static GLenum get TEXTURE13;
-  external static GLenum get TEXTURE14;
-  external static GLenum get TEXTURE15;
-  external static GLenum get TEXTURE16;
-  external static GLenum get TEXTURE17;
-  external static GLenum get TEXTURE18;
-  external static GLenum get TEXTURE19;
-  external static GLenum get TEXTURE20;
-  external static GLenum get TEXTURE21;
-  external static GLenum get TEXTURE22;
-  external static GLenum get TEXTURE23;
-  external static GLenum get TEXTURE24;
-  external static GLenum get TEXTURE25;
-  external static GLenum get TEXTURE26;
-  external static GLenum get TEXTURE27;
-  external static GLenum get TEXTURE28;
-  external static GLenum get TEXTURE29;
-  external static GLenum get TEXTURE30;
-  external static GLenum get TEXTURE31;
-  external static GLenum get ACTIVE_TEXTURE;
-  external static GLenum get REPEAT;
-  external static GLenum get CLAMP_TO_EDGE;
-  external static GLenum get MIRRORED_REPEAT;
-  external static GLenum get FLOAT_VEC2;
-  external static GLenum get FLOAT_VEC3;
-  external static GLenum get FLOAT_VEC4;
-  external static GLenum get INT_VEC2;
-  external static GLenum get INT_VEC3;
-  external static GLenum get INT_VEC4;
-  external static GLenum get BOOL;
-  external static GLenum get BOOL_VEC2;
-  external static GLenum get BOOL_VEC3;
-  external static GLenum get BOOL_VEC4;
-  external static GLenum get FLOAT_MAT2;
-  external static GLenum get FLOAT_MAT3;
-  external static GLenum get FLOAT_MAT4;
-  external static GLenum get SAMPLER_2D;
-  external static GLenum get SAMPLER_CUBE;
-  external static GLenum get VERTEX_ATTRIB_ARRAY_ENABLED;
-  external static GLenum get VERTEX_ATTRIB_ARRAY_SIZE;
-  external static GLenum get VERTEX_ATTRIB_ARRAY_STRIDE;
-  external static GLenum get VERTEX_ATTRIB_ARRAY_TYPE;
-  external static GLenum get VERTEX_ATTRIB_ARRAY_NORMALIZED;
-  external static GLenum get VERTEX_ATTRIB_ARRAY_POINTER;
-  external static GLenum get VERTEX_ATTRIB_ARRAY_BUFFER_BINDING;
-  external static GLenum get IMPLEMENTATION_COLOR_READ_TYPE;
-  external static GLenum get IMPLEMENTATION_COLOR_READ_FORMAT;
-  external static GLenum get COMPILE_STATUS;
-  external static GLenum get LOW_FLOAT;
-  external static GLenum get MEDIUM_FLOAT;
-  external static GLenum get HIGH_FLOAT;
-  external static GLenum get LOW_INT;
-  external static GLenum get MEDIUM_INT;
-  external static GLenum get HIGH_INT;
-  external static GLenum get FRAMEBUFFER;
-  external static GLenum get RENDERBUFFER;
-  external static GLenum get RGBA4;
-  external static GLenum get RGB5_A1;
-  external static GLenum get RGBA8;
-  external static GLenum get RGB565;
-  external static GLenum get DEPTH_COMPONENT16;
-  external static GLenum get STENCIL_INDEX8;
-  external static GLenum get DEPTH_STENCIL;
-  external static GLenum get RENDERBUFFER_WIDTH;
-  external static GLenum get RENDERBUFFER_HEIGHT;
-  external static GLenum get RENDERBUFFER_INTERNAL_FORMAT;
-  external static GLenum get RENDERBUFFER_RED_SIZE;
-  external static GLenum get RENDERBUFFER_GREEN_SIZE;
-  external static GLenum get RENDERBUFFER_BLUE_SIZE;
-  external static GLenum get RENDERBUFFER_ALPHA_SIZE;
-  external static GLenum get RENDERBUFFER_DEPTH_SIZE;
-  external static GLenum get RENDERBUFFER_STENCIL_SIZE;
-  external static GLenum get FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE;
-  external static GLenum get FRAMEBUFFER_ATTACHMENT_OBJECT_NAME;
-  external static GLenum get FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL;
-  external static GLenum get FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE;
-  external static GLenum get COLOR_ATTACHMENT0;
-  external static GLenum get DEPTH_ATTACHMENT;
-  external static GLenum get STENCIL_ATTACHMENT;
-  external static GLenum get DEPTH_STENCIL_ATTACHMENT;
-  external static GLenum get NONE;
-  external static GLenum get FRAMEBUFFER_COMPLETE;
-  external static GLenum get FRAMEBUFFER_INCOMPLETE_ATTACHMENT;
-  external static GLenum get FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT;
-  external static GLenum get FRAMEBUFFER_INCOMPLETE_DIMENSIONS;
-  external static GLenum get FRAMEBUFFER_UNSUPPORTED;
-  external static GLenum get FRAMEBUFFER_BINDING;
-  external static GLenum get RENDERBUFFER_BINDING;
-  external static GLenum get MAX_RENDERBUFFER_SIZE;
-  external static GLenum get INVALID_FRAMEBUFFER_OPERATION;
-  external static GLenum get UNPACK_FLIP_Y_WEBGL;
-  external static GLenum get UNPACK_PREMULTIPLY_ALPHA_WEBGL;
-  external static GLenum get CONTEXT_LOST_WEBGL;
-  external static GLenum get UNPACK_COLORSPACE_CONVERSION_WEBGL;
-  external static GLenum get BROWSER_DEFAULT_WEBGL;
-  external static GLenum get READ_BUFFER;
-  external static GLenum get UNPACK_ROW_LENGTH;
-  external static GLenum get UNPACK_SKIP_ROWS;
-  external static GLenum get UNPACK_SKIP_PIXELS;
-  external static GLenum get PACK_ROW_LENGTH;
-  external static GLenum get PACK_SKIP_ROWS;
-  external static GLenum get PACK_SKIP_PIXELS;
-  external static GLenum get COLOR;
-  external static GLenum get DEPTH;
-  external static GLenum get STENCIL;
-  external static GLenum get RED;
-  external static GLenum get RGB8;
-  external static GLenum get RGB10_A2;
-  external static GLenum get TEXTURE_BINDING_3D;
-  external static GLenum get UNPACK_SKIP_IMAGES;
-  external static GLenum get UNPACK_IMAGE_HEIGHT;
-  external static GLenum get TEXTURE_3D;
-  external static GLenum get TEXTURE_WRAP_R;
-  external static GLenum get MAX_3D_TEXTURE_SIZE;
-  external static GLenum get UNSIGNED_INT_2_10_10_10_REV;
-  external static GLenum get MAX_ELEMENTS_VERTICES;
-  external static GLenum get MAX_ELEMENTS_INDICES;
-  external static GLenum get TEXTURE_MIN_LOD;
-  external static GLenum get TEXTURE_MAX_LOD;
-  external static GLenum get TEXTURE_BASE_LEVEL;
-  external static GLenum get TEXTURE_MAX_LEVEL;
-  external static GLenum get MIN;
-  external static GLenum get MAX;
-  external static GLenum get DEPTH_COMPONENT24;
-  external static GLenum get MAX_TEXTURE_LOD_BIAS;
-  external static GLenum get TEXTURE_COMPARE_MODE;
-  external static GLenum get TEXTURE_COMPARE_FUNC;
-  external static GLenum get CURRENT_QUERY;
-  external static GLenum get QUERY_RESULT;
-  external static GLenum get QUERY_RESULT_AVAILABLE;
-  external static GLenum get STREAM_READ;
-  external static GLenum get STREAM_COPY;
-  external static GLenum get STATIC_READ;
-  external static GLenum get STATIC_COPY;
-  external static GLenum get DYNAMIC_READ;
-  external static GLenum get DYNAMIC_COPY;
-  external static GLenum get MAX_DRAW_BUFFERS;
-  external static GLenum get DRAW_BUFFER0;
-  external static GLenum get DRAW_BUFFER1;
-  external static GLenum get DRAW_BUFFER2;
-  external static GLenum get DRAW_BUFFER3;
-  external static GLenum get DRAW_BUFFER4;
-  external static GLenum get DRAW_BUFFER5;
-  external static GLenum get DRAW_BUFFER6;
-  external static GLenum get DRAW_BUFFER7;
-  external static GLenum get DRAW_BUFFER8;
-  external static GLenum get DRAW_BUFFER9;
-  external static GLenum get DRAW_BUFFER10;
-  external static GLenum get DRAW_BUFFER11;
-  external static GLenum get DRAW_BUFFER12;
-  external static GLenum get DRAW_BUFFER13;
-  external static GLenum get DRAW_BUFFER14;
-  external static GLenum get DRAW_BUFFER15;
-  external static GLenum get MAX_FRAGMENT_UNIFORM_COMPONENTS;
-  external static GLenum get MAX_VERTEX_UNIFORM_COMPONENTS;
-  external static GLenum get SAMPLER_3D;
-  external static GLenum get SAMPLER_2D_SHADOW;
-  external static GLenum get FRAGMENT_SHADER_DERIVATIVE_HINT;
-  external static GLenum get PIXEL_PACK_BUFFER;
-  external static GLenum get PIXEL_UNPACK_BUFFER;
-  external static GLenum get PIXEL_PACK_BUFFER_BINDING;
-  external static GLenum get PIXEL_UNPACK_BUFFER_BINDING;
-  external static GLenum get FLOAT_MAT2x3;
-  external static GLenum get FLOAT_MAT2x4;
-  external static GLenum get FLOAT_MAT3x2;
-  external static GLenum get FLOAT_MAT3x4;
-  external static GLenum get FLOAT_MAT4x2;
-  external static GLenum get FLOAT_MAT4x3;
-  external static GLenum get SRGB;
-  external static GLenum get SRGB8;
-  external static GLenum get SRGB8_ALPHA8;
-  external static GLenum get COMPARE_REF_TO_TEXTURE;
-  external static GLenum get RGBA32F;
-  external static GLenum get RGB32F;
-  external static GLenum get RGBA16F;
-  external static GLenum get RGB16F;
-  external static GLenum get VERTEX_ATTRIB_ARRAY_INTEGER;
-  external static GLenum get MAX_ARRAY_TEXTURE_LAYERS;
-  external static GLenum get MIN_PROGRAM_TEXEL_OFFSET;
-  external static GLenum get MAX_PROGRAM_TEXEL_OFFSET;
-  external static GLenum get MAX_VARYING_COMPONENTS;
-  external static GLenum get TEXTURE_2D_ARRAY;
-  external static GLenum get TEXTURE_BINDING_2D_ARRAY;
-  external static GLenum get R11F_G11F_B10F;
-  external static GLenum get UNSIGNED_INT_10F_11F_11F_REV;
-  external static GLenum get RGB9_E5;
-  external static GLenum get UNSIGNED_INT_5_9_9_9_REV;
-  external static GLenum get TRANSFORM_FEEDBACK_BUFFER_MODE;
-  external static GLenum get MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS;
-  external static GLenum get TRANSFORM_FEEDBACK_VARYINGS;
-  external static GLenum get TRANSFORM_FEEDBACK_BUFFER_START;
-  external static GLenum get TRANSFORM_FEEDBACK_BUFFER_SIZE;
-  external static GLenum get TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN;
-  external static GLenum get RASTERIZER_DISCARD;
-  external static GLenum get MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS;
-  external static GLenum get MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS;
-  external static GLenum get INTERLEAVED_ATTRIBS;
-  external static GLenum get SEPARATE_ATTRIBS;
-  external static GLenum get TRANSFORM_FEEDBACK_BUFFER;
-  external static GLenum get TRANSFORM_FEEDBACK_BUFFER_BINDING;
-  external static GLenum get RGBA32UI;
-  external static GLenum get RGB32UI;
-  external static GLenum get RGBA16UI;
-  external static GLenum get RGB16UI;
-  external static GLenum get RGBA8UI;
-  external static GLenum get RGB8UI;
-  external static GLenum get RGBA32I;
-  external static GLenum get RGB32I;
-  external static GLenum get RGBA16I;
-  external static GLenum get RGB16I;
-  external static GLenum get RGBA8I;
-  external static GLenum get RGB8I;
-  external static GLenum get RED_INTEGER;
-  external static GLenum get RGB_INTEGER;
-  external static GLenum get RGBA_INTEGER;
-  external static GLenum get SAMPLER_2D_ARRAY;
-  external static GLenum get SAMPLER_2D_ARRAY_SHADOW;
-  external static GLenum get SAMPLER_CUBE_SHADOW;
-  external static GLenum get UNSIGNED_INT_VEC2;
-  external static GLenum get UNSIGNED_INT_VEC3;
-  external static GLenum get UNSIGNED_INT_VEC4;
-  external static GLenum get INT_SAMPLER_2D;
-  external static GLenum get INT_SAMPLER_3D;
-  external static GLenum get INT_SAMPLER_CUBE;
-  external static GLenum get INT_SAMPLER_2D_ARRAY;
-  external static GLenum get UNSIGNED_INT_SAMPLER_2D;
-  external static GLenum get UNSIGNED_INT_SAMPLER_3D;
-  external static GLenum get UNSIGNED_INT_SAMPLER_CUBE;
-  external static GLenum get UNSIGNED_INT_SAMPLER_2D_ARRAY;
-  external static GLenum get DEPTH_COMPONENT32F;
-  external static GLenum get DEPTH32F_STENCIL8;
-  external static GLenum get FLOAT_32_UNSIGNED_INT_24_8_REV;
-  external static GLenum get FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING;
-  external static GLenum get FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE;
-  external static GLenum get FRAMEBUFFER_ATTACHMENT_RED_SIZE;
-  external static GLenum get FRAMEBUFFER_ATTACHMENT_GREEN_SIZE;
-  external static GLenum get FRAMEBUFFER_ATTACHMENT_BLUE_SIZE;
-  external static GLenum get FRAMEBUFFER_ATTACHMENT_ALPHA_SIZE;
-  external static GLenum get FRAMEBUFFER_ATTACHMENT_DEPTH_SIZE;
-  external static GLenum get FRAMEBUFFER_ATTACHMENT_STENCIL_SIZE;
-  external static GLenum get FRAMEBUFFER_DEFAULT;
-  external static GLenum get UNSIGNED_INT_24_8;
-  external static GLenum get DEPTH24_STENCIL8;
-  external static GLenum get UNSIGNED_NORMALIZED;
-  external static GLenum get DRAW_FRAMEBUFFER_BINDING;
-  external static GLenum get READ_FRAMEBUFFER;
-  external static GLenum get DRAW_FRAMEBUFFER;
-  external static GLenum get READ_FRAMEBUFFER_BINDING;
-  external static GLenum get RENDERBUFFER_SAMPLES;
-  external static GLenum get FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER;
-  external static GLenum get MAX_COLOR_ATTACHMENTS;
-  external static GLenum get COLOR_ATTACHMENT1;
-  external static GLenum get COLOR_ATTACHMENT2;
-  external static GLenum get COLOR_ATTACHMENT3;
-  external static GLenum get COLOR_ATTACHMENT4;
-  external static GLenum get COLOR_ATTACHMENT5;
-  external static GLenum get COLOR_ATTACHMENT6;
-  external static GLenum get COLOR_ATTACHMENT7;
-  external static GLenum get COLOR_ATTACHMENT8;
-  external static GLenum get COLOR_ATTACHMENT9;
-  external static GLenum get COLOR_ATTACHMENT10;
-  external static GLenum get COLOR_ATTACHMENT11;
-  external static GLenum get COLOR_ATTACHMENT12;
-  external static GLenum get COLOR_ATTACHMENT13;
-  external static GLenum get COLOR_ATTACHMENT14;
-  external static GLenum get COLOR_ATTACHMENT15;
-  external static GLenum get FRAMEBUFFER_INCOMPLETE_MULTISAMPLE;
-  external static GLenum get MAX_SAMPLES;
-  external static GLenum get HALF_FLOAT;
-  external static GLenum get RG;
-  external static GLenum get RG_INTEGER;
-  external static GLenum get R8;
-  external static GLenum get RG8;
-  external static GLenum get R16F;
-  external static GLenum get R32F;
-  external static GLenum get RG16F;
-  external static GLenum get RG32F;
-  external static GLenum get R8I;
-  external static GLenum get R8UI;
-  external static GLenum get R16I;
-  external static GLenum get R16UI;
-  external static GLenum get R32I;
-  external static GLenum get R32UI;
-  external static GLenum get RG8I;
-  external static GLenum get RG8UI;
-  external static GLenum get RG16I;
-  external static GLenum get RG16UI;
-  external static GLenum get RG32I;
-  external static GLenum get RG32UI;
-  external static GLenum get VERTEX_ARRAY_BINDING;
-  external static GLenum get R8_SNORM;
-  external static GLenum get RG8_SNORM;
-  external static GLenum get RGB8_SNORM;
-  external static GLenum get RGBA8_SNORM;
-  external static GLenum get SIGNED_NORMALIZED;
-  external static GLenum get COPY_READ_BUFFER;
-  external static GLenum get COPY_WRITE_BUFFER;
-  external static GLenum get COPY_READ_BUFFER_BINDING;
-  external static GLenum get COPY_WRITE_BUFFER_BINDING;
-  external static GLenum get UNIFORM_BUFFER;
-  external static GLenum get UNIFORM_BUFFER_BINDING;
-  external static GLenum get UNIFORM_BUFFER_START;
-  external static GLenum get UNIFORM_BUFFER_SIZE;
-  external static GLenum get MAX_VERTEX_UNIFORM_BLOCKS;
-  external static GLenum get MAX_FRAGMENT_UNIFORM_BLOCKS;
-  external static GLenum get MAX_COMBINED_UNIFORM_BLOCKS;
-  external static GLenum get MAX_UNIFORM_BUFFER_BINDINGS;
-  external static GLenum get MAX_UNIFORM_BLOCK_SIZE;
-  external static GLenum get MAX_COMBINED_VERTEX_UNIFORM_COMPONENTS;
-  external static GLenum get MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS;
-  external static GLenum get UNIFORM_BUFFER_OFFSET_ALIGNMENT;
-  external static GLenum get ACTIVE_UNIFORM_BLOCKS;
-  external static GLenum get UNIFORM_TYPE;
-  external static GLenum get UNIFORM_SIZE;
-  external static GLenum get UNIFORM_BLOCK_INDEX;
-  external static GLenum get UNIFORM_OFFSET;
-  external static GLenum get UNIFORM_ARRAY_STRIDE;
-  external static GLenum get UNIFORM_MATRIX_STRIDE;
-  external static GLenum get UNIFORM_IS_ROW_MAJOR;
-  external static GLenum get UNIFORM_BLOCK_BINDING;
-  external static GLenum get UNIFORM_BLOCK_DATA_SIZE;
-  external static GLenum get UNIFORM_BLOCK_ACTIVE_UNIFORMS;
-  external static GLenum get UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES;
-  external static GLenum get UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER;
-  external static GLenum get UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER;
-  external static GLenum get INVALID_INDEX;
-  external static GLenum get MAX_VERTEX_OUTPUT_COMPONENTS;
-  external static GLenum get MAX_FRAGMENT_INPUT_COMPONENTS;
-  external static GLenum get MAX_SERVER_WAIT_TIMEOUT;
-  external static GLenum get OBJECT_TYPE;
-  external static GLenum get SYNC_CONDITION;
-  external static GLenum get SYNC_STATUS;
-  external static GLenum get SYNC_FLAGS;
-  external static GLenum get SYNC_FENCE;
-  external static GLenum get SYNC_GPU_COMMANDS_COMPLETE;
-  external static GLenum get UNSIGNALED;
-  external static GLenum get SIGNALED;
-  external static GLenum get ALREADY_SIGNALED;
-  external static GLenum get TIMEOUT_EXPIRED;
-  external static GLenum get CONDITION_SATISFIED;
-  external static GLenum get WAIT_FAILED;
-  external static GLenum get SYNC_FLUSH_COMMANDS_BIT;
-  external static GLenum get VERTEX_ATTRIB_ARRAY_DIVISOR;
-  external static GLenum get ANY_SAMPLES_PASSED;
-  external static GLenum get ANY_SAMPLES_PASSED_CONSERVATIVE;
-  external static GLenum get SAMPLER_BINDING;
-  external static GLenum get RGB10_A2UI;
-  external static GLenum get INT_2_10_10_10_REV;
-  external static GLenum get TRANSFORM_FEEDBACK;
-  external static GLenum get TRANSFORM_FEEDBACK_PAUSED;
-  external static GLenum get TRANSFORM_FEEDBACK_ACTIVE;
-  external static GLenum get TRANSFORM_FEEDBACK_BINDING;
-  external static GLenum get TEXTURE_IMMUTABLE_FORMAT;
-  external static GLenum get MAX_ELEMENT_INDEX;
-  external static GLenum get TEXTURE_IMMUTABLE_LEVELS;
-  external static GLint64 get TIMEOUT_IGNORED;
-  external static GLenum get MAX_CLIENT_WAIT_TIMEOUT_WEBGL;
+  static const GLenum DEPTH_BUFFER_BIT = 256;
+
+  static const GLenum STENCIL_BUFFER_BIT = 1024;
+
+  static const GLenum COLOR_BUFFER_BIT = 16384;
+
+  static const GLenum POINTS = 0;
+
+  static const GLenum LINES = 1;
+
+  static const GLenum LINE_LOOP = 2;
+
+  static const GLenum LINE_STRIP = 3;
+
+  static const GLenum TRIANGLES = 4;
+
+  static const GLenum TRIANGLE_STRIP = 5;
+
+  static const GLenum TRIANGLE_FAN = 6;
+
+  static const GLenum ZERO = 0;
+
+  static const GLenum ONE = 1;
+
+  static const GLenum SRC_COLOR = 768;
+
+  static const GLenum ONE_MINUS_SRC_COLOR = 769;
+
+  static const GLenum SRC_ALPHA = 770;
+
+  static const GLenum ONE_MINUS_SRC_ALPHA = 771;
+
+  static const GLenum DST_ALPHA = 772;
+
+  static const GLenum ONE_MINUS_DST_ALPHA = 773;
+
+  static const GLenum DST_COLOR = 774;
+
+  static const GLenum ONE_MINUS_DST_COLOR = 775;
+
+  static const GLenum SRC_ALPHA_SATURATE = 776;
+
+  static const GLenum FUNC_ADD = 32774;
+
+  static const GLenum BLEND_EQUATION = 32777;
+
+  static const GLenum BLEND_EQUATION_RGB = 32777;
+
+  static const GLenum BLEND_EQUATION_ALPHA = 34877;
+
+  static const GLenum FUNC_SUBTRACT = 32778;
+
+  static const GLenum FUNC_REVERSE_SUBTRACT = 32779;
+
+  static const GLenum BLEND_DST_RGB = 32968;
+
+  static const GLenum BLEND_SRC_RGB = 32969;
+
+  static const GLenum BLEND_DST_ALPHA = 32970;
+
+  static const GLenum BLEND_SRC_ALPHA = 32971;
+
+  static const GLenum CONSTANT_COLOR = 32769;
+
+  static const GLenum ONE_MINUS_CONSTANT_COLOR = 32770;
+
+  static const GLenum CONSTANT_ALPHA = 32771;
+
+  static const GLenum ONE_MINUS_CONSTANT_ALPHA = 32772;
+
+  static const GLenum BLEND_COLOR = 32773;
+
+  static const GLenum ARRAY_BUFFER = 34962;
+
+  static const GLenum ELEMENT_ARRAY_BUFFER = 34963;
+
+  static const GLenum ARRAY_BUFFER_BINDING = 34964;
+
+  static const GLenum ELEMENT_ARRAY_BUFFER_BINDING = 34965;
+
+  static const GLenum STREAM_DRAW = 35040;
+
+  static const GLenum STATIC_DRAW = 35044;
+
+  static const GLenum DYNAMIC_DRAW = 35048;
+
+  static const GLenum BUFFER_SIZE = 34660;
+
+  static const GLenum BUFFER_USAGE = 34661;
+
+  static const GLenum CURRENT_VERTEX_ATTRIB = 34342;
+
+  static const GLenum FRONT = 1028;
+
+  static const GLenum BACK = 1029;
+
+  static const GLenum FRONT_AND_BACK = 1032;
+
+  static const GLenum CULL_FACE = 2884;
+
+  static const GLenum BLEND = 3042;
+
+  static const GLenum DITHER = 3024;
+
+  static const GLenum STENCIL_TEST = 2960;
+
+  static const GLenum DEPTH_TEST = 2929;
+
+  static const GLenum SCISSOR_TEST = 3089;
+
+  static const GLenum POLYGON_OFFSET_FILL = 32823;
+
+  static const GLenum SAMPLE_ALPHA_TO_COVERAGE = 32926;
+
+  static const GLenum SAMPLE_COVERAGE = 32928;
+
+  static const GLenum NO_ERROR = 0;
+
+  static const GLenum INVALID_ENUM = 1280;
+
+  static const GLenum INVALID_VALUE = 1281;
+
+  static const GLenum INVALID_OPERATION = 1282;
+
+  static const GLenum OUT_OF_MEMORY = 1285;
+
+  static const GLenum CW = 2304;
+
+  static const GLenum CCW = 2305;
+
+  static const GLenum LINE_WIDTH = 2849;
+
+  static const GLenum ALIASED_POINT_SIZE_RANGE = 33901;
+
+  static const GLenum ALIASED_LINE_WIDTH_RANGE = 33902;
+
+  static const GLenum CULL_FACE_MODE = 2885;
+
+  static const GLenum FRONT_FACE = 2886;
+
+  static const GLenum DEPTH_RANGE = 2928;
+
+  static const GLenum DEPTH_WRITEMASK = 2930;
+
+  static const GLenum DEPTH_CLEAR_VALUE = 2931;
+
+  static const GLenum DEPTH_FUNC = 2932;
+
+  static const GLenum STENCIL_CLEAR_VALUE = 2961;
+
+  static const GLenum STENCIL_FUNC = 2962;
+
+  static const GLenum STENCIL_FAIL = 2964;
+
+  static const GLenum STENCIL_PASS_DEPTH_FAIL = 2965;
+
+  static const GLenum STENCIL_PASS_DEPTH_PASS = 2966;
+
+  static const GLenum STENCIL_REF = 2967;
+
+  static const GLenum STENCIL_VALUE_MASK = 2963;
+
+  static const GLenum STENCIL_WRITEMASK = 2968;
+
+  static const GLenum STENCIL_BACK_FUNC = 34816;
+
+  static const GLenum STENCIL_BACK_FAIL = 34817;
+
+  static const GLenum STENCIL_BACK_PASS_DEPTH_FAIL = 34818;
+
+  static const GLenum STENCIL_BACK_PASS_DEPTH_PASS = 34819;
+
+  static const GLenum STENCIL_BACK_REF = 36003;
+
+  static const GLenum STENCIL_BACK_VALUE_MASK = 36004;
+
+  static const GLenum STENCIL_BACK_WRITEMASK = 36005;
+
+  static const GLenum VIEWPORT = 2978;
+
+  static const GLenum SCISSOR_BOX = 3088;
+
+  static const GLenum COLOR_CLEAR_VALUE = 3106;
+
+  static const GLenum COLOR_WRITEMASK = 3107;
+
+  static const GLenum UNPACK_ALIGNMENT = 3317;
+
+  static const GLenum PACK_ALIGNMENT = 3333;
+
+  static const GLenum MAX_TEXTURE_SIZE = 3379;
+
+  static const GLenum MAX_VIEWPORT_DIMS = 3386;
+
+  static const GLenum SUBPIXEL_BITS = 3408;
+
+  static const GLenum RED_BITS = 3410;
+
+  static const GLenum GREEN_BITS = 3411;
+
+  static const GLenum BLUE_BITS = 3412;
+
+  static const GLenum ALPHA_BITS = 3413;
+
+  static const GLenum DEPTH_BITS = 3414;
+
+  static const GLenum STENCIL_BITS = 3415;
+
+  static const GLenum POLYGON_OFFSET_UNITS = 10752;
+
+  static const GLenum POLYGON_OFFSET_FACTOR = 32824;
+
+  static const GLenum TEXTURE_BINDING_2D = 32873;
+
+  static const GLenum SAMPLE_BUFFERS = 32936;
+
+  static const GLenum SAMPLES = 32937;
+
+  static const GLenum SAMPLE_COVERAGE_VALUE = 32938;
+
+  static const GLenum SAMPLE_COVERAGE_INVERT = 32939;
+
+  static const GLenum COMPRESSED_TEXTURE_FORMATS = 34467;
+
+  static const GLenum DONT_CARE = 4352;
+
+  static const GLenum FASTEST = 4353;
+
+  static const GLenum NICEST = 4354;
+
+  static const GLenum GENERATE_MIPMAP_HINT = 33170;
+
+  static const GLenum BYTE = 5120;
+
+  static const GLenum UNSIGNED_BYTE = 5121;
+
+  static const GLenum SHORT = 5122;
+
+  static const GLenum UNSIGNED_SHORT = 5123;
+
+  static const GLenum INT = 5124;
+
+  static const GLenum UNSIGNED_INT = 5125;
+
+  static const GLenum FLOAT = 5126;
+
+  static const GLenum DEPTH_COMPONENT = 6402;
+
+  static const GLenum ALPHA = 6406;
+
+  static const GLenum RGB = 6407;
+
+  static const GLenum RGBA = 6408;
+
+  static const GLenum LUMINANCE = 6409;
+
+  static const GLenum LUMINANCE_ALPHA = 6410;
+
+  static const GLenum UNSIGNED_SHORT_4_4_4_4 = 32819;
+
+  static const GLenum UNSIGNED_SHORT_5_5_5_1 = 32820;
+
+  static const GLenum UNSIGNED_SHORT_5_6_5 = 33635;
+
+  static const GLenum FRAGMENT_SHADER = 35632;
+
+  static const GLenum VERTEX_SHADER = 35633;
+
+  static const GLenum MAX_VERTEX_ATTRIBS = 34921;
+
+  static const GLenum MAX_VERTEX_UNIFORM_VECTORS = 36347;
+
+  static const GLenum MAX_VARYING_VECTORS = 36348;
+
+  static const GLenum MAX_COMBINED_TEXTURE_IMAGE_UNITS = 35661;
+
+  static const GLenum MAX_VERTEX_TEXTURE_IMAGE_UNITS = 35660;
+
+  static const GLenum MAX_TEXTURE_IMAGE_UNITS = 34930;
+
+  static const GLenum MAX_FRAGMENT_UNIFORM_VECTORS = 36349;
+
+  static const GLenum SHADER_TYPE = 35663;
+
+  static const GLenum DELETE_STATUS = 35712;
+
+  static const GLenum LINK_STATUS = 35714;
+
+  static const GLenum VALIDATE_STATUS = 35715;
+
+  static const GLenum ATTACHED_SHADERS = 35717;
+
+  static const GLenum ACTIVE_UNIFORMS = 35718;
+
+  static const GLenum ACTIVE_ATTRIBUTES = 35721;
+
+  static const GLenum SHADING_LANGUAGE_VERSION = 35724;
+
+  static const GLenum CURRENT_PROGRAM = 35725;
+
+  static const GLenum NEVER = 512;
+
+  static const GLenum LESS = 513;
+
+  static const GLenum EQUAL = 514;
+
+  static const GLenum LEQUAL = 515;
+
+  static const GLenum GREATER = 516;
+
+  static const GLenum NOTEQUAL = 517;
+
+  static const GLenum GEQUAL = 518;
+
+  static const GLenum ALWAYS = 519;
+
+  static const GLenum KEEP = 7680;
+
+  static const GLenum REPLACE = 7681;
+
+  static const GLenum INCR = 7682;
+
+  static const GLenum DECR = 7683;
+
+  static const GLenum INVERT = 5386;
+
+  static const GLenum INCR_WRAP = 34055;
+
+  static const GLenum DECR_WRAP = 34056;
+
+  static const GLenum VENDOR = 7936;
+
+  static const GLenum RENDERER = 7937;
+
+  static const GLenum VERSION = 7938;
+
+  static const GLenum NEAREST = 9728;
+
+  static const GLenum LINEAR = 9729;
+
+  static const GLenum NEAREST_MIPMAP_NEAREST = 9984;
+
+  static const GLenum LINEAR_MIPMAP_NEAREST = 9985;
+
+  static const GLenum NEAREST_MIPMAP_LINEAR = 9986;
+
+  static const GLenum LINEAR_MIPMAP_LINEAR = 9987;
+
+  static const GLenum TEXTURE_MAG_FILTER = 10240;
+
+  static const GLenum TEXTURE_MIN_FILTER = 10241;
+
+  static const GLenum TEXTURE_WRAP_S = 10242;
+
+  static const GLenum TEXTURE_WRAP_T = 10243;
+
+  static const GLenum TEXTURE_2D = 3553;
+
+  static const GLenum TEXTURE = 5890;
+
+  static const GLenum TEXTURE_CUBE_MAP = 34067;
+
+  static const GLenum TEXTURE_BINDING_CUBE_MAP = 34068;
+
+  static const GLenum TEXTURE_CUBE_MAP_POSITIVE_X = 34069;
+
+  static const GLenum TEXTURE_CUBE_MAP_NEGATIVE_X = 34070;
+
+  static const GLenum TEXTURE_CUBE_MAP_POSITIVE_Y = 34071;
+
+  static const GLenum TEXTURE_CUBE_MAP_NEGATIVE_Y = 34072;
+
+  static const GLenum TEXTURE_CUBE_MAP_POSITIVE_Z = 34073;
+
+  static const GLenum TEXTURE_CUBE_MAP_NEGATIVE_Z = 34074;
+
+  static const GLenum MAX_CUBE_MAP_TEXTURE_SIZE = 34076;
+
+  static const GLenum TEXTURE0 = 33984;
+
+  static const GLenum TEXTURE1 = 33985;
+
+  static const GLenum TEXTURE2 = 33986;
+
+  static const GLenum TEXTURE3 = 33987;
+
+  static const GLenum TEXTURE4 = 33988;
+
+  static const GLenum TEXTURE5 = 33989;
+
+  static const GLenum TEXTURE6 = 33990;
+
+  static const GLenum TEXTURE7 = 33991;
+
+  static const GLenum TEXTURE8 = 33992;
+
+  static const GLenum TEXTURE9 = 33993;
+
+  static const GLenum TEXTURE10 = 33994;
+
+  static const GLenum TEXTURE11 = 33995;
+
+  static const GLenum TEXTURE12 = 33996;
+
+  static const GLenum TEXTURE13 = 33997;
+
+  static const GLenum TEXTURE14 = 33998;
+
+  static const GLenum TEXTURE15 = 33999;
+
+  static const GLenum TEXTURE16 = 34000;
+
+  static const GLenum TEXTURE17 = 34001;
+
+  static const GLenum TEXTURE18 = 34002;
+
+  static const GLenum TEXTURE19 = 34003;
+
+  static const GLenum TEXTURE20 = 34004;
+
+  static const GLenum TEXTURE21 = 34005;
+
+  static const GLenum TEXTURE22 = 34006;
+
+  static const GLenum TEXTURE23 = 34007;
+
+  static const GLenum TEXTURE24 = 34008;
+
+  static const GLenum TEXTURE25 = 34009;
+
+  static const GLenum TEXTURE26 = 34010;
+
+  static const GLenum TEXTURE27 = 34011;
+
+  static const GLenum TEXTURE28 = 34012;
+
+  static const GLenum TEXTURE29 = 34013;
+
+  static const GLenum TEXTURE30 = 34014;
+
+  static const GLenum TEXTURE31 = 34015;
+
+  static const GLenum ACTIVE_TEXTURE = 34016;
+
+  static const GLenum REPEAT = 10497;
+
+  static const GLenum CLAMP_TO_EDGE = 33071;
+
+  static const GLenum MIRRORED_REPEAT = 33648;
+
+  static const GLenum FLOAT_VEC2 = 35664;
+
+  static const GLenum FLOAT_VEC3 = 35665;
+
+  static const GLenum FLOAT_VEC4 = 35666;
+
+  static const GLenum INT_VEC2 = 35667;
+
+  static const GLenum INT_VEC3 = 35668;
+
+  static const GLenum INT_VEC4 = 35669;
+
+  static const GLenum BOOL = 35670;
+
+  static const GLenum BOOL_VEC2 = 35671;
+
+  static const GLenum BOOL_VEC3 = 35672;
+
+  static const GLenum BOOL_VEC4 = 35673;
+
+  static const GLenum FLOAT_MAT2 = 35674;
+
+  static const GLenum FLOAT_MAT3 = 35675;
+
+  static const GLenum FLOAT_MAT4 = 35676;
+
+  static const GLenum SAMPLER_2D = 35678;
+
+  static const GLenum SAMPLER_CUBE = 35680;
+
+  static const GLenum VERTEX_ATTRIB_ARRAY_ENABLED = 34338;
+
+  static const GLenum VERTEX_ATTRIB_ARRAY_SIZE = 34339;
+
+  static const GLenum VERTEX_ATTRIB_ARRAY_STRIDE = 34340;
+
+  static const GLenum VERTEX_ATTRIB_ARRAY_TYPE = 34341;
+
+  static const GLenum VERTEX_ATTRIB_ARRAY_NORMALIZED = 34922;
+
+  static const GLenum VERTEX_ATTRIB_ARRAY_POINTER = 34373;
+
+  static const GLenum VERTEX_ATTRIB_ARRAY_BUFFER_BINDING = 34975;
+
+  static const GLenum IMPLEMENTATION_COLOR_READ_TYPE = 35738;
+
+  static const GLenum IMPLEMENTATION_COLOR_READ_FORMAT = 35739;
+
+  static const GLenum COMPILE_STATUS = 35713;
+
+  static const GLenum LOW_FLOAT = 36336;
+
+  static const GLenum MEDIUM_FLOAT = 36337;
+
+  static const GLenum HIGH_FLOAT = 36338;
+
+  static const GLenum LOW_INT = 36339;
+
+  static const GLenum MEDIUM_INT = 36340;
+
+  static const GLenum HIGH_INT = 36341;
+
+  static const GLenum FRAMEBUFFER = 36160;
+
+  static const GLenum RENDERBUFFER = 36161;
+
+  static const GLenum RGBA4 = 32854;
+
+  static const GLenum RGB5_A1 = 32855;
+
+  static const GLenum RGBA8 = 32856;
+
+  static const GLenum RGB565 = 36194;
+
+  static const GLenum DEPTH_COMPONENT16 = 33189;
+
+  static const GLenum STENCIL_INDEX8 = 36168;
+
+  static const GLenum DEPTH_STENCIL = 34041;
+
+  static const GLenum RENDERBUFFER_WIDTH = 36162;
+
+  static const GLenum RENDERBUFFER_HEIGHT = 36163;
+
+  static const GLenum RENDERBUFFER_INTERNAL_FORMAT = 36164;
+
+  static const GLenum RENDERBUFFER_RED_SIZE = 36176;
+
+  static const GLenum RENDERBUFFER_GREEN_SIZE = 36177;
+
+  static const GLenum RENDERBUFFER_BLUE_SIZE = 36178;
+
+  static const GLenum RENDERBUFFER_ALPHA_SIZE = 36179;
+
+  static const GLenum RENDERBUFFER_DEPTH_SIZE = 36180;
+
+  static const GLenum RENDERBUFFER_STENCIL_SIZE = 36181;
+
+  static const GLenum FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE = 36048;
+
+  static const GLenum FRAMEBUFFER_ATTACHMENT_OBJECT_NAME = 36049;
+
+  static const GLenum FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL = 36050;
+
+  static const GLenum FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE = 36051;
+
+  static const GLenum COLOR_ATTACHMENT0 = 36064;
+
+  static const GLenum DEPTH_ATTACHMENT = 36096;
+
+  static const GLenum STENCIL_ATTACHMENT = 36128;
+
+  static const GLenum DEPTH_STENCIL_ATTACHMENT = 33306;
+
+  static const GLenum NONE = 0;
+
+  static const GLenum FRAMEBUFFER_COMPLETE = 36053;
+
+  static const GLenum FRAMEBUFFER_INCOMPLETE_ATTACHMENT = 36054;
+
+  static const GLenum FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT = 36055;
+
+  static const GLenum FRAMEBUFFER_INCOMPLETE_DIMENSIONS = 36057;
+
+  static const GLenum FRAMEBUFFER_UNSUPPORTED = 36061;
+
+  static const GLenum FRAMEBUFFER_BINDING = 36006;
+
+  static const GLenum RENDERBUFFER_BINDING = 36007;
+
+  static const GLenum MAX_RENDERBUFFER_SIZE = 34024;
+
+  static const GLenum INVALID_FRAMEBUFFER_OPERATION = 1286;
+
+  static const GLenum UNPACK_FLIP_Y_WEBGL = 37440;
+
+  static const GLenum UNPACK_PREMULTIPLY_ALPHA_WEBGL = 37441;
+
+  static const GLenum CONTEXT_LOST_WEBGL = 37442;
+
+  static const GLenum UNPACK_COLORSPACE_CONVERSION_WEBGL = 37443;
+
+  static const GLenum BROWSER_DEFAULT_WEBGL = 37444;
+
+  static const GLenum READ_BUFFER = 3074;
+
+  static const GLenum UNPACK_ROW_LENGTH = 3314;
+
+  static const GLenum UNPACK_SKIP_ROWS = 3315;
+
+  static const GLenum UNPACK_SKIP_PIXELS = 3316;
+
+  static const GLenum PACK_ROW_LENGTH = 3330;
+
+  static const GLenum PACK_SKIP_ROWS = 3331;
+
+  static const GLenum PACK_SKIP_PIXELS = 3332;
+
+  static const GLenum COLOR = 6144;
+
+  static const GLenum DEPTH = 6145;
+
+  static const GLenum STENCIL = 6146;
+
+  static const GLenum RED = 6403;
+
+  static const GLenum RGB8 = 32849;
+
+  static const GLenum RGB10_A2 = 32857;
+
+  static const GLenum TEXTURE_BINDING_3D = 32874;
+
+  static const GLenum UNPACK_SKIP_IMAGES = 32877;
+
+  static const GLenum UNPACK_IMAGE_HEIGHT = 32878;
+
+  static const GLenum TEXTURE_3D = 32879;
+
+  static const GLenum TEXTURE_WRAP_R = 32882;
+
+  static const GLenum MAX_3D_TEXTURE_SIZE = 32883;
+
+  static const GLenum UNSIGNED_INT_2_10_10_10_REV = 33640;
+
+  static const GLenum MAX_ELEMENTS_VERTICES = 33000;
+
+  static const GLenum MAX_ELEMENTS_INDICES = 33001;
+
+  static const GLenum TEXTURE_MIN_LOD = 33082;
+
+  static const GLenum TEXTURE_MAX_LOD = 33083;
+
+  static const GLenum TEXTURE_BASE_LEVEL = 33084;
+
+  static const GLenum TEXTURE_MAX_LEVEL = 33085;
+
+  static const GLenum MIN = 32775;
+
+  static const GLenum MAX = 32776;
+
+  static const GLenum DEPTH_COMPONENT24 = 33190;
+
+  static const GLenum MAX_TEXTURE_LOD_BIAS = 34045;
+
+  static const GLenum TEXTURE_COMPARE_MODE = 34892;
+
+  static const GLenum TEXTURE_COMPARE_FUNC = 34893;
+
+  static const GLenum CURRENT_QUERY = 34917;
+
+  static const GLenum QUERY_RESULT = 34918;
+
+  static const GLenum QUERY_RESULT_AVAILABLE = 34919;
+
+  static const GLenum STREAM_READ = 35041;
+
+  static const GLenum STREAM_COPY = 35042;
+
+  static const GLenum STATIC_READ = 35045;
+
+  static const GLenum STATIC_COPY = 35046;
+
+  static const GLenum DYNAMIC_READ = 35049;
+
+  static const GLenum DYNAMIC_COPY = 35050;
+
+  static const GLenum MAX_DRAW_BUFFERS = 34852;
+
+  static const GLenum DRAW_BUFFER0 = 34853;
+
+  static const GLenum DRAW_BUFFER1 = 34854;
+
+  static const GLenum DRAW_BUFFER2 = 34855;
+
+  static const GLenum DRAW_BUFFER3 = 34856;
+
+  static const GLenum DRAW_BUFFER4 = 34857;
+
+  static const GLenum DRAW_BUFFER5 = 34858;
+
+  static const GLenum DRAW_BUFFER6 = 34859;
+
+  static const GLenum DRAW_BUFFER7 = 34860;
+
+  static const GLenum DRAW_BUFFER8 = 34861;
+
+  static const GLenum DRAW_BUFFER9 = 34862;
+
+  static const GLenum DRAW_BUFFER10 = 34863;
+
+  static const GLenum DRAW_BUFFER11 = 34864;
+
+  static const GLenum DRAW_BUFFER12 = 34865;
+
+  static const GLenum DRAW_BUFFER13 = 34866;
+
+  static const GLenum DRAW_BUFFER14 = 34867;
+
+  static const GLenum DRAW_BUFFER15 = 34868;
+
+  static const GLenum MAX_FRAGMENT_UNIFORM_COMPONENTS = 35657;
+
+  static const GLenum MAX_VERTEX_UNIFORM_COMPONENTS = 35658;
+
+  static const GLenum SAMPLER_3D = 35679;
+
+  static const GLenum SAMPLER_2D_SHADOW = 35682;
+
+  static const GLenum FRAGMENT_SHADER_DERIVATIVE_HINT = 35723;
+
+  static const GLenum PIXEL_PACK_BUFFER = 35051;
+
+  static const GLenum PIXEL_UNPACK_BUFFER = 35052;
+
+  static const GLenum PIXEL_PACK_BUFFER_BINDING = 35053;
+
+  static const GLenum PIXEL_UNPACK_BUFFER_BINDING = 35055;
+
+  static const GLenum FLOAT_MAT2x3 = 35685;
+
+  static const GLenum FLOAT_MAT2x4 = 35686;
+
+  static const GLenum FLOAT_MAT3x2 = 35687;
+
+  static const GLenum FLOAT_MAT3x4 = 35688;
+
+  static const GLenum FLOAT_MAT4x2 = 35689;
+
+  static const GLenum FLOAT_MAT4x3 = 35690;
+
+  static const GLenum SRGB = 35904;
+
+  static const GLenum SRGB8 = 35905;
+
+  static const GLenum SRGB8_ALPHA8 = 35907;
+
+  static const GLenum COMPARE_REF_TO_TEXTURE = 34894;
+
+  static const GLenum RGBA32F = 34836;
+
+  static const GLenum RGB32F = 34837;
+
+  static const GLenum RGBA16F = 34842;
+
+  static const GLenum RGB16F = 34843;
+
+  static const GLenum VERTEX_ATTRIB_ARRAY_INTEGER = 35069;
+
+  static const GLenum MAX_ARRAY_TEXTURE_LAYERS = 35071;
+
+  static const GLenum MIN_PROGRAM_TEXEL_OFFSET = 35076;
+
+  static const GLenum MAX_PROGRAM_TEXEL_OFFSET = 35077;
+
+  static const GLenum MAX_VARYING_COMPONENTS = 35659;
+
+  static const GLenum TEXTURE_2D_ARRAY = 35866;
+
+  static const GLenum TEXTURE_BINDING_2D_ARRAY = 35869;
+
+  static const GLenum R11F_G11F_B10F = 35898;
+
+  static const GLenum UNSIGNED_INT_10F_11F_11F_REV = 35899;
+
+  static const GLenum RGB9_E5 = 35901;
+
+  static const GLenum UNSIGNED_INT_5_9_9_9_REV = 35902;
+
+  static const GLenum TRANSFORM_FEEDBACK_BUFFER_MODE = 35967;
+
+  static const GLenum MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS = 35968;
+
+  static const GLenum TRANSFORM_FEEDBACK_VARYINGS = 35971;
+
+  static const GLenum TRANSFORM_FEEDBACK_BUFFER_START = 35972;
+
+  static const GLenum TRANSFORM_FEEDBACK_BUFFER_SIZE = 35973;
+
+  static const GLenum TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN = 35976;
+
+  static const GLenum RASTERIZER_DISCARD = 35977;
+
+  static const GLenum MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS = 35978;
+
+  static const GLenum MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS = 35979;
+
+  static const GLenum INTERLEAVED_ATTRIBS = 35980;
+
+  static const GLenum SEPARATE_ATTRIBS = 35981;
+
+  static const GLenum TRANSFORM_FEEDBACK_BUFFER = 35982;
+
+  static const GLenum TRANSFORM_FEEDBACK_BUFFER_BINDING = 35983;
+
+  static const GLenum RGBA32UI = 36208;
+
+  static const GLenum RGB32UI = 36209;
+
+  static const GLenum RGBA16UI = 36214;
+
+  static const GLenum RGB16UI = 36215;
+
+  static const GLenum RGBA8UI = 36220;
+
+  static const GLenum RGB8UI = 36221;
+
+  static const GLenum RGBA32I = 36226;
+
+  static const GLenum RGB32I = 36227;
+
+  static const GLenum RGBA16I = 36232;
+
+  static const GLenum RGB16I = 36233;
+
+  static const GLenum RGBA8I = 36238;
+
+  static const GLenum RGB8I = 36239;
+
+  static const GLenum RED_INTEGER = 36244;
+
+  static const GLenum RGB_INTEGER = 36248;
+
+  static const GLenum RGBA_INTEGER = 36249;
+
+  static const GLenum SAMPLER_2D_ARRAY = 36289;
+
+  static const GLenum SAMPLER_2D_ARRAY_SHADOW = 36292;
+
+  static const GLenum SAMPLER_CUBE_SHADOW = 36293;
+
+  static const GLenum UNSIGNED_INT_VEC2 = 36294;
+
+  static const GLenum UNSIGNED_INT_VEC3 = 36295;
+
+  static const GLenum UNSIGNED_INT_VEC4 = 36296;
+
+  static const GLenum INT_SAMPLER_2D = 36298;
+
+  static const GLenum INT_SAMPLER_3D = 36299;
+
+  static const GLenum INT_SAMPLER_CUBE = 36300;
+
+  static const GLenum INT_SAMPLER_2D_ARRAY = 36303;
+
+  static const GLenum UNSIGNED_INT_SAMPLER_2D = 36306;
+
+  static const GLenum UNSIGNED_INT_SAMPLER_3D = 36307;
+
+  static const GLenum UNSIGNED_INT_SAMPLER_CUBE = 36308;
+
+  static const GLenum UNSIGNED_INT_SAMPLER_2D_ARRAY = 36311;
+
+  static const GLenum DEPTH_COMPONENT32F = 36012;
+
+  static const GLenum DEPTH32F_STENCIL8 = 36013;
+
+  static const GLenum FLOAT_32_UNSIGNED_INT_24_8_REV = 36269;
+
+  static const GLenum FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING = 33296;
+
+  static const GLenum FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE = 33297;
+
+  static const GLenum FRAMEBUFFER_ATTACHMENT_RED_SIZE = 33298;
+
+  static const GLenum FRAMEBUFFER_ATTACHMENT_GREEN_SIZE = 33299;
+
+  static const GLenum FRAMEBUFFER_ATTACHMENT_BLUE_SIZE = 33300;
+
+  static const GLenum FRAMEBUFFER_ATTACHMENT_ALPHA_SIZE = 33301;
+
+  static const GLenum FRAMEBUFFER_ATTACHMENT_DEPTH_SIZE = 33302;
+
+  static const GLenum FRAMEBUFFER_ATTACHMENT_STENCIL_SIZE = 33303;
+
+  static const GLenum FRAMEBUFFER_DEFAULT = 33304;
+
+  static const GLenum UNSIGNED_INT_24_8 = 34042;
+
+  static const GLenum DEPTH24_STENCIL8 = 35056;
+
+  static const GLenum UNSIGNED_NORMALIZED = 35863;
+
+  static const GLenum DRAW_FRAMEBUFFER_BINDING = 36006;
+
+  static const GLenum READ_FRAMEBUFFER = 36008;
+
+  static const GLenum DRAW_FRAMEBUFFER = 36009;
+
+  static const GLenum READ_FRAMEBUFFER_BINDING = 36010;
+
+  static const GLenum RENDERBUFFER_SAMPLES = 36011;
+
+  static const GLenum FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER = 36052;
+
+  static const GLenum MAX_COLOR_ATTACHMENTS = 36063;
+
+  static const GLenum COLOR_ATTACHMENT1 = 36065;
+
+  static const GLenum COLOR_ATTACHMENT2 = 36066;
+
+  static const GLenum COLOR_ATTACHMENT3 = 36067;
+
+  static const GLenum COLOR_ATTACHMENT4 = 36068;
+
+  static const GLenum COLOR_ATTACHMENT5 = 36069;
+
+  static const GLenum COLOR_ATTACHMENT6 = 36070;
+
+  static const GLenum COLOR_ATTACHMENT7 = 36071;
+
+  static const GLenum COLOR_ATTACHMENT8 = 36072;
+
+  static const GLenum COLOR_ATTACHMENT9 = 36073;
+
+  static const GLenum COLOR_ATTACHMENT10 = 36074;
+
+  static const GLenum COLOR_ATTACHMENT11 = 36075;
+
+  static const GLenum COLOR_ATTACHMENT12 = 36076;
+
+  static const GLenum COLOR_ATTACHMENT13 = 36077;
+
+  static const GLenum COLOR_ATTACHMENT14 = 36078;
+
+  static const GLenum COLOR_ATTACHMENT15 = 36079;
+
+  static const GLenum FRAMEBUFFER_INCOMPLETE_MULTISAMPLE = 36182;
+
+  static const GLenum MAX_SAMPLES = 36183;
+
+  static const GLenum HALF_FLOAT = 5131;
+
+  static const GLenum RG = 33319;
+
+  static const GLenum RG_INTEGER = 33320;
+
+  static const GLenum R8 = 33321;
+
+  static const GLenum RG8 = 33323;
+
+  static const GLenum R16F = 33325;
+
+  static const GLenum R32F = 33326;
+
+  static const GLenum RG16F = 33327;
+
+  static const GLenum RG32F = 33328;
+
+  static const GLenum R8I = 33329;
+
+  static const GLenum R8UI = 33330;
+
+  static const GLenum R16I = 33331;
+
+  static const GLenum R16UI = 33332;
+
+  static const GLenum R32I = 33333;
+
+  static const GLenum R32UI = 33334;
+
+  static const GLenum RG8I = 33335;
+
+  static const GLenum RG8UI = 33336;
+
+  static const GLenum RG16I = 33337;
+
+  static const GLenum RG16UI = 33338;
+
+  static const GLenum RG32I = 33339;
+
+  static const GLenum RG32UI = 33340;
+
+  static const GLenum VERTEX_ARRAY_BINDING = 34229;
+
+  static const GLenum R8_SNORM = 36756;
+
+  static const GLenum RG8_SNORM = 36757;
+
+  static const GLenum RGB8_SNORM = 36758;
+
+  static const GLenum RGBA8_SNORM = 36759;
+
+  static const GLenum SIGNED_NORMALIZED = 36764;
+
+  static const GLenum COPY_READ_BUFFER = 36662;
+
+  static const GLenum COPY_WRITE_BUFFER = 36663;
+
+  static const GLenum COPY_READ_BUFFER_BINDING = 36662;
+
+  static const GLenum COPY_WRITE_BUFFER_BINDING = 36663;
+
+  static const GLenum UNIFORM_BUFFER = 35345;
+
+  static const GLenum UNIFORM_BUFFER_BINDING = 35368;
+
+  static const GLenum UNIFORM_BUFFER_START = 35369;
+
+  static const GLenum UNIFORM_BUFFER_SIZE = 35370;
+
+  static const GLenum MAX_VERTEX_UNIFORM_BLOCKS = 35371;
+
+  static const GLenum MAX_FRAGMENT_UNIFORM_BLOCKS = 35373;
+
+  static const GLenum MAX_COMBINED_UNIFORM_BLOCKS = 35374;
+
+  static const GLenum MAX_UNIFORM_BUFFER_BINDINGS = 35375;
+
+  static const GLenum MAX_UNIFORM_BLOCK_SIZE = 35376;
+
+  static const GLenum MAX_COMBINED_VERTEX_UNIFORM_COMPONENTS = 35377;
+
+  static const GLenum MAX_COMBINED_FRAGMENT_UNIFORM_COMPONENTS = 35379;
+
+  static const GLenum UNIFORM_BUFFER_OFFSET_ALIGNMENT = 35380;
+
+  static const GLenum ACTIVE_UNIFORM_BLOCKS = 35382;
+
+  static const GLenum UNIFORM_TYPE = 35383;
+
+  static const GLenum UNIFORM_SIZE = 35384;
+
+  static const GLenum UNIFORM_BLOCK_INDEX = 35386;
+
+  static const GLenum UNIFORM_OFFSET = 35387;
+
+  static const GLenum UNIFORM_ARRAY_STRIDE = 35388;
+
+  static const GLenum UNIFORM_MATRIX_STRIDE = 35389;
+
+  static const GLenum UNIFORM_IS_ROW_MAJOR = 35390;
+
+  static const GLenum UNIFORM_BLOCK_BINDING = 35391;
+
+  static const GLenum UNIFORM_BLOCK_DATA_SIZE = 35392;
+
+  static const GLenum UNIFORM_BLOCK_ACTIVE_UNIFORMS = 35394;
+
+  static const GLenum UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES = 35395;
+
+  static const GLenum UNIFORM_BLOCK_REFERENCED_BY_VERTEX_SHADER = 35396;
+
+  static const GLenum UNIFORM_BLOCK_REFERENCED_BY_FRAGMENT_SHADER = 35398;
+
+  static const GLenum INVALID_INDEX = 4294967295;
+
+  static const GLenum MAX_VERTEX_OUTPUT_COMPONENTS = 37154;
+
+  static const GLenum MAX_FRAGMENT_INPUT_COMPONENTS = 37157;
+
+  static const GLenum MAX_SERVER_WAIT_TIMEOUT = 37137;
+
+  static const GLenum OBJECT_TYPE = 37138;
+
+  static const GLenum SYNC_CONDITION = 37139;
+
+  static const GLenum SYNC_STATUS = 37140;
+
+  static const GLenum SYNC_FLAGS = 37141;
+
+  static const GLenum SYNC_FENCE = 37142;
+
+  static const GLenum SYNC_GPU_COMMANDS_COMPLETE = 37143;
+
+  static const GLenum UNSIGNALED = 37144;
+
+  static const GLenum SIGNALED = 37145;
+
+  static const GLenum ALREADY_SIGNALED = 37146;
+
+  static const GLenum TIMEOUT_EXPIRED = 37147;
+
+  static const GLenum CONDITION_SATISFIED = 37148;
+
+  static const GLenum WAIT_FAILED = 37149;
+
+  static const GLenum SYNC_FLUSH_COMMANDS_BIT = 1;
+
+  static const GLenum VERTEX_ATTRIB_ARRAY_DIVISOR = 35070;
+
+  static const GLenum ANY_SAMPLES_PASSED = 35887;
+
+  static const GLenum ANY_SAMPLES_PASSED_CONSERVATIVE = 36202;
+
+  static const GLenum SAMPLER_BINDING = 35097;
+
+  static const GLenum RGB10_A2UI = 36975;
+
+  static const GLenum INT_2_10_10_10_REV = 36255;
+
+  static const GLenum TRANSFORM_FEEDBACK = 36386;
+
+  static const GLenum TRANSFORM_FEEDBACK_PAUSED = 36387;
+
+  static const GLenum TRANSFORM_FEEDBACK_ACTIVE = 36388;
+
+  static const GLenum TRANSFORM_FEEDBACK_BINDING = 36389;
+
+  static const GLenum TEXTURE_IMMUTABLE_FORMAT = 37167;
+
+  static const GLenum MAX_ELEMENT_INDEX = 36203;
+
+  static const GLenum TEXTURE_IMMUTABLE_LEVELS = 33503;
+
+  static const GLint64 TIMEOUT_IGNORED = -1;
+
+  static const GLenum MAX_CLIENT_WAIT_TIMEOUT_WEBGL = 37447;
+
   external WebGLContextAttributes? getContextAttributes();
   external bool isContextLost();
   external JSArray<JSString>? getSupportedExtensions();

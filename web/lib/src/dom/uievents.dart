@@ -655,9 +655,11 @@ extension type WheelEvent._(JSObject _) implements MouseEvent, JSObject {
     WheelEventInit eventInitDict,
   ]);
 
-  external static int get DOM_DELTA_PIXEL;
-  external static int get DOM_DELTA_LINE;
-  external static int get DOM_DELTA_PAGE;
+  static const int DOM_DELTA_PIXEL = 0;
+
+  static const int DOM_DELTA_LINE = 1;
+
+  static const int DOM_DELTA_PAGE = 2;
 
   /// The **`WheelEvent.deltaX`** read-only property is a
   /// `double` representing the horizontal scroll amount in the
@@ -874,10 +876,13 @@ extension type KeyboardEvent._(JSObject _) implements UIEvent, JSObject {
     KeyboardEventInit eventInitDict,
   ]);
 
-  external static int get DOM_KEY_LOCATION_STANDARD;
-  external static int get DOM_KEY_LOCATION_LEFT;
-  external static int get DOM_KEY_LOCATION_RIGHT;
-  external static int get DOM_KEY_LOCATION_NUMPAD;
+  static const int DOM_KEY_LOCATION_STANDARD = 0;
+
+  static const int DOM_KEY_LOCATION_LEFT = 1;
+
+  static const int DOM_KEY_LOCATION_RIGHT = 2;
+
+  static const int DOM_KEY_LOCATION_NUMPAD = 3;
 
   /// The **`KeyboardEvent.getModifierState()`** method returns the
   /// current state of the specified modifier key: `true` if the modifier is
@@ -1257,9 +1262,11 @@ extension type TextEvent._(JSObject _) implements UIEvent, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MutationEvent).
 extension type MutationEvent._(JSObject _) implements Event, JSObject {
-  external static int get MODIFICATION;
-  external static int get ADDITION;
-  external static int get REMOVAL;
+  static const int MODIFICATION = 1;
+
+  static const int ADDITION = 2;
+
+  static const int REMOVAL = 3;
 
   /// The **`initMutationEvent()`** method of the [MutationEvent] interface
   /// initializes the

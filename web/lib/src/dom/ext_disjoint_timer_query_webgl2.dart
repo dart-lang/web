@@ -20,10 +20,14 @@ import 'webgl2.dart';
 
 extension type EXT_disjoint_timer_query_webgl2._(JSObject _)
     implements JSObject {
-  external static GLenum get QUERY_COUNTER_BITS_EXT;
-  external static GLenum get TIME_ELAPSED_EXT;
-  external static GLenum get TIMESTAMP_EXT;
-  external static GLenum get GPU_DISJOINT_EXT;
+  static const GLenum QUERY_COUNTER_BITS_EXT = 34916;
+
+  static const GLenum TIME_ELAPSED_EXT = 35007;
+
+  static const GLenum TIMESTAMP_EXT = 36392;
+
+  static const GLenum GPU_DISJOINT_EXT = 36795;
+
   external void queryCounterEXT(
     WebGLQuery query,
     GLenum target,

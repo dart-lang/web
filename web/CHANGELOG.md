@@ -4,9 +4,12 @@
   the `HttpStatus` from the `dart:_internal` library that's exposed only through
   `dart:io` and `dart:html`.
 - Added `JSImmutableListWrapper` which helps create a dart list from a JS list.
-- Deprecated `TouchListWrapper` and `TouchListConvert` in favor of `JSImmutableListWrapper`.
+- Deprecated `TouchListWrapper` and `TouchListConvert` in favor of
+  `JSImmutableListWrapper`.
 - Added `[]` and `[]=` overloaded operators to types which define unnamed
   `getter`s and `setter`s, respectively.
+- Exposed constants with primitive values as non-`external` so they can be
+  `switch`ed over.
 
 ## 1.0.0
 

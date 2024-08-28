@@ -39,10 +39,13 @@ extension type WebSocket._(JSObject _) implements EventTarget, JSObject {
     JSAny protocols,
   ]);
 
-  external static int get CONNECTING;
-  external static int get OPEN;
-  external static int get CLOSING;
-  external static int get CLOSED;
+  static const int CONNECTING = 0;
+
+  static const int OPEN = 1;
+
+  static const int CLOSING = 2;
+
+  static const int CLOSED = 3;
 
   /// The **`WebSocket.close()`** method closes the
   /// [WebSocket] connection or connection attempt, if any. If the connection is

@@ -18,5 +18,5 @@ import 'dart:js_interop';
 import 'webgl1.dart';
 
 extension type KHR_parallel_shader_compile._(JSObject _) implements JSObject {
-  external static GLenum get COMPLETION_STATUS_KHR;
+  static const GLenum COMPLETION_STATUS_KHR = 37297;
 }

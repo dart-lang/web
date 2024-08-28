@@ -334,7 +334,9 @@ class _Field extends _Property {
 }
 
 class _Constant extends _Property {
-  _Constant(super.name, super.idlType);
+  final String valueType;
+  final JSAny value;
+  _Constant(super.name, super.idlType, this.valueType, this.value);
 }
 
 abstract class _OverridableMember {
@@ -467,8 +469,8 @@ class _PartialInterfacelike {
           final constant = member as idl.Constant;
           // Note that constants do not have browser compatibility data, so we
           // always emit.
-          properties
-              .add(_Constant(_MemberName(constant.name), constant.idlType));
+          properties.add(_Constant(_MemberName(constant.name), constant.idlType,
+              constant.value.type, constant.value.value));
           break;
         case 'attribute':
           final attribute = member as idl.Attribute;
@@ -994,8 +996,8 @@ class Translator {
         ..optionalParameters.addAll(namedParameters)
         ..external = true
         // TODO(srujzs): Should we generate generative or factory constructors?
-        // With `@staticInterop`, factories were needed, but extension types have
-        // no such limitation.
+        // With `@staticInterop`, factories were needed, but extension types
+        // have no such limitation.
         ..factory = true);
     }
   }
@@ -1090,18 +1092,54 @@ class Translator {
     );
   }
 
-  List<code.Method> _constant(_Constant constant) {
-    return [
-      code.Method(
-        (b) => b
-          ..annotations.addAll(_jsOverride(constant.name.jsOverride))
-          ..external = true
-          ..static = true
-          ..returns = _typeReference(constant.type, returnType: true)
-          ..type = code.MethodType.getter
-          ..name = constant.name.name,
-      )
-    ];
+  (List<code.Field>, List<code.Method>) _constant(_Constant constant) {
+    code.Code? body;
+    // If it's a value type that we can emit directly in Dart as a constant,
+    // emit this as a field so users can `switch` over it. Value types taken
+    // from: https://github.com/w3c/webidl2.js/blob/main/README.md#default-and-const-values
+    if (constant.valueType == 'string') {
+      body = code.literalString((constant.value as JSString).toDart).code;
+    } else if (constant.valueType == 'boolean') {
+      body = code
+          .literalBool(
+              (constant.value as JSString).toDart.toLowerCase() == 'true')
+          .code;
+    } else if (constant.valueType == 'number') {
+      body =
+          code.literalNum(num.parse((constant.value as JSString).toDart)).code;
+    } else if (constant.valueType == 'null') {
+      body = code.literalNull.code;
+    }
+    if (body != null) {
+      return (
+        [
+          code.Field(
+            (b) => b
+              ..external = false
+              ..static = true
+              ..modifier = code.FieldModifier.constant
+              ..type = _typeReference(constant.type, returnType: true)
+              ..assignment = body
+              ..name = constant.name.name,
+          )
+        ],
+        []
+      );
+    }
+    return (
+      [],
+      [
+        code.Method(
+          (b) => b
+            ..annotations.addAll(_jsOverride(constant.name.jsOverride))
+            ..external = true
+            ..static = true
+            ..returns = _typeReference(constant.type, returnType: true)
+            ..type = code.MethodType.getter
+            ..name = constant.name.name,
+        )
+      ]
+    );
   }
 
   List<code.Method> _field(_Field field, MdnInterface? mdnInterface) {
@@ -1115,19 +1153,20 @@ class Translator {
     );
   }
 
-  List<code.Method> _property(_Property member, MdnInterface? mdnInterface) =>
+  (List<code.Field>, List<code.Method>) _property(
+          _Property member, MdnInterface? mdnInterface) =>
       switch (member) {
-        _Attribute() => _attribute(member, mdnInterface),
-        _Field() => _field(member, mdnInterface),
+        _Attribute() => ([], _attribute(member, mdnInterface)),
+        _Field() => ([], _field(member, mdnInterface)),
         _Constant() => _constant(member),
       };
 
-  List<code.Method> _properties(
-      List<_Property> properties, MdnInterface? mdnInterface) {
-    return [
-      for (final property in properties) ..._property(property, mdnInterface),
-    ];
-  }
+  (List<code.Field>, List<code.Method>) _properties(
+          List<_Property> properties, MdnInterface? mdnInterface) =>
+      properties.fold(([], []), (specs, property) {
+        final (fields, methods) = _property(property, mdnInterface);
+        return (specs.$1..addAll(fields), specs.$2..addAll(methods));
+      });
 
   List<code.Method> _operations(List<_OverridableOperation> operations) =>
       [for (final operation in operations) _operation(operation)];
@@ -1197,11 +1236,13 @@ class Translator {
     required _RawType type,
     required List<_Property> extensionProperties,
   }) {
+    final properties = _properties(extensionProperties, null);
     return code.Extension(
       (b) => b
         ..name = '${type.type.snakeToPascal}Extension'
         ..on = _typeReference(type)
-        ..methods.addAll(_properties(extensionProperties, null)),
+        ..fields.addAll(properties.$1)
+        ..methods.addAll(properties.$2),
     );
   }
 
@@ -1221,10 +1262,12 @@ class Translator {
 
     final jsObject = _typeReference(_RawType('JSObject', false));
     const representationFieldName = '_';
-    final instanceProperties = <code.Method>[];
-    final staticProperties = <code.Method>[];
-    for (final property in _properties(properties, mdnInterface)) {
-      (property.static ? staticProperties : instanceProperties).add(property);
+    final instancePropertyMethods = <code.Method>[];
+    final staticPropertyMethods = <code.Method>[];
+    final propertySpecs = _properties(properties, mdnInterface);
+    for (final property in propertySpecs.$2) {
+      (property.static ? staticPropertyMethods : instancePropertyMethods)
+          .add(property);
     }
     return code.ExtensionType((b) => b
       ..docs.addAll(docs)
@@ -1245,10 +1288,11 @@ class Translator {
                   : <code.Constructor>[])
           .followedBy(_elementConstructors(
               jsName, dartClassName, representationFieldName)))
+      ..fields.addAll(propertySpecs.$1)
       ..methods.addAll(_operations(staticOperations)
-          .followedBy(staticProperties)
+          .followedBy(staticPropertyMethods)
           .followedBy(_operations(operations))
-          .followedBy(instanceProperties)
+          .followedBy(instancePropertyMethods)
           .followedBy(dartClassName == 'CSSStyleDeclaration'
               ? _cssStyleDeclarationProperties()
               : [])));

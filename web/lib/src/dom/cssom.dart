@@ -352,20 +352,33 @@ extension type CSSRuleList._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSRule).
 extension type CSSRule._(JSObject _) implements JSObject {
-  external static int get KEYFRAMES_RULE;
-  external static int get KEYFRAME_RULE;
-  external static int get SUPPORTS_RULE;
-  external static int get COUNTER_STYLE_RULE;
-  external static int get FONT_FEATURE_VALUES_RULE;
-  external static int get VIEW_TRANSITION_RULE;
-  external static int get STYLE_RULE;
-  external static int get CHARSET_RULE;
-  external static int get IMPORT_RULE;
-  external static int get MEDIA_RULE;
-  external static int get FONT_FACE_RULE;
-  external static int get PAGE_RULE;
-  external static int get MARGIN_RULE;
-  external static int get NAMESPACE_RULE;
+  static const int KEYFRAMES_RULE = 7;
+
+  static const int KEYFRAME_RULE = 8;
+
+  static const int SUPPORTS_RULE = 12;
+
+  static const int COUNTER_STYLE_RULE = 11;
+
+  static const int FONT_FEATURE_VALUES_RULE = 14;
+
+  static const int VIEW_TRANSITION_RULE = 15;
+
+  static const int STYLE_RULE = 1;
+
+  static const int CHARSET_RULE = 2;
+
+  static const int IMPORT_RULE = 3;
+
+  static const int MEDIA_RULE = 4;
+
+  static const int FONT_FACE_RULE = 5;
+
+  static const int PAGE_RULE = 6;
+
+  static const int MARGIN_RULE = 9;
+
+  static const int NAMESPACE_RULE = 10;
 
   /// The **`cssText`** property of the [CSSRule]
   /// interface returns the actual text of a [CSSStyleSheet] style-rule.

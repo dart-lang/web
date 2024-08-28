@@ -549,10 +549,13 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceNavigation).
 extension type PerformanceNavigation._(JSObject _) implements JSObject {
-  external static int get TYPE_NAVIGATE;
-  external static int get TYPE_RELOAD;
-  external static int get TYPE_BACK_FORWARD;
-  external static int get TYPE_RESERVED;
+  static const int TYPE_NAVIGATE = 0;
+
+  static const int TYPE_RELOAD = 1;
+
+  static const int TYPE_BACK_FORWARD = 2;
+
+  static const int TYPE_RESERVED = 255;
 
   /// > **Warning:** This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).

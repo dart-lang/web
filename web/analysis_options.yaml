@@ -7,7 +7,7 @@ analyzer:
     strict-inference: true
     strict-raw-types: true
   exclude:
-    - web/test_fixes/**
+    - test_fixes/**
 
   errors:
     # 43 instances in generated code.
@@ -18,8 +18,8 @@ analyzer:
     lines_longer_than_80_chars: ignore
     # 1,333 instances in generated code.
     non_constant_identifier_names: ignore
-    # Consider removing from dart_flutter_team_lints.
-    unreachable_from_main: ignore
+    # 1,260 instances in generated code.
+    constant_identifier_names: ignore
 
 linter:
   rules:

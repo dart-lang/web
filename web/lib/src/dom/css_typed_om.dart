@@ -139,6 +139,12 @@ extension type CSSUnparsedValue._(JSObject _)
     implements CSSStyleValue, JSObject {
   external factory CSSUnparsedValue(JSArray<CSSUnparsedSegment> members);
 
+  external CSSUnparsedSegment operator [](int index);
+  external void operator []=(
+    int index,
+    CSSUnparsedSegment val,
+  );
+
   /// The **`length`** read-only property of the
   /// [CSSUnparsedValue] interface returns the number of items in the object.
   external int get length;
@@ -468,6 +474,8 @@ extension type CSSMathClamp._(JSObject _) implements CSSMathValue, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSNumericArray).
 extension type CSSNumericArray._(JSObject _) implements JSObject {
+  external CSSNumericValue operator [](int index);
+
   /// The read-only **`length`** property of the
   /// [CSSNumericArray] interface returns the number of
   /// [CSSNumericValue] objects in the list.
@@ -485,6 +493,12 @@ extension type CSSNumericArray._(JSObject _) implements JSObject {
 extension type CSSTransformValue._(JSObject _)
     implements CSSStyleValue, JSObject {
   external factory CSSTransformValue(JSArray<CSSTransformComponent> transforms);
+
+  external CSSTransformComponent operator [](int index);
+  external void operator []=(
+    int index,
+    CSSTransformComponent val,
+  );
 
   /// The **`toMatrix()`** method of the
   /// [CSSTransformValue] interface returns a [DOMMatrix] object.

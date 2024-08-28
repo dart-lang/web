@@ -323,6 +323,8 @@ extension type SourceBuffer._(JSObject _) implements EventTarget, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SourceBufferList).
 extension type SourceBufferList._(JSObject _) implements EventTarget, JSObject {
+  external SourceBuffer operator [](int index);
+
   /// The **`length`** read-only property of the
   /// [SourceBufferList] interface returns the number of
   /// [SourceBuffer] objects in the list.

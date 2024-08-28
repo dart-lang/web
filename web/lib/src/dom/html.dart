@@ -121,6 +121,8 @@ typedef WorkerType = String;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/HTMLAllCollection).
 extension type HTMLAllCollection._(JSObject _) implements JSObject {
+  external Element operator [](int index);
+
   /// The **`namedItem()`** method of the [HTMLAllCollection] interface returns
   /// the first [Element] in the collection whose `id` or `name` attribute
   /// matches the specified name, or `null` if no element matches.
@@ -197,6 +199,10 @@ extension type RadioNodeList._(JSObject _) implements NodeList, JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/HTMLOptionsCollection).
 extension type HTMLOptionsCollection._(JSObject _)
     implements HTMLCollection, JSObject {
+  external void operator []=(
+    int index,
+    HTMLOptionElement? option,
+  );
   external void add(
     JSObject element, [
     JSAny? before,
@@ -1271,7 +1277,13 @@ extension type HTMLUnknownElement._(JSObject _)
 ///
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DOMStringMap).
-extension type DOMStringMap._(JSObject _) implements JSObject {}
+extension type DOMStringMap._(JSObject _) implements JSObject {
+  external String operator [](String name);
+  external void operator []=(
+    String name,
+    String value,
+  );
+}
 
 /// The **`HTMLHtmlElement`** interface serves as the root node for a given HTML
 /// document. This object inherits the properties and methods described in the
@@ -3728,6 +3740,8 @@ extension type MediaError._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/AudioTrackList).
 extension type AudioTrackList._(JSObject _) implements EventTarget, JSObject {
+  external AudioTrack operator [](int index);
+
   /// The **[AudioTrackList]** method **`getTrackById()`** returns the first
   /// [AudioTrack] object from the track list whose [AudioTrack.id] matches the
   /// specified string.
@@ -3829,6 +3843,8 @@ extension type AudioTrack._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/VideoTrackList).
 extension type VideoTrackList._(JSObject _) implements EventTarget, JSObject {
+  external VideoTrack operator [](int index);
+
   /// The **[VideoTrackList]** method
   /// **`getTrackById()`** returns the first
   /// [VideoTrack] object from the track list whose [VideoTrack.id] matches the
@@ -3949,6 +3965,8 @@ extension type VideoTrack._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TextTrackList).
 extension type TextTrackList._(JSObject _) implements EventTarget, JSObject {
+  external TextTrack operator [](int index);
+
   /// The **[TextTrackList]** method
   /// **`getTrackById()`** returns the first
   /// [TextTrack] object from the track list whose
@@ -4096,6 +4114,8 @@ extension type TextTrack._(JSObject _) implements EventTarget, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TextTrackCueList).
 extension type TextTrackCueList._(JSObject _) implements JSObject {
+  external TextTrackCue operator [](int index);
+
   /// The **`getCueById()`** method of the [TextTrackCueList] interface returns
   /// the first [VTTCue] in the list represented by the `TextTrackCueList`
   /// object whose identifier matches the value of `id`.
@@ -5045,6 +5065,8 @@ extension type HTMLFormElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLFormElement] using the tag 'form'.
   HTMLFormElement() : _ = document.createElement('form');
 
+  external JSObject operator [](JSAny indexOrName);
+
   /// The **`HTMLFormElement.submit()`** method submits a given
   /// `form`.
   ///
@@ -5900,6 +5922,10 @@ extension type HTMLSelectElement._(JSObject _)
   /// at the specified index from the options collection for this select
   /// element.
   external void remove([int index]);
+  external void operator []=(
+    int index,
+    HTMLOptionElement? option,
+  );
 
   /// The **`HTMLSelectElement.checkValidity()`** method checks
   /// whether the element has any constraints and whether it satisfies them. If
@@ -9823,6 +9849,8 @@ extension type DataTransfer._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DataTransferItemList).
 extension type DataTransferItemList._(JSObject _) implements JSObject {
+  external DataTransferItem operator [](int index);
+
   /// The **`DataTransferItemList.add()`** method creates a new
   /// [DataTransferItem] using the specified data and adds it to the drag data
   /// list. The item may be a [File] or a string of a
@@ -10136,6 +10164,7 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
     String target,
     String features,
   ]);
+  external JSObject operator [](String name);
 
   /// `window.alert()` instructs the browser to display a dialog with an
   /// optional message, and to wait until the user dismisses the dialog.

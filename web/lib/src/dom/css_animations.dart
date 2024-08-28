@@ -106,6 +106,8 @@ extension type CSSKeyframeRule._(JSObject _) implements CSSRule, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSKeyframesRule).
 extension type CSSKeyframesRule._(JSObject _) implements CSSRule, JSObject {
+  external CSSKeyframeRule operator [](int index);
+
   /// The **`appendRule()`** method of the [CSSKeyframeRule] interface appends a
   /// [CSSKeyFrameRule] to the end of the rules.
   external void appendRule(String rule);

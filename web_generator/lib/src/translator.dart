@@ -264,6 +264,10 @@ class _RawType {
     nullable = union.nullable;
     typeParameter = union.typeParameter;
   }
+
+  @override
+  String toString() => '_RawType(type: $type, nullable: $nullable, '
+      'typeParameter: $typeParameter)';
 }
 
 class _Parameter {
@@ -366,18 +370,20 @@ class _OverridableOperation extends _OverridableMember {
   bool _finalized = false;
   _MemberName _name;
 
-  final bool isStatic;
+  final String special;
   final _RawType returnType;
   final MdnProperty? mdnProperty;
   late final _MemberName name = _generateName();
 
-  _OverridableOperation._(this._name, this.isStatic, this.returnType,
+  _OverridableOperation._(this._name, this.special, this.returnType,
       this.mdnProperty, super.parameters);
 
-  factory _OverridableOperation(idl.Operation operation, _MemberName name,
+  factory _OverridableOperation(idl.Operation operation, _MemberName memberName,
           MdnProperty? mdnProperty) =>
-      _OverridableOperation._(name, operation.special == 'static',
+      _OverridableOperation._(memberName, operation.special,
           _getRawType(operation.idlType), mdnProperty, operation.arguments);
+
+  bool get isStatic => special == 'static';
 
   _MemberName _generateName() {
     // The name is determined after all updates are done, so finalize the
@@ -404,7 +410,8 @@ class _OverridableOperation extends _OverridableMember {
         'finalized.');
     final jsOverride = _name.jsOverride;
     final thisName = jsOverride.isNotEmpty ? jsOverride : _name.name;
-    assert(thisName == that.name && isStatic == (that.special == 'static'));
+    assert((that.name.isEmpty || thisName == that.name) &&
+        special == that.special);
     returnType.update(that.idlType);
     _processParameters(that.arguments);
   }
@@ -449,7 +456,7 @@ class _PartialInterfacelike {
         case 'constructor':
           if (!_shouldGenerateMember(name)) break;
           final idlConstructor = member as idl.Constructor;
-          if (_hasHTMLConstructorAttribute(idlConstructor)) continue;
+          if (_hasHTMLConstructorAttribute(idlConstructor)) break;
           if (constructor == null) {
             constructor = _OverridableConstructor(idlConstructor);
           } else {
@@ -487,16 +494,39 @@ class _PartialInterfacelike {
           break;
         case 'operation':
           final operation = member as idl.Operation;
-          final operationName = operation.name;
-          if (operationName.isEmpty) {
-            // TODO(joshualitt): We may be able to handle some unnamed
-            // operations.
-            continue;
+          final special = operation.special;
+          var operationName = operation.name;
+          // Some special operations may not have any MDN data and may be given
+          // a name that is irrelevant to the IDL, so avoid querying in that
+          // case and always emit.
+          var shouldQueryMDN = true;
+          switch (special) {
+            case 'getter':
+              if (operationName.isEmpty) {
+                operationName = 'operator []';
+                shouldQueryMDN = false;
+              }
+              break;
+            case 'setter':
+              if (operationName.isEmpty) {
+                operationName = 'operator []=';
+                shouldQueryMDN = false;
+              }
+              break;
+            case 'static':
+              break;
+            default:
+              // TODO(srujzs): Should we handle other special operations,
+              // unnamed or otherwise? For now, don't emit the unnamed ones and
+              // do nothing special for the named ones.
+              if (operationName.isEmpty) break;
           }
           final isStatic = operation.special == 'static';
-          if (!_shouldGenerateMember(operationName, isStatic: isStatic)) break;
-          final docs =
-              mdnInterface?.propertyFor(operationName, isStatic: isStatic);
+          if (shouldQueryMDN &&
+              !_shouldGenerateMember(operationName, isStatic: isStatic)) break;
+          final docs = shouldQueryMDN
+              ? mdnInterface?.propertyFor(operationName, isStatic: isStatic)
+              : null;
           // Static member may have the same name as instance members in the
           // IDL, but not in Dart. Rename the static member if so.
           if (isStatic) {
@@ -986,13 +1016,18 @@ class Translator {
 
   code.Method _operation(_OverridableOperation operation) {
     final memberName = operation.name;
+    // The IDL may return the value that is set. Dart doesn't let us use any
+    // type besides `void` for `[]=`, so we ignore the return value.
+    final returnType = memberName.name == 'operator []='
+        ? code.TypeReference((b) => b..symbol = 'void')
+        : _typeReference(operation.returnType, returnType: true);
     return _overridableMember<code.Method>(
       operation,
       (requiredParameters, optionalParameters) => code.Method((b) => b
         ..annotations.addAll(_jsOverride(memberName.jsOverride))
         ..external = true
         ..static = operation.isStatic
-        ..returns = _typeReference(operation.returnType, returnType: true)
+        ..returns = returnType
         ..name = memberName.name
         ..docs.addAll(operation.mdnProperty?.formattedDocs ?? [])
         ..requiredParameters.addAll(requiredParameters)

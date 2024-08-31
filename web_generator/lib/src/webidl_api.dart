@@ -68,14 +68,12 @@ extension type Member._(JSObject _) implements JSObject {
 extension type ExtendedAttribute._(JSObject _) implements JSObject {
   external String get name;
   external RHS get rhs;
-  
 }
 
 extension type RHS._(JSObject _) implements JSObject {
- external  String get type;
-  external String get  value;
+  external String get type;
+  external String get value;
 }
-
 
 extension type Argument._(JSObject _) implements JSObject {
   external String get type;

@@ -1259,11 +1259,11 @@ class Translator {
 
     final jsObject = _typeReference(_RawType('JSObject', false));
     const representationFieldName = '_';
-    final instancePropertyMethods = <code.Method>[];
-    final staticPropertyMethods = <code.Method>[];
     final legacyNameSpace = extendedAttributes.firstWhereOrNull(
       (extendedAttribute)=> extendedAttribute.name == 'LegacyNamespace',
     )?.rhs.value;
+    final instancePropertyMethods = <code.Method>[];
+    final staticPropertyMethods = <code.Method>[];
     final propertySpecs = _properties(properties, mdnInterface);
     for (final property in propertySpecs.$2) {
       (property.static ? staticPropertyMethods : instancePropertyMethods)
@@ -1272,12 +1272,12 @@ class Translator {
     return code.ExtensionType((b) => b
       ..docs.addAll(docs)
       ..annotations.addAll(
-          _jsOverride(
-            legacyNameSpace != null 
-              ? '$legacyNameSpace.$jsName' 
+        _jsOverride(
+          legacyNameSpace != null
+              ? '$legacyNameSpace.$jsName'
               : (isObjectLiteral || jsName == dartClassName ? '' : jsName),
-          ),
-        )
+        ),
+      )
       ..name = dartClassName
       ..primaryConstructorName = '_'
       ..representationDeclaration = code.RepresentationDeclaration((b) => b

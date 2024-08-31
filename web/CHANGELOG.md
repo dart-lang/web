@@ -10,6 +10,9 @@
   `getter`s and `setter`s, respectively.
 - Exposed constants with primitive values as non-`external` so they can be
   `switch`ed over.
+- Adding a `JS(LegacyNamespace.$extensionTypeName)` annotation on generated `JS` 
+  objects if they have an IDL extended attribute `[LegacyNamespace=Foo]` defined 
+  in their IDL description.
 
 ## 1.0.0
 

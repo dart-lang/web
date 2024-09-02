@@ -103,3 +103,30 @@ extension TouchListConvert on TouchList {
   @Deprecated('Use JSImmutableListWrapper<TouchList, Touch> directly instead.')
   List<Touch> toList() => JSImmutableListWrapper<TouchList, Touch>(this);
 }
+
+extension XMLHttpRequestGlue on XMLHttpRequest {
+  Map<String, String> get responseHeaders {
+    // from Closure's goog.net.Xhrio.getResponseHeaders.
+    final headers = <String, String>{};
+    final headersString = getAllResponseHeaders();
+    final headersList = headersString.split('\r\n');
+    for (final header in headersList) {
+      if (header.isEmpty) {
+        continue;
+      }
+
+      final splitIdx = header.indexOf(': ');
+      if (splitIdx == -1) {
+        continue;
+      }
+      final key = header.substring(0, splitIdx).toLowerCase();
+      final value = header.substring(splitIdx + 2);
+      if (headers.containsKey(key)) {
+        headers[key] = '${headers[key]}, $value';
+      } else {
+        headers[key] = value;
+      }
+    }
+    return headers;
+  }
+}

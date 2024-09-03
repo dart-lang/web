@@ -1093,23 +1093,18 @@ class Translator {
   }
 
   (List<code.Field>, List<code.Method>) _constant(_Constant constant) {
-    code.Code? body;
     // If it's a value type that we can emit directly in Dart as a constant,
     // emit this as a field so users can `switch` over it. Value types taken
     // from: https://github.com/w3c/webidl2.js/blob/main/README.md#default-and-const-values
-    if (constant.valueType == 'string') {
-      body = code.literalString((constant.value as JSString).toDart).code;
-    } else if (constant.valueType == 'boolean') {
-      body = code
-          .literalBool(
-              (constant.value as JSString).toDart.toLowerCase() == 'true')
-          .code;
-    } else if (constant.valueType == 'number') {
-      body =
-          code.literalNum(num.parse((constant.value as JSString).toDart)).code;
-    } else if (constant.valueType == 'null') {
-      body = code.literalNull.code;
-    }
+    final body = switch (constant.valueType) {
+      'string' => code.literalString((constant.value as JSString).toDart),
+      'boolean' => code.literalBool(
+          (constant.value as JSString).toDart.toLowerCase() == 'true'),
+      'number' =>
+        code.literalNum(num.parse((constant.value as JSString).toDart)),
+      'null' => code.literalNull,
+      _ => null,
+    };
     if (body != null) {
       return (
         [
@@ -1119,7 +1114,7 @@ class Translator {
               ..static = true
               ..modifier = code.FieldModifier.constant
               ..type = _typeReference(constant.type, returnType: true)
-              ..assignment = body
+              ..assignment = body.code
               ..name = constant.name.name,
           )
         ],

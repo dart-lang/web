@@ -11,3 +11,6 @@ stages:
 - generate_and_analyze:
   - command: dart bin/update_bindings.dart
   - analyze: --fatal-infos .
+- generate_all_and_analyze:
+  - command: dart bin/update_bindings.dart --generate-all
+  - analyze: --fatal-infos .

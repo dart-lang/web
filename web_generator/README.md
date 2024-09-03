@@ -75,6 +75,17 @@ definitions:
   emit code that is standards track and is not experimental to reduce the number
   of breaking changes.
 
+## Generate all bindings
+
+To ignore the compatibility data and emit all members, run:
+
+```shell
+dart bin/update_bindings.dart --generate-all
+```
+
+This is useful if you want to avoid having to write bindings manually for some
+experimental and non-standard APIs.
+
 ## Web IDL versions
 
 Based on:

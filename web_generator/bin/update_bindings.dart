@@ -78,9 +78,14 @@ $_usage''');
   };
 
   // Run app with `node`.
+  final generateAll = argResult['generate-all'] as bool;
   await _runProc(
     'node',
-    ['main.mjs', Platform.script.resolve('../../web/lib/src').path],
+    [
+      'main.mjs',
+      '--output-directory=${Platform.script.resolve('../../web/lib/src').path}',
+      if (generateAll) '--generate-all',
+    ],
     workingDirectory: _bindingsGeneratorPath,
   );
 
@@ -232,4 +237,8 @@ ${_parser.usage}''';
 final _parser = ArgParser()
   ..addFlag('update', abbr: 'u', help: 'Update npm dependencies')
   ..addFlag('compile', defaultsTo: true)
-  ..addFlag('help', negatable: false);
+  ..addFlag('help', negatable: false)
+  ..addFlag('generate-all',
+      negatable: false,
+      help: 'Generate bindings for all IDL definitions, including experimental '
+          'and non-standard APIs.');

@@ -15,12 +15,18 @@ import 'filesystem_api.dart';
 class BrowserCompatData {
   static final Map<String, Set<BCDPropertyStatus>> _eventHandlers = {};
 
+  /// Whether to generate all the bindings regardless of property status.
+  static bool generateAll = false;
+
   /// Returns whether [name] is an event handler that is supported in any
   /// interface.
   static bool isEventHandlerSupported(String name) =>
+      generateAll ||
       _eventHandlers[name]?.any((bcd) => bcd.shouldGenerate) == true;
 
-  static BrowserCompatData read() {
+  static BrowserCompatData read({required bool generateAll}) {
+    BrowserCompatData.generateAll = generateAll;
+
     final path =
         p.join('node_modules', '@mdn', 'browser-compat-data', 'data.json');
     final content = (fs.readFileSync(
@@ -84,7 +90,7 @@ class BrowserCompatData {
   BCDInterfaceStatus? retrieveInterfaceFor(String name) => interfaces[name];
 
   bool shouldGenerateInterface(String name) =>
-      retrieveInterfaceFor(name)?.shouldGenerate ?? false;
+      generateAll || (retrieveInterfaceFor(name)?.shouldGenerate ?? false);
 }
 
 class BCDInterfaceStatus extends BCDItem {
@@ -120,7 +126,8 @@ class BCDInterfaceStatus extends BCDItem {
     return _properties[name];
   }
 
-  bool get shouldGenerate => standardTrack && !experimental;
+  bool get shouldGenerate =>
+      BrowserCompatData.generateAll || (standardTrack && !experimental);
 }
 
 class BCDPropertyStatus extends BCDItem {
@@ -128,7 +135,8 @@ class BCDPropertyStatus extends BCDItem {
 
   BCDPropertyStatus(super.name, super.json, this.parent);
 
-  bool get shouldGenerate => standardTrack && !experimental;
+  bool get shouldGenerate =>
+      BrowserCompatData.generateAll || (standardTrack && !experimental);
 }
 
 abstract class BCDItem {

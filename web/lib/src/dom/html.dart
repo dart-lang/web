@@ -3261,10 +3261,14 @@ extension type HTMLTrackElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLTrackElement] using the tag 'track'.
   HTMLTrackElement() : _ = document.createElement('track');
 
-  external static int get NONE;
-  external static int get LOADING;
-  external static int get LOADED;
-  external static int get ERROR;
+  static const int NONE = 0;
+
+  static const int LOADING = 1;
+
+  static const int LOADED = 2;
+
+  static const int ERROR = 3;
+
   external String get kind;
   external set kind(String value);
 
@@ -3299,15 +3303,23 @@ extension type HTMLTrackElement._(JSObject _) implements HTMLElement, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement).
 extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
-  external static int get NETWORK_EMPTY;
-  external static int get NETWORK_IDLE;
-  external static int get NETWORK_LOADING;
-  external static int get NETWORK_NO_SOURCE;
-  external static int get HAVE_NOTHING;
-  external static int get HAVE_METADATA;
-  external static int get HAVE_CURRENT_DATA;
-  external static int get HAVE_FUTURE_DATA;
-  external static int get HAVE_ENOUGH_DATA;
+  static const int NETWORK_EMPTY = 0;
+
+  static const int NETWORK_IDLE = 1;
+
+  static const int NETWORK_LOADING = 2;
+
+  static const int NETWORK_NO_SOURCE = 3;
+
+  static const int HAVE_NOTHING = 0;
+
+  static const int HAVE_METADATA = 1;
+
+  static const int HAVE_CURRENT_DATA = 2;
+
+  static const int HAVE_FUTURE_DATA = 3;
+
+  static const int HAVE_ENOUGH_DATA = 4;
 
   /// The **`HTMLMediaElement.setSinkId()`** method of the
   /// [Audio Output Devices API](https://developer.mozilla.org/en-US/docs/Web/API/Audio_Output_Devices_API)
@@ -3707,10 +3719,13 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MediaError).
 extension type MediaError._(JSObject _) implements JSObject {
-  external static int get MEDIA_ERR_ABORTED;
-  external static int get MEDIA_ERR_NETWORK;
-  external static int get MEDIA_ERR_DECODE;
-  external static int get MEDIA_ERR_SRC_NOT_SUPPORTED;
+  static const int MEDIA_ERR_ABORTED = 1;
+
+  static const int MEDIA_ERR_NETWORK = 2;
+
+  static const int MEDIA_ERR_DECODE = 3;
+
+  static const int MEDIA_ERR_SRC_NOT_SUPPORTED = 4;
 
   /// The read-only property **`MediaError.code`** returns a numeric
   /// value which represents the kind of error that occurred on a media element.
@@ -12582,9 +12597,11 @@ extension type EventSource._(JSObject _) implements EventTarget, JSObject {
     EventSourceInit eventSourceInitDict,
   ]);
 
-  external static int get CONNECTING;
-  external static int get OPEN;
-  external static int get CLOSED;
+  static const int CONNECTING = 0;
+
+  static const int OPEN = 1;
+
+  static const int CLOSED = 2;
 
   /// The **`close()`** method of the [EventSource]
   /// interface closes the connection, if one is made, and sets the

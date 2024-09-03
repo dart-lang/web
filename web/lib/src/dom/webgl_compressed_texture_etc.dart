@@ -18,14 +18,23 @@ import 'dart:js_interop';
 import 'webgl1.dart';
 
 extension type WEBGL_compressed_texture_etc._(JSObject _) implements JSObject {
-  external static GLenum get COMPRESSED_R11_EAC;
-  external static GLenum get COMPRESSED_SIGNED_R11_EAC;
-  external static GLenum get COMPRESSED_RG11_EAC;
-  external static GLenum get COMPRESSED_SIGNED_RG11_EAC;
-  external static GLenum get COMPRESSED_RGB8_ETC2;
-  external static GLenum get COMPRESSED_SRGB8_ETC2;
-  external static GLenum get COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2;
-  external static GLenum get COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2;
-  external static GLenum get COMPRESSED_RGBA8_ETC2_EAC;
-  external static GLenum get COMPRESSED_SRGB8_ALPHA8_ETC2_EAC;
+  static const GLenum COMPRESSED_R11_EAC = 37488;
+
+  static const GLenum COMPRESSED_SIGNED_R11_EAC = 37489;
+
+  static const GLenum COMPRESSED_RG11_EAC = 37490;
+
+  static const GLenum COMPRESSED_SIGNED_RG11_EAC = 37491;
+
+  static const GLenum COMPRESSED_RGB8_ETC2 = 37492;
+
+  static const GLenum COMPRESSED_SRGB8_ETC2 = 37493;
+
+  static const GLenum COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2 = 37494;
+
+  static const GLenum COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2 = 37495;
+
+  static const GLenum COMPRESSED_RGBA8_ETC2_EAC = 37496;
+
+  static const GLenum COMPRESSED_SRGB8_ALPHA8_ETC2_EAC = 37497;
 }

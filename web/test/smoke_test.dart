@@ -62,4 +62,19 @@ void main() {
     select[0] = option;
     expect(select.item(0), option);
   });
+
+  test('Constant values can be switched over.', () {
+    final request = XMLHttpRequest();
+    switch (request.readyState) {
+      case XMLHttpRequest.UNSENT:
+        break;
+      case XMLHttpRequest.OPENED:
+      case XMLHttpRequest.HEADERS_RECEIVED:
+      case XMLHttpRequest.LOADING:
+      case XMLHttpRequest.DONE:
+      default:
+        throw Exception('Expected `readyState`: ${XMLHttpRequest.UNSENT}, but '
+            'got: ${request.readyState}.');
+    }
+  });
 }

@@ -18,6 +18,7 @@ import 'dart:js_interop';
 import 'webgl1.dart';
 
 extension type WEBGL_debug_renderer_info._(JSObject _) implements JSObject {
-  external static GLenum get UNMASKED_VENDOR_WEBGL;
-  external static GLenum get UNMASKED_RENDERER_WEBGL;
+  static const GLenum UNMASKED_VENDOR_WEBGL = 37445;
+
+  static const GLenum UNMASKED_RENDERER_WEBGL = 37446;
 }

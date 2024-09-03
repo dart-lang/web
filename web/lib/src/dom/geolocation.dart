@@ -179,9 +179,11 @@ extension type GeolocationCoordinates._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/GeolocationPositionError).
 extension type GeolocationPositionError._(JSObject _) implements JSObject {
-  external static int get PERMISSION_DENIED;
-  external static int get POSITION_UNAVAILABLE;
-  external static int get TIMEOUT;
+  static const int PERMISSION_DENIED = 1;
+
+  static const int POSITION_UNAVAILABLE = 2;
+
+  static const int TIMEOUT = 3;
 
   /// The **`code`** read-only property of the [GeolocationPositionError]
   /// interface is an `unsigned short` representing the error code.

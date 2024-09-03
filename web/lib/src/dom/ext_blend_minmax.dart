@@ -18,6 +18,7 @@ import 'dart:js_interop';
 import 'webgl1.dart';
 
 extension type EXT_blend_minmax._(JSObject _) implements JSObject {
-  external static GLenum get MIN_EXT;
-  external static GLenum get MAX_EXT;
+  static const GLenum MIN_EXT = 32775;
+
+  static const GLenum MAX_EXT = 32776;
 }

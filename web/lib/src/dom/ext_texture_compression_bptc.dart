@@ -18,8 +18,11 @@ import 'dart:js_interop';
 import 'webgl1.dart';
 
 extension type EXT_texture_compression_bptc._(JSObject _) implements JSObject {
-  external static GLenum get COMPRESSED_RGBA_BPTC_UNORM_EXT;
-  external static GLenum get COMPRESSED_SRGB_ALPHA_BPTC_UNORM_EXT;
-  external static GLenum get COMPRESSED_RGB_BPTC_SIGNED_FLOAT_EXT;
-  external static GLenum get COMPRESSED_RGB_BPTC_UNSIGNED_FLOAT_EXT;
+  static const GLenum COMPRESSED_RGBA_BPTC_UNORM_EXT = 36492;
+
+  static const GLenum COMPRESSED_SRGB_ALPHA_BPTC_UNORM_EXT = 36493;
+
+  static const GLenum COMPRESSED_RGB_BPTC_SIGNED_FLOAT_EXT = 36494;
+
+  static const GLenum COMPRESSED_RGB_BPTC_UNSIGNED_FLOAT_EXT = 36495;
 }

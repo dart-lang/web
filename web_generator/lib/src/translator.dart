@@ -1259,9 +1259,12 @@ class Translator {
 
     final jsObject = _typeReference(_RawType('JSObject', false));
     const representationFieldName = '_';
-    final legacyNameSpace = extendedAttributes.firstWhereOrNull(
-      (extendedAttribute)=> extendedAttribute.name == 'LegacyNamespace',
-    )?.rhs.value;
+    final legacyNameSpace = extendedAttributes
+        .firstWhereOrNull(
+          (extendedAttribute) => extendedAttribute.name == 'LegacyNamespace',
+        )
+        ?.rhs
+        .value;
     final instancePropertyMethods = <code.Method>[];
     final staticPropertyMethods = <code.Method>[];
     final propertySpecs = _properties(properties, mdnInterface);

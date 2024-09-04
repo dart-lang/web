@@ -116,22 +116,20 @@ extension XMLHttpRequestGlue on XMLHttpRequest {
     // from Closure's goog.net.Xhrio.getResponseHeaders.
     final headers = <String, String>{};
     final headersString = getAllResponseHeaders();
-    for (final header in LineSplitter.split(headersString)) {
-      if (header.isEmpty) {
-        continue;
-      }
-
+    final headersList =
+        LineSplitter.split(headersString).where((header) => header.isNotEmpty);
+    for (final header in headersList) {
       final splitIdx = header.indexOf(': ');
       if (splitIdx == -1) {
         continue;
       }
       final key = header.substring(0, splitIdx).toLowerCase();
       final value = header.substring(splitIdx + 2);
-      if (headers.containsKey(key)) {
-        headers[key] = '${headers[key]}, $value';
-      } else {
-        headers[key] = value;
-      }
+      headers.update(
+        key,
+        (oldValue) => '$oldValue, $value',
+        ifAbsent: () => value,
+      );
     }
     return headers;
   }

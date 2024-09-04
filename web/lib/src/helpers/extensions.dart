@@ -21,6 +21,7 @@
 ///  * conversions: for example to wrap a `TouchList` as a `List<Touch>`
 library;
 
+import 'dart:convert';
 import 'dart:js_interop';
 import 'dart:math' show Point;
 
@@ -115,8 +116,7 @@ extension XMLHttpRequestGlue on XMLHttpRequest {
     // from Closure's goog.net.Xhrio.getResponseHeaders.
     final headers = <String, String>{};
     final headersString = getAllResponseHeaders();
-    final headersList = headersString.split('\r\n');
-    for (final header in headersList) {
+    for (final header in LineSplitter.split(headersString)) {
       if (header.isEmpty) {
         continue;
       }

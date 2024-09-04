@@ -19,6 +19,7 @@ import 'webgl1.dart';
 
 extension type EXT_texture_filter_anisotropic._(JSObject _)
     implements JSObject {
-  external static GLenum get TEXTURE_MAX_ANISOTROPY_EXT;
-  external static GLenum get MAX_TEXTURE_MAX_ANISOTROPY_EXT;
+  static const GLenum TEXTURE_MAX_ANISOTROPY_EXT = 34046;
+
+  static const GLenum MAX_TEXTURE_MAX_ANISOTROPY_EXT = 34047;
 }

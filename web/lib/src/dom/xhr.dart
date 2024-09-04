@@ -91,11 +91,15 @@ extension type XMLHttpRequest._(JSObject _)
     implements XMLHttpRequestEventTarget, JSObject {
   external factory XMLHttpRequest();
 
-  external static int get UNSENT;
-  external static int get OPENED;
-  external static int get HEADERS_RECEIVED;
-  external static int get LOADING;
-  external static int get DONE;
+  static const int UNSENT = 0;
+
+  static const int OPENED = 1;
+
+  static const int HEADERS_RECEIVED = 2;
+
+  static const int LOADING = 3;
+
+  static const int DONE = 4;
 
   /// @AvailableInWorkers("window_and_worker_except_service")
   ///

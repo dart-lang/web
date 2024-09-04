@@ -19,8 +19,11 @@ import 'webgl1.dart';
 
 extension type WEBGL_compressed_texture_pvrtc._(JSObject _)
     implements JSObject {
-  external static GLenum get COMPRESSED_RGB_PVRTC_4BPPV1_IMG;
-  external static GLenum get COMPRESSED_RGB_PVRTC_2BPPV1_IMG;
-  external static GLenum get COMPRESSED_RGBA_PVRTC_4BPPV1_IMG;
-  external static GLenum get COMPRESSED_RGBA_PVRTC_2BPPV1_IMG;
+  static const GLenum COMPRESSED_RGB_PVRTC_4BPPV1_IMG = 35840;
+
+  static const GLenum COMPRESSED_RGB_PVRTC_2BPPV1_IMG = 35841;
+
+  static const GLenum COMPRESSED_RGBA_PVRTC_4BPPV1_IMG = 35842;
+
+  static const GLenum COMPRESSED_RGBA_PVRTC_2BPPV1_IMG = 35843;
 }

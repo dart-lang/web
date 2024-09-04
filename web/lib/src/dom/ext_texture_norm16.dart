@@ -18,12 +18,19 @@ import 'dart:js_interop';
 import 'webgl1.dart';
 
 extension type EXT_texture_norm16._(JSObject _) implements JSObject {
-  external static GLenum get R16_EXT;
-  external static GLenum get RG16_EXT;
-  external static GLenum get RGB16_EXT;
-  external static GLenum get RGBA16_EXT;
-  external static GLenum get R16_SNORM_EXT;
-  external static GLenum get RG16_SNORM_EXT;
-  external static GLenum get RGB16_SNORM_EXT;
-  external static GLenum get RGBA16_SNORM_EXT;
+  static const GLenum R16_EXT = 33322;
+
+  static const GLenum RG16_EXT = 33324;
+
+  static const GLenum RGB16_EXT = 32852;
+
+  static const GLenum RGBA16_EXT = 32859;
+
+  static const GLenum R16_SNORM_EXT = 36760;
+
+  static const GLenum RG16_SNORM_EXT = 36761;
+
+  static const GLenum RGB16_SNORM_EXT = 36762;
+
+  static const GLenum RGBA16_SNORM_EXT = 36763;
 }

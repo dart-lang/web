@@ -18,8 +18,11 @@ import 'dart:js_interop';
 import 'webgl1.dart';
 
 extension type EXT_sRGB._(JSObject _) implements JSObject {
-  external static GLenum get SRGB_EXT;
-  external static GLenum get SRGB_ALPHA_EXT;
-  external static GLenum get SRGB8_ALPHA8_EXT;
-  external static GLenum get FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING_EXT;
+  static const GLenum SRGB_EXT = 35904;
+
+  static const GLenum SRGB_ALPHA_EXT = 35906;
+
+  static const GLenum SRGB8_ALPHA8_EXT = 35907;
+
+  static const GLenum FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING_EXT = 33296;
 }

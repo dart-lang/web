@@ -106,7 +106,7 @@ extension type Field._(JSObject _) implements Member {
 
 extension type Value._(JSObject _) implements JSObject {
   external String get type;
-  external JSAny? get value;
+  external JSAny get value;
   external bool? get negative;
 }
 

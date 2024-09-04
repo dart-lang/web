@@ -36,4 +36,22 @@ void main() {
     // Ensure accessing any arbitrary item in the list does not throw.
     expect(() => dartList[0], returnsNormally);
   });
+
+  test('Headers to map', () async {
+    final request = XMLHttpRequest();
+    request.open('GET', 'www.google.com');
+    request.send();
+    await request.onLoad.first;
+
+    expect(
+      request.responseHeaders,
+      allOf(
+        containsPair('content-length', '10'),
+        containsPair('content-type', 'text/plain; charset=utf-8'),
+        containsPair('x-content-type-options', 'nosniff'),
+        containsPair('x-frame-options', 'SAMEORIGIN'),
+        containsPair('x-xss-protection', '1; mode=block'),
+      ),
+    );
+  });
 }

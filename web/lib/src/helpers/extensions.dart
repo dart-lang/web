@@ -104,6 +104,12 @@ extension TouchListConvert on TouchList {
   List<Touch> toList() => JSImmutableListWrapper<TouchList, Touch>(this);
 }
 
+/// Returns all response headers as a key-value map.
+///
+/// Multiple values for the same header key can be combined into one,
+/// separated by a comma and a space.
+///
+/// See: http://www.w3.org/TR/XMLHttpRequest/#the-getresponseheader()-method
 extension XMLHttpRequestGlue on XMLHttpRequest {
   Map<String, String> get responseHeaders {
     // from Closure's goog.net.Xhrio.getResponseHeaders.

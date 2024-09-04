@@ -1356,70 +1356,6 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// of UTF-8, and a URL of "about:blank"
   external static Document parseHTMLUnsafe(JSAny html);
 
-  /// The **`startViewTransition()`** method of the [Document] interface starts
-  /// a new same-document (SPA)
-  /// [view transition](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API)
-  /// and returns a [ViewTransition] object to represent it.
-  ///
-  /// When `startViewTransition()` is invoked, a sequence of steps is followed
-  /// as explained in
-  /// [The view transition process](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API/Using#the_view_transition_process).
-  external ViewTransition startViewTransition([JSObject callbackOptions]);
-
-  /// The **`elementFromPoint()`**
-  /// method, available on the [Document] object, returns the topmost [Element]
-  /// at the specified coordinates
-  /// (relative to the viewport).
-  ///
-  /// If the element at the specified point belongs to another document (for
-  /// example, the
-  /// document of an `iframe`), that document's parent element is returned
-  /// (the `<iframe>` itself). If the element at the given point is anonymous
-  /// or XBL generated content, such as a textbox's scroll bars, then the first
-  /// non-anonymous
-  /// ancestor element (for example, the textbox) is returned.
-  ///
-  /// Elements with  set to `none` will be ignored,
-  /// and the element below it will be returned.
-  ///
-  /// If the method is run on another document (like an `<iframe>`'s
-  /// subdocument), the coordinates are relative to the document where the
-  /// method is being
-  /// called.
-  ///
-  /// If the specified point is outside the visible bounds of the document or
-  /// either
-  /// coordinate is negative, the result is `null`.
-  ///
-  /// If you need to find the specific position inside the element, use
-  /// [Document.caretPositionFromPoint].
-  external Element? elementFromPoint(
-    num x,
-    num y,
-  );
-
-  /// The **`elementsFromPoint()`** method
-  /// of the [Document] interface returns an array of all elements
-  /// at the specified coordinates (relative to the viewport).
-  /// The elements are ordered from the topmost to the bottommost box of the
-  /// viewport.
-  ///
-  /// It operates in a similar way to the [Document.elementFromPoint] method.
-  external JSArray<Element> elementsFromPoint(
-    num x,
-    num y,
-  );
-
-  /// The **`caretPositionFromPoint()`**
-  /// method of the [Document] interface returns a
-  /// [CaretPosition] object, containing the DOM node, along with the caret and
-  /// caret's character offset within that node.
-  external JSObject? caretPositionFromPoint(
-    num x,
-    num y, [
-    CaretPositionFromPointOptions options,
-  ]);
-
   /// The **`getElementsByTagName`** method of
   /// [Document] interface returns an
   /// [HTMLCollection] of elements with the given tag name.
@@ -1579,6 +1515,70 @@ extension type Document._(JSObject _) implements Node, JSObject {
     Node root, [
     int whatToShow,
     NodeFilter? filter,
+  ]);
+
+  /// The **`startViewTransition()`** method of the [Document] interface starts
+  /// a new same-document (SPA)
+  /// [view transition](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API)
+  /// and returns a [ViewTransition] object to represent it.
+  ///
+  /// When `startViewTransition()` is invoked, a sequence of steps is followed
+  /// as explained in
+  /// [The view transition process](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API/Using#the_view_transition_process).
+  external ViewTransition startViewTransition([JSObject callbackOptions]);
+
+  /// The **`elementFromPoint()`**
+  /// method, available on the [Document] object, returns the topmost [Element]
+  /// at the specified coordinates
+  /// (relative to the viewport).
+  ///
+  /// If the element at the specified point belongs to another document (for
+  /// example, the
+  /// document of an `iframe`), that document's parent element is returned
+  /// (the `<iframe>` itself). If the element at the given point is anonymous
+  /// or XBL generated content, such as a textbox's scroll bars, then the first
+  /// non-anonymous
+  /// ancestor element (for example, the textbox) is returned.
+  ///
+  /// Elements with  set to `none` will be ignored,
+  /// and the element below it will be returned.
+  ///
+  /// If the method is run on another document (like an `<iframe>`'s
+  /// subdocument), the coordinates are relative to the document where the
+  /// method is being
+  /// called.
+  ///
+  /// If the specified point is outside the visible bounds of the document or
+  /// either
+  /// coordinate is negative, the result is `null`.
+  ///
+  /// If you need to find the specific position inside the element, use
+  /// [Document.caretPositionFromPoint].
+  external Element? elementFromPoint(
+    num x,
+    num y,
+  );
+
+  /// The **`elementsFromPoint()`** method
+  /// of the [Document] interface returns an array of all elements
+  /// at the specified coordinates (relative to the viewport).
+  /// The elements are ordered from the topmost to the bottommost box of the
+  /// viewport.
+  ///
+  /// It operates in a similar way to the [Document.elementFromPoint] method.
+  external JSArray<Element> elementsFromPoint(
+    num x,
+    num y,
+  );
+
+  /// The **`caretPositionFromPoint()`**
+  /// method of the [Document] interface returns a
+  /// [CaretPosition] object, containing the DOM node, along with the caret and
+  /// caret's character offset within that node.
+  external JSObject? caretPositionFromPoint(
+    num x,
+    num y, [
+    CaretPositionFromPointOptions options,
   ]);
 
   /// The [Document] method
@@ -1900,24 +1900,6 @@ extension type Document._(JSObject _) implements Node, JSObject {
     XPathResult? result,
   ]);
 
-  /// **`Document.rootElement`** returns the [Element]
-  /// that is the root element of the [document] if it is an
-  /// element, otherwise `null`. It is deprecated in favor of
-  /// [Document.documentElement], which returns the root element for all
-  /// documents.
-  external SVGSVGElement? get rootElement;
-
-  /// The **`scrollingElement`** read-only property of the
-  /// [Document] interface returns a reference to the [Element] that
-  /// scrolls the document. In standards mode, this is the root element of the
-  /// document, [document.documentElement].
-  ///
-  /// When in quirks mode, the `scrollingElement` attribute returns the HTML
-  /// `body` element if it exists and is
-  /// [potentially scrollable](https://drafts.csswg.org/cssom-view/#potentially-scrollable),
-  /// otherwise it returns null.
-  external Element? get scrollingElement;
-
   /// The **`Document.implementation`** property returns a
   /// [DOMImplementation] object associated with the current document.
   external DOMImplementation get implementation;
@@ -1969,6 +1951,24 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// [Element] that is the root element of the [document] (for
   /// example, the `html` element for HTML documents).
   external Element? get documentElement;
+
+  /// **`Document.rootElement`** returns the [Element]
+  /// that is the root element of the [document] if it is an
+  /// element, otherwise `null`. It is deprecated in favor of
+  /// [Document.documentElement], which returns the root element for all
+  /// documents.
+  external SVGSVGElement? get rootElement;
+
+  /// The **`scrollingElement`** read-only property of the
+  /// [Document] interface returns a reference to the [Element] that
+  /// scrolls the document. In standards mode, this is the root element of the
+  /// document, [document.documentElement].
+  ///
+  /// When in quirks mode, the `scrollingElement` attribute returns the HTML
+  /// `body` element if it exists and is
+  /// [potentially scrollable](https://drafts.csswg.org/cssom-view/#potentially-scrollable),
+  /// otherwise it returns null.
+  external Element? get scrollingElement;
 
   /// The read-only **`fullscreenEnabled`**
   /// property on the [Document] interface indicates whether or not fullscreen
@@ -2404,22 +2404,6 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// To get the number of children of a specific element, see
   /// [Element.childElementCount].
   external int get childElementCount;
-  external EventHandler get onanimationstart;
-  external set onanimationstart(EventHandler value);
-  external EventHandler get onanimationiteration;
-  external set onanimationiteration(EventHandler value);
-  external EventHandler get onanimationend;
-  external set onanimationend(EventHandler value);
-  external EventHandler get onanimationcancel;
-  external set onanimationcancel(EventHandler value);
-  external EventHandler get ontransitionrun;
-  external set ontransitionrun(EventHandler value);
-  external EventHandler get ontransitionstart;
-  external set ontransitionstart(EventHandler value);
-  external EventHandler get ontransitionend;
-  external set ontransitionend(EventHandler value);
-  external EventHandler get ontransitioncancel;
-  external set ontransitioncancel(EventHandler value);
   external EventHandler get onabort;
   external set onabort(EventHandler value);
   external EventHandler get onauxclick;
@@ -2560,6 +2544,22 @@ extension type Document._(JSObject _) implements Node, JSObject {
   external set onwaiting(EventHandler value);
   external EventHandler get onwheel;
   external set onwheel(EventHandler value);
+  external EventHandler get onanimationstart;
+  external set onanimationstart(EventHandler value);
+  external EventHandler get onanimationiteration;
+  external set onanimationiteration(EventHandler value);
+  external EventHandler get onanimationend;
+  external set onanimationend(EventHandler value);
+  external EventHandler get onanimationcancel;
+  external set onanimationcancel(EventHandler value);
+  external EventHandler get ontransitionrun;
+  external set ontransitionrun(EventHandler value);
+  external EventHandler get ontransitionstart;
+  external set ontransitionstart(EventHandler value);
+  external EventHandler get ontransitionend;
+  external set ontransitionend(EventHandler value);
+  external EventHandler get ontransitioncancel;
+  external set ontransitioncancel(EventHandler value);
   external EventHandler get onpointerover;
   external set onpointerover(EventHandler value);
   external EventHandler get onpointerenter;
@@ -3045,86 +3045,6 @@ extension type ShadowRoot._(JSObject _) implements DocumentFragment, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Element).
 extension type Element._(JSObject _) implements Node, JSObject {
-  /// The **`computedStyleMap()`** method of
-  /// the [Element] interface returns a [StylePropertyMapReadOnly]
-  /// interface which provides a read-only representation of a CSS declaration
-  /// block that is
-  /// an alternative to [CSSStyleDeclaration].
-  external StylePropertyMapReadOnly computedStyleMap();
-
-  /// The **`getClientRects()`** method of the [Element]
-  /// interface returns a collection of [DOMRect] objects that indicate the
-  /// bounding rectangles for each
-  /// [CSS border box](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_box_model/Introduction_to_the_CSS_box_model)
-  /// in a client.
-  ///
-  /// Most elements only have one border box each, but a multiline
-  /// [inline-level element](https://developer.mozilla.org/en-US/docs/Glossary/Inline-level_content)
-  /// (such as a multiline
-  /// `span` element, by default) has a border box around each line.
-  external DOMRectList getClientRects();
-
-  /// The **`Element.getBoundingClientRect()`** method returns a
-  /// [DOMRect] object providing information about the size of an element and
-  /// its
-  /// position relative to the
-  /// [viewport](https://developer.mozilla.org/en-US/docs/Glossary/Viewport).
-  external DOMRect getBoundingClientRect();
-
-  /// The **`checkVisibility()`** method of the [Element] interface checks
-  /// whether the element is visible.
-  ///
-  /// The method returns `false` in either of the following situations:
-  ///
-  /// - The element doesn't have an associated box, for example because the CSS
-  ///   `display` property is set to
-  ///   [`none`](https://developer.mozilla.org/en-US/docs/Web/CSS/display#none)
-  ///   or
-  ///   [`contents`](https://developer.mozilla.org/en-US/docs/Web/CSS/display#contents).
-  /// - The element is not being rendered because the element or an ancestor
-  ///   element sets the  property to
-  ///   [`hidden`](https://developer.mozilla.org/en-US/docs/Web/CSS/content-visibility#hidden).
-  ///
-  /// The optional parameter enables additional checks to test for other
-  /// interpretations of what "visible" means.
-  /// For example, you can further check whether an element has an opacity of
-  /// `0`, if the value of the element
-  /// [`visibility`](https://developer.mozilla.org/en-US/docs/Web/CSS/visibility)
-  /// property makes it invisible, or if the element  property has a value of
-  /// [`auto`](https://developer.mozilla.org/en-US/docs/Web/CSS/content-visibility#auto)
-  /// and its rendering is currently being skipped.
-  external bool checkVisibility([CheckVisibilityOptions options]);
-
-  /// The [Element] interface's
-  /// **`scrollIntoView()`** method scrolls the element's ancestor
-  /// containers such that the element on which `scrollIntoView()` is called is
-  /// visible to the user.
-  external void scrollIntoView([JSAny arg]);
-
-  /// The **`scroll()`** method of the [Element]
-  /// interface scrolls the element to a particular set of coordinates inside a
-  /// given
-  /// element.
-  external void scroll([
-    JSAny optionsOrX,
-    num y,
-  ]);
-
-  /// The **`scrollTo()`** method of the [Element]
-  /// interface scrolls to a particular set of coordinates inside a given
-  /// element.
-  external void scrollTo([
-    JSAny optionsOrX,
-    num y,
-  ]);
-
-  /// The **`scrollBy()`** method of the [Element]
-  /// interface scrolls an element by the given amount.
-  external void scrollBy([
-    JSAny optionsOrX,
-    num y,
-  ]);
-
   /// The **`hasAttributes()`** method of the [Element]
   /// interface returns a boolean value indicating whether the current element
   /// has any
@@ -3373,6 +3293,86 @@ extension type Element._(JSObject _) implements Node, JSObject {
     String data,
   );
 
+  /// The **`computedStyleMap()`** method of
+  /// the [Element] interface returns a [StylePropertyMapReadOnly]
+  /// interface which provides a read-only representation of a CSS declaration
+  /// block that is
+  /// an alternative to [CSSStyleDeclaration].
+  external StylePropertyMapReadOnly computedStyleMap();
+
+  /// The **`getClientRects()`** method of the [Element]
+  /// interface returns a collection of [DOMRect] objects that indicate the
+  /// bounding rectangles for each
+  /// [CSS border box](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_box_model/Introduction_to_the_CSS_box_model)
+  /// in a client.
+  ///
+  /// Most elements only have one border box each, but a multiline
+  /// [inline-level element](https://developer.mozilla.org/en-US/docs/Glossary/Inline-level_content)
+  /// (such as a multiline
+  /// `span` element, by default) has a border box around each line.
+  external DOMRectList getClientRects();
+
+  /// The **`Element.getBoundingClientRect()`** method returns a
+  /// [DOMRect] object providing information about the size of an element and
+  /// its
+  /// position relative to the
+  /// [viewport](https://developer.mozilla.org/en-US/docs/Glossary/Viewport).
+  external DOMRect getBoundingClientRect();
+
+  /// The **`checkVisibility()`** method of the [Element] interface checks
+  /// whether the element is visible.
+  ///
+  /// The method returns `false` in either of the following situations:
+  ///
+  /// - The element doesn't have an associated box, for example because the CSS
+  ///   `display` property is set to
+  ///   [`none`](https://developer.mozilla.org/en-US/docs/Web/CSS/display#none)
+  ///   or
+  ///   [`contents`](https://developer.mozilla.org/en-US/docs/Web/CSS/display#contents).
+  /// - The element is not being rendered because the element or an ancestor
+  ///   element sets the  property to
+  ///   [`hidden`](https://developer.mozilla.org/en-US/docs/Web/CSS/content-visibility#hidden).
+  ///
+  /// The optional parameter enables additional checks to test for other
+  /// interpretations of what "visible" means.
+  /// For example, you can further check whether an element has an opacity of
+  /// `0`, if the value of the element
+  /// [`visibility`](https://developer.mozilla.org/en-US/docs/Web/CSS/visibility)
+  /// property makes it invisible, or if the element  property has a value of
+  /// [`auto`](https://developer.mozilla.org/en-US/docs/Web/CSS/content-visibility#auto)
+  /// and its rendering is currently being skipped.
+  external bool checkVisibility([CheckVisibilityOptions options]);
+
+  /// The [Element] interface's
+  /// **`scrollIntoView()`** method scrolls the element's ancestor
+  /// containers such that the element on which `scrollIntoView()` is called is
+  /// visible to the user.
+  external void scrollIntoView([JSAny arg]);
+
+  /// The **`scroll()`** method of the [Element]
+  /// interface scrolls the element to a particular set of coordinates inside a
+  /// given
+  /// element.
+  external void scroll([
+    JSAny optionsOrX,
+    num y,
+  ]);
+
+  /// The **`scrollTo()`** method of the [Element]
+  /// interface scrolls to a particular set of coordinates inside a given
+  /// element.
+  external void scrollTo([
+    JSAny optionsOrX,
+    num y,
+  ]);
+
+  /// The **`scrollBy()`** method of the [Element]
+  /// interface scrolls an element by the given amount.
+  external void scrollBy([
+    JSAny optionsOrX,
+    num y,
+  ]);
+
   /// The **`Element.requestFullscreen()`**
   /// method issues an asynchronous request to make the element be displayed in
   /// fullscreen
@@ -3592,6 +3592,94 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// > [Web Animations](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API).
   external JSArray<Animation> getAnimations([GetAnimationsOptions options]);
 
+  /// The **`Element.namespaceURI`** read-only property returns the namespace
+  /// URI of the element, or `null` if the element is not in a namespace.
+  external String? get namespaceURI;
+
+  /// The **`Element.prefix`** read-only property returns the
+  /// namespace prefix of the specified element, or `null` if no prefix is
+  /// specified.
+  external String? get prefix;
+
+  /// The **`Element.localName`** read-only property returns the
+  /// local part of the qualified name of an element.
+  external String get localName;
+
+  /// The **`tagName`** read-only property
+  /// of the [Element] interface returns the tag name of the element on which
+  /// it's called.
+  ///
+  /// For example, if the element is an `img`, its
+  /// `tagName` property is `IMG` (for HTML documents; it may be cased
+  /// differently for XML/XHTML documents). Note: You can use the
+  /// [Element.localName] property
+  /// to access the Element's local name — which for the case in the example is
+  /// `img` (lowercase) .
+  external String get tagName;
+
+  /// The **`id`** property of the [Element] interface
+  /// represents the element's identifier, reflecting the
+  /// [**`id`**](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id)
+  /// global attribute.
+  ///
+  /// If the `id` value is not the empty string, it must be unique in a
+  /// document.
+  ///
+  /// The `id` is often used with [Document.getElementById] to retrieve a
+  /// particular element.
+  /// Another common case is to use an element's
+  /// [ID as a selector](https://developer.mozilla.org/en-US/docs/Web/CSS/ID_selectors)
+  /// when styling the document with
+  /// [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS).
+  ///
+  /// > **Note:** Identifiers are case-sensitive, but you should avoid creating
+  /// > IDs that differ only in the capitalization.
+  external String get id;
+  external set id(String value);
+
+  /// The **`className`** property of the
+  /// [Element] interface gets and sets the value of the
+  /// [`class` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class)
+  /// of the specified element.
+  external String get className;
+  external set className(String value);
+
+  /// The **`Element.classList`** is a read-only property that
+  /// returns a live [DOMTokenList] collection of the `class`
+  /// attributes of the element. This can then be used to manipulate the class
+  /// list.
+  ///
+  /// Using `classList` is a convenient alternative to accessing an element's
+  /// list
+  /// of classes as a space-delimited string via [element.className].
+  external DOMTokenList get classList;
+
+  /// The **`slot`** property of the [Element] interface
+  /// returns the name of the shadow DOM slot the element is inserted in.
+  ///
+  /// A slot is a placeholder inside a
+  /// [web component](https://developer.mozilla.org/en-US/docs/Web/API/Web_components)
+  /// that users can fill with their own markup (see
+  /// [Using templates and slots](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_templates_and_slots)
+  /// for more information).
+  external String get slot;
+  external set slot(String value);
+
+  /// The **`Element.attributes`** property returns a live collection
+  /// of all attribute nodes registered to the specified node. It is a
+  /// [NamedNodeMap], not an `Array`, so it has no `Array`
+  /// methods and the [Attr] nodes' indexes may differ among browsers. To be
+  /// more
+  /// specific, `attributes` is a key/value pair of strings that represents any
+  /// information regarding that attribute.
+  external NamedNodeMap get attributes;
+
+  /// The `Element.shadowRoot` read-only property
+  /// represents the shadow root hosted by the element.
+  ///
+  /// Use [Element.attachShadow] to add a shadow root to an existing element.
+  external ShadowRoot? get shadowRoot;
+
   /// The **`part`** property of the [Element] interface
   /// represents the part identifier(s) of the element (i.e. set using the
   /// `part`
@@ -3733,94 +3821,6 @@ extension type Element._(JSObject _) implements Node, JSObject {
   /// > **Note:** This property will round the value to an integer. If you need
   /// > a fractional value, use [element.getBoundingClientRect].
   external int get clientHeight;
-
-  /// The **`Element.namespaceURI`** read-only property returns the namespace
-  /// URI of the element, or `null` if the element is not in a namespace.
-  external String? get namespaceURI;
-
-  /// The **`Element.prefix`** read-only property returns the
-  /// namespace prefix of the specified element, or `null` if no prefix is
-  /// specified.
-  external String? get prefix;
-
-  /// The **`Element.localName`** read-only property returns the
-  /// local part of the qualified name of an element.
-  external String get localName;
-
-  /// The **`tagName`** read-only property
-  /// of the [Element] interface returns the tag name of the element on which
-  /// it's called.
-  ///
-  /// For example, if the element is an `img`, its
-  /// `tagName` property is `IMG` (for HTML documents; it may be cased
-  /// differently for XML/XHTML documents). Note: You can use the
-  /// [Element.localName] property
-  /// to access the Element's local name — which for the case in the example is
-  /// `img` (lowercase) .
-  external String get tagName;
-
-  /// The **`id`** property of the [Element] interface
-  /// represents the element's identifier, reflecting the
-  /// [**`id`**](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id)
-  /// global attribute.
-  ///
-  /// If the `id` value is not the empty string, it must be unique in a
-  /// document.
-  ///
-  /// The `id` is often used with [Document.getElementById] to retrieve a
-  /// particular element.
-  /// Another common case is to use an element's
-  /// [ID as a selector](https://developer.mozilla.org/en-US/docs/Web/CSS/ID_selectors)
-  /// when styling the document with
-  /// [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS).
-  ///
-  /// > **Note:** Identifiers are case-sensitive, but you should avoid creating
-  /// > IDs that differ only in the capitalization.
-  external String get id;
-  external set id(String value);
-
-  /// The **`className`** property of the
-  /// [Element] interface gets and sets the value of the
-  /// [`class` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class)
-  /// of the specified element.
-  external String get className;
-  external set className(String value);
-
-  /// The **`Element.classList`** is a read-only property that
-  /// returns a live [DOMTokenList] collection of the `class`
-  /// attributes of the element. This can then be used to manipulate the class
-  /// list.
-  ///
-  /// Using `classList` is a convenient alternative to accessing an element's
-  /// list
-  /// of classes as a space-delimited string via [element.className].
-  external DOMTokenList get classList;
-
-  /// The **`slot`** property of the [Element] interface
-  /// returns the name of the shadow DOM slot the element is inserted in.
-  ///
-  /// A slot is a placeholder inside a
-  /// [web component](https://developer.mozilla.org/en-US/docs/Web/API/Web_components)
-  /// that users can fill with their own markup (see
-  /// [Using templates and slots](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_templates_and_slots)
-  /// for more information).
-  external String get slot;
-  external set slot(String value);
-
-  /// The **`Element.attributes`** property returns a live collection
-  /// of all attribute nodes registered to the specified node. It is a
-  /// [NamedNodeMap], not an `Array`, so it has no `Array`
-  /// methods and the [Attr] nodes' indexes may differ among browsers. To be
-  /// more
-  /// specific, `attributes` is a key/value pair of strings that represents any
-  /// information regarding that attribute.
-  external NamedNodeMap get attributes;
-
-  /// The `Element.shadowRoot` read-only property
-  /// represents the shadow root hosted by the element.
-  ///
-  /// Use [Element.attachShadow] to add a shadow root to an existing element.
-  external ShadowRoot? get shadowRoot;
   external EventHandler get onfullscreenchange;
   external set onfullscreenchange(EventHandler value);
   external EventHandler get onfullscreenerror;
@@ -4861,24 +4861,6 @@ extension type Range._(JSObject _) implements AbstractRange, JSObject {
 
   static const int END_TO_START = 3;
 
-  /// The **`Range.getClientRects()`** method returns a list of [DOMRect]
-  /// objects representing the area of the screen occupied by the
-  /// [range](https://developer.mozilla.org/en-US/docs/Web/API/Range). This is
-  /// created by aggregating the results of calls to
-  /// [Element.getClientRects] for all the elements in the range.
-  external DOMRectList getClientRects();
-
-  /// The **`Range.getBoundingClientRect()`** method returns a [DOMRect] object
-  /// that bounds the contents of the range; this is a rectangle
-  /// enclosing the union of the bounding rectangles for all the elements in the
-  /// range.
-  ///
-  /// This method is useful for determining the viewport coordinates of the
-  /// cursor or
-  /// selection inside a text box. See [Element.getBoundingClientRect] for
-  /// details on the returned value.
-  external DOMRect getBoundingClientRect();
-
   /// The **`Range.setStart()`** method sets the start position of a
   /// [Range].
   ///
@@ -5073,6 +5055,24 @@ extension type Range._(JSObject _) implements AbstractRange, JSObject {
   /// The **`Range.intersectsNode()`** method returns a boolean
   /// indicating whether the given [Node] intersects the [Range].
   external bool intersectsNode(Node node);
+
+  /// The **`Range.getClientRects()`** method returns a list of [DOMRect]
+  /// objects representing the area of the screen occupied by the
+  /// [range](https://developer.mozilla.org/en-US/docs/Web/API/Range). This is
+  /// created by aggregating the results of calls to
+  /// [Element.getClientRects] for all the elements in the range.
+  external DOMRectList getClientRects();
+
+  /// The **`Range.getBoundingClientRect()`** method returns a [DOMRect] object
+  /// that bounds the contents of the range; this is a rectangle
+  /// enclosing the union of the bounding rectangles for all the elements in the
+  /// range.
+  ///
+  /// This method is useful for determining the viewport coordinates of the
+  /// cursor or
+  /// selection inside a text box. See [Element.getBoundingClientRect] for
+  /// details on the returned value.
+  external DOMRect getBoundingClientRect();
 
   /// The **`Range.createContextualFragment()`** method returns a
   /// [DocumentFragment] by invoking the HTML fragment parsing algorithm or the

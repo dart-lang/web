@@ -242,88 +242,6 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
     EventTarget? relatedTargetArg,
   ]);
 
-  /// The **`pageX`** read-only property of the [MouseEvent] interface returns
-  /// the X (horizontal) coordinate (in pixels) at which the mouse was clicked,
-  /// relative to the left edge of the entire document.
-  /// This includes any portion of the document not currently visible.
-  ///
-  /// Being based on the edge of the document as it is, this property takes into
-  /// account any horizontal scrolling of the page.
-  /// For example, if the page is scrolled such that 200 pixels of the left side
-  /// of the document are scrolled out of view, and the mouse is clicked 100
-  /// pixels inward from the left edge of the view, the value returned by
-  /// `pageX` will be 300.
-  ///
-  /// Originally, this property was defined as a `long` integer. The
-  /// [CSSOM View Module](https://developer.mozilla.org/en-US/docs/Web/CSS/CSSOM_view)
-  /// redefined it as a
-  /// `double` float. See the [Browser compatibility](#browser_compatibility)
-  /// section for
-  /// details.
-  ///
-  /// See
-  /// [Coordinate systems](https://developer.mozilla.org/en-US/docs/Web/CSS/CSSOM_view/Coordinate_systems#page)
-  /// for additional information about coordinates specified in this fashion.
-  external double get pageX;
-
-  /// The **`pageY`** read-only property of the [MouseEvent] interface returns
-  /// the Y (vertical) coordinate (in pixels) at which the mouse was clicked,
-  /// relative to the top edge of the entire document.
-  /// This includes any portion of the document not currently visible.
-  ///
-  /// See [MouseEvent.pageX] for more information.
-  external double get pageY;
-
-  /// The **`MouseEvent.x`** property is an alias for the [MouseEvent.clientX]
-  /// property.
-  external double get x;
-
-  /// The **`MouseEvent.y`** property is an alias for the [MouseEvent.clientY]
-  /// property.
-  external double get y;
-
-  /// The **`offsetX`** read-only property of the [MouseEvent] interface
-  /// provides the offset in the X coordinate of the mouse pointer between that
-  /// event and the padding edge of the target node.
-  external double get offsetX;
-
-  /// The **`offsetY`** read-only property of the [MouseEvent] interface
-  /// provides the offset in the Y coordinate of the mouse pointer between that
-  /// event and the padding edge of the target node.
-  external double get offsetY;
-
-  /// The **`movementX`** read-only property of the [MouseEvent] interface
-  /// provides the difference in the X coordinate of the mouse pointer between
-  /// the given event and the previous [Element.mousemove_event] event.
-  /// In other words, the value of the property is computed like this:
-  /// `currentEvent.movementX = currentEvent.screenX - previousEvent.screenX`.
-  ///
-  /// > **Warning:** Browsers [use different units for `movementX` and
-  /// > [MouseEvent.screenX]](https://github.com/w3c/pointerlock/issues/42) than
-  /// > what the specification defines. Depending on the browser and operating
-  /// > system, the `movementX` units may be a physical pixel, a logical pixel,
-  /// > or a CSS pixel. You may want to avoid the movement properties, and
-  /// > instead calculate the delta between the current client values
-  /// > ([MouseEvent.screenX], [MouseEvent.screenY]) and the previous client
-  /// > values.
-  external double get movementX;
-
-  /// The **`movementY`** read-only property of the [MouseEvent] interface
-  /// provides the difference in the Y coordinate of the mouse pointer between
-  /// the given event and the previous [Element.mousemove_event] event.
-  /// In other words, the value of the property is computed like this:
-  /// `currentEvent.movementY = currentEvent.screenY - previousEvent.screenY`.
-  ///
-  /// > **Warning:** Browsers [use different units for `movementY` and
-  /// > [MouseEvent.screenY]](https://github.com/w3c/pointerlock/issues/42) than
-  /// > what the specification defines. Depending on the browser and operating
-  /// > system, the `movementY` units may be a physical pixel, a logical pixel,
-  /// > or a CSS pixel. You may want to avoid the movement properties, and
-  /// > instead calculate the delta between the current client values
-  /// > ([MouseEvent.screenX], [MouseEvent.screenY]) and the previous client
-  /// > values.
-  external double get movementY;
-
   /// The **`screenX`** read-only property of the [MouseEvent] interface
   /// provides the horizontal coordinate (offset) of the mouse pointer in
   /// [screen coordinates](https://developer.mozilla.org/en-US/docs/Web/CSS/CSSOM_view/Coordinate_systems#screen).
@@ -514,6 +432,88 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   ///
   /// [FocusEvent.relatedTarget] is a similar property for focus events.
   external EventTarget? get relatedTarget;
+
+  /// The **`pageX`** read-only property of the [MouseEvent] interface returns
+  /// the X (horizontal) coordinate (in pixels) at which the mouse was clicked,
+  /// relative to the left edge of the entire document.
+  /// This includes any portion of the document not currently visible.
+  ///
+  /// Being based on the edge of the document as it is, this property takes into
+  /// account any horizontal scrolling of the page.
+  /// For example, if the page is scrolled such that 200 pixels of the left side
+  /// of the document are scrolled out of view, and the mouse is clicked 100
+  /// pixels inward from the left edge of the view, the value returned by
+  /// `pageX` will be 300.
+  ///
+  /// Originally, this property was defined as a `long` integer. The
+  /// [CSSOM View Module](https://developer.mozilla.org/en-US/docs/Web/CSS/CSSOM_view)
+  /// redefined it as a
+  /// `double` float. See the [Browser compatibility](#browser_compatibility)
+  /// section for
+  /// details.
+  ///
+  /// See
+  /// [Coordinate systems](https://developer.mozilla.org/en-US/docs/Web/CSS/CSSOM_view/Coordinate_systems#page)
+  /// for additional information about coordinates specified in this fashion.
+  external double get pageX;
+
+  /// The **`pageY`** read-only property of the [MouseEvent] interface returns
+  /// the Y (vertical) coordinate (in pixels) at which the mouse was clicked,
+  /// relative to the top edge of the entire document.
+  /// This includes any portion of the document not currently visible.
+  ///
+  /// See [MouseEvent.pageX] for more information.
+  external double get pageY;
+
+  /// The **`MouseEvent.x`** property is an alias for the [MouseEvent.clientX]
+  /// property.
+  external double get x;
+
+  /// The **`MouseEvent.y`** property is an alias for the [MouseEvent.clientY]
+  /// property.
+  external double get y;
+
+  /// The **`offsetX`** read-only property of the [MouseEvent] interface
+  /// provides the offset in the X coordinate of the mouse pointer between that
+  /// event and the padding edge of the target node.
+  external double get offsetX;
+
+  /// The **`offsetY`** read-only property of the [MouseEvent] interface
+  /// provides the offset in the Y coordinate of the mouse pointer between that
+  /// event and the padding edge of the target node.
+  external double get offsetY;
+
+  /// The **`movementX`** read-only property of the [MouseEvent] interface
+  /// provides the difference in the X coordinate of the mouse pointer between
+  /// the given event and the previous [Element.mousemove_event] event.
+  /// In other words, the value of the property is computed like this:
+  /// `currentEvent.movementX = currentEvent.screenX - previousEvent.screenX`.
+  ///
+  /// > **Warning:** Browsers [use different units for `movementX` and
+  /// > [MouseEvent.screenX]](https://github.com/w3c/pointerlock/issues/42) than
+  /// > what the specification defines. Depending on the browser and operating
+  /// > system, the `movementX` units may be a physical pixel, a logical pixel,
+  /// > or a CSS pixel. You may want to avoid the movement properties, and
+  /// > instead calculate the delta between the current client values
+  /// > ([MouseEvent.screenX], [MouseEvent.screenY]) and the previous client
+  /// > values.
+  external double get movementX;
+
+  /// The **`movementY`** read-only property of the [MouseEvent] interface
+  /// provides the difference in the Y coordinate of the mouse pointer between
+  /// the given event and the previous [Element.mousemove_event] event.
+  /// In other words, the value of the property is computed like this:
+  /// `currentEvent.movementY = currentEvent.screenY - previousEvent.screenY`.
+  ///
+  /// > **Warning:** Browsers [use different units for `movementY` and
+  /// > [MouseEvent.screenY]](https://github.com/w3c/pointerlock/issues/42) than
+  /// > what the specification defines. Depending on the browser and operating
+  /// > system, the `movementY` units may be a physical pixel, a logical pixel,
+  /// > or a CSS pixel. You may want to avoid the movement properties, and
+  /// > instead calculate the delta between the current client values
+  /// > ([MouseEvent.screenX], [MouseEvent.screenY]) and the previous client
+  /// > values.
+  external double get movementY;
 }
 extension type MouseEventInit._(JSObject _)
     implements EventModifierInit, JSObject {
@@ -798,13 +798,6 @@ extension type InputEvent._(JSObject _) implements UIEvent, JSObject {
   /// </table>
   external JSArray<StaticRange> getTargetRanges();
 
-  /// The **`dataTransfer`** read-only property of the
-  /// [InputEvent] interface returns a [DataTransfer] object
-  /// containing information about richtext or plaintext data being added to or
-  /// removed from
-  /// editable content.
-  external DataTransfer? get dataTransfer;
-
   /// The **`data`** read-only property of the
   /// [InputEvent] interface returns a string with inserted
   /// characters. This may be an empty string if the change doesn't insert text,
@@ -824,6 +817,13 @@ extension type InputEvent._(JSObject _) implements UIEvent, JSObject {
   /// Possible changes include for example inserting, deleting, and formatting
   /// text.
   external String get inputType;
+
+  /// The **`dataTransfer`** read-only property of the
+  /// [InputEvent] interface returns a [DataTransfer] object
+  /// containing information about richtext or plaintext data being added to or
+  /// removed from
+  /// editable content.
+  external DataTransfer? get dataTransfer;
 }
 extension type InputEventInit._(JSObject _) implements UIEventInit, JSObject {
   external factory InputEventInit({

@@ -33,22 +33,6 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external void blur();
   external SVGSVGElement? get ownerSVGElement;
   external SVGElement? get viewportElement;
-  external EventHandler get onanimationstart;
-  external set onanimationstart(EventHandler value);
-  external EventHandler get onanimationiteration;
-  external set onanimationiteration(EventHandler value);
-  external EventHandler get onanimationend;
-  external set onanimationend(EventHandler value);
-  external EventHandler get onanimationcancel;
-  external set onanimationcancel(EventHandler value);
-  external EventHandler get ontransitionrun;
-  external set ontransitionrun(EventHandler value);
-  external EventHandler get ontransitionstart;
-  external set ontransitionstart(EventHandler value);
-  external EventHandler get ontransitionend;
-  external set ontransitionend(EventHandler value);
-  external EventHandler get ontransitioncancel;
-  external set ontransitioncancel(EventHandler value);
   external EventHandler get onabort;
   external set onabort(EventHandler value);
   external EventHandler get onauxclick;
@@ -189,6 +173,22 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external set onwaiting(EventHandler value);
   external EventHandler get onwheel;
   external set onwheel(EventHandler value);
+  external EventHandler get onanimationstart;
+  external set onanimationstart(EventHandler value);
+  external EventHandler get onanimationiteration;
+  external set onanimationiteration(EventHandler value);
+  external EventHandler get onanimationend;
+  external set onanimationend(EventHandler value);
+  external EventHandler get onanimationcancel;
+  external set onanimationcancel(EventHandler value);
+  external EventHandler get ontransitionrun;
+  external set ontransitionrun(EventHandler value);
+  external EventHandler get ontransitionstart;
+  external set ontransitionstart(EventHandler value);
+  external EventHandler get ontransitionend;
+  external set ontransitionend(EventHandler value);
+  external EventHandler get ontransitioncancel;
+  external set ontransitioncancel(EventHandler value);
   external EventHandler get onpointerover;
   external set onpointerover(EventHandler value);
   external EventHandler get onpointerenter;
@@ -238,26 +238,6 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   external int get tabIndex;
   external set tabIndex(int value);
 
-  /// The **`attributeStyleMap`** read-only property of the [SVGElement]
-  /// interface returns a live [StylePropertyMap] object that contains a list of
-  /// style properties of the element that are defined in the element's inline
-  /// `style` attribute, or assigned using the [SVGElement.style] property of
-  /// the [SVGElement] interface via script.
-  ///
-  /// Shorthand properties are expanded. If you set `border-top: 1px solid
-  /// black`, the longhand properties (, , and ) are set instead.
-  ///
-  /// The main difference between [SVGElement.style] property and
-  /// `attributeStyleMap` property is that, the `style` property will return a
-  /// [CSSStyleDeclaration] object, while the `attributeStyleMap` property will
-  /// return a [StylePropertyMap] object.
-  ///
-  /// Though the property itself is not writable, you could read and write
-  /// inline styles through the [StylePropertyMap] object that it returns, just
-  /// like through the [CSSStyleDeclaration] object that returns via the `style`
-  /// property.
-  external StylePropertyMap get attributeStyleMap;
-
   /// The read-only **`style`** property of the [SVGElement] returns the
   /// _inline_ style of an element in the form of a live [CSSStyleDeclaration]
   /// object that contains a list of all styles properties for that element with
@@ -298,6 +278,26 @@ extension type SVGElement._(JSObject _) implements Element, JSObject {
   /// > The `style` property has the same priority in the CSS cascade as an
   /// > inline style declaration set via the `style` attribute.
   external CSSStyleDeclaration get style;
+
+  /// The **`attributeStyleMap`** read-only property of the [SVGElement]
+  /// interface returns a live [StylePropertyMap] object that contains a list of
+  /// style properties of the element that are defined in the element's inline
+  /// `style` attribute, or assigned using the [SVGElement.style] property of
+  /// the [SVGElement] interface via script.
+  ///
+  /// Shorthand properties are expanded. If you set `border-top: 1px solid
+  /// black`, the longhand properties (, , and ) are set instead.
+  ///
+  /// The main difference between [SVGElement.style] property and
+  /// `attributeStyleMap` property is that, the `style` property will return a
+  /// [CSSStyleDeclaration] object, while the `attributeStyleMap` property will
+  /// return a [StylePropertyMap] object.
+  ///
+  /// Though the property itself is not writable, you could read and write
+  /// inline styles through the [StylePropertyMap] object that it returns, just
+  /// like through the [CSSStyleDeclaration] object that returns via the `style`
+  /// property.
+  external StylePropertyMap get attributeStyleMap;
 }
 
 extension SVGElementExtension on SVGElement {
@@ -848,10 +848,6 @@ extension type SVGSVGElement._(JSObject _)
   external DOMPointReadOnly get currentTranslate;
   external SVGAnimatedRect get viewBox;
   external SVGAnimatedPreserveAspectRatio get preserveAspectRatio;
-  external EventHandler get ongamepadconnected;
-  external set ongamepadconnected(EventHandler value);
-  external EventHandler get ongamepaddisconnected;
-  external set ongamepaddisconnected(EventHandler value);
   external EventHandler get onafterprint;
   external set onafterprint(EventHandler value);
   external EventHandler get onbeforeprint;
@@ -884,6 +880,10 @@ extension type SVGSVGElement._(JSObject _)
   external set onunhandledrejection(EventHandler value);
   external EventHandler get onunload;
   external set onunload(EventHandler value);
+  external EventHandler get ongamepadconnected;
+  external set ongamepadconnected(EventHandler value);
+  external EventHandler get ongamepaddisconnected;
+  external set ongamepaddisconnected(EventHandler value);
 }
 
 /// The **`SVGGElement`** interface corresponds to the  element.

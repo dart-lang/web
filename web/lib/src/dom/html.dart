@@ -501,94 +501,6 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// current element.
   external void blur();
 
-  /// The **`HTMLElement.offsetParent`** read-only property returns a
-  /// reference to the element which is the closest (nearest in the containment
-  /// hierarchy)
-  /// positioned ancestor element.
-  ///
-  /// A positioned ancestor is either:
-  ///
-  /// - an element with a non-static position, or
-  /// - `td`, `th`, `table` in case the element itself is static positioned.
-  ///
-  /// If there is no positioned ancestor element, the `body` is returned.
-  ///
-  /// > **Note:** `offsetParent` returns `null` in the following
-  /// > situations:
-  /// >
-  /// > - The element or any ancestor has the `display` property set to
-  /// > `none`.
-  /// > - The element has the `position` property set to `fixed`
-  /// > (Firefox returns `<body>`).
-  /// > - The element is `<body>` or `<html>`.
-  ///
-  /// `offsetParent` is useful because
-  /// [HTMLElement.offsetTop] and
-  /// [HTMLElement.offsetLeft] are relative to its padding edge.
-  external Element? get offsetParent;
-
-  /// The **`HTMLElement.offsetTop`** read-only property returns the
-  /// distance from the outer border of the current element (including its
-  /// margin) to the top padding edge of the [HTMLelement.offsetParent], the
-  /// _closest positioned_
-  /// ancestor element.
-  external int get offsetTop;
-
-  /// The **`HTMLElement.offsetLeft`** read-only property returns the number of
-  /// pixels that the _upper left corner_ of the current element is offset to
-  /// the left within the [HTMLElement.offsetParent] node.
-  ///
-  /// For block-level elements, `offsetTop`, `offsetLeft`, `offsetWidth`, and
-  /// `offsetHeight` describe the border box of an element relative to the
-  /// `offsetParent`.
-  ///
-  /// However, for inline-level elements (such as **span**) that can wrap from
-  /// one line to the next, `offsetTop` and `offsetLeft` describe the positions
-  /// of the _first_ border box (use [Element.getClientRects] to get its width
-  /// and height), while `offsetWidth` and `offsetHeight` describe the
-  /// dimensions of the _bounding_ border box (use
-  /// [Element.getBoundingClientRect] to get its position). Therefore, a box
-  /// with the left, top, width and height of `offsetLeft`, `offsetTop`,
-  /// `offsetWidth` and `offsetHeight` will not be a bounding box for a span
-  /// with wrapped text.
-  external int get offsetLeft;
-
-  /// The **`HTMLElement.offsetWidth`** read-only property returns
-  /// the layout width of an element as an integer.
-  ///
-  /// Typically, `offsetWidth` is a measurement in pixels of the element's CSS
-  /// width, including any borders, padding, and vertical scrollbars (if
-  /// rendered). It does
-  /// not include the width of pseudo-elements such as `::before` or
-  /// `::after`.
-  ///
-  /// If the element is hidden (for example, by setting `style.display` on the
-  /// element or one of its ancestors to `"none"`), then `0` is
-  /// returned.
-  external int get offsetWidth;
-
-  /// The **`HTMLElement.offsetHeight`** read-only property returns
-  /// the height of an element, including vertical padding and borders, as an
-  /// integer.
-  ///
-  /// Typically, `offsetHeight` is a measurement in pixels of the element's CSS
-  /// height, including any borders, padding, and horizontal scrollbars (if
-  /// rendered). It does
-  /// not include the height of pseudo-elements such as `::before` or
-  /// `::after`. For the document body object, the measurement includes total
-  /// linear content height instead of the element's CSS height. Floated
-  /// elements extending
-  /// below other linear content are ignored.
-  ///
-  /// If the element is hidden (for example, by setting `style.display` on the
-  /// element or one of its ancestors to `"none"`), then `0` is
-  /// returned.
-  ///
-  /// > **Note:** This property will round the value to an integer. If you need
-  /// > a fractional value, use
-  /// > [element.getBoundingClientRect].
-  external int get offsetHeight;
-
   /// The **`HTMLElement.title`** property
   /// represents the title of the element: the text usually displayed in a
   /// 'tooltip' popup
@@ -779,25 +691,93 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   external String? get popover;
   external set popover(String? value);
 
-  /// The **`attributeStyleMap`** read-only property of the [HTMLElement]
-  /// interface returns a live [StylePropertyMap] object that contains a list of
-  /// style properties of the element that are defined in the element's inline
-  /// `style` attribute, or assigned using the [HTMLElement.style] property of
-  /// the [HTMLElement] interface via script.
+  /// The **`HTMLElement.offsetParent`** read-only property returns a
+  /// reference to the element which is the closest (nearest in the containment
+  /// hierarchy)
+  /// positioned ancestor element.
   ///
-  /// Shorthand properties are expanded. If you set `border-top: 1px solid
-  /// black`, the longhand properties (, , and ) are set instead.
+  /// A positioned ancestor is either:
   ///
-  /// The main difference between [HTMLElement.style] property and
-  /// `attributeStyleMap` property is that, the `style` property will return a
-  /// [CSSStyleDeclaration] object, while the `attributeStyleMap` property will
-  /// return a [StylePropertyMap] object.
+  /// - an element with a non-static position, or
+  /// - `td`, `th`, `table` in case the element itself is static positioned.
   ///
-  /// Though the property itself is not writable, you could read and write
-  /// inline styles through the [StylePropertyMap] object that it returns, just
-  /// like through the [CSSStyleDeclaration] object that returns via the `style`
-  /// property.
-  external StylePropertyMap get attributeStyleMap;
+  /// If there is no positioned ancestor element, the `body` is returned.
+  ///
+  /// > **Note:** `offsetParent` returns `null` in the following
+  /// > situations:
+  /// >
+  /// > - The element or any ancestor has the `display` property set to
+  /// > `none`.
+  /// > - The element has the `position` property set to `fixed`
+  /// > (Firefox returns `<body>`).
+  /// > - The element is `<body>` or `<html>`.
+  ///
+  /// `offsetParent` is useful because
+  /// [HTMLElement.offsetTop] and
+  /// [HTMLElement.offsetLeft] are relative to its padding edge.
+  external Element? get offsetParent;
+
+  /// The **`HTMLElement.offsetTop`** read-only property returns the
+  /// distance from the outer border of the current element (including its
+  /// margin) to the top padding edge of the [HTMLelement.offsetParent], the
+  /// _closest positioned_
+  /// ancestor element.
+  external int get offsetTop;
+
+  /// The **`HTMLElement.offsetLeft`** read-only property returns the number of
+  /// pixels that the _upper left corner_ of the current element is offset to
+  /// the left within the [HTMLElement.offsetParent] node.
+  ///
+  /// For block-level elements, `offsetTop`, `offsetLeft`, `offsetWidth`, and
+  /// `offsetHeight` describe the border box of an element relative to the
+  /// `offsetParent`.
+  ///
+  /// However, for inline-level elements (such as **span**) that can wrap from
+  /// one line to the next, `offsetTop` and `offsetLeft` describe the positions
+  /// of the _first_ border box (use [Element.getClientRects] to get its width
+  /// and height), while `offsetWidth` and `offsetHeight` describe the
+  /// dimensions of the _bounding_ border box (use
+  /// [Element.getBoundingClientRect] to get its position). Therefore, a box
+  /// with the left, top, width and height of `offsetLeft`, `offsetTop`,
+  /// `offsetWidth` and `offsetHeight` will not be a bounding box for a span
+  /// with wrapped text.
+  external int get offsetLeft;
+
+  /// The **`HTMLElement.offsetWidth`** read-only property returns
+  /// the layout width of an element as an integer.
+  ///
+  /// Typically, `offsetWidth` is a measurement in pixels of the element's CSS
+  /// width, including any borders, padding, and vertical scrollbars (if
+  /// rendered). It does
+  /// not include the width of pseudo-elements such as `::before` or
+  /// `::after`.
+  ///
+  /// If the element is hidden (for example, by setting `style.display` on the
+  /// element or one of its ancestors to `"none"`), then `0` is
+  /// returned.
+  external int get offsetWidth;
+
+  /// The **`HTMLElement.offsetHeight`** read-only property returns
+  /// the height of an element, including vertical padding and borders, as an
+  /// integer.
+  ///
+  /// Typically, `offsetHeight` is a measurement in pixels of the element's CSS
+  /// height, including any borders, padding, and horizontal scrollbars (if
+  /// rendered). It does
+  /// not include the height of pseudo-elements such as `::before` or
+  /// `::after`. For the document body object, the measurement includes total
+  /// linear content height instead of the element's CSS height. Floated
+  /// elements extending
+  /// below other linear content are ignored.
+  ///
+  /// If the element is hidden (for example, by setting `style.display` on the
+  /// element or one of its ancestors to `"none"`), then `0` is
+  /// returned.
+  ///
+  /// > **Note:** This property will round the value to an integer. If you need
+  /// > a fractional value, use
+  /// > [element.getBoundingClientRect].
+  external int get offsetHeight;
 
   /// The read-only **`style`** property of the [HTMLElement] returns the
   /// _inline_ style of an element in the form of a live [CSSStyleDeclaration]
@@ -841,22 +821,26 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   /// > The `style` property has the same priority in the CSS cascade as an
   /// > inline style declaration set via the `style` attribute.
   external CSSStyleDeclaration get style;
-  external EventHandler get onanimationstart;
-  external set onanimationstart(EventHandler value);
-  external EventHandler get onanimationiteration;
-  external set onanimationiteration(EventHandler value);
-  external EventHandler get onanimationend;
-  external set onanimationend(EventHandler value);
-  external EventHandler get onanimationcancel;
-  external set onanimationcancel(EventHandler value);
-  external EventHandler get ontransitionrun;
-  external set ontransitionrun(EventHandler value);
-  external EventHandler get ontransitionstart;
-  external set ontransitionstart(EventHandler value);
-  external EventHandler get ontransitionend;
-  external set ontransitionend(EventHandler value);
-  external EventHandler get ontransitioncancel;
-  external set ontransitioncancel(EventHandler value);
+
+  /// The **`attributeStyleMap`** read-only property of the [HTMLElement]
+  /// interface returns a live [StylePropertyMap] object that contains a list of
+  /// style properties of the element that are defined in the element's inline
+  /// `style` attribute, or assigned using the [HTMLElement.style] property of
+  /// the [HTMLElement] interface via script.
+  ///
+  /// Shorthand properties are expanded. If you set `border-top: 1px solid
+  /// black`, the longhand properties (, , and ) are set instead.
+  ///
+  /// The main difference between [HTMLElement.style] property and
+  /// `attributeStyleMap` property is that, the `style` property will return a
+  /// [CSSStyleDeclaration] object, while the `attributeStyleMap` property will
+  /// return a [StylePropertyMap] object.
+  ///
+  /// Though the property itself is not writable, you could read and write
+  /// inline styles through the [StylePropertyMap] object that it returns, just
+  /// like through the [CSSStyleDeclaration] object that returns via the `style`
+  /// property.
+  external StylePropertyMap get attributeStyleMap;
   external EventHandler get onabort;
   external set onabort(EventHandler value);
   external EventHandler get onauxclick;
@@ -997,6 +981,22 @@ extension type HTMLElement._(JSObject _) implements Element, JSObject {
   external set onwaiting(EventHandler value);
   external EventHandler get onwheel;
   external set onwheel(EventHandler value);
+  external EventHandler get onanimationstart;
+  external set onanimationstart(EventHandler value);
+  external EventHandler get onanimationiteration;
+  external set onanimationiteration(EventHandler value);
+  external EventHandler get onanimationend;
+  external set onanimationend(EventHandler value);
+  external EventHandler get onanimationcancel;
+  external set onanimationcancel(EventHandler value);
+  external EventHandler get ontransitionrun;
+  external set ontransitionrun(EventHandler value);
+  external EventHandler get ontransitionstart;
+  external set ontransitionstart(EventHandler value);
+  external EventHandler get ontransitionend;
+  external set ontransitionend(EventHandler value);
+  external EventHandler get ontransitioncancel;
+  external set ontransitioncancel(EventHandler value);
   external EventHandler get onpointerover;
   external set onpointerover(EventHandler value);
   external EventHandler get onpointerenter;
@@ -1665,10 +1665,6 @@ extension type HTMLBodyElement._(JSObject _) implements HTMLElement, JSObject {
   external set bgColor(String value);
   external String get background;
   external set background(String value);
-  external EventHandler get ongamepadconnected;
-  external set ongamepadconnected(EventHandler value);
-  external EventHandler get ongamepaddisconnected;
-  external set ongamepaddisconnected(EventHandler value);
   external EventHandler get onafterprint;
   external set onafterprint(EventHandler value);
   external EventHandler get onbeforeprint;
@@ -1701,6 +1697,10 @@ extension type HTMLBodyElement._(JSObject _) implements HTMLElement, JSObject {
   external set onunhandledrejection(EventHandler value);
   external EventHandler get onunload;
   external set onunload(EventHandler value);
+  external EventHandler get ongamepadconnected;
+  external set ongamepadconnected(EventHandler value);
+  external EventHandler get ongamepaddisconnected;
+  external set ongamepaddisconnected(EventHandler value);
 }
 
 /// The **`HTMLHeadingElement`** interface represents the different heading
@@ -2486,34 +2486,6 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   /// a delay while the image loads.
   external JSPromise<JSAny?> decode();
 
-  /// The read-only [HTMLImageElement] property
-  /// **`x`** indicates the x-coordinate of the
-  /// `img` element's left border edge relative to the root element's
-  /// origin.
-  ///
-  /// The `x` and [HTMLImageElement.y] properties are only valid
-  /// for an image if its `display` property has the computed value
-  /// `table-column` or `table-column-group`. In other words: it has
-  /// either of those values set explicitly on it, or it has inherited it from a
-  /// containing
-  /// element, or by being located within a column described by either `col`
-  /// or `colgroup`.
-  external int get x;
-
-  /// The read-only [HTMLImageElement] property
-  /// **`y`** indicates the y-coordinate of the
-  /// `img` element's top border edge relative to the root element's
-  /// origin.
-  ///
-  /// The [HTMLImageElement.x] and `y` properties are only valid
-  /// for an image if its `display` property has the computed value
-  /// `table-column` or `table-column-group`. In other words: it has
-  /// either of those values set explicitly on it, or it has inherited it from a
-  /// containing
-  /// element, or by being located within a column described by either
-  /// `col` or `colgroup`.
-  external int get y;
-
   /// The [HTMLImageElement] property **`alt`** provides fallback (alternate)
   /// text to display when the image specified by the `img` element is not
   /// loaded.
@@ -2723,6 +2695,34 @@ extension type HTMLImageElement._(JSObject _) implements HTMLElement, JSObject {
   /// it should prioritize the fetch of the image relative to other images.
   external String get fetchPriority;
   external set fetchPriority(String value);
+
+  /// The read-only [HTMLImageElement] property
+  /// **`x`** indicates the x-coordinate of the
+  /// `img` element's left border edge relative to the root element's
+  /// origin.
+  ///
+  /// The `x` and [HTMLImageElement.y] properties are only valid
+  /// for an image if its `display` property has the computed value
+  /// `table-column` or `table-column-group`. In other words: it has
+  /// either of those values set explicitly on it, or it has inherited it from a
+  /// containing
+  /// element, or by being located within a column described by either `col`
+  /// or `colgroup`.
+  external int get x;
+
+  /// The read-only [HTMLImageElement] property
+  /// **`y`** indicates the y-coordinate of the
+  /// `img` element's top border edge relative to the root element's
+  /// origin.
+  ///
+  /// The [HTMLImageElement.x] and `y` properties are only valid
+  /// for an image if its `display` property has the computed value
+  /// `table-column` or `table-column-group`. In other words: it has
+  /// either of those values set explicitly on it, or it has inherited it from a
+  /// containing
+  /// element, or by being located within a column described by either
+  /// `col` or `colgroup`.
+  external int get y;
 
   /// The [HTMLImageElement]
   /// interface's _deprecated_ **`name`** property specifies
@@ -3321,23 +3321,6 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
 
   static const int HAVE_ENOUGH_DATA = 4;
 
-  /// The **`HTMLMediaElement.setSinkId()`** method of the
-  /// [Audio Output Devices API](https://developer.mozilla.org/en-US/docs/Web/API/Audio_Output_Devices_API)
-  /// sets the ID of the audio device to use for output and returns a `Promise`.
-  ///
-  /// This only works when the application is permitted to use the specified
-  /// device.
-  /// For more information see the
-  /// [security requirements](#security_requirements) below.
-  external JSPromise<JSAny?> setSinkId(String sinkId);
-
-  /// The **`setMediaKeys()`** method of the [HTMLMediaElement] interface sets
-  /// the [MediaKeys] that will be used to decrypt media during playback.
-  ///
-  /// It returns a `Promise` that fulfils if the new keys are successfully set,
-  /// or rejects if keys cannot be set.
-  external JSPromise<JSAny?> setMediaKeys(MediaKeys? mediaKeys);
-
   /// The [HTMLMediaElement] method
   /// **`load()`** resets the media element to its initial state and
   /// begins the process of selecting a media source and loading the media in
@@ -3391,6 +3374,23 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
     String language,
   ]);
 
+  /// The **`HTMLMediaElement.setSinkId()`** method of the
+  /// [Audio Output Devices API](https://developer.mozilla.org/en-US/docs/Web/API/Audio_Output_Devices_API)
+  /// sets the ID of the audio device to use for output and returns a `Promise`.
+  ///
+  /// This only works when the application is permitted to use the specified
+  /// device.
+  /// For more information see the
+  /// [security requirements](#security_requirements) below.
+  external JSPromise<JSAny?> setSinkId(String sinkId);
+
+  /// The **`setMediaKeys()`** method of the [HTMLMediaElement] interface sets
+  /// the [MediaKeys] that will be used to decrypt media during playback.
+  ///
+  /// It returns a `Promise` that fulfils if the new keys are successfully set,
+  /// or rejects if keys cannot be set.
+  external JSPromise<JSAny?> setMediaKeys(MediaKeys? mediaKeys);
+
   /// The **`captureStream()`** method of the [HTMLMediaElement] interface
   /// returns a [MediaStream] object which is streaming a real-time capture of
   /// the content being rendered in the media element.
@@ -3399,27 +3399,6 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   /// [WebRTC](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
   /// [RTCPeerConnection].
   external MediaStream captureStream();
-
-  /// The **`HTMLMediaElement.sinkId`** read-only property of the
-  /// [Audio Output Devices API](https://developer.mozilla.org/en-US/docs/Web/API/Audio_Output_Devices_API)
-  /// returns a string that is the unique ID of the device to be used for
-  /// playing audio output.
-  ///
-  /// This ID should be one of the [MediaDeviceInfo.deviceId] values returned
-  /// from [MediaDevices.enumerateDevices], `id-multimedia`, or
-  /// `id-communications`.
-  /// If the user agent default device is being used, it returns an empty
-  /// string.
-  external String get sinkId;
-
-  /// The read-only **`HTMLMediaElement.mediaKeys`** property returns a
-  /// [MediaKeys] object, that is a set of keys that the element can use for
-  /// decryption of media data during playback.
-  external MediaKeys? get mediaKeys;
-  external EventHandler get onencrypted;
-  external set onencrypted(EventHandler value);
-  external EventHandler get onwaitingforkey;
-  external set onwaitingforkey(EventHandler value);
 
   /// The **`HTMLMediaElement.error`** property is the
   /// [MediaError] object for the most recent error, or `null` if
@@ -3692,6 +3671,27 @@ extension type HTMLMediaElement._(JSObject _) implements HTMLElement, JSObject {
   /// to learn
   /// more about watching for changes to a media element's track list.
   external TextTrackList get textTracks;
+
+  /// The **`HTMLMediaElement.sinkId`** read-only property of the
+  /// [Audio Output Devices API](https://developer.mozilla.org/en-US/docs/Web/API/Audio_Output_Devices_API)
+  /// returns a string that is the unique ID of the device to be used for
+  /// playing audio output.
+  ///
+  /// This ID should be one of the [MediaDeviceInfo.deviceId] values returned
+  /// from [MediaDevices.enumerateDevices], `id-multimedia`, or
+  /// `id-communications`.
+  /// If the user agent default device is being used, it returns an empty
+  /// string.
+  external String get sinkId;
+
+  /// The read-only **`HTMLMediaElement.mediaKeys`** property returns a
+  /// [MediaKeys] object, that is a set of keys that the element can use for
+  /// decryption of media data during playback.
+  external MediaKeys? get mediaKeys;
+  external EventHandler get onencrypted;
+  external set onencrypted(EventHandler value);
+  external EventHandler get onwaitingforkey;
+  external set onwaitingforkey(EventHandler value);
 
   /// The **`remote`** read-only property of the [HTMLMediaElement] interface
   /// returns the [RemotePlayback] object associated with the media element. The
@@ -5607,44 +5607,6 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// More generally, this method should ideally display the picker for any
   /// input element on the platform that has a picker.
   external void showPicker();
-
-  /// The **`HTMLInputElement.webkitdirectory`** is a property
-  /// that reflects the
-  /// [`webkitdirectory`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#webkitdirectory)
-  /// HTML attribute
-  /// and indicates that the `input` element should let the user select
-  /// directories instead of files.
-  /// When a directory is selected, the directory and its entire hierarchy of
-  /// contents are included in the set of selected items.
-  /// The selected file system entries can be obtained using the
-  /// [HTMLInputElement.webkitEntries] property.
-  ///
-  /// > **Note:** This property is called `webkitEntries` in the specification
-  /// > due to its
-  /// > origins as a Google Chrome-specific API. It's likely to be renamed
-  /// > someday.
-  external bool get webkitdirectory;
-  external set webkitdirectory(bool value);
-
-  /// The read-only **`webkitEntries`**
-  /// property of the [HTMLInputElement] interface contains an array of file
-  /// system entries (as objects based on [FileSystemEntry]) representing files
-  /// and/or directories selected by the user using an `input` element of
-  /// type `file`, but only if that selection was made using drag-and-drop:
-  /// selecting a file in the dialog will leave the property empty.
-  ///
-  /// The array can only contain directories if the
-  /// [HTMLInputElement.webkitdirectory] property is
-  /// `true`. This means the `<input>` element was configured to
-  /// let the user choose directories.
-  ///
-  /// > **Note:** This property is called `webkitEntries` in the specification
-  /// > due to its
-  /// > origins as a Google Chrome-specific API. It's likely to be renamed
-  /// > someday.
-  external JSArray<FileSystemEntry> get webkitEntries;
-  external String get capture;
-  external set capture(String value);
   external String get accept;
   external set accept(String value);
   external String get alt;
@@ -5791,6 +5753,44 @@ extension type HTMLInputElement._(JSObject _) implements HTMLElement, JSObject {
   /// the text.
   external String? get selectionDirection;
   external set selectionDirection(String? value);
+
+  /// The **`HTMLInputElement.webkitdirectory`** is a property
+  /// that reflects the
+  /// [`webkitdirectory`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#webkitdirectory)
+  /// HTML attribute
+  /// and indicates that the `input` element should let the user select
+  /// directories instead of files.
+  /// When a directory is selected, the directory and its entire hierarchy of
+  /// contents are included in the set of selected items.
+  /// The selected file system entries can be obtained using the
+  /// [HTMLInputElement.webkitEntries] property.
+  ///
+  /// > **Note:** This property is called `webkitEntries` in the specification
+  /// > due to its
+  /// > origins as a Google Chrome-specific API. It's likely to be renamed
+  /// > someday.
+  external bool get webkitdirectory;
+  external set webkitdirectory(bool value);
+
+  /// The read-only **`webkitEntries`**
+  /// property of the [HTMLInputElement] interface contains an array of file
+  /// system entries (as objects based on [FileSystemEntry]) representing files
+  /// and/or directories selected by the user using an `input` element of
+  /// type `file`, but only if that selection was made using drag-and-drop:
+  /// selecting a file in the dialog will leave the property empty.
+  ///
+  /// The array can only contain directories if the
+  /// [HTMLInputElement.webkitdirectory] property is
+  /// `true`. This means the `<input>` element was configured to
+  /// let the user choose directories.
+  ///
+  /// > **Note:** This property is called `webkitEntries` in the specification
+  /// > due to its
+  /// > origins as a Google Chrome-specific API. It's likely to be renamed
+  /// > someday.
+  external JSArray<FileSystemEntry> get webkitEntries;
+  external String get capture;
+  external set capture(String value);
   external String get align;
   external set align(String value);
   external String get useMap;
@@ -9914,17 +9914,6 @@ extension type DataTransferItemList._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/DataTransferItem).
 extension type DataTransferItem._(JSObject _) implements JSObject {
-  /// If the item described by the [DataTransferItem] is a file,
-  /// `webkitGetAsEntry()` returns a [FileSystemFileEntry] or
-  /// [FileSystemDirectoryEntry] representing it. If the item isn't a file,
-  /// `null` is returned.
-  ///
-  /// > **Note:** This function is implemented as `webkitGetAsEntry()` in
-  /// > non-WebKit browsers including Firefox at this time; it may be renamed to
-  /// > `getAsEntry()` in the future, so you should code defensively, looking
-  /// > for both.
-  external FileSystemEntry? webkitGetAsEntry();
-
   /// The **`DataTransferItem.getAsString()`** method invokes the given callback
   /// with the drag data item's string data as the argument if the item's
   /// [DataTransferItem.kind] is a _Plain unicode string_ (i.e. `kind` is
@@ -9935,6 +9924,17 @@ extension type DataTransferItem._(JSObject _) implements JSObject {
   /// returns the drag data item's [File] object.
   /// If the item is not a file, this method returns `null`.
   external File? getAsFile();
+
+  /// If the item described by the [DataTransferItem] is a file,
+  /// `webkitGetAsEntry()` returns a [FileSystemFileEntry] or
+  /// [FileSystemDirectoryEntry] representing it. If the item isn't a file,
+  /// `null` is returned.
+  ///
+  /// > **Note:** This function is implemented as `webkitGetAsEntry()` in
+  /// > non-WebKit browsers including Firefox at this time; it may be renamed to
+  /// > `getAsEntry()` in the future, so you should code defensively, looking
+  /// > for both.
+  external FileSystemEntry? webkitGetAsEntry();
 
   /// The read-only **`DataTransferItem.kind`** property returns the kind–a
   /// string or a file–of the [DataTransferItem] object representing the _drag
@@ -10046,88 +10046,6 @@ external Window get window;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Window).
 extension type Window._(JSObject _) implements EventTarget, JSObject {
-  /// The [Window] interface's **`matchMedia()`** method
-  /// returns a new [MediaQueryList] object that can then be used to determine
-  /// if
-  /// the [document] matches the
-  /// [media query](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Using_media_queries)
-  /// string,
-  /// as well as to monitor the document to detect when it matches (or stops
-  /// matching) that
-  /// media query.
-  external MediaQueryList matchMedia(String query);
-
-  /// The **`moveTo()`** method of the [Window]
-  /// interface moves the current window to the specified coordinates.
-  ///
-  /// > **Note:** This function moves the window to an absolute location. In
-  /// > contrast, [window.moveBy] moves the window relative to its current
-  /// > location.
-  external void moveTo(
-    int x,
-    int y,
-  );
-
-  /// The **`moveBy()`** method of the [Window]
-  /// interface moves the current window by a specified amount.
-  ///
-  /// > **Note:** This function moves the window relative to its current
-  /// > location. In contrast, [window.moveTo] moves the window to an absolute
-  /// > location.
-  external void moveBy(
-    int x,
-    int y,
-  );
-
-  /// The **`Window.resizeTo()`** method dynamically resizes the
-  /// window.
-  external void resizeTo(
-    int width,
-    int height,
-  );
-
-  /// The **`Window.resizeBy()`** method resizes the current window
-  /// by a specified amount.
-  external void resizeBy(
-    int x,
-    int y,
-  );
-
-  /// The **`Window.scroll()`** method scrolls the window to a
-  /// particular place in the document.
-  external void scroll([
-    JSAny optionsOrX,
-    num y,
-  ]);
-
-  /// **`Window.scrollTo()`** scrolls to a particular set of
-  /// coordinates in the document.
-  external void scrollTo([
-    JSAny optionsOrX,
-    num y,
-  ]);
-
-  /// The **`Window.scrollBy()`** method scrolls the document in the
-  /// window by the given amount.
-  external void scrollBy([
-    JSAny optionsOrX,
-    num y,
-  ]);
-
-  /// The
-  /// **`Window.getComputedStyle()`** method returns an object
-  /// containing the values of all CSS properties of an element, after applying
-  /// active
-  /// stylesheets and resolving any basic computation those values may contain.
-  ///
-  /// Individual CSS property values are accessed through APIs provided by the
-  /// object, or by
-  /// indexing with CSS property names.
-  external CSSStyleDeclaration getComputedStyle(
-    Element elt, [
-    String? pseudoElt,
-  ]);
-
   /// The **`Window.close()`** method closes the current window, or
   /// the window on which it was called.
   ///
@@ -10251,6 +10169,88 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
     JSArray<JSObject> transfer,
   ]);
 
+  /// The [Window] interface's **`matchMedia()`** method
+  /// returns a new [MediaQueryList] object that can then be used to determine
+  /// if
+  /// the [document] matches the
+  /// [media query](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Using_media_queries)
+  /// string,
+  /// as well as to monitor the document to detect when it matches (or stops
+  /// matching) that
+  /// media query.
+  external MediaQueryList matchMedia(String query);
+
+  /// The **`moveTo()`** method of the [Window]
+  /// interface moves the current window to the specified coordinates.
+  ///
+  /// > **Note:** This function moves the window to an absolute location. In
+  /// > contrast, [window.moveBy] moves the window relative to its current
+  /// > location.
+  external void moveTo(
+    int x,
+    int y,
+  );
+
+  /// The **`moveBy()`** method of the [Window]
+  /// interface moves the current window by a specified amount.
+  ///
+  /// > **Note:** This function moves the window relative to its current
+  /// > location. In contrast, [window.moveTo] moves the window to an absolute
+  /// > location.
+  external void moveBy(
+    int x,
+    int y,
+  );
+
+  /// The **`Window.resizeTo()`** method dynamically resizes the
+  /// window.
+  external void resizeTo(
+    int width,
+    int height,
+  );
+
+  /// The **`Window.resizeBy()`** method resizes the current window
+  /// by a specified amount.
+  external void resizeBy(
+    int x,
+    int y,
+  );
+
+  /// The **`Window.scroll()`** method scrolls the window to a
+  /// particular place in the document.
+  external void scroll([
+    JSAny optionsOrX,
+    num y,
+  ]);
+
+  /// **`Window.scrollTo()`** scrolls to a particular set of
+  /// coordinates in the document.
+  external void scrollTo([
+    JSAny optionsOrX,
+    num y,
+  ]);
+
+  /// The **`Window.scrollBy()`** method scrolls the document in the
+  /// window by the given amount.
+  external void scrollBy([
+    JSAny optionsOrX,
+    num y,
+  ]);
+
+  /// The
+  /// **`Window.getComputedStyle()`** method returns an object
+  /// containing the values of all CSS properties of an element, after applying
+  /// active
+  /// stylesheets and resolving any basic computation those values may contain.
+  ///
+  /// Individual CSS property values are accessed through APIs provided by the
+  /// object, or by
+  /// indexing with CSS property names.
+  external CSSStyleDeclaration getComputedStyle(
+    Element elt, [
+    String? pseudoElt,
+  ]);
+
   /// The **`Window.captureEvents()`** method does nothing.
   ///
   /// > **Note:** This is an method long removed from the specification. It is
@@ -10293,10 +10293,6 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// [Selection] object representing the range of text selected by the user or
   /// the current position of the caret.
   external Selection? getSelection();
-  external JSPromise<Response> fetch(
-    RequestInfo input, [
-    RequestInit init,
-  ]);
   external void reportError(JSAny? e);
 
   /// The **`btoa()`** method of the [Window] interface creates a
@@ -10348,6 +10344,10 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
     JSAny? value, [
     StructuredSerializeOptions options,
   ]);
+  external JSPromise<Response> fetch(
+    RequestInfo input, [
+    RequestInit init,
+  ]);
 
   /// The **`window.requestAnimationFrame()`** method tells the
   /// browser you wish to perform an animation. It requests the browser to call
@@ -10382,150 +10382,6 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// animation frame request previously scheduled through a call to
   /// [window.requestAnimationFrame].
   external void cancelAnimationFrame(int handle);
-
-  /// Returns the orientation in degrees (in 90-degree increments) of the
-  /// viewport relative to the device's natural orientation.
-  ///
-  /// Its only possible values are `-90`, `0`, `90`, and `180`. Positive values
-  /// are counterclockwise; negative values are clockwise.
-  ///
-  /// This property is deprecated. Use the [Screen.orientation] property
-  /// instead, available on the [window.screen] property.
-  external int get orientation;
-  external EventHandler get onorientationchange;
-  external set onorientationchange(EventHandler value);
-
-  /// The [Window] property **`screen`** returns a
-  /// reference to the screen object associated with the window. The `screen`
-  /// object, implementing the [Screen] interface, is a special object for
-  /// inspecting properties of the screen on which the current window is being
-  /// rendered.
-  external Screen get screen;
-
-  /// The **`visualViewport`** read-only property of the [Window] interface
-  /// returns a [VisualViewport] object representing the visual viewport for a
-  /// given window, or `null` if current document is not fully active.
-  external VisualViewport? get visualViewport;
-
-  /// The read-only [Window] property **`innerWidth`** returns the interior
-  /// width of the window in pixels (that is, the width of the window's ). That
-  /// includes the width of the vertical scroll bar, if one is present.
-  ///
-  /// Similarly, the interior height of the window (that is, the height of the
-  /// layout viewport) can be obtained using the [Window.innerHeight] property.
-  /// That measurement also accounts for the height of the horizontal scroll
-  /// bar, if it is visible.
-  external int get innerWidth;
-
-  /// The read-only **`innerHeight`** property of the
-  /// [Window] interface returns the interior height of the window in pixels,
-  /// including the height of the horizontal scroll bar, if present.
-  ///
-  /// The value of `innerHeight` is taken from the height of the window's
-  /// . The width can be obtained using the
-  /// [Window.innerWidth] property.
-  external int get innerHeight;
-
-  /// The read-only **`scrollX`** property of the [Window] interface returns the
-  /// number of pixels by which the document is currently scrolled horizontally.
-  /// This value is subpixel precise in modern browsers, meaning that it isn't
-  /// necessarily a whole number. You can get the number of pixels the document
-  /// is scrolled vertically from the [Window.scrollY] property.
-  external double get scrollX;
-
-  /// The read-only **`scrollY`** property of the [Window] interface returns the
-  /// number of pixels by which the document is currently scrolled vertically.
-  /// This value is subpixel precise in modern browsers, meaning that it isn't
-  /// necessarily a whole number. You can get the number of pixels the document
-  /// is scrolled horizontally from the [Window.scrollX] property.
-  external double get scrollY;
-
-  /// The **`Window.screenX`** read-only property returns the
-  /// horizontal distance, in CSS pixels, of the left border of the user's
-  /// browser viewport to
-  /// the left side of the screen.
-  ///
-  /// > **Note:** An alias of `screenX` was implemented across modern
-  /// > browsers in more recent times — [Window.screenLeft]. This was originally
-  /// > supported only in IE but was introduced everywhere due to popularity.
-  external int get screenX;
-
-  /// The **`Window.screenLeft`** read-only property returns the
-  /// horizontal distance, in CSS pixels, from the left border of the user's
-  /// browser viewport
-  /// to the left side of the screen.
-  ///
-  /// > **Note:** `screenLeft` is an alias of the older
-  /// > [Window.screenX] property. `screenLeft` was originally
-  /// > supported only in IE but was introduced everywhere due to popularity.
-  external int get screenLeft;
-
-  /// The **`Window.screenY`** read-only property returns the vertical distance,
-  /// in CSS pixels, of the top border of the user's browser viewport to the top
-  /// edge of the screen.
-  ///
-  /// > **Note:** An alias of `screenY` was implemented across modern browsers
-  /// > in more recent times — [Window.screenTop]. This was originally supported
-  /// > only in IE but was introduced everywhere due to popularity.
-  external int get screenY;
-
-  /// The **`Window.screenTop`** read-only property returns the
-  /// vertical distance, in CSS pixels, from the top border of the user's
-  /// browser viewport to
-  /// the top side of the screen.
-  ///
-  /// > **Note:** `screenTop` is an alias of the older
-  /// > [Window.screenY] property. `screenTop` was originally
-  /// > supported only in IE but was introduced everywhere due to popularity.
-  external int get screenTop;
-
-  /// **`Window.outerWidth`** read-only property returns the width of the
-  /// outside of the browser window. It represents the width of the whole
-  /// browser window including sidebar (if expanded), window chrome and window
-  /// resizing borders/handles.
-  external int get outerWidth;
-
-  /// The **`Window.outerHeight`** read-only property returns the height in
-  /// pixels of the whole browser window, including any sidebar, window chrome,
-  /// and window-resizing borders/handles.
-  external int get outerHeight;
-
-  /// The **`devicePixelRatio`** of
-  /// [Window] interface returns the ratio of the resolution in _physical
-  /// pixels_ to the resolution in _CSS pixels_ for the current display
-  /// device.
-  ///
-  /// This value could also be interpreted as the ratio of pixel sizes: the
-  /// size of one _CSS pixel_ to the size of one _physical pixel_. In simpler
-  /// terms, this tells the browser how many of the screen's actual pixels
-  /// should be used to
-  /// draw a single CSS pixel.
-  ///
-  /// This is useful when dealing with the difference between rendering on a
-  /// standard display
-  /// versus a HiDPI or Retina display, which use more screen pixels to draw the
-  /// same objects,
-  /// resulting in a sharper image.
-  ///
-  /// You can use [Window.matchMedia] to check if the
-  /// value of `devicePixelRatio` changes (which can happen, for example, if the
-  /// user drags the window to a display with a different pixel density). See
-  /// [the example below](#monitoring_screen_resolution_or_zoom_level_changes).
-  external double get devicePixelRatio;
-
-  /// The read-only [Window] property **`event`** returns the [Event] which is
-  /// currently being handled by the site's code. Outside the context of an
-  /// event handler, the value is always `undefined`.
-  ///
-  /// You _should_ avoid using this property in new code, and should instead use
-  /// the [Event] passed into the event handler function. This property is not
-  /// universally supported and even when supported introduces potential
-  /// fragility to your code.
-  ///
-  /// > **Note:** This property can be fragile, in that there may be situations
-  /// > in which the returned `Event` is not the expected value. In addition,
-  /// > `Window.event` is not accurate for events dispatched within .
-  external Event? get event;
 
   /// The **`window`** property of a [Window] object points to the window object
   /// itself.
@@ -10759,6 +10615,150 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// the application running the script.
   external Navigator get navigator;
 
+  /// Returns the orientation in degrees (in 90-degree increments) of the
+  /// viewport relative to the device's natural orientation.
+  ///
+  /// Its only possible values are `-90`, `0`, `90`, and `180`. Positive values
+  /// are counterclockwise; negative values are clockwise.
+  ///
+  /// This property is deprecated. Use the [Screen.orientation] property
+  /// instead, available on the [window.screen] property.
+  external int get orientation;
+  external EventHandler get onorientationchange;
+  external set onorientationchange(EventHandler value);
+
+  /// The [Window] property **`screen`** returns a
+  /// reference to the screen object associated with the window. The `screen`
+  /// object, implementing the [Screen] interface, is a special object for
+  /// inspecting properties of the screen on which the current window is being
+  /// rendered.
+  external Screen get screen;
+
+  /// The **`visualViewport`** read-only property of the [Window] interface
+  /// returns a [VisualViewport] object representing the visual viewport for a
+  /// given window, or `null` if current document is not fully active.
+  external VisualViewport? get visualViewport;
+
+  /// The read-only [Window] property **`innerWidth`** returns the interior
+  /// width of the window in pixels (that is, the width of the window's ). That
+  /// includes the width of the vertical scroll bar, if one is present.
+  ///
+  /// Similarly, the interior height of the window (that is, the height of the
+  /// layout viewport) can be obtained using the [Window.innerHeight] property.
+  /// That measurement also accounts for the height of the horizontal scroll
+  /// bar, if it is visible.
+  external int get innerWidth;
+
+  /// The read-only **`innerHeight`** property of the
+  /// [Window] interface returns the interior height of the window in pixels,
+  /// including the height of the horizontal scroll bar, if present.
+  ///
+  /// The value of `innerHeight` is taken from the height of the window's
+  /// . The width can be obtained using the
+  /// [Window.innerWidth] property.
+  external int get innerHeight;
+
+  /// The read-only **`scrollX`** property of the [Window] interface returns the
+  /// number of pixels by which the document is currently scrolled horizontally.
+  /// This value is subpixel precise in modern browsers, meaning that it isn't
+  /// necessarily a whole number. You can get the number of pixels the document
+  /// is scrolled vertically from the [Window.scrollY] property.
+  external double get scrollX;
+
+  /// The read-only **`scrollY`** property of the [Window] interface returns the
+  /// number of pixels by which the document is currently scrolled vertically.
+  /// This value is subpixel precise in modern browsers, meaning that it isn't
+  /// necessarily a whole number. You can get the number of pixels the document
+  /// is scrolled horizontally from the [Window.scrollX] property.
+  external double get scrollY;
+
+  /// The **`Window.screenX`** read-only property returns the
+  /// horizontal distance, in CSS pixels, of the left border of the user's
+  /// browser viewport to
+  /// the left side of the screen.
+  ///
+  /// > **Note:** An alias of `screenX` was implemented across modern
+  /// > browsers in more recent times — [Window.screenLeft]. This was originally
+  /// > supported only in IE but was introduced everywhere due to popularity.
+  external int get screenX;
+
+  /// The **`Window.screenLeft`** read-only property returns the
+  /// horizontal distance, in CSS pixels, from the left border of the user's
+  /// browser viewport
+  /// to the left side of the screen.
+  ///
+  /// > **Note:** `screenLeft` is an alias of the older
+  /// > [Window.screenX] property. `screenLeft` was originally
+  /// > supported only in IE but was introduced everywhere due to popularity.
+  external int get screenLeft;
+
+  /// The **`Window.screenY`** read-only property returns the vertical distance,
+  /// in CSS pixels, of the top border of the user's browser viewport to the top
+  /// edge of the screen.
+  ///
+  /// > **Note:** An alias of `screenY` was implemented across modern browsers
+  /// > in more recent times — [Window.screenTop]. This was originally supported
+  /// > only in IE but was introduced everywhere due to popularity.
+  external int get screenY;
+
+  /// The **`Window.screenTop`** read-only property returns the
+  /// vertical distance, in CSS pixels, from the top border of the user's
+  /// browser viewport to
+  /// the top side of the screen.
+  ///
+  /// > **Note:** `screenTop` is an alias of the older
+  /// > [Window.screenY] property. `screenTop` was originally
+  /// > supported only in IE but was introduced everywhere due to popularity.
+  external int get screenTop;
+
+  /// **`Window.outerWidth`** read-only property returns the width of the
+  /// outside of the browser window. It represents the width of the whole
+  /// browser window including sidebar (if expanded), window chrome and window
+  /// resizing borders/handles.
+  external int get outerWidth;
+
+  /// The **`Window.outerHeight`** read-only property returns the height in
+  /// pixels of the whole browser window, including any sidebar, window chrome,
+  /// and window-resizing borders/handles.
+  external int get outerHeight;
+
+  /// The **`devicePixelRatio`** of
+  /// [Window] interface returns the ratio of the resolution in _physical
+  /// pixels_ to the resolution in _CSS pixels_ for the current display
+  /// device.
+  ///
+  /// This value could also be interpreted as the ratio of pixel sizes: the
+  /// size of one _CSS pixel_ to the size of one _physical pixel_. In simpler
+  /// terms, this tells the browser how many of the screen's actual pixels
+  /// should be used to
+  /// draw a single CSS pixel.
+  ///
+  /// This is useful when dealing with the difference between rendering on a
+  /// standard display
+  /// versus a HiDPI or Retina display, which use more screen pixels to draw the
+  /// same objects,
+  /// resulting in a sharper image.
+  ///
+  /// You can use [Window.matchMedia] to check if the
+  /// value of `devicePixelRatio` changes (which can happen, for example, if the
+  /// user drags the window to a display with a different pixel density). See
+  /// [the example below](#monitoring_screen_resolution_or_zoom_level_changes).
+  external double get devicePixelRatio;
+
+  /// The read-only [Window] property **`event`** returns the [Event] which is
+  /// currently being handled by the site's code. Outside the context of an
+  /// event handler, the value is always `undefined`.
+  ///
+  /// You _should_ avoid using this property in new code, and should instead use
+  /// the [Event] passed into the event handler function. This property is not
+  /// universally supported and even when supported introduces potential
+  /// fragility to your code.
+  ///
+  /// > **Note:** This property can be fragile, in that there may be situations
+  /// > in which the returned `Event` is not the expected value. In addition,
+  /// > `Window.event` is not accurate for events dispatched within .
+  external Event? get event;
+
   /// The `external` property of the [Window] API returns an instance of the
   /// `External` interface, which was intended to contain functions related to
   /// adding external search providers to the browser. However, this is now
@@ -10781,22 +10781,6 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
   /// speech synthesis functionality.
   external SpeechSynthesis get speechSynthesis;
-  external EventHandler get onanimationstart;
-  external set onanimationstart(EventHandler value);
-  external EventHandler get onanimationiteration;
-  external set onanimationiteration(EventHandler value);
-  external EventHandler get onanimationend;
-  external set onanimationend(EventHandler value);
-  external EventHandler get onanimationcancel;
-  external set onanimationcancel(EventHandler value);
-  external EventHandler get ontransitionrun;
-  external set ontransitionrun(EventHandler value);
-  external EventHandler get ontransitionstart;
-  external set ontransitionstart(EventHandler value);
-  external EventHandler get ontransitionend;
-  external set ontransitionend(EventHandler value);
-  external EventHandler get ontransitioncancel;
-  external set ontransitioncancel(EventHandler value);
   external EventHandler get onabort;
   external set onabort(EventHandler value);
   external EventHandler get onauxclick;
@@ -10937,6 +10921,22 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external set onwaiting(EventHandler value);
   external EventHandler get onwheel;
   external set onwheel(EventHandler value);
+  external EventHandler get onanimationstart;
+  external set onanimationstart(EventHandler value);
+  external EventHandler get onanimationiteration;
+  external set onanimationiteration(EventHandler value);
+  external EventHandler get onanimationend;
+  external set onanimationend(EventHandler value);
+  external EventHandler get onanimationcancel;
+  external set onanimationcancel(EventHandler value);
+  external EventHandler get ontransitionrun;
+  external set ontransitionrun(EventHandler value);
+  external EventHandler get ontransitionstart;
+  external set ontransitionstart(EventHandler value);
+  external EventHandler get ontransitionend;
+  external set ontransitionend(EventHandler value);
+  external EventHandler get ontransitioncancel;
+  external set ontransitioncancel(EventHandler value);
   external EventHandler get onpointerover;
   external set onpointerover(EventHandler value);
   external EventHandler get onpointerenter;
@@ -10969,10 +10969,6 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external set ontouchmove(EventHandler value);
   external EventHandler get ontouchcancel;
   external set ontouchcancel(EventHandler value);
-  external EventHandler get ongamepadconnected;
-  external set ongamepadconnected(EventHandler value);
-  external EventHandler get ongamepaddisconnected;
-  external set ongamepaddisconnected(EventHandler value);
   external EventHandler get onafterprint;
   external set onafterprint(EventHandler value);
   external EventHandler get onbeforeprint;
@@ -11005,6 +11001,36 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   external set onunhandledrejection(EventHandler value);
   external EventHandler get onunload;
   external set onunload(EventHandler value);
+  external EventHandler get ongamepadconnected;
+  external set ongamepadconnected(EventHandler value);
+  external EventHandler get ongamepaddisconnected;
+  external set ongamepaddisconnected(EventHandler value);
+
+  /// The **`origin`** read-only property of the [Window] interface returns the
+  /// origin of the global scope, serialized as a string.
+  external String get origin;
+
+  /// The **`isSecureContext`** read-only property of the [Window] interface
+  /// returns a boolean indicating whether the current
+  /// [context is secure](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts)
+  /// (`true`) or not (`false`).
+  external bool get isSecureContext;
+
+  /// The **`crossOriginIsolated`** read-only property of the [Window] interface
+  /// returns a boolean value that
+  /// indicates whether the website is in a cross-origin isolation state. That
+  /// state mitigates the risk of side-channel attacks and unlocks a few
+  /// capabilities:
+  ///
+  /// - `SharedArrayBuffer` can be created and sent via a [Window.postMessage]
+  ///   or a [MessagePort.postMessage] call.
+  /// - [Performance.now] offers better precision.
+  /// - [Performance.measureUserAgentSpecificMemory] can be accessed.
+  ///
+  /// A website is in a cross-origin isolated state, when the response header
+  /// has the value `same-origin` and the  header has the value `require-corp`
+  /// or `credentialless`.
+  external bool get crossOriginIsolated;
 
   /// The **`indexedDB`** read-only property of the [Window] interface provides
   /// a mechanism for applications to
@@ -11034,32 +11060,6 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// thread (or other worker), you cannot see it in a worker thread, and vice
   /// versa.
   external Performance get performance;
-
-  /// The **`origin`** read-only property of the [Window] interface returns the
-  /// origin of the global scope, serialized as a string.
-  external String get origin;
-
-  /// The **`isSecureContext`** read-only property of the [Window] interface
-  /// returns a boolean indicating whether the current
-  /// [context is secure](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts)
-  /// (`true`) or not (`false`).
-  external bool get isSecureContext;
-
-  /// The **`crossOriginIsolated`** read-only property of the [Window] interface
-  /// returns a boolean value that
-  /// indicates whether the website is in a cross-origin isolation state. That
-  /// state mitigates the risk of side-channel attacks and unlocks a few
-  /// capabilities:
-  ///
-  /// - `SharedArrayBuffer` can be created and sent via a [Window.postMessage]
-  ///   or a [MessagePort.postMessage] call.
-  /// - [Performance.now] offers better precision.
-  /// - [Performance.measureUserAgentSpecificMemory] can be accessed.
-  ///
-  /// A website is in a cross-origin isolated state, when the response header
-  /// has the value `same-origin` and the  header has the value `require-corp`
-  /// or `credentialless`.
-  external bool get crossOriginIsolated;
 
   /// The **`scheduler`** read-only property of the [Window] interface is the
   /// entry point for using the
@@ -12776,10 +12776,6 @@ extension type WorkerGlobalScope._(JSObject _)
   /// The **`importScripts()`** method of the [WorkerGlobalScope] interface
   /// synchronously imports one or more scripts into the worker's scope.
   external void importScripts(JSAny urls);
-  external JSPromise<Response> fetch(
-    RequestInfo input, [
-    RequestInit init,
-  ]);
   external void reportError(JSAny? e);
 
   /// The **`btoa()`** method of the [WorkerGlobalScope] interface creates a
@@ -12831,6 +12827,10 @@ extension type WorkerGlobalScope._(JSObject _)
     JSAny? value, [
     StructuredSerializeOptions options,
   ]);
+  external JSPromise<Response> fetch(
+    RequestInfo input, [
+    RequestInit init,
+  ]);
 
   /// The **`self`** read-only property of the [WorkerGlobalScope] interface
   /// returns a reference to the `WorkerGlobalScope` itself. Most of the time it
@@ -12868,6 +12868,33 @@ extension type WorkerGlobalScope._(JSObject _)
   /// This property is part of the
   /// [CSS Font Loading API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Font_Loading_API).
   external FontFaceSet get fonts;
+
+  /// The **`origin`** read-only property of the [WorkerGlobalScope] interface
+  /// returns the origin of the global scope, serialized as a string.
+  external String get origin;
+
+  /// The **`isSecureContext`** read-only property of the [WorkerGlobalScope]
+  /// interface returns a boolean indicating whether the current
+  /// [context is secure](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts)
+  /// (`true`) or not (`false`).
+  external bool get isSecureContext;
+
+  /// The **`crossOriginIsolated`** read-only property of the
+  /// [WorkerGlobalScope] interface returns a boolean value that
+  /// indicates whether the website is in a cross-origin isolation state. That
+  /// state mitigates the risk of side-channel attacks and unlocks a few
+  /// capabilities:
+  ///
+  /// - `SharedArrayBuffer` can be created and sent via a
+  ///   [DedicatedWorkerGlobalScope.postMessage] or a [MessagePort.postMessage]
+  ///   call.
+  /// - [Performance.now] offers better precision.
+  /// - [Performance.measureUserAgentSpecificMemory] can be accessed.
+  ///
+  /// A website is in a cross-origin isolated state, when the response header
+  /// has the value `same-origin` and the  header has the value `require-corp`
+  /// or `credentialless`.
+  external bool get crossOriginIsolated;
 
   /// The **`indexedDB`** read-only property of the [WorkerGlobalScope]
   /// interface provides a mechanism for workers to
@@ -12908,33 +12935,6 @@ extension type WorkerGlobalScope._(JSObject _)
   /// - [PerformanceResourceTiming]
   /// - [PerformanceServerTiming]
   external Performance get performance;
-
-  /// The **`origin`** read-only property of the [WorkerGlobalScope] interface
-  /// returns the origin of the global scope, serialized as a string.
-  external String get origin;
-
-  /// The **`isSecureContext`** read-only property of the [WorkerGlobalScope]
-  /// interface returns a boolean indicating whether the current
-  /// [context is secure](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts)
-  /// (`true`) or not (`false`).
-  external bool get isSecureContext;
-
-  /// The **`crossOriginIsolated`** read-only property of the
-  /// [WorkerGlobalScope] interface returns a boolean value that
-  /// indicates whether the website is in a cross-origin isolation state. That
-  /// state mitigates the risk of side-channel attacks and unlocks a few
-  /// capabilities:
-  ///
-  /// - `SharedArrayBuffer` can be created and sent via a
-  ///   [DedicatedWorkerGlobalScope.postMessage] or a [MessagePort.postMessage]
-  ///   call.
-  /// - [Performance.now] offers better precision.
-  /// - [Performance.measureUserAgentSpecificMemory] can be accessed.
-  ///
-  /// A website is in a cross-origin isolated state, when the response header
-  /// has the value `same-origin` and the  header has the value `require-corp`
-  /// or `credentialless`.
-  external bool get crossOriginIsolated;
 
   /// The **`scheduler`** read-only property of the [WorkerGlobalScope]
   /// interface is the entry point for using the
@@ -13700,10 +13700,6 @@ extension type HTMLFrameSetElement._(JSObject _)
   external set cols(String value);
   external String get rows;
   external set rows(String value);
-  external EventHandler get ongamepadconnected;
-  external set ongamepadconnected(EventHandler value);
-  external EventHandler get ongamepaddisconnected;
-  external set ongamepaddisconnected(EventHandler value);
   external EventHandler get onafterprint;
   external set onafterprint(EventHandler value);
   external EventHandler get onbeforeprint;
@@ -13736,6 +13732,10 @@ extension type HTMLFrameSetElement._(JSObject _)
   external set onunhandledrejection(EventHandler value);
   external EventHandler get onunload;
   external set onunload(EventHandler value);
+  external EventHandler get ongamepadconnected;
+  external set ongamepadconnected(EventHandler value);
+  external EventHandler get ongamepaddisconnected;
+  external set ongamepaddisconnected(EventHandler value);
 }
 extension type HTMLFrameElement._(JSObject _) implements HTMLElement, JSObject {
   /// Creates an [HTMLFrameElement] using the tag 'frame'.

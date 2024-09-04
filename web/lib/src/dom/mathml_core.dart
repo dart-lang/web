@@ -241,26 +241,6 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   external void focus([FocusOptions options]);
   external void blur();
 
-  /// The **`attributeStyleMap`** read-only property of the [MathMLElement]
-  /// interface returns a live [StylePropertyMap] object that contains a list of
-  /// style properties of the element that are defined in the element's inline
-  /// `style` attribute, or assigned using the [MathMLElement.style] property of
-  /// the [MathMLElement] interface via script.
-  ///
-  /// Shorthand properties are expanded. If you set `border-top: 1px solid
-  /// black`, the longhand properties (, , and ) are set instead.
-  ///
-  /// The main difference between [MathMLElement.style] property and
-  /// `attributeStyleMap` property is that, the `style` property will return a
-  /// [CSSStyleDeclaration] object, while the `attributeStyleMap` property will
-  /// return a [StylePropertyMap] object.
-  ///
-  /// Though the property itself is not writable, you could read and write
-  /// inline styles through the [StylePropertyMap] object that it returns, just
-  /// like through the [CSSStyleDeclaration] object that returns via the `style`
-  /// property.
-  external StylePropertyMap get attributeStyleMap;
-
   /// The read-only **`style`** property of the [MathMLElement] returns the
   /// _inline_ style of an element in the form of a live [CSSStyleDeclaration]
   /// object that contains a list of all styles properties for that element with
@@ -301,22 +281,26 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   /// > The `style` property has the same priority in the CSS cascade as an
   /// > inline style declaration set via the `style` attribute.
   external CSSStyleDeclaration get style;
-  external EventHandler get onanimationstart;
-  external set onanimationstart(EventHandler value);
-  external EventHandler get onanimationiteration;
-  external set onanimationiteration(EventHandler value);
-  external EventHandler get onanimationend;
-  external set onanimationend(EventHandler value);
-  external EventHandler get onanimationcancel;
-  external set onanimationcancel(EventHandler value);
-  external EventHandler get ontransitionrun;
-  external set ontransitionrun(EventHandler value);
-  external EventHandler get ontransitionstart;
-  external set ontransitionstart(EventHandler value);
-  external EventHandler get ontransitionend;
-  external set ontransitionend(EventHandler value);
-  external EventHandler get ontransitioncancel;
-  external set ontransitioncancel(EventHandler value);
+
+  /// The **`attributeStyleMap`** read-only property of the [MathMLElement]
+  /// interface returns a live [StylePropertyMap] object that contains a list of
+  /// style properties of the element that are defined in the element's inline
+  /// `style` attribute, or assigned using the [MathMLElement.style] property of
+  /// the [MathMLElement] interface via script.
+  ///
+  /// Shorthand properties are expanded. If you set `border-top: 1px solid
+  /// black`, the longhand properties (, , and ) are set instead.
+  ///
+  /// The main difference between [MathMLElement.style] property and
+  /// `attributeStyleMap` property is that, the `style` property will return a
+  /// [CSSStyleDeclaration] object, while the `attributeStyleMap` property will
+  /// return a [StylePropertyMap] object.
+  ///
+  /// Though the property itself is not writable, you could read and write
+  /// inline styles through the [StylePropertyMap] object that it returns, just
+  /// like through the [CSSStyleDeclaration] object that returns via the `style`
+  /// property.
+  external StylePropertyMap get attributeStyleMap;
   external EventHandler get onabort;
   external set onabort(EventHandler value);
   external EventHandler get onauxclick;
@@ -457,6 +441,22 @@ extension type MathMLElement._(JSObject _) implements Element, JSObject {
   external set onwaiting(EventHandler value);
   external EventHandler get onwheel;
   external set onwheel(EventHandler value);
+  external EventHandler get onanimationstart;
+  external set onanimationstart(EventHandler value);
+  external EventHandler get onanimationiteration;
+  external set onanimationiteration(EventHandler value);
+  external EventHandler get onanimationend;
+  external set onanimationend(EventHandler value);
+  external EventHandler get onanimationcancel;
+  external set onanimationcancel(EventHandler value);
+  external EventHandler get ontransitionrun;
+  external set ontransitionrun(EventHandler value);
+  external EventHandler get ontransitionstart;
+  external set ontransitionstart(EventHandler value);
+  external EventHandler get ontransitionend;
+  external set ontransitionend(EventHandler value);
+  external EventHandler get ontransitioncancel;
+  external set ontransitioncancel(EventHandler value);
   external EventHandler get onpointerover;
   external set onpointerover(EventHandler value);
   external EventHandler get onpointerenter;

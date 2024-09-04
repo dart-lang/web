@@ -38,6 +38,37 @@ extension type URL._(JSObject _) implements JSObject {
     String base,
   ]);
 
+  /// The **`URL.parse()`** static method of the [URL] interface returns a newly
+  /// created [URL] object representing the URL defined by the parameters.
+  ///
+  /// If the given base URL or the resulting URL are not parsable and valid
+  /// URLs, `null` is returned.
+  /// This is an alternative to using the [URL.URL] constructor to construct a
+  /// `URL` within a
+  /// [try...catch](/en-US/docs/Web/JavaScript/Reference/Statements/try...catch)
+  /// block, or using [URL.canParse_static] to check the parameters and
+  /// returning `null` if the method returns `false`.
+  external static URL? parse(
+    String url, [
+    String base,
+  ]);
+
+  /// The **`URL.canParse()`** static method of the [URL] interface returns a
+  /// boolean indicating whether or not an absolute URL, or a relative URL
+  /// combined with a base URL, are parsable and valid.
+  ///
+  /// This is a fast and easy alternative to constructing a `URL` within a
+  /// [try...catch](/en-US/docs/Web/JavaScript/Reference/Statements/try...catch)
+  /// block.
+  /// It returns `true` for the same values for which the [`URL()`
+  /// constructor](https://developer.mozilla.org/en-US/docs/Web/API/URL/URL)
+  /// would succeed, and `false` for the values that would cause the constructor
+  /// to throw.
+  external static bool canParse(
+    String url, [
+    String base,
+  ]);
+
   /// @AvailableInWorkers("window_and_worker_except_service")
   ///
   /// The **`createObjectURL()`** static method of the [URL] interface
@@ -74,37 +105,6 @@ extension type URL._(JSObject _) implements JSObject {
   /// > issues with the [Blob] interface's life cycle and the potential for
   /// > leaks.
   external static void revokeObjectURL(String url);
-
-  /// The **`URL.parse()`** static method of the [URL] interface returns a newly
-  /// created [URL] object representing the URL defined by the parameters.
-  ///
-  /// If the given base URL or the resulting URL are not parsable and valid
-  /// URLs, `null` is returned.
-  /// This is an alternative to using the [URL.URL] constructor to construct a
-  /// `URL` within a
-  /// [try...catch](/en-US/docs/Web/JavaScript/Reference/Statements/try...catch)
-  /// block, or using [URL.canParse_static] to check the parameters and
-  /// returning `null` if the method returns `false`.
-  external static URL? parse(
-    String url, [
-    String base,
-  ]);
-
-  /// The **`URL.canParse()`** static method of the [URL] interface returns a
-  /// boolean indicating whether or not an absolute URL, or a relative URL
-  /// combined with a base URL, are parsable and valid.
-  ///
-  /// This is a fast and easy alternative to constructing a `URL` within a
-  /// [try...catch](/en-US/docs/Web/JavaScript/Reference/Statements/try...catch)
-  /// block.
-  /// It returns `true` for the same values for which the [`URL()`
-  /// constructor](https://developer.mozilla.org/en-US/docs/Web/API/URL/URL)
-  /// would succeed, and `false` for the values that would cause the constructor
-  /// to throw.
-  external static bool canParse(
-    String url, [
-    String base,
-  ]);
 
   /// The **`toJSON()`** method of the [URL] interface
   /// returns a string containing a serialized version of the URL,

@@ -119,12 +119,12 @@ extension XMLHttpRequestGlue on XMLHttpRequest {
     final headersList =
         LineSplitter.split(headersString).where((header) => header.isNotEmpty);
     for (final header in headersList) {
-      final splitIdx = header.indexOf(': ');
-      if (splitIdx == -1) {
+      final split = header.split(': ');
+      if (split.length <= 1) {
         continue;
       }
-      final key = header.substring(0, splitIdx).toLowerCase();
-      final value = header.substring(splitIdx + 2);
+      final key = split[0].toLowerCase();
+      final value = split.skip(1).join(': ');
       headers.update(
         key,
         (oldValue) => '$oldValue, $value',

@@ -37,10 +37,11 @@ void main() {
     expect(() => dartList[0], returnsNormally);
   });
 
-  test('Headers to map', () async {
-    final request = XMLHttpRequest();
-    request.open('GET', 'www.google.com');
-    request.send();
+  test('responseHeaders transforms headers into a map', () async {
+    final request = XMLHttpRequest()
+      ..open('GET', 'www.google.com')
+      ..send();
+
     await request.onLoad.first;
 
     expect(

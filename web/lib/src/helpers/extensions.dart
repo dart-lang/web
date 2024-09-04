@@ -21,6 +21,7 @@
 ///  * conversions: for example to wrap a `TouchList` as a `List<Touch>`
 library;
 
+import 'dart:convert';
 import 'dart:js_interop';
 import 'dart:math' show Point;
 
@@ -102,4 +103,34 @@ extension StorageGlue on Storage {
 extension TouchListConvert on TouchList {
   @Deprecated('Use JSImmutableListWrapper<TouchList, Touch> directly instead.')
   List<Touch> toList() => JSImmutableListWrapper<TouchList, Touch>(this);
+}
+
+/// Returns all response headers as a key-value map.
+///
+/// Multiple values for the same header key can be combined into one,
+/// separated by a comma and a space.
+///
+/// See: http://www.w3.org/TR/XMLHttpRequest/#the-getresponseheader()-method
+extension XMLHttpRequestGlue on XMLHttpRequest {
+  Map<String, String> get responseHeaders {
+    // from Closure's goog.net.Xhrio.getResponseHeaders.
+    final headers = <String, String>{};
+    final headersString = getAllResponseHeaders();
+    final headersList =
+        LineSplitter.split(headersString).where((header) => header.isNotEmpty);
+    for (final header in headersList) {
+      final split = header.split(': ');
+      if (split.length <= 1) {
+        continue;
+      }
+      final key = split[0].toLowerCase();
+      final value = split.skip(1).join(': ');
+      headers.update(
+        key,
+        (oldValue) => '$oldValue, $value',
+        ifAbsent: () => value,
+      );
+    }
+    return headers;
+  }
 }

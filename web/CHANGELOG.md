@@ -7,6 +7,7 @@
 - Deprecated `TouchListWrapper` and `TouchListConvert` in favor of `JSImmutableListWrapper`.
 - Added `[]` and `[]=` overloaded operators to types which define unnamed
   `getter`s and `setter`s, respectively.
+- Add an extension `responseHeaders` to `XMLHttpRequest`.
 
 ## 1.0.0
 

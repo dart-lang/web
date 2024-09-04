@@ -10,6 +10,7 @@
   `getter`s and `setter`s, respectively.
 - Exposed constants with primitive values as non-`external` so they can be
   `switch`ed over.
+- Add an extension `responseHeaders` to `XMLHttpRequest`.
 
 ## 1.0.0
 

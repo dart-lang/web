@@ -5,6 +5,7 @@
 import 'dart:js_interop';
 
 import 'package:code_builder/code_builder.dart' as code;
+import 'package:collection/collection.dart';
 import 'package:path/path.dart' as p;
 
 import 'banned_names.dart';
@@ -1244,6 +1245,7 @@ class Translator {
   code.ExtensionType _extensionType({
     required String jsName,
     required String dartClassName,
+    required List<idl.ExtendedAttribute> extendedAttributes,
     required MdnInterface? mdnInterface,
     required BCDInterfaceStatus? interfaceStatus,
     required List<String> implements,
@@ -1257,6 +1259,12 @@ class Translator {
 
     final jsObject = _typeReference(_RawType('JSObject', false));
     const representationFieldName = '_';
+    final legacyNameSpace = extendedAttributes
+        .firstWhereOrNull(
+          (extendedAttribute) => extendedAttribute.name == 'LegacyNamespace',
+        )
+        ?.rhs
+        .value;
     final instancePropertyMethods = <code.Method>[];
     final staticPropertyMethods = <code.Method>[];
     final propertySpecs = _properties(properties, mdnInterface);
@@ -1267,7 +1275,12 @@ class Translator {
     return code.ExtensionType((b) => b
       ..docs.addAll(docs)
       ..annotations.addAll(
-          _jsOverride(isObjectLiteral || jsName == dartClassName ? '' : jsName))
+        _jsOverride(
+          legacyNameSpace != null
+              ? '$legacyNameSpace.$jsName'
+              : (isObjectLiteral || jsName == dartClassName ? '' : jsName),
+        ),
+      )
       ..name = dartClassName
       ..primaryConstructorName = '_'
       ..representationDeclaration = code.RepresentationDeclaration((b) => b
@@ -1300,6 +1313,7 @@ class Translator {
     final type = interfacelike.type;
     final isNamespace = type == 'namespace';
     final isDictionary = type == 'dictionary';
+    final extendedAttributes = idlInterfacelike.extAttrs.toDart;
 
     final mdnInterface = docProvider.interfaceFor(jsName);
 
@@ -1327,6 +1341,7 @@ class Translator {
       _extensionType(
         jsName: jsName,
         dartClassName: dartClassName,
+        extendedAttributes: extendedAttributes,
         mdnInterface: mdnInterface,
         interfaceStatus: interfaceStatus,
         implements: implements,

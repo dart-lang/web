@@ -1,4 +1,4 @@
-## 1.1.0-wip
+## 1.1.0
 
 - Added `HttpStatus` class that declares http status codes. This is a copy of 
   the `HttpStatus` from the `dart:_internal` library that's exposed only through

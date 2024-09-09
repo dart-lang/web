@@ -18,10 +18,15 @@ import 'dart:js_interop';
 import 'webgl1.dart';
 
 extension type OVR_multiview2._(JSObject _) implements JSObject {
-  external static GLenum get FRAMEBUFFER_ATTACHMENT_TEXTURE_NUM_VIEWS_OVR;
-  external static GLenum get FRAMEBUFFER_ATTACHMENT_TEXTURE_BASE_VIEW_INDEX_OVR;
-  external static GLenum get MAX_VIEWS_OVR;
-  external static GLenum get FRAMEBUFFER_INCOMPLETE_VIEW_TARGETS_OVR;
+  static const GLenum FRAMEBUFFER_ATTACHMENT_TEXTURE_NUM_VIEWS_OVR = 38448;
+
+  static const GLenum FRAMEBUFFER_ATTACHMENT_TEXTURE_BASE_VIEW_INDEX_OVR =
+      38450;
+
+  static const GLenum MAX_VIEWS_OVR = 38449;
+
+  static const GLenum FRAMEBUFFER_INCOMPLETE_VIEW_TARGETS_OVR = 38451;
+
   external void framebufferTextureMultiviewOVR(
     GLenum target,
     GLenum attachment,

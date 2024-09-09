@@ -20,49 +20,69 @@ typedef GPUFlagsConstant = int;
 external $GPUBufferUsage get GPUBufferUsage;
 @JS('GPUBufferUsage')
 extension type $GPUBufferUsage._(JSObject _) implements JSObject {
-  external static GPUFlagsConstant get MAP_READ;
-  external static GPUFlagsConstant get MAP_WRITE;
-  external static GPUFlagsConstant get COPY_SRC;
-  external static GPUFlagsConstant get COPY_DST;
-  external static GPUFlagsConstant get INDEX;
-  external static GPUFlagsConstant get VERTEX;
-  external static GPUFlagsConstant get UNIFORM;
-  external static GPUFlagsConstant get STORAGE;
-  external static GPUFlagsConstant get INDIRECT;
-  external static GPUFlagsConstant get QUERY_RESOLVE;
+  static const GPUFlagsConstant MAP_READ = 1;
+
+  static const GPUFlagsConstant MAP_WRITE = 2;
+
+  static const GPUFlagsConstant COPY_SRC = 4;
+
+  static const GPUFlagsConstant COPY_DST = 8;
+
+  static const GPUFlagsConstant INDEX = 16;
+
+  static const GPUFlagsConstant VERTEX = 32;
+
+  static const GPUFlagsConstant UNIFORM = 64;
+
+  static const GPUFlagsConstant STORAGE = 128;
+
+  static const GPUFlagsConstant INDIRECT = 256;
+
+  static const GPUFlagsConstant QUERY_RESOLVE = 512;
 }
 @JS()
 external $GPUMapMode get GPUMapMode;
 @JS('GPUMapMode')
 extension type $GPUMapMode._(JSObject _) implements JSObject {
-  external static GPUFlagsConstant get READ;
-  external static GPUFlagsConstant get WRITE;
+  static const GPUFlagsConstant READ = 1;
+
+  static const GPUFlagsConstant WRITE = 2;
 }
 @JS()
 external $GPUTextureUsage get GPUTextureUsage;
 @JS('GPUTextureUsage')
 extension type $GPUTextureUsage._(JSObject _) implements JSObject {
-  external static GPUFlagsConstant get COPY_SRC;
-  external static GPUFlagsConstant get COPY_DST;
-  external static GPUFlagsConstant get TEXTURE_BINDING;
-  external static GPUFlagsConstant get STORAGE_BINDING;
-  external static GPUFlagsConstant get RENDER_ATTACHMENT;
+  static const GPUFlagsConstant COPY_SRC = 1;
+
+  static const GPUFlagsConstant COPY_DST = 2;
+
+  static const GPUFlagsConstant TEXTURE_BINDING = 4;
+
+  static const GPUFlagsConstant STORAGE_BINDING = 8;
+
+  static const GPUFlagsConstant RENDER_ATTACHMENT = 16;
 }
 @JS()
 external $GPUShaderStage get GPUShaderStage;
 @JS('GPUShaderStage')
 extension type $GPUShaderStage._(JSObject _) implements JSObject {
-  external static GPUFlagsConstant get VERTEX;
-  external static GPUFlagsConstant get FRAGMENT;
-  external static GPUFlagsConstant get COMPUTE;
+  static const GPUFlagsConstant VERTEX = 1;
+
+  static const GPUFlagsConstant FRAGMENT = 2;
+
+  static const GPUFlagsConstant COMPUTE = 4;
 }
 @JS()
 external $GPUColorWrite get GPUColorWrite;
 @JS('GPUColorWrite')
 extension type $GPUColorWrite._(JSObject _) implements JSObject {
-  external static GPUFlagsConstant get RED;
-  external static GPUFlagsConstant get GREEN;
-  external static GPUFlagsConstant get BLUE;
-  external static GPUFlagsConstant get ALPHA;
-  external static GPUFlagsConstant get ALL;
+  static const GPUFlagsConstant RED = 1;
+
+  static const GPUFlagsConstant GREEN = 2;
+
+  static const GPUFlagsConstant BLUE = 4;
+
+  static const GPUFlagsConstant ALPHA = 8;
+
+  static const GPUFlagsConstant ALL = 15;
 }

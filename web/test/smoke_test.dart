@@ -51,4 +51,30 @@ void main() {
     expect(div.style.textOverflow, equals('ellipsis'));
     expect(div.style.getPropertyValue('text-overflow'), equals('ellipsis'));
   });
+
+  test('External [] and []= operators work as expected.', () {
+    // []
+    expect(window['document'], window.document);
+    expect(window.document['body'], window.document.body);
+    // []=
+    final select = HTMLSelectElement();
+    final option = HTMLOptionElement();
+    select[0] = option;
+    expect(select.item(0), option);
+  });
+
+  test('Constant values can be switched over.', () {
+    final request = XMLHttpRequest();
+    switch (request.readyState) {
+      case XMLHttpRequest.UNSENT:
+        break;
+      case XMLHttpRequest.OPENED:
+      case XMLHttpRequest.HEADERS_RECEIVED:
+      case XMLHttpRequest.LOADING:
+      case XMLHttpRequest.DONE:
+      default:
+        throw Exception('Expected `readyState`: ${XMLHttpRequest.UNSENT}, but '
+            'got: ${request.readyState}.');
+    }
+  });
 }

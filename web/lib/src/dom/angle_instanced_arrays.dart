@@ -43,7 +43,7 @@ import 'webgl1.dart';
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ANGLE_instanced_arrays).
 extension type ANGLE_instanced_arrays._(JSObject _) implements JSObject {
-  external static GLenum get VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE;
+  static const GLenum VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE = 35070;
 
   /// The **`ANGLE_instanced_arrays.drawArraysInstancedANGLE()`** method of the
   /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)

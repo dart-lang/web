@@ -233,9 +233,11 @@ extension type FileList._(JSObject _) implements JSObject {
 extension type FileReader._(JSObject _) implements EventTarget, JSObject {
   external factory FileReader();
 
-  external static int get EMPTY;
-  external static int get LOADING;
-  external static int get DONE;
+  static const int EMPTY = 0;
+
+  static const int LOADING = 1;
+
+  static const int DONE = 2;
 
   /// The **`readAsArrayBuffer()`** method of the [FileReader] interface is used
   /// to start reading the

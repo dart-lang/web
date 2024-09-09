@@ -86,10 +86,13 @@ extension type Event._(JSObject _) implements JSObject {
     EventInit eventInitDict,
   ]);
 
-  external static int get NONE;
-  external static int get CAPTURING_PHASE;
-  external static int get AT_TARGET;
-  external static int get BUBBLING_PHASE;
+  static const int NONE = 0;
+
+  static const int CAPTURING_PHASE = 1;
+
+  static const int AT_TARGET = 2;
+
+  static const int BUBBLING_PHASE = 3;
 
   /// The **`composedPath()`** method of the [Event]
   /// interface returns the event's path which is an array of the objects on
@@ -906,24 +909,41 @@ extension type MutationRecord._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Node).
 extension type Node._(JSObject _) implements EventTarget, JSObject {
-  external static int get ELEMENT_NODE;
-  external static int get ATTRIBUTE_NODE;
-  external static int get TEXT_NODE;
-  external static int get CDATA_SECTION_NODE;
-  external static int get ENTITY_REFERENCE_NODE;
-  external static int get ENTITY_NODE;
-  external static int get PROCESSING_INSTRUCTION_NODE;
-  external static int get COMMENT_NODE;
-  external static int get DOCUMENT_NODE;
-  external static int get DOCUMENT_TYPE_NODE;
-  external static int get DOCUMENT_FRAGMENT_NODE;
-  external static int get NOTATION_NODE;
-  external static int get DOCUMENT_POSITION_DISCONNECTED;
-  external static int get DOCUMENT_POSITION_PRECEDING;
-  external static int get DOCUMENT_POSITION_FOLLOWING;
-  external static int get DOCUMENT_POSITION_CONTAINS;
-  external static int get DOCUMENT_POSITION_CONTAINED_BY;
-  external static int get DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
+  static const int ELEMENT_NODE = 1;
+
+  static const int ATTRIBUTE_NODE = 2;
+
+  static const int TEXT_NODE = 3;
+
+  static const int CDATA_SECTION_NODE = 4;
+
+  static const int ENTITY_REFERENCE_NODE = 5;
+
+  static const int ENTITY_NODE = 6;
+
+  static const int PROCESSING_INSTRUCTION_NODE = 7;
+
+  static const int COMMENT_NODE = 8;
+
+  static const int DOCUMENT_NODE = 9;
+
+  static const int DOCUMENT_TYPE_NODE = 10;
+
+  static const int DOCUMENT_FRAGMENT_NODE = 11;
+
+  static const int NOTATION_NODE = 12;
+
+  static const int DOCUMENT_POSITION_DISCONNECTED = 1;
+
+  static const int DOCUMENT_POSITION_PRECEDING = 2;
+
+  static const int DOCUMENT_POSITION_FOLLOWING = 4;
+
+  static const int DOCUMENT_POSITION_CONTAINS = 8;
+
+  static const int DOCUMENT_POSITION_CONTAINED_BY = 16;
+
+  static const int DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC = 32;
 
   /// The **`getRootNode()`** method of the [Node] interface
   /// returns the context object's root,
@@ -1568,6 +1588,7 @@ extension type Document._(JSObject _) implements Node, JSObject {
   /// fullscreen mode, restoring the previous state of the screen. This usually
   /// reverses the effects of a previous call to [Element.requestFullscreen].
   external JSPromise<JSAny?> exitFullscreen();
+  external JSObject operator [](String name);
 
   /// The **`getElementsByName()`** method
   /// of the [Document] object returns a [NodeList] Collection of
@@ -4832,10 +4853,13 @@ extension type StaticRange._(JSObject _) implements AbstractRange, JSObject {
 extension type Range._(JSObject _) implements AbstractRange, JSObject {
   external factory Range();
 
-  external static int get START_TO_START;
-  external static int get START_TO_END;
-  external static int get END_TO_END;
-  external static int get END_TO_START;
+  static const int START_TO_START = 0;
+
+  static const int START_TO_END = 1;
+
+  static const int END_TO_END = 2;
+
+  static const int END_TO_START = 3;
 
   /// The **`Range.getClientRects()`** method returns a list of [DOMRect]
   /// objects representing the area of the screen occupied by the
@@ -5425,16 +5449,25 @@ extension type DOMTokenList._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XPathResult).
 extension type XPathResult._(JSObject _) implements JSObject {
-  external static int get ANY_TYPE;
-  external static int get NUMBER_TYPE;
-  external static int get STRING_TYPE;
-  external static int get BOOLEAN_TYPE;
-  external static int get UNORDERED_NODE_ITERATOR_TYPE;
-  external static int get ORDERED_NODE_ITERATOR_TYPE;
-  external static int get UNORDERED_NODE_SNAPSHOT_TYPE;
-  external static int get ORDERED_NODE_SNAPSHOT_TYPE;
-  external static int get ANY_UNORDERED_NODE_TYPE;
-  external static int get FIRST_ORDERED_NODE_TYPE;
+  static const int ANY_TYPE = 0;
+
+  static const int NUMBER_TYPE = 1;
+
+  static const int STRING_TYPE = 2;
+
+  static const int BOOLEAN_TYPE = 3;
+
+  static const int UNORDERED_NODE_ITERATOR_TYPE = 4;
+
+  static const int ORDERED_NODE_ITERATOR_TYPE = 5;
+
+  static const int UNORDERED_NODE_SNAPSHOT_TYPE = 6;
+
+  static const int ORDERED_NODE_SNAPSHOT_TYPE = 7;
+
+  static const int ANY_UNORDERED_NODE_TYPE = 8;
+
+  static const int FIRST_ORDERED_NODE_TYPE = 9;
 
   /// The **`iterateNext()`** method of the
   /// [XPathResult] interface iterates over a node set result and returns the

@@ -264,6 +264,10 @@ class _RawType {
     nullable = union.nullable;
     typeParameter = union.typeParameter;
   }
+
+  @override
+  String toString() => '_RawType(type: $type, nullable: $nullable, '
+      'typeParameter: $typeParameter)';
 }
 
 class _Parameter {
@@ -330,7 +334,9 @@ class _Field extends _Property {
 }
 
 class _Constant extends _Property {
-  _Constant(super.name, super.idlType);
+  final String valueType;
+  final JSAny value;
+  _Constant(super.name, super.idlType, this.valueType, this.value);
 }
 
 abstract class _OverridableMember {
@@ -366,18 +372,20 @@ class _OverridableOperation extends _OverridableMember {
   bool _finalized = false;
   _MemberName _name;
 
-  final bool isStatic;
+  final String special;
   final _RawType returnType;
   final MdnProperty? mdnProperty;
   late final _MemberName name = _generateName();
 
-  _OverridableOperation._(this._name, this.isStatic, this.returnType,
+  _OverridableOperation._(this._name, this.special, this.returnType,
       this.mdnProperty, super.parameters);
 
-  factory _OverridableOperation(idl.Operation operation, _MemberName name,
+  factory _OverridableOperation(idl.Operation operation, _MemberName memberName,
           MdnProperty? mdnProperty) =>
-      _OverridableOperation._(name, operation.special == 'static',
+      _OverridableOperation._(memberName, operation.special,
           _getRawType(operation.idlType), mdnProperty, operation.arguments);
+
+  bool get isStatic => special == 'static';
 
   _MemberName _generateName() {
     // The name is determined after all updates are done, so finalize the
@@ -404,7 +412,8 @@ class _OverridableOperation extends _OverridableMember {
         'finalized.');
     final jsOverride = _name.jsOverride;
     final thisName = jsOverride.isNotEmpty ? jsOverride : _name.name;
-    assert(thisName == that.name && isStatic == (that.special == 'static'));
+    assert((that.name.isEmpty || thisName == that.name) &&
+        special == that.special);
     returnType.update(that.idlType);
     _processParameters(that.arguments);
   }
@@ -449,7 +458,7 @@ class _PartialInterfacelike {
         case 'constructor':
           if (!_shouldGenerateMember(name)) break;
           final idlConstructor = member as idl.Constructor;
-          if (_hasHTMLConstructorAttribute(idlConstructor)) continue;
+          if (_hasHTMLConstructorAttribute(idlConstructor)) break;
           if (constructor == null) {
             constructor = _OverridableConstructor(idlConstructor);
           } else {
@@ -460,8 +469,8 @@ class _PartialInterfacelike {
           final constant = member as idl.Constant;
           // Note that constants do not have browser compatibility data, so we
           // always emit.
-          properties
-              .add(_Constant(_MemberName(constant.name), constant.idlType));
+          properties.add(_Constant(_MemberName(constant.name), constant.idlType,
+              constant.value.type, constant.value.value));
           break;
         case 'attribute':
           final attribute = member as idl.Attribute;
@@ -487,16 +496,39 @@ class _PartialInterfacelike {
           break;
         case 'operation':
           final operation = member as idl.Operation;
-          final operationName = operation.name;
-          if (operationName.isEmpty) {
-            // TODO(joshualitt): We may be able to handle some unnamed
-            // operations.
-            continue;
+          final special = operation.special;
+          var operationName = operation.name;
+          // Some special operations may not have any MDN data and may be given
+          // a name that is irrelevant to the IDL, so avoid querying in that
+          // case and always emit.
+          var shouldQueryMDN = true;
+          switch (special) {
+            case 'getter':
+              if (operationName.isEmpty) {
+                operationName = 'operator []';
+                shouldQueryMDN = false;
+              }
+              break;
+            case 'setter':
+              if (operationName.isEmpty) {
+                operationName = 'operator []=';
+                shouldQueryMDN = false;
+              }
+              break;
+            case 'static':
+              break;
+            default:
+              // TODO(srujzs): Should we handle other special operations,
+              // unnamed or otherwise? For now, don't emit the unnamed ones and
+              // do nothing special for the named ones.
+              if (operationName.isEmpty) break;
           }
           final isStatic = operation.special == 'static';
-          if (!_shouldGenerateMember(operationName, isStatic: isStatic)) break;
-          final docs =
-              mdnInterface?.propertyFor(operationName, isStatic: isStatic);
+          if (shouldQueryMDN &&
+              !_shouldGenerateMember(operationName, isStatic: isStatic)) break;
+          final docs = shouldQueryMDN
+              ? mdnInterface?.propertyFor(operationName, isStatic: isStatic)
+              : null;
           // Static member may have the same name as instance members in the
           // IDL, but not in Dart. Rename the static member if so.
           if (isStatic) {
@@ -964,8 +996,8 @@ class Translator {
         ..optionalParameters.addAll(namedParameters)
         ..external = true
         // TODO(srujzs): Should we generate generative or factory constructors?
-        // With `@staticInterop`, factories were needed, but extension types have
-        // no such limitation.
+        // With `@staticInterop`, factories were needed, but extension types
+        // have no such limitation.
         ..factory = true);
     }
   }
@@ -986,13 +1018,18 @@ class Translator {
 
   code.Method _operation(_OverridableOperation operation) {
     final memberName = operation.name;
+    // The IDL may return the value that is set. Dart doesn't let us use any
+    // type besides `void` for `[]=`, so we ignore the return value.
+    final returnType = memberName.name == 'operator []='
+        ? code.TypeReference((b) => b..symbol = 'void')
+        : _typeReference(operation.returnType, returnType: true);
     return _overridableMember<code.Method>(
       operation,
       (requiredParameters, optionalParameters) => code.Method((b) => b
         ..annotations.addAll(_jsOverride(memberName.jsOverride))
         ..external = true
         ..static = operation.isStatic
-        ..returns = _typeReference(operation.returnType, returnType: true)
+        ..returns = returnType
         ..name = memberName.name
         ..docs.addAll(operation.mdnProperty?.formattedDocs ?? [])
         ..requiredParameters.addAll(requiredParameters)
@@ -1055,18 +1092,49 @@ class Translator {
     );
   }
 
-  List<code.Method> _constant(_Constant constant) {
-    return [
-      code.Method(
-        (b) => b
-          ..annotations.addAll(_jsOverride(constant.name.jsOverride))
-          ..external = true
-          ..static = true
-          ..returns = _typeReference(constant.type, returnType: true)
-          ..type = code.MethodType.getter
-          ..name = constant.name.name,
-      )
-    ];
+  (List<code.Field>, List<code.Method>) _constant(_Constant constant) {
+    // If it's a value type that we can emit directly in Dart as a constant,
+    // emit this as a field so users can `switch` over it. Value types taken
+    // from: https://github.com/w3c/webidl2.js/blob/main/README.md#default-and-const-values
+    final body = switch (constant.valueType) {
+      'string' => code.literalString((constant.value as JSString).toDart),
+      'boolean' => code.literalBool(
+          (constant.value as JSString).toDart.toLowerCase() == 'true'),
+      'number' =>
+        code.literalNum(num.parse((constant.value as JSString).toDart)),
+      'null' => code.literalNull,
+      _ => null,
+    };
+    if (body != null) {
+      return (
+        [
+          code.Field(
+            (b) => b
+              ..external = false
+              ..static = true
+              ..modifier = code.FieldModifier.constant
+              ..type = _typeReference(constant.type, returnType: true)
+              ..assignment = body.code
+              ..name = constant.name.name,
+          )
+        ],
+        []
+      );
+    }
+    return (
+      [],
+      [
+        code.Method(
+          (b) => b
+            ..annotations.addAll(_jsOverride(constant.name.jsOverride))
+            ..external = true
+            ..static = true
+            ..returns = _typeReference(constant.type, returnType: true)
+            ..type = code.MethodType.getter
+            ..name = constant.name.name,
+        )
+      ]
+    );
   }
 
   List<code.Method> _field(_Field field, MdnInterface? mdnInterface) {
@@ -1080,19 +1148,20 @@ class Translator {
     );
   }
 
-  List<code.Method> _property(_Property member, MdnInterface? mdnInterface) =>
+  (List<code.Field>, List<code.Method>) _property(
+          _Property member, MdnInterface? mdnInterface) =>
       switch (member) {
-        _Attribute() => _attribute(member, mdnInterface),
-        _Field() => _field(member, mdnInterface),
+        _Attribute() => ([], _attribute(member, mdnInterface)),
+        _Field() => ([], _field(member, mdnInterface)),
         _Constant() => _constant(member),
       };
 
-  List<code.Method> _properties(
-      List<_Property> properties, MdnInterface? mdnInterface) {
-    return [
-      for (final property in properties) ..._property(property, mdnInterface),
-    ];
-  }
+  (List<code.Field>, List<code.Method>) _properties(
+          List<_Property> properties, MdnInterface? mdnInterface) =>
+      properties.fold(([], []), (specs, property) {
+        final (fields, methods) = _property(property, mdnInterface);
+        return (specs.$1..addAll(fields), specs.$2..addAll(methods));
+      });
 
   List<code.Method> _operations(List<_OverridableOperation> operations) =>
       [for (final operation in operations) _operation(operation)];
@@ -1162,11 +1231,13 @@ class Translator {
     required _RawType type,
     required List<_Property> extensionProperties,
   }) {
+    final properties = _properties(extensionProperties, null);
     return code.Extension(
       (b) => b
         ..name = '${type.type.snakeToPascal}Extension'
         ..on = _typeReference(type)
-        ..methods.addAll(_properties(extensionProperties, null)),
+        ..fields.addAll(properties.$1)
+        ..methods.addAll(properties.$2),
     );
   }
 
@@ -1186,10 +1257,12 @@ class Translator {
 
     final jsObject = _typeReference(_RawType('JSObject', false));
     const representationFieldName = '_';
-    final instanceProperties = <code.Method>[];
-    final staticProperties = <code.Method>[];
-    for (final property in _properties(properties, mdnInterface)) {
-      (property.static ? staticProperties : instanceProperties).add(property);
+    final instancePropertyMethods = <code.Method>[];
+    final staticPropertyMethods = <code.Method>[];
+    final propertySpecs = _properties(properties, mdnInterface);
+    for (final property in propertySpecs.$2) {
+      (property.static ? staticPropertyMethods : instancePropertyMethods)
+          .add(property);
     }
     return code.ExtensionType((b) => b
       ..docs.addAll(docs)
@@ -1210,10 +1283,11 @@ class Translator {
                   : <code.Constructor>[])
           .followedBy(_elementConstructors(
               jsName, dartClassName, representationFieldName)))
+      ..fields.addAll(propertySpecs.$1)
       ..methods.addAll(_operations(staticOperations)
-          .followedBy(staticProperties)
+          .followedBy(staticPropertyMethods)
           .followedBy(_operations(operations))
-          .followedBy(instanceProperties)
+          .followedBy(instancePropertyMethods)
           .followedBy(dartClassName == 'CSSStyleDeclaration'
               ? _cssStyleDeclarationProperties()
               : [])));

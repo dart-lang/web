@@ -422,17 +422,28 @@ extension type SVGNumber._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGLength).
 extension type SVGLength._(JSObject _) implements JSObject {
-  external static int get SVG_LENGTHTYPE_UNKNOWN;
-  external static int get SVG_LENGTHTYPE_NUMBER;
-  external static int get SVG_LENGTHTYPE_PERCENTAGE;
-  external static int get SVG_LENGTHTYPE_EMS;
-  external static int get SVG_LENGTHTYPE_EXS;
-  external static int get SVG_LENGTHTYPE_PX;
-  external static int get SVG_LENGTHTYPE_CM;
-  external static int get SVG_LENGTHTYPE_MM;
-  external static int get SVG_LENGTHTYPE_IN;
-  external static int get SVG_LENGTHTYPE_PT;
-  external static int get SVG_LENGTHTYPE_PC;
+  static const int SVG_LENGTHTYPE_UNKNOWN = 0;
+
+  static const int SVG_LENGTHTYPE_NUMBER = 1;
+
+  static const int SVG_LENGTHTYPE_PERCENTAGE = 2;
+
+  static const int SVG_LENGTHTYPE_EMS = 3;
+
+  static const int SVG_LENGTHTYPE_EXS = 4;
+
+  static const int SVG_LENGTHTYPE_PX = 5;
+
+  static const int SVG_LENGTHTYPE_CM = 6;
+
+  static const int SVG_LENGTHTYPE_MM = 7;
+
+  static const int SVG_LENGTHTYPE_IN = 8;
+
+  static const int SVG_LENGTHTYPE_PT = 9;
+
+  static const int SVG_LENGTHTYPE_PC = 10;
+
   external void newValueSpecifiedUnits(
     int unitType,
     num valueInSpecifiedUnits,
@@ -471,11 +482,16 @@ extension type SVGLength._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGAngle).
 extension type SVGAngle._(JSObject _) implements JSObject {
-  external static int get SVG_ANGLETYPE_UNKNOWN;
-  external static int get SVG_ANGLETYPE_UNSPECIFIED;
-  external static int get SVG_ANGLETYPE_DEG;
-  external static int get SVG_ANGLETYPE_RAD;
-  external static int get SVG_ANGLETYPE_GRAD;
+  static const int SVG_ANGLETYPE_UNKNOWN = 0;
+
+  static const int SVG_ANGLETYPE_UNSPECIFIED = 1;
+
+  static const int SVG_ANGLETYPE_DEG = 2;
+
+  static const int SVG_ANGLETYPE_RAD = 3;
+
+  static const int SVG_ANGLETYPE_GRAD = 4;
+
   external void newValueSpecifiedUnits(
     int unitType,
     num valueInSpecifiedUnits,
@@ -510,6 +526,10 @@ extension type SVGNumberList._(JSObject _) implements JSObject {
   );
   external SVGNumber removeItem(int index);
   external SVGNumber appendItem(SVGNumber newItem);
+  external void operator []=(
+    int index,
+    SVGNumber newItem,
+  );
   external int get length;
   external int get numberOfItems;
 }
@@ -534,6 +554,10 @@ extension type SVGLengthList._(JSObject _) implements JSObject {
   );
   external SVGLength removeItem(int index);
   external SVGLength appendItem(SVGLength newItem);
+  external void operator []=(
+    int index,
+    SVGLength newItem,
+  );
   external int get length;
   external int get numberOfItems;
 }
@@ -558,6 +582,10 @@ extension type SVGStringList._(JSObject _) implements JSObject {
   );
   external String removeItem(int index);
   external String appendItem(String newItem);
+  external void operator []=(
+    int index,
+    String newItem,
+  );
   external int get numberOfItems;
 }
 
@@ -750,9 +778,11 @@ extension type SVGAnimatedLengthList._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGUnitTypes).
 extension type SVGUnitTypes._(JSObject _) implements JSObject {
-  external static int get SVG_UNIT_TYPE_UNKNOWN;
-  external static int get SVG_UNIT_TYPE_USERSPACEONUSE;
-  external static int get SVG_UNIT_TYPE_OBJECTBOUNDINGBOX;
+  static const int SVG_UNIT_TYPE_UNKNOWN = 0;
+
+  static const int SVG_UNIT_TYPE_USERSPACEONUSE = 1;
+
+  static const int SVG_UNIT_TYPE_OBJECTBOUNDINGBOX = 2;
 }
 
 /// The **`SVGSVGElement`** interface provides access to the properties of
@@ -1045,13 +1075,20 @@ extension type SVGStyleElement._(JSObject _) implements SVGElement, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGTransform).
 extension type SVGTransform._(JSObject _) implements JSObject {
-  external static int get SVG_TRANSFORM_UNKNOWN;
-  external static int get SVG_TRANSFORM_MATRIX;
-  external static int get SVG_TRANSFORM_TRANSLATE;
-  external static int get SVG_TRANSFORM_SCALE;
-  external static int get SVG_TRANSFORM_ROTATE;
-  external static int get SVG_TRANSFORM_SKEWX;
-  external static int get SVG_TRANSFORM_SKEWY;
+  static const int SVG_TRANSFORM_UNKNOWN = 0;
+
+  static const int SVG_TRANSFORM_MATRIX = 1;
+
+  static const int SVG_TRANSFORM_TRANSLATE = 2;
+
+  static const int SVG_TRANSFORM_SCALE = 3;
+
+  static const int SVG_TRANSFORM_ROTATE = 4;
+
+  static const int SVG_TRANSFORM_SKEWX = 5;
+
+  static const int SVG_TRANSFORM_SKEWY = 6;
+
   external void setMatrix([DOMMatrix2DInit matrix]);
   external void setTranslate(
     num tx,
@@ -1093,6 +1130,10 @@ extension type SVGTransformList._(JSObject _) implements JSObject {
   );
   external SVGTransform removeItem(int index);
   external SVGTransform appendItem(SVGTransform newItem);
+  external void operator []=(
+    int index,
+    SVGTransform newItem,
+  );
   external SVGTransform createSVGTransformFromMatrix([DOMMatrix2DInit matrix]);
   external SVGTransform? consolidate();
   external int get numberOfItems;
@@ -1116,20 +1157,34 @@ extension type SVGAnimatedTransformList._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGPreserveAspectRatio).
 extension type SVGPreserveAspectRatio._(JSObject _) implements JSObject {
-  external static int get SVG_PRESERVEASPECTRATIO_UNKNOWN;
-  external static int get SVG_PRESERVEASPECTRATIO_NONE;
-  external static int get SVG_PRESERVEASPECTRATIO_XMINYMIN;
-  external static int get SVG_PRESERVEASPECTRATIO_XMIDYMIN;
-  external static int get SVG_PRESERVEASPECTRATIO_XMAXYMIN;
-  external static int get SVG_PRESERVEASPECTRATIO_XMINYMID;
-  external static int get SVG_PRESERVEASPECTRATIO_XMIDYMID;
-  external static int get SVG_PRESERVEASPECTRATIO_XMAXYMID;
-  external static int get SVG_PRESERVEASPECTRATIO_XMINYMAX;
-  external static int get SVG_PRESERVEASPECTRATIO_XMIDYMAX;
-  external static int get SVG_PRESERVEASPECTRATIO_XMAXYMAX;
-  external static int get SVG_MEETORSLICE_UNKNOWN;
-  external static int get SVG_MEETORSLICE_MEET;
-  external static int get SVG_MEETORSLICE_SLICE;
+  static const int SVG_PRESERVEASPECTRATIO_UNKNOWN = 0;
+
+  static const int SVG_PRESERVEASPECTRATIO_NONE = 1;
+
+  static const int SVG_PRESERVEASPECTRATIO_XMINYMIN = 2;
+
+  static const int SVG_PRESERVEASPECTRATIO_XMIDYMIN = 3;
+
+  static const int SVG_PRESERVEASPECTRATIO_XMAXYMIN = 4;
+
+  static const int SVG_PRESERVEASPECTRATIO_XMINYMID = 5;
+
+  static const int SVG_PRESERVEASPECTRATIO_XMIDYMID = 6;
+
+  static const int SVG_PRESERVEASPECTRATIO_XMAXYMID = 7;
+
+  static const int SVG_PRESERVEASPECTRATIO_XMINYMAX = 8;
+
+  static const int SVG_PRESERVEASPECTRATIO_XMIDYMAX = 9;
+
+  static const int SVG_PRESERVEASPECTRATIO_XMAXYMAX = 10;
+
+  static const int SVG_MEETORSLICE_UNKNOWN = 0;
+
+  static const int SVG_MEETORSLICE_MEET = 1;
+
+  static const int SVG_MEETORSLICE_SLICE = 2;
+
   external int get align;
   external set align(int value);
   external int get meetOrSlice;
@@ -1317,6 +1372,10 @@ extension type SVGPointList._(JSObject _) implements JSObject {
   /// The **`appendItem()`** method of the [SVGPointList] interface adds a
   /// [SVGPoint] to the end of the list.
   external DOMPoint appendItem(DOMPoint newItem);
+  external void operator []=(
+    int index,
+    DOMPoint newItem,
+  );
 
   /// The **`length`** read-only property of the [SVGPointList] interface
   /// returns the number of items in the list.
@@ -1378,9 +1437,12 @@ extension type SVGPolygonElement._(JSObject _)
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGTextContentElement).
 extension type SVGTextContentElement._(JSObject _)
     implements SVGGraphicsElement, JSObject {
-  external static int get LENGTHADJUST_UNKNOWN;
-  external static int get LENGTHADJUST_SPACING;
-  external static int get LENGTHADJUST_SPACINGANDGLYPHS;
+  static const int LENGTHADJUST_UNKNOWN = 0;
+
+  static const int LENGTHADJUST_SPACING = 1;
+
+  static const int LENGTHADJUST_SPACINGANDGLYPHS = 2;
+
   external int getNumberOfChars();
   external double getComputedTextLength();
   external double getSubStringLength(
@@ -1464,12 +1526,18 @@ extension type SVGTextPathElement._(JSObject _)
           'textPath',
         );
 
-  external static int get TEXTPATH_METHODTYPE_UNKNOWN;
-  external static int get TEXTPATH_METHODTYPE_ALIGN;
-  external static int get TEXTPATH_METHODTYPE_STRETCH;
-  external static int get TEXTPATH_SPACINGTYPE_UNKNOWN;
-  external static int get TEXTPATH_SPACINGTYPE_AUTO;
-  external static int get TEXTPATH_SPACINGTYPE_EXACT;
+  static const int TEXTPATH_METHODTYPE_UNKNOWN = 0;
+
+  static const int TEXTPATH_METHODTYPE_ALIGN = 1;
+
+  static const int TEXTPATH_METHODTYPE_STRETCH = 2;
+
+  static const int TEXTPATH_SPACINGTYPE_UNKNOWN = 0;
+
+  static const int TEXTPATH_SPACINGTYPE_AUTO = 1;
+
+  static const int TEXTPATH_SPACINGTYPE_EXACT = 2;
+
   external SVGAnimatedLength get startOffset;
   external SVGAnimatedEnumeration get method;
   external SVGAnimatedEnumeration get spacing;
@@ -1567,12 +1635,17 @@ extension type SVGMarkerElement._(JSObject _) implements SVGElement, JSObject {
           'marker',
         );
 
-  external static int get SVG_MARKERUNITS_UNKNOWN;
-  external static int get SVG_MARKERUNITS_USERSPACEONUSE;
-  external static int get SVG_MARKERUNITS_STROKEWIDTH;
-  external static int get SVG_MARKER_ORIENT_UNKNOWN;
-  external static int get SVG_MARKER_ORIENT_AUTO;
-  external static int get SVG_MARKER_ORIENT_ANGLE;
+  static const int SVG_MARKERUNITS_UNKNOWN = 0;
+
+  static const int SVG_MARKERUNITS_USERSPACEONUSE = 1;
+
+  static const int SVG_MARKERUNITS_STROKEWIDTH = 2;
+
+  static const int SVG_MARKER_ORIENT_UNKNOWN = 0;
+
+  static const int SVG_MARKER_ORIENT_AUTO = 1;
+
+  static const int SVG_MARKER_ORIENT_ANGLE = 2;
 
   /// The **`setOrientToAuto()`** method of the [SVGMarkerElement] interface
   /// sets the value of the `orient` attribute to `auto`.
@@ -1646,10 +1719,14 @@ extension type SVGMarkerElement._(JSObject _) implements SVGElement, JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/SVGGradientElement).
 extension type SVGGradientElement._(JSObject _)
     implements SVGElement, JSObject {
-  external static int get SVG_SPREADMETHOD_UNKNOWN;
-  external static int get SVG_SPREADMETHOD_PAD;
-  external static int get SVG_SPREADMETHOD_REFLECT;
-  external static int get SVG_SPREADMETHOD_REPEAT;
+  static const int SVG_SPREADMETHOD_UNKNOWN = 0;
+
+  static const int SVG_SPREADMETHOD_PAD = 1;
+
+  static const int SVG_SPREADMETHOD_REFLECT = 2;
+
+  static const int SVG_SPREADMETHOD_REPEAT = 3;
+
   external SVGAnimatedEnumeration get gradientUnits;
   external SVGAnimatedTransformList get gradientTransform;
   external SVGAnimatedEnumeration get spreadMethod;

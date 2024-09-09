@@ -41,6 +41,11 @@ void main() {
   });
 
   test('cross-origin windows and locations can be accessed safely', () {
+    // TODO(srujzs): For some reason, running `dart test` doesn't flag
+    // violations of same-origin policy, allowing any unsafe accesses. When
+    // tested with `--pause-after-load` and single stepped, however, the test
+    // correctly flags violations. Figure out why and make this test always
+    // respect same-origin policy.
     const url = 'https://www.google.com';
     const url2 = 'https://www.example.org';
 
@@ -61,18 +66,23 @@ void main() {
 
     final openedWindow = window.openCrossOrigin(url)!;
     // Use `Object.is` to test that values can be passed to interop.
-    expect(_is(openedWindow.opener!.window, window), true);
-    expect(_is(openedWindow.top!.window, openedWindow.window), true);
-    expect(_is(openedWindow.parent!.window, openedWindow.window), true);
-    expect(_is(openedWindow.opener!.location!.location, window.location), true);
+    expect(_is(openedWindow.opener!.unsafeWindow, window), true);
     expect(
-        _is(openedWindow.opener!.parent?.window,
-            window.parentCrossOrigin?.window),
+        _is(openedWindow.top!.unsafeWindow, openedWindow.unsafeWindow), true);
+    expect(_is(openedWindow.parent!.unsafeWindow, openedWindow.unsafeWindow),
         true);
-    expect(_is(openedWindow.opener!.top?.window, window.topCrossOrigin?.window),
+    expect(_is(openedWindow.opener!.location!.unsafeLocation, window.location),
         true);
     expect(
-        openedWindow.opener!.opener?.window, window.openerCrossOrigin?.window);
+        _is(openedWindow.opener!.parent?.unsafeWindow,
+            window.parentCrossOrigin?.unsafeWindow),
+        true);
+    expect(
+        _is(openedWindow.opener!.top?.unsafeWindow,
+            window.topCrossOrigin?.unsafeWindow),
+        true);
+    expect(openedWindow.opener!.opener?.unsafeWindow,
+        window.openerCrossOrigin?.unsafeWindow);
     testCommon(openedWindow);
     expect(openedWindow.closed, true);
 
@@ -81,20 +91,24 @@ void main() {
     document.body!.append(iframe);
     final contentWindow = iframe.contentWindowCrossOrigin!;
     expect(contentWindow.opener, null);
-    expect(_is(contentWindow.top?.window, window.topCrossOrigin?.window), true);
-    expect(_is(contentWindow.parent!.window, window), true);
     expect(
-        _is(contentWindow.parent!.location!.location, window.location), true);
-    expect(
-        _is(contentWindow.parent!.parent?.window,
-            window.parentCrossOrigin?.window),
+        _is(contentWindow.top?.unsafeWindow,
+            window.topCrossOrigin?.unsafeWindow),
+        true);
+    expect(_is(contentWindow.parent!.unsafeWindow, window), true);
+    expect(_is(contentWindow.parent!.location!.unsafeLocation, window.location),
         true);
     expect(
-        _is(contentWindow.parent!.top?.window, window.topCrossOrigin?.window),
+        _is(contentWindow.parent!.parent?.unsafeWindow,
+            window.parentCrossOrigin?.unsafeWindow),
         true);
     expect(
-        _is(contentWindow.parent!.opener?.window,
-            window.openerCrossOrigin?.window),
+        _is(contentWindow.parent!.top?.unsafeWindow,
+            window.topCrossOrigin?.unsafeWindow),
+        true);
+    expect(
+        _is(contentWindow.parent!.opener?.unsafeWindow,
+            window.openerCrossOrigin?.unsafeWindow),
         true);
     testCommon(contentWindow);
     // `close` on a `contentWindow` does nothing.

@@ -6,11 +6,6 @@ import 'dart:js_interop';
 
 import '../dom.dart' show HTMLIFrameElement, Location, Window;
 
-// Includes all the allowed and necessary APIs from the W3 spec located here:
-// https://html.spec.whatwg.org/multipage/nav-history-apis.html#cross-origin-objects
-// Some browsers may provide more access. These APIs are exposed as
-//`_DOMWindowCrossFrame` and `_LocationCrossFrame` in `dart:html`.
-
 // The Dart runtime does not allow this to be typed as any better than `JSAny?`.
 extension type _CrossOriginWindow(JSAny? any) {
   external bool get closed;
@@ -41,6 +36,17 @@ extension type _CrossOriginLocation(JSAny? any) {
   external set href(String value);
 }
 
+/// A safe wrapper for a cross-origin window.
+///
+/// Since cross-origin access is limited by the browser, the Dart runtime can't
+/// provide a type for or null-assert the cross-origin window. To safely
+/// interact with the cross-origin window, use this wrapper instead.
+///
+/// The `dart:html` equivalent is `_DOMWindowCrossFrame`.
+///
+/// Only includes allowed APIs from the W3 spec located here:
+/// https://html.spec.whatwg.org/multipage/nav-history-apis.html#crossoriginproperties-(-o-)
+/// Some browsers may provide more access.
 class CrossOriginWindow {
   CrossOriginWindow._(JSAny? o) : _window = _CrossOriginWindow(o);
 
@@ -107,15 +113,21 @@ class CrossOriginWindow {
   /// > This is only intended to be passed to an interop member that expects a
   /// > <code>[JSAny]?</code>. Safety for any other operations is not
   /// > guaranteed.
-  JSAny? get window => _window.any;
+  JSAny? get unsafeWindow => _window.any;
 }
 
 /// A safe wrapper for a cross-origin location obtained through a cross-origin
 /// window.
 ///
 /// Since cross-origin access is limited by the browser, the Dart runtime can't
-/// provide a type for or null-assert this value. To safely interact with this
-/// value, use this wrapper instead.
+/// provide a type for or null-assert the cross-origin location. To safely
+/// interact with the cross-origin location, use this wrapper instead.
+///
+/// The `dart:html` equivalent is `_LocationCrossFrame`.
+///
+/// Only includes allowed APIs from the W3 spec located here:
+/// https://html.spec.whatwg.org/multipage/nav-history-apis.html#crossoriginproperties-(-o-)
+/// Some browsers may provide more access.
 class CrossOriginLocation {
   CrossOriginLocation._(JSAny? o) : _location = _CrossOriginLocation(o);
 
@@ -140,7 +152,7 @@ class CrossOriginLocation {
   /// > This is only intended to be passed to an interop member that expects a
   /// > <code>[JSAny]?</code>. Safety for any other operations is not
   /// > guaranteed.
-  JSAny? get location => _location.any;
+  JSAny? get unsafeLocation => _location.any;
 }
 
 extension CrossOriginContentWindowExtension on HTMLIFrameElement {
@@ -153,6 +165,13 @@ extension CrossOriginContentWindowExtension on HTMLIFrameElement {
       CrossOriginWindow._create(_contentWindow);
 }
 
+/// Safe alternatives to common [Window] members that can return cross-origin
+/// windows.
+///
+/// By default, the Dart web compilers are not sensitive to cross-origin
+/// objects, and therefore same-origin policy errors may be triggered when
+/// type-checking. Use these members instead to safely interact with such
+/// objects.
 extension CrossOriginWindowExtension on Window {
   @JS('open')
   external JSAny? _open(String url);

@@ -40,6 +40,25 @@ void main() {
     expect(() => dartList[0], returnsNormally);
   });
 
+  test('responseHeaders transforms headers into a map', () async {
+    final request = XMLHttpRequest()
+      ..open('GET', 'www.google.com')
+      ..send();
+
+    await request.onLoad.first;
+
+    expect(
+      request.responseHeaders,
+      allOf(
+        containsPair('content-length', '10'),
+        containsPair('content-type', 'text/plain; charset=utf-8'),
+        containsPair('x-content-type-options', 'nosniff'),
+        containsPair('x-frame-options', 'SAMEORIGIN'),
+        containsPair('x-xss-protection', '1; mode=block'),
+      ),
+    );
+  });
+
   test('cross-origin windows and locations can be accessed safely', () {
     // TODO(srujzs): For some reason, running `dart test` doesn't flag
     // violations of same-origin policy, allowing any unsafe accesses. When

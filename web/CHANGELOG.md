@@ -10,6 +10,8 @@
   `getter`s and `setter`s, respectively.
 - Exposed constants with primitive values as non-`external` so they can be
   `switch`ed over.
+- Add an extension `responseHeaders` to `XMLHttpRequest`.
+- Correctly namespace `WebAssembly` types.
 - Added `CrossOriginWindow` and `CrossOriginLocation` wrappers for cross-origin
   windows and locations, respectively, that can be accessed through
   `HTMLIFrameElement.contentWindowCrossOrigin`, `Window.openCrossOrigin`,

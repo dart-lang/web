@@ -73,6 +73,7 @@ extension type ModuleImportDescriptor._(JSObject _) implements JSObject {
   external ImportExportKind get kind;
   external set kind(ImportExportKind value);
 }
+@JS('WebAssembly.Module')
 extension type Module._(JSObject _) implements JSObject {
   external factory Module(BufferSource bytes);
 
@@ -83,6 +84,7 @@ extension type Module._(JSObject _) implements JSObject {
     String sectionName,
   );
 }
+@JS('WebAssembly.Instance')
 extension type Instance._(JSObject _) implements JSObject {
   external factory Instance(
     Module module, [
@@ -102,6 +104,7 @@ extension type MemoryDescriptor._(JSObject _) implements JSObject {
   external int get maximum;
   external set maximum(int value);
 }
+@JS('WebAssembly.Memory')
 extension type Memory._(JSObject _) implements JSObject {
   external factory Memory(MemoryDescriptor descriptor);
 
@@ -122,6 +125,7 @@ extension type TableDescriptor._(JSObject _) implements JSObject {
   external int get maximum;
   external set maximum(int value);
 }
+@JS('WebAssembly.Table')
 extension type Table._(JSObject _) implements JSObject {
   external factory Table(
     TableDescriptor descriptor, [
@@ -150,6 +154,7 @@ extension type GlobalDescriptor._(JSObject _) implements JSObject {
   external bool get mutable;
   external set mutable(bool value);
 }
+@JS('WebAssembly.Global')
 extension type Global._(JSObject _) implements JSObject {
   external factory Global(
     GlobalDescriptor descriptor, [

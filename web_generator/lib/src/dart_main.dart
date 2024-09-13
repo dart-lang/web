@@ -4,6 +4,7 @@
 
 import 'dart:js_interop';
 
+import 'package:args/args.dart';
 import 'package:code_builder/code_builder.dart' as code;
 import 'package:dart_style/dart_style.dart';
 
@@ -18,21 +19,27 @@ import 'util.dart';
 // probably involve parsing the TC39 spec.
 
 void main(List<String> args) async {
-  await _generateAndWriteBindings(args[0]);
+  final ArgResults argResult;
+  argResult = _parser.parse(args);
+  await _generateAndWriteBindings(
+      outputDirectory: argResult['output-directory'] as String,
+      generateAll: argResult['generate-all'] as bool);
 }
 
-Future<void> _generateAndWriteBindings(String dir) async {
+Future<void> _generateAndWriteBindings(
+    {required String outputDirectory, required bool generateAll}) async {
   const librarySubDir = 'dom';
 
-  ensureDirectoryExists('$dir/$librarySubDir');
+  ensureDirectoryExists('$outputDirectory/$librarySubDir');
 
-  final bindings = await generateBindings(packageRoot, librarySubDir);
+  final bindings = await generateBindings(packageRoot, librarySubDir,
+      generateAll: generateAll);
   for (var entry in bindings.entries) {
     final libraryPath = entry.key;
     final library = entry.value;
 
     final contents = _emitLibrary(library).toJS;
-    fs.writeFileSync('$dir/$libraryPath'.toJS, contents);
+    fs.writeFileSync('$outputDirectory/$libraryPath'.toJS, contents);
   }
 }
 
@@ -47,3 +54,11 @@ String _emitLibrary(code.Library library) {
   return DartFormatter(languageVersion: DartFormatter.latestLanguageVersion)
       .format(source.toString());
 }
+
+final _parser = ArgParser()
+  ..addOption('output-directory',
+      mandatory: true, help: 'Directory where bindings will be generated to.')
+  ..addFlag('generate-all',
+      negatable: false,
+      help: 'Generate bindings for all IDL definitions, including experimental '
+          'and non-standard APIs.');

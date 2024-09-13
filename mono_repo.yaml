@@ -9,3 +9,4 @@ merge_stages:
   - unit_test
   - dart_fixes
   - generate_and_analyze
+  - generate_all_and_analyze

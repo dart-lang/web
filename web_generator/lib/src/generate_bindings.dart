@@ -69,11 +69,13 @@ Future<Map<String, Set<String>>> _generateElementTagMap() async {
 }
 
 Future<TranslationResult> generateBindings(
-    String packageRoot, String librarySubDir) async {
+    String packageRoot, String librarySubDir,
+    {required bool generateAll}) async {
   final cssStyleDeclarations = await _generateCSSStyleDeclarations();
   final elementHTMLMap = await _generateElementTagMap();
   final translator = Translator(
-      packageRoot, librarySubDir, cssStyleDeclarations, elementHTMLMap);
+      packageRoot, librarySubDir, cssStyleDeclarations, elementHTMLMap,
+      generateAll: generateAll);
   final array = objectEntries(await idl.parseAll().toDart);
   for (var i = 0; i < array.length; i++) {
     final entry = array[i] as JSArray<JSAny?>;

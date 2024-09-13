@@ -21,8 +21,8 @@ globalThis.idl = idl;
 globalThis.location = { href: `file://${process.cwd()}/` }
 
 globalThis.dartMainRunner = async function (main, args) {
-  const dir = process.argv[2];
-  await main(dir);
+  const dartArgs = process.argv.slice(2);
+  await main(dartArgs);
 }
 
 async function scriptMain() {

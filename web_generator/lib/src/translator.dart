@@ -522,7 +522,7 @@ class _PartialInterfacelike {
               // TODO(srujzs): Should we handle other special operations,
               // unnamed or otherwise? For now, don't emit the unnamed ones and
               // do nothing special for the named ones.
-              if (operationName.isEmpty) break;
+              if (operationName.isEmpty) continue;
           }
           final isStatic = operation.special == 'static';
           if (shouldQueryMDN &&
@@ -591,6 +591,7 @@ class _PartialInterfacelike {
   /// Given a [memberName] and whether it [isStatic], return whether it is a
   /// member that should be emitted according to the compat data.
   bool _shouldGenerateMember(String memberName, {bool isStatic = false}) {
+    if (Translator.instance!.browserCompatData.generateAll) return true;
     // Compat data only exists for interfaces and namespaces. Mixins and
     // dictionaries should always generate their members.
     if (type != 'interface' && type != 'namespace') return true;
@@ -665,10 +666,11 @@ class Translator {
   static Translator? instance;
 
   Translator(this.packageRoot, this._librarySubDir, this._cssStyleDeclarations,
-      this._elementTagMap) {
+      this._elementTagMap,
+      {required bool generateAll}) {
     instance = this;
     docProvider = DocProvider.create();
-    browserCompatData = BrowserCompatData.read();
+    browserCompatData = BrowserCompatData.read(generateAll: generateAll);
   }
 
   void _addOrUpdateInterfaceLike(idl.Interfacelike interfacelike) {
@@ -702,30 +704,32 @@ class Translator {
         ...library.partialInterfaces
       ]) {
         final name = interfacelike.name;
-        bool shouldGenerate;
         switch (interfacelike.type) {
           case 'interface':
-            shouldGenerate = browserCompatData.shouldGenerateInterface(name);
+            if (browserCompatData.shouldGenerateInterface(name)) {
+              _addOrUpdateInterfaceLike(interfacelike);
+              _usedTypes.add(interfacelike);
+            }
             break;
           case 'namespace':
             // Browser compat data doesn't document namespaces that only contain
             // constants.
             // https://github.com/mdn/browser-compat-data/blob/main/docs/data-guidelines/api.md#namespaces
-            shouldGenerate = browserCompatData.shouldGenerateInterface(name) ||
+            if (browserCompatData.shouldGenerateInterface(name) ||
                 interfacelike.members.toDart
-                    .every((member) => member.type == 'const');
+                    .every((member) => member.type == 'const')) {
+              _addOrUpdateInterfaceLike(interfacelike);
+              _usedTypes.add(interfacelike);
+            }
             break;
           case 'dictionary':
-            shouldGenerate = false;
+            if (Translator.instance!.browserCompatData.generateAll) {
+              markTypeAsUsed(name);
+            }
             break;
           default:
             throw Exception(
                 'Unexpected interfacelike type ${interfacelike.type}');
-        }
-
-        if (shouldGenerate) {
-          _addOrUpdateInterfaceLike(interfacelike);
-          _usedTypes.add(interfacelike);
         }
       }
       for (final interfacelike in [

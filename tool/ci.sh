@@ -75,6 +75,10 @@ for PKG in ${PKGS}; do
         echo 'dart bin/update_bindings.dart'
         dart bin/update_bindings.dart || EXIT_CODE=$?
         ;;
+      command_2)
+        echo 'dart bin/update_bindings.dart --generate-all'
+        dart bin/update_bindings.dart --generate-all || EXIT_CODE=$?
+        ;;
       format)
         echo 'dart format --output=none --set-exit-if-changed .'
         dart format --output=none --set-exit-if-changed . || EXIT_CODE=$?

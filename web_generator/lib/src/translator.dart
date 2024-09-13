@@ -591,7 +591,7 @@ class _PartialInterfacelike {
   /// Given a [memberName] and whether it [isStatic], return whether it is a
   /// member that should be emitted according to the compat data.
   bool _shouldGenerateMember(String memberName, {bool isStatic = false}) {
-    if (BrowserCompatData.generateAll) return true;
+    if (Translator.instance!.browserCompatData.generateAll) return true;
     // Compat data only exists for interfaces and namespaces. Mixins and
     // dictionaries should always generate their members.
     if (type != 'interface' && type != 'namespace') return true;
@@ -723,7 +723,9 @@ class Translator {
             }
             break;
           case 'dictionary':
-            if (BrowserCompatData.generateAll) markTypeAsUsed(name);
+            if (Translator.instance!.browserCompatData.generateAll) {
+              markTypeAsUsed(name);
+            }
             break;
           default:
             throw Exception(

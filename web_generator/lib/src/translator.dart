@@ -726,7 +726,7 @@ class Translator {
     final decl = _typeToDeclaration[interfacelikeName]! as idl.Interfacelike;
     for (final interfacelike in [
       decl,
-      ..._typeToPartials[interfacelikeName] ?? <idl.Interfacelike>[]
+      ...?_typeToPartials[interfacelikeName]
     ]) {
       _addOrUpdateInterfaceLike(interfacelike);
     }
@@ -735,7 +735,7 @@ class Translator {
     for (final mixin in mixins) {
       for (final interfacelike in [
         _typeToDeclaration[mixin] as idl.Interfacelike,
-        ..._typeToPartials[mixin] ?? <idl.Interfacelike>[]
+        ...?_typeToPartials[mixin]
       ]) {
         _interfacelikes[interfacelikeName]!.update(interfacelike);
       }

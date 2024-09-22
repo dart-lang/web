@@ -250,13 +250,13 @@ class _EventStreamSubscription<T extends html.Event>
 
   void _tryResume() {
     if (_onData != null && !isPaused) {
-      _target!.addEventListener(_eventType, _onData, _useCapture.toJS);
+      _target?.addEventListener(_eventType, _onData, _useCapture.toJS);
     }
   }
 
   void _unlisten() {
     if (_onData != null) {
-      _target!.removeEventListener(_eventType, _onData, _useCapture.toJS);
+      _target?.removeEventListener(_eventType, _onData, _useCapture.toJS);
     }
   }
 

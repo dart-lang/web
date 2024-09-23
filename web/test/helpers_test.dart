@@ -60,11 +60,12 @@ void main() {
   });
 
   test('cross-origin windows and locations can be accessed safely', () {
-    // TODO(srujzs): For some reason, running `dart test` doesn't flag
-    // violations of same-origin policy, allowing any unsafe accesses. When
-    // tested with `--pause-after-load` and single stepped, however, the test
-    // correctly flags violations. Figure out why and make this test always
-    // respect same-origin policy.
+    // TODO(https://github.com/dart-lang/test/issues/2282): For some reason,
+    // running `dart test` doesn't flag violations of same-origin policy,
+    // allowing any unsafe accesses. When tested with `--pause-after-load` and
+    // single stepped, however, the test correctly flags violations. Figure out
+    // why and make this test always respect same-origin policy. Add some tests
+    // to ensure that violations are being handled properly.
     const url = 'https://www.google.com';
     const url2 = 'https://www.example.org';
 

@@ -26,9 +26,7 @@ class _Library {
   final String url;
   // Contains both IDL `interface`s and `namespace`s.
   final List<idl.Interfacelike> interfacelikes = [];
-  final List<idl.Interfacelike> partialInterfaces = [];
   final List<idl.Interfacelike> interfaceMixins = [];
-  final List<idl.Interfacelike> partialInterfaceMixins = [];
   final List<idl.Typedef> typedefs = [];
   final List<idl.Enum> enums = [];
   final List<idl.Callback> callbacks = [];
@@ -63,8 +61,6 @@ class _Library {
         // well.
         final isMixin = type == 'interface mixin';
         final interfaceList = isMixin ? interfaceMixins : interfacelikes;
-        final partialInterfaceList =
-            isMixin ? partialInterfaceMixins : partialInterfaces;
         final interfacelike = node as idl.Interfacelike;
         if (!node.partial) {
           _addNamed<idl.Interfacelike>(node, interfaceList);
@@ -72,14 +68,16 @@ class _Library {
           translator._typeToPartials
               .putIfAbsent(interfacelike.name, () => [])
               .add(interfacelike);
-          partialInterfaceList.add(interfacelike);
         }
         break;
       case 'typedef':
         _addNamed<idl.Typedef>(node, typedefs);
         break;
       case 'includes':
-        translator._includes.add(node as idl.Includes);
+        final includes = node as idl.Includes;
+        translator._includes
+            .putIfAbsent(includes.target, () => [])
+            .add(includes.includes);
         break;
       case 'enum':
         _addNamed<idl.Enum>(node, enums);
@@ -655,7 +653,7 @@ class Translator {
   final _typeToPartials = <String, List<idl.Interfacelike>>{};
   final _typeToLibrary = <String, _Library>{};
   final _interfacelikes = <String, _PartialInterfacelike>{};
-  final _includes = <idl.Includes>[];
+  final _includes = <String, List<String>>{};
   final _usedTypes = <idl.Node>{};
 
   late String _currentlyTranslatingUrl;
@@ -685,7 +683,7 @@ class Translator {
     }
   }
 
-  /// Set or update interfaces and namespaces so we can have a unified interface
+  /// Add interfaces and namespaces so we can have a unified interface
   /// representation.
   ///
   /// Note that this is done after the initial pass on the AST. This is because
@@ -693,34 +691,18 @@ class Translator {
   /// types.
   ///
   /// This method only adds the interfaces and namespaces that the browser
-  /// compat data claims should be generated. It also does not add any
-  /// dictionaries, as those are handled by [markTypeAsUsed] because they don't
-  /// have any compat data and are emitted only if used.
-  void setOrUpdateInterfacesAndNamespaces() {
-    final mixins = <String, Set<idl.Interfacelike>>{};
+  /// compat data claims should be generated. It also only adds dictionaries if
+  /// [BrowserCompatData.generateAll] is true and are otherwise handled by
+  /// [markTypeAsUsed] because they don't have any compat data and are emitted
+  /// only if used.
+  void addInterfacesAndNamespaces() {
     for (final library in _libraries.values) {
-      for (final interfacelike in [
-        ...library.interfacelikes,
-        ...library.partialInterfaces
-      ]) {
+      for (final interfacelike in library.interfacelikes) {
         final name = interfacelike.name;
         switch (interfacelike.type) {
           case 'interface':
-            if (browserCompatData.shouldGenerateInterface(name)) {
-              _addOrUpdateInterfaceLike(interfacelike);
-              _usedTypes.add(interfacelike);
-            }
-            break;
           case 'namespace':
-            // Browser compat data doesn't document namespaces that only contain
-            // constants.
-            // https://github.com/mdn/browser-compat-data/blob/main/docs/data-guidelines/api.md#namespaces
-            if (browserCompatData.shouldGenerateInterface(name) ||
-                interfacelike.members.toDart
-                    .every((member) => member.type == 'const')) {
-              _addOrUpdateInterfaceLike(interfacelike);
-              _usedTypes.add(interfacelike);
-            }
+            markTypeAsUsed(name);
             break;
           case 'dictionary':
             if (Translator.instance!.browserCompatData.generateAll) {
@@ -732,34 +714,41 @@ class Translator {
                 'Unexpected interfacelike type ${interfacelike.type}');
         }
       }
-      for (final interfacelike in [
-        ...library.interfaceMixins,
-        ...library.partialInterfaceMixins
-      ]) {
-        final name = interfacelike.name;
-        mixins.putIfAbsent(name, () => {}).add(interfacelike);
-      }
     }
-    for (final include in _includes) {
-      final target = include.target;
-      final includes = include.includes;
+  }
 
-      // Incorporate mixins into the interfaces that include them.
-      if (_interfacelikes.containsKey(target) && mixins.containsKey(includes)) {
-        for (final partial in mixins[includes]!) {
-          _interfacelikes[target]!.update(partial);
-        }
+  /// Given an [interfacelikeName], combines its interfacelike declaration, its
+  /// partial interfacelikes, and any mixins it includes in that order.
+  ///
+  /// Mixins are applied by applying the mixin interface first and then its
+  /// partial interfaces.
+  void _combineInterfacelikes(String interfacelikeName) {
+    final decl = _typeToDeclaration[interfacelikeName]! as idl.Interfacelike;
+    for (final interfacelike in [
+      decl,
+      ...?_typeToPartials[interfacelikeName]
+    ]) {
+      _addOrUpdateInterfaceLike(interfacelike);
+    }
+    final mixins = _includes[interfacelikeName];
+    if (mixins == null) return;
+    for (final mixin in mixins) {
+      for (final interfacelike in [
+        _typeToDeclaration[mixin] as idl.Interfacelike,
+        ...?_typeToPartials[mixin]
+      ]) {
+        _interfacelikes[interfacelikeName]!.update(interfacelike);
       }
     }
   }
 
-  /// Given a [type] that corresponds to an IDL type, marks it as a used type
-  /// and marks any types its declaration uses.
+  /// Given a [type] that corresponds to an IDL type, marks it as a used type,
+  /// processes the type if needed, and marks any types its declaration uses.
   ///
-  /// If the type is an interface, this function doesn't mark it as used, as
-  /// that determination is handled by [setOrUpdateInterfacesAndNamespaces].
+  /// If the type is an interface, this function only marks it used if the
+  /// browser compat data says it should be.
   ///
-  /// If the type is a dictionary, this function emits it.
+  /// If the type is a dictionary, this function always marks it as used.
   ///
   /// If the type is a type that is treated like a typedef, marks the type it is
   /// aliased to as used.
@@ -768,26 +757,17 @@ class Translator {
   bool markTypeAsUsed(String type) {
     final decl = _typeToDeclaration[type];
     if (decl == null) return false;
+    if (_usedTypes.contains(decl)) return true;
     switch (decl.type) {
       case 'dictionary':
-        if (!_usedTypes.contains(decl)) {
-          _usedTypes.add(decl);
-          final dictionary = decl as idl.Interfacelike;
-          final name = dictionary.name;
-          for (final interfacelike in [
-            dictionary,
-            ..._typeToPartials[name] ?? <idl.Interfacelike>[]
-          ]) {
-            _addOrUpdateInterfaceLike(interfacelike);
-          }
-        }
+        final name = (decl as idl.Interfacelike).name;
+        _usedTypes.add(decl);
+        _combineInterfacelikes(name);
         return true;
       case 'typedef':
-        if (!_usedTypes.contains(decl)) {
-          _usedTypes.add(decl);
-          final desugaredType = _desugarTypedef(_RawType(type, false))!.type;
-          markTypeAsUsed(desugaredType);
-        }
+        _usedTypes.add(decl);
+        final desugaredType = _desugarTypedef(_RawType(type, false))!.type;
+        markTypeAsUsed(desugaredType);
         return true;
       case 'enum':
       case 'callback interface':
@@ -795,14 +775,34 @@ class Translator {
         _usedTypes.add(decl);
         return true;
       case 'interface':
-        // Interfaces can only be marked as used depending on their compat data.
-        return browserCompatData
-            .shouldGenerateInterface((decl as idl.Interfacelike).name);
-      case 'interface mixin':
+        // Interfaces and namespaces can only be marked as used depending on
+        // their compat data.
+        final name = (decl as idl.Interfacelike).name;
+        if (browserCompatData.shouldGenerateInterface(name)) {
+          _usedTypes.add(decl);
+          _combineInterfacelikes(name);
+          return true;
+        }
+        return false;
       case 'namespace':
-      // Mixins and namespaces should never appear in types.
+        // Browser compat data doesn't document namespaces that only contain
+        // constants.
+        // https://github.com/mdn/browser-compat-data/blob/main/docs/data-guidelines/api.md#namespaces
+        final namespace = decl as idl.Interfacelike;
+        final name = namespace.name;
+        if (browserCompatData.shouldGenerateInterface(name) ||
+            namespace.members.toDart
+                .every((member) => member.type == 'const')) {
+          _usedTypes.add(decl);
+          _combineInterfacelikes(name);
+          return true;
+        }
+        return false;
+      case 'interface mixin':
+      // Mixins should never appear as types.
       default:
-        throw Exception('Unexpected node type to be marked as used: $type');
+        throw Exception(
+            'Unexpected node type to be marked as used: ${decl.type}');
     }
   }
 

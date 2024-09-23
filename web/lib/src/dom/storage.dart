@@ -28,13 +28,6 @@ import 'fs.dart';
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/StorageManager).
 extension type StorageManager._(JSObject _) implements JSObject {
-  /// The **`getDirectory()`** method of the [StorageManager] interface is used
-  /// to obtain a reference to a [FileSystemDirectoryHandle] object allowing
-  /// access to a directory and its contents, stored in the
-  /// [origin private file system](https://developer.mozilla.org/en-US/docs/Web/API/File_System_API/Origin_private_file_system)
-  /// (OPFS).
-  external JSPromise<FileSystemDirectoryHandle> getDirectory();
-
   /// The **`persisted()`** method of the [StorageManager] interface returns a
   /// `Promise` that resolves to `true` if your site's storage bucket is
   /// persistent.
@@ -61,6 +54,13 @@ extension type StorageManager._(JSObject _) implements JSObject {
   /// resolves once the information is available. The promise's fulfillment
   /// handler is called with an object containing the usage and quota data.
   external JSPromise<StorageEstimate> estimate();
+
+  /// The **`getDirectory()`** method of the [StorageManager] interface is used
+  /// to obtain a reference to a [FileSystemDirectoryHandle] object allowing
+  /// access to a directory and its contents, stored in the
+  /// [origin private file system](https://developer.mozilla.org/en-US/docs/Web/API/File_System_API/Origin_private_file_system)
+  /// (OPFS).
+  external JSPromise<FileSystemDirectoryHandle> getDirectory();
 }
 extension type StorageEstimate._(JSObject _) implements JSObject {
   external factory StorageEstimate({

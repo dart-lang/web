@@ -186,13 +186,6 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
   /// [PerformanceMeasure] objects from the browser's performance timeline.
   external void clearMeasures([String measureName]);
 
-  /// The read-only `performance.eventCounts` property is an [EventCounts] map
-  /// containing the number of events which have been dispatched per event type.
-  ///
-  /// Not all event types are exposed. You can only get counts for event types
-  /// supported by the [PerformanceEventTiming] interface.
-  external EventCounts get eventCounts;
-
   /// The **`timeOrigin`** read-only property of the [Performance] interface
   /// returns the high resolution timestamp that is used as the baseline for
   /// performance-related timestamps.
@@ -210,6 +203,13 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
   /// > which current time never decreases and which isn't subject to these
   /// > adjustments.
   external double get timeOrigin;
+
+  /// The read-only `performance.eventCounts` property is an [EventCounts] map
+  /// containing the number of events which have been dispatched per event type.
+  ///
+  /// Not all event types are exposed. You can only get counts for event types
+  /// supported by the [PerformanceEventTiming] interface.
+  external EventCounts get eventCounts;
 
   /// The legacy
   /// **`Performance.timing`** read-only

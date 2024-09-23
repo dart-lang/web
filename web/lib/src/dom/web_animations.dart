@@ -177,27 +177,6 @@ extension type Animation._(JSObject _) implements EventTarget, JSObject {
   /// attribute, where they can be modified and replaced as normal.
   external void commitStyles();
 
-  /// The **`Animation.startTime`** property of the [Animation] interface is a
-  /// double-precision floating-point value which indicates the scheduled time
-  /// when an animation's playback should begin.
-  ///
-  /// An animation's **start time** is the time value of its [DocumentTimeline]
-  /// when its target [KeyframeEffect] is scheduled to begin playback. An
-  /// animation's **start time** is initially unresolved (meaning that it's
-  /// `null` because it has no value).
-  external CSSNumberish? get startTime;
-  external set startTime(CSSNumberish? value);
-
-  /// The **`Animation.currentTime`** property of the
-  /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
-  /// returns and sets the current time value of the animation in milliseconds,
-  /// whether running or paused.
-  ///
-  /// If the animation lacks a [AnimationTimeline], is inactive, or hasn't been
-  /// played yet, `currentTime`'s return value is `null`.
-  external CSSNumberish? get currentTime;
-  external set currentTime(CSSNumberish? value);
-
   /// The **`Animation.id`** property of the
   /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
   /// returns or sets a string used to identify the animation.
@@ -277,6 +256,27 @@ extension type Animation._(JSObject _) implements EventTarget, JSObject {
   external set oncancel(EventHandler value);
   external EventHandler get onremove;
   external set onremove(EventHandler value);
+
+  /// The **`Animation.startTime`** property of the [Animation] interface is a
+  /// double-precision floating-point value which indicates the scheduled time
+  /// when an animation's playback should begin.
+  ///
+  /// An animation's **start time** is the time value of its [DocumentTimeline]
+  /// when its target [KeyframeEffect] is scheduled to begin playback. An
+  /// animation's **start time** is initially unresolved (meaning that it's
+  /// `null` because it has no value).
+  external CSSNumberish? get startTime;
+  external set startTime(CSSNumberish? value);
+
+  /// The **`Animation.currentTime`** property of the
+  /// [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API)
+  /// returns and sets the current time value of the animation in milliseconds,
+  /// whether running or paused.
+  ///
+  /// If the animation lacks a [AnimationTimeline], is inactive, or hasn't been
+  /// played yet, `currentTime`'s return value is `null`.
+  external CSSNumberish? get currentTime;
+  external set currentTime(CSSNumberish? value);
 }
 
 /// The `AnimationEffect` interface of the
@@ -447,12 +447,6 @@ extension type KeyframeEffect._(JSObject _)
   /// keyframes.
   external void setKeyframes(JSObject? keyframes);
 
-  /// The **`iterationComposite`** property of a [KeyframeEffect] resolves how
-  /// the animation's property value changes accumulate or override each other
-  /// upon each of the animation's iterations.
-  external IterationCompositeOperation get iterationComposite;
-  external set iterationComposite(IterationCompositeOperation value);
-
   /// The **`target`** property of a [KeyframeEffect] interface represents the
   /// element or pseudo-element being animated. It may be `null` for animations
   /// that do not target a specific element. It performs as both a getter and a
@@ -476,6 +470,12 @@ extension type KeyframeEffect._(JSObject _)
   /// element's animation impacts its underlying property values.
   external CompositeOperation get composite;
   external set composite(CompositeOperation value);
+
+  /// The **`iterationComposite`** property of a [KeyframeEffect] resolves how
+  /// the animation's property value changes accumulate or override each other
+  /// upon each of the animation's iterations.
+  external IterationCompositeOperation get iterationComposite;
+  external set iterationComposite(IterationCompositeOperation value);
 }
 extension type KeyframeEffectOptions._(JSObject _)
     implements EffectTiming, JSObject {

@@ -338,33 +338,6 @@ extension type XRViewerPose._(JSObject _) implements XRPose, JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/XRInputSource).
 extension type XRInputSource._(JSObject _) implements JSObject {
-  /// The read-only [XRInputSource] property **`gamepad`** returns a [Gamepad]
-  /// object describing the state of the buttons and axes on the XR input
-  /// source, if it is a gamepad or comparable device. If the device isn't a
-  /// gamepad-like device, this property's value is `null`.
-  ///
-  /// The [Gamepad] instance returned behaves as described by the
-  /// [Gamepad API](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API).
-  /// However, there are a few things to note:
-  ///
-  /// - `Gamepad` instances belonging to `XRInputSource` are not included in the
-  ///   array returned by [navigator.getGamepads]. Gamepads are strictly
-  ///   associated with the WebXR hardware and are not general-purpose gaming
-  ///   devices.
-  /// - [Gamepad.id] is an empty string (`""`)
-  /// - [Gamepad.index] is `-1`
-  /// - [Gamepad.connected] is `true` until the `XRInputSource` is removed from
-  ///   the list of active XR input sources or the [XRSession] is ended.
-  /// - If an axis reported by [Gamepad.axes] represents an axis of a touchpad,
-  ///   the value is 0 when the associated [GamepadButton.touched] property is
-  ///   `false`.
-  /// - [Gamepad.mapping] returns "xr-standard".
-  external Gamepad? get gamepad;
-
-  /// The read-only **`hand`** property of the [XRInputSource] interface is a
-  /// [XRHand] object providing access to a hand-tracking device.
-  external XRHand? get hand;
-
   /// The read-only [XRInputSource] property
   /// **`handedness`** indicates which of the user's hands the WebXR
   /// input source is associated with, or if it's not associated with a hand at
@@ -425,6 +398,33 @@ extension type XRInputSource._(JSObject _) implements JSObject {
   /// > **Note:** The `profiles` list is always empty when the WebXR
   /// > session is in inline mode.
   external JSArray<JSString> get profiles;
+
+  /// The read-only [XRInputSource] property **`gamepad`** returns a [Gamepad]
+  /// object describing the state of the buttons and axes on the XR input
+  /// source, if it is a gamepad or comparable device. If the device isn't a
+  /// gamepad-like device, this property's value is `null`.
+  ///
+  /// The [Gamepad] instance returned behaves as described by the
+  /// [Gamepad API](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API).
+  /// However, there are a few things to note:
+  ///
+  /// - `Gamepad` instances belonging to `XRInputSource` are not included in the
+  ///   array returned by [navigator.getGamepads]. Gamepads are strictly
+  ///   associated with the WebXR hardware and are not general-purpose gaming
+  ///   devices.
+  /// - [Gamepad.id] is an empty string (`""`)
+  /// - [Gamepad.index] is `-1`
+  /// - [Gamepad.connected] is `true` until the `XRInputSource` is removed from
+  ///   the list of active XR input sources or the [XRSession] is ended.
+  /// - If an axis reported by [Gamepad.axes] represents an axis of a touchpad,
+  ///   the value is 0 when the associated [GamepadButton.touched] property is
+  ///   `false`.
+  /// - [Gamepad.mapping] returns "xr-standard".
+  external Gamepad? get gamepad;
+
+  /// The read-only **`hand`** property of the [XRInputSource] interface is a
+  /// [XRHand] object providing access to a hand-tracking device.
+  external XRHand? get hand;
 }
 
 /// The

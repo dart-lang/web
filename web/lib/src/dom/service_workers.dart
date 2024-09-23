@@ -116,27 +116,6 @@ extension type ServiceWorker._(JSObject _) implements EventTarget, JSObject {
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration).
 extension type ServiceWorkerRegistration._(JSObject _)
     implements EventTarget, JSObject {
-  /// The **`showNotification()`** method of the
-  /// [ServiceWorkerRegistration] interface creates a notification on an active
-  /// service worker.
-  external JSPromise<JSAny?> showNotification(
-    String title, [
-    NotificationOptions options,
-  ]);
-
-  /// The **`getNotifications()`** method of
-  /// the [ServiceWorkerRegistration] interface returns a list of the
-  /// notifications in the order that they were created from the current origin
-  /// via the
-  /// current service worker registration. Origins can have many active but
-  /// differently-scoped service worker registrations. Notifications created by
-  /// one service
-  /// worker on the same origin will not be available to other active service
-  /// workers on
-  /// that same origin.
-  external JSPromise<JSArray<Notification>> getNotifications(
-      [GetNotificationOptions filter]);
-
   /// The **`update()`** method of the
   /// [ServiceWorkerRegistration] interface attempts to update the service
   /// worker. It fetches the worker's script URL, and if the new worker is not
@@ -158,19 +137,26 @@ extension type ServiceWorkerRegistration._(JSObject _)
   /// unregistered.
   external JSPromise<JSBoolean> unregister();
 
-  /// The **`sync`** read-only property of the
-  /// [ServiceWorkerRegistration] interface returns a reference to the
-  /// [SyncManager] interface, which manages background synchronization
-  /// processes.
-  external SyncManager get sync;
+  /// The **`showNotification()`** method of the
+  /// [ServiceWorkerRegistration] interface creates a notification on an active
+  /// service worker.
+  external JSPromise<JSAny?> showNotification(
+    String title, [
+    NotificationOptions options,
+  ]);
 
-  /// The **`pushManager`** read-only property of the
-  /// [ServiceWorkerRegistration] interface returns a reference to the
-  /// [PushManager] interface for managing push subscriptions; this includes
-  /// support for subscribing, getting an active subscription, and accessing
-  /// push permission
-  /// status.
-  external PushManager get pushManager;
+  /// The **`getNotifications()`** method of
+  /// the [ServiceWorkerRegistration] interface returns a list of the
+  /// notifications in the order that they were created from the current origin
+  /// via the
+  /// current service worker registration. Origins can have many active but
+  /// differently-scoped service worker registrations. Notifications created by
+  /// one service
+  /// worker on the same origin will not be available to other active service
+  /// workers on
+  /// that same origin.
+  external JSPromise<JSArray<Notification>> getNotifications(
+      [GetNotificationOptions filter]);
 
   /// The **`installing`** read-only property of the
   /// [ServiceWorkerRegistration] interface returns a service worker whose
@@ -223,6 +209,20 @@ extension type ServiceWorkerRegistration._(JSObject _)
   external ServiceWorkerUpdateViaCache get updateViaCache;
   external EventHandler get onupdatefound;
   external set onupdatefound(EventHandler value);
+
+  /// The **`sync`** read-only property of the
+  /// [ServiceWorkerRegistration] interface returns a reference to the
+  /// [SyncManager] interface, which manages background synchronization
+  /// processes.
+  external SyncManager get sync;
+
+  /// The **`pushManager`** read-only property of the
+  /// [ServiceWorkerRegistration] interface returns a reference to the
+  /// [PushManager] interface for managing push subscriptions; this includes
+  /// support for subscribing, getting an active subscription, and accessing
+  /// push permission
+  /// status.
+  external PushManager get pushManager;
 }
 
 /// The **`ServiceWorkerContainer`** interface of the
@@ -434,16 +434,6 @@ extension type ServiceWorkerGlobalScope._(JSObject _)
   /// underlying service worker take effect immediately for both the current
   /// client and all other active clients.
   external JSPromise<JSAny?> skipWaiting();
-  external EventHandler get onsync;
-  external set onsync(EventHandler value);
-  external EventHandler get onnotificationclick;
-  external set onnotificationclick(EventHandler value);
-  external EventHandler get onnotificationclose;
-  external set onnotificationclose(EventHandler value);
-  external EventHandler get onpush;
-  external set onpush(EventHandler value);
-  external EventHandler get onpushsubscriptionchange;
-  external set onpushsubscriptionchange(EventHandler value);
 
   /// @AvailableInWorkers("service")
   ///
@@ -477,6 +467,16 @@ extension type ServiceWorkerGlobalScope._(JSObject _)
   external set onmessage(EventHandler value);
   external EventHandler get onmessageerror;
   external set onmessageerror(EventHandler value);
+  external EventHandler get onsync;
+  external set onsync(EventHandler value);
+  external EventHandler get onnotificationclick;
+  external set onnotificationclick(EventHandler value);
+  external EventHandler get onnotificationclose;
+  external set onnotificationclose(EventHandler value);
+  external EventHandler get onpush;
+  external set onpush(EventHandler value);
+  external EventHandler get onpushsubscriptionchange;
+  external set onpushsubscriptionchange(EventHandler value);
 }
 
 /// @AvailableInWorkers("service")

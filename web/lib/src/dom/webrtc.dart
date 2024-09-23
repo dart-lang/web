@@ -132,32 +132,6 @@ extension type RTCPeerConnection._(JSObject _)
   external static JSPromise<RTCCertificate> generateCertificate(
       AlgorithmIdentifier keygenAlgorithm);
 
-  /// The **`setIdentityProvider()`** method of the [RTCPeerConnection]
-  /// interface sets the Identity Provider (IdP) to the triplet given in
-  /// parameter: its name, the protocol used to communicate with it (optional)
-  /// and an optional username.
-  /// The IdP will be used only when an assertion is needed.
-  ///
-  /// If the [RTCPeerConnection.signalingState] is set to `"closed"`, an
-  /// `InvalidStateError` is raised.
-  external void setIdentityProvider(
-    String provider, [
-    RTCIdentityProviderOptions options,
-  ]);
-
-  /// The **`getIdentityAssertion()`** method of the [RTCPeerConnection]
-  /// interface initiates the gathering of an identity assertion.
-  /// This has an effect only if the [RTCPeerConnection.signalingState] is not
-  /// `"closed"`.
-  ///
-  /// The method returns a JavaScript `Promise` which resolves to an identity
-  /// assertion encoded as a string.
-  ///
-  /// It is not expected for the application dealing with the
-  /// `RTCPeerConnection`: this is automatically done; an explicit call only
-  /// allows to anticipate the need.
-  external JSPromise<JSString> getIdentityAssertion();
-
   /// The **`createOffer()`** method of the [RTCPeerConnection] interface
   /// initiates the creation of an  offer for the purpose of starting a new
   /// WebRTC connection to a remote peer.
@@ -350,6 +324,32 @@ extension type RTCPeerConnection._(JSObject _)
   /// current peer connection.
   external void close();
 
+  /// The **`setIdentityProvider()`** method of the [RTCPeerConnection]
+  /// interface sets the Identity Provider (IdP) to the triplet given in
+  /// parameter: its name, the protocol used to communicate with it (optional)
+  /// and an optional username.
+  /// The IdP will be used only when an assertion is needed.
+  ///
+  /// If the [RTCPeerConnection.signalingState] is set to `"closed"`, an
+  /// `InvalidStateError` is raised.
+  external void setIdentityProvider(
+    String provider, [
+    RTCIdentityProviderOptions options,
+  ]);
+
+  /// The **`getIdentityAssertion()`** method of the [RTCPeerConnection]
+  /// interface initiates the gathering of an identity assertion.
+  /// This has an effect only if the [RTCPeerConnection.signalingState] is not
+  /// `"closed"`.
+  ///
+  /// The method returns a JavaScript `Promise` which resolves to an identity
+  /// assertion encoded as a string.
+  ///
+  /// It is not expected for the application dealing with the
+  /// `RTCPeerConnection`: this is automatically done; an explicit call only
+  /// allows to anticipate the need.
+  external JSPromise<JSString> getIdentityAssertion();
+
   /// The **`getSenders()`** method of the [RTCPeerConnection] interface returns
   /// an array of [RTCRtpSender] objects, each of which represents the RTP
   /// sender responsible for transmitting one track's data.
@@ -426,16 +426,6 @@ extension type RTCPeerConnection._(JSObject _)
   /// promise which resolves with data providing statistics about either the
   /// overall connection or about the specified [MediaStreamTrack].
   external JSPromise<RTCStatsReport> getStats([MediaStreamTrack? selector]);
-
-  /// The **`peerIdentity`** read-only property of the [RTCPeerConnection]
-  /// interface returns a JavaScript `Promise` that resolves to an
-  /// [RTCIdentityAssertion] which contains a string identifying the remote
-  /// peer.
-  /// Once this promise resolves successfully, the resulting identity is the
-  /// **target peer identity** and cannot change for the duration of the
-  /// connection.
-  external JSPromise<JSObject> get peerIdentity;
-  external String? get idpLoginUrl;
 
   /// The **`localDescription`** read-only property of the [RTCPeerConnection]
   /// interface returns an [RTCSessionDescription] describing the session for
@@ -632,6 +622,16 @@ extension type RTCPeerConnection._(JSObject _)
   external set onicegatheringstatechange(EventHandler value);
   external EventHandler get onconnectionstatechange;
   external set onconnectionstatechange(EventHandler value);
+
+  /// The **`peerIdentity`** read-only property of the [RTCPeerConnection]
+  /// interface returns a JavaScript `Promise` that resolves to an
+  /// [RTCIdentityAssertion] which contains a string identifying the remote
+  /// peer.
+  /// Once this promise resolves successfully, the resulting identity is the
+  /// **target peer identity** and cannot change for the duration of the
+  /// connection.
+  external JSPromise<JSObject> get peerIdentity;
+  external String? get idpLoginUrl;
   external EventHandler get ontrack;
   external set ontrack(EventHandler value);
 
@@ -1150,6 +1150,22 @@ extension type RTCRtpSender._(JSObject _) implements JSObject {
   /// which is fulfilled when the results are available.
   external JSPromise<RTCStatsReport> getStats();
 
+  /// The **`track`** read-only property of
+  /// the [RTCRtpSender] interface returns the [MediaStreamTrack]
+  /// which is being handled by the `RTCRtpSender`.
+  external MediaStreamTrack? get track;
+
+  /// The read-only **`transport`** property of an
+  /// [RTCRtpSender] object provides the [RTCDtlsTransport] object
+  /// used to interact with the underlying transport over which the sender is
+  /// exchanging
+  /// Real-time Transport Control Protocol () packets.
+  ///
+  /// This transport is responsible for receiving the data for the media on the
+  /// sender's
+  /// [RTCRtpReceiver.track].
+  external RTCDtlsTransport? get transport;
+
   /// The **`transform`** property of the [RTCRtpSender] object is used to
   /// insert a transform stream ([TransformStream]) running in a worker thread
   /// into the sender pipeline.
@@ -1168,22 +1184,6 @@ extension type RTCRtpSender._(JSObject _) implements JSObject {
   /// sender has no associated transform stream.
   external RTCRtpTransform? get transform;
   external set transform(RTCRtpTransform? value);
-
-  /// The **`track`** read-only property of
-  /// the [RTCRtpSender] interface returns the [MediaStreamTrack]
-  /// which is being handled by the `RTCRtpSender`.
-  external MediaStreamTrack? get track;
-
-  /// The read-only **`transport`** property of an
-  /// [RTCRtpSender] object provides the [RTCDtlsTransport] object
-  /// used to interact with the underlying transport over which the sender is
-  /// exchanging
-  /// Real-time Transport Control Protocol () packets.
-  ///
-  /// This transport is responsible for receiving the data for the media on the
-  /// sender's
-  /// [RTCRtpReceiver.track].
-  external RTCDtlsTransport? get transport;
 
   /// The read-only **`dtmf`** property on the
   /// **[RTCRtpSender]** interface returns a
@@ -1387,27 +1387,6 @@ extension type RTCRtpReceiver._(JSObject _) implements JSObject {
   /// handler will be called once the results are available.
   external JSPromise<RTCStatsReport> getStats();
 
-  /// The **`transform`** property of the [RTCRtpReceiver] object is used to
-  /// insert a transform stream ([TransformStream]) running in a worker thread
-  /// into the receiver pipeline.
-  /// This allows stream transforms to be applied to encoded video and audio
-  /// frames as they arrive from the packetizer (before they are
-  /// played/rendered).
-  ///
-  /// The transform that is to be added is defined using an
-  /// [RTCRtpScriptTransform] and its associated [Worker].
-  /// If the transform is set in the peer connection
-  /// [`track` event](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/track_event)
-  /// handler, the transform stream will receive the first full incoming frame
-  /// for the track.
-  ///
-  /// ### Value
-  ///
-  /// A [RTCRtpScriptTransform]<!-- or [SFrameTransform] -->, or `null` if the
-  /// receiver has no associated transform stream.
-  external RTCRtpTransform? get transform;
-  external set transform(RTCRtpTransform? value);
-
   /// The **`track`** read-only property of the
   /// [RTCRtpReceiver] interface returns the [MediaStreamTrack]
   /// associated with the current [RTCRtpReceiver] instance.
@@ -1434,6 +1413,27 @@ extension type RTCRtpReceiver._(JSObject _) implements JSObject {
   /// jitter.
   external double? get jitterBufferTarget;
   external set jitterBufferTarget(DOMHighResTimeStamp? value);
+
+  /// The **`transform`** property of the [RTCRtpReceiver] object is used to
+  /// insert a transform stream ([TransformStream]) running in a worker thread
+  /// into the receiver pipeline.
+  /// This allows stream transforms to be applied to encoded video and audio
+  /// frames as they arrive from the packetizer (before they are
+  /// played/rendered).
+  ///
+  /// The transform that is to be added is defined using an
+  /// [RTCRtpScriptTransform] and its associated [Worker].
+  /// If the transform is set in the peer connection
+  /// [`track` event](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/track_event)
+  /// handler, the transform stream will receive the first full incoming frame
+  /// for the track.
+  ///
+  /// ### Value
+  ///
+  /// A [RTCRtpScriptTransform]<!-- or [SFrameTransform] -->, or `null` if the
+  /// receiver has no associated transform stream.
+  external RTCRtpTransform? get transform;
+  external set transform(RTCRtpTransform? value);
 }
 extension type RTCRtpContributingSource._(JSObject _) implements JSObject {
   external factory RTCRtpContributingSource({
@@ -1650,10 +1650,6 @@ extension type RTCIceTransport._(JSObject _) implements EventTarget, JSObject {
   /// delivered to the transport when the client calls
   /// [RTCPeerConnection.setRemoteDescription].
   external RTCIceParameters? getRemoteParameters();
-  external EventHandler get onerror;
-  external set onerror(EventHandler value);
-  external EventHandler get onicecandidate;
-  external set onicecandidate(EventHandler value);
 
   /// The **`role`** read-only property of the [RTCIceTransport] interface
   /// indicates which  role the transport is fulfilling: that of the controlling
@@ -1693,6 +1689,10 @@ extension type RTCIceTransport._(JSObject _) implements EventTarget, JSObject {
   external set ongatheringstatechange(EventHandler value);
   external EventHandler get onselectedcandidatepairchange;
   external set onselectedcandidatepairchange(EventHandler value);
+  external EventHandler get onerror;
+  external set onerror(EventHandler value);
+  external EventHandler get onicecandidate;
+  external set onicecandidate(EventHandler value);
 }
 
 /// The **`RTCIceParameters`** dictionary specifies the username fragment and
@@ -2295,8 +2295,6 @@ extension type RTCError._(JSObject _) implements DOMException, JSObject {
     String message,
   ]);
 
-  external int? get httpRequestStatusCode;
-
   /// The [RTCError] interface's read-only
   /// **`errorDetail`** property is a string indicating the
   /// [WebRTC](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)-specific
@@ -2324,6 +2322,7 @@ extension type RTCError._(JSObject _) implements DOMException, JSObject {
   /// while sending data to the remote peer, if the error represents an outbound
   /// DTLS error.
   external int? get sentAlert;
+  external int? get httpRequestStatusCode;
 }
 extension type RTCErrorInit._(JSObject _) implements JSObject {
   external factory RTCErrorInit({

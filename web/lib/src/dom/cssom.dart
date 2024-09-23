@@ -352,18 +352,6 @@ extension type CSSRuleList._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSRule).
 extension type CSSRule._(JSObject _) implements JSObject {
-  static const int KEYFRAMES_RULE = 7;
-
-  static const int KEYFRAME_RULE = 8;
-
-  static const int SUPPORTS_RULE = 12;
-
-  static const int COUNTER_STYLE_RULE = 11;
-
-  static const int FONT_FEATURE_VALUES_RULE = 14;
-
-  static const int VIEW_TRANSITION_RULE = 15;
-
   static const int STYLE_RULE = 1;
 
   static const int CHARSET_RULE = 2;
@@ -379,6 +367,18 @@ extension type CSSRule._(JSObject _) implements JSObject {
   static const int MARGIN_RULE = 9;
 
   static const int NAMESPACE_RULE = 10;
+
+  static const int KEYFRAMES_RULE = 7;
+
+  static const int KEYFRAME_RULE = 8;
+
+  static const int SUPPORTS_RULE = 12;
+
+  static const int COUNTER_STYLE_RULE = 11;
+
+  static const int FONT_FEATURE_VALUES_RULE = 14;
+
+  static const int VIEW_TRANSITION_RULE = 15;
 
   /// The **`cssText`** property of the [CSSRule]
   /// interface returns the actual text of a [CSSStyleSheet] style-rule.
@@ -439,11 +439,6 @@ extension type CSSRule._(JSObject _) implements JSObject {
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleRule).
 extension type CSSStyleRule._(JSObject _) implements CSSGroupingRule, JSObject {
-  /// The **`styleMap`** read-only property of the
-  /// [CSSStyleRule] interface returns a [StylePropertyMap] object
-  /// which provides access to the rule's property-value pairs.
-  external StylePropertyMap get styleMap;
-
   /// The **`selectorText`** property of the [CSSStyleRule] interface gets and
   /// sets the selectors associated with the `CSSStyleRule`.
   external String get selectorText;
@@ -454,6 +449,11 @@ extension type CSSStyleRule._(JSObject _) implements CSSGroupingRule, JSObject {
   /// [declaration block](https://www.w3.org/TR/1998/REC-CSS2-19980512/syndata.html#block)
   /// of the [CSSStyleRule].
   external JSObject get style;
+
+  /// The **`styleMap`** read-only property of the
+  /// [CSSStyleRule] interface returns a [StylePropertyMap] object
+  /// which provides access to the rule's property-value pairs.
+  external StylePropertyMap get styleMap;
 }
 
 /// The **`CSSImportRule`** interface represents an
@@ -1930,6 +1930,7 @@ external $CSS get CSS;
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSS).
 @JS('CSS')
 extension type $CSS._(JSObject _) implements JSObject {
+  external String escape(String ident);
   external bool supports(
     String conditionTextOrProperty, [
     String value,
@@ -1999,6 +2000,5 @@ extension type $CSS._(JSObject _) implements JSObject {
   external CSSUnitValue dpcm(num value);
   external CSSUnitValue dppx(num value);
   external CSSUnitValue fr(num value);
-  external String escape(String ident);
   external HighlightRegistry get highlights;
 }

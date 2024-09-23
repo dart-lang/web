@@ -256,17 +256,19 @@ extension WindowEventGetters on Window {
   Stream<KeyboardEvent> get onKeyDown =>
       EventStreamProviders.keyDownEvent.forTarget(this);
 
-  Stream<TouchEvent> get onTouchMove =>
-      EventStreamProviders.touchMoveEvent.forTarget(this);
+  Stream<KeyboardEvent> get onKeyPress =>
+      EventStreamProviders.keyPressEvent.forTarget(this);
+
+  Stream<Event> get onLoad => EventStreamProviders.loadEvent.forTarget(this);
+
+  Stream<MessageEvent> get onMessage =>
+      EventStreamProviders.messageEvent.forTarget(this);
 
   Stream<PopStateEvent> get onPopState =>
       EventStreamProviders.popStateEvent.forTarget(this);
 
-  Stream<KeyboardEvent> get onKeyPress =>
-      EventStreamProviders.keyPressEvent.forTarget(this);
-
-  Stream<MessageEvent> get onMessage =>
-      EventStreamProviders.messageEvent.forTarget(this);
+  Stream<TouchEvent> get onTouchMove =>
+      EventStreamProviders.touchMoveEvent.forTarget(this);
 }
 
 extension ElementCustomEvents on Element {
@@ -278,6 +280,8 @@ extension ElementCustomEvents on Element {
 }
 
 extension DocumentCustomEvents on Document {
+  Stream<Event> get onLoad => EventStreamProviders.loadEvent.forTarget(this);
+
   Stream<WheelEvent> get onMouseWheel =>
       CustomEventProviders.mouseWheelEvent.forTarget(this);
 

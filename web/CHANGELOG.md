@@ -12,6 +12,11 @@
   `switch`ed over.
 - Add an extension `responseHeaders` to `XMLHttpRequest`.
 - Correctly namespace `WebAssembly` types.
+- Added `CrossOriginWindow` and `CrossOriginLocation` wrappers for cross-origin
+  windows and locations, respectively, that can be accessed through
+  `HTMLIFrameElement.contentWindowCrossOrigin`, `Window.openCrossOrigin`,
+  `Window.openerCrossOrigin`, `Window.topCrossOrigin`,
+  and `Window.parentCrossOrigin`.
 
 ## 1.0.0
 

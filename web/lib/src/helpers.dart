@@ -27,6 +27,7 @@ import 'dart:js_interop_unsafe';
 import 'dom.dart';
 import 'helpers/lists.dart';
 
+export 'helpers/cross_origin.dart' show CrossOriginLocation, CrossOriginWindow;
 export 'helpers/enums.dart';
 export 'helpers/events/events.dart';
 export 'helpers/events/providers.dart';

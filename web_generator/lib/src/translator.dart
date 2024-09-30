@@ -524,7 +524,9 @@ class _PartialInterfacelike {
           }
           final isStatic = operation.special == 'static';
           if (shouldQueryMDN &&
-              !_shouldGenerateMember(operationName, isStatic: isStatic)) break;
+              !_shouldGenerateMember(operationName, isStatic: isStatic)) {
+            break;
+          }
           final docs = shouldQueryMDN
               ? mdnInterface?.propertyFor(operationName, isStatic: isStatic)
               : null;

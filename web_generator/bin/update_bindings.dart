@@ -13,6 +13,7 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:args/args.dart';
 import 'package:io/ansi.dart' as ansi;
 import 'package:io/io.dart';
+import 'package:package_config/package_config.dart';
 import 'package:path/path.dart' as p;
 
 void main(List<String> arguments) async {
@@ -48,6 +49,7 @@ $_usage''');
   await _generateJsTypeSupertypes();
 
   if (argResult['compile'] as bool) {
+    final webPkgLangVersion = await _webPackageLanguageVersion(_webPackagePath);
     // Compile Dart to Javascript.
     await _runProc(
       Platform.executable,
@@ -55,6 +57,8 @@ $_usage''');
         'compile',
         'js',
         '--enable-asserts',
+        '--server-mode',
+        '-DlanguageVersion=$webPkgLangVersion',
         'dart_main.dart',
         '-o',
         'dart_main.js',
@@ -64,8 +68,7 @@ $_usage''');
   }
 
   // Determine the set of previously generated files.
-  final domDir =
-      Directory(Platform.script.resolve('../../web/lib/src/dom').path);
+  final domDir = Directory(p.join(_webPackagePath, 'lib/src/dom'));
   final existingFiles =
       domDir.listSync(recursive: true).whereType<File>().where((file) {
     if (!file.path.endsWith('.dart')) return false;
@@ -83,7 +86,7 @@ $_usage''');
     'node',
     [
       'main.mjs',
-      '--output-directory=${Platform.script.resolve('../../web/lib/src').path}',
+      '--output-directory=${p.join(_webPackagePath, 'lib/src')}',
       if (generateAll) '--generate-all',
     ],
     workingDirectory: _bindingsGeneratorPath,
@@ -127,6 +130,25 @@ $_startComment
     readmeFile.writeAsStringSync(newContent, mode: FileMode.writeOnly);
   }
 }
+
+Future<String> _webPackageLanguageVersion(String pkgPath) async {
+  final packageConfig = await findPackageConfig(Directory(pkgPath));
+  if (packageConfig == null) {
+    throw StateError('No package config for "$pkgPath"');
+  }
+  final package =
+      packageConfig.packageOf(Uri.file(p.join(pkgPath, 'pubspec.yaml')));
+  if (package == null) {
+    throw StateError('No package at "$pkgPath"');
+  }
+  final languageVersion = package.languageVersion;
+  if (languageVersion == null) {
+    throw StateError('No language version "$pkgPath"');
+  }
+  return '$languageVersion.0';
+}
+
+final _webPackagePath = Platform.script.resolve('../../web').path;
 
 String _packageLockVersion(String package) {
   final packageLockData = jsonDecode(
@@ -174,9 +196,8 @@ Future<void> _runProc(
 // used by the translator to handle IDL types.
 Future<void> _generateJsTypeSupertypes() async {
   // Use a file that uses `dart:js_interop` for analysis.
-  final contextCollection = AnalysisContextCollection(includedPaths: [
-    p.fromUri(Platform.script.resolve('../../web/lib/src/dom.dart'))
-  ]);
+  final contextCollection = AnalysisContextCollection(
+      includedPaths: [p.join(_webPackagePath, 'lib/src/dom.dart')]);
   final dartJsInterop = (await contextCollection.contexts.single.currentSession
           .getLibraryByUri('dart:js_interop') as LibraryElementResult)
       .element;

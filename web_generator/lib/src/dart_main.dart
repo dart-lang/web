@@ -21,7 +21,7 @@ import 'util.dart';
 
 void main(List<String> args) async {
   var languageVersionString = const String.fromEnvironment('languageVersion');
-  if (languageVersionString == '') {
+  if (languageVersionString.isEmpty) {
     languageVersionString = DartFormatter.latestLanguageVersion.toString();
   }
   final ArgResults argResult;

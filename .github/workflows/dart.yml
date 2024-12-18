@@ -380,7 +380,7 @@ jobs:
       - job_008
       - job_009
   job_011:
-    name: "generate_and_analyze; Dart dev; PKG: web_generator; `dart bin/update_bindings.dart`"
+    name: "generate_and_analyze; Dart dev; PKG: web_generator; `dart pub -C ../web get; dart bin/update_bindings.dart`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
@@ -405,8 +405,8 @@ jobs:
         run: dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
         working-directory: web_generator
-      - name: web_generator; dart bin/update_bindings.dart
-        run: dart bin/update_bindings.dart
+      - name: "web_generator; dart pub -C ../web get; dart bin/update_bindings.dart"
+        run: "dart pub -C ../web get; dart bin/update_bindings.dart"
         if: "always() && steps.web_generator_pub_upgrade.conclusion == 'success'"
         working-directory: web_generator
     needs:
@@ -462,7 +462,7 @@ jobs:
       - job_010
       - job_011
   job_013:
-    name: "generate_all_and_analyze; Dart dev; PKG: web_generator; `dart bin/update_bindings.dart --generate-all`"
+    name: "generate_all_and_analyze; Dart dev; PKG: web_generator; `dart pub -C ../web get; dart bin/update_bindings.dart --generate-all`"
     runs-on: ubuntu-latest
     steps:
       - name: Cache Pub hosted dependencies
@@ -487,8 +487,8 @@ jobs:
         run: dart pub upgrade
         if: "always() && steps.checkout.conclusion == 'success'"
         working-directory: web_generator
-      - name: "web_generator; dart bin/update_bindings.dart --generate-all"
-        run: dart bin/update_bindings.dart --generate-all
+      - name: "web_generator; dart pub -C ../web get; dart bin/update_bindings.dart --generate-all"
+        run: "dart pub -C ../web get; dart bin/update_bindings.dart --generate-all"
         if: "always() && steps.web_generator_pub_upgrade.conclusion == 'success'"
         working-directory: web_generator
     needs:

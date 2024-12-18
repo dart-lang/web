@@ -9,9 +9,8 @@ stages:
   - test: --test-randomize-ordering-seed=random -p chrome
   - test: --test-randomize-ordering-seed=random -p chrome -c dart2wasm
 - generate_and_analyze:
-  - command: dart pub -C ../web get
-  - command: dart bin/update_bindings.dart
+  - command: dart pub -C ../web get; dart bin/update_bindings.dart
   - analyze: --fatal-infos .
 - generate_all_and_analyze:
-  - command: dart bin/update_bindings.dart --generate-all
+  - command: dart pub -C ../web get; dart bin/update_bindings.dart --generate-all
   - analyze: --fatal-infos .

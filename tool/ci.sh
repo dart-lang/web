@@ -72,12 +72,12 @@ for PKG in ${PKGS}; do
         dart fix --compare-to-golden test_fixes || EXIT_CODE=$?
         ;;
       command_1)
-        echo 'dart bin/update_bindings.dart'
-        dart bin/update_bindings.dart || EXIT_CODE=$?
+        echo 'dart pub -C ../web get; dart bin/update_bindings.dart'
+        dart pub -C ../web get; dart bin/update_bindings.dart || EXIT_CODE=$?
         ;;
       command_2)
-        echo 'dart bin/update_bindings.dart --generate-all'
-        dart bin/update_bindings.dart --generate-all || EXIT_CODE=$?
+        echo 'dart pub -C ../web get; dart bin/update_bindings.dart --generate-all'
+        dart pub -C ../web get; dart bin/update_bindings.dart --generate-all || EXIT_CODE=$?
         ;;
       format)
         echo 'dart format --output=none --set-exit-if-changed .'

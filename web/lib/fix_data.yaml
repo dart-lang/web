@@ -1187,15 +1187,6 @@ transforms:
     changes:
       - kind: 'rename'
         newName: 'HTMLUListElement'
-  # UnderlyingSourceBase => UnderlyingSource
-  - title: "Rename to 'UnderlyingSource'"
-    date: 2024-01-12
-    element:
-      uris: [ 'package:web/web.dart' ]
-      class: 'UnderlyingSourceBase'
-    changes:
-      - kind: 'rename'
-        newName: 'UnderlyingSource'
   # UnknownElement => HTMLUnknownElement
   - title: "Rename to 'HTMLUnknownElement'"
     date: 2024-01-12

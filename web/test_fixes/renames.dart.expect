@@ -135,7 +135,6 @@ late HTMLTimeElement $138;
 late HTMLTitleElement $139;
 late HTMLTrackElement $140;
 late HTMLUListElement $143;
-late UnderlyingSource $144;
 late HTMLUnknownElement $145;
 late URL $146;
 late URLSearchParams $147;

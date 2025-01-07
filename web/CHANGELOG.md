@@ -17,6 +17,7 @@
   `HTMLIFrameElement.contentWindowCrossOrigin`, `Window.openCrossOrigin`,
   `Window.openerCrossOrigin`, `Window.topCrossOrigin`,
   and `Window.parentCrossOrigin`.
+- Forced test `pubspec.yaml` web path to be POSIX-like path.
 
 ## 1.0.0
 

@@ -35,7 +35,7 @@ $_usage''');
     return;
   }
 
-  assert(p.fromUri(Platform.script).endsWith(_thisScript));
+  assert(p.fromUri(Platform.script).endsWith(_thisScript.toFilePath()));
 
   // Run `npm install` or `npm update` as needed.
   final update = argResult['update'] as bool;
@@ -68,7 +68,7 @@ $_usage''');
   }
 
   // Determine the set of previously generated files.
-  final domDir = Directory(p.join(_webPackagePath, 'lib/src/dom'));
+  final domDir = Directory(p.join(_webPackagePath, 'lib', 'src', 'dom'));
   final existingFiles =
       domDir.listSync(recursive: true).whereType<File>().where((file) {
     if (!file.path.endsWith('.dart')) return false;
@@ -86,7 +86,7 @@ $_usage''');
     'node',
     [
       'main.mjs',
-      '--output-directory=${p.join(_webPackagePath, 'lib/src')}',
+      '--output-directory=${p.join(_webPackagePath, 'lib', 'src')}',
       if (generateAll) '--generate-all',
     ],
     workingDirectory: _bindingsGeneratorPath,
@@ -101,9 +101,8 @@ $_usage''');
   }
 
   // Update readme.
-  final readmeFile = File(
-    p.normalize(Platform.script.resolve('../README.md').path),
-  );
+  final readmeFileUri = Platform.script.resolve('../README.md');
+  final readmeFile = File(p.normalize(p.context.fromUri(readmeFileUri)));
 
   final sourceContent = readmeFile.readAsStringSync();
 
@@ -148,7 +147,8 @@ Future<String> _webPackageLanguageVersion(String pkgPath) async {
   return '$languageVersion.0';
 }
 
-final _webPackagePath = Platform.script.resolve('../../web').path;
+final _webPackageUri = Platform.script.resolve('../../web');
+final _webPackagePath = p.context.fromUri(_webPackageUri);
 
 String _packageLockVersion(String package) {
   final packageLockData = jsonDecode(
@@ -161,18 +161,20 @@ String _packageLockVersion(String package) {
   return webRefIdl['version'] as String;
 }
 
-final _bindingsGeneratorPath = Platform.script.resolve('../lib/src').path;
+final _bindingsGeneratorUri = Platform.script.resolve('../lib/src');
+final _bindingsGeneratorPath = p.context.fromUri(_bindingsGeneratorUri);
 
 const _webRefCss = '@webref/css';
 const _webRefElements = '@webref/elements';
 const _webRefIdl = '@webref/idl';
 
-const _thisScript = 'bin/update_bindings.dart';
+final _thisScript = Uri.parse('bin/update_bindings.dart');
+final _scriptPOSIXPath = _thisScript.toFilePath(windows: false);
 
-const _startComment =
-    '<!-- START updated by $_thisScript. Do not modify by hand -->';
-const _endComment =
-    '<!-- END updated by $_thisScript. Do not modify by hand -->';
+final _startComment =
+    '<!-- START updated by $_scriptPOSIXPath. Do not modify by hand -->';
+final _endComment =
+    '<!-- END updated by $_scriptPOSIXPath. Do not modify by hand -->';
 
 Future<void> _runProc(
   String executable,
@@ -184,6 +186,7 @@ Future<void> _runProc(
     executable,
     arguments,
     mode: ProcessStartMode.inheritStdio,
+    runInShell: Platform.isWindows,
     workingDirectory: workingDirectory,
   );
   final procExit = await proc.exitCode;
@@ -197,7 +200,7 @@ Future<void> _runProc(
 Future<void> _generateJsTypeSupertypes() async {
   // Use a file that uses `dart:js_interop` for analysis.
   final contextCollection = AnalysisContextCollection(
-      includedPaths: [p.join(_webPackagePath, 'lib/src/dom.dart')]);
+      includedPaths: [p.join(_webPackagePath, 'lib', 'src', 'dom.dart')]);
   final dartJsInterop = (await contextCollection.contexts.single.currentSession
           .getLibraryByUri('dart:js_interop') as LibraryElementResult)
       .element;
@@ -240,7 +243,7 @@ Future<void> _generateJsTypeSupertypes() async {
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-// Updated by $_thisScript. Do not modify by hand.
+// Updated by $_scriptPOSIXPath. Do not modify by hand.
 
 const Map<String, String?> jsTypeSupertypes = {
 ${jsTypeSupertypes.entries.map((e) => "  ${e.key}: ${e.value},").join('\n')}

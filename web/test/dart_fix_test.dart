@@ -31,7 +31,7 @@ environment:
   sdk: '^$sdkVersion'
 dependencies:
   web:
-    path: ${Directory.current.path}
+    path: ${p.current.replaceAll(r'\', '/')}
 ''');
       final sourceFile = File(p.join('test_fixes', 'renames.dart'));
       writeFile(

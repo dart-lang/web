@@ -17,6 +17,8 @@
   `HTMLIFrameElement.contentWindowCrossOrigin`, `Window.openCrossOrigin`,
   `Window.openerCrossOrigin`, `Window.topCrossOrigin`,
   and `Window.parentCrossOrigin`.
+- Added missing `FileReader` event getters: `onAbort`, `onError`, `onLoad`,
+  `onLoadStart`, `onProgress`.
 
 ## 1.0.0
 

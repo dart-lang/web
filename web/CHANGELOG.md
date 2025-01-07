@@ -17,6 +17,8 @@
   `HTMLIFrameElement.contentWindowCrossOrigin`, `Window.openCrossOrigin`,
   `Window.openerCrossOrigin`, `Window.topCrossOrigin`,
   and `Window.parentCrossOrigin`.
+- Removed renames `UnderlyingSource` and `UnderlyingSourceBase` where the types 
+  don't exist.
 
 ## 1.0.0
 

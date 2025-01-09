@@ -1,6 +1,8 @@
 ## 1.2.0-wip
 - Added missing `FileReader` event getters: `onAbort`, `onError`, `onLoad`,
   `onLoadStart`, `onProgress`.
+- Removed renames `UnderlyingSource` and `UnderlyingSourceBase` where the types 
+  don't exist.
 
 ## 1.1.0
 
@@ -21,8 +23,6 @@
   `HTMLIFrameElement.contentWindowCrossOrigin`, `Window.openCrossOrigin`,
   `Window.openerCrossOrigin`, `Window.topCrossOrigin`,
   and `Window.parentCrossOrigin`.
-- Removed renames `UnderlyingSource` and `UnderlyingSourceBase` where the types 
-  don't exist.
 
 ## 1.0.0
 

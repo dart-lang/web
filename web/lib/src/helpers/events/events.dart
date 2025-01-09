@@ -243,9 +243,19 @@ extension EventSourceEventGetters on EventSource {
   Stream<Event> get onOpen => EventStreamProviders.openEvent.forTarget(this);
 }
 
-extension FileReaderEventGEtters on FileReader {
+extension FileReaderEventGetters on FileReader {
+  Stream<ProgressEvent> get onAbort =>
+      EventStreamProviders.abortEvent.forTarget(this);
+  Stream<ProgressEvent> get onError =>
+      EventStreamProviders.errorEvent.forTarget(this);
+  Stream<ProgressEvent> get onLoad =>
+      EventStreamProviders.loadEvent.forTarget(this);
   Stream<ProgressEvent> get onLoadEnd =>
       EventStreamProviders.loadEndEvent.forTarget(this);
+  Stream<ProgressEvent> get onLoadStart =>
+      EventStreamProviders.loadStartEvent.forTarget(this);
+  Stream<ProgressEvent> get onProgress =>
+      EventStreamProviders.progressEvent.forTarget(this);
 }
 
 extension AutoElementEventGetters on AudioNode {

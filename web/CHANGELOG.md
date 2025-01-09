@@ -1,3 +1,7 @@
+## 1.2.0-wip
+- Added missing `FileReader` event getters: `onAbort`, `onError`, `onLoad`,
+  `onLoadStart`, `onProgress`.
+
 ## 1.1.0
 
 - Added `HttpStatus` class that declares http status codes. This is a copy of 

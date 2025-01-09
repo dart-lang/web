@@ -14,8 +14,8 @@ Future<void> main(List<String> args) async {
   final offline = args.length == 1 && args.first == '--offline';
 
   // clone the repo
-  final repoUri = Platform.script.resolve('../.dart_tool/mdn_content');
-  final repoPath = p.context.fromUri(repoUri);
+  final repoPath =
+      p.fromUri(Platform.script.resolve('../.dart_tool/mdn_content'));
   final repoDir = Directory(repoPath);
   if (!repoDir.existsSync()) {
     await _run(
@@ -78,8 +78,8 @@ Future<void> main(List<String> args) async {
   print('${interfaces.length} items read from $gitUrl.');
 
   const encoder = JsonEncoder.withIndent('  ');
-  final fileUri = Platform.script.resolve('../../third_party/mdn/mdn.json');
-  final filePath = p.context.fromUri(fileUri);
+  final filePath =
+      p.fromUri(Platform.script.resolve('../../third_party/mdn/mdn.json'));
   final file = File(filePath);
   final json = {
     '__meta__': {

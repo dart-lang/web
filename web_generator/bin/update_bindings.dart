@@ -101,8 +101,8 @@ $_usage''');
   }
 
   // Update readme.
-  final readmeFileUri = Platform.script.resolve('../README.md');
-  final readmeFile = File(p.normalize(p.context.fromUri(readmeFileUri)));
+  final readmeFile =
+      File(p.normalize(p.fromUri(Platform.script.resolve('../README.md'))));
 
   final sourceContent = readmeFile.readAsStringSync();
 
@@ -147,8 +147,7 @@ Future<String> _webPackageLanguageVersion(String pkgPath) async {
   return '$languageVersion.0';
 }
 
-final _webPackageUri = Platform.script.resolve('../../web');
-final _webPackagePath = p.context.fromUri(_webPackageUri);
+final _webPackagePath = p.fromUri(Platform.script.resolve('../../web'));
 
 String _packageLockVersion(String package) {
   final packageLockData = jsonDecode(
@@ -161,8 +160,7 @@ String _packageLockVersion(String package) {
   return webRefIdl['version'] as String;
 }
 
-final _bindingsGeneratorUri = Platform.script.resolve('../lib/src');
-final _bindingsGeneratorPath = p.context.fromUri(_bindingsGeneratorUri);
+final _bindingsGeneratorPath = p.fromUri(Platform.script.resolve('../lib/src'));
 
 const _webRefCss = '@webref/css';
 const _webRefElements = '@webref/elements';

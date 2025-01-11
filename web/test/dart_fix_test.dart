@@ -25,6 +25,7 @@ void main() {
 
     try {
       // set up project
+      // Convert the current path to a POSIX path to avoid 'path_not_posix' lint.
       writeFile(tempDir, 'pubspec.yaml', '''
 name: test_project
 environment:

@@ -25,13 +25,14 @@ void main() {
 
     try {
       // set up project
+      // Convert the current path to a POSIX path to avoid 'path_not_posix' lint.
       writeFile(tempDir, 'pubspec.yaml', '''
 name: test_project
 environment:
   sdk: '^$sdkVersion'
 dependencies:
   web:
-    path: ${Directory.current.path}
+    path: ${p.current.replaceAll(r'\', '/')}
 ''');
       final sourceFile = File(p.join('test_fixes', 'renames.dart'));
       writeFile(

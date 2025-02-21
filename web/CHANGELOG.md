@@ -3,7 +3,7 @@
   `onLoadStart`, `onProgress`.
 - Removed renames `UnderlyingSource` and `UnderlyingSourceBase` where the types
   don't exist.
-- Add variadic arguments.
+- Fixed generation of variadic arguments to generate 4 optional parameters.
 
 ## 1.1.0
 

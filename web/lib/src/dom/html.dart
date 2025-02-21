@@ -1,4 +1,4 @@
-// Copyright (c) 2024, the Dart project authors.  Please see the AUTHORS file
+// Copyright (c) 2025, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 //
@@ -6918,7 +6918,12 @@ extension type HTMLSlotElement._(JSObject _) implements HTMLElement, JSObject {
   /// > shadow tree needs to have been
   /// > [created](https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow)
   /// > with the `slotAssignment: "manual"` option.
-  external void assign(JSObject nodes);
+  external void assign([
+    JSObject node1,
+    JSObject node2,
+    JSObject node3,
+    JSObject node4,
+  ]);
 
   /// The **`name`** property of the [HTMLSlotElement]
   /// interface returns or sets the slot name. A slot is a placeholder inside a
@@ -10320,15 +10325,21 @@ extension type Window._(JSObject _) implements EventTarget, JSObject {
   /// glossary entry.
   external String atob(String data);
   external int setTimeout(
-    TimerHandler handler,
-    JSAny? arguments, [
+    TimerHandler handler, [
     int timeout,
+    JSAny? argument1,
+    JSAny? argument2,
+    JSAny? argument3,
+    JSAny? argument4,
   ]);
   external void clearTimeout([int id]);
   external int setInterval(
-    TimerHandler handler,
-    JSAny? arguments, [
+    TimerHandler handler, [
     int timeout,
+    JSAny? argument1,
+    JSAny? argument2,
+    JSAny? argument3,
+    JSAny? argument4,
   ]);
   external void clearInterval([int id]);
   external void queueMicrotask(VoidFunction callback);
@@ -12775,7 +12786,12 @@ extension type WorkerGlobalScope._(JSObject _)
     implements EventTarget, JSObject {
   /// The **`importScripts()`** method of the [WorkerGlobalScope] interface
   /// synchronously imports one or more scripts into the worker's scope.
-  external void importScripts(JSAny urls);
+  external void importScripts([
+    JSAny url1,
+    JSAny url2,
+    JSAny url3,
+    JSAny url4,
+  ]);
   external void reportError(JSAny? e);
 
   /// The **`btoa()`** method of the [WorkerGlobalScope] interface creates a
@@ -12803,15 +12819,21 @@ extension type WorkerGlobalScope._(JSObject _)
   /// section in  glossary entry.
   external String atob(String data);
   external int setTimeout(
-    TimerHandler handler,
-    JSAny? arguments, [
+    TimerHandler handler, [
     int timeout,
+    JSAny? argument1,
+    JSAny? argument2,
+    JSAny? argument3,
+    JSAny? argument4,
   ]);
   external void clearTimeout([int id]);
   external int setInterval(
-    TimerHandler handler,
-    JSAny? arguments, [
+    TimerHandler handler, [
     int timeout,
+    JSAny? argument1,
+    JSAny? argument2,
+    JSAny? argument3,
+    JSAny? argument4,
   ]);
   external void clearInterval([int id]);
   external void queueMicrotask(VoidFunction callback);

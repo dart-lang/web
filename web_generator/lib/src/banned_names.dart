@@ -15,8 +15,11 @@ const bannedNames = <String>{
 
 /// Given a [jsName], returns the allowed Dart equivalent accounting for invalid
 /// characters and reserved keywords.
-String dartRename(String jsName) {
+String dartRename(String jsName, [bool toSingleForm = false]) {
   var dartName = jsName.replaceAll('-', '_');
+  if (toSingleForm && dartName.length > 2 && dartName.endsWith('s')) {
+    dartName = dartName.substring(0, dartName.length - 1);
+  }
   if (bannedNames.contains(dartName)) {
     dartName = '${dartName}_';
   }

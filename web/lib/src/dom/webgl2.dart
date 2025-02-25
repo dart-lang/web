@@ -127,8 +127,9 @@ extension type WebGLTransformFeedback._(JSObject _) implements JSObject {}
 /// - [WebGL2RenderingContext.isVertexArray]
 /// - [WebGL2RenderingContext.bindVertexArray]
 ///
-/// > **Note:** The [OES_vertex_array_object] extension allows you to use vertex
-/// > array objects in a WebGL 1 context.
+/// > [!NOTE]
+/// > The [OES_vertex_array_object] extension allows you to use vertex array
+/// > objects in a WebGL 1 context.
 ///
 /// ---
 ///
@@ -147,11 +148,12 @@ extension type WebGLVertexArrayObject._(JSObject _) implements JSObject {}
 /// const gl = canvas.getContext("webgl2");
 /// ```
 ///
-/// > **Note:** WebGL 2 is an extension to WebGL 1. The `WebGL2RenderingContext`
-/// > interface implements all members of the [WebGLRenderingContext] interface.
-/// > Some methods of the WebGL 1 context can accept additional values when used
-/// > in a WebGL 2 context. You will find this info noted on the WebGL 1
-/// > reference pages.
+/// > [!NOTE]
+/// > WebGL 2 is an extension to WebGL 1. The `WebGL2RenderingContext` interface
+/// > implements all members of the [WebGLRenderingContext] interface. Some
+/// > methods of the WebGL 1 context can accept additional values when used in a
+/// > WebGL 2 context. You will find this info noted on the WebGL 1 reference
+/// > pages.
 ///
 /// The
 /// [WebGL tutorial](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial)
@@ -1369,12 +1371,12 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
     GLsizei width,
     GLsizei height,
   );
-  external WebGLBuffer? createBuffer();
-  external WebGLFramebuffer? createFramebuffer();
-  external WebGLProgram? createProgram();
-  external WebGLRenderbuffer? createRenderbuffer();
+  external WebGLBuffer createBuffer();
+  external WebGLFramebuffer createFramebuffer();
+  external WebGLProgram createProgram();
+  external WebGLRenderbuffer createRenderbuffer();
   external WebGLShader? createShader(GLenum type);
-  external WebGLTexture? createTexture();
+  external WebGLTexture createTexture();
   external void cullFace(GLenum mode);
   external void deleteBuffer(WebGLBuffer? buffer);
   external void deleteFramebuffer(WebGLFramebuffer? framebuffer);
@@ -1868,6 +1870,17 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
     GLsizei width,
     GLsizei height,
   );
+
+  /// The **`compressedTexImage3D()`** method of the [WebGL2RenderingContext]
+  /// interface
+  /// of the
+  /// [WebGL API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
+  /// specifies a three-dimensional texture image in a compressed format.
+  ///
+  /// Compressed image formats must be enabled by
+  /// [WebGL extensions](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Using_Extensions)
+  /// before
+  /// using these methods.
   external void compressedTexImage3D(
     GLenum target,
     GLint level,
@@ -2044,8 +2057,9 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   /// with [WebGL2RenderingContext.drawArraysInstanced] and
   /// [WebGL2RenderingContext.drawElementsInstanced].
   ///
-  /// > **Note:** When using [WebGLRenderingContext], the
-  /// > [ANGLE_instanced_arrays] extension can provide this method,
+  /// > [!NOTE]
+  /// > When using [WebGLRenderingContext], the [ANGLE_instanced_arrays]
+  /// > extension can provide this method,
   /// > too.
   external void vertexAttribDivisor(
     GLuint index,
@@ -2060,7 +2074,8 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   /// method. In addition, it can execute multiple instances of the range of
   /// elements.
   ///
-  /// > **Note:** When using [WebGLRenderingContext],
+  /// > [!NOTE]
+  /// > When using [WebGLRenderingContext],
   /// > the [ANGLE_instanced_arrays] extension can provide this method,
   /// > too.
   external void drawArraysInstanced(
@@ -2078,8 +2093,9 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   /// addition, it can execute multiple instances of a set
   /// of elements.
   ///
-  /// > **Note:** When using [WebGLRenderingContext], the
-  /// > [ANGLE_instanced_arrays] extension can provide this method,
+  /// > [!NOTE]
+  /// > When using [WebGLRenderingContext], the [ANGLE_instanced_arrays]
+  /// > extension can provide this method,
   /// > too.
   external void drawElementsInstanced(
     GLenum mode,
@@ -2108,7 +2124,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   /// defines draw buffers to which
   /// fragment colors are written into. The draw buffer settings are part of the
   /// state of the
-  /// currently bound framebuffer or the drawingbuffer if no framebuffer is
+  /// currently bound framebuffer or the drawing buffer if no framebuffer is
   /// bound.
   external void drawBuffers(JSArray<JSNumber> buffers);
   external void clearBufferfv(
@@ -2141,7 +2157,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   /// creates and initializes
   /// [WebGLQuery] objects, which provide ways to asynchronously query for
   /// information.
-  external WebGLQuery? createQuery();
+  external WebGLQuery createQuery();
 
   /// The **`WebGL2RenderingContext.deleteQuery()`** method of the
   /// [WebGL 2 API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
@@ -2194,7 +2210,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   /// [WebGL 2 API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
   /// creates and initializes
   /// [WebGLSampler] objects.
-  external WebGLSampler? createSampler();
+  external WebGLSampler createSampler();
 
   /// The **`WebGL2RenderingContext.deleteSampler()`** method of the
   /// [WebGL 2 API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
@@ -2297,7 +2313,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   /// [WebGL 2 API](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
   /// creates and
   /// initializes [WebGLTransformFeedback] objects.
-  external WebGLTransformFeedback? createTransformFeedback();
+  external WebGLTransformFeedback createTransformFeedback();
 
   /// The **`WebGL2RenderingContext.deleteTransformFeedback()`**
   /// method of the
@@ -2480,7 +2496,7 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   /// pointing to vertex array data and which provides names for different sets
   /// of vertex
   /// data.
-  external WebGLVertexArrayObject? createVertexArray();
+  external WebGLVertexArrayObject createVertexArray();
 
   /// The **`WebGL2RenderingContext.deleteVertexArray()`** method of
   /// the
@@ -2653,6 +2669,42 @@ extension type WebGL2RenderingContext._(JSObject _) implements JSObject {
   external JSObject get canvas;
   external GLsizei get drawingBufferWidth;
   external GLsizei get drawingBufferHeight;
+
+  /// The **`WebGL2RenderingContext.drawingBufferColorSpace`** property
+  /// specifies the color space of the WebGL drawing buffer. Along with the
+  /// default (`srgb`), the `display-p3` color space can be used.
+  ///
+  /// See
+  /// [`WebGL2RenderingContext.unpackColorSpace`](https://developer.mozilla.org/en-US/docs/Web/API/WebGL2RenderingContext/unpackColorSpace)
+  /// for specifying the color space for textures.
   external PredefinedColorSpace get drawingBufferColorSpace;
   external set drawingBufferColorSpace(PredefinedColorSpace value);
+
+  /// The **`WebGL2RenderingContext.unpackColorSpace`** property specifies the
+  /// color space to convert to when importing textures. Along with the default
+  /// (`srgb`), the `display-p3` color space can be used.
+  ///
+  /// Texture image sources can be the following:
+  ///
+  /// - [`ImageBitmap`](https://developer.mozilla.org/en-US/docs/Web/API/ImageBitmap)
+  /// - [`ImageData`](https://developer.mozilla.org/en-US/docs/Web/API/ImageData)
+  /// - [`HTMLImageElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement)
+  /// - [`HTMLCanvasElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement)
+  /// - [`HTMLVideoElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLVideoElement)
+  /// - [`OffscreenCanvas`](https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas)
+  /// - [`VideoFrame`](https://developer.mozilla.org/en-US/docs/Web/API/VideoFrame)
+  ///
+  /// Textures are imported using the
+  /// [`WebGLRenderingContext.texImage2D()`](https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texImage2D)
+  /// and
+  /// [`WebGLRenderingContext.texSubImage2D()`](https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/texSubImage2D)
+  /// methods and conversion to the specified `unpackColorSpace` color space
+  /// happens during import.
+  ///
+  /// Note that this doesn't apply to
+  /// [`HTMLImageElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement)
+  /// when the `UNPACK_COLORSPACE_CONVERSION_WEBGL` pixel storage parameter is
+  /// set to `NONE`.
+  external PredefinedColorSpace get unpackColorSpace;
+  external set unpackColorSpace(PredefinedColorSpace value);
 }

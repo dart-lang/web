@@ -69,6 +69,9 @@ extension type MIDIOutputMap._(JSObject _) implements JSObject {}
 /// provides methods for listing MIDI input and output devices, and obtaining
 /// access to those devices.
 ///
+/// `MIDIAccess` is a
+/// [transferable object](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects).
+///
 /// ---
 ///
 /// API documentation sourced from
@@ -105,8 +108,9 @@ extension type MIDIPort._(JSObject _) implements EventTarget, JSObject {
   /// connected to this `MIDIPort` explicitly available.
   ///
   /// If the port is successfully opened a new [MIDIConnectionEvent] is queued
-  /// to the [MIDIPort.statechange_event] and [MIDIAccess.statechange_event]
-  /// events, and the [MIDIPort.connection] property is changed to `"open"`.
+  /// to the `MIDIPort` [MIDIPort.statechange_event] and `MIDIAccess`
+  /// [MIDIAccess.statechange_event] events, and the [MIDIPort.connection]
+  /// property is changed to `"open"`.
   ///
   /// If the port is already open when this method is called, then the promise
   /// will resolve successfully.
@@ -116,8 +120,9 @@ extension type MIDIPort._(JSObject _) implements EventTarget, JSObject {
   /// the MIDI device connected to this `MIDIPort` unavailable.
   ///
   /// If the port is successfully closed a new [MIDIConnectionEvent] is queued
-  /// to the [MIDIPort.statechange_event] and [MIDIAccess.statechange_event]
-  /// events, and the [MIDIPort.connection] property is changed to `"closed"`.
+  /// to the `MIDIPort` [MIDIPort.statechange_event] and `MIDIAccess`
+  /// [MIDIAccess.statechange_event] events, and the [MIDIPort.connection]
+  /// property is changed to `"closed"`.
   external JSPromise<MIDIPort> close();
 
   /// The **`id`** read-only property of the [MIDIPort] interface returns the

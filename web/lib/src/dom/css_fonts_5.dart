@@ -15,15 +15,19 @@ library;
 
 import 'dart:js_interop';
 
-/// The **`BluetoothUUID`** interface of the
-/// [Web Bluetooth API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API)
-/// provides a way to look up Universally Unique Identifier (UUID) values by
-/// name in the
-/// [registry](https://www.bluetooth.com/specifications/assigned-numbers/)
-/// maintained by the Bluetooth SIG.
+import 'cssom.dart';
+
+/// The **`CSSFontFaceRule`** interface represents an
+/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_syntax/At-rule).
 ///
 /// ---
 ///
 /// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/BluetoothUUID).
-extension type BluetoothUUID._(JSObject _) implements JSObject {}
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CSSFontFaceRule).
+extension type CSSFontFaceRule._(JSObject _) implements CSSRule, JSObject {
+  /// The read-only **`style`** property of the [CSSFontFaceRule] interface
+  /// returns the style information from the
+  /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_syntax/At-rule).
+  /// This will be in the form of a [CSSStyleDeclaration] object.
+  external JSObject get style;
+}

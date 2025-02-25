@@ -16,17 +16,33 @@ library;
 import 'dart:js_interop';
 
 typedef IdentityCredentialRequestOptionsContext = String;
+typedef IdentityCredentialRequestOptionsMode = String;
+
+/// The **`IdentityCredentialRequestOptions`** dictionary represents the object
+/// passed to [CredentialsContainer.get] as the value of the `identity` option.
+///
+/// It is used to request an [IdentityCredential] provided by a  that supports
+/// the [Federated Credential Management (FedCM)
+/// API](https://developer.mozilla.org/en-US/docs/Web/API/FedCM_API).
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/IdentityCredentialRequestOptions).
 extension type IdentityCredentialRequestOptions._(JSObject _)
     implements JSObject {
   external factory IdentityCredentialRequestOptions({
     required JSArray<IdentityProviderRequestOptions> providers,
     IdentityCredentialRequestOptionsContext context,
+    IdentityCredentialRequestOptionsMode mode,
   });
 
   external JSArray<IdentityProviderRequestOptions> get providers;
   external set providers(JSArray<IdentityProviderRequestOptions> value);
   external IdentityCredentialRequestOptionsContext get context;
   external set context(IdentityCredentialRequestOptionsContext value);
+  external IdentityCredentialRequestOptionsMode get mode;
+  external set mode(IdentityCredentialRequestOptionsMode value);
 }
 extension type IdentityProviderConfig._(JSObject _) implements JSObject {
   external factory IdentityProviderConfig({
@@ -47,6 +63,8 @@ extension type IdentityProviderRequestOptions._(JSObject _)
     String nonce,
     String loginHint,
     String domainHint,
+    JSArray<JSString> fields,
+    JSAny? params,
   });
 
   external String get nonce;
@@ -55,4 +73,8 @@ extension type IdentityProviderRequestOptions._(JSObject _)
   external set loginHint(String value);
   external String get domainHint;
   external set domainHint(String value);
+  external JSArray<JSString> get fields;
+  external set fields(JSArray<JSString> value);
+  external JSAny? get params;
+  external set params(JSAny? value);
 }

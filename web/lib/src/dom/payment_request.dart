@@ -18,6 +18,7 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
+typedef PaymentShippingType = String;
 typedef PaymentComplete = String;
 
 /// The [Payment Request
@@ -33,8 +34,9 @@ typedef PaymentComplete = String;
 extension type PaymentRequest._(JSObject _) implements EventTarget, JSObject {
   external factory PaymentRequest(
     JSArray<PaymentMethodData> methodData,
-    PaymentDetailsInit details,
-  );
+    PaymentDetailsInit details, [
+    PaymentOptions options,
+  ]);
 
   /// The **[PaymentRequest]** interface's
   /// **`show()`** method instructs the user agent to begin the
@@ -51,7 +53,8 @@ extension type PaymentRequest._(JSObject _) implements EventTarget, JSObject {
   /// fulfilled with a [PaymentResponse] indicating the results of the payment
   /// request, or by being rejected with an error.
   ///
-  /// > **Note:** In reality, despite the fact that the specification says this
+  /// > [!NOTE]
+  /// > In reality, despite the fact that the specification says this
   /// > can't be done, some browsers, including Firefox, support multiple active
   /// > payment
   /// > requests at a time.
@@ -139,11 +142,14 @@ extension type PaymentCurrencyAmount._(JSObject _) implements JSObject {
 extension type PaymentDetailsBase._(JSObject _) implements JSObject {
   external factory PaymentDetailsBase({
     JSArray<PaymentItem> displayItems,
+    JSArray<PaymentShippingOption> shippingOptions,
     JSArray<PaymentDetailsModifier> modifiers,
   });
 
   external JSArray<PaymentItem> get displayItems;
   external set displayItems(JSArray<PaymentItem> value);
+  external JSArray<PaymentShippingOption> get shippingOptions;
+  external set shippingOptions(JSArray<PaymentShippingOption> value);
   external JSArray<PaymentDetailsModifier> get modifiers;
   external set modifiers(JSArray<PaymentDetailsModifier> value);
 }
@@ -151,6 +157,7 @@ extension type PaymentDetailsInit._(JSObject _)
     implements PaymentDetailsBase, JSObject {
   external factory PaymentDetailsInit({
     JSArray<PaymentItem> displayItems,
+    JSArray<PaymentShippingOption> shippingOptions,
     JSArray<PaymentDetailsModifier> modifiers,
     String id,
     required PaymentItem total,
@@ -165,13 +172,23 @@ extension type PaymentDetailsUpdate._(JSObject _)
     implements PaymentDetailsBase, JSObject {
   external factory PaymentDetailsUpdate({
     JSArray<PaymentItem> displayItems,
+    JSArray<PaymentShippingOption> shippingOptions,
     JSArray<PaymentDetailsModifier> modifiers,
+    String error,
     PaymentItem total,
+    AddressErrors shippingAddressErrors,
+    PayerErrors payerErrors,
     JSObject paymentMethodErrors,
   });
 
+  external String get error;
+  external set error(String value);
   external PaymentItem get total;
   external set total(PaymentItem value);
+  external AddressErrors get shippingAddressErrors;
+  external set shippingAddressErrors(AddressErrors value);
+  external PayerErrors get payerErrors;
+  external set payerErrors(PayerErrors value);
   external JSObject get paymentMethodErrors;
   external set paymentMethodErrors(JSObject value);
 }
@@ -192,6 +209,29 @@ extension type PaymentDetailsModifier._(JSObject _) implements JSObject {
   external JSObject get data;
   external set data(JSObject value);
 }
+extension type PaymentOptions._(JSObject _) implements JSObject {
+  external factory PaymentOptions({
+    bool requestPayerName,
+    bool requestBillingAddress,
+    bool requestPayerEmail,
+    bool requestPayerPhone,
+    bool requestShipping,
+    PaymentShippingType shippingType,
+  });
+
+  external bool get requestPayerName;
+  external set requestPayerName(bool value);
+  external bool get requestBillingAddress;
+  external set requestBillingAddress(bool value);
+  external bool get requestPayerEmail;
+  external set requestPayerEmail(bool value);
+  external bool get requestPayerPhone;
+  external set requestPayerPhone(bool value);
+  external bool get requestShipping;
+  external set requestShipping(bool value);
+  external PaymentShippingType get shippingType;
+  external set shippingType(PaymentShippingType value);
+}
 extension type PaymentItem._(JSObject _) implements JSObject {
   external factory PaymentItem({
     required String label,
@@ -211,6 +251,23 @@ extension type PaymentCompleteDetails._(JSObject _) implements JSObject {
 
   external JSObject? get data;
   external set data(JSObject? value);
+}
+extension type PaymentShippingOption._(JSObject _) implements JSObject {
+  external factory PaymentShippingOption({
+    required String id,
+    required String label,
+    required PaymentCurrencyAmount amount,
+    bool selected,
+  });
+
+  external String get id;
+  external set id(String value);
+  external String get label;
+  external set label(String value);
+  external PaymentCurrencyAmount get amount;
+  external set amount(PaymentCurrencyAmount value);
+  external bool get selected;
+  external set selected(bool value);
 }
 
 /// The **`PaymentResponse`** interface of the
@@ -277,17 +334,110 @@ extension type PaymentResponse._(JSObject _) implements EventTarget, JSObject {
   /// request. Developers need to consult whomever controls the URL for the
   /// expected shape of the details object.
   external JSObject get details;
+
+  /// The **`shippingAddress`** read-only property of
+  /// the `PaymentRequest` interface returns a [PaymentAddress] object
+  /// containing the shipping address provided by the user.
+  external JSObject? get shippingAddress;
+
+  /// The **`shippingOption`** read-only property of
+  /// the `PaymentRequest` interface returns the ID attribute of the shipping
+  /// option selected by the user. This option is only present when the
+  /// `requestShipping` option is set to `true` in the
+  /// `options` object passed to the
+  /// [PaymentRequest.PaymentRequest] constructor.
+  external String? get shippingOption;
+
+  /// The **`payerName`** read-only property of the
+  /// [PaymentResponse] interface returns the name supplied by the user. This
+  /// option is only present when the `requestPayerName` option is set to
+  /// `true` in the options parameter of the
+  /// [PaymentRequest.PaymentRequest] constructor.
+  external String? get payerName;
+
+  /// The `payerEmail` read-only property of the [PaymentResponse]
+  /// interface returns the email address supplied by the user. This option is
+  /// only present
+  /// when the `requestPayerEmail` option is set to `true` in the
+  /// `options` object passed to the
+  /// [PaymentRequest.PaymentRequest] constructor.
+  external String? get payerEmail;
+
+  /// The `payerPhone` read-only property of the [PaymentResponse]
+  /// interface returns the phone number supplied by the user. This option is
+  /// only present
+  /// when the `requestPayerPhone` option is set to `true` in the
+  /// `options` object passed to the
+  /// [PaymentRequest.PaymentRequest] constructor.
+  external String? get payerPhone;
+  external EventHandler get onpayerdetailchange;
+  external set onpayerdetailchange(EventHandler value);
 }
 extension type PaymentValidationErrors._(JSObject _) implements JSObject {
   external factory PaymentValidationErrors({
+    PayerErrors payer,
+    AddressErrors shippingAddress,
     String error,
     JSObject paymentMethod,
   });
 
+  external PayerErrors get payer;
+  external set payer(PayerErrors value);
+  external AddressErrors get shippingAddress;
+  external set shippingAddress(AddressErrors value);
   external String get error;
   external set error(String value);
   external JSObject get paymentMethod;
   external set paymentMethod(JSObject value);
+}
+extension type PayerErrors._(JSObject _) implements JSObject {
+  external factory PayerErrors({
+    String email,
+    String name,
+    String phone,
+  });
+
+  external String get email;
+  external set email(String value);
+  external String get name;
+  external set name(String value);
+  external String get phone;
+  external set phone(String value);
+}
+extension type AddressErrors._(JSObject _) implements JSObject {
+  external factory AddressErrors({
+    String addressLine,
+    String city,
+    String country,
+    String dependentLocality,
+    String organization,
+    String phone,
+    String postalCode,
+    String recipient,
+    String region,
+    String sortingCode,
+  });
+
+  external String get addressLine;
+  external set addressLine(String value);
+  external String get city;
+  external set city(String value);
+  external String get country;
+  external set country(String value);
+  external String get dependentLocality;
+  external set dependentLocality(String value);
+  external String get organization;
+  external set organization(String value);
+  external String get phone;
+  external set phone(String value);
+  external String get postalCode;
+  external set postalCode(String value);
+  external String get recipient;
+  external set recipient(String value);
+  external String get region;
+  external set region(String value);
+  external String get sortingCode;
+  external set sortingCode(String value);
 }
 
 /// The **`PaymentMethodChangeEvent`** interface of the

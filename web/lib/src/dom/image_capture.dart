@@ -15,7 +15,84 @@ library;
 
 import 'dart:js_interop';
 
+import 'fileapi.dart';
+import 'mediacapture_streams.dart';
+
 typedef ConstrainPoint2D = JSObject;
+typedef RedEyeReduction = String;
+typedef FillLightMode = String;
+
+/// The **`ImageCapture`** interface of the
+/// [MediaStream Image Capture API](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Image_Capture_API)
+/// provides methods to enable the capture of images or photos from a camera or
+/// other photographic device. It provides an interface for capturing images
+/// from a photographic device referenced through a valid [MediaStreamTrack].
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ImageCapture).
+extension type ImageCapture._(JSObject _) implements JSObject {
+  external factory ImageCapture(MediaStreamTrack videoTrack);
+
+  /// The **`takePhoto()`** method of the
+  /// [ImageCapture] interface takes a single exposure using the video capture
+  /// device sourcing a [MediaStreamTrack] and returns a `Promise`
+  /// that resolves with a [Blob] containing the data.
+  external JSPromise<Blob> takePhoto([PhotoSettings photoSettings]);
+
+  /// The **`getPhotoCapabilities()`**
+  /// method of the [ImageCapture] interface returns a `Promise`
+  /// that resolves with an object containing the ranges of
+  /// available configuration options.
+  external JSPromise<PhotoCapabilities> getPhotoCapabilities();
+
+  /// The **`getPhotoSettings()`** method of
+  /// the [ImageCapture] interface returns a `Promise` that
+  /// resolves with an object containing the current photo
+  /// configuration settings.
+  external JSPromise<PhotoSettings> getPhotoSettings();
+
+  /// The **`track`** read-only property of the
+  /// [ImageCapture] interface returns a reference to the
+  /// [MediaStreamTrack] passed to the
+  /// [ImageCapture.ImageCapture] constructor.
+  external MediaStreamTrack get track;
+}
+extension type PhotoCapabilities._(JSObject _) implements JSObject {
+  external factory PhotoCapabilities({
+    RedEyeReduction redEyeReduction,
+    MediaSettingsRange imageHeight,
+    MediaSettingsRange imageWidth,
+    JSArray<JSString> fillLightMode,
+  });
+
+  external RedEyeReduction get redEyeReduction;
+  external set redEyeReduction(RedEyeReduction value);
+  external MediaSettingsRange get imageHeight;
+  external set imageHeight(MediaSettingsRange value);
+  external MediaSettingsRange get imageWidth;
+  external set imageWidth(MediaSettingsRange value);
+  external JSArray<JSString> get fillLightMode;
+  external set fillLightMode(JSArray<JSString> value);
+}
+extension type PhotoSettings._(JSObject _) implements JSObject {
+  external factory PhotoSettings({
+    FillLightMode fillLightMode,
+    num imageHeight,
+    num imageWidth,
+    bool redEyeReduction,
+  });
+
+  external FillLightMode get fillLightMode;
+  external set fillLightMode(FillLightMode value);
+  external double get imageHeight;
+  external set imageHeight(num value);
+  external double get imageWidth;
+  external set imageWidth(num value);
+  external bool get redEyeReduction;
+  external set redEyeReduction(bool value);
+}
 extension type MediaSettingsRange._(JSObject _) implements JSObject {
   external factory MediaSettingsRange({
     num max,

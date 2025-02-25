@@ -233,6 +233,7 @@ extension type WebTransportOptions._(JSObject _) implements JSObject {
     WebTransportCongestionControl congestionControl,
     int? anticipatedConcurrentIncomingUnidirectionalStreams,
     int? anticipatedConcurrentIncomingBidirectionalStreams,
+    JSArray<JSString> protocols,
   });
 
   external bool get allowPooling;
@@ -247,6 +248,8 @@ extension type WebTransportOptions._(JSObject _) implements JSObject {
   external set anticipatedConcurrentIncomingUnidirectionalStreams(int? value);
   external int? get anticipatedConcurrentIncomingBidirectionalStreams;
   external set anticipatedConcurrentIncomingBidirectionalStreams(int? value);
+  external JSArray<JSString> get protocols;
+  external set protocols(JSArray<JSString> value);
 }
 extension type WebTransportCloseInfo._(JSObject _) implements JSObject {
   external factory WebTransportCloseInfo({

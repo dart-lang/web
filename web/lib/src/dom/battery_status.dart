@@ -49,7 +49,8 @@ extension type BatteryManager._(JSObject _) implements EventTarget, JSObject {
   /// When its value changes, the [BatteryManager.chargingtimechange_event]
   /// event is fired.
   ///
-  /// > **Note:** Even if the time returned is precise to the second,
+  /// > [!NOTE]
+  /// > Even if the time returned is precise to the second,
   /// > browsers round them to a higher interval
   /// > (typically to the closest 15 minutes) for privacy reasons.
   external double get chargingTime;
@@ -62,8 +63,9 @@ extension type BatteryManager._(JSObject _) implements EventTarget, JSObject {
   /// When its value changes, the [BatteryManager.dischargingtimechange_event]
   /// event is fired.
   ///
-  /// > **Note:** Even if the time returned is precise to the second, browsers
-  /// > round them to a higher
+  /// > [!NOTE]
+  /// > Even if the time returned is precise to the second, browsers round them
+  /// > to a higher
   /// > interval (typically to the closest 15 minutes) for privacy reasons.
   external double get dischargingTime;
 

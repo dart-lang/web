@@ -28,7 +28,7 @@ typedef KeyFormat = String;
 /// to cryptographic primitives.
 ///
 /// The `Crypto` is available in windows using the [Window.crypto] property and
-/// in workers using the the [WorkerGlobalScope.crypto] property.
+/// in workers using the [WorkerGlobalScope.crypto] property.
 ///
 /// ---
 ///
@@ -114,14 +114,18 @@ extension type CryptoKey._(JSObject _) implements JSObject {
 /// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
 /// provides a number of low-level cryptographic functions.
 ///
+/// The interface name includes the term "subtle" to indicate that many of its
+/// algorithms have subtle usage requirements, and hence that it must be used
+/// carefully in order to provide suitable security guarantees.
+///
 /// An instance of `SubtleCrypto` is available as the [Crypto.subtle] property
 /// of the [Crypto] interface, which in turn is available in windows through the
 /// [Window.crypto] property and in workers through the
 /// [WorkerGlobalScope.crypto] property.
 ///
-/// > **Warning:** This API provides a number of low-level cryptographic
-/// > primitives. It's very easy to misuse them, and the pitfalls involved can
-/// > be very subtle.
+/// > [!WARNING]
+/// > This API provides a number of low-level cryptographic primitives. It's
+/// > very easy to misuse them, and the pitfalls involved can be very subtle.
 /// >
 /// > Even assuming you use the basic cryptographic functions correctly, secure
 /// > key management and overall security system design are extremely hard to
@@ -147,7 +151,7 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   /// parameters, and the data to encrypt (also known as "plaintext").
   /// It returns a `Promise` which will be fulfilled with the encrypted data
   /// (also known as "ciphertext").
-  external JSPromise<JSAny?> encrypt(
+  external JSPromise<JSArrayBuffer> encrypt(
     AlgorithmIdentifier algorithm,
     CryptoKey key,
     BufferSource data,
@@ -159,14 +163,14 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   /// and the data to decrypt (also known as "ciphertext").
   /// It returns a `Promise` which will be fulfilled with the decrypted data
   /// (also known as "plaintext").
-  external JSPromise<JSAny?> decrypt(
+  external JSPromise<JSArrayBuffer> decrypt(
     AlgorithmIdentifier algorithm,
     CryptoKey key,
     BufferSource data,
   );
 
-  /// The **`sign()`** method of the [SubtleCrypto]
-  /// interface generates a digital .
+  /// The **`sign()`** method of the [SubtleCrypto] interface generates a
+  /// digital .
   ///
   /// It takes as its arguments a  to sign with, some algorithm-specific
   /// parameters, and the data to sign. It returns a `Promise` which will be
@@ -174,7 +178,7 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   ///
   /// You can use the corresponding [SubtleCrypto.verify] method to verify the
   /// signature.
-  external JSPromise<JSAny?> sign(
+  external JSPromise<JSArrayBuffer> sign(
     AlgorithmIdentifier algorithm,
     CryptoKey key,
     BufferSource data,
@@ -185,10 +189,10 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   ///
   /// It takes as its arguments a  to verify the signature with, some
   /// algorithm-specific parameters, the signature, and the original signed
-  /// data. It returns a
-  /// `Promise` which will be fulfilled with a boolean value
+  /// data.
+  /// It returns a `Promise` which will be fulfilled with a boolean value
   /// indicating whether the signature is valid.
-  external JSPromise<JSAny?> verify(
+  external JSPromise<JSBoolean> verify(
     AlgorithmIdentifier algorithm,
     CryptoKey key,
     BufferSource signature,
@@ -209,36 +213,36 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   ///
   /// Note that this API does not support streaming input: you must read the
   /// entire input into memory before passing it into the digest function.
-  external JSPromise<JSAny?> digest(
+  external JSPromise<JSArrayBuffer> digest(
     AlgorithmIdentifier algorithm,
     BufferSource data,
   );
 
-  /// Use the **`generateKey()`** method of the
-  /// [SubtleCrypto] interface to generate a new key (for symmetric algorithms)
-  /// or key pair (for public-key algorithms).
-  external JSPromise<JSAny?> generateKey(
+  /// The **`generateKey()`** method of the [SubtleCrypto] interface is used to
+  /// generate a new key (for symmetric algorithms) or key pair (for public-key
+  /// algorithms).
+  external JSPromise<JSObject> generateKey(
     AlgorithmIdentifier algorithm,
     bool extractable,
     JSArray<JSString> keyUsages,
   );
 
-  /// The **`deriveKey()`** method of the [SubtleCrypto]
-  /// interface can be used to derive a secret key from a master key.
+  /// The **`deriveKey()`** method of the [SubtleCrypto] interface can be used
+  /// to derive a secret key from a master key.
   ///
   /// It takes as arguments some initial key material, the derivation algorithm
-  /// to use, and
-  /// the desired properties for the key to derive. It returns a
+  /// to use, and the desired properties for the key to derive.
+  /// It returns a
   /// [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
   /// which will be fulfilled with a [CryptoKey] object representing the new
   /// key.
   ///
-  /// It's worth noting that the three key derivation algorithms you can use
-  /// have quite
+  /// It's worth noting that the supported key derivation algorithms have quite
   /// different characteristics and are appropriate in quite different
-  /// situations. See [Supported algorithms](#supported_algorithms) for some
-  /// more detail on this.
-  external JSPromise<JSAny?> deriveKey(
+  /// situations.
+  /// See [Supported algorithms](#supported_algorithms) for some more detail on
+  /// this.
+  external JSPromise<CryptoKey> deriveKey(
     AlgorithmIdentifier algorithm,
     CryptoKey baseKey,
     AlgorithmIdentifier derivedKeyType,
@@ -269,14 +273,15 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   /// [`importKey()`](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/importKey).
   ///
   /// This function supports the same derivation algorithms as `deriveKey()`:
-  /// ECDH, HKDF, and PBKDF2. See
+  /// ECDH, HKDF, PBKDF2, and X25519.
+  /// See
   /// [Supported algorithms](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/deriveKey#supported_algorithms)
   /// for some more detail on these algorithms.
   external JSPromise<JSArrayBuffer> deriveBits(
     AlgorithmIdentifier algorithm,
-    CryptoKey baseKey,
-    int length,
-  );
+    CryptoKey baseKey, [
+    int? length,
+  ]);
 
   /// The **`importKey()`** method of the [SubtleCrypto]
   /// interface imports a key: that is, it takes as input a key in an external,
@@ -312,7 +317,7 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   /// the
   /// [`SubtleCrypto.wrapKey()`](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/wrapKey)
   /// API instead.
-  external JSPromise<JSAny?> exportKey(
+  external JSPromise<JSObject> exportKey(
     KeyFormat format,
     CryptoKey key,
   );
@@ -335,7 +340,7 @@ extension type SubtleCrypto._(JSObject _) implements JSObject {
   ///
   /// The inverse of `wrapKey()` is [SubtleCrypto.unwrapKey]: while `wrapKey` is
   /// composed of export + encrypt, `unwrapKey` is composed of import + decrypt.
-  external JSPromise<JSAny?> wrapKey(
+  external JSPromise<JSArrayBuffer> wrapKey(
     KeyFormat format,
     CryptoKey key,
     CryptoKey wrappingKey,
@@ -446,4 +451,34 @@ extension type JsonWebKey._(JSObject _) implements JSObject {
   external set oth(JSArray<RsaOtherPrimesInfo> value);
   external String get k;
   external set k(String value);
+}
+
+/// The **`CryptoKeyPair`** dictionary of the
+/// [Web Crypto API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API)
+/// represents a key pair for an asymmetric cryptography algorithm, also known
+/// as a public-key algorithm.
+///
+/// A `CryptoKeyPair` object can be obtained using [SubtleCrypto.generateKey],
+/// when the selected algorithm is one of the asymmetric algorithms:
+/// RSASSA-PKCS1-v1_5, RSA-PSS, RSA-OAEP, ECDSA, or ECDH.
+///
+/// It contains two properties, which are both
+/// [`CryptoKey`](https://developer.mozilla.org/en-US/docs/Web/API/CryptoKey)
+/// objects: a `privateKey` property containing the private key and a
+/// `publicKey` property containing the public key.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/CryptoKeyPair).
+extension type CryptoKeyPair._(JSObject _) implements JSObject {
+  external factory CryptoKeyPair({
+    CryptoKey publicKey,
+    CryptoKey privateKey,
+  });
+
+  external CryptoKey get publicKey;
+  external set publicKey(CryptoKey value);
+  external CryptoKey get privateKey;
+  external set privateKey(CryptoKey value);
 }

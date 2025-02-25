@@ -25,7 +25,7 @@ typedef PerformanceObserverCallback = JSFunction;
 ///
 /// The Performance API offers built-in metrics which are specialized subclasses
 /// of `PerformanceEntry`. This includes entries for resource loading, event
-/// timing,  (FID), and more.
+/// timing, and more.
 ///
 /// A performance entry can also be created by calling the [Performance.mark] or
 /// [Performance.measure] methods at an explicit point in an application. This
@@ -72,8 +72,8 @@ extension type PerformanceEntry._(JSObject _) implements JSObject {
   external String get entryType;
 
   /// The read-only **`startTime`** property returns the first  recorded for
-  /// this . The meaning of this property depends on the value of this entry's
-  /// [PerformanceEntry.entryType].
+  /// this [PerformanceEntry]. The meaning of this property depends on the value
+  /// of this entry's [PerformanceEntry.entryType].
   external double get startTime;
 
   /// The read-only **`duration`** property returns a  that is the duration of
@@ -118,8 +118,8 @@ extension type PerformanceObserver._(JSObject _) implements JSObject {
   external void disconnect();
 
   /// The **`takeRecords()`** method of the [PerformanceObserver] interface
-  /// returns the current list of [PerformanceEntry] stored in the performance
-  /// observer, emptying it out.
+  /// returns the current list of [PerformanceEntry] objects stored in the
+  /// performance observer, emptying it out.
   external PerformanceEntryList takeRecords();
 }
 extension type PerformanceObserverInit._(JSObject _) implements JSObject {

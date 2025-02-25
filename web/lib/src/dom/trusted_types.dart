@@ -96,12 +96,14 @@ extension type TrustedTypePolicyFactory._(JSObject _) implements JSObject {
   /// an injection sink. This can be used in a transitional phase while moving
   /// from an application that inserted strings into injection sinks.
   ///
-  /// > **Note:** The above behavior is not yet settled in the specification and
-  /// > may change in future.
+  /// > [!NOTE]
+  /// > The above behavior is not yet settled in the specification and may
+  /// > change in future.
   ///
-  /// > **Warning:** A lax default policy could defeat the purpose of using
-  /// > Trusted Types, and therefore should be defined with strict rules to
-  /// > ensure it cannot be used to run dangerous code.
+  /// > [!WARNING]
+  /// > A lax default policy could defeat the purpose of using Trusted Types,
+  /// > and therefore should be defined with strict rules to ensure it cannot be
+  /// > used to run dangerous code.
   external TrustedTypePolicy createPolicy(
     String policyName, [
     TrustedTypePolicyOptions policyOptions,
@@ -110,7 +112,8 @@ extension type TrustedTypePolicyFactory._(JSObject _) implements JSObject {
   /// The **`isHTML()`** method of the [TrustedTypePolicyFactory] interface
   /// returns true if it is passed a valid [TrustedHTML] object.
   ///
-  /// > **Note:** The purpose of the functions `isHTML()`,
+  /// > [!NOTE]
+  /// > The purpose of the functions `isHTML()`,
   /// > [TrustedTypePolicyFactory.isScript], and
   /// > [TrustedTypePolicyFactory.isScriptURL] is to check if the object is a
   /// > valid TrustedType object, created by a configured policy.
@@ -119,7 +122,8 @@ extension type TrustedTypePolicyFactory._(JSObject _) implements JSObject {
   /// The **`isScript()`** method of the [TrustedTypePolicyFactory] interface
   /// returns true if it is passed a valid [TrustedScript] object.
   ///
-  /// > **Note:** The purpose of the functions `isScript()`,
+  /// > [!NOTE]
+  /// > The purpose of the functions `isScript()`,
   /// > [TrustedTypePolicyFactory.isHTML], and
   /// > [TrustedTypePolicyFactory.isScriptURL] is to check if the object is a
   /// > valid TrustedType object, created by a configured policy.
@@ -128,7 +132,8 @@ extension type TrustedTypePolicyFactory._(JSObject _) implements JSObject {
   /// The **`isScriptURL()`** method of the [TrustedTypePolicyFactory] interface
   /// returns true if it is passed a valid [TrustedScriptURL] object.
   ///
-  /// > **Note:** The purpose of the functions `isScriptURL()`,
+  /// > [!NOTE]
+  /// > The purpose of the functions `isScriptURL()`,
   /// > [TrustedTypePolicyFactory.isHTML], and
   /// > [TrustedTypePolicyFactory.isScript] is to check if the object is a valid
   /// > TrustedType object, created by a configured policy.
@@ -172,9 +177,10 @@ extension type TrustedTypePolicyFactory._(JSObject _) implements JSObject {
   /// [TrustedTypePolicyFactory] interface returns the default
   /// [TrustedTypePolicy] or null if this is empty.
   ///
-  /// > **Note:** Information about the creation and use of default policies can
-  /// > be found in the
-  /// > [`createPolicy()`](/en-US/docs/Web/API/TrustedTypePolicyFactory/createPolicy#default_policy)
+  /// > [!NOTE]
+  /// > Information about the creation and use of default policies can be found
+  /// > in the
+  /// > [`createPolicy()`](/en-US/docs/Web/API/TrustedTypePolicyFactory/createPolicy#the_default_policy)
   /// > documentation.
   external TrustedTypePolicy? get defaultPolicy;
 }

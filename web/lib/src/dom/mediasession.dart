@@ -57,6 +57,28 @@ extension type MediaSession._(JSObject _) implements JSObject {
   /// [navigator.mediaSession] object.
   external void setPositionState([MediaPositionState state]);
 
+  /// The **`setMicrophoneActive()`** method of the [MediaSession] interface is
+  /// used to indicate to the user agent whether the user's microphone is
+  /// considered to be currently muted.
+  ///
+  /// Call this method on the `navigator` object's
+  /// [navigator.mediaSession] object.
+  ///
+  /// Note that the status of the microphone is not tracked in the
+  /// [MediaSession] itself, but must be tracked separately.
+  external JSPromise<JSAny?> setMicrophoneActive(bool active);
+
+  /// The **`setCameraActive()`** method of the [MediaSession] interface is used
+  /// to indicate to the user agent whether the user's camera is considered to
+  /// be active.
+  ///
+  /// Call this method on the `navigator` object's
+  /// [navigator.mediaSession] object.
+  ///
+  /// Note that the status of the camera is not tracked in the [MediaSession]
+  /// itself, but must be tracked separately.
+  external JSPromise<JSAny?> setCameraActive(bool active);
+
   /// The **`metadata`** property of the [MediaSession]
   /// interface contains a [MediaMetadata] object providing descriptive
   /// information about the currently playing media, or `null` if the metadata
@@ -85,29 +107,29 @@ extension type MediaMetadata._(JSObject _) implements JSObject {
   external factory MediaMetadata([MediaMetadataInit init]);
 
   /// The **`title`** property of the
-  /// [MediaMetaData] interface returns or sets the title of the media to be
+  /// [MediaMetadata] interface returns or sets the title of the media to be
   /// played.
   external String get title;
   external set title(String value);
 
   /// The **`artist`** property of the
-  /// [MediaMetaData] interface returns or sets the name of the artist, group,
+  /// [MediaMetadata] interface returns or sets the name of the artist, group,
   /// creator, etc., of the media to be played.
   external String get artist;
   external set artist(String value);
 
   /// The **`album`** property of the
-  /// [MediaMetaData] interface returns or sets the name of the album or
+  /// [MediaMetadata] interface returns or sets the name of the album or
   /// collection containing the media to be played.
   external String get album;
   external set album(String value);
 
   /// The **`artwork`** property of the
-  /// [MediaMetaData] interface returns or sets an array of
+  /// [MediaMetadata] interface returns or sets an array of
   /// objects representing images associated with playing
   /// media.
-  external JSArray<MediaImage> get artwork;
-  external set artwork(JSArray<MediaImage> value);
+  external JSArray<JSObject> get artwork;
+  external set artwork(JSArray<JSObject> value);
 }
 extension type MediaMetadataInit._(JSObject _) implements JSObject {
   external factory MediaMetadataInit({

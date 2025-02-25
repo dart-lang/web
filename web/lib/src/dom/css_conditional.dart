@@ -19,8 +19,8 @@ import 'cssom.dart';
 
 /// An object implementing the **`CSSConditionRule`** interface represents a
 /// single condition CSS
-/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule), which
-/// consists of a condition and a statement block.
+/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_syntax/At-rule),
+/// which consists of a condition and a statement block.
 ///
 /// Three objects derive from `CSSConditionRule`: [CSSMediaRule],
 /// [CSSContainerRule] and [CSSSupportsRule].
@@ -46,13 +46,13 @@ extension type CSSConditionRule._(JSObject _)
 extension type CSSMediaRule._(JSObject _)
     implements CSSConditionRule, JSObject {
   /// The read-only **`media`** property of the
-  /// [CSSMediaRule] interface [MediaList] represents the intended
+  /// [CSSMediaRule] interface returns a [MediaList] representing the intended
   /// destination medium for style information.
   external MediaList get media;
 }
 
 /// The **`CSSSupportsRule`** interface represents a single CSS
-/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
+/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_syntax/At-rule).
 ///
 /// ---
 ///

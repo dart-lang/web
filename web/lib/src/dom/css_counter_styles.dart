@@ -18,7 +18,7 @@ import 'dart:js_interop';
 import 'cssom.dart';
 
 /// The **`CSSCounterStyleRule`** interface represents an
-/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
+/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_syntax/At-rule).
 ///
 /// ---
 ///

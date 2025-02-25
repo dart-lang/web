@@ -26,7 +26,7 @@ import 'web_locks.dart';
 typedef SameSiteCookiesType = String;
 
 /// The **`StorageAccessHandle`** interface represents access to
-/// [unpartitioned state](https://developer.mozilla.org/en-US/docs/Web/Privacy/State_Partitioning#state_partitioning)
+/// [unpartitioned state](https://developer.mozilla.org/en-US/docs/Web/Privacy/Guides/State_Partitioning#state_partitioning)
 /// granted by a call to [Document.requestStorageAccess].
 ///
 /// ---
@@ -34,23 +34,29 @@ typedef SameSiteCookiesType = String;
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/StorageAccessHandle).
 extension type StorageAccessHandle._(JSObject _) implements JSObject {
-  /// > **Note:** See [StorageManager.getDirectory] to understand usage.
+  /// > [!NOTE]
+  /// > See [StorageManager.getDirectory] to understand usage.
   external JSPromise<FileSystemDirectoryHandle> getDirectory();
 
-  /// > **Note:** See [StorageManager.estimate] to understand usage.
+  /// > [!NOTE]
+  /// > See [StorageManager.estimate] to understand usage.
   external JSPromise<StorageEstimate> estimate();
 
-  /// > **Note:** See [URL.createObjectURL_static] to understand usage.
+  /// > [!NOTE]
+  /// > See [URL.createObjectURL_static] to understand usage.
   external String createObjectURL(JSObject obj);
 
-  /// > **Note:** See [URL.revokeObjectURL_static] to understand usage.
+  /// > [!NOTE]
+  /// > See [URL.revokeObjectURL_static] to understand usage.
   external void revokeObjectURL(String url);
 
-  /// > **Note:** See [BroadcastChannel.BroadcastChannel] to understand usage.
+  /// > [!NOTE]
+  /// > See [BroadcastChannel.BroadcastChannel] to understand usage.
   @JS('BroadcastChannel')
   external BroadcastChannel BroadcastChannel_(String name);
 
-  /// > **Note:** See [SharedWorker.SharedWorker] to understand usage.
+  /// > [!NOTE]
+  /// > See [SharedWorker.SharedWorker] to understand usage.
   @JS('SharedWorker')
   external SharedWorker SharedWorker_(
     String scriptURL, [

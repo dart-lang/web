@@ -18,7 +18,11 @@ import 'dart:js_interop';
 import 'dom.dart';
 import 'html.dart';
 
-/// The **`UIEvent`** interface represents simple user interface events.
+/// The **`UIEvent`** interface represents simple user interface events. It is
+/// part of the
+/// [UI Events](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events) API,
+/// which includes various event types and interfaces related to user
+/// interactions.
 ///
 /// `UIEvent` derives from [Event]. Although the [UIEvent.initUIEvent] method is
 /// kept for backward compatibility, you should create a `UIEvent` object using
@@ -46,7 +50,8 @@ extension type UIEvent._(JSObject _) implements Event, JSObject {
   /// before it is dispatched, using [EventTarget.dispatchEvent]. Once
   /// dispatched, it doesn't do anything anymore.
   ///
-  /// > **Warning:** Do not use this method anymore as it is deprecated.
+  /// > [!WARNING]
+  /// > Do not use this method anymore as it is deprecated.
   /// >
   /// > Instead use specific event constructors, like [UIEvent.UIEvent]. The
   /// > page on
@@ -213,7 +218,8 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   /// value of a mouse event once it's been created (normally using the
   /// [Document.createEvent] method).
   ///
-  /// > **Warning:** Do not use this method anymore as it is deprecated.
+  /// > [!WARNING]
+  /// > Do not use this method anymore as it is deprecated.
   /// >
   /// > Instead use specific event constructors, like [MouseEvent.MouseEvent].
   /// > The page on
@@ -246,9 +252,10 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   /// provides the horizontal coordinate (offset) of the mouse pointer in
   /// [screen coordinates](https://developer.mozilla.org/en-US/docs/Web/CSS/CSSOM_view/Coordinate_systems#screen).
   ///
-  /// > **Note:** In a multiscreen environment, screens aligned horizontally
-  /// > will be treated as a single device, and so the range of the `screenX`
-  /// > value will increase to the combined width of the screens.
+  /// > [!NOTE]
+  /// > In a multiscreen environment, screens aligned horizontally will be
+  /// > treated as a single device, and so the range of the `screenX` value will
+  /// > increase to the combined width of the screens.
   external int get screenX;
 
   /// The **`screenY`** read-only property of the [MouseEvent] interface
@@ -298,8 +305,9 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   /// On some Linux variants, for example, a left mouse click combined with the
   /// <kbd>alt</kbd> key is used to move or resize windows.
   ///
-  /// > **Note:** On Macintosh keyboards, this key is also known as the
-  /// > <kbd>option</kbd> key.
+  /// > [!NOTE]
+  /// > On Macintosh keyboards, this key is also known as the <kbd>option</kbd>
+  /// > key.
   external bool get altKey;
 
   /// The **`MouseEvent.metaKey`** read-only property is a boolean value that
@@ -311,7 +319,8 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   /// actually pressed.
   /// On Windows, for example, this key may open the Start menu.
   ///
-  /// > **Note:** On Macintosh keyboards, this key is the <kbd>command</kbd> key
+  /// > [!NOTE]
+  /// > On Macintosh keyboards, this key is the <kbd>command</kbd> key
   /// > (<kbd>⌘</kbd>).
   /// > On Windows keyboards, this key is the Windows key (<kbd>⊞</kbd>).
   external bool get metaKey;
@@ -331,9 +340,9 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   /// it should behave as if the left button was clicked in the standard button
   /// layout.
   ///
-  /// > **Note:** Do not confuse this property with the [MouseEvent.buttons]
-  /// > property, which indicates which buttons are pressed for all mouse events
-  /// > types.
+  /// > [!NOTE]
+  /// > Do not confuse this property with the [MouseEvent.buttons] property,
+  /// > which indicates which buttons are pressed for all mouse events types.
   external int get button;
 
   /// The **`MouseEvent.buttons`** read-only property indicates which buttons
@@ -347,9 +356,9 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   /// For example, if the secondary (`2`) and auxiliary (`4`) buttons are
   /// pressed simultaneously, the value is `6` (i.e., `2 + 4`).
   ///
-  /// > **Note:** Do not confuse this property with the [MouseEvent.button]
-  /// > property.
-  /// > The [MouseEvent.buttons] property indicates the state of buttons pressed
+  /// > [!NOTE]
+  /// > Do not confuse this property with the [MouseEvent.button] property.
+  /// > The `MouseEvent.buttons` property indicates the state of buttons pressed
   /// > during any kind of mouse event,
   /// > while the [MouseEvent.button] property only guarantees the correct value
   /// > for mouse events caused by pressing or releasing one or multiple
@@ -489,7 +498,8 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   /// In other words, the value of the property is computed like this:
   /// `currentEvent.movementX = currentEvent.screenX - previousEvent.screenX`.
   ///
-  /// > **Warning:** Browsers [use different units for `movementX` and
+  /// > [!WARNING]
+  /// > Browsers [use different units for `movementX` and
   /// > [MouseEvent.screenX]](https://github.com/w3c/pointerlock/issues/42) than
   /// > what the specification defines. Depending on the browser and operating
   /// > system, the `movementX` units may be a physical pixel, a logical pixel,
@@ -505,7 +515,8 @@ extension type MouseEvent._(JSObject _) implements UIEvent, JSObject {
   /// In other words, the value of the property is computed like this:
   /// `currentEvent.movementY = currentEvent.screenY - previousEvent.screenY`.
   ///
-  /// > **Warning:** Browsers [use different units for `movementY` and
+  /// > [!WARNING]
+  /// > Browsers [use different units for `movementY` and
   /// > [MouseEvent.screenY]](https://github.com/w3c/pointerlock/issues/42) than
   /// > what the specification defines. Depending on the browser and operating
   /// > system, the `movementY` units may be a physical pixel, a logical pixel,
@@ -628,8 +639,9 @@ extension type EventModifierInit._(JSObject _)
 /// The **`WheelEvent`** interface represents events that occur due to the user
 /// moving a mouse wheel or similar input device.
 ///
-/// > **Note:** This is the standard wheel event interface to use. Old versions
-/// > of browsers implemented the non-standard and non-cross-browser-compatible
+/// > [!NOTE]
+/// > This is the standard wheel event interface to use. Old versions of
+/// > browsers implemented the non-standard and non-cross-browser-compatible
 /// > `MouseWheelEvent` and [MouseScrollEvent] interfaces. Use this interface
 /// > and avoid the non-standard ones.
 ///
@@ -938,7 +950,7 @@ extension type KeyboardEvent._(JSObject _) implements UIEvent, JSObject {
   /// that's printed on the key or that's generated by the computer when the key
   /// is pressed.
   ///
-  /// For example, the `code` returned is "`KeyQ`" for the <kbd>Q</kbd> key on a
+  /// For example, the `code` returned is `"KeyQ"` for the <kbd>Q</kbd> key on a
   /// QWERTY layout keyboard, but the same `code` value also represents the
   /// <kbd>'</kbd> key on Dvorak keyboards and the <kbd>A</kbd> key on AZERTY
   /// keyboards. That makes it impossible to use the value of `code` to
@@ -1077,9 +1089,11 @@ extension type KeyboardEvent._(JSObject _) implements UIEvent, JSObject {
   /// (`true`) or not (`false`) when the event occurred. Some operating
   /// systems may intercept the key so it is never detected.
   ///
-  /// > **Note:** On Macintosh keyboards, this is the <kbd>⌘ Command</kbd> key.
+  /// > [!NOTE]
+  /// > On Macintosh keyboards, this is the <kbd>⌘ Command</kbd> key.
   ///
-  /// > **Note:** Before Firefox 118, the <kbd>⊞ Windows</kbd> key was handled
+  /// > [!NOTE]
+  /// > Before Firefox 118, the <kbd>⊞ Windows</kbd> key was handled
   /// > as an "OS" key rather than the "Meta" key. `KeyboardEvent.metaKey` was
   /// > `false` when the <kbd>⊞ Windows</kbd> key was pressed.
   external bool get metaKey;
@@ -1100,8 +1114,8 @@ extension type KeyboardEvent._(JSObject _) implements UIEvent, JSObject {
   /// [KeyboardEvent] interface returns the Unicode value of a character key
   /// pressed during a [Element.keypress_event] event.
   ///
-  /// > **Warning:** Do not use this property, as it is deprecated. Instead, get
-  /// > the
+  /// > [!WARNING]
+  /// > Do not use this property, as it is deprecated. Instead, get the
   /// > Unicode value of the character using the [KeyboardEvent.key]
   /// > property.
   external int get charCode;
@@ -1119,11 +1133,12 @@ extension type KeyboardEvent._(JSObject _) implements UIEvent, JSObject {
   /// pressed) or [KeyboardEvent.key] (for the character the key maps to). Check
   /// compatibility for either property if you target very old browsers.
   ///
-  /// > **Note:** Web developers shouldn't use the `keyCode` attribute for
-  /// > printable characters when handling `keydown` and `keyup` events. As
-  /// > described above, the `keyCode` attribute is not useful for printable
-  /// > characters, especially those input with the <kbd>Shift</kbd> or
-  /// > <kbd>Alt</kbd> key pressed.
+  /// > [!NOTE]
+  /// > Web developers shouldn't use the `keyCode` attribute for printable
+  /// > characters when handling `keydown` and `keyup` events. As described
+  /// > above, the `keyCode` attribute is not useful for printable characters,
+  /// > especially those input with the <kbd>Shift</kbd> or <kbd>Alt</kbd> key
+  /// > pressed.
   external int get keyCode;
 }
 extension type KeyboardEventInit._(JSObject _)
@@ -1192,7 +1207,8 @@ extension type CompositionEvent._(JSObject _) implements UIEvent, JSObject {
   /// method of the [CompositionEvent] interface initializes the attributes of a
   /// `CompositionEvent` object instance.
   ///
-  /// > **Note:** The correct way of creating a [CompositionEvent] is to use
+  /// > [!NOTE]
+  /// > The correct way of creating a [CompositionEvent] is to use
   /// > the constructor [CompositionEvent.CompositionEvent].
   external void initCompositionEvent(
     String typeArg, [
@@ -1225,7 +1241,27 @@ extension type CompositionEventInit._(JSObject _)
   external String get data;
   external set data(String value);
 }
+
+/// The **`TextEvent`** interface is a legacy UI event interface for reporting
+/// changes to text UI elements.
+///
+/// > **Note:** `TextEvent` events have been superseded by events such as
+/// > `input`, `beforeinput`, `keypress`, `keyup`, and `keydown`.
+///
+/// ---
+///
+/// API documentation sourced from
+/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/TextEvent).
 extension type TextEvent._(JSObject _) implements UIEvent, JSObject {
+  /// The **`initTextEventEvent()`** method of the [TextEvent] interface
+  /// initializes the value of a `TextEvent` after it has been created.
+  ///
+  /// This method must be called to set the event before it is dispatched, using
+  /// [EventTarget.dispatchEvent].
+  ///
+  /// > [!NOTE]
+  /// > In general, you won't create these events yourself; they are created by
+  /// > the browser.
   external void initTextEvent(
     String type, [
     bool bubbles,
@@ -1233,91 +1269,8 @@ extension type TextEvent._(JSObject _) implements UIEvent, JSObject {
     Window? view,
     String data,
   ]);
+
+  /// The **`data`** read-only property of the [TextEvent] interface returns the
+  /// last character added to the input element.
   external String get data;
-}
-
-/// The **`MutationEvent`** interface provides event properties that are
-/// specific to modifications to the Document Object Model (DOM) hierarchy and
-/// nodes.
-///
-/// > **Note:** Using _mutation events_ is problematic:
-/// >
-/// > - Their design is
-/// > [flawed](https://lists.w3.org/Archives/Public/public-webapps/2011JulSep/0779.html).
-/// > - Adding DOM mutation listeners to a document
-/// > [profoundly degrades the performance](https://groups.google.com/d/topic/mozilla.dev.platform/L0Lx11u5Bvs?pli=1)
-/// > of further DOM modifications to that document (making them 1.5 - 7 times
-/// > slower!). Moreover, removing the listeners does not reverse the damage.
-/// > - They have poor cross-browser compatibility: Safari doesn't support
-/// > `DOMAttrModified` (see [WebKit bug 8191](https://webkit.org/b/8191)) and
-/// > Firefox doesn't support _mutation name events_ (like
-/// > `DOMElementNameChanged` and `DOMAttributeNameChanged`).
-/// >
-/// > They have been deprecated in favor of
-/// > [mutation observers](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver).
-/// > **Consider using these instead.**
-///
-/// ---
-///
-/// API documentation sourced from
-/// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/MutationEvent).
-extension type MutationEvent._(JSObject _) implements Event, JSObject {
-  static const int MODIFICATION = 1;
-
-  static const int ADDITION = 2;
-
-  static const int REMOVAL = 3;
-
-  /// The **`initMutationEvent()`** method of the [MutationEvent] interface
-  /// initializes the
-  /// value of a mutation event once it's been created (normally using the
-  /// [Document.createEvent] method).
-  ///
-  /// This method must be called to set the event before it is dispatched, using
-  /// [EventTarget.dispatchEvent].
-  ///
-  /// > **Note:** In general, you won't create these events yourself; they are
-  /// > created by the browser.
-  external void initMutationEvent(
-    String typeArg, [
-    bool bubblesArg,
-    bool cancelableArg,
-    Node? relatedNodeArg,
-    String prevValueArg,
-    String newValueArg,
-    String attrNameArg,
-    int attrChangeArg,
-  ]);
-
-  /// The **`relatedNode`** read-only property of the [MutationEvent] interface
-  /// returns a string indicating the node related to the event, like the
-  /// changed node inside the subtree for `DOMSubtreeModified`.
-  external Node? get relatedNode;
-
-  /// The **`prevValue`** read-only property of the [MutationEvent] interface
-  /// returns a string. In `DOMAttrModified` events, it represents the previous
-  /// value of the [Attr] node. In `DOMCharacterDataModified` events, it
-  /// contains the previous value of the [CharacterData] node. In all other
-  /// cases, returns the empty string (`""`).
-  external String get prevValue;
-
-  /// The **`newValue`** read-only property of the [MutationEvent] interface
-  /// returns a string. In `DOMAttrModified` events, it represents the new value
-  /// of the [Attr] node. In `DOMCharacterDataModified` events, it contains the
-  /// new value of the [CharacterData] node. In all other cases, returns the
-  /// empty string (`""`).
-  external String get newValue;
-
-  /// The **`attrName`** read-only property of the [MutationEvent] interface
-  /// returns a string with the name of the node affected by the
-  /// `DOMAttrModified` event. It has no meaning for other events and is then
-  /// set to the empty string (`""`).
-  external String get attrName;
-
-  /// The **`attrChange`** read-only property of the [MutationEvent] interface
-  /// returns a number indicating what kind of change triggered the
-  /// `DOMAttrModified` event. The three possible values are `MODIFICATION`
-  /// (`1`), `ADDITION` (`2`) or `REMOVAL` (`3`). It has no meaning for other
-  /// events and is then set to `0`.
-  external int get attrChange;
 }

@@ -238,7 +238,8 @@ extension type ReadableStreamDefaultReader._(JSObject _) implements JSObject {
   /// still and not completely get rid of the stream, you'd use
   /// [ReadableStreamDefaultController.close].
   ///
-  /// > **Note:** If the reader is active, the
+  /// > [!NOTE]
+  /// > If the reader is active, the
   /// > `cancel()` method behaves the same as that for the associated stream
   /// > ([ReadableStream.cancel]).
   external JSPromise<JSAny?> cancel([JSAny? reason]);
@@ -313,7 +314,7 @@ extension type ReadableStreamBYOBReader._(JSObject _) implements JSObject {
   /// If the stream is errored, the promise will be rejected with the relevant
   /// error object.
   ///
-  /// If a chunk of data is supplied, the `value` property will contain a new
+  /// When a chunk of data is supplied, the `value` property will contain a new
   /// view.
   /// This will be a view over the same buffer/backing memory (and of the same
   /// type) as the original `view` passed to the `read()` method, now populated
@@ -329,6 +330,12 @@ extension type ReadableStreamBYOBReader._(JSObject _) implements JSObject {
   /// The `done` property indicates whether or not more data is expected.
   /// The value is set `true` if the stream is closed or cancelled, and `false`
   /// otherwise.
+  ///
+  /// The method also has an optional `options.min` argument that can be used to
+  /// specify the minimum number of elements that must be available before the
+  /// promise will fulfill, while the stream is active.
+  /// The view returned in the `value` property will always have at least this
+  /// number of elements, except when the stream is closed.
   external JSPromise<ReadableStreamReadResult> read(
     ArrayBufferView view, [
     ReadableStreamBYOBReaderReadOptions options,
@@ -353,8 +360,9 @@ extension type ReadableStreamBYOBReader._(JSObject _) implements JSObject {
   /// Calling this method signals a loss of interest in the stream by a
   /// consumer.
   ///
-  /// > **Note:** If the reader is active, the `cancel()` method behaves the
-  /// > same as that for the associated stream ([ReadableStream.cancel]).
+  /// > [!NOTE]
+  /// > If the reader is active, the `cancel()` method behaves the same as that
+  /// > for the associated stream ([ReadableStream.cancel]).
   external JSPromise<JSAny?> cancel([JSAny? reason]);
 
   /// The **`closed`** read-only property of the [ReadableStreamBYOBReader]
@@ -385,28 +393,27 @@ extension type ReadableStreamBYOBReaderReadOptions._(JSObject _)
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStreamDefaultController).
 extension type ReadableStreamDefaultController._(JSObject _)
     implements JSObject {
-  /// The **`close()`** method of the
-  /// [ReadableStreamDefaultController] interface closes the associated stream.
+  /// The **`close()`** method of the [ReadableStreamDefaultController]
+  /// interface closes the associated stream.
   ///
   /// Readers will still be able to read any previously-enqueued chunks from the
-  /// stream,
-  /// but once those are read, the stream will become closed. If you want to
-  /// completely get
-  /// rid of the stream and discard any enqueued chunks, you'd use
-  /// [ReadableStream.cancel] or
-  /// [ReadableStreamDefaultReader.cancel].
+  /// stream, but once those are read, the stream will become closed. If you
+  /// want to completely get rid of the stream and discard any enqueued chunks,
+  /// you'd use [ReadableStream.cancel] or [ReadableStreamDefaultReader.cancel].
   external void close();
 
   /// The **`enqueue()`** method of the
-  /// [ReadableStreamDefaultController] interface enqueues a given chunk in the
-  /// associated stream.
+  /// [ReadableStreamDefaultController] interface enqueues a given
+  /// [chunk](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Concepts#chunks)
+  /// in the associated stream.
   external void enqueue([JSAny? chunk]);
 
   /// The **`error()`** method of the
   /// [ReadableStreamDefaultController] interface causes any future interactions
   /// with the associated stream to error.
   ///
-  /// > **Note:** The `error()` method can be called
+  /// > [!NOTE]
+  /// > The `error()` method can be called
   /// > more than once, and can be called when the stream is not readable.
   external void error([JSAny? e]);
 
@@ -485,9 +492,9 @@ extension type ReadableByteStreamController._(JSObject _) implements JSObject {
   /// This might be called by the underlying source when its data source has
   /// been exhausted/completed.
   ///
-  /// > **Note:** Readers will still be able to read any previously-enqueued
-  /// > chunks from the stream, but once those are read, the stream will become
-  /// > closed.
+  /// > [!NOTE]
+  /// > Readers will still be able to read any previously-enqueued chunks from
+  /// > the stream, but once those are read, the stream will become closed.
   /// > However if there is an outstanding and partially written
   /// > [ReadableByteStreamController.byobRequest] when `close()` is called, the
   /// > stream will be errored.
@@ -902,7 +909,8 @@ extension type ByteLengthQueuingStrategy._(JSObject _) implements JSObject {
   /// [backpressure](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Concepts#backpressure)
   /// is applied.
   ///
-  /// > **Note:** Unlike
+  /// > [!NOTE]
+  /// > Unlike
   /// > [`CountQueuingStrategy()`](https://developer.mozilla.org/en-US/docs/Web/API/CountQueuingStrategy/CountQueuingStrategy)
   /// > where the `highWaterMark` property specifies a simple count of the
   /// > number of chunks, with `ByteLengthQueuingStrategy()`, the

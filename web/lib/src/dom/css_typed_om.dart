@@ -87,7 +87,7 @@ extension type StylePropertyMapReadOnly._(JSObject _) implements JSObject {
 }
 
 /// The **`StylePropertyMap`** interface of the
-/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model#css_typed_object_model_experimental)
+/// [CSS Typed Object Model API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model#css_typed_object_model)
 /// provides a representation of a CSS declaration block that is an alternative
 /// to [CSSStyleDeclaration].
 ///
@@ -182,7 +182,7 @@ extension type CSSVariableReferenceValue._(JSObject _) implements JSObject {
 
   /// The **`fallback`** read-only property of the
   /// [CSSVariableReferenceValue] interface returns the
-  /// [custom property fallback value](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties#custom_property_fallback_values)
+  /// [custom property fallback value](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_cascading_variables/Using_CSS_custom_properties#custom_property_fallback_values)
   /// of the [CSSVariableReferenceValue].
   external CSSUnparsedValue? get fallback;
 }
@@ -580,13 +580,12 @@ extension type CSSTransformComponent._(JSObject _) implements JSObject {
   /// object.
   ///
   /// All transform functions can be represented mathematically as a 4x4
-  /// transformation matrix. This is explained in detail in
-  /// [Understanding the CSS Transforms matrix](https://dev.opera.com/articles/understanding-the-css-transforms-matrix/).
+  /// transformation matrix.
   ///
-  /// > **Note:** The `is2D` property affects what transform, and therefore type
-  /// > of matrix that will be returned. CSS 2D and 3D transforms are different
-  /// > for legacy reasons. A brief explanation of 2D vs. 3D transforms can be
-  /// > found in
+  /// > [!NOTE]
+  /// > The `is2D` property affects what transform, and therefore type of matrix
+  /// > that will be returned. CSS 2D and 3D transforms are different for legacy
+  /// > reasons. A brief explanation of 2D vs. 3D transforms can be found in
   /// > [Using CSS transforms](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transforms/Using_CSS_transforms).
   external DOMMatrix toMatrix();
 
@@ -877,7 +876,7 @@ extension type CSSMatrixComponentOptions._(JSObject _) implements JSObject {
 /// The CSSImageValue object represents an
 /// [`<image>`](https://developer.mozilla.org/en-US/docs/Web/CSS/image) that
 /// involves a URL, such as
-/// [`url()`](https://developer.mozilla.org/en-US/docs/Web/CSS/url) or
+/// [`url()`](https://developer.mozilla.org/en-US/docs/Web/CSS/url_function) or
 /// [`image()`](https://developer.mozilla.org/en-US/docs/Web/CSS/image), but not
 /// [`linear-gradient()`](https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient)
 /// or [`element()`](https://developer.mozilla.org/en-US/docs/Web/CSS/element).

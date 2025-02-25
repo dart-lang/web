@@ -114,7 +114,7 @@ extension type StyleSheet._(JSObject _) implements JSObject {
   /// A style sheet may be disabled by manually setting this property to `true`
   /// or
   /// if it's an inactive
-  /// [alternative style sheet](https://developer.mozilla.org/en-US/docs/Web/CSS/Alternative_style_sheets).
+  /// [alternative style sheet](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/alternate_stylesheet).
   /// Note that `disabled === false` does not guarantee the style
   /// sheet is applied (it could be removed from the document, for instance).
   external bool get disabled;
@@ -162,7 +162,8 @@ extension type CSSStyleSheet._(JSObject _) implements StyleSheet, JSObject {
   /// the
   /// [current style sheet](https://developer.mozilla.org/en-US/docs/Web/API/CSSStyleSheet).
   ///
-  /// > **Note:** Although `insertRule()` is exclusively a method of
+  /// > [!NOTE]
+  /// > Although `insertRule()` is exclusively a method of
   /// > [CSSStyleSheet], it actually inserts the rule into
   /// > `[CSSStyleSheet].cssRules` — its internal
   /// > [CSSRuleList].
@@ -211,7 +212,8 @@ extension type CSSStyleSheet._(JSObject _) implements StyleSheet, JSObject {
   /// object. It is functionally identical to the standard, preferred method
   /// [CSSStyleSheet.deleteRule].
   ///
-  /// > **Note:** This is a _legacy method_ which has been replaced by
+  /// > [!NOTE]
+  /// > This is a _legacy method_ which has been replaced by
   /// > the standard method [CSSStyleSheet.deleteRule]. You
   /// > should use that instead.
   external void removeRule([int index]);
@@ -237,7 +239,8 @@ extension type CSSStyleSheet._(JSObject _) implements StyleSheet, JSObject {
   /// it provides access to a live-updating list of the CSS rules comprising the
   /// stylesheet.
   ///
-  /// > **Note:** As a legacy property, you should not use `rules` and
+  /// > [!NOTE]
+  /// > As a legacy property, you should not use `rules` and
   /// > should instead use the preferred [CSSStyleSheet.cssRules].
   /// > While `rules` is unlikely to be removed soon, its availability is not as
   /// > widespread and using it will result in compatibility problems for your
@@ -266,8 +269,9 @@ extension type CSSStyleSheetInit._(JSObject _) implements JSObject {
 /// However it can be iterated over in a standard `for` loop over its indices,
 /// or converted to an `Array`.
 ///
-/// > **Note:** Typically list interfaces like `StyleSheetList` wrap around
-/// > `Array` types, so you can use `Array` methods on them.
+/// > [!NOTE]
+/// > Typically list interfaces like `StyleSheetList` wrap around `Array` types,
+/// > so you can use `Array` methods on them.
 /// > This is not the case here for
 /// > [historical reasons](https://stackoverflow.com/questions/74630989/why-use-domstringlist-rather-than-an-array/74641156#74641156).
 /// > However, you can convert `StyleSheetList` to an `Array` in order to use
@@ -346,6 +350,7 @@ extension type CSSRuleList._(JSObject _) implements JSObject {
 /// - [CSSLayerBlockRule]
 /// - [CSSLayerStatementRule]
 /// - [CSSPropertyRule]
+/// - [CSSNestedDeclarations]
 ///
 /// ---
 ///
@@ -378,23 +383,22 @@ extension type CSSRule._(JSObject _) implements JSObject {
 
   static const int FONT_FEATURE_VALUES_RULE = 14;
 
-  static const int VIEW_TRANSITION_RULE = 15;
-
   /// The **`cssText`** property of the [CSSRule]
   /// interface returns the actual text of a [CSSStyleSheet] style-rule.
   ///
-  /// > **Note:** Do not confuse this property with element-style
+  /// > [!NOTE]
+  /// > Do not confuse this property with element-style
   /// > [CSSStyleDeclaration.cssText].
   ///
   /// Be aware that this property can no longer be set directly, as it is
   /// [now specified](https://www.w3.org/TR/cssom-1/#changes-from-5-december-2013)
   /// to be _functionally_ modify-only, and silently so. In other words,
   /// attempting to
-  /// set it _does absolutely nothing_, and doesn't even omit a warning or
+  /// set it _does absolutely nothing_, and doesn't even emit a warning or
   /// error.
   /// Furthermore, it has no settable sub-properties. Therefore, to modify it,
   /// use the
-  /// stylesheet's [CSSRuleList]`[index]` properties
+  /// stylesheet's  properties
   /// [CSSStyleRule.selectorText] and
   /// [CSSStyleRule.style] (or its sub-properties). See
   /// [Using dynamic styling information](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model/Using_dynamic_styling_information)
@@ -445,9 +449,7 @@ extension type CSSStyleRule._(JSObject _) implements CSSGroupingRule, JSObject {
   external set selectorText(String value);
 
   /// The read-only **`style`** property is the [CSSStyleDeclaration] interface
-  /// for the
-  /// [declaration block](https://www.w3.org/TR/1998/REC-CSS2-19980512/syndata.html#block)
-  /// of the [CSSStyleRule].
+  /// for the declaration block of the [CSSStyleRule].
   external JSObject get style;
 
   /// The **`styleMap`** read-only property of the
@@ -457,7 +459,7 @@ extension type CSSStyleRule._(JSObject _) implements CSSGroupingRule, JSObject {
 }
 
 /// The **`CSSImportRule`** interface represents an
-/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
+/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_syntax/At-rule).
 ///
 /// ---
 ///
@@ -466,7 +468,7 @@ extension type CSSStyleRule._(JSObject _) implements CSSGroupingRule, JSObject {
 extension type CSSImportRule._(JSObject _) implements CSSRule, JSObject {
   /// The read-only **`href`** property of the
   /// [CSSImportRule] interface returns the URL specified by the
-  /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
+  /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_syntax/At-rule).
   ///
   /// The resolved URL will be the
   /// [`href`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#href)
@@ -482,18 +484,19 @@ extension type CSSImportRule._(JSObject _) implements CSSRule, JSObject {
 
   /// The read-only **`styleSheet`** property of the
   /// [CSSImportRule] interface returns the CSS Stylesheet specified by the
-  /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule). This
-  /// will be
+  /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_syntax/At-rule).
+  /// This will be
   /// in the form of a [CSSStyleSheet] object.
   ///
-  /// An  [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule)
+  /// An
+  /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_syntax/At-rule)
   /// always has
   /// an associated stylesheet.
   external CSSStyleSheet? get styleSheet;
 
   /// The read-only **`layerName`** property of the [CSSImportRule] interface
   /// returns the name of the cascade layer created by the
-  /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
+  /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_syntax/At-rule).
   ///
   /// If the created layer is anonymous, the string is empty (`""`), if no layer
   /// has been
@@ -502,15 +505,15 @@ extension type CSSImportRule._(JSObject _) implements CSSRule, JSObject {
 
   /// The read-only **`supportsText`** property of the [CSSImportRule] interface
   /// returns the supports condition specified by the
-  /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
+  /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_syntax/At-rule).
   external String? get supportsText;
 }
 
 /// The **`CSSGroupingRule`** interface of the
 /// [CSS Object Model](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model)
 /// represents any CSS
-/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule) that
-/// contains other rules nested within it.
+/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_syntax/At-rule)
+/// that contains other rules nested within it.
 ///
 /// ---
 ///
@@ -548,16 +551,19 @@ extension type CSSPageRule._(JSObject _) implements CSSGroupingRule, JSObject {
   external set selectorText(String value);
 
   /// The **`style`** read-only property of the [CSSPageRule] interface returns
-  /// a [CSSStyleDeclaration] object. This represents an object that is a
-  /// [CSS declaration block](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model/CSS_Declaration_Block),
+  /// a [CSSPageDescriptors] object.
+  /// This represents a
+  /// [CSS declaration block](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model/CSS_Declaration_Block)
+  /// for a CSS
+  /// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_syntax/At-rule),
   /// and exposes style information and various style-related methods and
-  /// properties.
+  /// properties for the page.
   external JSObject get style;
 }
 
 /// The **`CSSNamespaceRule`** interface describes an object representing a
 /// single CSS
-/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/At-rule).
+/// [at-rule](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_syntax/At-rule).
 ///
 /// ---
 ///
@@ -688,6 +694,24 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set animationTimeline(String value);
   external String get animationTimingFunction;
   external set animationTimingFunction(String value);
+  external String get animationTrigger;
+  external set animationTrigger(String value);
+  external String get animationTriggerExitRange;
+  external set animationTriggerExitRange(String value);
+  external String get animationTriggerExitRangeEnd;
+  external set animationTriggerExitRangeEnd(String value);
+  external String get animationTriggerExitRangeStart;
+  external set animationTriggerExitRangeStart(String value);
+  external String get animationTriggerRange;
+  external set animationTriggerRange(String value);
+  external String get animationTriggerRangeEnd;
+  external set animationTriggerRangeEnd(String value);
+  external String get animationTriggerRangeStart;
+  external set animationTriggerRangeStart(String value);
+  external String get animationTriggerTimeline;
+  external set animationTriggerTimeline(String value);
+  external String get animationTriggerType;
+  external set animationTriggerType(String value);
   external String get appearance;
   external set appearance(String value);
   external String get aspectRatio;
@@ -722,6 +746,14 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set backgroundPositionY(String value);
   external String get backgroundRepeat;
   external set backgroundRepeat(String value);
+  external String get backgroundRepeatBlock;
+  external set backgroundRepeatBlock(String value);
+  external String get backgroundRepeatInline;
+  external set backgroundRepeatInline(String value);
+  external String get backgroundRepeatX;
+  external set backgroundRepeatX(String value);
+  external String get backgroundRepeatY;
+  external set backgroundRepeatY(String value);
   external String get backgroundSize;
   external set backgroundSize(String value);
   external String get backgroundTbd;
@@ -878,6 +910,8 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set borderRightStyle(String value);
   external String get borderRightWidth;
   external set borderRightWidth(String value);
+  external String get borderShape;
+  external set borderShape(String value);
   external String get borderSpacing;
   external set borderSpacing(String value);
   external String get borderStartEndRadius;
@@ -962,10 +996,16 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set columnFill(String value);
   external String get columnGap;
   external set columnGap(String value);
+  external String get columnHeight;
+  external set columnHeight(String value);
   external String get columnRule;
   external set columnRule(String value);
+  external String get columnRuleBreak;
+  external set columnRuleBreak(String value);
   external String get columnRuleColor;
   external set columnRuleColor(String value);
+  external String get columnRuleOutset;
+  external set columnRuleOutset(String value);
   external String get columnRuleStyle;
   external set columnRuleStyle(String value);
   external String get columnRuleWidth;
@@ -974,6 +1014,8 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set columnSpan(String value);
   external String get columnWidth;
   external set columnWidth(String value);
+  external String get columnWrap;
+  external set columnWrap(String value);
   external String get columns;
   external set columns(String value);
   external String get contain;
@@ -1004,10 +1046,40 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set continue_(String value);
   external String get copyInto;
   external set copyInto(String value);
+  external String get cornerBlockEndShape;
+  external set cornerBlockEndShape(String value);
+  external String get cornerBlockStartShape;
+  external set cornerBlockStartShape(String value);
+  external String get cornerBottomLeftShape;
+  external set cornerBottomLeftShape(String value);
+  external String get cornerBottomRightShape;
+  external set cornerBottomRightShape(String value);
+  external String get cornerBottomShape;
+  external set cornerBottomShape(String value);
+  external String get cornerEndEndShape;
+  external set cornerEndEndShape(String value);
+  external String get cornerEndStartShape;
+  external set cornerEndStartShape(String value);
+  external String get cornerInlineEndShape;
+  external set cornerInlineEndShape(String value);
+  external String get cornerInlineStartShape;
+  external set cornerInlineStartShape(String value);
+  external String get cornerLeftShape;
+  external set cornerLeftShape(String value);
+  external String get cornerRightShape;
+  external set cornerRightShape(String value);
   external String get cornerShape;
   external set cornerShape(String value);
-  external String get corners;
-  external set corners(String value);
+  external String get cornerStartEndShape;
+  external set cornerStartEndShape(String value);
+  external String get cornerStartStartShape;
+  external set cornerStartStartShape(String value);
+  external String get cornerTopLeftShape;
+  external set cornerTopLeftShape(String value);
+  external String get cornerTopRightShape;
+  external set cornerTopRightShape(String value);
+  external String get cornerTopShape;
+  external set cornerTopShape(String value);
   external String get counterIncrement;
   external set counterIncrement(String value);
   external String get counterReset;
@@ -1154,6 +1226,20 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set forcedColorAdjust(String value);
   external String get gap;
   external set gap(String value);
+  external String get gapRule;
+  external set gapRule(String value);
+  external String get gapRuleBreak;
+  external set gapRuleBreak(String value);
+  external String get gapRuleColor;
+  external set gapRuleColor(String value);
+  external String get gapRuleOutset;
+  external set gapRuleOutset(String value);
+  external String get gapRulePaintOrder;
+  external set gapRulePaintOrder(String value);
+  external String get gapRuleStyle;
+  external set gapRuleStyle(String value);
+  external String get gapRuleWidth;
+  external set gapRuleWidth(String value);
   external String get glyphOrientationVertical;
   external set glyphOrientationVertical(String value);
   external String get grid;
@@ -1228,8 +1314,6 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set inputSecurity(String value);
   external String get inset;
   external set inset(String value);
-  external String get insetArea;
-  external set insetArea(String value);
   external String get insetBlock;
   external set insetBlock(String value);
   external String get insetBlockEnd;
@@ -1242,8 +1326,26 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set insetInlineEnd(String value);
   external String get insetInlineStart;
   external set insetInlineStart(String value);
+  external String get interactivity;
+  external set interactivity(String value);
+  external String get interpolateSize;
+  external set interpolateSize(String value);
   external String get isolation;
   external set isolation(String value);
+  external String get itemCross;
+  external set itemCross(String value);
+  external String get itemDirection;
+  external set itemDirection(String value);
+  external String get itemFlow;
+  external set itemFlow(String value);
+  external String get itemPack;
+  external set itemPack(String value);
+  external String get itemSlack;
+  external set itemSlack(String value);
+  external String get itemTrack;
+  external set itemTrack(String value);
+  external String get itemWrap;
+  external set itemWrap(String value);
   external String get justifyContent;
   external set justifyContent(String value);
   external String get justifyItems;
@@ -1260,6 +1362,8 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set lineBreak(String value);
   external String get lineClamp;
   external set lineClamp(String value);
+  external String get lineFitEdge;
+  external set lineFitEdge(String value);
   external String get lineGrid;
   external set lineGrid(String value);
   external String get lineHeight;
@@ -1350,8 +1454,6 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set maskSize(String value);
   external String get maskType;
   external set maskType(String value);
-  external String get masonryAutoFlow;
-  external set masonryAutoFlow(String value);
   external String get mathDepth;
   external set mathDepth(String value);
   external String get mathShift;
@@ -1524,10 +1626,12 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set position(String value);
   external String get positionAnchor;
   external set positionAnchor(String value);
+  external String get positionArea;
+  external set positionArea(String value);
   external String get positionTry;
   external set positionTry(String value);
-  external String get positionTryOptions;
-  external set positionTryOptions(String value);
+  external String get positionTryFallbacks;
+  external set positionTryFallbacks(String value);
   external String get positionTryOrder;
   external set positionTryOrder(String value);
   external String get positionVisibility;
@@ -1540,6 +1644,8 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set r(String value);
   external String get readingFlow;
   external set readingFlow(String value);
+  external String get readingOrder;
+  external set readingOrder(String value);
   external String get regionFragment;
   external set regionFragment(String value);
   external String get resize;
@@ -1556,6 +1662,18 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set rotate(String value);
   external String get rowGap;
   external set rowGap(String value);
+  external String get rowRule;
+  external set rowRule(String value);
+  external String get rowRuleBreak;
+  external set rowRuleBreak(String value);
+  external String get rowRuleColor;
+  external set rowRuleColor(String value);
+  external String get rowRuleOutset;
+  external set rowRuleOutset(String value);
+  external String get rowRuleStyle;
+  external set rowRuleStyle(String value);
+  external String get rowRuleWidth;
+  external set rowRuleWidth(String value);
   external String get rubyAlign;
   external set rubyAlign(String value);
   external String get rubyMerge;
@@ -1572,6 +1690,8 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set scale(String value);
   external String get scrollBehavior;
   external set scrollBehavior(String value);
+  external String get scrollInitialTarget;
+  external set scrollInitialTarget(String value);
   external String get scrollMargin;
   external set scrollMargin(String value);
   external String get scrollMarginBlock;
@@ -1594,6 +1714,8 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set scrollMarginRight(String value);
   external String get scrollMarginTop;
   external set scrollMarginTop(String value);
+  external String get scrollMarkerGroup;
+  external set scrollMarkerGroup(String value);
   external String get scrollPadding;
   external set scrollPadding(String value);
   external String get scrollPaddingBlock;
@@ -1622,26 +1744,6 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set scrollSnapStop(String value);
   external String get scrollSnapType;
   external set scrollSnapType(String value);
-  external String get scrollStart;
-  external set scrollStart(String value);
-  external String get scrollStartBlock;
-  external set scrollStartBlock(String value);
-  external String get scrollStartInline;
-  external set scrollStartInline(String value);
-  external String get scrollStartTarget;
-  external set scrollStartTarget(String value);
-  external String get scrollStartTargetBlock;
-  external set scrollStartTargetBlock(String value);
-  external String get scrollStartTargetInline;
-  external set scrollStartTargetInline(String value);
-  external String get scrollStartTargetX;
-  external set scrollStartTargetX(String value);
-  external String get scrollStartTargetY;
-  external set scrollStartTargetY(String value);
-  external String get scrollStartX;
-  external set scrollStartX(String value);
-  external String get scrollStartY;
-  external set scrollStartY(String value);
   external String get scrollTimeline;
   external set scrollTimeline(String value);
   external String get scrollTimelineAxis;
@@ -1740,6 +1842,8 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set textAnchor(String value);
   external String get textAutospace;
   external set textAutospace(String value);
+  external String get textBox;
+  external set textBox(String value);
   external String get textBoxEdge;
   external set textBoxEdge(String value);
   external String get textBoxTrim;
@@ -1856,6 +1960,8 @@ extension type CSSStyleDeclaration._(JSObject _) implements JSObject {
   external set viewTimelineName(String value);
   external String get viewTransitionClass;
   external set viewTransitionClass(String value);
+  external String get viewTransitionGroup;
+  external set viewTransitionGroup(String value);
   external String get viewTransitionName;
   external set viewTransitionName(String value);
   external String get visibility;

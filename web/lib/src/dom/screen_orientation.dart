@@ -34,7 +34,7 @@ typedef OrientationType = String;
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/ScreenOrientation).
 extension type ScreenOrientation._(JSObject _)
     implements EventTarget, JSObject {
-  /// The **`lock()`** property of the [ScreenOrientation] interface locks the
+  /// The **`lock()`** method of the [ScreenOrientation] interface locks the
   /// orientation of the containing document to the specified orientation.
   ///
   /// Typically orientation locking is only enabled on mobile devices, and when
@@ -43,7 +43,7 @@ extension type ScreenOrientation._(JSObject _)
   /// listed below.
   external JSPromise<JSAny?> lock(OrientationLockType orientation);
 
-  /// The **`unlock()`** property of the
+  /// The **`unlock()`** method of the
   /// [ScreenOrientation] interface unlocks the orientation of the containing
   /// document from its default orientation.
   external void unlock();

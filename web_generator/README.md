@@ -93,7 +93,7 @@ Based on:
 <!-- START updated by bin/update_bindings.dart. Do not modify by hand -->
 | Item | Version |
 | --- | --: |
-| `@webref/css` | [6.12.15](https://www.npmjs.com/package/@webref/css/v/6.12.15) |
-| `@webref/elements` | [2.3.0](https://www.npmjs.com/package/@webref/elements/v/2.3.0) |
-| `@webref/idl` | [3.49.0](https://www.npmjs.com/package/@webref/idl/v/3.49.0) |
+| `@webref/css` | [6.20.3](https://www.npmjs.com/package/@webref/css/v/6.20.3) |
+| `@webref/elements` | [2.4.0](https://www.npmjs.com/package/@webref/elements/v/2.4.0) |
+| `@webref/idl` | [3.60.1](https://www.npmjs.com/package/@webref/idl/v/3.60.1) |
 <!-- END updated by bin/update_bindings.dart. Do not modify by hand -->

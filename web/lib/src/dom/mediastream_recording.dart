@@ -74,7 +74,8 @@ extension type MediaRecorder._(JSObject _) implements EventTarget, JSObject {
   /// sent to the
   /// `MediaRecorder`, followed by a [MediaRecorder.stop_event] event.
   ///
-  /// > **Note:** If the browser is unable to start recording or continue
+  /// > [!NOTE]
+  /// > If the browser is unable to start recording or continue
   /// > recording, it will raise an [MediaRecorder.error_event] event, followed
   /// > by a
   /// > [MediaRecorder.dataavailable_event] event containing the `Blob` it
@@ -99,7 +100,7 @@ extension type MediaRecorder._(JSObject _) implements EventTarget, JSObject {
   /// The **`pause()`** method of the [MediaRecorder] interface is used
   /// to pause recording of media streams.
   ///
-  /// When a `MediaRecorder` object's `pause()`method is called, the
+  /// When a `MediaRecorder` object's `pause()` method is called, the
   /// browser queues a task that runs the below steps:
   ///
   /// 1. If [MediaRecorder.state] is "inactive", raise a DOM
@@ -164,11 +165,12 @@ extension type MediaRecorder._(JSObject _) implements EventTarget, JSObject {
   /// container, the resulting file may not work reliably if at all when you try
   /// to play it back.
   /// See our
-  /// [media type and format guide](https://developer.mozilla.org/en-US/docs/Web/Media/Formats)
+  /// [media type and format guide](https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats)
   /// for information about container and codec support across browsers.
   ///
-  /// > **Note:** The term "MIME type" is officially considered to be
-  /// > historical; these strings are now officially known as **media types**.
+  /// > [!NOTE]
+  /// > The term "MIME type" is officially considered to be historical; these
+  /// > strings are now officially known as **media types**.
   /// > MDN Web Docs content uses the terms interchangeably.
   external String get mimeType;
 

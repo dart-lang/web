@@ -96,8 +96,11 @@ extension type MediaKeySystemAccess._(JSObject _) implements JSObject {
   /// `Promise` that resolves to a new [MediaKeys] object.
   external JSPromise<MediaKeys> createMediaKeys();
 
-  /// The `MediaKeySystemAccess.keySystem` read-only property returns a
-  /// string identifying the key system being used.
+  /// The **`keySystem`** read-only property of the [MediaKeySystemAccess]
+  /// interface returns a string identifying the key system being used.
+  ///
+  /// This is the value that was passed to
+  /// [Navigator.requestMediaKeySystemAccess] when system access is requested.
   external String get keySystem;
 }
 
@@ -115,6 +118,28 @@ extension type MediaKeys._(JSObject _) implements JSObject {
   /// [MediaKeySession] object, which represents a context for message exchange
   /// with a content decryption module (CDM).
   external MediaKeySession createSession([MediaKeySessionType sessionType]);
+
+  /// The `getStatusForPolicy()` method of the [MediaKeys] interface is used to
+  /// check whether the Content Decryption Module (CDM) would allow the
+  /// presentation of encrypted media data using the keys, based on the
+  /// specified policy requirements.
+  ///
+  /// The method returns a `Promise` that resolves with a string that indicates
+  /// the status of the key with respect to all the specified policy
+  /// requirements.
+  /// If the value resolves to `"usable"` then the content can be decrypted and
+  /// presented at the ideal quality.
+  /// Other values indicate reasons why the keys cannot be used for presenting
+  /// the content; in some cases they hint at fallback options, such as playing
+  /// the content at a lower quality.
+  ///
+  /// The policy restrictions currently only include a restriction on the
+  /// minimum supported HDCP version.
+  ///
+  /// Note that the method checks a "hypothetical key" against the restrictions.
+  /// The application does not need to first create a real key and fetch a real
+  /// license using [MediaKeySession], and the [MediaKeys] doesn't even have to
+  /// be attached to audio or video elements.
   external JSPromise<JSString> getStatusForPolicy([MediaKeysPolicy policy]);
 
   /// The **`setServerCertificate()`** method of the [MediaKeys] interface
@@ -153,7 +178,7 @@ extension type MediaKeySession._(JSObject _) implements EventTarget, JSObject {
   external JSPromise<JSBoolean> load(String sessionId);
 
   /// The `update()` method of the [MediaKeySession] interface loads messages
-  /// and licenses to the CDM, and then returns a `Promise` .
+  /// and licenses to the CDM, and then returns a `Promise`.
   external JSPromise<JSAny?> update(BufferSource response);
 
   /// The `close()` method of the [MediaKeySession] interface notifies that the
@@ -214,9 +239,12 @@ extension type MediaKeyStatusMap._(JSObject _) implements JSObject {
   /// whether a value has been associated with the given key.
   external bool has(BufferSource keyId);
 
-  /// The **`get()`** method of the
-  /// [MediaKeyStatusMap] interface returns the value associated with the given
-  /// key, or `undefined` if there is none.
+  /// The **`get()`** method of the [MediaKeyStatusMap] interface returns the
+  /// status value associated with the given key, or `undefined` if there is
+  /// none.
+  ///
+  /// The status value indicates whether or not the specific key can be used for
+  /// decryption.
   external MediaKeyStatus? get(BufferSource keyId);
 
   /// The **`size`** read-only property of

@@ -18,8 +18,9 @@ import 'dart:js_interop';
 import 'dom.dart';
 
 /// A **`Selection`** object represents the range of text selected by the user
-/// or the current position of the caret. To obtain a `Selection` object for
-/// examination or manipulation, call [window.getSelection].
+/// or the current position of the caret. Each [document] is associated with a
+/// unique selection object, which can be retrieved by [document.getSelection]
+/// or [window.getSelection] and then be examined and modified.
 ///
 /// A user may make a selection from left to right (in document order) or right
 /// to left (reverse of document order). The **_anchor_** is where the user
@@ -46,10 +47,11 @@ extension type Selection._(JSObject _) implements JSObject {
   /// In practice most browsers do not yet implement this behavior, and the
   /// returned range is unpredictable.
   ///
-  /// > **Note:** When selecting within nodes that might contain a shadow root,
-  /// > you can use [Selection.getComposedRanges] (if supported) to get a
-  /// > selection range inside a shadow tree, or to reliably re-scope the
-  /// > selection to the host node.
+  /// > [!NOTE]
+  /// > When selecting within nodes that might contain a shadow root, you can
+  /// > use [Selection.getComposedRanges] (if supported) to get a selection
+  /// > range inside a shadow tree, or to reliably re-scope the selection to the
+  /// > host node.
   external Range getRangeAt(int index);
 
   /// The **`Selection.addRange()`** method adds a
@@ -65,7 +67,8 @@ extension type Selection._(JSObject _) implements JSObject {
   /// properties equal to `null` and nothing selected. When this method is
   /// called, a [Document.selectionchange_event] event is fired at the document.
   ///
-  /// > **Note:** This method is an alias for the [Selection.empty] method.
+  /// > [!NOTE]
+  /// > This method is an alias for the [Selection.empty] method.
   external void removeAllRanges();
 
   /// The **`Selection.empty()`** method removes all ranges from the selection,
@@ -73,16 +76,16 @@ extension type Selection._(JSObject _) implements JSObject {
   /// equal to `null` and nothing selected. When this method is called, a
   /// [Document.selectionchange_event] event is fired at the document.
   ///
-  /// > **Note:** This method is an alias for the [Selection.removeAllRanges]
-  /// > method.
+  /// > [!NOTE]
+  /// > This method is an alias for the [Selection.removeAllRanges] method.
   external void empty();
 
   /// The **`Selection.collapse()`** method collapses the current selection to a
   /// single point. The document is not modified. If the content is focused and
   /// editable, the caret will blink there.
   ///
-  /// > **Note:** This method is an alias for the [Selection.setPosition]
-  /// > method.
+  /// > [!NOTE]
+  /// > This method is an alias for the [Selection.setPosition] method.
   external void collapse(
     Node? node, [
     int offset,
@@ -92,7 +95,8 @@ extension type Selection._(JSObject _) implements JSObject {
   /// to a single point. The document is not modified. If the content is focused
   /// and editable, the caret will blink there.
   ///
-  /// > **Note:** This method is an alias for the [Selection.collapse] method.
+  /// > [!NOTE]
+  /// > This method is an alias for the [Selection.collapse] method.
   external void setPosition(
     Node? node, [
     int offset,
@@ -146,7 +150,8 @@ extension type Selection._(JSObject _) implements JSObject {
   ]);
 
   /// The **`deleteFromDocument()`** method of the
-  /// [Selection] interface deletes the selected text from the document's DOM.
+  /// [Selection] interface invokes the [Range.deleteContents] method on the
+  /// selected [Range].
   external void deleteFromDocument();
 
   /// The **`Selection.containsNode()`** method indicates whether a
@@ -172,7 +177,12 @@ extension type Selection._(JSObject _) implements JSObject {
 
   /// The **`Selection.anchorOffset`** read-only property returns the
   /// number of characters that the selection's anchor is offset within the
-  /// [Selection.anchorNode].
+  /// [Selection.anchorNode] if said node is of type [Text], [CDATASection] or
+  /// [Comment].
+  ///
+  /// In the case of [Selection.anchorNode] being another type of node,
+  /// **`Selection.anchorOffset`** returns the number of [Node.childNodes] the
+  /// selection's anchor is offset within the [Selection.anchorNode].
   ///
   /// This number is zero-based. If the selection begins with the first
   /// character in the
@@ -195,7 +205,12 @@ extension type Selection._(JSObject _) implements JSObject {
 
   /// The **`Selection.focusOffset`** read-only property returns the
   /// number of characters that the selection's focus is offset within the
-  /// [Selection.focusNode].
+  /// [Selection.focusNode] if said node is of type [Text], [CDATASection] or
+  /// [Comment].
+  ///
+  /// In the case of [Selection.focusNode] being another type of node,
+  /// **`Selection.focusOffset`** returns the number of [Node.childNodes] the
+  /// selection's focus is offset within the [Selection.focusNode].
   ///
   /// This number is zero-based. If the selection ends with the first character
   /// in the

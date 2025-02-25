@@ -65,10 +65,11 @@ extension type PerformanceNavigationTiming._(JSObject _)
   /// [`readyState`](https://developer.mozilla.org/en-US/docs/Web/API/Document/readyState)
   /// to `"interactive"`.
   ///
-  /// > **Note:** This property is **not**  (TTI). This property refers to the
-  /// > time when DOM construction is finished and interaction to it from
-  /// > JavaScript is possible. See also the `interactive` state of
-  /// > [Document.readyState] which corresponds to this property.
+  /// > [!NOTE]
+  /// > This property is **not**  (TTI). This property refers to the time when
+  /// > DOM construction is finished and interaction to it from JavaScript is
+  /// > possible. See also the `interactive` state of [Document.readyState]
+  /// > which corresponds to this property.
   ///
   /// Measuring DOM processing time may not be consequential unless your site
   /// has a very large HTML source to a construct a Document Object Model from.
@@ -164,7 +165,8 @@ extension type PerformanceNavigationTiming._(JSObject _)
   external int get redirectCount;
 }
 
-/// > **Warning:** This interface is deprecated in the
+/// > [!WARNING]
+/// > This interface is deprecated in the
 /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
 /// > Please use the [PerformanceNavigationTiming] interface instead.
 ///
@@ -179,7 +181,8 @@ extension type PerformanceNavigationTiming._(JSObject _)
 /// API documentation sourced from
 /// [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceTiming).
 extension type PerformanceTiming._(JSObject _) implements JSObject {
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface instead.
@@ -188,7 +191,8 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// ; it returns a JSON representation of the [PerformanceTiming] object.
   external JSObject toJSON();
 
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming] interface instead.
   ///
@@ -203,7 +207,8 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// this value will be the same as [PerformanceTiming.fetchStart].
   external int get navigationStart;
 
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface instead.
@@ -219,7 +224,8 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// redirects, is not of the same origin, the value returned is `0`.
   external int get unloadEventStart;
 
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface instead.
@@ -235,7 +241,8 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// redirects, is not of the same origin, the value returned is `0`.
   external int get unloadEventEnd;
 
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface instead.
@@ -251,7 +258,8 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// `0`.
   external int get redirectStart;
 
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface instead.
@@ -267,7 +275,8 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// of the redirect is not of the same origin, the value returned is `0`.
   external int get redirectEnd;
 
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface instead.
@@ -282,7 +291,8 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// cache.
   external int get fetchStart;
 
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface instead.
@@ -298,7 +308,8 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// value will be the same as [PerformanceTiming.fetchStart].
   external int get domainLookupStart;
 
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface instead.
@@ -314,7 +325,8 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// resource, the value will be the same as [PerformanceTiming.fetchStart].
   external int get domainLookupEnd;
 
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface instead.
@@ -333,7 +345,8 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// [PerformanceTiming.fetchStart].
   external int get connectStart;
 
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface instead.
@@ -354,7 +367,8 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// terminated.
   external int get connectEnd;
 
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming] interface instead.
   ///
@@ -367,7 +381,8 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// no such connection is requested, it returns `0`.
   external int get secureConnectionStart;
 
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface instead.
@@ -385,7 +400,8 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// time corresponding to the new request.
   external int get requestStart;
 
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface instead.
@@ -399,7 +415,8 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// the response from the server, cache, or local resource.
   external int get responseStart;
 
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface instead.
@@ -415,7 +432,8 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// a cache or from a local resource.
   external int get responseEnd;
 
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface instead.
@@ -430,7 +448,8 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// corresponding [Document.readystatechange_event] event is thrown.
   external int get domLoading;
 
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface instead.
@@ -455,7 +474,8 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// user experience of a website's speed of loading.
   external int get domInteractive;
 
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface instead.
@@ -470,7 +490,8 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// executed right after parsing has been executed.
   external int get domContentLoadedEventStart;
 
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface instead.
@@ -484,7 +505,8 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// executed as soon as possible, in order or not, has been executed.
   external int get domContentLoadedEventEnd;
 
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface instead.
@@ -501,7 +523,8 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// thrown.
   external int get domComplete;
 
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface's [PerformanceNavigationTiming.loadEventStart] read-only
@@ -516,7 +539,8 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
   /// current document. If this event has not yet been sent, it returns `0.`
   external int get loadEventStart;
 
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface's [PerformanceNavigationTiming.loadEventEnd] read-only
@@ -537,7 +561,8 @@ extension type PerformanceTiming._(JSObject _) implements JSObject {
 /// The legacy **`PerformanceNavigation`** interface represents information
 /// about how the navigation to the current document was done.
 ///
-/// > **Warning:** This interface is deprecated in the
+/// > [!WARNING]
+/// > This interface is deprecated in the
 /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
 /// > Please use the [PerformanceNavigationTiming] interface instead.
 ///
@@ -557,7 +582,8 @@ extension type PerformanceNavigation._(JSObject _) implements JSObject {
 
   static const int TYPE_RESERVED = 255;
 
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface instead.
@@ -571,7 +597,8 @@ extension type PerformanceNavigation._(JSObject _) implements JSObject {
   /// read-only property returns an `unsigned short` containing a constant
   /// describing how the navigation to this page was done.
   ///
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming] interface instead.
   external int get type;
@@ -581,7 +608,8 @@ extension type PerformanceNavigation._(JSObject _) implements JSObject {
   /// read-only property returns an `unsigned short` representing the number of
   /// REDIRECTs done before reaching the page.
   ///
-  /// > **Warning:** This interface of this property is deprecated in the
+  /// > [!WARNING]
+  /// > This interface of this property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming] interface instead.
   external int get redirectCount;

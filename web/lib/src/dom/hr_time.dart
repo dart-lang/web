@@ -56,9 +56,10 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
   /// have certain names, see [Performance.getEntriesByType] and
   /// [Performance.getEntriesByName].
   ///
-  /// > **Note:** This method does not notify you about new performance entries;
-  /// > you will only get entries that are present in the performance timeline
-  /// > at the time you call this method.
+  /// > [!NOTE]
+  /// > This method does not notify you about new performance entries; you will
+  /// > only get entries that are present in the performance timeline at the
+  /// > time you call this method.
   /// > To receive notifications about entries as they become available, use a
   /// > [PerformanceObserver].
   ///
@@ -82,9 +83,10 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
   /// [Performance.getEntriesByName]. For all performance entries, see
   /// [Performance.getEntries].
   ///
-  /// > **Note:** This method does not notify you about new performance entries;
-  /// > you will only get entries that are present in the performance timeline
-  /// > at the time you call this method.
+  /// > [!NOTE]
+  /// > This method does not notify you about new performance entries; you will
+  /// > only get entries that are present in the performance timeline at the
+  /// > time you call this method.
   /// > To receive notifications about entries as they become available, use a
   /// > [PerformanceObserver].
   ///
@@ -109,9 +111,10 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
   /// [Performance.getEntriesByType]. For all performance entries, see
   /// [Performance.getEntries].
   ///
-  /// > **Note:** This method does not notify you about new performance entries;
-  /// > you will only get entries that are present in the performance timeline
-  /// > at the time you call this method.
+  /// > [!NOTE]
+  /// > This method does not notify you about new performance entries; you will
+  /// > only get entries that are present in the performance timeline at the
+  /// > time you call this method.
   /// > To receive notifications about entries as they become available, use a
   /// > [PerformanceObserver].
   ///
@@ -132,7 +135,7 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
   ]);
 
   /// The **`clearResourceTimings()`** method removes all performance entries
-  /// with an [PerformanceEntry.entryType] of "`resource`" from the browser's
+  /// with an [PerformanceEntry.entryType] of `"resource"` from the browser's
   /// performance timeline and sets the size of the performance resource data
   /// buffer to zero.
   ///
@@ -144,7 +147,7 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
   external void clearResourceTimings();
 
   /// The **`setResourceTimingBufferSize()`** method sets the desired size of
-  /// the browser's resource timing buffer which stores the "`resource`"
+  /// the browser's resource timing buffer which stores the `"resource"`
   /// performance entries.
   ///
   /// The specification requires the resource timing buffer initially to be 250
@@ -195,10 +198,11 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
   /// the time when the worker is run. You can use this property to synchronize
   /// the time origins between the contexts (see example below).
   ///
-  /// > **Note:** The value of `performance.timeOrigin` may differ from the
-  /// > value returned by `Date.now()` executed at the time origin, because
-  /// > `Date.now()` may have been impacted by system and user clock
-  /// > adjustments, clock skew, etc. The `timeOrigin` property is a
+  /// > [!NOTE]
+  /// > The value of `performance.timeOrigin` may differ from the value returned
+  /// > by `Date.now()` executed at the time origin, because `Date.now()` may
+  /// > have been impacted by system and user clock adjustments, clock skew,
+  /// > etc. The `timeOrigin` property is a
   /// > [monotonic clock](https://w3c.github.io/hr-time/#dfn-monotonic-clock)
   /// > which current time never decreases and which isn't subject to these
   /// > adjustments.
@@ -218,7 +222,8 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
   ///
   /// This property is not available in workers.
   ///
-  /// > **Warning:** This property is deprecated in the
+  /// > [!WARNING]
+  /// > This property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the [PerformanceNavigationTiming]
   /// > interface instead.
@@ -233,7 +238,8 @@ extension type Performance._(JSObject _) implements EventTarget, JSObject {
   ///
   /// This property is not available in workers.
   ///
-  /// > **Warning:** This property is deprecated in the
+  /// > [!WARNING]
+  /// > This property is deprecated in the
   /// > [Navigation Timing Level 2 specification](https://w3c.github.io/navigation-timing/#obsolete).
   /// > Please use the
   /// > [PerformanceNavigationTiming] interface instead.

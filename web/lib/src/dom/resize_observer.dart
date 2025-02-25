@@ -30,10 +30,11 @@ extension type ResizeObserverOptions._(JSObject _) implements JSObject {
 /// The **`ResizeObserver`** interface reports changes to the dimensions of an
 /// [Element]'s content or border box, or the bounding box of an [SVGElement].
 ///
-/// > **Note:** The content box is the box in which content can be placed,
-/// > meaning the border box minus the padding and border width. The border box
-/// > encompasses the content, padding, and border. See
-/// > [The box model](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model)
+/// > [!NOTE]
+/// > The content box is the box in which content can be placed, meaning the
+/// > border box minus the padding and border width. The border box encompasses
+/// > the content, padding, and border. See
+/// > [The box model](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Box_model)
 /// > for further explanation.
 ///
 /// ---
@@ -104,11 +105,13 @@ extension type ResizeObserverEntry._(JSObject _) implements JSObject {
   external JSArray<ResizeObserverSize> get devicePixelContentBoxSize;
 }
 
-/// The **`ResizeObserverSize`** interface of the [Resize Observer API] is used
-/// by the [ResizeObserverEntry] interface to access the box sizing properties
-/// of the element being observed.
+/// The **`ResizeObserverSize`** interface of the
+/// [Resize Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Resize_Observer_API)
+/// is used by the [ResizeObserverEntry] interface to access the box sizing
+/// properties of the element being observed.
 ///
-/// > **Note:** In
+/// > [!NOTE]
+/// > In
 /// > [multi-column layout](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_multicol_layout),
 /// > which is a fragmented context, the sizing returned by `ResizeObserverSize`
 /// > will be the size of the first column.
@@ -124,9 +127,10 @@ extension type ResizeObserverSize._(JSObject _) implements JSObject {
   /// dimension, or width; if the writing-mode is vertical, this is the vertical
   /// dimension, or height.
   ///
-  /// > **Note:** For more explanation of writing modes and block and inline
-  /// > dimensions, read
-  /// > [Handling different text directions](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Handling_different_text_directions).
+  /// > [!NOTE]
+  /// > For more explanation of writing modes and block and inline dimensions,
+  /// > read
+  /// > [Handling different text directions](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Handling_different_text_directions).
   external double get inlineSize;
 
   /// The **`blockSize`** read-only property of the [ResizeObserverSize]
@@ -135,8 +139,9 @@ extension type ResizeObserverSize._(JSObject _) implements JSObject {
   /// dimension, or height; if the writing-mode is vertical, this is the
   /// horizontal dimension, or width.
   ///
-  /// > **Note:** For more explanation of writing modes and block and inline
-  /// > dimensions, read
-  /// > [Handling different text directions](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Handling_different_text_directions).
+  /// > [!NOTE]
+  /// > For more explanation of writing modes and block and inline dimensions,
+  /// > read
+  /// > [Handling different text directions](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Handling_different_text_directions).
   external double get blockSize;
 }
